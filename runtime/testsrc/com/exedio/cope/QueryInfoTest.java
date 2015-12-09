@@ -103,7 +103,7 @@ public class QueryInfoTest extends AbstractRuntimeModelTest
 					final Iterator<QueryInfo> planIdChilds = planId.getChilds().iterator();
 					{
 						final QueryInfo planSelect = planIdChilds.next();
-						assertTrue(planSelect.getText(), planSelect.getText().startsWith("SELECT STATEMENT optimizer="));
+						assertTrue(planSelect.getText(), planSelect.getText().startsWith("SELECT STATEMENT plan_id="));
 						{
 							final Iterator<QueryInfo> planSelectChilds = planSelect.getChilds().iterator();
 							{

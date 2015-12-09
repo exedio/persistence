@@ -272,29 +272,6 @@ final class OracleDialect extends Dialect
 		if(statementText.startsWith("alter table "))
 			return null;
 
-		Executor.update(connection,
-			"CREATE GLOBAL TEMPORARY TABLE \"" + PLAN_TABLE + "\"(" +
-				"\"" + STATEMENT_ID + "\" VARCHAR2(30 BYTE)," +
-				"\"TIMESTAMP\" DATE," +
-				"\"REMARKS\" VARCHAR2(80 BYTE)," +
-				"\"" + OPERATION + "\" VARCHAR2(30 BYTE)," +
-				"\"" + OPTIONS + "\" VARCHAR2(30 BYTE)," +
-				"\"OBJECT_NODE\" VARCHAR2(128 BYTE)," +
-				"\"OBJECT_OWNER\" VARCHAR2(30 BYTE)," +
-				"\"" + OBJECT_NAME + "\" VARCHAR2(30 BYTE)," +
-				"\"" + OBJECT_INSTANCE + "\" NUMBER(22)," +
-				"\"" + OBJECT_TYPE + "\" VARCHAR2(30 BYTE)," +
-				"\"OPTIMIZER\" VARCHAR2(255 BYTE)," +
-				"\"SEARCH_COLUMNS\" NUMBER(22)," +
-				"\"" + ID + "\" NUMBER(22)," +
-				"\"" + PARENT_ID + "\" NUMBER(22)," +
-				"\"POSITION\" NUMBER(22)," +
-				"\"COST\" NUMBER(22)," +
-				"\"CARDINALITY\" NUMBER(22)," +
-				"\"BYTES\" NUMBER(22)," +
-				"\"OTHER_TAG\" VARCHAR2(255 BYTE)," +
-				"\"OTHER\" LONG)");
-
 		final int statementIDNumber;
 		synchronized(statementIDCounter)
 		{
@@ -396,7 +373,6 @@ final class OracleDialect extends Dialect
 				}
 			});
 		}
-		Executor.update(connection, "DROP TABLE \"" + PLAN_TABLE + "\"");
 		if(root==null)
 			throw new RuntimeException();
 
