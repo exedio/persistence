@@ -29,6 +29,7 @@ import static com.exedio.cope.SchemaInfo.newConnection;
 import static com.exedio.cope.SchemaInfo.quoteName;
 import static com.exedio.cope.SchemaInfo.supportsCheckConstraints;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.sql.Connection;
 import java.sql.SQLException;
 
@@ -92,6 +93,7 @@ public class CheckConstraintViolatedTest extends AbstractRuntimeModelTest
 		}
 	}
 
+	@SuppressFBWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
 	private void insert(final int pk, final Integer a, final Integer b) throws SQLException
 	{
 		try(Connection c = newConnection(model);
