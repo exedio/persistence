@@ -23,18 +23,13 @@ import com.exedio.cope.Executor.ResultSetHandler;
 import com.exedio.cope.util.Hex;
 import com.exedio.dsmf.SQLRuntimeException;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import gnu.trove.TIntObjectHashMap;
 import java.math.BigDecimal;
 import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
-import java.util.Random;
 
 final class OracleDialect extends Dialect
 {
@@ -234,180 +229,6 @@ final class OracleDialect extends Dialect
 			return null;
 
 		return DataField.copy(blob.getBinaryStream(), blob.length());
-	}
-
-	private static final Random statementIDCounter = new Random();
-
-	private static final String PLAN_TABLE = "PLAN_TABLE";
-	private static final String STATEMENT_ID = "STATEMENT_ID";
-	private static final String OPERATION = "OPERATION";
-	private static final String OPTIONS = "OPTIONS";
-	private static final String OBJECT_NAME = "OBJECT_NAME";
-	private static final String OBJECT_INSTANCE = "OBJECT_INSTANCE";
-	private static final String OBJECT_TYPE = "OBJECT_TYPE";
-	private static final String ID = "ID";
-	private static final String PARENT_ID = "PARENT_ID";
-
-	private static final String STATEMENT_ID_PREFIX = "cope";
-
-	static final HashSet<String> skippedColumnNames = new HashSet<>(Arrays.asList(new String[]{
-			STATEMENT_ID,
-			OPERATION,
-			OPTIONS,
-			"TIMESTAMP",
-			"OBJECT_OWNER",
-			OBJECT_NAME,
-			OBJECT_INSTANCE,
-			OBJECT_TYPE,
-			ID,
-			PARENT_ID,
-			"POSITION",
-		}));
-
-	@SuppressFBWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
-	@Override
-	QueryInfo explainExecutionPlan(final Statement statement, final Connection connection, final Executor executor)
-	{
-		final String statementText = statement.getText();
-		if(statementText.startsWith("alter table "))
-			return null;
-
-		Executor.update(connection,
-			"CREATE GLOBAL TEMPORARY TABLE \"" + PLAN_TABLE + "\"(" +
-				"\"" + STATEMENT_ID + "\" VARCHAR2(30 BYTE)," +
-				"\"TIMESTAMP\" DATE," +
-				"\"REMARKS\" VARCHAR2(80 BYTE)," +
-				"\"" + OPERATION + "\" VARCHAR2(30 BYTE)," +
-				"\"" + OPTIONS + "\" VARCHAR2(30 BYTE)," +
-				"\"OBJECT_NODE\" VARCHAR2(128 BYTE)," +
-				"\"OBJECT_OWNER\" VARCHAR2(30 BYTE)," +
-				"\"" + OBJECT_NAME + "\" VARCHAR2(30 BYTE)," +
-				"\"" + OBJECT_INSTANCE + "\" NUMBER(22)," +
-				"\"" + OBJECT_TYPE + "\" VARCHAR2(30 BYTE)," +
-				"\"OPTIMIZER\" VARCHAR2(255 BYTE)," +
-				"\"SEARCH_COLUMNS\" NUMBER(22)," +
-				"\"" + ID + "\" NUMBER(22)," +
-				"\"" + PARENT_ID + "\" NUMBER(22)," +
-				"\"POSITION\" NUMBER(22)," +
-				"\"COST\" NUMBER(22)," +
-				"\"CARDINALITY\" NUMBER(22)," +
-				"\"BYTES\" NUMBER(22)," +
-				"\"OTHER_TAG\" VARCHAR2(255 BYTE)," +
-				"\"OTHER\" LONG)");
-
-		final int statementIDNumber;
-		synchronized(statementIDCounter)
-		{
-			statementIDNumber = statementIDCounter.nextInt();
-		}
-		final String statementID = STATEMENT_ID_PREFIX + Integer.toString(statementIDNumber!=Integer.MIN_VALUE ? Math.abs(statementIDNumber) : Integer.MAX_VALUE);
-
-		{
-			final Statement bf = executor.newStatement();
-			bf.append("EXPLAIN PLAN SET "+STATEMENT_ID+"='").
-				append(statementID). // TODO use placeholders for prepared statements
-				append("' FOR ").
-				append(statementText);
-			try(java.sql.Statement sqlExplainStatement = connection.createStatement())
-			{
-				// TODO: use executeSQLUpdate
-				sqlExplainStatement.executeUpdate(bf.getText());
-			}
-			catch(final SQLException e)
-			{
-				throw new SQLRuntimeException(e, bf.toString());
-			}
-		}
-		final QueryInfo root;
-		{
-			final Statement bf = executor.newStatement();
-			bf.append("SELECT * FROM "+PLAN_TABLE+" WHERE "+STATEMENT_ID+'=').
-				appendParameter(statementID).
-				append(" ORDER BY "+ID);
-
-			root = executor.query(connection, bf, null, true, new ResultSetHandler<QueryInfo>()
-			{
-				public QueryInfo handle(final ResultSet resultSet) throws SQLException
-				{
-					QueryInfo root = null;
-					final TIntObjectHashMap<QueryInfo> infos = new TIntObjectHashMap<>();
-
-					final ResultSetMetaData metaData = resultSet.getMetaData();
-					final int columnCount = metaData.getColumnCount();
-
-					while(resultSet.next())
-					{
-						final String operation = resultSet.getString(OPERATION);
-						final String options = resultSet.getString(OPTIONS);
-						final String objectName = resultSet.getString(OBJECT_NAME);
-						final int objectInstance = resultSet.getInt(OBJECT_INSTANCE);
-						final String objectType = resultSet.getString(OBJECT_TYPE);
-						final int id = resultSet.getInt(ID);
-						final Number parentID = (Number)resultSet.getObject(PARENT_ID);
-
-						final StringBuilder bf = new StringBuilder(operation);
-
-						if(options!=null)
-							bf.append(" (").append(options).append(')');
-
-						if(objectName!=null)
-							bf.append(" on ").append(objectName);
-
-						if(objectInstance!=0)
-							bf.append('[').append(objectInstance).append(']');
-
-						if(objectType!=null)
-							bf.append('[').append(objectType).append(']');
-
-
-						for(int i = 1; i<=columnCount; i++)
-						{
-							final String columnName = metaData.getColumnName(i);
-							if(!skippedColumnNames.contains(columnName))
-							{
-								final Object value = resultSet.getObject(i);
-								if(value!=null)
-								{
-									bf.append(' ').
-										append(columnName.toLowerCase(Locale.ENGLISH)).
-										append('=').
-										append(value.toString());
-								}
-							}
-						}
-
-						final QueryInfo info = new QueryInfo(bf.toString());
-						if(parentID==null)
-						{
-							if(root!=null)
-								throw new RuntimeException(String.valueOf(id));
-							root = info;
-						}
-						else
-						{
-							final QueryInfo parent = infos.get(parentID.intValue());
-							if(parent==null)
-								throw new RuntimeException();
-							parent.addChild(info);
-						}
-						infos.put(id, info);
-					}
-					return root;
-				}
-			});
-		}
-		Executor.update(connection, "DROP TABLE \"" + PLAN_TABLE + "\"");
-		if(root==null)
-			throw new RuntimeException();
-
-		final QueryInfo result = new QueryInfo(EXPLAIN_PLAN + " statement_id=" + statementID);
-		result.addChild(root);
-
-		//System.out.println("######################");
-		//System.out.println(statement.getText());
-		//root.print(System.out);
-		//System.out.println("######################");
-		return result;
 	}
 
 	@Override

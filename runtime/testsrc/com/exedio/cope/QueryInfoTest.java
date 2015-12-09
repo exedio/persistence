@@ -96,36 +96,6 @@ public class QueryInfoTest extends AbstractRuntimeModelTest
 				break;
 			}
 			case oracle:
-			{
-				final QueryInfo planId = rootChilds.next();
-				assertTrue(planId.getText(), planId.getText().startsWith("explain plan statement_id=cope"));
-				{
-					final Iterator<QueryInfo> planIdChilds = planId.getChilds().iterator();
-					{
-						final QueryInfo planSelect = planIdChilds.next();
-						assertTrue(planSelect.getText(), planSelect.getText().startsWith("SELECT STATEMENT optimizer="));
-						{
-							final Iterator<QueryInfo> planSelectChilds = planSelect.getChilds().iterator();
-							{
-								final QueryInfo planTableAccess = planSelectChilds.next();
-								assertTrue(planTableAccess.getText(), planTableAccess.getText().startsWith("TABLE ACCESS (BY INDEX ROWID) on SchemaItem[1]"));
-								{
-									final Iterator<QueryInfo> planTableAccessChilds = planTableAccess.getChilds().iterator();
-									{
-										final QueryInfo planUnique = planTableAccessChilds.next();
-										assertTrue(planUnique.getText(), planUnique.getText().startsWith("INDEX (UNIQUE SCAN) on SchemaItem_uniquStrin_Unq"));
-										assertEquals(list(), planUnique.getChilds());
-									}
-									assertTrue(!planTableAccessChilds.hasNext());
-								}
-							}
-							assertTrue(!planSelectChilds.hasNext());
-						}
-					}
-					assertTrue(!planIdChilds.hasNext());
-				}
-				break;
-			}
 			case hsqldb:
 			case postgresql:
 				assertFalse(rootChilds.hasNext());
