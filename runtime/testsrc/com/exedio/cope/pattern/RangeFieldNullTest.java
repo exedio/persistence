@@ -18,7 +18,6 @@
 
 package com.exedio.cope.pattern;
 
-import static com.exedio.cope.pattern.Range.valueOf;
 import static com.exedio.cope.pattern.RangeFieldItem.TYPE;
 import static com.exedio.cope.pattern.RangeFieldItem.valid;
 
@@ -39,11 +38,10 @@ public class RangeFieldNullTest extends AbstractRuntimeModelTest
 	protected void setUp() throws Exception
 	{
 		super.setUp();
-		final Range<String> s = valueOf("a", "b");
-		ab = new RangeFieldItem(valueOf(10,   20), s);
-		nb = new RangeFieldItem(valueOf(null, 20), s);
-		an = new RangeFieldItem(valueOf(10, null), s);
-		nn = new RangeFieldItem(valueOf((Integer)null, null), s);
+		ab = new RangeFieldItem(10,   20);
+		nb = new RangeFieldItem(null, 20);
+		an = new RangeFieldItem(10, null);
+		nn = new RangeFieldItem((Integer)null, null);
 	}
 
 	public void testIt()

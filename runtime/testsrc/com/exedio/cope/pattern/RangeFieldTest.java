@@ -37,11 +37,9 @@ public class RangeFieldTest extends AbstractRuntimeModelTest
 		super(RangeFieldModelTest.MODEL);
 	}
 
-	RangeFieldItem item;
-
 	public void testIt()
 	{
-		item = new RangeFieldItem(valueOf(3, 5), valueOf("alpha", "beta"));
+		final RangeFieldItem item = new RangeFieldItem(3, 5);
 
 		assertEquals(valueOf(3, 5), item.getValid());
 		assertEquals(i3, item.getValidFrom());
@@ -74,7 +72,7 @@ public class RangeFieldTest extends AbstractRuntimeModelTest
 		assertEquals(true,  item.doesValidContain( 9));
 		assertEquals(false, item.doesValidContain(10));
 
-		final RangeFieldItem item2 = new RangeFieldItem(valueOf(4, 4), valueOf("alpha", "beta"));
+		final RangeFieldItem item2 = new RangeFieldItem(4, 4);
 		assertEquals(valueOf(4, 4), item2.getValid());
 		assertEquals(i4, item2.getValidFrom());
 		assertEquals(i4, item2.getValidTo());
