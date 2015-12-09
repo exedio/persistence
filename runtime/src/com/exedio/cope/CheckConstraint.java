@@ -44,7 +44,7 @@ public final class CheckConstraint extends Feature
 
 	void check(final Item item, final Entity entity, final Item exceptionItem)
 	{
-		if(!condition.get(item))
+		if(condition.getTri(item)==Trilean.False)
 		{
 			entity.discard();
 			throw new CheckViolationException(exceptionItem, this);

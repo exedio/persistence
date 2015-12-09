@@ -22,7 +22,6 @@ import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.CheckConstraint;
 import com.exedio.cope.Condition;
-import com.exedio.cope.Cope;
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.Item;
 import com.exedio.cope.Pattern;
@@ -45,12 +44,7 @@ public final class RangeField<E extends Comparable<E>> extends Pattern implement
 	{
 		addSource(from = borderTemplate.copy(), "from");
 		addSource(to   = borderTemplate.copy(), "to");
-		addSource(unison = new CheckConstraint(Cope.or(isNull(from), isNull(to), from.lessOrEqual(to))), "unison");
-	}
-
-	private static Condition isNull(final FunctionField<?> field)
-	{
-		return field.isMandatory() ? Condition.FALSE : field.isNull();
+		addSource(unison = new CheckConstraint(from.lessOrEqual(to)), "unison");
 	}
 
 	public static final <E extends Comparable<E>> RangeField<E> create(final FunctionField<E> borderTemplate)
