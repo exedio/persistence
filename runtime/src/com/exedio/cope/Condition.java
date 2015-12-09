@@ -134,16 +134,6 @@ public abstract class Condition implements Serializable
 	@Override
 	public abstract int hashCode();
 
-	static final boolean equals(final Object o1, final Object o2)
-	{
-		return o1==null ? o2==null : o1.equals(o2);
-	}
-
-	static final int hashCode(final Object o)
-	{
-		return o==null ? 0 : o.hashCode();
-	}
-
 	@Override
 	public final String toString()
 	{

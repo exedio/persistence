@@ -18,6 +18,10 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.EqualsAssert.assertEqualsAndHash;
+import static com.exedio.cope.EqualsAssert.assertNotEqualsAndHash;
+import static com.exedio.cope.InstanceOfRefItem.ref;
+
 import com.exedio.cope.junit.CopeAssert;
 
 public class InstanceOfModelTest extends CopeAssert
@@ -31,6 +35,7 @@ public class InstanceOfModelTest extends CopeAssert
 
 	private final Type<InstanceOfAItem > TYPE_A  = InstanceOfAItem .TYPE;
 	private final Type<InstanceOfB1Item> TYPE_B1 = InstanceOfB1Item.TYPE;
+	private final Type<InstanceOfB2Item> TYPE_B2 = InstanceOfB2Item.TYPE;
 	private final Type<InstanceOfC1Item> TYPE_C1 = InstanceOfC1Item.TYPE;
 
 	public void testFeatures()
@@ -74,6 +79,24 @@ public class InstanceOfModelTest extends CopeAssert
 		assertEquals(list(codeUnq), b1.getUniqueConstraints());
 		assertEquals(list(codeUnq), b2.getUniqueConstraints());
 		assertEquals(list(codeUnq), c1.getUniqueConstraints());
+	}
+
+	public void testEqualsHashcode()
+	{
+		assertNotEqualsAndHash(
+				TYPE_A.getThis().instanceOf(TYPE_B1),
+				TYPE_A.getThis().instanceOf(TYPE_B1, TYPE_B2),
+				ref             .instanceOf(TYPE_B1),
+				TYPE_A.getThis().notInstanceOf(TYPE_B1));
+		assertEqualsAndHash(
+				TYPE_A.getThis().instanceOf(TYPE_B1),
+				TYPE_A.getThis().instanceOf(TYPE_B1));
+		assertEqualsAndHash(
+				TYPE_A.getThis().instanceOf(TYPE_B1, TYPE_B2),
+				TYPE_A.getThis().instanceOf(TYPE_B1, TYPE_B2));
+		assertEqualsAndHash(
+				ref.instanceOf(TYPE_B1),
+				ref.instanceOf(TYPE_B1));
 	}
 
 	public void testToString()

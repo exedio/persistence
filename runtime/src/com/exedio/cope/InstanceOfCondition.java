@@ -160,13 +160,13 @@ public final class InstanceOfCondition<E extends Item> extends Condition
 
 		final InstanceOfCondition<?> o = (InstanceOfCondition<?>)other;
 
-		return function.equals(o.function) && not==o.not && equals(types, o.types);
+		return function.equals(o.function) && not==o.not && Arrays.equals(types, o.types);
 	}
 
 	@Override
 	public int hashCode()
 	{
-		return function.hashCode() ^ (not?21365:237634)^ hashCode(types);
+		return function.hashCode() ^ (not?21365:237634) ^ Arrays.hashCode(types);
 	}
 
 	@Override
