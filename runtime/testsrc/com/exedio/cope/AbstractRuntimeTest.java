@@ -20,27 +20,15 @@ package com.exedio.cope;
 
 import static com.exedio.cope.util.StrictFile.delete;
 
-import com.exedio.cope.junit.CopeTest;
-import com.exedio.dsmf.CheckConstraint;
-import com.exedio.dsmf.Constraint;
+import com.exedio.cope.junit.CopeAssert;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 
-public abstract class AbstractRuntimeTest extends CopeTest
+public final class AbstractRuntimeTest extends CopeAssert
 {
-	private final RuntimeTester tester;
-
-	public AbstractRuntimeTest(final Model model)
+	private AbstractRuntimeTest()
 	{
-		super(model);
-		tester = new RuntimeTester(model);
-	}
-
-	public AbstractRuntimeTest(final Model model, final boolean exclusive)
-	{
-		super(model, exclusive);
-		tester = new RuntimeTester(model);
 	}
 
 	protected static final Integer i0 = Integer.valueOf(0);
@@ -78,88 +66,6 @@ public abstract class AbstractRuntimeTest extends CopeTest
 	protected static final Double d7 = Double.valueOf(7.7);
 	protected static final Double d8 = Double.valueOf(8.8);
 	protected static final Double d9 = Double.valueOf(9.9);
-
-	protected RuntimeTester.Dialect dialect = null;
-	protected boolean hsqldb;
-	protected boolean mysql;
-	protected boolean oracle;
-	protected boolean postgresql;
-	protected boolean cache;
-
-	private final FileFixture files = new FileFixture();
-
-	@Override
-	protected void setUp() throws Exception
-	{
-		super.setUp();
-		tester.setUp();
-		dialect = tester.dialect;
-		hsqldb = tester.hsqldb;
-		mysql  = tester.mysql;
-		oracle = tester.oracle;
-		postgresql = tester.postgresql;
-		cache = tester.cache;
-		files.setUp();
-	}
-
-	@Override
-	protected void tearDown() throws Exception
-	{
-		files.tearDown();
-		System.clearProperty("media.url.secret");
-
-		final TestDatabaseListener testListener = model.setTestDatabaseListener(null);
-
-		if(testCompletedSuccessfully())
-			assertNull("test didn't un-install TestDatabaseListener", testListener);
-
-		super.tearDown();
-	}
-
-	protected final void startTransaction()
-	{
-		model.startTransaction(getClass().getName());
-	}
-
-	protected final void commit()
-	{
-		model.commit();
-	}
-
-	protected final String synthetic(final String name, final String global)
-	{
-		return tester.synthetic(name, global);
-	}
-
-	protected final void assertPrimaryKeySequenceName(final String sequenceNameBase, final Type<?> type)
-	{
-		tester.assertPrimaryKeySequenceName(sequenceNameBase, type);
-	}
-
-	protected final void assertPrimaryKeySequenceName(final String sequenceNameBase, final String batchedSequenceNameBase, final Type<?> type)
-	{
-		tester.assertPrimaryKeySequenceName(sequenceNameBase, batchedSequenceNameBase, type);
-	}
-
-	protected final void assertDefaultToNextSequenceName(final String name, final IntegerField field)
-	{
-		tester.assertDefaultToNextSequenceName(name, field);
-	}
-
-	protected final TestByteArrayInputStream stream(final byte[] data)
-	{
-		return tester.stream(data);
-	}
-
-	protected final void assertStreamClosed()
-	{
-		tester.assertStreamClosed();
-	}
-
-	protected final File file(final byte[] data)
-	{
-		return files.file(data);
-	}
 
 	public static final void assertEqualContent(final byte[] expectedData, final File actualFile) throws IOException
 	{
@@ -227,80 +133,6 @@ public abstract class AbstractRuntimeTest extends CopeTest
 		assertTrue(item.existsCopeItem());
 	}
 
-	protected void assertIDFails(final String id, final String detail, final boolean notAnID)
-	{
-		tester.assertIDFails(id, detail, notAnID);
-	}
-
-	void assertSameCache(final Object o1, final Object o2)
-	{
-		tester.assertSameCache(o1, o2);
-	}
-
-	final String primaryKeySequenceName(final String nameBase)
-	{
-		return tester.primaryKeySequenceName(nameBase);
-	}
-
-	final String filterTableName(final String name)
-	{
-		return tester.filterTableName(name);
-	}
-
-	protected final void assertCause(final UniqueViolationException e)
-	{
-		tester.assertCause(e);
-	}
-
-	protected final CheckConstraint assertCheckConstraint(
-			final com.exedio.dsmf.Table table,
-			final String name,
-			final String condition)
-	{
-		return tester.assertCheckConstraint(table, name, condition);
-	}
-
-	protected final void assertPkConstraint(
-			final com.exedio.dsmf.Table table,
-			final String name,
-			final String condition,
-			final String column)
-	{
-		tester.assertPkConstraint(table, name, condition, column);
-	}
-
-	protected final void assertFkConstraint(
-			final com.exedio.dsmf.Table table,
-			final String name,
-			final String column,
-			final String targetTable,
-			final String targetColumn)
-	{
-		tester.assertFkConstraint(table, name, column, targetTable, targetColumn);
-	}
-
-	protected final void assertUniqueConstraint(
-			final com.exedio.dsmf.Table table,
-			final String name,
-			final String clause)
-	{
-		tester.assertUniqueConstraint(table, name, clause);
-	}
-
-	protected final <C extends Constraint> C assertConstraint(
-			final com.exedio.dsmf.Table table,
-			final Class<C> type,
-			final String name,
-			final String condition)
-	{
-		return tester.assertConstraint(table, type, name, condition);
-	}
-
-	protected void assertCacheInfo(final Type<?>[] types, final int[] limitWeigths)
-	{
-		tester.assertCacheInfo(types, limitWeigths);
-	}
-
 	public static void assertTestAnnotationNull(final Type<?> ae)
 	{
 		assertFalse(ae.isAnnotationPresent(TestAnnotation.class));
@@ -341,15 +173,5 @@ public abstract class AbstractRuntimeTest extends CopeTest
 	{
 		assertTrue(ae.isAnnotationPresent(TestAnnotation2.class));
 		assertNotNull(ae.getAnnotation(TestAnnotation2.class));
-	}
-
-	final void assertCheckUpdateCounters()
-	{
-		tester.assertCheckUpdateCounters();
-	}
-
-	protected void assertSchema()
-	{
-		tester.assertSchema();
 	}
 }
