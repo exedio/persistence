@@ -20,17 +20,21 @@ package com.exedio.cope.pattern;
 
 import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
 import static com.exedio.cope.pattern.JavaViewItem.TYPE;
+import static com.exedio.cope.pattern.JavaViewItem.map;
 import static com.exedio.cope.pattern.JavaViewItem.n;
 import static com.exedio.cope.pattern.JavaViewItem.number;
 import static com.exedio.cope.pattern.JavaViewItem.numberPrimitive;
 import static com.exedio.cope.pattern.JavaViewItem.numberString;
 import static com.exedio.cope.pattern.JavaViewItem.privat;
+import static java.util.Arrays.asList;
 
 import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Model;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.ParameterizedType;
 import java.util.Arrays;
+import java.util.HashMap;
 
 public class JavaViewTest extends AbstractRuntimeModelTest
 {
@@ -68,6 +72,7 @@ public class JavaViewTest extends AbstractRuntimeModelTest
 				numberPrimitive,
 				n,
 				privat,
+				map,
 			}), TYPE.getDeclaredFeatures());
 		assertEquals(TYPE.getDeclaredFeatures(), TYPE.getFeatures());
 
@@ -76,6 +81,12 @@ public class JavaViewTest extends AbstractRuntimeModelTest
 		assertEquals(null, numberString.getPattern());
 		assertEquals(Double.class, number.getValueType());
 		assertEquals(Double.class, number.getValueGenericType());
+		assertEquals(HashMap.class, map.getValueType());
+		{
+			final ParameterizedType mapType = (ParameterizedType)map.getValueGenericType();
+			assertEquals(HashMap.class, mapType.getRawType());
+			assertEquals(asList(Integer.class, Double.class), asList(mapType.getActualTypeArguments()));
+		}
 
 		assertSerializedSame(number         , 380);
 		assertSerializedSame(numberPrimitive, 389);

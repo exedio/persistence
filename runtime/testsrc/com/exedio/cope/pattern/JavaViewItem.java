@@ -21,6 +21,7 @@ package com.exedio.cope.pattern;
 import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import java.util.HashMap;
 
 public final class JavaViewItem extends Item
 {
@@ -30,6 +31,7 @@ public final class JavaViewItem extends Item
 	static final JavaView numberPrimitive = new JavaView();
 	static final JavaView n = new JavaView();
 	static final JavaView privat = new JavaView();
+	static final JavaView map = new JavaView();
 
 	Double getNumber()
 	{
@@ -55,6 +57,12 @@ public final class JavaViewItem extends Item
 	private String getPrivat()
 	{
 		return "Privat" + getNumberString();
+	}
+
+	@SuppressWarnings("static-method")
+	HashMap<Integer, Double> getMap()
+	{
+		return null;
 	}
 
 	/**
