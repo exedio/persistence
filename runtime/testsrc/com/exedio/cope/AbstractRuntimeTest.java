@@ -31,41 +31,41 @@ public final class AbstractRuntimeTest extends CopeAssert
 	{
 	}
 
-	protected static final Integer i0 = Integer.valueOf(0);
-	public    static final Integer i1 = Integer.valueOf(1);
-	public    static final Integer i2 = Integer.valueOf(2);
-	public    static final Integer i3 = Integer.valueOf(3);
-	public    static final Integer i4 = Integer.valueOf(4);
-	public    static final Integer i5 = Integer.valueOf(5);
-	protected static final Integer i6 = Integer.valueOf(6);
-	protected static final Integer i7 = Integer.valueOf(7);
-	public    static final Integer i8 = Integer.valueOf(8);
-	public    static final Integer i9 = Integer.valueOf(9);
-	protected static final Integer i10= Integer.valueOf(10);
-	protected static final Integer i18= Integer.valueOf(18);
+	       static final Integer i0 = Integer.valueOf(0);
+	public static final Integer i1 = Integer.valueOf(1);
+	public static final Integer i2 = Integer.valueOf(2);
+	public static final Integer i3 = Integer.valueOf(3);
+	public static final Integer i4 = Integer.valueOf(4);
+	public static final Integer i5 = Integer.valueOf(5);
+	       static final Integer i6 = Integer.valueOf(6);
+	       static final Integer i7 = Integer.valueOf(7);
+	public static final Integer i8 = Integer.valueOf(8);
+	public static final Integer i9 = Integer.valueOf(9);
+	       static final Integer i10= Integer.valueOf(10);
+	       static final Integer i18= Integer.valueOf(18);
 
-	protected static final Long l0 = Long.valueOf(0l);
-	protected static final Long l1 = Long.valueOf(1l);
-	protected static final Long l2 = Long.valueOf(2l);
-	protected static final Long l3 = Long.valueOf(3l);
-	protected static final Long l4 = Long.valueOf(4l);
-	protected static final Long l5 = Long.valueOf(5l);
-	protected static final Long l6 = Long.valueOf(6l);
-	protected static final Long l7 = Long.valueOf(7l);
-	protected static final Long l8 = Long.valueOf(8l);
-	protected static final Long l9 = Long.valueOf(9l);
-	protected static final Long l10= Long.valueOf(10l);
-	protected static final Long l18= Long.valueOf(18l);
+	static final Long l0 = Long.valueOf(0l);
+	static final Long l1 = Long.valueOf(1l);
+	static final Long l2 = Long.valueOf(2l);
+	static final Long l3 = Long.valueOf(3l);
+	static final Long l4 = Long.valueOf(4l);
+	static final Long l5 = Long.valueOf(5l);
+	static final Long l6 = Long.valueOf(6l);
+	static final Long l7 = Long.valueOf(7l);
+	static final Long l8 = Long.valueOf(8l);
+	static final Long l9 = Long.valueOf(9l);
+	static final Long l10= Long.valueOf(10l);
+	static final Long l18= Long.valueOf(18l);
 
-	protected static final Double d1 = Double.valueOf(1.1);
-	protected static final Double d2 = Double.valueOf(2.2);
-	protected static final Double d3 = Double.valueOf(3.3);
-	protected static final Double d4 = Double.valueOf(4.4);
-	protected static final Double d5 = Double.valueOf(5.5);
-	protected static final Double d6 = Double.valueOf(6.6);
-	protected static final Double d7 = Double.valueOf(7.7);
-	protected static final Double d8 = Double.valueOf(8.8);
-	protected static final Double d9 = Double.valueOf(9.9);
+	static final Double d1 = Double.valueOf(1.1);
+	static final Double d2 = Double.valueOf(2.2);
+	static final Double d3 = Double.valueOf(3.3);
+	static final Double d4 = Double.valueOf(4.4);
+	static final Double d5 = Double.valueOf(5.5);
+	static final Double d6 = Double.valueOf(6.6);
+	static final Double d7 = Double.valueOf(7.7);
+	static final Double d8 = Double.valueOf(8.8);
+	static final Double d9 = Double.valueOf(9.9);
 
 	public static final void assertEqualContent(final byte[] expectedData, final File actualFile) throws IOException
 	{
@@ -89,7 +89,7 @@ public final class AbstractRuntimeTest extends CopeAssert
 		}
 	}
 
-	protected static void assertDelete(final Item item) throws IntegrityViolationException
+	static void assertDelete(final Item item) throws IntegrityViolationException
 	{
 		assertTrue(item.existsCopeItem());
 		item.deleteCopeItem();
