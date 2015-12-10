@@ -18,6 +18,7 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.pattern.EnumMapFieldItem.name;
 import static com.exedio.cope.pattern.EnumMapFieldItem.Language.DE;
 import static com.exedio.cope.pattern.EnumMapFieldItem.Language.EN;
 import static com.exedio.cope.pattern.EnumMapFieldItem.Language.PL;
@@ -25,6 +26,9 @@ import static com.exedio.cope.pattern.EnumMapFieldItem.Language.SUBCLASS;
 import static java.lang.Integer.valueOf;
 
 import com.exedio.cope.AbstractRuntimeModelTest;
+import com.exedio.cope.MandatoryViolationException;
+import com.exedio.cope.pattern.EnumMapFieldItem.Language;
+import java.util.EnumMap;
 
 public class EnumMapFieldTest extends AbstractRuntimeModelTest
 {
@@ -106,6 +110,58 @@ public class EnumMapFieldTest extends AbstractRuntimeModelTest
 		{
 			assertEquals("key", e.getMessage());
 		}
+	}
+
+	public void testSettable()
+	{
+		assertEquals(null, item.getName(DE));
+		assertEquals(null, item.getName(EN));
+		assertEquals(null, item.getName(PL));
+
+		final EnumMap<Language, String> map = new EnumMap<>(Language.class);
+		map.put(DE, "nameDE");
+		item.set(name.map(map));
+		assertEquals("nameDE", item.getName(DE));
+		assertEquals(null, item.getName(EN));
+		assertEquals(null, item.getName(PL));
+
+		map.remove(DE);
+		map.put(PL, "namePL");
+		item.set(name.map(map));
+		assertEquals(null, item.getName(DE));
+		assertEquals(null, item.getName(EN));
+		assertEquals("namePL", item.getName(PL));
+
+		map.remove(PL);
+		item.set(name.map(map));
+		assertEquals(null, item.getName(DE));
+		assertEquals(null, item.getName(EN));
+		assertEquals(null, item.getName(PL));
+	}
+
+	public void testSettableNull()
+	{
+		try
+		{
+			item.set(name.map(null));
+			fail();
+		}
+		catch(final MandatoryViolationException e)
+		{
+			assertEquals(name, e.getFeature());
+			assertEquals(item, e.getItem());
+		}
+	}
+
+	public void testSettableNullValue()
+	{
+		final EnumMap<Language, String> map = new EnumMap<>(Language.class);
+		map.put(DE, null);
+		map.put(PL, "namePL");
+		item.set(name.map(map));
+		assertEquals(null, item.getName(DE));
+		assertEquals(null, item.getName(EN));
+		assertEquals("namePL", item.getName(PL));
 	}
 
 	public void testSubClass()
