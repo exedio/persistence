@@ -50,9 +50,9 @@ public final class IsNullCondition<E> extends Condition
 	}
 
 	@Override
-	public boolean get(final Item item)
+	Trilean getTri(final Item item)
 	{
-		return (function.get(item)==null) ^ not;
+		return Trilean.valueOf( (function.get(item)==null) ^ not );
 	}
 
 	@Override

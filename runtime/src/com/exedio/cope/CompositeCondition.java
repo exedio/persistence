@@ -79,13 +79,19 @@ public final class CompositeCondition extends Condition
 	}
 
 	@Override
-	public boolean get(final Item item)
+	Trilean getTri(final Item item)
 	{
-		final boolean absorber = operator.absorber.value;
+		final Trilean absorber = operator.absorber.valueTri;
+		Trilean resultWithoutAbsorber = operator.identity.valueTri;
 		for(final Condition condition : conditions)
-			if(condition.get(item)==absorber)
+		{
+			final Trilean value = condition.getTri(item);
+			if(value==absorber)
 				return absorber;
-		return operator.identity.value;
+			if(value==Trilean.Null)
+				resultWithoutAbsorber = Trilean.Null;
+		}
+		return resultWithoutAbsorber;
 	}
 
 	@Override

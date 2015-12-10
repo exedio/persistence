@@ -33,7 +33,7 @@ public class StartsWithConditionTest extends AbstractRuntimeModelTest
 		super(DataModelTest.MODEL);
 	}
 
-	private DataItem item0, item4, item6, item6x4, itemX;
+	private DataItem item0, item4, item6, item6x4;
 
 	@Override
 	public void setUp() throws Exception
@@ -44,7 +44,7 @@ public class StartsWithConditionTest extends AbstractRuntimeModelTest
 		item4 = new DataItem();
 		item6 = new DataItem();
 		item6x4 = new DataItem();
-		itemX = new DataItem(); // is null
+		new DataItem(); // is null
 		item0.setData(bytes0);
 		item4.setData(bytes4);
 		item6.setData(bytes6);
@@ -60,28 +60,18 @@ public class StartsWithConditionTest extends AbstractRuntimeModelTest
 
 	public void testNot()
 	{
-		// TODO wrong NotAndNull
-		assertCondition(
-				reduce(asList(item0, item6, item6x4)),
-				asList(item0, item6, item6x4, itemX),
-				TYPE, data.startsWith(bytes4).not());
-		assertCondition(
-				reduce(asList(item0, item4, item6x4)),
-				asList(item0, item4, item6x4, itemX),
-				TYPE, data.startsWith(bytes6).not());
-		assertCondition(
-				reduce(asList(item0, item4)),
-				asList(item0, item4, itemX),
-				TYPE, data.startsWith(bytes6x4).not());
+		assertCondition(reduce(item0, item6, item6x4), TYPE, data.startsWith(bytes4  ).not());
+		assertCondition(reduce(item0, item4, item6x4), TYPE, data.startsWith(bytes6  ).not());
+		assertCondition(reduce(item0, item4         ), TYPE, data.startsWith(bytes6x4).not());
 	}
 
-	private List<DataItem> reduce(final List<DataItem> list)
+	private List<DataItem> reduce(final DataItem... list)
 	{
 		if(!oracle)
-			return list;
+			return asList(list);
 
 		// TODO make oracle look like other databases
-		final ArrayList<DataItem> result = new ArrayList<>(list);
+		final ArrayList<DataItem> result = new ArrayList<>(asList(list));
 		result.remove(item0);
 		return result;
 	}

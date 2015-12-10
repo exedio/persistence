@@ -133,17 +133,17 @@ public final class InstanceOfCondition<E extends Item> extends Condition
 	}
 
 	@Override
-	public boolean get(final Item item)
+	Trilean getTri(final Item item)
 	{
 		final Item value = function.get(item);
 		if(value==null)
-			return false;
+			return Trilean.Null;
 
 		final Type<?> valueType = value.getCopeType();
 		for(final Type<?> t : types)
 			if(t.isAssignableFrom(valueType))
-				return !not;
-		return not;
+				return Trilean.valueOf(!not);
+		return Trilean.valueOf(not);
 	}
 
 	@Override

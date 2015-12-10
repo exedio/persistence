@@ -94,11 +94,7 @@ public class RangeFieldModelTest extends CopeAssert
 	public void testUnison()
 	{
 		assertEquals(
-				"(" +
-					"RangeFieldItem.valid-from is null OR " +
-					"RangeFieldItem.valid-to is null OR " +
-					"RangeFieldItem.valid-from<=RangeFieldItem.valid-to" +
-				")",
+				"RangeFieldItem.valid-from<=RangeFieldItem.valid-to",
 				valid.getUnison().getCondition().toString());
 		assertEquals(
 				"RangeFieldItem.text-from<=RangeFieldItem.text-to",

@@ -23,7 +23,6 @@ import static com.exedio.cope.InstanceOfC1Item.textc1;
 import static com.exedio.cope.InstanceOfRefItem.ref;
 import static com.exedio.cope.InstanceOfRefItem.refb2;
 import static com.exedio.cope.RuntimeAssert.assertCondition;
-import static java.util.Arrays.asList;
 
 public class InstanceOfTest extends AbstractRuntimeModelTest
 {
@@ -98,15 +97,8 @@ public class InstanceOfTest extends AbstractRuntimeModelTest
 
 	public void testNot()
 	{
-		// TODO wrong NotAndNull
-		assertCondition(
-				asList(reffc1),
-				asList(reffc1, reffN),
-				TYPE_REF, ref.notInstanceOf(TYPE_C1).not());
-		assertCondition(
-				asList(reffa, reffb1, reffb2),
-				asList(reffa, reffb1, reffb2, reffN),
-				TYPE_REF, ref.instanceOf(TYPE_C1).not());
+		assertCondition(reffc1, TYPE_REF, ref.notInstanceOf(TYPE_C1).not());
+		assertCondition(reffa, reffb1, reffb2, TYPE_REF, ref.instanceOf(TYPE_C1).not());
 	}
 
 	public void testCheckTypeColumns()
