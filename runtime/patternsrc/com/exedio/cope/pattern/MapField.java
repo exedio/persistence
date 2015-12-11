@@ -28,6 +28,7 @@ import com.exedio.cope.FunctionField;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
 import com.exedio.cope.Join;
+import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.Query;
 import com.exedio.cope.Type;
@@ -211,6 +212,9 @@ public final class MapField<K,V> extends Pattern
 	@Wrap(order=120)
 	public void setMap(final Item item, final Map<? extends K,? extends V> map)
 	{
+		if(map==null)
+			throw MandatoryViolationException.create(this, item);
+
 		final Mount mount = mount();
 		final HashMap<K,V> done = new HashMap<>();
 

@@ -180,9 +180,10 @@ public class MapFieldTest extends AbstractRuntimeModelTest
 			item.setNameMap(null);
 			fail();
 		}
-		catch(final NullPointerException e)
+		catch(final MandatoryViolationException e)
 		{
-			assertEquals(null, e.getMessage());
+			assertEquals(name, e.getFeature());
+			assertEquals(item, e.getItem());
 		}
 		assertEquals(map(PL, "namePL"), item.getNameMap());
 	}
