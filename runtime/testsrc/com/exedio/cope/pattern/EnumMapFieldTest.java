@@ -195,6 +195,19 @@ public class EnumMapFieldTest extends AbstractRuntimeModelTest
 		assertEquals(map(), item.getNameMap());
 	}
 
+	public void testMapSetNull()
+	{
+		try
+		{
+			item.setNameMap(null);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals(null, e.getMessage());
+		}
+	}
+
 	public void testMapSetKeyNull()
 	{
 		final HashMap<Language, String> map = new HashMap<>();
