@@ -33,6 +33,7 @@ import com.exedio.cope.Model;
 import com.exedio.cope.StringField;
 import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.misc.Computed;
+import com.exedio.cope.pattern.MapFieldItem.Language;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.Serializable;
 
@@ -60,7 +61,7 @@ public class MapFieldModelTest extends CopeAssert
 		assertEquals(null, nameParent().getPattern());
 		assertSame(nameParent(), name.getParent());
 
-		assertEquals(MapFieldItem.Language.class, ((EnumField<MapFieldItem.Language>)name.getKey()).getValueClass());
+		assertEquals(Language.class, ((EnumField<Language>)name.getKey()).getValueClass());
 		assertEquals("key", name.getKey().getName());
 		assertSame(name.getRelationType(), name.getKey().getType());
 		assertEquals(null, name.getKey().getPattern());
