@@ -30,6 +30,7 @@ import static com.exedio.cope.pattern.ListFieldItem.itemsParent;
 import static com.exedio.cope.pattern.ListFieldItem.strings;
 import static com.exedio.cope.pattern.ListFieldItem.stringsParent;
 import static java.util.Arrays.asList;
+import static java.util.Collections.unmodifiableList;
 
 import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.FunctionField;
@@ -286,7 +287,7 @@ public class ListFieldTest extends AbstractRuntimeModelTest
 		assertContains(getDistinctParentsOfStrings("bello"));
 		assertEquals(0, stringsType.newQuery(null).search().size());
 
-		item.setStrings(asList("hallo", "bello"));
+		item.setStrings(unmodifiableList(asList("hallo", "bello")));
 		assertEqualsUnmodifiable(list("hallo", "bello"), item.getStrings());
 		assertContains(getDistinctParentsOfStrings(null));
 		assertContains(item, getDistinctParentsOfStrings("hallo"));
@@ -305,7 +306,7 @@ public class ListFieldTest extends AbstractRuntimeModelTest
 		assertEquals(0, r0.get(stringsOrder).intValue());
 		assertEquals(1, r1.get(stringsOrder).intValue());
 
-		item.setStrings(asList("zack1", "zack2", "zack3"));
+		item.setStrings(unmodifiableList(asList("zack1", "zack2", "zack3")));
 		assertEqualsUnmodifiable(list("zack1", "zack2", "zack3"), item.getStrings());
 		assertContains(getDistinctParentsOfStrings(null));
 		assertContains(item, getDistinctParentsOfStrings("zack1"));
@@ -327,7 +328,7 @@ public class ListFieldTest extends AbstractRuntimeModelTest
 		assertEquals(1, r1.get(stringsOrder).intValue());
 		assertEquals(2, r2.get(stringsOrder).intValue());
 
-		item.setStrings(asList("null1", null, "null3", "null4"));
+		item.setStrings(unmodifiableList(asList("null1", null, "null3", "null4")));
 		assertEqualsUnmodifiable(list("null1", null, "null3", "null4"), item.getStrings());
 		assertContains(item, getDistinctParentsOfStrings(null));
 		assertContains(item, getDistinctParentsOfStrings("null1"));
@@ -352,7 +353,7 @@ public class ListFieldTest extends AbstractRuntimeModelTest
 		assertEquals(2, r2.get(stringsOrder).intValue());
 		assertEquals(3, r3.get(stringsOrder).intValue());
 
-		item.setStrings(asList("dup1", "dup2", "dup1"));
+		item.setStrings(unmodifiableList(asList("dup1", "dup2", "dup1")));
 		assertEqualsUnmodifiable(list("dup1", "dup2", "dup1"), item.getStrings());
 		assertContains(getDistinctParentsOfStrings(null));
 		assertContains(item, getDistinctParentsOfStrings("dup1"));
@@ -398,7 +399,7 @@ public class ListFieldTest extends AbstractRuntimeModelTest
 		assertEquals(3, r4.get(stringsOrder).intValue());
 		assertFalse(r3.existsCopeItem());
 
-		item.setStrings(Arrays.<String>asList());
+		item.setStrings(unmodifiableList(Arrays.<String>asList()));
 		assertEqualsUnmodifiable(list(), item.getStrings());
 		assertContains(getDistinctParentsOfStrings(null));
 		assertContains(getDistinctParentsOfStrings("null1"));

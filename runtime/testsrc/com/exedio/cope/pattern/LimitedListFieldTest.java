@@ -26,6 +26,7 @@ import static com.exedio.cope.pattern.LimitedListFieldItem.nums;
 import static com.exedio.cope.pattern.LimitedListFieldItem.strings;
 import static com.exedio.cope.pattern.LimitedListFieldItemFieldItem.limitedListFieldItem;
 import static java.util.Arrays.asList;
+import static java.util.Collections.unmodifiableList;
 
 import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.Join;
@@ -133,7 +134,7 @@ public class LimitedListFieldTest extends AbstractRuntimeModelTest
 
 	public void testString()
 	{
-		item.setStrings(asList("hallo", "bello"));
+		item.setStrings(unmodifiableList(asList("hallo", "bello")));
 		assertEqualsUnmodifiable(list("hallo", "bello"), item.getStrings());
 		assertEquals("hallo", item.getString0());
 		assertEquals("bello", item.getString1());
@@ -183,7 +184,7 @@ public class LimitedListFieldTest extends AbstractRuntimeModelTest
 	{
 		assertEqualsUnmodifiable(list(), item.getStrings());
 
-		item.setStrings(asList("a", "b", null));
+		item.setStrings(unmodifiableList(asList("a", "b", null)));
 		assertEqualsUnmodifiable(list("a", "b", null), item.getStrings());
 		assertEquals("a", item.getString0());
 		assertEquals("b", item.getString1());
@@ -191,7 +192,7 @@ public class LimitedListFieldTest extends AbstractRuntimeModelTest
 		assertEquals(null, item.getString3());
 		assertEquals(3, item.getStringLength());
 
-		item.setStrings(asList("a", null, "c"));
+		item.setStrings(unmodifiableList(asList("a", null, "c")));
 		assertEqualsUnmodifiable(list("a", null, "c"), item.getStrings());
 		assertEquals("a", item.getString0());
 		assertEquals(null, item.getString1());
@@ -199,7 +200,7 @@ public class LimitedListFieldTest extends AbstractRuntimeModelTest
 		assertEquals(null, item.getString3());
 		assertEquals(3, item.getStringLength());
 
-		item.setStrings(asList(null, "b", "c"));
+		item.setStrings(unmodifiableList(asList(null, "b", "c")));
 		assertEqualsUnmodifiable(list(null, "b", "c"), item.getStrings());
 		assertEquals(null, item.getString0());
 		assertEquals("b", item.getString1());
@@ -207,7 +208,7 @@ public class LimitedListFieldTest extends AbstractRuntimeModelTest
 		assertEquals(null, item.getString3());
 		assertEquals(3, item.getStringLength());
 
-		item.setStrings(asList(null, "b", null));
+		item.setStrings(unmodifiableList(asList(null, "b", null)));
 		assertEqualsUnmodifiable(list(null, "b", null), item.getStrings());
 		assertEquals(null, item.getString0());
 		assertEquals("b", item.getString1());
@@ -215,7 +216,7 @@ public class LimitedListFieldTest extends AbstractRuntimeModelTest
 		assertEquals(null, item.getString3());
 		assertEquals(3, item.getStringLength());
 
-		item.setStrings(asList((String)null, null, null));
+		item.setStrings(unmodifiableList(asList((String)null, null, null)));
 		assertEqualsUnmodifiable(list(null, null, null), item.getStrings());
 		assertEquals(null, item.getString0());
 		assertEquals(null, item.getString1());
