@@ -517,4 +517,20 @@ public class ListFieldTest extends AbstractRuntimeModelTest
 			assertEquals("expected a " + ItemField.class.getName() + "<" + Item.class.getName() + ">, but was a " + ItemField.class.getName() + "<" + item.getClass().getName() + ">", e.getMessage());
 		}
 	}
+
+	public void testListSetNull()
+	{
+		item.setStrings(asList("hallo", "bello"));
+
+		try
+		{
+			item.setStrings(null);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals(null, e.getMessage());
+		}
+		assertEquals(asList("hallo", "bello"), item.getStrings());
+	}
 }

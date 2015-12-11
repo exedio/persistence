@@ -225,6 +225,22 @@ public class LimitedListFieldTest extends AbstractRuntimeModelTest
 		assertEquals(3, item.getStringLength());
 	}
 
+	public void testListSetNull()
+	{
+		item.setStrings(asList("hallo", "bello"));
+
+		try
+		{
+			item.setStrings(null);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals(null, e.getMessage());
+		}
+		assertEquals(asList("hallo", "bello"), item.getStrings());
+	}
+
 	public void testContainsInJoin()
 	{
 		final Query<LimitedListFieldItemFieldItem> q = LimitedListFieldItemFieldItem.TYPE.newQuery();
