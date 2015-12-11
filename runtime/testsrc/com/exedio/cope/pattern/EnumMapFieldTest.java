@@ -171,28 +171,28 @@ public class EnumMapFieldTest extends AbstractRuntimeModelTest
 	{
 		final HashMap<Language, String> map = new HashMap<>();
 		final Map<Language, String> mapU = Collections.unmodifiableMap(map);
-		assertEquals(map(), item.getNameMap());
+		assertEqualsUnmodifiable(map(), item.getNameMap());
 
 		item.setNameMap(mapU);
-		assertEquals(map(), item.getNameMap());
+		assertEqualsUnmodifiable(map(), item.getNameMap());
 
 		map.put(DE, "nameDE");
 		item.setNameMap(mapU);
-		assertEquals(map(DE, "nameDE"), item.getNameMap());
+		assertEqualsUnmodifiable(map(DE, "nameDE"), item.getNameMap());
 
 		map.put(EN, "nameEN");
 		map.put(DE, "nameDE2");
 		item.setNameMap(mapU);
-		assertEquals(map(DE, "nameDE2", EN, "nameEN"), item.getNameMap());
+		assertEqualsUnmodifiable(map(DE, "nameDE2", EN, "nameEN"), item.getNameMap());
 
 		map.put(PL, "namePL");
 		map.remove(DE);
 		item.setNameMap(mapU);
-		assertEquals(map(PL, "namePL", EN, "nameEN"), item.getNameMap());
+		assertEqualsUnmodifiable(map(PL, "namePL", EN, "nameEN"), item.getNameMap());
 
 		map.clear();
 		item.setNameMap(mapU);
-		assertEquals(map(), item.getNameMap());
+		assertEqualsUnmodifiable(map(), item.getNameMap());
 	}
 
 	public void testMapSetNull()
