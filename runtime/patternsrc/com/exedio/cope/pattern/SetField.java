@@ -26,6 +26,7 @@ import com.exedio.cope.Features;
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
+import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.Query;
 import com.exedio.cope.Type;
@@ -220,6 +221,9 @@ public final class SetField<E> extends Pattern
 	@Wrap(order=40, doc="Sets a new value for {0}.", thrownGetter=Thrown.class)
 	public void set(final Item item, final Collection<? extends E> value)
 	{
+		if(value==null)
+			throw MandatoryViolationException.create(this, item);
+
 		final Mount mount = mount();
 		final LinkedHashSet<? extends E> toCreateSet = new LinkedHashSet<>(value);
 		final ArrayList<Item> toDeleteList = new ArrayList<>();

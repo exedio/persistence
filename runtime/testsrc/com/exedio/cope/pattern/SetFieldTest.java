@@ -484,9 +484,10 @@ public class SetFieldTest extends AbstractRuntimeModelTest
 			item.setStrings(null);
 			fail();
 		}
-		catch(final NullPointerException e)
+		catch(final MandatoryViolationException e)
 		{
-			assertEquals(null, e.getMessage());
+			assertEquals(strings, e.getFeature());
+			assertEquals(item, e.getItem());
 		}
 		assertContainsUnmodifiable("hallo", "bello", item.getStrings());
 	}
