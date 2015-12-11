@@ -19,7 +19,6 @@
 package com.exedio.cope;
 
 import com.exedio.cope.instrument.ConstructorComment;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * Signals, that an attempt to write an field has been failed,
@@ -46,12 +45,17 @@ public final class MandatoryViolationException extends ConstraintViolationExcept
 	 * @param item initializes, what is returned by {@link #getItem()}.
 	 * @param feature initializes, what is returned by {@link #getFeature()}.
 	 */
-	@SuppressFBWarnings("BC_UNCONFIRMED_CAST")
-	public static <F extends Feature & Settable<?>> MandatoryViolationException create(
-			final F feature,
+	public static MandatoryViolationException create(
+			final Feature feature,
 			final Item item)
 	{
-		return new MandatoryViolationException(feature, feature, item);
+		return new MandatoryViolationException(feature, item);
+	}
+
+	private MandatoryViolationException(final Feature feature, final Item item)
+	{
+		super(item, null);
+		this.feature = feature;
 	}
 
 	/**

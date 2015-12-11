@@ -29,6 +29,7 @@ import com.exedio.cope.FunctionField;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
+import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Query;
 import com.exedio.cope.Type;
 import com.exedio.cope.UniqueConstraint;
@@ -214,6 +215,9 @@ public final class ListField<E> extends AbstractListField<E> implements Copyable
 	@Override
 	public void set(final Item item, final Collection<? extends E> value)
 	{
+		if(value==null)
+			throw MandatoryViolationException.create(this, item);
+
 		final Mount mount = mount();
 		final Iterator<PatternItem> actual =
 			mount.relationType.search(
