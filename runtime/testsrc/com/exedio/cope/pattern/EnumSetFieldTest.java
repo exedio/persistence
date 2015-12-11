@@ -203,9 +203,10 @@ public class EnumSetFieldTest extends AbstractRuntimeModelTest
 			item.setActiveLanguage(null);
 			fail();
 		}
-		catch(final NullPointerException e)
+		catch(final MandatoryViolationException e)
 		{
-			assertEquals(null, e.getMessage());
+			assertEquals(activeLanguage, e.getFeature());
+			assertEquals(item, e.getItem());
 		}
 		assertEquals(EnumSet.of(DE, EN), item.getActiveLanguage());
 	}

@@ -127,6 +127,9 @@ public final class EnumSetField<E extends Enum<E>> extends Pattern implements Se
 	@Wrap(order=50, hide=FinalSettableGetter.class)
 	public void set(final Item item, final EnumSet<E> value)
 	{
+		if(value==null)
+			throw MandatoryViolationException.create(this, item);
+
 		final SetValue<?>[] setValues = new SetValue<?>[fields.size()];
 		int i = 0;
 		for(final E element : fields.keySet())
