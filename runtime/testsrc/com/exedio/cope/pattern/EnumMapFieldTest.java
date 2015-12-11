@@ -202,9 +202,10 @@ public class EnumMapFieldTest extends AbstractRuntimeModelTest
 			item.setNameMap(null);
 			fail();
 		}
-		catch(final NullPointerException e)
+		catch(final MandatoryViolationException e)
 		{
-			assertEquals(null, e.getMessage());
+			assertEquals(name, e.getFeature());
+			assertEquals(item, e.getItem());
 		}
 	}
 
