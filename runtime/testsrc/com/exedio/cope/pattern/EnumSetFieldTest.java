@@ -26,6 +26,8 @@ import static com.exedio.cope.pattern.EnumSetFieldItem.Language.PL;
 import static com.exedio.cope.pattern.EnumSetFieldItem.Language.SUBCLASS;
 
 import com.exedio.cope.AbstractRuntimeModelTest;
+import com.exedio.cope.MandatoryViolationException;
+import com.exedio.cope.SetValue;
 import com.exedio.cope.pattern.EnumSetFieldItem.Language;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.EnumSet;
@@ -147,15 +149,6 @@ public class EnumSetFieldTest extends AbstractRuntimeModelTest
 		}
 		try
 		{
-			item.setActiveLanguage(null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals(null, e.getMessage());
-		}
-		try
-		{
 			activeLanguage.contains(null);
 			fail();
 		}
@@ -181,6 +174,40 @@ public class EnumSetFieldTest extends AbstractRuntimeModelTest
 		assertEquals(false, initialItem.containsActiveLanguage(DE));
 		assertEquals(true,  initialItem.containsActiveLanguage(EN));
 		assertEquals(false, initialItem.containsActiveLanguage(PL));
+	}
+
+	public void testSetSettableNull()
+	{
+		item.setActiveLanguage(EnumSet.of(DE, EN));
+		final SetValue<EnumSet<Language>> map = activeLanguage.map(null);
+
+		try
+		{
+			item.set(map);
+			fail();
+		}
+		catch(final MandatoryViolationException e)
+		{
+			assertEquals(activeLanguage, e.getFeature());
+			assertEquals(item, e.getItem());
+		}
+		assertEquals(EnumSet.of(DE, EN), item.getActiveLanguage());
+	}
+
+	public void testSetSetNull()
+	{
+		item.setActiveLanguage(EnumSet.of(DE, EN));
+
+		try
+		{
+			item.setActiveLanguage(null);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals(null, e.getMessage());
+		}
+		assertEquals(EnumSet.of(DE, EN), item.getActiveLanguage());
 	}
 
 	public void testSubClass()
