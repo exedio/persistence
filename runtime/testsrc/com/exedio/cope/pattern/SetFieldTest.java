@@ -474,4 +474,20 @@ public class SetFieldTest extends AbstractRuntimeModelTest
 		assertContains(q.search());
 		assertEquals(0, q.total());
 	}
+
+	public void testListSetNull()
+	{
+		item.setStrings(asList("hallo", "bello"));
+
+		try
+		{
+			item.setStrings(null);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals(null, e.getMessage());
+		}
+		assertContainsUnmodifiable("hallo", "bello", item.getStrings());
+	}
 }
