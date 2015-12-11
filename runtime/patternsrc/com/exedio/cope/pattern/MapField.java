@@ -40,7 +40,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-public final class MapField<K,V> extends Pattern
+public final class MapField<K,V> extends Pattern implements MapFieldInterface<K,V>
 {
 	private static final long serialVersionUID = 1l;
 
@@ -128,6 +128,12 @@ public final class MapField<K,V> extends Pattern
 		return mount().parent;
 	}
 
+	@Override
+	public Class<K> getKeyClass()
+	{
+		return key.getValueClass();
+	}
+
 	public FunctionField<K> getKey()
 	{
 		return key;
@@ -136,6 +142,12 @@ public final class MapField<K,V> extends Pattern
 	public UniqueConstraint getUniqueConstraint()
 	{
 		return mount().uniqueConstraint;
+	}
+
+	@Override
+	public Class<V> getValueClass()
+	{
+		return value.getValueClass();
 	}
 
 	public FunctionField<V> getValue()
@@ -150,6 +162,7 @@ public final class MapField<K,V> extends Pattern
 
 	private static final String KEY = "k";
 
+	@Override
 	@Wrap(order=10,
 			doc="Returns the value mapped to <tt>" + KEY + "</tt> by the field map {0}.")
 	public V get(
@@ -167,6 +180,7 @@ public final class MapField<K,V> extends Pattern
 			return null;
 	}
 
+	@Override
 	@Wrap(order=20,
 			doc="Associates <tt>" + KEY + "</tt> to a new value in the field map {0}.")
 	public void set(
@@ -199,6 +213,7 @@ public final class MapField<K,V> extends Pattern
 		}
 	}
 
+	@Override
 	@Wrap(order=110)
 	public Map<K,V> getMap(final Item item)
 	{
@@ -209,6 +224,7 @@ public final class MapField<K,V> extends Pattern
 		return Collections.unmodifiableMap(result);
 	}
 
+	@Override
 	@Wrap(order=120)
 	public void setMap(final Item item, final Map<? extends K,? extends V> map)
 	{
