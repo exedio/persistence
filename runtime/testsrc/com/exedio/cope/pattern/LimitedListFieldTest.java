@@ -30,6 +30,7 @@ import static java.util.Collections.unmodifiableList;
 
 import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.Join;
+import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Query;
 import com.exedio.cope.SetValue;
 import java.util.Arrays;
@@ -237,9 +238,10 @@ public class LimitedListFieldTest extends AbstractRuntimeModelTest
 			item.set(map);
 			fail();
 		}
-		catch(final NullPointerException e)
+		catch(final MandatoryViolationException e)
 		{
-			assertEquals(null, e.getMessage());
+			assertEquals(strings, e.getFeature());
+			assertEquals(item, e.getItem());
 		}
 		assertEquals(asList("hallo", "bello"), item.getStrings());
 	}
@@ -253,9 +255,10 @@ public class LimitedListFieldTest extends AbstractRuntimeModelTest
 			item.setStrings(null);
 			fail();
 		}
-		catch(final NullPointerException e)
+		catch(final MandatoryViolationException e)
 		{
-			assertEquals(null, e.getMessage());
+			assertEquals(strings, e.getFeature());
+			assertEquals(item, e.getItem());
 		}
 		assertEquals(asList("hallo", "bello"), item.getStrings());
 	}

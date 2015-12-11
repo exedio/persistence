@@ -26,6 +26,7 @@ import com.exedio.cope.FunctionField;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
 import com.exedio.cope.Join;
+import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
 import com.exedio.cope.instrument.ThrownGetter;
@@ -197,6 +198,8 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 
 	private void assertValue(final Collection<?> value, final Item exceptionItem)
 	{
+		if(value==null)
+			throw MandatoryViolationException.create(this, exceptionItem);
 		if(value.size()>sources.length)
 			throw new ListSizeViolationException(this, exceptionItem, value.size(), sources.length);
 	}
