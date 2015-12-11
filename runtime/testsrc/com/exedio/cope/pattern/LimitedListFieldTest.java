@@ -31,7 +31,9 @@ import static java.util.Collections.unmodifiableList;
 import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.Join;
 import com.exedio.cope.Query;
+import com.exedio.cope.SetValue;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 
@@ -223,6 +225,23 @@ public class LimitedListFieldTest extends AbstractRuntimeModelTest
 		assertEquals(null, item.getString2());
 		assertEquals(null, item.getString3());
 		assertEquals(3, item.getStringLength());
+	}
+
+	public void testListSettableNull()
+	{
+		item.setStrings(asList("hallo", "bello"));
+		final SetValue<Collection<String>> map = strings.map(null);
+
+		try
+		{
+			item.set(map);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals(null, e.getMessage());
+		}
+		assertEquals(asList("hallo", "bello"), item.getStrings());
 	}
 
 	public void testListSetNull()
