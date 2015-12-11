@@ -162,7 +162,7 @@ public final class EnumSetField<E extends Enum<E>> extends Pattern implements Se
 	@Override
 	public boolean isMandatory()
 	{
-		return true; // set is never null
+		return true; // can be empty but is never null
 	}
 
 	@Override

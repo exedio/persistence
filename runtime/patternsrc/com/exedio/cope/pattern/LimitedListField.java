@@ -165,7 +165,7 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 
 	public boolean isMandatory()
 	{
-		return true; // list can be empty but not null;
+		return true; // can be empty but is never null
 	}
 
 	public java.lang.reflect.Type getInitialType()

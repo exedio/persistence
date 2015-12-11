@@ -143,7 +143,7 @@ public final class EnumMapField<K extends Enum<K>,V> extends Pattern implements 
 	@Override
 	public boolean isMandatory()
 	{
-		return true; // map is never null
+		return true; // can be empty but is never null
 	}
 
 	@Override
