@@ -35,7 +35,6 @@ public class BadQueryTest extends AbstractRuntimeModelTest
 
 	QueryItem left1, left2, leftX;
 	SuperContainer middle1, middle2, middleX;
-	SubContainer right1, right2;
 
 	@Override
 	public void setUp() throws Exception
@@ -48,8 +47,8 @@ public class BadQueryTest extends AbstractRuntimeModelTest
 		middleX = new SuperContainer("middleX", leftX, false);
 		middle1 = new SuperContainer("middle1", left1, false);
 		middle2 = new SubContainer("middle2", left2, false, middleX);
-		right1 = new SubContainer("right1", leftX, false, middle1);
-		right2 = new SubContainer("right2", leftX, false, middle2);
+		new SubContainer("right1", leftX, false, middle1);
+		new SubContainer("right2", leftX, false, middle2);
 	}
 
 	@Test public void testWithSpecifyingjoin()

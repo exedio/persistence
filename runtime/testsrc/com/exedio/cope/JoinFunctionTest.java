@@ -34,14 +34,6 @@ public class JoinFunctionTest extends AbstractRuntimeModelTest
 	}
 
 	private JoinFunctionItemSingle single;
-	@SuppressWarnings("unused") // OK: is an item not to be found by searches
-	private JoinFunctionItem a1;
-	@SuppressWarnings("unused") // OK: is an item not to be found by searches
-	private JoinFunctionItem a2;
-	@SuppressWarnings("unused") // OK: is an item not to be found by searches
-	private JoinFunctionItem b1;
-	@SuppressWarnings("unused") // OK: is an item not to be found by searches
-	private JoinFunctionItem b3;
 
 	@Override
 	public void setUp() throws Exception
@@ -49,10 +41,10 @@ public class JoinFunctionTest extends AbstractRuntimeModelTest
 		super.setUp();
 
 		single = new JoinFunctionItemSingle("single");
-		a1 = new JoinFunctionItem("a1", Integer.valueOf(1));
-		a2 = new JoinFunctionItem("a2", Integer.valueOf(2));
-		b1 = new JoinFunctionItem("b1", Integer.valueOf(1));
-		b3 = new JoinFunctionItem("b3", Integer.valueOf(3));
+		new JoinFunctionItem("a1", Integer.valueOf(1));
+		new JoinFunctionItem("a2", Integer.valueOf(2));
+		new JoinFunctionItem("b1", Integer.valueOf(1));
+		new JoinFunctionItem("b3", Integer.valueOf(3));
 	}
 
 	@Test public void testIt()

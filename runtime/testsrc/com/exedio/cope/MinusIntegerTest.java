@@ -43,14 +43,13 @@ public class MinusIntegerTest extends AbstractRuntimeModelTest
 	}
 
 	MinusIntegerItem item;
-	MinusIntegerItem item2;
 
 	@Override
 	public void setUp() throws Exception
 	{
 		super.setUp();
 		item = new MinusIntegerItem(7, 9, 3);
-		item2 = new MinusIntegerItem(30, 4, 5);
+		new MinusIntegerItem(30, 4, 5);
 	}
 
 	@Test public void testSum()

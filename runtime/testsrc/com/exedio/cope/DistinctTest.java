@@ -35,6 +35,7 @@ public class DistinctTest extends AbstractRuntimeModelTest
 		super(PlusIntegerTest.MODEL);
 	}
 
+	@SuppressFBWarnings("URF_UNREAD_FIELD")
 	PlusIntegerItem item1, item2, item3, item4;
 
 	@Override

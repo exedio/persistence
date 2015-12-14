@@ -52,8 +52,6 @@ public class DoubleTest extends AbstractRuntimeModelTest
 	private static final Condition FALSE = Condition.FALSE;
 
 	private DoubleItem item;
-	@SuppressWarnings("unused") // OK: is an item not to be found by searches
-	private DoubleItem item2;
 	private int numberOfItems;
 
 	@Override
@@ -61,7 +59,7 @@ public class DoubleTest extends AbstractRuntimeModelTest
 	{
 		super.setUp();
 		item = new DoubleItem(2201.01);
-		item2 = new DoubleItem(2202.02);
+		new DoubleItem(2202.02);
 		numberOfItems = 2;
 	}
 

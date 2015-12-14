@@ -35,7 +35,7 @@ public class RandomTest extends AbstractRuntimeModelTest
 		super(CompareConditionTest.MODEL);
 	}
 
-	CompareConditionItem item1, item2, item3, item4, item5, itemX;
+	CompareConditionItem item1, item2, item3, item4, item5;
 	List<Long> expected5, expected6;
 	List<?> expected6Sort;
 

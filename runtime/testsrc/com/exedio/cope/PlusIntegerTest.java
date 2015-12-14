@@ -48,6 +48,7 @@ public class PlusIntegerTest extends AbstractRuntimeModelTest
 	}
 
 	PlusIntegerItem item;
+	@SuppressFBWarnings("URF_UNREAD_FIELD")
 	PlusIntegerItem item2;
 
 	@Override

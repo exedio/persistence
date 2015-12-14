@@ -21,6 +21,7 @@ package com.exedio.cope;
 import static com.exedio.cope.CacheIsolationItem.TYPE;
 import static com.exedio.cope.CacheIsolationItem.name;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.Test;
 
 public class ItemCacheStampPurgeTest extends AbstractRuntimeModelTest
@@ -31,6 +32,7 @@ public class ItemCacheStampPurgeTest extends AbstractRuntimeModelTest
 	}
 
 	boolean quit;
+	@SuppressFBWarnings("URF_UNREAD_FIELD")
 	CacheIsolationItem item1, item2, itemX;
 
 	@Override

@@ -35,13 +35,11 @@ public class QueryCacheTest extends AbstractRuntimeModelTest
 		super(MatchTest.MODEL);
 	}
 
-	MatchItem item;
-
 	@Override
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		item = new MatchItem();
+		new MatchItem();
 	}
 
 	private static final String Q1 = "select this from MatchItem where text='someString'";

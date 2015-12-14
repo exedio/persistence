@@ -42,6 +42,7 @@ import static java.util.Arrays.asList;
 
 import com.exedio.cope.CompareFunctionConditionItem.XEnum;
 import com.exedio.cope.util.Day;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Date;
 import java.util.List;
 import org.junit.Test;
@@ -53,6 +54,7 @@ public class CoalesceFunctionTest extends AbstractRuntimeModelTest
 		super(CompareFunctionConditionTest.MODEL);
 	}
 
+	@SuppressFBWarnings("URF_UNREAD_FIELD")
 	CompareFunctionConditionItem item1, item2, itemf1, itemf2, itemX, itemY;
 	static final Date aDate = new Date(1087365298214l);
 	static final Day aDay = new Day(2007, 4, 28);

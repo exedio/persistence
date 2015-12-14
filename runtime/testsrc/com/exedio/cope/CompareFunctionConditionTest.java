@@ -42,6 +42,7 @@ import static java.util.Arrays.asList;
 
 import com.exedio.cope.CompareFunctionConditionItem.XEnum;
 import com.exedio.cope.util.Day;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Date;
 import java.util.List;
 import org.junit.Test;
@@ -56,6 +57,7 @@ public class CompareFunctionConditionTest extends AbstractRuntimeModelTest
 		super(MODEL);
 	}
 
+	@SuppressFBWarnings("URF_UNREAD_FIELD")
 	CompareFunctionConditionItem item1, item2, item3, item4, item5, itemX, itemXa, itemXb;
 	final Date date = CompareFunctionConditionItem.date;
 	final Day day = CompareFunctionConditionItem.day;

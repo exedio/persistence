@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import com.exedio.cope.testmodel.PointerItem;
 import com.exedio.cope.testmodel.PointerTargetItem;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.Test;
 
 public class JoinOuterTest extends TestmodelTest
@@ -27,6 +28,7 @@ public class JoinOuterTest extends TestmodelTest
 	PointerItem leftJoined;
 	PointerItem leftLonely;
 	PointerTargetItem rightJoined;
+	@SuppressFBWarnings("URF_UNREAD_FIELD")
 	PointerTargetItem rightLonely;
 
 	@Override

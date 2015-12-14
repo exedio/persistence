@@ -47,14 +47,13 @@ public class DivideIntegerTest extends AbstractRuntimeModelTest
 	}
 
 	DivideIntegerItem item;
-	DivideIntegerItem item2;
 
 	@Override
 	public void setUp() throws Exception
 	{
 		super.setUp();
 		item = new DivideIntegerItem(7, 9, 3);
-		item2 = new DivideIntegerItem(30, 4, 5);
+		new DivideIntegerItem(30, 4, 5);
 	}
 
 	@Test public void testSum()

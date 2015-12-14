@@ -55,14 +55,13 @@ public class PlusLongTest extends AbstractRuntimeModelTest
 	}
 
 	PlusLongItem item;
-	PlusLongItem item2;
 
 	@Override
 	public void setUp() throws Exception
 	{
 		super.setUp();
 		item = new PlusLongItem(1l, 2l, 3l);
-		item2 = new PlusLongItem(3l, 4l, 5l);
+		new PlusLongItem(3l, 4l, 5l);
 	}
 
 	@Test public void testSum()

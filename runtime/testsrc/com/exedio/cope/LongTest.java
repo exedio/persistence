@@ -37,8 +37,6 @@ public class LongTest extends AbstractRuntimeModelTest
 	}
 
 	private LongItem item;
-	@SuppressWarnings("unused") // OK: is an item not to be found by searches
-	private LongItem item2;
 	private int numberOfItems;
 
 	@Override
@@ -46,7 +44,7 @@ public class LongTest extends AbstractRuntimeModelTest
 	{
 		super.setUp();
 		item = new LongItem(2201l);
-		item2 = new LongItem(2202l);
+		new LongItem(2202l);
 		numberOfItems = 2;
 	}
 

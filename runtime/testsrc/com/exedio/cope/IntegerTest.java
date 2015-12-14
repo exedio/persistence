@@ -37,8 +37,6 @@ public class IntegerTest extends AbstractRuntimeModelTest
 	}
 
 	private IntegerItem item;
-	@SuppressWarnings("unused") // OK: is an item not to be found by searches
-	private IntegerItem item2;
 	private int numberOfItems;
 
 	@Override
@@ -46,7 +44,7 @@ public class IntegerTest extends AbstractRuntimeModelTest
 	{
 		super.setUp();
 		item = new IntegerItem(2201);
-		item2 = new IntegerItem(2202);
+		new IntegerItem(2202);
 		numberOfItems = 2;
 	}
 
