@@ -720,6 +720,7 @@
 			<classpath>
 				<pathelement location="lib/exedio-cope-util.jar" />
 				<pathelement location="lib/junit.jar" />
+				<pathelement location="lib/cpsuite.jar" />
 			</classpath>
 		</compile>
 	</target>
@@ -730,11 +731,12 @@
 							runtime.servlet.webtest.compile">
 		<runInTomcat name="runtime.servlet.webtest">
 			<body>
-				<ljunit test="com.exedio.cope.pattern.webtest.PackageTest">
+				<ljunit test="com.exedio.cope.pattern.webtest.AllTests">
 					<classpath>
 						<pathelement location="build/classes/runtime/servlettestwebsrc" />
 						<pathelement location="lib/exedio-cope-util.jar" />
 						<pathelement location="lib/junit.jar" />
+						<pathelement location="lib/cpsuite.jar" />
 					</classpath>
 				</ljunit>
 			</body>
