@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import org.junit.Test;
 
 public class TransactionOnlyTest extends AbstractRuntimeModelTest
 {
@@ -28,7 +29,7 @@ public class TransactionOnlyTest extends AbstractRuntimeModelTest
 		super(CacheIsolationTest.MODEL);
 	}
 
-	public void testNesting()
+	@Test public void testNesting()
 	{
 		assertEquals( true, model.hasCurrentTransaction() );
 		final Transaction tx = model.currentTransaction();
@@ -66,7 +67,7 @@ public class TransactionOnlyTest extends AbstractRuntimeModelTest
 		assertEquals(tx, model.currentTransaction());
 	}
 
-	public void testJoinClosed()
+	@Test public void testJoinClosed()
 	{
 		final Transaction tx = model.currentTransaction();
 		model.commit();
@@ -89,7 +90,7 @@ public class TransactionOnlyTest extends AbstractRuntimeModelTest
 		IllegalStateException e = null;
 	}
 
-	public void testJoinMultiple() throws InterruptedException
+	@Test public void testJoinMultiple() throws InterruptedException
 	{
 		final Transaction tx = model.currentTransaction();
 		final IllegalStateExceptionReference rer = new IllegalStateExceptionReference();
@@ -114,7 +115,7 @@ public class TransactionOnlyTest extends AbstractRuntimeModelTest
 		assertEquals("transaction already bound to other thread: " + Thread.currentThread().getId(), rer.e.getMessage());
 	}
 
-	public void testTransactionLifecycle()
+	@Test public void testTransactionLifecycle()
 	{
 		final Transaction copeTest = model.currentTransaction();
 		assertContains( copeTest, model.getOpenTransactions() );

@@ -26,10 +26,11 @@ import com.exedio.cope.SetValue;
 import com.exedio.cope.StringField;
 import com.exedio.cope.junit.CopeAssert;
 import java.util.ArrayList;
+import org.junit.Test;
 
 public class SetValueUtilTest extends CopeAssert
 {
-	public void testGetFirst()
+	@Test public void testGetFirst()
 	{
 		final StringField f1 = new StringField();
 		final StringField f2 = new StringField();
@@ -55,7 +56,7 @@ public class SetValueUtilTest extends CopeAssert
 		assertEquals("value2", getFirst(l.toArray(a), f2));
 	}
 
-	public void testGetFirstNullSetValues()
+	@Test public void testGetFirstNullSetValues()
 	{
 		final StringField f = new StringField();
 		try
@@ -78,14 +79,14 @@ public class SetValueUtilTest extends CopeAssert
 		}
 	}
 
-	public void testGetFirstNullSettable()
+	@Test public void testGetFirstNullSettable()
 	{
 		// TODO should rather throw an exception
 		assertEquals(null, getFirst(new SetValue<?>[]{}, null));
 		assertEquals(null, getFirst(asList(new SetValue<?>[]{}), null));
 	}
 
-	public void testAdd()
+	@Test public void testAdd()
 	{
 		final SetValue<?> m1 = new StringField().map("v1");
 		final SetValue<?> m2 = new StringField().map("v2");
@@ -96,7 +97,7 @@ public class SetValueUtilTest extends CopeAssert
 		assertEquals(asList(m1, m2, mX), asList(add(new SetValue<?>[]{m1, m2}, mX)));
 	}
 
-	public void testAddNullSetValues()
+	@Test public void testAddNullSetValues()
 	{
 		final SetValue<?> m = new StringField().map("vX");
 		try
@@ -110,7 +111,7 @@ public class SetValueUtilTest extends CopeAssert
 		}
 	}
 
-	public void testAddNullValue()
+	@Test public void testAddNullValue()
 	{
 		try
 		{

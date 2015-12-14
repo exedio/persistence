@@ -28,6 +28,7 @@ import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Model;
 import java.util.Arrays;
+import org.junit.Test;
 
 public class MD5Test extends AbstractRuntimeModelTest
 {
@@ -60,7 +61,7 @@ public class MD5Test extends AbstractRuntimeModelTest
 	private static final String FRANK_MD5 = "7e716d0e702df0505fc72e2b89467910";
 	private static final String EMPTY_MD5 = "d41d8cd98f00b204e9800998ecf8427e";
 
-	public void testMD5()
+	@Test public void testMD5()
 	{
 		assertEquals(Arrays.asList(
 				TYPE.getThis(),

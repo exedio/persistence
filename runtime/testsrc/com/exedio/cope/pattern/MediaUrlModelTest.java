@@ -31,6 +31,7 @@ import com.exedio.cope.Feature;
 import com.exedio.cope.Model;
 import com.exedio.cope.junit.CopeAssert;
 import java.util.Arrays;
+import org.junit.Test;
 
 public final class MediaUrlModelTest extends CopeAssert
 {
@@ -42,7 +43,7 @@ public final class MediaUrlModelTest extends CopeAssert
 	}
 
 	@SuppressWarnings("static-method")
-	public void testIt()
+	@Test public void testIt()
 	{
 		assertEqualsUnmodifiable(Arrays.asList(new Feature[]{
 				TYPE.getThis(),

@@ -34,6 +34,7 @@ import com.exedio.cope.CompareConditionItem.YEnum;
 import com.exedio.cope.util.Day;
 import java.util.Date;
 import java.util.List;
+import org.junit.Test;
 
 public class CoalesceTest extends AbstractRuntimeModelTest
 {
@@ -67,7 +68,7 @@ public class CoalesceTest extends AbstractRuntimeModelTest
 		item2.setItem(item2);
 	}
 
-	public void testIt()
+	@Test public void testIt()
 	{
 		try
 		{

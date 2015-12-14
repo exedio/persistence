@@ -24,6 +24,7 @@ import static com.exedio.cope.testmodel.FinalItem.nonFinalInteger;
 
 import com.exedio.cope.testmodel.FinalItem;
 import java.util.List;
+import org.junit.Test;
 
 public class GroupByTest extends TestmodelTest
 {
@@ -41,20 +42,20 @@ public class GroupByTest extends TestmodelTest
 		new FinalItem("car", 8);
 	}
 
-	public void testSimpleCount()
+	@Test public void testSimpleCount()
 	{
 		final Query<FinalItem> items = TYPE.newQuery();
 		assertCount(items, 8, 8);
 	}
 
-	public void testSimpleCountWithLimit()
+	@Test public void testSimpleCountWithLimit()
 	{
 		final Query<FinalItem> items = TYPE.newQuery();
 		items.setLimit(0, 3);
 		assertCount(items, 3, 8);
 	}
 
-	public void testGroupByCount()
+	@Test public void testGroupByCount()
 	{
 		final Selectable<?>[] selection = new Selectable<?>[]{finalString, nonFinalInteger.min()};
 		final Query<List<Object>> items = Query.newQuery(selection, TYPE, null);
@@ -62,7 +63,7 @@ public class GroupByTest extends TestmodelTest
 		assertCount(items, 4, 4);
 	}
 
-	public void testGroupByCountWithLimit()
+	@Test public void testGroupByCountWithLimit()
 	{
 		final Selectable<?>[] selection = new Selectable<?>[]{finalString, nonFinalInteger.min()};
 		final Query<List<Object>> items = Query.newQuery(selection, TYPE, null);

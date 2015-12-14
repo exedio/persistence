@@ -23,6 +23,7 @@ import static com.exedio.cope.MatchItem.text;
 
 import com.exedio.cope.misc.DatabaseListener;
 import java.util.List;
+import org.junit.Test;
 
 public class DatabaseLogTest extends AbstractRuntimeModelTest
 {
@@ -47,7 +48,7 @@ public class DatabaseLogTest extends AbstractRuntimeModelTest
 		super.tearDown();
 	}
 
-	public void testDatabaseLog()
+	@Test public void testDatabaseLog()
 	{
 		final ExpectingDatabaseListener l = new ExpectingDatabaseListener();
 		model.setTestDatabaseListener(l);

@@ -32,6 +32,7 @@ import com.exedio.cope.Model;
 import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.pattern.EnumMapFieldItem.Language;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import org.junit.Test;
 
 public class EnumMapFieldModelTest extends CopeAssert
 {
@@ -42,7 +43,7 @@ public class EnumMapFieldModelTest extends CopeAssert
 		MODEL.enableSerialization(EnumMapFieldModelTest.class, "MODEL");
 	}
 
-	public void testIt()
+	@Test public void testIt()
 	{
 		assertEquals(TYPE, name.getType());
 		assertEquals("name", name.getName());
@@ -85,7 +86,7 @@ public class EnumMapFieldModelTest extends CopeAssert
 		assertSerializedSame(nameLength, 397);
 	}
 
-	public void testInitialType()
+	@Test public void testInitialType()
 	{
 		assertEquals("java.util.EnumMap<" + Language.class.getName() + ", java.lang.String>" , name      .getInitialType().toString());
 		assertEquals("java.util.EnumMap<" + Language.class.getName() + ", java.lang.Integer>", nameLength.getInitialType().toString());
@@ -93,7 +94,7 @@ public class EnumMapFieldModelTest extends CopeAssert
 
 	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad API usage
 	@SuppressFBWarnings("NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS") // OK: test bad API usage
-	public void testUnchecked()
+	@Test public void testUnchecked()
 	{
 		try
 		{

@@ -26,6 +26,7 @@ import static com.exedio.cope.Query.newQuery;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
+import org.junit.Test;
 
 public class SelectBindTest extends AbstractRuntimeModelTest
 {
@@ -44,7 +45,7 @@ public class SelectBindTest extends AbstractRuntimeModelTest
 		item2 = new CompareConditionItem("string2", 2, 12l, 2.2, null, null, null);
 	}
 
-	public void testIt()
+	@Test public void testIt()
 	{
 		{
 			final Query<List<Object>> q = newQuery(new Function<?>[]{string, intx}, TYPE, null);

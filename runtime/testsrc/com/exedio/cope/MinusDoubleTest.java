@@ -29,6 +29,8 @@ import static com.exedio.cope.MinusDoubleItem.viewAC;
 import static com.exedio.cope.MinusDoubleItem.viewBC;
 import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
 
+import org.junit.Test;
+
 public class MinusDoubleTest extends AbstractRuntimeModelTest
 {
 	static final Model MODEL = new Model(TYPE);
@@ -62,7 +64,7 @@ public class MinusDoubleTest extends AbstractRuntimeModelTest
 	private static final Double dAC = Double.valueOf(4.5);
 	private static final Double dBC = Double.valueOf(-1.5);
 
-	public void testSum()
+	@Test public void testSum()
 	{
 		// test model
 		assertEquals(TYPE, viewAB.getType());

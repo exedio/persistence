@@ -18,6 +18,8 @@
 
 package com.exedio.dsmf;
 
+import org.junit.Test;
+
 /**
  * Test whether all names are quoted,
  * by using sql keyword for names.
@@ -51,7 +53,7 @@ public class QuoteTest extends SchemaReadyTest
 		return result;
 	}
 
-	public void testIt()
+	@Test public void testIt()
 	{
 		final Schema schema = getVerifiedSchema();
 

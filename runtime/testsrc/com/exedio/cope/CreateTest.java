@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import org.junit.Test;
+
 public class CreateTest extends AbstractRuntimeModelTest
 {
 	private static final Model MODEL = new Model(CreateSuperItem.TYPE, CreateItem.TYPE);
@@ -27,7 +29,7 @@ public class CreateTest extends AbstractRuntimeModelTest
 		super(MODEL);
 	}
 
-	public void test()
+	@Test public void test()
 	{
 		{
 			final CreateItem item = new CreateItem("normal");

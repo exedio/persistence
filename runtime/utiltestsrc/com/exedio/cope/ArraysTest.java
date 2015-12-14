@@ -20,10 +20,11 @@ package com.exedio.cope;
 
 import com.exedio.cope.misc.Arrays;
 import junit.framework.TestCase;
+import org.junit.Test;
 
 public class ArraysTest extends TestCase
 {
-	public void testIt()
+	@Test public void testIt()
 	{
 		try
 		{

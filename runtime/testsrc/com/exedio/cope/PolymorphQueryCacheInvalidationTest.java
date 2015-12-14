@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import org.junit.Test;
 
 public class PolymorphQueryCacheInvalidationTest extends AbstractRuntimeModelTest
 {
@@ -35,7 +36,7 @@ public class PolymorphQueryCacheInvalidationTest extends AbstractRuntimeModelTes
 		itema = new InstanceOfAItem("itema");
 	}
 
-	public void testIt()
+	@Test public void testIt()
 	{
 		final Query<InstanceOfAItem> q = InstanceOfAItem.TYPE.newQuery(null);
 		assertContains(itema, q.search());

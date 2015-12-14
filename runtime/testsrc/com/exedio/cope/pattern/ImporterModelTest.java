@@ -28,6 +28,7 @@ import static com.exedio.cope.pattern.ImporterItem.description2;
 import com.exedio.cope.Model;
 import com.exedio.cope.StringField;
 import com.exedio.cope.junit.CopeAssert;
+import org.junit.Test;
 
 public class ImporterModelTest extends CopeAssert
 {
@@ -38,7 +39,7 @@ public class ImporterModelTest extends CopeAssert
 		model.enableSerialization(ImporterModelTest.class, "model");
 	}
 
-	public void testIt()
+	@Test public void testIt()
 	{
 		assertEqualsUnmodifiable(list(TYPE), model.getTypes());
 		assertEqualsUnmodifiable(list(TYPE), model.getTypesSortedByHierarchy());

@@ -22,6 +22,7 @@ import static com.exedio.cope.sampler.Stuff.sampler;
 import static com.exedio.cope.sampler.Stuff.samplerModel;
 
 import com.exedio.cope.pattern.Media;
+import org.junit.Test;
 
 public class SampleMediaTest extends ConnectedTest
 {
@@ -31,7 +32,7 @@ public class SampleMediaTest extends ConnectedTest
 		return false;
 	}
 
-	public void testNormal() throws InterruptedException
+	@Test public void testNormal() throws InterruptedException
 	{
 		samplerModel.createSchema();
 
@@ -63,7 +64,7 @@ public class SampleMediaTest extends ConnectedTest
 		}
 	}
 
-	public void testEmptyStart() throws InterruptedException
+	@Test public void testEmptyStart() throws InterruptedException
 	{
 		samplerModel.createSchema();
 

@@ -23,6 +23,8 @@ import static com.exedio.cope.CopyModelTest.templateItemCopyFromTarget;
 import static com.exedio.cope.CopyModelTest.templateStringCopyFromTarget;
 import static com.exedio.cope.CopySourceItem.TYPE;
 
+import org.junit.Test;
+
 public class CopyTest extends AbstractRuntimeModelTest
 {
 	public CopyTest()
@@ -30,7 +32,7 @@ public class CopyTest extends AbstractRuntimeModelTest
 		super(CopyModelTest.MODEL);
 	}
 
-	public void testOk1()
+	@Test public void testOk1()
 	{
 		final CopyValueItem value = new CopyValueItem();
 		final CopyTargetItem target = new CopyTargetItem("template1", "otherString1", value, new CopyValueItem());
@@ -45,7 +47,7 @@ public class CopyTest extends AbstractRuntimeModelTest
 		check();
 	}
 
-	public void testOk2()
+	@Test public void testOk2()
 	{
 		final CopyValueItem value = new CopyValueItem();
 		final CopyTargetItem target = new CopyTargetItem("template2", "otherString2", value, new CopyValueItem());
@@ -58,7 +60,7 @@ public class CopyTest extends AbstractRuntimeModelTest
 		check();
 	}
 
-	public void testOkNullValue()
+	@Test public void testOkNullValue()
 	{
 		final CopyTargetItem target = new CopyTargetItem(null, "otherString2", null, new CopyValueItem());
 
@@ -70,7 +72,7 @@ public class CopyTest extends AbstractRuntimeModelTest
 		check();
 	}
 
-	public void testOkNullTarget()
+	@Test public void testOkNullTarget()
 	{
 		final CopyValueItem value = new CopyValueItem();
 
@@ -82,7 +84,7 @@ public class CopyTest extends AbstractRuntimeModelTest
 		check();
 	}
 
-	public void testWrongString()
+	@Test public void testWrongString()
 	{
 		final CopyValueItem value = new CopyValueItem();
 		final CopyTargetItem target = new CopyTargetItem("template2", "otherString2", value, new CopyValueItem());
@@ -109,7 +111,7 @@ public class CopyTest extends AbstractRuntimeModelTest
 		check();
 	}
 
-	public void testWrongStringNullCopy()
+	@Test public void testWrongStringNullCopy()
 	{
 		final CopyValueItem value = new CopyValueItem();
 		final CopyTargetItem target = new CopyTargetItem("template2", "otherString2", value, new CopyValueItem());
@@ -136,7 +138,7 @@ public class CopyTest extends AbstractRuntimeModelTest
 		check();
 	}
 
-	public void testWrongItem()
+	@Test public void testWrongItem()
 	{
 		final CopyValueItem value1 = new CopyValueItem();
 		final CopyValueItem value2 = new CopyValueItem();
@@ -164,7 +166,7 @@ public class CopyTest extends AbstractRuntimeModelTest
 		check();
 	}
 
-	public void testWrongItemNullCopy()
+	@Test public void testWrongItemNullCopy()
 	{
 		final CopyValueItem value = new CopyValueItem();
 		final CopyTargetItem target = new CopyTargetItem("template2", "otherString2", value, new CopyValueItem());
@@ -191,7 +193,7 @@ public class CopyTest extends AbstractRuntimeModelTest
 		check();
 	}
 
-	public void testWrongStringNullTemplate()
+	@Test public void testWrongStringNullTemplate()
 	{
 		final CopyValueItem value = new CopyValueItem();
 		final CopyTargetItem target = new CopyTargetItem(null, "otherString2", null, new CopyValueItem());
@@ -218,7 +220,7 @@ public class CopyTest extends AbstractRuntimeModelTest
 		check();
 	}
 
-	public void testWrongItemNullTemplate()
+	@Test public void testWrongItemNullTemplate()
 	{
 		final CopyValueItem value = new CopyValueItem();
 		final CopyTargetItem target = new CopyTargetItem(null, "otherString2", null, new CopyValueItem());
@@ -245,7 +247,7 @@ public class CopyTest extends AbstractRuntimeModelTest
 		check();
 	}
 
-	public void testWrongStringOmittedCopy()
+	@Test public void testWrongStringOmittedCopy()
 	{
 		final CopyValueItem value = new CopyValueItem();
 		final CopyTargetItem target = new CopyTargetItem("template1", "otherString1", value, new CopyValueItem());

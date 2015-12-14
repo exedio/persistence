@@ -40,6 +40,7 @@ import java.util.Vector;
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
+import org.junit.Test;
 
 public final class MediaPathTest extends AbstractRuntimeModelTest
 {
@@ -88,7 +89,7 @@ public final class MediaPathTest extends AbstractRuntimeModelTest
 		super.tearDown();
 	}
 
-	public void testNotFound() throws ServletException, IOException
+	@Test public void testNotFound() throws ServletException, IOException
 	{
 		item.setNormalContentType("blah/foo");
 		assertNotFound("zack", "no such path");
@@ -110,7 +111,7 @@ public final class MediaPathTest extends AbstractRuntimeModelTest
 		assertNotFound(pathInfo, "not computable");
 	}
 
-	public void testException() throws ServletException, IOException
+	@Test public void testException() throws ServletException, IOException
 	{
 		final String pathInfo = "/MediaPathItem/normal/" + id;
 		assertOk(pathInfo);
@@ -126,7 +127,7 @@ public final class MediaPathTest extends AbstractRuntimeModelTest
 
 	private static final String prefix = "/testContextPath/testServletPath";
 
-	public void testRedirectFrom() throws ServletException, IOException
+	@Test public void testRedirectFrom() throws ServletException, IOException
 	{
 		item.setNormalContentType("blah/foo");
 		assertEquals("MediaPathItem/normal/" + id, item.getNormalLocator().getPath());
@@ -138,7 +139,7 @@ public final class MediaPathTest extends AbstractRuntimeModelTest
 		assertRedirect("/MediaPathItem/normalRedirect2/" + id + "/phrase.jpg", prefix + "/MediaPathItem/normal/" + id + "/phrase.jpg");
 	}
 
-	public void testRedirectFromExtension() throws ServletException, IOException
+	@Test public void testRedirectFromExtension() throws ServletException, IOException
 	{
 		item.setNormalContentType("image/jpeg");
 		assertEquals("MediaPathItem/normal/" + id + ".jpg", item.getNormalLocator().getPath());
@@ -150,7 +151,7 @@ public final class MediaPathTest extends AbstractRuntimeModelTest
 		assertRedirect("/MediaPathItem/normalRedirect2/" + id + "/phrase.jpg", prefix + "/MediaPathItem/normal/" + id + "/phrase.jpg");
 	}
 
-	public void testRedirectFromPhrase() throws ServletException, IOException
+	@Test public void testRedirectFromPhrase() throws ServletException, IOException
 	{
 		item.setNormalContentType("blah/foo");
 		item.setCatchphrase("phrase");
@@ -163,7 +164,7 @@ public final class MediaPathTest extends AbstractRuntimeModelTest
 		assertRedirect("/MediaPathItem/normalRedirect2/" + id + "/phrase.jpg", prefix + "/MediaPathItem/normal/" + id + "/phrase.jpg");
 	}
 
-	public void testRedirectFromPhraseExtension() throws ServletException, IOException
+	@Test public void testRedirectFromPhraseExtension() throws ServletException, IOException
 	{
 		item.setNormalContentType("image/jpeg");
 		item.setCatchphrase("phrase");
@@ -176,7 +177,7 @@ public final class MediaPathTest extends AbstractRuntimeModelTest
 		assertRedirect("/MediaPathItem/normalRedirect2/" + id + "/phrase.jpg", prefix + "/MediaPathItem/normal/" + id + "/phrase.jpg");
 	}
 
-	public void testRedirectFromFinger() throws ServletException, IOException
+	@Test public void testRedirectFromFinger() throws ServletException, IOException
 	{
 		item.setFingerContentType("image/jpeg");
 		item.setFingerLastModified(new Date(333338888));
@@ -187,7 +188,7 @@ public final class MediaPathTest extends AbstractRuntimeModelTest
 		assertRedirect("/MediaPathItem/fingerRedirect1/.f333339000/" + id, prefix + "/MediaPathItem/finger/.f333339000/" + id);
 	}
 
-	public void testCatchphrase() throws ServletException, IOException
+	@Test public void testCatchphrase() throws ServletException, IOException
 	{
 		item.setNormalContentType("blah/foo");
 		item.setCatchphrase("phrase");
@@ -201,7 +202,7 @@ public final class MediaPathTest extends AbstractRuntimeModelTest
 		assertRedirect("/MediaPathItem/normal/" + id + "/phrase.png",      prefix + ok);
 	}
 
-	public void testCatchphraseExtension() throws ServletException, IOException
+	@Test public void testCatchphraseExtension() throws ServletException, IOException
 	{
 		item.setNormalContentType("image/jpeg");
 		item.setCatchphrase("phrase");
@@ -215,7 +216,7 @@ public final class MediaPathTest extends AbstractRuntimeModelTest
 		assertRedirect("/MediaPathItem/normal/" + id + "/phrase.png",      prefix + ok);
 	}
 
-	public void testFingerNotFound() throws ServletException, IOException
+	@Test public void testFingerNotFound() throws ServletException, IOException
 	{
 		item.setNormalContentType("blah/foo");
 		assertNotFound("/MediaPathItem/normal/."   , "invalid special");
@@ -227,7 +228,7 @@ public final class MediaPathTest extends AbstractRuntimeModelTest
 		assertNotFound("/MediaPathItem/normal/.fx/", "not an item");
 	}
 
-	public void testFingerWithoutLastModified() throws ServletException, IOException
+	@Test public void testFingerWithoutLastModified() throws ServletException, IOException
 	{
 		item.setFingerContentType("image/jpeg");
 		item.setCatchphrase("phrase");
@@ -241,7 +242,7 @@ public final class MediaPathTest extends AbstractRuntimeModelTest
 		assertRedirect("/MediaPathItem/finger/" + id + "/phrase.png",      prefix + ok);
 	}
 
-	public void testFinger() throws ServletException, IOException
+	@Test public void testFinger() throws ServletException, IOException
 	{
 		item.setFingerContentType("image/jpeg");
 		item.setFingerLastModified(new Date(333338888));
@@ -264,7 +265,7 @@ public final class MediaPathTest extends AbstractRuntimeModelTest
 		assertRedirect("/MediaPathItem/finger/.fx/" + id + "/phrase.png",      prefix + ok);
 	}
 
-	public void testConditional() throws ServletException, IOException
+	@Test public void testConditional() throws ServletException, IOException
 	{
 		item.setNormalContentType("image/jpeg");
 		item.setCatchphrase("phrase");
@@ -293,7 +294,7 @@ public final class MediaPathTest extends AbstractRuntimeModelTest
 		service(new Request(ok).ifModifiedSince(77772001l)).assertNotModified(77772000l);
 	}
 
-	public void testExpires() throws ServletException, IOException
+	@Test public void testExpires() throws ServletException, IOException
 	{
 		item.setNormalContentType("image/jpeg");
 		item.setCatchphrase("phrase");
@@ -310,7 +311,7 @@ public final class MediaPathTest extends AbstractRuntimeModelTest
 	 * This test became useless, as there is no connection between
 	 * toFinal and Expires anymore.
 	 */
-	public void testExpiresFinal() throws ServletException, IOException
+	@Test public void testExpiresFinal() throws ServletException, IOException
 	{
 		MediaPathItem.normal.setFinal(true);
 		item.setNormalContentType("image/jpeg");
@@ -321,7 +322,7 @@ public final class MediaPathTest extends AbstractRuntimeModelTest
 		response.assertOkAndCache(333339000l);
 	}
 
-	public void testGuess() throws ServletException, IOException
+	@Test public void testGuess() throws ServletException, IOException
 	{
 		item.setGuessContentType("image/jpeg");
 		final String ok = "/MediaPathItem/guess/" + id + ".jpg";
@@ -333,7 +334,7 @@ public final class MediaPathTest extends AbstractRuntimeModelTest
 		assertNotFound(ok, "guessed url");
 	}
 
-	public void testGuessAndAge() throws ServletException, IOException
+	@Test public void testGuessAndAge() throws ServletException, IOException
 	{
 		item.setGuessContentType("image/jpeg");
 		item.setGuessLastModified(new Date(333338888));
@@ -345,7 +346,7 @@ public final class MediaPathTest extends AbstractRuntimeModelTest
 				: "private");
 	}
 
-	public void testAccessControlAllowOriginWildcard() throws ServletException, IOException
+	@Test public void testAccessControlAllowOriginWildcard() throws ServletException, IOException
 	{
 		item.setNormalContentType("image/jpeg");
 		final String ok = "/MediaPathItem/normal/" + id + ".jpg";
@@ -358,33 +359,33 @@ public final class MediaPathTest extends AbstractRuntimeModelTest
 
 	// TODO testInfo with others
 
-	public void testInfoNotAnItem() throws ServletException, IOException
+	@Test public void testInfoNotAnItem() throws ServletException, IOException
 	{
 		assertNotFound("/MediaPathItem/normal/x", "not an item");
 		assertInfo(0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0);
 	}
 
-	public void testInfoNoSuchItem() throws ServletException, IOException
+	@Test public void testInfoNoSuchItem() throws ServletException, IOException
 	{
 		assertNotFound("/MediaPathItem/normal/MediaPathItem-9999.jpg", "no such item");
 		assertInfo(0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0);
 	}
 
-	public void testInfoMoved() throws ServletException, IOException
+	@Test public void testInfoMoved() throws ServletException, IOException
 	{
 		item.setNormalContentType("image/jpeg");
 		assertRedirect("/MediaPathItem/normal/" + id, prefix + "/MediaPathItem/normal/" + id + ".jpg");
 		assertInfo(0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0);
 	}
 
-	public void testInfoIsNull() throws ServletException, IOException
+	@Test public void testInfoIsNull() throws ServletException, IOException
 	{
 		item.setNormalResult(Result.notFoundIsNull);
 		assertNotFound("/MediaPathItem/normal/" + id, "is null");
 		assertInfo(0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0);
 	}
 
-	public void testInfoNotComputable() throws ServletException, IOException
+	@Test public void testInfoNotComputable() throws ServletException, IOException
 	{
 		item.setNormalResult(Result.notFoundNotComputable);
 		assertNotFound("/MediaPathItem/normal/" + id, "not computable");
@@ -393,7 +394,7 @@ public final class MediaPathTest extends AbstractRuntimeModelTest
 
 	// TODO testInfoNotModified
 
-	public void testInfoDelivered() throws ServletException, IOException
+	@Test public void testInfoDelivered() throws ServletException, IOException
 	{
 		assertOk("/MediaPathItem/normal/" + id);
 		assertInfo(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1);

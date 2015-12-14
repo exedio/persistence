@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import java.util.List;
+import org.junit.Test;
 
 public class PolymorphicBoundSelectTest extends AbstractRuntimeModelTest
 {
@@ -29,7 +30,7 @@ public class PolymorphicBoundSelectTest extends AbstractRuntimeModelTest
 		super(MODEL);
 	}
 
-	public void testItemField()
+	@Test public void testItemField()
 	{
 		final PolymorphicBoundSelectSuperItem superItem = new PolymorphicBoundSelectSuperItem((PolymorphicBoundSelectSuperItem)null);
 		final PolymorphicBoundSelectSubItem subItem = new PolymorphicBoundSelectSubItem(superItem);
@@ -46,7 +47,7 @@ public class PolymorphicBoundSelectTest extends AbstractRuntimeModelTest
 		assertEquals(list(list(subItem, null)), q.search());
 	}
 
-	public void testThis()
+	@Test public void testThis()
 	{
 		final PolymorphicBoundSelectSuperItem superItem = new PolymorphicBoundSelectSuperItem((PolymorphicBoundSelectSuperItem)null);
 		new PolymorphicBoundSelectSubItem(superItem);

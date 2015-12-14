@@ -26,6 +26,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Properties;
 import java.util.TreeMap;
+import org.junit.Test;
 
 public class RevisionInfoTest extends CopeAssert
 {
@@ -46,7 +47,7 @@ public class RevisionInfoTest extends CopeAssert
 		env.put("env3Key", "env3Value");
 	}
 
-	public void testRevise()
+	@Test public void testRevise()
 	{
 		final RevisionInfoRevise i =
 			new RevisionInfoRevise(5, "saveRevise", DATE, env, "comment5",
@@ -218,7 +219,7 @@ public class RevisionInfoTest extends CopeAssert
 		new Body("x", 0, 0);
 	}
 
-	public void testCreate()
+	@Test public void testCreate()
 	{
 		final RevisionInfoCreate i =
 			new RevisionInfoCreate(5, DATE, env);
@@ -272,7 +273,7 @@ public class RevisionInfoTest extends CopeAssert
 		new RevisionInfoCreate(0, DATE, env);
 	}
 
-	public void testMutex()
+	@Test public void testMutex()
 	{
 		final RevisionInfoMutex i =
 			new RevisionInfoMutex("saveMutex", DATE, env, 78, 72);
@@ -342,7 +343,7 @@ public class RevisionInfoTest extends CopeAssert
 		new RevisionInfoMutex((String)null, DATE, env, 1, 0);
 	}
 
-	public void testParse() throws UnsupportedEncodingException
+	@Test public void testParse() throws UnsupportedEncodingException
 	{
 		assertEquals(map("key1", "value1", "key2", "value2"), RevisionInfo.parse(("#migrationlogv01" + eol + "key1=value1" + eol + "key2=value2").getBytes("latin1")));
 		assertEquals(null, RevisionInfo.parse("migrationlogv01".getBytes("latin1")));

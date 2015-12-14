@@ -22,6 +22,7 @@ import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.Join;
 import com.exedio.cope.Model;
 import com.exedio.cope.Query;
+import org.junit.Test;
 
 public class InstanceOfQueryTest extends AbstractRuntimeModelTest
 {
@@ -35,7 +36,7 @@ public class InstanceOfQueryTest extends AbstractRuntimeModelTest
 		super(MODEL);
 	}
 
-	public void testIt()
+	@Test public void testIt()
 	{
 		final Query<IoqSourceSubA> query = IoqSourceSubA.TYPE.newQuery();
 		final Join joinB = query.join(IoqSourceSubB.TYPE);

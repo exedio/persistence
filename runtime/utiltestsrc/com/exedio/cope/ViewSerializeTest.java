@@ -26,22 +26,23 @@ import static com.exedio.cope.junit.CopeAssert.serialize;
 import static java.util.Arrays.asList;
 
 import junit.framework.TestCase;
+import org.junit.Test;
 
 public class ViewSerializeTest extends TestCase
 {
-	public void testField()
+	@Test public void testField()
 	{
 		assertSerializedSame(field, 370);
 		assertEquals("AnItem.field", field.toString());
 	}
 
-	public void testView()
+	@Test public void testView()
 	{
 		assertSerializedSame(view,  369);
 		assertEquals("AnItem.view", view.toString());
 	}
 
-	public void testViewNonMounted()
+	@Test public void testViewNonMounted()
 	{
 		final UppercaseView feature = field.toUpperCase();
 		assertEquals(asList(field), feature.getSources());
@@ -57,7 +58,7 @@ public class ViewSerializeTest extends TestCase
 		assertEquals("upper(AnItem.field)", reserialized.toString());
 	}
 
-	public void testViewWithFieldNonMounted()
+	@Test public void testViewWithFieldNonMounted()
 	{
 		final StringField source = new StringField();
 		final UppercaseView feature = source.toUpperCase();
@@ -73,7 +74,7 @@ public class ViewSerializeTest extends TestCase
 		assertEquals("upper(" + toStringObject(source) + ")", feature.toString());
 	}
 
-	public void testFieldNonMounted()
+	@Test public void testFieldNonMounted()
 	{
 		final StringField feature = new StringField();
 		try
@@ -88,7 +89,7 @@ public class ViewSerializeTest extends TestCase
 		assertEquals(toStringObject(feature), feature.toString());
 	}
 
-	public void testType()
+	@Test public void testType()
 	{
 		assertEquals(asList(TYPE.getThis(), field, view), TYPE.getFeatures());
 	}

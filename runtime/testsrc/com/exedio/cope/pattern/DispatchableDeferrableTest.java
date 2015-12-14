@@ -25,6 +25,7 @@ import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.util.JobContexts;
 import org.junit.Assert;
+import org.junit.Test;
 
 public class DispatchableDeferrableTest extends AbstractRuntimeModelTest
 {
@@ -35,7 +36,7 @@ public class DispatchableDeferrableTest extends AbstractRuntimeModelTest
 		super(MODEL);
 	}
 
-	public void test()
+	@Test public void test()
 	{
 		final AnItem item1 = new AnItem();
 		final AnItem item2 = new AnItem();

@@ -34,6 +34,8 @@ import static com.exedio.cope.PlusIntegerItem.plusAC;
 import static com.exedio.cope.PlusIntegerItem.plusBC;
 import static java.lang.Integer.valueOf;
 
+import org.junit.Test;
+
 public class PlusIntegerTest extends AbstractRuntimeModelTest
 {
 	static final Model MODEL = new Model(TYPE);
@@ -54,7 +56,7 @@ public class PlusIntegerTest extends AbstractRuntimeModelTest
 		item2 = new PlusIntegerItem(3, 4, 5);
 	}
 
-	public void testSum()
+	@Test public void testSum()
 	{
 		// test model
 		assertEquals(TYPE, plusA9.getType());

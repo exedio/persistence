@@ -28,10 +28,11 @@ import static com.exedio.cope.TypesBound.newType;
 
 import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.pattern.SetField;
+import org.junit.Test;
 
 public class TypesBoundAnnotationTest extends CopeAssert
 {
-	public void testType()
+	@Test public void testType()
 	{
 		try
 		{

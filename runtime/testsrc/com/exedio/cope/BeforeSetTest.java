@@ -30,6 +30,7 @@ import static com.exedio.cope.BeforeSetItem.Action.runtimeException;
 import static java.util.Arrays.asList;
 
 import com.exedio.cope.BeforeSetItem.Action;
+import org.junit.Test;
 
 public class BeforeSetTest extends AbstractRuntimeModelTest
 {
@@ -40,7 +41,7 @@ public class BeforeSetTest extends AbstractRuntimeModelTest
 		super(MODEL);
 	}
 
-	public void test()
+	@Test public void test()
 	{
 		final BeforeSetItem item = new BeforeSetItem();
 		assertEquals(11, item.getField1());
@@ -72,7 +73,7 @@ public class BeforeSetTest extends AbstractRuntimeModelTest
 				item.getCalls());
 	}
 
-	public void testActionConstraintViolation()
+	@Test public void testActionConstraintViolation()
 	{
 		final BeforeSetItem item = new BeforeSetItem();
 		assertEquals(11, item.getField1());
@@ -96,7 +97,7 @@ public class BeforeSetTest extends AbstractRuntimeModelTest
 		assertEquals(asList("[BeforeSetItem.action=" + constraintViolation + "]"), item.getCalls());
 	}
 
-	public void testActionRuntimeException()
+	@Test public void testActionRuntimeException()
 	{
 		final BeforeSetItem item = new BeforeSetItem();
 		assertEquals(11, item.getField1());
@@ -119,7 +120,7 @@ public class BeforeSetTest extends AbstractRuntimeModelTest
 		assertEquals(asList("[BeforeSetItem.action=" + runtimeException + "]"), item.getCalls());
 	}
 
-	public void testActionAddField1()
+	@Test public void testActionAddField1()
 	{
 		final BeforeSetItem item = new BeforeSetItem();
 		assertEquals(11, item.getField1());
@@ -134,7 +135,7 @@ public class BeforeSetTest extends AbstractRuntimeModelTest
 		assertEquals(asList("[BeforeSetItem.action=" + addField1 + "]"), item.getCalls());
 	}
 
-	public void testActionAddField1ConstraintViolation()
+	@Test public void testActionAddField1ConstraintViolation()
 	{
 		final BeforeSetItem item = new BeforeSetItem();
 		assertEquals(11, item.getField1());
@@ -159,7 +160,7 @@ public class BeforeSetTest extends AbstractRuntimeModelTest
 		assertEquals(asList("[BeforeSetItem.action=" + addField1ConstraintViolation + "]"), item.getCalls());
 	}
 
-	public void testActionReplaceField1()
+	@Test public void testActionReplaceField1()
 	{
 		final BeforeSetItem item = new BeforeSetItem();
 		assertEquals(11, item.getField1());
@@ -178,7 +179,7 @@ public class BeforeSetTest extends AbstractRuntimeModelTest
 				item.getCalls());
 	}
 
-	public void testActionAddDuplicate()
+	@Test public void testActionAddDuplicate()
 	{
 		final BeforeSetItem item = new BeforeSetItem();
 		assertEquals(11, item.getField1());
@@ -201,7 +202,7 @@ public class BeforeSetTest extends AbstractRuntimeModelTest
 		assertEquals(asList("[BeforeSetItem.action=" + addDuplicate + "]"), item.getCalls());
 	}
 
-	public void testSetNull()
+	@Test public void testSetNull()
 	{
 		final BeforeSetItem item = new BeforeSetItem();
 		assertEquals(11, item.getField1());
@@ -225,7 +226,7 @@ public class BeforeSetTest extends AbstractRuntimeModelTest
 		assertEquals(asList(), item.getCalls());
 	}
 
-	public void testActionReturnNull()
+	@Test public void testActionReturnNull()
 	{
 		final BeforeSetItem item = new BeforeSetItem();
 		assertEquals(11, item.getField1());
@@ -248,7 +249,7 @@ public class BeforeSetTest extends AbstractRuntimeModelTest
 		assertEquals(asList("[BeforeSetItem.action=" + returnNull + "]"), item.getCalls());
 	}
 
-	public void testSetEmpty()
+	@Test public void testSetEmpty()
 	{
 		final BeforeSetItem item = new BeforeSetItem();
 		assertEquals(11, item.getField1());
@@ -264,7 +265,7 @@ public class BeforeSetTest extends AbstractRuntimeModelTest
 		assertEquals(asList(), item.getCalls());
 	}
 
-	public void testActionReturnEmpty()
+	@Test public void testActionReturnEmpty()
 	{
 		final BeforeSetItem item = new BeforeSetItem();
 		assertEquals(11, item.getField1());
@@ -279,7 +280,7 @@ public class BeforeSetTest extends AbstractRuntimeModelTest
 		assertEquals(asList("[BeforeSetItem.action=" + returnEmpty + "]"), item.getCalls());
 	}
 
-	public void testConstraintViolation()
+	@Test public void testConstraintViolation()
 	{
 		final BeforeSetItem item = new BeforeSetItem();
 		assertEquals(11, item.getField1());

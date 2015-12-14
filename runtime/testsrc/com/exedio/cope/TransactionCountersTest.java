@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import org.junit.Test;
+
 public class TransactionCountersTest extends AbstractRuntimeModelTest
 {
 	public TransactionCountersTest()
@@ -47,7 +49,7 @@ public class TransactionCountersTest extends AbstractRuntimeModelTest
 		rollbackWithConnectionStart    = c.getRollbackWithConnection();
 	}
 
-	public void testIt()
+	@Test public void testIt()
 	{
 		assertEquals(false, model.hasCurrentTransaction());
 		assertIt(0, 0, 0, 0);

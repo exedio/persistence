@@ -36,6 +36,7 @@ import com.exedio.cope.testmodel.PointerTargetItem;
 import com.exedio.dsmf.Constraint;
 import java.util.Arrays;
 import java.util.EnumSet;
+import org.junit.Test;
 
 public class ItemTest extends TestmodelTest
 {
@@ -43,7 +44,7 @@ public class ItemTest extends TestmodelTest
 	/**
 	 * Test getType, ID, equals, hashCode etc.
 	 */
-	public void testItemMethods()
+	@Test public void testItemMethods()
 			throws IntegrityViolationException, NoSuchIDException
 	{
 		assertEquals(EmptyItem.TYPE, TypesBound.forClass(EmptyItem.class));
@@ -139,7 +140,7 @@ public class ItemTest extends TestmodelTest
 		assertDelete(item6);
 	}
 
-	public void testCheckDatabase()
+	@Test public void testCheckDatabase()
 	{
 		commit();
 
@@ -166,7 +167,7 @@ public class ItemTest extends TestmodelTest
 		startTransaction();
 	}
 
-	public void testItemCreation()
+	@Test public void testItemCreation()
 	{
 		final EmptyItem item1 = EmptyItem.TYPE.newItem();
 		final AttributeItem item2 = AttributeItem.TYPE.newItem(

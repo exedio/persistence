@@ -18,9 +18,11 @@
 
 package com.exedio.cope.junit;
 
+import org.junit.Test;
+
 public class ReserializeTest extends CopeAssert
 {
-	public void testIt()
+	@Test public void testIt()
 	{
 		final String[] original = new String[]{new String("hallo"), new String("hallo")};
 		assertEquals(original[0], original[1]);

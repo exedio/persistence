@@ -29,10 +29,11 @@ import com.exedio.cope.CompositeCondition.Operator;
 import com.exedio.cope.junit.CopeAssert;
 import java.util.Arrays;
 import java.util.List;
+import org.junit.Test;
 
 public class CompositeConditionCopeTest extends CopeAssert
 {
-	public void testIt()
+	@Test public void testIt()
 	{
 		final DoubleField field = new DoubleField().optional();
 		final Condition c1 = field.equal(1d);

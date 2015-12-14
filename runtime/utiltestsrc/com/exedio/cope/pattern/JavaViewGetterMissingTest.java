@@ -22,6 +22,7 @@ import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.Item;
 import com.exedio.cope.TypesBound;
 import com.exedio.cope.junit.CopeAssert;
+import org.junit.Test;
 
 public class JavaViewGetterMissingTest extends CopeAssert
 {
@@ -33,7 +34,7 @@ public class JavaViewGetterMissingTest extends CopeAssert
 		private static final long serialVersionUID = 1l;
 	}
 
-	public void testIt()
+	@Test public void testIt()
 	{
 		try
 		{

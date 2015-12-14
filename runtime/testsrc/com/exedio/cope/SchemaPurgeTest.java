@@ -31,6 +31,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import org.junit.Test;
 
 public class SchemaPurgeTest extends AbstractRuntimeModelTest
 {
@@ -59,7 +60,7 @@ public class SchemaPurgeTest extends AbstractRuntimeModelTest
 		nextSeq = getDefaultToNextSequenceName(AnItem.next);
 	}
 
-	public void testPurge() throws SQLException
+	@Test public void testPurge() throws SQLException
 	{
 		final JC jc = new JC();
 		final JobContext ctx = mysql ? jc : new AssertionErrorJobContext();
@@ -194,7 +195,7 @@ public class SchemaPurgeTest extends AbstractRuntimeModelTest
 		model.startTransaction(SchemaPurgeTest.class.getName());
 	}
 
-	public void testStop()
+	@Test public void testStop()
 	{
 		if(!(sequences && mysql))
 			return;
@@ -302,7 +303,7 @@ public class SchemaPurgeTest extends AbstractRuntimeModelTest
 		}
 	}
 
-	public void testNullContext()
+	@Test public void testNullContext()
 	{
 		try
 		{

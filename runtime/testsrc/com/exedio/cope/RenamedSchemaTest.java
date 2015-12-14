@@ -35,6 +35,7 @@ import com.exedio.dsmf.Schema;
 import com.exedio.dsmf.Sequence;
 import com.exedio.dsmf.Table;
 import java.util.Iterator;
+import org.junit.Test;
 
 public class RenamedSchemaTest extends AbstractRuntimeModelTest
 {
@@ -51,7 +52,7 @@ public class RenamedSchemaTest extends AbstractRuntimeModelTest
 		return false;
 	}
 
-	public void testSchema()
+	@Test public void testSchema()
 	{
 		assertEquals(filterTableName("ZackItem"), getTableName(TYPE));
 		assertPrimaryKeySequenceName("ZackItem_this_Seq", TYPE);

@@ -19,10 +19,11 @@
 package com.exedio.cope;
 
 import com.exedio.cope.junit.CopeAssert;
+import org.junit.Test;
 
 public class StringCopyTest extends CopeAssert
 {
-	public void testOptional()
+	@Test public void testOptional()
 	{
 		final StringField orig = new StringField().optional();
 		assertEquals(false, orig.isFinal());
@@ -38,7 +39,7 @@ public class StringCopyTest extends CopeAssert
 	}
 
 	@Deprecated // OK test deprecated api
-	public void testEmpty()
+	@Test public void testEmpty()
 	{
 		final StringField orig = new StringField(StringField.EMPTY).optional();
 		assertEquals(false, orig.isFinal());
@@ -53,7 +54,7 @@ public class StringCopyTest extends CopeAssert
 		assertEquals(StringField.DEFAULT_MAXIMUM_LENGTH, copy.getMaximumLength());
 	}
 
-	public void testMin()
+	@Test public void testMin()
 	{
 		final StringField orig = new StringField().toFinal().optional().lengthMin(10);
 		assertEquals(true, orig.isFinal());
@@ -70,7 +71,7 @@ public class StringCopyTest extends CopeAssert
 		assertEquals(StringField.DEFAULT_MAXIMUM_LENGTH, copy.getMaximumLength());
 	}
 
-	public void testUnique()
+	@Test public void testUnique()
 	{
 		final StringField orig = new StringField().toFinal().optional().unique().lengthMin(20);
 		assertEquals(true, orig.isFinal());
@@ -87,7 +88,7 @@ public class StringCopyTest extends CopeAssert
 		assertEquals(StringField.DEFAULT_MAXIMUM_LENGTH, copy.getMaximumLength());
 	}
 
-	public void testRange()
+	@Test public void testRange()
 	{
 		final StringField orig = new StringField().lengthRange(10, 20);
 		assertEquals(false, orig.isFinal());
@@ -102,7 +103,7 @@ public class StringCopyTest extends CopeAssert
 		assertEquals(20, copy.getMaximumLength());
 	}
 
-	public void testIllegalRange()
+	@Test public void testIllegalRange()
 	{
 		assertWrongLength(-1, 20, "minimumLength must not be negative, but was -1");
 		assertWrongLength( 0,  0, "maximumLength must be greater zero, but was 0");

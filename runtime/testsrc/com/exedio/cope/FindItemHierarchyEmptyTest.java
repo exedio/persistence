@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import org.junit.Test;
+
 public class FindItemHierarchyEmptyTest extends AbstractRuntimeModelTest
 {
 	public FindItemHierarchyEmptyTest()
@@ -36,7 +38,7 @@ public class FindItemHierarchyEmptyTest extends AbstractRuntimeModelTest
 		superItem = new HierarchyEmptySuper(3);
 	}
 
-	public void test() throws NoSuchIDException
+	@Test public void test() throws NoSuchIDException
 	{
 		assertSame(subItem, model.getItem("HierarchyEmptySub-0")); // important to test with zero as well
 		assertSame(superItem, model.getItem("HierarchyEmptySuper-1"));

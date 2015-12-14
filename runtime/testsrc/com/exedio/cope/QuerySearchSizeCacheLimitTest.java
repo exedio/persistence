@@ -23,6 +23,7 @@ import static com.exedio.cope.DayItem.TYPE;
 import com.exedio.cope.util.Day;
 import java.util.Arrays;
 import java.util.List;
+import org.junit.Test;
 
 public class QuerySearchSizeCacheLimitTest extends AbstractRuntimeModelTest
 {
@@ -55,7 +56,7 @@ public class QuerySearchSizeCacheLimitTest extends AbstractRuntimeModelTest
 		restartTransaction();
 	}
 
-	public void testIt()
+	@Test public void testIt()
 	{
 		q.setSearchSizeCacheLimit(5);
 		assertEquals(5, q.getSearchSizeCacheLimit());
@@ -70,7 +71,7 @@ public class QuerySearchSizeCacheLimitTest extends AbstractRuntimeModelTest
 		assertEquals(cacheEnabled ? list(queryHistogram(1)) : list(), modelHistogram());
 	}
 
-	public void testExceed()
+	@Test public void testExceed()
 	{
 		q.setSearchSizeCacheLimit(4);
 		assertEquals(4, q.getSearchSizeCacheLimit());

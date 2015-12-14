@@ -28,6 +28,7 @@ import com.exedio.cope.junit.AbsoluteMockClockStrategy;
 import com.exedio.cope.util.Clock;
 import com.exedio.cope.util.Day;
 import java.util.List;
+import org.junit.Test;
 
 public class DayFieldTest extends AbstractRuntimeModelTest
 {
@@ -65,7 +66,7 @@ public class DayFieldTest extends AbstractRuntimeModelTest
 		super.tearDown();
 	}
 
-	public void testIt()
+	@Test public void testIt()
 	{
 		final Day thisDay = new Day(2005, 9, 23);
 		final Day beforeDay = new Day(2005, 9, 22);
@@ -147,7 +148,7 @@ public class DayFieldTest extends AbstractRuntimeModelTest
 		assertEquals(null, item.getOptionalDay());
 	}
 
-	public void testDayPartViews()
+	@Test public void testDayPartViews()
 	{
 		final DayPartView dayDpv = day.dayOfMonth();
 		final DayPartView monthDpv = day.month();
@@ -240,7 +241,7 @@ public class DayFieldTest extends AbstractRuntimeModelTest
 		assertContains(item, TYPE.search(optionalWeekDpv.isNotNull()));
 	}
 
-	public void testDayPartViewsWeekAroundNewYear()
+	@Test public void testDayPartViewsWeekAroundNewYear()
 	{
 		assertWeek(new Day(2000, 12, 30), 52); // Saturday
 		assertWeek(new Day(2000, 12, 31), 52); // Sunday
@@ -301,7 +302,7 @@ public class DayFieldTest extends AbstractRuntimeModelTest
 	}
 
 	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad API usage
-	public void testUnchecked()
+	@Test public void testUnchecked()
 	{
 		try
 		{
@@ -324,7 +325,7 @@ public class DayFieldTest extends AbstractRuntimeModelTest
 		return new Query<>(selectField, condition).search();
 	}
 
-	public void testSchema()
+	@Test public void testSchema()
 	{
 		assertSchema();
 	}

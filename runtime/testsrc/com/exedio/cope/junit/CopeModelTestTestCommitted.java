@@ -18,9 +18,11 @@
 
 package com.exedio.cope.junit;
 
+import org.junit.Test;
+
 public class CopeModelTestTestCommitted extends CopeModelTestTest
 {
-	public void testCommitted()
+	@Test public void testCommitted()
 	{
 		doTest();
 		model.commit();

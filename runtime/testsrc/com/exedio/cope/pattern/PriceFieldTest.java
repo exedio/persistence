@@ -30,6 +30,7 @@ import com.exedio.cope.IntegerRangeViolationException;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.SchemaInfo;
 import com.exedio.cope.SetValue;
+import org.junit.Test;
 
 public class PriceFieldTest extends AbstractRuntimeModelTest
 {
@@ -47,7 +48,7 @@ public class PriceFieldTest extends AbstractRuntimeModelTest
 		item = new PriceFieldItem(storeOf(555), storeOf(7777));
 	}
 
-	public void testIt()
+	@Test public void testIt()
 	{
 		assertEquals("finalPrice_int", SchemaInfo.getColumnName(finalPrice.getInt()));
 

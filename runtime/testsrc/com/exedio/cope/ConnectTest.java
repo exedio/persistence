@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import java.util.Date;
+import org.junit.Test;
 
 public class ConnectTest extends AbstractRuntimeModelTest
 {
@@ -36,7 +37,7 @@ public class ConnectTest extends AbstractRuntimeModelTest
 		assertEquals("-----"+expected+"-----"+actual+"-----", expected, actual);
 	}
 
-	public void testConnect()
+	@Test public void testConnect()
 	{
 		final ConnectProperties defaultProps = getConnectProperties();
 		// test duplicate call of connect
@@ -65,7 +66,7 @@ public class ConnectTest extends AbstractRuntimeModelTest
 		assertNotSame(connectDate, model.getConnectDate());
 	}
 
-	public void testModel()
+	@Test public void testModel()
 	{
 		try
 		{
@@ -87,7 +88,7 @@ public class ConnectTest extends AbstractRuntimeModelTest
 		}
 	}
 
-	public void testDisconnect()
+	@Test public void testDisconnect()
 	{
 		assertWithin(beforeModel, afterModel, model.getInitializeDate());
 

@@ -22,10 +22,11 @@ import static com.exedio.cope.util.Hex.encodeUpper;
 import static java.nio.charset.StandardCharsets.UTF_8;
 
 import com.exedio.cope.junit.CopeAssert;
+import org.junit.Test;
 
 public class MakeMaxStringTest extends CopeAssert
 {
-	public void testBase()
+	@Test public void testBase()
 	{
 		final StringField f = new StringField().lengthMax(40);
 		assertEquals( 40, utf8len(makeMax1(f)));
@@ -86,7 +87,7 @@ public class MakeMaxStringTest extends CopeAssert
 		return new String(buf);
 	}
 
-	public void testExtended()
+	@Test public void testExtended()
 	{
 		final String grinningFace = "\ud83d\ude00"; // Unicode code point U+1F600 / UTF-8 F0 9F 98 80
 		final String unamusedFace = "\ud83d\ude12"; // Unicode code point U+1F612 / UTF-8 F0 9F 98 92

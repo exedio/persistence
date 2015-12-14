@@ -25,11 +25,12 @@ import com.exedio.cope.StringField;
 import com.exedio.cope.junit.CopeAssert;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.nio.charset.Charset;
+import org.junit.Test;
 
 @SuppressFBWarnings("NP_NULL_PARAM_DEREF_NONVIRTUAL")
 public class TextUrlFilterModelTest extends CopeAssert
 {
-	public void testRawNull()
+	@Test public void testRawNull()
 	{
 		try
 		{
@@ -41,7 +42,7 @@ public class TextUrlFilterModelTest extends CopeAssert
 			assertEquals("source", e.getMessage());
 		}
 	}
-	public void testSupportedContentTypeNull()
+	@Test public void testSupportedContentTypeNull()
 	{
 		try
 		{
@@ -53,7 +54,7 @@ public class TextUrlFilterModelTest extends CopeAssert
 			assertEquals("supportedContentType", e.getMessage());
 		}
 	}
-	public void testSupportedContentTypeEmpty()
+	@Test public void testSupportedContentTypeEmpty()
 	{
 		try
 		{
@@ -65,7 +66,7 @@ public class TextUrlFilterModelTest extends CopeAssert
 			assertEquals("supportedContentType must not be empty", e.getMessage());
 		}
 	}
-	public void testCharsetNull()
+	@Test public void testCharsetNull()
 	{
 		try
 		{
@@ -78,7 +79,7 @@ public class TextUrlFilterModelTest extends CopeAssert
 		}
 	}
 	@Deprecated // OK: testing deprecated API
-	public void testEncodingNull()
+	@Test public void testEncodingNull()
 	{
 		try
 		{
@@ -91,7 +92,7 @@ public class TextUrlFilterModelTest extends CopeAssert
 		}
 	}
 	@Deprecated // OK: testing deprecated API
-	public void testEncondingWrong()
+	@Test public void testEncondingWrong()
 	{
 		try
 		{
@@ -103,7 +104,7 @@ public class TextUrlFilterModelTest extends CopeAssert
 			assertEquals("zack", e.getMessage());
 		}
 	}
-	public void testPasteStartNull()
+	@Test public void testPasteStartNull()
 	{
 		try
 		{
@@ -115,7 +116,7 @@ public class TextUrlFilterModelTest extends CopeAssert
 			assertEquals("pasteStart", e.getMessage());
 		}
 	}
-	public void testPasteStartEmpty()
+	@Test public void testPasteStartEmpty()
 	{
 		try
 		{
@@ -127,7 +128,7 @@ public class TextUrlFilterModelTest extends CopeAssert
 			assertEquals("pasteStart must not be empty", e.getMessage());
 		}
 	}
-	public void testPasteStopNull()
+	@Test public void testPasteStopNull()
 	{
 		try
 		{
@@ -139,7 +140,7 @@ public class TextUrlFilterModelTest extends CopeAssert
 			assertEquals("pasteStop", e.getMessage());
 		}
 	}
-	public void testPasteStopEmpty()
+	@Test public void testPasteStopEmpty()
 	{
 		try
 		{
@@ -151,7 +152,7 @@ public class TextUrlFilterModelTest extends CopeAssert
 			assertEquals("pasteStop must not be empty", e.getMessage());
 		}
 	}
-	public void testPasteKeyNull()
+	@Test public void testPasteKeyNull()
 	{
 		try
 		{
@@ -163,7 +164,7 @@ public class TextUrlFilterModelTest extends CopeAssert
 			assertEquals("pasteKey", e.getMessage());
 		}
 	}
-	public void testPasteKeyOptional()
+	@Test public void testPasteKeyOptional()
 	{
 		final StringField pasteKey = new StringField().optional();
 		final Media pasteValue = new Media();
@@ -177,7 +178,7 @@ public class TextUrlFilterModelTest extends CopeAssert
 			assertEquals("pasteKey must be mandatory", e.getMessage());
 		}
 	}
-	public void testPasteKeyUnique()
+	@Test public void testPasteKeyUnique()
 	{
 		final StringField pasteKey = new StringField().unique();
 		final Media pasteValue = new Media();
@@ -191,7 +192,7 @@ public class TextUrlFilterModelTest extends CopeAssert
 			assertEquals("pasteKey must not be unique", e.getMessage());
 		}
 	}
-	public void testPasteValueNull()
+	@Test public void testPasteValueNull()
 	{
 		try
 		{
@@ -203,7 +204,7 @@ public class TextUrlFilterModelTest extends CopeAssert
 			assertEquals("pasteValue", e.getMessage());
 		}
 	}
-	public void testPasteValueFinal()
+	@Test public void testPasteValueFinal()
 	{
 		final StringField pasteKey = new StringField();
 		final Media pasteValue = new Media().toFinal();
@@ -217,7 +218,7 @@ public class TextUrlFilterModelTest extends CopeAssert
 			assertEquals("pasteValue must not be final", e.getMessage());
 		}
 	}
-	public void testPasteValueOptional()
+	@Test public void testPasteValueOptional()
 	{
 		final StringField pasteKey = new StringField();
 		final Media pasteValue = new Media().optional();

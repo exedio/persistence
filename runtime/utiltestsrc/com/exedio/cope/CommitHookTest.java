@@ -22,10 +22,11 @@ import com.exedio.cope.junit.CopeAssert;
 import java.awt.geom.IllegalPathStateException;
 import java.io.File;
 import java.util.ArrayList;
+import org.junit.Test;
 
 public class CommitHookTest extends CopeAssert
 {
-	public void testOne()
+	@Test public void testOne()
 	{
 		final StringBuilder bf = new StringBuilder();
 		model.startTransaction("tx");
@@ -38,7 +39,7 @@ public class CommitHookTest extends CopeAssert
 		assertEquals("one,", bf.toString());
 	}
 
-	public void testTwo()
+	@Test public void testTwo()
 	{
 		final StringBuilder bf = new StringBuilder();
 		model.startTransaction("tx");
@@ -53,7 +54,7 @@ public class CommitHookTest extends CopeAssert
 		assertEquals("one,two,", bf.toString());
 	}
 
-	public void testThrower()
+	@Test public void testThrower()
 	{
 		final StringBuilder bf = new StringBuilder();
 		model.startTransaction("tx");
@@ -78,7 +79,7 @@ public class CommitHookTest extends CopeAssert
 		assertEquals(list(), new ArrayList<>(model.getOpenTransactions()));
 	}
 
-	public void testRollback()
+	@Test public void testRollback()
 	{
 		final StringBuilder bf = new StringBuilder();
 		model.startTransaction("tx");
@@ -91,7 +92,7 @@ public class CommitHookTest extends CopeAssert
 		assertEquals(false, model.hasCurrentTransaction());
 	}
 
-	public void testNullHook()
+	@Test public void testNullHook()
 	{
 		model.startTransaction("tx");
 		assertEquals(0, model.currentTransaction().getCommitHookCount());
@@ -107,7 +108,7 @@ public class CommitHookTest extends CopeAssert
 		assertEquals(0, model.currentTransaction().getCommitHookCount());
 	}
 
-	public void testNoTransaction()
+	@Test public void testNoTransaction()
 	{
 		try
 		{

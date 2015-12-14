@@ -20,11 +20,12 @@ package com.exedio.cope;
 
 import com.exedio.cope.junit.CopeAssert;
 import java.sql.SQLException;
+import org.junit.Test;
 
 public class DirectRevisionsFutureTest extends CopeAssert
 {
 	@Deprecated // OK: tests deprecated API
-	public void testIt() throws SQLException
+	@Test public void testIt() throws SQLException
 	{
 		assertEquals(null, com.exedio.cope.misc.DirectRevisionsFuture.make(null));
 

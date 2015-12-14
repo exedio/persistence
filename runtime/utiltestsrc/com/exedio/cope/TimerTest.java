@@ -21,6 +21,7 @@ package com.exedio.cope;
 import com.exedio.cope.Timer.Interval;
 import junit.framework.TestCase;
 import org.apache.log4j.Level;
+import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -47,7 +48,7 @@ public class TimerTest extends TestCase
 		super.tearDown();
 	}
 
-	public void testNormal()
+	@Test public void testNormal()
 	{
 		final Timer timer = new Timer(logger, "timerMsg");
 
@@ -70,7 +71,7 @@ public class TimerTest extends TestCase
 		log.assertEmpty();
 	}
 
-	public void testNullTimermsg()
+	@Test public void testNullTimermsg()
 	{
 		final Timer timer = new Timer(logger, null);
 
@@ -81,7 +82,7 @@ public class TimerTest extends TestCase
 		log.assertMessageMs(Level.INFO, "interval1Msg1 XXms total XXms");
 	}
 
-	public void testNullLogger()
+	@Test public void testNullLogger()
 	{
 		try
 		{

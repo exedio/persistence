@@ -26,6 +26,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
+import org.junit.Test;
 
 public final class UpdateCounterRecoverTest extends AbstractRuntimeModelTest
 {
@@ -43,7 +44,7 @@ public final class UpdateCounterRecoverTest extends AbstractRuntimeModelTest
 		item = new CacheIsolationItem("name0");
 	}
 
-	public void testSameTransaction() throws SQLException
+	@Test public void testSameTransaction() throws SQLException
 	{
 		assertEquals("name0", item.getName());
 		commit();
@@ -82,7 +83,7 @@ public final class UpdateCounterRecoverTest extends AbstractRuntimeModelTest
 		assertEquals("name2", item.getName());
 	}
 
-	public void testSameTransactionDelete() throws SQLException
+	@Test public void testSameTransactionDelete() throws SQLException
 	{
 		assertEquals(true, item.existsCopeItem());
 		commit();
@@ -116,7 +117,7 @@ public final class UpdateCounterRecoverTest extends AbstractRuntimeModelTest
 		assertEquals(false, item.existsCopeItem());
 	}
 
-	public void testCommit() throws SQLException
+	@Test public void testCommit() throws SQLException
 	{
 		assertEquals("name0", item.getName());
 		commit();
@@ -158,7 +159,7 @@ public final class UpdateCounterRecoverTest extends AbstractRuntimeModelTest
 		assertEquals("name2", item.getName());
 	}
 
-	public void testCommitDelete() throws SQLException
+	@Test public void testCommitDelete() throws SQLException
 	{
 		assertEquals(true, item.existsCopeItem());
 		commit();
@@ -195,7 +196,7 @@ public final class UpdateCounterRecoverTest extends AbstractRuntimeModelTest
 		assertEquals(false, item.existsCopeItem());
 	}
 
-	public void testRollback() throws SQLException
+	@Test public void testRollback() throws SQLException
 	{
 		assertEquals("name0", item.getName());
 		commit();
@@ -237,7 +238,7 @@ public final class UpdateCounterRecoverTest extends AbstractRuntimeModelTest
 		assertEquals("name2", item.getName());
 	}
 
-	public void testRollbackDelete() throws SQLException
+	@Test public void testRollbackDelete() throws SQLException
 	{
 		assertEquals(true, item.existsCopeItem());
 		commit();

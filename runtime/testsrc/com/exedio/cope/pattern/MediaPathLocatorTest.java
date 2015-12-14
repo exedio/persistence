@@ -22,6 +22,7 @@ import static com.exedio.cope.EqualsAssert.assertEqualsAndHash;
 import static com.exedio.cope.EqualsAssert.assertNotEqualsAndHash;
 
 import com.exedio.cope.AbstractRuntimeModelTest;
+import org.junit.Test;
 
 public final class MediaPathLocatorTest extends AbstractRuntimeModelTest
 {
@@ -31,7 +32,7 @@ public final class MediaPathLocatorTest extends AbstractRuntimeModelTest
 	}
 
 	@SuppressWarnings("static-method")
-	public void testIt()
+	@Test public void testIt()
 	{
 		final MediaPathItem i1 = new MediaPathItem();
 		final MediaPathItem i2 = new MediaPathItem();

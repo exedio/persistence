@@ -35,6 +35,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.ParameterizedType;
 import java.util.Arrays;
 import java.util.HashMap;
+import org.junit.Test;
 
 public class JavaViewTest extends AbstractRuntimeModelTest
 {
@@ -63,7 +64,7 @@ public class JavaViewTest extends AbstractRuntimeModelTest
 		item2 = new JavaViewItem2();
 	}
 
-	public void testNumber()
+	@Test public void testNumber()
 	{
 		assertEquals(Arrays.asList(new Feature[]{
 				TYPE.getThis(),

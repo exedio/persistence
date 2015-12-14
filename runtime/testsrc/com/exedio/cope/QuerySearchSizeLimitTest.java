@@ -21,6 +21,7 @@ package com.exedio.cope;
 import static com.exedio.cope.DayItem.TYPE;
 
 import com.exedio.cope.util.Day;
+import org.junit.Test;
 
 public class QuerySearchSizeLimitTest extends AbstractRuntimeModelTest
 {
@@ -46,7 +47,7 @@ public class QuerySearchSizeLimitTest extends AbstractRuntimeModelTest
 		i5 = new DayItem(d2);
 	}
 
-	public void testIt()
+	@Test public void testIt()
 	{
 		// allows testing influence of query cache
 		restartTransaction();

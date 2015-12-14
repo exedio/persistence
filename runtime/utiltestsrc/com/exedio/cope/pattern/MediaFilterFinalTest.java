@@ -21,10 +21,11 @@ package com.exedio.cope.pattern;
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.Item;
 import com.exedio.cope.junit.CopeAssert;
+import org.junit.Test;
 
 public class MediaFilterFinalTest extends CopeAssert
 {
-	public void testIt()
+	@Test public void testIt()
 	{
 		assertEquals(false, AnItem.sourceNonFinal.isFinal());
 		assertEquals(true , AnItem.sourceFinal   .isFinal());

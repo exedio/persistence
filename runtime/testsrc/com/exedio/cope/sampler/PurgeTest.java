@@ -27,10 +27,11 @@ import com.exedio.cope.TransactionTry;
 import com.exedio.cope.pattern.Media;
 import java.util.ArrayList;
 import java.util.Date;
+import org.junit.Test;
 
 public class PurgeTest extends ConnectedTest
 {
-	public void testPurge() throws InterruptedException
+	@Test public void testPurge() throws InterruptedException
 	{
 		assertEquals(0, samplerModel.getConnectProperties().getItemCacheLimit());
 		assertEquals(0, samplerModel.getConnectProperties().getQueryCacheLimit());

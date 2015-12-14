@@ -25,6 +25,7 @@ import com.exedio.dsmf.Constraint;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.EnumSet;
+import org.junit.Test;
 
 public class HierarchyTest extends AbstractRuntimeModelTest
 {
@@ -41,7 +42,7 @@ public class HierarchyTest extends AbstractRuntimeModelTest
 		super(MODEL);
 	}
 
-	public void testHierarchy()
+	@Test public void testHierarchy()
 	{
 		// model HierarchySuper
 		assertEquals(null, HierarchySuper.TYPE.getSupertype());
@@ -291,7 +292,7 @@ public class HierarchyTest extends AbstractRuntimeModelTest
 		assertCheckUpdateCounters();
 	}
 
-	public void testPolymorphicQueryInvalidation() throws UniqueViolationException
+	@Test public void testPolymorphicQueryInvalidation() throws UniqueViolationException
 	{
 		final HierarchyFirstSub item = new HierarchyFirstSub(10);
 
@@ -305,7 +306,7 @@ public class HierarchyTest extends AbstractRuntimeModelTest
 		assertEquals(list(item), q2.search());
 	}
 
-	public void testModel()
+	@Test public void testModel()
 	{
 		model.commit();
 
@@ -374,7 +375,7 @@ public class HierarchyTest extends AbstractRuntimeModelTest
 		startTransaction();
 	}
 
-	public void testPrimaryKeyInfo()
+	@Test public void testPrimaryKeyInfo()
 	{
 		MODEL.rollback();
 		// for flushing the info
@@ -414,7 +415,7 @@ public class HierarchyTest extends AbstractRuntimeModelTest
 		assertInfo(model.getSequenceInfo(), HierarchySuper.TYPE.getThis(), HierarchySingleSuper.TYPE.getThis());
 	}
 
-	public void testDeleteSchema()
+	@Test public void testDeleteSchema()
 	{
 		model.checkEmptySchema();
 
@@ -471,7 +472,7 @@ public class HierarchyTest extends AbstractRuntimeModelTest
 		assertFalse(singleB.existsCopeItem());
 	}
 
-	public void testDeleteSchemaForTest()
+	@Test public void testDeleteSchemaForTest()
 	{
 		model.checkEmptySchema();
 

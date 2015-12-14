@@ -35,6 +35,7 @@ import static com.exedio.dsmf.Dialect.NOT_NULL;
 
 import java.util.ArrayList;
 import junit.framework.AssertionFailedError;
+import org.junit.Test;
 
 public class SchemaTypeIntegerTest extends AbstractRuntimeModelTest
 {
@@ -45,7 +46,7 @@ public class SchemaTypeIntegerTest extends AbstractRuntimeModelTest
 		super(MODEL);
 	}
 
-	public void testType()
+	@Test public void testType()
 	{
 		final String type2;
 		final String type4;
@@ -93,7 +94,7 @@ public class SchemaTypeIntegerTest extends AbstractRuntimeModelTest
 				model.getSchema().getTable(getTableName(TYPE)).getColumn(getColumnName(field)).getType());
 	}
 
-	public void testValues()
+	@Test public void testValues()
 	{
 		final ArrayList<LongField> fields = new ArrayList<>();
 		for(final Field<?> field : TYPE.getFields())
@@ -128,7 +129,7 @@ public class SchemaTypeIntegerTest extends AbstractRuntimeModelTest
 		}
 	}
 
-	public void testSchema()
+	@Test public void testSchema()
 	{
 		assertSchema();
 	}

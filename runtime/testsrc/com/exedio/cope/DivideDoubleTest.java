@@ -29,6 +29,8 @@ import static com.exedio.cope.EqualsAssert.assertEqualsAndHash;
 import static com.exedio.cope.EqualsAssert.assertNotEqualsAndHash;
 import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
 
+import org.junit.Test;
+
 public class DivideDoubleTest extends AbstractRuntimeModelTest
 {
 	static final Model MODEL = new Model(TYPE);
@@ -62,7 +64,7 @@ public class DivideDoubleTest extends AbstractRuntimeModelTest
 	private static final Double dAC = Double.valueOf(2.125);
 	private static final Double dBC = Double.valueOf(0.625);
 
-	public void testSum()
+	@Test public void testSum()
 	{
 		// test model
 		assertEquals(TYPE, divideAB.getType());

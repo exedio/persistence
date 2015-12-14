@@ -36,6 +36,7 @@ import com.exedio.cope.misc.Computed;
 import com.exedio.cope.pattern.MapFieldItem.Language;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.Serializable;
+import org.junit.Test;
 
 public class MapFieldModelTest extends CopeAssert
 {
@@ -46,7 +47,7 @@ public class MapFieldModelTest extends CopeAssert
 		MODEL.enableSerialization(MapFieldModelTest.class, "MODEL");
 	}
 
-	public void testIt()
+	@Test public void testIt()
 	{
 		assertEquals(TYPE, name.getType());
 		assertEquals("name", name.getName());
@@ -124,7 +125,7 @@ public class MapFieldModelTest extends CopeAssert
 	}
 
 	@SuppressFBWarnings("NP_NULL_PARAM_DEREF_NONVIRTUAL")
-	public void testFailures()
+	@Test public void testFailures()
 	{
 		try
 		{

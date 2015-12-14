@@ -35,6 +35,7 @@ import com.exedio.cope.StringField;
 import com.exedio.cope.UniqueConstraint;
 import com.exedio.cope.junit.CopeAssert;
 import java.util.Arrays;
+import org.junit.Test;
 
 public class BlockFieldUniqueModelTest extends CopeAssert
 {
@@ -45,7 +46,7 @@ public class BlockFieldUniqueModelTest extends CopeAssert
 		MODEL.enableSerialization(BlockFieldUniqueModelTest.class, "MODEL");
 	}
 
-	public void testIt()
+	@Test public void testIt()
 	{
 		assertEqualsUnmodifiable(Arrays.asList(new Feature[]{
 				AnItem.TYPE.getThis(),

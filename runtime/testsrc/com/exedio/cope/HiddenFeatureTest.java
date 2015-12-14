@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import com.exedio.cope.misc.HiddenFeatures;
+import org.junit.Test;
 
 public class HiddenFeatureTest extends AbstractRuntimeModelTest
 {
@@ -29,7 +30,7 @@ public class HiddenFeatureTest extends AbstractRuntimeModelTest
 		super(MODEL);
 	}
 
-	public void testHierarchy()
+	@Test public void testHierarchy()
 	{
 		final This<?> spt = HiddenFeatureSuperItem.TYPE.getThis();
 		final This<?> sbt = HiddenFeatureSubItem.TYPE.getThis();

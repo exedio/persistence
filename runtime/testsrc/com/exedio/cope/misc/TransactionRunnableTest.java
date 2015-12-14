@@ -24,6 +24,7 @@ import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.CacheIsolationItem;
 import com.exedio.cope.CacheIsolationTest;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import org.junit.Test;
 
 public class TransactionRunnableTest extends AbstractRuntimeModelTest
 {
@@ -41,7 +42,7 @@ public class TransactionRunnableTest extends AbstractRuntimeModelTest
 		item = null;
 	}
 
-	public void testIt()
+	@Test public void testIt()
 	{
 		assertContains(TYPE.search());
 		model.commit();

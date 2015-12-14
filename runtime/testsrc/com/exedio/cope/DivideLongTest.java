@@ -33,6 +33,8 @@ import static com.exedio.cope.DivideLongItem.numC;
 import static com.exedio.cope.EqualsAssert.assertEqualsAndHash;
 import static com.exedio.cope.EqualsAssert.assertNotEqualsAndHash;
 
+import org.junit.Test;
+
 public class DivideLongTest extends AbstractRuntimeModelTest
 {
 	static final Model MODEL = new Model(TYPE);
@@ -53,7 +55,7 @@ public class DivideLongTest extends AbstractRuntimeModelTest
 		item2 = new DivideLongItem(30, 4, 5);
 	}
 
-	public void testSum()
+	@Test public void testSum()
 	{
 		// test model
 		assertEquals(TYPE, divideAB.getType());

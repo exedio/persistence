@@ -21,6 +21,8 @@ package com.exedio.cope;
 import static com.exedio.cope.DayItem.TYPE;
 import static java.lang.Integer.MIN_VALUE;
 
+import org.junit.Test;
+
 public class QuerySearchSizeCacheLimitSetTest extends AbstractRuntimeModelTest
 {
 	public QuerySearchSizeCacheLimitSetTest()
@@ -28,7 +30,7 @@ public class QuerySearchSizeCacheLimitSetTest extends AbstractRuntimeModelTest
 		super(DayFieldTest.MODEL);
 	}
 
-	public void testIt()
+	@Test public void testIt()
 	{
 		final int defaulT = model.getConnectProperties().getQueryCacheSizeLimit();
 		final Query<?> q = TYPE.newQuery();

@@ -21,10 +21,11 @@ package com.exedio.cope;
 import static com.exedio.cope.TypesBound.newType;
 
 import com.exedio.cope.junit.CopeAssert;
+import org.junit.Test;
 
 public class TypeCompareTest extends CopeAssert
 {
-	public void testType()
+	@Test public void testType()
 	{
 		final Type<AnItem> type1 = newType(AnItem.class);
 		final Type<AnotherItem> type2 = newType(AnotherItem.class);

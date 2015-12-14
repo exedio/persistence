@@ -23,6 +23,7 @@ import static com.exedio.cope.SchemaInfo.supportsNativeDate;
 import static com.exedio.cope.SchemaInfo.supportsUniqueViolation;
 
 import java.sql.SQLException;
+import org.junit.Test;
 
 public class CapabilitiesTest extends AbstractRuntimeModelTest
 {
@@ -37,7 +38,7 @@ public class CapabilitiesTest extends AbstractRuntimeModelTest
 		return false;
 	}
 
-	public void testSupports()
+	@Test public void testSupports()
 	{
 		final ConnectProperties props = model.getConnectProperties();
 
@@ -78,7 +79,7 @@ public class CapabilitiesTest extends AbstractRuntimeModelTest
 		assertEquals(uniqueViolation && !props.isSupportDisabledForUniqueViolation(), supportsUniqueViolation(model));
 	}
 
-	public void testSchemaSavepoint()
+	@Test public void testSchemaSavepoint()
 	{
 		switch(dialect)
 		{
@@ -109,7 +110,7 @@ public class CapabilitiesTest extends AbstractRuntimeModelTest
 	}
 
 	@Deprecated
-	public void testDeprecated()
+	@Test public void testDeprecated()
 	{
 		assertEquals(true, SchemaInfo.supportsSequences(model));
 		assertEquals(true, SchemaInfo.supportsNotNull(model));

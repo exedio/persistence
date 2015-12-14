@@ -24,10 +24,11 @@ import com.exedio.cope.StringField;
 import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
 import com.exedio.cope.junit.CopeAssert;
+import org.junit.Test;
 
 public class EnumFieldNameTest extends CopeAssert
 {
-	public void testIt()
+	@Test public void testIt()
 	{
 		assertEquals("set-normal"   , AnItem.set.getField(AnEnum.normal    ).getName());
 		assertEquals("set-underline", AnItem.set.getField(AnEnum.under_line).getName());

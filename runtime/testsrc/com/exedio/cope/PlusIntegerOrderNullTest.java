@@ -28,6 +28,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import org.junit.Test;
 
 public class PlusIntegerOrderNullTest extends CopeModelTest
 {
@@ -49,7 +50,7 @@ public class PlusIntegerOrderNullTest extends CopeModelTest
 		item2 = new PlusIntegerItem(3, 13,   null);
 	}
 
-	public void testIt()
+	@Test public void testIt()
 	{
 		assertOrder(list(item0, item1, item2), numA);
 		assertOrder(list(item0, item1, item2), numC, numA);

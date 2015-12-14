@@ -26,12 +26,15 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import org.junit.Ignore;
+import org.junit.Test;
 
 /**
  * Tests, whether there is a significant performance penalty
  * for using auto_increment on MySQL.
  * There seems to be no such penalty.
  */
+@Ignore
 public class AutoIncrementEvaluator extends RawDatabaseTest
 {
 	private static final int ITERATIONS = 100;
@@ -55,7 +58,7 @@ public class AutoIncrementEvaluator extends RawDatabaseTest
 		super.tearDown();
 	}
 
-	public void testAutoIncrement() throws SQLException
+	@Test public void testAutoIncrement() throws SQLException
 	{
 		stat.execute("drop table if exists testAutoIncrement");
 		stat.execute(

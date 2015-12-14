@@ -21,6 +21,8 @@ package com.exedio.cope;
 import static com.exedio.cope.CacheIsolationItem.TYPE;
 import static com.exedio.cope.CacheIsolationItem.name;
 
+import org.junit.Test;
+
 public class ItemCacheStampPurgeTest extends AbstractRuntimeModelTest
 {
 	public ItemCacheStampPurgeTest()
@@ -58,7 +60,7 @@ public class ItemCacheStampPurgeTest extends AbstractRuntimeModelTest
 		cache.clearStamps();
 	}
 
-	public void testSequential()
+	@Test public void testSequential()
 	{
 		if(quit)
 			return;
@@ -84,7 +86,7 @@ public class ItemCacheStampPurgeTest extends AbstractRuntimeModelTest
 		assertCache(0, 0, 2, 2, 2, 0, 0, 2);
 	}
 
-	public void testOverlappingOnce()
+	@Test public void testOverlappingOnce()
 	{
 		if(quit||hsqldb)
 			return;
@@ -115,7 +117,7 @@ public class ItemCacheStampPurgeTest extends AbstractRuntimeModelTest
 		assertCache(0, 0, 2, 2, 2, 0, 0, 2);
 	}
 
-	public void testOverlappingOnceWithoutConnection()
+	@Test public void testOverlappingOnceWithoutConnection()
 	{
 		if(quit)
 			return;
@@ -145,7 +147,7 @@ public class ItemCacheStampPurgeTest extends AbstractRuntimeModelTest
 		assertCache(0, 0, 2, 2, 2, 0, 0, 2);
 	}
 
-	public void testOverlappingTwice()
+	@Test public void testOverlappingTwice()
 	{
 		if(quit||hsqldb)
 			return;

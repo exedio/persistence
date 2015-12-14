@@ -38,6 +38,7 @@ import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import org.junit.Test;
 
 public class ServletUtilTest extends CopeAssert
 {
@@ -65,7 +66,7 @@ public class ServletUtilTest extends CopeAssert
 		super.tearDown();
 	}
 
-	public void testIt()
+	@Test public void testIt()
 	{
 		assertFalse(modelOk.isConnected());
 		assertIt(modelOk, "nameOk", new MockServlet("com.exedio.cope.misc.ServletUtilTest#modelOk", "nameOk"));

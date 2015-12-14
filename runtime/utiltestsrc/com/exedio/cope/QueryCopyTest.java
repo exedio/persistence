@@ -27,10 +27,11 @@ import static java.util.Arrays.asList;
 import com.exedio.cope.junit.CopeAssert;
 import java.util.Collections;
 import java.util.List;
+import org.junit.Test;
 
 public class QueryCopyTest extends CopeAssert
 {
-	public void testSimple()
+	@Test public void testSimple()
 	{
 		final Query<?> query = TYPE.newQuery();
 		query.setSearchSizeLimit(77);
@@ -81,7 +82,7 @@ public class QueryCopyTest extends CopeAssert
 		assertEquals(66, copy.getSearchSizeCacheLimit());
 	}
 
-	public void testAdvanced()
+	@Test public void testAdvanced()
 	{
 		final Query<?> query = TYPE.newQuery();
 		assertIt(
@@ -149,7 +150,7 @@ public class QueryCopyTest extends CopeAssert
 				query);
 	}
 
-	public void testMulti()
+	@Test public void testMulti()
 	{
 		final Query<?> query = Query.newQuery(new Selectable<?>[]{string, date}, TYPE, null);
 		query.setGroupBy(date, intx);

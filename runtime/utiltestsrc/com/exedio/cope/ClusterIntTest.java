@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import java.util.Arrays;
 import junit.framework.TestCase;
+import org.junit.Test;
 
 public class ClusterIntTest extends TestCase
 {
@@ -40,13 +41,13 @@ public class ClusterIntTest extends TestCase
 	}
 
 
-	public void testInt()
+	@Test public void testInt()
 	{
 		assertEquals(7, m(3, 0x456789ab));
 		assertBuf(FILL, FILL, FILL, (byte)0xab, (byte)0x89, (byte)0x67, (byte)0x45);
 	}
 
-	public void testIntNegative()
+	@Test public void testIntNegative()
 	{
 		assertEquals(7, m(3, 0xab896745));
 		assertBuf(FILL, FILL, FILL, (byte)0x45, (byte)0x67, (byte)0x89, (byte)0xab);

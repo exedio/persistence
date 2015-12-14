@@ -22,6 +22,8 @@ import static com.exedio.cope.CopyMultiCopyModelTest.constraintA;
 import static com.exedio.cope.CopyMultiCopyModelTest.constraintB;
 import static com.exedio.cope.CopyMultiCopySourceItem.TYPE;
 
+import org.junit.Test;
+
 public class CopyMultiCopyTest extends AbstractRuntimeModelTest
 {
 	public CopyMultiCopyTest()
@@ -29,7 +31,7 @@ public class CopyMultiCopyTest extends AbstractRuntimeModelTest
 		super(CopyMultiCopyModelTest.MODEL);
 	}
 
-	public void testOk()
+	@Test public void testOk()
 	{
 		final CopyMultiCopyTargetItem target =
 				new CopyMultiCopyTargetItem("targetValueA", "targetValueB");
@@ -42,7 +44,7 @@ public class CopyMultiCopyTest extends AbstractRuntimeModelTest
 		assertContains(source, TYPE.search());
 	}
 
-	public void testOkNullValue()
+	@Test public void testOkNullValue()
 	{
 		final CopyMultiCopyTargetItem target =
 				new CopyMultiCopyTargetItem(null, null);
@@ -55,7 +57,7 @@ public class CopyMultiCopyTest extends AbstractRuntimeModelTest
 		assertContains(source, TYPE.search());
 	}
 
-	public void testWrongA()
+	@Test public void testWrongA()
 	{
 		final CopyMultiCopyTargetItem target =
 				new CopyMultiCopyTargetItem("targetValueA", "targetValueB");
@@ -81,7 +83,7 @@ public class CopyMultiCopyTest extends AbstractRuntimeModelTest
 		assertContains(TYPE.search());
 	}
 
-	public void testWrongB()
+	@Test public void testWrongB()
 	{
 		final CopyMultiCopyTargetItem target =
 				new CopyMultiCopyTargetItem("targetValueA", "targetValueB");

@@ -19,10 +19,11 @@
 package com.exedio.cope.pattern;
 
 import com.exedio.cope.junit.CopeAssert;
+import org.junit.Test;
 
 public class HashPlainTextLimitTest extends CopeAssert
 {
-	public void testIt()
+	@Test public void testIt()
 	{
 		final Hash vanillaHash = new Hash(new MessageDigestAlgorithm("SHA-512", 0, 1));
 		assertEquals(150, vanillaHash.getPlainTextLimit());

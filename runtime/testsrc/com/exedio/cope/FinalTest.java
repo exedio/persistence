@@ -20,6 +20,8 @@ package com.exedio.cope;
 
 import static com.exedio.cope.SchemaInfo.getUpdateCounterColumnName;
 
+import org.junit.Test;
+
 public final class FinalTest extends AbstractRuntimeModelTest
 {
 	static final Model MODEL = new Model(FinalSuperItem.TYPE, FinalSubItem.TYPE, FinalSubNoneItem.TYPE);
@@ -29,7 +31,7 @@ public final class FinalTest extends AbstractRuntimeModelTest
 		super(MODEL);
 	}
 
-	public void test()
+	@Test public void test()
 	{
 		new FinalSubItem(1, 11);
 		new FinalSubNoneItem(2, 22);
@@ -46,7 +48,7 @@ public final class FinalTest extends AbstractRuntimeModelTest
 		assertEquals(22, item2c.getSubIntNone());
 	}
 
-	public void testUpdateCounter()
+	@Test public void testUpdateCounter()
 	{
 		assertEquals(synthetic("catch", "FinalSuperItem"), getUpdateCounterColumnName(FinalSuperItem.TYPE));
 		assertEquals(synthetic("catch", "FinalSubNoneItem"), getUpdateCounterColumnName(FinalSubNoneItem.TYPE));

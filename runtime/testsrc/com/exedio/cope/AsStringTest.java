@@ -25,6 +25,7 @@ import static com.exedio.cope.AsStringItem.longx;
 
 import java.util.Iterator;
 import java.util.List;
+import org.junit.Test;
 
 public class AsStringTest extends AbstractRuntimeModelTest
 {
@@ -49,7 +50,7 @@ public class AsStringTest extends AbstractRuntimeModelTest
 		itemX = new AsStringItem(null, null, null);
 	}
 
-	public void testIt()
+	@Test public void testIt()
 	{
 		assertEquals("13",   intx   .asString().get(item1));
 		assertEquals("15",   longx  .asString().get(item1));

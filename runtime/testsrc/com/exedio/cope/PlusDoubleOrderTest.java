@@ -31,6 +31,7 @@ import static java.lang.Double.valueOf;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import org.junit.Test;
 
 public class PlusDoubleOrderTest extends AbstractRuntimeModelTest
 {
@@ -54,7 +55,7 @@ public class PlusDoubleOrderTest extends AbstractRuntimeModelTest
 
 	private static final double EPS = 0.000000000000001d;
 
-	public void testSumOrder()
+	@Test public void testSumOrder()
 	{
 		assertEquals(d7.doubleValue(), item1.getPlusAB(), EPS);
 		assertEquals(d3.doubleValue(), item2.getPlusAB(), EPS);

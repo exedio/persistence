@@ -20,10 +20,11 @@ package com.exedio.cope;
 
 import com.exedio.cope.junit.CopeAssert;
 import com.exedio.dsmf.SQLRuntimeException;
+import org.junit.Test;
 
 public class SQLRuntimeExceptionTest extends CopeAssert
 {
-	public void testTruncate()
+	@Test public void testTruncate()
 	{
 		assertIt("abcd", "abcd");
 		assertIt(

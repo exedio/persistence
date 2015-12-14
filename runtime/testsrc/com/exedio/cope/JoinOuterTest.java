@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import com.exedio.cope.testmodel.PointerItem;
 import com.exedio.cope.testmodel.PointerTargetItem;
+import org.junit.Test;
 
 public class JoinOuterTest extends TestmodelTest
 {
@@ -38,7 +39,7 @@ public class JoinOuterTest extends TestmodelTest
 		leftLonely = new PointerItem("left", rightJoined);
 	}
 
-	public void testJoin()
+	@Test public void testJoin()
 	{
 		{
 			final Query<PointerItem> query = PointerItem.TYPE.newQuery(null);

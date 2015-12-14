@@ -31,6 +31,7 @@ import static java.lang.Long.valueOf;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import org.junit.Test;
 
 public class PlusLongOrderTest extends AbstractRuntimeModelTest
 {
@@ -52,7 +53,7 @@ public class PlusLongOrderTest extends AbstractRuntimeModelTest
 		item3 = new PlusLongItem(6l, 2l, -1000l);
 	}
 
-	public void testSumOrder()
+	@Test public void testSumOrder()
 	{
 		assertEquals(l7, item1.getPlusAB());
 		assertEquals(l3, item2.getPlusAB());

@@ -34,5 +34,6 @@
 	<classpathentry kind="lib" path="lib/slf4j-api.jar" sourcepath="lib/slf4j-api-source.jar"/>
 	<classpathentry kind="lib" path="lib/slf4j-log4j12.jar"/>
 	<classpathentry kind="lib" path="lib/exedio-cope-servletutil.jar" sourcepath="lib/exedio-cope-servletutil-src.zip"/>
+	<classpathentry kind="lib" path="lib/cpsuite.jar" sourcepath="lib/cpsuite-src.zip"/>
 	<classpathentry kind="output" path=".eclipse-output"/>
 </classpath>

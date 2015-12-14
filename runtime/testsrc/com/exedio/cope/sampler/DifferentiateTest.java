@@ -22,11 +22,12 @@ import static com.exedio.cope.sampler.Stuff.sampler;
 
 import com.exedio.cope.junit.CopeAssert;
 import java.util.Date;
+import org.junit.Test;
 
 public class DifferentiateTest extends CopeAssert
 {
 	@Deprecated
-	public void testIt()
+	@Test public void testIt()
 	{
 		assertEquals(list(), sampler.differentiate());
 

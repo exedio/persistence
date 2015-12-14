@@ -51,6 +51,7 @@ import com.exedio.cope.util.Clock;
 import com.exedio.cope.util.Day;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Date;
+import org.junit.Test;
 
 public class DefaultToTest extends AbstractRuntimeModelTest
 {
@@ -77,7 +78,7 @@ public class DefaultToTest extends AbstractRuntimeModelTest
 	}
 
 	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
-	public void testIt()
+	@Test public void testIt()
 	{
 		assertDefaultToNextSequenceName("DefaulToItem_inteNext_Seq", integerNext);
 

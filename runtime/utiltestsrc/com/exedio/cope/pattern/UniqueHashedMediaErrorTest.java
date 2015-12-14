@@ -28,10 +28,11 @@ import com.exedio.cope.Model;
 import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
 import com.exedio.cope.junit.CopeAssert;
+import org.junit.Test;
 
 public class UniqueHashedMediaErrorTest extends CopeAssert
 {
-	public void testOptional()
+	@Test public void testOptional()
 	{
 		try
 		{
@@ -45,7 +46,7 @@ public class UniqueHashedMediaErrorTest extends CopeAssert
 	}
 
 
-	public void testNonCreateableAbstract()
+	@Test public void testNonCreateableAbstract()
 	{
 		try
 		{
@@ -69,7 +70,7 @@ public class UniqueHashedMediaErrorTest extends CopeAssert
 	}
 
 
-	public void testNonCreateableFunctionField()
+	@Test public void testNonCreateableFunctionField()
 	{
 		try
 		{
@@ -96,7 +97,7 @@ public class UniqueHashedMediaErrorTest extends CopeAssert
 	}
 
 
-	public void testNonCreateableDataField()
+	@Test public void testNonCreateableDataField()
 	{
 		try
 		{
@@ -123,7 +124,7 @@ public class UniqueHashedMediaErrorTest extends CopeAssert
 	}
 
 
-	public void testCreateable()
+	@Test public void testCreateable()
 	{
 		// test, that is does not throw an exception
 		new Model(CreateableItem.TYPE);

@@ -20,6 +20,7 @@ package com.exedio.cope.pattern;
 
 import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.Model;
+import org.junit.Test;
 
 public class CompositeDefaultTest extends AbstractRuntimeModelTest
 {
@@ -35,7 +36,7 @@ public class CompositeDefaultTest extends AbstractRuntimeModelTest
 		super(MODEL);
 	}
 
-	public void testIt()
+	@Test public void testIt()
 	{
 		final CompositeDefaultItem isDefault = new CompositeDefaultItem();
 		assertNull(isDefault.getField());

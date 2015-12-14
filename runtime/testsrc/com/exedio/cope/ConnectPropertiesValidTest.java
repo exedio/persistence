@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import org.junit.Test;
+
 public class ConnectPropertiesValidTest extends AbstractRuntimeModelTest
 {
 	public ConnectPropertiesValidTest()
@@ -25,7 +27,7 @@ public class ConnectPropertiesValidTest extends AbstractRuntimeModelTest
 		super(SchemaTest.MODEL);
 	}
 
-	public void test()
+	@Test public void test()
 	{
 		model.getConnectProperties().ensureValidity("x-build.");
 	}

@@ -20,9 +20,11 @@ package com.exedio.cope.junit;
 
 import static com.exedio.cope.junit.JUnitTestItem.nextSequence;
 
+import org.junit.Test;
+
 public class CopeModelTestTestRestart extends CopeModelTestTest
 {
-	public void testRestart()
+	@Test public void testRestart()
 	{
 		doTest();
 		model.commit();

@@ -29,6 +29,7 @@ import static com.exedio.cope.pattern.RangeFieldItem.valid;
 
 import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.CheckViolationException;
+import org.junit.Test;
 
 public class RangeFieldTest extends AbstractRuntimeModelTest
 {
@@ -37,7 +38,7 @@ public class RangeFieldTest extends AbstractRuntimeModelTest
 		super(RangeFieldModelTest.MODEL);
 	}
 
-	public void testIt()
+	@Test public void testIt()
 	{
 		final RangeFieldItem item = new RangeFieldItem(3, 5);
 

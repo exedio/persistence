@@ -29,6 +29,8 @@ import static com.exedio.cope.MinusLongItem.viewAC;
 import static com.exedio.cope.MinusLongItem.viewBC;
 import static java.lang.Long.valueOf;
 
+import org.junit.Test;
+
 public class MinusLongTest extends AbstractRuntimeModelTest
 {
 	static final Model MODEL = new Model(TYPE);
@@ -49,7 +51,7 @@ public class MinusLongTest extends AbstractRuntimeModelTest
 		item2 = new MinusLongItem(30, 4, 5);
 	}
 
-	public void testSum()
+	@Test public void testSum()
 	{
 		// test model
 		assertEquals(TYPE, viewAB.getType());

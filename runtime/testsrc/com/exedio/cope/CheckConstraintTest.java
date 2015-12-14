@@ -22,6 +22,8 @@ import static com.exedio.cope.CheckConstraintItem.TYPE;
 import static com.exedio.cope.CheckConstraintItem.alphaLessBeta;
 import static com.exedio.cope.CheckConstraintSuperItem.einsGreaterOrEqualZwei;
 
+import org.junit.Test;
+
 public class CheckConstraintTest extends AbstractRuntimeModelTest
 {
 	public CheckConstraintTest()
@@ -29,13 +31,13 @@ public class CheckConstraintTest extends AbstractRuntimeModelTest
 		super(CheckConstraintModelTest.MODEL);
 	}
 
-	public void testIsSupportedBySchema()
+	@Test public void testIsSupportedBySchema()
 	{
 		assertEquals(true, einsGreaterOrEqualZwei.isSupportedBySchemaIfSupportedByDialect());
 		assertEquals(true, alphaLessBeta.isSupportedBySchemaIfSupportedByDialect());
 	}
 
-	public void testSet()
+	@Test public void testSet()
 	{
 		final CheckConstraintItem item = new CheckConstraintItem(102, 101, 103, 4, 5, 6, 7);
 		assertIt(102, 101, 103, 4, 5, 6, 7, item);
@@ -76,7 +78,7 @@ public class CheckConstraintTest extends AbstractRuntimeModelTest
 		assertIt(102, 101, 103, 3, 6, 7, 7, item);
 	}
 
-	public void testSetSuper()
+	@Test public void testSetSuper()
 	{
 		final CheckConstraintItem item = new CheckConstraintItem(102, 101, 103, 4, 5, 6, 7);
 		assertIt(102, 101, 103, 4, 5, 6, 7, item);
@@ -117,7 +119,7 @@ public class CheckConstraintTest extends AbstractRuntimeModelTest
 		assertIt(103, 100, 104, 4, 5, 6, 7, item);
 	}
 
-	public void testSetMulti()
+	@Test public void testSetMulti()
 	{
 		final CheckConstraintItem item = new CheckConstraintItem(102, 101, 103, 4, 5, 6, 7);
 		assertIt(102, 101, 103, 4, 5, 6, 7, item);
@@ -158,7 +160,7 @@ public class CheckConstraintTest extends AbstractRuntimeModelTest
 		assertIt(102, 101, 103, 4, 8, 9, 7, item);
 	}
 
-	public void testSetMultiSuper()
+	@Test public void testSetMultiSuper()
 	{
 		final CheckConstraintItem item = new CheckConstraintItem(102, 101, 103, 4, 5, 6, 7);
 		assertIt(102, 101, 103, 4, 5, 6, 7, item);
@@ -199,7 +201,7 @@ public class CheckConstraintTest extends AbstractRuntimeModelTest
 		assertIt(102, 100, 105, 4, 5, 6, 7, item);
 	}
 
-	public void testCreate()
+	@Test public void testCreate()
 	{
 		try
 		{
@@ -215,7 +217,7 @@ public class CheckConstraintTest extends AbstractRuntimeModelTest
 		assertEquals(list(), TYPE.search());
 	}
 
-	public void testCreateSuper()
+	@Test public void testCreateSuper()
 	{
 		try
 		{

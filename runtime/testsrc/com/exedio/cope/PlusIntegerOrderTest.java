@@ -29,6 +29,7 @@ import com.exedio.cope.junit.CopeModelTest;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import org.junit.Test;
 
 public class PlusIntegerOrderTest extends CopeModelTest
 {
@@ -50,7 +51,7 @@ public class PlusIntegerOrderTest extends CopeModelTest
 		item3 = new PlusIntegerItem(6, 2, -1000);
 	}
 
-	public void testSumOrder()
+	@Test public void testSumOrder()
 	{
 		assertEquals(valueOf(    7), item1.getPlusAB());
 		assertEquals(valueOf(    3), item2.getPlusAB());

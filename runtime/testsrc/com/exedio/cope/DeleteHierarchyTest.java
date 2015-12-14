@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import org.junit.Test;
 
 public class DeleteHierarchyTest extends AbstractRuntimeModelTest
 {
@@ -28,7 +29,7 @@ public class DeleteHierarchyTest extends AbstractRuntimeModelTest
 		super(MODEL);
 	}
 
-	public void testIt()
+	@Test public void testIt()
 	{
 		// test model
 		assertEqualsUnmodifiable(list(), DeleteHierarchySource.TYPE.getDeclaredReferences());

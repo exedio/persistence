@@ -18,6 +18,7 @@
 
 package com.exedio.dsmf;
 
+import org.junit.Test;
 
 public class TableTest extends SchemaReadyTest
 {
@@ -36,7 +37,7 @@ public class TableTest extends SchemaReadyTest
 		return result;
 	}
 
-	public void testTables()
+	@Test public void testTables()
 	{
 		// OK
 		{

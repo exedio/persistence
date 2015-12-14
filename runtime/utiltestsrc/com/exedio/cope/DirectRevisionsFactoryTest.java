@@ -23,11 +23,12 @@ import static com.exedio.cope.misc.DirectRevisionsFactory.make;
 import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.misc.DirectRevisionsFactory;
 import java.sql.SQLException;
+import org.junit.Test;
 
 public class DirectRevisionsFactoryTest extends CopeAssert
 {
 	@Deprecated // OK: tests deprecated API
-	public void testIt() throws SQLException
+	@Test public void testIt() throws SQLException
 	{
 		assertEquals(null, make(null));
 

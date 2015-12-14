@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import java.util.Iterator;
 import java.util.List;
+import org.junit.Test;
 
 public class QueryInfoTest extends AbstractRuntimeModelTest
 {
@@ -28,7 +29,7 @@ public class QueryInfoTest extends AbstractRuntimeModelTest
 		super(SchemaTest.MODEL);
 	}
 
-	public void testExecutionPlan()
+	@Test public void testExecutionPlan()
 	{
 		final Transaction transaction = model.currentTransaction();
 		final Query<?> query = SchemaItem.TYPE.newQuery(SchemaItem.uniqueString.equal("zack"));

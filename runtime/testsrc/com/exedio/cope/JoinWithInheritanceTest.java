@@ -43,8 +43,7 @@ public class JoinWithInheritanceTest extends AbstractRuntimeModelTest
 		super(MODEL);
 	}
 
-	@Test
-	public void testCorrectSubtypeOfJoinWillBeUsed()
+	@Test public void testCorrectSubtypeOfJoinWillBeUsed()
 	{
 		final Container container = new Container();
 		container.addToArticles(new SpecificArticle());
@@ -61,8 +60,7 @@ public class JoinWithInheritanceTest extends AbstractRuntimeModelTest
 		assertEquals(asList(container), query.search());
 	}
 
-	@Test
-	public void testCorrectSubtypeOfJoinWillBeUsedEmptyResult()
+	@Test public void testCorrectSubtypeOfJoinWillBeUsedEmptyResult()
 	{
 		final Container container = new Container();
 		container.addToArticles(new SpecificArticle());
@@ -80,8 +78,7 @@ public class JoinWithInheritanceTest extends AbstractRuntimeModelTest
 		assertEquals(asList(), query.search());
 	}
 
-	@Test
-	public void testSuperTypeCastNotAllowed()
+	@Test public void testSuperTypeCastNotAllowed()
 	{
 		final Container container = new Container();
 		container.addToArticles(new SpecificArticle());
@@ -100,8 +97,7 @@ public class JoinWithInheritanceTest extends AbstractRuntimeModelTest
 		}
 	}
 
-	@Test
-	public void testInvalidJoinIsBound()
+	@Test public void testInvalidJoinIsBound()
 	{
 		final Container container = new Container();
 		container.addToArticles(new SpecificArticle());

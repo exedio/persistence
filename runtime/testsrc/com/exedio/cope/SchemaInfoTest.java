@@ -26,6 +26,8 @@ import static com.exedio.cope.SchemaInfo.getTypeColumnName;
 import static com.exedio.cope.SchemaInfo.getUpdateCounterColumnName;
 import static com.exedio.cope.SchemaInfo.quoteName;
 
+import org.junit.Test;
+
 public class SchemaInfoTest extends AbstractRuntimeModelTest
 {
 	public SchemaInfoTest()
@@ -33,7 +35,7 @@ public class SchemaInfoTest extends AbstractRuntimeModelTest
 		super(InstanceOfModelTest.MODEL);
 	}
 
-	public void testSchemaInfo()
+	@Test public void testSchemaInfo()
 	{
 		// quoteName
 		final char q = mysql ? '`' : '"';

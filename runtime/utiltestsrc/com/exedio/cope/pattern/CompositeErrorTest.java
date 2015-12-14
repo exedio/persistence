@@ -28,10 +28,11 @@ import com.exedio.cope.FunctionField;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.StringField;
 import com.exedio.cope.junit.CopeAssert;
+import org.junit.Test;
 
 public class CompositeErrorTest extends CopeAssert
 {
-	public void testNull()
+	@Test public void testNull()
 	{
 		try
 		{
@@ -45,7 +46,7 @@ public class CompositeErrorTest extends CopeAssert
 	}
 
 
-	public void testNonFinal()
+	@Test public void testNonFinal()
 	{
 		try
 		{
@@ -66,7 +67,7 @@ public class CompositeErrorTest extends CopeAssert
 	}
 
 
-	public void testNoConstructor()
+	@Test public void testNoConstructor()
 	{
 		try
 		{
@@ -89,7 +90,7 @@ public class CompositeErrorTest extends CopeAssert
 	}
 
 
-	public void testNoFields()
+	@Test public void testNoFields()
 	{
 		try
 		{
@@ -109,7 +110,7 @@ public class CompositeErrorTest extends CopeAssert
 	}
 
 
-	public void testNullField()
+	@Test public void testNullField()
 	{
 		try
 		{
@@ -130,7 +131,7 @@ public class CompositeErrorTest extends CopeAssert
 	}
 
 
-	public void testNotFunctionField()
+	@Test public void testNotFunctionField()
 	{
 		try
 		{
@@ -154,7 +155,7 @@ public class CompositeErrorTest extends CopeAssert
 	}
 
 
-	public void testCompositeItself()
+	@Test public void testCompositeItself()
 	{
 		try
 		{
@@ -171,7 +172,7 @@ public class CompositeErrorTest extends CopeAssert
 	}
 
 
-	public void testFinalField()
+	@Test public void testFinalField()
 	{
 		try
 		{
@@ -194,7 +195,7 @@ public class CompositeErrorTest extends CopeAssert
 	}
 
 
-	public void testNonConstantDefaultField()
+	@Test public void testNonConstantDefaultField()
 	{
 		try
 		{
@@ -219,7 +220,7 @@ public class CompositeErrorTest extends CopeAssert
 
 
 	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad API usage
-	public void testNoComposite()
+	@Test public void testNoComposite()
 	{
 		try
 		{

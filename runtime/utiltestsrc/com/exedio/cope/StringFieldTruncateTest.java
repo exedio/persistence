@@ -19,10 +19,11 @@
 package com.exedio.cope;
 
 import com.exedio.cope.junit.CopeAssert;
+import org.junit.Test;
 
 public class StringFieldTruncateTest extends CopeAssert
 {
-	public void testAddRemove()
+	@Test public void testAddRemove()
 	{
 		assertIt("'abcd'", "abcd");
 		assertIt(

@@ -24,6 +24,7 @@ import static com.exedio.cope.HierarchySuper.TYPE;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import org.junit.Test;
 
 public class HierarchyCompareTest extends AbstractRuntimeModelTest
 {
@@ -50,7 +51,7 @@ public class HierarchyCompareTest extends AbstractRuntimeModelTest
 		orderby = Arrays.asList((Item)a1, b1, a2, b2);
 	}
 
-	public void testIt()
+	@Test public void testIt()
 	{
 		assertEquals(orderby, TYPE.search(null, TYPE.getThis(), true));
 		assertCompare(items);

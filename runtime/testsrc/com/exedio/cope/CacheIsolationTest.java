@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import org.junit.Test;
+
 public class CacheIsolationTest extends AbstractRuntimeModelTest
 {
 	public static final Model MODEL = new Model(CacheIsolationItem.TYPE);
@@ -50,7 +52,7 @@ public class CacheIsolationTest extends AbstractRuntimeModelTest
 		}
 	}
 
-	public void test() throws MandatoryViolationException
+	@Test public void test() throws MandatoryViolationException
 	{
 		if(hsqldb) return;
 		assertInvalidations(0, 0);
@@ -92,7 +94,7 @@ public class CacheIsolationTest extends AbstractRuntimeModelTest
 		assertSame(listener, model.setTestDatabaseListener(null));
 	}
 
-	public void testRollback() throws MandatoryViolationException
+	@Test public void testRollback() throws MandatoryViolationException
 	{
 		if(hsqldb) return;
 		assertInvalidations(0, 0);
@@ -120,7 +122,7 @@ public class CacheIsolationTest extends AbstractRuntimeModelTest
 		assertSame(listener, model.setTestDatabaseListener(null));
 	}
 
-	public void testSearch() throws MandatoryViolationException
+	@Test public void testSearch() throws MandatoryViolationException
 	{
 		if(hsqldb) return;
 

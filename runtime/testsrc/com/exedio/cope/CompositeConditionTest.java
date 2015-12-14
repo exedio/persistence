@@ -23,6 +23,8 @@ import static com.exedio.cope.CompareConditionItem.intx;
 import static com.exedio.cope.CompareConditionItem.longx;
 import static com.exedio.cope.RuntimeAssert.assertCondition;
 
+import org.junit.Test;
+
 public class CompositeConditionTest extends AbstractRuntimeModelTest
 {
 	public CompositeConditionTest()
@@ -45,7 +47,7 @@ public class CompositeConditionTest extends AbstractRuntimeModelTest
 		itemXX = new CompareConditionItem(null, null, null, null, null, null, null);
 	}
 
-	public void testNot()
+	@Test public void testNot()
 	{
 		final Condition conditionA = intx .greater(1);
 		final Condition conditionB = longx.greater(1l);

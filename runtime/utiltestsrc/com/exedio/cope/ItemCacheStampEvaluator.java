@@ -23,6 +23,8 @@ import static com.exedio.cope.misc.TimeUtil.toMillies;
 import com.exedio.cope.junit.CopeAssert;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
+import org.junit.Ignore;
+import org.junit.Test;
 
 /**
  * Test expenses for System.nanoTime against atomic sequences
@@ -35,11 +37,12 @@ import java.util.concurrent.atomic.AtomicLong;
  * AtomicLong.   getAndIncrement() 95 ms
  * AtomicInteger.getAndIncrement() 94 ms
  */
+@Ignore
 public class ItemCacheStampEvaluator extends CopeAssert
 {
 	private static final int ITERATIONS = 10000000;
 
-	public void testIt()
+	@Test public void testIt()
 	{
 		{
 			final long start = System.nanoTime();

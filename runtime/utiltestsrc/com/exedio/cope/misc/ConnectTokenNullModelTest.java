@@ -26,10 +26,11 @@ import static com.exedio.cope.misc.ConnectToken.removeProperties;
 import static com.exedio.cope.misc.ConnectToken.setProperties;
 
 import com.exedio.cope.junit.CopeAssert;
+import org.junit.Test;
 
 public class ConnectTokenNullModelTest extends CopeAssert
 {
-	public void testIt()
+	@Test public void testIt()
 	{
 		try
 		{

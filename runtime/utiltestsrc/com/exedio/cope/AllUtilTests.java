@@ -16,24 +16,13 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.cope.sampler;
+package com.exedio.cope;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+import org.junit.extensions.cpsuite.ClasspathSuite;
+import org.junit.runner.RunWith;
 
-public class PackageTest extends TestCase
+@RunWith(ClasspathSuite.class)
+public class AllUtilTests
 {
-	public static Test suite()
-	{
-		final TestSuite suite = new TestSuite();
-		suite.addTestSuite(StringUtilTest.class);
-		suite.addTestSuite(SampleTest.class);
-		suite.addTestSuite(SampleItemCacheTest.class);
-		suite.addTestSuite(SampleMediaTest.class);
-		suite.addTestSuite(SamplerTest.class);
-		suite.addTestSuite(PurgeTest.class);
-		suite.addTestSuite(DifferentiateTest.class);
-		return suite;
-	}
+	// empty class
 }

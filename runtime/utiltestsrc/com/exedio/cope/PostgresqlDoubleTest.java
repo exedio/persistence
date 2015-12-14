@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import com.exedio.cope.junit.CopeAssert;
+import org.junit.Test;
 
 public class PostgresqlDoubleTest extends CopeAssert
 {
@@ -27,7 +28,7 @@ public class PostgresqlDoubleTest extends CopeAssert
 		return PostgresqlFormat.format(number);
 	}
 
-	public void testIt()
+	@Test public void testIt()
 	{
 		assertEquals( "1.7976931348623157E308", Double.toString( Double.MAX_VALUE));
 		assertEquals("-1.7976931348623157E308", Double.toString(-Double.MAX_VALUE));

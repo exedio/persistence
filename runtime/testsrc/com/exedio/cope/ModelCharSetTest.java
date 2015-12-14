@@ -19,10 +19,11 @@
 package com.exedio.cope;
 
 import com.exedio.cope.junit.CopeAssert;
+import org.junit.Test;
 
 public class ModelCharSetTest extends CopeAssert
 {
-	public void testType()
+	@Test public void testType()
 	{
 		new Type<>(AnItem.class, AnItem.class, false, "Zack-Zick123", null, false, null, new Features());
 		try
@@ -36,7 +37,7 @@ public class ModelCharSetTest extends CopeAssert
 		}
 	}
 
-	public void testFeature()
+	@Test public void testFeature()
 	{
 		final StringField f = new StringField();
 		final Features fs = new Features();
@@ -51,7 +52,7 @@ public class ModelCharSetTest extends CopeAssert
 		}
 	}
 
-	public void testFeatureNaked()
+	@Test public void testFeatureNaked()
 	{
 		final Type<AnItem> t = new Type<>(AnItem.class, AnItem.class, false, "Type123", null, false, null, new Features());
 		final StringField f = new StringField();

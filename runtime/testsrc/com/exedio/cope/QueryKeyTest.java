@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import org.junit.Test;
+
 public class QueryKeyTest extends AbstractRuntimeModelTest
 {
 	public QueryKeyTest()
@@ -25,7 +27,7 @@ public class QueryKeyTest extends AbstractRuntimeModelTest
 		super(InstanceOfModelTest.MODEL);
 	}
 
-	public void testIt()
+	@Test public void testIt()
 	{
 		final Query<InstanceOfAItem> q = InstanceOfAItem.TYPE.newQuery(null);
 		q.join(InstanceOfB1Item.TYPE, InstanceOfAItem.code.isNull());

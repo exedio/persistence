@@ -22,10 +22,11 @@ import static com.exedio.cope.misc.ListUtil.trimUnmodifiable;
 
 import com.exedio.cope.junit.CopeAssert;
 import java.util.ArrayList;
+import org.junit.Test;
 
 public class ListUtilTest extends CopeAssert
 {
-	public void testIt()
+	@Test public void testIt()
 	{
 		assertEqualsUnmodifiable(list(), trimUnmodifiable(l()));
 		assertEqualsUnmodifiable(list("hallo"), trimUnmodifiable(l("hallo")));

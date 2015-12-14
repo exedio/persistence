@@ -21,6 +21,7 @@ package com.exedio.cope.util;
 import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.CacheIsolationTest;
 import com.exedio.cope.Transaction;
+import org.junit.Test;
 
 public class TransactionSlicerTest extends AbstractRuntimeModelTest
 {
@@ -30,7 +31,7 @@ public class TransactionSlicerTest extends AbstractRuntimeModelTest
 	}
 
 	@Deprecated
-	public void testIt()
+	@Test public void testIt()
 	{
 		final Transaction t1 = model.currentTransaction();
 
@@ -81,7 +82,7 @@ public class TransactionSlicerTest extends AbstractRuntimeModelTest
 	}
 
 	@Deprecated
-	public void testEmpty()
+	@Test public void testEmpty()
 	{
 		final Transaction t1 = model.currentTransaction();
 
@@ -129,7 +130,7 @@ public class TransactionSlicerTest extends AbstractRuntimeModelTest
 	}
 
 	@Deprecated
-	public void testNoname()
+	@Test public void testNoname()
 	{
 		model.commit();
 		model.startTransaction(null);

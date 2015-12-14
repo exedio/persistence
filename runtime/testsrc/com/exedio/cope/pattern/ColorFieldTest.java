@@ -27,6 +27,7 @@ import static com.exedio.cope.pattern.ColorFieldItem.optional;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.junit.CopeModelTest;
 import java.awt.Color;
+import org.junit.Test;
 
 public class ColorFieldTest extends CopeModelTest
 {
@@ -44,7 +45,7 @@ public class ColorFieldTest extends CopeModelTest
 		i = new ColorFieldItem(new Color(1, 2, 3));
 	}
 
-	public void testMandatory()
+	@Test public void testMandatory()
 	{
 		assertEquals(new Color(1, 2, 3), i.getMandatory());
 
@@ -72,7 +73,7 @@ public class ColorFieldTest extends CopeModelTest
 		assertEquals(color, i.getMandatory());
 	}
 
-	public void testMandatoryViolation()
+	@Test public void testMandatoryViolation()
 	{
 		try
 		{
@@ -114,7 +115,7 @@ public class ColorFieldTest extends CopeModelTest
 		assertContains(i, TYPE.search());
 	}
 
-	public void testAlpha()
+	@Test public void testAlpha()
 	{
 		assertEquals(new Color(77, 88, 99, 254), i.getAlpha());
 
@@ -144,7 +145,7 @@ public class ColorFieldTest extends CopeModelTest
 		assertEquals(color, i.getAlpha());
 	}
 
-	public void testMandatoryAlpha()
+	@Test public void testMandatoryAlpha()
 	{
 		assertEquals(new Color(122, 133, 199, 253), i.getMandatoryAlpha());
 
@@ -184,7 +185,7 @@ public class ColorFieldTest extends CopeModelTest
 		assertEquals(color, i.getMandatoryAlpha());
 	}
 
-	public void testAlphaViolation()
+	@Test public void testAlphaViolation()
 	{
 		final Color alpha = new Color(55, 66, 77, 254);
 		try
@@ -230,7 +231,7 @@ public class ColorFieldTest extends CopeModelTest
 		assertContains(i, TYPE.search());
 	}
 
-	public void testOptional()
+	@Test public void testOptional()
 	{
 		assertEquals(null, i.getOptional());
 
@@ -247,7 +248,7 @@ public class ColorFieldTest extends CopeModelTest
 		assertEquals(null, i.getOptional());
 	}
 
-	public void testDefaultTo()
+	@Test public void testDefaultTo()
 	{
 		assertEquals(new Color(22, 33, 44), i.getDefaultTo());
 
@@ -268,7 +269,7 @@ public class ColorFieldTest extends CopeModelTest
 		assertEquals(new Color(11, 12, 13), i.getDefaultTo());
 	}
 
-	public void testPersistence()
+	@Test public void testPersistence()
 	{
 		assertPersistence(new Color( 55,  66,  77),  3621453);
 		assertPersistence(new Color(255, 255, 255), 16777215);

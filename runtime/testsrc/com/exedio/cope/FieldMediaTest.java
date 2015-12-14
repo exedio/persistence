@@ -27,10 +27,11 @@ import com.exedio.cope.testmodel.AttributeItem;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import org.junit.Test;
 
 public class FieldMediaTest extends FieldTest
 {
-	public void testSomeData() throws IOException
+	@Test public void testSomeData() throws IOException
 	{
 		assertEquals(TYPE, someData.getType());
 		assertEquals("someData", someData.getName());

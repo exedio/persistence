@@ -38,6 +38,7 @@ import com.exedio.cope.StringField;
 import com.exedio.cope.junit.CopeAssert;
 import java.awt.Color;
 import java.util.Arrays;
+import org.junit.Test;
 
 public class BlockFieldStandardModelTest extends CopeAssert
 {
@@ -48,7 +49,7 @@ public class BlockFieldStandardModelTest extends CopeAssert
 		MODEL.enableSerialization(BlockFieldStandardModelTest.class, "MODEL");
 	}
 
-	public void testIt()
+	@Test public void testIt()
 	{
 		assertEqualsUnmodifiable(Arrays.asList(new Feature[]{
 				AnItem.TYPE.getThis(),

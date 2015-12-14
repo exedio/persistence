@@ -32,6 +32,7 @@ import static com.exedio.cope.SchemaInfo.supportsCheckConstraints;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.sql.Connection;
 import java.sql.SQLException;
+import org.junit.Test;
 
 public class CheckConstraintViolatedTest extends AbstractRuntimeModelTest
 {
@@ -46,7 +47,7 @@ public class CheckConstraintViolatedTest extends AbstractRuntimeModelTest
 		return false;
 	}
 
-	public void testIt() throws SQLException
+	@Test public void testIt() throws SQLException
 	{
 		assertEquals(true, alphaLessBeta.isSupportedBySchemaIfSupportedByDialect());
 		model.checkUnsupportedConstraints();

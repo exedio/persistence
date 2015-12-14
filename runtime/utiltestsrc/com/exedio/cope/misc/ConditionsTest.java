@@ -34,10 +34,11 @@ import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
 import com.exedio.cope.junit.CopeAssert;
 import java.util.Collections;
+import org.junit.Test;
 
 public class ConditionsTest extends CopeAssert
 {
-	public void testEqual()
+	@Test public void testEqual()
 	{
 		assertEquals(
 				"((AnItem.name1='alpha' AND AnItem.name1='beta') OR" +
@@ -45,7 +46,7 @@ public class ConditionsTest extends CopeAssert
 				equal(name1.equal("alpha"), name1.equal("beta")).toString());
 	}
 
-	public void testEqualNull()
+	@Test public void testEqualNull()
 	{
 		final Condition c = name1.equal("beta");
 		try
@@ -68,14 +69,14 @@ public class ConditionsTest extends CopeAssert
 		}
 	}
 
-	public void testImplies()
+	@Test public void testImplies()
 	{
 		assertEquals(
 				"(!(AnItem.name1='alpha') OR AnItem.name1='beta')",
 				implies(name1.equal("alpha"), name1.equal("beta")).toString());
 	}
 
-	public void testImpliesNull()
+	@Test public void testImpliesNull()
 	{
 		final Condition c = name1.equal("beta");
 		try
@@ -98,7 +99,7 @@ public class ConditionsTest extends CopeAssert
 		}
 	}
 
-	public void testUnisonNull()
+	@Test public void testUnisonNull()
 	{
 		assertEquals("TRUE", unisonNull(Collections.<Function<?>>emptyList()).toString());
 		assertEquals("TRUE", unisonNull(asList(name1)).toString());
@@ -112,7 +113,7 @@ public class ConditionsTest extends CopeAssert
 			unisonNull(asList(name1, name2, name3)).toString());
 	}
 
-	public void testUnisonNullNull()
+	@Test public void testUnisonNullNull()
 	{
 		try
 		{

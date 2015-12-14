@@ -30,6 +30,7 @@ import static com.exedio.cope.testmodel.StringItem.min4Upper;
 import static com.exedio.cope.testmodel.StringItem.min4UpperLength;
 
 import com.exedio.cope.testmodel.StringItem;
+import org.junit.Test;
 
 public class FunctionTest extends AbstractRuntimeModelTest
 {
@@ -57,7 +58,7 @@ public class FunctionTest extends AbstractRuntimeModelTest
 		item2 = newItem("6ggggg", "2b");
 	}
 
-	public void testFunctions()
+	@Test public void testFunctions()
 	{
 		assertSerializedSame(min4Upper, 376);
 		assertSerializedSame(max4Upper, 376);

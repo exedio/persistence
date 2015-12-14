@@ -28,6 +28,7 @@ import com.exedio.cope.util.Clock;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import org.junit.Test;
 
 public class FieldDateTest extends FieldTest
 {
@@ -48,7 +49,7 @@ public class FieldDateTest extends FieldTest
 		super.tearDown();
 	}
 
-	public void testSomeDate()
+	@Test public void testSomeDate()
 	{
 		final Date date = new Date(1087365298214l);
 		final Date beforeDate = new Date(date.getTime()-1l);
@@ -116,7 +117,7 @@ public class FieldDateTest extends FieldTest
 	}
 
 	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad API usage
-	public void testUnchecked()
+	@Test public void testUnchecked()
 	{
 		try
 		{
@@ -129,7 +130,7 @@ public class FieldDateTest extends FieldTest
 		}
 	}
 
-	public void testOrder() throws MandatoryViolationException
+	@Test public void testOrder() throws MandatoryViolationException
 	{
 		final Date[] dates = new Date[9];
 		AttributeItem item3, item4;
@@ -177,7 +178,7 @@ public class FieldDateTest extends FieldTest
 		);
 	}
 
-	public void testOrderWithFixedDates() throws MandatoryViolationException, ParseException
+	@Test public void testOrderWithFixedDates() throws MandatoryViolationException, ParseException
 	{
 		final Date[] dates = new Date[9];
 		AttributeItem item3, item4;
@@ -226,7 +227,7 @@ public class FieldDateTest extends FieldTest
 		);
 	}
 
-	public void testDateColumnType()
+	@Test public void testDateColumnType()
 	{
 		assertEquals(dialect.dateTimestampType, model.connect().database.dialect.getDateTimestampType());
 	}
@@ -242,7 +243,7 @@ public class FieldDateTest extends FieldTest
 		assertEquals("ts: "+toString(expectedDate)+" "+toString(actualDate), expectedDate, actualDate);
 	}
 
-	public void testSchema()
+	@Test public void testSchema()
 	{
 		assertSchema();
 	}

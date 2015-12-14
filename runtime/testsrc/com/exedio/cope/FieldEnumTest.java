@@ -25,6 +25,7 @@ import static com.exedio.cope.testmodel.AttributeItem.someNotNullEnum;
 
 import com.exedio.cope.testmodel.AttributeItem;
 import com.exedio.cope.testmodel.AttributeItem.SomeEnum;
+import org.junit.Test;
 
 public class FieldEnumTest extends FieldTest
 {
@@ -34,7 +35,7 @@ public class FieldEnumTest extends FieldTest
 		enumValue2;
 	}
 
-	public void testSomeEnum()
+	@Test public void testSomeEnum()
 	{
 		// model
 		assertEquals(TYPE, someEnum.getType());
@@ -133,7 +134,7 @@ public class FieldEnumTest extends FieldTest
 	}
 
 	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad API usage
-	public void testUnchecked()
+	@Test public void testUnchecked()
 	{
 		try
 		{
@@ -156,7 +157,7 @@ public class FieldEnumTest extends FieldTest
 		}
 	}
 
-	public void testNotNullSomeEnum()
+	@Test public void testNotNullSomeEnum()
 			throws MandatoryViolationException
 	{
 		assertEquals(AttributeItem.SomeEnum.enumValue1, item.getSomeNotNullEnum());

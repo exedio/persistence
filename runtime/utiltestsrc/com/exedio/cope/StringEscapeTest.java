@@ -19,10 +19,11 @@
 package com.exedio.cope;
 
 import junit.framework.TestCase;
+import org.junit.Test;
 
 public class StringEscapeTest extends TestCase
 {
-	public void testIt()
+	@Test public void testIt()
 	{
 		assertEquals("NULL", e(null));
 		assertEquals("''", e(""));

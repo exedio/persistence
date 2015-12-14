@@ -16,33 +16,17 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.dsmf;
+package com.exedio.cope;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+import org.junit.experimental.categories.Categories;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
 
-
-public class PackageTest extends TestCase
+//reference: http://stackoverflow.com/questions/6226026/how-to-run-all-junit-tests-in-a-category-suite-with-ant
+@RunWith(Categories.class)
+@Categories.ExcludeCategory(AllButSomeTests.class)
+@Suite.SuiteClasses(AllTests.class)
+public class AllButSomeTests
 {
-
-	public static Test suite()
-	{
-		final TestSuite suite = new TestSuite();
-
-		suite.addTestSuite(GraphTest.class);
-		suite.addTestSuite(NodeTest.class);
-		suite.addTestSuite(TableTest.class);
-		suite.addTestSuite(ColumnTest.class);
-		suite.addTestSuite(ConstraintTest.class);
-		suite.addTestSuite(CircleTest.class);
-		suite.addTestSuite(QuoteTest.class);
-
-		suite.addTestSuite(SQLInjectionTest.class);
-
-		//suite.addTestSuite(BatchTest.class);
-
-		return suite;
-	}
-
+	// empty class
 }

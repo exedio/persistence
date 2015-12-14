@@ -23,10 +23,11 @@ import com.exedio.cope.Item;
 import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
 import com.exedio.cope.junit.CopeAssert;
+import org.junit.Test;
 
 public class ComputedTest extends CopeAssert
 {
-	public void testIt()
+	@Test public void testIt()
 	{
 		assertEquals(true,  comp(Super.TYPE));
 		assertEquals(true,  comp(Sub.TYPE));

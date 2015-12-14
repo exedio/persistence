@@ -19,12 +19,13 @@
 package com.exedio.cope;
 
 import com.exedio.cope.junit.CopeAssert;
+import org.junit.Test;
 
 public class SequenceCounterTest extends CopeAssert
 {
 	private static final StringField feature = new StringField();
 
-	public void testNormal()
+	@Test public void testNormal()
 	{
 		final SequenceCounter c =
 				new SequenceCounter(feature, 15, 10, 20);
@@ -37,7 +38,7 @@ public class SequenceCounterTest extends CopeAssert
 		assertIt(c, 15, 10, 20, 3, 15, 17);
 	}
 
-	public void testLimit()
+	@Test public void testLimit()
 	{
 		final SequenceCounter c =
 				new SequenceCounter(feature, 10, 10, 12);
@@ -60,7 +61,7 @@ public class SequenceCounterTest extends CopeAssert
 		assertIt(c, 10, 10, 12, 3, 10, 12);
 	}
 
-	public void testHole()
+	@Test public void testHole()
 	{
 		final SequenceCounter c =
 				new SequenceCounter(feature, 15, 10, 20);
@@ -71,7 +72,7 @@ public class SequenceCounterTest extends CopeAssert
 		assertIt(c, 15, 10, 20, 2, 17, 19);
 	}
 
-	public void testMin()
+	@Test public void testMin()
 	{
 		final SequenceCounter c =
 				new SequenceCounter(feature, 15, 10, 20);
@@ -88,7 +89,7 @@ public class SequenceCounterTest extends CopeAssert
 		assertIt(c, 15, 10, 20);
 	}
 
-	public void testMax()
+	@Test public void testMax()
 	{
 		final SequenceCounter c =
 				new SequenceCounter(feature, 15, 10, 20);

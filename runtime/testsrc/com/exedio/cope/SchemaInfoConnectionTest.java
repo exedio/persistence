@@ -29,6 +29,7 @@ import static com.exedio.cope.SchemaInfo.quoteName;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.sql.Connection;
 import java.sql.SQLException;
+import org.junit.Test;
 
 public class SchemaInfoConnectionTest extends AbstractRuntimeModelTest
 {
@@ -55,7 +56,7 @@ public class SchemaInfoConnectionTest extends AbstractRuntimeModelTest
 	}
 
 	@SuppressFBWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
-	public void testIt() throws SQLException
+	@Test public void testIt() throws SQLException
 	{
 		final StringBuilder bf = new StringBuilder();
 		bf.append("select ").
@@ -77,7 +78,7 @@ public class SchemaInfoConnectionTest extends AbstractRuntimeModelTest
 	}
 
 	@SuppressFBWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
-	public void testTypeColumn() throws SQLException
+	@Test public void testTypeColumn() throws SQLException
 	{
 		final StringBuilder bf = new StringBuilder();
 		bf.append("select ").

@@ -27,11 +27,12 @@ import com.exedio.cope.instrument.findtype.subfindtype.SubFindType;
 import com.exedio.cope.instrument.findtype.subfindtype2.SubFindType2;
 import com.exedio.cope.instrument.findtype.subfindtype2.SubFindType3Non;
 import junit.framework.TestCase;
+import org.junit.Test;
 
 public class ResolveImportTest extends TestCase
 {
 
-	public void testImports() throws ParserException
+	@Test public void testImports() throws ParserException
 	{
 		final JavaRepository repository = new JavaRepository();
 		final JavaFile file = new JavaFile(repository);

@@ -27,6 +27,7 @@ import static com.exedio.cope.LongItem.min4Max8;
 import static java.lang.Long.valueOf;
 
 import java.util.Date;
+import org.junit.Test;
 
 public class LongTest extends AbstractRuntimeModelTest
 {
@@ -49,7 +50,7 @@ public class LongTest extends AbstractRuntimeModelTest
 		numberOfItems = 2;
 	}
 
-	public void testIt()
+	@Test public void testIt()
 	{
 		// any
 		item.setAny(1234l);
@@ -259,7 +260,7 @@ public class LongTest extends AbstractRuntimeModelTest
 	}
 
 	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad API usage
-	public void testUnchecked()
+	@Test public void testUnchecked()
 	{
 		try
 		{
@@ -272,7 +273,7 @@ public class LongTest extends AbstractRuntimeModelTest
 		}
 	}
 
-	public void testSchema()
+	@Test public void testSchema()
 	{
 		assertSchema();
 	}

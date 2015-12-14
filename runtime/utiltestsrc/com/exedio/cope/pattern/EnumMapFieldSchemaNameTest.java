@@ -30,10 +30,11 @@ import com.exedio.cope.TypesBound;
 import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.util.Sources;
 import java.util.Properties;
+import org.junit.Test;
 
 public class EnumMapFieldSchemaNameTest extends CopeAssert
 {
-	public void testIt()
+	@Test public void testIt()
 	{
 		assertIt("alpha-one", "alfa_one", AnItem.alpha, AnEnum.one);
 		assertIt("alpha-two", "alfa_woo", AnItem.alpha, AnEnum.two);

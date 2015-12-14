@@ -26,10 +26,11 @@ import com.exedio.cope.TypesBound;
 import com.exedio.cope.junit.CopeAssert;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.junit.Test;
 
 public class MediaPathConditionUnsupportedTest extends CopeAssert
 {
-	public void testNull()
+	@Test public void testNull()
 	{
 		try
 		{
@@ -44,7 +45,7 @@ public class MediaPathConditionUnsupportedTest extends CopeAssert
 		}
 	}
 
-	public void testNullJoin()
+	@Test public void testNullJoin()
 	{
 		try
 		{
@@ -59,7 +60,7 @@ public class MediaPathConditionUnsupportedTest extends CopeAssert
 		}
 	}
 
-	public void testNotNull()
+	@Test public void testNotNull()
 	{
 		try
 		{
@@ -74,7 +75,7 @@ public class MediaPathConditionUnsupportedTest extends CopeAssert
 		}
 	}
 
-	public void testNotNullJoin()
+	@Test public void testNotNullJoin()
 	{
 		try
 		{

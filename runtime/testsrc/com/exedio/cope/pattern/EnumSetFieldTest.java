@@ -31,6 +31,7 @@ import com.exedio.cope.SetValue;
 import com.exedio.cope.pattern.EnumSetFieldItem.Language;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.EnumSet;
+import org.junit.Test;
 
 public class EnumSetFieldTest extends AbstractRuntimeModelTest
 {
@@ -49,7 +50,7 @@ public class EnumSetFieldTest extends AbstractRuntimeModelTest
 		itemX = new EnumSetFieldItem();
 	}
 
-	public void testIt()
+	@Test public void testIt()
 	{
 		assertEquals(false, item.containsActiveLanguage(DE));
 		assertEquals(false, item.containsActiveLanguage(EN));
@@ -158,7 +159,7 @@ public class EnumSetFieldTest extends AbstractRuntimeModelTest
 		}
 	}
 
-	public void testSettable()
+	@Test public void testSettable()
 	{
 		final EnumSet<Language> value = EnumSet.noneOf(EnumSetFieldItem.Language.class);
 
@@ -176,7 +177,7 @@ public class EnumSetFieldTest extends AbstractRuntimeModelTest
 		assertEquals(false, initialItem.containsActiveLanguage(PL));
 	}
 
-	public void testSetSettableNull()
+	@Test public void testSetSettableNull()
 	{
 		item.setActiveLanguage(EnumSet.of(DE, EN));
 		final SetValue<EnumSet<Language>> map = activeLanguage.map(null);
@@ -194,7 +195,7 @@ public class EnumSetFieldTest extends AbstractRuntimeModelTest
 		assertEquals(EnumSet.of(DE, EN), item.getActiveLanguage());
 	}
 
-	public void testSetSetNull()
+	@Test public void testSetSetNull()
 	{
 		item.setActiveLanguage(EnumSet.of(DE, EN));
 
@@ -211,7 +212,7 @@ public class EnumSetFieldTest extends AbstractRuntimeModelTest
 		assertEquals(EnumSet.of(DE, EN), item.getActiveLanguage());
 	}
 
-	public void testSubClass()
+	@Test public void testSubClass()
 	{
 		assertEquals(false, item.containsActiveLanguage(SUBCLASS));
 
@@ -220,7 +221,7 @@ public class EnumSetFieldTest extends AbstractRuntimeModelTest
 	}
 
 	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad API usage
-	public void testUnchecked()
+	@Test public void testUnchecked()
 	{
 		try
 		{

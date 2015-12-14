@@ -29,10 +29,11 @@ import java.io.Writer;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.List;
+import org.junit.Test;
 
 public class GenericResolverTest extends CopeAssert
 {
-	public void testIt()
+	@Test public void testIt()
 	{
 		@SuppressWarnings("rawtypes")
 		final GenericResolver<Interface> gr = neW(Interface.class);

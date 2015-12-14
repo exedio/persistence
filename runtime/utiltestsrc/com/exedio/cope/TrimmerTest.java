@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import junit.framework.TestCase;
+import org.junit.Test;
 
 public class TrimmerTest extends TestCase
 {
@@ -32,7 +33,7 @@ public class TrimmerTest extends TestCase
 			assertEquals(actualLongString.length(), actual.length());
 	}
 
-	public void testTrim()
+	@Test public void testTrim()
 	{
 		assertTrim("F", "FirstSecondThird", 1);
 		assertTrim("FS", "FirstSecondThird", 2);

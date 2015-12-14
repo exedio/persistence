@@ -34,6 +34,7 @@ import com.exedio.cope.junit.CopeAssert;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.awt.Color;
 import java.util.Arrays;
+import org.junit.Test;
 
 public class ColorFieldModelTest extends CopeAssert
 {
@@ -51,7 +52,7 @@ public class ColorFieldModelTest extends CopeAssert
 	private static final IntegerField mandatoryAlphaRGB = mandatoryAlpha.getRGB();
 
 	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
-	public void testIt()
+	@Test public void testIt()
 	{
 		assertEquals(Arrays.asList(new Type<?>[]{
 				TYPE,

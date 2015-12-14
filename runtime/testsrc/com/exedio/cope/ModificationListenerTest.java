@@ -22,6 +22,7 @@ import com.exedio.cope.util.ModificationListener;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Collection;
 import org.apache.log4j.Logger;
+import org.junit.Test;
 
 public class ModificationListenerTest extends AbstractRuntimeModelTest
 {
@@ -56,7 +57,7 @@ public class ModificationListenerTest extends AbstractRuntimeModelTest
 	// dead store is needed to assign null for testing garbage collection
 	@SuppressFBWarnings("DLS_DEAD_LOCAL_STORE_OF_NULL")
 	@Deprecated
-	public void testIt()
+	@Test public void testIt()
 	{
 		assertEqualsUnmodifiable(list(), model.getModificationListeners());
 		assertEquals(0, model.getModificationListenersCleared());

@@ -23,6 +23,8 @@ import static com.exedio.cope.CacheIsolationItem.name;
 import static com.exedio.cope.SchemaInfo.isUpdateCounterEnabled;
 import static java.lang.Integer.MIN_VALUE;
 
+import org.junit.Test;
+
 public class CacheTouchTest extends AbstractRuntimeModelTest
 {
 	public CacheTouchTest()
@@ -39,7 +41,7 @@ public class CacheTouchTest extends AbstractRuntimeModelTest
 		item = new CacheIsolationItem("itemName");
 	}
 
-	public void testIt()
+	@Test public void testIt()
 	{
 		if(!cache || hsqldb || oracle) return; // TODO
 		initCache();

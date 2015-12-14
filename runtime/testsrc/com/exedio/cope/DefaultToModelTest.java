@@ -48,13 +48,14 @@ import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.util.Day;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Date;
+import org.junit.Test;
 
 public class DefaultToModelTest extends CopeAssert
 {
 	public static final Model MODEL = new Model(TYPE);
 
 	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
-	public void testIt()
+	@Test public void testIt()
 	{
 		assertEquals(list(
 				TYPE.getThis(),

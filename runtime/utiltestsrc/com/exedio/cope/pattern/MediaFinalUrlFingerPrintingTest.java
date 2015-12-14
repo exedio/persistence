@@ -21,6 +21,7 @@ package com.exedio.cope.pattern;
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.junit.CopeAssert;
+import org.junit.Test;
 
 /**
  * This test became useless, as there is no connection between
@@ -28,7 +29,7 @@ import com.exedio.cope.junit.CopeAssert;
  */
 public class MediaFinalUrlFingerPrintingTest extends CopeAssert
 {
-	public void testIt()
+	@Test public void testIt()
 	{
 		assertEquals(false, AnItem.nonFinal.isFinal());
 		assertEquals(true,  AnItem.isFinal.isFinal());

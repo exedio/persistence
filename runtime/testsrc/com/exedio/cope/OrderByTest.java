@@ -39,6 +39,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import org.junit.Test;
 
 public class OrderByTest extends TestmodelTest
 {
@@ -59,7 +60,7 @@ public class OrderByTest extends TestmodelTest
 		item = item1;
 	}
 
-	public void testOrderBy()
+	@Test public void testOrderBy()
 	{
 		{
 			final Query<AttributeItem> q = TYPE.newQuery(null);

@@ -31,6 +31,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
+import org.junit.Test;
 
 public class TypeIteratorTest extends AbstractRuntimeModelTest
 {
@@ -52,7 +53,7 @@ public class TypeIteratorTest extends AbstractRuntimeModelTest
 		item4 = new QueryAggregatorItem(4);
 	}
 
-	public void testIt()
+	@Test public void testIt()
 	{
 		try
 		{

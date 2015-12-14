@@ -18,6 +18,8 @@
 
 package com.exedio.dsmf;
 
+import org.junit.Test;
+
 public class CircleTest extends SchemaReadyTest
 {
 	private static final String TABLE1 = "CircleTable1";
@@ -60,7 +62,7 @@ public class CircleTest extends SchemaReadyTest
 		return result;
 	}
 
-	public void testCircles()
+	@Test public void testCircles()
 	{
 		final Schema schema = getVerifiedSchema();
 

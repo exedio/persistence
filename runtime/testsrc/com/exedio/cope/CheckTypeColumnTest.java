@@ -28,6 +28,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
+import org.junit.Test;
 
 public class CheckTypeColumnTest extends AbstractRuntimeModelTest
 {
@@ -73,7 +74,7 @@ public class CheckTypeColumnTest extends AbstractRuntimeModelTest
 		super.tearDown();
 	}
 
-	public void testOk()
+	@Test public void testOk()
 	{
 		assertEquals(0, getPrimaryKeyColumnValue(itema));
 		assertEquals(1, getPrimaryKeyColumnValue(itemb1));
@@ -141,7 +142,7 @@ public class CheckTypeColumnTest extends AbstractRuntimeModelTest
 	}
 
 	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: testing unchecked usage of api
-	public void testUnchecked()
+	@Test public void testUnchecked()
 	{
 		try
 		{
@@ -163,7 +164,7 @@ public class CheckTypeColumnTest extends AbstractRuntimeModelTest
 		}
 	}
 
-	public void testWrongA() throws SQLException
+	@Test public void testWrongA() throws SQLException
 	{
 		updateTypeColumn(InstanceOfAItem.TYPE, itema, InstanceOfB1Item.TYPE);
 
@@ -179,7 +180,7 @@ public class CheckTypeColumnTest extends AbstractRuntimeModelTest
 		assertEquals(1, InstanceOfRefItem.ref.checkTypeColumn());
 	}
 
-	public void testWrongB1inA() throws SQLException
+	@Test public void testWrongB1inA() throws SQLException
 	{
 		updateTypeColumn(InstanceOfAItem.TYPE, itemb1, InstanceOfB2Item.TYPE);
 
@@ -195,7 +196,7 @@ public class CheckTypeColumnTest extends AbstractRuntimeModelTest
 		assertEquals(1, InstanceOfRefItem.ref.checkTypeColumn());
 	}
 
-	public void testWrongB1inB1() throws SQLException
+	@Test public void testWrongB1inB1() throws SQLException
 	{
 		updateTypeColumn(InstanceOfB1Item.TYPE, itemb1, InstanceOfC1Item.TYPE);
 
@@ -211,7 +212,7 @@ public class CheckTypeColumnTest extends AbstractRuntimeModelTest
 		assertEquals(0, InstanceOfRefItem.ref.checkTypeColumn());
 	}
 
-	public void testWrongB2inA() throws SQLException
+	@Test public void testWrongB2inA() throws SQLException
 	{
 		updateTypeColumn(InstanceOfAItem.TYPE, itemb2, InstanceOfB1Item.TYPE);
 
@@ -227,7 +228,7 @@ public class CheckTypeColumnTest extends AbstractRuntimeModelTest
 		assertEquals(1, InstanceOfRefItem.ref.checkTypeColumn());
 	}
 
-	public void testWrongC1inA() throws SQLException
+	@Test public void testWrongC1inA() throws SQLException
 	{
 		updateTypeColumn(InstanceOfAItem.TYPE, itemc1, InstanceOfB2Item.TYPE);
 
@@ -243,7 +244,7 @@ public class CheckTypeColumnTest extends AbstractRuntimeModelTest
 		assertEquals(1, InstanceOfRefItem.ref.checkTypeColumn());
 	}
 
-	public void testWrongC1inB1() throws SQLException
+	@Test public void testWrongC1inB1() throws SQLException
 	{
 		updateTypeColumn(InstanceOfB1Item.TYPE, itemc1, InstanceOfB1Item.TYPE);
 
@@ -259,7 +260,7 @@ public class CheckTypeColumnTest extends AbstractRuntimeModelTest
 		assertEquals(0, InstanceOfRefItem.ref.checkTypeColumn());
 	}
 
-	public void testMissingB1() throws SQLException
+	@Test public void testMissingB1() throws SQLException
 	{
 		deleteRow(InstanceOfB1Item.TYPE, itemb1);
 
@@ -275,7 +276,7 @@ public class CheckTypeColumnTest extends AbstractRuntimeModelTest
 		assertEquals(0, InstanceOfRefItem.ref.checkTypeColumn());
 	}
 
-	public void testMissingC1() throws SQLException
+	@Test public void testMissingC1() throws SQLException
 	{
 		deleteRow(InstanceOfC1Item.TYPE, itemc1);
 
@@ -305,7 +306,7 @@ public class CheckTypeColumnTest extends AbstractRuntimeModelTest
 		assertEquals(0, InstanceOfRefItem.ref.checkTypeColumn());
 	}
 
-	public void testWrongRef() throws SQLException
+	@Test public void testWrongRef() throws SQLException
 	{
 		execute(
 				"update " + q(getTableName(InstanceOfRefItem.TYPE)) + " " +

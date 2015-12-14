@@ -35,10 +35,11 @@ import java.io.Serializable;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
+import org.junit.Test;
 
 public class CompositeMountTest extends CopeAssert
 {
-	public void testType()
+	@Test public void testType()
 	{
 		try
 		{
@@ -71,7 +72,7 @@ public class CompositeMountTest extends CopeAssert
 		}
 	}
 
-	public void testName()
+	@Test public void testName()
 	{
 		try
 		{
@@ -104,7 +105,7 @@ public class CompositeMountTest extends CopeAssert
 		}
 	}
 
-	public void testTemplateName()
+	@Test public void testTemplateName()
 	{
 		assertEquals("string4", getTemplateName(MyComposite.string4));
 		assertEquals("intMax4", getTemplateName(MyComposite.intMax4));
@@ -131,7 +132,7 @@ public class CompositeMountTest extends CopeAssert
 		}
 	}
 
-	public void testID()
+	@Test public void testID()
 	{
 		try
 		{
@@ -164,7 +165,7 @@ public class CompositeMountTest extends CopeAssert
 		}
 	}
 
-	public void testToString()
+	@Test public void testToString()
 	{
 		assertEquals(valueName + "string4", MyComposite.string4.toString());
 		assertEquals(valueName + "intMax4", MyComposite.intMax4.toString());
@@ -173,7 +174,7 @@ public class CompositeMountTest extends CopeAssert
 		assertTrue(negative.toString().startsWith(LongField.class.getName() + '@'));
 	}
 
-	public void testGetAnnotation()
+	@Test public void testGetAnnotation()
 	{
 		assertEquals("stringAnno", MyComposite.string4.getAnnotation(Anno.class).value());
 		assertEquals("intAnno", MyComposite.intMax4.getAnnotation(Anno.class).value());
@@ -192,7 +193,7 @@ public class CompositeMountTest extends CopeAssert
 		}
 	}
 
-	public void testIsAnnotation()
+	@Test public void testIsAnnotation()
 	{
 		assertTrue (MyComposite.string4.isAnnotationPresent(Anno.class));
 		assertTrue (MyComposite.intMax4.isAnnotationPresent(Anno.class));
@@ -225,7 +226,7 @@ public class CompositeMountTest extends CopeAssert
 		String value();
 	}
 
-	public void testSerialization() throws IOException
+	@Test public void testSerialization() throws IOException
 	{
 		assertSerializedSame(MyComposite.string4, 291);
 		assertSerializedSame(MyComposite.intMax4, 291);

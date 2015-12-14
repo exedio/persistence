@@ -28,6 +28,7 @@ import static com.exedio.cope.pattern.MediaUrlItem.fotoSecure;
 
 import com.exedio.cope.AbstractRuntimeModelTest;
 import java.util.Date;
+import org.junit.Test;
 
 public final class MediaUrlTest extends AbstractRuntimeModelTest
 {
@@ -46,7 +47,7 @@ public final class MediaUrlTest extends AbstractRuntimeModelTest
 		anond = new MediaUrlItem(null);
 	}
 
-	public void testIt()
+	@Test public void testIt()
 	{
 		assertFalse(MediaPath.isUrlGuessingPreventedSecurely(model.getConnectProperties()));
 
@@ -114,7 +115,7 @@ public final class MediaUrlTest extends AbstractRuntimeModelTest
 		assertIt("MediaUrlItem/fileFinger/.fYD/", fileFinger, anond,        ""    );
 	}
 
-	public void testFingerprintLimit()
+	@Test public void testFingerprintLimit()
 	{
 		if(model.getConnectProperties().isSupportDisabledForPreparedStatements() || postgresql)
 			return;

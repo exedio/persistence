@@ -29,30 +29,31 @@ import com.exedio.cope.Model;
 import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
 import com.exedio.cope.junit.CopeAssert;
+import org.junit.Test;
 
 public class PartOfReverseTest extends CopeAssert
 {
-	public void testSuperContainer()
+	@Test public void testSuperContainer()
 	{
 		assertEqualsUnmodifiable(asList(), getDeclaredPartOfs(SuperContainer.TYPE));
 		assertEqualsUnmodifiable(asList(), getPartOfs(SuperContainer.TYPE));
 	}
-	public void testContainer()
+	@Test public void testContainer()
 	{
 		assertEqualsUnmodifiable(asList(Part.parts, Part.partsOrdered), getDeclaredPartOfs(Container.TYPE));
 		assertEqualsUnmodifiable(asList(Part.parts, Part.partsOrdered), getPartOfs(Container.TYPE));
 	}
-	public void testSubContainer()
+	@Test public void testSubContainer()
 	{
 		assertEqualsUnmodifiable(asList(), getDeclaredPartOfs(SubContainer.TYPE));
 		assertEqualsUnmodifiable(asList(Part.parts, Part.partsOrdered), getPartOfs(SubContainer.TYPE));
 	}
-	public void testPart()
+	@Test public void testPart()
 	{
 		assertEqualsUnmodifiable(asList(), getDeclaredPartOfs(Part.TYPE));
 		assertEqualsUnmodifiable(asList(), getPartOfs(Part.TYPE));
 	}
-	public void testOrder()
+	@Test public void testOrder()
 	{
 		assertEqualsUnmodifiable(asList(), getDeclaredPartOfs(Order.TYPE));
 		assertEqualsUnmodifiable(asList(), getPartOfs(Order.TYPE));

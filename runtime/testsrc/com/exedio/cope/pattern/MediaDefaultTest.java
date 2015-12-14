@@ -40,6 +40,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Date;
+import org.junit.Test;
 
 public class MediaDefaultTest extends AbstractRuntimeModelTest
 {
@@ -67,7 +68,7 @@ public class MediaDefaultTest extends AbstractRuntimeModelTest
 		super.tearDown();
 	}
 
-	public void testIt() throws IOException
+	@Test public void testIt() throws IOException
 	{
 		{
 			final DataField.Value dataValue = DataField.toValue(bytes8);

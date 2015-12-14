@@ -25,6 +25,7 @@ import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.Item;
 import com.exedio.cope.NoSuchIDException;
 import java.util.List;
+import org.junit.Test;
 
 public class FindItemPatternTest extends AbstractRuntimeModelTest
 {
@@ -45,7 +46,7 @@ public class FindItemPatternTest extends AbstractRuntimeModelTest
 		item.addToStrings("xxtwo");
 	}
 
-	public void test() throws NoSuchIDException
+	@Test public void test() throws NoSuchIDException
 	{
 		final List<? extends Item> items = strings.getRelationType().search(
 				stringsParent().equal(item),

@@ -24,6 +24,7 @@ import static com.exedio.cope.SchemaInfo.getTableName;
 import com.exedio.dsmf.Column;
 import com.exedio.dsmf.Constraint;
 import com.exedio.dsmf.Schema;
+import org.junit.Test;
 
 public class SchemaModifyTest extends AbstractRuntimeModelTest
 {
@@ -41,7 +42,7 @@ public class SchemaModifyTest extends AbstractRuntimeModelTest
 	private static final String TABLE1X = "SchemaItemX";
 	private static final String COLUMN1X = "nonFinalIntegerX";
 
-	public void testSchema()
+	@Test public void testSchema()
 	{
 		final String TABLE1 = getTableName(SchemaItem.TYPE);
 		final String COLUMN1 = getColumnName(SchemaItem.nonFinalInteger);

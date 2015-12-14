@@ -20,10 +20,11 @@ package com.exedio.cope.pattern;
 
 import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.misc.MediaSummary;
+import org.junit.Test;
 
 public class MediaSummaryTest extends CopeAssert
 {
-	public void testIt()
+	@Test public void testIt()
 	{
 		final MediaInfo i1 = new MediaInfo(null, 11, 21, 111, 31, 41, 51, 61, 71, 81, 91, 101);
 		final MediaInfo i2 = new MediaInfo(null, 13, 23, 113, 33, 43, 53, 63, 73, 83, 93, 103);
@@ -42,7 +43,7 @@ public class MediaSummaryTest extends CopeAssert
 		assertEquals(204, ms.getDelivered());
 	}
 
-	public void testNull()
+	@Test public void testNull()
 	{
 		try
 		{
@@ -55,7 +56,7 @@ public class MediaSummaryTest extends CopeAssert
 		}
 	}
 
-	public void testNullElement()
+	@Test public void testNullElement()
 	{
 		final MediaInfo i1 = new MediaInfo(null, 11, 21, 31, 41, 51, 61, 71, 81, 91, 101, 111);
 		try
@@ -69,7 +70,7 @@ public class MediaSummaryTest extends CopeAssert
 		}
 	}
 
-	public void testEmpty()
+	@Test public void testEmpty()
 	{
 		final MediaSummary ms = new MediaSummary(new MediaInfo[]{});
 		assertEquals(0, ms.getRedirectFrom());

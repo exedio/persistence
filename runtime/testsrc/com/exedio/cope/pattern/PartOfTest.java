@@ -19,6 +19,7 @@
 package com.exedio.cope.pattern;
 
 import com.exedio.cope.AbstractRuntimeModelTest;
+import org.junit.Test;
 
 public class PartOfTest extends AbstractRuntimeModelTest
 {
@@ -36,7 +37,7 @@ public class PartOfTest extends AbstractRuntimeModelTest
 		container = new PartOfContainerItem("container");
 	}
 
-	public void testUnordered()
+	@Test public void testUnordered()
 	{
 		assertEquals(list(), container.getUnordered());
 
@@ -56,7 +57,7 @@ public class PartOfTest extends AbstractRuntimeModelTest
 		assertEquals(list(part1       ), container.getUnordered(PartOfItem.partString.equal("part1")));
 	}
 
-	public void testOrdered()
+	@Test public void testOrdered()
 	{
 		assertEquals(list(), container.getOrdered());
 

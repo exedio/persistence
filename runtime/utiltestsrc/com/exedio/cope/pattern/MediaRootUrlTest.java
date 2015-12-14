@@ -26,10 +26,11 @@ import com.exedio.cope.util.Properties;
 import com.exedio.cope.util.Sources;
 import java.io.File;
 import java.util.Collection;
+import org.junit.Test;
 
 public class MediaRootUrlTest extends CopeAssert
 {
-	public void testIt()
+	@Test public void testIt()
 	{
 		final ConnectProperties properties = getProperties("zack/");
 		assertEquals("zack/", properties.getMediaRootUrl());

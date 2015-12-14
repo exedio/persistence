@@ -27,6 +27,7 @@ import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.UniqueViolationException;
 import com.exedio.cope.pattern.BlockFieldUniqueModelTest.ABlock;
 import com.exedio.cope.pattern.BlockFieldUniqueModelTest.AnItem;
+import org.junit.Test;
 
 public class BlockFieldUniqueTest extends AbstractRuntimeModelTest
 {
@@ -35,7 +36,7 @@ public class BlockFieldUniqueTest extends AbstractRuntimeModelTest
 		super(BlockFieldUniqueModelTest.MODEL);
 	}
 
-	public void testField()
+	@Test public void testField()
 	{
 		final AnItem i1 = new AnItem("item1", 1);
 		final AnItem i2 = new AnItem("item2", 2);
@@ -69,7 +70,7 @@ public class BlockFieldUniqueTest extends AbstractRuntimeModelTest
 		}
 	}
 
-	public void testPrice()
+	@Test public void testPrice()
 	{
 		final AnItem i1 = new AnItem("item1", 1);
 		final AnItem i2 = new AnItem("item2", 2);

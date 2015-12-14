@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import org.junit.Test;
+
 public class CheckTypeColumnAbstractLinearTest extends AbstractRuntimeModelTest
 {
 	private static final Model MODEL = new Model(
@@ -42,7 +44,7 @@ public class CheckTypeColumnAbstractLinearTest extends AbstractRuntimeModelTest
 		super(MODEL);
 	}
 
-	public void test()
+	@Test public void test()
 	{
 		assertEquals(false, this0A  .needsCheckTypeColumn());
 		assertEquals(true,  this01C .needsCheckTypeColumn());

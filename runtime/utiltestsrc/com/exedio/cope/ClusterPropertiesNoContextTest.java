@@ -23,11 +23,12 @@ import com.exedio.cope.util.Properties;
 import com.exedio.cope.util.Properties.Source;
 import java.io.File;
 import java.util.Collection;
+import org.junit.Test;
 
 public final class ClusterPropertiesNoContextTest extends CopeAssert
 {
 	@SuppressWarnings("static-method")
-	public void testOk()
+	@Test public void testOk()
 	{
 		final Source s = new Source()
 		{
@@ -73,7 +74,7 @@ public final class ClusterPropertiesNoContextTest extends CopeAssert
 	}
 
 	@SuppressWarnings("static-method")
-	public void testFailListenThreads()
+	@Test public void testFailListenThreads()
 	{
 		final Source s = new Source()
 		{
@@ -124,7 +125,7 @@ public final class ClusterPropertiesNoContextTest extends CopeAssert
 	}
 
 	@SuppressWarnings("static-method")
-	public void testFailPrimaryKeyGeneratorMemory()
+	@Test public void testFailPrimaryKeyGeneratorMemory()
 	{
 		final Properties.Source defaultSource =
 				new ConnectProperties(new File("runtime/utiltest.properties")).getSourceObject();

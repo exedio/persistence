@@ -25,6 +25,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.LinkedList;
 import junit.framework.AssertionFailedError;
 import junit.framework.TestCase;
+import org.junit.Test;
 
 public abstract class ParserTest extends TestCase
 {
@@ -44,7 +45,7 @@ public abstract class ParserTest extends TestCase
 
 	public abstract void assertParse();
 
-	public void testIt()
+	@Test public void testIt()
 		throws IOException, ParserException
 	{
 		final File inputFile = new File(ParserTest.class.getResource(resourceName).getFile());

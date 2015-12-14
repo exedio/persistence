@@ -18,7 +18,10 @@
 
 package com.exedio.cope;
 
+import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
+@Category(AllButSomeTests.class)
 public class CacheReadPoisoningBruteForceTest extends AbstractRuntimeModelTest
 {
 	public CacheReadPoisoningBruteForceTest()
@@ -78,7 +81,7 @@ public class CacheReadPoisoningBruteForceTest extends AbstractRuntimeModelTest
 		String errorName = null;
 	}
 
-	public void testIt() throws InterruptedException
+	@Test public void testIt() throws InterruptedException
 	{
 		if(hsqldb||oracle) return; // TODO
 

@@ -19,10 +19,11 @@
 package com.exedio.cope;
 
 import com.exedio.cope.junit.CopeAssert;
+import org.junit.Test;
 
 public class TypeSetModelTest extends CopeAssert
 {
-	public void testIt()
+	@Test public void testIt()
 	{
 		final Type<Item1> type1 = TypesBound.newType(Item1.class);
 		final TypeSet typeSet1 = new TypeSet(new Type<?>[]{type1});

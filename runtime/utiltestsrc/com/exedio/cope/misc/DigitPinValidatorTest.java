@@ -25,6 +25,7 @@ import com.exedio.cope.pattern.Hash;
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.List;
+import org.junit.Test;
 
 /**
  * @author baumgaertel
@@ -39,7 +40,7 @@ public class DigitPinValidatorTest extends CopeAssert
 		this.validator = new DigitPinValidator(4);
 	}
 
-	public void testValidate() throws Exception
+	@Test public void testValidate() throws Exception
 	{
 		// test some valid pins
 		for (final String validPin : new String[] {"1233", "0000", "9999", "8376"})
@@ -62,7 +63,7 @@ public class DigitPinValidatorTest extends CopeAssert
 		}
 	}
 
-	public void testExceptions()
+	@Test public void testExceptions()
 	{
 		final DigitPinValidator validator = new DigitPinValidator(3);
 		try
@@ -98,7 +99,7 @@ public class DigitPinValidatorTest extends CopeAssert
 		}
 	}
 
-	public void testNewRandomPlainText() throws Exception
+	@Test public void testNewRandomPlainText() throws Exception
 	{
 		assertIt(1, asList("0", "1", "2", "3", "4"));
 		assertIt(2, asList("01", "23", "45", "67", "89"));
@@ -131,7 +132,7 @@ public class DigitPinValidatorTest extends CopeAssert
 		assertEquals(expected, actual);
 	}
 
-	public void testConstruction()
+	@Test public void testConstruction()
 	{
 		try
 		{

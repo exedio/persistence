@@ -24,6 +24,7 @@ import static com.exedio.cope.pattern.MediaLocatorAssert.assertLocator;
 
 import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.Model;
+import org.junit.Test;
 
 public final class MediaCatchphraseTest extends AbstractRuntimeModelTest
 {
@@ -56,7 +57,7 @@ public final class MediaCatchphraseTest extends AbstractRuntimeModelTest
 		wrong  = new MediaCatchPhraseItem("wrong/phrase");
 	}
 
-	public void testIt()
+	@Test public void testIt()
 	{
 		assertIt("MediaCatchPhraseSuperItem/feature/", normal, "/normal");
 		assertIt("MediaCatchPhraseSuperItem/feature/", all,    "/all01289ABCYZabcyz-_");

@@ -18,9 +18,11 @@
 
 package com.exedio.cope.junit;
 
+import org.junit.Test;
+
 public class CopeModelTestTestBefore extends CopeModelTestTest
 {
-	public void testBefore()
+	@Test public void testBefore()
 	{
 		doTest();
 	}

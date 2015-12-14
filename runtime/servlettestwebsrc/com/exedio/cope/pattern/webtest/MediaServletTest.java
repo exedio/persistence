@@ -42,6 +42,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import junit.framework.TestCase;
+import org.junit.Test;
 
 public class MediaServletTest extends TestCase
 {
@@ -80,7 +81,7 @@ public class MediaServletTest extends TestCase
 		onException.delete();
 	}
 
-	public void testIt() throws Exception
+	@Test public void testIt() throws Exception
 	{
 		final String app = "/cope-runtime-servlet/";
 		final URL init = new URL(schemeAndHost + app + "init");

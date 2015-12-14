@@ -28,10 +28,11 @@ import static com.exedio.cope.pattern.PartOfContainerReuseTest.APart.parts2;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.ItemField;
 import com.exedio.cope.junit.CopeAssert;
+import org.junit.Test;
 
 public class PartOfContainerReuseTest extends CopeAssert
 {
-	public void testIt()
+	@Test public void testIt()
 	{
 		assertEqualsUnmodifiable(list(
 				TYPE.getThis(),

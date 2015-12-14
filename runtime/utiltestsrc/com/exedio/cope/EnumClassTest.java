@@ -19,10 +19,11 @@
 package com.exedio.cope;
 
 import com.exedio.cope.junit.CopeAssert;
+import org.junit.Test;
 
 public class EnumClassTest extends CopeAssert
 {
-	public void testNormal()
+	@Test public void testNormal()
 	{
 		final EnumField<Normal> f = EnumField.create(Normal.class);
 		assertSame(Normal.class, f.getValueClass());
@@ -36,7 +37,7 @@ public class EnumClassTest extends CopeAssert
 	}
 
 
-	public void testNull()
+	@Test public void testNull()
 	{
 		try
 		{
@@ -51,7 +52,7 @@ public class EnumClassTest extends CopeAssert
 
 
 	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad api usage
-	public void testUnchecked()
+	@Test public void testUnchecked()
 	{
 		try
 		{
@@ -70,7 +71,7 @@ public class EnumClassTest extends CopeAssert
 	}
 
 
-	public void testSubclass()
+	@Test public void testSubclass()
 	{
 		final EnumField<Subclass> f = EnumField.create(Subclass.class);
 		assertSame(Subclass.class, f.getValueClass());
@@ -79,7 +80,7 @@ public class EnumClassTest extends CopeAssert
 	}
 
 	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad api usage
-	public void testSubclassWrong()
+	@Test public void testSubclassWrong()
 	{
 		try
 		{
@@ -100,7 +101,7 @@ public class EnumClassTest extends CopeAssert
 	}
 
 	@SuppressWarnings("unchecked") // OK: test bad api usage
-	public void testEnumItself()
+	@Test public void testEnumItself()
 	{
 		try
 		{

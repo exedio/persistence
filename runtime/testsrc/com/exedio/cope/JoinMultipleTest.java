@@ -27,6 +27,7 @@ import static java.util.Arrays.asList;
 
 import com.exedio.cope.testmodel.PointerItem;
 import com.exedio.cope.testmodel.PointerTargetItem;
+import org.junit.Test;
 
 public class JoinMultipleTest extends TestmodelTest
 {
@@ -44,7 +45,7 @@ public class JoinMultipleTest extends TestmodelTest
 		source.setPointer2(target2);
 	}
 
-	public void testMultipleJoin()
+	@Test public void testMultipleJoin()
 	{
 		{
 			final Query<PointerItem> query = PointerItem.TYPE.newQuery(null);

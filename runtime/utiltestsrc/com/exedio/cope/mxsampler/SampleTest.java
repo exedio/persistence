@@ -21,11 +21,12 @@ package com.exedio.cope.mxsampler;
 import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.util.JobContexts;
 import java.util.Date;
+import org.junit.Test;
 
 public class SampleTest extends CopeAssert
 {
 	@Deprecated
-	public void testIt()
+	@Test public void testIt()
 	{
 		@SuppressWarnings("deprecation")
 		final MxSampler sampler = new MxSampler();

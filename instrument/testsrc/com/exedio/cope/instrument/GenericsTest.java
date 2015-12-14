@@ -22,10 +22,11 @@ import static com.exedio.cope.instrument.Generics.get;
 import static java.util.Arrays.asList;
 
 import junit.framework.TestCase;
+import org.junit.Test;
 
 public class GenericsTest extends TestCase
 {
-	public void testIt()
+	@Test public void testIt()
 	{
 		assertEquals(asList(), get(""));
 		assertEquals(asList(), get("Raw"));

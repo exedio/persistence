@@ -35,6 +35,7 @@ import com.exedio.cope.misc.Computed;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Date;
+import org.junit.Test;
 
 public final class UniqueHashedMediaTest extends AbstractRuntimeModelTest
 {
@@ -51,7 +52,7 @@ public final class UniqueHashedMediaTest extends AbstractRuntimeModelTest
 	}
 
 	@SuppressWarnings("static-method")
-	public void testModel()
+	@Test public void testModel()
 	{
 		assertEqualsUnmodifiable(
 				Arrays.asList(new Feature[]
@@ -79,7 +80,7 @@ public final class UniqueHashedMediaTest extends AbstractRuntimeModelTest
 	}
 
 	@SuppressWarnings("static-method")
-	public void testData()
+	@Test public void testData()
 	{
 		final Date before = new Date();
 		final UniqueHashedMediaItem mediaItem = new UniqueHashedMediaItem(toValue(bytes4, "image/jpeg"));
@@ -97,7 +98,7 @@ public final class UniqueHashedMediaTest extends AbstractRuntimeModelTest
 	}
 
 	@SuppressWarnings("static-method")
-	public void testUniqueness()
+	@Test public void testUniqueness()
 	{
 		new UniqueHashedMediaItem(toValue(bytes4, "image/jpeg"));
 
@@ -114,7 +115,7 @@ public final class UniqueHashedMediaTest extends AbstractRuntimeModelTest
 	}
 
 	@SuppressWarnings("static-method")
-	public void testConditions()
+	@Test public void testConditions()
 	{
 		final UniqueHashedMediaItem mediaItem = new UniqueHashedMediaItem(toValue(bytes6, "image/jpeg"));
 		assertEquals(bytes6DigestHex, mediaItem.getHash());
@@ -125,7 +126,7 @@ public final class UniqueHashedMediaTest extends AbstractRuntimeModelTest
 	}
 
 	@SuppressWarnings("static-method")
-	public void testGetOrCreate()throws IOException
+	@Test public void testGetOrCreate()throws IOException
 	{
 		final UniqueHashedMediaItem mediaItem =  getOrCreate(toValue(bytes8, "image/jpeg"));
 		assertEquals(bytes8DigestHex, mediaItem.getHash());
@@ -148,7 +149,7 @@ public final class UniqueHashedMediaTest extends AbstractRuntimeModelTest
 	}
 
 	@SuppressWarnings("static-method")
-	public void testGetOrCreateNull()throws IOException
+	@Test public void testGetOrCreateNull()throws IOException
 	{
 		assertEquals(null, getOrCreate(null));
 	}

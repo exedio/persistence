@@ -32,6 +32,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import javax.servlet.ServletOutputStream;
+import org.junit.Test;
 
 public class TextUrlFilterTest extends AbstractRuntimeModelTest
 {
@@ -52,12 +53,12 @@ public class TextUrlFilterTest extends AbstractRuntimeModelTest
 		item2 = new TextUrlFilterItem();
 	}
 
-	public void testPasteContentTypesAllowed()
+	@Test public void testPasteContentTypesAllowed()
 	{
 		assertEquals(list("image/png"), fertig.getPasteContentTypesAllowed());
 	}
 
-	public void testContentTypeNull() throws IOException
+	@Test public void testContentTypeNull() throws IOException
 	{
 		assertEquals(null, item.getFertigContentType());
 		try
@@ -72,7 +73,7 @@ public class TextUrlFilterTest extends AbstractRuntimeModelTest
 		assertTrue(model.hasCurrentTransaction());
 	}
 
-	public void testTextUrlFilterItemNotExisting() throws IOException, NotFound
+	@Test public void testTextUrlFilterItemNotExisting() throws IOException, NotFound
 	{
 		item.setFertigRaw("<eins><paste>uno</paste><zwei>");
 		assertEquals("text/plain", item.getFertigContentType());
@@ -88,7 +89,7 @@ public class TextUrlFilterTest extends AbstractRuntimeModelTest
 		assertTrue(model.hasCurrentTransaction());
 	}
 
-	public void testTextUrlFilterGetContentItemNotExisting() throws IOException, NotFound
+	@Test public void testTextUrlFilterGetContentItemNotExisting() throws IOException, NotFound
 	{
 		item.setFertigRaw("<eins><paste>uno</paste><zwei>");
 		assertEquals("text/plain", item.getFertigContentType());
@@ -104,7 +105,7 @@ public class TextUrlFilterTest extends AbstractRuntimeModelTest
 		assertTrue(model.hasCurrentTransaction());
 	}
 
-	public void testPasteLocatorUrl() throws IOException, NotFound
+	@Test public void testPasteLocatorUrl() throws IOException, NotFound
 	{
 		item.setFertigRaw("<eins><paste>uno</paste><zwei>");
 
@@ -115,7 +116,7 @@ public class TextUrlFilterTest extends AbstractRuntimeModelTest
 		assertGet("<eins><override>" + url1 + "</override><zwei>");
 	}
 
-	public void testPasteLocatorNotFound()
+	@Test public void testPasteLocatorNotFound()
 	{
 		try
 		{
@@ -128,7 +129,7 @@ public class TextUrlFilterTest extends AbstractRuntimeModelTest
 		}
 	}
 
-	public void testPasteUrlNotFound()
+	@Test public void testPasteUrlNotFound()
 	{
 		try
 		{
@@ -141,7 +142,7 @@ public class TextUrlFilterTest extends AbstractRuntimeModelTest
 		}
 	}
 
-	public void testDuplicatePasteValue() throws IOException
+	@Test public void testDuplicatePasteValue() throws IOException
 	{
 		item.setFertigRaw("<eins><paste>uno</paste><zwei>");
 		item.addFertigPaste("uno");
@@ -158,7 +159,7 @@ public class TextUrlFilterTest extends AbstractRuntimeModelTest
 		item2.addFertigPaste("uno");
 	}
 
-	public void testUrlReplacement() throws IOException, NotFound
+	@Test public void testUrlReplacement() throws IOException, NotFound
 	{
 		item.setFertigRaw("<eins><paste>uno</paste><zwei>");
 
@@ -182,7 +183,7 @@ public class TextUrlFilterTest extends AbstractRuntimeModelTest
 		assertGet("<eins><extra/><extra/><zwei>");
 	}
 
-	public void testPasteTypo() throws IOException, NotFound
+	@Test public void testPasteTypo() throws IOException, NotFound
 	{
 		item.setFertigRaw("<eins><paste>uno</Xpaste><zwei>");
 		try
@@ -197,7 +198,7 @@ public class TextUrlFilterTest extends AbstractRuntimeModelTest
 		assertTrue(model.hasCurrentTransaction());
 	}
 
-	public void testMalformedRawContent() throws IOException, NotFound
+	@Test public void testMalformedRawContent() throws IOException, NotFound
 	{
 		item.setFertigRaw("<eins><paste>");
 		try
@@ -212,7 +213,7 @@ public class TextUrlFilterTest extends AbstractRuntimeModelTest
 		assertTrue(model.hasCurrentTransaction());
 	}
 
-	public void testCheckContentTypeNull()
+	@Test public void testCheckContentTypeNull()
 	{
 		try
 		{
@@ -225,13 +226,13 @@ public class TextUrlFilterTest extends AbstractRuntimeModelTest
 		}
 	}
 
-	public void testCheckBrokenLink() throws IOException, NotFound
+	@Test public void testCheckBrokenLink() throws IOException, NotFound
 	{
 		item.setFertigRaw("<eins><paste>uno</paste><zwei>");
 		assertEquals(new HashSet<>(Arrays.asList("uno")), item.checkFertig());
 	}
 
-	public void testCheckMultipleBrokenLink() throws IOException, NotFound
+	@Test public void testCheckMultipleBrokenLink() throws IOException, NotFound
 	{
 		item.setFertigRaw("<eins><paste>uno</paste><paste>duo</paste><zwei>");
 		assertEquals(new HashSet<>(Arrays.asList("uno","duo")), item.checkFertig());

@@ -19,10 +19,11 @@
 package com.exedio.cope;
 
 import com.exedio.cope.junit.CopeAssert;
+import org.junit.Test;
 
 public class FeatureTest extends CopeAssert
 {
-	public void testType()
+	@Test public void testType()
 	{
 		final StringField f = new StringField().lengthRange(5, 8);
 

@@ -25,6 +25,7 @@ import static com.exedio.cope.SchemaInfo.getTypeColumnName;
 import static com.exedio.dsmf.Dialect.NOT_NULL;
 
 import com.exedio.dsmf.Schema;
+import org.junit.Test;
 
 public class NameTest extends AbstractRuntimeModelTest
 {
@@ -51,7 +52,7 @@ public class NameTest extends AbstractRuntimeModelTest
 		itemcb = new NameCollisionlongaItem("collision B");
 	}
 
-	public void test()
+	@Test public void test()
 	{
 		final StringField NameLongItem_codeLongName =
 			NameLongItem.codeLoooooooooooooooooooooooooooooooooooooooooooooooooooongName;

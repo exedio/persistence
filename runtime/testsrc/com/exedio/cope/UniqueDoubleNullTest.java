@@ -21,6 +21,7 @@ package com.exedio.cope;
 import static com.exedio.cope.UniqueDoubleNullItem.TYPE;
 
 import java.util.Arrays;
+import org.junit.Test;
 
 /**
  * See http://bugs.mysql.com/bug.php?id=8173 as well.
@@ -39,7 +40,7 @@ public class UniqueDoubleNullTest extends AbstractRuntimeModelTest
 		super(MODEL);
 	}
 
-	public void test()
+	@Test public void test()
 	{
 		if(oracle) // Oracle violates SQL standard about this
 			return;

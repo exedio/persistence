@@ -31,6 +31,7 @@ import com.exedio.cope.Model;
 import com.exedio.cope.SchemaInfo;
 import com.exedio.cope.misc.Computed;
 import java.util.Arrays;
+import org.junit.Test;
 
 public class SingletonTest extends AbstractRuntimeModelTest
 {
@@ -46,7 +47,7 @@ public class SingletonTest extends AbstractRuntimeModelTest
 		super(MODEL);
 	}
 
-	public void testIt()
+	@Test public void testIt()
 	{
 		// test model
 		assertEquals(Arrays.asList(new Feature[]{

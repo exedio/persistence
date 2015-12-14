@@ -36,6 +36,7 @@ import com.exedio.cope.testmodel.StringItem;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import org.junit.Test;
 
 public class StringTest extends AbstractRuntimeModelTest
 {
@@ -60,7 +61,7 @@ public class StringTest extends AbstractRuntimeModelTest
 		numberOfItems = 2;
 	}
 
-	public void testStrings()
+	@Test public void testStrings()
 	{
 		// test check method
 		try
@@ -491,7 +492,7 @@ public class StringTest extends AbstractRuntimeModelTest
 	}
 
 	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad API usage
-	public void testUnchecked()
+	@Test public void testUnchecked()
 	{
 		try
 		{
@@ -717,7 +718,7 @@ public class StringTest extends AbstractRuntimeModelTest
 		return !oracle || field.getMaximumLength()<=com.exedio.cope.OracleDialect.VARCHAR_MAX_CHARS;
 	}
 
-	public void testSchema()
+	@Test public void testSchema()
 	{
 		assertSchema();
 	}

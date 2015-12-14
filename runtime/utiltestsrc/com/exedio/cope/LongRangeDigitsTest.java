@@ -19,10 +19,11 @@
 package com.exedio.cope;
 
 import com.exedio.cope.junit.CopeAssert;
+import org.junit.Test;
 
 public class LongRangeDigitsTest extends CopeAssert
 {
-	public void testIt()
+	@Test public void testIt()
 	{
 		final LongField f = new LongField();
 

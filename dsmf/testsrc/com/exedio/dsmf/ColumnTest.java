@@ -18,6 +18,8 @@
 
 package com.exedio.dsmf;
 
+import org.junit.Test;
+
 public class ColumnTest extends SchemaReadyTest
 {
 	private static final String TABLE1 = "SomeOtherTable";
@@ -36,7 +38,7 @@ public class ColumnTest extends SchemaReadyTest
 		return result;
 	}
 
-	public void testColumns()
+	@Test public void testColumns()
 	{
 		// OK
 		{

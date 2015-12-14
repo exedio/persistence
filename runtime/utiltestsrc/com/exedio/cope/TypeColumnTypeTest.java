@@ -24,11 +24,12 @@ import static com.exedio.dsmf.Dialect.NOT_NULL;
 
 import com.exedio.cope.junit.CopeAssert;
 import java.io.File;
+import org.junit.Test;
 
 public final class TypeColumnTypeTest extends CopeAssert
 {
 	@SuppressWarnings("static-method")
-	public void testIt()
+	@Test public void testIt()
 	{
 		assertEquals("StandardSub", getTypeColumnValue(StandardSub.TYPE));
 		assertEquals("MinLengthSub", getTypeColumnValue(MinLengthSub.TYPE));

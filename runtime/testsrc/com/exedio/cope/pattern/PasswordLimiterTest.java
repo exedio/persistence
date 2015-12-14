@@ -27,6 +27,7 @@ import com.exedio.cope.pattern.PasswordLimiter.Refusal;
 import com.exedio.cope.util.Clock;
 import java.util.Date;
 import java.util.List;
+import org.junit.Test;
 
 public class PasswordLimiterTest extends CopeModelTest
 {
@@ -59,7 +60,7 @@ public class PasswordLimiterTest extends CopeModelTest
 	private static final String PASSWORD = "correctPassword8927365";
 	private static final String PASSWORD2 = "correctPassword6576675";
 
-	public void testIt()
+	@Test public void testIt()
 	{
 		assertNoUpdateCounterColumn(passwordLimited.getRefusalType());
 
@@ -150,7 +151,7 @@ public class PasswordLimiterTest extends CopeModelTest
 		assertFalse(refusal4.existsCopeItem());
 	}
 
-	public void testReset()
+	@Test public void testReset()
 	{
 		assertEquals(list(), getRefusals());
 		assertEquals(true, i .checkPasswordLimited(PASSWORD , clock));

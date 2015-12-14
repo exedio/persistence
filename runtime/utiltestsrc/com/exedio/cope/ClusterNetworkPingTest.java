@@ -20,10 +20,11 @@ package com.exedio.cope;
 
 import com.exedio.cope.util.SequenceChecker;
 import java.util.List;
+import org.junit.Test;
 
 public class ClusterNetworkPingTest extends ClusterNetworkTest
 {
-	public void testMulticast() throws InterruptedException
+	@Test public void testMulticast() throws InterruptedException
 	{
 		try
 		{
@@ -56,7 +57,7 @@ public class ClusterNetworkPingTest extends ClusterNetworkTest
 		assertIt(true, 2, 1);
 	}
 
-	public void testSinglecast() throws InterruptedException
+	@Test public void testSinglecast() throws InterruptedException
 	{
 		modelA.connect(getProperties(false, 14446, 14447));
 		modelB.connect(getProperties(false, 14447, 14446));

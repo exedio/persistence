@@ -26,6 +26,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
+import org.junit.Test;
 
 public class CheckTypeColumnAbstractTest extends AbstractRuntimeModelTest
 {
@@ -53,7 +54,7 @@ public class CheckTypeColumnAbstractTest extends AbstractRuntimeModelTest
 		super.tearDown();
 	}
 
-	public void testIt() throws SQLException
+	@Test public void testIt() throws SQLException
 	{
 		assertEquals(0, HierarchySingleSuper.TYPE.checkCompleteness(HierarchySingleSub.TYPE));
 

@@ -28,6 +28,7 @@ import com.exedio.cope.Model;
 import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
 import com.exedio.cope.junit.CopeAssert;
+import org.junit.Test;
 
 public class ConnectTokenNotSetTest extends CopeAssert
 {
@@ -44,7 +45,7 @@ public class ConnectTokenNotSetTest extends CopeAssert
 		model.enableSerialization(ConnectTokenNotSetTest.class, "model");
 	}
 
-	public void testIt()
+	@Test public void testIt()
 	{
 		assertFalse(model.isConnected());
 

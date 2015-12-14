@@ -30,6 +30,7 @@ import static com.exedio.cope.SequenceModelTest.MODEL;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
+import org.junit.Test;
 
 public class SequenceTest extends AbstractRuntimeModelTest
 {
@@ -44,7 +45,7 @@ public class SequenceTest extends AbstractRuntimeModelTest
 		return false;
 	}
 
-	public void testIt()
+	@Test public void testIt()
 	{
 		// sequences are not part of a transaction
 		assertFalse(MODEL.hasCurrentTransaction());
@@ -114,7 +115,7 @@ public class SequenceTest extends AbstractRuntimeModelTest
 		assertInfo(MODEL.getSequenceInfo(), TYPE.getThis(), full, limited);
 	}
 
-	public void testParallelSequenceAccess() throws InterruptedException
+	@Test public void testParallelSequenceAccess() throws InterruptedException
 	{
 		final Thread[] threads = new Thread[ 10 ];
 		final Set<Integer> fullIds = Collections.synchronizedSet( new HashSet<Integer>() );

@@ -27,6 +27,7 @@ import java.net.DatagramPacket;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import org.junit.Test;
 
 public abstract class ClusterTest extends CopeAssert
 {
@@ -92,7 +93,7 @@ public abstract class ClusterTest extends CopeAssert
 		super.tearDown();
 	}
 
-	public void testSet()
+	@Test public void testSet()
 	{
 		assertEquals(PACKET_SIZE, csp.packetSize);
 		assertInfo(0, 0, 0, 0, new long[0][]);
@@ -159,7 +160,7 @@ public abstract class ClusterTest extends CopeAssert
 		assertInfo(0, 1, 1, 1, new long[][]{new long[]{0x11224433, 0, 0}});
 	}
 
-	public void testSplitBeforeTypeSingle()
+	@Test public void testSplitBeforeTypeSingle()
 	{
 		assertEquals(PACKET_SIZE, csp.packetSize);
 		assertInfo(0, 0, 0, 0, new long[0][]);
@@ -211,7 +212,7 @@ public abstract class ClusterTest extends CopeAssert
 
 	}
 
-	public void testSplitBeforeType()
+	@Test public void testSplitBeforeType()
 	{
 		assertEquals(PACKET_SIZE, csp.packetSize);
 		assertInfo(0, 0, 0, 0, new long[0][]);
@@ -265,7 +266,7 @@ public abstract class ClusterTest extends CopeAssert
 		assertInfo(1, 0, 0, 0, new long[][]{new long[]{0x11224433, 0, 0}});
 	}
 
-	public void testSplitAtType()
+	@Test public void testSplitAtType()
 	{
 		assertEquals(PACKET_SIZE, csp.packetSize);
 		assertInfo(0, 0, 0, 0, new long[0][]);
@@ -316,7 +317,7 @@ public abstract class ClusterTest extends CopeAssert
 		assertInfo(1, 0, 0, 0, new long[][]{new long[]{0x11224433, 0, 0}});
 	}
 
-	public void testSplitAfterType()
+	@Test public void testSplitAfterType()
 	{
 		assertEquals(PACKET_SIZE, csp.packetSize);
 		assertInfo(0, 0, 0, 0, new long[0][]);
@@ -367,7 +368,7 @@ public abstract class ClusterTest extends CopeAssert
 		assertInfo(1, 0, 0, 0, new long[][]{new long[]{0x11224433, 0, 0}});
 	}
 
-	public void testSplitAfterAfterType()
+	@Test public void testSplitAfterAfterType()
 	{
 		assertEquals(PACKET_SIZE, csp.packetSize);
 		assertInfo(0, 0, 0, 0, new long[0][]);
@@ -418,7 +419,7 @@ public abstract class ClusterTest extends CopeAssert
 		assertInfo(1, 0, 0, 0, new long[][]{new long[]{0x11224433, 0, 0}});
 	}
 
-	public void testSplitAfterAfterAfterType()
+	@Test public void testSplitAfterAfterAfterType()
 	{
 		assertEquals(PACKET_SIZE, csp.packetSize);
 
@@ -468,7 +469,7 @@ public abstract class ClusterTest extends CopeAssert
 		assertInfo(1, 0, 0, 0, new long[][]{new long[]{0x11224433, 0, 0}});
 	}
 
-	public void testSplitAfterAfterAfterTypeCollapse()
+	@Test public void testSplitAfterAfterAfterTypeCollapse()
 	{
 		assertEquals(PACKET_SIZE, csp.packetSize);
 		assertInfo(0, 0, 0, 0, new long[0][]);
@@ -500,7 +501,7 @@ public abstract class ClusterTest extends CopeAssert
 		assertInfo(1, 0, 0, 0, new long[][]{new long[]{0x11224433, 0, 0}});
 	}
 
-	public void testPing()
+	@Test public void testPing()
 	{
 		final ArrayList<byte[]> sink = new ArrayList<>();
 		cs.testSink = sink;
@@ -612,7 +613,7 @@ public abstract class ClusterTest extends CopeAssert
 		assertInfo(0, 0, 0, 0, new long[][]{new long[]{0x11224433, 1, 0}});
 	}
 
-	public void testPingCount()
+	@Test public void testPingCount()
 	{
 		final ArrayList<byte[]> sink = new ArrayList<>();
 		cs.testSink = sink;
@@ -651,7 +652,7 @@ public abstract class ClusterTest extends CopeAssert
 		assertEquals(0, sink.size());
 	}
 
-	public void testPong()
+	@Test public void testPong()
 	{
 		final ArrayList<byte[]> sink = new ArrayList<>();
 		cs.testSink = sink;

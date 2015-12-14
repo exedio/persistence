@@ -19,10 +19,11 @@
 package com.exedio.cope;
 
 import com.exedio.cope.junit.CopeAssert;
+import org.junit.Test;
 
 public class RevisionsTest extends CopeAssert
 {
-	public void testNumberNegative()
+	@Test public void testNumberNegative()
 	{
 		try
 		{
@@ -34,7 +35,7 @@ public class RevisionsTest extends CopeAssert
 			assertEquals("number must not be negative, but was -1", e.getMessage());
 		}
 	}
-	public void testRevisionsNull()
+	@Test public void testRevisionsNull()
 	{
 		try
 		{
@@ -46,7 +47,7 @@ public class RevisionsTest extends CopeAssert
 			assertEquals("revisions", e.getMessage());
 		}
 	}
-	public void testRevisionsEmpty()
+	@Test public void testRevisionsEmpty()
 	{
 		try
 		{
@@ -58,7 +59,7 @@ public class RevisionsTest extends CopeAssert
 			assertEquals("revisions must not be empty", e.getMessage());
 		}
 	}
-	public void testRevisionsElementNull()
+	@Test public void testRevisionsElementNull()
 	{
 		final Revision r = new Revision(1, "revision1", "nonsensesql1");
 		try
@@ -71,7 +72,7 @@ public class RevisionsTest extends CopeAssert
 			assertEquals("revisions[1]", e.getMessage());
 		}
 	}
-	public void testRevisionsInconsistent()
+	@Test public void testRevisionsInconsistent()
 	{
 		final Revision r8 = new Revision(8, "revision8", "nonsensesql8");
 		final Revision r6 = new Revision(6, "revision6", "nonsensesql6");
@@ -86,7 +87,7 @@ public class RevisionsTest extends CopeAssert
 		}
 	}
 
-	public void testRevisionsCopy()
+	@Test public void testRevisionsCopy()
 	{
 		final Revision r2 = new Revision(2, "revision2", "nonsensesql2");
 		final Revision r1 = new Revision(1, "revision1", "nonsensesql1");
@@ -98,7 +99,7 @@ public class RevisionsTest extends CopeAssert
 		assertEquals(list(r2, r1), rs.getList());
 	}
 
-	public void testToRun()
+	@Test public void testToRun()
 	{
 		final Revision r8 = new Revision(8, "revision8", "nonsensesql8");
 		final Revision r7 = new Revision(7, "revision7", "nonsensesql7");
@@ -168,7 +169,7 @@ public class RevisionsTest extends CopeAssert
 		}
 	}
 
-	public void testToRunZero()
+	@Test public void testToRunZero()
 	{
 		final Revision r2 = new Revision(2, "revision2", "nonsensesql2");
 		final Revision r1 = new Revision(1, "revision1", "nonsensesql1");
@@ -200,7 +201,7 @@ public class RevisionsTest extends CopeAssert
 		}
 	}
 
-	public void testToRunSingle()
+	@Test public void testToRunSingle()
 	{
 		final Revision r3 = new Revision(3, "revision2", "nonsensesql2");
 		final Revisions rs = new Revisions(r3);
@@ -230,7 +231,7 @@ public class RevisionsTest extends CopeAssert
 		}
 	}
 
-	public void testToRunNumber()
+	@Test public void testToRunNumber()
 	{
 		final Revisions rs = new Revisions(5);
 		assertEquals(5, rs.getNumber());
@@ -294,7 +295,7 @@ public class RevisionsTest extends CopeAssert
 		}
 	}
 
-	public void testToRunNumberZero()
+	@Test public void testToRunNumberZero()
 	{
 		final Revisions rs = new Revisions(0);
 		assertEquals(0, rs.getNumber());

@@ -23,6 +23,7 @@ import static java.util.Arrays.asList;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import org.junit.Test;
 
 public class ClusterNetworkChangeListenerTest extends ClusterNetworkTest
 {
@@ -35,7 +36,7 @@ public class ClusterNetworkChangeListenerTest extends ClusterNetworkTest
 		super.tearDown();
 	}
 
-	public void testSinglecast() throws InterruptedException, ChangeEvent.NotAvailableException
+	@Test public void testSinglecast() throws InterruptedException, ChangeEvent.NotAvailableException
 	{
 		modelA.connect(getProperties(false, 14446, 14447));
 		modelB.connect(getProperties(false, 14447, 14446));

@@ -34,6 +34,7 @@ import java.io.IOException;
 import java.io.NotSerializableException;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import org.junit.Test;
 
 public class ModelSerializationTest extends CopeAssert
 {
@@ -51,7 +52,7 @@ public class ModelSerializationTest extends CopeAssert
 	private static final Class<?> itemClass = ModelSerializationItem.class;
 	private static final Class<?> testClass = ModelSerializationTest.class;
 
-	public void test() throws IOException
+	@Test public void test() throws IOException
 	{
 		assertEquals(false, model.isSerializationEnabled());
 		assertNotSerializable(model, Model.class);

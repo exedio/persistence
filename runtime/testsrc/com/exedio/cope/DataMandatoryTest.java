@@ -26,6 +26,7 @@ import static com.exedio.cope.RuntimeAssert.assertData;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import org.junit.Test;
 
 public class DataMandatoryTest extends AbstractRuntimeModelTest
 {
@@ -45,7 +46,7 @@ public class DataMandatoryTest extends AbstractRuntimeModelTest
 		item = new DataMandatoryItem(toValue(bytes4));
 	}
 
-	public void testData() throws MandatoryViolationException, IOException
+	@Test public void testData() throws MandatoryViolationException, IOException
 	{
 		// test model
 		assertEquals(false, data.isFinal());

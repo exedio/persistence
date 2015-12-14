@@ -24,6 +24,7 @@ import java.util.Collection;
 import java.util.List;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
+import org.junit.Test;
 
 public class ChangeListenerTest extends AbstractRuntimeModelTest
 {
@@ -54,7 +55,7 @@ public class ChangeListenerTest extends AbstractRuntimeModelTest
 		super.tearDown();
 	}
 
-	public void testIt() throws ChangeEvent.NotAvailableException
+	@Test public void testIt() throws ChangeEvent.NotAvailableException
 	{
 		assertEqualsUnmodifiable(list(), model.getChangeListeners());
 		assertInfo(0, 0, 0, 0);
@@ -266,7 +267,7 @@ public class ChangeListenerTest extends AbstractRuntimeModelTest
 		assertEquals(0, dispatcherInfo.getPending  ());
 	}
 
-	public void testThreadControllers()
+	@Test public void testThreadControllers()
 	{
 		final String prefix = "COPE Change Listener Dispatcher ";
 		final String prefix2 = prefix + model.toString() + ' ';

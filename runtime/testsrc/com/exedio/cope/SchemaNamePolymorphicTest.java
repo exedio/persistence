@@ -27,6 +27,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import org.junit.Test;
 
 public class SchemaNamePolymorphicTest extends AbstractRuntimeModelTest
 {
@@ -50,7 +51,7 @@ public class SchemaNamePolymorphicTest extends AbstractRuntimeModelTest
 		super.tearDown();
 	}
 
-	public void test() throws SQLException
+	@Test public void test() throws SQLException
 	{
 		assertEquals(
 				"SchemaNamePolymorphicSuperItem",

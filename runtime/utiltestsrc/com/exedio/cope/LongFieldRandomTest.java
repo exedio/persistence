@@ -24,6 +24,7 @@ import static java.lang.Long.MIN_VALUE;
 import com.exedio.cope.junit.CopeAssert;
 import java.util.Random;
 import junit.framework.AssertionFailedError;
+import org.junit.Test;
 
 public class LongFieldRandomTest extends CopeAssert
 {
@@ -70,7 +71,7 @@ public class LongFieldRandomTest extends CopeAssert
 
 	private final RandomX r = new RandomX();
 
-	public void testUnsupportedMin()
+	@Test public void testUnsupportedMin()
 	{
 		final LongField s = new LongField().min(1);
 		try
@@ -84,7 +85,7 @@ public class LongFieldRandomTest extends CopeAssert
 		}
 	}
 
-	public void testUnsupportedMax()
+	@Test public void testUnsupportedMax()
 	{
 		final LongField s = new LongField().max(1);
 		try
@@ -98,7 +99,7 @@ public class LongFieldRandomTest extends CopeAssert
 		}
 	}
 
-	public void testUnsupportedMinMax()
+	@Test public void testUnsupportedMinMax()
 	{
 		final LongField s = new LongField().defaultToRandom(r);
 		try
@@ -121,7 +122,7 @@ public class LongFieldRandomTest extends CopeAssert
 		}
 	}
 
-	public void testFull()
+	@Test public void testFull()
 	{
 		final LongField s = new LongField().defaultToRandom(r);
 		assertIt(s, MIN_VALUE  , MIN_VALUE  );
@@ -141,7 +142,7 @@ public class LongFieldRandomTest extends CopeAssert
 		assertIt(s, MAX_VALUE  , MAX_VALUE  );
 	}
 
-	public void testPositive()
+	@Test public void testPositive()
 	{
 		final LongField s = new LongField().min(0).defaultToRandom(r);
 		assertIt(s,           0, MIN_VALUE  );

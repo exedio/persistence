@@ -32,6 +32,7 @@ import com.exedio.cope.DateField;
 import com.exedio.cope.IntegerField;
 import java.io.IOException;
 import java.io.InputStream;
+import org.junit.Test;
 
 public class MediaEnumTest extends AbstractRuntimeModelTest
 {
@@ -49,7 +50,7 @@ public class MediaEnumTest extends AbstractRuntimeModelTest
 		item = new MediaItem("test media item");
 	}
 
-	public void testIt() throws IOException
+	@Test public void testIt() throws IOException
 	{
 		// test model
 

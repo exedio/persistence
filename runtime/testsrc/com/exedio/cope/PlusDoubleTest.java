@@ -40,6 +40,8 @@ import static com.exedio.cope.PlusDoubleItem.plusAC;
 import static com.exedio.cope.PlusDoubleItem.plusBC;
 import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
 
+import org.junit.Test;
+
 public class PlusDoubleTest extends AbstractRuntimeModelTest
 {
 	static final Model MODEL = new Model(TYPE);
@@ -70,7 +72,7 @@ public class PlusDoubleTest extends AbstractRuntimeModelTest
 	private static final Double d10= Double.valueOf(10.4);
 	private static final Double d18= Double.valueOf(20.46);
 
-	public void testSum()
+	@Test public void testSum()
 	{
 		// test model
 		assertEquals(TYPE, plusA9.getType());

@@ -24,6 +24,7 @@ import com.exedio.cope.UtilTestLogAppender;
 import com.exedio.cope.junit.CopeAssert;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
+import org.junit.Test;
 
 public class TimeUtilTest extends CopeAssert
 {
@@ -46,7 +47,7 @@ public class TimeUtilTest extends CopeAssert
 		super.tearDown();
 	}
 
-	public void testIt()
+	@Test public void testIt()
 	{
 		assertEquals(0, toMillies(      0, 0));
 		assertEquals(0, toMillies( 499999, 0));
@@ -60,7 +61,7 @@ public class TimeUtilTest extends CopeAssert
 		log.assertEmpty();
 	}
 
-	public void testIllegal()
+	@Test public void testIllegal()
 	{
 		assertEquals(0, toMillies(-1, 0));
 		log.assertMessage(Level.ERROR, "backwards nanos 0 -1");

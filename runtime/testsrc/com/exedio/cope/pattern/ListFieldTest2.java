@@ -27,6 +27,7 @@ import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
 import com.exedio.cope.Type;
 import java.util.Iterator;
+import org.junit.Test;
 
 /**
  * Tests complicated situations for the setter.
@@ -47,7 +48,7 @@ public class ListFieldTest2 extends AbstractRuntimeModelTest
 		item = new ListFieldItem();
 	}
 
-	public void testIt()
+	@Test public void testIt()
 	{
 		final Type<?> type = strings.getRelationType();
 		final IntegerField order = strings.getOrder();

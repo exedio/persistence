@@ -22,11 +22,12 @@ import static com.exedio.cope.misc.ServletUtil.getPropertyContext;
 
 import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.util.Properties.Source;
+import org.junit.Test;
 
 public class ServletUtilContextTest extends CopeAssert
 {
 	@Deprecated
-	public void testIt()
+	@Test public void testIt()
 	{
 		{
 			final Source s = getPropertyContext(new TestContext("/testContextPath", "testContextPath."));

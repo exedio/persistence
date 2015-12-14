@@ -28,6 +28,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
+import org.junit.Test;
 
 public class StableQueryIteratorTest extends AbstractRuntimeModelTest
 {
@@ -58,7 +59,7 @@ public class StableQueryIteratorTest extends AbstractRuntimeModelTest
 		q.setOrderBy(TYPE.getThis(), true);
 	}
 
-	public void testIt()
+	@Test public void testIt()
 	{
 		try
 		{

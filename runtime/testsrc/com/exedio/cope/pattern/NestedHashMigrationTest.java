@@ -26,6 +26,7 @@ import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Model;
 import com.exedio.cope.util.AssertionErrorJobContext;
+import org.junit.Test;
 
 public class NestedHashMigrationTest extends AbstractRuntimeModelTest
 {
@@ -36,7 +37,7 @@ public class NestedHashMigrationTest extends AbstractRuntimeModelTest
 		super(MODEL);
 	}
 
-	public void testSetNull()
+	@Test public void testSetNull()
 	{
 		final NestedHashMigrationItem item = new NestedHashMigrationItem("111111", 1.1);
 
@@ -79,7 +80,7 @@ public class NestedHashMigrationTest extends AbstractRuntimeModelTest
 		}
 	}
 
-	public void testMigratePasswordOnChange()
+	@Test public void testMigratePasswordOnChange()
 	{
 		final NestedHashMigrationItem item = new NestedHashMigrationItem("111111", 1.1);
 		assertLegacy(item);
@@ -97,7 +98,7 @@ public class NestedHashMigrationTest extends AbstractRuntimeModelTest
 		assertFalse(item.checkPassword("111111"));
 	}
 
-	public void testMigratePasswordAutomatically()
+	@Test public void testMigratePasswordAutomatically()
 	{
 		final NestedHashMigrationItem itemA = new NestedHashMigrationItem("111111A", 1.1);
 		final NestedHashMigrationItem itemB = new NestedHashMigrationItem("111111B", 1.1);

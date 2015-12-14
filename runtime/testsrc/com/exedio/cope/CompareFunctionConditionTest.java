@@ -44,6 +44,7 @@ import com.exedio.cope.CompareFunctionConditionItem.XEnum;
 import com.exedio.cope.util.Day;
 import java.util.Date;
 import java.util.List;
+import org.junit.Test;
 
 public class CompareFunctionConditionTest extends AbstractRuntimeModelTest
 {
@@ -88,7 +89,7 @@ public class CompareFunctionConditionTest extends AbstractRuntimeModelTest
 		item5.setItemB(item3);
 	}
 
-	public void testEqualsHashCode()
+	@Test public void testEqualsHashCode()
 	{
 		assertEqualsAndHash(stringA.less(stringB), stringA.less(stringB));
 		assertNotEqualsAndHash(
@@ -99,7 +100,7 @@ public class CompareFunctionConditionTest extends AbstractRuntimeModelTest
 				stringA.equal(stringB));
 	}
 
-	public void testToString()
+	@Test public void testToString()
 	{
 		assertEquals("CompareFunctionConditionItem.stringA=CompareFunctionConditionItem.stringB",  stringA.equal(stringB).toString());
 		assertEquals("CompareFunctionConditionItem.stringA<CompareFunctionConditionItem.stringB",  stringA.less(stringB).toString());
@@ -108,7 +109,7 @@ public class CompareFunctionConditionTest extends AbstractRuntimeModelTest
 		assertEquals("CompareFunctionConditionItem.stringA>=CompareFunctionConditionItem.stringB", stringA.greaterOrEqual(stringB).toString());
 	}
 
-	public void testEqual()
+	@Test public void testEqual()
 	{
 		final List<CompareFunctionConditionItem> expected =
 				asList(item3);
@@ -123,7 +124,7 @@ public class CompareFunctionConditionTest extends AbstractRuntimeModelTest
 		assertCondition(expected, TYPE, THIS   .equal(itemB));
 	}
 
-	public void testNotEqual()
+	@Test public void testNotEqual()
 	{
 		final List<CompareFunctionConditionItem> expected =
 				asList(item1, item2, item4, item5);
@@ -138,7 +139,7 @@ public class CompareFunctionConditionTest extends AbstractRuntimeModelTest
 		assertCondition(expected, TYPE, THIS   .notEqual(itemB));
 	}
 
-	public void testLess()
+	@Test public void testLess()
 	{
 		final List<CompareFunctionConditionItem> expected =
 				asList(item1, item2);
@@ -153,7 +154,7 @@ public class CompareFunctionConditionTest extends AbstractRuntimeModelTest
 		assertCondition(expected, TYPE, THIS   .less(itemB));
 	}
 
-	public void testLessOrEqual()
+	@Test public void testLessOrEqual()
 	{
 		final List<CompareFunctionConditionItem> expected =
 				asList(item1, item2, item3);
@@ -168,7 +169,7 @@ public class CompareFunctionConditionTest extends AbstractRuntimeModelTest
 		assertCondition(expected, TYPE, THIS   .lessOrEqual(itemB));
 	}
 
-	public void testGreater()
+	@Test public void testGreater()
 	{
 		final List<CompareFunctionConditionItem> expected =
 				asList(item4, item5);
@@ -183,7 +184,7 @@ public class CompareFunctionConditionTest extends AbstractRuntimeModelTest
 		assertCondition(expected, TYPE, THIS   .greater(itemB));
 	}
 
-	public void testGreaterOrEqual()
+	@Test public void testGreaterOrEqual()
 	{
 		final List<CompareFunctionConditionItem> expected =
 				asList(item3, item4, item5);
@@ -198,7 +199,7 @@ public class CompareFunctionConditionTest extends AbstractRuntimeModelTest
 		assertCondition(expected, TYPE, THIS   .greaterOrEqual(itemB));
 	}
 
-	public void testNot()
+	@Test public void testNot()
 	{
 		assertCondition(item1, item2,        item4, item5, TYPE, intA.equal(intB).not());
 		assertCondition(              item3,               TYPE, intA.notEqual(intB).not());

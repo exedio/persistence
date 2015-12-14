@@ -20,6 +20,8 @@ package com.exedio.cope;
 
 import static com.exedio.cope.UniqueHierarchySubItem.subField;
 
+import org.junit.Test;
+
 /**
  * Test for bug 30
  *
@@ -34,7 +36,7 @@ public class UniqueHierarchyTest extends AbstractRuntimeModelTest
 		super(MODEL);
 	}
 
-	public void testIt()
+	@Test public void testIt()
 	{
 		assertEquals(list(), UniqueHierarchySuperItem.TYPE.search());
 		assertEquals(list(), UniqueHierarchySubItem.TYPE.search());

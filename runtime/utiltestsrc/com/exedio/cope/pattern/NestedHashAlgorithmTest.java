@@ -22,10 +22,11 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 
 import java.security.SecureRandom;
 import junit.framework.TestCase;
+import org.junit.Test;
 
 public class NestedHashAlgorithmTest extends TestCase
 {
-	public void testNormal()
+	@Test public void testNormal()
 	{
 		final HashAlgorithm a = NestedHashAlgorithm.create(
 				MessageDigestHashAlgorithm.create(UTF_8, "MD5",     0, (SecureRandom)null, 100),
@@ -39,7 +40,7 @@ public class NestedHashAlgorithmTest extends TestCase
 		assertEquals(false, a.check("12345", hash));
 	}
 
-	public void testMigration()
+	@Test public void testMigration()
 	{
 		final HashAlgorithm legacy = MessageDigestHashAlgorithm.create(UTF_8, "MD5",     0, (SecureRandom)null, 100);
 
@@ -54,7 +55,7 @@ public class NestedHashAlgorithmTest extends TestCase
 		assertEquals(false, a.check("12345", newHash));
 	}
 
-	public void testFail()
+	@Test public void testFail()
 	{
 		try
 		{

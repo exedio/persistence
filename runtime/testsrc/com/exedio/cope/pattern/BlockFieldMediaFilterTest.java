@@ -28,6 +28,7 @@ import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Model;
 import java.util.Arrays;
+import org.junit.Test;
 
 public class BlockFieldMediaFilterTest extends AbstractRuntimeModelTest
 {
@@ -43,7 +44,7 @@ public class BlockFieldMediaFilterTest extends AbstractRuntimeModelTest
 		super(MODEL);
 	}
 
-	public void testIt()
+	@Test public void testIt()
 	{
 		assertEqualsUnmodifiable(Arrays.asList(new Feature[]{
 				AnItem.TYPE.getThis(),

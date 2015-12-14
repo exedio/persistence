@@ -25,10 +25,11 @@ import com.exedio.cope.StringField;
 import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
 import com.exedio.cope.junit.CopeAssert;
+import org.junit.Test;
 
 public class CopeNameUtilTest extends CopeAssert
 {
-	public void testIt()
+	@Test public void testIt()
 	{
 		assertEquals("naked",        AnItem.naked.getName());
 		assertEquals("nameAnno",     AnItem.name .getName());

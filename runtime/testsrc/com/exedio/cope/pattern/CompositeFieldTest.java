@@ -42,6 +42,7 @@ import com.exedio.cope.Query;
 import com.exedio.cope.misc.Computed;
 import com.exedio.cope.pattern.CompositeValue.AnEnum;
 import java.util.Arrays;
+import org.junit.Test;
 
 public class CompositeFieldTest extends AbstractRuntimeModelTest
 {
@@ -71,7 +72,7 @@ public class CompositeFieldTest extends AbstractRuntimeModelTest
 		target2 = new CompositeOptionalItem("target2");
 	}
 
-	public void testIt()
+	@Test public void testIt()
 	{
 		// test model
 		assertEqualsUnmodifiable(Arrays.asList(new Feature[]{
@@ -413,7 +414,7 @@ public class CompositeFieldTest extends AbstractRuntimeModelTest
 		assertEquals("firstString1X", serializedValue.getAString());
 	}
 
-	public void testConditions()
+	@Test public void testConditions()
 	{
 		final CompositeValue v = new CompositeValue("einsString1", 1, AnEnum.facet1, target1);
 		final CompositeItem i1 = new CompositeItem("i1", v, v);
@@ -436,7 +437,7 @@ public class CompositeFieldTest extends AbstractRuntimeModelTest
 		assertEquals(list(target1, target2, o1), CompositeOptionalItem.TYPE.search(CompositeOptionalItem.duo.isNull(), CompositeOptionalItem.TYPE.getThis(), true));
 	}
 
-	public void testBindingInConditions()
+	@Test public void testBindingInConditions()
 	{
 		final CompositeItemHolder h1 = new CompositeItemHolder(target1);
 		new CompositeItemHolder(target2);

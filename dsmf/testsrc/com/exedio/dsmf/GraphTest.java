@@ -24,6 +24,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 import junit.framework.TestCase;
+import org.junit.Test;
 
 public class GraphTest extends TestCase
 {
@@ -41,7 +42,7 @@ public class GraphTest extends TestCase
 		});
 	}
 
-	public void testOk()
+	@Test public void testOk()
 	{
 		final Table tabT = new Table(schema, "tabT");
 		final Table tab1 = new Table(schema, "tab1");
@@ -54,7 +55,7 @@ public class GraphTest extends TestCase
 		assertEquals(list(), setAsList(graph.getConstraintsBroken()));
 	}
 
-	public void testSelf()
+	@Test public void testSelf()
 	{
 		final Table tab = new Table(schema, "tab");
 		fk(tab, "fk", "tab");
@@ -64,7 +65,7 @@ public class GraphTest extends TestCase
 		assertEquals(list(), setAsList(graph.getConstraintsBroken()));
 	}
 
-	public void testReorder()
+	@Test public void testReorder()
 	{
 		final Table tab1 = new Table(schema, "tab1");
 		fk(tab1, "fk1", "tabT");
@@ -77,7 +78,7 @@ public class GraphTest extends TestCase
 		assertEquals(list(), setAsList(graph.getConstraintsBroken()));
 	}
 
-	public void testBreak()
+	@Test public void testBreak()
 	{
 		final Table tab1 = new Table(schema, "tab1");
 		final Table tab2 = new Table(schema, "tab2");
@@ -90,7 +91,7 @@ public class GraphTest extends TestCase
 		assertEquals(list(fk1), setAsList(graph.getConstraintsBroken()));
 	}
 
-	public void testBreakWeight()
+	@Test public void testBreakWeight()
 	{
 		final Table tab1 = new Table(schema, "tab1");
 		final Table tab2 = new Table(schema, "tab2");

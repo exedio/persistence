@@ -27,6 +27,7 @@ import com.exedio.cope.StringField;
 import com.exedio.cope.pattern.DynamicModel.Enum;
 import com.exedio.cope.pattern.DynamicModel.Field;
 import com.exedio.cope.pattern.DynamicModel.Type;
+import org.junit.Test;
 
 public class DynamicModelCastTest extends AbstractRuntimeModelTest
 {
@@ -51,7 +52,7 @@ public class DynamicModelCastTest extends AbstractRuntimeModelTest
 		item = new ModelItem("item");
 	}
 
-	public void testIt()
+	@Test public void testIt()
 	{
 		final Type<Locale> alpha1 = ModelItem.alpha.createType("alpha1");
 		final Type<Locale> alpha2 = ModelItem.alpha.createType("alpha2");

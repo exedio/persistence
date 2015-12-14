@@ -23,9 +23,11 @@ import static com.exedio.cope.testmodel.AttributeItem.TYPE;
 import static com.exedio.cope.testmodel.AttributeItem.someBoolean;
 import static com.exedio.cope.testmodel.AttributeItem.someNotNullBoolean;
 
+import org.junit.Test;
+
 public class FieldBooleanTest extends FieldTest
 {
-	public void testSomeBoolean()
+	@Test public void testSomeBoolean()
 	{
 		assertEquals(TYPE, someBoolean.getType());
 		assertEquals(Boolean.class, someBoolean.getValueClass());
@@ -86,7 +88,7 @@ public class FieldBooleanTest extends FieldTest
 	}
 
 	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad API usage
-	public void testUnchecked()
+	@Test public void testUnchecked()
 	{
 		try
 		{
@@ -99,7 +101,7 @@ public class FieldBooleanTest extends FieldTest
 		}
 	}
 
-	public void testSomeNotNullBoolean()
+	@Test public void testSomeNotNullBoolean()
 	{
 		assertEquals(TYPE, someNotNullBoolean.getType());
 		assertEquals(true, item.getSomeNotNullBoolean());

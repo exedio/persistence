@@ -27,6 +27,7 @@ import com.exedio.cope.Condition;
 import com.exedio.cope.Join;
 import com.exedio.cope.Query;
 import java.util.Arrays;
+import org.junit.Test;
 
 public class PriceFieldConditionsTest extends AbstractRuntimeModelTest
 {
@@ -52,7 +53,7 @@ public class PriceFieldConditionsTest extends AbstractRuntimeModelTest
 		i3  = PriceFieldItem.n(p3, p2);
 	}
 
-	public void testSearch()
+	@Test public void testSearch()
 	{
 		final PriceField f = optionalPrice;
 		final PriceField f2 = finalPrice;
@@ -86,7 +87,7 @@ public class PriceFieldConditionsTest extends AbstractRuntimeModelTest
 		assertEquals(Arrays.asList(expected), query.search());
 	}
 
-	public void testCondition()
+	@Test public void testCondition()
 	{
 		final PriceField f = optionalPrice;
 		final String s = f.getInt().getID();

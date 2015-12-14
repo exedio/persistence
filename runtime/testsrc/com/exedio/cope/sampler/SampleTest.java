@@ -30,10 +30,11 @@ import com.exedio.cope.Type;
 import com.exedio.cope.pattern.Media;
 import java.util.Date;
 import java.util.Iterator;
+import org.junit.Test;
 
 public class SampleTest extends ConnectedTest
 {
-	public void testIt() throws InterruptedException
+	@Test public void testIt() throws InterruptedException
 	{
 		samplerModel.createSchema();
 		sampler.checkInternal();

@@ -20,10 +20,11 @@ package com.exedio.cope;
 
 import java.util.Date;
 import junit.framework.TestCase;
+import org.junit.Test;
 
 public class IsInitialTest extends TestCase
 {
-	public void testIsInitial()
+	@Test public void testIsInitial()
 	{
 		assertEquals(true,  new DataField().isInitial());
 		assertEquals(false, new DataField().optional().isInitial());

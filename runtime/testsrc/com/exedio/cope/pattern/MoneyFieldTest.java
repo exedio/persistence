@@ -36,6 +36,7 @@ import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Model;
 import com.exedio.cope.pattern.MoneyFieldItem.Currency;
+import org.junit.Test;
 
 public class MoneyFieldTest extends AbstractRuntimeModelTest
 {
@@ -46,7 +47,7 @@ public class MoneyFieldTest extends AbstractRuntimeModelTest
 		super(MODEL);
 	}
 
-	public void testNames()
+	@Test public void testNames()
 	{
 		assertEquals("fixed",                fixed                     .getName());
 		assertEquals("fixed-amount",         fixed.getAmount()         .getName());
@@ -92,7 +93,7 @@ public class MoneyFieldTest extends AbstractRuntimeModelTest
 		assertEquals("exclusive_int",       getColumnName(exclusive.getAmount().getInt()));
 		assertEquals("exclusive_currency" , getColumnName(exclusive.getCurrencyField()));
 	}
-	public void testFixedConsistencyOkSingle()
+	@Test public void testFixedConsistencyOkSingle()
 	{
 		final MoneyFieldItem i = fixed(valueOf(5.55, fix));
 		assertEquals(valueOf(5.55, fix), i.getFixed());
@@ -103,12 +104,12 @@ public class MoneyFieldTest extends AbstractRuntimeModelTest
 		i.setFixed(null);
 		assertEquals(null, i.getFixed());
 	}
-	public void testFixedConsistencyCreateNull()
+	@Test public void testFixedConsistencyCreateNull()
 	{
 		final MoneyFieldItem i = fixed(null);
 		assertEquals(null , i.getFixed());
 	}
-	public void testFixedConsistencyOkMulti()
+	@Test public void testFixedConsistencyOkMulti()
 	{
 		final MoneyFieldItem i = fixed(valueOf(5.55, fix));
 		assertEquals(valueOf(5.55, fix), i.getFixed());
@@ -119,7 +120,7 @@ public class MoneyFieldTest extends AbstractRuntimeModelTest
 		i.set(fixed.map(null));
 		assertEquals(null, i.getFixed());
 	}
-	public void testFixedConsistencyBrokenCreate()
+	@Test public void testFixedConsistencyBrokenCreate()
 	{
 		try
 		{
@@ -139,7 +140,7 @@ public class MoneyFieldTest extends AbstractRuntimeModelTest
 					e.getMessage());
 		}
 	}
-	public void testFixedConsistencyBrokenSingle()
+	@Test public void testFixedConsistencyBrokenSingle()
 	{
 		final MoneyFieldItem i = fixed(valueOf(5.55, fix));
 		assertEquals(valueOf(5.55, fix), i.getFixed());
@@ -163,7 +164,7 @@ public class MoneyFieldTest extends AbstractRuntimeModelTest
 		}
 		assertEquals(valueOf(5.55, fix), i.getFixed());
 	}
-	public void testFixedConsistencyBrokenMulti()
+	@Test public void testFixedConsistencyBrokenMulti()
 	{
 		final MoneyFieldItem i = fixed(valueOf(5.55, fix));
 		assertEquals(valueOf(5.55, fix), i.getFixed());
@@ -187,7 +188,7 @@ public class MoneyFieldTest extends AbstractRuntimeModelTest
 		}
 		assertEquals(valueOf(5.55, fix), i.getFixed());
 	}
-	public void testFixedEnum()
+	@Test public void testFixedEnum()
 	{
 		final MoneyFieldItem i = fixedEnum(valueOf(5.55, eur));
 		assertEquals(valueOf(5.55, eur), i.getFixedEnum());
@@ -198,7 +199,7 @@ public class MoneyFieldTest extends AbstractRuntimeModelTest
 		i.setFixedEnum(null);
 		assertEquals(null, i.getFixedEnum());
 	}
-	public void testSharedConsistencyOkSingle()
+	@Test public void testSharedConsistencyOkSingle()
 	{
 		final MoneyFieldItem i = shared(eur, valueOf(5.55, eur));
 		assertEquals(eur , i.getCurrency());
@@ -212,13 +213,13 @@ public class MoneyFieldTest extends AbstractRuntimeModelTest
 		assertEquals(eur , i.getCurrency());
 		assertEquals(null, i.getShared());
 	}
-	public void testSharedConsistencyCreateNull()
+	@Test public void testSharedConsistencyCreateNull()
 	{
 		final MoneyFieldItem i = shared(eur, null);
 		assertEquals(eur , i.getCurrency());
 		assertEquals(null, i.getShared());
 	}
-	public void testSharedConsistencyOkMulti()
+	@Test public void testSharedConsistencyOkMulti()
 	{
 		final MoneyFieldItem i = shared(eur, valueOf(5.55, eur));
 		assertEquals(eur , i.getCurrency());
@@ -232,7 +233,7 @@ public class MoneyFieldTest extends AbstractRuntimeModelTest
 		assertEquals(eur , i.getCurrency());
 		assertEquals(null, i.getShared());
 	}
-	public void testSharedConsistencyOkMultiWithCurrency()
+	@Test public void testSharedConsistencyOkMultiWithCurrency()
 	{
 		final MoneyFieldItem i = shared(eur, valueOf(5.55, eur));
 		assertEquals(eur , i.getCurrency());
@@ -246,7 +247,7 @@ public class MoneyFieldTest extends AbstractRuntimeModelTest
 		assertEquals(eur , i.getCurrency());
 		assertEquals(null, i.getShared());
 	}
-	public void testSharedConsistencyOkMultiWithOtherCurrency()
+	@Test public void testSharedConsistencyOkMultiWithOtherCurrency()
 	{
 		final MoneyFieldItem i = sharedMandatory(eur, valueOf(15.55, eur), valueOf(25.55, eur));
 		assertEquals(eur , i.getCurrency());
@@ -265,7 +266,7 @@ public class MoneyFieldTest extends AbstractRuntimeModelTest
 		assertEquals(gbp , i.getCurrency());
 		assertEquals(null, i.getShared());
 	}
-	public void testSharedMandatorySingle()
+	@Test public void testSharedMandatorySingle()
 	{
 		final MoneyFieldItem i = sharedMandatory(eur, valueOf(5.55, eur));
 		assertEquals(eur , i.getCurrency());
@@ -288,7 +289,7 @@ public class MoneyFieldTest extends AbstractRuntimeModelTest
 		assertEquals(eur , i.getCurrency());
 		assertEquals(valueOf(6.66, eur), i.getSharedMandatory());
 	}
-	public void testSharedMandatoryMulti()
+	@Test public void testSharedMandatoryMulti()
 	{
 		final MoneyFieldItem i = sharedMandatory(eur, valueOf(5.55, eur));
 		assertEquals(eur , i.getCurrency());
@@ -311,7 +312,7 @@ public class MoneyFieldTest extends AbstractRuntimeModelTest
 		assertEquals(eur , i.getCurrency());
 		assertEquals(valueOf(6.66, eur), i.getSharedMandatory());
 	}
-	public void testSharedConsistencyBrokenCreate()
+	@Test public void testSharedConsistencyBrokenCreate()
 	{
 		try
 		{
@@ -331,7 +332,7 @@ public class MoneyFieldTest extends AbstractRuntimeModelTest
 					e.getMessage());
 		}
 	}
-	public void testSharedConsistencyBrokenSingle()
+	@Test public void testSharedConsistencyBrokenSingle()
 	{
 		final MoneyFieldItem i = shared(eur, valueOf(5.55, eur));
 		assertEquals(eur, i.getCurrency());
@@ -357,7 +358,7 @@ public class MoneyFieldTest extends AbstractRuntimeModelTest
 		assertEquals(eur, i.getCurrency());
 		assertEquals(valueOf(5.55, eur), i.getShared());
 	}
-	public void testSharedConsistencyBrokenMulti()
+	@Test public void testSharedConsistencyBrokenMulti()
 	{
 		final MoneyFieldItem i = shared(eur, valueOf(5.55, eur));
 		assertEquals(eur, i.getCurrency());
@@ -383,7 +384,7 @@ public class MoneyFieldTest extends AbstractRuntimeModelTest
 		assertEquals(eur, i.getCurrency());
 		assertEquals(valueOf(5.55, eur), i.getShared());
 	}
-	public void testSharedConsistencyBrokenMultiWithCurrency()
+	@Test public void testSharedConsistencyBrokenMultiWithCurrency()
 	{
 		final MoneyFieldItem i = shared(eur, valueOf(5.55, eur));
 		assertEquals(eur, i.getCurrency());
@@ -409,7 +410,7 @@ public class MoneyFieldTest extends AbstractRuntimeModelTest
 		assertEquals(eur, i.getCurrency());
 		assertEquals(valueOf(5.55, eur), i.getShared());
 	}
-	public void testExclusiveSingle()
+	@Test public void testExclusiveSingle()
 	{
 		final MoneyFieldItem i = exclusive(valueOf(5.55, eur));
 		assertEquals(valueOf(5.55, eur), i.getExclusive());
@@ -427,13 +428,13 @@ public class MoneyFieldTest extends AbstractRuntimeModelTest
 		assertEquals(null, i.getExclusive());
 		assertEquals(null, i.getExclusiveCurrency());
 	}
-	public void testExclusiveCreateNull()
+	@Test public void testExclusiveCreateNull()
 	{
 		final MoneyFieldItem i = exclusive(null);
 		assertEquals(null, i.getExclusive());
 		assertEquals(null, i.getExclusiveCurrency());
 	}
-	public void testExclusiveMulti()
+	@Test public void testExclusiveMulti()
 	{
 		final MoneyFieldItem i = exclusive(valueOf(5.55, eur));
 		assertEquals(valueOf(5.55, eur), i.getExclusive());

@@ -29,10 +29,11 @@ import com.exedio.cope.Type;
 import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.misc.Computed;
 import java.lang.annotation.Annotation;
+import org.junit.Test;
 
 public class TextUrlFilterDelegatorAnnotationTest extends CopeAssert
 {
-	public void testIt()
+	@Test public void testIt()
 	{
 		newType(AnItem.class);
 

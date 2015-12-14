@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import java.util.Date;
+import org.junit.Test;
 
 public class TransactionEmptyTest extends AbstractRuntimeModelTest
 {
@@ -42,7 +43,7 @@ public class TransactionEmptyTest extends AbstractRuntimeModelTest
 		txId.before();
 	}
 
-	public void testEmptyTransaction()
+	@Test public void testEmptyTransaction()
 	{
 		assertEquals(false, model.hasCurrentTransaction());
 

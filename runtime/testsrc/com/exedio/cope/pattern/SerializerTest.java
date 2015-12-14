@@ -34,6 +34,7 @@ import com.exedio.cope.misc.Computed;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import org.junit.Test;
 
 public class SerializerTest extends AbstractRuntimeModelTest
 {
@@ -58,7 +59,7 @@ public class SerializerTest extends AbstractRuntimeModelTest
 		item = new SerializerItem();
 	}
 
-	public void testSerializer()
+	@Test public void testSerializer()
 	{
 		// test model
 		assertEquals(Arrays.asList(new Feature[]{

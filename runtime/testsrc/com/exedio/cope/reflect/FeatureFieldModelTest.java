@@ -36,6 +36,7 @@ import static com.exedio.cope.reflect.FeatureFieldItem.string3;
 import com.exedio.cope.Model;
 import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.misc.Computed;
+import org.junit.Test;
 
 public class FeatureFieldModelTest extends CopeAssert
 {
@@ -46,7 +47,7 @@ public class FeatureFieldModelTest extends CopeAssert
 		MODEL.enableSerialization(FeatureFieldModelTest.class, "MODEL");
 	}
 
-	public void testIt()
+	@Test public void testIt()
 	{
 		assertEqualsUnmodifiable(list(TYPE), MODEL.getTypes());
 		assertEqualsUnmodifiable(list(TYPE), MODEL.getTypesSortedByHierarchy());

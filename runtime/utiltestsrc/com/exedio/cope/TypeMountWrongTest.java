@@ -19,10 +19,11 @@
 package com.exedio.cope;
 
 import com.exedio.cope.junit.CopeAssert;
+import org.junit.Test;
 
 public class TypeMountWrongTest extends CopeAssert
 {
-	public void testIt()
+	@Test public void testIt()
 	{
 		final Type<Item1> type1 = Item1.TYPE;
 		final Type<Item2> type2 = Item2.TYPE;

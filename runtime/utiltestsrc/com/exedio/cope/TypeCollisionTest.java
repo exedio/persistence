@@ -19,11 +19,12 @@
 package com.exedio.cope;
 
 import com.exedio.cope.junit.CopeAssert;
+import org.junit.Test;
 
 public class TypeCollisionTest extends CopeAssert
 {
 
-	public void testIt()
+	@Test public void testIt()
 	{
 		try
 		{

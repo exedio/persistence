@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import java.sql.SQLException;
+import org.junit.Test;
 
 public class DeleteAfterUniqueViolationTest extends AbstractRuntimeModelTest
 {
@@ -44,7 +45,7 @@ public class DeleteAfterUniqueViolationTest extends AbstractRuntimeModelTest
 		unq = model.connect().executor.supportsUniqueViolation;
 	}
 
-	public void testCommit()
+	@Test public void testCommit()
 	{
 		model.startTransaction(getClass().getName());
 
@@ -80,7 +81,7 @@ public class DeleteAfterUniqueViolationTest extends AbstractRuntimeModelTest
 		model.commit();
 	}
 
-	public void testRollback()
+	@Test public void testRollback()
 	{
 		model.startTransaction(getClass().getName());
 

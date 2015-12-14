@@ -23,6 +23,7 @@ import com.exedio.cope.Item;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.TypesBound;
 import com.exedio.cope.junit.CopeAssert;
+import org.junit.Test;
 
 public class JavaViewInPatternTest extends CopeAssert
 {
@@ -51,7 +52,7 @@ public class JavaViewInPatternTest extends CopeAssert
 		private static final long serialVersionUID = 1l;
 	}
 
-	public void testIt()
+	@Test public void testIt()
 	{
 		TypesBound.newType(AnItem.class);
 	}

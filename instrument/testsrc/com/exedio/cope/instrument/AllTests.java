@@ -16,19 +16,13 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.cope.reflect;
+package com.exedio.cope.instrument;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+import org.junit.extensions.cpsuite.ClasspathSuite;
+import org.junit.runner.RunWith;
 
-public class PackageTest extends TestCase
+@RunWith(ClasspathSuite.class)
+public class AllTests
 {
-	public static Test suite()
-	{
-		final TestSuite suite = new TestSuite();
-		suite.addTestSuite(FeatureFieldTest.class);
-		suite.addTestSuite(FeatureFieldModelTest.class);
-		return suite;
-	}
+	// empty class
 }

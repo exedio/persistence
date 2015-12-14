@@ -25,6 +25,7 @@ import com.exedio.cope.util.Day;
 import java.util.TimeZone;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
+import org.junit.Test;
 
 public class DayFieldWrongDefaultNowTest extends CopeAssert
 {
@@ -47,7 +48,7 @@ public class DayFieldWrongDefaultNowTest extends CopeAssert
 		super.tearDown();
 	}
 
-	public void testIt()
+	@Test public void testIt()
 	{
 		newType(AnItem.class);
 		log.assertMessage(

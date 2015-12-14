@@ -31,6 +31,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Set;
+import org.junit.Test;
 
 public final class ThumbnailTest extends AbstractRuntimeModelTest
 {
@@ -67,7 +68,7 @@ public final class ThumbnailTest extends AbstractRuntimeModelTest
 		txt.setFile(data, "text/plain");
 	}
 
-	public void testThumbs() throws IOException
+	@Test public void testThumbs() throws IOException
 	{
 		// test model
 		assertEqualsUnmodifiable(Arrays.asList(new Feature[]{

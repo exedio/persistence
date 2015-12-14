@@ -25,10 +25,11 @@ import com.exedio.cope.StringField;
 import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
 import com.exedio.cope.junit.CopeAssert;
+import org.junit.Test;
 
 public class HashAlgorithmAdapterTest extends CopeAssert
 {
-	public void testAlgorithm()
+	@Test public void testAlgorithm()
 	{
 		@SuppressWarnings("deprecation")
 		final Hash.Algorithm algorithm = AnItem.hash.getAlgorithm();
@@ -63,7 +64,7 @@ public class HashAlgorithmAdapterTest extends CopeAssert
 		}
 	}
 
-	public void testEncoding()
+	@Test public void testEncoding()
 	{
 		@SuppressWarnings("deprecation")
 		final String encoding = AnItem.hash.getEncoding();

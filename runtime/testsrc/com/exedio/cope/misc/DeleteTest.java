@@ -28,6 +28,7 @@ import com.exedio.cope.util.AssertionErrorJobContext;
 import com.exedio.cope.util.JobContext;
 import com.exedio.cope.util.JobStop;
 import java.util.ArrayList;
+import org.junit.Test;
 
 public class DeleteTest extends AbstractRuntimeModelTest
 {
@@ -42,7 +43,7 @@ public class DeleteTest extends AbstractRuntimeModelTest
 		return false;
 	}
 
-	public void testIt()
+	@Test public void testIt()
 	{
 		final Query<CacheIsolationItem> q = TYPE.newQuery();
 
@@ -62,7 +63,7 @@ public class DeleteTest extends AbstractRuntimeModelTest
 		ctx.assertProgress(2);
 	}
 
-	public void testEmpty()
+	@Test public void testEmpty()
 	{
 		final Query<CacheIsolationItem> q = TYPE.newQuery();
 		final Context ctx = new Context(1);
@@ -71,7 +72,7 @@ public class DeleteTest extends AbstractRuntimeModelTest
 		ctx.assertProgress(0);
 	}
 
-	public void testError()
+	@Test public void testError()
 	{
 		try
 		{
@@ -94,7 +95,7 @@ public class DeleteTest extends AbstractRuntimeModelTest
 		}
 	}
 
-	public void testAbort()
+	@Test public void testAbort()
 	{
 		final Query<CacheIsolationItem> q = TYPE.newQuery();
 		q.setOrderBy(TYPE.getThis(), true);
@@ -124,7 +125,7 @@ public class DeleteTest extends AbstractRuntimeModelTest
 		ctx.assertProgress(1);
 	}
 
-	public void testTransactions()
+	@Test public void testTransactions()
 	{
 		assertPurge(  0, 1);
 		assertPurge(  1, 1);

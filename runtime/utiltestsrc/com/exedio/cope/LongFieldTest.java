@@ -22,10 +22,11 @@ import static java.lang.Long.MAX_VALUE;
 import static java.lang.Long.MIN_VALUE;
 
 import com.exedio.cope.junit.CopeAssert;
+import org.junit.Test;
 
 public class LongFieldTest extends CopeAssert
 {
-	public void testIllegalRange()
+	@Test public void testIllegalRange()
 	{
 		assertIllegalRange(0,  0,  "maximum must be greater than minimum, but was 0 and 0");
 		assertIllegalRange(22, 22, "maximum must be greater than minimum, but was 22 and 22");

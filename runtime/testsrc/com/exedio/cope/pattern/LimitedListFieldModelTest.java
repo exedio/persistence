@@ -42,6 +42,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import org.junit.Test;
 
 public class LimitedListFieldModelTest extends CopeAssert
 {
@@ -61,7 +62,7 @@ public class LimitedListFieldModelTest extends CopeAssert
 	protected static final Integer i3 = 3;
 	protected static final Integer i4 = 4;
 
-	public void testIt()
+	@Test public void testIt()
 	{
 		final IntegerField numsL = nums.getLength();
 		final IntegerField datesL = dates.getLength();
@@ -273,7 +274,7 @@ public class LimitedListFieldModelTest extends CopeAssert
 		return string;
 	}
 
-	public void testInitialType()
+	@Test public void testInitialType()
 	{
 		assertEquals("java.util.List<java.lang.Integer>", nums   .getInitialType().toString());
 		assertEquals("java.util.List<java.util.Date>"   , dates  .getInitialType().toString());

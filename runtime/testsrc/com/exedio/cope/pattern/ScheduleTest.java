@@ -43,6 +43,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import org.junit.Test;
 
 public class ScheduleTest extends AbstractRuntimeModelTest
 {
@@ -87,12 +88,12 @@ public class ScheduleTest extends AbstractRuntimeModelTest
 		super.tearDown();
 	}
 
-	public void testNoUpdateCounterColumn()
+	@Test public void testNoUpdateCounterColumn()
 	{
 		assertNoUpdateCounterColumn(report.getRunType());
 	}
 
-	public void testDaily()
+	@Test public void testDaily()
 	{
 		assertEquals(DAILY, item.getReportInterval());
 
@@ -143,7 +144,7 @@ public class ScheduleTest extends AbstractRuntimeModelTest
 				ern(DAILY, "2008/03/19-00:00", "2008/03/20-00:00", "2008/03/20-00:05"));
 	}
 
-	public void testFail()
+	@Test public void testFail()
 	{
 		run(1, "2008/03/17-00:05");
 		assertLogs(
@@ -177,7 +178,7 @@ public class ScheduleTest extends AbstractRuntimeModelTest
 				ern(DAILY, "2008/03/17-00:00", "2008/03/18-00:00", "2008/03/18-00:05"));
 	}
 
-	public void testStop2()
+	@Test public void testStop2()
 	{
 		run(1, "2008/03/11-00:05", 2);
 		assertLogs(
@@ -186,21 +187,21 @@ public class ScheduleTest extends AbstractRuntimeModelTest
 				ern(DAILY, "2008/03/10-00:00", "2008/03/11-00:00", "2008/03/11-00:05"));
 	}
 
-	public void testStop1()
+	@Test public void testStop1()
 	{
 		run(0, "2008/03/11-00:00", 1);
 		assertLogs();
 		assertRuns();
 	}
 
-	public void testStop0()
+	@Test public void testStop0()
 	{
 		run(0, "2008/03/11-00:00", 0);
 		assertLogs();
 		assertRuns();
 	}
 
-	public void testHourly()
+	@Test public void testHourly()
 	{
 		assertEquals(DAILY, item.getReportInterval());
 
@@ -252,7 +253,7 @@ public class ScheduleTest extends AbstractRuntimeModelTest
 				ern(HOURLY, "2008/03/14-13:00", "2008/03/14-14:00", "2008/03/14-14:05"));
 	}
 
-	public void testWeekly()
+	@Test public void testWeekly()
 	{
 		assertEquals(DAILY, item.getReportInterval());
 
@@ -298,7 +299,7 @@ public class ScheduleTest extends AbstractRuntimeModelTest
 				ern(WEEKLY, "2008/04/14-00:00", "2008/04/21-00:00", "2008/04/21-00:05"));
 	}
 
-	public void testMonthly()
+	@Test public void testMonthly()
 	{
 		assertEquals(DAILY, item.getReportInterval());
 
@@ -344,7 +345,7 @@ public class ScheduleTest extends AbstractRuntimeModelTest
 				ern(MONTHLY, "2008/08/01-00:00", "2008/09/01-00:00", "2008/09/01-00:05"));
 	}
 
-	public void testEnabled()
+	@Test public void testEnabled()
 	{
 		assertEquals(true, item.isReportEnabled());
 		assertEquals(DAILY, item.getReportInterval());
@@ -372,7 +373,7 @@ public class ScheduleTest extends AbstractRuntimeModelTest
 				ern(DAILY, "2008/03/14-00:00", "2008/03/15-00:00", "2008/03/15-00:05"));
 	}
 
-	public void testDaylightSavingDailyShorter()
+	@Test public void testDaylightSavingDailyShorter()
 	{
 		assertEquals(24*3600000, date("2014/03/29-00:00").getTime()-date("2014/03/28-00:00").getTime());
 		assertEquals(24*3600000, date("2014/03/30-00:00").getTime()-date("2014/03/29-00:00").getTime());
@@ -416,7 +417,7 @@ public class ScheduleTest extends AbstractRuntimeModelTest
 		assertRuns();
 	}
 
-	public void testDaylightSavingDailyLonger()
+	@Test public void testDaylightSavingDailyLonger()
 	{
 		assertEquals(24*3600000, date("2014/10/25-00:00").getTime()-date("2014/10/24-00:00").getTime());
 		assertEquals(24*3600000, date("2014/10/26-00:00").getTime()-date("2014/10/25-00:00").getTime());
@@ -460,7 +461,7 @@ public class ScheduleTest extends AbstractRuntimeModelTest
 		assertRuns();
 	}
 
-	public void testDaylightSavingHourlyShorter()
+	@Test public void testDaylightSavingHourlyShorter()
 	{
 		assertEquals(60000, date("2014/03/30-01:58").getTime()-date("2014/03/30-01:57").getTime());
 		assertEquals(60000, date("2014/03/30-01:59").getTime()-date("2014/03/30-01:58").getTime());
@@ -514,7 +515,7 @@ public class ScheduleTest extends AbstractRuntimeModelTest
 				ern(HOURLY, "2014/03/30-04:00", "2014/03/30-05:00", "2014/03/30-05:05"));
 	}
 
-	public void testDaylightSavingHourlyLonger()
+	@Test public void testDaylightSavingHourlyLonger()
 	{
 		assertEquals(   60000, date("2014/10/26-01:58").getTime()-date("2014/10/26-01:57").getTime());
 		assertEquals(   60000, date("2014/10/26-01:59").getTime()-date("2014/10/26-01:58").getTime());
@@ -580,7 +581,7 @@ public class ScheduleTest extends AbstractRuntimeModelTest
 				ern(HOURLY, "TZ+0100 2014/10/26-02:00", "TZ+0100 2014/10/26-03:00", "TZ+0100 2014/10/26-03:05"));
 	}
 
-	public void testReconfigure()
+	@Test public void testReconfigure()
 	{
 		assertEquals(DAILY, item.getReportInterval());
 
@@ -604,7 +605,7 @@ public class ScheduleTest extends AbstractRuntimeModelTest
 				ern(WEEKLY, "2008/01/17-00:00", "2008/01/21-00:00", "2008/01/21-00:05"));
 	}
 
-	public void testReconfigureWithExtraLag()
+	@Test public void testReconfigureWithExtraLag()
 	{
 		assertEquals(DAILY, item.getReportInterval());
 
@@ -630,7 +631,7 @@ public class ScheduleTest extends AbstractRuntimeModelTest
 				ern(WEEKLY, "2008/01/21-00:00", "2008/01/28-00:00", "2008/01/28-00:05"));
 	}
 
-	public void testProgress()
+	@Test public void testProgress()
 	{
 		assertEquals(DAILY, item.getReportInterval());
 		item.setProgress(5);

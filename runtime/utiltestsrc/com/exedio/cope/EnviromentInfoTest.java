@@ -22,10 +22,11 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Properties;
 import junit.framework.TestCase;
+import org.junit.Test;
 
 public class EnviromentInfoTest extends TestCase
 {
-	public void testInt() throws SQLException
+	@Test public void testInt() throws SQLException
 	{
 		final EnvironmentInfo i = new EnvironmentInfo(new VersionDatabaseMetaData(5, 3, 14, 18));
 
@@ -86,7 +87,7 @@ public class EnviromentInfoTest extends TestCase
 		assertEquals(false, i.isDriverVersionAtLeast(15, 19));
 	}
 
-	public void testShortDescription() throws SQLException
+	@Test public void testShortDescription() throws SQLException
 	{
 		final EnvironmentInfo i = new EnvironmentInfo(
 				new VersionDatabaseMetaData("5.3.1", 5, 3, "14.18a", 14, 18));
@@ -128,7 +129,7 @@ public class EnviromentInfoTest extends TestCase
 		}
 	}
 
-	public void testShortDescriptionExact() throws SQLException
+	@Test public void testShortDescriptionExact() throws SQLException
 	{
 		final EnvironmentInfo i = new EnvironmentInfo(
 				new VersionDatabaseMetaData("5.3", 5, 3, "14.18", 14, 18));
@@ -136,7 +137,7 @@ public class EnviromentInfoTest extends TestCase
 		assertEquals("5.3", i.getDatabaseVersionDescription());
 	}
 
-	public void testShortDescriptionMismatchMajor() throws SQLException
+	@Test public void testShortDescriptionMismatchMajor() throws SQLException
 	{
 		final EnvironmentInfo i = new EnvironmentInfo(
 				new VersionDatabaseMetaData("6.3", 5, 3, "14.18", 14, 18));
@@ -144,7 +145,7 @@ public class EnviromentInfoTest extends TestCase
 		assertEquals("6.3 (5.3)", i.getDatabaseVersionDescription());
 	}
 
-	public void testShortDescriptionMismatchMinor() throws SQLException
+	@Test public void testShortDescriptionMismatchMinor() throws SQLException
 	{
 		final EnvironmentInfo i = new EnvironmentInfo(
 				new VersionDatabaseMetaData("5.4", 5, 3, "14.18", 14, 18));
@@ -152,7 +153,7 @@ public class EnviromentInfoTest extends TestCase
 		assertEquals("5.4 (5.3)", i.getDatabaseVersionDescription());
 	}
 
-	public void testShortDescriptionDotMissing() throws SQLException
+	@Test public void testShortDescriptionDotMissing() throws SQLException
 	{
 		final EnvironmentInfo i = new EnvironmentInfo(
 				new VersionDatabaseMetaData("53", 5, 3, "14.18", 14, 18));
@@ -160,7 +161,7 @@ public class EnviromentInfoTest extends TestCase
 		assertEquals("53 (5.3)", i.getDatabaseVersionDescription());
 	}
 
-	public void testShortDescriptionDotOther() throws SQLException
+	@Test public void testShortDescriptionDotOther() throws SQLException
 	{
 		final EnvironmentInfo i = new EnvironmentInfo(
 				new VersionDatabaseMetaData("5x3", 5, 3, "14.18", 14, 18));
@@ -168,7 +169,7 @@ public class EnviromentInfoTest extends TestCase
 		assertEquals("5x3 (5.3)", i.getDatabaseVersionDescription());
 	}
 
-	public void testShortDescriptionDigitAfter() throws SQLException
+	@Test public void testShortDescriptionDigitAfter() throws SQLException
 	{
 		final EnvironmentInfo i = new EnvironmentInfo(
 				new VersionDatabaseMetaData("5.31", 5, 3, "14.18", 14, 18));
@@ -176,7 +177,7 @@ public class EnviromentInfoTest extends TestCase
 		assertEquals("5.31 (5.3)", i.getDatabaseVersionDescription());
 	}
 
-	public void testShortDescriptionDigitBefore() throws SQLException
+	@Test public void testShortDescriptionDigitBefore() throws SQLException
 	{
 		final EnvironmentInfo i = new EnvironmentInfo(
 				new VersionDatabaseMetaData("15.3", 5, 3, "14.18", 14, 18));
@@ -184,7 +185,7 @@ public class EnviromentInfoTest extends TestCase
 		assertEquals("15.3 (5.3)", i.getDatabaseVersionDescription());
 	}
 
-	public void testShortDescriptionOtherAfter() throws SQLException
+	@Test public void testShortDescriptionOtherAfter() throws SQLException
 	{
 		final EnvironmentInfo i = new EnvironmentInfo(
 				new VersionDatabaseMetaData("5.3z", 5, 3, "14.18", 14, 18));
@@ -192,7 +193,7 @@ public class EnviromentInfoTest extends TestCase
 		assertEquals("5.3z", i.getDatabaseVersionDescription());
 	}
 
-	public void testShortDescriptionOtherBefore() throws SQLException
+	@Test public void testShortDescriptionOtherBefore() throws SQLException
 	{
 		final EnvironmentInfo i = new EnvironmentInfo(
 				new VersionDatabaseMetaData("z5.3", 5, 3, "14.18", 14, 18));

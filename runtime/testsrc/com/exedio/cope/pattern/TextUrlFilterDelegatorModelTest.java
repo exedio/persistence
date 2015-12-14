@@ -25,11 +25,12 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 import com.exedio.cope.junit.CopeAssert;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.nio.charset.Charset;
+import org.junit.Test;
 
 @SuppressFBWarnings("NP_NULL_PARAM_DEREF_NONVIRTUAL")
 public class TextUrlFilterDelegatorModelTest extends CopeAssert
 {
-	public void testRawNull()
+	@Test public void testRawNull()
 	{
 		try
 		{
@@ -42,7 +43,7 @@ public class TextUrlFilterDelegatorModelTest extends CopeAssert
 		}
 	}
 
-	public void testDelegateNull()
+	@Test public void testDelegateNull()
 	{
 		try
 		{
@@ -56,7 +57,7 @@ public class TextUrlFilterDelegatorModelTest extends CopeAssert
 	}
 
 
-	public void testSupportedContentTypeNull()
+	@Test public void testSupportedContentTypeNull()
 	{
 		try
 		{
@@ -69,7 +70,7 @@ public class TextUrlFilterDelegatorModelTest extends CopeAssert
 		}
 	}
 
-	public void testSupportedContentTypeEmpty()
+	@Test public void testSupportedContentTypeEmpty()
 	{
 		try
 		{
@@ -82,7 +83,7 @@ public class TextUrlFilterDelegatorModelTest extends CopeAssert
 		}
 	}
 
-	public void testCharsetNull()
+	@Test public void testCharsetNull()
 	{
 		try
 		{
@@ -95,7 +96,7 @@ public class TextUrlFilterDelegatorModelTest extends CopeAssert
 		}
 	}
 
-	public void testPasteStartNull()
+	@Test public void testPasteStartNull()
 	{
 		try
 		{
@@ -108,7 +109,7 @@ public class TextUrlFilterDelegatorModelTest extends CopeAssert
 		}
 	}
 
-	public void testPasteStartEmpty()
+	@Test public void testPasteStartEmpty()
 	{
 		try
 		{
@@ -121,7 +122,7 @@ public class TextUrlFilterDelegatorModelTest extends CopeAssert
 		}
 	}
 
-	public void testPasteStopNull()
+	@Test public void testPasteStopNull()
 	{
 		try
 		{
@@ -134,7 +135,7 @@ public class TextUrlFilterDelegatorModelTest extends CopeAssert
 		}
 	}
 
-	public void testPasteStopEmpty()
+	@Test public void testPasteStopEmpty()
 	{
 		try
 		{

@@ -37,6 +37,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.Set;
+import org.junit.Test;
 
 public class MediaTypeTest extends CopeAssert
 {
@@ -44,7 +45,7 @@ public class MediaTypeTest extends CopeAssert
 	private static final String PNG = "89504e470d0a1a0a";
 	private static final String ZIP = "504b0304";
 
-	public void testForFileName()
+	@Test public void testForFileName()
 	{
 		final MediaType jpg = forName("image/jpeg");
 		final MediaType png = forName("image/png");
@@ -72,7 +73,7 @@ public class MediaTypeTest extends CopeAssert
 		assertSame(null, forFileName("."));
 	}
 
-	public void testForName()
+	@Test public void testForName()
 	{
 		final MediaType jpg = forName("image/jpeg");
 		final MediaType png = forName("image/png");
@@ -112,7 +113,7 @@ public class MediaTypeTest extends CopeAssert
 		assertEquals("image/png", png.toString());
 	}
 
-	public void testForNameAlias()
+	@Test public void testForNameAlias()
 	{
 		final MediaType jpg = forName("image/jpeg");
 		final MediaType png = forName("image/png");
@@ -136,7 +137,7 @@ public class MediaTypeTest extends CopeAssert
 		}
 	}
 
-	public void testForMagic() throws IOException
+	@Test public void testForMagic() throws IOException
 	{
 		assertEquals(8, MediaType.magicMaxLength());
 
@@ -158,7 +159,7 @@ public class MediaTypeTest extends CopeAssert
 		assertMagic(stealTail(ZIP));
 	}
 
-	public void testForMagicFails() throws IOException
+	@Test public void testForMagicFails() throws IOException
 	{
 		// byte
 		try

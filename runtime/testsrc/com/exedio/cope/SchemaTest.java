@@ -50,6 +50,7 @@ import com.exedio.dsmf.Schema;
 import com.exedio.dsmf.Sequence;
 import com.exedio.dsmf.Table;
 import junit.framework.AssertionFailedError;
+import org.junit.Test;
 
 public class SchemaTest extends AbstractRuntimeModelTest
 {
@@ -66,7 +67,7 @@ public class SchemaTest extends AbstractRuntimeModelTest
 		return false;
 	}
 
-	public void testSchema()
+	@Test public void testSchema()
 	{
 		final Schema schema = model.getVerifiedSchema();
 

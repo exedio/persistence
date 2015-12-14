@@ -27,6 +27,7 @@ import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.util.AssertionErrorJobContext;
 import java.io.File;
 import java.util.Iterator;
+import org.junit.Test;
 
 public class RevisionStatisticsTest extends CopeAssert
 {
@@ -39,7 +40,7 @@ public class RevisionStatisticsTest extends CopeAssert
 
 	private static final ConnectProperties props = new ConnectProperties(new File("runtime/utiltest.properties"));
 
-	public void testIt()
+	@Test public void testIt()
 	{
 		revisions.assertEmpty();
 

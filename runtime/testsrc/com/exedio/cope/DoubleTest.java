@@ -34,6 +34,7 @@ import static java.lang.Double.valueOf;
 import com.exedio.cope.CompareFunctionCondition.Operator;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Date;
+import org.junit.Test;
 
 public class DoubleTest extends AbstractRuntimeModelTest
 {
@@ -64,7 +65,7 @@ public class DoubleTest extends AbstractRuntimeModelTest
 		numberOfItems = 2;
 	}
 
-	public void testIt()
+	@Test public void testIt()
 	{
 		// test model
 		assertEquals(TYPE, any.getType());
@@ -570,7 +571,7 @@ public class DoubleTest extends AbstractRuntimeModelTest
 	}
 
 	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad API usage
-	public void testUnchecked()
+	@Test public void testUnchecked()
 	{
 		try
 		{
@@ -618,7 +619,7 @@ public class DoubleTest extends AbstractRuntimeModelTest
 		return new CompareCondition<>(operator, (Selectable<Double>)field, value);
 	}
 
-	public void testSchema()
+	@Test public void testSchema()
 	{
 		assertSchema();
 	}

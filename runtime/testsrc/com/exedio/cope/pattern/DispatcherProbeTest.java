@@ -20,6 +20,7 @@ package com.exedio.cope.pattern;
 
 import com.exedio.cope.junit.CopeModelTest;
 import com.exedio.cope.util.EmptyJobContext;
+import org.junit.Test;
 
 public class DispatcherProbeTest extends CopeModelTest
 {
@@ -30,7 +31,7 @@ public class DispatcherProbeTest extends CopeModelTest
 		super(DispatcherModelTest.MODEL);
 	}
 
-	public void testOkRequired()
+	@Test public void testOkRequired()
 	{
 		final CountProbe probe = new CountProbe(1);
 		DispatcherItem.toTarget.setProbeRequired(true);
@@ -42,7 +43,7 @@ public class DispatcherProbeTest extends CopeModelTest
 		assertEquals(false, item2.isToTargetPending());
 	}
 
-	public void testOkNotRequired()
+	@Test public void testOkNotRequired()
 	{
 		final CountProbe probe = new CountProbe(0);
 		DispatcherItem.toTarget.setProbeRequired(false);
@@ -54,7 +55,7 @@ public class DispatcherProbeTest extends CopeModelTest
 		assertEquals(false, item2.isToTargetPending());
 	}
 
-	public void testFailInitial()
+	@Test public void testFailInitial()
 	{
 		final CountProbe probe = new CountProbe(0);
 		DispatcherItem.toTarget.setProbeRequired(true);
@@ -66,7 +67,7 @@ public class DispatcherProbeTest extends CopeModelTest
 		assertEquals(true, item2.isToTargetPending());
 	}
 
-	public void testFailFirst()
+	@Test public void testFailFirst()
 	{
 		final CountProbe probe = new CountProbe(0);
 		DispatcherItem.toTarget.setProbeRequired(false);
@@ -78,7 +79,7 @@ public class DispatcherProbeTest extends CopeModelTest
 		assertEquals(true, item2.isToTargetPending());
 	}
 
-	public void testOkFailSecond()
+	@Test public void testOkFailSecond()
 	{
 		final CountProbe probe = new CountProbe(0);
 		DispatcherItem.toTarget.setProbeRequired(false);
@@ -90,7 +91,7 @@ public class DispatcherProbeTest extends CopeModelTest
 		assertEquals(true,  item2.isToTargetPending());
 	}
 
-	public void testFailSecond()
+	@Test public void testFailSecond()
 	{
 		final CountProbe probe = new CountProbe(0);
 		DispatcherItem.toTarget.setProbeRequired(false);

@@ -25,6 +25,7 @@ import java.io.File;
 import java.util.Collection;
 import java.util.concurrent.Callable;
 import junit.framework.TestCase;
+import org.junit.Test;
 
 public class ConnectPropertiesTest extends TestCase
 {
@@ -32,7 +33,7 @@ public class ConnectPropertiesTest extends TestCase
 	 * This tests makes sure, that no properties are changed by accident.
 	 * Adapt if necessary.
 	 */
-	public void testRegression()
+	@Test public void testRegression()
 	{
 		final ConnectProperties p = new ConnectProperties(loadProperties(), null);
 
@@ -44,7 +45,7 @@ public class ConnectPropertiesTest extends TestCase
 		p.ensureValidity();
 	}
 
-	public void testConnectionUrlMissingPrefix()
+	@Test public void testConnectionUrlMissingPrefix()
 	{
 		assertConnectionUrlFailure(
 				"someUrl",
@@ -52,7 +53,7 @@ public class ConnectPropertiesTest extends TestCase
 				null);
 	}
 
-	public void testConnectionUrlMissingColon()
+	@Test public void testConnectionUrlMissingColon()
 	{
 		assertConnectionUrlFailure(
 				"jdbc:someCode",
@@ -60,7 +61,7 @@ public class ConnectPropertiesTest extends TestCase
 				null);
 	}
 
-	public void testConnectionUrlTwoCharacters()
+	@Test public void testConnectionUrlTwoCharacters()
 	{
 		assertConnectionUrlFailure(
 				"jdbc:a:",
@@ -68,7 +69,7 @@ public class ConnectPropertiesTest extends TestCase
 				null);
 	}
 
-	public void testConnectionUrlClassNotFound()
+	@Test public void testConnectionUrlClassNotFound()
 	{
 		assertConnectionUrlFailure(
 				"jdbc:classNotFound:",
@@ -76,7 +77,7 @@ public class ConnectPropertiesTest extends TestCase
 				ClassNotFoundException.class);
 	}
 
-	public void testConnectionUrlClassNotDialect()
+	@Test public void testConnectionUrlClassNotDialect()
 	{
 		assertConnectionUrlFailure(
 				"jdbc:connectPropertiesTestClassNotDialect:",
@@ -85,7 +86,7 @@ public class ConnectPropertiesTest extends TestCase
 				null);
 	}
 
-	public void testConnectionUrlClassNoConstructor()
+	@Test public void testConnectionUrlClassNoConstructor()
 	{
 		assertConnectionUrlFailure(
 				"jdbc:connectPropertiesTestClassNoConstructor:",
@@ -124,7 +125,7 @@ public class ConnectPropertiesTest extends TestCase
 		}
 	}
 
-	public void testPostgresqlSearchPath()
+	@Test public void testPostgresqlSearchPath()
 	{
 		final String propKey = "connection.postgresql.search_path";
 		final Source source =
@@ -147,7 +148,7 @@ public class ConnectPropertiesTest extends TestCase
 		}
 	}
 
-	public void testConnectionPoolIdleInitial()
+	@Test public void testConnectionPoolIdleInitial()
 	{
 		final String propKey = "connectionPool.idleInitial";
 		final Source source =
@@ -217,7 +218,7 @@ public class ConnectPropertiesTest extends TestCase
 		};
 	}
 
-	public void testProbe() throws Exception
+	@Test public void testProbe() throws Exception
 	{
 		final ConnectProperties p = new ConnectProperties(
 				Sources.load(new File("runtime/utiltest.properties")), null);

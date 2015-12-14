@@ -26,11 +26,12 @@ import java.lang.reflect.Field;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.SortedMap;
+import org.junit.Test;
 
 public class TypesBoundFeaturesTest extends CopeAssert
 {
 	@SuppressWarnings("synthetic-access")
-	public void testIt() throws NoSuchFieldException
+	@Test public void testIt() throws NoSuchFieldException
 	{
 		final SortedMap<Feature, Field> m = getFeatures(AClass.class);
 		final Iterator<Map.Entry<Feature, Field>> iterator = m.entrySet().iterator();
@@ -65,7 +66,7 @@ public class TypesBoundFeaturesTest extends CopeAssert
 		private static final BooleanField feature4 = new BooleanField();
 	}
 
-	public void testErrors()
+	@Test public void testErrors()
 	{
 		try
 		{

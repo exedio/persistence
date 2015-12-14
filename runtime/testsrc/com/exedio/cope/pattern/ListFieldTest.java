@@ -46,6 +46,7 @@ import com.exedio.cope.misc.Computed;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.Iterator;
+import org.junit.Test;
 
 public class ListFieldTest extends AbstractRuntimeModelTest
 {
@@ -73,7 +74,7 @@ public class ListFieldTest extends AbstractRuntimeModelTest
 		item = new ListFieldItem();
 	}
 
-	public void testIt()
+	@Test public void testIt()
 	{
 		final Type<?> stringsType = strings.getRelationType();
 		final Type<?> datesType = dates.getRelationType();
@@ -518,7 +519,7 @@ public class ListFieldTest extends AbstractRuntimeModelTest
 		}
 	}
 
-	public void testListSetNull()
+	@Test public void testListSetNull()
 	{
 		item.setStrings(asList("hallo", "bello"));
 

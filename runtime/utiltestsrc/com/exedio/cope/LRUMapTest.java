@@ -26,6 +26,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import junit.framework.TestCase;
+import org.junit.Test;
 
 public class LRUMapTest extends TestCase
 {
@@ -76,7 +77,7 @@ public class LRUMapTest extends TestCase
 		}
 	}
 
-	public void testIt()
+	@Test public void testIt()
 	{
 		final LRUMap<String, String> map = new LRUMap<>(3);
 		assertIt(map, new String[]{}, new String[]{});
@@ -103,7 +104,7 @@ public class LRUMapTest extends TestCase
 		assertEquals(Arrays.asList(values), Arrays.asList(map.values().toArray(new String[map.size()])));
 	}
 
-	public void testPerformance()
+	@Test public void testPerformance()
 	{
 		for(int j = 0; j<8; j++)
 		{

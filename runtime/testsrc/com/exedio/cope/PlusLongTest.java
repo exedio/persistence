@@ -41,6 +41,8 @@ import static com.exedio.cope.PlusLongItem.plusABaC;
 import static com.exedio.cope.PlusLongItem.plusAC;
 import static com.exedio.cope.PlusLongItem.plusBC;
 
+import org.junit.Test;
+
 public class PlusLongTest extends AbstractRuntimeModelTest
 {
 	static final Model MODEL = new Model(TYPE);
@@ -61,7 +63,7 @@ public class PlusLongTest extends AbstractRuntimeModelTest
 		item2 = new PlusLongItem(3l, 4l, 5l);
 	}
 
-	public void testSum()
+	@Test public void testSum()
 	{
 		// test model
 		assertEquals(TYPE, plusA9.getType());

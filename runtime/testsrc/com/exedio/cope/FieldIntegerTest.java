@@ -23,11 +23,13 @@ import static com.exedio.cope.testmodel.AttributeItem.TYPE;
 import static com.exedio.cope.testmodel.AttributeItem.someInteger;
 import static com.exedio.cope.testmodel.AttributeItem.someNotNullInteger;
 
+import org.junit.Test;
+
 public class FieldIntegerTest extends FieldTest
 {
 	static final Integer CONST = 1;
 
-	public void testSomeInteger()
+	@Test public void testSomeInteger()
 	{
 		assertEquals(TYPE, someInteger.getType());
 		assertEquals(Integer.class, someInteger.getValueClass());
@@ -82,7 +84,7 @@ public class FieldIntegerTest extends FieldTest
 	}
 
 	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad API usage
-	public void testUnchecked()
+	@Test public void testUnchecked()
 	{
 		try
 		{
@@ -95,7 +97,7 @@ public class FieldIntegerTest extends FieldTest
 		}
 	}
 
-	public void testSomeNotNullInteger()
+	@Test public void testSomeNotNullInteger()
 	{
 		assertEquals(TYPE, someNotNullInteger.getType());
 		assertEquals(5, item.getSomeNotNullInteger());

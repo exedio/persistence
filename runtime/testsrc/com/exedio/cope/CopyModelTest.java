@@ -29,6 +29,7 @@ import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
 import com.exedio.cope.junit.CopeAssert;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Arrays;
+import org.junit.Test;
 
 public class CopyModelTest extends CopeAssert
 {
@@ -43,7 +44,7 @@ public class CopyModelTest extends CopeAssert
 	static final CopyConstraint templateItemCopyFromTarget     = (CopyConstraint)TYPE.getFeature("templateItemCopyFromtargetItem");
 	static final CopyConstraint selfTemplateItemCopyFromTarget = (CopyConstraint)CopySelfSourceItem.TYPE.getFeature("selfTemplateItemCopyFromselfTargetItem");
 
-	public void testIt()
+	@Test public void testIt()
 	{
 		assertEquals(Arrays.asList(new Feature[]{
 				TYPE.getThis(),
@@ -137,7 +138,7 @@ public class CopyModelTest extends CopeAssert
 	}
 
 	@SuppressWarnings("deprecation") // OK testing deprecated api
-	public void testDeprecated()
+	@Test public void testDeprecated()
 	{
 		assertEqualsUnmodifiable(list(templateStringCopyFromTarget  ), templateString  .getImplicitCopyConstraints());
 		assertEqualsUnmodifiable(list(templateItemCopyFromTarget    ), templateItem    .getImplicitCopyConstraints());
@@ -168,7 +169,7 @@ public class CopyModelTest extends CopeAssert
 	}
 
 	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
-	public void testFailures()
+	@Test public void testFailures()
 	{
 		final StringField copy = new StringField();
 		try

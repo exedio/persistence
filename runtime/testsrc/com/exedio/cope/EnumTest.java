@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import com.exedio.cope.EnumItem.Single;
+import org.junit.Test;
 
 public class EnumTest extends AbstractRuntimeModelTest
 {
@@ -43,7 +44,7 @@ public class EnumTest extends AbstractRuntimeModelTest
 		item2 = new EnumItem2(EnumItem2.Status.state1);
 	}
 
-	public void testIt()
+	@Test public void testIt()
 	{
 		assertEquals(EnumItem.Status.class, EnumItem.status.getValueClass());
 		assertEquals(EnumItem2.Status.class, EnumItem2.status.getValueClass());

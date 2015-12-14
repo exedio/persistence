@@ -21,12 +21,13 @@ package com.exedio.cope.misc;
 import com.exedio.cope.CopeName;
 import com.exedio.cope.junit.CopeAssert;
 import java.lang.reflect.Field;
+import org.junit.Test;
 
 @Deprecated
 @SuppressWarnings("unused")
 public class CopeNameUtilFieldTest extends CopeAssert
 {
-	public void testIt() throws NoSuchFieldException
+	@Test public void testIt() throws NoSuchFieldException
 	{
 		assertField(null,           "fieldNaked",   "Naked");
 		assertField("nameAnno",     "nameAnno",     "Name");

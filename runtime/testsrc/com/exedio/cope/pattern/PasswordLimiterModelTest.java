@@ -29,6 +29,7 @@ import com.exedio.cope.Type;
 import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.misc.Computed;
 import java.util.Arrays;
+import org.junit.Test;
 
 public class PasswordLimiterModelTest extends CopeAssert
 {
@@ -39,7 +40,7 @@ public class PasswordLimiterModelTest extends CopeAssert
 		MODEL.enableSerialization(PasswordLimiterModelTest.class, "MODEL");
 	}
 
-	public void testIt()
+	@Test public void testIt()
 	{
 		assertEquals(Arrays.asList(new Type<?>[]{
 				TYPE,

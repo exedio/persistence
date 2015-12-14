@@ -19,10 +19,11 @@
 package com.exedio.cope;
 
 import junit.framework.TestCase;
+import org.junit.Test;
 
 public class LimitedQueueTest extends TestCase
 {
-	public void testIt() throws InterruptedException
+	@Test public void testIt() throws InterruptedException
 	{
 		final LimitedQueue<String> q = new LimitedQueue<>(2);
 

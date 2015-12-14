@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import java.lang.reflect.AnnotatedElement;
 import junit.framework.TestCase;
+import org.junit.Test;
 
 public class FeaturesTest extends TestCase
 {
@@ -42,7 +43,7 @@ public class FeaturesTest extends TestCase
 		super.tearDown();
 	}
 
-	public void testIt()
+	@Test public void testIt()
 	{
 		final BooleanField zick = new BooleanField();
 		features.put("zick", zick);
@@ -71,7 +72,7 @@ public class FeaturesTest extends TestCase
 		}
 	}
 
-	public void testAnnotation()
+	@Test public void testAnnotation()
 	{
 		final BooleanField zick = new BooleanField();
 		features.put("zick", zick, annotationSource);
@@ -81,7 +82,7 @@ public class FeaturesTest extends TestCase
 		features.put("zock", zock, (AnnotatedElement)null);
 	}
 
-	public void testDuplicateName()
+	@Test public void testDuplicateName()
 	{
 		final BooleanField zick = new BooleanField();
 		features.put("zick", zick);
@@ -100,7 +101,7 @@ public class FeaturesTest extends TestCase
 		features.put("zick", zack);
 	}
 
-	public void testDuplicateFeature()
+	@Test public void testDuplicateFeature()
 	{
 		final BooleanField zick = new BooleanField();
 		features.put("zick", zick);
@@ -115,7 +116,7 @@ public class FeaturesTest extends TestCase
 		}
 	}
 
-	public void testDuplicateFeatureWithAnnotation()
+	@Test public void testDuplicateFeatureWithAnnotation()
 	{
 		final BooleanField zick = new BooleanField();
 		features.put("zick", zick, annotationSource);

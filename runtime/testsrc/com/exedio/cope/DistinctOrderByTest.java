@@ -24,6 +24,7 @@ import static com.exedio.cope.PlusIntegerItem.numC;
 import static java.util.Arrays.asList;
 
 import com.exedio.dsmf.SQLRuntimeException;
+import org.junit.Test;
 
 public class DistinctOrderByTest extends AbstractRuntimeModelTest
 {
@@ -50,7 +51,7 @@ public class DistinctOrderByTest extends AbstractRuntimeModelTest
 		join.setCondition(numC.equal(numC.bind(join)));
 	}
 
-	public void testVanilla()
+	@Test public void testVanilla()
 	{
 		assertEquals(
 				"select this from PlusIntegerItem " +
@@ -59,7 +60,7 @@ public class DistinctOrderByTest extends AbstractRuntimeModelTest
 		assertContainsList(asList(item1, item1, item1, item2, item2, item2, item3, item3, item3), query.search());
 	}
 
-	public void testDistinct()
+	@Test public void testDistinct()
 	{
 		query.setDistinct(true);
 
@@ -70,7 +71,7 @@ public class DistinctOrderByTest extends AbstractRuntimeModelTest
 		assertContains(item1, item2, item3, query.search());
 	}
 
-	public void testOrderBy()
+	@Test public void testOrderBy()
 	{
 		query.setOrderBy(numA, true);
 
@@ -82,7 +83,7 @@ public class DistinctOrderByTest extends AbstractRuntimeModelTest
 		assertContainsList(asList(item1, item1, item1, item2, item2, item2, item3, item3, item3), query.search());
 	}
 
-	public void testDistinctOrderBy()
+	@Test public void testDistinctOrderBy()
 	{
 		assertEquals(
 				"select this from PlusIntegerItem " +

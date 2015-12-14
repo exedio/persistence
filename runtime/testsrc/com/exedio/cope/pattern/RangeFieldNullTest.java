@@ -24,6 +24,7 @@ import static com.exedio.cope.pattern.RangeFieldItem.valid;
 import com.exedio.cope.AbstractRuntimeModelTest;
 import java.util.Arrays;
 import java.util.List;
+import org.junit.Test;
 
 public class RangeFieldNullTest extends AbstractRuntimeModelTest
 {
@@ -44,7 +45,7 @@ public class RangeFieldNullTest extends AbstractRuntimeModelTest
 		nn = new RangeFieldItem((Integer)null, null);
 	}
 
-	public void testIt()
+	@Test public void testIt()
 	{
 		assertContainsCondition( 9,     nb,     nn);
 		assertContainsCondition(10, ab, nb, an, nn);

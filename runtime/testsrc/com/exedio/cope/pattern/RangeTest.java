@@ -21,10 +21,11 @@ package com.exedio.cope.pattern;
 import static com.exedio.cope.pattern.Range.valueOf;
 
 import com.exedio.cope.junit.CopeAssert;
+import org.junit.Test;
 
 public class RangeTest extends CopeAssert
 {
-	public void testAB()
+	@Test public void testAB()
 	{
 		final Range<Integer> r = valueOf(1, 3);
 		assertEquals(1, r.getFrom().intValue());
@@ -46,7 +47,7 @@ public class RangeTest extends CopeAssert
 		}
 	}
 
-	public void testNA()
+	@Test public void testNA()
 	{
 		final Range<Integer> r = valueOf(null, 3);
 		assertEquals(null, r.getFrom());
@@ -68,7 +69,7 @@ public class RangeTest extends CopeAssert
 		}
 	}
 
-	public void testAN()
+	@Test public void testAN()
 	{
 		final Range<Integer> r = valueOf(1, null);
 		assertEquals(1, r.getFrom().intValue());
@@ -90,7 +91,7 @@ public class RangeTest extends CopeAssert
 		}
 	}
 
-	public void testNN()
+	@Test public void testNN()
 	{
 		final Range<Integer> r = valueOf((Integer)null, null);
 		assertEquals(null, r.getFrom());
@@ -112,7 +113,7 @@ public class RangeTest extends CopeAssert
 		}
 	}
 
-	public void testEquals()
+	@Test public void testEquals()
 	{
 		assertEqualsStrict(valueOf(1, 3), valueOf(1, 3));
 		assertEqualsStrict(valueOf(null, 3), valueOf(null, 3));

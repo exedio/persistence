@@ -24,6 +24,8 @@ import static com.exedio.cope.InstanceOfRefItem.ref;
 import static com.exedio.cope.InstanceOfRefItem.refb2;
 import static com.exedio.cope.RuntimeAssert.assertCondition;
 
+import org.junit.Test;
+
 public class InstanceOfTest extends AbstractRuntimeModelTest
 {
 	public InstanceOfTest()
@@ -65,13 +67,13 @@ public class InstanceOfTest extends AbstractRuntimeModelTest
 		reffN  = new InstanceOfRefItem(null);
 	}
 
-	public void testAll()
+	@Test public void testAll()
 	{
 		assertContains(itema, itemb1, itemb2, itemc1,        TYPE_A.search(null));
 		assertContains(reffa, reffb1, reffb2, reffc1, reffN, TYPE_REF.search(null));
 	}
 
-	public void testThis()
+	@Test public void testThis()
 	{
 		assertCondition(itema, itemb1, itemb2, TYPE_A, TYPE_A.getThis().notInstanceOf(TYPE_C1));
 		assertCondition(itema, itemb2, TYPE_A, TYPE_A.getThis().notInstanceOf(TYPE_B1));
@@ -83,7 +85,7 @@ public class InstanceOfTest extends AbstractRuntimeModelTest
 		assertCondition(itemc1, TYPE_A, TYPE_A.getThis().instanceOf(TYPE_C1));
 	}
 
-	public void testRef()
+	@Test public void testRef()
 	{
 		assertCondition(reffa, reffb1, reffb2, TYPE_REF, ref.notInstanceOf(TYPE_C1));
 		assertCondition(reffa, reffb2, TYPE_REF, ref.notInstanceOf(TYPE_B1));
@@ -95,18 +97,18 @@ public class InstanceOfTest extends AbstractRuntimeModelTest
 		assertCondition(reffc1, TYPE_REF, ref.instanceOf(TYPE_C1));
 	}
 
-	public void testNot()
+	@Test public void testNot()
 	{
 		assertCondition(reffc1, TYPE_REF, ref.notInstanceOf(TYPE_C1).not());
 		assertCondition(reffa, reffb1, reffb2, TYPE_REF, ref.instanceOf(TYPE_C1).not());
 	}
 
-	public void testCheckTypeColumns()
+	@Test public void testCheckTypeColumns()
 	{
 		model.checkTypeColumns();
 	}
 
-	public void testSelfJoinsAndInheritance()
+	@Test public void testSelfJoinsAndInheritance()
 	{
 		{
 			itemc1.setTextc1("textC1");
@@ -156,7 +158,7 @@ public class InstanceOfTest extends AbstractRuntimeModelTest
 		}
 	}
 
-	public void testPolymorphicJoinCondition()
+	@Test public void testPolymorphicJoinCondition()
 	{
 		{
 			final Query<InstanceOfRefItem> q = InstanceOfRefItem.TYPE.newQuery();
@@ -204,7 +206,7 @@ public class InstanceOfTest extends AbstractRuntimeModelTest
 	}
 
 	@SuppressWarnings({"unchecked", "cast", "rawtypes"})
-	public void testPolymorphicJoinConditionUnchecked()
+	@Test public void testPolymorphicJoinConditionUnchecked()
 	{
 		{
 			final Query q = InstanceOfRefItem.TYPE.newQuery();
@@ -213,7 +215,7 @@ public class InstanceOfTest extends AbstractRuntimeModelTest
 		}
 	}
 
-	public void testPolymorphicJoinCondition2()
+	@Test public void testPolymorphicJoinCondition2()
 	{
 		{
 			final Query<InstanceOfRefItem> q = InstanceOfRefItem.TYPE.newQuery();
@@ -223,7 +225,7 @@ public class InstanceOfTest extends AbstractRuntimeModelTest
 	}
 
 	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad API usage
-	public void testUnchecked()
+	@Test public void testUnchecked()
 	{
 		try
 		{
@@ -254,7 +256,7 @@ public class InstanceOfTest extends AbstractRuntimeModelTest
 		}
 	}
 
-	public void testSchema()
+	@Test public void testSchema()
 	{
 		assertSchema();
 	}

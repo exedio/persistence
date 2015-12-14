@@ -26,6 +26,7 @@ import com.exedio.cope.Model;
 import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
 import com.exedio.cope.junit.CopeAssert;
+import org.junit.Test;
 
 public class ModelByStringTest extends CopeAssert
 {
@@ -35,7 +36,7 @@ public class ModelByStringTest extends CopeAssert
 	public static final Model modelNull = null;
 	public static final String modelNoModel = "hallo";
 
-	public void testIt()
+	@Test public void testIt()
 	{
 		assertSame(modelOk, get("com.exedio.cope.misc.ModelByStringTest#modelOk"));
 

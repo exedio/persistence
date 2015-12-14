@@ -26,6 +26,7 @@ import static java.util.Arrays.asList;
 
 import com.exedio.cope.util.Day;
 import com.exedio.dsmf.SQLRuntimeException;
+import org.junit.Test;
 
 public class QueryGroupingTest extends AbstractRuntimeModelTest
 {
@@ -40,7 +41,7 @@ public class QueryGroupingTest extends AbstractRuntimeModelTest
 		super( MODEL );
 	}
 
-	public void testGroupBy()
+	@Test public void testGroupBy()
 	{
 		final GroupItem item1  = new GroupItem(day1, 1);
 		final GroupItem item2a = new GroupItem(day2, 2);
@@ -118,7 +119,7 @@ public class QueryGroupingTest extends AbstractRuntimeModelTest
 		assertEquals(1, query.total());
 	}
 
-	public void testUngroupedSelect()
+	@Test public void testUngroupedSelect()
 	{
 		new GroupItem(day1, 1);
 		new GroupItem(day2, 2);
@@ -150,7 +151,7 @@ public class QueryGroupingTest extends AbstractRuntimeModelTest
 		}
 	}
 
-	public void testSingleSelect()
+	@Test public void testSingleSelect()
 	{
 		new GroupItem(day1, 1);
 		new GroupItem(day2, 2);
@@ -171,7 +172,7 @@ public class QueryGroupingTest extends AbstractRuntimeModelTest
 		assertEquals(2, query.total());
 	}
 
-	public void testMultiGrouping()
+	@Test public void testMultiGrouping()
 	{
 		final GroupItem item1  = new GroupItem(day1, 1);
 		item1.setOptionalDouble( 10.0 );
@@ -201,7 +202,7 @@ public class QueryGroupingTest extends AbstractRuntimeModelTest
 		assertEquals(3, query.total());
 	}
 
-	public void testGroupJoin()
+	@Test public void testGroupJoin()
 	{
 		new GroupItem(day1, 1);
 		new GroupItem(day1, 2);
@@ -228,7 +229,7 @@ public class QueryGroupingTest extends AbstractRuntimeModelTest
 		assertEquals(2, query.total());
 	}
 
-	public void testSorting()
+	@Test public void testSorting()
 	{
 		final GroupItem item2 = new GroupItem(day1, 1);
 		item2.setOptionalDouble( 2.0 );
@@ -251,7 +252,7 @@ public class QueryGroupingTest extends AbstractRuntimeModelTest
 		assertEquals(3, query.total());
 	}
 
-	public void testHaving()
+	@Test public void testHaving()
 	{
 		new GroupItem(day1, 1);
 		new GroupItem(day1, 2);

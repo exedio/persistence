@@ -21,6 +21,7 @@ package com.exedio.cope.misc;
 import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.CacheIsolationTest;
 import com.exedio.cope.Transaction;
+import org.junit.Test;
 
 public class TransactionSlicerTest extends AbstractRuntimeModelTest
 {
@@ -29,7 +30,7 @@ public class TransactionSlicerTest extends AbstractRuntimeModelTest
 		super(CacheIsolationTest.MODEL);
 	}
 
-	public void testIt()
+	@Test public void testIt()
 	{
 		final Transaction t1 = model.currentTransaction();
 
@@ -79,7 +80,7 @@ public class TransactionSlicerTest extends AbstractRuntimeModelTest
 		assertEquals(t1.getName() + " slice2", t3.getName());
 	}
 
-	public void testEmpty()
+	@Test public void testEmpty()
 	{
 		final Transaction t1 = model.currentTransaction();
 
@@ -126,7 +127,7 @@ public class TransactionSlicerTest extends AbstractRuntimeModelTest
 		}
 	}
 
-	public void testNoname()
+	@Test public void testNoname()
 	{
 		model.commit();
 		model.startTransaction(null);

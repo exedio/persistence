@@ -24,10 +24,11 @@ import static com.exedio.cope.junit.CopeAssert.reserialize;
 
 import java.util.List;
 import junit.framework.TestCase;
+import org.junit.Test;
 
 public class QuerySerializeTest extends TestCase
 {
-	public void testSerialize()
+	@Test public void testSerialize()
 	{
 		final Query<?> q = TYPE.newQuery(null);
 		int size=785;

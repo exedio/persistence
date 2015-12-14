@@ -31,6 +31,7 @@ import static com.exedio.cope.CheckConstraintSuperItem.zwei;
 import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
 
 import com.exedio.cope.junit.CopeAssert;
+import org.junit.Test;
 
 public class CheckConstraintModelTest extends CopeAssert
 {
@@ -41,7 +42,7 @@ public class CheckConstraintModelTest extends CopeAssert
 		MODEL.enableSerialization(CheckConstraintModelTest.class, "MODEL");
 	}
 
-	public void testMeta()
+	@Test public void testMeta()
 	{
 		assertEqualsUnmodifiable(
 			list(

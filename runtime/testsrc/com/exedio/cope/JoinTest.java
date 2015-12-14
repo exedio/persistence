@@ -25,6 +25,7 @@ import static com.exedio.cope.Query.newQuery;
 import com.exedio.cope.testmodel.PointerItem;
 import com.exedio.cope.testmodel.PointerTargetItem;
 import java.util.List;
+import org.junit.Test;
 
 public class JoinTest extends TestmodelTest
 {
@@ -43,7 +44,7 @@ public class JoinTest extends TestmodelTest
 		item1b = new PointerItem("item1b", item2b);
 	}
 
-	public void testJoin()
+	@Test public void testJoin()
 	{
 		// test conditions
 		assertEqualsAndHash(PointerItem.pointer.equalTarget(), PointerItem.pointer.equalTarget());
