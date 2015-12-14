@@ -41,7 +41,7 @@ public class TransactionRunnableTest extends AbstractRuntimeModelTest
 		item = null;
 	}
 
-	public void testIt()
+	@Test public void testIt()
 	{
 		assertContains(TYPE.search());
 		model.commit();

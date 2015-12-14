@@ -49,7 +49,7 @@ public class CheckConstraintConditionTest extends AbstractRuntimeModelTest
 		return false;
 	}
 
-	public void testIt()
+	@Test public void testIt()
 	{
 		if(oracle) // TODO
 			return;

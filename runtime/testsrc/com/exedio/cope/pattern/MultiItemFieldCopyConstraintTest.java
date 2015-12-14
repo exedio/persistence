@@ -44,7 +44,7 @@ public class MultiItemFieldCopyConstraintTest extends AbstractRuntimeModelTest
 	}
 
 
-	public void testModelAll()
+	@Test public void testModelAll()
 	{
 		final Iterator<CopyConstraint> i = AllCopyConstraintItem.TYPE.getCopyConstraints().iterator();
 		assertIt(A.value, AllCopyConstraintItem.value, AllCopyConstraintItem.field.of(A.class), i.next());
@@ -52,7 +52,7 @@ public class MultiItemFieldCopyConstraintTest extends AbstractRuntimeModelTest
 		assertFalse(i.hasNext());
 	}
 
-	public void testModelDouble()
+	@Test public void testModelDouble()
 	{
 		final Iterator<CopyConstraint> i = DoubleCopyConstraintItem.TYPE.getCopyConstraints().iterator();
 		assertIt(C.value,    DoubleCopyConstraintItem.value,    DoubleCopyConstraintItem.field.of(C.class), i.next());
@@ -60,7 +60,7 @@ public class MultiItemFieldCopyConstraintTest extends AbstractRuntimeModelTest
 		assertFalse(i.hasNext());
 	}
 
-	public void testModelPartial()
+	@Test public void testModelPartial()
 	{
 		final Iterator<CopyConstraint> i = PartialCopyConstraintItem.TYPE.getCopyConstraints().iterator();
 		assertIt(A.value, PartialCopyConstraintItem.value, PartialCopyConstraintItem.field.of(A.class), i.next());
@@ -79,7 +79,7 @@ public class MultiItemFieldCopyConstraintTest extends AbstractRuntimeModelTest
 	}
 
 
-	public void testOk()
+	@Test public void testOk()
 	{
 		final A a = new A("value1");
 		final PartialCopyConstraintItem test = new PartialCopyConstraintItem("value1", a);
@@ -87,7 +87,7 @@ public class MultiItemFieldCopyConstraintTest extends AbstractRuntimeModelTest
 		assertEquals("value1", a.getValue());
 	}
 
-	public void testNoCopyConstraintOnB()
+	@Test public void testNoCopyConstraintOnB()
 	{
 		final B b = new B("value2");
 		final PartialCopyConstraintItem test = new PartialCopyConstraintItem("value1", b);
@@ -95,7 +95,7 @@ public class MultiItemFieldCopyConstraintTest extends AbstractRuntimeModelTest
 		assertEquals("value2", b.getValue());
 	}
 
-	public void testCopyConstraintOnAllFields()
+	@Test public void testCopyConstraintOnAllFields()
 	{
 		final A a = new A("value1");
 		final B b = new B("value2");
@@ -107,7 +107,7 @@ public class MultiItemFieldCopyConstraintTest extends AbstractRuntimeModelTest
 		assertEquals("value2", b.getValue());
 	}
 
-	public void testCopyConstraintOnAllFieldsInvalid()
+	@Test public void testCopyConstraintOnAllFieldsInvalid()
 	{
 		final A a = new A("value2");
 		final B b = new B("value1");
@@ -132,7 +132,7 @@ public class MultiItemFieldCopyConstraintTest extends AbstractRuntimeModelTest
 		}
 	}
 
-	public void testDoubleCopyConstraintOnFields()
+	@Test public void testDoubleCopyConstraintOnFields()
 	{
 		final C c = new C("value2", "value3");
 		final DoubleCopyConstraintItem item = new DoubleCopyConstraintItem("value2", "value3", c);
@@ -140,7 +140,7 @@ public class MultiItemFieldCopyConstraintTest extends AbstractRuntimeModelTest
 		assertEquals("value3", item.getTemplate());
 	}
 
-	public void testDoubleCopyConstraintOnFieldsInvalid()
+	@Test public void testDoubleCopyConstraintOnFieldsInvalid()
 	{
 		final C c = new C("value2", "value3");
 		try

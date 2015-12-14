@@ -28,7 +28,7 @@ public class QuerySearchSizeLimitSetTest extends AbstractRuntimeModelTest
 		super(DayFieldTest.MODEL);
 	}
 
-	public void testIt()
+	@Test public void testIt()
 	{
 		final int defaulT = model.getConnectProperties().getQuerySearchSizeLimit();
 		final Query<?> q = TYPE.newQuery();

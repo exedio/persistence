@@ -43,7 +43,7 @@ public class DispatcherModelTest extends CopeAssert
 	}
 
 	@SuppressFBWarnings("RC_REF_COMPARISON_BAD_PRACTICE_BOOLEAN")
-	public void testIt()
+	@Test public void testIt()
 	{
 		final Type<?> runType = toTarget.getRunType();
 

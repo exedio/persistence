@@ -78,7 +78,7 @@ public class CacheReadPoisoningBruteForceTest extends AbstractRuntimeModelTest
 		String errorName = null;
 	}
 
-	public void testIt() throws InterruptedException
+	@Test public void testIt() throws InterruptedException
 	{
 		if(hsqldb||oracle) return; // TODO
 

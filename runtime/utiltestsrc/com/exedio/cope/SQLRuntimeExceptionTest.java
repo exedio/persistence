@@ -23,7 +23,7 @@ import com.exedio.dsmf.SQLRuntimeException;
 
 public class SQLRuntimeExceptionTest extends CopeAssert
 {
-	public void testTruncate()
+	@Test public void testTruncate()
 	{
 		assertIt("abcd", "abcd");
 		assertIt(

@@ -44,7 +44,7 @@ public class ConnectTokenNotSetTest extends CopeAssert
 		model.enableSerialization(ConnectTokenNotSetTest.class, "model");
 	}
 
-	public void testIt()
+	@Test public void testIt()
 	{
 		assertFalse(model.isConnected());
 

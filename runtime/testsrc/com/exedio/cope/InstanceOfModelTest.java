@@ -38,7 +38,7 @@ public class InstanceOfModelTest extends CopeAssert
 	private final Type<InstanceOfB2Item> TYPE_B2 = InstanceOfB2Item.TYPE;
 	private final Type<InstanceOfC1Item> TYPE_C1 = InstanceOfC1Item.TYPE;
 
-	public void testFeatures()
+	@Test public void testFeatures()
 	{
 		final Type<InstanceOfAItem > a  = InstanceOfAItem .TYPE;
 		final Type<InstanceOfB1Item> b1 = InstanceOfB1Item.TYPE;
@@ -81,7 +81,7 @@ public class InstanceOfModelTest extends CopeAssert
 		assertEquals(list(codeUnq), c1.getUniqueConstraints());
 	}
 
-	public void testEqualsHashCode()
+	@Test public void testEqualsHashCode()
 	{
 		assertNotEqualsAndHash(
 				TYPE_A.getThis().instanceOf(TYPE_B1),
@@ -99,7 +99,7 @@ public class InstanceOfModelTest extends CopeAssert
 				ref.instanceOf(TYPE_B1));
 	}
 
-	public void testToString()
+	@Test public void testToString()
 	{
 		assertEquals("InstanceOfAItem.this instanceOf InstanceOfC1Item", TYPE_A.getThis().instanceOf(TYPE_C1).toString());
 		assertEquals("InstanceOfAItem.this instanceOf [InstanceOfC1Item, InstanceOfB1Item]", TYPE_A.getThis().instanceOf(TYPE_C1, TYPE_B1).toString());
@@ -107,7 +107,7 @@ public class InstanceOfModelTest extends CopeAssert
 		assertEquals("InstanceOfAItem.this not instanceOf [InstanceOfC1Item, InstanceOfB1Item]", TYPE_A.getThis().notInstanceOf(TYPE_C1, TYPE_B1).toString());
 	}
 
-	public void testFails()
+	@Test public void testFails()
 	{
 		try
 		{
@@ -138,7 +138,7 @@ public class InstanceOfModelTest extends CopeAssert
 		}
 	}
 
-	public void testAsSame()
+	@Test public void testAsSame()
 	{
 		assertSame(InstanceOfAItem.TYPE, InstanceOfAItem.TYPE.as(InstanceOfAItem.class));
 		assertSame(InstanceOfAItem.TYPE, InstanceOfAItem.TYPE.asExtends(InstanceOfAItem.class));
@@ -146,7 +146,7 @@ public class InstanceOfModelTest extends CopeAssert
 		assertSame(InstanceOfRefItem.ref, InstanceOfRefItem.ref.asExtends(InstanceOfAItem.class));
 	}
 
-	public void testAsChildReverse()
+	@Test public void testAsChildReverse()
 	{
 		try
 		{
@@ -186,7 +186,7 @@ public class InstanceOfModelTest extends CopeAssert
 		}
 	}
 
-	public void testAsSameSub()
+	@Test public void testAsSameSub()
 	{
 		assertSame(InstanceOfB2Item.TYPE, InstanceOfB2Item.TYPE.as(InstanceOfB2Item.class));
 		assertSame(InstanceOfB2Item.TYPE, InstanceOfB2Item.TYPE.asExtends(InstanceOfB2Item.class));
@@ -194,7 +194,7 @@ public class InstanceOfModelTest extends CopeAssert
 		assertSame(InstanceOfRefItem.refb2, InstanceOfRefItem.refb2.asExtends(InstanceOfB2Item.class));
 	}
 
-	public void testAsBrother()
+	@Test public void testAsBrother()
 	{
 		try
 		{
@@ -234,7 +234,7 @@ public class InstanceOfModelTest extends CopeAssert
 		}
 	}
 
-	public void testAsSameChild()
+	@Test public void testAsSameChild()
 	{
 		try
 		{
@@ -302,7 +302,7 @@ public class InstanceOfModelTest extends CopeAssert
 			failure.getMessage());
 	}
 
-	public void testGetSubTypes()
+	@Test public void testGetSubTypes()
 	{
 		assertEqualsUnmodifiable(
 				list(InstanceOfB1Item.TYPE, InstanceOfB2Item.TYPE), InstanceOfAItem.TYPE.getSubtypes());
@@ -314,7 +314,7 @@ public class InstanceOfModelTest extends CopeAssert
 				list(), InstanceOfC1Item.TYPE.getSubtypes());
 	}
 
-	public void testGetSubTypesTransitively()
+	@Test public void testGetSubTypesTransitively()
 	{
 		assertEqualsUnmodifiable(
 				list(InstanceOfAItem.TYPE, InstanceOfB1Item.TYPE, InstanceOfC1Item.TYPE, InstanceOfB2Item.TYPE),
@@ -330,7 +330,7 @@ public class InstanceOfModelTest extends CopeAssert
 				InstanceOfC1Item.TYPE.getSubtypesTransitively());
 	}
 
-	public void testTypesOfInstances()
+	@Test public void testTypesOfInstances()
 	{
 		assertEqualsUnmodifiable(
 				list(InstanceOfAItem.TYPE, InstanceOfB1Item.TYPE, InstanceOfC1Item.TYPE, InstanceOfB2Item.TYPE),
@@ -346,7 +346,7 @@ public class InstanceOfModelTest extends CopeAssert
 				InstanceOfC1Item.TYPE.getTypesOfInstances());
 	}
 
-	public void testCastTypeExtends()
+	@Test public void testCastTypeExtends()
 	{
 		final Type<? extends InstanceOfAItem> t = InstanceOfAItem.TYPE.castTypeExtends(InstanceOfB1Item.TYPE);
 		assertSame(InstanceOfB1Item.TYPE, t);

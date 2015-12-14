@@ -44,7 +44,7 @@ public final class CompositeFieldRenamedIdTest extends CopeAssert
 		MODEL.enableSerialization(CompositeFieldRenamedIdTest.class, "MODEL");
 	}
 
-	public static void testIt()
+	@Test public static void testIt()
 	{
 		assertEquals(null,        ann(virgnTemp));
 		assertEquals("namedTemp", ann(wrongTemp));

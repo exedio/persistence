@@ -24,7 +24,7 @@ import com.exedio.cope.junit.CopeAssert;
 
 public class EnumSchemaTest extends CopeAssert
 {
-	public void testNormal()
+	@Test public void testNormal()
 	{
 		assertEquals(10, getColumnValue(Normal.Eins));
 		assertEquals(20, getColumnValue(Normal.Zwei));
@@ -36,7 +36,7 @@ public class EnumSchemaTest extends CopeAssert
 		Eins, Zwei, Drei;
 	}
 
-	public void testNormal2()
+	@Test public void testNormal2()
 	{
 		assertEquals(10, getColumnValue(Normal2.Eins));
 		assertEquals(20, getColumnValue(Normal2.Zwei));
@@ -59,7 +59,7 @@ public class EnumSchemaTest extends CopeAssert
 
 	@SuppressWarnings({"unchecked","cast", "rawtypes"}) // OK: test bad api usage
 	@Deprecated // OK: test deprecated api
-	public void testUnchecked()
+	@Test public void testUnchecked()
 	{
 		final EnumField<Normal2> normal = EnumField.create(Normal2.class);
 		try
@@ -73,7 +73,7 @@ public class EnumSchemaTest extends CopeAssert
 		}
 	}
 
-	public void testAnnotatedBefore()
+	@Test public void testAnnotatedBefore()
 	{
 		assertEquals(10, getColumnValue(AnnotatedBefore.Eins));
 		assertEquals(11, getColumnValue(AnnotatedBefore.Zwei));
@@ -87,7 +87,7 @@ public class EnumSchemaTest extends CopeAssert
 		Drei;
 	}
 
-	public void testAnnotatedAfter()
+	@Test public void testAnnotatedAfter()
 	{
 		assertEquals(10, getColumnValue(AnnotatedAfter.Eins));
 		assertEquals(19, getColumnValue(AnnotatedAfter.Zwei));
@@ -101,7 +101,7 @@ public class EnumSchemaTest extends CopeAssert
 		Drei;
 	}
 
-	public void testAnnotatedStart()
+	@Test public void testAnnotatedStart()
 	{
 		assertEquals( 9, getColumnValue(AnnotatedStart.Eins));
 		assertEquals(10, getColumnValue(AnnotatedStart.Zwei));
@@ -115,7 +115,7 @@ public class EnumSchemaTest extends CopeAssert
 		Drei;
 	}
 
-	public void testAnnotatedEnd()
+	@Test public void testAnnotatedEnd()
 	{
 		assertEquals(10, getColumnValue(AnnotatedEnd.Eins));
 		assertEquals(20, getColumnValue(AnnotatedEnd.Zwei));
@@ -129,7 +129,7 @@ public class EnumSchemaTest extends CopeAssert
 		@CopeSchemaValue(21) Drei;
 	}
 
-	public void testAnnotatedError()
+	@Test public void testAnnotatedError()
 	{
 		try
 		{
@@ -261,7 +261,7 @@ public class EnumSchemaTest extends CopeAssert
 		@CopeSchemaValue(19) Drei;
 	}
 
-	public void testSubclass()
+	@Test public void testSubclass()
 	{
 		assertEquals(1, getColumnValue(Subclass.Eins));
 		assertEquals(2, getColumnValue(Subclass.Zwei));

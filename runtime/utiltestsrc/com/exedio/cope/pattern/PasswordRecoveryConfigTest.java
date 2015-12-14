@@ -23,7 +23,7 @@ import com.exedio.cope.pattern.PasswordRecovery.Config;
 
 public class PasswordRecoveryConfigTest extends CopeAssert
 {
-	public void testConfigFailure()
+	@Test public void testConfigFailure()
 	{
 		try
 		{
@@ -63,35 +63,35 @@ public class PasswordRecoveryConfigTest extends CopeAssert
 		}
 	}
 
-	public void testConfigDefaultReuse()
+	@Test public void testConfigDefaultReuse()
 	{
 		final Config c = new Config(1);
 		assertEquals(1, c.getExpiryMillis());
 		assertEquals(1, c.getReuseMillis());
 	}
 
-	public void testConfigDefaultReuseBig()
+	@Test public void testConfigDefaultReuseBig()
 	{
 		final Config c = new Config(10001);
 		assertEquals(10001, c.getExpiryMillis());
 		assertEquals(10000, c.getReuseMillis());
 	}
 
-	public void testConfigMinimal()
+	@Test public void testConfigMinimal()
 	{
 		final Config c2 = new Config(20, 10);
 		assertEquals(20, c2.getExpiryMillis());
 		assertEquals(10, c2.getReuseMillis());
 	}
 
-	public void testConfigNoReuse()
+	@Test public void testConfigNoReuse()
 	{
 		final Config c2 = new Config(20, 0);
 		assertEquals(20, c2.getExpiryMillis());
 		assertEquals(0, c2.getReuseMillis());
 	}
 
-	public void testPasswordRecovery()
+	@Test public void testPasswordRecovery()
 	{
 		try
 		{

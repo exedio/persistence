@@ -33,7 +33,7 @@ public class LongModelTest extends CopeAssert
 {
 	public/*for web.xml*/ static final Model MODEL = new Model(TYPE);
 
-	public void testIt()
+	@Test public void testIt()
 	{
 		assertEquals(TYPE, any.getType());
 		assertEquals("any", any.getName());
@@ -66,7 +66,7 @@ public class LongModelTest extends CopeAssert
 		assertContains(LongRangeViolationException.class, min4Max8.getInitialExceptions());
 	}
 
-	public void testCheck()
+	@Test public void testCheck()
 	{
 		try
 		{
@@ -99,7 +99,7 @@ public class LongModelTest extends CopeAssert
 		min4.check(4l);
 	}
 
-	public void testConditions()
+	@Test public void testConditions()
 	{
 		assertEqualsStrict(any.equal(1l), any.equal(1l));
 		assertNotEqualsStrict(any.equal(1l), any.equal(2l));

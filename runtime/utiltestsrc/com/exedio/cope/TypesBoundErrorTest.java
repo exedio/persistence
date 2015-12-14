@@ -24,7 +24,7 @@ import com.exedio.cope.junit.CopeAssert;
 
 public class TypesBoundErrorTest extends CopeAssert
 {
-	public void testErrors()
+	@Test public void testErrors()
 	{
 		try
 		{

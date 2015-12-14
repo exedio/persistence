@@ -53,7 +53,7 @@ public class JoinFunctionTest extends AbstractRuntimeModelTest
 		b3 = new JoinFunctionItem("b3", Integer.valueOf(3));
 	}
 
-	public void testIt()
+	@Test public void testIt()
 	{
 		{
 			final Query<JoinFunctionItemSingle> q = JoinFunctionItemSingle.TYPE.newQuery(null);

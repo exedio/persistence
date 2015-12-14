@@ -24,7 +24,7 @@ import junit.framework.TestCase;
 
 public class ClusterIterTest extends TestCase
 {
-	public void testInt()
+	@Test public void testInt()
 	{
 		final ClusterListener.Iter iter = new ClusterListener.Iter(new DatagramPacket(
 				new byte[]{(byte)0xff, (byte)0xab, (byte)0x89, (byte)0x67, (byte)0x45, (byte)0xff, (byte)0xff, (byte)0xff, (byte)0xff}, 1, 4));
@@ -42,7 +42,7 @@ public class ClusterIterTest extends TestCase
 		}
 	}
 
-	public void testIntNegative()
+	@Test public void testIntNegative()
 	{
 		final ClusterListener.Iter iter = new ClusterListener.Iter(new DatagramPacket(
 				new byte[]{(byte)0x45, (byte)0x67, (byte)0x89, (byte)0xab}, 4));
@@ -51,7 +51,7 @@ public class ClusterIterTest extends TestCase
 		assertFalse(iter.hasNext());
 	}
 
-	public void testCheckInt()
+	@Test public void testCheckInt()
 	{
 		final ClusterListener.Iter iter = new ClusterListener.Iter(new DatagramPacket(
 				new byte[]{(byte)0xff, (byte)0xab, (byte)0x89, (byte)0x67, (byte)0x45, (byte)0xff}, 1, 4));
@@ -69,7 +69,7 @@ public class ClusterIterTest extends TestCase
 		}
 	}
 
-	public void testCheckIntFalse()
+	@Test public void testCheckIntFalse()
 	{
 		final ClusterListener.Iter iter = new ClusterListener.Iter(new DatagramPacket(
 				new byte[]{(byte)0xab, (byte)0x89, (byte)0x67, (byte)0x45}, 4));
@@ -78,7 +78,7 @@ public class ClusterIterTest extends TestCase
 		assertTrue(iter.hasNext());
 	}
 
-	public void testCheckIntNegative()
+	@Test public void testCheckIntNegative()
 	{
 		final ClusterListener.Iter iter = new ClusterListener.Iter(new DatagramPacket(
 				new byte[]{(byte)0x45, (byte)0x67, (byte)0x89, (byte)0xab}, 4));

@@ -39,7 +39,7 @@ public class MatchTest extends AbstractRuntimeModelTest
 		item = new MatchItem();
 	}
 
-	public void testStrings() throws StringLengthViolationException
+	@Test public void testStrings() throws StringLengthViolationException
 	{
 		item.setText("hallo bello cnallo");
 		assertEquals(list(item), TYPE.search(new MatchCondition(text, "hallo")));

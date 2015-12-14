@@ -34,7 +34,7 @@ import com.exedio.cope.testmodel.PointerTargetItem;
 
 public class FieldItemTest extends FieldTest
 {
-	public void testSomeItem()
+	@Test public void testSomeItem()
 	{
 		assertEquals(TYPE, someItem.getType());
 		assertEquals(EmptyItem.TYPE, someItem.getValueType());
@@ -67,7 +67,7 @@ public class FieldItemTest extends FieldTest
 	}
 
 	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad API usage
-	public void testUnchecked()
+	@Test public void testUnchecked()
 	{
 		try
 		{
@@ -91,7 +91,7 @@ public class FieldItemTest extends FieldTest
 		}
 	}
 
-	public void testSomeNotNullItem()
+	@Test public void testSomeNotNullItem()
 		throws MandatoryViolationException
 	{
 		assertEquals(TYPE, someNotNullItem.getType());
@@ -135,7 +135,7 @@ public class FieldItemTest extends FieldTest
 		}
 	}
 
-	public void testIntegrity()
+	@Test public void testIntegrity()
 	{
 		final EmptyItem2 target = new EmptyItem2();
 		final PointerTargetItem pointer2 = new PointerTargetItem("pointer2");

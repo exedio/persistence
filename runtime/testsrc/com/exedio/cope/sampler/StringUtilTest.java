@@ -24,7 +24,7 @@ import com.exedio.cope.junit.CopeAssert;
 
 public class StringUtilTest extends CopeAssert
 {
-	public void testNormal()
+	@Test public void testNormal()
 	{
 		final StringField f = new StringField().lengthMax(8);
 		assertIt(null, f, null);
@@ -41,7 +41,7 @@ public class StringUtilTest extends CopeAssert
 		assertIt("1234 ...", f, "1234567890");
 	}
 
-	public void testMinimal()
+	@Test public void testMinimal()
 	{
 		final StringField f = new StringField().lengthMax(4);
 		assertIt(null, f, null);

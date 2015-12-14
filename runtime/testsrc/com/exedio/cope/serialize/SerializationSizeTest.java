@@ -48,7 +48,7 @@ public class SerializationSizeTest extends AbstractRuntimeModelTest
 		previousSize = accuSize();
 	}
 
-	public void testModel()
+	@Test public void testModel()
 	{
 		final ItemSerializationItem itemA = new ItemSerializationItem("nameA");
 		final ItemSerializationItem itemB = new ItemSerializationItem("nameB");
@@ -87,7 +87,7 @@ public class SerializationSizeTest extends AbstractRuntimeModelTest
 		assertAccu(  5, item2B);
 	}
 
-	public void testTypes()
+	@Test public void testTypes()
 	{
 		assertAccu(292, ItemSerializationItem.TYPE);
 		assertAccu(  5, ItemSerializationItem.TYPE);
@@ -97,7 +97,7 @@ public class SerializationSizeTest extends AbstractRuntimeModelTest
 		assertAccu(  5, ItemSerializationItem2.TYPE);
 	}
 
-	public void testFeatures()
+	@Test public void testFeatures()
 	{
 		assertAccu(394, ItemSerializationItem.name);
 		assertAccu(  5, ItemSerializationItem.name);
@@ -107,7 +107,7 @@ public class SerializationSizeTest extends AbstractRuntimeModelTest
 		assertAccu(  5, ItemSerializationItem.name2);
 	}
 
-	public void testFeaturesFromDifferentTypes()
+	@Test public void testFeaturesFromDifferentTypes()
 	{
 		assertAccu(394, ItemSerializationItem.name);
 		assertAccu(  5, ItemSerializationItem.name);
@@ -117,7 +117,7 @@ public class SerializationSizeTest extends AbstractRuntimeModelTest
 		assertAccu(  5, ItemSerializationItem2.name2);
 	}
 
-	public void testItems()
+	@Test public void testItems()
 	{
 		assertAccu(108, new ItemSerializationItem("name"));
 		assertAccu( 10, new ItemSerializationItem("name"));
@@ -126,7 +126,7 @@ public class SerializationSizeTest extends AbstractRuntimeModelTest
 		assertAccu( 10, new ItemSerializationItem2());
 	}
 
-	public void testUnboundItems()
+	@Test public void testUnboundItems()
 	{
 		final ItemSerializationItem  item1 = new ItemSerializationItem("name");
 		final ItemSerializationItem2 item2 = new ItemSerializationItem2();

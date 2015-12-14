@@ -35,7 +35,7 @@ public class DispatchableDeferrableTest extends AbstractRuntimeModelTest
 		super(MODEL);
 	}
 
-	public void test()
+	@Test public void test()
 	{
 		final AnItem item1 = new AnItem();
 		final AnItem item2 = new AnItem();

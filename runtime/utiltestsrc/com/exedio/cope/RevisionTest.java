@@ -22,7 +22,7 @@ import com.exedio.cope.junit.CopeAssert;
 
 public class RevisionTest extends CopeAssert
 {
-	public void testNumberNegative()
+	@Test public void testNumberNegative()
 	{
 		try
 		{
@@ -34,7 +34,7 @@ public class RevisionTest extends CopeAssert
 			assertEquals("number must be greater zero, but was -1", e.getMessage());
 		}
 	}
-	public void testNumberZero()
+	@Test public void testNumberZero()
 	{
 		try
 		{
@@ -46,7 +46,7 @@ public class RevisionTest extends CopeAssert
 			assertEquals("number must be greater zero, but was 0", e.getMessage());
 		}
 	}
-	public void testCommentNull()
+	@Test public void testCommentNull()
 	{
 		try
 		{
@@ -58,7 +58,7 @@ public class RevisionTest extends CopeAssert
 			assertEquals("comment", e.getMessage());
 		}
 	}
-	public void testCommentEmpty()
+	@Test public void testCommentEmpty()
 	{
 		try
 		{
@@ -70,7 +70,7 @@ public class RevisionTest extends CopeAssert
 			assertEquals("comment must not be empty", e.getMessage());
 		}
 	}
-	public void testBodyNull()
+	@Test public void testBodyNull()
 	{
 		try
 		{
@@ -82,7 +82,7 @@ public class RevisionTest extends CopeAssert
 			assertEquals("body", e.getMessage());
 		}
 	}
-	public void testBodyEmpty()
+	@Test public void testBodyEmpty()
 	{
 		try
 		{
@@ -94,7 +94,7 @@ public class RevisionTest extends CopeAssert
 			assertEquals("body must not be empty", e.getMessage());
 		}
 	}
-	public void testBodyElementNull()
+	@Test public void testBodyElementNull()
 	{
 		try
 		{
@@ -106,7 +106,7 @@ public class RevisionTest extends CopeAssert
 			assertEquals("body[1]", e.getMessage());
 		}
 	}
-	public void testBodyElementEmpty()
+	@Test public void testBodyElementEmpty()
 	{
 		try
 		{
@@ -118,7 +118,7 @@ public class RevisionTest extends CopeAssert
 			assertEquals("body[1] must not be empty", e.getMessage());
 		}
 	}
-	public void testSuccess()
+	@Test public void testSuccess()
 	{
 		final Revision m = new Revision(123, "test-comment", "sql1", "sql2");
 		assertEquals(123, m.getNumber());
@@ -126,7 +126,7 @@ public class RevisionTest extends CopeAssert
 		assertEqualsUnmodifiable(list("sql1", "sql2"), m.getBody());
 		assertEquals("R123:test-comment", m.toString());
 	}
-	public void testCopy()
+	@Test public void testCopy()
 	{
 		final String[] body = new String[]{"a", "b", "c"};
 		final Revision r = new Revision(5, "comment", body);

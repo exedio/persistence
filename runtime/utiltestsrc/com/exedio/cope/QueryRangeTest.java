@@ -26,7 +26,7 @@ public class QueryRangeTest extends CopeAssert
 {
 	static final Model MODEL = new Model(TYPE);
 
-	public void testLimitSimple()
+	@Test public void testLimitSimple()
 	{
 		final Query<?> q = q5533();
 		q.setLimit(5);
@@ -34,7 +34,7 @@ public class QueryRangeTest extends CopeAssert
 		assertEquals(-1, q.getLimit());
 		assertEquals("select this from AnItem offset '5'", q.toString());
 	}
-	public void testLimitSimpleZero()
+	@Test public void testLimitSimpleZero()
 	{
 		final Query<?> q = q5533();
 		q.setLimit(0);
@@ -42,7 +42,7 @@ public class QueryRangeTest extends CopeAssert
 		assertEquals(-1, q.getLimit());
 		assertEquals("select this from AnItem", q.toString());
 	}
-	public void testLimitSimpleOffsetNegative()
+	@Test public void testLimitSimpleOffsetNegative()
 	{
 		final Query<?> q = q5533();
 		try
@@ -58,7 +58,7 @@ public class QueryRangeTest extends CopeAssert
 		}
 	}
 
-	public void testLimitFull()
+	@Test public void testLimitFull()
 	{
 		final Query<?> q = q5533();
 		q.setLimit(5, 3);
@@ -66,7 +66,7 @@ public class QueryRangeTest extends CopeAssert
 		assertEquals(3, q.getLimit());
 		assertEquals("select this from AnItem offset '5' limit '3'", q.toString());
 	}
-	public void testLimitFullZero()
+	@Test public void testLimitFullZero()
 	{
 		final Query<?> q = q5533();
 		q.setLimit(0, 0);
@@ -74,7 +74,7 @@ public class QueryRangeTest extends CopeAssert
 		assertEquals(0, q.getLimit());
 		assertEquals("select this from AnItem limit '0'", q.toString());
 	}
-	public void testLimitFullOffsetNegative()
+	@Test public void testLimitFullOffsetNegative()
 	{
 		final Query<?> q = q5533();
 		try
@@ -89,7 +89,7 @@ public class QueryRangeTest extends CopeAssert
 			assertEquals(33, q.getLimit());
 		}
 	}
-	public void testLimitFullLimitNegative()
+	@Test public void testLimitFullLimitNegative()
 	{
 		final Query<?> q = q5533();
 		try

@@ -28,11 +28,11 @@ import java.util.Arrays;
 
 public class CheckTest extends CopeAssert
 {
-	public void testRequireGreaterZeroInt()
+	@Test public void testRequireGreaterZeroInt()
 	{
 		assertEquals(1, requireGreaterZero(1, "name"));
 	}
-	public void testRequireGreaterZeroIntZero()
+	@Test public void testRequireGreaterZeroIntZero()
 	{
 		try
 		{
@@ -44,7 +44,7 @@ public class CheckTest extends CopeAssert
 			assertEquals("name must be greater zero, but was 0", e.getMessage());
 		}
 	}
-	public void testRequireGreaterZeroIntNegative()
+	@Test public void testRequireGreaterZeroIntNegative()
 	{
 		try
 		{
@@ -57,11 +57,11 @@ public class CheckTest extends CopeAssert
 		}
 	}
 
-	public void testRequireGreaterZeroLong()
+	@Test public void testRequireGreaterZeroLong()
 	{
 		assertEquals(1, requireGreaterZero(1l, "name"));
 	}
-	public void testRequireGreaterZeroLongZero()
+	@Test public void testRequireGreaterZeroLongZero()
 	{
 		try
 		{
@@ -73,7 +73,7 @@ public class CheckTest extends CopeAssert
 			assertEquals("name must be greater zero, but was 0", e.getMessage());
 		}
 	}
-	public void testRequireGreaterZeroLongNegative()
+	@Test public void testRequireGreaterZeroLongNegative()
 	{
 		try
 		{
@@ -86,15 +86,15 @@ public class CheckTest extends CopeAssert
 		}
 	}
 
-	public void testRequireNonNegativeInt()
+	@Test public void testRequireNonNegativeInt()
 	{
 		assertEquals(1, requireNonNegative(1, "name"));
 	}
-	public void testRequireNonNegativeIntZero()
+	@Test public void testRequireNonNegativeIntZero()
 	{
 		assertEquals(0, requireNonNegative(0, "name"));
 	}
-	public void testRequireNonNegativeIntNegative()
+	@Test public void testRequireNonNegativeIntNegative()
 	{
 		try
 		{
@@ -107,15 +107,15 @@ public class CheckTest extends CopeAssert
 		}
 	}
 
-	public void testRequireNonNegativeLong()
+	@Test public void testRequireNonNegativeLong()
 	{
 		assertEquals(1l, requireNonNegative(1l, "name"));
 	}
-	public void testRequireNonNegativeLongZero()
+	@Test public void testRequireNonNegativeLongZero()
 	{
 		assertEquals(0l, requireNonNegative(0l, "name"));
 	}
-	public void testRequireNonNegativeLongNegative()
+	@Test public void testRequireNonNegativeLongNegative()
 	{
 		try
 		{
@@ -128,11 +128,11 @@ public class CheckTest extends CopeAssert
 		}
 	}
 
-	public void testRequireNonEmptyString()
+	@Test public void testRequireNonEmptyString()
 	{
 		assertSame("x", requireNonEmpty("x", "name"));
 	}
-	public void testRequireNonEmptyStringNull()
+	@Test public void testRequireNonEmptyStringNull()
 	{
 		try
 		{
@@ -144,7 +144,7 @@ public class CheckTest extends CopeAssert
 			assertEquals("name", e.getMessage());
 		}
 	}
-	public void testRequireNonEmptyStringEmpty()
+	@Test public void testRequireNonEmptyStringEmpty()
 	{
 		try
 		{
@@ -157,14 +157,14 @@ public class CheckTest extends CopeAssert
 		}
 	}
 
-	public void testRequireNonEmptyAndCopyObjectsCopy()
+	@Test public void testRequireNonEmptyAndCopyObjectsCopy()
 	{
 		final Object[] original = new Object[]{"a", "b", "c"};
 		final Object[] copy = requireNonEmptyAndCopy(original, "name");
 		assertEquals(Arrays.asList("a", "b", "c"), Arrays.asList(copy));
 		assertNotSame(original, copy);
 	}
-	public void testRequireNonEmptyAndCopyObjectsNull()
+	@Test public void testRequireNonEmptyAndCopyObjectsNull()
 	{
 		try
 		{
@@ -176,7 +176,7 @@ public class CheckTest extends CopeAssert
 			assertEquals("name", e.getMessage());
 		}
 	}
-	public void testRequireNonEmptyAndCopyObjectsEmpty()
+	@Test public void testRequireNonEmptyAndCopyObjectsEmpty()
 	{
 		try
 		{
@@ -188,7 +188,7 @@ public class CheckTest extends CopeAssert
 			assertEquals("name must not be empty", e.getMessage());
 		}
 	}
-	public void testRequireNonEmptyAndCopyObjectsElementNull()
+	@Test public void testRequireNonEmptyAndCopyObjectsElementNull()
 	{
 		try
 		{
@@ -201,14 +201,14 @@ public class CheckTest extends CopeAssert
 		}
 	}
 
-	public void testRequireNonEmptyAndCopyStringsCopy()
+	@Test public void testRequireNonEmptyAndCopyStringsCopy()
 	{
 		final String[] original = new String[]{"a", "b", "c"};
 		final String[] copy = requireNonEmptyAndCopy(original, "name");
 		assertEquals(Arrays.asList("a", "b", "c"), Arrays.asList(copy));
 		assertNotSame(original, copy);
 	}
-	public void testRequireNonEmptyAndCopyStringsNull()
+	@Test public void testRequireNonEmptyAndCopyStringsNull()
 	{
 		try
 		{
@@ -220,7 +220,7 @@ public class CheckTest extends CopeAssert
 			assertEquals("name", e.getMessage());
 		}
 	}
-	public void testRequireNonEmptyAndCopyStringsEmpty()
+	@Test public void testRequireNonEmptyAndCopyStringsEmpty()
 	{
 		try
 		{
@@ -232,7 +232,7 @@ public class CheckTest extends CopeAssert
 			assertEquals("name must not be empty", e.getMessage());
 		}
 	}
-	public void testRequireNonEmptyAndCopyStringsElementNull()
+	@Test public void testRequireNonEmptyAndCopyStringsElementNull()
 	{
 		try
 		{
@@ -244,7 +244,7 @@ public class CheckTest extends CopeAssert
 			assertEquals("name[1]", e.getMessage());
 		}
 	}
-	public void testRequireNonEmptyAndCopyStringsElementEmpty()
+	@Test public void testRequireNonEmptyAndCopyStringsElementEmpty()
 	{
 		try
 		{

@@ -25,7 +25,7 @@ import junit.framework.TestCase;
 
 public class GenericsTest extends TestCase
 {
-	public void testIt()
+	@Test public void testIt()
 	{
 		assertEquals(asList(), get(""));
 		assertEquals(asList(), get("Raw"));

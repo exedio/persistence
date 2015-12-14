@@ -37,7 +37,7 @@ public class CheckConstraintHierarchyTest extends AbstractRuntimeModelTest
 		super(MODEL);
 	}
 
-	public void testIsSupportedBySchema()
+	@Test public void testIsSupportedBySchema()
 	{
 		assertEquals(true,  top   .isSupportedBySchemaIfSupportedByDialect());
 		// TODO
@@ -51,7 +51,7 @@ public class CheckConstraintHierarchyTest extends AbstractRuntimeModelTest
 		assertEquals(false, cross .isSupportedBySchemaIfSupportedByDialect());
 	}
 
-	public void testTop()
+	@Test public void testTop()
 	{
 		final CheckConstraintHierarchyItemBottom item = new CheckConstraintHierarchyItemBottom();
 		assertIt(item);
@@ -69,7 +69,7 @@ public class CheckConstraintHierarchyTest extends AbstractRuntimeModelTest
 		assertIt(item);
 	}
 
-	public void testUp()
+	@Test public void testUp()
 	{
 		final CheckConstraintHierarchyItemBottom item = new CheckConstraintHierarchyItemBottom();
 		assertIt(item);
@@ -87,7 +87,7 @@ public class CheckConstraintHierarchyTest extends AbstractRuntimeModelTest
 		assertIt(item);
 	}
 
-	public void testBottom()
+	@Test public void testBottom()
 	{
 		final CheckConstraintHierarchyItemBottom item = new CheckConstraintHierarchyItemBottom();
 		assertIt(item);
@@ -106,7 +106,7 @@ public class CheckConstraintHierarchyTest extends AbstractRuntimeModelTest
 	}
 
 
-	public void testCross()
+	@Test public void testCross()
 	{
 		final CheckConstraintHierarchyItemBottom item = new CheckConstraintHierarchyItemBottom();
 		assertIt(item);

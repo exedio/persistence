@@ -35,7 +35,7 @@ public class TransactionTryTest extends AbstractRuntimeModelTest
 		return false;
 	}
 
-	public void testSuccess()
+	@Test public void testSuccess()
 	{
 		assertFalse(model.hasCurrentTransaction());
 
@@ -57,7 +57,7 @@ public class TransactionTryTest extends AbstractRuntimeModelTest
 		assertEquals("itemName", item.getName());
 	}
 
-	public void testSuccessReturnObject()
+	@Test public void testSuccessReturnObject()
 	{
 		assertFalse(model.hasCurrentTransaction());
 
@@ -80,7 +80,7 @@ public class TransactionTryTest extends AbstractRuntimeModelTest
 		assertEquals("itemName", item.getName());
 	}
 
-	public void testSuccessReturnInt()
+	@Test public void testSuccessReturnInt()
 	{
 		assertFalse(model.hasCurrentTransaction());
 
@@ -102,7 +102,7 @@ public class TransactionTryTest extends AbstractRuntimeModelTest
 		assertEquals("itemName", item.getName());
 	}
 
-	public void testFail()
+	@Test public void testFail()
 	{
 		assertFalse(model.hasCurrentTransaction());
 
@@ -134,7 +134,7 @@ public class TransactionTryTest extends AbstractRuntimeModelTest
 		assertFalse(item.existsCopeItem());
 	}
 
-	public void testNoCommit()
+	@Test public void testNoCommit()
 	{
 		assertFalse(model.hasCurrentTransaction());
 

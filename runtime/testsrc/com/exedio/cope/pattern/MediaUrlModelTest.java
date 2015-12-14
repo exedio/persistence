@@ -42,7 +42,7 @@ public final class MediaUrlModelTest extends CopeAssert
 	}
 
 	@SuppressWarnings("static-method")
-	public void testIt()
+	@Test public void testIt()
 	{
 		assertEqualsUnmodifiable(Arrays.asList(new Feature[]{
 				TYPE.getThis(),

@@ -54,7 +54,7 @@ public class DefaultToModelTest extends CopeAssert
 	public static final Model MODEL = new Model(TYPE);
 
 	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
-	public void testIt()
+	@Test public void testIt()
 	{
 		assertEquals(list(
 				TYPE.getThis(),

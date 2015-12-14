@@ -54,7 +54,7 @@ public class LimitedListFieldTest extends AbstractRuntimeModelTest
 		item = new LimitedListFieldItem(1, 2, 3);
 	}
 
-	public void testNum()
+	@Test public void testNum()
 	{
 		assertEquals(i1, item.getNum1());
 		assertEquals(i2, item.getNum2());
@@ -125,7 +125,7 @@ public class LimitedListFieldTest extends AbstractRuntimeModelTest
 		assertEqualsUnmodifiable(list(null, null, null), item.getNums());
 	}
 
-	public void testDate()
+	@Test public void testDate()
 	{
 		final Date ts1 = new Date(8172541283976l);
 		final Date ts2 = new Date(3874656234632l);
@@ -135,7 +135,7 @@ public class LimitedListFieldTest extends AbstractRuntimeModelTest
 		assertEquals(ts2, item.getDate1());
 	}
 
-	public void testString()
+	@Test public void testString()
 	{
 		item.setStrings(unmodifiableList(asList("hallo", "bello")));
 		assertEqualsUnmodifiable(list("hallo", "bello"), item.getStrings());
@@ -183,7 +183,7 @@ public class LimitedListFieldTest extends AbstractRuntimeModelTest
 		assertEquals(4, item3.getStringLength());
 	}
 
-	public void testNull()
+	@Test public void testNull()
 	{
 		assertEqualsUnmodifiable(list(), item.getStrings());
 
@@ -228,7 +228,7 @@ public class LimitedListFieldTest extends AbstractRuntimeModelTest
 		assertEquals(3, item.getStringLength());
 	}
 
-	public void testListSettableNull()
+	@Test public void testListSettableNull()
 	{
 		item.setStrings(asList("hallo", "bello"));
 		final SetValue<Collection<String>> map = strings.map(null);
@@ -246,7 +246,7 @@ public class LimitedListFieldTest extends AbstractRuntimeModelTest
 		assertEquals(asList("hallo", "bello"), item.getStrings());
 	}
 
-	public void testListSetNull()
+	@Test public void testListSetNull()
 	{
 		item.setStrings(asList("hallo", "bello"));
 
@@ -263,7 +263,7 @@ public class LimitedListFieldTest extends AbstractRuntimeModelTest
 		assertEquals(asList("hallo", "bello"), item.getStrings());
 	}
 
-	public void testContainsInJoin()
+	@Test public void testContainsInJoin()
 	{
 		final Query<LimitedListFieldItemFieldItem> q = LimitedListFieldItemFieldItem.TYPE.newQuery();
 		final Join j = q.join(LimitedListFieldItem.TYPE, limitedListFieldItem.equalTarget());
@@ -276,7 +276,7 @@ public class LimitedListFieldTest extends AbstractRuntimeModelTest
 			strings.contains(j, null).toString());
 	}
 
-	public void testContainsAny()
+	@Test public void testContainsAny()
 	{
 		final String f = "LimitedListFieldItem.strings-";
 		assertEquals("FALSE", strings.containsAny(Collections.<String>emptyList()).toString());
@@ -288,7 +288,7 @@ public class LimitedListFieldTest extends AbstractRuntimeModelTest
 			strings.containsAny(asList("a","b")).toString());
 	}
 
-	public void testContainsAnyInJoin()
+	@Test public void testContainsAnyInJoin()
 	{
 		final Query<LimitedListFieldItemFieldItem> q = LimitedListFieldItemFieldItem.TYPE.newQuery();
 		final Join join = q.join(LimitedListFieldItem.TYPE, limitedListFieldItem.equalTarget());

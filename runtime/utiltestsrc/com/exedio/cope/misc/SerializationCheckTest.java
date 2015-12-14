@@ -31,7 +31,7 @@ import java.lang.reflect.Field;
 
 public class SerializationCheckTest extends CopeAssert
 {
-	public void testIt() throws NoSuchFieldException
+	@Test public void testIt() throws NoSuchFieldException
 	{
 		try
 		{

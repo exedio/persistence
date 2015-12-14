@@ -55,7 +55,7 @@ public class AutoIncrementEvaluator extends RawDatabaseTest
 		super.tearDown();
 	}
 
-	public void testAutoIncrement() throws SQLException
+	@Test public void testAutoIncrement() throws SQLException
 	{
 		stat.execute("drop table if exists testAutoIncrement");
 		stat.execute(

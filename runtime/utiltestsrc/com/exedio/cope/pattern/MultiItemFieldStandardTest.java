@@ -105,7 +105,7 @@ public class MultiItemFieldStandardTest extends CopeAssert
 	}
 
 	@Test
-	public void testGetComponentClasses()
+	@Test public void testGetComponentClasses()
 	{
 		assertEqualsUnmodifiable(
 				asList(
@@ -121,7 +121,7 @@ public class MultiItemFieldStandardTest extends CopeAssert
 	}
 
 	@Test
-	public void testOf()
+	@Test public void testOf()
 	{
 		final List<ItemField<?>> c = AnMandatoryItem.field.getComponents();
 		assertEquals(2, c.size());
@@ -153,36 +153,36 @@ public class MultiItemFieldStandardTest extends CopeAssert
 	}
 
 	@Test
-	public void testGetInitialExceptionsMandatory()
+	@Test public void testGetInitialExceptionsMandatory()
 	{
 		assertContains(MandatoryViolationException.class, AnMandatoryItem.field.getInitialExceptions());
 	}
 
 	@Test
-	public void testGetInitialExceptionsOptional()
+	@Test public void testGetInitialExceptionsOptional()
 	{
 		assertContains(AnOptionalItem.field.getInitialExceptions());
 	}
 
 	@Test
-	public void testGetInitialType()
+	@Test public void testGetInitialType()
 	{
 		assertEquals(MultiItemFieldValue.class, AnMandatoryItem.field.getInitialType());
 	}
 
 	@Test
-	public void testIsFinal()
+	@Test public void testIsFinal()
 	{
 		assertEquals(true, AnFinalItem.field.isFinal());
 	}
 
 	@Test
-	public void testIsFinalFalse()
+	@Test public void testIsFinalFalse()
 	{
 		assertEquals(false, AnMandatoryItem.field.isFinal());
 	}
 
-	public void testIsInitial()
+	@Test public void testIsInitial()
 	{
 		assertEquals(true, AnMandatoryItem.field.isInitial());
 		assertEquals(false, AnOptionalItem.field.isInitial());
@@ -190,19 +190,19 @@ public class MultiItemFieldStandardTest extends CopeAssert
 	}
 
 	@Test
-	public void testIsMandatory()
+	@Test public void testIsMandatory()
 	{
 		assertEquals(true, AnMandatoryItem.field.isMandatory());
 	}
 
 	@Test
-	public void testIsMandatoryFalse()
+	@Test public void testIsMandatoryFalse()
 	{
 		assertEquals(false, AnOptionalItem.field.isMandatory());
 	}
 
 	@Test
-	public void testMandatoryCheckConstraint()
+	@Test public void testMandatoryCheckConstraint()
 	{
 		assertEquals(
 			"(" +
@@ -228,7 +228,7 @@ public class MultiItemFieldStandardTest extends CopeAssert
 	}
 
 	@Test
-	public void testOptionalCheckConstraint()
+	@Test public void testOptionalCheckConstraint()
 	{
 		assertEquals(
 			"(AnOptionalItem.field-MultiItemFieldComponentB is null OR" +
@@ -252,7 +252,7 @@ public class MultiItemFieldStandardTest extends CopeAssert
 	}
 
 	@Test
-	public void testDefaultPolicyForbid()
+	@Test public void testDefaultPolicyForbid()
 	{
 		assertEquals(FORBID, AnMandatoryItem.field.getDeletePolicy());
 		assertEquals(FORBID, AnMandatoryItem.field.getComponents().get(0).getDeletePolicy());
@@ -260,7 +260,7 @@ public class MultiItemFieldStandardTest extends CopeAssert
 	}
 
 	@Test
-	public void testCascadePolicy()
+	@Test public void testCascadePolicy()
 	{
 		assertEquals(CASCADE, AnCascadeItem.field.getDeletePolicy());
 		assertEquals(CASCADE, AnCascadeItem.field.getComponents().get(0).getDeletePolicy());
@@ -268,7 +268,7 @@ public class MultiItemFieldStandardTest extends CopeAssert
 	}
 
 	@Test
-	public void testEqualConditionNull3Classes()
+	@Test public void testEqualConditionNull3Classes()
 	{
 		assertEquals(
 				"(ThreeItem.mandatory-MultiItemFieldComponentA is null AND" +

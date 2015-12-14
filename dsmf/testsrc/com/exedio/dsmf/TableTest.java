@@ -36,7 +36,7 @@ public class TableTest extends SchemaReadyTest
 		return result;
 	}
 
-	public void testTables()
+	@Test public void testTables()
 	{
 		// OK
 		{

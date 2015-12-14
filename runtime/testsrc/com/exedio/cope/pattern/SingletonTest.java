@@ -46,7 +46,7 @@ public class SingletonTest extends AbstractRuntimeModelTest
 		super(MODEL);
 	}
 
-	public void testIt()
+	@Test public void testIt()
 	{
 		// test model
 		assertEquals(Arrays.asList(new Feature[]{

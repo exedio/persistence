@@ -26,7 +26,7 @@ import java.util.Date;
 
 public class FieldDateDaylightSavingTest extends FieldTest
 {
-	public void testSpring() throws ParseException
+	@Test public void testSpring() throws ParseException
 	{
 		final Date cutoff = date("2014/3/30 02:00:00.000 (+0100)");
 		assertDate(cutoff);
@@ -63,7 +63,7 @@ public class FieldDateDaylightSavingTest extends FieldTest
 		}
 	}
 
-	public void testAutumnStart() throws ParseException
+	@Test public void testAutumnStart() throws ParseException
 	{
 		final Date cutoff = date("2014/10/26 02:00:00.000 (+0200)");
 		assertDate(cutoff);
@@ -100,7 +100,7 @@ public class FieldDateDaylightSavingTest extends FieldTest
 		}
 	}
 
-	public void testAutumnEnd() throws ParseException
+	@Test public void testAutumnEnd() throws ParseException
 	{
 		final Date cutoff = date("2014/10/26 02:00:00.000 (+0100)");
 		assertDate(cutoff);

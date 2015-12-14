@@ -22,7 +22,7 @@ import com.exedio.cope.junit.CopeAssert;
 
 public class StringFieldTruncateTest extends CopeAssert
 {
-	public void testAddRemove()
+	@Test public void testAddRemove()
 	{
 		assertIt("'abcd'", "abcd");
 		assertIt(

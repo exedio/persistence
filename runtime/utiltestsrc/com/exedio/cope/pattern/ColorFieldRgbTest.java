@@ -26,7 +26,7 @@ import java.awt.Color;
 
 public class ColorFieldRgbTest extends CopeAssert
 {
-	public void test()
+	@Test public void test()
 	{
 		assertIt(new Color( 55,  66,  77),  3621453);
 		assertIt(new Color(255, 255, 255), 16777215);
@@ -46,7 +46,7 @@ public class ColorFieldRgbTest extends CopeAssert
 		assertIt(new Color( 55,  66,  77, 255),  3621453,     3621453);
 	}
 
-	public void testNull()
+	@Test public void testNull()
 	{
 		try
 		{

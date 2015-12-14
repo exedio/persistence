@@ -32,7 +32,7 @@ import com.exedio.cope.testmodel.EmptyItem;
 
 public class SearchTest extends TestmodelTest
 {
-	public void testEqualsAndHash()
+	@Test public void testEqualsAndHash()
 	{
 		assertEqualsAndHash(
 				Cope.and(someString.equal("a"),someNotNullString.equal("b")),
@@ -45,7 +45,7 @@ public class SearchTest extends TestmodelTest
 				Cope.and(someNotNullString.equal("b"),someString.equal("a")));
 	}
 
-	public void testIllegalSearch()
+	@Test public void testIllegalSearch()
 	{
 		final Query<EmptyItem> illegalQuery = EmptyItem.TYPE.newQuery(someInteger.equal(0));
 		try
@@ -68,7 +68,7 @@ public class SearchTest extends TestmodelTest
 		}
 	}
 
-	public void testSearch()
+	@Test public void testSearch()
 	{
 		final EmptyItem someItem = new EmptyItem();
 		final AttributeItem item = new AttributeItem("someString", 5, 6l, 2.2, true, someItem, AttributeItem.SomeEnum.enumValue1);

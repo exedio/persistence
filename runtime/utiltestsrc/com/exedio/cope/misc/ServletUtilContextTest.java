@@ -26,7 +26,7 @@ import com.exedio.cope.util.Properties.Source;
 public class ServletUtilContextTest extends CopeAssert
 {
 	@Deprecated
-	public void testIt()
+	@Test public void testIt()
 	{
 		{
 			final Source s = getPropertyContext(new TestContext("/testContextPath", "testContextPath."));

@@ -77,7 +77,7 @@ public class DefaultToTest extends AbstractRuntimeModelTest
 	}
 
 	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
-	public void testIt()
+	@Test public void testIt()
 	{
 		assertDefaultToNextSequenceName("DefaulToItem_inteNext_Seq", integerNext);
 

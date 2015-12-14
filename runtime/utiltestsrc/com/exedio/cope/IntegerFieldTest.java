@@ -28,7 +28,7 @@ import com.exedio.cope.junit.CopeAssert;
 
 public class IntegerFieldTest extends CopeAssert
 {
-	public void testQueryCanonize()
+	@Test public void testQueryCanonize()
 	{
 		final IntegerField any = new IntegerField().optional();
 		final IntegerField mandatory = new IntegerField();
@@ -137,7 +137,7 @@ public class IntegerFieldTest extends CopeAssert
 		assertEquals(cc(Operator.GreaterEqual, min4Max8, MAX_VALUE), min4Max8.greaterOrEqual(MAX_VALUE));
 	}
 
-	public void testOptional()
+	@Test public void testOptional()
 	{
 		final IntegerField orig = new IntegerField().optional();
 		assertEquals(false, orig.isFinal());
@@ -152,7 +152,7 @@ public class IntegerFieldTest extends CopeAssert
 		assertEquals(MAX_VALUE, copy.getMaximum());
 	}
 
-	public void testMin()
+	@Test public void testMin()
 	{
 		final IntegerField orig = new IntegerField().toFinal().optional().min(10);
 		assertEquals(true, orig.isFinal());
@@ -169,7 +169,7 @@ public class IntegerFieldTest extends CopeAssert
 		assertEquals(MAX_VALUE, copy.getMaximum());
 	}
 
-	public void testUnique()
+	@Test public void testUnique()
 	{
 		final IntegerField orig = new IntegerField().toFinal().optional().unique().min(20);
 		assertEquals(true, orig.isFinal());
@@ -186,7 +186,7 @@ public class IntegerFieldTest extends CopeAssert
 		assertEquals(MAX_VALUE, copy.getMaximum());
 	}
 
-	public void testMax()
+	@Test public void testMax()
 	{
 		final IntegerField orig = new IntegerField().toFinal().optional().max(30);
 		assertEquals(true, orig.isFinal());
@@ -203,7 +203,7 @@ public class IntegerFieldTest extends CopeAssert
 		assertEquals(30, copy.getMaximum());
 	}
 
-	public void testRange()
+	@Test public void testRange()
 	{
 		final IntegerField orig = new IntegerField().range(10, 20);
 		assertEquals(false, orig.isFinal());
@@ -218,7 +218,7 @@ public class IntegerFieldTest extends CopeAssert
 		assertEquals(20, copy.getMaximum());
 	}
 
-	public void testIllegalRange()
+	@Test public void testIllegalRange()
 	{
 		assertIllegalRange(0,  0,  "maximum must be greater than minimum, but was 0 and 0");
 		assertIllegalRange(22, 22, "maximum must be greater than minimum, but was 22 and 22");

@@ -35,7 +35,7 @@ public class ClusterNetworkChangeListenerTest extends ClusterNetworkTest
 		super.tearDown();
 	}
 
-	public void testSinglecast() throws InterruptedException, ChangeEvent.NotAvailableException
+	@Test public void testSinglecast() throws InterruptedException, ChangeEvent.NotAvailableException
 	{
 		modelA.connect(getProperties(false, 14446, 14447));
 		modelB.connect(getProperties(false, 14447, 14446));

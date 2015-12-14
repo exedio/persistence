@@ -28,7 +28,7 @@ public class QueryInfoTest extends AbstractRuntimeModelTest
 		super(SchemaTest.MODEL);
 	}
 
-	public void testExecutionPlan()
+	@Test public void testExecutionPlan()
 	{
 		final Transaction transaction = model.currentTransaction();
 		final Query<?> query = SchemaItem.TYPE.newQuery(SchemaItem.uniqueString.equal("zack"));

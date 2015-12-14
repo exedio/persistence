@@ -24,12 +24,12 @@ import junit.framework.TestCase;
 
 public class SamplerTest extends TestCase
 {
-	public void testToString()
+	@Test public void testToString()
 	{
 		assertEquals("Sampler#com.exedio.cope.sampler.Stuff#MODEL", sampler.toString());
 	}
 
-	public void testConstructorNull()
+	@Test public void testConstructorNull()
 	{
 		try
 		{
@@ -42,7 +42,7 @@ public class SamplerTest extends TestCase
 		}
 	}
 
-	public void testPurgeNegative()
+	@Test public void testPurgeNegative()
 	{
 		try
 		{
@@ -55,7 +55,7 @@ public class SamplerTest extends TestCase
 		}
 	}
 
-	public void testPurgeNull()
+	@Test public void testPurgeNull()
 	{
 		try
 		{

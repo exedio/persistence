@@ -42,7 +42,7 @@ public class ChangeListenersTest extends CopeAssert
 		super.tearDown();
 	}
 
-	public void testAddRemove()
+	@Test public void testAddRemove()
 	{
 		assertInfo(0, 0, 0);
 
@@ -59,7 +59,7 @@ public class ChangeListenersTest extends CopeAssert
 		assertInfo(0, 0, 1);
 	}
 
-	public void testAddNull()
+	@Test public void testAddNull()
 	{
 		assertEqualsUnmodifiable(list(), model.getChangeListeners());
 		assertInfo(0, 0, 0);
@@ -77,7 +77,7 @@ public class ChangeListenersTest extends CopeAssert
 		assertInfo(0, 0, 0);
 	}
 
-	public void testRemoveNull()
+	@Test public void testRemoveNull()
 	{
 		assertEqualsUnmodifiable(list(), model.getChangeListeners());
 		assertInfo(0, 0, 0);
@@ -95,7 +95,7 @@ public class ChangeListenersTest extends CopeAssert
 		assertInfo(0, 0, 0);
 	}
 
-	public void testRemoveMismatch()
+	@Test public void testRemoveMismatch()
 	{
 		assertEqualsUnmodifiable(list(), model.getChangeListeners());
 		assertInfo(0, 0, 0);
@@ -114,7 +114,7 @@ public class ChangeListenersTest extends CopeAssert
 		assertInfo(1, 0, 0);
 	}
 
-	public void testRemoveAll()
+	@Test public void testRemoveAll()
 	{
 		assertEqualsUnmodifiable(list(), model.getChangeListeners());
 		assertInfo(0, 0, 0);
@@ -134,7 +134,7 @@ public class ChangeListenersTest extends CopeAssert
 		assertInfo(0, 0, 2);
 	}
 
-	public void testRemoveAllEmpty()
+	@Test public void testRemoveAllEmpty()
 	{
 		assertEqualsUnmodifiable(list(), model.getChangeListeners());
 		assertInfo(0, 0, 0);
@@ -144,7 +144,7 @@ public class ChangeListenersTest extends CopeAssert
 		assertInfo(0, 0, 0);
 	}
 
-	public void testWeakness()
+	@Test public void testWeakness()
 	{
 		assertInfo(0, 0, 0);
 

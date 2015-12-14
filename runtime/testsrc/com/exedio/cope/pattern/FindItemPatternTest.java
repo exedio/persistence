@@ -45,7 +45,7 @@ public class FindItemPatternTest extends AbstractRuntimeModelTest
 		item.addToStrings("xxtwo");
 	}
 
-	public void test() throws NoSuchIDException
+	@Test public void test() throws NoSuchIDException
 	{
 		final List<? extends Item> items = strings.getRelationType().search(
 				stringsParent().equal(item),

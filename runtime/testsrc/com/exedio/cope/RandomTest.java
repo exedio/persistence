@@ -62,7 +62,7 @@ public class RandomTest extends AbstractRuntimeModelTest
 		expected6Sort = list(item2, item5, item1, item3, item4);
 	}
 
-	public void testModel()
+	@Test public void testModel()
 	{
 		// test equals/hashCode
 		assertEqualsAndHash(TYPE.random(5), TYPE.random(5));

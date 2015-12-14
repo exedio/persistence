@@ -28,7 +28,7 @@ import com.exedio.cope.junit.CopeAssert;
 
 public class CopeNameUtilTest extends CopeAssert
 {
-	public void testIt()
+	@Test public void testIt()
 	{
 		assertEquals("naked",        AnItem.naked.getName());
 		assertEquals("nameAnno",     AnItem.name .getName());

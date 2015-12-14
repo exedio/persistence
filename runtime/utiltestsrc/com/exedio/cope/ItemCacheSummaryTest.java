@@ -27,7 +27,7 @@ public class ItemCacheSummaryTest extends CopeAssert
 	private static final Date D1 = new Date(123456789);
 	private static final Date D2 = new Date(123456989);
 
-	public void testIt()
+	@Test public void testIt()
 	{
 		final ItemCacheInfo i1 = new ItemCacheInfo(null, 11, 21, 31, 41, 51, 61, 71, D1, 81, 91, 101, 111, 121, 141, 151, 161);
 		final ItemCacheInfo i2 = new ItemCacheInfo(null, 13, 23, 33, 43, 53, 63, 73, D2, 83, 93, 103, 113, 123, 143, 153, 163);
@@ -58,7 +58,7 @@ public class ItemCacheSummaryTest extends CopeAssert
 		assertEquals(324, ms.getStampsPurged());
 	}
 
-	public void testNull()
+	@Test public void testNull()
 	{
 		try
 		{
@@ -71,7 +71,7 @@ public class ItemCacheSummaryTest extends CopeAssert
 		}
 	}
 
-	public void testNullElement()
+	@Test public void testNullElement()
 	{
 		final ItemCacheInfo i1 = new ItemCacheInfo(null, 11, 21, 31, 41, 51, 61, 71, D1, 81, 91, 101, 111, 121, 131, 141, 151);
 		try
@@ -85,7 +85,7 @@ public class ItemCacheSummaryTest extends CopeAssert
 		}
 	}
 
-	public void testEmpty()
+	@Test public void testEmpty()
 	{
 		final ItemCacheSummary ms = new ItemCacheSummary(new ItemCacheInfo[]{});
 		assertEquals(0, ms.getLimit());

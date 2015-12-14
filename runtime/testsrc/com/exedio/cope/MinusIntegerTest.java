@@ -49,7 +49,7 @@ public class MinusIntegerTest extends AbstractRuntimeModelTest
 		item2 = new MinusIntegerItem(30, 4, 5);
 	}
 
-	public void testSum()
+	@Test public void testSum()
 	{
 		// test model
 		assertEquals(TYPE, viewAB.getType());

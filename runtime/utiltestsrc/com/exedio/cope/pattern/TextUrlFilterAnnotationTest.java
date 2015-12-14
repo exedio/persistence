@@ -32,7 +32,7 @@ import java.lang.annotation.Annotation;
 
 public class TextUrlFilterAnnotationTest extends CopeAssert
 {
-	public void testIt()
+	@Test public void testIt()
 	{
 		newType(AnItem.class);
 

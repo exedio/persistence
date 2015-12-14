@@ -53,7 +53,7 @@ public class DivideIntegerTest extends AbstractRuntimeModelTest
 		item2 = new DivideIntegerItem(30, 4, 5);
 	}
 
-	public void testSum()
+	@Test public void testSum()
 	{
 		// test model
 		assertEquals(TYPE, divideAB.getType());

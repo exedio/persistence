@@ -28,35 +28,35 @@ import junit.framework.TestCase;
 
 public class SetValueTest extends TestCase
 {
-	public void testNormal()
+	@Test public void testNormal()
 	{
 		final MockSettable settable = new MockSettable("alpha");
 		final SetValue<?> value = map(settable, "alphaValue");
 		assertEquals("alpha=alphaValue", value.toString());
 	}
 
-	public void testNormal2()
+	@Test public void testNormal2()
 	{
 		final MockSettable settable = new MockSettable("beta");
 		final SetValue<?> value = map(settable, "betaValue");
 		assertEquals("beta=betaValue", value.toString());
 	}
 
-	public void testNullValue()
+	@Test public void testNullValue()
 	{
 		final MockSettable settable = new MockSettable("gamma");
 		final SetValue<?> value = map(settable, null);
 		assertEquals("gamma=null", value.toString());
 	}
 
-	public void testNullValueAndNullToString()
+	@Test public void testNullValueAndNullToString()
 	{
 		final MockSettable settable = new MockSettable(null);
 		final SetValue<?> value = map(settable, null);
 		assertEquals("null=null", value.toString());
 	}
 
-	public void testEqualsAndHash()
+	@Test public void testEqualsAndHash()
 	{
 		final MockSettable settable = new MockSettable("alpha");
 		assertEqualsAndHash(
@@ -69,7 +69,7 @@ public class SetValueTest extends TestCase
 				map(settable, null));
 	}
 
-	public void testNullFeature()
+	@Test public void testNullFeature()
 	{
 		try
 		{

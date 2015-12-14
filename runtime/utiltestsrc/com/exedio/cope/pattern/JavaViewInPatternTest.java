@@ -51,7 +51,7 @@ public class JavaViewInPatternTest extends CopeAssert
 		private static final long serialVersionUID = 1l;
 	}
 
-	public void testIt()
+	@Test public void testIt()
 	{
 		TypesBound.newType(AnItem.class);
 	}

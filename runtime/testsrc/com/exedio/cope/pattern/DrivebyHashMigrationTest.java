@@ -34,7 +34,7 @@ public class DrivebyHashMigrationTest extends AbstractRuntimeModelTest
 		super(MODEL);
 	}
 
-	public void testSetNull()
+	@Test public void testSetNull()
 	{
 		final DrivebyHashMigrationItem item = new DrivebyHashMigrationItem("111111", 1.1);
 
@@ -67,7 +67,7 @@ public class DrivebyHashMigrationTest extends AbstractRuntimeModelTest
 		}
 	}
 
-	public void testMigratePasswordOnChange()
+	@Test public void testMigratePasswordOnChange()
 	{
 		final DrivebyHashMigrationItem item = new DrivebyHashMigrationItem("111111", 1.1);
 		assertLegacy(item);
@@ -79,7 +79,7 @@ public class DrivebyHashMigrationTest extends AbstractRuntimeModelTest
 		assertFalse(item.checkPassword("111111"));
 	}
 
-	public void testMigratePasswordOnCheck()
+	@Test public void testMigratePasswordOnCheck()
 	{
 		final DrivebyHashMigrationItem item = new DrivebyHashMigrationItem("111111A", 1.1);
 		assertLegacy(item);

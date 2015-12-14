@@ -32,7 +32,7 @@ import java.util.List;
 
 public class GenericResolverTest extends CopeAssert
 {
-	public void testIt()
+	@Test public void testIt()
 	{
 		@SuppressWarnings("rawtypes")
 		final GenericResolver<Interface> gr = neW(Interface.class);

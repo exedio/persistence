@@ -26,7 +26,7 @@ import com.exedio.cope.junit.CopeAssert;
 
 public class TypesBoundComplexTest extends CopeAssert
 {
-	public void testType()
+	@Test public void testType()
 	{
 		try
 		{

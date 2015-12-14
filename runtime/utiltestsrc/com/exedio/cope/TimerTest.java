@@ -47,7 +47,7 @@ public class TimerTest extends TestCase
 		super.tearDown();
 	}
 
-	public void testNormal()
+	@Test public void testNormal()
 	{
 		final Timer timer = new Timer(logger, "timerMsg");
 
@@ -70,7 +70,7 @@ public class TimerTest extends TestCase
 		log.assertEmpty();
 	}
 
-	public void testNullTimermsg()
+	@Test public void testNullTimermsg()
 	{
 		final Timer timer = new Timer(logger, null);
 
@@ -81,7 +81,7 @@ public class TimerTest extends TestCase
 		log.assertMessageMs(Level.INFO, "interval1Msg1 XXms total XXms");
 	}
 
-	public void testNullLogger()
+	@Test public void testNullLogger()
 	{
 		try
 		{

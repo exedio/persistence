@@ -33,7 +33,7 @@ import java.util.Properties;
 
 public class EnumMapFieldSchemaNameTest extends CopeAssert
 {
-	public void testIt()
+	@Test public void testIt()
 	{
 		assertIt("alpha-one", "alfa_one", AnItem.alpha, AnEnum.one);
 		assertIt("alpha-two", "alfa_woo", AnItem.alpha, AnEnum.two);

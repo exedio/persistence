@@ -28,7 +28,7 @@ public class DeleteHierarchyTest extends AbstractRuntimeModelTest
 		super(MODEL);
 	}
 
-	public void testIt()
+	@Test public void testIt()
 	{
 		// test model
 		assertEqualsUnmodifiable(list(), DeleteHierarchySource.TYPE.getDeclaredReferences());

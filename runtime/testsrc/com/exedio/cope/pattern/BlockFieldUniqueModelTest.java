@@ -45,7 +45,7 @@ public class BlockFieldUniqueModelTest extends CopeAssert
 		MODEL.enableSerialization(BlockFieldUniqueModelTest.class, "MODEL");
 	}
 
-	public void testIt()
+	@Test public void testIt()
 	{
 		assertEqualsUnmodifiable(Arrays.asList(new Feature[]{
 				AnItem.TYPE.getThis(),

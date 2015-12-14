@@ -50,7 +50,7 @@ public class EnumMapFieldTest extends AbstractRuntimeModelTest
 		itemX = new EnumMapFieldItem();
 	}
 
-	public void testIt()
+	@Test public void testIt()
 	{
 		assertEquals(null, item.getName(DE));
 		assertEquals(null, item.getNameLength(DE));
@@ -115,7 +115,7 @@ public class EnumMapFieldTest extends AbstractRuntimeModelTest
 		}
 	}
 
-	public void testSettable()
+	@Test public void testSettable()
 	{
 		assertEquals(null, item.getName(DE));
 		assertEquals(null, item.getName(EN));
@@ -142,7 +142,7 @@ public class EnumMapFieldTest extends AbstractRuntimeModelTest
 		assertEquals(null, item.getName(PL));
 	}
 
-	public void testSettableNull()
+	@Test public void testSettableNull()
 	{
 		try
 		{
@@ -156,7 +156,7 @@ public class EnumMapFieldTest extends AbstractRuntimeModelTest
 		}
 	}
 
-	public void testSettableNullValue()
+	@Test public void testSettableNullValue()
 	{
 		final EnumMap<Language, String> map = new EnumMap<>(Language.class);
 		map.put(DE, null);
@@ -167,7 +167,7 @@ public class EnumMapFieldTest extends AbstractRuntimeModelTest
 		assertEquals("namePL", item.getName(PL));
 	}
 
-	public void testMapSet()
+	@Test public void testMapSet()
 	{
 		final HashMap<Language, String> map = new HashMap<>();
 		final Map<Language, String> mapU = Collections.unmodifiableMap(map);
@@ -195,7 +195,7 @@ public class EnumMapFieldTest extends AbstractRuntimeModelTest
 		assertEqualsUnmodifiable(map(), item.getNameMap());
 	}
 
-	public void testMapSetNull()
+	@Test public void testMapSetNull()
 	{
 		try
 		{
@@ -209,7 +209,7 @@ public class EnumMapFieldTest extends AbstractRuntimeModelTest
 		}
 	}
 
-	public void testMapSetKeyNull()
+	@Test public void testMapSetKeyNull()
 	{
 		final HashMap<Language, String> map = new HashMap<>();
 		final Map<Language, String> mapU = Collections.unmodifiableMap(map);
@@ -231,7 +231,7 @@ public class EnumMapFieldTest extends AbstractRuntimeModelTest
 		assertEquals(map(PL, "namePL"), item.getNameMap());
 	}
 
-	public void testMapSetValueNull()
+	@Test public void testMapSetValueNull()
 	{
 		final HashMap<Language, String> map = new HashMap<>();
 		final Map<Language, String> mapU = Collections.unmodifiableMap(map);
@@ -253,7 +253,7 @@ public class EnumMapFieldTest extends AbstractRuntimeModelTest
 		assertEquals(map(PL, "namePL"), item.getNameMap());
 	}
 
-	public void testSubClass()
+	@Test public void testSubClass()
 	{
 		assertEquals(null, item.getName(SUBCLASS));
 

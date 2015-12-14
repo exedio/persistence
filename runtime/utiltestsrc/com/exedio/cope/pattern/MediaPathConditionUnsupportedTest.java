@@ -29,7 +29,7 @@ import javax.servlet.http.HttpServletResponse;
 
 public class MediaPathConditionUnsupportedTest extends CopeAssert
 {
-	public void testNull()
+	@Test public void testNull()
 	{
 		try
 		{
@@ -44,7 +44,7 @@ public class MediaPathConditionUnsupportedTest extends CopeAssert
 		}
 	}
 
-	public void testNullJoin()
+	@Test public void testNullJoin()
 	{
 		try
 		{
@@ -59,7 +59,7 @@ public class MediaPathConditionUnsupportedTest extends CopeAssert
 		}
 	}
 
-	public void testNotNull()
+	@Test public void testNotNull()
 	{
 		try
 		{
@@ -74,7 +74,7 @@ public class MediaPathConditionUnsupportedTest extends CopeAssert
 		}
 	}
 
-	public void testNotNullJoin()
+	@Test public void testNotNullJoin()
 	{
 		try
 		{

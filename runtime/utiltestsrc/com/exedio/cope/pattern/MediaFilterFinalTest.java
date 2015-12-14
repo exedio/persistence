@@ -24,7 +24,7 @@ import com.exedio.cope.junit.CopeAssert;
 
 public class MediaFilterFinalTest extends CopeAssert
 {
-	public void testIt()
+	@Test public void testIt()
 	{
 		assertEquals(false, AnItem.sourceNonFinal.isFinal());
 		assertEquals(true , AnItem.sourceFinal   .isFinal());

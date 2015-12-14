@@ -29,7 +29,7 @@ public class HiddenFeatureTest extends AbstractRuntimeModelTest
 		super(MODEL);
 	}
 
-	public void testHierarchy()
+	@Test public void testHierarchy()
 	{
 		final This<?> spt = HiddenFeatureSuperItem.TYPE.getThis();
 		final This<?> sbt = HiddenFeatureSubItem.TYPE.getThis();

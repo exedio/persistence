@@ -25,7 +25,7 @@ public class SQLInjectionTest extends SchemaTest
 	private static final String TABLE = "InjectionTable";
 	private static final String COLUMN = "injectionColumn";
 
-	public void testTableCreate()
+	@Test public void testTableCreate()
 	{
 		final String BAD_TABLE_PRE = p("Injection1") + " (badColumn varchar(30) ) --  ";
 		final String BAD_TABLE = BAD_TABLE_PRE.substring(1);
@@ -45,7 +45,7 @@ public class SQLInjectionTest extends SchemaTest
 		}
 	}
 
-	public void testColumnCreate()
+	@Test public void testColumnCreate()
 	{
 		final String BAD_COLUMN_PRE = p("badColumn1")+" varchar(30), " + p("badColumn2");
 		final String BAD_COLUMN = BAD_COLUMN_PRE.substring(1, BAD_COLUMN_PRE.length()-1);

@@ -28,7 +28,7 @@ public class QuerySearchSizeCacheLimitSetTest extends AbstractRuntimeModelTest
 		super(DayFieldTest.MODEL);
 	}
 
-	public void testIt()
+	@Test public void testIt()
 	{
 		final int defaulT = model.getConnectProperties().getQueryCacheSizeLimit();
 		final Query<?> q = TYPE.newQuery();

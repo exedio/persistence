@@ -36,7 +36,7 @@ public class ColumnTest extends SchemaReadyTest
 		return result;
 	}
 
-	public void testColumns()
+	@Test public void testColumns()
 	{
 		// OK
 		{

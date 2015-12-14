@@ -22,7 +22,7 @@ import com.exedio.cope.junit.CopeAssert;
 
 public class TypeMountTest extends CopeAssert
 {
-	public void testIt()
+	@Test public void testIt()
 	{
 		final Type<Item1> type1 = Item1.TYPE;
 		final Type<Item2> type2 = Item2.TYPE;

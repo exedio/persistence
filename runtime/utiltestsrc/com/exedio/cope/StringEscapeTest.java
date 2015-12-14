@@ -22,7 +22,7 @@ import junit.framework.TestCase;
 
 public class StringEscapeTest extends TestCase
 {
-	public void testIt()
+	@Test public void testIt()
 	{
 		assertEquals("NULL", e(null));
 		assertEquals("''", e(""));

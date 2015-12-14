@@ -32,7 +32,7 @@ public class UniqueDoubleTest extends AbstractRuntimeModelTest
 		super(UniqueDoubleModelTest.MODEL);
 	}
 
-	public void test()
+	@Test public void test()
 	{
 		assertEquals(null, forConstraint("a", 1));
 

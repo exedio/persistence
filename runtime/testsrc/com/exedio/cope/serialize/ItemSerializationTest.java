@@ -57,7 +57,7 @@ public class ItemSerializationTest extends AbstractRuntimeModelTest
 		item = new ItemSerializationItem("eins");
 	}
 
-	public void testItem()
+	@Test public void testItem()
 	{
 		final String id = item.getCopeID();
 		assertSame(TYPE, item.getCopeType());
@@ -78,7 +78,7 @@ public class ItemSerializationTest extends AbstractRuntimeModelTest
 		assertEquals("zwei", item.getName());
 	}
 
-	public void testUnboundItem()
+	@Test public void testUnboundItem()
 	{
 		item.setList(Arrays.asList("zack"));
 		final Item unboundItem =

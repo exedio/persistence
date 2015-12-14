@@ -62,7 +62,7 @@ public class DivideDoubleTest extends AbstractRuntimeModelTest
 	private static final Double dAC = Double.valueOf(2.125);
 	private static final Double dBC = Double.valueOf(0.625);
 
-	public void testSum()
+	@Test public void testSum()
 	{
 		// test model
 		assertEquals(TYPE, divideAB.getType());

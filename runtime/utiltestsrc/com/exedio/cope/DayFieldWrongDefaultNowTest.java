@@ -47,7 +47,7 @@ public class DayFieldWrongDefaultNowTest extends CopeAssert
 		super.tearDown();
 	}
 
-	public void testIt()
+	@Test public void testIt()
 	{
 		newType(AnItem.class);
 		log.assertMessage(

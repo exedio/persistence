@@ -20,7 +20,7 @@ package com.exedio.cope.junit;
 
 public class CopeModelTestTestBefore extends CopeModelTestTest
 {
-	public void testBefore()
+	@Test public void testBefore()
 	{
 		doTest();
 	}

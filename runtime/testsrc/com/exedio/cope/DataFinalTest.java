@@ -42,7 +42,7 @@ public class DataFinalTest extends AbstractRuntimeModelTest
 		item = new DataFinalItem(toValue(bytes4));
 	}
 
-	public void testData() throws MandatoryViolationException, IOException
+	@Test public void testData() throws MandatoryViolationException, IOException
 	{
 		// test model
 		assertEquals(true, data.isFinal());

@@ -39,7 +39,7 @@ public class ItemCacheStampEvaluator extends CopeAssert
 {
 	private static final int ITERATIONS = 10000000;
 
-	public void testIt()
+	@Test public void testIt()
 	{
 		{
 			final long start = System.nanoTime();

@@ -42,7 +42,7 @@ public class ItemCacheDataTest extends AbstractRuntimeModelTest
 		item = new ItemCacheDataItem();
 	}
 
-	public void testNull()
+	@Test public void testNull()
 	{
 		try
 		{
@@ -55,7 +55,7 @@ public class ItemCacheDataTest extends AbstractRuntimeModelTest
 		}
 	}
 
-	public void testCommitSingleString()
+	@Test public void testCommitSingleString()
 	{
 		assertUpdateCount(0, MIN_VALUE);
 
@@ -73,7 +73,7 @@ public class ItemCacheDataTest extends AbstractRuntimeModelTest
 		assertUpdateCount(2, 1);
 	}
 
-	public void testCommitSingleData()
+	@Test public void testCommitSingleData()
 	{
 		assertUpdateCount(0, MIN_VALUE);
 
@@ -91,7 +91,7 @@ public class ItemCacheDataTest extends AbstractRuntimeModelTest
 		assertUpdateCount(1, 0);
 	}
 
-	public void testCommitMultiEmpty()
+	@Test public void testCommitMultiEmpty()
 	{
 		assertUpdateCount(0, MIN_VALUE);
 
@@ -109,7 +109,7 @@ public class ItemCacheDataTest extends AbstractRuntimeModelTest
 		assertUpdateCount(1, 0);
 	}
 
-	public void testCommitMultiString()
+	@Test public void testCommitMultiString()
 	{
 		assertUpdateCount(0, MIN_VALUE);
 
@@ -127,7 +127,7 @@ public class ItemCacheDataTest extends AbstractRuntimeModelTest
 		assertUpdateCount(2, 1);
 	}
 
-	public void testCommitMultiData()
+	@Test public void testCommitMultiData()
 	{
 		assertUpdateCount(0, MIN_VALUE);
 
@@ -145,7 +145,7 @@ public class ItemCacheDataTest extends AbstractRuntimeModelTest
 		assertUpdateCount(1, 0);
 	}
 
-	public void testCommitMultiBoth()
+	@Test public void testCommitMultiBoth()
 	{
 		assertUpdateCount(0, MIN_VALUE);
 
@@ -163,7 +163,7 @@ public class ItemCacheDataTest extends AbstractRuntimeModelTest
 		assertUpdateCount(2, 1);
 	}
 
-	public void testRollbackSingleString()
+	@Test public void testRollbackSingleString()
 	{
 		assertUpdateCount(0, MIN_VALUE);
 
@@ -181,7 +181,7 @@ public class ItemCacheDataTest extends AbstractRuntimeModelTest
 		assertUpdateCount(1, 0);
 	}
 
-	public void testRollbackSingleData()
+	@Test public void testRollbackSingleData()
 	{
 		assertUpdateCount(0, MIN_VALUE);
 
@@ -199,7 +199,7 @@ public class ItemCacheDataTest extends AbstractRuntimeModelTest
 		assertUpdateCount(1, 0);
 	}
 
-	public void testRollbackMultiEmpty()
+	@Test public void testRollbackMultiEmpty()
 	{
 		assertUpdateCount(0, MIN_VALUE);
 
@@ -217,7 +217,7 @@ public class ItemCacheDataTest extends AbstractRuntimeModelTest
 		assertUpdateCount(1, 0);
 	}
 
-	public void testRollbackMultiString()
+	@Test public void testRollbackMultiString()
 	{
 		assertUpdateCount(0, MIN_VALUE);
 
@@ -235,7 +235,7 @@ public class ItemCacheDataTest extends AbstractRuntimeModelTest
 		assertUpdateCount(1, 0);
 	}
 
-	public void testRollbackMultiData()
+	@Test public void testRollbackMultiData()
 	{
 		assertUpdateCount(0, MIN_VALUE);
 
@@ -253,7 +253,7 @@ public class ItemCacheDataTest extends AbstractRuntimeModelTest
 		assertUpdateCount(1, 0);
 	}
 
-	public void testRollbackMultiBoth()
+	@Test public void testRollbackMultiBoth()
 	{
 		assertUpdateCount(0, MIN_VALUE);
 

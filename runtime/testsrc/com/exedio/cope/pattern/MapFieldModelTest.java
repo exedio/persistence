@@ -46,7 +46,7 @@ public class MapFieldModelTest extends CopeAssert
 		MODEL.enableSerialization(MapFieldModelTest.class, "MODEL");
 	}
 
-	public void testIt()
+	@Test public void testIt()
 	{
 		assertEquals(TYPE, name.getType());
 		assertEquals("name", name.getName());
@@ -124,7 +124,7 @@ public class MapFieldModelTest extends CopeAssert
 	}
 
 	@SuppressFBWarnings("NP_NULL_PARAM_DEREF_NONVIRTUAL")
-	public void testFailures()
+	@Test public void testFailures()
 	{
 		try
 		{

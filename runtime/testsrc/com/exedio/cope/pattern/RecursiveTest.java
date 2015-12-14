@@ -36,7 +36,7 @@ public class RecursiveTest extends AbstractRuntimeModelTest
 		super(MODEL);
 	}
 
-	public void testIt()
+	@Test public void testIt()
 	{
 		// type
 		assertEqualsUnmodifiable(
@@ -136,7 +136,7 @@ public class RecursiveTest extends AbstractRuntimeModelTest
 	}
 
 	@Deprecated
-	public void testDeprecated()
+	@Test public void testDeprecated()
 	{
 		assertEqualsUnmodifiable(list(
 					testPattern.fetch

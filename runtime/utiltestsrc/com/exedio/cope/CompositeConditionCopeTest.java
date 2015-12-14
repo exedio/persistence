@@ -32,7 +32,7 @@ import java.util.List;
 
 public class CompositeConditionCopeTest extends CopeAssert
 {
-	public void testIt()
+	@Test public void testIt()
 	{
 		final DoubleField field = new DoubleField().optional();
 		final Condition c1 = field.equal(1d);

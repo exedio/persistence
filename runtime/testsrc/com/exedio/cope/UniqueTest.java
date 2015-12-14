@@ -38,7 +38,7 @@ public class UniqueTest extends AbstractRuntimeModelTest
 		super(MODEL);
 	}
 
-	public void testItemWithSingleUnique()
+	@Test public void testItemWithSingleUnique()
 			throws IntegrityViolationException, UniqueViolationException, NoSuchIDException
 	{
 		// test model
@@ -272,7 +272,7 @@ public class UniqueTest extends AbstractRuntimeModelTest
 		assertDelete(item);
 	}
 
-	public void testMultipleSet()
+	@Test public void testMultipleSet()
 	{
 		final UniqueSingleItem item1 = new UniqueSingleItem();
 		final UniqueSingleItem item2 = new UniqueSingleItem();
@@ -319,7 +319,7 @@ public class UniqueTest extends AbstractRuntimeModelTest
 		assertEquals("otherString1", item2.getOtherString());
 	}
 
-	public void testUniqueFinal()
+	@Test public void testUniqueFinal()
 	{
 		assertEquals(null, UniqueFinalItem.forUniqueFinalString("uniqueString"));
 
@@ -345,7 +345,7 @@ public class UniqueTest extends AbstractRuntimeModelTest
 		assertDelete(item);
 	}
 
-	public void testItemWithSingleUniqueNotNull()
+	@Test public void testItemWithSingleUniqueNotNull()
 	{
 		assertEquals(null, UniqueSingleNotNullItem.forUniqueNotNullString("uniqueString"));
 		assertEquals(null, UniqueSingleNotNullItem.forUniqueNotNullString("uniqueString2"));

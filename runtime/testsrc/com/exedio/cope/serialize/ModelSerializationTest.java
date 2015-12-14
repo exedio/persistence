@@ -51,7 +51,7 @@ public class ModelSerializationTest extends CopeAssert
 	private static final Class<?> itemClass = ModelSerializationItem.class;
 	private static final Class<?> testClass = ModelSerializationTest.class;
 
-	public void test() throws IOException
+	@Test public void test() throws IOException
 	{
 		assertEquals(false, model.isSerializationEnabled());
 		assertNotSerializable(model, Model.class);

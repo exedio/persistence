@@ -24,7 +24,7 @@ import org.junit.Test;
 public class MultiItemFieldErrorTest extends CopeAssert
 {
 	@Test
-	public void testCreateNoInterface()
+	@Test public void testCreateNoInterface()
 	{
 		try
 		{
@@ -39,7 +39,7 @@ public class MultiItemFieldErrorTest extends CopeAssert
 
 	@SuppressWarnings({"unchecked", "rawtypes"})
 	@Test
-	public void testCreateNoComponentClass()
+	@Test public void testCreateNoComponentClass()
 	{
 		try
 		{
@@ -56,7 +56,7 @@ public class MultiItemFieldErrorTest extends CopeAssert
 
 	@SuppressWarnings({"unchecked", "rawtypes"})
 	@Test
-	public void testCreateOnlyOneComponentClass()
+	@Test public void testCreateOnlyOneComponentClass()
 	{
 		try
 		{
@@ -72,7 +72,7 @@ public class MultiItemFieldErrorTest extends CopeAssert
 	}
 
 	@Test
-	public void testCreateNull()
+	@Test public void testCreateNull()
 	{
 		try
 		{
@@ -88,7 +88,7 @@ public class MultiItemFieldErrorTest extends CopeAssert
 	}
 
 	@Test
-	public void testCreateNotAssignable()
+	@Test public void testCreateNotAssignable()
 	{
 		try
 		{
@@ -105,7 +105,7 @@ public class MultiItemFieldErrorTest extends CopeAssert
 	}
 
 	@Test
-	public void testCreateComponentClassesNotAllowedToBeSuperClassesOfEachOther()
+	@Test public void testCreateComponentClassesNotAllowedToBeSuperClassesOfEachOther()
 	{
 		try
 		{
@@ -124,7 +124,7 @@ public class MultiItemFieldErrorTest extends CopeAssert
 	}
 
 	@Test
-	public void testCreateCopyNullComponent()
+	@Test public void testCreateCopyNullComponent()
 	{
 		final MultiItemField<?> field = MultiItemField.create(
 				MultiItemFieldValue.class,
@@ -142,7 +142,7 @@ public class MultiItemFieldErrorTest extends CopeAssert
 	}
 
 	@Test
-	public void testCreateCopyNoSuchComponent()
+	@Test public void testCreateCopyNoSuchComponent()
 	{
 		final MultiItemField<?> field = MultiItemField.create(
 				MultiItemFieldValue.class,
@@ -165,7 +165,7 @@ public class MultiItemFieldErrorTest extends CopeAssert
 	}
 
 	@Test
-	public void testCreateCopyNullCopy()
+	@Test public void testCreateCopyNullCopy()
 	{
 		final MultiItemField<?> field = MultiItemField.create(
 				MultiItemFieldValue.class,

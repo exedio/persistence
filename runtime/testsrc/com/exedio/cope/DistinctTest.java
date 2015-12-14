@@ -45,7 +45,7 @@ public class DistinctTest extends AbstractRuntimeModelTest
 		item4 = new PlusIntegerItem(2, 4, 0);
 	}
 
-	public void testDistinctSingle()
+	@Test public void testDistinctSingle()
 	{
 		final Query<Integer> q = new Query<>(numB, TYPE, null);
 		assertContains(2, 3, 4, 4, 4, q.search());
@@ -74,7 +74,7 @@ public class DistinctTest extends AbstractRuntimeModelTest
 		assertEquals(3, q.total());
 	}
 
-	public void testDistinctMulti()
+	@Test public void testDistinctMulti()
 	{
 		final Query<List<Object>> q = newQuery(new Function<?>[]{numA, numB}, TYPE, null);
 		assertContains(
@@ -175,7 +175,7 @@ public class DistinctTest extends AbstractRuntimeModelTest
 		assertEquals(3, q.total());
 	}
 
-	public void testDistinctDuplicateColumns()
+	@Test public void testDistinctDuplicateColumns()
 	{
 		final Query<List<Object>> q = newQuery(new Function<?>[]{numA, numA}, TYPE, null);
 		assertContains(

@@ -64,7 +64,7 @@ public final class MediaTest extends AbstractRuntimeModelTest
 		item = new MediaItem("test media item");
 	}
 
-	public void testData() throws IOException
+	@Test public void testData() throws IOException
 	{
 		assertEquals(0, bytes0.length);
 		assertEquals(4, bytes4.length);
@@ -136,7 +136,7 @@ public final class MediaTest extends AbstractRuntimeModelTest
 		assertSerializedSame(custom, 374);
 	}
 
-	public void testConditions()
+	@Test public void testConditions()
 	{
 		final MediaItem item2 = new MediaItem("other media item");
 		new MediaItemHolder(item);
@@ -174,7 +174,7 @@ public final class MediaTest extends AbstractRuntimeModelTest
 
 
 	@Deprecated
-	public static void testDeprecated()
+	@Test public static void testDeprecated()
 	{
 		try
 		{

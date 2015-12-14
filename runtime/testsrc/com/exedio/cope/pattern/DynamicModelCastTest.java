@@ -51,7 +51,7 @@ public class DynamicModelCastTest extends AbstractRuntimeModelTest
 		item = new ModelItem("item");
 	}
 
-	public void testIt()
+	@Test public void testIt()
 	{
 		final Type<Locale> alpha1 = ModelItem.alpha.createType("alpha1");
 		final Type<Locale> alpha2 = ModelItem.alpha.createType("alpha2");

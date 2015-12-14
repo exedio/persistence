@@ -33,7 +33,7 @@ import java.util.Iterator;
 
 public class SampleTest extends ConnectedTest
 {
-	public void testIt() throws InterruptedException
+	@Test public void testIt() throws InterruptedException
 	{
 		samplerModel.createSchema();
 		sampler.checkInternal();

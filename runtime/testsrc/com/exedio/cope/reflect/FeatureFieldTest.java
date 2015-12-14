@@ -42,7 +42,7 @@ public class FeatureFieldTest extends AbstractRuntimeModelTest
 
 	FeatureFieldItem item;
 
-	public void testIt()
+	@Test public void testIt()
 	{
 		assertEquals("feature", SchemaInfo.getColumnName(FeatureFieldItem.feature.getIdField()));
 		assertEquals("featureNewname", SchemaInfo.getColumnName(FeatureFieldItem.featureRenamed.getIdField()));

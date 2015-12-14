@@ -51,7 +51,7 @@ public class RenamedSchemaTest extends AbstractRuntimeModelTest
 		return false;
 	}
 
-	public void testSchema()
+	@Test public void testSchema()
 	{
 		assertEquals(filterTableName("ZackItem"), getTableName(TYPE));
 		assertPrimaryKeySequenceName("ZackItem_this_Seq", TYPE);

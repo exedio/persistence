@@ -45,7 +45,7 @@ public class CheckConstraintHierarchySchemaTest extends AbstractRuntimeModelTest
 		return false;
 	}
 
-	public void testSchema()
+	@Test public void testSchema()
 	{
 		final Schema schema = model.getVerifiedSchema();
 

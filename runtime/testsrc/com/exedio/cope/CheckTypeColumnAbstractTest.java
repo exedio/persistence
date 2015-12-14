@@ -53,7 +53,7 @@ public class CheckTypeColumnAbstractTest extends AbstractRuntimeModelTest
 		super.tearDown();
 	}
 
-	public void testIt() throws SQLException
+	@Test public void testIt() throws SQLException
 	{
 		assertEquals(0, HierarchySingleSuper.TYPE.checkCompleteness(HierarchySingleSub.TYPE));
 

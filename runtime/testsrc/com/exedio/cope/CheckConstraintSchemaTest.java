@@ -42,7 +42,7 @@ public class CheckConstraintSchemaTest extends AbstractRuntimeModelTest
 		return false;
 	}
 
-	public void testMeta()
+	@Test public void testMeta()
 	{
 		final Schema schema = model.getVerifiedSchema();
 

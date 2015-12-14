@@ -44,7 +44,7 @@ public final class CompositeFieldRenamedSchemaTest extends AbstractRuntimeModelT
 		super(MODEL);
 	}
 
-	public static void testIt()
+	@Test public static void testIt()
 	{
 		assertEquals(null,        ann(virgnTemp));
 		assertEquals("namedTemp", ann(wrongTemp));

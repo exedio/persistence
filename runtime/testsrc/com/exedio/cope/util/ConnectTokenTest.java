@@ -47,7 +47,7 @@ public class ConnectTokenTest extends CopeAssert
 	}
 
 	@Deprecated
-	public void testIt()
+	@Test public void testIt()
 	{
 		try
 		{

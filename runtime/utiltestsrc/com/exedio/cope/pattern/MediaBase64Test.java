@@ -22,7 +22,7 @@ import com.exedio.cope.junit.CopeAssert;
 
 public class MediaBase64Test extends CopeAssert
 {
-	public void testIt()
+	@Test public void testIt()
 	{
 		assertIt(   "",   0);
 		assertIt(  "B",   1);

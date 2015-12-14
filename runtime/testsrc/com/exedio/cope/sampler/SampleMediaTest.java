@@ -31,7 +31,7 @@ public class SampleMediaTest extends ConnectedTest
 		return false;
 	}
 
-	public void testNormal() throws InterruptedException
+	@Test public void testNormal() throws InterruptedException
 	{
 		samplerModel.createSchema();
 
@@ -63,7 +63,7 @@ public class SampleMediaTest extends ConnectedTest
 		}
 	}
 
-	public void testEmptyStart() throws InterruptedException
+	@Test public void testEmptyStart() throws InterruptedException
 	{
 		samplerModel.createSchema();
 

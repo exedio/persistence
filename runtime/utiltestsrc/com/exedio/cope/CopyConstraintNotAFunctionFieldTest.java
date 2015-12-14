@@ -22,7 +22,7 @@ import junit.framework.TestCase;
 
 public class CopyConstraintNotAFunctionFieldTest extends TestCase
 {
-	public void testIt()
+	@Test public void testIt()
 	{
 		try
 		{

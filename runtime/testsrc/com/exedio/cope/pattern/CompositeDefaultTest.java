@@ -35,7 +35,7 @@ public class CompositeDefaultTest extends AbstractRuntimeModelTest
 		super(MODEL);
 	}
 
-	public void testIt()
+	@Test public void testIt()
 	{
 		final CompositeDefaultItem isDefault = new CompositeDefaultItem();
 		assertNull(isDefault.getField());

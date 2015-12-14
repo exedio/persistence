@@ -64,7 +64,7 @@ public class ConnectTokenTest extends CopeAssert
 		super.tearDown();
 	}
 
-	public void testIt()
+	@Test public void testIt()
 	{
 		assertSame(props, getProperties(model));
 		assertNotConnected();
@@ -169,7 +169,7 @@ public class ConnectTokenTest extends CopeAssert
 		log.assertEmpty();
 	}
 
-	public void testConditionally()
+	@Test public void testConditionally()
 	{
 		assertNotConnected();
 
@@ -225,7 +225,7 @@ public class ConnectTokenTest extends CopeAssert
 		log.assertWarn("" + model + ": returned 0 excessively (token0Name)");
 	}
 
-	public void testNullName()
+	@Test public void testNullName()
 	{
 		assertNotConnected();
 
@@ -247,7 +247,7 @@ public class ConnectTokenTest extends CopeAssert
 		log.assertInfo("" + model + ": disconnected 0 (null)");
 	}
 
-	public void testSetDuplicate()
+	@Test public void testSetDuplicate()
 	{
 		try
 		{

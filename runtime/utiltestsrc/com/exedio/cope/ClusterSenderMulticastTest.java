@@ -72,7 +72,7 @@ public final class ClusterSenderMulticastTest extends CopeAssert
 		super.tearDown();
 	}
 
-	public void testIt() throws IOException
+	@Test public void testIt() throws IOException
 	{
 		final byte[] b = new byte[]{10, 10, 10, 10, 10, 10, 10};
 		sender.send(b.length, b);

@@ -117,7 +117,7 @@ public class DataTest extends AbstractRuntimeModelTest
 	}
 
 	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
-	public void testData() throws MandatoryViolationException, IOException
+	@Test public void testData() throws MandatoryViolationException, IOException
 	{
 		assertIt(null);
 
@@ -339,7 +339,7 @@ public class DataTest extends AbstractRuntimeModelTest
 	}
 
 	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad API usage
-	public void testUnchecked()
+	@Test public void testUnchecked()
 	{
 		data.set(item, bytes8);
 		assertData(bytes8, item.getDataArray());
@@ -370,7 +370,7 @@ public class DataTest extends AbstractRuntimeModelTest
 		assertData(bytes8, item.getDataArray());
 	}
 
-	public void testSchema()
+	@Test public void testSchema()
 	{
 		assertSchema();
 	}

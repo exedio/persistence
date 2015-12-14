@@ -24,19 +24,19 @@ import junit.framework.TestCase;
 
 public class ItemCacheLimitTest extends TestCase
 {
-	public void testNormal()
+	@Test public void testNormal()
 	{
 		model.connect(props(10100));
 		assertLimits(10000, 100);
 	}
 
-	public void testMuch()
+	@Test public void testMuch()
 	{
 		model.connect(props(101000));
 		assertLimits(100000, 1000);
 	}
 
-	public void testOverflow()
+	@Test public void testOverflow()
 	{
 		model.connect(props(1010000));
 		assertLimits(1000000, 10000);

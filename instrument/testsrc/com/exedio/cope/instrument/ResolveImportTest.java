@@ -31,7 +31,7 @@ import junit.framework.TestCase;
 public class ResolveImportTest extends TestCase
 {
 
-	public void testImports() throws ParserException
+	@Test public void testImports() throws ParserException
 	{
 		final JavaRepository repository = new JavaRepository();
 		final JavaFile file = new JavaFile(repository);

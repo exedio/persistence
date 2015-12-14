@@ -46,7 +46,7 @@ public class DateFieldWrongDefaultNowTest extends CopeAssert
 		super.tearDown();
 	}
 
-	public void testIt()
+	@Test public void testIt()
 	{
 		newType(AnItem.class);
 		log.assertMessage(

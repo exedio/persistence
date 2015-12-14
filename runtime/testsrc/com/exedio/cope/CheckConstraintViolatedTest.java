@@ -46,7 +46,7 @@ public class CheckConstraintViolatedTest extends AbstractRuntimeModelTest
 		return false;
 	}
 
-	public void testIt() throws SQLException
+	@Test public void testIt() throws SQLException
 	{
 		assertEquals(true, alphaLessBeta.isSupportedBySchemaIfSupportedByDialect());
 		model.checkUnsupportedConstraints();

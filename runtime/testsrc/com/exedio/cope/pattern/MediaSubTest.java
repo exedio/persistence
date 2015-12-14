@@ -49,7 +49,7 @@ public class MediaSubTest extends AbstractRuntimeModelTest
 		item = new MediaItem("test media item");
 	}
 
-	public void testIt() throws IOException
+	@Test public void testIt() throws IOException
 	{
 		// test model
 

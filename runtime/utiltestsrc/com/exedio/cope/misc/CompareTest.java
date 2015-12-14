@@ -27,14 +27,14 @@ import java.nio.charset.StandardCharsets;
 public class CompareTest extends CopeAssert
 {
 	@Deprecated // OK: testing deprecated api
-	public void testIt()
+	@Test public void testIt()
 	{
 		assertEquals( 0, compare(0, 0));
 		assertEquals(-1, compare(0, 1));
 		assertEquals( 1, compare(1, 0));
 	}
 
-	public void testStandardCharsets()
+	@Test public void testStandardCharsets()
 	{
 		assertEquals(CharsetName.UTF8, StandardCharsets.UTF_8.name());
 	}

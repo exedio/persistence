@@ -46,7 +46,7 @@ public class ScheduleModelTest extends CopeAssert
 		MODEL.enableSerialization(ScheduleModelTest.class, "MODEL");
 	}
 
-	public void testIt()
+	@Test public void testIt()
 	{
 		assertEqualsUnmodifiable(list(TYPE, report.getRunType()), MODEL.getTypes());
 		assertEquals(ScheduleItem.class, TYPE.getJavaClass());
@@ -102,7 +102,7 @@ public class ScheduleModelTest extends CopeAssert
 		assertEquals("elapsed",report.getRunElapsed().getName());
 	}
 
-	public void testConstructionParameters()
+	@Test public void testConstructionParameters()
 	{
 		assertEquals("Europe/Berlin", report.getTimeZone().getID());
 		assertSame(Locale.GERMAN, report.getLocale());
@@ -111,7 +111,7 @@ public class ScheduleModelTest extends CopeAssert
 		assertEquals(false, cal.isLenient());
 	}
 
-	public void testTimeZoneNull()
+	@Test public void testTimeZoneNull()
 	{
 		try
 		{
@@ -124,7 +124,7 @@ public class ScheduleModelTest extends CopeAssert
 		}
 	}
 
-	public void testLocaleNull()
+	@Test public void testLocaleNull()
 	{
 		final TimeZone tz = TimeZone.getDefault();
 		try
@@ -138,14 +138,14 @@ public class ScheduleModelTest extends CopeAssert
 		}
 	}
 
-	public void testMoreGetters()
+	@Test public void testMoreGetters()
 	{
 		assertSame(report.getRunParent(), report.getRunRuns().getContainer());
 		assertSame(report.getRunFrom(),   report.getRunRuns().getOrder());
 		assertSame(report.getRunParent(), ScheduleItem.reportRunParent());
 	}
 
-	public void testAnnotations()
+	@Test public void testAnnotations()
 	{
 		assertFalse(report.getEnabled   ().isAnnotationPresent(Computed.class));
 		assertFalse(report.getInterval  ().isAnnotationPresent(Computed.class));
@@ -157,12 +157,12 @@ public class ScheduleModelTest extends CopeAssert
 		assertTrue (report.getRunType   ().isAnnotationPresent(Computed.class));
 	}
 
-	public void testSerialize()
+	@Test public void testSerialize()
 	{
 		assertSerializedSame(report, 385);
 	}
 
-	public void testEnumSchema()
+	@Test public void testEnumSchema()
 	{
 		assertEquals(asList(HOURLY, DAILY, WEEKLY, MONTHLY), asList(Schedule.Interval.values()));
 		assertEquals( 7, getColumnValue(HOURLY ));
@@ -171,7 +171,7 @@ public class ScheduleModelTest extends CopeAssert
 		assertEquals(30, getColumnValue(MONTHLY));
 	}
 
-	public void testEnumLimit()
+	@Test public void testEnumLimit()
 	{
 		assertEquals(720, HOURLY .limit);
 		assertEquals( 62, DAILY  .limit);
@@ -179,7 +179,7 @@ public class ScheduleModelTest extends CopeAssert
 		assertEquals( 12, MONTHLY.limit);
 	}
 
-	public void testJobContextNull()
+	@Test public void testJobContextNull()
 	{
 		try
 		{

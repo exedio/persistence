@@ -46,7 +46,7 @@ public class FeatureFieldModelTest extends CopeAssert
 		MODEL.enableSerialization(FeatureFieldModelTest.class, "MODEL");
 	}
 
-	public void testIt()
+	@Test public void testIt()
 	{
 		assertEqualsUnmodifiable(list(TYPE), MODEL.getTypes());
 		assertEqualsUnmodifiable(list(TYPE), MODEL.getTypesSortedByHierarchy());

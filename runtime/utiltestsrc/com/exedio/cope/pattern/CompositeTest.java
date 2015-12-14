@@ -41,7 +41,7 @@ import java.util.Date;
 
 public class CompositeTest extends CopeAssert
 {
-	public void testCheck()
+	@Test public void testCheck()
 	{
 		try
 		{
@@ -143,7 +143,7 @@ public class CompositeTest extends CopeAssert
 		assertEquals(null, value.getBooleanOptional());
 	}
 
-	public void testGetSet()
+	@Test public void testGetSet()
 	{
 		final Value value = new Value("1234", 4, 5l, 6.6, false);
 
@@ -275,7 +275,7 @@ public class CompositeTest extends CopeAssert
 		}
 	}
 
-	public void testOverrideDefault()
+	@Test public void testOverrideDefault()
 	{
 		final Value value = new Value("overrideDefault", false);
 
@@ -292,7 +292,7 @@ public class CompositeTest extends CopeAssert
 		assertEquals(null, value.getBooleanOptional());
 	}
 
-	public void testOverrideDefaultOptional()
+	@Test public void testOverrideDefaultOptional()
 	{
 		final Value value = new Value("overrideDefault", true);
 
@@ -309,7 +309,7 @@ public class CompositeTest extends CopeAssert
 		assertEquals(null, value.getBooleanOptional());
 	}
 
-	public void testOverrideDefaultNull()
+	@Test public void testOverrideDefaultNull()
 	{
 		try
 		{
@@ -324,7 +324,7 @@ public class CompositeTest extends CopeAssert
 		}
 	}
 
-	public void testOverrideDefaultNullOptional()
+	@Test public void testOverrideDefaultNullOptional()
 	{
 		final Value value = new Value((String)null, true);
 
@@ -341,7 +341,7 @@ public class CompositeTest extends CopeAssert
 		assertEquals(null, value.getBooleanOptional());
 	}
 
-	public void testWrong()
+	@Test public void testWrong()
 	{
 		final Value value = new Value("1234", 4, 5l, 6.6, false);
 
@@ -478,7 +478,7 @@ public class CompositeTest extends CopeAssert
 		}
 	}
 
-	public void testTouchDate()
+	@Test public void testTouchDate()
 	{
 		final Value value = new Value("1234", 4, 5l, 6.6, false);
 		assertEquals(null, value.getDate());
@@ -491,7 +491,7 @@ public class CompositeTest extends CopeAssert
 		assertEquals(null, value.getDay());
 	}
 
-	public void testTouchDay()
+	@Test public void testTouchDay()
 	{
 		final Value value = new Value("1234", 4, 5l, 6.6, false);
 		assertEquals(null, value.getDate());
@@ -503,7 +503,7 @@ public class CompositeTest extends CopeAssert
 	}
 
 	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: testing bad api usage
-	public void testIt()
+	@Test public void testIt()
 	{
 		final Value value = new Value("1234", 4, 5l, 6.6, false);
 		try

@@ -25,13 +25,13 @@ import junit.framework.TestCase;
 
 public class IntRatioTest extends TestCase
 {
-	public void testNormal()
+	@Test public void testNormal()
 	{
 		assertEquals(20, ratio(30, 2, 3));
 		assertEquals(13, ratio(20, 2, 3)); // correct rounding
 	}
 
-	public void testBorders()
+	@Test public void testBorders()
 	{
 		assertEquals(0, ratio( 0, 20, 3));
 		assertEquals(0, ratio(20,  0, 3));
@@ -49,7 +49,7 @@ public class IntRatioTest extends TestCase
 		assertEquals(MAX_VALUE-1, ratio(MAX_VALUE  , MAX_VALUE-1, MAX_VALUE));
 	}
 
-	public void testFail()
+	@Test public void testFail()
 	{
 		try
 		{

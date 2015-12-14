@@ -22,7 +22,7 @@ import junit.framework.TestCase;
 
 public class GenericTest extends TestCase
 {
-	public void testType()
+	@Test public void testType()
 	{
 		assertEquals("GenericSimpleSuper" , GenericSimpleSuper .TYPE.getID());
 		assertEquals("GenericSimpleSub"   , GenericSimpleSub   .TYPE.getID());
@@ -31,7 +31,7 @@ public class GenericTest extends TestCase
 		assertEquals("GenericComplexSub"  , GenericComplexSub  .TYPE.getID());
 	}
 
-	public void testValueClass()
+	@Test public void testValueClass()
 	{
 		assertEquals(GenericSimpleSub   .class, GenericSimpleSuper .toSub  .valueClass);
 		assertEquals(GenericSimpleSuper .class, GenericSimpleSuper .toSuper.valueClass);

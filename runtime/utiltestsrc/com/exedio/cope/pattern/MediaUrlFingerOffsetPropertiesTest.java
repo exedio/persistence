@@ -27,7 +27,7 @@ import junit.framework.TestCase;
 
 public class MediaUrlFingerOffsetPropertiesTest extends TestCase
 {
-	public void testDefault()
+	@Test public void testDefault()
 	{
 		final Source source = source(null);
 		final ConnectProperties p = new ConnectProperties(source, null);
@@ -51,7 +51,7 @@ public class MediaUrlFingerOffsetPropertiesTest extends TestCase
 		assertEquals(true, p.mediaFingerprintOffset().isInitial());
 	}
 
-	public void testCustom()
+	@Test public void testCustom()
 	{
 		final Source source = source(55);
 		final ConnectProperties p = new ConnectProperties(source, null);
@@ -75,7 +75,7 @@ public class MediaUrlFingerOffsetPropertiesTest extends TestCase
 		assertEquals(true, p.mediaFingerprintOffset().isInitial());
 	}
 
-	public void testRampFunction()
+	@Test public void testRampFunction()
 	{
 		final Source source = source(0);
 		final ConnectProperties p = new ConnectProperties(source, null);
@@ -123,7 +123,7 @@ public class MediaUrlFingerOffsetPropertiesTest extends TestCase
 		assertEquals(0.999, p.mediaFingerprintOffset().getRamp());
 	}
 
-	public void testSetValueResetsRamp()
+	@Test public void testSetValueResetsRamp()
 	{
 		final Source source = source(0);
 		final ConnectProperties p = new ConnectProperties(source, null);
@@ -139,7 +139,7 @@ public class MediaUrlFingerOffsetPropertiesTest extends TestCase
 		assertEquals("5 (initially 0)", p.mediaFingerprintOffset().getInfo());
 	}
 
-	public void testNewFail()
+	@Test public void testNewFail()
 	{
 		try
 		{
@@ -152,7 +152,7 @@ public class MediaUrlFingerOffsetPropertiesTest extends TestCase
 		}
 	}
 
-	public void testSetValueFail()
+	@Test public void testSetValueFail()
 	{
 		final Source source = source(55);
 		final ConnectProperties p = new ConnectProperties(source, null);
@@ -169,7 +169,7 @@ public class MediaUrlFingerOffsetPropertiesTest extends TestCase
 		assertEquals("55", p.mediaFingerprintOffset().getInfo());
 	}
 
-	public void testSetRampNegative()
+	@Test public void testSetRampNegative()
 	{
 		final Source source = source(55);
 		final ConnectProperties p = new ConnectProperties(source, null);
@@ -186,7 +186,7 @@ public class MediaUrlFingerOffsetPropertiesTest extends TestCase
 		assertEquals("55", p.mediaFingerprintOffset().getInfo());
 	}
 
-	public void testSetRampTooLarge()
+	@Test public void testSetRampTooLarge()
 	{
 		final Source source = source(55);
 		final ConnectProperties p = new ConnectProperties(source, null);
@@ -203,7 +203,7 @@ public class MediaUrlFingerOffsetPropertiesTest extends TestCase
 		assertEquals("55", p.mediaFingerprintOffset().getInfo());
 	}
 
-	public void testInvalid()
+	@Test public void testInvalid()
 	{
 		final String propKey = "media.fingerprintOffset";
 		final Source source = source(-1);
@@ -220,7 +220,7 @@ public class MediaUrlFingerOffsetPropertiesTest extends TestCase
 		}
 	}
 
-	public void testDummy()
+	@Test public void testDummy()
 	{
 		final Source source = source(55);
 		final ConnectProperties p = new ConnectProperties(source, null);

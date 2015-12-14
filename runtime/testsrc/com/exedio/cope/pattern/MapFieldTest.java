@@ -50,7 +50,7 @@ public class MapFieldTest extends AbstractRuntimeModelTest
 		itemX = new MapFieldItem();
 	}
 
-	public void testIt()
+	@Test public void testIt()
 	{
 		assertEquals(null, item.getName(DE));
 		assertEquals(null, item.getNameLength(DE));
@@ -139,7 +139,7 @@ public class MapFieldTest extends AbstractRuntimeModelTest
 		}
 	}
 
-	public void testMapSet()
+	@Test public void testMapSet()
 	{
 		final HashMap<Language, String> map = new HashMap<>();
 		final Map<Language, String> mapU = Collections.unmodifiableMap(map);
@@ -167,7 +167,7 @@ public class MapFieldTest extends AbstractRuntimeModelTest
 		assertEquals(map(), item.getNameMap());
 	}
 
-	public void testMapSetNull()
+	@Test public void testMapSetNull()
 	{
 		final HashMap<Language, String> map = new HashMap<>();
 		final Map<Language, String> mapU = Collections.unmodifiableMap(map);
@@ -188,7 +188,7 @@ public class MapFieldTest extends AbstractRuntimeModelTest
 		assertEquals(map(PL, "namePL"), item.getNameMap());
 	}
 
-	public void testMapSetKeyNull()
+	@Test public void testMapSetKeyNull()
 	{
 		final HashMap<Language, String> map = new HashMap<>();
 		final Map<Language, String> mapU = Collections.unmodifiableMap(map);
@@ -209,7 +209,7 @@ public class MapFieldTest extends AbstractRuntimeModelTest
 		assertEquals(map(PL, "namePL"), item.getNameMap());
 	}
 
-	public void testMapSetValueNull()
+	@Test public void testMapSetValueNull()
 	{
 		final HashMap<Language, String> map = new HashMap<>();
 		final Map<Language, String> mapU = Collections.unmodifiableMap(map);
@@ -230,7 +230,7 @@ public class MapFieldTest extends AbstractRuntimeModelTest
 		assertEquals(map(PL, "namePL"), item.getNameMap());
 	}
 
-	public void testGetAndCast()
+	@Test public void testGetAndCast()
 	{
 		item.setName(DE, "NAMEde");
 		Object o = DE;
@@ -256,7 +256,7 @@ public class MapFieldTest extends AbstractRuntimeModelTest
 		}
 	}
 
-	public void testSetAndCast()
+	@Test public void testSetAndCast()
 	{
 		Object key = DE;
 		Object value = "NAMEde";

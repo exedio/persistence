@@ -57,7 +57,7 @@ public class FunctionTest extends AbstractRuntimeModelTest
 		item2 = newItem("6ggggg", "2b");
 	}
 
-	public void testFunctions()
+	@Test public void testFunctions()
 	{
 		assertSerializedSame(min4Upper, 376);
 		assertSerializedSame(max4Upper, 376);

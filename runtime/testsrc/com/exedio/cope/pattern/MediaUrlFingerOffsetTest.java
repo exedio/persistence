@@ -51,7 +51,7 @@ public final class MediaUrlFingerOffsetTest extends AbstractRuntimeModelTest
 		return item;
 	}
 
-	public void testTouchLastModified()
+	@Test public void testTouchLastModified()
 	{
 		assertIt(".fXD", item[0]);
 
@@ -59,7 +59,7 @@ public final class MediaUrlFingerOffsetTest extends AbstractRuntimeModelTest
 		assertIt(".fYD", item[0]);
 	}
 
-	public void testGlobalOffsetValue()
+	@Test public void testGlobalOffsetValue()
 	{
 		assertEquals(   0, getPrimaryKeyColumnValue(item[   0]));
 		assertEquals(   1, getPrimaryKeyColumnValue(item[   1]));
@@ -114,7 +114,7 @@ public final class MediaUrlFingerOffsetTest extends AbstractRuntimeModelTest
 		assertIt(".fXD", item[1002]);
 	}
 
-	public void testGlobalOffsetRamp()
+	@Test public void testGlobalOffsetRamp()
 	{
 		assertIt(".fXD", item[0]);
 		assertIt(".fXD", item[1]);
@@ -232,7 +232,7 @@ public final class MediaUrlFingerOffsetTest extends AbstractRuntimeModelTest
 		assertIt(".fXD", item[1006]);
 	}
 
-	public void testGlobalOffsetValueAndRamp()
+	@Test public void testGlobalOffsetValueAndRamp()
 	{
 		assertIt(".fXD", item[0]);
 		assertIt(".fXD", item[1]);
@@ -366,7 +366,7 @@ public final class MediaUrlFingerOffsetTest extends AbstractRuntimeModelTest
 		assertIt(".faD", item[1006]);
 	}
 
-	public void testDummy()
+	@Test public void testDummy()
 	{
 		assertIt(".fXD", item[0]);
 

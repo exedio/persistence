@@ -20,7 +20,7 @@ package com.exedio.cope.junit;
 
 public class CopeModelTestTestRolledback extends CopeModelTestTest
 {
-	public void testRolledback()
+	@Test public void testRolledback()
 	{
 		doTest();
 		model.rollback();

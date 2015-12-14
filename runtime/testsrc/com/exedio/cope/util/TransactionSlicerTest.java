@@ -30,7 +30,7 @@ public class TransactionSlicerTest extends AbstractRuntimeModelTest
 	}
 
 	@Deprecated
-	public void testIt()
+	@Test public void testIt()
 	{
 		final Transaction t1 = model.currentTransaction();
 
@@ -81,7 +81,7 @@ public class TransactionSlicerTest extends AbstractRuntimeModelTest
 	}
 
 	@Deprecated
-	public void testEmpty()
+	@Test public void testEmpty()
 	{
 		final Transaction t1 = model.currentTransaction();
 
@@ -129,7 +129,7 @@ public class TransactionSlicerTest extends AbstractRuntimeModelTest
 	}
 
 	@Deprecated
-	public void testNoname()
+	@Test public void testNoname()
 	{
 		model.commit();
 		model.startTransaction(null);

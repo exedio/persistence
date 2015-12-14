@@ -51,7 +51,7 @@ public class BadQueryTest extends AbstractRuntimeModelTest
 		right2 = new SubContainer("right2", leftX, false, middle2);
 	}
 
-	public void testWithSpecifyingjoin()
+	@Test public void testWithSpecifyingjoin()
 	{
 		final Query<QueryItem> query = QueryItem.TYPE.newQuery(null);
 		final Join superJoin = query.join(SuperContainer.TYPE);
@@ -61,7 +61,7 @@ public class BadQueryTest extends AbstractRuntimeModelTest
 		assertContains(leftX, left1, query.search());
 	}
 
-	public void testWithSpecifyingJoinButWithoutCondition()
+	@Test public void testWithSpecifyingJoinButWithoutCondition()
 	{
 		final Query<QueryItem> query = QueryItem.TYPE.newQuery(null);
 		final Join superJoin = query.join(SuperContainer.TYPE);
@@ -70,7 +70,7 @@ public class BadQueryTest extends AbstractRuntimeModelTest
 		assertContains(leftX, left1, left2, query.search());
 	}
 
-	public void testWithoutSpecifyingJoin()
+	@Test public void testWithoutSpecifyingJoin()
 	{
 		final Query<QueryItem> query = QueryItem.TYPE.newQuery(null);
 		final Join superJoin = query.join(SuperContainer.TYPE);

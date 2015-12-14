@@ -138,7 +138,7 @@ public class DeleteSchemaTest extends AbstractRuntimeModelTest
 			"tables 0 [] " +
 			"sequences 0 []";
 
-	public void testVirgin()
+	@Test public void testVirgin()
 	{
 		log.assertEmpty();
 		model.deleteSchema();
@@ -155,7 +155,7 @@ public class DeleteSchemaTest extends AbstractRuntimeModelTest
 		assertEmptyAndCreate(true);
 	}
 
-	public void testVirginForTest()
+	@Test public void testVirginForTest()
 	{
 		log.assertEmpty();
 		model.deleteSchemaForTest();
@@ -172,7 +172,7 @@ public class DeleteSchemaTest extends AbstractRuntimeModelTest
 		assertEmptyAndCreate(true);
 	}
 
-	public void testVirginForTestRepeat()
+	@Test public void testVirginForTestRepeat()
 	{
 		log.assertEmpty();
 		model.deleteSchemaForTest();
@@ -187,7 +187,7 @@ public class DeleteSchemaTest extends AbstractRuntimeModelTest
 		assertEmptyAndCreate(true);
 	}
 
-	public void testCommitted()
+	@Test public void testCommitted()
 	{
 		assertEmptyAndCreate(true);
 
@@ -206,7 +206,7 @@ public class DeleteSchemaTest extends AbstractRuntimeModelTest
 		assertEmptyAndCreate(true);
 	}
 
-	public void testCommittedForTest()
+	@Test public void testCommittedForTest()
 	{
 		assertEmptyAndCreate(true);
 
@@ -225,7 +225,7 @@ public class DeleteSchemaTest extends AbstractRuntimeModelTest
 		assertEmptyAndCreate(true);
 	}
 
-	public void testCommittedForTestRepeat()
+	@Test public void testCommittedForTestRepeat()
 	{
 		assertEmptyAndCreate(true);
 
@@ -242,7 +242,7 @@ public class DeleteSchemaTest extends AbstractRuntimeModelTest
 		assertEmptyAndCreate(true);
 	}
 
-	public void testRolledback()
+	@Test public void testRolledback()
 	{
 		assertEmptyAndCreate(false);
 
@@ -261,15 +261,8 @@ public class DeleteSchemaTest extends AbstractRuntimeModelTest
 		assertEmptyAndCreate(true);
 	}
 
-	public void testRolledbackForTest()
+	@Test public void testRolledbackForTest()
 	{
-		assertEmptyAndCreate(false);
-
-		log.assertEmpty();
-		model.deleteSchemaForTest();
-		log.assertMessage(Level.DEBUG, USED_SEQUENCES);
-		assertRevisionLogs();
-
 		assertEmptyAndCreate(false);
 
 		log.assertEmpty();
@@ -277,10 +270,17 @@ public class DeleteSchemaTest extends AbstractRuntimeModelTest
 		log.assertMessage(Level.DEBUG, USED_SEQUENCES);
 		assertRevisionLogs();
 
+		assertEmptyAndCreate(false);
+
+		log.assertEmpty();
+		model.deleteSchemaForTest();
+		log.assertMessage(Level.DEBUG, USED_SEQUENCES);
+		assertRevisionLogs();
+
 		assertEmptyAndCreate(true);
 	}
 
-	public void testRolledbackForTestRepeat()
+	@Test public void testRolledbackForTestRepeat()
 	{
 		assertEmptyAndCreate(false);
 

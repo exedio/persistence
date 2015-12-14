@@ -43,7 +43,7 @@ public final class MediaPathPostTest extends CopeAssert
 		super.tearDown();
 	}
 
-	public void testPost() throws ServletException, IOException
+	@Test public void testPost() throws ServletException, IOException
 	{
 		final Response response = new Response();
 		servlet.service(new Request(), response);

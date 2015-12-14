@@ -46,7 +46,7 @@ public class ModelTest extends com.exedio.cope.junit.CopeModelTest
 		super(model);
 	}
 
-	public void testIt() throws Exception
+	@Test public void testIt() throws Exception
 	{
 		final String expectedText = "must not be called within a transaction: tx:com.exedio.cope.ModelTest";
 		try

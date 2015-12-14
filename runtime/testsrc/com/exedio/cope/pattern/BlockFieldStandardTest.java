@@ -33,7 +33,7 @@ public class BlockFieldStandardTest extends AbstractRuntimeModelTest
 		super(BlockFieldStandardModelTest.MODEL);
 	}
 
-	public void testIt()
+	@Test public void testIt()
 	{
 		final AnItem i1 = new AnItem("item1", 1);
 		final AnItem i2 = new AnItem("item2", 2);

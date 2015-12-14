@@ -34,12 +34,12 @@ public class ImporterTest extends AbstractRuntimeModelTest
 		super(ImporterModelTest.model);
 	}
 
-	public void testNonInitial()
+	@Test public void testNonInitial()
 	{
 		doTest(false);
 	}
 
-	public void testInitial()
+	@Test public void testInitial()
 	{
 		doTest(true);
 	}

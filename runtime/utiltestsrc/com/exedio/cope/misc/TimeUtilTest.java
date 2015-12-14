@@ -46,7 +46,7 @@ public class TimeUtilTest extends CopeAssert
 		super.tearDown();
 	}
 
-	public void testIt()
+	@Test public void testIt()
 	{
 		assertEquals(0, toMillies(      0, 0));
 		assertEquals(0, toMillies( 499999, 0));
@@ -60,7 +60,7 @@ public class TimeUtilTest extends CopeAssert
 		log.assertEmpty();
 	}
 
-	public void testIllegal()
+	@Test public void testIllegal()
 	{
 		assertEquals(0, toMillies(-1, 0));
 		log.assertMessage(Level.ERROR, "backwards nanos 0 -1");

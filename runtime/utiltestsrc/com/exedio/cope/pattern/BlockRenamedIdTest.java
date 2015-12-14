@@ -43,7 +43,7 @@ public final class BlockRenamedIdTest extends CopeAssert
 		MODEL.enableSerialization(BlockRenamedIdTest.class, "MODEL");
 	}
 
-	public static void testIt()
+	@Test public static void testIt()
 	{
 		assertEquals(null,        ann(virgnTemp));
 		assertEquals("namedTemp", ann(wrongTemp));

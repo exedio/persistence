@@ -57,7 +57,7 @@ public class HashTest extends AbstractRuntimeModelTest
 		item = new HashItem();
 	}
 
-	public void testExplicitExternal()
+	@Test public void testExplicitExternal()
 	{
 		assertEquals(Arrays.asList(
 				TYPE.getThis(),
@@ -108,7 +108,7 @@ public class HashTest extends AbstractRuntimeModelTest
 		assertContains(item, TYPE.search(explicitExternal.isNotNull()));
 	}
 
-	public void testImplicitExternal()
+	@Test public void testImplicitExternal()
 	{
 		assertEquals(TYPE, implicitExternal.getType());
 		assertEquals("implicitExternal", implicitExternal.getName());
@@ -134,7 +134,7 @@ public class HashTest extends AbstractRuntimeModelTest
 		assertTrue(item.checkImplicitExternal("03affe05"));
 	}
 
-	public void testInternal()
+	@Test public void testInternal()
 	{
 		assertEquals(TYPE, internal.getType());
 		assertEquals("internal", internal.getName());
@@ -184,7 +184,7 @@ public class HashTest extends AbstractRuntimeModelTest
 		assertFalse(item3.isInternalNull());
 	}
 
-	public void testLimit()
+	@Test public void testLimit()
 	{
 		final String ok = "012345678901234";
 		assertEquals("[" + ok + "]", HashItem.internal.hash(ok));
@@ -233,7 +233,7 @@ public class HashTest extends AbstractRuntimeModelTest
 		assertEquals(true,  item.checkInternal(tooLong));
 	}
 
-	public void testConditions()
+	@Test public void testConditions()
 	{
 		final HashItem item2 = new HashItem();
 		item2.setImplicitExternal("123");
@@ -271,7 +271,7 @@ public class HashTest extends AbstractRuntimeModelTest
 	}
 
 	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
-	public void testValidatorValidate()
+	@Test public void testValidatorValidate()
 	{
 		// try null as validator
 		try
@@ -302,7 +302,7 @@ public class HashTest extends AbstractRuntimeModelTest
 	 * @see Hash#blind(String)
 	 * @see Hash#check(com.exedio.cope.Item, String)
 	 */
-	public void testCheckMustNotCallValidator() throws Exception
+	@Test public void testCheckMustNotCallValidator() throws Exception
 	{
 		// validator must not be called from check(..)
 		withCorruptValidator.check(item, "");
@@ -329,7 +329,7 @@ public class HashTest extends AbstractRuntimeModelTest
 
 	}
 
-	public void testValidatorSingleSetValue()
+	@Test public void testValidatorSingleSetValue()
 	{
 			// with success
 			final HashItem anItem = HashItem.TYPE.newItem(new SetValue<?>[]{});
@@ -364,7 +364,7 @@ public class HashTest extends AbstractRuntimeModelTest
 			assertEquals("[452]", anItem.getWith3PinValidatorwrap()); // <= contains still previous data
 	}
 
-	public void testHashItemMassSetValuesWithValidatedHash()
+	@Test public void testHashItemMassSetValuesWithValidatedHash()
 	{
 		// testing mass set
 
@@ -400,7 +400,7 @@ public class HashTest extends AbstractRuntimeModelTest
 		}
 	}
 
-	public void testHashItemConstructionWithValidatedHashValues()
+	@Test public void testHashItemConstructionWithValidatedHashValues()
 	{
 		// test with a validator which always throws an exception
 		try
@@ -433,7 +433,7 @@ public class HashTest extends AbstractRuntimeModelTest
 		assertEquals("[978]", anItem.get(with3PinValidator.getStorage()));
 	}
 
-	public void testValidatorNewRandomPassword()
+	@Test public void testValidatorNewRandomPassword()
 	{
 		assertEquals("012", HashItem.with3PinValidator.newRandomPassword(new SecureRandom() {
 			private static final long serialVersionUID = 1l;

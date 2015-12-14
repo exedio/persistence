@@ -47,7 +47,7 @@ public class PriceFieldTest extends AbstractRuntimeModelTest
 		item = new PriceFieldItem(storeOf(555), storeOf(7777));
 	}
 
-	public void testIt()
+	@Test public void testIt()
 	{
 		assertEquals("finalPrice_int", SchemaInfo.getColumnName(finalPrice.getInt()));
 

@@ -30,7 +30,7 @@ import java.io.InputStream;
 
 public class FieldMediaTest extends FieldTest
 {
-	public void testSomeData() throws IOException
+	@Test public void testSomeData() throws IOException
 	{
 		assertEquals(TYPE, someData.getType());
 		assertEquals("someData", someData.getName());

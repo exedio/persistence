@@ -69,7 +69,7 @@ public class PasswordRecoveryTest extends AbstractRuntimeModelTest
 		super.tearDown();
 	}
 
-	public void testIt() throws Exception
+	@Test public void testIt() throws Exception
 	{
 		// test model
 		assertEquals(Arrays.asList(new Type<?>[]{
@@ -151,7 +151,7 @@ public class PasswordRecoveryTest extends AbstractRuntimeModelTest
 		assertEquals(list(), passwordRecovery.getTokenType().search());
 	}
 
-	public void testExpired()
+	@Test public void testExpired()
 	{
 		final Config config = new Config(20);
 
@@ -196,7 +196,7 @@ public class PasswordRecoveryTest extends AbstractRuntimeModelTest
 		}
 	}
 
-	public void testReuse()
+	@Test public void testReuse()
 	{
 		final Config config = new Config(15*60*1000, 10*1000);
 
@@ -224,7 +224,7 @@ public class PasswordRecoveryTest extends AbstractRuntimeModelTest
 		assertFalse(token3.equals(token1));
 	}
 
-	public void testNoReuse()
+	@Test public void testNoReuse()
 	{
 		final Config config = new Config(15*60*1000, 0);
 
@@ -252,7 +252,7 @@ public class PasswordRecoveryTest extends AbstractRuntimeModelTest
 	}
 
 	@Deprecated
-	public void testDeprecated()
+	@Test public void testDeprecated()
 	{
 		try
 		{

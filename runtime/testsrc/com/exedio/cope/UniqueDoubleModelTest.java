@@ -35,7 +35,7 @@ public class UniqueDoubleModelTest extends CopeAssert
 		MODEL.enableSerialization(UniqueDoubleModelTest.class, "MODEL");
 	}
 
-	public void test()
+	@Test public void test()
 	{
 		assertEqualsUnmodifiable(list(TYPE.getThis(), string, integer, constraint), TYPE.getDeclaredFeatures());
 		assertEqualsUnmodifiable(list(TYPE.getThis(), string, integer, constraint), TYPE.getFeatures());

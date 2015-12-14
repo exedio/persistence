@@ -41,7 +41,7 @@ public class FindItemHierarchyTest extends AbstractRuntimeModelTest
 		firstItem2 = new HierarchyFirstSub(4);
 	}
 
-	public void testHierarchy()
+	@Test public void testHierarchy()
 			throws NoSuchIDException
 	{
 		assertSame(firstItem, model.getItem("HierarchyFirstSub-0"));

@@ -82,7 +82,7 @@ public class PrimaryKeyTest extends AbstractRuntimeModelTest
 		}
 	}
 
-	public void testMultipleTransactions()
+	@Test public void testMultipleTransactions()
 	{
 		SequenceInfoAssert.assertInfo(model.getSequenceInfo(), TYPE.getThis(), next);
 

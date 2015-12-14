@@ -42,7 +42,7 @@ public class DataModelTest extends CopeAssert
 		MODEL.enableSerialization(DataModelTest.class, "MODEL");
 	}
 
-	public void testMin() throws MandatoryViolationException
+	@Test public void testMin() throws MandatoryViolationException
 	{
 		assertEquals(0, min(0, 0l));
 		assertEquals(0, min(Integer.MAX_VALUE, 0l));
@@ -56,7 +56,7 @@ public class DataModelTest extends CopeAssert
 	}
 
 	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
-	public void testMinLeftNegative() throws MandatoryViolationException
+	@Test public void testMinLeftNegative() throws MandatoryViolationException
 	{
 		try
 		{
@@ -70,7 +70,7 @@ public class DataModelTest extends CopeAssert
 	}
 
 	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
-	public void testMinRightNegative() throws MandatoryViolationException
+	@Test public void testMinRightNegative() throws MandatoryViolationException
 	{
 		try
 		{
@@ -83,7 +83,7 @@ public class DataModelTest extends CopeAssert
 		}
 	}
 
-	public void testValueToString() throws MandatoryViolationException
+	@Test public void testValueToString() throws MandatoryViolationException
 	{
 		assertEquals("DataField.Value:aa7af817", toValue(bytes4).toString());
 		assertEquals("DataField.Value:9f13f82382aa7a5613f8", toValue(bytes10).toString());
@@ -95,7 +95,7 @@ public class DataModelTest extends CopeAssert
 	}
 
 	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
-	public void testData() throws MandatoryViolationException
+	@Test public void testData() throws MandatoryViolationException
 	{
 		assertEquals(TYPE, data.getType());
 		assertEquals("data", data.getName());

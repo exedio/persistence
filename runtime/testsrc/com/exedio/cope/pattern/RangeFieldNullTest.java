@@ -44,7 +44,7 @@ public class RangeFieldNullTest extends AbstractRuntimeModelTest
 		nn = new RangeFieldItem((Integer)null, null);
 	}
 
-	public void testIt()
+	@Test public void testIt()
 	{
 		assertContainsCondition( 9,     nb,     nn);
 		assertContainsCondition(10, ab, nb, an, nn);

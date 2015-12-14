@@ -48,7 +48,7 @@ public class ConnectTokenSetTest extends CopeAssert
 		model.enableSerialization(ConnectTokenSetTest.class, "model");
 	}
 
-	public void testNormal()
+	@Test public void testNormal()
 	{
 		assertFalse(model.isConnected());
 		assertSame(null, getProperties(model));
@@ -64,7 +64,7 @@ public class ConnectTokenSetTest extends CopeAssert
 		assertNotSet();
 	}
 
-	public void testRemoveWithoutSet()
+	@Test public void testRemoveWithoutSet()
 	{
 		assertFalse(model.isConnected());
 		assertSame(null, getProperties(model));
@@ -75,7 +75,7 @@ public class ConnectTokenSetTest extends CopeAssert
 		assertNotSet();
 	}
 
-	public void testRestartID()
+	@Test public void testRestartID()
 	{
 		assertFalse(model.isConnected());
 		assertSame(null, getProperties(model));

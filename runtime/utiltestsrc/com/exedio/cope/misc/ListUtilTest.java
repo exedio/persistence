@@ -25,7 +25,7 @@ import java.util.ArrayList;
 
 public class ListUtilTest extends CopeAssert
 {
-	public void testIt()
+	@Test public void testIt()
 	{
 		assertEqualsUnmodifiable(list(), trimUnmodifiable(l()));
 		assertEqualsUnmodifiable(list("hallo"), trimUnmodifiable(l("hallo")));

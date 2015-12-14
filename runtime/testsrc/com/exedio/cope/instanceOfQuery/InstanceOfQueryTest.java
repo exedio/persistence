@@ -35,7 +35,7 @@ public class InstanceOfQueryTest extends AbstractRuntimeModelTest
 		super(MODEL);
 	}
 
-	public void testIt()
+	@Test public void testIt()
 	{
 		final Query<IoqSourceSubA> query = IoqSourceSubA.TYPE.newQuery();
 		final Join joinB = query.join(IoqSourceSubB.TYPE);

@@ -74,7 +74,7 @@ public class DynamicModelTest extends AbstractRuntimeModelTest
 		assertEquals(pattern, field.getPattern());
 	}
 
-	public void testIt()
+	@Test public void testIt()
 	{
 		// test model
 		assertEquals(String .class, STRING .getValueClass());

@@ -55,7 +55,7 @@ public class SchemaInfoConnectionTest extends AbstractRuntimeModelTest
 	}
 
 	@SuppressFBWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
-	public void testIt() throws SQLException
+	@Test public void testIt() throws SQLException
 	{
 		final StringBuilder bf = new StringBuilder();
 		bf.append("select ").
@@ -77,7 +77,7 @@ public class SchemaInfoConnectionTest extends AbstractRuntimeModelTest
 	}
 
 	@SuppressFBWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
-	public void testTypeColumn() throws SQLException
+	@Test public void testTypeColumn() throws SQLException
 	{
 		final StringBuilder bf = new StringBuilder();
 		bf.append("select ").

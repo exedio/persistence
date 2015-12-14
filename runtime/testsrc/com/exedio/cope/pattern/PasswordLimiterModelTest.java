@@ -39,7 +39,7 @@ public class PasswordLimiterModelTest extends CopeAssert
 		MODEL.enableSerialization(PasswordLimiterModelTest.class, "MODEL");
 	}
 
-	public void testIt()
+	@Test public void testIt()
 	{
 		assertEquals(Arrays.asList(new Type<?>[]{
 				TYPE,

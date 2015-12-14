@@ -59,7 +59,7 @@ public class OrderByTest extends TestmodelTest
 		item = item1;
 	}
 
-	public void testOrderBy()
+	@Test public void testOrderBy()
 	{
 		{
 			final Query<AttributeItem> q = TYPE.newQuery(null);

@@ -28,7 +28,7 @@ import java.io.File;
 public final class TypeColumnTypeTest extends CopeAssert
 {
 	@SuppressWarnings("static-method")
-	public void testIt()
+	@Test public void testIt()
 	{
 		assertEquals("StandardSub", getTypeColumnValue(StandardSub.TYPE));
 		assertEquals("MinLengthSub", getTypeColumnValue(MinLengthSub.TYPE));

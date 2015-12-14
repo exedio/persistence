@@ -37,7 +37,7 @@ public class QueryTest extends AbstractRuntimeModelTest
 	static final Day d2 = new Day(2006, 02, 20);
 	static final Day d3 = new Day(2006, 02, 21);
 
-	public void testIt()
+	@Test public void testIt()
 	{
 		final Query<?> q = DayItem.TYPE.newQuery(null);
 		assertEquals(DayItem.TYPE.getThis(), q.getSelectSingle());
@@ -71,7 +71,7 @@ public class QueryTest extends AbstractRuntimeModelTest
 		}
 	}
 
-	public void testLiterals()
+	@Test public void testLiterals()
 	{
 		final Condition c1 = DayItem.day.equal(d1);
 		final Condition c2 = DayItem.day.equal(d2);
@@ -128,7 +128,7 @@ public class QueryTest extends AbstractRuntimeModelTest
 		assertSerializedSame(FALSE, 103);
 	}
 
-	public void testResult()
+	@Test public void testResult()
 	{
 		assertEquals("select this from DayItem where FALSE", DayItem.TYPE.emptyQuery().toString());
 		assertEquals(list(), DayItem.TYPE.emptyQuery().search());
@@ -273,7 +273,7 @@ public class QueryTest extends AbstractRuntimeModelTest
 		assertFalse(actual.hashCode()==expected.hashCode());
 	}
 
-	public void testGroupBy()
+	@Test public void testGroupBy()
 	{
 		final DayItem item1 =  new DayItem(d1) ;
 		final DayItem item2a =  new DayItem(d2) ;

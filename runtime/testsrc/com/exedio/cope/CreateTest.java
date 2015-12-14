@@ -27,7 +27,7 @@ public class CreateTest extends AbstractRuntimeModelTest
 		super(MODEL);
 	}
 
-	public void test()
+	@Test public void test()
 	{
 		{
 			final CreateItem item = new CreateItem("normal");

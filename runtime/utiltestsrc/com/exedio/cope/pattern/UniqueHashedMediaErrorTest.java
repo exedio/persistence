@@ -31,7 +31,7 @@ import com.exedio.cope.junit.CopeAssert;
 
 public class UniqueHashedMediaErrorTest extends CopeAssert
 {
-	public void testOptional()
+	@Test public void testOptional()
 	{
 		try
 		{
@@ -45,7 +45,7 @@ public class UniqueHashedMediaErrorTest extends CopeAssert
 	}
 
 
-	public void testNonCreateableAbstract()
+	@Test public void testNonCreateableAbstract()
 	{
 		try
 		{
@@ -69,7 +69,7 @@ public class UniqueHashedMediaErrorTest extends CopeAssert
 	}
 
 
-	public void testNonCreateableFunctionField()
+	@Test public void testNonCreateableFunctionField()
 	{
 		try
 		{
@@ -96,7 +96,7 @@ public class UniqueHashedMediaErrorTest extends CopeAssert
 	}
 
 
-	public void testNonCreateableDataField()
+	@Test public void testNonCreateableDataField()
 	{
 		try
 		{
@@ -123,7 +123,7 @@ public class UniqueHashedMediaErrorTest extends CopeAssert
 	}
 
 
-	public void testCreateable()
+	@Test public void testCreateable()
 	{
 		// test, that is does not throw an exception
 		new Model(CreateableItem.TYPE);

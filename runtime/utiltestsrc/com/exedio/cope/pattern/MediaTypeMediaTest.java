@@ -35,7 +35,7 @@ public class MediaTypeMediaTest extends CopeAssert
 	private static final String ZIP = "504b0304";
 	private static final String PDF = "25504446";
 
-	public void testDefault()
+	@Test public void testDefault()
 	{
 		final Media m = new Media();
 		final DataField b = m.getBody();
@@ -54,7 +54,7 @@ public class MediaTypeMediaTest extends CopeAssert
 				m.bodyMismatchesContentType().toString());
 	}
 
-	public void testFixed()
+	@Test public void testFixed()
 	{
 		final Media m = new Media().contentType("image/jpeg");
 		final DataField b = m.getBody();
@@ -63,13 +63,13 @@ public class MediaTypeMediaTest extends CopeAssert
 				m.bodyMismatchesContentType().toString());
 	}
 
-	public void testFixedNone()
+	@Test public void testFixedNone()
 	{
 		final Media m = new Media().contentType("ding/dong");
 		assertEquals(Condition.FALSE, m.bodyMismatchesContentType());
 	}
 
-	public void testEnum()
+	@Test public void testEnum()
 	{
 		final Media m = new Media().contentType("image/jpeg", "image/pjpeg", "image/png", "ding/dong");
 		final DataField b = m.getBody();
@@ -82,7 +82,7 @@ public class MediaTypeMediaTest extends CopeAssert
 				m.bodyMismatchesContentType().toString());
 	}
 
-	public void testEnumUnique()
+	@Test public void testEnumUnique()
 	{
 		final Media m = new Media().contentType("image/jpeg", "image/png", "ding/dong");
 		final DataField b = m.getBody();
@@ -95,7 +95,7 @@ public class MediaTypeMediaTest extends CopeAssert
 				m.bodyMismatchesContentType().toString());
 	}
 
-	public void testEnumFailNull()
+	@Test public void testEnumFailNull()
 	{
 		final Media m = new Media();
 		try
@@ -109,7 +109,7 @@ public class MediaTypeMediaTest extends CopeAssert
 		}
 	}
 
-	public void testEnumFailDuplicate()
+	@Test public void testEnumFailDuplicate()
 	{
 		final Media m = new Media();
 		try
@@ -123,7 +123,7 @@ public class MediaTypeMediaTest extends CopeAssert
 		}
 	}
 
-	public void testSub()
+	@Test public void testSub()
 	{
 		final Media m = new Media().contentTypeSub("image");
 		final DataField b = m.getBody();
@@ -138,13 +138,13 @@ public class MediaTypeMediaTest extends CopeAssert
 				m.bodyMismatchesContentType().toString());
 	}
 
-	public void testSubNone()
+	@Test public void testSubNone()
 	{
 		final Media m = new Media().contentTypeSub("ding");
 		assertEquals(Condition.FALSE, m.bodyMismatchesContentType());
 	}
 
-	public void testAllowed()
+	@Test public void testAllowed()
 	{
 		final MediaType jpg = forName("image/jpeg");
 		final MediaType pdf = forName("application/pdf");

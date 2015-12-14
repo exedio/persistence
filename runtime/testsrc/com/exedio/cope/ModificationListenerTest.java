@@ -56,7 +56,7 @@ public class ModificationListenerTest extends AbstractRuntimeModelTest
 	// dead store is needed to assign null for testing garbage collection
 	@SuppressFBWarnings("DLS_DEAD_LOCAL_STORE_OF_NULL")
 	@Deprecated
-	public void testIt()
+	@Test public void testIt()
 	{
 		assertEqualsUnmodifiable(list(), model.getModificationListeners());
 		assertEquals(0, model.getModificationListenersCleared());

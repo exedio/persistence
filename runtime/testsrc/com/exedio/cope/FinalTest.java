@@ -29,7 +29,7 @@ public final class FinalTest extends AbstractRuntimeModelTest
 		super(MODEL);
 	}
 
-	public void test()
+	@Test public void test()
 	{
 		new FinalSubItem(1, 11);
 		new FinalSubNoneItem(2, 22);
@@ -46,7 +46,7 @@ public final class FinalTest extends AbstractRuntimeModelTest
 		assertEquals(22, item2c.getSubIntNone());
 	}
 
-	public void testUpdateCounter()
+	@Test public void testUpdateCounter()
 	{
 		assertEquals(synthetic("catch", "FinalSuperItem"), getUpdateCounterColumnName(FinalSuperItem.TYPE));
 		assertEquals(synthetic("catch", "FinalSubNoneItem"), getUpdateCounterColumnName(FinalSubNoneItem.TYPE));

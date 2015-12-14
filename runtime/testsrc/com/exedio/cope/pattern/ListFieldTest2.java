@@ -47,7 +47,7 @@ public class ListFieldTest2 extends AbstractRuntimeModelTest
 		item = new ListFieldItem();
 	}
 
-	public void testIt()
+	@Test public void testIt()
 	{
 		final Type<?> type = strings.getRelationType();
 		final IntegerField order = strings.getOrder();

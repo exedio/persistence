@@ -23,7 +23,7 @@ import junit.framework.TestCase;
 
 public class IsInitialTest extends TestCase
 {
-	public void testIsInitial()
+	@Test public void testIsInitial()
 	{
 		assertEquals(true,  new DataField().isInitial());
 		assertEquals(false, new DataField().optional().isInitial());

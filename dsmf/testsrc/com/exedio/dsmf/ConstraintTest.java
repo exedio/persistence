@@ -85,7 +85,7 @@ public class ConstraintTest extends SchemaReadyTest
 		return result;
 	}
 
-	public void testConstraints()
+	@Test public void testConstraints()
 	{
 		final Schema schema = getVerifiedSchema();
 

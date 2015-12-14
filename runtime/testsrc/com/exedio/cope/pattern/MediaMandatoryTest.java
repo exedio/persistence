@@ -49,7 +49,7 @@ public class MediaMandatoryTest extends AbstractRuntimeModelTest
 	private final byte[] data19 = {-54,71,-86,122,-8,23,-23,104,-63,23,19,-45,-63,23,71,-23,19,-45,71};
 	private final byte[] data20 = {-54,71,-86,122,-8,23,-23,104,-63,23,19,-45,-63,23,71,-23,19,-45,71,-23};
 
-	public void testData() throws IOException
+	@Test public void testData() throws IOException
 	{
 		assertEquals(19, data19.length);
 		assertEquals(20, data20.length);

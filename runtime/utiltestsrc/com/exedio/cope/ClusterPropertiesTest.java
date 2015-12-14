@@ -27,7 +27,7 @@ import java.util.Collection;
 public final class ClusterPropertiesTest extends CopeAssert
 {
 	@SuppressWarnings("static-method")
-	public void testOk()
+	@Test public void testOk()
 	{
 		final Source s = new Source()
 		{
@@ -63,7 +63,7 @@ public final class ClusterPropertiesTest extends CopeAssert
 	}
 
 	@SuppressWarnings("static-method")
-	public void testFailListenThreads()
+	@Test public void testFailListenThreads()
 	{
 		final Source s = new Source()
 		{
@@ -105,7 +105,7 @@ public final class ClusterPropertiesTest extends CopeAssert
 	}
 
 	@SuppressWarnings("static-method")
-	public void testFailPrimaryKeyGeneratorMemory()
+	@Test public void testFailPrimaryKeyGeneratorMemory()
 	{
 		final Properties.Source defaultSource =
 				new ConnectProperties(new File("runtime/utiltest.properties")).getSourceObject();

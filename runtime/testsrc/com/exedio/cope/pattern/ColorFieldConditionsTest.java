@@ -61,7 +61,7 @@ public class ColorFieldConditionsTest extends AbstractRuntimeModelTest
 
 	}
 
-	public void testIt()
+	@Test public void testIt()
 	{
 		final ColorField fieldOpt = optional;
 		final ColorField fieldAlpha = alpha;

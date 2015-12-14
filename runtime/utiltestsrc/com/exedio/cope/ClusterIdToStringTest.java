@@ -26,7 +26,7 @@ import junit.framework.TestCase;
 
 public class ClusterIdToStringTest extends TestCase
 {
-	public void testInt()
+	@Test public void testInt()
 	{
 		assertEquals("0", toStringNodeID(0));
 		assertEquals("1", toStringNodeID(1));

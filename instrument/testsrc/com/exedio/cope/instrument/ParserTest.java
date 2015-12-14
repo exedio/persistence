@@ -44,7 +44,7 @@ public abstract class ParserTest extends TestCase
 
 	public abstract void assertParse();
 
-	public void testIt()
+	@Test public void testIt()
 		throws IOException, ParserException
 	{
 		final File inputFile = new File(ParserTest.class.getResource(resourceName).getFile());

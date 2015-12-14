@@ -23,7 +23,7 @@ import com.exedio.cope.junit.CopeAssert;
 public final class TypeColumnTypeErrorTest extends CopeAssert
 {
 	@SuppressWarnings("static-method")
-	public void testIt()
+	@Test public void testIt()
 	{
 		try
 		{

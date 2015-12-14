@@ -51,7 +51,7 @@ public class NameTest extends AbstractRuntimeModelTest
 		itemcb = new NameCollisionlongaItem("collision B");
 	}
 
-	public void test()
+	@Test public void test()
 	{
 		final StringField NameLongItem_codeLongName =
 			NameLongItem.codeLoooooooooooooooooooooooooooooooooooooooooooooooooooongName;

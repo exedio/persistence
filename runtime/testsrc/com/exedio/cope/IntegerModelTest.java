@@ -33,7 +33,7 @@ public class IntegerModelTest extends CopeAssert
 {
 	public static final Model MODEL = new Model(TYPE);
 
-	public void testIt()
+	@Test public void testIt()
 	{
 		assertEquals(TYPE, any.getType());
 		assertEquals("any", any.getName());
@@ -66,7 +66,7 @@ public class IntegerModelTest extends CopeAssert
 		assertContains(IntegerRangeViolationException.class, min4Max8.getInitialExceptions());
 	}
 
-	public void testCheck()
+	@Test public void testCheck()
 	{
 		try
 		{
@@ -99,7 +99,7 @@ public class IntegerModelTest extends CopeAssert
 		min4.check(4);
 	}
 
-	public void testConditions()
+	@Test public void testConditions()
 	{
 		assertEqualsStrict(any.equal(1), any.equal(1));
 		assertNotEqualsStrict(any.equal(1), any.equal(2));

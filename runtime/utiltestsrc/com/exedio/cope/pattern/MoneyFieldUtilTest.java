@@ -23,7 +23,7 @@ import junit.framework.TestCase;
 
 public class MoneyFieldUtilTest extends TestCase
 {
-	public void testFixedCurrencyNull()
+	@Test public void testFixedCurrencyNull()
 	{
 		try
 		{
@@ -36,7 +36,7 @@ public class MoneyFieldUtilTest extends TestCase
 		}
 	}
 
-	public void testSharedCurrencyNull()
+	@Test public void testSharedCurrencyNull()
 	{
 		try
 		{
@@ -54,7 +54,7 @@ public class MoneyFieldUtilTest extends TestCase
 		// empty enum
 	}
 
-	public void testSharedCurrencyOptional()
+	@Test public void testSharedCurrencyOptional()
 	{
 		try
 		{
@@ -67,7 +67,7 @@ public class MoneyFieldUtilTest extends TestCase
 		}
 	}
 
-	public void testExclusiveCurrencyNull()
+	@Test public void testExclusiveCurrencyNull()
 	{
 		try
 		{

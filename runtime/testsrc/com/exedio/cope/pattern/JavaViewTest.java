@@ -63,7 +63,7 @@ public class JavaViewTest extends AbstractRuntimeModelTest
 		item2 = new JavaViewItem2();
 	}
 
-	public void testNumber()
+	@Test public void testNumber()
 	{
 		assertEquals(Arrays.asList(new Feature[]{
 				TYPE.getThis(),

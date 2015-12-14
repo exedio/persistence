@@ -48,7 +48,7 @@ public class QueryCacheTest extends AbstractRuntimeModelTest
 	private static final String Q2 = "select this from MatchItem where text='someString2'";
 	private static final String C2 = "select count(*) from MatchItem where text='someString2'";
 
-	public void testQueryCache()
+	@Test public void testQueryCache()
 	{
 		// start new transaction, otherwise query cache will not work,
 		// because type is invalidated.

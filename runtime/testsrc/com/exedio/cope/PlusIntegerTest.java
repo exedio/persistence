@@ -54,7 +54,7 @@ public class PlusIntegerTest extends AbstractRuntimeModelTest
 		item2 = new PlusIntegerItem(3, 4, 5);
 	}
 
-	public void testSum()
+	@Test public void testSum()
 	{
 		// test model
 		assertEquals(TYPE, plusA9.getType());

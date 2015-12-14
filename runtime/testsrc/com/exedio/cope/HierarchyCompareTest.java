@@ -50,7 +50,7 @@ public class HierarchyCompareTest extends AbstractRuntimeModelTest
 		orderby = Arrays.asList((Item)a1, b1, a2, b2);
 	}
 
-	public void testIt()
+	@Test public void testIt()
 	{
 		assertEquals(orderby, TYPE.search(null, TYPE.getThis(), true));
 		assertCompare(items);

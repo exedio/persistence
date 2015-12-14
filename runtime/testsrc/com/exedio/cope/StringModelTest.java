@@ -41,7 +41,7 @@ public class StringModelTest extends CopeAssert
 		MODEL.enableSerialization(StringModelTest.class, "MODEL");
 	}
 
-	public void testModel()
+	@Test public void testModel()
 	{
 		assertEquals(TYPE, any.getType());
 		assertEquals("any", any.getName());
@@ -78,7 +78,7 @@ public class StringModelTest extends CopeAssert
 		assertEquals("min4Upper", min4Upper.getName());
 	}
 
-	public void testConditions()
+	@Test public void testConditions()
 	{
 		assertEqualsStrict(any.equal("hallo"), any.equal("hallo"));
 		assertNotEqualsStrict(any.equal("hallo"), any.equal("bello"));
@@ -88,7 +88,7 @@ public class StringModelTest extends CopeAssert
 		assertNotEqualsStrict(any.equal(mandatory), any.equal(any));
 	}
 
-	public void testConditionsConvenience()
+	@Test public void testConditionsConvenience()
 	{
 		assertEquals(any.startsWith("hallo"), any.like("hallo%"));
 		assertEquals(any.endsWith("hallo"), any.like("%hallo"));

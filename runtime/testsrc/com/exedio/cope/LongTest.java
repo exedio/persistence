@@ -49,7 +49,7 @@ public class LongTest extends AbstractRuntimeModelTest
 		numberOfItems = 2;
 	}
 
-	public void testIt()
+	@Test public void testIt()
 	{
 		// any
 		item.setAny(1234l);
@@ -259,7 +259,7 @@ public class LongTest extends AbstractRuntimeModelTest
 	}
 
 	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad API usage
-	public void testUnchecked()
+	@Test public void testUnchecked()
 	{
 		try
 		{
@@ -272,7 +272,7 @@ public class LongTest extends AbstractRuntimeModelTest
 		}
 	}
 
-	public void testSchema()
+	@Test public void testSchema()
 	{
 		assertSchema();
 	}

@@ -22,7 +22,7 @@ import junit.framework.TestCase;
 
 public final class JPEGCodecAccessTest extends TestCase
 {
-	public static void testIt()
+	@Test public static void testIt()
 	{
 		System.out.println("JPEGCodecAccess available: " + JPEGCodecAccess.available());
 	}

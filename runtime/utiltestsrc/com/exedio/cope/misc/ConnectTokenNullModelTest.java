@@ -29,7 +29,7 @@ import com.exedio.cope.junit.CopeAssert;
 
 public class ConnectTokenNullModelTest extends CopeAssert
 {
-	public void testIt()
+	@Test public void testIt()
 	{
 		try
 		{

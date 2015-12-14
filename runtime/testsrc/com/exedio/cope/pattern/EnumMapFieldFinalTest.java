@@ -51,7 +51,7 @@ public class EnumMapFieldFinalTest extends AbstractRuntimeModelTest
 	}
 
 
-	public void testModel()
+	@Test public void testModel()
 	{
 		assertEquals(null, text.getField(DE).getDefaultConstant());
 		assertEquals(null, text.getField(EN).getDefaultConstant());
@@ -61,7 +61,7 @@ public class EnumMapFieldFinalTest extends AbstractRuntimeModelTest
 		assertEquals(true,  text.isInitial());
 	}
 
-	public void testEmpty()
+	@Test public void testEmpty()
 	{
 		final EnumMapFieldFinalItem item = new EnumMapFieldFinalItem(EMPTY);
 		assertEquals(null, item.getText(DE));
@@ -91,7 +91,7 @@ public class EnumMapFieldFinalTest extends AbstractRuntimeModelTest
 		}
 	}
 
-	public void testCreateWithoutMapping()
+	@Test public void testCreateWithoutMapping()
 	{
 		final EnumMapFieldFinalItem item = new EnumMapFieldFinalItem();
 		assertEquals(null, item.getText(DE));
@@ -99,7 +99,7 @@ public class EnumMapFieldFinalTest extends AbstractRuntimeModelTest
 		assertEquals(null, item.getText(PL));
 	}
 
-	public void testCreateNull()
+	@Test public void testCreateNull()
 	{
 		try
 		{

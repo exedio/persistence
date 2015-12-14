@@ -37,7 +37,7 @@ public class EnumSetFieldFinalTest extends CopeAssert
 		MODEL.enableSerialization(EnumSetFieldFinalTest.class, "MODEL");
 	}
 
-	public void testIt()
+	@Test public void testIt()
 	{
 		assertEquals(TYPE, field.getType());
 		assertEquals("field", field.getName());

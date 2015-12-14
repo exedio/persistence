@@ -33,7 +33,7 @@ public class EnumMapFieldDefaultTest extends CopeAssert
 	@SuppressWarnings("unused")
 	private static final Model MODEL = new Model(TYPE);
 
-	public void testModel()
+	@Test public void testModel()
 	{
 		assertEquals("defaultDE", text.getField(DE).getDefaultConstant());
 		assertEquals("defaultEN", text.getField(EN).getDefaultConstant());

@@ -44,7 +44,7 @@ public class JoinMultipleTest extends TestmodelTest
 		source.setPointer2(target2);
 	}
 
-	public void testMultipleJoin()
+	@Test public void testMultipleJoin()
 	{
 		{
 			final Query<PointerItem> query = PointerItem.TYPE.newQuery(null);

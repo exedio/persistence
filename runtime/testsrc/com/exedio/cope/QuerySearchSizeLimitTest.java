@@ -46,7 +46,7 @@ public class QuerySearchSizeLimitTest extends AbstractRuntimeModelTest
 		i5 = new DayItem(d2);
 	}
 
-	public void testIt()
+	@Test public void testIt()
 	{
 		// allows testing influence of query cache
 		restartTransaction();

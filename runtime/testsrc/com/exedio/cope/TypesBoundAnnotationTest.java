@@ -31,7 +31,7 @@ import com.exedio.cope.pattern.SetField;
 
 public class TypesBoundAnnotationTest extends CopeAssert
 {
-	public void testType()
+	@Test public void testType()
 	{
 		try
 		{

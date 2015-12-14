@@ -22,7 +22,7 @@ import com.exedio.cope.junit.CopeAssert;
 
 public class TypeSetModelErrorTest extends CopeAssert
 {
-	public void testNull()
+	@Test public void testNull()
 	{
 		try
 		{
@@ -35,7 +35,7 @@ public class TypeSetModelErrorTest extends CopeAssert
 		}
 	}
 
-	public void testEmpty()
+	@Test public void testEmpty()
 	{
 		try
 		{
@@ -48,7 +48,7 @@ public class TypeSetModelErrorTest extends CopeAssert
 		}
 	}
 
-	public void testNullElement()
+	@Test public void testNullElement()
 	{
 		try
 		{
@@ -61,7 +61,7 @@ public class TypeSetModelErrorTest extends CopeAssert
 		}
 	}
 
-	public void testDuplicate()
+	@Test public void testDuplicate()
 	{
 		final Type<Item1> type1 = TypesBound.newType(Item1.class);
 		final Type<Item2> type2 = TypesBound.newType(Item2.class);

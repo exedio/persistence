@@ -45,7 +45,7 @@ public class CompositeConditionTest extends AbstractRuntimeModelTest
 		itemXX = new CompareConditionItem(null, null, null, null, null, null, null);
 	}
 
-	public void testNot()
+	@Test public void testNot()
 	{
 		final Condition conditionA = intx .greater(1);
 		final Condition conditionB = longx.greater(1l);

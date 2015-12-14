@@ -34,7 +34,7 @@ import java.util.Arrays;
 
 public class DataDigestTest extends CopeAssert
 {
-	public void testUpdate() throws IOException
+	@Test public void testUpdate() throws IOException
 	{
 		assertUpdate("904ac396ac3d50faa666e57146fe7862", bytes4);
 		assertUpdate(
@@ -84,14 +84,14 @@ public class DataDigestTest extends CopeAssert
 	private static final byte[] bytes4  = {-86,122,-8,23};
 
 
-	public void testExhaustionArray() throws IOException
+	@Test public void testExhaustionArray() throws IOException
 	{
 		final Value value = toValue(bytes4);
 		assertAsArray(bytes4, value);
 		assertExhausted(value);
 	}
 
-	public void testExhaustionStream() throws IOException
+	@Test public void testExhaustionStream() throws IOException
 	{
 		final ByteArrayInputStream stream = new ByteArrayInputStream(bytes4);
 		final Value value = toValue(stream);
@@ -99,7 +99,7 @@ public class DataDigestTest extends CopeAssert
 		assertExhausted(value);
 	}
 
-	public void testExhaustionFile() throws IOException
+	@Test public void testExhaustionFile() throws IOException
 	{
 		final File inputFile = file(bytes4);
 		final Value value = toValue(inputFile);
@@ -109,7 +109,7 @@ public class DataDigestTest extends CopeAssert
 	}
 
 
-	public void testExhaustionArrayUpdate() throws IOException
+	@Test public void testExhaustionArrayUpdate() throws IOException
 	{
 		final Value value = toValue(bytes4);
 		messageDigest.reset();
@@ -121,7 +121,7 @@ public class DataDigestTest extends CopeAssert
 		assertAsArray(bytes4, replacementValue);
 	}
 
-	public void testExhaustionStreamUpdate() throws IOException
+	@Test public void testExhaustionStreamUpdate() throws IOException
 	{
 		final ByteArrayInputStream stream = new ByteArrayInputStream(bytes4);
 		final Value value = toValue(stream);
@@ -135,7 +135,7 @@ public class DataDigestTest extends CopeAssert
 		assertAsArray(bytes4, replacementValue);
 	}
 
-	public void testExhaustionFileUpdate() throws IOException
+	@Test public void testExhaustionFileUpdate() throws IOException
 	{
 		final File inputFile = file(bytes4);
 		final Value value = toValue(inputFile);

@@ -25,7 +25,7 @@ import java.util.Date;
 public class SampleTest extends CopeAssert
 {
 	@Deprecated
-	public void testIt()
+	@Test public void testIt()
 	{
 		@SuppressWarnings("deprecation")
 		final MxSampler sampler = new MxSampler();

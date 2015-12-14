@@ -39,7 +39,7 @@ public class RevisionStatisticsTest extends CopeAssert
 
 	private static final ConnectProperties props = new ConnectProperties(new File("runtime/utiltest.properties"));
 
-	public void testIt()
+	@Test public void testIt()
 	{
 		revisions.assertEmpty();
 

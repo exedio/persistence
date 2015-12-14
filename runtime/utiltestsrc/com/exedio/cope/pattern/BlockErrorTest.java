@@ -28,7 +28,7 @@ import com.exedio.cope.junit.CopeAssert;
 
 public class BlockErrorTest extends CopeAssert
 {
-	public void testNull()
+	@Test public void testNull()
 	{
 		try
 		{
@@ -42,7 +42,7 @@ public class BlockErrorTest extends CopeAssert
 	}
 
 
-	public void testNonFinal()
+	@Test public void testNonFinal()
 	{
 		try
 		{
@@ -64,7 +64,7 @@ public class BlockErrorTest extends CopeAssert
 	}
 
 
-	public void testNoConstructor()
+	@Test public void testNoConstructor()
 	{
 		try
 		{
@@ -88,7 +88,7 @@ public class BlockErrorTest extends CopeAssert
 	}
 
 
-	public void testNoFields()
+	@Test public void testNoFields()
 	{
 		try
 		{
@@ -108,7 +108,7 @@ public class BlockErrorTest extends CopeAssert
 	}
 
 
-	public void testNullField()
+	@Test public void testNullField()
 	{
 		try
 		{
@@ -129,7 +129,7 @@ public class BlockErrorTest extends CopeAssert
 	}
 
 
-	public void testNotCopyable()
+	@Test public void testNotCopyable()
 	{
 		try
 		{
@@ -158,7 +158,7 @@ public class BlockErrorTest extends CopeAssert
 	}
 
 
-	public void testBlockItself()
+	@Test public void testBlockItself()
 	{
 		try
 		{
@@ -176,7 +176,7 @@ public class BlockErrorTest extends CopeAssert
 
 
 	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad API usage
-	public void testNoBlock()
+	@Test public void testNoBlock()
 	{
 		try
 		{
@@ -193,7 +193,7 @@ public class BlockErrorTest extends CopeAssert
 	}
 
 
-	public void testAlreadyBound()
+	@Test public void testAlreadyBound()
 	{
 		final BlockType<AlreadyBound> TYPE = AlreadyBound.TYPE;
 		assertEquals(AlreadyBound.class.getName(), TYPE.toString());

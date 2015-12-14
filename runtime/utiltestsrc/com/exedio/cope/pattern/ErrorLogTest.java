@@ -24,7 +24,7 @@ import java.util.Date;
 
 public class ErrorLogTest extends CopeAssert
 {
-	public void testValues()
+	@Test public void testValues()
 	{
 		final ErrorLog l = new ErrorLog(3);
 		l.count(new Request(0), null);
@@ -41,7 +41,7 @@ public class ErrorLogTest extends CopeAssert
 		assertEquals("HeaderUser-Agent0", l0.getUserAgent());
 	}
 
-	public void testSecure()
+	@Test public void testSecure()
 	{
 		final ErrorLog l = new ErrorLog(3);
 		l.count(new Request(0, true), null);
@@ -52,7 +52,7 @@ public class ErrorLogTest extends CopeAssert
 		assertEquals("PathInfo0", l0.getPathInfo());
 	}
 
-	public void testOverflow()
+	@Test public void testOverflow()
 	{
 		final ErrorLog l = new ErrorLog(3);
 		assertEquals(0, l.get());
@@ -89,7 +89,7 @@ public class ErrorLogTest extends CopeAssert
 		assertEquals(list(l2, l3, l4), l.getLogs()); // l1 is gone
 	}
 
-	public void testDate()
+	@Test public void testDate()
 	{
 		final ErrorLog l = new ErrorLog(3);
 
@@ -102,7 +102,7 @@ public class ErrorLogTest extends CopeAssert
 		assertWithin(before, after, l0.getDate());
 	}
 
-	public void testException()
+	@Test public void testException()
 	{
 		final IOException e0 = new IOException();
 		final NullPointerException e1 = new NullPointerException();

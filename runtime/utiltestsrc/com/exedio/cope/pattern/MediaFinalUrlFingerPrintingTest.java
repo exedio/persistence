@@ -28,7 +28,7 @@ import com.exedio.cope.junit.CopeAssert;
  */
 public class MediaFinalUrlFingerPrintingTest extends CopeAssert
 {
-	public void testIt()
+	@Test public void testIt()
 	{
 		assertEquals(false, AnItem.nonFinal.isFinal());
 		assertEquals(true,  AnItem.isFinal.isFinal());

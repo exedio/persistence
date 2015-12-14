@@ -41,7 +41,7 @@ public class PatternTest extends AbstractRuntimeModelTest
 		super.setUp();
 	}
 
-	public void testIt()
+	@Test public void testIt()
 	{
 		// type
 		assertEqualsUnmodifiable(
@@ -222,7 +222,7 @@ public class PatternTest extends AbstractRuntimeModelTest
 	}
 
 	@Deprecated
-	public void testDeprecated()
+	@Test public void testDeprecated()
 	{
 		assertEqualsUnmodifiable(list(
 				PatternTestItem.testPattern.ownString,

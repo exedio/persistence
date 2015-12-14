@@ -31,7 +31,7 @@ import com.exedio.cope.junit.CopeAssert;
 
 public class PartOfContainerReuseTest extends CopeAssert
 {
-	public void testIt()
+	@Test public void testIt()
 	{
 		assertEqualsUnmodifiable(list(
 				TYPE.getThis(),

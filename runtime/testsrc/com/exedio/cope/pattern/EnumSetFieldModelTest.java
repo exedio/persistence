@@ -40,7 +40,7 @@ public class EnumSetFieldModelTest extends CopeAssert
 		MODEL.enableSerialization(EnumSetFieldModelTest.class, "MODEL");
 	}
 
-	public void testIt()
+	@Test public void testIt()
 	{
 		assertEquals(TYPE, activeLanguage.getType());
 		assertEquals("activeLanguage", activeLanguage.getName());
@@ -74,7 +74,7 @@ public class EnumSetFieldModelTest extends CopeAssert
 		assertSerializedSame(activeLanguage, 401);
 	}
 
-	public void testInitialType()
+	@Test public void testInitialType()
 	{
 		assertEquals("java.util.EnumSet<" + Language.class.getName() + ">", activeLanguage.getInitialType().toString());
 	}

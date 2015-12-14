@@ -82,7 +82,7 @@ public class CompareConditionTest extends AbstractRuntimeModelTest
 		item5.setItem(item5);
 	}
 
-	public void testEqualsHashCode()
+	@Test public void testEqualsHashCode()
 	{
 		assertEqualsAndHash(string.less("a"), string.less("a"));
 		assertNotEqualsAndHash(
@@ -92,7 +92,7 @@ public class CompareConditionTest extends AbstractRuntimeModelTest
 				string.lessOrEqual("a"));
 	}
 
-	public void testToString()
+	@Test public void testToString()
 	{
 		assertEquals("CompareConditionItem.string='string3'",  string.equal("string3").toString());
 		assertEquals("CompareConditionItem.string<>'string3'", string.notEqual("string3").toString());
@@ -102,7 +102,7 @@ public class CompareConditionTest extends AbstractRuntimeModelTest
 		assertEquals("CompareConditionItem.string>='string3'", string.greaterOrEqual("string3").toString());
 	}
 
-	public void testIsNull()
+	@Test public void testIsNull()
 	{
 		assertCondition(itemX, TYPE, string.isNull());
 		assertCondition(itemX, TYPE, intx.isNull());
@@ -115,7 +115,7 @@ public class CompareConditionTest extends AbstractRuntimeModelTest
 		assertCondition(TYPE, THIS.isNull());
 	}
 
-	public void testIsNotNull()
+	@Test public void testIsNotNull()
 	{
 		assertCondition(item1, item2, item3, item4, item5, TYPE, string.isNotNull());
 		assertCondition(item1, item2, item3, item4, item5, TYPE, intx.isNotNull());
@@ -128,7 +128,7 @@ public class CompareConditionTest extends AbstractRuntimeModelTest
 		assertCondition(item1, item2, item3, item4, item5, itemX, TYPE, THIS.isNotNull());
 	}
 
-	public void testEqual()
+	@Test public void testEqual()
 	{
 		assertCondition(item3, TYPE, string.equal("string3"));
 		assertCondition(item3, TYPE, intx.equal(3));
@@ -141,7 +141,7 @@ public class CompareConditionTest extends AbstractRuntimeModelTest
 		assertCondition(item3, TYPE, THIS.equal(item3));
 	}
 
-	public void testNotEqual()
+	@Test public void testNotEqual()
 	{
 		assertCondition(item1, item2, item4, item5, TYPE, string.notEqual("string3"));
 		assertCondition(item1, item2, item4, item5, TYPE, intx.notEqual(3));
@@ -154,7 +154,7 @@ public class CompareConditionTest extends AbstractRuntimeModelTest
 		assertCondition(item1, item2, item4, item5, itemX, TYPE, THIS.notEqual(item3));
 	}
 
-	public void testLess()
+	@Test public void testLess()
 	{
 		assertCondition(item1, item2, TYPE, string.less("string3"));
 		assertCondition(item1, item2, TYPE, intx.less(3));
@@ -167,7 +167,7 @@ public class CompareConditionTest extends AbstractRuntimeModelTest
 		assertCondition(item1, item2, TYPE, THIS.less(item3));
 	}
 
-	public void testLessOrEqual()
+	@Test public void testLessOrEqual()
 	{
 		assertCondition(item1, item2, item3, TYPE, string.lessOrEqual("string3"));
 		assertCondition(item1, item2, item3, TYPE, intx.lessOrEqual(3));
@@ -180,7 +180,7 @@ public class CompareConditionTest extends AbstractRuntimeModelTest
 		assertCondition(item1, item2, item3, TYPE, THIS.lessOrEqual(item3));
 	}
 
-	public void testGreater()
+	@Test public void testGreater()
 	{
 		assertCondition(item4, item5, TYPE, string.greater("string3"));
 		assertCondition(item4, item5, TYPE, intx.greater(3));
@@ -193,7 +193,7 @@ public class CompareConditionTest extends AbstractRuntimeModelTest
 		assertCondition(item4, item5, itemX, TYPE, THIS.greater(item3));
 	}
 
-	public void testGreaterOrEqual()
+	@Test public void testGreaterOrEqual()
 	{
 		assertCondition(item3, item4, item5, TYPE, string.greaterOrEqual("string3"));
 		assertCondition(item3, item4, item5, TYPE, intx.greaterOrEqual(3));
@@ -206,7 +206,7 @@ public class CompareConditionTest extends AbstractRuntimeModelTest
 		assertCondition(item3, item4, item5, itemX, TYPE, THIS.greaterOrEqual(item3));
 	}
 
-	public void testNot()
+	@Test public void testNot()
 	{
 		assertCondition(item1, item2, item3, item4, item5, TYPE, intx.isNull().not());
 		assertCondition(itemX,                             TYPE, intx.isNotNull().not());
@@ -218,7 +218,7 @@ public class CompareConditionTest extends AbstractRuntimeModelTest
 		assertCondition(item1, item2,                      TYPE, intx.greaterOrEqual(3).not());
 	}
 
-	public void testBetween()
+	@Test public void testBetween()
 	{
 		assertCondition(item2, item3, item4, TYPE, string.between("string2", "string4"));
 		assertCondition(item2, item3, item4, TYPE, intx.between(2, 4));
@@ -231,7 +231,7 @@ public class CompareConditionTest extends AbstractRuntimeModelTest
 		assertCondition(item2, item3, item4, TYPE, THIS.between(item2, item4));
 	}
 
-	public void testIn()
+	@Test public void testIn()
 	{
 		assertCondition(item1, item3, TYPE, string.in(asList("string1", "string3", "stringNone")));
 		assertCondition(item1, item3, TYPE, intx.in(asList(1, 3, 25)));
@@ -244,7 +244,7 @@ public class CompareConditionTest extends AbstractRuntimeModelTest
 		assertCondition(item1, item3, TYPE, THIS.in(asList(item1, item3)));
 	}
 
-	public void testMin()
+	@Test public void testMin()
 	{
 		assertEquals("select min(" + string.getName() + ") from " + TYPE, new Query<>(string.min()).toString());
 		assertEquals("string1", new Query<>(string.min()).searchSingleton());
@@ -277,7 +277,7 @@ public class CompareConditionTest extends AbstractRuntimeModelTest
 		assertEquals(item1, new Query<>(THIS.min()).searchSingleton());
 	}
 
-	public void testMax()
+	@Test public void testMax()
 	{
 		assertEquals("select max(" + string.getName() + ") from " + TYPE, new Query<>(string.max()).toString());
 		assertEquals("string5", new Query<>(string.max()).searchSingleton());
@@ -299,7 +299,7 @@ public class CompareConditionTest extends AbstractRuntimeModelTest
 		assertEquals(String.class, string.max().getValueClass());
 	}
 
-	public void testSum()
+	@Test public void testSum()
 	{
 		{
 			final Query<Integer> q = new Query<>(intx.sum());
@@ -327,7 +327,7 @@ public class CompareConditionTest extends AbstractRuntimeModelTest
 		}
 	}
 
-	public void testAverage()
+	@Test public void testAverage()
 	{
 		{
 			final Query<Integer> q = new Query<>(intx.average());
@@ -355,14 +355,14 @@ public class CompareConditionTest extends AbstractRuntimeModelTest
 		}
 	}
 
-	public void testCheckUnsupportedConstraints()
+	@Test public void testCheckUnsupportedConstraints()
 	{
 		commit();
 		model.checkUnsupportedConstraints();
 		startTransaction();
 	}
 
-	public void testGroup()
+	@Test public void testGroup()
 	{
 		new CompareConditionItem("s", 10, 456L, 7.89, new Date(), day(0), YEnum.V1);
 		new CompareConditionItem("s", 20, 456L, 7.89, new Date(), day(2), YEnum.V1);

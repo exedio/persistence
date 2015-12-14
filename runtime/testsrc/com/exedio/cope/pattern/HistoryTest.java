@@ -60,7 +60,7 @@ public class HistoryTest extends AbstractRuntimeModelTest
 		item = new HistoryItem();
 	}
 
-	public void testIt()
+	@Test public void testIt()
 	{
 		final Type<?> eventType = audit.getEventType();
 		final Type<?> featureType = audit.getFeatureType();

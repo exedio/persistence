@@ -76,7 +76,7 @@ public class TypeIteratorTransactionallyTest extends AbstractRuntimeModelTest
 		super.tearDown();
 	}
 
-	public void testIt()
+	@Test public void testIt()
 	{
 		try
 		{

@@ -58,7 +58,7 @@ public class StableQueryIteratorTest extends AbstractRuntimeModelTest
 		q.setOrderBy(TYPE.getThis(), true);
 	}
 
-	public void testIt()
+	@Test public void testIt()
 	{
 		try
 		{

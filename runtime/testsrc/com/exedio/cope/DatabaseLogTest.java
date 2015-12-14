@@ -47,7 +47,7 @@ public class DatabaseLogTest extends AbstractRuntimeModelTest
 		super.tearDown();
 	}
 
-	public void testDatabaseLog()
+	@Test public void testDatabaseLog()
 	{
 		final ExpectingDatabaseListener l = new ExpectingDatabaseListener();
 		model.setTestDatabaseListener(l);

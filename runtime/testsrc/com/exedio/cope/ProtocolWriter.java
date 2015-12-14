@@ -30,7 +30,7 @@ public class ProtocolWriter extends AbstractRuntimeModelTest
 		super(CompareConditionTest.MODEL);
 	}
 
-	public void testProtocol() throws IOException
+	@Test public void testProtocol() throws IOException
 	{
 		final String prefix = System.getProperty("com.exedio.cope.testprotocol.prefix");
 		if(prefix!=null)

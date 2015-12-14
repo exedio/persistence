@@ -28,7 +28,7 @@ import com.exedio.cope.junit.CopeAssert;
 
 public class HashAlgorithmAdapterTest extends CopeAssert
 {
-	public void testAlgorithm()
+	@Test public void testAlgorithm()
 	{
 		@SuppressWarnings("deprecation")
 		final Hash.Algorithm algorithm = AnItem.hash.getAlgorithm();
@@ -63,7 +63,7 @@ public class HashAlgorithmAdapterTest extends CopeAssert
 		}
 	}
 
-	public void testEncoding()
+	@Test public void testEncoding()
 	{
 		@SuppressWarnings("deprecation")
 		final String encoding = AnItem.hash.getEncoding();

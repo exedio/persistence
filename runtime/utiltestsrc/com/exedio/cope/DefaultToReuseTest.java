@@ -23,7 +23,7 @@ import java.util.Random;
 
 public class DefaultToReuseTest extends CopeAssert
 {
-	public void testRandom()
+	@Test public void testRandom()
 	{
 		final LongField f = new LongField().defaultToRandom(new Random());
 		assertEquals(true, f.isMandatory());
@@ -44,7 +44,7 @@ public class DefaultToReuseTest extends CopeAssert
 		}
 	}
 
-	public void testNext()
+	@Test public void testNext()
 	{
 		final IntegerField f = new IntegerField().defaultToNext(55);
 		assertEquals(true, f.isMandatory());

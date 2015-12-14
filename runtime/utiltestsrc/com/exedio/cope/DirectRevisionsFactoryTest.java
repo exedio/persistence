@@ -27,7 +27,7 @@ import java.sql.SQLException;
 public class DirectRevisionsFactoryTest extends CopeAssert
 {
 	@Deprecated // OK: tests deprecated API
-	public void testIt() throws SQLException
+	@Test public void testIt() throws SQLException
 	{
 		assertEquals(null, make(null));
 

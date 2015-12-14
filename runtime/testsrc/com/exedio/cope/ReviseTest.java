@@ -104,7 +104,7 @@ public class ReviseTest extends CopeAssert
 	EnvironmentInfo info;
 	boolean longSyntheticNames = false;
 
-	public void testRevise() throws ParseException
+	@Test public void testRevise() throws ParseException
 	{
 		connectionUrl  = props.getConnectionUrl();
 		connectionUser = props.getConnectionUsername();
@@ -387,7 +387,7 @@ public class ReviseTest extends CopeAssert
 		assertEquals(true, revisionTable.exists());
 	}
 
-	public void testAutoRevise()
+	@Test public void testAutoRevise()
 	{
 		revisionsFactory5.put( new Revisions(0) );
 		final TestSource testSource = new TestSource();

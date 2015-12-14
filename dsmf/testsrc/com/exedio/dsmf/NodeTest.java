@@ -23,7 +23,7 @@ import junit.framework.TestCase;
 
 public class NodeTest extends TestCase
 {
-	public void testColumn()
+	@Test public void testColumn()
 	{
 		final Schema schema = new Schema(new HsqldbDialect(), connectionProvider);
 		final Table table = new Table(schema, "tabName");
@@ -47,7 +47,7 @@ public class NodeTest extends TestCase
 		assertEquals("requiredType", c.getRequiredType());
 	}
 
-	public void testColumnWrongType()
+	@Test public void testColumnWrongType()
 	{
 		final Schema schema = new Schema(new HsqldbDialect(), connectionProvider);
 		final Table table = new Table(schema, "tabName");
@@ -71,7 +71,7 @@ public class NodeTest extends TestCase
 		assertEquals("requiredType", c.getRequiredType());
 	}
 
-	public void testColumnNonRequires()
+	@Test public void testColumnNonRequires()
 	{
 		final Schema schema = new Schema(new HsqldbDialect(), connectionProvider);
 		final Table table = new Table(schema, "tabName");

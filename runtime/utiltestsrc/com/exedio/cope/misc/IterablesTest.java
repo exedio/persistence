@@ -24,7 +24,7 @@ import junit.framework.AssertionFailedError;
 
 public class IterablesTest extends CopeAssert
 {
-	public void testIt()
+	@Test public void testIt()
 	{
 		final Iterator<String> iterator = new Iterator<String>(){
 
@@ -70,7 +70,7 @@ public class IterablesTest extends CopeAssert
 		}
 	}
 
-	public void testNull()
+	@Test public void testNull()
 	{
 		try
 		{

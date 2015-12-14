@@ -38,7 +38,7 @@ public class ImporterModelTest extends CopeAssert
 		model.enableSerialization(ImporterModelTest.class, "model");
 	}
 
-	public void testIt()
+	@Test public void testIt()
 	{
 		assertEqualsUnmodifiable(list(TYPE), model.getTypes());
 		assertEqualsUnmodifiable(list(TYPE), model.getTypesSortedByHierarchy());

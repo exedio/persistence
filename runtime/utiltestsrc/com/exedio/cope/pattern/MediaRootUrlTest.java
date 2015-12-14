@@ -29,7 +29,7 @@ import java.util.Collection;
 
 public class MediaRootUrlTest extends CopeAssert
 {
-	public void testIt()
+	@Test public void testIt()
 	{
 		final ConnectProperties properties = getProperties("zack/");
 		assertEquals("zack/", properties.getMediaRootUrl());

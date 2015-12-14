@@ -22,7 +22,7 @@ import static com.exedio.cope.junit.JUnitTestItem.nextSequence;
 
 public class CopeModelTestTestRestart extends CopeModelTestTest
 {
-	public void testRestart()
+	@Test public void testRestart()
 	{
 		doTest();
 		model.commit();

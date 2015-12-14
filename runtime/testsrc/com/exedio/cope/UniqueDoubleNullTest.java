@@ -39,7 +39,7 @@ public class UniqueDoubleNullTest extends AbstractRuntimeModelTest
 		super(MODEL);
 	}
 
-	public void test()
+	@Test public void test()
 	{
 		if(oracle) // Oracle violates SQL standard about this
 			return;

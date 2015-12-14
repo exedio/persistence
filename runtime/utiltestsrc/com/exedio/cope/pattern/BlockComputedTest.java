@@ -42,7 +42,7 @@ public final class BlockComputedTest extends CopeAssert
 		MODEL.enableSerialization(BlockComputedTest.class, "MODEL");
 	}
 
-	public static void testIt()
+	@Test public static void testIt()
 	{
 		assertEquals(false, comp(virgnTemp));
 		assertEquals(true,  comp(compuTemp));

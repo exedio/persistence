@@ -78,7 +78,7 @@ public class DispatcherTest extends CopeModelTest
 		super.tearDown();
 	}
 
-	public void testIt()
+	@Test public void testIt()
 	{
 		assertNoUpdateCounterColumn(toTarget.getRunType());
 		assertEquals("success", getColumnName(toTarget.getRunSuccess()));
@@ -135,7 +135,7 @@ public class DispatcherTest extends CopeModelTest
 	}
 
 	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad api usage
-	public void testUnchecked()
+	@Test public void testUnchecked()
 	{
 		try
 		{
@@ -166,7 +166,7 @@ public class DispatcherTest extends CopeModelTest
 		}
 	}
 
-	public void testStop0()
+	@Test public void testStop0()
 	{
 		dispatch(0, 0);
 		assertPending(item1, 0, list());
@@ -175,7 +175,7 @@ public class DispatcherTest extends CopeModelTest
 		assertPending(item4, 0, list());
 	}
 
-	public void testStop1()
+	@Test public void testStop1()
 	{
 		final Date[] d = dispatch(1, 1);
 		assertSuccess(item1, 1, d[0], list());
@@ -184,7 +184,7 @@ public class DispatcherTest extends CopeModelTest
 		assertPending(item4, 0, list());
 	}
 
-	public void testStop2()
+	@Test public void testStop2()
 	{
 		final Date[] d = dispatch(2, 2);
 		assertSuccess(item1, 1, d[0], list());
@@ -193,7 +193,7 @@ public class DispatcherTest extends CopeModelTest
 		assertPending(item4, 0, list());
 	}
 
-	public void testStop3()
+	@Test public void testStop3()
 	{
 		final Date[] d = dispatch(3, 3);
 		assertSuccess(item1, 1, d[0], list());
@@ -202,7 +202,7 @@ public class DispatcherTest extends CopeModelTest
 		assertPending(item4, 0, list());
 	}
 
-	public void testStop4()
+	@Test public void testStop4()
 	{
 		final Date[] d = dispatch(4, 4, 4);
 		assertSuccess(item1, 1, d[0], list());
@@ -211,7 +211,7 @@ public class DispatcherTest extends CopeModelTest
 		assertPending(item4, 0, list(d[3]));
 	}
 
-	public void testStop5()
+	@Test public void testStop5()
 	{
 		final Date[] d = dispatch(4, 5, 4);
 		assertSuccess(item1, 1, d[0], list());

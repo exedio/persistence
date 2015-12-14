@@ -45,7 +45,7 @@ public class DataMandatoryTest extends AbstractRuntimeModelTest
 		item = new DataMandatoryItem(toValue(bytes4));
 	}
 
-	public void testData() throws MandatoryViolationException, IOException
+	@Test public void testData() throws MandatoryViolationException, IOException
 	{
 		// test model
 		assertEquals(false, data.isFinal());

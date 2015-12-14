@@ -26,7 +26,7 @@ public class CopeModelTestTestNoTx extends CopeModelTestTest
 		return false;
 	}
 
-	public void testNoTx()
+	@Test public void testNoTx()
 	{
 		assertFalse(model.hasCurrentTransaction());
 		model.startTransaction("tx:" + CopeModelTestTestNoTx.class.getName());

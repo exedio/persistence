@@ -59,7 +59,7 @@ public class PasswordLimiterVerboseTest extends CopeModelTest
 	private static final String PASSWORD = "correctPassword8927365";
 	private static final String PASSWORD2 = "correctPassword6576675";
 
-	public void testIt() throws ExceededException
+	@Test public void testIt() throws ExceededException
 	{
 		assertTrue(i.checkPassword(PASSWORD));
 		assertEquals(list(), getRefusals());

@@ -58,7 +58,7 @@ public class SerializerTest extends AbstractRuntimeModelTest
 		item = new SerializerItem();
 	}
 
-	public void testSerializer()
+	@Test public void testSerializer()
 	{
 		// test model
 		assertEquals(Arrays.asList(new Feature[]{

@@ -32,7 +32,7 @@ import java.util.List;
 
 public class CompositeConditionUtilTest extends CopeAssert
 {
-	public void testIt()
+	@Test public void testIt()
 	{
 		final DoubleField field = new DoubleField().optional();
 		final Condition c1 = field.equal(1d);
@@ -170,7 +170,7 @@ public class CompositeConditionUtilTest extends CopeAssert
 		assertEquals(newCompositeCondition(OR,  c1, newCompositeCondition(AND, c2, c3)), c1.or(c2.and(c3)));
 	}
 
-	public void testNot()
+	@Test public void testNot()
 	{
 		final DoubleField field = new DoubleField().optional();
 		final Condition c1 = field.equal(1d);
@@ -198,7 +198,7 @@ public class CompositeConditionUtilTest extends CopeAssert
 		assertSame(c1, c1.not().not());
 	}
 
-	public void testNeutrumAbsolutum()
+	@Test public void testNeutrumAbsolutum()
 	{
 		final DoubleField field = new DoubleField().optional();
 		final Condition c1 = field.equal(1d);

@@ -25,7 +25,7 @@ import java.util.HashMap;
 
 public class TestGetModelTest extends CopeAssert
 {
-	public void testIt()
+	@Test public void testIt()
 	{
 		final HashMap<Model, ConnectProperties> models = PackageTest.getModels(PackageTest.suite());
 		assertTrue(models.keySet().contains(NameTest.MODEL));

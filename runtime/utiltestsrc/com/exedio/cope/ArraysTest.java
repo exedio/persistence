@@ -23,7 +23,7 @@ import junit.framework.TestCase;
 
 public class ArraysTest extends TestCase
 {
-	public void testIt()
+	@Test public void testIt()
 	{
 		try
 		{

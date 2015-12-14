@@ -52,7 +52,7 @@ public class ByteAlgorithmTest extends CopeAssert
 			}
 		};
 
-	public void testCharsetNull()
+	@Test public void testCharsetNull()
 	{
 		try
 		{
@@ -65,7 +65,7 @@ public class ByteAlgorithmTest extends CopeAssert
 		}
 	}
 	@Deprecated // OK: testing deprecated API
-	public void testEncodingNull()
+	@Test public void testEncodingNull()
 	{
 		try
 		{
@@ -78,7 +78,7 @@ public class ByteAlgorithmTest extends CopeAssert
 		}
 	}
 	@Deprecated // OK: testing deprecated API
-	public void testEncodingWrong()
+	@Test public void testEncodingWrong()
 	{
 		try
 		{

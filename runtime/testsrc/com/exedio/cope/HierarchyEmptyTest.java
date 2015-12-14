@@ -30,7 +30,7 @@ public class HierarchyEmptyTest extends AbstractRuntimeModelTest
 		super(MODEL);
 	}
 
-	public void testHierarchy()
+	@Test public void testHierarchy()
 			throws IntegrityViolationException, UniqueViolationException
 	{
 		// model HierarchyEmptySuper
@@ -120,7 +120,7 @@ public class HierarchyEmptyTest extends AbstractRuntimeModelTest
 		assertEquals(list(), HierarchyEmptySuper.TYPE.search(HierarchyEmptySuper.superInt.equal(1)));
 	}
 
-	public void testModel()
+	@Test public void testModel()
 	{
 		model.commit();
 

@@ -39,7 +39,7 @@ public class CopyMultiCopyModelTest extends CopeAssert
 	static final CopyConstraint constraintA = (CopyConstraint)TYPE.getFeature("copyACopyFromtarget");
 	static final CopyConstraint constraintB = (CopyConstraint)TYPE.getFeature("copyBCopyFromtarget");
 
-	public void testIt()
+	@Test public void testIt()
 	{
 		assertEquals(Arrays.asList(new Feature[]{
 				TYPE.getThis(),
@@ -93,7 +93,7 @@ public class CopyMultiCopyModelTest extends CopeAssert
 	}
 
 	@SuppressWarnings("deprecation")
-	public void testDeprecated()
+	@Test public void testDeprecated()
 	{
 		assertEqualsUnmodifiable(list(), copyA.getImplicitCopyConstraints());
 		assertEqualsUnmodifiable(list(), copyB.getImplicitCopyConstraints());

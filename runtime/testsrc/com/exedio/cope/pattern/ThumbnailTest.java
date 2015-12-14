@@ -67,7 +67,7 @@ public final class ThumbnailTest extends AbstractRuntimeModelTest
 		txt.setFile(data, "text/plain");
 	}
 
-	public void testThumbs() throws IOException
+	@Test public void testThumbs() throws IOException
 	{
 		// test model
 		assertEqualsUnmodifiable(Arrays.asList(new Feature[]{

@@ -34,7 +34,7 @@ public final class PatternComputedTest extends CopeAssert
 		MODEL.enableSerialization(PatternComputedTest.class, "MODEL");
 	}
 
-	public static void testIt()
+	@Test public static void testIt()
 	{
 		assertEquals(false, comp(virgnComp));
 		assertEquals(true,  comp(compuComp));

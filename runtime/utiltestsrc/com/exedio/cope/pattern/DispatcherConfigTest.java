@@ -24,7 +24,7 @@ public class DispatcherConfigTest extends CopeAssert
 {
 	private static final Dispatcher.Config config = new Dispatcher.Config(3, 2);
 
-	public void testIt()
+	@Test public void testIt()
 	{
 		assertEquals(3, config.getFailureLimit());
 		assertEquals(2, config.getSearchSize());

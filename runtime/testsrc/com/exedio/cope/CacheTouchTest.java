@@ -39,7 +39,7 @@ public class CacheTouchTest extends AbstractRuntimeModelTest
 		item = new CacheIsolationItem("itemName");
 	}
 
-	public void testIt()
+	@Test public void testIt()
 	{
 		if(!cache || hsqldb || oracle) return; // TODO
 		initCache();

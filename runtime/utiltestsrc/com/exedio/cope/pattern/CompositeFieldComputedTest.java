@@ -43,7 +43,7 @@ public final class CompositeFieldComputedTest extends CopeAssert
 		MODEL.enableSerialization(CompositeFieldComputedTest.class, "MODEL");
 	}
 
-	public static void testIt()
+	@Test public static void testIt()
 	{
 		assertEquals(false, comp(virgnTemp));
 		assertEquals(true,  comp(compuTemp));

@@ -55,7 +55,7 @@ public class SchemaTypeStringTest extends AbstractRuntimeModelTest
 		super(MODEL);
 	}
 
-	public void testSchemaTypes()
+	@Test public void testSchemaTypes()
 	{
 		// make sure, relation types are as small as possible -
 		// just the primary key and the StringField
@@ -137,7 +137,7 @@ public class SchemaTypeStringTest extends AbstractRuntimeModelTest
 				field.getSchemaType());
 	}
 
-	public void testValues()
+	@Test public void testValues()
 	{
 		if(oracle)
 			return;
@@ -188,7 +188,7 @@ public class SchemaTypeStringTest extends AbstractRuntimeModelTest
 		}
 	}
 
-	public void testSchema()
+	@Test public void testSchema()
 	{
 		assertSchema();
 	}

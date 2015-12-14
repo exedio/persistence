@@ -44,7 +44,7 @@ public class SequenceTest extends AbstractRuntimeModelTest
 		return false;
 	}
 
-	public void testIt()
+	@Test public void testIt()
 	{
 		// sequences are not part of a transaction
 		assertFalse(MODEL.hasCurrentTransaction());
@@ -114,7 +114,7 @@ public class SequenceTest extends AbstractRuntimeModelTest
 		assertInfo(MODEL.getSequenceInfo(), TYPE.getThis(), full, limited);
 	}
 
-	public void testParallelSequenceAccess() throws InterruptedException
+	@Test public void testParallelSequenceAccess() throws InterruptedException
 	{
 		final Thread[] threads = new Thread[ 10 ];
 		final Set<Integer> fullIds = Collections.synchronizedSet( new HashSet<Integer>() );

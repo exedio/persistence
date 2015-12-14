@@ -47,7 +47,7 @@ public class DeleteTest extends AbstractRuntimeModelTest
 	private DeleteItem item;
 	private DeleteOtherItem other;
 
-	public void testForbid()
+	@Test public void testForbid()
 	{
 		assertEqualsUnmodifiable(list(selfForbid, selfNullify, selfCascade, selfCascade2), DeleteItem.TYPE.getDeclaredReferences());
 		assertEqualsUnmodifiable(list(selfForbid, selfNullify, selfCascade, selfCascade2), DeleteItem.TYPE.getReferences());
@@ -90,7 +90,7 @@ public class DeleteTest extends AbstractRuntimeModelTest
 	}
 
 	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
-	public void testNullify()
+	@Test public void testNullify()
 	{
 		assertSame(NULLIFY, selfNullify.getDeletePolicy());
 		assertSame(NULLIFY, otherNullify.getDeletePolicy());
@@ -159,7 +159,7 @@ public class DeleteTest extends AbstractRuntimeModelTest
 		assertDelete(item3);
 	}
 
-	public void testCascade()
+	@Test public void testCascade()
 	{
 		assertSame(CASCADE, selfCascade.getDeletePolicy());
 		assertSame(CASCADE, otherCascade.getDeletePolicy());
@@ -241,7 +241,7 @@ public class DeleteTest extends AbstractRuntimeModelTest
 		assertTrue(!item2.existsCopeItem());
 	}
 
-	public void testAtomicity()
+	@Test public void testAtomicity()
 	{
 		final DeleteItem todelete = new DeleteItem("todelete");
 
@@ -271,7 +271,7 @@ public class DeleteTest extends AbstractRuntimeModelTest
 		assertTrue(item.existsCopeItem());
 	}
 
-	public void testItemObjectPool() throws NoSuchIDException
+	@Test public void testItemObjectPool() throws NoSuchIDException
 	{
 		item = new DeleteItem("item1");
 		final DeleteItem item2 = new DeleteItem("item2");
@@ -301,7 +301,7 @@ public class DeleteTest extends AbstractRuntimeModelTest
 	/**
 	 * Tests revision on a model without revisions enabled.
 	 */
-	public void testRevise()
+	@Test public void testRevise()
 	{
 		assertEquals(ConnectProperties.getDefaultPropertyFile().getAbsolutePath(), model.getConnectProperties().getSource());
 

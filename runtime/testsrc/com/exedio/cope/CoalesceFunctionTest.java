@@ -80,7 +80,7 @@ public class CoalesceFunctionTest extends AbstractRuntimeModelTest
 		item2.setItemA(item2);
 	}
 
-	public void testIt()
+	@Test public void testIt()
 	{
 		assertIt(asList("string1", "string2", "string1l", "string2l", "string3", "stringX"), stringA, stringB, "stringX");
 		assertIt(asList("string3", "string3", "string1r", "string2r", "string3", "stringX"), stringB, stringA, "stringX");

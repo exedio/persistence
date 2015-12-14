@@ -67,7 +67,7 @@ public class CoalesceTest extends AbstractRuntimeModelTest
 		item2.setItem(item2);
 	}
 
-	public void testIt()
+	@Test public void testIt()
 	{
 		try
 		{

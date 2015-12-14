@@ -38,7 +38,7 @@ public class EnumAnnotatedElementTest extends CopeAssert
 		};
 	}
 
-	public void testIt()
+	@Test public void testIt()
 	{
 		assertEquals("simpleSchemaName", get(AnEnum.simple).getAnnotation(CopeSchemaName.class).value());
 		assertEquals("subclassSchemaName", get(AnEnum.subclass).getAnnotation(CopeSchemaName.class).value());

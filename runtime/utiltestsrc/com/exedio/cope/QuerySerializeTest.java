@@ -27,7 +27,7 @@ import junit.framework.TestCase;
 
 public class QuerySerializeTest extends TestCase
 {
-	public void testSerialize()
+	@Test public void testSerialize()
 	{
 		final Query<?> q = TYPE.newQuery(null);
 		int size=785;

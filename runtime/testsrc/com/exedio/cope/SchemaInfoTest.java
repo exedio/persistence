@@ -33,7 +33,7 @@ public class SchemaInfoTest extends AbstractRuntimeModelTest
 		super(InstanceOfModelTest.MODEL);
 	}
 
-	public void testSchemaInfo()
+	@Test public void testSchemaInfo()
 	{
 		// quoteName
 		final char q = mysql ? '`' : '"';

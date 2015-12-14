@@ -26,7 +26,7 @@ import java.util.Date;
 public class DifferentiateTest extends CopeAssert
 {
 	@Deprecated
-	public void testIt()
+	@Test public void testIt()
 	{
 		assertEquals(list(), sampler.differentiate());
 

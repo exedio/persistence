@@ -30,7 +30,7 @@ public class CopySelfTest extends AbstractRuntimeModelTest
 		super(CopyModelTest.MODEL);
 	}
 
-	public void testOk1()
+	@Test public void testOk1()
 	{
 		final CopyValueItem value = new CopyValueItem();
 		final CopySelfSourceItem self = new CopySelfSourceItem(null, value);
@@ -44,7 +44,7 @@ public class CopySelfTest extends AbstractRuntimeModelTest
 		check();
 	}
 
-	public void testOk2()
+	@Test public void testOk2()
 	{
 		final CopyValueItem value = new CopyValueItem();
 		final CopySelfSourceItem self = new CopySelfSourceItem(null, value);
@@ -56,7 +56,7 @@ public class CopySelfTest extends AbstractRuntimeModelTest
 		check();
 	}
 
-	public void testOkNullValue()
+	@Test public void testOkNullValue()
 	{
 		final CopySelfSourceItem self = new CopySelfSourceItem(null, null);
 
@@ -67,7 +67,7 @@ public class CopySelfTest extends AbstractRuntimeModelTest
 		check();
 	}
 
-	public void testOkNullTarget()
+	@Test public void testOkNullTarget()
 	{
 		final CopyValueItem value = new CopyValueItem();
 

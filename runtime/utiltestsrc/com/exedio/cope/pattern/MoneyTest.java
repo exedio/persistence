@@ -34,7 +34,7 @@ public final class MoneyTest extends CopeAssert
 	}
 
 
-	public static void testStoreOfInteger()
+	@Test public static void testStoreOfInteger()
 	{
 		assertEquals( 5, storeOf(Integer.valueOf( 5), eur).amountStore(eur));
 		assertEquals(-5, storeOf(Integer.valueOf(-5), eur).amountStore(eur));
@@ -42,7 +42,7 @@ public final class MoneyTest extends CopeAssert
 		assertEquals(null, storeOf((Integer)null, eur));
 	}
 
-	public static void testNullToZero()
+	@Test public static void testNullToZero()
 	{
 		final Money<Cy> x = storeOf(1, eur);
 		final Money<Cy> z = zero(eur);
@@ -51,7 +51,7 @@ public final class MoneyTest extends CopeAssert
 		assertEquals(z, nullToZero(z,    eur));
 	}
 
-	public static void testNullToZeroMismatch()
+	@Test public static void testNullToZeroMismatch()
 	{
 		final Money<Cy> z = zero(eur);
 		try
@@ -64,7 +64,7 @@ public final class MoneyTest extends CopeAssert
 		}
 	}
 
-	public static void testNegateReuse()
+	@Test public static void testNegateReuse()
 	{
 		final Money<Cy> z = zero(eur);
 		final Money<Cy> a = storeOf(1, eur);
@@ -72,7 +72,7 @@ public final class MoneyTest extends CopeAssert
 		assertEquals(storeOf(-1, eur), a.negate());
 	}
 
-	public static void testAddReuse()
+	@Test public static void testAddReuse()
 	{
 		final Money<Cy> z = zero(eur);
 		final Money<Cy> a = storeOf(1, eur);

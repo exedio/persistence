@@ -41,7 +41,7 @@ public class CheckConstraintModelTest extends CopeAssert
 		MODEL.enableSerialization(CheckConstraintModelTest.class, "MODEL");
 	}
 
-	public void testMeta()
+	@Test public void testMeta()
 	{
 		assertEqualsUnmodifiable(
 			list(

@@ -51,14 +51,14 @@ public class StartsWithConditionTest extends AbstractRuntimeModelTest
 		item6x4.setData(bytes6x4);
 	}
 
-	public void testCondition()
+	@Test public void testCondition()
 	{
 		assertCondition(item4, TYPE, data.startsWith(bytes4));
 		assertCondition(item6, TYPE, data.startsWith(bytes6));
 		assertCondition(item6, item6x4, TYPE, data.startsWith(bytes6x4));
 	}
 
-	public void testNot()
+	@Test public void testNot()
 	{
 		assertCondition(reduce(item0, item6, item6x4), TYPE, data.startsWith(bytes4  ).not());
 		assertCondition(reduce(item0, item4, item6x4), TYPE, data.startsWith(bytes6  ).not());

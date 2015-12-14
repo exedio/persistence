@@ -64,7 +64,7 @@ public class QueryAggregatorTest extends AbstractRuntimeModelTest
 		ag = QueryAggregator.get(q1, q2, q3);
 	}
 
-	public void testIt()
+	@Test public void testIt()
 	{
 		assertEquals(list(q1, q2, q3), ag.getQueries());
 		{

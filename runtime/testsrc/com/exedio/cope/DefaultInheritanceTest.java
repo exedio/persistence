@@ -25,7 +25,7 @@ public class DefaultInheritanceTest extends AbstractRuntimeModelTest
 		super(MODEL);
 	}
 
-	public void testModel()
+	@Test public void testModel()
 	{
 		final Type<Alpha> alpha = Alpha.TYPE;
 		final Type<Beta > beta  = Beta .TYPE;
@@ -47,13 +47,13 @@ public class DefaultInheritanceTest extends AbstractRuntimeModelTest
 		assertEquals(list(gamma.getThis()),        gamma.getDeclaredFeatures());
 	}
 
-	public void testBeta()
+	@Test public void testBeta()
 	{
 		final Beta item = new Beta();
 		assertEquals(false, item.getField());
 	}
 
-	public void testGamma()
+	@Test public void testGamma()
 	{
 		final Gamma item = new Gamma();
 		assertEquals(false, item.getField());

@@ -51,7 +51,7 @@ public class EnumMapFieldMandatoryTest extends AbstractRuntimeModelTest
 		FULL.put(SUBCLASS, "full-subclass");
 	}
 
-	public void testModel()
+	@Test public void testModel()
 	{
 		assertEquals("defaultDE", text.getField(DE).getDefaultConstant());
 		assertEquals("defaultEN", text.getField(EN).getDefaultConstant());
@@ -61,7 +61,7 @@ public class EnumMapFieldMandatoryTest extends AbstractRuntimeModelTest
 		assertEquals(true,  text.isInitial());
 	}
 
-	public void testSet()
+	@Test public void testSet()
 	{
 		final EnumMapFieldMandatoryItem item = new EnumMapFieldMandatoryItem(FULL);
 
@@ -94,7 +94,7 @@ public class EnumMapFieldMandatoryTest extends AbstractRuntimeModelTest
 		assertEquals("full-de", item.getText(DE));
 	}
 
-	public void testCreateEmpty()
+	@Test public void testCreateEmpty()
 	{
 		final EnumMap<Language, String> value = new EnumMap<>(Language.class);
 		value.put(PL, "initial-pl");
@@ -110,7 +110,7 @@ public class EnumMapFieldMandatoryTest extends AbstractRuntimeModelTest
 		}
 	}
 
-	public void testCreateWithoutMapping()
+	@Test public void testCreateWithoutMapping()
 	{
 		try
 		{
@@ -124,7 +124,7 @@ public class EnumMapFieldMandatoryTest extends AbstractRuntimeModelTest
 		}
 	}
 
-	public void testCreateNull()
+	@Test public void testCreateNull()
 	{
 		try
 		{

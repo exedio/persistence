@@ -20,7 +20,7 @@ package com.exedio.cope.junit;
 
 public class CopeModelTestTestCommitted extends CopeModelTestTest
 {
-	public void testCommitted()
+	@Test public void testCommitted()
 	{
 		doTest();
 		model.commit();

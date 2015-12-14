@@ -67,7 +67,7 @@ public class MediaDefaultTest extends AbstractRuntimeModelTest
 		super.tearDown();
 	}
 
-	public void testIt() throws IOException
+	@Test public void testIt() throws IOException
 	{
 		{
 			final DataField.Value dataValue = DataField.toValue(bytes8);

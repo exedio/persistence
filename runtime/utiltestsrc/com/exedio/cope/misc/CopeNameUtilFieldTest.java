@@ -26,7 +26,7 @@ import java.lang.reflect.Field;
 @SuppressWarnings("unused")
 public class CopeNameUtilFieldTest extends CopeAssert
 {
-	public void testIt() throws NoSuchFieldException
+	@Test public void testIt() throws NoSuchFieldException
 	{
 		assertField(null,           "fieldNaked",   "Naked");
 		assertField("nameAnno",     "nameAnno",     "Name");

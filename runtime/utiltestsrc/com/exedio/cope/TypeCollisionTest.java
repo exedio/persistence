@@ -23,7 +23,7 @@ import com.exedio.cope.junit.CopeAssert;
 public class TypeCollisionTest extends CopeAssert
 {
 
-	public void testIt()
+	@Test public void testIt()
 	{
 		try
 		{

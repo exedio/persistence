@@ -24,7 +24,7 @@ import java.io.FileReader;
 
 public class BatchTest extends SchemaTest
 {
-	public void testTables() throws Exception
+	@Test public void testTables() throws Exception
 	{
 		make(true, "create.sql");
 		make(true, "drop.sql");

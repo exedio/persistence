@@ -22,7 +22,7 @@ import junit.framework.TestCase;
 
 public class LimitedQueueTest extends TestCase
 {
-	public void testIt() throws InterruptedException
+	@Test public void testIt() throws InterruptedException
 	{
 		final LimitedQueue<String> q = new LimitedQueue<>(2);
 

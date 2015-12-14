@@ -66,7 +66,7 @@ public class SetFieldTest extends AbstractRuntimeModelTest
 		otherItem = new SetFieldItem();
 	}
 
-	public void testIt()
+	@Test public void testIt()
 	{
 		final Type<?> stringsType = strings.getRelationType();
 		final Type<?> datesType = dates.getRelationType();
@@ -423,7 +423,7 @@ public class SetFieldTest extends AbstractRuntimeModelTest
 		}
 	}
 
-	public void testMultipleItems() throws Exception
+	@Test public void testMultipleItems() throws Exception
 	{
 		final String rot = "hellrot";
 		final String blau = "blau";
@@ -450,7 +450,7 @@ public class SetFieldTest extends AbstractRuntimeModelTest
 		assertContains(getParentsOfStrings(null));
 	}
 
-	public void testEmpty() throws Exception
+	@Test public void testEmpty() throws Exception
 	{
 		final Query<SetFieldItem> q = TYPE.newQuery(strings.getElement().isNull());
 		q.joinOuterLeft(strings.getRelationType(), strings.getParent().equalTarget());
@@ -475,7 +475,7 @@ public class SetFieldTest extends AbstractRuntimeModelTest
 		assertEquals(0, q.total());
 	}
 
-	public void testListSetNull()
+	@Test public void testListSetNull()
 	{
 		item.setStrings(asList("hallo", "bello"));
 

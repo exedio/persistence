@@ -38,7 +38,7 @@ public class JoinOuterTest extends TestmodelTest
 		leftLonely = new PointerItem("left", rightJoined);
 	}
 
-	public void testJoin()
+	@Test public void testJoin()
 	{
 		{
 			final Query<PointerItem> query = PointerItem.TYPE.newQuery(null);

@@ -37,7 +37,7 @@ public class RangeFieldTest extends AbstractRuntimeModelTest
 		super(RangeFieldModelTest.MODEL);
 	}
 
-	public void testIt()
+	@Test public void testIt()
 	{
 		final RangeFieldItem item = new RangeFieldItem(3, 5);
 

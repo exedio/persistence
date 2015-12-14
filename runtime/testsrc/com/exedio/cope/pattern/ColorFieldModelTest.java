@@ -51,7 +51,7 @@ public class ColorFieldModelTest extends CopeAssert
 	private static final IntegerField mandatoryAlphaRGB = mandatoryAlpha.getRGB();
 
 	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
-	public void testIt()
+	@Test public void testIt()
 	{
 		assertEquals(Arrays.asList(new Type<?>[]{
 				TYPE,

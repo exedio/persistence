@@ -22,7 +22,7 @@ import com.exedio.cope.junit.CopeAssert;
 
 public class TypeSetTest extends CopeAssert
 {
-	public void testIt()
+	@Test public void testIt()
 	{
 		final Model m = new Model(Item1.TYPE, Item2.TYPE);
 

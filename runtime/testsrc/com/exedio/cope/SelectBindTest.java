@@ -44,7 +44,7 @@ public class SelectBindTest extends AbstractRuntimeModelTest
 		item2 = new CompareConditionItem("string2", 2, 12l, 2.2, null, null, null);
 	}
 
-	public void testIt()
+	@Test public void testIt()
 	{
 		{
 			final Query<List<Object>> q = newQuery(new Function<?>[]{string, intx}, TYPE, null);

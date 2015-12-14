@@ -42,7 +42,7 @@ public class TransactionEmptyTest extends AbstractRuntimeModelTest
 		txId.before();
 	}
 
-	public void testEmptyTransaction()
+	@Test public void testEmptyTransaction()
 	{
 		assertEquals(false, model.hasCurrentTransaction());
 

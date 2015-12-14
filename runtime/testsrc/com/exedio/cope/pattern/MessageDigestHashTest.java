@@ -68,7 +68,7 @@ public class MessageDigestHashTest extends AbstractRuntimeModelTest
 		((MockSecureRandom2)algo(hash).getSaltSource()).expectNextBytes(Hex.decodeLower(bytes));
 	}
 
-	public void testMD5()
+	@Test public void testMD5()
 	{
 		assertEquals(Arrays.asList(
 				TYPE.getThis(),

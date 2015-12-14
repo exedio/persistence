@@ -50,7 +50,7 @@ public class SchemaNamePolymorphicTest extends AbstractRuntimeModelTest
 		super.tearDown();
 	}
 
-	public void test() throws SQLException
+	@Test public void test() throws SQLException
 	{
 		assertEquals(
 				"SchemaNamePolymorphicSuperItem",

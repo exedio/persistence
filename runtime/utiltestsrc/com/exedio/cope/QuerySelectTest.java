@@ -29,7 +29,7 @@ import java.util.List;
 
 public class QuerySelectTest extends CopeAssert
 {
-	public void testSetSelectsCheck()
+	@Test public void testSetSelectsCheck()
 	{
 		final Query<List<Object>> q = newQuery(new Function<?>[]{field1, field2}, TYPE, null);
 		try
@@ -70,7 +70,7 @@ public class QuerySelectTest extends CopeAssert
 		}
 	}
 
-	public void testSetSelect()
+	@Test public void testSetSelect()
 	{
 		final Query<AnItem> q = TYPE.newQuery(null);
 		assertEquals(TYPE.getThis(), q.getSelectSingle());
@@ -101,7 +101,7 @@ public class QuerySelectTest extends CopeAssert
 		assertEquals("select this from AnItem", q.toString());
 	}
 
-	public void testSetSelects()
+	@Test public void testSetSelects()
 	{
 		try
 		{
@@ -132,7 +132,7 @@ public class QuerySelectTest extends CopeAssert
 	}
 
 	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad api usage
-	public void testSetSelectsUnchecked()
+	@Test public void testSetSelectsUnchecked()
 	{
 		final Query q = newQuery(new Selectable[]{field1, field2}, TYPE, null);
 		try
@@ -155,7 +155,7 @@ public class QuerySelectTest extends CopeAssert
 		}
 	}
 
-	public void testSetHaving()
+	@Test public void testSetHaving()
 	{
 		final Query<AnItem> q = TYPE.newQuery(null);
 		assertSame(null, q.getHaving());
@@ -184,7 +184,7 @@ public class QuerySelectTest extends CopeAssert
 		assertEquals("select this from AnItem", q.toString());
 	}
 
-	public void testGetAggregate()
+	@Test public void testGetAggregate()
 	{
 		final Condition c = field1.max().greater(new Day(2008,3,14));
 		try

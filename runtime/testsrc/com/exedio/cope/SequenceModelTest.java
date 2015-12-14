@@ -29,7 +29,7 @@ public class SequenceModelTest extends CopeAssert
 {
 	static final Model MODEL = new Model(TYPE);
 
-	public void testIt()
+	@Test public void testIt()
 	{
 		assertEquals(
 				list(TYPE.getThis(), full, limited),

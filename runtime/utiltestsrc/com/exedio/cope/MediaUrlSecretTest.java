@@ -25,7 +25,7 @@ import junit.framework.TestCase;
 
 public class MediaUrlSecretTest extends TestCase
 {
-	public void testOff()
+	@Test public void testOff()
 	{
 		final ConnectProperties props = props(null);
 		model.connect(props);
@@ -34,7 +34,7 @@ public class MediaUrlSecretTest extends TestCase
 		assertEquals(null, props.getMediaUrlSecret());
 	}
 
-	public void testOn()
+	@Test public void testOn()
 	{
 		final ConnectProperties props = props("1234567890");
 		model.connect(props);
@@ -43,7 +43,7 @@ public class MediaUrlSecretTest extends TestCase
 		assertEquals("1234567890", props.getMediaUrlSecret());
 	}
 
-	public void testTooShort()
+	@Test public void testTooShort()
 	{
 		final ConnectProperties props = props("123456789");
 		model.connect(props);
@@ -52,7 +52,7 @@ public class MediaUrlSecretTest extends TestCase
 		assertEquals(null, props.getMediaUrlSecret());
 	}
 
-	public void testEmpty()
+	@Test public void testEmpty()
 	{
 		final ConnectProperties props = props("");
 		model.connect(props);
@@ -75,7 +75,7 @@ public class MediaUrlSecretTest extends TestCase
 				Sources.view(context, "MediaUrlSecretTestContext"));
 	}
 
-	public void testOffNoContext()
+	@Test public void testOffNoContext()
 	{
 		final ConnectProperties props = propsNoContext(null);
 		model.connect(props);
@@ -84,7 +84,7 @@ public class MediaUrlSecretTest extends TestCase
 		assertEquals(null, props.getMediaUrlSecret());
 	}
 
-	public void testOnNoContext()
+	@Test public void testOnNoContext()
 	{
 		final ConnectProperties props = propsNoContext("1234567890");
 		model.connect(props);
@@ -93,7 +93,7 @@ public class MediaUrlSecretTest extends TestCase
 		assertEquals("1234567890", props.getMediaUrlSecret());
 	}
 
-	public void testTooShortNoContext()
+	@Test public void testTooShortNoContext()
 	{
 		try
 		{
@@ -106,7 +106,7 @@ public class MediaUrlSecretTest extends TestCase
 		}
 	}
 
-	public void testEmptyNoContext()
+	@Test public void testEmptyNoContext()
 	{
 		final ConnectProperties props = propsNoContext("");
 		model.connect(props);

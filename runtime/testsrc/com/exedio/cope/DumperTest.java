@@ -65,7 +65,7 @@ public class DumperTest extends AbstractRuntimeModelTest
 		}
 	}
 
-	public void testOk() throws IOException
+	@Test public void testOk() throws IOException
 	{
 		assertFalse(model.hasCurrentTransaction());
 
@@ -82,7 +82,7 @@ public class DumperTest extends AbstractRuntimeModelTest
 		assertEquals(1, DumperItem.beforeNewCopeItemCount);
 	}
 
-	public void testSub() throws IOException
+	@Test public void testSub() throws IOException
 	{
 		assertFalse(model.hasCurrentTransaction());
 
@@ -104,7 +104,7 @@ public class DumperTest extends AbstractRuntimeModelTest
 	}
 
 	@SuppressFBWarnings("NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS")
-	public void testMandatory() throws IOException
+	@Test public void testMandatory() throws IOException
 	{
 		try
 		{
@@ -122,7 +122,7 @@ public class DumperTest extends AbstractRuntimeModelTest
 	}
 
 	@SuppressFBWarnings("NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS")
-	public void testMandatoryData() throws IOException
+	@Test public void testMandatoryData() throws IOException
 	{
 		try
 		{
@@ -140,7 +140,7 @@ public class DumperTest extends AbstractRuntimeModelTest
 	}
 
 	@SuppressFBWarnings("NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS")
-	public void testLength() throws IOException
+	@Test public void testLength() throws IOException
 	{
 		try
 		{
@@ -157,7 +157,7 @@ public class DumperTest extends AbstractRuntimeModelTest
 		assertEquals(1, DumperItem.beforeNewCopeItemCount);
 	}
 
-	public void testPrepare() throws IOException
+	@Test public void testPrepare() throws IOException
 	{
 		final StringBuilder out = new StringBuilder();
 		dumper.prepare(out, model);

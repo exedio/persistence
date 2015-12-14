@@ -26,7 +26,7 @@ import com.exedio.cope.junit.CopeAssert;
 
 public class ComputedTest extends CopeAssert
 {
-	public void testIt()
+	@Test public void testIt()
 	{
 		assertEquals(true,  comp(Super.TYPE));
 		assertEquals(true,  comp(Sub.TYPE));

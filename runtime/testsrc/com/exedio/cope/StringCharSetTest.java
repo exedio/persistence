@@ -40,12 +40,12 @@ public class StringCharSetTest extends AbstractRuntimeModelTest
 		super(MODEL);
 	}
 
-	public void testCheckOk()
+	@Test public void testCheckOk()
 	{
 		alpha.check("abcabc");
 	}
 
-	public void testCheckFail()
+	@Test public void testCheckFail()
 	{
 		try
 		{
@@ -64,14 +64,14 @@ public class StringCharSetTest extends AbstractRuntimeModelTest
 		}
 	}
 
-	public void testCheckUnsupportedConstraints()
+	@Test public void testCheckUnsupportedConstraints()
 	{
 		commit();
 		model.checkUnsupportedConstraints();
 		startTransaction();
 	}
 
-	public void testCondition()
+	@Test public void testCondition()
 	{
 		assertEquals(
 				"StringCharSetItem.any conformsTo [A-Z]",
@@ -139,7 +139,7 @@ public class StringCharSetTest extends AbstractRuntimeModelTest
 		}
 	}
 
-	public void testConditionApos()
+	@Test public void testConditionApos()
 	{
 		final CharSet cs = StringCharSetItem.apos.getCharSet();
 		assertEquals("^[',A-Z]*$", cs.getRegularExpression());
@@ -161,7 +161,7 @@ public class StringCharSetTest extends AbstractRuntimeModelTest
 		}
 	}
 
-	public void testNot()
+	@Test public void testNot()
 	{
 		final CharSetCondition condition = new CharSetCondition(any, new CharSet('a', 'd'));
 		final Condition conditionNot = condition.not();
@@ -203,7 +203,7 @@ public class StringCharSetTest extends AbstractRuntimeModelTest
 		}
 	}
 
-	public void testSchema()
+	@Test public void testSchema()
 	{
 		assertSchema();
 	}

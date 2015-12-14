@@ -27,7 +27,7 @@ import com.exedio.cope.junit.CopeAssert;
 
 public class EnumFieldNameTest extends CopeAssert
 {
-	public void testIt()
+	@Test public void testIt()
 	{
 		assertEquals("set-normal"   , AnItem.set.getField(AnEnum.normal    ).getName());
 		assertEquals("set-underline", AnItem.set.getField(AnEnum.under_line).getName());

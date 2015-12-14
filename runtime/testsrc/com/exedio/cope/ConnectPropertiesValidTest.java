@@ -25,7 +25,7 @@ public class ConnectPropertiesValidTest extends AbstractRuntimeModelTest
 		super(SchemaTest.MODEL);
 	}
 
-	public void test()
+	@Test public void test()
 	{
 		model.getConnectProperties().ensureValidity("x-build.");
 	}

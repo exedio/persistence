@@ -52,7 +52,7 @@ public class TypeIteratorTest extends AbstractRuntimeModelTest
 		item4 = new QueryAggregatorItem(4);
 	}
 
-	public void testIt()
+	@Test public void testIt()
 	{
 		try
 		{

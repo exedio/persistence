@@ -33,7 +33,7 @@ public class JavaViewGetterMissingTest extends CopeAssert
 		private static final long serialVersionUID = 1l;
 	}
 
-	public void testIt()
+	@Test public void testIt()
 	{
 		try
 		{

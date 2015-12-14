@@ -62,7 +62,7 @@ public class MinusDoubleTest extends AbstractRuntimeModelTest
 	private static final Double dAC = Double.valueOf(4.5);
 	private static final Double dBC = Double.valueOf(-1.5);
 
-	public void testSum()
+	@Test public void testSum()
 	{
 		// test model
 		assertEquals(TYPE, viewAB.getType());

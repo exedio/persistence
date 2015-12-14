@@ -36,7 +36,7 @@ import java.lang.annotation.Target;
 
 public class BlockMountTest extends CopeAssert
 {
-	public void testType()
+	@Test public void testType()
 	{
 		try
 		{
@@ -69,7 +69,7 @@ public class BlockMountTest extends CopeAssert
 		}
 	}
 
-	public void testName()
+	@Test public void testName()
 	{
 		try
 		{
@@ -102,7 +102,7 @@ public class BlockMountTest extends CopeAssert
 		}
 	}
 
-	public void testID()
+	@Test public void testID()
 	{
 		try
 		{
@@ -135,7 +135,7 @@ public class BlockMountTest extends CopeAssert
 		}
 	}
 
-	public void testToString()
+	@Test public void testToString()
 	{
 		assertEquals(blockName + "string4", MyBlock.string4.toString());
 		assertEquals(blockName + "intMax4", MyBlock.intMax4.toString());
@@ -144,7 +144,7 @@ public class BlockMountTest extends CopeAssert
 		assertTrue(negative.toString().startsWith(LongField.class.getName() + '@'));
 	}
 
-	public void testGetAnnotation()
+	@Test public void testGetAnnotation()
 	{
 		assertEquals("stringAnno", MyBlock.string4.getAnnotation(Anno.class).value());
 		assertEquals("intAnno", MyBlock.intMax4.getAnnotation(Anno.class).value());
@@ -163,7 +163,7 @@ public class BlockMountTest extends CopeAssert
 		}
 	}
 
-	public void testIsAnnotation()
+	@Test public void testIsAnnotation()
 	{
 		assertTrue (MyBlock.string4.isAnnotationPresent(Anno.class));
 		assertTrue (MyBlock.intMax4.isAnnotationPresent(Anno.class));
@@ -196,7 +196,7 @@ public class BlockMountTest extends CopeAssert
 		String value();
 	}
 
-	public void testSerialization() throws IOException
+	@Test public void testSerialization() throws IOException
 	{
 		assertSerializedSame(MyBlock.string4, 327);
 		assertSerializedSame(MyBlock.intMax4, 327);

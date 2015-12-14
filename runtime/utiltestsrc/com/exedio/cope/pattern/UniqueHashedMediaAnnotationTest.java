@@ -29,7 +29,7 @@ import java.lang.annotation.Annotation;
 
 public class UniqueHashedMediaAnnotationTest extends CopeAssert
 {
-	public void testPreventUrlGuessing()
+	@Test public void testPreventUrlGuessing()
 	{
 		assertPresent(false, AnItem.simple,            PreventUrlGuessing.class);
 		assertPresent(false, AnItem.simple.getMedia(), PreventUrlGuessing.class);
@@ -39,7 +39,7 @@ public class UniqueHashedMediaAnnotationTest extends CopeAssert
 		assertPresent(false, AnItem.finger.getMedia(), PreventUrlGuessing.class);
 	}
 
-	public void testUrlFingerPrinting()
+	@Test public void testUrlFingerPrinting()
 	{
 		assertPresent(false, AnItem.simple,            UrlFingerPrinting.class);
 		assertPresent(false, AnItem.simple.getMedia(), UrlFingerPrinting.class);
@@ -49,7 +49,7 @@ public class UniqueHashedMediaAnnotationTest extends CopeAssert
 		assertPresent(true,  AnItem.finger.getMedia(), UrlFingerPrinting.class);
 	}
 
-	public void testComputed()
+	@Test public void testComputed()
 	{
 		assertPresent(false, AnItem.simple,            Computed.class);
 		assertPresent(true,  AnItem.simple.getMedia(), Computed.class);
@@ -62,7 +62,7 @@ public class UniqueHashedMediaAnnotationTest extends CopeAssert
 		assertPresent(true,  AnItem.finger.getHash(),  Computed.class);
 	}
 
-	public void testDeprecated()
+	@Test public void testDeprecated()
 	{
 		assertPresent(false, AnItem.simple,            Deprecated.class);
 		assertPresent(false, AnItem.simple.getMedia(), Deprecated.class);
