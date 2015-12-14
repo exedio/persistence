@@ -72,6 +72,7 @@ public class PackageUtilTest extends TestCase
 		suite.addTestSuite(PriceTest.class);
 		suite.addTestSuite(PriceProportionatelyTest.class);
 		suite.addTestSuite(TextUrlFilterAnnotationTest.class);
+		suite.addTestSuite(TextUrlFilterDelegatorAnnotationTest.class);
 		suite.addTestSuite(UniqueHashedMediaAnnotationTest.class);
 		suite.addTestSuite(UniqueHashedMediaErrorTest.class);
 		return suite;

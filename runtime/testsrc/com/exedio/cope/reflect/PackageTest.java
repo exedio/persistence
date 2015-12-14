@@ -28,6 +28,7 @@ public class PackageTest extends TestCase
 	{
 		final TestSuite suite = new TestSuite();
 		suite.addTestSuite(FeatureFieldTest.class);
+		suite.addTestSuite(FeatureFieldModelTest.class);
 		return suite;
 	}
 }

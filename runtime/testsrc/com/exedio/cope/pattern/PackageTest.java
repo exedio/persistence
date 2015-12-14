@@ -82,6 +82,7 @@ public class PackageTest extends TestCase
 		suite.addTestSuite(DispatcherTest.class);
 		suite.addTestSuite(DispatcherProbeTest.class);
 		suite.addTestSuite(DispatchableDeferrableTest.class);
+		suite.addTestSuite(DrivebyHashMigrationTest.class);
 		suite.addTestSuite(ImporterModelTest.class);
 		suite.addTestSuite(ImporterTest.class);
 		suite.addTestSuite(SingletonTest.class);
@@ -109,6 +110,7 @@ public class PackageTest extends TestCase
 		suite.addTestSuite(BlockFieldNestedTest.class);
 		suite.addTestSuite(UniqueHashedMediaTest.class);
 		suite.addTestSuite(MultiItemFieldTest.class);
+		suite.addTestSuite(MultiItemFieldCopyConstraintTest.class);
 		return suite;
 	}
 }
