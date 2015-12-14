@@ -47,7 +47,6 @@ public class MultiItemFieldTest extends AbstractRuntimeModelTest
 		super(MODEL);
 	}
 
-	@Test
 	@Test public void testHashCode()
 	{
 		final MultiItemFieldComponentxA fieldValue = new MultiItemFieldComponentxA();
@@ -60,7 +59,6 @@ public class MultiItemFieldTest extends AbstractRuntimeModelTest
 		assertFalse(i1.equals(null));
 	}
 
-	@Test
 	@Test public void testSerialization()
 	{
 		final MultiItemFieldComponentxA fieldValue = new MultiItemFieldComponentxA();
@@ -75,7 +73,6 @@ public class MultiItemFieldTest extends AbstractRuntimeModelTest
 		assertEquals("MultiItemFieldComponentxA-0", i1S.toString());
 	}
 
-	@Test
 	@Test public void testEqual()
 	{
 		final MultiItemFieldComponentxA fieldValue = new MultiItemFieldComponentxA();
@@ -84,7 +81,6 @@ public class MultiItemFieldTest extends AbstractRuntimeModelTest
 				MultiItemFieldItem.field.equal(fieldValue).toString());
 	}
 
-	@Test
 	@Test public void testEqualConditionNull()
 	{
 		assertEquals(
@@ -93,14 +89,12 @@ public class MultiItemFieldTest extends AbstractRuntimeModelTest
 				MultiItemFieldItem.field.equal(null).toString());
 	}
 
-	@Test
 	@Test public void testEqualConditionInvalidClass()
 	{
 		final MultiItemFieldComponentxC invalid = new MultiItemFieldComponentxC();
 		assertEquals(Condition.FALSE, MultiItemFieldItem.field.equal(invalid));
 	}
 
-	@Test
 	@Test public void testGet()
 	{
 		final MultiItemFieldComponentxA expected = new MultiItemFieldComponentxA();
@@ -108,7 +102,6 @@ public class MultiItemFieldTest extends AbstractRuntimeModelTest
 		assertEquals(expected, item.getField());
 	}
 
-	@Test
 	@Test public void testSet()
 	{
 		final MultiItemFieldComponentxA expected = new MultiItemFieldComponentxA();
@@ -124,7 +117,6 @@ public class MultiItemFieldTest extends AbstractRuntimeModelTest
 		assertEquals(expected2, item.getFieldB());
 	}
 
-	@Test
 	@Test public void testSetNull()
 	{
 		final MultiItemFieldComponentxA expected = new MultiItemFieldComponentxA();
@@ -140,7 +132,6 @@ public class MultiItemFieldTest extends AbstractRuntimeModelTest
 		assertEquals(null, item.getOptionalFieldB());
 	}
 
-	@Test
 	@Test public void testSetNullForMandatory()
 	{
 		final MultiItemFieldComponentxA expected = new MultiItemFieldComponentxA();
@@ -158,7 +149,6 @@ public class MultiItemFieldTest extends AbstractRuntimeModelTest
 		assertEquals(expected, item.getField());
 	}
 
-	@Test
 	@Test public void testSetInvalidInterfaceItem()
 	{
 		final MultiItemFieldComponentxC notExpected = new MultiItemFieldComponentxC();
@@ -182,7 +172,6 @@ public class MultiItemFieldTest extends AbstractRuntimeModelTest
 		assertEquals(expected, item.getField());
 	}
 
-	@Test
 	@Test public void testSetClassCast()
 	{
 		@SuppressWarnings({"cast", "unchecked", "rawtypes"}) // OK: test bad API usage
@@ -203,7 +192,6 @@ public class MultiItemFieldTest extends AbstractRuntimeModelTest
 		assertEquals(expected, item.getField());
 	}
 
-	@Test
 	@Test public void testConditionIsNull()
 	{
 		final StringBuilder sb = new StringBuilder();
@@ -215,7 +203,6 @@ public class MultiItemFieldTest extends AbstractRuntimeModelTest
 		assertEquals(sb.toString(), MultiItemFieldItem.field.isNull().toString());
 	}
 
-	@Test
 	@Test public void testConditionIsNotNull()
 	{
 		final StringBuilder sb = new StringBuilder();
@@ -227,7 +214,6 @@ public class MultiItemFieldTest extends AbstractRuntimeModelTest
 		assertEquals(sb.toString(), MultiItemFieldItem.field.isNotNull().toString());
 	}
 
-	@Test
 	@Test public void testGetComponents()
 	{
 		assertEqualsUnmodifiable(
@@ -236,7 +222,6 @@ public class MultiItemFieldTest extends AbstractRuntimeModelTest
 				MultiItemFieldItem.field.getComponents());
 	}
 
-	@Test
 	@Test public void testOfNotValidClassParameter()
 	{
 		try
@@ -251,7 +236,6 @@ public class MultiItemFieldTest extends AbstractRuntimeModelTest
 		}
 	}
 
-	@Test
 	@Test public void testUniqueSetNull()
 	{
 		assertNull(MultiItemFieldItem.field.of(MultiItemFieldComponentxA.class).getImplicitUniqueConstraint());
@@ -269,7 +253,6 @@ public class MultiItemFieldTest extends AbstractRuntimeModelTest
 		assertEquals(null, item2.getUniqueField());
 	}
 
-	@Test
 	@Test public void testUnique()
 	{
 		final MultiItemFieldComponentxA value = new MultiItemFieldComponentxA();
@@ -292,21 +275,18 @@ public class MultiItemFieldTest extends AbstractRuntimeModelTest
 		assertEquals(value, item1.getUniqueField());
 	}
 
-	@Test
 	@Test public void testgetPartOfReverse()
 	{
 		assertEquals(list(MultiItemFieldItem.partOfClassA), PartOf.getPartOfs(MultiItemFieldComponentxA.TYPE));
 		assertEquals(list(MultiItemFieldItem.partOfClassA), PartOf.getDeclaredPartOfs(MultiItemFieldComponentxA.TYPE));
 	}
 
-	@Test
 	@Test public void testgetPartOfReverseEmpty()
 	{
 		assertEquals(list(), PartOf.getPartOfs(MultiItemFieldComponentxB.TYPE));
 		assertEquals(list(), PartOf.getDeclaredPartOfs(MultiItemFieldComponentxB.TYPE));
 	}
 
-	@Test
 	@Test public void testPartOf()
 	{
 		final MultiItemFieldComponentxA field = new MultiItemFieldComponentxA();
@@ -317,7 +297,6 @@ public class MultiItemFieldTest extends AbstractRuntimeModelTest
 		assertEquals(list(item1, item2), MultiItemFieldItem.partOfClassA.getParts(field));
 	}
 
-	@Test
 	@Test public void testPartOfEmpty()
 	{
 		final MultiItemFieldComponentxA field = new MultiItemFieldComponentxA();
@@ -325,7 +304,6 @@ public class MultiItemFieldTest extends AbstractRuntimeModelTest
 		assertEquals(list(), MultiItemFieldItem.partOfClassA.getParts(field));
 	}
 
-	@Test
 	@Test public void testPartOfInvalidClassParameter()
 	{
 		final MultiItemFieldComponentxB field = new MultiItemFieldComponentxB();
@@ -342,7 +320,6 @@ public class MultiItemFieldTest extends AbstractRuntimeModelTest
 		}
 	}
 
-	@Test
 	@Test public void testCascade()
 	{
 		final MultiItemFieldComponentxA item = new MultiItemFieldComponentxA();
@@ -351,7 +328,6 @@ public class MultiItemFieldTest extends AbstractRuntimeModelTest
 		assertEquals(false, toBeCascadeDeleted.existsCopeItem());
 	}
 
-	@Test
 	@Test public void testForbid()
 	{
 		final MultiItemFieldComponentxA item = new MultiItemFieldComponentxA();
@@ -370,7 +346,6 @@ public class MultiItemFieldTest extends AbstractRuntimeModelTest
 		}
 	}
 
-	@Test
 	@Test public void testMap()
 	{
 		final MultiItemFieldComponentxA a = new MultiItemFieldComponentxA();
@@ -378,14 +353,12 @@ public class MultiItemFieldTest extends AbstractRuntimeModelTest
 		assertEquals("MultiItemFieldItem.field=MultiItemFieldComponentxA-0", MultiItemFieldItem.field.map(a).toString());
 	}
 
-	@Test
 	@Test public void testMapNull()
 	{
 		assertEquals(SetValue.map(MultiItemFieldItem.optionalField, (MultiItemFieldValuex) null), MultiItemFieldItem.optionalField.map(null));
 		assertEquals("MultiItemFieldItem.optionalField=null", MultiItemFieldItem.optionalField.map(null).toString());
 	}
 
-	@Test
 	@Test public void testMapInvalid()
 	{
 		final MultiItemFieldComponentxC c = new MultiItemFieldComponentxC();

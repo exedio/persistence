@@ -23,7 +23,6 @@ import org.junit.Test;
 
 public class MultiItemFieldErrorTest extends CopeAssert
 {
-	@Test
 	@Test public void testCreateNoInterface()
 	{
 		try
@@ -38,7 +37,6 @@ public class MultiItemFieldErrorTest extends CopeAssert
 	}
 
 	@SuppressWarnings({"unchecked", "rawtypes"})
-	@Test
 	@Test public void testCreateNoComponentClass()
 	{
 		try
@@ -55,7 +53,6 @@ public class MultiItemFieldErrorTest extends CopeAssert
 	}
 
 	@SuppressWarnings({"unchecked", "rawtypes"})
-	@Test
 	@Test public void testCreateOnlyOneComponentClass()
 	{
 		try
@@ -71,7 +68,6 @@ public class MultiItemFieldErrorTest extends CopeAssert
 		}
 	}
 
-	@Test
 	@Test public void testCreateNull()
 	{
 		try
@@ -87,7 +83,6 @@ public class MultiItemFieldErrorTest extends CopeAssert
 		}
 	}
 
-	@Test
 	@Test public void testCreateNotAssignable()
 	{
 		try
@@ -104,7 +99,6 @@ public class MultiItemFieldErrorTest extends CopeAssert
 		}
 	}
 
-	@Test
 	@Test public void testCreateComponentClassesNotAllowedToBeSuperClassesOfEachOther()
 	{
 		try
@@ -123,7 +117,6 @@ public class MultiItemFieldErrorTest extends CopeAssert
 		}
 	}
 
-	@Test
 	@Test public void testCreateCopyNullComponent()
 	{
 		final MultiItemField<?> field = MultiItemField.create(
@@ -141,7 +134,6 @@ public class MultiItemFieldErrorTest extends CopeAssert
 		}
 	}
 
-	@Test
 	@Test public void testCreateCopyNoSuchComponent()
 	{
 		final MultiItemField<?> field = MultiItemField.create(
@@ -164,7 +156,6 @@ public class MultiItemFieldErrorTest extends CopeAssert
 		}
 	}
 
-	@Test
 	@Test public void testCreateCopyNullCopy()
 	{
 		final MultiItemField<?> field = MultiItemField.create(

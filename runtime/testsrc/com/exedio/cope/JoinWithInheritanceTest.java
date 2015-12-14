@@ -43,7 +43,6 @@ public class JoinWithInheritanceTest extends AbstractRuntimeModelTest
 		super(MODEL);
 	}
 
-	@Test
 	@Test public void testCorrectSubtypeOfJoinWillBeUsed()
 	{
 		final Container container = new Container();
@@ -61,7 +60,6 @@ public class JoinWithInheritanceTest extends AbstractRuntimeModelTest
 		assertEquals(asList(container), query.search());
 	}
 
-	@Test
 	@Test public void testCorrectSubtypeOfJoinWillBeUsedEmptyResult()
 	{
 		final Container container = new Container();
@@ -80,7 +78,6 @@ public class JoinWithInheritanceTest extends AbstractRuntimeModelTest
 		assertEquals(asList(), query.search());
 	}
 
-	@Test
 	@Test public void testSuperTypeCastNotAllowed()
 	{
 		final Container container = new Container();
@@ -100,7 +97,6 @@ public class JoinWithInheritanceTest extends AbstractRuntimeModelTest
 		}
 	}
 
-	@Test
 	@Test public void testInvalidJoinIsBound()
 	{
 		final Container container = new Container();
