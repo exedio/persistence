@@ -45,7 +45,6 @@ public class TransactionEmptyTest extends AbstractRuntimeModelTest
 	public void testEmptyTransaction()
 	{
 		assertEquals(false, model.hasCurrentTransaction());
-		assertNull(model.getLastTransactionStartDate());
 
 		final Date beforeCommit = new Date();
 		final Transaction emptyCommit = model.startTransaction("emptyCommit");
