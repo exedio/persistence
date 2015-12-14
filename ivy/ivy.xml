@@ -44,11 +44,12 @@
 			<conf name="runtime" mapped="default" />
 			<conf name="build" mapped="sources" />
 		</dependency>
-		<dependency org="junit" name="junit" rev="4.4">
+		<dependency org="junit" name="junit" rev="4.10">
 			<conf name="junit" mapped="default" />
 			<conf name="build" mapped="*" />
 			<exclude org="org.hamcrest" module="hamcrest-core" />
 		</dependency>
+		<dependency org="cpsuite" name="cpsuite" rev="1.2.6" conf="build->default" />
 		<dependency org="org.slf4j" name="slf4j-api" rev="1.6.4">
 			<conf name="runtime" mapped="default" />
 			<conf name="build" mapped="sources" />
