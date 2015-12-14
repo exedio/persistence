@@ -20,9 +20,11 @@ package com.exedio.dsmf;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import org.junit.Ignore;
 import org.junit.Test;
 
 
+@Ignore
 public class BatchTest extends SchemaTest
 {
 	@Test public void testTables() throws Exception

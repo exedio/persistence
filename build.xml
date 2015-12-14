@@ -218,6 +218,7 @@
 				<pathelement location="build/classes/dsmf/src" />
 				<pathelement location="lib/exedio-cope-util.jar" />
 				<pathelement location="lib/junit.jar" />
+				<pathelement location="lib/cpsuite.jar" />
 				<pathelement location="lib/findbugs-annotations.jar" />
 			</classpath>
 		</compile>
@@ -226,13 +227,14 @@
 	<target name="dsmf.test" depends="dsmf.test.compile">
 		<foreachEnvironment skipSwitch="dsmf.test">
 			<body>
-				<ljunit test="com.exedio.dsmf.PackageTest" env="@{env}">
+				<ljunit test="com.exedio.dsmf.AllTests" env="@{env}">
 					<classpath>
 						<pathelement location="build/classes/dsmf/src" />
 						<pathelement location="build/classes/dsmf/testsrc" />
 						<pathelement location="lib/@{env.driver}" />
 						<pathelement location="lib/slf4j-api.jar" />
 						<pathelement location="lib/junit.jar" />
+						<pathelement location="lib/cpsuite.jar" />
 						<pathelement location="lib/exedio-cope-util.jar" />
 					</classpath>
 					<sysproperty key="com.exedio.cope.properties" file="@{env.file}" />
