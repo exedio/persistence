@@ -21,6 +21,8 @@ package com.exedio.cope;
 import static com.exedio.cope.MatchItem.TYPE;
 import static com.exedio.cope.MatchItem.text;
 
+import org.junit.Test;
+
 public class MatchTest extends AbstractRuntimeModelTest
 {
 	public static final Model MODEL = new Model(TYPE);

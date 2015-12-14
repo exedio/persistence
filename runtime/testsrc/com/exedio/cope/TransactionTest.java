@@ -25,6 +25,7 @@ import static com.exedio.cope.testmodel.AttributeItem.someString;
 
 import com.exedio.cope.testmodel.AttributeItem;
 import com.exedio.cope.testmodel.EmptyItem;
+import org.junit.Test;
 
 public class TransactionTest extends TestmodelTest
 {

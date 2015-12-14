@@ -21,6 +21,7 @@ package com.exedio.cope;
 import static com.exedio.cope.UniqueDoubleNullItem.TYPE;
 
 import java.util.Arrays;
+import org.junit.Test;
 
 /**
  * See http://bugs.mysql.com/bug.php?id=8173 as well.

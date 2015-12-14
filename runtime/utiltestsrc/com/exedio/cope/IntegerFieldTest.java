@@ -25,6 +25,7 @@ import static java.lang.Integer.MIN_VALUE;
 
 import com.exedio.cope.CompareFunctionCondition.Operator;
 import com.exedio.cope.junit.CopeAssert;
+import org.junit.Test;
 
 public class IntegerFieldTest extends CopeAssert
 {

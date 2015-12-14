@@ -25,6 +25,7 @@ import com.exedio.cope.Copyable;
 import com.exedio.cope.Field;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.junit.CopeAssert;
+import org.junit.Test;
 
 public class BlockErrorTest extends CopeAssert
 {

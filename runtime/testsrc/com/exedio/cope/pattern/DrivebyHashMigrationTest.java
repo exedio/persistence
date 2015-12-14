@@ -24,6 +24,7 @@ import static com.exedio.cope.pattern.DrivebyHashMigrationItem.password;
 import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Model;
+import org.junit.Test;
 
 public class DrivebyHashMigrationTest extends AbstractRuntimeModelTest
 {

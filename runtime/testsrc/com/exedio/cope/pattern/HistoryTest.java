@@ -36,6 +36,7 @@ import com.exedio.cope.misc.Computed;
 import com.exedio.cope.pattern.History.Feature;
 import java.util.Date;
 import java.util.List;
+import org.junit.Test;
 
 public class HistoryTest extends AbstractRuntimeModelTest
 {

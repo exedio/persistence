@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import org.junit.Test;
+
 public class CacheIsolationTest extends AbstractRuntimeModelTest
 {
 	public static final Model MODEL = new Model(CacheIsolationItem.TYPE);

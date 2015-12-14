@@ -24,6 +24,7 @@ import com.exedio.cope.util.Properties.Source;
 import com.exedio.cope.util.Sources;
 import java.util.Properties;
 import junit.framework.TestCase;
+import org.junit.Test;
 
 public class MediaUrlFingerOffsetPropertiesTest extends TestCase
 {

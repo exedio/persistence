@@ -25,6 +25,7 @@ import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
 import static java.util.Arrays.asList;
 
 import com.exedio.cope.util.Day;
+import org.junit.Test;
 
 public class QueryTest extends AbstractRuntimeModelTest
 {

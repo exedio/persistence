@@ -29,6 +29,8 @@ import static com.exedio.cope.MinusDoubleItem.viewAC;
 import static com.exedio.cope.MinusDoubleItem.viewBC;
 import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
 
+import org.junit.Test;
+
 public class MinusDoubleTest extends AbstractRuntimeModelTest
 {
 	static final Model MODEL = new Model(TYPE);

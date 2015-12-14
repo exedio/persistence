@@ -29,6 +29,7 @@ import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
 import com.exedio.cope.junit.CopeAssert;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Arrays;
+import org.junit.Test;
 
 public class CopyModelTest extends CopeAssert
 {

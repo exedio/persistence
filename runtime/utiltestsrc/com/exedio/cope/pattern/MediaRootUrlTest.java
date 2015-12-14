@@ -26,6 +26,7 @@ import com.exedio.cope.util.Properties;
 import com.exedio.cope.util.Sources;
 import java.io.File;
 import java.util.Collection;
+import org.junit.Test;
 
 public class MediaRootUrlTest extends CopeAssert
 {

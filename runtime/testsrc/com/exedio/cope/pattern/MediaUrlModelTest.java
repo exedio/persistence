@@ -31,6 +31,7 @@ import com.exedio.cope.Feature;
 import com.exedio.cope.Model;
 import com.exedio.cope.junit.CopeAssert;
 import java.util.Arrays;
+import org.junit.Test;
 
 public final class MediaUrlModelTest extends CopeAssert
 {

@@ -28,6 +28,7 @@ import com.exedio.cope.FunctionField;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.StringField;
 import com.exedio.cope.junit.CopeAssert;
+import org.junit.Test;
 
 public class CompositeErrorTest extends CopeAssert
 {

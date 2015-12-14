@@ -27,6 +27,7 @@ import static com.exedio.cope.pattern.EnumMapFieldItem.Language.SUBCLASS;
 
 import com.exedio.cope.Model;
 import com.exedio.cope.junit.CopeAssert;
+import org.junit.Test;
 
 public class EnumMapFieldDefaultTest extends CopeAssert
 {

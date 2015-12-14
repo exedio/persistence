@@ -21,6 +21,7 @@ package com.exedio.cope;
 import static com.exedio.cope.TypesBound.newType;
 
 import com.exedio.cope.junit.CopeAssert;
+import org.junit.Test;
 
 public class TypesBoundErrorTest extends CopeAssert
 {

@@ -25,6 +25,7 @@ import com.exedio.cope.misc.Arrays;
 import com.exedio.cope.util.Hex;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
+import org.junit.Test;
 
 public class MessageDigestAlgorithmTest extends CopeAssert
 {

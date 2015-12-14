@@ -25,6 +25,7 @@ import com.exedio.cope.pattern.BlockFieldStandardModelTest.ABlock;
 import com.exedio.cope.pattern.BlockFieldStandardModelTest.ABlock.AnEnum;
 import com.exedio.cope.pattern.BlockFieldStandardModelTest.AnItem;
 import java.awt.Color;
+import org.junit.Test;
 
 public class BlockFieldStandardTest extends AbstractRuntimeModelTest
 {

@@ -22,6 +22,8 @@ import static com.exedio.cope.CheckConstraintItem.TYPE;
 import static com.exedio.cope.CheckConstraintItem.alphaLessBeta;
 import static com.exedio.cope.CheckConstraintSuperItem.einsGreaterOrEqualZwei;
 
+import org.junit.Test;
+
 public class CheckConstraintTest extends AbstractRuntimeModelTest
 {
 	public CheckConstraintTest()

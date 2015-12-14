@@ -23,6 +23,7 @@ import static com.exedio.cope.sampler.Stuff.sampler;
 import static com.exedio.cope.sampler.Stuff.samplerModel;
 
 import com.exedio.cope.Type;
+import org.junit.Test;
 
 public class SampleItemCacheTest extends ConnectedTest
 {

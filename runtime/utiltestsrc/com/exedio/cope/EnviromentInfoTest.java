@@ -22,6 +22,7 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Properties;
 import junit.framework.TestCase;
+import org.junit.Test;
 
 public class EnviromentInfoTest extends TestCase
 {

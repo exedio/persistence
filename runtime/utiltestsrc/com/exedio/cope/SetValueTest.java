@@ -25,6 +25,7 @@ import static com.exedio.cope.SetValue.map;
 import java.lang.reflect.Type;
 import java.util.Set;
 import junit.framework.TestCase;
+import org.junit.Test;
 
 public class SetValueTest extends TestCase
 {

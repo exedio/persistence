@@ -31,6 +31,7 @@ import com.exedio.cope.Model;
 import com.exedio.cope.SchemaInfo;
 import com.exedio.cope.misc.Computed;
 import java.util.Arrays;
+import org.junit.Test;
 
 public class SingletonTest extends AbstractRuntimeModelTest
 {

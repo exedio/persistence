@@ -26,6 +26,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Properties;
 import java.util.TreeMap;
+import org.junit.Test;
 
 public class RevisionInfoTest extends CopeAssert
 {

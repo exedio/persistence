@@ -26,6 +26,7 @@ import com.exedio.cope.TypesBound;
 import com.exedio.cope.junit.CopeAssert;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.junit.Test;
 
 public class MediaPathConditionUnsupportedTest extends CopeAssert
 {

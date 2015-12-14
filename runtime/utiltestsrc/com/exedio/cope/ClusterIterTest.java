@@ -21,6 +21,7 @@ package com.exedio.cope;
 import java.net.DatagramPacket;
 import java.util.NoSuchElementException;
 import junit.framework.TestCase;
+import org.junit.Test;
 
 public class ClusterIterTest extends TestCase
 {

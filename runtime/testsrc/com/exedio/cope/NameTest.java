@@ -25,6 +25,7 @@ import static com.exedio.cope.SchemaInfo.getTypeColumnName;
 import static com.exedio.dsmf.Dialect.NOT_NULL;
 
 import com.exedio.dsmf.Schema;
+import org.junit.Test;
 
 public class NameTest extends AbstractRuntimeModelTest
 {

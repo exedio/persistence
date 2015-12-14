@@ -30,6 +30,7 @@ import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import java.util.Arrays;
+import org.junit.Test;
 
 public class ItemSerializationTest extends AbstractRuntimeModelTest
 {

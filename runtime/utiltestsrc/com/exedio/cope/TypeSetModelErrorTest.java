@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import com.exedio.cope.junit.CopeAssert;
+import org.junit.Test;
 
 public class TypeSetModelErrorTest extends CopeAssert
 {

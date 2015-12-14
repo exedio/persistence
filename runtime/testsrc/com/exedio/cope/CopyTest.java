@@ -23,6 +23,8 @@ import static com.exedio.cope.CopyModelTest.templateItemCopyFromTarget;
 import static com.exedio.cope.CopyModelTest.templateStringCopyFromTarget;
 import static com.exedio.cope.CopySourceItem.TYPE;
 
+import org.junit.Test;
+
 public class CopyTest extends AbstractRuntimeModelTest
 {
 	public CopyTest()

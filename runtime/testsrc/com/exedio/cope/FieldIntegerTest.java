@@ -23,6 +23,8 @@ import static com.exedio.cope.testmodel.AttributeItem.TYPE;
 import static com.exedio.cope.testmodel.AttributeItem.someInteger;
 import static com.exedio.cope.testmodel.AttributeItem.someNotNullInteger;
 
+import org.junit.Test;
+
 public class FieldIntegerTest extends FieldTest
 {
 	static final Integer CONST = 1;

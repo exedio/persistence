@@ -25,6 +25,7 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 import com.exedio.cope.junit.CopeAssert;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.nio.charset.Charset;
+import org.junit.Test;
 
 @SuppressFBWarnings("NP_NULL_PARAM_DEREF_NONVIRTUAL")
 public class TextUrlFilterDelegatorModelTest extends CopeAssert

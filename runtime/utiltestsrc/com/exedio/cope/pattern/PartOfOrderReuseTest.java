@@ -28,6 +28,7 @@ import static com.exedio.cope.pattern.PartOfOrderReuseTest.APart.parts2;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.ItemField;
 import com.exedio.cope.junit.CopeAssert;
+import org.junit.Test;
 
 public class PartOfOrderReuseTest extends CopeAssert
 {

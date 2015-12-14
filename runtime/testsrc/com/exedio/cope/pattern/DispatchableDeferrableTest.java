@@ -25,6 +25,7 @@ import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.util.JobContexts;
 import org.junit.Assert;
+import org.junit.Test;
 
 public class DispatchableDeferrableTest extends AbstractRuntimeModelTest
 {

@@ -26,6 +26,7 @@ import java.lang.reflect.Field;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.SortedMap;
+import org.junit.Test;
 
 public class TypesBoundFeaturesTest extends CopeAssert
 {

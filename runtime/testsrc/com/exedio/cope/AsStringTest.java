@@ -25,6 +25,7 @@ import static com.exedio.cope.AsStringItem.longx;
 
 import java.util.Iterator;
 import java.util.List;
+import org.junit.Test;
 
 public class AsStringTest extends AbstractRuntimeModelTest
 {

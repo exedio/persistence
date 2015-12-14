@@ -24,6 +24,7 @@ import com.exedio.cope.junit.CopeAssert;
 import java.util.Date;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
+import org.junit.Test;
 
 public class DateFieldWrongDefaultNowTest extends CopeAssert
 {

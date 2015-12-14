@@ -24,6 +24,7 @@ import static com.exedio.cope.PatternComputedItem.virgnComp;
 
 import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.misc.Computed;
+import org.junit.Test;
 
 public final class PatternComputedTest extends CopeAssert
 {

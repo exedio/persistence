@@ -28,6 +28,7 @@ import com.exedio.cope.junit.AbsoluteMockClockStrategy;
 import com.exedio.cope.util.Clock;
 import com.exedio.cope.util.Day;
 import java.util.List;
+import org.junit.Test;
 
 public class DayFieldTest extends AbstractRuntimeModelTest
 {

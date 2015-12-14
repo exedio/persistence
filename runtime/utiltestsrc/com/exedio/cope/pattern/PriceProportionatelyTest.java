@@ -23,6 +23,7 @@ import static com.exedio.cope.pattern.Price.valueOf;
 
 import com.exedio.cope.junit.CopeAssert;
 import java.util.Arrays;
+import org.junit.Test;
 
 public class PriceProportionatelyTest extends CopeAssert
 {

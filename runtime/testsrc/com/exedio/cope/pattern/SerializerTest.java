@@ -34,6 +34,7 @@ import com.exedio.cope.misc.Computed;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import org.junit.Test;
 
 public class SerializerTest extends AbstractRuntimeModelTest
 {

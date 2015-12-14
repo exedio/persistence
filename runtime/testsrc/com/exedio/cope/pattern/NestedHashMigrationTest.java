@@ -26,6 +26,7 @@ import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Model;
 import com.exedio.cope.util.AssertionErrorJobContext;
+import org.junit.Test;
 
 public class NestedHashMigrationTest extends AbstractRuntimeModelTest
 {

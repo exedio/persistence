@@ -30,6 +30,7 @@ import static com.exedio.cope.BeforeSetItem.Action.runtimeException;
 import static java.util.Arrays.asList;
 
 import com.exedio.cope.BeforeSetItem.Action;
+import org.junit.Test;
 
 public class BeforeSetTest extends AbstractRuntimeModelTest
 {

@@ -28,6 +28,7 @@ import static com.exedio.cope.pattern.ImporterItem.description2;
 import com.exedio.cope.Model;
 import com.exedio.cope.StringField;
 import com.exedio.cope.junit.CopeAssert;
+import org.junit.Test;
 
 public class ImporterModelTest extends CopeAssert
 {

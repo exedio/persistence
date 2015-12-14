@@ -25,6 +25,7 @@ import static com.exedio.cope.UniqueDoubleItem.integer;
 import static com.exedio.cope.UniqueDoubleItem.string;
 
 import com.exedio.cope.junit.CopeAssert;
+import org.junit.Test;
 
 public class UniqueDoubleModelTest extends CopeAssert
 {

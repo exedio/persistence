@@ -25,6 +25,7 @@ import com.exedio.dsmf.Constraint;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.EnumSet;
+import org.junit.Test;
 
 public class HierarchyTest extends AbstractRuntimeModelTest
 {

@@ -25,6 +25,7 @@ import static com.exedio.cope.Query.newQuery;
 import com.exedio.cope.testmodel.PointerItem;
 import com.exedio.cope.testmodel.PointerTargetItem;
 import java.util.List;
+import org.junit.Test;
 
 public class JoinTest extends TestmodelTest
 {

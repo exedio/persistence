@@ -22,6 +22,7 @@ import static com.exedio.cope.instrument.Generics.get;
 import static java.util.Arrays.asList;
 
 import junit.framework.TestCase;
+import org.junit.Test;
 
 public class GenericsTest extends TestCase
 {

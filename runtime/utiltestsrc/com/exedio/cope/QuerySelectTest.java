@@ -26,6 +26,7 @@ import static com.exedio.cope.QuerySelectTest.AnItem.field2;
 import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.util.Day;
 import java.util.List;
+import org.junit.Test;
 
 public class QuerySelectTest extends CopeAssert
 {

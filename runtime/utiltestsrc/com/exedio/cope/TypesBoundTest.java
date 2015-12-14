@@ -23,6 +23,7 @@ import static com.exedio.cope.TypesBound.forClassUnchecked;
 import static com.exedio.cope.TypesBound.newType;
 
 import com.exedio.cope.junit.CopeAssert;
+import org.junit.Test;
 
 public class TypesBoundTest extends CopeAssert
 {

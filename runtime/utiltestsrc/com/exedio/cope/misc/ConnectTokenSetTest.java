@@ -32,6 +32,7 @@ import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
 import com.exedio.cope.junit.CopeAssert;
 import java.io.File;
+import org.junit.Test;
 
 public class ConnectTokenSetTest extends CopeAssert
 {

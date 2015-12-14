@@ -23,6 +23,7 @@ import static com.exedio.cope.SchemaInfo.supportsNativeDate;
 import static com.exedio.cope.SchemaInfo.supportsUniqueViolation;
 
 import java.sql.SQLException;
+import org.junit.Test;
 
 public class CapabilitiesTest extends AbstractRuntimeModelTest
 {

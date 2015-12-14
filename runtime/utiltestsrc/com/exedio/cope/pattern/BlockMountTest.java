@@ -33,6 +33,7 @@ import java.io.Serializable;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
+import org.junit.Test;
 
 public class BlockMountTest extends CopeAssert
 {

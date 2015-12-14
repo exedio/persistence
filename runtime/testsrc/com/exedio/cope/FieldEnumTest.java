@@ -25,6 +25,7 @@ import static com.exedio.cope.testmodel.AttributeItem.someNotNullEnum;
 
 import com.exedio.cope.testmodel.AttributeItem;
 import com.exedio.cope.testmodel.AttributeItem.SomeEnum;
+import org.junit.Test;
 
 public class FieldEnumTest extends FieldTest
 {

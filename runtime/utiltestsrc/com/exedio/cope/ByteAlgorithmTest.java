@@ -21,6 +21,7 @@ package com.exedio.cope;
 import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.pattern.Hash;
 import java.nio.charset.Charset;
+import org.junit.Test;
 
 public class ByteAlgorithmTest extends CopeAssert
 {

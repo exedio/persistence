@@ -32,6 +32,7 @@ import com.exedio.cope.junit.CopeAssert;
 import java.io.File;
 import java.util.Date;
 import org.apache.log4j.Logger;
+import org.junit.Test;
 
 public class ConnectTokenTest extends CopeAssert
 {

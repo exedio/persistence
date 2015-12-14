@@ -35,6 +35,7 @@ import com.exedio.cope.StringField;
 import com.exedio.cope.UniqueConstraint;
 import com.exedio.cope.junit.CopeAssert;
 import java.util.Arrays;
+import org.junit.Test;
 
 public class BlockFieldUniqueModelTest extends CopeAssert
 {

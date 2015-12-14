@@ -25,6 +25,7 @@ import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.Model;
 import com.exedio.cope.Query;
 import java.util.List;
+import org.junit.Test;
 
 public class QueryAggregatorTest extends AbstractRuntimeModelTest
 {

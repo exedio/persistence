@@ -29,6 +29,7 @@ import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.CopeSchemaName;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Model;
+import org.junit.Test;
 
 public final class CompositeFieldRenamedSchemaTest extends AbstractRuntimeModelTest
 {

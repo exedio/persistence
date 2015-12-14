@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import com.exedio.cope.misc.HiddenFeatures;
+import org.junit.Test;
 
 public class HiddenFeatureTest extends AbstractRuntimeModelTest
 {

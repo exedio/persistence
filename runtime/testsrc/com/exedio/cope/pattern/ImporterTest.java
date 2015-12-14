@@ -26,6 +26,7 @@ import static com.exedio.cope.pattern.ImporterItem.importByCode;
 import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.SetValue;
 import java.util.ArrayList;
+import org.junit.Test;
 
 public class ImporterTest extends AbstractRuntimeModelTest
 {

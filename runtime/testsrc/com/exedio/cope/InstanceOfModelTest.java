@@ -23,6 +23,7 @@ import static com.exedio.cope.EqualsAssert.assertNotEqualsAndHash;
 import static com.exedio.cope.InstanceOfRefItem.ref;
 
 import com.exedio.cope.junit.CopeAssert;
+import org.junit.Test;
 
 public class InstanceOfModelTest extends CopeAssert
 {

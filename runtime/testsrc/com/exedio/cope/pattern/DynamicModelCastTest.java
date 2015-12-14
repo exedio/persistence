@@ -27,6 +27,7 @@ import com.exedio.cope.StringField;
 import com.exedio.cope.pattern.DynamicModel.Enum;
 import com.exedio.cope.pattern.DynamicModel.Field;
 import com.exedio.cope.pattern.DynamicModel.Type;
+import org.junit.Test;
 
 public class DynamicModelCastTest extends AbstractRuntimeModelTest
 {

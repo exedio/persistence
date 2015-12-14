@@ -24,6 +24,7 @@ import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.CacheIsolationItem;
 import com.exedio.cope.CacheIsolationTest;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import org.junit.Test;
 
 public class TransactionRunnableTest extends AbstractRuntimeModelTest
 {

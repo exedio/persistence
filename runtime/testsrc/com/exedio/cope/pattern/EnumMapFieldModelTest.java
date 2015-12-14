@@ -32,6 +32,7 @@ import com.exedio.cope.Model;
 import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.pattern.EnumMapFieldItem.Language;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import org.junit.Test;
 
 public class EnumMapFieldModelTest extends CopeAssert
 {

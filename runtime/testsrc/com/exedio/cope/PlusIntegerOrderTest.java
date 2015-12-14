@@ -29,6 +29,7 @@ import com.exedio.cope.junit.CopeModelTest;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import org.junit.Test;
 
 public class PlusIntegerOrderTest extends CopeModelTest
 {

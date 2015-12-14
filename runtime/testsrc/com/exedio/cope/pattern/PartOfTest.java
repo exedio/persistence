@@ -19,6 +19,7 @@
 package com.exedio.cope.pattern;
 
 import com.exedio.cope.AbstractRuntimeModelTest;
+import org.junit.Test;
 
 public class PartOfTest extends AbstractRuntimeModelTest
 {

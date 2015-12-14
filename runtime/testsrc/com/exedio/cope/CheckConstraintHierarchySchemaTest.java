@@ -31,6 +31,7 @@ import com.exedio.dsmf.Constraint;
 import com.exedio.dsmf.Schema;
 import com.exedio.dsmf.Table;
 import java.util.Iterator;
+import org.junit.Test;
 
 public class CheckConstraintHierarchySchemaTest extends AbstractRuntimeModelTest
 {

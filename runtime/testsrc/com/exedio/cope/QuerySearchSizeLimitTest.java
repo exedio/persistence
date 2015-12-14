@@ -21,6 +21,7 @@ package com.exedio.cope;
 import static com.exedio.cope.DayItem.TYPE;
 
 import com.exedio.cope.util.Day;
+import org.junit.Test;
 
 public class QuerySearchSizeLimitTest extends AbstractRuntimeModelTest
 {

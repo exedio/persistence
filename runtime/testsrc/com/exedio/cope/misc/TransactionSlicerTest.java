@@ -21,6 +21,7 @@ package com.exedio.cope.misc;
 import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.CacheIsolationTest;
 import com.exedio.cope.Transaction;
+import org.junit.Test;
 
 public class TransactionSlicerTest extends AbstractRuntimeModelTest
 {

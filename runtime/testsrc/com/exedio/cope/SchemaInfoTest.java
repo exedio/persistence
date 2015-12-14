@@ -26,6 +26,8 @@ import static com.exedio.cope.SchemaInfo.getTypeColumnName;
 import static com.exedio.cope.SchemaInfo.getUpdateCounterColumnName;
 import static com.exedio.cope.SchemaInfo.quoteName;
 
+import org.junit.Test;
+
 public class SchemaInfoTest extends AbstractRuntimeModelTest
 {
 	public SchemaInfoTest()

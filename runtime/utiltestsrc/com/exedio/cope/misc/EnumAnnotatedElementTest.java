@@ -22,6 +22,7 @@ import static com.exedio.cope.misc.EnumAnnotatedElement.get;
 
 import com.exedio.cope.CopeSchemaName;
 import com.exedio.cope.junit.CopeAssert;
+import org.junit.Test;
 
 public class EnumAnnotatedElementTest extends CopeAssert
 {

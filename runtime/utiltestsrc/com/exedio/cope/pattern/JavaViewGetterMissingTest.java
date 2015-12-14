@@ -22,6 +22,7 @@ import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.Item;
 import com.exedio.cope.TypesBound;
 import com.exedio.cope.junit.CopeAssert;
+import org.junit.Test;
 
 public class JavaViewGetterMissingTest extends CopeAssert
 {

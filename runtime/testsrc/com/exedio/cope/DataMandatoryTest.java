@@ -26,6 +26,7 @@ import static com.exedio.cope.RuntimeAssert.assertData;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import org.junit.Test;
 
 public class DataMandatoryTest extends AbstractRuntimeModelTest
 {

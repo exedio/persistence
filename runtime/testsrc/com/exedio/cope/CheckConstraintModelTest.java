@@ -31,6 +31,7 @@ import static com.exedio.cope.CheckConstraintSuperItem.zwei;
 import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
 
 import com.exedio.cope.junit.CopeAssert;
+import org.junit.Test;
 
 public class CheckConstraintModelTest extends CopeAssert
 {

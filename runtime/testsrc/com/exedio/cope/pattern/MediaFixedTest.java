@@ -29,6 +29,7 @@ import com.exedio.cope.DataField;
 import com.exedio.cope.DateField;
 import java.io.IOException;
 import java.io.InputStream;
+import org.junit.Test;
 
 public class MediaFixedTest extends AbstractRuntimeModelTest
 {

@@ -20,6 +20,7 @@ package com.exedio.cope.pattern;
 
 import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.Model;
+import org.junit.Test;
 
 public class CompositeDefaultTest extends AbstractRuntimeModelTest
 {

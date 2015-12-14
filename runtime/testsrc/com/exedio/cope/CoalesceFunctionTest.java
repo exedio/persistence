@@ -44,6 +44,7 @@ import com.exedio.cope.CompareFunctionConditionItem.XEnum;
 import com.exedio.cope.util.Day;
 import java.util.Date;
 import java.util.List;
+import org.junit.Test;
 
 public class CoalesceFunctionTest extends AbstractRuntimeModelTest
 {

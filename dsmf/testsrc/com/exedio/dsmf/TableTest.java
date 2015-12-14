@@ -18,6 +18,7 @@
 
 package com.exedio.dsmf;
 
+import org.junit.Test;
 
 public class TableTest extends SchemaReadyTest
 {

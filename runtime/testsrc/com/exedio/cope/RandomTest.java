@@ -26,6 +26,7 @@ import static java.util.Arrays.asList;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import org.junit.Test;
 
 public class RandomTest extends AbstractRuntimeModelTest
 {

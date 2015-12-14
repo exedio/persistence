@@ -27,6 +27,7 @@ import com.exedio.cope.instrument.findtype.subfindtype.SubFindType;
 import com.exedio.cope.instrument.findtype.subfindtype2.SubFindType2;
 import com.exedio.cope.instrument.findtype.subfindtype2.SubFindType3Non;
 import junit.framework.TestCase;
+import org.junit.Test;
 
 public class ResolveImportTest extends TestCase
 {

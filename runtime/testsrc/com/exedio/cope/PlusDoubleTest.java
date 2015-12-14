@@ -40,6 +40,8 @@ import static com.exedio.cope.PlusDoubleItem.plusAC;
 import static com.exedio.cope.PlusDoubleItem.plusBC;
 import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
 
+import org.junit.Test;
+
 public class PlusDoubleTest extends AbstractRuntimeModelTest
 {
 	static final Model MODEL = new Model(TYPE);

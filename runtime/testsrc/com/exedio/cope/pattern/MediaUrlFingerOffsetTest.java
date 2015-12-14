@@ -24,6 +24,7 @@ import static com.exedio.cope.pattern.MediaUrlItem.fileFinger;
 
 import com.exedio.cope.AbstractRuntimeModelTest;
 import java.util.Date;
+import org.junit.Test;
 
 public final class MediaUrlFingerOffsetTest extends AbstractRuntimeModelTest
 {

@@ -22,6 +22,7 @@ import com.exedio.cope.misc.DirectRevisionsFactory;
 import com.exedio.dsmf.Constraint;
 import com.exedio.dsmf.Schema;
 import java.util.EnumSet;
+import org.junit.Test;
 
 /**
  * @author baumgaertel

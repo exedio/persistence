@@ -21,6 +21,7 @@ package com.exedio.cope.sampler;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.StringField;
 import com.exedio.cope.junit.CopeAssert;
+import org.junit.Test;
 
 public class StringUtilTest extends CopeAssert
 {

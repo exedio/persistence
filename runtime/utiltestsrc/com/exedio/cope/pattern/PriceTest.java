@@ -37,6 +37,7 @@ import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.Locale;
+import org.junit.Test;
 
 public final class PriceTest extends CopeAssert
 {

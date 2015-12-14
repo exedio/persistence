@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import org.junit.Test;
+
 public class CheckTypeColumnAbstractLinearTest extends AbstractRuntimeModelTest
 {
 	private static final Model MODEL = new Model(

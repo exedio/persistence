@@ -41,6 +41,8 @@ import static com.exedio.cope.PlusLongItem.plusABaC;
 import static com.exedio.cope.PlusLongItem.plusAC;
 import static com.exedio.cope.PlusLongItem.plusBC;
 
+import org.junit.Test;
+
 public class PlusLongTest extends AbstractRuntimeModelTest
 {
 	static final Model MODEL = new Model(TYPE);

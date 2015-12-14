@@ -20,6 +20,7 @@ package com.exedio.dsmf;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import org.junit.Test;
 
 
 public class BatchTest extends SchemaTest

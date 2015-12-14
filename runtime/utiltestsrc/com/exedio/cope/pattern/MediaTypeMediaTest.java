@@ -25,6 +25,7 @@ import com.exedio.cope.DataField;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.StringField;
 import com.exedio.cope.junit.CopeAssert;
+import org.junit.Test;
 
 public class MediaTypeMediaTest extends CopeAssert
 {

@@ -26,6 +26,7 @@ import com.exedio.cope.SetValue;
 import com.exedio.cope.StringField;
 import com.exedio.cope.junit.CopeAssert;
 import java.util.ArrayList;
+import org.junit.Test;
 
 public class SetValueUtilTest extends CopeAssert
 {

@@ -25,6 +25,8 @@ import static com.exedio.cope.UniqueDoubleItem.forConstraint;
 import static com.exedio.cope.UniqueDoubleItem.integer;
 import static com.exedio.cope.UniqueDoubleItem.string;
 
+import org.junit.Test;
+
 public class UniqueDoubleTest extends AbstractRuntimeModelTest
 {
 	public UniqueDoubleTest()

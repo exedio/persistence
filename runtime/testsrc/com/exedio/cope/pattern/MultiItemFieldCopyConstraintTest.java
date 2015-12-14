@@ -26,6 +26,7 @@ import com.exedio.cope.ItemField;
 import com.exedio.cope.Model;
 import com.exedio.cope.StringField;
 import java.util.Iterator;
+import org.junit.Test;
 
 public class MultiItemFieldCopyConstraintTest extends AbstractRuntimeModelTest
 {

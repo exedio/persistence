@@ -24,6 +24,7 @@ import static com.exedio.cope.SequenceItem.limited;
 import static java.lang.Integer.MAX_VALUE;
 
 import com.exedio.cope.junit.CopeAssert;
+import org.junit.Test;
 
 public class SequenceModelTest extends CopeAssert
 {

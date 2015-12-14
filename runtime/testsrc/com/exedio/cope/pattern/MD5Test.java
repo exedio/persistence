@@ -28,6 +28,7 @@ import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Model;
 import java.util.Arrays;
+import org.junit.Test;
 
 public class MD5Test extends AbstractRuntimeModelTest
 {

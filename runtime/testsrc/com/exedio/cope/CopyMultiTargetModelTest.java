@@ -26,6 +26,7 @@ import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
 
 import com.exedio.cope.junit.CopeAssert;
 import java.util.Arrays;
+import org.junit.Test;
 
 public class CopyMultiTargetModelTest extends CopeAssert
 {

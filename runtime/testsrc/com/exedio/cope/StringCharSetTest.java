@@ -25,6 +25,7 @@ import static java.util.Arrays.asList;
 
 import com.exedio.cope.util.CharSet;
 import java.util.HashSet;
+import org.junit.Test;
 
 public class StringCharSetTest extends AbstractRuntimeModelTest
 {

@@ -26,6 +26,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
+import org.junit.Test;
 
 public final class UpdateCounterRecoverTest extends AbstractRuntimeModelTest
 {

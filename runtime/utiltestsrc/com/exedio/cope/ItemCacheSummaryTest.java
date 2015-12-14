@@ -21,6 +21,7 @@ package com.exedio.cope;
 import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.misc.ItemCacheSummary;
 import java.util.Date;
+import org.junit.Test;
 
 public class ItemCacheSummaryTest extends CopeAssert
 {

@@ -23,6 +23,8 @@ import static com.exedio.cope.CheckConstraintHierarchyItemBottom.cross;
 import static com.exedio.cope.CheckConstraintHierarchyItemBottom.up;
 import static com.exedio.cope.CheckConstraintHierarchyItemTop.top;
 
+import org.junit.Test;
+
 public class CheckConstraintHierarchyTest extends AbstractRuntimeModelTest
 {
 	static final Model MODEL = new Model(CheckConstraintHierarchyItemBottom.TYPE, CheckConstraintHierarchyItemTop.TYPE);

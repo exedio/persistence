@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import com.exedio.dsmf.Constraint;
 import java.util.EnumSet;
+import org.junit.Test;
 
 public class HierarchyEmptyTest extends AbstractRuntimeModelTest
 {

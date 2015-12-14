@@ -27,6 +27,7 @@ import static com.exedio.cope.pattern.ColorFieldItem.optional;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.junit.CopeModelTest;
 import java.awt.Color;
+import org.junit.Test;
 
 public class ColorFieldTest extends CopeModelTest
 {

@@ -24,6 +24,7 @@ import static com.exedio.cope.PlusIntegerItem.numB;
 import static com.exedio.cope.Query.newQuery;
 
 import java.util.List;
+import org.junit.Test;
 
 public class DistinctTest extends AbstractRuntimeModelTest
 {

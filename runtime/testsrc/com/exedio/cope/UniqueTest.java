@@ -21,6 +21,8 @@ package com.exedio.cope;
 import static com.exedio.cope.AbstractRuntimeTest.assertDelete;
 import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
 
+import org.junit.Test;
+
 public class UniqueTest extends AbstractRuntimeModelTest
 {
 	static final Model MODEL = new Model(

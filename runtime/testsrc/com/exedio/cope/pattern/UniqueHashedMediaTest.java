@@ -35,6 +35,7 @@ import com.exedio.cope.misc.Computed;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Date;
+import org.junit.Test;
 
 public final class UniqueHashedMediaTest extends AbstractRuntimeModelTest
 {

@@ -26,6 +26,7 @@ import static com.exedio.cope.Query.newQuery;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
+import org.junit.Test;
 
 public class SelectBindTest extends AbstractRuntimeModelTest
 {

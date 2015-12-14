@@ -23,6 +23,8 @@ import static com.exedio.cope.testmodel.AttributeItem.TYPE;
 import static com.exedio.cope.testmodel.AttributeItem.someBoolean;
 import static com.exedio.cope.testmodel.AttributeItem.someNotNullBoolean;
 
+import org.junit.Test;
+
 public class FieldBooleanTest extends FieldTest
 {
 	@Test public void testSomeBoolean()

@@ -24,6 +24,7 @@ import static com.exedio.cope.pattern.RangeFieldItem.valid;
 import com.exedio.cope.AbstractRuntimeModelTest;
 import java.util.Arrays;
 import java.util.List;
+import org.junit.Test;
 
 public class RangeFieldNullTest extends AbstractRuntimeModelTest
 {

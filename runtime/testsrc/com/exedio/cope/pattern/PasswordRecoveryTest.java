@@ -35,6 +35,7 @@ import com.exedio.cope.pattern.PasswordRecovery.Token;
 import com.exedio.cope.util.Clock;
 import java.util.Arrays;
 import java.util.Date;
+import org.junit.Test;
 
 public class PasswordRecoveryTest extends AbstractRuntimeModelTest
 {

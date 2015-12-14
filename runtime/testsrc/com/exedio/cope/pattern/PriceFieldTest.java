@@ -30,6 +30,7 @@ import com.exedio.cope.IntegerRangeViolationException;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.SchemaInfo;
 import com.exedio.cope.SetValue;
+import org.junit.Test;
 
 public class PriceFieldTest extends AbstractRuntimeModelTest
 {

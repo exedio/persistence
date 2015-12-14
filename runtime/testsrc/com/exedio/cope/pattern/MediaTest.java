@@ -38,6 +38,7 @@ import com.exedio.cope.misc.Computed;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Arrays;
+import org.junit.Test;
 
 public final class MediaTest extends AbstractRuntimeModelTest
 {

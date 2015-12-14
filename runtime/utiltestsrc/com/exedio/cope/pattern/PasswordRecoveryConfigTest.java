@@ -20,6 +20,7 @@ package com.exedio.cope.pattern;
 
 import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.pattern.PasswordRecovery.Config;
+import org.junit.Test;
 
 public class PasswordRecoveryConfigTest extends CopeAssert
 {

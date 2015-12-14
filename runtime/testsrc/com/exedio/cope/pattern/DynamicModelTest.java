@@ -39,6 +39,7 @@ import com.exedio.cope.Type;
 import com.exedio.cope.pattern.DynamicModel.Enum;
 import com.exedio.cope.pattern.DynamicModel.ValueType;
 import java.util.Arrays;
+import org.junit.Test;
 
 public class DynamicModelTest extends AbstractRuntimeModelTest
 {

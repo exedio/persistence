@@ -24,6 +24,7 @@ import static com.exedio.cope.testmodel.FinalItem.nonFinalInteger;
 
 import com.exedio.cope.testmodel.FinalItem;
 import java.util.List;
+import org.junit.Test;
 
 public class GroupByTest extends TestmodelTest
 {

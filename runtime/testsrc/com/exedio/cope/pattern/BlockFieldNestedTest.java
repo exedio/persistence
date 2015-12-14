@@ -30,6 +30,7 @@ import com.exedio.cope.Feature;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Model;
 import java.util.Arrays;
+import org.junit.Test;
 
 public class BlockFieldNestedTest extends AbstractRuntimeModelTest
 {

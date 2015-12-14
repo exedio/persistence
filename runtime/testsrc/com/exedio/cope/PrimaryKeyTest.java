@@ -21,6 +21,8 @@ package com.exedio.cope;
 import static com.exedio.cope.PrimaryKeyItem.TYPE;
 import static com.exedio.cope.PrimaryKeyItem.next;
 
+import org.junit.Test;
+
 public class PrimaryKeyTest extends AbstractRuntimeModelTest
 {
 	/**

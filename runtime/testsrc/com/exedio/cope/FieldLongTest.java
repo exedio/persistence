@@ -23,6 +23,8 @@ import static com.exedio.cope.testmodel.AttributeItem.TYPE;
 import static com.exedio.cope.testmodel.AttributeItem.someLong;
 import static com.exedio.cope.testmodel.AttributeItem.someNotNullLong;
 
+import org.junit.Test;
+
 public class FieldLongTest extends FieldTest
 {
 	static final Long CONST = 1l;

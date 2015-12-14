@@ -36,6 +36,7 @@ import com.exedio.cope.misc.Computed;
 import com.exedio.cope.pattern.MapFieldItem.Language;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.Serializable;
+import org.junit.Test;
 
 public class MapFieldModelTest extends CopeAssert
 {

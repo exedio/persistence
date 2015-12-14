@@ -48,6 +48,7 @@ import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.util.Day;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Date;
+import org.junit.Test;
 
 public class DefaultToModelTest extends CopeAssert
 {

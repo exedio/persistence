@@ -21,6 +21,7 @@ package com.exedio.cope.pattern;
 import com.exedio.cope.junit.CopeAssert;
 import java.io.IOException;
 import java.util.Date;
+import org.junit.Test;
 
 public class ErrorLogTest extends CopeAssert
 {

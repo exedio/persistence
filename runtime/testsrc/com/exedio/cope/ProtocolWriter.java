@@ -22,6 +22,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Properties;
+import org.junit.Test;
 
 public class ProtocolWriter extends AbstractRuntimeModelTest
 {

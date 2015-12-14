@@ -22,6 +22,7 @@ import com.exedio.cope.junit.CopeAssert;
 import java.awt.geom.IllegalPathStateException;
 import java.io.File;
 import java.util.ArrayList;
+import org.junit.Test;
 
 public class CommitHookTest extends CopeAssert
 {

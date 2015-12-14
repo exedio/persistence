@@ -18,6 +18,8 @@
 
 package com.exedio.cope.junit;
 
+import org.junit.Test;
+
 public class CopeModelTestTestRolledback extends CopeModelTestTest
 {
 	@Test public void testRolledback()

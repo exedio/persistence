@@ -33,6 +33,7 @@ import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.misc.Computed;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Arrays;
+import org.junit.Test;
 
 public class PriceFieldModelTest extends CopeAssert
 {

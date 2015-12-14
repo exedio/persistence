@@ -34,6 +34,7 @@ import static com.exedio.cope.ItemField.DeletePolicy.NULLIFY;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Collection;
 import java.util.List;
+import org.junit.Test;
 
 public class DeleteTest extends AbstractRuntimeModelTest
 {

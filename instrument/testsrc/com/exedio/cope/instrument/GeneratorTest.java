@@ -52,6 +52,7 @@ import java.lang.reflect.Modifier;
 import java.util.Arrays;
 import java.util.Date;
 import junit.framework.TestCase;
+import org.junit.Test;
 
 public class GeneratorTest extends TestCase
 {

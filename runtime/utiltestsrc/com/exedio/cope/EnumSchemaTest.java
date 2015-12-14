@@ -21,6 +21,7 @@ package com.exedio.cope;
 import static com.exedio.cope.SchemaInfo.getColumnValue;
 
 import com.exedio.cope.junit.CopeAssert;
+import org.junit.Test;
 
 public class EnumSchemaTest extends CopeAssert
 {

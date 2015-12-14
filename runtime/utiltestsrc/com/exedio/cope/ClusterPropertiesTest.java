@@ -23,6 +23,7 @@ import com.exedio.cope.util.Properties;
 import com.exedio.cope.util.Properties.Source;
 import java.io.File;
 import java.util.Collection;
+import org.junit.Test;
 
 public final class ClusterPropertiesTest extends CopeAssert
 {

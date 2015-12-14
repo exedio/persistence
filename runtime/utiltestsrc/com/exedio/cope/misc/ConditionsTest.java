@@ -34,6 +34,7 @@ import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
 import com.exedio.cope.junit.CopeAssert;
 import java.util.Collections;
+import org.junit.Test;
 
 public class ConditionsTest extends CopeAssert
 {

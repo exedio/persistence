@@ -29,6 +29,8 @@ import static com.exedio.cope.MinusIntegerItem.viewAC;
 import static com.exedio.cope.MinusIntegerItem.viewBC;
 import static java.lang.Integer.valueOf;
 
+import org.junit.Test;
+
 public class MinusIntegerTest extends AbstractRuntimeModelTest
 {
 	static final Model MODEL = new Model(TYPE);

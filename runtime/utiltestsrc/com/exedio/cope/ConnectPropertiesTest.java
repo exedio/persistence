@@ -25,6 +25,7 @@ import java.io.File;
 import java.util.Collection;
 import java.util.concurrent.Callable;
 import junit.framework.TestCase;
+import org.junit.Test;
 
 public class ConnectPropertiesTest extends TestCase
 {

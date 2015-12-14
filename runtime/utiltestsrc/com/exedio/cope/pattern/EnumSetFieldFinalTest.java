@@ -27,6 +27,7 @@ import static com.exedio.cope.pattern.EnumSetFieldFinalTest.AnItem.field;
 import com.exedio.cope.BooleanField;
 import com.exedio.cope.Model;
 import com.exedio.cope.junit.CopeAssert;
+import org.junit.Test;
 
 public class EnumSetFieldFinalTest extends CopeAssert
 {

@@ -25,6 +25,7 @@ import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.Item;
 import com.exedio.cope.NoSuchIDException;
 import java.util.List;
+import org.junit.Test;
 
 public class FindItemPatternTest extends AbstractRuntimeModelTest
 {

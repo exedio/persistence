@@ -38,6 +38,7 @@ import com.exedio.cope.StringField;
 import com.exedio.cope.junit.CopeAssert;
 import java.awt.Color;
 import java.util.Arrays;
+import org.junit.Test;
 
 public class BlockFieldStandardModelTest extends CopeAssert
 {

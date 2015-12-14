@@ -24,6 +24,7 @@ import com.exedio.cope.UtilTestLogAppender;
 import com.exedio.cope.junit.CopeAssert;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
+import org.junit.Test;
 
 public class TimeUtilTest extends CopeAssert
 {

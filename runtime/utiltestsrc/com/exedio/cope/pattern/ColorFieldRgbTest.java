@@ -23,6 +23,7 @@ import static com.exedio.cope.pattern.ColorField.toRGB;
 
 import com.exedio.cope.junit.CopeAssert;
 import java.awt.Color;
+import org.junit.Test;
 
 public class ColorFieldRgbTest extends CopeAssert
 {

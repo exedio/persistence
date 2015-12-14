@@ -24,6 +24,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 import junit.framework.TestCase;
+import org.junit.Test;
 
 public class GraphTest extends TestCase
 {

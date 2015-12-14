@@ -26,6 +26,7 @@ import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.Model;
 import com.exedio.cope.junit.CopeAssert;
 import java.util.Date;
+import org.junit.Test;
 
 public class ConnectTokenTest extends CopeAssert
 {

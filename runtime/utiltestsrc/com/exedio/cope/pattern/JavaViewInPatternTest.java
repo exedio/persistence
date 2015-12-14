@@ -23,6 +23,7 @@ import com.exedio.cope.Item;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.TypesBound;
 import com.exedio.cope.junit.CopeAssert;
+import org.junit.Test;
 
 public class JavaViewInPatternTest extends CopeAssert
 {

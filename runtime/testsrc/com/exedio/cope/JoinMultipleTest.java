@@ -27,6 +27,7 @@ import static java.util.Arrays.asList;
 
 import com.exedio.cope.testmodel.PointerItem;
 import com.exedio.cope.testmodel.PointerTargetItem;
+import org.junit.Test;
 
 public class JoinMultipleTest extends TestmodelTest
 {

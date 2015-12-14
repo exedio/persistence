@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import java.sql.SQLException;
+import org.junit.Test;
 
 public class DeleteAfterUniqueViolationTest extends AbstractRuntimeModelTest
 {

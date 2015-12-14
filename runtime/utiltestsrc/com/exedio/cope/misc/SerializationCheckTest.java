@@ -28,6 +28,7 @@ import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
 import com.exedio.cope.junit.CopeAssert;
 import java.lang.reflect.Field;
+import org.junit.Test;
 
 public class SerializationCheckTest extends CopeAssert
 {

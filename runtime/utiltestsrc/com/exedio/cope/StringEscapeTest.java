@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import junit.framework.TestCase;
+import org.junit.Test;
 
 public class StringEscapeTest extends TestCase
 {

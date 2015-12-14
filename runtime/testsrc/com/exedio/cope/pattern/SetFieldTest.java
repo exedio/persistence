@@ -40,6 +40,7 @@ import com.exedio.cope.misc.Computed;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.Iterator;
+import org.junit.Test;
 
 public class SetFieldTest extends AbstractRuntimeModelTest
 {

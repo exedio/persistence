@@ -22,6 +22,7 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 
 import java.security.SecureRandom;
 import junit.framework.TestCase;
+import org.junit.Test;
 
 public class NestedHashAlgorithmTest extends TestCase
 {

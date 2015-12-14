@@ -33,6 +33,7 @@ import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
 import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.misc.Computed;
+import org.junit.Test;
 
 public final class CompositeFieldComputedTest extends CopeAssert
 {

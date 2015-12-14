@@ -21,6 +21,7 @@ package com.exedio.cope.sampler;
 import static com.exedio.cope.sampler.Stuff.sampler;
 
 import junit.framework.TestCase;
+import org.junit.Test;
 
 public class SamplerTest extends TestCase
 {

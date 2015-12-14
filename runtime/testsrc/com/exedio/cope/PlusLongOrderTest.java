@@ -31,6 +31,7 @@ import static java.lang.Long.valueOf;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import org.junit.Test;
 
 public class PlusLongOrderTest extends AbstractRuntimeModelTest
 {

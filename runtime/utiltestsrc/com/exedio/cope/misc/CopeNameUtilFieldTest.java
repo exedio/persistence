@@ -21,6 +21,7 @@ package com.exedio.cope.misc;
 import com.exedio.cope.CopeName;
 import com.exedio.cope.junit.CopeAssert;
 import java.lang.reflect.Field;
+import org.junit.Test;
 
 @Deprecated
 @SuppressWarnings("unused")

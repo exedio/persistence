@@ -21,6 +21,7 @@ package com.exedio.cope.pattern;
 import static com.exedio.cope.pattern.Range.valueOf;
 
 import com.exedio.cope.junit.CopeAssert;
+import org.junit.Test;
 
 public class RangeTest extends CopeAssert
 {

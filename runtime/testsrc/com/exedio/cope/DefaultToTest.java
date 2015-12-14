@@ -51,6 +51,7 @@ import com.exedio.cope.util.Clock;
 import com.exedio.cope.util.Day;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Date;
+import org.junit.Test;
 
 public class DefaultToTest extends AbstractRuntimeModelTest
 {

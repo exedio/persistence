@@ -25,6 +25,7 @@ import static com.exedio.cope.misc.Check.requireNonNegative;
 
 import com.exedio.cope.junit.CopeAssert;
 import java.util.Arrays;
+import org.junit.Test;
 
 public class CheckTest extends CopeAssert
 {

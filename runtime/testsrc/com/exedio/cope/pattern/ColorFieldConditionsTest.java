@@ -26,6 +26,7 @@ import com.exedio.cope.Condition;
 import com.exedio.cope.Query;
 import java.awt.Color;
 import java.util.Arrays;
+import org.junit.Test;
 
 public class ColorFieldConditionsTest extends AbstractRuntimeModelTest
 {

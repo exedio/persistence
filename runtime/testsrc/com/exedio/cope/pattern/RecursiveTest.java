@@ -26,6 +26,7 @@ import static com.exedio.cope.pattern.RecursiveItem.testPattern2;
 
 import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.Model;
+import org.junit.Test;
 
 public class RecursiveTest extends AbstractRuntimeModelTest
 {

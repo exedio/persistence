@@ -45,6 +45,7 @@ import static com.exedio.dsmf.Dialect.NOT_NULL;
 import com.exedio.cope.SchemaTypeStringField.StringItem;
 import java.util.HashMap;
 import java.util.List;
+import org.junit.Test;
 
 public class SchemaTypeStringTest extends AbstractRuntimeModelTest
 {

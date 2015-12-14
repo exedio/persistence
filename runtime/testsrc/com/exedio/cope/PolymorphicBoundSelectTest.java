@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import java.util.List;
+import org.junit.Test;
 
 public class PolymorphicBoundSelectTest extends AbstractRuntimeModelTest
 {

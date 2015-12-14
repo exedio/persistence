@@ -25,6 +25,7 @@ import java.util.Date;
 import java.util.Map;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
+import org.junit.Test;
 
 public class DeleteSchemaTest extends AbstractRuntimeModelTest
 {

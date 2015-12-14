@@ -45,6 +45,7 @@ import java.util.Properties;
 import java.util.Set;
 import org.apache.log4j.Logger;
 import org.apache.log4j.spi.LoggingEvent;
+import org.junit.Test;
 
 public class ReviseTest extends CopeAssert
 {

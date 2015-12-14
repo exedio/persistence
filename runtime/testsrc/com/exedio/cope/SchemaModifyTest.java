@@ -24,6 +24,7 @@ import static com.exedio.cope.SchemaInfo.getTableName;
 import com.exedio.dsmf.Column;
 import com.exedio.dsmf.Constraint;
 import com.exedio.dsmf.Schema;
+import org.junit.Test;
 
 public class SchemaModifyTest extends AbstractRuntimeModelTest
 {

@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import java.util.Iterator;
 import java.util.List;
+import org.junit.Test;
 
 public class QueryInfoTest extends AbstractRuntimeModelTest
 {

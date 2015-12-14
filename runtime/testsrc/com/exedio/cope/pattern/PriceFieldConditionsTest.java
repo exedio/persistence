@@ -27,6 +27,7 @@ import com.exedio.cope.Condition;
 import com.exedio.cope.Join;
 import com.exedio.cope.Query;
 import java.util.Arrays;
+import org.junit.Test;
 
 public class PriceFieldConditionsTest extends AbstractRuntimeModelTest
 {

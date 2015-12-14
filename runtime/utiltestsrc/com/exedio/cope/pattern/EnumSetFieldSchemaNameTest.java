@@ -29,6 +29,7 @@ import com.exedio.cope.TypesBound;
 import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.util.Sources;
 import java.util.Properties;
+import org.junit.Test;
 
 public class EnumSetFieldSchemaNameTest extends CopeAssert
 {

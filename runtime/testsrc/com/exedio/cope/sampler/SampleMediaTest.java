@@ -22,6 +22,7 @@ import static com.exedio.cope.sampler.Stuff.sampler;
 import static com.exedio.cope.sampler.Stuff.samplerModel;
 
 import com.exedio.cope.pattern.Media;
+import org.junit.Test;
 
 public class SampleMediaTest extends ConnectedTest
 {

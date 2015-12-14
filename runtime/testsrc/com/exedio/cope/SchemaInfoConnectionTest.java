@@ -29,6 +29,7 @@ import static com.exedio.cope.SchemaInfo.quoteName;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.sql.Connection;
 import java.sql.SQLException;
+import org.junit.Test;
 
 public class SchemaInfoConnectionTest extends AbstractRuntimeModelTest
 {

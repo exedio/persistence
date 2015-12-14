@@ -42,6 +42,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import junit.framework.TestCase;
+import org.junit.Test;
 
 public class MediaServletTest extends TestCase
 {

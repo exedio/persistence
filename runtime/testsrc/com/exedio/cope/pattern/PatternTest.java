@@ -25,6 +25,7 @@ import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.Type;
+import org.junit.Test;
 
 public class PatternTest extends AbstractRuntimeModelTest
 {

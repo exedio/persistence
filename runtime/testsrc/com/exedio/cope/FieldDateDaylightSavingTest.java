@@ -23,6 +23,7 @@ import static com.exedio.cope.util.TimeZoneStrict.getTimeZone;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import org.junit.Test;
 
 public class FieldDateDaylightSavingTest extends FieldTest
 {

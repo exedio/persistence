@@ -30,6 +30,7 @@ import static com.exedio.cope.SequenceModelTest.MODEL;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
+import org.junit.Test;
 
 public class SequenceTest extends AbstractRuntimeModelTest
 {

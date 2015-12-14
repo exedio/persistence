@@ -21,6 +21,7 @@ package com.exedio.cope.pattern;
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.junit.CopeAssert;
+import org.junit.Test;
 
 /**
  * This test became useless, as there is no connection between

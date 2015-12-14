@@ -23,6 +23,7 @@ import static com.exedio.cope.misc.DirectRevisionsFactory.make;
 import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.misc.DirectRevisionsFactory;
 import java.sql.SQLException;
+import org.junit.Test;
 
 public class DirectRevisionsFactoryTest extends CopeAssert
 {

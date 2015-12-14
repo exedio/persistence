@@ -30,6 +30,7 @@ import com.exedio.cope.BooleanField;
 import com.exedio.cope.Model;
 import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.pattern.EnumSetFieldItem.Language;
+import org.junit.Test;
 
 public class EnumSetFieldModelTest extends CopeAssert
 {

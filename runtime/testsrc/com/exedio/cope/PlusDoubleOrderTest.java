@@ -31,6 +31,7 @@ import static java.lang.Double.valueOf;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import org.junit.Test;
 
 public class PlusDoubleOrderTest extends AbstractRuntimeModelTest
 {

@@ -27,6 +27,7 @@ import com.exedio.cope.pattern.PasswordLimiter.Refusal;
 import com.exedio.cope.util.Clock;
 import java.util.Date;
 import java.util.List;
+import org.junit.Test;
 
 public class PasswordLimiterTest extends CopeModelTest
 {

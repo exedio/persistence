@@ -22,6 +22,7 @@ import static java.lang.Long.MAX_VALUE;
 import static java.lang.Long.MIN_VALUE;
 
 import com.exedio.cope.junit.CopeAssert;
+import org.junit.Test;
 
 public class LongFieldTest extends CopeAssert
 {

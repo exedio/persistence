@@ -33,6 +33,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import javax.servlet.ServletOutputStream;
+import org.junit.Test;
 
 public class TextUrlFilterDelegatorTest extends AbstractRuntimeModelTest
 {

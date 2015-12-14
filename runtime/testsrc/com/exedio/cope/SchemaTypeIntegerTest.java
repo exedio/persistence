@@ -35,6 +35,7 @@ import static com.exedio.dsmf.Dialect.NOT_NULL;
 
 import java.util.ArrayList;
 import junit.framework.AssertionFailedError;
+import org.junit.Test;
 
 public class SchemaTypeIntegerTest extends AbstractRuntimeModelTest
 {

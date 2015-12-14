@@ -34,6 +34,7 @@ import com.exedio.cope.junit.CopeAssert;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.awt.Color;
 import java.util.Arrays;
+import org.junit.Test;
 
 public class ColorFieldModelTest extends CopeAssert
 {

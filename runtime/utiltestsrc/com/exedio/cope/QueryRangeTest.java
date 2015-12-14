@@ -21,6 +21,7 @@ package com.exedio.cope;
 import static com.exedio.cope.QueryRangeTest.AnItem.TYPE;
 
 import com.exedio.cope.junit.CopeAssert;
+import org.junit.Test;
 
 public class QueryRangeTest extends CopeAssert
 {

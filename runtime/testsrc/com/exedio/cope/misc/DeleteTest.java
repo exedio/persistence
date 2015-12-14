@@ -28,6 +28,7 @@ import com.exedio.cope.util.AssertionErrorJobContext;
 import com.exedio.cope.util.JobContext;
 import com.exedio.cope.util.JobStop;
 import java.util.ArrayList;
+import org.junit.Test;
 
 public class DeleteTest extends AbstractRuntimeModelTest
 {

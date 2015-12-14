@@ -29,6 +29,7 @@ import com.exedio.cope.CompositeCondition.Operator;
 import com.exedio.cope.junit.CopeAssert;
 import java.util.Arrays;
 import java.util.List;
+import org.junit.Test;
 
 public class CompositeConditionCopeTest extends CopeAssert
 {

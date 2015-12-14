@@ -40,6 +40,7 @@ import java.util.Vector;
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
+import org.junit.Test;
 
 public final class MediaPathTest extends AbstractRuntimeModelTest
 {

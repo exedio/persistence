@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import com.exedio.cope.EnumItem.Single;
+import org.junit.Test;
 
 public class EnumTest extends AbstractRuntimeModelTest
 {

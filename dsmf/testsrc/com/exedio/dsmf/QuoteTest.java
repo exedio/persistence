@@ -18,6 +18,8 @@
 
 package com.exedio.dsmf;
 
+import org.junit.Test;
+
 /**
  * Test whether all names are quoted,
  * by using sql keyword for names.

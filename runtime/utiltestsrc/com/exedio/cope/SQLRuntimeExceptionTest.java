@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import com.exedio.cope.junit.CopeAssert;
 import com.exedio.dsmf.SQLRuntimeException;
+import org.junit.Test;
 
 public class SQLRuntimeExceptionTest extends CopeAssert
 {

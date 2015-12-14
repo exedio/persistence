@@ -31,6 +31,7 @@ import static com.exedio.cope.testmodel.StringItem.min4Upper;
 import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.testmodel.StringItem;
 import com.exedio.cope.util.CharSet;
+import org.junit.Test;
 
 public class StringModelTest extends CopeAssert
 {

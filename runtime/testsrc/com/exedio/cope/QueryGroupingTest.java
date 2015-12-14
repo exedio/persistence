@@ -26,6 +26,7 @@ import static java.util.Arrays.asList;
 
 import com.exedio.cope.util.Day;
 import com.exedio.dsmf.SQLRuntimeException;
+import org.junit.Test;
 
 public class QueryGroupingTest extends AbstractRuntimeModelTest
 {

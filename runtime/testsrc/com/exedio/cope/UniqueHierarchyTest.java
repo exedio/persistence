@@ -20,6 +20,8 @@ package com.exedio.cope;
 
 import static com.exedio.cope.UniqueHierarchySubItem.subField;
 
+import org.junit.Test;
+
 /**
  * Test for bug 30
  *

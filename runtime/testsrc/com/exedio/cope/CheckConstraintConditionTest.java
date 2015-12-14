@@ -24,6 +24,7 @@ import com.exedio.dsmf.Column;
 import com.exedio.dsmf.Constraint;
 import com.exedio.dsmf.Schema;
 import com.exedio.dsmf.Table;
+import org.junit.Test;
 
 public class CheckConstraintConditionTest extends AbstractRuntimeModelTest
 {

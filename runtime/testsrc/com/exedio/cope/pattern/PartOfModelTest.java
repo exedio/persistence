@@ -23,6 +23,7 @@ import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Model;
 import com.exedio.cope.junit.CopeAssert;
+import org.junit.Test;
 
 public class PartOfModelTest extends CopeAssert
 {

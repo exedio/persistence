@@ -23,6 +23,7 @@ import static com.exedio.cope.SchemaInfo.isUpdateCounterEnabled;
 import static java.lang.Integer.MIN_VALUE;
 
 import com.exedio.cope.util.Hex;
+import org.junit.Test;
 
 public class ItemCacheDataTest extends AbstractRuntimeModelTest
 {

@@ -22,6 +22,8 @@ import static com.exedio.cope.CopyMultiCopyModelTest.constraintA;
 import static com.exedio.cope.CopyMultiCopyModelTest.constraintB;
 import static com.exedio.cope.CopyMultiCopySourceItem.TYPE;
 
+import org.junit.Test;
+
 public class CopyMultiCopyTest extends AbstractRuntimeModelTest
 {
 	public CopyMultiCopyTest()

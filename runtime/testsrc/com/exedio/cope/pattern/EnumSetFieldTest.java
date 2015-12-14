@@ -31,6 +31,7 @@ import com.exedio.cope.SetValue;
 import com.exedio.cope.pattern.EnumSetFieldItem.Language;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.EnumSet;
+import org.junit.Test;
 
 public class EnumSetFieldTest extends AbstractRuntimeModelTest
 {

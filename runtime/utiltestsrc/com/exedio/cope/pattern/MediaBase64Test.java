@@ -19,6 +19,7 @@
 package com.exedio.cope.pattern;
 
 import com.exedio.cope.junit.CopeAssert;
+import org.junit.Test;
 
 public class MediaBase64Test extends CopeAssert
 {

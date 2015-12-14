@@ -25,6 +25,7 @@ import com.exedio.cope.StringField;
 import com.exedio.cope.junit.CopeAssert;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.nio.charset.Charset;
+import org.junit.Test;
 
 @SuppressFBWarnings("NP_NULL_PARAM_DEREF_NONVIRTUAL")
 public class TextUrlFilterModelTest extends CopeAssert

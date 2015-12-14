@@ -20,6 +20,8 @@ package com.exedio.cope;
 
 import static com.exedio.cope.SchemaInfo.getUpdateCounterColumnName;
 
+import org.junit.Test;
+
 public final class FinalTest extends AbstractRuntimeModelTest
 {
 	static final Model MODEL = new Model(FinalSuperItem.TYPE, FinalSubItem.TYPE, FinalSubNoneItem.TYPE);

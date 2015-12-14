@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import java.util.Date;
 import junit.framework.TestCase;
+import org.junit.Test;
 
 public class IsInitialTest extends TestCase
 {

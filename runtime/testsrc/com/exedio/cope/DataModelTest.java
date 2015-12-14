@@ -32,6 +32,7 @@ import com.exedio.cope.junit.CopeAssert;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.ByteArrayInputStream;
 import java.io.File;
+import org.junit.Test;
 
 public class DataModelTest extends CopeAssert
 {

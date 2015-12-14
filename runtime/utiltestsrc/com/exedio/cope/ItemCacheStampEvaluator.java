@@ -23,6 +23,7 @@ import static com.exedio.cope.misc.TimeUtil.toMillies;
 import com.exedio.cope.junit.CopeAssert;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
+import org.junit.Test;
 
 /**
  * Test expenses for System.nanoTime against atomic sequences

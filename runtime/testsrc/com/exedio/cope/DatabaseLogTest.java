@@ -23,6 +23,7 @@ import static com.exedio.cope.MatchItem.text;
 
 import com.exedio.cope.misc.DatabaseListener;
 import java.util.List;
+import org.junit.Test;
 
 public class DatabaseLogTest extends AbstractRuntimeModelTest
 {

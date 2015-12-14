@@ -27,6 +27,7 @@ import static com.exedio.cope.LongItem.min4Max8;
 import static java.lang.Long.valueOf;
 
 import java.util.Date;
+import org.junit.Test;
 
 public class LongTest extends AbstractRuntimeModelTest
 {

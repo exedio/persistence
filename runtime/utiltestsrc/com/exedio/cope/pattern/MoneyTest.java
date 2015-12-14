@@ -25,6 +25,7 @@ import static com.exedio.cope.pattern.MoneyTest.Cy.eur;
 import static com.exedio.cope.pattern.MoneyTest.Cy.usd;
 
 import com.exedio.cope.junit.CopeAssert;
+import org.junit.Test;
 
 public final class MoneyTest extends CopeAssert
 {

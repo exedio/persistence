@@ -28,6 +28,7 @@ import static com.exedio.cope.util.Hex.decodeLower;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.IOException;
+import org.junit.Test;
 
 public class DumperTest extends AbstractRuntimeModelTest
 {

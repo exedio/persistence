@@ -42,6 +42,7 @@ import com.exedio.cope.Query;
 import com.exedio.cope.misc.Computed;
 import com.exedio.cope.pattern.CompositeValue.AnEnum;
 import java.util.Arrays;
+import org.junit.Test;
 
 public class CompositeFieldTest extends AbstractRuntimeModelTest
 {

@@ -27,6 +27,7 @@ import static com.exedio.cope.IntegerItem.min4Max8;
 import static java.lang.Integer.valueOf;
 
 import java.util.Date;
+import org.junit.Test;
 
 public class IntegerTest extends AbstractRuntimeModelTest
 {

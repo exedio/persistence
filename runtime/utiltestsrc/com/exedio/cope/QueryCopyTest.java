@@ -27,6 +27,7 @@ import static java.util.Arrays.asList;
 import com.exedio.cope.junit.CopeAssert;
 import java.util.Collections;
 import java.util.List;
+import org.junit.Test;
 
 public class QueryCopyTest extends CopeAssert
 {

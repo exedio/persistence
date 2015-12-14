@@ -23,6 +23,7 @@ import static com.exedio.cope.misc.Compare.compare;
 import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.util.CharsetName;
 import java.nio.charset.StandardCharsets;
+import org.junit.Test;
 
 public class CompareTest extends CopeAssert
 {

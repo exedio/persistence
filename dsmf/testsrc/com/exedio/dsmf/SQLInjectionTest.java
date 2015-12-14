@@ -18,6 +18,8 @@
 
 package com.exedio.dsmf;
 
+import org.junit.Test;
+
 public class SQLInjectionTest extends SchemaTest
 {
 	private static final String MESSAGE_PREFIX = "database name contains forbidden characters: ";

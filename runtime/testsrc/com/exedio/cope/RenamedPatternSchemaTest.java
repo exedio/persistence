@@ -24,6 +24,8 @@ import static com.exedio.cope.RenamedPatternSchemaItem.raw;
 import static com.exedio.cope.SchemaInfo.getColumnName;
 import static com.exedio.cope.SchemaInfo.getTableName;
 
+import org.junit.Test;
+
 public class RenamedPatternSchemaTest extends AbstractRuntimeModelTest
 {
 	private static final Model MODEL = new Model(TYPE, RawItem.TYPE);

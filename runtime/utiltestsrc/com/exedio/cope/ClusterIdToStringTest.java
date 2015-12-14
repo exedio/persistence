@@ -23,6 +23,7 @@ import static java.lang.Integer.MAX_VALUE;
 import static java.lang.Integer.MIN_VALUE;
 
 import junit.framework.TestCase;
+import org.junit.Test;
 
 public class ClusterIdToStringTest extends TestCase
 {

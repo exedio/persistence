@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import org.junit.Test;
 
 public class TransactionOnlyTest extends AbstractRuntimeModelTest
 {

@@ -24,6 +24,7 @@ import static com.exedio.cope.junit.CopeAssert.reserialize;
 
 import java.util.List;
 import junit.framework.TestCase;
+import org.junit.Test;
 
 public class QuerySerializeTest extends TestCase
 {

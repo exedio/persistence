@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import java.util.Date;
+import org.junit.Test;
 
 public class ConnectTest extends AbstractRuntimeModelTest
 {

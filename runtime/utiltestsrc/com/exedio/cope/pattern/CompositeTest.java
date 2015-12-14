@@ -38,6 +38,7 @@ import com.exedio.cope.StringLengthViolationException;
 import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.util.Day;
 import java.util.Date;
+import org.junit.Test;
 
 public class CompositeTest extends CopeAssert
 {

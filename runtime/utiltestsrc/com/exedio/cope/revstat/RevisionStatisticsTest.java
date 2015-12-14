@@ -27,6 +27,7 @@ import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.util.AssertionErrorJobContext;
 import java.io.File;
 import java.util.Iterator;
+import org.junit.Test;
 
 public class RevisionStatisticsTest extends CopeAssert
 {

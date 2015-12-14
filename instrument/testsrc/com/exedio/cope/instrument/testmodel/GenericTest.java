@@ -19,6 +19,7 @@
 package com.exedio.cope.instrument.testmodel;
 
 import junit.framework.TestCase;
+import org.junit.Test;
 
 public class GenericTest extends TestCase
 {

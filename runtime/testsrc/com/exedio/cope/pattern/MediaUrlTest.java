@@ -28,6 +28,7 @@ import static com.exedio.cope.pattern.MediaUrlItem.fotoSecure;
 
 import com.exedio.cope.AbstractRuntimeModelTest;
 import java.util.Date;
+import org.junit.Test;
 
 public final class MediaUrlTest extends AbstractRuntimeModelTest
 {

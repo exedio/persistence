@@ -36,6 +36,7 @@ import com.exedio.cope.util.JobContext;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 import java.util.TimeZone;
+import org.junit.Test;
 
 public class ScheduleModelTest extends CopeAssert
 {

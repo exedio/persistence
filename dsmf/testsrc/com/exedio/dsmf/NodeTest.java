@@ -20,6 +20,7 @@ package com.exedio.dsmf;
 
 import java.sql.Connection;
 import junit.framework.TestCase;
+import org.junit.Test;
 
 public class NodeTest extends TestCase
 {

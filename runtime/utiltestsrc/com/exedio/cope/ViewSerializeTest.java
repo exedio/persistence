@@ -26,6 +26,7 @@ import static com.exedio.cope.junit.CopeAssert.serialize;
 import static java.util.Arrays.asList;
 
 import junit.framework.TestCase;
+import org.junit.Test;
 
 public class ViewSerializeTest extends TestCase
 {

@@ -30,6 +30,7 @@ import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Model;
 import com.exedio.cope.pattern.EnumMapFieldItem.Language;
 import java.util.EnumMap;
+import org.junit.Test;
 
 public class EnumMapFieldMandatoryTest extends AbstractRuntimeModelTest
 {

@@ -32,6 +32,7 @@ import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.SchemaInfo;
+import org.junit.Test;
 
 public class FeatureFieldTest extends AbstractRuntimeModelTest
 {

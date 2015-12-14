@@ -30,6 +30,7 @@ import static com.exedio.cope.testmodel.StringItem.min4Upper;
 import static com.exedio.cope.testmodel.StringItem.min4UpperLength;
 
 import com.exedio.cope.testmodel.StringItem;
+import org.junit.Test;
 
 public class FunctionTest extends AbstractRuntimeModelTest
 {

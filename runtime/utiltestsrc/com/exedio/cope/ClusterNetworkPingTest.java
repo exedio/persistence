@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import com.exedio.cope.util.SequenceChecker;
 import java.util.List;
+import org.junit.Test;
 
 public class ClusterNetworkPingTest extends ClusterNetworkTest
 {

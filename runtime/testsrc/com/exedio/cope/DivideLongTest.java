@@ -33,6 +33,8 @@ import static com.exedio.cope.DivideLongItem.numC;
 import static com.exedio.cope.EqualsAssert.assertEqualsAndHash;
 import static com.exedio.cope.EqualsAssert.assertNotEqualsAndHash;
 
+import org.junit.Test;
+
 public class DivideLongTest extends AbstractRuntimeModelTest
 {
 	static final Model MODEL = new Model(TYPE);

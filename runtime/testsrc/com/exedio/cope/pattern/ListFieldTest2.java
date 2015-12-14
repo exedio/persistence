@@ -27,6 +27,7 @@ import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
 import com.exedio.cope.Type;
 import java.util.Iterator;
+import org.junit.Test;
 
 /**
  * Tests complicated situations for the setter.

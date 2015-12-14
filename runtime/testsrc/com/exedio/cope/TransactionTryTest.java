@@ -20,6 +20,8 @@ package com.exedio.cope;
 
 import static com.exedio.cope.SimpleItem.TYPE;
 
+import org.junit.Test;
+
 public class TransactionTryTest extends AbstractRuntimeModelTest
 {
 	static final Model MODEL = new Model(SimpleItem.TYPE);

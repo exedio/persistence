@@ -28,6 +28,7 @@ import com.exedio.cope.util.Clock;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import org.junit.Test;
 
 public class FieldDateTest extends FieldTest
 {

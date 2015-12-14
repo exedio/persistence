@@ -25,6 +25,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.LinkedList;
 import junit.framework.AssertionFailedError;
 import junit.framework.TestCase;
+import org.junit.Test;
 
 public abstract class ParserTest extends TestCase
 {

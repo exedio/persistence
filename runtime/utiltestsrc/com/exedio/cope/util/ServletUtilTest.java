@@ -39,6 +39,7 @@ import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import org.junit.Test;
 
 public class ServletUtilTest extends CopeAssert
 {

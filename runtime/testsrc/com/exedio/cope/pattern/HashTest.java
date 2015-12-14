@@ -38,6 +38,7 @@ import com.exedio.cope.pattern.Hash.InvalidPlainTextException;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.security.SecureRandom;
 import java.util.Arrays;
+import org.junit.Test;
 
 public class HashTest extends AbstractRuntimeModelTest
 {

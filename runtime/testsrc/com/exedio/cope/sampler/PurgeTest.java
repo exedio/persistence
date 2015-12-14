@@ -27,6 +27,7 @@ import com.exedio.cope.TransactionTry;
 import com.exedio.cope.pattern.Media;
 import java.util.ArrayList;
 import java.util.Date;
+import org.junit.Test;
 
 public class PurgeTest extends ConnectedTest
 {

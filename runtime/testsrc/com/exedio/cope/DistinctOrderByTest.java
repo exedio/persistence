@@ -24,6 +24,7 @@ import static com.exedio.cope.PlusIntegerItem.numC;
 import static java.util.Arrays.asList;
 
 import com.exedio.dsmf.SQLRuntimeException;
+import org.junit.Test;
 
 public class DistinctOrderByTest extends AbstractRuntimeModelTest
 {

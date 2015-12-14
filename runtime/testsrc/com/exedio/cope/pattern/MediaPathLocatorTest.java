@@ -22,6 +22,7 @@ import static com.exedio.cope.EqualsAssert.assertEqualsAndHash;
 import static com.exedio.cope.EqualsAssert.assertNotEqualsAndHash;
 
 import com.exedio.cope.AbstractRuntimeModelTest;
+import org.junit.Test;
 
 public final class MediaPathLocatorTest extends AbstractRuntimeModelTest
 {

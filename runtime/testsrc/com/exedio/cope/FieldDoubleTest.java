@@ -24,6 +24,8 @@ import static com.exedio.cope.testmodel.AttributeItem.someDouble;
 import static com.exedio.cope.testmodel.AttributeItem.someNotNullDouble;
 import static java.lang.Double.valueOf;
 
+import org.junit.Test;
+
 public class FieldDoubleTest extends FieldTest
 {
 	static final Double CONST = 1.1;

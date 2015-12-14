@@ -35,6 +35,7 @@ import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Model;
 import com.exedio.cope.util.Hex;
 import java.util.Arrays;
+import org.junit.Test;
 
 public class MessageDigestHashTest extends AbstractRuntimeModelTest
 {

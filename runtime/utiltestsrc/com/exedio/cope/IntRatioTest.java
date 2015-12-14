@@ -22,6 +22,7 @@ import static com.exedio.cope.IntRatio.ratio;
 import static java.lang.Integer.MAX_VALUE;
 
 import junit.framework.TestCase;
+import org.junit.Test;
 
 public class IntRatioTest extends TestCase
 {

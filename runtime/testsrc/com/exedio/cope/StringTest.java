@@ -36,6 +36,7 @@ import com.exedio.cope.testmodel.StringItem;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import org.junit.Test;
 
 public class StringTest extends AbstractRuntimeModelTest
 {

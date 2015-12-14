@@ -29,6 +29,8 @@ import static com.exedio.cope.EqualsAssert.assertEqualsAndHash;
 import static com.exedio.cope.EqualsAssert.assertNotEqualsAndHash;
 import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
 
+import org.junit.Test;
+
 public class DivideDoubleTest extends AbstractRuntimeModelTest
 {
 	static final Model MODEL = new Model(TYPE);

@@ -23,6 +23,7 @@ import static com.exedio.cope.DayItem.TYPE;
 import com.exedio.cope.util.Day;
 import java.util.Arrays;
 import java.util.List;
+import org.junit.Test;
 
 public class QuerySearchSizeCacheLimitTest extends AbstractRuntimeModelTest
 {

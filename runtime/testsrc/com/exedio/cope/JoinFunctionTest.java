@@ -22,6 +22,8 @@ import static com.exedio.cope.JoinFunctionItem.TYPE;
 import static com.exedio.cope.JoinFunctionItem.integer;
 import static com.exedio.cope.JoinFunctionItemSingle.name;
 
+import org.junit.Test;
+
 public class JoinFunctionTest extends AbstractRuntimeModelTest
 {
 	static final Model MODEL = new Model(TYPE, JoinFunctionItemSingle.TYPE);

@@ -20,6 +20,7 @@ package com.exedio.cope.pattern;
 
 import com.exedio.cope.EnumField;
 import junit.framework.TestCase;
+import org.junit.Test;
 
 public class MoneyFieldUtilTest extends TestCase
 {

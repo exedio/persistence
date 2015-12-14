@@ -24,6 +24,7 @@ import static java.lang.Long.MIN_VALUE;
 import com.exedio.cope.junit.CopeAssert;
 import java.util.Random;
 import junit.framework.AssertionFailedError;
+import org.junit.Test;
 
 public class LongFieldRandomTest extends CopeAssert
 {

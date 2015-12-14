@@ -27,6 +27,7 @@ import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.UniqueViolationException;
 import com.exedio.cope.pattern.BlockFieldUniqueModelTest.ABlock;
 import com.exedio.cope.pattern.BlockFieldUniqueModelTest.AnItem;
+import org.junit.Test;
 
 public class BlockFieldUniqueTest extends AbstractRuntimeModelTest
 {

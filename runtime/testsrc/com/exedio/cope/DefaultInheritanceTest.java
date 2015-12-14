@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import org.junit.Test;
+
 public class DefaultInheritanceTest extends AbstractRuntimeModelTest
 {
 	public DefaultInheritanceTest()

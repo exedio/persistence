@@ -29,6 +29,8 @@ import static com.exedio.cope.MinusLongItem.viewAC;
 import static com.exedio.cope.MinusLongItem.viewBC;
 import static java.lang.Long.valueOf;
 
+import org.junit.Test;
+
 public class MinusLongTest extends AbstractRuntimeModelTest
 {
 	static final Model MODEL = new Model(TYPE);
