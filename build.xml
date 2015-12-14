@@ -869,6 +869,7 @@
 				<pathelement location="build/classes/instrument/testfeaturesrc" />
 				<pathelement location="lib/exedio-cope-util.jar" />
 				<pathelement location="lib/junit.jar" />
+				<pathelement location="lib/cpsuite.jar" />
 				<pathelement location="lib/findbugs-annotations.jar" />
 			</classpath>
 		</compile>
@@ -881,7 +882,7 @@
 	
 	<target name="instrument.test"
 				depends="runtime.compile, instrument.compile, instrument.test.compile">
-		<ljunit test="com.exedio.cope.instrument.PackageTest">
+		<ljunit test="com.exedio.cope.instrument.AllTests">
 			<classpath>
 				<pathelement location="build/classes/runtime/src" />
 				<pathelement location="build/classes/runtime/patternsrc" />
@@ -895,6 +896,7 @@
 				<pathelement location="lib/servlet-api.jar" />
 				<pathelement location="lib/bsh-core.jar" />
 				<pathelement location="lib/junit.jar" />
+				<pathelement location="lib/cpsuite.jar" />
 			</classpath>
 		</ljunit>
 	</target>
