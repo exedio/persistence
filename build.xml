@@ -492,13 +492,22 @@
 				<exclude name="RuntimeTester.java" /><!-- TODO remove -->
 				<exclude name="QueryTest.java" /><!-- TODO remove -->
 				<exclude name="QueryCopyTest.java" /><!-- TODO remove -->
+				<exclude name="CapabilitiesTest.java" /><!-- TODO remove -->
+				<exclude name="ModificationListenerTest.java" /><!-- TODO remove -->
 				<exclude name="misc/ConnectTokenNotSetTest.java" /><!-- ok, shall not instrument test types -->
 				<exclude name="misc/ConnectTokenSetTest.java" /><!-- ok, shall not instrument test types -->
 				<exclude name="pattern/DispatcherTest.java" /><!-- TODO remove -->
 				<exclude name="pattern/DynamicModelTest.java" /><!-- TODO remove -->
 				<exclude name="pattern/CompositeErrorTest.java" /><!-- ok, shall not instrument test types -->
+				<exclude name="pattern/PasswordRecoveryTest.java" /><!-- TODO remove -->
+				<exclude name="pattern/PatternTest.java" /><!-- TODO remove -->
+				<exclude name="pattern/RecursiveTest.java" /><!-- TODO remove -->
+				<exclude name="pattern/TextUrlFilterModelTest.java" /><!-- TODO remove -->
+				<exclude name="pattern/MediaTest.java" /><!-- TODO remove -->
 				<exclude name="sampler/*.java" /><!-- TODO remove -->
 				<exclude name="mxsampler/*.java" /><!-- TODO remove -->
+				<exclude name="util/ConnectTokenTest.java" /><!-- TODO remove -->
+				<exclude name="util/TransactionSlicerTest.java" /><!-- TODO remove -->
 				<exclude name="pattern/PatternTestTypeItem.java" /><!-- ok, shall not instrument test types -->
 				<exclude name="serialize/ModelSerializationTest.java" /><!-- ok, shall not instrument test types -->
 			</fileset>
