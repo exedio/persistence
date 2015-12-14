@@ -32,8 +32,10 @@ import java.util.ListIterator;
 
 /**
  * An abstract test case class for tests creating/using some persistent data.
+ * @deprecated use {@link CopeModelTest} instead
  * @author Ralf Wiebicke
  */
+@Deprecated
 public abstract class CopeTest extends CopeAssert
 {
 	public final Model model;
