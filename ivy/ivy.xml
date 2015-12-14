@@ -14,7 +14,6 @@
 		<conf name="runtime" />
 		<conf name="sources" />
 		<conf name="junit" extends="runtime" description="For fetching exedio-cope-junit.jar" />
-		<conf name="test" extends="runtime" description="For fetching exedio-cope-test.jar" />
 		<conf name="build" extends="runtime" visibility="private" />
 		
 		<!-- dialects -->
@@ -30,7 +29,6 @@
 		<artifact name="exedio-cope-instrument-annotations" />
 		<artifact name="exedio-cope-instrument" />
 		<artifact name="exedio-cope-junit" conf="junit" />
-		<artifact name="exedio-cope-test" conf="test" />
 	</publications>
 	<dependencies defaultconf="runtime->*">
 		<dependency org="javax.servlet" name="servlet-api" rev="2.5" />
@@ -48,7 +46,6 @@
 		</dependency>
 		<dependency org="junit" name="junit" rev="4.4">
 			<conf name="junit" mapped="default" />
-			<conf name="test" mapped="default" />
 			<conf name="build" mapped="*" />
 			<exclude org="org.hamcrest" module="hamcrest-core" />
 		</dependency>
@@ -56,7 +53,7 @@
 			<conf name="runtime" mapped="default" />
 			<conf name="build" mapped="sources" />
 		</dependency>
-		<dependency org="org.slf4j" name="slf4j-log4j12" rev="1.6.4" conf="test->default" />
+		<dependency org="org.slf4j" name="slf4j-log4j12" rev="1.6.4" conf="build->default" />
 		<dependency org="com.exedio" name="copeutil" rev="412" />
 		<dependency org="com.exedio" name="copeservletutil" rev="11" />
 		

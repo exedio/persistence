@@ -526,16 +526,6 @@
 		</compile>
 	</target>
 	
-	<target name="runtime.test.jar" depends="dsmf.test.compile, runtime.test.feature.compile, runtime.test.compile">
-		<ljar name="cope test" jarfile="build/exedio-cope-test.jar" classpath="exedio-cope.jar junit.jar">
-			<fileset dir="build/classes/dsmf/testsrc">
-				<exclude name="log4j.properties" /><!-- there is a duplicate in runtime/testsrc -->
-			</fileset>
-			<fileset dir="build/classes/runtime/testfeaturesrc" />
-			<fileset dir="build/classes/runtime/testsrc" />
-		</ljar>
-	</target>
-	
 	<target name="runtime.test" depends="dsmf.compile, runtime.core.compile, runtime.dialect.compile, runtime.pattern.compile, runtime.servlet.compile, runtime.junit.compile, runtime.test.feature.compile, runtime.test.compile">
 		<mkdir dir="build/testresults" />
 		<foreachEnvironment skipSwitch="runtime.test">
@@ -942,7 +932,7 @@
 			  runtime.utiltest.compile,
 			  instrument.compile" />
 	
-	<target name="jar" depends="runtime.jar, runtime.test.jar, instrument.anno.jar, instrument.jar" />
+	<target name="jar" depends="runtime.jar, instrument.anno.jar, instrument.jar" />
 	
 	<target name="teardown" depends="runtime.test.teardown" />
 	
@@ -1075,7 +1065,6 @@
 			<fileset file="${basedir}/build/exedio-cope.jar" />
 			<fileset file="${basedir}/build/exedio-cope-src.zip" />
 			<fileset file="${basedir}/build/exedio-cope-junit.jar" />
-			<fileset file="${basedir}/build/exedio-cope-test.jar" />
 			<fileset file="${basedir}/build/exedio-cope-instrument-annotations.jar" />
 			<fileset file="${basedir}/build/exedio-cope-instrument.jar" />
 			<fileset file="${basedir}/exedio-cope-log.txt" />

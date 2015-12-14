@@ -28,9 +28,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-/**
- * BEWARE: This test listens to port 14446, thus must not be included into exedio-cope-test.jar.
- */
 public abstract class ClusterTest extends CopeAssert
 {
 	private ClusterProperties csp;
