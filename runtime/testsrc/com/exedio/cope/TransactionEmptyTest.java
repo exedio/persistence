@@ -33,11 +33,18 @@ public class TransactionEmptyTest extends AbstractRuntimeModelTest
 		return false;
 	}
 
+	final TransactionIdRule txId = new TransactionIdRule(model);
+
+	@Override
+	protected void setUp() throws Exception
+	{
+		super.setUp();
+		txId.before();
+	}
+
 	public void testEmptyTransaction()
 	{
 		assertEquals(false, model.hasCurrentTransaction());
-		final long id = model.getNextTransactionId();
-		assertEquals(0, id);
 		assertNull(model.getLastTransactionStartDate());
 
 		final Date beforeCommit = new Date();
@@ -45,11 +52,11 @@ public class TransactionEmptyTest extends AbstractRuntimeModelTest
 		final Date afterCommit = new Date();
 		assertEquals(true, model.hasCurrentTransaction());
 		assertSame(emptyCommit, model.currentTransaction());
-		assertEquals(id+1, model.getNextTransactionId());
+		txId.assertEquals(1, model.getNextTransactionId());
 		final Date startCommit = model.getLastTransactionStartDate();
 		assertWithin(beforeCommit, afterCommit, startCommit);
 
-		assertEquals(id, emptyCommit.getID());
+		txId.assertEquals(0, emptyCommit.getID());
 		assertEquals("emptyCommit", emptyCommit.getName());
 		assertEquals(startCommit, emptyCommit.getStartDate());
 		assertEquals(false, emptyCommit.isClosed());
@@ -57,9 +64,9 @@ public class TransactionEmptyTest extends AbstractRuntimeModelTest
 
 		model.commit();
 		assertEquals(false, model.hasCurrentTransaction());
-		assertEquals(id+1, model.getNextTransactionId());
+		txId.assertEquals(1, model.getNextTransactionId());
 
-		assertEquals(id, emptyCommit.getID());
+		txId.assertEquals(0, emptyCommit.getID());
 		assertEquals("emptyCommit", emptyCommit.getName());
 		assertEquals(startCommit, emptyCommit.getStartDate());
 		assertEquals(true, emptyCommit.isClosed());
@@ -70,17 +77,17 @@ public class TransactionEmptyTest extends AbstractRuntimeModelTest
 		final Date afterRollback = new Date();
 		assertEquals(true, model.hasCurrentTransaction());
 		assertSame(emptyRollback, model.currentTransaction());
-		assertEquals(id+2, model.getNextTransactionId());
+		txId.assertEquals(2, model.getNextTransactionId());
 		final Date startRollback = model.getLastTransactionStartDate();
 		assertWithin(beforeRollback, afterRollback, startRollback);
 
-		assertEquals(id, emptyCommit.getID());
+		txId.assertEquals(0, emptyCommit.getID());
 		assertEquals("emptyCommit", emptyCommit.getName());
 		assertEquals(startCommit, emptyCommit.getStartDate());
 		assertEquals(true, emptyCommit.isClosed());
 		assertSame(null, emptyCommit.getBoundThread());
 
-		assertEquals(id+1, emptyRollback.getID());
+		txId.assertEquals(1, emptyRollback.getID());
 		assertEquals("emptyRollback", emptyRollback.getName());
 		assertEquals(startRollback, emptyRollback.getStartDate());
 		assertEquals(false, emptyRollback.isClosed());
@@ -88,15 +95,15 @@ public class TransactionEmptyTest extends AbstractRuntimeModelTest
 
 		model.rollback();
 		assertEquals(false, model.hasCurrentTransaction());
-		assertEquals(id+2, model.getNextTransactionId());
+		txId.assertEquals(2, model.getNextTransactionId());
 
-		assertEquals(id, emptyCommit.getID());
+		txId.assertEquals(0, emptyCommit.getID());
 		assertEquals("emptyCommit", emptyCommit.getName());
 		assertEquals(startCommit, emptyCommit.getStartDate());
 		assertEquals(true, emptyCommit.isClosed());
 		assertSame(null, emptyCommit.getBoundThread());
 
-		assertEquals(id+1, emptyRollback.getID());
+		txId.assertEquals(1, emptyRollback.getID());
 		assertEquals("emptyRollback", emptyRollback.getName());
 		assertEquals(startRollback, emptyRollback.getStartDate());
 		assertEquals(true, emptyRollback.isClosed());
