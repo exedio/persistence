@@ -599,37 +599,6 @@
 			</body>
 		</foreachEnvironment>
 	</target>
-	
-	<target name="runtime.test.teardown" depends="runtime.compile, runtime.test.compile">
-		<foreachEnvironment skipSwitch="runtime.teardown">
-			<body>
-				<java classname="com.exedio.cope.PackageTest" taskname="tear down @{env}"
-						fork="yes" failonerror="yes">
-					<classpath>
-						<pathelement location="build/classes/dsmf/src" />
-						<pathelement location="build/classes/runtime/src" />
-						<pathelement location="build/classes/runtime/dialects" />
-						<pathelement location="build/classes/runtime/patternsrc" />
-						<pathelement location="build/classes/runtime/servletsrc" />
-						<pathelement location="build/classes/runtime/junitsrc" />
-						<pathelement location="build/classes/runtime/testfeaturesrc" />
-						<pathelement location="build/classes/runtime/testsrc" />
-						<pathelement location="lib/trove4j.jar" />
-						<pathelement location="lib/servlet-api.jar" />
-						<pathelement location="lib/junit.jar" />
-						<pathelement location="lib/@{env.driver}" />
-						<pathelement location="lib/exedio-cope-util.jar" />
-						<pathelement location="lib/slf4j-api.jar" />
-						<pathelement location="lib/slf4j-log4j12.jar" />
-						<pathelement location="lib/log4j-bundle.jar" />
-					</classpath>
-					<sysproperty key="com.exedio.cope.properties" file="@{env.file}" />
-					<sysproperty key="contextPath" value="/teardownContextPath" />
-					<assertions><enable/></assertions>
-				</java>
-			</body>
-		</foreachEnvironment>
-	</target>
 
 	<target name="runtime.web"
 			  depends="runtime.core.compile, runtime.dialect.compile, runtime.test.compile">
@@ -933,8 +902,6 @@
 			  instrument.compile" />
 	
 	<target name="jar" depends="runtime.jar, instrument.anno.jar, instrument.jar" />
-	
-	<target name="teardown" depends="runtime.test.teardown" />
 	
 	<target name="test" depends="dsmf.test, runtime.utiltest, runtime.test, instrument.test" />
 	
