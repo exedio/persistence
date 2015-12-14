@@ -35,14 +35,12 @@ public class SelectBindTest extends AbstractRuntimeModelTest
 		super(CompareConditionTest.MODEL);
 	}
 
-	protected CompareConditionItem item1, item2;
-
 	@Override
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		item1 = new CompareConditionItem("string1", 1, 11l, 2.1, null, null, null);
-		item2 = new CompareConditionItem("string2", 2, 12l, 2.2, null, null, null);
+		new CompareConditionItem("string1", 1, 11l, 2.1, null, null, null);
+		new CompareConditionItem("string2", 2, 12l, 2.2, null, null, null);
 	}
 
 	@Test public void testIt()

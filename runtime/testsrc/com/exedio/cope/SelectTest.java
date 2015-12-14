@@ -34,6 +34,7 @@ import static com.exedio.cope.testmodel.AttributeItem.someStringUpperCase;
 import com.exedio.cope.testmodel.AttributeItem;
 import com.exedio.cope.testmodel.AttributeItem.SomeEnum;
 import com.exedio.cope.testmodel.EmptyItem;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
@@ -41,8 +42,9 @@ import org.junit.Test;
 
 public class SelectTest extends TestmodelTest
 {
-	protected EmptyItem someItem, someItem2;
-	protected AttributeItem item1, item2, item3, item4, item5, item;
+	EmptyItem someItem, someItem2;
+	@SuppressFBWarnings("URF_UNREAD_FIELD")
+	AttributeItem item1, item2, item3, item4, item5, item;
 
 	private static AttributeItem newItem(
 			final String initialSomeString,

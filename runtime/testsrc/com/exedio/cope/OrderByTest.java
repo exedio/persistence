@@ -43,8 +43,8 @@ import org.junit.Test;
 
 public class OrderByTest extends TestmodelTest
 {
-	protected EmptyItem emptyItem, emptyItem2;
-	protected AttributeItem item1, item2, item3, item4, item5, item;
+	EmptyItem emptyItem, emptyItem2;
+	AttributeItem item1, item2, item3, item4, item5;
 
 	@Override
 	public void setUp() throws Exception
@@ -57,7 +57,6 @@ public class OrderByTest extends TestmodelTest
 		item3 = new AttributeItem("someString7", 5, 7l, 2.2, false, emptyItem, AttributeItem.SomeEnum.enumValue3);
 		item4 = new AttributeItem("someString6", 4, 6l, 2.5, false, emptyItem2, AttributeItem.SomeEnum.enumValue2);
 		item5 = new AttributeItem("someString5", 2, 3l, 2.3, false, emptyItem2, AttributeItem.SomeEnum.enumValue3);
-		item = item1;
 	}
 
 	@Test public void testOrderBy()
