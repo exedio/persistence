@@ -25,8 +25,10 @@ import static com.exedio.cope.HardJoinB1Item.b1;
 import static com.exedio.cope.HardJoinB2Item.b2;
 import static com.exedio.cope.HardJoinB3Item.b3;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.Test;
 
+@SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
 public class HardJoinTest extends AbstractRuntimeModelTest
 {
 	static final Model MODEL = new Model(

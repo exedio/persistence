@@ -19,8 +19,10 @@
 package com.exedio.cope.pattern;
 
 import com.exedio.cope.AbstractRuntimeModelTest;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.Test;
 
+@SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
 public class PartOfTest extends AbstractRuntimeModelTest
 {
 	public PartOfTest()

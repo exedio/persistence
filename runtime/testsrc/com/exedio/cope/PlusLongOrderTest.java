@@ -28,11 +28,13 @@ import static com.exedio.cope.PlusLongItem.numB;
 import static com.exedio.cope.PlusLongItem.plusAB;
 import static java.lang.Long.valueOf;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import org.junit.Test;
 
+@SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
 public class PlusLongOrderTest extends AbstractRuntimeModelTest
 {
 	public PlusLongOrderTest()

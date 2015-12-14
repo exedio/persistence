@@ -21,8 +21,10 @@ package com.exedio.cope;
 import static com.exedio.cope.MatchItem.TYPE;
 import static com.exedio.cope.MatchItem.text;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.Test;
 
+@SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
 public class MatchTest extends AbstractRuntimeModelTest
 {
 	public static final Model MODEL = new Model(TYPE);

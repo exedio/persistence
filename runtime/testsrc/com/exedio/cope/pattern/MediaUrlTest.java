@@ -27,9 +27,11 @@ import static com.exedio.cope.pattern.MediaUrlItem.fotoFinger;
 import static com.exedio.cope.pattern.MediaUrlItem.fotoSecure;
 
 import com.exedio.cope.AbstractRuntimeModelTest;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Date;
 import org.junit.Test;
 
+@SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
 public final class MediaUrlTest extends AbstractRuntimeModelTest
 {
 	public MediaUrlTest()

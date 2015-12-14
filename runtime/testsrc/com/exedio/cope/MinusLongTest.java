@@ -29,8 +29,10 @@ import static com.exedio.cope.MinusLongItem.viewAC;
 import static com.exedio.cope.MinusLongItem.viewBC;
 import static java.lang.Long.valueOf;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.Test;
 
+@SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
 public class MinusLongTest extends AbstractRuntimeModelTest
 {
 	static final Model MODEL = new Model(TYPE);

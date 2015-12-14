@@ -25,8 +25,10 @@ import static com.exedio.cope.SchemaInfo.getTypeColumnName;
 import static com.exedio.dsmf.Dialect.NOT_NULL;
 
 import com.exedio.dsmf.Schema;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.Test;
 
+@SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
 public class NameTest extends AbstractRuntimeModelTest
 {
 	public static final Model MODEL = new Model(

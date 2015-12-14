@@ -23,9 +23,11 @@ import static com.exedio.cope.PlusIntegerItem.numA;
 import static com.exedio.cope.PlusIntegerItem.numB;
 import static com.exedio.cope.Query.newQuery;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.List;
 import org.junit.Test;
 
+@SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
 public class DistinctTest extends AbstractRuntimeModelTest
 {
 	public DistinctTest()

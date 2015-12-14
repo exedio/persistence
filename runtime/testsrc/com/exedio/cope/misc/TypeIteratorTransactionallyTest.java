@@ -26,12 +26,14 @@ import static java.util.Arrays.asList;
 import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.Condition;
 import com.exedio.cope.TransactionTry;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
 import org.junit.Test;
 
+@SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
 public class TypeIteratorTransactionallyTest extends AbstractRuntimeModelTest
 {
 	public TypeIteratorTransactionallyTest()

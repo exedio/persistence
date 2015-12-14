@@ -29,8 +29,10 @@ import static com.exedio.cope.MinusIntegerItem.viewAC;
 import static com.exedio.cope.MinusIntegerItem.viewBC;
 import static java.lang.Integer.valueOf;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.Test;
 
+@SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
 public class MinusIntegerTest extends AbstractRuntimeModelTest
 {
 	static final Model MODEL = new Model(TYPE);

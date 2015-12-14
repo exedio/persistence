@@ -21,9 +21,11 @@ package com.exedio.cope;
 import static com.exedio.cope.DataField.toValue;
 import static com.exedio.cope.RuntimeAssert.assertData;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.IOException;
 import org.junit.Test;
 
+@SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
 public class DataFinalTest extends AbstractRuntimeModelTest
 {
 	private static final Model MODEL = new Model(DataFinalItem.TYPE);

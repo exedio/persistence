@@ -30,8 +30,10 @@ import com.exedio.cope.IntegerRangeViolationException;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.SchemaInfo;
 import com.exedio.cope.SetValue;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.Test;
 
+@SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
 public class PriceFieldTest extends AbstractRuntimeModelTest
 {
 	public PriceFieldTest()

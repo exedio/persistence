@@ -23,11 +23,13 @@ import static com.exedio.cope.DataMandatoryItem.TYPE;
 import static com.exedio.cope.DataMandatoryItem.data;
 import static com.exedio.cope.RuntimeAssert.assertData;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import org.junit.Test;
 
+@SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
 public class DataMandatoryTest extends AbstractRuntimeModelTest
 {
 	private static final Model MODEL = new Model(TYPE);

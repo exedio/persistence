@@ -26,12 +26,14 @@ import com.exedio.cope.FunctionField;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
 import com.exedio.cope.Type;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Iterator;
 import org.junit.Test;
 
 /**
  * Tests complicated situations for the setter.
  */
+@SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
 public class ListFieldTest2 extends AbstractRuntimeModelTest
 {
 	public ListFieldTest2()

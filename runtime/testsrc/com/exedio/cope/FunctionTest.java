@@ -30,8 +30,10 @@ import static com.exedio.cope.testmodel.StringItem.min4Upper;
 import static com.exedio.cope.testmodel.StringItem.min4UpperLength;
 
 import com.exedio.cope.testmodel.StringItem;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.Test;
 
+@SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
 public class FunctionTest extends AbstractRuntimeModelTest
 {
 	public FunctionTest()

@@ -31,6 +31,7 @@ import com.exedio.dsmf.Column;
 import com.exedio.dsmf.SQLRuntimeException;
 import com.exedio.dsmf.Schema;
 import com.exedio.dsmf.Table;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.net.InetAddress;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -47,6 +48,7 @@ import org.apache.log4j.Logger;
 import org.apache.log4j.spi.LoggingEvent;
 import org.junit.Test;
 
+@SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
 public class ReviseTest extends CopeAssert
 {
 	private static final TestRevisionsFactory revisionsFactory5 = new TestRevisionsFactory();

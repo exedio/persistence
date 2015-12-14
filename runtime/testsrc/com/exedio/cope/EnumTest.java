@@ -19,8 +19,10 @@
 package com.exedio.cope;
 
 import com.exedio.cope.EnumItem.Single;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.Test;
 
+@SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
 public class EnumTest extends AbstractRuntimeModelTest
 {
 	static final Model MODEL = new Model(EnumItem.TYPE, EnumItem2.TYPE);

@@ -24,9 +24,11 @@ import static com.exedio.cope.misc.QueryAggregatorItem.intx;
 import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.Model;
 import com.exedio.cope.Query;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.List;
 import org.junit.Test;
 
+@SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
 public class QueryAggregatorTest extends AbstractRuntimeModelTest
 {
 	public static final Model MODEL = new Model(QueryAggregatorItem.TYPE);

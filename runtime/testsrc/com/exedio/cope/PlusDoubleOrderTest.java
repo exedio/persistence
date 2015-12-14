@@ -28,11 +28,13 @@ import static com.exedio.cope.PlusDoubleItem.numB;
 import static com.exedio.cope.PlusDoubleItem.plusAB;
 import static java.lang.Double.valueOf;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import org.junit.Test;
 
+@SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
 public class PlusDoubleOrderTest extends AbstractRuntimeModelTest
 {
 	public PlusDoubleOrderTest()
