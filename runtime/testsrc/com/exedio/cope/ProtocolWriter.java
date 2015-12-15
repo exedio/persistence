@@ -23,7 +23,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Properties;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
+@Category(AllButSomeTests.class)
 public class ProtocolWriter extends AbstractRuntimeModelTest
 {
 	public ProtocolWriter()
