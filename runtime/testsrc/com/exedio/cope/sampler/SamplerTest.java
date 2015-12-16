@@ -20,6 +20,7 @@ package com.exedio.cope.sampler;
 
 import static com.exedio.cope.sampler.Stuff.sampler;
 
+import com.exedio.cope.util.JobContexts;
 import junit.framework.TestCase;
 import org.junit.Test;
 
@@ -43,7 +44,7 @@ public class SamplerTest extends TestCase
 		}
 	}
 
-	@Test public void testPurgeNegative()
+	@Test public void testPurgeNegativeDays()
 	{
 		try
 		{
@@ -56,7 +57,7 @@ public class SamplerTest extends TestCase
 		}
 	}
 
-	@Test public void testPurgeNull()
+	@Test public void testPurgeNullContext()
 	{
 		try
 		{
@@ -66,6 +67,19 @@ public class SamplerTest extends TestCase
 		catch(final NullPointerException e)
 		{
 			assertEquals("ctx", e.getMessage());
+		}
+	}
+
+	@Test public void testPurgeNullLimit()
+	{
+		try
+		{
+			sampler.purge(null, JobContexts.EMPTY);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals("limit", e.getMessage());
 		}
 	}
 }

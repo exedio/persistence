@@ -288,6 +288,7 @@ public class Sampler
 
 	public final void purge(final Date limit, final JobContext ctx)
 	{
+		requireNonNull(limit, "limit");
 		requireNonNull(ctx, "ctx");
 
 		final ArrayList<Type<?>> types = new ArrayList<>();
