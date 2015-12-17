@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.junit.CopeAssert.assertUnmodifiable;
+import static com.exedio.cope.Assert.assertUnmodifiable;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertSame;

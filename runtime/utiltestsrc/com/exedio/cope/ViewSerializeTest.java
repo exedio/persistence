@@ -18,11 +18,11 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.AssertUtil.reserialize;
+import static com.exedio.cope.AssertUtil.serialize;
 import static com.exedio.cope.ViewSerializeTest.AnItem.TYPE;
 import static com.exedio.cope.ViewSerializeTest.AnItem.field;
 import static com.exedio.cope.ViewSerializeTest.AnItem.view;
-import static com.exedio.cope.junit.CopeAssert.reserialize;
-import static com.exedio.cope.junit.CopeAssert.serialize;
 import static java.util.Arrays.asList;
 
 import junit.framework.TestCase;

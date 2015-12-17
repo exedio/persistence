@@ -18,9 +18,9 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.junit.CopeAssert.assertContainsList;
-import static com.exedio.cope.junit.CopeAssert.assertUnmodifiable;
-import static com.exedio.cope.junit.CopeAssert.reserialize;
+import static com.exedio.cope.Assert.assertContainsList;
+import static com.exedio.cope.Assert.assertUnmodifiable;
+import static com.exedio.cope.Assert.reserialize;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.fail;
