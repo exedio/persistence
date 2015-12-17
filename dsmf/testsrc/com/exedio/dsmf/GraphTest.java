@@ -18,23 +18,22 @@
 
 package com.exedio.dsmf;
 
+import static org.junit.Assert.assertEquals;
+
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
-import junit.framework.TestCase;
+import org.junit.Before;
 import org.junit.Test;
 
-public class GraphTest extends TestCase
+public class GraphTest
 {
 	private Schema schema = null;
 
-	@Override
-	protected void setUp() throws Exception
+	@Before public final void setUp()
 	{
-		super.setUp();
-
 		schema = new Schema(new HsqldbDialect(), new ConnectionProvider(){
 			public Connection getConnection() { throw new RuntimeException(); }
 			public void putConnection(final Connection connection) { throw new RuntimeException(); }

@@ -18,24 +18,21 @@
 
 package com.exedio.dsmf;
 
+import org.junit.After;
+import org.junit.Before;
+
 public abstract class SchemaReadyTest extends SchemaTest
 {
-	@Override
-	public void setUp() throws Exception
+	@Before public final void setUpSchemaReadyTest()
 	{
-		super.setUp();
-
 		final Schema schema = getSchema();
 		schema.tearDown();
 		schema.create();
 	}
 
-	@Override
-	public void tearDown() throws Exception
+	@After public final void tearDownSchemaReadyTest()
 	{
 		getSchema().tearDown();
-
-		super.tearDown();
 	}
 
 	protected abstract Schema getSchema();

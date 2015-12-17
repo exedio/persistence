@@ -18,6 +18,8 @@
 
 package com.exedio.dsmf;
 
+import static org.junit.Assert.assertNotNull;
+
 import org.junit.Test;
 
 public class CircleTest extends SchemaReadyTest

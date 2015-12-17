@@ -25,9 +25,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import junit.framework.TestCase;
+import org.junit.After;
+import org.junit.Before;
 
-public abstract class SchemaTest extends TestCase
+public abstract class SchemaTest
 {
 	private Dialect dialect;
 	String stringType;
@@ -63,11 +64,8 @@ public abstract class SchemaTest extends TestCase
 		}
 	}
 
-	@Override
-	public void setUp() throws Exception
+	@Before public final void setUpSchemaTest() throws ClassNotFoundException, SQLException
 	{
-		super.setUp();
-
 		final Properties config = new Properties();
 		final String url = config.connectionUrl;
 		final String username = config.connectionUsername;
@@ -123,15 +121,12 @@ public abstract class SchemaTest extends TestCase
 		provider = new SimpleConnectionProvider(Arrays.asList(new Connection[]{connection1, connection2}));
 	}
 
-	@Override
-	public void tearDown() throws Exception
+	@After public final void tearDownSchemaTest() throws SQLException
 	{
 		if(connection1!=null)
 			connection1.close();
 		if(connection2!=null)
 			connection2.close();
-
-		super.tearDown();
 	}
 
 	private static final class SimpleConnectionProvider implements ConnectionProvider
