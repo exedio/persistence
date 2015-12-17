@@ -18,15 +18,19 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.Assert.assertEqualsUnmodifiable;
+import static com.exedio.cope.Assert.list;
 import static com.exedio.cope.testmodel.PointerItem.pointer;
 import static com.exedio.cope.testmodel.PointerItem.pointer2;
 import static com.exedio.cope.testmodel.PointerTargetItem.code;
 import static com.exedio.cope.testmodel.PointerTargetItem.num1;
 import static com.exedio.cope.testmodel.PointerTargetItem.num2;
 import static java.util.Arrays.asList;
+import static junit.framework.Assert.assertEquals;
 
 import com.exedio.cope.testmodel.PointerItem;
 import com.exedio.cope.testmodel.PointerTargetItem;
+import org.junit.Before;
 import org.junit.Test;
 
 public class JoinMultipleTest extends TestmodelTest
@@ -35,10 +39,8 @@ public class JoinMultipleTest extends TestmodelTest
 	PointerTargetItem target1;
 	PointerTargetItem target2;
 
-	@Override
-	protected void setUp() throws Exception
+	@Before public final void setUp()
 	{
-		super.setUp();
 		target1 = new PointerTargetItem("target1");
 		target2 = new PointerTargetItem("target2");
 		source = new PointerItem("source", target1);

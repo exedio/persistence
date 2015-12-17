@@ -18,6 +18,7 @@
 
 package com.exedio.cope.reflect;
 
+import static com.exedio.cope.Assert.list;
 import static com.exedio.cope.reflect.FeatureFieldItem.TYPE;
 import static com.exedio.cope.reflect.FeatureFieldItem.feature;
 import static com.exedio.cope.reflect.FeatureFieldItem.featureFinal;
@@ -27,6 +28,9 @@ import static com.exedio.cope.reflect.FeatureFieldItem.integer1;
 import static com.exedio.cope.reflect.FeatureFieldItem.string;
 import static com.exedio.cope.reflect.FeatureFieldItem.string1;
 import static com.exedio.cope.reflect.FeatureFieldItem.string2;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.fail;
 
 import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.FinalViolationException;

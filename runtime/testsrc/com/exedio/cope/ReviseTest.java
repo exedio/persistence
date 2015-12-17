@@ -18,11 +18,18 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.Assert.assertWithin;
 import static com.exedio.cope.RevisionInfo.parse;
 import static com.exedio.cope.util.Properties.SYSTEM_PROPERTY_SOURCE;
 import static java.lang.String.valueOf;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
-import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.util.Hex;
 import com.exedio.cope.util.Properties.Source;
 import com.exedio.cope.util.Sources;
@@ -33,6 +40,7 @@ import com.exedio.dsmf.Schema;
 import com.exedio.dsmf.Table;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
@@ -46,10 +54,12 @@ import java.util.Properties;
 import java.util.Set;
 import org.apache.log4j.Logger;
 import org.apache.log4j.spi.LoggingEvent;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 @SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
-public class ReviseTest extends CopeAssert
+public class ReviseTest
 {
 	private static final TestRevisionsFactory revisionsFactory5 = new TestRevisionsFactory();
 
@@ -73,10 +83,8 @@ public class ReviseTest extends CopeAssert
 	private ConnectProperties props;
 	private TestLogAppender log = null;
 
-	@Override
-	protected void setUp() throws Exception
+	@Before public final void setUp() throws UnknownHostException
 	{
-		super.setUp();
 		hostname = InetAddress.getLocalHost().getHostName();
 		final TestSource testSource = new TestSource();
 		testSource.putOverride("revise.auto.enabled", "true");
@@ -94,12 +102,10 @@ public class ReviseTest extends CopeAssert
 		logger.addAppender(log);
 	}
 
-	@Override
-	protected void tearDown() throws Exception
+	@After public final void tearDown()
 	{
 		logger.removeAppender(log);
 		log = null;
-		super.tearDown();
 	}
 
 	String connectionUrl;

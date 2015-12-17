@@ -20,6 +20,9 @@ package com.exedio.cope.pattern;
 
 import static com.exedio.cope.EqualsAssert.assertEqualsAndHash;
 import static com.exedio.cope.EqualsAssert.assertNotEqualsAndHash;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.assertSame;
 
 import com.exedio.cope.AbstractRuntimeModelTest;
 import org.junit.Test;

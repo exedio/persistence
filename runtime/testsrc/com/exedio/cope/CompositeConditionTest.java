@@ -24,6 +24,7 @@ import static com.exedio.cope.CompareConditionItem.longx;
 import static com.exedio.cope.RuntimeAssert.assertCondition;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import org.junit.Before;
 import org.junit.Test;
 
 public class CompositeConditionTest extends AbstractRuntimeModelTest
@@ -36,10 +37,8 @@ public class CompositeConditionTest extends AbstractRuntimeModelTest
 	@SuppressFBWarnings("URF_UNREAD_FIELD")
 	CompareConditionItem item, itemA, itemB, itemAB, itemAX, itemXB, itemXX;
 
-	@Override
-	public void setUp() throws Exception
+	@Before public final void setUp()
 	{
-		super.setUp();
 		item   = new CompareConditionItem(null,    1,   1l, null, null, null, null);
 		itemA  = new CompareConditionItem(null,    2,   1l, null, null, null, null);
 		itemB  = new CompareConditionItem(null,    1,   2l, null, null, null, null);

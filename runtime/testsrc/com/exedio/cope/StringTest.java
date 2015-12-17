@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.Assert.assertContains;
+import static com.exedio.cope.Assert.list;
 import static com.exedio.cope.testmodel.StringItem.TYPE;
 import static com.exedio.cope.testmodel.StringItem.any;
 import static com.exedio.cope.testmodel.StringItem.exact6;
@@ -31,11 +33,16 @@ import static com.exedio.cope.testmodel.StringItem.min4Max8;
 import static com.exedio.cope.testmodel.StringItem.oracleCLOB;
 import static com.exedio.cope.testmodel.StringItem.oracleNoCLOB;
 import static java.nio.charset.StandardCharsets.UTF_8;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import com.exedio.cope.testmodel.StringItem;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import org.junit.Before;
 import org.junit.Test;
 
 public class StringTest extends AbstractRuntimeModelTest
@@ -50,10 +57,8 @@ public class StringTest extends AbstractRuntimeModelTest
 	StringItem item, item2;
 	int numberOfItems;
 
-	@Override
-	public void setUp() throws Exception
+	@Before public final void setUp()
 	{
-		super.setUp();
 		supports = model.supportsEmptyStrings();
 		emptyString = supports ? "" : null;
 		item = new StringItem("StringTest");

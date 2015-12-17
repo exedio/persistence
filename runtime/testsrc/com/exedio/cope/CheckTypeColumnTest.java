@@ -23,11 +23,15 @@ import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnValue;
 import static com.exedio.cope.SchemaInfo.getTableName;
 import static com.exedio.cope.SchemaInfo.getTypeColumnName;
 import static com.exedio.cope.SchemaInfo.getTypeColumnValue;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 public class CheckTypeColumnTest extends AbstractRuntimeModelTest
@@ -48,11 +52,8 @@ public class CheckTypeColumnTest extends AbstractRuntimeModelTest
 	InstanceOfRefItem reffc1;
 	InstanceOfRefItem reffN;
 
-	@Override
-	public void setUp() throws Exception
+	@Before public final void setUp()
 	{
-		super.setUp();
-
 		itema = new InstanceOfAItem("itema");
 		itemb1 = new InstanceOfB1Item("itemb1");
 		itemb2 = new InstanceOfB2Item("itemb2");
@@ -65,13 +66,11 @@ public class CheckTypeColumnTest extends AbstractRuntimeModelTest
 		reffN = new InstanceOfRefItem(null);
 	}
 
-	@Override
-	public void tearDown() throws Exception
+	@After public final void tearDown()
 	{
 		model.commit();
 		model.deleteSchemaForTest();
 		model.startTransaction("CheckTypeColumnTest");
-		super.tearDown();
 	}
 
 	@Test public void testOk()

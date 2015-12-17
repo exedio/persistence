@@ -26,6 +26,8 @@ import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.util.Properties;
 import java.util.Collection;
+import org.junit.After;
+import org.junit.Before;
 
 public abstract class ConnectedTest extends AbstractRuntimeModelTest
 {
@@ -36,10 +38,8 @@ public abstract class ConnectedTest extends AbstractRuntimeModelTest
 
 	boolean c;
 
-	@Override
-	protected void setUp() throws Exception
+	@Before public final void setUpConnectedTest()
 	{
-		super.setUp();
 		final ConnectProperties props = model.getConnectProperties();
 		c = props.getItemCacheLimit()>0;
 		samplerModel.connect(new ConnectProperties(
@@ -75,12 +75,10 @@ public abstract class ConnectedTest extends AbstractRuntimeModelTest
 		};
 	}
 
-	@Override
-	protected void tearDown() throws Exception
+	@After public final void tearDownConnectedTest()
 	{
 		samplerModel.rollbackIfNotCommitted();
 		samplerModel.dropSchema();
 		samplerModel.disconnect();
-		super.tearDown();
 	}
 }

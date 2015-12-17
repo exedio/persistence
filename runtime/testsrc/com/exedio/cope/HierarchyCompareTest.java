@@ -20,10 +20,12 @@ package com.exedio.cope;
 
 import static com.exedio.cope.CompareAssert.assertCompare;
 import static com.exedio.cope.HierarchySuper.TYPE;
+import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import org.junit.Before;
 import org.junit.Test;
 
 public class HierarchyCompareTest extends AbstractRuntimeModelTest
@@ -36,10 +38,8 @@ public class HierarchyCompareTest extends AbstractRuntimeModelTest
 	List<Item> items;
 	List<Item> orderby;
 
-	@Override
-	protected void setUp() throws Exception
+	@Before public final void setUp()
 	{
-		super.setUp();
 		items = new ArrayList<>();
 		final HierarchySingleSub c1 = new HierarchySingleSub(2, "x");
 		final HierarchyFirstSub a1 = new HierarchyFirstSub(0);

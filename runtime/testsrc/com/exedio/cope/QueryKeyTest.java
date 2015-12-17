@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.Assert.assertContains;
+
 import org.junit.Test;
 
 public class QueryKeyTest extends AbstractRuntimeModelTest

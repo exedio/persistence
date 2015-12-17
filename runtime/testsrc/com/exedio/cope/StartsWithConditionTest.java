@@ -25,6 +25,7 @@ import static java.util.Arrays.asList;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.junit.Before;
 import org.junit.Test;
 
 public class StartsWithConditionTest extends AbstractRuntimeModelTest
@@ -36,11 +37,8 @@ public class StartsWithConditionTest extends AbstractRuntimeModelTest
 
 	private DataItem item0, item4, item6, item6x4;
 
-	@Override
-	public void setUp() throws Exception
+	@Before public final void setUp()
 	{
-		super.setUp();
-
 		item0 = new DataItem();
 		item4 = new DataItem();
 		item6 = new DataItem();

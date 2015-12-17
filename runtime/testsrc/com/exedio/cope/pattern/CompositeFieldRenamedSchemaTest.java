@@ -24,6 +24,7 @@ import static com.exedio.cope.pattern.CompositeFieldRenamedSchemaComposite.wrong
 import static com.exedio.cope.pattern.CompositeFieldRenamedSchemaItem.TYPE;
 import static com.exedio.cope.pattern.CompositeFieldRenamedSchemaItem.virgnComp;
 import static com.exedio.cope.pattern.CompositeFieldRenamedSchemaItem.wrongComp;
+import static org.junit.Assert.assertEquals;
 
 import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.CopeSchemaName;

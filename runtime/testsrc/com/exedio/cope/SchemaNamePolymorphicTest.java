@@ -18,15 +18,21 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.Assert.list;
 import static com.exedio.cope.SchemaInfo.getTableName;
 import static com.exedio.cope.SchemaInfo.getTypeColumnName;
 import static com.exedio.cope.SchemaInfo.getTypeColumnValue;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import org.junit.After;
 import org.junit.Test;
 
 public class SchemaNamePolymorphicTest extends AbstractRuntimeModelTest
@@ -43,12 +49,10 @@ public class SchemaNamePolymorphicTest extends AbstractRuntimeModelTest
 
 	Connection connection;
 
-	@Override
-	public void tearDown() throws Exception
+	@After public final void tearDown() throws SQLException
 	{
 		if(connection!=null)
 			connection.close();
-		super.tearDown();
 	}
 
 	@Test public void test() throws SQLException

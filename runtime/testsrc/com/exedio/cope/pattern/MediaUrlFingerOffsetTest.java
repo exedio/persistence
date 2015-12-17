@@ -21,9 +21,11 @@ package com.exedio.cope.pattern;
 import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnValue;
 import static com.exedio.cope.pattern.MediaLocatorAssert.assertLocator;
 import static com.exedio.cope.pattern.MediaUrlItem.fileFinger;
+import static org.junit.Assert.assertEquals;
 
 import com.exedio.cope.AbstractRuntimeModelTest;
 import java.util.Date;
+import org.junit.Before;
 import org.junit.Test;
 
 public final class MediaUrlFingerOffsetTest extends AbstractRuntimeModelTest
@@ -35,10 +37,8 @@ public final class MediaUrlFingerOffsetTest extends AbstractRuntimeModelTest
 
 	private final MediaUrlItem[] item = new MediaUrlItem[1007];
 
-	@Override
-	public void setUp() throws Exception
+	@Before public final void setUp()
 	{
-		super.setUp();
 		for(int i = 0; i<item.length; i++)
 			item[i] = create();
 	}

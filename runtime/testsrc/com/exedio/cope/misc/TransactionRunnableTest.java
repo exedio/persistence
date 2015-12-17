@@ -18,12 +18,17 @@
 
 package com.exedio.cope.misc;
 
+import static com.exedio.cope.Assert.assertContains;
 import static com.exedio.cope.CacheIsolationItem.TYPE;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.fail;
 
 import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.CacheIsolationItem;
 import com.exedio.cope.CacheIsolationTest;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import org.junit.Before;
 import org.junit.Test;
 
 public class TransactionRunnableTest extends AbstractRuntimeModelTest
@@ -35,10 +40,8 @@ public class TransactionRunnableTest extends AbstractRuntimeModelTest
 
 	CacheIsolationItem item = null;
 
-	@Override
-	protected void setUp() throws Exception
+	@Before public final void setUp()
 	{
-		super.setUp();
 		item = null;
 	}
 

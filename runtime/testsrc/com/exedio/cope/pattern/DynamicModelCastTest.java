@@ -18,6 +18,10 @@
 
 package com.exedio.cope.pattern;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.fail;
+
 import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.CopeSchemaName;
 import com.exedio.cope.EnumField;
@@ -27,6 +31,7 @@ import com.exedio.cope.StringField;
 import com.exedio.cope.pattern.DynamicModel.Enum;
 import com.exedio.cope.pattern.DynamicModel.Field;
 import com.exedio.cope.pattern.DynamicModel.Type;
+import org.junit.Before;
 import org.junit.Test;
 
 public class DynamicModelCastTest extends AbstractRuntimeModelTest
@@ -45,10 +50,8 @@ public class DynamicModelCastTest extends AbstractRuntimeModelTest
 
 	ModelItem item;
 
-	@Override
-	public void setUp() throws Exception
+	@Before public final void setUp()
 	{
-		super.setUp();
 		item = new ModelItem("item");
 	}
 

@@ -27,6 +27,11 @@ import static com.exedio.cope.pattern.ScheduleItem.assertLogs;
 import static com.exedio.cope.pattern.ScheduleItem.report;
 import static com.exedio.cope.pattern.ScheduleItem.reportRunParent;
 import static java.util.Objects.requireNonNull;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.junit.AbsoluteMockClockStrategy;
@@ -43,6 +48,8 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 public class ScheduleTest extends AbstractRuntimeModelTest
@@ -56,10 +63,8 @@ public class ScheduleTest extends AbstractRuntimeModelTest
 	AbsoluteMockClockStrategy clock;
 	ArrayList<ExpectedRun> expectedRuns;
 
-	@Override
-	protected void setUp() throws Exception
+	@Before public final void setUp()
 	{
-		super.setUp();
 		item = new ScheduleItem();
 		final ScheduleItem disabledItem = new ScheduleItem();
 		disabledItem.setReportEnabled(false);
@@ -79,13 +84,11 @@ public class ScheduleTest extends AbstractRuntimeModelTest
 		ScheduleItem.clearLogs();
 	}
 
-	@Override
-	protected void tearDown() throws Exception
+	@After public final void tearDown()
 	{
 		ScheduleItem.clearLogs();
 		expectedRuns = null;
 		Clock.clearOverride();
-		super.tearDown();
 	}
 
 	@Test public void testNoUpdateCounterColumn()

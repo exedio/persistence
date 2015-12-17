@@ -18,6 +18,7 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.Assert.assertContains;
 import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
 import static com.exedio.cope.pattern.MessageDigestHashItem.TYPE;
 import static com.exedio.cope.pattern.MessageDigestHashItem.blindPassword;
@@ -28,6 +29,10 @@ import static com.exedio.cope.pattern.MessageDigestHashItem.passwordFinal;
 import static com.exedio.cope.pattern.MessageDigestHashItem.passwordLatin;
 import static com.exedio.cope.pattern.MessageDigestHashItem.passwordMandatory;
 import static java.nio.charset.StandardCharsets.UTF_8;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.FinalViolationException;
@@ -35,6 +40,7 @@ import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Model;
 import com.exedio.cope.util.Hex;
 import java.util.Arrays;
+import org.junit.Before;
 import org.junit.Test;
 
 public class MessageDigestHashTest extends AbstractRuntimeModelTest
@@ -55,10 +61,8 @@ public class MessageDigestHashTest extends AbstractRuntimeModelTest
 
 	MessageDigestHashItem item;
 
-	@Override
-	public void setUp() throws Exception
+	@Before public final void setUp()
 	{
-		super.setUp();
 		expectSalt(passwordFinal, "885406ef34cef302");
 		expectSalt(passwordMandatory, "885406ef34cef302");
 		item = new MessageDigestHashItem("finalo", "musso");

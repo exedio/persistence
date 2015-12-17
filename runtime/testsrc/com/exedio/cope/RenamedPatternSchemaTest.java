@@ -23,6 +23,7 @@ import static com.exedio.cope.RenamedPatternSchemaItem.pattern;
 import static com.exedio.cope.RenamedPatternSchemaItem.raw;
 import static com.exedio.cope.SchemaInfo.getColumnName;
 import static com.exedio.cope.SchemaInfo.getTableName;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 

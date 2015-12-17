@@ -18,14 +18,20 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.Assert.list;
 import static com.exedio.cope.CompareConditionItem.TYPE;
 import static com.exedio.cope.EqualsAssert.assertEqualsAndHash;
 import static com.exedio.cope.EqualsAssert.assertNotEqualsAndHash;
 import static java.util.Arrays.asList;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import org.junit.Before;
 import org.junit.Test;
 
 public class RandomTest extends AbstractRuntimeModelTest
@@ -39,10 +45,8 @@ public class RandomTest extends AbstractRuntimeModelTest
 	List<Long> expected5, expected6;
 	List<?> expected6Sort;
 
-	@Override
-	public void setUp() throws Exception
+	@Before public final void setUp()
 	{
-		super.setUp();
 		item1 = new CompareConditionItem("string1", 1, 11l, 2.1, null, null, null);
 		item2 = new CompareConditionItem("string2", 2, 12l, 2.2, null, null, null);
 		item3 = new CompareConditionItem("string3", 3, 13l, 2.3, null, null, null);

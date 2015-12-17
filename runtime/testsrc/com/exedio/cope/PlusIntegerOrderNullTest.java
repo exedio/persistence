@@ -18,15 +18,18 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.Assert.list;
 import static com.exedio.cope.PlusIntegerItem.TYPE;
 import static com.exedio.cope.PlusIntegerItem.numA;
 import static com.exedio.cope.PlusIntegerItem.numB;
 import static com.exedio.cope.PlusIntegerItem.numC;
+import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import org.junit.Before;
 import org.junit.Test;
 
 public class PlusIntegerOrderNullTest extends AbstractRuntimeModelTest
@@ -40,10 +43,8 @@ public class PlusIntegerOrderNullTest extends AbstractRuntimeModelTest
 	PlusIntegerItem item1;
 	PlusIntegerItem item2;
 
-	@Override
-	public void setUp() throws Exception
+	@Before public final void setUp()
 	{
-		super.setUp();
 		item0 = new PlusIntegerItem(1, null, null);
 		item1 = new PlusIntegerItem(2, 12,   null);
 		item2 = new PlusIntegerItem(3, 13,   null);

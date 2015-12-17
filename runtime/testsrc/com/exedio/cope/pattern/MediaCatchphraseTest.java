@@ -21,9 +21,12 @@ package com.exedio.cope.pattern;
 import static com.exedio.cope.pattern.MediaCatchPhraseItem.TYPE;
 import static com.exedio.cope.pattern.MediaCatchPhraseSuperItem.feature;
 import static com.exedio.cope.pattern.MediaLocatorAssert.assertLocator;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.Model;
+import org.junit.Before;
 import org.junit.Test;
 
 public final class MediaCatchphraseTest extends AbstractRuntimeModelTest
@@ -43,10 +46,8 @@ public final class MediaCatchphraseTest extends AbstractRuntimeModelTest
 	private MediaCatchPhraseItem wrong, normal, all, single, empty, nulL;
 	private MediaCatchPhraseSuperItem none;
 
-	@Override
-	public void setUp() throws Exception
+	@Before public final void setUp()
 	{
-		super.setUp();
 		normal = new MediaCatchPhraseItem("normal");
 		all    = new MediaCatchPhraseItem("all01289ABCYZabcyz-_");
 		single = new MediaCatchPhraseItem("S");

@@ -18,6 +18,10 @@
 
 package com.exedio.cope;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.fail;
+
 import com.exedio.cope.misc.DirectRevisionsFactory;
 import com.exedio.dsmf.Constraint;
 import com.exedio.dsmf.Schema;

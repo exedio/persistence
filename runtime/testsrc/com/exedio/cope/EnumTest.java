@@ -18,8 +18,13 @@
 
 package com.exedio.cope;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.fail;
+
 import com.exedio.cope.EnumItem.Single;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import org.junit.Before;
 import org.junit.Test;
 
 @SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
@@ -38,10 +43,8 @@ public class EnumTest extends AbstractRuntimeModelTest
 		super(MODEL);
 	}
 
-	@Override
-	protected void setUp() throws Exception
+	@Before public final void setUp()
 	{
-		super.setUp();
 		item = new EnumItem(EnumItem.Status.status1);
 		item2 = new EnumItem2(EnumItem2.Status.state1);
 	}

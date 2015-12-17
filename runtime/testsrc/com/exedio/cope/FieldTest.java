@@ -21,6 +21,7 @@ package com.exedio.cope;
 import com.exedio.cope.testmodel.AttributeItem;
 import com.exedio.cope.testmodel.EmptyItem;
 import java.util.List;
+import org.junit.Before;
 
 
 public abstract class FieldTest extends TestmodelTest
@@ -30,10 +31,8 @@ public abstract class FieldTest extends TestmodelTest
 	protected AttributeItem item;
 	protected AttributeItem item2;
 
-	@Override
-	public void setUp() throws Exception
+	@Before public final void setUpFieldTest()
 	{
-		super.setUp();
 		emptyItem = new EmptyItem();
 		emptyItem2 = new EmptyItem();
 		item = new AttributeItem("someString", 5, 6l, 2.2, true, emptyItem, AttributeItem.SomeEnum.enumValue1);

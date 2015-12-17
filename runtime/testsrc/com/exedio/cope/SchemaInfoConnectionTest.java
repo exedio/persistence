@@ -29,6 +29,7 @@ import static com.exedio.cope.SchemaInfo.quoteName;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.sql.Connection;
 import java.sql.SQLException;
+import org.junit.After;
 import org.junit.Test;
 
 public class SchemaInfoConnectionTest extends AbstractRuntimeModelTest
@@ -46,13 +47,10 @@ public class SchemaInfoConnectionTest extends AbstractRuntimeModelTest
 
 	private Connection c;
 
-	@Override
-	protected void tearDown() throws Exception
+	@After public final void tearDown() throws SQLException
 	{
 		if(c!=null)
 			c.close();
-
-		super.tearDown();
 	}
 
 	@SuppressFBWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")

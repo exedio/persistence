@@ -18,12 +18,17 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.Assert.assertContains;
+import static com.exedio.cope.Assert.assertEqualsUnmodifiable;
+import static com.exedio.cope.Assert.map;
 import static com.exedio.cope.pattern.MapFieldItem.TYPE;
 import static com.exedio.cope.pattern.MapFieldItem.name;
 import static com.exedio.cope.pattern.MapFieldItem.Language.DE;
 import static com.exedio.cope.pattern.MapFieldItem.Language.EN;
 import static com.exedio.cope.pattern.MapFieldItem.Language.PL;
 import static java.lang.Integer.valueOf;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.MandatoryViolationException;
@@ -32,6 +37,7 @@ import com.exedio.cope.pattern.MapFieldItem.Language;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import org.junit.Before;
 import org.junit.Test;
 
 public class MapFieldTest extends AbstractRuntimeModelTest
@@ -43,10 +49,8 @@ public class MapFieldTest extends AbstractRuntimeModelTest
 
 	MapFieldItem item, itemX;
 
-	@Override
-	public void setUp() throws Exception
+	@Before public final void setUp()
 	{
-		super.setUp();
 		item = new MapFieldItem();
 		itemX = new MapFieldItem();
 	}

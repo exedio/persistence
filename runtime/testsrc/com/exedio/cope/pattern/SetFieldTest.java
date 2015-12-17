@@ -18,6 +18,10 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.Assert.assertContains;
+import static com.exedio.cope.Assert.assertContainsUnmodifiable;
+import static com.exedio.cope.Assert.assertEqualsUnmodifiable;
+import static com.exedio.cope.Assert.list;
 import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
 import static com.exedio.cope.pattern.SetFieldItem.TYPE;
 import static com.exedio.cope.pattern.SetFieldItem.dates;
@@ -26,6 +30,11 @@ import static com.exedio.cope.pattern.SetFieldItem.getParentsOfStrings;
 import static com.exedio.cope.pattern.SetFieldItem.strings;
 import static com.exedio.cope.pattern.SetFieldItem.stringsParent;
 import static java.util.Arrays.asList;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.FunctionField;
@@ -40,6 +49,7 @@ import com.exedio.cope.misc.Computed;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.Iterator;
+import org.junit.Before;
 import org.junit.Test;
 
 public class SetFieldTest extends AbstractRuntimeModelTest
@@ -59,10 +69,8 @@ public class SetFieldTest extends AbstractRuntimeModelTest
 	SetFieldItem item;
 	SetFieldItem otherItem;
 
-	@Override
-	public void setUp() throws Exception
+	@Before public final void setUp()
 	{
-		super.setUp();
 		item = new SetFieldItem();
 		otherItem = new SetFieldItem();
 	}

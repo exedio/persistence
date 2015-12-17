@@ -20,6 +20,11 @@ package com.exedio.cope.pattern;
 
 import static javax.servlet.http.HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
 import static javax.servlet.http.HttpServletResponse.SC_NOT_FOUND;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.Feature;
@@ -40,6 +45,8 @@ import java.util.Vector;
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 public final class MediaPathTest extends AbstractRuntimeModelTest
@@ -62,10 +69,8 @@ public final class MediaPathTest extends AbstractRuntimeModelTest
 	private AbsoluteMockClockStrategy clock;
 	private MediaInfo normalInfo = null;
 
-	@Override
-	public void setUp() throws Exception
+	@Before public final void setUp()
 	{
-		super.setUp();
 		item = new MediaPathItem();
 		id = item.getCopeID();
 		servlet = new MyMediaServlet();
@@ -76,8 +81,7 @@ public final class MediaPathTest extends AbstractRuntimeModelTest
 		normalInfo = MediaPathItem.normal.getInfo();
 	}
 
-	@Override
-	public void tearDown() throws Exception
+	@After public final void tearDown()
 	{
 		Clock.clearOverride();
 		servlet.destroy();
@@ -86,7 +90,6 @@ public final class MediaPathTest extends AbstractRuntimeModelTest
 			for(final Feature feature : type.getDeclaredFeatures())
 				if(feature instanceof MediaPathFeature)
 					((MediaPathFeature)feature).reset();
-		super.tearDown();
 	}
 
 	@Test public void testNotFound() throws ServletException, IOException

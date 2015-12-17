@@ -18,17 +18,20 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.Assert.list;
 import static com.exedio.cope.PlusIntegerItem.TYPE;
 import static com.exedio.cope.PlusIntegerItem.multiplyBC;
 import static com.exedio.cope.PlusIntegerItem.numA;
 import static com.exedio.cope.PlusIntegerItem.numB;
 import static com.exedio.cope.PlusIntegerItem.plusAB;
 import static java.lang.Integer.valueOf;
+import static org.junit.Assert.assertEquals;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import org.junit.Before;
 import org.junit.Test;
 
 @SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
@@ -43,10 +46,8 @@ public class PlusIntegerOrderTest extends AbstractRuntimeModelTest
 	PlusIntegerItem item2;
 	PlusIntegerItem item3;
 
-	@Override
-	public void setUp() throws Exception
+	@Before public final void setUp()
 	{
-		super.setUp();
 		item1 = new PlusIntegerItem(1, 6, -1000);
 		item2 = new PlusIntegerItem(2, 1, -1000);
 		item3 = new PlusIntegerItem(6, 2, -1000);

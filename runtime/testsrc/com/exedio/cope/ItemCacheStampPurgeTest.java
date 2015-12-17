@@ -18,10 +18,14 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.Assert.list;
 import static com.exedio.cope.CacheIsolationItem.TYPE;
 import static com.exedio.cope.CacheIsolationItem.name;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import org.junit.Before;
 import org.junit.Test;
 
 public class ItemCacheStampPurgeTest extends AbstractRuntimeModelTest
@@ -35,11 +39,8 @@ public class ItemCacheStampPurgeTest extends AbstractRuntimeModelTest
 	@SuppressFBWarnings("URF_UNREAD_FIELD")
 	CacheIsolationItem item1, item2, itemX;
 
-	@Override
-	public void setUp() throws Exception
+	@Before public final void setUp()
 	{
-		super.setUp();
-
 		final ConnectProperties props = model.getConnectProperties();
 		quit =
 			props.getItemCacheLimit()==0 ||

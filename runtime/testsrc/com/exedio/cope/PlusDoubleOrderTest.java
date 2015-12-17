@@ -21,17 +21,20 @@ package com.exedio.cope;
 import static com.exedio.cope.AbstractRuntimeTest.d3;
 import static com.exedio.cope.AbstractRuntimeTest.d7;
 import static com.exedio.cope.AbstractRuntimeTest.d8;
+import static com.exedio.cope.Assert.list;
 import static com.exedio.cope.PlusDoubleItem.TYPE;
 import static com.exedio.cope.PlusDoubleItem.multiplyBC;
 import static com.exedio.cope.PlusDoubleItem.numA;
 import static com.exedio.cope.PlusDoubleItem.numB;
 import static com.exedio.cope.PlusDoubleItem.plusAB;
 import static java.lang.Double.valueOf;
+import static org.junit.Assert.assertEquals;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import org.junit.Before;
 import org.junit.Test;
 
 @SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
@@ -46,10 +49,8 @@ public class PlusDoubleOrderTest extends AbstractRuntimeModelTest
 	PlusDoubleItem item2;
 	PlusDoubleItem item3;
 
-	@Override
-	public void setUp() throws Exception
+	@Before public final void setUp()
 	{
-		super.setUp();
 		item1 = new PlusDoubleItem(1.1, 6.6, -1000.99);
 		item2 = new PlusDoubleItem(2.2, 1.1, -1000.99);
 		item3 = new PlusDoubleItem(6.6, 2.2, -1000.99);

@@ -18,14 +18,18 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.Assert.list;
 import static com.exedio.cope.HardJoinA1Item.a1;
 import static com.exedio.cope.HardJoinA2Item.a2;
 import static com.exedio.cope.HardJoinA3Item.a3;
 import static com.exedio.cope.HardJoinB1Item.b1;
 import static com.exedio.cope.HardJoinB2Item.b2;
 import static com.exedio.cope.HardJoinB3Item.b3;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import org.junit.Before;
 import org.junit.Test;
 
 @SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
@@ -50,11 +54,8 @@ public class HardJoinTest extends AbstractRuntimeModelTest
 	private HardJoinA3Item a;
 	private HardJoinB3Item b;
 
-	@Override
-	public void setUp() throws Exception
+	@Before public final void setUp()
 	{
-		super.setUp();
-
 		a = new HardJoinA3Item("a", 10, 11, 12);
 		b = new HardJoinB3Item("b", 20, 21, 22);
 	}

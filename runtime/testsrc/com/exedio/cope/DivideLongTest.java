@@ -23,6 +23,9 @@ import static com.exedio.cope.AbstractRuntimeTest.l2;
 import static com.exedio.cope.AbstractRuntimeTest.l3;
 import static com.exedio.cope.AbstractRuntimeTest.l7;
 import static com.exedio.cope.AbstractRuntimeTest.l9;
+import static com.exedio.cope.Assert.assertContains;
+import static com.exedio.cope.Assert.assertEqualsUnmodifiable;
+import static com.exedio.cope.Assert.list;
 import static com.exedio.cope.DivideLongItem.TYPE;
 import static com.exedio.cope.DivideLongItem.divideAB;
 import static com.exedio.cope.DivideLongItem.divideAC;
@@ -32,8 +35,10 @@ import static com.exedio.cope.DivideLongItem.numB;
 import static com.exedio.cope.DivideLongItem.numC;
 import static com.exedio.cope.EqualsAssert.assertEqualsAndHash;
 import static com.exedio.cope.EqualsAssert.assertNotEqualsAndHash;
+import static org.junit.Assert.assertEquals;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import org.junit.Before;
 import org.junit.Test;
 
 @SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
@@ -48,10 +53,8 @@ public class DivideLongTest extends AbstractRuntimeModelTest
 
 	DivideLongItem item;
 
-	@Override
-	public void setUp() throws Exception
+	@Before public final void setUp()
 	{
-		super.setUp();
 		item = new DivideLongItem(7, 9, 3);
 		new DivideLongItem(30, 4, 5);
 	}

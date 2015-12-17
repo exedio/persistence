@@ -18,7 +18,16 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.Assert.assertContains;
+import static com.exedio.cope.Assert.assertEqualsUnmodifiable;
+import static com.exedio.cope.Assert.list;
+import static com.exedio.cope.Assert.map;
 import static com.exedio.cope.SequenceInfoAssert.assertInfo;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import com.exedio.cope.misc.HiddenFeatures;
 import com.exedio.dsmf.Constraint;

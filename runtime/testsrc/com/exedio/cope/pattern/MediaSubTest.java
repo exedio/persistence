@@ -18,10 +18,15 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.Assert.assertContains;
 import static com.exedio.cope.RuntimeAssert.assertData;
 import static com.exedio.cope.pattern.MediaItem.TYPE;
 import static com.exedio.cope.pattern.MediaItem.image;
 import static com.exedio.cope.pattern.MediaLocatorAssert.assertLocator;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.CheckConstraint;
@@ -32,6 +37,7 @@ import com.exedio.cope.DateField;
 import com.exedio.cope.StringField;
 import java.io.IOException;
 import java.io.InputStream;
+import org.junit.Before;
 import org.junit.Test;
 
 public class MediaSubTest extends AbstractRuntimeModelTest
@@ -43,10 +49,8 @@ public class MediaSubTest extends AbstractRuntimeModelTest
 
 	protected MediaItem item;
 
-	@Override
-	public void setUp() throws Exception
+	@Before public final void setUp()
 	{
-		super.setUp();
 		item = new MediaItem("test media item");
 	}
 

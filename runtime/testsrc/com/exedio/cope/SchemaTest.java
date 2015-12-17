@@ -44,6 +44,9 @@ import static com.exedio.cope.SchemaItem.stringMin4Max8;
 import static com.exedio.cope.SchemaItem.stringOpt;
 import static com.exedio.cope.SchemaItem.stringUpper6;
 import static com.exedio.cope.SchemaItem.uniqueString;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.fail;
 
 import com.exedio.dsmf.Column;
 import com.exedio.dsmf.Schema;

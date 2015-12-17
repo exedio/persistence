@@ -31,6 +31,9 @@ import static com.exedio.cope.pattern.MoneyFieldItem.shared;
 import static com.exedio.cope.pattern.MoneyFieldItem.sharedMandatory;
 import static com.exedio.cope.pattern.MoneyFieldItem.Currency.eur;
 import static com.exedio.cope.pattern.MoneyFieldItem.Currency.gbp;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.fail;
 
 import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.MandatoryViolationException;

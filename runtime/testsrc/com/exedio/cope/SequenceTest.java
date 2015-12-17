@@ -26,6 +26,9 @@ import static com.exedio.cope.SequenceItem.limited;
 import static com.exedio.cope.SequenceItem.nextFull;
 import static com.exedio.cope.SequenceItem.nextLimited;
 import static com.exedio.cope.SequenceModelTest.MODEL;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.fail;
 
 import java.util.Collections;
 import java.util.HashSet;

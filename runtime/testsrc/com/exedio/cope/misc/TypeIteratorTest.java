@@ -18,10 +18,13 @@
 
 package com.exedio.cope.misc;
 
+import static com.exedio.cope.Assert.list;
 import static com.exedio.cope.misc.QueryAggregatorItem.TYPE;
 import static com.exedio.cope.misc.QueryAggregatorItem.intx;
 import static com.exedio.cope.misc.QueryIterators.iterateType;
 import static java.util.Arrays.asList;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.Condition;
@@ -31,6 +34,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
+import org.junit.Before;
 import org.junit.Test;
 
 public class TypeIteratorTest extends AbstractRuntimeModelTest
@@ -42,10 +46,8 @@ public class TypeIteratorTest extends AbstractRuntimeModelTest
 
 	QueryAggregatorItem item0, item1, item2, item3, item4;
 
-	@Override
-	public void setUp() throws Exception
+	@Before public final void setUp()
 	{
-		super.setUp();
 		item0 = new QueryAggregatorItem(0);
 		item1 = new QueryAggregatorItem(1);
 		item2 = new QueryAggregatorItem(2);

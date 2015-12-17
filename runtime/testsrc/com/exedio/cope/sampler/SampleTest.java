@@ -18,10 +18,15 @@
 
 package com.exedio.cope.sampler;
 
+import static com.exedio.cope.Assert.assertWithin;
+import static com.exedio.cope.Assert.sleepLongerThan;
 import static com.exedio.cope.sampler.Stuff.MODEL;
 import static com.exedio.cope.sampler.Stuff.sampler;
 import static com.exedio.cope.sampler.Stuff.samplerModel;
 import static java.util.Arrays.asList;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 
 import com.exedio.cope.Item;
 import com.exedio.cope.Query;

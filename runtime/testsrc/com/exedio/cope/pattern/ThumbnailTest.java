@@ -18,11 +18,20 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.Assert.assertContains;
+import static com.exedio.cope.Assert.assertEqualsUnmodifiable;
+import static com.exedio.cope.Assert.assertUnmodifiable;
 import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
 import static com.exedio.cope.pattern.MediaLocatorAssert.assertLocator;
 import static com.exedio.cope.pattern.ThumbnailItem.TYPE;
 import static com.exedio.cope.pattern.ThumbnailItem.file;
 import static com.exedio.cope.pattern.ThumbnailItem.thumb;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.Feature;
@@ -31,6 +40,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Set;
+import org.junit.Before;
 import org.junit.Test;
 
 public final class ThumbnailTest extends AbstractRuntimeModelTest
@@ -53,10 +63,8 @@ public final class ThumbnailTest extends AbstractRuntimeModelTest
 	// Ok, because Media#set(Item,InputStream,String) closes the stream.
 	@SuppressFBWarnings("OBL_UNSATISFIED_OBLIGATION")
 
-	@Override
-	public void setUp() throws Exception
+	@Before public final void setUp() throws IOException
 	{
-		super.setUp();
 		jpg = new ThumbnailItem();
 		png = new ThumbnailItem();
 		gif = new ThumbnailItem();

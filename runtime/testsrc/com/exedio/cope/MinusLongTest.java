@@ -18,6 +18,9 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.Assert.assertContains;
+import static com.exedio.cope.Assert.assertEqualsUnmodifiable;
+import static com.exedio.cope.Assert.list;
 import static com.exedio.cope.EqualsAssert.assertEqualsAndHash;
 import static com.exedio.cope.EqualsAssert.assertNotEqualsAndHash;
 import static com.exedio.cope.MinusLongItem.TYPE;
@@ -28,8 +31,10 @@ import static com.exedio.cope.MinusLongItem.viewAB;
 import static com.exedio.cope.MinusLongItem.viewAC;
 import static com.exedio.cope.MinusLongItem.viewBC;
 import static java.lang.Long.valueOf;
+import static org.junit.Assert.assertEquals;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import org.junit.Before;
 import org.junit.Test;
 
 @SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
@@ -44,10 +49,8 @@ public class MinusLongTest extends AbstractRuntimeModelTest
 
 	MinusLongItem item;
 
-	@Override
-	public void setUp() throws Exception
+	@Before public final void setUp()
 	{
-		super.setUp();
 		item = new MinusLongItem(7, 9, 3);
 		new MinusLongItem(30, 4, 5);
 	}

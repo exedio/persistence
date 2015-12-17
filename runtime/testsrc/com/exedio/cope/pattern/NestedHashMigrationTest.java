@@ -21,6 +21,12 @@ package com.exedio.cope.pattern;
 import static com.exedio.cope.pattern.NestedHashMigrationItem.TYPE;
 import static com.exedio.cope.pattern.NestedHashMigrationItem.migratePassword;
 import static com.exedio.cope.pattern.NestedHashMigrationItem.password;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.MandatoryViolationException;

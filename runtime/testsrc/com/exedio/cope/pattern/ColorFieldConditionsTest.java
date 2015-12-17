@@ -20,12 +20,14 @@ package com.exedio.cope.pattern;
 
 import static com.exedio.cope.pattern.ColorFieldItem.alpha;
 import static com.exedio.cope.pattern.ColorFieldItem.optional;
+import static org.junit.Assert.assertEquals;
 
 import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.Condition;
 import com.exedio.cope.Query;
 import java.awt.Color;
 import java.util.Arrays;
+import org.junit.Before;
 import org.junit.Test;
 
 public class ColorFieldConditionsTest extends AbstractRuntimeModelTest
@@ -45,10 +47,8 @@ public class ColorFieldConditionsTest extends AbstractRuntimeModelTest
 	// named by the colors for fields optional and alpha
 	private ColorFieldItem iNN, iWW, iBB, iNT, iNL;
 
-	@Override
-	public void setUp() throws Exception
+	@Before public final void setUp()
 	{
-		super.setUp();
 		iNN  = new ColorFieldItem(cWhite);
 		iNN.setOptionalAndAlpha(null);
 		iBB  = new ColorFieldItem(cWhite);

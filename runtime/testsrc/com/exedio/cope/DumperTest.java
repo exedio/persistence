@@ -25,9 +25,14 @@ import static com.exedio.cope.DumperItem.string;
 import static com.exedio.cope.DumperItem.unique;
 import static com.exedio.cope.DumperSubItem.subString;
 import static com.exedio.cope.util.Hex.decodeLower;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.fail;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.IOException;
+import org.junit.Before;
 import org.junit.Test;
 
 public class DumperTest extends AbstractRuntimeModelTest
@@ -49,10 +54,8 @@ public class DumperTest extends AbstractRuntimeModelTest
 	private String dataL = null;
 
 	@SuppressFBWarnings("ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD")
-	@Override
-	protected void setUp() throws Exception
+	@Before public final void setUp()
 	{
-		super.setUp();
 		DumperItem.beforeNewCopeItemCount = 0;
 		dumper = new Dumper();
 		switch(dialect)

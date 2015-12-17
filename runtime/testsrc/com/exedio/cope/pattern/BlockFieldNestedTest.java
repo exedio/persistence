@@ -18,12 +18,16 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.Assert.assertEqualsUnmodifiable;
+import static com.exedio.cope.Assert.list;
 import static com.exedio.cope.pattern.BlockFieldNestedTest.AnItem.duo;
 import static com.exedio.cope.pattern.BlockFieldNestedTest.AnItem.uno;
 import static com.exedio.cope.pattern.BlockFieldNestedTest.Inner.alpha;
 import static com.exedio.cope.pattern.BlockFieldNestedTest.Inner.beta;
 import static com.exedio.cope.pattern.BlockFieldNestedTest.Outer.eins;
 import static com.exedio.cope.pattern.BlockFieldNestedTest.Outer.zwei;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 
 import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.Feature;

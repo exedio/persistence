@@ -18,10 +18,15 @@
 
 package com.exedio.cope.badquery;
 
+import static com.exedio.cope.Assert.assertContains;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+
 import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.Join;
 import com.exedio.cope.Model;
 import com.exedio.cope.Query;
+import org.junit.Before;
 import org.junit.Test;
 
 public class BadQueryTest extends AbstractRuntimeModelTest
@@ -36,11 +41,8 @@ public class BadQueryTest extends AbstractRuntimeModelTest
 	QueryItem left1, left2, leftX;
 	SuperContainer middle1, middle2, middleX;
 
-	@Override
-	public void setUp() throws Exception
+	@Before public final void setUp()
 	{
-		super.setUp();
-
 		leftX = new QueryItem("leftX");
 		left1 = new QueryItem("left1");
 		left2 = new QueryItem("left2");

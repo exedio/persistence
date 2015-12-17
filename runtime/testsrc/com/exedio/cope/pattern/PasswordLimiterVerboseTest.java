@@ -18,8 +18,15 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.Assert.list;
 import static com.exedio.cope.pattern.PasswordLimiterItem.passwordLimited;
 import static com.exedio.cope.pattern.PasswordLimiterItem.purgePasswordLimited;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.pattern.PasswordLimiter.ExceededException;
@@ -27,6 +34,8 @@ import com.exedio.cope.pattern.PasswordLimiter.Refusal;
 import com.exedio.cope.util.Clock;
 import java.util.Date;
 import java.util.List;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 public class PasswordLimiterVerboseTest extends AbstractRuntimeModelTest
@@ -40,21 +49,17 @@ public class PasswordLimiterVerboseTest extends AbstractRuntimeModelTest
 	PasswordLimiterItem i2;
 	RelativeMockClockStrategy clock;
 
-	@Override
-	protected void setUp() throws Exception
+	@Before public final void setUp()
 	{
-		super.setUp();
 		i = new PasswordLimiterItem(PASSWORD);
 		i2 = new PasswordLimiterItem(PASSWORD2);
 		clock = new RelativeMockClockStrategy();
 		Clock.override(clock);
 	}
 
-	@Override
-	protected void tearDown() throws Exception
+	@After public final void tearDown()
 	{
 		Clock.clearOverride();
-		super.tearDown();
 	}
 
 	private static final String PASSWORD = "correctPassword8927365";

@@ -21,17 +21,20 @@ package com.exedio.cope;
 import static com.exedio.cope.AbstractRuntimeTest.l3;
 import static com.exedio.cope.AbstractRuntimeTest.l7;
 import static com.exedio.cope.AbstractRuntimeTest.l8;
+import static com.exedio.cope.Assert.list;
 import static com.exedio.cope.PlusLongItem.TYPE;
 import static com.exedio.cope.PlusLongItem.multiplyBC;
 import static com.exedio.cope.PlusLongItem.numA;
 import static com.exedio.cope.PlusLongItem.numB;
 import static com.exedio.cope.PlusLongItem.plusAB;
 import static java.lang.Long.valueOf;
+import static org.junit.Assert.assertEquals;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import org.junit.Before;
 import org.junit.Test;
 
 @SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
@@ -46,10 +49,8 @@ public class PlusLongOrderTest extends AbstractRuntimeModelTest
 	PlusLongItem item2;
 	PlusLongItem item3;
 
-	@Override
-	public void setUp() throws Exception
+	@Before public final void setUp()
 	{
-		super.setUp();
 		item1 = new PlusLongItem(1l, 6l, -1000l);
 		item2 = new PlusLongItem(2l, 1l, -1000l);
 		item3 = new PlusLongItem(6l, 2l, -1000l);

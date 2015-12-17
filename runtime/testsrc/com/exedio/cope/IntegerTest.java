@@ -25,8 +25,12 @@ import static com.exedio.cope.IntegerItem.max4;
 import static com.exedio.cope.IntegerItem.min4;
 import static com.exedio.cope.IntegerItem.min4Max8;
 import static java.lang.Integer.valueOf;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.fail;
 
 import java.util.Date;
+import org.junit.Before;
 import org.junit.Test;
 
 public class IntegerTest extends AbstractRuntimeModelTest
@@ -39,10 +43,8 @@ public class IntegerTest extends AbstractRuntimeModelTest
 	private IntegerItem item;
 	private int numberOfItems;
 
-	@Override
-	public void setUp() throws Exception
+	@Before public final void setUp()
 	{
-		super.setUp();
 		item = new IntegerItem(2201);
 		new IntegerItem(2202);
 		numberOfItems = 2;

@@ -18,7 +18,14 @@
 
 package com.exedio.cope;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
 import java.sql.SQLException;
+import org.junit.Before;
 import org.junit.Test;
 
 public class DeleteAfterUniqueViolationTest extends AbstractRuntimeModelTest
@@ -38,10 +45,8 @@ public class DeleteAfterUniqueViolationTest extends AbstractRuntimeModelTest
 
 	private boolean unq;
 
-	@Override
-	protected void setUp() throws Exception
+	@Before public final void setUp()
 	{
-		super.setUp();
 		unq = model.connect().executor.supportsUniqueViolation;
 	}
 

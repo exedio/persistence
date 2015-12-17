@@ -18,13 +18,19 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.Assert.assertContains;
+import static com.exedio.cope.Assert.assertWithin;
 import static com.exedio.cope.DeleteSchemaItem.nextSequence;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import com.exedio.cope.misc.DirectRevisionsFactory;
 import java.util.Date;
 import java.util.Map;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 public class DeleteSchemaTest extends AbstractRuntimeModelTest
@@ -54,11 +60,8 @@ public class DeleteSchemaTest extends AbstractRuntimeModelTest
 	Level logLevel = null;
 	private Date create;
 
-	@Override
-	protected void setUp() throws Exception
+	@Before public final void setUp()
 	{
-		super.setUp();
-
 		log = new TestLogAppender();
 		logger.addAppender(log);
 
@@ -77,8 +80,7 @@ public class DeleteSchemaTest extends AbstractRuntimeModelTest
 		}
 	}
 
-	@Override
-	protected void tearDown() throws Exception
+	@After public final void tearDown()
 	{
 		create = null;
 
@@ -88,8 +90,6 @@ public class DeleteSchemaTest extends AbstractRuntimeModelTest
 
 		logger.removeAppender(log);
 		log = null;
-
-		super.tearDown();
 	}
 
 	private static final String ALL =

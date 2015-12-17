@@ -18,16 +18,20 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.Assert.assertContains;
 import static com.exedio.cope.pattern.MD5Item.TYPE;
 import static com.exedio.cope.pattern.MD5Item.password;
 import static com.exedio.cope.pattern.MessageDigestHashTest.algo;
 import static com.exedio.cope.pattern.MessageDigestHashTest.encoding;
 import static java.nio.charset.StandardCharsets.UTF_8;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Model;
 import java.util.Arrays;
+import org.junit.Before;
 import org.junit.Test;
 
 public class MD5Test extends AbstractRuntimeModelTest
@@ -46,10 +50,8 @@ public class MD5Test extends AbstractRuntimeModelTest
 
 	MD5Item item;
 
-	@Override
-	public void setUp() throws Exception
+	@Before public final void setUp()
 	{
-		super.setUp();
 		item = new MD5Item(FRANK);
 	}
 

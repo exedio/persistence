@@ -20,10 +20,17 @@ package com.exedio.cope;
 
 import static com.exedio.cope.MatchItem.TYPE;
 import static com.exedio.cope.MatchItem.text;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 
 import com.exedio.cope.misc.DatabaseListener;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.List;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 @SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
@@ -36,18 +43,14 @@ public class DatabaseLogTest extends AbstractRuntimeModelTest
 
 	MatchItem item;
 
-	@Override
-	public void setUp() throws Exception
+	@Before public final void setUp()
 	{
-		super.setUp();
 		item = new MatchItem();
 	}
 
-	@Override
-	public void tearDown() throws Exception
+	@After public final void tearDown()
 	{
 		model.setDatabaseListener(null);
-		super.tearDown();
 	}
 
 	@Test public void testDatabaseLog()

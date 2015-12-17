@@ -18,13 +18,19 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.Assert.assertContains;
+import static com.exedio.cope.Assert.assertEqualsUnmodifiable;
+import static com.exedio.cope.Assert.list;
 import static com.exedio.cope.EqualsAssert.assertEqualsAndHash;
 import static com.exedio.cope.EqualsAssert.assertNotEqualsAndHash;
 import static com.exedio.cope.Query.newQuery;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 
 import com.exedio.cope.testmodel.PointerItem;
 import com.exedio.cope.testmodel.PointerTargetItem;
 import java.util.List;
+import org.junit.Before;
 import org.junit.Test;
 
 public class JoinTest extends TestmodelTest
@@ -34,10 +40,8 @@ public class JoinTest extends TestmodelTest
 	PointerTargetItem item2a;
 	PointerTargetItem item2b;
 
-	@Override
-	protected void setUp() throws Exception
+	@Before public final void setUp()
 	{
-		super.setUp();
 		item2a = new PointerTargetItem("item2a");
 		item2b = new PointerTargetItem("item1a2b");
 		item1a = new PointerItem("item1a2b", item2a);

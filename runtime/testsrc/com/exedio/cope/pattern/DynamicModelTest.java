@@ -18,6 +18,8 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.Assert.assertContains;
+import static com.exedio.cope.Assert.list;
 import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
 import static com.exedio.cope.SchemaInfo.getColumnValue;
 import static com.exedio.cope.pattern.DynamicModel.ValueType.BOOLEAN;
@@ -29,6 +31,9 @@ import static com.exedio.cope.pattern.DynamicModelItem.TYPE;
 import static com.exedio.cope.pattern.DynamicModelItem.features;
 import static com.exedio.cope.pattern.DynamicModelItem.small;
 import static java.util.Arrays.asList;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.fail;
 
 import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.Feature;
@@ -39,6 +44,7 @@ import com.exedio.cope.Type;
 import com.exedio.cope.pattern.DynamicModel.Enum;
 import com.exedio.cope.pattern.DynamicModel.ValueType;
 import java.util.Arrays;
+import org.junit.Before;
 import org.junit.Test;
 
 public class DynamicModelTest extends AbstractRuntimeModelTest
@@ -58,10 +64,8 @@ public class DynamicModelTest extends AbstractRuntimeModelTest
 	DynamicModelItem item, item2;
 	DynamicModelLocalizationItem de, en;
 
-	@Override
-	public void setUp() throws Exception
+	@Before public final void setUp()
 	{
-		super.setUp();
 		item = new DynamicModelItem("item1");
 		item2 = new DynamicModelItem("item2");
 		de = new DynamicModelLocalizationItem("de");

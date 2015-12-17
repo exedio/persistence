@@ -18,6 +18,8 @@
 
 package com.exedio.cope.serialize;
 
+import static org.junit.Assert.assertEquals;
+
 import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.Cope;
 import com.exedio.cope.Item;
@@ -29,6 +31,7 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import org.junit.Before;
 import org.junit.Test;
 
 public class SerializationSizeTest extends AbstractRuntimeModelTest
@@ -41,10 +44,8 @@ public class SerializationSizeTest extends AbstractRuntimeModelTest
 	ArrayList<Serializable> accu = null;
 	int previousSize;
 
-	@Override
-	protected void setUp() throws Exception
+	@Before public final void setUp()
 	{
-		super.setUp();
 		accu = new ArrayList<>();
 		previousSize = accuSize();
 	}

@@ -18,8 +18,12 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.Assert.assertEqualsUnmodifiable;
+import static com.exedio.cope.Assert.list;
 import static com.exedio.cope.pattern.ListFieldItem.strings;
 import static java.util.Arrays.asList;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.FunctionField;
@@ -28,6 +32,7 @@ import com.exedio.cope.Item;
 import com.exedio.cope.Type;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Iterator;
+import org.junit.Before;
 import org.junit.Test;
 
 /**
@@ -43,10 +48,8 @@ public class ListFieldTest2 extends AbstractRuntimeModelTest
 
 	ListFieldItem item;
 
-	@Override
-	public void setUp() throws Exception
+	@Before public final void setUp()
 	{
-		super.setUp();
 		item = new ListFieldItem();
 	}
 

@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import static com.exedio.cope.PrimaryKeyItem.TYPE;
 import static com.exedio.cope.PrimaryKeyItem.next;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 

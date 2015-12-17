@@ -18,9 +18,14 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.Assert.assertContains;
+import static com.exedio.cope.Assert.assertEqualsUnmodifiable;
+import static com.exedio.cope.Assert.list;
+
 import com.exedio.cope.testmodel.PointerItem;
 import com.exedio.cope.testmodel.PointerTargetItem;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import org.junit.Before;
 import org.junit.Test;
 
 public class JoinOuterTest extends TestmodelTest
@@ -31,10 +36,8 @@ public class JoinOuterTest extends TestmodelTest
 	@SuppressFBWarnings("URF_UNREAD_FIELD")
 	PointerTargetItem rightLonely;
 
-	@Override
-	protected void setUp() throws Exception
+	@Before public final void setUp()
 	{
-		super.setUp();
 		rightLonely = new PointerTargetItem("right");
 		rightJoined = new PointerTargetItem("joined");
 		leftJoined = new PointerItem("joined", rightJoined);

@@ -18,6 +18,9 @@
 
 package com.exedio.cope.instanceOfQuery;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+
 import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.Join;
 import com.exedio.cope.Model;

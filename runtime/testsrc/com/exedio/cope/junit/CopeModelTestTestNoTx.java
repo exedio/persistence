@@ -18,6 +18,8 @@
 
 package com.exedio.cope.junit;
 
+import static org.junit.Assert.assertFalse;
+
 import org.junit.Test;
 
 public class CopeModelTestTestNoTx extends CopeModelTestTest

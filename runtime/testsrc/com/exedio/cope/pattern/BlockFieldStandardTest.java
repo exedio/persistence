@@ -18,7 +18,12 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.Assert.list;
+import static com.exedio.cope.Assert.reserialize;
 import static com.exedio.cope.pattern.MediaLocatorAssert.assertLocator;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotSame;
 
 import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.pattern.BlockFieldStandardModelTest.ABlock;

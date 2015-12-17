@@ -18,10 +18,12 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.Assert.assertContains;
 import static com.exedio.cope.JoinFunctionItem.TYPE;
 import static com.exedio.cope.JoinFunctionItem.integer;
 import static com.exedio.cope.JoinFunctionItemSingle.name;
 
+import org.junit.Before;
 import org.junit.Test;
 
 public class JoinFunctionTest extends AbstractRuntimeModelTest
@@ -35,11 +37,8 @@ public class JoinFunctionTest extends AbstractRuntimeModelTest
 
 	private JoinFunctionItemSingle single;
 
-	@Override
-	public void setUp() throws Exception
+	@Before public final void setUp()
 	{
-		super.setUp();
-
 		single = new JoinFunctionItemSingle("single");
 		new JoinFunctionItem("a1", Integer.valueOf(1));
 		new JoinFunctionItem("a2", Integer.valueOf(2));

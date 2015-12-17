@@ -18,6 +18,9 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.Assert.assertContains;
+
+import org.junit.Before;
 import org.junit.Test;
 
 public class PolymorphQueryCacheInvalidationTest extends AbstractRuntimeModelTest
@@ -29,10 +32,8 @@ public class PolymorphQueryCacheInvalidationTest extends AbstractRuntimeModelTes
 
 	InstanceOfAItem itema;
 
-	@Override
-	public void setUp() throws Exception
+	@Before public final void setUp()
 	{
-		super.setUp();
 		itema = new InstanceOfAItem("itema");
 	}
 

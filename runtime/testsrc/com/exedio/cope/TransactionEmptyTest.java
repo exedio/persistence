@@ -18,7 +18,12 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.Assert.assertWithin;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
+
 import java.util.Date;
+import org.junit.Before;
 import org.junit.Test;
 
 public class TransactionEmptyTest extends AbstractRuntimeModelTest
@@ -36,10 +41,8 @@ public class TransactionEmptyTest extends AbstractRuntimeModelTest
 
 	final TransactionIdRule txId = new TransactionIdRule(model);
 
-	@Override
-	protected void setUp() throws Exception
+	@Before public final void setUp()
 	{
-		super.setUp();
 		txId.before();
 	}
 

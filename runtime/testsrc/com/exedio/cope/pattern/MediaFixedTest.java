@@ -18,10 +18,18 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.Assert.assertContains;
+import static com.exedio.cope.Assert.assertEqualsUnmodifiable;
+import static com.exedio.cope.Assert.list;
 import static com.exedio.cope.RuntimeAssert.assertData;
 import static com.exedio.cope.pattern.MediaItem.TYPE;
 import static com.exedio.cope.pattern.MediaItem.photo;
 import static com.exedio.cope.pattern.MediaLocatorAssert.assertLocator;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.Condition;
@@ -29,6 +37,7 @@ import com.exedio.cope.DataField;
 import com.exedio.cope.DateField;
 import java.io.IOException;
 import java.io.InputStream;
+import org.junit.Before;
 import org.junit.Test;
 
 public class MediaFixedTest extends AbstractRuntimeModelTest
@@ -40,10 +49,8 @@ public class MediaFixedTest extends AbstractRuntimeModelTest
 
 	protected MediaItem item;
 
-	@Override
-	public void setUp() throws Exception
+	@Before public final void setUp()
 	{
-		super.setUp();
 		item = new MediaItem("test media item");
 	}
 

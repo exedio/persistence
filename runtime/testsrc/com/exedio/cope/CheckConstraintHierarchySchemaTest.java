@@ -25,6 +25,9 @@ import static com.exedio.cope.CheckConstraintHierarchyItemTop.top1;
 import static com.exedio.cope.CheckConstraintHierarchyItemTop.top2;
 import static com.exedio.cope.SchemaInfo.getColumnName;
 import static com.exedio.cope.SchemaInfo.getTableName;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 
 import com.exedio.dsmf.CheckConstraint;
 import com.exedio.dsmf.Constraint;

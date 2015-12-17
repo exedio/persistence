@@ -21,6 +21,8 @@ package com.exedio.cope.misc;
 import static com.exedio.cope.misc.QueryAggregatorItem.TYPE;
 import static com.exedio.cope.misc.QueryIterators.iterateStableQuery;
 import static java.util.Arrays.asList;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.Query;
@@ -29,6 +31,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
+import org.junit.Before;
 import org.junit.Test;
 
 @SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
@@ -42,10 +45,8 @@ public class StableQueryIteratorTest extends AbstractRuntimeModelTest
 	QueryAggregatorItem item0, item1, item2, item3, item4, item5, item6, item7, item8, item9;
 	Query<QueryAggregatorItem> q;
 
-	@Override
-	public void setUp() throws Exception
+	@Before public final void setUp()
 	{
-		super.setUp();
 		item0 = new QueryAggregatorItem(0);
 		item1 = new QueryAggregatorItem(1);
 		item2 = new QueryAggregatorItem(2);

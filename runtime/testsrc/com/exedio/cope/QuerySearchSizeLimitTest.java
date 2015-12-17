@@ -18,9 +18,13 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.Assert.list;
 import static com.exedio.cope.DayItem.TYPE;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import com.exedio.cope.util.Day;
+import org.junit.Before;
 import org.junit.Test;
 
 public class QuerySearchSizeLimitTest extends AbstractRuntimeModelTest
@@ -36,10 +40,8 @@ public class QuerySearchSizeLimitTest extends AbstractRuntimeModelTest
 
 	DayItem i1, i2, i3, i4, i5;
 
-	@Override
-	protected void setUp() throws Exception
+	@Before public final void setUp()
 	{
-		super.setUp();
 		i1 = new DayItem(d1);
 		i2 = new DayItem(d2);
 		i3 = new DayItem(d3);

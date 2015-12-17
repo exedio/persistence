@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.Assert.assertContains;
 import static com.exedio.cope.DoubleItem.TYPE;
 import static com.exedio.cope.DoubleItem.any;
 import static com.exedio.cope.DoubleItem.mandatory;
@@ -31,10 +32,17 @@ import static java.lang.Double.NEGATIVE_INFINITY;
 import static java.lang.Double.NaN;
 import static java.lang.Double.POSITIVE_INFINITY;
 import static java.lang.Double.valueOf;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import com.exedio.cope.CompareFunctionCondition.Operator;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Date;
+import org.junit.Before;
 import org.junit.Test;
 
 public class DoubleTest extends AbstractRuntimeModelTest
@@ -55,10 +63,8 @@ public class DoubleTest extends AbstractRuntimeModelTest
 	private DoubleItem item;
 	private int numberOfItems;
 
-	@Override
-	public void setUp() throws Exception
+	@Before public final void setUp()
 	{
-		super.setUp();
 		item = new DoubleItem(2201.01);
 		new DoubleItem(2202.02);
 		numberOfItems = 2;

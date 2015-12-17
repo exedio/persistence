@@ -18,6 +18,10 @@
 
 package com.exedio.cope.pattern;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.fail;
+
 import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.CopyConstraint;
 import com.exedio.cope.CopyViolationException;

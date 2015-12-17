@@ -19,6 +19,7 @@
 package com.exedio.cope.junit;
 
 import static com.exedio.cope.junit.JUnitTestItem.nextSequence;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 

@@ -32,6 +32,7 @@ import static com.exedio.cope.SchemaTypeIntegerItem.byte4l;
 import static com.exedio.cope.SchemaTypeIntegerItem.byte4u;
 import static com.exedio.cope.SchemaTypeIntegerItem.byte8;
 import static com.exedio.dsmf.Dialect.NOT_NULL;
+import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
 import org.junit.Test;

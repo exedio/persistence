@@ -20,6 +20,11 @@ package com.exedio.cope.pattern;
 
 import static com.exedio.cope.pattern.TextUrlFilterItem.fertig;
 import static java.io.File.createTempFile;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.DataLengthViolationException;
@@ -31,6 +36,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.Iterator;
+import org.junit.Before;
 import org.junit.Test;
 
 public class TextUrlFilterZipTest extends AbstractRuntimeModelTest
@@ -42,10 +48,8 @@ public class TextUrlFilterZipTest extends AbstractRuntimeModelTest
 
 	TextUrlFilterItem item;
 
-	@Override
-	protected void setUp() throws Exception
+	@Before public final void setUp()
 	{
-		super.setUp();
 		item = new TextUrlFilterItem();
 	}
 

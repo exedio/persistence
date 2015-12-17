@@ -18,8 +18,12 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.Assert.list;
+import static org.junit.Assert.assertEquals;
+
 import com.exedio.cope.AbstractRuntimeModelTest;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import org.junit.Before;
 import org.junit.Test;
 
 @SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
@@ -32,10 +36,8 @@ public class PartOfTest extends AbstractRuntimeModelTest
 
 	PartOfContainerItem container;
 
-	@Override
-	public void setUp() throws Exception
+	@Before public final void setUp()
 	{
-		super.setUp();
 		container = new PartOfContainerItem("container");
 	}
 

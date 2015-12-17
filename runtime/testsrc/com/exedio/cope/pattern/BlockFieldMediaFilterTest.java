@@ -18,11 +18,15 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.Assert.assertEqualsUnmodifiable;
+import static com.exedio.cope.Assert.list;
 import static com.exedio.cope.pattern.BlockFieldMediaFilterTest.ABlock.filter;
 import static com.exedio.cope.pattern.BlockFieldMediaFilterTest.ABlock.source;
 import static com.exedio.cope.pattern.BlockFieldMediaFilterTest.AnItem.eins;
 import static com.exedio.cope.pattern.BlockFieldMediaFilterTest.AnItem.zwei;
 import static com.exedio.cope.pattern.MediaLocatorAssert.assertLocator;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 
 import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.Feature;
