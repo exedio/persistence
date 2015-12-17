@@ -108,7 +108,7 @@ public class MediaEnumTest extends AbstractRuntimeModelTest
 
 		// test persistence
 
-		assertNull();
+		assertContentNull();
 
 		item.setSheet(stream(bytes4), "application/pdf");
 		assertStreamClosed();
@@ -149,10 +149,10 @@ public class MediaEnumTest extends AbstractRuntimeModelTest
 		}
 
 		item.setSheet((InputStream)null, null);
-		assertNull();
+		assertContentNull();
 	}
 
-	private void assertNull()
+	private void assertContentNull()
 	{
 		assertTrue(item.isSheetNull());
 		assertEquals(null, item.getSheetBody());

@@ -90,7 +90,7 @@ public class MediaFixedTest extends AbstractRuntimeModelTest
 
 		// test persistence
 
-		assertNull();
+		assertContentNull();
 
 		item.setPhoto(stream(bytes4), "image/jpeg");
 		assertStreamClosed();
@@ -131,10 +131,10 @@ public class MediaFixedTest extends AbstractRuntimeModelTest
 		}
 
 		item.setPhoto((InputStream)null, null);
-		assertNull();
+		assertContentNull();
 	}
 
-	private void assertNull()
+	private void assertContentNull()
 	{
 		assertTrue(photo.isNull(item));
 		assertTrue(item.isPhotoNull());

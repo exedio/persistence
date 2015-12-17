@@ -136,7 +136,7 @@ public class MediaDefaultTest extends AbstractRuntimeModelTest
 		assertEquals("file_contentType", SchemaInfo.getColumnName(file.getContentType()));
 		assertEquals("file_lastModified", SchemaInfo.getColumnName(file.getLastModified()));
 
-		assertNull();
+		assertContentNull();
 		assertContains(item, TYPE.search(file.isNull()));
 		assertContains(TYPE.search(file.isNotNull()));
 		{
@@ -187,7 +187,7 @@ public class MediaDefaultTest extends AbstractRuntimeModelTest
 			assertContent(bytes0, new Date(123456003), "empty-major/empty-minor", "");
 		}
 		item.setFile((InputStream)null, null);
-		assertNull();
+		assertContentNull();
 		{
 			clock.add(123457);
 			item.setFile(file(bytes8), "empty-major/empty-minor");
@@ -195,7 +195,7 @@ public class MediaDefaultTest extends AbstractRuntimeModelTest
 			assertContent(bytes8, new Date(123457), "empty-major/empty-minor", "");
 		}
 		item.setFile((File)null, null);
-		assertNull();
+		assertContentNull();
 		{
 			clock.add(123456004);
 			item.setFile(bytes8, "empty-major/empty-minor");
@@ -203,7 +203,7 @@ public class MediaDefaultTest extends AbstractRuntimeModelTest
 			assertContent(bytes8, new Date(123456004), "empty-major/empty-minor", "");
 		}
 		item.setFile((byte[])null, null);
-		assertNull();
+		assertContentNull();
 		{
 			clock.add(123456005);
 			item.setFile(Media.toValue(bytes8, "empty-major/empty-minor"));
@@ -211,7 +211,7 @@ public class MediaDefaultTest extends AbstractRuntimeModelTest
 			assertContent(bytes8, new Date(123456005), "empty-major/empty-minor", "");
 		}
 		item.setFile((Media.Value)null);
-		assertNull();
+		assertContentNull();
 		{
 			// test length violation
 			clock.add(123456006);
@@ -330,10 +330,10 @@ public class MediaDefaultTest extends AbstractRuntimeModelTest
 			clock.assertEmpty();
 		}
 		item.setFile((byte[])null, null);
-		assertNull();
+		assertContentNull();
 	}
 
-	private void assertNull() throws IOException
+	private void assertContentNull() throws IOException
 	{
 		assertTrue(item.isFileNull());
 		assertEquals(null, item.getFileBody());

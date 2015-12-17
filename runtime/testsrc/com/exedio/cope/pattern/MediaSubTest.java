@@ -112,7 +112,7 @@ public class MediaSubTest extends AbstractRuntimeModelTest
 
 		// test persistence
 
-		assertNull();
+		assertContentNull();
 
 		item.setImage(stream(bytes4), "image/image-minor");
 		assertStreamClosed();
@@ -157,10 +157,10 @@ public class MediaSubTest extends AbstractRuntimeModelTest
 		}
 
 		item.setImage((InputStream)null, null);
-		assertNull();
+		assertContentNull();
 	}
 
-	private void assertNull()
+	private void assertContentNull()
 	{
 		assertTrue(item.isImageNull());
 		assertEquals(null, item.getImageBody());
