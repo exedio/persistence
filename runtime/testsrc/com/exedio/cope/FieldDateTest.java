@@ -59,7 +59,7 @@ public class FieldDateTest extends FieldTest
 		assertEquals(Date.class, someDate.getValueClass());
 		assertSerializedSame(someDate, 377);
 
-		assertEquals(null, item.getSomeDate());
+		assertEqualsVerbose(null, item.getSomeDate());
 		assertContains(item, item2, TYPE.search(someDate.equal((Date)null)));
 		assertContains(item, item2, TYPE.search(someDate.isNull()));
 		assertContains(TYPE.search(someDate.notEqual((Date)null)));
@@ -67,7 +67,7 @@ public class FieldDateTest extends FieldTest
 
 		item.setSomeDate(date);
 		final Date date2 = item.getSomeDate();
-		assertEquals(date, date2);
+		assertEqualsVerbose(date, date2);
 
 		// important, since Date is not immutable
 		assertNotSame(date, date2);
@@ -77,7 +77,7 @@ public class FieldDateTest extends FieldTest
 		assertContains(date, search(someDate, someDate.equal(date)));
 
 		restartTransaction();
-		assertEquals(date, item.getSomeDate());
+		assertEqualsVerbose(date, item.getSomeDate());
 		assertEquals(list(item), TYPE.search(someDate.equal(date)));
 		assertEquals(list(item), TYPE.search(someDate.greaterOrEqual(date).and(someDate.lessOrEqual(date))));
 		assertEquals(list(), TYPE.search(someDate.notEqual(date)));
@@ -94,23 +94,23 @@ public class FieldDateTest extends FieldTest
 
 		item.setSomeDate(nextDate);
 		restartTransaction();
-		assertEquals(nextDate, item.getSomeDate());
+		assertEqualsVerbose(nextDate, item.getSomeDate());
 
 		final Date dateWithLittleMilliseconds = new Date(1087365298004l);
 		item.setSomeDate(dateWithLittleMilliseconds);
 		restartTransaction();
-		assertEquals(dateWithLittleMilliseconds, item.getSomeDate());
+		assertEqualsVerbose(dateWithLittleMilliseconds, item.getSomeDate());
 
 		item.setSomeDate(null);
-		assertEquals(null, item.getSomeDate());
+		assertEqualsVerbose(null, item.getSomeDate());
 
 		restartTransaction();
-		assertEquals(null, item.getSomeDate());
+		assertEqualsVerbose(null, item.getSomeDate());
 
 		final Date touch = clock.add(1111);
 		item.touchSomeDate();
 		clock.assertEmpty();
-		assertEquals(touch, item.getSomeDate());
+		assertEqualsVerbose(touch, item.getSomeDate());
 
 		// special test of Model#getItem for items without any attributes
 		assertIDFails("EmptyItem-51", "item <51> does not exist", false);
@@ -232,13 +232,13 @@ public class FieldDateTest extends FieldTest
 		assertEquals(dialect.dateTimestampType, model.connect().database.dialect.getDateTimestampType());
 	}
 
-	public static String toString(final Date date)
+	private static String toString(final Date date)
 	{
 		final SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
 		return date==null ? "NULL" : df.format(date);
 	}
 
-	public static void assertEquals(final Date expectedDate, final Date actualDate)
+	private static void assertEqualsVerbose(final Date expectedDate, final Date actualDate)
 	{
 		assertEquals("ts: "+toString(expectedDate)+" "+toString(actualDate), expectedDate, actualDate);
 	}
