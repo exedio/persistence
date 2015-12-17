@@ -1,0 +1,124 @@
+/*
+ * Copyright (C) 2004-2015  exedio GmbH (www.exedio.com)
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ */
+
+package com.exedio.cope.sampler;
+
+import static com.exedio.cope.sampler.Stuff.sampler;
+import static com.exedio.cope.sampler.Stuff.samplerModel;
+import static com.exedio.cope.util.Clock.clearOverride;
+import static com.exedio.cope.util.Clock.override;
+import static org.junit.Assert.assertEquals;
+
+import com.exedio.cope.util.Clock.Strategy;
+import com.exedio.cope.util.EmptyJobContext;
+import com.exedio.cope.util.Properties.Source;
+import com.exedio.cope.util.Sources;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import java.util.Collection;
+import org.junit.After;
+import org.junit.Test;
+
+public class PurgePropertiesTest extends ConnectedTest
+{
+	@SuppressFBWarnings("BC_UNCONFIRMED_CAST_OF_RETURN_VALUE")
+	@Test public void testPurge()
+	{
+		samplerModel.createSchema();
+
+		final Source sou = model.getConnectProperties().getSourceObject();
+		final java.util.Properties properties = new java.util.Properties();
+		final SamplerProperties props = SamplerProperties.factory().create(
+				Sources.cascade(
+					Sources.view(properties, "desc"),
+					new Source()
+					{
+						@Override
+						public String get(final String key)
+						{
+							final String prefix = "cope.";
+							return
+								key.startsWith(prefix)
+								? sou.get(key.substring(prefix.length()))
+								: null;
+						}
+						@Override
+						public Collection<String> keySet()
+						{
+							throw new RuntimeException();
+						}
+						@Override
+						public String getDescription()
+						{
+							return sou.getDescription();
+						}
+					}
+				)
+			);
+
+		final MC mc = new MC();
+		override(new Strategy()
+		{
+			@Override
+			public long currentTimeMillis()
+			{
+				return 555555555555l;
+			}
+		});
+		props.purge(sampler, mc);
+		assertEquals(
+				"purge select this from SamplerTransaction where date<'1987/08/02 00:59:15.555'\n"+
+				"purge select this from SamplerItemCache where date<'1987/08/02 00:59:15.555'\n"+
+				"purge select this from SamplerClusterNode where date<'1987/08/02 00:59:15.555'\n"+
+				"purge select this from SamplerMedia where date<'1987/08/02 00:59:15.555'\n"+
+				"purge select this from SamplerModel where date<'1987/08/02 00:59:15.555'\n",
+				mc.getMessages());
+	}
+
+	private static class MC extends EmptyJobContext
+	{
+		private final StringBuilder bf = new StringBuilder();
+
+		String getMessages()
+		{
+			return bf.toString();
+		}
+
+		MC()
+		{
+			// make non-private
+		}
+
+		@Override
+		public boolean supportsMessage()
+		{
+			return true;
+		}
+
+		@Override
+		public void setMessage(final String message)
+		{
+			bf.append(message).append('\n');
+		}
+	}
+
+	@After
+	public void clear()
+	{
+		clearOverride();
+	}
+}

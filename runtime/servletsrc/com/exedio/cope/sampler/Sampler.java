@@ -35,6 +35,7 @@ import com.exedio.cope.TransactionTry;
 import com.exedio.cope.Type;
 import com.exedio.cope.misc.ConnectToken;
 import com.exedio.cope.pattern.MediaPath;
+import com.exedio.cope.util.Clock;
 import com.exedio.cope.util.JobContext;
 import com.exedio.cope.util.Properties;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -281,7 +282,7 @@ public class Sampler
 			throw new IllegalArgumentException(String.valueOf(days));
 
 		final GregorianCalendar cal = new GregorianCalendar();
-		cal.setTimeInMillis(System.currentTimeMillis());
+		cal.setTimeInMillis(Clock.currentTimeMillis());
 		cal.add(Calendar.DATE, -days);
 		purge(cal.getTime(), ctx);
 	}
