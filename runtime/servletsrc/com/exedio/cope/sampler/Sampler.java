@@ -47,7 +47,9 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Sampler
 {
@@ -281,17 +283,30 @@ public class Sampler
 		if(days<=0)
 			throw new IllegalArgumentException(String.valueOf(days));
 
+		purge(daysBeforeNow(Clock.currentTimeMillis(), days), ctx);
+	}
+
+	static Date daysBeforeNow(final long now, final int days)
+	{
 		final GregorianCalendar cal = new GregorianCalendar();
-		cal.setTimeInMillis(Clock.currentTimeMillis());
+		cal.setTimeInMillis(now);
 		cal.add(Calendar.DATE, -days);
-		purge(cal.getTime(), ctx);
+		return cal.getTime();
 	}
 
 	public final void purge(final Date limit, final JobContext ctx)
 	{
 		requireNonNull(limit, "limit");
 		requireNonNull(ctx, "ctx");
+		final HashMap<Type<?>, Date> map = new HashMap<>();
+		for(final Type<?> type : samplerModel.getTypes())
+			if(type.isAnnotationPresent(Purgeable.class))
+				map.put(type, limit);
+		purge(map, ctx);
+	}
 
+	final void purge(final Map<Type<?>,Date> limit, final JobContext ctx)
+	{
 		final ArrayList<Type<?>> types = new ArrayList<>();
 		final ArrayList<Type<?>> lastTypes = new ArrayList<>();
 		for(final Type<?> type : samplerModel.getTypes())
@@ -308,7 +323,7 @@ public class Sampler
 		try(Connection connection = newConnection(samplerModel))
 		{
 			for(final Type<?> type : types)
-				SamplerPurge.purge(connection, type, limit, ctx, samplerString);
+				SamplerPurge.purge(connection, type, limit.get(type), ctx, samplerString);
 		}
 		catch (final SQLException e)
 		{
