@@ -19,7 +19,7 @@
 package com.exedio.cope;
 
 import java.util.Objects;
-import junit.framework.Assert;
+import org.junit.Assert;
 
 public final class TransactionIdRule
 {

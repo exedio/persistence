@@ -23,7 +23,6 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.LinkedList;
-import junit.framework.AssertionFailedError;
 import junit.framework.TestCase;
 import org.junit.Test;
 
@@ -103,7 +102,7 @@ public abstract class ParserTest extends TestCase
 
 		final ParseEvent event = fetchEvent();
 		if(!(event instanceof TextEvent))
-			throw new AssertionFailedError("expected text event >"+text+"<, but was "+event);
+			throw new AssertionError("expected text event >"+text+"<, but was "+event);
 		final String actualText = ((TextEvent)event).text;
 		assertEqualsText(text, actualText);
 	}
@@ -124,7 +123,7 @@ public abstract class ParserTest extends TestCase
 	{
 		final ParseEvent event = fetchEvent();
 		if(!(event instanceof DocCommentEvent))
-			throw new AssertionFailedError("expected docComment event >"+docComment+"<, but was "+event);
+			throw new AssertionError("expected docComment event >"+docComment+"<, but was "+event);
 		assertEquals(replaceLineBreaks(docComment), ((DocCommentEvent)event).docComment);
 	}
 
@@ -162,7 +161,7 @@ public abstract class ParserTest extends TestCase
 	{
 		final ParseEvent event = fetchEvent();
 		if(!(event instanceof BehaviourHeaderEvent))
-			throw new AssertionFailedError("expected BehaviourHeader event >"+name+"<, but was "+event);
+			throw new AssertionError("expected BehaviourHeader event >"+name+"<, but was "+event);
 		final JavaBehaviour javaBehaviour = ((BehaviourHeaderEvent)event).javaBehaviour;
 		assertEquals(name, javaBehaviour.name);
 		assertEquals(type, javaBehaviour.type);

@@ -34,7 +34,6 @@ import static com.exedio.cope.SchemaTypeIntegerItem.byte8;
 import static com.exedio.dsmf.Dialect.NOT_NULL;
 
 import java.util.ArrayList;
-import junit.framework.AssertionFailedError;
 import org.junit.Test;
 
 public class SchemaTypeIntegerTest extends AbstractRuntimeModelTest
@@ -71,7 +70,7 @@ public class SchemaTypeIntegerTest extends AbstractRuntimeModelTest
 				type8 = "bigint";
 				break;
 			default:
-				throw new AssertionFailedError(dialect.name());
+				throw new AssertionError(dialect.name());
 		}
 
 		assertType(type2, byte1);

@@ -21,7 +21,7 @@ package com.exedio.cope;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import junit.framework.Assert;
+import org.junit.Assert;
 
 /**
  * An input stream suitable for testing stream related code.

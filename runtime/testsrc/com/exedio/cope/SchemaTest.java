@@ -49,7 +49,6 @@ import com.exedio.dsmf.Column;
 import com.exedio.dsmf.Schema;
 import com.exedio.dsmf.Sequence;
 import com.exedio.dsmf.Table;
-import junit.framework.AssertionFailedError;
 import org.junit.Test;
 
 public class SchemaTest extends AbstractRuntimeModelTest
@@ -115,7 +114,7 @@ public class SchemaTest extends AbstractRuntimeModelTest
 			case oracle:     string8 = "VARCHAR2(24 BYTE)"; break; // varchar specifies bytes
 			case postgresql: string8 = "varchar(8)"; break;
 			default:
-				throw new AssertionFailedError(dialect.name());
+				throw new AssertionError(dialect.name());
 		}
 		assertEquals(string8, min4Max8Column.getType());
 

@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-import junit.framework.Assert;
+import org.junit.Assert;
 
 public final class DumperSubItem extends DumperItem
 {

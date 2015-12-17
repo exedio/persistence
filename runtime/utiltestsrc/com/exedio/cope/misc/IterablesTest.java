@@ -20,7 +20,6 @@ package com.exedio.cope.misc;
 
 import com.exedio.cope.junit.CopeAssert;
 import java.util.Iterator;
-import junit.framework.AssertionFailedError;
 import org.junit.Test;
 
 public class IterablesTest extends CopeAssert
@@ -32,19 +31,19 @@ public class IterablesTest extends CopeAssert
 			@Override
 			public boolean hasNext()
 			{
-				throw new AssertionFailedError();
+				throw new AssertionError();
 			}
 
 			@Override
 			public String next()
 			{
-				throw new AssertionFailedError();
+				throw new AssertionError();
 			}
 
 			@Override
 			public void remove()
 			{
-				throw new AssertionFailedError();
+				throw new AssertionError();
 			}
 		};
 

@@ -24,7 +24,7 @@ import static com.exedio.cope.misc.SetValueUtil.getFirst;
 import com.exedio.cope.pattern.ListField;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Arrays;
-import junit.framework.Assert;
+import org.junit.Assert;
 
 final class BeforeSetItem extends Item
 {

@@ -23,7 +23,6 @@ import static java.lang.Long.MIN_VALUE;
 
 import com.exedio.cope.junit.CopeAssert;
 import java.util.Random;
-import junit.framework.AssertionFailedError;
 import org.junit.Test;
 
 public class LongFieldRandomTest extends CopeAssert
@@ -45,9 +44,9 @@ public class LongFieldRandomTest extends CopeAssert
 		@Override public float nextFloat(){throw failure();}
 		@Override public synchronized double nextGaussian(){throw failure();}
 
-		private static AssertionFailedError failure()
+		private static AssertionError failure()
 		{
-			return new AssertionFailedError();
+			return new AssertionError();
 		}
 
 		private boolean nextLongAvailable = false;

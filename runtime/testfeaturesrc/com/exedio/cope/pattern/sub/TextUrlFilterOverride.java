@@ -18,7 +18,7 @@
 
 package com.exedio.cope.pattern.sub;
 
-import static junit.framework.Assert.assertNotNull;
+import static org.junit.Assert.assertNotNull;
 
 import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
