@@ -24,6 +24,7 @@ import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.Model;
 import com.exedio.cope.Type;
 import com.exedio.cope.misc.ConnectToken;
+import com.exedio.cope.util.Clock;
 import com.exedio.cope.util.JobContext;
 import com.exedio.cope.util.Properties;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -98,7 +99,7 @@ public final class SamplerProperties extends Properties
 
 		void purge(final Sampler sampler, final JobContext ctx)
 		{
-			final long now = System.currentTimeMillis();
+			final long now = Clock.currentTimeMillis();
 			final HashMap<Type<?>,Date> limits = new HashMap<>();
 			limits.put(SamplerModel      .TYPE, daysBeforeNow(now, model));
 			limits.put(SamplerTransaction.TYPE, daysBeforeNow(now, transaction));
