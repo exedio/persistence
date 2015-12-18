@@ -36,12 +36,6 @@ public class PatternTest extends AbstractRuntimeModelTest
 		super(MODEL);
 	}
 
-	@Override
-	public void setUp() throws Exception
-	{
-		super.setUp();
-	}
-
 	@Test public void testIt()
 	{
 		// type
