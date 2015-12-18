@@ -21,7 +21,7 @@ package com.exedio.cope;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
-@Category(AllButSomeTests.class)
+@Category({AllButSomeTests.class,CacheReadPoisoningBruteForcePackageTest.class})
 public class CacheReadPoisoningBruteForceTest extends AbstractRuntimeModelTest
 {
 	public CacheReadPoisoningBruteForceTest()

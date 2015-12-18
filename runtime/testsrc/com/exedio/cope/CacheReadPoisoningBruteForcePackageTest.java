@@ -18,17 +18,15 @@
 
 package com.exedio.cope;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+import org.junit.experimental.categories.Categories;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
 
-public class CacheReadPoisoningBruteForcePackageTest extends TestCase
+//reference: http://stackoverflow.com/questions/6226026/how-to-run-all-junit-tests-in-a-category-suite-with-ant
+@RunWith(Categories.class)
+@Categories.IncludeCategory(CacheReadPoisoningBruteForcePackageTest.class)
+@Suite.SuiteClasses(AllTests.class)
+public class CacheReadPoisoningBruteForcePackageTest
 {
-	public static Test suite()
-	{
-		final TestSuite suite = new TestSuite();
-		suite.addTestSuite(ConnectPropertiesValidTest.class);
-		suite.addTestSuite(CacheReadPoisoningBruteForceTest.class);
-		return suite;
-	}
+	// empty class
 }

@@ -19,7 +19,9 @@
 package com.exedio.cope;
 
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
+@Category(CacheReadPoisoningBruteForcePackageTest.class)
 public class ConnectPropertiesValidTest extends AbstractRuntimeModelTest
 {
 	public ConnectPropertiesValidTest()
