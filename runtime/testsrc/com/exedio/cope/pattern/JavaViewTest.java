@@ -18,6 +18,7 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.EqualsAssert.assertEqualBits;
 import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
 import static com.exedio.cope.pattern.JavaViewItem.TYPE;
 import static com.exedio.cope.pattern.JavaViewItem.map;
@@ -123,7 +124,7 @@ public class JavaViewTest extends AbstractRuntimeModelTest
 		assertEquals("2.25", item.getNumberString());
 		assertEquals(d2, item.getNumber());
 		assertEquals(d2, number.get(item));
-		assertEquals(2.25, item.getNumberPrimitive());
+		assertEqualBits(2.25, item.getNumberPrimitive());
 		assertEquals(2.25, numberPrimitive.get(item));
 		assertEquals("N2.25", item.getN());
 		assertEquals("N2.25", n.get(item));

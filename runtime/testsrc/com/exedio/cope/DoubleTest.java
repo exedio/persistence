@@ -25,6 +25,7 @@ import static com.exedio.cope.DoubleItem.max4;
 import static com.exedio.cope.DoubleItem.min4;
 import static com.exedio.cope.DoubleItem.min4Max8;
 import static com.exedio.cope.EqualsAssert.assertEqualsAndHash;
+import static com.exedio.cope.EqualsAssert.assertEqualBits;
 import static com.exedio.cope.EqualsAssert.assertNotEqualsAndHash;
 import static java.lang.Double.NEGATIVE_INFINITY;
 import static java.lang.Double.NaN;
@@ -70,30 +71,30 @@ public class DoubleTest extends AbstractRuntimeModelTest
 		assertEquals("any", any.getName());
 		assertEquals(false, any.isMandatory());
 		assertEquals(null, any.getPattern());
-		assertEquals(MIN, any.getMinimum());
-		assertEquals(MAX, any.getMaximum());
+		assertEqualBits(MIN, any.getMinimum());
+		assertEqualBits(MAX, any.getMaximum());
 		assertContains(any.getInitialExceptions());
 
 		assertEquals(TYPE, mandatory.getType());
 		assertEquals("mandatory", mandatory.getName());
 		assertEquals(true, mandatory.isMandatory());
-		assertEquals(MIN, mandatory.getMinimum());
-		assertEquals(MAX, mandatory.getMaximum());
+		assertEqualBits(MIN, mandatory.getMinimum());
+		assertEqualBits(MAX, mandatory.getMaximum());
 		assertContains(MandatoryViolationException.class, mandatory.getInitialExceptions());
 
 		assertEquals(false, min4.isMandatory());
-		assertEquals(4.0, min4.getMinimum());
-		assertEquals(MAX, min4.getMaximum());
+		assertEqualBits(4.0, min4.getMinimum());
+		assertEqualBits(MAX, min4.getMaximum());
 		assertContains(DoubleRangeViolationException.class, min4.getInitialExceptions());
 
 		assertEquals(false, max4.isMandatory());
-		assertEquals(MIN, max4.getMinimum());
-		assertEquals(4.0, max4.getMaximum());
+		assertEqualBits(MIN, max4.getMinimum());
+		assertEqualBits(4.0, max4.getMaximum());
 		assertContains(DoubleRangeViolationException.class, max4.getInitialExceptions());
 
 		assertEquals(false, min4Max8.isMandatory());
-		assertEquals(4.0, min4Max8.getMinimum());
-		assertEquals(8.0, min4Max8.getMaximum());
+		assertEqualBits(4.0, min4Max8.getMinimum());
+		assertEqualBits(8.0, min4Max8.getMaximum());
 		assertContains(DoubleRangeViolationException.class, min4Max8.getInitialExceptions());
 
 		// test condition canonization
@@ -203,72 +204,72 @@ public class DoubleTest extends AbstractRuntimeModelTest
 			final DoubleField orig = new DoubleField().optional();
 			assertEquals(false, orig.isFinal());
 			assertEquals(false, orig.isMandatory());
-			assertEquals(MIN, orig.getMinimum());
-			assertEquals(MAX, orig.getMaximum());
+			assertEqualBits(MIN, orig.getMinimum());
+			assertEqualBits(MAX, orig.getMaximum());
 
 			final DoubleField copy = orig.copy();
 			assertEquals(false, copy.isFinal());
 			assertEquals(false, copy.isMandatory());
-			assertEquals(MIN, copy.getMinimum());
-			assertEquals(MAX, copy.getMaximum());
+			assertEqualBits(MIN, copy.getMinimum());
+			assertEqualBits(MAX, copy.getMaximum());
 		}
 		{
 			final DoubleField orig = new DoubleField().toFinal().optional().min(10.1);
 			assertEquals(true, orig.isFinal());
 			assertEquals(false, orig.isMandatory());
 			assertNull(orig.getImplicitUniqueConstraint());
-			assertEquals(10.1, orig.getMinimum());
-			assertEquals(MAX, orig.getMaximum());
+			assertEqualBits(10.1, orig.getMinimum());
+			assertEqualBits(MAX, orig.getMaximum());
 
 			final DoubleField copy = orig.copy();
 			assertEquals(true, copy.isFinal());
 			assertEquals(false, copy.isMandatory());
 			assertNull(copy.getImplicitUniqueConstraint());
-			assertEquals(10.1, copy.getMinimum());
-			assertEquals(MAX, copy.getMaximum());
+			assertEqualBits(10.1, copy.getMinimum());
+			assertEqualBits(MAX, copy.getMaximum());
 		}
 		{
 			final DoubleField orig = new DoubleField().toFinal().optional().unique().min(20.2);
 			assertEquals(true, orig.isFinal());
 			assertEquals(false, orig.isMandatory());
 			assertNotNull(orig.getImplicitUniqueConstraint());
-			assertEquals(20.2, orig.getMinimum());
-			assertEquals(MAX, orig.getMaximum());
+			assertEqualBits(20.2, orig.getMinimum());
+			assertEqualBits(MAX, orig.getMaximum());
 
 			final DoubleField copy = orig.copy();
 			assertEquals(true, copy.isFinal());
 			assertEquals(false, copy.isMandatory());
 			assertNotNull(copy.getImplicitUniqueConstraint());
-			assertEquals(20.2, copy.getMinimum());
-			assertEquals(MAX, copy.getMaximum());
+			assertEqualBits(20.2, copy.getMinimum());
+			assertEqualBits(MAX, copy.getMaximum());
 		}
 		{
 			final DoubleField orig = new DoubleField().toFinal().optional().max(30.3);
 			assertEquals(true, orig.isFinal());
 			assertEquals(false, orig.isMandatory());
 			assertNull(orig.getImplicitUniqueConstraint());
-			assertEquals(MIN, orig.getMinimum());
-			assertEquals(30.3, orig.getMaximum());
+			assertEqualBits(MIN, orig.getMinimum());
+			assertEqualBits(30.3, orig.getMaximum());
 
 			final DoubleField copy = orig.copy();
 			assertEquals(true, copy.isFinal());
 			assertEquals(false, copy.isMandatory());
 			assertNull(copy.getImplicitUniqueConstraint());
-			assertEquals(MIN, copy.getMinimum());
-			assertEquals(30.3, copy.getMaximum());
+			assertEqualBits(MIN, copy.getMinimum());
+			assertEqualBits(30.3, copy.getMaximum());
 		}
 		{
 			final DoubleField orig = new DoubleField().range(10.1, 20.2);
 			assertEquals(false, orig.isFinal());
 			assertEquals(true, orig.isMandatory());
-			assertEquals(10.1, orig.getMinimum());
-			assertEquals(20.2, orig.getMaximum());
+			assertEqualBits(10.1, orig.getMinimum());
+			assertEqualBits(20.2, orig.getMaximum());
 
 			final DoubleField copy = orig.copy();
 			assertEquals(false, copy.isFinal());
 			assertEquals(true, copy.isMandatory());
-			assertEquals(10.1, copy.getMinimum());
-			assertEquals(20.2, copy.getMaximum());
+			assertEqualBits(10.1, copy.getMinimum());
+			assertEqualBits(20.2, copy.getMaximum());
 		}
 
 		assertIllegalRange(POSITIVE_INFINITY, 44.22, "minimum must not be infinite, but was Infinity");
@@ -301,10 +302,10 @@ public class DoubleTest extends AbstractRuntimeModelTest
 		assertEquals(valueOf(123.45), item.getAny());
 
 		// mandatory
-		assertEquals(2201.01, item.getMandatory());
+		assertEqualBits(2201.01, item.getMandatory());
 
 		item.setMandatory(52201.52);
-		assertEquals(52201.52, item.getMandatory());
+		assertEqualBits(52201.52, item.getMandatory());
 
 		try
 		{
@@ -318,7 +319,7 @@ public class DoubleTest extends AbstractRuntimeModelTest
 			assertEquals(mandatory, e.getFeature());
 			assertEquals("mandatory violation on " + item + " for " + mandatory, e.getMessage());
 		}
-		assertEquals(52201.52, item.getMandatory());
+		assertEqualBits(52201.52, item.getMandatory());
 
 		assertEquals(numberOfItems, TYPE.search(null).size());
 		try
@@ -390,7 +391,7 @@ public class DoubleTest extends AbstractRuntimeModelTest
 		{
 			assertEquals(item, e.getItem());
 			assertSame(mandatory, e.getFeature());
-			assertEquals(POSITIVE_INFINITY, e.getValue());
+			assertEqualBits(POSITIVE_INFINITY, e.getValue());
 			assertEquals(false, e.isTooSmall());
 			assertEquals(
 					"range violation on " + item + ", " +
@@ -408,7 +409,7 @@ public class DoubleTest extends AbstractRuntimeModelTest
 		{
 			assertEquals(item, e.getItem());
 			assertSame(mandatory, e.getFeature());
-			assertEquals(NEGATIVE_INFINITY, e.getValue());
+			assertEqualBits(NEGATIVE_INFINITY, e.getValue());
 			assertEquals(true, e.isTooSmall());
 			assertEquals(
 					"range violation on " + item + ", " +
@@ -428,7 +429,7 @@ public class DoubleTest extends AbstractRuntimeModelTest
 			assertEquals(item, e.getItem());
 			assertSame(min4, e.getFeature());
 			assertSame(min4, e.getFeature());
-			assertEquals(3.9, e.getValue());
+			assertEqualBits(3.9, e.getValue());
 			assertEquals(true, e.isTooSmall());
 			assertEquals(
 					"range violation on " + item + ", " +
@@ -456,7 +457,7 @@ public class DoubleTest extends AbstractRuntimeModelTest
 			assertEquals(item, e.getItem());
 			assertSame(max4, e.getFeature());
 			assertSame(max4, e.getFeature());
-			assertEquals(4.1, e.getValue());
+			assertEqualBits(4.1, e.getValue());
 			assertEquals(false, e.isTooSmall());
 			assertEquals(
 					"range violation on " + item + ", " +
@@ -479,7 +480,7 @@ public class DoubleTest extends AbstractRuntimeModelTest
 			assertEquals(null, e.getItem());
 			assertSame(max4, e.getFeature());
 			assertSame(max4, e.getFeature());
-			assertEquals(4.1, e.getValue());
+			assertEqualBits(4.1, e.getValue());
 			assertEquals(
 					"range violation, " +
 					"4.1 is too big for " + max4 + ", " +
@@ -500,7 +501,7 @@ public class DoubleTest extends AbstractRuntimeModelTest
 			assertEquals(null, e.getItem());
 			assertSame(max4, e.getFeature());
 			assertSame(max4, e.getFeature());
-			assertEquals(4.1, e.getValue());
+			assertEqualBits(4.1, e.getValue());
 			assertEquals(
 					"range violation, " +
 					"4.1 is too big for " + max4 + ", " +
@@ -520,7 +521,7 @@ public class DoubleTest extends AbstractRuntimeModelTest
 			assertEquals(item, e.getItem());
 			assertSame(min4Max8, e.getFeature());
 			assertSame(min4Max8, e.getFeature());
-			assertEquals(3.9, e.getValue());
+			assertEqualBits(3.9, e.getValue());
 			assertEquals(true, e.isTooSmall());
 			assertEquals(
 					"range violation on " + item + ", " +
@@ -551,7 +552,7 @@ public class DoubleTest extends AbstractRuntimeModelTest
 			assertEquals(item, e.getItem());
 			assertSame(min4Max8, e.getFeature());
 			assertSame(min4Max8, e.getFeature());
-			assertEquals(8.1, e.getValue());
+			assertEqualBits(8.1, e.getValue());
 			assertEquals(false, e.isTooSmall());
 			assertEquals(
 					"range violation on " + item + ", " +
