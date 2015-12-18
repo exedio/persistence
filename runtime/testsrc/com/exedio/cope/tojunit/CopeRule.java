@@ -21,9 +21,12 @@ package com.exedio.cope.tojunit;
 import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.Model;
 import com.exedio.cope.junit.CopeModelTest;
-import org.junit.rules.ExternalResource;
+import org.junit.Assert;
+import org.junit.rules.TestRule;
+import org.junit.runner.Description;
+import org.junit.runners.model.Statement;
 
-public abstract class CopeRule extends ExternalResource
+public abstract class CopeRule implements TestRule
 {
 	private static final class Adaptee extends CopeModelTest
 	{
@@ -34,6 +37,16 @@ public abstract class CopeRule extends ExternalResource
 		}
 
 		private final CopeRule adapter;
+
+
+		private Description description = null;
+
+		void setDescription(final Description description)
+		{
+			Assert.assertNotNull(description);
+			Assert.assertNull(this.description);
+			this.description = description;
+		}
 
 		/**
 		 * Just to make them visible to the adapter.
@@ -71,6 +84,12 @@ public abstract class CopeRule extends ExternalResource
 		{
 			return doesManageTransactions;
 		}
+
+		@Override
+		protected String getTransactionName()
+		{
+			return "tx:" + description.getTestClass().getName();
+		}
 	}
 
 	private final Adaptee test;
@@ -92,22 +111,26 @@ public abstract class CopeRule extends ExternalResource
 		test.omitTransaction();
 	}
 
-	@Override
-	protected final void before() throws Exception
-	{
-		test.setUp();
-	}
 
-	@Override
-	protected final void after()
+	public Statement apply(final Statement base, final Description description)
 	{
-		try
+		final Adaptee test = this.test; // avoid synthetic-access warning
+		return new Statement()
 		{
-			test.tearDown();
-		}
-		catch(final Exception e)
-		{
-			throw new RuntimeException(e);
-		}
+			@Override
+			public void evaluate() throws Throwable
+			{
+				test.setDescription(description);
+				test.setUp();
+				try
+				{
+					base.evaluate();
+				}
+				finally
+				{
+					test.tearDown();
+				}
+			}
+		};
 	}
 }
