@@ -18,10 +18,12 @@
 
 package com.exedio.cope;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
 @Category({AllButSomeTests.class,CacheReadPoisoningBruteForcePackageTest.class})
+@SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
 public class CacheReadPoisoningBruteForceTest extends AbstractRuntimeModelTest
 {
 	public CacheReadPoisoningBruteForceTest()
