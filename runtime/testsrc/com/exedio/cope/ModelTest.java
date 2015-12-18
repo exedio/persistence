@@ -27,7 +27,7 @@ import org.junit.Test;
 /**
  * @author baumgaertel
  */
-public class ModelTest extends com.exedio.cope.junit.CopeModelTest
+public class ModelTest extends AbstractRuntimeModelTest
 {
 	static class ModelTestItem extends Item
 	{

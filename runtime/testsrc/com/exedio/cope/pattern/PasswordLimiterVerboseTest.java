@@ -21,7 +21,7 @@ package com.exedio.cope.pattern;
 import static com.exedio.cope.pattern.PasswordLimiterItem.passwordLimited;
 import static com.exedio.cope.pattern.PasswordLimiterItem.purgePasswordLimited;
 
-import com.exedio.cope.junit.CopeModelTest;
+import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.pattern.PasswordLimiter.ExceededException;
 import com.exedio.cope.pattern.PasswordLimiter.Refusal;
 import com.exedio.cope.util.Clock;
@@ -29,7 +29,7 @@ import java.util.Date;
 import java.util.List;
 import org.junit.Test;
 
-public class PasswordLimiterVerboseTest extends CopeModelTest
+public class PasswordLimiterVerboseTest extends AbstractRuntimeModelTest
 {
 	public PasswordLimiterVerboseTest()
 	{

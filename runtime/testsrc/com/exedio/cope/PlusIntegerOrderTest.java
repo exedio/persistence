@@ -25,7 +25,6 @@ import static com.exedio.cope.PlusIntegerItem.numB;
 import static com.exedio.cope.PlusIntegerItem.plusAB;
 import static java.lang.Integer.valueOf;
 
-import com.exedio.cope.junit.CopeModelTest;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -33,7 +32,7 @@ import java.util.List;
 import org.junit.Test;
 
 @SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
-public class PlusIntegerOrderTest extends CopeModelTest
+public class PlusIntegerOrderTest extends AbstractRuntimeModelTest
 {
 	public PlusIntegerOrderTest()
 	{

@@ -18,11 +18,11 @@
 
 package com.exedio.cope.pattern;
 
-import com.exedio.cope.junit.CopeModelTest;
+import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.util.EmptyJobContext;
 import org.junit.Test;
 
-public class DispatcherProbeTest extends CopeModelTest
+public class DispatcherProbeTest extends AbstractRuntimeModelTest
 {
 	private static final Dispatcher.Config config = new Dispatcher.Config();
 

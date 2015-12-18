@@ -20,13 +20,14 @@ package com.exedio.cope.junit;
 
 import static com.exedio.cope.junit.JUnitTestItem.nextSequence;
 
+import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.ChangeEvent;
 import com.exedio.cope.ChangeListener;
 import com.exedio.cope.Model;
 import com.exedio.cope.misc.DatabaseListener;
 import java.util.List;
 
-public abstract class CopeModelTestTest extends CopeModelTest
+public abstract class CopeModelTestTest extends AbstractRuntimeModelTest
 {
 	private static final Model MODEL = new Model(JUnitTestItem.TYPE);
 

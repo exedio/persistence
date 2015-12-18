@@ -22,8 +22,8 @@ import static com.exedio.cope.SchemaInfo.getColumnName;
 import static com.exedio.cope.SchemaInfoAssert.assertNoUpdateCounterColumn;
 import static com.exedio.cope.pattern.DispatcherItem.toTarget;
 
+import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.TestLogAppender;
-import com.exedio.cope.junit.CopeModelTest;
 import com.exedio.cope.pattern.Dispatcher.Run;
 import com.exedio.cope.util.AssertionErrorJobContext;
 import com.exedio.cope.util.Clock;
@@ -37,7 +37,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 
-public class DispatcherTest extends CopeModelTest
+public class DispatcherTest extends AbstractRuntimeModelTest
 {
 	private static final Dispatcher.Config config = new Dispatcher.Config(3, 2);
 

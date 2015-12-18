@@ -23,14 +23,13 @@ import static com.exedio.cope.PlusIntegerItem.numA;
 import static com.exedio.cope.PlusIntegerItem.numB;
 import static com.exedio.cope.PlusIntegerItem.numC;
 
-import com.exedio.cope.junit.CopeModelTest;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import org.junit.Test;
 
-public class PlusIntegerOrderNullTest extends CopeModelTest
+public class PlusIntegerOrderNullTest extends AbstractRuntimeModelTest
 {
 	public PlusIntegerOrderNullTest()
 	{
