@@ -36,8 +36,9 @@ public class ClusterNetworkPingTest extends ClusterNetworkTest
 			assertEquals(modelA, e.getModel());
 		}
 
-		modelA.connect(getProperties(true, -1, -1));
+		// when running this test alone, it fails on Windows if modelA is connected before modelB
 		modelB.connect(getProperties(true, -1, -1));
+		modelA.connect(getProperties(true, -1, -1));
 
 		assertEquals("Connect Properties Context (multicast)", modelA.getConnectProperties().getContext().getDescription());
 		assertEquals("Connect Properties Context (multicast)", modelB.getConnectProperties().getContext().getDescription());
