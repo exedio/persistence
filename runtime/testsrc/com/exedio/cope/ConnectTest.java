@@ -32,11 +32,6 @@ public class ConnectTest extends AbstractRuntimeModelTest
 		super(MODEL);
 	}
 
-	public static final void assertEquals(final String expected, final String actual)
-	{
-		assertEquals("-----"+expected+"-----"+actual+"-----", expected, actual);
-	}
-
 	@Test public void testConnect()
 	{
 		final ConnectProperties defaultProps = getConnectProperties();
