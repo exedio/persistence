@@ -8,7 +8,10 @@
         <general-data xmlns="http://www.netbeans.org/ns/freeform-project/2">
             <!-- Do not use Project Properties customizer when editing this file manually. -->
             <name>cope</name>
-            <properties/>
+            <properties>
+					<property-file>nbproject/project.properties</property-file>
+					<property-file>nbproject/local.properties</property-file>
+				</properties>
             <folders>
                 <source-folder>
                     <label>cope</label>
@@ -301,7 +304,7 @@
                 <package-root>runtime/postgresqlsrc</package-root>
                 <package-root>instrument/annosrc</package-root>
                 <package-root>instrument/antsrc</package-root>
-                <classpath mode="compile">lib/bsh-src.jar:lib/commons-fileupload.jar:lib/commons-io.jar:lib/cojen-sources.jar:lib/bsh-core.jar:lib/cojen.jar:lib/servlet-api.jar:lib/exedio-cope-util.jar:lib/exedio-cope-util.jar-src.zip:lib/junit.jar:lib/hsqldb.jar:lib/mysql-connector-java-5.0.3-bin.jar:lib/postgresql-8.1-404.jdbc3.jar:lib/exedio-cops.jar:lib/ant-contrib.jar:lib/exedio-cope-console.jar:lib/exedio-cops.jar-src.zip:lib/exedio-jspm.jar:lib/findbugs-annotations.jar:lib/log4j.jar:lib/servlet-api.jar-src.zip:lib/trove-src.jar:lib/trove.jar:instrument/annosrc:instrument/antsrc:instrument/src</classpath>
+                <classpath mode="compile">${ant_jar}:lib/bsh-src.jar:lib/commons-fileupload.jar:lib/commons-io.jar:lib/cojen-sources.jar:lib/bsh-core.jar:lib/cojen.jar:lib/servlet-api.jar:lib/exedio-cope-util.jar:lib/exedio-cope-util.jar-src.zip:lib/junit.jar:lib/hsqldb.jar:lib/mysql-connector-java-5.0.3-bin.jar:lib/postgresql-8.1-404.jdbc3.jar:lib/exedio-cops.jar:lib/ant-contrib.jar:lib/exedio-cope-console.jar:lib/exedio-cops.jar-src.zip:lib/exedio-jspm.jar:lib/findbugs-annotations.jar:lib/log4j.jar:lib/servlet-api.jar-src.zip:lib/trove-src.jar:lib/trove.jar:instrument/annosrc:instrument/antsrc:instrument/src</classpath>
                 <source-level>1.7</source-level>
             </compilation-unit>
         </java-data>
