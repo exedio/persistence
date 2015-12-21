@@ -22,6 +22,7 @@ package com.exedio.cope.instrument;
 import static com.exedio.cope.util.StrictFile.delete;
 import static java.lang.System.lineSeparator;
 
+import com.exedio.cope.util.Clock;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -34,10 +35,15 @@ import java.util.Iterator;
 
 final class Main
 {
-	final void run(final ArrayList<File> files, final Params params) throws HumanReadableException, ParserException, IOException
+	final void run(final ArrayList<File> files, final Params params, final ArrayList<File> resourceFiles) throws HumanReadableException, ParserException, IOException
 	{
 		if(files.isEmpty())
 			throw new HumanReadableException("nothing to do.");
+		if ( noFilesModifiedAfter(files, params.timestampFile) && noFilesModifiedAfter(resourceFiles, params.timestampFile) )
+		{
+			System.out.println("No files or resources modified.");
+			return;
+		}
 
 		if(params.verify)
 			System.out.println("Instrumenting in verify mode.");
@@ -116,6 +122,18 @@ final class Main
 					logSkipped(file);
 				}
 			}
+
+			if ( params.timestampFile!=null )
+			{
+				if ( params.timestampFile.exists() )
+				{
+					params.timestampFile.setLastModified(Clock.currentTimeMillis());
+				}
+				else
+				{
+					params.timestampFile.createNewFile();
+				}
+			}
 		}
 		finally
 		{
@@ -124,6 +142,26 @@ final class Main
 
 		if(verbose || instrumented>0)
 			System.out.println("Instrumented " + instrumented + ' ' + (instrumented==1 ? "file" : "files") + ", skipped " + skipped + " in " + files.iterator().next().getParentFile().getAbsolutePath());
+	}
+
+	private static boolean noFilesModifiedAfter(ArrayList<File> checkFiles, File referenceFile)
+	{
+		if ( referenceFile==null || !referenceFile.exists() )
+		{
+			return false;
+		}
+		else
+		{
+			final long referenceLastModified = referenceFile.lastModified();
+			for (File file: checkFiles)
+			{
+				if ( file.lastModified()>=referenceLastModified )
+				{
+					return false;
+				}
+			}
+			return true;
+		}
 	}
 
 	boolean verbose;

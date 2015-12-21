@@ -37,6 +37,18 @@
                     <encoding>UTF-8</encoding>
                 </source-folder>
                 <source-folder>
+                    <label>instrument/testfeaturesrc</label>
+                    <type>java</type>
+                    <location>instrument/testfeaturesrc</location>
+                    <encoding>UTF-8</encoding>
+                </source-folder>
+                <source-folder>
+                    <label>instrument/testsrc</label>
+                    <type>java</type>
+                    <location>instrument/testsrc</location>
+                    <encoding>UTF-8</encoding>
+                </source-folder>
+                <source-folder>
                     <label>runtime/src</label>
                     <type>java</type>
                     <location>runtime/src</location>
@@ -188,6 +200,14 @@
                     <source-folder style="packages">
                         <label>instrument/antsrc</label>
                         <location>instrument/antsrc</location>
+                    </source-folder>
+                    <source-folder style="packages">
+                        <label>instrument/testfeaturesrc</label>
+                        <location>instrument/testfeaturesrc</location>
+                    </source-folder>
+                    <source-folder style="packages">
+                        <label>instrument/testsrc</label>
+                        <location>instrument/testsrc</location>
                     </source-folder>
                     <source-folder style="packages">
                         <label>runtime/src</label>

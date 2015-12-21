@@ -18,6 +18,7 @@
 
 package com.exedio.cope.instrument;
 
+import java.io.File;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
@@ -34,4 +35,5 @@ final class Params
 	boolean directSetValueMap = false;
 	String hidingWarningSuppressor = null;
 	boolean verbose = true;
+	File timestampFile = null;
 }

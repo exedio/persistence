@@ -372,7 +372,9 @@
 				verify="${instrument.verify}"
 				annotateGenerated="true"
 				finalArgs="true"
-				verbose="false">
+				verbose="false"
+				timestampFile="build/timestamps/runtime.utiltest.timestamp">
+			<resources refid="instrument.resources" />
 			<fileset dir="runtime/utiltestsrc">
 				<include name="com/exedio/cope/pattern/CompositeTest.java" />
 				<include name="com/exedio/cope/pattern/EnumSetFieldFinalTest.java" />
@@ -462,7 +464,9 @@
 				annotateGenerated="true"
 				suppressUnusedWarningOnPrivateActivationConstructor="true"
 				finalArgs="true"
-				verbose="false">
+				verbose="false"
+				timestampFile="build/timestamps/runtime.test.timestamp">
+			<resources refid="instrument.resources" />
 			<fileset dir="runtime/testsrc/com/exedio/cope">
 				<include name="**/*.java" />
 				<exclude name="AbstractRuntimeTest.java" /><!-- TODO remove -->
@@ -667,7 +671,9 @@
 				verify="${instrument.verify}"
 				suppressUnusedWarningOnPrivateActivationConstructor="true"
 				finalArgs="true"
-				verbose="false">
+				verbose="false"
+				timestampFile="build/timestamps/runtime.servlet.test.timestamp">
+			<resources refid="instrument.resources" />
 			<fileset dir="runtime/servlettestsrc">
 				<include name="**/*.java" />
 				<exclude name="com/exedio/cope/pattern/MediaPattern.java" />
@@ -824,7 +830,7 @@
 
 	<target name="instrument.taskdef" depends="dsmf.compile, runtime.core.compile, runtime.pattern.compile, runtime.servlet.compile, instrument.compile, instrument.testfeature.compile, runtime.test.feature.compile">
 		<taskdef resource="com/exedio/cope/instrument/ant.properties">
-			<classpath>
+			<classpath id="instrument.resources">
 				<pathelement location="build/classes/dsmf/src" />
 				<pathelement location="build/classes/runtime/src" />
 				<pathelement location="build/classes/runtime/patternsrc" /><!-- TODO stricter, is for Composite only - just that instrumentor knows Hash, no static dependency -->
@@ -843,6 +849,7 @@
 				<pathelement location="lib/slf4j-api.jar" />
 			</classpath>
 		</taskdef>
+		<mkdir dir="build/timestamps"/>
 	</target>
 
 	<target name="instrument.test.instrument" depends="instrument.taskdef" unless="skip.instrument">
@@ -853,7 +860,9 @@
 				suppressUnusedWarningOnPrivateActivationConstructor="true"
 				finalArgs="true"
 				hidingWarningSuppressor="hiding"
-				verbose="false">
+				verbose="false"
+				timestampFile="build/timestamps/instrument.test.timestamp">
+			<resources refid="instrument.resources" />
 			<fileset dir="instrument/testsrc/com/exedio/cope/instrument/testmodel">
 				<include name="**/*.java" />
 			</fileset>
