@@ -4,13 +4,13 @@
 
 	<property file="local.properties" />
 	<property file="project.properties" />
-	
+
 	<import>
 		<fileset dir="macros">
 			<include name="*.xml" />
 		</fileset>
 	</import>
-	
+
 	<taskdef name="LoadFile" classname="org.apache.tools.ant.taskdefs.LoadFile" />
 
 	<taskdef
@@ -60,7 +60,7 @@
 			<plot file="@{jarfile}" />
 		</sequential>
 	</macrodef>
-	
+
 	<macrodef name="ljunit">
 		<attribute name="test" />
 		<attribute name="env" default="N" />
@@ -80,7 +80,7 @@
 			</junit>
 		</sequential>
 	</macrodef>
-	
+
 	<macrodef name="foreachEnvironment">
 		<attribute name="skipSwitch" />
 		<element name="body" optional="false" />
@@ -117,7 +117,7 @@
 			</for>
 		</sequential>
 	</macrodef>
-	
+
 	<macrodef name="runInTomcat">
 		<attribute name="name" />
 		<element name="body" optional="false" />
@@ -163,7 +163,7 @@
 			</trycatch>
 		</sequential>
 	</macrodef>
-	
+
 	<target name="sleepInTomcat" depends="tomcat" description="for inspecting tomcat manually">
 		<runInTomcat name="sleepInTomcat">
 			<body>
@@ -171,7 +171,7 @@
 			</body>
 		</runInTomcat>
 	</target>
-	
+
 	<target name="catalina">
 		<property name="catalina.root" value="apache-tomcat-6.0.16" />
 		<untar src="lib/apache-tomcat.tar.gz"
@@ -200,9 +200,9 @@
 			</filterset>
 		</copy>
 	</target>
-	
+
 	<!-- dsmf -->
-	
+
 	<target name="dsmf.compile">
 		<compile srcdir="dsmf/src">
 			<classpath>
@@ -211,7 +211,7 @@
 			</classpath>
 		</compile>
 	</target>
-	
+
 	<target name="dsmf.test.compile" depends="dsmf.compile">
 		<compile srcdir="dsmf/testsrc">
 			<classpath>
@@ -223,7 +223,7 @@
 			</classpath>
 		</compile>
 	</target>
-	
+
 	<target name="dsmf.test" depends="dsmf.test.compile">
 		<foreachEnvironment skipSwitch="dsmf.test">
 			<body>
@@ -242,13 +242,13 @@
 			</body>
 		</foreachEnvironment>
 	</target>
-	
+
 	<target name="dsmf.clean">
 		<delete dir="build/dsmf" />
 	</target>
-	
+
 	<!-- runtime -->
-	
+
 	<target name="runtime.core.compile" depends="dsmf.compile, instrument.anno.compile">
 		<compile srcdir="runtime/src">
 			<classpath>
@@ -261,7 +261,7 @@
 			</classpath>
 		</compile>
 	</target>
-	
+
 	<target name="runtime.dialect.compile" depends="dsmf.compile, runtime.core.compile, instrument.anno.compile">
 		<for param="dialect.file">
 			<path>
@@ -302,7 +302,7 @@
 			</classpath>
 		</compile>
 	</target>
-	
+
 	<target name="runtime.servlet.compile" depends="dsmf.compile, runtime.core.compile, runtime.pattern.compile, instrument.anno.compile">
 		<compile srcdir="runtime/servletsrc">
 			<classpath>
@@ -318,7 +318,7 @@
 			</classpath>
 		</compile>
 	</target>
-	
+
 	<target name="runtime.junit.compile" depends="runtime.core.compile">
 		<compile srcdir="runtime/junitsrc">
 			<classpath>
@@ -330,14 +330,14 @@
 			</classpath>
 		</compile>
 	</target>
-	
+
 	<target name="runtime.compile"
 				depends="runtime.core.compile,
 							runtime.dialect.compile,
 							runtime.pattern.compile,
 							runtime.servlet.compile,
 							runtime.junit.compile" />
-	
+
 	<target name="runtime.core.jar" depends="dsmf.compile, runtime.core.compile, runtime.dialect.compile, runtime.pattern.compile, runtime.servlet.compile, runtime.test.protocol">
 		<ljar name="cope" jarfile="build/exedio-cope.jar" classpath="trove4j.jar exedio-cope-util.jar">
 			<fileset dir="build/classes/dsmf/src" />
@@ -347,15 +347,15 @@
 			<fileset dir="build/classes/runtime/servletsrc" />
 		</ljar>
 	</target>
-	
+
 	<target name="runtime.junit.jar" depends="runtime.junit.compile">
 		<ljar name="cope junit" jarfile="build/exedio-cope-junit.jar" classpath="exedio-cope.jar">
 			<fileset dir="build/classes/runtime/junitsrc" />
 		</ljar>
 	</target>
-	
+
 	<target name="runtime.jar" depends="runtime.core.jar, runtime.junit.jar" />
-	
+
 	<target name="runtime.jar.src">
 		<mkdir dir="build" />
 		<zip destfile="build/exedio-cope-src.zip" filesonly="true" whenempty="fail" duplicate="fail" level="9">
@@ -366,7 +366,7 @@
 			<zipfileset dir="${basedir}/runtime/junitsrc"  ><include name="**/*.java"/></zipfileset>
 		</zip>
 	</target>
-	
+
 	<target name="runtime.utiltest.instrument" depends="instrument.taskdef">
 		<instrument
 				verify="${instrument.verify}"
@@ -387,7 +387,7 @@
 			</fileset>
 		</instrument>
 	</target>
-	
+
 	<target name="runtime.utiltest.compile"
 			depends="
 				dsmf.compile,
@@ -415,7 +415,7 @@
 			</classpath>
 		</compile>
 	</target>
-	
+
 	<target name="runtime.utiltest"
 			depends="dsmf.compile, runtime.core.compile, runtime.dialect.compile, runtime.junit.compile, runtime.utiltest.compile">
 		<ljunit test="${runtime.utiltest}">
@@ -440,7 +440,7 @@
 			</classpath>
 		</ljunit>
 	</target>
-	
+
 	<target name="runtime.test.feature.compile"
 			depends="runtime.core.compile, runtime.pattern.compile, runtime.servlet.compile, instrument.anno.compile">
 		<compile srcdir="runtime/testfeaturesrc">
@@ -455,7 +455,7 @@
 			</classpath>
 		</compile>
 	</target>
-	
+
 	<target name="runtime.test.instrument" depends="instrument.taskdef" unless="skip.instrument">
 		<instrument
 				verify="${instrument.verify}"
@@ -518,7 +518,7 @@
 			</fileset>
 		</instrument>
 	</target>
-	
+
 	<target name="runtime.test.compile"
 			depends="runtime.test.instrument, dsmf.compile, runtime.core.compile, runtime.pattern.compile, runtime.servlet.compile, runtime.junit.compile, runtime.test.feature.compile, instrument.anno.compile">
 		<compile srcdir="runtime/testsrc">
@@ -540,7 +540,7 @@
 			</classpath>
 		</compile>
 	</target>
-	
+
 	<target name="runtime.test" depends="dsmf.compile, runtime.core.compile, runtime.dialect.compile, runtime.pattern.compile, runtime.servlet.compile, runtime.junit.compile, runtime.test.feature.compile, runtime.test.compile">
 		<mkdir dir="build/testresults" />
 		<foreachEnvironment skipSwitch="runtime.test">
@@ -579,7 +579,7 @@
 			</body>
 		</foreachEnvironment>
 	</target>
-	
+
 	<target name="runtime.test.protocol" depends="dsmf.compile, runtime.core.compile, runtime.dialect.compile, runtime.junit.compile, runtime.test.compile">
 		<delete file="build/classes/runtime/src/com/exedio/cope/testprotocol.properties" />
 		<foreachEnvironment skipSwitch="runtime.test.protocol">
@@ -648,7 +648,7 @@
 			</body>
 		</foreachEnvironment>
 	</target>
-	
+
 	<target name="runtime.tomcat" depends="runtime.web, catalina">
 		<foreachEnvironment skipSwitch="runtime.tomcat">
 			<body>
@@ -661,7 +661,7 @@
 			</body>
 		</foreachEnvironment>
 	</target>
-	
+
 	<target name="runtime.servlet.test.instrument" depends="instrument.taskdef" unless="skip.instrument">
 		<instrument
 				verify="${instrument.verify}"
@@ -710,12 +710,12 @@
 			<fileset file="lib/log4j-bundle.jar" />
 		</copy>
 	</target>
-	
+
 	<target name="runtime.servlet.test.tomcat" depends="runtime.servlet.test.web, catalina">
 		<copy tofile="tomcat/conf/Catalina/localhost/cope-runtime-servlet.xml"
 				file="runtime/servlet-context.xml" />
 	</target>
-	
+
 	<target name="runtime.servlet.webtest.compile">
 		<compile srcdir="runtime/servlettestwebsrc">
 			<classpath>
@@ -725,7 +725,7 @@
 			</classpath>
 		</compile>
 	</target>
-	
+
 	<target name="runtime.servlet.webtest"
 				depends="catalina,
 							runtime.servlet.test.tomcat,
@@ -743,7 +743,7 @@
 			</body>
 		</runInTomcat>
 	</target>
-	
+
 	<target name="runtime.clean">
 		<delete>
 			<fileset dir="runtime/servletsrc"><!-- is not created anymore -->
@@ -757,9 +757,9 @@
 		<delete dir="runtime/servlettestweb/WEB-INF/classes" />
 		<delete dir="runtime/servlettestweb/WEB-INF/lib" />
 	</target>
-	
+
 	<!-- instrument -->
-	
+
 	<target name="instrument.anno.compile">
 		<compile srcdir="instrument/annosrc" />
 	</target>
@@ -769,7 +769,7 @@
 			<fileset dir="build/classes/instrument/annosrc" />
 		</ljarn>
 	</target>
-	
+
 	<target name="instrument.core.compile" depends="runtime.core.compile, runtime.pattern.compile, instrument.anno.compile">
 		<compile srcdir="instrument/src">
 			<classpath>
@@ -783,7 +783,7 @@
 			</classpath>
 		</compile>
 	</target>
-	
+
 	<target name="instrument.ant.compile" depends="instrument.core.compile">
 		<compile srcdir="instrument/antsrc" includeAntRuntime="true">
 			<classpath>
@@ -792,7 +792,7 @@
 			</classpath>
 		</compile>
 	</target>
-	
+
 	<target name="instrument.compile" depends="instrument.core.compile, instrument.ant.compile" />
 
 	<target name="instrument.jar" depends="instrument.core.compile, instrument.ant.compile">
@@ -801,7 +801,7 @@
 			<fileset dir="build/classes/instrument/antsrc" />
 		</ljar>
 	</target>
-	
+
 	<target name="instrument.testfeature.compile" depends="runtime.core.compile, runtime.pattern.compile, runtime.servlet.compile, instrument.compile">
 		<compile srcdir="instrument/testfeaturesrc">
 			<classpath>
@@ -821,7 +821,7 @@
 			</fileset>
 		</copy>
 	</target>
-	
+
 	<target name="instrument.taskdef" depends="dsmf.compile, runtime.core.compile, runtime.pattern.compile, runtime.servlet.compile, instrument.compile, instrument.testfeature.compile, runtime.test.feature.compile">
 		<taskdef resource="com/exedio/cope/instrument/ant.properties">
 			<classpath>
@@ -844,7 +844,7 @@
 			</classpath>
 		</taskdef>
 	</target>
-	
+
 	<target name="instrument.test.instrument" depends="instrument.taskdef" unless="skip.instrument">
 		<instrument
 				verify="${instrument.verify}"
@@ -859,7 +859,7 @@
 			</fileset>
 		</instrument>
 	</target>
-	
+
 	<target name="instrument.test.compile" depends="instrument.test.instrument, instrument.testfeature.compile, runtime.core.compile, runtime.pattern.compile, runtime.servlet.compile, runtime.junit.compile, instrument.compile">
 		<compile srcdir="instrument/testsrc">
 			<classpath>
@@ -882,7 +882,7 @@
 			</fileset>
 		</copy>
 	</target>
-	
+
 	<target name="instrument.test"
 				depends="runtime.compile, instrument.compile, instrument.test.compile">
 		<ljunit test="com.exedio.cope.instrument.AllTests">
@@ -903,34 +903,34 @@
 			</classpath>
 		</ljunit>
 	</target>
-	
+
 	<target name="instrument.clean">
 		<delete dir="build/instrument" />
 	</target>
-	
+
 	<!-- common -->
-	
+
 	<target name="src" depends="index" description="creates all sources, so the IDE does not complain" />
-	
+
 	<target name="instrument" depends="runtime.servlet.test.instrument, instrument.test.instrument, runtime.utiltest.instrument, runtime.test.instrument" />
-	
+
 	<target name="compile"
 			  depends="runtime.compile,
 			  runtime.servlet.test.web,
 			  runtime.test.compile,
 			  runtime.utiltest.compile,
 			  instrument.compile" />
-	
+
 	<target name="jar" depends="runtime.jar, instrument.anno.jar, instrument.jar" />
-	
+
 	<target name="test" depends="dsmf.test, runtime.utiltest, runtime.test, instrument.test" />
-	
+
 	<target name="web" depends="runtime.web" />
-	
+
 	<target name="tomcat" depends="runtime.tomcat, runtime.servlet.test.tomcat" />
-	
+
 	<target name="webtest" depends="runtime.servlet.webtest" />
-	
+
 	<target name="index">
 		<foreachEnvironment skipSwitch="index">
 			<body>
@@ -944,12 +944,12 @@
 			</body>
 		</foreachEnvironment>
 	</target>
-	
+
 	<target name="clean" depends="dsmf.clean, runtime.clean, instrument.clean">
 		<delete dir="build" />
 		<delete dir="tomcat" />
 	</target>
-	
+
 	<target name="api">
 		<api title="cope persistence">
 			<src>
@@ -976,7 +976,7 @@
 			</myClasspath>
 		</api>
 	</target>
-	
+
 	<target name="testprotocol" depends="runtime.test.protocol, runtime.core.compile">
 		<mkdir dir="build/runtime" />
 		<java classname="com.exedio.cope.console.EnvironmentCop" taskname="testprotocol"
@@ -1003,13 +1003,13 @@
 			</filterset>
 		</copy>
 	</target>
-	
+
 	<target name="build"
 			depends="compile, test, jar, testprotocol,
 						tomcat, index,
 						webtest" />
-	
-	
+
+
 	<target name="findbugs" depends="findbugs.taskdef, compile">
 		<findbugs
 					home="${basedir}/build/findbugs-home"
@@ -1044,9 +1044,9 @@
 			</auxclasspath>
 		</findbugs>
 	</target>
-	
+
 	<target name="all" depends="build, runtime.jar.src, api, findbugs" />
-	
+
 	<target name="jenkins" depends="all">
 		<copy todir="${basedir}/build/success">
 			<fileset file="${basedir}/build/exedio-cope.jar" />
