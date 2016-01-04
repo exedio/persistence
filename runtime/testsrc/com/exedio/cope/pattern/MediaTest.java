@@ -40,7 +40,7 @@ import java.io.InputStream;
 import java.util.Arrays;
 import org.junit.Test;
 
-public final class MediaTest extends AbstractRuntimeModelTest
+public class MediaTest extends AbstractRuntimeModelTest
 {
 	static final Model MODEL = new Model(TYPE, MediaItemHolder.TYPE);
 
@@ -175,7 +175,7 @@ public final class MediaTest extends AbstractRuntimeModelTest
 
 
 	@Deprecated
-	@Test public static void testDeprecated()
+	@Test public void testDeprecated()
 	{
 		try
 		{

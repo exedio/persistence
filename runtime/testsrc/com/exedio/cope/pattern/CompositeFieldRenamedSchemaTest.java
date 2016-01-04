@@ -31,7 +31,7 @@ import com.exedio.cope.Feature;
 import com.exedio.cope.Model;
 import org.junit.Test;
 
-public final class CompositeFieldRenamedSchemaTest extends AbstractRuntimeModelTest
+public class CompositeFieldRenamedSchemaTest extends AbstractRuntimeModelTest
 {
 	private static final Model MODEL = new Model(TYPE);
 
@@ -45,7 +45,7 @@ public final class CompositeFieldRenamedSchemaTest extends AbstractRuntimeModelT
 		super(MODEL);
 	}
 
-	@Test public static void testIt()
+	@Test public void testIt()
 	{
 		assertEquals(null,        ann(virgnTemp));
 		assertEquals("namedTemp", ann(wrongTemp));
