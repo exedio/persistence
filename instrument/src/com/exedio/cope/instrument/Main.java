@@ -23,6 +23,7 @@ import static com.exedio.cope.util.StrictFile.delete;
 import static java.lang.System.lineSeparator;
 
 import com.exedio.cope.util.Clock;
+import com.exedio.cope.util.StrictFile;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -39,7 +40,7 @@ final class Main
 	{
 		if(files.isEmpty())
 			throw new HumanReadableException("nothing to do.");
-		if ( noFilesModifiedAfter(files, params.timestampFile) && noFilesModifiedAfter(resourceFiles, params.timestampFile) )
+		if ( noFilesModifiedAfter(files, params.timestampFile, params.verbose) && noFilesModifiedAfter(resourceFiles, params.timestampFile, params.verbose) )
 		{
 			System.out.println("No files or resources modified.");
 			return;
@@ -127,11 +128,11 @@ final class Main
 			{
 				if ( params.timestampFile.exists() )
 				{
-					params.timestampFile.setLastModified(Clock.currentTimeMillis());
+					StrictFile.setLastModified(params.timestampFile, Clock.currentTimeMillis());
 				}
 				else
 				{
-					params.timestampFile.createNewFile();
+					StrictFile.createNewFile(params.timestampFile);
 				}
 			}
 		}
@@ -144,10 +145,14 @@ final class Main
 			System.out.println("Instrumented " + instrumented + ' ' + (instrumented==1 ? "file" : "files") + ", skipped " + skipped + " in " + files.iterator().next().getParentFile().getAbsolutePath());
 	}
 
-	private static boolean noFilesModifiedAfter(final ArrayList<File> checkFiles, final File referenceFile)
+	private static boolean noFilesModifiedAfter(final ArrayList<File> checkFiles, final File referenceFile, boolean verbose)
 	{
 		if ( referenceFile==null || !referenceFile.exists() )
 		{
+			if ( verbose )
+			{
+				System.out.println("No timestamp file, instrumentation required.");
+			}
 			return false;
 		}
 		else
@@ -157,6 +162,10 @@ final class Main
 			{
 				if ( file.lastModified()>=referenceLastModified )
 				{
+					if ( verbose )
+					{
+						System.out.println("File "+file+" changed after timestamp file, instrumentation required.");
+					}
 					return false;
 				}
 			}
