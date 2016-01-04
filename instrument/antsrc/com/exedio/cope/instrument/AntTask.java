@@ -22,7 +22,6 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashSet;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Project;
@@ -63,7 +62,7 @@ public final class AntTask extends Task
 		params.timestampFile = value;
 	}
 
-	public void addResources(Path value)
+	public void addResources(final Path value)
 	{
 		resources.add(value);
 	}
@@ -156,7 +155,7 @@ public final class AntTask extends Task
 						sourcefiles.add(file);
 				}
 			}
-			for (Path resource: resources)
+			for (final Path resource: resources)
 			{
 				if ( params.timestampFile==null )
 				{
@@ -181,7 +180,7 @@ public final class AntTask extends Task
 		}
 	}
 
-	private void addRecursively(File fileOrDir, ArrayList<File> addTo)
+	private void addRecursively(final File fileOrDir, final ArrayList<File> addTo)
 	{
 		if (!fileOrDir.exists())
 		{
@@ -189,7 +188,7 @@ public final class AntTask extends Task
 		}
 		if (fileOrDir.isDirectory())
 		{
-			for (File entry: fileOrDir.listFiles())
+			for (final File entry: fileOrDir.listFiles())
 			{
 				addRecursively(entry, addTo);
 			}

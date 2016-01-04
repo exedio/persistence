@@ -144,7 +144,7 @@ final class Main
 			System.out.println("Instrumented " + instrumented + ' ' + (instrumented==1 ? "file" : "files") + ", skipped " + skipped + " in " + files.iterator().next().getParentFile().getAbsolutePath());
 	}
 
-	private static boolean noFilesModifiedAfter(ArrayList<File> checkFiles, File referenceFile)
+	private static boolean noFilesModifiedAfter(final ArrayList<File> checkFiles, final File referenceFile)
 	{
 		if ( referenceFile==null || !referenceFile.exists() )
 		{
@@ -153,7 +153,7 @@ final class Main
 		else
 		{
 			final long referenceLastModified = referenceFile.lastModified();
-			for (File file: checkFiles)
+			for (final File file: checkFiles)
 			{
 				if ( file.lastModified()>=referenceLastModified )
 				{
