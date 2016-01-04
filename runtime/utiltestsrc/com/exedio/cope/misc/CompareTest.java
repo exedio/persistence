@@ -35,6 +35,7 @@ public class CompareTest
 		assertEquals( 1, compare(1, 0));
 	}
 
+	@Deprecated // OK: testing deprecated api
 	@Test public void testStandardCharsets()
 	{
 		assertEquals(CharsetName.UTF8, StandardCharsets.UTF_8.name());
