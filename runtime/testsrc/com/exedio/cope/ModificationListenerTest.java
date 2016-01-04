@@ -18,10 +18,17 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.Assert.assertEqualsUnmodifiable;
+import static com.exedio.cope.Assert.list;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+
 import com.exedio.cope.util.ModificationListener;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Collection;
 import org.apache.log4j.Logger;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 public class ModificationListenerTest extends AbstractRuntimeModelTest
@@ -38,20 +45,16 @@ public class ModificationListenerTest extends AbstractRuntimeModelTest
 
 	TestLogAppender log = null;
 
-	@Override
-	protected void setUp() throws Exception
+	@Before public final void setUp()
 	{
-		super.setUp();
 		log = new TestLogAppender();
 		logger.addAppender(log);
 	}
 
-	@Override
-	protected void tearDown() throws Exception
+	@After public final void tearDown()
 	{
 		logger.removeAppender(log);
 		log = null;
-		super.tearDown();
 	}
 
 	// dead store is needed to assign null for testing garbage collection

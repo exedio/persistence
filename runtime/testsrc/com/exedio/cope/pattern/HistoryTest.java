@@ -18,6 +18,9 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.Assert.assertEqualsUnmodifiable;
+import static com.exedio.cope.Assert.assertWithin;
+import static com.exedio.cope.Assert.list;
 import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
 import static com.exedio.cope.SchemaInfoAssert.assertNoUpdateCounterColumn;
 import static com.exedio.cope.pattern.HistoryItem.TYPE;
@@ -26,6 +29,9 @@ import static com.exedio.cope.pattern.HistoryItem.audit;
 import static com.exedio.cope.pattern.HistoryItem.auditEventParent;
 import static com.exedio.cope.pattern.HistoryItem.comment;
 import static java.lang.Double.valueOf;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 
 import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.Item;
@@ -36,6 +42,7 @@ import com.exedio.cope.misc.Computed;
 import com.exedio.cope.pattern.History.Feature;
 import java.util.Date;
 import java.util.List;
+import org.junit.Before;
 import org.junit.Test;
 
 public class HistoryTest extends AbstractRuntimeModelTest
@@ -54,10 +61,8 @@ public class HistoryTest extends AbstractRuntimeModelTest
 
 	HistoryItem item;
 
-	@Override
-	public void setUp() throws Exception
+	@Before public final void setUp()
 	{
-		super.setUp();
 		item = new HistoryItem();
 	}
 

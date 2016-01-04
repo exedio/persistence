@@ -25,10 +25,15 @@ import static com.exedio.cope.pattern.MediaUrlItem.fileSecure;
 import static com.exedio.cope.pattern.MediaUrlItem.foto;
 import static com.exedio.cope.pattern.MediaUrlItem.fotoFinger;
 import static com.exedio.cope.pattern.MediaUrlItem.fotoSecure;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 
 import com.exedio.cope.AbstractRuntimeModelTest;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Date;
+import org.junit.Before;
 import org.junit.Test;
 
 @SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
@@ -41,10 +46,8 @@ public final class MediaUrlTest extends AbstractRuntimeModelTest
 
 	private MediaUrlItem named, anond;
 
-	@Override
-	public void setUp() throws Exception
+	@Before public final void setUp()
 	{
-		super.setUp();
 		named = new MediaUrlItem("phrase");
 		anond = new MediaUrlItem(null);
 	}

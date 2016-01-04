@@ -18,6 +18,9 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.Assert.list;
+import static org.junit.Assert.assertEquals;
+
 import java.util.List;
 import org.junit.Test;
 

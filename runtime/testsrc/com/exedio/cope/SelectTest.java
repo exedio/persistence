@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.Assert.assertEqualsUnmodifiable;
+import static com.exedio.cope.Assert.list;
 import static com.exedio.cope.Query.newQuery;
 import static com.exedio.cope.testmodel.AttributeItem.TYPE;
 import static com.exedio.cope.testmodel.AttributeItem.someNotNullBoolean;
@@ -30,6 +32,7 @@ import static com.exedio.cope.testmodel.AttributeItem.someNotNullString;
 import static com.exedio.cope.testmodel.AttributeItem.someString;
 import static com.exedio.cope.testmodel.AttributeItem.someStringLength;
 import static com.exedio.cope.testmodel.AttributeItem.someStringUpperCase;
+import static org.junit.Assert.assertNotNull;
 
 import com.exedio.cope.testmodel.AttributeItem;
 import com.exedio.cope.testmodel.AttributeItem.SomeEnum;
@@ -38,6 +41,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
+import org.junit.Before;
 import org.junit.Test;
 
 public class SelectTest extends TestmodelTest
@@ -54,7 +58,7 @@ public class SelectTest extends TestmodelTest
 			final double initialSomeNotNullDouble,
 			final boolean initialSomeNotNullBoolean,
 			final EmptyItem initialSomeNotNullItem,
-			final SomeEnum initialSomeNotNullEnumeration) throws Exception
+			final SomeEnum initialSomeNotNullEnumeration)
 	{
 		final AttributeItem result =
 			new AttributeItem(
@@ -64,10 +68,8 @@ public class SelectTest extends TestmodelTest
 		return result;
 	}
 
-	@Override
-	public void setUp() throws Exception
+	@Before public final void setUp()
 	{
-		super.setUp();
 		someItem = new EmptyItem();
 		someItem2 = new EmptyItem();
 		item1 = newItem("1z",     "someString9", 1, 4l, 2.1, true,  someItem,  AttributeItem.SomeEnum.enumValue1);

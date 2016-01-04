@@ -21,12 +21,18 @@ package com.exedio.cope.pattern;
 import static com.exedio.cope.AbstractRuntimeTest.i1;
 import static com.exedio.cope.AbstractRuntimeTest.i2;
 import static com.exedio.cope.AbstractRuntimeTest.i3;
+import static com.exedio.cope.Assert.assertContains;
+import static com.exedio.cope.Assert.assertEqualsUnmodifiable;
+import static com.exedio.cope.Assert.list;
 import static com.exedio.cope.pattern.LimitedListFieldItem.TYPE;
 import static com.exedio.cope.pattern.LimitedListFieldItem.nums;
 import static com.exedio.cope.pattern.LimitedListFieldItem.strings;
 import static com.exedio.cope.pattern.LimitedListFieldItemFieldItem.limitedListFieldItem;
 import static java.util.Arrays.asList;
 import static java.util.Collections.unmodifiableList;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.fail;
 
 import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.Join;
@@ -37,6 +43,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
+import org.junit.Before;
 import org.junit.Test;
 
 public class LimitedListFieldTest extends AbstractRuntimeModelTest
@@ -48,10 +55,8 @@ public class LimitedListFieldTest extends AbstractRuntimeModelTest
 
 	LimitedListFieldItem item;
 
-	@Override
-	public void setUp() throws Exception
+	@Before public final void setUp()
 	{
-		super.setUp();
 		item = new LimitedListFieldItem(1, 2, 3);
 	}
 

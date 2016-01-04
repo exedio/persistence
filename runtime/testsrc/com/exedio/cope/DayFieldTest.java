@@ -18,16 +18,22 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.Assert.assertContains;
+import static com.exedio.cope.Assert.list;
 import static com.exedio.cope.DayItem.TYPE;
 import static com.exedio.cope.DayItem.day;
 import static com.exedio.cope.DayItem.optionalDay;
 import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
 import static com.exedio.cope.util.TimeZoneStrict.getTimeZone;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import com.exedio.cope.junit.AbsoluteMockClockStrategy;
 import com.exedio.cope.util.Clock;
 import com.exedio.cope.util.Day;
 import java.util.List;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 public class DayFieldTest extends AbstractRuntimeModelTest
@@ -49,21 +55,18 @@ public class DayFieldTest extends AbstractRuntimeModelTest
 		super(MODEL);
 	}
 
-	@Override
-	protected void setUp() throws Exception
+	@Before public final void setUp()
 	{
-		super.setUp();
 		item = new DayItem(DEFAULT);
 		item2 = new DayItem(DEFAULT2);
 		clock = new AbsoluteMockClockStrategy();
 		Clock.override(clock);
 	}
 
-	@Override
-	protected void tearDown() throws Exception
+	@SuppressWarnings("static-method")
+	@After public final void tearDown()
 	{
 		Clock.clearOverride();
-		super.tearDown();
 	}
 
 	@Test public void testIt()

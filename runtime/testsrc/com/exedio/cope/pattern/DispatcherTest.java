@@ -18,9 +18,16 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.Assert.list;
 import static com.exedio.cope.SchemaInfo.getColumnName;
 import static com.exedio.cope.SchemaInfoAssert.assertNoUpdateCounterColumn;
 import static com.exedio.cope.pattern.DispatcherItem.toTarget;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.TestLogAppender;
@@ -35,6 +42,8 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import org.apache.log4j.Logger;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 public class DispatcherTest extends AbstractRuntimeModelTest
@@ -54,10 +63,8 @@ public class DispatcherTest extends AbstractRuntimeModelTest
 	Logger logger;
 	TestLogAppender log = null;
 
-	@Override
-	public void setUp() throws Exception
+	@Before public final void setUp()
 	{
-		super.setUp();
 		item1 = new DispatcherItem("item1", false);
 		item2 = new DispatcherItem("item2", true);
 		item3 = new DispatcherItem("item3", false);
@@ -69,14 +76,12 @@ public class DispatcherTest extends AbstractRuntimeModelTest
 		logger.addAppender(log);
 	}
 
-	@Override
-	protected void tearDown() throws Exception
+	@After public final void tearDown()
 	{
 		logger.removeAppender(log);
 		logger = null;
 		log = null;
 		Clock.clearOverride();
-		super.tearDown();
 	}
 
 	@Test public void testIt()

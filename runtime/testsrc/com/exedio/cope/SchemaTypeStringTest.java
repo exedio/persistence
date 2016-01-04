@@ -41,6 +41,8 @@ import static com.exedio.cope.SchemaTypeStringItem.f86;
 import static com.exedio.cope.SchemaTypeStringItem.f86Ext;
 import static com.exedio.cope.SchemaTypeStringItem.fMax;
 import static com.exedio.dsmf.Dialect.NOT_NULL;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import com.exedio.cope.SchemaTypeStringField.StringItem;
 import java.util.HashMap;

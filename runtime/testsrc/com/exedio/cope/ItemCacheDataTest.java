@@ -21,8 +21,11 @@ package com.exedio.cope;
 import static com.exedio.cope.ItemCacheDataItem.TYPE;
 import static com.exedio.cope.SchemaInfo.isUpdateCounterEnabled;
 import static java.lang.Integer.MIN_VALUE;
+import static junit.framework.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import com.exedio.cope.util.Hex;
+import org.junit.Before;
 import org.junit.Test;
 
 public class ItemCacheDataTest extends AbstractRuntimeModelTest
@@ -36,10 +39,8 @@ public class ItemCacheDataTest extends AbstractRuntimeModelTest
 
 	ItemCacheDataItem item;
 
-	@Override
-	protected void setUp() throws Exception
+	@Before public final void setUp()
 	{
-		super.setUp();
 		item = new ItemCacheDataItem();
 	}
 

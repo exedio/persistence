@@ -22,14 +22,19 @@ package com.exedio.cope.serialize;
 // needed for deserialization is not public.
 // See http://www.jguru.com/faq/view.jsp?EID=251942
 
+import static com.exedio.cope.Assert.reserialize;
 import static com.exedio.cope.serialize.ItemSerializationItem.TYPE;
 import static com.exedio.cope.serialize.ItemSerializationItem.list;
 import static com.exedio.cope.serialize.ItemSerializationItem.listParent;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.assertSame;
 
 import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import java.util.Arrays;
+import org.junit.Before;
 import org.junit.Test;
 
 public class ItemSerializationTest extends AbstractRuntimeModelTest
@@ -48,11 +53,8 @@ public class ItemSerializationTest extends AbstractRuntimeModelTest
 
 	private ItemSerializationItem item;
 
-	@Override
-	public void setUp() throws Exception
+	@Before public final void setUp()
 	{
-		super.setUp();
-
 		// need this to let item have pk==1 but not the default pk==0, which could hide bugs
 		new ItemSerializationItem("nullus");
 		item = new ItemSerializationItem("eins");

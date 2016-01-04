@@ -21,11 +21,14 @@ package com.exedio.cope;
 import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnName;
 import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnValue;
 import static com.exedio.cope.SchemaInfo.getTableName;
+import static org.junit.Assert.assertEquals;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 public class CheckTypeColumnAbstractTest extends AbstractRuntimeModelTest
@@ -37,21 +40,16 @@ public class CheckTypeColumnAbstractTest extends AbstractRuntimeModelTest
 
 	private HierarchySingleSub item;
 
-	@Override
-	public void setUp() throws Exception
+	@Before public final void setUp()
 	{
-		super.setUp();
-
 		item = new HierarchySingleSub();
 	}
 
-	@Override
-	public void tearDown() throws Exception
+	@After public final void tearDown()
 	{
 		model.commit();
 		model.deleteSchemaForTest();
 		model.startTransaction("CheckTypeColumnAbstractTest");
-		super.tearDown();
 	}
 
 	@Test public void testIt() throws SQLException

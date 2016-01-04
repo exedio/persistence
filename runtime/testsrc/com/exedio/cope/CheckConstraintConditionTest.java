@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.CheckConstraintConditionItem.TYPE;
+import static org.junit.Assert.assertEquals;
 
 import com.exedio.dsmf.Column;
 import com.exedio.dsmf.Constraint;

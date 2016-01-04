@@ -22,9 +22,13 @@ import static com.exedio.cope.AsStringItem.TYPE;
 import static com.exedio.cope.AsStringItem.doublex;
 import static com.exedio.cope.AsStringItem.intx;
 import static com.exedio.cope.AsStringItem.longx;
+import static com.exedio.cope.Assert.list;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 import java.util.Iterator;
 import java.util.List;
+import org.junit.Before;
 import org.junit.Test;
 
 public class AsStringTest extends AbstractRuntimeModelTest
@@ -38,10 +42,8 @@ public class AsStringTest extends AbstractRuntimeModelTest
 
 	AsStringItem item1, item10, item2, itemN, item0, itemX;
 
-	@Override
-	public void setUp() throws Exception
+	@Before public final void setUp()
 	{
-		super.setUp();
 		item1 = new AsStringItem( 13,  15l,  1.9);
 		item10= new AsStringItem( 13,  15l,  0.9);
 		item2 = new AsStringItem( 23,  25l, 29.0);

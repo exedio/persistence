@@ -18,11 +18,15 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.Assert.assertEqualsUnmodifiable;
+import static com.exedio.cope.Assert.list;
 import static com.exedio.cope.DayItem.TYPE;
+import static org.junit.Assert.assertEquals;
 
 import com.exedio.cope.util.Day;
 import java.util.Arrays;
 import java.util.List;
+import org.junit.Before;
 import org.junit.Test;
 
 public class QuerySearchSizeCacheLimitTest extends AbstractRuntimeModelTest
@@ -40,10 +44,8 @@ public class QuerySearchSizeCacheLimitTest extends AbstractRuntimeModelTest
 	private Query<?> q;
 	private DayItem i1, i2, i3, i4, i5;
 
-	@Override
-	protected void setUp() throws Exception
+	@Before public final void setUp()
 	{
-		super.setUp();
 		cacheEnabled = model.getConnectProperties().getQueryCacheLimit()>0;
 		q = TYPE.newQuery();
 		i1 = new DayItem(d1);

@@ -18,12 +18,18 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.Assert.assertContains;
+import static com.exedio.cope.Assert.assertContainsList;
 import static com.exedio.cope.PlusIntegerItem.TYPE;
 import static com.exedio.cope.PlusIntegerItem.numA;
 import static com.exedio.cope.PlusIntegerItem.numC;
 import static java.util.Arrays.asList;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import com.exedio.dsmf.SQLRuntimeException;
+import org.junit.Before;
 import org.junit.Test;
 
 public class DistinctOrderByTest extends AbstractRuntimeModelTest
@@ -38,10 +44,8 @@ public class DistinctOrderByTest extends AbstractRuntimeModelTest
 	private PlusIntegerItem item3;
 	private Query<PlusIntegerItem> query;
 
-	@Override
-	public void setUp() throws Exception
+	@Before public final void setUp()
 	{
-		super.setUp();
 		item1 = new PlusIntegerItem(2, 4, 5);
 		item2 = new PlusIntegerItem(1, 4, 5);
 		item3 = new PlusIntegerItem(1, 4, 5);

@@ -39,12 +39,14 @@ import static com.exedio.cope.CompareFunctionConditionItem.longB;
 import static com.exedio.cope.CompareFunctionConditionItem.stringA;
 import static com.exedio.cope.CompareFunctionConditionItem.stringB;
 import static java.util.Arrays.asList;
+import static org.junit.Assert.assertEquals;
 
 import com.exedio.cope.CompareFunctionConditionItem.XEnum;
 import com.exedio.cope.util.Day;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Date;
 import java.util.List;
+import org.junit.Before;
 import org.junit.Test;
 
 public class CoalesceFunctionTest extends AbstractRuntimeModelTest
@@ -69,10 +71,8 @@ public class CoalesceFunctionTest extends AbstractRuntimeModelTest
 		return aDay.add(offset);
 	}
 
-	@Override
-	public void setUp() throws Exception
+	@Before public final void setUp()
 	{
-		super.setUp();
 		item1  = new CompareFunctionConditionItem("string1", 1, 11l, 2.1, date(-2), day(-2), XEnum.V1);
 		item2  = new CompareFunctionConditionItem("string2", 2, 12l, 2.2, date(-1), day(-1), XEnum.V2);
 		itemf1 = new CompareFunctionConditionItem("string1l", "string1r", 1, 101, 11l, 111l, 2.1, 102.1, date(-2), date(-102), day(-2), day(-102), XEnum.V1, XEnum.V4);

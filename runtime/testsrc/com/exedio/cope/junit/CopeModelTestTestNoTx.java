@@ -18,6 +18,8 @@
 
 package com.exedio.cope.junit;
 
+import static org.junit.Assert.assertFalse;
+
 import org.junit.Test;
 
 public class CopeModelTestTestNoTx extends CopeModelTestTest
@@ -26,12 +28,6 @@ public class CopeModelTestTestNoTx extends CopeModelTestTest
 	protected boolean doesManageTransactions()
 	{
 		return false;
-	}
-
-	@Override
-	protected String getTransactionName()
-	{
-		throw new AssertionError();
 	}
 
 	@Test public void testNoTx()

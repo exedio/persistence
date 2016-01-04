@@ -18,14 +18,18 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.Assert.assertContains;
 import static com.exedio.cope.SchemaInfo.getColumnName;
 import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnName;
 import static com.exedio.cope.SchemaInfo.getTableName;
 import static com.exedio.cope.SchemaInfo.getTypeColumnName;
 import static com.exedio.dsmf.Dialect.NOT_NULL;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import com.exedio.dsmf.Schema;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import org.junit.Before;
 import org.junit.Test;
 
 @SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
@@ -45,10 +49,8 @@ public class NameTest extends AbstractRuntimeModelTest
 	NameLongItem item;
 	NameCollisionlongaItem itemca, itemcb;
 
-	@Override
-	public void setUp() throws Exception
+	@Before public final void setUp()
 	{
-		super.setUp();
 		item = new NameLongItem("long name item");
 		itemca = new NameCollisionlongaItem("collision A");
 		itemcb = new NameCollisionlongaItem("collision B");

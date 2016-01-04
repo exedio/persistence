@@ -23,6 +23,9 @@ import static com.exedio.cope.pattern.Price.MIN_VALUE;
 import static com.exedio.cope.pattern.Price.storeOf;
 import static com.exedio.cope.pattern.PriceFieldItem.bigPrice;
 import static com.exedio.cope.pattern.PriceFieldItem.finalPrice;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.FinalViolationException;
@@ -31,6 +34,7 @@ import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.SchemaInfo;
 import com.exedio.cope.SetValue;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import org.junit.Before;
 import org.junit.Test;
 
 @SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
@@ -43,10 +47,8 @@ public class PriceFieldTest extends AbstractRuntimeModelTest
 
 	PriceFieldItem item;
 
-	@Override
-	public void setUp() throws Exception
+	@Before public final void setUp()
 	{
-		super.setUp();
 		item = new PriceFieldItem(storeOf(555), storeOf(7777));
 	}
 

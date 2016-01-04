@@ -18,6 +18,9 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.Assert.assertContains;
+import static com.exedio.cope.Assert.assertEqualsUnmodifiable;
+import static com.exedio.cope.Assert.list;
 import static com.exedio.cope.EqualsAssert.assertEqualsAndHash;
 import static com.exedio.cope.EqualsAssert.assertNotEqualsAndHash;
 import static com.exedio.cope.MinusIntegerItem.TYPE;
@@ -28,8 +31,10 @@ import static com.exedio.cope.MinusIntegerItem.viewAB;
 import static com.exedio.cope.MinusIntegerItem.viewAC;
 import static com.exedio.cope.MinusIntegerItem.viewBC;
 import static java.lang.Integer.valueOf;
+import static org.junit.Assert.assertEquals;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import org.junit.Before;
 import org.junit.Test;
 
 @SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
@@ -44,10 +49,8 @@ public class MinusIntegerTest extends AbstractRuntimeModelTest
 
 	MinusIntegerItem item;
 
-	@Override
-	public void setUp() throws Exception
+	@Before public final void setUp()
 	{
-		super.setUp();
 		item = new MinusIntegerItem(7, 9, 3);
 		new MinusIntegerItem(30, 4, 5);
 	}

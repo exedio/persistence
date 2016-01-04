@@ -21,11 +21,15 @@ package com.exedio.cope;
 import static com.exedio.cope.CacheIsolationItem.TYPE;
 import static com.exedio.cope.SchemaInfo.getTableName;
 import static com.exedio.cope.SchemaInfo.getUpdateCounterColumnName;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
+import org.junit.Before;
 import org.junit.Test;
 
 public final class UpdateCounterRecoverTest extends AbstractRuntimeModelTest
@@ -37,10 +41,8 @@ public final class UpdateCounterRecoverTest extends AbstractRuntimeModelTest
 
 	CacheIsolationItem item = null;
 
-	@Override
-	protected void setUp() throws Exception
+	@Before public final void setUp()
 	{
-		super.setUp();
 		item = new CacheIsolationItem("name0");
 	}
 

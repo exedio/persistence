@@ -18,7 +18,10 @@
 
 package com.exedio.cope.junit;
 
+import static com.exedio.cope.Assert.list;
 import static com.exedio.cope.junit.JUnitTestItem.nextSequence;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.ChangeEvent;

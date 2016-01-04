@@ -21,17 +21,18 @@ package com.exedio.cope;
 import static com.exedio.cope.testmodel.FinalItem.TYPE;
 import static com.exedio.cope.testmodel.FinalItem.finalString;
 import static com.exedio.cope.testmodel.FinalItem.nonFinalInteger;
+import static org.junit.Assert.assertEquals;
 
 import com.exedio.cope.testmodel.FinalItem;
 import java.util.List;
+import org.junit.Before;
 import org.junit.Test;
 
 public class GroupByTest extends TestmodelTest
 {
-	@Override
-	public void setUp() throws Exception
+	@SuppressWarnings("static-method")
+	@Before public final void setUp()
 	{
-		super.setUp();
 		new FinalItem("foo", 1);
 		new FinalItem("foo", 2);
 		new FinalItem("foo", 3);

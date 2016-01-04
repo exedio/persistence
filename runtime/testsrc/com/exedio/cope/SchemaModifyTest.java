@@ -20,6 +20,8 @@ package com.exedio.cope;
 
 import static com.exedio.cope.SchemaInfo.getColumnName;
 import static com.exedio.cope.SchemaInfo.getTableName;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import com.exedio.dsmf.Column;
 import com.exedio.dsmf.Constraint;

@@ -28,6 +28,8 @@ import static com.exedio.cope.SchemaInfo.getTableName;
 import static com.exedio.cope.SchemaInfo.newConnection;
 import static com.exedio.cope.SchemaInfo.quoteName;
 import static com.exedio.cope.SchemaInfo.supportsCheckConstraints;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.sql.Connection;

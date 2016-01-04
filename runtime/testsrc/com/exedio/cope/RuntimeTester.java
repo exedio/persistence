@@ -69,7 +69,7 @@ final class RuntimeTester
 
 	private TestByteArrayInputStream testStream = null;
 
-	void setUp() throws Exception
+	void setUp()
 	{
 		final String database = model.getConnectProperties().getDialect();
 

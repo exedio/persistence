@@ -24,6 +24,11 @@ import static com.exedio.cope.DataItem.data10;
 import static com.exedio.cope.RuntimeAssert.assertData;
 import static com.exedio.cope.util.StrictFile.delete;
 import static java.io.File.createTempFile;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.ByteArrayOutputStream;
@@ -31,6 +36,8 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 public class DataTest extends AbstractRuntimeModelTest
@@ -43,11 +50,8 @@ public class DataTest extends AbstractRuntimeModelTest
 	private DataItem item;
 	private byte[] dataBig;
 
-	@Override
-	public void setUp() throws Exception
+	@Before public final void setUp()
 	{
-		super.setUp();
-
 		final int data8Length = bytes8.length;
 		// must be substantially larger than
 		// dataAttribute.bufferSize* values in cope.properties
@@ -59,13 +63,10 @@ public class DataTest extends AbstractRuntimeModelTest
 		item = new DataItem();
 	}
 
-	@Override
-	public void tearDown() throws Exception
+	@After public final void tearDown()
 	{
 		// release memory
 		dataBig = null;
-
-		super.tearDown();
 	}
 
 	private void assertIt(final byte[] expectedData) throws MandatoryViolationException, IOException

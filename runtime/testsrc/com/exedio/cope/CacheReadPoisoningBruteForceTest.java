@@ -18,7 +18,14 @@
 
 package com.exedio.cope;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
@@ -41,11 +48,8 @@ public class CacheReadPoisoningBruteForceTest extends AbstractRuntimeModelTest
 	CacheIsolationItem item;
 	final ThreadStoppable threads[] = new ThreadStoppable[10];
 
-	@Override
-	public void setUp() throws Exception
+	@Before public final void setUp()
 	{
-		super.setUp();
-
 		itemCacheStamps = model.getConnectProperties().itemCacheStamps;
 
 		System.out.println("CacheReadPoisoningBruteForceTest cache.stamps " + itemCacheStamps);
@@ -57,8 +61,7 @@ public class CacheReadPoisoningBruteForceTest extends AbstractRuntimeModelTest
 		}
 	}
 
-	@Override
-	public void tearDown() throws Exception
+	@After public final void tearDown() throws InterruptedException
 	{
 		for(final ThreadStoppable thread : threads)
 		{
@@ -73,8 +76,6 @@ public class CacheReadPoisoningBruteForceTest extends AbstractRuntimeModelTest
 				threads[i] = null;
 			}
 		}
-
-		super.tearDown();
 	}
 
 	static class ThreadStoppable extends Thread

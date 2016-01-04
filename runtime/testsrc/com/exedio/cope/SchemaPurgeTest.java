@@ -22,6 +22,8 @@ import static com.exedio.cope.SchemaInfo.getDefaultToNextSequenceName;
 import static com.exedio.cope.SchemaInfo.getPrimaryKeySequenceName;
 import static com.exedio.cope.SchemaInfo.newConnection;
 import static com.exedio.cope.SchemaInfo.quoteName;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import com.exedio.cope.util.AssertionErrorJobContext;
 import com.exedio.cope.util.JobContext;
@@ -31,6 +33,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import org.junit.Before;
 import org.junit.Test;
 
 public class SchemaPurgeTest extends AbstractRuntimeModelTest
@@ -49,10 +52,8 @@ public class SchemaPurgeTest extends AbstractRuntimeModelTest
 	private String thisSeq;
 	private String nextSeq;
 
-	@Override
-	protected void setUp() throws Exception
+	@Before public final void setUp()
 	{
-		super.setUp();
 		final PrimaryKeyGenerator pkg = model.getConnectProperties().primaryKeyGenerator;
 		sequences = pkg!=PrimaryKeyGenerator.memory;
 		batch = pkg==PrimaryKeyGenerator.batchedSequence;

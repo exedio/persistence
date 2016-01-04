@@ -18,6 +18,9 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.Assert.assertContains;
+import static com.exedio.cope.Assert.assertEqualsUnmodifiable;
+import static com.exedio.cope.Assert.list;
 import static com.exedio.cope.EqualsAssert.assertEqualsAndHash;
 import static com.exedio.cope.EqualsAssert.assertNotEqualsAndHash;
 import static com.exedio.cope.PlusIntegerItem.TYPE;
@@ -33,8 +36,11 @@ import static com.exedio.cope.PlusIntegerItem.plusABaC;
 import static com.exedio.cope.PlusIntegerItem.plusAC;
 import static com.exedio.cope.PlusIntegerItem.plusBC;
 import static java.lang.Integer.valueOf;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import org.junit.Before;
 import org.junit.Test;
 
 @SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
@@ -51,10 +57,8 @@ public class PlusIntegerTest extends AbstractRuntimeModelTest
 	@SuppressFBWarnings("URF_UNREAD_FIELD")
 	PlusIntegerItem item2;
 
-	@Override
-	public void setUp() throws Exception
+	@Before public final void setUp()
 	{
-		super.setUp();
 		item  = new PlusIntegerItem(1, 2, 3);
 		item2 = new PlusIntegerItem(3, 4, 5);
 	}

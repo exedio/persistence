@@ -18,9 +18,12 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.Assert.assertContains;
 import static com.exedio.cope.CopyMultiCopyModelTest.constraintA;
 import static com.exedio.cope.CopyMultiCopyModelTest.constraintB;
 import static com.exedio.cope.CopyMultiCopySourceItem.TYPE;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import org.junit.Test;
 

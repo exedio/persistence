@@ -18,6 +18,9 @@
 
 package com.exedio.cope;
 
+import static org.junit.Assert.assertSame;
+
+import org.junit.Before;
 import org.junit.Test;
 
 public class FindItemHierarchyTest extends AbstractRuntimeModelTest
@@ -32,10 +35,8 @@ public class FindItemHierarchyTest extends AbstractRuntimeModelTest
 	HierarchySecondSub secondItem2;
 	HierarchyFirstSub firstItem2;
 
-	@Override
-	protected void setUp() throws Exception
+	@Before public final void setUp()
 	{
-		super.setUp();
 		firstItem = new HierarchyFirstSub(0);
 		secondItem = new HierarchySecondSub(2);
 		secondItem2 = new HierarchySecondSub(3);

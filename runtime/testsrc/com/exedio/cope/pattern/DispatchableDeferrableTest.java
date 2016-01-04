@@ -18,6 +18,8 @@
 
 package com.exedio.cope.pattern;
 
+import static org.junit.Assert.assertEquals;
+
 import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.BooleanField;
 import com.exedio.cope.IntegerField;

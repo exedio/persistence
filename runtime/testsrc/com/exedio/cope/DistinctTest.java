@@ -18,13 +18,17 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.Assert.assertContains;
+import static com.exedio.cope.Assert.list;
 import static com.exedio.cope.PlusIntegerItem.TYPE;
 import static com.exedio.cope.PlusIntegerItem.numA;
 import static com.exedio.cope.PlusIntegerItem.numB;
 import static com.exedio.cope.Query.newQuery;
+import static org.junit.Assert.assertEquals;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.List;
+import org.junit.Before;
 import org.junit.Test;
 
 @SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
@@ -38,10 +42,8 @@ public class DistinctTest extends AbstractRuntimeModelTest
 	@SuppressFBWarnings("URF_UNREAD_FIELD")
 	PlusIntegerItem item1, item2, item3, item4;
 
-	@Override
-	protected void setUp() throws Exception
+	@Before public final void setUp()
 	{
-		super.setUp();
 		item1 = new PlusIntegerItem(1, 2, 0);
 		item2 = new PlusIntegerItem(1, 3, 0);
 		item3 = new PlusIntegerItem(1, 4, 0);

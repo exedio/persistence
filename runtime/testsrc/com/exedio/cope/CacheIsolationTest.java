@@ -18,6 +18,13 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.Assert.assertContains;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.fail;
+
+import org.junit.Before;
 import org.junit.Test;
 
 public class CacheIsolationTest extends AbstractRuntimeModelTest
@@ -35,10 +42,8 @@ public class CacheIsolationTest extends AbstractRuntimeModelTest
 	long setupInvalidationsOrdered;
 	long setupInvalidationsDone;
 
-	@Override
-	protected void setUp() throws Exception
+	@Before public final void setUp()
 	{
-		super.setUp();
 		item = new CacheIsolationItem("blub");
 		collisionItem = new CacheIsolationItem("collision");
 		collisionItem.setUniqueString( "unique" );

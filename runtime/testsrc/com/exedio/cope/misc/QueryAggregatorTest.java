@@ -18,14 +18,19 @@
 
 package com.exedio.cope.misc;
 
+import static com.exedio.cope.Assert.assertEqualsUnmodifiable;
+import static com.exedio.cope.Assert.list;
 import static com.exedio.cope.misc.QueryAggregatorItem.TYPE;
 import static com.exedio.cope.misc.QueryAggregatorItem.intx;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.Model;
 import com.exedio.cope.Query;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.List;
+import org.junit.Before;
 import org.junit.Test;
 
 @SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
@@ -42,10 +47,8 @@ public class QueryAggregatorTest extends AbstractRuntimeModelTest
 	Query<QueryAggregatorItem> q1, q2, q3;
 	QueryAggregator<QueryAggregatorItem> ag;
 
-	@Override
-	public void setUp() throws Exception
+	@Before public final void setUp()
 	{
-		super.setUp();
 		item0 = new QueryAggregatorItem(0);
 		item1 = new QueryAggregatorItem(1);
 		item2 = new QueryAggregatorItem(2);

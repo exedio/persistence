@@ -18,14 +18,17 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.Assert.list;
 import static com.exedio.cope.MatchItem.TYPE;
 import static com.exedio.cope.MatchItem.text;
+import static org.junit.Assert.assertEquals;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import org.junit.Before;
 import org.junit.Test;
 
 public class QueryCacheTest extends AbstractRuntimeModelTest
@@ -35,10 +38,9 @@ public class QueryCacheTest extends AbstractRuntimeModelTest
 		super(MatchTest.MODEL);
 	}
 
-	@Override
-	public void setUp() throws Exception
+	@SuppressWarnings("static-method")
+	@Before public final void setUp()
 	{
-		super.setUp();
 		new MatchItem();
 	}
 

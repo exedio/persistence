@@ -20,6 +20,13 @@ package com.exedio.cope.pattern;
 
 import static com.exedio.cope.AbstractRuntimeTest.assertTestAnnotation;
 import static com.exedio.cope.AbstractRuntimeTest.assertTestAnnotationNull;
+import static com.exedio.cope.Assert.assertEqualsUnmodifiable;
+import static com.exedio.cope.Assert.list;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.Item;

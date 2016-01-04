@@ -18,6 +18,9 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.Assert.assertContains;
+import static com.exedio.cope.Assert.assertEqualsUnmodifiable;
+import static com.exedio.cope.Assert.list;
 import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
 import static com.exedio.cope.pattern.ListFieldItem.TYPE;
 import static com.exedio.cope.pattern.ListFieldItem.dates;
@@ -31,6 +34,11 @@ import static com.exedio.cope.pattern.ListFieldItem.strings;
 import static com.exedio.cope.pattern.ListFieldItem.stringsParent;
 import static java.util.Arrays.asList;
 import static java.util.Collections.unmodifiableList;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.FunctionField;
@@ -46,6 +54,7 @@ import com.exedio.cope.misc.Computed;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.Iterator;
+import org.junit.Before;
 import org.junit.Test;
 
 public class ListFieldTest extends AbstractRuntimeModelTest
@@ -67,10 +76,8 @@ public class ListFieldTest extends AbstractRuntimeModelTest
 
 	ListFieldItem item;
 
-	@Override
-	public void setUp() throws Exception
+	@Before public final void setUp()
 	{
-		super.setUp();
 		item = new ListFieldItem();
 	}
 

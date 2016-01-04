@@ -18,11 +18,16 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.Assert.list;
 import static com.exedio.cope.pattern.MediaLocatorAssert.assertLocator;
 import static com.exedio.cope.pattern.TextUrlFilterDelegatorItem.TYPE;
 import static com.exedio.cope.pattern.TextUrlFilterDelegatorItem.fertig;
 import static com.exedio.cope.pattern.TextUrlFilterDelegatorItem.fertig2;
 import static java.nio.charset.StandardCharsets.UTF_8;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.Model;
@@ -33,6 +38,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import javax.servlet.ServletOutputStream;
+import org.junit.Before;
 import org.junit.Test;
 
 public class TextUrlFilterDelegatorTest extends AbstractRuntimeModelTest
@@ -46,10 +52,8 @@ public class TextUrlFilterDelegatorTest extends AbstractRuntimeModelTest
 
 	TextUrlFilterDelegatorItem item, item2;
 
-	@Override
-	protected void setUp() throws Exception
+	@Before public final void setUp()
 	{
-		super.setUp();
 		item  = new TextUrlFilterDelegatorItem();
 		item2 = new TextUrlFilterDelegatorItem();
 	}

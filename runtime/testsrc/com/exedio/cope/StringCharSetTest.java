@@ -22,6 +22,8 @@ import static com.exedio.cope.StringCharSetItem.TYPE;
 import static com.exedio.cope.StringCharSetItem.alpha;
 import static com.exedio.cope.StringCharSetItem.any;
 import static java.util.Arrays.asList;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import com.exedio.cope.util.CharSet;
 import java.util.HashSet;

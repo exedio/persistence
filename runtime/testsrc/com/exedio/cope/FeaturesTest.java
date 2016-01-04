@@ -18,29 +18,29 @@
 
 package com.exedio.cope;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+
 import java.lang.reflect.AnnotatedElement;
-import junit.framework.TestCase;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
-public class FeaturesTest extends TestCase
+public class FeaturesTest
 {
 	private Features features;
 	private AnnotatedElement annotationSource;
 
-	@Override
-	protected void setUp() throws Exception
+	@Before public final void setUp() throws NoSuchFieldException
 	{
-		super.setUp();
 		features = new Features();
 		annotationSource = getClass().getDeclaredField("annotationSource");
 	}
 
-	@Override
-	protected void tearDown() throws Exception
+	@After public final void tearDown()
 	{
 		features = null;
 		annotationSource = null;
-		super.tearDown();
 	}
 
 	@Test public void testIt()

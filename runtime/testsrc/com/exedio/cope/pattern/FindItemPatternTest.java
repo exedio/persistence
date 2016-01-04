@@ -20,11 +20,14 @@ package com.exedio.cope.pattern;
 
 import static com.exedio.cope.pattern.ListFieldItem.strings;
 import static com.exedio.cope.pattern.ListFieldItem.stringsParent;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 
 import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.Item;
 import com.exedio.cope.NoSuchIDException;
 import java.util.List;
+import org.junit.Before;
 import org.junit.Test;
 
 public class FindItemPatternTest extends AbstractRuntimeModelTest
@@ -36,10 +39,8 @@ public class FindItemPatternTest extends AbstractRuntimeModelTest
 
 	ListFieldItem item;
 
-	@Override
-	protected void setUp() throws Exception
+	@Before public final void setUp()
 	{
-		super.setUp();
 		item = new ListFieldItem();
 		item.addToStrings("xxzero");
 		item.addToStrings("xxone");

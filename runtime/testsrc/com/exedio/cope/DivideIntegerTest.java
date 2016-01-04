@@ -23,6 +23,9 @@ import static com.exedio.cope.AbstractRuntimeTest.i2;
 import static com.exedio.cope.AbstractRuntimeTest.i3;
 import static com.exedio.cope.AbstractRuntimeTest.i7;
 import static com.exedio.cope.AbstractRuntimeTest.i9;
+import static com.exedio.cope.Assert.assertContains;
+import static com.exedio.cope.Assert.assertEqualsUnmodifiable;
+import static com.exedio.cope.Assert.list;
 import static com.exedio.cope.DivideIntegerItem.TYPE;
 import static com.exedio.cope.DivideIntegerItem.divideAB;
 import static com.exedio.cope.DivideIntegerItem.divideAC;
@@ -32,8 +35,10 @@ import static com.exedio.cope.DivideIntegerItem.numB;
 import static com.exedio.cope.DivideIntegerItem.numC;
 import static com.exedio.cope.EqualsAssert.assertEqualsAndHash;
 import static com.exedio.cope.EqualsAssert.assertNotEqualsAndHash;
+import static org.junit.Assert.assertEquals;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import org.junit.Before;
 import org.junit.Test;
 
 @SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
@@ -48,10 +53,8 @@ public class DivideIntegerTest extends AbstractRuntimeModelTest
 
 	DivideIntegerItem item;
 
-	@Override
-	public void setUp() throws Exception
+	@Before public final void setUp()
 	{
-		super.setUp();
 		item = new DivideIntegerItem(7, 9, 3);
 		new DivideIntegerItem(30, 4, 5);
 	}

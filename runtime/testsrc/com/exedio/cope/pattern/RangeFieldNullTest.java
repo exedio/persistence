@@ -20,10 +20,13 @@ package com.exedio.cope.pattern;
 
 import static com.exedio.cope.pattern.RangeFieldItem.TYPE;
 import static com.exedio.cope.pattern.RangeFieldItem.valid;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import com.exedio.cope.AbstractRuntimeModelTest;
 import java.util.Arrays;
 import java.util.List;
+import org.junit.Before;
 import org.junit.Test;
 
 public class RangeFieldNullTest extends AbstractRuntimeModelTest
@@ -35,10 +38,8 @@ public class RangeFieldNullTest extends AbstractRuntimeModelTest
 
 	RangeFieldItem ab, nb, an, nn;
 
-	@Override
-	protected void setUp() throws Exception
+	@Before public final void setUp()
 	{
-		super.setUp();
 		ab = new RangeFieldItem(10,   20);
 		nb = new RangeFieldItem(null, 20);
 		an = new RangeFieldItem(10, null);

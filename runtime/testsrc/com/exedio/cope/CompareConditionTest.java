@@ -18,6 +18,9 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.Assert.assertContains;
+import static com.exedio.cope.Assert.assertContainsList;
+import static com.exedio.cope.Assert.list;
 import static com.exedio.cope.CompareConditionItem.TYPE;
 import static com.exedio.cope.CompareConditionItem.date;
 import static com.exedio.cope.CompareConditionItem.day;
@@ -35,11 +38,13 @@ import static java.lang.Double.valueOf;
 import static java.lang.Integer.valueOf;
 import static java.lang.Long.valueOf;
 import static java.util.Arrays.asList;
+import static org.junit.Assert.assertEquals;
 
 import com.exedio.cope.CompareConditionItem.YEnum;
 import com.exedio.cope.util.Day;
 import java.util.Date;
 import java.util.List;
+import org.junit.Before;
 import org.junit.Test;
 
 public class CompareConditionTest extends AbstractRuntimeModelTest
@@ -66,10 +71,8 @@ public class CompareConditionTest extends AbstractRuntimeModelTest
 		return aDay.add(offset);
 	}
 
-	@Override
-	public void setUp() throws Exception
+	@Before public final void setUp()
 	{
-		super.setUp();
 		item1 = new CompareConditionItem("string1", 1, 11l, 2.1, date(-2), day(-2), YEnum.V1);
 		item2 = new CompareConditionItem("string2", 2, 12l, 2.2, date(-1), day(-1), YEnum.V2);
 		item3 = new CompareConditionItem("string3", 3, 13l, 2.3, date( 0), day( 0), YEnum.V3);

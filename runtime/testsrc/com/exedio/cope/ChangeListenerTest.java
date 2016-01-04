@@ -18,12 +18,26 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.Assert.assertContains;
+import static com.exedio.cope.Assert.assertContainsList;
+import static com.exedio.cope.Assert.assertEqualsUnmodifiable;
+import static com.exedio.cope.Assert.assertUnmodifiable;
+import static com.exedio.cope.Assert.list;
+import static com.exedio.cope.Assert.sleepLongerThan;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 public class ChangeListenerTest extends AbstractRuntimeModelTest
@@ -39,20 +53,16 @@ public class ChangeListenerTest extends AbstractRuntimeModelTest
 
 	TestLogAppender log = null;
 
-	@Override
-	protected void setUp() throws Exception
+	@Before public final void setUp()
 	{
-		super.setUp();
 		log = new TestLogAppender();
 		logger.addAppender(log);
 	}
 
-	@Override
-	protected void tearDown() throws Exception
+	@After public final void tearDown()
 	{
 		logger.removeAppender(log);
 		log = null;
-		super.tearDown();
 	}
 
 	@Test public void testIt() throws ChangeEvent.NotAvailableException

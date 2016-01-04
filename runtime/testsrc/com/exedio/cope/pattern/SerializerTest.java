@@ -18,12 +18,18 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.Assert.assertContains;
 import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
 import static com.exedio.cope.pattern.SerializerItem.TYPE;
 import static com.exedio.cope.pattern.SerializerItem.integer;
 import static com.exedio.cope.pattern.SerializerItem.map;
 import static com.exedio.cope.pattern.SerializerItem.mapWildcard;
 import static java.lang.Integer.valueOf;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.Feature;
@@ -34,6 +40,7 @@ import com.exedio.cope.misc.Computed;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import org.junit.Before;
 import org.junit.Test;
 
 public class SerializerTest extends AbstractRuntimeModelTest
@@ -52,10 +59,8 @@ public class SerializerTest extends AbstractRuntimeModelTest
 
 	SerializerItem item;
 
-	@Override
-	public void setUp() throws Exception
+	@Before public final void setUp()
 	{
-		super.setUp();
 		item = new SerializerItem();
 	}
 

@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.Assert.assertContains;
+import static com.exedio.cope.Assert.list;
 import static com.exedio.cope.Query.newQuery;
 import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
 import static com.exedio.cope.testmodel.StringItem.TYPE;
@@ -28,9 +30,11 @@ import static com.exedio.cope.testmodel.StringItem.min4;
 import static com.exedio.cope.testmodel.StringItem.min4AndMax4UpperLength;
 import static com.exedio.cope.testmodel.StringItem.min4Upper;
 import static com.exedio.cope.testmodel.StringItem.min4UpperLength;
+import static org.junit.Assert.assertEquals;
 
 import com.exedio.cope.testmodel.StringItem;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import org.junit.Before;
 import org.junit.Test;
 
 @SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
@@ -44,7 +48,7 @@ public class FunctionTest extends AbstractRuntimeModelTest
 	StringItem item1;
 	StringItem item2;
 
-	private static StringItem newItem(final String min4, final String max4) throws Exception
+	private static StringItem newItem(final String min4, final String max4)
 	{
 		final StringItem result = new StringItem("FunctionTest");
 		result.setMin4(min4);
@@ -52,10 +56,8 @@ public class FunctionTest extends AbstractRuntimeModelTest
 		return result;
 	}
 
-	@Override
-	public void setUp() throws Exception
+	@Before public final void setUp()
 	{
-		super.setUp();
 		item1 = newItem("5ffff", "4ddd");
 		item2 = newItem("6ggggg", "2b");
 	}

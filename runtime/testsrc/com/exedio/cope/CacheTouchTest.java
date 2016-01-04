@@ -22,7 +22,11 @@ import static com.exedio.cope.CacheIsolationItem.TYPE;
 import static com.exedio.cope.CacheIsolationItem.name;
 import static com.exedio.cope.SchemaInfo.isUpdateCounterEnabled;
 import static java.lang.Integer.MIN_VALUE;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.fail;
 
+import org.junit.Before;
 import org.junit.Test;
 
 public class CacheTouchTest extends AbstractRuntimeModelTest
@@ -34,10 +38,8 @@ public class CacheTouchTest extends AbstractRuntimeModelTest
 
 	CacheIsolationItem item;
 
-	@Override
-	public void setUp() throws Exception
+	@Before public final void setUp()
 	{
-		super.setUp();
 		item = new CacheIsolationItem("itemName");
 	}
 

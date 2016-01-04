@@ -18,6 +18,8 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.Assert.assertEqualsUnmodifiable;
+import static com.exedio.cope.Assert.list;
 import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
 import static com.exedio.cope.pattern.MediaItem.TYPE;
 import static com.exedio.cope.pattern.MediaItem.custom;
@@ -28,6 +30,11 @@ import static com.exedio.cope.pattern.MediaItem.name;
 import static com.exedio.cope.pattern.MediaItem.photo;
 import static com.exedio.cope.pattern.MediaItem.sheet;
 import static com.exedio.cope.pattern.MediaLocatorAssert.assertLocator;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.Feature;
@@ -38,6 +45,7 @@ import com.exedio.cope.misc.Computed;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Arrays;
+import org.junit.Before;
 import org.junit.Test;
 
 public class MediaTest extends AbstractRuntimeModelTest
@@ -58,10 +66,8 @@ public class MediaTest extends AbstractRuntimeModelTest
 
 	private MediaItem item;
 
-	@Override
-	public void setUp() throws Exception
+	@Before public final void setUp()
 	{
-		super.setUp();
 		item = new MediaItem("test media item");
 	}
 

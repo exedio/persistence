@@ -18,6 +18,9 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.Assert.assertEqualsUnmodifiable;
+import static com.exedio.cope.Assert.list;
+import static com.exedio.cope.Assert.reserialize;
 import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
 import static com.exedio.cope.pattern.CompositeFinalItem.first;
 import static com.exedio.cope.pattern.CompositeFinalItem.second;
@@ -29,6 +32,13 @@ import static com.exedio.cope.pattern.CompositeValue.aString;
 import static com.exedio.cope.pattern.CompositeValue.anEnum;
 import static com.exedio.cope.pattern.CompositeValue.anInt;
 import static com.exedio.cope.pattern.CompositeValue.anItem;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.CheckConstraint;
@@ -42,6 +52,7 @@ import com.exedio.cope.Query;
 import com.exedio.cope.misc.Computed;
 import com.exedio.cope.pattern.CompositeValue.AnEnum;
 import java.util.Arrays;
+import org.junit.Before;
 import org.junit.Test;
 
 public class CompositeFieldTest extends AbstractRuntimeModelTest
@@ -64,10 +75,8 @@ public class CompositeFieldTest extends AbstractRuntimeModelTest
 	CompositeOptionalItem oItem;
 	CompositeFinalItem fItem;
 
-	@Override
-	protected void setUp() throws Exception
+	@Before public final void setUp()
 	{
-		super.setUp();
 		target1 = new CompositeOptionalItem("target1");
 		target2 = new CompositeOptionalItem("target2");
 	}

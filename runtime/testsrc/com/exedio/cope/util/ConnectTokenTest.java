@@ -18,33 +18,39 @@
 
 package com.exedio.cope.util;
 
+import static com.exedio.cope.Assert.assertEqualsUnmodifiable;
+import static com.exedio.cope.Assert.assertWithin;
+import static com.exedio.cope.Assert.list;
 import static com.exedio.cope.misc.ConnectToken.removeProperties;
 import static com.exedio.cope.misc.ConnectToken.setProperties;
 import static com.exedio.cope.util.Properties.SYSTEM_PROPERTY_SOURCE;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.fail;
 
 import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.Model;
-import com.exedio.cope.junit.CopeAssert;
 import java.util.Date;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
-public class ConnectTokenTest extends CopeAssert
+public class ConnectTokenTest
 {
 	private static final Model model = new Model(ConnectTokenItem.TYPE);
 	private static final ConnectProperties props = new ConnectProperties(SYSTEM_PROPERTY_SOURCE);
 
-	@Override
-	protected void setUp() throws Exception
+	@SuppressWarnings("static-method")
+	@Before public final void setUp()
 	{
-		super.setUp();
 		setProperties(model, props);
 	}
 
-	@Override
-	protected void tearDown() throws Exception
+	@SuppressWarnings("static-method")
+	@After public final void tearDown()
 	{
 		removeProperties(model);
-		super.tearDown();
 	}
 
 	@Deprecated

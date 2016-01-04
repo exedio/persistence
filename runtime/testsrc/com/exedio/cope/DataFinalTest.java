@@ -20,9 +20,13 @@ package com.exedio.cope;
 
 import static com.exedio.cope.DataField.toValue;
 import static com.exedio.cope.RuntimeAssert.assertData;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.fail;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.IOException;
+import org.junit.Before;
 import org.junit.Test;
 
 @SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
@@ -38,10 +42,8 @@ public class DataFinalTest extends AbstractRuntimeModelTest
 
 	private DataFinalItem item;
 
-	@Override
-	protected void setUp() throws Exception
+	@Before public final void setUp()
 	{
-		super.setUp();
 		item = new DataFinalItem(toValue(bytes4));
 	}
 

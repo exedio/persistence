@@ -19,12 +19,20 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.AbstractRuntimeTest.assertEqualContent;
+import static com.exedio.cope.Assert.assertContains;
+import static com.exedio.cope.Assert.assertEqualsUnmodifiable;
+import static com.exedio.cope.Assert.list;
 import static com.exedio.cope.RuntimeAssert.assertData;
 import static com.exedio.cope.pattern.MediaItem.TYPE;
 import static com.exedio.cope.pattern.MediaItem.file;
 import static com.exedio.cope.pattern.MediaLocatorAssert.assertLocator;
 import static com.exedio.cope.util.StrictFile.delete;
 import static java.io.File.createTempFile;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.CheckConstraint;
@@ -40,6 +48,8 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Date;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 public class MediaDefaultTest extends AbstractRuntimeModelTest
@@ -52,20 +62,17 @@ public class MediaDefaultTest extends AbstractRuntimeModelTest
 	AbsoluteMockClockStrategy clock;
 	protected MediaItem item;
 
-	@Override
-	public void setUp() throws Exception
+	@Before public final void setUp()
 	{
-		super.setUp();
 		clock = new AbsoluteMockClockStrategy();
 		Clock.override(clock);
 		item = new MediaItem("test media item");
 	}
 
-	@Override
-	protected void tearDown() throws Exception
+	@SuppressWarnings("static-method")
+	@After public final void tearDown()
 	{
 		Clock.clearOverride();
-		super.tearDown();
 	}
 
 	@Test public void testIt() throws IOException

@@ -26,6 +26,9 @@ import static com.exedio.cope.AbstractRuntimeTest.l3;
 import static com.exedio.cope.AbstractRuntimeTest.l4;
 import static com.exedio.cope.AbstractRuntimeTest.l5;
 import static com.exedio.cope.AbstractRuntimeTest.l6;
+import static com.exedio.cope.Assert.assertContains;
+import static com.exedio.cope.Assert.assertEqualsUnmodifiable;
+import static com.exedio.cope.Assert.list;
 import static com.exedio.cope.EqualsAssert.assertEqualsAndHash;
 import static com.exedio.cope.EqualsAssert.assertNotEqualsAndHash;
 import static com.exedio.cope.PlusLongItem.TYPE;
@@ -40,8 +43,10 @@ import static com.exedio.cope.PlusLongItem.plusABC;
 import static com.exedio.cope.PlusLongItem.plusABaC;
 import static com.exedio.cope.PlusLongItem.plusAC;
 import static com.exedio.cope.PlusLongItem.plusBC;
+import static org.junit.Assert.assertEquals;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import org.junit.Before;
 import org.junit.Test;
 
 @SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
@@ -56,10 +61,8 @@ public class PlusLongTest extends AbstractRuntimeModelTest
 
 	PlusLongItem item;
 
-	@Override
-	public void setUp() throws Exception
+	@Before public final void setUp()
 	{
-		super.setUp();
 		item = new PlusLongItem(1l, 2l, 3l);
 		new PlusLongItem(3l, 4l, 5l);
 	}

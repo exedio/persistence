@@ -20,6 +20,8 @@ package com.exedio.cope;
 
 import static com.exedio.cope.AbstractRuntimeTest.assertDelete;
 import static com.exedio.cope.AbstractRuntimeTest.assertDeleteFails;
+import static com.exedio.cope.Assert.assertEqualsUnmodifiable;
+import static com.exedio.cope.Assert.list;
 import static com.exedio.cope.DeleteItem.otherCascade;
 import static com.exedio.cope.DeleteItem.otherForbid;
 import static com.exedio.cope.DeleteItem.otherNullify;
@@ -30,6 +32,12 @@ import static com.exedio.cope.DeleteItem.selfNullify;
 import static com.exedio.cope.ItemField.DeletePolicy.CASCADE;
 import static com.exedio.cope.ItemField.DeletePolicy.FORBID;
 import static com.exedio.cope.ItemField.DeletePolicy.NULLIFY;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Collection;

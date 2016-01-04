@@ -18,10 +18,13 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.Assert.list;
 import static com.exedio.cope.MatchItem.TYPE;
 import static com.exedio.cope.MatchItem.text;
+import static org.junit.Assert.assertEquals;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import org.junit.Before;
 import org.junit.Test;
 
 @SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
@@ -36,10 +39,8 @@ public class MatchTest extends AbstractRuntimeModelTest
 
 	MatchItem item;
 
-	@Override
-	public void setUp() throws Exception
+	@Before public final void setUp()
 	{
-		super.setUp();
 		item = new MatchItem();
 	}
 

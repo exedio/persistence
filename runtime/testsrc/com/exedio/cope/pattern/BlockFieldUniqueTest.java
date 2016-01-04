@@ -22,6 +22,8 @@ import static com.exedio.cope.pattern.BlockFieldUniqueModelTest.ABlock.constrain
 import static com.exedio.cope.pattern.BlockFieldUniqueModelTest.ABlock.constraintPrice;
 import static com.exedio.cope.pattern.BlockFieldUniqueModelTest.AnItem.eins;
 import static com.exedio.cope.pattern.Price.storeOf;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.UniqueViolationException;

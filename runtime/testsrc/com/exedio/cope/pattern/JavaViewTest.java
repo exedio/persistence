@@ -28,6 +28,9 @@ import static com.exedio.cope.pattern.JavaViewItem.numberPrimitive;
 import static com.exedio.cope.pattern.JavaViewItem.numberString;
 import static com.exedio.cope.pattern.JavaViewItem.privat;
 import static java.util.Arrays.asList;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.fail;
 
 import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.Feature;
@@ -36,6 +39,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.ParameterizedType;
 import java.util.Arrays;
 import java.util.HashMap;
+import org.junit.Before;
 import org.junit.Test;
 
 public class JavaViewTest extends AbstractRuntimeModelTest
@@ -57,10 +61,8 @@ public class JavaViewTest extends AbstractRuntimeModelTest
 	JavaViewItem item;
 	JavaViewItem2 item2;
 
-	@Override
-	public void setUp() throws Exception
+	@Before public final void setUp()
 	{
-		super.setUp();
 		item = new JavaViewItem();
 		item2 = new JavaViewItem2();
 	}

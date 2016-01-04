@@ -21,12 +21,15 @@ package com.exedio.cope.pattern;
 import static com.exedio.cope.pattern.Price.storeOf;
 import static com.exedio.cope.pattern.PriceFieldItem.finalPrice;
 import static com.exedio.cope.pattern.PriceFieldItem.optionalPrice;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.Condition;
 import com.exedio.cope.Join;
 import com.exedio.cope.Query;
 import java.util.Arrays;
+import org.junit.Before;
 import org.junit.Test;
 
 public class PriceFieldConditionsTest extends AbstractRuntimeModelTest
@@ -43,10 +46,8 @@ public class PriceFieldConditionsTest extends AbstractRuntimeModelTest
 				p3 = storeOf(333);
 	private PriceFieldItem iN, i1, i2, i3;
 
-	@Override
-	public void setUp() throws Exception
+	@Before public final void setUp()
 	{
-		super.setUp();
 		iN  = PriceFieldItem.n(pN, p2);
 		i1  = PriceFieldItem.n(p1, p2);
 		i2  = PriceFieldItem.n(p2, p2);

@@ -18,13 +18,17 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.Assert.assertContains;
 import static com.exedio.cope.InstanceOfAItem.code;
 import static com.exedio.cope.InstanceOfC1Item.textc1;
 import static com.exedio.cope.InstanceOfRefItem.ref;
 import static com.exedio.cope.InstanceOfRefItem.refb2;
 import static com.exedio.cope.RuntimeAssert.assertCondition;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import org.junit.Before;
 import org.junit.Test;
 
 @SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
@@ -52,11 +56,8 @@ public class InstanceOfTest extends AbstractRuntimeModelTest
 	InstanceOfRefItem reffc1;
 	InstanceOfRefItem reffN;
 
-	@Override
-	public void setUp() throws Exception
+	@Before public final void setUp()
 	{
-		super.setUp();
-
 		itema  = new InstanceOfAItem("itema");
 		itemb1 = new InstanceOfB1Item("itemb1");
 		itemb2 = new InstanceOfB2Item("itemb2");

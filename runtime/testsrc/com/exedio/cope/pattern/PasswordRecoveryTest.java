@@ -18,12 +18,20 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.Assert.assertContains;
+import static com.exedio.cope.Assert.list;
 import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
 import static com.exedio.cope.SchemaInfoAssert.assertNoUpdateCounterColumn;
 import static com.exedio.cope.pattern.PasswordRecoveryItem.TYPE;
 import static com.exedio.cope.pattern.PasswordRecoveryItem.password;
 import static com.exedio.cope.pattern.PasswordRecoveryItem.passwordRecovery;
 import static com.exedio.cope.pattern.PasswordRecoveryItem.purgePasswordRecovery;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.Feature;
@@ -35,6 +43,8 @@ import com.exedio.cope.pattern.PasswordRecovery.Token;
 import com.exedio.cope.util.Clock;
 import java.util.Arrays;
 import java.util.Date;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 public class PasswordRecoveryTest extends AbstractRuntimeModelTest
@@ -54,20 +64,17 @@ public class PasswordRecoveryTest extends AbstractRuntimeModelTest
 	PasswordRecoveryItem i;
 	RelativeMockClockStrategy clock;
 
-	@Override
-	protected void setUp() throws Exception
+	@Before public final void setUp()
 	{
-		super.setUp();
 		i = new PasswordRecoveryItem("oldpass");
 		clock = new RelativeMockClockStrategy();
 		Clock.override(clock);
 	}
 
-	@Override
-	protected void tearDown() throws Exception
+	@SuppressWarnings("static-method")
+	@After public final void tearDown()
 	{
 		Clock.clearOverride();
-		super.tearDown();
 	}
 
 	@Test public void testIt() throws Exception

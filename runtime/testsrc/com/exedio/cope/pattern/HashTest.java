@@ -18,6 +18,9 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.Assert.assertContains;
+import static com.exedio.cope.Assert.assertEqualsUnmodifiable;
+import static com.exedio.cope.Assert.list;
 import static com.exedio.cope.pattern.HashItem.TYPE;
 import static com.exedio.cope.pattern.HashItem.explicitExternal;
 import static com.exedio.cope.pattern.HashItem.explicitExternalWrap;
@@ -26,6 +29,13 @@ import static com.exedio.cope.pattern.HashItem.internal;
 import static com.exedio.cope.pattern.HashItem.limited15;
 import static com.exedio.cope.pattern.HashItem.with3PinValidator;
 import static com.exedio.cope.pattern.HashItem.withCorruptValidator;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.Join;
@@ -38,6 +48,7 @@ import com.exedio.cope.pattern.Hash.InvalidPlainTextException;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.security.SecureRandom;
 import java.util.Arrays;
+import org.junit.Before;
 import org.junit.Test;
 
 public class HashTest extends AbstractRuntimeModelTest
@@ -51,10 +62,8 @@ public class HashTest extends AbstractRuntimeModelTest
 
 	HashItem item;
 
-	@Override
-	public void setUp() throws Exception
+	@Before public final void setUp()
 	{
-		super.setUp();
 		item = new HashItem();
 	}
 

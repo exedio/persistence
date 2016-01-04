@@ -22,6 +22,7 @@ import static com.exedio.cope.RuntimeAssert.assertData;
 import static com.exedio.cope.pattern.MediaLocatorAssert.assertLocator;
 import static com.exedio.cope.testmodel.AttributeItem.TYPE;
 import static com.exedio.cope.testmodel.AttributeItem.someData;
+import static org.junit.Assert.assertEquals;
 
 import com.exedio.cope.testmodel.AttributeItem;
 import java.io.ByteArrayInputStream;

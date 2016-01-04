@@ -18,6 +18,9 @@
 
 package com.exedio.cope.pattern;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+
 import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.util.EmptyJobContext;
 import org.junit.Test;

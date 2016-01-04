@@ -18,15 +18,19 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.Assert.assertContains;
 import static com.exedio.cope.pattern.ColorFieldItem.TYPE;
 import static com.exedio.cope.pattern.ColorFieldItem.defaultTo;
 import static com.exedio.cope.pattern.ColorFieldItem.mandatory;
 import static com.exedio.cope.pattern.ColorFieldItem.mandatoryAlpha;
 import static com.exedio.cope.pattern.ColorFieldItem.optional;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.MandatoryViolationException;
 import java.awt.Color;
+import org.junit.Before;
 import org.junit.Test;
 
 public class ColorFieldTest extends AbstractRuntimeModelTest
@@ -38,10 +42,8 @@ public class ColorFieldTest extends AbstractRuntimeModelTest
 
 	private ColorFieldItem i;
 
-	@Override
-	protected void setUp() throws Exception
+	@Before public final void setUp()
 	{
-		super.setUp();
 		i = new ColorFieldItem(new Color(1, 2, 3));
 	}
 

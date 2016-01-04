@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.Assert.assertContains;
+import static com.exedio.cope.Assert.list;
 import static com.exedio.cope.testmodel.AttributeItem.TYPE;
 import static com.exedio.cope.testmodel.AttributeItem.day;
 import static com.exedio.cope.testmodel.AttributeItem.someBoolean;
@@ -32,6 +34,9 @@ import static com.exedio.cope.testmodel.AttributeItem.someNotNullEnum;
 import static com.exedio.cope.testmodel.AttributeItem.someNotNullInteger;
 import static com.exedio.cope.testmodel.AttributeItem.someNotNullString;
 import static com.exedio.cope.testmodel.AttributeItem.someString;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.fail;
 
 import com.exedio.cope.testmodel.AttributeItem;
 import com.exedio.cope.testmodel.EmptyItem;
@@ -39,6 +44,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import org.junit.Before;
 import org.junit.Test;
 
 public class OrderByTest extends TestmodelTest
@@ -46,10 +52,8 @@ public class OrderByTest extends TestmodelTest
 	EmptyItem emptyItem, emptyItem2;
 	AttributeItem item1, item2, item3, item4, item5;
 
-	@Override
-	public void setUp() throws Exception
+	@Before public final void setUp()
 	{
-		super.setUp();
 		emptyItem = new EmptyItem();
 		emptyItem2 = new EmptyItem();
 		item1 = new AttributeItem("someString9", 1, 4l, 2.1, true, emptyItem, AttributeItem.SomeEnum.enumValue1);

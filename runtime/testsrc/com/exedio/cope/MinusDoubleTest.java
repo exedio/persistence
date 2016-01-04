@@ -18,6 +18,9 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.Assert.assertContains;
+import static com.exedio.cope.Assert.assertEqualsUnmodifiable;
+import static com.exedio.cope.Assert.list;
 import static com.exedio.cope.EqualsAssert.assertEqualsAndHash;
 import static com.exedio.cope.EqualsAssert.assertNotEqualsAndHash;
 import static com.exedio.cope.MinusDoubleItem.TYPE;
@@ -28,7 +31,10 @@ import static com.exedio.cope.MinusDoubleItem.viewAB;
 import static com.exedio.cope.MinusDoubleItem.viewAC;
 import static com.exedio.cope.MinusDoubleItem.viewBC;
 import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
+import org.junit.Before;
 import org.junit.Test;
 
 public class MinusDoubleTest extends AbstractRuntimeModelTest
@@ -48,10 +54,8 @@ public class MinusDoubleTest extends AbstractRuntimeModelTest
 	MinusDoubleItem item;
 	MinusDoubleItem item2;
 
-	@Override
-	public void setUp() throws Exception
+	@Before public final void setUp()
 	{
-		super.setUp();
 		item = new MinusDoubleItem(8.5, 2.5, 4.0);
 		item2 = new MinusDoubleItem(30.3, 4.4, 5.5);
 	}

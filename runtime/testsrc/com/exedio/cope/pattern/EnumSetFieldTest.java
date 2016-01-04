@@ -18,12 +18,15 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.Assert.assertContains;
 import static com.exedio.cope.pattern.EnumSetFieldItem.TYPE;
 import static com.exedio.cope.pattern.EnumSetFieldItem.activeLanguage;
 import static com.exedio.cope.pattern.EnumSetFieldItem.Language.DE;
 import static com.exedio.cope.pattern.EnumSetFieldItem.Language.EN;
 import static com.exedio.cope.pattern.EnumSetFieldItem.Language.PL;
 import static com.exedio.cope.pattern.EnumSetFieldItem.Language.SUBCLASS;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.MandatoryViolationException;
@@ -31,6 +34,7 @@ import com.exedio.cope.SetValue;
 import com.exedio.cope.pattern.EnumSetFieldItem.Language;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.EnumSet;
+import org.junit.Before;
 import org.junit.Test;
 
 @SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
@@ -43,10 +47,8 @@ public class EnumSetFieldTest extends AbstractRuntimeModelTest
 
 	EnumSetFieldItem item, itemX;
 
-	@Override
-	public void setUp() throws Exception
+	@Before public final void setUp()
 	{
-		super.setUp();
 		item = new EnumSetFieldItem();
 		itemX = new EnumSetFieldItem();
 	}

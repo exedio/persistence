@@ -18,6 +18,9 @@
 
 package com.exedio.cope;
 
+import static org.junit.Assert.assertEquals;
+
+import org.junit.Before;
 import org.junit.Test;
 
 public class TransactionCountersTest extends AbstractRuntimeModelTest
@@ -38,10 +41,8 @@ public class TransactionCountersTest extends AbstractRuntimeModelTest
 	private long rollbackWithoutConnectionStart;
 	private long rollbackWithConnectionStart;
 
-	@Override
-	public void setUp() throws Exception
+	@Before public final void setUp()
 	{
-		super.setUp();
 		final TransactionCounters c = model.getTransactionCounters();
 		commitWithoutConnectionStart   = c.getCommitWithoutConnection();
 		commitWithConnectionStart      = c.getCommitWithConnection();

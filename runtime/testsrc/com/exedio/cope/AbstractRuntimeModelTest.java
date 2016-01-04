@@ -18,18 +18,57 @@
 
 package com.exedio.cope;
 
-import com.exedio.cope.junit.CopeModelTest;
+import com.exedio.cope.tojunit.CopeRule;
+import com.exedio.cope.util.Properties;
 import com.exedio.dsmf.CheckConstraint;
 import java.io.File;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Rule;
 
-public abstract class AbstractRuntimeModelTest extends CopeModelTest
+public abstract class AbstractRuntimeModelTest
 {
+	@Rule public final CopeRule copeRule;
+
+	/**
+	 * Copy of {@link com.exedio.cope.junit.CopeModelTest#model}
+	 */
+	protected final Model model;
+
 	private final RuntimeTester tester;
 
 	public AbstractRuntimeModelTest(final Model model)
 	{
-		super(model);
+		copeRule = new CopeRule(model){
+			/**
+			 * Copy of {@link com.exedio.cope.junit.CopeModelTest#getConnectProperties}
+			 * TODO remove
+			 */
+			@Override
+			public ConnectProperties getConnectProperties()
+			{
+				return new ConnectProperties(Properties.SYSTEM_PROPERTY_SOURCE);
+			}
+		};
+		if(!doesManageTransactions())
+			copeRule.omitTransaction();
+
+		this.model = model;
 		tester = new RuntimeTester(model);
+	}
+
+	protected final ConnectProperties getConnectProperties()
+	{
+		return copeRule.getConnectProperties();
+	}
+
+	/**
+	 * Copy of {@link com.exedio.cope.junit.CopeModelTest#doesManageTransactions()}
+	 * TODO remove
+	 */
+	protected boolean doesManageTransactions()
+	{
+		return true;
 	}
 
 	protected RuntimeTester.Dialect dialect = null;
@@ -40,10 +79,8 @@ public abstract class AbstractRuntimeModelTest extends CopeModelTest
 	protected boolean cache;
 	private final FileFixture files = new FileFixture();
 
-	@Override
-	protected void setUp() throws Exception
+	@Before public final void setUpAbstractRuntimeModelTest()
 	{
-		super.setUp();
 		tester.setUp();
 		dialect = tester.dialect;
 		hsqldb = tester.hsqldb;
@@ -54,13 +91,10 @@ public abstract class AbstractRuntimeModelTest extends CopeModelTest
 		files.setUp();
 	}
 
-	@Override
-	protected void tearDown() throws Exception
+	@After public final void tearDownAbstractRuntimeModelTest()
 	{
 		files.tearDown();
 		System.clearProperty("media.url.secret");
-
-		super.tearDown();
 	}
 
 	protected final void startTransaction()

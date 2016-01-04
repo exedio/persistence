@@ -25,8 +25,12 @@ import static com.exedio.cope.LongItem.max4;
 import static com.exedio.cope.LongItem.min4;
 import static com.exedio.cope.LongItem.min4Max8;
 import static java.lang.Long.valueOf;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.fail;
 
 import java.util.Date;
+import org.junit.Before;
 import org.junit.Test;
 
 public class LongTest extends AbstractRuntimeModelTest
@@ -39,10 +43,8 @@ public class LongTest extends AbstractRuntimeModelTest
 	private LongItem item;
 	private int numberOfItems;
 
-	@Override
-	public void setUp() throws Exception
+	@Before public final void setUp()
 	{
-		super.setUp();
 		item = new LongItem(2201l);
 		new LongItem(2202l);
 		numberOfItems = 2;

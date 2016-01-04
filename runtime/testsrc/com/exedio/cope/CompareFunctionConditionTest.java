@@ -39,12 +39,14 @@ import static com.exedio.cope.EqualsAssert.assertEqualsAndHash;
 import static com.exedio.cope.EqualsAssert.assertNotEqualsAndHash;
 import static com.exedio.cope.RuntimeAssert.assertCondition;
 import static java.util.Arrays.asList;
+import static org.junit.Assert.assertEquals;
 
 import com.exedio.cope.CompareFunctionConditionItem.XEnum;
 import com.exedio.cope.util.Day;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Date;
 import java.util.List;
+import org.junit.Before;
 import org.junit.Test;
 
 public class CompareFunctionConditionTest extends AbstractRuntimeModelTest
@@ -72,10 +74,8 @@ public class CompareFunctionConditionTest extends AbstractRuntimeModelTest
 		return day.add(offset);
 	}
 
-	@Override
-	public void setUp() throws Exception
+	@Before public final void setUp()
 	{
-		super.setUp();
 		item1 = new CompareFunctionConditionItem("string1", 1, 11l, 2.1, date(-2), day(-2), XEnum.V1);
 		item2 = new CompareFunctionConditionItem("string2", 2, 12l, 2.2, date(-1), day(-1), XEnum.V2);
 		item3 = new CompareFunctionConditionItem("string3", 3, 13l, 2.3, date( 0), day( 0), XEnum.V3);
