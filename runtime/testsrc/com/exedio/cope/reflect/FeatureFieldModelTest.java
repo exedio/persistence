@@ -18,6 +18,8 @@
 
 package com.exedio.cope.reflect;
 
+import static com.exedio.cope.Assert.assertEqualsUnmodifiable;
+import static com.exedio.cope.Assert.list;
 import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
 import static com.exedio.cope.reflect.FeatureFieldItem.TYPE;
 import static com.exedio.cope.reflect.FeatureFieldItem.feature;
@@ -32,13 +34,15 @@ import static com.exedio.cope.reflect.FeatureFieldItem.string;
 import static com.exedio.cope.reflect.FeatureFieldItem.string1;
 import static com.exedio.cope.reflect.FeatureFieldItem.string2;
 import static com.exedio.cope.reflect.FeatureFieldItem.string3;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import com.exedio.cope.Model;
-import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.misc.Computed;
 import org.junit.Test;
 
-public class FeatureFieldModelTest extends CopeAssert
+public class FeatureFieldModelTest
 {
 	static final Model MODEL = new Model(FeatureFieldItem.TYPE);
 

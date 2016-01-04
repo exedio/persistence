@@ -18,6 +18,8 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.Assert.assertEqualsUnmodifiable;
+import static com.exedio.cope.Assert.list;
 import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
 import static com.exedio.cope.pattern.BlockFieldUniqueModelTest.ABlock.alpha;
 import static com.exedio.cope.pattern.BlockFieldUniqueModelTest.ABlock.alphaPrice;
@@ -27,17 +29,18 @@ import static com.exedio.cope.pattern.BlockFieldUniqueModelTest.ABlock.constrain
 import static com.exedio.cope.pattern.BlockFieldUniqueModelTest.ABlock.constraintPrice;
 import static com.exedio.cope.pattern.BlockFieldUniqueModelTest.AnItem.eins;
 import static com.exedio.cope.pattern.BlockFieldUniqueModelTest.AnItem.zwei;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 
 import com.exedio.cope.Feature;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Model;
 import com.exedio.cope.StringField;
 import com.exedio.cope.UniqueConstraint;
-import com.exedio.cope.junit.CopeAssert;
 import java.util.Arrays;
 import org.junit.Test;
 
-public class BlockFieldUniqueModelTest extends CopeAssert
+public class BlockFieldUniqueModelTest
 {
 	static final Model MODEL = new Model(AnItem.TYPE);
 

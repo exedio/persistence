@@ -19,6 +19,9 @@
 package com.exedio.cope.serialize;
 
 import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.fail;
 
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.CacheIsolationTest;
@@ -27,7 +30,6 @@ import com.exedio.cope.Model;
 import com.exedio.cope.StringField;
 import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
-import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.pattern.ListField;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -36,7 +38,7 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import org.junit.Test;
 
-public class ModelSerializationTest extends CopeAssert
+public class ModelSerializationTest
 {
 	private static final Model model = new Model(ModelSerializationItem.TYPE);
 

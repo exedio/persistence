@@ -18,17 +18,21 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.Assert.assertEqualsUnmodifiable;
+import static com.exedio.cope.Assert.list;
 import static com.exedio.cope.CopyMultiTargetSourceItem.TYPE;
 import static com.exedio.cope.CopyMultiTargetSourceItem.copy;
 import static com.exedio.cope.CopyMultiTargetSourceItem.targetA;
 import static com.exedio.cope.CopyMultiTargetSourceItem.targetB;
 import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.fail;
 
-import com.exedio.cope.junit.CopeAssert;
 import java.util.Arrays;
 import org.junit.Test;
 
-public class CopyMultiTargetModelTest extends CopeAssert
+public class CopyMultiTargetModelTest
 {
 	public static final Model MODEL = new Model(TYPE, CopyMultiTargetItemA.TYPE, CopyMultiTargetItemB.TYPE);
 

@@ -18,10 +18,13 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.Assert.assertContains;
 import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
 import static com.exedio.cope.pattern.RangeFieldItem.TYPE;
 import static com.exedio.cope.pattern.RangeFieldItem.text;
 import static com.exedio.cope.pattern.RangeFieldItem.valid;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import com.exedio.cope.Feature;
 import com.exedio.cope.FinalViolationException;
@@ -29,11 +32,10 @@ import com.exedio.cope.IntegerField;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Model;
 import com.exedio.cope.StringLengthViolationException;
-import com.exedio.cope.junit.CopeAssert;
 import java.util.Arrays;
 import org.junit.Test;
 
-public class RangeFieldModelTest extends CopeAssert
+public class RangeFieldModelTest
 {
 	static final Model MODEL = new Model(TYPE);
 

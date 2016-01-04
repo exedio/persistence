@@ -18,6 +18,7 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.Assert.list;
 import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
 import static com.exedio.cope.pattern.ColorFieldItem.TYPE;
 import static com.exedio.cope.pattern.ColorFieldItem.alpha;
@@ -25,18 +26,19 @@ import static com.exedio.cope.pattern.ColorFieldItem.defaultTo;
 import static com.exedio.cope.pattern.ColorFieldItem.mandatory;
 import static com.exedio.cope.pattern.ColorFieldItem.mandatoryAlpha;
 import static com.exedio.cope.pattern.ColorFieldItem.optional;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import com.exedio.cope.Feature;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Model;
 import com.exedio.cope.Type;
-import com.exedio.cope.junit.CopeAssert;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.awt.Color;
 import java.util.Arrays;
 import org.junit.Test;
 
-public class ColorFieldModelTest extends CopeAssert
+public class ColorFieldModelTest
 {
 	static final Model MODEL = new Model(TYPE);
 

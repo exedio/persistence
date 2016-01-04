@@ -18,6 +18,10 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.Assert.assertContains;
+import static com.exedio.cope.Assert.assertEqualsUnmodifiable;
+import static com.exedio.cope.Assert.assertUnmodifiable;
+import static com.exedio.cope.Assert.list;
 import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
 import static com.exedio.cope.pattern.LimitedListFieldItem.TYPE;
 import static com.exedio.cope.pattern.LimitedListFieldItem.dates;
@@ -27,6 +31,10 @@ import static com.exedio.cope.pattern.LimitedListFieldItem.num3;
 import static com.exedio.cope.pattern.LimitedListFieldItem.nums;
 import static com.exedio.cope.pattern.LimitedListFieldItem.strings;
 import static java.util.Arrays.asList;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import com.exedio.cope.CheckConstraint;
 import com.exedio.cope.DateField;
@@ -36,7 +44,6 @@ import com.exedio.cope.IntegerField;
 import com.exedio.cope.Model;
 import com.exedio.cope.StringField;
 import com.exedio.cope.StringLengthViolationException;
-import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.misc.Computed;
 import java.util.Arrays;
 import java.util.Date;
@@ -44,7 +51,7 @@ import java.util.Iterator;
 import java.util.List;
 import org.junit.Test;
 
-public class LimitedListFieldModelTest extends CopeAssert
+public class LimitedListFieldModelTest
 {
 	public static final Model MODEL = new Model(
 		LimitedListFieldItem.TYPE,

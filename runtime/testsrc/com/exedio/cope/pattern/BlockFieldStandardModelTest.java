@@ -18,6 +18,8 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.Assert.assertEqualsUnmodifiable;
+import static com.exedio.cope.Assert.list;
 import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
 import static com.exedio.cope.pattern.BlockFieldStandardModelTest.ABlock.aColor;
 import static com.exedio.cope.pattern.BlockFieldStandardModelTest.ABlock.aList;
@@ -28,6 +30,9 @@ import static com.exedio.cope.pattern.BlockFieldStandardModelTest.ABlock.anInt;
 import static com.exedio.cope.pattern.BlockFieldStandardModelTest.ABlock.anItem;
 import static com.exedio.cope.pattern.BlockFieldStandardModelTest.AnItem.eins;
 import static com.exedio.cope.pattern.BlockFieldStandardModelTest.AnItem.zwei;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.fail;
 
 import com.exedio.cope.EnumField;
 import com.exedio.cope.Feature;
@@ -35,12 +40,11 @@ import com.exedio.cope.IntegerField;
 import com.exedio.cope.ItemField;
 import com.exedio.cope.Model;
 import com.exedio.cope.StringField;
-import com.exedio.cope.junit.CopeAssert;
 import java.awt.Color;
 import java.util.Arrays;
 import org.junit.Test;
 
-public class BlockFieldStandardModelTest extends CopeAssert
+public class BlockFieldStandardModelTest
 {
 	static final Model MODEL = new Model(AnItem.TYPE);
 

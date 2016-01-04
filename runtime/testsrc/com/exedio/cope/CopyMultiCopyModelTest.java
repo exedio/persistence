@@ -18,17 +18,20 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.Assert.assertEqualsUnmodifiable;
+import static com.exedio.cope.Assert.list;
 import static com.exedio.cope.CopyMultiCopySourceItem.TYPE;
 import static com.exedio.cope.CopyMultiCopySourceItem.copyA;
 import static com.exedio.cope.CopyMultiCopySourceItem.copyB;
 import static com.exedio.cope.CopyMultiCopySourceItem.target;
 import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 
-import com.exedio.cope.junit.CopeAssert;
 import java.util.Arrays;
 import org.junit.Test;
 
-public class CopyMultiCopyModelTest extends CopeAssert
+public class CopyMultiCopyModelTest
 {
 	public static final Model MODEL = new Model(TYPE, CopyMultiCopyTargetItem.TYPE);
 

@@ -18,6 +18,8 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.Assert.assertEqualsUnmodifiable;
+import static com.exedio.cope.Assert.list;
 import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
 import static com.exedio.cope.SchemaInfo.getColumnValue;
 import static com.exedio.cope.pattern.Schedule.Interval.DAILY;
@@ -27,10 +29,14 @@ import static com.exedio.cope.pattern.Schedule.Interval.WEEKLY;
 import static com.exedio.cope.pattern.ScheduleItem.TYPE;
 import static com.exedio.cope.pattern.ScheduleItem.report;
 import static java.util.Arrays.asList;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
-import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.misc.Computed;
 import com.exedio.cope.util.JobContext;
 import java.util.GregorianCalendar;
@@ -38,7 +44,7 @@ import java.util.Locale;
 import java.util.TimeZone;
 import org.junit.Test;
 
-public class ScheduleModelTest extends CopeAssert
+public class ScheduleModelTest
 {
 	static final Model MODEL = new Model(TYPE);
 

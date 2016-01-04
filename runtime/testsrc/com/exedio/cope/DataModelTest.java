@@ -27,14 +27,15 @@ import static com.exedio.cope.DataItem.data10;
 import static com.exedio.cope.EqualsAssert.assertEqualsAndHash;
 import static com.exedio.cope.EqualsAssert.assertNotEqualsAndHash;
 import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
-import com.exedio.cope.junit.CopeAssert;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import org.junit.Test;
 
-public class DataModelTest extends CopeAssert
+public class DataModelTest
 {
 	public static final Model MODEL = new Model(TYPE, DataSubItem.TYPE);
 

@@ -19,12 +19,13 @@
 package com.exedio.cope.sampler;
 
 import static com.exedio.cope.sampler.Stuff.sampler;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import com.exedio.cope.util.JobContexts;
-import junit.framework.TestCase;
 import org.junit.Test;
 
-public class SamplerTest extends TestCase
+public class SamplerTest
 {
 	@Test public void testToString()
 	{

@@ -18,6 +18,9 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.Assert.assertContains;
+import static com.exedio.cope.Assert.assertEqualsStrict;
+import static com.exedio.cope.Assert.assertNotEqualsStrict;
 import static com.exedio.cope.LongItem.TYPE;
 import static com.exedio.cope.LongItem.any;
 import static com.exedio.cope.LongItem.mandatory;
@@ -26,11 +29,12 @@ import static com.exedio.cope.LongItem.min4;
 import static com.exedio.cope.LongItem.min4Max8;
 import static java.lang.Long.MAX_VALUE;
 import static java.lang.Long.MIN_VALUE;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
-import com.exedio.cope.junit.CopeAssert;
 import org.junit.Test;
 
-public class LongModelTest extends CopeAssert
+public class LongModelTest
 {
 	public/*for web.xml*/ static final Model MODEL = new Model(TYPE);
 

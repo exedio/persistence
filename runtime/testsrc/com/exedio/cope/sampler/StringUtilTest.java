@@ -18,12 +18,14 @@
 
 package com.exedio.cope.sampler;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
+
 import com.exedio.cope.SetValue;
 import com.exedio.cope.StringField;
-import com.exedio.cope.junit.CopeAssert;
 import org.junit.Test;
 
-public class StringUtilTest extends CopeAssert
+public class StringUtilTest
 {
 	@Test public void testNormal()
 	{

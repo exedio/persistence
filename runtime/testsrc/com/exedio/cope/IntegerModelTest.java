@@ -18,6 +18,9 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.Assert.assertContains;
+import static com.exedio.cope.Assert.assertEqualsStrict;
+import static com.exedio.cope.Assert.assertNotEqualsStrict;
 import static com.exedio.cope.IntegerItem.TYPE;
 import static com.exedio.cope.IntegerItem.any;
 import static com.exedio.cope.IntegerItem.mandatory;
@@ -26,11 +29,12 @@ import static com.exedio.cope.IntegerItem.min4;
 import static com.exedio.cope.IntegerItem.min4Max8;
 import static java.lang.Integer.MAX_VALUE;
 import static java.lang.Integer.MIN_VALUE;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
-import com.exedio.cope.junit.CopeAssert;
 import org.junit.Test;
 
-public class IntegerModelTest extends CopeAssert
+public class IntegerModelTest
 {
 	public static final Model MODEL = new Model(TYPE);
 

@@ -24,12 +24,12 @@ import static com.exedio.cope.pattern.EnumMapFieldItem.Language.DE;
 import static com.exedio.cope.pattern.EnumMapFieldItem.Language.EN;
 import static com.exedio.cope.pattern.EnumMapFieldItem.Language.PL;
 import static com.exedio.cope.pattern.EnumMapFieldItem.Language.SUBCLASS;
+import static org.junit.Assert.assertEquals;
 
 import com.exedio.cope.Model;
-import com.exedio.cope.junit.CopeAssert;
 import org.junit.Test;
 
-public class EnumMapFieldDefaultTest extends CopeAssert
+public class EnumMapFieldDefaultTest
 {
 	@SuppressWarnings("unused")
 	private static final Model MODEL = new Model(TYPE);

@@ -18,19 +18,23 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.Assert.assertEqualsUnmodifiable;
+import static com.exedio.cope.Assert.list;
 import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
 import static com.exedio.cope.pattern.ImporterItem.TYPE;
 import static com.exedio.cope.pattern.ImporterItem.byCode;
 import static com.exedio.cope.pattern.ImporterItem.code;
 import static com.exedio.cope.pattern.ImporterItem.description;
 import static com.exedio.cope.pattern.ImporterItem.description2;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.fail;
 
 import com.exedio.cope.Model;
 import com.exedio.cope.StringField;
-import com.exedio.cope.junit.CopeAssert;
 import org.junit.Test;
 
-public class ImporterModelTest extends CopeAssert
+public class ImporterModelTest
 {
 	static final Model model = new Model(ImporterItem.TYPE);
 

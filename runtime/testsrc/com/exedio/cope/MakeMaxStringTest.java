@@ -20,11 +20,12 @@ package com.exedio.cope;
 
 import static com.exedio.cope.util.Hex.encodeUpper;
 import static java.nio.charset.StandardCharsets.UTF_8;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
-import com.exedio.cope.junit.CopeAssert;
 import org.junit.Test;
 
-public class MakeMaxStringTest extends CopeAssert
+public class MakeMaxStringTest
 {
 	@Test public void testBase()
 	{

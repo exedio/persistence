@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.Assert.list;
 import static com.exedio.cope.DefaultToItem.TYPE;
 import static com.exedio.cope.DefaultToItem.booleanNone;
 import static com.exedio.cope.DefaultToItem.booleanTrue;
@@ -43,14 +44,16 @@ import static com.exedio.cope.DefaultToItem.DefaultToEnum.TWO;
 import static com.exedio.cope.SchemaInfo.getDefaultToNextSequenceName;
 import static com.exedio.cope.util.TimeZoneStrict.getTimeZone;
 import static java.lang.Boolean.TRUE;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.fail;
 
-import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.util.Day;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Date;
 import org.junit.Test;
 
-public class DefaultToModelTest extends CopeAssert
+public class DefaultToModelTest
 {
 	public static final Model MODEL = new Model(TYPE);
 

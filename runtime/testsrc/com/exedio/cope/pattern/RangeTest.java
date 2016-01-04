@@ -18,12 +18,17 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.Assert.assertEqualsStrict;
+import static com.exedio.cope.Assert.assertNotEqualsStrict;
 import static com.exedio.cope.pattern.Range.valueOf;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.fail;
 
-import com.exedio.cope.junit.CopeAssert;
 import org.junit.Test;
 
-public class RangeTest extends CopeAssert
+public class RangeTest
 {
 	@Test public void testAB()
 	{

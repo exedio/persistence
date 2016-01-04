@@ -18,23 +18,29 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.Assert.assertEqualsUnmodifiable;
+import static com.exedio.cope.Assert.list;
 import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
 import static com.exedio.cope.pattern.DispatcherItem.TYPE;
 import static com.exedio.cope.pattern.DispatcherItem.body;
 import static com.exedio.cope.pattern.DispatcherItem.dispatchCountCommitted;
 import static com.exedio.cope.pattern.DispatcherItem.toTarget;
 import static com.exedio.cope.pattern.DispatcherItem.toTargetRunParent;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.Type;
-import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.misc.Computed;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.List;
 import org.junit.Test;
 
-public class DispatcherModelTest extends CopeAssert
+public class DispatcherModelTest
 {
 	public static final Model MODEL = new Model(DispatcherItem.TYPE);
 

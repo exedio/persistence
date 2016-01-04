@@ -18,15 +18,18 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.Assert.list;
 import static com.exedio.cope.SequenceItem.TYPE;
 import static com.exedio.cope.SequenceItem.full;
 import static com.exedio.cope.SequenceItem.limited;
 import static java.lang.Integer.MAX_VALUE;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.fail;
 
-import com.exedio.cope.junit.CopeAssert;
 import org.junit.Test;
 
-public class SequenceModelTest extends CopeAssert
+public class SequenceModelTest
 {
 	static final Model MODEL = new Model(TYPE);
 

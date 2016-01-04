@@ -18,6 +18,8 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.Assert.assertEqualsUnmodifiable;
+import static com.exedio.cope.Assert.list;
 import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
 import static com.exedio.cope.pattern.EnumSetFieldItem.TYPE;
 import static com.exedio.cope.pattern.EnumSetFieldItem.activeLanguage;
@@ -25,14 +27,15 @@ import static com.exedio.cope.pattern.EnumSetFieldItem.Language.DE;
 import static com.exedio.cope.pattern.EnumSetFieldItem.Language.EN;
 import static com.exedio.cope.pattern.EnumSetFieldItem.Language.PL;
 import static com.exedio.cope.pattern.EnumSetFieldItem.Language.SUBCLASS;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 
 import com.exedio.cope.BooleanField;
 import com.exedio.cope.Model;
-import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.pattern.EnumSetFieldItem.Language;
 import org.junit.Test;
 
-public class EnumSetFieldModelTest extends CopeAssert
+public class EnumSetFieldModelTest
 {
 	public/*for web.xml*/ static final Model MODEL = new Model(EnumSetFieldItem.TYPE);
 

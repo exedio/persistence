@@ -21,14 +21,15 @@ package com.exedio.cope.pattern;
 import static com.exedio.cope.pattern.TextUrlFilterDelegatorItem.fertig;
 import static com.exedio.cope.pattern.TextUrlFilterDelegatorItem.roh2;
 import static java.nio.charset.StandardCharsets.UTF_8;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
-import com.exedio.cope.junit.CopeAssert;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.nio.charset.Charset;
 import org.junit.Test;
 
 @SuppressFBWarnings("NP_NULL_PARAM_DEREF_NONVIRTUAL")
-public class TextUrlFilterDelegatorModelTest extends CopeAssert
+public class TextUrlFilterDelegatorModelTest
 {
 	@Test public void testRawNull()
 	{
