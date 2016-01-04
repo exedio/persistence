@@ -22,12 +22,15 @@ import static com.exedio.cope.Condition.FALSE;
 import static com.exedio.cope.Condition.TRUE;
 import static java.lang.Integer.MAX_VALUE;
 import static java.lang.Integer.MIN_VALUE;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.fail;
 
 import com.exedio.cope.CompareFunctionCondition.Operator;
-import com.exedio.cope.junit.CopeAssert;
 import org.junit.Test;
 
-public class IntegerFieldTest extends CopeAssert
+public class IntegerFieldTest
 {
 	@Test public void testQueryCanonize()
 	{

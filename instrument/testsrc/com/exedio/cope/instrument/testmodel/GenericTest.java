@@ -18,10 +18,11 @@
 
 package com.exedio.cope.instrument.testmodel;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.assertEquals;
+
 import org.junit.Test;
 
-public class GenericTest extends TestCase
+public class GenericTest
 {
 	@Test public void testType()
 	{

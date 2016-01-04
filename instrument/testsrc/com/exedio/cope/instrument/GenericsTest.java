@@ -20,11 +20,11 @@ package com.exedio.cope.instrument;
 
 import static com.exedio.cope.instrument.Generics.get;
 import static java.util.Arrays.asList;
+import static org.junit.Assert.assertEquals;
 
-import junit.framework.TestCase;
 import org.junit.Test;
 
-public class GenericsTest extends TestCase
+public class GenericsTest
 {
 	@Test public void testIt()
 	{

@@ -20,9 +20,11 @@ package com.exedio.cope;
 
 import static com.exedio.cope.DataField.toValue;
 import static java.nio.charset.StandardCharsets.UTF_8;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.fail;
 
 import com.exedio.cope.DataField.Value;
-import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.util.Hex;
 import com.exedio.cope.util.MessageDigestUtil;
 import java.io.ByteArrayInputStream;
@@ -33,7 +35,7 @@ import java.security.MessageDigest;
 import java.util.Arrays;
 import org.junit.Test;
 
-public class DataDigestTest extends CopeAssert
+public class DataDigestTest
 {
 	@Test public void testUpdate() throws IOException
 	{

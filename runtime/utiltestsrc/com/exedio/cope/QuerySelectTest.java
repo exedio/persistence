@@ -22,13 +22,15 @@ import static com.exedio.cope.Query.newQuery;
 import static com.exedio.cope.QuerySelectTest.AnItem.TYPE;
 import static com.exedio.cope.QuerySelectTest.AnItem.field1;
 import static com.exedio.cope.QuerySelectTest.AnItem.field2;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.fail;
 
-import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.util.Day;
 import java.util.List;
 import org.junit.Test;
 
-public class QuerySelectTest extends CopeAssert
+public class QuerySelectTest
 {
 	@Test public void testSetSelectsCheck()
 	{

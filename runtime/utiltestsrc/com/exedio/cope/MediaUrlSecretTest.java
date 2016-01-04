@@ -18,14 +18,16 @@
 
 package com.exedio.cope;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+
 import com.exedio.cope.pattern.MediaPath;
 import com.exedio.cope.util.Sources;
 import java.util.Properties;
-import junit.framework.TestCase;
 import org.junit.After;
 import org.junit.Test;
 
-public class MediaUrlSecretTest extends TestCase
+public class MediaUrlSecretTest
 {
 	@Test public void testOff()
 	{
@@ -130,12 +132,11 @@ public class MediaUrlSecretTest extends TestCase
 				null);
 	}
 
-	@Override
-	@After public final void tearDown() throws Exception
+	@SuppressWarnings("static-method")
+	@After public final void tearDown()
 	{
 		if(model.isConnected())
 			model.disconnect();
-		super.tearDown();
 	}
 
 	static class AnItem extends Item

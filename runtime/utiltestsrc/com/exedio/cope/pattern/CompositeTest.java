@@ -18,12 +18,16 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.AssertUtil.assertWithin;
 import static com.exedio.cope.EqualsAssertUtil.assertEqualBits;
 import static com.exedio.cope.util.TimeZoneStrict.getTimeZone;
 import static java.lang.Boolean.valueOf;
 import static java.lang.Double.valueOf;
 import static java.lang.Integer.valueOf;
 import static java.lang.Long.valueOf;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.fail;
 
 import com.exedio.cope.BooleanField;
 import com.exedio.cope.DateField;
@@ -36,12 +40,11 @@ import com.exedio.cope.LongField;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.StringField;
 import com.exedio.cope.StringLengthViolationException;
-import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.util.Day;
 import java.util.Date;
 import org.junit.Test;
 
-public class CompositeTest extends CopeAssert
+public class CompositeTest
 {
 	@Test public void testCheck()
 	{

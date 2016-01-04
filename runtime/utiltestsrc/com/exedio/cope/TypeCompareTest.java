@@ -19,11 +19,12 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.TypesBound.newType;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
-import com.exedio.cope.junit.CopeAssert;
 import org.junit.Test;
 
-public class TypeCompareTest extends CopeAssert
+public class TypeCompareTest
 {
 	@Test public void testType()
 	{

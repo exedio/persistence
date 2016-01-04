@@ -18,12 +18,16 @@
 
 package com.exedio.cope.pattern;
 
-import com.exedio.cope.junit.CopeAssert;
+import static com.exedio.cope.AssertUtil.assertWithin;
+import static com.exedio.cope.AssertUtil.list;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
 import java.io.IOException;
 import java.util.Date;
 import org.junit.Test;
 
-public class ErrorLogTest extends CopeAssert
+public class ErrorLogTest
 {
 	@Test public void testValues()
 	{

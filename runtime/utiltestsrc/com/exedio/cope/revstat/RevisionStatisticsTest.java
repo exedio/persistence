@@ -18,19 +18,23 @@
 
 package com.exedio.cope.revstat;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+
 import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.Model;
 import com.exedio.cope.Revision;
 import com.exedio.cope.Revisions;
 import com.exedio.cope.TypeSet;
-import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.util.AssertionErrorJobContext;
 import java.io.File;
 import java.util.Iterator;
 import org.junit.After;
 import org.junit.Test;
 
-public class RevisionStatisticsTest extends CopeAssert
+public class RevisionStatisticsTest
 {
 	private static final TestRevisionsFactory revisions = new TestRevisionsFactory();
 
@@ -133,12 +137,11 @@ public class RevisionStatisticsTest extends CopeAssert
 		assertFalse(sheetIterator.hasNext());
 	}
 
-	@Override
-	@After public final void tearDown() throws Exception
+	@SuppressWarnings("static-method")
+	@After public final void tearDown()
 	{
 		MODEL.rollbackIfNotCommitted();
 		MODEL.disconnect();
-		super.tearDown();
 	}
 
 	private static final class TestRevisionsFactory implements Revisions.Factory

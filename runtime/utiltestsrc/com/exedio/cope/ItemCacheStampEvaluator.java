@@ -20,7 +20,6 @@ package com.exedio.cope;
 
 import static com.exedio.cope.misc.TimeUtil.toMillies;
 
-import com.exedio.cope.junit.CopeAssert;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 import org.junit.Ignore;
@@ -38,7 +37,7 @@ import org.junit.Test;
  * AtomicInteger.getAndIncrement() 94 ms
  */
 @Ignore
-public class ItemCacheStampEvaluator extends CopeAssert
+public class ItemCacheStampEvaluator
 {
 	private static final int ITERATIONS = 10000000;
 

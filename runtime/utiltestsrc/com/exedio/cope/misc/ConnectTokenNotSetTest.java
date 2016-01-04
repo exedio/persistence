@@ -21,16 +21,18 @@ package com.exedio.cope.misc;
 import static com.exedio.cope.misc.ConnectToken.getTokens;
 import static com.exedio.cope.misc.ConnectToken.issue;
 import static com.exedio.cope.misc.ConnectToken.issueIfConnected;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.fail;
 
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
-import com.exedio.cope.junit.CopeAssert;
 import org.junit.Test;
 
-public class ConnectTokenNotSetTest extends CopeAssert
+public class ConnectTokenNotSetTest
 {
 	private static final Model model = new Model(AnItem.TYPE);
 	private static final class AnItem extends Item

@@ -18,10 +18,12 @@
 
 package com.exedio.cope;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+
 import org.junit.Test;
 
-public class TrimmerTest extends TestCase
+public class TrimmerTest
 {
 	private static void assertTrim(final String expected, final String actualLongString, final int maxLength)
 	{

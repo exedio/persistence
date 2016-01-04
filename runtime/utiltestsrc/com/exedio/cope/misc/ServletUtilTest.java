@@ -20,6 +20,10 @@ package com.exedio.cope.misc;
 
 import static com.exedio.cope.misc.ConnectToken.removeProperties;
 import static com.exedio.cope.misc.ConnectToken.setProperties;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.fail;
 
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.ConnectProperties;
@@ -27,7 +31,6 @@ import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
-import com.exedio.cope.junit.CopeAssert;
 import java.io.File;
 import java.util.Enumeration;
 import javax.servlet.Filter;
@@ -42,30 +45,28 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-public class ServletUtilTest extends CopeAssert
+public class ServletUtilTest
 {
 	public static final Model modelOk = new Model(ModelOk.TYPE);
 	public static final Model modelOk2 = new Model(ModelOk2.TYPE);
 	public static final Model modelContext = new Model(ModelContext.TYPE);
 	public static final Model modelNull = null;
 
-	@Override
-	@Before public final void setUp() throws Exception
+	@SuppressWarnings("static-method")
+	@Before public final void setUp()
 	{
-		super.setUp();
 		final ConnectProperties props = new ConnectProperties(new File("runtime/utiltest.properties"));
 		setProperties(modelOk, props);
 		setProperties(modelOk2, props);
 		setProperties(modelContext, props);
 	}
 
-	@Override
-	@After public final void tearDown() throws Exception
+	@SuppressWarnings("static-method")
+	@After public final void tearDown()
 	{
 		removeProperties(modelOk);
 		removeProperties(modelOk2);
 		removeProperties(modelContext);
-		super.tearDown();
 	}
 
 	@Test public void testIt()

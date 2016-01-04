@@ -18,6 +18,8 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.AssertUtil.assertEqualsUnmodifiable;
+import static com.exedio.cope.AssertUtil.list;
 import static com.exedio.cope.pattern.MediaType.forFileName;
 import static com.exedio.cope.pattern.MediaType.forMagics;
 import static com.exedio.cope.pattern.MediaType.forName;
@@ -25,8 +27,13 @@ import static com.exedio.cope.pattern.MediaType.forNameAndAliases;
 import static com.exedio.cope.util.Hex.decodeLower;
 import static com.exedio.cope.util.StrictFile.delete;
 import static java.io.File.createTempFile;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
-import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.util.StrictFile;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -34,13 +41,12 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.Set;
 import org.junit.After;
 import org.junit.Test;
 
-public class MediaTypeTest extends CopeAssert
+public class MediaTypeTest
 {
 	private static final String JPEG = "ffd8ff";
 	private static final String PNG = "89504e470d0a1a0a";
@@ -257,12 +263,6 @@ public class MediaTypeTest extends CopeAssert
 		return new LinkedHashSet<Object>(Arrays.asList(o));
 	}
 
-	private static final void assertEqualsUnmodifiable(final Set<?> expected, final Collection<?> actual)
-	{
-		assertUnmodifiable(actual);
-		assertEquals(expected, actual);
-	}
-
 	private File file(final byte[] bytes) throws IOException
 	{
 		final File result = deleteOnTearDown(createTempFile(MediaTypeTest.class.getName(), ".dat"));
@@ -276,14 +276,11 @@ public class MediaTypeTest extends CopeAssert
 
 	private final ArrayList<File> files = new ArrayList<>();
 
-	@Override
-	@After public final void tearDown() throws Exception
+	@After public final void tearDown()
 	{
 		for(final File file : files)
 			delete(file);
 		files.clear();
-
-		super.tearDown();
 	}
 
 	private final File deleteOnTearDown(final File file)

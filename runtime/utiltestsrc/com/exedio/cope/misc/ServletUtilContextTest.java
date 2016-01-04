@@ -19,12 +19,13 @@
 package com.exedio.cope.misc;
 
 import static com.exedio.cope.misc.ServletUtil.getPropertyContext;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
-import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.util.Properties.Source;
 import org.junit.Test;
 
-public class ServletUtilContextTest extends CopeAssert
+public class ServletUtilContextTest
 {
 	@Deprecated
 	@Test public void testIt()

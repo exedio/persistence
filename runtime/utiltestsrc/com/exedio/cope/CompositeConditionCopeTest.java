@@ -24,14 +24,17 @@ import static com.exedio.cope.Condition.FALSE;
 import static com.exedio.cope.Condition.TRUE;
 import static com.exedio.cope.Cope.and;
 import static com.exedio.cope.Cope.or;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.fail;
 
 import com.exedio.cope.CompositeCondition.Operator;
-import com.exedio.cope.junit.CopeAssert;
 import java.util.Arrays;
 import java.util.List;
 import org.junit.Test;
 
-public class CompositeConditionCopeTest extends CopeAssert
+public class CompositeConditionCopeTest
 {
 	@Test public void testIt()
 	{

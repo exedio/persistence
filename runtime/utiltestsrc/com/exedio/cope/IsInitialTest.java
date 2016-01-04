@@ -18,11 +18,12 @@
 
 package com.exedio.cope;
 
+import static org.junit.Assert.assertEquals;
+
 import java.util.Date;
-import junit.framework.TestCase;
 import org.junit.Test;
 
-public class IsInitialTest extends TestCase
+public class IsInitialTest
 {
 	@Test public void testIsInitial()
 	{

@@ -18,10 +18,12 @@
 
 package com.exedio.cope;
 
-import com.exedio.cope.junit.CopeAssert;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+
 import org.junit.Test;
 
-public class IntegerRangeDigitsTest extends CopeAssert
+public class IntegerRangeDigitsTest
 {
 	@Test public void testIt()
 	{

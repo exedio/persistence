@@ -21,13 +21,14 @@ package com.exedio.cope;
 import static com.exedio.cope.EqualsAssertUtil.assertEqualsAndHash;
 import static com.exedio.cope.EqualsAssertUtil.assertNotEqualsAndHash;
 import static com.exedio.cope.SetValue.map;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import java.lang.reflect.Type;
 import java.util.Set;
-import junit.framework.TestCase;
 import org.junit.Test;
 
-public class SetValueTest extends TestCase
+public class SetValueTest
 {
 	@Test public void testNormal()
 	{

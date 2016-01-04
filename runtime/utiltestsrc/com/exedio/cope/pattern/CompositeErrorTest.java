@@ -19,6 +19,8 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.pattern.CompositeField.create;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import com.exedio.cope.BooleanField;
 import com.exedio.cope.DateField;
@@ -27,10 +29,9 @@ import com.exedio.cope.Field;
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.StringField;
-import com.exedio.cope.junit.CopeAssert;
 import org.junit.Test;
 
-public class CompositeErrorTest extends CopeAssert
+public class CompositeErrorTest
 {
 	@Test public void testNull()
 	{

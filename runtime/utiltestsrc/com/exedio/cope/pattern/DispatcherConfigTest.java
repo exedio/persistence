@@ -18,10 +18,12 @@
 
 package com.exedio.cope.pattern;
 
-import com.exedio.cope.junit.CopeAssert;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+
 import org.junit.Test;
 
-public class DispatcherConfigTest extends CopeAssert
+public class DispatcherConfigTest
 {
 	private static final Dispatcher.Config config = new Dispatcher.Config(3, 2);
 

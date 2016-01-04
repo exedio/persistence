@@ -18,11 +18,13 @@
 
 package com.exedio.cope.pattern;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+
 import com.exedio.cope.EnumField;
-import junit.framework.TestCase;
 import org.junit.Test;
 
-public class MoneyFieldUtilTest extends TestCase
+public class MoneyFieldUtilTest
 {
 	@Test public void testFixedCurrencyNull()
 	{

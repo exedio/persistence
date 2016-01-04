@@ -18,7 +18,13 @@
 
 package com.exedio.cope;
 
-import com.exedio.cope.junit.CopeAssert;
+import static com.exedio.cope.AssertUtil.assertUnmodifiable;
+import static com.exedio.cope.AssertUtil.list;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
 import com.exedio.cope.util.Hex;
 import com.exedio.cope.util.Properties;
 import gnu.trove.TIntHashSet;
@@ -31,7 +37,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-public abstract class ClusterTest extends CopeAssert
+public abstract class ClusterTest
 {
 	private ClusterProperties csp;
 	private ClusterProperties clp;
@@ -77,22 +83,18 @@ public abstract class ClusterTest extends CopeAssert
 			));
 	}
 
-	@Override
-	@Before public final void setUp() throws Exception
+	@Before public final void setUpClusterTest()
 	{
-		super.setUp();
 		csp = getProperties(0x11224433);
 		clp = getProperties(0x11224434);
 		cs = new ClusterSenderMock(csp);
 		cl = new ClusterListenerMock(clp, 4);
 	}
 
-	@Override
-	@After public final void tearDown() throws Exception
+	@After public final void tearDownClusterTest()
 	{
 		cs.close();
 		cl.close();
-		super.tearDown();
 	}
 
 	@Test public void testSet()

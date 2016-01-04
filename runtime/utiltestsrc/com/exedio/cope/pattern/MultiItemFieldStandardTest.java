@@ -18,9 +18,14 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.AssertUtil.assertContains;
+import static com.exedio.cope.AssertUtil.assertEqualsUnmodifiable;
 import static com.exedio.cope.ItemField.DeletePolicy.CASCADE;
 import static com.exedio.cope.ItemField.DeletePolicy.FORBID;
 import static java.util.Arrays.asList;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.fail;
 
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.CheckConstraint;
@@ -28,11 +33,10 @@ import com.exedio.cope.ItemField;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
-import com.exedio.cope.junit.CopeAssert;
 import java.util.List;
 import org.junit.Test;
 
-public class MultiItemFieldStandardTest extends CopeAssert
+public class MultiItemFieldStandardTest
 {
 	static final class AnMandatoryItem extends com.exedio.cope.Item
 	{

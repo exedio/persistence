@@ -18,16 +18,19 @@
 
 package com.exedio.cope;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
 import com.exedio.cope.util.Properties.Field;
 import com.exedio.cope.util.Properties.Source;
 import com.exedio.cope.util.Sources;
 import java.io.File;
 import java.util.Collection;
 import java.util.concurrent.Callable;
-import junit.framework.TestCase;
 import org.junit.Test;
 
-public class ConnectPropertiesTest extends TestCase
+public class ConnectPropertiesTest
 {
 	/**
 	 * This tests makes sure, that no properties are changed by accident.

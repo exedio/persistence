@@ -18,12 +18,14 @@
 
 package com.exedio.cope.util;
 
-import com.exedio.cope.junit.CopeAssert;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+
 import com.exedio.cope.misc.AssertionFailedServletContext;
 import com.exedio.cope.util.Properties.Source;
 import org.junit.Test;
 
-public class ServletUtilContextTest extends CopeAssert
+public class ServletUtilContextTest
 {
 	@Deprecated
 	@Test public void testIt()

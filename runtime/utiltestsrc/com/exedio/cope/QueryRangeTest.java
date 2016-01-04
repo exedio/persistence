@@ -19,11 +19,12 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.QueryRangeTest.AnItem.TYPE;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
-import com.exedio.cope.junit.CopeAssert;
 import org.junit.Test;
 
-public class QueryRangeTest extends CopeAssert
+public class QueryRangeTest
 {
 	static final Model MODEL = new Model(TYPE);
 

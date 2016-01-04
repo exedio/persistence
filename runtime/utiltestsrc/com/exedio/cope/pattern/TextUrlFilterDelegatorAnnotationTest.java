@@ -20,18 +20,20 @@ package com.exedio.cope.pattern;
 
 import static com.exedio.cope.TypesBound.newType;
 import static java.nio.charset.StandardCharsets.UTF_8;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
 import com.exedio.cope.Type;
-import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.misc.Computed;
 import java.lang.annotation.Annotation;
 import org.junit.Test;
 
-public class TextUrlFilterDelegatorAnnotationTest extends CopeAssert
+public class TextUrlFilterDelegatorAnnotationTest
 {
 	@Test public void testIt()
 	{

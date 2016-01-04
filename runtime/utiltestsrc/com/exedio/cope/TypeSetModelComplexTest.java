@@ -18,10 +18,14 @@
 
 package com.exedio.cope;
 
-import com.exedio.cope.junit.CopeAssert;
+import static com.exedio.cope.AssertUtil.assertEqualsUnmodifiable;
+import static com.exedio.cope.AssertUtil.list;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+
 import org.junit.Test;
 
-public class TypeSetModelComplexTest extends CopeAssert
+public class TypeSetModelComplexTest
 {
 	@Test public void testIt()
 	{

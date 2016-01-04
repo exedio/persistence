@@ -18,15 +18,16 @@
 
 package com.exedio.cope.pattern;
 
+import static org.junit.Assert.assertEquals;
+
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
 import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
-import com.exedio.cope.junit.CopeAssert;
 import org.junit.Test;
 
-public class EnumFieldNameTest extends CopeAssert
+public class EnumFieldNameTest
 {
 	@Test public void testIt()
 	{

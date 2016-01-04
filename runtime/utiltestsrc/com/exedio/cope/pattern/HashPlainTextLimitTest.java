@@ -18,10 +18,12 @@
 
 package com.exedio.cope.pattern;
 
-import com.exedio.cope.junit.CopeAssert;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+
 import org.junit.Test;
 
-public class HashPlainTextLimitTest extends CopeAssert
+public class HashPlainTextLimitTest
 {
 	@Test public void testIt()
 	{

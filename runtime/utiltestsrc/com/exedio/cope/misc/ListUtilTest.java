@@ -18,13 +18,16 @@
 
 package com.exedio.cope.misc;
 
+import static com.exedio.cope.AssertUtil.assertEqualsUnmodifiable;
+import static com.exedio.cope.AssertUtil.list;
 import static com.exedio.cope.misc.ListUtil.trimUnmodifiable;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
-import com.exedio.cope.junit.CopeAssert;
 import java.util.ArrayList;
 import org.junit.Test;
 
-public class ListUtilTest extends CopeAssert
+public class ListUtilTest
 {
 	@Test public void testIt()
 	{

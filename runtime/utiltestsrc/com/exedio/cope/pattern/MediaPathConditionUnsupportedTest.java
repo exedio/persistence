@@ -18,17 +18,19 @@
 
 package com.exedio.cope.pattern;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.Item;
 import com.exedio.cope.Join;
 import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
-import com.exedio.cope.junit.CopeAssert;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.junit.Test;
 
-public class MediaPathConditionUnsupportedTest extends CopeAssert
+public class MediaPathConditionUnsupportedTest
 {
 	@Test public void testNull()
 	{

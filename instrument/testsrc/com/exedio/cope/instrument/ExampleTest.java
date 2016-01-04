@@ -18,6 +18,8 @@
 
 package com.exedio.cope.instrument;
 
+import static org.junit.Assert.assertEquals;
+
 import java.lang.reflect.Modifier;
 
 public class ExampleTest extends ParserTest

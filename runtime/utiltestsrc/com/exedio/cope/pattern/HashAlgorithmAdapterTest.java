@@ -18,16 +18,18 @@
 
 package com.exedio.cope.pattern;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.StringField;
 import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
-import com.exedio.cope.junit.CopeAssert;
 import org.junit.Test;
 
-public class HashAlgorithmAdapterTest extends CopeAssert
+public class HashAlgorithmAdapterTest
 {
 	@Test public void testAlgorithm()
 	{

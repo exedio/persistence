@@ -24,11 +24,12 @@ import static com.exedio.cope.misc.ConnectToken.issue;
 import static com.exedio.cope.misc.ConnectToken.issueIfConnected;
 import static com.exedio.cope.misc.ConnectToken.removeProperties;
 import static com.exedio.cope.misc.ConnectToken.setProperties;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
-import com.exedio.cope.junit.CopeAssert;
 import org.junit.Test;
 
-public class ConnectTokenNullModelTest extends CopeAssert
+public class ConnectTokenNullModelTest
 {
 	@Test public void testIt()
 	{

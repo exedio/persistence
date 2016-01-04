@@ -18,7 +18,8 @@
 
 package com.exedio.cope;
 
-import com.exedio.cope.junit.CopeAssert;
+import static org.junit.Assert.fail;
+
 import com.exedio.cope.util.Properties;
 import java.io.IOException;
 import java.net.SocketException;
@@ -27,16 +28,14 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-public final class ClusterSenderMulticastTest extends CopeAssert
+public final class ClusterSenderMulticastTest
 {
 	private ClusterSenderMulticast sender;
 
 	private static final int SECRET = 0x88776655;
 
-	@Override
-	@Before public final void setUp() throws Exception
+	@Before public final void setUp()
 	{
-		super.setUp();
 		final ClusterProperties properties = ClusterProperties.get(
 			new ConnectProperties(
 				ConnectSource.get(),
@@ -68,11 +67,9 @@ public final class ClusterSenderMulticastTest extends CopeAssert
 		sender = new ClusterSenderMulticast(properties);
 	}
 
-	@Override
-	@After public final void tearDown() throws Exception
+	@After public final void tearDown()
 	{
 		sender.close();
-		super.tearDown();
 	}
 
 	@Test public void testIt() throws IOException

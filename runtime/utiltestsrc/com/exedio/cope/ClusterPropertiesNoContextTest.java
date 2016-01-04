@@ -18,7 +18,9 @@
 
 package com.exedio.cope;
 
-import com.exedio.cope.junit.CopeAssert;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+
 import com.exedio.cope.util.Properties;
 import com.exedio.cope.util.Properties.Source;
 import java.io.File;
@@ -26,7 +28,7 @@ import java.util.Collection;
 import org.junit.After;
 import org.junit.Test;
 
-public class ClusterPropertiesNoContextTest extends CopeAssert
+public class ClusterPropertiesNoContextTest
 {
 	@Test public void testOk()
 	{
@@ -163,12 +165,11 @@ public class ClusterPropertiesNoContextTest extends CopeAssert
 		}
 	}
 
-	@Override
-	@After public final void tearDown() throws Exception
+	@SuppressWarnings("static-method")
+	@After public final void tearDown()
 	{
 		if(model.isConnected())
 			model.disconnect();
-		super.tearDown();
 	}
 
 	private static final class AType extends Item

@@ -20,16 +20,20 @@ package com.exedio.cope.pattern;
 
 import static com.exedio.cope.pattern.MessageDigestHashAlgorithm.create;
 import static java.nio.charset.StandardCharsets.UTF_8;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import com.exedio.cope.StringField;
-import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.util.Hex;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import org.junit.Before;
 import org.junit.Test;
 
-public class MessageDigestHashAlgorithmTest extends CopeAssert
+public class MessageDigestHashAlgorithmTest
 {
 	@Test public void testIt()
 	{
@@ -288,10 +292,8 @@ public class MessageDigestHashAlgorithmTest extends CopeAssert
 		return mockSecureRandomInternal;
 	}
 
-	@Override
-	@Before public final void setUp() throws Exception
+	@Before public final void setUp()
 	{
-		super.setUp();
 		mockSecureRandomInternal = null;
 		mockSecureRandomInternalLength = -1;
 	}

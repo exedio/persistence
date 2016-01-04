@@ -21,12 +21,12 @@ package com.exedio.cope;
 import static com.exedio.cope.AssertUtil.reserialize;
 import static com.exedio.cope.QuerySerializeTest.AnItem.TYPE;
 import static com.exedio.cope.QuerySerializeTest.AnItem.field;
+import static org.junit.Assert.assertEquals;
 
 import java.util.List;
-import junit.framework.TestCase;
 import org.junit.Test;
 
-public class QuerySerializeTest extends TestCase
+public class QuerySerializeTest
 {
 	@Test public void testSerialize()
 	{

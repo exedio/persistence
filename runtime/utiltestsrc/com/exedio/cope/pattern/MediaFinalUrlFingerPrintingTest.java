@@ -18,16 +18,17 @@
 
 package com.exedio.cope.pattern;
 
+import static org.junit.Assert.assertEquals;
+
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
-import com.exedio.cope.junit.CopeAssert;
 import org.junit.Test;
 
 /**
  * This test became useless, as there is no connection between
  * toFinal and @UrlFingerPrinting anymore.
  */
-public class MediaFinalUrlFingerPrintingTest extends CopeAssert
+public class MediaFinalUrlFingerPrintingTest
 {
 	@Test public void testIt()
 	{

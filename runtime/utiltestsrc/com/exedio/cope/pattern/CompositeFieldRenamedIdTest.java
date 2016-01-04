@@ -24,6 +24,7 @@ import static com.exedio.cope.pattern.CompositeFieldRenamedIdTest.MyComposite.wr
 import static com.exedio.cope.pattern.CompositeFieldRenamedIdTest.MyItem.TYPE;
 import static com.exedio.cope.pattern.CompositeFieldRenamedIdTest.MyItem.virgnComp;
 import static com.exedio.cope.pattern.CompositeFieldRenamedIdTest.MyItem.wrongComp;
+import static org.junit.Assert.assertEquals;
 
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.CopeName;
@@ -33,10 +34,9 @@ import com.exedio.cope.SetValue;
 import com.exedio.cope.StringField;
 import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
-import com.exedio.cope.junit.CopeAssert;
 import org.junit.Test;
 
-public class CompositeFieldRenamedIdTest extends CopeAssert
+public class CompositeFieldRenamedIdTest
 {
 	private static final Model MODEL = new Model(TYPE);
 

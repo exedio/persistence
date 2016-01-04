@@ -19,16 +19,18 @@
 package com.exedio.cope.misc;
 
 import static com.exedio.cope.misc.ModelByString.get;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.fail;
 
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
-import com.exedio.cope.junit.CopeAssert;
 import org.junit.Test;
 
-public class ModelByStringTest extends CopeAssert
+public class ModelByStringTest
 {
 	public static final Model modelOk = new Model(ModelOk.TYPE);
 	@SuppressWarnings("unused") // OK: read by reflection

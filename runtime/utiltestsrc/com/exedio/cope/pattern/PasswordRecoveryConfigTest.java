@@ -18,11 +18,13 @@
 
 package com.exedio.cope.pattern;
 
-import com.exedio.cope.junit.CopeAssert;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+
 import com.exedio.cope.pattern.PasswordRecovery.Config;
 import org.junit.Test;
 
-public class PasswordRecoveryConfigTest extends CopeAssert
+public class PasswordRecoveryConfigTest
 {
 	@Test public void testConfigFailure()
 	{

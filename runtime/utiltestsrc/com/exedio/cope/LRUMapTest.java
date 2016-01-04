@@ -19,16 +19,16 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.misc.TimeUtil.toMillies;
+import static org.junit.Assert.assertEquals;
 
 import gnu.trove.TIntObjectHashMap;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import junit.framework.TestCase;
 import org.junit.Test;
 
-public class LRUMapTest extends TestCase
+public class LRUMapTest
 {
 	private static final class LRUMap<K, V> extends LinkedHashMap<K, V>
 	{

@@ -18,14 +18,20 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.AssertUtil.assertEqualsUnmodifiable;
+import static com.exedio.cope.AssertUtil.list;
 import static com.exedio.cope.TypesBound.forClass;
 import static com.exedio.cope.TypesBound.forClassUnchecked;
 import static com.exedio.cope.TypesBound.newType;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
-import com.exedio.cope.junit.CopeAssert;
 import org.junit.Test;
 
-public class TypesBoundComplexTest extends CopeAssert
+public class TypesBoundComplexTest
 {
 	@Test public void testType()
 	{

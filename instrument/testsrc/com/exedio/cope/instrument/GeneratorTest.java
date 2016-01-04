@@ -23,6 +23,8 @@ import static java.lang.reflect.Modifier.PRIVATE;
 import static java.lang.reflect.Modifier.PROTECTED;
 import static java.lang.reflect.Modifier.PUBLIC;
 import static java.lang.reflect.Modifier.STATIC;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.DoubleRangeViolationException;
@@ -51,10 +53,9 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.Arrays;
 import java.util.Date;
-import junit.framework.TestCase;
 import org.junit.Test;
 
-public class GeneratorTest extends TestCase
+public class GeneratorTest
 {
 	public static final int VARARGS = 0x00000080;
 

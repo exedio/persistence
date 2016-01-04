@@ -20,11 +20,12 @@ package com.exedio.cope;
 
 import static java.lang.Long.MAX_VALUE;
 import static java.lang.Long.MIN_VALUE;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
-import com.exedio.cope.junit.CopeAssert;
 import org.junit.Test;
 
-public class LongFieldTest extends CopeAssert
+public class LongFieldTest
 {
 	@Test public void testIllegalRange()
 	{

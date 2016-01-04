@@ -19,15 +19,16 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.pattern.MediaType.forName;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import com.exedio.cope.Condition;
 import com.exedio.cope.DataField;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.StringField;
-import com.exedio.cope.junit.CopeAssert;
 import org.junit.Test;
 
-public class MediaTypeMediaTest extends CopeAssert
+public class MediaTypeMediaTest
 {
 	private static final String JPEG = "ffd8ff";
 	private static final String GIF = "47494638";

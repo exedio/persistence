@@ -20,12 +20,15 @@ package com.exedio.cope;
 
 import static java.lang.Long.MAX_VALUE;
 import static java.lang.Long.MIN_VALUE;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
-import com.exedio.cope.junit.CopeAssert;
 import java.util.Random;
 import org.junit.Test;
 
-public class LongFieldRandomTest extends CopeAssert
+public class LongFieldRandomTest
 {
 	static class RandomX extends Random
 	{

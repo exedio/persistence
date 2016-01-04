@@ -18,8 +18,10 @@
 
 package com.exedio.cope;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+
 import com.exedio.cope.Timer.Interval;
-import junit.framework.TestCase;
 import org.apache.log4j.Level;
 import org.junit.After;
 import org.junit.Before;
@@ -27,27 +29,23 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class TimerTest extends TestCase
+public class TimerTest
 {
 	private static final Logger logger = LoggerFactory.getLogger(TimerTest.class);
 	private static final org.apache.log4j.Logger loggerImpl = org.apache.log4j.Logger.getLogger(TimerTest.class);
 
 	UtilTestLogAppender log = null;
 
-	@Override
-	@Before public final void setUp() throws Exception
+	@Before public final void setUp()
 	{
-		super.setUp();
 		log = new UtilTestLogAppender();
 		loggerImpl.addAppender(log);
 	}
 
-	@Override
-	@After public final void tearDown() throws Exception
+	@After public final void tearDown()
 	{
 		loggerImpl.removeAppender(log);
 		log = null;
-		super.tearDown();
 	}
 
 	@Test public void testNormal()

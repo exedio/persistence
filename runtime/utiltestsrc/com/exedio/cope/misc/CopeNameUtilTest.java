@@ -18,16 +18,17 @@
 
 package com.exedio.cope.misc;
 
+import static org.junit.Assert.assertEquals;
+
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.CopeName;
 import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
 import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
-import com.exedio.cope.junit.CopeAssert;
 import org.junit.Test;
 
-public class CopeNameUtilTest extends CopeAssert
+public class CopeNameUtilTest
 {
 	@Test public void testIt()
 	{

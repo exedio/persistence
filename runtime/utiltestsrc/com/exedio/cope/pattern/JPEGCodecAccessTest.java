@@ -18,10 +18,9 @@
 
 package com.exedio.cope.pattern;
 
-import junit.framework.TestCase;
 import org.junit.Test;
 
-public class JPEGCodecAccessTest extends TestCase
+public class JPEGCodecAccessTest
 {
 	@Test public void testIt()
 	{

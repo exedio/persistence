@@ -22,12 +22,15 @@ import static com.exedio.cope.misc.Check.requireGreaterZero;
 import static com.exedio.cope.misc.Check.requireNonEmpty;
 import static com.exedio.cope.misc.Check.requireNonEmptyAndCopy;
 import static com.exedio.cope.misc.Check.requireNonNegative;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.fail;
 
-import com.exedio.cope.junit.CopeAssert;
 import java.util.Arrays;
 import org.junit.Test;
 
-public class CheckTest extends CopeAssert
+public class CheckTest
 {
 	@Test public void testRequireGreaterZeroInt()
 	{

@@ -18,12 +18,13 @@
 
 package com.exedio.cope.pattern;
 
+import static org.junit.Assert.assertEquals;
+
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.Item;
-import com.exedio.cope.junit.CopeAssert;
 import org.junit.Test;
 
-public class MediaFilterFinalTest extends CopeAssert
+public class MediaFilterFinalTest
 {
 	@Test public void testIt()
 	{

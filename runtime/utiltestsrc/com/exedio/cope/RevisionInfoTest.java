@@ -18,8 +18,14 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.AssertUtil.assertEqualsUnmodifiable;
+import static com.exedio.cope.AssertUtil.assertUnmodifiable;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
 import com.exedio.cope.RevisionInfoRevise.Body;
-import com.exedio.cope.junit.CopeAssert;
 import java.io.UnsupportedEncodingException;
 import java.util.Date;
 import java.util.HashMap;
@@ -29,7 +35,7 @@ import java.util.TreeMap;
 import org.junit.Before;
 import org.junit.Test;
 
-public class RevisionInfoTest extends CopeAssert
+public class RevisionInfoTest
 {
 	private static final Date DATE = new Date(2874526134l);
 	private static final String DATE_STRING = "1970/02/03 06:28:46.134";
@@ -37,10 +43,8 @@ public class RevisionInfoTest extends CopeAssert
 	private String eol = null;
 	private HashMap<String, String> env = null;
 
-	@Override
-	@Before public final void setUp() throws Exception
+	@Before public final void setUp()
 	{
-		super.setUp();
 		eol = System.getProperty("line.separator");
 		env = new HashMap<>();
 		env.put("env1Key", "env1Value");

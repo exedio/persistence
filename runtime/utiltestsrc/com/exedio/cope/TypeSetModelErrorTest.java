@@ -18,10 +18,12 @@
 
 package com.exedio.cope;
 
-import com.exedio.cope.junit.CopeAssert;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+
 import org.junit.Test;
 
-public class TypeSetModelErrorTest extends CopeAssert
+public class TypeSetModelErrorTest
 {
 	@Test public void testNull()
 	{

@@ -18,10 +18,11 @@
 
 package com.exedio.cope;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.assertEquals;
+
 import org.junit.Test;
 
-public class LimitedQueueTest extends TestCase
+public class LimitedQueueTest
 {
 	@Test public void testIt() throws InterruptedException
 	{

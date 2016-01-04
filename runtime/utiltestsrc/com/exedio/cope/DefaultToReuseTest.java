@@ -18,11 +18,12 @@
 
 package com.exedio.cope;
 
-import com.exedio.cope.junit.CopeAssert;
+import static org.junit.Assert.assertEquals;
+
 import java.util.Random;
 import org.junit.Test;
 
-public class DefaultToReuseTest extends CopeAssert
+public class DefaultToReuseTest
 {
 	@Test public void testRandom()
 	{

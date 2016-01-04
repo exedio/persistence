@@ -18,10 +18,11 @@
 
 package com.exedio.cope;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.assertEquals;
+
 import org.junit.Test;
 
-public class StringEscapeTest extends TestCase
+public class StringEscapeTest
 {
 	@Test public void testIt()
 	{

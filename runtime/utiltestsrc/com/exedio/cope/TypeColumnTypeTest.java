@@ -21,14 +21,14 @@ import static com.exedio.cope.SchemaInfo.getTableName;
 import static com.exedio.cope.SchemaInfo.getTypeColumnName;
 import static com.exedio.cope.SchemaInfo.getTypeColumnValue;
 import static com.exedio.dsmf.Dialect.NOT_NULL;
+import static org.junit.Assert.assertEquals;
 
-import com.exedio.cope.junit.CopeAssert;
 import java.io.File;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-public class TypeColumnTypeTest extends CopeAssert
+public class TypeColumnTypeTest
 {
 	@Test public void testIt()
 	{
@@ -126,18 +126,16 @@ public class TypeColumnTypeTest extends CopeAssert
 			Ref.TYPE);
 
 
-	@Override
-	@Before public final void setUp() throws Exception
+	@SuppressWarnings("static-method")
+	@Before public final void setUp()
 	{
-		super.setUp();
 		model.connect(props);
 	}
 
-	@Override
-	@After public final void tearDown() throws Exception
+	@SuppressWarnings("static-method")
+	@After public final void tearDown()
 	{
 		model.disconnect();
-		super.tearDown();
 	}
 
 	private static final ConnectProperties props = new ConnectProperties(new File("runtime/utiltest.properties"));

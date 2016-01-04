@@ -19,13 +19,13 @@
 package com.exedio.cope.misc;
 
 import static com.exedio.cope.misc.Compare.compare;
+import static org.junit.Assert.assertEquals;
 
-import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.util.CharsetName;
 import java.nio.charset.StandardCharsets;
 import org.junit.Test;
 
-public class CompareTest extends CopeAssert
+public class CompareTest
 {
 	@Deprecated // OK: testing deprecated api
 	@Test public void testIt()

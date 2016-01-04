@@ -18,11 +18,18 @@
 
 package com.exedio.cope.misc;
 
+import static com.exedio.cope.AssertUtil.list;
 import static com.exedio.cope.misc.ConnectToken.getProperties;
 import static com.exedio.cope.misc.ConnectToken.getTokens;
 import static com.exedio.cope.misc.ConnectToken.issue;
 import static com.exedio.cope.misc.ConnectToken.removeProperties;
 import static com.exedio.cope.misc.ConnectToken.setProperties;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.ConnectProperties;
@@ -30,11 +37,10 @@ import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
-import com.exedio.cope.junit.CopeAssert;
 import java.io.File;
 import org.junit.Test;
 
-public class ConnectTokenSetTest extends CopeAssert
+public class ConnectTokenSetTest
 {
 	private static final class AnItem extends Item
 	{

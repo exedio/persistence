@@ -19,12 +19,13 @@
 package com.exedio.cope.misc;
 
 import static com.exedio.cope.misc.EnumAnnotatedElement.get;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import com.exedio.cope.CopeSchemaName;
-import com.exedio.cope.junit.CopeAssert;
 import org.junit.Test;
 
-public class EnumAnnotatedElementTest extends CopeAssert
+public class EnumAnnotatedElementTest
 {
 	enum AnEnum
 	{

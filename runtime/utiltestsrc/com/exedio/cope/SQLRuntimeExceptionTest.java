@@ -18,11 +18,12 @@
 
 package com.exedio.cope;
 
-import com.exedio.cope.junit.CopeAssert;
+import static org.junit.Assert.assertEquals;
+
 import com.exedio.dsmf.SQLRuntimeException;
 import org.junit.Test;
 
-public class SQLRuntimeExceptionTest extends CopeAssert
+public class SQLRuntimeExceptionTest
 {
 	@Test public void testTruncate()
 	{

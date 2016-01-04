@@ -18,11 +18,14 @@
 
 package com.exedio.cope;
 
-import com.exedio.cope.junit.CopeAssert;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.fail;
+
 import java.sql.SQLException;
 import org.junit.Test;
 
-public class DirectRevisionsFutureTest extends CopeAssert
+public class DirectRevisionsFutureTest
 {
 	@Deprecated // OK: tests deprecated API
 	@Test public void testIt() throws SQLException

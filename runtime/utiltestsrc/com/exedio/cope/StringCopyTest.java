@@ -18,10 +18,14 @@
 
 package com.exedio.cope;
 
-import com.exedio.cope.junit.CopeAssert;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.fail;
+
 import org.junit.Test;
 
-public class StringCopyTest extends CopeAssert
+public class StringCopyTest
 {
 	@Test public void testOptional()
 	{

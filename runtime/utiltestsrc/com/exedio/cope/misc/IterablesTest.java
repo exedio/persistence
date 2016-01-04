@@ -18,11 +18,14 @@
 
 package com.exedio.cope.misc;
 
-import com.exedio.cope.junit.CopeAssert;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.fail;
+
 import java.util.Iterator;
 import org.junit.Test;
 
-public class IterablesTest extends CopeAssert
+public class IterablesTest
 {
 	@Test public void testIt()
 	{

@@ -18,12 +18,14 @@
 
 package com.exedio.cope;
 
-import com.exedio.cope.junit.CopeAssert;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+
 import com.exedio.cope.pattern.Hash;
 import java.nio.charset.Charset;
 import org.junit.Test;
 
-public class ByteAlgorithmTest extends CopeAssert
+public class ByteAlgorithmTest
 {
 	private static final Hash.Algorithm a = new Hash.Algorithm(){
 

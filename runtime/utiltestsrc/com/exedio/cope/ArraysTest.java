@@ -18,11 +18,13 @@
 
 package com.exedio.cope;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+
 import com.exedio.cope.misc.Arrays;
-import junit.framework.TestCase;
 import org.junit.Test;
 
-public class ArraysTest extends TestCase
+public class ArraysTest
 {
 	@Test public void testIt()
 	{

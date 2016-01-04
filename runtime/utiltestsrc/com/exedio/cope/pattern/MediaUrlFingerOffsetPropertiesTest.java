@@ -19,16 +19,17 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.EqualsAssertUtil.assertEqualBits;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.util.IllegalPropertiesException;
 import com.exedio.cope.util.Properties.Source;
 import com.exedio.cope.util.Sources;
 import java.util.Properties;
-import junit.framework.TestCase;
 import org.junit.Test;
 
-public class MediaUrlFingerOffsetPropertiesTest extends TestCase
+public class MediaUrlFingerOffsetPropertiesTest
 {
 	@Test public void testDefault()
 	{

@@ -18,9 +18,14 @@
 
 package com.exedio.cope.junit;
 
+import static com.exedio.cope.AssertUtil.reserialize;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.assertSame;
+
 import org.junit.Test;
 
-public class ReserializeTest extends CopeAssert
+public class ReserializeTest
 {
 	@Test public void testIt()
 	{

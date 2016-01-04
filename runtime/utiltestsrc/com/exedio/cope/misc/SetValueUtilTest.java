@@ -21,14 +21,15 @@ package com.exedio.cope.misc;
 import static com.exedio.cope.misc.SetValueUtil.add;
 import static com.exedio.cope.misc.SetValueUtil.getFirst;
 import static java.util.Arrays.asList;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import com.exedio.cope.SetValue;
 import com.exedio.cope.StringField;
-import com.exedio.cope.junit.CopeAssert;
 import java.util.ArrayList;
 import org.junit.Test;
 
-public class SetValueUtilTest extends CopeAssert
+public class SetValueUtilTest
 {
 	@Test public void testGetFirst()
 	{

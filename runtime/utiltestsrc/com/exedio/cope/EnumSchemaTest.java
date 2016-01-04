@@ -19,11 +19,12 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.SchemaInfo.getColumnValue;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
-import com.exedio.cope.junit.CopeAssert;
 import org.junit.Test;
 
-public class EnumSchemaTest extends CopeAssert
+public class EnumSchemaTest
 {
 	@Test public void testNormal()
 	{

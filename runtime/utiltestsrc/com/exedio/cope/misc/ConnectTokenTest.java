@@ -18,17 +18,25 @@
 
 package com.exedio.cope.misc;
 
+import static com.exedio.cope.AssertUtil.assertEqualsUnmodifiable;
+import static com.exedio.cope.AssertUtil.assertWithin;
+import static com.exedio.cope.AssertUtil.list;
 import static com.exedio.cope.misc.ConnectToken.getProperties;
 import static com.exedio.cope.misc.ConnectToken.getTokens;
 import static com.exedio.cope.misc.ConnectToken.issue;
 import static com.exedio.cope.misc.ConnectToken.issueIfConnected;
 import static com.exedio.cope.misc.ConnectToken.removeProperties;
 import static com.exedio.cope.misc.ConnectToken.setProperties;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.Model;
 import com.exedio.cope.UtilTestLogAppender;
-import com.exedio.cope.junit.CopeAssert;
 import java.io.File;
 import java.util.Date;
 import org.apache.log4j.Logger;
@@ -36,7 +44,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-public class ConnectTokenTest extends CopeAssert
+public class ConnectTokenTest
 {
 	private static final Model model = new Model(ConnectTokenItem.TYPE);
 	private static final ConnectProperties props = new ConnectProperties(new File("runtime/utiltest.properties"));
@@ -49,22 +57,18 @@ public class ConnectTokenTest extends CopeAssert
 	private static final Logger logger = Logger.getLogger(ConnectToken.class);
 	UtilTestLogAppender log = null;
 
-	@Override
-	@Before public final void setUp() throws Exception
+	@Before public final void setUp()
 	{
-		super.setUp();
 		log = new UtilTestLogAppender();
 		logger.addAppender(log);
 		setProperties(model, props);
 	}
 
-	@Override
-	@After public final void tearDown() throws Exception
+	@After public final void tearDown()
 	{
 		removeProperties(model);
 		logger.removeAppender(log);
 		log = null;
-		super.tearDown();
 	}
 
 	@Test public void testIt()

@@ -18,17 +18,20 @@
 
 package com.exedio.cope.pattern;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Item;
 import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
-import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.misc.Computed;
 import java.lang.annotation.Annotation;
 import org.junit.Test;
 
-public class UniqueHashedMediaAnnotationTest extends CopeAssert
+public class UniqueHashedMediaAnnotationTest
 {
 	@Test public void testPreventUrlGuessing()
 	{

@@ -21,12 +21,12 @@ package com.exedio.cope;
 import static com.exedio.cope.PatternComputedItem.TYPE;
 import static com.exedio.cope.PatternComputedItem.compuComp;
 import static com.exedio.cope.PatternComputedItem.virgnComp;
+import static org.junit.Assert.assertEquals;
 
-import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.misc.Computed;
 import org.junit.Test;
 
-public class PatternComputedTest extends CopeAssert
+public class PatternComputedTest
 {
 	private static final Model MODEL = new Model(TYPE);
 

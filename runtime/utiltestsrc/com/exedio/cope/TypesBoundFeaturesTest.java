@@ -19,8 +19,11 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.TypesBound.getFeatures;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.fail;
 
-import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.pattern.Media;
 import java.lang.reflect.Field;
 import java.util.Iterator;
@@ -28,7 +31,7 @@ import java.util.Map;
 import java.util.SortedMap;
 import org.junit.Test;
 
-public class TypesBoundFeaturesTest extends CopeAssert
+public class TypesBoundFeaturesTest
 {
 	@SuppressWarnings("synthetic-access")
 	@Test public void testIt() throws NoSuchFieldException

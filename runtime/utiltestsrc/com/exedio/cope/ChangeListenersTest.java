@@ -18,12 +18,16 @@
 
 package com.exedio.cope;
 
-import com.exedio.cope.junit.CopeAssert;
+import static com.exedio.cope.AssertUtil.assertEqualsUnmodifiable;
+import static com.exedio.cope.AssertUtil.list;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-public class ChangeListenersTest extends CopeAssert
+public class ChangeListenersTest
 {
 	/**
 	 * Makes tests tolerate previous tests.
@@ -31,18 +35,15 @@ public class ChangeListenersTest extends CopeAssert
 	 */
 	private ChangeListenerInfo baselineInfo = model.getChangeListenersInfo();
 
-	@Override
-	@Before public final void setUp() throws Exception
+	@Before public final void setUp()
 	{
-		super.setUp();
 		baselineInfo = model.getChangeListenersInfo();
 	}
 
-	@Override
-	@After public final void tearDown() throws Exception
+	@SuppressWarnings("static-method")
+	@After public final void tearDown()
 	{
 		model.removeAllChangeListeners();
-		super.tearDown();
 	}
 
 	@Test public void testAddRemove()

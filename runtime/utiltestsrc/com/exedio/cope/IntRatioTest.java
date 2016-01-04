@@ -20,11 +20,12 @@ package com.exedio.cope;
 
 import static com.exedio.cope.IntRatio.ratio;
 import static java.lang.Integer.MAX_VALUE;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
-import junit.framework.TestCase;
 import org.junit.Test;
 
-public class IntRatioTest extends TestCase
+public class IntRatioTest
 {
 	@Test public void testNormal()
 	{

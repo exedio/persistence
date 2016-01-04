@@ -18,11 +18,13 @@
 
 package com.exedio.cope.pattern;
 
-import com.exedio.cope.junit.CopeAssert;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+
 import com.exedio.cope.misc.MediaSummary;
 import org.junit.Test;
 
-public class MediaSummaryTest extends CopeAssert
+public class MediaSummaryTest
 {
 	@Test public void testIt()
 	{

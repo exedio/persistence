@@ -19,31 +19,27 @@
 package com.exedio.cope.pattern;
 
 import static javax.servlet.http.HttpServletResponse.SC_METHOD_NOT_ALLOWED;
+import static org.junit.Assert.assertEquals;
 
-import com.exedio.cope.junit.CopeAssert;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-public final class MediaPathPostTest extends CopeAssert
+public final class MediaPathPostTest
 {
 	private MediaServlet servlet;
 
-	@Override
-	@Before public final void setUp() throws Exception
+	@Before public final void setUp()
 	{
-		super.setUp();
 		servlet = new MediaServlet();
 	}
 
-	@Override
-	@After public final void tearDown() throws Exception
+	@After public final void tearDown()
 	{
 		servlet.destroy();
 		servlet = null;
-		super.tearDown();
 	}
 
 	@Test public void testPost() throws ServletException, IOException

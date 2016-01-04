@@ -20,7 +20,6 @@ package com.exedio.cope;
 
 import static com.exedio.cope.TypesBound.newType;
 
-import com.exedio.cope.junit.CopeAssert;
 import java.util.Date;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
@@ -28,25 +27,21 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-public class DateFieldWrongDefaultNowTest extends CopeAssert
+public class DateFieldWrongDefaultNowTest
 {
 	private static final Logger logger = Logger.getLogger(DateField.class);
 	UtilTestLogAppender log = null;
 
-	@Override
-	@Before public final void setUp() throws Exception
+	@Before public final void setUp()
 	{
-		super.setUp();
 		log = new UtilTestLogAppender();
 		logger.addAppender(log);
 	}
 
-	@Override
-	@After public final void tearDown() throws Exception
+	@After public final void tearDown()
 	{
 		logger.removeAppender(log);
 		log = null;
-		super.tearDown();
 	}
 
 	@Test public void testIt()

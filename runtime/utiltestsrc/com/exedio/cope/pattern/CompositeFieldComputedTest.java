@@ -23,6 +23,7 @@ import static com.exedio.cope.pattern.CompositeFieldComputedTest.MyComposite.vir
 import static com.exedio.cope.pattern.CompositeFieldComputedTest.MyItem.TYPE;
 import static com.exedio.cope.pattern.CompositeFieldComputedTest.MyItem.compuComp;
 import static com.exedio.cope.pattern.CompositeFieldComputedTest.MyItem.virgnComp;
+import static org.junit.Assert.assertEquals;
 
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.Feature;
@@ -31,11 +32,10 @@ import com.exedio.cope.SetValue;
 import com.exedio.cope.StringField;
 import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
-import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.misc.Computed;
 import org.junit.Test;
 
-public class CompositeFieldComputedTest extends CopeAssert
+public class CompositeFieldComputedTest
 {
 	private static final Model MODEL = new Model(TYPE);
 

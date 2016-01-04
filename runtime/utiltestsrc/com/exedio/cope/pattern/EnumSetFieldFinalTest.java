@@ -18,18 +18,21 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.AssertUtil.assertEqualsUnmodifiable;
+import static com.exedio.cope.AssertUtil.list;
 import static com.exedio.cope.pattern.EnumSetFieldFinalTest.AnEnum.DE;
 import static com.exedio.cope.pattern.EnumSetFieldFinalTest.AnEnum.EN;
 import static com.exedio.cope.pattern.EnumSetFieldFinalTest.AnEnum.PL;
 import static com.exedio.cope.pattern.EnumSetFieldFinalTest.AnItem.TYPE;
 import static com.exedio.cope.pattern.EnumSetFieldFinalTest.AnItem.field;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 
 import com.exedio.cope.BooleanField;
 import com.exedio.cope.Model;
-import com.exedio.cope.junit.CopeAssert;
 import org.junit.Test;
 
-public class EnumSetFieldFinalTest extends CopeAssert
+public class EnumSetFieldFinalTest
 {
 	private static final Model MODEL = new Model(AnItem.TYPE);
 

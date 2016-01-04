@@ -18,14 +18,15 @@
 
 package com.exedio.cope.misc;
 
+import static org.junit.Assert.assertEquals;
+
 import com.exedio.cope.CopeName;
-import com.exedio.cope.junit.CopeAssert;
 import java.lang.reflect.Field;
 import org.junit.Test;
 
 @Deprecated
 @SuppressWarnings("unused")
-public class CopeNameUtilFieldTest extends CopeAssert
+public class CopeNameUtilFieldTest
 {
 	@Test public void testIt() throws NoSuchFieldException
 	{

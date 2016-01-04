@@ -21,11 +21,11 @@ package com.exedio.cope;
 import static com.exedio.cope.ClusterSenderInfo.toStringNodeID;
 import static java.lang.Integer.MAX_VALUE;
 import static java.lang.Integer.MIN_VALUE;
+import static org.junit.Assert.assertEquals;
 
-import junit.framework.TestCase;
 import org.junit.Test;
 
-public class ClusterIdToStringTest extends TestCase
+public class ClusterIdToStringTest
 {
 	@Test public void testInt()
 	{

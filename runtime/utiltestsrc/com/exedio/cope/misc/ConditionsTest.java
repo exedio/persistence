@@ -25,6 +25,8 @@ import static com.exedio.cope.misc.ConditionsTest.AnItem.name1;
 import static com.exedio.cope.misc.ConditionsTest.AnItem.name2;
 import static com.exedio.cope.misc.ConditionsTest.AnItem.name3;
 import static java.util.Arrays.asList;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.Condition;
@@ -32,11 +34,10 @@ import com.exedio.cope.Function;
 import com.exedio.cope.StringField;
 import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
-import com.exedio.cope.junit.CopeAssert;
 import java.util.Collections;
 import org.junit.Test;
 
-public class ConditionsTest extends CopeAssert
+public class ConditionsTest
 {
 	@Test public void testEqual()
 	{

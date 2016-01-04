@@ -18,11 +18,14 @@
 
 package com.exedio.cope;
 
+import static org.junit.Assert.assertEquals;
+
 import com.exedio.cope.junit.CopeAssert;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public final class AssertUtil
 {
@@ -129,6 +132,12 @@ public final class AssertUtil
 	public static void assertEqualsUnmodifiable(final Map<?,?> expected, final Map<?,?> actual)
 	{
 		CopeAssert.assertEqualsUnmodifiable(expected, actual);
+	}
+
+	public static final void assertEqualsUnmodifiable(final Set<?> expected, final Collection<?> actual)
+	{
+		assertUnmodifiable(actual);
+		assertEquals(expected, actual);
 	}
 
 	public static void assertEqualsStrict(final Object expected, final Object actual)

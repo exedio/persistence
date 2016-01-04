@@ -18,13 +18,14 @@
 
 package com.exedio.cope;
 
+import static org.junit.Assert.assertEquals;
+
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Properties;
-import junit.framework.TestCase;
 import org.junit.Test;
 
-public class EnviromentInfoTest extends TestCase
+public class EnviromentInfoTest
 {
 	@Test public void testInt() throws SQLException
 	{

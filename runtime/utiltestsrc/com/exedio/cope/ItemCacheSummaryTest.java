@@ -18,12 +18,14 @@
 
 package com.exedio.cope;
 
-import com.exedio.cope.junit.CopeAssert;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+
 import com.exedio.cope.misc.ItemCacheSummary;
 import java.util.Date;
 import org.junit.Test;
 
-public class ItemCacheSummaryTest extends CopeAssert
+public class ItemCacheSummaryTest
 {
 	private static final Date D1 = new Date(123456789);
 	private static final Date D2 = new Date(123456989);

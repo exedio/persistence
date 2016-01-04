@@ -23,13 +23,14 @@ import static com.exedio.cope.QueryCopyTest.AnItem.date;
 import static com.exedio.cope.QueryCopyTest.AnItem.intx;
 import static com.exedio.cope.QueryCopyTest.AnItem.string;
 import static java.util.Arrays.asList;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 
-import com.exedio.cope.junit.CopeAssert;
 import java.util.Collections;
 import java.util.List;
 import org.junit.Test;
 
-public class QueryCopyTest extends CopeAssert
+public class QueryCopyTest
 {
 	@Test public void testSimple()
 	{

@@ -23,6 +23,7 @@ import static com.exedio.cope.pattern.BlockComputedTest.MyBlock.virgnTemp;
 import static com.exedio.cope.pattern.BlockComputedTest.MyItem.TYPE;
 import static com.exedio.cope.pattern.BlockComputedTest.MyItem.compuComp;
 import static com.exedio.cope.pattern.BlockComputedTest.MyItem.virgnComp;
+import static org.junit.Assert.assertEquals;
 
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.Feature;
@@ -30,11 +31,10 @@ import com.exedio.cope.Model;
 import com.exedio.cope.StringField;
 import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
-import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.misc.Computed;
 import org.junit.Test;
 
-public class BlockComputedTest extends CopeAssert
+public class BlockComputedTest
 {
 	private static final Model MODEL = new Model(TYPE);
 

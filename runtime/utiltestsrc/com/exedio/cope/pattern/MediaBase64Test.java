@@ -18,10 +18,11 @@
 
 package com.exedio.cope.pattern;
 
-import com.exedio.cope.junit.CopeAssert;
+import static org.junit.Assert.assertEquals;
+
 import org.junit.Test;
 
-public class MediaBase64Test extends CopeAssert
+public class MediaBase64Test
 {
 	@Test public void testIt()
 	{

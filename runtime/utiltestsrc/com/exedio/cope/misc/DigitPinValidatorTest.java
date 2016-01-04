@@ -19,8 +19,11 @@
 package com.exedio.cope.misc;
 
 import static java.util.Arrays.asList;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
-import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.pattern.Hash;
 import java.security.SecureRandom;
 import java.util.ArrayList;
@@ -31,13 +34,12 @@ import org.junit.Test;
 /**
  * @author baumgaertel
  */
-public class DigitPinValidatorTest extends CopeAssert
+public class DigitPinValidatorTest
 {
 	private DigitPinValidator validator;
 
-	@Override @Before public final void setUp() throws Exception
+	@Before public final void setUp()
 	{
-		super.setUp();
 		this.validator = new DigitPinValidator(4);
 	}
 

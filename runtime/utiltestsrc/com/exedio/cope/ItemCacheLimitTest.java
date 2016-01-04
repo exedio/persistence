@@ -18,13 +18,14 @@
 
 package com.exedio.cope;
 
+import static org.junit.Assert.assertEquals;
+
 import com.exedio.cope.util.Sources;
 import java.util.Properties;
-import junit.framework.TestCase;
 import org.junit.After;
 import org.junit.Test;
 
-public class ItemCacheLimitTest extends TestCase
+public class ItemCacheLimitTest
 {
 	@Test public void testNormal()
 	{
@@ -68,12 +69,11 @@ public class ItemCacheLimitTest extends TestCase
 				null);
 	}
 
-	@Override
-	@After public final void tearDown() throws Exception
+	@SuppressWarnings("static-method")
+	@After public final void tearDown()
 	{
 		if(model.isConnected())
 			model.disconnect();
-		super.tearDown();
 	}
 
 	@CopeCacheWeight(10000)

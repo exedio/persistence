@@ -18,6 +18,7 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.AssertUtil.assertEqualsUnmodifiable;
 import static com.exedio.cope.pattern.PartOf.getDeclaredPartOfs;
 import static com.exedio.cope.pattern.PartOf.getPartOfs;
 import static java.util.Arrays.asList;
@@ -28,10 +29,9 @@ import com.exedio.cope.ItemField;
 import com.exedio.cope.Model;
 import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
-import com.exedio.cope.junit.CopeAssert;
 import org.junit.Test;
 
-public class PartOfReverseTest extends CopeAssert
+public class PartOfReverseTest
 {
 	@Test public void testSuperContainer()
 	{

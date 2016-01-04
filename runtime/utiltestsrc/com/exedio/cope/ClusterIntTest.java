@@ -18,25 +18,24 @@
 
 package com.exedio.cope;
 
+import static org.junit.Assert.assertEquals;
+
 import java.util.Arrays;
-import junit.framework.TestCase;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-public class ClusterIntTest extends TestCase
+public class ClusterIntTest
 {
 	private static final byte FILL = (byte)0xee;
 	private byte[] buf;
 
-	@Override
 	@Before public final void setUp()
 	{
 		buf = new byte[100];
 		Arrays.fill(buf, (byte)0xee);
 	}
 
-	@Override
 	@After public final void tearDown()
 	{
 		buf = null;

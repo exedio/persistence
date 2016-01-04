@@ -18,10 +18,13 @@
 
 package com.exedio.cope;
 
-import com.exedio.cope.junit.CopeAssert;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.fail;
+
 import org.junit.Test;
 
-public class TypeMountTest extends CopeAssert
+public class TypeMountTest
 {
 	@Test public void testIt()
 	{

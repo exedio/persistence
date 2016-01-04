@@ -19,15 +19,16 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.pattern.BlockType.newType;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import com.exedio.cope.BooleanField;
 import com.exedio.cope.Copyable;
 import com.exedio.cope.Field;
 import com.exedio.cope.Pattern;
-import com.exedio.cope.junit.CopeAssert;
 import org.junit.Test;
 
-public class BlockErrorTest extends CopeAssert
+public class BlockErrorTest
 {
 	@Test public void testNull()
 	{

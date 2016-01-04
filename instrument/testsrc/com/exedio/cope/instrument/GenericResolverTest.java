@@ -20,8 +20,8 @@ package com.exedio.cope.instrument;
 
 import static com.exedio.cope.instrument.GenericResolver.neW;
 import static java.util.Arrays.asList;
+import static org.junit.Assert.assertEquals;
 
-import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.misc.Arrays;
 import java.io.Reader;
 import java.io.Serializable;
@@ -31,7 +31,7 @@ import java.lang.reflect.Type;
 import java.util.List;
 import org.junit.Test;
 
-public class GenericResolverTest extends CopeAssert
+public class GenericResolverTest
 {
 	@Test public void testIt()
 	{

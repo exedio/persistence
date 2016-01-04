@@ -29,8 +29,13 @@ import static java.math.RoundingMode.HALF_DOWN;
 import static java.math.RoundingMode.HALF_EVEN;
 import static java.math.RoundingMode.HALF_UP;
 import static java.math.RoundingMode.UP;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.fail;
 
-import com.exedio.cope.junit.CopeAssert;
+import com.exedio.cope.AssertUtil;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
@@ -40,7 +45,7 @@ import java.text.ParseException;
 import java.util.Locale;
 import org.junit.Test;
 
-public class PriceTest extends CopeAssert
+public class PriceTest
 {
 	private static final int MIN_STORE = Integer.MIN_VALUE + 1;
 	private static final int MAX_STORE = Integer.MAX_VALUE;
@@ -933,7 +938,7 @@ public class PriceTest extends CopeAssert
 
 	private static Price reserialize(final Price value)
 	{
-		return reserialize(value, 62);
+		return AssertUtil.reserialize(value, 62);
 	}
 
 	@Test public void testEqualsZero()

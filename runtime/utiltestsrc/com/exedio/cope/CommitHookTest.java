@@ -18,7 +18,10 @@
 
 package com.exedio.cope;
 
-import com.exedio.cope.junit.CopeAssert;
+import static com.exedio.cope.AssertUtil.list;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+
 import java.awt.geom.IllegalPathStateException;
 import java.io.File;
 import java.util.ArrayList;
@@ -26,7 +29,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-public class CommitHookTest extends CopeAssert
+public class CommitHookTest
 {
 	@Test public void testOne()
 	{
@@ -149,19 +152,17 @@ public class CommitHookTest extends CopeAssert
 
 
 
-	@Override
-	@Before public final void setUp() throws Exception
+	@SuppressWarnings("static-method")
+	@Before public final void setUp()
 	{
-		super.setUp();
 		model.connect(new ConnectProperties(new File("runtime/utiltest.properties")));
 	}
 
-	@Override
-	@After public final void tearDown() throws Exception
+	@SuppressWarnings("static-method")
+	@After public final void tearDown()
 	{
 		model.rollbackIfNotCommitted();
 		model.disconnect();
-		super.tearDown();
 	}
 
 

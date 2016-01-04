@@ -20,12 +20,14 @@ package com.exedio.cope.pattern;
 
 import static com.exedio.cope.pattern.Price.splitProportionately;
 import static com.exedio.cope.pattern.Price.valueOf;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
-import com.exedio.cope.junit.CopeAssert;
 import java.util.Arrays;
 import org.junit.Test;
 
-public class PriceProportionatelyTest extends CopeAssert
+public class PriceProportionatelyTest
 {
 	@Test public void testEquals()
 	{

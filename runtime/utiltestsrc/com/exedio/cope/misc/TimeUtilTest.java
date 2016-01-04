@@ -19,34 +19,30 @@
 package com.exedio.cope.misc;
 
 import static com.exedio.cope.misc.TimeUtil.toMillies;
+import static org.junit.Assert.assertEquals;
 
 import com.exedio.cope.UtilTestLogAppender;
-import com.exedio.cope.junit.CopeAssert;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-public class TimeUtilTest extends CopeAssert
+public class TimeUtilTest
 {
 	private static final Logger logger = Logger.getLogger(TimeUtil.class);
 	UtilTestLogAppender log = null;
 
-	@Override
-	@Before public final void setUp() throws Exception
+	@Before public final void setUp()
 	{
-		super.setUp();
 		log = new UtilTestLogAppender();
 		logger.addAppender(log);
 	}
 
-	@Override
-	@After public final void tearDown() throws Exception
+	@After public final void tearDown()
 	{
 		logger.removeAppender(log);
 		log = null;
-		super.tearDown();
 	}
 
 	@Test public void testIt()

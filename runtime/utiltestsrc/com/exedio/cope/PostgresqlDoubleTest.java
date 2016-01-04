@@ -18,10 +18,11 @@
 
 package com.exedio.cope;
 
-import com.exedio.cope.junit.CopeAssert;
+import static org.junit.Assert.assertEquals;
+
 import org.junit.Test;
 
-public class PostgresqlDoubleTest extends CopeAssert
+public class PostgresqlDoubleTest
 {
 	static String format(final double number)
 	{

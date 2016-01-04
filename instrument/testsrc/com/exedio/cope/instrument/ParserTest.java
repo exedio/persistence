@@ -18,15 +18,17 @@
 
 package com.exedio.cope.instrument;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
+
 import com.exedio.cope.instrument.Lexer.CommentToken;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.LinkedList;
-import junit.framework.TestCase;
 import org.junit.Test;
 
-public abstract class ParserTest extends TestCase
+public abstract class ParserTest
 {
 	private final String resourceName;
 	final boolean assertText;

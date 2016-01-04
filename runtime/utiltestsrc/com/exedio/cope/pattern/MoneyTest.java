@@ -23,11 +23,12 @@ import static com.exedio.cope.pattern.Money.storeOf;
 import static com.exedio.cope.pattern.Money.zero;
 import static com.exedio.cope.pattern.MoneyTest.Cy.eur;
 import static com.exedio.cope.pattern.MoneyTest.Cy.usd;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 
-import com.exedio.cope.junit.CopeAssert;
 import org.junit.Test;
 
-public class MoneyTest extends CopeAssert
+public class MoneyTest
 {
 	enum Cy implements Money.Currency
 	{

@@ -18,6 +18,8 @@
 
 package com.exedio.cope.pattern;
 
+import static org.junit.Assert.assertEquals;
+
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.BooleanField;
 import com.exedio.cope.ConnectProperties;
@@ -26,14 +28,13 @@ import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.SchemaInfo;
 import com.exedio.cope.TypesBound;
-import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.util.Sources;
 import java.util.Properties;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-public class EnumSetFieldSchemaNameTest extends CopeAssert
+public class EnumSetFieldSchemaNameTest
 {
 	@Test public void testIt()
 	{
@@ -70,10 +71,9 @@ public class EnumSetFieldSchemaNameTest extends CopeAssert
 
 	private static final Model MODEL = new Model(TypesBound.newType(AnItem.class));
 
-	@Override
-	@Before public final void setUp() throws Exception
+	@SuppressWarnings("static-method")
+	@Before public final void setUp()
 	{
-		super.setUp();
 		final Properties source = new Properties();
 		source.setProperty("connection.url", "jdbc:hsqldb:mem:EnumSetFieldSchemaNameTest");
 		source.setProperty("connection.username", "sa");
@@ -81,10 +81,9 @@ public class EnumSetFieldSchemaNameTest extends CopeAssert
 		MODEL.connect(new ConnectProperties(Sources.view(source , "EnumSetFieldSchemaNameTest"), null));
 	}
 
-	@Override
-	@After public final void tearDown() throws Exception
+	@SuppressWarnings("static-method")
+	@After public final void tearDown()
 	{
 		MODEL.disconnect();
-		super.tearDown();
 	}
 }

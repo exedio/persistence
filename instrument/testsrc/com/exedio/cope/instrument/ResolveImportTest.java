@@ -19,6 +19,7 @@
 package com.exedio.cope.instrument;
 
 import static java.util.Arrays.asList;
+import static org.junit.Assert.assertEquals;
 
 import com.exedio.cope.instrument.findtype.BothFindType;
 import com.exedio.cope.instrument.findtype.FindType;
@@ -26,10 +27,9 @@ import com.exedio.cope.instrument.findtype.subfindtype.BothFindType2;
 import com.exedio.cope.instrument.findtype.subfindtype.SubFindType;
 import com.exedio.cope.instrument.findtype.subfindtype2.SubFindType2;
 import com.exedio.cope.instrument.findtype.subfindtype2.SubFindType3Non;
-import junit.framework.TestCase;
 import org.junit.Test;
 
-public class ResolveImportTest extends TestCase
+public class ResolveImportTest
 {
 
 	@Test public void testImports() throws ParserException

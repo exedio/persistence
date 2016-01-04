@@ -20,12 +20,13 @@ package com.exedio.cope.pattern;
 
 import static com.exedio.cope.pattern.ColorField.fromRGB;
 import static com.exedio.cope.pattern.ColorField.toRGB;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
-import com.exedio.cope.junit.CopeAssert;
 import java.awt.Color;
 import org.junit.Test;
 
-public class ColorFieldRgbTest extends CopeAssert
+public class ColorFieldRgbTest
 {
 	@Test public void test()
 	{

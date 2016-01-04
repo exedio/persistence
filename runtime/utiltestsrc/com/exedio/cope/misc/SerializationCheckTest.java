@@ -18,7 +18,11 @@
 
 package com.exedio.cope.misc;
 
+import static com.exedio.cope.AssertUtil.assertEqualsUnmodifiable;
+import static com.exedio.cope.AssertUtil.list;
 import static com.exedio.cope.misc.SerializationCheck.check;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.Item;
@@ -26,11 +30,10 @@ import com.exedio.cope.Model;
 import com.exedio.cope.StringField;
 import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
-import com.exedio.cope.junit.CopeAssert;
 import java.lang.reflect.Field;
 import org.junit.Test;
 
-public class SerializationCheckTest extends CopeAssert
+public class SerializationCheckTest
 {
 	@Test public void testIt() throws NoSuchFieldException
 	{

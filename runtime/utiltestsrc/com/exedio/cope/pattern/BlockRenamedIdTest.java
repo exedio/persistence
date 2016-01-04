@@ -23,6 +23,7 @@ import static com.exedio.cope.pattern.BlockRenamedIdTest.MyBlock.wrongTemp;
 import static com.exedio.cope.pattern.BlockRenamedIdTest.MyItem.TYPE;
 import static com.exedio.cope.pattern.BlockRenamedIdTest.MyItem.virgnComp;
 import static com.exedio.cope.pattern.BlockRenamedIdTest.MyItem.wrongComp;
+import static org.junit.Assert.assertEquals;
 
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.CopeName;
@@ -32,10 +33,9 @@ import com.exedio.cope.SetValue;
 import com.exedio.cope.StringField;
 import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
-import com.exedio.cope.junit.CopeAssert;
 import org.junit.Test;
 
-public class BlockRenamedIdTest extends CopeAssert
+public class BlockRenamedIdTest
 {
 	private static final Model MODEL = new Model(TYPE);
 

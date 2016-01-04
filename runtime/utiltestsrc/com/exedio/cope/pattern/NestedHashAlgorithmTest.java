@@ -19,12 +19,12 @@
 package com.exedio.cope.pattern;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
+import static org.junit.Assert.assertEquals;
 
 import java.security.SecureRandom;
-import junit.framework.TestCase;
 import org.junit.Test;
 
-public class NestedHashAlgorithmTest extends TestCase
+public class NestedHashAlgorithmTest
 {
 	@Test public void testNormal()
 	{
