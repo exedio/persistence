@@ -19,13 +19,19 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.util.StrictFile.delete;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
-import com.exedio.cope.junit.CopeAssert;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 
-public final class AbstractRuntimeTest extends CopeAssert
+public final class AbstractRuntimeTest
 {
 	private AbstractRuntimeTest()
 	{
