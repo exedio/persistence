@@ -40,12 +40,14 @@ public abstract class CopeRule implements TestRule
 
 
 		private Description description = null;
+		private String transactionName = null;
 
-		void setDescription(final Description description)
+		void setDescription(final Description description, final String transactionName)
 		{
 			Assert.assertNotNull(description);
 			Assert.assertNull(this.description);
 			this.description = description;
+			this.transactionName = transactionName;
 		}
 
 		/**
@@ -88,7 +90,10 @@ public abstract class CopeRule implements TestRule
 		@Override
 		protected String getTransactionName()
 		{
-			return "tx:" + description.getTestClass().getName();
+			return
+				transactionName!=null
+				? transactionName
+				: "tx:" + description.getTestClass().getName();
 		}
 	}
 
@@ -111,16 +116,24 @@ public abstract class CopeRule implements TestRule
 		test.omitTransaction();
 	}
 
+	private String transactionName;
+
+	public final void setTransactionName(final String transactionName)
+	{
+		this.transactionName = transactionName;
+	}
+
 
 	public Statement apply(final Statement base, final Description description)
 	{
 		final Adaptee test = this.test; // avoid synthetic-access warning
+		final String transactionName = this.transactionName; // avoid synthetic-access warning
 		return new Statement()
 		{
 			@Override
 			public void evaluate() throws Throwable
 			{
-				test.setDescription(description);
+				test.setDescription(description, transactionName);
 				test.setUp();
 				try
 				{

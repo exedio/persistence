@@ -30,12 +30,6 @@ public class CopeModelTestTestNoTx extends CopeModelTestTest
 		return false;
 	}
 
-	@Override
-	protected String getTransactionName()
-	{
-		throw new AssertionError();
-	}
-
 	@Test public void testNoTx()
 	{
 		assertFalse(model.hasCurrentTransaction());

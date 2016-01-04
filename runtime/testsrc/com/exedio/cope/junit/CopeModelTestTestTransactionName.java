@@ -22,10 +22,9 @@ import org.junit.Test;
 
 public class CopeModelTestTestTransactionName extends CopeModelTestTest
 {
-	@Override
-	protected String getTransactionName()
+	public CopeModelTestTestTransactionName()
 	{
-		return "SPECIAL[" + super.getTransactionName() + "]";
+		copeRule.setTransactionName("SPECIAL[" + "tx:" + CopeModelTestTestTransactionName.class.getName() + "]");
 	}
 
 	@Test public void testNoTx()
