@@ -21,6 +21,8 @@ package com.exedio.cope;
 import com.exedio.cope.Timer.Interval;
 import junit.framework.TestCase;
 import org.apache.log4j.Level;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,7 +35,7 @@ public class TimerTest extends TestCase
 	UtilTestLogAppender log = null;
 
 	@Override
-	protected void setUp() throws Exception
+	@Before public final void setUp() throws Exception
 	{
 		super.setUp();
 		log = new UtilTestLogAppender();
@@ -41,7 +43,7 @@ public class TimerTest extends TestCase
 	}
 
 	@Override
-	protected void tearDown() throws Exception
+	@After public final void tearDown() throws Exception
 	{
 		loggerImpl.removeAppender(log);
 		log = null;

@@ -37,6 +37,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.Set;
+import org.junit.After;
 import org.junit.Test;
 
 public class MediaTypeTest extends CopeAssert
@@ -276,7 +277,7 @@ public class MediaTypeTest extends CopeAssert
 	private final ArrayList<File> files = new ArrayList<>();
 
 	@Override
-	protected void tearDown() throws Exception
+	@After public final void tearDown() throws Exception
 	{
 		for(final File file : files)
 			delete(file);

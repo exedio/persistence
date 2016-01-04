@@ -29,6 +29,8 @@ import com.exedio.cope.TypesBound;
 import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.util.Sources;
 import java.util.Properties;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 public class EnumSetFieldSchemaNameTest extends CopeAssert
@@ -69,7 +71,7 @@ public class EnumSetFieldSchemaNameTest extends CopeAssert
 	private static final Model MODEL = new Model(TypesBound.newType(AnItem.class));
 
 	@Override
-	protected void setUp() throws Exception
+	@Before public final void setUp() throws Exception
 	{
 		super.setUp();
 		final Properties source = new Properties();
@@ -80,7 +82,7 @@ public class EnumSetFieldSchemaNameTest extends CopeAssert
 	}
 
 	@Override
-	protected void tearDown() throws Exception
+	@After public final void tearDown() throws Exception
 	{
 		MODEL.disconnect();
 		super.tearDown();

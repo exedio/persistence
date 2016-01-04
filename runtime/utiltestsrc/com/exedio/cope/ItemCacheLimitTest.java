@@ -21,6 +21,7 @@ package com.exedio.cope;
 import com.exedio.cope.util.Sources;
 import java.util.Properties;
 import junit.framework.TestCase;
+import org.junit.After;
 import org.junit.Test;
 
 public class ItemCacheLimitTest extends TestCase
@@ -68,7 +69,7 @@ public class ItemCacheLimitTest extends TestCase
 	}
 
 	@Override
-	protected void tearDown() throws Exception
+	@After public final void tearDown() throws Exception
 	{
 		if(model.isConnected())
 			model.disconnect();

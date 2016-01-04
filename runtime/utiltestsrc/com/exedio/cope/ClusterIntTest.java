@@ -20,6 +20,8 @@ package com.exedio.cope;
 
 import java.util.Arrays;
 import junit.framework.TestCase;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 public class ClusterIntTest extends TestCase
@@ -28,14 +30,14 @@ public class ClusterIntTest extends TestCase
 	private byte[] buf;
 
 	@Override
-	protected void setUp()
+	@Before public final void setUp()
 	{
 		buf = new byte[100];
 		Arrays.fill(buf, (byte)0xee);
 	}
 
 	@Override
-	protected void tearDown()
+	@After public final void tearDown()
 	{
 		buf = null;
 	}

@@ -24,6 +24,8 @@ import static com.exedio.dsmf.Dialect.NOT_NULL;
 
 import com.exedio.cope.junit.CopeAssert;
 import java.io.File;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 public class TypeColumnTypeTest extends CopeAssert
@@ -125,14 +127,14 @@ public class TypeColumnTypeTest extends CopeAssert
 
 
 	@Override
-	protected void setUp() throws Exception
+	@Before public final void setUp() throws Exception
 	{
 		super.setUp();
 		model.connect(props);
 	}
 
 	@Override
-	protected void tearDown() throws Exception
+	@After public final void tearDown() throws Exception
 	{
 		model.disconnect();
 		super.tearDown();

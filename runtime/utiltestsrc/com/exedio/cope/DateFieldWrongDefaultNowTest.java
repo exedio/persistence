@@ -24,6 +24,8 @@ import com.exedio.cope.junit.CopeAssert;
 import java.util.Date;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 public class DateFieldWrongDefaultNowTest extends CopeAssert
@@ -32,7 +34,7 @@ public class DateFieldWrongDefaultNowTest extends CopeAssert
 	UtilTestLogAppender log = null;
 
 	@Override
-	protected void setUp() throws Exception
+	@Before public final void setUp() throws Exception
 	{
 		super.setUp();
 		log = new UtilTestLogAppender();
@@ -40,7 +42,7 @@ public class DateFieldWrongDefaultNowTest extends CopeAssert
 	}
 
 	@Override
-	protected void tearDown() throws Exception
+	@After public final void tearDown() throws Exception
 	{
 		logger.removeAppender(log);
 		log = null;

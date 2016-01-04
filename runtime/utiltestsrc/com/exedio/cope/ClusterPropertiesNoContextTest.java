@@ -23,6 +23,7 @@ import com.exedio.cope.util.Properties;
 import com.exedio.cope.util.Properties.Source;
 import java.io.File;
 import java.util.Collection;
+import org.junit.After;
 import org.junit.Test;
 
 public class ClusterPropertiesNoContextTest extends CopeAssert
@@ -163,7 +164,7 @@ public class ClusterPropertiesNoContextTest extends CopeAssert
 	}
 
 	@Override
-	protected void tearDown() throws Exception
+	@After public final void tearDown() throws Exception
 	{
 		if(model.isConnected())
 			model.disconnect();

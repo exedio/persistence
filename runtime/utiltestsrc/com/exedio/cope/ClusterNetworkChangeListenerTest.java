@@ -18,22 +18,31 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.AssertUtil.assertContains;
+import static com.exedio.cope.AssertUtil.assertContainsList;
+import static com.exedio.cope.AssertUtil.assertUnmodifiable;
+import static com.exedio.cope.AssertUtil.sleepLongerThan;
 import static java.util.Arrays.asList;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import org.junit.After;
 import org.junit.Test;
 
 public class ClusterNetworkChangeListenerTest extends ClusterNetworkTest
 {
-	@Override
-	protected void tearDown() throws Exception
+	@SuppressWarnings("static-method")
+	@After public final void tearDown()
 	{
 		modelB.rollbackIfNotCommitted();
 		modelA.rollbackIfNotCommitted();
 		modelA.tearDownSchema();
-		super.tearDown();
 	}
 
 	@Test public void testSinglecast() throws InterruptedException, ChangeEvent.NotAvailableException
