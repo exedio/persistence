@@ -38,8 +38,13 @@ public abstract class CopeModelTestTest extends AbstractRuntimeModelTest
 
 	protected final void doTest()
 	{
+		doTest("tx:" + getClass().getName());
+	}
+
+	protected final void doTest(final String transactionName)
+	{
 		assertTrue(model.hasCurrentTransaction());
-		assertEquals("tx:" + getClass().getName(), model.currentTransaction().getName());
+		assertEquals(transactionName, model.currentTransaction().getName());
 		model.checkEmptySchema();
 
 		final JUnitTestItem i1 = new JUnitTestItem(100);

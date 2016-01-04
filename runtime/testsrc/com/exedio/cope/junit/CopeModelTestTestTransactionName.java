@@ -20,24 +20,16 @@ package com.exedio.cope.junit;
 
 import org.junit.Test;
 
-public class CopeModelTestTestNoTx extends CopeModelTestTest
+public class CopeModelTestTestTransactionName extends CopeModelTestTest
 {
-	@Override
-	protected boolean doesManageTransactions()
-	{
-		return false;
-	}
-
 	@Override
 	protected String getTransactionName()
 	{
-		throw new AssertionError();
+		return "SPECIAL[" + super.getTransactionName() + "]";
 	}
 
 	@Test public void testNoTx()
 	{
-		assertFalse(model.hasCurrentTransaction());
-		model.startTransaction("tx:" + CopeModelTestTestNoTx.class.getName());
-		doTest();
+		doTest("SPECIAL[" + "tx:" + CopeModelTestTestTransactionName.class.getName() + "]");
 	}
 }
