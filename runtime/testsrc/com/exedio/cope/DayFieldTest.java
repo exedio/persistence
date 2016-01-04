@@ -29,12 +29,13 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 import com.exedio.cope.junit.AbsoluteMockClockStrategy;
-import com.exedio.cope.util.Clock;
 import com.exedio.cope.util.Day;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.List;
-import org.junit.After;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.RuleChain;
 
 public class DayFieldTest extends AbstractRuntimeModelTest
 {
@@ -45,8 +46,13 @@ public class DayFieldTest extends AbstractRuntimeModelTest
 		MODEL.enableSerialization(DayFieldTest.class, "MODEL");
 	}
 
+	private final ClockRule clockRule = new ClockRule();
+
+	@SuppressFBWarnings("URF_UNREAD_PUBLIC_OR_PROTECTED_FIELD")
+	@Rule public final RuleChain chain = RuleChain.outerRule(clockRule);
+
 	DayItem item, item2;
-	private AbsoluteMockClockStrategy clock;
+	private final AbsoluteMockClockStrategy clock = new AbsoluteMockClockStrategy();
 	static final Day DEFAULT = new Day(2005, 8, 14);
 	static final Day DEFAULT2 = new Day(2005, 8, 15);
 
@@ -59,14 +65,7 @@ public class DayFieldTest extends AbstractRuntimeModelTest
 	{
 		item = new DayItem(DEFAULT);
 		item2 = new DayItem(DEFAULT2);
-		clock = new AbsoluteMockClockStrategy();
-		Clock.override(clock);
-	}
-
-	@SuppressWarnings("static-method")
-	@After public final void tearDown()
-	{
-		Clock.clearOverride();
+		clockRule.override(clock);
 	}
 
 	@Test public void testIt()
