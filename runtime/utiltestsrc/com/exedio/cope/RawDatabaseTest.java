@@ -18,22 +18,20 @@
 
 package com.exedio.cope;
 
-import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.util.Properties;
 import java.sql.Connection;
 import java.sql.Driver;
 import java.sql.DriverManager;
+import java.sql.SQLException;
 import org.junit.After;
 import org.junit.Before;
 
-abstract class RawDatabaseTest extends CopeAssert
+public abstract class RawDatabaseTest
 {
 	protected Connection con;
 
-	@Before public final void setUpRawDatabaseTest() throws Exception
+	@Before public final void setUpRawDatabaseTest() throws SQLException
 	{
-		super.setUp();
-
 		final ConnectProperties props =
 				new ConnectProperties(Properties.SYSTEM_PROPERTY_SOURCE);
 
@@ -50,7 +48,5 @@ abstract class RawDatabaseTest extends CopeAssert
 		if(con!=null)
 			con.close();
 		con = null;
-
-		super.tearDown();
 	}
 }

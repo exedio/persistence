@@ -21,6 +21,7 @@ package com.exedio.cope;
 import static com.exedio.cope.misc.TimeUtil.toMillies;
 import static java.sql.Statement.NO_GENERATED_KEYS;
 import static java.sql.Statement.RETURN_GENERATED_KEYS;
+import static org.junit.Assert.assertEquals;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -43,21 +44,16 @@ public class AutoIncrementEvaluator extends RawDatabaseTest
 
 	private Statement stat;
 
-	@Override
-	@Before public final void setUp() throws Exception
+	@Before public final void setUp() throws SQLException
 	{
-		super.setUp();
 		stat = con.createStatement();
 	}
 
-	@Override
-	@After public final void tearDown() throws Exception
+	@After public final void tearDown() throws SQLException
 	{
 		if(stat!=null)
 			stat.close();
 		stat = null;
-
-		super.tearDown();
 	}
 
 	@Test public void testAutoIncrement() throws SQLException
