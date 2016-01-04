@@ -25,6 +25,9 @@ import static java.net.HttpURLConnection.HTTP_MOVED_PERM;
 import static java.net.HttpURLConnection.HTTP_NOT_FOUND;
 import static java.net.HttpURLConnection.HTTP_NOT_MODIFIED;
 import static java.net.HttpURLConnection.HTTP_OK;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import com.exedio.cope.util.StrictFile;
 import java.io.BufferedReader;
@@ -41,10 +44,10 @@ import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import junit.framework.TestCase;
+import org.junit.Before;
 import org.junit.Test;
 
-public class MediaServletTest extends TestCase
+public class MediaServletTest
 {
 	private static final String NO_SUCH_PATH   = "no such path";
 	private static final String GUESSED_URL    = "guessed url";
@@ -73,10 +76,8 @@ public class MediaServletTest extends TestCase
 
 	private String schemeAndHost;
 
-	@Override
-	protected void setUp() throws Exception
+	@Before public final void setUp()
 	{
-		super.setUp();
 		schemeAndHost = "http://localhost:" + System.getProperty("tomcat.port.http");
 		onException.delete();
 	}
