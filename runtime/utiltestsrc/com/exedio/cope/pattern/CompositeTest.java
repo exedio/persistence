@@ -18,6 +18,7 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.EqualsAssertUtil.assertEqualBits;
 import static com.exedio.cope.util.TimeZoneStrict.getTimeZone;
 import static java.lang.Boolean.valueOf;
 import static java.lang.Double.valueOf;
@@ -73,7 +74,7 @@ public class CompositeTest extends CopeAssert
 		assertEquals("defString", value.getStringDefault());
 		assertEquals(4, value.getIntMax4());
 		assertEquals(5l, value.getLongField());
-		assertEquals(6.6, value.getDoubleField());
+		assertEqualBits(6.6, value.getDoubleField());
 		assertEquals(false, value.getBooleanField());
 		assertEquals(null, value.getIntOptional());
 		assertEquals(null, value.getLongOptional());
@@ -94,7 +95,7 @@ public class CompositeTest extends CopeAssert
 		assertEquals("1234", value.getString4());
 		assertEquals(4, value.getIntMax4());
 		assertEquals(5l, value.getLongField());
-		assertEquals(6.6, value.getDoubleField());
+		assertEqualBits(6.6, value.getDoubleField());
 		assertEquals(false, value.getBooleanField());
 		assertEquals(null, value.getIntOptional());
 		assertEquals(null, value.getLongOptional());
@@ -115,7 +116,7 @@ public class CompositeTest extends CopeAssert
 		assertEquals("1234", value.getString4());
 		assertEquals(4, value.getIntMax4());
 		assertEquals(5l, value.getLongField());
-		assertEquals(6.6, value.getDoubleField());
+		assertEqualBits(6.6, value.getDoubleField());
 		assertEquals(false, value.getBooleanField());
 		assertEquals(null, value.getIntOptional());
 		assertEquals(null, value.getLongOptional());
@@ -136,7 +137,7 @@ public class CompositeTest extends CopeAssert
 		assertEquals("1234", value.getString4());
 		assertEquals(4, value.getIntMax4());
 		assertEquals(5l, value.getLongField());
-		assertEquals(6.6, value.getDoubleField());
+		assertEqualBits(6.6, value.getDoubleField());
 		assertEquals(false, value.getBooleanField());
 		assertEquals(null, value.getIntOptional());
 		assertEquals(null, value.getLongOptional());
@@ -152,7 +153,7 @@ public class CompositeTest extends CopeAssert
 		assertEquals("defString", value.getStringDefault());
 		assertEquals(4,      value.getIntMax4());
 		assertEquals(5l,     value.getLongField());
-		assertEquals(6.6,    value.getDoubleField());
+		assertEqualBits(6.6, value.getDoubleField());
 		assertEquals(false,  value.getBooleanField());
 		assertEquals(null, value.getIntOptional());
 		assertEquals(null, value.getLongOptional());
@@ -166,7 +167,7 @@ public class CompositeTest extends CopeAssert
 		assertEquals(valueOf(false), value.get(Value.booleanField));
 		assertEquals(4,     value.getMandatory(Value.intMax4));
 		assertEquals(5l,    value.getMandatory(Value.longField));
-		assertEquals(6.6,   value.getMandatory(Value.doubleField));
+		assertEqualBits(6.6,value.getMandatory(Value.doubleField));
 		assertEquals(false, value.getMandatory(Value.booleanField));
 		assertEquals(null, value.get(Value.intOptional));
 		assertEquals(null, value.get(Value.longOptional));
@@ -218,7 +219,7 @@ public class CompositeTest extends CopeAssert
 		assertEquals("1234", value.getString4());
 		assertEquals(4,      value.getIntMax4());
 		assertEquals(5l,     value.getLongField());
-		assertEquals(6.6,    value.getDoubleField());
+		assertEqualBits(6.6, value.getDoubleField());
 		assertEquals(false,  value.getBooleanField());
 		assertEquals(valueOf(44),   value.getIntOptional());
 		assertEquals(valueOf(55l),  value.getLongOptional());
@@ -232,7 +233,7 @@ public class CompositeTest extends CopeAssert
 		assertEquals(valueOf(false), value.get(Value.booleanField));
 		assertEquals(4,     value.getMandatory(Value.intMax4));
 		assertEquals(5l,    value.getMandatory(Value.longField));
-		assertEquals(6.6,   value.getMandatory(Value.doubleField));
+		assertEqualBits(6.6,value.getMandatory(Value.doubleField));
 		assertEquals(false, value.getMandatory(Value.booleanField));
 		assertEquals(valueOf(44),   value.get(Value.intOptional));
 		assertEquals(valueOf(55l),  value.get(Value.longOptional));
@@ -285,7 +286,7 @@ public class CompositeTest extends CopeAssert
 		assertEquals("defStringOpt", value.getStringDefaultOptional());
 		assertEquals(4,      value.getIntMax4());
 		assertEquals(5l,     value.getLongField());
-		assertEquals(6.6,    value.getDoubleField());
+		assertEqualBits(6.6, value.getDoubleField());
 		assertEquals(false,  value.getBooleanField());
 		assertEquals(null, value.getIntOptional());
 		assertEquals(null, value.getLongOptional());
@@ -302,7 +303,7 @@ public class CompositeTest extends CopeAssert
 		assertEquals("overrideDefault", value.getStringDefaultOptional());
 		assertEquals(4,      value.getIntMax4());
 		assertEquals(5l,     value.getLongField());
-		assertEquals(6.6,    value.getDoubleField());
+		assertEqualBits(6.6, value.getDoubleField());
 		assertEquals(false,  value.getBooleanField());
 		assertEquals(null, value.getIntOptional());
 		assertEquals(null, value.getLongOptional());
@@ -334,7 +335,7 @@ public class CompositeTest extends CopeAssert
 		assertEquals(null,   value.getStringDefaultOptional());
 		assertEquals(4,      value.getIntMax4());
 		assertEquals(5l,     value.getLongField());
-		assertEquals(6.6,    value.getDoubleField());
+		assertEqualBits(6.6, value.getDoubleField());
 		assertEquals(false,  value.getBooleanField());
 		assertEquals(null, value.getIntOptional());
 		assertEquals(null, value.getLongOptional());

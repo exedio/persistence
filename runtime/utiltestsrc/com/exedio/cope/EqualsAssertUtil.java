@@ -74,6 +74,13 @@ public final class EqualsAssertUtil
 
 	private static final Object SOME_OBJECT = new Object();
 
+
+	public static void assertEqualBits(final double a, final double b)
+	{
+		assertEquals(Double.valueOf(a), Double.valueOf(b));
+	}
+
+
 	private EqualsAssertUtil()
 	{
 		// prevent instantiation

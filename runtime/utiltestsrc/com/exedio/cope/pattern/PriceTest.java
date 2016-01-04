@@ -18,6 +18,7 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.EqualsAssertUtil.assertEqualBits;
 import static com.exedio.cope.pattern.Price.ZERO;
 import static com.exedio.cope.pattern.Price.nullToZero;
 import static com.exedio.cope.pattern.Price.parse;
@@ -67,7 +68,7 @@ public class PriceTest extends CopeAssert
 	@Test public void testZero()
 	{
 		assertEquals(0, ZERO.store());
-		assertEquals(0.0, ZERO.doubleValue());
+		assertEqualBits(0.0, ZERO.doubleValue());
 	}
 
 	@Test public void testStoreOfInt()
@@ -355,11 +356,11 @@ public class PriceTest extends CopeAssert
 
 	@Test public void testDoubleValue()
 	{
-		assertEquals( 2.22, storeOf( 222).doubleValue());
-		assertEquals(-2.22, storeOf(-222).doubleValue());
-		assertEquals( 2.2,  storeOf( 220).doubleValue());
-		assertEquals(-2.2,  storeOf(-220).doubleValue());
-		assertEquals( 0.0,  storeOf(   0).doubleValue());
+		assertEqualBits( 2.22, storeOf( 222).doubleValue());
+		assertEqualBits(-2.22, storeOf(-222).doubleValue());
+		assertEqualBits( 2.2,  storeOf( 220).doubleValue());
+		assertEqualBits(-2.2,  storeOf(-220).doubleValue());
+		assertEqualBits( 0.0,  storeOf(   0).doubleValue());
 	}
 
 	@Test public void testDoubleValueAndValueOf()
