@@ -25,6 +25,7 @@ import com.exedio.cope.pattern.Hash;
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.List;
+import org.junit.Before;
 import org.junit.Test;
 
 /**
@@ -34,7 +35,7 @@ public class DigitPinValidatorTest extends CopeAssert
 {
 	private DigitPinValidator validator;
 
-	@Override public void setUp() throws Exception
+	@Override @Before public final void setUp() throws Exception
 	{
 		super.setUp();
 		this.validator = new DigitPinValidator(4);

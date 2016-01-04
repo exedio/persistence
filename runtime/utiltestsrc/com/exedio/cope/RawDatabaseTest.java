@@ -23,13 +23,14 @@ import com.exedio.cope.util.Properties;
 import java.sql.Connection;
 import java.sql.Driver;
 import java.sql.DriverManager;
+import org.junit.After;
+import org.junit.Before;
 
 abstract class RawDatabaseTest extends CopeAssert
 {
 	protected Connection con;
 
-	@Override
-	public void setUp() throws Exception
+	@Before public final void setUpRawDatabaseTest() throws Exception
 	{
 		super.setUp();
 
@@ -44,8 +45,7 @@ abstract class RawDatabaseTest extends CopeAssert
 		con = driver.connect(url, props.newConnectionInfo());
 	}
 
-	@Override
-	public void tearDown() throws Exception
+	@After public final void tearDownRawDatabaseTest() throws Exception
 	{
 		if(con!=null)
 			con.close();

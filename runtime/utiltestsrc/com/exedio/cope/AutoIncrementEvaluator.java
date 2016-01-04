@@ -26,6 +26,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -42,14 +44,14 @@ public class AutoIncrementEvaluator extends RawDatabaseTest
 	private Statement stat;
 
 	@Override
-	public void setUp() throws Exception
+	@Before public final void setUp() throws Exception
 	{
 		super.setUp();
 		stat = con.createStatement();
 	}
 
 	@Override
-	public void tearDown() throws Exception
+	@After public final void tearDown() throws Exception
 	{
 		if(stat!=null)
 			stat.close();
