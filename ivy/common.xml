@@ -13,5 +13,6 @@
 			uri="antlib:org.apache.ivy.ant" />
 		<ivy:settings file="artifacts/ivysettings.xml" />
 		<ivy:retrieve file="ivy.xml" pattern="artifacts/lib/[artifact]-[type].[ext]" />
+		<fixcrlf srcDir="artifacts/lib" includes="*-log.txt" fixlast="false"/>
 	</target>
 </project>
