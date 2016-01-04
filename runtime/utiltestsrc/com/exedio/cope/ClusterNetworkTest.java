@@ -18,13 +18,12 @@
 
 package com.exedio.cope;
 
-import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.util.Properties;
 import java.io.File;
 import java.util.Collection;
 import org.junit.After;
 
-public abstract class ClusterNetworkTest extends CopeAssert
+public abstract class ClusterNetworkTest
 {
 	ConnectProperties getProperties(final boolean multicast, final int sendPort, final int listenPort)
 	{
@@ -89,11 +88,11 @@ public abstract class ClusterNetworkTest extends CopeAssert
 			);
 	}
 
-	@After public final void tearDownClusterNetworkTest() throws Exception
+	@SuppressWarnings("static-method")
+	@After public final void tearDownClusterNetworkTest()
 	{
 		modelB.disconnect();
 		modelA.disconnect();
-		super.tearDown();
 	}
 
 	static class TypeA extends Item

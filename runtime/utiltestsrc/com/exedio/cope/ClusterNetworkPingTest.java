@@ -18,6 +18,12 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.AssertUtil.assertUnmodifiable;
+import static com.exedio.cope.AssertUtil.sleepLongerThan;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.fail;
+
 import com.exedio.cope.util.SequenceChecker;
 import java.util.List;
 import org.junit.Test;
