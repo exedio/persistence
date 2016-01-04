@@ -15,7 +15,7 @@
 		<conf name="sources" />
 		<conf name="junit" extends="runtime" description="For fetching exedio-cope-junit.jar" />
 		<conf name="build" extends="runtime" visibility="private" />
-		
+
 		<!-- dialects -->
 		<conf extends="runtime" name="hsqldb"     description="dialect for HSQLDB" />
 		<conf extends="runtime" name="mysql"      description="dialect for MySQL" />
@@ -57,13 +57,13 @@
 		<dependency org="org.slf4j" name="slf4j-log4j12" rev="1.6.4" conf="build->default" />
 		<dependency org="com.exedio" name="copeutil" rev="412" />
 		<dependency org="com.exedio" name="copeservletutil" rev="11" />
-		
+
 		<!-- dialects -->
 		<dependency conf="hsqldb->default" org="org.hsqldb" name="hsqldb" rev="2.2.9" />
 		<dependency conf="mysql->default" org="mysql" name="mysql-connector-java" rev="5.1.15" />
 		<dependency conf="oracle->default" org="com.oracle" name="ojdbc5" rev="11.1.0.7.0" />
 		<dependency conf="postgresql->default" org="org.postgresql" name="postgresql" rev="9.3-1102-jdbc41" />
-		
+
 		<!-- build dependencies -->
 		<dependency org="org.apache" name="apache-tomcat" rev="6.0.16" conf="build->default" />
 		<dependency org="findbugs-x" name="findbugs" rev="3.0.0" conf="build->default" />
