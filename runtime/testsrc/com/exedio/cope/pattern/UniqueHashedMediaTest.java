@@ -37,7 +37,7 @@ import java.util.Arrays;
 import java.util.Date;
 import org.junit.Test;
 
-public final class UniqueHashedMediaTest extends AbstractRuntimeModelTest
+public class UniqueHashedMediaTest extends AbstractRuntimeModelTest
 {
 	static final Model MODEL = new Model(TYPE);
 
@@ -51,7 +51,6 @@ public final class UniqueHashedMediaTest extends AbstractRuntimeModelTest
 		super(MODEL);
 	}
 
-	@SuppressWarnings("static-method")
 	@Test public void testModel()
 	{
 		assertEqualsUnmodifiable(
@@ -79,7 +78,6 @@ public final class UniqueHashedMediaTest extends AbstractRuntimeModelTest
 		 assertTrue(value.getHash().isAnnotationPresent(Computed.class));
 	}
 
-	@SuppressWarnings("static-method")
 	@Test public void testData()
 	{
 		final Date before = new Date();
@@ -97,7 +95,6 @@ public final class UniqueHashedMediaTest extends AbstractRuntimeModelTest
 		assertEquals("UniqueHashedMediaItem/w300/UniqueHashedMediaItem-0.jpg", mediaItem.getW300Locator().getPath());
 	}
 
-	@SuppressWarnings("static-method")
 	@Test public void testUniqueness()
 	{
 		new UniqueHashedMediaItem(toValue(bytes4, "image/jpeg"));
@@ -114,7 +111,6 @@ public final class UniqueHashedMediaTest extends AbstractRuntimeModelTest
 		}
 	}
 
-	@SuppressWarnings("static-method")
 	@Test public void testConditions()
 	{
 		final UniqueHashedMediaItem mediaItem = new UniqueHashedMediaItem(toValue(bytes6, "image/jpeg"));
@@ -125,7 +121,6 @@ public final class UniqueHashedMediaTest extends AbstractRuntimeModelTest
 		assertNull(notExistingMediaItem);
 	}
 
-	@SuppressWarnings("static-method")
 	@Test public void testGetOrCreate()throws IOException
 	{
 		final UniqueHashedMediaItem mediaItem =  getOrCreate(toValue(bytes8, "image/jpeg"));
@@ -148,7 +143,6 @@ public final class UniqueHashedMediaTest extends AbstractRuntimeModelTest
 		}
 	}
 
-	@SuppressWarnings("static-method")
 	@Test public void testGetOrCreateNull()throws IOException
 	{
 		assertEquals(null, getOrCreate(null));

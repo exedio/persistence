@@ -31,7 +31,6 @@ public final class MediaPathLocatorTest extends AbstractRuntimeModelTest
 		super(MediaPathTest.MODEL);
 	}
 
-	@SuppressWarnings("static-method")
 	@Test public void testIt()
 	{
 		final MediaPathItem i1 = new MediaPathItem();

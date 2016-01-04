@@ -25,9 +25,8 @@ import java.io.File;
 import java.util.Collection;
 import org.junit.Test;
 
-public final class ClusterPropertiesNoContextTest extends CopeAssert
+public class ClusterPropertiesNoContextTest extends CopeAssert
 {
-	@SuppressWarnings("static-method")
 	@Test public void testOk()
 	{
 		final Source s = new Source()
@@ -73,7 +72,6 @@ public final class ClusterPropertiesNoContextTest extends CopeAssert
 		assertEquals(5, p.getListenThreadsMax());
 	}
 
-	@SuppressWarnings("static-method")
 	@Test public void testFailListenThreads()
 	{
 		final Source s = new Source()
@@ -124,7 +122,6 @@ public final class ClusterPropertiesNoContextTest extends CopeAssert
 		}
 	}
 
-	@SuppressWarnings("static-method")
 	@Test public void testFailPrimaryKeyGeneratorMemory()
 	{
 		final Properties.Source defaultSource =

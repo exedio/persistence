@@ -33,7 +33,7 @@ import com.exedio.cope.junit.CopeAssert;
 import java.util.Arrays;
 import org.junit.Test;
 
-public final class MediaUrlModelTest extends CopeAssert
+public class MediaUrlModelTest extends CopeAssert
 {
 	static final Model MODEL = new Model(MediaUrlItem.TYPE);
 
@@ -42,7 +42,6 @@ public final class MediaUrlModelTest extends CopeAssert
 		MODEL.enableSerialization(MediaUrlModelTest.class, "MODEL");
 	}
 
-	@SuppressWarnings("static-method")
 	@Test public void testIt()
 	{
 		assertEqualsUnmodifiable(Arrays.asList(new Feature[]{

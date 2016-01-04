@@ -21,9 +21,8 @@ package com.exedio.cope;
 import com.exedio.cope.junit.CopeAssert;
 import org.junit.Test;
 
-public final class TypeColumnTypeErrorTest extends CopeAssert
+public class TypeColumnTypeErrorTest extends CopeAssert
 {
-	@SuppressWarnings("static-method")
 	@Test public void testIt()
 	{
 		try
