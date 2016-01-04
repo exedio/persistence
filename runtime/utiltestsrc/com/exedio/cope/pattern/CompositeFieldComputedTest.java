@@ -35,7 +35,7 @@ import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.misc.Computed;
 import org.junit.Test;
 
-public final class CompositeFieldComputedTest extends CopeAssert
+public class CompositeFieldComputedTest extends CopeAssert
 {
 	private static final Model MODEL = new Model(TYPE);
 
@@ -44,7 +44,7 @@ public final class CompositeFieldComputedTest extends CopeAssert
 		MODEL.enableSerialization(CompositeFieldComputedTest.class, "MODEL");
 	}
 
-	@Test public static void testIt()
+	@Test public void testIt()
 	{
 		assertEquals(false, comp(virgnTemp));
 		assertEquals(true,  comp(compuTemp));

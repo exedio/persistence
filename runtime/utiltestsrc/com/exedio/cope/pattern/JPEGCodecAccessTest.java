@@ -21,9 +21,9 @@ package com.exedio.cope.pattern;
 import junit.framework.TestCase;
 import org.junit.Test;
 
-public final class JPEGCodecAccessTest extends TestCase
+public class JPEGCodecAccessTest extends TestCase
 {
-	@Test public static void testIt()
+	@Test public void testIt()
 	{
 		System.out.println("JPEGCodecAccess available: " + JPEGCodecAccess.available());
 	}

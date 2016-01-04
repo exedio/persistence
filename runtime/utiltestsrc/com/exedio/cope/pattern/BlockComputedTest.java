@@ -34,7 +34,7 @@ import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.misc.Computed;
 import org.junit.Test;
 
-public final class BlockComputedTest extends CopeAssert
+public class BlockComputedTest extends CopeAssert
 {
 	private static final Model MODEL = new Model(TYPE);
 
@@ -43,7 +43,7 @@ public final class BlockComputedTest extends CopeAssert
 		MODEL.enableSerialization(BlockComputedTest.class, "MODEL");
 	}
 
-	@Test public static void testIt()
+	@Test public void testIt()
 	{
 		assertEquals(false, comp(virgnTemp));
 		assertEquals(true,  comp(compuTemp));

@@ -36,7 +36,7 @@ import com.exedio.cope.TypesBound;
 import com.exedio.cope.junit.CopeAssert;
 import org.junit.Test;
 
-public final class CompositeFieldRenamedIdTest extends CopeAssert
+public class CompositeFieldRenamedIdTest extends CopeAssert
 {
 	private static final Model MODEL = new Model(TYPE);
 
@@ -45,7 +45,7 @@ public final class CompositeFieldRenamedIdTest extends CopeAssert
 		MODEL.enableSerialization(CompositeFieldRenamedIdTest.class, "MODEL");
 	}
 
-	@Test public static void testIt()
+	@Test public void testIt()
 	{
 		assertEquals(null,        ann(virgnTemp));
 		assertEquals("namedTemp", ann(wrongTemp));

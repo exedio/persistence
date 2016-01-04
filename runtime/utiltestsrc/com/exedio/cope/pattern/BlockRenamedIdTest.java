@@ -35,7 +35,7 @@ import com.exedio.cope.TypesBound;
 import com.exedio.cope.junit.CopeAssert;
 import org.junit.Test;
 
-public final class BlockRenamedIdTest extends CopeAssert
+public class BlockRenamedIdTest extends CopeAssert
 {
 	private static final Model MODEL = new Model(TYPE);
 
@@ -44,7 +44,7 @@ public final class BlockRenamedIdTest extends CopeAssert
 		MODEL.enableSerialization(BlockRenamedIdTest.class, "MODEL");
 	}
 
-	@Test public static void testIt()
+	@Test public void testIt()
 	{
 		assertEquals(null,        ann(virgnTemp));
 		assertEquals("namedTemp", ann(wrongTemp));
