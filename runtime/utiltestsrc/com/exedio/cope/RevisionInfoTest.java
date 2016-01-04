@@ -26,6 +26,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Properties;
 import java.util.TreeMap;
+import org.junit.Before;
 import org.junit.Test;
 
 public class RevisionInfoTest extends CopeAssert
@@ -37,7 +38,7 @@ public class RevisionInfoTest extends CopeAssert
 	private HashMap<String, String> env = null;
 
 	@Override
-	protected void setUp() throws Exception
+	@Before public final void setUp() throws Exception
 	{
 		super.setUp();
 		eol = System.getProperty("line.separator");

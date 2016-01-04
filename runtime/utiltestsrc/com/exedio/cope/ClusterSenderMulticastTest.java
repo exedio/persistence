@@ -23,6 +23,8 @@ import com.exedio.cope.util.Properties;
 import java.io.IOException;
 import java.net.SocketException;
 import java.util.Collection;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 public final class ClusterSenderMulticastTest extends CopeAssert
@@ -32,7 +34,7 @@ public final class ClusterSenderMulticastTest extends CopeAssert
 	private static final int SECRET = 0x88776655;
 
 	@Override
-	protected void setUp() throws Exception
+	@Before public final void setUp() throws Exception
 	{
 		super.setUp();
 		final ClusterProperties properties = ClusterProperties.get(
@@ -67,7 +69,7 @@ public final class ClusterSenderMulticastTest extends CopeAssert
 	}
 
 	@Override
-	protected void tearDown() throws Exception
+	@After public final void tearDown() throws Exception
 	{
 		sender.close();
 		super.tearDown();

@@ -32,6 +32,8 @@ import com.exedio.cope.junit.CopeAssert;
 import java.io.File;
 import java.util.Date;
 import org.apache.log4j.Logger;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 public class ConnectTokenTest extends CopeAssert
@@ -48,7 +50,7 @@ public class ConnectTokenTest extends CopeAssert
 	UtilTestLogAppender log = null;
 
 	@Override
-	protected void setUp() throws Exception
+	@Before public final void setUp() throws Exception
 	{
 		super.setUp();
 		log = new UtilTestLogAppender();
@@ -57,7 +59,7 @@ public class ConnectTokenTest extends CopeAssert
 	}
 
 	@Override
-	protected void tearDown() throws Exception
+	@After public final void tearDown() throws Exception
 	{
 		removeProperties(model);
 		logger.removeAppender(log);

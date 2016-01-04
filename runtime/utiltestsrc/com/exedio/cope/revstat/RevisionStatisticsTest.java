@@ -27,6 +27,7 @@ import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.util.AssertionErrorJobContext;
 import java.io.File;
 import java.util.Iterator;
+import org.junit.After;
 import org.junit.Test;
 
 public class RevisionStatisticsTest extends CopeAssert
@@ -133,7 +134,7 @@ public class RevisionStatisticsTest extends CopeAssert
 	}
 
 	@Override
-	protected void tearDown() throws Exception
+	@After public final void tearDown() throws Exception
 	{
 		MODEL.rollbackIfNotCommitted();
 		MODEL.disconnect();

@@ -22,6 +22,7 @@ import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.util.Properties;
 import java.io.File;
 import java.util.Collection;
+import org.junit.After;
 
 public abstract class ClusterNetworkTest extends CopeAssert
 {
@@ -88,8 +89,7 @@ public abstract class ClusterNetworkTest extends CopeAssert
 			);
 	}
 
-	@Override
-	protected void tearDown() throws Exception
+	@After public final void tearDownClusterNetworkTest() throws Exception
 	{
 		modelB.disconnect();
 		modelA.disconnect();

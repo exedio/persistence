@@ -39,6 +39,8 @@ import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 public class ServletUtilTest extends CopeAssert
@@ -49,7 +51,7 @@ public class ServletUtilTest extends CopeAssert
 	public static final Model modelNull = null;
 
 	@Override
-	protected void setUp() throws Exception
+	@Before public final void setUp() throws Exception
 	{
 		super.setUp();
 		final ConnectProperties props = new ConnectProperties(new File("runtime/utiltest.properties"));
@@ -59,7 +61,7 @@ public class ServletUtilTest extends CopeAssert
 	}
 
 	@Override
-	protected void tearDown() throws Exception
+	@After public final void tearDown() throws Exception
 	{
 		removeProperties(modelOk);
 		removeProperties(modelOk2);

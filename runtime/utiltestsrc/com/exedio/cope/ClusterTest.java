@@ -27,6 +27,8 @@ import java.net.DatagramPacket;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 public abstract class ClusterTest extends CopeAssert
@@ -76,7 +78,7 @@ public abstract class ClusterTest extends CopeAssert
 	}
 
 	@Override
-	protected void setUp() throws Exception
+	@Before public final void setUp() throws Exception
 	{
 		super.setUp();
 		csp = getProperties(0x11224433);
@@ -86,7 +88,7 @@ public abstract class ClusterTest extends CopeAssert
 	}
 
 	@Override
-	protected void tearDown() throws Exception
+	@After public final void tearDown() throws Exception
 	{
 		cs.close();
 		cl.close();

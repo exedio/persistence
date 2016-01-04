@@ -23,12 +23,13 @@ import static java.util.Arrays.asList;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import org.junit.After;
 import org.junit.Test;
 
 public class ClusterNetworkChangeListenerTest extends ClusterNetworkTest
 {
 	@Override
-	protected void tearDown() throws Exception
+	@After public final void tearDown() throws Exception
 	{
 		modelB.rollbackIfNotCommitted();
 		modelA.rollbackIfNotCommitted();

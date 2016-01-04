@@ -26,6 +26,7 @@ import com.exedio.cope.util.Properties;
 import com.exedio.cope.util.Sources;
 import java.io.File;
 import java.util.Collection;
+import org.junit.After;
 import org.junit.Test;
 
 public class MediaRootUrlTest extends CopeAssert
@@ -101,7 +102,7 @@ public class MediaRootUrlTest extends CopeAssert
 	}
 
 	@Override
-	protected void tearDown() throws Exception
+	@After public final void tearDown() throws Exception
 	{
 		MODEL.rollbackIfNotCommitted();
 		MODEL.dropSchema();

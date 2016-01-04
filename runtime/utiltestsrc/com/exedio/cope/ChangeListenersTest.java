@@ -19,6 +19,8 @@
 package com.exedio.cope;
 
 import com.exedio.cope.junit.CopeAssert;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 public class ChangeListenersTest extends CopeAssert
@@ -30,14 +32,14 @@ public class ChangeListenersTest extends CopeAssert
 	private ChangeListenerInfo baselineInfo = model.getChangeListenersInfo();
 
 	@Override
-	protected void setUp() throws Exception
+	@Before public final void setUp() throws Exception
 	{
 		super.setUp();
 		baselineInfo = model.getChangeListenersInfo();
 	}
 
 	@Override
-	protected void tearDown() throws Exception
+	@After public final void tearDown() throws Exception
 	{
 		model.removeAllChangeListeners();
 		super.tearDown();
