@@ -38,6 +38,7 @@ public class QueryCacheTest extends AbstractRuntimeModelTest
 		super(MatchTest.MODEL);
 	}
 
+	@SuppressWarnings("static-method")
 	@Before public final void setUp()
 	{
 		new MatchItem();

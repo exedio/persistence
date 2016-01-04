@@ -41,11 +41,13 @@ public class ConnectTokenTest
 	private static final Model model = new Model(ConnectTokenItem.TYPE);
 	private static final ConnectProperties props = new ConnectProperties(SYSTEM_PROPERTY_SOURCE);
 
+	@SuppressWarnings("static-method")
 	@Before public final void setUp()
 	{
 		setProperties(model, props);
 	}
 
+	@SuppressWarnings("static-method")
 	@After public final void tearDown()
 	{
 		removeProperties(model);

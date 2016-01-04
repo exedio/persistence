@@ -30,6 +30,7 @@ import org.junit.Test;
 
 public class GroupByTest extends TestmodelTest
 {
+	@SuppressWarnings("static-method")
 	@Before public final void setUp()
 	{
 		new FinalItem("foo", 1);

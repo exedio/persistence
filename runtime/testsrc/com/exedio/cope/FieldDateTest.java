@@ -47,6 +47,7 @@ public class FieldDateTest extends FieldTest
 		Clock.override(clock);
 	}
 
+	@SuppressWarnings("static-method")
 	@After public final void tearDown()
 	{
 		Clock.clearOverride();

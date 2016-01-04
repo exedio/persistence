@@ -69,6 +69,7 @@ public class MediaDefaultTest extends AbstractRuntimeModelTest
 		item = new MediaItem("test media item");
 	}
 
+	@SuppressWarnings("static-method")
 	@After public final void tearDown()
 	{
 		Clock.clearOverride();

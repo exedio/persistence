@@ -75,6 +75,7 @@ public abstract class ConnectedTest extends AbstractRuntimeModelTest
 		};
 	}
 
+	@SuppressWarnings("static-method")
 	@After public final void tearDownConnectedTest()
 	{
 		samplerModel.rollbackIfNotCommitted();

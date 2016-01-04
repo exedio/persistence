@@ -39,6 +39,7 @@ public class SelectBindTest extends AbstractRuntimeModelTest
 		super(CompareConditionTest.MODEL);
 	}
 
+	@SuppressWarnings("static-method")
 	@Before public final void setUp()
 	{
 		new CompareConditionItem("string1", 1, 11l, 2.1, null, null, null);

@@ -55,6 +55,7 @@ public class PasswordLimiterTest extends AbstractRuntimeModelTest
 		Clock.override(clock);
 	}
 
+	@SuppressWarnings("static-method")
 	@After public final void tearDown()
 	{
 		Clock.clearOverride();
