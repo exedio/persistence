@@ -371,6 +371,7 @@
 		<instrument
 				verify="${instrument.verify}"
 				annotateGenerated="true"
+				suppressUnusedWarningOnPrivateActivationConstructor="true"
 				finalArgs="true"
 				verbose="false"
 				timestampFile="build/timestamps/runtime.utiltest.timestamp">
