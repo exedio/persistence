@@ -23,6 +23,7 @@ import static org.junit.Assert.fail;
 
 import com.exedio.cope.util.Properties;
 import com.exedio.cope.util.Properties.Source;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.File;
 import java.util.Collection;
 import org.junit.After;
@@ -75,6 +76,7 @@ public class ClusterPropertiesNoContextTest
 		assertEquals(5, p.getListenThreadsMax());
 	}
 
+	@SuppressFBWarnings("BC_UNCONFIRMED_CAST_OF_RETURN_VALUE")
 	@Test public void testFailListenThreads()
 	{
 		final Source s = new Source()

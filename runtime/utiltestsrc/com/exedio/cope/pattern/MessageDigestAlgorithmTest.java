@@ -299,6 +299,7 @@ public class MessageDigestAlgorithmTest
 		}
 	}
 
+	@SuppressFBWarnings("BC_UNCONFIRMED_CAST_OF_RETURN_VALUE")
 	private static void assertDigest(
 			final MessageDigestAlgorithm algorithm,
 			final String plainText,
