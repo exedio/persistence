@@ -409,6 +409,7 @@
 				<exclude name="DateFieldWrongDefaultNowTest.java" />
 				<exclude name="DayFieldWrongDefaultNowTest.java" />
 				<exclude name="ItemCacheLimitTest.java" />
+				<exclude name="LRUMapTest.java" />
 				<exclude name="MediaUrlSecretTest.java" />
 				<exclude name="PatternComputedItem.java" />
 				<exclude name="PatternComputedPattern.java" />

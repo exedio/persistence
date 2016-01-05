@@ -21,6 +21,7 @@ package com.exedio.cope;
 import static com.exedio.cope.misc.TimeUtil.toMillies;
 import static org.junit.Assert.assertEquals;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import gnu.trove.TIntObjectHashMap;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -44,6 +45,7 @@ public class LRUMapTest
 		}
 
 		@Override
+		@SuppressFBWarnings("VO_VOLATILE_INCREMENT")
 		protected boolean removeEldestEntry(final Map.Entry<K,V> eldest)
 		{
 			//System.out.println("-----eldest("+size()+"):"+eldest.getKey());
