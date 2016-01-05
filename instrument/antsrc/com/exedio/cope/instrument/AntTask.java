@@ -29,11 +29,13 @@ import org.apache.tools.ant.Task;
 import org.apache.tools.ant.types.DataType;
 import org.apache.tools.ant.types.FileList;
 import org.apache.tools.ant.types.FileSet;
+import org.apache.tools.ant.types.Path;
 
 public final class AntTask extends Task
 {
 	private final ArrayList<DataType> fileSetsOrLists = new ArrayList<>();
 	private final Params params = new Params();
+	private final ArrayList<Path> resources = new ArrayList<>();
 
 	public void addFileset(final FileSet value)
 	{
@@ -53,6 +55,16 @@ public final class AntTask extends Task
 	public void setCharset(final String value)
 	{
 		params.charset = Charset.forName(value);
+	}
+
+	public void setTimestampFile(final File value)
+	{
+		params.timestampFile = value;
+	}
+
+	public void addResources(final Path value)
+	{
+		resources.add(value);
 	}
 
 	@Deprecated
@@ -116,6 +128,7 @@ public final class AntTask extends Task
 		{
 			final Project project = getProject();
 			final ArrayList<File> sourcefiles = new ArrayList<>();
+			final ArrayList<File> resourceFiles = new ArrayList<>();
 			final HashSet<File> sourcefileSet = new HashSet<>();
 
 			for(final Object fileSetOrList : fileSetsOrLists)
@@ -142,8 +155,20 @@ public final class AntTask extends Task
 						sourcefiles.add(file);
 				}
 			}
+			for (final Path resource: resources)
+			{
+				if ( params.timestampFile==null )
+				{
+					throw new BuildException("resources require timestampFile");
+				}
+				for (final String fileName: resource.list())
+				{
+					final File file = new File(fileName);
+					addRecursively(file, resourceFiles);
+				}
+			}
 
-			(new Main()).run(sourcefiles, params);
+			(new Main()).run(sourcefiles, params, resourceFiles);
 		}
 		catch(final HumanReadableException e)
 		{
@@ -153,5 +178,27 @@ public final class AntTask extends Task
 		{
 			throw new BuildException(e);
 		}
+	}
+
+	private void addRecursively(final File fileOrDir, final ArrayList<File> addTo)
+	{
+		if (!fileOrDir.exists())
+		{
+			throw new RuntimeException(fileOrDir.getAbsolutePath()+" does not exist");
+		}
+		if (fileOrDir.isDirectory())
+		{
+			for (final File entry: fileOrDir.listFiles())
+			{
+				addRecursively(entry, addTo);
+			}
+			return;
+		}
+		if (fileOrDir.isFile())
+		{
+			addTo.add(fileOrDir);
+			return;
+		}
+		throw new RuntimeException("can't handle "+fileOrDir.getAbsolutePath());
 	}
 }

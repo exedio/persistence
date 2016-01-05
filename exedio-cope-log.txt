@@ -7,6 +7,11 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* Instrumentor can be configured to run only if source files or resources changed:
+	- In taskdef for "instrument" task, add 'id="instrument.resources"' to classpath.
+	- Set "timestampFile" and "resources" in calls of "instrument" task:
+		<instrument ... timestampFile="build/instrument.timestamp">
+			<resources refid="instrument.resources" />
 * Drop support of exedio-cope-test.jar. Remove it from your project.
 	Drops ivy configuration "test" as well.
 * bugfix: CheckConstraints conform to Three-valued logic.
