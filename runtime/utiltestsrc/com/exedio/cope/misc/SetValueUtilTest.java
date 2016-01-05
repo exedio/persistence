@@ -27,6 +27,7 @@ import static org.junit.Assert.fail;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
 import com.exedio.cope.StringField;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.ArrayList;
 import org.junit.Test;
 
@@ -81,6 +82,7 @@ public class SetValueUtilTest
 		}
 	}
 
+	@SuppressFBWarnings("NP_LOAD_OF_KNOWN_NULL_VALUE")
 	@Test public void testGetFirstNullSettable()
 	{
 		// Needed because with just null I do get a compiler warning on JDK 1.8:
