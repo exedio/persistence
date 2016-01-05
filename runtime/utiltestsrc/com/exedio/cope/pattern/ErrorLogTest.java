@@ -130,7 +130,7 @@ public class ErrorLogTest
 		assertEquals(null, l2.getException());
 	}
 
-	class Request extends HttpServletRequestUtilDummy
+	static class Request extends HttpServletRequestUtilDummy
 	{
 		private final int n;
 		private final boolean secure;

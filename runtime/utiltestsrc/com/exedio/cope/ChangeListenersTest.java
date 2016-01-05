@@ -177,7 +177,7 @@ public class ChangeListenersTest
 		assertInfo(0, 2, 1);
 	}
 
-	private final class L implements ChangeListener
+	private static final class L implements ChangeListener
 	{
 		L()
 		{

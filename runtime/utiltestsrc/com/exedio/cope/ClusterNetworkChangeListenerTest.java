@@ -73,7 +73,7 @@ public class ClusterNetworkChangeListenerTest extends ClusterNetworkTest
 		assertInfo(modelB);
 	}
 
-	private final class MockListener implements ChangeListener
+	private static final class MockListener implements ChangeListener
 	{
 		final Model model;
 		final Model remoteModel;
