@@ -26,12 +26,14 @@ import static org.junit.Assert.fail;
 
 import com.exedio.cope.misc.Arrays;
 import com.exedio.cope.util.Hex;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import org.junit.Test;
 
 public class MessageDigestAlgorithmTest
 {
+	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
 	@Test public void testIt()
 	{
 		try
@@ -297,6 +299,7 @@ public class MessageDigestAlgorithmTest
 		}
 	}
 
+	@SuppressFBWarnings("BC_UNCONFIRMED_CAST_OF_RETURN_VALUE")
 	private static void assertDigest(
 			final MessageDigestAlgorithm algorithm,
 			final String plainText,

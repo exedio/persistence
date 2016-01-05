@@ -26,6 +26,7 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import com.exedio.cope.RevisionInfoRevise.Body;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.UnsupportedEncodingException;
 import java.util.Date;
 import java.util.HashMap;
@@ -52,6 +53,7 @@ public class RevisionInfoTest
 		env.put("env3Key", "env3Value");
 	}
 
+	@SuppressFBWarnings("NP_NULL_PARAM_DEREF_NONVIRTUAL")
 	@Test public void testRevise()
 	{
 		final RevisionInfoRevise i =

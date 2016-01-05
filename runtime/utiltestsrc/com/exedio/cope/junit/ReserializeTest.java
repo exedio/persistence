@@ -23,10 +23,12 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertSame;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.Test;
 
 public class ReserializeTest
 {
+	@SuppressFBWarnings({"DM_STRING_CTOR","ES_COMPARING_STRINGS_WITH_EQ"})
 	@Test public void testIt()
 	{
 		final String[] original = new String[]{new String("hallo"), new String("hallo")};

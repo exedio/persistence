@@ -23,6 +23,7 @@ import static com.exedio.cope.AssertUtil.list;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -148,6 +149,7 @@ public class ChangeListenersTest
 		assertInfo(0, 0, 0);
 	}
 
+	@SuppressFBWarnings("DLS_DEAD_LOCAL_STORE_OF_NULL") // release to GC
 	@Test public void testWeakness()
 	{
 		assertInfo(0, 0, 0);
@@ -161,7 +163,7 @@ public class ChangeListenersTest
 		assertEquals(list(l1), model.getChangeListeners());
 		assertInfo(1, 0, 0);
 
-		l1 = null;
+		l1 = null; // release to GC
 		System.gc();
 		assertInfo(1, 0, 0);
 		assertEquals(list(), model.getChangeListeners());
@@ -177,7 +179,7 @@ public class ChangeListenersTest
 		assertInfo(0, 2, 1);
 	}
 
-	private final class L implements ChangeListener
+	private static final class L implements ChangeListener
 	{
 		L()
 		{

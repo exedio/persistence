@@ -21,6 +21,7 @@ package com.exedio.cope;
 import static org.junit.Assert.fail;
 
 import com.exedio.cope.util.Properties;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.IOException;
 import java.net.SocketException;
 import java.util.Collection;
@@ -28,6 +29,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+@SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
 public final class ClusterSenderMulticastTest
 {
 	private ClusterSenderMulticast sender;

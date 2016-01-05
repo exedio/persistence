@@ -307,7 +307,7 @@ public class MessageDigestHashAlgorithmTest
 	private static final void assertEqualsL(final int length, final HashAlgorithm algorithm)
 	{
 		final StringField field = algorithm.constrainStorage(new StringField());
-		assertEquals(2*length, field.getMinimumLength());
-		assertEquals(2*length, field.getMaximumLength());
+		assertEquals(2l*length, field.getMinimumLength());
+		assertEquals(2l*length, field.getMaximumLength());
 	}
 }

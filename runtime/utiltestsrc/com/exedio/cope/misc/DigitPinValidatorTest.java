@@ -128,7 +128,7 @@ public class DigitPinValidatorTest
 		for (int i=0; i<5; i++)
 		{
 			final String newPin = pinValidator.newRandomPlainText(random);
-			assertTrue(Integer.valueOf(newPin)>=0);
+			assertTrue(Integer.parseInt(newPin)>=0);
 			assertEquals(pinLen, newPin.length());
 			actual.add(newPin);
 		}

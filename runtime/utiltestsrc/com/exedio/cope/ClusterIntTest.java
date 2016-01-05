@@ -20,11 +20,13 @@ package com.exedio.cope;
 
 import static org.junit.Assert.assertEquals;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Arrays;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+@SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
 public class ClusterIntTest
 {
 	private static final byte FILL = (byte)0xee;

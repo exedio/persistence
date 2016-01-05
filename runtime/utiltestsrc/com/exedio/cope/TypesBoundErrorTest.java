@@ -22,6 +22,7 @@ import static com.exedio.cope.TypesBound.newType;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.Test;
 
 public class TypesBoundErrorTest
@@ -200,6 +201,7 @@ public class TypesBoundErrorTest
 		private static final long serialVersionUID = 1l;
 
 		@SuppressWarnings({"unused", "static-method"})
+		@SuppressFBWarnings("UPM_UNCALLED_PRIVATE_METHOD")
 		private final SetValue<?>[] beforeNewCopeItem(final SetValue<?>[] setValues)
 		{
 			return setValues;
@@ -216,6 +218,7 @@ public class TypesBoundErrorTest
 		private static final long serialVersionUID = 1l;
 
 		@SuppressWarnings("unused")
+		@SuppressFBWarnings("UPM_UNCALLED_PRIVATE_METHOD")
 		private static final String beforeNewCopeItem(final SetValue<?>[] setValues)
 		{
 			return "";

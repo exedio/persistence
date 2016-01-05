@@ -398,6 +398,7 @@
 				<exclude name="pattern/HashAlgorithmAdapterTest.java" />
 				<exclude name="pattern/TextUrlFilterAnnotationTest.java" />
 				<exclude name="pattern/TextUrlFilterDelegatorAnnotationTest.java" />
+				<exclude name="AutoIncrementEvaluator.java" />
 				<exclude name="ChangeListenersTest.java" />
 				<exclude name="ClusterNetworkTest.java" />
 				<exclude name="ClusterPropertiesNoContextTest.java" />
@@ -409,6 +410,7 @@
 				<exclude name="DateFieldWrongDefaultNowTest.java" />
 				<exclude name="DayFieldWrongDefaultNowTest.java" />
 				<exclude name="ItemCacheLimitTest.java" />
+				<exclude name="LRUMapTest.java" />
 				<exclude name="MediaUrlSecretTest.java" />
 				<exclude name="PatternComputedItem.java" />
 				<exclude name="PatternComputedPattern.java" />
@@ -1147,6 +1149,7 @@
 			<class location="${basedir}/build/classes/instrument/src" />
 			<class location="${basedir}/build/classes/instrument/antsrc" />
 			<class location="${basedir}/build/classes/runtime/testsrc" />
+			<class location="${basedir}/build/classes/runtime/utiltestsrc" />
 			<auxclasspath>
 				<pathelement location="${basedir}/lib/exedio-cope-util.jar" />
 				<pathelement location="${basedir}/lib/exedio-cope-servletutil.jar" />

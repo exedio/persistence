@@ -219,7 +219,7 @@ public class MediaTypeTest
 			// ok
 		}
 
-		file.mkdir();
+		StrictFile.mkdir(file);
 		try
 		{
 			forMagics(file);

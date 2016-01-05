@@ -22,6 +22,7 @@ import static com.exedio.cope.AssertUtil.list;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.awt.geom.IllegalPathStateException;
 import java.io.File;
 import java.util.ArrayList;
@@ -113,6 +114,7 @@ public class CommitHookTest
 		assertEquals(0, model.currentTransaction().getCommitHookCount());
 	}
 
+	@SuppressFBWarnings("NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS")
 	@Test public void testNoTransaction()
 	{
 		try
