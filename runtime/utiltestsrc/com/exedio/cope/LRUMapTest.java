@@ -148,6 +148,7 @@ public class LRUMapTest
 		System.out.print(" " + toMillies(end, start) + "ms");
 	}
 
+	@SuppressFBWarnings("DM_GC")
 	private static long mem()
 	{
 		System.gc();
