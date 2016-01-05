@@ -23,6 +23,7 @@ import static java.lang.Long.MIN_VALUE;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.Test;
 
 public class LongFieldTest
@@ -37,6 +38,7 @@ public class LongFieldTest
 		assertIllegalRange(MAX_VALUE, MAX_VALUE, "maximum must be greater than minimum, but was " + MAX_VALUE + " and " + MAX_VALUE);
 	}
 
+	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
 	private static void assertIllegalRange(final long minimum, final long maximum, final String message)
 	{
 		final LongField f = new LongField().optional();

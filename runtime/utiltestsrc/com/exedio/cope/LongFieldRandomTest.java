@@ -25,6 +25,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Random;
 import org.junit.Test;
 
@@ -73,6 +74,7 @@ public class LongFieldRandomTest
 
 	private final RandomX r = new RandomX();
 
+	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
 	@Test public void testUnsupportedMin()
 	{
 		final LongField s = new LongField().min(1);
@@ -87,6 +89,7 @@ public class LongFieldRandomTest
 		}
 	}
 
+	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
 	@Test public void testUnsupportedMax()
 	{
 		final LongField s = new LongField().max(1);
@@ -101,6 +104,7 @@ public class LongFieldRandomTest
 		}
 	}
 
+	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
 	@Test public void testUnsupportedMinMax()
 	{
 		final LongField s = new LongField().defaultToRandom(r);

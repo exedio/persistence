@@ -26,6 +26,7 @@ import com.exedio.cope.Condition;
 import com.exedio.cope.DataField;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.StringField;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.Test;
 
 public class MediaTypeMediaTest
@@ -97,6 +98,7 @@ public class MediaTypeMediaTest
 				m.bodyMismatchesContentType().toString());
 	}
 
+	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
 	@Test public void testEnumFailNull()
 	{
 		final Media m = new Media();
@@ -111,6 +113,7 @@ public class MediaTypeMediaTest
 		}
 	}
 
+	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
 	@Test public void testEnumFailDuplicate()
 	{
 		final Media m = new Media();

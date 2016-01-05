@@ -21,6 +21,7 @@ package com.exedio.cope.pattern;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.Test;
 
 public class MultiItemFieldErrorTest
@@ -119,6 +120,7 @@ public class MultiItemFieldErrorTest
 		}
 	}
 
+	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
 	@Test public void testCreateCopyNullComponent()
 	{
 		final MultiItemField<?> field = MultiItemField.create(
@@ -136,6 +138,7 @@ public class MultiItemFieldErrorTest
 		}
 	}
 
+	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
 	@Test public void testCreateCopyNoSuchComponent()
 	{
 		final MultiItemField<?> field = MultiItemField.create(
@@ -158,6 +161,7 @@ public class MultiItemFieldErrorTest
 		}
 	}
 
+	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
 	@Test public void testCreateCopyNullCopy()
 	{
 		final MultiItemField<?> field = MultiItemField.create(

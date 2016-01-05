@@ -21,10 +21,12 @@ package com.exedio.cope.pattern;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.Test;
 
 public class HashPlainTextLimitTest
 {
+	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
 	@Test public void testIt()
 	{
 		final Hash vanillaHash = new Hash(new MessageDigestAlgorithm("SHA-512", 0, 1));
