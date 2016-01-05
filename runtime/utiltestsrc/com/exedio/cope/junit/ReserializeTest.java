@@ -28,7 +28,7 @@ import org.junit.Test;
 
 public class ReserializeTest
 {
-	@SuppressFBWarnings("DM_STRING_CTOR")
+	@SuppressFBWarnings({"DM_STRING_CTOR","ES_COMPARING_STRINGS_WITH_EQ"})
 	@Test public void testIt()
 	{
 		final String[] original = new String[]{new String("hallo"), new String("hallo")};
