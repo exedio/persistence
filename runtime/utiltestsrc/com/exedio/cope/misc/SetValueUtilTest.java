@@ -25,6 +25,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 import com.exedio.cope.SetValue;
+import com.exedio.cope.Settable;
 import com.exedio.cope.StringField;
 import java.util.ArrayList;
 import org.junit.Test;
@@ -82,9 +83,13 @@ public class SetValueUtilTest
 
 	@Test public void testGetFirstNullSettable()
 	{
+		// Needed because with just null I do get a compiler warning on JDK 1.8:
+		// warning: [deprecation] assertEquals(Object[],Object[]) in Assert has been deprecated
+		final Settable<Object> nullSettable = null;
+
 		// TODO should rather throw an exception
-		assertEquals(null, getFirst(new SetValue<?>[]{}, null));
-		assertEquals(null, getFirst(asList(new SetValue<?>[]{}), null));
+		assertEquals(null, getFirst(new SetValue<?>[]{}, nullSettable));
+		assertEquals(null, getFirst(asList(new SetValue<?>[]{}), nullSettable));
 	}
 
 	@Test public void testAdd()
