@@ -116,8 +116,8 @@ final class ClusterProperties extends Properties
 				logger.info("node id: {}", ClusterSenderInfo.toStringNodeID(node));
 
 			if(listenThreads>listenThreadsMax)
-				throw new IllegalArgumentException(
-						"listenThreads=" + listenThreads + " must be less or equal " +
+				throw newException(
+						"listenThreads", "is " + listenThreads + ", but must be less or equal " +
 						"listenThreadsMax=" + listenThreadsMax);
 
 			this.packetSize = packetSizeField & (~3);

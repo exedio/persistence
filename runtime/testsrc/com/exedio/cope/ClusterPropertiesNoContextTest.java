@@ -21,6 +21,7 @@ package com.exedio.cope;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
+import com.exedio.cope.util.IllegalPropertiesException;
 import com.exedio.cope.util.Properties;
 import com.exedio.cope.util.Properties.Source;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -119,11 +120,11 @@ public class ClusterPropertiesNoContextTest
 			new ConnectProperties(s, null);
 			fail();
 		}
-		catch(final IllegalArgumentException e)
+		catch(final IllegalPropertiesException e)
 		{
-			assertEquals("property cluster in Cluster Properties invalid, see nested exception", e.getMessage());
+			assertEquals("property cluster.listenThreads in Cluster Properties is 5, but must be less or equal listenThreadsMax=4", e.getMessage());
 			final IllegalArgumentException e2 = (IllegalArgumentException)e.getCause();
-			assertEquals("listenThreads=5 must be less or equal listenThreadsMax=4", e2.getMessage());
+			assertEquals("property listenThreads in Cluster Properties (prefix cluster.) is 5, but must be less or equal listenThreadsMax=4", e2.getMessage());
 		}
 	}
 

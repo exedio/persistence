@@ -202,13 +202,13 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 			? checkMediaUrlSecret       (valueHidden(     "media.url.secret", ""))
 			: checkMediaUrlSecretContext(getContext().get("media.url.secret"));
 
-	private static final String checkMediaUrlSecret(final String s)
+	private final String checkMediaUrlSecret(final String s)
 	{
 		final int length = s.length();
 		if(length==0)
 			return null;
 		if(length<10)
-			throw new IllegalArgumentException("media.url.secret must be at least 10 characters, but just has " + length);
+			throw newException("media.url.secret", "must be at least 10 characters, but just has " + length);
 		return s;
 	}
 
@@ -322,33 +322,33 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 			final String url = connectionUrl;
 			final String prefix = "jdbc:";
 			if(!url.startsWith(prefix))
-				throw new IllegalArgumentException("cannot parse connection.url=" + url + ", missing prefix '" + prefix + '\'');
+				throw newException("connection.url", "cannot parse " + url + ", missing prefix '" + prefix + '\'');
 			final int pos = url.indexOf(':', prefix.length());
 			if(pos<0)
-				throw new IllegalArgumentException("cannot parse connection.url=" + url + ", missing second colon");
+				throw newException("connection.url", "cannot parse " + url + ", missing second colon");
 			dialectCode = url.substring(prefix.length(), pos);
 		}
 		else
 			dialectCode = dialectCodeRaw;
 
-		dialect = getDialectConstructor(dialectCode, source.getDescription());
+		dialect = getDialectConstructor(dialectCode);
 
 		{
 			final int position = connectionPostgresqlSearchPath.indexOf(',');
 			if(position>=0)
-				throw new IllegalArgumentException(
-					"value for connection.postgresql.search_path '" + connectionPostgresqlSearchPath + "'" +
+				throw newException(
+					"connection.postgresql.search_path", "value '" + connectionPostgresqlSearchPath + "'" +
 					" contains forbidden comma on position " + position + '.');
 		}
 
 		if(connectionPoolIdleInitial>connectionPoolIdleLimit)
-			throw new IllegalArgumentException("value for connectionPool.idleInitial must not be greater than connectionPool.idleLimit");
+			throw newException("connectionPool.idleInitial", "value must not be greater than connectionPool.idleLimit");
 	}
 
-	private static final Constructor<? extends Dialect> getDialectConstructor(final String dialectCode, final String sourceDescription)
+	private final Constructor<? extends Dialect> getDialectConstructor(final String dialectCode)
 	{
 		if(dialectCode.length()<=2)
-			throw new IllegalArgumentException("dialect from " + sourceDescription + " must have at least two characters, but was " + dialectCode);
+			throw newException("dialect", "must have at least two characters, but was " + dialectCode);
 
 		final String dialectName =
 			"com.exedio.cope." +
@@ -363,12 +363,12 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 		}
 		catch(final ClassNotFoundException e)
 		{
-			throw new IllegalArgumentException("class " + dialectName + " from " + sourceDescription + " not found.", e);
+			throw newException("dialect", "class " + dialectName + " not found.", e);
 		}
 
 		if(!Dialect.class.isAssignableFrom(dialectClassRaw))
 		{
-			throw new IllegalArgumentException(dialectClassRaw.toString() + " from " + sourceDescription + " not a subclass of " + Dialect.class.getName() + '.');
+			throw newException("dialect", dialectClassRaw.toString() + " not a subclass of " + Dialect.class.getName() + '.');
 		}
 		final Class<? extends Dialect> dialectClass = dialectClassRaw.asSubclass(Dialect.class);
 		try
@@ -377,7 +377,7 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 		}
 		catch(final NoSuchMethodException e)
 		{
-			throw new IllegalArgumentException("class " + dialectName + " from " + sourceDescription + " does not have the required constructor.", e);
+			throw newException("dialect", "class " + dialectName + " does not have the required constructor.", e);
 		}
 	}
 

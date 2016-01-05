@@ -23,6 +23,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import com.exedio.cope.util.IllegalPropertiesException;
 import com.exedio.cope.util.Properties.Field;
 import com.exedio.cope.util.Properties.Source;
 import com.exedio.cope.util.Sources;
@@ -53,7 +54,7 @@ public class ConnectPropertiesTest
 	{
 		assertConnectionUrlFailure(
 				"someUrl",
-				"cannot parse connection.url=someUrl, missing prefix 'jdbc:'",
+				"property connection.url in DESC cannot parse someUrl, missing prefix 'jdbc:'",
 				null);
 	}
 
@@ -61,7 +62,7 @@ public class ConnectPropertiesTest
 	{
 		assertConnectionUrlFailure(
 				"jdbc:someCode",
-				"cannot parse connection.url=jdbc:someCode, missing second colon",
+				"property connection.url in DESC cannot parse jdbc:someCode, missing second colon",
 				null);
 	}
 
@@ -69,7 +70,7 @@ public class ConnectPropertiesTest
 	{
 		assertConnectionUrlFailure(
 				"jdbc:a:",
-				"dialect from DESC must have at least two characters, but was a",
+				"property dialect in DESC must have at least two characters, but was a",
 				null);
 	}
 
@@ -77,7 +78,7 @@ public class ConnectPropertiesTest
 	{
 		assertConnectionUrlFailure(
 				"jdbc:classNotFound:",
-				"class com.exedio.cope.ClassNotFoundDialect from DESC not found.",
+				"property dialect in DESC class com.exedio.cope.ClassNotFoundDialect not found.",
 				ClassNotFoundException.class);
 	}
 
@@ -85,8 +86,8 @@ public class ConnectPropertiesTest
 	{
 		assertConnectionUrlFailure(
 				"jdbc:connectPropertiesTestClassNotDialect:",
-				"class " + ConnectPropertiesTestClassNotDialectDialect.class.getName() +
-				" from DESC not a subclass of com.exedio.cope.Dialect.",
+				"property dialect in DESC " + "class " + ConnectPropertiesTestClassNotDialectDialect.class.getName() +
+				" not a subclass of com.exedio.cope.Dialect.",
 				null);
 	}
 
@@ -94,8 +95,8 @@ public class ConnectPropertiesTest
 	{
 		assertConnectionUrlFailure(
 				"jdbc:connectPropertiesTestClassNoConstructor:",
-				"class " + ConnectPropertiesTestClassNoConstructorDialect.class.getName() +
-				" from DESC does not have the required constructor.",
+				"property dialect in DESC " + "class " + ConnectPropertiesTestClassNoConstructorDialect.class.getName() +
+				" does not have the required constructor.",
 				NoSuchMethodException.class);
 	}
 
@@ -116,13 +117,11 @@ public class ConnectPropertiesTest
 			new ConnectProperties(source, null);
 			fail();
 		}
-		catch(final IllegalArgumentException e)
+		catch(final IllegalPropertiesException e)
 		{
 			assertEquals(
 					message,
 					e.getMessage());
-			// TODO use IllegalPropertiesException when available in copeutil
-			assertEquals(IllegalArgumentException.class, e.getClass());
 
 			final Throwable actualCause = e.getCause();
 			assertEquals(cause, actualCause!=null ? actualCause.getClass() : null);
@@ -142,13 +141,11 @@ public class ConnectPropertiesTest
 			new ConnectProperties(source, null);
 			fail();
 		}
-		catch(final IllegalArgumentException e)
+		catch(final IllegalPropertiesException e)
 		{
 			assertEquals(
-					"value for " + propKey + " '123,567' contains forbidden comma on position 3.",
+					"property " + propKey + " in DESC value '123,567' contains forbidden comma on position 3.",
 					e.getMessage());
-			// TODO use IllegalPropertiesException when available in copeutil
-			assertEquals(IllegalArgumentException.class, e.getClass());
 		}
 	}
 
@@ -165,13 +162,11 @@ public class ConnectPropertiesTest
 			new ConnectProperties(source, null);
 			fail();
 		}
-		catch(final IllegalArgumentException e)
+		catch(final IllegalPropertiesException e)
 		{
 			assertEquals(
-					"value for " + propKey + " must not be greater than connectionPool.idleLimit",
+					"property " + propKey + " in DESC value must not be greater than connectionPool.idleLimit",
 					e.getMessage());
-			// TODO use IllegalPropertiesException when available in copeutil
-			assertEquals(IllegalArgumentException.class, e.getClass());
 		}
 	}
 

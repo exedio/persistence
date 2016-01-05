@@ -21,6 +21,7 @@ package com.exedio.cope;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
+import com.exedio.cope.util.IllegalPropertiesException;
 import com.exedio.cope.util.Properties;
 import com.exedio.cope.util.Properties.Source;
 import java.io.File;
@@ -100,9 +101,9 @@ public class ClusterPropertiesTest
 			model.connect(properties);
 			fail();
 		}
-		catch(final IllegalArgumentException e)
+		catch(final IllegalPropertiesException e)
 		{
-			assertEquals("listenThreads=5 must be less or equal listenThreadsMax=4", e.getMessage());
+			assertEquals("property listenThreads in Cluster Properties (prefix cluster.) is 5, but must be less or equal listenThreadsMax=4", e.getMessage());
 		}
 	}
 

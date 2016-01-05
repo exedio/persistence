@@ -22,6 +22,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 import com.exedio.cope.pattern.MediaPath;
+import com.exedio.cope.util.IllegalPropertiesException;
 import com.exedio.cope.util.Sources;
 import java.util.Properties;
 import org.junit.After;
@@ -104,9 +105,9 @@ public class MediaUrlSecretTest
 			propsNoContext("123456789");
 			fail();
 		}
-		catch(final IllegalArgumentException e)
+		catch(final IllegalPropertiesException e)
 		{
-			assertEquals("media.url.secret must be at least 10 characters, but just has 9", e.getMessage());
+			assertEquals("property media.url.secret in MediaUrlSecretTestSource must be at least 10 characters, but just has 9", e.getMessage());
 		}
 	}
 
