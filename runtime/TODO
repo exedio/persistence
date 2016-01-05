@@ -26,8 +26,6 @@ TODO for cope runtime
 - enable clustering
 	* make revisions cluster aware
 	* test configuration of tomcat
-- Price
-	* use LongField for larger numbers
 - Money
 	* support currencies with different factors to smaller unit
 - move DateField#touch into separate pattern Timestamp
