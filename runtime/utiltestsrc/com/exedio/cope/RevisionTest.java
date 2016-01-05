@@ -23,10 +23,12 @@ import static com.exedio.cope.AssertUtil.list;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.Test;
 
 public class RevisionTest
 {
+	@SuppressFBWarnings("NP_NULL_PARAM_DEREF_NONVIRTUAL")
 	@Test public void testNumberNegative()
 	{
 		try
@@ -39,6 +41,7 @@ public class RevisionTest
 			assertEquals("number must be greater zero, but was -1", e.getMessage());
 		}
 	}
+	@SuppressFBWarnings("NP_NULL_PARAM_DEREF_NONVIRTUAL")
 	@Test public void testNumberZero()
 	{
 		try
@@ -63,6 +66,7 @@ public class RevisionTest
 			assertEquals("comment", e.getMessage());
 		}
 	}
+	@SuppressFBWarnings("NP_NULL_PARAM_DEREF_NONVIRTUAL")
 	@Test public void testCommentEmpty()
 	{
 		try
