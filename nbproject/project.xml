@@ -139,12 +139,6 @@
                     <encoding>UTF-8</encoding>
                 </source-folder>
                 <source-folder>
-                    <label>runtime/utiltestsrc</label>
-                    <type>java</type>
-                    <location>runtime/utiltestsrc</location>
-                    <encoding>UTF-8</encoding>
-                </source-folder>
-                <source-folder>
                     <label>runtime/mysqlsrc</label>
                     <type>java</type>
                     <location>runtime/mysqlsrc</location>
@@ -270,10 +264,6 @@
                         <location>dsmf/testsrc</location>
                     </source-folder>
                     <source-folder style="packages">
-                        <label>runtime/utiltestsrc</label>
-                        <location>runtime/utiltestsrc</location>
-                    </source-folder>
-                    <source-folder style="packages">
                         <label>runtime/mysqlsrc</label>
                         <location>runtime/mysqlsrc</location>
                     </source-folder>
@@ -319,7 +309,6 @@
                 <package-root>console/testsrc</package-root>
                 <package-root>dsmf/src</package-root>
                 <package-root>dsmf/testsrc</package-root>
-                <package-root>runtime/utiltestsrc</package-root>
                 <package-root>runtime/mysqlsrc</package-root>
                 <package-root>runtime/postgresqlsrc</package-root>
                 <package-root>instrument/annosrc</package-root>

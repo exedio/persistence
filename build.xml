@@ -367,17 +367,83 @@
 		</zip>
 	</target>
 
-	<target name="runtime.utiltest.instrument" depends="instrument.taskdef">
+	<target name="runtime.test.feature.compile"
+			depends="runtime.core.compile, runtime.pattern.compile, runtime.servlet.compile, instrument.anno.compile">
+		<compile srcdir="runtime/testfeaturesrc">
+			<classpath>
+				<pathelement location="build/classes/runtime/src" />
+				<pathelement location="build/classes/runtime/patternsrc" />
+				<pathelement location="build/classes/runtime/servletsrc" />
+				<pathelement location="build/classes/instrument/annosrc" />
+				<pathelement location="lib/junit.jar" />
+				<pathelement location="lib/servlet-api.jar" />
+				<pathelement location="lib/findbugs-annotations.jar" />
+			</classpath>
+		</compile>
+	</target>
+
+	<target name="runtime.test.instrument" depends="instrument.taskdef" unless="skip.instrument">
 		<instrument
 				verify="${instrument.verify}"
 				annotateGenerated="true"
 				suppressUnusedWarningOnPrivateActivationConstructor="true"
 				finalArgs="true"
 				verbose="false"
-				timestampFile="build/timestamps/runtime.utiltest.timestamp">
+				timestampFile="build/timestamps/runtime.test.timestamp">
 			<resources refid="instrument.resources" />
-			<fileset dir="runtime/utiltestsrc/com/exedio/cope">
+			<fileset dir="runtime/testsrc/com/exedio/cope">
 				<include name="**/*.java" />
+				<exclude name="AbstractRuntimeTest.java" /><!-- TODO remove -->
+				<exclude name="AbstractRuntimeModelTest.java" /><!-- TODO remove -->
+				<exclude name="SchemaTest.java" /><!-- TODO remove -->
+				<exclude name="TypesBoundTest.java" /><!-- ok, shall not instrument test types -->
+				<exclude name="TypesBoundComplexTest.java" /><!-- ok, shall not instrument test types -->
+				<exclude name="TypesBoundAnnotationTest.java" /><!-- ok, shall not instrument test types -->
+				<exclude name="TypesBoundErrorTest.java" /><!-- ok, shall not instrument test types -->
+				<exclude name="TypeSetTest.java" /><!-- ok, shall not instrument test types -->
+				<exclude name="TypeCompareTest.java" /><!-- ok, shall not instrument test types -->
+				<exclude name="FeatureTest.java" /><!-- ok, shall not instrument test types -->
+				<exclude name="ModelCharSetTest.java" /><!-- ok, shall not instrument test types -->
+				<exclude name="RenamedSchemaPattern.java" /><!-- ok, shall not instrument test types -->
+				<exclude name="RenamedPatternSchemaTest.java" /><!-- ok, shall not instrument test types -->
+				<exclude name="SchemaTypeStringField.java" /><!-- ok, shall not instrument test types -->
+				<exclude name="EnumTest.java" /><!-- TODO remove -->
+				<exclude name="MakeMaxStringTest.java" /><!-- TODO remove -->
+				<exclude name="ModelTest.java" /><!-- ok, shall not instrument test types -->
+				<exclude name="CoalesceTest.java" /><!-- TODO remove -->
+				<exclude name="CoalesceFunctionTest.java" /><!-- TODO remove -->
+				<exclude name="InstanceOfTest.java" /><!-- TODO remove -->
+				<exclude name="NameTest.java" /><!-- TODO remove -->
+				<exclude name="FieldTest.java" /><!-- TODO remove -->
+				<exclude name="TestAnnotation.java" /><!-- TODO remove -->
+				<exclude name="TestAnnotation2.java" /><!-- TODO remove -->
+				<exclude name="RevisionInfoTest.java" /><!-- TODO remove -->
+				<exclude name="CheckTypeColumnTest.java" /><!-- TODO remove -->
+				<exclude name="CheckTypeColumnAbstractTest.java" /><!-- TODO remove -->
+				<exclude name="Assert.java" /><!-- TODO remove -->
+				<exclude name="RuntimeAssert.java" /><!-- TODO remove -->
+				<exclude name="RuntimeTester.java" /><!-- TODO remove -->
+				<exclude name="QueryTest.java" /><!-- TODO remove -->
+				<exclude name="QueryCopyTest.java" /><!-- TODO remove -->
+				<exclude name="CapabilitiesTest.java" /><!-- TODO remove -->
+				<exclude name="ModificationListenerTest.java" /><!-- TODO remove -->
+				<exclude name="misc/ConnectTokenNotSetTest.java" /><!-- ok, shall not instrument test types -->
+				<exclude name="misc/ConnectTokenSetTest.java" /><!-- ok, shall not instrument test types -->
+				<exclude name="pattern/DispatcherTest.java" /><!-- TODO remove -->
+				<exclude name="pattern/DynamicModelTest.java" /><!-- TODO remove -->
+				<exclude name="pattern/CompositeErrorTest.java" /><!-- ok, shall not instrument test types -->
+				<exclude name="pattern/PasswordRecoveryTest.java" /><!-- TODO remove -->
+				<exclude name="pattern/PatternTest.java" /><!-- TODO remove -->
+				<exclude name="pattern/RecursiveTest.java" /><!-- TODO remove -->
+				<exclude name="pattern/TextUrlFilterModelTest.java" /><!-- TODO remove -->
+				<exclude name="pattern/MediaTest.java" /><!-- TODO remove -->
+				<exclude name="sampler/*.java" /><!-- TODO remove -->
+				<exclude name="mxsampler/*.java" /><!-- TODO remove -->
+				<exclude name="util/ConnectTokenTest.java" /><!-- TODO remove -->
+				<exclude name="util/TransactionSlicerTest.java" /><!-- TODO remove -->
+				<exclude name="pattern/PatternTestTypeItem.java" /><!-- ok, shall not instrument test types -->
+				<exclude name="serialize/ModelSerializationTest.java" /><!-- ok, shall not instrument test types -->
+				<exclude name="tojunit/Subclasses.java" /><!-- TODO remove -->
 				<exclude name="AssertUtil.java" /><!-- TODO remove -->
 				<exclude name="ByteAlgorithmTest.java" /><!-- TODO remove -->
 				<exclude name="DirectRevisionsFactoryTest.java" /><!-- TODO remove -->
@@ -464,140 +530,6 @@
 		</instrument>
 	</target>
 
-	<target name="runtime.utiltest.compile"
-			depends="
-				dsmf.compile,
-				runtime.core.compile, runtime.pattern.compile, runtime.servlet.compile, runtime.junit.compile,
-				instrument.anno.compile,
-				runtime.test.feature.compile, runtime.utiltest.instrument"
-			>
-		<compile srcdir="runtime/utiltestsrc">
-			<classpath>
-				<pathelement location="build/classes/dsmf/src" />
-				<pathelement location="build/classes/runtime/src" />
-				<pathelement location="build/classes/runtime/patternsrc" />
-				<pathelement location="build/classes/runtime/servletsrc" />
-				<pathelement location="build/classes/runtime/junitsrc" />
-				<pathelement location="build/classes/instrument/annosrc" />
-				<pathelement location="build/classes/runtime/testfeaturesrc" />
-				<pathelement location="lib/exedio-cope-util.jar" />
-				<pathelement location="lib/trove4j.jar" />
-				<pathelement location="lib/servlet-api.jar" />
-				<pathelement location="lib/junit.jar" />
-				<pathelement location="lib/cpsuite.jar" />
-				<pathelement location="lib/slf4j-api.jar" />
-				<pathelement location="lib/log4j-bundle.jar" />
-				<pathelement location="lib/findbugs-annotations.jar" />
-			</classpath>
-		</compile>
-	</target>
-
-	<target name="runtime.utiltest"
-			depends="dsmf.compile, runtime.core.compile, runtime.dialect.compile, runtime.junit.compile, runtime.utiltest.compile">
-		<ljunit test="${runtime.utiltest}">
-			<classpath>
-				<pathelement location="build/classes/dsmf/src" />
-				<pathelement location="build/classes/runtime/src" />
-				<pathelement location="build/classes/runtime/dialects" />
-				<pathelement location="build/classes/runtime/patternsrc" />
-				<pathelement location="build/classes/runtime/servletsrc" />
-				<pathelement location="build/classes/runtime/junitsrc" />
-				<pathelement location="build/classes/runtime/utiltestsrc" />
-				<pathelement location="lib/exedio-cope-util.jar" />
-				<pathelement location="lib/exedio-cope-servletutil.jar" />
-				<pathelement location="lib/trove4j.jar" />
-				<pathelement location="lib/servlet-api.jar" />
-				<pathelement location="lib/junit.jar" />
-				<pathelement location="lib/cpsuite.jar" />
-				<pathelement location="lib/slf4j-api.jar" />
-				<pathelement location="lib/slf4j-log4j12.jar" />
-				<pathelement location="lib/log4j-bundle.jar" />
-				<pathelement location="lib/hsqldb.jar" />
-			</classpath>
-		</ljunit>
-	</target>
-
-	<target name="runtime.test.feature.compile"
-			depends="runtime.core.compile, runtime.pattern.compile, runtime.servlet.compile, instrument.anno.compile">
-		<compile srcdir="runtime/testfeaturesrc">
-			<classpath>
-				<pathelement location="build/classes/runtime/src" />
-				<pathelement location="build/classes/runtime/patternsrc" />
-				<pathelement location="build/classes/runtime/servletsrc" />
-				<pathelement location="build/classes/instrument/annosrc" />
-				<pathelement location="lib/junit.jar" />
-				<pathelement location="lib/servlet-api.jar" />
-				<pathelement location="lib/findbugs-annotations.jar" />
-			</classpath>
-		</compile>
-	</target>
-
-	<target name="runtime.test.instrument" depends="instrument.taskdef" unless="skip.instrument">
-		<instrument
-				verify="${instrument.verify}"
-				annotateGenerated="true"
-				suppressUnusedWarningOnPrivateActivationConstructor="true"
-				finalArgs="true"
-				verbose="false"
-				timestampFile="build/timestamps/runtime.test.timestamp">
-			<resources refid="instrument.resources" />
-			<fileset dir="runtime/testsrc/com/exedio/cope">
-				<include name="**/*.java" />
-				<exclude name="AbstractRuntimeTest.java" /><!-- TODO remove -->
-				<exclude name="AbstractRuntimeModelTest.java" /><!-- TODO remove -->
-				<exclude name="SchemaTest.java" /><!-- TODO remove -->
-				<exclude name="TypesBoundTest.java" /><!-- ok, shall not instrument test types -->
-				<exclude name="TypesBoundComplexTest.java" /><!-- ok, shall not instrument test types -->
-				<exclude name="TypesBoundAnnotationTest.java" /><!-- ok, shall not instrument test types -->
-				<exclude name="TypesBoundErrorTest.java" /><!-- ok, shall not instrument test types -->
-				<exclude name="TypeSetTest.java" /><!-- ok, shall not instrument test types -->
-				<exclude name="TypeCompareTest.java" /><!-- ok, shall not instrument test types -->
-				<exclude name="FeatureTest.java" /><!-- ok, shall not instrument test types -->
-				<exclude name="ModelCharSetTest.java" /><!-- ok, shall not instrument test types -->
-				<exclude name="RenamedSchemaPattern.java" /><!-- ok, shall not instrument test types -->
-				<exclude name="RenamedPatternSchemaTest.java" /><!-- ok, shall not instrument test types -->
-				<exclude name="SchemaTypeStringField.java" /><!-- ok, shall not instrument test types -->
-				<exclude name="EnumTest.java" /><!-- TODO remove -->
-				<exclude name="MakeMaxStringTest.java" /><!-- TODO remove -->
-				<exclude name="ModelTest.java" /><!-- ok, shall not instrument test types -->
-				<exclude name="CoalesceTest.java" /><!-- TODO remove -->
-				<exclude name="CoalesceFunctionTest.java" /><!-- TODO remove -->
-				<exclude name="InstanceOfTest.java" /><!-- TODO remove -->
-				<exclude name="NameTest.java" /><!-- TODO remove -->
-				<exclude name="FieldTest.java" /><!-- TODO remove -->
-				<exclude name="TestAnnotation.java" /><!-- TODO remove -->
-				<exclude name="TestAnnotation2.java" /><!-- TODO remove -->
-				<exclude name="RevisionInfoTest.java" /><!-- TODO remove -->
-				<exclude name="CheckTypeColumnTest.java" /><!-- TODO remove -->
-				<exclude name="CheckTypeColumnAbstractTest.java" /><!-- TODO remove -->
-				<exclude name="Assert.java" /><!-- TODO remove -->
-				<exclude name="RuntimeAssert.java" /><!-- TODO remove -->
-				<exclude name="RuntimeTester.java" /><!-- TODO remove -->
-				<exclude name="QueryTest.java" /><!-- TODO remove -->
-				<exclude name="QueryCopyTest.java" /><!-- TODO remove -->
-				<exclude name="CapabilitiesTest.java" /><!-- TODO remove -->
-				<exclude name="ModificationListenerTest.java" /><!-- TODO remove -->
-				<exclude name="misc/ConnectTokenNotSetTest.java" /><!-- ok, shall not instrument test types -->
-				<exclude name="misc/ConnectTokenSetTest.java" /><!-- ok, shall not instrument test types -->
-				<exclude name="pattern/DispatcherTest.java" /><!-- TODO remove -->
-				<exclude name="pattern/DynamicModelTest.java" /><!-- TODO remove -->
-				<exclude name="pattern/CompositeErrorTest.java" /><!-- ok, shall not instrument test types -->
-				<exclude name="pattern/PasswordRecoveryTest.java" /><!-- TODO remove -->
-				<exclude name="pattern/PatternTest.java" /><!-- TODO remove -->
-				<exclude name="pattern/RecursiveTest.java" /><!-- TODO remove -->
-				<exclude name="pattern/TextUrlFilterModelTest.java" /><!-- TODO remove -->
-				<exclude name="pattern/MediaTest.java" /><!-- TODO remove -->
-				<exclude name="sampler/*.java" /><!-- TODO remove -->
-				<exclude name="mxsampler/*.java" /><!-- TODO remove -->
-				<exclude name="util/ConnectTokenTest.java" /><!-- TODO remove -->
-				<exclude name="util/TransactionSlicerTest.java" /><!-- TODO remove -->
-				<exclude name="pattern/PatternTestTypeItem.java" /><!-- ok, shall not instrument test types -->
-				<exclude name="serialize/ModelSerializationTest.java" /><!-- ok, shall not instrument test types -->
-				<exclude name="tojunit/Subclasses.java" /><!-- TODO remove -->
-			</fileset>
-		</instrument>
-	</target>
-
 	<target name="runtime.test.compile"
 			depends="runtime.test.instrument, dsmf.compile, runtime.core.compile, runtime.pattern.compile, runtime.servlet.compile, runtime.junit.compile, runtime.test.feature.compile, instrument.anno.compile">
 		<compile srcdir="runtime/testsrc">
@@ -613,6 +545,7 @@
 				<pathelement location="lib/servlet-api.jar" />
 				<pathelement location="lib/junit.jar" />
 				<pathelement location="lib/cpsuite.jar" />
+				<pathelement location="lib/slf4j-api.jar" />
 				<pathelement location="lib/log4j-bundle.jar" />
 				<pathelement location="lib/exedio-cope-util.jar" />
 				<pathelement location="lib/findbugs-annotations.jar" />
@@ -641,12 +574,14 @@
 				<pathelement location="build/classes/runtime/testsrc" />
 				<pathelement location="lib/trove4j.jar" />
 				<pathelement location="lib/servlet-api.jar" />
+				<pathelement location="lib/hsqldb.jar" />
 				<pathelement location="lib/junit.jar" />
 				<pathelement location="lib/cpsuite.jar" />
 				<pathelement location="lib/slf4j-api.jar" />
 				<pathelement location="lib/slf4j-log4j12.jar" />
 				<pathelement location="lib/log4j-bundle.jar" />
 				<pathelement location="lib/exedio-cope-util.jar" />
+				<pathelement location="lib/exedio-cope-servletutil.jar" />
 			</classpath>
 			<test name="${runtime.test.withoutEnv}" todir="build/testresults" outfile="runtime-noEnv" />
 			<sysproperty key="user.timezone" value="${test-DefaultTimeZone}" />
@@ -1032,18 +967,17 @@
 
 	<target name="src" depends="index" description="creates all sources, so the IDE does not complain" />
 
-	<target name="instrument" depends="runtime.servlet.test.instrument, instrument.test.instrument, runtime.utiltest.instrument, runtime.test.instrument" />
+	<target name="instrument" depends="runtime.servlet.test.instrument, instrument.test.instrument, runtime.test.instrument" />
 
 	<target name="compile"
 			  depends="runtime.compile,
 			  runtime.servlet.test.web,
 			  runtime.test.compile,
-			  runtime.utiltest.compile,
 			  instrument.compile" />
 
 	<target name="jar" depends="runtime.jar, instrument.anno.jar, instrument.jar" />
 
-	<target name="test" depends="dsmf.test, runtime.utiltest, runtime.test, instrument.test" />
+	<target name="test" depends="dsmf.test, runtime.test, instrument.test" />
 
 	<target name="web" depends="runtime.web" />
 
@@ -1149,7 +1083,6 @@
 			<class location="${basedir}/build/classes/instrument/src" />
 			<class location="${basedir}/build/classes/instrument/antsrc" />
 			<class location="${basedir}/build/classes/runtime/testsrc" />
-			<class location="${basedir}/build/classes/runtime/utiltestsrc" />
 			<auxclasspath>
 				<pathelement location="${basedir}/lib/exedio-cope-util.jar" />
 				<pathelement location="${basedir}/lib/exedio-cope-servletutil.jar" />
@@ -1184,7 +1117,7 @@
 		</copy>
 	</target>
 
-	<target name="single.test" depends="runtime.test.compile, runtime.utiltest.compile">
+	<target name="single.test" depends="runtime.test.compile">
 		<fail unless="testpath">provide test class path name</fail>
 		<propertyregex property="testclass"
 							input="${testpath}"
@@ -1210,7 +1143,6 @@
 						<pathelement location="build/classes/runtime/junitsrc" />
 						<pathelement location="build/classes/runtime/testfeaturesrc" />
 						<pathelement location="build/classes/runtime/testsrc" />
-						<pathelement location="build/classes/runtime/utiltestsrc" />
 						<pathelement location="lib/trove4j.jar" />
 						<pathelement location="lib/servlet-api.jar" />
 						<pathelement location="lib/@{env.driver}" />
