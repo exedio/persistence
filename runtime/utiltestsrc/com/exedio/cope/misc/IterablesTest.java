@@ -22,6 +22,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.fail;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Iterator;
 import org.junit.Test;
 
@@ -38,6 +39,7 @@ public class IterablesTest
 			}
 
 			@Override
+			@SuppressFBWarnings("IT_NO_SUCH_ELEMENT")
 			public String next()
 			{
 				throw new AssertionError();
