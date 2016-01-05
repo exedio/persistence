@@ -25,7 +25,6 @@
       <src_folder value="file://$MODULE_DIR$/runtime/servletsrc" expected_position="5" />
       <src_folder value="file://$MODULE_DIR$/runtime/servlettestsrc" expected_position="6" />
       <src_folder value="file://$MODULE_DIR$/runtime/servlettestwebsrc" expected_position="7" />
-      <src_folder value="file://$MODULE_DIR$/runtime/utiltestsrc" expected_position="8" />
       <src_folder value="file://$MODULE_DIR$/runtime/testfeaturesrc" expected_position="9" />
       <src_folder value="file://$MODULE_DIR$/runtime/testsrc" expected_position="10" />
       <src_folder value="file://$MODULE_DIR$/runtime/mysqlsrc" expected_position="11" />
@@ -49,7 +48,6 @@
       <sourceFolder url="file://$MODULE_DIR$/runtime/servletsrc" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/runtime/servlettestsrc" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/runtime/servlettestwebsrc" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/runtime/utiltestsrc" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/runtime/testfeaturesrc" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/runtime/testsrc" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/runtime/mysqlsrc" isTestSource="false" />

@@ -8,7 +8,6 @@
 	<classpathentry kind="src" path="runtime/servletsrc"/>
 	<classpathentry kind="src" path="runtime/servlettestsrc"/>
 	<classpathentry kind="src" path="runtime/servlettestwebsrc"/>
-	<classpathentry kind="src" path="runtime/utiltestsrc"/>
 	<classpathentry kind="src" path="runtime/testfeaturesrc"/>
 	<classpathentry excluding="log4j.properties" kind="src" path="runtime/testsrc"/>
 	<classpathentry kind="src" path="runtime/mysqlsrc"/>
