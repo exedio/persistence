@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.DataField.toValue;
+import static com.exedio.cope.util.StrictFile.delete;
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotSame;
@@ -78,7 +79,7 @@ public class DataDigestTest
 		final File inputFile = file(input);
 		toValue(inputFile).update(messageDigest);
 		assertEquals(hash, Hex.encodeLower(messageDigest.digest()));
-		inputFile.delete();
+		delete(inputFile);
 	}
 
 	private static final MessageDigest messageDigest = MessageDigestUtil.getInstance("MD5");
@@ -108,7 +109,7 @@ public class DataDigestTest
 		final Value value = toValue(inputFile);
 		assertAsArray(bytes4, value);
 		assertExhausted(value);
-		inputFile.delete();
+		delete(inputFile);
 	}
 
 
@@ -151,7 +152,7 @@ public class DataDigestTest
 		assertExhausted(value);
 		assertAsArray(bytes4, replacementValue);
 
-		inputFile.delete();
+		delete(inputFile);
 	}
 
 	private static void assertData(final byte[] expectedData, final byte[] actualData)
