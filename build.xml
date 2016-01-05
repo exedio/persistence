@@ -398,6 +398,7 @@
 				<exclude name="pattern/HashAlgorithmAdapterTest.java" />
 				<exclude name="pattern/TextUrlFilterAnnotationTest.java" />
 				<exclude name="pattern/TextUrlFilterDelegatorAnnotationTest.java" />
+				<exclude name="AutoIncrementEvaluator.java" />
 				<exclude name="ChangeListenersTest.java" />
 				<exclude name="ClusterNetworkTest.java" />
 				<exclude name="ClusterPropertiesNoContextTest.java" />
