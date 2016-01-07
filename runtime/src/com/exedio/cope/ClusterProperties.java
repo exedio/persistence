@@ -117,8 +117,9 @@ final class ClusterProperties extends Properties
 
 			if(listenThreads>listenThreadsMax)
 				throw newException(
-						"listenThreads", "is " + listenThreads + ", but must be less or equal " +
-						"listenThreadsMax=" + listenThreadsMax);
+						"listenThreads",
+						"must be less or equal listenThreadsMax=" + listenThreadsMax + ", " +
+						"but was " + listenThreads);
 
 			this.packetSize = packetSizeField & (~3);
 			{

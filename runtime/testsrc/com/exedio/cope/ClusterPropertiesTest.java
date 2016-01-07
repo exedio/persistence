@@ -103,7 +103,11 @@ public class ClusterPropertiesTest
 		}
 		catch(final IllegalPropertiesException e)
 		{
-			assertEquals("property listenThreads in Cluster Properties (prefix cluster.) is 5, but must be less or equal listenThreadsMax=4", e.getMessage());
+			assertEquals(
+					"property listenThreads in Cluster Properties (prefix cluster.) " +
+					"must be less or equal listenThreadsMax=4, " +
+					"but was 5",
+					e.getMessage());
 		}
 	}
 

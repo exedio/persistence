@@ -208,7 +208,10 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 		if(length==0)
 			return null;
 		if(length<10)
-			throw newException("media.url.secret", "must be at least 10 characters, but just has " + length);
+			throw newException(
+					"media.url.secret",
+					"must have at least 10 characters, " +
+					"but was '" + s + "' with just " + length + " characters");
 		return s;
 	}
 
@@ -322,10 +325,10 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 			final String url = connectionUrl;
 			final String prefix = "jdbc:";
 			if(!url.startsWith(prefix))
-				throw newException("connection.url", "cannot parse " + url + ", missing prefix '" + prefix + '\'');
+				throw newException("connection.url", "must start with '" + prefix + "', but was '" + url + '\'');
 			final int pos = url.indexOf(':', prefix.length());
 			if(pos<0)
-				throw newException("connection.url", "cannot parse " + url + ", missing second colon");
+				throw newException("connection.url", "must contain two colons, but was '" + url + '\'');
 			dialectCode = url.substring(prefix.length(), pos);
 		}
 		else
@@ -337,18 +340,22 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 			final int position = connectionPostgresqlSearchPath.indexOf(',');
 			if(position>=0)
 				throw newException(
-					"connection.postgresql.search_path", "value '" + connectionPostgresqlSearchPath + "'" +
-					" contains forbidden comma on position " + position + '.');
+					"connection.postgresql.search_path",
+					"must not contain commas, " +
+					"but did at position " + position + " and was '" + connectionPostgresqlSearchPath + '\'');
 		}
 
 		if(connectionPoolIdleInitial>connectionPoolIdleLimit)
-			throw newException("connectionPool.idleInitial", "value must not be greater than connectionPool.idleLimit");
+			throw newException(
+					"connectionPool.idleInitial",
+					"must be less or equal connectionPool.idleLimit=" + connectionPoolIdleLimit + ", " +
+					"but was " + connectionPoolIdleInitial);
 	}
 
 	private final Constructor<? extends Dialect> getDialectConstructor(final String dialectCode)
 	{
 		if(dialectCode.length()<=2)
-			throw newException("dialect", "must have at least two characters, but was " + dialectCode);
+			throw newException("dialect", "must have at least two characters, but was '" + dialectCode + '\'');
 
 		final String dialectName =
 			"com.exedio.cope." +
@@ -363,12 +370,15 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 		}
 		catch(final ClassNotFoundException e)
 		{
-			throw newException("dialect", "class " + dialectName + " not found.", e);
+			throw newException("dialect", "must name a class, but was '" + dialectName + '\'', e);
 		}
 
 		if(!Dialect.class.isAssignableFrom(dialectClassRaw))
 		{
-			throw newException("dialect", dialectClassRaw.toString() + " not a subclass of " + Dialect.class.getName() + '.');
+			throw newException(
+					"dialect",
+					"must name a subclass of " + Dialect.class.getName() + ", " +
+					"but was " + dialectClassRaw.getName());
 		}
 		final Class<? extends Dialect> dialectClass = dialectClassRaw.asSubclass(Dialect.class);
 		try
@@ -377,7 +387,10 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 		}
 		catch(final NoSuchMethodException e)
 		{
-			throw newException("dialect", "class " + dialectName + " does not have the required constructor.", e);
+			throw newException(
+					"dialect",
+					"must name a class with a constructor with parameter " + Probe.class.getName() + ", " +
+					"but was " + dialectClassRaw.getName(), e);
 		}
 	}
 

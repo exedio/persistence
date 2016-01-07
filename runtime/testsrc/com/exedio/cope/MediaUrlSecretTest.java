@@ -107,7 +107,11 @@ public class MediaUrlSecretTest
 		}
 		catch(final IllegalPropertiesException e)
 		{
-			assertEquals("property media.url.secret in MediaUrlSecretTestSource must be at least 10 characters, but just has 9", e.getMessage());
+			assertEquals(
+					"property media.url.secret in MediaUrlSecretTestSource " +
+					"must have at least 10 characters, " +
+					"but was '123456789' with just 9 characters",
+					e.getMessage());
 		}
 	}
 

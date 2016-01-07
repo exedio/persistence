@@ -54,7 +54,8 @@ public class ConnectPropertiesTest
 	{
 		assertConnectionUrlFailure(
 				"someUrl",
-				"property connection.url in DESC cannot parse someUrl, missing prefix 'jdbc:'",
+				"property connection.url in DESC must start with 'jdbc:', " +
+				"but was 'someUrl'",
 				null);
 	}
 
@@ -62,7 +63,8 @@ public class ConnectPropertiesTest
 	{
 		assertConnectionUrlFailure(
 				"jdbc:someCode",
-				"property connection.url in DESC cannot parse jdbc:someCode, missing second colon",
+				"property connection.url in DESC must contain two colons, " +
+				"but was 'jdbc:someCode'",
 				null);
 	}
 
@@ -70,7 +72,8 @@ public class ConnectPropertiesTest
 	{
 		assertConnectionUrlFailure(
 				"jdbc:a:",
-				"property dialect in DESC must have at least two characters, but was a",
+				"property dialect in DESC must have at least two characters, " +
+				"but was 'a'",
 				null);
 	}
 
@@ -78,7 +81,8 @@ public class ConnectPropertiesTest
 	{
 		assertConnectionUrlFailure(
 				"jdbc:classNotFound:",
-				"property dialect in DESC class com.exedio.cope.ClassNotFoundDialect not found.",
+				"property dialect in DESC must name a class, " +
+				"but was 'com.exedio.cope.ClassNotFoundDialect'",
 				ClassNotFoundException.class);
 	}
 
@@ -86,8 +90,8 @@ public class ConnectPropertiesTest
 	{
 		assertConnectionUrlFailure(
 				"jdbc:connectPropertiesTestClassNotDialect:",
-				"property dialect in DESC " + "class " + ConnectPropertiesTestClassNotDialectDialect.class.getName() +
-				" not a subclass of com.exedio.cope.Dialect.",
+				"property dialect in DESC must name a subclass of com.exedio.cope.Dialect, " +
+				"but was " + ConnectPropertiesTestClassNotDialectDialect.class.getName(),
 				null);
 	}
 
@@ -95,8 +99,8 @@ public class ConnectPropertiesTest
 	{
 		assertConnectionUrlFailure(
 				"jdbc:connectPropertiesTestClassNoConstructor:",
-				"property dialect in DESC " + "class " + ConnectPropertiesTestClassNoConstructorDialect.class.getName() +
-				" does not have the required constructor.",
+				"property dialect in DESC must name a class with a constructor with parameter com.exedio.cope.Probe, "+
+				"but was " + ConnectPropertiesTestClassNoConstructorDialect.class.getName(),
 				NoSuchMethodException.class);
 	}
 
@@ -144,7 +148,8 @@ public class ConnectPropertiesTest
 		catch(final IllegalPropertiesException e)
 		{
 			assertEquals(
-					"property " + propKey + " in DESC value '123,567' contains forbidden comma on position 3.",
+					"property " + propKey + " in DESC must not contain commas, "+
+					"but did at position 3 and was '123,567'",
 					e.getMessage());
 		}
 	}
@@ -165,7 +170,8 @@ public class ConnectPropertiesTest
 		catch(final IllegalPropertiesException e)
 		{
 			assertEquals(
-					"property " + propKey + " in DESC value must not be greater than connectionPool.idleLimit",
+					"property " + propKey + " in DESC must be less or equal connectionPool.idleLimit=50, "+
+					"but was 51",
 					e.getMessage());
 		}
 	}

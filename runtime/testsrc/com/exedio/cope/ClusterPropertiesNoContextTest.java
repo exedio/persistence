@@ -122,9 +122,17 @@ public class ClusterPropertiesNoContextTest
 		}
 		catch(final IllegalPropertiesException e)
 		{
-			assertEquals("property cluster.listenThreads in Cluster Properties is 5, but must be less or equal listenThreadsMax=4", e.getMessage());
+			assertEquals(
+					"property cluster.listenThreads in Cluster Properties " +
+					"must be less or equal listenThreadsMax=4, " +
+					"but was 5",
+					e.getMessage());
 			final IllegalArgumentException e2 = (IllegalArgumentException)e.getCause();
-			assertEquals("property listenThreads in Cluster Properties (prefix cluster.) is 5, but must be less or equal listenThreadsMax=4", e2.getMessage());
+			assertEquals(
+					"property listenThreads in Cluster Properties (prefix cluster.) " +
+					"must be less or equal listenThreadsMax=4, " +
+					"but was 5",
+					e2.getMessage());
 		}
 	}
 
