@@ -69,7 +69,7 @@ public class ConnectPropertiesTest
 	{
 		assertConnectionUrlFailure(
 				"jdbc:a:",
-				"dialect from dialect / connection.url / connectPropertiesTest.properties must have at least two characters, but was a",
+				"dialect from DESC must have at least two characters, but was a",
 				null);
 	}
 
@@ -77,7 +77,7 @@ public class ConnectPropertiesTest
 	{
 		assertConnectionUrlFailure(
 				"jdbc:classNotFound:",
-				"class com.exedio.cope.ClassNotFoundDialect from dialect / connection.url / connectPropertiesTest.properties not found.",
+				"class com.exedio.cope.ClassNotFoundDialect from DESC not found.",
 				ClassNotFoundException.class);
 	}
 
@@ -86,7 +86,7 @@ public class ConnectPropertiesTest
 		assertConnectionUrlFailure(
 				"jdbc:connectPropertiesTestClassNotDialect:",
 				"class " + ConnectPropertiesTestClassNotDialectDialect.class.getName() +
-				" from dialect / connection.url / connectPropertiesTest.properties not a subclass of com.exedio.cope.Dialect.",
+				" from DESC not a subclass of com.exedio.cope.Dialect.",
 				null);
 	}
 
@@ -95,7 +95,7 @@ public class ConnectPropertiesTest
 		assertConnectionUrlFailure(
 				"jdbc:connectPropertiesTestClassNoConstructor:",
 				"class " + ConnectPropertiesTestClassNoConstructorDialect.class.getName() +
-				" from dialect / connection.url / connectPropertiesTest.properties does not have the required constructor.",
+				" from DESC does not have the required constructor.",
 				NoSuchMethodException.class);
 	}
 
@@ -106,11 +106,11 @@ public class ConnectPropertiesTest
 	{
 		final String propKey = "connection.url";
 		final Source source =
-				cascade(
+				desc(cascade(
 						source("dialect", "from url"),
 						source(propKey, url),
 						loadProperties()
-				);
+				));
 		try
 		{
 			new ConnectProperties(source, null);
@@ -133,10 +133,10 @@ public class ConnectPropertiesTest
 	{
 		final String propKey = "connection.postgresql.search_path";
 		final Source source =
-				cascade(
+				desc(cascade(
 						source(propKey, "123,567"),
 						loadProperties()
-				);
+				));
 		try
 		{
 			new ConnectProperties(source, null);
@@ -156,10 +156,10 @@ public class ConnectPropertiesTest
 	{
 		final String propKey = "connectionPool.idleInitial";
 		final Source source =
-				cascade(
+				desc(cascade(
 						source(propKey, "51"),
 						loadProperties()
-				);
+				));
 		try
 		{
 			new ConnectProperties(source, null);
@@ -196,6 +196,27 @@ public class ConnectPropertiesTest
 			public String getDescription()
 			{
 				return key1;
+			}
+		};
+	}
+
+	private static Source desc(final Source s)
+	{
+		return new Source(){
+			@Override
+			public String get(final String key)
+			{
+				return s.get(key);
+			}
+			@Override
+			public Collection<String> keySet()
+			{
+				return s.keySet();
+			}
+			@Override
+			public String getDescription()
+			{
+				return "DESC";
 			}
 		};
 	}
