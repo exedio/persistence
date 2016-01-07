@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.util.Sources.cascade;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
@@ -105,7 +106,7 @@ public class ConnectPropertiesTest
 	{
 		final String propKey = "connection.url";
 		final Source source =
-				Sources.cascade(
+				cascade(
 						source("dialect", "from url"),
 						source(propKey, url),
 						loadProperties()
@@ -132,7 +133,7 @@ public class ConnectPropertiesTest
 	{
 		final String propKey = "connection.postgresql.search_path";
 		final Source source =
-				Sources.cascade(
+				cascade(
 						source(propKey, "123,567"),
 						loadProperties()
 				);
@@ -155,7 +156,7 @@ public class ConnectPropertiesTest
 	{
 		final String propKey = "connectionPool.idleInitial";
 		final Source source =
-				Sources.cascade(
+				cascade(
 						source(propKey, "51"),
 						loadProperties()
 				);
