@@ -23,7 +23,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
 import com.exedio.cope.tojunit.TransactionIdRule;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Date;
 import org.junit.Rule;
 import org.junit.Test;
@@ -44,7 +43,6 @@ public class TransactionEmptyTest extends TestWithEnvironment
 
 	private final TransactionIdRule txId = new TransactionIdRule(model);
 
-	@SuppressFBWarnings("URF_UNREAD_PUBLIC_OR_PROTECTED_FIELD")
 	@Rule public final RuleChain ruleChain = RuleChain.outerRule(txId);
 
 	@Test public void testEmptyTransaction()

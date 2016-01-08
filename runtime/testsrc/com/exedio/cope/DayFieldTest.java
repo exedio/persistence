@@ -30,7 +30,6 @@ import static org.junit.Assert.fail;
 
 import com.exedio.cope.junit.AbsoluteMockClockStrategy;
 import com.exedio.cope.util.Day;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.List;
 import org.junit.Before;
 import org.junit.Rule;
@@ -48,7 +47,6 @@ public class DayFieldTest extends TestWithEnvironment
 
 	private final ClockRule clockRule = new ClockRule();
 
-	@SuppressFBWarnings("URF_UNREAD_PUBLIC_OR_PROTECTED_FIELD")
 	@Rule public final RuleChain chain = RuleChain.outerRule(clockRule);
 
 	DayItem item, item2;
