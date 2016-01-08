@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.Assert.assertContains;
+import static com.exedio.cope.tojunit.Assert.assertContains;
 
 import org.junit.Before;
 import org.junit.Test;

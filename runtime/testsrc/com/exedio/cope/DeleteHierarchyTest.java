@@ -18,8 +18,8 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.Assert.assertEqualsUnmodifiable;
-import static com.exedio.cope.Assert.list;
+import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
+import static com.exedio.cope.tojunit.Assert.list;
 import static org.junit.Assert.assertFalse;
 
 import org.junit.Test;

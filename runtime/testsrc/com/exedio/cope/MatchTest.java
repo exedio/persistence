@@ -18,9 +18,9 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.Assert.list;
 import static com.exedio.cope.MatchItem.TYPE;
 import static com.exedio.cope.MatchItem.text;
+import static com.exedio.cope.tojunit.Assert.list;
 import static org.junit.Assert.assertEquals;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;

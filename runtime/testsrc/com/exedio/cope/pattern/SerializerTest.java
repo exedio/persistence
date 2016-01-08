@@ -18,12 +18,12 @@
 
 package com.exedio.cope.pattern;
 
-import static com.exedio.cope.Assert.assertContains;
 import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
 import static com.exedio.cope.pattern.SerializerItem.TYPE;
 import static com.exedio.cope.pattern.SerializerItem.integer;
 import static com.exedio.cope.pattern.SerializerItem.map;
 import static com.exedio.cope.pattern.SerializerItem.mapWildcard;
+import static com.exedio.cope.tojunit.Assert.assertContains;
 import static java.lang.Integer.valueOf;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;

@@ -18,11 +18,11 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.Assert.assertContains;
 import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
 import static com.exedio.cope.testmodel.AttributeItem.TYPE;
 import static com.exedio.cope.testmodel.AttributeItem.someBoolean;
 import static com.exedio.cope.testmodel.AttributeItem.someNotNullBoolean;
+import static com.exedio.cope.tojunit.Assert.assertContains;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 

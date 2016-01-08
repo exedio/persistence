@@ -18,13 +18,13 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.Assert.assertEqualsUnmodifiable;
-import static com.exedio.cope.Assert.list;
 import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
 import static com.exedio.cope.UniqueDoubleItem.TYPE;
 import static com.exedio.cope.UniqueDoubleItem.constraint;
 import static com.exedio.cope.UniqueDoubleItem.integer;
 import static com.exedio.cope.UniqueDoubleItem.string;
+import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
+import static com.exedio.cope.tojunit.Assert.list;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;

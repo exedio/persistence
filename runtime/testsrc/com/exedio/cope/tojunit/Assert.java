@@ -16,8 +16,9 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.cope;
+package com.exedio.cope.tojunit;
 
+import com.exedio.cope.Query;
 import com.exedio.cope.junit.CopeAssert;
 import java.util.Collection;
 import java.util.Date;

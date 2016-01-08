@@ -18,11 +18,11 @@
 
 package com.exedio.cope.pattern;
 
-import static com.exedio.cope.Assert.list;
 import static com.exedio.cope.pattern.MediaLocatorAssert.assertLocator;
 import static com.exedio.cope.pattern.TextUrlFilterDelegatorItem.TYPE;
 import static com.exedio.cope.pattern.TextUrlFilterDelegatorItem.fertig;
 import static com.exedio.cope.pattern.TextUrlFilterDelegatorItem.fertig2;
+import static com.exedio.cope.tojunit.Assert.list;
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;

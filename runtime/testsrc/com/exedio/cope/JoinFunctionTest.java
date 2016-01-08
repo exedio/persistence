@@ -18,10 +18,10 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.Assert.assertContains;
 import static com.exedio.cope.JoinFunctionItem.TYPE;
 import static com.exedio.cope.JoinFunctionItem.integer;
 import static com.exedio.cope.JoinFunctionItemSingle.name;
+import static com.exedio.cope.tojunit.Assert.assertContains;
 
 import org.junit.Before;
 import org.junit.Test;

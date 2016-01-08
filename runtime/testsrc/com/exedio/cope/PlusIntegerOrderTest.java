@@ -18,12 +18,12 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.Assert.list;
 import static com.exedio.cope.PlusIntegerItem.TYPE;
 import static com.exedio.cope.PlusIntegerItem.multiplyBC;
 import static com.exedio.cope.PlusIntegerItem.numA;
 import static com.exedio.cope.PlusIntegerItem.numB;
 import static com.exedio.cope.PlusIntegerItem.plusAB;
+import static com.exedio.cope.tojunit.Assert.list;
 import static java.lang.Integer.valueOf;
 import static org.junit.Assert.assertEquals;
 

@@ -18,14 +18,14 @@
 
 package com.exedio.cope.pattern;
 
-import static com.exedio.cope.Assert.assertContains;
-import static com.exedio.cope.Assert.assertEqualsUnmodifiable;
-import static com.exedio.cope.Assert.assertUnmodifiable;
 import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
 import static com.exedio.cope.pattern.MediaLocatorAssert.assertLocator;
 import static com.exedio.cope.pattern.ThumbnailItem.TYPE;
 import static com.exedio.cope.pattern.ThumbnailItem.file;
 import static com.exedio.cope.pattern.ThumbnailItem.thumb;
+import static com.exedio.cope.tojunit.Assert.assertContains;
+import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
+import static com.exedio.cope.tojunit.Assert.assertUnmodifiable;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;

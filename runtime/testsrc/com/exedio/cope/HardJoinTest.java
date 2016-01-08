@@ -18,13 +18,13 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.Assert.list;
 import static com.exedio.cope.HardJoinA1Item.a1;
 import static com.exedio.cope.HardJoinA2Item.a2;
 import static com.exedio.cope.HardJoinA3Item.a3;
 import static com.exedio.cope.HardJoinB1Item.b1;
 import static com.exedio.cope.HardJoinB2Item.b2;
 import static com.exedio.cope.HardJoinB3Item.b3;
+import static com.exedio.cope.tojunit.Assert.list;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 

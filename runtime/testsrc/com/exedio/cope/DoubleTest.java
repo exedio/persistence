@@ -18,13 +18,13 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.Assert.assertContains;
 import static com.exedio.cope.DoubleItem.TYPE;
 import static com.exedio.cope.DoubleItem.any;
 import static com.exedio.cope.DoubleItem.mandatory;
 import static com.exedio.cope.DoubleItem.max4;
 import static com.exedio.cope.DoubleItem.min4;
 import static com.exedio.cope.DoubleItem.min4Max8;
+import static com.exedio.cope.tojunit.Assert.assertContains;
 import static com.exedio.cope.tojunit.EqualsAssert.assertEqualBits;
 import static com.exedio.cope.tojunit.EqualsAssert.assertEqualsAndHash;
 import static com.exedio.cope.tojunit.EqualsAssert.assertNotEqualsAndHash;

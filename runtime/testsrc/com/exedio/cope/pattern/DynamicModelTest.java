@@ -18,8 +18,6 @@
 
 package com.exedio.cope.pattern;
 
-import static com.exedio.cope.Assert.assertContains;
-import static com.exedio.cope.Assert.list;
 import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
 import static com.exedio.cope.SchemaInfo.getColumnValue;
 import static com.exedio.cope.pattern.DynamicModel.ValueType.BOOLEAN;
@@ -30,6 +28,8 @@ import static com.exedio.cope.pattern.DynamicModel.ValueType.STRING;
 import static com.exedio.cope.pattern.DynamicModelItem.TYPE;
 import static com.exedio.cope.pattern.DynamicModelItem.features;
 import static com.exedio.cope.pattern.DynamicModelItem.small;
+import static com.exedio.cope.tojunit.Assert.assertContains;
+import static com.exedio.cope.tojunit.Assert.list;
 import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;

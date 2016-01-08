@@ -18,10 +18,6 @@
 
 package com.exedio.cope.pattern;
 
-import static com.exedio.cope.Assert.assertContains;
-import static com.exedio.cope.Assert.assertEqualsUnmodifiable;
-import static com.exedio.cope.Assert.assertUnmodifiable;
-import static com.exedio.cope.Assert.list;
 import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
 import static com.exedio.cope.pattern.LimitedListFieldItem.TYPE;
 import static com.exedio.cope.pattern.LimitedListFieldItem.dates;
@@ -30,6 +26,10 @@ import static com.exedio.cope.pattern.LimitedListFieldItem.num2;
 import static com.exedio.cope.pattern.LimitedListFieldItem.num3;
 import static com.exedio.cope.pattern.LimitedListFieldItem.nums;
 import static com.exedio.cope.pattern.LimitedListFieldItem.strings;
+import static com.exedio.cope.tojunit.Assert.assertContains;
+import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
+import static com.exedio.cope.tojunit.Assert.assertUnmodifiable;
+import static com.exedio.cope.tojunit.Assert.list;
 import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;

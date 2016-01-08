@@ -18,9 +18,6 @@
 
 package com.exedio.cope.pattern;
 
-import static com.exedio.cope.Assert.assertContains;
-import static com.exedio.cope.Assert.assertEqualsUnmodifiable;
-import static com.exedio.cope.Assert.list;
 import static com.exedio.cope.pattern.HashItem.TYPE;
 import static com.exedio.cope.pattern.HashItem.explicitExternal;
 import static com.exedio.cope.pattern.HashItem.explicitExternalWrap;
@@ -29,6 +26,9 @@ import static com.exedio.cope.pattern.HashItem.internal;
 import static com.exedio.cope.pattern.HashItem.limited15;
 import static com.exedio.cope.pattern.HashItem.with3PinValidator;
 import static com.exedio.cope.pattern.HashItem.withCorruptValidator;
+import static com.exedio.cope.tojunit.Assert.assertContains;
+import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
+import static com.exedio.cope.tojunit.Assert.list;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;

@@ -18,8 +18,6 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.Assert.assertContains;
-import static com.exedio.cope.Assert.list;
 import static com.exedio.cope.testmodel.StringItem.TYPE;
 import static com.exedio.cope.testmodel.StringItem.any;
 import static com.exedio.cope.testmodel.StringItem.exact6;
@@ -32,6 +30,8 @@ import static com.exedio.cope.testmodel.StringItem.min4;
 import static com.exedio.cope.testmodel.StringItem.min4Max8;
 import static com.exedio.cope.testmodel.StringItem.oracleCLOB;
 import static com.exedio.cope.testmodel.StringItem.oracleNoCLOB;
+import static com.exedio.cope.tojunit.Assert.assertContains;
+import static com.exedio.cope.tojunit.Assert.list;
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;

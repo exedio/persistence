@@ -18,13 +18,13 @@
 
 package com.exedio.cope.pattern;
 
-import static com.exedio.cope.Assert.list;
 import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
 import static com.exedio.cope.pattern.SingletonItem.TYPE;
 import static com.exedio.cope.pattern.SingletonItem.booleanField;
 import static com.exedio.cope.pattern.SingletonItem.einzigartig;
 import static com.exedio.cope.pattern.SingletonItem.integer;
 import static com.exedio.cope.pattern.SingletonItem.integer55;
+import static com.exedio.cope.tojunit.Assert.list;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;

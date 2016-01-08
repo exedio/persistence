@@ -18,10 +18,10 @@
 
 package com.exedio.cope.sampler;
 
-import static com.exedio.cope.Assert.sleepLongerThan;
 import static com.exedio.cope.sampler.Stuff.MODEL;
 import static com.exedio.cope.sampler.Stuff.sampler;
 import static com.exedio.cope.sampler.Stuff.samplerModel;
+import static com.exedio.cope.tojunit.Assert.sleepLongerThan;
 import static org.junit.Assert.assertEquals;
 
 import com.exedio.cope.Query;

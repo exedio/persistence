@@ -18,9 +18,6 @@
 
 package com.exedio.cope.pattern;
 
-import static com.exedio.cope.Assert.assertEqualsUnmodifiable;
-import static com.exedio.cope.Assert.list;
-import static com.exedio.cope.Assert.reserialize;
 import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
 import static com.exedio.cope.pattern.CompositeFinalItem.first;
 import static com.exedio.cope.pattern.CompositeFinalItem.second;
@@ -32,6 +29,9 @@ import static com.exedio.cope.pattern.CompositeValue.aString;
 import static com.exedio.cope.pattern.CompositeValue.anEnum;
 import static com.exedio.cope.pattern.CompositeValue.anInt;
 import static com.exedio.cope.pattern.CompositeValue.anItem;
+import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
+import static com.exedio.cope.tojunit.Assert.list;
+import static com.exedio.cope.tojunit.Assert.reserialize;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotSame;

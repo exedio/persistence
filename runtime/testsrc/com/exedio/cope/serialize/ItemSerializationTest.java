@@ -22,10 +22,10 @@ package com.exedio.cope.serialize;
 // needed for deserialization is not public.
 // See http://www.jguru.com/faq/view.jsp?EID=251942
 
-import static com.exedio.cope.Assert.reserialize;
 import static com.exedio.cope.serialize.ItemSerializationItem.TYPE;
 import static com.exedio.cope.serialize.ItemSerializationItem.list;
 import static com.exedio.cope.serialize.ItemSerializationItem.listParent;
+import static com.exedio.cope.tojunit.Assert.reserialize;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertSame;

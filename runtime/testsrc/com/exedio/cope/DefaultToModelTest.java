@@ -18,7 +18,6 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.Assert.list;
 import static com.exedio.cope.DefaultToItem.TYPE;
 import static com.exedio.cope.DefaultToItem.booleanNone;
 import static com.exedio.cope.DefaultToItem.booleanTrue;
@@ -42,6 +41,7 @@ import static com.exedio.cope.DefaultToItem.longRandom;
 import static com.exedio.cope.DefaultToItem.DefaultToEnum.ONE;
 import static com.exedio.cope.DefaultToItem.DefaultToEnum.TWO;
 import static com.exedio.cope.SchemaInfo.getDefaultToNextSequenceName;
+import static com.exedio.cope.tojunit.Assert.list;
 import static com.exedio.cope.util.TimeZoneStrict.getTimeZone;
 import static java.lang.Boolean.TRUE;
 import static org.junit.Assert.assertEquals;

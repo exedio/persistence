@@ -18,11 +18,11 @@
 
 package com.exedio.cope.pattern;
 
-import static com.exedio.cope.Assert.assertContains;
 import static com.exedio.cope.pattern.MD5Item.TYPE;
 import static com.exedio.cope.pattern.MD5Item.password;
 import static com.exedio.cope.pattern.MessageDigestHashTest.algo;
 import static com.exedio.cope.pattern.MessageDigestHashTest.encoding;
+import static com.exedio.cope.tojunit.Assert.assertContains;
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;

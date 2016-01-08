@@ -18,8 +18,8 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.Assert.assertContains;
 import static com.exedio.cope.SimpleItem.TYPE;
+import static com.exedio.cope.tojunit.Assert.assertContains;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;

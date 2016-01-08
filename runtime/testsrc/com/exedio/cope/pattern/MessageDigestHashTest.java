@@ -18,7 +18,6 @@
 
 package com.exedio.cope.pattern;
 
-import static com.exedio.cope.Assert.assertContains;
 import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
 import static com.exedio.cope.pattern.MessageDigestHashItem.TYPE;
 import static com.exedio.cope.pattern.MessageDigestHashItem.blindPassword;
@@ -28,6 +27,7 @@ import static com.exedio.cope.pattern.MessageDigestHashItem.password;
 import static com.exedio.cope.pattern.MessageDigestHashItem.passwordFinal;
 import static com.exedio.cope.pattern.MessageDigestHashItem.passwordLatin;
 import static com.exedio.cope.pattern.MessageDigestHashItem.passwordMandatory;
+import static com.exedio.cope.tojunit.Assert.assertContains;
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;

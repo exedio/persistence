@@ -18,9 +18,9 @@
 
 package com.exedio.cope.pattern;
 
-import static com.exedio.cope.Assert.assertEqualsStrict;
-import static com.exedio.cope.Assert.assertNotEqualsStrict;
 import static com.exedio.cope.pattern.Range.valueOf;
+import static com.exedio.cope.tojunit.Assert.assertEqualsStrict;
+import static com.exedio.cope.tojunit.Assert.assertNotEqualsStrict;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertSame;

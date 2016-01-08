@@ -18,11 +18,11 @@
 
 package com.exedio.cope.util;
 
-import static com.exedio.cope.Assert.assertEqualsUnmodifiable;
-import static com.exedio.cope.Assert.assertWithin;
-import static com.exedio.cope.Assert.list;
 import static com.exedio.cope.misc.ConnectToken.removeProperties;
 import static com.exedio.cope.misc.ConnectToken.setProperties;
+import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
+import static com.exedio.cope.tojunit.Assert.assertWithin;
+import static com.exedio.cope.tojunit.Assert.list;
 import static com.exedio.cope.util.Properties.SYSTEM_PROPERTY_SOURCE;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;

@@ -18,11 +18,11 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.Assert.list;
 import static com.exedio.cope.DataField.toValue;
 import static com.exedio.cope.DataMandatoryItem.TYPE;
 import static com.exedio.cope.DataMandatoryItem.data;
 import static com.exedio.cope.RuntimeAssert.assertData;
+import static com.exedio.cope.tojunit.Assert.list;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.fail;

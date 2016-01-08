@@ -18,11 +18,11 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.Assert.assertContains;
-import static com.exedio.cope.Assert.assertContainsList;
 import static com.exedio.cope.PlusIntegerItem.TYPE;
 import static com.exedio.cope.PlusIntegerItem.numA;
 import static com.exedio.cope.PlusIntegerItem.numC;
+import static com.exedio.cope.tojunit.Assert.assertContains;
+import static com.exedio.cope.tojunit.Assert.assertContainsList;
 import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;

@@ -18,9 +18,6 @@
 
 package com.exedio.cope.pattern;
 
-import static com.exedio.cope.Assert.assertEqualsUnmodifiable;
-import static com.exedio.cope.Assert.assertNotEqualsStrict;
-import static com.exedio.cope.Assert.assertWithin;
 import static com.exedio.cope.RuntimeAssert.assertData;
 import static com.exedio.cope.pattern.Media.toValue;
 import static com.exedio.cope.pattern.UniqueHashedMediaItem.TYPE;
@@ -29,6 +26,9 @@ import static com.exedio.cope.pattern.UniqueHashedMediaItem.getOrCreate;
 import static com.exedio.cope.pattern.UniqueHashedMediaItem.value;
 import static com.exedio.cope.pattern.UniqueHashedMediaItem.w200;
 import static com.exedio.cope.pattern.UniqueHashedMediaItem.w300;
+import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
+import static com.exedio.cope.tojunit.Assert.assertNotEqualsStrict;
+import static com.exedio.cope.tojunit.Assert.assertWithin;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;

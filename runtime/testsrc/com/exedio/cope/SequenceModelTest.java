@@ -18,10 +18,10 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.Assert.list;
 import static com.exedio.cope.SequenceItem.TYPE;
 import static com.exedio.cope.SequenceItem.full;
 import static com.exedio.cope.SequenceItem.limited;
+import static com.exedio.cope.tojunit.Assert.list;
 import static java.lang.Integer.MAX_VALUE;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;

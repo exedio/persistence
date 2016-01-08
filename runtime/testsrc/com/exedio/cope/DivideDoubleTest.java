@@ -18,9 +18,6 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.Assert.assertContains;
-import static com.exedio.cope.Assert.assertEqualsUnmodifiable;
-import static com.exedio.cope.Assert.list;
 import static com.exedio.cope.DivideDoubleItem.TYPE;
 import static com.exedio.cope.DivideDoubleItem.divideAB;
 import static com.exedio.cope.DivideDoubleItem.divideAC;
@@ -29,6 +26,9 @@ import static com.exedio.cope.DivideDoubleItem.numA;
 import static com.exedio.cope.DivideDoubleItem.numB;
 import static com.exedio.cope.DivideDoubleItem.numC;
 import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
+import static com.exedio.cope.tojunit.Assert.assertContains;
+import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
+import static com.exedio.cope.tojunit.Assert.list;
 import static com.exedio.cope.tojunit.EqualsAssert.assertEqualsAndHash;
 import static com.exedio.cope.tojunit.EqualsAssert.assertNotEqualsAndHash;
 import static org.junit.Assert.assertEquals;

@@ -18,9 +18,6 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.Assert.assertContains;
-import static com.exedio.cope.Assert.assertContainsList;
-import static com.exedio.cope.Assert.list;
 import static com.exedio.cope.CompareConditionItem.TYPE;
 import static com.exedio.cope.CompareConditionItem.date;
 import static com.exedio.cope.CompareConditionItem.day;
@@ -32,6 +29,9 @@ import static com.exedio.cope.CompareConditionItem.longx;
 import static com.exedio.cope.CompareConditionItem.otherString;
 import static com.exedio.cope.CompareConditionItem.string;
 import static com.exedio.cope.RuntimeAssert.assertCondition;
+import static com.exedio.cope.tojunit.Assert.assertContains;
+import static com.exedio.cope.tojunit.Assert.assertContainsList;
+import static com.exedio.cope.tojunit.Assert.list;
 import static com.exedio.cope.tojunit.EqualsAssert.assertEqualsAndHash;
 import static com.exedio.cope.tojunit.EqualsAssert.assertNotEqualsAndHash;
 import static java.lang.Double.valueOf;

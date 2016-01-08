@@ -18,7 +18,6 @@
 
 package com.exedio.cope.pattern;
 
-import static com.exedio.cope.Assert.assertEqualsUnmodifiable;
 import static com.exedio.cope.pattern.MediaUrlItem.TYPE;
 import static com.exedio.cope.pattern.MediaUrlItem.catchphrase;
 import static com.exedio.cope.pattern.MediaUrlItem.file;
@@ -27,6 +26,7 @@ import static com.exedio.cope.pattern.MediaUrlItem.fileSecure;
 import static com.exedio.cope.pattern.MediaUrlItem.foto;
 import static com.exedio.cope.pattern.MediaUrlItem.fotoFinger;
 import static com.exedio.cope.pattern.MediaUrlItem.fotoSecure;
+import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 

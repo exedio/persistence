@@ -18,11 +18,11 @@
 
 package com.exedio.cope.pattern;
 
-import static com.exedio.cope.Assert.assertContains;
 import static com.exedio.cope.RuntimeAssert.assertData;
 import static com.exedio.cope.pattern.MediaItem.TYPE;
 import static com.exedio.cope.pattern.MediaItem.image;
 import static com.exedio.cope.pattern.MediaLocatorAssert.assertLocator;
+import static com.exedio.cope.tojunit.Assert.assertContains;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;

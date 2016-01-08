@@ -21,12 +21,12 @@ package com.exedio.cope;
 import static com.exedio.cope.AbstractRuntimeTest.d3;
 import static com.exedio.cope.AbstractRuntimeTest.d7;
 import static com.exedio.cope.AbstractRuntimeTest.d8;
-import static com.exedio.cope.Assert.list;
 import static com.exedio.cope.PlusDoubleItem.TYPE;
 import static com.exedio.cope.PlusDoubleItem.multiplyBC;
 import static com.exedio.cope.PlusDoubleItem.numA;
 import static com.exedio.cope.PlusDoubleItem.numB;
 import static com.exedio.cope.PlusDoubleItem.plusAB;
+import static com.exedio.cope.tojunit.Assert.list;
 import static java.lang.Double.valueOf;
 import static org.junit.Assert.assertEquals;
 

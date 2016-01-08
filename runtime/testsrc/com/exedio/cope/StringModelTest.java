@@ -18,8 +18,6 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.Assert.assertEqualsStrict;
-import static com.exedio.cope.Assert.assertNotEqualsStrict;
 import static com.exedio.cope.testmodel.StringItem.TYPE;
 import static com.exedio.cope.testmodel.StringItem.any;
 import static com.exedio.cope.testmodel.StringItem.exact6;
@@ -29,6 +27,8 @@ import static com.exedio.cope.testmodel.StringItem.max4;
 import static com.exedio.cope.testmodel.StringItem.min4;
 import static com.exedio.cope.testmodel.StringItem.min4Max8;
 import static com.exedio.cope.testmodel.StringItem.min4Upper;
+import static com.exedio.cope.tojunit.Assert.assertEqualsStrict;
+import static com.exedio.cope.tojunit.Assert.assertNotEqualsStrict;
 import static org.junit.Assert.assertEquals;
 
 import com.exedio.cope.testmodel.StringItem;

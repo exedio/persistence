@@ -23,10 +23,10 @@ import static com.exedio.cope.AbstractRuntimeTest.i4;
 import static com.exedio.cope.AbstractRuntimeTest.i5;
 import static com.exedio.cope.AbstractRuntimeTest.i8;
 import static com.exedio.cope.AbstractRuntimeTest.i9;
-import static com.exedio.cope.Assert.assertContains;
 import static com.exedio.cope.pattern.Range.valueOf;
 import static com.exedio.cope.pattern.RangeFieldItem.TYPE;
 import static com.exedio.cope.pattern.RangeFieldItem.valid;
+import static com.exedio.cope.tojunit.Assert.assertContains;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 

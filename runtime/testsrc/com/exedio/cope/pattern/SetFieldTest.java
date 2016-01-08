@@ -18,10 +18,6 @@
 
 package com.exedio.cope.pattern;
 
-import static com.exedio.cope.Assert.assertContains;
-import static com.exedio.cope.Assert.assertContainsUnmodifiable;
-import static com.exedio.cope.Assert.assertEqualsUnmodifiable;
-import static com.exedio.cope.Assert.list;
 import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
 import static com.exedio.cope.pattern.SetFieldItem.TYPE;
 import static com.exedio.cope.pattern.SetFieldItem.dates;
@@ -29,6 +25,10 @@ import static com.exedio.cope.pattern.SetFieldItem.datesParent;
 import static com.exedio.cope.pattern.SetFieldItem.getParentsOfStrings;
 import static com.exedio.cope.pattern.SetFieldItem.strings;
 import static com.exedio.cope.pattern.SetFieldItem.stringsParent;
+import static com.exedio.cope.tojunit.Assert.assertContains;
+import static com.exedio.cope.tojunit.Assert.assertContainsUnmodifiable;
+import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
+import static com.exedio.cope.tojunit.Assert.list;
 import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;

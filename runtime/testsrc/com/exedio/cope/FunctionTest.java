@@ -18,8 +18,6 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.Assert.assertContains;
-import static com.exedio.cope.Assert.list;
 import static com.exedio.cope.Query.newQuery;
 import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
 import static com.exedio.cope.testmodel.StringItem.TYPE;
@@ -30,6 +28,8 @@ import static com.exedio.cope.testmodel.StringItem.min4;
 import static com.exedio.cope.testmodel.StringItem.min4AndMax4UpperLength;
 import static com.exedio.cope.testmodel.StringItem.min4Upper;
 import static com.exedio.cope.testmodel.StringItem.min4UpperLength;
+import static com.exedio.cope.tojunit.Assert.assertContains;
+import static com.exedio.cope.tojunit.Assert.list;
 import static org.junit.Assert.assertEquals;
 
 import com.exedio.cope.testmodel.StringItem;

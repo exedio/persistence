@@ -18,9 +18,6 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.Assert.assertContains;
-import static com.exedio.cope.Assert.assertEqualsUnmodifiable;
-import static com.exedio.cope.Assert.list;
 import static com.exedio.cope.CopySelfSourceItem.selfTargetItem;
 import static com.exedio.cope.CopySelfSourceItem.selfTemplateItem;
 import static com.exedio.cope.CopySourceItem.TYPE;
@@ -28,6 +25,9 @@ import static com.exedio.cope.CopySourceItem.targetItem;
 import static com.exedio.cope.CopySourceItem.templateItem;
 import static com.exedio.cope.CopySourceItem.templateString;
 import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
+import static com.exedio.cope.tojunit.Assert.assertContains;
+import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
+import static com.exedio.cope.tojunit.Assert.list;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.fail;

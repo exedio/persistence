@@ -19,11 +19,11 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.AbstractRuntimeTest.assertDelete;
-import static com.exedio.cope.Assert.assertContains;
-import static com.exedio.cope.Assert.assertEqualsUnmodifiable;
 import static com.exedio.cope.CompareAssert.assertCompare;
 import static com.exedio.cope.SequenceInfoAssert.assertInfo;
 import static com.exedio.cope.testmodel.EmptyItem.TYPE;
+import static com.exedio.cope.tojunit.Assert.assertContains;
+import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
 import static com.exedio.cope.tojunit.EqualsAssert.assertNotEqualsAndHash;
 import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;

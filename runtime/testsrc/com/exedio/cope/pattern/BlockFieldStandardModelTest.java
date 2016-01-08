@@ -18,8 +18,6 @@
 
 package com.exedio.cope.pattern;
 
-import static com.exedio.cope.Assert.assertEqualsUnmodifiable;
-import static com.exedio.cope.Assert.list;
 import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
 import static com.exedio.cope.pattern.BlockFieldStandardModelTest.ABlock.aColor;
 import static com.exedio.cope.pattern.BlockFieldStandardModelTest.ABlock.aList;
@@ -30,6 +28,8 @@ import static com.exedio.cope.pattern.BlockFieldStandardModelTest.ABlock.anInt;
 import static com.exedio.cope.pattern.BlockFieldStandardModelTest.ABlock.anItem;
 import static com.exedio.cope.pattern.BlockFieldStandardModelTest.AnItem.eins;
 import static com.exedio.cope.pattern.BlockFieldStandardModelTest.AnItem.zwei;
+import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
+import static com.exedio.cope.tojunit.Assert.list;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.fail;

@@ -18,15 +18,15 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.Assert.assertContains;
-import static com.exedio.cope.Assert.assertEqualsStrict;
-import static com.exedio.cope.Assert.assertNotEqualsStrict;
 import static com.exedio.cope.LongItem.TYPE;
 import static com.exedio.cope.LongItem.any;
 import static com.exedio.cope.LongItem.mandatory;
 import static com.exedio.cope.LongItem.max4;
 import static com.exedio.cope.LongItem.min4;
 import static com.exedio.cope.LongItem.min4Max8;
+import static com.exedio.cope.tojunit.Assert.assertContains;
+import static com.exedio.cope.tojunit.Assert.assertEqualsStrict;
+import static com.exedio.cope.tojunit.Assert.assertNotEqualsStrict;
 import static java.lang.Long.MAX_VALUE;
 import static java.lang.Long.MIN_VALUE;
 import static org.junit.Assert.assertEquals;

@@ -18,15 +18,15 @@
 
 package com.exedio.cope.pattern;
 
-import static com.exedio.cope.Assert.assertEqualsUnmodifiable;
-import static com.exedio.cope.Assert.list;
-import static com.exedio.cope.Assert.reserialize;
 import static com.exedio.cope.pattern.MapFieldItem.TYPE;
 import static com.exedio.cope.pattern.MapFieldItem.integer;
 import static com.exedio.cope.pattern.MapFieldItem.name;
 import static com.exedio.cope.pattern.MapFieldItem.nameLength;
 import static com.exedio.cope.pattern.MapFieldItem.nameParent;
 import static com.exedio.cope.pattern.MapFieldItem.string;
+import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
+import static com.exedio.cope.tojunit.Assert.list;
+import static com.exedio.cope.tojunit.Assert.reserialize;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;

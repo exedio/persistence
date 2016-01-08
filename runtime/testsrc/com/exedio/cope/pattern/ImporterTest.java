@@ -18,11 +18,11 @@
 
 package com.exedio.cope.pattern;
 
-import static com.exedio.cope.Assert.list;
 import static com.exedio.cope.pattern.ImporterItem.TYPE;
 import static com.exedio.cope.pattern.ImporterItem.description;
 import static com.exedio.cope.pattern.ImporterItem.description2;
 import static com.exedio.cope.pattern.ImporterItem.importByCode;
+import static com.exedio.cope.tojunit.Assert.list;
 import static org.junit.Assert.assertEquals;
 
 import com.exedio.cope.AbstractRuntimeModelTest;

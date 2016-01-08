@@ -20,8 +20,8 @@ package com.exedio.cope.pattern;
 
 import static com.exedio.cope.AbstractRuntimeTest.assertTestAnnotation;
 import static com.exedio.cope.AbstractRuntimeTest.assertTestAnnotationNull;
-import static com.exedio.cope.Assert.assertEqualsUnmodifiable;
-import static com.exedio.cope.Assert.list;
+import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
+import static com.exedio.cope.tojunit.Assert.list;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertSame;

@@ -18,12 +18,12 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.Assert.assertEqualsUnmodifiable;
-import static com.exedio.cope.Assert.list;
 import static com.exedio.cope.CompareConditionItem.TYPE;
 import static com.exedio.cope.CompareConditionItem.intx;
 import static com.exedio.cope.CompareConditionItem.string;
 import static com.exedio.cope.Query.newQuery;
+import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
+import static com.exedio.cope.tojunit.Assert.list;
 import static org.junit.Assert.assertEquals;
 
 import java.util.Collection;

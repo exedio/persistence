@@ -18,8 +18,6 @@
 
 package com.exedio.cope.pattern;
 
-import static com.exedio.cope.Assert.assertEqualsUnmodifiable;
-import static com.exedio.cope.Assert.list;
 import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
 import static com.exedio.cope.pattern.BlockFieldUniqueModelTest.ABlock.alpha;
 import static com.exedio.cope.pattern.BlockFieldUniqueModelTest.ABlock.alphaPrice;
@@ -29,6 +27,8 @@ import static com.exedio.cope.pattern.BlockFieldUniqueModelTest.ABlock.constrain
 import static com.exedio.cope.pattern.BlockFieldUniqueModelTest.ABlock.constraintPrice;
 import static com.exedio.cope.pattern.BlockFieldUniqueModelTest.AnItem.eins;
 import static com.exedio.cope.pattern.BlockFieldUniqueModelTest.AnItem.zwei;
+import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
+import static com.exedio.cope.tojunit.Assert.list;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 

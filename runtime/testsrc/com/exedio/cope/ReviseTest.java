@@ -18,8 +18,8 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.Assert.assertWithin;
 import static com.exedio.cope.RevisionInfo.parse;
+import static com.exedio.cope.tojunit.Assert.assertWithin;
 import static com.exedio.cope.util.Properties.SYSTEM_PROPERTY_SOURCE;
 import static java.lang.String.valueOf;
 import static org.junit.Assert.assertEquals;

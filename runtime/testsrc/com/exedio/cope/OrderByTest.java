@@ -18,8 +18,6 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.Assert.assertContains;
-import static com.exedio.cope.Assert.list;
 import static com.exedio.cope.testmodel.AttributeItem.TYPE;
 import static com.exedio.cope.testmodel.AttributeItem.day;
 import static com.exedio.cope.testmodel.AttributeItem.someBoolean;
@@ -34,6 +32,8 @@ import static com.exedio.cope.testmodel.AttributeItem.someNotNullEnum;
 import static com.exedio.cope.testmodel.AttributeItem.someNotNullInteger;
 import static com.exedio.cope.testmodel.AttributeItem.someNotNullString;
 import static com.exedio.cope.testmodel.AttributeItem.someString;
+import static com.exedio.cope.tojunit.Assert.assertContains;
+import static com.exedio.cope.tojunit.Assert.list;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;

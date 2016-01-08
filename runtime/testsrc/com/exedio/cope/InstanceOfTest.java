@@ -18,12 +18,12 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.Assert.assertContains;
 import static com.exedio.cope.InstanceOfAItem.code;
 import static com.exedio.cope.InstanceOfC1Item.textc1;
 import static com.exedio.cope.InstanceOfRefItem.ref;
 import static com.exedio.cope.InstanceOfRefItem.refb2;
 import static com.exedio.cope.RuntimeAssert.assertCondition;
+import static com.exedio.cope.tojunit.Assert.assertContains;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 

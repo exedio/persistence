@@ -18,9 +18,6 @@
 
 package com.exedio.cope.pattern;
 
-import static com.exedio.cope.Assert.assertEqualsUnmodifiable;
-import static com.exedio.cope.Assert.assertWithin;
-import static com.exedio.cope.Assert.list;
 import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
 import static com.exedio.cope.SchemaInfoAssert.assertNoUpdateCounterColumn;
 import static com.exedio.cope.pattern.HistoryItem.TYPE;
@@ -28,6 +25,9 @@ import static com.exedio.cope.pattern.HistoryItem.amount;
 import static com.exedio.cope.pattern.HistoryItem.audit;
 import static com.exedio.cope.pattern.HistoryItem.auditEventParent;
 import static com.exedio.cope.pattern.HistoryItem.comment;
+import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
+import static com.exedio.cope.tojunit.Assert.assertWithin;
+import static com.exedio.cope.tojunit.Assert.list;
 import static java.lang.Double.valueOf;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;

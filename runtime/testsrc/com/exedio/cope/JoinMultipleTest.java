@@ -18,13 +18,13 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.Assert.assertEqualsUnmodifiable;
-import static com.exedio.cope.Assert.list;
 import static com.exedio.cope.testmodel.PointerItem.pointer;
 import static com.exedio.cope.testmodel.PointerItem.pointer2;
 import static com.exedio.cope.testmodel.PointerTargetItem.code;
 import static com.exedio.cope.testmodel.PointerTargetItem.num1;
 import static com.exedio.cope.testmodel.PointerTargetItem.num2;
+import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
+import static com.exedio.cope.tojunit.Assert.list;
 import static java.util.Arrays.asList;
 import static junit.framework.Assert.assertEquals;
 

@@ -18,12 +18,12 @@
 
 package com.exedio.cope.pattern;
 
-import static com.exedio.cope.Assert.assertContains;
 import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
 import static com.exedio.cope.pattern.PriceFieldItem.TYPE;
 import static com.exedio.cope.pattern.PriceFieldItem.bigPrice;
 import static com.exedio.cope.pattern.PriceFieldItem.finalPrice;
 import static com.exedio.cope.pattern.PriceFieldItem.optionalPrice;
+import static com.exedio.cope.tojunit.Assert.assertContains;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;

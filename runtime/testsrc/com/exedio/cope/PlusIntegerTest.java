@@ -18,9 +18,6 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.Assert.assertContains;
-import static com.exedio.cope.Assert.assertEqualsUnmodifiable;
-import static com.exedio.cope.Assert.list;
 import static com.exedio.cope.PlusIntegerItem.TYPE;
 import static com.exedio.cope.PlusIntegerItem.multiplyB9;
 import static com.exedio.cope.PlusIntegerItem.multiplyBC;
@@ -33,6 +30,9 @@ import static com.exedio.cope.PlusIntegerItem.plusABC;
 import static com.exedio.cope.PlusIntegerItem.plusABaC;
 import static com.exedio.cope.PlusIntegerItem.plusAC;
 import static com.exedio.cope.PlusIntegerItem.plusBC;
+import static com.exedio.cope.tojunit.Assert.assertContains;
+import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
+import static com.exedio.cope.tojunit.Assert.list;
 import static com.exedio.cope.tojunit.EqualsAssert.assertEqualsAndHash;
 import static com.exedio.cope.tojunit.EqualsAssert.assertNotEqualsAndHash;
 import static java.lang.Integer.valueOf;

@@ -18,11 +18,11 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.Assert.assertContains;
 import static com.exedio.cope.CopyModelTest.selfTemplateItemCopyFromTarget;
 import static com.exedio.cope.CopyModelTest.templateItemCopyFromTarget;
 import static com.exedio.cope.CopyModelTest.templateStringCopyFromTarget;
 import static com.exedio.cope.CopySourceItem.TYPE;
+import static com.exedio.cope.tojunit.Assert.assertContains;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 

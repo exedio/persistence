@@ -18,14 +18,14 @@
 
 package com.exedio.cope.pattern;
 
-import static com.exedio.cope.Assert.assertContains;
-import static com.exedio.cope.Assert.list;
 import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
 import static com.exedio.cope.SchemaInfoAssert.assertNoUpdateCounterColumn;
 import static com.exedio.cope.pattern.PasswordRecoveryItem.TYPE;
 import static com.exedio.cope.pattern.PasswordRecoveryItem.password;
 import static com.exedio.cope.pattern.PasswordRecoveryItem.passwordRecovery;
 import static com.exedio.cope.pattern.PasswordRecoveryItem.purgePasswordRecovery;
+import static com.exedio.cope.tojunit.Assert.assertContains;
+import static com.exedio.cope.tojunit.Assert.list;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;

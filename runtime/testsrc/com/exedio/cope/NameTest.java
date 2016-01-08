@@ -18,11 +18,11 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.Assert.assertContains;
 import static com.exedio.cope.SchemaInfo.getColumnName;
 import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnName;
 import static com.exedio.cope.SchemaInfo.getTableName;
 import static com.exedio.cope.SchemaInfo.getTypeColumnName;
+import static com.exedio.cope.tojunit.Assert.assertContains;
 import static com.exedio.dsmf.Dialect.NOT_NULL;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;

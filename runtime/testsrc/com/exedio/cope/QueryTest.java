@@ -18,12 +18,12 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.Assert.assertContains;
-import static com.exedio.cope.Assert.assertEqualsUnmodifiable;
-import static com.exedio.cope.Assert.list;
 import static com.exedio.cope.Condition.FALSE;
 import static com.exedio.cope.Condition.TRUE;
 import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
+import static com.exedio.cope.tojunit.Assert.assertContains;
+import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
+import static com.exedio.cope.tojunit.Assert.list;
 import static com.exedio.cope.tojunit.EqualsAssert.assertEqualsAndHash;
 import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;

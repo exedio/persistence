@@ -18,8 +18,6 @@
 
 package com.exedio.cope.pattern;
 
-import static com.exedio.cope.Assert.assertEqualsUnmodifiable;
-import static com.exedio.cope.Assert.list;
 import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
 import static com.exedio.cope.pattern.MediaItem.TYPE;
 import static com.exedio.cope.pattern.MediaItem.custom;
@@ -30,6 +28,8 @@ import static com.exedio.cope.pattern.MediaItem.name;
 import static com.exedio.cope.pattern.MediaItem.photo;
 import static com.exedio.cope.pattern.MediaItem.sheet;
 import static com.exedio.cope.pattern.MediaLocatorAssert.assertLocator;
+import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
+import static com.exedio.cope.tojunit.Assert.list;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertSame;

@@ -18,8 +18,6 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.Assert.assertEqualsUnmodifiable;
-import static com.exedio.cope.Assert.list;
 import static com.exedio.cope.Query.newQuery;
 import static com.exedio.cope.testmodel.AttributeItem.TYPE;
 import static com.exedio.cope.testmodel.AttributeItem.someNotNullBoolean;
@@ -32,6 +30,8 @@ import static com.exedio.cope.testmodel.AttributeItem.someNotNullString;
 import static com.exedio.cope.testmodel.AttributeItem.someString;
 import static com.exedio.cope.testmodel.AttributeItem.someStringLength;
 import static com.exedio.cope.testmodel.AttributeItem.someStringUpperCase;
+import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
+import static com.exedio.cope.tojunit.Assert.list;
 import static org.junit.Assert.assertNotNull;
 
 import com.exedio.cope.testmodel.AttributeItem;

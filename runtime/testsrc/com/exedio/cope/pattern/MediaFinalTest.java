@@ -19,13 +19,13 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.AbstractRuntimeTest.assertEqualContent;
-import static com.exedio.cope.Assert.assertContains;
-import static com.exedio.cope.Assert.assertWithin;
-import static com.exedio.cope.Assert.list;
 import static com.exedio.cope.RuntimeAssert.assertData;
 import static com.exedio.cope.pattern.MediaFinalItem.TYPE;
 import static com.exedio.cope.pattern.MediaFinalItem.file;
 import static com.exedio.cope.pattern.MediaLocatorAssert.assertLocator;
+import static com.exedio.cope.tojunit.Assert.assertContains;
+import static com.exedio.cope.tojunit.Assert.assertWithin;
+import static com.exedio.cope.tojunit.Assert.list;
 import static com.exedio.cope.util.StrictFile.delete;
 import static java.io.File.createTempFile;
 import static org.junit.Assert.assertEquals;

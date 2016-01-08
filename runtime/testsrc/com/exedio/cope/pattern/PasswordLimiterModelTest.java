@@ -18,11 +18,11 @@
 
 package com.exedio.cope.pattern;
 
-import static com.exedio.cope.Assert.list;
 import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
 import static com.exedio.cope.pattern.PasswordLimiterItem.TYPE;
 import static com.exedio.cope.pattern.PasswordLimiterItem.password;
 import static com.exedio.cope.pattern.PasswordLimiterItem.passwordLimited;
+import static com.exedio.cope.tojunit.Assert.list;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertSame;
