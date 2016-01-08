@@ -46,13 +46,13 @@ public class PasswordLimiterVerboseTest extends TestWithEnvironment
 		super(PasswordLimiterModelTest.MODEL);
 	}
 
+	private final RelativeMockClockStrategy clock = new RelativeMockClockStrategy();
 	private final ClockRule clockRule = new ClockRule();
 
 	@Rule public final RuleChain ruleChain = RuleChain.outerRule(clockRule);
 
 	PasswordLimiterItem i;
 	PasswordLimiterItem i2;
-	private final RelativeMockClockStrategy clock = new RelativeMockClockStrategy();
 
 	@Before public final void setUp()
 	{

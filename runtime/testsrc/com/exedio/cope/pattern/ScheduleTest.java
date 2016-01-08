@@ -61,12 +61,12 @@ public class ScheduleTest extends TestWithEnvironment
 		super(ScheduleModelTest.MODEL);
 	}
 
+	private final AbsoluteMockClockStrategy clock = new AbsoluteMockClockStrategy();
 	private final ClockRule clockRule = new ClockRule();
 
 	@Rule public final RuleChain ruleChain = RuleChain.outerRule(clockRule);
 
 	ScheduleItem item;
-	private final AbsoluteMockClockStrategy clock = new AbsoluteMockClockStrategy();
 	ArrayList<ExpectedRun> expectedRuns;
 
 	@Before public final void setUp()

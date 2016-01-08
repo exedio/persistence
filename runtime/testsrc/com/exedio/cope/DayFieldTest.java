@@ -45,12 +45,12 @@ public class DayFieldTest extends TestWithEnvironment
 		MODEL.enableSerialization(DayFieldTest.class, "MODEL");
 	}
 
+	private final AbsoluteMockClockStrategy clock = new AbsoluteMockClockStrategy();
 	private final ClockRule clockRule = new ClockRule();
 
 	@Rule public final RuleChain chain = RuleChain.outerRule(clockRule);
 
 	DayItem item, item2;
-	private final AbsoluteMockClockStrategy clock = new AbsoluteMockClockStrategy();
 	static final Day DEFAULT = new Day(2005, 8, 14);
 	static final Day DEFAULT2 = new Day(2005, 8, 15);
 

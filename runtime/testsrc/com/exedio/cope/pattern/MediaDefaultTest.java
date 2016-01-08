@@ -60,11 +60,11 @@ public class MediaDefaultTest extends TestWithEnvironment
 		super(MediaTest.MODEL);
 	}
 
+	private final AbsoluteMockClockStrategy clock = new AbsoluteMockClockStrategy();
 	private final ClockRule clockRule = new ClockRule();
 
 	@Rule public final RuleChain ruleChain = RuleChain.outerRule(clockRule);
 
-	private final AbsoluteMockClockStrategy clock = new AbsoluteMockClockStrategy();
 	protected MediaItem item;
 
 	@Before public final void setUp()

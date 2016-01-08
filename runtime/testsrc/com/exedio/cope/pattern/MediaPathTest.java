@@ -65,6 +65,7 @@ public final class MediaPathTest extends TestWithEnvironment
 		super(MODEL);
 	}
 
+	private final AbsoluteMockClockStrategy clock = new AbsoluteMockClockStrategy();
 	private final ClockRule clockRule = new ClockRule();
 
 	@Rule public final RuleChain ruleChain = RuleChain.outerRule(clockRule);
@@ -72,7 +73,6 @@ public final class MediaPathTest extends TestWithEnvironment
 	private MediaPathItem item;
 	private String id;
 	private MyMediaServlet servlet;
-	private final AbsoluteMockClockStrategy clock = new AbsoluteMockClockStrategy();
 	private MediaInfo normalInfo = null;
 
 	@Before public final void setUp()

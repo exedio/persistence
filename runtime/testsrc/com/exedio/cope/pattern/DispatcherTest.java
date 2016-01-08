@@ -57,6 +57,7 @@ public class DispatcherTest extends TestWithEnvironment
 		super(DispatcherModelTest.MODEL);
 	}
 
+	private final RelativeMockClockStrategy clock = new RelativeMockClockStrategy();
 	private final ClockRule clockRule = new ClockRule();
 
 	@Rule public final RuleChain ruleChain = RuleChain.outerRule(clockRule);
@@ -65,7 +66,6 @@ public class DispatcherTest extends TestWithEnvironment
 	DispatcherItem item2;
 	DispatcherItem item3;
 	DispatcherItem item4;
-	private final RelativeMockClockStrategy clock = new RelativeMockClockStrategy();
 	Logger logger;
 	TestLogAppender log = null;
 

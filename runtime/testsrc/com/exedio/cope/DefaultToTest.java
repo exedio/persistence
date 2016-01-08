@@ -65,11 +65,11 @@ public class DefaultToTest extends TestWithEnvironment
 		super(DefaultToModelTest.MODEL);
 	}
 
+	private final AbsoluteMockClockStrategy clock = new AbsoluteMockClockStrategy();
 	private final ClockRule clockRule = new ClockRule();
 
 	@Rule public final RuleChain ruleChain = RuleChain.outerRule(clockRule);
 
-	private final AbsoluteMockClockStrategy clock = new AbsoluteMockClockStrategy();
 
 	@Before public final void setUp()
 	{
