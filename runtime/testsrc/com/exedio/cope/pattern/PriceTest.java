@@ -18,12 +18,12 @@
 
 package com.exedio.cope.pattern;
 
-import static com.exedio.cope.EqualsAssertUtil.assertEqualBits;
 import static com.exedio.cope.pattern.Price.ZERO;
 import static com.exedio.cope.pattern.Price.nullToZero;
 import static com.exedio.cope.pattern.Price.parse;
 import static com.exedio.cope.pattern.Price.storeOf;
 import static com.exedio.cope.pattern.Price.valueOf;
+import static com.exedio.cope.tojunit.EqualsAssert.assertEqualBits;
 import static java.math.RoundingMode.DOWN;
 import static java.math.RoundingMode.HALF_DOWN;
 import static java.math.RoundingMode.HALF_EVEN;

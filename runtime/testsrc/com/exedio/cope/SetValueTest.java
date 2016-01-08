@@ -18,9 +18,9 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.EqualsAssertUtil.assertEqualsAndHash;
-import static com.exedio.cope.EqualsAssertUtil.assertNotEqualsAndHash;
 import static com.exedio.cope.SetValue.map;
+import static com.exedio.cope.tojunit.EqualsAssert.assertEqualsAndHash;
+import static com.exedio.cope.tojunit.EqualsAssert.assertNotEqualsAndHash;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 

@@ -18,7 +18,7 @@
 
 package com.exedio.cope.pattern;
 
-import static com.exedio.cope.EqualsAssertUtil.assertEqualBits;
+import static com.exedio.cope.tojunit.EqualsAssert.assertEqualBits;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 

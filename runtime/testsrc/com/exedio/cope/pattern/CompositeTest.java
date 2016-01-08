@@ -19,7 +19,7 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.AssertUtil.assertWithin;
-import static com.exedio.cope.EqualsAssertUtil.assertEqualBits;
+import static com.exedio.cope.tojunit.EqualsAssert.assertEqualBits;
 import static com.exedio.cope.util.TimeZoneStrict.getTimeZone;
 import static java.lang.Boolean.valueOf;
 import static java.lang.Double.valueOf;
