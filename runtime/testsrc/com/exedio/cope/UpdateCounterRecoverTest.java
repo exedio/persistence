@@ -32,7 +32,7 @@ import java.sql.Statement;
 import org.junit.Before;
 import org.junit.Test;
 
-public final class UpdateCounterRecoverTest extends AbstractRuntimeModelTest
+public final class UpdateCounterRecoverTest extends TestWithEnvironment
 {
 	public UpdateCounterRecoverTest()
 	{

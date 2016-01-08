@@ -49,7 +49,7 @@ import java.util.HashMap;
 import java.util.List;
 import org.junit.Test;
 
-public class SchemaTypeStringTest extends AbstractRuntimeModelTest
+public class SchemaTypeStringTest extends TestWithEnvironment
 {
 	static final Model MODEL = new Model(TYPE);
 

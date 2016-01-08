@@ -34,16 +34,16 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Model;
+import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.util.Hex;
 import java.util.Arrays;
 import org.junit.Before;
 import org.junit.Test;
 
-public class MessageDigestHashTest extends AbstractRuntimeModelTest
+public class MessageDigestHashTest extends TestWithEnvironment
 {
 	public/*for web.xml*/ static final Model MODEL = new Model(TYPE);
 

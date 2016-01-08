@@ -24,7 +24,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-public class PrimaryKeyTest extends AbstractRuntimeModelTest
+public class PrimaryKeyTest extends TestWithEnvironment
 {
 	/**
 	 * Do not use this model in any other test.

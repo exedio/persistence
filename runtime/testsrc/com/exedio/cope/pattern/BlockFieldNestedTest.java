@@ -29,14 +29,14 @@ import static com.exedio.cope.tojunit.Assert.list;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
-import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.Feature;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Model;
+import com.exedio.cope.TestWithEnvironment;
 import java.util.Arrays;
 import org.junit.Test;
 
-public class BlockFieldNestedTest extends AbstractRuntimeModelTest
+public class BlockFieldNestedTest extends TestWithEnvironment
 {
 	static final Model MODEL = new Model(AnItem.TYPE);
 

@@ -47,7 +47,7 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 
-public class PlusDoubleTest extends AbstractRuntimeModelTest
+public class PlusDoubleTest extends TestWithEnvironment
 {
 	static final Model MODEL = new Model(TYPE);
 

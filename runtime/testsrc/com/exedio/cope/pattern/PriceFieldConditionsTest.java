@@ -24,15 +24,15 @@ import static com.exedio.cope.pattern.PriceFieldItem.optionalPrice;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
-import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.Condition;
 import com.exedio.cope.Join;
 import com.exedio.cope.Query;
+import com.exedio.cope.TestWithEnvironment;
 import java.util.Arrays;
 import org.junit.Before;
 import org.junit.Test;
 
-public class PriceFieldConditionsTest extends AbstractRuntimeModelTest
+public class PriceFieldConditionsTest extends TestWithEnvironment
 {
 	public PriceFieldConditionsTest()
 	{

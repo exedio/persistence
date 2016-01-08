@@ -25,8 +25,8 @@ import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
-import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.Condition;
+import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.TransactionTry;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.ArrayList;
@@ -38,7 +38,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 @SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
-public class TypeIteratorTransactionallyTest extends AbstractRuntimeModelTest
+public class TypeIteratorTransactionallyTest extends TestWithEnvironment
 {
 	public TypeIteratorTransactionallyTest()
 	{

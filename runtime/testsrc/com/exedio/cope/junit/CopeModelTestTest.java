@@ -23,14 +23,14 @@ import static com.exedio.cope.tojunit.Assert.list;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.ChangeEvent;
 import com.exedio.cope.ChangeListener;
 import com.exedio.cope.Model;
+import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.misc.DatabaseListener;
 import java.util.List;
 
-public abstract class CopeModelTestTest extends AbstractRuntimeModelTest
+public abstract class CopeModelTestTest extends TestWithEnvironment
 {
 	private static final Model MODEL = new Model(JUnitTestItem.TYPE);
 

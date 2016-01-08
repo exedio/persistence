@@ -26,7 +26,7 @@ import static com.exedio.cope.tojunit.Assert.assertContains;
 import org.junit.Before;
 import org.junit.Test;
 
-public class JoinFunctionTest extends AbstractRuntimeModelTest
+public class JoinFunctionTest extends TestWithEnvironment
 {
 	static final Model MODEL = new Model(TYPE, JoinFunctionItemSingle.TYPE);
 

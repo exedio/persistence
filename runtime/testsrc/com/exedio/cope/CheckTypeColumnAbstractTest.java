@@ -31,7 +31,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-public class CheckTypeColumnAbstractTest extends AbstractRuntimeModelTest
+public class CheckTypeColumnAbstractTest extends TestWithEnvironment
 {
 	public CheckTypeColumnAbstractTest()
 	{

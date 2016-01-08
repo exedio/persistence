@@ -49,7 +49,7 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-public class CoalesceFunctionTest extends AbstractRuntimeModelTest
+public class CoalesceFunctionTest extends TestWithEnvironment
 {
 	public CoalesceFunctionTest()
 	{

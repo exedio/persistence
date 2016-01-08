@@ -23,7 +23,7 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-public class CreateTest extends AbstractRuntimeModelTest
+public class CreateTest extends TestWithEnvironment
 {
 	private static final Model MODEL = new Model(CreateSuperItem.TYPE, CreateItem.TYPE);
 

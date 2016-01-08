@@ -47,7 +47,7 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-public class CompareConditionTest extends AbstractRuntimeModelTest
+public class CompareConditionTest extends TestWithEnvironment
 {
 	static final Model MODEL = new Model(TYPE);
 	private static final This<CompareConditionItem> THIS = TYPE.getThis();

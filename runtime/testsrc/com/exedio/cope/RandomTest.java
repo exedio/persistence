@@ -34,7 +34,7 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-public class RandomTest extends AbstractRuntimeModelTest
+public class RandomTest extends TestWithEnvironment
 {
 	public RandomTest()
 	{

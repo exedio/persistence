@@ -28,7 +28,7 @@ import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import com.exedio.cope.AbstractRuntimeModelTest;
+import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.pattern.PasswordLimiter.ExceededException;
 import com.exedio.cope.pattern.PasswordLimiter.Refusal;
 import com.exedio.cope.util.Clock;
@@ -38,7 +38,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-public class PasswordLimiterVerboseTest extends AbstractRuntimeModelTest
+public class PasswordLimiterVerboseTest extends TestWithEnvironment
 {
 	public PasswordLimiterVerboseTest()
 	{

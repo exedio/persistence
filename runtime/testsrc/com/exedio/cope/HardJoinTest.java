@@ -33,7 +33,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 @SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
-public class HardJoinTest extends AbstractRuntimeModelTest
+public class HardJoinTest extends TestWithEnvironment
 {
 	static final Model MODEL = new Model(
 			HardJoinA1Item.TYPE,

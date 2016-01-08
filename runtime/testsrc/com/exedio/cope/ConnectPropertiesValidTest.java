@@ -22,7 +22,7 @@ import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
 @Category(CacheReadPoisoningBruteForcePackageTest.class)
-public class ConnectPropertiesValidTest extends AbstractRuntimeModelTest
+public class ConnectPropertiesValidTest extends TestWithEnvironment
 {
 	public ConnectPropertiesValidTest()
 	{

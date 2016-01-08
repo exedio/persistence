@@ -22,14 +22,14 @@ import static com.exedio.cope.tojunit.Assert.assertContains;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
-import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.Join;
 import com.exedio.cope.Model;
 import com.exedio.cope.Query;
+import com.exedio.cope.TestWithEnvironment;
 import org.junit.Before;
 import org.junit.Test;
 
-public class BadQueryTest extends AbstractRuntimeModelTest
+public class BadQueryTest extends TestWithEnvironment
 {
 	public static final Model MODEL = new Model(SuperItem.TYPE, QueryItem.TYPE, SuperContainer.TYPE, SubContainer.TYPE);
 

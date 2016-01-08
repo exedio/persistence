@@ -34,7 +34,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-public class DeleteSchemaTest extends AbstractRuntimeModelTest
+public class DeleteSchemaTest extends TestWithEnvironment
 {
 	private static final Logger logger = Logger.getLogger(Database.class.getName() + "#deleteSchema");
 

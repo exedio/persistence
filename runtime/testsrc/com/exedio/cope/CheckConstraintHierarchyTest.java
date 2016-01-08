@@ -28,7 +28,7 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-public class CheckConstraintHierarchyTest extends AbstractRuntimeModelTest
+public class CheckConstraintHierarchyTest extends TestWithEnvironment
 {
 	static final Model MODEL = new Model(CheckConstraintHierarchyItemBottom.TYPE, CheckConstraintHierarchyItemTop.TYPE);
 

@@ -26,7 +26,7 @@ import java.util.Date;
 import org.junit.Before;
 import org.junit.Test;
 
-public class TransactionEmptyTest extends AbstractRuntimeModelTest
+public class TransactionEmptyTest extends TestWithEnvironment
 {
 	public TransactionEmptyTest()
 	{

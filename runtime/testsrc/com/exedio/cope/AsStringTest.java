@@ -31,7 +31,7 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-public class AsStringTest extends AbstractRuntimeModelTest
+public class AsStringTest extends TestWithEnvironment
 {
 	static final Model MODEL = new Model(TYPE);
 

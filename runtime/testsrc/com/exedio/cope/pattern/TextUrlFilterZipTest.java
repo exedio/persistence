@@ -26,8 +26,8 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.DataLengthViolationException;
+import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.pattern.TextUrlFilter.Paste;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.File;
@@ -39,7 +39,7 @@ import java.util.Iterator;
 import org.junit.Before;
 import org.junit.Test;
 
-public class TextUrlFilterZipTest extends AbstractRuntimeModelTest
+public class TextUrlFilterZipTest extends TestWithEnvironment
 {
 	public TextUrlFilterZipTest()
 	{

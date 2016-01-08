@@ -25,12 +25,12 @@ import static com.exedio.cope.pattern.ImporterItem.importByCode;
 import static com.exedio.cope.tojunit.Assert.list;
 import static org.junit.Assert.assertEquals;
 
-import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.SetValue;
+import com.exedio.cope.TestWithEnvironment;
 import java.util.ArrayList;
 import org.junit.Test;
 
-public class ImporterTest extends AbstractRuntimeModelTest
+public class ImporterTest extends TestWithEnvironment
 {
 	public ImporterTest()
 	{

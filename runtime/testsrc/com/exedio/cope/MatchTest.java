@@ -28,7 +28,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 @SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
-public class MatchTest extends AbstractRuntimeModelTest
+public class MatchTest extends TestWithEnvironment
 {
 	public static final Model MODEL = new Model(TYPE);
 

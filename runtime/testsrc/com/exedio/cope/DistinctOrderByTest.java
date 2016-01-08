@@ -32,7 +32,7 @@ import com.exedio.dsmf.SQLRuntimeException;
 import org.junit.Before;
 import org.junit.Test;
 
-public class DistinctOrderByTest extends AbstractRuntimeModelTest
+public class DistinctOrderByTest extends TestWithEnvironment
 {
 	public DistinctOrderByTest()
 	{

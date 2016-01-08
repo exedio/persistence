@@ -38,7 +38,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 @SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
-public class PlusLongOrderTest extends AbstractRuntimeModelTest
+public class PlusLongOrderTest extends TestWithEnvironment
 {
 	public PlusLongOrderTest()
 	{

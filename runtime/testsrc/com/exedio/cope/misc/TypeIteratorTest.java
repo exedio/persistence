@@ -26,9 +26,9 @@ import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
-import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.Condition;
 import com.exedio.cope.QueryInfo;
+import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.Transaction;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -37,7 +37,7 @@ import java.util.NoSuchElementException;
 import org.junit.Before;
 import org.junit.Test;
 
-public class TypeIteratorTest extends AbstractRuntimeModelTest
+public class TypeIteratorTest extends TestWithEnvironment
 {
 	public TypeIteratorTest()
 	{

@@ -23,7 +23,7 @@ import static com.exedio.cope.tojunit.Assert.assertContains;
 import org.junit.Before;
 import org.junit.Test;
 
-public class PolymorphQueryCacheInvalidationTest extends AbstractRuntimeModelTest
+public class PolymorphQueryCacheInvalidationTest extends TestWithEnvironment
 {
 	public PolymorphQueryCacheInvalidationTest()
 	{

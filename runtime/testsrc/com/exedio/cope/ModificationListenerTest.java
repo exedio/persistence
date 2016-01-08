@@ -32,7 +32,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-public class ModificationListenerTest extends AbstractRuntimeModelTest
+public class ModificationListenerTest extends TestWithEnvironment
 {
 	@Deprecated
 	private static final Logger logger = Logger.getLogger(ModificationListeners.class);

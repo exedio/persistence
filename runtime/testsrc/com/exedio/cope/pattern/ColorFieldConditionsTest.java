@@ -22,15 +22,15 @@ import static com.exedio.cope.pattern.ColorFieldItem.alpha;
 import static com.exedio.cope.pattern.ColorFieldItem.optional;
 import static org.junit.Assert.assertEquals;
 
-import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.Condition;
 import com.exedio.cope.Query;
+import com.exedio.cope.TestWithEnvironment;
 import java.awt.Color;
 import java.util.Arrays;
 import org.junit.Before;
 import org.junit.Test;
 
-public class ColorFieldConditionsTest extends AbstractRuntimeModelTest
+public class ColorFieldConditionsTest extends TestWithEnvironment
 {
 	public ColorFieldConditionsTest()
 	{

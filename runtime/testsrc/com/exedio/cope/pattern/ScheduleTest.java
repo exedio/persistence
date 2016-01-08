@@ -33,7 +33,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import com.exedio.cope.AbstractRuntimeModelTest;
+import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.junit.AbsoluteMockClockStrategy;
 import com.exedio.cope.pattern.Schedule.Interval;
 import com.exedio.cope.pattern.Schedule.Run;
@@ -52,7 +52,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-public class ScheduleTest extends AbstractRuntimeModelTest
+public class ScheduleTest extends TestWithEnvironment
 {
 	public ScheduleTest()
 	{

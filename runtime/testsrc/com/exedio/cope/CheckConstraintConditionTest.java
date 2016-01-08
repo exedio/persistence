@@ -27,7 +27,7 @@ import com.exedio.dsmf.Schema;
 import com.exedio.dsmf.Table;
 import org.junit.Test;
 
-public class CheckConstraintConditionTest extends AbstractRuntimeModelTest
+public class CheckConstraintConditionTest extends TestWithEnvironment
 {
 	static final Model MODEL = new Model(
 			TYPE,

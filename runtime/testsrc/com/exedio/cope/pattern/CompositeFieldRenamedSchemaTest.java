@@ -26,13 +26,13 @@ import static com.exedio.cope.pattern.CompositeFieldRenamedSchemaItem.virgnComp;
 import static com.exedio.cope.pattern.CompositeFieldRenamedSchemaItem.wrongComp;
 import static org.junit.Assert.assertEquals;
 
-import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.CopeSchemaName;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Model;
+import com.exedio.cope.TestWithEnvironment;
 import org.junit.Test;
 
-public class CompositeFieldRenamedSchemaTest extends AbstractRuntimeModelTest
+public class CompositeFieldRenamedSchemaTest extends TestWithEnvironment
 {
 	private static final Model MODEL = new Model(TYPE);
 

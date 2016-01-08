@@ -24,12 +24,12 @@ import static com.exedio.cope.pattern.MediaLocatorAssert.assertLocator;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
-import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.Model;
+import com.exedio.cope.TestWithEnvironment;
 import org.junit.Before;
 import org.junit.Test;
 
-public final class MediaCatchphraseTest extends AbstractRuntimeModelTest
+public final class MediaCatchphraseTest extends TestWithEnvironment
 {
 	static final Model MODEL = new Model(MediaCatchPhraseSuperItem.TYPE, TYPE);
 

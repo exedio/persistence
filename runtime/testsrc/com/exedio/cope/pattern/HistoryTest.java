@@ -33,10 +33,10 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
-import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.SchemaInfo;
+import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.Type;
 import com.exedio.cope.misc.Computed;
 import com.exedio.cope.pattern.History.Feature;
@@ -45,7 +45,7 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-public class HistoryTest extends AbstractRuntimeModelTest
+public class HistoryTest extends TestWithEnvironment
 {
 	private static final Model MODEL = new Model(TYPE);
 

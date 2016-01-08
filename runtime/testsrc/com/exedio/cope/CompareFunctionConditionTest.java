@@ -49,7 +49,7 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-public class CompareFunctionConditionTest extends AbstractRuntimeModelTest
+public class CompareFunctionConditionTest extends TestWithEnvironment
 {
 	static final Model MODEL = new Model(CompareFunctionConditionItem.TYPE);
 	private static final This<CompareFunctionConditionItem> THIS = TYPE.getThis();

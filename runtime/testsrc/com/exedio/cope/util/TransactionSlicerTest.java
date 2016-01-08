@@ -25,12 +25,12 @@ import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.CacheIsolationTest;
+import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.Transaction;
 import org.junit.Test;
 
-public class TransactionSlicerTest extends AbstractRuntimeModelTest
+public class TransactionSlicerTest extends TestWithEnvironment
 {
 	public TransactionSlicerTest()
 	{

@@ -44,7 +44,7 @@ import java.util.Collection;
 import java.util.List;
 import org.junit.Test;
 
-public class DeleteTest extends AbstractRuntimeModelTest
+public class DeleteTest extends TestWithEnvironment
 {
 	public static final Model MODEL = new Model(DeleteItem.TYPE, DeleteOtherItem.TYPE);
 

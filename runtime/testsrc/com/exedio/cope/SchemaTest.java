@@ -54,7 +54,7 @@ import com.exedio.dsmf.Sequence;
 import com.exedio.dsmf.Table;
 import org.junit.Test;
 
-public class SchemaTest extends AbstractRuntimeModelTest
+public class SchemaTest extends TestWithEnvironment
 {
 	static final Model MODEL = new Model(TYPE, SchemaTargetItem.TYPE);
 

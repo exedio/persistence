@@ -28,7 +28,7 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-public class HierarchyCompareTest extends AbstractRuntimeModelTest
+public class HierarchyCompareTest extends TestWithEnvironment
 {
 	public HierarchyCompareTest()
 	{

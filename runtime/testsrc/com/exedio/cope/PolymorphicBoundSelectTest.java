@@ -24,7 +24,7 @@ import static org.junit.Assert.assertEquals;
 import java.util.List;
 import org.junit.Test;
 
-public class PolymorphicBoundSelectTest extends AbstractRuntimeModelTest
+public class PolymorphicBoundSelectTest extends TestWithEnvironment
 {
 	private static final Model MODEL = new Model(PolymorphicBoundSelectSuperItem.TYPE, PolymorphicBoundSelectSubItem.TYPE);
 

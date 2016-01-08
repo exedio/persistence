@@ -36,7 +36,7 @@ import java.sql.Statement;
 import org.junit.Before;
 import org.junit.Test;
 
-public class SchemaPurgeTest extends AbstractRuntimeModelTest
+public class SchemaPurgeTest extends TestWithEnvironment
 {
 	private static final Model MODEL = new Model(AnItem.TYPE);
 

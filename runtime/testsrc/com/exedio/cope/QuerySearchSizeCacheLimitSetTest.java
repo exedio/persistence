@@ -25,7 +25,7 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-public class QuerySearchSizeCacheLimitSetTest extends AbstractRuntimeModelTest
+public class QuerySearchSizeCacheLimitSetTest extends TestWithEnvironment
 {
 	public QuerySearchSizeCacheLimitSetTest()
 	{

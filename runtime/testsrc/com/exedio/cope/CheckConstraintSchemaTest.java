@@ -32,7 +32,7 @@ import com.exedio.dsmf.Schema;
 import com.exedio.dsmf.Table;
 import org.junit.Test;
 
-public class CheckConstraintSchemaTest extends AbstractRuntimeModelTest
+public class CheckConstraintSchemaTest extends TestWithEnvironment
 {
 	public CheckConstraintSchemaTest()
 	{

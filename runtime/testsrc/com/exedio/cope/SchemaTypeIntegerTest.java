@@ -37,7 +37,7 @@ import static org.junit.Assert.assertEquals;
 import java.util.ArrayList;
 import org.junit.Test;
 
-public class SchemaTypeIntegerTest extends AbstractRuntimeModelTest
+public class SchemaTypeIntegerTest extends TestWithEnvironment
 {
 	static final Model MODEL = new Model(TYPE);
 

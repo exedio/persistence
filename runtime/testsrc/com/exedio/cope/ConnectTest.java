@@ -30,7 +30,7 @@ import static org.junit.Assert.fail;
 import java.util.Date;
 import org.junit.Test;
 
-public class ConnectTest extends AbstractRuntimeModelTest
+public class ConnectTest extends TestWithEnvironment
 {
 	private static final Date beforeModel = new Date();
 	private static final Model MODEL = new Model(ConnectItem.TYPE, ConnectItem2.TYPE);

@@ -24,7 +24,7 @@ import org.junit.runners.Suite;
 
 @RunWith(Subclasses.class)
 // keep consistent to AllButSomeTestsWithoutEnvironment
-@Subclasses.Include({AbstractRuntimeModelTest.class, ReviseTest.class, com.exedio.cope.util.ConnectTokenTest.class})
+@Subclasses.Include({TestWithEnvironment.class, ReviseTest.class, com.exedio.cope.util.ConnectTokenTest.class})
 @Suite.SuiteClasses(AllButSomeTests.class)
 public class AllButSomeTestsWithEnvironment
 {

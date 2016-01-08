@@ -27,13 +27,13 @@ import static com.exedio.cope.tojunit.Assert.assertContains;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
-import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.MandatoryViolationException;
+import com.exedio.cope.TestWithEnvironment;
 import java.awt.Color;
 import org.junit.Before;
 import org.junit.Test;
 
-public class ColorFieldTest extends AbstractRuntimeModelTest
+public class ColorFieldTest extends TestWithEnvironment
 {
 	public ColorFieldTest()
 	{

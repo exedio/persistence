@@ -41,7 +41,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-public class ChangeListenerTest extends AbstractRuntimeModelTest
+public class ChangeListenerTest extends TestWithEnvironment
 {
 	private static final Logger logger = Logger.getLogger(ChangeListeners.class);
 

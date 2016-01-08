@@ -23,7 +23,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-public class DefaultInheritanceTest extends AbstractRuntimeModelTest
+public class DefaultInheritanceTest extends TestWithEnvironment
 {
 	public DefaultInheritanceTest()
 	{

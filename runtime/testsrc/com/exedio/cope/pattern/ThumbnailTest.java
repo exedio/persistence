@@ -33,9 +33,9 @@ import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Model;
+import com.exedio.cope.TestWithEnvironment;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.IOException;
 import java.util.Arrays;
@@ -43,7 +43,7 @@ import java.util.Set;
 import org.junit.Before;
 import org.junit.Test;
 
-public final class ThumbnailTest extends AbstractRuntimeModelTest
+public final class ThumbnailTest extends TestWithEnvironment
 {
 	static final Model MODEL = new Model(ThumbnailItem.TYPE);
 

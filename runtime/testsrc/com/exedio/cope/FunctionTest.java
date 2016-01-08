@@ -38,7 +38,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 @SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
-public class FunctionTest extends AbstractRuntimeModelTest
+public class FunctionTest extends TestWithEnvironment
 {
 	public FunctionTest()
 	{

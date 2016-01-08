@@ -23,7 +23,7 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 
-public class TransactionCountersTest extends AbstractRuntimeModelTest
+public class TransactionCountersTest extends TestWithEnvironment
 {
 	public TransactionCountersTest()
 	{

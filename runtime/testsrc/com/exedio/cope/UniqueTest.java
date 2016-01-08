@@ -31,7 +31,7 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-public class UniqueTest extends AbstractRuntimeModelTest
+public class UniqueTest extends TestWithEnvironment
 {
 	static final Model MODEL = new Model(
 			UniqueSingleItem.TYPE,

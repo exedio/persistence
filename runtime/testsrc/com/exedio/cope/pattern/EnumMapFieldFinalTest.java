@@ -26,15 +26,15 @@ import static com.exedio.cope.pattern.EnumMapFieldItem.Language.PL;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
-import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Model;
+import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.pattern.EnumMapFieldItem.Language;
 import java.util.EnumMap;
 import org.junit.Test;
 
-public class EnumMapFieldFinalTest extends AbstractRuntimeModelTest
+public class EnumMapFieldFinalTest extends TestWithEnvironment
 {
 	private static final Model MODEL = new Model(TYPE);
 

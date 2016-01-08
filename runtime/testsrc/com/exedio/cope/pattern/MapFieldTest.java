@@ -30,9 +30,9 @@ import static java.lang.Integer.valueOf;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
-import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Query;
+import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.pattern.MapFieldItem.Language;
 import java.util.Collections;
 import java.util.HashMap;
@@ -40,7 +40,7 @@ import java.util.Map;
 import org.junit.Before;
 import org.junit.Test;
 
-public class MapFieldTest extends AbstractRuntimeModelTest
+public class MapFieldTest extends TestWithEnvironment
 {
 	public MapFieldTest()
 	{

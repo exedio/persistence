@@ -30,7 +30,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import org.junit.Test;
 
-public class TransactionOnlyTest extends AbstractRuntimeModelTest
+public class TransactionOnlyTest extends TestWithEnvironment
 {
 	public TransactionOnlyTest()
 	{

@@ -29,8 +29,8 @@ import static java.lang.Integer.valueOf;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
-import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.MandatoryViolationException;
+import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.pattern.EnumMapFieldItem.Language;
 import java.util.Collections;
 import java.util.EnumMap;
@@ -39,7 +39,7 @@ import java.util.Map;
 import org.junit.Before;
 import org.junit.Test;
 
-public class EnumMapFieldTest extends AbstractRuntimeModelTest
+public class EnumMapFieldTest extends TestWithEnvironment
 {
 	public EnumMapFieldTest()
 	{

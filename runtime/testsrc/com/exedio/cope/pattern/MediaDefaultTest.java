@@ -34,7 +34,6 @@ import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.CheckConstraint;
 import com.exedio.cope.Cope;
 import com.exedio.cope.DataField;
@@ -42,6 +41,7 @@ import com.exedio.cope.DataLengthViolationException;
 import com.exedio.cope.DateField;
 import com.exedio.cope.SchemaInfo;
 import com.exedio.cope.StringField;
+import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.junit.AbsoluteMockClockStrategy;
 import com.exedio.cope.util.Clock;
 import java.io.File;
@@ -52,7 +52,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-public class MediaDefaultTest extends AbstractRuntimeModelTest
+public class MediaDefaultTest extends TestWithEnvironment
 {
 	public MediaDefaultTest()
 	{

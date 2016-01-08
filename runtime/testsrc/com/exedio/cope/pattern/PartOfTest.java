@@ -21,13 +21,13 @@ package com.exedio.cope.pattern;
 import static com.exedio.cope.tojunit.Assert.list;
 import static org.junit.Assert.assertEquals;
 
-import com.exedio.cope.AbstractRuntimeModelTest;
+import com.exedio.cope.TestWithEnvironment;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.Before;
 import org.junit.Test;
 
 @SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
-public class PartOfTest extends AbstractRuntimeModelTest
+public class PartOfTest extends TestWithEnvironment
 {
 	public PartOfTest()
 	{

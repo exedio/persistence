@@ -30,19 +30,19 @@ import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.CheckConstraint;
 import com.exedio.cope.Condition;
 import com.exedio.cope.Cope;
 import com.exedio.cope.DataField;
 import com.exedio.cope.DateField;
 import com.exedio.cope.IntegerField;
+import com.exedio.cope.TestWithEnvironment;
 import java.io.IOException;
 import java.io.InputStream;
 import org.junit.Before;
 import org.junit.Test;
 
-public class MediaEnumTest extends AbstractRuntimeModelTest
+public class MediaEnumTest extends TestWithEnvironment
 {
 	public MediaEnumTest()
 	{

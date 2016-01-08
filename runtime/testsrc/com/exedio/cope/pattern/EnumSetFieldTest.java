@@ -28,9 +28,9 @@ import static com.exedio.cope.tojunit.Assert.assertContains;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
-import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.SetValue;
+import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.pattern.EnumSetFieldItem.Language;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.EnumSet;
@@ -38,7 +38,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 @SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
-public class EnumSetFieldTest extends AbstractRuntimeModelTest
+public class EnumSetFieldTest extends TestWithEnvironment
 {
 	public EnumSetFieldTest()
 	{

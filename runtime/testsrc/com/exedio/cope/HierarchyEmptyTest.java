@@ -30,7 +30,7 @@ import com.exedio.dsmf.Constraint;
 import java.util.EnumSet;
 import org.junit.Test;
 
-public class HierarchyEmptyTest extends AbstractRuntimeModelTest
+public class HierarchyEmptyTest extends TestWithEnvironment
 {
 	static final Model MODEL = new Model(HierarchyEmptySub.TYPE, HierarchyEmptySuper.TYPE);
 

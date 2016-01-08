@@ -22,17 +22,17 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.fail;
 
-import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.CopyConstraint;
 import com.exedio.cope.CopyViolationException;
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.ItemField;
 import com.exedio.cope.Model;
 import com.exedio.cope.StringField;
+import com.exedio.cope.TestWithEnvironment;
 import java.util.Iterator;
 import org.junit.Test;
 
-public class MultiItemFieldCopyConstraintTest extends AbstractRuntimeModelTest
+public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 {
 	static final Model MODEL = new Model(
 			A.TYPE, B.TYPE, C.TYPE, PartialCopyConstraintItem.TYPE, AllCopyConstraintItem.TYPE, DoubleCopyConstraintItem.TYPE

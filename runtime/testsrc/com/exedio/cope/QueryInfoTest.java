@@ -32,7 +32,7 @@ import java.util.Iterator;
 import java.util.List;
 import org.junit.Test;
 
-public class QueryInfoTest extends AbstractRuntimeModelTest
+public class QueryInfoTest extends TestWithEnvironment
 {
 	public QueryInfoTest()
 	{

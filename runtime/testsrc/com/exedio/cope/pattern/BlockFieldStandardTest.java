@@ -25,14 +25,14 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotSame;
 
-import com.exedio.cope.AbstractRuntimeModelTest;
+import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.pattern.BlockFieldStandardModelTest.ABlock;
 import com.exedio.cope.pattern.BlockFieldStandardModelTest.ABlock.AnEnum;
 import com.exedio.cope.pattern.BlockFieldStandardModelTest.AnItem;
 import java.awt.Color;
 import org.junit.Test;
 
-public class BlockFieldStandardTest extends AbstractRuntimeModelTest
+public class BlockFieldStandardTest extends TestWithEnvironment
 {
 	public BlockFieldStandardTest()
 	{

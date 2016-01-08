@@ -29,7 +29,7 @@ import com.exedio.cope.util.CharSet;
 import java.util.HashSet;
 import org.junit.Test;
 
-public class StringCharSetTest extends AbstractRuntimeModelTest
+public class StringCharSetTest extends TestWithEnvironment
 {
 	static final Model MODEL = new Model(TYPE);
 

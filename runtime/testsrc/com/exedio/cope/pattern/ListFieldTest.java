@@ -40,7 +40,6 @@ import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
@@ -49,6 +48,7 @@ import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Model;
 import com.exedio.cope.Query;
 import com.exedio.cope.StringField;
+import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.Type;
 import com.exedio.cope.misc.Computed;
 import java.util.Arrays;
@@ -57,7 +57,7 @@ import java.util.Iterator;
 import org.junit.Before;
 import org.junit.Test;
 
-public class ListFieldTest extends AbstractRuntimeModelTest
+public class ListFieldTest extends TestWithEnvironment
 {
 	public static final Model MODEL = new Model(ListFieldItem.TYPE);
 

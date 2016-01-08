@@ -28,7 +28,7 @@ import java.sql.SQLException;
 import org.junit.Before;
 import org.junit.Test;
 
-public class DeleteAfterUniqueViolationTest extends AbstractRuntimeModelTest
+public class DeleteAfterUniqueViolationTest extends TestWithEnvironment
 {
 	private static final Model MODEL = new Model(DeleteAfterUniqueViolationItem.TYPE);
 

@@ -34,7 +34,7 @@ import static org.junit.Assert.fail;
 import com.exedio.cope.BeforeSetItem.Action;
 import org.junit.Test;
 
-public class BeforeSetTest extends AbstractRuntimeModelTest
+public class BeforeSetTest extends TestWithEnvironment
 {
 	private static final Model MODEL = new Model(BeforeSetItem.TYPE);
 

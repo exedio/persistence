@@ -27,7 +27,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-public class RenamedPatternSchemaTest extends AbstractRuntimeModelTest
+public class RenamedPatternSchemaTest extends TestWithEnvironment
 {
 	private static final Model MODEL = new Model(TYPE, RawItem.TYPE);
 

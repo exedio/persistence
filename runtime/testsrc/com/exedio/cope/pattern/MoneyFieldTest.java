@@ -35,13 +35,13 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.fail;
 
-import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Model;
+import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.pattern.MoneyFieldItem.Currency;
 import org.junit.Test;
 
-public class MoneyFieldTest extends AbstractRuntimeModelTest
+public class MoneyFieldTest extends TestWithEnvironment
 {
 	private static final Model MODEL = new Model(TYPE);
 

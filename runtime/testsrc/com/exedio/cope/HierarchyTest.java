@@ -36,7 +36,7 @@ import java.util.Collections;
 import java.util.EnumSet;
 import org.junit.Test;
 
-public class HierarchyTest extends AbstractRuntimeModelTest
+public class HierarchyTest extends TestWithEnvironment
 {
 	public static final Model MODEL = new Model(
 			HierarchyFirstSub.TYPE,

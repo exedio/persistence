@@ -28,7 +28,7 @@ import com.exedio.cope.util.Hex;
 import org.junit.Before;
 import org.junit.Test;
 
-public class ItemCacheDataTest extends AbstractRuntimeModelTest
+public class ItemCacheDataTest extends TestWithEnvironment
 {
 	static final Model MODEL = new Model(TYPE);
 

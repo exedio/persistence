@@ -23,7 +23,7 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-public class CheckTypeColumnAbstractLinearTest extends AbstractRuntimeModelTest
+public class CheckTypeColumnAbstractLinearTest extends TestWithEnvironment
 {
 	private static final Model MODEL = new Model(
 			Type0A.TYPE,

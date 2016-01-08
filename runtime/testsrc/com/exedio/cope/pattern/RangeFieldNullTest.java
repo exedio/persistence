@@ -23,13 +23,13 @@ import static com.exedio.cope.pattern.RangeFieldItem.valid;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
-import com.exedio.cope.AbstractRuntimeModelTest;
+import com.exedio.cope.TestWithEnvironment;
 import java.util.Arrays;
 import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-public class RangeFieldNullTest extends AbstractRuntimeModelTest
+public class RangeFieldNullTest extends TestWithEnvironment
 {
 	public RangeFieldNullTest()
 	{

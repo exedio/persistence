@@ -30,11 +30,11 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
-import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.Model;
+import com.exedio.cope.TestWithEnvironment;
 import org.junit.Test;
 
-public class RecursiveTest extends AbstractRuntimeModelTest
+public class RecursiveTest extends TestWithEnvironment
 {
 	public static final Model MODEL = new Model(TYPE);
 

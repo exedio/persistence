@@ -34,11 +34,11 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.fail;
 
-import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.Join;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Query;
 import com.exedio.cope.SetValue;
+import com.exedio.cope.TestWithEnvironment;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -46,7 +46,7 @@ import java.util.Date;
 import org.junit.Before;
 import org.junit.Test;
 
-public class LimitedListFieldTest extends AbstractRuntimeModelTest
+public class LimitedListFieldTest extends TestWithEnvironment
 {
 	public LimitedListFieldTest()
 	{

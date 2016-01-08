@@ -20,10 +20,10 @@ package com.exedio.cope.serialize;
 
 import static org.junit.Assert.assertEquals;
 
-import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.Cope;
 import com.exedio.cope.Item;
 import com.exedio.cope.Query;
+import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.pattern.ListField;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -34,7 +34,7 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-public class SerializationSizeTest extends AbstractRuntimeModelTest
+public class SerializationSizeTest extends TestWithEnvironment
 {
 	public SerializationSizeTest()
 	{

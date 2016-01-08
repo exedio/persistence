@@ -28,7 +28,7 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-public class CheckConstraintTest extends AbstractRuntimeModelTest
+public class CheckConstraintTest extends TestWithEnvironment
 {
 	public CheckConstraintTest()
 	{

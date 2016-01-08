@@ -22,14 +22,14 @@ import static com.exedio.cope.sampler.Stuff.MODEL;
 import static com.exedio.cope.sampler.Stuff.sampler;
 import static com.exedio.cope.sampler.Stuff.samplerModel;
 
-import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.ConnectProperties;
+import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.util.Properties;
 import java.util.Collection;
 import org.junit.After;
 import org.junit.Before;
 
-public abstract class ConnectedTest extends AbstractRuntimeModelTest
+public abstract class ConnectedTest extends TestWithEnvironment
 {
 	ConnectedTest()
 	{

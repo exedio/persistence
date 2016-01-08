@@ -35,7 +35,7 @@ import java.util.HashSet;
 import java.util.Set;
 import org.junit.Test;
 
-public class SequenceTest extends AbstractRuntimeModelTest
+public class SequenceTest extends TestWithEnvironment
 {
 	public SequenceTest()
 	{

@@ -26,7 +26,7 @@ import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
 @Category(AllButSomeTests.class)
-public class ProtocolWriter extends AbstractRuntimeModelTest
+public class ProtocolWriter extends TestWithEnvironment
 {
 	public ProtocolWriter()
 	{

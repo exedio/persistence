@@ -32,7 +32,7 @@ import java.sql.SQLException;
 import org.junit.After;
 import org.junit.Test;
 
-public class SchemaInfoConnectionTest extends AbstractRuntimeModelTest
+public class SchemaInfoConnectionTest extends TestWithEnvironment
 {
 	public SchemaInfoConnectionTest()
 	{

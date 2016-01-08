@@ -29,7 +29,6 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.fail;
 
-import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.Condition;
 import com.exedio.cope.ConstraintViolationException;
 import com.exedio.cope.IntegrityViolationException;
@@ -37,10 +36,11 @@ import com.exedio.cope.Item;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Model;
 import com.exedio.cope.SetValue;
+import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.UniqueViolationException;
 import org.junit.Test;
 
-public class MultiItemFieldTest extends AbstractRuntimeModelTest
+public class MultiItemFieldTest extends TestWithEnvironment
 {
 	static final Model MODEL = new Model(MultiItemFieldItem.TYPE,
 			AnCascadeItem.TYPE,

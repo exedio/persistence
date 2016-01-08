@@ -30,14 +30,14 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertSame;
 
-import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
+import com.exedio.cope.TestWithEnvironment;
 import java.util.Arrays;
 import org.junit.Before;
 import org.junit.Test;
 
-public class ItemSerializationTest extends AbstractRuntimeModelTest
+public class ItemSerializationTest extends TestWithEnvironment
 {
 	static final Model MODEL = new Model(ItemSerializationItem.TYPE, ItemSerializationItem2.TYPE);
 

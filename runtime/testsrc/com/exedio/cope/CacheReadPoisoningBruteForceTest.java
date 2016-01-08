@@ -31,7 +31,7 @@ import org.junit.experimental.categories.Category;
 
 @Category({AllButSomeTests.class,CacheReadPoisoningBruteForcePackageTest.class})
 @SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
-public class CacheReadPoisoningBruteForceTest extends AbstractRuntimeModelTest
+public class CacheReadPoisoningBruteForceTest extends TestWithEnvironment
 {
 	public CacheReadPoisoningBruteForceTest()
 	{

@@ -24,10 +24,10 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertSame;
 
-import com.exedio.cope.AbstractRuntimeModelTest;
+import com.exedio.cope.TestWithEnvironment;
 import org.junit.Test;
 
-public final class MediaPathLocatorTest extends AbstractRuntimeModelTest
+public final class MediaPathLocatorTest extends TestWithEnvironment
 {
 	public MediaPathLocatorTest()
 	{

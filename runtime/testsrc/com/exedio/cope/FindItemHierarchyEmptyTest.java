@@ -23,7 +23,7 @@ import static org.junit.Assert.assertSame;
 import org.junit.Before;
 import org.junit.Test;
 
-public class FindItemHierarchyEmptyTest extends AbstractRuntimeModelTest
+public class FindItemHierarchyEmptyTest extends TestWithEnvironment
 {
 	public FindItemHierarchyEmptyTest()
 	{

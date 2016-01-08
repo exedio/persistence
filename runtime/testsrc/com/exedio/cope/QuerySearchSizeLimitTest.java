@@ -27,7 +27,7 @@ import com.exedio.cope.util.Day;
 import org.junit.Before;
 import org.junit.Test;
 
-public class QuerySearchSizeLimitTest extends AbstractRuntimeModelTest
+public class QuerySearchSizeLimitTest extends TestWithEnvironment
 {
 	public QuerySearchSizeLimitTest()
 	{

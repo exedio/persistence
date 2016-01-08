@@ -29,15 +29,15 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Model;
 import com.exedio.cope.SchemaInfo;
+import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.misc.Computed;
 import java.util.Arrays;
 import org.junit.Test;
 
-public class SingletonTest extends AbstractRuntimeModelTest
+public class SingletonTest extends TestWithEnvironment
 {
 	static final Model MODEL = new Model(SingletonItem.TYPE);
 

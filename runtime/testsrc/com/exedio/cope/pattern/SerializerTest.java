@@ -31,11 +31,11 @@ import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
-import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Model;
 import com.exedio.cope.SchemaInfo;
 import com.exedio.cope.SetValue;
+import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.misc.Computed;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -43,7 +43,7 @@ import java.util.Map;
 import org.junit.Before;
 import org.junit.Test;
 
-public class SerializerTest extends AbstractRuntimeModelTest
+public class SerializerTest extends TestWithEnvironment
 {
 	static final Model MODEL = new Model(TYPE);
 

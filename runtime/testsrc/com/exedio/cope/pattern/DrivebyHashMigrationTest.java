@@ -27,12 +27,12 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Model;
+import com.exedio.cope.TestWithEnvironment;
 import org.junit.Test;
 
-public class DrivebyHashMigrationTest extends AbstractRuntimeModelTest
+public class DrivebyHashMigrationTest extends TestWithEnvironment
 {
 	private static final Model MODEL = new Model(TYPE);
 

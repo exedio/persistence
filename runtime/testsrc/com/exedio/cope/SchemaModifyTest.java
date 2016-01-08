@@ -28,7 +28,7 @@ import com.exedio.dsmf.Constraint;
 import com.exedio.dsmf.Schema;
 import org.junit.Test;
 
-public class SchemaModifyTest extends AbstractRuntimeModelTest
+public class SchemaModifyTest extends TestWithEnvironment
 {
 	public SchemaModifyTest()
 	{

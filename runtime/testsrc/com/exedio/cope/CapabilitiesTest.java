@@ -28,7 +28,7 @@ import static org.junit.Assert.fail;
 import java.sql.SQLException;
 import org.junit.Test;
 
-public class CapabilitiesTest extends AbstractRuntimeModelTest
+public class CapabilitiesTest extends TestWithEnvironment
 {
 	public CapabilitiesTest()
 	{

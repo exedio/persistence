@@ -35,7 +35,7 @@ import java.sql.Statement;
 import org.junit.After;
 import org.junit.Test;
 
-public class SchemaNamePolymorphicTest extends AbstractRuntimeModelTest
+public class SchemaNamePolymorphicTest extends TestWithEnvironment
 {
 	public static final Model MODEL = new Model(
 			SchemaNamePolymorphicSuperItem.TYPE,

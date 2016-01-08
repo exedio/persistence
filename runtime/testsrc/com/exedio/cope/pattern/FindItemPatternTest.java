@@ -23,14 +23,14 @@ import static com.exedio.cope.pattern.ListFieldItem.stringsParent;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
-import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.Item;
 import com.exedio.cope.NoSuchIDException;
+import com.exedio.cope.TestWithEnvironment;
 import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-public class FindItemPatternTest extends AbstractRuntimeModelTest
+public class FindItemPatternTest extends TestWithEnvironment
 {
 	public FindItemPatternTest()
 	{

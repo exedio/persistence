@@ -30,7 +30,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 @SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
-public class DataFinalTest extends AbstractRuntimeModelTest
+public class DataFinalTest extends TestWithEnvironment
 {
 	private static final Model MODEL = new Model(DataFinalItem.TYPE);
 	private static final DataField data = DataFinalItem.data;

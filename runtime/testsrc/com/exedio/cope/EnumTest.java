@@ -28,7 +28,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 @SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
-public class EnumTest extends AbstractRuntimeModelTest
+public class EnumTest extends TestWithEnvironment
 {
 	static final Model MODEL = new Model(EnumItem.TYPE, EnumItem2.TYPE);
 

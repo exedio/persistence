@@ -32,7 +32,7 @@ import com.exedio.cope.util.Day;
 import com.exedio.dsmf.SQLRuntimeException;
 import org.junit.Test;
 
-public class QueryGroupingTest extends AbstractRuntimeModelTest
+public class QueryGroupingTest extends TestWithEnvironment
 {
 	static final Model MODEL = new Model( TYPE );
 

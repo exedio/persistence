@@ -23,12 +23,12 @@ import static com.exedio.cope.pattern.MediaLocatorAssert.assertLocator;
 import static com.exedio.cope.pattern.MediaUrlItem.fileFinger;
 import static org.junit.Assert.assertEquals;
 
-import com.exedio.cope.AbstractRuntimeModelTest;
+import com.exedio.cope.TestWithEnvironment;
 import java.util.Date;
 import org.junit.Before;
 import org.junit.Test;
 
-public final class MediaUrlFingerOffsetTest extends AbstractRuntimeModelTest
+public final class MediaUrlFingerOffsetTest extends TestWithEnvironment
 {
 	public MediaUrlFingerOffsetTest()
 	{

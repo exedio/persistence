@@ -38,7 +38,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 @SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
-public class MinusLongTest extends AbstractRuntimeModelTest
+public class MinusLongTest extends TestWithEnvironment
 {
 	static final Model MODEL = new Model(TYPE);
 

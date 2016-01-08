@@ -29,7 +29,7 @@ import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import com.exedio.cope.AbstractRuntimeModelTest;
+import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.pattern.Dispatcher.Run;
 import com.exedio.cope.tojunit.TestLogAppender;
 import com.exedio.cope.util.AssertionErrorJobContext;
@@ -46,7 +46,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-public class DispatcherTest extends AbstractRuntimeModelTest
+public class DispatcherTest extends TestWithEnvironment
 {
 	private static final Dispatcher.Config config = new Dispatcher.Config(3, 2);
 

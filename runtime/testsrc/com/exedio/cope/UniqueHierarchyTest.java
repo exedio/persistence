@@ -30,7 +30,7 @@ import org.junit.Test;
  *
  * @author Ralf Wiebicke
  */
-public class UniqueHierarchyTest extends AbstractRuntimeModelTest
+public class UniqueHierarchyTest extends TestWithEnvironment
 {
 	private static final Model MODEL = new Model(UniqueHierarchySuperItem.TYPE, UniqueHierarchySubItem.TYPE);
 

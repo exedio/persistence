@@ -27,14 +27,14 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Model;
+import com.exedio.cope.TestWithEnvironment;
 import java.util.Arrays;
 import org.junit.Before;
 import org.junit.Test;
 
-public class MD5Test extends AbstractRuntimeModelTest
+public class MD5Test extends TestWithEnvironment
 {
 	public static final Model MODEL = new Model(TYPE);
 

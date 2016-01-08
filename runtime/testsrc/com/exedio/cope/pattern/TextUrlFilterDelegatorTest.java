@@ -29,8 +29,8 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.Model;
+import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.UniqueViolationException;
 import com.exedio.cope.pattern.MediaPath.NotFound;
 import java.io.IOException;
@@ -41,7 +41,7 @@ import javax.servlet.ServletOutputStream;
 import org.junit.Before;
 import org.junit.Test;
 
-public class TextUrlFilterDelegatorTest extends AbstractRuntimeModelTest
+public class TextUrlFilterDelegatorTest extends TestWithEnvironment
 {
 	static final Model MODEL = new Model(TYPE);
 

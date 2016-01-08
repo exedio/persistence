@@ -28,7 +28,7 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-public class StartsWithConditionTest extends AbstractRuntimeModelTest
+public class StartsWithConditionTest extends TestWithEnvironment
 {
 	public StartsWithConditionTest()
 	{

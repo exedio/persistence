@@ -35,11 +35,11 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.fail;
 
-import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Field;
 import com.exedio.cope.Model;
 import com.exedio.cope.Pattern;
+import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.Type;
 import com.exedio.cope.pattern.DynamicModel.Enum;
 import com.exedio.cope.pattern.DynamicModel.ValueType;
@@ -47,7 +47,7 @@ import java.util.Arrays;
 import org.junit.Before;
 import org.junit.Test;
 
-public class DynamicModelTest extends AbstractRuntimeModelTest
+public class DynamicModelTest extends TestWithEnvironment
 {
 	public static final Model MODEL = new Model(TYPE, DynamicModelLocalizationItem.TYPE);
 

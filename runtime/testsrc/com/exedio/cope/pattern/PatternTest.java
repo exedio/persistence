@@ -28,13 +28,13 @@ import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
+import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.Type;
 import org.junit.Test;
 
-public class PatternTest extends AbstractRuntimeModelTest
+public class PatternTest extends TestWithEnvironment
 {
 	public static final Model MODEL = new Model(PatternTestItem.TYPE);
 

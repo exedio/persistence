@@ -40,7 +40,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-public class DataTest extends AbstractRuntimeModelTest
+public class DataTest extends TestWithEnvironment
 {
 	public DataTest()
 	{

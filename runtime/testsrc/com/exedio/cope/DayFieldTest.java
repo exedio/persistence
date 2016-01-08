@@ -37,7 +37,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.RuleChain;
 
-public class DayFieldTest extends AbstractRuntimeModelTest
+public class DayFieldTest extends TestWithEnvironment
 {
 	public static final Model MODEL = new Model(DayItem.TYPE);
 

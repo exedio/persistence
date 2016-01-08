@@ -32,7 +32,7 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-public class PlusIntegerOrderNullTest extends AbstractRuntimeModelTest
+public class PlusIntegerOrderNullTest extends TestWithEnvironment
 {
 	public PlusIntegerOrderNullTest()
 	{

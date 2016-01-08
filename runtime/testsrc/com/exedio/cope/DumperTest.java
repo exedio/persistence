@@ -35,7 +35,7 @@ import java.io.IOException;
 import org.junit.Before;
 import org.junit.Test;
 
-public class DumperTest extends AbstractRuntimeModelTest
+public class DumperTest extends TestWithEnvironment
 {
 	private static final Model MODEL = new Model(TYPE, DumperSubItem.TYPE);
 

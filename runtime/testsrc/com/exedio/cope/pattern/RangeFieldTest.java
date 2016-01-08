@@ -30,11 +30,11 @@ import static com.exedio.cope.tojunit.Assert.assertContains;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
-import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.CheckViolationException;
+import com.exedio.cope.TestWithEnvironment;
 import org.junit.Test;
 
-public class RangeFieldTest extends AbstractRuntimeModelTest
+public class RangeFieldTest extends TestWithEnvironment
 {
 	public RangeFieldTest()
 	{

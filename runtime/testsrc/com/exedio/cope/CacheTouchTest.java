@@ -29,7 +29,7 @@ import static org.junit.Assert.fail;
 import org.junit.Before;
 import org.junit.Test;
 
-public class CacheTouchTest extends AbstractRuntimeModelTest
+public class CacheTouchTest extends TestWithEnvironment
 {
 	public CacheTouchTest()
 	{

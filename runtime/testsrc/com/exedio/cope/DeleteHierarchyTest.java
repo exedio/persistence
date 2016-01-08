@@ -24,7 +24,7 @@ import static org.junit.Assert.assertFalse;
 
 import org.junit.Test;
 
-public class DeleteHierarchyTest extends AbstractRuntimeModelTest
+public class DeleteHierarchyTest extends TestWithEnvironment
 {
 	static final Model MODEL = new Model(DeleteHierarchySource.TYPE, DeleteHierarchyTargetSuper.TYPE, DeleteHierarchyTargetSub.TYPE);
 

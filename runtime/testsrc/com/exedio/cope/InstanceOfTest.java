@@ -32,7 +32,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 @SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
-public class InstanceOfTest extends AbstractRuntimeModelTest
+public class InstanceOfTest extends TestWithEnvironment
 {
 	public InstanceOfTest()
 	{

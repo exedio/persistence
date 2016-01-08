@@ -21,11 +21,11 @@ package com.exedio.cope.pattern;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
-import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.Model;
+import com.exedio.cope.TestWithEnvironment;
 import org.junit.Test;
 
-public class CompositeDefaultTest extends AbstractRuntimeModelTest
+public class CompositeDefaultTest extends TestWithEnvironment
 {
 	static final Model MODEL = new Model(CompositeDefaultItem.TYPE);
 

@@ -26,7 +26,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 
-public abstract class AbstractRuntimeModelTest
+public abstract class TestWithEnvironment
 {
 	@Rule public final CopeRule copeRule;
 
@@ -37,7 +37,7 @@ public abstract class AbstractRuntimeModelTest
 
 	private final RuntimeTester tester;
 
-	public AbstractRuntimeModelTest(final Model model)
+	public TestWithEnvironment(final Model model)
 	{
 		copeRule = new CopeRule(model){
 			/**

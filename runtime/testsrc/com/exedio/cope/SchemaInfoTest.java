@@ -30,7 +30,7 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-public class SchemaInfoTest extends AbstractRuntimeModelTest
+public class SchemaInfoTest extends TestWithEnvironment
 {
 	public SchemaInfoTest()
 	{

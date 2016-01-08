@@ -27,7 +27,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-public class CopySelfTest extends AbstractRuntimeModelTest
+public class CopySelfTest extends TestWithEnvironment
 {
 	public CopySelfTest()
 	{

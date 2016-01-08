@@ -22,7 +22,7 @@ import static com.exedio.cope.tojunit.Assert.assertContains;
 
 import org.junit.Test;
 
-public class QueryKeyTest extends AbstractRuntimeModelTest
+public class QueryKeyTest extends TestWithEnvironment
 {
 	public QueryKeyTest()
 	{

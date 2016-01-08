@@ -34,7 +34,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 @SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
-public class DatabaseLogTest extends AbstractRuntimeModelTest
+public class DatabaseLogTest extends TestWithEnvironment
 {
 	public DatabaseLogTest()
 	{

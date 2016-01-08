@@ -25,13 +25,13 @@ import static com.exedio.cope.pattern.Price.storeOf;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
-import com.exedio.cope.AbstractRuntimeModelTest;
+import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.UniqueViolationException;
 import com.exedio.cope.pattern.BlockFieldUniqueModelTest.ABlock;
 import com.exedio.cope.pattern.BlockFieldUniqueModelTest.AnItem;
 import org.junit.Test;
 
-public class BlockFieldUniqueTest extends AbstractRuntimeModelTest
+public class BlockFieldUniqueTest extends TestWithEnvironment
 {
 	public BlockFieldUniqueTest()
 	{

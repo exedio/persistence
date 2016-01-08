@@ -27,7 +27,7 @@ import static org.junit.Assert.fail;
 import com.exedio.cope.pattern.ListField;
 import org.junit.Test;
 
-public class JoinWithInheritanceTest extends AbstractRuntimeModelTest
+public class JoinWithInheritanceTest extends TestWithEnvironment
 {
 	static final Model MODEL = new Model(
 			Container.TYPE,

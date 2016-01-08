@@ -45,7 +45,7 @@ import java.util.Date;
 import org.junit.Before;
 import org.junit.Test;
 
-public class DoubleTest extends AbstractRuntimeModelTest
+public class DoubleTest extends TestWithEnvironment
 {
 	public/*for web.xml*/ static final Model MODEL = new Model(DoubleItem.TYPE);
 

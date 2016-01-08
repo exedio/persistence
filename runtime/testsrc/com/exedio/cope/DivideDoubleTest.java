@@ -37,7 +37,7 @@ import static org.junit.Assert.fail;
 import org.junit.Before;
 import org.junit.Test;
 
-public class DivideDoubleTest extends AbstractRuntimeModelTest
+public class DivideDoubleTest extends TestWithEnvironment
 {
 	static final Model MODEL = new Model(TYPE);
 

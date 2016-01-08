@@ -42,7 +42,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 @SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
-public class DivideIntegerTest extends AbstractRuntimeModelTest
+public class DivideIntegerTest extends TestWithEnvironment
 {
 	static final Model MODEL = new Model(TYPE);
 

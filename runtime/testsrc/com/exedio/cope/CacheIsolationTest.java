@@ -27,7 +27,7 @@ import static org.junit.Assert.fail;
 import org.junit.Before;
 import org.junit.Test;
 
-public class CacheIsolationTest extends AbstractRuntimeModelTest
+public class CacheIsolationTest extends TestWithEnvironment
 {
 	public static final Model MODEL = new Model(CacheIsolationItem.TYPE);
 

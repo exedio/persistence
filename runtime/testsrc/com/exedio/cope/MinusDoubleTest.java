@@ -37,7 +37,7 @@ import static org.junit.Assert.fail;
 import org.junit.Before;
 import org.junit.Test;
 
-public class MinusDoubleTest extends AbstractRuntimeModelTest
+public class MinusDoubleTest extends TestWithEnvironment
 {
 	static final Model MODEL = new Model(TYPE);
 

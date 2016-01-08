@@ -32,7 +32,7 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-public class SelectBindTest extends AbstractRuntimeModelTest
+public class SelectBindTest extends TestWithEnvironment
 {
 	public SelectBindTest()
 	{

@@ -28,13 +28,13 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Model;
+import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.util.AssertionErrorJobContext;
 import org.junit.Test;
 
-public class NestedHashMigrationTest extends AbstractRuntimeModelTest
+public class NestedHashMigrationTest extends TestWithEnvironment
 {
 	private static final Model MODEL = new Model(TYPE);
 

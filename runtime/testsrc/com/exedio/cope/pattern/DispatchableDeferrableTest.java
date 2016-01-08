@@ -20,16 +20,16 @@ package com.exedio.cope.pattern;
 
 import static org.junit.Assert.assertEquals;
 
-import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.BooleanField;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
+import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.util.JobContexts;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class DispatchableDeferrableTest extends AbstractRuntimeModelTest
+public class DispatchableDeferrableTest extends TestWithEnvironment
 {
 	static final Model MODEL = new Model(AnItem.TYPE);
 

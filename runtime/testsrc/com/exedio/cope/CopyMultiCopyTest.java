@@ -27,7 +27,7 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-public class CopyMultiCopyTest extends AbstractRuntimeModelTest
+public class CopyMultiCopyTest extends TestWithEnvironment
 {
 	public CopyMultiCopyTest()
 	{

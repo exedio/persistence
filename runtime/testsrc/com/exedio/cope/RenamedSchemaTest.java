@@ -40,7 +40,7 @@ import com.exedio.dsmf.Table;
 import java.util.Iterator;
 import org.junit.Test;
 
-public class RenamedSchemaTest extends AbstractRuntimeModelTest
+public class RenamedSchemaTest extends TestWithEnvironment
 {
 	private static final Model MODEL = new Model(TYPE, RenamedSchemaTargetItem.TYPE);
 

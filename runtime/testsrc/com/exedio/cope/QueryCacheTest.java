@@ -31,7 +31,7 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-public class QueryCacheTest extends AbstractRuntimeModelTest
+public class QueryCacheTest extends TestWithEnvironment
 {
 	public QueryCacheTest()
 	{

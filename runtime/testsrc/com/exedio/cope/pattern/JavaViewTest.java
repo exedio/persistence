@@ -32,9 +32,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.fail;
 
-import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Model;
+import com.exedio.cope.TestWithEnvironment;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.ParameterizedType;
 import java.util.Arrays;
@@ -42,7 +42,7 @@ import java.util.HashMap;
 import org.junit.Before;
 import org.junit.Test;
 
-public class JavaViewTest extends AbstractRuntimeModelTest
+public class JavaViewTest extends TestWithEnvironment
 {
 	private static final Model MODEL = new Model(TYPE, JavaViewItem2.TYPE);
 

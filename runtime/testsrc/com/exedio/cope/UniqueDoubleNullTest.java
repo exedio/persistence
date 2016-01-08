@@ -28,7 +28,7 @@ import org.junit.Test;
 /**
  * See http://bugs.mysql.com/bug.php?id=8173 as well.
  */
-public class UniqueDoubleNullTest extends AbstractRuntimeModelTest
+public class UniqueDoubleNullTest extends TestWithEnvironment
 {
 	static final Model MODEL = new Model(TYPE);
 

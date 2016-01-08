@@ -32,13 +32,13 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.fail;
 
-import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.SchemaInfo;
+import com.exedio.cope.TestWithEnvironment;
 import org.junit.Test;
 
-public class FeatureFieldTest extends AbstractRuntimeModelTest
+public class FeatureFieldTest extends TestWithEnvironment
 {
 	public FeatureFieldTest()
 	{

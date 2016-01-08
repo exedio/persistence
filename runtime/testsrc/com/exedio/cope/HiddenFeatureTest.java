@@ -28,7 +28,7 @@ import static org.junit.Assert.assertSame;
 import com.exedio.cope.misc.HiddenFeatures;
 import org.junit.Test;
 
-public class HiddenFeatureTest extends AbstractRuntimeModelTest
+public class HiddenFeatureTest extends TestWithEnvironment
 {
 	public static final Model MODEL = new Model(HiddenFeatureSuperItem.TYPE, HiddenFeatureSubItem.TYPE);
 

@@ -37,12 +37,12 @@ import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.Join;
 import com.exedio.cope.Model;
 import com.exedio.cope.Query;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.StringLengthViolationException;
+import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.misc.Computed;
 import com.exedio.cope.pattern.Hash.InvalidPlainTextException;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -51,7 +51,7 @@ import java.util.Arrays;
 import org.junit.Before;
 import org.junit.Test;
 
-public class HashTest extends AbstractRuntimeModelTest
+public class HashTest extends TestWithEnvironment
 {
 	public static final Model MODEL = new Model(HashItem.TYPE, HashItemHolder.TYPE);
 

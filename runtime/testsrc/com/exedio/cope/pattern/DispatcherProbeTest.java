@@ -21,11 +21,11 @@ package com.exedio.cope.pattern;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
-import com.exedio.cope.AbstractRuntimeModelTest;
+import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.util.EmptyJobContext;
 import org.junit.Test;
 
-public class DispatcherProbeTest extends AbstractRuntimeModelTest
+public class DispatcherProbeTest extends TestWithEnvironment
 {
 	private static final Dispatcher.Config config = new Dispatcher.Config();
 

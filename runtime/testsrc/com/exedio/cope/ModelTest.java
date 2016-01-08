@@ -31,7 +31,7 @@ import org.junit.Test;
 /**
  * @author baumgaertel
  */
-public class ModelTest extends AbstractRuntimeModelTest
+public class ModelTest extends TestWithEnvironment
 {
 	static class ModelTestItem extends Item
 	{

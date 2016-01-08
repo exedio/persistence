@@ -25,10 +25,10 @@ import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
-import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
+import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.Type;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Iterator;
@@ -39,7 +39,7 @@ import org.junit.Test;
  * Tests complicated situations for the setter.
  */
 @SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
-public class ListFieldTest2 extends AbstractRuntimeModelTest
+public class ListFieldTest2 extends TestWithEnvironment
 {
 	public ListFieldTest2()
 	{

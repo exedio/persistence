@@ -34,7 +34,6 @@ import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import com.exedio.cope.AbstractRuntimeModelTest;
 import com.exedio.cope.CheckConstraint;
 import com.exedio.cope.Cope;
 import com.exedio.cope.DataField;
@@ -42,13 +41,14 @@ import com.exedio.cope.DateField;
 import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.Model;
 import com.exedio.cope.StringField;
+import com.exedio.cope.TestWithEnvironment;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Date;
 import org.junit.Test;
 
-public class MediaFinalTest extends AbstractRuntimeModelTest
+public class MediaFinalTest extends TestWithEnvironment
 {
 	private static final Model MODEL = new Model(TYPE);
 
