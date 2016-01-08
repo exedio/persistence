@@ -66,6 +66,14 @@ public class TestLogAppender extends AppenderSkeleton
 		assertEquals(msg, event.getRenderedMessage());
 	}
 
+	public void assertMessageMs(final Level level, final String msg)
+	{
+		assertTrue("empty", !events.isEmpty());
+		final LoggingEvent event = events.remove(0);
+		assertEquals(level, event.getLevel());
+		assertEquals(msg, event.getRenderedMessage().replaceAll("[0-9]ms", "XXms"));
+	}
+
 	public void assertEmpty()
 	{
 		assertEquals(Collections.EMPTY_LIST, events);

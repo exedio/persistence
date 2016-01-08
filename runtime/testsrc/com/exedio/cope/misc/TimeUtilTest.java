@@ -21,7 +21,7 @@ package com.exedio.cope.misc;
 import static com.exedio.cope.misc.TimeUtil.toMillies;
 import static org.junit.Assert.assertEquals;
 
-import com.exedio.cope.UtilTestLogAppender;
+import com.exedio.cope.tojunit.TestLogAppender;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.junit.After;
@@ -31,11 +31,11 @@ import org.junit.Test;
 public class TimeUtilTest
 {
 	private static final Logger logger = Logger.getLogger(TimeUtil.class);
-	UtilTestLogAppender log = null;
+	TestLogAppender log = null;
 
 	@Before public final void setUp()
 	{
-		log = new UtilTestLogAppender();
+		log = new TestLogAppender();
 		logger.addAppender(log);
 	}
 

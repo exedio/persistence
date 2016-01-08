@@ -22,6 +22,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 import com.exedio.cope.Timer.Interval;
+import com.exedio.cope.tojunit.TestLogAppender;
 import org.apache.log4j.Level;
 import org.junit.After;
 import org.junit.Before;
@@ -34,11 +35,11 @@ public class TimerTest
 	private static final Logger logger = LoggerFactory.getLogger(TimerTest.class);
 	private static final org.apache.log4j.Logger loggerImpl = org.apache.log4j.Logger.getLogger(TimerTest.class);
 
-	UtilTestLogAppender log = null;
+	TestLogAppender log = null;
 
 	@Before public final void setUp()
 	{
-		log = new UtilTestLogAppender();
+		log = new TestLogAppender();
 		loggerImpl.addAppender(log);
 	}
 

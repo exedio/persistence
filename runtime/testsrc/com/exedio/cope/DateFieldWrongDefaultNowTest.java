@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import static com.exedio.cope.TypesBound.newType;
 
+import com.exedio.cope.tojunit.TestLogAppender;
 import java.util.Date;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
@@ -30,11 +31,11 @@ import org.junit.Test;
 public class DateFieldWrongDefaultNowTest
 {
 	private static final Logger logger = Logger.getLogger(DateField.class);
-	UtilTestLogAppender log = null;
+	TestLogAppender log = null;
 
 	@Before public final void setUp()
 	{
-		log = new UtilTestLogAppender();
+		log = new TestLogAppender();
 		logger.addAppender(log);
 	}
 

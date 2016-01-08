@@ -36,7 +36,7 @@ import static org.junit.Assert.fail;
 
 import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.Model;
-import com.exedio.cope.UtilTestLogAppender;
+import com.exedio.cope.tojunit.TestLogAppender;
 import java.io.File;
 import java.util.Date;
 import org.apache.log4j.Logger;
@@ -55,11 +55,11 @@ public class ConnectTokenTest
 	}
 
 	private static final Logger logger = Logger.getLogger(ConnectToken.class);
-	UtilTestLogAppender log = null;
+	TestLogAppender log = null;
 
 	@Before public final void setUp()
 	{
-		log = new UtilTestLogAppender();
+		log = new TestLogAppender();
 		logger.addAppender(log);
 		setProperties(model, props);
 	}

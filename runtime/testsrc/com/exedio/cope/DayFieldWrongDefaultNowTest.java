@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import static com.exedio.cope.TypesBound.newType;
 
+import com.exedio.cope.tojunit.TestLogAppender;
 import com.exedio.cope.util.Day;
 import java.util.TimeZone;
 import org.apache.log4j.Level;
@@ -31,11 +32,11 @@ import org.junit.Test;
 public class DayFieldWrongDefaultNowTest
 {
 	private static final Logger logger = Logger.getLogger(DayField.class);
-	UtilTestLogAppender log = null;
+	TestLogAppender log = null;
 
 	@Before public final void setUp()
 	{
-		log = new UtilTestLogAppender();
+		log = new TestLogAppender();
 		logger.addAppender(log);
 	}
 
