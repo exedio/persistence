@@ -18,7 +18,6 @@
 
 package com.exedio.cope.pattern;
 
-import static com.exedio.cope.EqualsAssert.assertEqualBits;
 import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
 import static com.exedio.cope.pattern.JavaViewItem.TYPE;
 import static com.exedio.cope.pattern.JavaViewItem.map;
@@ -27,6 +26,7 @@ import static com.exedio.cope.pattern.JavaViewItem.number;
 import static com.exedio.cope.pattern.JavaViewItem.numberPrimitive;
 import static com.exedio.cope.pattern.JavaViewItem.numberString;
 import static com.exedio.cope.pattern.JavaViewItem.privat;
+import static com.exedio.cope.tojunit.EqualsAssert.assertEqualBits;
 import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;

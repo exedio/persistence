@@ -33,8 +33,8 @@ import static com.exedio.cope.DivideLongItem.divideBC;
 import static com.exedio.cope.DivideLongItem.numA;
 import static com.exedio.cope.DivideLongItem.numB;
 import static com.exedio.cope.DivideLongItem.numC;
-import static com.exedio.cope.EqualsAssert.assertEqualsAndHash;
-import static com.exedio.cope.EqualsAssert.assertNotEqualsAndHash;
+import static com.exedio.cope.tojunit.EqualsAssert.assertEqualsAndHash;
+import static com.exedio.cope.tojunit.EqualsAssert.assertNotEqualsAndHash;
 import static org.junit.Assert.assertEquals;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;

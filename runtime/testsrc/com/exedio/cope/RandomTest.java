@@ -20,8 +20,8 @@ package com.exedio.cope;
 
 import static com.exedio.cope.Assert.list;
 import static com.exedio.cope.CompareConditionItem.TYPE;
-import static com.exedio.cope.EqualsAssert.assertEqualsAndHash;
-import static com.exedio.cope.EqualsAssert.assertNotEqualsAndHash;
+import static com.exedio.cope.tojunit.EqualsAssert.assertEqualsAndHash;
+import static com.exedio.cope.tojunit.EqualsAssert.assertNotEqualsAndHash;
 import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;

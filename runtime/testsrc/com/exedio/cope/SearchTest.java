@@ -20,14 +20,14 @@ package com.exedio.cope;
 
 import static com.exedio.cope.Assert.assertContainsUnmodifiable;
 import static com.exedio.cope.Assert.list;
-import static com.exedio.cope.EqualsAssert.assertEqualsAndHash;
-import static com.exedio.cope.EqualsAssert.assertNotEqualsAndHash;
 import static com.exedio.cope.RuntimeAssert.assertCondition;
 import static com.exedio.cope.testmodel.AttributeItem.TYPE;
 import static com.exedio.cope.testmodel.AttributeItem.someInteger;
 import static com.exedio.cope.testmodel.AttributeItem.someNotNullInteger;
 import static com.exedio.cope.testmodel.AttributeItem.someNotNullString;
 import static com.exedio.cope.testmodel.AttributeItem.someString;
+import static com.exedio.cope.tojunit.EqualsAssert.assertEqualsAndHash;
+import static com.exedio.cope.tojunit.EqualsAssert.assertNotEqualsAndHash;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 

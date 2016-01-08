@@ -21,8 +21,6 @@ package com.exedio.cope;
 import static com.exedio.cope.Assert.assertContains;
 import static com.exedio.cope.Assert.assertEqualsUnmodifiable;
 import static com.exedio.cope.Assert.list;
-import static com.exedio.cope.EqualsAssert.assertEqualsAndHash;
-import static com.exedio.cope.EqualsAssert.assertNotEqualsAndHash;
 import static com.exedio.cope.MinusIntegerItem.TYPE;
 import static com.exedio.cope.MinusIntegerItem.numA;
 import static com.exedio.cope.MinusIntegerItem.numB;
@@ -30,6 +28,8 @@ import static com.exedio.cope.MinusIntegerItem.numC;
 import static com.exedio.cope.MinusIntegerItem.viewAB;
 import static com.exedio.cope.MinusIntegerItem.viewAC;
 import static com.exedio.cope.MinusIntegerItem.viewBC;
+import static com.exedio.cope.tojunit.EqualsAssert.assertEqualsAndHash;
+import static com.exedio.cope.tojunit.EqualsAssert.assertNotEqualsAndHash;
 import static java.lang.Integer.valueOf;
 import static org.junit.Assert.assertEquals;
 

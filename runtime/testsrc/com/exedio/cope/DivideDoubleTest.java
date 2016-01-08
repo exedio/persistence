@@ -28,9 +28,9 @@ import static com.exedio.cope.DivideDoubleItem.divideBC;
 import static com.exedio.cope.DivideDoubleItem.numA;
 import static com.exedio.cope.DivideDoubleItem.numB;
 import static com.exedio.cope.DivideDoubleItem.numC;
-import static com.exedio.cope.EqualsAssert.assertEqualsAndHash;
-import static com.exedio.cope.EqualsAssert.assertNotEqualsAndHash;
 import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
+import static com.exedio.cope.tojunit.EqualsAssert.assertEqualsAndHash;
+import static com.exedio.cope.tojunit.EqualsAssert.assertNotEqualsAndHash;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 

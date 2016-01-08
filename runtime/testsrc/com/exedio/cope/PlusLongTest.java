@@ -29,8 +29,6 @@ import static com.exedio.cope.AbstractRuntimeTest.l6;
 import static com.exedio.cope.Assert.assertContains;
 import static com.exedio.cope.Assert.assertEqualsUnmodifiable;
 import static com.exedio.cope.Assert.list;
-import static com.exedio.cope.EqualsAssert.assertEqualsAndHash;
-import static com.exedio.cope.EqualsAssert.assertNotEqualsAndHash;
 import static com.exedio.cope.PlusLongItem.TYPE;
 import static com.exedio.cope.PlusLongItem.multiplyB9;
 import static com.exedio.cope.PlusLongItem.multiplyBC;
@@ -43,6 +41,8 @@ import static com.exedio.cope.PlusLongItem.plusABC;
 import static com.exedio.cope.PlusLongItem.plusABaC;
 import static com.exedio.cope.PlusLongItem.plusAC;
 import static com.exedio.cope.PlusLongItem.plusBC;
+import static com.exedio.cope.tojunit.EqualsAssert.assertEqualsAndHash;
+import static com.exedio.cope.tojunit.EqualsAssert.assertNotEqualsAndHash;
 import static org.junit.Assert.assertEquals;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;

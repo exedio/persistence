@@ -27,8 +27,6 @@ import static com.exedio.cope.AbstractRuntimeTest.d6;
 import static com.exedio.cope.Assert.assertContains;
 import static com.exedio.cope.Assert.assertEqualsUnmodifiable;
 import static com.exedio.cope.Assert.list;
-import static com.exedio.cope.EqualsAssert.assertEqualsAndHash;
-import static com.exedio.cope.EqualsAssert.assertNotEqualsAndHash;
 import static com.exedio.cope.PlusDoubleItem.TYPE;
 import static com.exedio.cope.PlusDoubleItem.multiplyB9;
 import static com.exedio.cope.PlusDoubleItem.multiplyBC;
@@ -42,6 +40,8 @@ import static com.exedio.cope.PlusDoubleItem.plusABaC;
 import static com.exedio.cope.PlusDoubleItem.plusAC;
 import static com.exedio.cope.PlusDoubleItem.plusBC;
 import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
+import static com.exedio.cope.tojunit.EqualsAssert.assertEqualsAndHash;
+import static com.exedio.cope.tojunit.EqualsAssert.assertNotEqualsAndHash;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Before;

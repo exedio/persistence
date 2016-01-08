@@ -35,9 +35,9 @@ import static com.exedio.cope.CompareFunctionConditionItem.longA;
 import static com.exedio.cope.CompareFunctionConditionItem.longB;
 import static com.exedio.cope.CompareFunctionConditionItem.stringA;
 import static com.exedio.cope.CompareFunctionConditionItem.stringB;
-import static com.exedio.cope.EqualsAssert.assertEqualsAndHash;
-import static com.exedio.cope.EqualsAssert.assertNotEqualsAndHash;
 import static com.exedio.cope.RuntimeAssert.assertCondition;
+import static com.exedio.cope.tojunit.EqualsAssert.assertEqualsAndHash;
+import static com.exedio.cope.tojunit.EqualsAssert.assertNotEqualsAndHash;
 import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
 
