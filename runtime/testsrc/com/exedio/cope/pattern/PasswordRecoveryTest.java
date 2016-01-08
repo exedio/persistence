@@ -33,6 +33,7 @@ import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import com.exedio.cope.ClockRule;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Model;
 import com.exedio.cope.TestWithEnvironment;
@@ -40,12 +41,12 @@ import com.exedio.cope.Type;
 import com.exedio.cope.misc.Computed;
 import com.exedio.cope.pattern.PasswordRecovery.Config;
 import com.exedio.cope.pattern.PasswordRecovery.Token;
-import com.exedio.cope.util.Clock;
 import java.util.Arrays;
 import java.util.Date;
-import org.junit.After;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.RuleChain;
 
 public class PasswordRecoveryTest extends TestWithEnvironment
 {
@@ -61,6 +62,10 @@ public class PasswordRecoveryTest extends TestWithEnvironment
 		super(MODEL);
 	}
 
+	private final ClockRule clockRule = new ClockRule();
+
+	@Rule public final RuleChain ruleChain = RuleChain.outerRule(clockRule);
+
 	PasswordRecoveryItem i;
 	RelativeMockClockStrategy clock;
 
@@ -68,13 +73,7 @@ public class PasswordRecoveryTest extends TestWithEnvironment
 	{
 		i = new PasswordRecoveryItem("oldpass");
 		clock = new RelativeMockClockStrategy();
-		Clock.override(clock);
-	}
-
-	@SuppressWarnings("static-method")
-	@After public final void tearDown()
-	{
-		Clock.clearOverride();
+		clockRule.override(clock);
 	}
 
 	@Test public void testIt() throws Exception

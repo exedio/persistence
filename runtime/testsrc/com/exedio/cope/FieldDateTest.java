@@ -29,28 +29,26 @@ import static org.junit.Assert.fail;
 
 import com.exedio.cope.junit.AbsoluteMockClockStrategy;
 import com.exedio.cope.testmodel.AttributeItem;
-import com.exedio.cope.util.Clock;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import org.junit.After;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.RuleChain;
 
 public class FieldDateTest extends FieldTest
 {
+	private final ClockRule clockRule = new ClockRule();
+
+	@Rule public final RuleChain ruleChain = RuleChain.outerRule(clockRule);
+
 	private AbsoluteMockClockStrategy clock;
 
 	@Before public final void setUp()
 	{
 		clock = new AbsoluteMockClockStrategy();
-		Clock.override(clock);
-	}
-
-	@SuppressWarnings("static-method")
-	@After public final void tearDown()
-	{
-		Clock.clearOverride();
+		clockRule.override(clock);
 	}
 
 	@Test public void testSomeDate()

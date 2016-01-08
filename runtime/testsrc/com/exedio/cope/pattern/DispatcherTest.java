@@ -29,11 +29,11 @@ import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import com.exedio.cope.ClockRule;
 import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.pattern.Dispatcher.Run;
 import com.exedio.cope.tojunit.TestLogAppender;
 import com.exedio.cope.util.AssertionErrorJobContext;
-import com.exedio.cope.util.Clock;
 import com.exedio.cope.util.EmptyJobContext;
 import com.exedio.cope.util.JobContext;
 import com.exedio.cope.util.JobStop;
@@ -44,7 +44,9 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.RuleChain;
 
 public class DispatcherTest extends TestWithEnvironment
 {
@@ -54,6 +56,10 @@ public class DispatcherTest extends TestWithEnvironment
 	{
 		super(DispatcherModelTest.MODEL);
 	}
+
+	private final ClockRule clockRule = new ClockRule();
+
+	@Rule public final RuleChain ruleChain = RuleChain.outerRule(clockRule);
 
 	DispatcherItem item1;
 	DispatcherItem item2;
@@ -70,7 +76,7 @@ public class DispatcherTest extends TestWithEnvironment
 		item3 = new DispatcherItem("item3", false);
 		item4 = new DispatcherItem("item4", true);
 		clock = new RelativeMockClockStrategy();
-		Clock.override(clock);
+		clockRule.override(clock);
 		log = new TestLogAppender();
 		logger = Logger.getLogger(Dispatcher.class.getName() + '.' + toTarget.getID());
 		logger.addAppender(log);
@@ -81,7 +87,6 @@ public class DispatcherTest extends TestWithEnvironment
 		logger.removeAppender(log);
 		logger = null;
 		log = null;
-		Clock.clearOverride();
 	}
 
 	@Test public void testIt()

@@ -33,11 +33,11 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import com.exedio.cope.ClockRule;
 import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.junit.AbsoluteMockClockStrategy;
 import com.exedio.cope.pattern.Schedule.Interval;
 import com.exedio.cope.pattern.Schedule.Run;
-import com.exedio.cope.util.Clock;
 import com.exedio.cope.util.JobContext;
 import com.exedio.cope.util.JobStop;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -50,7 +50,9 @@ import java.util.Iterator;
 import java.util.List;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.RuleChain;
 
 public class ScheduleTest extends TestWithEnvironment
 {
@@ -58,6 +60,10 @@ public class ScheduleTest extends TestWithEnvironment
 	{
 		super(ScheduleModelTest.MODEL);
 	}
+
+	private final ClockRule clockRule = new ClockRule();
+
+	@Rule public final RuleChain ruleChain = RuleChain.outerRule(clockRule);
 
 	ScheduleItem item;
 	AbsoluteMockClockStrategy clock;
@@ -78,7 +84,7 @@ public class ScheduleTest extends TestWithEnvironment
 				report.getRunProgress().map(0),
 				report.getRunElapsed().map(5000l));
 		clock = new AbsoluteMockClockStrategy();
-		Clock.override(clock);
+		clockRule.override(clock);
 		expectedRuns = new ArrayList<>();
 		expectedRuns.add(new ExpectedRun(recentRun));
 		ScheduleItem.clearLogs();
@@ -88,7 +94,6 @@ public class ScheduleTest extends TestWithEnvironment
 	{
 		ScheduleItem.clearLogs();
 		expectedRuns = null;
-		Clock.clearOverride();
 	}
 
 	@Test public void testNoUpdateCounterColumn()

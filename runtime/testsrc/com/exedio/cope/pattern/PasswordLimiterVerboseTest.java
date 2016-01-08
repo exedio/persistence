@@ -28,15 +28,16 @@ import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import com.exedio.cope.ClockRule;
 import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.pattern.PasswordLimiter.ExceededException;
 import com.exedio.cope.pattern.PasswordLimiter.Refusal;
-import com.exedio.cope.util.Clock;
 import java.util.Date;
 import java.util.List;
-import org.junit.After;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.RuleChain;
 
 public class PasswordLimiterVerboseTest extends TestWithEnvironment
 {
@@ -44,6 +45,10 @@ public class PasswordLimiterVerboseTest extends TestWithEnvironment
 	{
 		super(PasswordLimiterModelTest.MODEL);
 	}
+
+	private final ClockRule clockRule = new ClockRule();
+
+	@Rule public final RuleChain ruleChain = RuleChain.outerRule(clockRule);
 
 	PasswordLimiterItem i;
 	PasswordLimiterItem i2;
@@ -54,13 +59,7 @@ public class PasswordLimiterVerboseTest extends TestWithEnvironment
 		i = new PasswordLimiterItem(PASSWORD);
 		i2 = new PasswordLimiterItem(PASSWORD2);
 		clock = new RelativeMockClockStrategy();
-		Clock.override(clock);
-	}
-
-	@SuppressWarnings("static-method")
-	@After public final void tearDown()
-	{
-		Clock.clearOverride();
+		clockRule.override(clock);
 	}
 
 	private static final String PASSWORD = "correctPassword8927365";

@@ -35,6 +35,7 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import com.exedio.cope.CheckConstraint;
+import com.exedio.cope.ClockRule;
 import com.exedio.cope.Cope;
 import com.exedio.cope.DataField;
 import com.exedio.cope.DataLengthViolationException;
@@ -43,14 +44,14 @@ import com.exedio.cope.SchemaInfo;
 import com.exedio.cope.StringField;
 import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.junit.AbsoluteMockClockStrategy;
-import com.exedio.cope.util.Clock;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Date;
-import org.junit.After;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.RuleChain;
 
 public class MediaDefaultTest extends TestWithEnvironment
 {
@@ -59,20 +60,18 @@ public class MediaDefaultTest extends TestWithEnvironment
 		super(MediaTest.MODEL);
 	}
 
+	private final ClockRule clockRule = new ClockRule();
+
+	@Rule public final RuleChain ruleChain = RuleChain.outerRule(clockRule);
+
 	AbsoluteMockClockStrategy clock;
 	protected MediaItem item;
 
 	@Before public final void setUp()
 	{
 		clock = new AbsoluteMockClockStrategy();
-		Clock.override(clock);
+		clockRule.override(clock);
 		item = new MediaItem("test media item");
-	}
-
-	@SuppressWarnings("static-method")
-	@After public final void tearDown()
-	{
-		Clock.clearOverride();
 	}
 
 	@Test public void testIt() throws IOException
