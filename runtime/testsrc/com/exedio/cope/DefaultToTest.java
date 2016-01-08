@@ -69,11 +69,10 @@ public class DefaultToTest extends TestWithEnvironment
 
 	@Rule public final RuleChain ruleChain = RuleChain.outerRule(clockRule);
 
-	private AbsoluteMockClockStrategy clock;
+	private final AbsoluteMockClockStrategy clock = new AbsoluteMockClockStrategy();
 
 	@Before public final void setUp()
 	{
-		clock = new AbsoluteMockClockStrategy();
 		clockRule.override(clock);
 	}
 

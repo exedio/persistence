@@ -67,12 +67,11 @@ public class PasswordRecoveryTest extends TestWithEnvironment
 	@Rule public final RuleChain ruleChain = RuleChain.outerRule(clockRule);
 
 	PasswordRecoveryItem i;
-	RelativeMockClockStrategy clock;
+	private final RelativeMockClockStrategy clock = new RelativeMockClockStrategy();
 
 	@Before public final void setUp()
 	{
 		i = new PasswordRecoveryItem("oldpass");
-		clock = new RelativeMockClockStrategy();
 		clockRule.override(clock);
 	}
 

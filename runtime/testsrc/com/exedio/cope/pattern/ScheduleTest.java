@@ -66,7 +66,7 @@ public class ScheduleTest extends TestWithEnvironment
 	@Rule public final RuleChain ruleChain = RuleChain.outerRule(clockRule);
 
 	ScheduleItem item;
-	AbsoluteMockClockStrategy clock;
+	private final AbsoluteMockClockStrategy clock = new AbsoluteMockClockStrategy();
 	ArrayList<ExpectedRun> expectedRuns;
 
 	@Before public final void setUp()
@@ -83,7 +83,6 @@ public class ScheduleTest extends TestWithEnvironment
 				report.getRunRun  ().map(date("2014/11/30-00:00")),
 				report.getRunProgress().map(0),
 				report.getRunElapsed().map(5000l));
-		clock = new AbsoluteMockClockStrategy();
 		clockRule.override(clock);
 		expectedRuns = new ArrayList<>();
 		expectedRuns.add(new ExpectedRun(recentRun));

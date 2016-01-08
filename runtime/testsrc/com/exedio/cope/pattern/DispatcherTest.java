@@ -65,7 +65,7 @@ public class DispatcherTest extends TestWithEnvironment
 	DispatcherItem item2;
 	DispatcherItem item3;
 	DispatcherItem item4;
-	RelativeMockClockStrategy clock;
+	private final RelativeMockClockStrategy clock = new RelativeMockClockStrategy();
 	Logger logger;
 	TestLogAppender log = null;
 
@@ -75,7 +75,6 @@ public class DispatcherTest extends TestWithEnvironment
 		item2 = new DispatcherItem("item2", true);
 		item3 = new DispatcherItem("item3", false);
 		item4 = new DispatcherItem("item4", true);
-		clock = new RelativeMockClockStrategy();
 		clockRule.override(clock);
 		log = new TestLogAppender();
 		logger = Logger.getLogger(Dispatcher.class.getName() + '.' + toTarget.getID());
