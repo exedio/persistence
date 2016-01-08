@@ -18,13 +18,13 @@
 
 package com.exedio.cope.pattern;
 
-import static com.exedio.cope.AssertUtil.assertEqualsUnmodifiable;
-import static com.exedio.cope.AssertUtil.list;
 import static com.exedio.cope.pattern.EnumSetFieldFinalTest.AnEnum.DE;
 import static com.exedio.cope.pattern.EnumSetFieldFinalTest.AnEnum.EN;
 import static com.exedio.cope.pattern.EnumSetFieldFinalTest.AnEnum.PL;
 import static com.exedio.cope.pattern.EnumSetFieldFinalTest.AnItem.TYPE;
 import static com.exedio.cope.pattern.EnumSetFieldFinalTest.AnItem.field;
+import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
+import static com.exedio.cope.tojunit.Assert.list;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 

@@ -18,10 +18,10 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.AssertUtil.assertContains;
-import static com.exedio.cope.AssertUtil.assertContainsList;
-import static com.exedio.cope.AssertUtil.assertUnmodifiable;
-import static com.exedio.cope.AssertUtil.sleepLongerThan;
+import static com.exedio.cope.tojunit.Assert.assertContains;
+import static com.exedio.cope.tojunit.Assert.assertContainsList;
+import static com.exedio.cope.tojunit.Assert.assertUnmodifiable;
+import static com.exedio.cope.tojunit.Assert.sleepLongerThan;
 import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;

@@ -18,10 +18,10 @@
 
 package com.exedio.cope.pattern;
 
-import static com.exedio.cope.AssertUtil.assertContains;
-import static com.exedio.cope.AssertUtil.assertEqualsUnmodifiable;
 import static com.exedio.cope.ItemField.DeletePolicy.CASCADE;
 import static com.exedio.cope.ItemField.DeletePolicy.FORBID;
+import static com.exedio.cope.tojunit.Assert.assertContains;
+import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
 import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;

@@ -18,9 +18,9 @@
 
 package com.exedio.cope.pattern;
 
-import static com.exedio.cope.AssertUtil.assertEqualsUnmodifiable;
 import static com.exedio.cope.pattern.PartOf.getDeclaredPartOfs;
 import static com.exedio.cope.pattern.PartOf.getPartOfs;
+import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
 import static java.util.Arrays.asList;
 
 import com.exedio.cope.ActivationParameters;

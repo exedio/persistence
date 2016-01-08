@@ -18,7 +18,7 @@
 
 package com.exedio.cope.junit;
 
-import static com.exedio.cope.AssertUtil.reserialize;
+import static com.exedio.cope.tojunit.Assert.reserialize;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertSame;

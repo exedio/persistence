@@ -18,9 +18,9 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.AssertUtil.reserialize;
 import static com.exedio.cope.QuerySerializeTest.AnItem.TYPE;
 import static com.exedio.cope.QuerySerializeTest.AnItem.field;
+import static com.exedio.cope.tojunit.Assert.reserialize;
 import static org.junit.Assert.assertEquals;
 
 import java.util.List;

@@ -35,7 +35,7 @@ import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.fail;
 
-import com.exedio.cope.AssertUtil;
+import com.exedio.cope.tojunit.Assert;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
@@ -938,7 +938,7 @@ public class PriceTest
 
 	private static Price reserialize(final Price value)
 	{
-		return AssertUtil.reserialize(value, 62);
+		return Assert.reserialize(value, 62);
 	}
 
 	@Test public void testEqualsZero()

@@ -18,7 +18,7 @@
 
 package com.exedio.cope.pattern;
 
-import static com.exedio.cope.AssertUtil.reserialize;
+import static com.exedio.cope.tojunit.Assert.reserialize;
 import static java.lang.annotation.ElementType.FIELD;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;

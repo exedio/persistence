@@ -18,12 +18,12 @@
 
 package com.exedio.cope.pattern;
 
-import static com.exedio.cope.AssertUtil.assertEqualsUnmodifiable;
-import static com.exedio.cope.AssertUtil.list;
 import static com.exedio.cope.pattern.MediaType.forFileName;
 import static com.exedio.cope.pattern.MediaType.forMagics;
 import static com.exedio.cope.pattern.MediaType.forName;
 import static com.exedio.cope.pattern.MediaType.forNameAndAliases;
+import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
+import static com.exedio.cope.tojunit.Assert.list;
 import static com.exedio.cope.util.Hex.decodeLower;
 import static com.exedio.cope.util.StrictFile.delete;
 import static java.io.File.createTempFile;

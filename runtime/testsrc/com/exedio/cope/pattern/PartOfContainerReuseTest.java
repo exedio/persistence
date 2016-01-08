@@ -18,14 +18,14 @@
 
 package com.exedio.cope.pattern;
 
-import static com.exedio.cope.AssertUtil.assertEqualsUnmodifiable;
-import static com.exedio.cope.AssertUtil.list;
 import static com.exedio.cope.pattern.PartOfContainerReuseTest.APart.TYPE;
 import static com.exedio.cope.pattern.PartOfContainerReuseTest.APart.container;
 import static com.exedio.cope.pattern.PartOfContainerReuseTest.APart.order1;
 import static com.exedio.cope.pattern.PartOfContainerReuseTest.APart.order2;
 import static com.exedio.cope.pattern.PartOfContainerReuseTest.APart.parts1;
 import static com.exedio.cope.pattern.PartOfContainerReuseTest.APart.parts2;
+import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
+import static com.exedio.cope.tojunit.Assert.list;
 import static org.junit.Assert.assertSame;
 
 import com.exedio.cope.IntegerField;
