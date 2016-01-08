@@ -21,8 +21,9 @@ package com.exedio.cope.tojunit;
 import com.exedio.cope.Model;
 import java.util.Objects;
 import org.junit.Assert;
+import org.junit.rules.ExternalResource;
 
-public final class TransactionIdRule
+public final class TransactionIdRule extends ExternalResource
 {
 	private final Model model;
 
@@ -33,6 +34,7 @@ public final class TransactionIdRule
 
 	private long idBefore;
 
+	@Override
 	public void before()
 	{
 		idBefore = model.getNextTransactionId();
