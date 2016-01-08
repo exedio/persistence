@@ -22,6 +22,7 @@ import static com.exedio.cope.tojunit.Assert.assertWithin;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
+import com.exedio.cope.tojunit.TransactionIdRule;
 import java.util.Date;
 import org.junit.Before;
 import org.junit.Test;

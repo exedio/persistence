@@ -16,8 +16,9 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.cope;
+package com.exedio.cope.tojunit;
 
+import com.exedio.cope.Model;
 import java.util.Objects;
 import org.junit.Assert;
 
@@ -25,19 +26,19 @@ public final class TransactionIdRule
 {
 	private final Model model;
 
-	TransactionIdRule(final Model model)
+	public TransactionIdRule(final Model model)
 	{
 		this.model = Objects.requireNonNull(model);
 	}
 
 	private long idBefore;
 
-	void before()
+	public void before()
 	{
 		idBefore = model.getNextTransactionId();
 	}
 
-	void assertEquals(final long expected, final long actual)
+	public void assertEquals(final long expected, final long actual)
 	{
 		Assert.assertEquals(idBefore + expected, actual);
 	}
