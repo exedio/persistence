@@ -27,6 +27,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class LRUMapTest
@@ -106,6 +107,7 @@ public class LRUMapTest
 		assertEquals(Arrays.asList(values), Arrays.asList(map.values().toArray(new String[map.size()])));
 	}
 
+	@Ignore
 	@Test public void testPerformance()
 	{
 		for(int j = 0; j<8; j++)
