@@ -30,6 +30,7 @@ import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import com.exedio.cope.tojunit.TestLogAppender;
 import com.exedio.cope.util.Hex;
 import com.exedio.cope.util.Properties.Source;
 import com.exedio.cope.util.Sources;

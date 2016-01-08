@@ -25,6 +25,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import com.exedio.cope.misc.DirectRevisionsFactory;
+import com.exedio.cope.tojunit.TestLogAppender;
 import java.util.Date;
 import java.util.Map;
 import org.apache.log4j.Level;

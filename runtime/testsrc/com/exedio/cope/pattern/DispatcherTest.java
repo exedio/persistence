@@ -30,8 +30,8 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import com.exedio.cope.AbstractRuntimeModelTest;
-import com.exedio.cope.TestLogAppender;
 import com.exedio.cope.pattern.Dispatcher.Run;
+import com.exedio.cope.tojunit.TestLogAppender;
 import com.exedio.cope.util.AssertionErrorJobContext;
 import com.exedio.cope.util.Clock;
 import com.exedio.cope.util.EmptyJobContext;
