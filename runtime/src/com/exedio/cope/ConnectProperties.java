@@ -528,7 +528,7 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	}
 
 	/**
-	 * @deprecated Replaced by org.apache.log4j. Always returns true.
+	 * @deprecated Replaced by org.slf4j. Always returns true.
 	 */
 	@Deprecated
 	@SuppressWarnings("static-method")
