@@ -30,7 +30,7 @@ import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import com.exedio.cope.tojunit.TestLogAppender;
+import com.exedio.cope.tojunit.LogRule;
 import com.exedio.cope.util.Hex;
 import com.exedio.cope.util.Properties.Source;
 import com.exedio.cope.util.Sources;
@@ -80,7 +80,7 @@ public class ReviseTest
 
 	private static final Logger logger = Logger.getLogger(Revisions.class);
 
-	private final TestLogAppender log = new TestLogAppender(logger) {
+	private final LogRule log = new LogRule(logger) {
 		@Override
 		protected boolean filter(final String msg)
 		{

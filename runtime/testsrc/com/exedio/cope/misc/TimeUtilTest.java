@@ -21,7 +21,7 @@ package com.exedio.cope.misc;
 import static com.exedio.cope.misc.TimeUtil.toMillies;
 import static org.junit.Assert.assertEquals;
 
-import com.exedio.cope.tojunit.TestLogAppender;
+import com.exedio.cope.tojunit.LogRule;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.junit.Rule;
@@ -31,7 +31,7 @@ import org.junit.rules.RuleChain;
 public class TimeUtilTest
 {
 	private static final Logger logger = Logger.getLogger(TimeUtil.class);
-	private final TestLogAppender log = new TestLogAppender(logger);
+	private final LogRule log = new LogRule(logger);
 
 	@Rule public final RuleChain ruleChain = RuleChain.outerRule(log);
 

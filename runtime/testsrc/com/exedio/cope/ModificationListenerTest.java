@@ -23,7 +23,7 @@ import static com.exedio.cope.tojunit.Assert.list;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
-import com.exedio.cope.tojunit.TestLogAppender;
+import com.exedio.cope.tojunit.LogRule;
 import com.exedio.cope.util.ModificationListener;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Collection;
@@ -42,7 +42,7 @@ public class ModificationListenerTest extends TestWithEnvironment
 		super(MatchTest.MODEL);
 	}
 
-	private final TestLogAppender log = new TestLogAppender(logger);
+	private final LogRule log = new LogRule(logger);
 
 	@Rule public final RuleChain ruleChain = RuleChain.outerRule(log);
 

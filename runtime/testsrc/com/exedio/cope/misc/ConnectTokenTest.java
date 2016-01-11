@@ -36,7 +36,7 @@ import static org.junit.Assert.fail;
 
 import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.Model;
-import com.exedio.cope.tojunit.TestLogAppender;
+import com.exedio.cope.tojunit.LogRule;
 import java.io.File;
 import java.util.Date;
 import org.apache.log4j.Logger;
@@ -57,7 +57,7 @@ public class ConnectTokenTest
 	}
 
 	private static final Logger logger = Logger.getLogger(ConnectToken.class);
-	private final TestLogAppender log = new TestLogAppender(logger);
+	private final LogRule log = new LogRule(logger);
 
 	@Rule public final RuleChain ruleChain = RuleChain.outerRule(log);
 

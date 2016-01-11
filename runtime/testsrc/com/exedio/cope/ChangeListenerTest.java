@@ -30,7 +30,7 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import com.exedio.cope.tojunit.TestLogAppender;
+import com.exedio.cope.tojunit.LogRule;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -50,7 +50,7 @@ public class ChangeListenerTest extends TestWithEnvironment
 		super(MatchTest.MODEL);
 	}
 
-	private final TestLogAppender log = new TestLogAppender(logger);
+	private final LogRule log = new LogRule(logger);
 
 	@Rule public final RuleChain ruleChain = RuleChain.outerRule(log);
 

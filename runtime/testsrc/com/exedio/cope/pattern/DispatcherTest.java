@@ -32,7 +32,7 @@ import static org.junit.Assert.fail;
 import com.exedio.cope.ClockRule;
 import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.pattern.Dispatcher.Run;
-import com.exedio.cope.tojunit.TestLogAppender;
+import com.exedio.cope.tojunit.LogRule;
 import com.exedio.cope.util.AssertionErrorJobContext;
 import com.exedio.cope.util.EmptyJobContext;
 import com.exedio.cope.util.JobContext;
@@ -60,7 +60,7 @@ public class DispatcherTest extends TestWithEnvironment
 	private final ClockRule clockRule = new ClockRule();
 
 	private final Logger logger = Logger.getLogger(Dispatcher.class.getName() + '.' + toTarget.getID());
-	private final TestLogAppender log = new TestLogAppender(logger);
+	private final LogRule log = new LogRule(logger);
 
 	@Rule public final RuleChain ruleChain = RuleChain.outerRule(clockRule).around(log);
 

@@ -444,7 +444,7 @@
 				<exclude name="pattern/PatternTestTypeItem.java" /><!-- ok, shall not instrument test types -->
 				<exclude name="serialize/ModelSerializationTest.java" /><!-- ok, shall not instrument test types -->
 				<exclude name="tojunit/Subclasses.java" /><!-- TODO remove -->
-				<exclude name="tojunit/TestLogAppender.java" /><!-- TODO remove -->
+				<exclude name="tojunit/LogRule.java" /><!-- TODO remove -->
 				<exclude name="ByteAlgorithmTest.java" /><!-- TODO remove -->
 				<exclude name="DirectRevisionsFactoryTest.java" /><!-- TODO remove -->
 				<exclude name="DirectRevisionsFutureTest.java" /><!-- TODO remove -->

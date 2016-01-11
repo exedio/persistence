@@ -31,11 +31,11 @@ import org.apache.log4j.Logger;
 import org.apache.log4j.spi.LoggingEvent;
 import org.junit.rules.ExternalResource;
 
-public class TestLogAppender extends ExternalResource
+public class LogRule extends ExternalResource
 {
 	private final Logger logger;
 
-	public TestLogAppender(final Logger logger)
+	public LogRule(final Logger logger)
 	{
 		this.logger = requireNonNull(logger, "logger");
 	}

@@ -25,7 +25,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import com.exedio.cope.misc.DirectRevisionsFactory;
-import com.exedio.cope.tojunit.TestLogAppender;
+import com.exedio.cope.tojunit.LogRule;
 import java.util.Date;
 import java.util.Map;
 import org.apache.log4j.Level;
@@ -59,7 +59,7 @@ public class DeleteSchemaTest extends TestWithEnvironment
 		return false;
 	}
 
-	private final TestLogAppender log = new TestLogAppender(logger);
+	private final LogRule log = new LogRule(logger);
 
 	@Rule public final RuleChain ruleChain = RuleChain.outerRule(log);
 
