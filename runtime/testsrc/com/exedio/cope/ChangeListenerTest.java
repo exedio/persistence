@@ -37,9 +37,9 @@ import java.util.Collection;
 import java.util.List;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
-import org.junit.After;
-import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.RuleChain;
 
 public class ChangeListenerTest extends TestWithEnvironment
 {
@@ -50,19 +50,11 @@ public class ChangeListenerTest extends TestWithEnvironment
 		super(MatchTest.MODEL);
 	}
 
-	private final TestLogAppender log = new TestLogAppender();
+	private final TestLogAppender log = new TestLogAppender(logger);
+
+	@Rule public final RuleChain ruleChain = RuleChain.outerRule(log);
 
 	final MockListener l = new MockListener();
-
-	@Before public final void setUp()
-	{
-		logger.addAppender(log);
-	}
-
-	@After public final void tearDown()
-	{
-		logger.removeAppender(log);
-	}
 
 	@Test public void testIt() throws ChangeEvent.NotAvailableException
 	{

@@ -42,7 +42,6 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import org.apache.log4j.Logger;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -61,9 +60,9 @@ public class DispatcherTest extends TestWithEnvironment
 	private final ClockRule clockRule = new ClockRule();
 
 	private final Logger logger = Logger.getLogger(Dispatcher.class.getName() + '.' + toTarget.getID());
-	private final TestLogAppender log = new TestLogAppender();
+	private final TestLogAppender log = new TestLogAppender(logger);
 
-	@Rule public final RuleChain ruleChain = RuleChain.outerRule(clockRule);
+	@Rule public final RuleChain ruleChain = RuleChain.outerRule(clockRule).around(log);
 
 	DispatcherItem item1;
 	DispatcherItem item2;
@@ -77,12 +76,6 @@ public class DispatcherTest extends TestWithEnvironment
 		item3 = new DispatcherItem("item3", false);
 		item4 = new DispatcherItem("item4", true);
 		clockRule.override(clock);
-		logger.addAppender(log);
-	}
-
-	@After public final void tearDown()
-	{
-		logger.removeAppender(log);
 	}
 
 	@Test public void testIt()

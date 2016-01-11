@@ -24,24 +24,16 @@ import static org.junit.Assert.assertEquals;
 import com.exedio.cope.tojunit.TestLogAppender;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
-import org.junit.After;
-import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.RuleChain;
 
 public class TimeUtilTest
 {
 	private static final Logger logger = Logger.getLogger(TimeUtil.class);
-	private final TestLogAppender log = new TestLogAppender();
+	private final TestLogAppender log = new TestLogAppender(logger);
 
-	@Before public final void setUp()
-	{
-		logger.addAppender(log);
-	}
-
-	@After public final void tearDown()
-	{
-		logger.removeAppender(log);
-	}
+	@Rule public final RuleChain ruleChain = RuleChain.outerRule(log);
 
 	@Test public void testIt()
 	{

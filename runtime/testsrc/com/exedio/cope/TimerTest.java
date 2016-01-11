@@ -24,9 +24,9 @@ import static org.junit.Assert.fail;
 import com.exedio.cope.Timer.Interval;
 import com.exedio.cope.tojunit.TestLogAppender;
 import org.apache.log4j.Level;
-import org.junit.After;
-import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.RuleChain;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -35,17 +35,9 @@ public class TimerTest
 	private static final Logger logger = LoggerFactory.getLogger(TimerTest.class);
 	private static final org.apache.log4j.Logger loggerImpl = org.apache.log4j.Logger.getLogger(TimerTest.class);
 
-	private final TestLogAppender log = new TestLogAppender();
+	private final TestLogAppender log = new TestLogAppender(loggerImpl);
 
-	@Before public final void setUp()
-	{
-		loggerImpl.addAppender(log);
-	}
-
-	@After public final void tearDown()
-	{
-		loggerImpl.removeAppender(log);
-	}
+	@Rule public final RuleChain ruleChain = RuleChain.outerRule(log);
 
 	@Test public void testNormal()
 	{

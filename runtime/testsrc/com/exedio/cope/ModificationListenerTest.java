@@ -28,9 +28,9 @@ import com.exedio.cope.util.ModificationListener;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Collection;
 import org.apache.log4j.Logger;
-import org.junit.After;
-import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.RuleChain;
 
 public class ModificationListenerTest extends TestWithEnvironment
 {
@@ -42,19 +42,11 @@ public class ModificationListenerTest extends TestWithEnvironment
 		super(MatchTest.MODEL);
 	}
 
-	private final TestLogAppender log = new TestLogAppender();
+	private final TestLogAppender log = new TestLogAppender(logger);
+
+	@Rule public final RuleChain ruleChain = RuleChain.outerRule(log);
 
 	final MockListener l = new MockListener();
-
-	@Before public final void setUp()
-	{
-		logger.addAppender(log);
-	}
-
-	@After public final void tearDown()
-	{
-		logger.removeAppender(log);
-	}
 
 	// dead store is needed to assign null for testing garbage collection
 	@SuppressFBWarnings("DLS_DEAD_LOCAL_STORE_OF_NULL")

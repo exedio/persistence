@@ -18,6 +18,7 @@
 
 package com.exedio.cope.tojunit;
 
+import static java.util.Objects.requireNonNull;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -26,10 +27,42 @@ import java.util.Collections;
 import java.util.List;
 import org.apache.log4j.AppenderSkeleton;
 import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 import org.apache.log4j.spi.LoggingEvent;
+import org.junit.rules.TestRule;
+import org.junit.runner.Description;
+import org.junit.runners.model.Statement;
 
-public class TestLogAppender extends AppenderSkeleton
+public class TestLogAppender extends AppenderSkeleton implements TestRule
 {
+	private final Logger logger;
+
+	public TestLogAppender(final Logger logger)
+	{
+		this.logger = requireNonNull(logger, "logger");
+	}
+
+	public final Statement apply(final Statement base, final Description description)
+	{
+		final Logger logger = this.logger; // avoid synthetic-access warning
+		return new Statement()
+		{
+			@Override
+			public void evaluate() throws Throwable
+			{
+				logger.addAppender(TestLogAppender.this);
+				try
+				{
+					base.evaluate();
+				}
+				finally
+				{
+					logger.removeAppender(TestLogAppender.this);
+				}
+			}
+		};
+	}
+
 	private final List<LoggingEvent> events = new ArrayList<>();
 
 	@Override

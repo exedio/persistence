@@ -42,7 +42,9 @@ import java.util.Date;
 import org.apache.log4j.Logger;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.RuleChain;
 
 public class ConnectTokenTest
 {
@@ -55,18 +57,20 @@ public class ConnectTokenTest
 	}
 
 	private static final Logger logger = Logger.getLogger(ConnectToken.class);
-	private final TestLogAppender log = new TestLogAppender();
+	private final TestLogAppender log = new TestLogAppender(logger);
 
+	@Rule public final RuleChain ruleChain = RuleChain.outerRule(log);
+
+	@SuppressWarnings("static-method")
 	@Before public final void setUp()
 	{
-		logger.addAppender(log);
 		setProperties(model, props);
 	}
 
+	@SuppressWarnings("static-method")
 	@After public final void tearDown()
 	{
 		removeProperties(model);
-		logger.removeAppender(log);
 	}
 
 	@Test public void testIt()

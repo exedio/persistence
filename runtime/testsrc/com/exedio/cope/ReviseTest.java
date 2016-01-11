@@ -55,9 +55,10 @@ import java.util.Properties;
 import java.util.Set;
 import org.apache.log4j.Logger;
 import org.apache.log4j.spi.LoggingEvent;
-import org.junit.After;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.RuleChain;
 
 @SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
 public class ReviseTest
@@ -80,7 +81,7 @@ public class ReviseTest
 
 	private static final Logger logger = Logger.getLogger(Revisions.class);
 
-	private final TestLogAppender log = new TestLogAppender() {
+	private final TestLogAppender log = new TestLogAppender(logger) {
 		@Override
 		protected void append(final LoggingEvent event)
 		{
@@ -91,6 +92,8 @@ public class ReviseTest
 		}
 	};
 
+	@Rule public final RuleChain ruleChain = RuleChain.outerRule(log);
+
 	private String hostname;
 	private ConnectProperties props;
 
@@ -100,12 +103,6 @@ public class ReviseTest
 		final TestSource testSource = new TestSource();
 		testSource.putOverride("revise.auto.enabled", "true");
 		props = new ConnectProperties(testSource, SYSTEM_PROPERTY_SOURCE);
-		logger.addAppender(log);
-	}
-
-	@After public final void tearDown()
-	{
-		logger.removeAppender(log);
 	}
 
 	String connectionUrl;

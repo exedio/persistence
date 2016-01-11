@@ -32,7 +32,9 @@ import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.RuleChain;
 
 public class DeleteSchemaTest extends TestWithEnvironment
 {
@@ -57,14 +59,15 @@ public class DeleteSchemaTest extends TestWithEnvironment
 		return false;
 	}
 
-	private final TestLogAppender log = new TestLogAppender();
+	private final TestLogAppender log = new TestLogAppender(logger);
+
+	@Rule public final RuleChain ruleChain = RuleChain.outerRule(log);
+
 	Level logLevel = null;
 	private Date create;
 
 	@Before public final void setUp()
 	{
-		logger.addAppender(log);
-
 		logLevel = logger.getLevel();
 		logger.setLevel(Level.DEBUG);
 
@@ -87,8 +90,6 @@ public class DeleteSchemaTest extends TestWithEnvironment
 		if(logLevel!=null)
 			logger.setLevel(logLevel);
 		logLevel = null;
-
-		logger.removeAppender(log);
 	}
 
 	private static final String ALL =
