@@ -29,11 +29,9 @@ import org.apache.log4j.AppenderSkeleton;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.apache.log4j.spi.LoggingEvent;
-import org.junit.rules.TestRule;
-import org.junit.runner.Description;
-import org.junit.runners.model.Statement;
+import org.junit.rules.ExternalResource;
 
-public class TestLogAppender implements TestRule
+public class TestLogAppender extends ExternalResource
 {
 	private final Logger logger;
 
@@ -42,26 +40,16 @@ public class TestLogAppender implements TestRule
 		this.logger = requireNonNull(logger, "logger");
 	}
 
-	public final Statement apply(final Statement base, final Description description)
+	@Override
+	protected final void before()
 	{
-		final Logger logger = this.logger; // avoid synthetic-access warning
-		final Appender appender = this.appender; // avoid synthetic-access warning
-		return new Statement()
-		{
-			@Override
-			public void evaluate() throws Throwable
-			{
-				logger.addAppender(appender);
-				try
-				{
-					base.evaluate();
-				}
-				finally
-				{
-					logger.removeAppender(appender);
-				}
-			}
-		};
+		logger.addAppender(appender);
+	}
+
+	@Override
+	protected final void after()
+	{
+		logger.removeAppender(appender);
 	}
 
 	private final List<LoggingEvent> events = new ArrayList<>();
