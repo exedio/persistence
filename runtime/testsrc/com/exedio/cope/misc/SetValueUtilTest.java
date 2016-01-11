@@ -63,10 +63,11 @@ public class SetValueUtilTest
 			final List<SetValue<?>> setValues,
 			final Settable<E> settable)
 	{
+		final SetValue<?>[] a = new SetValue<?>[]{};
 		assertSame  (expectedMapping, getFirstMapping(setValues, settable));
 		assertEquals(expectedValue,   getFirst       (setValues, settable));
-		assertSame  (expectedMapping, getFirstMapping(setValues.toArray(new SetValue<?>[]{}), settable));
-		assertEquals(expectedValue,   getFirst       (setValues.toArray(new SetValue<?>[]{}), settable));
+		assertSame  (expectedMapping, getFirstMapping(setValues.toArray(a), settable));
+		assertEquals(expectedValue,   getFirst       (setValues.toArray(a), settable));
 	}
 
 	@Test public void testGetFirstNullSetValues()
