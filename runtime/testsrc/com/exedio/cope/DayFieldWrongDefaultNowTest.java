@@ -24,15 +24,13 @@ import com.exedio.cope.tojunit.LogRule;
 import com.exedio.cope.util.Day;
 import java.util.TimeZone;
 import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.RuleChain;
 
 public class DayFieldWrongDefaultNowTest
 {
-	private static final Logger logger = Logger.getLogger(DayField.class);
-	private final LogRule log = new LogRule(logger);
+	private final LogRule log = new LogRule(DayField.class);
 
 	@Rule public final RuleChain ruleChain = RuleChain.outerRule(log);
 

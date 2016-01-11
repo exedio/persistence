@@ -40,6 +40,16 @@ public class LogRule extends ExternalResource
 		this.logger = requireNonNull(logger, "logger");
 	}
 
+	public LogRule(final Class<?> clazz)
+	{
+		this(Logger.getLogger(requireNonNull(clazz, "clazz")));
+	}
+
+	public LogRule(final String name)
+	{
+		this(Logger.getLogger(requireNonNull(name, "name")));
+	}
+
 	@Override
 	protected final void before()
 	{

@@ -23,15 +23,13 @@ import static org.junit.Assert.assertEquals;
 
 import com.exedio.cope.tojunit.LogRule;
 import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.RuleChain;
 
 public class TimeUtilTest
 {
-	private static final Logger logger = Logger.getLogger(TimeUtil.class);
-	private final LogRule log = new LogRule(logger);
+	private final LogRule log = new LogRule(TimeUtil.class);
 
 	@Rule public final RuleChain ruleChain = RuleChain.outerRule(log);
 

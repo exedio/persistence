@@ -53,7 +53,6 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
-import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -78,9 +77,7 @@ public class ReviseTest
 		return result;
 	}
 
-	private static final Logger logger = Logger.getLogger(Revisions.class);
-
-	private final LogRule log = new LogRule(logger) {
+	private final LogRule log = new LogRule(Revisions.class) {
 		@Override
 		protected boolean filter(final String msg)
 		{

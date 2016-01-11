@@ -33,9 +33,7 @@ import org.slf4j.LoggerFactory;
 public class TimerTest
 {
 	private static final Logger logger = LoggerFactory.getLogger(TimerTest.class);
-	private static final org.apache.log4j.Logger loggerImpl = org.apache.log4j.Logger.getLogger(TimerTest.class);
-
-	private final LogRule log = new LogRule(loggerImpl);
+	private final LogRule log = new LogRule(TimerTest.class);
 
 	@Rule public final RuleChain ruleChain = RuleChain.outerRule(log);
 

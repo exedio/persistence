@@ -36,21 +36,18 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.RuleChain;
 
 public class ChangeListenerTest extends TestWithEnvironment
 {
-	private static final Logger logger = Logger.getLogger(ChangeListeners.class);
-
 	public ChangeListenerTest()
 	{
 		super(MatchTest.MODEL);
 	}
 
-	private final LogRule log = new LogRule(logger);
+	private final LogRule log = new LogRule(ChangeListeners.class);
 
 	@Rule public final RuleChain ruleChain = RuleChain.outerRule(log);
 

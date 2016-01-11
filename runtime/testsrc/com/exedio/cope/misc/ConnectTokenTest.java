@@ -39,7 +39,6 @@ import com.exedio.cope.Model;
 import com.exedio.cope.tojunit.LogRule;
 import java.io.File;
 import java.util.Date;
-import org.apache.log4j.Logger;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
@@ -56,8 +55,7 @@ public class ConnectTokenTest
 		model.enableSerialization(ConnectTokenTest.class, "model");
 	}
 
-	private static final Logger logger = Logger.getLogger(ConnectToken.class);
-	private final LogRule log = new LogRule(logger);
+	private final LogRule log = new LogRule(ConnectToken.class);
 
 	@Rule public final RuleChain ruleChain = RuleChain.outerRule(log);
 

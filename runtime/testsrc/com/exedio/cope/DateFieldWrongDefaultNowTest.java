@@ -23,15 +23,13 @@ import static com.exedio.cope.TypesBound.newType;
 import com.exedio.cope.tojunit.LogRule;
 import java.util.Date;
 import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.RuleChain;
 
 public class DateFieldWrongDefaultNowTest
 {
-	private static final Logger logger = Logger.getLogger(DateField.class);
-	private final LogRule log = new LogRule(logger);
+	private final LogRule log = new LogRule(DateField.class);
 
 	@Rule public final RuleChain ruleChain = RuleChain.outerRule(log);
 

@@ -27,22 +27,19 @@ import com.exedio.cope.tojunit.LogRule;
 import com.exedio.cope.util.ModificationListener;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Collection;
-import org.apache.log4j.Logger;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.RuleChain;
 
 public class ModificationListenerTest extends TestWithEnvironment
 {
-	@Deprecated
-	private static final Logger logger = Logger.getLogger(ModificationListeners.class);
-
 	public ModificationListenerTest()
 	{
 		super(MatchTest.MODEL);
 	}
 
-	private final LogRule log = new LogRule(logger);
+	@SuppressWarnings("deprecation")
+	private final LogRule log = new LogRule(ModificationListeners.class);
 
 	@Rule public final RuleChain ruleChain = RuleChain.outerRule(log);
 

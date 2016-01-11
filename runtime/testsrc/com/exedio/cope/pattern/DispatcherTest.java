@@ -41,7 +41,6 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
-import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -59,8 +58,7 @@ public class DispatcherTest extends TestWithEnvironment
 	private final RelativeMockClockStrategy clock = new RelativeMockClockStrategy();
 	private final ClockRule clockRule = new ClockRule();
 
-	private final Logger logger = Logger.getLogger(Dispatcher.class.getName() + '.' + toTarget.getID());
-	private final LogRule log = new LogRule(logger);
+	private final LogRule log = new LogRule(Dispatcher.class.getName() + '.' + toTarget.getID());
 
 	@Rule public final RuleChain ruleChain = RuleChain.outerRule(clockRule).around(log);
 
