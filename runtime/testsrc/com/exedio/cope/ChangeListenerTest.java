@@ -52,18 +52,16 @@ public class ChangeListenerTest extends TestWithEnvironment
 
 	final MockListener l = new MockListener();
 
-	TestLogAppender log = null;
+	private final TestLogAppender log = new TestLogAppender();
 
 	@Before public final void setUp()
 	{
-		log = new TestLogAppender();
 		logger.addAppender(log);
 	}
 
 	@After public final void tearDown()
 	{
 		logger.removeAppender(log);
-		log = null;
 	}
 
 	@Test public void testIt() throws ChangeEvent.NotAvailableException

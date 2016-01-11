@@ -57,13 +57,12 @@ public class DeleteSchemaTest extends TestWithEnvironment
 		return false;
 	}
 
-	TestLogAppender log = null;
+	private final TestLogAppender log = new TestLogAppender();
 	Level logLevel = null;
 	private Date create;
 
 	@Before public final void setUp()
 	{
-		log = new TestLogAppender();
 		logger.addAppender(log);
 
 		logLevel = logger.getLevel();
@@ -90,7 +89,6 @@ public class DeleteSchemaTest extends TestWithEnvironment
 		logLevel = null;
 
 		logger.removeAppender(log);
-		log = null;
 	}
 
 	private static final String ALL =

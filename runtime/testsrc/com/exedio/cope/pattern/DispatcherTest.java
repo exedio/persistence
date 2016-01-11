@@ -66,8 +66,8 @@ public class DispatcherTest extends TestWithEnvironment
 	DispatcherItem item2;
 	DispatcherItem item3;
 	DispatcherItem item4;
-	Logger logger;
-	TestLogAppender log = null;
+	private final Logger logger = Logger.getLogger(Dispatcher.class.getName() + '.' + toTarget.getID());
+	private final TestLogAppender log = new TestLogAppender();
 
 	@Before public final void setUp()
 	{
@@ -76,16 +76,12 @@ public class DispatcherTest extends TestWithEnvironment
 		item3 = new DispatcherItem("item3", false);
 		item4 = new DispatcherItem("item4", true);
 		clockRule.override(clock);
-		log = new TestLogAppender();
-		logger = Logger.getLogger(Dispatcher.class.getName() + '.' + toTarget.getID());
 		logger.addAppender(log);
 	}
 
 	@After public final void tearDown()
 	{
 		logger.removeAppender(log);
-		logger = null;
-		log = null;
 	}
 
 	@Test public void testIt()

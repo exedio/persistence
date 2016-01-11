@@ -82,7 +82,16 @@ public class ReviseTest
 
 	private String hostname;
 	private ConnectProperties props;
-	private TestLogAppender log = null;
+	private final TestLogAppender log = new TestLogAppender() {
+		@Override
+		protected void append(final LoggingEvent event)
+		{
+			if("savepoint".equals(event.getMessage()))
+				return;
+
+			super.append(event);
+		}
+	};
 
 	@Before public final void setUp() throws UnknownHostException
 	{
@@ -90,23 +99,12 @@ public class ReviseTest
 		final TestSource testSource = new TestSource();
 		testSource.putOverride("revise.auto.enabled", "true");
 		props = new ConnectProperties(testSource, SYSTEM_PROPERTY_SOURCE);
-		log = new TestLogAppender() {
-			@Override
-			protected void append(final LoggingEvent event)
-			{
-				if("savepoint".equals(event.getMessage()))
-					return;
-
-				super.append(event);
-			}
-		};
 		logger.addAppender(log);
 	}
 
 	@After public final void tearDown()
 	{
 		logger.removeAppender(log);
-		log = null;
 	}
 
 	String connectionUrl;

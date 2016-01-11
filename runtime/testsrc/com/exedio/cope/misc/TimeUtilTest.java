@@ -31,18 +31,16 @@ import org.junit.Test;
 public class TimeUtilTest
 {
 	private static final Logger logger = Logger.getLogger(TimeUtil.class);
-	TestLogAppender log = null;
+	private final TestLogAppender log = new TestLogAppender();
 
 	@Before public final void setUp()
 	{
-		log = new TestLogAppender();
 		logger.addAppender(log);
 	}
 
 	@After public final void tearDown()
 	{
 		logger.removeAppender(log);
-		log = null;
 	}
 
 	@Test public void testIt()

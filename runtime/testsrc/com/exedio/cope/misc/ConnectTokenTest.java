@@ -55,11 +55,10 @@ public class ConnectTokenTest
 	}
 
 	private static final Logger logger = Logger.getLogger(ConnectToken.class);
-	TestLogAppender log = null;
+	private final TestLogAppender log = new TestLogAppender();
 
 	@Before public final void setUp()
 	{
-		log = new TestLogAppender();
 		logger.addAppender(log);
 		setProperties(model, props);
 	}
@@ -68,7 +67,6 @@ public class ConnectTokenTest
 	{
 		removeProperties(model);
 		logger.removeAppender(log);
-		log = null;
 	}
 
 	@Test public void testIt()

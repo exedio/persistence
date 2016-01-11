@@ -35,18 +35,16 @@ public class TimerTest
 	private static final Logger logger = LoggerFactory.getLogger(TimerTest.class);
 	private static final org.apache.log4j.Logger loggerImpl = org.apache.log4j.Logger.getLogger(TimerTest.class);
 
-	TestLogAppender log = null;
+	private final TestLogAppender log = new TestLogAppender();
 
 	@Before public final void setUp()
 	{
-		log = new TestLogAppender();
 		loggerImpl.addAppender(log);
 	}
 
 	@After public final void tearDown()
 	{
 		loggerImpl.removeAppender(log);
-		log = null;
 	}
 
 	@Test public void testNormal()
