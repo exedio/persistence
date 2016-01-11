@@ -89,7 +89,7 @@ public class LogRule extends ExternalResource
 		assertMessage(Level.ERROR, msg);
 	}
 
-	public final void assertMessage(final Level level, final String msg)
+	private final void assertMessage(final Level level, final String msg)
 	{
 		assertTrue("empty", !events.isEmpty());
 		final LoggingEvent event = events.remove(0);

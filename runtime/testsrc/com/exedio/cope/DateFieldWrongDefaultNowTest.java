@@ -22,7 +22,6 @@ import static com.exedio.cope.TypesBound.newType;
 
 import com.exedio.cope.tojunit.LogRule;
 import java.util.Date;
-import org.apache.log4j.Level;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.RuleChain;
@@ -36,8 +35,7 @@ public class DateFieldWrongDefaultNowTest
 	@Test public void testIt()
 	{
 		newType(AnItem.class);
-		log.assertMessage(
-				Level.WARN,
+		log.assertWarn(
 				"Very probably you called \"DateField.defaultTo(new Date())\" on field AnItem.wrong. " +
 				"This will not work as expected, use \"defaultToNow()\" instead.");
 		log.assertEmpty();

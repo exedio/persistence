@@ -35,7 +35,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import org.apache.log4j.Level;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.RuleChain;
@@ -131,7 +130,7 @@ public class ChangeListenerTest extends TestWithEnvironment
 		waitWhilePending();
 		l.assertIt(list(item1), te);
 		assertEquals(false, l.exception);
-		log.assertMessage(Level.ERROR, "change listener [" + item1.toString() + "] " + te.getID() + " CommitListenerTestE " + l.toString());
+		log.assertError("change listener [" + item1.toString() + "] " + te.getID() + " CommitListenerTestE " + l.toString());
 
 		assertInfo(1, 0, 0, 1);
 		model.removeChangeListener(l);

@@ -23,7 +23,6 @@ import static com.exedio.cope.TypesBound.newType;
 import com.exedio.cope.tojunit.LogRule;
 import com.exedio.cope.util.Day;
 import java.util.TimeZone;
-import org.apache.log4j.Level;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.RuleChain;
@@ -37,8 +36,7 @@ public class DayFieldWrongDefaultNowTest
 	@Test public void testIt()
 	{
 		newType(AnItem.class);
-		log.assertMessage(
-				Level.WARN,
+		log.assertWarn(
 				"Very probably you called \"DayField.defaultTo(new Day())\" on field AnItem.wrong. " +
 				"This will not work as expected, use \"defaultToNow()\" instead.");
 		log.assertEmpty();

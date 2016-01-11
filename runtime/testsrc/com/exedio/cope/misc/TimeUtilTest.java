@@ -22,7 +22,6 @@ import static com.exedio.cope.misc.TimeUtil.toMillies;
 import static org.junit.Assert.assertEquals;
 
 import com.exedio.cope.tojunit.LogRule;
-import org.apache.log4j.Level;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.RuleChain;
@@ -50,6 +49,6 @@ public class TimeUtilTest
 	@Test public void testIllegal()
 	{
 		assertEquals(0, toMillies(-1, 0));
-		log.assertMessage(Level.ERROR, "backwards nanos 0 -1");
+		log.assertError("backwards nanos 0 -1");
 	}
 }
