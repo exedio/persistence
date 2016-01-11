@@ -60,14 +60,15 @@ public class DispatcherTest extends TestWithEnvironment
 	private final RelativeMockClockStrategy clock = new RelativeMockClockStrategy();
 	private final ClockRule clockRule = new ClockRule();
 
+	private final Logger logger = Logger.getLogger(Dispatcher.class.getName() + '.' + toTarget.getID());
+	private final TestLogAppender log = new TestLogAppender();
+
 	@Rule public final RuleChain ruleChain = RuleChain.outerRule(clockRule);
 
 	DispatcherItem item1;
 	DispatcherItem item2;
 	DispatcherItem item3;
 	DispatcherItem item4;
-	private final Logger logger = Logger.getLogger(Dispatcher.class.getName() + '.' + toTarget.getID());
-	private final TestLogAppender log = new TestLogAppender();
 
 	@Before public final void setUp()
 	{

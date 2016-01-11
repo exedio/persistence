@@ -42,9 +42,9 @@ public class ModificationListenerTest extends TestWithEnvironment
 		super(MatchTest.MODEL);
 	}
 
-	final MockListener l = new MockListener();
-
 	private final TestLogAppender log = new TestLogAppender();
+
+	final MockListener l = new MockListener();
 
 	@Before public final void setUp()
 	{

@@ -80,8 +80,6 @@ public class ReviseTest
 
 	private static final Logger logger = Logger.getLogger(Revisions.class);
 
-	private String hostname;
-	private ConnectProperties props;
 	private final TestLogAppender log = new TestLogAppender() {
 		@Override
 		protected void append(final LoggingEvent event)
@@ -92,6 +90,9 @@ public class ReviseTest
 			super.append(event);
 		}
 	};
+
+	private String hostname;
+	private ConnectProperties props;
 
 	@Before public final void setUp() throws UnknownHostException
 	{
