@@ -79,6 +79,11 @@ public class LogRule extends ExternalResource
 		assertMessage(Level.INFO, msg);
 	}
 
+	public final void assertInfoWithoutMilliseconds(final String msg)
+	{
+		assertMessageWithoutMilliseconds(Level.INFO, msg);
+	}
+
 	public final void assertWarn(final String msg)
 	{
 		assertMessage(Level.WARN, msg);
@@ -97,7 +102,7 @@ public class LogRule extends ExternalResource
 		assertEquals(msg, event.getRenderedMessage());
 	}
 
-	public final void assertMessageMs(final Level level, final String msg)
+	private final void assertMessageWithoutMilliseconds(final Level level, final String msg)
 	{
 		assertTrue("empty", !events.isEmpty());
 		final LoggingEvent event = events.remove(0);

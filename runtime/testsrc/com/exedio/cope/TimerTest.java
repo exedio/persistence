@@ -23,7 +23,6 @@ import static org.junit.Assert.fail;
 
 import com.exedio.cope.Timer.Interval;
 import com.exedio.cope.tojunit.LogRule;
-import org.apache.log4j.Level;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.RuleChain;
@@ -45,7 +44,7 @@ public class TimerTest
 
 		log.assertEmpty();
 		interval1.finish("interval1Msg1");
-		log.assertMessageMs(Level.INFO, "interval1Msg1 XXms total timerMsg XXms");
+		log.assertInfoWithoutMilliseconds("interval1Msg1 XXms total timerMsg XXms");
 
 		log.assertEmpty();
 		try
@@ -68,7 +67,7 @@ public class TimerTest
 
 		log.assertEmpty();
 		interval1.finish("interval1Msg1");
-		log.assertMessageMs(Level.INFO, "interval1Msg1 XXms total XXms");
+		log.assertInfoWithoutMilliseconds("interval1Msg1 XXms total XXms");
 	}
 
 	@Test public void testNullLogger()
