@@ -29,6 +29,7 @@ import com.exedio.cope.Settable;
 import com.exedio.cope.StringField;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.ArrayList;
+import java.util.List;
 import org.junit.Test;
 
 public class SetValueUtilTest
@@ -38,25 +39,24 @@ public class SetValueUtilTest
 		final StringField f1 = new StringField();
 		final StringField f2 = new StringField();
 		final ArrayList<SetValue<?>> l = new ArrayList<>();
-		final SetValue<?>[] a = new SetValue<?>[]{};
 
 		l.add(f1.map("value1a"));
-		assertEquals("value1a", getFirst(l, f1));
-		assertEquals("value1a", getFirst(l.toArray(a), f1));
-		assertEquals(null, getFirst(l, f2));
-		assertEquals(null, getFirst(l.toArray(a), f2));
+		assertGetFirst("value1a", l, f1);
+		assertGetFirst(null,      l, f2);
 
 		l.add(f1.map("value1b"));
-		assertEquals("value1a", getFirst(l, f1));
-		assertEquals("value1a", getFirst(l.toArray(a), f1));
-		assertEquals(null, getFirst(l, f2));
-		assertEquals(null, getFirst(l.toArray(a), f2));
+		assertGetFirst("value1a", l, f1);
+		assertGetFirst(null,      l, f2);
 
 		l.add(f2.map("value2"));
-		assertEquals("value1a", getFirst(l, f1));
-		assertEquals("value1a", getFirst(l.toArray(a), f1));
-		assertEquals("value2", getFirst(l, f2));
-		assertEquals("value2", getFirst(l.toArray(a), f2));
+		assertGetFirst("value1a", l, f1);
+		assertGetFirst("value2",  l, f2);
+	}
+
+	private static <E> void assertGetFirst(final E expected, final List<SetValue<?>> setValues, final Settable<E> settable)
+	{
+		assertEquals(expected, getFirst(setValues, settable));
+		assertEquals(expected, getFirst(setValues.toArray(new SetValue<?>[]{}), settable));
 	}
 
 	@Test public void testGetFirstNullSetValues()

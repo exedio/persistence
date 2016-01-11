@@ -505,6 +505,7 @@
 				<exclude name="misc/ModelByStringTest.java" />
 				<exclude name="misc/SerializationCheckTest.java" />
 				<exclude name="misc/ServletUtilTest.java" />
+				<exclude name="misc/SetValueUtilTest.java" />
 				<exclude name="pattern/BlockComputedTest.java" />
 				<exclude name="pattern/BlockMountTest.java" />
 				<exclude name="pattern/BlockRenamedIdTest.java" />
