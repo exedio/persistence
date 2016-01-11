@@ -54,7 +54,6 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 import org.apache.log4j.Logger;
-import org.apache.log4j.spi.LoggingEvent;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -83,12 +82,9 @@ public class ReviseTest
 
 	private final TestLogAppender log = new TestLogAppender(logger) {
 		@Override
-		protected void append(final LoggingEvent event)
+		protected boolean filter(final String msg)
 		{
-			if("savepoint".equals(event.getMessage()))
-				return;
-
-			super.append(event);
+			return !"savepoint".equals(msg);
 		}
 	};
 

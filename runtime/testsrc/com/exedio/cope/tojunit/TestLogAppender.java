@@ -65,10 +65,16 @@ public class TestLogAppender extends AppenderSkeleton implements TestRule
 
 	private final List<LoggingEvent> events = new ArrayList<>();
 
-	@Override
-	protected void append(final LoggingEvent event)
+	protected boolean filter(@SuppressWarnings("unused") final String msg)
 	{
-		events.add( event );
+		return true;
+	}
+
+	@Override
+	protected final void append(final LoggingEvent event)
+	{
+		if(filter((String)event.getMessage()))
+			events.add( event );
 	}
 
 	public final boolean requiresLayout()
