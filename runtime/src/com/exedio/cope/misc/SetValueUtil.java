@@ -38,12 +38,18 @@ public final class SetValueUtil
 
 	public static <E> E getFirst(final SetValue<?>[] setValues, final Settable<E> settable)
 	{
+		final SetValue<E> sv = getFirstMapping(setValues, settable);
+		return sv!=null ? sv.value : null;
+	}
+
+	public static <E> SetValue<E> getFirstMapping(final SetValue<?>[] setValues, final Settable<E> settable)
+	{
 		for(final SetValue<?> setValue : setValues)
 		{
 			if(settable==setValue.settable)
 			{
 				@SuppressWarnings("unchecked")
-				final E result = (E)setValue.value;
+				final SetValue<E> result = (SetValue<E>)setValue;
 				return result;
 			}
 		}
@@ -52,12 +58,18 @@ public final class SetValueUtil
 
 	public static <E> E getFirst(final List<SetValue<?>> setValues, final Settable<E> settable)
 	{
+		final SetValue<E> sv = getFirstMapping(setValues, settable);
+		return sv!=null ? sv.value : null;
+	}
+
+	public static <E> SetValue<E> getFirstMapping(final List<SetValue<?>> setValues, final Settable<E> settable)
+	{
 		for(final SetValue<?> setValue : setValues)
 		{
 			if(settable==setValue.settable)
 			{
 				@SuppressWarnings("unchecked")
-				final E result = (E)setValue.value;
+				final SetValue<E> result = (SetValue<E>)setValue;
 				return result;
 			}
 		}

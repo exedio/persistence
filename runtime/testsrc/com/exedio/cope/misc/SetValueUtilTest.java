@@ -20,8 +20,10 @@ package com.exedio.cope.misc;
 
 import static com.exedio.cope.misc.SetValueUtil.add;
 import static com.exedio.cope.misc.SetValueUtil.getFirst;
+import static com.exedio.cope.misc.SetValueUtil.getFirstMapping;
 import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 import static org.junit.Assert.fail;
 
 import com.exedio.cope.SetValue;
@@ -40,22 +42,30 @@ public class SetValueUtilTest
 		final StringField f2 = new StringField();
 		final ArrayList<SetValue<?>> l = new ArrayList<>();
 
-		l.add(f1.map("value1a"));
-		assertGetFirst("value1a", l, f1);
-		assertGetFirst(null,      l, f2);
+		final SetValue<String> m1 = f1.map("value1a");
+		l.add(m1);
+		assertGetFirst(m1, "value1a", l, f1);
+		assertGetFirst(null, null,    l, f2);
 
 		l.add(f1.map("value1b"));
-		assertGetFirst("value1a", l, f1);
-		assertGetFirst(null,      l, f2);
+		assertGetFirst(m1, "value1a", l, f1);
+		assertGetFirst(null, null,    l, f2);
 
-		l.add(f2.map("value2"));
-		assertGetFirst("value1a", l, f1);
-		assertGetFirst("value2",  l, f2);
+		final SetValue<String> m2 = f2.map("value2");
+		l.add(m2);
+		assertGetFirst(m1, "value1a", l, f1);
+		assertGetFirst(m2, "value2",  l, f2);
 	}
 
-	private static <E> void assertGetFirst(final E expected, final List<SetValue<?>> setValues, final Settable<E> settable)
+	private static <E> void assertGetFirst(
+			final SetValue<E> expectedMapping,
+			final E expected,
+			final List<SetValue<?>> setValues,
+			final Settable<E> settable)
 	{
+		assertSame  (expectedMapping, getFirstMapping(setValues, settable));
 		assertEquals(expected, getFirst(setValues, settable));
+		assertSame  (expectedMapping, getFirstMapping(setValues.toArray(new SetValue<?>[]{}), settable));
 		assertEquals(expected, getFirst(setValues.toArray(new SetValue<?>[]{}), settable));
 	}
 
