@@ -143,14 +143,14 @@ public class DeleteSchemaTest extends TestWithEnvironment
 	{
 		log.assertEmpty();
 		model.deleteSchema();
-		log.assertMessage(Level.DEBUG, ALL);
+		log.assertDebug(ALL);
 		assertRevisionLogs();
 
 		assertEmptyAndCreate(true);
 
 		log.assertEmpty();
 		model.deleteSchema();
-		log.assertMessage(Level.DEBUG, ALL);
+		log.assertDebug(ALL);
 		assertRevisionLogs();
 
 		assertEmptyAndCreate(true);
@@ -160,14 +160,14 @@ public class DeleteSchemaTest extends TestWithEnvironment
 	{
 		log.assertEmpty();
 		model.deleteSchemaForTest();
-		log.assertMessage(Level.DEBUG, EMPTY);
+		log.assertDebug(EMPTY);
 		assertRevisionLogs();
 
 		assertEmptyAndCreate(true);
 
 		log.assertEmpty();
 		model.deleteSchemaForTest();
-		log.assertMessage(Level.DEBUG, ALL_BUT_UNUSED);
+		log.assertDebug(ALL_BUT_UNUSED);
 		assertRevisionLogs();
 
 		assertEmptyAndCreate(true);
@@ -177,12 +177,12 @@ public class DeleteSchemaTest extends TestWithEnvironment
 	{
 		log.assertEmpty();
 		model.deleteSchemaForTest();
-		log.assertMessage(Level.DEBUG, EMPTY);
+		log.assertDebug(EMPTY);
 		assertRevisionLogs();
 
 		log.assertEmpty();
 		model.deleteSchemaForTest();
-		log.assertMessage(Level.DEBUG, EMPTY);
+		log.assertDebug(EMPTY);
 		assertRevisionLogs();
 
 		assertEmptyAndCreate(true);
@@ -194,14 +194,14 @@ public class DeleteSchemaTest extends TestWithEnvironment
 
 		log.assertEmpty();
 		model.deleteSchema();
-		log.assertMessage(Level.DEBUG, ALL);
+		log.assertDebug(ALL);
 		assertRevisionLogs();
 
 		assertEmptyAndCreate(true);
 
 		log.assertEmpty();
 		model.deleteSchema();
-		log.assertMessage(Level.DEBUG, ALL);
+		log.assertDebug(ALL);
 		assertRevisionLogs();
 
 		assertEmptyAndCreate(true);
@@ -213,14 +213,14 @@ public class DeleteSchemaTest extends TestWithEnvironment
 
 		log.assertEmpty();
 		model.deleteSchemaForTest();
-		log.assertMessage(Level.DEBUG, ALL_BUT_UNUSED);
+		log.assertDebug(ALL_BUT_UNUSED);
 		assertRevisionLogs();
 
 		assertEmptyAndCreate(true);
 
 		log.assertEmpty();
 		model.deleteSchemaForTest();
-		log.assertMessage(Level.DEBUG, ALL_BUT_UNUSED);
+		log.assertDebug(ALL_BUT_UNUSED);
 		assertRevisionLogs();
 
 		assertEmptyAndCreate(true);
@@ -232,12 +232,12 @@ public class DeleteSchemaTest extends TestWithEnvironment
 
 		log.assertEmpty();
 		model.deleteSchemaForTest();
-		log.assertMessage(Level.DEBUG, ALL_BUT_UNUSED);
+		log.assertDebug(ALL_BUT_UNUSED);
 		assertRevisionLogs();
 
 		log.assertEmpty();
 		model.deleteSchemaForTest();
-		log.assertMessage(Level.DEBUG, EMPTY);
+		log.assertDebug(EMPTY);
 		assertRevisionLogs();
 
 		assertEmptyAndCreate(true);
@@ -249,14 +249,14 @@ public class DeleteSchemaTest extends TestWithEnvironment
 
 		log.assertEmpty();
 		model.deleteSchema();
-		log.assertMessage(Level.DEBUG, ALL);
+		log.assertDebug(ALL);
 		assertRevisionLogs();
 
 		assertEmptyAndCreate(false);
 
 		log.assertEmpty();
 		model.deleteSchema();
-		log.assertMessage(Level.DEBUG, ALL);
+		log.assertDebug(ALL);
 		assertRevisionLogs();
 
 		assertEmptyAndCreate(true);
@@ -268,14 +268,14 @@ public class DeleteSchemaTest extends TestWithEnvironment
 
 		log.assertEmpty();
 		model.deleteSchemaForTest();
-		log.assertMessage(Level.DEBUG, USED_SEQUENCES);
+		log.assertDebug(USED_SEQUENCES);
 		assertRevisionLogs();
 
 		assertEmptyAndCreate(false);
 
 		log.assertEmpty();
 		model.deleteSchemaForTest();
-		log.assertMessage(Level.DEBUG, USED_SEQUENCES);
+		log.assertDebug(USED_SEQUENCES);
 		assertRevisionLogs();
 
 		assertEmptyAndCreate(true);
@@ -287,12 +287,12 @@ public class DeleteSchemaTest extends TestWithEnvironment
 
 		log.assertEmpty();
 		model.deleteSchemaForTest();
-		log.assertMessage(Level.DEBUG, USED_SEQUENCES);
+		log.assertDebug(USED_SEQUENCES);
 		assertRevisionLogs();
 
 		log.assertEmpty();
 		model.deleteSchemaForTest();
-		log.assertMessage(Level.DEBUG, EMPTY);
+		log.assertDebug(EMPTY);
 		assertRevisionLogs();
 
 		assertEmptyAndCreate(true);

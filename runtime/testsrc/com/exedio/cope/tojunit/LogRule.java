@@ -69,6 +69,11 @@ public class LogRule extends ExternalResource
 		return true;
 	}
 
+	public final void assertDebug(final String msg)
+	{
+		assertMessage(Level.DEBUG, msg);
+	}
+
 	public final void assertInfo(final String msg)
 	{
 		assertMessage(Level.INFO, msg);
