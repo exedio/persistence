@@ -28,8 +28,6 @@ import com.exedio.cope.misc.DirectRevisionsFactory;
 import com.exedio.cope.tojunit.LogRule;
 import java.util.Date;
 import java.util.Map;
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
@@ -38,8 +36,6 @@ import org.junit.rules.RuleChain;
 
 public class DeleteSchemaTest extends TestWithEnvironment
 {
-	private static final Logger logger = Logger.getLogger(Database.class.getName() + "#deleteSchema");
-
 	private static final Model MODEL = new Model(
 			DirectRevisionsFactory.make(new Revisions(5)),
 			DeleteSchemaItem.TYPE,
@@ -59,18 +55,14 @@ public class DeleteSchemaTest extends TestWithEnvironment
 		return false;
 	}
 
-	private final LogRule log = new LogRule(logger);
+	private final LogRule log = new LogRule(Database.class.getName() + "#deleteSchema");
 
 	@Rule public final RuleChain ruleChain = RuleChain.outerRule(log);
 
-	Level logLevel = null;
 	private Date create;
 
 	@Before public final void setUp()
 	{
-		logLevel = logger.getLevel();
-		logger.setLevel(Level.DEBUG);
-
 		{
 			final Map<Integer, byte[]> logs = model.getRevisionLogs();
 			final byte[] log = logs.get(5);
@@ -86,10 +78,6 @@ public class DeleteSchemaTest extends TestWithEnvironment
 	@After public final void tearDown()
 	{
 		create = null;
-
-		if(logLevel!=null)
-			logger.setLevel(logLevel);
-		logLevel = null;
 	}
 
 	private static final String ALL =
