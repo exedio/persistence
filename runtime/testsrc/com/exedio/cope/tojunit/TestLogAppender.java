@@ -33,7 +33,7 @@ import org.junit.rules.TestRule;
 import org.junit.runner.Description;
 import org.junit.runners.model.Statement;
 
-public class TestLogAppender extends AppenderSkeleton implements TestRule
+public class TestLogAppender implements TestRule
 {
 	private final Logger logger;
 
@@ -45,19 +45,20 @@ public class TestLogAppender extends AppenderSkeleton implements TestRule
 	public final Statement apply(final Statement base, final Description description)
 	{
 		final Logger logger = this.logger; // avoid synthetic-access warning
+		final Appender appender = this.appender; // avoid synthetic-access warning
 		return new Statement()
 		{
 			@Override
 			public void evaluate() throws Throwable
 			{
-				logger.addAppender(TestLogAppender.this);
+				logger.addAppender(appender);
 				try
 				{
 					base.evaluate();
 				}
 				finally
 				{
-					logger.removeAppender(TestLogAppender.this);
+					logger.removeAppender(appender);
 				}
 			}
 		};
@@ -68,18 +69,6 @@ public class TestLogAppender extends AppenderSkeleton implements TestRule
 	protected boolean filter(@SuppressWarnings("unused") final String msg)
 	{
 		return true;
-	}
-
-	@Override
-	protected final void append(final LoggingEvent event)
-	{
-		if(filter((String)event.getMessage()))
-			events.add( event );
-	}
-
-	public final boolean requiresLayout()
-	{
-		return false;
 	}
 
 	public final void assertInfo(final String msg)
@@ -118,8 +107,33 @@ public class TestLogAppender extends AppenderSkeleton implements TestRule
 		assertEquals(Collections.EMPTY_LIST, events);
 	}
 
-	public final void close() throws SecurityException
+
+	private final Appender appender = new Appender(events);
+
+	private final class Appender extends AppenderSkeleton
 	{
-		throw new RuntimeException();
+		final List<LoggingEvent> events;
+
+		Appender(final List<LoggingEvent> events)
+		{
+			this.events = events;
+		}
+
+		@Override
+		protected void append(final LoggingEvent event)
+		{
+			if(filter((String)event.getMessage()))
+				events.add( event );
+		}
+
+		public boolean requiresLayout()
+		{
+			return false;
+		}
+
+		public void close() throws SecurityException
+		{
+			throw new RuntimeException();
+		}
 	}
 }
