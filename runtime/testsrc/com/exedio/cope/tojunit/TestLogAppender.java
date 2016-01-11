@@ -38,27 +38,27 @@ public class TestLogAppender extends AppenderSkeleton
 		events.add( event );
 	}
 
-	public boolean requiresLayout()
+	public final boolean requiresLayout()
 	{
 		return false;
 	}
 
-	public void assertInfo(final String msg)
+	public final void assertInfo(final String msg)
 	{
 		assertMessage(Level.INFO, msg);
 	}
 
-	public void assertWarn(final String msg)
+	public final void assertWarn(final String msg)
 	{
 		assertMessage(Level.WARN, msg);
 	}
 
-	public void assertError(final String msg)
+	public final void assertError(final String msg)
 	{
 		assertMessage(Level.ERROR, msg);
 	}
 
-	public void assertMessage(final Level level, final String msg)
+	public final void assertMessage(final Level level, final String msg)
 	{
 		assertTrue("empty", !events.isEmpty());
 		final LoggingEvent event = events.remove(0);
@@ -66,7 +66,7 @@ public class TestLogAppender extends AppenderSkeleton
 		assertEquals(msg, event.getRenderedMessage());
 	}
 
-	public void assertMessageMs(final Level level, final String msg)
+	public final void assertMessageMs(final Level level, final String msg)
 	{
 		assertTrue("empty", !events.isEmpty());
 		final LoggingEvent event = events.remove(0);
@@ -74,12 +74,12 @@ public class TestLogAppender extends AppenderSkeleton
 		assertEquals(msg, event.getRenderedMessage().replaceAll("[0-9]ms", "XXms"));
 	}
 
-	public void assertEmpty()
+	public final void assertEmpty()
 	{
 		assertEquals(Collections.EMPTY_LIST, events);
 	}
 
-	public void close() throws SecurityException
+	public final void close() throws SecurityException
 	{
 		throw new RuntimeException();
 	}
