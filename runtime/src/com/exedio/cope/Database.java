@@ -537,7 +537,7 @@ final class Database
 			sequence.flush();
 	}
 
-	private static final Logger deleteLogger = LoggerFactory.getLogger(Database.class.getName() + "#deleteSchema");
+	private static final Logger deleteLogger = LoggerFactory.getLogger(Database.class.getName() + ".deleteSchema");
 
 	void deleteSchema(final boolean forTest)
 	{

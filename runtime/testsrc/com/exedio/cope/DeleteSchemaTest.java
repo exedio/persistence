@@ -55,7 +55,7 @@ public class DeleteSchemaTest extends TestWithEnvironment
 		return false;
 	}
 
-	private final LogRule log = new LogRule(Database.class.getName() + "#deleteSchema");
+	private final LogRule log = new LogRule(Database.class.getName() + ".deleteSchema");
 
 	@Rule public final RuleChain ruleChain = RuleChain.outerRule(log);
 
