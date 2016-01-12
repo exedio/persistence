@@ -55,11 +55,6 @@ public abstract class TestWithEnvironment
 		tester = new RuntimeTester(model);
 	}
 
-	protected final ConnectProperties getConnectProperties()
-	{
-		return copeRule.getConnectProperties();
-	}
-
 	protected RuntimeTester.Dialect dialect = null;
 	protected boolean hsqldb;
 	protected boolean mysql;

@@ -103,7 +103,7 @@ public final class MediaUrlTest extends TestWithEnvironment
 		model.commit();
 		model.disconnect();
 		System.setProperty("media.url.secret", "valueOfMediaUrlSecret");
-		model.connect(getConnectProperties());
+		model.connect(copeRule.getConnectProperties());
 		assertTrue(MediaPath.isUrlGuessingPreventedSecurely(model.getConnectProperties()));
 		model.startTransaction("MediaUrlTest");
 		assertIt("MediaUrlItem/foto/", foto, named, "/phrase.jpg");

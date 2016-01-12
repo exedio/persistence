@@ -43,7 +43,7 @@ public class ConnectTest extends TestWithEnvironment
 
 	@Test public void testConnect()
 	{
-		final ConnectProperties defaultProps = getConnectProperties();
+		final ConnectProperties defaultProps = copeRule.getConnectProperties();
 		// test duplicate call of connect
 		assertTrue(model.isConnected());
 		final Date connectDate = model.getConnectDate();
