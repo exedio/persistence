@@ -18,7 +18,6 @@
 
 package com.exedio.cope.misc;
 
-import static com.exedio.cope.misc.ConnectToken.removeProperties;
 import static com.exedio.cope.misc.ConnectToken.setProperties;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -31,6 +30,7 @@ import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
+import com.exedio.cope.tojunit.ConnectTokenRule;
 import java.io.File;
 import java.util.Enumeration;
 import javax.servlet.Filter;
@@ -41,9 +41,10 @@ import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
-import org.junit.After;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.RuleChain;
 
 public class ServletUtilTest
 {
@@ -52,6 +53,12 @@ public class ServletUtilTest
 	public static final Model modelContext = new Model(ModelContext.TYPE);
 	public static final Model modelNull = null;
 
+	private final ConnectTokenRule ctrOk = new ConnectTokenRule(modelOk);
+	private final ConnectTokenRule ctrOk2 = new ConnectTokenRule(modelOk2);
+	private final ConnectTokenRule ctrContext = new ConnectTokenRule(modelContext);
+
+	@Rule public final RuleChain ruleChain = RuleChain.outerRule(ctrOk).around(ctrOk2).around(ctrContext);
+
 	@SuppressWarnings("static-method")
 	@Before public final void setUp()
 	{
@@ -59,14 +66,6 @@ public class ServletUtilTest
 		setProperties(modelOk, props);
 		setProperties(modelOk2, props);
 		setProperties(modelContext, props);
-	}
-
-	@SuppressWarnings("static-method")
-	@After public final void tearDown()
-	{
-		removeProperties(modelOk);
-		removeProperties(modelOk2);
-		removeProperties(modelContext);
 	}
 
 	@Test public void testIt()

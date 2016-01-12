@@ -22,7 +22,6 @@ import static com.exedio.cope.misc.ConnectToken.getProperties;
 import static com.exedio.cope.misc.ConnectToken.getTokens;
 import static com.exedio.cope.misc.ConnectToken.issue;
 import static com.exedio.cope.misc.ConnectToken.issueIfConnected;
-import static com.exedio.cope.misc.ConnectToken.removeProperties;
 import static com.exedio.cope.misc.ConnectToken.setProperties;
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
 import static com.exedio.cope.tojunit.Assert.assertWithin;
@@ -36,10 +35,10 @@ import static org.junit.Assert.fail;
 
 import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.Model;
+import com.exedio.cope.tojunit.ConnectTokenRule;
 import com.exedio.cope.tojunit.LogRule;
 import java.io.File;
 import java.util.Date;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -57,18 +56,14 @@ public class ConnectTokenTest
 
 	private final LogRule log = new LogRule(ConnectToken.class);
 
-	@Rule public final RuleChain ruleChain = RuleChain.outerRule(log);
+	private final ConnectTokenRule ctr = new ConnectTokenRule(model);
+
+	@Rule public final RuleChain ruleChain = RuleChain.outerRule(log).around(ctr);
 
 	@SuppressWarnings("static-method")
 	@Before public final void setUp()
 	{
 		setProperties(model, props);
-	}
-
-	@SuppressWarnings("static-method")
-	@After public final void tearDown()
-	{
-		removeProperties(model);
 	}
 
 	@Test public void testIt()

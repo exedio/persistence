@@ -37,8 +37,11 @@ import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
+import com.exedio.cope.tojunit.ConnectTokenRule;
 import java.io.File;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.RuleChain;
 
 public class ConnectTokenSetTest
 {
@@ -54,6 +57,10 @@ public class ConnectTokenSetTest
 	{
 		model.enableSerialization(ConnectTokenSetTest.class, "model");
 	}
+
+	private final ConnectTokenRule ctr = new ConnectTokenRule(model);
+
+	@Rule public final RuleChain ruleChain = RuleChain.outerRule(ctr);
 
 	@Test public void testNormal()
 	{
