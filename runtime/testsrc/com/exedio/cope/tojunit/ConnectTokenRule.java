@@ -20,6 +20,7 @@ package com.exedio.cope.tojunit;
 
 import static java.util.Objects.requireNonNull;
 
+import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.Model;
 import com.exedio.cope.misc.ConnectToken;
 import org.junit.rules.ExternalResource;
@@ -31,6 +32,16 @@ public final class ConnectTokenRule extends ExternalResource
 	public ConnectTokenRule(final Model model)
 	{
 		this.model = requireNonNull(model, "model");
+	}
+
+	public void set(final ConnectProperties properties)
+	{
+		ConnectToken.setProperties(model, properties);
+	}
+
+	public ConnectProperties remove()
+	{
+		return ConnectToken.removeProperties(model);
 	}
 
 	@Override

@@ -18,7 +18,6 @@
 
 package com.exedio.cope.util;
 
-import static com.exedio.cope.misc.ConnectToken.setProperties;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertSame;
@@ -60,13 +59,12 @@ public class ServletUtilTest
 
 	@Rule public final RuleChain ruleChain = RuleChain.outerRule(ctrOk).around(ctrOk2).around(ctrContext);
 
-	@SuppressWarnings("static-method")
 	@Before public final void setUp()
 	{
 		final ConnectProperties props = new ConnectProperties(new File("runtime/utiltest.properties"));
-		setProperties(modelOk, props);
-		setProperties(modelOk2, props);
-		setProperties(modelContext, props);
+		ctrOk.set(props);
+		ctrOk2.set(props);
+		ctrContext.set(props);
 	}
 
 	@Test public void testIt()

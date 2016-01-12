@@ -21,8 +21,6 @@ package com.exedio.cope.misc;
 import static com.exedio.cope.misc.ConnectToken.getProperties;
 import static com.exedio.cope.misc.ConnectToken.getTokens;
 import static com.exedio.cope.misc.ConnectToken.issue;
-import static com.exedio.cope.misc.ConnectToken.removeProperties;
-import static com.exedio.cope.misc.ConnectToken.setProperties;
 import static com.exedio.cope.tojunit.Assert.list;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -69,11 +67,11 @@ public class ConnectTokenSetTest
 		assertNotSet();
 
 		final ConnectProperties properties = new ConnectProperties(new File("runtime/utiltest.properties"));
-		setProperties(model, properties);
+		ctr.set(properties);
 		assertSame(properties, getProperties(model));
 		assertEquals(list(), getTokens(model));
 
-		assertSame(properties, removeProperties(model));
+		assertSame(properties, ctr.remove());
 		assertSame(null, getProperties(model));
 		assertNotSet();
 	}
@@ -84,7 +82,7 @@ public class ConnectTokenSetTest
 		assertSame(null, getProperties(model));
 		assertNotSet();
 
-		assertSame(null, removeProperties(model));
+		assertSame(null, ctr.remove());
 		assertSame(null, getProperties(model));
 		assertNotSet();
 	}
@@ -96,7 +94,7 @@ public class ConnectTokenSetTest
 		assertNotSet();
 
 		final ConnectProperties properties = new ConnectProperties(new File("runtime/utiltest.properties"));
-		setProperties(model, properties);
+		ctr.set(properties);
 		assertSame(properties, getProperties(model));
 		assertEquals(list(), getTokens(model));
 
@@ -119,11 +117,11 @@ public class ConnectTokenSetTest
 		assertEquals(list(), getTokens(model));
 		assertFalse(model.isConnected());
 
-		assertSame(properties, removeProperties(model));
+		assertSame(properties, ctr.remove());
 		assertSame(null, getProperties(model));
 		assertNotSet();
 
-		setProperties(model, properties); // restarts token ids
+		ctr.set(properties); // restarts token ids
 		assertSame(properties, getProperties(model));
 		assertEquals(list(), getTokens(model));
 
@@ -137,7 +135,7 @@ public class ConnectTokenSetTest
 		assertEquals(list(), getTokens(model));
 		assertFalse(model.isConnected());
 
-		assertSame(properties, removeProperties(model));
+		assertSame(properties, ctr.remove());
 		assertSame(null, getProperties(model));
 		assertNotSet();
 	}

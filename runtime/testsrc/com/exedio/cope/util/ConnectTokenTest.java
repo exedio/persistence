@@ -18,7 +18,6 @@
 
 package com.exedio.cope.util;
 
-import static com.exedio.cope.misc.ConnectToken.setProperties;
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
 import static com.exedio.cope.tojunit.Assert.assertWithin;
 import static com.exedio.cope.tojunit.Assert.list;
@@ -46,10 +45,9 @@ public class ConnectTokenTest
 
 	@Rule public final RuleChain ruleChain = RuleChain.outerRule(ctr);
 
-	@SuppressWarnings("static-method")
 	@Before public final void setUp()
 	{
-		setProperties(model, props);
+		ctr.set(props);
 	}
 
 	@Deprecated

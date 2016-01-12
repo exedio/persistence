@@ -22,7 +22,6 @@ import static com.exedio.cope.misc.ConnectToken.getProperties;
 import static com.exedio.cope.misc.ConnectToken.getTokens;
 import static com.exedio.cope.misc.ConnectToken.issue;
 import static com.exedio.cope.misc.ConnectToken.issueIfConnected;
-import static com.exedio.cope.misc.ConnectToken.setProperties;
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
 import static com.exedio.cope.tojunit.Assert.assertWithin;
 import static com.exedio.cope.tojunit.Assert.list;
@@ -60,10 +59,9 @@ public class ConnectTokenTest
 
 	@Rule public final RuleChain ruleChain = RuleChain.outerRule(log).around(ctr);
 
-	@SuppressWarnings("static-method")
 	@Before public final void setUp()
 	{
-		setProperties(model, props);
+		ctr.set(props);
 	}
 
 	@Test public void testIt()
@@ -76,7 +74,7 @@ public class ConnectTokenTest
 
 		try
 		{
-			setProperties(model, null);
+			ctr.set(null);
 			fail();
 		}
 		catch(final NullPointerException e)
@@ -253,7 +251,7 @@ public class ConnectTokenTest
 	{
 		try
 		{
-			setProperties(model, props);
+			ctr.set(props);
 			fail();
 		}
 		catch(final IllegalStateException e)
