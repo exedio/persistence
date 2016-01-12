@@ -51,7 +51,7 @@ public class LogRule extends ExternalResource
 	}
 
 
-	public void setLevelDebug()
+	public final void setLevelDebug()
 	{
 		setLevel(Level.DEBUG);
 	}
