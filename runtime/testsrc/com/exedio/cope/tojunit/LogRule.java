@@ -34,7 +34,6 @@ import org.junit.rules.ExternalResource;
 public class LogRule extends ExternalResource
 {
 	private final Logger logger;
-	private Level levelBefore = null;
 
 	public LogRule(final Logger logger)
 	{
@@ -51,6 +50,7 @@ public class LogRule extends ExternalResource
 		this(Logger.getLogger(requireNonNull(name, "name")));
 	}
 
+
 	public void setLevelDebug()
 	{
 		setLevel(Level.DEBUG);
@@ -60,8 +60,12 @@ public class LogRule extends ExternalResource
 	{
 		if(levelBefore==null)
 			levelBefore = logger.getLevel();
+
 		logger.setLevel(level);
 	}
+
+	private Level levelBefore = null;
+
 
 	@Override
 	protected final void before()
