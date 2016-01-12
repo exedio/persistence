@@ -63,6 +63,8 @@ public class DeleteSchemaTest extends TestWithEnvironment
 
 	@Before public final void setUp()
 	{
+		log.setLevelDebug();
+
 		{
 			final Map<Integer, byte[]> logs = model.getRevisionLogs();
 			final byte[] log = logs.get(5);
