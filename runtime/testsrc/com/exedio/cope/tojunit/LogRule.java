@@ -50,6 +50,23 @@ public class LogRule extends ExternalResource
 		this(Logger.getLogger(requireNonNull(name, "name")));
 	}
 
+
+	public void setLevelDebug()
+	{
+		setLevel(Level.DEBUG);
+	}
+
+	private void setLevel(final Level level)
+	{
+		if(levelBefore==null)
+			levelBefore = logger.getLevel();
+
+		logger.setLevel(level);
+	}
+
+	private Level levelBefore = null;
+
+
 	@Override
 	protected final void before()
 	{
@@ -59,6 +76,9 @@ public class LogRule extends ExternalResource
 	@Override
 	protected final void after()
 	{
+		if(levelBefore!=null)
+			logger.setLevel(levelBefore);
+
 		logger.removeAppender(appender);
 	}
 
