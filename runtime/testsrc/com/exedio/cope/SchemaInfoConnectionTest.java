@@ -37,12 +37,7 @@ public class SchemaInfoConnectionTest extends TestWithEnvironment
 	public SchemaInfoConnectionTest()
 	{
 		super(InstanceOfModelTest.MODEL);
-	}
-
-	@Override
-	protected boolean doesManageTransactions()
-	{
-		return false;
+		copeRule.omitTransaction();
 	}
 
 	private Connection c;

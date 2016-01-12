@@ -50,8 +50,6 @@ public abstract class TestWithEnvironment
 				return new ConnectProperties(Properties.SYSTEM_PROPERTY_SOURCE);
 			}
 		};
-		if(!doesManageTransactions())
-			copeRule.omitTransaction();
 
 		this.model = model;
 		tester = new RuntimeTester(model);
@@ -60,15 +58,6 @@ public abstract class TestWithEnvironment
 	protected final ConnectProperties getConnectProperties()
 	{
 		return copeRule.getConnectProperties();
-	}
-
-	/**
-	 * Copy of {@link com.exedio.cope.junit.CopeModelTest#doesManageTransactions()}
-	 * TODO remove
-	 */
-	protected boolean doesManageTransactions()
-	{
-		return true;
 	}
 
 	protected RuntimeTester.Dialect dialect = null;

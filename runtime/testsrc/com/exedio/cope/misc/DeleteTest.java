@@ -38,12 +38,7 @@ public class DeleteTest extends TestWithEnvironment
 	public DeleteTest()
 	{
 		super(CacheIsolationTest.MODEL);
-	}
-
-	@Override
-	protected boolean doesManageTransactions()
-	{
-		return false;
+		copeRule.omitTransaction();
 	}
 
 	@Test public void testIt()

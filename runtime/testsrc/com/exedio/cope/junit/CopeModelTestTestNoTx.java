@@ -24,10 +24,9 @@ import org.junit.Test;
 
 public class CopeModelTestTestNoTx extends CopeModelTestTest
 {
-	@Override
-	protected boolean doesManageTransactions()
+	public CopeModelTestTestNoTx()
 	{
-		return false;
+		copeRule.omitTransaction();
 	}
 
 	@Test public void testNoTx()

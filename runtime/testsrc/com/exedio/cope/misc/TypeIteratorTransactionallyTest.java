@@ -43,12 +43,7 @@ public class TypeIteratorTransactionallyTest extends TestWithEnvironment
 	public TypeIteratorTransactionallyTest()
 	{
 		super(QueryAggregatorTest.MODEL);
-	}
-
-	@Override
-	protected boolean doesManageTransactions()
-	{
-		return false;
+		copeRule.omitTransaction();
 	}
 
 	QueryAggregatorItem item0, item1, item2, item3, item4;

@@ -36,12 +36,7 @@ public class PrimaryKeyTest extends TestWithEnvironment
 	public PrimaryKeyTest()
 	{
 		super(MODEL);
-	}
-
-	@Override
-	protected boolean doesManageTransactions()
-	{
-		return false;
+		copeRule.omitTransaction();
 	}
 
 	private static void assertInfo(final Type<?> type, final int count, final int first, final int last, final SequenceInfo info, final int check)

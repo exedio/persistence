@@ -41,12 +41,7 @@ public class CheckConstraintHierarchySchemaTest extends TestWithEnvironment
 	public CheckConstraintHierarchySchemaTest()
 	{
 		super(CheckConstraintHierarchyTest.MODEL);
-	}
-
-	@Override
-	protected boolean doesManageTransactions()
-	{
-		return false;
+		copeRule.omitTransaction();
 	}
 
 	@Test public void testSchema()

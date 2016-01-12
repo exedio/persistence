@@ -47,12 +47,7 @@ public class RenamedSchemaTest extends TestWithEnvironment
 	public RenamedSchemaTest()
 	{
 		super(MODEL);
-	}
-
-	@Override
-	protected boolean doesManageTransactions()
-	{
-		return false;
+		copeRule.omitTransaction();
 	}
 
 	@Test public void testSchema()

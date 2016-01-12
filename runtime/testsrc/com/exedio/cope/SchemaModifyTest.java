@@ -33,12 +33,7 @@ public class SchemaModifyTest extends TestWithEnvironment
 	public SchemaModifyTest()
 	{
 		super(SchemaTest.MODEL);
-	}
-
-	@Override
-	protected boolean doesManageTransactions()
-	{
-		return false;
+		copeRule.omitTransaction();
 	}
 
 	private static final String TABLE1X = "SchemaItemX";

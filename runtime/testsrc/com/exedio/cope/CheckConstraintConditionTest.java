@@ -43,12 +43,7 @@ public class CheckConstraintConditionTest extends TestWithEnvironment
 	public CheckConstraintConditionTest()
 	{
 		super(MODEL);
-	}
-
-	@Override
-	protected boolean doesManageTransactions()
-	{
-		return false;
+		copeRule.omitTransaction();
 	}
 
 	@Test public void testIt()

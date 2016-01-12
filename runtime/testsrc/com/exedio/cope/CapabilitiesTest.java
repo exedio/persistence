@@ -33,12 +33,7 @@ public class CapabilitiesTest extends TestWithEnvironment
 	public CapabilitiesTest()
 	{
 		super(SchemaTest.MODEL);
-	}
-
-	@Override
-	protected boolean doesManageTransactions()
-	{
-		return false;
+		copeRule.omitTransaction();
 	}
 
 	@Test public void testSupports()

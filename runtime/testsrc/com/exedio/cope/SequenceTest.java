@@ -40,12 +40,7 @@ public class SequenceTest extends TestWithEnvironment
 	public SequenceTest()
 	{
 		super(MODEL);
-	}
-
-	@Override
-	protected boolean doesManageTransactions()
-	{
-		return false;
+		copeRule.omitTransaction();
 	}
 
 	@Test public void testIt()

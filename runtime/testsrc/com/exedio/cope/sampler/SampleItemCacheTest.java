@@ -31,10 +31,9 @@ import org.junit.Test;
 
 public class SampleItemCacheTest extends ConnectedTest
 {
-	@Override
-	protected boolean doesManageTransactions()
+	public SampleItemCacheTest()
 	{
-		return false;
+		copeRule.omitTransaction();
 	}
 
 	@Test public void testNormal() throws InterruptedException

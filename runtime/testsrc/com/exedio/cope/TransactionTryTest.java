@@ -36,12 +36,7 @@ public class TransactionTryTest extends TestWithEnvironment
 	public TransactionTryTest()
 	{
 		super(MODEL);
-	}
-
-	@Override
-	protected boolean doesManageTransactions()
-	{
-		return false;
+		copeRule.omitTransaction();
 	}
 
 	@Test public void testSuccess()

@@ -33,12 +33,7 @@ public class TransactionEmptyTest extends TestWithEnvironment
 	public TransactionEmptyTest()
 	{
 		super(CacheIsolationTest.MODEL);
-	}
-
-	@Override
-	protected boolean doesManageTransactions()
-	{
-		return false;
+		copeRule.omitTransaction();
 	}
 
 	private final TransactionIdRule txId = new TransactionIdRule(model);

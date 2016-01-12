@@ -37,12 +37,7 @@ public class CheckConstraintSchemaTest extends TestWithEnvironment
 	public CheckConstraintSchemaTest()
 	{
 		super(CheckConstraintModelTest.MODEL);
-	}
-
-	@Override
-	protected boolean doesManageTransactions()
-	{
-		return false;
+		copeRule.omitTransaction();
 	}
 
 	@Test public void testMeta()

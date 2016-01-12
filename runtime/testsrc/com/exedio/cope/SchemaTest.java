@@ -61,12 +61,7 @@ public class SchemaTest extends TestWithEnvironment
 	public SchemaTest()
 	{
 		super(MODEL);
-	}
-
-	@Override
-	protected boolean doesManageTransactions()
-	{
-		return false;
+		copeRule.omitTransaction();
 	}
 
 	@Test public void testSchema()

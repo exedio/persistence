@@ -42,12 +42,7 @@ public class DumperTest extends TestWithEnvironment
 	public DumperTest()
 	{
 		super(MODEL);
-	}
-
-	@Override
-	protected boolean doesManageTransactions()
-	{
-		return false;
+		copeRule.omitTransaction();
 	}
 
 	private Dumper dumper = null;

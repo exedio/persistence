@@ -30,10 +30,9 @@ import org.junit.Test;
 
 public class SampleMediaTest extends ConnectedTest
 {
-	@Override
-	protected boolean doesManageTransactions()
+	public SampleMediaTest()
 	{
-		return false;
+		copeRule.omitTransaction();
 	}
 
 	@Test public void testNormal() throws InterruptedException

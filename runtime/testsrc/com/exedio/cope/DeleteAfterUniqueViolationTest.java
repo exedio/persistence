@@ -35,12 +35,7 @@ public class DeleteAfterUniqueViolationTest extends TestWithEnvironment
 	public DeleteAfterUniqueViolationTest()
 	{
 		super(MODEL);
-	}
-
-	@Override
-	protected boolean doesManageTransactions()
-	{
-		return false;
+		copeRule.omitTransaction();
 	}
 
 	private boolean unq;

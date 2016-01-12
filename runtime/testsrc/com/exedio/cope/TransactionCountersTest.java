@@ -28,12 +28,7 @@ public class TransactionCountersTest extends TestWithEnvironment
 	public TransactionCountersTest()
 	{
 		super(CacheIsolationTest.MODEL);
-	}
-
-	@Override
-	protected boolean doesManageTransactions()
-	{
-		return false;
+		copeRule.omitTransaction();
 	}
 
 	private long commitWithoutConnectionStart;

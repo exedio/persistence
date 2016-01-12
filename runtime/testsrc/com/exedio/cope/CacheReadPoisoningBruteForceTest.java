@@ -36,12 +36,7 @@ public class CacheReadPoisoningBruteForceTest extends TestWithEnvironment
 	public CacheReadPoisoningBruteForceTest()
 	{
 		super(CacheIsolationTest.MODEL);
-	}
-
-	@Override
-	protected boolean doesManageTransactions()
-	{
-		return false;
+		copeRule.omitTransaction();
 	}
 
 	boolean itemCacheStamps;

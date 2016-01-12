@@ -47,12 +47,7 @@ public class DeleteSchemaTest extends TestWithEnvironment
 	public DeleteSchemaTest()
 	{
 		super(MODEL);
-	}
-
-	@Override
-	protected boolean doesManageTransactions()
-	{
-		return false;
+		copeRule.omitTransaction();
 	}
 
 	private final LogRule log = new LogRule(Database.class.getName() + ".deleteSchema");
