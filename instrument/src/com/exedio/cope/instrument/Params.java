@@ -27,13 +27,13 @@ final class Params
 	boolean verify = false;
 	Charset charset = StandardCharsets.US_ASCII;
 	boolean longJavadoc = true;
-	boolean annotateGenerated = false;
-	boolean finalArgs = false;
+	boolean annotateGenerated = true;
+	boolean finalArgs = true;
 	boolean suppressUnusedWarningOnPrivateActivationConstructor = false;
 	boolean serialVersionUID = true;
 	boolean genericSetValueArray = true;
 	boolean directSetValueMap = false;
 	String hidingWarningSuppressor = null;
-	boolean verbose = true;
+	boolean verbose = false;
 	File timestampFile = null;
 }

@@ -385,10 +385,7 @@
 	<target name="runtime.test.instrument" depends="instrument.taskdef" unless="skip.instrument">
 		<instrument
 				verify="${instrument.verify}"
-				annotateGenerated="true"
 				suppressUnusedWarningOnPrivateActivationConstructor="true"
-				finalArgs="true"
-				verbose="false"
 				timestampFile="build/timestamps/runtime.test.timestamp">
 			<resources refid="instrument.resources" />
 			<fileset dir="runtime/testsrc/com/exedio/cope">
@@ -717,8 +714,7 @@
 		<instrument
 				verify="${instrument.verify}"
 				suppressUnusedWarningOnPrivateActivationConstructor="true"
-				finalArgs="true"
-				verbose="false"
+				annotateGenerated="false"
 				timestampFile="build/timestamps/runtime.servlet.test.timestamp">
 			<resources refid="instrument.resources" />
 			<fileset dir="runtime/servlettestsrc">
@@ -903,11 +899,8 @@
 		<instrument
 				verify="${instrument.verify}"
 				encoding="ascii"
-				annotateGenerated="true"
 				suppressUnusedWarningOnPrivateActivationConstructor="true"
-				finalArgs="true"
 				hidingWarningSuppressor="hiding"
-				verbose="false"
 				timestampFile="build/timestamps/instrument.test.timestamp">
 			<resources refid="instrument.resources" />
 			<fileset dir="instrument/testsrc/com/exedio/cope/instrument/testmodel">
