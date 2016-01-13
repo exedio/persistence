@@ -35,7 +35,6 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import com.exedio.cope.CheckConstraint;
-import com.exedio.cope.ClockRule;
 import com.exedio.cope.Cope;
 import com.exedio.cope.DataField;
 import com.exedio.cope.DataLengthViolationException;
@@ -44,6 +43,7 @@ import com.exedio.cope.SchemaInfo;
 import com.exedio.cope.StringField;
 import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.junit.AbsoluteMockClockStrategy;
+import com.exedio.cope.tojunit.ClockRule;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;

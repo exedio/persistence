@@ -29,6 +29,7 @@ import static org.junit.Assert.fail;
 
 import com.exedio.cope.junit.AbsoluteMockClockStrategy;
 import com.exedio.cope.testmodel.AttributeItem;
+import com.exedio.cope.tojunit.ClockRule;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;

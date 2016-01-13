@@ -27,9 +27,9 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-import com.exedio.cope.ClockRule;
 import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.pattern.PasswordLimiter.Refusal;
+import com.exedio.cope.tojunit.ClockRule;
 import java.util.Date;
 import java.util.List;
 import org.junit.Before;

@@ -29,6 +29,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 import com.exedio.cope.junit.AbsoluteMockClockStrategy;
+import com.exedio.cope.tojunit.ClockRule;
 import com.exedio.cope.util.Day;
 import java.util.List;
 import org.junit.Before;
