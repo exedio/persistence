@@ -53,23 +53,28 @@ public class LogRule extends ExternalResource
 
 	public final void setLevelDebug()
 	{
+		before.assertCalled();
 		setLevel(Level.DEBUG);
 	}
 
 	private void setLevel(final Level level)
 	{
+		before.assertCalled();
+
 		if(levelBefore==null)
 			levelBefore = logger.getLevel();
 
 		logger.setLevel(level);
 	}
 
-	private Level levelBefore = null;
 
+	private final BeforeCall before = new BeforeCall();
+	private Level levelBefore = null;
 
 	@Override
 	protected final void before()
 	{
+		before.onCall();
 		logger.addAppender(appender);
 	}
 
@@ -82,6 +87,7 @@ public class LogRule extends ExternalResource
 		logger.removeAppender(appender);
 	}
 
+
 	private final List<LoggingEvent> events = new ArrayList<>();
 
 	protected boolean filter(@SuppressWarnings("unused") final String msg)
@@ -91,26 +97,31 @@ public class LogRule extends ExternalResource
 
 	public final void assertDebug(final String msg)
 	{
+		before.assertCalled();
 		assertMessage(Level.DEBUG, msg);
 	}
 
 	public final void assertInfo(final String msg)
 	{
+		before.assertCalled();
 		assertMessage(Level.INFO, msg);
 	}
 
 	public final void assertInfoWithoutMilliseconds(final String msg)
 	{
+		before.assertCalled();
 		assertMessageWithoutMilliseconds(Level.INFO, msg);
 	}
 
 	public final void assertWarn(final String msg)
 	{
+		before.assertCalled();
 		assertMessage(Level.WARN, msg);
 	}
 
 	public final void assertError(final String msg)
 	{
+		before.assertCalled();
 		assertMessage(Level.ERROR, msg);
 	}
 
@@ -132,6 +143,7 @@ public class LogRule extends ExternalResource
 
 	public final void assertEmpty()
 	{
+		before.assertCalled();
 		assertEquals(Collections.EMPTY_LIST, events);
 	}
 

@@ -34,17 +34,28 @@ public final class SystemPropertyRule extends ExternalResource
 
 	public void set(final String value)
 	{
+		before.assertCalled();
 		assertNull("key", System.setProperty(key, value));
 	}
 
 	public String clear()
 	{
+		before.assertCalled();
 		return System.clearProperty(key);
+	}
+
+
+	private final BeforeCall before = new BeforeCall();
+
+	@Override
+	protected void before()
+	{
+		before.onCall();
 	}
 
 	@Override
 	protected void after()
 	{
-		clear();
+		System.clearProperty(key);
 	}
 }

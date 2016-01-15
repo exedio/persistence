@@ -36,12 +36,23 @@ public final class ConnectTokenRule extends ExternalResource
 
 	public void set(final ConnectProperties properties)
 	{
+		before.assertCalled();
 		ConnectToken.setProperties(model, properties);
 	}
 
 	public ConnectProperties remove()
 	{
+		before.assertCalled();
 		return ConnectToken.removeProperties(model);
+	}
+
+
+	private final BeforeCall before = new BeforeCall();
+
+	@Override
+	protected void before()
+	{
+		before.onCall();
 	}
 
 	@Override

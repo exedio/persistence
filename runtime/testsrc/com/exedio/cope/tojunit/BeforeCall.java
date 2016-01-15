@@ -18,38 +18,25 @@
 
 package com.exedio.cope.tojunit;
 
-import static com.exedio.cope.util.Clock.clearOverride;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
-import com.exedio.cope.util.Clock;
-import com.exedio.cope.util.Clock.Strategy;
-import org.junit.rules.ExternalResource;
-
-public final class ClockRule extends ExternalResource
+/**
+ * Makes sure, that a {@link org.junit.rules.TestRule} works only,
+ * if it has been mounted correctly.
+ */
+public final class BeforeCall
 {
-	public void override(final Strategy strategy)
+	private boolean happened = false;
+
+	public void onCall()
 	{
-		before.assertCalled();
-		Clock.override(strategy);
+		assertFalse(happened);
+		happened = true;
 	}
 
-	public void clear()
+	public void assertCalled()
 	{
-		before.assertCalled();
-		clearOverride();
-	}
-
-
-	private final BeforeCall before = new BeforeCall();
-
-	@Override
-	protected void before()
-	{
-		before.onCall();
-	}
-
-	@Override
-	protected void after()
-	{
-		clearOverride();
+		assertTrue(happened);
 	}
 }

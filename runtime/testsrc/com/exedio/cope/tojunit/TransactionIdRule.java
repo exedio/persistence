@@ -32,16 +32,20 @@ public final class TransactionIdRule extends ExternalResource
 		this.model = Objects.requireNonNull(model);
 	}
 
+
+	private final BeforeCall before = new BeforeCall();
 	private long idBefore;
 
 	@Override
 	public void before()
 	{
+		before.onCall();
 		idBefore = model.getNextTransactionId();
 	}
 
 	public void assertEquals(final long expected, final long actual)
 	{
+		before.assertCalled();
 		Assert.assertEquals(idBefore + expected, actual);
 	}
 }
