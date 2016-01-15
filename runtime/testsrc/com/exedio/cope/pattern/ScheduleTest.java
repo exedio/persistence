@@ -89,10 +89,10 @@ public class ScheduleTest extends TestWithEnvironment
 		ScheduleItem.clearLogs();
 	}
 
+	@SuppressWarnings("static-method")
 	@After public final void tearDown()
 	{
 		ScheduleItem.clearLogs();
-		expectedRuns = null;
 	}
 
 	@Test public void testNoUpdateCounterColumn()

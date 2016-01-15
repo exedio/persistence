@@ -22,7 +22,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 import java.lang.reflect.AnnotatedElement;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -35,12 +34,6 @@ public class FeaturesTest
 	{
 		features = new Features();
 		annotationSource = getClass().getDeclaredField("annotationSource");
-	}
-
-	@After public final void tearDown()
-	{
-		features = null;
-		annotationSource = null;
 	}
 
 	@Test public void testIt()

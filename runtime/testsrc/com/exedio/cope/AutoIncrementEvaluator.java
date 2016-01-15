@@ -55,7 +55,6 @@ public class AutoIncrementEvaluator extends RawDatabaseTest
 	{
 		if(stat!=null)
 			stat.close();
-		stat = null;
 	}
 
 	@Test public void testAutoIncrement() throws SQLException

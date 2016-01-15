@@ -41,7 +41,6 @@ public final class MediaPathPostTest
 	@After public final void tearDown()
 	{
 		servlet.destroy();
-		servlet = null;
 	}
 
 	@Test public void testPost() throws ServletException, IOException

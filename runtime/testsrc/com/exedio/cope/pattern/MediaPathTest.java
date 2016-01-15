@@ -89,7 +89,6 @@ public final class MediaPathTest extends TestWithEnvironment
 	@After public final void tearDown()
 	{
 		servlet.destroy();
-		servlet = null;
 		for(final Type<?> type : MODEL.getTypes())
 			for(final Feature feature : type.getDeclaredFeatures())
 				if(feature instanceof MediaPathFeature)

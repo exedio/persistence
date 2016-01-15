@@ -47,6 +47,5 @@ public abstract class RawDatabaseTest
 	{
 		if(con!=null)
 			con.close();
-		con = null;
 	}
 }

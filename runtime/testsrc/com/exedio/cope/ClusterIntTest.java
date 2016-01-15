@@ -22,7 +22,6 @@ import static org.junit.Assert.assertEquals;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Arrays;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -36,11 +35,6 @@ public class ClusterIntTest
 	{
 		buf = new byte[100];
 		Arrays.fill(buf, (byte)0xee);
-	}
-
-	@After public final void tearDown()
-	{
-		buf = null;
 	}
 
 

@@ -28,7 +28,6 @@ import com.exedio.cope.misc.DirectRevisionsFactory;
 import com.exedio.cope.tojunit.LogRule;
 import java.util.Date;
 import java.util.Map;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -70,11 +69,6 @@ public class DeleteSchemaTest extends TestWithEnvironment
 			create = c.getDate();
 			assertEquals(1, logs.size());
 		}
-	}
-
-	@After public final void tearDown()
-	{
-		create = null;
 	}
 
 	private static final String ALL =
