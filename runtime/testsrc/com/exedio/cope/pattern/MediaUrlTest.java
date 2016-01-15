@@ -31,10 +31,13 @@ import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
 import com.exedio.cope.TestWithEnvironment;
+import com.exedio.cope.tojunit.SystemPropertyRule;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Date;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.RuleChain;
 
 @SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
 public final class MediaUrlTest extends TestWithEnvironment
@@ -43,6 +46,10 @@ public final class MediaUrlTest extends TestWithEnvironment
 	{
 		super(MediaUrlModelTest.MODEL);
 	}
+
+	private final SystemPropertyRule secretProperty = new SystemPropertyRule("media.url.secret");
+
+	@Rule public final RuleChain ruleChain = RuleChain.outerRule(secretProperty);
 
 	private MediaUrlItem named, anond;
 
@@ -102,7 +109,7 @@ public final class MediaUrlTest extends TestWithEnvironment
 		// TODO separate tests
 		model.commit();
 		model.disconnect();
-		System.setProperty("media.url.secret", "valueOfMediaUrlSecret");
+		secretProperty.set("valueOfMediaUrlSecret");
 		model.connect(copeRule.getConnectProperties());
 		assertTrue(MediaPath.isUrlGuessingPreventedSecurely(model.getConnectProperties()));
 		model.startTransaction("MediaUrlTest");

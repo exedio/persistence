@@ -21,7 +21,6 @@ package com.exedio.cope;
 import com.exedio.cope.tojunit.CopeRule;
 import com.exedio.cope.util.Properties;
 import com.exedio.dsmf.CheckConstraint;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 
@@ -70,12 +69,6 @@ public abstract class TestWithEnvironment
 		oracle  = tester.oracle;
 		postgresql = tester.postgresql;
 		cache = tester.cache;
-	}
-
-	@SuppressWarnings("static-method")
-	@After public final void tearDownAbstractRuntimeModelTest()
-	{
-		System.clearProperty("media.url.secret");
 	}
 
 	protected final void startTransaction()
