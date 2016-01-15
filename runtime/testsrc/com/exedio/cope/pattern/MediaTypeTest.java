@@ -33,10 +33,10 @@ import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import com.exedio.cope.tojunit.MyTemporaryFolder;
 import com.exedio.cope.util.StrictFile;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.LinkedHashSet;
@@ -44,7 +44,6 @@ import java.util.Set;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.RuleChain;
-import org.junit.rules.TemporaryFolder;
 
 public class MediaTypeTest
 {
@@ -52,7 +51,7 @@ public class MediaTypeTest
 	private static final String PNG = "89504e470d0a1a0a";
 	private static final String ZIP = "504b0304";
 
-	private final TemporaryFolder files = new TemporaryFolder();
+	private final MyTemporaryFolder files = new MyTemporaryFolder();
 
 	@Rule public final RuleChain ruleChain = RuleChain.outerRule(files);
 
@@ -203,7 +202,7 @@ public class MediaTypeTest
 		}
 		try
 		{
-			forMagics(file(new byte[]{}));
+			forMagics(files.newFile(new byte[]{}));
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -244,10 +243,10 @@ public class MediaTypeTest
 	{
 		final byte[] magicBytes = decodeLower(magic);
 		assertEqualsUnmodifiable(set(types), forMagics(magicBytes));
-		assertEqualsUnmodifiable(set(types), forMagics(file(magicBytes)));
+		assertEqualsUnmodifiable(set(types), forMagics(files.newFile(magicBytes)));
 		final MediaType first = types.length>0 ? types[0] : null;
 		assertSame(forMagic(magicBytes), first);
-		assertSame(forMagic(file(magicBytes)), first);
+		assertSame(forMagic(files.newFile(magicBytes)), first);
 	}
 
 	@SuppressWarnings("deprecation") // OK: testing deprecated code
@@ -265,15 +264,5 @@ public class MediaTypeTest
 	private static final Set<Object> set(final MediaType... o)
 	{
 		return new LinkedHashSet<Object>(Arrays.asList(o));
-	}
-
-	private File file(final byte[] bytes) throws IOException
-	{
-		final File result = files.newFile();
-		try(FileOutputStream stream = new FileOutputStream(result))
-		{
-			stream.write(bytes);
-		}
-		return result;
 	}
 }
