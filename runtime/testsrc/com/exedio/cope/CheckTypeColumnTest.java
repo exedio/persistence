@@ -26,13 +26,15 @@ import static com.exedio.cope.SchemaInfo.getTypeColumnValue;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
+import com.exedio.cope.tojunit.ConnectionRule;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.RuleChain;
 
 public class CheckTypeColumnTest extends TestWithEnvironment
 {
@@ -40,6 +42,10 @@ public class CheckTypeColumnTest extends TestWithEnvironment
 	{
 		super(InstanceOfModelTest.MODEL);
 	}
+
+	private final ConnectionRule connection = new ConnectionRule(model);
+
+	@Rule public final RuleChain ruleChain = RuleChain.outerRule(connection);
 
 	InstanceOfAItem itema;
 	InstanceOfB1Item itemb1;
@@ -352,13 +358,9 @@ public class CheckTypeColumnTest extends TestWithEnvironment
 	{
 		final String transactionName = model.currentTransaction().getName();
 		model.commit();
-		try(Connection connection = SchemaInfo.newConnection(model))
+		try(Statement statement = connection.createStatement())
 		{
-			connection.setAutoCommit(true);
-			try(Statement statement = connection.createStatement())
-			{
-				assertEquals(1, statement.executeUpdate(sql));
-			}
+			assertEquals(1, statement.executeUpdate(sql));
 		}
 		model.startTransaction(transactionName);
 	}

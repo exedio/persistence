@@ -25,12 +25,14 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import com.exedio.cope.tojunit.ConnectionRule;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.RuleChain;
 
 public final class UpdateCounterRecoverTest extends TestWithEnvironment
 {
@@ -38,6 +40,10 @@ public final class UpdateCounterRecoverTest extends TestWithEnvironment
 	{
 		super(CacheIsolationTest.MODEL);
 	}
+
+	private final ConnectionRule connection = new ConnectionRule(model);
+
+	@Rule public final RuleChain ruleChain = RuleChain.outerRule(connection);
 
 	CacheIsolationItem item = null;
 
@@ -280,13 +286,9 @@ public final class UpdateCounterRecoverTest extends TestWithEnvironment
 	@SuppressFBWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
 	private void execute(final String sql) throws SQLException
 	{
-		try(Connection connection = SchemaInfo.newConnection(model))
+		try(Statement statement = connection.createStatement())
 		{
-			connection.setAutoCommit(true);
-			try(Statement statement = connection.createStatement())
-			{
-				assertEquals(1, statement.executeUpdate(sql));
-			}
+			assertEquals(1, statement.executeUpdate(sql));
 		}
 	}
 

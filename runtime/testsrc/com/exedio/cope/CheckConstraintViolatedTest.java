@@ -25,16 +25,17 @@ import static com.exedio.cope.CheckConstraintViolatedTest.AnItem.beta;
 import static com.exedio.cope.SchemaInfo.getColumnName;
 import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnName;
 import static com.exedio.cope.SchemaInfo.getTableName;
-import static com.exedio.cope.SchemaInfo.newConnection;
 import static com.exedio.cope.SchemaInfo.quoteName;
 import static com.exedio.cope.SchemaInfo.supportsCheckConstraints;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
+import com.exedio.cope.tojunit.ConnectionRule;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import java.sql.Connection;
 import java.sql.SQLException;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.RuleChain;
 
 public class CheckConstraintViolatedTest extends TestWithEnvironment
 {
@@ -43,6 +44,10 @@ public class CheckConstraintViolatedTest extends TestWithEnvironment
 		super(MODEL);
 		copeRule.omitTransaction();
 	}
+
+	private final ConnectionRule connection = new ConnectionRule(model);
+
+	@Rule public final RuleChain ruleChain = RuleChain.outerRule(connection);
 
 	@Test public void testIt() throws SQLException
 	{
@@ -94,8 +99,7 @@ public class CheckConstraintViolatedTest extends TestWithEnvironment
 	@SuppressFBWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
 	private void insert(final int pk, final Integer a, final Integer b) throws SQLException
 	{
-		try(Connection c = newConnection(model);
-			java.sql.Statement st = c.createStatement())
+		try(java.sql.Statement st = connection.createStatement())
 		{
 			st.execute(
 					"INSERT INTO " + q(getTableName(TYPE)) +

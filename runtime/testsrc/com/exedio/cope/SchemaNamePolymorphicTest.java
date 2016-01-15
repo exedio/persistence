@@ -24,16 +24,16 @@ import static com.exedio.cope.SchemaInfo.getTypeColumnValue;
 import static com.exedio.cope.tojunit.Assert.list;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
+import com.exedio.cope.tojunit.ConnectionRule;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import org.junit.After;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.RuleChain;
 
 public class SchemaNamePolymorphicTest extends TestWithEnvironment
 {
@@ -47,13 +47,9 @@ public class SchemaNamePolymorphicTest extends TestWithEnvironment
 		super(MODEL);
 	}
 
-	Connection connection;
+	private final ConnectionRule connection = new ConnectionRule(model);
 
-	@After public final void tearDown() throws SQLException
-	{
-		if(connection!=null)
-			connection.close();
-	}
+	@Rule public final RuleChain ruleChain = RuleChain.outerRule(connection);
 
 	@Test public void test() throws SQLException
 	{
@@ -132,17 +128,15 @@ public class SchemaNamePolymorphicTest extends TestWithEnvironment
 		item2.deleteCopeItem();
 	}
 
-	private final void toSchema() throws SQLException
+	private final void toSchema()
 	{
-		assertNull(connection);
+		assertFalse(connection.isConnected());
 		commit();
-		connection = SchemaInfo.newConnection(model);
 	}
 
 	private final void toModel() throws SQLException
 	{
 		connection.close();
-		connection = null;
 		startTransaction();
 	}
 

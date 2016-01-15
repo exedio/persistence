@@ -23,14 +23,14 @@ import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnName;
 import static com.exedio.cope.SchemaInfo.getTableName;
 import static com.exedio.cope.SchemaInfo.getTypeColumnName;
 import static com.exedio.cope.SchemaInfo.getUpdateCounterColumnName;
-import static com.exedio.cope.SchemaInfo.newConnection;
 import static com.exedio.cope.SchemaInfo.quoteName;
 
+import com.exedio.cope.tojunit.ConnectionRule;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import java.sql.Connection;
 import java.sql.SQLException;
-import org.junit.After;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.RuleChain;
 
 public class SchemaInfoConnectionTest extends TestWithEnvironment
 {
@@ -40,13 +40,9 @@ public class SchemaInfoConnectionTest extends TestWithEnvironment
 		copeRule.omitTransaction();
 	}
 
-	private Connection c;
+	private final ConnectionRule connection = new ConnectionRule(model);
 
-	@After public final void tearDown() throws SQLException
-	{
-		if(c!=null)
-			c.close();
-	}
+	@Rule public final RuleChain ruleChain = RuleChain.outerRule(connection);
 
 	@SuppressFBWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
 	@Test public void testIt() throws SQLException
@@ -63,8 +59,7 @@ public class SchemaInfoConnectionTest extends TestWithEnvironment
 			append(" from ").
 			append(q(getTableName(InstanceOfAItem.TYPE)));
 
-		c = newConnection(model);
-		try(java.sql.Statement statement = c.createStatement())
+		try(java.sql.Statement statement = connection.createStatement())
 		{
 			statement.execute(bf.toString());
 		}
@@ -85,8 +80,7 @@ public class SchemaInfoConnectionTest extends TestWithEnvironment
 			append(" from ").
 			append(q(getTableName(InstanceOfRefItem.TYPE)));
 
-		c = newConnection(model);
-		try(java.sql.Statement statement = c.createStatement())
+		try(java.sql.Statement statement = connection.createStatement())
 		{
 			statement.execute(bf.toString());
 		}
