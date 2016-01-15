@@ -25,7 +25,6 @@ import static com.exedio.cope.pattern.MediaType.forNameAndAliases;
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
 import static com.exedio.cope.tojunit.Assert.list;
 import static com.exedio.cope.util.Hex.decodeLower;
-import static java.io.File.createTempFile;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -210,8 +209,7 @@ public class MediaTypeTest
 			assertEquals("empty", e.getMessage());
 		}
 
-		final File file = createTempFile(MediaTypeTest.class.getName(), ".dat");
-		StrictFile.delete(file);
+		final File file = files.newFileNotExists();
 		try
 		{
 			forMagics(file);

@@ -22,8 +22,6 @@ import static com.exedio.cope.AbstractRuntimeTest.assertEqualContent;
 import static com.exedio.cope.DataItem.data;
 import static com.exedio.cope.DataItem.data10;
 import static com.exedio.cope.RuntimeAssert.assertData;
-import static com.exedio.cope.util.StrictFile.delete;
-import static java.io.File.createTempFile;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
@@ -87,7 +85,7 @@ public class DataTest extends TestWithEnvironment
 		assertIt(expectedData, item, oracle);
 	}
 
-	private static final void assertIt(final byte[] expectedData, final DataItem item, final boolean oracle)
+	private void assertIt(final byte[] expectedData, final DataItem item, final boolean oracle)
 		throws MandatoryViolationException, IOException
 	{
 		if(expectedData!=null && !(oracle && expectedData.length==0))
@@ -100,9 +98,7 @@ public class DataTest extends TestWithEnvironment
 			item.getData(tempStream);
 			assertData(expectedData, tempStream.toByteArray());
 
-			final File tempFile = createTempFile(DataTest.class.getName(), ".tmp");
-			delete(tempFile);
-			assertFalse(tempFile.exists());
+			final File tempFile = files.newFileNotExists();
 			item.getData(tempFile);
 			assertTrue(tempFile.exists());
 			assertEqualContent(expectedData, tempFile);
@@ -117,9 +113,7 @@ public class DataTest extends TestWithEnvironment
 			item.getData(tempStream);
 			assertEquals(0, tempStream.toByteArray().length);
 
-			final File tempFile = createTempFile(DataTest.class.getName(), ".tmp");
-			delete(tempFile);
-			assertFalse(tempFile.exists());
+			final File tempFile = files.newFileNotExists();
 			item.getData(tempFile);
 			assertFalse(tempFile.exists());
 		}

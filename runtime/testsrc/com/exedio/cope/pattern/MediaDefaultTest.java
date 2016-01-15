@@ -26,10 +26,7 @@ import static com.exedio.cope.pattern.MediaLocatorAssert.assertLocator;
 import static com.exedio.cope.tojunit.Assert.assertContains;
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
 import static com.exedio.cope.tojunit.Assert.list;
-import static com.exedio.cope.util.StrictFile.delete;
-import static java.io.File.createTempFile;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
@@ -370,10 +367,7 @@ public class MediaDefaultTest extends TestWithEnvironment
 
 	private final void assertDataFile(final byte[] expectedData) throws IOException
 	{
-		final File tempFile = createTempFile(MediaDefaultTest.class.getName(), ".tmp");
-		delete(tempFile);
-		assertFalse(tempFile.exists());
-
+		final File tempFile = files.newFileNotExists();
 		item.getFileBody(tempFile);
 		assertEqualContent(expectedData, tempFile);
 	}

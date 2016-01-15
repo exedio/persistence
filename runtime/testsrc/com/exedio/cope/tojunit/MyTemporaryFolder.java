@@ -18,6 +18,9 @@
 
 package com.exedio.cope.tojunit;
 
+import static org.junit.Assert.assertFalse;
+
+import com.exedio.cope.util.StrictFile;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -32,6 +35,14 @@ public final class MyTemporaryFolder extends TemporaryFolder
 		{
 			stream.write(bytes);
 		}
+		return result;
+	}
+
+	public File newFileNotExists() throws IOException
+	{
+		final File result = newFile();
+		StrictFile.delete(result);
+		assertFalse(result.exists());
 		return result;
 	}
 }

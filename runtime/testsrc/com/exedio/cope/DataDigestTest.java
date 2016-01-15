@@ -26,18 +26,24 @@ import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.fail;
 
 import com.exedio.cope.DataField.Value;
+import com.exedio.cope.tojunit.MyTemporaryFolder;
 import com.exedio.cope.util.Hex;
 import com.exedio.cope.util.MessageDigestUtil;
 import java.io.ByteArrayInputStream;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.security.MessageDigest;
 import java.util.Arrays;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.RuleChain;
 
 public class DataDigestTest
 {
+	private final MyTemporaryFolder files = new MyTemporaryFolder();
+
+	@Rule public final RuleChain ruleChain = RuleChain.outerRule(files);
+
 	@Test public void testUpdate() throws IOException
 	{
 		assertUpdate("904ac396ac3d50faa666e57146fe7862", bytes4);
@@ -59,12 +65,12 @@ public class DataDigestTest
 				"Frank jagt im komplett verwahrlosten Taxi quer durch Bayern");
 	}
 
-	private static final void assertUpdate(final String hash, final String input) throws IOException
+	private void assertUpdate(final String hash, final String input) throws IOException
 	{
 		assertUpdate(hash, input.getBytes(UTF_8));
 	}
 
-	private static final void assertUpdate(final String hash, final byte[] input) throws IOException
+	private void assertUpdate(final String hash, final byte[] input) throws IOException
 	{
 		messageDigest.reset();
 		toValue(input).update(messageDigest);
@@ -76,7 +82,7 @@ public class DataDigestTest
 		assertEquals(hash, Hex.encodeLower(messageDigest.digest()));
 
 		messageDigest.reset();
-		final File inputFile = file(input);
+		final File inputFile = files.newFile(input);
 		toValue(inputFile).update(messageDigest);
 		assertEquals(hash, Hex.encodeLower(messageDigest.digest()));
 		delete(inputFile);
@@ -105,7 +111,7 @@ public class DataDigestTest
 
 	@Test public void testExhaustionFile() throws IOException
 	{
-		final File inputFile = file(bytes4);
+		final File inputFile = files.newFile(bytes4);
 		final Value value = toValue(inputFile);
 		assertAsArray(bytes4, value);
 		assertExhausted(value);
@@ -141,7 +147,7 @@ public class DataDigestTest
 
 	@Test public void testExhaustionFileUpdate() throws IOException
 	{
-		final File inputFile = file(bytes4);
+		final File inputFile = files.newFile(bytes4);
 		final Value value = toValue(inputFile);
 
 		messageDigest.reset();
@@ -159,16 +165,6 @@ public class DataDigestTest
 	{
 		if(!Arrays.equals(expectedData, actualData))
 			fail("expected " + Arrays.toString(expectedData) + ", but was " + Arrays.toString(actualData));
-	}
-
-	private static File file(final byte[] content) throws IOException
-	{
-		final File result = File.createTempFile(DataDigestTest.class.getName(), ".dat");
-		try(FileOutputStream out = new FileOutputStream(result))
-		{
-			out.write(content);
-		}
-		return result;
 	}
 
 	private static void assertExhausted(final Value value) throws IOException

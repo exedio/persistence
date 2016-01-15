@@ -26,10 +26,7 @@ import static com.exedio.cope.pattern.MediaLocatorAssert.assertLocator;
 import static com.exedio.cope.tojunit.Assert.assertContains;
 import static com.exedio.cope.tojunit.Assert.assertWithin;
 import static com.exedio.cope.tojunit.Assert.list;
-import static com.exedio.cope.util.StrictFile.delete;
-import static java.io.File.createTempFile;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
@@ -42,11 +39,14 @@ import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.Model;
 import com.exedio.cope.StringField;
 import com.exedio.cope.TestWithEnvironment;
+import com.exedio.cope.tojunit.MyTemporaryFolder;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Date;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.RuleChain;
 
 public class MediaFinalTest extends TestWithEnvironment
 {
@@ -56,6 +56,10 @@ public class MediaFinalTest extends TestWithEnvironment
 	{
 		super(MODEL);
 	}
+
+	private final MyTemporaryFolder files = new MyTemporaryFolder();
+
+	@Rule public final RuleChain ruleChain = RuleChain.outerRule(files);
 
 	private final byte[] data19 = {-54,71,-86,122,-8,23,-23,104,-63,23,19,-45,-63,23,71,-23,19,-45,71};
 	private final byte[] data20 = {-54,71,-86,122,-8,23,-23,104,-63,23,19,-45,-63,23,71,-23,19,-45,71,-23};
@@ -166,7 +170,7 @@ public class MediaFinalTest extends TestWithEnvironment
 		assertContentNull(itemNull);
 	}
 
-	private static void assertContent(
+	private void assertContent(
 			final MediaFinalItem item,
 			final byte[] expectedData,
 			final Date before, final Date after,
@@ -182,12 +186,9 @@ public class MediaFinalTest extends TestWithEnvironment
 		assertLocator("MediaFinalItem/file/" + item.getCopeID() + expectedExtension, item.getFileLocator());
 	}
 
-	private static final void assertDataFile(final MediaFinalItem item, final byte[] expectedData) throws IOException
+	private void assertDataFile(final MediaFinalItem item, final byte[] expectedData) throws IOException
 	{
-		final File tempFile = createTempFile(MediaDefaultTest.class.getName(), ".tmp");
-		delete(tempFile);
-		assertFalse(tempFile.exists());
-
+		final File tempFile = files.newFileNotExists();
 		item.getFileBody(tempFile);
 		assertEqualContent(expectedData, tempFile);
 	}
