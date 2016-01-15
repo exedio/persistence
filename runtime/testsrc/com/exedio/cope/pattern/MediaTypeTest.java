@@ -25,7 +25,6 @@ import static com.exedio.cope.pattern.MediaType.forNameAndAliases;
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
 import static com.exedio.cope.tojunit.Assert.list;
 import static com.exedio.cope.util.Hex.decodeLower;
-import static com.exedio.cope.util.StrictFile.delete;
 import static java.io.File.createTempFile;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -39,18 +38,23 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashSet;
 import java.util.Set;
-import org.junit.After;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.RuleChain;
+import org.junit.rules.TemporaryFolder;
 
 public class MediaTypeTest
 {
 	private static final String JPEG = "ffd8ff";
 	private static final String PNG = "89504e470d0a1a0a";
 	private static final String ZIP = "504b0304";
+
+	private final TemporaryFolder files = new TemporaryFolder();
+
+	@Rule public final RuleChain ruleChain = RuleChain.outerRule(files);
 
 	@Test public void testForFileName()
 	{
@@ -265,28 +269,11 @@ public class MediaTypeTest
 
 	private File file(final byte[] bytes) throws IOException
 	{
-		final File result = deleteOnTearDown(createTempFile(MediaTypeTest.class.getName(), ".dat"));
+		final File result = files.newFile();
 		try(FileOutputStream stream = new FileOutputStream(result))
 		{
 			stream.write(bytes);
 		}
 		return result;
-	}
-
-
-	private final ArrayList<File> files = new ArrayList<>();
-
-	@After public final void tearDown()
-	{
-		for(final File file : files)
-			delete(file);
-		files.clear();
-	}
-
-	private final File deleteOnTearDown(final File file)
-	{
-		assertNotNull(file);
-		files.add(file);
-		return file;
 	}
 }
