@@ -30,6 +30,7 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import com.exedio.cope.tojunit.MyTemporaryFolder;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -38,7 +39,9 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.RuleChain;
 
 public class DataTest extends TestWithEnvironment
 {
@@ -46,6 +49,10 @@ public class DataTest extends TestWithEnvironment
 	{
 		super(DataModelTest.MODEL);
 	}
+
+	private final MyTemporaryFolder files = new MyTemporaryFolder();
+
+	@Rule public final RuleChain ruleChain = RuleChain.outerRule(files);
 
 	private DataItem item;
 	private byte[] dataBig;
@@ -162,13 +169,13 @@ public class DataTest extends TestWithEnvironment
 
 
 		// set File
-		item.setData(file(bytes8));
+		item.setData(files.newFile(bytes8));
 		assertIt(bytes8);
 
-		item.setData(file(bytes0));
+		item.setData(files.newFile(bytes0));
 		assertIt(bytes0);
 
-		item.setData(file(dataBig));
+		item.setData(files.newFile(dataBig));
 		assertIt(dataBig);
 
 		item.setData((File)null);
@@ -241,7 +248,7 @@ public class DataTest extends TestWithEnvironment
 		assertData(bytes10, item.getData10Array());
 		try
 		{
-			item.setData10(file(bytes11));
+			item.setData10(files.newFile(bytes11));
 			fail();
 		}
 		catch(final DataLengthViolationException e)

@@ -21,7 +21,6 @@ package com.exedio.cope;
 import com.exedio.cope.tojunit.CopeRule;
 import com.exedio.cope.util.Properties;
 import com.exedio.dsmf.CheckConstraint;
-import java.io.File;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
@@ -61,7 +60,6 @@ public abstract class TestWithEnvironment
 	protected boolean oracle;
 	protected boolean postgresql;
 	protected boolean cache;
-	private final FileFixture files = new FileFixture();
 
 	@Before public final void setUpAbstractRuntimeModelTest()
 	{
@@ -72,12 +70,11 @@ public abstract class TestWithEnvironment
 		oracle  = tester.oracle;
 		postgresql = tester.postgresql;
 		cache = tester.cache;
-		files.setUp();
 	}
 
+	@SuppressWarnings("static-method")
 	@After public final void tearDownAbstractRuntimeModelTest()
 	{
-		files.tearDown();
 		System.clearProperty("media.url.secret");
 	}
 
@@ -89,16 +86,6 @@ public abstract class TestWithEnvironment
 	protected final void commit()
 	{
 		model.commit();
-	}
-
-	protected final File file(final byte[] data)
-	{
-		return files.file(data);
-	}
-
-	protected final File deleteOnTearDown(final File file)
-	{
-		return files.deleteOnTearDown(file);
 	}
 
 	protected void assertIDFails(final String id, final String detail, final boolean notAnID)

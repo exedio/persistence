@@ -19,7 +19,6 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.pattern.TextUrlFilterItem.fertig;
-import static java.io.File.createTempFile;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -29,6 +28,7 @@ import static org.junit.Assert.fail;
 import com.exedio.cope.DataLengthViolationException;
 import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.pattern.TextUrlFilter.Paste;
+import com.exedio.cope.tojunit.MyTemporaryFolder;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -37,7 +37,9 @@ import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.Iterator;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.RuleChain;
 
 public class TextUrlFilterZipTest extends TestWithEnvironment
 {
@@ -45,6 +47,10 @@ public class TextUrlFilterZipTest extends TestWithEnvironment
 	{
 		super(TextUrlFilterTest.MODEL);
 	}
+
+	private final MyTemporaryFolder files = new MyTemporaryFolder();
+
+	@Rule public final RuleChain ruleChain = RuleChain.outerRule(files);
 
 	TextUrlFilterItem item;
 
@@ -156,7 +162,7 @@ public class TextUrlFilterZipTest extends TestWithEnvironment
 		}
 		assertTrue(read>0);
 
-		final File result = deleteOnTearDown(createTempFile(TextUrlFilterZipTest.class.getName(), ""));
+		final File result = files.newFile();
 		try(FileOutputStream out = new FileOutputStream(result))
 		{
 			out.write(b, 0, read);

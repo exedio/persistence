@@ -24,10 +24,13 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.fail;
 
+import com.exedio.cope.tojunit.MyTemporaryFolder;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.IOException;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.RuleChain;
 
 @SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
 public class DataFinalTest extends TestWithEnvironment
@@ -39,6 +42,10 @@ public class DataFinalTest extends TestWithEnvironment
 	{
 		super(MODEL);
 	}
+
+	private final MyTemporaryFolder files = new MyTemporaryFolder();
+
+	@Rule public final RuleChain ruleChain = RuleChain.outerRule(files);
 
 	private DataFinalItem item;
 
@@ -94,7 +101,7 @@ public class DataFinalTest extends TestWithEnvironment
 
 		try
 		{
-			data.set(item, file(bytes6));
+			data.set(item, files.newFile(bytes6));
 			fail();
 		}
 		catch(final FinalViolationException e)

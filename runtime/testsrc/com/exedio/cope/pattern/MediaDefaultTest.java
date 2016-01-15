@@ -44,6 +44,7 @@ import com.exedio.cope.StringField;
 import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.junit.AbsoluteMockClockStrategy;
 import com.exedio.cope.tojunit.ClockRule;
+import com.exedio.cope.tojunit.MyTemporaryFolder;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -63,7 +64,9 @@ public class MediaDefaultTest extends TestWithEnvironment
 	private final AbsoluteMockClockStrategy clock = new AbsoluteMockClockStrategy();
 	private final ClockRule clockRule = new ClockRule();
 
-	@Rule public final RuleChain ruleChain = RuleChain.outerRule(clockRule);
+	private final MyTemporaryFolder files = new MyTemporaryFolder();
+
+	@Rule public final RuleChain ruleChain = RuleChain.outerRule(clockRule).around(files);
 
 	protected MediaItem item;
 
@@ -195,7 +198,7 @@ public class MediaDefaultTest extends TestWithEnvironment
 		assertContentNull();
 		{
 			clock.add(123457);
-			item.setFile(file(bytes8), "empty-major/empty-minor");
+			item.setFile(files.newFile(bytes8), "empty-major/empty-minor");
 			clock.assertEmpty();
 			assertContent(bytes8, new Date(123457), "empty-major/empty-minor", "");
 		}
@@ -264,7 +267,7 @@ public class MediaDefaultTest extends TestWithEnvironment
 			clock.add(123456009);
 			try
 			{
-				item.setFile(file(bytes21), "empty-major-long/empty-minor-long");
+				item.setFile(files.newFile(bytes21), "empty-major-long/empty-minor-long");
 				fail();
 			}
 			catch(final DataLengthViolationException e)
@@ -282,7 +285,7 @@ public class MediaDefaultTest extends TestWithEnvironment
 			clock.add(123456010);
 			try
 			{
-				new MediaItem(Media.toValue(file(bytes21), "empty-major-long/empty-minor-long"));
+				new MediaItem(Media.toValue(files.newFile(bytes21), "empty-major-long/empty-minor-long"));
 				fail();
 			}
 			catch(final DataLengthViolationException e)
