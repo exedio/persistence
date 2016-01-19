@@ -99,6 +99,8 @@ public class ServletUtilContextTest
 				return "v1";
 			else if((prefix + "p2").equals(name))
 				return "v2";
+			else if((prefix + "com.exedio.cope.servletutil.ServletSource.propertiesFile").equals(name))
+				return null;
 			else
 				throw new IllegalArgumentException(name);
 		}
