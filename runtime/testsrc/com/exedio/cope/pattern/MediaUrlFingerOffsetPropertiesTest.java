@@ -219,7 +219,8 @@ public class MediaUrlFingerOffsetPropertiesTest
 		catch(final IllegalPropertiesException e)
 		{
 			assertEquals(
-					"property " + propKey + " in MediaUrlFingerOffsetPropertiesTest has invalid value, expected an integer greater or equal 0, but got -1.",
+					"property " + propKey + " in MediaUrlFingerOffsetPropertiesTest " +
+					"must be an integer greater or equal 0, but was -1",
 					e.getMessage());
 		}
 	}
