@@ -20,7 +20,7 @@ package com.exedio.cope.misc;
 
 import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.Model;
-import com.exedio.cope.servletutil.ServletProperties;
+import com.exedio.cope.servletutil.ServletSource;
 import com.exedio.cope.util.Properties;
 import java.io.File;
 import javax.servlet.Filter;
@@ -161,12 +161,12 @@ public final class ServletUtil
 	}
 
 	/**
-	 * @deprecated Use {@link ServletProperties#create(ServletContext)} instead
+	 * @deprecated Use {@link ServletSource#create(ServletContext)} instead
 	 */
 	@Deprecated
 	public static final Properties.Source getPropertyContext(final ServletContext context)
 	{
-		return ServletProperties.create(context);
+		return ServletSource.create(context);
 	}
 
 	// ------------------- deprecated stuff -------------------
