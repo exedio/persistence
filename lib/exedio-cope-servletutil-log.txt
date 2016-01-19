@@ -7,3 +7,7 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* added ivy configurations 'sources' and 'changelog'
+    sources and changelog won't be included in 'runtime' config per default anymore
+* ServletSource supports com.exedio.cope.servletutil.ServletSource.propertiesFile
+* ServletSource supports keySet()

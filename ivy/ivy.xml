@@ -13,6 +13,7 @@
 	<configurations>
 		<conf name="runtime" />
 		<conf name="sources" />
+		<conf name="changelog" />
 		<conf name="junit" extends="runtime" description="For fetching exedio-cope-junit.jar" />
 		<conf name="build" extends="runtime" visibility="private" />
 
@@ -25,13 +26,13 @@
 	<publications defaultconf="runtime">
 		<artifact name="exedio-cope" />
 		<artifact name="exedio-cope" conf="sources" type="src" ext="zip" />
-		<artifact name="exedio-cope" type="log" ext="txt" />
+		<artifact name="exedio-cope" conf="changelog" type="log" ext="txt" />
 		<artifact name="exedio-cope-instrument-annotations" />
 		<artifact name="exedio-cope-instrument" />
 		<artifact name="exedio-cope-junit" conf="junit" />
 	</publications>
 	<dependencies defaultconf="runtime->*">
-		<dependency org="javax.servlet" name="servlet-api" rev="2.5" />
+		<dependency org="javax.servlet" name="servlet-api" rev="2.5" conf="runtime->default; build->sources" />
 		<dependency org="net.sf.trove4j" name="trove4j" rev="2.0.2">
 			<conf name="runtime" mapped="default" />
 			<conf name="build" mapped="sources" />
@@ -55,8 +56,8 @@
 			<conf name="build" mapped="sources" />
 		</dependency>
 		<dependency org="org.slf4j" name="slf4j-log4j12" rev="1.6.4" conf="build->default" />
-		<dependency org="com.exedio" name="copeutil" rev="476" />
-		<dependency org="com.exedio" name="copeservletutil" rev="11" />
+		<dependency org="com.exedio" name="copeutil" rev="483" conf="runtime->runtime; build->runtime,sources,changelog" />
+		<dependency org="com.exedio" name="copeservletutil" rev="66" conf="runtime->runtime; build->runtime,sources,changelog" />
 
 		<!-- dialects -->
 		<dependency conf="hsqldb->default" org="org.hsqldb" name="hsqldb" rev="2.2.9" />
