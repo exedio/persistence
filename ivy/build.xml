@@ -13,7 +13,6 @@
 				<globmapper from="*" to="*" />
 			</firstmatchmapper>
 			<fileset dir="artifacts/lib">
-				<exclude name="junit-javadoc.jar" />
 			</fileset>
 		</copy>
 		
