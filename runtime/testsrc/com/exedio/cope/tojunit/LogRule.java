@@ -129,6 +129,9 @@ public class LogRule extends ExternalResource
 	{
 		assertTrue("empty", !events.isEmpty());
 		final LoggingEvent event = events.remove(0);
+		assertEquals(
+				"" + level + ' ' + msg,
+				"" + event.getLevel() + ' ' + event.getRenderedMessage());
 		assertEquals(level, event.getLevel());
 		assertEquals(msg, event.getRenderedMessage());
 	}
