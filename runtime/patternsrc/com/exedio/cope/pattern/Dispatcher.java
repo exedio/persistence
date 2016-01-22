@@ -262,6 +262,7 @@ public final class Dispatcher extends Pattern
 							runSuccess.map(true));
 
 					tx.commit();
+					logger.info("success for {}, took {}ms", itemID, elapsed);
 				}
 				catch(final Exception cause)
 				{
