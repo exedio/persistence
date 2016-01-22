@@ -254,7 +254,7 @@ public final class Dispatcher extends Pattern
 					item.dispatch(this);
 
 					final long elapsed = toMillies(nanoTime(), nanoStart);
-					pending.set(item, false);
+					unpend(item);
 					mount.runType.newItem(
 							runParent.map(item),
 							runDate.map(new Date(start)),
@@ -291,7 +291,7 @@ public final class Dispatcher extends Pattern
 					final boolean finalFailure =
 						mount.runType.newQuery(runParent.equal(item)).total()>=config.getFailureLimit();
 					if(finalFailure)
-						pending.set(item, false);
+						unpend(item);
 
 					tx.commit();
 
@@ -310,6 +310,11 @@ public final class Dispatcher extends Pattern
 			}
 			ctx.incrementProgress();
 		}
+	}
+
+	private void unpend(final Item item)
+	{
+		pending.set(item, false);
 	}
 
 	/**
