@@ -27,6 +27,7 @@ import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import org.junit.Assert;
@@ -52,6 +53,22 @@ public final class DispatcherItem extends Item implements Dispatchable
 	}
 
 	static final Dispatcher toTarget = new Dispatcher();
+
+	Boolean getToTargetUnpendSuccess()
+	{
+		return toTarget.getUnpendSuccess().get(this);
+	}
+
+	Date getToTargetUnpendDate()
+	{
+		return toTarget.getUnpendDate().get(this);
+	}
+
+	Integer getToTargetUnpendDateMillis()
+	{
+		final Date date = getToTargetUnpendDate();
+		return date!=null ? Integer.valueOf((int)date.getTime()) : null;
+	}
 
 	public void dispatch(final Dispatcher dispatcher) throws IOException, InterruptedException
 	{

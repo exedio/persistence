@@ -79,7 +79,10 @@ public class DispatcherModelTest
 				body,
 				dispatchCountCommitted,
 				toTarget,
-				toTarget.getPending()
+				toTarget.getPending(),
+				toTarget.getUnpendSuccess(),
+				toTarget.getUnpendDate(),
+				toTarget.getUnpendUnison()
 			), TYPE.getFeatures());
 		assertEqualsUnmodifiable(list(
 				runType.getThis(),
@@ -128,6 +131,8 @@ public class DispatcherModelTest
 	@Test public void testComputed()
 	{
 		assertFalse(toTarget.getPending().isAnnotationPresent(Computed.class));
+		assertTrue (toTarget.getUnpendSuccess().isAnnotationPresent(Computed.class));
+		assertTrue (toTarget.getUnpendDate().isAnnotationPresent(Computed.class));
 		assertTrue (toTarget.getRunType().isAnnotationPresent(Computed.class));
 	}
 

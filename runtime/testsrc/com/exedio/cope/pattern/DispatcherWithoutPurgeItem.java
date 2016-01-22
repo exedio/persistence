@@ -51,7 +51,7 @@ public final class DispatcherWithoutPurgeItem extends Item implements Dispatchab
 		}
 	}
 
-	static final Dispatcher toTarget = new Dispatcher();
+	static final Dispatcher toTarget = new Dispatcher().withoutPurge();
 
 	public void dispatch(final Dispatcher dispatcher) throws IOException, InterruptedException
 	{
