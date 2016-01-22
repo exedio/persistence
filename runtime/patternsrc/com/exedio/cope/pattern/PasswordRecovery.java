@@ -180,7 +180,7 @@ public final class PasswordRecovery extends Pattern
 			tokenType.search(Cope.and(
 				Cope.equalAndCast(this.parent, item),
 				this.secret.equal(secret),
-				this.expires.greaterOrEqual(new Date(Clock.currentTimeMillis()))));
+				this.expires.greaterOrEqual(Clock.newDate())));
 
 		if(!tokens.isEmpty())
 		{
@@ -239,7 +239,7 @@ public final class PasswordRecovery extends Pattern
 			@Parameter("ctx") final JobContext ctx)
 	{
 		Delete.delete(
-				tokenType.newQuery(this.expires.less(new Date(Clock.currentTimeMillis()))),
+				tokenType.newQuery(this.expires.less(Clock.newDate())),
 				"PasswordRecovery#purge " + getID(),
 				ctx);
 	}
