@@ -24,6 +24,7 @@ import com.exedio.cope.Model;
 import com.exedio.cope.SchemaInfo;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Objects;
@@ -111,6 +112,15 @@ public final class ConnectionRule implements TestRule
 		try(Statement statement = createStatement())
 		{
 			return statement.executeUpdate(sql);
+		}
+	}
+
+	@SuppressFBWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
+	public ResultSet executeQuery(final String sql) throws SQLException
+	{
+		try(Statement statement = createStatement())
+		{
+			return statement.executeQuery(sql);
 		}
 	}
 

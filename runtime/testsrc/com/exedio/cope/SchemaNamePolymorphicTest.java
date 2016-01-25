@@ -27,10 +27,8 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import com.exedio.cope.tojunit.ConnectionRule;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.RuleChain;
@@ -140,12 +138,9 @@ public class SchemaNamePolymorphicTest extends TestWithEnvironment
 		startTransaction();
 	}
 
-	@SuppressFBWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE") // Nonconstant string passed to execute method on an SQL statement
 	private String fetch(final String sql) throws SQLException
 	{
-		try(
-			Statement stmt = connection.createStatement();
-			ResultSet rs = stmt.executeQuery(sql))
+		try(ResultSet rs = connection.executeQuery(sql))
 		{
 			assertTrue(rs.next());
 			final String result = rs.getString(1);
