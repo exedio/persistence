@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import static java.util.Objects.requireNonNull;
 
+import com.exedio.cope.util.TimeZoneStrict;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -113,9 +114,16 @@ public final class CompareCondition<E> extends Condition
 				bf.append(o.toString());
 		}
 		else if(o instanceof Date)
-			bf.append(key ? String.valueOf(((Date)o).getTime()) : new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS").format((Date)o));
+			bf.append(key ? String.valueOf(((Date)o).getTime()) : df().format((Date)o));
 		else
 			bf.append(o.toString());
+	}
+
+	private static SimpleDateFormat df()
+	{
+		final SimpleDateFormat result = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS");
+		result.setTimeZone(TimeZoneStrict.getTimeZone("UTC"));
+		return result;
 	}
 
 	// ------------------- deprecated stuff -------------------
