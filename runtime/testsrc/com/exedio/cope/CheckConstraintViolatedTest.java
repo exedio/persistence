@@ -31,7 +31,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 import com.exedio.cope.tojunit.ConnectionRule;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.sql.SQLException;
 import org.junit.Rule;
 import org.junit.Test;
@@ -96,17 +95,13 @@ public class CheckConstraintViolatedTest extends TestWithEnvironment
 		}
 	}
 
-	@SuppressFBWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
 	private void insert(final int pk, final Integer a, final Integer b) throws SQLException
 	{
-		try(java.sql.Statement st = connection.createStatement())
-		{
-			st.execute(
-					"INSERT INTO " + q(getTableName(TYPE)) +
-					"("+q(getPrimaryKeyColumnName(TYPE))+","+q(getColumnName(alpha))+","+q(getColumnName(beta))+")" +
-					"VALUES" +
-					"("+pk+","+sql(a)+","+sql(b)+")");
-		}
+		connection.execute(
+				"INSERT INTO " + q(getTableName(TYPE)) +
+				"("+q(getPrimaryKeyColumnName(TYPE))+","+q(getColumnName(alpha))+","+q(getColumnName(beta))+")" +
+				"VALUES" +
+				"("+pk+","+sql(a)+","+sql(b)+")");
 	}
 
 	private String q(final String name)

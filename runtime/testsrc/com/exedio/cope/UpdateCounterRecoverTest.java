@@ -26,9 +26,7 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import com.exedio.cope.tojunit.ConnectionRule;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.sql.SQLException;
-import java.sql.Statement;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -283,13 +281,9 @@ public final class UpdateCounterRecoverTest extends TestWithEnvironment
 		assertEquals(false, item.existsCopeItem());
 	}
 
-	@SuppressFBWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
 	private void execute(final String sql) throws SQLException
 	{
-		try(Statement statement = connection.createStatement())
-		{
-			assertEquals(1, statement.executeUpdate(sql));
-		}
+		assertEquals(1, connection.executeUpdate(sql));
 	}
 
 	private String q(final String s)

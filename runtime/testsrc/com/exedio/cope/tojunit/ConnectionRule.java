@@ -22,6 +22,7 @@ import static org.junit.Assert.assertFalse;
 
 import com.exedio.cope.Model;
 import com.exedio.cope.SchemaInfo;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -93,6 +94,24 @@ public final class ConnectionRule implements TestRule
 	public Statement createStatement() throws SQLException
 	{
 		return get().createStatement();
+	}
+
+	@SuppressFBWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
+	public boolean execute(final String sql) throws SQLException
+	{
+		try(Statement statement = createStatement())
+		{
+			return statement.execute(sql);
+		}
+	}
+
+	@SuppressFBWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
+	public int executeUpdate(final String sql) throws SQLException
+	{
+		try(Statement statement = createStatement())
+		{
+			return statement.executeUpdate(sql);
+		}
 	}
 
 	public void close() throws SQLException

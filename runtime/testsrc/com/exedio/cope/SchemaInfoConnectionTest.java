@@ -26,7 +26,6 @@ import static com.exedio.cope.SchemaInfo.getUpdateCounterColumnName;
 import static com.exedio.cope.SchemaInfo.quoteName;
 
 import com.exedio.cope.tojunit.ConnectionRule;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.sql.SQLException;
 import org.junit.Rule;
 import org.junit.Test;
@@ -44,7 +43,6 @@ public class SchemaInfoConnectionTest extends TestWithEnvironment
 
 	@Rule public final RuleChain ruleChain = RuleChain.outerRule(connection);
 
-	@SuppressFBWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
 	@Test public void testIt() throws SQLException
 	{
 		final StringBuilder bf = new StringBuilder();
@@ -59,13 +57,9 @@ public class SchemaInfoConnectionTest extends TestWithEnvironment
 			append(" from ").
 			append(q(getTableName(InstanceOfAItem.TYPE)));
 
-		try(java.sql.Statement statement = connection.createStatement())
-		{
-			statement.execute(bf.toString());
-		}
+		connection.execute(bf.toString());
 	}
 
-	@SuppressFBWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
 	@Test public void testTypeColumn() throws SQLException
 	{
 		final StringBuilder bf = new StringBuilder();
@@ -80,10 +74,7 @@ public class SchemaInfoConnectionTest extends TestWithEnvironment
 			append(" from ").
 			append(q(getTableName(InstanceOfRefItem.TYPE)));
 
-		try(java.sql.Statement statement = connection.createStatement())
-		{
-			statement.execute(bf.toString());
-		}
+		connection.execute(bf.toString());
 	}
 
 	private String q(final String name)

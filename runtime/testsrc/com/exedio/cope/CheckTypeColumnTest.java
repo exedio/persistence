@@ -27,9 +27,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 import com.exedio.cope.tojunit.ConnectionRule;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.sql.SQLException;
-import java.sql.Statement;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
@@ -353,15 +351,11 @@ public class CheckTypeColumnTest extends TestWithEnvironment
 			"where " + q(getPrimaryKeyColumnName(type)) + "=" + getPrimaryKeyColumnValue(item));
 	}
 
-	@SuppressFBWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
 	private void execute(final String sql) throws SQLException
 	{
 		final String transactionName = model.currentTransaction().getName();
 		model.commit();
-		try(Statement statement = connection.createStatement())
-		{
-			assertEquals(1, statement.executeUpdate(sql));
-		}
+		assertEquals(1, connection.executeUpdate(sql));
 		model.startTransaction(transactionName);
 	}
 
