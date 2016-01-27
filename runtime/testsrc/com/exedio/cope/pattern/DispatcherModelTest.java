@@ -49,11 +49,11 @@ public class DispatcherModelTest
 		MODEL.enableSerialization(DispatcherModelTest.class, "MODEL");
 	}
 
-	@SuppressFBWarnings("RC_REF_COMPARISON_BAD_PRACTICE_BOOLEAN")
-	@Test public void testIt()
-	{
-		final Type<?> runType = toTarget.getRunType();
+	private static final Type<?> runType = toTarget.getRunType();
 
+	@SuppressFBWarnings("RC_REF_COMPARISON_BAD_PRACTICE_BOOLEAN")
+	@Test public void testModel()
+	{
 		assertEqualsUnmodifiable(list(
 				TYPE,
 				runType
@@ -123,13 +123,27 @@ public class DispatcherModelTest
 
 		assertSame(toTargetRunParent(), toTarget.getRunRuns().getContainer());
 		assertSame(toTarget.getRunDate(), toTarget.getRunRuns().getOrder());
+	}
 
+	@Test public void testComputed()
+	{
 		assertFalse(toTarget.getPending().isAnnotationPresent(Computed.class));
 		assertTrue (toTarget.getRunType().isAnnotationPresent(Computed.class));
+	}
 
+	@Test public void testSerialize()
+	{
 		assertSerializedSame(toTarget, 391);
+	}
 
+	@SuppressFBWarnings("RC_REF_COMPARISON_BAD_PRACTICE_BOOLEAN")
+	@Test public void testDefaultPendingTo()
+	{
 		assertSame(Boolean.FALSE, new Dispatcher().defaultPendingTo(false).getPending().getDefaultConstant());
+	}
+
+	@Test public void testNoDispatchable()
+	{
 		try
 		{
 			DispatcherNoneItem.newTypeAccessible(DispatcherNoneItem.class);
