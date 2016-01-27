@@ -42,7 +42,7 @@ import org.junit.Test;
 
 public class DispatcherModelTest
 {
-	public static final Model MODEL = new Model(DispatcherItem.TYPE);
+	public static final Model MODEL = new Model(TYPE);
 
 	static
 	{
@@ -66,13 +66,13 @@ public class DispatcherModelTest
 		assertEquals(true, TYPE.isBound());
 		assertEquals(null, TYPE.getPattern());
 
-		final List<PartOf<?>> partOfs = PartOf.getPartOfs(DispatcherItem.TYPE);
+		final List<PartOf<?>> partOfs = PartOf.getPartOfs(TYPE);
 		assertEquals(1, partOfs.size());
 		final PartOf<?> partOf = partOfs.get(0);
 		assertSame(runType, partOf.getType());
-		assertEquals(DispatcherItem.TYPE, partOf.getContainer().getValueType());
-		assertEqualsUnmodifiable(list(DispatcherItem.toTarget.getRunType()), DispatcherItem.toTarget.getSourceTypes());
-		assertEquals(list(partOf), PartOf.getPartOfs(DispatcherItem.toTarget));
+		assertEquals(TYPE, partOf.getContainer().getValueType());
+		assertEqualsUnmodifiable(list(toTarget.getRunType()), toTarget.getSourceTypes());
+		assertEquals(list(partOf), PartOf.getPartOfs(toTarget));
 
 		assertEqualsUnmodifiable(list(
 				TYPE.getThis(),
@@ -102,7 +102,7 @@ public class DispatcherModelTest
 		assertEquals("DispatcherItem-toTarget-Run", runType.getID());
 		assertEquals(Dispatcher.Run.class, runType.getJavaClass());
 		assertEquals(false, runType.isBound());
-		assertSame(DispatcherItem.toTarget, runType.getPattern());
+		assertSame(toTarget, runType.getPattern());
 		assertEquals(null, runType.getSupertype());
 		assertEqualsUnmodifiable(list(), runType.getSubtypes());
 		assertEquals(false, runType.isAbstract());
@@ -119,7 +119,7 @@ public class DispatcherModelTest
 		assertEquals("failure", toTarget.getRunFailure().getName());
 
 		assertSame(DispatcherItem.class, toTargetRunParent().getValueClass());
-		assertSame(DispatcherItem.TYPE, toTargetRunParent().getValueType());
+		assertSame(TYPE, toTargetRunParent().getValueType());
 
 		assertSame(toTargetRunParent(), toTarget.getRunRuns().getContainer());
 		assertSame(toTarget.getRunDate(), toTarget.getRunRuns().getOrder());
