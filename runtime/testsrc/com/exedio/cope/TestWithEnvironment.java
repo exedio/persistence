@@ -19,7 +19,7 @@
 package com.exedio.cope;
 
 import com.exedio.cope.tojunit.CopeRule;
-import com.exedio.cope.util.Properties;
+import com.exedio.cope.tojunit.CopeRuntimeRule;
 import com.exedio.dsmf.CheckConstraint;
 import org.junit.Before;
 import org.junit.Rule;
@@ -37,18 +37,7 @@ public abstract class TestWithEnvironment
 
 	public TestWithEnvironment(final Model model)
 	{
-		copeRule = new CopeRule(model){
-			/**
-			 * Copy of {@link com.exedio.cope.junit.CopeModelTest#getConnectProperties}
-			 * TODO remove
-			 */
-			@Override
-			public ConnectProperties getConnectProperties()
-			{
-				return new ConnectProperties(Properties.SYSTEM_PROPERTY_SOURCE);
-			}
-		};
-
+		copeRule = new CopeRuntimeRule(model);
 		this.model = model;
 		tester = new RuntimeTester(model);
 	}
