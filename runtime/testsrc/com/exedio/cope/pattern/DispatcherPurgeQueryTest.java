@@ -57,6 +57,7 @@ public class DispatcherPurgeQueryTest
 		assertEquals(
 				"select this from DispatcherItem " +
 				"where (toTarget-pending='false' " +
+				"AND toTarget-noPurge='false' " +
 				"AND (" +
 					"(toTarget-unpendSuccess='true' AND toTarget-unpendDate<'1966/01/02 00:00:00.555') OR " +
 					"(toTarget-unpendSuccess='false' AND toTarget-unpendDate<'1964/01/03 00:00:00.555')))",
@@ -70,6 +71,7 @@ public class DispatcherPurgeQueryTest
 		assertEquals(
 				"select this from DispatcherItem " +
 				"where (toTarget-pending='false' " +
+				"AND toTarget-noPurge='false' " +
 				"AND toTarget-unpendDate<'1969/12/12 00:00:00.555')",
 				query(20, 20));
 		clock.assertEmpty();
@@ -81,6 +83,7 @@ public class DispatcherPurgeQueryTest
 		assertEquals(
 				"select this from DispatcherItem " +
 				"where (toTarget-pending='false' " +
+				"AND toTarget-noPurge='false' " +
 				"AND (" +
 					"(toTarget-unpendSuccess='true' AND toTarget-unpendDate<'1969/12/12 00:00:00.555') OR " +
 					"(toTarget-unpendSuccess='false' AND toTarget-unpendDate<'1969/12/22 00:00:00.555')))",
@@ -94,6 +97,7 @@ public class DispatcherPurgeQueryTest
 		assertEquals(
 				"select this from DispatcherItem " +
 				"where (toTarget-pending='false' " +
+				"AND toTarget-noPurge='false' " +
 				"AND toTarget-unpendDate<'1969/12/31 00:00:00.555')",
 				query(1, 1));
 		clock.assertEmpty();
@@ -105,6 +109,7 @@ public class DispatcherPurgeQueryTest
 		assertEquals(
 				"select this from DispatcherItem " +
 				"where (toTarget-pending='false' " +
+				"AND toTarget-noPurge='false' " +
 				"AND toTarget-unpendSuccess='false' AND toTarget-unpendDate<'1969/12/22 00:00:00.555')",
 				query(0, 10));
 		clock.assertEmpty();
@@ -116,6 +121,7 @@ public class DispatcherPurgeQueryTest
 		assertEquals(
 				"select this from DispatcherItem " +
 				"where (toTarget-pending='false' " +
+				"AND toTarget-noPurge='false' " +
 				"AND toTarget-unpendSuccess='true' AND toTarget-unpendDate<'1969/12/12 00:00:00.555')",
 				query(20, 0));
 		clock.assertEmpty();

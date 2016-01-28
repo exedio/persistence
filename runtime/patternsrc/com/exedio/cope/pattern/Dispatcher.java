@@ -74,6 +74,7 @@ public final class Dispatcher extends Pattern
 	static final Charset ENCODING = StandardCharsets.UTF_8;
 
 	private final BooleanField pending;
+	private final BooleanField noPurge;
 	private final BooleanField    unpendSuccess;
 	private final DateField       unpendDate;
 	private final CheckConstraint unpendUnison;
@@ -98,6 +99,8 @@ public final class Dispatcher extends Pattern
 		addSource(pending, "pending");
 		if(supportPurge)
 		{
+			addSource(noPurge = new BooleanField().defaultTo(false), "noPurge");
+
 			unpendSuccess = new BooleanField().optional();
 			unpendDate    = new DateField   ().optional();
 			unpendUnison  = new CheckConstraint(Conditions.unisonNull(Arrays.asList(unpendSuccess, unpendDate)));
@@ -107,6 +110,7 @@ public final class Dispatcher extends Pattern
 		}
 		else
 		{
+			noPurge = null;
 			unpendSuccess = null;
 			unpendDate    = null;
 			unpendUnison  = null;
@@ -187,6 +191,11 @@ public final class Dispatcher extends Pattern
 	public BooleanField getPending()
 	{
 		return pending;
+	}
+
+	public BooleanField getNoPurge()
+	{
+		return noPurge;
 	}
 
 	public BooleanField getUnpendSuccess()
@@ -417,6 +426,20 @@ public final class Dispatcher extends Pattern
 		this.pending.set(item, pending);
 	}
 
+	@Wrap(order=45, doc="Returns, whether this item is allowed to be purged by {0}.", hide=SupportsPurgeGetter.class)
+	public boolean isNoPurge(final Item item)
+	{
+		return noPurge.getMandatory(item);
+	}
+
+	@Wrap(order=47, doc="Sets whether this item is allowed to be purged by {0}.", hide=SupportsPurgeGetter.class)
+	public void setNoPurge(
+			final Item item,
+			@Parameter("noPurge") final boolean noPurge)
+	{
+		this.noPurge.set(item, noPurge);
+	}
+
 	@Wrap(order=50, doc="Returns the date, this item was last successfully dispatched by {0}.")
 	public Date getLastSuccessDate(final Item item)
 	{
@@ -591,7 +614,7 @@ public final class Dispatcher extends Pattern
 				);
 		}
 
-		return getType().newQuery(pending.equal(false).and(dateCondition));
+		return getType().newQuery(pending.equal(false).and(noPurge.equal(false)).and(dateCondition));
 	}
 
 	private Condition dateBefore(final long now, final int days)

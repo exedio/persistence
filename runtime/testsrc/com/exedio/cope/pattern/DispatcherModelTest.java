@@ -82,6 +82,7 @@ public class DispatcherModelTest
 				dispatchCountCommitted,
 				toTarget,
 				toTarget.getPending(),
+				toTarget.getNoPurge(),
 				toTarget.getUnpendSuccess(),
 				toTarget.getUnpendDate(),
 				toTarget.getUnpendUnison()
