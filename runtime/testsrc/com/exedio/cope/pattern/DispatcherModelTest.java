@@ -22,6 +22,7 @@ import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
 import static com.exedio.cope.pattern.DispatcherItem.TYPE;
 import static com.exedio.cope.pattern.DispatcherItem.body;
 import static com.exedio.cope.pattern.DispatcherItem.dispatchCountCommitted;
+import static com.exedio.cope.pattern.DispatcherItem.purgeToTarget;
 import static com.exedio.cope.pattern.DispatcherItem.toTarget;
 import static com.exedio.cope.pattern.DispatcherItem.toTargetRunParent;
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
@@ -36,6 +37,7 @@ import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.Type;
 import com.exedio.cope.misc.Computed;
+import com.exedio.cope.util.Sources;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.List;
 import org.junit.Test;
@@ -145,6 +147,35 @@ public class DispatcherModelTest
 	@Test public void testDefaultPendingTo()
 	{
 		assertSame(Boolean.FALSE, new Dispatcher().defaultPendingTo(false).getPending().getDefaultConstant());
+	}
+
+	@Test public void testPurgePropertiesNull()
+	{
+		try
+		{
+			purgeToTarget(null, null);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals("properties", e.getMessage());
+		}
+	}
+
+	@Test public void testPurgeContextNull()
+	{
+		final DispatcherPurgeProperties properties =
+				DispatcherPurgeProperties.factory().delayDaysDefault(5).create(Sources.view(new java.util.Properties(), "description"));
+
+		try
+		{
+			purgeToTarget(properties, null);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals("ctx", e.getMessage());
+		}
 	}
 
 	@Test public void testNoDispatchable()

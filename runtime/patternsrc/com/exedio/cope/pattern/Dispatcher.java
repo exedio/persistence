@@ -27,6 +27,7 @@ import static java.util.Objects.requireNonNull;
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.BooleanField;
 import com.exedio.cope.CheckConstraint;
+import com.exedio.cope.Condition;
 import com.exedio.cope.Cope;
 import com.exedio.cope.DataField;
 import com.exedio.cope.DateField;
@@ -39,14 +40,17 @@ import com.exedio.cope.Query;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.TransactionTry;
 import com.exedio.cope.Type;
+import com.exedio.cope.instrument.BooleanGetter;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.Computed;
 import com.exedio.cope.misc.ComputedElement;
 import com.exedio.cope.misc.Conditions;
+import com.exedio.cope.misc.Delete;
 import com.exedio.cope.misc.Iterables;
 import com.exedio.cope.util.Clock;
 import com.exedio.cope.util.JobContext;
+import com.exedio.cope.util.TimeZoneStrict;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -55,8 +59,11 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.Locale;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -111,6 +118,10 @@ public final class Dispatcher extends Pattern
 		return new Dispatcher(pending.defaultTo(defaultConstant), supportsPurge());
 	}
 
+	/**
+	 * Disables {@link #purge(DispatcherPurgeProperties, JobContext)} functionality.
+	 * Avoids additional columns in database needed for purge functionality.
+	 */
 	public Dispatcher withoutPurge()
 	{
 		return new Dispatcher(pending.copy(), false);
@@ -527,6 +538,72 @@ public final class Dispatcher extends Pattern
 		{
 			return new String(getPattern().runFailure.getArray(this), ENCODING);
 		}
+	}
+
+
+	/**
+	 * @throws IllegalArgumentException if purge is disabled by {@link #withoutPurge()}.
+	 */
+	@Wrap(order=100, hide=SupportsPurgeGetter.class)
+	public void purge(
+			@Parameter("properties") final DispatcherPurgeProperties properties,
+			@Parameter("ctx") final JobContext ctx)
+	{
+		requireNonNull(properties, "properties");
+		requireNonNull(ctx, "ctx");
+		if(!supportsPurge())
+			throw new IllegalArgumentException(
+					"purge has been disabled for Dispatcher " + getID() +
+					" by method withoutPurge()");
+
+		final Query<? extends Item> query = purgeQuery(properties);
+		if(query!=null)
+			Delete.delete(query, "Dispatcher#purge " + getID(), ctx);
+	}
+
+	private static final class SupportsPurgeGetter implements BooleanGetter<Dispatcher>
+	{
+		public boolean get(final Dispatcher feature)
+		{
+			return !feature.supportsPurge();
+		}
+	}
+
+	Query<? extends Item> purgeQuery(final DispatcherPurgeProperties properties)
+	{
+		final int success = properties.delayDaysSuccess;
+		final int failure = properties.delayDaysFinalFailure;
+		if(success==0 && failure==0)
+			return null;
+
+		final long now = Clock.currentTimeMillis();
+		final Condition dateCondition;
+
+		if(success==failure)
+		{
+			dateCondition = dateBefore(now, success);
+		}
+		else
+		{
+			dateCondition = Cope.or(
+					unpendSuccess.equal(true ).and(dateBefore(now, success)),
+					unpendSuccess.equal(false).and(dateBefore(now, failure))
+				);
+		}
+
+		return getType().newQuery(pending.equal(false).and(dateCondition));
+	}
+
+	private Condition dateBefore(final long now, final int days)
+	{
+		if(days==0)
+			return Condition.FALSE;
+
+		final GregorianCalendar cal = new GregorianCalendar(
+				TimeZoneStrict.getTimeZone("UTC"), Locale.ENGLISH);
+		cal.setTimeInMillis(now);
+		cal.add(Calendar.DATE, -days);
+		return unpendDate.less(cal.getTime());
 	}
 
 	// ------------------- deprecated stuff -------------------

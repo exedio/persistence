@@ -22,6 +22,7 @@ import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
 import static com.exedio.cope.pattern.DispatcherWithoutPurgeItem.TYPE;
 import static com.exedio.cope.pattern.DispatcherWithoutPurgeItem.body;
 import static com.exedio.cope.pattern.DispatcherWithoutPurgeItem.dispatchCountCommitted;
+import static com.exedio.cope.pattern.DispatcherWithoutPurgeItem.purgeToTarget;
 import static com.exedio.cope.pattern.DispatcherWithoutPurgeItem.toTarget;
 import static com.exedio.cope.pattern.DispatcherWithoutPurgeItem.toTargetRunParent;
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
@@ -30,11 +31,14 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.Type;
 import com.exedio.cope.misc.Computed;
+import com.exedio.cope.util.JobContexts;
+import com.exedio.cope.util.Sources;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.List;
 import org.junit.Test;
@@ -137,5 +141,53 @@ public class DispatcherWithoutPurgeModelTest
 	@Test public void testSerialize()
 	{
 		assertSerializedSame(toTarget, 415);
+	}
+
+	@Test public void testPurgePropertiesNull()
+	{
+		try
+		{
+			purgeToTarget(null, null);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals("properties", e.getMessage());
+		}
+	}
+
+	@Test public void testPurgeContextNull()
+	{
+		final DispatcherPurgeProperties properties =
+				DispatcherPurgeProperties.factory().delayDaysDefault(5).create(Sources.view(new java.util.Properties(), "description"));
+
+		try
+		{
+			purgeToTarget(properties, null);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals("ctx", e.getMessage());
+		}
+	}
+
+	@Test public void testPurge()
+	{
+		final DispatcherPurgeProperties properties =
+				DispatcherPurgeProperties.factory().delayDaysDefault(5).create(Sources.view(new java.util.Properties(), "description"));
+
+		try
+		{
+			purgeToTarget(properties, JobContexts.EMPTY);
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals(
+					"purge has been disabled for Dispatcher DispatcherWithoutPurgeItem.toTarget " +
+					"by method withoutPurge()",
+					e.getMessage());
+		}
 	}
 }
