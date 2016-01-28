@@ -106,7 +106,7 @@ final class Main
 					if(params.verify)
 						throw new HumanReadableException(
 								"Not yet instrumented " + file.getAbsolutePath() + lineSeparator() +
-								"Instrumentor runs in verify mode, which is typically enabled while Continious Integration." + lineSeparator() +
+								"Instrumentor runs in verify mode, which is typically enabled while Continuous Integration." + lineSeparator() +
 								"Probably you did commit a change causing another change in instrumented code," + lineSeparator() +
 								"but you did not run the intrumentor.");
 					logInstrumented(file);
