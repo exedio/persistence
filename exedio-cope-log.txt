@@ -119,7 +119,7 @@ The items are sorted inversely, i.e. latest items are on top
 		(Double.class instead of double.class).
 	* com.exedio.cope.instrument.Wrapper.ClassVariable/TypeVariableN not used
 		anymore.
-	This breaks backwards API compatibility for API that was deprecated for 
+	This breaks backwards API compatibility for API that was deprecated for
 	a long time.
 * TextUrlFilter fails on empty supportedContentType.
 	This breaks backwards API compatibility, causes model initialization to fail.
@@ -199,7 +199,7 @@ The items are sorted inversely, i.e. latest items are on top
 * MediaPath.Locator supports getContentType
 * MediaPath.Locator supports equals/hashCode
 * fix deadlock in copetest on JDK 1.7
-* Extend MediaType 
+* Extend MediaType
 	allow multiple extentions; first is default
 		MIGRATION	MediaType.getExtension()->MediaType.getDefaultExtension() or MediaType.getExtensions()
 	add ".jpeg" to JPG extensions
@@ -277,11 +277,11 @@ The items are sorted inversely, i.e. latest items are on top
 * @PreventUrlGuessing causes response to carry Cache-Control: private
 * MediaUtil added
 * Media API Refactoring
-	
+
 	This massivly breaks backwards API compatibility. You MUST update
 	exedio-cope-im4java.jar and exedio-cope-console.jar, if used.
 	Affects instrumented code.
-	
+
 	BEWARE !!!
 	Implementors of MediaPath#doGetAndCommit MUST commit the transaction
 	on normal termination. Using MediaPath#commit() is recommended.
@@ -364,14 +364,14 @@ The items are sorted inversely, i.e. latest items are on top
 * Price#add(Price) checks for overflow and throws ArithmeticException
 * classes in package com.exedio.cope.junit moved from exedio-cope.jar to exedio-cope-junit.jar
 	add ivy configuration "junit" to fetch exedio-cope-junit.jar:
-	
+
 		<dependency org="com.exedio" name="cope" rev="xxx" conf="default->xxx,junit" />
-	
+
 * Set ivy configuration "sources" for exedio-cope-src.zip
 	Within your ivy.xml you need to add that configuration to keep sources up-to-date:
-	
+
 		<dependency org="com.exedio" name="cope" rev="xxx" conf="default->xxx,sources" />
-	
+
 * bugfix for @CopeCacheWeight with large numbers,
 	bug could partially disable item cache.
 * ConstraintViolation subclasses make constructor non-public.
@@ -553,7 +553,7 @@ The items are sorted inversely, i.e. latest items are on top
 	do change their column types as "not null" is appended.
 	Use "disableSupport.notNull=true" in cope.properties to revert to
 	previous behaviour.
-	
+
 	IMPORTANT NOTE:
 		If you want to revise an existing MySQL database,
 		using statements like
@@ -567,9 +567,9 @@ The items are sorted inversely, i.e. latest items are on top
 * MediaType may have multiple types for one magic number,
 	replace MediaType#forMagic by #forMagics
 * add LongField#rangeDigits
-* use range constraint of LongField in 
-	* Dispatcher#runElapsed, 
-	* Schedule#runElapsed and 
+* use range constraint of LongField in
+	* Dispatcher#runElapsed,
+	* Schedule#runElapsed and
 	* Sampler.
 	This may affect column types in database schema, but does not on MySQL.
 * add range constraint to LongField
@@ -676,18 +676,18 @@ The items are sorted inversely, i.e. latest items are on top
 	do not forget to update your hudson job !!!
 * add SchemaInfo#supportsUniqueViolation
 * rename key in cope.properties:
-		
+
 		database.url      -> connection.url
 		database.user     -> connection.user
 		database.password -> connection.password
-		
+
 		mysql.lower_case_table_names -> schema.mysql.lower_case_table_names
 		cache.item.concurrentModificationDetection -> schema.updateCounter
 
 		database.dontSupport.preparedStatements -> disableSupport.preparedStatements
 		database.dontSupport.emptyStrings       -> disableSupport.emptyStrings
 		database.dontSupport.nativeDate         -> disableSupport.nativeDate
-		
+
 		database.tableOption.xxx -> schema.tableOption.xxx
 		database.longSyntheticNames -> schema.tableInNames
 
@@ -701,7 +701,7 @@ The items are sorted inversely, i.e. latest items are on top
 	You MUST call ConnectToken.setProperties, otherwise ConnectTokens
 	will not work anymore. ConnectTokens are used by depending
 	frameworks as well, such as generic backoffice and COPE Console.
-	
+
 	Typically you may want to have a class like this:
 
 		public class PropertiesInitializer implements ServletContextListener
@@ -715,16 +715,16 @@ The items are sorted inversely, i.e. latest items are on top
 				ConnectToken.removeProperties(Main.model);
 			}
 		}
-		
+
 	and a corresponding snippet within your web.xml:
-	
+
 		<listener>
 			<listener-class>com.exedio.copedemo.PropertiesInitializer</listener-class>
 		</listener>
-		
+
 	Note, that the <init-param> named "cope.properties" at the servlet
 	is not supported anymore.
-	
+
 	You MUST update cope console as well to at least svn.19004 hudson.6368 2011-02-10_13-41-05,
 	otherwise history will not work.
 
@@ -923,24 +923,24 @@ The items are sorted inversely, i.e. latest items are on top
 	To make serialization work, you need to enable it at the model. Otherwise
 	a NotSerializableException is thrown when trying to deserialize.
 	For any model defined like this:
-	
+
 		static final Model model = new Model(Aaa.TYPE, Bbb.TYPE, ...);
-	
+
 	add the following code immediately below:
-	
+
 		static
 		{
 			model.enableSerialization(Main.class, "model");
 		}
-	
+
 	where "model" is the name of the static final field, the model is assigned to,
 	and Main is the class of that field.
-	
+
 * CopeAssert.reserialize checks for exact expected size, not for maximum
 	this breaks backwards API compatibility, but affects junit tests only
 * instrumentor generates minimal method names for feature "defaultFeature"
-* Resizing with ImageMagick works on Windows. 
-	On Windows, install ImageMagick, and set the system properties com.exedio.cope.media.imagemagick (to "true") and 
+* Resizing with ImageMagick works on Windows.
+	On Windows, install ImageMagick, and set the system properties com.exedio.cope.media.imagemagick (to "true") and
 	com.exedio.cope.media.convertcommand (to the absolute path of the convert binary).
 * bugfix: Model failed on second connect, if there was a IntegerField.defaultToNext
 * add MediaPath.Locator
@@ -1040,7 +1040,7 @@ The items are sorted inversely, i.e. latest items are on top
 	- renamed instrumentor tag @cope.reactivation.constructor to @cope.activation.constructor
 		this is very rarly used
 	- reactivation constructor changed
-		+ new signature instead of 
+		+ new signature instead of
 			Item(com.exedio.cope.util.ReactivationDummy, int[, Type]) is now
 			Item(com.exedio.cope.ActivationParameters)
 		+ in Item is now protected instead of public
