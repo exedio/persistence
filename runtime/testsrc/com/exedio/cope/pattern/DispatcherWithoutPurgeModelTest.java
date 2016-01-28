@@ -85,6 +85,7 @@ public class DispatcherWithoutPurgeModelTest
 				toTarget.getPending()
 			), TYPE.getFeatures());
 		assertEquals(null, toTarget.getNoPurge());
+		assertEquals(null, toTarget.getUnpend());
 		assertEquals(null, toTarget.getUnpendSuccess());
 		assertEquals(null, toTarget.getUnpendDate());
 		assertEquals(null, toTarget.getUnpendUnison());

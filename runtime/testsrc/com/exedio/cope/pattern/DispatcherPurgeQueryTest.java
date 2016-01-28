@@ -59,8 +59,8 @@ public class DispatcherPurgeQueryTest
 				"where (toTarget-pending='false' " +
 				"AND toTarget-noPurge='false' " +
 				"AND (" +
-					"(toTarget-unpendSuccess='true' AND toTarget-unpendDate<'1966/01/02 00:00:00.555') OR " +
-					"(toTarget-unpendSuccess='false' AND toTarget-unpendDate<'1964/01/03 00:00:00.555')))",
+					"(toTarget-unpend-success='true' AND toTarget-unpend-date<'1966/01/02 00:00:00.555') OR " +
+					"(toTarget-unpend-success='false' AND toTarget-unpend-date<'1964/01/03 00:00:00.555')))",
 				query(null, null));
 		clock.assertEmpty();
 	}
@@ -72,7 +72,7 @@ public class DispatcherPurgeQueryTest
 				"select this from DispatcherItem " +
 				"where (toTarget-pending='false' " +
 				"AND toTarget-noPurge='false' " +
-				"AND toTarget-unpendDate<'1969/12/12 00:00:00.555')",
+				"AND toTarget-unpend-date<'1969/12/12 00:00:00.555')",
 				query(20, 20));
 		clock.assertEmpty();
 	}
@@ -85,8 +85,8 @@ public class DispatcherPurgeQueryTest
 				"where (toTarget-pending='false' " +
 				"AND toTarget-noPurge='false' " +
 				"AND (" +
-					"(toTarget-unpendSuccess='true' AND toTarget-unpendDate<'1969/12/12 00:00:00.555') OR " +
-					"(toTarget-unpendSuccess='false' AND toTarget-unpendDate<'1969/12/22 00:00:00.555')))",
+					"(toTarget-unpend-success='true' AND toTarget-unpend-date<'1969/12/12 00:00:00.555') OR " +
+					"(toTarget-unpend-success='false' AND toTarget-unpend-date<'1969/12/22 00:00:00.555')))",
 				query(20, 10));
 		clock.assertEmpty();
 	}
@@ -98,7 +98,7 @@ public class DispatcherPurgeQueryTest
 				"select this from DispatcherItem " +
 				"where (toTarget-pending='false' " +
 				"AND toTarget-noPurge='false' " +
-				"AND toTarget-unpendDate<'1969/12/31 00:00:00.555')",
+				"AND toTarget-unpend-date<'1969/12/31 00:00:00.555')",
 				query(1, 1));
 		clock.assertEmpty();
 	}
@@ -110,7 +110,7 @@ public class DispatcherPurgeQueryTest
 				"select this from DispatcherItem " +
 				"where (toTarget-pending='false' " +
 				"AND toTarget-noPurge='false' " +
-				"AND toTarget-unpendSuccess='false' AND toTarget-unpendDate<'1969/12/22 00:00:00.555')",
+				"AND toTarget-unpend-success='false' AND toTarget-unpend-date<'1969/12/22 00:00:00.555')",
 				query(0, 10));
 		clock.assertEmpty();
 	}
@@ -122,7 +122,7 @@ public class DispatcherPurgeQueryTest
 				"select this from DispatcherItem " +
 				"where (toTarget-pending='false' " +
 				"AND toTarget-noPurge='false' " +
-				"AND toTarget-unpendSuccess='true' AND toTarget-unpendDate<'1969/12/12 00:00:00.555')",
+				"AND toTarget-unpend-success='true' AND toTarget-unpend-date<'1969/12/12 00:00:00.555')",
 				query(20, 0));
 		clock.assertEmpty();
 	}

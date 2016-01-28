@@ -83,6 +83,7 @@ public class DispatcherModelTest
 				toTarget,
 				toTarget.getPending(),
 				toTarget.getNoPurge(),
+				toTarget.getUnpend(),
 				toTarget.getUnpendSuccess(),
 				toTarget.getUnpendDate(),
 				toTarget.getUnpendUnison()

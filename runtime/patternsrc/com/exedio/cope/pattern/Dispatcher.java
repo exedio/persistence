@@ -45,7 +45,6 @@ import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.Computed;
 import com.exedio.cope.misc.ComputedElement;
-import com.exedio.cope.misc.Conditions;
 import com.exedio.cope.misc.Delete;
 import com.exedio.cope.misc.Iterables;
 import com.exedio.cope.util.Clock;
@@ -58,7 +57,6 @@ import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -75,9 +73,22 @@ public final class Dispatcher extends Pattern
 
 	private final BooleanField pending;
 	private final BooleanField noPurge;
-	private final BooleanField    unpendSuccess;
-	private final DateField       unpendDate;
-	private final CheckConstraint unpendUnison;
+	private final CompositeField<Unpend> unpend;
+
+	private static final class Unpend extends Composite
+	{
+		static final BooleanField success = new BooleanField();
+		static final DateField date = new DateField();
+
+		Unpend(final boolean success, final Date date)
+		{
+			super(
+				Unpend.success.map(success),
+				Unpend.date.map(date));
+		}
+		private Unpend(final SetValue<?>... setValues) { super(setValues); }
+		private static final long serialVersionUID = 1l;
+	}
 
 	final DateField runDate = new DateField().toFinal();
 	final LongField runElapsed = new LongField().toFinal().min(0);
@@ -100,20 +111,12 @@ public final class Dispatcher extends Pattern
 		if(supportPurge)
 		{
 			addSource(noPurge = new BooleanField().defaultTo(false), "noPurge");
-
-			unpendSuccess = new BooleanField().optional();
-			unpendDate    = new DateField   ().optional();
-			unpendUnison  = new CheckConstraint(Conditions.unisonNull(Arrays.asList(unpendSuccess, unpendDate)));
-			addSource(unpendSuccess, "unpendSuccess", ComputedElement.get());
-			addSource(unpendDate,    "unpendDate",    ComputedElement.get());
-			addSource(unpendUnison,  "unpendUnison");
+			addSource(unpend = CompositeField.create(Unpend.class).optional(), "unpend", ComputedElement.get());
 		}
 		else
 		{
 			noPurge = null;
-			unpendSuccess = null;
-			unpendDate    = null;
-			unpendUnison  = null;
+			unpend = null;
 		}
 	}
 
@@ -133,7 +136,7 @@ public final class Dispatcher extends Pattern
 
 	boolean supportsPurge()
 	{
-		return unpendSuccess!=null;
+		return unpend!=null;
 	}
 
 	@Override
@@ -198,19 +201,24 @@ public final class Dispatcher extends Pattern
 		return noPurge;
 	}
 
+	CompositeField<Unpend> getUnpend()
+	{
+		return unpend;
+	}
+
 	public BooleanField getUnpendSuccess()
 	{
-		return unpendSuccess;
+		return unpend!=null ? unpend.of(Unpend.success) : null;
 	}
 
 	public DateField getUnpendDate()
 	{
-		return unpendDate;
+		return unpend!=null ? unpend.of(Unpend.date) : null;
 	}
 
 	CheckConstraint getUnpendUnison()
 	{
-		return unpendUnison;
+		return unpend!=null ? unpend.getUnison() : null;
 	}
 
 	@Wrap(order=1000, name="{1}RunParent", doc="Returns the parent field of the run type of {0}.")
@@ -386,10 +394,7 @@ public final class Dispatcher extends Pattern
 		final ArrayList<SetValue<?>> sv = new ArrayList<>(3);
 		sv.add(pending.map(false));
 		if(supportsPurge())
-		{
-			sv.add(unpendSuccess.map(success));
-			sv.add(unpendDate   .map(date));
-		}
+			sv.add(unpend.map(new Unpend(success, date)));
 		item.set(sv.toArray(new SetValue<?>[sv.size()]));
 	}
 
@@ -609,8 +614,8 @@ public final class Dispatcher extends Pattern
 		else
 		{
 			dateCondition = Cope.or(
-					unpendSuccess.equal(true ).and(dateBefore(now, success)),
-					unpendSuccess.equal(false).and(dateBefore(now, failure))
+					getUnpendSuccess().equal(true ).and(dateBefore(now, success)),
+					getUnpendSuccess().equal(false).and(dateBefore(now, failure))
 				);
 		}
 
@@ -626,7 +631,7 @@ public final class Dispatcher extends Pattern
 				TimeZoneStrict.getTimeZone("UTC"), Locale.ENGLISH);
 		cal.setTimeInMillis(now);
 		cal.add(Calendar.DATE, -days);
-		return unpendDate.less(cal.getTime());
+		return getUnpendDate().less(cal.getTime());
 	}
 
 	// ------------------- deprecated stuff -------------------
