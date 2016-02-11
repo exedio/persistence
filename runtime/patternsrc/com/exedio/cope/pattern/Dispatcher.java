@@ -26,6 +26,8 @@ import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.BooleanField;
+import com.exedio.cope.CheckConstraint;
+import com.exedio.cope.Condition;
 import com.exedio.cope.Cope;
 import com.exedio.cope.DataField;
 import com.exedio.cope.DateField;
@@ -35,22 +37,31 @@ import com.exedio.cope.ItemField;
 import com.exedio.cope.LongField;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.Query;
+import com.exedio.cope.SetValue;
 import com.exedio.cope.TransactionTry;
 import com.exedio.cope.Type;
+import com.exedio.cope.instrument.BooleanGetter;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.Computed;
+import com.exedio.cope.misc.ComputedElement;
+import com.exedio.cope.misc.Delete;
 import com.exedio.cope.misc.Iterables;
 import com.exedio.cope.util.Clock;
 import com.exedio.cope.util.JobContext;
+import com.exedio.cope.util.TimeZoneStrict;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.Locale;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -61,6 +72,23 @@ public final class Dispatcher extends Pattern
 	static final Charset ENCODING = StandardCharsets.UTF_8;
 
 	private final BooleanField pending;
+	private final BooleanField noPurge;
+	private final CompositeField<Unpend> unpend;
+
+	private static final class Unpend extends Composite
+	{
+		static final BooleanField success = new BooleanField();
+		static final DateField date = new DateField();
+
+		Unpend(final boolean success, final Date date)
+		{
+			super(
+				Unpend.success.map(success),
+				Unpend.date.map(date));
+		}
+		private Unpend(final SetValue<?>... setValues) { super(setValues); }
+		private static final long serialVersionUID = 1l;
+	}
 
 	final DateField runDate = new DateField().toFinal();
 	final LongField runElapsed = new LongField().toFinal().min(0);
@@ -73,18 +101,42 @@ public final class Dispatcher extends Pattern
 
 	public Dispatcher()
 	{
-		this(new BooleanField().defaultTo(true));
+		this(new BooleanField().defaultTo(true), true);
 	}
 
-	private Dispatcher(final BooleanField pending)
+	private Dispatcher(final BooleanField pending, final boolean supportPurge)
 	{
 		this.pending = pending;
 		addSource(pending, "pending");
+		if(supportPurge)
+		{
+			addSource(noPurge = new BooleanField().defaultTo(false), "noPurge");
+			addSource(unpend = CompositeField.create(Unpend.class).optional(), "unpend", ComputedElement.get());
+		}
+		else
+		{
+			noPurge = null;
+			unpend = null;
+		}
 	}
 
 	public Dispatcher defaultPendingTo(final boolean defaultConstant)
 	{
-		return new Dispatcher(pending.defaultTo(defaultConstant));
+		return new Dispatcher(pending.defaultTo(defaultConstant), supportsPurge());
+	}
+
+	/**
+	 * Disables {@link #purge(DispatcherPurgeProperties, JobContext)} functionality.
+	 * Avoids additional columns in database needed for purge functionality.
+	 */
+	public Dispatcher withoutPurge()
+	{
+		return new Dispatcher(pending.copy(), false);
+	}
+
+	boolean supportsPurge()
+	{
+		return unpend!=null;
 	}
 
 	@Override
@@ -142,6 +194,31 @@ public final class Dispatcher extends Pattern
 	public BooleanField getPending()
 	{
 		return pending;
+	}
+
+	public BooleanField getNoPurge()
+	{
+		return noPurge;
+	}
+
+	CompositeField<Unpend> getUnpend()
+	{
+		return unpend;
+	}
+
+	public BooleanField getUnpendSuccess()
+	{
+		return unpend!=null ? unpend.of(Unpend.success) : null;
+	}
+
+	public DateField getUnpendDate()
+	{
+		return unpend!=null ? unpend.of(Unpend.date) : null;
+	}
+
+	CheckConstraint getUnpendUnison()
+	{
+		return unpend!=null ? unpend.getUnison() : null;
 	}
 
 	@Wrap(order=1000, name="{1}RunParent", doc="Returns the parent field of the run type of {0}.")
@@ -254,7 +331,7 @@ public final class Dispatcher extends Pattern
 					item.dispatch(this);
 
 					final long elapsed = toMillies(nanoTime(), nanoStart);
-					unpend(item);
+					unpend(item, true, new Date(start));
 					mount.runType.newItem(
 							runParent.map(item),
 							runDate.map(new Date(start)),
@@ -291,7 +368,7 @@ public final class Dispatcher extends Pattern
 					final boolean finalFailure =
 						mount.runType.newQuery(runParent.equal(item)).total()>=config.getFailureLimit();
 					if(finalFailure)
-						unpend(item);
+						unpend(item, false, new Date(start));
 
 					tx.commit();
 
@@ -312,9 +389,13 @@ public final class Dispatcher extends Pattern
 		}
 	}
 
-	private void unpend(final Item item)
+	private void unpend(final Item item, final boolean success, final Date date)
 	{
-		pending.set(item, false);
+		final ArrayList<SetValue<?>> sv = new ArrayList<>(3);
+		sv.add(pending.map(false));
+		if(supportsPurge())
+			sv.add(unpend.map(new Unpend(success, date)));
+		item.set(sv.toArray(new SetValue<?>[sv.size()]));
 	}
 
 	/**
@@ -348,6 +429,20 @@ public final class Dispatcher extends Pattern
 			@Parameter("pending") final boolean pending)
 	{
 		this.pending.set(item, pending);
+	}
+
+	@Wrap(order=45, doc="Returns, whether this item is allowed to be purged by {0}.", hide=SupportsPurgeGetter.class)
+	public boolean isNoPurge(final Item item)
+	{
+		return noPurge.getMandatory(item);
+	}
+
+	@Wrap(order=47, doc="Sets whether this item is allowed to be purged by {0}.", hide=SupportsPurgeGetter.class)
+	public void setNoPurge(
+			final Item item,
+			@Parameter("noPurge") final boolean noPurge)
+	{
+		this.noPurge.set(item, noPurge);
 	}
 
 	@Wrap(order=50, doc="Returns the date, this item was last successfully dispatched by {0}.")
@@ -471,6 +566,72 @@ public final class Dispatcher extends Pattern
 		{
 			return new String(getPattern().runFailure.getArray(this), ENCODING);
 		}
+	}
+
+
+	/**
+	 * @throws IllegalArgumentException if purge is disabled by {@link #withoutPurge()}.
+	 */
+	@Wrap(order=100, hide=SupportsPurgeGetter.class)
+	public void purge(
+			@Parameter("properties") final DispatcherPurgeProperties properties,
+			@Parameter("ctx") final JobContext ctx)
+	{
+		requireNonNull(properties, "properties");
+		requireNonNull(ctx, "ctx");
+		if(!supportsPurge())
+			throw new IllegalArgumentException(
+					"purge has been disabled for Dispatcher " + getID() +
+					" by method withoutPurge()");
+
+		final Query<? extends Item> query = purgeQuery(properties);
+		if(query!=null)
+			Delete.delete(query, "Dispatcher#purge " + getID(), ctx);
+	}
+
+	private static final class SupportsPurgeGetter implements BooleanGetter<Dispatcher>
+	{
+		public boolean get(final Dispatcher feature)
+		{
+			return !feature.supportsPurge();
+		}
+	}
+
+	Query<? extends Item> purgeQuery(final DispatcherPurgeProperties properties)
+	{
+		final int success = properties.delayDaysSuccess;
+		final int failure = properties.delayDaysFinalFailure;
+		if(success==0 && failure==0)
+			return null;
+
+		final long now = Clock.currentTimeMillis();
+		final Condition dateCondition;
+
+		if(success==failure)
+		{
+			dateCondition = dateBefore(now, success);
+		}
+		else
+		{
+			dateCondition = Cope.or(
+					getUnpendSuccess().equal(true ).and(dateBefore(now, success)),
+					getUnpendSuccess().equal(false).and(dateBefore(now, failure))
+				);
+		}
+
+		return getType().newQuery(pending.equal(false).and(noPurge.equal(false)).and(dateCondition));
+	}
+
+	private Condition dateBefore(final long now, final int days)
+	{
+		if(days==0)
+			return Condition.FALSE;
+
+		final GregorianCalendar cal = new GregorianCalendar(
+				TimeZoneStrict.getTimeZone("UTC"), Locale.ENGLISH);
+		cal.setTimeInMillis(now);
+		cal.add(Calendar.DATE, -days);
+		return getUnpendDate().less(cal.getTime());
 	}
 
 	// ------------------- deprecated stuff -------------------

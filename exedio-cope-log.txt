@@ -7,6 +7,10 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* Dispatcher#purge added.
+	- affects database schema, adds columns to table of Dispatchable item
+	- affects instrumented code
+	For previous behaviour use: new Dispatcher().withoutPurge().
 * Instrumentor parameter defaults changed. For previous behaviour set:
 	<instrument ... annotateGenerated="false" finalArgs="false" verbose="true">
 * Instrumentor can be configured to run only if source files or resources changed:

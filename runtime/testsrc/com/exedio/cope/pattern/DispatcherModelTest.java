@@ -22,6 +22,7 @@ import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
 import static com.exedio.cope.pattern.DispatcherItem.TYPE;
 import static com.exedio.cope.pattern.DispatcherItem.body;
 import static com.exedio.cope.pattern.DispatcherItem.dispatchCountCommitted;
+import static com.exedio.cope.pattern.DispatcherItem.purgeToTarget;
 import static com.exedio.cope.pattern.DispatcherItem.toTarget;
 import static com.exedio.cope.pattern.DispatcherItem.toTargetRunParent;
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
@@ -36,6 +37,7 @@ import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.Type;
 import com.exedio.cope.misc.Computed;
+import com.exedio.cope.util.Sources;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.List;
 import org.junit.Test;
@@ -79,7 +81,12 @@ public class DispatcherModelTest
 				body,
 				dispatchCountCommitted,
 				toTarget,
-				toTarget.getPending()
+				toTarget.getPending(),
+				toTarget.getNoPurge(),
+				toTarget.getUnpend(),
+				toTarget.getUnpendSuccess(),
+				toTarget.getUnpendDate(),
+				toTarget.getUnpendUnison()
 			), TYPE.getFeatures());
 		assertEqualsUnmodifiable(list(
 				runType.getThis(),
@@ -128,6 +135,9 @@ public class DispatcherModelTest
 	@Test public void testComputed()
 	{
 		assertFalse(toTarget.getPending().isAnnotationPresent(Computed.class));
+		assertFalse(toTarget.getNoPurge().isAnnotationPresent(Computed.class));
+		assertTrue (toTarget.getUnpendSuccess().isAnnotationPresent(Computed.class));
+		assertTrue (toTarget.getUnpendDate().isAnnotationPresent(Computed.class));
 		assertTrue (toTarget.getRunType().isAnnotationPresent(Computed.class));
 	}
 
@@ -140,6 +150,35 @@ public class DispatcherModelTest
 	@Test public void testDefaultPendingTo()
 	{
 		assertSame(Boolean.FALSE, new Dispatcher().defaultPendingTo(false).getPending().getDefaultConstant());
+	}
+
+	@Test public void testPurgePropertiesNull()
+	{
+		try
+		{
+			purgeToTarget(null, null);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals("properties", e.getMessage());
+		}
+	}
+
+	@Test public void testPurgeContextNull()
+	{
+		final DispatcherPurgeProperties properties =
+				DispatcherPurgeProperties.factory().delayDaysDefault(5).create(Sources.view(new java.util.Properties(), "description"));
+
+		try
+		{
+			purgeToTarget(properties, null);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals("ctx", e.getMessage());
+		}
 	}
 
 	@Test public void testNoDispatchable()

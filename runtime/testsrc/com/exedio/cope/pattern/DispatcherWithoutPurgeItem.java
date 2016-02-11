@@ -25,6 +25,7 @@ import static java.lang.System.nanoTime;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
+import com.exedio.cope.util.JobContext;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -51,7 +52,7 @@ public final class DispatcherWithoutPurgeItem extends Item implements Dispatchab
 		}
 	}
 
-	static final Dispatcher toTarget = new Dispatcher();
+	static final Dispatcher toTarget = new Dispatcher().withoutPurge();
 
 	public void dispatch(final Dispatcher dispatcher) throws IOException, InterruptedException
 	{
@@ -89,6 +90,14 @@ public final class DispatcherWithoutPurgeItem extends Item implements Dispatchab
 	{
 		final List<Dispatcher.Run> runs = getToTargetRuns();
 		return runs.get(runs.size()-1).getElapsed();
+	}
+
+	/**
+	 * Is not instrumented, because of purge is disabled by {@link Dispatcher#withoutPurge()}.
+	 */
+	static void purgeToTarget(final DispatcherPurgeProperties properties, final JobContext ctx)
+	{
+		toTarget.purge(properties, ctx);
 	}
 
 
