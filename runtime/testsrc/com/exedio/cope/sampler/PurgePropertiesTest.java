@@ -74,6 +74,7 @@ public class PurgePropertiesTest extends ConnectedTest
 			);
 
 		final MC mc = new MC();
+		final String time = "12:34:56.789";
 		override(new Strategy()
 		{
 			@Override
@@ -83,7 +84,7 @@ public class PurgePropertiesTest extends ConnectedTest
 				result.setTimeZone(TimeZoneStrict.getTimeZone("UTC"));
 				try
 				{
-					return result.parse("1987/08/10 12:34:56.789").getTime();
+					return result.parse("1987/08/10 " + time).getTime();
 				}
 				catch(final ParseException e)
 				{
@@ -93,11 +94,11 @@ public class PurgePropertiesTest extends ConnectedTest
 		});
 		props.purge(sampler, mc);
 		assertEquals(
-				"purge select this from SamplerTransaction where date<'1987/08/02 12:34:56.789'\n"+
-				"purge select this from SamplerItemCache where date<'1987/08/02 12:34:56.789'\n"+
-				"purge select this from SamplerClusterNode where date<'1987/08/02 12:34:56.789'\n"+
-				"purge select this from SamplerMedia where date<'1987/08/02 12:34:56.789'\n"+
-				"purge select this from SamplerModel where date<'1987/08/02 12:34:56.789'\n",
+				"purge select this from SamplerTransaction where date<'1987/08/02 " + time + "'\n"+
+				"purge select this from SamplerItemCache where date<'1987/08/02 " + time + "'\n"+
+				"purge select this from SamplerClusterNode where date<'1987/08/02 " + time + "'\n"+
+				"purge select this from SamplerMedia where date<'1987/08/02 " + time + "'\n"+
+				"purge select this from SamplerModel where date<'1987/08/02 " + time + "'\n",
 				mc.getMessages());
 	}
 
