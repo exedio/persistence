@@ -46,12 +46,6 @@ final class MockJobContext extends AssertionErrorJobContext
 	}
 
 	@Override
-	public boolean supportsMessage()
-	{
-		return false;
-	}
-
-	@Override
 	public void incrementProgress(final int delta)
 	{
 		progress.add(delta);
