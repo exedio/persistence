@@ -20,10 +20,9 @@ package com.exedio.cope.sampler;
 
 import static com.exedio.cope.sampler.Stuff.sampler;
 import static com.exedio.cope.sampler.Stuff.samplerModel;
-import static com.exedio.cope.util.Clock.clearOverride;
-import static com.exedio.cope.util.Clock.override;
 import static org.junit.Assert.assertEquals;
 
+import com.exedio.cope.tojunit.ClockRule;
 import com.exedio.cope.util.Clock.Strategy;
 import com.exedio.cope.util.EmptyJobContext;
 import com.exedio.cope.util.Properties.Source;
@@ -33,11 +32,16 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
-import org.junit.After;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.RuleChain;
 
 public class PurgePropertiesTest extends ConnectedTest
 {
+	private final ClockRule clockRule = new ClockRule();
+
+	@Rule public final RuleChain chain = RuleChain.outerRule(clockRule);
+
 	@SuppressFBWarnings("BC_UNCONFIRMED_CAST_OF_RETURN_VALUE")
 	@Test public void testPurge()
 	{
@@ -76,7 +80,7 @@ public class PurgePropertiesTest extends ConnectedTest
 
 		final MC mc = new MC();
 		final String time = "12:34:56.789";
-		override(new Strategy()
+		clockRule.override(new Strategy()
 		{
 			@Override
 			public long currentTimeMillis()
@@ -128,11 +132,5 @@ public class PurgePropertiesTest extends ConnectedTest
 		{
 			bf.append(message).append('\n');
 		}
-	}
-
-	@After
-	public void clear()
-	{
-		clearOverride();
 	}
 }
