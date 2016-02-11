@@ -41,7 +41,7 @@ public class PurgePropertiesTest extends ConnectedTest
 	private final AbsoluteMockClockStrategy clock = new AbsoluteMockClockStrategy();
 	private final ClockRule clockRule = new ClockRule();
 
-	@Rule public final RuleChain chain = RuleChain.outerRule(clockRule);
+	@Rule public final RuleChain ruleChain = RuleChain.outerRule(clockRule);
 
 	@SuppressFBWarnings("BC_UNCONFIRMED_CAST_OF_RETURN_VALUE")
 	@Test public void testPurge() throws ParseException
