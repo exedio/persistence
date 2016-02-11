@@ -28,7 +28,10 @@ import com.exedio.cope.util.Clock.Strategy;
 import com.exedio.cope.util.EmptyJobContext;
 import com.exedio.cope.util.Properties.Source;
 import com.exedio.cope.util.Sources;
+import com.exedio.cope.util.TimeZoneStrict;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Collection;
 import org.junit.After;
 import org.junit.Test;
@@ -76,7 +79,16 @@ public class PurgePropertiesTest extends ConnectedTest
 			@Override
 			public long currentTimeMillis()
 			{
-				return 555555555555l;
+				final SimpleDateFormat result = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS");
+				result.setTimeZone(TimeZoneStrict.getTimeZone("UTC"));
+				try
+				{
+					return result.parse("1987/08/10 00:59:15.555").getTime();
+				}
+				catch(final ParseException e)
+				{
+					throw new RuntimeException(e);
+				}
 			}
 		});
 		props.purge(sampler, mc);
