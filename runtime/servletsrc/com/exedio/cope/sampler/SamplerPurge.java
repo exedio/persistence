@@ -29,6 +29,7 @@ import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
 import com.exedio.cope.LongField;
 import com.exedio.cope.Model;
+import com.exedio.cope.Query;
 import com.exedio.cope.StringField;
 import com.exedio.cope.TransactionTry;
 import com.exedio.cope.Type;
@@ -60,11 +61,16 @@ final class SamplerPurge extends Item
 		ctx.stopIfRequested();
 		final DateField field = (DateField)type.getDeclaredFeature("date");
 		final Model model = type.getModel();
+		final Query<?> query = type.newQuery(field.less(limit));
 		final String bf =
 				"DELETE " + removePrefix(
 						"SELECT " + quoteName(model, getPrimaryKeyColumnName(type)) + ' ',
-						search(type.newQuery(field.less(limit)))
+						search(query)
 				);
+
+		if(ctx.supportsMessage())
+			ctx.setMessage("purge " + query);
+
 		final int rows;
 		final long start = System.nanoTime();
 		try(Statement stat = con.createStatement())

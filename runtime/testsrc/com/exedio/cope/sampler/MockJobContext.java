@@ -34,6 +34,12 @@ final class MockJobContext extends AssertionErrorJobContext
 		requestedToStopCount++;
 	}
 
+	@Override
+	public boolean supportsMessage()
+	{
+		return false;
+	}
+
 	int getRequestedToStopCount()
 	{
 		return requestedToStopCount;
