@@ -22,8 +22,8 @@ import static com.exedio.cope.sampler.Stuff.sampler;
 import static com.exedio.cope.sampler.Stuff.samplerModel;
 import static org.junit.Assert.assertEquals;
 
+import com.exedio.cope.junit.AbsoluteMockClockStrategy;
 import com.exedio.cope.tojunit.ClockRule;
-import com.exedio.cope.util.Clock.Strategy;
 import com.exedio.cope.util.EmptyJobContext;
 import com.exedio.cope.util.Properties.Source;
 import com.exedio.cope.util.Sources;
@@ -38,12 +38,13 @@ import org.junit.rules.RuleChain;
 
 public class PurgePropertiesTest extends ConnectedTest
 {
+	private final AbsoluteMockClockStrategy clock = new AbsoluteMockClockStrategy();
 	private final ClockRule clockRule = new ClockRule();
 
 	@Rule public final RuleChain chain = RuleChain.outerRule(clockRule);
 
 	@SuppressFBWarnings("BC_UNCONFIRMED_CAST_OF_RETURN_VALUE")
-	@Test public void testPurge()
+	@Test public void testPurge() throws ParseException
 	{
 		samplerModel.createSchema();
 
@@ -80,24 +81,15 @@ public class PurgePropertiesTest extends ConnectedTest
 
 		final MC mc = new MC();
 		final String time = "12:34:56.789";
-		clockRule.override(new Strategy()
-		{
-			@Override
-			public long currentTimeMillis()
-			{
-				final SimpleDateFormat result = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS");
-				result.setTimeZone(TimeZoneStrict.getTimeZone("UTC"));
-				try
-				{
-					return result.parse("1987/08/20 " + time).getTime();
-				}
-				catch(final ParseException e)
-				{
-					throw new RuntimeException(e);
-				}
-			}
-		});
+		clockRule.override(clock);
+		final SimpleDateFormat result = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS");
+		result.setTimeZone(TimeZoneStrict.getTimeZone("UTC"));
+		clock.add(result.parse("1987/08/20 " + time));
+		// for SamplerPurge instances
+		for(int i = 0; i<5; i++)
+			clock.add(result.parse("1999/09/09 " + time));
 		props.purge(sampler, mc);
+		clock.assertEmpty();
 		assertEquals(
 				"purge select this from SamplerTransaction where date<'1987/08/02 " + time + "'\n"+
 				"purge select this from SamplerItemCache where date<'1987/08/02 " + time + "'\n"+
