@@ -45,6 +45,7 @@ public class PurgePropertiesTest extends ConnectedTest
 
 		final Source sou = model.getConnectProperties().getSourceObject();
 		final java.util.Properties properties = new java.util.Properties();
+		properties.setProperty("purgeDays", "18");
 		final SamplerProperties props = SamplerProperties.factory().create(
 				Sources.cascade(
 					Sources.view(properties, "desc"),
@@ -84,7 +85,7 @@ public class PurgePropertiesTest extends ConnectedTest
 				result.setTimeZone(TimeZoneStrict.getTimeZone("UTC"));
 				try
 				{
-					return result.parse("1987/08/10 " + time).getTime();
+					return result.parse("1987/08/20 " + time).getTime();
 				}
 				catch(final ParseException e)
 				{
