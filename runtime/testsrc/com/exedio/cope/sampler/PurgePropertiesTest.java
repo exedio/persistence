@@ -88,7 +88,7 @@ public class PurgePropertiesTest extends ConnectedTest
 			PurgeProperties.initProperties(model);
 			fail();
 		}
-		catch(java.lang.IllegalArgumentException e)
+		catch(final java.lang.IllegalArgumentException e)
 		{
 			assertTrue(e.getMessage().startsWith("property purgeDays in desc"));
 		}
@@ -111,12 +111,12 @@ public class PurgePropertiesTest extends ConnectedTest
 			return key.equals(prefix+name());
 		}
 
-		private void setValue(int value)
+		void setValue(final int value)
 		{
 			this.value=value;
 		}
 
-		private static String getValue(final String key)
+		static String getValue(final String key)
 		{
 			for (final PurgeProperties p : values())
 			{
@@ -129,7 +129,7 @@ public class PurgePropertiesTest extends ConnectedTest
 		}
 
 		@SuppressFBWarnings("BC_UNCONFIRMED_CAST_OF_RETURN_VALUE")
-		private static SamplerProperties initProperties(final Model model)
+		static SamplerProperties initProperties(final Model model)
 		{
 			final Source sou = model.getConnectProperties().getSourceObject();
 			final java.util.Properties properties = new java.util.Properties();
