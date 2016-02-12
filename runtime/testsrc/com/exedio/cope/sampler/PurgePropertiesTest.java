@@ -88,7 +88,7 @@ public class PurgePropertiesTest extends ConnectedTest
 			PurgeProperties.initProperties(model);
 			fail();
 		}
-		catch(final java.lang.IllegalArgumentException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertTrue(e.getMessage().startsWith("property purgeDays in desc"));
 		}
