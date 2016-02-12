@@ -552,7 +552,7 @@
 	</target>
 
 	<target name="runtime.test.readyToRun" depends="dsmf.compile, runtime.core.compile, runtime.dialect.compile, runtime.pattern.compile, runtime.servlet.compile, runtime.junit.compile, runtime.test.feature.compile, runtime.test.compile" />
-		
+
 	<target name="runtime.test.withoutEnv" depends="runtime.test.readyToRun">
 		<mkdir dir="build/testresults" />
 		<junit taskname="junit noEnv" fork="yes"
@@ -586,7 +586,7 @@
 			<assertions><enable/></assertions>
 		</junit>
 	</target>
-		
+
 	<target name="runtime.test.withEnv" depends="runtime.test.readyToRun">
 		<mkdir dir="build/testresults" />
 		<foreachEnvironment skipSwitch="runtime.test">
@@ -627,7 +627,7 @@
 	</target>
 
 	<target name="runtime.test" depends="runtime.test.withoutEnv, runtime.test.withEnv" />
-		
+
 	<target name="runtime.test.protocol" depends="dsmf.compile, runtime.core.compile, runtime.dialect.compile, runtime.junit.compile, runtime.test.compile">
 		<delete file="build/classes/runtime/src/com/exedio/cope/testprotocol.properties" />
 		<foreachEnvironment skipSwitch="runtime.test.protocol">
