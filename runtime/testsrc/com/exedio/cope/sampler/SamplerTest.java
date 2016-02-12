@@ -23,6 +23,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 import com.exedio.cope.util.JobContexts;
+import java.util.Date;
 import org.junit.Test;
 
 public class SamplerTest
@@ -75,7 +76,7 @@ public class SamplerTest
 	{
 		try
 		{
-			sampler.purge(null, JobContexts.EMPTY);
+			sampler.purge((Date)null, JobContexts.EMPTY);
 			fail();
 		}
 		catch(final NullPointerException e)

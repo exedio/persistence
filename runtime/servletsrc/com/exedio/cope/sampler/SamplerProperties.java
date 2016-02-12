@@ -18,12 +18,18 @@
 
 package com.exedio.cope.sampler;
 
+import static com.exedio.cope.sampler.Sampler.daysBeforeNow;
+
 import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.Model;
+import com.exedio.cope.Type;
 import com.exedio.cope.misc.ConnectToken;
+import com.exedio.cope.util.Clock;
 import com.exedio.cope.util.JobContext;
 import com.exedio.cope.util.Properties;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import java.util.Date;
+import java.util.HashMap;
 
 public final class SamplerProperties extends Properties
 {
@@ -68,12 +74,66 @@ public final class SamplerProperties extends Properties
 
 	// purge
 
-	private final int purgeDays = value("purgeDays", 8, 0); // amply one week
+	final PurgeDays purgeDays = value("purgeDays", true, PurgeDays.factory());
+
+	static final class PurgeDays extends Properties
+	{
+		final int model       = value("model",       ampleWeeks(8), 1    );
+		final int transaction = subVl("transaction", ampleWeeks(8), model);
+		final int itemCache   = subVl("itemCache",   ampleWeeks(1), model);
+		final int clusterNode = subVl("clusterNode", ampleWeeks(4), model);
+		final int media       = subVl("media",       ampleWeeks(4), model);
+
+		private static int ampleWeeks(final int weeks)
+		{
+			return 7*weeks + 1;
+		}
+
+		private int subVl(final String key, final int defaultValue, final int maximum)
+		{
+			final int result = value(key, defaultValue, 1);
+			if(result>maximum)
+				throw newException(key,
+						"must not be larger than property purgeDays.model, but was " + result +
+						" which is larger than " + maximum);
+			return result;
+		}
+
+		void purge(final Sampler sampler, final JobContext ctx)
+		{
+			final long now = Clock.currentTimeMillis();
+			final HashMap<Type<?>,Date> limits = new HashMap<>();
+			limits.put(SamplerModel      .TYPE, daysBeforeNow(now, model));
+			limits.put(SamplerTransaction.TYPE, daysBeforeNow(now, transaction));
+			limits.put(SamplerItemCache  .TYPE, daysBeforeNow(now, itemCache));
+			limits.put(SamplerClusterNode.TYPE, daysBeforeNow(now, clusterNode));
+			limits.put(SamplerMedia      .TYPE, daysBeforeNow(now, media));
+			sampler.purge(limits, ctx);
+		}
+
+		static Factory<PurgeDays> factory()
+		{
+			return new Factory<PurgeDays>()
+			{
+				@Override
+				@SuppressWarnings("synthetic-access")
+				public PurgeDays create(final Source source)
+				{
+					return new PurgeDays(source);
+				}
+			};
+		}
+
+		private PurgeDays(final Source source)
+		{
+			super(source);
+		}
+	}
 
 	public void purge(final Sampler sampler, final JobContext ctx)
 	{
-		if(purgeDays>0)
-			sampler.purge(purgeDays, ctx);
+		if(purgeDays!=null)
+			purgeDays.purge(sampler, ctx);
 	}
 
 
