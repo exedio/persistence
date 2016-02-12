@@ -78,7 +78,6 @@ public final class SamplerProperties extends Properties
 
 	private static final class PurgeDays extends Properties
 	{
-
 		private final int model       = value("model",       57, 1    ); // amply 8 weeks
 		private final int transaction = subVl("transaction", 57, model); // amply 8 weeks
 		private final int itemCache   = subVl("itemCache",    8, model); // amply one week
@@ -93,7 +92,6 @@ public final class SamplerProperties extends Properties
 						"must not be larger than property purgeDays.model, but was " + result +
 						" which is larger than " + maximum);
 			return result;
-
 		}
 
 		void purge(final Sampler sampler, final JobContext ctx)
