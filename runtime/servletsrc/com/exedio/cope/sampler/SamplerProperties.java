@@ -74,15 +74,15 @@ public final class SamplerProperties extends Properties
 
 	// purge
 
-	private final PurgeDays purgeDays = value("purgeDays", true, PurgeDays.factory());
+	final PurgeDays purgeDays = value("purgeDays", true, PurgeDays.factory());
 
-	private static final class PurgeDays extends Properties
+	static final class PurgeDays extends Properties
 	{
-		private final int model       = value("model",       57, 1    ); // amply 8 weeks
-		private final int transaction = subVl("transaction", 57, model); // amply 8 weeks
-		private final int itemCache   = subVl("itemCache",    8, model); // amply one week
-		private final int clusterNode = subVl("clusterNode", 29, model); // amply 4 weeks
-		private final int media       = subVl("media",       29, model); // amply 4 weeks
+		final int model       = value("model",       57, 1    ); // amply 8 weeks
+		final int transaction = subVl("transaction", 57, model); // amply 8 weeks
+		final int itemCache   = subVl("itemCache",    8, model); // amply one week
+		final int clusterNode = subVl("clusterNode", 29, model); // amply 4 weeks
+		final int media       = subVl("media",       29, model); // amply 4 weeks
 
 		private int subVl(final String key, final int defaultValue, final int maximum)
 		{

@@ -114,6 +114,19 @@ public class PurgePropertiesTest extends ConnectedTest
 				mc.getMessages());
 	}
 
+	@Test public void testDefaults()
+	{
+		samplerModel.createSchema();
+
+		final SamplerProperties props = factory.create(newSource(
+				new EnumMap<PurgedType, Integer>(PurgedType.class)));
+		assertEquals(57, props.purgeDays.model);
+		assertEquals(57, props.purgeDays.transaction);
+		assertEquals( 8, props.purgeDays.itemCache);
+		assertEquals(29, props.purgeDays.clusterNode);
+		assertEquals(29, props.purgeDays.media);
+	}
+
 	@Test public void testTooSmallTransaction()
 	{
 		samplerModel.createSchema();
