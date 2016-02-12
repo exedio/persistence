@@ -21,13 +21,13 @@ package com.exedio.cope.sampler;
 import static com.exedio.cope.sampler.Stuff.sampler;
 import static com.exedio.cope.sampler.Stuff.samplerModel;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import com.exedio.cope.Model;
 import com.exedio.cope.junit.AbsoluteMockClockStrategy;
 import com.exedio.cope.tojunit.ClockRule;
 import com.exedio.cope.util.EmptyJobContext;
+import com.exedio.cope.util.IllegalPropertiesException;
 import com.exedio.cope.util.Properties.Source;
 import com.exedio.cope.util.Sources;
 import com.exedio.cope.util.TimeZoneStrict;
@@ -88,9 +88,10 @@ public class PurgePropertiesTest extends ConnectedTest
 			PurgeProperties.initProperties(model);
 			fail();
 		}
-		catch(final IllegalArgumentException e)
+		catch(final IllegalPropertiesException e)
 		{
-			assertTrue(e.getMessage().startsWith("property purgeDays in desc"));
+			assertEquals("purgeDays.transaction" , e.getKey()); // TODO wrong key
+			assertEquals("must not be larger than property purgeDays, but was 10 which is larger than 4" , e.getDetail());
 		}
 	}
 

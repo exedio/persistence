@@ -89,9 +89,8 @@ public final class SamplerProperties extends Properties
 		{
 			final int result = value(key, defaultValue, 1);
 			if(result>maximum)
-				throw new IllegalArgumentException(
-						"property " + key + " in " + getSource() +
-						" must not be larger than property purgeDays, but was " + result +
+				throw newException(key,
+						"must not be larger than property purgeDays, but was " + result +
 						" which is larger than " + maximum);
 			return result;
 
