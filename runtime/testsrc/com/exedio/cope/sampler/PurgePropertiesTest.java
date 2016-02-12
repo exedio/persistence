@@ -92,7 +92,7 @@ public class PurgePropertiesTest extends ConnectedTest
 		{
 			assertEquals(
 					"property purgeDays.transaction in desc1 / desc2 " +   // TODO wrong key
-					"must not be larger than property purgeDays, but was 10 which is larger than 4",
+					"must not be larger than property purgeDays.model, but was 10 which is larger than 4",
 					e.getMessage());
 		}
 	}
