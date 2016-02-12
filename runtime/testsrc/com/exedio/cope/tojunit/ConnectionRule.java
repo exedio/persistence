@@ -118,9 +118,27 @@ public final class ConnectionRule implements TestRule
 	@SuppressFBWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
 	public ResultSet executeQuery(final String sql) throws SQLException
 	{
-		try(Statement statement = createStatement())
+		final Statement statement = createStatement();
+
+		boolean mustReturn = true;
+		try
 		{
-			return statement.executeQuery(sql);
+			final ResultSet result = new ProxyResultSet(statement.executeQuery(sql))
+			{
+				@Override public void close() throws SQLException
+				{
+					super.close();
+					statement.close();
+				}
+			};
+
+			mustReturn = false;
+			return result;
+		}
+		finally
+		{
+			if(mustReturn)
+				statement.close();
 		}
 	}
 
