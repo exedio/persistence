@@ -79,6 +79,38 @@ public class PurgePropertiesTest extends ConnectedTest
 				mc.getMessages());
 	}
 
+	@Test public void testPurgeMinimum() throws ParseException
+	{
+		samplerModel.createSchema();
+
+		final EnumMap<PurgedType, Integer> days = new EnumMap<>(PurgedType.class);
+		days.put(PurgedType.transaction, 1);
+		days.put(PurgedType.itemCache, 1);
+		days.put(PurgedType.clusterNode, 1);
+		days.put(PurgedType.media, 1);
+		days.put(PurgedType.model, 1);
+		final SamplerProperties props = initProperties(days);
+
+		final MC mc = new MC();
+		final String time = "12:34:56.789";
+		clockRule.override(clock);
+		final SimpleDateFormat result = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS");
+		result.setTimeZone(TimeZoneStrict.getTimeZone("UTC"));
+		clock.add(result.parse("1987/08/20 " + time));
+		// for SamplerPurge instances
+		for(int i = 0; i<5; i++)
+			clock.add(result.parse("1999/09/09 " + time));
+		props.purge(sampler, mc);
+		clock.assertEmpty();
+		assertEquals(
+				"purge select this from SamplerTransaction where date<'1987/08/19 " + time + "'\n"+
+				"purge select this from SamplerItemCache where date<'1987/08/19 " + time + "'\n"+
+				"purge select this from SamplerClusterNode where date<'1987/08/19 " + time + "'\n"+
+				"purge select this from SamplerMedia where date<'1987/08/19 " + time + "'\n"+
+				"purge select this from SamplerModel where date<'1987/08/19 " + time + "'\n",
+				mc.getMessages());
+	}
+
 	@Test public void modelDependingLimit()
 	{
 		samplerModel.createSchema();
