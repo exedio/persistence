@@ -23,7 +23,6 @@ import static com.exedio.cope.sampler.Stuff.samplerModel;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
-import com.exedio.cope.Model;
 import com.exedio.cope.junit.AbsoluteMockClockStrategy;
 import com.exedio.cope.tojunit.ClockRule;
 import com.exedio.cope.util.EmptyJobContext;
@@ -58,7 +57,7 @@ public class PurgePropertiesTest extends ConnectedTest
 		days.put(PurgeProperties.clusterNode, 12);
 		days.put(PurgeProperties.media, 13);
 		days.put(PurgeProperties.model, 16);
-		final SamplerProperties props = initProperties(model, days);
+		final SamplerProperties props = initProperties(days);
 
 		final MC mc = new MC();
 		final String time = "12:34:56.789";
@@ -89,7 +88,7 @@ public class PurgePropertiesTest extends ConnectedTest
 		days.put(PurgeProperties.itemCache, 501);
 		try
 		{
-			initProperties(model, days);
+			initProperties(days);
 			fail();
 		}
 		catch(final IllegalPropertiesException e)
@@ -113,7 +112,7 @@ public class PurgePropertiesTest extends ConnectedTest
 	}
 
 	@SuppressFBWarnings("BC_UNCONFIRMED_CAST_OF_RETURN_VALUE")
-	static SamplerProperties initProperties(final Model model, final EnumMap<PurgeProperties, Integer> days)
+	SamplerProperties initProperties(final EnumMap<PurgeProperties, Integer> days)
 	{
 		final Source sou = model.getConnectProperties().getSourceObject();
 		final java.util.Properties properties = new java.util.Properties();
