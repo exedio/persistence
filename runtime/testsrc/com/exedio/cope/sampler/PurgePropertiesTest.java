@@ -51,12 +51,12 @@ public class PurgePropertiesTest extends ConnectedTest
 	{
 		samplerModel.createSchema();
 
-		final EnumMap<PurgeProperties, Integer> days = new EnumMap<>(PurgeProperties.class);
-		days.put(PurgeProperties.transaction, 10);
-		days.put(PurgeProperties.itemCache, 11);
-		days.put(PurgeProperties.clusterNode, 12);
-		days.put(PurgeProperties.media, 13);
-		days.put(PurgeProperties.model, 16);
+		final EnumMap<PurgedType, Integer> days = new EnumMap<>(PurgedType.class);
+		days.put(PurgedType.transaction, 10);
+		days.put(PurgedType.itemCache, 11);
+		days.put(PurgedType.clusterNode, 12);
+		days.put(PurgedType.media, 13);
+		days.put(PurgedType.model, 16);
 		final SamplerProperties props = initProperties(days);
 
 		final MC mc = new MC();
@@ -83,9 +83,9 @@ public class PurgePropertiesTest extends ConnectedTest
 	{
 		samplerModel.createSchema();
 
-		final EnumMap<PurgeProperties, Integer> days = new EnumMap<>(PurgeProperties.class);
-		days.put(PurgeProperties.model, 500);
-		days.put(PurgeProperties.itemCache, 501);
+		final EnumMap<PurgedType, Integer> days = new EnumMap<>(PurgedType.class);
+		days.put(PurgedType.model, 500);
+		days.put(PurgedType.itemCache, 501);
 		try
 		{
 			initProperties(days);
@@ -102,7 +102,7 @@ public class PurgePropertiesTest extends ConnectedTest
 
 
 
-	private static enum PurgeProperties
+	private enum PurgedType
 	{
 		model,
 		transaction,
@@ -112,11 +112,11 @@ public class PurgePropertiesTest extends ConnectedTest
 	}
 
 	@SuppressFBWarnings("BC_UNCONFIRMED_CAST_OF_RETURN_VALUE")
-	SamplerProperties initProperties(final EnumMap<PurgeProperties, Integer> days)
+	SamplerProperties initProperties(final EnumMap<PurgedType, Integer> days)
 	{
 		final Source sou = model.getConnectProperties().getSourceObject();
 		final java.util.Properties properties = new java.util.Properties();
-		for(final Map.Entry<PurgeProperties, Integer> e : days.entrySet())
+		for(final Map.Entry<PurgedType, Integer> e : days.entrySet())
 			properties.setProperty("purgeDays." + e.getKey().name(), String.valueOf(e.getValue()));
 
 		return SamplerProperties.factory().create(
