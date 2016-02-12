@@ -35,6 +35,8 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
+import java.util.EnumMap;
+import java.util.Map;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.RuleChain;
@@ -50,12 +52,13 @@ public class PurgePropertiesTest extends ConnectedTest
 	{
 		samplerModel.createSchema();
 
-		PurgeProperties.transaction.setValue(10);
-		PurgeProperties.itemCache.setValue(11);
-		PurgeProperties.clusterNode.setValue(12);
-		PurgeProperties.media.setValue(13);
-		PurgeProperties.model.setValue(16);
-		final SamplerProperties props = PurgeProperties.initProperties(model);
+		final EnumMap<PurgeProperties, Integer> days = new EnumMap<>(PurgeProperties.class);
+		days.put(PurgeProperties.transaction, 10);
+		days.put(PurgeProperties.itemCache, 11);
+		days.put(PurgeProperties.clusterNode, 12);
+		days.put(PurgeProperties.media, 13);
+		days.put(PurgeProperties.model, 16);
+		final SamplerProperties props = initProperties(model, days);
 
 		final MC mc = new MC();
 		final String time = "12:34:56.789";
@@ -81,18 +84,19 @@ public class PurgePropertiesTest extends ConnectedTest
 	{
 		samplerModel.createSchema();
 
-		PurgeProperties.model.setValue(4);
-		PurgeProperties.itemCache.setValue(3);
+		final EnumMap<PurgeProperties, Integer> days = new EnumMap<>(PurgeProperties.class);
+		days.put(PurgeProperties.model, 500);
+		days.put(PurgeProperties.itemCache, 501);
 		try
 		{
-			PurgeProperties.initProperties(model);
+			initProperties(model, days);
 			fail();
 		}
 		catch(final IllegalPropertiesException e)
 		{
 			assertEquals(
-					"property purgeDays.transaction in desc1 / desc2 " +   // TODO wrong key
-					"must not be larger than property purgeDays.model, but was 10 which is larger than 4",
+					"property purgeDays.itemCache in desc1 / desc2 " +
+					"must not be larger than property purgeDays.model, but was 501 which is larger than 500",
 					e.getMessage());
 		}
 	}
@@ -106,65 +110,43 @@ public class PurgePropertiesTest extends ConnectedTest
 		itemCache,
 		clusterNode,
 		media;
+	}
 
-		private final String prefix = "purgeDays.";
-		private int value = 8;
-		private boolean matches(final String key)
-		{
-			return key.equals(prefix+name());
-		}
+	@SuppressFBWarnings("BC_UNCONFIRMED_CAST_OF_RETURN_VALUE")
+	static SamplerProperties initProperties(final Model model, final EnumMap<PurgeProperties, Integer> days)
+	{
+		final Source sou = model.getConnectProperties().getSourceObject();
+		final java.util.Properties properties = new java.util.Properties();
+		for(final Map.Entry<PurgeProperties, Integer> e : days.entrySet())
+			properties.setProperty("purgeDays." + e.getKey().name(), String.valueOf(e.getValue()));
 
-		void setValue(final int value)
-		{
-			this.value=value;
-		}
-
-		static String getValue(final String key)
-		{
-			for (final PurgeProperties p : values())
-			{
-				if (p.matches(key))
-				{
-					return Integer.toString(p.value);
-				}
-			}
-			return null;
-		}
-
-		@SuppressFBWarnings("BC_UNCONFIRMED_CAST_OF_RETURN_VALUE")
-		static SamplerProperties initProperties(final Model model)
-		{
-			final Source sou = model.getConnectProperties().getSourceObject();
-			final java.util.Properties properties = new java.util.Properties();
-			return SamplerProperties.factory().create(
-					Sources.cascade(
-						Sources.view(properties, "desc1"),
-						new Source()
+		return SamplerProperties.factory().create(
+				Sources.cascade(
+					Sources.view(properties, "desc1"),
+					new Source()
+					{
+						@Override
+						public String get(final String key)
 						{
-							@Override
-							public String get(final String key)
-							{
-								final String connect_prefix = "cope.";
-								if (key.startsWith(connect_prefix))
-									return sou.get(key.substring(connect_prefix.length()));
-								else
-									return PurgeProperties.getValue(key);
-							}
-							@Override
-							public Collection<String> keySet()
-							{
-								throw new RuntimeException();
-							}
-							@Override
-							public String getDescription()
-							{
-								return "desc2";
-							}
+							final String prefix = "cope.";
+							return
+								key.startsWith(prefix)
+								? sou.get(key.substring(prefix.length()))
+								: null;
 						}
-					)
-				);
-		}
-
+						@Override
+						public Collection<String> keySet()
+						{
+							throw new RuntimeException();
+						}
+						@Override
+						public String getDescription()
+						{
+							return "desc2";
+						}
+					}
+				)
+			);
 	}
 
 	private static class MC extends EmptyJobContext
