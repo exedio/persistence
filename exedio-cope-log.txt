@@ -7,6 +7,21 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* SamplerProperties supports separate purgeDays for each type to be purged.
+	BEWARE: Without adapting your settings your application may fail at startup!
+	Property keys and defaults changed from a single property:
+
+		purgeDays = 8
+
+	to a new optional nested property:
+
+		purgeDays = true
+		purgeDays.model = 57
+		purgeDays.transaction = 57
+		purgeDays.itemCache = 8
+		purgeDays.clusterNode = 29
+		purgeDays.media = 29
+
 * Dispatcher#purge added.
 	- affects database schema, adds columns to table of Dispatchable item
 	- affects instrumented code
