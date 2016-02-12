@@ -129,6 +129,7 @@ public class PurgePropertiesTest extends ConnectedTest
 		assertEquals("", mc.getMessages());
 	}
 
+	@SuppressFBWarnings("BC_UNCONFIRMED_CAST_OF_RETURN_VALUE")
 	@Test public void testDefaults()
 	{
 		samplerModel.createSchema();
