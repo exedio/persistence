@@ -27,6 +27,7 @@ import com.exedio.cope.junit.AbsoluteMockClockStrategy;
 import com.exedio.cope.tojunit.ClockRule;
 import com.exedio.cope.util.EmptyJobContext;
 import com.exedio.cope.util.IllegalPropertiesException;
+import com.exedio.cope.util.Properties.Factory;
 import com.exedio.cope.util.Properties.Source;
 import com.exedio.cope.util.Sources;
 import com.exedio.cope.util.TimeZoneStrict;
@@ -57,7 +58,7 @@ public class PurgePropertiesTest extends ConnectedTest
 		days.put(PurgedType.clusterNode, 12);
 		days.put(PurgedType.media, 13);
 		days.put(PurgedType.model, 16);
-		final SamplerProperties props = initProperties(days);
+		final SamplerProperties props = factory.create(newSource(days));
 
 		final MC mc = new MC();
 		final String time = "12:34:56.789";
@@ -89,7 +90,7 @@ public class PurgePropertiesTest extends ConnectedTest
 		days.put(PurgedType.clusterNode, 1);
 		days.put(PurgedType.media, 1);
 		days.put(PurgedType.model, 1);
-		final SamplerProperties props = initProperties(days);
+		final SamplerProperties props = factory.create(newSource(days));
 
 		final MC mc = new MC();
 		final String time = "12:34:56.789";
@@ -118,9 +119,10 @@ public class PurgePropertiesTest extends ConnectedTest
 		final EnumMap<PurgedType, Integer> days = new EnumMap<>(PurgedType.class);
 		days.put(PurgedType.model, 500);
 		days.put(PurgedType.itemCache, 501);
+		final Source source = newSource(days);
 		try
 		{
-			initProperties(days);
+			factory.create(source);
 			fail();
 		}
 		catch(final IllegalPropertiesException e)
@@ -143,15 +145,17 @@ public class PurgePropertiesTest extends ConnectedTest
 		media;
 	}
 
+	private final Factory<SamplerProperties> factory = SamplerProperties.factory();
+
 	@SuppressFBWarnings("BC_UNCONFIRMED_CAST_OF_RETURN_VALUE")
-	SamplerProperties initProperties(final EnumMap<PurgedType, Integer> days)
+	Source newSource(final EnumMap<PurgedType, Integer> days)
 	{
 		final Source sou = model.getConnectProperties().getSourceObject();
 		final java.util.Properties properties = new java.util.Properties();
 		for(final Map.Entry<PurgedType, Integer> e : days.entrySet())
 			properties.setProperty("purgeDays." + e.getKey().name(), String.valueOf(e.getValue()));
 
-		return SamplerProperties.factory().create(
+		return
 				Sources.cascade(
 					Sources.view(properties, "desc1"),
 					new Source()
@@ -176,8 +180,7 @@ public class PurgePropertiesTest extends ConnectedTest
 							return "desc2";
 						}
 					}
-				)
-			);
+				);
 	}
 
 	private static class MC extends EmptyJobContext
