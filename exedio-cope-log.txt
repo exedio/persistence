@@ -26,6 +26,8 @@ The items are sorted inversely, i.e. latest items are on top
 	- affects database schema, adds columns to table of Dispatchable item
 	- affects instrumented code
 	For previous behaviour use: new Dispatcher().withoutPurge().
+* added ivy configuration 'changelog'
+	changelog won't be included in 'runtime' config per default anymore
 * Instrumentor parameter defaults changed. For previous behaviour set:
 	<instrument ... annotateGenerated="false" finalArgs="false" verbose="true">
 * Instrumentor can be configured to run only if source files or resources changed:
