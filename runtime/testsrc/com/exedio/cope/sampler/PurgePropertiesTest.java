@@ -50,11 +50,11 @@ public class PurgePropertiesTest extends ConnectedTest
 	{
 		samplerModel.createSchema();
 
-		PurgeProperties.transaction.setValue(57);
-		PurgeProperties.itemCache.setValue(8);
-		PurgeProperties.clusterNode.setValue(29);
-		PurgeProperties.media.setValue(29);
-		PurgeProperties.model.setValue(57);
+		PurgeProperties.transaction.setValue(10);
+		PurgeProperties.itemCache.setValue(11);
+		PurgeProperties.clusterNode.setValue(12);
+		PurgeProperties.media.setValue(13);
+		PurgeProperties.model.setValue(16);
 		final SamplerProperties props = PurgeProperties.initProperties(model);
 
 		final MC mc = new MC();
@@ -69,11 +69,11 @@ public class PurgePropertiesTest extends ConnectedTest
 		props.purge(sampler, mc);
 		clock.assertEmpty();
 		assertEquals(
-				"purge select this from SamplerTransaction where date<'1987/06/24 " + time + "'\n"+
-				"purge select this from SamplerItemCache where date<'1987/08/12 " + time + "'\n"+
-				"purge select this from SamplerClusterNode where date<'1987/07/22 " + time + "'\n"+
-				"purge select this from SamplerMedia where date<'1987/07/22 " + time + "'\n"+
-				"purge select this from SamplerModel where date<'1987/06/24 " + time + "'\n",
+				"purge select this from SamplerTransaction where date<'1987/08/10 " + time + "'\n"+
+				"purge select this from SamplerItemCache where date<'1987/08/09 " + time + "'\n"+
+				"purge select this from SamplerClusterNode where date<'1987/08/08 " + time + "'\n"+
+				"purge select this from SamplerMedia where date<'1987/08/07 " + time + "'\n"+
+				"purge select this from SamplerModel where date<'1987/08/04 " + time + "'\n",
 				mc.getMessages());
 	}
 
