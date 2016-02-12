@@ -90,8 +90,10 @@ public class PurgePropertiesTest extends ConnectedTest
 		}
 		catch(final IllegalPropertiesException e)
 		{
-			assertEquals("purgeDays.transaction" , e.getKey()); // TODO wrong key
-			assertEquals("must not be larger than property purgeDays, but was 10 which is larger than 4" , e.getDetail());
+			assertEquals(
+					"property purgeDays.transaction in desc1 / desc2 " +   // TODO wrong key
+					"must not be larger than property purgeDays, but was 10 which is larger than 4",
+					e.getMessage());
 		}
 	}
 
@@ -136,7 +138,7 @@ public class PurgePropertiesTest extends ConnectedTest
 			final java.util.Properties properties = new java.util.Properties();
 			return SamplerProperties.factory().create(
 					Sources.cascade(
-						Sources.view(properties, "desc"),
+						Sources.view(properties, "desc1"),
 						new Source()
 						{
 							@Override
@@ -156,7 +158,7 @@ public class PurgePropertiesTest extends ConnectedTest
 							@Override
 							public String getDescription()
 							{
-								return sou.getDescription();
+								return "desc2";
 							}
 						}
 					)
