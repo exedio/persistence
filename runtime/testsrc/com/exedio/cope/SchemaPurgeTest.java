@@ -28,10 +28,8 @@ import com.exedio.cope.tojunit.ConnectionRule;
 import com.exedio.cope.util.AssertionErrorJobContext;
 import com.exedio.cope.util.JobContext;
 import com.exedio.cope.util.JobStop;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -181,16 +179,13 @@ public class SchemaPurgeTest extends TestWithEnvironment
 		return sequences ? message : "";
 	}
 
-	@SuppressFBWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
 	private void assertSeq(final int max, final int count, final String name) throws SQLException
 	{
 		if(!mysql || NO_SEQUENCE.equals(name))
 			return;
 
 		model.commit();
-		try(
-			final Statement stmt = connection.createStatement();
-			final ResultSet rs = stmt.
+		try(ResultSet rs = connection.
 					executeQuery("select max(x),count(*) from " + quoteName(model, name)))
 		{
 			rs.next();
