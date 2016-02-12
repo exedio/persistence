@@ -108,7 +108,6 @@ public final class SamplerProperties extends Properties
 			limits.put(SamplerItemCache  .TYPE, daysBeforeNow(now, itemCache));
 			limits.put(SamplerClusterNode.TYPE, daysBeforeNow(now, clusterNode));
 			limits.put(SamplerMedia      .TYPE, daysBeforeNow(now, media));
-			System.out.println(limits);
 			sampler.purge(limits, ctx);
 		}
 
