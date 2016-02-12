@@ -112,7 +112,29 @@ public class PurgePropertiesTest extends ConnectedTest
 				mc.getMessages());
 	}
 
-	@Test public void modelDependingLimit()
+	@Test public void testTooSmallTransaction()
+	{
+		samplerModel.createSchema();
+
+		final EnumMap<PurgedType, Integer> days = new EnumMap<>(PurgedType.class);
+		days.put(PurgedType.model, 500);
+		days.put(PurgedType.transaction, 501);
+		final Source source = newSource(days);
+		try
+		{
+			factory.create(source);
+			fail();
+		}
+		catch(final IllegalPropertiesException e)
+		{
+			assertEquals(
+					"property purgeDays.transaction in desc1 / desc2 " +
+					"must not be larger than property purgeDays.model, but was 501 which is larger than 500",
+					e.getMessage());
+		}
+	}
+
+	@Test public void testTooSmallItemCache()
 	{
 		samplerModel.createSchema();
 
@@ -129,6 +151,50 @@ public class PurgePropertiesTest extends ConnectedTest
 		{
 			assertEquals(
 					"property purgeDays.itemCache in desc1 / desc2 " +
+					"must not be larger than property purgeDays.model, but was 501 which is larger than 500",
+					e.getMessage());
+		}
+	}
+
+	@Test public void testTooSmallClusterNode()
+	{
+		samplerModel.createSchema();
+
+		final EnumMap<PurgedType, Integer> days = new EnumMap<>(PurgedType.class);
+		days.put(PurgedType.model, 500);
+		days.put(PurgedType.clusterNode, 501);
+		final Source source = newSource(days);
+		try
+		{
+			factory.create(source);
+			fail();
+		}
+		catch(final IllegalPropertiesException e)
+		{
+			assertEquals(
+					"property purgeDays.clusterNode in desc1 / desc2 " +
+					"must not be larger than property purgeDays.model, but was 501 which is larger than 500",
+					e.getMessage());
+		}
+	}
+
+	@Test public void testTooSmallMedia()
+	{
+		samplerModel.createSchema();
+
+		final EnumMap<PurgedType, Integer> days = new EnumMap<>(PurgedType.class);
+		days.put(PurgedType.model, 500);
+		days.put(PurgedType.media, 501);
+		final Source source = newSource(days);
+		try
+		{
+			factory.create(source);
+			fail();
+		}
+		catch(final IllegalPropertiesException e)
+		{
+			assertEquals(
+					"property purgeDays.media in desc1 / desc2 " +
 					"must not be larger than property purgeDays.model, but was 501 which is larger than 500",
 					e.getMessage());
 		}
