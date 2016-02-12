@@ -50,11 +50,11 @@ public class PurgePropertiesTest extends ConnectedTest
 	{
 		samplerModel.createSchema();
 
-		PurgeProperties.model.setValue(57);
+		PurgeProperties.transaction.setValue(57);
 		PurgeProperties.itemCache.setValue(8);
 		PurgeProperties.clusterNode.setValue(29);
 		PurgeProperties.media.setValue(29);
-		PurgeProperties.transaction.setValue(57);
+		PurgeProperties.model.setValue(57);
 		final SamplerProperties props = PurgeProperties.initProperties(model);
 
 		final MC mc = new MC();
