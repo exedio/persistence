@@ -59,7 +59,7 @@ public class PurgePropertiesTest extends ConnectedTest
 		days.put(PurgedType.clusterNode, 12);
 		days.put(PurgedType.media, 13);
 		days.put(PurgedType.model, 16);
-		final SamplerProperties props = factory.create(newSource(days));
+		final SamplerProperties props = factory.create(newSource(true, days));
 
 		final MC mc = new MC();
 		final String time = "12:34:56.789";
@@ -92,7 +92,7 @@ public class PurgePropertiesTest extends ConnectedTest
 		days.put(PurgedType.clusterNode, 1);
 		days.put(PurgedType.media, 1);
 		days.put(PurgedType.model, 1);
-		final SamplerProperties props = factory.create(newSource(days));
+		final SamplerProperties props = factory.create(newSource(true, days));
 
 		final MC mc = new MC();
 		final String time = "12:34:56.789";
@@ -114,12 +114,27 @@ public class PurgePropertiesTest extends ConnectedTest
 				mc.getMessages());
 	}
 
+	@SuppressFBWarnings("BC_UNCONFIRMED_CAST_OF_RETURN_VALUE")
+	@Test public void testPurgeDisabled()
+	{
+		samplerModel.createSchema();
+
+		final SamplerProperties props = factory.create(newSource(false, new EnumMap<PurgedType, Integer>(PurgedType.class)));
+		assertEquals(null, props.purgeDays);
+
+		final MC mc = new MC();
+		clockRule.override(clock);
+		props.purge(sampler, mc);
+		clock.assertEmpty();
+		assertEquals("", mc.getMessages());
+	}
+
 	@Test public void testDefaults()
 	{
 		samplerModel.createSchema();
 
 		final SamplerProperties props = factory.create(newSource(
-				new EnumMap<PurgedType, Integer>(PurgedType.class)));
+				null, new EnumMap<PurgedType, Integer>(PurgedType.class)));
 		assertEquals(57, props.purgeDays.model);
 		assertEquals(57, props.purgeDays.transaction);
 		assertEquals( 8, props.purgeDays.itemCache);
@@ -134,7 +149,7 @@ public class PurgePropertiesTest extends ConnectedTest
 		final EnumMap<PurgedType, Integer> days = new EnumMap<>(PurgedType.class);
 		days.put(PurgedType.model, 500);
 		days.put(PurgedType.transaction, 501);
-		final Source source = newSource(days);
+		final Source source = newSource(null, days);
 		try
 		{
 			factory.create(source);
@@ -156,7 +171,7 @@ public class PurgePropertiesTest extends ConnectedTest
 		final EnumMap<PurgedType, Integer> days = new EnumMap<>(PurgedType.class);
 		days.put(PurgedType.model, 500);
 		days.put(PurgedType.itemCache, 501);
-		final Source source = newSource(days);
+		final Source source = newSource(null, days);
 		try
 		{
 			factory.create(source);
@@ -178,7 +193,7 @@ public class PurgePropertiesTest extends ConnectedTest
 		final EnumMap<PurgedType, Integer> days = new EnumMap<>(PurgedType.class);
 		days.put(PurgedType.model, 500);
 		days.put(PurgedType.clusterNode, 501);
-		final Source source = newSource(days);
+		final Source source = newSource(null, days);
 		try
 		{
 			factory.create(source);
@@ -200,7 +215,7 @@ public class PurgePropertiesTest extends ConnectedTest
 		final EnumMap<PurgedType, Integer> days = new EnumMap<>(PurgedType.class);
 		days.put(PurgedType.model, 500);
 		days.put(PurgedType.media, 501);
-		final Source source = newSource(days);
+		final Source source = newSource(null, days);
 		try
 		{
 			factory.create(source);
@@ -228,10 +243,13 @@ public class PurgePropertiesTest extends ConnectedTest
 
 	private final Factory<SamplerProperties> factory = SamplerProperties.factory();
 
-	Source newSource(final EnumMap<PurgedType, Integer> days)
+	Source newSource(final Boolean enabled, final EnumMap<PurgedType, Integer> days)
 	{
 		final Source sou = model.getConnectProperties().getSourceObject();
+
 		final java.util.Properties properties = new java.util.Properties();
+		if(enabled!=null)
+			properties.setProperty("purgeDays", String.valueOf(enabled));
 		for(final Map.Entry<PurgedType, Integer> e : days.entrySet())
 			properties.setProperty("purgeDays." + e.getKey().name(), String.valueOf(e.getValue()));
 
