@@ -48,6 +48,7 @@ public class PurgePropertiesTest extends ConnectedTest
 
 	@Rule public final RuleChain ruleChain = RuleChain.outerRule(clockRule);
 
+	@SuppressFBWarnings("BC_UNCONFIRMED_CAST_OF_RETURN_VALUE")
 	@Test public void testPurge() throws ParseException
 	{
 		samplerModel.createSchema();
@@ -80,6 +81,7 @@ public class PurgePropertiesTest extends ConnectedTest
 				mc.getMessages());
 	}
 
+	@SuppressFBWarnings("BC_UNCONFIRMED_CAST_OF_RETURN_VALUE")
 	@Test public void testPurgeMinimum() throws ParseException
 	{
 		samplerModel.createSchema();
@@ -213,7 +215,6 @@ public class PurgePropertiesTest extends ConnectedTest
 
 	private final Factory<SamplerProperties> factory = SamplerProperties.factory();
 
-	@SuppressFBWarnings("BC_UNCONFIRMED_CAST_OF_RETURN_VALUE")
 	Source newSource(final EnumMap<PurgedType, Integer> days)
 	{
 		final Source sou = model.getConnectProperties().getSourceObject();
