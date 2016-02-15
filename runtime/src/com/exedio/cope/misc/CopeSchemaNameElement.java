@@ -18,15 +18,16 @@
 
 package com.exedio.cope.misc;
 
+import static java.util.Objects.requireNonNull;
+
 import com.exedio.cope.CopeSchemaName;
 import java.lang.annotation.Annotation;
-import java.util.Objects;
 
 public final class CopeSchemaNameElement
 {
 	public static CopeSchemaName get(final String value)
 	{
-		Objects.requireNonNull(value, "value");
+		requireNonNull(value, "value");
 
 		return new CopeSchemaName()
 		{

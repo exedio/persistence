@@ -18,6 +18,7 @@
 
 package com.exedio.cope.tojunit;
 
+import static java.util.Objects.requireNonNull;
 import static org.junit.Assert.assertFalse;
 
 import com.exedio.cope.Model;
@@ -27,7 +28,6 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Objects;
 import org.junit.rules.TestRule;
 import org.junit.runner.Description;
 
@@ -37,7 +37,7 @@ public final class ConnectionRule implements TestRule
 
 	public ConnectionRule(final Model model)
 	{
-		this.model = Objects.requireNonNull(model);
+		this.model = requireNonNull(model);
 	}
 
 

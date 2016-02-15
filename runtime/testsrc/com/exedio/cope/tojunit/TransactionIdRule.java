@@ -18,8 +18,9 @@
 
 package com.exedio.cope.tojunit;
 
+import static java.util.Objects.requireNonNull;
+
 import com.exedio.cope.Model;
-import java.util.Objects;
 import org.junit.Assert;
 import org.junit.rules.ExternalResource;
 
@@ -29,7 +30,7 @@ public final class TransactionIdRule extends ExternalResource
 
 	public TransactionIdRule(final Model model)
 	{
-		this.model = Objects.requireNonNull(model);
+		this.model = requireNonNull(model);
 	}
 
 

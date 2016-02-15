@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import static java.util.Objects.requireNonNull;
+
 import com.exedio.cope.DayPartView.Part;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
@@ -25,7 +27,6 @@ import com.exedio.cope.misc.instrument.FinalSettableGetter;
 import com.exedio.cope.util.Day;
 import java.lang.reflect.AnnotatedElement;
 import java.util.Date;
-import java.util.Objects;
 import java.util.TimeZone;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -106,7 +107,7 @@ public final class DayField extends FunctionField<Day>
 
 		DefaultNow(final TimeZone zone)
 		{
-			this.zone = Objects.requireNonNull(zone, "zone");
+			this.zone = requireNonNull(zone, "zone");
 		}
 
 		@Override
