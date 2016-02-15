@@ -170,7 +170,7 @@ public class ConnectPropertiesTest
 		catch(final IllegalPropertiesException e)
 		{
 			assertEquals(
-					"property " + propKey + " in DESC must be less or equal connectionPool.idleLimit=50, "+
+					"property " + propKey + " in DESC must be less or equal idleLimit=50, "+
 					"but was 51",
 					e.getMessage());
 		}

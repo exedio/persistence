@@ -22,6 +22,7 @@ import static java.lang.Thread.MAX_PRIORITY;
 import static java.lang.Thread.MIN_PRIORITY;
 
 import com.exedio.cope.pattern.MediaFingerprintOffset;
+import com.exedio.cope.util.PoolProperties;
 import com.exedio.cope.util.Sources;
 import com.exedio.dsmf.SQLRuntimeException;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -137,17 +138,16 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	final boolean reviseSavepoint = value(reviseSavepointKey, false);
 
 
-	private final int connectionPoolIdleInitial = value("connectionPool.idleInitial", 0, 0);
-	private final int connectionPoolIdleLimit   = value("connectionPool.idleLimit",  50, 0);
+	final PoolProperties connectionPool = value("connectionPool", PoolProperties.factory(50));
 
 	public int getConnectionPoolIdleInitial()
 	{
-		return connectionPoolIdleInitial;
+		return connectionPool.getIdleInitial();
 	}
 
 	public int getConnectionPoolIdleLimit()
 	{
-		return connectionPoolIdleLimit;
+		return connectionPool.getIdleLimit();
 	}
 
 
@@ -344,12 +344,6 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 					"must not contain commas, " +
 					"but did at position " + position + " and was '" + connectionPostgresqlSearchPath + '\'');
 		}
-
-		if(connectionPoolIdleInitial>connectionPoolIdleLimit)
-			throw newException(
-					"connectionPool.idleInitial",
-					"must be less or equal connectionPool.idleLimit=" + connectionPoolIdleLimit + ", " +
-					"but was " + connectionPoolIdleInitial);
 	}
 
 	private final Constructor<? extends Dialect> getDialectConstructor(final String dialectCode)

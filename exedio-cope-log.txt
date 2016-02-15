@@ -7,6 +7,9 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* ConnectProperties: keys connectionPool.idleLimit and connectionPool.idleInitial
+	do not support context expansion (${xxx}) anymore.
+	This breaks backwards API compatibility, check your deployed systems!
 * SamplerProperties supports separate purgeDays for each type to be purged.
 	BEWARE: Without adapting your settings your application may fail at startup!
 	Property keys and defaults changed from a single property:
