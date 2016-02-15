@@ -31,6 +31,12 @@ public class DispatcherConfigTest
 		assertEquals(3, config.getFailureLimit());
 		assertEquals(2, config.getSearchSize());
 	}
+	@Test public void testMinimal()
+	{
+		final Dispatcher.Config config = new Dispatcher.Config(1, 1);
+		assertEquals(1, config.getFailureLimit());
+		assertEquals(1, config.getSearchSize());
+	}
 	@Test public void testFailureLimitZero()
 	{
 		try
