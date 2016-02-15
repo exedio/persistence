@@ -18,9 +18,9 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.misc.Check.requireNonEmptyAndCopy;
 import static java.util.Objects.requireNonNull;
 
-import com.exedio.cope.misc.Check;
 import java.util.Collection;
 import java.util.List;
 
@@ -55,7 +55,7 @@ public final class CompositeCondition extends Condition
 			final Condition... conditions)
 	{
 		this.operator = requireNonNull(operator, "operator");
-		this.conditions = Check.requireNonEmptyAndCopy(conditions, "conditions");
+		this.conditions = requireNonEmptyAndCopy(conditions, "conditions");
 
 		for(int i = 0; i<conditions.length; i++)
 		{
