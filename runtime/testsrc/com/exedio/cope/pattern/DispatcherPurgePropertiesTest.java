@@ -19,11 +19,11 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.pattern.DispatcherPurgeProperties.factory;
+import static com.exedio.cope.util.Properties.EMPTY_SOURCE;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 import com.exedio.cope.pattern.DispatcherPurgeProperties.Factory;
-import com.exedio.cope.util.Sources;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.Test;
 
@@ -90,6 +90,6 @@ public class DispatcherPurgePropertiesTest
 
 	private static DispatcherPurgeProperties create(final Factory factory)
 	{
-		return factory.create(Sources.view(new java.util.Properties(), "description"));
+		return factory.create(EMPTY_SOURCE);
 	}
 }
