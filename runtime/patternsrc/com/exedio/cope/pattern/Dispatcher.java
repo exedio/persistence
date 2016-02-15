@@ -19,6 +19,7 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.ItemField.DeletePolicy.CASCADE;
+import static com.exedio.cope.misc.Check.requireGreaterZero;
 import static com.exedio.cope.misc.QueryIterators.iterateTypeTransactionally;
 import static com.exedio.cope.misc.TimeUtil.toMillies;
 import static java.lang.System.nanoTime;
@@ -507,13 +508,8 @@ public final class Dispatcher extends Pattern
 
 		public Config(final int failureLimit, final int searchSize)
 		{
-			if(failureLimit<1)
-				throw new IllegalArgumentException("failureLimit must be greater zero, but was " + failureLimit + '.');
-			if(searchSize<1)
-				throw new IllegalArgumentException("searchSize must be greater zero, but was " + searchSize + '.');
-
-			this.failureLimit = failureLimit;
-			this.searchSize = searchSize;
+			this.failureLimit = requireGreaterZero(failureLimit, "failureLimit");
+			this.searchSize = requireGreaterZero(searchSize, "searchSize");
 		}
 
 		public int getFailureLimit()

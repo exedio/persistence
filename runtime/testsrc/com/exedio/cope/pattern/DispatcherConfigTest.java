@@ -46,7 +46,7 @@ public class DispatcherConfigTest
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("failureLimit must be greater zero, but was 0.", e.getMessage());
+			assertEquals("failureLimit must be greater zero, but was 0", e.getMessage());
 		}
 	}
 	@Test public void testFailureLimitNegative()
@@ -58,7 +58,7 @@ public class DispatcherConfigTest
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("failureLimit must be greater zero, but was -10.", e.getMessage());
+			assertEquals("failureLimit must be greater zero, but was -10", e.getMessage());
 		}
 	}
 	@Test public void testSearchSizeZero()
@@ -70,7 +70,7 @@ public class DispatcherConfigTest
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("searchSize must be greater zero, but was 0.", e.getMessage());
+			assertEquals("searchSize must be greater zero, but was 0", e.getMessage());
 		}
 	}
 	@Test public void testSearchSizeNegative()
@@ -82,7 +82,7 @@ public class DispatcherConfigTest
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("searchSize must be greater zero, but was -10.", e.getMessage());
+			assertEquals("searchSize must be greater zero, but was -10", e.getMessage());
 		}
 	}
 }
