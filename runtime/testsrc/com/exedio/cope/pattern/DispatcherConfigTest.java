@@ -25,12 +25,14 @@ import org.junit.Test;
 
 public class DispatcherConfigTest
 {
-	private static final Dispatcher.Config config = new Dispatcher.Config(3, 2);
-
-	@Test public void testIt()
+	@Test public void testOk()
 	{
+		final Dispatcher.Config config = new Dispatcher.Config(3, 2);
 		assertEquals(3, config.getFailureLimit());
 		assertEquals(2, config.getSearchSize());
+	}
+	@Test public void testFailureLimitZero()
+	{
 		try
 		{
 			new Dispatcher.Config(0, 0);
@@ -40,6 +42,9 @@ public class DispatcherConfigTest
 		{
 			assertEquals("failureLimit must be greater zero, but was 0.", e.getMessage());
 		}
+	}
+	@Test public void testFailureLimitNegative()
+	{
 		try
 		{
 			new Dispatcher.Config(-10, 0);
@@ -49,6 +54,9 @@ public class DispatcherConfigTest
 		{
 			assertEquals("failureLimit must be greater zero, but was -10.", e.getMessage());
 		}
+	}
+	@Test public void testSearchSizeZero()
+	{
 		try
 		{
 			new Dispatcher.Config(1000, 0);
@@ -58,6 +66,9 @@ public class DispatcherConfigTest
 		{
 			assertEquals("searchSize must be greater zero, but was 0.", e.getMessage());
 		}
+	}
+	@Test public void testSearchSizeNegative()
+	{
 		try
 		{
 			new Dispatcher.Config(1000, -10);
