@@ -160,7 +160,8 @@ public class PurgePropertiesTest extends ConnectedTest
 		{
 			assertEquals(
 					"property purgeDays.transaction in desc1 / desc2 " +
-					"must not be larger than property purgeDays.model, but was 501 which is larger than 500",
+					"must be less or equal purgeDays.model=500, " +
+					"but was 501",
 					e.getMessage());
 		}
 	}
@@ -182,7 +183,8 @@ public class PurgePropertiesTest extends ConnectedTest
 		{
 			assertEquals(
 					"property purgeDays.itemCache in desc1 / desc2 " +
-					"must not be larger than property purgeDays.model, but was 501 which is larger than 500",
+					"must be less or equal purgeDays.model=500, " +
+					"but was 501",
 					e.getMessage());
 		}
 	}
@@ -204,7 +206,8 @@ public class PurgePropertiesTest extends ConnectedTest
 		{
 			assertEquals(
 					"property purgeDays.clusterNode in desc1 / desc2 " +
-					"must not be larger than property purgeDays.model, but was 501 which is larger than 500",
+					"must be less or equal purgeDays.model=500, " +
+					"but was 501",
 					e.getMessage());
 		}
 	}
@@ -226,7 +229,8 @@ public class PurgePropertiesTest extends ConnectedTest
 		{
 			assertEquals(
 					"property purgeDays.media in desc1 / desc2 " +
-					"must not be larger than property purgeDays.model, but was 501 which is larger than 500",
+					"must be less or equal purgeDays.model=500, " +
+					"but was 501",
 					e.getMessage());
 		}
 	}

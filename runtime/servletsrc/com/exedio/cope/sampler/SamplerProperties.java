@@ -94,8 +94,8 @@ public final class SamplerProperties extends Properties
 			final int result = value(key, defaultValue, 1);
 			if(result>maximum)
 				throw newException(key,
-						"must not be larger than property purgeDays.model, but was " + result +
-						" which is larger than " + maximum);
+						"must be less or equal purgeDays.model=" + maximum + ", " +
+						"but was " + result);
 			return result;
 		}
 
