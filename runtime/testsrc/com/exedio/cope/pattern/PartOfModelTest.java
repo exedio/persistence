@@ -89,7 +89,7 @@ public class PartOfModelTest
 		assertEquals(list(), PartOf.getPartOfs(PartOfItem.unordered));
 	}
 
-	@Test public void testSerialization()
+	@Test public void testSerialize()
 	{
 		assertSerializedSame(PartOfItem.unordered, 384);
 	}
