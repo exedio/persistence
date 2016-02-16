@@ -889,29 +889,25 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 
 	public ItemField<T> newItemField(final DeletePolicy policy)
 	{
-		return new ItemField<>(javaClass, new Future<>(this), policy);
+		return new ItemField<>(javaClass, future(this), policy);
 	}
 
-	private static final class Future<T extends Item> implements TypeFuture<T>
+	private static <T extends Item> TypeFuture<T> future(final Type<T> type)
 	{
-		private final Type<T> type;
-
-		Future(final Type<T> type)
+		// NOTE: static helper method enforces static inner class
+		return new TypeFuture<T>()
 		{
-			this.type = type;
-		}
-
-		@Override
-		public Type<T> get()
-		{
-			return type;
-		}
-
-		@Override
-		public String toString()
-		{
-			return type.id;
-		}
+			@Override
+			public Type<T> get()
+			{
+				return type;
+			}
+			@Override
+			public String toString()
+			{
+				return type.id;
+			}
+		};
 	}
 
 	public T newItem(final List<SetValue<?>> setValues)
