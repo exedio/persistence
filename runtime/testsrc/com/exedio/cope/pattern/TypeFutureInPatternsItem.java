@@ -19,11 +19,17 @@
 package com.exedio.cope.pattern;
 
 import com.exedio.cope.Item;
+import com.exedio.cope.pattern.TypeFutureInPatternsFeature.TypeItem;
 
 final class TypeFutureInPatternsItem extends Item
 {
 	static final TypeFutureInPatternsFeature feature  = new TypeFutureInPatternsFeature();
 	static final TypeFutureInPatternsFeature feature2 = new TypeFutureInPatternsFeature();
+
+	public static TypeItem create(final int field, final TypeItem self)
+	{
+		return feature.create(field, self);
+	}
 
 	/**
 

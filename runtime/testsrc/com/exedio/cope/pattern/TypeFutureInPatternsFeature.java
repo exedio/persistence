@@ -99,6 +99,13 @@ final class TypeFutureInPatternsFeature extends Pattern
 	private Mount mountIfMounted = null;
 
 
+	public TypeItem create(final int field, final TypeItem self)
+	{
+		return sourceType().newItem(
+				this.field.map(field),
+				self().map(self));
+	}
+
 
 	public static final class TypeItem extends Item
 	{
@@ -117,6 +124,11 @@ final class TypeFutureInPatternsFeature extends Pattern
 		public int getInteger()
 		{
 			return getPattern().field.getMandatory(this);
+		}
+
+		public TypeItem getSelf()
+		{
+			return getPattern().self().get(this);
 		}
 	}
 
