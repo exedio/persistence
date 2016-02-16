@@ -29,6 +29,21 @@ The items are sorted inversely, i.e. latest items are on top
 	- affects database schema, adds columns to table of Dispatchable item
 	- affects instrumented code
 	For previous behaviour use: new Dispatcher().withoutPurge().
+
+	Fixing database schema for a dispatcher Mail.send could look like this on MySQL:
+
+		ALTER TABLE `Mail`
+			ADD COLUMN `send_noPurge` int not null,
+			ADD COLUMN `send_unpend_success` int,
+			ADD COLUMN `send_unpend_date` bigint
+		CREATE TABLE `DispatcherPurgeTempMail` AS (
+			SELECT MAX(`this`) `this`, `parent` FROM `Mail_send_Run` GROUP BY `parent`)
+		UPDATE `Mail` p
+			JOIN `DispatcherPurgeTempMail` t ON p.`this`=t.`parent`
+			JOIN `Mail_send_Run` r ON t.`this`=r.`this`
+			SET p.`send_unpend_success`=r.`success`, p.`send_unpend_date`=r.`date`
+		DROP TABLE `DispatcherPurgeTempMail`
+
 * added ivy configuration 'changelog'
 	changelog won't be included in 'runtime' config per default anymore
 * Instrumentor parameter defaults changed. For previous behaviour set:
