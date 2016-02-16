@@ -522,6 +522,7 @@
 				<exclude name="pattern/MultiItemFieldStandardTest.java" />
 				<exclude name="pattern/PartOfReverseTest.java" />
 				<exclude name="pattern/TypeFutureInPatternsFeature.java" />
+				<exclude name="pattern/TypeFutureInconsistentTest.java" />
 				<exclude name="pattern/UniqueHashedMediaAnnotationTest.java" />
 				<exclude name="pattern/UniqueHashedMediaErrorTest.java" />
 				<exclude name="typecollision/TypeCollisionItem.java" />

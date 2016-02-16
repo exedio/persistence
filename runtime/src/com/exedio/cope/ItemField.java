@@ -260,9 +260,12 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 		if(!typesAllowed.contains(valueType))
 			throw new IllegalArgumentException("value type of " + this.toString() + " (" + valueTypeFuture.toString() + ") does not belong to the same model");
 		if(!valueClass.equals(valueType.getJavaClass()))
-			throw new RuntimeException(
-					"value type of " + this.toString() + " (" + valueTypeFuture.toString() + ") " +
-					"is inconsistent to valueClass " + valueClass.getName());
+			throw new IllegalArgumentException(
+					"ItemField " + this + ": " +
+					"valueClass " + valueClass.getName() + " " +
+					"must be equal to " +
+					"javaClass " + valueType.getJavaClass().getName() +
+					" of valueType " + valueType + " provided by TypeFuture " + valueTypeFuture + ".");
 		this.valueType = valueType;
 	}
 
