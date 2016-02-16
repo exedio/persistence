@@ -889,21 +889,20 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 
 	public ItemField<T> newItemField(final DeletePolicy policy)
 	{
-		return new ItemField<>(new Future<>(javaClass, this), policy);
+		return new ItemField<>(javaClass, new Future<>(this), policy);
 	}
 
-	private static final class Future<T extends Item> extends TypeFuture<T>
+	private static final class Future<T extends Item> implements TypeFuture<T>
 	{
 		private final Type<T> type;
 
-		Future(final Class<T> javaClass, final Type<T> type)
+		Future(final Type<T> type)
 		{
-			super(javaClass);
 			this.type = type;
 		}
 
 		@Override
-		Type<T> get()
+		public Type<T> get()
 		{
 			return type;
 		}

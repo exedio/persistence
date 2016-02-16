@@ -178,15 +178,17 @@ public final class TypesBound
 		return new Future<>(javaClass);
 	}
 
-	private static final class Future<T extends Item> extends TypeFuture<T>
+	private static final class Future<T extends Item> implements TypeFuture<T>
 	{
+		private final Class<T> javaClass;
+
 		Future(final Class<T> javaClass)
 		{
-			super(javaClass);
+			this.javaClass = javaClass;
 		}
 
 		@Override
-		Type<T> get()
+		public Type<T> get()
 		{
 			return forClass(javaClass);
 		}

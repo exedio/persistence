@@ -18,18 +18,7 @@
 
 package com.exedio.cope;
 
-abstract class TypeFuture<T extends Item>
+interface TypeFuture<T extends Item>
 {
-	final Class<T> javaClass;
-
-	TypeFuture(final Class<T> javaClass)
-	{
-		this.javaClass = javaClass;
-		assert javaClass!=null;
-	}
-
-	abstract Type<T> get();
-
-	@Override
-	public abstract String toString(); // enforce implementation in subclasses
+	Type<T> get();
 }

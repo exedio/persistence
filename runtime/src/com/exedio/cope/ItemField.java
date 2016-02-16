@@ -41,13 +41,14 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 	private ItemField(
 			final boolean isfinal,
 			final boolean optional,
+			final Class<E> valueClass,
 			final boolean unique,
 			final ItemField<?>[] copyFrom,
 			final FunctionField<?>[] copyTo,
 			final TypeFuture<E> valueTypeFuture,
 			final DeletePolicy policy)
 	{
-		super(isfinal, optional, valueTypeFuture.javaClass, unique, copyFrom, null/* defaultSource makes no sense for ItemField */);
+		super(isfinal, optional, valueClass, unique, copyFrom, null/* defaultSource makes no sense for ItemField */);
 		checkValueClass(Item.class);
 		if(Item.class.equals(valueClass))
 			throw new IllegalArgumentException("is not a subclass of " + Item.class.getName() + " but Item itself");
@@ -80,9 +81,9 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 		return new CopyConstraint(target, copy);
 	}
 
-	ItemField(final TypeFuture<E> valueTypeFuture, final DeletePolicy policy)
+	ItemField(final Class<E> valueClass, final TypeFuture<E> valueTypeFuture, final DeletePolicy policy)
 	{
-		this(false, policy==DeletePolicy.NULLIFY, false, null, null, valueTypeFuture, policy);
+		this(false, policy==DeletePolicy.NULLIFY, valueClass, false, null, null, valueTypeFuture, policy);
 	}
 
 	public static final <E extends Item> ItemField<E> create(final Class<E> valueClass)
@@ -92,48 +93,48 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 
 	public static final <E extends Item> ItemField<E> create(final Class<E> valueClass, final DeletePolicy policy)
 	{
-		return new ItemField<>(future(valueClass), policy);
+		return new ItemField<>(valueClass, future(valueClass), policy);
 	}
 
 	@Override
 	public ItemField<E> copy()
 	{
-		return new ItemField<>(isfinal, optional, unique, copyFrom, copyTo, valueTypeFuture, policy);
+		return new ItemField<>(isfinal, optional, valueClass, unique, copyFrom, copyTo, valueTypeFuture, policy);
 	}
 
 	@Override
 	public ItemField<E> toFinal()
 	{
-		return new ItemField<>(true, optional, unique, copyFrom, copyTo, valueTypeFuture, policy);
+		return new ItemField<>(true, optional, valueClass, unique, copyFrom, copyTo, valueTypeFuture, policy);
 	}
 
 	@Override
 	public ItemField<E> optional()
 	{
-		return new ItemField<>(isfinal, true, unique, copyFrom, copyTo, valueTypeFuture, policy);
+		return new ItemField<>(isfinal, true, valueClass, unique, copyFrom, copyTo, valueTypeFuture, policy);
 	}
 
 	@Override
 	public ItemField<E> unique()
 	{
-		return new ItemField<>(isfinal, optional, true, copyFrom, copyTo, valueTypeFuture, policy);
+		return new ItemField<>(isfinal, optional, valueClass, true, copyFrom, copyTo, valueTypeFuture, policy);
 	}
 
 	@Override
 	public ItemField<E> nonUnique()
 	{
-		return new ItemField<>(isfinal, optional, false, copyFrom, copyTo, valueTypeFuture, policy);
+		return new ItemField<>(isfinal, optional, valueClass, false, copyFrom, copyTo, valueTypeFuture, policy);
 	}
 
 	@Override
 	public ItemField<E> copyFrom(final ItemField<?> copyFrom)
 	{
-		return new ItemField<>(isfinal, optional, unique, addCopyFrom(copyFrom), copyTo, valueTypeFuture, policy);
+		return new ItemField<>(isfinal, optional, valueClass, unique, addCopyFrom(copyFrom), copyTo, valueTypeFuture, policy);
 	}
 
 	public ItemField<E> copyTo(final FunctionField<?> copyTo)
 	{
-		return new ItemField<>(isfinal, optional, unique, copyFrom, addCopyTo(copyTo), valueTypeFuture, policy);
+		return new ItemField<>(isfinal, optional, valueClass, unique, copyFrom, addCopyTo(copyTo), valueTypeFuture, policy);
 	}
 
 	private final FunctionField<?>[] addCopyTo(final FunctionField<?> copyTo)
@@ -160,12 +161,12 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 	 */
 	public ItemField<E> nullify()
 	{
-		return new ItemField<>(isfinal, true, unique, copyFrom, copyTo, valueTypeFuture, DeletePolicy.NULLIFY);
+		return new ItemField<>(isfinal, true, valueClass, unique, copyFrom, copyTo, valueTypeFuture, DeletePolicy.NULLIFY);
 	}
 
 	public ItemField<E> cascade()
 	{
-		return new ItemField<>(isfinal, optional, unique, copyFrom, copyTo, valueTypeFuture, DeletePolicy.CASCADE);
+		return new ItemField<>(isfinal, optional, valueClass, unique, copyFrom, copyTo, valueTypeFuture, DeletePolicy.CASCADE);
 	}
 
 	/**
