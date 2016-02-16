@@ -19,7 +19,7 @@
 package com.exedio.cope;
 
 //@FunctionalInterface
-interface TypeFuture<T extends Item>
+public interface TypeFuture<T extends Item>
 {
 	Type<T> get();
 }

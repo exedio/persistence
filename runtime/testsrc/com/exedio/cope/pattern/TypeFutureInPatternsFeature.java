@@ -22,17 +22,42 @@ import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.Features;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
+import com.exedio.cope.ItemField;
+import com.exedio.cope.ItemField.DeletePolicy;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.Type;
+import com.exedio.cope.TypeFuture;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import junit.framework.AssertionFailedError;
 
 final class TypeFutureInPatternsFeature extends Pattern
 {
 	IntegerField field = new IntegerField();
 
+	ItemField<TypeItem> self()
+	{
+		return mount().self;
+	}
+
 	Type<TypeItem> sourceType()
 	{
 		return mount().runType;
+	}
+
+	TypeFuture<TypeItem> sourceTypeFuture()
+	{
+		return new TypeFuture<TypeItem>(){
+			@Override
+			public Type<TypeItem> get()
+			{
+				return sourceType();
+			}
+			@Override
+			public String toString()
+			{
+				throw new AssertionFailedError();
+			}
+		};
 	}
 
 	@Override
@@ -40,19 +65,24 @@ final class TypeFutureInPatternsFeature extends Pattern
 	{
 		super.onMount();
 
+		final ItemField<TypeItem> self = ItemField.create(TypeItem.class, sourceTypeFuture(), DeletePolicy.FORBID).optional();
 		final Features features = new Features();
 		features.put("field", field);
+		features.put("self", self);
 		final Type<TypeItem> runType = newSourceType(TypeItem.class, features, "Type");
-		this.mountIfMounted = new Mount(runType);
+		this.mountIfMounted = new Mount(self, runType);
 	}
 
 	private static final class Mount
 	{
+		ItemField<TypeItem> self;
 		final Type<TypeItem> runType;
 
 		Mount(
+				final ItemField<TypeItem> self,
 				final Type<TypeItem> runType)
 		{
+			this.self = self;
 			this.runType = runType;
 		}
 	}
