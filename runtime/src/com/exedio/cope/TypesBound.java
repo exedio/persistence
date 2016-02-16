@@ -173,31 +173,21 @@ public final class TypesBound
 
 	// TODO reuse futures
 	// TODO use some direct future if javaclass is already in types
-	static final <E extends Item> Future<E> future(final Class<E> javaClass)
+	static final <E extends Item> TypeFuture<E> future(final Class<E> javaClass)
 	{
-		return new Future<>(javaClass);
-	}
-
-	private static final class Future<T extends Item> implements TypeFuture<T>
-	{
-		private final Class<T> javaClass;
-
-		Future(final Class<T> javaClass)
+		return new TypeFuture<E>()
 		{
-			this.javaClass = javaClass;
-		}
-
-		@Override
-		public Type<T> get()
-		{
-			return forClass(javaClass);
-		}
-
-		@Override
-		public String toString()
-		{
-			return javaClass.getName();
-		}
+			@Override
+			public Type<E> get()
+			{
+				return forClass(javaClass);
+			}
+			@Override
+			public String toString()
+			{
+				return javaClass.getName();
+			}
+		};
 	}
 
 	// ------------------- deprecated stuff -------------------
