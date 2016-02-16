@@ -42,7 +42,7 @@ public final class DoubleField extends NumberField<Double>
 			final double minimum,
 			final double maximum)
 	{
-		super(isfinal, optional, unique, copyFrom, Double.class, defaultSource);
+		super(isfinal, optional, Double.class, unique, copyFrom, defaultSource);
 		this.minimum = minimum;
 		this.maximum = maximum;
 

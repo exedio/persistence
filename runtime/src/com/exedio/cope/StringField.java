@@ -55,7 +55,7 @@ public final class StringField extends FunctionField<String>
 			final int maximumLength,
 			final CharSet charSet)
 	{
-		super(isfinal, optional, unique, copyFrom, String.class, defaultSource);
+		super(isfinal, optional, String.class, unique, copyFrom, defaultSource);
 		this.minimumLength = minimumLength;
 		this.maximumLength = maximumLength;
 		this.charSet = charSet;

@@ -44,7 +44,7 @@ public final class LongField extends NumberField<Long>
 			final long minimum,
 			final long maximum)
 	{
-		super(isfinal, optional, unique, copyFrom, Long.class, defaultSource);
+		super(isfinal, optional, Long.class, unique, copyFrom, defaultSource);
 		this.minimum = minimum;
 		this.maximum = maximum;
 

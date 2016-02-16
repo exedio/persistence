@@ -29,12 +29,12 @@ public abstract class NumberField<E extends Number> extends FunctionField<E>
 	protected NumberField(
 			final boolean isfinal,
 			final boolean optional,
+			final Class<E> valueClass,
 			final boolean unique,
 			final ItemField<?>[] copyFrom,
-			final Class<E> valueClass,
 			final DefaultSource<E> defaultSource)
 	{
-		super(isfinal, optional, unique, copyFrom, valueClass, defaultSource);
+		super(isfinal, optional, valueClass, unique, copyFrom, defaultSource);
 	}
 
 	// convenience methods for conditions and views ---------------------------------

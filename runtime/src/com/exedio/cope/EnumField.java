@@ -32,12 +32,12 @@ public final class EnumField<E extends Enum<E>> extends FunctionField<E>
 	private EnumField(
 			final boolean isfinal,
 			final boolean optional,
+			final Class<E> valueClass,
 			final boolean unique,
 			final ItemField<?>[] copyFrom,
-			final Class<E> valueClass,
 			final DefaultSource<E> defaultSource)
 	{
-		super(isfinal, optional, unique, copyFrom, valueClass, defaultSource);
+		super(isfinal, optional, valueClass, unique, copyFrom, defaultSource);
 
 		this.valueType = EnumFieldType.get(valueClass);
 
@@ -47,56 +47,56 @@ public final class EnumField<E extends Enum<E>> extends FunctionField<E>
 
 	public static final <E extends Enum<E>> EnumField<E> create(final Class<E> valueClass)
 	{
-		return new EnumField<>(false, false, false, null, valueClass, null);
+		return new EnumField<>(false, false, valueClass, false, null, null);
 	}
 
 	@Override
 	public EnumField<E> copy()
 	{
-		return new EnumField<>(isfinal, optional, unique, copyFrom, valueClass, defaultSource);
+		return new EnumField<>(isfinal, optional, valueClass, unique, copyFrom, defaultSource);
 	}
 
 	@Override
 	public EnumField<E> toFinal()
 	{
-		return new EnumField<>(true, optional, unique, copyFrom, valueClass, defaultSource);
+		return new EnumField<>(true, optional, valueClass, unique, copyFrom, defaultSource);
 	}
 
 	@Override
 	public EnumField<E> optional()
 	{
-		return new EnumField<>(isfinal, true, unique, copyFrom, valueClass, defaultSource);
+		return new EnumField<>(isfinal, true, valueClass, unique, copyFrom, defaultSource);
 	}
 
 	@Override
 	public EnumField<E> unique()
 	{
-		return new EnumField<>(isfinal, optional, true, copyFrom, valueClass, defaultSource);
+		return new EnumField<>(isfinal, optional, valueClass, true, copyFrom, defaultSource);
 	}
 
 	@Override
 	public EnumField<E> nonUnique()
 	{
-		return new EnumField<>(isfinal, optional, false, copyFrom, valueClass, defaultSource);
+		return new EnumField<>(isfinal, optional, valueClass, false, copyFrom, defaultSource);
 	}
 
 	@Override
 	public EnumField<E> copyFrom(final ItemField<?> copyFrom)
 	{
-		return new EnumField<>(isfinal, optional, unique, addCopyFrom(copyFrom), valueClass, defaultSource);
+		return new EnumField<>(isfinal, optional, valueClass, unique, addCopyFrom(copyFrom), defaultSource);
 	}
 
 	@Override
 	public EnumField<E> noDefault()
 	{
-		return new EnumField<>(isfinal, optional, unique, copyFrom, valueClass, null);
+		return new EnumField<>(isfinal, optional, valueClass, unique, copyFrom, null);
 	}
 
 	@Override
 	public EnumField<E> defaultTo(final E defaultConstant)
 	{
 		assert valueType.isValid(defaultConstant);
-		return new EnumField<>(isfinal, optional, unique, copyFrom, valueClass, defaultConstant(defaultConstant));
+		return new EnumField<>(isfinal, optional, valueClass, unique, copyFrom, defaultConstant(defaultConstant));
 	}
 
 	public List<E> getValues()

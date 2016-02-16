@@ -52,9 +52,9 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 	FunctionField(
 			final boolean isfinal,
 			final boolean optional,
+			final Class<E> valueClass,
 			final boolean unique,
 			final ItemField<?>[] copyFrom,
-			final Class<E> valueClass,
 			final DefaultSource<E> defaultSource)
 	{
 		super(isfinal, optional, valueClass);

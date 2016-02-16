@@ -50,7 +50,7 @@ public final class IntegerField extends NumberField<Integer>
 			final int minimum,
 			final int maximum)
 	{
-		super(isfinal, optional, unique, copyFrom, Integer.class, defaultSource);
+		super(isfinal, optional, Integer.class, unique, copyFrom, defaultSource);
 		this.minimum = minimum;
 		this.maximum = maximum;
 

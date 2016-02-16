@@ -44,7 +44,7 @@ public final class DayField extends FunctionField<Day>
 			final ItemField<?>[] copyFrom,
 			final DefaultSource<Day> defaultSource)
 	{
-		super(isfinal, optional, unique, copyFrom, Day.class, defaultSource);
+		super(isfinal, optional, Day.class, unique, copyFrom, defaultSource);
 		mountDefaultSource();
 	}
 
