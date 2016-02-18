@@ -98,9 +98,6 @@ public class FeatureFieldTest extends TestWithEnvironment
 			assertEquals(item, e.getItem());
 		}
 		assertSame(FeatureFieldItem.string1, item.getFeature());
-		assertSame(FeatureFieldItem.string2, item.getFeatureFinal());
-		assertSame(null, item.getFeatureOptional());
-		assertSame(null, item.getString());
 	}
 
 	@Test public void testFinalViolation()
@@ -117,10 +114,7 @@ public class FeatureFieldTest extends TestWithEnvironment
 			assertEquals(featureFinal, e.getFeature());
 			assertEquals(item, e.getItem());
 		}
-		assertSame(FeatureFieldItem.string1, item.getFeature());
 		assertSame(FeatureFieldItem.string2, item.getFeatureFinal());
-		assertSame(null, item.getFeatureOptional());
-		assertSame(null, item.getString());
 	}
 
 	@Test public void testNotFoundNoSuchID()
