@@ -81,7 +81,12 @@ public class FeatureFieldTest extends TestWithEnvironment
 		assertSame(FeatureFieldItem.string2, item.getFeatureFinal());
 		assertSame(null, item.getFeatureOptional());
 		assertSame(null, item.getString());
+	}
 
+	@Test public void testMandatoryViolation()
+	{
+		final FeatureFieldItem item = new FeatureFieldItem(FeatureFieldItem.string1, FeatureFieldItem.string2);
+		assertSame(FeatureFieldItem.string1, item.getFeature());
 		try
 		{
 			item.setFeature(null);
@@ -96,7 +101,12 @@ public class FeatureFieldTest extends TestWithEnvironment
 		assertSame(FeatureFieldItem.string2, item.getFeatureFinal());
 		assertSame(null, item.getFeatureOptional());
 		assertSame(null, item.getString());
+	}
 
+	@Test public void testFinalViolation()
+	{
+		final FeatureFieldItem item = new FeatureFieldItem(FeatureFieldItem.string1, FeatureFieldItem.string2);
+		assertSame(FeatureFieldItem.string2, item.getFeatureFinal());
 		try
 		{
 			featureFinal.set(item, integer1);
@@ -111,7 +121,11 @@ public class FeatureFieldTest extends TestWithEnvironment
 		assertSame(FeatureFieldItem.string2, item.getFeatureFinal());
 		assertSame(null, item.getFeatureOptional());
 		assertSame(null, item.getString());
+	}
 
+	@Test public void testNotFoundNoSuchID()
+	{
+		final FeatureFieldItem item = new FeatureFieldItem(FeatureFieldItem.string1, FeatureFieldItem.string2);
 		feature.getIdField().set(item, "zack");
 		try
 		{
@@ -122,8 +136,11 @@ public class FeatureFieldTest extends TestWithEnvironment
 		{
 			assertEquals("zack", e.getMessage());
 		}
-		item.setFeature(string1);
+	}
 
+	@Test public void testNotFoundWrongValueClass()
+	{
+		final FeatureFieldItem item = new FeatureFieldItem(FeatureFieldItem.string1, FeatureFieldItem.string2);
 		string.getIdField().set(item, integer1.getID());
 		try
 		{
@@ -134,8 +151,11 @@ public class FeatureFieldTest extends TestWithEnvironment
 		{
 			assertEquals("expected a com.exedio.cope.StringField, but was a com.exedio.cope.IntegerField", e.getMessage());
 		}
-		item.setString(null);
+	}
 
+	@Test public void testUnique()
+	{
+		final FeatureFieldItem item = new FeatureFieldItem(FeatureFieldItem.string1, FeatureFieldItem.string2);
 		assertEquals(null, forFeatureUnique(string1));
 		assertEquals(null, forFeatureUnique(string2));
 		item.setFeatureUnique(string1);
