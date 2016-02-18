@@ -130,7 +130,10 @@ public class FeatureFieldModelTest
 					"FeatureFieldItem.string-id<>'FeatureFieldItem.string-id'" +
 				")",
 			string.isInvalid().toString());
+	}
 
+	@Test public void testValueClassNull()
+	{
 		try
 		{
 			FeatureField.create(null);
