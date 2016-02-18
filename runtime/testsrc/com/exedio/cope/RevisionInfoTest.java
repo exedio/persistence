@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
 import static com.exedio.cope.tojunit.Assert.assertUnmodifiable;
+import static java.lang.System.lineSeparator;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -41,12 +42,10 @@ public class RevisionInfoTest
 	private static final Date DATE = new Date(2874526134l);
 	private static final String DATE_STRING = "1970/02/03 06:28:46.134";
 
-	private String eol = null;
 	private HashMap<String, String> env = null;
 
 	@Before public final void setUp()
 	{
-		eol = System.getProperty("line.separator");
 		env = new HashMap<>();
 		env.put("env1Key", "env1Value");
 		env.put("env2Key", "env2Value");
@@ -352,7 +351,7 @@ public class RevisionInfoTest
 
 	@Test public void testParse() throws UnsupportedEncodingException
 	{
-		assertEquals(map("key1", "value1", "key2", "value2"), RevisionInfo.parse(("#migrationlogv01" + eol + "key1=value1" + eol + "key2=value2").getBytes("latin1")));
+		assertEquals(map("key1", "value1", "key2", "value2"), RevisionInfo.parse(("#migrationlogv01" + lineSeparator() + "key1=value1" + lineSeparator() + "key2=value2").getBytes("latin1")));
 		assertEquals(null, RevisionInfo.parse("migrationlogv01".getBytes("latin1")));
 		assertEquals(null, RevisionInfo.parse("#migrationlogv0".getBytes("latin1")));
 		assertEquals(null, RevisionInfo.parse("x#migrationlogv01".getBytes("latin1")));
@@ -368,7 +367,7 @@ public class RevisionInfoTest
 		}
 	}
 
-	private TreeMap<String, String> reparse(final RevisionInfo info)
+	private static TreeMap<String, String> reparse(final RevisionInfo info)
 	{
 		final byte[] bytes = info.toBytes();
 		String bytesString;
@@ -380,7 +379,7 @@ public class RevisionInfoTest
 		{
 			throw new RuntimeException(e);
 		}
-		assertTrue(bytesString, bytesString.startsWith("#migrationlogv01" + eol));
+		assertTrue(bytesString, bytesString.startsWith("#migrationlogv01" + lineSeparator()));
 		final Properties p = RevisionInfo.parse(bytes);
 		final TreeMap<String, String> result = new TreeMap<>();
 		for(final Object key : p.keySet())
@@ -389,7 +388,7 @@ public class RevisionInfoTest
 	}
 
 	@SuppressWarnings("unchecked")
-	private <X extends RevisionInfo> X reread(final X info)
+	private static <X extends RevisionInfo> X reread(final X info)
 	{
 		final byte[] bytes = info.toBytes();
 		String bytesString;
@@ -401,7 +400,7 @@ public class RevisionInfoTest
 		{
 			throw new RuntimeException(e);
 		}
-		assertTrue(bytesString, bytesString.startsWith("#migrationlogv01" + eol));
+		assertTrue(bytesString, bytesString.startsWith("#migrationlogv01" + lineSeparator()));
 		return (X)RevisionInfo.read(bytes);
 	}
 
