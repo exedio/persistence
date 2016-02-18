@@ -139,7 +139,7 @@ public final class FeatureField<E extends Feature> extends Pattern implements Se
 		final Feature f = getType().getModel().getFeature(id);
 		if(f==null)
 			throw new NotFound(this, item, id, null);
-		if(!valueClass.isInstance(f))
+		if(!isInstance(f))
 			throw new NotFound(this, item, id, f);
 
 		return valueClass.cast(f);
@@ -240,7 +240,7 @@ public final class FeatureField<E extends Feature> extends Pattern implements Se
 
 		for(final Type<?> type : getType().getModel().getTypes())
 			for(final Feature feature : type.getDeclaredFeatures())
-				if(valueClass.isInstance(feature))
+				if(isInstance(feature))
 					result.add(valueClass.cast(feature));
 
 		return Collections.unmodifiableList(result);
@@ -252,7 +252,7 @@ public final class FeatureField<E extends Feature> extends Pattern implements Se
 
 		for(final Type<?> type : getType().getModel().getTypes())
 			for(final Feature feature : type.getDeclaredFeatures())
-				if(valueClass.isInstance(feature))
+				if(isInstance(feature))
 					conditions.add(idField.notEqual(feature.getID()));
 
 		return Cope.and(conditions);
@@ -280,6 +280,11 @@ public final class FeatureField<E extends Feature> extends Pattern implements Se
 		{
 			return feature.getIdField().getImplicitUniqueConstraint()==null;
 		}
+	}
+
+	private boolean isInstance(final Feature feature)
+	{
+		return valueClass.isInstance(feature);
 	}
 
 	// ------------------- deprecated stuff -------------------
