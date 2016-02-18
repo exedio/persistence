@@ -18,6 +18,7 @@
 
 package com.exedio.cope.instrument;
 
+import static java.lang.System.lineSeparator;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
@@ -32,13 +33,11 @@ public abstract class ParserTest
 {
 	private final String resourceName;
 	final boolean assertText;
-	private final String lineSeparator;
 
 	protected ParserTest(final String resourceName, final boolean assertText)
 	{
 		this.resourceName = resourceName;
 		this.assertText = assertText;
-		this.lineSeparator = System.getProperty("line.separator");
 	}
 
 	LinkedList<ParseEvent> parseEvents;
@@ -74,7 +73,7 @@ public abstract class ParserTest
 		return s.replace('\n', '#').replace(' ', '_').replace('\t', '~');
 	}
 
-	private String replaceLineBreaks(final String s)
+	private static String replaceLineBreaks(final String s)
 	{
 		if(s==null)
 			return null;
@@ -85,7 +84,7 @@ public abstract class ParserTest
 		for(pos = s.indexOf('\n'); pos>=0; pos = s.indexOf('\n', pos+1))
 		{
 			result.append(s.substring(lastpos+1, pos));
-			result.append(lineSeparator);
+			result.append(lineSeparator());
 			lastpos = pos;
 		}
 		result.append(s.substring(lastpos+1));
