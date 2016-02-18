@@ -91,16 +91,7 @@ final class Generator
 	{
 		this.javaFile = javaFile;
 		this.output = output;
-
-		final String systemLineSeparator = System.getProperty("line.separator");
-		if(systemLineSeparator==null)
-		{
-			System.out.println("warning: property \"line.separator\" is null, using LF (unix style).");
-			lineSeparator = "\n";
-		}
-		else
-			lineSeparator = systemLineSeparator;
-
+		this.lineSeparator = System.lineSeparator();
 		this.longJavadoc = params.longJavadoc;
 		this.annotateGenerated = params.annotateGenerated;
 		this.finalArgPrefix = params.finalArgs ? "final " : "";
