@@ -126,9 +126,16 @@ public class FeatureFieldTest extends TestWithEnvironment
 			item.getFeature();
 			fail();
 		}
-		catch(final IllegalStateException e)
+		catch(final FeatureField.NotFound e)
 		{
-			assertEquals("zack", e.getMessage());
+			assertEquals(feature, e.getFeature());
+			assertEquals(item, e.getItem());
+			assertEquals("zack", e.getID());
+			assertEquals(
+					"not found 'zack' on " + item + " " +
+					"for FeatureFieldItem.feature, "+
+					"no such id in model.",
+					e.getMessage());
 		}
 	}
 
@@ -141,9 +148,17 @@ public class FeatureFieldTest extends TestWithEnvironment
 			item.getString();
 			fail();
 		}
-		catch(final ClassCastException e)
+		catch(final FeatureField.NotFound e)
 		{
-			assertEquals("expected a com.exedio.cope.StringField, but was a com.exedio.cope.IntegerField", e.getMessage());
+			assertEquals(string, e.getFeature());
+			assertEquals(item, e.getItem());
+			assertEquals(integer1.getID(), e.getID());
+			assertEquals(
+					"not found '" + integer1.getID() + "' on " + item + " " +
+					"for FeatureFieldItem.string, "+
+					"expected instance of com.exedio.cope.StringField, " +
+					"but was com.exedio.cope.IntegerField.",
+					e.getMessage());
 		}
 	}
 

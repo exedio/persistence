@@ -38,7 +38,6 @@ import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.CopeSchemaNameElement;
 import com.exedio.cope.misc.instrument.FinalSettableGetter;
 import com.exedio.cope.misc.instrument.InitialExceptionsSettableGetter;
-import com.exedio.cope.util.Cast;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -139,9 +138,68 @@ public final class FeatureField<E extends Feature> extends Pattern implements Se
 
 		final Feature f = getType().getModel().getFeature(id);
 		if(f==null)
-			throw new IllegalStateException(id);
+			throw new NotFound(this, item, id, null);
+		if(!valueClass.isInstance(f))
+			throw new NotFound(this, item, id, f);
 
-		return Cast.verboseCast(valueClass, f);
+		return valueClass.cast(f);
+	}
+
+	public static final class NotFound extends IllegalStateException
+	{
+		private final FeatureField<?> feature;
+		private final Item item;
+		private final String id;
+		private final Object value;
+
+		NotFound(
+				final FeatureField<?> feature,
+				final Item item,
+				final String id,
+				final Object value)
+		{
+			this.feature = feature;
+			this.item = item;
+			this.id = id;
+			this.value = value;
+		}
+
+		public FeatureField<?> getFeature()
+		{
+			return feature;
+		}
+
+		public Item getItem()
+		{
+			return item;
+		}
+
+		public String getID()
+		{
+			return id;
+		}
+
+		@Override
+		public String getMessage()
+		{
+			final StringBuilder bf = new StringBuilder();
+			bf.append("not found '").
+				append(id).append("' on ").
+				append(item.getCopeID()).
+				append(" for ").append(feature).
+				append(", ");
+
+			if(value==null)
+				bf.append("no such id in model");
+			else
+				bf.append("expected instance of ").append(feature.getValueClass().getName()).
+					append(", but was ").append(value.getClass().getName());
+
+			bf.append('.');
+			return bf.toString();
+		}
+
+		private static final long serialVersionUID = 1l;
 	}
 
 	public String getId(final Item item)
