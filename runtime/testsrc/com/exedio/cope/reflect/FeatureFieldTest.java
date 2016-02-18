@@ -45,14 +45,12 @@ public class FeatureFieldTest extends TestWithEnvironment
 		super(FeatureFieldModelTest.MODEL);
 	}
 
-	FeatureFieldItem item;
-
 	@Test public void testIt()
 	{
 		assertEquals("feature", SchemaInfo.getColumnName(FeatureFieldItem.feature.getIdField()));
 		assertEquals("featureNewname", SchemaInfo.getColumnName(FeatureFieldItem.featureRenamed.getIdField()));
 
-		item = new FeatureFieldItem(FeatureFieldItem.string1, FeatureFieldItem.string2);
+		final FeatureFieldItem item = new FeatureFieldItem(FeatureFieldItem.string1, FeatureFieldItem.string2);
 		assertSame(FeatureFieldItem.string1, item.getFeature());
 		assertSame(FeatureFieldItem.string2, item.getFeatureFinal());
 		assertSame(null, item.getFeatureOptional());
