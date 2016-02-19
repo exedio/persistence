@@ -142,7 +142,7 @@ public final class FeatureField<E extends Feature> extends Pattern implements Se
 		if(!isInstance(result))
 			throw new NotFound(this, item, id, result);
 
-		return valueClass.cast(result);
+		return cast(result);
 	}
 
 	public static final class NotFound extends IllegalStateException
@@ -241,7 +241,7 @@ public final class FeatureField<E extends Feature> extends Pattern implements Se
 		for(final Type<?> type : getType().getModel().getTypes())
 			for(final Feature feature : type.getDeclaredFeatures())
 				if(isInstance(feature))
-					result.add(valueClass.cast(feature));
+					result.add(cast(feature));
 
 		return Collections.unmodifiableList(result);
 	}
@@ -285,6 +285,11 @@ public final class FeatureField<E extends Feature> extends Pattern implements Se
 	private boolean isInstance(final Feature feature)
 	{
 		return valueClass.isInstance(feature);
+	}
+
+	private E cast(final Feature feature)
+	{
+		return valueClass.cast(feature);
 	}
 
 	// ------------------- deprecated stuff -------------------
