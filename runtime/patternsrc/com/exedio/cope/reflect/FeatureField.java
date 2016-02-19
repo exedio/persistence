@@ -136,13 +136,13 @@ public final class FeatureField<E extends Feature> extends Pattern implements Se
 		if(id==null)
 			return null;
 
-		final Feature f = getType().getModel().getFeature(id);
-		if(f==null)
+		final Feature result = getType().getModel().getFeature(id);
+		if(result==null)
 			throw new NotFound(this, item, id, null);
-		if(!isInstance(f))
-			throw new NotFound(this, item, id, f);
+		if(!isInstance(result))
+			throw new NotFound(this, item, id, result);
 
-		return valueClass.cast(f);
+		return valueClass.cast(result);
 	}
 
 	public static final class NotFound extends IllegalStateException
