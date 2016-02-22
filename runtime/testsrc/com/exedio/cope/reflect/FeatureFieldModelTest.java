@@ -44,7 +44,7 @@ import org.junit.Test;
 
 public class FeatureFieldModelTest
 {
-	static final Model MODEL = new Model(FeatureFieldItem.TYPE);
+	static final Model MODEL = new Model(TYPE);
 
 	static
 	{
@@ -58,8 +58,8 @@ public class FeatureFieldModelTest
 		assertEquals(FeatureFieldItem.class, TYPE.getJavaClass());
 		assertEquals(true, TYPE.isBound());
 		assertEquals(null, TYPE.getPattern());
-		assertEqualsUnmodifiable(list(FeatureFieldItem.feature.getIdField()), FeatureFieldItem.feature.getSourceFeatures());
-		assertEqualsUnmodifiable(list(), FeatureFieldItem.feature.getSourceTypes());
+		assertEqualsUnmodifiable(list(feature.getIdField()), feature.getSourceFeatures());
+		assertEqualsUnmodifiable(list(), feature.getSourceTypes());
 
 		assertEqualsUnmodifiable(list(
 				TYPE.getThis(),
@@ -81,7 +81,7 @@ public class FeatureFieldModelTest
 		assertEquals(false, featureOptional.isMandatory());
 		assertEquals(list(featureUnique.getIdField()), featureUnique.getImplicitUniqueConstraint().getFields());
 
-		assertSerializedSame(FeatureFieldItem.feature, 394);
+		assertSerializedSame(feature, 394);
 
 		assertEqualsUnmodifiable(TYPE.getFeatures(), feature.getValues());
 		assertEqualsUnmodifiable(list(
