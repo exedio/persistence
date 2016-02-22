@@ -23,6 +23,7 @@ import static java.lang.Thread.MIN_PRIORITY;
 
 import com.exedio.cope.pattern.MediaFingerprintOffset;
 import com.exedio.cope.util.PoolProperties;
+import com.exedio.cope.util.Properties;
 import com.exedio.cope.util.Sources;
 import com.exedio.dsmf.SQLRuntimeException;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -100,7 +101,7 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 
 	// schema
 
-	final PrimaryKeyGenerator primaryKeyGenerator = valEn("schema.primaryKeyGenerator", PrimaryKeyGenerator.memory);
+	final PrimaryKeyGenerator primaryKeyGenerator;
 	final boolean longSyntheticNames = value("schema.tableInNames", false);
 
 	/**
@@ -264,16 +265,32 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	}
 
 
-	public static Factory<ConnectProperties> factory()
+	public static Factory factory()
 	{
-		return new Factory<ConnectProperties>()
+		return new Factory(PrimaryKeyGenerator.memory);
+	}
+
+	public static class Factory implements Properties.Factory<ConnectProperties>
+	{
+		private final PrimaryKeyGenerator primaryKeyGenerator;
+
+		Factory(
+				final PrimaryKeyGenerator primaryKeyGenerator)
 		{
-			@Override
-			public ConnectProperties create(final Source source)
-			{
-				return new ConnectProperties(source, null);
-			}
-		};
+			this.primaryKeyGenerator = primaryKeyGenerator;
+		}
+
+		public Factory primaryKeyGeneratorSequence()
+		{
+			return new Factory(PrimaryKeyGenerator.sequence);
+		}
+
+		@Override
+		public ConnectProperties create(final Source source)
+		{
+			return new ConnectProperties(source, null,
+					primaryKeyGenerator);
+		}
 	}
 
 	private final Constructor<? extends Dialect> dialect;
@@ -312,10 +329,19 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 		this(Sources.view(properties, sourceDescription), context);
 	}
 
-	@SuppressWarnings("deprecation")
 	public ConnectProperties(final Source source, final Source context)
 	{
+		this(source, context, PrimaryKeyGenerator.memory);
+	}
+
+	@SuppressWarnings("deprecation")
+	ConnectProperties(
+			final Source source, final Source context,
+			final PrimaryKeyGenerator primaryKeyGenerator)
+	{
 		super(source, context);
+
+		this.primaryKeyGenerator = valEn("schema.primaryKeyGenerator", primaryKeyGenerator);
 
 		final String dialectCodeRaw = this.dialectCode;
 

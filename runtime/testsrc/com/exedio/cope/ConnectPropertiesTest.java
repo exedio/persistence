@@ -163,6 +163,15 @@ public class ConnectPropertiesTest
 		assertEquals(PrimaryKeyGenerator.memory, p.primaryKeyGenerator);
 	}
 
+	@Test public void testPrimaryKeyGeneratorDefaultSequence()
+	{
+		final ConnectProperties p = factory().
+				primaryKeyGeneratorSequence().
+				create(Sources.load(new File("runtime/utiltest.properties")));
+
+		assertEquals(PrimaryKeyGenerator.sequence, p.primaryKeyGenerator);
+	}
+
 	@Test public void testConnectionPoolIdleInitial()
 	{
 		final String propKey = "connectionPool.idleInitial";
