@@ -19,6 +19,7 @@
 package com.exedio.cope.reflect;
 
 import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
+import static com.exedio.cope.reflect.FeatureField.create;
 import static com.exedio.cope.reflect.FeatureFieldItem.TYPE;
 import static com.exedio.cope.reflect.FeatureFieldItem.integer1;
 import static com.exedio.cope.reflect.FeatureFieldItem.integer2;
@@ -146,7 +147,7 @@ public class FeatureFieldModelTest
 	{
 		try
 		{
-			FeatureField.create(null);
+			create(null);
 			fail();
 		}
 		catch(final NullPointerException e)
