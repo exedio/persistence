@@ -45,8 +45,7 @@ public final class SamplerProperties extends Properties
 			@Override
 			public ConnectProperties create(final Source source)
 			{
-				// TODO deprecate Sampler.maskConnectSource when moved into framework
-				return original.create(Sampler.maskConnectSource(source));
+				return original.create(Sampler.maskConnectSourceInternal(source));
 			}
 		};
 	}

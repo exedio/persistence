@@ -90,7 +90,16 @@ public class Sampler
 		return samplerModel;
 	}
 
+	/**
+	 * @deprecated Use {@link SamplerProperties} instead
+	 */
+	@Deprecated
 	public static final Properties.Source maskConnectSource(final Properties.Source original)
+	{
+		return maskConnectSourceInternal(original);
+	}
+
+	static final Properties.Source maskConnectSourceInternal(final Properties.Source original)
 	{
 		return new Properties.Source(){
 
