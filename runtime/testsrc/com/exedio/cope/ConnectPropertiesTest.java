@@ -24,6 +24,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import com.exedio.cope.ConnectProperties.Factory;
 import com.exedio.cope.util.IllegalPropertiesException;
 import com.exedio.cope.util.Properties.Field;
 import com.exedio.cope.util.Properties.Source;
@@ -200,6 +201,32 @@ public class ConnectPropertiesTest
 				create(Sources.load(new File("runtime/utiltest.properties")));
 
 		assertEquals("media/", p.getMediaRootUrl());
+	}
+
+	@Test public void testMediaRootUrlCustom()
+	{
+		final ConnectProperties p = factory().
+				mediaRootUrl("/custom/").
+				create(Sources.load(new File("runtime/utiltest.properties")));
+
+		assertEquals("/custom/", p.getMediaRootUrl());
+	}
+
+	@Test public void testMediaRootUrlNull()
+	{
+		final Factory f = factory().mediaRootUrl(null);
+		final Source s = Sources.load(new File("runtime/utiltest.properties"));
+
+		try
+		{
+			f.create(s);
+			fail();
+		}
+		catch(final IllegalPropertiesException e)
+		{
+			assertEquals("media.rooturl", e.getKey());
+			assertEquals("must be specified as there is no default", e.getDetail());
+		}
 	}
 
 

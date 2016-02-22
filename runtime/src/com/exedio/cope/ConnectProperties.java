@@ -197,7 +197,8 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	final ClusterProperties clusterPropertiesWithoutContext = noContext() ? value("cluster", false, ClusterProperties.factory()) : null;
 
 
-	private final String mediaRooturl    = value("media.rooturl", "media/");
+	private static final String mediaRooturlDEFAULT = "media/";
+	private final String mediaRooturl;
 	private final int mediaOffsetExpires = value("media.offsetExpires", 1000 * 5, 0);
 	private final int mediaFingerOffset  = value("media.fingerprintOffset", 0, 0);
 	private final String mediaUrlSecret = noContext()
@@ -268,29 +269,40 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 
 	public static Factory factory()
 	{
-		return new Factory(primaryKeyGeneratorDEFAULT);
+		return new Factory(
+				primaryKeyGeneratorDEFAULT,
+				mediaRooturlDEFAULT);
 	}
 
 	public static class Factory implements Properties.Factory<ConnectProperties>
 	{
 		private final PrimaryKeyGenerator primaryKeyGenerator;
+		private final String mediaRootUrl;
 
 		Factory(
-				final PrimaryKeyGenerator primaryKeyGenerator)
+				final PrimaryKeyGenerator primaryKeyGenerator,
+				final String mediaRootUrl)
 		{
 			this.primaryKeyGenerator = primaryKeyGenerator;
+			this.mediaRootUrl = mediaRootUrl;
 		}
 
 		public Factory primaryKeyGeneratorSequence()
 		{
-			return new Factory(PrimaryKeyGenerator.sequence);
+			return new Factory(PrimaryKeyGenerator.sequence, mediaRootUrl);
+		}
+
+		public Factory mediaRootUrl(final String mediaRootUrl)
+		{
+			return new Factory(primaryKeyGenerator, mediaRootUrl);
 		}
 
 		@Override
 		public ConnectProperties create(final Source source)
 		{
 			return new ConnectProperties(source, null,
-					primaryKeyGenerator);
+					primaryKeyGenerator,
+					mediaRootUrl);
 		}
 	}
 
@@ -332,17 +344,21 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 
 	public ConnectProperties(final Source source, final Source context)
 	{
-		this(source, context, primaryKeyGeneratorDEFAULT);
+		this(source, context,
+				primaryKeyGeneratorDEFAULT,
+				mediaRooturlDEFAULT);
 	}
 
 	@SuppressWarnings("deprecation")
 	ConnectProperties(
 			final Source source, final Source context,
-			final PrimaryKeyGenerator primaryKeyGenerator)
+			final PrimaryKeyGenerator primaryKeyGenerator,
+			final String mediaRootUrl)
 	{
 		super(source, context);
 
 		this.primaryKeyGenerator = valEn("schema.primaryKeyGenerator", primaryKeyGenerator);
+		this.mediaRooturl = value("media.rooturl", mediaRootUrl);
 
 		final String dialectCodeRaw = this.dialectCode;
 
