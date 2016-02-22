@@ -101,6 +101,7 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 
 	// schema
 
+	private static final PrimaryKeyGenerator primaryKeyGeneratorDEFAULT = PrimaryKeyGenerator.memory;
 	final PrimaryKeyGenerator primaryKeyGenerator;
 	final boolean longSyntheticNames = value("schema.tableInNames", false);
 
@@ -267,7 +268,7 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 
 	public static Factory factory()
 	{
-		return new Factory(PrimaryKeyGenerator.memory);
+		return new Factory(primaryKeyGeneratorDEFAULT);
 	}
 
 	public static class Factory implements Properties.Factory<ConnectProperties>
@@ -331,7 +332,7 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 
 	public ConnectProperties(final Source source, final Source context)
 	{
-		this(source, context, PrimaryKeyGenerator.memory);
+		this(source, context, primaryKeyGeneratorDEFAULT);
 	}
 
 	@SuppressWarnings("deprecation")
