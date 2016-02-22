@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.ConnectProperties.factory;
 import static com.exedio.cope.util.Sources.cascade;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -152,6 +153,14 @@ public class ConnectPropertiesTest
 					"but did at position 3 and was '123,567'",
 					e.getMessage());
 		}
+	}
+
+	@Test public void testPrimaryKeyGeneratorDefaultStandard()
+	{
+		final ConnectProperties p = factory().
+				create(Sources.load(new File("runtime/utiltest.properties")));
+
+		assertEquals(PrimaryKeyGenerator.memory, p.primaryKeyGenerator);
 	}
 
 	@Test public void testConnectionPoolIdleInitial()
