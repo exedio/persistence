@@ -23,6 +23,7 @@ import static com.exedio.cope.reflect.FeatureFieldItem.forUnique;
 import static com.exedio.cope.reflect.FeatureFieldItem.integer1;
 import static com.exedio.cope.reflect.FeatureFieldItem.isFinal;
 import static com.exedio.cope.reflect.FeatureFieldItem.optional;
+import static com.exedio.cope.reflect.FeatureFieldItem.renamed;
 import static com.exedio.cope.reflect.FeatureFieldItem.restricted;
 import static com.exedio.cope.reflect.FeatureFieldItem.standard;
 import static com.exedio.cope.reflect.FeatureFieldItem.string1;
@@ -47,46 +48,46 @@ public class FeatureFieldTest extends TestWithEnvironment
 
 	@Test public void testIt()
 	{
-		assertEquals("standard", SchemaInfo.getColumnName(FeatureFieldItem.standard.getIdField()));
-		assertEquals("newname", SchemaInfo.getColumnName(FeatureFieldItem.renamed.getIdField()));
+		assertEquals("standard", SchemaInfo.getColumnName(standard.getIdField()));
+		assertEquals("newname", SchemaInfo.getColumnName(renamed.getIdField()));
 
-		final FeatureFieldItem item = new FeatureFieldItem(FeatureFieldItem.string1, FeatureFieldItem.string2);
-		assertSame(FeatureFieldItem.string1, item.getStandard());
-		assertSame(FeatureFieldItem.string2, item.getIsFinal());
+		final FeatureFieldItem item = new FeatureFieldItem(string1, string2);
+		assertSame(string1, item.getStandard());
+		assertSame(string2, item.getIsFinal());
 		assertSame(null, item.getOptional());
 		assertSame(null, item.getRestricted());
 
 		item.setOptional(integer1);
-		assertSame(FeatureFieldItem.string1, item.getStandard());
-		assertSame(FeatureFieldItem.string2, item.getIsFinal());
+		assertSame(string1, item.getStandard());
+		assertSame(string2, item.getIsFinal());
 		assertSame(integer1, item.getOptional());
 		assertSame(null, item.getRestricted());
 		assertEquals(list(), TYPE.search(optional.isInvalid()));
 
 		item.setOptional(null);
-		assertSame(FeatureFieldItem.string1, item.getStandard());
-		assertSame(FeatureFieldItem.string2, item.getIsFinal());
+		assertSame(string1, item.getStandard());
+		assertSame(string2, item.getIsFinal());
 		assertSame(null, item.getOptional());
 		assertSame(null, item.getRestricted());
 		assertEquals(list(), TYPE.search(optional.isInvalid()));
 
 		item.setRestricted(string2);
-		assertSame(FeatureFieldItem.string1, item.getStandard());
-		assertSame(FeatureFieldItem.string2, item.getIsFinal());
+		assertSame(string1, item.getStandard());
+		assertSame(string2, item.getIsFinal());
 		assertSame(null, item.getOptional());
 		assertSame(string2, item.getRestricted());
 
 		item.setRestricted(null);
-		assertSame(FeatureFieldItem.string1, item.getStandard());
-		assertSame(FeatureFieldItem.string2, item.getIsFinal());
+		assertSame(string1, item.getStandard());
+		assertSame(string2, item.getIsFinal());
 		assertSame(null, item.getOptional());
 		assertSame(null, item.getRestricted());
 	}
 
 	@Test public void testMandatoryViolation()
 	{
-		final FeatureFieldItem item = new FeatureFieldItem(FeatureFieldItem.string1, FeatureFieldItem.string2);
-		assertSame(FeatureFieldItem.string1, item.getStandard());
+		final FeatureFieldItem item = new FeatureFieldItem(string1, string2);
+		assertSame(string1, item.getStandard());
 		try
 		{
 			item.setStandard(null);
@@ -97,13 +98,13 @@ public class FeatureFieldTest extends TestWithEnvironment
 			assertEquals(standard, e.getFeature());
 			assertEquals(item, e.getItem());
 		}
-		assertSame(FeatureFieldItem.string1, item.getStandard());
+		assertSame(string1, item.getStandard());
 	}
 
 	@Test public void testFinalViolation()
 	{
-		final FeatureFieldItem item = new FeatureFieldItem(FeatureFieldItem.string1, FeatureFieldItem.string2);
-		assertSame(FeatureFieldItem.string2, item.getIsFinal());
+		final FeatureFieldItem item = new FeatureFieldItem(string1, string2);
+		assertSame(string2, item.getIsFinal());
 		try
 		{
 			isFinal.set(item, integer1);
@@ -114,12 +115,12 @@ public class FeatureFieldTest extends TestWithEnvironment
 			assertEquals(isFinal, e.getFeature());
 			assertEquals(item, e.getItem());
 		}
-		assertSame(FeatureFieldItem.string2, item.getIsFinal());
+		assertSame(string2, item.getIsFinal());
 	}
 
 	@Test public void testNotFoundNoSuchID()
 	{
-		final FeatureFieldItem item = new FeatureFieldItem(FeatureFieldItem.string1, FeatureFieldItem.string2);
+		final FeatureFieldItem item = new FeatureFieldItem(string1, string2);
 		standard.getIdField().set(item, "zack");
 		try
 		{
@@ -141,7 +142,7 @@ public class FeatureFieldTest extends TestWithEnvironment
 
 	@Test public void testNotFoundWrongValueClass()
 	{
-		final FeatureFieldItem item = new FeatureFieldItem(FeatureFieldItem.string1, FeatureFieldItem.string2);
+		final FeatureFieldItem item = new FeatureFieldItem(string1, string2);
 		restricted.getIdField().set(item, integer1.getID());
 		try
 		{
@@ -164,7 +165,7 @@ public class FeatureFieldTest extends TestWithEnvironment
 
 	@Test public void testUnique()
 	{
-		final FeatureFieldItem item = new FeatureFieldItem(FeatureFieldItem.string1, FeatureFieldItem.string2);
+		final FeatureFieldItem item = new FeatureFieldItem(string1, string2);
 		assertEquals(null, forUnique(string1));
 		assertEquals(null, forUnique(string2));
 		item.setUnique(string1);
