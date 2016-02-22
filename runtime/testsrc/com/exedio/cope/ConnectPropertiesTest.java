@@ -30,7 +30,9 @@ import com.exedio.cope.util.Properties.Field;
 import com.exedio.cope.util.Properties.Source;
 import com.exedio.cope.util.Sources;
 import java.io.File;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.concurrent.Callable;
 import org.junit.Test;
 
@@ -42,11 +44,16 @@ public class ConnectPropertiesTest
 	 */
 	@Test public void testRegression()
 	{
+		final HashSet<String> notOnDefault = new HashSet<>(Arrays.asList(
+				"dialect", "cluster", "cluster.secret"));
 		final ConnectProperties p = new ConnectProperties(loadProperties(), null);
 
 		for(final Field field : p.getFields())
 		{
 			assertTrue(field.getKey(), field.isSpecified());
+			if(field.getDefaultValue()!=null &&
+				!notOnDefault.contains(field.getKey()))
+				assertEquals(field.getKey(), field.getDefaultValue(), field.getValue());
 		}
 
 		p.ensureValidity();
