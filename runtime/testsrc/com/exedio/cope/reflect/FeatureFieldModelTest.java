@@ -77,8 +77,18 @@ public class FeatureFieldModelTest
 		assertEquals("feature", feature.getName());
 		assertTrue(feature.getIdField().isAnnotationPresent(Computed.class));
 
-		assertEquals(true, feature.isMandatory());
-		assertEquals(false, featureOptional.isMandatory());
+		assertEquals(false, feature                  .isFinal());
+		assertEquals(false, feature     .getIdField().isFinal());
+		assertEquals(true,  featureFinal             .isFinal());
+		assertEquals(true,  featureFinal.getIdField().isFinal());
+
+		assertEquals(true,  feature                     .isMandatory());
+		assertEquals(true,  feature        .getIdField().isMandatory());
+		assertEquals(false, featureOptional             .isMandatory());
+		assertEquals(false, featureOptional.getIdField().isMandatory());
+
+		assertEquals(null, feature.getImplicitUniqueConstraint());
+		assertEquals(null, feature.getIdField().getImplicitUniqueConstraint());
 		assertEquals(list(featureUnique.getIdField()), featureUnique.getImplicitUniqueConstraint().getFields());
 
 		assertSerializedSame(feature, 394);
