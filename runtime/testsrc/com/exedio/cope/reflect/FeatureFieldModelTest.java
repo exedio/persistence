@@ -20,18 +20,18 @@ package com.exedio.cope.reflect;
 
 import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
 import static com.exedio.cope.reflect.FeatureFieldItem.TYPE;
-import static com.exedio.cope.reflect.FeatureFieldItem.feature;
-import static com.exedio.cope.reflect.FeatureFieldItem.featureFinal;
-import static com.exedio.cope.reflect.FeatureFieldItem.featureOptional;
-import static com.exedio.cope.reflect.FeatureFieldItem.featureRenamed;
-import static com.exedio.cope.reflect.FeatureFieldItem.featureUnique;
 import static com.exedio.cope.reflect.FeatureFieldItem.integer1;
 import static com.exedio.cope.reflect.FeatureFieldItem.integer2;
 import static com.exedio.cope.reflect.FeatureFieldItem.integer3;
-import static com.exedio.cope.reflect.FeatureFieldItem.string;
+import static com.exedio.cope.reflect.FeatureFieldItem.isFinal;
+import static com.exedio.cope.reflect.FeatureFieldItem.optional;
+import static com.exedio.cope.reflect.FeatureFieldItem.renamed;
+import static com.exedio.cope.reflect.FeatureFieldItem.restricted;
+import static com.exedio.cope.reflect.FeatureFieldItem.standard;
 import static com.exedio.cope.reflect.FeatureFieldItem.string1;
 import static com.exedio.cope.reflect.FeatureFieldItem.string2;
 import static com.exedio.cope.reflect.FeatureFieldItem.string3;
+import static com.exedio.cope.reflect.FeatureFieldItem.unique;
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
 import static com.exedio.cope.tojunit.Assert.list;
 import static org.junit.Assert.assertEquals;
@@ -58,88 +58,88 @@ public class FeatureFieldModelTest
 		assertEquals(FeatureFieldItem.class, TYPE.getJavaClass());
 		assertEquals(true, TYPE.isBound());
 		assertEquals(null, TYPE.getPattern());
-		assertEqualsUnmodifiable(list(feature.getIdField()), feature.getSourceFeatures());
-		assertEqualsUnmodifiable(list(), feature.getSourceTypes());
+		assertEqualsUnmodifiable(list(standard.getIdField()), standard.getSourceFeatures());
+		assertEqualsUnmodifiable(list(), standard.getSourceTypes());
 
 		assertEqualsUnmodifiable(list(
 				TYPE.getThis(),
 				integer1, integer2, integer3,
 				string1,  string2,  string3,
-				feature, feature.getIdField(),
-				featureFinal, featureFinal.getIdField(),
-				featureOptional, featureOptional.getIdField(),
-				featureUnique, featureUnique.getIdField(), featureUnique.getImplicitUniqueConstraint(),
-				featureRenamed, featureRenamed.getIdField(),
-				string, string.getIdField()
+				standard, standard.getIdField(),
+				isFinal,  isFinal .getIdField(),
+				optional, optional.getIdField(),
+				unique,   unique  .getIdField(), unique.getImplicitUniqueConstraint(),
+				renamed,  renamed .getIdField(),
+				restricted, restricted.getIdField()
 			), TYPE.getFeatures());
 
-		assertEquals(TYPE, feature.getType());
-		assertEquals("feature", feature.getName());
-		assertTrue(feature.getIdField().isAnnotationPresent(Computed.class));
+		assertEquals(TYPE, standard.getType());
+		assertEquals("standard", standard.getName());
+		assertTrue(standard.getIdField().isAnnotationPresent(Computed.class));
 
-		assertEquals(false, feature                  .isFinal());
-		assertEquals(false, feature     .getIdField().isFinal());
-		assertEquals(true,  featureFinal             .isFinal());
-		assertEquals(true,  featureFinal.getIdField().isFinal());
+		assertEquals(false, standard             .isFinal());
+		assertEquals(false, standard.getIdField().isFinal());
+		assertEquals(true,  isFinal              .isFinal());
+		assertEquals(true,  isFinal .getIdField().isFinal());
 
-		assertEquals(true,  feature                     .isMandatory());
-		assertEquals(true,  feature        .getIdField().isMandatory());
-		assertEquals(false, featureOptional             .isMandatory());
-		assertEquals(false, featureOptional.getIdField().isMandatory());
+		assertEquals(true,  standard             .isMandatory());
+		assertEquals(true,  standard.getIdField().isMandatory());
+		assertEquals(false, optional             .isMandatory());
+		assertEquals(false, optional.getIdField().isMandatory());
 
-		assertEquals(null, feature.getImplicitUniqueConstraint());
-		assertEquals(null, feature.getIdField().getImplicitUniqueConstraint());
-		assertEquals(list(featureUnique.getIdField()), featureUnique.getImplicitUniqueConstraint().getFields());
+		assertEquals(null, standard.getImplicitUniqueConstraint());
+		assertEquals(null, standard.getIdField().getImplicitUniqueConstraint());
+		assertEquals(list(unique.getIdField()), unique.getImplicitUniqueConstraint().getFields());
 
-		assertSerializedSame(feature, 394);
+		assertSerializedSame(standard, 395);
 
-		assertEqualsUnmodifiable(TYPE.getFeatures(), feature.getValues());
+		assertEqualsUnmodifiable(TYPE.getFeatures(), standard.getValues());
 		assertEqualsUnmodifiable(list(
 				string1, string2, string3,
-				feature.getIdField(),
-				featureFinal.getIdField(),
-				featureOptional.getIdField(),
-				featureUnique.getIdField(),
-				featureRenamed.getIdField(),
-				string.getIdField()), string.getValues());
+				standard.getIdField(),
+				isFinal.getIdField(),
+				optional.getIdField(),
+				unique.getIdField(),
+				renamed.getIdField(),
+				restricted.getIdField()), restricted.getValues());
 
 		assertEquals(
 				"(" +
-					"FeatureFieldItem.feature-id<>'FeatureFieldItem.this' AND " +
-					"FeatureFieldItem.feature-id<>'FeatureFieldItem.integer1' AND " +
-					"FeatureFieldItem.feature-id<>'FeatureFieldItem.integer2' AND " +
-					"FeatureFieldItem.feature-id<>'FeatureFieldItem.integer3' AND " +
-					"FeatureFieldItem.feature-id<>'FeatureFieldItem.string1' AND " +
-					"FeatureFieldItem.feature-id<>'FeatureFieldItem.string2' AND " +
-					"FeatureFieldItem.feature-id<>'FeatureFieldItem.string3' AND " +
-					"FeatureFieldItem.feature-id<>'FeatureFieldItem.feature' AND " +
-					"FeatureFieldItem.feature-id<>'FeatureFieldItem.feature-id' AND " +
-					"FeatureFieldItem.feature-id<>'FeatureFieldItem.featureFinal' AND " +
-					"FeatureFieldItem.feature-id<>'FeatureFieldItem.featureFinal-id' AND " +
-					"FeatureFieldItem.feature-id<>'FeatureFieldItem.featureOptional' AND " +
-					"FeatureFieldItem.feature-id<>'FeatureFieldItem.featureOptional-id' AND " +
-					"FeatureFieldItem.feature-id<>'FeatureFieldItem.featureUnique' AND " +
-					"FeatureFieldItem.feature-id<>'FeatureFieldItem.featureUnique-id' AND " +
-					"FeatureFieldItem.feature-id<>'FeatureFieldItem.featureUnique-idImplicitUnique' AND " +
-					"FeatureFieldItem.feature-id<>'FeatureFieldItem.featureRenamed' AND " +
-					"FeatureFieldItem.feature-id<>'FeatureFieldItem.featureRenamed-id' AND " +
-					"FeatureFieldItem.feature-id<>'FeatureFieldItem.string' AND " +
-					"FeatureFieldItem.feature-id<>'FeatureFieldItem.string-id'" +
+					"FeatureFieldItem.standard-id<>'FeatureFieldItem.this' AND " +
+					"FeatureFieldItem.standard-id<>'FeatureFieldItem.integer1' AND " +
+					"FeatureFieldItem.standard-id<>'FeatureFieldItem.integer2' AND " +
+					"FeatureFieldItem.standard-id<>'FeatureFieldItem.integer3' AND " +
+					"FeatureFieldItem.standard-id<>'FeatureFieldItem.string1' AND " +
+					"FeatureFieldItem.standard-id<>'FeatureFieldItem.string2' AND " +
+					"FeatureFieldItem.standard-id<>'FeatureFieldItem.string3' AND " +
+					"FeatureFieldItem.standard-id<>'FeatureFieldItem.standard' AND " +
+					"FeatureFieldItem.standard-id<>'FeatureFieldItem.standard-id' AND " +
+					"FeatureFieldItem.standard-id<>'FeatureFieldItem.isFinal' AND " +
+					"FeatureFieldItem.standard-id<>'FeatureFieldItem.isFinal-id' AND " +
+					"FeatureFieldItem.standard-id<>'FeatureFieldItem.optional' AND " +
+					"FeatureFieldItem.standard-id<>'FeatureFieldItem.optional-id' AND " +
+					"FeatureFieldItem.standard-id<>'FeatureFieldItem.unique' AND " +
+					"FeatureFieldItem.standard-id<>'FeatureFieldItem.unique-id' AND " +
+					"FeatureFieldItem.standard-id<>'FeatureFieldItem.unique-idImplicitUnique' AND " +
+					"FeatureFieldItem.standard-id<>'FeatureFieldItem.renamed' AND " +
+					"FeatureFieldItem.standard-id<>'FeatureFieldItem.renamed-id' AND " +
+					"FeatureFieldItem.standard-id<>'FeatureFieldItem.restricted' AND " +
+					"FeatureFieldItem.standard-id<>'FeatureFieldItem.restricted-id'" +
 				")",
-			feature.isInvalid().toString());
+			standard.isInvalid().toString());
 		assertEquals(
 				"(" +
-					"FeatureFieldItem.string-id<>'FeatureFieldItem.string1' AND " +
-					"FeatureFieldItem.string-id<>'FeatureFieldItem.string2' AND " +
-					"FeatureFieldItem.string-id<>'FeatureFieldItem.string3' AND " +
-					"FeatureFieldItem.string-id<>'FeatureFieldItem.feature-id' AND " +
-					"FeatureFieldItem.string-id<>'FeatureFieldItem.featureFinal-id' AND " +
-					"FeatureFieldItem.string-id<>'FeatureFieldItem.featureOptional-id' AND " +
-					"FeatureFieldItem.string-id<>'FeatureFieldItem.featureUnique-id' AND " +
-					"FeatureFieldItem.string-id<>'FeatureFieldItem.featureRenamed-id' AND " +
-					"FeatureFieldItem.string-id<>'FeatureFieldItem.string-id'" +
+					"FeatureFieldItem.restricted-id<>'FeatureFieldItem.string1' AND " +
+					"FeatureFieldItem.restricted-id<>'FeatureFieldItem.string2' AND " +
+					"FeatureFieldItem.restricted-id<>'FeatureFieldItem.string3' AND " +
+					"FeatureFieldItem.restricted-id<>'FeatureFieldItem.standard-id' AND " +
+					"FeatureFieldItem.restricted-id<>'FeatureFieldItem.isFinal-id' AND " +
+					"FeatureFieldItem.restricted-id<>'FeatureFieldItem.optional-id' AND " +
+					"FeatureFieldItem.restricted-id<>'FeatureFieldItem.unique-id' AND " +
+					"FeatureFieldItem.restricted-id<>'FeatureFieldItem.renamed-id' AND " +
+					"FeatureFieldItem.restricted-id<>'FeatureFieldItem.restricted-id'" +
 				")",
-			string.isInvalid().toString());
+			restricted.isInvalid().toString());
 	}
 
 	@Test public void testValueClassNull()

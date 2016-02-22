@@ -19,12 +19,12 @@
 package com.exedio.cope.reflect;
 
 import static com.exedio.cope.reflect.FeatureFieldItem.TYPE;
-import static com.exedio.cope.reflect.FeatureFieldItem.feature;
-import static com.exedio.cope.reflect.FeatureFieldItem.featureFinal;
-import static com.exedio.cope.reflect.FeatureFieldItem.featureOptional;
-import static com.exedio.cope.reflect.FeatureFieldItem.forFeatureUnique;
+import static com.exedio.cope.reflect.FeatureFieldItem.forUnique;
 import static com.exedio.cope.reflect.FeatureFieldItem.integer1;
-import static com.exedio.cope.reflect.FeatureFieldItem.string;
+import static com.exedio.cope.reflect.FeatureFieldItem.isFinal;
+import static com.exedio.cope.reflect.FeatureFieldItem.optional;
+import static com.exedio.cope.reflect.FeatureFieldItem.restricted;
+import static com.exedio.cope.reflect.FeatureFieldItem.standard;
 import static com.exedio.cope.reflect.FeatureFieldItem.string1;
 import static com.exedio.cope.reflect.FeatureFieldItem.string2;
 import static com.exedio.cope.tojunit.Assert.list;
@@ -47,93 +47,93 @@ public class FeatureFieldTest extends TestWithEnvironment
 
 	@Test public void testIt()
 	{
-		assertEquals("feature", SchemaInfo.getColumnName(FeatureFieldItem.feature.getIdField()));
-		assertEquals("featureNewname", SchemaInfo.getColumnName(FeatureFieldItem.featureRenamed.getIdField()));
+		assertEquals("standard", SchemaInfo.getColumnName(FeatureFieldItem.standard.getIdField()));
+		assertEquals("newname", SchemaInfo.getColumnName(FeatureFieldItem.renamed.getIdField()));
 
 		final FeatureFieldItem item = new FeatureFieldItem(FeatureFieldItem.string1, FeatureFieldItem.string2);
-		assertSame(FeatureFieldItem.string1, item.getFeature());
-		assertSame(FeatureFieldItem.string2, item.getFeatureFinal());
-		assertSame(null, item.getFeatureOptional());
-		assertSame(null, item.getString());
+		assertSame(FeatureFieldItem.string1, item.getStandard());
+		assertSame(FeatureFieldItem.string2, item.getIsFinal());
+		assertSame(null, item.getOptional());
+		assertSame(null, item.getRestricted());
 
-		item.setFeatureOptional(integer1);
-		assertSame(FeatureFieldItem.string1, item.getFeature());
-		assertSame(FeatureFieldItem.string2, item.getFeatureFinal());
-		assertSame(integer1, item.getFeatureOptional());
-		assertSame(null, item.getString());
-		assertEquals(list(), TYPE.search(featureOptional.isInvalid()));
+		item.setOptional(integer1);
+		assertSame(FeatureFieldItem.string1, item.getStandard());
+		assertSame(FeatureFieldItem.string2, item.getIsFinal());
+		assertSame(integer1, item.getOptional());
+		assertSame(null, item.getRestricted());
+		assertEquals(list(), TYPE.search(optional.isInvalid()));
 
-		item.setFeatureOptional(null);
-		assertSame(FeatureFieldItem.string1, item.getFeature());
-		assertSame(FeatureFieldItem.string2, item.getFeatureFinal());
-		assertSame(null, item.getFeatureOptional());
-		assertSame(null, item.getString());
-		assertEquals(list(), TYPE.search(featureOptional.isInvalid()));
+		item.setOptional(null);
+		assertSame(FeatureFieldItem.string1, item.getStandard());
+		assertSame(FeatureFieldItem.string2, item.getIsFinal());
+		assertSame(null, item.getOptional());
+		assertSame(null, item.getRestricted());
+		assertEquals(list(), TYPE.search(optional.isInvalid()));
 
-		item.setString(string2);
-		assertSame(FeatureFieldItem.string1, item.getFeature());
-		assertSame(FeatureFieldItem.string2, item.getFeatureFinal());
-		assertSame(null, item.getFeatureOptional());
-		assertSame(string2, item.getString());
+		item.setRestricted(string2);
+		assertSame(FeatureFieldItem.string1, item.getStandard());
+		assertSame(FeatureFieldItem.string2, item.getIsFinal());
+		assertSame(null, item.getOptional());
+		assertSame(string2, item.getRestricted());
 
-		item.setString(null);
-		assertSame(FeatureFieldItem.string1, item.getFeature());
-		assertSame(FeatureFieldItem.string2, item.getFeatureFinal());
-		assertSame(null, item.getFeatureOptional());
-		assertSame(null, item.getString());
+		item.setRestricted(null);
+		assertSame(FeatureFieldItem.string1, item.getStandard());
+		assertSame(FeatureFieldItem.string2, item.getIsFinal());
+		assertSame(null, item.getOptional());
+		assertSame(null, item.getRestricted());
 	}
 
 	@Test public void testMandatoryViolation()
 	{
 		final FeatureFieldItem item = new FeatureFieldItem(FeatureFieldItem.string1, FeatureFieldItem.string2);
-		assertSame(FeatureFieldItem.string1, item.getFeature());
+		assertSame(FeatureFieldItem.string1, item.getStandard());
 		try
 		{
-			item.setFeature(null);
+			item.setStandard(null);
 			fail();
 		}
 		catch(final MandatoryViolationException e)
 		{
-			assertEquals(feature, e.getFeature());
+			assertEquals(standard, e.getFeature());
 			assertEquals(item, e.getItem());
 		}
-		assertSame(FeatureFieldItem.string1, item.getFeature());
+		assertSame(FeatureFieldItem.string1, item.getStandard());
 	}
 
 	@Test public void testFinalViolation()
 	{
 		final FeatureFieldItem item = new FeatureFieldItem(FeatureFieldItem.string1, FeatureFieldItem.string2);
-		assertSame(FeatureFieldItem.string2, item.getFeatureFinal());
+		assertSame(FeatureFieldItem.string2, item.getIsFinal());
 		try
 		{
-			featureFinal.set(item, integer1);
+			isFinal.set(item, integer1);
 			fail();
 		}
 		catch(final FinalViolationException e)
 		{
-			assertEquals(featureFinal, e.getFeature());
+			assertEquals(isFinal, e.getFeature());
 			assertEquals(item, e.getItem());
 		}
-		assertSame(FeatureFieldItem.string2, item.getFeatureFinal());
+		assertSame(FeatureFieldItem.string2, item.getIsFinal());
 	}
 
 	@Test public void testNotFoundNoSuchID()
 	{
 		final FeatureFieldItem item = new FeatureFieldItem(FeatureFieldItem.string1, FeatureFieldItem.string2);
-		feature.getIdField().set(item, "zack");
+		standard.getIdField().set(item, "zack");
 		try
 		{
-			item.getFeature();
+			item.getStandard();
 			fail();
 		}
 		catch(final FeatureField.NotFound e)
 		{
-			assertEquals(feature, e.getFeature());
+			assertEquals(standard, e.getFeature());
 			assertEquals(item, e.getItem());
 			assertEquals("zack", e.getID());
 			assertEquals(
 					"not found 'zack' on " + item + " " +
-					"for FeatureFieldItem.feature, "+
+					"for FeatureFieldItem.standard, "+
 					"no such id in model.",
 					e.getMessage());
 		}
@@ -142,20 +142,20 @@ public class FeatureFieldTest extends TestWithEnvironment
 	@Test public void testNotFoundWrongValueClass()
 	{
 		final FeatureFieldItem item = new FeatureFieldItem(FeatureFieldItem.string1, FeatureFieldItem.string2);
-		string.getIdField().set(item, integer1.getID());
+		restricted.getIdField().set(item, integer1.getID());
 		try
 		{
-			item.getString();
+			item.getRestricted();
 			fail();
 		}
 		catch(final FeatureField.NotFound e)
 		{
-			assertEquals(string, e.getFeature());
+			assertEquals(restricted, e.getFeature());
 			assertEquals(item, e.getItem());
 			assertEquals(integer1.getID(), e.getID());
 			assertEquals(
 					"not found '" + integer1.getID() + "' on " + item + " " +
-					"for FeatureFieldItem.string, "+
+					"for FeatureFieldItem.restricted, "+
 					"expected instance of com.exedio.cope.StringField, " +
 					"but was com.exedio.cope.IntegerField.",
 					e.getMessage());
@@ -165,14 +165,14 @@ public class FeatureFieldTest extends TestWithEnvironment
 	@Test public void testUnique()
 	{
 		final FeatureFieldItem item = new FeatureFieldItem(FeatureFieldItem.string1, FeatureFieldItem.string2);
-		assertEquals(null, forFeatureUnique(string1));
-		assertEquals(null, forFeatureUnique(string2));
-		item.setFeatureUnique(string1);
-		assertEquals(item, forFeatureUnique(string1));
-		assertEquals(null, forFeatureUnique(string2));
+		assertEquals(null, forUnique(string1));
+		assertEquals(null, forUnique(string2));
+		item.setUnique(string1);
+		assertEquals(item, forUnique(string1));
+		assertEquals(null, forUnique(string2));
 		try
 		{
-			forFeatureUnique(null);
+			forUnique(null);
 			fail();
 		}
 		catch(final NullPointerException e)
