@@ -194,6 +194,15 @@ public class ConnectPropertiesTest
 		}
 	}
 
+	@Test public void testMediaRootUrlStandard()
+	{
+		final ConnectProperties p = factory().
+				create(Sources.load(new File("runtime/utiltest.properties")));
+
+		assertEquals("media/", p.getMediaRootUrl());
+	}
+
+
 	private static Source source(
 			final String key1, final String value1)
 	{
