@@ -150,13 +150,13 @@ public final class FeatureField<E extends Feature> extends Pattern implements Se
 		private final FeatureField<?> feature;
 		private final Item item;
 		private final String id;
-		private final Object value;
+		private final Feature value;
 
 		NotFound(
 				final FeatureField<?> feature,
 				final Item item,
 				final String id,
-				final Object value)
+				final Feature value)
 		{
 			this.feature = feature;
 			this.item = item;
