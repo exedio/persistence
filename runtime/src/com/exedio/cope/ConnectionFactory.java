@@ -91,15 +91,17 @@ final class ConnectionFactory implements Pool.Factory<Connection>
 
 	public boolean isValidOnGet(final Connection e)
 	{
-		// probably not the best idea
-		try(final ResultSet rs = e.getMetaData().getTables(null, null, "zack", null))
+		try(
+				java.sql.Statement stat = e.createStatement();
+				ResultSet rs = stat.executeQuery("SELECT 42"))
 		{
 			//final long start = System.currentTimeMillis();
 			rs.next();
+			final int result = rs.getInt(1);
 			//timeInChecks += (System.currentTimeMillis()-start);
 			//numberOfChecks++;
 			//System.out.println("------------------"+timeInChecks+"---"+numberOfChecks+"---"+(timeInChecks/numberOfChecks));
-			return true;
+			return result==42;
 		}
 		catch(final SQLException ex)
 		{
