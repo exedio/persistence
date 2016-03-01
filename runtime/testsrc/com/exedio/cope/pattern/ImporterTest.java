@@ -27,8 +27,11 @@ import static org.junit.Assert.assertEquals;
 
 import com.exedio.cope.SetValue;
 import com.exedio.cope.TestWithEnvironment;
+import com.exedio.cope.tojunit.ImporterRule;
 import java.util.ArrayList;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.RuleChain;
 
 public class ImporterTest extends TestWithEnvironment
 {
@@ -36,6 +39,10 @@ public class ImporterTest extends TestWithEnvironment
 	{
 		super(ImporterModelTest.model);
 	}
+
+	private final ImporterRule importerRule = new ImporterRule(ImporterItem.byCode);
+
+	@Rule public final RuleChain ruleChain = RuleChain.outerRule(importerRule);
 
 	@Test public void testNonInitial()
 	{
@@ -47,9 +54,9 @@ public class ImporterTest extends TestWithEnvironment
 		doTest(true);
 	}
 
-	private static void doTest(final boolean hintInitial)
+	private void doTest(final boolean hintInitial)
 	{
-		ImporterItem.byCode.setHintInitialExerimental(hintInitial);
+		importerRule.set(hintInitial);
 
 		assertEquals(list(), TYPE.search(null, TYPE.getThis(), true));
 
