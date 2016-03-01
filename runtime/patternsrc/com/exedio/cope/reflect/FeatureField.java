@@ -62,13 +62,13 @@ public final class FeatureField<E extends Feature> extends Pattern implements Se
 		return new FeatureField<>(valueClass, new StringField());
 	}
 
-	private FeatureField(final Class<E> valueClass, final StringField integer)
+	private FeatureField(final Class<E> valueClass, final StringField idField)
 	{
 		this.valueClass = requireNonNull(valueClass, "valueClass");
-		this.idField = integer;
-		addSource(integer, "id", CustomAnnotatedElement.create(ComputedInstance.getAnnotation(), CopeSchemaNameElement.getEmpty()));
-		this.isfinal = integer.isFinal();
-		this.mandatory = integer.isMandatory();
+		this.idField = idField;
+		addSource(idField, "id", CustomAnnotatedElement.create(ComputedInstance.getAnnotation(), CopeSchemaNameElement.getEmpty()));
+		this.isfinal = idField.isFinal();
+		this.mandatory = idField.isMandatory();
 	}
 
 	public FeatureField<E> toFinal()
