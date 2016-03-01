@@ -53,6 +53,15 @@ final class OracleDialect extends Dialect
 						probe.properties.getConnectionUsername().toUpperCase(Locale.ENGLISH)));
 	}
 
+	/**
+	 * See https://en.wikipedia.org/wiki/DUAL_table
+	 */
+	@Override
+	String isValidOnGet42()
+	{
+		return "SELECT 42 FROM DUAL";
+	}
+
 	@Override
 	int getTransationIsolation()
 	{

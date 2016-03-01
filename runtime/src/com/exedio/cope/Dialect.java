@@ -81,6 +81,11 @@ abstract class Dialect
 		// default implementation does nothing, may be overwritten by subclasses
 	}
 
+	String isValidOnGet42()
+	{
+		return "SELECT 42";
+	}
+
 	int getTransationIsolation()
 	{
 		return Connection.TRANSACTION_REPEATABLE_READ;

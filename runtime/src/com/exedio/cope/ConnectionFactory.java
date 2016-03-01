@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import com.exedio.cope.util.Pool;
 import com.exedio.dsmf.SQLRuntimeException;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.sql.Connection;
 import java.sql.Driver;
 import java.sql.ResultSet;
@@ -89,11 +90,12 @@ final class ConnectionFactory implements Pool.Factory<Connection>
 		return result;
 	}
 
+	@SuppressFBWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
 	public boolean isValidOnGet(final Connection e)
 	{
 		try(
 				java.sql.Statement stat = e.createStatement();
-				ResultSet rs = stat.executeQuery("SELECT 42"))
+				ResultSet rs = stat.executeQuery(dialect.isValidOnGet42()))
 		{
 			//final long start = System.currentTimeMillis();
 			rs.next();
