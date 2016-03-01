@@ -1113,6 +1113,31 @@
 		</copy>
 	</target>
 
+	<target name="licenseheaders" description="Updates the license headers in the source files.">
+		<loadfile property="javaheader" srcFile="conf/javaheader.txt"/>
+		<replaceregexp match="(/\*.*\*/.*)??^package " flags="sm" replace="${javaheader}${line.separator}package ">
+			<fileset dir=".">
+				<include name="dsmf/src/**/*.java" />
+				<include name="dsmf/testsrc/**/*.java" />
+				<include name="instrument/annosrc/**/*.java" />
+				<include name="instrument/antsrc/**/*.java" />
+				<include name="instrument/examplesrc/**/*.java" />
+				<include name="instrument/testfeaturesrc/**/*.java" />
+				<include name="instrument/testsrc/**/*.java" />
+				<include name="runtime/junitsrc/**/*.java" />
+				<include name="runtime/mysqlsrc/**/*.java" />
+				<include name="runtime/patternsrc/**/*.java" />
+				<include name="runtime/postgresqlsrc/**/*.java" />
+				<include name="runtime/servletsrc/**/*.java" />
+				<include name="runtime/servlettestsrc/**/*.java" />
+				<include name="runtime/servlettestwebsrc/**/*.java" />
+				<include name="runtime/src/**/*.java" />
+				<include name="runtime/testfeaturesrc/**/*.java" />
+				<include name="runtime/testsrc/**/*.java" />
+			</fileset>
+		</replaceregexp>
+	</target>
+
 	<target name="single.test" depends="runtime.test.compile">
 		<fail unless="testpath">provide test class path name</fail>
 		<propertyregex property="testclass"

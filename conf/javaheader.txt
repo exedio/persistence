@@ -15,20 +15,3 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-
-package com.exedio.cope.pattern;
-
-import com.exedio.cope.Condition;
-
-public interface PriceFunction
-{
-	Condition isNull();
-	Condition isNotNull();
-	Condition equal(Price value);
-	Condition notEqual(Price value);
-	Condition less(Price value);
-	Condition lessOrEqual(Price value);
-	Condition greater(Price value);
-	Condition greaterOrEqual(Price value);
-	Condition between(Price lowerBound, Price upperBound);
-}
