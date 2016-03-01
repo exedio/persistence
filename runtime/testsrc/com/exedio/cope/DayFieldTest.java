@@ -49,7 +49,7 @@ public class DayFieldTest extends TestWithEnvironment
 	private final AbsoluteMockClockStrategy clock = new AbsoluteMockClockStrategy();
 	private final ClockRule clockRule = new ClockRule();
 
-	@Rule public final RuleChain chain = RuleChain.outerRule(clockRule);
+	@Rule public final RuleChain ruleChain = RuleChain.outerRule(clockRule);
 
 	DayItem item, item2;
 	static final Day DEFAULT = new Day(2005, 8, 14);
