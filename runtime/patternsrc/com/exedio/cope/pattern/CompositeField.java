@@ -145,6 +145,10 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 		return f;
 	}
 
+	/**
+	 * Returns the component created for the given template within this CompositeField.
+	 * The reverse operation is {@link #getTemplate(FunctionField)}.
+	 */
 	public <X extends FunctionField<?>> X of(final X template)
 	{
 		@SuppressWarnings("unchecked")
@@ -154,6 +158,10 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 		return result;
 	}
 
+	/**
+	 * Returns the template the given component was created for.
+	 * The reverse operation is {@link #of(FunctionField)}.
+	 */
 	public <X extends FunctionField<?>> X getTemplate(final X component)
 	{
 		@SuppressWarnings("unchecked")

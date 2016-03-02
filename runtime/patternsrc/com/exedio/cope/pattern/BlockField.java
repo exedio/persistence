@@ -88,6 +88,10 @@ public final class BlockField<E extends Block> extends Pattern implements Copyab
 		return new BlockField<>(valueType);
 	}
 
+	/**
+	 * Returns the component created for the given template within this BlockField.
+	 * The reverse operation is {@link #getTemplate(Feature)}.
+	 */
 	public <X extends Feature> X of(final X template)
 	{
 		@SuppressWarnings("unchecked")
@@ -97,6 +101,10 @@ public final class BlockField<E extends Block> extends Pattern implements Copyab
 		return result;
 	}
 
+	/**
+	 * Returns the template the given component was created for.
+	 * The reverse operation is {@link #of(Feature)}.
+	 */
 	public <X extends Feature> X getTemplate(final X component)
 	{
 		@SuppressWarnings("unchecked")
