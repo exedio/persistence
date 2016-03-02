@@ -67,6 +67,12 @@ final class MysqlDialect extends Dialect
 		final String mb4 = utf8mb4 ? "mb4" : "";
 		this.charset = " CHARACTER SET utf8" + mb4 + " COLLATE utf8" + mb4 + "_bin";
 		this.deleteTable = probe.properties.mysqlAvoidTruncate ? "delete from " : "truncate ";
+
+		final EnvironmentInfo env = probe.environmentInfo;
+		if(!utf8mb4 && env.isDatabaseVersionAtLeast(5, 7))
+			throw new IllegalArgumentException(
+					"utf8mb4 must be enabled on MySQL 5.7 and later: " +
+					env.getDatabaseVersionDescription());
 	}
 
 	@Override
