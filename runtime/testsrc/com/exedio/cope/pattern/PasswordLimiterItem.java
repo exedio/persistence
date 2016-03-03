@@ -20,6 +20,7 @@ package com.exedio.cope.pattern;
 
 import com.exedio.cope.Item;
 import com.exedio.cope.pattern.PasswordLimiter.ExceededException;
+import com.exedio.cope.tojunit.RelativeMockClockStrategy;
 
 public final class PasswordLimiterItem extends Item
 {

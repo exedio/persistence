@@ -30,6 +30,7 @@ import static org.junit.Assert.assertTrue;
 import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.pattern.PasswordLimiter.Refusal;
 import com.exedio.cope.tojunit.ClockRule;
+import com.exedio.cope.tojunit.RelativeMockClockStrategy;
 import java.util.Date;
 import java.util.List;
 import org.junit.Before;

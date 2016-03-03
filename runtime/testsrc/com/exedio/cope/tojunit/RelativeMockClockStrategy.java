@@ -16,14 +16,14 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.cope.pattern;
+package com.exedio.cope.tojunit;
 
 import com.exedio.cope.util.Clock.Strategy;
 import java.util.Collections;
 import java.util.LinkedList;
 import org.junit.Assert;
 
-final class RelativeMockClockStrategy implements Strategy
+public final class RelativeMockClockStrategy implements Strategy
 {
 	private final LinkedList<Long> events = new LinkedList<>();
 	private long date = 1000l*60*60*24*1000;

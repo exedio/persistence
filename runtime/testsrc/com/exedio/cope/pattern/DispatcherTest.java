@@ -33,6 +33,7 @@ import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.pattern.Dispatcher.Run;
 import com.exedio.cope.tojunit.ClockRule;
 import com.exedio.cope.tojunit.LogRule;
+import com.exedio.cope.tojunit.RelativeMockClockStrategy;
 import com.exedio.cope.util.AssertionErrorJobContext;
 import com.exedio.cope.util.EmptyJobContext;
 import com.exedio.cope.util.JobContext;
