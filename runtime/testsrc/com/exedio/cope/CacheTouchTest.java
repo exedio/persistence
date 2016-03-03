@@ -45,7 +45,7 @@ public class CacheTouchTest extends TestWithEnvironment
 
 	@Test public void testIt()
 	{
-		if(!cache || hsqldb || oracle) return; // TODO
+		if(!cache || oracle) return; // TODO
 		initCache();
 
 		assertUpdateCount(0, MIN_VALUE);
@@ -113,7 +113,7 @@ public class CacheTouchTest extends TestWithEnvironment
 	}
 	else
 	{
-		final boolean rr = !hsqldb;
+		final boolean rr = true;
 		final boolean il = props.itemCacheStamps;
 
 		assertEquals(rr?"itemName":"itemName2", item.getName());

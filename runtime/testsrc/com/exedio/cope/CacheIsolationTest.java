@@ -59,7 +59,6 @@ public class CacheIsolationTest extends TestWithEnvironment
 
 	@Test public void test() throws MandatoryViolationException
 	{
-		if(hsqldb) return;
 		assertInvalidations(0, 0);
 		model.commit();
 		assertInvalidations(2, 0);
@@ -101,7 +100,6 @@ public class CacheIsolationTest extends TestWithEnvironment
 
 	@Test public void testRollback() throws MandatoryViolationException
 	{
-		if(hsqldb) return;
 		assertInvalidations(0, 0);
 		model.commit();
 		assertInvalidations(2, 0);
@@ -129,8 +127,6 @@ public class CacheIsolationTest extends TestWithEnvironment
 
 	@Test public void testSearch() throws MandatoryViolationException
 	{
-		if(hsqldb) return;
-
 		assertContains( item, CacheIsolationItem.TYPE.search(CacheIsolationItem.name.equal("blub")) );
 		assertInvalidations(0, 0);
 		model.commit();
