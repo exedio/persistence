@@ -62,8 +62,8 @@ public class ClusterPropertiesTest
 
 		model.connect(new ConnectProperties(ConnectSource.get(), s));
 		final ClusterProperties p = (ClusterProperties)model.getClusterProperties();
-		assertEquals(5, p.getListenThreads());
-		assertEquals(5, p.getListenThreadsMax());
+		assertEquals(5, p.listenThreads);
+		assertEquals(5, p.listenThreadsMax);
 	}
 
 	@Test public void testFailListenThreads()

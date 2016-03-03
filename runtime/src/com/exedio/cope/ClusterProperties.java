@@ -83,8 +83,8 @@ final class ClusterProperties extends Properties
 	private final InetAddress listenInterface = valAd("listenInterface");
 	private final boolean listenBufferDefault = value("listenBufferDefault", true);
 	private final int     listenBuffer        = value("listenBuffer"       , 50000, 1);
-	private final int     listenThreads       = value("listenThreads",       1, 1);
-	private final int     listenThreadsMax    = value("listenThreadsMax",    10, 1);
+	        final int     listenThreads       = value("listenThreads",       1, 1);
+	        final int     listenThreadsMax    = value("listenThreadsMax",    10, 1);
 	private final boolean listenPrioritySet   = value("listenPrioritySet",   false);
 	private final int     listenPriority      = value("listenPriority",      MAX_PRIORITY, MIN_PRIORITY);
 	        final int     listenSeqCheckCap   = value("listenSequenceCheckerCapacity", 200, 1);
@@ -225,16 +225,6 @@ final class ClusterProperties extends Properties
 					String.valueOf(sendSourcePort) + '/' +
 					String.valueOf(sendSourcePort), e);
 		}
-	}
-
-	int getListenThreads()
-	{
-		return listenThreads; // TODO remove
-	}
-
-	int getListenThreadsMax()
-	{
-		return listenThreadsMax; // TODO remove
 	}
 
 	DatagramSocket newListenSocket()

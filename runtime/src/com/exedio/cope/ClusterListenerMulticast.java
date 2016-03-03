@@ -64,10 +64,10 @@ final class ClusterListenerMulticast extends ClusterListenerModel implements Run
 		this.threads = new ThreadSwarm(
 				this,
 				"COPE Cluster Listener " + modelName + ' ' + ClusterSenderInfo.toStringNodeID(properties.node),
-				properties.getListenThreadsMax()
+				properties.listenThreadsMax
 		);
 		properties.setListenPriority(threads);
-		threads.start(properties.getListenThreads());
+		threads.start(properties.listenThreads);
 	}
 
 	public void run()

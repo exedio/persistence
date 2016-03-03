@@ -73,8 +73,8 @@ public class ClusterPropertiesNoContextTest
 
 		model.connect(new ConnectProperties(s, null));
 		final ClusterProperties p = (ClusterProperties)model.getClusterProperties();
-		assertEquals(5, p.getListenThreads());
-		assertEquals(5, p.getListenThreadsMax());
+		assertEquals(5, p.listenThreads);
+		assertEquals(5, p.listenThreadsMax);
 	}
 
 	@SuppressFBWarnings("BC_UNCONFIRMED_CAST_OF_RETURN_VALUE")
