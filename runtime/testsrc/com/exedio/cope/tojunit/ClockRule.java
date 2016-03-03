@@ -18,8 +18,6 @@
 
 package com.exedio.cope.tojunit;
 
-import static com.exedio.cope.util.Clock.clearOverride;
-
 import com.exedio.cope.util.Clock;
 import com.exedio.cope.util.Clock.Strategy;
 import org.junit.rules.ExternalResource;
@@ -35,7 +33,7 @@ public final class ClockRule extends ExternalResource
 	public void clear()
 	{
 		before.assertCalled();
-		clearOverride();
+		Clock.clearOverride();
 	}
 
 
@@ -50,6 +48,6 @@ public final class ClockRule extends ExternalResource
 	@Override
 	protected void after()
 	{
-		clearOverride();
+		Clock.clearOverride();
 	}
 }
