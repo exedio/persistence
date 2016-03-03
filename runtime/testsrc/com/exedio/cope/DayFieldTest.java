@@ -140,8 +140,7 @@ public class DayFieldTest extends TestWithEnvironment
 		clock.add(988888888888l);
 		item.touchOptionalDay(getTimeZone("Europe/Berlin"));
 		clock.assertEmpty();
-		clock.add(988888888888l);
-		assertEquals(new Day(getTimeZone("Europe/Berlin")), item.getOptionalDay());
+		assertEquals(new Day(988888888888l, getTimeZone("Europe/Berlin")), item.getOptionalDay());
 
 		item.setOptionalDay(null);
 		assertEquals(null, item.getOptionalDay());
