@@ -18,8 +18,6 @@
 
 package com.exedio.cope.pattern;
 
-import static com.exedio.cope.util.Clock.newDate;
-
 import com.exedio.cope.CheckConstraint;
 import com.exedio.cope.Condition;
 import com.exedio.cope.CopyMapper;
@@ -44,6 +42,7 @@ import com.exedio.cope.misc.ComputedElement;
 import com.exedio.cope.misc.Conditions;
 import com.exedio.cope.misc.SetValueUtil;
 import com.exedio.cope.misc.instrument.FinalSettableGetter;
+import com.exedio.cope.util.Clock;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.File;
 import java.io.IOException;
@@ -608,7 +607,7 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 			final FunctionField<?> contentTypeField = this.contentType.field;
 			if(contentTypeField!=null)
 				values.add(this.contentType.map(contentType));
-			values.add(this.lastModified.map(newDate()));
+			values.add(this.lastModified.map(Clock.newDate()));
 			values.add(this.body.map(body));
 
 			return SetValueUtil.toArray(values);

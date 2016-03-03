@@ -18,10 +18,9 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.util.Clock.newDate;
-
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.instrument.FinalSettableGetter;
+import com.exedio.cope.util.Clock;
 import java.lang.reflect.AnnotatedElement;
 import java.util.Date;
 import org.slf4j.Logger;
@@ -185,6 +184,6 @@ public final class DateField extends FunctionField<Date>
 			hide=FinalSettableGetter.class)
 	public void touch(final Item item)
 	{
-		set(item, newDate()); // TODO: make a more efficient implementation
+		set(item, Clock.newDate()); // TODO: make a more efficient implementation
 	}
 }
