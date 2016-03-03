@@ -113,11 +113,10 @@ public class CacheTouchTest extends TestWithEnvironment
 	}
 	else
 	{
-		final boolean rr = true;
 		final boolean il = props.itemCacheStamps;
 
-		assertEquals(rr?"itemName":"itemName2", item.getName());
-		assertUpdateCount(rr?0:1, il?MIN_VALUE:1);
+		assertEquals("itemName", item.getName());
+		assertUpdateCount(0, il?MIN_VALUE:1);
 		assertCache(il?0:1, 0, 2, 2, 1);
 
 		model.commit();
