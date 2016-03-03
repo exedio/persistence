@@ -91,7 +91,7 @@ public class ItemCacheStampPurgeTest extends TestWithEnvironment
 
 	@Test public void testOverlappingOnce()
 	{
-		if(quit||hsqldb)
+		if(quit)
 			return;
 		assertCache(0, 0, 0, 0, 0, 0, 0, 0);
 
@@ -152,7 +152,7 @@ public class ItemCacheStampPurgeTest extends TestWithEnvironment
 
 	@Test public void testOverlappingTwice()
 	{
-		if(quit||hsqldb)
+		if(quit)
 			return;
 		assertCache(0, 0, 0, 0, 0, 0, 0, 0);
 

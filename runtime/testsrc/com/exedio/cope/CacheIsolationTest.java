@@ -59,7 +59,6 @@ public class CacheIsolationTest extends TestWithEnvironment
 
 	@Test public void test() throws MandatoryViolationException
 	{
-		if(hsqldb) return;
 		assertInvalidations(0, 0);
 		model.commit();
 		assertInvalidations(2, 0);
@@ -101,7 +100,6 @@ public class CacheIsolationTest extends TestWithEnvironment
 
 	@Test public void testRollback() throws MandatoryViolationException
 	{
-		if(hsqldb) return;
 		assertInvalidations(0, 0);
 		model.commit();
 		assertInvalidations(2, 0);
@@ -120,8 +118,11 @@ public class CacheIsolationTest extends TestWithEnvironment
 		assertInvalidations(2, 0);
 		model.joinTransaction( txRollback );
 		model.rollback();
-		model.startTransaction( "check" );
-		listener.expectNoCall();
+		final Transaction txCheck = model.startTransaction( "check" );
+		if(model.getConnectProperties().getItemCacheLimit()>0)
+			listener.expectNoCall();
+		else
+			listener.expectLoad( txCheck, item );
 		assertEquals( "blub", item.getName() );
 		listener.verifyExpectations();
 		assertSame(listener, model.setTestDatabaseListener(null));
@@ -129,8 +130,6 @@ public class CacheIsolationTest extends TestWithEnvironment
 
 	@Test public void testSearch() throws MandatoryViolationException
 	{
-		if(hsqldb) return;
-
 		assertContains( item, CacheIsolationItem.TYPE.search(CacheIsolationItem.name.equal("blub")) );
 		assertInvalidations(0, 0);
 		model.commit();
