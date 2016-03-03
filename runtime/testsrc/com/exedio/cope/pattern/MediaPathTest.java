@@ -31,9 +31,7 @@ import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.Type;
-import com.exedio.cope.junit.AbsoluteMockClockStrategy;
 import com.exedio.cope.pattern.MediaPathFeature.Result;
-import com.exedio.cope.tojunit.ClockRule;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -47,9 +45,7 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.RuleChain;
 
 public final class MediaPathTest extends TestWithEnvironment
 {
@@ -65,11 +61,6 @@ public final class MediaPathTest extends TestWithEnvironment
 		super(MODEL);
 	}
 
-	private final AbsoluteMockClockStrategy clock = new AbsoluteMockClockStrategy();
-	private final ClockRule clockRule = new ClockRule();
-
-	@Rule public final RuleChain ruleChain = RuleChain.outerRule(clockRule);
-
 	private MediaPathItem item;
 	private String id;
 	private MyMediaServlet servlet;
@@ -82,7 +73,6 @@ public final class MediaPathTest extends TestWithEnvironment
 		servlet = new MyMediaServlet();
 		servlet.initPathes(MODEL);
 		servlet.initConnected(MODEL);
-		clockRule.override(clock);
 		normalInfo = MediaPathItem.normal.getInfo();
 	}
 
