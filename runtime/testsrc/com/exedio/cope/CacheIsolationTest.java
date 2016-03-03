@@ -118,8 +118,11 @@ public class CacheIsolationTest extends TestWithEnvironment
 		assertInvalidations(2, 0);
 		model.joinTransaction( txRollback );
 		model.rollback();
-		model.startTransaction( "check" );
-		listener.expectNoCall();
+		final Transaction txCheck = model.startTransaction( "check" );
+		if(model.getConnectProperties().getItemCacheLimit()>0)
+			listener.expectNoCall();
+		else
+			listener.expectLoad( txCheck, item );
 		assertEquals( "blub", item.getName() );
 		listener.verifyExpectations();
 		assertSame(listener, model.setTestDatabaseListener(null));
