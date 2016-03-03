@@ -40,6 +40,16 @@ final class HsqldbDialect extends Dialect
 	}
 
 	@Override
+	void completeConnection(final Connection connection) throws SQLException
+	{
+		try(java.sql.Statement st = connection.createStatement())
+		{
+			// http://hsqldb.org/doc/guide/dbproperties-chapt.html#N15634
+			st.execute("SET DATABASE TRANSACTION CONTROL MVCC");
+		}
+	}
+
+	@Override
 	String getIntegerType(final long minimum, final long maximum)
 	{
 		// TODO: select between TINYINT, SMALLINT, INTEGER, BIGINT, NUMBER
