@@ -18,12 +18,12 @@
 
 package com.exedio.cope.pattern;
 
-import com.exedio.cope.util.Clock;
+import com.exedio.cope.util.Clock.Strategy;
 import java.util.Collections;
 import java.util.LinkedList;
 import org.junit.Assert;
 
-final class RelativeMockClockStrategy implements Clock.Strategy
+final class RelativeMockClockStrategy implements Strategy
 {
 	private final LinkedList<Long> events = new LinkedList<>();
 	private long date = 1000l*60*60*24*1000;

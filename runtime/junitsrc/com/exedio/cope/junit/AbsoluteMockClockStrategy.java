@@ -21,12 +21,12 @@ package com.exedio.cope.junit;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
-import com.exedio.cope.util.Clock;
+import com.exedio.cope.util.Clock.Strategy;
 import java.util.Collections;
 import java.util.Date;
 import java.util.LinkedList;
 
-public final class AbsoluteMockClockStrategy implements Clock.Strategy
+public final class AbsoluteMockClockStrategy implements Strategy
 {
 	private final LinkedList<Date> events = new LinkedList<>();
 
