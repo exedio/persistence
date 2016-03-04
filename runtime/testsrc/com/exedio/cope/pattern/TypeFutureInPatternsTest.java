@@ -16,10 +16,30 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.cope;
+package com.exedio.cope.pattern;
 
-//@FunctionalInterface
-public interface TypeFuture<T extends Item>
+import static com.exedio.cope.pattern.TypeFutureInPatternsItem.create;
+import static org.junit.Assert.assertEquals;
+
+import com.exedio.cope.TestWithEnvironment;
+import com.exedio.cope.pattern.TypeFutureInPatternsFeature.TypeItem;
+import org.junit.Test;
+
+public class TypeFutureInPatternsTest extends TestWithEnvironment
 {
-	Type<T> get();
+	public TypeFutureInPatternsTest()
+	{
+		super(TypeFutureInPatternsModelTest.MODEL);
+	}
+
+	@Test public void testIt()
+	{
+		final TypeItem i1 = create(55, null);
+		assertEquals(55, i1.getInteger());
+		assertEquals(null, i1.getSelf());
+
+		final TypeItem i2 = create(66, i1);
+		assertEquals(66, i2.getInteger());
+		assertEquals(i1, i2.getSelf());
+	}
 }

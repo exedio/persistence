@@ -52,7 +52,7 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 		checkValueClass(Item.class);
 		if(Item.class.equals(valueClass))
 			throw new IllegalArgumentException("is not a subclass of " + Item.class.getName() + " but Item itself");
-		this.valueTypeFuture = valueTypeFuture;
+		this.valueTypeFuture = requireNonNull(valueTypeFuture, "valueType");
 		this.policy = requireNonNull(policy, "policy");
 		if(policy==DeletePolicy.NULLIFY)
 		{
@@ -94,6 +94,14 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 	public static final <E extends Item> ItemField<E> create(final Class<E> valueClass, final DeletePolicy policy)
 	{
 		return new ItemField<>(valueClass, future(valueClass), policy);
+	}
+
+	public static final <E extends Item> ItemField<E> create(
+			final Class<E> valueClass,
+			final TypeFuture<E> valueType,
+			final DeletePolicy policy)
+	{
+		return new ItemField<>(valueClass, valueType, policy);
 	}
 
 	@Override
@@ -252,9 +260,12 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 		if(!typesAllowed.contains(valueType))
 			throw new IllegalArgumentException("value type of " + this.toString() + " (" + valueTypeFuture.toString() + ") does not belong to the same model");
 		if(!valueClass.equals(valueType.getJavaClass()))
-			throw new RuntimeException(
-					"value type of " + this.toString() + " (" + valueTypeFuture.toString() + ") " +
-					"is inconsistent to valueClass " + valueClass.getName());
+			throw new IllegalArgumentException(
+					"ItemField " + this + ": " +
+					"valueClass " + valueClass.getName() + " " +
+					"must be equal to " +
+					"javaClass " + valueType.getJavaClass().getName() +
+					" of valueType " + valueType + " provided by TypeFuture " + valueTypeFuture + ".");
 		this.valueType = valueType;
 	}
 
