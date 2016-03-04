@@ -109,7 +109,7 @@ final class ConnectionFactory implements Pool.Factory<Connection>
 		catch(final SQLException ex)
 		{
 			if(logger.isWarnEnabled())
-				logger.warn( "invalid on get", ex );
+				logger.warn("invalid on get: " + sql, ex);
 			if(isValidOnGetFails)
 				throw new SQLRuntimeException(ex, sql);
 			return false;
