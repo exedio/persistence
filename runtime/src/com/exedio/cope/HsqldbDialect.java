@@ -50,6 +50,12 @@ final class HsqldbDialect extends Dialect
 	}
 
 	@Override
+	String isValidOnGet42()
+	{
+		return "VALUES(42)";
+	}
+
+	@Override
 	String getIntegerType(final long minimum, final long maximum)
 	{
 		// TODO: select between TINYINT, SMALLINT, INTEGER, BIGINT, NUMBER

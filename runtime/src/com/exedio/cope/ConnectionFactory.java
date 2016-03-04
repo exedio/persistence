@@ -93,9 +93,10 @@ final class ConnectionFactory implements Pool.Factory<Connection>
 	@SuppressFBWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
 	public boolean isValidOnGet(final Connection e)
 	{
+		final String sql = dialect.isValidOnGet42();
 		try(
 				java.sql.Statement stat = e.createStatement();
-				ResultSet rs = stat.executeQuery(dialect.isValidOnGet42()))
+				ResultSet rs = stat.executeQuery(sql))
 		{
 			//final long start = System.currentTimeMillis();
 			rs.next();
@@ -109,9 +110,13 @@ final class ConnectionFactory implements Pool.Factory<Connection>
 		{
 			if(logger.isWarnEnabled())
 				logger.warn( "invalid on get", ex );
+			if(isValidOnGetFails)
+				throw new SQLRuntimeException(ex, sql);
 			return false;
 		}
 	}
+
+	boolean isValidOnGetFails = false;
 
 	public boolean isValidOnPut(final Connection e)
 	{
