@@ -94,17 +94,17 @@ final class ConnectionFactory implements Pool.Factory<Connection>
 	public boolean isValidOnGet(final Connection e)
 	{
 		final String sql = dialect.isValidOnGet42();
+		final int result;
 		try(
 				java.sql.Statement stat = e.createStatement();
 				ResultSet rs = stat.executeQuery(sql))
 		{
 			//final long start = System.currentTimeMillis();
 			rs.next();
-			final int result = rs.getInt(1);
+			result = rs.getInt(1);
 			//timeInChecks += (System.currentTimeMillis()-start);
 			//numberOfChecks++;
 			//System.out.println("------------------"+timeInChecks+"---"+numberOfChecks+"---"+(timeInChecks/numberOfChecks));
-			return result==42;
 		}
 		catch(final SQLException ex)
 		{
@@ -114,6 +114,10 @@ final class ConnectionFactory implements Pool.Factory<Connection>
 				throw new SQLRuntimeException(ex, sql);
 			return false;
 		}
+
+		if(result!=42)
+			throw new RuntimeException("expected 42, but was " + result);
+		return true;
 	}
 
 	boolean isValidOnGetFails = false;
