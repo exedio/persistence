@@ -43,7 +43,7 @@ final class ClusterProperties extends Properties
 	{
 		if(properties.noContext())
 		{
-			final ClusterProperties result = properties.clusterPropertiesWithoutContext;
+			final ClusterProperties result = properties.clusterWithoutContext;
 			if(result!=null && !properties.primaryKeyGenerator.persistent)
 				throw new IllegalArgumentException("cluster network not supported together with schema.primaryKeyGenerator=" + properties.primaryKeyGenerator.name() + " (2)");
 			return result;
