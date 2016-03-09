@@ -72,6 +72,7 @@ public class ClusterPropertiesNoContextTest
 		};
 
 		model.connect(new ConnectProperties(s, null));
+		assertEquals(true, model.isClusterNetworkEnabled());
 		final ClusterProperties p = (ClusterProperties)model.getClusterProperties();
 		assertEquals(5, p.listenThreads);
 		assertEquals(5, p.listenThreadsMax);
