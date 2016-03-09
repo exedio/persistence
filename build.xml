@@ -464,6 +464,7 @@
 				<exclude name="pattern/TextUrlFilterDelegatorAnnotationTest.java" />
 				<exclude name="AutoIncrementEvaluator.java" />
 				<exclude name="ChangeListenersTest.java" />
+				<exclude name="ClusterDisabledTest.java" />
 				<exclude name="ClusterNetworkTest.java" />
 				<exclude name="ClusterPropertiesNoContextTest.java" />
 				<exclude name="ClusterPropertiesTest.java" />

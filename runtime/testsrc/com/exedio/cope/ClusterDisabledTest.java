@@ -1,0 +1,84 @@
+/*
+ * Copyright (C) 2004-2015  exedio GmbH (www.exedio.com)
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ */
+
+package com.exedio.cope;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
+public class ClusterDisabledTest
+{
+	@Test public void test()
+	{
+		assertEquals(false, model. isClusterNetworkEnabled());
+		assertEquals(null,  model.getClusterProperties());
+		assertEquals(null,  model.getClusterSenderInfo());
+		assertEquals(null,  model.getClusterListenerInfo());
+
+		try
+		{
+			model.pingClusterNetwork();
+			fail();
+		}
+		catch(final IllegalStateException e)
+		{
+			assertEquals("cluster network not enabled", e.getMessage());
+		}
+
+		try
+		{
+			model.pingClusterNetwork(5);
+			fail();
+		}
+		catch(final IllegalStateException e)
+		{
+			assertEquals("cluster network not enabled", e.getMessage());
+		}
+	}
+
+
+	@SuppressWarnings("static-method")
+	@Before public final void setUp()
+	{
+		model.connect(ConnectProperties.factory().create(ConnectSource.get()));
+	}
+
+	@SuppressWarnings("static-method")
+	@After public final void tearDown()
+	{
+		if(model.isConnected())
+			model.disconnect();
+	}
+
+	private static final class AnItem extends Item
+	{
+		private AnItem(final ActivationParameters ap) { super(ap); }
+		private static final long serialVersionUID = 1l;
+	}
+
+	private static final Model model = new Model(TypesBound.newType(AnItem.class));
+
+	static
+	{
+		model.enableSerialization(ClusterDisabledTest.class, "model");
+	}
+}
