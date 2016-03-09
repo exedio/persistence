@@ -68,13 +68,13 @@ abstract class ClusterListener
 			return;
 		}
 
-		if(secret!=iter.nextInt())
+		if(secret!=iter.next())
 		{
 			wrongSecret.inc();
 			return;
 		}
 
-		final int node = iter.nextInt();
+		final int node = iter.next();
 		if(localNode==node)
 		{
 			fromMyself.inc();
@@ -82,7 +82,7 @@ abstract class ClusterListener
 		}
 
 		// kind
-		final int kind = iter.nextInt();
+		final int kind = iter.next();
 
 		switch(kind)
 		{
@@ -99,7 +99,7 @@ abstract class ClusterListener
 			}
 			case KIND_INVALIDATE:
 			{
-				final int sequence = iter.nextInt();
+				final int sequence = iter.next();
 
 				if(node(node, packet).invalidate(sequence))
 				{
@@ -111,7 +111,7 @@ abstract class ClusterListener
 				final TIntHashSet[] invalidations = new TIntHashSet[typeLength];
 				outer: while(iter.hasNext())
 				{
-					final int typeIdTransiently = iter.nextInt();
+					final int typeIdTransiently = iter.next();
 					final TIntHashSet set = new TIntHashSet();
 					invalidations[typeIdTransiently] = set;
 					inner: while(true)
@@ -119,7 +119,7 @@ abstract class ClusterListener
 						if(!iter.hasNext())
 							break outer;
 
-						final int pk = iter.nextInt();
+						final int pk = iter.next();
 						if(pk==PK.NaPK)
 							break inner;
 
@@ -144,7 +144,7 @@ abstract class ClusterListener
 			final int node,
 			final boolean ping)
 	{
-		final int sequence = iter.nextInt();
+		final int sequence = iter.next();
 
 		iter.checkPingPayload(properties, ping);
 
@@ -203,7 +203,7 @@ abstract class ClusterListener
 			return true;
 		}
 
-		int nextInt()
+		int next()
 		{
 			int pos = this.pos;
 			final int result =
