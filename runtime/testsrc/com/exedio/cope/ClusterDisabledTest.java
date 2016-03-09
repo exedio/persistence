@@ -53,6 +53,16 @@ public class ClusterDisabledTest
 		{
 			assertEquals("cluster network not enabled", e.getMessage());
 		}
+
+		try
+		{
+			model.pingClusterNetwork(0);
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals("count must be greater zero, but was 0", e.getMessage());
+		}
 	}
 
 

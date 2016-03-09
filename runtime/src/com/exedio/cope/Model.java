@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.misc.Check.requireGreaterZero;
 import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.misc.DatabaseListener;
@@ -592,6 +593,7 @@ public final class Model implements Serializable
 
 	public void pingClusterNetwork(final int count)
 	{
+		requireGreaterZero(count, "count");
 		final Cluster cluster = connect().cluster;
 		if(cluster==null)
 			throw new IllegalStateException("cluster network not enabled");
