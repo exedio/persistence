@@ -29,7 +29,7 @@ public class ClusterDisabledTest
 {
 	@Test public void test()
 	{
-		assertEquals(false, model. isClusterNetworkEnabled());
+		assertEquals(false, model. isClusterEnabled());
 		assertEquals(null,  model.getClusterProperties());
 		assertEquals(null,  model.getClusterSenderInfo());
 		assertEquals(null,  model.getClusterListenerInfo());

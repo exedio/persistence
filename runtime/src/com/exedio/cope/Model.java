@@ -560,7 +560,16 @@ public final class Model implements Serializable
 		return connect().database.probe.environmentInfo;
 	}
 
+	/**
+	 * @deprecated Use {@link #isClusterEnabled()} instead
+	 */
+	@Deprecated
 	public boolean isClusterNetworkEnabled()
+	{
+		return isClusterEnabled();
+	}
+
+	public boolean isClusterEnabled()
 	{
 		return connect().cluster!=null;
 	}
