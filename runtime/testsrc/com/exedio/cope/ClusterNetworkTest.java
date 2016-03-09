@@ -56,8 +56,6 @@ public abstract class ClusterNetworkTest
 					{
 						if(key.equals("cluster.secret"))
 							return "1234";
-						else if(key.equals("cluster.log"))
-							return "false";
 						else if(key.equals("cluster.listenThreads"))
 							return "2";
 						else if(!multicast && key.equals("cluster.multicast"))

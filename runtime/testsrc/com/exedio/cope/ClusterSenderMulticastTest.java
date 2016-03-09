@@ -49,8 +49,6 @@ public final class ClusterSenderMulticastTest
 							return "47";
 						else if(key.equals("cluster.secret"))
 							return String.valueOf(SECRET);
-						else if(key.equals("cluster.log"))
-							return "false";
 						else
 							return null;
 					}

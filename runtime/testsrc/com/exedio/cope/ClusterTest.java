@@ -64,8 +64,6 @@ public abstract class ClusterTest
 							return "false";
 						else if(key.equals("cluster.node"))
 							return String.valueOf(node);
-						else if(key.equals("cluster.log"))
-							return "false";
 						else
 							return null;
 					}

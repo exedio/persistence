@@ -39,8 +39,6 @@ public class ClusterPropertiesTest
 			{
 				if(key.equals("cluster.secret"))
 					return String.valueOf("1234");
-				else if(key.equals("cluster.log"))
-					return "false";
 				else if(key.equals("cluster.listenThreads"))
 					return "5";
 				else if(key.equals("cluster.listenThreadsMax"))
@@ -75,8 +73,6 @@ public class ClusterPropertiesTest
 			{
 				if(key.equals("cluster.secret"))
 					return String.valueOf("1234");
-				else if(key.equals("cluster.log"))
-					return "false";
 				else if(key.equals("cluster.listenThreads"))
 					return "5";
 				else if(key.equals("cluster.listenThreadsMax"))
