@@ -560,6 +560,11 @@ public final class Model implements Serializable
 		return connect().database.probe.environmentInfo;
 	}
 
+	public boolean isClusterNetworkEnabled()
+	{
+		return connect().cluster!=null;
+	}
+
 	public Properties getClusterProperties()
 	{
 		final Cluster cluster = connect().cluster;
@@ -576,6 +581,19 @@ public final class Model implements Serializable
 	{
 		final Cluster cluster = connect().cluster;
 		return cluster!=null ? cluster.getListenerInfo() : null;
+	}
+
+	public void pingClusterNetwork()
+	{
+		pingClusterNetwork(1);
+	}
+
+	public void pingClusterNetwork(final int count)
+	{
+		final Cluster cluster = connect().cluster;
+		if(cluster==null)
+			throw new IllegalStateException("cluster network not enabled");
+		cluster.sendPing(count);
 	}
 
 	// ----------------------- transaction
@@ -738,24 +756,6 @@ public final class Model implements Serializable
 		transactions.assertNoCurrentTransaction();
 
 		connect().database.makeSchema().checkUnsupportedConstraints();
-	}
-
-	public boolean isClusterNetworkEnabled()
-	{
-		return connect().cluster!=null;
-	}
-
-	public void pingClusterNetwork()
-	{
-		pingClusterNetwork(1);
-	}
-
-	public void pingClusterNetwork(final int count)
-	{
-		final Cluster cluster = connect().cluster;
-		if(cluster==null)
-			throw new IllegalStateException("cluster network not enabled");
-		cluster.sendPing(count);
 	}
 
 	// serialization -------------
