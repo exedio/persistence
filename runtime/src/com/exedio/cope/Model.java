@@ -560,6 +560,8 @@ public final class Model implements Serializable
 		return connect().database.probe.environmentInfo;
 	}
 
+	// ----------------------- cluster
+
 	public boolean isClusterEnabled()
 	{
 		return connect().cluster!=null;
