@@ -27,7 +27,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 @SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
-public class ClusterIntTest
+public class ClusterUtilTest
 {
 	private static final byte FILL = (byte)0xee;
 	private byte[] buf;
