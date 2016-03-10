@@ -98,9 +98,6 @@ abstract class ClusterSender
 
 	private void pingPong(final int kind, final AtomicInteger sequence, final int count)
 	{
-		if(count<=0)
-			throw new IllegalArgumentException("count must be greater than zero, but was " + count);
-
 		assert kind==KIND_PING||kind==KIND_PONG : kind;
 		final int packetSize = properties.packetSize;
 

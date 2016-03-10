@@ -638,20 +638,6 @@ public abstract class ClusterTest
 					(byte)47,   (byte)-43,  (byte)103,  (byte)46,       // 40 fillup
 					(byte)56,   (byte)-32,  (byte)-117, (byte)126);     // 44 fillup
 		}
-
-		sink.clear();
-		cs.testSink = sink;
-		try
-		{
-			cs.ping(0);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("count must be greater than zero, but was 0", e.getMessage());
-		}
-		cs.testSink = null;
-		assertEquals(0, sink.size());
 	}
 
 	@Test public void testPong()

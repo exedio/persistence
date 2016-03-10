@@ -7,8 +7,6 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
-* Model#pingClusterNetwork(int count) requires count to be greater zero.
-	This breaks backwards API compatibility, but probably will not cause problems.
 * ConnectProperties#factory()#mediaRootUrl() added.
 * ConnectProperties#factory()#primaryKeyGeneratorSequence() added.
 * FeatureField#get throws FeatureField.NotFound if feature id is not found.
