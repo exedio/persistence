@@ -109,10 +109,10 @@ public class ClusterNetworkPingTest extends ClusterNetworkTest
 
 		final List<ClusterListenerInfo.Node> nodesA = listenerA.getNodes();
 		final List<ClusterListenerInfo.Node> nodesB = listenerB.getNodes();
-		assertEquals((pingA==0) ? 0 : 1, nodesA.size());
-		assertEquals((pingA==0) ? 0 : 1, nodesB.size());
-		if(pingA>0)
+		if( pingA>0 || pingB>0 )
 		{
+			assertEquals(1, nodesA.size());
+			assertEquals(1, nodesB.size());
 			final ClusterListenerInfo.Node nodeA = nodesA.get(0);
 			final ClusterListenerInfo.Node nodeB = nodesB.get(0);
 			assertEquals(senderA.getNodeID(), nodeB.getID());
@@ -125,6 +125,11 @@ public class ClusterNetworkPingTest extends ClusterNetworkTest
 			assertIt(pingB, 0, 0, 0, 0, 0, nodeB.getPongInfo());
 			assertIt(0, 0, 0, 0, 0, 0, nodeA.getInvalidateInfo());
 			assertIt(0, 0, 0, 0, 0, 0, nodeB.getInvalidateInfo());
+		}
+		else
+		{
+			assertEquals(0, nodesA.size());
+			assertEquals(0, nodesB.size());
 		}
 	}
 
