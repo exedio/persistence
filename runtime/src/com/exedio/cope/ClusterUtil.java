@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import java.util.Random;
+
 final class ClusterUtil
 {
 	static final byte MAGIC0 = (byte)0xc0;
@@ -37,4 +39,12 @@ final class ClusterUtil
 		buf[pos++] = (byte)((i>>>24) & 0xff);
 		return pos;
 	}
+
+
+	static int nextNode()
+	{
+		return nodeSource.nextInt();
+	}
+
+	private static final Random nodeSource = new Random();
 }

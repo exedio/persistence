@@ -18,13 +18,13 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.ClusterUtil.nextNode;
 import static java.lang.Integer.MIN_VALUE;
 import static java.lang.Thread.MAX_PRIORITY;
 import static java.lang.Thread.MIN_PRIORITY;
 
 import com.exedio.cope.util.PrefixSource;
 import com.exedio.cope.util.Properties;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.IOException;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
@@ -95,7 +95,6 @@ final class ClusterProperties extends Properties
 	final int packetSize;
 	private final byte[] pingPayload;
 
-	@SuppressFBWarnings("DMI_RANDOM_USED_ONLY_ONCE") // Random object created and used only once
 	private ClusterProperties(final Source source)
 	{
 		super(source);
@@ -104,7 +103,7 @@ final class ClusterProperties extends Properties
 		{
 			if(nodeAuto)
 			{
-				this.node = new Random().nextInt();
+				this.node = nextNode();
 			}
 			else
 			{
