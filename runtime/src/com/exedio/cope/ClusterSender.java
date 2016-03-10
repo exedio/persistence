@@ -25,6 +25,7 @@ import static com.exedio.cope.ClusterConstants.MAGIC0;
 import static com.exedio.cope.ClusterConstants.MAGIC1;
 import static com.exedio.cope.ClusterConstants.MAGIC2;
 import static com.exedio.cope.ClusterConstants.MAGIC3;
+import static com.exedio.cope.ClusterConstants.marshal;
 
 import gnu.trove.TIntHashSet;
 import gnu.trove.TIntIterator;
@@ -208,15 +209,6 @@ abstract class ClusterSender
 		{
 			throw new RuntimeException(e);
 		}
-	}
-
-	static final int marshal(int pos, final byte[] buf, final int i)
-	{
-		buf[pos++] = (byte)( i       & 0xff);
-		buf[pos++] = (byte)((i>>> 8) & 0xff);
-		buf[pos++] = (byte)((i>>>16) & 0xff);
-		buf[pos++] = (byte)((i>>>24) & 0xff);
-		return pos;
 	}
 
 	final ClusterSenderInfo getInfo()

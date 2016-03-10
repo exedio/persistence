@@ -28,4 +28,13 @@ final class ClusterConstants
 	static final int KIND_PING       = 0x00110001;
 	static final int KIND_PONG       = 0x00110002;
 	static final int KIND_INVALIDATE = 0x00120001;
+
+	static final int marshal(int pos, final byte[] buf, final int i)
+	{
+		buf[pos++] = (byte)( i       & 0xff);
+		buf[pos++] = (byte)((i>>> 8) & 0xff);
+		buf[pos++] = (byte)((i>>>16) & 0xff);
+		buf[pos++] = (byte)((i>>>24) & 0xff);
+		return pos;
+	}
 }

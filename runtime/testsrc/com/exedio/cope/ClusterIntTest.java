@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.ClusterConstants.marshal;
 import static org.junit.Assert.assertEquals;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -62,6 +63,6 @@ public class ClusterIntTest
 
 	private int m(final int pos, final int i)
 	{
-		return ClusterSender.marshal(pos, buf, i);
+		return marshal(pos, buf, i);
 	}
 }
