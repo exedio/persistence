@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-final class ClusterConstants
+final class ClusterUtil
 {
 	static final byte MAGIC0 = (byte)0xc0;
 	static final byte MAGIC1 = (byte)0xbe;

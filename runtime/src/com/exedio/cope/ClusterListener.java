@@ -18,13 +18,13 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.ClusterConstants.KIND_INVALIDATE;
-import static com.exedio.cope.ClusterConstants.KIND_PING;
-import static com.exedio.cope.ClusterConstants.KIND_PONG;
-import static com.exedio.cope.ClusterConstants.MAGIC0;
-import static com.exedio.cope.ClusterConstants.MAGIC1;
-import static com.exedio.cope.ClusterConstants.MAGIC2;
-import static com.exedio.cope.ClusterConstants.MAGIC3;
+import static com.exedio.cope.ClusterUtil.KIND_INVALIDATE;
+import static com.exedio.cope.ClusterUtil.KIND_PING;
+import static com.exedio.cope.ClusterUtil.KIND_PONG;
+import static com.exedio.cope.ClusterUtil.MAGIC0;
+import static com.exedio.cope.ClusterUtil.MAGIC1;
+import static com.exedio.cope.ClusterUtil.MAGIC2;
+import static com.exedio.cope.ClusterUtil.MAGIC3;
 
 import com.exedio.cope.util.SequenceChecker;
 import gnu.trove.TIntHashSet;
