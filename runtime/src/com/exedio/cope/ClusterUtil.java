@@ -47,4 +47,10 @@ final class ClusterUtil
 	}
 
 	private static final Random nodeSource = new Random();
+
+
+	static String pingString(final boolean ping)
+	{
+		return ping ? "ping" : "pong";
+	}
 }

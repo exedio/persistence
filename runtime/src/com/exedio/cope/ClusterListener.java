@@ -25,6 +25,7 @@ import static com.exedio.cope.ClusterUtil.MAGIC0;
 import static com.exedio.cope.ClusterUtil.MAGIC1;
 import static com.exedio.cope.ClusterUtil.MAGIC2;
 import static com.exedio.cope.ClusterUtil.MAGIC3;
+import static com.exedio.cope.ClusterUtil.pingString;
 
 import com.exedio.cope.util.SequenceChecker;
 import gnu.trove.TIntHashSet;
@@ -156,11 +157,6 @@ abstract class ClusterListener
 		}
 
 		return true;
-	}
-
-	static String pingString(final boolean ping)
-	{
-		return ping ? "ping" : "pong";
 	}
 
 	static final class Iter

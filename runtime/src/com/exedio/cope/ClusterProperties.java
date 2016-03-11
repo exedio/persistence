@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.ClusterUtil.nextNode;
+import static com.exedio.cope.ClusterUtil.pingString;
 import static java.lang.Integer.MIN_VALUE;
 import static java.lang.Thread.MAX_PRIORITY;
 import static java.lang.Thread.MIN_PRIORITY;
@@ -190,12 +191,12 @@ final class ClusterProperties extends Properties
 	void checkPingPayload(int pos, final byte[] buf, final int offset, final int length, final boolean ping)
 	{
 		if(length!=packetSize)
-			throw new RuntimeException("invalid " + ClusterListener.pingString(ping) + ", expected length " + packetSize + ", but was " + length);
+			throw new RuntimeException("invalid " + pingString(ping) + ", expected length " + packetSize + ", but was " + length);
 		final int endPos = offset + length;
 		final byte[] pingPayload = this.pingPayload;
 		for(; pos<endPos; pos++)
 			if(pingPayload[pos-offset]!=buf[pos])
-				throw new RuntimeException("invalid " + ClusterListener.pingString(ping) + ", at position " + (pos-offset) + " expected " + pingPayload[pos-offset] + ", but was " + buf[pos]);
+				throw new RuntimeException("invalid " + pingString(ping) + ", at position " + (pos-offset) + " expected " + pingPayload[pos-offset] + ", but was " + buf[pos]);
 	}
 
 	DatagramSocket newSendSocket()
