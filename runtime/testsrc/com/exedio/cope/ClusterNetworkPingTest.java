@@ -114,12 +114,12 @@ public class ClusterNetworkPingTest extends ClusterNetworkTest
 			assertEquals(senderB.getNodeID(), nodeA.getID());
 			assertEquals(senderA.getNodeIDString(), nodeB.getIDString());
 			assertEquals(senderB.getNodeIDString(), nodeA.getIDString());
-			assertIt(pingB, 0, 0, 0, 0, 0, nodeA.getPingInfo());
-			assertIt(pingA, 0, 0, 0, 0, 0, nodeB.getPingInfo());
-			assertIt(pingA, 0, 0, 0, 0, 0, nodeA.getPongInfo());
-			assertIt(pingB, 0, 0, 0, 0, 0, nodeB.getPongInfo());
-			assertIt(0, 0, 0, 0, 0, 0, nodeA.getInvalidateInfo());
-			assertIt(0, 0, 0, 0, 0, 0, nodeB.getInvalidateInfo());
+			assertIt(pingB, nodeA.getPingInfo());
+			assertIt(pingA, nodeB.getPingInfo());
+			assertIt(pingA, nodeA.getPongInfo());
+			assertIt(pingB, nodeB.getPongInfo());
+			assertIt(0, nodeA.getInvalidateInfo());
+			assertIt(0, nodeB.getInvalidateInfo());
 		}
 		else
 		{
@@ -130,18 +130,13 @@ public class ClusterNetworkPingTest extends ClusterNetworkTest
 
 	private static final void assertIt(
 			final int inOrder,
-			final int outOfOrder,
-			final int duplicate,
-			final int lost,
-			final int late,
-			final int pending,
 			final SequenceChecker.Info actual)
 	{
-		assertEquals(inOrder   , actual.getInOrder());
-		assertEquals(outOfOrder, actual.getOutOfOrder());
-		assertEquals(duplicate , actual.getDuplicate());
-		assertEquals(lost      , actual.getLost());
-		assertEquals(late      , actual.getLate());
-		assertEquals(pending   , actual.getPending());
+		assertEquals(inOrder, actual.getInOrder());
+		assertEquals(0, actual.getOutOfOrder());
+		assertEquals(0, actual.getDuplicate());
+		assertEquals(0, actual.getLost());
+		assertEquals(0, actual.getLate());
+		assertEquals(0, actual.getPending());
 	}
 }
