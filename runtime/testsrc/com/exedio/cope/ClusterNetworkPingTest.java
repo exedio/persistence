@@ -49,19 +49,8 @@ public class ClusterNetworkPingTest extends ClusterNetworkTest
 		assertEquals("Connect Properties Context (multicast)", modelA.getConnectProperties().getContext().getDescription());
 		assertEquals("Connect Properties Context (multicast)", modelB.getConnectProperties().getContext().getDescription());
 		assertUnmodifiable(modelA.getThreadControllers());
-		assertIt(true, 0, 0);
 
-		modelA.pingClusterNetwork();
-		sleepLongerThan(50);
-		assertIt(true, 1, 0);
-
-		modelA.pingClusterNetwork();
-		sleepLongerThan(50);
-		assertIt(true, 2, 0);
-
-		modelB.pingClusterNetwork();
-		sleepLongerThan(50);
-		assertIt(true, 2, 1);
+		test(true);
 	}
 
 	@Test public void testSinglecast() throws InterruptedException
@@ -71,19 +60,25 @@ public class ClusterNetworkPingTest extends ClusterNetworkTest
 
 		assertEquals("Connect Properties Context (14446>14447)", modelA.getConnectProperties().getContext().getDescription());
 		assertEquals("Connect Properties Context (14447>14446)", modelB.getConnectProperties().getContext().getDescription());
-		assertIt(false, 0, 0);
+
+		test(false);
+	}
+
+	private static void test(final boolean multicast) throws InterruptedException
+	{
+		assertIt(multicast, 0, 0);
 
 		modelA.pingClusterNetwork();
 		sleepLongerThan(50);
-		assertIt(false, 1, 0);
+		assertIt(multicast, 1, 0);
 
 		modelA.pingClusterNetwork();
 		sleepLongerThan(50);
-		assertIt(false, 2, 0);
+		assertIt(multicast, 2, 0);
 
 		modelB.pingClusterNetwork();
 		sleepLongerThan(50);
-		assertIt(false, 2, 1);
+		assertIt(multicast, 2, 1);
 	}
 
 	private static void assertIt(final boolean multicast, final int pingA, final int pingB)
