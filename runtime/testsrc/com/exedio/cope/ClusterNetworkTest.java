@@ -29,32 +29,16 @@ public abstract class ClusterNetworkTest
 	{
 		final ConnectProperties defaultProperties = new ConnectProperties(new File("runtime/utiltest.properties"));
 		final Properties.Source source = defaultProperties.getSourceObject();
-		return new ConnectProperties(
+		return ConnectProperties.factory().create(
 				new Properties.Source()
 				{
 					public String get(final String key)
 					{
 						if(key.equals("schema.primaryKeyGenerator"))
 							return PrimaryKeyGenerator.sequence.name();
-						else
-							return source.get(key);
-					}
-
-					public String getDescription()
-					{
-						return source.getDescription();
-					}
-
-					public Collection<String> keySet()
-					{
-						return source.keySet();
-					}
-				},
-				new Properties.Source()
-				{
-					public String get(final String key)
-					{
-						if(key.equals("cluster.secret"))
+						else if(key.equals("cluster"))
+							return "true";
+						else if(key.equals("cluster.secret"))
 							return "1234";
 						else if(key.equals("cluster.listenThreads"))
 							return "2";
@@ -67,15 +51,15 @@ public abstract class ClusterNetworkTest
 						else if(!multicast && key.equals("cluster.listenPort"))
 							return String.valueOf(listenPort);
 						else
-							return null;
+							return source.get(key);
 					}
 
 					public String getDescription()
 					{
 						return
 							multicast
-							? "Connect Properties Context (multicast)"
-							: ("Connect Properties Context (" + sendPort + '>' + listenPort + ")");
+							? "Connect Properties Source (multicast)"
+							: ("Connect Properties Source (" + sendPort + '>' + listenPort + ")");
 					}
 
 					public Collection<String> keySet()

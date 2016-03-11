@@ -46,8 +46,8 @@ public class ClusterNetworkPingTest extends ClusterNetworkTest
 		modelB.connect(getProperties(true, -1, -1));
 		modelA.connect(getProperties(true, -1, -1));
 
-		assertEquals("Connect Properties Context (multicast)", modelA.getConnectProperties().getContext().getDescription());
-		assertEquals("Connect Properties Context (multicast)", modelB.getConnectProperties().getContext().getDescription());
+		assertEquals("Connect Properties Source (multicast)", modelA.getConnectProperties().getSource());
+		assertEquals("Connect Properties Source (multicast)", modelB.getConnectProperties().getSource());
 
 		test(true);
 	}
@@ -57,8 +57,8 @@ public class ClusterNetworkPingTest extends ClusterNetworkTest
 		modelA.connect(getProperties(false, 14446, 14447));
 		modelB.connect(getProperties(false, 14447, 14446));
 
-		assertEquals("Connect Properties Context (14446>14447)", modelA.getConnectProperties().getContext().getDescription());
-		assertEquals("Connect Properties Context (14447>14446)", modelB.getConnectProperties().getContext().getDescription());
+		assertEquals("Connect Properties Source (14446>14447)", modelA.getConnectProperties().getSource());
+		assertEquals("Connect Properties Source (14447>14446)", modelB.getConnectProperties().getSource());
 
 		test(false);
 	}

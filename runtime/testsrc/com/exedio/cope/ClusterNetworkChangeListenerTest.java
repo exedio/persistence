@@ -51,8 +51,8 @@ public class ClusterNetworkChangeListenerTest extends ClusterNetworkTest
 		modelB.connect(getProperties(false, 14447, 14446));
 		modelA.createSchema();
 
-		assertEquals("Connect Properties Context (14446>14447)", modelA.getConnectProperties().getContext().getDescription());
-		assertEquals("Connect Properties Context (14447>14446)", modelB.getConnectProperties().getContext().getDescription());
+		assertEquals("Connect Properties Source (14446>14447)", modelA.getConnectProperties().getSource());
+		assertEquals("Connect Properties Source (14447>14446)", modelB.getConnectProperties().getSource());
 
 		final MockListener listenerA = new MockListener(modelA, modelB);
 		final MockListener listenerB = new MockListener(modelB, modelA);
