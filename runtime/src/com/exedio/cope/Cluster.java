@@ -60,9 +60,9 @@ final class Cluster
 			listener.joinClose();
 	}
 
-	void addThreadControllers(final ArrayList<ThreadController> list)
+	void addThreadControllers(final ArrayList<ThreadController> result)
 	{
-		listener.addThreadControllers(list);
+		listener.addThreadControllers(result);
 	}
 
 	ClusterSenderInfo getSenderInfo()

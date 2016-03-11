@@ -146,9 +146,9 @@ final class ClusterListenerMulticast extends ClusterListenerModel implements Run
 		return receiveBufferSize;
 	}
 
-	void addThreadControllers(final ArrayList<ThreadController> list)
+	void addThreadControllers(final ArrayList<ThreadController> result)
 	{
-		threads.addThreadControllers(list);
+		threads.addThreadControllers(result);
 	}
 
 	void startClose()

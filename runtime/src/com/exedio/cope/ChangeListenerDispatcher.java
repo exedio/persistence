@@ -131,9 +131,9 @@ final class ChangeListenerDispatcher implements Runnable
 		}
 	}
 
-	void addThreadControllers(final ArrayList<ThreadController> list)
+	void addThreadControllers(final ArrayList<ThreadController> result)
 	{
-		threads.addThreadControllers(list);
+		threads.addThreadControllers(result);
 	}
 
 	void startClose()

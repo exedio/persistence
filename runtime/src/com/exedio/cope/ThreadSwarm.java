@@ -65,9 +65,9 @@ final class ThreadSwarm
 		}
 	}
 
-	void addThreadControllers(final ArrayList<ThreadController> list)
+	void addThreadControllers(final ArrayList<ThreadController> result)
 	{
-		list.addAll(Arrays.asList(threads));
+		result.addAll(Arrays.asList(threads));
 	}
 
 	void setPriority(final int priority)
