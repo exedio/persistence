@@ -29,6 +29,7 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import com.exedio.cope.ChangeEvent.NotAvailableException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -45,7 +46,7 @@ public class ClusterNetworkChangeListenerTest extends ClusterNetworkTest
 		modelA.tearDownSchema();
 	}
 
-	@Test public void testSinglecast() throws InterruptedException, ChangeEvent.NotAvailableException
+	@Test public void testSinglecast() throws InterruptedException, NotAvailableException
 	{
 		modelA.connect(getProperties(false, 14446, 14447));
 		modelB.connect(getProperties(false, 14447, 14446));
