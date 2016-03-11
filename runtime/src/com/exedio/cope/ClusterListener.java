@@ -75,8 +75,8 @@ abstract class ClusterListener
 			return;
 		}
 
-		final int node = iter.next();
-		if(localNode==node)
+		final int remoteNode = iter.next();
+		if(localNode==remoteNode)
 		{
 			fromMyself.inc();
 			return;
@@ -89,20 +89,20 @@ abstract class ClusterListener
 		{
 			case KIND_PING:
 			{
-				if(handlePingPong(packet, iter, node, true))
+				if(handlePingPong(packet, iter, remoteNode, true))
 					pong();
 				break;
 			}
 			case KIND_PONG:
 			{
-				handlePingPong(packet, iter, node, false);
+				handlePingPong(packet, iter, remoteNode, false);
 				break;
 			}
 			case KIND_INVALIDATE:
 			{
 				final int sequence = iter.next();
 
-				if(node(node, packet).invalidate(sequence))
+				if(node(remoteNode, packet).invalidate(sequence))
 				{
 					if(logger.isWarnEnabled())
 						logger.warn("invalidate duplicate {} from {}", sequence, packet.getAddress());
@@ -128,7 +128,7 @@ abstract class ClusterListener
 					}
 				}
 
-				invalidate(node, invalidations);
+				invalidate(remoteNode, invalidations);
 
 				break;
 			}
@@ -142,14 +142,14 @@ abstract class ClusterListener
 	private boolean handlePingPong(
 			final DatagramPacket packet,
 			final Iter iter,
-			final int node,
+			final int remoteNode,
 			final boolean ping)
 	{
 		final int sequence = iter.next();
 
 		iter.checkPingPayload(properties, ping);
 
-		if(node(node, packet).pingPong(ping, sequence))
+		if(node(remoteNode, packet).pingPong(ping, sequence))
 		{
 			if(logger.isWarnEnabled())
 				logger.warn("{} duplicate {} from {}", new Object[]{pingString(ping), sequence, packet.getAddress()});
@@ -219,7 +219,7 @@ abstract class ClusterListener
 		}
 	}
 
-	abstract void invalidate(int node, TIntHashSet[] invalidations);
+	abstract void invalidate(int remoteNode, TIntHashSet[] invalidations);
 	abstract void pong();
 	abstract int getReceiveBufferSize();
 
