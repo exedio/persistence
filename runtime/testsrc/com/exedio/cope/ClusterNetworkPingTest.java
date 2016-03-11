@@ -65,6 +65,8 @@ public class ClusterNetworkPingTest extends ClusterNetworkTest
 
 	private static void test(final boolean multicast) throws InterruptedException
 	{
+		assertNotNull(modelA.getClusterProperties());
+		assertNotNull(modelB.getClusterProperties());
 		assertUnmodifiable(modelA.getThreadControllers());
 
 		assertIt(multicast, 0, 0);
@@ -84,9 +86,6 @@ public class ClusterNetworkPingTest extends ClusterNetworkTest
 
 	private static void assertIt(final boolean multicast, final int pingA, final int pingB)
 	{
-		assertNotNull(modelA.getClusterProperties());
-		assertNotNull(modelB.getClusterProperties());
-
 		final ClusterSenderInfo senderA = modelA.getClusterSenderInfo();
 		final ClusterSenderInfo senderB = modelB.getClusterSenderInfo();
 		assertEquals(0, senderA.getInvalidationSplit());
