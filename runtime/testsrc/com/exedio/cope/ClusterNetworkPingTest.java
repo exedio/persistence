@@ -48,7 +48,6 @@ public class ClusterNetworkPingTest extends ClusterNetworkTest
 
 		assertEquals("Connect Properties Context (multicast)", modelA.getConnectProperties().getContext().getDescription());
 		assertEquals("Connect Properties Context (multicast)", modelB.getConnectProperties().getContext().getDescription());
-		assertUnmodifiable(modelA.getThreadControllers());
 
 		test(true);
 	}
@@ -66,6 +65,8 @@ public class ClusterNetworkPingTest extends ClusterNetworkTest
 
 	private static void test(final boolean multicast) throws InterruptedException
 	{
+		assertUnmodifiable(modelA.getThreadControllers());
+
 		assertIt(multicast, 0, 0);
 
 		modelA.pingClusterNetwork();
