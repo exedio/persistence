@@ -352,13 +352,13 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	@SuppressWarnings("deprecation")
 	ConnectProperties(
 			final Source source, final Source context,
-			final PrimaryKeyGenerator primaryKeyGenerator,
-			final String mediaRootUrl)
+			final PrimaryKeyGenerator primaryKeyGeneratorDefault,
+			final String mediaRootUrlDefault)
 	{
 		super(source, context);
 
-		this.primaryKeyGenerator = valEn("schema.primaryKeyGenerator", primaryKeyGenerator);
-		this.mediaRooturl = value("media.rooturl", mediaRootUrl);
+		this.primaryKeyGenerator = valEn("schema.primaryKeyGenerator", primaryKeyGeneratorDefault);
+		this.mediaRooturl = value("media.rooturl", mediaRootUrlDefault);
 
 		final String dialectCodeRaw = this.dialectCode;
 
