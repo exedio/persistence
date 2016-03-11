@@ -121,12 +121,16 @@ final class Connect
 		return !properties.isSupportDisabledForNativeDate() && (dialect.getDateTimestampType()!=null);
 	}
 
-	void invalidate(final TIntHashSet[] invalidations, final boolean propagateToCluster)
+	void invalidate(
+			final TIntHashSet[] invalidations,
+			final boolean propagateToCluster,
+			final TransactionInfo transactionInfo)
 	{
 		itemCache.invalidate(invalidations);
 		queryCache.invalidate(invalidations);
 		if(propagateToCluster && cluster!=null)
 			cluster.sendInvalidate(invalidations);
+		changeListenerDispatcher.invalidate(invalidations, transactionInfo);
 	}
 
 	void createSchema()

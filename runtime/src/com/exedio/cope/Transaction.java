@@ -362,12 +362,8 @@ public final class Transaction
 
 		if(invalidations!=null)
 		{
-			if(commit)
-			{
-				// notify global cache
-				connect.invalidate(invalidations, true);
-				connect.changeListenerDispatcher.invalidate(invalidations, new TransactionInfoLocal(this));
-			}
+			if(commit) // notify global cache
+				connect.invalidate(invalidations, true, new TransactionInfoLocal(this));
 		}
 
 		transactionCounter.count(commit, hadConnection);
