@@ -30,6 +30,8 @@ import org.junit.Test;
 
 public class ClusterNetworkPingTest extends ClusterNetworkTest
 {
+	private boolean multicast;
+
 	@Test public void testMulticast() throws InterruptedException
 	{
 		try
@@ -49,7 +51,8 @@ public class ClusterNetworkPingTest extends ClusterNetworkTest
 		assertEquals("Connect Properties Source (multicast)", modelA.getConnectProperties().getSource());
 		assertEquals("Connect Properties Source (multicast)", modelB.getConnectProperties().getSource());
 
-		test(true);
+		multicast = true;
+		test();
 	}
 
 	@Test public void testSinglecast() throws InterruptedException
@@ -60,31 +63,32 @@ public class ClusterNetworkPingTest extends ClusterNetworkTest
 		assertEquals("Connect Properties Source (14446>14447)", modelA.getConnectProperties().getSource());
 		assertEquals("Connect Properties Source (14447>14446)", modelB.getConnectProperties().getSource());
 
-		test(false);
+		multicast = false;
+		test();
 	}
 
-	private static void test(final boolean multicast) throws InterruptedException
+	private void test() throws InterruptedException
 	{
 		assertNotNull(modelA.getClusterProperties());
 		assertNotNull(modelB.getClusterProperties());
 		assertUnmodifiable(modelA.getThreadControllers());
 
-		assertIt(multicast, 0, 0);
+		assertIt(0, 0);
 
 		modelA.pingClusterNetwork();
 		sleepLongerThan(50);
-		assertIt(multicast, 1, 0);
+		assertIt(1, 0);
 
 		modelA.pingClusterNetwork();
 		sleepLongerThan(50);
-		assertIt(multicast, 2, 0);
+		assertIt(2, 0);
 
 		modelB.pingClusterNetwork();
 		sleepLongerThan(50);
-		assertIt(multicast, 2, 1);
+		assertIt(2, 1);
 	}
 
-	private static void assertIt(final boolean multicast, final int pingA, final int pingB)
+	private void assertIt(final int pingA, final int pingB)
 	{
 		final ClusterSenderInfo senderA = modelA.getClusterSenderInfo();
 		final ClusterSenderInfo senderB = modelB.getClusterSenderInfo();
