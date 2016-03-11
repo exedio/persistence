@@ -18,56 +18,47 @@
 
 package com.exedio.cope;
 
-import com.exedio.cope.util.Properties;
+import static com.exedio.cope.tojunit.TestSources.describe;
+import static com.exedio.cope.util.Sources.cascade;
+import static com.exedio.cope.util.Sources.load;
+import static com.exedio.cope.util.Sources.view;
+
 import java.io.File;
-import java.util.Collection;
+import java.util.Properties;
 import org.junit.After;
 
 public abstract class ClusterNetworkTest
 {
 	ConnectProperties getProperties(final boolean multicast, final int sendPort, final int listenPort)
 	{
-		final ConnectProperties defaultProperties = new ConnectProperties(new File("runtime/utiltest.properties"));
-		final Properties.Source source = defaultProperties.getSourceObject();
-		return ConnectProperties.factory().create(
-				new Properties.Source()
-				{
-					public String get(final String key)
-					{
-						if(key.equals("schema.primaryKeyGenerator"))
-							return PrimaryKeyGenerator.sequence.name();
-						else if(key.equals("cluster"))
-							return "true";
-						else if(key.equals("cluster.secret"))
-							return "1234";
-						else if(key.equals("cluster.listenThreads"))
-							return "2";
-						else if(!multicast && key.equals("cluster.multicast"))
-							return "false";
-						else if(!multicast && (key.equals("cluster.sendAddress")||key.equals("cluster.listenAddress")))
-							return "127.0.0.1";
-						else if(!multicast && key.equals("cluster.sendDestinationPort"))
-							return String.valueOf(sendPort);
-						else if(!multicast && key.equals("cluster.listenPort"))
-							return String.valueOf(listenPort);
-						else
-							return source.get(key);
-					}
+		final Properties p = new Properties();
+		p.setProperty("schema.primaryKeyGenerator", PrimaryKeyGenerator.sequence.name());
+		p.setProperty("cluster", "true");
+		p.setProperty("cluster.secret", "1234");
+		p.setProperty("cluster.listenThreads", "2");
+		if(!multicast)
+		{
+			p.setProperty("cluster.multicast", "false");
+			p.setProperty("cluster.sendAddress"  , "127.0.0.1");
+			p.setProperty("cluster.listenAddress", "127.0.0.1");
+			p.setProperty("cluster.sendDestinationPort", String.valueOf(sendPort));
+			p.setProperty("cluster.listenPort", String.valueOf(listenPort));
+		}
+		return getProperties(p,
+				multicast
+				? "Connect Properties Source (multicast)"
+				: ("Connect Properties Source (" + sendPort + '>' + listenPort + ")"));
+	}
 
-					public String getDescription()
-					{
-						return
-							multicast
-							? "Connect Properties Source (multicast)"
-							: ("Connect Properties Source (" + sendPort + '>' + listenPort + ")");
-					}
-
-					public Collection<String> keySet()
-					{
-						return null;
-					}
-				}
-			);
+	private static ConnectProperties getProperties(final Properties properties, final String description)
+	{
+		return ConnectProperties.factory().create(describe(
+				cascade(
+						view(properties, "ZACK"),
+						load(new File("runtime/utiltest.properties"))
+				),
+				description
+			));
 	}
 
 	@SuppressWarnings("static-method")
