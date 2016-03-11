@@ -93,14 +93,8 @@ public class ClusterNetworkPingTest extends ClusterNetworkTest
 
 		final ClusterListenerInfo listenerA = modelA.getClusterListenerInfo();
 		final ClusterListenerInfo listenerB = modelB.getClusterListenerInfo();
-		assertEquals(0, listenerA.getException());
-		assertEquals(0, listenerB.getException());
-		assertEquals(0, listenerA.getMissingMagic());
-		assertEquals(0, listenerB.getMissingMagic());
-		assertEquals(0, listenerA.getWrongSecret());
-		assertEquals(0, listenerB.getWrongSecret());
-		assertEquals(multicast ? (pingA+pingB) : 0, listenerA.getFromMyself());
-		assertEquals(multicast ? (pingA+pingB) : 0, listenerB.getFromMyself());
+		assertIt(multicast ? (pingA+pingB) : 0, listenerA);
+		assertIt(multicast ? (pingA+pingB) : 0, listenerB);
 
 		final List<ClusterListenerInfo.Node> nodesA = listenerA.getNodes();
 		final List<ClusterListenerInfo.Node> nodesB = listenerB.getNodes();
@@ -126,6 +120,16 @@ public class ClusterNetworkPingTest extends ClusterNetworkTest
 			assertEquals(0, nodesA.size());
 			assertEquals(0, nodesB.size());
 		}
+	}
+
+	private static final void assertIt(
+			final int fromMyself,
+			final ClusterListenerInfo actual)
+	{
+		assertEquals(0, actual.getException());
+		assertEquals(0, actual.getMissingMagic());
+		assertEquals(0, actual.getWrongSecret());
+		assertEquals(fromMyself, actual.getFromMyself());
 	}
 
 	private static final void assertIt(
