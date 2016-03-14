@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.ClusterSenderInfo.toStringNodeID;
 import static com.exedio.cope.ClusterUtil.KIND_INVALIDATE;
 import static com.exedio.cope.ClusterUtil.KIND_PING;
 import static com.exedio.cope.ClusterUtil.KIND_PONG;
@@ -32,8 +33,10 @@ import gnu.trove.TIntHashSet;
 import gnu.trove.TIntObjectHashMap;
 import java.net.DatagramPacket;
 import java.net.InetAddress;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Locale;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -144,10 +147,12 @@ abstract class ClusterListener
 			final boolean ping)
 	{
 		final int sequence = iter.next();
+		final long nanos = iter.nextLong();
 
 		iter.checkPingPayload(properties, ping);
 
-		if(node(remoteNode, packet).pingPong(ping, sequence))
+		final Node node = node(remoteNode, packet);
+		if(node.pingPong(ping, sequence))
 		{
 			if(logger.isWarnEnabled())
 				logger.warn("{} duplicate {} from {}", new Object[]{pingString(ping), sequence, packet.getAddress()});
@@ -155,11 +160,13 @@ abstract class ClusterListener
 		}
 
 		if(ping)
-			pong();
+			pong(nanos);
+		else
+			node.roundTrip(nanos);
 	}
 
 	abstract void invalidate(int remoteNode, TIntHashSet[] invalidations);
-	abstract void pong();
+	abstract void pong(long pingNanos);
 	abstract int getReceiveBufferSize();
 
 	// info
@@ -178,6 +185,12 @@ abstract class ClusterListener
 		private final long firstEncounter;
 		private final InetAddress address;
 		private final int port;
+		private long lastRoundTripDate  = Long.MIN_VALUE;
+		private long lastRoundTripNanos = Long.MIN_VALUE;
+		private long  minRoundTripDate  = Long.MIN_VALUE;
+		private long  minRoundTripNanos = Long.MAX_VALUE;
+		private long  maxRoundTripDate  = Long.MIN_VALUE;
+		private long  maxRoundTripNanos = Long.MIN_VALUE;
 		private final SequenceChecker invalidateSequenceChecker;
 		private final SequenceChecker pingSequenceChecker;
 		private final SequenceChecker pongSequenceChecker;
@@ -216,15 +229,48 @@ abstract class ClusterListener
 			}
 		}
 
+		void roundTrip(final long pingNanos)
+		{
+			final long now = System.currentTimeMillis();
+			final long nanos = System.nanoTime() - pingNanos;
+
+			lastRoundTripDate = now;
+			lastRoundTripNanos = nanos;
+
+			if(nanos<minRoundTripNanos)
+			{
+				minRoundTripDate = now;
+				minRoundTripNanos = nanos;
+			}
+			if(nanos>maxRoundTripNanos)
+			{
+				maxRoundTripDate = now;
+				maxRoundTripNanos = nanos;
+			}
+
+			logger.info("ping pong via {} ({}:{}) took {}ns", new Object[]{
+					toStringNodeID(id),
+					address, port,
+					NumberFormat.getInstance(Locale.ENGLISH).format(nanos)});
+		}
+
 		ClusterListenerInfo.Node getInfo()
 		{
 			return new ClusterListenerInfo.Node(
 					id,
 					new Date(firstEncounter),
 					address, port,
+					getInfo(lastRoundTripDate, lastRoundTripNanos),
+					getInfo( minRoundTripDate,  minRoundTripNanos),
+					getInfo( maxRoundTripDate,  maxRoundTripNanos),
 					getInfo(invalidateSequenceChecker),
 					getInfo(pingSequenceChecker),
 					getInfo(pongSequenceChecker));
+		}
+
+		private static ClusterListenerInfo.RoundTrip getInfo(final long date, final long nanos)
+		{
+			return date!=Long.MIN_VALUE ? new ClusterListenerInfo.RoundTrip(date, nanos) : null;
 		}
 
 		private static SequenceChecker.Info getInfo(final SequenceChecker checker)

@@ -39,6 +39,12 @@ final class ClusterSenderMulticast extends ClusterSender
 	}
 
 	@Override
+	long nanoTime()
+	{
+		return System.nanoTime();
+	}
+
+	@Override
 	void send(final int length, final byte[] buf) throws IOException
 	{
 		final DatagramPacket packet =

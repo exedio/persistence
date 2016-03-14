@@ -22,6 +22,8 @@ import static com.exedio.cope.tojunit.Assert.assertUnmodifiable;
 import static com.exedio.cope.tojunit.Assert.sleepLongerThan;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import com.exedio.cope.util.SequenceChecker;
@@ -114,6 +116,8 @@ public class ClusterNetworkPingTest extends ClusterNetworkTest
 			assertEquals(senderB.getNodeIDString(), nodeA.getIDString());
 			assertEquals(senderA.getLocalPort(), nodeB.getPort());
 			assertEquals(senderB.getLocalPort(), nodeA.getPort());
+			assertLastRoundTripSet(pingA>0, nodeA);
+			assertLastRoundTripSet(pingB>0, nodeB);
 			assertIt(pingB, nodeA.getPingInfo());
 			assertIt(pingA, nodeB.getPingInfo());
 			assertIt(pingA, nodeA.getPongInfo());
@@ -148,5 +152,41 @@ public class ClusterNetworkPingTest extends ClusterNetworkTest
 		assertEquals(0, actual.getLost());
 		assertEquals(0, actual.getLate());
 		assertEquals(0, actual.getPending());
+	}
+
+	private static final void assertLastRoundTripSet(
+			final boolean expected,
+			final ClusterListenerInfo.Node actual)
+	{
+		if(expected)
+		{
+			assertNotNull(actual.getLastRoundTrip   ());
+			assertNotNull(actual.getMinimumRoundTrip());
+			assertNotNull(actual.getMaximumRoundTrip());
+			assertNotNull(actual.getLastRoundTrip   ().getDate());
+			assertNotNull(actual.getMinimumRoundTrip().getDate());
+			assertNotNull(actual.getMaximumRoundTrip().getDate());
+			assertGreaterZero(actual.getLastRoundTrip   ().getNanos());
+			assertGreaterZero(actual.getMinimumRoundTrip().getNanos());
+			assertGreaterZero(actual.getMaximumRoundTrip().getNanos());
+			assertLessOrEqual(actual.getMinimumRoundTrip().getNanos(), actual.getLastRoundTrip   ().getNanos());
+			assertLessOrEqual(actual.getLastRoundTrip   ().getNanos(), actual.getMaximumRoundTrip().getNanos());
+		}
+		else
+		{
+			assertNull(actual.getLastRoundTrip());
+			assertNull(actual.getMinimumRoundTrip());
+			assertNull(actual.getMaximumRoundTrip());
+		}
+	}
+
+	private static void assertGreaterZero(final long actual)
+	{
+		assertTrue("" + actual, actual>0);
+	}
+
+	private static void assertLessOrEqual(final long a, final long b)
+	{
+		assertTrue("" + a + "<=" + b, a<=b);
 	}
 }

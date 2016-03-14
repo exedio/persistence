@@ -38,6 +38,7 @@ abstract class ClusterSender
 
 	private static final int KIND = 12;
 	private static final int SEQUENCE = 16;
+	private static final int PING_NANOS = 20;
 	private final byte[] pingPongTemplate;
 
 	private static final int INVALIDATE_TEMPLATE_SIZE = 16;
@@ -64,6 +65,8 @@ abstract class ClusterSender
 			assert pos==SEQUENCE;
 			assert pos==INVALIDATE_TEMPLATE_SIZE;
 			pos = marshal(pos, pingPongTemplate, 0xdddddd);
+			assert pos==PING_NANOS;
+			pos = marshal(pos, pingPongTemplate, 0xccccccbbbbbbl);
 
 			pos = properties.copyPingPayload(pos, pingPongTemplate);
 			assert pos==properties.packetSize : pos;
@@ -88,15 +91,15 @@ abstract class ClusterSender
 
 	final void ping(final int count)
 	{
-		pingPong(KIND_PING, pingSequence, count);
+		pingPong(KIND_PING, pingSequence, count, nanoTime());
 	}
 
-	final void pong()
+	final void pong(final long pingNanos)
 	{
-		pingPong(KIND_PONG, pongSequence, 1);
+		pingPong(KIND_PONG, pongSequence, 1, pingNanos);
 	}
 
-	private void pingPong(final int kind, final AtomicInteger sequence, final int count)
+	private void pingPong(final int kind, final AtomicInteger sequence, final int count, final long nanos)
 	{
 		assert kind==KIND_PING||kind==KIND_PONG : kind;
 		final int packetSize = properties.packetSize;
@@ -111,6 +114,7 @@ abstract class ClusterSender
 			for(int i = 0; i<count; i++)
 			{
 				marshal(SEQUENCE, buf, sequenceStart++);
+				marshal(PING_NANOS, buf, nanos);
 				send(packetSize, buf);
 			}
 		}
@@ -218,6 +222,7 @@ abstract class ClusterSender
 				invalidationSplit.get());
 	}
 
+	abstract long nanoTime();
 	abstract void send(final int length, final byte[] buf) throws IOException;
 	abstract int getLocalPort();
 	abstract int getSendBufferSize();

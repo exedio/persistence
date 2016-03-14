@@ -40,9 +40,9 @@ final class ClusterListenerMock extends ClusterListener
 	}
 
 	@Override
-	final void pong()
+	final void pong(final long pingNanos)
 	{
-		testSink.add("PONG");
+		testSink.add("PONG(" + Long.toHexString(pingNanos) + ")");
 	}
 
 	@Override

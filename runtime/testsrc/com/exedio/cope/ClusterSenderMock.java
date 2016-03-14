@@ -23,12 +23,19 @@ import java.util.ArrayList;
 
 final class ClusterSenderMock extends ClusterSender
 {
+	private long nanoTimeSource = 0x2233445566778899l;
 	private boolean closed = false;
 	ArrayList<byte[]> testSink = null;
 
 	ClusterSenderMock(final ClusterProperties properties)
 	{
 		super(properties);
+	}
+
+	@Override
+	long nanoTime()
+	{
+		return nanoTimeSource++;
 	}
 
 	@Override

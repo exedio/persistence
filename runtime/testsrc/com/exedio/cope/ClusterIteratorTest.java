@@ -47,12 +47,42 @@ public class ClusterIteratorTest
 		}
 	}
 
+	@Test public void testLong()
+	{
+		final ClusterIterator iter = new ClusterIterator(new DatagramPacket(new byte[]{(byte)0xff,
+						(byte)0x43, (byte)0x65, (byte)0x87, (byte)0xa9,
+						(byte)0xab, (byte)0x89, (byte)0x67, (byte)0x45,
+						(byte)0xff, (byte)0xff, (byte)0xff, (byte)0xff}, 1, 8));
+		assertTrue(iter.hasNext());
+		assertEquals(0x456789aba9876543l, iter.nextLong());
+		assertFalse(iter.hasNext());
+		try
+		{
+			iter.next();
+			fail();
+		}
+		catch(final NoSuchElementException e)
+		{
+			assertEquals("8", e.getMessage());
+		}
+	}
+
 	@Test public void testIntNegative()
 	{
 		final ClusterIterator iter = new ClusterIterator(new DatagramPacket(
 				new byte[]{(byte)0x45, (byte)0x67, (byte)0x89, (byte)0xab}, 4));
 		assertTrue(iter.hasNext());
 		assertEquals(0xab896745, iter.next());
+		assertFalse(iter.hasNext());
+	}
+
+	@Test public void testLongNegative()
+	{
+		final ClusterIterator iter = new ClusterIterator(new DatagramPacket(new byte[]{
+						(byte)0x43, (byte)0x65, (byte)0x87, (byte)0xa9,
+						(byte)0x45, (byte)0x67, (byte)0x89, (byte)0xab}, 8));
+		assertTrue(iter.hasNext());
+		assertEquals(0xab896745a9876543l, iter.nextLong());
 		assertFalse(iter.hasNext());
 	}
 

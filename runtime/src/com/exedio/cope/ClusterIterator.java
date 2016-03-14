@@ -86,6 +86,24 @@ final class ClusterIterator
 		return result;
 	}
 
+	long nextLong()
+	{
+		int pos = this.pos;
+		final long result =
+			((((long)buf[pos++]) & 0xff)    ) |
+			((((long)buf[pos++]) & 0xff)<< 8) |
+			((((long)buf[pos++]) & 0xff)<<16) |
+			((((long)buf[pos++]) & 0xff)<<24) |
+			((((long)buf[pos++]) & 0xff)<<32) |
+			((((long)buf[pos++]) & 0xff)<<40) |
+			((((long)buf[pos++]) & 0xff)<<48) |
+			((((long)buf[pos++]) & 0xff)<<56) ;
+		if(pos>endOffset)
+			throw new NoSuchElementException(String.valueOf(length));
+		this.pos = pos;
+		return result;
+	}
+
 	void checkPingPayload(final ClusterProperties properties, final boolean ping)
 	{
 		properties.checkPingPayload(pos, buf, offset, length, ping);

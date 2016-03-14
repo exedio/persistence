@@ -46,10 +46,26 @@ public class ClusterUtilTest
 		assertBuf(FILL, FILL, FILL, (byte)0xab, (byte)0x89, (byte)0x67, (byte)0x45);
 	}
 
+	@Test public void testMarshalLong()
+	{
+		assertEquals(11, m(3, 0x456789aba9876543l));
+		assertBuf(FILL, FILL, FILL,
+				(byte)0x43, (byte)0x65, (byte)0x87, (byte)0xa9,
+				(byte)0xab, (byte)0x89, (byte)0x67, (byte)0x45);
+	}
+
 	@Test public void testMarshalNegative()
 	{
 		assertEquals(7, m(3, 0xab896745));
 		assertBuf(FILL, FILL, FILL, (byte)0x45, (byte)0x67, (byte)0x89, (byte)0xab);
+	}
+
+	@Test public void testMarshalNegativeLong()
+	{
+		assertEquals(11, m(3, 0xab896745a9876543l));
+		assertBuf(FILL, FILL, FILL,
+				(byte)0x43, (byte)0x65, (byte)0x87, (byte)0xa9,
+				(byte)0x45, (byte)0x67, (byte)0x89, (byte)0xab);
 	}
 
 
@@ -75,6 +91,11 @@ public class ClusterUtilTest
 	}
 
 	private int m(final int pos, final int i)
+	{
+		return marshal(pos, buf, i);
+	}
+
+	private int m(final int pos, final long i)
 	{
 		return marshal(pos, buf, i);
 	}

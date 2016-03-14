@@ -87,6 +87,9 @@ public final class ClusterListenerInfo
 		private final long firstEncounter;
 		private final InetAddress address;
 		private final int port;
+		private final RoundTrip lastRoundTrip;
+		private final RoundTrip  minRoundTrip;
+		private final RoundTrip  maxRoundTrip;
 		private final SequenceChecker.Info invalidateInfo;
 		private final SequenceChecker.Info pingInfo;
 		private final SequenceChecker.Info pongInfo;
@@ -96,6 +99,9 @@ public final class ClusterListenerInfo
 				final Date firstEncounter,
 				final InetAddress address,
 				final int port,
+				final RoundTrip lastRoundTrip,
+				final RoundTrip  minRoundTrip,
+				final RoundTrip  maxRoundTrip,
 				final SequenceChecker.Info invalidateInfo,
 				final SequenceChecker.Info pingInfo,
 				final SequenceChecker.Info pongInfo)
@@ -104,6 +110,9 @@ public final class ClusterListenerInfo
 			this.firstEncounter = firstEncounter.getTime();
 			this.address = address;
 			this.port = port;
+			this.lastRoundTrip = lastRoundTrip;
+			this. minRoundTrip =  minRoundTrip;
+			this. maxRoundTrip =  maxRoundTrip;
 			this.invalidateInfo = requireNonNull(invalidateInfo);
 			this.pingInfo = requireNonNull(pingInfo);
 			this.pongInfo = requireNonNull(pongInfo);
@@ -148,6 +157,21 @@ public final class ClusterListenerInfo
 			return port;
 		}
 
+		public RoundTrip getLastRoundTrip()
+		{
+			return lastRoundTrip;
+		}
+
+		public RoundTrip getMinimumRoundTrip()
+		{
+			return minRoundTrip;
+		}
+
+		public RoundTrip getMaximumRoundTrip()
+		{
+			return maxRoundTrip;
+		}
+
 		public SequenceChecker.Info getInvalidateInfo()
 		{
 			return invalidateInfo;
@@ -167,6 +191,36 @@ public final class ClusterListenerInfo
 		public String toString()
 		{
 			return String.valueOf(id);
+		}
+	}
+
+	public static final class RoundTrip
+	{
+		private final long date;
+		private final long nanos;
+
+		RoundTrip(
+				final long date,
+				final long nanos)
+		{
+			this.date  = date;
+			this.nanos = nanos;
+		}
+
+		public Date getDate()
+		{
+			return new Date(date);
+		}
+
+		public long getNanos()
+		{
+			return nanos;
+		}
+
+		@Override
+		public String toString()
+		{
+			return "" + date;
 		}
 	}
 }

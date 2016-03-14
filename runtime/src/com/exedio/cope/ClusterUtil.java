@@ -40,6 +40,19 @@ final class ClusterUtil
 		return pos;
 	}
 
+	static final int marshal(int pos, final byte[] buf, final long i)
+	{
+		buf[pos++] = (byte)( i       & 0xff);
+		buf[pos++] = (byte)((i>>> 8) & 0xff);
+		buf[pos++] = (byte)((i>>>16) & 0xff);
+		buf[pos++] = (byte)((i>>>24) & 0xff);
+		buf[pos++] = (byte)((i>>>32) & 0xff);
+		buf[pos++] = (byte)((i>>>40) & 0xff);
+		buf[pos++] = (byte)((i>>>48) & 0xff);
+		buf[pos++] = (byte)((i>>>56) & 0xff);
+		return pos;
+	}
+
 
 	static int nextNode()
 	{
