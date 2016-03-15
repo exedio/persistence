@@ -112,6 +112,8 @@ public class ClusterNetworkPingTest extends ClusterNetworkTest
 			assertEquals(senderB.getNodeID(), nodeA.getID());
 			assertEquals(senderA.getNodeIDString(), nodeB.getIDString());
 			assertEquals(senderB.getNodeIDString(), nodeA.getIDString());
+			assertEquals(senderA.getLocalPort(), nodeB.getPort());
+			assertEquals(senderB.getLocalPort(), nodeA.getPort());
 			assertIt(pingB, nodeA.getPingInfo());
 			assertIt(pingA, nodeB.getPingInfo());
 			assertIt(pingA, nodeA.getPongInfo());
