@@ -235,22 +235,6 @@ abstract class ClusterListener
 	{
 		private static final Logger logger = LoggerFactory.getLogger(ClusterListener.class);
 
-		private static boolean check(final SequenceChecker checker, final int sequence)
-		{
-			synchronized(checker)
-			{
-				return checker.check(sequence);
-			}
-		}
-
-		private static SequenceChecker.Info getInfo(final SequenceChecker checker)
-		{
-			synchronized(checker)
-			{
-				return checker.getInfo();
-			}
-		}
-
 		private final int id;
 		private final long firstEncounter;
 		private final InetAddress address;
@@ -285,6 +269,14 @@ abstract class ClusterListener
 			return check((ping ? pingSequenceChecker : pongSequenceChecker), sequence);
 		}
 
+		private static boolean check(final SequenceChecker checker, final int sequence)
+		{
+			synchronized(checker)
+			{
+				return checker.check(sequence);
+			}
+		}
+
 		ClusterListenerInfo.Node getInfo()
 		{
 			return new ClusterListenerInfo.Node(
@@ -294,6 +286,14 @@ abstract class ClusterListener
 					getInfo(invalidateSequenceChecker),
 					getInfo(pingSequenceChecker),
 					getInfo(pongSequenceChecker));
+		}
+
+		private static SequenceChecker.Info getInfo(final SequenceChecker checker)
+		{
+			synchronized(checker)
+			{
+				return checker.getInfo();
+			}
 		}
 	}
 
