@@ -251,10 +251,10 @@ abstract class ClusterListener
 			}
 		}
 
-		final int id;
+		private final int id;
 		private final long firstEncounter;
-		final InetAddress address;
-		final int port;
+		private final InetAddress address;
+		private final int port;
 		private final SequenceChecker invalidateSequenceChecker;
 		private final SequenceChecker pingSequenceChecker;
 		private final SequenceChecker pongSequenceChecker;
