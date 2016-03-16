@@ -89,8 +89,7 @@ abstract class ClusterListener
 		{
 			case KIND_PING:
 			{
-				if(handlePingPong(packet, iter, remoteNode, true))
-					pong();
+				handlePingPong(packet, iter, remoteNode, true);
 				break;
 			}
 			case KIND_PONG:
@@ -139,7 +138,7 @@ abstract class ClusterListener
 
 	private static final byte[] MAGIC = new byte[]{MAGIC0, MAGIC1, MAGIC2, MAGIC3};
 
-	private boolean handlePingPong(
+	private void handlePingPong(
 			final DatagramPacket packet,
 			final Iter iter,
 			final int remoteNode,
@@ -153,10 +152,11 @@ abstract class ClusterListener
 		{
 			if(logger.isWarnEnabled())
 				logger.warn("{} duplicate {} from {}", new Object[]{pingString(ping), sequence, packet.getAddress()});
-			return false;
+			return;
 		}
 
-		return true;
+		if(ping)
+			pong();
 	}
 
 	static final class Iter
