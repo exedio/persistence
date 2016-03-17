@@ -27,7 +27,7 @@ import java.net.DatagramPacket;
 import java.util.NoSuchElementException;
 import org.junit.Test;
 
-public class ClusterIterTest
+public class ClusterIteratorTest
 {
 	@Test public void testInt()
 	{
