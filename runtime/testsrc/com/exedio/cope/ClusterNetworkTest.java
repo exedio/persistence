@@ -66,6 +66,8 @@ public abstract class ClusterNetworkTest
 	{
 		modelB.disconnect();
 		modelA.disconnect();
+		modelA.removeAllChangeListeners();
+		modelB.removeAllChangeListeners();
 	}
 
 	static class TypeA extends Item
