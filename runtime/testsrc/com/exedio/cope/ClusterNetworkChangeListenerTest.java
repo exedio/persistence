@@ -26,6 +26,7 @@ import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
@@ -108,11 +109,11 @@ public class ClusterNetworkChangeListenerTest extends ClusterNetworkTest
 		{
 			assertNotNull(event);
 			final Collection<Item> items = event.getItems();
-			assertTrue(items!=null);
+			assertNotNull(items);
 			assertTrue(!items.isEmpty());
 			assertUnmodifiable(items);
 
-			assertTrue(this.event==null);
+			assertSame(null, this.event);
 
 			assertContains(model.getOpenTransactions());
 			try
@@ -133,7 +134,7 @@ public class ClusterNetworkChangeListenerTest extends ClusterNetworkTest
 			assertInfo(modelA);
 			assertInfo(modelB);
 
-			assertNull(event);
+			assertSame(null, event);
 		}
 
 		void assertLocal(final List<? extends Item> expectedItems, final Transaction expectedTransaction) throws ChangeEvent.NotAvailableException
