@@ -21,6 +21,7 @@ package com.exedio.cope;
 import static com.exedio.cope.ClusterUtil.marshal;
 import static org.junit.Assert.assertEquals;
 
+import com.exedio.cope.util.Hex;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Arrays;
 import org.junit.Before;
@@ -56,9 +57,21 @@ public class ClusterUtilTest
 	{
 		int i = 0;
 		for(; i<expectedData.length; i++)
-			assertEquals(String.valueOf(i), expectedData[i], buf[i]);
+			assertEqualsHex(i, expectedData[i], buf[i]);
 		for(; i<buf.length; i++)
-			assertEquals(String.valueOf(i), FILL, buf[i]);
+			assertEqualsHex(i, FILL, buf[i]);
+	}
+
+	private static void assertEqualsHex(final int index, final byte expected, final byte actual)
+	{
+		assertEquals(
+				"at " + index + " expected: " + toHex(expected) + " but was: " + toHex(actual),
+				expected, actual);
+	}
+
+	private static String toHex(final byte b)
+	{
+		return "0x" + Hex.encodeLower(new byte[]{b});
 	}
 
 	private int m(final int pos, final int i)
