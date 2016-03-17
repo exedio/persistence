@@ -34,7 +34,6 @@ import java.net.DatagramPacket;
 import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.NoSuchElementException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -61,7 +60,7 @@ abstract class ClusterListener
 
 	final void handle(final DatagramPacket packet)
 	{
-		final Iter iter = new Iter(packet);
+		final ClusterIterator iter = new ClusterIterator(packet);
 
 		if(!iter.checkBytes(MAGIC))
 		{
@@ -140,7 +139,7 @@ abstract class ClusterListener
 
 	private void handlePingPong(
 			final DatagramPacket packet,
-			final Iter iter,
+			final ClusterIterator iter,
 			final int remoteNode,
 			final boolean ping)
 	{
@@ -157,66 +156,6 @@ abstract class ClusterListener
 
 		if(ping)
 			pong();
-	}
-
-	static final class Iter
-	{
-		private final int length;
-		private final int offset;
-		private final int endOffset;
-		private final byte[] buf;
-		private int pos;
-
-		Iter(final DatagramPacket packet)
-		{
-			this.offset = packet.getOffset();
-			this.length = packet.getLength();
-			this.endOffset = offset + length;
-			this.buf = packet.getData();
-
-			this.pos = offset;
-		}
-
-		boolean hasNext()
-		{
-			return pos<endOffset;
-		}
-
-		boolean checkBytes(final byte[] expected)
-		{
-			int pos = this.pos;
-			for(int i = 0; i<expected.length; i++)
-				if(expected[i]!=buf[pos++])
-				{
-					if(pos>endOffset)
-						throw new NoSuchElementException(String.valueOf(length));
-					return false;
-				}
-
-			if(pos>endOffset)
-				throw new NoSuchElementException(String.valueOf(length));
-			this.pos = pos;
-			return true;
-		}
-
-		int next()
-		{
-			int pos = this.pos;
-			final int result =
-				((buf[pos++] & 0xff)    ) |
-				((buf[pos++] & 0xff)<< 8) |
-				((buf[pos++] & 0xff)<<16) |
-				((buf[pos++] & 0xff)<<24) ;
-			if(pos>endOffset)
-				throw new NoSuchElementException(String.valueOf(length));
-			this.pos = pos;
-			return result;
-		}
-
-		void checkPingPayload(final ClusterProperties properties, final boolean ping)
-		{
-			properties.checkPingPayload(pos, buf, offset, length, ping);
-		}
 	}
 
 	abstract void invalidate(int remoteNode, TIntHashSet[] invalidations);

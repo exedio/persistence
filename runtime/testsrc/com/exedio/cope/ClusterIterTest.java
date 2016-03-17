@@ -31,7 +31,7 @@ public class ClusterIterTest
 {
 	@Test public void testInt()
 	{
-		final ClusterListener.Iter iter = new ClusterListener.Iter(new DatagramPacket(
+		final ClusterIterator iter = new ClusterIterator(new DatagramPacket(
 				new byte[]{(byte)0xff, (byte)0xab, (byte)0x89, (byte)0x67, (byte)0x45, (byte)0xff, (byte)0xff, (byte)0xff, (byte)0xff}, 1, 4));
 		assertTrue(iter.hasNext());
 		assertEquals(0x456789ab, iter.next());
@@ -49,7 +49,7 @@ public class ClusterIterTest
 
 	@Test public void testIntNegative()
 	{
-		final ClusterListener.Iter iter = new ClusterListener.Iter(new DatagramPacket(
+		final ClusterIterator iter = new ClusterIterator(new DatagramPacket(
 				new byte[]{(byte)0x45, (byte)0x67, (byte)0x89, (byte)0xab}, 4));
 		assertTrue(iter.hasNext());
 		assertEquals(0xab896745, iter.next());
@@ -58,7 +58,7 @@ public class ClusterIterTest
 
 	@Test public void testCheckInt()
 	{
-		final ClusterListener.Iter iter = new ClusterListener.Iter(new DatagramPacket(
+		final ClusterIterator iter = new ClusterIterator(new DatagramPacket(
 				new byte[]{(byte)0xff, (byte)0xab, (byte)0x89, (byte)0x67, (byte)0x45, (byte)0xff}, 1, 4));
 		assertTrue(iter.hasNext());
 		assertTrue(iter.checkBytes(new byte[]{(byte)0xab, (byte)0x89, (byte)0x67, (byte)0x45}));
@@ -76,7 +76,7 @@ public class ClusterIterTest
 
 	@Test public void testCheckIntFalse()
 	{
-		final ClusterListener.Iter iter = new ClusterListener.Iter(new DatagramPacket(
+		final ClusterIterator iter = new ClusterIterator(new DatagramPacket(
 				new byte[]{(byte)0xab, (byte)0x89, (byte)0x67, (byte)0x45}, 4));
 		assertTrue(iter.hasNext());
 		assertFalse(iter.checkBytes(new byte[]{(byte)0xab, (byte)0x89, (byte)0x68, (byte)0x45}));
@@ -85,7 +85,7 @@ public class ClusterIterTest
 
 	@Test public void testCheckIntNegative()
 	{
-		final ClusterListener.Iter iter = new ClusterListener.Iter(new DatagramPacket(
+		final ClusterIterator iter = new ClusterIterator(new DatagramPacket(
 				new byte[]{(byte)0x45, (byte)0x67, (byte)0x89, (byte)0xab}, 4));
 		assertTrue(iter.hasNext());
 		assertTrue(iter.checkBytes(new byte[]{(byte)0x45, (byte)0x67, (byte)0x89, (byte)0xab}));
