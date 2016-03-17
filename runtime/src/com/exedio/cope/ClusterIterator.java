@@ -23,8 +23,8 @@ import java.util.NoSuchElementException;
 
 final class ClusterIterator
 {
-	private final int length;
 	private final int offset;
+	private final int length;
 	private final int endOffset;
 	private final byte[] buf;
 	private int pos;
