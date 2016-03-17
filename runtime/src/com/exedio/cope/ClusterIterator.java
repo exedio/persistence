@@ -31,10 +31,21 @@ final class ClusterIterator
 
 	ClusterIterator(final DatagramPacket packet)
 	{
-		this.offset = packet.getOffset();
-		this.length = packet.getLength();
+		this(
+				packet.getOffset(),
+				packet.getLength(),
+				packet.getData());
+	}
+
+	private ClusterIterator(
+			final int offset,
+			final int length,
+			final byte[] buf)
+	{
+		this.offset = offset;
+		this.length = length;
 		this.endOffset = offset + length;
-		this.buf = packet.getData();
+		this.buf = buf;
 
 		this.pos = offset;
 	}
