@@ -47,15 +47,15 @@ import org.junit.Test;
 
 public class PriceTest
 {
-	private static final int MIN_STORE = Integer.MIN_VALUE + 1;
-	private static final int MAX_STORE = Integer.MAX_VALUE;
+	private static final long MIN_STORE = Long.MIN_VALUE + 1;
+	private static final long MAX_STORE = Long.MAX_VALUE;
 
-	private static final Price p49 = storeOf(1073741823);
-	private static final Price p50 = storeOf(1073741824);
-	private static final Price p51 = storeOf(1073741825);
-	private static final Price p97 = storeOf(2147483645);
-	private static final Price p98 = storeOf(2147483646);
-	private static final Price p99 = storeOf(2147483647);
+	private static final Price p49 = storeOf(4611686018427387903l);
+	private static final Price p50 = storeOf(4611686018427387904l);
+	private static final Price p51 = storeOf(4611686018427387905l);
+	private static final Price p97 = storeOf(9223372036854775805l);
+	private static final Price p98 = storeOf(9223372036854775806l);
+	private static final Price p99 = storeOf(9223372036854775807l);
 
 	private static final Price mp49 = p49.negate();
 	private static final Price mp50 = p50.negate();
@@ -68,6 +68,42 @@ public class PriceTest
 	{
 		assertEquals(5, storeOf(5).store());
 		assertEquals(0, storeOf(0).store());
+	}
+
+	@Test public void testStoreIntExact()
+	{
+		assertEquals(5, storeOf(5).storeIntExact());
+		assertEquals(0, storeOf(0).storeIntExact());
+		assertEquals(Integer.MAX_VALUE, storeOf(Integer.MAX_VALUE).storeIntExact());
+		assertEquals(Integer.MIN_VALUE, storeOf(Integer.MIN_VALUE).storeIntExact());
+	}
+
+	@Test public void testStoreIntExactOverflow()
+	{
+		final Price p = storeOf(Integer.MAX_VALUE + 1l);
+		try
+		{
+			p.storeIntExact();
+			fail();
+		}
+		catch(final ArithmeticException e)
+		{
+			assertEquals("not an integer: 2147483648", e.getMessage());
+		}
+	}
+
+	@Test public void testStoreIntExactUnderflow()
+	{
+		final Price p = storeOf(Integer.MIN_VALUE - 1l);
+		try
+		{
+			p.storeIntExact();
+			fail();
+		}
+		catch(final ArithmeticException e)
+		{
+			assertEquals("not an integer: -2147483649", e.getMessage());
+		}
 	}
 
 	@Test public void testZero()
@@ -95,13 +131,21 @@ public class PriceTest
 	{
 		try
 		{
-			storeOf(Integer.MIN_VALUE);
+			storeOf(Long.MIN_VALUE);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("Integer.MIN_VALUE not allowed", e.getMessage());
+			assertEquals("Long.MIN_VALUE not allowed", e.getMessage());
 		}
+	}
+
+	@Test public void testStoreOfLong()
+	{
+		assertEquals( 5, storeOf(Long.valueOf( 5)).store());
+		assertEquals(-5, storeOf(Long.valueOf(-5)).store());
+		assertSame(ZERO, storeOf(Long.valueOf( 0)));
+		assertEquals(null, storeOf((Long)null));
 	}
 
 	@Test public void testStoreOfInteger()
@@ -176,8 +220,8 @@ public class PriceTest
 		assertEquals(-10999, valueOf(-109.98501).store());
 		assertEquals(-10999, valueOf(-109.986  ).store());
 
-		assertEquals(MAX_STORE, valueOf(MAX_STORE/100d).store());
-		assertEquals(MIN_STORE, valueOf(MIN_STORE/100d).store());
+		assertEquals(MAX_STORE-1407, valueOf((MAX_STORE/100d) - 8.0).store());
+		assertEquals(MIN_STORE+1407, valueOf((MIN_STORE/100d) + 8.0).store());
 		assertSame(ZERO, valueOf( 0.0));
 		assertSame(ZERO, valueOf(-0.0));
 		try
@@ -187,7 +231,7 @@ public class PriceTest
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("too big: 2.147483648E7", e.getMessage());
+			assertEquals("too big: 9.223372036854776E+16", e.getMessage());
 		}
 		try
 		{
@@ -196,7 +240,7 @@ public class PriceTest
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("too small: -2.147483648E7", e.getMessage());
+			assertEquals("too small: -9.223372036854776E+16", e.getMessage());
 		}
 		try
 		{
@@ -328,8 +372,8 @@ public class PriceTest
 		assertEquals(MAX_STORE, valueOf(bd(MAX_STORE, 2)).store());
 		assertEquals(MIN_STORE, valueOf(bd(MIN_STORE, 2)).store());
 		assertSame(ZERO, valueOf(bd(0, 0)));
-		assertValueOfIllegal(bd(MAX_STORE, 2).add(     bd(1, 2)), "too big: 21474836.48");
-		assertValueOfIllegal(bd(MIN_STORE, 2).subtract(bd(1, 2)), "too small: -21474836.48");
+		assertValueOfIllegal(bd(MAX_STORE, 2).add(     bd(1, 2)), "too big: 92233720368547758.08");
+		assertValueOfIllegal(bd(MIN_STORE, 2).subtract(bd(1, 2)), "too small: -92233720368547758.08");
 		try
 		{
 			valueOf((BigDecimal)null);
@@ -368,16 +412,6 @@ public class PriceTest
 		assertEqualBits( 0.0,  storeOf(   0).doubleValue());
 	}
 
-	@Test public void testDoubleValueAndValueOf()
-	{
-		assertEquals( p97, valueOf( p97.doubleValue()));
-		assertEquals( p98, valueOf( p98.doubleValue()));
-		assertEquals( p99, valueOf( p99.doubleValue()));
-		assertEquals(mp97, valueOf(mp97.doubleValue()));
-		assertEquals(mp98, valueOf(mp98.doubleValue()));
-		assertEquals(mp99, valueOf(mp99.doubleValue()));
-	}
-
 	@Test public void testBigValue()
 	{
 		assertEquals(bd( 222, 2), storeOf( 222).bigValue());
@@ -398,8 +432,8 @@ public class PriceTest
 		assertEquals(mp97, valueOf(mp97.bigValue()));
 		assertEquals(mp98, valueOf(mp98.bigValue()));
 		assertEquals(mp99, valueOf(mp99.bigValue()));
-		assertValueOfIllegal( p99.bigValue().subtract( p98.bigValue()).add( p99.bigValue()), "too big: 21474836.48");
-		assertValueOfIllegal(mp99.bigValue().subtract(mp98.bigValue()).add(mp99.bigValue()), "too small: -21474836.48");
+		assertValueOfIllegal( p99.bigValue().subtract( p98.bigValue()).add( p99.bigValue()), "too big: 92233720368547758.08");
+		assertValueOfIllegal(mp99.bigValue().subtract(mp98.bigValue()).add(mp99.bigValue()), "too small: -92233720368547758.08");
 	}
 
 	@Test public void testAdd()
@@ -611,8 +645,8 @@ public class PriceTest
 		assertEquals(p50,  p50.multiply(1d));
 		assertEquals(p51,  p51.multiply(1d));
 		assertEquals(p98,  p49.multiply(2d));
-		assertMultiplyOver(p50,         2d, "too big: 21474836.480");
-		assertMultiplyOver(p51,         2d, "too big: 21474836.500");
+		assertMultiplyOver(p50,         2d, "too big: 92233720368547758.080");
+		assertMultiplyOver(p51,         2d, "too big: 92233720368547758.100");
 	}
 
 	private static void assertMultiplyOver(final Price left, final double right, final String message)
@@ -658,8 +692,8 @@ public class PriceTest
 		assertEquals(p50, p50.divide(1d ));
 		assertEquals(p51, p51.divide(1d ));
 		assertEquals(p98, p49.divide(0.5));
-		assertDivideOver( p50,       0.5, "too big: 21474836.48");
-		assertDivideOver( p51,       0.5, "too big: 21474836.50");
+		assertDivideOver( p50,       0.5, "too big: 92233720368547758.08");
+		assertDivideOver( p51,       0.5, "too big: 92233720368547758.10");
 	}
 
 	private static void assertDivideOver(final Price left, final double right, final String message)
@@ -733,8 +767,8 @@ public class PriceTest
 		assertToString("-1.20", storeOf(-120), "-1.2");
 		assertToString( "1.00", storeOf( 100),  "1"  );
 		assertToString("-1.00", storeOf(-100), "-1"  );
-		assertToString("-21474836.47", mp99);
-		assertToString( "21474836.47",  p99);
+		assertToString("-92233720368547758.07", mp99);
+		assertToString( "92233720368547758.07",  p99);
 	}
 
 	private static void assertToString(final String expected, final Price actual)
@@ -754,12 +788,12 @@ public class PriceTest
 		final DecimalFormat de = (DecimalFormat)NumberFormat.getInstance(Locale.GERMAN);
 		en.setParseBigDecimal(true);
 		de.setParseBigDecimal(true);
-		assertParse(en, "0", "0.1", "-0.1", "1.1", "-1.1", "1,234.5", "-1,234.5", "21,474,836.47", "-21,474,836.47");
-		assertParse(de, "0", "0,1", "-0,1", "1,1", "-1,1", "1.234,5", "-1.234,5", "21.474.836,47", "-21.474.836,47");
+		assertParse(en, "0", "0.1", "-0.1", "1.1", "-1.1", "1,234.5", "-1,234.5", "92,233,720,368,547,758.07", "-92,233,720,368,547,758.07");
+		assertParse(de, "0", "0,1", "-0,1", "1,1", "-1,1", "1.234,5", "-1.234,5", "92.233.720.368.547.758,07", "-92.233.720.368.547.758,07");
 		en.setGroupingUsed(false);
 		de.setGroupingUsed(false);
-		assertParse(en, "0", "0.1", "-0.1", "1.1", "-1.1",  "1234.5",  "-1234.5",   "21474836.47",   "-21474836.47");
-		assertParse(de, "0", "0,1", "-0,1", "1,1", "-1,1",  "1234,5",  "-1234,5",   "21474836,47",   "-21474836,47");
+		assertParse(en, "0", "0.1", "-0.1", "1.1", "-1.1",  "1234.5",  "-1234.5",      "92233720368547758.07",      "-92233720368547758.07");
+		assertParse(de, "0", "0,1", "-0,1", "1,1", "-1,1",  "1234,5",  "-1234,5",      "92233720368547758,07",      "-92233720368547758,07");
 	}
 
 	@Test public void testFormatSynthetic() throws ParseException
@@ -781,9 +815,9 @@ public class PriceTest
 		assertEquals('m', df.getDecimalFormatSymbols().getMinusSign());
 		assertEquals('g', df.getDecimalFormatSymbols().getGroupingSeparator());
 
-		assertParse(df, "0", "0d1", "m0d1", "1d1", "m1d1", "1g234d5", "m1g234d5", "21g474g836d47", "m21g474g836d47");
+		assertParse(df, "0", "0d1", "m0d1", "1d1", "m1d1", "1g234d5", "m1g234d5", "92g233g720g368g547g758d07", "m92g233g720g368g547g758d07");
 		df.setGroupingUsed(false);
-		assertParse(df, "0", "0d1", "m0d1", "1d1", "m1d1",  "1234d5",  "m1234d5",   "21474836d47",   "m21474836d47");
+		assertParse(df, "0", "0d1", "m0d1", "1d1", "m1d1",  "1234d5",  "m1234d5",      "92233720368547758d07",      "m92233720368547758d07");
 	}
 
 	private static void assertParse(
@@ -834,12 +868,12 @@ public class PriceTest
 		df.setParseBigDecimal(true);
 		try
 		{
-			parse("21474836.48", df);
+			parse("92233720368547758.08", df);
 			fail();
 		}
 		catch(final ParseException e)
 		{
-			assertEquals("too big: 21474836.48", e.getMessage());
+			assertEquals("too big: 92233720368547758.08", e.getMessage());
 		}
 	}
 
@@ -849,12 +883,12 @@ public class PriceTest
 		df.setParseBigDecimal(true);
 		try
 		{
-			parse("-21474836.48", df);
+			parse("-92233720368547758.08", df);
 			fail();
 		}
 		catch(final ParseException e)
 		{
-			assertEquals("too small: -21474836.48", e.getMessage());
+			assertEquals("too small: -92233720368547758.08", e.getMessage());
 		}
 	}
 
@@ -938,7 +972,7 @@ public class PriceTest
 
 	private static Price reserialize(final Price value)
 	{
-		return Assert.reserialize(value, 62);
+		return Assert.reserialize(value, 66);
 	}
 
 	@Test public void testEqualsZero()

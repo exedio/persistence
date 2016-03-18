@@ -28,7 +28,7 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import com.exedio.cope.FinalViolationException;
-import com.exedio.cope.IntegerRangeViolationException;
+import com.exedio.cope.LongRangeViolationException;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.SchemaInfo;
 import com.exedio.cope.SetValue;
@@ -95,7 +95,7 @@ public class PriceFieldTest extends TestWithEnvironment
 			item.setBigPrice(storeOf(4999));
 			fail();
 		}
-		catch(final IntegerRangeViolationException e)
+		catch(final LongRangeViolationException e)
 		{
 			assertEquals(bigPrice.getInt(), e.getFeature());
 			assertEquals(item, e.getItem());

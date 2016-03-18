@@ -36,6 +36,14 @@ public class MoneyTest
 	}
 
 
+	@Test public void testStoreOfLong()
+	{
+		assertEquals( 5, storeOf(Long.valueOf( 5), eur).amountStore(eur));
+		assertEquals(-5, storeOf(Long.valueOf(-5), eur).amountStore(eur));
+		assertEquals( 0, storeOf(Long.valueOf( 0), eur).amountStore(eur));
+		assertEquals(null, storeOf((Long)null, eur));
+	}
+
 	@Test public void testStoreOfInteger()
 	{
 		assertEquals( 5, storeOf(Integer.valueOf( 5), eur).amountStore(eur));

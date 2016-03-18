@@ -32,9 +32,9 @@ public final class Price implements Serializable, Comparable<Price>
 
 	private static final int FACTOR_I = 100;
 
-	private static final int NOT_A_STORE = Integer.MIN_VALUE;
-	private static final int MIN_STORE = Integer.MIN_VALUE + 1;
-	private static final int MAX_STORE = Integer.MAX_VALUE;
+	private static final long NOT_A_STORE = Long.MIN_VALUE;
+	private static final long MIN_STORE = Long.MIN_VALUE + 1l;
+	private static final long MAX_STORE = Long.MAX_VALUE;
 
 	public static final Price MIN_VALUE = new Price(MIN_STORE);
 	public static final Price MAX_VALUE = new Price(MAX_STORE);
@@ -58,18 +58,18 @@ public final class Price implements Serializable, Comparable<Price>
 		static Price[] value = newCache();
 	}
 
-	private static Price fromCache(final int store)
+	private static Price fromCache(final long store)
 	{
 		return
 			(0<=store && store<CACHE_MAX)
-			? Cache.value[store]
+			? Cache.value[(int)store]
 			: null;
 	}
 
 
 	// store
 
-	public static Price storeOf(final int store)
+	public static Price storeOf(final long store)
 	{
 		{
 			final Price fromCache = fromCache(store);
@@ -77,15 +77,19 @@ public final class Price implements Serializable, Comparable<Price>
 				return fromCache;
 		}
 
-		switch(store)
-		{
-			case MIN_STORE: return MIN_VALUE;
-			case MAX_STORE: return MAX_VALUE;
-			case NOT_A_STORE:
-				throw new IllegalArgumentException("Integer.MIN_VALUE not allowed");
-		}
+		if(store==MIN_STORE)
+			return MIN_VALUE;
+		else if(store==MAX_STORE)
+			return MAX_VALUE;
+		else if(store==NOT_A_STORE)
+			throw new IllegalArgumentException("Long.MIN_VALUE not allowed");
 
 		return new Price(store);
+	}
+
+	public static Price storeOf(final Long store)
+	{
+		return store!=null ? storeOf(store.longValue()) : null;
 	}
 
 	public static Price storeOf(final Integer store)
@@ -93,18 +97,26 @@ public final class Price implements Serializable, Comparable<Price>
 		return store!=null ? storeOf(store.intValue()) : null;
 	}
 
-	private static final long serialVersionUID = 1l;
-	private final int store;
+	private static final long serialVersionUID = 2l;
+	private final long store;
 
-	private Price(final int store)
+	private Price(final long store)
 	{
 		this.store = store;
 		assert store!=NOT_A_STORE;
 	}
 
-	public int store()
+	public long store()
 	{
 		return store;
+	}
+
+	public int storeIntExact()
+	{
+		if(store<Integer.MIN_VALUE || store>Integer.MAX_VALUE)
+			throw new ArithmeticException("not an integer: " + store);
+
+		return (int)store;
 	}
 
 
@@ -122,7 +134,17 @@ public final class Price implements Serializable, Comparable<Price>
 	@Override
 	public int hashCode()
 	{
-		return store ^ 827345123;
+		return hashCode(store) ^ 827345123;
+	}
+
+	/**
+	 * Returns the equivalent of {@link Long#hashCode()}
+	 * without instantiating a Long.
+	 * Can be replaced by static Long.hashCode available in JDK 1.8
+	 */
+	private static int hashCode(final long value)
+	{
+		return (int)(value ^ (value >>> 32));
 	}
 
 	/**
@@ -133,7 +155,7 @@ public final class Price implements Serializable, Comparable<Price>
 	@Override
 	public String toString()
 	{
-		final int minor = Math.abs(store%FACTOR_I);
+		final long minor = Math.abs(store%FACTOR_I);
 		return
 			((store<0 && store>(-FACTOR_I)) ? "-" : "") +
 			String.valueOf(store/FACTOR_I) + '.' +
@@ -151,11 +173,11 @@ public final class Price implements Serializable, Comparable<Price>
 		if((store<0 && store>(-FACTOR_I)))
 			bf.append('-');
 		bf.append(store/FACTOR_I);
-		final int minor = Math.abs(store%FACTOR_I);
+		final long minor = Math.abs(store%FACTOR_I);
 		if(minor!=0)
 		{
 			bf.append('.');
-			final int x = minor % 10;
+			final long x = minor % 10;
 			if(x==0)
 				bf.append(minor/10);
 			else
@@ -225,7 +247,7 @@ public final class Price implements Serializable, Comparable<Price>
 
 	public int compareTo(final Price other)
 	{
-		return Integer.compare(store, other.store);
+		return Long.compare(store, other.store);
 	}
 
 	public boolean equalsZero()
@@ -307,15 +329,15 @@ public final class Price implements Serializable, Comparable<Price>
 	 */
 	public Price add(final Price other)
 	{
-		final int b = other.store;
+		final long b = other.store;
 		if(b==0)
 			return this;
 
-		final int a = store;
+		final long a = store;
 		if(a==0)
 			return other;
 
-		final int r = a + b;
+		final long r = a + b;
 		if( (((a ^ r) & (b ^ r)) < 0) || r==NOT_A_STORE )
 		{
 			throw new ArithmeticException("overflow " + this + " plus " + other);
@@ -329,12 +351,12 @@ public final class Price implements Serializable, Comparable<Price>
 	 */
 	public Price subtract(final Price other)
 	{
-		final int b = other.store;
+		final long b = other.store;
 		if(b==0)
 			return this;
 
-		final int a = store;
-		final int r = a - b;
+		final long a = store;
+		final long r = a - b;
 		if( (((a ^ b) & (a ^ r)) < 0) || r==NOT_A_STORE )
 		{
 			throw new ArithmeticException("overflow " + this + " minus " + other);
@@ -351,15 +373,23 @@ public final class Price implements Serializable, Comparable<Price>
 		if(other==1)
 			return this;
 
-		// TODO check overflow without using long
+		final long a = store;
+		final long b = other;
+
+		final long r = a * b;
+		final long aa = Math.abs(a);
+		final long ab = Math.abs(b);
+		if (((aa | ab) >>> 31 != 0))
 		{
-			final long a = store;
-			final long r = a * other;
-			if(r>MAX_STORE || r<MIN_STORE)
+			if(((b!=0) && (r/b!=a)) ||
+				(a==Long.MIN_VALUE && b==-1) ||
+				(r==NOT_A_STORE) )
+			{
 				throw new ArithmeticException("overflow " + this + " multiply " + other);
+			}
 		}
 
-		return storeOf(store * other);
+		return storeOf(r);
 	}
 
 	/**
@@ -497,7 +527,7 @@ public final class Price implements Serializable, Comparable<Price>
 		}
 
 		// distributing remaining pence
-		int remainingPence = total.subtract(assigned).store();
+		long remainingPence = total.subtract(assigned).store();
 		final Price pence = Price.storeOf(remainingPence>0 ? 1 : -1);
 		final int penceD = remainingPence>0 ? -1 : 1;
 		while(remainingPence!=0)
@@ -572,7 +602,7 @@ public final class Price implements Serializable, Comparable<Price>
 		if(value.compareTo(BIG_MAX_VALUE)>0)
 			throw new IllegalArgumentException("too big: " + value);
 
-		return storeOf(value.movePointRight(2).setScale(0, roundingMode).intValueExact());
+		return storeOf(value.movePointRight(2).setScale(0, roundingMode).longValueExact());
 	}
 
 	public BigDecimal bigValue()
