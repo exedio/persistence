@@ -248,10 +248,11 @@ abstract class ClusterListener
 				maxRoundTripNanos = nanos;
 			}
 
-			logger.info("ping pong via {} ({}:{}) took {}ns", new Object[]{
-					toStringNodeID(id),
-					address, port,
-					NumberFormat.getInstance(Locale.ENGLISH).format(nanos)});
+			if(logger.isInfoEnabled())
+				logger.info("ping pong via {} ({}:{}) took {}ns", new Object[]{
+						toStringNodeID(id),
+						address, port,
+						NumberFormat.getInstance(Locale.ENGLISH).format(nanos)});
 		}
 
 		ClusterListenerInfo.Node getInfo()
