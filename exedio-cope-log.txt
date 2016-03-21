@@ -12,7 +12,10 @@ The items are sorted inversely, i.e. latest items are on top
 	This breaks backwards API compatibility, causes compiler errors.
 	Affects database schema, column types change from 32 bit integer to 64 bit.
 	Affects instrumented code.
-	Breaks serialization compatibility of Price and Money.
+	Breaks serialization compatibility of Price and Money, causes:
+		java.io.InvalidClassException: com.exedio.cope.pattern.Price;
+		local class incompatible: stream classdesc serialVersionUID = 1,
+		local class serialVersionUID = 2
 * ConnectProperties#factory()#mediaRootUrl() added.
 * ConnectProperties#factory()#primaryKeyGeneratorSequence() added.
 * FeatureField#get throws FeatureField.NotFound if feature id is not found.
