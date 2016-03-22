@@ -94,6 +94,8 @@ public class ClusterNetworkPingTest extends ClusterNetworkTest
 	{
 		final ClusterSenderInfo senderA = modelA.getClusterSenderInfo();
 		final ClusterSenderInfo senderB = modelB.getClusterSenderInfo();
+		assertEquals(0, senderA.getTrafficClass());
+		assertEquals(0, senderB.getTrafficClass());
 		assertEquals(0, senderA.getInvalidationSplit());
 		assertEquals(0, senderB.getInvalidationSplit());
 
