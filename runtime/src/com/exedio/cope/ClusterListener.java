@@ -251,7 +251,7 @@ abstract class ClusterListener
 			}
 
 			if(logger.isInfoEnabled())
-				logger.info("ping pong via {} ({}:{}) took {}ns", new Object[]{
+				logger.info("ping pong round trip via {} ({}:{}) took {}ns", new Object[]{
 						idString,
 						address, port,
 						NumberFormat.getInstance(Locale.ENGLISH).format(nanos)});
