@@ -182,6 +182,7 @@ abstract class ClusterListener
 		private static final Logger logger = LoggerFactory.getLogger(ClusterListener.class);
 
 		private final int id;
+		private final String idString;
 		private final long firstEncounter;
 		private final InetAddress address;
 		private final int port;
@@ -201,6 +202,7 @@ abstract class ClusterListener
 				final int sequenceCheckerCapacity)
 		{
 			this.id = id;
+			this.idString = toStringNodeID(id);
 			this.firstEncounter = System.currentTimeMillis();
 			this.address = packet.getAddress();
 			this.port = packet.getPort();
@@ -208,7 +210,7 @@ abstract class ClusterListener
 			this.pingSequenceChecker       = new SequenceChecker(sequenceCheckerCapacity);
 			this.pongSequenceChecker       = new SequenceChecker(sequenceCheckerCapacity);
 			if(logger.isInfoEnabled())
-				logger.info("encountered new node {}", id);
+				logger.info("encountered new node {}", idString);
 		}
 
 		boolean invalidate(final int sequence)
@@ -250,7 +252,7 @@ abstract class ClusterListener
 
 			if(logger.isInfoEnabled())
 				logger.info("ping pong via {} ({}:{}) took {}ns", new Object[]{
-						toStringNodeID(id),
+						idString,
 						address, port,
 						NumberFormat.getInstance(Locale.ENGLISH).format(nanos)});
 		}
