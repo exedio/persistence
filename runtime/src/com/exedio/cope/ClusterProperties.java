@@ -215,7 +215,12 @@ final class ClusterProperties extends Properties
 					? new DatagramSocket(sendSourcePort)
 					: new DatagramSocket(sendSourcePort, sendInterface));
 			if(!sendBufferDefault)
+			{
 				result.setSendBufferSize(sendBuffer);
+				final int actual = result.getSendBufferSize();
+				if(actual!=sendBuffer)
+					logger.error("sendBufferSize expected {}, but was {}", sendBuffer, actual);
+			}
 			if(!sendTrafficDefault)
 				result.setTrafficClass(sendTraffic);
 			return result;
@@ -253,7 +258,12 @@ final class ClusterProperties extends Properties
 				result = new DatagramSocket(port);
 			}
 			if(!listenBufferDefault)
+			{
 				result.setReceiveBufferSize(listenBuffer);
+				final int actual = result.getReceiveBufferSize();
+				if(actual!=listenBuffer)
+					logger.error("receiveBufferSize expected {}, but was {}", listenBuffer, actual);
+			}
 			return result;
 		}
 		catch(final IOException e)
