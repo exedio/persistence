@@ -82,6 +82,7 @@ final class ClusterProperties extends Properties
 	final   InetAddress   listenAddress       = valAd("listenAddress",       MULTICAST_ADDRESS);
 	private final int     listenPort          = value("listenPort",          MULTICAST_PORT, 1);
 	private final InetAddress listenInterface = valAd("listenInterface");
+	private final boolean listenDisableLoopbk = value("listenDisableLoopback", false);
 	private final boolean listenBufferDefault = value("listenBufferDefault", true);
 	private final int     listenBuffer        = value("listenBuffer"       , 50000, 1);
 	        final int     listenThreads       = value("listenThreads",       1, 1);
@@ -242,6 +243,8 @@ final class ClusterProperties extends Properties
 				final MulticastSocket resultMulti = new MulticastSocket(port);
 				if(listenInterface!=null)
 					resultMulti.setInterface(listenInterface);
+				if(listenDisableLoopbk)
+					resultMulti.setLoopbackMode(true);
 				resultMulti.joinGroup(listenAddress);
 				result = resultMulti;
 			}
