@@ -616,12 +616,10 @@ public final class Model implements Serializable
 		final Transaction previousTransaction = transactions.currentIfBound();
 		if(previousTransaction!=null)
 		{
-			final String previousName = previousTransaction.name;
 			throw new IllegalStateException(
 					"tried to start a new transaction " +
-					(name!=null ? ("with name >" + name + '<') : "without a name") +
-					", but there is already a transaction " + previousTransaction + ' ' +
-					(previousName!=null ? ("with name >" + previousName + '<') : "without a name") +
+					(name!=null ? name : Transaction.ANONYMOUS) +
+					", but there is already a transaction " + previousTransaction +
 					" started on " + new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS").format(previousTransaction.getStartDate()) +
 					" bound to current thread");
 		}

@@ -470,6 +470,16 @@ public final class Transaction
 	@Override
 	public String toString()
 	{
-		return "CT." + id + (closed?"(closed)":"");
+		final StringBuilder bf = new StringBuilder();
+
+		bf.append(id);
+		if(closed)
+			bf.append("(closed)");
+		bf.append(':');
+		bf.append(name!=null ? name : ANONYMOUS);
+
+		return bf.toString();
 	}
+
+	static final String ANONYMOUS = "ANONYMOUS_TRANSACTION";
 }

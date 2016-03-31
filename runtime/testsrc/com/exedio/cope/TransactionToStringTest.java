@@ -36,9 +36,9 @@ public class TransactionToStringTest extends TestWithEnvironment
 		final String id = String.valueOf(tx.getID());
 		assertEquals("txname", tx.getName());
 
-		assertEquals("CT."+id, tx.toString());
+		assertEquals(id+":txname", tx.toString());
 		model.commit();
-		assertEquals("CT."+id+"(closed)", tx.toString());
+		assertEquals(id+"(closed):txname", tx.toString());
 	}
 
 	@Test public void testWithoutName()
@@ -48,8 +48,8 @@ public class TransactionToStringTest extends TestWithEnvironment
 		final String id = String.valueOf(tx.getID());
 		assertEquals(null, tx.getName());
 
-		assertEquals("CT."+id, tx.toString());
+		assertEquals(id+":ANONYMOUS_TRANSACTION", tx.toString());
 		model.commit();
-		assertEquals("CT."+id+"(closed)", tx.toString());
+		assertEquals(id+"(closed):ANONYMOUS_TRANSACTION", tx.toString());
 	}
 }

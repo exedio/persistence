@@ -49,9 +49,9 @@ public class TransactionOnlyTest extends TestWithEnvironment
 		catch(final IllegalStateException e)
 		{
 			assertEquals(
-					"tried to start a new transaction with name >nested<, " +
-					"but there is already a transaction CT." + model.currentTransaction().getID() +
-					" with name >tx:com.exedio.cope.TransactionOnlyTest< " +
+					"tried to start a new transaction nested, " +
+					"but there is already a transaction " + model.currentTransaction().getID() +
+					":tx:com.exedio.cope.TransactionOnlyTest " +
 					"started on " + new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS").format(tx.getStartDate()) +
 					" bound to current thread",
 					e.getMessage());
@@ -65,9 +65,9 @@ public class TransactionOnlyTest extends TestWithEnvironment
 		catch(final IllegalStateException e)
 		{
 			assertEquals(
-					"tried to start a new transaction without a name, " +
-					"but there is already a transaction CT." + model.currentTransaction().getID() +
-					" with name >tx:com.exedio.cope.TransactionOnlyTest< " +
+					"tried to start a new transaction ANONYMOUS_TRANSACTION, " +
+					"but there is already a transaction " + model.currentTransaction().getID() +
+					":tx:com.exedio.cope.TransactionOnlyTest " +
 					"started on " + new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS").format(tx.getStartDate()) +
 					" bound to current thread",
 					e.getMessage());
