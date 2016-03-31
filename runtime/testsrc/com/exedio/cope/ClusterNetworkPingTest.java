@@ -32,7 +32,7 @@ import org.junit.Test;
 
 public class ClusterNetworkPingTest extends ClusterNetworkTest
 {
-	private boolean multicast;
+	private boolean fromMyself = false;
 
 	@Test public void testMulticast() throws InterruptedException
 	{
@@ -53,7 +53,7 @@ public class ClusterNetworkPingTest extends ClusterNetworkTest
 		assertEquals("Connect Properties Source (multicast)", modelA.getConnectProperties().getSource());
 		assertEquals("Connect Properties Source (multicast)", modelB.getConnectProperties().getSource());
 
-		multicast = true;
+		fromMyself = true;
 		test();
 	}
 
@@ -65,7 +65,6 @@ public class ClusterNetworkPingTest extends ClusterNetworkTest
 		assertEquals("Connect Properties Source (14446>14447)", modelA.getConnectProperties().getSource());
 		assertEquals("Connect Properties Source (14447>14446)", modelB.getConnectProperties().getSource());
 
-		multicast = false;
 		test();
 	}
 
@@ -101,8 +100,8 @@ public class ClusterNetworkPingTest extends ClusterNetworkTest
 
 		final ClusterListenerInfo listenerA = modelA.getClusterListenerInfo();
 		final ClusterListenerInfo listenerB = modelB.getClusterListenerInfo();
-		assertIt(multicast ? (pingA+pingB) : 0, listenerA);
-		assertIt(multicast ? (pingA+pingB) : 0, listenerB);
+		assertIt(pingA+pingB, listenerA);
+		assertIt(pingA+pingB, listenerB);
 
 		final List<ClusterListenerInfo.Node> nodesA = listenerA.getNodes();
 		final List<ClusterListenerInfo.Node> nodesB = listenerB.getNodes();
@@ -134,14 +133,14 @@ public class ClusterNetworkPingTest extends ClusterNetworkTest
 		}
 	}
 
-	private static final void assertIt(
+	private final void assertIt(
 			final int fromMyself,
 			final ClusterListenerInfo actual)
 	{
 		assertEquals(0, actual.getException());
 		assertEquals(0, actual.getMissingMagic());
 		assertEquals(0, actual.getWrongSecret());
-		assertEquals(fromMyself, actual.getFromMyself());
+		assertEquals(this.fromMyself ? fromMyself : 0, actual.getFromMyself());
 	}
 
 	private static final void assertIt(
