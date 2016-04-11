@@ -340,17 +340,16 @@ public abstract class Item implements Serializable, Comparable<Item>
 	 * Is called before every item deletion.
 	 * Override this method when needed.
 	 * The default implementation does nothing.
-	 * @return will be delivered to the {@link Item#afterDeleteCopeItem} method (default is null)
+	 * Use {@link Transaction#addCommitHook} to handle things after the deletion.
 	 */
-	protected Object beforeDeleteCopeItem()
+	protected void beforeDeleteCopeItem()
 	{
 		// empty default implementation
-		return null;
 	}
 
 	private final void deleteCopeItem(final HashSet<Item> toDelete)
 	{
-		final Object resultOfBeforeDeleteCopeItem = beforeDeleteCopeItem();
+		beforeDeleteCopeItem();
 		toDelete.add(this);
 
 		//final String tostring = toString();
@@ -387,19 +386,6 @@ public abstract class Item implements Serializable, Comparable<Item>
 		final Entity entity = getEntity();
 		entity.delete();
 		entity.write(null);
-		afterDeleteCopeItem(resultOfBeforeDeleteCopeItem);
-	}
-
-
-	/**
-	 * Is called after every item deletion.
-	 * Override this method when needed.
-	 * The default implementation does nothing.
-	 * @param resultOfBeforeDeleteCopeItem is the return value of the {@link Item#beforeDeleteCopeItem} method (default is null)
-	 */
-	protected void afterDeleteCopeItem(final Object resultOfBeforeDeleteCopeItem)
-	{
-		// empty default implementation
 	}
 
 	/**
