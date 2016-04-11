@@ -32,6 +32,7 @@ import static com.exedio.cope.ItemField.DeletePolicy.FORBID;
 import static com.exedio.cope.ItemField.DeletePolicy.NULLIFY;
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
 import static com.exedio.cope.tojunit.Assert.list;
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
@@ -40,8 +41,12 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.LinkedList;
 import java.util.List;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 public class DeleteTest extends TestWithEnvironment
@@ -55,6 +60,18 @@ public class DeleteTest extends TestWithEnvironment
 
 	private DeleteItem item;
 	private DeleteOtherItem other;
+
+	@SuppressWarnings("static-method")
+	@Before public final void setUpDeleteTest()
+	{
+		DeleteItem.BEFORE_DELETE_COPE_ITEM_CALLS.set(new LinkedList<String>());
+	}
+
+	@SuppressWarnings("static-method")
+	@After public final void tearDownDeleteTest()
+	{
+		DeleteItem.BEFORE_DELETE_COPE_ITEM_CALLS.remove();
+	}
 
 	@Test public void testForbid()
 	{
@@ -71,19 +88,23 @@ public class DeleteTest extends TestWithEnvironment
 		item = new DeleteItem("item");
 		item.setOtherForbid(other);
 		assertDeleteFails(other, otherForbid);
+		assertAndResetBeforeDeleteCopeItemCalls();
 
 		// other item
 		final DeleteItem item2 = new DeleteItem("item2");
 		item.setOtherForbid(null);
 		item.setSelfForbid(item2);
 		assertDeleteFails(item2, selfForbid);
+		assertAndResetBeforeDeleteCopeItemCalls();
 
 		// same item
 		item.setSelfForbid(item);
 		// TODO allow self references
 		assertDeleteFails(item, selfForbid);
+		assertAndResetBeforeDeleteCopeItemCalls();
 		item.setSelfForbid(null);
 		assertDelete(item);
+		assertAndResetBeforeDeleteCopeItemCalls("item");
 
 		// indirect forbid
 		item = new DeleteItem("itemb");
@@ -91,11 +112,13 @@ public class DeleteTest extends TestWithEnvironment
 		final DeleteItem item3 = new DeleteItem("item3");
 		item3.setSelfForbid(item2);
 		assertDeleteFails(item, selfForbid, item2);
+		assertAndResetBeforeDeleteCopeItemCalls();
 
 		assertDelete(other);
 		assertDelete(item3);
 		assertDelete(item2);
 		assertDelete(item);
+		assertAndResetBeforeDeleteCopeItemCalls("other", "item3", "item2", "itemb");
 	}
 
 	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
@@ -141,6 +164,7 @@ public class DeleteTest extends TestWithEnvironment
 		item.setOtherNullify(other);
 		assertEquals(other, item.getOtherNullify());
 		assertDelete(other);
+		assertAndResetBeforeDeleteCopeItemCalls("other");
 		assertEquals(null, item.getOtherNullify());
 
 		// other item
@@ -148,11 +172,13 @@ public class DeleteTest extends TestWithEnvironment
 		item.setSelfNullify(item2);
 		assertEquals(item2, item.getSelfNullify());
 		assertDelete(item2);
+		assertAndResetBeforeDeleteCopeItemCalls("item");
 		assertEquals(null, item.getSelfNullify());
 
 		// same item
 		item.setSelfNullify(item);
 		assertDelete(item);
+		assertAndResetBeforeDeleteCopeItemCalls("itema");
 
 		// indirect nullify
 		item = new DeleteItem("itemb");
@@ -163,9 +189,11 @@ public class DeleteTest extends TestWithEnvironment
 		assertEquals(item2, item3.getSelfNullify());
 		assertDelete(item);
 		assertTrue(!item2.existsCopeItem());
+		assertAndResetBeforeDeleteCopeItemCalls("itemb", "item2b");
 		assertEquals(null, item3.getSelfNullify());
 
 		assertDelete(item3);
+		assertAndResetBeforeDeleteCopeItemCalls("item3b");
 	}
 
 	@Test public void testCascade()
@@ -186,6 +214,7 @@ public class DeleteTest extends TestWithEnvironment
 		assertEquals(other, item.getOtherCascade());
 		assertDelete(other);
 		assertTrue(!item.existsCopeItem());
+		assertAndResetBeforeDeleteCopeItemCalls("other", "itema");
 
 		// other type with multiple sources
 		item = new DeleteItem("item");
@@ -202,7 +231,9 @@ public class DeleteTest extends TestWithEnvironment
 		assertTrue(!item2.existsCopeItem());
 		assertTrue(item3.existsCopeItem());
 		assertTrue(!item4.existsCopeItem());
+		assertAndResetBeforeDeleteCopeItemCalls("other", "item", "item2", "item4");
 		assertDelete(item3);
+		assertAndResetBeforeDeleteCopeItemCalls("item3");
 
 		// other item
 		item = new DeleteItem("item");
@@ -223,8 +254,10 @@ public class DeleteTest extends TestWithEnvironment
 		assertTrue(!item4.existsCopeItem());
 		assertTrue(!item5.existsCopeItem());
 		assertTrue(!item6.existsCopeItem());
+		assertAndResetBeforeDeleteCopeItemCalls("item3", "item4", "item5", "item6");
 		assertDelete(item);
 		assertTrue(!item2.existsCopeItem());
+		assertAndResetBeforeDeleteCopeItemCalls("item", "item2");
 
 		// other item with diamond
 		item = new DeleteItem("item");
@@ -246,8 +279,10 @@ public class DeleteTest extends TestWithEnvironment
 		assertTrue(!item4.existsCopeItem());
 		assertTrue(!item5.existsCopeItem());
 		assertTrue(!item6.existsCopeItem());
+		assertAndResetBeforeDeleteCopeItemCalls("item3", "item4", "item5", "item6");
 		assertDelete(item);
 		assertTrue(!item2.existsCopeItem());
+		assertAndResetBeforeDeleteCopeItemCalls("item", "item2");
 	}
 
 	@Test public void testAtomicity()
@@ -278,6 +313,7 @@ public class DeleteTest extends TestWithEnvironment
 		assertEquals(todelete, middle2.getSelfNullify());
 		assertEquals(todelete, middle3.getSelfNullify());
 		assertTrue(item.existsCopeItem());
+		assertAndResetBeforeDeleteCopeItemCalls();
 	}
 
 	@Test public void testItemObjectPool() throws NoSuchIDException
@@ -343,5 +379,13 @@ public class DeleteTest extends TestWithEnvironment
 			assertEquals("revisions are not enabled", e.getMessage());
 		}
 		model.reviseIfSupportedAndAutoEnabled();
+	}
+
+	private static void assertAndResetBeforeDeleteCopeItemCalls(final String... itemNames)
+	{
+		final List<String> calls = DeleteItem.BEFORE_DELETE_COPE_ITEM_CALLS.get();
+		final String[] callArray = calls.toArray(new String[calls.size()]);
+		calls.clear();
+		assertArrayEquals("Item#beforeDeleteCopeItem() method is not called as expected (expected: "+Arrays.toString(itemNames)+" | result: "+Arrays.toString(callArray)+").", itemNames, callArray);
 	}
 }
