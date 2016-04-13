@@ -20,8 +20,11 @@ package com.exedio.cope;
 
 import static org.junit.Assert.assertNotNull;
 
+import java.util.List;
+
 final class DeleteItem extends Item
 {
+	static final ThreadLocal<List<String>> BEFORE_DELETE_COPE_ITEM_CALLS = new ThreadLocal<>();
 
 	static final ItemField<DeleteItem> selfForbid = ItemField.create(DeleteItem.class).optional();
 
@@ -50,6 +53,12 @@ final class DeleteItem extends Item
 	public String toString()
 	{
 		return name;
+	}
+
+	@Override
+	protected void beforeDeleteCopeItem()
+	{
+		DeleteItem.BEFORE_DELETE_COPE_ITEM_CALLS.get().add(name);
 	}
 
 

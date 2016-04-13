@@ -38,6 +38,12 @@ final class DeleteOtherItem extends Item
 		return name;
 	}
 
+	@Override
+	protected void beforeDeleteCopeItem()
+	{
+		DeleteItem.BEFORE_DELETE_COPE_ITEM_CALLS.get().add(name);
+	}
+
 
 	/**
 

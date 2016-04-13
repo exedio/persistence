@@ -336,8 +336,21 @@ public abstract class Item implements Serializable, Comparable<Item>
 		}
 	}
 
+	/**
+	 * Is called before every item deletion.
+	 * Override this method when needed.
+	 * The default implementation does nothing.
+	 * You may want to use {@link Model#addCommitHook} to postpone your action
+	 * until the deletion is committed by the current transaction.
+	 */
+	protected void beforeDeleteCopeItem()
+	{
+		// empty default implementation
+	}
+
 	private final void deleteCopeItem(final HashSet<Item> toDelete)
 	{
+		beforeDeleteCopeItem();
 		toDelete.add(this);
 
 		//final String tostring = toString();
