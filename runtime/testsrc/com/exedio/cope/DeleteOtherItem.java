@@ -20,8 +20,6 @@ package com.exedio.cope;
 
 import static org.junit.Assert.assertNotNull;
 
-import java.util.List;
-
 final class DeleteOtherItem extends Item
 {
 
@@ -43,14 +41,7 @@ final class DeleteOtherItem extends Item
 	@Override
 	protected void beforeDeleteCopeItem()
 	{
-		if (name != null)
-		{
-			final List<String> calls = DeleteItem.BEFORE_DELETE_COPE_ITEM_CALLS.get();
-			if (calls != null)
-			{
-				calls.add(name);
-			}
-		}
+		DeleteItem.BEFORE_DELETE_COPE_ITEM_CALLS.get().add(name);
 	}
 
 

@@ -58,15 +58,9 @@ final class DeleteItem extends Item
 	@Override
 	protected void beforeDeleteCopeItem()
 	{
-		if (name != null)
-		{
-			final List<String> calls = BEFORE_DELETE_COPE_ITEM_CALLS.get();
-			if (calls != null)
-			{
-				calls.add(name);
-			}
-		}
+		DeleteItem.BEFORE_DELETE_COPE_ITEM_CALLS.get().add(name);
 	}
+
 
 	/**
 
