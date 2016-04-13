@@ -26,6 +26,7 @@
 	<classpathentry kind="lib" path="lib/trove4j.jar" sourcepath="lib/trove4j-source.jar"/>
 	<classpathentry kind="lib" path="lib/exedio-cope-util.jar" sourcepath="lib/exedio-cope-util-src.zip"/>
 	<classpathentry kind="lib" path="lib/mysql-connector-java.jar"/>
+	<classpathentry kind="lib" path="lib/mariadb-java-client.jar"/>
 	<classpathentry kind="lib" path="lib/postgresql.jar"/>
 	<classpathentry kind="lib" path="lib/findbugs-annotations.jar"/>
 	<classpathentry kind="lib" path="lib/hsqldb.jar"/>

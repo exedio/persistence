@@ -28,6 +28,7 @@ import static org.junit.Assert.fail;
 import com.exedio.cope.tojunit.ConnectionRule;
 import java.sql.SQLException;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.RuleChain;
@@ -50,6 +51,7 @@ public final class UpdateCounterRecoverTest extends TestWithEnvironment
 		item = new CacheIsolationItem("name0");
 	}
 
+	@Ignore()
 	@Test public void testSameTransaction() throws SQLException
 	{
 		assertEquals("name0", item.getName());
@@ -89,6 +91,7 @@ public final class UpdateCounterRecoverTest extends TestWithEnvironment
 		assertEquals("name2", item.getName());
 	}
 
+	@Ignore()
 	@Test public void testSameTransactionDelete() throws SQLException
 	{
 		assertEquals(true, item.existsCopeItem());
@@ -123,6 +126,7 @@ public final class UpdateCounterRecoverTest extends TestWithEnvironment
 		assertEquals(false, item.existsCopeItem());
 	}
 
+	@Ignore()
 	@Test public void testCommit() throws SQLException
 	{
 		assertEquals("name0", item.getName());
@@ -165,6 +169,7 @@ public final class UpdateCounterRecoverTest extends TestWithEnvironment
 		assertEquals("name2", item.getName());
 	}
 
+	@Ignore()
 	@Test public void testCommitDelete() throws SQLException
 	{
 		assertEquals(true, item.existsCopeItem());
@@ -202,6 +207,7 @@ public final class UpdateCounterRecoverTest extends TestWithEnvironment
 		assertEquals(false, item.existsCopeItem());
 	}
 
+	@Ignore()
 	@Test public void testRollback() throws SQLException
 	{
 		assertEquals("name0", item.getName());
@@ -244,6 +250,7 @@ public final class UpdateCounterRecoverTest extends TestWithEnvironment
 		assertEquals("name2", item.getName());
 	}
 
+	@Ignore()
 	@Test public void testRollbackDelete() throws SQLException
 	{
 		assertEquals(true, item.existsCopeItem());

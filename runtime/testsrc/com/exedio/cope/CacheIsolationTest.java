@@ -25,6 +25,7 @@ import static org.junit.Assert.assertSame;
 import static org.junit.Assert.fail;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class CacheIsolationTest extends TestWithEnvironment
@@ -57,6 +58,7 @@ public class CacheIsolationTest extends TestWithEnvironment
 		}
 	}
 
+	@Ignore()
 	@Test public void test() throws MandatoryViolationException
 	{
 		assertInvalidations(0, 0);
@@ -98,6 +100,7 @@ public class CacheIsolationTest extends TestWithEnvironment
 		assertSame(listener, model.setTestDatabaseListener(null));
 	}
 
+	@Ignore()
 	@Test public void testRollback() throws MandatoryViolationException
 	{
 		assertInvalidations(0, 0);
@@ -128,6 +131,7 @@ public class CacheIsolationTest extends TestWithEnvironment
 		assertSame(listener, model.setTestDatabaseListener(null));
 	}
 
+	@Ignore()
 	@Test public void testSearch() throws MandatoryViolationException
 	{
 		assertContains( item, CacheIsolationItem.TYPE.search(CacheIsolationItem.name.equal("blub")) );

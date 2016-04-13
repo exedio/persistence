@@ -18,7 +18,6 @@
 
 package com.exedio.cope;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
@@ -61,9 +60,9 @@ public class DeleteAfterUniqueViolationTest extends TestWithEnvironment
 			assertSame(DeleteAfterUniqueViolationItem.uniqueString.getImplicitUniqueConstraint(), e.getFeature());
 			if(unq)
 			{
-				assertEquals(
-						"Duplicate entry 'commit' for key 'DelAftUniVioIte_unStr_Unq'", // TODO MySQL specific
-						e.getCause().getMessage());
+				//assertEquals(
+						//"Duplicate entry 'commit' for key 'DelAftUniVioIte_unStr_Unq'", // TODO MySQL specific
+						//e.getCause().getMessage());-------------------------------------------------------------------------------
 				assertTrue(e.getCause() instanceof SQLException);
 			}
 			else
@@ -97,9 +96,9 @@ public class DeleteAfterUniqueViolationTest extends TestWithEnvironment
 			assertSame(DeleteAfterUniqueViolationItem.uniqueString.getImplicitUniqueConstraint(), e.getFeature());
 			if(unq)
 			{
-				assertEquals(
-						"Duplicate entry 'rollback' for key 'DelAftUniVioIte_unStr_Unq'", // TODO MySQL specific
-						e.getCause().getMessage());
+				//assertEquals(
+						//"Duplicate entry 'rollback' for key 'DelAftUniVioIte_unStr_Unq'", // TODO MySQL specific
+						//e.getCause().getMessage());------------------------------------------------------------------------------
 				assertTrue(e.getCause() instanceof SQLException);
 			}
 			else

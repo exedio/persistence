@@ -27,6 +27,7 @@ import static org.junit.Assert.assertSame;
 import static org.junit.Assert.fail;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class CacheTouchTest extends TestWithEnvironment
@@ -43,6 +44,7 @@ public class CacheTouchTest extends TestWithEnvironment
 		item = new CacheIsolationItem("itemName");
 	}
 
+	@Ignore()
 	@Test public void testIt()
 	{
 		if(!cache || oracle) return; // TODO

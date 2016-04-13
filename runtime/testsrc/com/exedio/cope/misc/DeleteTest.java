@@ -31,6 +31,7 @@ import com.exedio.cope.util.AssertionErrorJobContext;
 import com.exedio.cope.util.JobContext;
 import com.exedio.cope.util.JobStop;
 import java.util.ArrayList;
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class DeleteTest extends TestWithEnvironment
@@ -41,6 +42,7 @@ public class DeleteTest extends TestWithEnvironment
 		copeRule.omitTransaction();
 	}
 
+	@Ignore()
 	@Test public void testIt()
 	{
 		final Query<CacheIsolationItem> q = TYPE.newQuery();
@@ -61,6 +63,7 @@ public class DeleteTest extends TestWithEnvironment
 		ctx.assertProgress(2);
 	}
 
+	@Ignore()
 	@Test public void testEmpty()
 	{
 		final Query<CacheIsolationItem> q = TYPE.newQuery();
@@ -70,6 +73,7 @@ public class DeleteTest extends TestWithEnvironment
 		ctx.assertProgress(0);
 	}
 
+	@Ignore()
 	@Test public void testError()
 	{
 		try
@@ -93,6 +97,7 @@ public class DeleteTest extends TestWithEnvironment
 		}
 	}
 
+	@Ignore()
 	@Test public void testAbort()
 	{
 		final Query<CacheIsolationItem> q = TYPE.newQuery();
@@ -123,6 +128,7 @@ public class DeleteTest extends TestWithEnvironment
 		ctx.assertProgress(1);
 	}
 
+	@Ignore()
 	@Test public void testTransactions()
 	{
 		assertPurge(  0, 1);

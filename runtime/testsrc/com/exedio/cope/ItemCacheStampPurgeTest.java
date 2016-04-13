@@ -26,6 +26,7 @@ import static org.junit.Assert.assertSame;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class ItemCacheStampPurgeTest extends TestWithEnvironment
@@ -63,6 +64,7 @@ public class ItemCacheStampPurgeTest extends TestWithEnvironment
 		cache.clearStamps();
 	}
 
+	@Ignore()
 	@Test public void testSequential()
 	{
 		if(quit)
@@ -89,6 +91,7 @@ public class ItemCacheStampPurgeTest extends TestWithEnvironment
 		assertCache(0, 0, 2, 2, 2, 0, 0, 2);
 	}
 
+	@Ignore()
 	@Test public void testOverlappingOnce()
 	{
 		if(quit)
@@ -120,6 +123,7 @@ public class ItemCacheStampPurgeTest extends TestWithEnvironment
 		assertCache(0, 0, 2, 2, 2, 0, 0, 2);
 	}
 
+	@Ignore()
 	@Test public void testOverlappingOnceWithoutConnection()
 	{
 		if(quit)
@@ -150,6 +154,7 @@ public class ItemCacheStampPurgeTest extends TestWithEnvironment
 		assertCache(0, 0, 2, 2, 2, 0, 0, 2);
 	}
 
+	@Ignore()
 	@Test public void testOverlappingTwice()
 	{
 		if(quit)
