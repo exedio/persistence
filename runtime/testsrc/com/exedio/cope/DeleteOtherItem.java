@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import static org.junit.Assert.assertNotNull;
+
 final class DeleteOtherItem extends Item
 {
 
@@ -26,6 +28,7 @@ final class DeleteOtherItem extends Item
 	DeleteOtherItem(final String name)
 	{
 		this();
+		assertNotNull(name);
 		this.name = name;
 	}
 

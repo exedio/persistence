@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import static org.junit.Assert.assertNotNull;
+
 final class DeleteItem extends Item
 {
 
@@ -40,13 +42,14 @@ final class DeleteItem extends Item
 	DeleteItem(final String name)
 	{
 		this();
+		assertNotNull(name);
 		this.name = name;
 	}
 
 	@Override
 	public String toString()
 	{
-		return name!=null ? name : getCopeID();
+		return name;
 	}
 
 
