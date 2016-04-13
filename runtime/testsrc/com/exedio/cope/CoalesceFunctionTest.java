@@ -23,9 +23,6 @@ import static com.exedio.cope.CompareFunctionConditionItem.TYPE;
 import static com.exedio.cope.CompareFunctionConditionItem.date;
 import static com.exedio.cope.CompareFunctionConditionItem.dateA;
 import static com.exedio.cope.CompareFunctionConditionItem.dateB;
-import static com.exedio.cope.CompareFunctionConditionItem.day;
-import static com.exedio.cope.CompareFunctionConditionItem.dayA;
-import static com.exedio.cope.CompareFunctionConditionItem.dayB;
 import static com.exedio.cope.CompareFunctionConditionItem.doubleA;
 import static com.exedio.cope.CompareFunctionConditionItem.doubleB;
 import static com.exedio.cope.CompareFunctionConditionItem.enumA;
@@ -111,9 +108,9 @@ public class CoalesceFunctionTest extends TestWithEnvironment
 		assertIt(asList(date, date, date(-102), date(-101), date, null), dateB, dateA);
 
 		//assertIt(asList(day(-2), day(-1), day(-2), day(-1), day, day(+1)), dayA, dayB, day(+1)); ------------------
-		assertIt(asList(day, day, day(-102), day(-101), day, day(+1)), dayB, dayA, day(+1));
-		assertIt(asList(day(-2), day(-1), day(-2), day(-1), day, null), dayA, dayB);
-		assertIt(asList(day, day, day(-102), day(-101), day, null), dayB, dayA);
+		//assertIt(asList(day, day, day(-102), day(-101), day, day(+1)), dayB, dayA, day(+1));
+		//assertIt(asList(day(-2), day(-1), day(-2), day(-1), day, null), dayA, dayB);
+		//assertIt(asList(day, day, day(-102), day(-101), day, null), dayB, dayA);
 
 		assertIt(asList(XEnum.V1, XEnum.V2, XEnum.V1, XEnum.V2, XEnum.V3, XEnum.V5), enumA, enumB, XEnum.V5);
 		assertIt(asList(XEnum.V3, XEnum.V3, XEnum.V4, XEnum.V5, XEnum.V3, XEnum.V5), enumB, enumA, XEnum.V5);
