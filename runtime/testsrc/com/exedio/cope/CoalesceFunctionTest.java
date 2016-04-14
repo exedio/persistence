@@ -110,7 +110,7 @@ public class CoalesceFunctionTest extends TestWithEnvironment
 		assertIt(asList(date(-2), date(-1), date(-2), date(-1), date, null), dateA, dateB);
 		assertIt(asList(date, date, date(-102), date(-101), date, null), dateB, dateA);
 
-		// TODO check for mystical problem resolved by restart
+		// TODO mystical problem, see CoalesceTest for information
 		assertIt(asList(day(-2), day(-1), day(-2), day(-1), day, day(+1)), dayA, dayB, day(+1));
 		assertIt(asList(day, day, day(-102), day(-101), day, day(+1)), dayB, dayA, day(+1));
 		assertIt(asList(day(-2), day(-1), day(-2), day(-1), day, null), dayA, dayB);
