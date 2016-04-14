@@ -30,6 +30,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -582,9 +583,7 @@ final class MysqlDialect extends Dialect
 	@Override
 	String extractUniqueViolation(final SQLException exception)
 	{
-		if(!(
-				exception instanceof com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException ||
-				exception instanceof com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException))
+		if(!(exception instanceof SQLIntegrityConstraintViolationException))
 			return null;
 
 		final String message = exception.getMessage();
