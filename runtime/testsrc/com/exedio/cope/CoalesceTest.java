@@ -36,6 +36,8 @@ import com.exedio.cope.CompareConditionItem.YEnum;
 import com.exedio.cope.util.Day;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+import java.util.TimeZone;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -71,6 +73,8 @@ public class CoalesceTest extends TestWithEnvironment
 
 	@Test public void testIt()
 	{
+		System.out.println(TimeZone.getDefault());
+		System.out.println(Locale.getDefault());
 		try
 		{
 			coalesce(string, (String)null);
