@@ -95,6 +95,7 @@ public class CoalesceTest extends TestWithEnvironment
 		assertIt(asList(11l, 12l, 55l), longx, 55l);
 		assertIt(asList(2.1, 2.2, 55.5), doublex, 55.5);
 		assertIt(asList(date(-2), date(-1), date(+1)), date, date(+1));
+		// TODO problem with MariaDB Connector/J, see https://jira.mariadb.org/browse/CONJ-280
 		assertIt(asList(day(-2), day(-1), day(+1)), day, day(+1));
 		assertIt(asList(YEnum.V1, YEnum.V2, YEnum.V5), enumx, YEnum.V5);
 		assertIt(asList(item1, item2, itemX), item, itemX);
