@@ -30,11 +30,14 @@ import static org.junit.Assert.assertNotNull;
 
 import com.exedio.cope.Item;
 import com.exedio.cope.Query;
+import com.exedio.cope.RevisionInfo;
 import com.exedio.cope.Transaction;
 import com.exedio.cope.Type;
 import com.exedio.cope.pattern.Media;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Set;
 import org.junit.Test;
 
 public class SampleTest extends ConnectedTest
@@ -58,12 +61,17 @@ public class SampleTest extends ConnectedTest
 		assertEquals(asList((Date)null, null), asList(sampler.analyzeDate(SamplerClusterNode.TYPE)));
 		assertEquals(asList((Date)null, null), asList(sampler.analyzeDate(SamplerMedia.TYPE)));
 
+		final Transaction leftTransactionInSampledModel = MODEL.leaveTransaction();
+		final int distinctDates = getNumberOfDistinctDates();
+		MODEL.joinTransaction(leftTransactionInSampledModel);
+
 		touch();
 		final Date before55 = new Date();
 		assertEquals(null, sampler.sampleInternal());
 		final Date after55 = new Date();
 		samplerModel.startTransaction("HistoryTest2");
-		assertEquals(2, SamplerEnvironment.TYPE.search().size());
+
+		assertEquals(distinctDates, SamplerEnvironment.TYPE.search().size());
 		{
 			final Iterator<SamplerModel> iter = SamplerModel.TYPE.search().iterator();
 			assertFalse(iter.hasNext());
@@ -96,7 +104,7 @@ public class SampleTest extends ConnectedTest
 		final SamplerModel model66 = sampler.sampleInternal();
 		final Date after66 = new Date();
 		samplerModel.startTransaction("HistoryTest2");
-		assertEquals(2, SamplerEnvironment.TYPE.search().size());
+		assertEquals(distinctDates, SamplerEnvironment.TYPE.search().size());
 		assertWithin(before55, after55, SamplerModel.from.get(model66));
 		{
 			final Iterator<SamplerModel> iter = iter(SamplerModel.TYPE);
@@ -150,7 +158,7 @@ public class SampleTest extends ConnectedTest
 		final SamplerModel model77 = sampler.sampleInternal();
 		final Date after77 = new Date();
 		samplerModel.startTransaction("HistoryTest2");
-		assertEquals(2, SamplerEnvironment.TYPE.search().size());
+		assertEquals(distinctDates, SamplerEnvironment.TYPE.search().size());
 		assertEquals(date66, SamplerModel.from.get(model77));
 		{
 			final Iterator<SamplerModel> iter = iter(SamplerModel.TYPE);
@@ -262,5 +270,17 @@ public class SampleTest extends ConnectedTest
 		final Query<E> q = new Query<>(type.getThis());
 		q.setOrderBy(type.getThis(), true);
 		return q.search().iterator();
+	}
+
+	private int getNumberOfDistinctDates()
+	{
+		final Set<Date> distinctDates = new HashSet<>();
+		distinctDates.add( MODEL.getConnectDate() );
+		for ( byte[] revInfoBytes: MODEL.getRevisionLogs().values() )
+		{
+			RevisionInfo info = RevisionInfo.read(revInfoBytes);
+			distinctDates.add( info.getDate() );
+		}
+		return distinctDates.size();
 	}
 }
