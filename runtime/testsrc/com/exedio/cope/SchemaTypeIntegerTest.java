@@ -27,6 +27,9 @@ import static com.exedio.cope.SchemaTypeIntegerItem.byte1u;
 import static com.exedio.cope.SchemaTypeIntegerItem.byte2;
 import static com.exedio.cope.SchemaTypeIntegerItem.byte2l;
 import static com.exedio.cope.SchemaTypeIntegerItem.byte2u;
+import static com.exedio.cope.SchemaTypeIntegerItem.byte3;
+import static com.exedio.cope.SchemaTypeIntegerItem.byte3l;
+import static com.exedio.cope.SchemaTypeIntegerItem.byte3u;
 import static com.exedio.cope.SchemaTypeIntegerItem.byte4;
 import static com.exedio.cope.SchemaTypeIntegerItem.byte4l;
 import static com.exedio.cope.SchemaTypeIntegerItem.byte4u;
@@ -50,6 +53,7 @@ public class SchemaTypeIntegerTest extends TestWithEnvironment
 	{
 		final String type1;
 		final String type2;
+		final String type3;
 		final String type4;
 		final String type8;
 		switch(dialect)
@@ -57,20 +61,20 @@ public class SchemaTypeIntegerTest extends TestWithEnvironment
 			case hsqldb:
 				type1 = "TINYINT";
 				type2 = "SMALLINT";
-				type4 = "INTEGER";
+				type3 = type4 = "INTEGER";
 				type8 = "BIGINT";
 				break;
 			case mysql:
-				type1 = type2 = type4 = "int";
+				type1 = type2 = type3 = type4 = "int";
 				type8 = "bigint";
 				break;
 			case oracle:
-				type1 = type2 = type4 = "NUMBER(10)";
+				type1 = type2 = type3 = type4 = "NUMBER(10)";
 				type8 = "NUMBER(20)";
 				break;
 			case postgresql:
 				type1 = type2 = "smallint";
-				type4 = "integer";
+				type3 = type4 = "integer";
 				type8 = "bigint";
 				break;
 			default:
@@ -81,8 +85,11 @@ public class SchemaTypeIntegerTest extends TestWithEnvironment
 		assertType(type2, byte1l);
 		assertType(type2, byte1u);
 		assertType(type2, byte2);
-		assertType(type4, byte2l);
-		assertType(type4, byte2u);
+		assertType(type3, byte2l);
+		assertType(type3, byte2u);
+		assertType(type3, byte3);
+		assertType(type4, byte3l);
+		assertType(type4, byte3u);
 		assertType(type4, byte4);
 		assertType(type8, byte4l);
 		assertType(type8, byte4u);
