@@ -71,7 +71,9 @@ final class OracleDialect extends Dialect
 	@Override
 	String getIntegerType(final long minimum, final long maximum)
 	{
-		return "NUMBER(" + ((minimum>=Integer.MIN_VALUE && maximum<=Integer.MAX_VALUE) ? 10 : 20) + ')'; // TODO do this more precisely
+		final long max = Math.max(Math.abs(minimum), Math.abs(maximum));
+		final int length = max == 0 ? 1 : (int)Math.log10(max)+1;
+		return "NUMBER(" + length + ')';
 	}
 
 	@Override
