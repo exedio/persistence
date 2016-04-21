@@ -428,7 +428,7 @@ final class OracleDialect extends Dialect
 				final Object o = resultSet.getObject(1);
 				if(o==null)
 					throw new RuntimeException("null in sequence " + quotedName);
-				return ((BigDecimal)o).intValue();
+				return ((BigDecimal)o).intValueExact();
 			}
 		});
 	}
@@ -458,7 +458,7 @@ final class OracleDialect extends Dialect
 				final Object o = resultSet.getObject(1);
 				if(o==null)
 					throw new RuntimeException("null in sequence " + name);
-				return ((BigDecimal)o).intValue() + 1;
+				return ((BigDecimal)o).intValueExact() + 1;
 			}
 		});
 	}
