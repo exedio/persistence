@@ -35,6 +35,8 @@ public abstract class Condition implements Serializable
 
 	abstract void check(TC tc);
 
+	abstract Condition copy(CopyMapper mapper);
+
 	public final Condition not()
 	{
 		if(this instanceof Literal)
@@ -96,6 +98,12 @@ public abstract class Condition implements Serializable
 		void check(final TC tc)
 		{
 			throw new RuntimeException(name);
+		}
+
+		@Override
+		Literal copy(final CopyMapper mapper)
+		{
+			return this;
 		}
 
 		@Override
