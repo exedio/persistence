@@ -23,14 +23,23 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.Principal;
+import java.util.Collection;
 import java.util.Enumeration;
 import java.util.Locale;
 import java.util.Map;
+import javax.servlet.AsyncContext;
+import javax.servlet.DispatcherType;
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
 import javax.servlet.ServletInputStream;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
 
 @SuppressFBWarnings("NM_CONFUSING")
 class HttpServletRequestDummy implements HttpServletRequest
@@ -42,7 +51,7 @@ class HttpServletRequestDummy implements HttpServletRequest
 	}
 
 	@Override()
-	public Enumeration<?> getAttributeNames()
+	public Enumeration<String> getAttributeNames()
 	{
 		throw new AssertionError();
 	}
@@ -86,7 +95,7 @@ class HttpServletRequestDummy implements HttpServletRequest
 	}
 
 	@Override()
-	public Enumeration<?> getParameterNames()
+	public Enumeration<String> getParameterNames()
 	{
 		throw new AssertionError();
 	}
@@ -98,7 +107,7 @@ class HttpServletRequestDummy implements HttpServletRequest
 	}
 
 	@Override()
-	public Map<?, ?> getParameterMap()
+	public Map<String, String[]>getParameterMap()
 	{
 		throw new AssertionError();
 	}
@@ -165,7 +174,7 @@ class HttpServletRequestDummy implements HttpServletRequest
 	}
 
 	@Override()
-	public Enumeration<?> getLocales()
+	public Enumeration<Locale> getLocales()
 	{
 		throw new AssertionError();
 	}
@@ -238,13 +247,13 @@ class HttpServletRequestDummy implements HttpServletRequest
 	}
 
 	@Override()
-	public Enumeration<?> getHeaders(final String name)
+	public Enumeration<String> getHeaders(final String name)
 	{
 		throw new AssertionError();
 	}
 
 	@Override()
-	public Enumeration<?> getHeaderNames()
+	public Enumeration<String> getHeaderNames()
 	{
 		throw new AssertionError();
 	}
@@ -360,6 +369,79 @@ class HttpServletRequestDummy implements HttpServletRequest
 	@Deprecated()
 	@Override()
 	public boolean isRequestedSessionIdFromUrl()
+	{
+		throw new AssertionError();
+	}
+
+	@Override
+	public boolean authenticate(HttpServletResponse response) throws IOException, ServletException
+	{
+		throw new AssertionError();
+	}
+
+	@Override
+	public void login(String username, String password) throws ServletException
+	{
+		throw new AssertionError();
+	}
+
+	@Override
+	public void logout() throws ServletException
+	{
+		throw new AssertionError();
+	}
+
+	@Override
+	public Collection<Part> getParts() throws IOException, ServletException
+	{
+		throw new AssertionError();
+	}
+
+	@Override
+	public Part getPart(String name) throws IOException, ServletException
+	{
+		throw new AssertionError();
+	}
+
+	@Override
+	public ServletContext getServletContext()
+	{
+		throw new AssertionError();
+	}
+
+	@Override
+	public AsyncContext startAsync() throws IllegalStateException
+	{
+		throw new AssertionError();
+	}
+
+	@Override
+	public AsyncContext startAsync(ServletRequest servletRequest, ServletResponse servletResponse)
+		throws IllegalStateException
+	{
+		throw new AssertionError();
+	}
+
+	@Override
+	public boolean isAsyncStarted()
+	{
+		throw new AssertionError();
+	}
+
+	@Override
+	public boolean isAsyncSupported()
+	{
+		throw new AssertionError();
+	}
+
+	@Override
+	public AsyncContext getAsyncContext()
+	{
+		throw new AssertionError();
+	}
+
+	@Override
+	public DispatcherType getDispatcherType()
 	{
 		throw new AssertionError();
 	}

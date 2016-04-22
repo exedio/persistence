@@ -33,7 +33,7 @@
 		<artifact name="exedio-cope-junit" conf="junit" />
 	</publications>
 	<dependencies defaultconf="runtime->*">
-		<dependency org="javax.servlet" name="servlet-api" rev="2.5" conf="runtime->default; build->sources" />
+		<dependency org="javax.servlet" name="javax.servlet-api" rev="3.0.1" conf="runtime->default; build->sources" />
 		<dependency org="net.sf.trove4j" name="trove4j" rev="2.0.2">
 			<conf name="runtime" mapped="default" />
 			<conf name="build" mapped="sources" />
@@ -68,10 +68,13 @@
 		<dependency conf="postgresql->default" org="org.postgresql" name="postgresql" rev="9.3-1102-jdbc41" />
 
 		<!-- build dependencies -->
-		<dependency org="org.apache" name="apache-tomcat" rev="6.0.16" conf="build->default" />
+		<dependency org="org.apache" name="apache-tomcat" rev="7.0.67" conf="build->default" />
 		<dependency org="findbugs-x" name="findbugs" rev="3.0.0" conf="build->default" />
 		<dependency org="com.exedio" name="copeconsole" rev="6627" conf="build->runtime">
 			<exclude org="com.exedio" module="cope" /><!-- circular dependency -->
 		</dependency>
+
+		<!-- we use servlet-api 3.0, which goes in a different 'module' (javax.servlet-api) -->
+		<exclude org="javax.servlet" module="servlet-api"/> <!-- for servlet API < 3.0 -->
 	</dependencies>
 </ivy-module>
