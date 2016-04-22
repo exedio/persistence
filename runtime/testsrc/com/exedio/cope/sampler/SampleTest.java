@@ -272,13 +272,13 @@ public class SampleTest extends ConnectedTest
 		return q.search().iterator();
 	}
 
-	private int getNumberOfDistinctDates()
+	private static int getNumberOfDistinctDates()
 	{
 		final Set<Date> distinctDates = new HashSet<>();
 		distinctDates.add( MODEL.getConnectDate() );
-		for ( byte[] revInfoBytes: MODEL.getRevisionLogs().values() )
+		for ( final byte[] revInfoBytes: MODEL.getRevisionLogs().values() )
 		{
-			RevisionInfo info = RevisionInfo.read(revInfoBytes);
+			final RevisionInfo info = RevisionInfo.read(revInfoBytes);
 			distinctDates.add( info.getDate() );
 		}
 		return distinctDates.size();
