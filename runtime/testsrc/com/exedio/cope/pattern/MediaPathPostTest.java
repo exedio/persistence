@@ -51,7 +51,7 @@ public final class MediaPathPostTest
 		assertEquals("HTTP method POST is not supported by this URL", response.msg);
 	}
 
-	private static class Request extends HttpServletRequestUtilDummy
+	private static class Request extends HttpServletRequestDummy
 	{
 		Request()
 		{
@@ -70,7 +70,7 @@ public final class MediaPathPostTest
 		}
 	}
 
-	private static class Response extends HttpServletResponseUtilDummy
+	private static class Response extends HttpServletResponseDummy
 	{
 		int sc = Integer.MIN_VALUE;
 		String msg = null;
