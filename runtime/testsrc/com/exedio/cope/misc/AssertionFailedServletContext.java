@@ -29,7 +29,6 @@ import javax.servlet.FilterRegistration;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.Servlet;
 import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
 import javax.servlet.ServletRegistration;
 import javax.servlet.SessionCookieConfig;
 import javax.servlet.SessionTrackingMode;
@@ -192,7 +191,7 @@ public class AssertionFailedServletContext implements ServletContext
 	}
 
 	@Override
-	public void declareRoles(String... strings)
+	public void declareRoles(final String... strings)
 	{
 		throw new AssertionError();
 	}
@@ -210,25 +209,25 @@ public class AssertionFailedServletContext implements ServletContext
 	}
 
 	@Override
-	public <T extends EventListener> T createListener(Class<T> type) throws ServletException
+	public <T extends EventListener> T createListener(final Class<T> type)
 	{
 		throw new AssertionError();
 	}
 
 	@Override
-	public void addListener(Class<? extends EventListener> listenerClass)
+	public void addListener(final Class<? extends EventListener> listenerClass)
 	{
 		throw new AssertionError();
 	}
 
 	@Override
-	public <T extends EventListener> void addListener(T t)
+	public <T extends EventListener> void addListener(final T t)
 	{
 		throw new AssertionError();
 	}
 
 	@Override
-	public void addListener(String className)
+	public void addListener(final String className)
 	{
 		throw new AssertionError();
 	}
@@ -246,7 +245,7 @@ public class AssertionFailedServletContext implements ServletContext
 	}
 
 	@Override
-	public void setSessionTrackingModes(Set<SessionTrackingMode> sessionTrackingModes)
+	public void setSessionTrackingModes(final Set<SessionTrackingMode> sessionTrackingModes)
 	{
 		throw new AssertionError();
 	}
@@ -264,31 +263,31 @@ public class AssertionFailedServletContext implements ServletContext
 	}
 
 	@Override
-	public FilterRegistration getFilterRegistration(String filterName)
+	public FilterRegistration getFilterRegistration(final String filterName)
 	{
 		throw new AssertionError();
 	}
 
 	@Override
-	public <T extends Filter> T createFilter(Class<T> clazz) throws ServletException
+	public <T extends Filter> T createFilter(final Class<T> clazz)
 	{
 		throw new AssertionError();
 	}
 
 	@Override
-	public FilterRegistration.Dynamic addFilter(String filterName, Class<? extends Filter> filterClass)
+	public FilterRegistration.Dynamic addFilter(final String filterName, final Class<? extends Filter> filterClass)
 	{
 		throw new AssertionError();
 	}
 
 	@Override
-	public FilterRegistration.Dynamic addFilter(String filterName, Filter filter)
+	public FilterRegistration.Dynamic addFilter(final String filterName, final Filter filter)
 	{
 		throw new AssertionError();
 	}
 
 	@Override
-	public FilterRegistration.Dynamic addFilter(String filterName, String className)
+	public FilterRegistration.Dynamic addFilter(final String filterName, final String className)
 	{
 		throw new AssertionError();
 	}
@@ -300,37 +299,37 @@ public class AssertionFailedServletContext implements ServletContext
 	}
 
 	@Override
-	public ServletRegistration getServletRegistration(String servletName)
+	public ServletRegistration getServletRegistration(final String servletName)
 	{
 		throw new AssertionError();
 	}
 
 	@Override
-	public <T extends Servlet> T createServlet(Class<T> clazz) throws ServletException
+	public <T extends Servlet> T createServlet(final Class<T> clazz)
 	{
 		throw new AssertionError();
 	}
 
 	@Override
-	public ServletRegistration.Dynamic addServlet(String servletName, Class<? extends Servlet> servletClass)
+	public ServletRegistration.Dynamic addServlet(final String servletName, final Class<? extends Servlet> servletClass)
 	{
 		throw new AssertionError();
 	}
 
 	@Override
-	public ServletRegistration.Dynamic addServlet(String servletName, Servlet servlet)
+	public ServletRegistration.Dynamic addServlet(final String servletName, final Servlet servlet)
 	{
 		throw new AssertionError();
 	}
 
 	@Override
-	public ServletRegistration.Dynamic addServlet(String servletName, String className)
+	public ServletRegistration.Dynamic addServlet(final String servletName, final String className)
 	{
 		throw new AssertionError();
 	}
 
 	@Override
-	public boolean setInitParameter(String name, String value)
+	public boolean setInitParameter(final String name, final String value)
 	{
 		throw new AssertionError();
 	}

@@ -31,7 +31,6 @@ import javax.servlet.AsyncContext;
 import javax.servlet.DispatcherType;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
 import javax.servlet.ServletInputStream;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
@@ -373,62 +372,61 @@ class HttpServletRequestDummy implements HttpServletRequest
 		throw new AssertionError();
 	}
 
-	@Override
-	public boolean authenticate(HttpServletResponse response) throws IOException, ServletException
+	@Override()
+	public boolean authenticate(final HttpServletResponse response)
 	{
 		throw new AssertionError();
 	}
 
-	@Override
-	public void login(String username, String password) throws ServletException
+	@Override()
+	public void login(final String username, final String password)
 	{
 		throw new AssertionError();
 	}
 
-	@Override
-	public void logout() throws ServletException
+	@Override()
+	public void logout()
 	{
 		throw new AssertionError();
 	}
 
-	@Override
-	public Collection<Part> getParts() throws IOException, ServletException
+	@Override()
+	public Collection<Part> getParts()
 	{
 		throw new AssertionError();
 	}
 
-	@Override
-	public Part getPart(String name) throws IOException, ServletException
+	@Override()
+	public Part getPart(final String name)
 	{
 		throw new AssertionError();
 	}
 
-	@Override
+	@Override()
 	public ServletContext getServletContext()
 	{
 		throw new AssertionError();
 	}
 
-	@Override
+	@Override()
 	public AsyncContext startAsync() throws IllegalStateException
 	{
 		throw new AssertionError();
 	}
 
-	@Override
-	public AsyncContext startAsync(ServletRequest servletRequest, ServletResponse servletResponse)
-		throws IllegalStateException
+	@Override()
+	public AsyncContext startAsync(final ServletRequest servletRequest, final ServletResponse servletResponse) throws IllegalStateException
 	{
 		throw new AssertionError();
 	}
 
-	@Override
+	@Override()
 	public boolean isAsyncStarted()
 	{
 		throw new AssertionError();
 	}
 
-	@Override
+	@Override()
 	public boolean isAsyncSupported()
 	{
 		throw new AssertionError();

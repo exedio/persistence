@@ -239,13 +239,13 @@ class HttpServletResponseDummy implements HttpServletResponse
 	}
 
 	@Override()
-	public String getHeader(String name)
+	public String getHeader(final String name)
 	{
 		throw new AssertionError();
 	}
 
 	@Override()
-	public Collection<String> getHeaders(String name)
+	public Collection<String> getHeaders(final String name)
 	{
 		throw new AssertionError();
 	}
