@@ -53,6 +53,7 @@ final class SamplerModel extends Item
 	static final LongField duration    = new LongField().toFinal();
 	static final DateField initialized = new DateField().toFinal();
 	static final DateField connected   = new DateField().toFinal();
+	@SuppressWarnings("unused")
 	private static final CheckConstraint fromBeforeDate = new CheckConstraint(from.less(date));
 
 	private static final IntegerField connectionPoolIdle         = new IntegerField().toFinal().min(0);
