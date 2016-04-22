@@ -219,7 +219,7 @@ public final class HsqldbDialect extends Dialect
 			append(sequenceName).
 			append(
 					" AS INTEGER" +
-					" START WITH " + start +
+					" START WITH ").append(start).append(
 					" INCREMENT BY 1");
 	}
 }

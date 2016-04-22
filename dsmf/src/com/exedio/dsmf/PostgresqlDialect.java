@@ -284,9 +284,9 @@ public final class PostgresqlDialect extends Dialect
 			append(sequenceName).
 			append(
 					" INCREMENT BY 1" +
-					" START WITH " + start +
+					" START WITH ").append(start).append(
 					" MAXVALUE " + Integer.MAX_VALUE +
-					" MINVALUE " + start +
+					" MINVALUE ").append(start).append(
 					" NO CYCLE");
 	}
 }
