@@ -300,15 +300,15 @@ public final class OracleDialect extends Dialect
 		createSequenceStatic(bf, sequenceName, startWith);
 	}
 
-	public static void createSequenceStatic(final StringBuilder bf, final String sequenceName, final int startWith)
+	public static void createSequenceStatic(final StringBuilder bf, final String sequenceName, final int start)
 	{
 		bf.append("CREATE SEQUENCE ").
 			append(sequenceName).
 			append(
 					" INCREMENT BY 1" +
-					" START WITH ").append(startWith).append(
+					" START WITH ").append(start).append(
 					" MAXVALUE " + Integer.MAX_VALUE +
-					" MINVALUE ").append(startWith).append(
+					" MINVALUE ").append(start).append(
 					" NOCYCLE" +
 					" NOORDER");
 	}

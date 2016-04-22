@@ -278,15 +278,15 @@ public final class PostgresqlDialect extends Dialect
 	}
 
 	@Override
-	void createSequence(final StringBuilder bf, final String sequenceName, final int startWith)
+	void createSequence(final StringBuilder bf, final String sequenceName, final int start)
 	{
 		bf.append("CREATE SEQUENCE ").
 			append(sequenceName).
 			append(
 					" INCREMENT BY 1" +
-					" START WITH " + startWith +
+					" START WITH " + start +
 					" MAXVALUE " + Integer.MAX_VALUE +
-					" MINVALUE " + startWith +
+					" MINVALUE " + start +
 					" NO CYCLE");
 	}
 }

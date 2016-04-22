@@ -21,16 +21,16 @@ package com.exedio.dsmf;
 public final class Sequence extends Node
 {
 	final String name;
-	final int startWith;
+	final int start;
 	private final boolean required;
 	private boolean exists;
 
-	public Sequence(final Schema schema, final String name, final int startWith)
+	public Sequence(final Schema schema, final String name, final int start)
 	{
-		this(schema, name, startWith, true);
+		this(schema, name, start, true);
 	}
 
-	Sequence(final Schema schema, final String name, final int startWith, final boolean required)
+	Sequence(final Schema schema, final String name, final int start, final boolean required)
 	{
 		super(schema.dialect, schema.connectionProvider);
 
@@ -38,7 +38,7 @@ public final class Sequence extends Node
 			throw new RuntimeException();
 
 		this.name = name;
-		this.startWith = startWith;
+		this.start = start;
 		this.required = required;
 		this.exists = !required;
 
@@ -50,9 +50,9 @@ public final class Sequence extends Node
 		return name;
 	}
 
-	public int getStartWith()
+	public int getStart()
 	{
-		return startWith;
+		return start;
 	}
 
 	void notifyExists()
@@ -113,7 +113,7 @@ public final class Sequence extends Node
 
 	void create(final StringBuilder bf)
 	{
-		dialect.createSequence(bf, quoteName(name), startWith);
+		dialect.createSequence(bf, quoteName(name), start);
 	}
 
 	public void drop()
@@ -137,5 +137,16 @@ public final class Sequence extends Node
 	public String toString()
 	{
 		return name;
+	}
+
+	// ------------------- deprecated stuff -------------------
+
+	/**
+	 * @deprecated Use {@link #getStart()} instead
+	 */
+	@Deprecated
+	public int getStartWith()
+	{
+		return getStart();
 	}
 }

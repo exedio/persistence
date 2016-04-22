@@ -332,7 +332,7 @@ public final class MysqlDialect extends Dialect
 	public static final String SEQUENCE_COLUMN = "x";
 
 	@Override
-	void createSequence(final StringBuilder bf, final String sequenceName, final int startWith)
+	void createSequence(final StringBuilder bf, final String sequenceName, final int start)
 	{
 		bf.append("CREATE TABLE ").
 			append(sequenceName).
@@ -342,10 +342,10 @@ public final class MysqlDialect extends Dialect
 			bf.append(" ROW_FORMAT=").
 				append(rowFormat);
 
-		initializeSequence(bf, sequenceName, startWith);
+		initializeSequence(bf, sequenceName, start);
 	}
 
-	public static void initializeSequence(final StringBuilder bf, final String sequenceName, final int startWith)
+	public static void initializeSequence(final StringBuilder bf, final String sequenceName, final int start)
 	{
 		// From the MySQL documentation:
 		//
@@ -355,12 +355,12 @@ public final class MysqlDialect extends Dialect
 		//    a server restart, for reasons discussed earlier in this section.
 		//
 		// means that the AUTO_INCREMENT table option cannot be used reliably for cope.
-		if(startWith!=0)
+		if(start!=0)
 		{
 			bf.append(";INSERT INTO ").
 				append(sequenceName).
 				append(" VALUES(").
-				append(startWith).
+				append(start).
 				append(')');
 		}
 	}
