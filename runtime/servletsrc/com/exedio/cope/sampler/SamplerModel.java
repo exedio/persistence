@@ -24,6 +24,7 @@ import static com.exedio.cope.sampler.Util.maD;
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.ChangeListenerDispatcherInfo;
 import com.exedio.cope.ChangeListenerInfo;
+import com.exedio.cope.CheckConstraint;
 import com.exedio.cope.ClusterListenerInfo;
 import com.exedio.cope.ClusterSenderInfo;
 import com.exedio.cope.CopeSchemaName;
@@ -52,6 +53,7 @@ final class SamplerModel extends Item
 	static final LongField duration    = new LongField().toFinal();
 	static final DateField initialized = new DateField().toFinal();
 	static final DateField connected   = new DateField().toFinal();
+	private static final CheckConstraint fromBeforeDate = new CheckConstraint(from.less(date));
 
 	private static final IntegerField connectionPoolIdle         = new IntegerField().toFinal().min(0);
 	private static final IntegerField connectionPoolGet          = new IntegerField().toFinal().min(0);

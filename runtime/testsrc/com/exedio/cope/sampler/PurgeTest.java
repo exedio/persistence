@@ -55,6 +55,7 @@ public class PurgeTest extends ConnectedTest
 		assertEquals(0, sampler.analyzeCount(SamplerMedia.TYPE));
 
 		touch();
+		sleepLongerThan( 1 );
 		sampler.sampleInternal();
 		assertEquals(1, sampler.analyzeCount(SamplerModel.TYPE));
 		assertEquals(1, sampler.analyzeCount(SamplerTransaction.TYPE));
