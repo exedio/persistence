@@ -26,7 +26,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * This annotation specifies database table/column names
+ * Specifies database table/column names
  * for types/fields different from the default names.
  * This may be useful to
  * <ul>

@@ -25,7 +25,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * This annotation specifies the database column type
+ * Specifies the database column type
  * for fields different from the default types.
  * @deprecated Is not supported anymore and does not cause anything in cope.
  */

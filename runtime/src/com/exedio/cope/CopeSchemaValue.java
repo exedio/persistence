@@ -25,7 +25,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * This annotation specifies the integer used for an enum
+ * Specifies the integer used for an enum
  * value in the database schema.
  * This may be useful to maintain schema compatibility to
  * former versions of the application or to a legacy application.
