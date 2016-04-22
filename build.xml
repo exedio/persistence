@@ -173,7 +173,7 @@
 	</target>
 
 	<target name="catalina">
-		<property name="catalina.root" value="apache-tomcat-6.0.16" />
+		<property name="catalina.root" value="apache-tomcat-7.0.67" />
 		<untar src="lib/apache-tomcat.tar.gz"
 				 compression="gzip"
 				 dest="${basedir}">
@@ -310,7 +310,7 @@
 				<pathelement location="build/classes/runtime/src" />
 				<pathelement location="build/classes/runtime/patternsrc" />
 				<pathelement location="build/classes/instrument/annosrc" />
-				<pathelement location="lib/servlet-api.jar" />
+				<pathelement location="lib/javax.servlet-api.jar" />
 				<pathelement location="lib/exedio-cope-util.jar" />
 				<pathelement location="lib/exedio-cope-servletutil.jar" />
 				<pathelement location="lib/slf4j-api.jar" />
@@ -376,7 +376,7 @@
 				<pathelement location="build/classes/runtime/servletsrc" />
 				<pathelement location="build/classes/instrument/annosrc" />
 				<pathelement location="lib/junit.jar" />
-				<pathelement location="lib/servlet-api.jar" />
+				<pathelement location="lib/javax.servlet-api.jar" />
 				<pathelement location="lib/findbugs-annotations.jar" />
 			</classpath>
 		</compile>
@@ -426,6 +426,7 @@
 				<exclude name="ModificationListenerTest.java" /><!-- TODO remove -->
 				<exclude name="misc/ConnectTokenNotSetTest.java" /><!-- ok, shall not instrument test types -->
 				<exclude name="misc/ConnectTokenSetTest.java" /><!-- ok, shall not instrument test types -->
+				<exclude name="misc/AssertionFailedServletContext.java" /><!-- TODO remove -->
 				<exclude name="pattern/DispatcherTest.java" /><!-- TODO remove -->
 				<exclude name="pattern/DynamicModelTest.java" /><!-- TODO remove -->
 				<exclude name="pattern/CompositeErrorTest.java" /><!-- ok, shall not instrument test types -->
@@ -544,7 +545,7 @@
 				<pathelement location="build/classes/runtime/testfeaturesrc" />
 				<pathelement location="build/classes/instrument/annosrc" />
 				<pathelement location="lib/trove4j.jar" />
-				<pathelement location="lib/servlet-api.jar" />
+				<pathelement location="lib/javax.servlet-api.jar" />
 				<pathelement location="lib/junit.jar" />
 				<pathelement location="lib/cpsuite.jar" />
 				<pathelement location="lib/slf4j-api.jar" />
@@ -575,7 +576,7 @@
 				<pathelement location="build/classes/runtime/testfeaturesrc" />
 				<pathelement location="build/classes/runtime/testsrc" />
 				<pathelement location="lib/trove4j.jar" />
-				<pathelement location="lib/servlet-api.jar" />
+				<pathelement location="lib/javax.servlet-api.jar" />
 				<pathelement location="lib/hsqldb.jar" />
 				<pathelement location="lib/junit.jar" />
 				<pathelement location="lib/cpsuite.jar" />
@@ -611,7 +612,7 @@
 						<pathelement location="build/classes/runtime/testfeaturesrc" />
 						<pathelement location="build/classes/runtime/testsrc" />
 						<pathelement location="lib/trove4j.jar" />
-						<pathelement location="lib/servlet-api.jar" />
+						<pathelement location="lib/javax.servlet-api.jar" />
 						<pathelement location="lib/@{env.driver}" />
 						<pathelement location="lib/junit.jar" />
 						<pathelement location="lib/cpsuite.jar" />
@@ -737,7 +738,7 @@
 				<pathelement location="build/classes/runtime/servletsrc" />
 				<pathelement location="build/classes/instrument/annosrc" />
 				<pathelement location="lib/exedio-cope-util.jar" />
-				<pathelement location="lib/servlet-api.jar" />
+				<pathelement location="lib/javax.servlet-api.jar" />
 				<pathelement location="lib/findbugs-annotations.jar" />
 			</classpath>
 		</compile>
@@ -889,7 +890,7 @@
 				<pathelement location="build/classes/runtime/testfeaturesrc" />
 				<pathelement location="lib/exedio-cope-util.jar" />
 				<pathelement location="lib/trove4j.jar" />
-				<pathelement location="lib/servlet-api.jar" />
+				<pathelement location="lib/javax.servlet-api.jar" />
 				<pathelement location="lib/bsh-core.jar" />
 				<pathelement location="lib/cojen.jar" />
 				<pathelement location="lib/junit.jar" />
@@ -949,7 +950,7 @@
 				<pathelement location="build/classes/instrument/testsrc" />
 				<pathelement location="lib/exedio-cope-util.jar" />
 				<pathelement location="lib/trove4j.jar" />
-				<pathelement location="lib/servlet-api.jar" />
+				<pathelement location="lib/javax.servlet-api.jar" />
 				<pathelement location="lib/bsh-core.jar" />
 				<pathelement location="lib/slf4j-api.jar" />
 				<pathelement location="lib/junit.jar" />
@@ -1023,7 +1024,7 @@
 				<pathelement location="lib/cojen.jar" />
 				<pathelement location="lib/exedio-cope-util.jar" />
 				<pathelement location="lib/exedio-cope-servletutil.jar" />
-				<pathelement location="lib/servlet-api.jar" />
+				<pathelement location="lib/javax.servlet-api.jar" />
 				<pathelement location="lib/slf4j-api.jar" />
 				<pathelement location="lib/findbugs-annotations.jar" />
 			</myClasspath>
@@ -1040,7 +1041,7 @@
 				<pathelement location="lib/exedio-cope-util.jar" />
 				<pathelement location="lib/exedio-cope-console.jar" />
 				<pathelement location="lib/exedio-cops.jar" />
-				<pathelement location="lib/servlet-api.jar" />
+				<pathelement location="lib/javax.servlet-api.jar" />
 				<pathelement location="lib/slf4j-api.jar" />
 			</classpath>
 			<arg value="build/runtime/testprotocol.html"/>
@@ -1088,7 +1089,7 @@
 				<pathelement location="${basedir}/lib/trove4j.jar" />
 				<pathelement location="${basedir}/lib/cojen.jar" />
 				<pathelement location="${basedir}/lib/bsh-core.jar" />
-				<pathelement location="${basedir}/lib/servlet-api.jar" />
+				<pathelement location="${basedir}/lib/javax.servlet-api.jar" />
 				<pathelement location="${basedir}/lib/junit.jar" />
 				<pathelement location="${basedir}/lib/slf4j-api.jar" />
 				<pathelement location="${basedir}/lib/slf4j-log4j12.jar" />
@@ -1168,7 +1169,7 @@
 						<pathelement location="build/classes/runtime/testfeaturesrc" />
 						<pathelement location="build/classes/runtime/testsrc" />
 						<pathelement location="lib/trove4j.jar" />
-						<pathelement location="lib/servlet-api.jar" />
+						<pathelement location="lib/javax.servlet-api.jar" />
 						<pathelement location="lib/@{env.driver}" />
 						<pathelement location="lib/junit.jar" />
 						<pathelement location="lib/slf4j-api.jar" />

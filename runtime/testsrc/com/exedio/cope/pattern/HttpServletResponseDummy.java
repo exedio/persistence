@@ -21,6 +21,7 @@ package com.exedio.cope.pattern;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Collection;
 import java.util.Locale;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.Cookie;
@@ -227,6 +228,30 @@ class HttpServletResponseDummy implements HttpServletResponse
 	@Deprecated()
 	@Override()
 	public void setStatus(final int sc, final String sm)
+	{
+		throw new AssertionError();
+	}
+
+	@Override()
+	public int getStatus()
+	{
+		throw new AssertionError();
+	}
+
+	@Override()
+	public String getHeader(String name)
+	{
+		throw new AssertionError();
+	}
+
+	@Override()
+	public Collection<String> getHeaders(String name)
+	{
+		throw new AssertionError();
+	}
+
+	@Override()
+	public Collection<String> getHeaderNames()
 	{
 		throw new AssertionError();
 	}

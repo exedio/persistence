@@ -596,7 +596,7 @@ public final class MediaPathTest extends TestWithEnvironment
 		}
 
 		@Override()
-		public Enumeration<?> getParameterNames()
+		public Enumeration<String> getParameterNames()
 		{
 			return token!=null ? new Vector<>(Arrays.asList("t")).elements() : null;
 		}

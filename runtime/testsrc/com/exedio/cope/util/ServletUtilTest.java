@@ -183,11 +183,13 @@ public class ServletUtilTest
 
 			this.config = new ServletConfig()
 			{
+				@Override()
 				public ServletContext getServletContext()
 				{
 					return new MockServletContext(null);
 				}
 
+				@Override()
 				public String getInitParameter(final String name)
 				{
 					if("model".equals(name))
@@ -198,38 +200,45 @@ public class ServletUtilTest
 						throw new RuntimeException(name);
 				}
 
+				@Override()
 				public String getServletName()
 				{
 					return name;
 				}
 
-				public Enumeration<?> getInitParameterNames()
+				@Override()
+				public Enumeration<String> getInitParameterNames()
 				{
 					throw new RuntimeException();
 				}
 			};
 		}
 
+		@Override()
 		public ServletConfig getServletConfig()
 		{
 			return config;
 		}
 
+		@Override()
 		public void destroy()
 		{
 			throw new RuntimeException();
 		}
 
+		@Override()
 		public String getServletInfo()
 		{
 			throw new RuntimeException();
 		}
 
+		@Override()
 		public void init(final ServletConfig arg0)
 		{
 			throw new RuntimeException();
 		}
 
+		@Override()
 		public void service(final ServletRequest arg0, final ServletResponse arg1)
 		{
 			throw new RuntimeException();
@@ -243,16 +252,19 @@ public class ServletUtilTest
 			// just make it package private
 		}
 
+		@Override()
 		public void destroy()
 		{
 			throw new RuntimeException();
 		}
 
+		@Override()
 		public void doFilter(final ServletRequest arg0, final ServletResponse arg1, final FilterChain arg2)
 		{
 			throw new RuntimeException();
 		}
 
+		@Override()
 		public void init(final FilterConfig arg0)
 		{
 			throw new RuntimeException();
@@ -279,11 +291,13 @@ public class ServletUtilTest
 			assert context!=null;
 		}
 
+		@Override()
 		public ServletContext getServletContext()
 		{
 			return context;
 		}
 
+		@Override()
 		public String getInitParameter(final String name)
 		{
 			if("model".equals(name))
@@ -294,12 +308,14 @@ public class ServletUtilTest
 				throw new RuntimeException(name);
 		}
 
+		@Override()
 		public String getFilterName()
 		{
 			return name;
 		}
 
-		public Enumeration<?> getInitParameterNames()
+		@Override()
+		public Enumeration<String> getInitParameterNames()
 		{
 			throw new RuntimeException();
 		}
