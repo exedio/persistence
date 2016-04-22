@@ -22,7 +22,7 @@
 	<classpathentry kind="lib" path="lib/bsh-core.jar" sourcepath="lib/bsh-src.jar"/>
 	<classpathentry kind="lib" path="lib/cojen.jar" sourcepath="lib/cojen-source.jar"/>
 	<classpathentry kind="lib" path="lib/junit.jar" sourcepath="lib/junit-source.jar"/>
-	<classpathentry kind="lib" path="lib/servlet-api.jar" sourcepath="lib/servlet-api-source.jar"/>
+	<classpathentry kind="lib" path="lib/javax.servlet-api.jar" sourcepath="lib/javax.servlet-api-source.jar"/>
 	<classpathentry kind="lib" path="lib/trove4j.jar" sourcepath="lib/trove4j-source.jar"/>
 	<classpathentry kind="lib" path="lib/exedio-cope-util.jar" sourcepath="lib/exedio-cope-util-src.zip"/>
 	<classpathentry kind="lib" path="lib/mysql-connector-java.jar"/>
