@@ -56,7 +56,6 @@ public final class BlockType<E> // TODO make Serializable as singleton
 				final Feature feature = entry.getKey();
 				final java.lang.reflect.Field field = entry.getValue();
 				final String fieldID = classID + '#' + field.getName();
-				// TODO test
 				if(!(feature instanceof Copyable))
 					throw new IllegalArgumentException(
 							fieldID + " must be an instance of " + Copyable.class + ", but was " +
