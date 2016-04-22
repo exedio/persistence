@@ -142,7 +142,8 @@ public class BlockErrorTest
 		{
 			assertEquals(
 					NotCopyableField.class.getName() +
-					"#notCopyableField must be an instance of " + Copyable.class,
+					"#notCopyableField must be an instance of " + Copyable.class +
+					", but was com.exedio.cope.pattern.BlockErrorTest$NotCopyable",
 					e.getMessage());
 		}
 	}
