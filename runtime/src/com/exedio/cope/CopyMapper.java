@@ -42,7 +42,7 @@ public final class CopyMapper
 		return result;
 	}
 
-	public <S extends Selectable<?>> S getS(final S template)
+	<S extends Selectable<?>> S getS(final S template)
 	{
 		if(!(template instanceof FunctionField))
 				throw new RuntimeException("not yet implemented: " + template);
