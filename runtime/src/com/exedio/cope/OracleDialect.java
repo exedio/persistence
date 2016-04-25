@@ -400,6 +400,9 @@ final class OracleDialect extends Dialect
 	@Override
 	void deleteSequence(final StringBuilder bf, final String quotedName, final int start)
 	{
+		// There seems to be a restart command in Oracle 12c:
+		// ALTER SEQUENCE SERIAL RESTART START WITH start
+		// http://stackoverflow.com/questions/51470/how-do-i-reset-a-sequence-in-oracle
 		bf.append(
 			"EXECUTE IMMEDIATE " +
 				"'DROP SEQUENCE ").append(quotedName).append("';" +
