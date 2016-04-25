@@ -307,12 +307,12 @@ final class HsqldbDialect extends Dialect
 	}
 
 	@Override
-	void deleteSequence(final StringBuilder bf, final String quotedName, final int startWith)
+	void deleteSequence(final StringBuilder bf, final String quotedName, final int start)
 	{
 		bf.append("ALTER SEQUENCE ").
 			append(quotedName).
 			append(" RESTART WITH ").
-			append(startWith).
+			append(start).
 			append(';');
 	}
 }

@@ -410,12 +410,12 @@ final class MysqlDialect extends Dialect
 	}
 
 	@Override
-	void deleteSequence(final StringBuilder bf, final String quotedName, final int startWith)
+	void deleteSequence(final StringBuilder bf, final String quotedName, final int start)
 	{
 		bf.append("TRUNCATE ").
 			append(quotedName);
 
-		com.exedio.dsmf.MysqlDialect.initializeSequence(bf, quotedName, startWith);
+		com.exedio.dsmf.MysqlDialect.initializeSequence(bf, quotedName, start);
 
 		bf.append(';');
 	}

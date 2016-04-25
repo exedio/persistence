@@ -398,13 +398,13 @@ final class OracleDialect extends Dialect
 	}
 
 	@Override
-	void deleteSequence(final StringBuilder bf, final String quotedName, final int startWith)
+	void deleteSequence(final StringBuilder bf, final String quotedName, final int start)
 	{
 		bf.append(
 			"EXECUTE IMMEDIATE " +
 				"'DROP SEQUENCE ").append(quotedName).append("';" +
 			"EXECUTE IMMEDIATE '");
-				com.exedio.dsmf.OracleDialect.createSequenceStatic(bf, quotedName, startWith);
+				com.exedio.dsmf.OracleDialect.createSequenceStatic(bf, quotedName, start);
 				bf.append("';");
 	}
 
