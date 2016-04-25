@@ -209,7 +209,14 @@ public final class HsqldbDialect extends Dialect
 	@Override
 	public String modifyColumn(final String tableName, final String columnName, final String newColumnType)
 	{
-		throw new RuntimeException("not implemented");
+		final StringBuilder bf = new StringBuilder();
+		bf.append("ALTER TABLE ").
+			append(tableName).
+			append(" ALTER ").
+			append(columnName).
+			append(" SET DATA TYPE ").
+			append(newColumnType);
+		return bf.toString();
 	}
 
 	@Override

@@ -263,16 +263,15 @@ public final class PostgresqlDialect extends Dialect
 		return bf.toString();
 	}
 
-	// same as oracle
 	@Override
 	public String modifyColumn(final String tableName, final String columnName, final String newColumnType)
 	{
 		final StringBuilder bf = new StringBuilder();
 		bf.append("ALTER TABLE ").
 			append(tableName).
-			append(" MODIFY ").
+			append(" ALTER ").
 			append(columnName).
-			append(' ').
+			append(" TYPE ").
 			append(newColumnType);
 		return bf.toString();
 	}

@@ -78,7 +78,7 @@ public abstract class SchemaTest
 			dialect = new HsqldbDialect();
 			stringType = "VARCHAR(8)";
 			intType = "INTEGER";
-			intType2 = null;
+			intType2 = "BIGINT";
 			hsqldb = true;
 			postgresql = false;
 		}
@@ -114,8 +114,8 @@ public abstract class SchemaTest
 			Class.forName("org.postgresql.Driver");
 			dialect = new PostgresqlDialect();
 			stringType = "varchar(8)";
-			intType = "integer";
-			intType2 = null;
+			intType  = PostgresqlDialect.INTEGER;
+			intType2 = PostgresqlDialect.BIGINT;
 			hsqldb = false;
 			postgresql = true;
 		}

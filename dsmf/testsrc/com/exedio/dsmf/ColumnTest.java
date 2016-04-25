@@ -111,11 +111,9 @@ public class ColumnTest extends SchemaReadyTest
 			assertEquals(Schema.Color.OK, column.getParticularColor());
 			assertEquals(intType, column.getType());
 
-			if(intType2!=null)
-				column.modify(intType2);
+			column.modify(intType2);
 		}
 		// COLUMN MODIFIED
-		if(intType2!=null)
 		{
 			final Schema schema = getVerifiedSchema();
 
