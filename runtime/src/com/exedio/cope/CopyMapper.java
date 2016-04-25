@@ -42,6 +42,17 @@ public final class CopyMapper
 		return result;
 	}
 
+	<S extends Selectable<?>> S getS(final S template)
+	{
+		if(!(template instanceof FunctionField))
+				throw new RuntimeException("not yet implemented: " + template);
+
+		final Feature mapped = get((Feature)template);
+		@SuppressWarnings("unchecked")
+		final S casted = (S)mapped;
+		return casted;
+	}
+
 	public <F extends FunctionField<?>> F copy(final F template)
 	{
 		@SuppressWarnings("unchecked")

@@ -78,6 +78,12 @@ public final class CompareCondition<E> extends Condition
 	}
 
 	@Override
+	CompareCondition<E> copy(final CopyMapper mapper)
+	{
+		return new CompareCondition<>(operator, mapper.getS(left), right);
+	}
+
+	@Override
 	public boolean equals(final Object other)
 	{
 		if(!(other instanceof CompareCondition<?>))

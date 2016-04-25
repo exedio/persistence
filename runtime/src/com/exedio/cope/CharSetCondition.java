@@ -66,6 +66,12 @@ public final class CharSetCondition extends Condition
 	}
 
 	@Override
+	CharSetCondition copy(final CopyMapper mapper)
+	{
+		throw new RuntimeException("not yet implemented"); // TODO
+	}
+
+	@Override
 	public boolean equals(final Object other)
 	{
 		if(!(other instanceof CharSetCondition))

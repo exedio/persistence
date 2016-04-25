@@ -102,6 +102,16 @@ public final class CompositeCondition extends Condition
 	}
 
 	@Override
+	CompositeCondition copy(final CopyMapper mapper)
+	{
+		final Condition[] c = new Condition[conditions.length];
+		for(int i = 0; i<c.length; i++)
+			c[i] = conditions[i].copy(mapper);
+
+		return new CompositeCondition(operator, c);
+	}
+
+	@Override
 	public boolean equals(final Object other)
 	{
 		if(!(other instanceof CompositeCondition))

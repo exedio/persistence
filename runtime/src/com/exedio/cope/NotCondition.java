@@ -63,6 +63,12 @@ public final class NotCondition extends Condition
 	}
 
 	@Override
+	NotCondition copy(final CopyMapper mapper)
+	{
+		return new NotCondition(argument.copy(mapper));
+	}
+
+	@Override
 	public boolean equals(final Object other)
 	{
 		if(!(other instanceof NotCondition))

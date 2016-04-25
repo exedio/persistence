@@ -62,6 +62,14 @@ public final class LikeCondition extends Condition
 	}
 
 	@Override
+	LikeCondition copy(final CopyMapper mapper)
+	{
+		// This is ok as long as getTri is not implemented as well.
+		// Then we cannot use it in CheckConstraint, which is what copy is for.
+		throw new RuntimeException("not yet implemented");
+	}
+
+	@Override
 	public boolean equals(final Object other)
 	{
 		if(!(other instanceof LikeCondition))

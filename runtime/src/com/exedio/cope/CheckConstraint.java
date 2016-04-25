@@ -23,7 +23,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.HashSet;
 
-public final class CheckConstraint extends Feature
+public final class CheckConstraint extends Feature implements Copyable
 {
 	private static final long serialVersionUID = 1l;
 
@@ -35,6 +35,12 @@ public final class CheckConstraint extends Feature
 
 		if(condition instanceof Condition.Literal)
 			throw new IllegalArgumentException("literal condition makes no sense, but was Condition." + condition.toString());
+	}
+
+	@Override
+	public CheckConstraint copy(final CopyMapper mapper)
+	{
+		return new CheckConstraint(condition.copy(mapper));
 	}
 
 	public Condition getCondition()
