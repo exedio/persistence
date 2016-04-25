@@ -47,7 +47,10 @@ public final class CopyMapper
 		if(!(template instanceof FunctionField))
 				throw new RuntimeException("not yet implemented: " + template);
 
-		return (S)get((FunctionField<?>)template);
+		final Feature mapped = get((Feature)template);
+		@SuppressWarnings("unchecked")
+		final S casted = (S)mapped;
+		return casted;
 	}
 
 	public <F extends FunctionField<?>> F copy(final F template)
