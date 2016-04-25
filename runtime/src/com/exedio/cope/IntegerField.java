@@ -374,7 +374,11 @@ public final class IntegerField extends NumberField<Integer>
 	 */
 	public int checkDefaultToNext()
 	{
-		return defaultToNextSequence!=null ? defaultToNextSequence.sequenceX.check(getType().getModel(), (IntegerColumn)getColumn()) : 0;
+		if(defaultToNextSequence==null)
+			return 0;
+
+		return defaultToNextSequence.sequenceX.check(
+				getType().getModel(), (IntegerColumn)getColumn());
 	}
 
 	String getDefaultToNextSequenceName()
