@@ -87,14 +87,14 @@ public class BlockFieldCheckModelTest
 				eins.of(alpha), eins.of(beta), eins.of(less), eins.of(greater)),
 			eins.getComponents());
 
-		assertSerializedSame(alpha, 335);
-		assertSerializedSame(less, 340);
-		assertSerializedSame(eins.of(alpha), 391);
-		assertSerializedSame(eins.of(less), 396);
-		assertSerializedSame(zwei.of(alpha), 391);
-		assertSerializedSame(zwei.of(less), 396);
-		assertSerializedSame(eins, 385);
-		assertSerializedSame(zwei, 385);
+		assertSerializedSame(alpha, 334);
+		assertSerializedSame(less, 333);
+		assertSerializedSame(eins.of(alpha), 390);
+		assertSerializedSame(eins.of(less), 389);
+		assertSerializedSame(zwei.of(alpha), 390);
+		assertSerializedSame(zwei.of(less), 389);
+		assertSerializedSame(eins, 384);
+		assertSerializedSame(zwei, 384);
 	}
 
 	static final class ABlock extends Block
