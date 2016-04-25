@@ -112,7 +112,7 @@ public abstract class Constraint extends Node
 		assert particularColor==null;
 		assert cumulativeColor==null;
 
-		// TODO: make this dependend on type of constraint:
+		// TODO: make this dependent on type of constraint:
 		// check/not null constraint are yellow only if missing
 		// foreign key/unique constraint are red when missing or unused
 		final String error;
