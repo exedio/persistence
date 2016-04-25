@@ -68,7 +68,7 @@ public final class CharSetCondition extends Condition
 	@Override
 	CharSetCondition copy(final CopyMapper mapper)
 	{
-		return new CharSetCondition(mapper.getF(function), value);
+		throw new RuntimeException("not yet implemented"); // TODO
 	}
 
 	@Override

@@ -21,6 +21,7 @@ package com.exedio.cope.pattern;
 import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
 import static com.exedio.cope.pattern.BlockFieldCheckModelTest.ABlock.alpha;
 import static com.exedio.cope.pattern.BlockFieldCheckModelTest.ABlock.beta;
+import static com.exedio.cope.pattern.BlockFieldCheckModelTest.ABlock.compare;
 import static com.exedio.cope.pattern.BlockFieldCheckModelTest.ABlock.greater;
 import static com.exedio.cope.pattern.BlockFieldCheckModelTest.ABlock.less;
 import static com.exedio.cope.pattern.BlockFieldCheckModelTest.AnItem.eins;
@@ -53,9 +54,9 @@ public class BlockFieldCheckModelTest
 				AnItem.TYPE.getThis(),
 				AnItem.code,
 				eins,
-				eins.of(alpha), eins.of(beta), eins.of(less), eins.of(greater),
+				eins.of(alpha), eins.of(beta), eins.of(less), eins.of(greater), eins.of(compare),
 				zwei,
-				zwei.of(alpha), zwei.of(beta), zwei.of(less), zwei.of(greater),
+				zwei.of(alpha), zwei.of(beta), zwei.of(less), zwei.of(greater), zwei.of(compare),
 			}), AnItem.TYPE.getDeclaredFeatures());
 
 
@@ -68,7 +69,8 @@ public class BlockFieldCheckModelTest
 		assertEquals("AnItem.eins", eins.toString());
 		assertEquals(eins, eins.of(less).getPattern());
 		assertEqualsUnmodifiable(list(
-				eins.of(alpha), eins.of(beta), eins.of(less), eins.of(greater)),
+				eins.of(alpha), eins.of(beta), eins.of(less), eins.of(greater),
+				eins.of(compare)),
 			eins.getSourceFeatures());
 
 		assertEquals(eins.of(alpha)+"<="+eins.of(beta), eins.of(less   ).getCondition().toString());
@@ -76,15 +78,18 @@ public class BlockFieldCheckModelTest
 		assertEquals(zwei.of(alpha)+"<="+zwei.of(beta), zwei.of(less   ).getCondition().toString());
 		assertEquals(zwei.of(alpha)+">="+zwei.of(beta), zwei.of(greater).getCondition().toString());
 
+		assertEquals(eins.of(alpha)+"<'200'", eins.of(compare).getCondition().toString());
+
 		assertEquals(ABlock.TYPE, eins.getValueType());
 		assertEquals(ABlock.class, eins.getValueClass());
 
 		assertSame(less, eins.getTemplate(eins.of(less)));
 		assertEqualsUnmodifiable(list(
-				alpha, beta, less, greater),
+				alpha, beta, less, greater, compare),
 			eins.getTemplates());
 		assertEqualsUnmodifiable(list(
-				eins.of(alpha), eins.of(beta), eins.of(less), eins.of(greater)),
+				eins.of(alpha), eins.of(beta), eins.of(less), eins.of(greater),
+				eins.of(compare)),
 			eins.getComponents());
 
 		assertSerializedSame(alpha, 334);
@@ -103,6 +108,8 @@ public class BlockFieldCheckModelTest
 		static final IntegerField beta = new IntegerField();
 		static final CheckConstraint less    = new CheckConstraint(alpha.   lessOrEqual(beta));
 		static final CheckConstraint greater = new CheckConstraint(alpha.greaterOrEqual(beta));
+
+		static final CheckConstraint compare = new CheckConstraint(alpha.less(200));
 
 
 	/**
