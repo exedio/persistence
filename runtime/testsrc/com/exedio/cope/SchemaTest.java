@@ -44,6 +44,7 @@ import static com.exedio.cope.SchemaItem.stringMin4Max8;
 import static com.exedio.cope.SchemaItem.stringOpt;
 import static com.exedio.cope.SchemaItem.stringUpper6;
 import static com.exedio.cope.SchemaItem.uniqueString;
+import static com.exedio.dsmf.Node.Color.OK;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
@@ -71,7 +72,7 @@ public class SchemaTest extends TestWithEnvironment
 		final Table table = schema.getTable(getTableName(TYPE));
 		assertNotNull(table);
 		assertEquals(null, table.getError());
-		assertEquals(Schema.Color.OK, table.getParticularColor());
+		assertEquals(OK, table.getParticularColor());
 
 		assertCheckConstraint(table, "SchemaItem_string_Ck", "("+l(string)+">=1) AND (" + l(string)+"<="+StringField.DEFAULT_MAXIMUM_LENGTH+")");
 		assertCheckConstraint(table, "SchemaItem_integ_Ck" , "("+q(integ )+">=-10) AND ("+q(integ)+"<=10)");
@@ -101,7 +102,7 @@ public class SchemaTest extends TestWithEnvironment
 
 		final Column min4Max8Column = table.getColumn(getColumnName(stringMin4Max8));
 		assertEquals(null, min4Max8Column.getError());
-		assertEquals(Schema.Color.OK, min4Max8Column.getParticularColor());
+		assertEquals(OK, min4Max8Column.getParticularColor());
 
 		final String mb4 = model.getConnectProperties().mysqlUtf8mb4 ? "mb4" : "";
 		final String string8;
@@ -128,7 +129,7 @@ public class SchemaTest extends TestWithEnvironment
 
 		final Column stringLongColumn = table.getColumn(getColumnName(stringLong));
 		assertEquals(null, stringLongColumn.getError());
-		assertEquals(Schema.Color.OK, stringLongColumn.getParticularColor());
+		assertEquals(OK, stringLongColumn.getParticularColor());
 
 		switch ( model.getConnectProperties().primaryKeyGenerator )
 		{
@@ -139,20 +140,20 @@ public class SchemaTest extends TestWithEnvironment
 			case sequence:
 				final Sequence sequence = schema.getSequence(filterTableName("SchemaItem_this_Seq"));
 				assertEquals(null, sequence.getError());
-				assertEquals(Schema.Color.OK, sequence.getParticularColor());
+				assertEquals(OK, sequence.getParticularColor());
 				assertEquals( null, schema.getSequence(filterTableName("SchemaItem_this_Seq6")) );
 				break;
 			case batchedSequence:
 				final Sequence batchedSequence = schema.getSequence(filterTableName("SchemaItem_this_Seq6"));
 				assertEquals(null, batchedSequence.getError());
-				assertEquals(Schema.Color.OK, batchedSequence.getParticularColor());
+				assertEquals(OK, batchedSequence.getParticularColor());
 				assertEquals( null, schema.getSequence(filterTableName("SchemaItem_this_Seq")) );
 				break;
 			default:
 				fail();
 		}
 
-		assertEquals(Schema.Color.OK, table.getCumulativeColor());
+		assertEquals(OK, table.getCumulativeColor());
 	}
 
 	private final String q(final Field<?> f)
