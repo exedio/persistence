@@ -45,13 +45,13 @@ final class DoubleColumn extends Column
 	}
 
 	@Override
-	final String getDatabaseType()
+	String getDatabaseType()
 	{
 		return table.database.dialect.getDoubleType();
 	}
 
 	@Override
-	final String getCheckConstraintIfNotNull()
+	String getCheckConstraintIfNotNull()
 	{
 		if(table.database.oracle)
 			return null;
@@ -63,7 +63,7 @@ final class DoubleColumn extends Column
 	}
 
 	@Override
-	final void load(final ResultSet resultSet, final int columnIndex, final Row row)
+	void load(final ResultSet resultSet, final int columnIndex, final Row row)
 			throws SQLException
 	{
 		final Object loadedDouble = resultSet.getObject(columnIndex);
@@ -84,7 +84,7 @@ final class DoubleColumn extends Column
 	}
 
 	@Override
-	final String cacheToDatabase(final Object cache)
+	String cacheToDatabase(final Object cache)
 	{
 		if(cache==null)
 			return "NULL";

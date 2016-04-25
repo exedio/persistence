@@ -180,7 +180,7 @@ final class Table
 		return checkConstraints;
 	}
 
-	private final boolean assertSynthetic()
+	private boolean assertSynthetic()
 	{
 		for(final Column c : allColumnsModifiable)
 			if(c.synthetic != (primaryKey==c || typeColumn==c || updateCounter==c))
@@ -189,7 +189,7 @@ final class Table
 		return true;
 	}
 
-	final void finish()
+	void finish()
 	{
 		assert assertSynthetic();
 
@@ -223,7 +223,7 @@ final class Table
 	}
 
 	@Override
-	public final String toString()
+	public String toString()
 	{
 		return id;
 	}

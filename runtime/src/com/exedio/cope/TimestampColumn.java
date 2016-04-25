@@ -41,19 +41,19 @@ final class TimestampColumn extends Column
 	}
 
 	@Override
-	final String getDatabaseType()
+	String getDatabaseType()
 	{
 		return table.database.dialect.getDateTimestampType();
 	}
 
 	@Override
-	final String getCheckConstraintIfNotNull()
+	String getCheckConstraintIfNotNull()
 	{
 		return null;
 	}
 
 	@Override
-	final void load(final ResultSet resultSet, final int columnIndex, final Row row)
+	void load(final ResultSet resultSet, final int columnIndex, final Row row)
 			throws SQLException
 	{
 		final Timestamp ts = resultSet.getTimestamp(columnIndex, newGMTCalendar());
@@ -73,7 +73,7 @@ final class TimestampColumn extends Column
 	}
 
 	@Override
-	final String cacheToDatabase(final Object cache)
+	String cacheToDatabase(final Object cache)
 	{
 		if(cache==null)
 			return "NULL";
@@ -101,7 +101,7 @@ final class TimestampColumn extends Column
 	 * Don't use a static instance,
 	 * since then access must be synchronized
 	 */
-	static final SimpleDateFormat newLiteralFormat()
+	static SimpleDateFormat newLiteralFormat()
 	{
 		final SimpleDateFormat result =
 				new SimpleDateFormat("{'ts' ''yyyy-MM-dd HH:mm:ss.SSS''}");
@@ -110,7 +110,7 @@ final class TimestampColumn extends Column
 		return result;
 	}
 
-	static final Calendar newGMTCalendar()
+	static Calendar newGMTCalendar()
 	{
 		return new GregorianCalendar(GMT, Locale.ENGLISH);
 	}

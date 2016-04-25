@@ -35,13 +35,13 @@ final class DayColumn extends Column
 	}
 
 	@Override
-	final String getDatabaseType()
+	String getDatabaseType()
 	{
 		return table.database.dialect.getDayType();
 	}
 
 	@Override
-	final String getCheckConstraintIfNotNull()
+	String getCheckConstraintIfNotNull()
 	{
 		return null;
 	}
@@ -58,7 +58,7 @@ final class DayColumn extends Column
 	}
 
 	@Override
-	final void load(final ResultSet resultSet, final int columnIndex, final Row row)
+	void load(final ResultSet resultSet, final int columnIndex, final Row row)
 			throws SQLException
 	{
 		final java.sql.Date loadedDate = resultSet.getDate(columnIndex);
@@ -67,7 +67,7 @@ final class DayColumn extends Column
 	}
 
 	@Override
-	final String cacheToDatabase(final Object cache)
+	String cacheToDatabase(final Object cache)
 	{
 		if(cache==null)
 			return "NULL";

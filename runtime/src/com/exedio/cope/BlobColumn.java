@@ -46,25 +46,25 @@ final class BlobColumn extends Column
 	}
 
 	@Override
-	final String getDatabaseType()
+	String getDatabaseType()
 	{
 		return table.database.dialect.getBlobType(maximumLength);
 	}
 
 	@Override
-	final String getCheckConstraintIfNotNull()
+	String getCheckConstraintIfNotNull()
 	{
 		return table.database.dialect.getBlobLength() + '(' + quotedID + ")<=" + (maximumLength);
 	}
 
 	@Override
-	final void load(final ResultSet resultSet, final int columnIndex, final Row row)
+	void load(final ResultSet resultSet, final int columnIndex, final Row row)
 	{
 		throw new RuntimeException(id);
 	}
 
 	@Override
-	final String cacheToDatabase(final Object cache)
+	String cacheToDatabase(final Object cache)
 	{
 		throw new RuntimeException(id);
 	}
