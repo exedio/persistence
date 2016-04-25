@@ -35,10 +35,7 @@ public abstract class Condition implements Serializable
 
 	abstract void check(TC tc);
 
-	Condition copy(final CopyMapper mapper)
-	{
-		throw new RuntimeException(""+getClass());
-	}
+	abstract Condition copy(CopyMapper mapper);
 
 	public final Condition not()
 	{
