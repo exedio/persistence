@@ -22,8 +22,7 @@ public final class Column extends Node
 {
 	final Table table;
 	final String name;
-	private final String requiredType;
-	private String existingType;
+	private final Field<String> type;
 
 	public Column(final Table table, final String name, final String type)
 	{
@@ -41,16 +40,7 @@ public final class Column extends Node
 
 		this.table = table;
 		this.name = name;
-		if(required)
-		{
-			this.requiredType = type;
-			this.existingType = null;
-		}
-		else
-		{
-			this.requiredType = null;
-			this.existingType = type;
-		}
+		this.type = new Field<>(type, required);
 		table.register(this);
 	}
 
@@ -66,13 +56,8 @@ public final class Column extends Node
 
 	void notifyExists(final String existingType)
 	{
-		if(existingType==null)
-			throw new RuntimeException(name);
-		if(this.existingType!=null && !this.existingType.equals(existingType))
-			throw new RuntimeException(name);
-
 		notifyExistsNode();
-		this.existingType = existingType;
+		type.notifyExists(existingType);
 	}
 
 	@Override
@@ -88,9 +73,9 @@ public final class Column extends Node
 		}
 		else
 		{
-			if(!requiredType.equals(existingType))
+			if(type.mismatches())
 			{
-				return Result.error("different type in database: >"+existingType+"<");
+				return Result.error("different type in database: >"+type.getExisting()+"<");
 			}
 			else
 			{
@@ -101,26 +86,17 @@ public final class Column extends Node
 
 	public String getType()
 	{
-		if(requiredType!=null)
-			return requiredType;
-		else
-			return existingType;
+		return type.get();
 	}
 
 	public boolean mismatchesType()
 	{
-		return
-			requiredType!=null &&
-			existingType!=null &&
-			!requiredType.equals(existingType);
+		return type.mismatches();
 	}
 
 	public String getRequiredType()
 	{
-		if(requiredType==null)
-			throw new IllegalStateException("not required");
-
-		return requiredType;
+		return type.getRequired();
 	}
 
 	public void create()
@@ -151,7 +127,7 @@ public final class Column extends Node
 				quoteName(table.name),
 				quoteName(name),
 				quoteName(newName),
-				existingType), listener);
+				type.getExisting()), listener);
 	}
 
 	public void modify(final String newType)
