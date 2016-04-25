@@ -62,6 +62,12 @@ public final class IsNullCondition<E> extends Condition
 	}
 
 	@Override
+	IsNullCondition<E> copy(final CopyMapper mapper)
+	{
+		return new IsNullCondition<>(mapper.getS(function), not);
+	}
+
+	@Override
 	public boolean equals(final Object other)
 	{
 		if(!(other instanceof IsNullCondition<?>))
