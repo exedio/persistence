@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-//@FunctionalInterface
+//@FunctionalInterface in JDK 1.8
 public interface TypeFuture<T extends Item>
 {
 	Type<T> get();

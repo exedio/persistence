@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+//@FunctionalInterface in JDK 1.8
 public interface ChangeListener
 {
 	void onChange(ChangeEvent event) throws Exception;
