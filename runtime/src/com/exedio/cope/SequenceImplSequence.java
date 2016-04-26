@@ -82,7 +82,7 @@ final class SequenceImplSequence implements SequenceImpl
 		final Connection connection = connectionPool.get(true);
 		try
 		{
-			return executor.dialect.getNextSequence(executor, connection, name);
+			return executor.dialect.getNextSequence(executor, connection, name).intValue();
 		}
 		finally
 		{
