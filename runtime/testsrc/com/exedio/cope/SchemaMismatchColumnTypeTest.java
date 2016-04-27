@@ -48,7 +48,7 @@ public class SchemaMismatchColumnTypeTest extends SchemaMismatchTest
 		final Table table = schema.getTable(name(ItemA.TYPE));
 		assertIt(null, OK, ERROR, table);
 
-		Column pk, field;
+		final Column pk, field;
 		assertIt(null, OK, OK, pk = table.getColumn(name(ItemA.TYPE.getThis())));
 		assertIt(
 				"different type in database: >" + modelA.connect().dialect.getStringType(StringField.DEFAULT_MAXIMUM_LENGTH, null) + " not null<",

@@ -48,7 +48,7 @@ public class SchemaMismatchColumnNameTest extends SchemaMismatchTest
 		final Table table = schema.getTable(name(ItemA.TYPE));
 		assertIt(null, OK, ERROR, table);
 
-		Column pk, fieldA, fieldB;
+		final Column pk, fieldA, fieldB;
 		assertIt(null, OK, OK, pk = table.getColumn(name(ItemA.TYPE.getThis())));
 		assertIt("not used", WARNING, WARNING, fieldA = table.getColumn(name(ItemA.fieldA)));
 		assertIt("missing",  ERROR,   ERROR,   fieldB = table.getColumn(name(ItemB.fieldB)));
