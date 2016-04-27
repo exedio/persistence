@@ -63,6 +63,11 @@ public abstract class SchemaMismatchTest extends TestWithEnvironment
 		return SchemaInfo.getColumnName(element);
 	}
 
+	protected static final String nameSeq(final This<?> element)
+	{
+		return SchemaInfo.getPrimaryKeySequenceName(element.getType());
+	}
+
 	protected static final void assertIt(
 			final String expectedError,
 			final Color expectedParticularColor,

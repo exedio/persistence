@@ -25,6 +25,7 @@ import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
 
 import com.exedio.dsmf.Schema;
+import com.exedio.dsmf.Sequence;
 import com.exedio.dsmf.Table;
 import org.junit.Test;
 
@@ -53,11 +54,34 @@ public class SchemaMismatchTableNameTest extends SchemaMismatchTest
 		assertIt("missing", ERROR, ERROR, tableB.getColumn(name(ItemB.TYPE.getThis())));
 		assertIt("missing", ERROR, ERROR, tableB.getColumn(name(ItemB.field)));
 
-		assertEquals(
-				(mysql && model.getConnectProperties().primaryKeyGenerator.persistent)
-				? asList(tableB, tableA, schema.getTable(SchemaInfo.getPrimaryKeySequenceName(ItemA.TYPE))) // TODO fix
-				: asList(tableB, tableA),
-				schema.getTables());
+		if(model.getConnectProperties().primaryKeyGenerator.persistent)
+		{
+			if(mysql) // TODO fix
+			{
+				final Table seqA;
+				final Sequence seqB;
+				assertEquals(null, schema.getSequence(nameSeq(ItemA.TYPE.getThis())));
+				assertIt("not used", WARNING, WARNING, seqA = schema.getTable   (nameSeq(ItemA.TYPE.getThis())));
+				assertIt("missing",  ERROR,   ERROR,   seqB = schema.getSequence(nameSeq(ItemB.TYPE.getThis())));
+
+				assertEquals(asList(tableB, tableA, seqA), schema.getTables());
+				assertEquals(asList(seqB), schema.getSequences());
+			}
+			else
+			{
+				final Sequence seqA, seqB;
+				assertIt("not used", WARNING, WARNING, seqA = schema.getSequence(nameSeq(ItemA.TYPE.getThis())));
+				assertIt("missing",  ERROR,   ERROR,   seqB = schema.getSequence(nameSeq(ItemB.TYPE.getThis())));
+
+				assertEquals(asList(tableB, tableA), schema.getTables());
+				assertEquals(asList(seqB, seqA), schema.getSequences());
+			}
+		}
+		else
+		{
+			assertEquals(asList(tableB, tableA), schema.getTables());
+			assertEquals(asList(), schema.getSequences());
+		}
 	}
 
 	static final class ItemA extends Item
