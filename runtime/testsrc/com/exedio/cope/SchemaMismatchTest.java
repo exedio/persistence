@@ -69,7 +69,7 @@ public abstract class SchemaMismatchTest extends TestWithEnvironment
 			final Color expectedCumulativeColor,
 			final Node actual)
 	{
-		assertNotNull(actual);
+		assertNotNull("notNull", actual);
 		assertEquals("error", expectedError, actual.getError());
 		assertEquals("particularColor", expectedParticularColor, actual.getParticularColor());
 		assertEquals("cumulativeColor", expectedCumulativeColor, actual.getCumulativeColor());
