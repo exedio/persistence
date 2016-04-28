@@ -68,6 +68,13 @@ public abstract class SchemaMismatchTest extends TestWithEnvironment
 		return SchemaInfo.getPrimaryKeySequenceName(element.getType());
 	}
 
+	protected static final String type(final StringField element)
+	{
+		return
+				element.getType().getModel().connect().dialect.getStringType(element.getMaximumLength(), null) +
+				(element.isMandatory() ? " not null" : "");
+	}
+
 	protected static final void assertIt(
 			final String expectedError,
 			final Color expectedParticularColor,
