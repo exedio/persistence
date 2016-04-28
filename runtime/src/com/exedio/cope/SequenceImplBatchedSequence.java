@@ -61,7 +61,7 @@ final class SequenceImplBatchedSequence implements SequenceImpl
 				batchStart = sequence.next();
 				if ( batchStart>(Integer.MAX_VALUE/BATCH_SIZE)-1 )
 				{
-					throw new RuntimeException( "overflow" );
+					throw new RuntimeException( "overflow: " + batchStart );
 				}
 				if ( batchStart==Integer.MIN_VALUE )
 				{
