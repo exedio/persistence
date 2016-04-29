@@ -51,7 +51,9 @@ public final class Sequence extends Feature
 
 		this.start = start;
 		this.end = end;
-		this.sequenceX = new SequenceX(defaultToNextField!=null ? defaultToNextField : this, start, min, end);
+		this.sequenceX = new SequenceX(
+				defaultToNextField!=null ? defaultToNextField : this,
+				start, min, end);
 	}
 
 	public int getStart()
