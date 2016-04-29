@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import static java.lang.Integer.MAX_VALUE;
 import static java.lang.Integer.MIN_VALUE;
+import static java.util.Objects.requireNonNull;
 
 final class SequenceCounter
 {
@@ -30,12 +31,10 @@ final class SequenceCounter
 
 	SequenceCounter(final Feature feature, final int start, final int minimum, final int maximum)
 	{
-		if(feature==null)
-			throw new NullPointerException();
 		if(start<minimum || start>maximum)
 			throw new IllegalArgumentException(String.valueOf(start) + '/' + String.valueOf(minimum) + '/' + String.valueOf(maximum));
 
-		this.feature = feature;
+		this.feature = requireNonNull(feature);
 		this.start = start;
 		this.minimum = minimum;
 		this.maximum = maximum;
