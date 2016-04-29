@@ -255,7 +255,11 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		this.primaryKeySequence =
 			supertype!=null
 			? supertype.primaryKeySequence
-			: new SequenceX(thisFunction, PK.MIN_VALUE, PK.MIN_VALUE, PK.MAX_VALUE);
+			: new SequenceX(
+					thisFunction,
+					PK.MIN_VALUE,
+					PK.MIN_VALUE,
+					PK.MAX_VALUE);
 
 		this.uniqueConstraintsProblem = (supertype!=null) && (supertype.uniqueConstraintsProblem || !uniqueConstraints.all.isEmpty());
 	}
