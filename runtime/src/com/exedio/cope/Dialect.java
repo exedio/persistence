@@ -320,7 +320,9 @@ abstract class Dialect
 	}
 
 	abstract void deleteSchema(List<Table> tables, List<SequenceX> sequences, ConnectionPool connectionPool);
-	abstract void deleteSequence(StringBuilder bf, String quotedName, int start);
+	abstract void deleteSequence(
+			StringBuilder bf, String quotedName,
+			int start);
 	abstract Integer    nextSequence(Executor executor, Connection connection, String quotedName);
 	abstract Integer getNextSequence(Executor executor, Connection connection, String name);
 

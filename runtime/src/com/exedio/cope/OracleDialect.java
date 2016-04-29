@@ -398,7 +398,9 @@ final class OracleDialect extends Dialect
 	}
 
 	@Override
-	void deleteSequence(final StringBuilder bf, final String quotedName, final int start)
+	void deleteSequence(
+			final StringBuilder bf, final String quotedName,
+			final int start)
 	{
 		// There seems to be a restart command in Oracle 12c:
 		// ALTER SEQUENCE SERIAL RESTART START WITH start
@@ -407,7 +409,9 @@ final class OracleDialect extends Dialect
 			"EXECUTE IMMEDIATE " +
 				"'DROP SEQUENCE ").append(quotedName).append("';" +
 			"EXECUTE IMMEDIATE '");
-				com.exedio.dsmf.OracleDialect.createSequenceStatic(bf, quotedName, start);
+				com.exedio.dsmf.OracleDialect.createSequenceStatic(
+						bf, quotedName,
+						start);
 				bf.append("';");
 	}
 

@@ -228,7 +228,9 @@ final class PostgresqlDialect extends Dialect
 	}
 
 	@Override
-	void deleteSequence(final StringBuilder bf, final String quotedName, final int start)
+	void deleteSequence(
+			final StringBuilder bf, final String quotedName,
+			final int start)
 	{
 		bf.append("ALTER SEQUENCE ").
 			append(quotedName).

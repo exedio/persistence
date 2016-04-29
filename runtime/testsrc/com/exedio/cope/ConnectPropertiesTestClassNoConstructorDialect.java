@@ -98,7 +98,9 @@ class ConnectPropertiesTestClassNoConstructorDialect extends Dialect
 		throw new RuntimeException();
 	}
 	@Override
-	void deleteSequence(final StringBuilder bf, final String quotedName, final int start)
+	void deleteSequence(
+			final StringBuilder bf, final String quotedName,
+			final int start)
 	{
 		throw new RuntimeException();
 	}
