@@ -71,5 +71,9 @@ enum PrimaryKeyGenerator
 		this.persistent = persistent;
 	}
 
-	abstract SequenceImpl newSequenceImpl(IntegerColumn column, int start, ConnectionPool connectionPool, Database database);
+	abstract SequenceImpl newSequenceImpl(
+			IntegerColumn column,
+			int start,
+			ConnectionPool connectionPool,
+			Database database);
 }
