@@ -194,7 +194,9 @@ public abstract class Dialect
 		dropConstraint(bf, tableName, constraintName);
 	}
 
-	abstract void createSequence(StringBuilder bf, String sequenceName, int start);
+	abstract void createSequence(
+			StringBuilder bf, String sequenceName,
+			int start);
 
 	void dropSequence(final StringBuilder bf, final String sequenceName)
 	{

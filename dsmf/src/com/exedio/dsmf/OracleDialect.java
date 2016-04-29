@@ -295,12 +295,16 @@ public final class OracleDialect extends Dialect
 	}
 
 	@Override
-	void createSequence(final StringBuilder bf, final String sequenceName, final int start)
+	void createSequence(
+			final StringBuilder bf, final String sequenceName,
+			final int start)
 	{
 		createSequenceStatic(bf, sequenceName, start);
 	}
 
-	public static void createSequenceStatic(final StringBuilder bf, final String sequenceName, final int start)
+	public static void createSequenceStatic(
+			final StringBuilder bf, final String sequenceName,
+			final int start)
 	{
 		bf.append("CREATE SEQUENCE ").
 			append(sequenceName).

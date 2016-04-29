@@ -332,7 +332,9 @@ public final class MysqlDialect extends Dialect
 	public static final String SEQUENCE_COLUMN = "x";
 
 	@Override
-	void createSequence(final StringBuilder bf, final String sequenceName, final int start)
+	void createSequence(
+			final StringBuilder bf, final String sequenceName,
+			final int start)
 	{
 		bf.append("CREATE TABLE ").
 			append(sequenceName).
@@ -345,7 +347,9 @@ public final class MysqlDialect extends Dialect
 		initializeSequence(bf, sequenceName, start);
 	}
 
-	public static void initializeSequence(final StringBuilder bf, final String sequenceName, final int start)
+	public static void initializeSequence(
+			final StringBuilder bf, final String sequenceName,
+			final int start)
 	{
 		// From the MySQL documentation:
 		//

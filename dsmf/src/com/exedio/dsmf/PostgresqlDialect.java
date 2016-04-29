@@ -277,7 +277,9 @@ public final class PostgresqlDialect extends Dialect
 	}
 
 	@Override
-	void createSequence(final StringBuilder bf, final String sequenceName, final int start)
+	void createSequence(
+			final StringBuilder bf, final String sequenceName,
+			final int start)
 	{
 		bf.append("CREATE SEQUENCE ").
 			append(sequenceName).
