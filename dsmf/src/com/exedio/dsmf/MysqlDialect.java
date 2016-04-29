@@ -135,7 +135,7 @@ public final class MysqlDialect extends Dialect
 					else
 					{
 						final Sequence sequence = schema.getSequence(tableName);
-						if(sequence!=null)
+						if(sequence!=null && SEQUENCE_COLUMN.equals(columnName))
 							sequence.notifyExists();
 					}
 				}
