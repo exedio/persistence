@@ -79,11 +79,11 @@ public final class Column extends Node
 	{
 		if(existingType==null)
 		{
-			return new Result("missing", Color.ERROR);
+			return Result.missingERROR;
 		}
 		else if(requiredType==null)
 		{
-			return new Result("not used", Color.WARNING);
+			return Result.notusedWARNING;
 		}
 		else
 		{
@@ -93,7 +93,7 @@ public final class Column extends Node
 			}
 			else
 			{
-				return new Result(null, Color.OK);
+				return Result.OK;
 			}
 		}
 	}

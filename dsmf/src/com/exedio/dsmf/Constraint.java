@@ -116,19 +116,19 @@ public abstract class Constraint extends Node
 		{
 			if(isSupported())
 			{
-				return new Result("missing", Color.ERROR);
+				return Result.missingERROR;
 			}
 			else
 			{
-				return new Result("not supported", Color.OK);
+				return Result.notsupportedOK;
 			}
 		}
 		else if(!required)
 		{
 			if(!table.required())
-				return new Result("not used", Color.WARNING);
+				return Result.notusedWARNING;
 			else
-				return new Result("not used", Color.ERROR);
+				return Result.notusedERROR;
 		}
 		else
 		{
@@ -151,7 +151,7 @@ public abstract class Constraint extends Node
 			}
 			else
 			{
-				return new Result(null, Color.OK);
+				return Result.OK;
 			}
 		}
 	}

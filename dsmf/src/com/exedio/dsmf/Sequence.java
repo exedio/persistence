@@ -75,15 +75,15 @@ public final class Sequence extends Node
 	{
 		if(!exists)
 		{
-			return new Result("missing", Color.ERROR);
+			return Result.missingERROR;
 		}
 		else if(!required)
 		{
-			return new Result("not used", Color.WARNING);
+			return Result.notusedWARNING;
 		}
 		else
 		{
-			return new Result(null, Color.OK);
+			return Result.OK;
 		}
 	}
 

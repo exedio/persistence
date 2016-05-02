@@ -251,6 +251,13 @@ public abstract class Node
 			this.particularColor = color;
 			this.cumulativeColor = color;
 		}
+
+		// TODO rename all
+		static final Result OK = new Result(null, Color.OK);
+		static final Result missingERROR = new Result("missing", Color.ERROR);
+		static final Result notsupportedOK = new Result("not supported", Color.OK);
+		static final Result notusedWARNING = new Result("not used", Color.WARNING);
+		static final Result notusedERROR = new Result("not used", Color.ERROR);
 	}
 }
 
