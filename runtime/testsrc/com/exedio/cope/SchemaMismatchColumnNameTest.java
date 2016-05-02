@@ -18,13 +18,19 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.SchemaInfo.supportsCheckConstraints;
+import static com.exedio.dsmf.Constraint.Type.Check;
+import static com.exedio.dsmf.Constraint.Type.PrimaryKey;
 import static com.exedio.dsmf.Node.Color.ERROR;
 import static com.exedio.dsmf.Node.Color.OK;
 import static com.exedio.dsmf.Node.Color.WARNING;
 import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import com.exedio.dsmf.Column;
+import com.exedio.dsmf.Constraint;
 import com.exedio.dsmf.Schema;
 import com.exedio.dsmf.Table;
 import org.junit.Test;
@@ -48,12 +54,49 @@ public class SchemaMismatchColumnNameTest extends SchemaMismatchTest
 		final Table table = schema.getTable(name(ItemA.TYPE));
 		assertIt(null, OK, ERROR, table);
 
-		final Column pk, fieldA, fieldB;
-		assertIt(null, OK, OK, pk = table.getColumn(name(ItemA.TYPE.getThis())));
-		assertIt("not used", WARNING, WARNING, fieldA = table.getColumn(name(ItemA.fieldA)));
-		assertIt("missing",  ERROR,   ERROR,   fieldB = table.getColumn(name(ItemB.fieldB)));
+		{
+			final Column pk, fieldA, fieldB;
+			assertIt(null, OK, OK, pk = table.getColumn(name(ItemA.TYPE.getThis())));
+			assertIt("not used", WARNING, WARNING, fieldA = table.getColumn(name(ItemA.fieldA)));
+			assertIt("missing",  ERROR,   ERROR,   fieldB = table.getColumn(name(ItemB.fieldB)));
 
-		assertEquals(asList(pk, fieldB, fieldA), table.getColumns());
+			assertEquals(asList(pk, fieldB, fieldA), table.getColumns());
+		}
+
+		// test check constraints as well
+		{
+			final boolean supported = supportsCheckConstraints(model);
+			final Constraint pkPk, checkPk;
+			assertIt(null, OK, OK, PrimaryKey, pkPk = table.getConstraint("ItemAB_Pk"));
+			assertIt(
+					supported ? null : "not supported",
+					OK, OK, Check, checkPk = table.getConstraint("ItemAB_this_CkPk"));
+
+			final Constraint checkA = table.getConstraint(nameCk(ItemA.fieldA));
+			final Constraint checkB = table.getConstraint(nameCk(ItemB.fieldB));
+			if(supported)
+			{
+				assertIt("not used", ERROR, ERROR, Check, checkA);
+				assertIt("missing",  ERROR, ERROR, Check, checkB);
+				assertTrue(checkA  instanceof com.exedio.dsmf.CheckConstraint);
+			}
+			else
+			{
+				assertNull(checkA);
+				assertIt("not supported",  OK, OK, Check, checkB);
+			}
+
+			assertTrue(pkPk    instanceof com.exedio.dsmf.PrimaryKeyConstraint);
+			assertTrue(checkPk instanceof com.exedio.dsmf.CheckConstraint);
+			assertTrue(checkB  instanceof com.exedio.dsmf.CheckConstraint);
+
+			assertEquals(
+					supported
+					? asList(pkPk, checkPk, checkB, checkA)
+					: asList(pkPk, checkPk, checkB),
+					table.getConstraints());
+			}
+
 		assertEquals(asList(table), schema.getTables());
 	}
 
