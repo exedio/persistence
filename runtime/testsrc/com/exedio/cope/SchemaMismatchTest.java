@@ -70,6 +70,12 @@ public abstract class SchemaMismatchTest extends TestWithEnvironment
 		return element.getType() + "_" + element.getName() + "_Unq";
 	}
 
+	protected static final String nameFk(final ItemField<?> element)
+	{
+		// TODO this is guessing and works just for short names
+		return element.getType() + "_" + element.getName() + "_Fk";
+	}
+
 	protected static final String nameSeq(final This<?> element)
 	{
 		return SchemaInfo.getPrimaryKeySequenceName(element.getType());
