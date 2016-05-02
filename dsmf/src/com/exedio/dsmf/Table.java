@@ -197,11 +197,8 @@ public final class Table extends Node
 	}
 
 	@Override
-	void finish()
+	Result computeResult()
 	{
-		assert particularColor==null;
-		assert cumulativeColor==null;
-
 		final String error;
 		final Color particularColor;
 		if(!exists)
@@ -220,21 +217,21 @@ public final class Table extends Node
 			particularColor = Color.OK;
 		}
 
-		this.error = error;
-		this.particularColor = particularColor;
-		cumulativeColor = particularColor;
+		Color cumulativeColor = particularColor;
 
 		for(final Column column : columnList)
 		{
 			column.finish();
-			cumulativeColor = cumulativeColor.max(column.cumulativeColor);
+			cumulativeColor = cumulativeColor.max(column.getCumulativeColor());
 		}
 
 		for(final Constraint constraint : constraintList)
 		{
 			constraint.finish();
-			cumulativeColor = cumulativeColor.max(constraint.cumulativeColor);
+			cumulativeColor = cumulativeColor.max(constraint.getCumulativeColor());
 		}
+
+		return new Result(error, particularColor, cumulativeColor);
 	}
 
 	public void create()

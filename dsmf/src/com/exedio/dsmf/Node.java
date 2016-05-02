@@ -55,9 +55,7 @@ public abstract class Node
 	final Dialect dialect;
 	final ConnectionProvider connectionProvider;
 
-	String error = null;
-	Color particularColor = null;
-	Color cumulativeColor = null;
+	private Result resultIfSet;
 
 	Node(final Dialect dialect, final ConnectionProvider connectionProvider)
 	{
@@ -199,30 +197,60 @@ public abstract class Node
 		}
 	}
 
-	abstract void finish();
+	final void finish()
+	{
+		this.resultIfSet = requireNonNull(computeResult(), "computeResult");
+	}
+
+	abstract Result computeResult();
+
+	private Result result()
+	{
+		final Result result = this.resultIfSet;
+		if(result==null)
+			throw new IllegalStateException("result");
+		return result;
+	}
 
 	public final String getError()
 	{
-		assert particularColor!=null;
-		assert cumulativeColor!=null;
-
-		return error;
+		return result().error;
 	}
 
 	public final Color getParticularColor()
 	{
-		assert particularColor!=null;
-		assert cumulativeColor!=null;
-
-		return particularColor;
+		return result().particularColor;
 	}
 
 	public final Color getCumulativeColor()
 	{
-		assert particularColor!=null;
-		assert cumulativeColor!=null;
+		return result().cumulativeColor;
+	}
 
-		return cumulativeColor;
+	static final class Result
+	{
+		final String error;
+		final Color particularColor;
+		final Color cumulativeColor;
+
+		Result(
+				final String error,
+				final Color particularColor,
+				final Color cumulativeColor)
+		{
+			this.error = error;
+			this.particularColor = particularColor;
+			this.cumulativeColor = cumulativeColor;
+		}
+
+		Result(
+				final String error,
+				final Color color)
+		{
+			this.error = error;
+			this.particularColor = color;
+			this.cumulativeColor = color;
+		}
 	}
 }
 

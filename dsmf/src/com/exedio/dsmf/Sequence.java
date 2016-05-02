@@ -71,11 +71,8 @@ public final class Sequence extends Node
 	}
 
 	@Override
-	void finish()
+	Result computeResult()
 	{
-		assert particularColor==null;
-		assert cumulativeColor==null;
-
 		final String error;
 		final Color particularColor;
 		if(!exists)
@@ -94,9 +91,7 @@ public final class Sequence extends Node
 			particularColor = Color.OK;
 		}
 
-		this.error = error;
-		this.particularColor = particularColor;
-		cumulativeColor = particularColor;
+		return new Result(error, particularColor);
 	}
 
 	public void create()

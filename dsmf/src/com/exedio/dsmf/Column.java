@@ -75,11 +75,8 @@ public final class Column extends Node
 	}
 
 	@Override
-	void finish()
+	Result computeResult()
 	{
-		assert particularColor==null;
-		assert cumulativeColor==null;
-
 		final String error;
 		final Color particularColor;
 		if(existingType==null)
@@ -106,9 +103,7 @@ public final class Column extends Node
 			}
 		}
 
-		this.error = error;
-		this.particularColor = particularColor;
-		cumulativeColor = particularColor;
+		return new Result(error, particularColor);
 	}
 
 	public boolean required()

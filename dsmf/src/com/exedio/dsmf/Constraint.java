@@ -107,11 +107,8 @@ public abstract class Constraint extends Node
 	}
 
 	@Override
-	final void finish()
+	final Result computeResult()
 	{
-		assert particularColor==null;
-		assert cumulativeColor==null;
-
 		// TODO: make this dependent on type of constraint:
 		// check/not null constraint are yellow only if missing
 		// foreign key/unique constraint are red when missing or unused
@@ -165,9 +162,7 @@ public abstract class Constraint extends Node
 			}
 		}
 
-		this.error = error;
-		this.particularColor = particularColor;
-		cumulativeColor = particularColor;
+		return new Result(error, particularColor);
 	}
 
 	String normalizeCondition(final String s)
