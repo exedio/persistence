@@ -7,6 +7,11 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* MySQL sequence tables do change the column name:
+	from 'x' to 'COPE_SEQUENCE_AUTO_INCREMENT_COLUMN'.
+	This heavily affects database schema on MySQL.
+	Use schema.mysql.fullSequenceColumnName=false in ConnectProperties to
+	revert to previous behaviour.
 * Use Servlet API 3.0 (needs Tomcat 7)
 * Use small integer types (tinyint, smallint, ...) on MySQL.
 	This heavily affects database schema on MySQL.

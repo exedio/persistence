@@ -25,11 +25,15 @@ import java.util.StringTokenizer;
 
 public final class MysqlDialect extends Dialect
 {
+	final String sequenceColumnName;
 	private final String rowFormat;
 
-	public MysqlDialect(final String rowFormat)
+	public MysqlDialect(
+			final String sequenceColumnName,
+			final String rowFormat)
 	{
 		super(null);
+		this.sequenceColumnName = sequenceColumnName;
 		this.rowFormat = rowFormat;
 	}
 
@@ -133,7 +137,7 @@ public final class MysqlDialect extends Dialect
 					else
 					{
 						final Sequence sequence = schema.getSequence(tableName);
-						if(sequence!=null && SEQUENCE_COLUMN.equals(columnName))
+						if(sequence!=null && sequenceColumnName.equals(columnName))
 							sequence.notifyExists();
 					}
 				}
@@ -327,6 +331,13 @@ public final class MysqlDialect extends Dialect
 			append(constraintName);
 	}
 
+	/**
+	 * @deprecated not used anymore.
+	 * BEWARE:
+	 * The actual name of the column may be different.
+	 * Internally use {@link #sequenceColumnName} instead.
+	 */
+	@Deprecated
 	public static final String SEQUENCE_COLUMN = "x";
 
 	@Override
@@ -336,7 +347,10 @@ public final class MysqlDialect extends Dialect
 	{
 		bf.append("CREATE TABLE ").
 			append(sequenceName).
-			append("(" + SEQUENCE_COLUMN + " INTEGER AUTO_INCREMENT PRIMARY KEY)" + ENGINE);
+			append("(").
+				append(quoteName(sequenceColumnName)).
+				append(" INTEGER AUTO_INCREMENT PRIMARY KEY)" +
+			ENGINE);
 
 		if(rowFormat!=null)
 			bf.append(" ROW_FORMAT=").

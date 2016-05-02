@@ -92,7 +92,9 @@ public abstract class SchemaTest
 			{
 				Class.forName("org.mariadb.jdbc.Driver");
 			}
-			dialect = new MysqlDialect("NONE".equals(mysqlRowFormat) ? null : mysqlRowFormat);
+			dialect = new MysqlDialect(
+					"CopeSequenceAutoIncrementColumnForTest",
+					"NONE".equals(mysqlRowFormat) ? null : mysqlRowFormat);
 			stringType = "varchar(8) CHARACTER SET utf8 COLLATE utf8_bin";
 			intType = "int";
 			intType2 = "bigint";

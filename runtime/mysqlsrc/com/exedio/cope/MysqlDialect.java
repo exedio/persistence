@@ -58,11 +58,13 @@ final class MysqlDialect extends Dialect
 
 	private final String deleteTable;
 	private final boolean smallIntegerTypes;
+	final String sequenceColumnName;
 
 	MysqlDialect(final Probe probe)
 	{
 		super(
 				new com.exedio.dsmf.MysqlDialect(
+						sequenceColumnName(probe.properties),
 						probe.properties.mysqlRowFormat.sql));
 		this.utf8mb4 = probe.properties.mysqlUtf8mb4;
 		this.maxBytesPerChar = utf8mb4 ? 4 : 3;
@@ -70,12 +72,23 @@ final class MysqlDialect extends Dialect
 		this.charset = " CHARACTER SET utf8" + mb4 + " COLLATE utf8" + mb4 + "_bin";
 		this.deleteTable = probe.properties.mysqlAvoidTruncate ? "delete from " : "truncate ";
 		this.smallIntegerTypes = probe.properties.mysqlSmallIntegerTypes;
+		this.sequenceColumnName = sequenceColumnName(probe.properties);
 
 		final EnvironmentInfo env = probe.environmentInfo;
 		if(!utf8mb4 && env.isDatabaseVersionAtLeast(5, 7))
 			throw new IllegalArgumentException(
 					"utf8mb4 must be enabled on MySQL 5.7 and later: " +
 					env.getDatabaseVersionDescription());
+	}
+
+	private static String sequenceColumnName(final ConnectProperties properties)
+	{
+		@SuppressWarnings("deprecation")
+		final String oldSequenceColumnName = com.exedio.dsmf.MysqlDialect.SEQUENCE_COLUMN;
+		return
+				properties.mysqlFullSequenceColName
+				? "COPE_SEQUENCE_AUTO_INCREMENT_COLUMN"
+				: oldSequenceColumnName;
 	}
 
 	@Override
@@ -459,7 +472,7 @@ final class MysqlDialect extends Dialect
 	{
 		final Statement bf = executor.newStatement();
 		bf.append("SELECT MAX(").
-			append(dsmfDialect.quoteName(com.exedio.dsmf.MysqlDialect.SEQUENCE_COLUMN)).
+			append(dsmfDialect.quoteName(sequenceColumnName)).
 			append(") FROM ").
 			append(dsmfDialect.quoteName(name));
 
@@ -620,7 +633,7 @@ final class MysqlDialect extends Dialect
 		final Connection connection = connectionPool.get(true);
 		try
 		{
-			final String column = dsmfDialect.quoteName(com.exedio.dsmf.MysqlDialect.SEQUENCE_COLUMN);
+			final String column = dsmfDialect.quoteName(sequenceColumnName);
 			for(final String name : names)
 			{
 				final String table = dsmfDialect.quoteName(name);
