@@ -89,9 +89,7 @@ public final class MysqlDialect extends Dialect
 					//printRow(resultSet);
 
 					final Sequence sequence = schema.getSequence(tableName);
-					if(sequence!=null && sequence.required())
-						;
-					else
+					if(sequence==null || !sequence.required())
 						schema.notifyExistentTable(tableName);
 				}
 			}
