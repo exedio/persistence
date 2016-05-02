@@ -22,6 +22,7 @@ import static java.util.Objects.requireNonNull;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+import com.exedio.dsmf.Constraint;
 import com.exedio.dsmf.Node;
 import com.exedio.dsmf.Node.Color;
 import org.junit.After;
@@ -63,6 +64,12 @@ public abstract class SchemaMismatchTest extends TestWithEnvironment
 		return SchemaInfo.getColumnName(element);
 	}
 
+	protected static final String name(final UniqueConstraint element)
+	{
+		// TODO this is guessing and works just for short names
+		return element.getType() + "_" + element.getName() + "_Unq";
+	}
+
 	protected static final String nameSeq(final This<?> element)
 	{
 		return SchemaInfo.getPrimaryKeySequenceName(element.getType());
@@ -85,5 +92,16 @@ public abstract class SchemaMismatchTest extends TestWithEnvironment
 		assertEquals("error", expectedError, actual.getError());
 		assertEquals("particularColor", expectedParticularColor, actual.getParticularColor());
 		assertEquals("cumulativeColor", expectedCumulativeColor, actual.getCumulativeColor());
+	}
+
+	protected static final void assertIt(
+			final String expectedError,
+			final Color expectedParticularColor,
+			final Color expectedCumulativeColor,
+			final Constraint.Type expectedType,
+			final Constraint actual)
+	{
+		assertIt(expectedError, expectedParticularColor, expectedCumulativeColor, actual);
+		assertEquals("type", expectedType, actual.getType());
 	}
 }
