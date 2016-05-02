@@ -252,6 +252,14 @@ public abstract class Node
 			this.cumulativeColor = color;
 		}
 
+		Result cumulate(final Color cumulativeColor)
+		{
+			return new Result(
+					this.error,
+					this.particularColor,
+					cumulativeColor);
+		}
+
 		// TODO rename all
 		static final Result OK = new Result(null, Color.OK);
 		static final Result missingERROR = new Result("missing", Color.ERROR);
