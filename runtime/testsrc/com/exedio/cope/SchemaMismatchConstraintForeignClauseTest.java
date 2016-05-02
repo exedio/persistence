@@ -48,9 +48,7 @@ public class SchemaMismatchConstraintForeignClauseTest extends SchemaMismatchTes
 		final Table table = schema.getTable(name(ItemA.TYPE));
 		assertIt(null, OK, ERROR, table);
 
-		System.out.println("" + table.getConstraints());
-
-		final Constraint unique;
+		final Constraint fk;
 		assertIt(
 				"different condition in database: " +
 				"expected "  + "---field->" + name(TargetB.TYPE) + "." + name(TargetB.TYPE.getThis()) + "---, " +
@@ -58,9 +56,9 @@ public class SchemaMismatchConstraintForeignClauseTest extends SchemaMismatchTes
 				"normalized to  ---field->" + name(TargetB.TYPE) + "." + name(TargetB.TYPE.getThis()) + "--- " +
 				"and "       + "---field->" + name(TargetA.TYPE) + "." + name(TargetA.TYPE.getThis()) + "---",
 				// TODO report normalized form only if different from non-normalized
-				ERROR, ERROR, ForeignKey, unique = table.getConstraint(nameFk(ItemA.field)));
+				ERROR, ERROR, ForeignKey, fk = table.getConstraint(nameFk(ItemA.field)));
 
-		assertTrue(unique instanceof com.exedio.dsmf.ForeignKeyConstraint);
+		assertTrue(fk instanceof com.exedio.dsmf.ForeignKeyConstraint);
 	}
 
 	@CopeName("ItemAB")

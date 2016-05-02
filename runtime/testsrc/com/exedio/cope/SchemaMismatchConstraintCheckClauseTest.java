@@ -20,24 +20,22 @@ package com.exedio.cope;
 
 import static com.exedio.cope.SchemaInfo.supportsCheckConstraints;
 import static com.exedio.dsmf.Constraint.Type.Check;
-import static com.exedio.dsmf.Constraint.Type.PrimaryKey;
 import static com.exedio.dsmf.Node.Color.ERROR;
 import static com.exedio.dsmf.Node.Color.OK;
-import static com.exedio.dsmf.Node.Color.WARNING;
-import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
-import com.exedio.dsmf.Column;
 import com.exedio.dsmf.Constraint;
 import com.exedio.dsmf.Schema;
 import com.exedio.dsmf.Table;
 import org.junit.Test;
 
-public class SchemaMismatchColumnNameTest extends SchemaMismatchTest
+/**
+ * SchemaMismatchConstraintCheckNameTest is in {@link SchemaMismatchColumnNameTest}.
+ */
+public class SchemaMismatchConstraintCheckClauseTest extends SchemaMismatchTest
 {
-	public SchemaMismatchColumnNameTest()
+	public SchemaMismatchConstraintCheckClauseTest()
 	{
 		super(modelA, modelB);
 	}
@@ -48,77 +46,68 @@ public class SchemaMismatchColumnNameTest extends SchemaMismatchTest
 
 		assertEquals(name(ItemA.TYPE), name(ItemB.TYPE));
 
+		final boolean supported = supportsCheckConstraints(model);
 		final Schema schema = modelB.getVerifiedSchema();
-		assertIt(null, OK, ERROR, schema);
+		assertIt(null, OK, supported ? ERROR : OK, schema);
 
 		final Table table = schema.getTable(name(ItemA.TYPE));
-		assertIt(null, OK, ERROR, table);
+		assertIt(null, OK, supported ? ERROR : OK, table);
 
+		final Constraint check = table.getConstraint(nameCk(ItemA.field));
+		if(supported)
 		{
-			final Column pk, fieldA, fieldB;
-			assertIt(null, OK, OK, pk = table.getColumn(name(ItemA.TYPE.getThis())));
-			assertIt("not used", WARNING, WARNING, fieldA = table.getColumn(name(ItemA.fieldA)));
-			assertIt("missing",  ERROR,   ERROR,   fieldB = table.getColumn(name(ItemB.fieldB)));
+			final String error;
 
-			assertEquals(asList(pk, fieldB, fieldA), table.getColumns());
-		}
-
-		// test check constraints as well
-		{
-			final boolean supported = supportsCheckConstraints(model);
-			final Constraint pkPk, checkPk;
-			assertIt(null, OK, OK, PrimaryKey, pkPk = table.getConstraint("ItemAB_Pk"));
-			assertIt(
-					supported ? null : "not supported",
-					OK, OK, Check, checkPk = table.getConstraint("ItemAB_this_CkPk"));
-
-			final Constraint checkA = table.getConstraint(nameCk(ItemA.fieldA));
-			final Constraint checkB = table.getConstraint(nameCk(ItemB.fieldB));
-			if(supported)
+			if(postgresql)
 			{
-				assertIt("not used", ERROR, ERROR, Check, checkA);
-				assertIt("missing",  ERROR, ERROR, Check, checkB);
-				assertTrue(checkA  instanceof com.exedio.dsmf.CheckConstraint);
+				// TODO normalize normalized too much
+				error =
+						"different condition in database: " +
+						"expected "  + "---(" + q("field") + ">=0) AND (" + q("field") + "<=88)---, " +
+						"but was "   + "---(" + q("field") + " >= 0) AND (" + q("field") + " <= 66)--- " +
+						"normalized to  ---" + q("field") + ">=0AND" + q("field") + "<=88--- " +
+						"and "       + "---" + q("field") + ">=0AND" + q("field") + "<=66---";
 			}
 			else
 			{
-				assertNull(checkA);
-				assertIt("not supported",  OK, OK, Check, checkB);
+				error =
+						"different condition in database: " +
+						"expected "  + "---(" + q("field") + ">=0) AND (" + q("field") + "<=88)---, " +
+						"but was "   + "---(" + q("field") + ">=0) AND (" + q("field") + "<=66)--- " +
+						"normalized to  ---(" + q("field") + ">=0) AND (" + q("field") + "<=88)--- " +
+						"and "       + "---(" + q("field") + ">=0) AND (" + q("field") + "<=66)---";
+						// TODO report normalized form only if different from non-normalized
 			}
+			assertIt(error, ERROR, ERROR, Check, check);
+		}
+		else
+			assertIt("not supported", OK, OK, Check, check);
 
-			assertTrue(pkPk    instanceof com.exedio.dsmf.PrimaryKeyConstraint);
-			assertTrue(checkPk instanceof com.exedio.dsmf.CheckConstraint);
-			assertTrue(checkB  instanceof com.exedio.dsmf.CheckConstraint);
-
-			assertEquals(
-					supported
-					? asList(pkPk, checkPk, checkB, checkA)
-					: asList(pkPk, checkPk, checkB),
-					table.getConstraints());
-			}
-
-		assertEquals(asList(table), schema.getTables());
+		assertTrue(check instanceof com.exedio.dsmf.CheckConstraint);
 	}
 
 	@CopeName("ItemAB")
 	static final class ItemA extends Item
 	{
-		static final IntegerField fieldA = new IntegerField().toFinal(); // avoid update counter
+		static final IntegerField field = new IntegerField().range(0, 66).toFinal(); // avoid update counter
 
 		/**
 
 	 **
 	 * Creates a new ItemA with all the fields initially needed.
-	 * @param fieldA the initial value for field {@link #fieldA}.
+	 * @param field the initial value for field {@link #field}.
+	 * @throws com.exedio.cope.IntegerRangeViolationException if field violates its range constraint.
 	 * @cope.generated This feature has been generated by the cope instrumentor and will be overwritten by the build process.
 	 *       It can be customized with the tags <tt>@cope.constructor public|package|protected|private|none</tt> in the class comment and <tt>@cope.initial</tt> in the comment of fields.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	ItemA(
-				final int fieldA)
+				final int field)
+			throws
+				com.exedio.cope.IntegerRangeViolationException
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			ItemA.fieldA.map(fieldA),
+			ItemA.field.map(field),
 		});
 	}/**
 
@@ -134,14 +123,14 @@ public class SchemaMismatchColumnNameTest extends SchemaMismatchTest
 	}/**
 
 	 **
-	 * Returns the value of {@link #fieldA}.
+	 * Returns the value of {@link #field}.
 	 * @cope.generated This feature has been generated by the cope instrumentor and will be overwritten by the build process.
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final int getFieldA()
+	final int getField()
 	{
-		return ItemA.fieldA.getMandatory(this);
+		return ItemA.field.getMandatory(this);
 	}/**
 
 	 **
@@ -170,22 +159,25 @@ public class SchemaMismatchColumnNameTest extends SchemaMismatchTest
 	@CopeName("ItemAB")
 	static final class ItemB extends Item
 	{
-		static final IntegerField fieldB = new IntegerField().toFinal(); // avoid update counter
+		static final IntegerField field = new IntegerField().range(0, 88).toFinal(); // avoid update counter
 
 		/**
 
 	 **
 	 * Creates a new ItemB with all the fields initially needed.
-	 * @param fieldB the initial value for field {@link #fieldB}.
+	 * @param field the initial value for field {@link #field}.
+	 * @throws com.exedio.cope.IntegerRangeViolationException if field violates its range constraint.
 	 * @cope.generated This feature has been generated by the cope instrumentor and will be overwritten by the build process.
 	 *       It can be customized with the tags <tt>@cope.constructor public|package|protected|private|none</tt> in the class comment and <tt>@cope.initial</tt> in the comment of fields.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	ItemB(
-				final int fieldB)
+				final int field)
+			throws
+				com.exedio.cope.IntegerRangeViolationException
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			ItemB.fieldB.map(fieldB),
+			ItemB.field.map(field),
 		});
 	}/**
 
@@ -201,14 +193,14 @@ public class SchemaMismatchColumnNameTest extends SchemaMismatchTest
 	}/**
 
 	 **
-	 * Returns the value of {@link #fieldB}.
+	 * Returns the value of {@link #field}.
 	 * @cope.generated This feature has been generated by the cope instrumentor and will be overwritten by the build process.
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final int getFieldB()
+	final int getField()
 	{
-		return ItemB.fieldB.getMandatory(this);
+		return ItemB.field.getMandatory(this);
 	}/**
 
 	 **
