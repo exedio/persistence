@@ -48,8 +48,6 @@ public class SchemaMismatchConstraintForeignClauseTest extends SchemaMismatchTes
 		final Table table = schema.getTable(name(ItemA.TYPE));
 		assertIt(null, OK, ERROR, table);
 
-		System.out.println("" + table.getConstraints());
-
 		final Constraint unique;
 		assertIt(
 				"different condition in database: " +
