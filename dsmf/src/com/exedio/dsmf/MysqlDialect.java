@@ -350,7 +350,8 @@ public final class MysqlDialect extends Dialect
 			append("(").
 				append(quoteName(sequenceColumnName)).
 				append(" INTEGER AUTO_INCREMENT PRIMARY KEY)" +
-			ENGINE);
+			ENGINE +
+			" COMMENT='cope_sequence_table'");
 
 		if(rowFormat!=null)
 			bf.append(" ROW_FORMAT=").
