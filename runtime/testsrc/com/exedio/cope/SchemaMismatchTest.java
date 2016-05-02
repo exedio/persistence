@@ -82,6 +82,11 @@ public abstract class SchemaMismatchTest extends TestWithEnvironment
 				(element.isMandatory() ? " not null" : "");
 	}
 
+	protected final String q(final String name)
+	{
+		return SchemaInfo.quoteName(model, name);
+	}
+
 	protected static final void assertIt(
 			final String expectedError,
 			final Color expectedParticularColor,
