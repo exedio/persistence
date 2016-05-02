@@ -77,33 +77,25 @@ public final class Column extends Node
 	@Override
 	Result computeResult()
 	{
-		final String error;
-		final Color particularColor;
 		if(existingType==null)
 		{
-			error = "missing";
-			particularColor = Color.ERROR;
+			return new Result("missing", Color.ERROR);
 		}
 		else if(requiredType==null)
 		{
-			error = "not used";
-			particularColor = Color.WARNING;
+			return new Result("not used", Color.WARNING);
 		}
 		else
 		{
 			if(!requiredType.equals(existingType))
 			{
-				error = "different type in database: >"+existingType+"<";
-				particularColor = Color.ERROR;
+				return new Result("different type in database: >"+existingType+"<", Color.ERROR);
 			}
 			else
 			{
-				error = null;
-				particularColor = Color.OK;
+				return new Result(null, Color.OK);
 			}
 		}
-
-		return new Result(error, particularColor);
 	}
 
 	public boolean required()

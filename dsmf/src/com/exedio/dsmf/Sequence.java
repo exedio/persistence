@@ -73,25 +73,18 @@ public final class Sequence extends Node
 	@Override
 	Result computeResult()
 	{
-		final String error;
-		final Color particularColor;
 		if(!exists)
 		{
-			error = "missing";
-			particularColor = Color.ERROR;
+			return new Result("missing", Color.ERROR);
 		}
 		else if(!required)
 		{
-			error = "not used";
-			particularColor = Color.WARNING;
+			return new Result("not used", Color.WARNING);
 		}
 		else
 		{
-			error = null;
-			particularColor = Color.OK;
+			return new Result(null, Color.OK);
 		}
-
-		return new Result(error, particularColor);
 	}
 
 	public void create()
