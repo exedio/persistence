@@ -197,9 +197,9 @@ public abstract class Node
 		}
 	}
 
-	final void finish()
+	final Result finish()
 	{
-		this.resultIfSet = requireNonNull(computeResult(), "computeResult");
+		return this.resultIfSet = requireNonNull(computeResult(), "computeResult");
 	}
 
 	abstract Result computeResult();

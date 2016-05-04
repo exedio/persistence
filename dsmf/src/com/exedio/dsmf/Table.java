@@ -214,18 +214,10 @@ public final class Table extends Node
 		}
 
 		Color cumulativeColor = result.particularColor;
-
 		for(final Column column : columnList)
-		{
-			column.finish();
-			cumulativeColor = cumulativeColor.max(column.getCumulativeColor());
-		}
-
+			cumulativeColor = cumulativeColor.max(column.finish().cumulativeColor);
 		for(final Constraint constraint : constraintList)
-		{
-			constraint.finish();
-			cumulativeColor = cumulativeColor.max(constraint.getCumulativeColor());
-		}
+			cumulativeColor = cumulativeColor.max(constraint.finish().cumulativeColor);
 
 		return result.cumulate(cumulativeColor);
 	}

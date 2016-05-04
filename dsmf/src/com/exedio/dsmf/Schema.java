@@ -120,15 +120,9 @@ public final class Schema extends Node
 	{
 		Color cumulativeColor = Color.OK;
 		for(final Table table : tableList)
-		{
-			table.finish();
-			cumulativeColor = cumulativeColor.max(table.getCumulativeColor());
-		}
+			cumulativeColor = cumulativeColor.max(table.finish().cumulativeColor);
 		for(final Sequence sequence : sequenceList)
-		{
-			sequence.finish();
-			cumulativeColor = cumulativeColor.max(sequence.getCumulativeColor());
-		}
+			cumulativeColor = cumulativeColor.max(sequence.finish().cumulativeColor);
 
 		return new Result(null, Color.OK, cumulativeColor);
 	}
