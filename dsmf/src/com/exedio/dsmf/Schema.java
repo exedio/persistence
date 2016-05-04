@@ -118,19 +118,12 @@ public final class Schema extends Node
 	@Override
 	Result computeResult()
 	{
-		Color cumulativeColor = Color.OK;
+		Result cumulativeResult = Result.ok;
 		for(final Table table : tableList)
-		{
-			table.finish();
-			cumulativeColor = cumulativeColor.max(table.getCumulativeColor());
-		}
+			cumulativeResult = cumulativeResult.cumulate(table.finish());
 		for(final Sequence sequence : sequenceList)
-		{
-			sequence.finish();
-			cumulativeColor = cumulativeColor.max(sequence.getCumulativeColor());
-		}
-
-		return new Result(null, Color.OK, cumulativeColor);
+			cumulativeResult = cumulativeResult.cumulate(sequence.finish());
+		return cumulativeResult;
 	}
 
 	public void create()

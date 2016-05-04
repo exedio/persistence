@@ -116,42 +116,41 @@ public abstract class Constraint extends Node
 		{
 			if(isSupported())
 			{
-				return Result.missingERROR;
+				return Result.missing;
 			}
 			else
 			{
-				return Result.notsupportedOK;
+				return Result.notSupported;
 			}
 		}
 		else if(!required)
 		{
 			if(!table.required())
-				return Result.notusedWARNING;
+				return Result.notUsedWarning;
 			else
-				return Result.notusedERROR;
+				return Result.notUsedError;
 		}
 		else
 		{
 			if(requiredCondition!=null && existingCondition!=null &&
 				!normalizeCondition(requiredCondition).equals(normalizeCondition(existingCondition)))
 			{
-				return new Result(
+				return Result.error(
 						"different condition in database: " +
 						"expected ---" + requiredCondition + "---, but was ---" + existingCondition + "--- " +
-						"normalized to  ---" + normalizeCondition(requiredCondition) + "--- and ---" + normalizeCondition(existingCondition) + "---",
-						Color.ERROR);
+						"normalized to  ---" + normalizeCondition(requiredCondition) + "--- and ---" + normalizeCondition(existingCondition) + "---");
 			}
 			else if(requiredCondition==null && existingCondition!=null)
 			{
-				return new Result("surplus condition in database: ---" + existingCondition + "---", Color.ERROR);
+				return Result.error("surplus condition in database: ---" + existingCondition + "---");
 			}
 			else if(requiredCondition!=null && existingCondition==null)
 			{
-				return new Result("missing condition in database: ---" + requiredCondition + "---", Color.ERROR);
+				return Result.error("missing condition in database: ---" + requiredCondition + "---");
 			}
 			else
 			{
-				return Result.OK;
+				return Result.ok;
 			}
 		}
 	}

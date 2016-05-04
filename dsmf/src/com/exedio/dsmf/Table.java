@@ -202,32 +202,23 @@ public final class Table extends Node
 		final Result result;
 		if(!exists)
 		{
-			result = Result.missingERROR;
+			result = Result.missing;
 		}
 		else if(!required)
 		{
-			result = Result.notusedWARNING;
+			result = Result.notUsedWarning;
 		}
 		else
 		{
-			result = Result.OK;
+			result = Result.ok;
 		}
 
-		Color cumulativeColor = result.particularColor;
-
+		Result cumulativeResult = result;
 		for(final Column column : columnList)
-		{
-			column.finish();
-			cumulativeColor = cumulativeColor.max(column.getCumulativeColor());
-		}
-
+			cumulativeResult = cumulativeResult.cumulate(column.finish());
 		for(final Constraint constraint : constraintList)
-		{
-			constraint.finish();
-			cumulativeColor = cumulativeColor.max(constraint.getCumulativeColor());
-		}
-
-		return result.cumulate(cumulativeColor);
+			cumulativeResult = cumulativeResult.cumulate(constraint.finish());
+		return cumulativeResult;
 	}
 
 	public void create()

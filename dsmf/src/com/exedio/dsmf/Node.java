@@ -197,9 +197,9 @@ public abstract class Node
 		}
 	}
 
-	final void finish()
+	final Result finish()
 	{
-		this.resultIfSet = requireNonNull(computeResult(), "computeResult");
+		return this.resultIfSet = requireNonNull(computeResult(), "computeResult");
 	}
 
 	abstract Result computeResult();
@@ -233,7 +233,7 @@ public abstract class Node
 		final Color particularColor;
 		final Color cumulativeColor;
 
-		Result(
+		private Result(
 				final String error,
 				final Color particularColor,
 				final Color cumulativeColor)
@@ -246,7 +246,7 @@ public abstract class Node
 				throw new IllegalArgumentException("" + particularColor + '>' + cumulativeColor);
 		}
 
-		Result(
+		private Result(
 				final String error,
 				final Color color)
 		{
@@ -255,20 +255,28 @@ public abstract class Node
 			this.cumulativeColor = color;
 		}
 
-		Result cumulate(final Color cumulativeColor)
+		Result cumulate(final Result child)
 		{
+			if(this .cumulativeColor.ordinal() >
+				child.cumulativeColor.ordinal())
+				return this;
+
 			return new Result(
 					this.error,
 					this.particularColor,
-					cumulativeColor);
+					child.cumulativeColor);
 		}
 
-		// TODO rename all
-		static final Result OK = new Result(null, Color.OK);
-		static final Result missingERROR = new Result("missing", Color.ERROR);
-		static final Result notsupportedOK = new Result("not supported", Color.OK);
-		static final Result notusedWARNING = new Result("not used", Color.WARNING);
-		static final Result notusedERROR = new Result("not used", Color.ERROR);
+		static final Result ok = new Result(null, Color.OK);
+		static final Result missing = new Result("missing", Color.ERROR);
+		static final Result notSupported = new Result("not supported", Color.OK);
+		static final Result notUsedWarning = new Result("not used", Color.WARNING);
+		static final Result notUsedError = new Result("not used", Color.ERROR);
+
+		static Result error(final String error)
+		{
+			return new Result(error, Color.ERROR);
+		}
 	}
 }
 

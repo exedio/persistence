@@ -79,21 +79,21 @@ public final class Column extends Node
 	{
 		if(existingType==null)
 		{
-			return Result.missingERROR;
+			return Result.missing;
 		}
 		else if(requiredType==null)
 		{
-			return Result.notusedWARNING;
+			return Result.notUsedWarning;
 		}
 		else
 		{
 			if(!requiredType.equals(existingType))
 			{
-				return new Result("different type in database: >"+existingType+"<", Color.ERROR);
+				return Result.error("different type in database: >"+existingType+"<");
 			}
 			else
 			{
-				return Result.OK;
+				return Result.ok;
 			}
 		}
 	}
