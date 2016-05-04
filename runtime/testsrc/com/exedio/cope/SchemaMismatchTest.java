@@ -64,6 +64,12 @@ public abstract class SchemaMismatchTest extends TestWithEnvironment
 		return SchemaInfo.getColumnName(element);
 	}
 
+	protected static final String namePk(final This<?> element)
+	{
+		// TODO this is guessing and works just for short names
+		return element.getType() + "_Pk";
+	}
+
 	protected static final String name(final UniqueConstraint element)
 	{
 		// TODO this is guessing and works just for short names

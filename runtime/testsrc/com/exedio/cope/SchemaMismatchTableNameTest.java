@@ -18,13 +18,17 @@
 
 package com.exedio.cope;
 
+import static com.exedio.dsmf.Constraint.Type.PrimaryKey;
 import static com.exedio.dsmf.Node.Color.ERROR;
 import static com.exedio.dsmf.Node.Color.OK;
 import static com.exedio.dsmf.Node.Color.WARNING;
 import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import com.exedio.dsmf.Column;
+import com.exedio.dsmf.Constraint;
 import com.exedio.dsmf.Schema;
 import com.exedio.dsmf.Sequence;
 import com.exedio.dsmf.Table;
@@ -59,6 +63,21 @@ public class SchemaMismatchTableNameTest extends SchemaMismatchTest
 			assertIt("missing", ERROR, ERROR, pkB = tableB.getColumn(name(ItemB.TYPE.getThis())));
 			assertIt("missing", ERROR, ERROR, fdB = tableB.getColumn(name(ItemB.field)));
 			assertEquals(asList(pkB, fdB), tableB.getColumns());
+		}
+		{
+			final Constraint pkA = tableA.getConstraint(namePk(ItemA.TYPE.getThis()));
+			final Constraint pkB = tableB.getConstraint(namePk(ItemB.TYPE.getThis()));
+			if(mysql) // TODO
+			{
+				assertNull(pkA);
+			}
+			else
+			{
+				assertIt("not used", WARNING, WARNING, PrimaryKey, pkA);
+				assertTrue(pkA instanceof com.exedio.dsmf.PrimaryKeyConstraint);
+			}
+			assertIt("missing", ERROR, ERROR, PrimaryKey, pkB);
+			assertTrue(pkB instanceof com.exedio.dsmf.PrimaryKeyConstraint);
 		}
 
 		if(model.getConnectProperties().primaryKeyGenerator.persistent)
