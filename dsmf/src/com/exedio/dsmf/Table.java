@@ -202,15 +202,15 @@ public final class Table extends Node
 		final Result result;
 		if(!exists)
 		{
-			result = Result.missingERROR;
+			result = Result.missing;
 		}
 		else if(!required)
 		{
-			result = Result.notusedWARNING;
+			result = Result.notUsedWarning;
 		}
 		else
 		{
-			result = Result.OK;
+			result = Result.ok;
 		}
 
 		Color cumulativeColor = result.particularColor;

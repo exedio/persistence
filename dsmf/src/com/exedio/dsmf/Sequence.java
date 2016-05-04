@@ -75,15 +75,15 @@ public final class Sequence extends Node
 	{
 		if(!exists)
 		{
-			return Result.missingERROR;
+			return Result.missing;
 		}
 		else if(!required)
 		{
-			return Result.notusedWARNING;
+			return Result.notUsedWarning;
 		}
 		else
 		{
-			return Result.OK;
+			return Result.ok;
 		}
 	}
 

@@ -263,12 +263,11 @@ public abstract class Node
 					cumulativeColor);
 		}
 
-		// TODO rename all
-		static final Result OK = new Result(null, Color.OK);
-		static final Result missingERROR = new Result("missing", Color.ERROR);
-		static final Result notsupportedOK = new Result("not supported", Color.OK);
-		static final Result notusedWARNING = new Result("not used", Color.WARNING);
-		static final Result notusedERROR = new Result("not used", Color.ERROR);
+		static final Result ok = new Result(null, Color.OK);
+		static final Result missing = new Result("missing", Color.ERROR);
+		static final Result notSupported = new Result("not supported", Color.OK);
+		static final Result notUsedWarning = new Result("not used", Color.WARNING);
+		static final Result notUsedError = new Result("not used", Color.ERROR);
 	}
 }
 
