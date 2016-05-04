@@ -257,7 +257,8 @@ public abstract class Node
 
 		Result cumulate(final Result child)
 		{
-			if(cumulativeColor.ordinal()>child.cumulativeColor.ordinal())
+			if(this .cumulativeColor.ordinal() >
+				child.cumulativeColor.ordinal())
 				return this;
 
 			return new Result(
