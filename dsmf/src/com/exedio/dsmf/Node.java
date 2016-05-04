@@ -241,6 +241,9 @@ public abstract class Node
 			this.error = error;
 			this.particularColor = particularColor;
 			this.cumulativeColor = cumulativeColor;
+
+			if(particularColor.ordinal()>cumulativeColor.ordinal())
+				throw new IllegalArgumentException("" + particularColor + '>' + cumulativeColor);
 		}
 
 		Result(
