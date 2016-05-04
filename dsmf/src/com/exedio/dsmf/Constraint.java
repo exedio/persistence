@@ -109,21 +109,15 @@ public abstract class Constraint extends Node
 		// foreign key/unique constraint are red when missing or unused
 		if(!exists())
 		{
-			if(isSupported())
-			{
-				return Result.missing;
-			}
-			else
-			{
-				return Result.notSupported;
-			}
+			return isSupported()
+				? Result.missing
+				: Result.notSupported;
 		}
 		else if(!required())
 		{
-			if(!table.required())
-				return Result.notUsedWarning;
-			else
-				return Result.notUsedError;
+			return table.required()
+				? Result.notUsedError
+				: Result.notUsedWarning;
 		}
 		else
 		{
