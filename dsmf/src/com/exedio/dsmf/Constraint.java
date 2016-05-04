@@ -35,9 +35,7 @@ public abstract class Constraint extends Node
 	final Table table;
 	final String name;
 	final Type type;
-	private final boolean required;
 	final String requiredCondition;
-	private boolean exists = false;
 	private String existingCondition;
 
 	Constraint(
@@ -47,7 +45,7 @@ public abstract class Constraint extends Node
 			final boolean required,
 			final String condition)
 	{
-		super(table.dialect, table.connectionProvider);
+		super(table.dialect, table.connectionProvider, required);
 
 		if(name==null)
 			throw new RuntimeException(table.name);
@@ -57,14 +55,12 @@ public abstract class Constraint extends Node
 		this.table = table;
 		this.name = name;
 		this.type = type;
-		this.required = required;
 		if(required)
 			this.requiredCondition = condition;
 		else
 		{
 			this.requiredCondition = null;
 			this.existingCondition = condition;
-			this.exists = true;
 		}
 		table.register(this);
 	}
@@ -91,7 +87,7 @@ public abstract class Constraint extends Node
 
 	final void notifyExists()
 	{
-		exists = true;
+		notifyExistsNode();
 	}
 
 	final void notifyExistsCondition(final String condition)
@@ -99,10 +95,9 @@ public abstract class Constraint extends Node
 		if(condition==null)
 			throw new NullPointerException();
 
-		assert !exists;
 		assert existingCondition==null;
 
-		exists = true;
+		notifyExistsNode();
 		this.existingCondition = condition;
 	}
 
@@ -112,7 +107,7 @@ public abstract class Constraint extends Node
 		// TODO: make this dependent on type of constraint:
 		// check/not null constraint are yellow only if missing
 		// foreign key/unique constraint are red when missing or unused
-		if(!exists)
+		if(!exists())
 		{
 			if(isSupported())
 			{
@@ -123,7 +118,7 @@ public abstract class Constraint extends Node
 				return Result.notSupported;
 			}
 		}
-		else if(!required)
+		else if(!required())
 		{
 			if(!table.required())
 				return Result.notUsedWarning;
@@ -158,16 +153,6 @@ public abstract class Constraint extends Node
 	String normalizeCondition(final String s)
 	{
 		return s;
-	}
-
-	public final boolean required()
-	{
-		return required;
-	}
-
-	public final boolean exists()
-	{
-		return exists;
 	}
 
 	@Override

@@ -37,7 +37,8 @@ public final class Schema extends Node
 
 	public Schema(final Dialect dialect, final ConnectionProvider connectionProvider)
 	{
-		super(dialect, connectionProvider);
+		super(dialect, connectionProvider, true);
+		notifyExistsNode();
 	}
 
 	void register(final Table table)

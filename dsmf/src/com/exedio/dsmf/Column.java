@@ -32,7 +32,7 @@ public final class Column extends Node
 
 	Column(final Table table, final String name, final String type, final boolean required)
 	{
-		super(table.dialect, table.connectionProvider);
+		super(table.dialect, table.connectionProvider, required);
 
 		if(name==null)
 			throw new RuntimeException(type);
@@ -71,17 +71,18 @@ public final class Column extends Node
 		if(this.existingType!=null && !this.existingType.equals(existingType))
 			throw new RuntimeException(name);
 
+		notifyExistsNode();
 		this.existingType = existingType;
 	}
 
 	@Override
 	Result computeResult()
 	{
-		if(existingType==null)
+		if(!exists())
 		{
 			return Result.missing;
 		}
-		else if(requiredType==null)
+		else if(!required())
 		{
 			return Result.notUsedWarning;
 		}
@@ -96,16 +97,6 @@ public final class Column extends Node
 				return Result.ok;
 			}
 		}
-	}
-
-	public boolean required()
-	{
-		return requiredType!=null;
-	}
-
-	public boolean exists()
-	{
-		return existingType!=null;
 	}
 
 	public String getType()

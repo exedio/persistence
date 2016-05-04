@@ -55,12 +55,17 @@ public abstract class Node
 	final Dialect dialect;
 	final ConnectionProvider connectionProvider;
 
+	private final boolean required;
+	private boolean exists = false;
+
 	private Result resultIfSet;
 
-	Node(final Dialect dialect, final ConnectionProvider connectionProvider)
+	Node(final Dialect dialect, final ConnectionProvider connectionProvider, final boolean required)
 	{
 		this.dialect = requireNonNull(dialect, "dialect");
 		this.connectionProvider = requireNonNull(connectionProvider, "connectionProvider");
+		this.required = required;
+		this.exists = !required;
 	}
 
 	final String quoteName(final String name)
@@ -195,6 +200,21 @@ public abstract class Node
 		{
 			throw new SQLRuntimeException(e, "getCatalog");
 		}
+	}
+
+	final void notifyExistsNode()
+	{
+		exists = true;
+	}
+
+	public final boolean required()
+	{
+		return required;
+	}
+
+	public final boolean exists()
+	{
+		return exists;
 	}
 
 	final Result finish()

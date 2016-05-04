@@ -22,8 +22,6 @@ public final class Sequence extends Node
 {
 	final String name;
 	final int start;
-	private final boolean required;
-	private boolean exists;
 
 	public Sequence(final Schema schema, final String name, final int start)
 	{
@@ -32,15 +30,13 @@ public final class Sequence extends Node
 
 	Sequence(final Schema schema, final String name, final int start, final boolean required)
 	{
-		super(schema.dialect, schema.connectionProvider);
+		super(schema.dialect, schema.connectionProvider, required);
 
 		if(name==null)
 			throw new RuntimeException();
 
 		this.name = name;
 		this.start = start;
-		this.required = required;
-		this.exists = !required;
 
 		schema.register(this);
 	}
@@ -57,27 +53,17 @@ public final class Sequence extends Node
 
 	void notifyExists()
 	{
-		exists = true;
-	}
-
-	public boolean required()
-	{
-		return required;
-	}
-
-	public boolean exists()
-	{
-		return exists;
+		notifyExistsNode();
 	}
 
 	@Override
 	Result computeResult()
 	{
-		if(!exists)
+		if(!exists())
 		{
 			return Result.missing;
 		}
-		else if(!required)
+		else if(!required())
 		{
 			return Result.notUsedWarning;
 		}

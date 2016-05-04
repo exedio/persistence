@@ -30,8 +30,6 @@ public final class Table extends Node
 {
 	final Schema schema;
 	final String name;
-	private final boolean required;
-	private boolean exists;
 
 	private final HashMap<String, Column> columnMap = new HashMap<>();
 	private final ArrayList<Column> columnList = new ArrayList<>();
@@ -46,15 +44,13 @@ public final class Table extends Node
 
 	Table(final Schema schema, final String name, final boolean required)
 	{
-		super(schema.dialect, schema.connectionProvider);
+		super(schema.dialect, schema.connectionProvider, required);
 
 		if(name==null)
 			throw new RuntimeException();
 
 		this.schema = schema;
 		this.name = name;
-		this.required = required;
-		this.exists = !required;
 
 		schema.register(this);
 	}
@@ -81,7 +77,7 @@ public final class Table extends Node
 
 	void notifyExists()
 	{
-		exists = true;
+		notifyExistsNode();
 	}
 
 	Column notifyExistentColumn(final String columnName, final String existingType)
@@ -166,16 +162,6 @@ public final class Table extends Node
 		return result;
 	}
 
-	public boolean required()
-	{
-		return required;
-	}
-
-	public boolean exists()
-	{
-		return exists;
-	}
-
 	public Collection<Column> getColumns()
 	{
 		return columnList;
@@ -200,11 +186,11 @@ public final class Table extends Node
 	Result computeResult()
 	{
 		final Result result;
-		if(!exists)
+		if(!exists())
 		{
 			result = Result.missing;
 		}
-		else if(!required)
+		else if(!required())
 		{
 			result = Result.notUsedWarning;
 		}
