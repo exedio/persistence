@@ -233,7 +233,7 @@ public abstract class Node
 		final Color particularColor;
 		final Color cumulativeColor;
 
-		Result(
+		private Result(
 				final String error,
 				final Color particularColor,
 				final Color cumulativeColor)
@@ -255,12 +255,15 @@ public abstract class Node
 			this.cumulativeColor = color;
 		}
 
-		Result cumulate(final Color cumulativeColor)
+		Result cumulate(final Result child)
 		{
+			if(cumulativeColor.ordinal()>child.cumulativeColor.ordinal())
+				return this;
+
 			return new Result(
 					this.error,
 					this.particularColor,
-					cumulativeColor);
+					child.cumulativeColor);
 		}
 
 		static final Result ok = new Result(null, Color.OK);

@@ -213,13 +213,12 @@ public final class Table extends Node
 			result = Result.ok;
 		}
 
-		Color cumulativeColor = result.particularColor;
+		Result cumulativeResult = result;
 		for(final Column column : columnList)
-			cumulativeColor = cumulativeColor.max(column.finish().cumulativeColor);
+			cumulativeResult = cumulativeResult.cumulate(column.finish());
 		for(final Constraint constraint : constraintList)
-			cumulativeColor = cumulativeColor.max(constraint.finish().cumulativeColor);
-
-		return result.cumulate(cumulativeColor);
+			cumulativeResult = cumulativeResult.cumulate(constraint.finish());
+		return cumulativeResult;
 	}
 
 	public void create()
