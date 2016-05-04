@@ -22,13 +22,14 @@ import com.exedio.dsmf.Schema;
 
 final class SequenceImplBatchedSequence implements SequenceImpl
 {
+	private static final int BATCH_NOT_INITIALIZED = Integer.MIN_VALUE;
 	private static final int BATCH_POWER = 6;
 	private static final int BATCH_SIZE = 1 << BATCH_POWER;
 
 	private final SequenceImplSequence sequence;
 
 	private final Object lock = new Object();
-	private int batchStart = Integer.MIN_VALUE;
+	private int batchStart = BATCH_NOT_INITIALIZED;
 	private int indexInBatch = 0;
 
 	SequenceImplBatchedSequence(
@@ -55,7 +56,7 @@ final class SequenceImplBatchedSequence implements SequenceImpl
 			{
 				throw new RuntimeException( "expected 0 < "+indexInBatch+" < "+BATCH_SIZE );
 			}
-			if ( batchStart==Integer.MIN_VALUE || indexInBatch+1==BATCH_SIZE )
+			if ( batchStart==BATCH_NOT_INITIALIZED || indexInBatch+1==BATCH_SIZE )
 			{
 				// get from database:
 				batchStart = sequence.next();
@@ -63,9 +64,9 @@ final class SequenceImplBatchedSequence implements SequenceImpl
 				{
 					throw new RuntimeException( "overflow: " + batchStart );
 				}
-				if ( batchStart==Integer.MIN_VALUE )
+				if ( batchStart==BATCH_NOT_INITIALIZED )
 				{
-					// double check, because we use MIN_VALUE as magic value for "not initialized"
+					// double check
 					throw new RuntimeException();
 				}
 				indexInBatch = 0;
@@ -83,7 +84,7 @@ final class SequenceImplBatchedSequence implements SequenceImpl
 	{
 		synchronized ( lock )
 		{
-			if ( batchStart==Integer.MIN_VALUE || indexInBatch==BATCH_SIZE )
+			if ( batchStart==BATCH_NOT_INITIALIZED || indexInBatch==BATCH_SIZE )
 			{
 				return sequence.getNext() * BATCH_SIZE;
 			}
@@ -103,7 +104,7 @@ final class SequenceImplBatchedSequence implements SequenceImpl
 	@Override
 	public void flush()
 	{
-		batchStart = Integer.MIN_VALUE;
+		batchStart = BATCH_NOT_INITIALIZED;
 		indexInBatch = 0;
 	}
 
