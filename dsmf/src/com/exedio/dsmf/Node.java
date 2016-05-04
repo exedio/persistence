@@ -246,7 +246,7 @@ public abstract class Node
 				throw new IllegalArgumentException("" + particularColor + '>' + cumulativeColor);
 		}
 
-		Result(
+		private Result(
 				final String error,
 				final Color color)
 		{
@@ -271,6 +271,11 @@ public abstract class Node
 		static final Result notSupported = new Result("not supported", Color.OK);
 		static final Result notUsedWarning = new Result("not used", Color.WARNING);
 		static final Result notUsedError = new Result("not used", Color.ERROR);
+
+		static Result error(final String error)
+		{
+			return new Result(error, Color.ERROR);
+		}
 	}
 }
 

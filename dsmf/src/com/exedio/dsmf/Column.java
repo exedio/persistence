@@ -89,7 +89,7 @@ public final class Column extends Node
 		{
 			if(!requiredType.equals(existingType))
 			{
-				return new Result("different type in database: >"+existingType+"<", Color.ERROR);
+				return Result.error("different type in database: >"+existingType+"<");
 			}
 			else
 			{
