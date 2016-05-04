@@ -30,7 +30,10 @@ final class SequenceX
 	private SequenceImpl impl;
 	private volatile boolean knownToBeEmptyForTest = false;
 
-	SequenceX(final Feature feature, final int start, final int minimum, final int maximum)
+	SequenceX(
+			final Feature feature,
+			final int start,
+			final int minimum, final int maximum)
 	{
 		this.feature = feature;
 		this.start = start;
