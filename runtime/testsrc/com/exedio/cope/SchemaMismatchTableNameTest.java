@@ -45,18 +45,21 @@ public class SchemaMismatchTableNameTest extends SchemaMismatchTest
 		assertIt(null, OK, ERROR, schema);
 
 		final Table tableA = schema.getTable(name(ItemA.TYPE));
-		final Column pkA, fdA;
-		assertIt("not used", WARNING, WARNING, tableA);
-		assertIt("not used", WARNING, WARNING, pkA = tableA.getColumn(name(ItemA.TYPE.getThis())));
-		assertIt("not used", WARNING, WARNING, fdA = tableA.getColumn(name(ItemA.field)));
-		assertEquals(asList(pkA, fdA), tableA.getColumns());
-
+		{
+			final Column pkA, fdA;
+			assertIt("not used", WARNING, WARNING, tableA);
+			assertIt("not used", WARNING, WARNING, pkA = tableA.getColumn(name(ItemA.TYPE.getThis())));
+			assertIt("not used", WARNING, WARNING, fdA = tableA.getColumn(name(ItemA.field)));
+			assertEquals(asList(pkA, fdA), tableA.getColumns());
+		}
 		final Table tableB = schema.getTable(name(ItemB.TYPE));
-		final Column pkB, fdB;
-		assertIt("missing", ERROR,  ERROR, tableB);
-		assertIt("missing", ERROR, ERROR, pkB = tableB.getColumn(name(ItemB.TYPE.getThis())));
-		assertIt("missing", ERROR, ERROR, fdB = tableB.getColumn(name(ItemB.field)));
-		assertEquals(asList(pkB, fdB), tableB.getColumns());
+		{
+			final Column pkB, fdB;
+			assertIt("missing", ERROR, ERROR, tableB);
+			assertIt("missing", ERROR, ERROR, pkB = tableB.getColumn(name(ItemB.TYPE.getThis())));
+			assertIt("missing", ERROR, ERROR, fdB = tableB.getColumn(name(ItemB.field)));
+			assertEquals(asList(pkB, fdB), tableB.getColumns());
+		}
 
 		if(model.getConnectProperties().primaryKeyGenerator.persistent)
 		{
