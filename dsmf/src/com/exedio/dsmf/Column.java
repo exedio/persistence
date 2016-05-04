@@ -75,40 +75,27 @@ public final class Column extends Node
 	}
 
 	@Override
-	void finish()
+	Result computeResult()
 	{
-		assert particularColor==null;
-		assert cumulativeColor==null;
-
-		final String error;
-		final Color particularColor;
 		if(existingType==null)
 		{
-			error = "missing";
-			particularColor = Color.ERROR;
+			return Result.missingERROR;
 		}
 		else if(requiredType==null)
 		{
-			error = "not used";
-			particularColor = Color.WARNING;
+			return Result.notusedWARNING;
 		}
 		else
 		{
 			if(!requiredType.equals(existingType))
 			{
-				error = "different type in database: >"+existingType+"<";
-				particularColor = Color.ERROR;
+				return new Result("different type in database: >"+existingType+"<", Color.ERROR);
 			}
 			else
 			{
-				error = null;
-				particularColor = Color.OK;
+				return Result.OK;
 			}
 		}
-
-		this.error = error;
-		this.particularColor = particularColor;
-		cumulativeColor = particularColor;
 	}
 
 	public boolean required()

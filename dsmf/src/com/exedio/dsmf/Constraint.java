@@ -107,67 +107,53 @@ public abstract class Constraint extends Node
 	}
 
 	@Override
-	final void finish()
+	final Result computeResult()
 	{
-		assert particularColor==null;
-		assert cumulativeColor==null;
-
 		// TODO: make this dependent on type of constraint:
 		// check/not null constraint are yellow only if missing
 		// foreign key/unique constraint are red when missing or unused
-		final String error;
-		final Color particularColor;
 		if(!exists)
 		{
 			if(isSupported())
 			{
-				error = "missing";
-				particularColor = Color.ERROR;
+				return Result.missingERROR;
 			}
 			else
 			{
-				error = "not supported";
-				particularColor = Color.OK;
+				return Result.notsupportedOK;
 			}
 		}
 		else if(!required)
 		{
-			error = "not used";
 			if(!table.required())
-				particularColor = Color.WARNING;
+				return Result.notusedWARNING;
 			else
-				particularColor = Color.ERROR;
+				return Result.notusedERROR;
 		}
 		else
 		{
 			if(requiredCondition!=null && existingCondition!=null &&
 				!normalizeCondition(requiredCondition).equals(normalizeCondition(existingCondition)))
 			{
-				error = "different condition in database: " +
+				return new Result(
+						"different condition in database: " +
 						"expected ---" + requiredCondition + "---, but was ---" + existingCondition + "--- " +
-						"normalized to  ---" + normalizeCondition(requiredCondition) + "--- and ---" + normalizeCondition(existingCondition) + "---";
-				particularColor = Color.ERROR;
+						"normalized to  ---" + normalizeCondition(requiredCondition) + "--- and ---" + normalizeCondition(existingCondition) + "---",
+						Color.ERROR);
 			}
 			else if(requiredCondition==null && existingCondition!=null)
 			{
-				error = "surplus condition in database: ---" + existingCondition + "---";
-				particularColor = Color.ERROR;
+				return new Result("surplus condition in database: ---" + existingCondition + "---", Color.ERROR);
 			}
 			else if(requiredCondition!=null && existingCondition==null)
 			{
-				error = "missing condition in database: ---" + requiredCondition + "---";
-				particularColor = Color.ERROR;
+				return new Result("missing condition in database: ---" + requiredCondition + "---", Color.ERROR);
 			}
 			else
 			{
-				error = null;
-				particularColor = Color.OK;
+				return Result.OK;
 			}
 		}
-
-		this.error = error;
-		this.particularColor = particularColor;
-		cumulativeColor = particularColor;
 	}
 
 	String normalizeCondition(final String s)

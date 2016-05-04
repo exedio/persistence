@@ -197,44 +197,37 @@ public final class Table extends Node
 	}
 
 	@Override
-	void finish()
+	Result computeResult()
 	{
-		assert particularColor==null;
-		assert cumulativeColor==null;
-
-		final String error;
-		final Color particularColor;
+		final Result result;
 		if(!exists)
 		{
-			error = "missing";
-			particularColor = Color.ERROR;
+			result = Result.missingERROR;
 		}
 		else if(!required)
 		{
-			error = "not used";
-			particularColor = Color.WARNING;
+			result = Result.notusedWARNING;
 		}
 		else
 		{
-			error = null;
-			particularColor = Color.OK;
+			result = Result.OK;
 		}
 
-		this.error = error;
-		this.particularColor = particularColor;
-		cumulativeColor = particularColor;
+		Color cumulativeColor = result.particularColor;
 
 		for(final Column column : columnList)
 		{
 			column.finish();
-			cumulativeColor = cumulativeColor.max(column.cumulativeColor);
+			cumulativeColor = cumulativeColor.max(column.getCumulativeColor());
 		}
 
 		for(final Constraint constraint : constraintList)
 		{
 			constraint.finish();
-			cumulativeColor = cumulativeColor.max(constraint.cumulativeColor);
+			cumulativeColor = cumulativeColor.max(constraint.getCumulativeColor());
 		}
+
+		return result.cumulate(cumulativeColor);
 	}
 
 	public void create()
