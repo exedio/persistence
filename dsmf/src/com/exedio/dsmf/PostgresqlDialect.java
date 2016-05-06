@@ -22,7 +22,6 @@ import com.exedio.dsmf.Node.ResultSetHandler;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
-import java.util.ArrayList;
 
 public final class PostgresqlDialect extends Dialect
 {
@@ -174,9 +173,8 @@ public final class PostgresqlDialect extends Dialect
 				public void run(final ResultSet resultSet) throws SQLException
 				{
 					//printMeta(resultSet);
-					final ArrayList<String> condition = new ArrayList<>();
-					Table lastTable = null;
-					String lastConstraintName = null;
+					final UniqueConstraintCollector collector =
+							new UniqueConstraintCollector(schema);
 					while(resultSet.next())
 					{
 						//printRow(resultSet);
@@ -185,20 +183,10 @@ public final class PostgresqlDialect extends Dialect
 						{
 							final String constraintName = resultSet.getString(2);
 							final String columnName = resultSet.getString(3);
-
-							if(lastTable!=null && (table!=lastTable || !constraintName.equals(lastConstraintName)))
-							{
-								lastTable.notifyExistentUniqueConstraint(lastConstraintName, condition);
-								condition.clear();
-							}
-
-							condition.add(columnName);
-							lastTable = table;
-							lastConstraintName = constraintName;
+							collector.onColumn(table, constraintName, columnName);
 						}
 					}
-					if(lastTable!=null)
-						lastTable.notifyExistentUniqueConstraint(lastConstraintName, condition);
+					collector.finish();
 				}
 			});
 

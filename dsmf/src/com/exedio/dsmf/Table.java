@@ -23,7 +23,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.EnumSet;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Set;
 
 public final class Table extends Node
@@ -129,25 +128,6 @@ public final class Table extends Node
 			result.notifyExists(foreignKeyColumn, targetTable, targetColumn);
 
 		return result;
-	}
-
-	Constraint notifyExistentUniqueConstraint(final String constraintName, final List<String> condition)
-	{
-		final StringBuilder bf = new StringBuilder();
-		bf.append('(');
-		boolean first = true;
-		for(final String i : condition)
-		{
-			if(first)
-				first = false;
-			else
-				bf.append(',');
-
-			bf.append(quoteName(i));
-		}
-		bf.append(')');
-
-		return notifyExistentUniqueConstraint(constraintName, bf.toString());
 	}
 
 	Constraint notifyExistentUniqueConstraint(final String constraintName, final String condition)

@@ -22,9 +22,7 @@ import com.exedio.dsmf.Node.ResultSetHandler;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 
 public final class OracleDialect extends Dialect
 {
@@ -105,24 +103,6 @@ public final class OracleDialect extends Dialect
 		}
 	}
 
-	Constraint makeUniqueConstraint(final Table table, final String constraintName, final ArrayList<?> columns)
-	{
-		final StringBuilder bf = new StringBuilder();
-		bf.append('(');
-		boolean first = true;
-		for(final Iterator<?> i = columns.iterator(); i.hasNext(); )
-		{
-			if(first)
-				first = false;
-			else
-				bf.append(',');
-
-			bf.append(quoteName((String)i.next()));
-		}
-		bf.append(')');
-		return table.notifyExistentUniqueConstraint(constraintName, bf.toString());
-	}
-
 	@Override
 	void verify(final Schema schema)
 	{
@@ -156,11 +136,10 @@ public final class OracleDialect extends Dialect
 				"ORDER BY uc.TABLE_NAME, uc.CONSTRAINT_NAME, ucc.POSITION",
 			new ResultSetHandler()
 			{
-				String uniqueConstraintName = null;
-				Table uniqueConstraintTable = null;
-				final ArrayList<String> uniqueColumns = new ArrayList<>();
 				public void run(final ResultSet resultSet) throws SQLException
 				{
+					final UniqueConstraintCollector uniqueConstraintCollector =
+							new UniqueConstraintCollector(schema);
 					final HashMap<String, String> duplicateCheckConstraints = new HashMap<>();
 					while(resultSet.next())
 					{
@@ -195,30 +174,14 @@ public final class OracleDialect extends Dialect
 						else if("U".equals(constraintType))
 						{
 							final String columnName = resultSet.getString(5);
-							if(uniqueConstraintName==null)
-							{
-								uniqueConstraintName = constraintName;
-								uniqueConstraintTable = table;
-								uniqueColumns.add(columnName);
-							}
-							else if(uniqueConstraintName.equals(constraintName) && uniqueConstraintTable==table)
-								uniqueColumns.add(columnName);
-							else
-							{
-								makeUniqueConstraint(uniqueConstraintTable, uniqueConstraintName, uniqueColumns);
-								uniqueConstraintName = constraintName;
-								uniqueConstraintTable = table;
-								uniqueColumns.clear();
-								uniqueColumns.add(columnName);
-							}
+							uniqueConstraintCollector.onColumn(table, constraintName, columnName);
 						}
 						else
 							throw new RuntimeException(constraintType+'-'+constraintName);
 
 						//System.out.println("EXISTS:"+tableName);
 					}
-					if(uniqueConstraintName!=null)
-						makeUniqueConstraint(uniqueConstraintTable, uniqueConstraintName, uniqueColumns);
+					uniqueConstraintCollector.finish();
 				}
 			});
 
