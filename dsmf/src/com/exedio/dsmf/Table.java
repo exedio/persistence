@@ -182,24 +182,21 @@ public final class Table extends Node
 		return constraintMap.get(constraintName);
 	}
 
+	private Result computeParticularResult()
+	{
+		if(!exists())
+			return Result.missing;
+
+		if(!required())
+			return Result.notUsedWarning;
+
+		return Result.ok;
+	}
+
 	@Override
 	Result computeResult()
 	{
-		final Result result;
-		if(!exists())
-		{
-			result = Result.missing;
-		}
-		else if(!required())
-		{
-			result = Result.notUsedWarning;
-		}
-		else
-		{
-			result = Result.ok;
-		}
-
-		Result cumulativeResult = result;
+		Result cumulativeResult = computeParticularResult();
 		for(final Column column : columnList)
 			cumulativeResult = cumulativeResult.cumulate(column.finish());
 		for(final Constraint constraint : constraintList)

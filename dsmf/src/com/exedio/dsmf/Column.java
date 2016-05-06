@@ -64,24 +64,16 @@ public final class Column extends Node
 	Result computeResult()
 	{
 		if(!exists())
-		{
 			return Result.missing;
-		}
-		else if(!required())
-		{
+
+		if(!required())
 			return Result.notUsedWarning;
-		}
-		else
-		{
-			if(type.mismatches())
-			{
-				return Result.error("different type in database: >"+type.getExisting()+"<");
-			}
-			else
-			{
-				return Result.ok;
-			}
-		}
+
+		if(type.mismatches())
+			return Result.error(
+					"different type in database: >"+type.getExisting()+"<");
+
+		return Result.ok;
 	}
 
 	public String getType()

@@ -108,40 +108,31 @@ public abstract class Constraint extends Node
 		// check/not null constraint are yellow only if missing
 		// foreign key/unique constraint are red when missing or unused
 		if(!exists())
-		{
 			return isSupported()
 				? Result.missing
 				: Result.notSupported;
-		}
-		else if(!required())
-		{
+
+		if(!required())
 			return table.required()
 				? Result.notUsedError
 				: Result.notUsedWarning;
-		}
-		else
-		{
-			if(requiredCondition!=null && existingCondition!=null &&
-				!normalizeCondition(requiredCondition).equals(normalizeCondition(existingCondition)))
-			{
-				return Result.error(
-						"different condition in database: " +
-						"expected ---" + requiredCondition + "---, but was ---" + existingCondition + "--- " +
-						"normalized to  ---" + normalizeCondition(requiredCondition) + "--- and ---" + normalizeCondition(existingCondition) + "---");
-			}
-			else if(requiredCondition==null && existingCondition!=null)
-			{
-				return Result.error("surplus condition in database: ---" + existingCondition + "---");
-			}
-			else if(requiredCondition!=null && existingCondition==null)
-			{
-				return Result.error("missing condition in database: ---" + requiredCondition + "---");
-			}
-			else
-			{
-				return Result.ok;
-			}
-		}
+
+		if(requiredCondition!=null && existingCondition!=null &&
+			!normalizeCondition(requiredCondition).equals(normalizeCondition(existingCondition)))
+			return Result.error(
+					"different condition in database: " +
+					"expected ---" + requiredCondition + "---, but was ---" + existingCondition + "--- " +
+					"normalized to  ---" + normalizeCondition(requiredCondition) + "--- and ---" + normalizeCondition(existingCondition) + "---");
+
+		if(requiredCondition==null && existingCondition!=null)
+			return Result.error(
+					"surplus condition in database: ---" + existingCondition + "---");
+
+		if(requiredCondition!=null && existingCondition==null)
+			return Result.error(
+					"missing condition in database: ---" + requiredCondition + "---");
+
+		return Result.ok;
 	}
 
 	String normalizeCondition(final String s)

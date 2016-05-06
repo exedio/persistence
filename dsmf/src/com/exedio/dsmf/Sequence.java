@@ -60,17 +60,12 @@ public final class Sequence extends Node
 	Result computeResult()
 	{
 		if(!exists())
-		{
 			return Result.missing;
-		}
-		else if(!required())
-		{
+
+		if(!required())
 			return Result.notUsedWarning;
-		}
-		else
-		{
-			return Result.ok;
-		}
+
+		return Result.ok;
 	}
 
 	public void create()
