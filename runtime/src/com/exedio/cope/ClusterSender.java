@@ -135,8 +135,14 @@ abstract class ClusterSender
 			int pos = 0;
 			for(final TIntHashSet invalidation : invalidations)
 				if(invalidation!=null)
-					pos += 2 + invalidation.size();
-			length = INVALIDATE_TEMPLATE_SIZE + 8 + (pos << 2);
+					pos +=
+						2 + // type id + NaPK for end
+						invalidation.size();
+
+			length =
+					INVALIDATE_TEMPLATE_SIZE +
+					8 + // invalidationSequence
+					(pos << 2); // 4 bytes per PK
 		}
 		final byte[] buf = new byte[Math.min(length, packetSize)];
 		System.arraycopy(invalidateTemplate, 0, buf, 0, INVALIDATE_TEMPLATE_SIZE);
