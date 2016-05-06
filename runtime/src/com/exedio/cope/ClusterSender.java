@@ -141,7 +141,7 @@ abstract class ClusterSender
 
 			length =
 					INVALIDATE_TEMPLATE_SIZE +
-					8 + // invalidationSequence
+					4 + // invalidationSequence
 					(pos << 2); // 4 bytes per PK
 		}
 		final byte[] buf = new byte[Math.min(length, packetSize)];
