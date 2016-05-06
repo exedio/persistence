@@ -148,12 +148,11 @@ public final class MysqlDialect extends Dialect
 			"SELECT tc.CONSTRAINT_NAME,tc.TABLE_NAME,kcu.COLUMN_NAME,kcu.REFERENCED_TABLE_NAME,kcu.REFERENCED_COLUMN_NAME " +
 			"FROM information_schema.TABLE_CONSTRAINTS tc " +
 			"LEFT JOIN information_schema.KEY_COLUMN_USAGE kcu " +
-				"ON tc.CONSTRAINT_TYPE='FOREIGN KEY' " +
-				"AND tc.CONSTRAINT_NAME=kcu.CONSTRAINT_NAME " +
+				"ON tc.CONSTRAINT_NAME=kcu.CONSTRAINT_NAME " +
 				"AND kcu.CONSTRAINT_SCHEMA='" + catalog + "' " +
 			"WHERE tc.CONSTRAINT_SCHEMA='" + catalog + "' " +
 				"AND tc.TABLE_SCHEMA='" + catalog + "' " +
-				"AND tc.CONSTRAINT_TYPE IN ('FOREIGN KEY')",
+				"AND tc.CONSTRAINT_TYPE='FOREIGN KEY'",
 			schema);
 
 		{
