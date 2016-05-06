@@ -21,7 +21,6 @@ package com.exedio.dsmf;
 import com.exedio.dsmf.Node.ResultSetHandler;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.StringTokenizer;
 
 public final class MysqlDialect extends Dialect
 {
@@ -155,94 +154,69 @@ public final class MysqlDialect extends Dialect
 				"AND tc.CONSTRAINT_TYPE='FOREIGN KEY'",
 			schema);
 
+		final String PRIMARY_KEY = "PRIMARY KEY";
+		final String UNIQUE = "UNIQUE";
+		schema.querySQL(
+			"SELECT tc.CONSTRAINT_NAME,tc.TABLE_NAME,tc.CONSTRAINT_TYPE,kcu.COLUMN_NAME " +
+			"FROM information_schema.TABLE_CONSTRAINTS tc " +
+			"LEFT JOIN information_schema.KEY_COLUMN_USAGE kcu " +
+				"ON tc.CONSTRAINT_NAME=kcu.CONSTRAINT_NAME " +
+				"AND tc.TABLE_NAME=kcu.TABLE_NAME " +
+				"AND kcu.CONSTRAINT_SCHEMA='" + catalog + "' " +
+			"WHERE tc.CONSTRAINT_SCHEMA='" + catalog + "' " +
+				"AND tc.TABLE_SCHEMA='" + catalog + "' " +
+				"AND tc.CONSTRAINT_TYPE IN ('" + PRIMARY_KEY + "','" + UNIQUE + "') " +
+			"ORDER BY tc.TABLE_NAME,tc.CONSTRAINT_NAME,kcu.ORDINAL_POSITION ",
+			new ResultSetHandler()
 		{
-			for(final Table table : schema.getTables())
+			public void run(final ResultSet resultSet) throws SQLException
 			{
-				if(!table.exists())
-					continue;
-
+				//printMeta(resultSet);
+				final UniqueConstraintCollector uniqueConstraintCollector =
+						new UniqueConstraintCollector(schema);
+				while(resultSet.next())
 				{
-					final StringBuilder bf = new StringBuilder();
-					bf.append("SHOW COLUMNS FROM ").
-						append(quoteName(table.name));
+					//printRow(resultSet);
+					final String constraintName = resultSet.getString(1);
+					final String tableName = resultSet.getString(2);
+					final String constraintType = resultSet.getString(3);
+					final String columnName = resultSet.getString(4);
 
-					schema.querySQL(bf.toString(), new ResultSetHandler()
+					final Sequence sequence = schema.getSequence(tableName);
+					if(sequence!=null && sequence.required())
+						continue;
+
+					final Table table = schema.notifyExistentTable(tableName);
+
+					if(PRIMARY_KEY.equals(constraintType))
+					{
+						if(table.required())
 						{
-							public void run(final ResultSet resultSet) throws SQLException
+							boolean found = false;
+							for(final Constraint c : table.getConstraints())
 							{
-								//printMeta(resultSet);
-								while(resultSet.next())
+								if(c instanceof PrimaryKeyConstraint &&
+									((PrimaryKeyConstraint)c).primaryKeyColumn.equals(columnName))
 								{
-									//printRow(resultSet);
-									final String key = resultSet.getString("Key");
-									if("PRI".equals(key))
-									{
-										final String field = resultSet.getString("Field");
-										if(table.required())
-										{
-											boolean found = false;
-											for(final Constraint c : table.getConstraints())
-											{
-												if(c instanceof PrimaryKeyConstraint &&
-													((PrimaryKeyConstraint)c).primaryKeyColumn.equals(field))
-												{
-													table.notifyExistentPrimaryKeyConstraint(c.name);
-													found = true;
-													break;
-												}
-											}
-											if(!found)
-												table.notifyExistentPrimaryKeyConstraint(field+"_Pk");
-										}
-									}
+									table.notifyExistentPrimaryKeyConstraint(c.name);
+									found = true;
+									break;
 								}
 							}
-						});
+							if(!found)
+								table.notifyExistentPrimaryKeyConstraint(columnName+"_Pk");
+						}
+					}
+					else if(UNIQUE.equals(constraintType))
+					{
+						uniqueConstraintCollector.onColumn(table, constraintName, columnName);
+					}
+					else
+						throw new RuntimeException(constraintType+'-'+constraintName);
 				}
-				{
-					final StringBuilder bf = new StringBuilder();
-					bf.append("SHOW CREATE TABLE ").
-						append(quoteName(table.name));
-
-					schema.querySQL(bf.toString(), new ResultSetHandler()
-						{
-							public void run(final ResultSet resultSet) throws SQLException
-							{
-								while(resultSet.next())
-								{
-									final String tableName = resultSet.getString("Table");
-									final String createTable = resultSet.getString("Create Table");
-									final Table table = schema.notifyExistentTable(tableName);
-									//System.out.println("----------"+tableName+"----"+createTable);
-									final StringTokenizer t = new StringTokenizer(createTable);
-									for(String s = t.nextToken(); t.hasMoreTokens(); s = t.nextToken())
-									{
-										//System.out.println("----------"+tableName+"---------------"+s);
-										//UNIQUE KEY `AttriEmptyItem_parKey_Unq` (`parent`,`key`)
-										if("UNIQUE".equals(s))
-										{
-											if(!t.hasMoreTokens() || !"KEY".equals(t.nextToken()) ||
-												!t.hasMoreTokens())
-												continue;
-											final String quotedName = t.nextToken();
-											//System.out.println("----------"+tableName+"--------------------quotedName:"+quotedName);
-											final String name = unQuoteName(quotedName);
-											//System.out.println("----------"+tableName+"--------------------name:"+name);
-											if(!t.hasMoreTokens())
-												continue;
-											final String clause = t.nextToken();
-											//System.out.println("----------"+tableName+"--------------------clause:"+clause);
-
-											final int clauseLengthM1 = clause.length()-1;
-											table.notifyExistentUniqueConstraint(name, clause.charAt(clauseLengthM1)==',' ? clause.substring(0, clauseLengthM1) : clause);
-										}
-									}
-								}
-							}
-						});
-				}
+				uniqueConstraintCollector.finish();
 			}
-		}
+		});
 	}
 
 	private static final String ENGINE = " ENGINE=innodb";
