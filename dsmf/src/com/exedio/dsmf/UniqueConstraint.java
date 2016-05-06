@@ -20,7 +20,7 @@ package com.exedio.dsmf;
 
 public final class UniqueConstraint extends Constraint
 {
-	final String clause;
+	private final String clause;
 
 	public UniqueConstraint(
 			final Table table,
