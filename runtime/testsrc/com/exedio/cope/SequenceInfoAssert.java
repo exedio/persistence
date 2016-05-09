@@ -33,20 +33,20 @@ public final class SequenceInfoAssert
 {
 	public static void assertInfo(final Type<?> type, final int count, final int first, final int last, final SequenceInfo info)
 	{
-		assertInfoX(type.getThis(), 0, 0, Integer.MAX_VALUE, count, first, last, info);
+		assertInfoAny(type.getThis(), 0, 0, Integer.MAX_VALUE, count, first, last, info);
 	}
 
 	public static void assertInfo(final IntegerField feature, final int count, final int first, final int last, final SequenceInfo info)
 	{
-		assertInfoX(feature, feature.getDefaultNextStart().intValue(), feature.getMinimum(), feature.getMaximum(), count, first, last, info);
+		assertInfoAny(feature, feature.getDefaultNextStart().intValue(), feature.getMinimum(), feature.getMaximum(), count, first, last, info);
 	}
 
 	public static void assertInfo(final Sequence feature, final int count, final int first, final int last, final SequenceInfo info)
 	{
-		assertInfoX(feature, feature.getStart(), feature.getStart(), feature.getEnd(), count, first, last, info);
+		assertInfoAny(feature, feature.getStart(), feature.getStart(), feature.getEnd(), count, first, last, info);
 	}
 
-	static void assertInfoX(final Feature feature, final int start, final int minimum, final int maximum, final int count, final int first, final int last, final SequenceInfo info)
+	static void assertInfoAny(final Feature feature, final int start, final int minimum, final int maximum, final int count, final int first, final int last, final SequenceInfo info)
 	{
 		assertSame("feature", feature, info.getFeature());
 		assertEquals("start", start, info.getStart());
@@ -60,20 +60,20 @@ public final class SequenceInfoAssert
 
 	public static void assertInfo(final Type<?> type, final SequenceInfo info)
 	{
-		assertInfoX(type.getThis(), 0, 0, Integer.MAX_VALUE, info);
+		assertInfoAny(type.getThis(), 0, 0, Integer.MAX_VALUE, info);
 	}
 
 	public static void assertInfo(final IntegerField feature, final SequenceInfo info)
 	{
-		assertInfoX(feature, feature.getDefaultNextStart().intValue(), feature.getMinimum(), feature.getMaximum(), info);
+		assertInfoAny(feature, feature.getDefaultNextStart().intValue(), feature.getMinimum(), feature.getMaximum(), info);
 	}
 
 	public static void assertInfo(final Sequence feature, final SequenceInfo info)
 	{
-		assertInfoX(feature, feature.getStart(), feature.getStart(), feature.getEnd(), info);
+		assertInfoAny(feature, feature.getStart(), feature.getStart(), feature.getEnd(), info);
 	}
 
-	static void assertInfoX(final Feature feature, final int start, final int minimum, final int maximum, final SequenceInfo info)
+	static void assertInfoAny(final Feature feature, final int start, final int minimum, final int maximum, final SequenceInfo info)
 	{
 		assertSame("feature", feature, info.getFeature());
 		assertEquals("start", start, info.getStart());

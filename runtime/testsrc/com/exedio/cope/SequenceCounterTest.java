@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.SequenceInfoAssert.assertInfoX;
+import static com.exedio.cope.SequenceInfoAssert.assertInfoAny;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
@@ -114,13 +114,13 @@ public class SequenceCounterTest
 			final int start, final int minimum, final int maximum,
 			final int count, final int first, final int last)
 	{
-		assertInfoX(feature, start, minimum, maximum, count, first, last, counter.getInfo());
+		assertInfoAny(feature, start, minimum, maximum, count, first, last, counter.getInfo());
 	}
 
 	private static void assertIt(
 			final SequenceCounter counter,
 			final int start, final int minimum, final int maximum)
 	{
-		assertInfoX(feature, start, minimum, maximum, counter.getInfo());
+		assertInfoAny(feature, start, minimum, maximum, counter.getInfo());
 	}
 }
