@@ -46,7 +46,7 @@ public final class SequenceInfoAssert
 		assertInfoX(feature, feature.getStart(), feature.getStart(), feature.getEnd(), count, first, last, info);
 	}
 
-	private static void assertInfoX(final Feature feature, final int start, final int minimum, final int maximum, final int count, final int first, final int last, final SequenceInfo info)
+	static void assertInfoX(final Feature feature, final int start, final int minimum, final int maximum, final int count, final int first, final int last, final SequenceInfo info)
 	{
 		assertSame("feature", feature, info.getFeature());
 		assertEquals("start", start, info.getStart());
@@ -73,7 +73,7 @@ public final class SequenceInfoAssert
 		assertInfoX(feature, feature.getStart(), feature.getStart(), feature.getEnd(), info);
 	}
 
-	private static void assertInfoX(final Feature feature, final int start, final int minimum, final int maximum, final SequenceInfo info)
+	static void assertInfoX(final Feature feature, final int start, final int minimum, final int maximum, final SequenceInfo info)
 	{
 		assertSame("feature", feature, info.getFeature());
 		assertEquals("start", start, info.getStart());

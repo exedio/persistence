@@ -18,10 +18,8 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.SequenceInfoAssert.assertInfoX;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import org.junit.Test;
@@ -116,45 +114,13 @@ public class SequenceCounterTest
 			final int start, final int minimum, final int maximum,
 			final int count, final int first, final int last)
 	{
-		final SequenceInfo info = counter.getInfo();
-		assertSame("feature", feature, info.getFeature());
-		assertEquals("start", start, info.getStart());
-		assertEquals("minimum", minimum, info.getMinimum());
-		assertEquals("maximum", maximum, info.getMaximum());
-		assertEquals("count", count, info.getCount());
-		assertTrue("known", info.isKnown());
-		assertEquals("first", first, info.getFirst());
-		assertEquals("last", last, info.getLast());
+		assertInfoX(feature, start, minimum, maximum, count, first, last, counter.getInfo());
 	}
 
 	private static void assertIt(
 			final SequenceCounter counter,
 			final int start, final int minimum, final int maximum)
 	{
-		final SequenceInfo info = counter.getInfo();
-		assertSame("feature", feature, info.getFeature());
-		assertEquals("start", start, info.getStart());
-		assertEquals("minimum", minimum, info.getMinimum());
-		assertEquals("maximum", maximum, info.getMaximum());
-		assertEquals("count", 0, info.getCount());
-		assertFalse("known", info.isKnown());
-		try
-		{
-			info.getFirst();
-			fail();
-		}
-		catch(final IllegalStateException e)
-		{
-			assertEquals("not known", e.getMessage());
-		}
-		try
-		{
-			info.getLast();
-			fail();
-		}
-		catch(final IllegalStateException e)
-		{
-			assertEquals("not known", e.getMessage());
-		}
+		assertInfoX(feature, start, minimum, maximum, counter.getInfo());
 	}
 }
