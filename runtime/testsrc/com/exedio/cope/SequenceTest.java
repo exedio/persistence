@@ -109,7 +109,7 @@ public class SequenceTest extends TestWithEnvironment
 		assertInfo(limited, 5, 5, 9, limited.getInfo());
 
 
-
+		// Model#getSequenceInfo()
 		assertInfo(MODEL.getSequenceInfo(), TYPE.getThis(), full, limited);
 	}
 
