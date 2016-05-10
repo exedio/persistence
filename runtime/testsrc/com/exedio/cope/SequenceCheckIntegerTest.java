@@ -21,6 +21,8 @@ package com.exedio.cope;
 import static com.exedio.cope.SequenceCheckIntegerTest.AnItem.TYPE;
 import static com.exedio.cope.SequenceCheckIntegerTest.AnItem.next;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
@@ -39,64 +41,92 @@ public class SequenceCheckIntegerTest extends TestWithEnvironment
 		copeRule.omitTransaction();
 	}
 
-	@Test public void testWrongFromStart()
+	@Test public void testWrongFromStart() throws SequenceBehindException
 	{
-		assertIt(0);
+		assertIt(0, 0, 0);
 
 		newManual(5, "first");
-		assertIt(!postgresql?6:5); // known problem in PostgreSQL, see PostgresqlDialect#getNextSequence
+		assertIt(!postgresql?6:5, 5, !postgresql?0:1); // known problem in PostgreSQL, see PostgresqlDialect#getNextSequence
 
 		newSequence(0, "second");
-		assertIt(5);
+		assertIt(5, 5, 1);
 
 		newSequence(1, "third");
-		assertIt(4);
+		assertIt(4, 5, 2);
 
 		newSequence(2, "fourth");
-		assertIt(3);
+		assertIt(3, 5, 3);
 	}
 
-	@Test public void testWrongFromStartWithoutCheck()
+	@Test public void testWrongFromStartWithoutCheck() throws SequenceBehindException
 	{
 		newManual(5, "first");
-		assertIt(!postgresql?6:5); // known problem in PostgreSQL, see PostgresqlDialect#getNextSequence
+		assertIt(!postgresql?6:5, 5, !postgresql?0:1); // known problem in PostgreSQL, see PostgresqlDialect#getNextSequence
 
 		newSequence(0, "second");
-		assertIt(5);
+		assertIt(5, 5, 1);
 
 		newSequence(1, "third");
-		assertIt(4);
+		assertIt(4, 5, 2);
 
 		newSequence(2, "fourth");
-		assertIt(3);
+		assertIt(3, 5, 3);
 	}
 
-	@Test public void testWrongLater()
+	@Test public void testWrongLater() throws SequenceBehindException
 	{
-		assertIt(0);
+		assertIt(0, 0, 0);
 
 		newSequence(0, "ok0");
-		assertIt(0);
+		assertIt(0, 0, 0);
 
 		newSequence(1, "ok1");
-		assertIt(0);
+		assertIt(0, 0, 0);
 
 		newManual(5, "first");
-		assertIt(4);
+		assertIt(4, 5, 2);
 
 		newSequence(2, "second");
-		assertIt(3);
+		assertIt(3, 5, 3);
 
 		newSequence(3, "third");
-		assertIt(2);
+		assertIt(2, 5, 4);
 
 		newSequence(4, "fourth");
-		assertIt(1);
+		assertIt(1, 5, 5);
 	}
 
-	private static void assertIt(final int check)
+	private static void assertIt(
+			final int check,
+			final int featureMaximum,
+			final int sequenceNext)
+	throws SequenceBehindException
 	{
-		assertEquals("check", check, next.checkDefaultToNext());
+		if(check==0)
+		{
+			next.checkBehindDefaultToNext();
+		}
+		else
+		{
+			try
+			{
+				next.checkBehindDefaultToNext();
+				fail();
+			}
+			catch(final SequenceBehindException e)
+			{
+				assertEquals(
+						"sequence behind maximum of AnItem.next: " + featureMaximum + ">=" + sequenceNext,
+						e.getMessage());
+				assertSame  ("feature", next, e.feature);
+				assertEquals("featureMaximum", featureMaximum, e.featureMaximum);
+				assertEquals("sequenceNext", sequenceNext, e.sequenceNext);
+			}
+		}
+
+		@SuppressWarnings("deprecation")
+		final int error = next.checkDefaultToNext();
+		assertEquals("check", check, error);
 	}
 
 	private static final AnItem newManual(

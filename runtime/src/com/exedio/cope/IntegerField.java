@@ -371,13 +371,31 @@ public final class IntegerField extends NumberField<Integer>
 
 	/**
 	 * @throws IllegalStateException is a transaction is bound to the current thread
+	 * @deprecated Use {@link #checkBehindDefaultToNext()} instead
 	 */
+	@Deprecated
 	public int checkDefaultToNext()
 	{
-		if(defaultToNextSequence==null)
+		try
+		{
+			checkBehindDefaultToNext();
 			return 0;
+		}
+		catch(final SequenceBehindException e)
+		{
+			return e.error();
+		}
+	}
 
-		return defaultToNextSequence.sequenceX.check(
+	/**
+	 * @throws IllegalStateException is a transaction is bound to the current thread
+	 */
+	public void checkBehindDefaultToNext() throws SequenceBehindException
+	{
+		if(defaultToNextSequence==null)
+			return;
+
+		defaultToNextSequence.sequenceX.check(
 				getType().getModel(), (IntegerColumn)getColumn());
 	}
 

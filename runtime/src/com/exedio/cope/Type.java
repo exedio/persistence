@@ -689,10 +689,28 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 
 	/**
 	 * @throws IllegalStateException is a transaction is bound to the current thread
+	 * @deprecated Use {@link #checkBehindPrimaryKey()} instead
 	 */
+	@Deprecated
 	public int checkPrimaryKey()
 	{
-		return primaryKeySequence.check(getModel(), table.primaryKey);
+		try
+		{
+			checkBehindPrimaryKey();
+			return 0;
+		}
+		catch(final SequenceBehindException e)
+		{
+			return e.error();
+		}
+	}
+
+	/**
+	 * @throws IllegalStateException is a transaction is bound to the current thread
+	 */
+	public void checkBehindPrimaryKey() throws SequenceBehindException
+	{
+		primaryKeySequence.check(getModel(), table.primaryKey);
 	}
 
 	String getPrimaryKeySequenceSchemaName()
