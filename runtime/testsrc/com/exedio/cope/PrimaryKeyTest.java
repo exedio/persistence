@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import static com.exedio.cope.PrimaryKeyTest.AnItem.TYPE;
 import static com.exedio.cope.PrimaryKeyTest.AnItem.next;
+import static com.exedio.cope.SequenceInfoAssert.assertInfo;
 
 import org.junit.Test;
 
@@ -56,21 +57,6 @@ public class PrimaryKeyTest extends TestWithEnvironment
 		newItem("third");
 		assertInfo(TYPE, 3, 0, 2, TYPE.getPrimaryKeyInfo());
 		assertInfo(next, 2, 0, 1, next.getDefaultToNextInfo());
-	}
-
-	private static void assertInfo(final Type<?> type, final int count, final int first, final int last, final SequenceInfo info) // TODO remove
-	{
-		SequenceInfoAssert.assertInfo(type, count, first, last, info);
-	}
-
-	private static void assertInfo(final IntegerField feature, final int count, final int first, final int last, final SequenceInfo info) // TODO remove
-	{
-		SequenceInfoAssert.assertInfo(feature, count, first, last, info);
-	}
-
-	private static void assertInfo(final IntegerField feature, final SequenceInfo info) // TODO remove
-	{
-		SequenceInfoAssert.assertInfo(feature, info);
 	}
 
 	private static final AnItem newItem(
