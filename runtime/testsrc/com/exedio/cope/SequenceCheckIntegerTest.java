@@ -75,20 +75,23 @@ public class SequenceCheckIntegerTest extends TestWithEnvironment
 	{
 		assertIt(0);
 
-		newSequence(0, "ok");
+		newSequence(0, "ok0");
+		assertIt(0);
+
+		newSequence(1, "ok1");
 		assertIt(0);
 
 		newManual(5, "first");
-		assertIt(!oracle?5:0);
-
-		newSequence(1, "second");
 		assertIt(!oracle?4:0);
 
-		newSequence(2, "third");
+		newSequence(2, "second");
 		assertIt(!oracle?3:0);
 
-		newSequence(3, "fourth");
+		newSequence(3, "third");
 		assertIt(!oracle?2:0);
+
+		newSequence(4, "fourth");
+		assertIt(!oracle?1:0);
 	}
 
 	private static void assertIt(final int check)
