@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import static com.exedio.cope.SchemaInfo.getColumnName;
 import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnName;
+import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnValue;
 import static com.exedio.cope.SchemaInfo.getTableName;
 import static com.exedio.cope.SchemaInfo.newConnection;
 import static com.exedio.cope.SchemaInfo.quoteName;
@@ -66,13 +67,13 @@ public class SequenceCheckPrimaryKeyTest extends TestWithEnvironment
 		newManual(5, "first");
 		assertIt(p ? (hsqldb||mysql)?6:5 : 0);
 
-		newSequence("second");
+		newSequence(p?0:6, "second");
 		assertIt((p&&!oracle)?5:0);
 
-		newSequence("third");
+		newSequence(p?1:7, "third");
 		assertIt((p&&!oracle)?4:0);
 
-		newSequence("fourth");
+		newSequence(p?2:8, "fourth");
 		assertIt((p&&!oracle)?3:0);
 	}
 
@@ -81,13 +82,13 @@ public class SequenceCheckPrimaryKeyTest extends TestWithEnvironment
 		newManual(5, "first");
 		assertIt(p ? (hsqldb||mysql)?6:5 : 0);
 
-		newSequence("second");
+		newSequence(p?0:6, "second");
 		assertIt((p&&!oracle)?5:0);
 
-		newSequence("third");
+		newSequence(p?1:7, "third");
 		assertIt((p&&!oracle)?4:0);
 
-		newSequence("fourth");
+		newSequence(p?2:8, "fourth");
 		assertIt((p&&!oracle)?3:0);
 	}
 
@@ -95,19 +96,19 @@ public class SequenceCheckPrimaryKeyTest extends TestWithEnvironment
 	{
 		assertIt(0);
 
-		newSequence("ok");
+		newSequence(0, "ok");
 		assertIt(0);
 
 		newManual(5, "first");
 		assertIt((!p||!oracle)?5:0);
 
-		newSequence("second");
+		newSequence(1, "second");
 		assertIt((!p||!oracle)?4:0);
 
-		newSequence("third");
+		newSequence(2, "third");
 		assertIt((!p||!oracle)?3:0);
 
-		newSequence("fourth");
+		newSequence(3, "fourth");
 		assertIt((!p||!oracle)?2:0);
 	}
 
@@ -116,13 +117,15 @@ public class SequenceCheckPrimaryKeyTest extends TestWithEnvironment
 		assertEquals("check", check, TYPE.checkPrimaryKey());
 	}
 
-	private static final AnItem newSequence(
+	private static final void newSequence(
+			final int pk,
 			final String field)
 	{
 		try(TransactionTry tx = MODEL.startTransactionTry(SequenceCheckPrimaryKeyTest.class.getName()))
 		{
-			return tx.commit(
-					new AnItem(field)
+			assertEquals("pk", pk, getPrimaryKeyColumnValue(
+				tx.commit(
+					new AnItem(field)))
 			);
 		}
 	}

@@ -46,13 +46,13 @@ public class SequenceCheckIntegerTest extends TestWithEnvironment
 		newManual(5, "first");
 		assertIt((hsqldb||mysql)?6:5);
 
-		newSequence("second");
+		newSequence(0, "second");
 		assertIt(!oracle?5:0);
 
-		newSequence("third");
+		newSequence(1, "third");
 		assertIt(!oracle?4:0);
 
-		newSequence("fourth");
+		newSequence(2, "fourth");
 		assertIt(!oracle?3:0);
 	}
 
@@ -61,13 +61,13 @@ public class SequenceCheckIntegerTest extends TestWithEnvironment
 		newManual(5, "first");
 		assertIt((hsqldb||mysql)?6:5);
 
-		newSequence("second");
+		newSequence(0, "second");
 		assertIt(!oracle?5:0);
 
-		newSequence("third");
+		newSequence(1, "third");
 		assertIt(!oracle?4:0);
 
-		newSequence("fourth");
+		newSequence(2, "fourth");
 		assertIt(!oracle?3:0);
 	}
 
@@ -75,19 +75,19 @@ public class SequenceCheckIntegerTest extends TestWithEnvironment
 	{
 		assertIt(0);
 
-		newSequence("ok");
+		newSequence(0, "ok");
 		assertIt(0);
 
 		newManual(5, "first");
 		assertIt(!oracle?5:0);
 
-		newSequence("second");
+		newSequence(1, "second");
 		assertIt(!oracle?4:0);
 
-		newSequence("third");
+		newSequence(2, "third");
 		assertIt(!oracle?3:0);
 
-		newSequence("fourth");
+		newSequence(3, "fourth");
 		assertIt(!oracle?2:0);
 	}
 
@@ -108,13 +108,15 @@ public class SequenceCheckIntegerTest extends TestWithEnvironment
 		}
 	}
 
-	private static final AnItem newSequence(
+	private static final void newSequence(
+			final int next,
 			final String field)
 	{
 		try(TransactionTry tx = MODEL.startTransactionTry(SequenceCheckIntegerTest.class.getName()))
 		{
-			return tx.commit(
-					new AnItem(field)
+			assertEquals("next", next,
+				tx.commit(
+					new AnItem(field).getNext().intValue())
 			);
 		}
 	}
