@@ -39,7 +39,7 @@ public class PrimaryKeyTest extends TestWithEnvironment
 		copeRule.omitTransaction();
 	}
 
-	@Test public void testMultipleTransactions()
+	@Test public void testIt()
 	{
 		SequenceInfoAssert.assertInfo(model.getSequenceInfo(), TYPE.getThis(), next);
 
