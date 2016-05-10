@@ -57,7 +57,7 @@ public class PrimaryKeyTest extends TestWithEnvironment
 		assertEquals("check", check, feature.checkDefaultToNext());
 	}
 
-	private static final AnItem newPrimaryKeyItem(
+	private static final AnItem newItem(
 			final String field,
 			final int next)
 	{
@@ -69,7 +69,7 @@ public class PrimaryKeyTest extends TestWithEnvironment
 		}
 	}
 
-	private static final AnItem newPrimaryKeyItem(
+	private static final AnItem newItem(
 			final String field)
 	{
 		try(TransactionTry tx = MODEL.startTransactionTry(PrimaryKeyTest.class.getName()))
@@ -87,15 +87,15 @@ public class PrimaryKeyTest extends TestWithEnvironment
 		SequenceInfoAssert.assertInfo(TYPE, TYPE.getPrimaryKeyInfo());
 		SequenceInfoAssert.assertInfo(next, next.getDefaultToNextInfo());
 
-		newPrimaryKeyItem("first", 5);
+		newItem("first", 5);
 		assertInfo(TYPE, 1, 0, 0, TYPE.getPrimaryKeyInfo(), 0);
 		assertInfo(next, next.getDefaultToNextInfo(), (hsqldb||mysql)?6:5);
 
-		newPrimaryKeyItem("second");
+		newItem("second");
 		assertInfo(TYPE, 2, 0, 1, TYPE.getPrimaryKeyInfo(), 0);
 		assertInfo(next, 1, 0, 0, next.getDefaultToNextInfo(), !oracle?5:0);
 
-		newPrimaryKeyItem("third");
+		newItem("third");
 		assertInfo(TYPE, 3, 0, 2, TYPE.getPrimaryKeyInfo(), 0);
 		assertInfo(next, 2, 0, 1, next.getDefaultToNextInfo(), !oracle?4:0);
 	}
