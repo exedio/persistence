@@ -39,6 +39,26 @@ public class PrimaryKeyTest extends TestWithEnvironment
 		copeRule.omitTransaction();
 	}
 
+	@Test public void testMultipleTransactions()
+	{
+		SequenceInfoAssert.assertInfo(model.getSequenceInfo(), TYPE.getThis(), next);
+
+		SequenceInfoAssert.assertInfo(TYPE, TYPE.getPrimaryKeyInfo());
+		SequenceInfoAssert.assertInfo(next, next.getDefaultToNextInfo());
+
+		newItem("first", 5);
+		assertInfo(TYPE, 1, 0, 0, TYPE.getPrimaryKeyInfo(), 0);
+		assertInfo(next, next.getDefaultToNextInfo(), (hsqldb||mysql)?6:5);
+
+		newItem("second");
+		assertInfo(TYPE, 2, 0, 1, TYPE.getPrimaryKeyInfo(), 0);
+		assertInfo(next, 1, 0, 0, next.getDefaultToNextInfo(), !oracle?5:0);
+
+		newItem("third");
+		assertInfo(TYPE, 3, 0, 2, TYPE.getPrimaryKeyInfo(), 0);
+		assertInfo(next, 2, 0, 1, next.getDefaultToNextInfo(), !oracle?4:0);
+	}
+
 	private static void assertInfo(final Type<?> type, final int count, final int first, final int last, final SequenceInfo info, final int check)
 	{
 		SequenceInfoAssert.assertInfo(type, count, first, last, info);
@@ -78,26 +98,6 @@ public class PrimaryKeyTest extends TestWithEnvironment
 					new AnItem(field)
 			);
 		}
-	}
-
-	@Test public void testMultipleTransactions()
-	{
-		SequenceInfoAssert.assertInfo(model.getSequenceInfo(), TYPE.getThis(), next);
-
-		SequenceInfoAssert.assertInfo(TYPE, TYPE.getPrimaryKeyInfo());
-		SequenceInfoAssert.assertInfo(next, next.getDefaultToNextInfo());
-
-		newItem("first", 5);
-		assertInfo(TYPE, 1, 0, 0, TYPE.getPrimaryKeyInfo(), 0);
-		assertInfo(next, next.getDefaultToNextInfo(), (hsqldb||mysql)?6:5);
-
-		newItem("second");
-		assertInfo(TYPE, 2, 0, 1, TYPE.getPrimaryKeyInfo(), 0);
-		assertInfo(next, 1, 0, 0, next.getDefaultToNextInfo(), !oracle?5:0);
-
-		newItem("third");
-		assertInfo(TYPE, 3, 0, 2, TYPE.getPrimaryKeyInfo(), 0);
-		assertInfo(next, 2, 0, 1, next.getDefaultToNextInfo(), !oracle?4:0);
 	}
 
 	static final class AnItem extends Item
