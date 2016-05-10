@@ -276,6 +276,12 @@ public final class OracleDialect extends Dialect
 					" START WITH ").append(start).append(
 					" MAXVALUE " + Integer.MAX_VALUE +
 					" MINVALUE ").append(start).append(
+
+					// BEWARE:
+					// Without NOCACHE com.exedio.cope.OracleDialect#getNextSequence
+					// returns wrong results!
+					" NOCACHE" +
+
 					" NOCYCLE" +
 					" NOORDER");
 	}
