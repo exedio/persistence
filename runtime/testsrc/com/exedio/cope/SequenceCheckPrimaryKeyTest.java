@@ -18,12 +18,23 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.PrimaryKeyTest.AnItem.TYPE;
-import static com.exedio.cope.PrimaryKeyTest.AnItem.next;
+import static com.exedio.cope.SchemaInfo.getColumnName;
+import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnName;
+import static com.exedio.cope.SchemaInfo.getTableName;
+import static com.exedio.cope.SchemaInfo.newConnection;
+import static com.exedio.cope.SchemaInfo.quoteName;
+import static com.exedio.cope.SequenceCheckPrimaryKeyTest.AnItem.TYPE;
+import static com.exedio.cope.SequenceCheckPrimaryKeyTest.AnItem.field;
+import static org.junit.Assert.assertEquals;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import org.junit.Before;
 import org.junit.Test;
 
-public class PrimaryKeyTest extends TestWithEnvironment
+public class SequenceCheckPrimaryKeyTest extends TestWithEnvironment
 {
 	/**
 	 * Do not use this model in any other test.
@@ -32,63 +43,83 @@ public class PrimaryKeyTest extends TestWithEnvironment
 	 */
 	private static final Model MODEL = new Model(TYPE);
 
-	public PrimaryKeyTest()
+	public SequenceCheckPrimaryKeyTest()
 	{
 		super(MODEL);
 		copeRule.omitTransaction();
 	}
 
-	@Test public void testIt()
+	private boolean p;
+
+	@Before public void setUp()
 	{
-		SequenceInfoAssert.assertInfo(model.getSequenceInfo(), TYPE.getThis(), next);
+		final ConnectProperties props = model.getConnectProperties();
+		model.disconnect();
+		model.connect(props);
+		p = MODEL.getConnectProperties().primaryKeyGenerator.persistent;
+	}
 
-		SequenceInfoAssert.assertInfo(TYPE, TYPE.getPrimaryKeyInfo());
-		SequenceInfoAssert.assertInfo(next, next.getDefaultToNextInfo());
+	@Test public void testWrongFromStart() throws SQLException
+	{
+		assertIt(0);
 
-		newItem("first", 5);
-		assertInfo(TYPE, 1, 0, 0, TYPE.getPrimaryKeyInfo());
-		assertInfo(next, next.getDefaultToNextInfo());
+		newItem(5, "first");
+		assertIt(p ? (hsqldb||mysql)?6:5 : 0);
 
 		newItem("second");
-		assertInfo(TYPE, 2, 0, 1, TYPE.getPrimaryKeyInfo());
-		assertInfo(next, 1, 0, 0, next.getDefaultToNextInfo());
+		assertIt((p&&!oracle)?5:0);
 
 		newItem("third");
-		assertInfo(TYPE, 3, 0, 2, TYPE.getPrimaryKeyInfo());
-		assertInfo(next, 2, 0, 1, next.getDefaultToNextInfo());
+		assertIt((p&&!oracle)?4:0);
+
+		newItem("fourth");
+		assertIt((p&&!oracle)?3:0);
 	}
 
-	private static void assertInfo(final Type<?> type, final int count, final int first, final int last, final SequenceInfo info) // TODO remove
+	@Test public void testWrongFromStartWithoutCheck() throws SQLException
 	{
-		SequenceInfoAssert.assertInfo(type, count, first, last, info);
+		newItem(5, "first");
+		assertIt(p ? (hsqldb||mysql)?6:5 : 0);
+
+		newItem("second");
+		assertIt((p&&!oracle)?5:0);
+
+		newItem("third");
+		assertIt((p&&!oracle)?4:0);
+
+		newItem("fourth");
+		assertIt((p&&!oracle)?3:0);
 	}
 
-	private static void assertInfo(final IntegerField feature, final int count, final int first, final int last, final SequenceInfo info) // TODO remove
+	@Test public void testWrongLater() throws SQLException
 	{
-		SequenceInfoAssert.assertInfo(feature, count, first, last, info);
+		assertIt(0);
+
+		newItem("ok");
+		assertIt(0);
+
+		newItem(5, "first");
+		assertIt((!p||!oracle)?5:0);
+
+		newItem("second");
+		assertIt((!p||!oracle)?4:0);
+
+		newItem("third");
+		assertIt((!p||!oracle)?3:0);
+
+		newItem("fourth");
+		assertIt((!p||!oracle)?2:0);
 	}
 
-	private static void assertInfo(final IntegerField feature, final SequenceInfo info) // TODO remove
+	private static void assertIt(final int check)
 	{
-		SequenceInfoAssert.assertInfo(feature, info);
-	}
-
-	private static final AnItem newItem(
-			final String field,
-			final int next)
-	{
-		try(TransactionTry tx = MODEL.startTransactionTry(PrimaryKeyTest.class.getName()))
-		{
-			return tx.commit(
-					new AnItem(field, next)
-			);
-		}
+		assertEquals("check", check, TYPE.checkPrimaryKey());
 	}
 
 	private static final AnItem newItem(
 			final String field)
 	{
-		try(TransactionTry tx = MODEL.startTransactionTry(PrimaryKeyTest.class.getName()))
+		try(TransactionTry tx = MODEL.startTransactionTry(SequenceCheckPrimaryKeyTest.class.getName()))
 		{
 			return tx.commit(
 					new AnItem(field)
@@ -96,20 +127,34 @@ public class PrimaryKeyTest extends TestWithEnvironment
 		}
 	}
 
+	@SuppressFBWarnings("SQL_PREPARED_STATEMENT_GENERATED_FROM_NONCONSTANT_STRING")
+	private static final void newItem(
+			final int pk,
+			final String fieldValue)
+	throws SQLException
+	{
+		try(
+				Connection connection = newConnection(MODEL);
+				PreparedStatement statement = connection.prepareStatement(
+						"INSERT INTO " + q(getTableName(TYPE)) +
+						" (" + q(getPrimaryKeyColumnName(TYPE)) +
+						","  + q(getColumnName(field)) +
+						") VALUES (?,?)"))
+		{
+			statement.setInt(1, pk);
+			statement.setString(2, fieldValue);
+			assertEquals(1, statement.executeUpdate());
+		}
+	}
+
+	private static String q(final String name)
+	{
+		return quoteName(MODEL, name);
+	}
+
 	static final class AnItem extends Item
 	{
 		static final StringField field = new StringField().toFinal().optional();
-		static final IntegerField next = new IntegerField().toFinal().optional().defaultToNext(0);
-
-		AnItem(
-				final String field,
-				final int next)
-		{
-			this(new com.exedio.cope.SetValue<?>[]{
-				AnItem.field.map(field),
-				AnItem.next.map(next),
-			});
-		}
 
 		/**
 
@@ -151,17 +196,6 @@ public class PrimaryKeyTest extends TestWithEnvironment
 	final java.lang.String getField()
 	{
 		return AnItem.field.get(this);
-	}/**
-
-	 **
-	 * Returns the value of {@link #next}.
-	 * @cope.generated This feature has been generated by the cope instrumentor and will be overwritten by the build process.
-	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
-	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final java.lang.Integer getNext()
-	{
-		return AnItem.next.get(this);
 	}/**
 
 	 **
