@@ -43,31 +43,31 @@ public class SequenceCheckIntegerTest extends TestWithEnvironment
 	{
 		assertIt(0);
 
-		newItem(5, "first");
+		newManual(5, "first");
 		assertIt((hsqldb||mysql)?6:5);
 
-		newItem("second");
+		newSequence("second");
 		assertIt(!oracle?5:0);
 
-		newItem("third");
+		newSequence("third");
 		assertIt(!oracle?4:0);
 
-		newItem("fourth");
+		newSequence("fourth");
 		assertIt(!oracle?3:0);
 	}
 
 	@Test public void testWrongFromStartWithoutCheck()
 	{
-		newItem(5, "first");
+		newManual(5, "first");
 		assertIt((hsqldb||mysql)?6:5);
 
-		newItem("second");
+		newSequence("second");
 		assertIt(!oracle?5:0);
 
-		newItem("third");
+		newSequence("third");
 		assertIt(!oracle?4:0);
 
-		newItem("fourth");
+		newSequence("fourth");
 		assertIt(!oracle?3:0);
 	}
 
@@ -75,19 +75,19 @@ public class SequenceCheckIntegerTest extends TestWithEnvironment
 	{
 		assertIt(0);
 
-		newItem("ok");
+		newSequence("ok");
 		assertIt(0);
 
-		newItem(5, "first");
+		newManual(5, "first");
 		assertIt(!oracle?5:0);
 
-		newItem("second");
+		newSequence("second");
 		assertIt(!oracle?4:0);
 
-		newItem("third");
+		newSequence("third");
 		assertIt(!oracle?3:0);
 
-		newItem("fourth");
+		newSequence("fourth");
 		assertIt(!oracle?2:0);
 	}
 
@@ -96,7 +96,7 @@ public class SequenceCheckIntegerTest extends TestWithEnvironment
 		assertEquals("check", check, next.checkDefaultToNext());
 	}
 
-	private static final AnItem newItem(
+	private static final AnItem newManual(
 			final int next,
 			final String field)
 	{
@@ -108,7 +108,7 @@ public class SequenceCheckIntegerTest extends TestWithEnvironment
 		}
 	}
 
-	private static final AnItem newItem(
+	private static final AnItem newSequence(
 			final String field)
 	{
 		try(TransactionTry tx = MODEL.startTransactionTry(SequenceCheckIntegerTest.class.getName()))

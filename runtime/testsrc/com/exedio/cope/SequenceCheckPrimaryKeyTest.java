@@ -63,31 +63,31 @@ public class SequenceCheckPrimaryKeyTest extends TestWithEnvironment
 	{
 		assertIt(0);
 
-		newItem(5, "first");
+		newManual(5, "first");
 		assertIt(p ? (hsqldb||mysql)?6:5 : 0);
 
-		newItem("second");
+		newSequence("second");
 		assertIt((p&&!oracle)?5:0);
 
-		newItem("third");
+		newSequence("third");
 		assertIt((p&&!oracle)?4:0);
 
-		newItem("fourth");
+		newSequence("fourth");
 		assertIt((p&&!oracle)?3:0);
 	}
 
 	@Test public void testWrongFromStartWithoutCheck() throws SQLException
 	{
-		newItem(5, "first");
+		newManual(5, "first");
 		assertIt(p ? (hsqldb||mysql)?6:5 : 0);
 
-		newItem("second");
+		newSequence("second");
 		assertIt((p&&!oracle)?5:0);
 
-		newItem("third");
+		newSequence("third");
 		assertIt((p&&!oracle)?4:0);
 
-		newItem("fourth");
+		newSequence("fourth");
 		assertIt((p&&!oracle)?3:0);
 	}
 
@@ -95,19 +95,19 @@ public class SequenceCheckPrimaryKeyTest extends TestWithEnvironment
 	{
 		assertIt(0);
 
-		newItem("ok");
+		newSequence("ok");
 		assertIt(0);
 
-		newItem(5, "first");
+		newManual(5, "first");
 		assertIt((!p||!oracle)?5:0);
 
-		newItem("second");
+		newSequence("second");
 		assertIt((!p||!oracle)?4:0);
 
-		newItem("third");
+		newSequence("third");
 		assertIt((!p||!oracle)?3:0);
 
-		newItem("fourth");
+		newSequence("fourth");
 		assertIt((!p||!oracle)?2:0);
 	}
 
@@ -116,7 +116,7 @@ public class SequenceCheckPrimaryKeyTest extends TestWithEnvironment
 		assertEquals("check", check, TYPE.checkPrimaryKey());
 	}
 
-	private static final AnItem newItem(
+	private static final AnItem newSequence(
 			final String field)
 	{
 		try(TransactionTry tx = MODEL.startTransactionTry(SequenceCheckPrimaryKeyTest.class.getName()))
@@ -128,7 +128,7 @@ public class SequenceCheckPrimaryKeyTest extends TestWithEnvironment
 	}
 
 	@SuppressFBWarnings("SQL_PREPARED_STATEMENT_GENERATED_FROM_NONCONSTANT_STRING")
-	private static final void newItem(
+	private static final void newManual(
 			final int pk,
 			final String fieldValue)
 	throws SQLException
