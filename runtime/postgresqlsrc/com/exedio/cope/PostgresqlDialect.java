@@ -271,6 +271,12 @@ final class PostgresqlDialect extends Dialect
 			final String name)
 	{
 		final Statement bf = executor.newStatement();
+		// BEWARE:
+		// LAST_VALUE contains the last result returned by NEXTVAL -
+		// except if the sequence has not been used before. Then it contains
+		// the next result to be returned by NEXTVAL.
+		// This is a problem in either PostgreSQL or cope without any idea for
+		// resolution yet.
 		bf.append("SELECT LAST_VALUE FROM ").
 			append(dsmfDialect.quoteName(name));
 

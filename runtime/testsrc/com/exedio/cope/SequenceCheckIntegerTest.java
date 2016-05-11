@@ -44,7 +44,7 @@ public class SequenceCheckIntegerTest extends TestWithEnvironment
 		assertIt(0);
 
 		newManual(5, "first");
-		assertIt(!postgresql?6:5);
+		assertIt(!postgresql?6:5); // known problem in PostgreSQL, see PostgresqlDialect#getNextSequence
 
 		newSequence(0, "second");
 		assertIt(5);
@@ -59,7 +59,7 @@ public class SequenceCheckIntegerTest extends TestWithEnvironment
 	@Test public void testWrongFromStartWithoutCheck()
 	{
 		newManual(5, "first");
-		assertIt(!postgresql?6:5);
+		assertIt(!postgresql?6:5); // known problem in PostgreSQL, see PostgresqlDialect#getNextSequence
 
 		newSequence(0, "second");
 		assertIt(5);
