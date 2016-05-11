@@ -451,6 +451,13 @@ final class OracleDialect extends Dialect
 		// ORA-08002: sequence NAME.CURRVAL is not yet defined in this session
 		final Statement bf = executor.newStatement();
 		bf.append(
+				// BEWARE:
+				// In contrast to what the name suggests, LAST_NUMBER does not contain
+				// the last result returned by NEXTVAL, but the next result to be returned.
+				// http://stackoverflow.com/questions/4596220/how-to-verify-oracle-sequences
+				// http://docs.oracle.com/cd/B28359_01/server.111/b28320/statviews_2053.htm#i1588488
+				// BEWARE 2:
+				// Without NOCACHE in CREATE SEQUENCE wrong results are returned by LAST_NUMBER.
 				"SELECT LAST_NUMBER " +
 				"FROM user_sequences " +
 				"WHERE sequence_name=").
@@ -465,7 +472,7 @@ final class OracleDialect extends Dialect
 				final Object o = resultSet.getObject(1);
 				if(o==null)
 					throw new RuntimeException("null in sequence " + name);
-				return ((BigDecimal)o).intValueExact() + 1;
+				return ((BigDecimal)o).intValueExact();
 			}
 		});
 	}

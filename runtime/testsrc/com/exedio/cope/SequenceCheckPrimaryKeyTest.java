@@ -65,31 +65,31 @@ public class SequenceCheckPrimaryKeyTest extends TestWithEnvironment
 		assertIt(0);
 
 		newManual(5, "first");
-		assertIt(p ? (hsqldb||mysql)?6:5 : 0);
+		assertIt(p ? (hsqldb||mysql||oracle)?6:5 : 0);
 
 		newSequence(p?0:6, "second");
-		assertIt(p?(oracle?4:5):0);
+		assertIt(p?5:0);
 
 		newSequence(p?1:7, "third");
-		assertIt(p?(oracle?3:4):0);
+		assertIt(p?4:0);
 
 		newSequence(p?2:8, "fourth");
-		assertIt(p?(oracle?2:3):0);
+		assertIt(p?3:0);
 	}
 
 	@Test public void testWrongFromStartWithoutCheck() throws SQLException
 	{
 		newManual(5, "first");
-		assertIt(p ? (hsqldb||mysql)?6:5 : 0);
+		assertIt(p ? (hsqldb||mysql||oracle)?6:5 : 0);
 
 		newSequence(p?0:6, "second");
-		assertIt(p?(oracle?4:5):0);
+		assertIt(p?5:0);
 
 		newSequence(p?1:7, "third");
-		assertIt(p?(oracle?3:4):0);
+		assertIt(p?4:0);
 
 		newSequence(p?2:8, "fourth");
-		assertIt(p?(oracle?2:3):0);
+		assertIt(p?3:0);
 	}
 
 	@Test public void testWrongLater() throws SQLException
@@ -103,16 +103,16 @@ public class SequenceCheckPrimaryKeyTest extends TestWithEnvironment
 		assertIt(0);
 
 		newManual(5, "first");
-		assertIt((p&&oracle)?3:4);
+		assertIt(4);
 
 		newSequence(2, "second");
-		assertIt((p&&oracle)?2:3);
+		assertIt(3);
 
 		newSequence(3, "third");
-		assertIt((p&&oracle)?1:2);
+		assertIt(2);
 
 		newSequence(4, "fourth");
-		assertIt((p&&oracle)?0:1);
+		assertIt(1);
 	}
 
 	private static void assertIt(final int check)

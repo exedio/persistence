@@ -44,31 +44,31 @@ public class SequenceCheckIntegerTest extends TestWithEnvironment
 		assertIt(0);
 
 		newManual(5, "first");
-		assertIt((hsqldb||mysql)?6:5);
+		assertIt((hsqldb||mysql||oracle)?6:5);
 
 		newSequence(0, "second");
-		assertIt(!oracle?5:4);
+		assertIt(5);
 
 		newSequence(1, "third");
-		assertIt(!oracle?4:3);
+		assertIt(4);
 
 		newSequence(2, "fourth");
-		assertIt(!oracle?3:2);
+		assertIt(3);
 	}
 
 	@Test public void testWrongFromStartWithoutCheck()
 	{
 		newManual(5, "first");
-		assertIt((hsqldb||mysql)?6:5);
+		assertIt((hsqldb||mysql||oracle)?6:5);
 
 		newSequence(0, "second");
-		assertIt(!oracle?5:4);
+		assertIt(5);
 
 		newSequence(1, "third");
-		assertIt(!oracle?4:3);
+		assertIt(4);
 
 		newSequence(2, "fourth");
-		assertIt(!oracle?3:2);
+		assertIt(3);
 	}
 
 	@Test public void testWrongLater()
@@ -82,16 +82,16 @@ public class SequenceCheckIntegerTest extends TestWithEnvironment
 		assertIt(0);
 
 		newManual(5, "first");
-		assertIt(!oracle?4:3);
+		assertIt(4);
 
 		newSequence(2, "second");
-		assertIt(!oracle?3:2);
+		assertIt(3);
 
 		newSequence(3, "third");
-		assertIt(!oracle?2:1);
+		assertIt(2);
 
 		newSequence(4, "fourth");
-		assertIt(!oracle?1:0);
+		assertIt(1);
 	}
 
 	private static void assertIt(final int check)
