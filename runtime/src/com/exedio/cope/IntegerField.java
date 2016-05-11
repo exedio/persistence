@@ -376,26 +376,18 @@ public final class IntegerField extends NumberField<Integer>
 	@Deprecated
 	public int checkDefaultToNext()
 	{
-		try
-		{
-			checkBehindDefaultToNext();
-			return 0;
-		}
-		catch(final SequenceBehindException e)
-		{
-			return e.error();
-		}
+		return SequenceBehindException.error(checkBehindDefaultToNext());
 	}
 
 	/**
 	 * @throws IllegalStateException is a transaction is bound to the current thread
 	 */
-	public void checkBehindDefaultToNext() throws SequenceBehindException
+	public SequenceBehindException checkBehindDefaultToNext()
 	{
 		if(defaultToNextSequence==null)
-			return;
+			return null;
 
-		defaultToNextSequence.sequenceX.check(
+		return defaultToNextSequence.sequenceX.check(
 				getType().getModel(), (IntegerColumn)getColumn());
 	}
 

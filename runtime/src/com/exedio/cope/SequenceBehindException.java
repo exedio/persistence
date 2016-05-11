@@ -18,17 +18,15 @@
 
 package com.exedio.cope;
 
-public final class SequenceBehindException extends Exception
+public final class SequenceBehindException
 {
-	private static final long serialVersionUID = 1l;
-
 	final Feature feature;
-	final int featureMaximum;
+	final Integer featureMaximum;
 	final int sequenceNext;
 
 	SequenceBehindException(
 			final Feature feature,
-			final int featureMaximum,
+			final Integer featureMaximum,
 			final int sequenceNext)
 	{
 		this.feature = feature;
@@ -36,12 +34,23 @@ public final class SequenceBehindException extends Exception
 		this.sequenceNext = sequenceNext;
 	}
 
-	int error()
+	static int error(final SequenceBehindException o)
 	{
-		return featureMaximum - sequenceNext + 1;
+		return o!=null ? o.error() : 0;
 	}
 
-	@Override
+	int error()
+	{
+		if(featureMaximum==null)
+			return 0;
+
+		final int featureMaximumInt = featureMaximum.intValue();
+		if(featureMaximumInt<sequenceNext)
+			return 0;
+
+		return featureMaximumInt - sequenceNext + 1;
+	}
+
 	public String getMessage()
 	{
 		return

@@ -28,7 +28,6 @@ import static com.exedio.cope.SequenceCheckPrimaryKeyTest.AnItem.TYPE;
 import static com.exedio.cope.SequenceCheckPrimaryKeyTest.AnItem.field;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
-import static org.junit.Assert.fail;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.sql.Connection;
@@ -62,47 +61,47 @@ public class SequenceCheckPrimaryKeyTest extends TestWithEnvironment
 		p = MODEL.getConnectProperties().primaryKeyGenerator.persistent;
 	}
 
-	@Test public void testWrongFromStart() throws SequenceBehindException, SQLException
+	@Test public void testWrongFromStart() throws SQLException
 	{
-		assertIt(0, 0, 0);
+		assertIt(0, null, (!p||!postgresql)?0:1); // known problem in PostgreSQL, see PostgresqlDialect#getNextSequence
 
 		newManual(5, "first");
-		assertIt(p ? !postgresql?6:5 : 0, 5, !postgresql?0:1); // known problem in PostgreSQL, see PostgresqlDialect#getNextSequence
+		assertIt(p ? !postgresql?6:5 : 0, 5, p ? !postgresql?0:1 : 6); // known problem in PostgreSQL, see PostgresqlDialect#getNextSequence
 
 		newSequence(p?0:6, "second");
-		assertIt(p?5:0, 5, 1);
+		assertIt(p?5:0, p?5:6, p?1:7);
 
 		newSequence(p?1:7, "third");
-		assertIt(p?4:0, 5, 2);
+		assertIt(p?4:0, p?5:7, p?2:8);
 
 		newSequence(p?2:8, "fourth");
-		assertIt(p?3:0, 5, 3);
+		assertIt(p?3:0, p?5:8, p?3:9);
 	}
 
-	@Test public void testWrongFromStartWithoutCheck() throws SequenceBehindException, SQLException
+	@Test public void testWrongFromStartWithoutCheck() throws SQLException
 	{
 		newManual(5, "first");
-		assertIt(p ? !postgresql?6:5 : 0, 5, !postgresql?0:1); // known problem in PostgreSQL, see PostgresqlDialect#getNextSequence
+		assertIt(p ? !postgresql?6:5 : 0, 5, p ? !postgresql?0:1 : 6); // known problem in PostgreSQL, see PostgresqlDialect#getNextSequence
 
 		newSequence(p?0:6, "second");
-		assertIt(p?5:0, 5, 1);
+		assertIt(p?5:0, p?5:6, p?1:7);
 
 		newSequence(p?1:7, "third");
-		assertIt(p?4:0, 5, 2);
+		assertIt(p?4:0, p?5:7, p?2:8);
 
 		newSequence(p?2:8, "fourth");
-		assertIt(p?3:0, 5, 3);
+		assertIt(p?3:0, p?5:8, p?3:9);
 	}
 
-	@Test public void testWrongLater() throws SequenceBehindException, SQLException
+	@Test public void testWrongLater() throws SQLException
 	{
-		assertIt(0, 0, 0);
+		assertIt(0, null, (!p||!postgresql)?0:1); // known problem in PostgreSQL, see PostgresqlDialect#getNextSequence
 
 		newSequence(0, "ok0");
-		assertIt(0, 0, 0);
+		assertIt(0, 0, 1);
 
 		newSequence(1, "ok1");
-		assertIt(0, 0, 0);
+		assertIt(0, 1, 2);
 
 		newManual(5, "first");
 		assertIt(4, 5, 2);
@@ -119,31 +118,16 @@ public class SequenceCheckPrimaryKeyTest extends TestWithEnvironment
 
 	private static void assertIt(
 			final int check,
-			final int featureMaximum,
+			final Integer featureMaximum,
 			final int sequenceNext)
-	throws SequenceBehindException
 	{
-		if(check==0)
-		{
-			TYPE.checkBehindPrimaryKey();
-		}
-		else
-		{
-			try
-			{
-				TYPE.checkBehindPrimaryKey();
-				fail();
-			}
-			catch(final SequenceBehindException e)
-			{
-				assertEquals(
-						"sequence behind maximum of AnItem.this: " + featureMaximum + ">=" + sequenceNext,
-						e.getMessage());
-				assertSame  ("feature", TYPE.getThis(), e.feature);
-				assertEquals("featureMaximum", featureMaximum, e.featureMaximum);
-				assertEquals("sequenceNext", sequenceNext, e.sequenceNext);
-			}
-		}
+		final SequenceBehindException e = TYPE.checkBehindPrimaryKey();
+		assertEquals(
+				"sequence behind maximum of AnItem.this: " + featureMaximum + ">=" + sequenceNext,
+				e.getMessage());
+		assertSame  ("feature", TYPE.getThis(), e.feature);
+		assertEquals("featureMaximum", featureMaximum, e.featureMaximum);
+		assertEquals("sequenceNext", sequenceNext, e.sequenceNext);
 
 		@SuppressWarnings("deprecation")
 		final int error = TYPE.checkPrimaryKey();

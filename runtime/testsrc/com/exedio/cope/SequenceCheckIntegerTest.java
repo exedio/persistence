@@ -22,7 +22,6 @@ import static com.exedio.cope.SequenceCheckIntegerTest.AnItem.TYPE;
 import static com.exedio.cope.SequenceCheckIntegerTest.AnItem.next;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
-import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
@@ -41,9 +40,9 @@ public class SequenceCheckIntegerTest extends TestWithEnvironment
 		copeRule.omitTransaction();
 	}
 
-	@Test public void testWrongFromStart() throws SequenceBehindException
+	@Test public void testWrongFromStart()
 	{
-		assertIt(0, 0, 0);
+		assertIt(0, null, postgresql?1:0); // known problem in PostgreSQL, see PostgresqlDialect#getNextSequence
 
 		newManual(5, "first");
 		assertIt(!postgresql?6:5, 5, !postgresql?0:1); // known problem in PostgreSQL, see PostgresqlDialect#getNextSequence
@@ -58,7 +57,7 @@ public class SequenceCheckIntegerTest extends TestWithEnvironment
 		assertIt(3, 5, 3);
 	}
 
-	@Test public void testWrongFromStartWithoutCheck() throws SequenceBehindException
+	@Test public void testWrongFromStartWithoutCheck()
 	{
 		newManual(5, "first");
 		assertIt(!postgresql?6:5, 5, !postgresql?0:1); // known problem in PostgreSQL, see PostgresqlDialect#getNextSequence
@@ -73,15 +72,15 @@ public class SequenceCheckIntegerTest extends TestWithEnvironment
 		assertIt(3, 5, 3);
 	}
 
-	@Test public void testWrongLater() throws SequenceBehindException
+	@Test public void testWrongLater()
 	{
-		assertIt(0, 0, 0);
+		assertIt(0, null, !postgresql?0:1); // known problem in PostgreSQL, see PostgresqlDialect#getNextSequence
 
 		newSequence(0, "ok0");
-		assertIt(0, 0, 0);
+		assertIt(0, 0, 1);
 
 		newSequence(1, "ok1");
-		assertIt(0, 0, 0);
+		assertIt(0, 1, 2);
 
 		newManual(5, "first");
 		assertIt(4, 5, 2);
@@ -98,31 +97,16 @@ public class SequenceCheckIntegerTest extends TestWithEnvironment
 
 	private static void assertIt(
 			final int check,
-			final int featureMaximum,
+			final Integer featureMaximum,
 			final int sequenceNext)
-	throws SequenceBehindException
 	{
-		if(check==0)
-		{
-			next.checkBehindDefaultToNext();
-		}
-		else
-		{
-			try
-			{
-				next.checkBehindDefaultToNext();
-				fail();
-			}
-			catch(final SequenceBehindException e)
-			{
-				assertEquals(
-						"sequence behind maximum of AnItem.next: " + featureMaximum + ">=" + sequenceNext,
-						e.getMessage());
-				assertSame  ("feature", next, e.feature);
-				assertEquals("featureMaximum", featureMaximum, e.featureMaximum);
-				assertEquals("sequenceNext", sequenceNext, e.sequenceNext);
-			}
-		}
+		final SequenceBehindException e = next.checkBehindDefaultToNext();
+		assertEquals(
+				"sequence behind maximum of AnItem.next: " + featureMaximum + ">=" + sequenceNext,
+				e.getMessage());
+		assertSame  ("feature", next, e.feature);
+		assertEquals("featureMaximum", featureMaximum, e.featureMaximum);
+		assertEquals("sequenceNext", sequenceNext, e.sequenceNext);
 
 		@SuppressWarnings("deprecation")
 		final int error = next.checkDefaultToNext();

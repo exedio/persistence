@@ -694,23 +694,15 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	@Deprecated
 	public int checkPrimaryKey()
 	{
-		try
-		{
-			checkBehindPrimaryKey();
-			return 0;
-		}
-		catch(final SequenceBehindException e)
-		{
-			return e.error();
-		}
+		return checkBehindPrimaryKey().error();
 	}
 
 	/**
 	 * @throws IllegalStateException is a transaction is bound to the current thread
 	 */
-	public void checkBehindPrimaryKey() throws SequenceBehindException
+	public SequenceBehindException checkBehindPrimaryKey()
 	{
-		primaryKeySequence.check(getModel(), table.primaryKey);
+		return primaryKeySequence.check(getModel(), table.primaryKey);
 	}
 
 	String getPrimaryKeySequenceSchemaName()
