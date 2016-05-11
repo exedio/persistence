@@ -276,6 +276,14 @@ public final class PostgresqlDialect extends Dialect
 					" START WITH ").append(start).append(
 					" MAXVALUE " + Integer.MAX_VALUE +
 					" MINVALUE ").append(start).append(
+
+					// CACHE 1 disables cache
+					// http://www.postgresql.org/docs/9.3/static/sql-createsequence.html
+					// BEWARE:
+					// With CACHE enabled com.exedio.cope.PostgresqlDialect#getNextSequence
+					// returns wrong results!
+					" CACHE 1" +
+
 					" NO CYCLE");
 	}
 }
