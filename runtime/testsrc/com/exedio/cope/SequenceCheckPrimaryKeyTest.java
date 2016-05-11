@@ -65,7 +65,7 @@ public class SequenceCheckPrimaryKeyTest extends TestWithEnvironment
 		assertIt(0);
 
 		newManual(5, "first");
-		assertIt(p ? (hsqldb||mysql||oracle)?6:5 : 0);
+		assertIt(p ? !postgresql?6:5 : 0);
 
 		newSequence(p?0:6, "second");
 		assertIt(p?5:0);
@@ -80,7 +80,7 @@ public class SequenceCheckPrimaryKeyTest extends TestWithEnvironment
 	@Test public void testWrongFromStartWithoutCheck() throws SQLException
 	{
 		newManual(5, "first");
-		assertIt(p ? (hsqldb||mysql||oracle)?6:5 : 0);
+		assertIt(p ? !postgresql?6:5 : 0);
 
 		newSequence(p?0:6, "second");
 		assertIt(p?5:0);

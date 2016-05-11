@@ -44,7 +44,7 @@ public class SequenceCheckIntegerTest extends TestWithEnvironment
 		assertIt(0);
 
 		newManual(5, "first");
-		assertIt((hsqldb||mysql||oracle)?6:5);
+		assertIt(!postgresql?6:5);
 
 		newSequence(0, "second");
 		assertIt(5);
@@ -59,7 +59,7 @@ public class SequenceCheckIntegerTest extends TestWithEnvironment
 	@Test public void testWrongFromStartWithoutCheck()
 	{
 		newManual(5, "first");
-		assertIt((hsqldb||mysql||oracle)?6:5);
+		assertIt(!postgresql?6:5);
 
 		newSequence(0, "second");
 		assertIt(5);
