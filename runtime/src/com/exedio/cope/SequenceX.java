@@ -120,9 +120,7 @@ final class SequenceX
 			connectionPool.put(connection);
 		}
 
-		final int current = impl().getNext();
-
-		return new SequenceBehindInfo(feature, featureMaximum, current);
+		return new SequenceBehindInfo(feature, featureMaximum, impl().getNext());
 	}
 
 	String getSchemaName()
