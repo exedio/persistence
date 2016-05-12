@@ -106,7 +106,8 @@ public class DistinctOrderByTest extends TestWithEnvironment
 		switch(dialect)
 		{
 			case hsqldb:
-				notAllowedHsqldb(query);
+				notAllowedEquals(query,
+						"invalid ORDER BY expression");
 				break;
 			case mysql:
 				assertEquals(
@@ -118,10 +119,12 @@ public class DistinctOrderByTest extends TestWithEnvironment
 				assertContains(item2, item3, item1, query.search());
 				break;
 			case oracle:
-				notAllowedOracle(query);
+				notAllowedStartsWith(query,
+						"ORA-01791: ");
 				break;
 			case postgresql:
-				notAllowedPostgresql(query);
+				notAllowedStartsWith(query,
+						"ERROR: for SELECT DISTINCT, ORDER BY expressions must appear in select list");
 				break;
 			default:
 				throw new RuntimeException(dialect.name());
@@ -129,7 +132,7 @@ public class DistinctOrderByTest extends TestWithEnvironment
 	}
 
 
-	static void notAllowedHsqldb(final Query<?> query)
+	private static void notAllowedEquals(final Query<?> query, final String message)
 	{
 		try
 		{
@@ -138,11 +141,11 @@ public class DistinctOrderByTest extends TestWithEnvironment
 		}
 		catch(final SQLRuntimeException e)
 		{
-			assertEquals("invalid ORDER BY expression", e.getCause().getMessage());
+			assertEquals(message, e.getCause().getMessage());
 		}
 	}
 
-	static void notAllowedOracle(final Query<?> query)
+	private static void notAllowedStartsWith(final Query<?> query, final String message)
 	{
 		try
 		{
@@ -152,21 +155,7 @@ public class DistinctOrderByTest extends TestWithEnvironment
 		catch(final SQLRuntimeException e)
 		{
 			final String cause = e.getCause().getMessage();
-			assertTrue(cause, cause.startsWith("ORA-01791: "));
-		}
-	}
-
-	static void notAllowedPostgresql(final Query<?> query)
-	{
-		try
-		{
-			query.search();
-			fail();
-		}
-		catch(final SQLRuntimeException e)
-		{
-			final String cause = e.getCause().getMessage();
-			assertTrue(cause, cause.startsWith("ERROR: for SELECT DISTINCT, ORDER BY expressions must appear in select list"));
+			assertTrue(cause, cause.startsWith(message));
 		}
 	}
 }
