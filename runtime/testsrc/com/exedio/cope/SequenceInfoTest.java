@@ -18,13 +18,13 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.PrimaryKeyTest.AnItem.TYPE;
-import static com.exedio.cope.PrimaryKeyTest.AnItem.next;
 import static com.exedio.cope.SequenceInfoAssert.assertInfo;
+import static com.exedio.cope.SequenceInfoTest.AnItem.TYPE;
+import static com.exedio.cope.SequenceInfoTest.AnItem.next;
 
 import org.junit.Test;
 
-public class PrimaryKeyTest extends TestWithEnvironment
+public class SequenceInfoTest extends TestWithEnvironment
 {
 	/**
 	 * Do not use this model in any other test.
@@ -33,7 +33,7 @@ public class PrimaryKeyTest extends TestWithEnvironment
 	 */
 	private static final Model MODEL = new Model(TYPE);
 
-	public PrimaryKeyTest()
+	public SequenceInfoTest()
 	{
 		super(MODEL);
 		copeRule.omitTransaction();
@@ -63,7 +63,7 @@ public class PrimaryKeyTest extends TestWithEnvironment
 			final String field,
 			final int next)
 	{
-		try(TransactionTry tx = MODEL.startTransactionTry(PrimaryKeyTest.class.getName()))
+		try(TransactionTry tx = MODEL.startTransactionTry(SequenceInfoTest.class.getName()))
 		{
 			return tx.commit(
 					new AnItem(field, next)
@@ -74,7 +74,7 @@ public class PrimaryKeyTest extends TestWithEnvironment
 	private static final AnItem newItem(
 			final String field)
 	{
-		try(TransactionTry tx = MODEL.startTransactionTry(PrimaryKeyTest.class.getName()))
+		try(TransactionTry tx = MODEL.startTransactionTry(SequenceInfoTest.class.getName()))
 		{
 			return tx.commit(
 					new AnItem(field)
