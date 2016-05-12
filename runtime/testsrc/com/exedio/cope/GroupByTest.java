@@ -103,7 +103,7 @@ public class GroupByTest extends TestWithEnvironment
 						"PUBLIC.\"" + table + "\".\"" + column + "\"");
 				break;
 			case mysql:
-				notAllowedEquals(query,
+				notAllowedStartsWith(query,
 						"'" + catalog() + "." + table + "." + column + "' isn't in GROUP BY");
 				break;
 			case oracle:
