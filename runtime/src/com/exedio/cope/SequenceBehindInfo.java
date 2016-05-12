@@ -18,13 +18,13 @@
 
 package com.exedio.cope;
 
-public final class SequenceBehindException
+public final class SequenceBehindInfo
 {
 	final Feature feature;
 	final Integer featureMaximum;
 	final int sequenceNext;
 
-	SequenceBehindException(
+	SequenceBehindInfo(
 			final Feature feature,
 			final Integer featureMaximum,
 			final int sequenceNext)
@@ -34,7 +34,7 @@ public final class SequenceBehindException
 		this.sequenceNext = sequenceNext;
 	}
 
-	static int error(final SequenceBehindException o)
+	static int error(final SequenceBehindInfo o)
 	{
 		return o!=null ? o.error() : 0;
 	}

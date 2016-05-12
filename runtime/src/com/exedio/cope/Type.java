@@ -700,7 +700,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	/**
 	 * @throws IllegalStateException is a transaction is bound to the current thread
 	 */
-	public SequenceBehindException checkBehindPrimaryKey()
+	public SequenceBehindInfo checkBehindPrimaryKey()
 	{
 		return primaryKeySequence.check(getModel(), table.primaryKey);
 	}

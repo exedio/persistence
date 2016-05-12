@@ -121,7 +121,7 @@ public class SequenceCheckPrimaryKeyTest extends TestWithEnvironment
 			final Integer featureMaximum,
 			final int sequenceNext)
 	{
-		final SequenceBehindException e = TYPE.checkBehindPrimaryKey();
+		final SequenceBehindInfo e = TYPE.checkBehindPrimaryKey();
 		assertEquals(
 				"sequence behind maximum of AnItem.this: " + featureMaximum + ">=" + sequenceNext,
 				e.getMessage());

@@ -376,13 +376,13 @@ public final class IntegerField extends NumberField<Integer>
 	@Deprecated
 	public int checkDefaultToNext()
 	{
-		return SequenceBehindException.error(checkBehindDefaultToNext());
+		return SequenceBehindInfo.error(checkBehindDefaultToNext());
 	}
 
 	/**
 	 * @throws IllegalStateException is a transaction is bound to the current thread
 	 */
-	public SequenceBehindException checkBehindDefaultToNext()
+	public SequenceBehindInfo checkBehindDefaultToNext()
 	{
 		if(defaultToNextSequence==null)
 			return null;

@@ -100,7 +100,7 @@ public class SequenceCheckIntegerTest extends TestWithEnvironment
 			final Integer featureMaximum,
 			final int sequenceNext)
 	{
-		final SequenceBehindException e = next.checkBehindDefaultToNext();
+		final SequenceBehindInfo e = next.checkBehindDefaultToNext();
 		assertEquals(
 				"sequence behind maximum of AnItem.next: " + featureMaximum + ">=" + sequenceNext,
 				e.getMessage());

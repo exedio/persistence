@@ -105,7 +105,7 @@ final class SequenceX
 		return counter.getInfo();
 	}
 
-	SequenceBehindException check(final Model model, final IntegerColumn column)
+	SequenceBehindInfo check(final Model model, final IntegerColumn column)
 	{
 		model.transactions.assertNoCurrentTransaction();
 		final ConnectionPool connectionPool = model.connect().connectionPool;
@@ -122,7 +122,7 @@ final class SequenceX
 
 		final int current = impl().getNext();
 
-		return new SequenceBehindException(feature, maxO, current);
+		return new SequenceBehindInfo(feature, maxO, current);
 	}
 
 	String getSchemaName()
