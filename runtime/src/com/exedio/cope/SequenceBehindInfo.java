@@ -51,7 +51,8 @@ public final class SequenceBehindInfo
 		return featureMaximumInt - sequenceNext + 1;
 	}
 
-	public String getMessage()
+	@Override
+	public String toString()
 	{
 		return
 				"sequence behind maximum of " + feature + ": " +
