@@ -48,11 +48,11 @@ public final class SequenceBehindInfo
 		if(featureMaximum==null)
 			return 0;
 
-		final int featureMaximumInt = featureMaximum.intValue();
-		if(featureMaximumInt<sequenceNext)
+		final int featureMaximumPrimitive = featureMaximum.intValue();
+		if(featureMaximumPrimitive<sequenceNext)
 			return 0;
 
-		return featureMaximumInt - sequenceNext + 1;
+		return featureMaximumPrimitive - sequenceNext + 1;
 	}
 
 	@Override
