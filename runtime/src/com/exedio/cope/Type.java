@@ -694,7 +694,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	@Deprecated
 	public int checkPrimaryKey()
 	{
-		return checkBehindPrimaryKey().error();
+		return checkBehindPrimaryKey().isBehindBy();
 	}
 
 	/**

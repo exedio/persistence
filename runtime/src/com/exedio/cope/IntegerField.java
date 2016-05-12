@@ -376,7 +376,7 @@ public final class IntegerField extends NumberField<Integer>
 	@Deprecated
 	public int checkDefaultToNext()
 	{
-		return SequenceBehindInfo.error(checkBehindDefaultToNext());
+		return SequenceBehindInfo.isBehindBy(checkBehindDefaultToNext());
 	}
 
 	/**

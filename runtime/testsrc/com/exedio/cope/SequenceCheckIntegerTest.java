@@ -96,7 +96,7 @@ public class SequenceCheckIntegerTest extends TestWithEnvironment
 	}
 
 	private static void assertIt(
-			final int check,
+			final int behindBy,
 			final Integer featureMaximum,
 			final int sequenceNext)
 	{
@@ -107,10 +107,11 @@ public class SequenceCheckIntegerTest extends TestWithEnvironment
 		assertSame  ("feature", next, actual.feature);
 		assertEquals("featureMaximum", featureMaximum, actual.featureMaximum);
 		assertEquals("sequenceNext", sequenceNext, actual.sequenceNext);
+		assertEquals("behindBy", behindBy, actual.isBehindBy());
 
 		@SuppressWarnings("deprecation")
-		final int error = next.checkDefaultToNext();
-		assertEquals("check", check, error);
+		final int behindByDeprecated = next.checkDefaultToNext();
+		assertEquals("behindByDeprecated", behindBy, behindByDeprecated);
 	}
 
 	private static final AnItem newManual(

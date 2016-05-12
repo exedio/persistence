@@ -34,12 +34,12 @@ public final class SequenceBehindInfo
 		this.sequenceNext = sequenceNext;
 	}
 
-	static int error(final SequenceBehindInfo o)
+	static int isBehindBy(final SequenceBehindInfo o)
 	{
-		return o!=null ? o.error() : 0;
+		return o!=null ? o.isBehindBy() : 0;
 	}
 
-	int error()
+	public int isBehindBy()
 	{
 		if(featureMaximum==null)
 			return 0;
