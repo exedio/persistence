@@ -18,11 +18,18 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.DistinctOrderByTest.notAllowedEquals;
+import static com.exedio.cope.DistinctOrderByTest.notAllowedStartsWith;
 import static com.exedio.cope.GroupByTest.AnItem.TYPE;
 import static com.exedio.cope.GroupByTest.AnItem.integer;
 import static com.exedio.cope.GroupByTest.AnItem.string;
+import static com.exedio.cope.SchemaInfo.getColumnName;
+import static com.exedio.cope.SchemaInfo.getTableName;
+import static com.exedio.cope.SchemaInfo.newConnection;
 import static org.junit.Assert.assertEquals;
 
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
@@ -79,10 +86,55 @@ public class GroupByTest extends TestWithEnvironment
 		assertCount(items, 3, 4);
 	}
 
+	@Test public void testGroupByInvalidSelect() throws SQLException
+	{
+		final Query<Integer> query = new Query<>(integer);
+		query.setGroupBy(string);
+
+		final String table = getTableName(TYPE);
+		final String column = getColumnName(integer);
+
+		switch(dialect)
+		{
+			case hsqldb:
+				notAllowedEquals(query,
+						"expression not in aggregate or GROUP BY columns: " +
+						"PUBLIC.\"" + table + "\".\"" + column + "\"");
+				break;
+			case mysql:
+				notAllowedEquals(query,
+						"'" + catalog() + "." + table + "." + column + "' isn't in GROUP BY");
+				break;
+			case oracle:
+				notAllowedStartsWith(query,
+						"ORA-00979: ");
+				break;
+			case postgresql:
+				notAllowedStartsWith(query,
+						"ERROR: column \"" + table + "." + column + "\" must appear " +
+						"in the GROUP BY clause or be used in an aggregate function");
+				break;
+			default:
+				throw new RuntimeException("" + dialect);
+		}
+	}
+
 	private static void assertCount(final Query<?> items, final int expectedSize, final int expectedTotal)
 	{
 		assertEquals(expectedSize, items.search().size());
 		assertEquals(expectedTotal, items.total());
+	}
+
+	private String catalog() throws SQLException
+	{
+		model.commit();
+		final String result;
+		try(Connection con = newConnection(model))
+		{
+			result = con.getCatalog();
+		}
+		model.startTransaction(GroupByTest.class.getName());
+		return result;
 	}
 
 	static final class AnItem extends Item

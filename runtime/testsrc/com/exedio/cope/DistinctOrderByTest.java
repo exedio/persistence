@@ -132,7 +132,7 @@ public class DistinctOrderByTest extends TestWithEnvironment
 	}
 
 
-	private static void notAllowedEquals(final Query<?> query, final String message)
+	static void notAllowedEquals(final Query<?> query, final String message)
 	{
 		try
 		{
@@ -145,7 +145,7 @@ public class DistinctOrderByTest extends TestWithEnvironment
 		}
 	}
 
-	private static void notAllowedStartsWith(final Query<?> query, final String message)
+	static void notAllowedStartsWith(final Query<?> query, final String message)
 	{
 		try
 		{
