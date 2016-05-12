@@ -157,6 +157,34 @@ public class GroupByTest extends TestWithEnvironment
 		}
 	}
 
+	@Test public void testDistinctInvalidOrderBy()
+	{
+		final Query<String> query = new Query<>(string);
+		query.setDistinct(true);
+		query.setOrderBy(integer, true);
+
+		switch(dialect)
+		{
+			case hsqldb:
+				notAllowedEquals(query,
+						"invalid ORDER BY expression");
+				break;
+			case mysql:
+				assertContains("foo", "bar", "goo", "car", query.search());
+				break;
+			case oracle:
+				notAllowedStartsWith(query,
+						"ORA-01791: ");
+				break;
+			case postgresql:
+				notAllowedStartsWith(query,
+						"ERROR: for SELECT DISTINCT, ORDER BY expressions must appear in select list");
+				break;
+			default:
+				throw new RuntimeException("" + dialect);
+		}
+	}
+
 	private static void assertCount(final Query<?> items, final int expectedSize, final int expectedTotal)
 	{
 		assertEquals(expectedSize, items.search().size());
