@@ -371,7 +371,7 @@ public final class IntegerField extends NumberField<Integer>
 
 	/**
 	 * @throws IllegalStateException is a transaction is bound to the current thread
-	 * @deprecated Use {@link #checkBehindDefaultToNext()} instead
+	 * @deprecated Use {@link #checkBehindDefaultToNext()}.{@link SequenceBehindInfo#isBehindBy() isBehindBy}() instead
 	 */
 	@Deprecated
 	public int checkDefaultToNext()
