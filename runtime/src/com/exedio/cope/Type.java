@@ -689,8 +689,18 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 
 	/**
 	 * @throws IllegalStateException is a transaction is bound to the current thread
+	 * @deprecated Use {@link #checkSequenceBehindPrimaryKey()}.{@link SequenceBehindInfo#isBehindBy() isBehindBy}() instead
 	 */
+	@Deprecated
 	public int checkPrimaryKey()
+	{
+		return checkSequenceBehindPrimaryKey().isBehindBy();
+	}
+
+	/**
+	 * @throws IllegalStateException is a transaction is bound to the current thread
+	 */
+	public SequenceBehindInfo checkSequenceBehindPrimaryKey()
 	{
 		return primaryKeySequence.check(getModel(), table.primaryKey);
 	}

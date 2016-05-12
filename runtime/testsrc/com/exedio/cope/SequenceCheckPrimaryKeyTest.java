@@ -27,6 +27,7 @@ import static com.exedio.cope.SchemaInfo.quoteName;
 import static com.exedio.cope.SequenceCheckPrimaryKeyTest.AnItem.TYPE;
 import static com.exedio.cope.SequenceCheckPrimaryKeyTest.AnItem.field;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.sql.Connection;
@@ -62,62 +63,76 @@ public class SequenceCheckPrimaryKeyTest extends TestWithEnvironment
 
 	@Test public void testWrongFromStart() throws SQLException
 	{
-		assertIt(0);
+		assertIt(0, null, (!p||!postgresql)?0:1); // known problem in PostgreSQL, see PostgresqlDialect#getNextSequence
 
 		newManual(5, "first");
-		assertIt(p ? !postgresql?6:5 : 0); // known problem in PostgreSQL, see PostgresqlDialect#getNextSequence
+		assertIt(p ? !postgresql?6:5 : 0, 5, p ? !postgresql?0:1 : 6); // known problem in PostgreSQL, see PostgresqlDialect#getNextSequence
 
 		newSequence(p?0:6, "second");
-		assertIt(p?5:0);
+		assertIt(p?5:0, p?5:6, p?1:7);
 
 		newSequence(p?1:7, "third");
-		assertIt(p?4:0);
+		assertIt(p?4:0, p?5:7, p?2:8);
 
 		newSequence(p?2:8, "fourth");
-		assertIt(p?3:0);
+		assertIt(p?3:0, p?5:8, p?3:9);
 	}
 
 	@Test public void testWrongFromStartWithoutCheck() throws SQLException
 	{
 		newManual(5, "first");
-		assertIt(p ? !postgresql?6:5 : 0); // known problem in PostgreSQL, see PostgresqlDialect#getNextSequence
+		assertIt(p ? !postgresql?6:5 : 0, 5, p ? !postgresql?0:1 : 6); // known problem in PostgreSQL, see PostgresqlDialect#getNextSequence
 
 		newSequence(p?0:6, "second");
-		assertIt(p?5:0);
+		assertIt(p?5:0, p?5:6, p?1:7);
 
 		newSequence(p?1:7, "third");
-		assertIt(p?4:0);
+		assertIt(p?4:0, p?5:7, p?2:8);
 
 		newSequence(p?2:8, "fourth");
-		assertIt(p?3:0);
+		assertIt(p?3:0, p?5:8, p?3:9);
 	}
 
 	@Test public void testWrongLater() throws SQLException
 	{
-		assertIt(0);
+		assertIt(0, null, (!p||!postgresql)?0:1); // known problem in PostgreSQL, see PostgresqlDialect#getNextSequence
 
 		newSequence(0, "ok0");
-		assertIt(0);
+		assertIt(0, 0, 1);
 
 		newSequence(1, "ok1");
-		assertIt(0);
+		assertIt(0, 1, 2);
 
 		newManual(5, "first");
-		assertIt(4);
+		assertIt(4, 5, 2);
 
 		newSequence(2, "second");
-		assertIt(3);
+		assertIt(3, 5, 3);
 
 		newSequence(3, "third");
-		assertIt(2);
+		assertIt(2, 5, 4);
 
 		newSequence(4, "fourth");
-		assertIt(1);
+		assertIt(1, 5, 5);
 	}
 
-	private static void assertIt(final int check)
+	private static void assertIt(
+			final int behindBy,
+			final Integer featureMaximum,
+			final int sequenceNext)
 	{
-		assertEquals("check", check, TYPE.checkPrimaryKey());
+		final SequenceBehindInfo actual = TYPE.checkSequenceBehindPrimaryKey();
+		assertEquals(
+				"sequence behind maximum of AnItem.this: " + featureMaximum + ">=" + sequenceNext,
+				actual.toString());
+		assertSame  ("feature", TYPE.getThis(), actual.feature);
+		assertEquals("featureMaximum", featureMaximum, actual.featureMaximum);
+		assertEquals("sequenceNext", sequenceNext, actual.sequenceNext);
+		assertEquals("behindBy", behindBy, actual.isBehindBy());
+
+		@SuppressWarnings("deprecation")
+		final int behindByDeprecated = TYPE.checkPrimaryKey();
+		assertEquals("behindByDeprecated", behindBy, behindByDeprecated);
 	}
 
 	private static final void newSequence(

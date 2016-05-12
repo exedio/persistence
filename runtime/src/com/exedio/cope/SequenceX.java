@@ -105,7 +105,7 @@ final class SequenceX
 		return counter.getInfo();
 	}
 
-	int check(final Model model, final IntegerColumn column)
+	SequenceBehindInfo check(final Model model, final IntegerColumn column)
 	{
 		model.transactions.assertNoCurrentTransaction();
 		final ConnectionPool connectionPool = model.connect().connectionPool;
@@ -114,18 +114,15 @@ final class SequenceX
 		try
 		{
 			maxO = column.max(connection, column.table.database.executor);
-			if(maxO==null)
-				return 0;
 		}
 		finally
 		{
 			connectionPool.put(connection);
 		}
 
-		final int max = maxO.intValue();
 		final int current = impl().getNext();
-		//System.out.println("---" + impl().getClass().getSimpleName() + "----"+feature.getID()+": " + max + " / " + current);
-		return (max<current) ? 0 : (max-current+1);
+
+		return new SequenceBehindInfo(feature, maxO, current);
 	}
 
 	String getSchemaName()
