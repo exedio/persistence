@@ -23,6 +23,7 @@ import java.util.Date;
 
 abstract class TransactionInfo
 {
+	abstract String getNodeID();
 	abstract boolean isRemote();
 	abstract int getRemoteNodeID() throws NotAvailableException;
 	abstract long getID() throws NotAvailableException;

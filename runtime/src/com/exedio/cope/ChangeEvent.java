@@ -41,6 +41,14 @@ public final class ChangeEvent
 		return Collections.unmodifiableCollection(Arrays.asList(items));
 	}
 
+	/**
+	 * @see #getRemoteNodeIDString()
+	 */
+	public String getNodeID()
+	{
+		return transactionInfo.getNodeID();
+	}
+
 	public boolean isRemote()
 	{
 		return transactionInfo.isRemote();

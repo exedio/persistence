@@ -31,6 +31,12 @@ final class TransactionInfoRemote extends TransactionInfo
 	}
 
 	@Override
+	String getNodeID()
+	{
+		return ClusterSenderInfo.toStringNodeID(remoteNode);
+	}
+
+	@Override
 	boolean isRemote()
 	{
 		return true;

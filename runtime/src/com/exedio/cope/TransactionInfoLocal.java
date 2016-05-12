@@ -35,6 +35,12 @@ final class TransactionInfoLocal extends TransactionInfo
 	}
 
 	@Override
+	String getNodeID()
+	{
+		return "local";
+	}
+
+	@Override
 	boolean isRemote()
 	{
 		return false;

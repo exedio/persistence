@@ -146,6 +146,7 @@ public class ClusterNetworkChangeListenerTest extends ClusterNetworkTest
 			assertContainsList(expectedItems, event.getItems());
 
 
+			assertEquals("local", event.getNodeID());
 			assertEquals(false, event.isRemote());
 			try
 			{
@@ -179,6 +180,7 @@ public class ClusterNetworkChangeListenerTest extends ClusterNetworkTest
 			assertContainsList(expectedItems, itemIds);
 
 
+			assertEquals(remoteModel.getClusterSenderInfo().getNodeIDString(), event.getNodeID());
 			assertEquals(true, event.isRemote());
 			assertEquals(remoteModel.getClusterSenderInfo().getNodeID(), event.getRemoteNodeID());
 			assertEquals(remoteModel.getClusterSenderInfo().getNodeIDString(), event.getRemoteNodeIDString());
