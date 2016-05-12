@@ -18,6 +18,10 @@
 
 package com.exedio.cope;
 
+/**
+ * Maintains information about sequences running behind their actual data.
+ * This may result in {@link UniqueViolationException unique violation}s in the future.
+ */
 public final class SequenceBehindInfo
 {
 	final Feature feature;
