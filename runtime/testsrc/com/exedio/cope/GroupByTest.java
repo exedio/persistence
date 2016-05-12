@@ -120,7 +120,7 @@ public class GroupByTest extends TestWithEnvironment
 		}
 	}
 
-	@Test public void testGroupByInvalidOrderBy()
+	@Test public void testGroupByInvalidOrderBy() throws SQLException
 	{
 		final Query<String> query = new Query<>(string);
 		query.setGroupBy(string);
@@ -128,6 +128,7 @@ public class GroupByTest extends TestWithEnvironment
 
 		final String table = getTableName(TYPE);
 		final String column = getColumnName(integer);
+		final EnvironmentInfo env = model.getEnvironmentInfo();
 
 		switch(dialect)
 		{
@@ -136,7 +137,11 @@ public class GroupByTest extends TestWithEnvironment
 						"invalid ORDER BY expression");
 				break;
 			case mysql:
-				assertContains("foo", "bar", "goo", "car", query.search());
+				if(env.isDatabaseVersionAtLeast(5, 6))
+					notAllowedStartsWith(query,
+							"'" + catalog() + "." + table + "." + column + "' isn't in GROUP BY");
+				else
+					assertContains("foo", "bar", "goo", "car", query.search());
 				break;
 			case oracle:
 				notAllowedStartsWith(query,
