@@ -109,11 +109,11 @@ final class SequenceX
 	{
 		model.transactions.assertNoCurrentTransaction();
 		final ConnectionPool connectionPool = model.connect().connectionPool;
-		final Integer maxO;
+		final Integer featureMaximum;
 		final Connection connection = connectionPool.get(true);
 		try
 		{
-			maxO = column.max(connection, column.table.database.executor);
+			featureMaximum = column.max(connection, column.table.database.executor);
 		}
 		finally
 		{
@@ -122,7 +122,7 @@ final class SequenceX
 
 		final int current = impl().getNext();
 
-		return new SequenceBehindInfo(feature, maxO, current);
+		return new SequenceBehindInfo(feature, featureMaximum, current);
 	}
 
 	String getSchemaName()
