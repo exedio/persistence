@@ -371,18 +371,18 @@ public final class IntegerField extends NumberField<Integer>
 
 	/**
 	 * @throws IllegalStateException is a transaction is bound to the current thread
-	 * @deprecated Use {@link #checkBehindDefaultToNext()}.{@link SequenceBehindInfo#isBehindBy() isBehindBy}() instead
+	 * @deprecated Use {@link #checkSequenceBehindDefaultToNext()}.{@link SequenceBehindInfo#isBehindBy() isBehindBy}() instead
 	 */
 	@Deprecated
 	public int checkDefaultToNext()
 	{
-		return SequenceBehindInfo.isBehindBy(checkBehindDefaultToNext());
+		return SequenceBehindInfo.isBehindBy(checkSequenceBehindDefaultToNext());
 	}
 
 	/**
 	 * @throws IllegalStateException is a transaction is bound to the current thread
 	 */
-	public SequenceBehindInfo checkBehindDefaultToNext()
+	public SequenceBehindInfo checkSequenceBehindDefaultToNext()
 	{
 		if(defaultToNextSequence==null)
 			return null;

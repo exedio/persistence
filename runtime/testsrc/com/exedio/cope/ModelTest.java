@@ -241,7 +241,7 @@ public class ModelTest extends TestWithEnvironment
 
 		try
 		{
-			ModelTestItem.TYPE.checkBehindPrimaryKey();
+			ModelTestItem.TYPE.checkSequenceBehindPrimaryKey();
 			fail();
 		}
 		catch (final IllegalStateException e)
@@ -251,7 +251,7 @@ public class ModelTest extends TestWithEnvironment
 
 		try
 		{
-			ModelTestItem.next.checkBehindDefaultToNext();
+			ModelTestItem.next.checkSequenceBehindDefaultToNext();
 			fail();
 		}
 		catch (final IllegalStateException e)
