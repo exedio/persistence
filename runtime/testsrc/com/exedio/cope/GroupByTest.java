@@ -26,6 +26,7 @@ import static com.exedio.cope.GroupByTest.AnItem.string;
 import static com.exedio.cope.SchemaInfo.getColumnName;
 import static com.exedio.cope.SchemaInfo.getTableName;
 import static com.exedio.cope.SchemaInfo.newConnection;
+import static com.exedio.cope.junit.CopeAssert.assertContains;
 import static org.junit.Assert.assertEquals;
 
 import java.sql.Connection;
@@ -104,6 +105,38 @@ public class GroupByTest extends TestWithEnvironment
 			case mysql:
 				notAllowedEquals(query,
 						"'" + catalog() + "." + table + "." + column + "' isn't in GROUP BY");
+				break;
+			case oracle:
+				notAllowedStartsWith(query,
+						"ORA-00979: ");
+				break;
+			case postgresql:
+				notAllowedStartsWith(query,
+						"ERROR: column \"" + table + "." + column + "\" must appear " +
+						"in the GROUP BY clause or be used in an aggregate function");
+				break;
+			default:
+				throw new RuntimeException("" + dialect);
+		}
+	}
+
+	@Test public void testGroupByInvalidOrderBy()
+	{
+		final Query<String> query = new Query<>(string);
+		query.setGroupBy(string);
+		query.setOrderBy(integer, true);
+
+		final String table = getTableName(TYPE);
+		final String column = getColumnName(integer);
+
+		switch(dialect)
+		{
+			case hsqldb:
+				notAllowedEquals(query,
+						"invalid ORDER BY expression");
+				break;
+			case mysql:
+				assertContains("foo", "bar", "goo", "car", query.search());
 				break;
 			case oracle:
 				notAllowedStartsWith(query,
