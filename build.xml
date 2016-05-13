@@ -1058,6 +1058,7 @@
 				<filter token="TABLE" value="${testprotocol.html}" />
 			</filterset>
 		</copy>
+		<copy file="runtime/testprotocol.css" todir="build" />
 	</target>
 
 	<target name="build"
