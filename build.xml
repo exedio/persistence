@@ -67,6 +67,7 @@
 		<element name="classpath" optional="true" implicit="true" />
 		<sequential>
 			<mkdir dir="build/testresults" />
+			<mkdir dir="build/testtmpdir" />
 			<junit fork="yes"
 					haltonerror="true" haltonfailure="true"
 					showoutput="true" printsummary="true">
@@ -74,6 +75,7 @@
 				<formatter type="xml" />
 				<classpath />
 				<test name="@{test}" todir="build/testresults" outfile="@{test}-@{env}" />
+				<sysproperty key="java.io.tmpdir" value="${basedir}/build/testtmpdir" />
 				<sysproperty key="user.timezone" value="${test-DefaultTimeZone}" />
 				<sysproperty key="tomcat.port.http" value="${tomcat.port.http}" />
 				<assertions><enable/></assertions>
@@ -561,6 +563,7 @@
 
 	<target name="runtime.test.withoutEnv" depends="runtime.test.readyToRun">
 		<mkdir dir="build/testresults" />
+		<mkdir dir="build/testtmpdir" />
 		<junit taskname="junit noEnv" fork="yes"
 					haltonerror="true" haltonfailure="true"
 					dir="${basedir}"
@@ -588,6 +591,7 @@
 				<pathelement location="lib/exedio-cope-servletutil.jar" />
 			</classpath>
 			<test name="${runtime.test.withoutEnv}" todir="build/testresults" outfile="runtime-noEnv" />
+			<sysproperty key="java.io.tmpdir" value="${basedir}/build/testtmpdir" />
 			<sysproperty key="user.timezone" value="${test-DefaultTimeZone}" />
 			<assertions><enable/></assertions>
 		</junit>
@@ -595,6 +599,7 @@
 
 	<target name="runtime.test.withEnv" depends="runtime.test.readyToRun">
 		<mkdir dir="build/testresults" />
+		<mkdir dir="build/testtmpdir" />
 		<foreachEnvironment skipSwitch="runtime.test">
 			<body>
 				<junit taskname="junit @{env}" fork="yes"
@@ -623,6 +628,7 @@
 						<pathelement location="lib/exedio-cope-util.jar" />
 					</classpath>
 					<test name="${runtime.test.withEnv}" todir="build/testresults" outfile="runtime-@{env}" />
+					<sysproperty key="java.io.tmpdir" value="${basedir}/build/testtmpdir" />
 					<sysproperty key="user.timezone" value="${test-DefaultTimeZone}" />
 					<sysproperty key="com.exedio.cope.properties" file="@{env.file}" />
 					<sysproperty key="contextPath" value="/junitContextPath" />
@@ -1152,6 +1158,7 @@
 							regexp="(.*testsrc\.)?(.*)"
 							select="\2"/>
 		<mkdir dir="build/testresults" />
+		<mkdir dir="build/testtmpdir" />
 		<foreachEnvironment skipSwitch="runtime.test">
 			<body>
 				<junit taskname="junit @{env}" fork="yes"
@@ -1181,6 +1188,7 @@
 						<pathelement location="lib/exedio-cope-util.jar" />
 					</classpath>
 					<test name="${testclass}" todir="build/testresults" outfile="runtime-@{env}" />
+					<sysproperty key="java.io.tmpdir" value="${basedir}/build/testtmpdir" />
 					<sysproperty key="user.timezone" value="${test-DefaultTimeZone}" />
 					<sysproperty key="com.exedio.cope.properties" file="@{env.file}" />
 					<sysproperty key="contextPath" value="/junitContextPath" />
