@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.DatePrecisionItem.TYPE;
+import static com.exedio.cope.DatePrecisionItem.seconds;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
@@ -53,6 +54,13 @@ public class DatePrecisionTest extends TestWithEnvironment
 					"precision violation on DatePrecisionItem-0, " +
 					"1970-01-01 00:00:55.100 (100) is too precise  for DatePrecisionItem.seconds, " +
 					"must be Seconds", e.getMessage());
+			assertEquals(
+					"precision violation on DatePrecisionItem-0, " +
+					"1970-01-01 00:00:55.100 (100) is too precise , " +
+					"must be Seconds", e.getMessageWithoutFeature());
+			assertEquals(item, e.getItem());
+			assertEquals(seconds, e.getFeature());
+			assertEquals(date(0, 0, 0, 55, 100), e.getValue());
 		}
 		assertEquals(date(0, 0, 0, 55, 0), item.getSeconds());
 	}
