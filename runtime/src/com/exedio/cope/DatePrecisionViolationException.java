@@ -81,12 +81,14 @@ public final class DatePrecisionViolationException extends ConstraintViolationEx
 	@Override
 	public String getMessage(final boolean withFeature)
 	{
+		final Date value = new Date(this.value);
+		final SimpleDateFormat df = df();
 		final StringBuilder bf = new StringBuilder();
 
 		bf.append("precision violation").
 			append(getItemPhrase()).
 			append(", ").
-			append(df().format(new Date(value))).
+			append(df.format(value)).
 			append(" (").
 			append(violation).
 			append(") is too precise");
@@ -95,7 +97,11 @@ public final class DatePrecisionViolationException extends ConstraintViolationEx
 			bf.append(" for ").
 				append(feature);
 		bf.append(", must be ").
-			append(feature.getPrecision().name());
+			append(feature.getPrecision().name()).
+			append(", round either to ").
+			append(df.format(feature.roundByPrecision(value, false))).
+			append(" or ").
+			append(df.format(feature.roundByPrecision(value, true)));
 
 		return bf.toString();
 	}
