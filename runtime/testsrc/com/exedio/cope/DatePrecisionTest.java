@@ -75,10 +75,10 @@ public class DatePrecisionTest extends TestWithEnvironment
 			final int milliseconds)
 	{
 		return new Date(
-				days *
-				  24 + less(  24, hours) *
-				  60 + less(  60, minutes) *
-				  60 + less(  60, seconds) *
+				(((days *
+				  24 + less(  24, hours)) *
+				  60 + less(  60, minutes)) *
+				  60 + less(  60, seconds)) *
 				1000 + less(1000, milliseconds));
 	}
 
