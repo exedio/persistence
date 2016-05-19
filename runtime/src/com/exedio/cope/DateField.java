@@ -166,13 +166,29 @@ public final class DateField extends FunctionField<Date>
 		Minutes(Calendar.MINUTE,      Calendar.MILLISECOND, Calendar.SECOND),
 		Hours  (Calendar.HOUR_OF_DAY, Calendar.MILLISECOND, Calendar.SECOND, Calendar.MINUTE);
 
-		final int field;
+		private final int field;
 		final int[] fields;
 
 		Precision(final int field, final int... fields)
 		{
 			this.field = field;
 			this.fields = fields;
+		}
+
+		Date round(final Date value, final boolean up)
+		{
+			if(this==Millis)
+				return value;
+
+			final GregorianCalendar cal = new GregorianCalendar(getTimeZone("Europe/Berlin"), Locale.ENGLISH); // TODO
+			cal.setTime(value);
+			for(final int field : fields)
+				cal.set(field, 0);
+
+			if(up)
+				cal.add(field, 1);
+
+			return cal.getTime();
 		}
 	}
 
@@ -239,22 +255,6 @@ public final class DateField extends FunctionField<Date>
 			if(violation!=0)
 				throw new DatePrecisionViolationException(this, exceptionItem, value, violation);
 		}
-	}
-
-	Date roundByPrecision(final Date value, final boolean up)
-	{
-		if(precision==Precision.Millis)
-			return value;
-
-		final GregorianCalendar cal = new GregorianCalendar(getTimeZone("Europe/Berlin"), Locale.ENGLISH); // TODO
-		cal.setTime(value);
-		for(final int field : precision.fields)
-			cal.set(field, 0);
-
-		if(up)
-			cal.add(precision.field, 1);
-
-		return cal.getTime();
 	}
 
 	/**

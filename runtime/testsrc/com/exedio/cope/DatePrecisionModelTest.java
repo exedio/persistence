@@ -142,8 +142,8 @@ public class DatePrecisionModelTest
 			assertEquals(null, e.getItem());
 			assertEquals(field, e.getFeature());
 			assertEquals(wrong, e.getValue());
-			assertEquals(down, field.roundByPrecision(wrong, false));
-			assertEquals(up,   field.roundByPrecision(wrong, true ));
+			assertEquals(down, field.precision.round(wrong, false));
+			assertEquals(up,   field.precision.round(wrong, true ));
 		}
 	}
 

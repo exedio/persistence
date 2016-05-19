@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import static com.exedio.cope.util.TimeZoneStrict.getTimeZone;
 
+import com.exedio.cope.DateField.Precision;
 import com.exedio.cope.instrument.ConstructorComment;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -82,6 +83,7 @@ public final class DatePrecisionViolationException extends ConstraintViolationEx
 	public String getMessage(final boolean withFeature)
 	{
 		final Date value = new Date(this.value);
+		final Precision precision = feature.precision;
 		final SimpleDateFormat df = df();
 		final StringBuilder bf = new StringBuilder();
 
@@ -97,11 +99,11 @@ public final class DatePrecisionViolationException extends ConstraintViolationEx
 			bf.append(" for ").
 				append(feature);
 		bf.append(", must be ").
-			append(feature.precision.name()).
+			append(precision.name()).
 			append(", round either to ").
-			append(df.format(feature.roundByPrecision(value, false))).
+			append(df.format(precision.round(value, false))).
 			append(" or ").
-			append(df.format(feature.roundByPrecision(value, true)));
+			append(df.format(precision.round(value, true)));
 
 		return bf.toString();
 	}
