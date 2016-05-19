@@ -42,7 +42,17 @@ public class DatePrecisionModelTest
 
 	@Test public void testMinutes()
 	{
-		assertFails(date(0, 0, 45, 55, 66), "1970-01-01 00:45:55.066 (55)", minutes);
+		assertFails(date(0, 0, 45, 55, 66), "1970-01-01 00:45:55.066 (66)", minutes);
+	}
+
+	@Test public void testMinutesWithSeconds()
+	{
+		assertFails(date(0, 0, 45, 55, 0), "1970-01-01 00:45:55.000 (55)", minutes);
+	}
+
+	@Test public void testMinutesWithMillis()
+	{
+		assertFails(date(0, 0, 45, 0, 66), "1970-01-01 00:45:00.066 (66)", minutes);
 	}
 
 	private static void assertFails(

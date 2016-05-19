@@ -161,16 +161,16 @@ public final class DateField extends FunctionField<Date>
 
 	enum Precision
 	{
-		MilliSeconds(Calendar.FIELD_COUNT),
+		MilliSeconds(),
 		Seconds     (Calendar.MILLISECOND),
-		Minutes     (Calendar.SECOND),
-		Hours       (Calendar.MINUTE);
+		Minutes     (Calendar.MILLISECOND, Calendar.SECOND),
+		Hours       (Calendar.MILLISECOND, Calendar.SECOND, Calendar.MINUTE);
 
-		int field;
+		int[] fields;
 
-		Precision(final int field)
+		Precision(final int... fields)
 		{
-			this.field = field;
+			this.fields = fields;
 		}
 	}
 
@@ -231,14 +231,17 @@ public final class DateField extends FunctionField<Date>
 	@Override
 	void checkNotNull(final Date value, final Item exceptionItem)
 	{
-		if(precision==Precision.MilliSeconds)
+		if(precision.fields.length==0)
 			return;
 
 		final GregorianCalendar cal = new GregorianCalendar(getTimeZone("Europe/Berlin"), Locale.ENGLISH); // TODO
 		cal.setTime(value);
-		final int violation = cal.get(precision.field);
-		if(violation!=0) // TODO probably we need multiple fields
-			throw new DatePrecisionViolationException(this, exceptionItem, value, violation);
+		for(final int field : precision.fields)
+		{
+			final int violation = cal.get(field);
+			if(violation!=0)
+				throw new DatePrecisionViolationException(this, exceptionItem, value, violation);
+		}
 	}
 
 	/**
