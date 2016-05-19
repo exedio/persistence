@@ -34,6 +34,7 @@ public class DatePrecisionModelTest
 	{
 		assertEquals(DateField.Precision.Seconds, seconds.getPrecision());
 		assertEquals(DateField.Precision.Minutes, minutes.getPrecision());
+		assertEquals(DateField.Precision.Hours  , hours.getPrecision());
 	}
 
 	@Test public void testSeconds()
