@@ -18,13 +18,17 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.util.TimeZoneStrict.getTimeZone;
 import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.instrument.FinalSettableGetter;
 import com.exedio.cope.util.Clock;
 import java.lang.reflect.AnnotatedElement;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.Locale;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -45,8 +49,9 @@ public final class DateField extends FunctionField<Date>
 			final Precision precision)
 	{
 		super(isfinal, optional, Date.class, unique, copyFrom, defaultSource);
-		mountDefaultSource();
 		this.precision = requireNonNull(precision, "precision");
+
+		mountDefaultSource();
 	}
 
 	public DateField()
@@ -156,7 +161,17 @@ public final class DateField extends FunctionField<Date>
 
 	enum Precision
 	{
-		MilliSeconds, Seconds, Minutes, Hours;
+		MilliSeconds(Calendar.FIELD_COUNT),
+		Seconds     (Calendar.MILLISECOND),
+		Minutes     (Calendar.SECOND),
+		Hours       (Calendar.MINUTE);
+
+		int field;
+
+		Precision(final int field)
+		{
+			this.field = field;
+		}
 	}
 
 	Precision getPrecision()
@@ -211,6 +226,19 @@ public final class DateField extends FunctionField<Date>
 	void set(final Row row, final Date surface)
 	{
 		row.put(getColumn(), surface==null ? null : Long.valueOf(surface.getTime()));
+	}
+
+	@Override
+	void checkNotNull(final Date value, final Item exceptionItem)
+	{
+		if(precision==Precision.MilliSeconds)
+			return;
+
+		final GregorianCalendar cal = new GregorianCalendar(getTimeZone("Europe/Berlin"), Locale.ENGLISH); // TODO
+		cal.setTime(value);
+		final int violation = cal.get(precision.field);
+		if(violation!=0) // TODO probably we need multiple fields
+			throw new DatePrecisionViolationException(this, exceptionItem, value, violation);
 	}
 
 	/**
