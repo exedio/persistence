@@ -24,6 +24,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Date;
 import org.junit.Test;
 
@@ -65,6 +66,7 @@ public class DatePrecisionTest extends TestWithEnvironment
 		assertEquals(date(0, 0, 0, 55, 0), item.getSeconds());
 	}
 
+	@SuppressFBWarnings("ICAST_INT_2_LONG_AS_INSTANT")
 	private static Date date(
 			final int days,
 			final int hours,
