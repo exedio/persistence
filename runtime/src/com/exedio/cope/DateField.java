@@ -112,35 +112,42 @@ public final class DateField extends FunctionField<Date>
 		return new DateField(isfinal, optional, unique, copyFrom, defaultSource, precision);
 	}
 
-	private static final DefaultSource<Date> DEFAULT_TO_NOW = new DefaultSource<Date>()
+	private static final class DefaultNow extends DefaultSource<Date>
 	{
+		private Precision precision;
+
+		DefaultNow() {} // make package protected
+
 		@Override
 		Date generate(final long now)
 		{
-			return new Date(now);
+			return precision.round(new Date(now), false); // TODO make up customizable
 		}
 
 		@Override
 		DefaultSource<Date> forNewField()
 		{
-			return this;
+			return new DefaultNow();
 		}
 
 		@Override
 		void mount(final FunctionField<Date> field)
 		{
-			// nothing to be checked
+			if(precision!=null)
+				throw new RuntimeException();
+
+			precision = ((DateField)field).precision;
 		}
-	};
+	}
 
 	public DateField defaultToNow()
 	{
-		return new DateField(isfinal, optional, unique, copyFrom, DEFAULT_TO_NOW, precision);
+		return new DateField(isfinal, optional, unique, copyFrom, new DefaultNow(), precision);
 	}
 
 	public boolean isDefaultNow()
 	{
-		return defaultSource==DEFAULT_TO_NOW;
+		return defaultSource instanceof DefaultNow;
 	}
 
 
