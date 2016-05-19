@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.DatePrecisionItem.TYPE;
+import static com.exedio.cope.DatePrecisionItem.minutes;
 import static com.exedio.cope.DatePrecisionItem.seconds;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -66,6 +67,39 @@ public class DatePrecisionTest extends TestWithEnvironment
 			assertEquals(wrong, e.getValue());
 		}
 		assertEquals(ok, item.getSeconds());
+	}
+
+	@Test public void testMinutes()
+	{
+		final DatePrecisionItem item = new DatePrecisionItem();
+		final Date ok    = date(0, 0, 45,  0,  0);
+		final Date wrong = date(0, 0, 45, 55, 66);
+
+		item.setMinutes(ok);
+		assertEquals(ok, item.getMinutes());
+
+		try
+		{
+			item.setMinutes(wrong);
+			fail();
+		}
+		catch(final DatePrecisionViolationException e)
+		{
+			assertEquals(
+					"precision violation on DatePrecisionItem-0, " +
+					"1970-01-01 00:45:55.066 (55) is too precise for DatePrecisionItem.minutes, " +
+					"must be Minutes",
+					e.getMessage());
+			assertEquals(
+					"precision violation on DatePrecisionItem-0, " +
+					"1970-01-01 00:45:55.066 (55) is too precise, " +
+					"must be Minutes",
+					e.getMessageWithoutFeature());
+			assertEquals(item, e.getItem());
+			assertEquals(minutes, e.getFeature());
+			assertEquals(wrong, e.getValue());
+		}
+		assertEquals(ok, item.getMinutes());
 	}
 
 	@SuppressFBWarnings("ICAST_INT_2_LONG_AS_INSTANT")
