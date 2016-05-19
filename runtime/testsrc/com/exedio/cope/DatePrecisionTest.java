@@ -46,22 +46,22 @@ public class DatePrecisionTest extends TestWithEnvironment
 
 		try
 		{
-			item.setSeconds(date(0, 0, 0, 55, 100));
+			item.setSeconds(date(0, 0, 0, 55, 66));
 			fail();
 		}
 		catch(final DatePrecisionViolationException e)
 		{
 			assertEquals(
 					"precision violation on DatePrecisionItem-0, " +
-					"1970-01-01 00:00:55.100 (100) is too precise for DatePrecisionItem.seconds, " +
+					"1970-01-01 00:00:55.066 (66) is too precise for DatePrecisionItem.seconds, " +
 					"must be Seconds", e.getMessage());
 			assertEquals(
 					"precision violation on DatePrecisionItem-0, " +
-					"1970-01-01 00:00:55.100 (100) is too precise, " +
+					"1970-01-01 00:00:55.066 (66) is too precise, " +
 					"must be Seconds", e.getMessageWithoutFeature());
 			assertEquals(item, e.getItem());
 			assertEquals(seconds, e.getFeature());
-			assertEquals(date(0, 0, 0, 55, 100), e.getValue());
+			assertEquals(date(0, 0, 0, 55, 66), e.getValue());
 		}
 		assertEquals(date(0, 0, 0, 55, 0), item.getSeconds());
 	}
