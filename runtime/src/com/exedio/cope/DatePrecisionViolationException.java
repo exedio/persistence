@@ -89,7 +89,7 @@ public final class DatePrecisionViolationException extends ConstraintViolationEx
 			append(df().format(new Date(value))).
 			append(" (").
 			append(violation).
-			append(") is too precise ");
+			append(") is too precise");
 
 		if(withFeature)
 			bf.append(" for ").
