@@ -33,10 +33,10 @@ public class DatePrecisionModelTest
 {
 	@Test public void testGetPrecision()
 	{
-		assertEquals(DateField.Precision.MilliSeconds, millis.getPrecision());
+		assertEquals(DateField.Precision.Millis , millis .getPrecision());
 		assertEquals(DateField.Precision.Seconds, seconds.getPrecision());
 		assertEquals(DateField.Precision.Minutes, minutes.getPrecision());
-		assertEquals(DateField.Precision.Hours  , hours.getPrecision());
+		assertEquals(DateField.Precision.Hours  , hours  .getPrecision());
 	}
 
 	@Test public void testMillis()

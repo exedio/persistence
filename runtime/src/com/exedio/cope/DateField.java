@@ -56,7 +56,7 @@ public final class DateField extends FunctionField<Date>
 
 	public DateField()
 	{
-		this(false, false, false, null, null, Precision.MilliSeconds);
+		this(false, false, false, null, null, Precision.Millis);
 	}
 
 	@Override
@@ -161,10 +161,10 @@ public final class DateField extends FunctionField<Date>
 
 	enum Precision
 	{
-		MilliSeconds(Calendar.FIELD_COUNT, (int[])null),
-		Seconds     (Calendar.SECOND,      Calendar.MILLISECOND),
-		Minutes     (Calendar.MINUTE,      Calendar.MILLISECOND, Calendar.SECOND),
-		Hours       (Calendar.HOUR_OF_DAY, Calendar.MILLISECOND, Calendar.SECOND, Calendar.MINUTE);
+		Millis (Calendar.FIELD_COUNT, (int[])null),
+		Seconds(Calendar.SECOND,      Calendar.MILLISECOND),
+		Minutes(Calendar.MINUTE,      Calendar.MILLISECOND, Calendar.SECOND),
+		Hours  (Calendar.HOUR_OF_DAY, Calendar.MILLISECOND, Calendar.SECOND, Calendar.MINUTE);
 
 		final int field;
 		final int[] fields;
@@ -233,7 +233,7 @@ public final class DateField extends FunctionField<Date>
 	@Override
 	void checkNotNull(final Date value, final Item exceptionItem)
 	{
-		if(precision==Precision.MilliSeconds)
+		if(precision==Precision.Millis)
 			return;
 
 		final GregorianCalendar cal = new GregorianCalendar(getTimeZone("Europe/Berlin"), Locale.ENGLISH); // TODO
@@ -248,7 +248,7 @@ public final class DateField extends FunctionField<Date>
 
 	Date roundByPrecision(final Date value, final boolean up)
 	{
-		if(precision==Precision.MilliSeconds)
+		if(precision==Precision.Millis)
 			return value;
 
 		final GregorianCalendar cal = new GregorianCalendar(getTimeZone("Europe/Berlin"), Locale.ENGLISH); // TODO
