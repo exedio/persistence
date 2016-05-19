@@ -57,11 +57,13 @@ public class DatePrecisionTest extends TestWithEnvironment
 			assertEquals(
 					"precision violation on DatePrecisionItem-0, " +
 					"1970-01-01 00:00:55.066 (66) is too precise for DatePrecisionItem.seconds, " +
-					"must be Seconds", e.getMessage());
+					"must be Seconds",
+					e.getMessage());
 			assertEquals(
 					"precision violation on DatePrecisionItem-0, " +
 					"1970-01-01 00:00:55.066 (66) is too precise, " +
-					"must be Seconds", e.getMessageWithoutFeature());
+					"must be Seconds",
+					e.getMessageWithoutFeature());
 			assertEquals(item, e.getItem());
 			assertEquals(seconds, e.getFeature());
 			assertEquals(wrong, e.getValue());
