@@ -38,11 +38,13 @@ public class DatePrecisionModelTest
 
 	@Test public void testSeconds()
 	{
+		assertOk   (seconds, date(0, 0, 0, 55,  0));
 		assertFails(seconds, date(0, 0, 0, 55, 66), "1970-01-01 00:00:55.066 (66)");
 	}
 
 	@Test public void testMinutes()
 	{
+		assertOk   (minutes, date(0, 0, 45,  0,  0));
 		assertFails(minutes, date(0, 0, 45, 55, 66), "1970-01-01 00:45:55.066 (66)");
 	}
 
@@ -58,6 +60,7 @@ public class DatePrecisionModelTest
 
 	@Test public void testHours()
 	{
+		assertOk   (hours, date(0, 15,  0,  0,  0));
 		assertFails(hours, date(0, 15, 44, 55, 66), "1970-01-01 15:44:55.066 (66)");
 	}
 
@@ -102,5 +105,12 @@ public class DatePrecisionModelTest
 			assertEquals(field, e.getFeature());
 			assertEquals(wrong, e.getValue());
 		}
+	}
+
+	private static void assertOk(
+			final DateField field,
+			final Date ok)
+	{
+		field.checkNotNull(ok, null);
 	}
 }
