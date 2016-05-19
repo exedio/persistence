@@ -167,12 +167,27 @@ public final class DateField extends FunctionField<Date>
 		Hours  (Calendar.HOUR_OF_DAY, Calendar.MILLISECOND, Calendar.SECOND, Calendar.MINUTE);
 
 		private final int field;
-		final int[] fields;
+		private final int[] fields;
 
 		Precision(final int field, final int... fields)
 		{
 			this.field = field;
 			this.fields = fields;
+		}
+
+		void check(final DateField feature, final Date value, final Item exceptionItem)
+		{
+			if(this==Millis)
+				return;
+
+			final GregorianCalendar cal = new GregorianCalendar(getTimeZone("Europe/Berlin"), Locale.ENGLISH); // TODO
+			cal.setTime(value);
+			for(final int field : fields)
+			{
+				final int violation = cal.get(field);
+				if(violation!=0)
+					throw new DatePrecisionViolationException(feature, exceptionItem, value, violation);
+			}
 		}
 
 		Date round(final Date value, final boolean up)
@@ -244,17 +259,7 @@ public final class DateField extends FunctionField<Date>
 	@Override
 	void checkNotNull(final Date value, final Item exceptionItem)
 	{
-		if(precision==Precision.Millis)
-			return;
-
-		final GregorianCalendar cal = new GregorianCalendar(getTimeZone("Europe/Berlin"), Locale.ENGLISH); // TODO
-		cal.setTime(value);
-		for(final int field : precision.fields)
-		{
-			final int violation = cal.get(field);
-			if(violation!=0)
-				throw new DatePrecisionViolationException(this, exceptionItem, value, violation);
-		}
+		precision.check(this, value, exceptionItem);
 	}
 
 	/**
