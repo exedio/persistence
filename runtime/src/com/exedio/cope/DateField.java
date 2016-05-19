@@ -114,20 +114,24 @@ public final class DateField extends FunctionField<Date>
 
 	private static final class DefaultNow extends DefaultSource<Date>
 	{
+		final boolean roundUp;
 		private Precision precision;
 
-		DefaultNow() {} // make package protected
+		DefaultNow(final boolean roundUp)
+		{
+			this.roundUp = roundUp;
+		}
 
 		@Override
 		Date generate(final long now)
 		{
-			return precision.round(new Date(now), false); // TODO make up customizable
+			return precision.round(new Date(now), roundUp);
 		}
 
 		@Override
 		DefaultSource<Date> forNewField()
 		{
-			return new DefaultNow();
+			return new DefaultNow(roundUp);
 		}
 
 		@Override
@@ -140,14 +144,34 @@ public final class DateField extends FunctionField<Date>
 		}
 	}
 
+	/**
+	 * @see #defaultToNow(boolean)
+	 */
 	public DateField defaultToNow()
 	{
-		return new DateField(isfinal, optional, unique, copyFrom, new DefaultNow(), precision);
+		return defaultToNow(false);
+	}
+
+	/**
+	 * @param roundUp
+	 *    specifies the rounding mode of the current date
+	 *    if there is a precision constraint on this field.
+	 *    Does not make any difference, if there is no precision constraint.
+	 * @see #defaultToNow()
+	 */
+	public DateField defaultToNow(final boolean roundUp)
+	{
+		return new DateField(isfinal, optional, unique, copyFrom, new DefaultNow(roundUp), precision);
 	}
 
 	public boolean isDefaultNow()
 	{
 		return defaultSource instanceof DefaultNow;
+	}
+
+	public boolean isDefaultNowRoundedUp()
+	{
+		return ((DefaultNow)defaultSource).roundUp;
 	}
 
 

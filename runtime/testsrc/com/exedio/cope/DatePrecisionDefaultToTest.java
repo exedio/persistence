@@ -53,4 +53,32 @@ public class DatePrecisionDefaultToTest
 			assertNull(e.getCause());
 		}
 	}
+
+	@Test public void testIsDefaultNowRoundedUpNoDefault()
+	{
+		final DateField f = new DateField();
+		try
+		{
+			f.isDefaultNowRoundedUp();
+			fail();
+		}
+		catch(final NullPointerException e) // TODO
+		{
+			assertEquals(null, e.getMessage()); // TODO
+		}
+	}
+
+	@Test public void testIsDefaultNowRoundedUpOtherDefault()
+	{
+		final DateField f = new DateField().defaultTo(new Date());
+		try
+		{
+			f.isDefaultNowRoundedUp();
+			fail();
+		}
+		catch(final ClassCastException e) // TODO
+		{
+			assertEquals("com.exedio.cope.FunctionField$DefaultConstant cannot be cast to com.exedio.cope.DateField$DefaultNow", e.getMessage()); // TODO
+		}
+	}
 }
