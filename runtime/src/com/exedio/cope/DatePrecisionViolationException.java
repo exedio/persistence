@@ -97,7 +97,7 @@ public final class DatePrecisionViolationException extends ConstraintViolationEx
 			bf.append(" for ").
 				append(feature);
 		bf.append(", must be ").
-			append(feature.getPrecision().name()).
+			append(feature.precision.name()).
 			append(", round either to ").
 			append(df.format(feature.roundByPrecision(value, false))).
 			append(" or ").

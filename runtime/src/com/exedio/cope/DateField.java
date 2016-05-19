@@ -38,7 +38,7 @@ public final class DateField extends FunctionField<Date>
 
 	private static final long serialVersionUID = 1l;
 
-	private final Precision precision;
+	final Precision precision;
 
 	private DateField(
 			final boolean isfinal,
@@ -174,11 +174,6 @@ public final class DateField extends FunctionField<Date>
 			this.field = field;
 			this.fields = fields;
 		}
-	}
-
-	Precision getPrecision()
-	{
-		return precision;
 	}
 
 

@@ -33,10 +33,10 @@ public class DatePrecisionModelTest
 {
 	@Test public void testGetPrecision()
 	{
-		assertEquals(DateField.Precision.Millis , millis .getPrecision());
-		assertEquals(DateField.Precision.Seconds, seconds.getPrecision());
-		assertEquals(DateField.Precision.Minutes, minutes.getPrecision());
-		assertEquals(DateField.Precision.Hours  , hours  .getPrecision());
+		assertEquals(DateField.Precision.Millis , millis .precision);
+		assertEquals(DateField.Precision.Seconds, seconds.precision);
+		assertEquals(DateField.Precision.Minutes, minutes.precision);
+		assertEquals(DateField.Precision.Hours  , hours  .precision);
 	}
 
 	@Test public void testMillis()
@@ -130,13 +130,13 @@ public class DatePrecisionModelTest
 			assertEquals(
 					"precision violation, " +
 					wrongString + " is too precise for " + field + ", " +
-					"must be " + field.getPrecision() +
+					"must be " + field.precision +
 					", round either to " + downString + " or " + upString,
 					e.getMessage());
 			assertEquals(
 					"precision violation, " +
 					wrongString + " is too precise, " +
-					"must be " + field.getPrecision() +
+					"must be " + field.precision +
 					", round either to " + downString + " or " + upString,
 					e.getMessageWithoutFeature());
 			assertEquals(null, e.getItem());
