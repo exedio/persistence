@@ -40,13 +40,15 @@ public class DatePrecisionTest extends TestWithEnvironment
 	@Test public void testSeconds()
 	{
 		final DatePrecisionItem item = new DatePrecisionItem();
+		final Date ok    = date(0, 0, 0, 55, 0 );
+		final Date wrong = date(0, 0, 0, 55, 66);
 
-		item.setSeconds(date(0, 0, 0, 55, 0));
-		assertEquals(date(0, 0, 0, 55, 0), item.getSeconds());
+		item.setSeconds(ok);
+		assertEquals(ok, item.getSeconds());
 
 		try
 		{
-			item.setSeconds(date(0, 0, 0, 55, 66));
+			item.setSeconds(wrong);
 			fail();
 		}
 		catch(final DatePrecisionViolationException e)
@@ -61,9 +63,9 @@ public class DatePrecisionTest extends TestWithEnvironment
 					"must be Seconds", e.getMessageWithoutFeature());
 			assertEquals(item, e.getItem());
 			assertEquals(seconds, e.getFeature());
-			assertEquals(date(0, 0, 0, 55, 66), e.getValue());
+			assertEquals(wrong, e.getValue());
 		}
-		assertEquals(date(0, 0, 0, 55, 0), item.getSeconds());
+		assertEquals(ok, item.getSeconds());
 	}
 
 	@SuppressFBWarnings("ICAST_INT_2_LONG_AS_INSTANT")
