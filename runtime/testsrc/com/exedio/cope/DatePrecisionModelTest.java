@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.DatePrecisionItem.hours;
+import static com.exedio.cope.DatePrecisionItem.millis;
 import static com.exedio.cope.DatePrecisionItem.minutes;
 import static com.exedio.cope.DatePrecisionItem.seconds;
 import static com.exedio.cope.DatePrecisionTest.date;
@@ -32,9 +33,15 @@ public class DatePrecisionModelTest
 {
 	@Test public void testGetPrecision()
 	{
+		assertEquals(DateField.Precision.MilliSeconds, millis.getPrecision());
 		assertEquals(DateField.Precision.Seconds, seconds.getPrecision());
 		assertEquals(DateField.Precision.Minutes, minutes.getPrecision());
 		assertEquals(DateField.Precision.Hours  , hours.getPrecision());
+	}
+
+	@Test public void testMillis()
+	{
+		assertOk(millis, date(0, 15, 44, 55,  66));
 	}
 
 	@Test public void testSeconds()
