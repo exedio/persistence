@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.DatePrecisionItem.hours;
 import static com.exedio.cope.DatePrecisionItem.minutes;
 import static com.exedio.cope.DatePrecisionItem.seconds;
 import static com.exedio.cope.DatePrecisionTest.date;
@@ -53,6 +54,26 @@ public class DatePrecisionModelTest
 	@Test public void testMinutesWithMillis()
 	{
 		assertFails(minutes, date(0, 0, 45, 0, 66), "1970-01-01 00:45:00.066 (66)");
+	}
+
+	@Test public void testHours()
+	{
+		assertFails(hours, date(0, 15, 44, 55, 66), "1970-01-01 15:44:55.066 (66)");
+	}
+
+	@Test public void testHoursWithMinutes()
+	{
+		assertFails(hours, date(0, 15, 44, 0, 0), "1970-01-01 15:44:00.000 (44)");
+	}
+
+	@Test public void testHoursWithSeconds()
+	{
+		assertFails(hours, date(0, 15, 0, 55, 0), "1970-01-01 15:00:55.000 (55)");
+	}
+
+	@Test public void testHoursWithMillis()
+	{
+		assertFails(hours, date(0, 15, 0, 0, 66), "1970-01-01 15:00:00.066 (66)");
 	}
 
 	private static void assertFails(
