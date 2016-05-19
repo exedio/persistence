@@ -105,7 +105,7 @@ public class DatePrecisionTest extends TestWithEnvironment
 	}
 
 	@SuppressFBWarnings("ICAST_INT_2_LONG_AS_INSTANT")
-	private static Date date(
+	static Date date(
 			final int days,
 			final int hours,
 			final int minutes,
