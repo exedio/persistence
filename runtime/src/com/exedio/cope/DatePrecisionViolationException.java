@@ -18,8 +18,12 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.util.TimeZoneStrict.getTimeZone;
+
 import com.exedio.cope.instrument.ConstructorComment;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.TimeZone;
 
 /**
  * Signals, that an attempt to write a {@link DateField date field} has been failed,
@@ -82,7 +86,7 @@ public final class DatePrecisionViolationException extends ConstraintViolationEx
 		bf.append("precision violation").
 			append(getItemPhrase()).
 			append(", ").
-			append(value).
+			append(df().format(new Date(value))).
 			append(" (").
 			append(violation).
 			append(") is too precise ");
@@ -95,4 +99,14 @@ public final class DatePrecisionViolationException extends ConstraintViolationEx
 
 		return bf.toString();
 	}
+
+	private static SimpleDateFormat df()
+	{
+		final SimpleDateFormat result = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+		result.setTimeZone(ZONE);
+		result.setLenient(false);
+		return result;
+	}
+
+	private static final TimeZone ZONE = getTimeZone("GMT");
 }

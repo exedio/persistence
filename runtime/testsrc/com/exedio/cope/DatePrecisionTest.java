@@ -35,7 +35,7 @@ public class DatePrecisionTest extends TestWithEnvironment
 		super(MODEL);
 	}
 
-	@Test public void testIt()
+	@Test public void testSeconds()
 	{
 		final DatePrecisionItem item = new DatePrecisionItem();
 
@@ -51,7 +51,7 @@ public class DatePrecisionTest extends TestWithEnvironment
 		{
 			assertEquals(
 					"precision violation on DatePrecisionItem-0, " +
-					"55100 (100) is too precise  for DatePrecisionItem.seconds, " +
+					"1970-01-01 00:00:55.100 (100) is too precise  for DatePrecisionItem.seconds, " +
 					"must be Seconds", e.getMessage());
 		}
 		assertEquals(date(0, 0, 0, 55, 0), item.getSeconds());
