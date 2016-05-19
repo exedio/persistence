@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import static com.exedio.cope.DatePrecisionItem.TYPE;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.util.Date;
@@ -38,12 +39,12 @@ public class DatePrecisionTest extends TestWithEnvironment
 	{
 		final DatePrecisionItem item = new DatePrecisionItem();
 
-		item.setSeconds(new Date(55000));
-		assertEquals(new Date(55000), item.getSeconds());
+		item.setSeconds(date(0, 0, 0, 55, 0));
+		assertEquals(date(0, 0, 0, 55, 0), item.getSeconds());
 
 		try
 		{
-			item.setSeconds(new Date(55100));
+			item.setSeconds(date(0, 0, 0, 55, 100));
 			fail();
 		}
 		catch(final DatePrecisionViolationException e)
@@ -53,6 +54,27 @@ public class DatePrecisionTest extends TestWithEnvironment
 					"55100 (100) is too precise  for DatePrecisionItem.seconds, " +
 					"must be Seconds", e.getMessage());
 		}
-		assertEquals(new Date(55000), item.getSeconds());
+		assertEquals(date(0, 0, 0, 55, 0), item.getSeconds());
+	}
+
+	private static Date date(
+			final int days,
+			final int hours,
+			final int minutes,
+			final int seconds,
+			final int milliseconds)
+	{
+		return new Date(
+				days *
+				  24 + less(  24, hours) *
+				  60 + less(  60, minutes) *
+				  60 + less(  60, seconds) *
+				1000 + less(1000, milliseconds));
+	}
+
+	private static int less(final int limit, final int value)
+	{
+		assertTrue("" + value + " " + limit, value<limit);
+		return value;
 	}
 }
