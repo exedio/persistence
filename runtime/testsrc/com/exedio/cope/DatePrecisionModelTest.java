@@ -29,15 +29,19 @@ import org.junit.Test;
 
 public class DatePrecisionModelTest
 {
-	@Test public void testSeconds()
+	@Test public void testGetPrecision()
 	{
 		assertEquals(DateField.Precision.Seconds, seconds.getPrecision());
+		assertEquals(DateField.Precision.Minutes, minutes.getPrecision());
+	}
+
+	@Test public void testSeconds()
+	{
 		assertFails(date(0, 0, 0, 55, 66), "1970-01-01 00:00:55.066 (66)", seconds);
 	}
 
 	@Test public void testMinutes()
 	{
-		assertEquals(DateField.Precision.Minutes, minutes.getPrecision());
 		assertFails(date(0, 0, 45, 55, 66), "1970-01-01 00:45:55.066 (55)", minutes);
 	}
 
