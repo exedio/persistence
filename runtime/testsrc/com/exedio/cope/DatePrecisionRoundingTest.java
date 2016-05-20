@@ -18,15 +18,92 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.DatePrecisionTest.date;
 import static com.exedio.cope.util.TimeZoneStrict.getTimeZone;
 import static org.junit.Assert.assertEquals;
 
+import com.exedio.cope.DateField.Precision;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import org.junit.Test;
 
 public class DatePrecisionRoundingTest
 {
+	@Test public void testMillis()
+	{
+		assertRound(Precision.Millis,
+				date(0, 15, 44, 55, 66),
+				date(0, 15, 44, 55, 66),
+				date(0, 15, 44, 55, 66));
+	}
+
+	@Test public void testSeconds()
+	{
+		assertRound(Precision.Seconds,
+				date(9, 15, 44, 55, 66),
+				date(9, 15, 44, 55,  0),
+				date(9, 15, 44, 56,  0));
+		assertRound(Precision.Seconds,
+				date(9, 15, 44, 55,  0),
+				date(9, 15, 44, 55,  0),
+				date(9, 15, 44, 56,  0)); // TODO bug !!!
+		assertRound(Precision.Seconds,
+				date(0,  0,  0, 55, 66),
+				date(0,  0,  0, 55,  0),
+				date(0,  0,  0, 56,  0));
+		assertRound(Precision.Seconds,
+				date(0,  0,  0, 55,  0),
+				date(0,  0,  0, 55,  0),
+				date(0,  0,  0, 56,  0)); // TODO bug !!!
+	}
+
+	@Test public void testMinutes()
+	{
+		assertRound(Precision.Minutes,
+				date(9, 15, 44, 55, 66),
+				date(9, 15, 44,  0,  0),
+				date(9, 15, 45,  0,  0));
+		assertRound(Precision.Minutes,
+				date(9, 15, 44, 55,  0),
+				date(9, 15, 44,  0,  0),
+				date(9, 15, 45,  0,  0));
+		assertRound(Precision.Minutes,
+				date(9, 15, 44,  0, 66),
+				date(9, 15, 44,  0,  0),
+				date(9, 15, 45,  0,  0));
+		assertRound(Precision.Minutes,
+				date(9, 15, 44,  0,  0),
+				date(9, 15, 44,  0,  0),
+				date(9, 15, 45,  0,  0)); // TODO bug !!!
+		assertRound(Precision.Minutes,
+				date(0,  0, 44, 55, 66),
+				date(0,  0, 44,  0,  0),
+				date(0,  0, 45,  0,  0));
+		assertRound(Precision.Minutes,
+				date(0,  0, 44, 55,  0),
+				date(0,  0, 44,  0,  0),
+				date(0,  0, 45,  0,  0));
+		assertRound(Precision.Minutes,
+				date(0,  0, 44,  0, 66),
+				date(0,  0, 44,  0,  0),
+				date(0,  0, 45,  0,  0));
+		assertRound(Precision.Minutes,
+				date(0,  0, 44,  0,  0),
+				date(0,  0, 44,  0,  0),
+				date(0,  0, 45,  0,  0)); // TODO bug !!!
+	}
+
+	private static void assertRound(
+			final Precision precision,
+			final Date origin,
+			final Date down,
+			final Date up)
+	{
+		assertEquals("down", down, precision.round(origin, false));
+		assertEquals("up"  , up  , precision.round(origin, true));
+	}
+
 	@Test public void testIt() throws ParseException
 	{
 		final SimpleDateFormat df = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss.SSS");
