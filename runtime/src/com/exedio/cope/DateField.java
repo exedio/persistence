@@ -24,6 +24,7 @@ import static java.util.Objects.requireNonNull;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.instrument.FinalSettableGetter;
 import com.exedio.cope.util.Clock;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.lang.reflect.AnnotatedElement;
 import java.util.Calendar;
 import java.util.Date;
@@ -115,6 +116,8 @@ public final class DateField extends FunctionField<Date>
 	private static final class DefaultNow extends DefaultSource<Date>
 	{
 		final boolean roundUp;
+
+		@SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
 		private Precision precision;
 
 		DefaultNow(final boolean roundUp)
