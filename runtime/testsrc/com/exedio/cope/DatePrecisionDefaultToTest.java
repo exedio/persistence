@@ -62,9 +62,9 @@ public class DatePrecisionDefaultToTest
 			f.isDefaultNowRoundedUp();
 			fail();
 		}
-		catch(final NullPointerException e) // TODO
+		catch(final IllegalArgumentException e)
 		{
-			assertEquals(null, e.getMessage()); // TODO
+			assertEquals("" + f + " has no default", e.getMessage());
 		}
 	}
 
@@ -76,9 +76,9 @@ public class DatePrecisionDefaultToTest
 			f.isDefaultNowRoundedUp();
 			fail();
 		}
-		catch(final ClassCastException e) // TODO
+		catch(final IllegalArgumentException e)
 		{
-			assertEquals("com.exedio.cope.FunctionField$DefaultConstant cannot be cast to com.exedio.cope.DateField$DefaultNow", e.getMessage()); // TODO
+			assertEquals("" + f + " is not default now", e.getMessage()); // TODO report default
 		}
 	}
 }

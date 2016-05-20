@@ -174,6 +174,11 @@ public final class DateField extends FunctionField<Date>
 
 	public boolean isDefaultNowRoundedUp()
 	{
+		if(defaultSource==null)
+			throw new IllegalArgumentException("" + this + " has no default");
+		if(!(defaultSource instanceof DefaultNow))
+			throw new IllegalArgumentException("" + this + " is not default now");
+
 		return ((DefaultNow)defaultSource).roundUp;
 	}
 
