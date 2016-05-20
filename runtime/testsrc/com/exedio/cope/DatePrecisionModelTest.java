@@ -26,6 +26,7 @@ import static com.exedio.cope.DatePrecisionTest.date;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
+import com.exedio.cope.DateField.Precision;
 import java.util.Date;
 import org.junit.Test;
 
@@ -33,10 +34,10 @@ public class DatePrecisionModelTest
 {
 	@Test public void testGetPrecision()
 	{
-		assertEquals(DateField.Precision.Millis , millis .precision);
-		assertEquals(DateField.Precision.Seconds, seconds.precision);
-		assertEquals(DateField.Precision.Minutes, minutes.precision);
-		assertEquals(DateField.Precision.Hours  , hours  .precision);
+		assertEquals(Precision.Millis , millis .precision);
+		assertEquals(Precision.Seconds, seconds.precision);
+		assertEquals(Precision.Minutes, minutes.precision);
+		assertEquals(Precision.Hours  , hours  .precision);
 	}
 
 	@Test public void testMillis()
