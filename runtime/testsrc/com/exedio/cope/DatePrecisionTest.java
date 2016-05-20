@@ -18,13 +18,20 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.DateField.Precision.Hours;
+import static com.exedio.cope.DateField.Precision.Millis;
+import static com.exedio.cope.DateField.Precision.Minutes;
+import static com.exedio.cope.DateField.Precision.Seconds;
 import static com.exedio.cope.DatePrecisionItem.TYPE;
 import static com.exedio.cope.DatePrecisionItem.minutes;
 import static com.exedio.cope.DatePrecisionItem.seconds;
+import static com.exedio.cope.SchemaInfo.getColumnValue;
+import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import com.exedio.cope.DateField.Precision;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Date;
 import org.junit.Test;
@@ -132,5 +139,14 @@ public class DatePrecisionTest extends TestWithEnvironment
 	{
 		assertTrue("" + value + " " + limit, value<limit);
 		return value;
+	}
+
+	@Test public void testEnumSchema()
+	{
+		assertEquals(asList(Millis, Seconds, Minutes, Hours), asList(Precision.values()));
+		assertEquals(10, getColumnValue(Millis ));
+		assertEquals(20, getColumnValue(Seconds  ));
+		assertEquals(30, getColumnValue(Minutes ));
+		assertEquals(40, getColumnValue(Hours));
 	}
 }
