@@ -82,7 +82,7 @@ public class SchemaTest extends TestWithEnvironment
 			assertNotExistsConstraint(table, "SchemaItem_doub_Ck");
 		assertCheckConstraint(table, "SchemaItem_bool_Ck"  , hp(q(bool  ))+" IN ("+hp("0")+","+hp("1")+")");
 		assertCheckConstraint(table, "SchemaItem_anEnum_Ck", hp(q(anEnum))+" IN ("+hp("10")+","+hp("20")+","+hp("30")+")");
-		assertCheckConstraint(table, "SchemaItem_item_Ck"  , "("+q(item  )+">=0) AND ("+q(item)+"<="+Integer.MAX_VALUE+")");
+		assertCheckConstraint(table, "SchemaItem_item_Ck"  , "("+q(item  )+">=0) AND ("+q(item)+"<=567)");
 
 		assertCheckConstraint(table, "SchemaItem_stringOpt_Ck","(("+q(stringOpt)+" IS NOT NULL) AND (("+l(stringOpt)+">=1) AND ("+l(stringOpt)+"<="+StringField.DEFAULT_MAXIMUM_LENGTH+")))"+" OR ("+q(stringOpt)+" IS NULL)");
 		assertCheckConstraint(table, "SchemaItem_integOpt_Ck" ,"(("+q(integOpt )+" IS NOT NULL) AND (("+q(integOpt)+">=-10) AND ("+q(integOpt)+"<=10)))"                 +" OR ("+q(integOpt )+" IS NULL)");
@@ -90,7 +90,7 @@ public class SchemaTest extends TestWithEnvironment
 		assertCheckConstraint(table, "SchemaItem_doubOpt_Ck"  ,"(("+q(doubOpt  )+" IS NOT NULL) AND (("+q(doubOpt)+">=-11.1) AND ("+q(doubOpt)+"<=11.1)))"               +" OR ("+q(doubOpt  )+" IS NULL)");
 		assertCheckConstraint(table, "SchemaItem_boolOpt_Ck"  ,"(("+q(boolOpt  )+" IS NOT NULL) AND ("+hp(q(boolOpt))+" IN ("+hp("0")+","+hp("1")+")))"                  +" OR ("+q(boolOpt  )+" IS NULL)");
 		assertCheckConstraint(table, "SchemaItem_enumOpt_Ck"  ,"(("+q(enumOpt  )+" IS NOT NULL) AND ("+hp(q(enumOpt))+" IN ("+hp("10")+","+hp("20")+","+hp("30")+")))"   +" OR ("+q(enumOpt  )+" IS NULL)");
-		assertCheckConstraint(table, "SchemaItem_itemOpt_Ck"  ,"(("+q(itemOpt  )+" IS NOT NULL) AND (("+q(itemOpt)  +">=0) AND ("+q(itemOpt)+"<="+Integer.MAX_VALUE+")))"+" OR ("+q(itemOpt  )+" IS NULL)");
+		assertCheckConstraint(table, "SchemaItem_itemOpt_Ck"  ,"(("+q(itemOpt  )+" IS NOT NULL) AND (("+q(itemOpt)  +">=0) AND ("+q(itemOpt)+"<=567)))"                  +" OR ("+q(itemOpt  )+" IS NULL)");
 
 		assertPkConstraint(table, "SchemaItem_Pk", null, getPrimaryKeyColumnName(TYPE));
 

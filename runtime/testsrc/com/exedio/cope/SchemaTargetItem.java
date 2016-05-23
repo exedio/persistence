@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+@CopeCreateLimit(567)
 final class SchemaTargetItem extends Item
 {
 	/**
