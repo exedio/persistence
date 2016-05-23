@@ -519,7 +519,7 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 		return new CompareCondition<>(Operator.GreaterEqual, (Selectable<E>)this, value);
 	}
 
-	public Condition between(final E lowerBound, final E upperBound)
+	public final Condition between(final E lowerBound, final E upperBound)
 	{
 		return greaterOrEqual(lowerBound).and(lessOrEqual(upperBound));
 	}
