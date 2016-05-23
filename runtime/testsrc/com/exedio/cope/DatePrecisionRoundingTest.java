@@ -21,6 +21,7 @@ package com.exedio.cope;
 import static com.exedio.cope.DatePrecisionTest.date;
 import static com.exedio.cope.util.TimeZoneStrict.getTimeZone;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 
 import com.exedio.cope.DateField.Precision;
 import java.text.ParseException;
@@ -170,6 +171,31 @@ public class DatePrecisionRoundingTest
 	{
 		assertEquals("down", down, precision.round(origin, false));
 		assertEquals("up"  , up  , precision.round(origin, true));
+	}
+
+	@Test public void testMap()
+	{
+		final DateField f = new DateField().minutes();
+		final Date value = date(9, 15, 44, 55, 66);
+		final Date down  = date(9, 15, 44,  0,  0);
+		final Date up    = date(9, 15, 45,  0,  0);
+
+		assertMap(f, value, f.map(value));
+		assertMap(f, down , f.mapAndRoundDown(value));
+		assertMap(f, up   , f.mapAndRoundUp  (value));
+
+		assertMap(f, null, f.map(null));
+		assertMap(f, null, f.mapAndRoundDown(null));
+		assertMap(f, null, f.mapAndRoundUp  (null));
+	}
+
+	private static void assertMap(
+			final DateField field,
+			final Date value,
+			final SetValue<Date> mapping)
+	{
+		assertSame  ("field", field, mapping.settable);
+		assertEquals("value", value, mapping.value);
 	}
 
 	@Test public void testIt() throws ParseException

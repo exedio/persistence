@@ -304,6 +304,16 @@ public final class DateField extends FunctionField<Date>
 		precision.check(this, value, exceptionItem);
 	}
 
+	public SetValue<Date> mapAndRoundDown(final Date value)
+	{
+		return SetValue.map(this, precision.round(value, false));
+	}
+
+	public SetValue<Date> mapAndRoundUp(final Date value)
+	{
+		return SetValue.map(this, precision.round(value, true));
+	}
+
 	@Wrap(order=5,
 			doc="Sets a new value for {0}, but rounds it before according to precision of field.",
 			hide={FinalSettableGetter.class, PrecisionGetter.class},
