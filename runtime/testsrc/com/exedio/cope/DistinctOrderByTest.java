@@ -123,8 +123,9 @@ public class DistinctOrderByTest extends TestWithEnvironment
 						"ORA-01791: ");
 				break;
 			case postgresql:
-				notAllowedStartsWith(query,
-						"ERROR: for SELECT DISTINCT, ORDER BY expressions must appear in select list");
+				notAllowedEquals(query,
+						"ERROR: for SELECT DISTINCT, ORDER BY expressions must appear in select list\n" +
+						"  Position: 181");
 				break;
 			default:
 				throw new RuntimeException(dialect.name());
