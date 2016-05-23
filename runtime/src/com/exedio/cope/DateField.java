@@ -349,6 +349,6 @@ public final class DateField extends FunctionField<Date>
 			hide=FinalSettableGetter.class)
 	public void touch(final Item item)
 	{
-		set(item, Clock.newDate()); // TODO: make a more efficient implementation
+		set(item, precision.round(Clock.newDate(), false)); // TODO: make a more efficient implementation
 	}
 }

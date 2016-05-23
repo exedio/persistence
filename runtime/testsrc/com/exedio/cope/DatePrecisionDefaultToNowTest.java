@@ -26,6 +26,7 @@ import static org.junit.Assert.assertEquals;
 
 import com.exedio.cope.junit.AbsoluteMockClockStrategy;
 import com.exedio.cope.tojunit.ClockRule;
+import java.util.Date;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.RuleChain;
@@ -75,10 +76,28 @@ public class DatePrecisionDefaultToNowTest extends TestWithEnvironment
 		assertEquals(date(11, 22, 44, 0, 0), item.getUp  ());
 	}
 
+	@Test public void testTouch()
+	{
+		final AnItem item = new AnItem(date(9, 9, 9, 0, 0), date(9, 9, 9, 0, 0));
+		clockRule.override(clock);
+		clock.add(date(11, 22, 44, 55, 66));
+		item.touchDown();
+		clock.assertEmpty();
+
+		assertEquals(date(11, 22, 44, 0, 0), item.getDown());
+	}
+
 	static final class AnItem extends Item
 	{
 		static final DateField down = new DateField().defaultToNow(false).minutes();
 		static final DateField up   = new DateField().defaultToNow(true ).minutes();
+
+		AnItem(final Date down, final Date up)
+		{
+			this(
+					AnItem.down.map(down),
+					AnItem.up.map(up));
+		}
 
 
 	/**
