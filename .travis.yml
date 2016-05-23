@@ -41,6 +41,13 @@ before_script:
     "x-build.driver=mysql-connector-java.jar\n"\
     | tee conf/environment/mysql-noPrep.properties
   - echo -e -n \
+    "connection.url=jdbc:mysql://localhost/cope_test_db\n"\
+    "connection.username=cope_test_user\n"\
+    "connection.password=pass\n"\
+    "schema.primaryKeyGenerator=sequence\n"\
+    "x-build.driver=mariadb-java-client.jar\n"\
+    | tee conf/environment/mysql-maria.properties
+  - echo -e -n \
     "connection.url=jdbc:postgresql://localhost/cope_test\n"\
     "connection.username=postgres\n"\
     "connection.password=\n"\
