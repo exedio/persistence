@@ -119,6 +119,48 @@ public class DatePrecisionTest extends TestWithEnvironment
 		assertEquals(ok, item.getMinutes());
 	}
 
+	@Test public void testSecondsRound()
+	{
+		final DatePrecisionItem item = new DatePrecisionItem();
+
+		final Date value = date(0, 0, 0, 55, 66);
+		final Date down  = date(0, 0, 0, 55,  0);
+		final Date up    = date(0, 0, 0, 56,  0);
+
+		item.setSecondsAndRoundDown(value);
+		assertEquals(down, item.getSeconds());
+
+		item.setSecondsAndRoundDown(null);
+		assertEquals(null, item.getSeconds());
+
+		item.setSecondsAndRoundUp(value);
+		assertEquals(up, item.getSeconds());
+
+		item.setSecondsAndRoundUp(null);
+		assertEquals(null, item.getSeconds());
+	}
+
+	@Test public void testMinutesRound()
+	{
+		final DatePrecisionItem item = new DatePrecisionItem();
+
+		final Date value = date(0, 0, 44, 55, 66);
+		final Date down  = date(0, 0, 44,  0,  0);
+		final Date up    = date(0, 0, 45,  0,  0);
+
+		item.setMinutesAndRoundDown(value);
+		assertEquals(down, item.getMinutes());
+
+		item.setMinutesAndRoundDown(null);
+		assertEquals(null, item.getMinutes());
+
+		item.setMinutesAndRoundUp(value);
+		assertEquals(up, item.getMinutes());
+
+		item.setMinutesAndRoundUp(null);
+		assertEquals(null, item.getMinutes());
+	}
+
 	@SuppressFBWarnings("ICAST_INT_2_LONG_AS_INSTANT")
 	static Date date(
 			final int days,

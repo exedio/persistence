@@ -21,6 +21,7 @@ package com.exedio.cope;
 import static com.exedio.cope.util.TimeZoneStrict.getTimeZone;
 import static java.util.Objects.requireNonNull;
 
+import com.exedio.cope.instrument.BooleanGetter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.instrument.FinalSettableGetter;
 import com.exedio.cope.util.Clock;
@@ -231,6 +232,8 @@ public final class DateField extends FunctionField<Date>
 
 		Date round(final Date value, final boolean up)
 		{
+			if(value==null)
+				return null;
 			if(this==Millis)
 				return value;
 
@@ -299,6 +302,32 @@ public final class DateField extends FunctionField<Date>
 	void checkNotNull(final Date value, final Item exceptionItem)
 	{
 		precision.check(this, value, exceptionItem);
+	}
+
+	@Wrap(order=5,
+			doc="Sets a new value for {0}, but rounds it before according to precision of field.",
+			hide={FinalSettableGetter.class, PrecisionGetter.class},
+			thrownGetter=InitialThrown.class)
+	public void setAndRoundDown(final Item item, final Date value)
+	{
+		item.set(this, precision.round(value, false));
+	}
+
+	@Wrap(order=6,
+			doc="Sets a new value for {0}, but rounds it before according to precision of field.",
+			hide={FinalSettableGetter.class, PrecisionGetter.class},
+			thrownGetter=InitialThrown.class)
+	public void setAndRoundUp(final Item item, final Date value)
+	{
+		item.set(this, precision.round(value, true));
+	}
+
+	private static final class PrecisionGetter implements BooleanGetter<DateField>
+	{
+		public boolean get(final DateField feature)
+		{
+			return feature.precision==Precision.Millis;
+		}
 	}
 
 	/**

@@ -154,6 +154,14 @@ public class DatePrecisionRoundingTest
 				date(0, 16,  0,  0,  0));
 	}
 
+	@Test public void testNull()
+	{
+		assertRound(Precision.Millis , null, null, null);
+		assertRound(Precision.Seconds, null, null, null);
+		assertRound(Precision.Minutes, null, null, null);
+		assertRound(Precision.Hours  , null, null, null);
+	}
+
 	private static void assertRound(
 			final Precision precision,
 			final Date origin,
