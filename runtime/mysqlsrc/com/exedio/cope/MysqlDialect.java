@@ -60,6 +60,7 @@ final class MysqlDialect extends Dialect
 	private final String deleteTable;
 	private final boolean smallIntegerTypes;
 	final String sequenceColumnName;
+	private final boolean mariaDriver;
 
 	MysqlDialect(final Probe probe)
 	{
@@ -80,6 +81,8 @@ final class MysqlDialect extends Dialect
 			throw new IllegalArgumentException(
 					"utf8mb4 must be enabled on MySQL 5.7 and later: " +
 					env.getDatabaseVersionDescription());
+
+		mariaDriver = env.getDriverName().startsWith("MariaDB");
 	}
 
 	private static String sequenceColumnName(final ConnectProperties properties)
@@ -103,6 +106,11 @@ final class MysqlDialect extends Dialect
 		info.setProperty("useLocalSessionState", TRUE);
 		info.setProperty("allowMultiQueries", TRUE); // needed for deleteSchema
 		//info.setProperty("profileSQL", TRUE);
+
+		// We do put query into SQLRuntimeException anyway, and query may be large.
+		// Also junit tests are easier that way.
+		if(mariaDriver)
+			info.setProperty("dumpQueriesOnException", "false");
 	}
 
 	@Override

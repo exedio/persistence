@@ -61,24 +61,9 @@ public class DeleteAfterUniqueViolationTest extends TestWithEnvironment
 			assertSame(DeleteAfterUniqueViolationItem.uniqueString.getImplicitUniqueConstraint(), e.getFeature());
 			if(unq)
 			{
-				final String driver = model.getEnvironmentInfo().getDriverName();
-				if(driver.startsWith("MySQL"))
-				{
-					assertEquals(
-							"Duplicate entry 'commit' for key 'DelAftUniVioIte_unStr_Unq'",
-							e.getCause().getMessage());
-				}
-				else if(driver.startsWith("MariaDB"))
-				{
-					assertEquals(
-							"Duplicate entry 'commit' for key 'DelAftUniVioIte_unStr_Unq'\n" +
-							"Query is : INSERT INTO `DeleteAfterUniquViolaItem`(`this`,`catch`,`uniqueString`,`name`)VALUES(1,0,'commit','commit')",
-							e.getCause().getMessage());
-				}
-				else
-				{
-					fail(driver);
-				}
+				assertEquals(
+						"Duplicate entry 'commit' for key 'DelAftUniVioIte_unStr_Unq'",
+						e.getCause().getMessage());
 				assertTrue(e.getCause() instanceof SQLException);
 			}
 			else
@@ -112,26 +97,9 @@ public class DeleteAfterUniqueViolationTest extends TestWithEnvironment
 			assertSame(DeleteAfterUniqueViolationItem.uniqueString.getImplicitUniqueConstraint(), e.getFeature());
 			if(unq)
 			{
-				final String driver = model.getEnvironmentInfo().getDriverName();
-				if(driver.startsWith("MySQL"))
-				{
-					assertEquals(
-							driver,
-							"Duplicate entry 'rollback' for key 'DelAftUniVioIte_unStr_Unq'",
-							e.getCause().getMessage());
-				}
-				else if(driver.startsWith("MariaDB"))
-				{
-					assertEquals(
-							driver,
-							"Duplicate entry 'rollback' for key 'DelAftUniVioIte_unStr_Unq'\n" +
-							"Query is : INSERT INTO `DeleteAfterUniquViolaItem`(`this`,`catch`,`uniqueString`,`name`)VALUES(1,0,'rollback','rollback')",
-							e.getCause().getMessage());
-				}
-				else
-				{
-					fail(driver);
-				}
+				assertEquals(
+						"Duplicate entry 'rollback' for key 'DelAftUniVioIte_unStr_Unq'",
+						e.getCause().getMessage());
 				assertTrue(e.getCause() instanceof SQLException);
 			}
 			else

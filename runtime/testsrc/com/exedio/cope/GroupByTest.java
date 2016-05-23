@@ -103,7 +103,7 @@ public class GroupByTest extends TestWithEnvironment
 						"PUBLIC.\"" + table + "\".\"" + column + "\"");
 				break;
 			case mysql:
-				notAllowedStartsWith(query,
+				notAllowedEquals(query,
 						"'" + catalog() + "." + table + "." + column + "' isn't in GROUP BY");
 				break;
 			case oracle:
@@ -138,7 +138,7 @@ public class GroupByTest extends TestWithEnvironment
 				break;
 			case mysql:
 				if(env.isDatabaseVersionAtLeast(5, 6))
-					notAllowedStartsWith(query,
+					notAllowedEquals(query,
 							"'" + catalog() + "." + table + "." + column + "' isn't in GROUP BY");
 				else
 					assertContains("foo", "bar", "goo", "car", query.search());
