@@ -54,6 +54,18 @@ final class OracleDialect extends Dialect
 						probe.properties.getConnectionUsername().toUpperCase(Locale.ENGLISH)));
 	}
 
+	@Override
+	void completeConnection(final Connection connection) throws SQLException
+	{
+		try(java.sql.Statement st = connection.createStatement())
+		{
+			st.execute(
+					"ALTER SESSION SET " +
+							"NLS_LANGUAGE='AMERICAN' " +
+							"NLS_TERRITORY='AMERICA'");
+		}
+	}
+
 	/**
 	 * See https://en.wikipedia.org/wiki/DUAL_table
 	 */

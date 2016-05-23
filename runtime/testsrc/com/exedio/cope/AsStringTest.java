@@ -80,9 +80,9 @@ public class AsStringTest extends TestWithEnvironment
 					new Selectable<?>[]{intx.asString(), longx.asString(), doublex.asString()},
 					TYPE, null);
 			q.setOrderBy(TYPE.getThis(), true);
-			final char d = oracle ? ',' : '.';
+			final char d = '.'; // TODO remove
 			final String p = hsqldb ? "E0" : "";
-			final String zd = oracle ? "," : "0.";
+			final String zd = oracle ? "." : "0."; // TODO simplify
 			final Iterator<List<Object>> i = q.search().iterator();
 			assertEquals(list( "13",  "15", postgresql?"2":("1"+d+"9"+p)), i.next());
 			assertEquals(list( "13",  "15", postgresql?"1":(zd+"9"+p)), i.next());

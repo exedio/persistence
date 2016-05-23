@@ -25,7 +25,6 @@ import static com.exedio.cope.tojunit.Assert.assertContains;
 import static com.exedio.cope.tojunit.Assert.assertContainsList;
 import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import com.exedio.dsmf.SQLRuntimeException;
@@ -119,8 +118,8 @@ public class DistinctOrderByTest extends TestWithEnvironment
 				assertContains(item2, item3, item1, query.search());
 				break;
 			case oracle:
-				notAllowedStartsWith(query,
-						"ORA-01791: ");
+				notAllowedEquals(query,
+						"ORA-01791: not a SELECTed expression\n");
 				break;
 			case postgresql:
 				notAllowedEquals(query,
@@ -143,20 +142,6 @@ public class DistinctOrderByTest extends TestWithEnvironment
 		catch(final SQLRuntimeException e)
 		{
 			assertEquals(message, e.getCause().getMessage());
-		}
-	}
-
-	static void notAllowedStartsWith(final Query<?> query, final String message)
-	{
-		try
-		{
-			query.search();
-			fail();
-		}
-		catch(final SQLRuntimeException e)
-		{
-			final String cause = e.getCause().getMessage();
-			assertTrue(cause, cause.startsWith(message));
 		}
 	}
 }

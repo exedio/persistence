@@ -19,7 +19,6 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.DistinctOrderByTest.notAllowedEquals;
-import static com.exedio.cope.DistinctOrderByTest.notAllowedStartsWith;
 import static com.exedio.cope.GroupByTest.AnItem.TYPE;
 import static com.exedio.cope.GroupByTest.AnItem.integer;
 import static com.exedio.cope.GroupByTest.AnItem.string;
@@ -107,8 +106,8 @@ public class GroupByTest extends TestWithEnvironment
 						"'" + catalog() + "." + table + "." + column + "' isn't in GROUP BY");
 				break;
 			case oracle:
-				notAllowedStartsWith(query,
-						"ORA-00979: ");
+				notAllowedEquals(query,
+						"ORA-00979: not a GROUP BY expression\n");
 				break;
 			case postgresql:
 				notAllowedEquals(query,
@@ -145,8 +144,8 @@ public class GroupByTest extends TestWithEnvironment
 					assertContains("foo", "bar", "goo", "car", query.search());
 				break;
 			case oracle:
-				notAllowedStartsWith(query,
-						"ORA-00979: ");
+				notAllowedEquals(query,
+						"ORA-00979: not a GROUP BY expression\n");
 				break;
 			case postgresql:
 				notAllowedEquals(query,
@@ -175,8 +174,8 @@ public class GroupByTest extends TestWithEnvironment
 				assertContains("foo", "bar", "goo", "car", query.search());
 				break;
 			case oracle:
-				notAllowedStartsWith(query,
-						"ORA-01791: ");
+				notAllowedEquals(query,
+						"ORA-01791: not a SELECTed expression\n");
 				break;
 			case postgresql:
 				notAllowedEquals(query,
