@@ -60,6 +60,7 @@ public class SchemaModifyTest extends TestWithEnvironment
 			assertEquals(true, table.exists());
 			assertEquals(null, table.getError());
 			assertEquals(OK, table.getParticularColor());
+			assertEquals(OK, table.getCumulativeColor());
 
 			final Column column = table.getColumn(COLUMN1);
 			assertEquals(true, column.required());
@@ -279,6 +280,8 @@ public class SchemaModifyTest extends TestWithEnvironment
 
 			table.getConstraint("SchemaItem_item_Fk").create();
 			table.getConstraint("SchemaItem_itemOpt_Fk").create();
+			table.getConstraint("SchemaItem_poly_Fk").create();
+			table.getConstraint("SchemaItem_polyOpt_Fk").create();
 		}
 		// OK
 		{

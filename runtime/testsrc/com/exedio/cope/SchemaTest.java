@@ -21,6 +21,7 @@ package com.exedio.cope;
 import static com.exedio.cope.SchemaInfo.getColumnName;
 import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnName;
 import static com.exedio.cope.SchemaInfo.getTableName;
+import static com.exedio.cope.SchemaInfo.getTypeColumnName;
 import static com.exedio.cope.SchemaItem.TYPE;
 import static com.exedio.cope.SchemaItem.anEnum;
 import static com.exedio.cope.SchemaItem.bool;
@@ -33,6 +34,8 @@ import static com.exedio.cope.SchemaItem.integ;
 import static com.exedio.cope.SchemaItem.integOpt;
 import static com.exedio.cope.SchemaItem.item;
 import static com.exedio.cope.SchemaItem.itemOpt;
+import static com.exedio.cope.SchemaItem.poly;
+import static com.exedio.cope.SchemaItem.polyOpt;
 import static com.exedio.cope.SchemaItem.string;
 import static com.exedio.cope.SchemaItem.stringEmpty;
 import static com.exedio.cope.SchemaItem.stringExact6;
@@ -56,7 +59,7 @@ import org.junit.Test;
 
 public class SchemaTest extends TestWithEnvironment
 {
-	static final Model MODEL = new Model(TYPE, SchemaTargetItem.TYPE);
+	static final Model MODEL = new Model(TYPE, SchemaTargetItem.TYPE, SchemaTargetPolymorphicItem.TYPE);
 
 	public SchemaTest()
 	{
@@ -79,6 +82,8 @@ public class SchemaTest extends TestWithEnvironment
 		assertCheckConstraint(table, "SchemaItem_bool_Ck"  , hp(q(bool  ))+" IN ("+hp("0")+","+hp("1")+")");
 		assertCheckConstraint(table, "SchemaItem_anEnum_Ck", hp(q(anEnum))+" IN ("+hp("10")+","+hp("20")+","+hp("30")+")");
 		assertCheckConstraint(table, "SchemaItem_item_Ck"  , "("+q(item  )+">=0) AND ("+q(item)+"<=567)");
+		assertCheckConstraint(table, "SchemaItem_poly_Ck"  , "("+q(poly  )+">=0) AND ("+q(poly)+"<=567)");
+		assertCheckConstraint(table, "SchemaItem_polyType_Ck", hp(t(poly))+" IN ("+hp("'SchemaTargetPolymorphicItem'")+","+hp("'SchemaTargetItem'")+")");
 
 		assertCheckConstraint(table, "SchemaItem_stringOpt_Ck","(("+q(stringOpt)+" IS NOT NULL) AND (("+l(stringOpt)+">=1) AND ("+l(stringOpt)+"<="+StringField.DEFAULT_MAXIMUM_LENGTH+")))"+" OR ("+q(stringOpt)+" IS NULL)");
 		assertCheckConstraint(table, "SchemaItem_integOpt_Ck" ,"(("+q(integOpt )+" IS NOT NULL) AND (("+q(integOpt)+">=-10) AND ("+q(integOpt)+"<=10)))"                 +" OR ("+q(integOpt )+" IS NULL)");
@@ -86,6 +91,10 @@ public class SchemaTest extends TestWithEnvironment
 		assertCheckConstraint(table, "SchemaItem_boolOpt_Ck"  ,"(("+q(boolOpt  )+" IS NOT NULL) AND ("+hp(q(boolOpt))+" IN ("+hp("0")+","+hp("1")+")))"                  +" OR ("+q(boolOpt  )+" IS NULL)");
 		assertCheckConstraint(table, "SchemaItem_enumOpt_Ck"  ,"(("+q(enumOpt  )+" IS NOT NULL) AND ("+hp(q(enumOpt))+" IN ("+hp("10")+","+hp("20")+","+hp("30")+")))"   +" OR ("+q(enumOpt  )+" IS NULL)");
 		assertCheckConstraint(table, "SchemaItem_itemOpt_Ck"  ,"(("+q(itemOpt  )+" IS NOT NULL) AND (("+q(itemOpt)  +">=0) AND ("+q(itemOpt)+"<=567)))"                  +" OR ("+q(itemOpt  )+" IS NULL)");
+		assertCheckConstraint(table, "SchemaItem_polyOpt_Ck"  ,"(("+q(polyOpt  )+" IS NOT NULL) AND (("+q(polyOpt)  +">=0) AND ("+q(polyOpt)+"<=567)))"                  +" OR ("+q(polyOpt  )+" IS NULL)");
+		assertCheckConstraint(table, "SchemaItem_polyOptType_Ck",
+				"(("+t(polyOpt)+" IS NOT NULL) AND (("+hp(t(polyOpt))+" IN ("+hp("'SchemaTargetPolymorphicItem'")+","+hp("'SchemaTargetItem'")+"))"+" AND ("+q(polyOpt)+" IS NOT NULL)))" +
+				" OR (("+t(polyOpt)+" IS NULL) AND ("+q(polyOpt)+" IS NULL))");
 
 		assertPkConstraint(table, "SchemaItem_Pk", null, getPrimaryKeyColumnName(TYPE));
 
@@ -154,6 +163,11 @@ public class SchemaTest extends TestWithEnvironment
 	private final String q(final Field<?> f)
 	{
 		return SchemaInfo.quoteName(model, getColumnName(f));
+	}
+
+	private final String t(final ItemField<?> f)
+	{
+		return SchemaInfo.quoteName(model, getTypeColumnName(f));
 	}
 
 	private final String l(final StringField f)
