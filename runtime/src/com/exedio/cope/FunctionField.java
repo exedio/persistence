@@ -499,22 +499,22 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 		return Cope.notEqual(this, value);
 	}
 
-	public final CompareCondition<E> less(final E value)
+	public CompareCondition<E> less(final E value)
 	{
 		return new CompareCondition<>(Operator.Less, (Selectable<E>)this, value);
 	}
 
-	public final CompareCondition<E> lessOrEqual(final E value)
+	public CompareCondition<E> lessOrEqual(final E value)
 	{
 		return new CompareCondition<>(Operator.LessEqual, (Selectable<E>)this, value);
 	}
 
-	public final CompareCondition<E> greater(final E value)
+	public CompareCondition<E> greater(final E value)
 	{
 		return new CompareCondition<>(Operator.Greater, (Selectable<E>)this, value);
 	}
 
-	public final CompareCondition<E> greaterOrEqual(final E value)
+	public CompareCondition<E> greaterOrEqual(final E value)
 	{
 		return new CompareCondition<>(Operator.GreaterEqual, (Selectable<E>)this, value);
 	}

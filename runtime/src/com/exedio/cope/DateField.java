@@ -340,6 +340,30 @@ public final class DateField extends FunctionField<Date>
 		}
 	}
 
+	@Override
+	public CompareCondition<Date> less(final Date value)
+	{
+		return super.less(precision.round(value, true));
+	}
+
+	@Override
+	public CompareCondition<Date> lessOrEqual(final Date value)
+	{
+		return super.lessOrEqual(precision.round(value, false));
+	}
+
+	@Override
+	public CompareCondition<Date> greater(final Date value)
+	{
+		return super.greater(precision.round(value, false));
+	}
+
+	@Override
+	public CompareCondition<Date> greaterOrEqual(final Date value)
+	{
+		return super.greaterOrEqual(precision.round(value, true));
+	}
+
 	/**
 	 * @throws FinalViolationException
 	 *         if this field is {@link #isFinal() final}.
