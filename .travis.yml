@@ -71,3 +71,4 @@ after_script:
   - cat build/*-catalina-start.log
   - cat build/*-catalina-stop.log
   - cat tomcat/logs/*.log
+  - ls -la build/testtmpdir
