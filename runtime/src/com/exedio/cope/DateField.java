@@ -239,7 +239,7 @@ public final class DateField extends FunctionField<Date>
 			for(final int field : fields)
 				cal.set(field, 0);
 
-			if(up)
+			if(up && (cal.getTimeInMillis()!=value.getTime()))
 				cal.add(field, 1);
 
 			return cal.getTime();

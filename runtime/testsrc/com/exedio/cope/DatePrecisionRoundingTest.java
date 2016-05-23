@@ -47,7 +47,7 @@ public class DatePrecisionRoundingTest
 		assertRound(Precision.Seconds,
 				date(9, 15, 44, 55,  0),
 				date(9, 15, 44, 55,  0),
-				date(9, 15, 44, 56,  0)); // TODO bug !!!
+				date(9, 15, 44, 55,  0));
 		assertRound(Precision.Seconds,
 				date(9, 15, 44, 55,999),
 				date(9, 15, 44, 55,  0),
@@ -59,7 +59,7 @@ public class DatePrecisionRoundingTest
 		assertRound(Precision.Seconds,
 				date(0,  0,  0, 55,  0),
 				date(0,  0,  0, 55,  0),
-				date(0,  0,  0, 56,  0)); // TODO bug !!!
+				date(0,  0,  0, 55,  0));
 		assertRound(Precision.Seconds,
 				date(0,  0,  0, 55,999),
 				date(0,  0,  0, 55,  0),
@@ -83,7 +83,7 @@ public class DatePrecisionRoundingTest
 		assertRound(Precision.Minutes,
 				date(9, 15, 44,  0,  0),
 				date(9, 15, 44,  0,  0),
-				date(9, 15, 45,  0,  0)); // TODO bug !!!
+				date(9, 15, 44,  0,  0));
 		assertRound(Precision.Minutes,
 				date(9, 15, 44, 59,999),
 				date(9, 15, 44,  0,  0),
@@ -103,7 +103,7 @@ public class DatePrecisionRoundingTest
 		assertRound(Precision.Minutes,
 				date(0,  0, 44,  0,  0),
 				date(0,  0, 44,  0,  0),
-				date(0,  0, 45,  0,  0)); // TODO bug !!!
+				date(0,  0, 44,  0,  0));
 		assertRound(Precision.Minutes,
 				date(0,  0, 44, 59,999),
 				date(0,  0, 44,  0,  0),
@@ -127,7 +127,7 @@ public class DatePrecisionRoundingTest
 		assertRound(Precision.Hours,
 				date(9, 15,  0,  0,  0),
 				date(9, 15,  0,  0,  0),
-				date(9, 16,  0,  0,  0)); // TODO bug !!!
+				date(9, 15,  0,  0,  0));
 		assertRound(Precision.Hours,
 				date(9, 15, 59, 59,999),
 				date(9, 15,  0,  0,  0),
@@ -147,7 +147,7 @@ public class DatePrecisionRoundingTest
 		assertRound(Precision.Hours,
 				date(0, 15,  0,  0,  0),
 				date(0, 15,  0,  0,  0),
-				date(0, 16,  0,  0,  0)); // TODO bug !!!
+				date(0, 15,  0,  0,  0));
 		assertRound(Precision.Hours,
 				date(0, 15, 59, 59,999),
 				date(0, 15,  0,  0,  0),

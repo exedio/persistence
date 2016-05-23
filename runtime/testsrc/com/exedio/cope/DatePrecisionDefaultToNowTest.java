@@ -72,7 +72,7 @@ public class DatePrecisionDefaultToNowTest extends TestWithEnvironment
 		clock.assertEmpty();
 
 		assertEquals(date(11, 22, 44, 0, 0), item.getDown());
-		assertEquals(date(11, 22, 45, 0, 0), item.getUp  ()); // TODO bug !!!
+		assertEquals(date(11, 22, 44, 0, 0), item.getUp  ());
 	}
 
 	static final class AnItem extends Item
