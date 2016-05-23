@@ -18,10 +18,10 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.DatePrecisionConditionTest.date;
 import static com.exedio.cope.DatePrecisionDefaultToNowTest.AnItem.TYPE;
 import static com.exedio.cope.DatePrecisionDefaultToNowTest.AnItem.down;
 import static com.exedio.cope.DatePrecisionDefaultToNowTest.AnItem.up;
-import static com.exedio.cope.DatePrecisionTest.date;
 import static org.junit.Assert.assertEquals;
 
 import com.exedio.cope.junit.AbsoluteMockClockStrategy;

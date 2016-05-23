@@ -18,11 +18,11 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.DatePrecisionConditionTest.date;
 import static com.exedio.cope.DatePrecisionItem.hours;
 import static com.exedio.cope.DatePrecisionItem.millis;
 import static com.exedio.cope.DatePrecisionItem.minutes;
 import static com.exedio.cope.DatePrecisionItem.seconds;
-import static com.exedio.cope.DatePrecisionTest.date;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 

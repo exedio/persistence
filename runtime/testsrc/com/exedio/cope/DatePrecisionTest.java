@@ -22,17 +22,16 @@ import static com.exedio.cope.DateField.Precision.Hours;
 import static com.exedio.cope.DateField.Precision.Millis;
 import static com.exedio.cope.DateField.Precision.Minutes;
 import static com.exedio.cope.DateField.Precision.Seconds;
+import static com.exedio.cope.DatePrecisionConditionTest.date;
 import static com.exedio.cope.DatePrecisionItem.TYPE;
 import static com.exedio.cope.DatePrecisionItem.minutes;
 import static com.exedio.cope.DatePrecisionItem.seconds;
 import static com.exedio.cope.SchemaInfo.getColumnValue;
 import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import com.exedio.cope.DateField.Precision;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Date;
 import org.junit.Test;
 
@@ -159,28 +158,6 @@ public class DatePrecisionTest extends TestWithEnvironment
 
 		item.setMinutesAndRoundUp(null);
 		assertEquals(null, item.getMinutes());
-	}
-
-	@SuppressFBWarnings("ICAST_INT_2_LONG_AS_INSTANT")
-	static Date date(
-			final int days,
-			final int hours,
-			final int minutes,
-			final int seconds,
-			final int milliseconds)
-	{
-		return new Date(
-				(((days *
-				  24 + less(  24, hours)) *
-				  60 + less(  60, minutes)) *
-				  60 + less(  60, seconds)) *
-				1000 + less(1000, milliseconds));
-	}
-
-	private static int less(final int limit, final int value)
-	{
-		assertTrue("" + value + " " + limit, value<limit);
-		return value;
 	}
 
 	@Test public void testEnumSchema()
