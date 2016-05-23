@@ -138,7 +138,7 @@ public class DatePrecisionConditionTest extends TestWithEnvironment
 	static final class AnItem extends Item
 	{
 		static final DateField exact   = new DateField().toFinal();
-		static final DateField rounded = new DateField().toFinal();
+		static final DateField rounded = new DateField().toFinal().hours();
 
 		AnItem(final Date date)
 		{
