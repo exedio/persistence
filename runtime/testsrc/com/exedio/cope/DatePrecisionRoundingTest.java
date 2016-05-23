@@ -110,6 +110,50 @@ public class DatePrecisionRoundingTest
 				date(0,  0, 45,  0,  0));
 	}
 
+	@Test public void testHours()
+	{
+		assertRound(Precision.Hours,
+				date(9, 15, 44, 55, 66),
+				date(9, 15,  0,  0,  0),
+				date(9, 16,  0,  0,  0));
+		assertRound(Precision.Hours,
+				date(9, 15, 44,  0,  0),
+				date(9, 15,  0,  0,  0),
+				date(9, 16,  0,  0,  0));
+		assertRound(Precision.Hours,
+				date(9, 15,  0,  0, 66),
+				date(9, 15,  0,  0,  0),
+				date(9, 16,  0,  0,  0));
+		assertRound(Precision.Hours,
+				date(9, 15,  0,  0,  0),
+				date(9, 15,  0,  0,  0),
+				date(9, 16,  0,  0,  0)); // TODO bug !!!
+		assertRound(Precision.Hours,
+				date(9, 15, 59, 59,999),
+				date(9, 15,  0,  0,  0),
+				date(9, 16,  0,  0,  0));
+		assertRound(Precision.Hours,
+				date(0, 15, 44, 55, 66),
+				date(0, 15,  0,  0,  0),
+				date(0, 16,  0,  0,  0));
+		assertRound(Precision.Hours,
+				date(0, 15, 44,  0,  0),
+				date(0, 15,  0,  0,  0),
+				date(0, 16,  0,  0,  0));
+		assertRound(Precision.Hours,
+				date(0, 15,  0,  0, 66),
+				date(0, 15,  0,  0,  0),
+				date(0, 16,  0,  0,  0));
+		assertRound(Precision.Hours,
+				date(0, 15,  0,  0,  0),
+				date(0, 15,  0,  0,  0),
+				date(0, 16,  0,  0,  0)); // TODO bug !!!
+		assertRound(Precision.Hours,
+				date(0, 15, 59, 59,999),
+				date(0, 15,  0,  0,  0),
+				date(0, 16,  0,  0,  0));
+	}
+
 	private static void assertRound(
 			final Precision precision,
 			final Date origin,
