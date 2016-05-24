@@ -18,10 +18,14 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.DistinctOrderByTest.notAllowed;
 import static com.exedio.cope.GroupItem.TYPE;
 import static com.exedio.cope.GroupItem.day;
 import static com.exedio.cope.GroupItem.number;
 import static com.exedio.cope.GroupItem.optionalDouble;
+import static com.exedio.cope.SchemaInfo.getColumnName;
+import static com.exedio.cope.SchemaInfo.getTableName;
+import static com.exedio.cope.SchemaInfo.newConnection;
 import static com.exedio.cope.tojunit.Assert.assertContains;
 import static com.exedio.cope.tojunit.Assert.list;
 import static java.util.Arrays.asList;
@@ -30,6 +34,8 @@ import static org.junit.Assert.fail;
 
 import com.exedio.cope.util.Day;
 import com.exedio.dsmf.SQLRuntimeException;
+import java.sql.Connection;
+import java.sql.SQLException;
 import org.junit.Test;
 
 public class QueryGroupingTest extends TestWithEnvironment
@@ -123,20 +129,39 @@ public class QueryGroupingTest extends TestWithEnvironment
 		assertEquals(1, query.total());
 	}
 
-	@Test public void testUngroupedSelect()
+	@Test public void testUngroupedSelect() throws SQLException
 	{
 		new GroupItem(day1, 1);
 		new GroupItem(day2, 2);
 		final Query<?> query = Query.newQuery( new Selectable<?>[]{day, number}, TYPE, null );
 		query.setGroupBy( number );
 		assertEquals( "select day,number from GroupItem group by number", query.toString() );
-		try
+
+		final String table = getTableName(TYPE);
+		final String column = getColumnName(day);
+		switch(dialect)
 		{
-			fail( query.search().toString() );
-		}
-		catch ( final SQLRuntimeException e )
-		{
-			// fine
+			case hsqldb:
+				notAllowed(query,
+						"expression not in aggregate or GROUP BY columns: " +
+						"PUBLIC.\"" + table + "\".\"" + column + "\"");
+				break;
+			case mysql:
+				notAllowed(query,
+						"'" + catalog() + "." + table + "." + column + "' isn't in GROUP BY");
+				break;
+			case oracle:
+				notAllowed(query,
+						"ORA-00979: not a GROUP BY expression\n");
+				break;
+			case postgresql:
+				notAllowed(query,
+						"ERROR: column \"" + table + "." + column + "\" must appear " +
+						"in the GROUP BY clause or be used in an aggregate function\n" +
+						"  Position: 8");
+				break;
+			default:
+				throw new RuntimeException("" + dialect);
 		}
 		if(oracle)
 		{
@@ -153,6 +178,18 @@ public class QueryGroupingTest extends TestWithEnvironment
 				// fine
 			}
 		}
+	}
+
+	private String catalog() throws SQLException
+	{
+		model.commit();
+		final String result;
+		try(Connection con = newConnection(model))
+		{
+			result = con.getCatalog();
+		}
+		model.startTransaction(GroupByTest.class.getName());
+		return result;
 	}
 
 	@Test public void testSingleSelect()
