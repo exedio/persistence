@@ -42,9 +42,6 @@ public class CheckConstraintConditionTest extends TestWithEnvironment
 
 	@Test public void testIt()
 	{
-		if(oracle) // TODO
-			return;
-
 		assertSchema();
 	}
 }

@@ -95,6 +95,16 @@ final class OracleDialect extends Dialect
 		return "NUMBER(30,8)";
 	}
 
+	@Override
+	String format(final double number)
+	{
+		final String s = super.format(number);
+		return
+			(s.indexOf('E')>=0)
+			? s + 'd' // https://docs.oracle.com/cd/B12037_01/server.101/b10759/sql_elements003.htm#i139891
+			: s;
+	}
+
 	/**
 	 * The parameter of varchar specifies bytes.
 	 * The parameter of nvarchar specifies characters.

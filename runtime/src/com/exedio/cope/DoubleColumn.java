@@ -53,9 +53,6 @@ final class DoubleColumn extends Column
 	@Override
 	String getCheckConstraintIfNotNull()
 	{
-		if(table.database.oracle)
-			return null;
-
 		final Dialect dialect = table.database.dialect;
 		return
 				'(' + quotedID + ">=" + dialect.format(minimum) + ") AND " +

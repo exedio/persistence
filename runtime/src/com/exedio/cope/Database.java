@@ -49,8 +49,6 @@ final class Database
 	private final ConnectionPool connectionPool;
 	final Executor executor;
 
-	final boolean oracle; // TODO remove
-
 	Database(
 			final com.exedio.dsmf.Dialect dsmfDialect,
 			final Probe probe,
@@ -68,7 +66,6 @@ final class Database
 		this.revisions = revisions;
 		this.connectionPool = connectionPool;
 		this.executor = executor;
-		this.oracle = dialect.getClass().getName().equals("com.exedio.cope.OracleDialect");
 
 		//System.out.println("using database "+getClass());
 	}
