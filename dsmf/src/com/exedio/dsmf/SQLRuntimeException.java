@@ -40,11 +40,13 @@ public final class SQLRuntimeException extends RuntimeException
 			return null;
 
 		final int length = value.length();
-		if(length<=200)
+		if(length<=LIMIT)
 			return value;
 
 		return
-			value.substring(0, 100) + " ... " + value.substring(length-20, length) +
+			value.substring(0, LIMIT-100) + " ... " + value.substring(length-20, length) +
 			" (truncated, was " + length + " characters)";
 	}
+
+	private static final int LIMIT = 200;
 }
