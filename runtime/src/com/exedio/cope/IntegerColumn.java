@@ -121,15 +121,13 @@ class IntegerColumn extends Column
 	{
 		if(allowedValues!=null)
 		{
-			// Additional parenthesis are needed for hsqldb,
-			// see http://sourceforge.net/tracker/?func=detail&atid=378131&aid=3101603&group_id=23316
-			final boolean hsqldb = table.database.hsqldb;
+			final boolean parenthesis = table.database.dialect.inRequiresParenthesis();
 
 			final StringBuilder bf = new StringBuilder();
-			if(hsqldb)
+			if(parenthesis)
 				bf.append('(');
 			bf.append(quotedID);
-			if(hsqldb)
+			if(parenthesis)
 				bf.append(')');
 			bf.append(" IN (");
 
@@ -137,10 +135,10 @@ class IntegerColumn extends Column
 			{
 				if(j>0)
 					bf.append(',');
-				if(hsqldb)
+				if(parenthesis)
 					bf.append('(');
 				bf.append(allowedValues[j]);
-				if(hsqldb)
+				if(parenthesis)
 					bf.append(')');
 			}
 			bf.append(')');

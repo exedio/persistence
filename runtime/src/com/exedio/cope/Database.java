@@ -49,7 +49,6 @@ final class Database
 	private final ConnectionPool connectionPool;
 	final Executor executor;
 
-	final boolean hsqldb; // TODO remove
 	final boolean oracle; // TODO remove
 
 	Database(
@@ -69,7 +68,6 @@ final class Database
 		this.revisions = revisions;
 		this.connectionPool = connectionPool;
 		this.executor = executor;
-		this.hsqldb = dialect.getClass().getName().equals("com.exedio.cope.HsqldbDialect");
 		this.oracle = dialect.getClass().getName().equals("com.exedio.cope.OracleDialect");
 
 		//System.out.println("using database "+getClass());

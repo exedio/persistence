@@ -145,6 +145,11 @@ abstract class Dialect
 		return false;
 	}
 
+	boolean inRequiresParenthesis()
+	{
+		return false;
+	}
+
 	boolean subqueryRequiresAlias()
 	{
 		return false;
