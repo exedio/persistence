@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import static java.util.Objects.requireNonNull;
 
+import com.exedio.cope.DateField.Precision;
 import com.exedio.cope.util.CharSet;
 import com.exedio.cope.util.JobContext;
 import com.exedio.dsmf.Sequence;
@@ -244,6 +245,12 @@ abstract class Dialect
 	 * The framework will then fall back to store the number of milliseconds.
 	 */
 	abstract String getDateTimestampType();
+
+	String getDateIntegerPrecision(final String quotedName, final Precision precision)
+	{
+		throw new RuntimeException(quotedName + '/' + precision); // TODO
+	}
+
 	abstract String getBlobType(long maximumLength);
 
 	/**

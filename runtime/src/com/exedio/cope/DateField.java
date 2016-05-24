@@ -201,18 +201,28 @@ public final class DateField extends FunctionField<Date>
 
 	enum Precision
 	{
-		Millis (Calendar.FIELD_COUNT, (int[])null),
-		Seconds(Calendar.SECOND,      Calendar.MILLISECOND),
-		Minutes(Calendar.MINUTE,      Calendar.MILLISECOND, Calendar.SECOND),
-		Hours  (Calendar.HOUR_OF_DAY, Calendar.MILLISECOND, Calendar.SECOND, Calendar.MINUTE);
+		Millis (0         , Calendar.FIELD_COUNT, (int[])null),
+		Seconds(1000      , Calendar.SECOND,      Calendar.MILLISECOND),
+		Minutes(1000*60   , Calendar.MINUTE,      Calendar.MILLISECOND, Calendar.SECOND),
+		Hours  (1000*60*60, Calendar.HOUR_OF_DAY, Calendar.MILLISECOND, Calendar.SECOND, Calendar.MINUTE);
 
+		private final int divisor;
 		private final int field;
 		private final int[] fields;
 
-		Precision(final int field, final int... fields)
+		Precision(final int divisor, final int field, final int... fields)
 		{
+			this.divisor = divisor;
 			this.field = field;
 			this.fields = fields;
+		}
+
+		int divisor()
+		{
+			if(this==Millis)
+				throw new IllegalArgumentException();
+
+			return divisor;
 		}
 
 		void check(final DateField feature, final Date value, final Item exceptionItem)
@@ -282,7 +292,7 @@ public final class DateField extends FunctionField<Date>
 		return
 				getType().getModel().connect().supportsNativeDate()
 				? (Column)new TimestampColumn(table, name, optional)
-				: (Column)new IntegerColumn(table, name, false, optional, Long.MIN_VALUE, Long.MAX_VALUE, true);
+				: (Column)new IntegerColumn(table, name, false, optional, Long.MIN_VALUE, Long.MAX_VALUE, true, precision);
 	}
 
 	@Override

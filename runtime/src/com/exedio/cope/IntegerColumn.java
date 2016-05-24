@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import static com.exedio.cope.Executor.NO_SUCH_ROW;
 
+import com.exedio.cope.DateField.Precision;
 import com.exedio.cope.Executor.ResultSetHandler;
 import com.exedio.dsmf.CheckConstraint;
 import java.sql.Connection;
@@ -32,6 +33,7 @@ class IntegerColumn extends Column
 	final long maximum;
 	final boolean longInsteadOfInt;
 	final int[] allowedValues;
+	private final Precision precision;
 
 	IntegerColumn(
 			final Table table,
@@ -42,11 +44,25 @@ class IntegerColumn extends Column
 			final long maximum,
 			final boolean longInsteadOfInt)
 	{
+		this(table, id, synthetic, optional, minimum, maximum, longInsteadOfInt, Precision.Millis);
+	}
+
+	IntegerColumn(
+			final Table table,
+			final String id,
+			final boolean synthetic,
+			final boolean optional,
+			final long minimum,
+			final long maximum,
+			final boolean longInsteadOfInt,
+			final Precision precision)
+	{
 		super(table, id, synthetic, false, optional);
 		this.minimum = minimum;
 		this.maximum = maximum;
 		this.longInsteadOfInt = longInsteadOfInt;
 		this.allowedValues = null;
+		this.precision = precision;
 
 		assert assertMembers();
 	}
@@ -62,6 +78,7 @@ class IntegerColumn extends Column
 		this.maximum = max(allowedValues);
 		this.longInsteadOfInt = false;
 		this.allowedValues = allowedValues;
+		this.precision = Precision.Millis;
 
 		assert allowedValues.length>(optional?0:1) : id;
 
@@ -99,6 +116,7 @@ class IntegerColumn extends Column
 		this.maximum = maximum;
 		this.longInsteadOfInt = true;
 		this.allowedValues = null;
+		this.precision = Precision.Millis;
 
 		assert assertMembers();
 	}
@@ -152,6 +170,10 @@ class IntegerColumn extends Column
 		{
 			new CheckConstraint(dt, makeGlobalID("MN"), quotedID + ">=" + minimum);
 			new CheckConstraint(dt, makeGlobalID("MX"), quotedID + "<=" + maximum);
+
+			if(precision!=Precision.Millis)
+				new CheckConstraint(dt, makeGlobalID("PR"),
+					table.database.dialect.getDateIntegerPrecision(quotedID, precision));
 		}
 	}
 

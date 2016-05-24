@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import com.exedio.cope.DateField.Precision;
 import com.exedio.cope.DayPartView.Part;
 import com.exedio.cope.Executor.ResultSetHandler;
 import com.exedio.cope.util.CharSet;
@@ -254,6 +255,12 @@ final class MysqlDialect extends Dialect
 		// make null the default value
 		// This works with 4.1.6 and higher only
 		return null;
+	}
+
+	@Override
+	String getDateIntegerPrecision(final String quotedName, final Precision precision)
+	{
+		return "(" + quotedName + " MOD " + precision.divisor() + ")=0";
 	}
 
 	@Override

@@ -171,7 +171,11 @@ public class DatePrecisionTest extends TestWithEnvironment
 
 	@Test public void testSchema()
 	{
+		model.commit();
+
 		final Schema schema = model.getSchema();
+		schema.checkUnsupportedConstraints();
+
 		final Table table = schema.getTable(getTableName(TYPE));
 		final Constraint millisC  = table.getConstraint("DatePrecisiItem_millis_Ck");
 		final Constraint secondsC = table.getConstraint("DatePrecisiItem_second_Ck");
@@ -187,12 +191,13 @@ public class DatePrecisionTest extends TestWithEnvironment
 		}
 		else
 		{
-			assertEquals(range(millis ), millisC .getRequiredCondition());
-			assertEquals(range(seconds), secondsC.getRequiredCondition());
-			assertEquals(range(minutes), minutesC.getRequiredCondition());
-			assertEquals(range(hours  ), hoursC  .getRequiredCondition());
+			assertEquals(   range(millis ), millisC .getRequiredCondition());
+			assertEquals(hp(range(seconds)) + " AND " + precision(seconds,    1000), secondsC.getRequiredCondition());
+			assertEquals(hp(range(minutes)) + " AND " + precision(minutes,   60000), minutesC.getRequiredCondition());
+			assertEquals(hp(range(hours  )) + " AND " + precision(hours  , 3600000), hoursC  .getRequiredCondition());
 		}
 
+		model.startTransaction(DatePrecisionTest.class.getName());
 		assertSchema();
 	}
 
@@ -203,9 +208,30 @@ public class DatePrecisionTest extends TestWithEnvironment
 				"(" + q(field) + "<=" + Long.MAX_VALUE + ")";
 	}
 
+	private final String precision(final DateField field, final int divisor)
+	{
+		switch(dialect)
+		{
+			case hsqldb    : return "(MOD(" + q(field) + "," + divisor + ")=0)";
+			case mysql     : return "((" + q(field) + " MOD " + divisor + ")=0)";
+			case oracle    : // TODO
+			case postgresql: // TODO
+			default:
+				throw new RuntimeException("" + dialect);
+		}
+	}
+
 	private final String q(final Field<?> f)
 	{
 		return quoteName(model, getColumnName(f));
+	}
+
+	protected final String hp(final String s)
+	{
+		if(hsqldb)
+			return "(" + s + ")";
+		else
+			return s;
 	}
 
 	@Test public void testEnumSchema()
