@@ -24,14 +24,23 @@ import static com.exedio.cope.DateField.Precision.Minutes;
 import static com.exedio.cope.DateField.Precision.Seconds;
 import static com.exedio.cope.DatePrecisionConditionTest.date;
 import static com.exedio.cope.DatePrecisionItem.TYPE;
+import static com.exedio.cope.DatePrecisionItem.hours;
+import static com.exedio.cope.DatePrecisionItem.millis;
 import static com.exedio.cope.DatePrecisionItem.minutes;
 import static com.exedio.cope.DatePrecisionItem.seconds;
+import static com.exedio.cope.SchemaInfo.getColumnName;
 import static com.exedio.cope.SchemaInfo.getColumnValue;
+import static com.exedio.cope.SchemaInfo.getTableName;
+import static com.exedio.cope.SchemaInfo.quoteName;
+import static com.exedio.cope.SchemaInfo.supportsNativeDate;
 import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 import com.exedio.cope.DateField.Precision;
+import com.exedio.dsmf.Constraint;
+import com.exedio.dsmf.Schema;
+import com.exedio.dsmf.Table;
 import java.util.Date;
 import org.junit.Test;
 
@@ -158,6 +167,45 @@ public class DatePrecisionTest extends TestWithEnvironment
 
 		item.setMinutesAndRoundUp(null);
 		assertEquals(null, item.getMinutes());
+	}
+
+	@Test public void testSchema()
+	{
+		final Schema schema = model.getSchema();
+		final Table table = schema.getTable(getTableName(TYPE));
+		final Constraint millisC  = table.getConstraint("DatePrecisiItem_millis_Ck");
+		final Constraint secondsC = table.getConstraint("DatePrecisiItem_second_Ck");
+		final Constraint minutesC = table.getConstraint("DatePrecisiItem_minute_Ck");
+		final Constraint hoursC   = table.getConstraint("DatePrecisioItem_hours_Ck");
+
+		if(supportsNativeDate(model))
+		{
+			assertEquals(null, millisC);
+			assertEquals(null, secondsC);
+			assertEquals(null, minutesC);
+			assertEquals(null, hoursC);
+		}
+		else
+		{
+			assertEquals(range(millis ), millisC .getRequiredCondition());
+			assertEquals(range(seconds), secondsC.getRequiredCondition());
+			assertEquals(range(minutes), minutesC.getRequiredCondition());
+			assertEquals(range(hours  ), hoursC  .getRequiredCondition());
+		}
+
+		assertSchema();
+	}
+
+	private final String range(final DateField field)
+	{
+		return
+				"(" + q(field) + ">=" + Long.MIN_VALUE + ") AND " +
+				"(" + q(field) + "<=" + Long.MAX_VALUE + ")";
+	}
+
+	private final String q(final Field<?> f)
+	{
+		return quoteName(model, getColumnName(f));
 	}
 
 	@Test public void testEnumSchema()
