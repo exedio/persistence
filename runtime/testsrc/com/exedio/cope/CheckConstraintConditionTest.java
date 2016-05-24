@@ -19,12 +19,7 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.CheckConstraintConditionItem.TYPE;
-import static org.junit.Assert.assertEquals;
 
-import com.exedio.dsmf.Column;
-import com.exedio.dsmf.Constraint;
-import com.exedio.dsmf.Schema;
-import com.exedio.dsmf.Table;
 import org.junit.Test;
 
 public class CheckConstraintConditionTest extends TestWithEnvironment
@@ -43,7 +38,6 @@ public class CheckConstraintConditionTest extends TestWithEnvironment
 	public CheckConstraintConditionTest()
 	{
 		super(MODEL);
-		copeRule.omitTransaction();
 	}
 
 	@Test public void testIt()
@@ -51,44 +45,6 @@ public class CheckConstraintConditionTest extends TestWithEnvironment
 		if(oracle) // TODO
 			return;
 
-		// TODO use assertSchema();
-
-		final Schema schema = model.getVerifiedSchema();
-
-		for(final Table table : schema.getTables())
-		{
-			for(final Column column : table.getColumns())
-				assertOk(table.getName() + '#' + column.getName() + '#' + column.getType(), column);
-
-			for(final Constraint constraint : table.getConstraints())
-			{
-				final String message = table.getName() + '#' + constraint.getName();
-				if(constraint instanceof com.exedio.dsmf.CheckConstraint &&
-					!SchemaInfo.supportsCheckConstraints(model))
-				{
-					assertEquals(message, "not supported", constraint.getError());
-					assertEquals(message, Schema.Color.OK, constraint.getParticularColor());
-					assertEquals(message, Schema.Color.OK, constraint.getCumulativeColor());
-				}
-				else
-				{
-					assertOk(message, constraint);
-				}
-			}
-
-			assertOk(table.getName(), table);
-		}
-
-		for(final com.exedio.dsmf.Sequence sequence : schema.getSequences())
-			assertOk(sequence.getName(), sequence);
-
-		assertOk("schema", schema);
-	}
-
-	private static final void assertOk(final String message, final com.exedio.dsmf.Node node)
-	{
-		assertEquals(message, null, node.getError());
-		assertEquals(message, Schema.Color.OK, node.getParticularColor());
-		assertEquals(message, Schema.Color.OK, node.getCumulativeColor());
+		assertSchema();
 	}
 }
