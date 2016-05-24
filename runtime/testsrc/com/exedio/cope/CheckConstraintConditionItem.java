@@ -28,17 +28,23 @@ final class CheckConstraintConditionItem extends Item
 
 	static final CheckConstraint isNull     = new CheckConstraint(integer1.isNull());
 	static final CheckConstraint isNotNull  = new CheckConstraint(integer1.isNotNull());
+
 	static final CheckConstraint compare         = new CheckConstraint(integer1.less(0));
 	static final CheckConstraint compareFunction = new CheckConstraint(integer1.less(integer2));
+
 	static final CheckConstraint not = new CheckConstraint(integer1.less(integer2).not());
+
 	static final CheckConstraint compositeAnd = new CheckConstraint(integer1.isNull().and(integer2.isNull()));
 	static final CheckConstraint compositeOr  = new CheckConstraint(integer1.isNull().or (integer2.isNull()));
+
 	//static final CheckConstraint charSet = new CheckConstraint(new CharSetCondition(string, CharSet.ALPHA_LOWER)); TODO
 	//static final CheckConstraint like = new CheckConstraint(string.like("like it")); TODO
-	static final CheckConstraint instanceOf     = new CheckConstraint(item.instanceOf   (CheckConstraintConditionItemSub.TYPE));
-	static final CheckConstraint instanceOfNot  = new CheckConstraint(item.notInstanceOf(CheckConstraintConditionItemSub.TYPE));
-	static final CheckConstraint singleInstanceOf    = new CheckConstraint(item.instanceOf   (CheckConstraintConditionItemBottom.TYPE));
+
+	static final CheckConstraint       instanceOf    = new CheckConstraint(item.   instanceOf(CheckConstraintConditionItemSub   .TYPE));
+	static final CheckConstraint       instanceOfNot = new CheckConstraint(item.notInstanceOf(CheckConstraintConditionItemSub   .TYPE));
+	static final CheckConstraint singleInstanceOf    = new CheckConstraint(item.   instanceOf(CheckConstraintConditionItemBottom.TYPE));
 	static final CheckConstraint singleInstanceOfNot = new CheckConstraint(item.notInstanceOf(CheckConstraintConditionItemBottom.TYPE));
+
 	static final CheckConstraint startsWith = new CheckConstraint(integer1.isNotNull());
 
 
