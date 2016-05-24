@@ -105,7 +105,7 @@ public class DistinctOrderByTest extends TestWithEnvironment
 		switch(dialect)
 		{
 			case hsqldb:
-				notAllowedEquals(query,
+				notAllowed(query,
 						"invalid ORDER BY expression");
 				break;
 			case mysql:
@@ -118,11 +118,11 @@ public class DistinctOrderByTest extends TestWithEnvironment
 				assertContains(item2, item3, item1, query.search());
 				break;
 			case oracle:
-				notAllowedEquals(query,
+				notAllowed(query,
 						"ORA-01791: not a SELECTed expression\n");
 				break;
 			case postgresql:
-				notAllowedEquals(query,
+				notAllowed(query,
 						"ERROR: for SELECT DISTINCT, ORDER BY expressions must appear in select list\n" +
 						"  Position: 181");
 				break;
@@ -132,7 +132,7 @@ public class DistinctOrderByTest extends TestWithEnvironment
 	}
 
 
-	static void notAllowedEquals(final Query<?> query, final String message)
+	static void notAllowed(final Query<?> query, final String message)
 	{
 		try
 		{

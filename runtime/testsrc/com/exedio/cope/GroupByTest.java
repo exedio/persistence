@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.DistinctOrderByTest.notAllowedEquals;
+import static com.exedio.cope.DistinctOrderByTest.notAllowed;
 import static com.exedio.cope.GroupByTest.AnItem.TYPE;
 import static com.exedio.cope.GroupByTest.AnItem.integer;
 import static com.exedio.cope.GroupByTest.AnItem.string;
@@ -97,20 +97,20 @@ public class GroupByTest extends TestWithEnvironment
 		switch(dialect)
 		{
 			case hsqldb:
-				notAllowedEquals(query,
+				notAllowed(query,
 						"expression not in aggregate or GROUP BY columns: " +
 						"PUBLIC.\"" + table + "\".\"" + column + "\"");
 				break;
 			case mysql:
-				notAllowedEquals(query,
+				notAllowed(query,
 						"'" + catalog() + "." + table + "." + column + "' isn't in GROUP BY");
 				break;
 			case oracle:
-				notAllowedEquals(query,
+				notAllowed(query,
 						"ORA-00979: not a GROUP BY expression\n");
 				break;
 			case postgresql:
-				notAllowedEquals(query,
+				notAllowed(query,
 						"ERROR: column \"" + table + "." + column + "\" must appear " +
 						"in the GROUP BY clause or be used in an aggregate function\n" +
 						"  Position: 8");
@@ -133,22 +133,22 @@ public class GroupByTest extends TestWithEnvironment
 		switch(dialect)
 		{
 			case hsqldb:
-				notAllowedEquals(query,
+				notAllowed(query,
 						"invalid ORDER BY expression");
 				break;
 			case mysql:
 				if(env.isDatabaseVersionAtLeast(5, 6))
-					notAllowedEquals(query,
+					notAllowed(query,
 							"'" + catalog() + "." + table + "." + column + "' isn't in GROUP BY");
 				else
 					assertContains("foo", "bar", "goo", "car", query.search());
 				break;
 			case oracle:
-				notAllowedEquals(query,
+				notAllowed(query,
 						"ORA-00979: not a GROUP BY expression\n");
 				break;
 			case postgresql:
-				notAllowedEquals(query,
+				notAllowed(query,
 						"ERROR: column \"" + table + "." + column + "\" must appear " +
 						"in the GROUP BY clause or be used in an aggregate function\n" +
 						"  Position: 58");
@@ -167,18 +167,18 @@ public class GroupByTest extends TestWithEnvironment
 		switch(dialect)
 		{
 			case hsqldb:
-				notAllowedEquals(query,
+				notAllowed(query,
 						"invalid ORDER BY expression");
 				break;
 			case mysql:
 				assertContains("foo", "bar", "goo", "car", query.search());
 				break;
 			case oracle:
-				notAllowedEquals(query,
+				notAllowed(query,
 						"ORA-01791: not a SELECTed expression\n");
 				break;
 			case postgresql:
-				notAllowedEquals(query,
+				notAllowed(query,
 						"ERROR: for SELECT DISTINCT, ORDER BY expressions must appear in select list\n" +
 						"  Position: 49");
 				break;
