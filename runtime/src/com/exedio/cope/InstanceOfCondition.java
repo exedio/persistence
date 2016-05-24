@@ -92,7 +92,6 @@ public final class InstanceOfCondition<E extends Item> extends Condition
 	void append(final Statement bf)
 	{
 		final Type<?> type = function.getValueType();
-		appendType(bf);
 
 		final TreeSet<String> typeIds = new TreeSet<>(); // order ids to produce canonical queries for query cache
 		for(final Type<E> t : types)
@@ -107,16 +106,28 @@ public final class InstanceOfCondition<E extends Item> extends Condition
 		if(typeIds.isEmpty())
 			throw new RuntimeException("no concrete type for " + Arrays.toString(types));
 
+		final boolean parenthesis = bf.dialect.inRequiresParenthesis();
+
 		if(typeIds.size()==1)
 		{
-			bf.append(not ? "<>" : "=");
+			appendType(bf);
+			bf.append(not ? (parenthesis?"!=":"<>") : "=");
 			bf.appendParameter(typeIds.iterator().next());
 		}
 		else
 		{
-			if(not)
+			if(not && parenthesis)
+					bf.append("NOT (");
+
+			if(parenthesis)
+				bf.append('(');
+			appendType(bf);
+			if(parenthesis)
+				bf.append(')');
+
+			if(not && !parenthesis)
 				bf.append(" NOT");
-			bf.append(" IN(");
+			bf.append(" IN (");
 
 			boolean first = true;
 			for(final String id : typeIds)
@@ -126,9 +137,16 @@ public final class InstanceOfCondition<E extends Item> extends Condition
 				else
 					bf.append(',');
 
+				if(parenthesis)
+					bf.append('(');
 				bf.appendParameter(id);
+				if(parenthesis)
+					bf.append(')');
 			}
 			bf.append(')');
+
+			if(parenthesis && not)
+				bf.append(')');
 		}
 	}
 

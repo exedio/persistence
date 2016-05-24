@@ -60,9 +60,6 @@ public class CheckConstraintConditionTest extends TestWithEnvironment
 			for(final Column column : table.getColumns())
 				assertOk(table.getName() + '#' + column.getName() + '#' + column.getType(), column);
 
-			if(hsqldb) // TODO
-				continue;
-
 			for(final Constraint constraint : table.getConstraints())
 			{
 				final String message = table.getName() + '#' + constraint.getName();
@@ -84,9 +81,6 @@ public class CheckConstraintConditionTest extends TestWithEnvironment
 
 		for(final com.exedio.dsmf.Sequence sequence : schema.getSequences())
 			assertOk(sequence.getName(), sequence);
-
-		if(hsqldb) // TODO
-			return;
 
 		assertOk("schema", schema);
 	}

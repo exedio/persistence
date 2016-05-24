@@ -84,7 +84,7 @@ public class SchemaNamePolymorphicTest extends TestWithEnvironment
 					fetch("select " + q(column) + " from " + q(table)));
 
 			assertEquals(
-					q(column) + " IN ('SchemaNamePolymorphicSuperItem','SchemaNamePolymorphicSubItemRenamed')",
+					hp(q(column)) + " IN ("+hp("'SchemaNamePolymorphicSuperItem'")+","+hp("'SchemaNamePolymorphicSubItemRenamed'")+")",
 					model.getSchema().getTable(table).getConstraint("ScheNamePolySupeIte_cl_Ck").getRequiredCondition());
 		}
 		{
@@ -96,7 +96,7 @@ public class SchemaNamePolymorphicTest extends TestWithEnvironment
 					fetch("select " + q(column) + " from " + q(table)));
 
 			assertEquals(
-					q(column) + " IN ('SchemaNamePolymorphicSuperItem','SchemaNamePolymorphicSubItemRenamed')",
+					hp(q(column)) + " IN ("+hp("'SchemaNamePolymorphicSuperItem'")+","+hp("'SchemaNamePolymorphicSubItemRenamed'")+")",
 					model.getSchema().getTable(table).getConstraint("ScheNamPolRefIte_reTyp_Ck").getRequiredCondition());
 		}
 		toModel();
@@ -152,5 +152,13 @@ public class SchemaNamePolymorphicTest extends TestWithEnvironment
 	private final String q(final String s)
 	{
 		return SchemaInfo.quoteName(model, s);
+	}
+
+	private final String hp(final String s)
+	{
+		if(hsqldb)
+			return "(" + s + ")";
+		else
+			return s;
 	}
 }

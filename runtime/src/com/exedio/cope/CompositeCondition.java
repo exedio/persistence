@@ -72,7 +72,9 @@ public final class CompositeCondition extends Condition
 		conditions[0].append(bf);
 		for(int i = 1; i<conditions.length; i++)
 		{
+			bf.append(')');
 			bf.append(operator.sql);
+			bf.append('(');
 			conditions[i].append(bf);
 		}
 		bf.append(')');

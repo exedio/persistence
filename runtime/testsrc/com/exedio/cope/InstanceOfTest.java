@@ -246,7 +246,7 @@ public class InstanceOfTest extends TestWithEnvironment
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("type InstanceOfB2Item has no subtypes, therefore a TypeInCondition makes no sense", e.getMessage());
+			assertEquals("type InstanceOfB2Item is not assignable from type InstanceOfB1Item", e.getMessage());
 		}
 		try
 		{
@@ -255,7 +255,7 @@ public class InstanceOfTest extends TestWithEnvironment
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("type InstanceOfB2Item has no subtypes, therefore a TypeInCondition makes no sense", e.getMessage());
+			assertEquals("type InstanceOfB2Item is not assignable from type InstanceOfB1Item", e.getMessage());
 		}
 		try
 		{

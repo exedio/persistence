@@ -101,16 +101,27 @@ class StringColumn extends Column
 
 		if(allowedValues!=null)
 		{
-			bf.append(quotedID + " IN (");
+			final boolean parenthesis = table.database.dialect.inRequiresParenthesis();
+
+			if(parenthesis)
+				bf.append('(');
+			bf.append(quotedID);
+			if(parenthesis)
+				bf.append(')');
+			bf.append(" IN (");
 
 			for(int j = 0; j<allowedValues.length; j++)
 			{
 				if(j>0)
 					bf.append(',');
 
+				if(parenthesis)
+					bf.append('(');
 				bf.append('\'').
 					append(allowedValues[j]).
 					append('\'');
+				if(parenthesis)
+					bf.append(')');
 			}
 			bf.append(')');
 			return bf.toString();
