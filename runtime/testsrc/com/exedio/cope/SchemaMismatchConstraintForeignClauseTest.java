@@ -52,10 +52,7 @@ public class SchemaMismatchConstraintForeignClauseTest extends SchemaMismatchTes
 		assertIt(
 				"different condition in database: " +
 				"expected "  + "---field->" + name(TargetB.TYPE) + "." + name(TargetB.TYPE.getThis()) + "---, " +
-				"but was "   + "---field->" + name(TargetA.TYPE) + "." + name(TargetA.TYPE.getThis()) + "--- " +
-				"normalized to  ---field->" + name(TargetB.TYPE) + "." + name(TargetB.TYPE.getThis()) + "--- " +
-				"and "       + "---field->" + name(TargetA.TYPE) + "." + name(TargetA.TYPE.getThis()) + "---",
-				// TODO report normalized form only if different from non-normalized
+				"but was "   + "---field->" + name(TargetA.TYPE) + "." + name(TargetA.TYPE.getThis()) + "---",
 				ERROR, ERROR, ForeignKey, fk = table.getConstraint(nameFk(ItemA.field)));
 
 		assertTrue(fk instanceof com.exedio.dsmf.ForeignKeyConstraint);

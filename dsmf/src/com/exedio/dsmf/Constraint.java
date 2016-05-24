@@ -119,10 +119,23 @@ public abstract class Constraint extends Node
 
 		if(requiredCondition!=null && existingCondition!=null &&
 			!normalizeCondition(requiredCondition).equals(normalizeCondition(existingCondition)))
-			return Result.error(
+		{
+			final String requiredConditionNormalized = normalizeCondition(requiredCondition);
+			final String existingConditionNormalized = normalizeCondition(existingCondition);
+
+			final StringBuilder bf = new StringBuilder();
+			bf.append(
 					"different condition in database: " +
-					"expected ---" + requiredCondition + "---, but was ---" + existingCondition + "--- " +
-					"normalized to  ---" + normalizeCondition(requiredCondition) + "--- and ---" + normalizeCondition(existingCondition) + "---");
+					"expected ---").append(requiredCondition).append(
+					"---, but was ---").append(existingCondition).append("---");
+
+			if(!requiredCondition.equals(requiredConditionNormalized) ||
+				!existingCondition.equals(existingConditionNormalized))
+				bf.append(" normalized to  ---").append(requiredConditionNormalized).
+					append("--- and ---").append(existingConditionNormalized).append("---");
+
+			return Result.error(bf.toString());
+		}
 
 		if(requiredCondition==null && existingCondition!=null)
 			return Result.error(
