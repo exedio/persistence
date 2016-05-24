@@ -23,11 +23,14 @@ import static com.exedio.cope.SchemaInfo.getColumnName;
 import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnName;
 import static com.exedio.cope.SchemaInfo.getTableName;
 import static com.exedio.cope.SchemaInfo.getTypeColumnName;
+import static com.exedio.cope.SchemaInfo.supportsNativeDate;
 import static com.exedio.cope.SchemaItem.TYPE;
 import static com.exedio.cope.SchemaItem.anEnum;
 import static com.exedio.cope.SchemaItem.bool;
 import static com.exedio.cope.SchemaItem.boolOpt;
 import static com.exedio.cope.SchemaItem.data;
+import static com.exedio.cope.SchemaItem.date;
+import static com.exedio.cope.SchemaItem.dateOpt;
 import static com.exedio.cope.SchemaItem.doub;
 import static com.exedio.cope.SchemaItem.doubOpt;
 import static com.exedio.cope.SchemaItem.enumOpt;
@@ -70,6 +73,7 @@ public class SchemaTest extends TestWithEnvironment
 
 	@Test public void testSchema()
 	{
+		final boolean nativeDate = supportsNativeDate(model);
 		final Schema schema = model.getVerifiedSchema();
 
 		final Table table = schema.getTable(getTableName(TYPE));
@@ -83,6 +87,10 @@ public class SchemaTest extends TestWithEnvironment
 		assertCheckConstraint(table, "SchemaItem_integ_MX", q(integ)+"<=10");
 		assertCheckConstraint(table, "SchemaItem_doub_MN", q(doub)+">=-11.1");
 		assertCheckConstraint(table, "SchemaItem_doub_MX", q(doub)+"<=11.1");
+		assertCheckConstraint(table, "SchemaItem_date_MN", q(date)+">="+Long.MIN_VALUE, !nativeDate);
+		assertCheckConstraint(table, "SchemaItem_date_MX", q(date)+"<="+Long.MAX_VALUE, !nativeDate);
+		assertCheckConstraint(table, "SchemaItem_day_MN", null, false);
+		assertCheckConstraint(table, "SchemaItem_day_MX", null, false);
 		assertCheckConstraint(table, "SchemaItem_bool_EN", hp(q(bool  ))+" IN ("+hp("0")+","+hp("1")+")");
 		assertCheckConstraint(table, "SchemaItem_anEnum_EN", hp(q(anEnum))+" IN ("+hp("10")+","+hp("20")+","+hp("30")+")");
 		assertCheckConstraint(table, "SchemaItem_item_MN", q(item)+">=0");
@@ -98,6 +106,10 @@ public class SchemaTest extends TestWithEnvironment
 		assertCheckConstraint(table, "SchemaItem_integOpt_MX", q(integOpt)+"<=10");
 		assertCheckConstraint(table, "SchemaItem_doubOpt_MN", q(doubOpt)+">=-11.1");
 		assertCheckConstraint(table, "SchemaItem_doubOpt_MX", q(doubOpt)+"<=11.1");
+		assertCheckConstraint(table, "SchemaItem_dateOpt_MN", q(dateOpt)+">="+Long.MIN_VALUE, !nativeDate);
+		assertCheckConstraint(table, "SchemaItem_dateOpt_MX", q(dateOpt)+"<="+Long.MAX_VALUE, !nativeDate);
+		assertCheckConstraint(table, "SchemaItem_dayOpt_MN", null, false);
+		assertCheckConstraint(table, "SchemaItem_dayOpt_MX", null, false);
 		assertCheckConstraint(table, "SchemaItem_boolOpt_EN", hp(q(boolOpt))+" IN ("+hp("0")+","+hp("1")+")");
 		assertCheckConstraint(table, "SchemaItem_enumOpt_EN", hp(q(enumOpt))+" IN ("+hp("10")+","+hp("20")+","+hp("30")+")");
 		assertCheckConstraint(table, "SchemaItem_itemOpt_MN", q(itemOpt)+">=0");
