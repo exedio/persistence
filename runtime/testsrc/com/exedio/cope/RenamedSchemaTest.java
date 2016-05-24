@@ -78,7 +78,7 @@ public class RenamedSchemaTest extends TestWithEnvironment
 
 		assertUniqueConstraint(table, "ZackItem_zackUniqDoub_Unq", "("+q(uniqueDouble1)+","+q(uniqueDouble2)+")");
 
-		assertCheckConstraint(table, "ZackItem_zackString_Ck", "(("+q(string)+" IS NOT NULL) AND (("+l(string)+">=1) AND ("+l(string)+"<=4))) OR ("+q(string)+" IS NULL)");
+		assertCheckConstraint(table, "ZackItem_zackString_Ck", "("+l(string)+">=1) AND ("+l(string)+"<=4)");
 
 		final ConnectProperties props = model.getConnectProperties();
 		final boolean cluster = props.primaryKeyGenerator.persistent;

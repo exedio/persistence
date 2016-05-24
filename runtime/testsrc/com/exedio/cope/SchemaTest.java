@@ -85,13 +85,13 @@ public class SchemaTest extends TestWithEnvironment
 		assertCheckConstraint(table, "SchemaItem_poly_Ck"  , "("+q(poly  )+">=0) AND ("+q(poly)+"<=567)");
 		assertCheckConstraint(table, "SchemaItem_polyType_Ck", hp(t(poly))+" IN ("+hp("'SchemaTargetPolymorphicItem'")+","+hp("'SchemaTargetItem'")+")");
 
-		assertCheckConstraint(table, "SchemaItem_stringOpt_Ck","(("+q(stringOpt)+" IS NOT NULL) AND (("+l(stringOpt)+">=1) AND ("+l(stringOpt)+"<="+StringField.DEFAULT_MAXIMUM_LENGTH+")))"+" OR ("+q(stringOpt)+" IS NULL)");
-		assertCheckConstraint(table, "SchemaItem_integOpt_Ck" ,"(("+q(integOpt )+" IS NOT NULL) AND (("+q(integOpt)+">=-10) AND ("+q(integOpt)+"<=10)))"                 +" OR ("+q(integOpt )+" IS NULL)");
-		assertCheckConstraint(table, "SchemaItem_doubOpt_Ck"  ,"(("+q(doubOpt  )+" IS NOT NULL) AND (("+q(doubOpt)+">=-11.1) AND ("+q(doubOpt)+"<=11.1)))"               +" OR ("+q(doubOpt  )+" IS NULL)");
-		assertCheckConstraint(table, "SchemaItem_boolOpt_Ck"  ,"(("+q(boolOpt  )+" IS NOT NULL) AND ("+hp(q(boolOpt))+" IN ("+hp("0")+","+hp("1")+")))"                  +" OR ("+q(boolOpt  )+" IS NULL)");
-		assertCheckConstraint(table, "SchemaItem_enumOpt_Ck"  ,"(("+q(enumOpt  )+" IS NOT NULL) AND ("+hp(q(enumOpt))+" IN ("+hp("10")+","+hp("20")+","+hp("30")+")))"   +" OR ("+q(enumOpt  )+" IS NULL)");
-		assertCheckConstraint(table, "SchemaItem_itemOpt_Ck"  ,"(("+q(itemOpt  )+" IS NOT NULL) AND (("+q(itemOpt)  +">=0) AND ("+q(itemOpt)+"<=567)))"                  +" OR ("+q(itemOpt  )+" IS NULL)");
-		assertCheckConstraint(table, "SchemaItem_polyOpt_Ck"  ,"(("+q(polyOpt  )+" IS NOT NULL) AND (("+q(polyOpt)  +">=0) AND ("+q(polyOpt)+"<=567)))"                  +" OR ("+q(polyOpt  )+" IS NULL)");
+		assertCheckConstraint(table, "SchemaItem_stringOpt_Ck","("+l(stringOpt)+">=1) AND ("+l(stringOpt)+"<="+StringField.DEFAULT_MAXIMUM_LENGTH+")");
+		assertCheckConstraint(table, "SchemaItem_integOpt_Ck" ,"("+q(integOpt)+">=-10) AND ("+q(integOpt)+"<=10)");
+		assertCheckConstraint(table, "SchemaItem_doubOpt_Ck"  ,"("+q(doubOpt)+">=-11.1) AND ("+q(doubOpt)+"<=11.1)");
+		assertCheckConstraint(table, "SchemaItem_boolOpt_Ck"  ,hp(q(boolOpt))+" IN ("+hp("0")+","+hp("1")+")");
+		assertCheckConstraint(table, "SchemaItem_enumOpt_Ck"  ,hp(q(enumOpt))+" IN ("+hp("10")+","+hp("20")+","+hp("30")+")");
+		assertCheckConstraint(table, "SchemaItem_itemOpt_Ck"  ,"("+q(itemOpt)  +">=0) AND ("+q(itemOpt)+"<=567)");
+		assertCheckConstraint(table, "SchemaItem_polyOpt_Ck"  ,"("+q(polyOpt)  +">=0) AND ("+q(polyOpt)+"<=567)");
 		assertCheckConstraint(table, "SchemaItem_polyOptType_Ck",
 				"(("+t(polyOpt)+" IS NOT NULL) AND (("+hp(t(polyOpt))+" IN ("+hp("'SchemaTargetPolymorphicItem'")+","+hp("'SchemaTargetItem'")+"))"+" AND ("+q(polyOpt)+" IS NOT NULL)))" +
 				" OR (("+t(polyOpt)+" IS NULL) AND ("+q(polyOpt)+" IS NULL))");
@@ -123,13 +123,13 @@ public class SchemaTest extends TestWithEnvironment
 
 		final String upperSQL = mysql ? " AND ("+q(stringUpper6)+" REGEXP '^[A-Z]*$')" : "";
 
-		assertCheckConstraint(table, "SchemaItem_stringMin4_Ck",  "(("+q(stringMin4)    +" IS NOT NULL) AND (("+l(stringMin4)+">=4) AND ("+l(stringMin4)+"<="+StringField.DEFAULT_MAXIMUM_LENGTH+"))) OR ("+q(stringMin4)+" IS NULL)");
-		assertCheckConstraint(table, "SchemaItem_stringMax4_Ck",  "(("+q(stringMax4)    +" IS NOT NULL) AND (("+l(stringMax4)+">=1) AND (" +l(stringMax4)+"<=4))) OR ("+q(stringMax4)+" IS NULL)");
-		assertCheckConstraint(table, "SchemItem_striMin4Max8_Ck", "(("+q(stringMin4Max8)+" IS NOT NULL) AND (("+l(stringMin4Max8)+">=4) AND ("+l(stringMin4Max8)+"<=8))) OR ("+q(stringMin4Max8)+" IS NULL)");
-		assertCheckConstraint(table, "SchemaItem_strinExact6_Ck", "(("+q(stringExact6)  +" IS NOT NULL) AND (" +l(stringExact6)+"=6)) OR ("+q(stringExact6)+" IS NULL)");
-		assertCheckConstraint(table, "SchemaItem_strinUpper6_Ck", "(("+q(stringUpper6)  +" IS NOT NULL) AND (" +l(stringUpper6)+"=6" + upperSQL + ")) OR ("+q(stringUpper6)+" IS NULL)");
-		assertCheckConstraint(table, "SchemaItem_stringEmpty_Ck", "(("+q(stringEmpty)   +" IS NOT NULL) AND (" +l(stringEmpty)+"<="+StringField.DEFAULT_MAXIMUM_LENGTH+")) OR ("+q(stringEmpty)+" IS NULL)");
-		assertCheckConstraint(table, "SchemaItem_data_Ck",        "(("+q(data)          +" IS NOT NULL) AND (" +l(data)+"<="+(DataField.DEFAULT_LENGTH)+")) OR ("+q(data)+" IS NULL)");
+		assertCheckConstraint(table, "SchemaItem_stringMin4_Ck",  "("+l(stringMin4)+">=4) AND ("+l(stringMin4)+"<="+StringField.DEFAULT_MAXIMUM_LENGTH+")");
+		assertCheckConstraint(table, "SchemaItem_stringMax4_Ck",  "("+l(stringMax4)+">=1) AND (" +l(stringMax4)+"<=4)");
+		assertCheckConstraint(table, "SchemItem_striMin4Max8_Ck", "("+l(stringMin4Max8)+">=4) AND ("+l(stringMin4Max8)+"<=8)");
+		assertCheckConstraint(table, "SchemaItem_strinExact6_Ck", l(stringExact6)+"=6");
+		assertCheckConstraint(table, "SchemaItem_strinUpper6_Ck", l(stringUpper6)+"=6" + upperSQL);
+		assertCheckConstraint(table, "SchemaItem_stringEmpty_Ck", l(stringEmpty)+"<="+StringField.DEFAULT_MAXIMUM_LENGTH);
+		assertCheckConstraint(table, "SchemaItem_data_Ck",        l(data)+"<="+DataField.DEFAULT_LENGTH);
 
 		final Column stringLongColumn = table.getColumn(getColumnName(stringLong));
 		assertEquals(null, stringLongColumn.getError());

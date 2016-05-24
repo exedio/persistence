@@ -116,7 +116,7 @@ abstract class Column
 					if(checkNull!=null)
 						checkConstraint = "((" + quotedID + " IS NOT NULL) AND (" + checkNotNull + ")) OR ((" + quotedID + " IS NULL) AND (" + checkNull + "))";
 					else
-						checkConstraint = "((" + quotedID + " IS NOT NULL) AND (" + checkNotNull + ")) OR (" + quotedID + " IS NULL)";
+						checkConstraint = checkNotNull;
 				}
 				else
 				{

@@ -54,7 +54,7 @@ public class CheckConstraintSchemaTest extends TestWithEnvironment
 		assertEquals(null, superTable.getError());
 		assertEquals(Schema.Color.OK, superTable.getParticularColor());
 
-		assertCheckConstraint(table, "CheckConstraItem_alpha_Ck", "(("+q(alpha)+" IS NOT NULL) AND (("+q(alpha)+">=-2147483648) AND ("+q(alpha)+"<=2147483647))) OR ("+q(alpha)+" IS NULL)");
+		assertCheckConstraint(table, "CheckConstraItem_alpha_Ck", "("+q(alpha)+">=-2147483648) AND ("+q(alpha)+"<=2147483647)");
 		assertCheckConstraint(table, "CheckConsItem_alpLessBeta", q(alpha)+"<"+q(beta));
 
 		assertCheckConstraint(superTable, "CheConSupIte_eiGreOrEquZw", q(eins)+">="+q(zwei));
