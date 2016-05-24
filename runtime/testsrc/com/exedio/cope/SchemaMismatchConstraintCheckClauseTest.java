@@ -60,7 +60,7 @@ public class SchemaMismatchConstraintCheckClauseTest extends SchemaMismatchTest
 
 			if(postgresql)
 			{
-				// TODO normalize normalized too much
+				// TODO normalized too much
 				error =
 						"different condition in database: " +
 						"expected "  + "---(" + q("field") + ">=0) AND (" + q("field") + "<=88)---, " +
