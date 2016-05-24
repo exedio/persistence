@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import static java.util.Objects.requireNonNull;
+
 import com.exedio.cope.util.CharSet;
 import com.exedio.cope.util.JobContext;
 import com.exedio.dsmf.Sequence;
@@ -302,10 +304,8 @@ abstract class Dialect
 	 */
 	String getClause(final String column, final CharSet set)
 	{
-		if(column==null)
-			throw new NullPointerException();
-		if(set==null)
-			throw new NullPointerException();
+		requireNonNull(column);
+		requireNonNull(set);
 
 		return null;
 	}
