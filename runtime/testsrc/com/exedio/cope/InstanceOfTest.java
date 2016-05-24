@@ -232,6 +232,15 @@ public class InstanceOfTest extends TestWithEnvironment
 	{
 		try
 		{
+			TYPE_B2.search(TYPE_B2.getThis().notInstanceOf(TYPE_B2));
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals("type InstanceOfB2Item has no subtypes, therefore a TypeInCondition makes no sense", e.getMessage());
+		}
+		try
+		{
 			TYPE_B2.search(TYPE_B2.getThis().notInstanceOf((Type)TYPE_B1));
 			fail();
 		}
