@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.DistinctOrderByTest.notAllowed;
+import static com.exedio.cope.DistinctOrderByTest.notAllowedTotal;
 import static com.exedio.cope.GroupByTest.AnItem.TYPE;
 import static com.exedio.cope.GroupByTest.AnItem.integer;
 import static com.exedio.cope.GroupByTest.AnItem.string;
@@ -100,20 +101,32 @@ public class GroupByTest extends TestWithEnvironment
 				notAllowed(query,
 						"expression not in aggregate or GROUP BY columns: " +
 						"PUBLIC.\"" + table + "\".\"" + column + "\"");
+				notAllowedTotal(query,
+						"expression not in aggregate or GROUP BY columns: " +
+						"PUBLIC.\"" + table + "\".\"" + column + "\"");
 				break;
 			case mysql:
 				notAllowed(query,
+						"'" + catalog() + "." + table + "." + column + "' isn't in GROUP BY");
+				notAllowedTotal(query,
 						"'" + catalog() + "." + table + "." + column + "' isn't in GROUP BY");
 				break;
 			case oracle:
 				notAllowed(query,
 						"ORA-00979: not a GROUP BY expression\n");
+				assertEquals(4, query.total());
 				break;
 			case postgresql:
+				restartTransaction();
 				notAllowed(query,
 						"ERROR: column \"" + table + "." + column + "\" must appear " +
 						"in the GROUP BY clause or be used in an aggregate function\n" +
 						"  Position: 8");
+				restartTransaction();
+				notAllowedTotal(query,
+						"ERROR: column \"" + table + "." + column + "\" must appear " +
+						"in the GROUP BY clause or be used in an aggregate function\n" +
+						"  Position: 31");
 				break;
 			default:
 				throw new RuntimeException("" + dialect);
@@ -129,6 +142,8 @@ public class GroupByTest extends TestWithEnvironment
 		final String table = getTableName(TYPE);
 		final String column = getColumnName(integer);
 		final EnvironmentInfo env = model.getEnvironmentInfo();
+
+		assertEquals(4, query.total());
 
 		switch(dialect)
 		{
@@ -163,6 +178,8 @@ public class GroupByTest extends TestWithEnvironment
 		final Query<String> query = new Query<>(string);
 		query.setDistinct(true);
 		query.setOrderBy(integer, true);
+
+		assertEquals(4, query.total());
 
 		switch(dialect)
 		{

@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.DistinctOrderByTest.notAllowed;
+import static com.exedio.cope.DistinctOrderByTest.notAllowedTotal;
 import static com.exedio.cope.GroupItem.TYPE;
 import static com.exedio.cope.GroupItem.day;
 import static com.exedio.cope.GroupItem.number;
@@ -30,10 +31,8 @@ import static com.exedio.cope.tojunit.Assert.assertContains;
 import static com.exedio.cope.tojunit.Assert.list;
 import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 
 import com.exedio.cope.util.Day;
-import com.exedio.dsmf.SQLRuntimeException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import org.junit.Test;
@@ -145,38 +144,35 @@ public class QueryGroupingTest extends TestWithEnvironment
 				notAllowed(query,
 						"expression not in aggregate or GROUP BY columns: " +
 						"PUBLIC.\"" + table + "\".\"" + column + "\"");
+				notAllowedTotal(query,
+						"expression not in aggregate or GROUP BY columns: " +
+						"PUBLIC.\"" + table + "\".\"" + column + "\"");
 				break;
 			case mysql:
 				notAllowed(query,
+						"'" + catalog() + "." + table + "." + column + "' isn't in GROUP BY");
+				notAllowedTotal(query,
 						"'" + catalog() + "." + table + "." + column + "' isn't in GROUP BY");
 				break;
 			case oracle:
 				notAllowed(query,
 						"ORA-00979: not a GROUP BY expression\n");
+				assertEquals(2, query.total());
 				break;
 			case postgresql:
+				restartTransaction();
 				notAllowed(query,
 						"ERROR: column \"" + table + "." + column + "\" must appear " +
 						"in the GROUP BY clause or be used in an aggregate function\n" +
 						"  Position: 8");
+				restartTransaction();
+				notAllowedTotal(query,
+						"ERROR: column \"" + table + "." + column + "\" must appear " +
+						"in the GROUP BY clause or be used in an aggregate function\n" +
+						"  Position: 31");
 				break;
 			default:
 				throw new RuntimeException("" + dialect);
-		}
-		if(oracle)
-		{
-			assertEquals(2, query.total());
-		}
-		else
-		{
-			try
-			{
-				fail( "" + query.total() );
-			}
-			catch ( final SQLRuntimeException e )
-			{
-				// fine
-			}
 		}
 	}
 

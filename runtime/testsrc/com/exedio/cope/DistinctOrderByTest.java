@@ -103,6 +103,8 @@ public class DistinctOrderByTest extends TestWithEnvironment
 				"order by numA",
 				query.toString());
 
+		assertEquals(3, query.total());
+
 		switch(dialect)
 		{
 			case hsqldb:
@@ -139,6 +141,19 @@ public class DistinctOrderByTest extends TestWithEnvironment
 		{
 			final List<?> result = query.search();
 			fail("search is expected to fail, but returned " + result);
+		}
+		catch(final SQLRuntimeException e)
+		{
+			assertEquals(message, e.getCause().getMessage());
+		}
+	}
+
+	static void notAllowedTotal(final Query<?> query, final String message)
+	{
+		try
+		{
+			final int result = query.total();
+			fail("total is expected to fail, but returned " + result);
 		}
 		catch(final SQLRuntimeException e)
 		{
