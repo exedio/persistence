@@ -90,17 +90,11 @@ abstract class Column
 
 		new com.exedio.dsmf.Column(dsmfTable, id, databaseTypeClause);
 
-		final String check = getCheckConstraint();
 		if(primaryKey)
-		{
 			new PrimaryKeyConstraint(dsmfTable, table.makeGlobalID("Pk"), id);
-			if(check!=null)
-				new CheckConstraint(dsmfTable, makeGlobalID("Ck"), check);
-		}
-		else
-		{
-			if(check!=null)
-				new CheckConstraint(dsmfTable, makeGlobalID("Ck"), check);
-		}
+
+		final String check = getCheckConstraint();
+		if(check!=null)
+			new CheckConstraint(dsmfTable, makeGlobalID("Ck"), check);
 	}
 }
