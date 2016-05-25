@@ -97,22 +97,13 @@
 					<for param="env" list="${@{env.file}.env}">
 						<sequential>
 							<property file="@{env.file}" prefix="@{env.file}." />
-							<!--echo message="Doing @{skipSwitch} for @{env} skip switch:${@{env.file}.x-build.skip.@{skipSwitch}}." /-->
-							<if>
-								<istrue value="${@{env.file}.x-build.skip.@{skipSwitch}}"/>
-								<then>
-									<echo level="warning" message="Skipped @{skipSwitch} for @{env}." />
-								</then>
-								<else>
-									<echo level="info" message="Doing @{skipSwitch} for @{env}" />
-									<!-- this is a dummy loop to create the attribute @{env.driver} -->
-									<for param="env.driver" list="${@{env.file}.x-build.driver}">
-										<sequential>
-											<body />
-										</sequential>
-									</for>
-								</else>
-							</if>
+							<echo level="info" message="Doing @{skipSwitch} for @{env}" />
+							<!-- this is a dummy loop to create the attribute @{env.driver} -->
+							<for param="env.driver" list="${@{env.file}.x-build.driver}">
+								<sequential>
+									<body />
+								</sequential>
+							</for>
 						</sequential>
 					</for>
 				</sequential>
