@@ -121,7 +121,7 @@ abstract class Column
 				else
 				{
 					if(checkNull!=null)
-						checkConstraint = "(" + quotedID + " IS NOT NULL) OR ((" + quotedID + " IS NULL) AND (" + checkNull + "))";
+						throw new RuntimeException(table.id + '/' + id);
 					else
 						checkConstraint = null;
 				}
