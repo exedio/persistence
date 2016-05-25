@@ -95,7 +95,7 @@ class StringColumn extends Column
 	}
 
 	@Override
-	String getCheckConstraintIfNotNull()
+	String getCheckConstraint()
 	{
 		final StringBuilder bf = new StringBuilder();
 

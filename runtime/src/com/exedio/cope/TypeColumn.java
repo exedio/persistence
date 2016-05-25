@@ -34,9 +34,9 @@ final class TypeColumn extends StringColumn
 	}
 
 	@Override
-	String getCheckConstraintIfNotNull()
+	String getCheckConstraint()
 	{
-		final String superResult = super.getCheckConstraintIfNotNull();
+		final String superResult = super.getCheckConstraint();
 		if(!optional)
 			return superResult;
 

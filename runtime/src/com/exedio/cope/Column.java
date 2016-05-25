@@ -58,7 +58,7 @@ abstract class Column
 
 	abstract String getDatabaseType();
 
-	abstract String getCheckConstraintIfNotNull();
+	abstract String getCheckConstraint();
 
 	String makeGlobalID(final String suffix)
 	{
@@ -91,7 +91,7 @@ abstract class Column
 		new com.exedio.dsmf.Column(dsmfTable, id, databaseTypeClause);
 
 		 // TODO rename
-		final String checkNotNull = getCheckConstraintIfNotNull();
+		final String checkNotNull = getCheckConstraint();
 		if(primaryKey)
 		{
 			new PrimaryKeyConstraint(dsmfTable, table.makeGlobalID("Pk"), id);

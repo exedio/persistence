@@ -51,7 +51,7 @@ final class DoubleColumn extends Column
 	}
 
 	@Override
-	String getCheckConstraintIfNotNull()
+	String getCheckConstraint()
 	{
 		final Dialect dialect = table.database.dialect;
 		return

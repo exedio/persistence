@@ -47,7 +47,7 @@ final class TimestampColumn extends Column
 	}
 
 	@Override
-	String getCheckConstraintIfNotNull()
+	String getCheckConstraint()
 	{
 		return null;
 	}

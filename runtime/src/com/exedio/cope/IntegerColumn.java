@@ -117,7 +117,7 @@ class IntegerColumn extends Column
 	}
 
 	@Override
-	final String getCheckConstraintIfNotNull()
+	final String getCheckConstraint()
 	{
 		if(allowedValues!=null)
 		{
