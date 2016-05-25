@@ -58,11 +58,11 @@ final class HsqldbDialect extends Dialect
 
 	/**
 	 * Additional parenthesis are needed for hsqldb,
-	 * see http://sourceforge.net/tracker/?func=detail&atid=378131&aid=3101603&group_id=23316
 	 */
 	@Override
 	boolean inRequiresParenthesis()
 	{
+		// http://sourceforge.net/tracker/?func=detail&atid=378131&aid=3101603&group_id=23316
 		return true;
 	}
 
