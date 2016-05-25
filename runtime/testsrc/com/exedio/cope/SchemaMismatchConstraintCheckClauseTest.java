@@ -53,7 +53,7 @@ public class SchemaMismatchConstraintCheckClauseTest extends SchemaMismatchTest
 		final Table table = schema.getTable(name(ItemA.TYPE));
 		assertIt(null, OK, supported ? ERROR : OK, table);
 
-		final Constraint check = table.getConstraint(nameCk(ItemA.field));
+		final Constraint check = table.getConstraint(nameCkMax(ItemA.field));
 		if(supported)
 		{
 			final String error;
@@ -63,17 +63,17 @@ public class SchemaMismatchConstraintCheckClauseTest extends SchemaMismatchTest
 				// TODO normalized too much
 				error =
 						"different condition in database: " +
-						"expected "  + "---(" + q("field") + ">=0) AND (" + q("field") + "<=88)---, " +
-						"but was "   + "---(" + q("field") + " >= 0) AND (" + q("field") + " <= 66)--- " +
-						"normalized to  ---" + q("field") + ">=0AND" + q("field") + "<=88--- " +
-						"and "       + "---" + q("field") + ">=0AND" + q("field") + "<=66---";
+						"expected "  + "---" + q("field") + "<=88---, " +
+						"but was "   + "---" + q("field") + " <= 66--- " +
+						"normalized to  ---" + q("field") + "<=88--- " +
+						"and "       + "---" + q("field") + "<=66---";
 			}
 			else
 			{
 				error =
 						"different condition in database: " +
-						"expected "  + "---(" + q("field") + ">=0) AND (" + q("field") + "<=88)---, " +
-						"but was "   + "---(" + q("field") + ">=0) AND (" + q("field") + "<=66)---";
+						"expected "  + "---" + q("field") + "<=88---, " +
+						"but was "   + "---" + q("field") + "<=66---";
 			}
 			assertIt(error, ERROR, ERROR, Check, check);
 		}

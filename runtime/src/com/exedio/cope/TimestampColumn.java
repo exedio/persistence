@@ -47,12 +47,6 @@ final class TimestampColumn extends Column
 	}
 
 	@Override
-	String getCheckConstraint()
-	{
-		return null;
-	}
-
-	@Override
 	void load(final ResultSet resultSet, final int columnIndex, final Row row)
 			throws SQLException
 	{

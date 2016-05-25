@@ -123,7 +123,8 @@ public class NameTest extends TestWithEnvironment
 
 			assertEquals(synthetic("this", "NameSubItemX"),    nameSub.getColumn(synthetic("this", "NameSubItemX"))   .getName());
 			assertPkConstraint    (nameSub, "NameSubItemX_Pk",           null, getPrimaryKeyColumnName(NameSubItem.TYPE));
-			assertCheckConstraint (nameSub, "NameSubItemX_this_Ck",      "("+q(synthetic("this", "NameSubItemX"))+">=0) AND ("+q(synthetic("this", "NameSubItemX"))+"<=2147483647)");
+			assertCheckConstraint (nameSub, "NameSubItemX_this_MN",      q(synthetic("this", "NameSubItemX"))+">=0");
+			assertCheckConstraint (nameSub, "NameSubItemX_this_MX",      q(synthetic("this", "NameSubItemX"))+"<=2147483647");
 
 			assertEquals("unique",  nameSub.getColumn("unique") .getName());
 			assertEquals("integer", nameSub.getColumn("integer").getName());
@@ -131,9 +132,12 @@ public class NameTest extends TestWithEnvironment
 			assertUniqueConstraint(nameSub, "NameSubItemX_unique_Unq",   "("+q("unique")+")");
 			assertFkConstraint    (nameSub, "NameSubItemX_item_Fk",      "item", filterTableName("NameSubItemX"), getPrimaryKeyColumnName(NameSubItem.TYPE));
 			assertUniqueConstraint(nameSub, "NameSubItemX_integers_Unq", "("+q("integer")+","+q("item")+")");
-			assertCheckConstraint (nameSub, "NameSubItemX_unique_Ck",    "("+q("unique")+">=-2147483648) AND ("+q("unique")+"<=2147483647)");
-			assertCheckConstraint (nameSub, "NameSubItemX_integer_Ck",   "("+q("integer")+">=-2147483648) AND ("+q("integer")+"<=2147483647)");
-			assertCheckConstraint (nameSub, "NameSubItemX_item_Ck",      "("+q("item")+">=0) AND ("+q("item")+"<=2147483647)");
+			assertCheckConstraint (nameSub, "NameSubItemX_unique_MN",    q("unique")+">=-2147483648");
+			assertCheckConstraint (nameSub, "NameSubItemX_unique_MX",    q("unique")+"<=2147483647");
+			assertCheckConstraint (nameSub, "NameSubItemX_integer_MN",   q("integer")+">=-2147483648");
+			assertCheckConstraint (nameSub, "NameSubItemX_integer_MX",   q("integer")+"<=2147483647");
+			assertCheckConstraint (nameSub, "NameSubItemX_item_MN",      q("item")+">=0");
+			assertCheckConstraint (nameSub, "NameSubItemX_item_MX",      q("item")+"<=2147483647");
 
 			assertEquals("uniqueY",  nameSub.getColumn("uniqueY") .getName());
 			assertEquals("integerY", nameSub.getColumn("integerY").getName());
@@ -141,9 +145,12 @@ public class NameTest extends TestWithEnvironment
 			assertUniqueConstraint(nameSub, "NameSubItemX_uniqueY_Unq",  "("+q("uniqueY")+")");
 			assertFkConstraint    (nameSub, "NameSubItemX_itemY_Fk",     "itemY", filterTableName("NameSubItemX"), getPrimaryKeyColumnName(NameSubItem.TYPE));
 			assertUniqueConstraint(nameSub, "NameSubItemX_integerY_Unq", "("+q("integerY")+","+q("itemY")+")");
-			assertCheckConstraint (nameSub, "NameSubItemX_uniqueY_Ck",   "("+q("uniqueY")+">=-2147483648) AND ("+q("uniqueY")+"<=2147483647)");
-			assertCheckConstraint (nameSub, "NameSubItemX_integerY_Ck",  "("+q("integerY")+">=-2147483648) AND ("+q("integerY")+"<=2147483647)");
-			assertCheckConstraint (nameSub, "NameSubItemX_itemY_Ck",     "("+q("itemY")+">=0) AND ("+q("itemY")+"<=2147483647)");
+			assertCheckConstraint (nameSub, "NameSubItemX_uniqueY_MN",   q("uniqueY")+">=-2147483648");
+			assertCheckConstraint (nameSub, "NameSubItemX_uniqueY_MX",   q("uniqueY")+"<=2147483647");
+			assertCheckConstraint (nameSub, "NameSubItemX_integerY_MN",  q("integerY")+">=-2147483648");
+			assertCheckConstraint (nameSub, "NameSubItemX_integerY_MX",  q("integerY")+"<=2147483647");
+			assertCheckConstraint (nameSub, "NameSubItemX_itemY_MN",     q("itemY")+">=0");
+			assertCheckConstraint (nameSub, "NameSubItemX_itemY_MX",     q("itemY")+"<=2147483647");
 
 			assertEquals(null, nameSub.getColumn("unique").getError());
 			assertEquals(null, nameSub.getColumn("uniqueY").getError());

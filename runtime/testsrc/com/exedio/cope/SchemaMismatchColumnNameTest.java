@@ -66,14 +66,17 @@ public class SchemaMismatchColumnNameTest extends SchemaMismatchTest
 		// test check constraints as well
 		{
 			final boolean supported = supportsCheckConstraints(model);
-			final Constraint pkPk, checkPk;
+			final Constraint pkPk, checkPkMin, checkPkMax;
 			assertIt(null, OK, OK, PrimaryKey, pkPk = table.getConstraint("ItemAB_Pk"));
 			assertIt(
 					supported ? null : "not supported",
-					OK, OK, Check, checkPk = table.getConstraint("ItemAB_this_Ck"));
+					OK, OK, Check, checkPkMin = table.getConstraint("ItemAB_this_MN"));
+			assertIt(
+					supported ? null : "not supported",
+					OK, OK, Check, checkPkMax = table.getConstraint("ItemAB_this_MX"));
 
-			final Constraint checkA = table.getConstraint(nameCk(ItemA.fieldA));
-			final Constraint checkB = table.getConstraint(nameCk(ItemB.fieldB));
+			final Constraint checkA = table.getConstraint(nameCkEnum(ItemA.fieldA));
+			final Constraint checkB = table.getConstraint(nameCkEnum(ItemB.fieldB));
 			if(supported)
 			{
 				assertIt("not used", ERROR, ERROR, Check, checkA);
@@ -87,13 +90,14 @@ public class SchemaMismatchColumnNameTest extends SchemaMismatchTest
 			}
 
 			assertTrue(pkPk    instanceof com.exedio.dsmf.PrimaryKeyConstraint);
-			assertTrue(checkPk instanceof com.exedio.dsmf.CheckConstraint);
+			assertTrue(checkPkMin instanceof com.exedio.dsmf.CheckConstraint);
+			assertTrue(checkPkMax instanceof com.exedio.dsmf.CheckConstraint);
 			assertTrue(checkB  instanceof com.exedio.dsmf.CheckConstraint);
 
 			assertEquals(
 					supported
-					? asList(pkPk, checkPk, checkB, checkA)
-					: asList(pkPk, checkPk, checkB),
+					? asList(pkPk, checkPkMin, checkPkMax, checkB, checkA)
+					: asList(pkPk, checkPkMin, checkPkMax, checkB),
 					table.getConstraints());
 			}
 

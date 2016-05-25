@@ -21,6 +21,7 @@ package com.exedio.cope;
 import static com.exedio.cope.Executor.NO_SUCH_ROW;
 
 import com.exedio.cope.Executor.ResultSetHandler;
+import com.exedio.dsmf.CheckConstraint;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -117,8 +118,10 @@ class IntegerColumn extends Column
 	}
 
 	@Override
-	final String getCheckConstraint()
+	void makeSchema(final com.exedio.dsmf.Table dt)
 	{
+		super.makeSchema(dt);
+
 		if(allowedValues!=null)
 		{
 			final boolean parenthesis = table.database.dialect.inRequiresParenthesis();
@@ -142,11 +145,13 @@ class IntegerColumn extends Column
 					bf.append(')');
 			}
 			bf.append(')');
-			return bf.toString();
+
+			new CheckConstraint(dt, makeGlobalID("EN"), bf.toString());
 		}
 		else
 		{
-			return '(' + quotedID + ">=" + minimum + ") AND (" + quotedID + "<=" + maximum + ')';
+			new CheckConstraint(dt, makeGlobalID("MN"), quotedID + ">=" + minimum);
+			new CheckConstraint(dt, makeGlobalID("MX"), quotedID + "<=" + maximum);
 		}
 	}
 

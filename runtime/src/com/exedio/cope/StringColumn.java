@@ -21,6 +21,7 @@ package com.exedio.cope;
 import static com.exedio.cope.Intern.intern;
 
 import com.exedio.cope.util.CharSet;
+import com.exedio.dsmf.CheckConstraint;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -95,13 +96,14 @@ class StringColumn extends Column
 	}
 
 	@Override
-	String getCheckConstraint()
+	void makeSchema(final com.exedio.dsmf.Table dt)
 	{
-		final StringBuilder bf = new StringBuilder();
+		super.makeSchema(dt);
 
 		if(allowedValues!=null)
 		{
 			final boolean parenthesis = table.database.dialect.inRequiresParenthesis();
+			final StringBuilder bf = new StringBuilder();
 
 			if(parenthesis)
 				bf.append('(');
@@ -124,7 +126,8 @@ class StringColumn extends Column
 					bf.append(')');
 			}
 			bf.append(')');
-			return bf.toString();
+
+			new CheckConstraint(dt, makeGlobalID("EN"), bf.toString());
 		}
 		else
 		{
@@ -132,27 +135,26 @@ class StringColumn extends Column
 			if(minimumLength>0)
 			{
 				if(minimumLength==maximumLength)
-					bf.append(length + '(' + quotedID + ")=" + minimumLength);
+				{
+					new CheckConstraint(dt, makeGlobalID("MN"), length + '(' + quotedID + ")=" + minimumLength);
+				}
 				else
-					bf.append(
-							'(' + length + '(' + quotedID + ")>=" + minimumLength + ')' + " AND " +
-							'(' + length + '(' + quotedID + ")<=" + maximumLength + ')');
+				{
+					new CheckConstraint(dt, makeGlobalID("MN"), length + '(' + quotedID + ")>=" + minimumLength);
+					new CheckConstraint(dt, makeGlobalID("MX"), length + '(' + quotedID + ")<=" + maximumLength);
+				}
 			}
 			else
 			{
-				bf.append(length + '(' + quotedID + ")<=" + maximumLength);
+				new CheckConstraint(dt, makeGlobalID("MX"), length + '(' + quotedID + ")<=" + maximumLength);
 			}
 			if(charSet!=null)
 			{
 				final String clause = table.database.dialect.getClause(quotedID, charSet);
 				if(clause!=null)
-					bf.append(" AND (").
-						append(clause).
-						append(')');
+					new CheckConstraint(dt, makeGlobalID("CS"), clause);
 			}
 		}
-
-		return bf.length()==0 ? null : bf.toString();
 	}
 
 	@Override

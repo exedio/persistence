@@ -7,6 +7,10 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* Use multiple check constraints for each column.
+	This heavily affects database schema, except on MySQL.
+	It's strongly recommended to update cope-console as well for
+		tab "Unsupported Check Constraints By Table".
 * supports 63 bit primary keys instead of just 31 bit.
 	Does not affect database schema unless you specify @CopeCreateLimit.
 	Breaks serialization compatibility of Item, causes:

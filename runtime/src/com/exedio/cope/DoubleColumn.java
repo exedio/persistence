@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import com.exedio.dsmf.CheckConstraint;
 import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -51,12 +52,13 @@ final class DoubleColumn extends Column
 	}
 
 	@Override
-	String getCheckConstraint()
+	void makeSchema(final com.exedio.dsmf.Table dt)
 	{
+		super.makeSchema(dt);
+
 		final Dialect dialect = table.database.dialect;
-		return
-				'(' + quotedID + ">=" + dialect.format(minimum) + ')' + " AND " +
-				'(' + quotedID + "<=" + dialect.format(maximum) + ')';
+		new CheckConstraint(dt, makeGlobalID("MN"), quotedID + ">=" + dialect.format(minimum));
+		new CheckConstraint(dt, makeGlobalID("MX"), quotedID + "<=" + dialect.format(maximum));
 	}
 
 	@Override

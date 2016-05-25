@@ -60,24 +60,36 @@ public class CheckConstraintHierarchySchemaTest extends TestWithEnvironment
 
 		{
 			final Iterator<Constraint> i = table.getConstraints().iterator();
-			assertEquals("ItemBottom_this_Ck", next(i).getName());
-			assertEquals("ItemBottom_catch_Ck", next(i).getName());
-			assertEquals("ItemBottom_bottom1_Ck", next(i).getName());
-			assertEquals("ItemBottom_bottom2_Ck", next(i).getName());
-			assertEquals("ItemBottom_cross2_Ck", next(i).getName());
+			assertEquals("ItemBottom_this_MN", next(i).getName());
+			assertEquals("ItemBottom_this_MX", next(i).getName());
+			assertEquals("ItemBottom_catch_MN", next(i).getName());
+			assertEquals("ItemBottom_catch_MX", next(i).getName());
+			assertEquals("ItemBottom_bottom1_MN", next(i).getName());
+			assertEquals("ItemBottom_bottom1_MX", next(i).getName());
+			assertEquals("ItemBottom_bottom2_MN", next(i).getName());
+			assertEquals("ItemBottom_bottom2_MX", next(i).getName());
+			assertEquals("ItemBottom_cross2_MN", next(i).getName());
+			assertEquals("ItemBottom_cross2_MX", next(i).getName());
 			assertIt("ItemBottom_bottom", q(bottom1)+"<"+q(bottom2), next(i));
 			assertFalse(hasNext(i));
 		}
 		{
 			final Iterator<Constraint> i = superTable.getConstraints().iterator();
-			assertEquals("ItemTop_this_Ck", next(i).getName());
-			assertEquals("ItemTop_class_Ck", next(i).getName());
-			assertEquals("ItemTop_catch_Ck", next(i).getName());
-			assertEquals("ItemTop_top1_Ck", next(i).getName());
-			assertEquals("ItemTop_top2_Ck", next(i).getName());
-			assertEquals("ItemTop_up1_Ck", next(i).getName());
-			assertEquals("ItemTop_up2_Ck", next(i).getName());
-			assertEquals("ItemTop_cross1_Ck", next(i).getName());
+			assertEquals("ItemTop_this_MN", next(i).getName());
+			assertEquals("ItemTop_this_MX", next(i).getName());
+			assertEquals("ItemTop_class_EN", next(i).getName());
+			assertEquals("ItemTop_catch_MN", next(i).getName());
+			assertEquals("ItemTop_catch_MX", next(i).getName());
+			assertEquals("ItemTop_top1_MN", next(i).getName());
+			assertEquals("ItemTop_top1_MX", next(i).getName());
+			assertEquals("ItemTop_top2_MN", next(i).getName());
+			assertEquals("ItemTop_top2_MX", next(i).getName());
+			assertEquals("ItemTop_up1_MN", next(i).getName());
+			assertEquals("ItemTop_up1_MX", next(i).getName());
+			assertEquals("ItemTop_up2_MN", next(i).getName());
+			assertEquals("ItemTop_up2_MX", next(i).getName());
+			assertEquals("ItemTop_cross1_MN", next(i).getName());
+			assertEquals("ItemTop_cross1_MX", next(i).getName());
 			assertIt("ItemTop_top", q(top1)+"<"+q(top2), next(i));
 			assertFalse(hasNext(i));
 		}

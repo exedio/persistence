@@ -40,12 +40,6 @@ final class DayColumn extends Column
 		return table.database.dialect.getDayType();
 	}
 
-	@Override
-	String getCheckConstraint()
-	{
-		return null;
-	}
-
 	static int getTransientNumber(final Day day)
 	{
 		return (((day.getYear()*12) + (day.getMonth()-1))*31) + (day.getDay()-1);

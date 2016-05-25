@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.RuntimeTester.assertNotExistsConstraint;
 import static com.exedio.cope.SchemaInfo.getColumnName;
 import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnName;
 import static com.exedio.cope.SchemaInfo.getTableName;
@@ -76,26 +77,37 @@ public class SchemaTest extends TestWithEnvironment
 		assertEquals(null, table.getError());
 		assertEquals(OK, table.getParticularColor());
 
-		assertCheckConstraint(table, "SchemaItem_string_Ck", "("+l(string)+">=1) AND (" + l(string)+"<="+StringField.DEFAULT_MAXIMUM_LENGTH+")");
-		assertCheckConstraint(table, "SchemaItem_integ_Ck" , "("+q(integ )+">=-10) AND ("+q(integ)+"<=10)");
-		assertCheckConstraint(table, "SchemaItem_doub_Ck"  , "("+q(doub  )+">=-11.1) AND ("+q(doub)+"<=11.1)");
-		assertCheckConstraint(table, "SchemaItem_bool_Ck"  , hp(q(bool  ))+" IN ("+hp("0")+","+hp("1")+")");
-		assertCheckConstraint(table, "SchemaItem_anEnum_Ck", hp(q(anEnum))+" IN ("+hp("10")+","+hp("20")+","+hp("30")+")");
-		assertCheckConstraint(table, "SchemaItem_item_Ck"  , "("+q(item  )+">=0) AND ("+q(item)+"<=567)");
-		assertCheckConstraint(table, "SchemaItem_poly_Ck"  , "("+q(poly  )+">=0) AND ("+q(poly)+"<=567)");
-		assertCheckConstraint(table, "SchemaItem_polyType_Ck", hp(t(poly))+" IN ("+hp("'SchemaTargetPolymorphicItem'")+","+hp("'SchemaTargetItem'")+")");
+		assertCheckConstraint(table, "SchemaItem_string_MN", l(string)+">=1");
+		assertCheckConstraint(table, "SchemaItem_string_MX", l(string)+"<="+StringField.DEFAULT_MAXIMUM_LENGTH);
+		assertCheckConstraint(table, "SchemaItem_integ_MN", q(integ)+">=-10");
+		assertCheckConstraint(table, "SchemaItem_integ_MX", q(integ)+"<=10");
+		assertCheckConstraint(table, "SchemaItem_doub_MN", q(doub)+">=-11.1");
+		assertCheckConstraint(table, "SchemaItem_doub_MX", q(doub)+"<=11.1");
+		assertCheckConstraint(table, "SchemaItem_bool_EN", hp(q(bool  ))+" IN ("+hp("0")+","+hp("1")+")");
+		assertCheckConstraint(table, "SchemaItem_anEnum_EN", hp(q(anEnum))+" IN ("+hp("10")+","+hp("20")+","+hp("30")+")");
+		assertCheckConstraint(table, "SchemaItem_item_MN", q(item)+">=0");
+		assertCheckConstraint(table, "SchemaItem_item_MX", q(item)+"<=567");
+		assertCheckConstraint(table, "SchemaItem_poly_MN", q(poly)+">=0");
+		assertCheckConstraint(table, "SchemaItem_poly_MX", q(poly)+"<=567");
+		assertCheckConstraint(table, "SchemaItem_polyType_EN", hp(t(poly))+" IN ("+hp("'SchemaTargetPolymorphicItem'")+","+hp("'SchemaTargetItem'")+")");
+		assertCheckConstraint(table, "SchemaItem_polyType_NS", null, false);
 
-		assertCheckConstraint(table, "SchemaItem_stringOpt_Ck","("+l(stringOpt)+">=1) AND ("+l(stringOpt)+"<="+StringField.DEFAULT_MAXIMUM_LENGTH+")");
-		assertCheckConstraint(table, "SchemaItem_integOpt_Ck" ,"("+q(integOpt)+">=-10) AND ("+q(integOpt)+"<=10)");
-		assertCheckConstraint(table, "SchemaItem_doubOpt_Ck"  ,"("+q(doubOpt)+">=-11.1) AND ("+q(doubOpt)+"<=11.1)");
-		assertCheckConstraint(table, "SchemaItem_boolOpt_Ck"  ,hp(q(boolOpt))+" IN ("+hp("0")+","+hp("1")+")");
-		assertCheckConstraint(table, "SchemaItem_enumOpt_Ck"  ,hp(q(enumOpt))+" IN ("+hp("10")+","+hp("20")+","+hp("30")+")");
-		assertCheckConstraint(table, "SchemaItem_itemOpt_Ck"  ,"("+q(itemOpt)  +">=0) AND ("+q(itemOpt)+"<=567)");
-		assertCheckConstraint(table, "SchemaItem_polyOpt_Ck"  ,"("+q(polyOpt)  +">=0) AND ("+q(polyOpt)+"<=567)");
-		assertCheckConstraint(table, "SchemaItem_polyOptType_Ck",
-				"("+hp(t(polyOpt))+" IN ("+hp("'SchemaTargetPolymorphicItem'")+","+hp("'SchemaTargetItem'")+")) AND ("+
-					"(("+t(polyOpt)+" IS NOT NULL) AND ("+q(polyOpt)+" IS NOT NULL))" +
-					" OR (("+t(polyOpt)+" IS NULL) AND ("+q(polyOpt)+" IS NULL)))");
+		assertCheckConstraint(table, "SchemaItem_stringOpt_MN", l(stringOpt)+">=1");
+		assertCheckConstraint(table, "SchemaItem_stringOpt_MX", l(stringOpt)+"<="+StringField.DEFAULT_MAXIMUM_LENGTH);
+		assertCheckConstraint(table, "SchemaItem_integOpt_MN", q(integOpt)+">=-10");
+		assertCheckConstraint(table, "SchemaItem_integOpt_MX", q(integOpt)+"<=10");
+		assertCheckConstraint(table, "SchemaItem_doubOpt_MN", q(doubOpt)+">=-11.1");
+		assertCheckConstraint(table, "SchemaItem_doubOpt_MX", q(doubOpt)+"<=11.1");
+		assertCheckConstraint(table, "SchemaItem_boolOpt_EN", hp(q(boolOpt))+" IN ("+hp("0")+","+hp("1")+")");
+		assertCheckConstraint(table, "SchemaItem_enumOpt_EN", hp(q(enumOpt))+" IN ("+hp("10")+","+hp("20")+","+hp("30")+")");
+		assertCheckConstraint(table, "SchemaItem_itemOpt_MN", q(itemOpt)+">=0");
+		assertCheckConstraint(table, "SchemaItem_itemOpt_MX", q(itemOpt)+"<=567");
+		assertCheckConstraint(table, "SchemaItem_polyOpt_MN", q(polyOpt)+">=0");
+		assertCheckConstraint(table, "SchemaItem_polyOpt_MX", q(polyOpt)+"<=567");
+		assertCheckConstraint(table, "SchemaItem_polyOptType_EN", hp(t(polyOpt))+" IN ("+hp("'SchemaTargetPolymorphicItem'")+","+hp("'SchemaTargetItem'")+")");
+		assertCheckConstraint(table, "SchemaItem_polyOptType_NS",
+				"(("+t(polyOpt)+" IS NOT NULL) AND ("+q(polyOpt)+" IS NOT NULL))" +
+				" OR (("+t(polyOpt)+" IS NULL) AND ("+q(polyOpt)+" IS NULL))");
 
 		assertPkConstraint(table, "SchemaItem_Pk", null, getPrimaryKeyColumnName(TYPE));
 
@@ -122,15 +134,22 @@ public class SchemaTest extends TestWithEnvironment
 		}
 		assertEquals(string8, min4Max8Column.getType());
 
-		final String upperSQL = mysql ? " AND ("+q(stringUpper6)+" REGEXP '^[A-Z]*$')" : "";
+		final String upperSQL = mysql ? q(stringUpper6)+" REGEXP '^[A-Z]*$'" : "";
 
-		assertCheckConstraint(table, "SchemaItem_stringMin4_Ck",  "("+l(stringMin4)+">=4) AND ("+l(stringMin4)+"<="+StringField.DEFAULT_MAXIMUM_LENGTH+")");
-		assertCheckConstraint(table, "SchemaItem_stringMax4_Ck",  "("+l(stringMax4)+">=1) AND (" +l(stringMax4)+"<=4)");
-		assertCheckConstraint(table, "SchemItem_striMin4Max8_Ck", "("+l(stringMin4Max8)+">=4) AND ("+l(stringMin4Max8)+"<=8)");
-		assertCheckConstraint(table, "SchemaItem_strinExact6_Ck", l(stringExact6)+"=6");
-		assertCheckConstraint(table, "SchemaItem_strinUpper6_Ck", l(stringUpper6)+"=6" + upperSQL);
-		assertCheckConstraint(table, "SchemaItem_stringEmpty_Ck", l(stringEmpty)+"<="+StringField.DEFAULT_MAXIMUM_LENGTH);
-		assertCheckConstraint(table, "SchemaItem_data_Ck",        l(data)+"<="+DataField.DEFAULT_LENGTH);
+		assertCheckConstraint(table, "SchemaItem_stringMin4_MN", l(stringMin4)+">=4");
+		assertCheckConstraint(table, "SchemaItem_stringMin4_MX", l(stringMin4)+"<="+StringField.DEFAULT_MAXIMUM_LENGTH);
+		assertCheckConstraint(table, "SchemaItem_stringMax4_MN", l(stringMax4)+">=1");
+		assertCheckConstraint(table, "SchemaItem_stringMax4_MX", l(stringMax4)+"<=4");
+		assertCheckConstraint(table, "SchemItem_striMin4Max8_MN", l(stringMin4Max8)+">=4");
+		assertCheckConstraint(table, "SchemItem_striMin4Max8_MX", l(stringMin4Max8)+"<=8");
+		assertCheckConstraint(table, "SchemaItem_strinExact6_MN", l(stringExact6)+"=6");
+		assertCheckConstraint(table, "SchemaItem_strinExact6_MX", null, false);
+		assertCheckConstraint(table, "SchemaItem_strinUpper6_MN", l(stringUpper6)+"=6");
+		assertCheckConstraint(table, "SchemaItem_strinUpper6_MX", null, false);
+		assertCheckConstraint(table, "SchemaItem_strinUpper6_CS", upperSQL, mysql);
+		assertCheckConstraint(table, "SchemaItem_stringEmpty_MN", null, false);
+		assertCheckConstraint(table, "SchemaItem_stringEmpty_MX", l(stringEmpty)+"<="+StringField.DEFAULT_MAXIMUM_LENGTH);
+		assertCheckConstraint(table, "SchemaItem_data_MX", l(data)+"<="+DataField.DEFAULT_LENGTH);
 
 		final Column stringLongColumn = table.getColumn(getColumnName(stringLong));
 		assertEquals(null, stringLongColumn.getError());
@@ -187,5 +206,17 @@ public class SchemaTest extends TestWithEnvironment
 			return "(" + s + ")";
 		else
 			return s;
+	}
+
+	private final void assertCheckConstraint(
+			final Table table,
+			final String name,
+			final String condition,
+			final boolean exists)
+	{
+		if(exists)
+			assertCheckConstraint(table, name, condition);
+		else
+			assertNotExistsConstraint(table, name);
 	}
 }

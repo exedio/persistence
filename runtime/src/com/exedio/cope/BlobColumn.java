@@ -21,6 +21,7 @@ package com.exedio.cope;
 import static com.exedio.cope.Executor.NO_SUCH_ROW;
 
 import com.exedio.cope.Executor.ResultSetHandler;
+import com.exedio.dsmf.CheckConstraint;
 import java.io.OutputStream;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -52,9 +53,12 @@ final class BlobColumn extends Column
 	}
 
 	@Override
-	String getCheckConstraint()
+	void makeSchema(final com.exedio.dsmf.Table dsmfTable)
 	{
-		return table.database.dialect.getBlobLength() + '(' + quotedID + ")<=" + maximumLength;
+		super.makeSchema(dsmfTable);
+
+		new CheckConstraint(dsmfTable, makeGlobalID("MX"),
+				table.database.dialect.getBlobLength() + '(' + quotedID + ")<=" + maximumLength);
 	}
 
 	@Override

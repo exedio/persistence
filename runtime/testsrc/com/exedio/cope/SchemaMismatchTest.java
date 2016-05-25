@@ -82,10 +82,16 @@ public abstract class SchemaMismatchTest extends TestWithEnvironment
 		return element.getType() + "_" + element.getName() + "_Fk";
 	}
 
-	protected static final String nameCk(final Field<?> element)
+	protected static final String nameCkEnum(final BooleanField element)
 	{
 		// TODO this is guessing and works just for short names
-		return element.getType() + "_" + element.getName() + "_Ck";
+		return element.getType() + "_" + element.getName() + "_EN";
+	}
+
+	protected static final String nameCkMax(final IntegerField element)
+	{
+		// TODO this is guessing and works just for short names
+		return element.getType() + "_" + element.getName() + "_MX";
 	}
 
 	protected static final String nameSeq(final This<?> element)
