@@ -59,13 +59,6 @@ abstract class Column
 	abstract String getDatabaseType();
 
 	abstract String getCheckConstraintIfNotNull();
-	String getCheckConstraintIfNull()
-	{
-		if(!optional)
-			throw new IllegalStateException(table.id + '.' + id);
-
-		return null;
-	}
 
 	String makeGlobalID(final String suffix)
 	{
@@ -97,6 +90,7 @@ abstract class Column
 
 		new com.exedio.dsmf.Column(dsmfTable, id, databaseTypeClause);
 
+		 // TODO rename
 		final String checkNotNull = getCheckConstraintIfNotNull();
 		if(primaryKey)
 		{
@@ -106,34 +100,8 @@ abstract class Column
 		}
 		else
 		{
-			final String checkConstraint;
-
-			if(optional)
-			{
-				final String checkNull = getCheckConstraintIfNull();
-				if(checkNotNull!=null)
-				{
-					if(checkNull!=null)
-						checkConstraint = "((" + quotedID + " IS NOT NULL) AND (" + checkNotNull + ")) OR ((" + quotedID + " IS NULL) AND (" + checkNull + "))";
-					else
-						checkConstraint = checkNotNull;
-				}
-				else
-				{
-					if(checkNull!=null)
-						throw new RuntimeException(table.id + '/' + id);
-					else
-						checkConstraint = null;
-				}
-			}
-			else
-			{
-				checkConstraint = checkNotNull;
-			}
-
-			if(checkConstraint!=null)
-				new CheckConstraint(dsmfTable, makeGlobalID("Ck"), checkConstraint);
+			if(checkNotNull!=null)
+				new CheckConstraint(dsmfTable, makeGlobalID("Ck"), checkNotNull);
 		}
 	}
-
 }

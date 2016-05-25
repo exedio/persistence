@@ -41,16 +41,10 @@ final class TypeColumn extends StringColumn
 			return superResult;
 
 		assert superResult!=null;
-		return "(" + superResult + ") AND (" + itemColumnQuotedID + " IS NOT NULL)";
-	}
 
-	@Override
-	String getCheckConstraintIfNull()
-	{
-		if(super.getCheckConstraintIfNull()!=null)
-			throw new RuntimeException(); // not implemented
-
-		return itemColumnQuotedID + " IS NULL";
+		return
+				"((" + quotedID + " IS NOT NULL) AND ((" + superResult + ") AND (" + itemColumnQuotedID + " IS NOT NULL))) OR " +
+				"((" + quotedID + " IS "+ "NULL) AND "+                        "(" + itemColumnQuotedID + " IS "+ "NULL))";
 	}
 
 	/*@Override
