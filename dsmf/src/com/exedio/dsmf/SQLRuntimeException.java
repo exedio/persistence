@@ -31,22 +31,28 @@ public final class SQLRuntimeException extends RuntimeException
 
 	public SQLRuntimeException(final SQLException cause, final String statement)
 	{
-		super(truncateStatement(statement), cause);
+		this(cause, statement, 10000);
 	}
 
-	private static String truncateStatement(final String value)
+	public SQLRuntimeException(final SQLException cause, final String statement, final int statementLimit)
 	{
+		super(truncateStatement(statement, statementLimit), cause);
+	}
+
+	private static String truncateStatement(final String value, int limit)
+	{
+		if(limit<200)
+			limit = 200;
+
 		if(value==null)
 			return null;
 
 		final int length = value.length();
-		if(length<=LIMIT)
+		if(length<=limit)
 			return value;
 
 		return
-			value.substring(0, LIMIT-100) + " ... " + value.substring(length-20, length) +
+			value.substring(0, limit-100) + " ... " + value.substring(length-20, length) +
 			" (truncated, was " + length + " characters)";
 	}
-
-	private static final int LIMIT = 200;
 }

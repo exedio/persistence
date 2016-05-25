@@ -42,10 +42,21 @@ public class SQLRuntimeExceptionTest
 				"0123456789abcdefghij0123456789abcdefghij0123456789abcdefghij0123456789abcdefghij0123456789abcdefghij0123456789abcdefghij0123456789abcdefghij0123456789abcdefghij0123456789abcdefghij0123456789abcdefghijXYZ");
 		assertIt("", "");
 		assertIt(null, null);
+		assertIt(
+				"0123456789abcdefghij0123456789abcdefghij0123456789abcdefghij0123456789abcdefghij0123456789abcdefghij ... 3456789abcdefghijXYZ (truncated, was 203 characters)",
+				"0123456789abcdefghij0123456789abcdefghij0123456789abcdefghij0123456789abcdefghij0123456789abcdefghij0123456789abcdefghij0123456789abcdefghij0123456789abcdefghij0123456789abcdefghij0123456789abcdefghijXYZ", 100);
+		assertIt(
+				"0123456789abcdefghij0123456789abcdefghij0123456789abcdefghij0123456789abcdefghij0123456789abcdefghij0 ... 3456789abcdefghijXYZ (truncated, was 203 characters)",
+				"0123456789abcdefghij0123456789abcdefghij0123456789abcdefghij0123456789abcdefghij0123456789abcdefghij0123456789abcdefghij0123456789abcdefghij0123456789abcdefghij0123456789abcdefghij0123456789abcdefghijXYZ", 201);
 	}
 
 	private static void assertIt(final String message, final String value)
 	{
-		assertEquals(message, new SQLRuntimeException(null, value).getMessage());
+		assertIt(message, value, 200);
+	}
+
+	private static void assertIt(final String message, final String value, final int limit)
+	{
+		assertEquals(message, new SQLRuntimeException(null, value, limit).getMessage());
 	}
 }
