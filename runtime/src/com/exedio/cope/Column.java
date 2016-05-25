@@ -90,18 +90,17 @@ abstract class Column
 
 		new com.exedio.dsmf.Column(dsmfTable, id, databaseTypeClause);
 
-		 // TODO rename
-		final String checkNotNull = getCheckConstraint();
+		final String check = getCheckConstraint();
 		if(primaryKey)
 		{
 			new PrimaryKeyConstraint(dsmfTable, table.makeGlobalID("Pk"), id);
-			if(checkNotNull!=null)
-				new CheckConstraint(dsmfTable, makeGlobalID("CkPk"), checkNotNull);
+			if(check!=null)
+				new CheckConstraint(dsmfTable, makeGlobalID("CkPk"), check);
 		}
 		else
 		{
-			if(checkNotNull!=null)
-				new CheckConstraint(dsmfTable, makeGlobalID("Ck"), checkNotNull);
+			if(check!=null)
+				new CheckConstraint(dsmfTable, makeGlobalID("Ck"), check);
 		}
 	}
 }
