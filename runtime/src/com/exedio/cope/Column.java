@@ -95,7 +95,7 @@ abstract class Column
 		{
 			new PrimaryKeyConstraint(dsmfTable, table.makeGlobalID("Pk"), id);
 			if(check!=null)
-				new CheckConstraint(dsmfTable, makeGlobalID("CkPk"), check);
+				new CheckConstraint(dsmfTable, makeGlobalID("Ck"), check);
 		}
 		else
 		{

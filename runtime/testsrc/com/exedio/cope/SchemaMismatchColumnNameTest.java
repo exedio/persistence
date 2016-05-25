@@ -70,7 +70,7 @@ public class SchemaMismatchColumnNameTest extends SchemaMismatchTest
 			assertIt(null, OK, OK, PrimaryKey, pkPk = table.getConstraint("ItemAB_Pk"));
 			assertIt(
 					supported ? null : "not supported",
-					OK, OK, Check, checkPk = table.getConstraint("ItemAB_this_CkPk"));
+					OK, OK, Check, checkPk = table.getConstraint("ItemAB_this_Ck"));
 
 			final Constraint checkA = table.getConstraint(nameCk(ItemA.fieldA));
 			final Constraint checkB = table.getConstraint(nameCk(ItemB.fieldB));

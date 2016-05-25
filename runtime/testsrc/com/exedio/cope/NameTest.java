@@ -123,7 +123,7 @@ public class NameTest extends TestWithEnvironment
 
 			assertEquals(synthetic("this", "NameSubItemX"),    nameSub.getColumn(synthetic("this", "NameSubItemX"))   .getName());
 			assertPkConstraint    (nameSub, "NameSubItemX_Pk",           null, getPrimaryKeyColumnName(NameSubItem.TYPE));
-			assertCheckConstraint (nameSub, "NameSubItemX_this_CkPk",    "("+q(synthetic("this", "NameSubItemX"))+">=0) AND ("+q(synthetic("this", "NameSubItemX"))+"<=2147483647)");
+			assertCheckConstraint (nameSub, "NameSubItemX_this_Ck",      "("+q(synthetic("this", "NameSubItemX"))+">=0) AND ("+q(synthetic("this", "NameSubItemX"))+"<=2147483647)");
 
 			assertEquals("unique",  nameSub.getColumn("unique") .getName());
 			assertEquals("integer", nameSub.getColumn("integer").getName());

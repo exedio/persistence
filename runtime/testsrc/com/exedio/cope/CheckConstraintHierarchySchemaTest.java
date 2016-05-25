@@ -60,7 +60,7 @@ public class CheckConstraintHierarchySchemaTest extends TestWithEnvironment
 
 		{
 			final Iterator<Constraint> i = table.getConstraints().iterator();
-			assertEquals("ItemBottom_this_CkPk", next(i).getName());
+			assertEquals("ItemBottom_this_Ck", next(i).getName());
 			assertEquals("ItemBottom_catch_Ck", next(i).getName());
 			assertEquals("ItemBottom_bottom1_Ck", next(i).getName());
 			assertEquals("ItemBottom_bottom2_Ck", next(i).getName());
@@ -70,7 +70,7 @@ public class CheckConstraintHierarchySchemaTest extends TestWithEnvironment
 		}
 		{
 			final Iterator<Constraint> i = superTable.getConstraints().iterator();
-			assertEquals("ItemTop_this_CkPk", next(i).getName());
+			assertEquals("ItemTop_this_Ck", next(i).getName());
 			assertEquals("ItemTop_class_Ck", next(i).getName());
 			assertEquals("ItemTop_catch_Ck", next(i).getName());
 			assertEquals("ItemTop_top1_Ck", next(i).getName());
