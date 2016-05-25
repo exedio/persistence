@@ -28,6 +28,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 import com.exedio.dsmf.SQLRuntimeException;
+import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -136,8 +137,8 @@ public class DistinctOrderByTest extends TestWithEnvironment
 	{
 		try
 		{
-			query.search();
-			fail();
+			final List<?> result = query.search();
+			fail("search is expected to fail, but returned " + result);
 		}
 		catch(final SQLRuntimeException e)
 		{
