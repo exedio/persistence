@@ -54,7 +54,7 @@ final class BlobColumn extends Column
 	@Override
 	String getCheckConstraint()
 	{
-		return table.database.dialect.getBlobLength() + '(' + quotedID + ")<=" + (maximumLength);
+		return table.database.dialect.getBlobLength() + '(' + quotedID + ")<=" + maximumLength;
 	}
 
 	@Override

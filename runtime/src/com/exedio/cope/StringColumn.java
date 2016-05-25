@@ -132,11 +132,11 @@ class StringColumn extends Column
 			if(minimumLength>0)
 			{
 				if(minimumLength==maximumLength)
-					bf.append(length + '(' + quotedID + ")=" + minimumLength );
+					bf.append(length + '(' + quotedID + ")=" + minimumLength);
 				else
 					bf.append(
-							'(' + length + '(' + quotedID + ")>=" + minimumLength + ") AND " +
-							'(' + length + "(" + quotedID + ")<=" + maximumLength + ')');
+							'(' + length + '(' + quotedID + ")>=" + minimumLength + ')' + " AND " +
+							'(' + length + '(' + quotedID + ")<=" + maximumLength + ')');
 			}
 			else
 			{

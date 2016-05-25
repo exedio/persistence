@@ -55,8 +55,8 @@ final class DoubleColumn extends Column
 	{
 		final Dialect dialect = table.database.dialect;
 		return
-				'(' + quotedID + ">=" + dialect.format(minimum) + ") AND " +
-				"(" + quotedID + "<=" + dialect.format(maximum) + ')';
+				'(' + quotedID + ">=" + dialect.format(minimum) + ')' + " AND " +
+				'(' + quotedID + "<=" + dialect.format(maximum) + ')';
 	}
 
 	@Override
