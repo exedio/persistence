@@ -93,8 +93,9 @@ public class SchemaTest extends TestWithEnvironment
 		assertCheckConstraint(table, "SchemaItem_itemOpt_Ck"  ,"("+q(itemOpt)  +">=0) AND ("+q(itemOpt)+"<=567)");
 		assertCheckConstraint(table, "SchemaItem_polyOpt_Ck"  ,"("+q(polyOpt)  +">=0) AND ("+q(polyOpt)+"<=567)");
 		assertCheckConstraint(table, "SchemaItem_polyOptType_Ck",
-				"(("+t(polyOpt)+" IS NOT NULL) AND (("+hp(t(polyOpt))+" IN ("+hp("'SchemaTargetPolymorphicItem'")+","+hp("'SchemaTargetItem'")+"))"+" AND ("+q(polyOpt)+" IS NOT NULL)))" +
-				" OR (("+t(polyOpt)+" IS NULL) AND ("+q(polyOpt)+" IS NULL))");
+				"("+hp(t(polyOpt))+" IN ("+hp("'SchemaTargetPolymorphicItem'")+","+hp("'SchemaTargetItem'")+")) AND ("+
+					"(("+t(polyOpt)+" IS NOT NULL) AND ("+q(polyOpt)+" IS NOT NULL))" +
+					" OR (("+t(polyOpt)+" IS NULL) AND ("+q(polyOpt)+" IS NULL)))");
 
 		assertPkConstraint(table, "SchemaItem_Pk", null, getPrimaryKeyColumnName(TYPE));
 
