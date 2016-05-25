@@ -46,12 +46,11 @@ public class DatePrecisionSchemaTest extends TestWithEnvironment
 	public DatePrecisionSchemaTest()
 	{
 		super(DatePrecisionTest.MODEL);
+		copeRule.omitTransaction();
 	}
 
 	@Test public void testSchema()
 	{
-		model.commit();
-
 		final Schema schema = model.getSchema();
 		schema.checkUnsupportedConstraints();
 
