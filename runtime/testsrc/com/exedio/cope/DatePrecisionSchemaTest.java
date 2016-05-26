@@ -54,30 +54,94 @@ public class DatePrecisionSchemaTest extends TestWithEnvironment
 		schema.checkUnsupportedConstraints();
 
 		final Table table = schema.getTable(getTableName(TYPE));
-		final Constraint millisC  = table.getConstraint("DatePrecisiItem_millis_PR");
-		final Constraint secondsC = table.getConstraint("DatePrecisiItem_second_PR");
-		final Constraint minutesC = table.getConstraint("DatePrecisiItem_minute_PR");
-		final Constraint hoursC   = table.getConstraint("DatePrecisioItem_hours_PR");
+
+		final Constraint  millisPR = table.getConstraint("DatePrecisiItem_millis_PR");
+		final Constraint secondsPR = table.getConstraint("DatePrecisiItem_second_PR");
+		final Constraint minutesPR = table.getConstraint("DatePrecisiItem_minute_PR");
+		final Constraint   hoursPR = table.getConstraint("DatePrecisioItem_hours_PR");
+
+		final Constraint  millisPM = table.getConstraint("DatePrecisiItem_millis_PM");
+		final Constraint secondsPM = table.getConstraint("DatePrecisiItem_second_PM");
+		final Constraint minutesPM = table.getConstraint("DatePrecisiItem_minute_PM");
+		final Constraint   hoursPM = table.getConstraint("DatePrecisioItem_hours_PM");
+
+		final Constraint  millisPS = table.getConstraint("DatePrecisiItem_millis_PS");
+		final Constraint secondsPS = table.getConstraint("DatePrecisiItem_second_PS");
+		final Constraint minutesPS = table.getConstraint("DatePrecisiItem_minute_PS");
+		final Constraint   hoursPS = table.getConstraint("DatePrecisioItem_hours_PS");
 
 		if(supportsNativeDate(model))
 		{
-			assertEquals(null, millisC);
-			assertEquals(null, secondsC);
-			assertEquals(null, minutesC);
-			assertEquals(null, hoursC);
+			assertEquals(null,  millisPR);
+			assertEquals(null, secondsPR);
+			assertEquals(null, minutesPR);
+			assertEquals(null,   hoursPR);
+
+			assertEquals(null,  millisPM);
+			assertEquals(null, secondsPM);
+			assertEquals(null, minutesPM);
+			assertEquals(extract(hours  , Minutes)+"=0",   hoursPM.getRequiredCondition());
+
+			assertEquals(null, millisPS);
+			assertEquals(extract(seconds, Seconds)+"=" + floor(extract(seconds, Seconds)), secondsPS.getRequiredCondition());
+			assertEquals(extract(minutes, Seconds)+"=0", minutesPS.getRequiredCondition());
+			assertEquals(extract(hours  , Seconds)+"=0",   hoursPS.getRequiredCondition());
+
 		}
 		else
 		{
-			assertEquals(null, millisC);
-			assertEquals(precision(seconds,    1000), secondsC.getRequiredCondition());
-			assertEquals(precision(minutes,   60000), minutesC.getRequiredCondition());
-			assertEquals(precision(hours  , 3600000), hoursC  .getRequiredCondition());
+			assertEquals(null, millisPR);
+			assertEquals(precision(seconds,    1000), secondsPR.getRequiredCondition());
+			assertEquals(precision(minutes,   60000), minutesPR.getRequiredCondition());
+			assertEquals(precision(hours  , 3600000),   hoursPR.getRequiredCondition());
+
+			assertEquals(null,  millisPM);
+			assertEquals(null, secondsPM);
+			assertEquals(null, minutesPM);
+			assertEquals(null,   hoursPM);
+
+			assertEquals(null,  millisPS);
+			assertEquals(null, secondsPS);
+			assertEquals(null, minutesPS);
+			assertEquals(null,   hoursPS);
 		}
 
 		model.startTransaction(DatePrecisionSchemaTest.class.getName());
 		assertSchema();
 	}
 
+	// native date
+	private final String extract(final DateField field, final Precision precision)
+	{
+		switch(dialect)
+		{
+			case hsqldb    : // fall through
+			case oracle    : return "EXTRACT(" + precision.sql() + " FROM " + q(field) + ")";
+
+			case postgresql: return "\"date_part\"('" + precision.sql() + "'," + q(field) + ")";
+
+			case mysql: // MySQL does not support native date
+			default:
+				throw new RuntimeException("" + dialect);
+		}
+	}
+
+	private final String floor(final String s)
+	{
+		switch(dialect)
+		{
+			case hsqldb    : // fall through
+			case oracle    : return "FLOOR(" + s + ")";
+
+			case postgresql: return "\"floor\"(" + s + ")";
+
+			case mysql: // MySQL does not support native date
+			default:
+				throw new RuntimeException("" + dialect);
+		}
+	}
+
+	// integer date
 	private final String precision(final DateField field, final int divisor)
 	{
 		switch(dialect)

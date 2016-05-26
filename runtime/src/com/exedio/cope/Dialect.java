@@ -246,6 +246,16 @@ abstract class Dialect
 	 */
 	abstract String getDateTimestampType();
 
+	String getDateExtract(final String quotedName, final Precision precision)
+	{
+		return "EXTRACT(" + precision.sql() + " FROM " + quotedName + ')';
+	}
+
+	String getFloor(final String quotedName)
+	{
+		return "FLOOR(" + quotedName + ')';
+	}
+
 	String getDateIntegerPrecision(final String quotedName, final Precision precision)
 	{
 		throw new RuntimeException(quotedName + '/' + precision); // TODO
