@@ -132,22 +132,12 @@ class StringColumn extends Column
 		else
 		{
 			final String length = table.database.dialect.getStringLength();
+			final boolean exact = minimumLength==maximumLength;
 			if(minimumLength>0)
-			{
-				if(minimumLength==maximumLength)
-				{
-					new CheckConstraint(dt, makeGlobalID("MN"), length + '(' + quotedID + ")=" + minimumLength);
-				}
-				else
-				{
-					new CheckConstraint(dt, makeGlobalID("MN"), length + '(' + quotedID + ")>=" + minimumLength);
-					new CheckConstraint(dt, makeGlobalID("MX"), length + '(' + quotedID + ")<=" + maximumLength);
-				}
-			}
-			else
-			{
-				new CheckConstraint(dt, makeGlobalID("MX"), length + '(' + quotedID + ")<=" + maximumLength);
-			}
+				new CheckConstraint(dt, makeGlobalID("MN"), length + '(' + quotedID + (exact?")=":")>=") + minimumLength);
+			if(!exact)
+				new CheckConstraint(dt, makeGlobalID("MX"), length + '(' + quotedID +             ")<="  + maximumLength);
+
 			if(charSet!=null)
 			{
 				final String clause = table.database.dialect.getClause(quotedID, charSet);
