@@ -24,6 +24,7 @@ import static com.exedio.cope.DateField.Precision.Seconds;
 import com.exedio.cope.DateField.Precision;
 import com.exedio.cope.util.TimeZoneStrict;
 import com.exedio.dsmf.CheckConstraint;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -56,6 +57,8 @@ final class TimestampColumn extends Column
 	}
 
 	@Override
+	@SuppressWarnings("fallthrough")
+	@SuppressFBWarnings("SF_SWITCH_FALLTHROUGH")
 	void makeSchema(final com.exedio.dsmf.Table dt)
 	{
 		super.makeSchema(dt);
