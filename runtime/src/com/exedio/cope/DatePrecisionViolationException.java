@@ -103,7 +103,6 @@ public final class DatePrecisionViolationException extends ConstraintViolationEx
 	@Override
 	public String getMessage(final boolean withFeature)
 	{
-		final Date value = new Date(this.value);
 		final Precision precision = feature.precision;
 		final SimpleDateFormat df = df();
 		final StringBuilder bf = new StringBuilder();
@@ -111,7 +110,7 @@ public final class DatePrecisionViolationException extends ConstraintViolationEx
 		bf.append("precision violation").
 			append(getItemPhrase()).
 			append(", ").
-			append(df.format(value)).
+			append(df.format(getValue())).
 			append(" " + ZONE_ID + " (").
 			append(violation).
 			append(") is too precise");
