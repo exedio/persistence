@@ -54,12 +54,12 @@ public class DatePrecisionDefaultToTest
 		}
 	}
 
-	@Test public void testIsDefaultNowRoundedUpNoDefault()
+	@Test public void testGetDefaultNowRoundingModeNoDefault()
 	{
 		final DateField f = new DateField();
 		try
 		{
-			f.isDefaultNowRoundingMode();
+			f.getDefaultNowRoundingMode();
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -68,12 +68,12 @@ public class DatePrecisionDefaultToTest
 		}
 	}
 
-	@Test public void testIsDefaultNowRoundedUpOtherDefault()
+	@Test public void testGetDefaultNowRoundingModeOtherDefault()
 	{
 		final DateField f = new DateField().defaultTo(new Date());
 		try
 		{
-			f.isDefaultNowRoundingMode();
+			f.getDefaultNowRoundingMode();
 			fail();
 		}
 		catch(final IllegalArgumentException e)

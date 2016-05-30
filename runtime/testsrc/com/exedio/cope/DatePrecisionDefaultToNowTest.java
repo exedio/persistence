@@ -52,8 +52,8 @@ public class DatePrecisionDefaultToNowTest extends TestWithEnvironment
 		assertEquals(true, future.hasDefault());
 		assertEquals(true, past  .isDefaultNow());
 		assertEquals(true, future.isDefaultNow());
-		assertEquals(RoundingMode.PAST  , past  .isDefaultNowRoundingMode());
-		assertEquals(RoundingMode.FUTURE, future.isDefaultNowRoundingMode());
+		assertEquals(RoundingMode.PAST  , past  .getDefaultNowRoundingMode());
+		assertEquals(RoundingMode.FUTURE, future.getDefaultNowRoundingMode());
 		assertEquals(null, past  .getDefaultConstant());
 		assertEquals(null, future.getDefaultConstant());
 

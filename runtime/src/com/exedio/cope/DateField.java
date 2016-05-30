@@ -175,7 +175,7 @@ public final class DateField extends FunctionField<Date>
 		return defaultSource instanceof DefaultNow;
 	}
 
-	public RoundingMode isDefaultNowRoundingMode()
+	public RoundingMode getDefaultNowRoundingMode()
 	{
 		if(defaultSource==null)
 			throw new IllegalArgumentException("" + this + " has no default");
