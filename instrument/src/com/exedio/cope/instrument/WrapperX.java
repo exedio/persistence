@@ -264,7 +264,7 @@ final class WrapperX
 
 	boolean isMethodDeprecated()
 	{
-		return method!=null && method.isAnnotationPresent(Deprecated.class);
+		return method.isAnnotationPresent(Deprecated.class);
 	}
 
 
