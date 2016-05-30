@@ -241,8 +241,7 @@ public final class DateField extends FunctionField<Date>
 			if(this==Millis)
 				return;
 
-			final GregorianCalendar cal = new GregorianCalendar(ZONE, Locale.ENGLISH);
-			cal.setTime(value);
+			final GregorianCalendar cal = newGregorianCalendar(value);
 			for(final int field : fields)
 			{
 				final int violation = cal.get(field);
@@ -258,8 +257,7 @@ public final class DateField extends FunctionField<Date>
 			if(this==Millis)
 				return value;
 
-			final GregorianCalendar cal = new GregorianCalendar(ZONE, Locale.ENGLISH);
-			cal.setTime(value);
+			final GregorianCalendar cal = newGregorianCalendar(value);
 			for(final int field : fields)
 				cal.set(field, 0);
 
@@ -267,6 +265,13 @@ public final class DateField extends FunctionField<Date>
 				cal.add(field, 1);
 
 			return cal.getTime();
+		}
+
+		private static GregorianCalendar newGregorianCalendar(final Date value)
+		{
+			final GregorianCalendar result = new GregorianCalendar(ZONE, Locale.ENGLISH);
+			result.setTime(value);
+			return result;
 		}
 
 		static final TimeZone ZONE = getTimeZone("GMT");
