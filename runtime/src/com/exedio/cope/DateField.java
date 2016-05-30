@@ -23,6 +23,7 @@ import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.instrument.BooleanGetter;
 import com.exedio.cope.instrument.Parameter;
+import com.exedio.cope.instrument.ThrownGetter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.instrument.FinalSettableGetter;
 import com.exedio.cope.util.Clock;
@@ -32,6 +33,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Locale;
+import java.util.Set;
 import java.util.TimeZone;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -303,6 +305,15 @@ public final class DateField extends FunctionField<Date>
 	}
 
 	@Override
+	public Set<Class<? extends Throwable>> getInitialExceptions()
+	{
+		final Set<Class<? extends Throwable>> result = super.getInitialExceptions();
+		if(precision!=Precision.Millis)
+			result.add(DatePrecisionViolationException.class);
+		return result;
+	}
+
+	@Override
 	final void mount(final Type<?> type, final String name, final AnnotatedElement annotationSource)
 	{
 		super.mount(type, name, annotationSource);
@@ -359,7 +370,7 @@ public final class DateField extends FunctionField<Date>
 	@Wrap(order=5,
 			doc="Sets a new value for {0}, but rounds it before according to precision of field.",
 			hide={FinalSettableGetter.class, PrecisionGetter.class},
-			thrownGetter=InitialThrown.class)
+			thrownGetter=InitialThrownRounded.class)
 	public void setRounded(
 			final Item item,
 			final Date value,
@@ -373,6 +384,16 @@ public final class DateField extends FunctionField<Date>
 		public boolean get(final DateField feature)
 		{
 			return feature.precision==Precision.Millis;
+		}
+	}
+
+	private static final class InitialThrownRounded implements ThrownGetter<DateField>
+	{
+		public Set<Class<? extends Throwable>> get(final DateField feature)
+		{
+			final Set<Class<? extends Throwable>> result = feature.getInitialExceptions();
+			result.remove(DatePrecisionViolationException.class);
+			return result;
 		}
 	}
 

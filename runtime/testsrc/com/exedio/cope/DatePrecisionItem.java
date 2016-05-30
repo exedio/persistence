@@ -101,6 +101,8 @@ public final class DatePrecisionItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	final void setSeconds(final java.util.Date seconds)
+			throws
+				com.exedio.cope.DatePrecisionViolationException
 	{
 		DatePrecisionItem.seconds.set(this,seconds);
 	}/**
@@ -145,6 +147,8 @@ public final class DatePrecisionItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	final void setMinutes(final java.util.Date minutes)
+			throws
+				com.exedio.cope.DatePrecisionViolationException
 	{
 		DatePrecisionItem.minutes.set(this,minutes);
 	}/**
@@ -189,6 +193,8 @@ public final class DatePrecisionItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	final void setHours(final java.util.Date hours)
+			throws
+				com.exedio.cope.DatePrecisionViolationException
 	{
 		DatePrecisionItem.hours.set(this,hours);
 	}/**

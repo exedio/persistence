@@ -145,7 +145,8 @@ public class DatePrecisionDefaultToNowTest extends TestWithEnvironment
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	final void setPast(final java.util.Date past)
 			throws
-				com.exedio.cope.MandatoryViolationException
+				com.exedio.cope.MandatoryViolationException,
+				com.exedio.cope.DatePrecisionViolationException
 	{
 		AnItem.past.set(this,past);
 	}/**
@@ -193,7 +194,8 @@ public class DatePrecisionDefaultToNowTest extends TestWithEnvironment
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	final void setFuture(final java.util.Date future)
 			throws
-				com.exedio.cope.MandatoryViolationException
+				com.exedio.cope.MandatoryViolationException,
+				com.exedio.cope.DatePrecisionViolationException
 	{
 		AnItem.future.set(this,future);
 	}/**
