@@ -80,6 +80,26 @@ public final class DatePrecisionViolationException extends ConstraintViolationEx
 		return new Date(value);
 	}
 
+	/**
+	 * Returns a value allowed for the field
+	 * and as close as possible to
+	 * {@link #getValue() the value attempted to be written} the past.
+	 */
+	public Date getValueAllowedInPast()
+	{
+		return feature.precision.round(getValue(), RoundingMode.PAST);
+	}
+
+	/**
+	 * Returns a value allowed for the field
+	 * and as close as possible to
+	 * {@link #getValue() the value attempted to be written} the future.
+	 */
+	public Date getValueRoundedToFuture()
+	{
+		return feature.precision.round(getValue(), RoundingMode.FUTURE);
+	}
+
 	@Override
 	public String getMessage(final boolean withFeature)
 	{
@@ -102,9 +122,9 @@ public final class DatePrecisionViolationException extends ConstraintViolationEx
 		bf.append(", must be ").
 			append(precision.name()).
 			append(", round either to past: ").
-			append(df.format(precision.round(value, RoundingMode.PAST))).
+			append(df.format(getValueAllowedInPast())).
 			append(" or future: ").
-			append(df.format(precision.round(value, RoundingMode.FUTURE)));
+			append(df.format(getValueRoundedToFuture()));
 
 		return bf.toString();
 	}
