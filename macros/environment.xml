@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+
+<project name="foreachEnvironment" default="fail" basedir=".">
+
+	<macrodef name="foreachEnvironment">
+		<attribute name="skipSwitch" />
+		<element name="body" optional="false" />
+		<sequential>
+			<for param="env.file">
+				<path>
+					<fileset dir="${basedir}/conf/environment" includes="*.properties" />
+				</path>
+				<sequential>
+					<basename file="@{env.file}" property="@{env.file}.env" suffix=".properties" />
+					<!-- this is a dummy loop to create the attribute @{env} -->
+					<for param="env" list="${@{env.file}.env}">
+						<sequential>
+							<property file="@{env.file}" prefix="@{env.file}." />
+							<echo level="info" message="Doing @{skipSwitch} for @{env}" />
+							<!-- this is a dummy loop to create the attribute @{env.driver} -->
+							<for param="env.driver" list="${@{env.file}.x-build.driver}">
+								<sequential>
+									<body />
+								</sequential>
+							</for>
+						</sequential>
+					</for>
+				</sequential>
+			</for>
+		</sequential>
+	</macrodef>
+
+	<target name="fail">
+		<fail message="This file contains helper macros only. There are no targets." />
+	</target>
+
+</project>
