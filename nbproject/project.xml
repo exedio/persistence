@@ -153,20 +153,21 @@
             </folders>
             <ide-actions>
                 <action name="build">
-                    <target>build</target>
+                   <target>compile</target>
+                   <target>runtime.test.readyToRun</target>
+                   <target>instrument.test.compile</target>
                 </action>
                 <action name="clean">
                     <target>clean</target>
-                </action>
-                <action name="run">
-                    <target>runtime.clean</target>
                 </action>
                 <action name="test">
                     <target>test</target>
                 </action>
                 <action name="rebuild">
                     <target>clean</target>
-                    <target>build</target>
+                   <target>compile</target>
+                   <target>runtime.test.readyToRun</target>
+                   <target>instrument.test.compile</target>
                 </action>
                 <action name="test.single">
                     <target>single.test</target>
