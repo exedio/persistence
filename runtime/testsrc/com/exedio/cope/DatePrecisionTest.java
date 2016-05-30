@@ -25,6 +25,7 @@ import static com.exedio.cope.DatePrecisionItem.seconds;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
+import com.exedio.cope.DateField.RoundingMode;
 import java.util.Date;
 import org.junit.Test;
 
@@ -119,16 +120,16 @@ public class DatePrecisionTest extends TestWithEnvironment
 		final Date past   = date(0, 0, 0, 55,  0);
 		final Date future = date(0, 0, 0, 56,  0);
 
-		item.setSecondsAndRoundDown(value);
+		item.setSecondsRounded(value, RoundingMode.PAST);
 		assertEquals(past, item.getSeconds());
 
-		item.setSecondsAndRoundDown(null);
+		item.setSecondsRounded(null, RoundingMode.PAST);
 		assertEquals(null, item.getSeconds());
 
-		item.setSecondsAndRoundUp(value);
+		item.setSecondsRounded(value, RoundingMode.FUTURE);
 		assertEquals(future, item.getSeconds());
 
-		item.setSecondsAndRoundUp(null);
+		item.setSecondsRounded(null, RoundingMode.FUTURE);
 		assertEquals(null, item.getSeconds());
 	}
 
@@ -140,16 +141,41 @@ public class DatePrecisionTest extends TestWithEnvironment
 		final Date past   = date(0, 0, 44,  0,  0);
 		final Date future = date(0, 0, 45,  0,  0);
 
-		item.setMinutesAndRoundDown(value);
+		item.setMinutesRounded(value, RoundingMode.PAST);
 		assertEquals(past, item.getMinutes());
 
-		item.setMinutesAndRoundDown(null);
+		item.setMinutesRounded(null, RoundingMode.PAST);
 		assertEquals(null, item.getMinutes());
 
-		item.setMinutesAndRoundUp(value);
+		item.setMinutesRounded(value, RoundingMode.FUTURE);
 		assertEquals(future, item.getMinutes());
 
-		item.setMinutesAndRoundUp(null);
+		item.setMinutesRounded(null, RoundingMode.FUTURE);
 		assertEquals(null, item.getMinutes());
+	}
+
+	@Test public void testNullMode()
+	{
+		final DatePrecisionItem item = new DatePrecisionItem();
+		final Date value  = date(0, 0, 44, 55, 66);
+
+		try
+		{
+			item.setMinutesRounded(value, null);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals("roundingMode", e.getMessage());
+		}
+		try
+		{
+			item.setMinutesRounded(null, null);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals("roundingMode", e.getMessage());
+		}
 	}
 }

@@ -22,6 +22,7 @@ import static com.exedio.cope.util.TimeZoneStrict.getTimeZone;
 import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.instrument.BooleanGetter;
+import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.instrument.FinalSettableGetter;
 import com.exedio.cope.util.Clock;
@@ -359,18 +360,12 @@ public final class DateField extends FunctionField<Date>
 			doc="Sets a new value for {0}, but rounds it before according to precision of field.",
 			hide={FinalSettableGetter.class, PrecisionGetter.class},
 			thrownGetter=InitialThrown.class)
-	public void setAndRoundDown(final Item item, final Date value)
+	public void setRounded(
+			final Item item,
+			final Date value,
+			@Parameter("roundingMode") final RoundingMode roundingMode)
 	{
-		item.set(this, precision.round(value, RoundingMode.PAST));
-	}
-
-	@Wrap(order=6,
-			doc="Sets a new value for {0}, but rounds it before according to precision of field.",
-			hide={FinalSettableGetter.class, PrecisionGetter.class},
-			thrownGetter=InitialThrown.class)
-	public void setAndRoundUp(final Item item, final Date value)
-	{
-		item.set(this, precision.round(value, RoundingMode.FUTURE));
+		item.set(this, precision.round(value, roundingMode));
 	}
 
 	private static final class PrecisionGetter implements BooleanGetter<DateField>
