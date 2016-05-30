@@ -91,7 +91,7 @@ public final class DatePrecisionViolationException extends ConstraintViolationEx
 			append(getItemPhrase()).
 			append(", ").
 			append(df.format(value)).
-			append(" (").
+			append(" GMT (").
 			append(violation).
 			append(") is too precise");
 
