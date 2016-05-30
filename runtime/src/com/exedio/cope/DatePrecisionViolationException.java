@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.DateField.Precision.ZONE;
+import static com.exedio.cope.DateField.Precision.ZONE_ID;
 
 import com.exedio.cope.DateField.Precision;
 import com.exedio.cope.instrument.ConstructorComment;
@@ -90,7 +91,7 @@ public final class DatePrecisionViolationException extends ConstraintViolationEx
 			append(getItemPhrase()).
 			append(", ").
 			append(df.format(value)).
-			append(" GMT (").
+			append(" " + ZONE_ID + " (").
 			append(violation).
 			append(") is too precise");
 

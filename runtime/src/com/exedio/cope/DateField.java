@@ -274,7 +274,8 @@ public final class DateField extends FunctionField<Date>
 			return result;
 		}
 
-		static final TimeZone ZONE = getTimeZone("GMT");
+		static final String ZONE_ID = "GMT";
+		static final TimeZone ZONE = getTimeZone(ZONE_ID);
 	}
 
 
