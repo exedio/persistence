@@ -18,13 +18,12 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.util.TimeZoneStrict.getTimeZone;
+import static com.exedio.cope.DateField.Precision.ZONE;
 
 import com.exedio.cope.DateField.Precision;
 import com.exedio.cope.instrument.ConstructorComment;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.TimeZone;
 
 /**
  * Signals, that an attempt to write a {@link DateField date field} has been failed,
@@ -115,6 +114,4 @@ public final class DatePrecisionViolationException extends ConstraintViolationEx
 		result.setLenient(false);
 		return result;
 	}
-
-	private static final TimeZone ZONE = getTimeZone("GMT");
 }

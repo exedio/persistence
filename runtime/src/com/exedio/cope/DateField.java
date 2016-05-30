@@ -31,6 +31,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Locale;
+import java.util.TimeZone;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -240,7 +241,7 @@ public final class DateField extends FunctionField<Date>
 			if(this==Millis)
 				return;
 
-			final GregorianCalendar cal = new GregorianCalendar(getTimeZone("Europe/Berlin"), Locale.ENGLISH); // TODO
+			final GregorianCalendar cal = new GregorianCalendar(ZONE, Locale.ENGLISH);
 			cal.setTime(value);
 			for(final int field : fields)
 			{
@@ -257,7 +258,7 @@ public final class DateField extends FunctionField<Date>
 			if(this==Millis)
 				return value;
 
-			final GregorianCalendar cal = new GregorianCalendar(getTimeZone("Europe/Berlin"), Locale.ENGLISH); // TODO
+			final GregorianCalendar cal = new GregorianCalendar(ZONE, Locale.ENGLISH);
 			cal.setTime(value);
 			for(final int field : fields)
 				cal.set(field, 0);
@@ -267,6 +268,8 @@ public final class DateField extends FunctionField<Date>
 
 			return cal.getTime();
 		}
+
+		static final TimeZone ZONE = getTimeZone("GMT");
 	}
 
 
