@@ -27,6 +27,7 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import com.exedio.dsmf.SQLRuntimeException;
+import com.exedio.dsmf.Table;
 import java.util.Date;
 import java.util.Locale;
 import org.junit.Test;
@@ -52,17 +53,17 @@ public class DatePrecisionSchemaViolationTest extends SchemaMismatchTest
 
 		newItemOk(ok, ok, ok);
 
-		newItemBad(minutes, ok, ok, "ItemAB_hours_PM", "ItemAB_hours_PR");
-		newItemBad(seconds, ok, ok, "ItemAB_hours_PS", "ItemAB_hours_PR");
-		newItemBad(millis , ok, ok, "ItemAB_hours_PS", "ItemAB_hours_PR");
+		newItemBad(minutes, ok, ok, "ItemAB_hours_PM", "ItemAB_hours_PR", 1, 0, 0);
+		newItemBad(seconds, ok, ok, "ItemAB_hours_PS", "ItemAB_hours_PR", 2, 0, 0);
+		newItemBad(millis , ok, ok, "ItemAB_hours_PS", "ItemAB_hours_PR", 3, 0, 0);
 
 		newItemOk (ok, minutes, ok);
-		newItemBad(ok, seconds, ok, "ItemAB_minutes_PS", "ItemAB_minutes_PR");
-		newItemBad(ok, millis , ok, "ItemAB_minutes_PS", "ItemAB_minutes_PR");
+		newItemBad(ok, seconds, ok, "ItemAB_minutes_PS", "ItemAB_minutes_PR", 3, 1, 0);
+		newItemBad(ok, millis , ok, "ItemAB_minutes_PS", "ItemAB_minutes_PR", 3, 2, 0);
 
 		newItemOk (ok, ok, minutes);
 		newItemOk (ok, ok, seconds);
-		newItemBad(ok, ok, millis , "ItemAB_seconds_PS", "ItemAB_seconds_PR");
+		newItemBad(ok, ok, millis , "ItemAB_seconds_PS", "ItemAB_seconds_PR", 3, 2, 1);
 	}
 
 	private static ItemB newItemOk(
@@ -77,12 +78,15 @@ public class DatePrecisionSchemaViolationTest extends SchemaMismatchTest
 		}
 	}
 
-	private ItemB newItemBad(
+	private void newItemBad(
 			final Date hours,
 			final Date minutes,
 			final Date seconds,
 			final String contraintNameNative,
-			final String contraintNameInteger)
+			final String contraintNameInteger,
+			final int hoursCheck,
+			final int minutesCheck,
+			final int secondsCheck)
 	{
 		final String contraintName =
 				supportsNativeDate(model)
@@ -132,12 +136,16 @@ public class DatePrecisionSchemaViolationTest extends SchemaMismatchTest
 
 					}
 				}
-				return null;
 			}
 			else
 			{
-				return tx.commit(
-						new ItemB(hours, minutes, seconds));
+				new ItemB(hours, minutes, seconds);
+				tx.commit();
+
+				final Table table = modelA.getSchema().getTable(tableName);
+				assertEquals(  "hoursCheck",   hoursCheck, table.getConstraint("ItemAB_hours_PR"  ).check());
+				assertEquals("minutesCheck", minutesCheck, table.getConstraint("ItemAB_minutes_PR").check());
+				assertEquals("secondsCheck", secondsCheck, table.getConstraint("ItemAB_seconds_PR").check());
 			}
 		}
 	}
