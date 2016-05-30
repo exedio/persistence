@@ -116,10 +116,10 @@ public class DatePrecisionModelTest
 			final DateField field,
 			final Date wrong,
 			final String wrongString,
-			final Date down,
-			final String downString,
-			final Date up,
-			final String upString)
+			final Date past,
+			final String pastString,
+			final Date future,
+			final String futureString)
 	{
 		try
 		{
@@ -132,19 +132,19 @@ public class DatePrecisionModelTest
 					"precision violation, " +
 					wrongString + " is too precise for " + field + ", " +
 					"must be " + field.precision +
-					", round either to past: " + downString + " or future: " + upString,
+					", round either to past: " + pastString + " or future: " + futureString,
 					e.getMessage());
 			assertEquals(
 					"precision violation, " +
 					wrongString + " is too precise, " +
 					"must be " + field.precision +
-					", round either to past: " + downString + " or future: " + upString,
+					", round either to past: " + pastString + " or future: " + futureString,
 					e.getMessageWithoutFeature());
 			assertEquals(null, e.getItem());
 			assertEquals(field, e.getFeature());
 			assertEquals(wrong, e.getValue());
-			assertEquals(down, e.getValueAllowedInPast  ());
-			assertEquals(up,   e.getValueRoundedToFuture());
+			assertEquals(past  , e.getValueAllowedInPast  ());
+			assertEquals(future, e.getValueRoundedToFuture());
 		}
 	}
 

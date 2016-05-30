@@ -177,13 +177,13 @@ public class DatePrecisionRoundingTest
 	@Test public void testMap()
 	{
 		final DateField f = new DateField().minutes();
-		final Date value = date(9, 15, 44, 55, 66);
-		final Date down  = date(9, 15, 44,  0,  0);
-		final Date up    = date(9, 15, 45,  0,  0);
+		final Date value  = date(9, 15, 44, 55, 66);
+		final Date past   = date(9, 15, 44,  0,  0);
+		final Date future = date(9, 15, 45,  0,  0);
 
-		assertMap(f, value, f.map(value));
-		assertMap(f, down , f.mapAndRoundDown(value));
-		assertMap(f, up   , f.mapAndRoundUp  (value));
+		assertMap(f, value , f.map(value));
+		assertMap(f, past  , f.mapAndRoundDown(value));
+		assertMap(f, future, f.mapAndRoundUp  (value));
 
 		assertMap(f, null, f.map(null));
 		assertMap(f, null, f.mapAndRoundDown(null));

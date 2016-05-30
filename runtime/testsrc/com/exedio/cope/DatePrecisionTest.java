@@ -115,18 +115,18 @@ public class DatePrecisionTest extends TestWithEnvironment
 	{
 		final DatePrecisionItem item = new DatePrecisionItem();
 
-		final Date value = date(0, 0, 0, 55, 66);
-		final Date down  = date(0, 0, 0, 55,  0);
-		final Date up    = date(0, 0, 0, 56,  0);
+		final Date value  = date(0, 0, 0, 55, 66);
+		final Date past   = date(0, 0, 0, 55,  0);
+		final Date future = date(0, 0, 0, 56,  0);
 
 		item.setSecondsAndRoundDown(value);
-		assertEquals(down, item.getSeconds());
+		assertEquals(past, item.getSeconds());
 
 		item.setSecondsAndRoundDown(null);
 		assertEquals(null, item.getSeconds());
 
 		item.setSecondsAndRoundUp(value);
-		assertEquals(up, item.getSeconds());
+		assertEquals(future, item.getSeconds());
 
 		item.setSecondsAndRoundUp(null);
 		assertEquals(null, item.getSeconds());
@@ -136,18 +136,18 @@ public class DatePrecisionTest extends TestWithEnvironment
 	{
 		final DatePrecisionItem item = new DatePrecisionItem();
 
-		final Date value = date(0, 0, 44, 55, 66);
-		final Date down  = date(0, 0, 44,  0,  0);
-		final Date up    = date(0, 0, 45,  0,  0);
+		final Date value  = date(0, 0, 44, 55, 66);
+		final Date past   = date(0, 0, 44,  0,  0);
+		final Date future = date(0, 0, 45,  0,  0);
 
 		item.setMinutesAndRoundDown(value);
-		assertEquals(down, item.getMinutes());
+		assertEquals(past, item.getMinutes());
 
 		item.setMinutesAndRoundDown(null);
 		assertEquals(null, item.getMinutes());
 
 		item.setMinutesAndRoundUp(value);
-		assertEquals(up, item.getMinutes());
+		assertEquals(future, item.getMinutes());
 
 		item.setMinutesAndRoundUp(null);
 		assertEquals(null, item.getMinutes());
