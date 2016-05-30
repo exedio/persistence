@@ -21,7 +21,6 @@ package com.exedio.cope;
 import static com.exedio.cope.DateField.Precision.ZONE;
 import static com.exedio.cope.DateField.Precision.ZONE_ID;
 
-import com.exedio.cope.DateField.Precision;
 import com.exedio.cope.DateField.RoundingMode;
 import com.exedio.cope.instrument.ConstructorComment;
 import java.text.SimpleDateFormat;
@@ -103,7 +102,6 @@ public final class DatePrecisionViolationException extends ConstraintViolationEx
 	@Override
 	public String getMessage(final boolean withFeature)
 	{
-		final Precision precision = feature.precision;
 		final SimpleDateFormat df = df();
 		final StringBuilder bf = new StringBuilder();
 
@@ -119,7 +117,7 @@ public final class DatePrecisionViolationException extends ConstraintViolationEx
 			bf.append(" for ").
 				append(feature);
 		bf.append(", must be ").
-			append(precision.name()).
+			append(feature.precision.name()).
 			append(", round either to past: ").
 			append(df.format(getValueAllowedInPast())).
 			append(" or future: ").
