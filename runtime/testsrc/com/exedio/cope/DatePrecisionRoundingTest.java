@@ -167,11 +167,11 @@ public class DatePrecisionRoundingTest
 	private static void assertRound(
 			final Precision precision,
 			final Date origin,
-			final Date down,
-			final Date up)
+			final Date past,
+			final Date future)
 	{
-		assertEquals("down", down, precision.round(origin, RoundingMode.PAST  ));
-		assertEquals("up"  , up  , precision.round(origin, RoundingMode.FUTURE));
+		assertEquals("past"  , past  , precision.round(origin, RoundingMode.PAST  ));
+		assertEquals("future", future, precision.round(origin, RoundingMode.FUTURE));
 	}
 
 	@Test public void testMap()
