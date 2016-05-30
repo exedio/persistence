@@ -24,6 +24,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
 import com.exedio.cope.DateField.Precision;
+import com.exedio.cope.DateField.RoundingMode;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -169,8 +170,8 @@ public class DatePrecisionRoundingTest
 			final Date down,
 			final Date up)
 	{
-		assertEquals("down", down, precision.round(origin, false));
-		assertEquals("up"  , up  , precision.round(origin, true));
+		assertEquals("down", down, precision.round(origin, RoundingMode.PAST  ));
+		assertEquals("up"  , up  , precision.round(origin, RoundingMode.FUTURE));
 	}
 
 	@Test public void testMap()

@@ -59,7 +59,7 @@ public class DatePrecisionDefaultToTest
 		final DateField f = new DateField();
 		try
 		{
-			f.isDefaultNowRoundedUp();
+			f.isDefaultNowRoundingMode();
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -73,7 +73,7 @@ public class DatePrecisionDefaultToTest
 		final DateField f = new DateField().defaultTo(new Date());
 		try
 		{
-			f.isDefaultNowRoundedUp();
+			f.isDefaultNowRoundingMode();
 			fail();
 		}
 		catch(final IllegalArgumentException e)

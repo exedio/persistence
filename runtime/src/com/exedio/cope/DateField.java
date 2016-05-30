@@ -117,26 +117,26 @@ public final class DateField extends FunctionField<Date>
 
 	private static final class DefaultNow extends DefaultSource<Date>
 	{
-		final boolean roundUp;
+		final RoundingMode roundingMode;
 
 		@SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
 		private Precision precision;
 
-		DefaultNow(final boolean roundUp)
+		DefaultNow(final RoundingMode roundingMode)
 		{
-			this.roundUp = roundUp;
+			this.roundingMode = requireNonNull(roundingMode, "roundingMode");
 		}
 
 		@Override
 		Date generate(final long now)
 		{
-			return precision.round(new Date(now), roundUp);
+			return precision.round(new Date(now), roundingMode);
 		}
 
 		@Override
 		DefaultSource<Date> forNewField()
 		{
-			return new DefaultNow(roundUp);
+			return new DefaultNow(roundingMode);
 		}
 
 		@Override
@@ -154,7 +154,7 @@ public final class DateField extends FunctionField<Date>
 	 */
 	public DateField defaultToNow()
 	{
-		return defaultToNow(false);
+		return defaultToNow(RoundingMode.PAST);
 	}
 
 	/**
@@ -164,9 +164,9 @@ public final class DateField extends FunctionField<Date>
 	 *    Does not make any difference, if there is no precision constraint.
 	 * @see #defaultToNow()
 	 */
-	public DateField defaultToNow(final boolean roundUp)
+	public DateField defaultToNow(final RoundingMode roundingMode)
 	{
-		return new DateField(isfinal, optional, unique, copyFrom, new DefaultNow(roundUp), precision);
+		return new DateField(isfinal, optional, unique, copyFrom, new DefaultNow(roundingMode), precision);
 	}
 
 	public boolean isDefaultNow()
@@ -174,14 +174,14 @@ public final class DateField extends FunctionField<Date>
 		return defaultSource instanceof DefaultNow;
 	}
 
-	public boolean isDefaultNowRoundedUp()
+	public RoundingMode isDefaultNowRoundingMode()
 	{
 		if(defaultSource==null)
 			throw new IllegalArgumentException("" + this + " has no default");
 		if(!(defaultSource instanceof DefaultNow))
 			throw new IllegalArgumentException("" + this + " is not default now");
 
-		return ((DefaultNow)defaultSource).roundUp;
+		return ((DefaultNow)defaultSource).roundingMode;
 	}
 
 
@@ -250,7 +250,7 @@ public final class DateField extends FunctionField<Date>
 			}
 		}
 
-		Date round(final Date value, final boolean up)
+		Date round(final Date value, final RoundingMode roundingMode)
 		{
 			if(value==null)
 				return null;
@@ -261,7 +261,7 @@ public final class DateField extends FunctionField<Date>
 			for(final int field : fields)
 				cal.set(field, 0);
 
-			if(up && (cal.getTimeInMillis()!=value.getTime()))
+			if(roundingMode==RoundingMode.FUTURE && (cal.getTimeInMillis()!=value.getTime()))
 				cal.add(field, 1);
 
 			return cal.getTime();
@@ -276,6 +276,21 @@ public final class DateField extends FunctionField<Date>
 
 		static final String ZONE_ID = "GMT";
 		static final TimeZone ZONE = getTimeZone(ZONE_ID);
+	}
+
+	public enum RoundingMode
+	{
+		/**
+		 * Rounding mode to round towards future.
+		 * This rounding mode is analogous to {@link java.math.RoundingMode#CEILING}.
+		 */
+		FUTURE,
+
+		/**
+		 * Rounding mode to round towards past.
+		 * This rounding mode is analogous to {@link java.math.RoundingMode#FLOOR}.
+		 */
+		PAST;
 	}
 
 
@@ -335,12 +350,12 @@ public final class DateField extends FunctionField<Date>
 
 	public SetValue<Date> mapAndRoundDown(final Date value)
 	{
-		return SetValue.map(this, precision.round(value, false));
+		return SetValue.map(this, precision.round(value, RoundingMode.PAST));
 	}
 
 	public SetValue<Date> mapAndRoundUp(final Date value)
 	{
-		return SetValue.map(this, precision.round(value, true));
+		return SetValue.map(this, precision.round(value, RoundingMode.FUTURE));
 	}
 
 	@Wrap(order=5,
@@ -349,7 +364,7 @@ public final class DateField extends FunctionField<Date>
 			thrownGetter=InitialThrown.class)
 	public void setAndRoundDown(final Item item, final Date value)
 	{
-		item.set(this, precision.round(value, false));
+		item.set(this, precision.round(value, RoundingMode.PAST));
 	}
 
 	@Wrap(order=6,
@@ -358,7 +373,7 @@ public final class DateField extends FunctionField<Date>
 			thrownGetter=InitialThrown.class)
 	public void setAndRoundUp(final Item item, final Date value)
 	{
-		item.set(this, precision.round(value, true));
+		item.set(this, precision.round(value, RoundingMode.FUTURE));
 	}
 
 	private static final class PrecisionGetter implements BooleanGetter<DateField>
@@ -372,25 +387,25 @@ public final class DateField extends FunctionField<Date>
 	@Override
 	public CompareCondition<Date> less(final Date value)
 	{
-		return super.less(precision.round(value, true));
+		return super.less(precision.round(value, RoundingMode.FUTURE));
 	}
 
 	@Override
 	public CompareCondition<Date> lessOrEqual(final Date value)
 	{
-		return super.lessOrEqual(precision.round(value, false));
+		return super.lessOrEqual(precision.round(value, RoundingMode.PAST));
 	}
 
 	@Override
 	public CompareCondition<Date> greater(final Date value)
 	{
-		return super.greater(precision.round(value, false));
+		return super.greater(precision.round(value, RoundingMode.PAST));
 	}
 
 	@Override
 	public CompareCondition<Date> greaterOrEqual(final Date value)
 	{
-		return super.greaterOrEqual(precision.round(value, true));
+		return super.greaterOrEqual(precision.round(value, RoundingMode.FUTURE));
 	}
 
 	/**
@@ -402,6 +417,6 @@ public final class DateField extends FunctionField<Date>
 			hide=FinalSettableGetter.class)
 	public void touch(final Item item)
 	{
-		set(item, precision.round(Clock.newDate(), false)); // TODO: make a more efficient implementation
+		set(item, precision.round(Clock.newDate(), RoundingMode.PAST)); // TODO: make a more efficient implementation
 	}
 }

@@ -22,6 +22,7 @@ import static com.exedio.cope.DateField.Precision.ZONE;
 import static com.exedio.cope.DateField.Precision.ZONE_ID;
 
 import com.exedio.cope.DateField.Precision;
+import com.exedio.cope.DateField.RoundingMode;
 import com.exedio.cope.instrument.ConstructorComment;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -101,9 +102,9 @@ public final class DatePrecisionViolationException extends ConstraintViolationEx
 		bf.append(", must be ").
 			append(precision.name()).
 			append(", round either to ").
-			append(df.format(precision.round(value, false))).
+			append(df.format(precision.round(value, RoundingMode.PAST))).
 			append(" or ").
-			append(df.format(precision.round(value, true)));
+			append(df.format(precision.round(value, RoundingMode.FUTURE)));
 
 		return bf.toString();
 	}

@@ -27,6 +27,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 import com.exedio.cope.DateField.Precision;
+import com.exedio.cope.DateField.RoundingMode;
 import java.util.Date;
 import org.junit.Test;
 
@@ -143,8 +144,8 @@ public class DatePrecisionModelTest
 			assertEquals(null, e.getItem());
 			assertEquals(field, e.getFeature());
 			assertEquals(wrong, e.getValue());
-			assertEquals(down, field.precision.round(wrong, false));
-			assertEquals(up,   field.precision.round(wrong, true ));
+			assertEquals(down, field.precision.round(wrong, RoundingMode.PAST  ));
+			assertEquals(up,   field.precision.round(wrong, RoundingMode.FUTURE));
 		}
 	}
 

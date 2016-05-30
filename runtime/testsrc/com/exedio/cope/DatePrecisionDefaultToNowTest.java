@@ -24,6 +24,7 @@ import static com.exedio.cope.DatePrecisionDefaultToNowTest.AnItem.down;
 import static com.exedio.cope.DatePrecisionDefaultToNowTest.AnItem.up;
 import static org.junit.Assert.assertEquals;
 
+import com.exedio.cope.DateField.RoundingMode;
 import com.exedio.cope.junit.AbsoluteMockClockStrategy;
 import com.exedio.cope.tojunit.ClockRule;
 import java.util.Date;
@@ -51,8 +52,8 @@ public class DatePrecisionDefaultToNowTest extends TestWithEnvironment
 		assertEquals(true, up  .hasDefault());
 		assertEquals(true, down.isDefaultNow());
 		assertEquals(true, up  .isDefaultNow());
-		assertEquals(false,down.isDefaultNowRoundedUp());
-		assertEquals(true, up  .isDefaultNowRoundedUp());
+		assertEquals(RoundingMode.PAST  , down.isDefaultNowRoundingMode());
+		assertEquals(RoundingMode.FUTURE, up  .isDefaultNowRoundingMode());
 		assertEquals(null, down.getDefaultConstant());
 		assertEquals(null, up  .getDefaultConstant());
 
@@ -89,8 +90,8 @@ public class DatePrecisionDefaultToNowTest extends TestWithEnvironment
 
 	static final class AnItem extends Item
 	{
-		static final DateField down = new DateField().defaultToNow(false).minutes();
-		static final DateField up   = new DateField().defaultToNow(true ).minutes();
+		static final DateField down = new DateField().defaultToNow(RoundingMode.PAST  ).minutes();
+		static final DateField up   = new DateField().defaultToNow(RoundingMode.FUTURE).minutes();
 
 		AnItem(final Date down, final Date up)
 		{
