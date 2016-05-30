@@ -150,7 +150,7 @@ public final class DateField extends FunctionField<Date>
 	}
 
 	/**
-	 * @see #defaultToNow(boolean)
+	 * @see #defaultToNow(RoundingMode)
 	 */
 	public DateField defaultToNow()
 	{
@@ -158,7 +158,7 @@ public final class DateField extends FunctionField<Date>
 	}
 
 	/**
-	 * @param roundUp
+	 * @param roundingMode
 	 *    specifies the rounding mode of the current date
 	 *    if there is a precision constraint on this field.
 	 *    Does not make any difference, if there is no precision constraint.
