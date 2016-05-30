@@ -101,9 +101,9 @@ public final class DatePrecisionViolationException extends ConstraintViolationEx
 				append(feature);
 		bf.append(", must be ").
 			append(precision.name()).
-			append(", round either to ").
+			append(", round either to past: ").
 			append(df.format(precision.round(value, RoundingMode.PAST))).
-			append(" or ").
+			append(" or future: ").
 			append(df.format(precision.round(value, RoundingMode.FUTURE)));
 
 		return bf.toString();

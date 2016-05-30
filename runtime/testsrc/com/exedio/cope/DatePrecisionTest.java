@@ -56,15 +56,15 @@ public class DatePrecisionTest extends TestWithEnvironment
 			assertEquals(
 					"precision violation on DatePrecisionItem-0, " +
 					"1970-01-01 00:00:55.066 GMT (66) is too precise for DatePrecisionItem.seconds, " +
-					"must be Seconds, round either to " +
-					"1970-01-01 00:00:55.000 or " +
+					"must be Seconds, round either to past: " +
+					"1970-01-01 00:00:55.000 or future: " +
 					"1970-01-01 00:00:56.000",
 					e.getMessage());
 			assertEquals(
 					"precision violation on DatePrecisionItem-0, " +
 					"1970-01-01 00:00:55.066 GMT (66) is too precise, " +
-					"must be Seconds, round either to " +
-					"1970-01-01 00:00:55.000 or " +
+					"must be Seconds, round either to past: " +
+					"1970-01-01 00:00:55.000 or future: " +
 					"1970-01-01 00:00:56.000",
 					e.getMessageWithoutFeature());
 			assertEquals(item, e.getItem());
@@ -93,15 +93,15 @@ public class DatePrecisionTest extends TestWithEnvironment
 			assertEquals(
 					"precision violation on DatePrecisionItem-0, " +
 					"1970-01-01 00:45:55.066 GMT (66) is too precise for DatePrecisionItem.minutes, " +
-					"must be Minutes, round either to " +
-					"1970-01-01 00:45:00.000 or " +
+					"must be Minutes, round either to past: " +
+					"1970-01-01 00:45:00.000 or future: " +
 					"1970-01-01 00:46:00.000",
 					e.getMessage());
 			assertEquals(
 					"precision violation on DatePrecisionItem-0, " +
 					"1970-01-01 00:45:55.066 GMT (66) is too precise, " +
-					"must be Minutes, round either to " +
-					"1970-01-01 00:45:00.000 or " +
+					"must be Minutes, round either to past: " +
+					"1970-01-01 00:45:00.000 or future: " +
 					"1970-01-01 00:46:00.000",
 					e.getMessageWithoutFeature());
 			assertEquals(item, e.getItem());
