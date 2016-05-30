@@ -22,6 +22,7 @@ import static com.exedio.cope.DatePrecisionConditionTest.date;
 import static com.exedio.cope.util.TimeZoneStrict.getTimeZone;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
+import static org.junit.Assert.fail;
 
 import com.exedio.cope.DateField.Precision;
 import com.exedio.cope.DateField.RoundingMode;
@@ -182,12 +183,12 @@ public class DatePrecisionRoundingTest
 		final Date future = date(9, 15, 45,  0,  0);
 
 		assertMap(f, value , f.map(value));
-		assertMap(f, past  , f.mapAndRoundDown(value));
-		assertMap(f, future, f.mapAndRoundUp  (value));
+		assertMap(f, past  , f.mapRounded(value, RoundingMode.PAST  ));
+		assertMap(f, future, f.mapRounded(value, RoundingMode.FUTURE));
 
 		assertMap(f, null, f.map(null));
-		assertMap(f, null, f.mapAndRoundDown(null));
-		assertMap(f, null, f.mapAndRoundUp  (null));
+		assertMap(f, null, f.mapRounded(null, RoundingMode.PAST  ));
+		assertMap(f, null, f.mapRounded(null, RoundingMode.FUTURE));
 	}
 
 	private static void assertMap(
@@ -197,6 +198,31 @@ public class DatePrecisionRoundingTest
 	{
 		assertSame  ("field", field, mapping.settable);
 		assertEquals("value", value, mapping.value);
+	}
+
+	@Test public void testMapNullMode()
+	{
+		final DateField f = new DateField().minutes();
+		final Date value  = date(9, 15, 44, 55, 66);
+
+		try
+		{
+			f.mapRounded(value, null);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals("roundingMode", e.getMessage());
+		}
+		try
+		{
+			f.mapRounded(null, null);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals("roundingMode", e.getMessage());
+		}
 	}
 
 	@Test public void testIt() throws ParseException

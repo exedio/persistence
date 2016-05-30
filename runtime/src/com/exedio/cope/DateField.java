@@ -252,6 +252,8 @@ public final class DateField extends FunctionField<Date>
 
 		Date round(final Date value, final RoundingMode roundingMode)
 		{
+			requireNonNull(roundingMode, "roundingMode");
+
 			if(value==null)
 				return null;
 			if(this==Millis)
@@ -348,14 +350,9 @@ public final class DateField extends FunctionField<Date>
 		precision.check(this, value, exceptionItem);
 	}
 
-	public SetValue<Date> mapAndRoundDown(final Date value)
+	public SetValue<Date> mapRounded(final Date value, final RoundingMode roundingMode)
 	{
-		return SetValue.map(this, precision.round(value, RoundingMode.PAST));
-	}
-
-	public SetValue<Date> mapAndRoundUp(final Date value)
-	{
-		return SetValue.map(this, precision.round(value, RoundingMode.FUTURE));
+		return SetValue.map(this, precision.round(value, roundingMode));
 	}
 
 	@Wrap(order=5,
