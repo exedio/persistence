@@ -214,6 +214,34 @@ public class DatePrecisionRoundingTest
 		return result.parse(date);
 	}
 
+	@Test public void testFracHourZone() throws ParseException
+	{
+		assertRound(Precision.Millis,
+				dateI("1986-05-23 15:44:55.066"),
+				dateI("1986-05-23 15:44:55.066"),
+				dateI("1986-05-23 15:44:55.066"));
+		assertRound(Precision.Seconds,
+				dateI("1986-05-23 15:44:55.066"),
+				dateI("1986-05-23 15:44:55.000"),
+				dateI("1986-05-23 15:44:56.000"));
+		assertRound(Precision.Minutes,
+				dateI("1986-05-23 15:44:55.066"),
+				dateI("1986-05-23 15:44:00.000"),
+				dateI("1986-05-23 15:45:00.000"));
+		assertRound(Precision.Hours,
+				dateI("1986-05-23 15:44:55.066"),
+				dateI("1986-05-23 15:30:00.000"),
+				dateI("1986-05-23 16:30:00.000"));
+	}
+
+	private static Date dateI(final String date) throws ParseException
+	{
+		final SimpleDateFormat result = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+		result.setTimeZone(getTimeZone("IST")); // Indian Standard Time = UTC+5h30min
+		result.setLenient(false);
+		return result.parse(date);
+	}
+
 	private static void assertRound(
 			final Precision precision,
 			final Date origin,
