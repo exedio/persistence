@@ -171,7 +171,7 @@ class IntegerColumn extends Column
 			new CheckConstraint(dt, makeGlobalID("MN"), quotedID + ">=" + minimum);
 			new CheckConstraint(dt, makeGlobalID("MX"), quotedID + "<=" + maximum);
 
-			if(precision!=Precision.Millis)
+			if(precision.constrains())
 				new CheckConstraint(dt, makeGlobalID("PR"),
 					table.database.dialect.getDateIntegerPrecision(quotedID, precision));
 		}

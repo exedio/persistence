@@ -210,19 +210,24 @@ public final class DateField extends FunctionField<Date>
 
 	public enum Precision
 	{
-		Millis (null    , 0         , Calendar.FIELD_COUNT, (int[])null),
-		Seconds("SECOND", 1000      , Calendar.SECOND,      Calendar.MILLISECOND),
-		Minutes("MINUTE", 1000*60   , Calendar.MINUTE,      Calendar.MILLISECOND, Calendar.SECOND),
-		Hours  (null    , 1000*60*60, Calendar.HOUR_OF_DAY, Calendar.MILLISECOND, Calendar.SECOND, Calendar.MINUTE);
+		Millis (null    , false, 0         , Calendar.FIELD_COUNT, (int[])null),
+		Seconds("SECOND", true , 1000      , Calendar.SECOND,      Calendar.MILLISECOND),
+		Minutes("MINUTE", true , 1000*60   , Calendar.MINUTE,      Calendar.MILLISECOND, Calendar.SECOND),
+		Hours  (null    , true , 1000*60*60, Calendar.HOUR_OF_DAY, Calendar.MILLISECOND, Calendar.SECOND, Calendar.MINUTE);
 
 		private final String sql;
+		private final boolean constrains;
 		private final int divisor;
 		private final int field;
 		private final int[] fields;
 
-		Precision(final String sql, final int divisor, final int field, final int... fields)
+		Precision(
+				final String sql,
+				final boolean constrains, final int divisor,
+				final int field, final int... fields)
 		{
 			this.sql = sql;
+			this.constrains = constrains;
 			this.divisor = divisor;
 			this.field = field;
 			this.fields = fields;
@@ -236,9 +241,14 @@ public final class DateField extends FunctionField<Date>
 			return sql;
 		}
 
+		public boolean constrains()
+		{
+			return constrains;
+		}
+
 		int divisor()
 		{
-			if(this==Millis)
+			if(!constrains)
 				throw new IllegalArgumentException();
 
 			return divisor;
@@ -246,7 +256,7 @@ public final class DateField extends FunctionField<Date>
 
 		void check(final DateField feature, final Date value, final Item exceptionItem)
 		{
-			if(this==Millis)
+			if(!constrains)
 				return;
 
 			final GregorianCalendar cal = newGregorianCalendar(value);
@@ -264,7 +274,7 @@ public final class DateField extends FunctionField<Date>
 
 			if(value==null)
 				return null;
-			if(this==Millis)
+			if(!constrains)
 				return value;
 
 			final GregorianCalendar cal = newGregorianCalendar(value);
@@ -313,7 +323,7 @@ public final class DateField extends FunctionField<Date>
 	public Set<Class<? extends Throwable>> getInitialExceptions()
 	{
 		final Set<Class<? extends Throwable>> result = super.getInitialExceptions();
-		if(precision!=Precision.Millis)
+		if(getPrecision().constrains())
 			result.add(DatePrecisionViolationException.class);
 		return result;
 	}
@@ -388,7 +398,7 @@ public final class DateField extends FunctionField<Date>
 	{
 		public boolean get(final DateField feature)
 		{
-			return feature.getPrecision()==Precision.Millis;
+			return !feature.getPrecision().constrains();
 		}
 	}
 

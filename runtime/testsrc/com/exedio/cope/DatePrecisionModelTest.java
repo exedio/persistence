@@ -32,6 +32,14 @@ import org.junit.Test;
 
 public class DatePrecisionModelTest
 {
+	@Test public void testConstrains()
+	{
+		assertEquals(false, Precision.Millis .constrains());
+		assertEquals(true , Precision.Seconds.constrains());
+		assertEquals(true , Precision.Minutes.constrains());
+		assertEquals(true , Precision.Hours  .constrains());
+	}
+
 	@Test public void testGetPrecision()
 	{
 		assertEquals(Precision.Millis , millis .getPrecision());
