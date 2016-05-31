@@ -113,11 +113,6 @@ public final class DateField extends FunctionField<Date>
 		return new DateField(isfinal, optional, unique, copyFrom, defaultConstantWithCreatedTime(defaultConstant), precision);
 	}
 
-	private DateField precision(final Precision precision)
-	{
-		return new DateField(isfinal, optional, unique, copyFrom, defaultSource, precision);
-	}
-
 	private static final class DefaultNow extends DefaultSource<Date>
 	{
 		final RoundingMode roundingMode;
@@ -201,6 +196,11 @@ public final class DateField extends FunctionField<Date>
 	public DateField hours()
 	{
 		return precision(Precision.Hours);
+	}
+
+	private DateField precision(final Precision precision)
+	{
+		return new DateField(isfinal, optional, unique, copyFrom, defaultSource, precision);
 	}
 
 	enum Precision
