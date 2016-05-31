@@ -25,8 +25,6 @@ import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 final class WrapperX
 {
@@ -311,8 +309,9 @@ final class WrapperX
 	static <F> List<WrapperX> getByAnnotations(
 			final Class<F> clazz,
 			final F feature,
-			final List<WrapperX> superResult)
+			final List<WrapperX> superResult,
+			final boolean enableNullability)
 	{
-		return WrapperByAnnotations.make(clazz, feature, superResult);
+		return WrapperByAnnotations.make(clazz, feature, superResult, enableNullability);
 	}
 }

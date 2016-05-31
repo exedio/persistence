@@ -39,9 +39,10 @@ final class WrapperByAnnotations
 	static List<WrapperX> make(
 			final Class<?> clazz,
 			final Object feature,
-			final List<WrapperX> superResult)
+			final List<WrapperX> superResult,
+			final boolean enableNullability)
 	{
-		final WrapperByAnnotations factory = new WrapperByAnnotations(clazz, feature);
+		final WrapperByAnnotations factory = new WrapperByAnnotations(clazz, feature, enableNullability);
 		final ArrayList<WrapperX> result = new ArrayList<>();
 		result.addAll(superResult);
 		factory.makeAll(result);
@@ -51,11 +52,13 @@ final class WrapperByAnnotations
 
 	private final Class<?> clazz;
 	private final Object feature;
+	private final boolean enableNullability;
 
-	private WrapperByAnnotations(final Class<?> clazz, final Object instance)
+	private WrapperByAnnotations(final Class<?> clazz, final Object instance, final boolean enableNullability)
 	{
 		this.clazz = clazz;
 		this.feature = instance;
+		this.enableNullability = enableNullability;
 	}
 
 	private void makeAll(final List<WrapperX> list)
@@ -145,17 +148,24 @@ final class WrapperByAnnotations
 
 	private Nullability getNullability(final Annotation[] annotations, final Class<? extends NullabilityGetter<?>> nullabilityClass)
 	{
-		if (NullabilityGetterDefault.class.equals(nullabilityClass))
+		if (enableNullability)
 		{
-			return Nullability.fromAnnotations(annotations);
+			if (NullabilityGetterDefault.class.equals(nullabilityClass))
+			{
+				return Nullability.fromAnnotations(annotations);
+			}
+			else
+			{
+				@SuppressWarnings("rawtypes")
+				final NullabilityGetter source = instantiate(nullabilityClass);
+				@SuppressWarnings("unchecked")
+				final Nullability result=source.getNullability(feature);
+				return result;
+			}
 		}
 		else
 		{
-			@SuppressWarnings("rawtypes")
-			final NullabilityGetter source = instantiate(nullabilityClass);
-			@SuppressWarnings("unchecked")
-			final Nullability result=source.getNullability(feature);
-			return result;
+			return Nullability.DEFAULT;
 		}
 	}
 

@@ -8,40 +8,13 @@ public enum Nullability
 {
 	NULLABLE, NONNULL, DEFAULT;
 
-	private static boolean initialized = false;
-
-	private static Class<? extends Annotation> nonNullClass;
-	private static Class<? extends Annotation> nullableClass;
-
-	private static void checkInitialized()
-	{
-		if ( !initialized )
-		{
-			try
-			{
-				nonNullClass=Nonnull.class;
-				nullableClass=Nullable.class;
-			}
-			catch(NoClassDefFoundError e)
-			{
-				System.out.println("WARNING: classes javax.annotation.Nonnull/Nullable not available");
-			}
-			initialized = true;
-		}
-	}
-
 	public static Nullability fromAnnotations(Annotation[] annotations)
 	{
-		checkInitialized();
-		if ( nonNullClass==null || nullableClass==null )
-		{
-			return Nullability.DEFAULT;
-		}
-		if (containsAnnotation(nonNullClass, annotations))
+		if (containsAnnotation(Nonnull.class, annotations))
 		{
 			return Nullability.NONNULL;
 		}
-		else if (containsAnnotation(nullableClass, annotations))
+		else if (containsAnnotation(Nullable.class, annotations))
 		{
 			return Nullability.NULLABLE;
 		}

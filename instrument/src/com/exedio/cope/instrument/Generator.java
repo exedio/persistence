@@ -472,26 +472,23 @@ final class Generator
 				write(lineSeparator);
 			}
 
-			if(nullabilityAnnotations)
+			switch(wrapper.getMethodNullability())
 			{
-				switch(wrapper.getMethodNullability())
-				{
-					case NONNULL:
-						writeIndent();
-						write("@javax.annotation.Nonnull()");
-						write(lineSeparator);
-						break;
-					case NULLABLE:
-						writeIndent();
-						write("@javax.annotation.Nullable()");
-						write(lineSeparator);
-						break;
-					case DEFAULT:
-						// nothing to do
-						break;
-					default:
-						throw new RuntimeException("invalid case");
-				}
+				case NONNULL:
+					writeIndent();
+					write("@javax.annotation.Nonnull()");
+					write(lineSeparator);
+					break;
+				case NULLABLE:
+					writeIndent();
+					write("@javax.annotation.Nullable()");
+					write(lineSeparator);
+					break;
+				case DEFAULT:
+					// nothing to do
+					break;
+				default:
+					throw new RuntimeException("invalid case");
 			}
 
 			writeIndent();
@@ -683,7 +680,8 @@ final class Generator
 				feature,
 				clazz.getSuperclass().isAnnotationPresent(WrapFeature.class)
 				? getWrappers(clazz.getSuperclass(), feature)
-				: Collections.<WrapperX>emptyList());
+				: Collections.<WrapperX>emptyList(),
+				nullabilityAnnotations);
 	}
 
 	private void writeName(final String methodName, final String featureName)
