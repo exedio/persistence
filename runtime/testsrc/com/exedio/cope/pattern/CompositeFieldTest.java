@@ -51,6 +51,7 @@ import com.exedio.cope.Query;
 import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.misc.Computed;
 import com.exedio.cope.pattern.CompositeValue.AnEnum;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Arrays;
 import org.junit.Before;
 import org.junit.Test;
@@ -81,6 +82,7 @@ public class CompositeFieldTest extends TestWithEnvironment
 		target2 = new CompositeOptionalItem("target2");
 	}
 
+	@SuppressFBWarnings("NP_NONNULL_PARAM_VIOLATION")
 	@Test public void testIt()
 	{
 		// test model

@@ -80,7 +80,7 @@ public final class GenericFeatureReference<E> implements Settable<E>
 	@Override
 	public boolean isMandatory()
 	{
-		throw new RuntimeException();
+		return true;
 	}
 
 	@Override

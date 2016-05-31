@@ -66,7 +66,7 @@ public class SettableFixedParamWildcard implements Settable<AtomicReference<?>>
 	@Override
 	public boolean isMandatory()
 	{
-		throw new AssertionError();
+		return true;
 	}
 
 	@Override

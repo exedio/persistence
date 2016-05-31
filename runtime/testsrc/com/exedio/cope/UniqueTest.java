@@ -29,6 +29,7 @@ import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.Test;
 
 public class UniqueTest extends TestWithEnvironment
@@ -355,6 +356,7 @@ public class UniqueTest extends TestWithEnvironment
 		assertDelete(item);
 	}
 
+	@SuppressFBWarnings("NP_NONNULL_PARAM_VIOLATION")
 	@Test public void testItemWithSingleUniqueNotNull()
 	{
 		assertEquals(null, UniqueSingleNotNullItem.forUniqueNotNullString("uniqueString"));

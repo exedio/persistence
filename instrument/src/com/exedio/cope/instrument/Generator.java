@@ -255,6 +255,17 @@ final class Generator
 			comma.appendTo(output);
 			write(lineSeparator);
 			writeIndent(3);
+			if (nullabilityAnnotations)
+			{
+				if (feature.isMandatory())
+				{
+					write("@javax.annotation.Nonnull ");
+				}
+				else
+				{
+					write("@javax.annotation.Nullable ");
+				}
+			}
 			write(finalArgPrefix);
 			write(new Context(feature, feature.parent!=type).write(feature.getInitialType()));
 			write(' ');

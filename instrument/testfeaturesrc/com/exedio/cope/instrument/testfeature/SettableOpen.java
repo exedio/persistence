@@ -73,7 +73,7 @@ public class SettableOpen<Z> implements Settable<Z>
 	@Override
 	public boolean isMandatory()
 	{
-		throw new AssertionError();
+		return true;
 	}
 
 	@Override

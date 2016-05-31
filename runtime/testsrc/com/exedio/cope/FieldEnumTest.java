@@ -31,6 +31,7 @@ import static org.junit.Assert.fail;
 
 import com.exedio.cope.testmodel.AttributeItem;
 import com.exedio.cope.testmodel.AttributeItem.SomeEnum;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.Test;
 
 public class FieldEnumTest extends FieldTest
@@ -163,6 +164,7 @@ public class FieldEnumTest extends FieldTest
 		}
 	}
 
+	@SuppressFBWarnings("NP_NONNULL_PARAM_VIOLATION")
 	@Test public void testNotNullSomeEnum()
 			throws MandatoryViolationException
 	{

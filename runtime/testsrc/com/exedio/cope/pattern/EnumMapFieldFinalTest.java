@@ -31,6 +31,7 @@ import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Model;
 import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.pattern.EnumMapFieldItem.Language;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.EnumMap;
 import org.junit.Test;
 
@@ -102,6 +103,7 @@ public class EnumMapFieldFinalTest extends TestWithEnvironment
 		assertEquals(null, item.getText(PL));
 	}
 
+	@SuppressFBWarnings("NP_NONNULL_PARAM_VIOLATION")
 	@Test public void testCreateNull()
 	{
 		try

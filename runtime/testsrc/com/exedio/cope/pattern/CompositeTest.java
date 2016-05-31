@@ -41,11 +41,13 @@ import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.StringField;
 import com.exedio.cope.StringLengthViolationException;
 import com.exedio.cope.util.Day;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Date;
 import org.junit.Test;
 
 public class CompositeTest
 {
+	@SuppressFBWarnings("NP_NONNULL_PARAM_VIOLATION")
 	@Test public void testCheck()
 	{
 		try

@@ -58,6 +58,7 @@ public class DataMandatoryTest extends TestWithEnvironment
 		item = new DataMandatoryItem(toValue(bytes4));
 	}
 
+	@SuppressFBWarnings("NP_NONNULL_PARAM_VIOLATION")
 	@Test public void testData() throws MandatoryViolationException, IOException
 	{
 		// test model

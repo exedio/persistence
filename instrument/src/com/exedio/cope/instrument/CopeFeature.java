@@ -79,6 +79,12 @@ final class CopeFeature
 		return instance instanceof Settable<?> && ((Settable<?>)instance).isInitial();
 	}
 
+	final boolean isMandatory()
+	{
+		final Object instance = getInstance();
+		return instance instanceof Settable<?> && ((Settable<?>)instance).isMandatory();
+	}
+
 	final Type getInitialType()
 	{
 		if(initialType==null)

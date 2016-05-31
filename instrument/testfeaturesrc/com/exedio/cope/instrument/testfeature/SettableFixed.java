@@ -66,7 +66,7 @@ public class SettableFixed implements Settable<AtomicBoolean>
 	@Override
 	public boolean isMandatory()
 	{
-		throw new AssertionError();
+		return true;
 	}
 
 	@Override

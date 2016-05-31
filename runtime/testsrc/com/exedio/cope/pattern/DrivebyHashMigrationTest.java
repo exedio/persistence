@@ -30,6 +30,7 @@ import static org.junit.Assert.fail;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Model;
 import com.exedio.cope.TestWithEnvironment;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.Test;
 
 public class DrivebyHashMigrationTest extends TestWithEnvironment
@@ -41,6 +42,7 @@ public class DrivebyHashMigrationTest extends TestWithEnvironment
 		super(MODEL);
 	}
 
+	@SuppressFBWarnings("NP_NONNULL_PARAM_VIOLATION")
 	@Test public void testSetNull()
 	{
 		final DrivebyHashMigrationItem item = new DrivebyHashMigrationItem("111111", 1.1);
