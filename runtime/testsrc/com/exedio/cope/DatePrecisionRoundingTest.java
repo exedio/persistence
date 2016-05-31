@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.DateField.Precision.ZONE;
 import static com.exedio.cope.DatePrecisionConditionTest.date;
 import static com.exedio.cope.util.TimeZoneStrict.getTimeZone;
 import static org.junit.Assert.assertEquals;
@@ -163,6 +164,54 @@ public class DatePrecisionRoundingTest
 		assertRound(Precision.Seconds, null, null, null);
 		assertRound(Precision.Minutes, null, null, null);
 		assertRound(Precision.Hours  , null, null, null);
+	}
+
+	@Test public void testEpochBefore() throws ParseException
+	{
+		assertRound(Precision.Millis,
+				dateS("1966-05-23 15:44:55.066"),
+				dateS("1966-05-23 15:44:55.066"),
+				dateS("1966-05-23 15:44:55.066"));
+		assertRound(Precision.Seconds,
+				dateS("1966-05-23 15:44:55.066"),
+				dateS("1966-05-23 15:44:55.000"),
+				dateS("1966-05-23 15:44:56.000"));
+		assertRound(Precision.Minutes,
+				dateS("1966-05-23 15:44:55.066"),
+				dateS("1966-05-23 15:44:00.000"),
+				dateS("1966-05-23 15:45:00.000"));
+		assertRound(Precision.Hours,
+				dateS("1966-05-23 15:44:55.066"),
+				dateS("1966-05-23 15:00:00.000"),
+				dateS("1966-05-23 16:00:00.000"));
+	}
+
+	@Test public void testEpochAfter() throws ParseException
+	{
+		assertRound(Precision.Millis,
+				dateS("1986-05-23 15:44:55.066"),
+				dateS("1986-05-23 15:44:55.066"),
+				dateS("1986-05-23 15:44:55.066"));
+		assertRound(Precision.Seconds,
+				dateS("1986-05-23 15:44:55.066"),
+				dateS("1986-05-23 15:44:55.000"),
+				dateS("1986-05-23 15:44:56.000"));
+		assertRound(Precision.Minutes,
+				dateS("1986-05-23 15:44:55.066"),
+				dateS("1986-05-23 15:44:00.000"),
+				dateS("1986-05-23 15:45:00.000"));
+		assertRound(Precision.Hours,
+				dateS("1986-05-23 15:44:55.066"),
+				dateS("1986-05-23 15:00:00.000"),
+				dateS("1986-05-23 16:00:00.000"));
+	}
+
+	private static Date dateS(final String date) throws ParseException
+	{
+		final SimpleDateFormat result = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+		result.setTimeZone(ZONE);
+		result.setLenient(false);
+		return result.parse(date);
 	}
 
 	private static void assertRound(
