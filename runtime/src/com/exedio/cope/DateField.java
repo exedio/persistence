@@ -183,16 +183,34 @@ public final class DateField extends FunctionField<Date>
 	}
 
 
+	/**
+	 * Returns a new DateField,
+	 * that differs from this DateField
+	 * by having a {@link #getPrecision() precision} of
+	 * {@link Precision#SECOND seconds}.
+	 */
 	public DateField precisionSecond()
 	{
 		return precision(Precision.SECOND);
 	}
 
+	/**
+	 * Returns a new DateField,
+	 * that differs from this DateField
+	 * by having a {@link #getPrecision() precision} of
+	 * {@link Precision#MINUTE minutes}.
+	 */
 	public DateField precisionMinute()
 	{
 		return precision(Precision.MINUTE);
 	}
 
+	/**
+	 * Returns a new DateField,
+	 * that differs from this DateField
+	 * by having a {@link #getPrecision() precision} of
+	 * {@link Precision#HOUR hours}.
+	 */
 	public DateField precisionHour()
 	{
 		return precision(Precision.HOUR);
