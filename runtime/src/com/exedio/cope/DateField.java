@@ -62,7 +62,7 @@ public final class DateField extends FunctionField<Date>
 
 	public DateField()
 	{
-		this(false, false, false, null, null, Precision.Millis);
+		this(false, false, false, null, null, Precision.MILLI);
 	}
 
 	@Override
@@ -185,17 +185,17 @@ public final class DateField extends FunctionField<Date>
 
 	public DateField seconds()
 	{
-		return precision(Precision.Seconds);
+		return precision(Precision.SECOND);
 	}
 
 	public DateField minutes()
 	{
-		return precision(Precision.Minutes);
+		return precision(Precision.MINUTE);
 	}
 
 	public DateField hours()
 	{
-		return precision(Precision.Hours);
+		return precision(Precision.HOUR);
 	}
 
 	private DateField precision(final Precision precision)
@@ -210,10 +210,10 @@ public final class DateField extends FunctionField<Date>
 
 	public enum Precision
 	{
-		Millis (null    , false, 0         , Calendar.FIELD_COUNT, (int[])null),
-		Seconds("SECOND", true , 1000      , Calendar.SECOND,      Calendar.MILLISECOND),
-		Minutes("MINUTE", true , 1000*60   , Calendar.MINUTE,      Calendar.MILLISECOND, Calendar.SECOND),
-		Hours  (null    , true , 1000*60*60, Calendar.HOUR_OF_DAY, Calendar.MILLISECOND, Calendar.SECOND, Calendar.MINUTE);
+		MILLI (null    , false, 0         , Calendar.FIELD_COUNT, (int[])null),
+		SECOND("SECOND", true , 1000      , Calendar.SECOND,      Calendar.MILLISECOND),
+		MINUTE("MINUTE", true , 1000*60   , Calendar.MINUTE,      Calendar.MILLISECOND, Calendar.SECOND),
+		HOUR  (null    , true , 1000*60*60, Calendar.HOUR_OF_DAY, Calendar.MILLISECOND, Calendar.SECOND, Calendar.MINUTE);
 
 		private final String sql;
 		private final boolean constrains;

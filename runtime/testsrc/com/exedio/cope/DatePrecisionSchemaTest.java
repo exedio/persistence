@@ -18,10 +18,10 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.DateField.Precision.Hours;
-import static com.exedio.cope.DateField.Precision.Millis;
-import static com.exedio.cope.DateField.Precision.Minutes;
-import static com.exedio.cope.DateField.Precision.Seconds;
+import static com.exedio.cope.DateField.Precision.HOUR;
+import static com.exedio.cope.DateField.Precision.MILLI;
+import static com.exedio.cope.DateField.Precision.MINUTE;
+import static com.exedio.cope.DateField.Precision.SECOND;
 import static com.exedio.cope.DatePrecisionItem.TYPE;
 import static com.exedio.cope.DatePrecisionItem.hours;
 import static com.exedio.cope.DatePrecisionItem.minutes;
@@ -81,12 +81,12 @@ public class DatePrecisionSchemaTest extends TestWithEnvironment
 			assertEquals(null,  millisPM);
 			assertEquals(null, secondsPM);
 			assertEquals(null, minutesPM);
-			assertEquals(extract(hours  , Minutes)+"=0",   hoursPM.getRequiredCondition());
+			assertEquals(extract(hours  , MINUTE)+"=0",   hoursPM.getRequiredCondition());
 
 			assertEquals(null, millisPS);
-			assertEquals(extract(seconds, Seconds)+"=" + floor(extract(seconds, Seconds)), secondsPS.getRequiredCondition());
-			assertEquals(extract(minutes, Seconds)+"=0", minutesPS.getRequiredCondition());
-			assertEquals(extract(hours  , Seconds)+"=0",   hoursPS.getRequiredCondition());
+			assertEquals(extract(seconds, SECOND)+"=" + floor(extract(seconds, SECOND)), secondsPS.getRequiredCondition());
+			assertEquals(extract(minutes, SECOND)+"=0", minutesPS.getRequiredCondition());
+			assertEquals(extract(hours  , SECOND)+"=0",   hoursPS.getRequiredCondition());
 
 		}
 		else
@@ -163,11 +163,11 @@ public class DatePrecisionSchemaTest extends TestWithEnvironment
 
 	@Test public void testEnumSchemaPrecision()
 	{
-		assertEquals(asList(Millis, Seconds, Minutes, Hours), asList(Precision.values()));
-		assertEquals(10, getColumnValue(Millis ));
-		assertEquals(20, getColumnValue(Seconds  ));
-		assertEquals(30, getColumnValue(Minutes ));
-		assertEquals(40, getColumnValue(Hours));
+		assertEquals(asList(MILLI, SECOND, MINUTE, HOUR), asList(Precision.values()));
+		assertEquals(10, getColumnValue(MILLI ));
+		assertEquals(20, getColumnValue(SECOND  ));
+		assertEquals(30, getColumnValue(MINUTE ));
+		assertEquals(40, getColumnValue(HOUR));
 	}
 
 	@Test public void testEnumSchemaRoundingMode()

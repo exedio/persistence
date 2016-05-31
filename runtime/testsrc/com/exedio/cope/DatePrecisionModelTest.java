@@ -34,18 +34,18 @@ public class DatePrecisionModelTest
 {
 	@Test public void testConstrains()
 	{
-		assertEquals(false, Precision.Millis .constrains());
-		assertEquals(true , Precision.Seconds.constrains());
-		assertEquals(true , Precision.Minutes.constrains());
-		assertEquals(true , Precision.Hours  .constrains());
+		assertEquals(false, Precision.MILLI .constrains());
+		assertEquals(true , Precision.SECOND.constrains());
+		assertEquals(true , Precision.MINUTE.constrains());
+		assertEquals(true , Precision.HOUR  .constrains());
 	}
 
 	@Test public void testGetPrecision()
 	{
-		assertEquals(Precision.Millis , millis .getPrecision());
-		assertEquals(Precision.Seconds, seconds.getPrecision());
-		assertEquals(Precision.Minutes, minutes.getPrecision());
-		assertEquals(Precision.Hours  , hours  .getPrecision());
+		assertEquals(Precision.MILLI , millis .getPrecision());
+		assertEquals(Precision.SECOND, seconds.getPrecision());
+		assertEquals(Precision.MINUTE, minutes.getPrecision());
+		assertEquals(Precision.HOUR  , hours  .getPrecision());
 	}
 
 	@Test public void testMillis()

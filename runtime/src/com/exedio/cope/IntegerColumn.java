@@ -44,7 +44,7 @@ class IntegerColumn extends Column
 			final long maximum,
 			final boolean longInsteadOfInt)
 	{
-		this(table, id, synthetic, optional, minimum, maximum, longInsteadOfInt, Precision.Millis);
+		this(table, id, synthetic, optional, minimum, maximum, longInsteadOfInt, Precision.MILLI);
 	}
 
 	IntegerColumn(
@@ -78,7 +78,7 @@ class IntegerColumn extends Column
 		this.maximum = max(allowedValues);
 		this.longInsteadOfInt = false;
 		this.allowedValues = allowedValues;
-		this.precision = Precision.Millis;
+		this.precision = Precision.MILLI;
 
 		assert allowedValues.length>(optional?0:1) : id;
 
@@ -116,7 +116,7 @@ class IntegerColumn extends Column
 		this.maximum = maximum;
 		this.longInsteadOfInt = true;
 		this.allowedValues = null;
-		this.precision = Precision.Millis;
+		this.precision = Precision.MILLI;
 
 		assert assertMembers();
 	}

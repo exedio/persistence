@@ -18,8 +18,8 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.DateField.Precision.Minutes;
-import static com.exedio.cope.DateField.Precision.Seconds;
+import static com.exedio.cope.DateField.Precision.MINUTE;
+import static com.exedio.cope.DateField.Precision.SECOND;
 
 import com.exedio.cope.DateField.Precision;
 import com.exedio.cope.util.TimeZoneStrict;
@@ -66,21 +66,21 @@ final class TimestampColumn extends Column
 		final Dialect dialect = table.database.dialect;
 		switch(precision)
 		{
-			case Hours:
+			case HOUR:
 				new CheckConstraint(dt, makeGlobalID("PM"),
-						dialect.getDateExtract(quotedID, Minutes) + "=0");
+						dialect.getDateExtract(quotedID, MINUTE) + "=0");
 				// fall through
 
-			case Minutes:
-			case Seconds:
-				final String seconds = dialect.getDateExtract(quotedID, Seconds);
+			case MINUTE:
+			case SECOND:
+				final String seconds = dialect.getDateExtract(quotedID, SECOND);
 				new CheckConstraint(dt, makeGlobalID("PS"),
-						precision==Seconds
+						precision==SECOND
 						? (seconds + '=' + dialect.getFloor(seconds)) // is an integer
 						: (seconds + "=0"));
 				// fall through
 
-			case Millis:
+			case MILLI:
 				break; // nothing
 
 			default:

@@ -36,7 +36,7 @@ public class DatePrecisionRoundingTest
 {
 	@Test public void testMillis()
 	{
-		assertRound(Precision.Millis,
+		assertRound(Precision.MILLI,
 				date(0, 15, 44, 55, 66),
 				date(0, 15, 44, 55, 66),
 				date(0, 15, 44, 55, 66));
@@ -44,27 +44,27 @@ public class DatePrecisionRoundingTest
 
 	@Test public void testSeconds()
 	{
-		assertRound(Precision.Seconds,
+		assertRound(Precision.SECOND,
 				date(9, 15, 44, 55, 66),
 				date(9, 15, 44, 55,  0),
 				date(9, 15, 44, 56,  0));
-		assertRound(Precision.Seconds,
+		assertRound(Precision.SECOND,
 				date(9, 15, 44, 55,  0),
 				date(9, 15, 44, 55,  0),
 				date(9, 15, 44, 55,  0));
-		assertRound(Precision.Seconds,
+		assertRound(Precision.SECOND,
 				date(9, 15, 44, 55,999),
 				date(9, 15, 44, 55,  0),
 				date(9, 15, 44, 56,  0));
-		assertRound(Precision.Seconds,
+		assertRound(Precision.SECOND,
 				date(0,  0,  0, 55, 66),
 				date(0,  0,  0, 55,  0),
 				date(0,  0,  0, 56,  0));
-		assertRound(Precision.Seconds,
+		assertRound(Precision.SECOND,
 				date(0,  0,  0, 55,  0),
 				date(0,  0,  0, 55,  0),
 				date(0,  0,  0, 55,  0));
-		assertRound(Precision.Seconds,
+		assertRound(Precision.SECOND,
 				date(0,  0,  0, 55,999),
 				date(0,  0,  0, 55,  0),
 				date(0,  0,  0, 56,  0));
@@ -72,43 +72,43 @@ public class DatePrecisionRoundingTest
 
 	@Test public void testMinutes()
 	{
-		assertRound(Precision.Minutes,
+		assertRound(Precision.MINUTE,
 				date(9, 15, 44, 55, 66),
 				date(9, 15, 44,  0,  0),
 				date(9, 15, 45,  0,  0));
-		assertRound(Precision.Minutes,
+		assertRound(Precision.MINUTE,
 				date(9, 15, 44, 55,  0),
 				date(9, 15, 44,  0,  0),
 				date(9, 15, 45,  0,  0));
-		assertRound(Precision.Minutes,
+		assertRound(Precision.MINUTE,
 				date(9, 15, 44,  0, 66),
 				date(9, 15, 44,  0,  0),
 				date(9, 15, 45,  0,  0));
-		assertRound(Precision.Minutes,
+		assertRound(Precision.MINUTE,
 				date(9, 15, 44,  0,  0),
 				date(9, 15, 44,  0,  0),
 				date(9, 15, 44,  0,  0));
-		assertRound(Precision.Minutes,
+		assertRound(Precision.MINUTE,
 				date(9, 15, 44, 59,999),
 				date(9, 15, 44,  0,  0),
 				date(9, 15, 45,  0,  0));
-		assertRound(Precision.Minutes,
+		assertRound(Precision.MINUTE,
 				date(0,  0, 44, 55, 66),
 				date(0,  0, 44,  0,  0),
 				date(0,  0, 45,  0,  0));
-		assertRound(Precision.Minutes,
+		assertRound(Precision.MINUTE,
 				date(0,  0, 44, 55,  0),
 				date(0,  0, 44,  0,  0),
 				date(0,  0, 45,  0,  0));
-		assertRound(Precision.Minutes,
+		assertRound(Precision.MINUTE,
 				date(0,  0, 44,  0, 66),
 				date(0,  0, 44,  0,  0),
 				date(0,  0, 45,  0,  0));
-		assertRound(Precision.Minutes,
+		assertRound(Precision.MINUTE,
 				date(0,  0, 44,  0,  0),
 				date(0,  0, 44,  0,  0),
 				date(0,  0, 44,  0,  0));
-		assertRound(Precision.Minutes,
+		assertRound(Precision.MINUTE,
 				date(0,  0, 44, 59,999),
 				date(0,  0, 44,  0,  0),
 				date(0,  0, 45,  0,  0));
@@ -116,43 +116,43 @@ public class DatePrecisionRoundingTest
 
 	@Test public void testHours()
 	{
-		assertRound(Precision.Hours,
+		assertRound(Precision.HOUR,
 				date(9, 15, 44, 55, 66),
 				date(9, 15,  0,  0,  0),
 				date(9, 16,  0,  0,  0));
-		assertRound(Precision.Hours,
+		assertRound(Precision.HOUR,
 				date(9, 15, 44,  0,  0),
 				date(9, 15,  0,  0,  0),
 				date(9, 16,  0,  0,  0));
-		assertRound(Precision.Hours,
+		assertRound(Precision.HOUR,
 				date(9, 15,  0,  0, 66),
 				date(9, 15,  0,  0,  0),
 				date(9, 16,  0,  0,  0));
-		assertRound(Precision.Hours,
+		assertRound(Precision.HOUR,
 				date(9, 15,  0,  0,  0),
 				date(9, 15,  0,  0,  0),
 				date(9, 15,  0,  0,  0));
-		assertRound(Precision.Hours,
+		assertRound(Precision.HOUR,
 				date(9, 15, 59, 59,999),
 				date(9, 15,  0,  0,  0),
 				date(9, 16,  0,  0,  0));
-		assertRound(Precision.Hours,
+		assertRound(Precision.HOUR,
 				date(0, 15, 44, 55, 66),
 				date(0, 15,  0,  0,  0),
 				date(0, 16,  0,  0,  0));
-		assertRound(Precision.Hours,
+		assertRound(Precision.HOUR,
 				date(0, 15, 44,  0,  0),
 				date(0, 15,  0,  0,  0),
 				date(0, 16,  0,  0,  0));
-		assertRound(Precision.Hours,
+		assertRound(Precision.HOUR,
 				date(0, 15,  0,  0, 66),
 				date(0, 15,  0,  0,  0),
 				date(0, 16,  0,  0,  0));
-		assertRound(Precision.Hours,
+		assertRound(Precision.HOUR,
 				date(0, 15,  0,  0,  0),
 				date(0, 15,  0,  0,  0),
 				date(0, 15,  0,  0,  0));
-		assertRound(Precision.Hours,
+		assertRound(Precision.HOUR,
 				date(0, 15, 59, 59,999),
 				date(0, 15,  0,  0,  0),
 				date(0, 16,  0,  0,  0));
@@ -160,27 +160,27 @@ public class DatePrecisionRoundingTest
 
 	@Test public void testNull()
 	{
-		assertRound(Precision.Millis , null, null, null);
-		assertRound(Precision.Seconds, null, null, null);
-		assertRound(Precision.Minutes, null, null, null);
-		assertRound(Precision.Hours  , null, null, null);
+		assertRound(Precision.MILLI , null, null, null);
+		assertRound(Precision.SECOND, null, null, null);
+		assertRound(Precision.MINUTE, null, null, null);
+		assertRound(Precision.HOUR  , null, null, null);
 	}
 
 	@Test public void testEpochBefore() throws ParseException
 	{
-		assertRound(Precision.Millis,
+		assertRound(Precision.MILLI,
 				dateS("1966-05-23 15:44:55.066"),
 				dateS("1966-05-23 15:44:55.066"),
 				dateS("1966-05-23 15:44:55.066"));
-		assertRound(Precision.Seconds,
+		assertRound(Precision.SECOND,
 				dateS("1966-05-23 15:44:55.066"),
 				dateS("1966-05-23 15:44:55.000"),
 				dateS("1966-05-23 15:44:56.000"));
-		assertRound(Precision.Minutes,
+		assertRound(Precision.MINUTE,
 				dateS("1966-05-23 15:44:55.066"),
 				dateS("1966-05-23 15:44:00.000"),
 				dateS("1966-05-23 15:45:00.000"));
-		assertRound(Precision.Hours,
+		assertRound(Precision.HOUR,
 				dateS("1966-05-23 15:44:55.066"),
 				dateS("1966-05-23 15:00:00.000"),
 				dateS("1966-05-23 16:00:00.000"));
@@ -188,19 +188,19 @@ public class DatePrecisionRoundingTest
 
 	@Test public void testEpochAfter() throws ParseException
 	{
-		assertRound(Precision.Millis,
+		assertRound(Precision.MILLI,
 				dateS("1986-05-23 15:44:55.066"),
 				dateS("1986-05-23 15:44:55.066"),
 				dateS("1986-05-23 15:44:55.066"));
-		assertRound(Precision.Seconds,
+		assertRound(Precision.SECOND,
 				dateS("1986-05-23 15:44:55.066"),
 				dateS("1986-05-23 15:44:55.000"),
 				dateS("1986-05-23 15:44:56.000"));
-		assertRound(Precision.Minutes,
+		assertRound(Precision.MINUTE,
 				dateS("1986-05-23 15:44:55.066"),
 				dateS("1986-05-23 15:44:00.000"),
 				dateS("1986-05-23 15:45:00.000"));
-		assertRound(Precision.Hours,
+		assertRound(Precision.HOUR,
 				dateS("1986-05-23 15:44:55.066"),
 				dateS("1986-05-23 15:00:00.000"),
 				dateS("1986-05-23 16:00:00.000"));
@@ -216,19 +216,19 @@ public class DatePrecisionRoundingTest
 
 	@Test public void testFracHourZone() throws ParseException
 	{
-		assertRound(Precision.Millis,
+		assertRound(Precision.MILLI,
 				dateI("1986-05-23 15:44:55.066"),
 				dateI("1986-05-23 15:44:55.066"),
 				dateI("1986-05-23 15:44:55.066"));
-		assertRound(Precision.Seconds,
+		assertRound(Precision.SECOND,
 				dateI("1986-05-23 15:44:55.066"),
 				dateI("1986-05-23 15:44:55.000"),
 				dateI("1986-05-23 15:44:56.000"));
-		assertRound(Precision.Minutes,
+		assertRound(Precision.MINUTE,
 				dateI("1986-05-23 15:44:55.066"),
 				dateI("1986-05-23 15:44:00.000"),
 				dateI("1986-05-23 15:45:00.000"));
-		assertRound(Precision.Hours,
+		assertRound(Precision.HOUR,
 				dateI("1986-05-23 15:44:55.066"),
 				dateI("1986-05-23 15:30:00.000"),
 				dateI("1986-05-23 16:30:00.000"));
@@ -309,6 +309,6 @@ public class DatePrecisionRoundingTest
 		assertEquals(1409234400000l, df.parse("28.08.2014 16:00:00.000").getTime());
 		// leap second on June 30th, 2015
 		assertEquals(1440770400000l, df.parse("28.08.2015 16:00:00.000").getTime());
-		assertEquals(DateField.Precision.Hours, DateField.Precision.Hours);
+		assertEquals(DateField.Precision.HOUR, DateField.Precision.HOUR);
 	}
 }

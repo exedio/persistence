@@ -45,7 +45,7 @@ public class DatePrecisionDefaultToTest
 					"The default constant of the field does not comply to one of it's own constraints, " +
 					"caused a DatePrecisionViolationException: " +
 					"precision violation, 1970-01-12 22:44:55.066 GMT (66) is too precise, " +
-					"must be Minutes, round either to past: " +
+					"must be MINUTE, round either to past: " +
 					"1970-01-12 22:44:00.000 or future: " +
 					"1970-01-12 22:45:00.000 " +
 					"Default constant was '" + wrong.toString() + "'.",
