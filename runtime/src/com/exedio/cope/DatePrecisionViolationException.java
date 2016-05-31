@@ -86,7 +86,7 @@ public final class DatePrecisionViolationException extends ConstraintViolationEx
 	 */
 	public Date getValueAllowedInPast()
 	{
-		return feature.precision.round(getValue(), RoundingMode.PAST);
+		return feature.getPrecision().round(getValue(), RoundingMode.PAST);
 	}
 
 	/**
@@ -96,7 +96,7 @@ public final class DatePrecisionViolationException extends ConstraintViolationEx
 	 */
 	public Date getValueRoundedToFuture()
 	{
-		return feature.precision.round(getValue(), RoundingMode.FUTURE);
+		return feature.getPrecision().round(getValue(), RoundingMode.FUTURE);
 	}
 
 	@Override
@@ -117,7 +117,7 @@ public final class DatePrecisionViolationException extends ConstraintViolationEx
 			bf.append(" for ").
 				append(feature);
 		bf.append(", must be ").
-			append(feature.precision.name()).
+			append(feature.getPrecision().name()).
 			append(", round either to past: ").
 			append(df.format(getValueAllowedInPast())).
 			append(" or future: ").

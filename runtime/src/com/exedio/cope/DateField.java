@@ -44,7 +44,7 @@ public final class DateField extends FunctionField<Date>
 
 	private static final long serialVersionUID = 1l;
 
-	final Precision precision;
+	private final Precision precision;
 
 	private DateField(
 			final boolean isfinal,
@@ -143,7 +143,7 @@ public final class DateField extends FunctionField<Date>
 			if(precision!=null)
 				throw new RuntimeException();
 
-			precision = ((DateField)field).precision;
+			precision = ((DateField)field).getPrecision();
 		}
 	}
 
@@ -203,7 +203,12 @@ public final class DateField extends FunctionField<Date>
 		return new DateField(isfinal, optional, unique, copyFrom, defaultSource, precision);
 	}
 
-	enum Precision
+	public Precision getPrecision()
+	{
+		return precision;
+	}
+
+	public enum Precision
 	{
 		Millis (null    , 0         , Calendar.FIELD_COUNT, (int[])null),
 		Seconds("SECOND", 1000      , Calendar.SECOND,      Calendar.MILLISECOND),
@@ -383,7 +388,7 @@ public final class DateField extends FunctionField<Date>
 	{
 		public boolean get(final DateField feature)
 		{
-			return feature.precision==Precision.Millis;
+			return feature.getPrecision()==Precision.Millis;
 		}
 	}
 
