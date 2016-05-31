@@ -138,15 +138,13 @@ public class DatePrecisionModelTest
 		{
 			assertEquals(
 					"precision violation, " +
-					wrongString + " is too precise for " + field + ", " +
-					"must be " + field.getPrecision() +
-					", round either to past: " + pastString + " or future: " + futureString,
+					wrongString + " is too precise for " + field.getPrecision() + " of " + field + ", " +
+					"round either to " + pastString + " in the past or " + futureString + " in the future.",
 					e.getMessage());
 			assertEquals(
 					"precision violation, " +
-					wrongString + " is too precise, " +
-					"must be " + field.getPrecision() +
-					", round either to past: " + pastString + " or future: " + futureString,
+					wrongString + " is too precise for " + field.getPrecision() + ", " +
+					"round either to " + pastString + " in the past or " + futureString + " in the future.",
 					e.getMessageWithoutFeature());
 			assertEquals(null, e.getItem());
 			assertEquals(field, e.getFeature());

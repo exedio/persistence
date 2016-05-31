@@ -111,17 +111,17 @@ public final class DatePrecisionViolationException extends ConstraintViolationEx
 			append(df.format(getValue())).
 			append(" " + ZONE_ID + " (").
 			append(violation).
-			append(") is too precise");
+			append(") is too precise for ").
+			append(feature.getPrecision().name());
 
 		if(withFeature)
-			bf.append(" for ").
+			bf.append(" of ").
 				append(feature);
-		bf.append(", must be ").
-			append(feature.getPrecision().name()).
-			append(", round either to past: ").
+		bf.append(", round either to ").
 			append(df.format(getValueAllowedInPast())).
-			append(" or future: ").
-			append(df.format(getValueRoundedToFuture()));
+			append(" in the past or ").
+			append(df.format(getValueRoundedToFuture())).
+			append(" in the future.");
 
 		return bf.toString();
 	}
