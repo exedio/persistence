@@ -256,10 +256,7 @@ abstract class Dialect
 		return "FLOOR(" + quotedName + ')';
 	}
 
-	String getDateIntegerPrecision(final String quotedName, final Precision precision)
-	{
-		throw new RuntimeException(quotedName + '/' + precision); // TODO
-	}
+	abstract String getDateIntegerPrecision(String quotedName, Precision precision);
 
 	abstract String getBlobType(long maximumLength);
 

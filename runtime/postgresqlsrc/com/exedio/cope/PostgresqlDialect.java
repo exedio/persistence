@@ -145,6 +145,12 @@ final class PostgresqlDialect extends Dialect
 	}
 
 	@Override
+	String getDateIntegerPrecision(final String quotedName, final Precision precision)
+	{
+		return "(" + quotedName + " % " + precision.divisor() + ")=0";
+	}
+
+	@Override
 	String getBlobType(final long maximumLength)
 	{
 		return (maximumLength<Integer.MAX_VALUE) ? BINARY : null;

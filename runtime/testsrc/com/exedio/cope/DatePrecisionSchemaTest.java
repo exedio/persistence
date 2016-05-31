@@ -148,8 +148,8 @@ public class DatePrecisionSchemaTest extends TestWithEnvironment
 		{
 			case hsqldb    : return "MOD(" + q(field) + "," + divisor + ")=0";
 			case mysql     : return "(" + q(field) + " MOD " + divisor + ")=0";
-			case oracle    : // TODO
-			case postgresql: // TODO
+			case postgresql: return "(" + q(field) +  " % "  + divisor + ")=0";
+			case oracle: // TODO
 			default:
 				throw new RuntimeException("" + dialect);
 		}
