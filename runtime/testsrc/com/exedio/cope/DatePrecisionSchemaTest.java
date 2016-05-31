@@ -35,6 +35,7 @@ import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
 
 import com.exedio.cope.DateField.Precision;
+import com.exedio.cope.DateField.RoundingMode;
 import com.exedio.dsmf.Constraint;
 import com.exedio.dsmf.Schema;
 import com.exedio.dsmf.Table;
@@ -160,12 +161,19 @@ public class DatePrecisionSchemaTest extends TestWithEnvironment
 		return quoteName(model, getColumnName(f));
 	}
 
-	@Test public void testEnumSchema()
+	@Test public void testEnumSchemaPrecision()
 	{
 		assertEquals(asList(Millis, Seconds, Minutes, Hours), asList(Precision.values()));
 		assertEquals(10, getColumnValue(Millis ));
 		assertEquals(20, getColumnValue(Seconds  ));
 		assertEquals(30, getColumnValue(Minutes ));
 		assertEquals(40, getColumnValue(Hours));
+	}
+
+	@Test public void testEnumSchemaRoundingMode()
+	{
+		assertEquals(asList(RoundingMode.FUTURE, RoundingMode.PAST), asList(RoundingMode.values()));
+		assertEquals(10, getColumnValue(RoundingMode.FUTURE));
+		assertEquals(20, getColumnValue(RoundingMode.PAST  ));
 	}
 }
