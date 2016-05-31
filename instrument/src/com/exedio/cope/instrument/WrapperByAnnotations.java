@@ -125,17 +125,43 @@ final class WrapperByAnnotations
 
 	private boolean isNotHidden(final Wrap annotation)
 	{
-		for(final Class<? extends BooleanGetter<?>> hideGetterClass : annotation.hide())
+		return !isAnyBooleanGetterTrue(annotation.hide());
+	}
+
+	private boolean isAnyBooleanGetterTrue(Class<? extends BooleanGetter<?>>[] booleanGetters)
+	{
+		for(final Class<? extends BooleanGetter<?>> hideGetterClass : booleanGetters)
 		{
 			if(getBoolean(hideGetterClass))
-				return false;
+				return true;
 		}
-		return true;
+		return false;
+	}
+
+	private Nullability getNullability(final Method method, final Wrap wrap)
+	{
+		return getNullability(method.getAnnotations(), wrap.nullability());
+	}
+
+	private Nullability getNullability(final Annotation[] annotations, final Class<? extends NullabilityGetter<?>> nullabilityClass)
+	{
+		if (NullabilityGetterDefault.class.equals(nullabilityClass))
+		{
+			return Nullability.fromAnnotations(annotations);
+		}
+		else
+		{
+			@SuppressWarnings("rawtypes")
+			final NullabilityGetter source = instantiate(nullabilityClass);
+			@SuppressWarnings("unchecked")
+			final Nullability result=source.getNullability(feature);
+			return result;
+		}
 	}
 
 	private WrapperX make(final Method method, final Wrap annotation)
 	{
-		final WrapperX result = new WrapperX(method);
+		final WrapperX result = new WrapperX(method, getNullability(method, annotation));
 
 		final Class<?>[] parameterTypes = method.getParameterTypes();
 		final Class<?> parameterType0 = parameterTypes.length>0 ? parameterTypes[0] : null;
@@ -224,15 +250,16 @@ final class WrapperByAnnotations
 			{
 				final Type genericParameterType = genericParameterTypes[i];
 				final Parameter paramAnn = get(Parameter.class, annotations[i]);
+				final Nullability nullability = getNullability(annotations[i], paramAnn==null?NullabilityGetterDefault.class:paramAnn.nullability());
 				final List<?> varargs = ((i+1)==parameterTypes.length) ? methodVarargs : null;
 				if(paramAnn==null)
-					result.addParameter(genericParameterType, varargs);
+					result.addParameter(genericParameterType, varargs, nullability);
 				else
 				{
 					final String[] comment = paramAnn.doc();
 					final String paramAnnValue = paramAnn.value();
 					final String paramAnnValueFixed = paramAnnValue.isEmpty() ? "{1}" : paramAnnValue;
-					result.addParameter(genericParameterType, paramAnnValueFixed, comment, varargs);
+					result.addParameter(genericParameterType, paramAnnValueFixed, comment, varargs, nullability);
 				}
 			}
 		}

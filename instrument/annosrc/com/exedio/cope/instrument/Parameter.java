@@ -30,4 +30,5 @@ public @interface Parameter
 {
 	String value() default "";
 	String[] doc() default {};
+	Class<? extends NullabilityGetter<?>> nullability() default NullabilityGetterDefault.class;
 }

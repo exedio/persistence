@@ -81,6 +81,7 @@ final class Generator
 	private final boolean annotateGenerated;
 	private final String finalArgPrefix;
 	private final boolean suppressUnusedWarningOnPrivateActivationConstructor;
+	private final boolean nullabilityAnnotations;
 	private final boolean serialVersionUID;
 	private final boolean genericSetValueArray;
 	private final boolean directSetValueMap;
@@ -98,6 +99,7 @@ final class Generator
 		this.annotateGenerated = params.annotateGenerated;
 		this.finalArgPrefix = params.finalArgs ? "final " : "";
 		this.suppressUnusedWarningOnPrivateActivationConstructor = params.suppressUnusedWarningOnPrivateActivationConstructor;
+		this.nullabilityAnnotations = params.nullabilityAnnotations;
 		this.serialVersionUID = params.serialVersionUID;
 		this.genericSetValueArray = params.genericSetValueArray;
 		this.directSetValueMap = params.directSetValueMap;
@@ -470,6 +472,28 @@ final class Generator
 				write(lineSeparator);
 			}
 
+			if(nullabilityAnnotations)
+			{
+				switch(wrapper.getMethodNullability())
+				{
+					case NONNULL:
+						writeIndent();
+						write("@javax.annotation.Nonnull()");
+						write(lineSeparator);
+						break;
+					case NULLABLE:
+						writeIndent();
+						write("@javax.annotation.Nullable()");
+						write(lineSeparator);
+						break;
+					case DEFAULT:
+						// nothing to do
+						break;
+					default:
+						throw new RuntimeException("invalid case");
+				}
+			}
+
 			writeIndent();
 
 			if(option.override)
@@ -519,6 +543,17 @@ final class Generator
 					if(parameter.varargs==null)
 					{
 						comma.appendTo(output);
+						if ( nullabilityAnnotations )
+						{
+							if ( parameter.isNonnull() )
+							{
+								write("@javax.annotation.Nonnull ");
+							}
+							if ( parameter.isNullable() )
+							{
+								write("@javax.annotation.Nullable ");
+							}
+						}
 						write(finalArgPrefix);
 						write(ctx.write(parameter.getType()));
 						write(' ');

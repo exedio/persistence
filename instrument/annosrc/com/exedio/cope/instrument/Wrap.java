@@ -48,4 +48,6 @@ public @interface Wrap
 	String[] docReturn() default {};
 
 	Class<? extends BooleanGetter<?>>[] hide() default {};
+
+	Class<? extends NullabilityGetter<?>> nullability() default NullabilityGetterDefault.class;
 }

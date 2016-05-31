@@ -25,21 +25,25 @@ import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 final class WrapperX
 {
 	private final String name;
 	private final Method method;
+	private final Nullability nullability;
 
 	String getName()
 	{
 		return name;
 	}
 
-	WrapperX(final Method method)
+	WrapperX(final Method method, final Nullability nullability)
 	{
 		this.name = method.getName();
 		this.method = method;
+		this.nullability = nullability;
 	}
 
 	Method getMethod()
@@ -113,19 +117,20 @@ final class WrapperX
 		return com.exedio.cope.misc.Arrays.copyOf(returnComment);
 	}
 
-
 	static final class Parameter
 	{
 		private final java.lang.reflect.Type type;
 		private final String name;
 		private final String[] comment;
 		final List<?> varargs;
+		private Nullability nullability;
 
 		Parameter(
 				final java.lang.reflect.Type type,
 				final String name,
 				final String[] comment,
-				final List<?> varargs)
+				final List<?> varargs,
+				final Nullability nullability)
 		{
 			if(type==null)
 				throw new NullPointerException("type");
@@ -138,6 +143,7 @@ final class WrapperX
 			this.name = name;
 			this.comment = comment;
 			this.varargs = varargs;
+			this.nullability = nullability;
 		}
 
 		java.lang.reflect.Type getType()
@@ -155,6 +161,16 @@ final class WrapperX
 			return com.exedio.cope.misc.Arrays.copyOf(comment);
 		}
 
+		boolean isNullable()
+		{
+			return nullability==Nullability.NULLABLE;
+		}
+
+		boolean isNonnull()
+		{
+			return nullability==Nullability.NONNULL;
+		}
+
 		@Override
 		public String toString()
 		{
@@ -164,14 +180,14 @@ final class WrapperX
 
 	private ArrayList<Parameter> parameters;
 
-	void addParameter(final java.lang.reflect.Type type, final List<?> varargs)
+	void addParameter(final java.lang.reflect.Type type, final List<?> varargs, final Nullability nullability)
 	{
-		addParameter(type, "{1}", EMPTY_STRING_ARRAY, varargs);
+		addParameter(type, "{1}", EMPTY_STRING_ARRAY, varargs, nullability);
 	}
 
-	void addParameter(final java.lang.reflect.Type type, final String name, final String[] comment, final List<?> varargs)
+	void addParameter(final java.lang.reflect.Type type, final String name, final String[] comment, final List<?> varargs, final Nullability nullability)
 	{
-		final Parameter p = new Parameter(type, name, comment, varargs);
+		final Parameter p = new Parameter(type, name, comment, varargs, nullability);
 		if(parameters==null)
 			parameters = new ArrayList<>();
 		parameters.add(p);
@@ -267,6 +283,10 @@ final class WrapperX
 		return method.isAnnotationPresent(Deprecated.class);
 	}
 
+	Nullability getMethodNullability()
+	{
+		return nullability;
+	}
 
 	static final void assertComment(final String comment)
 	{
