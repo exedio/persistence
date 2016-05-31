@@ -193,6 +193,10 @@
                         <location>instrument/src</location>
                     </source-folder>
                     <source-folder style="packages">
+                        <label>instrument/examplesrc</label>
+                        <location>instrument/examplesrc</location>
+                    </source-folder>
+                    <source-folder style="packages">
                         <label>instrument/antsrc</label>
                         <location>instrument/antsrc</location>
                     </source-folder>
@@ -312,6 +316,7 @@
                 <package-root>runtime/mysqlsrc</package-root>
                 <package-root>runtime/postgresqlsrc</package-root>
                 <package-root>instrument/src</package-root>
+                <package-root>instrument/examplesrc</package-root>
                 <package-root>instrument/annosrc</package-root>
                 <package-root>instrument/antsrc</package-root>
                 <package-root>instrument/testfeaturesrc</package-root>
