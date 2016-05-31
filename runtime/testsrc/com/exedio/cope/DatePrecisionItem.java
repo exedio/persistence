@@ -21,9 +21,9 @@ package com.exedio.cope;
 public final class DatePrecisionItem extends Item
 {
 	static final DateField millis  = new DateField().optional();
-	static final DateField seconds = new DateField().optional().seconds();
-	static final DateField minutes = new DateField().optional().minutes();
-	static final DateField hours   = new DateField().optional().hours();
+	static final DateField seconds = new DateField().optional().precisionSecond();
+	static final DateField minutes = new DateField().optional().precisionMinute();
+	static final DateField hours   = new DateField().optional().precisionHour  ();
 
 	/**
 

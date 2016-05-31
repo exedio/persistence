@@ -183,17 +183,17 @@ public final class DateField extends FunctionField<Date>
 	}
 
 
-	public DateField seconds()
+	public DateField precisionSecond()
 	{
 		return precision(Precision.SECOND);
 	}
 
-	public DateField minutes()
+	public DateField precisionMinute()
 	{
 		return precision(Precision.MINUTE);
 	}
 
-	public DateField hours()
+	public DateField precisionHour()
 	{
 		return precision(Precision.HOUR);
 	}

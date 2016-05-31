@@ -32,7 +32,7 @@ public class DatePrecisionDefaultToTest
 	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
 	@Test public void test()
 	{
-		final DateField f = new DateField().minutes();
+		final DateField f = new DateField().precisionMinute();
 		final Date wrong = date(11, 22, 44, 55, 66);
 		try
 		{

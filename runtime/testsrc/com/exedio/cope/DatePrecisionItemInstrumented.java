@@ -21,14 +21,14 @@ package com.exedio.cope;
 public final class DatePrecisionItemInstrumented extends Item
 {
 	static final DateField millis  = new DateField();
-	static final DateField seconds = new DateField().seconds();
-	static final DateField minutes = new DateField().minutes();
-	static final DateField hours   = new DateField().hours();
+	static final DateField seconds = new DateField().precisionSecond();
+	static final DateField minutes = new DateField().precisionMinute();
+	static final DateField hours   = new DateField().precisionHour  ();
 
 	static final DateField finalMillis  = new DateField().toFinal();
-	static final DateField finalSeconds = new DateField().toFinal().seconds();
-	static final DateField finalMinutes = new DateField().toFinal().minutes();
-	static final DateField finalHours   = new DateField().toFinal().hours();
+	static final DateField finalSeconds = new DateField().toFinal().precisionSecond();
+	static final DateField finalMinutes = new DateField().toFinal().precisionMinute();
+	static final DateField finalHours   = new DateField().toFinal().precisionHour  ();
 
 
 	/**

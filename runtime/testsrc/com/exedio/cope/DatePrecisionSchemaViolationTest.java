@@ -159,9 +159,9 @@ public class DatePrecisionSchemaViolationTest extends SchemaMismatchTest
 	static final class ItemA extends Item
 	{
 		// toFinal to avoid update counter
-		static final DateField hours   = new DateField().toFinal().hours  ();
-		static final DateField minutes = new DateField().toFinal().minutes();
-		static final DateField seconds = new DateField().toFinal().seconds();
+		static final DateField hours   = new DateField().toFinal().precisionHour  ();
+		static final DateField minutes = new DateField().toFinal().precisionMinute();
+		static final DateField seconds = new DateField().toFinal().precisionSecond();
 
 		/**
 

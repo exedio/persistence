@@ -254,7 +254,7 @@ public class DatePrecisionRoundingTest
 
 	@Test public void testMap()
 	{
-		final DateField f = new DateField().minutes();
+		final DateField f = new DateField().precisionMinute();
 		final Date value  = date(9, 15, 44, 55, 66);
 		final Date past   = date(9, 15, 44,  0,  0);
 		final Date future = date(9, 15, 45,  0,  0);
@@ -279,7 +279,7 @@ public class DatePrecisionRoundingTest
 
 	@Test public void testMapNullMode()
 	{
-		final DateField f = new DateField().minutes();
+		final DateField f = new DateField().precisionMinute();
 		final Date value  = date(9, 15, 44, 55, 66);
 
 		try

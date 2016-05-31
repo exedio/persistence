@@ -90,8 +90,8 @@ public class DatePrecisionDefaultToNowTest extends TestWithEnvironment
 
 	static final class AnItem extends Item
 	{
-		static final DateField past   = new DateField().defaultToNow(RoundingMode.PAST  ).minutes();
-		static final DateField future = new DateField().defaultToNow(RoundingMode.FUTURE).minutes();
+		static final DateField past   = new DateField().defaultToNow(RoundingMode.PAST  ).precisionMinute();
+		static final DateField future = new DateField().defaultToNow(RoundingMode.FUTURE).precisionMinute();
 
 		AnItem(final Date past, final Date future)
 		{
