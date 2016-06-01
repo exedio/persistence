@@ -50,12 +50,12 @@ public final class PasswordLimiterItem extends Item
 		return result;
 	}
 
-	static final String start                          = "2005-05-12 13:11:22.333";
-	static final String beforeendofperiod              = "2005-05-12 13:11:23.332";
-	static final String atendofperiod                  = "2005-05-12 13:11:23.333";
-	static final String directlyafterendofperiod       = "2005-05-12 13:11:23.334";
-	static final String atendofsecondperiod            = "2005-05-12 13:11:24.333";
-	static final String directlyafterendofsecondperiod = "2005-05-12 13:11:24.334";
+	static final String period0  = "2005-05-12 13:11:22.333";
+	static final String period1M = "2005-05-12 13:11:23.332";
+	static final String period1  = "2005-05-12 13:11:23.333";
+	static final String period1P = "2005-05-12 13:11:23.334";
+	static final String period2  = "2005-05-12 13:11:24.333";
+	static final String period2P = "2005-05-12 13:11:24.334";
 
 
 	/**

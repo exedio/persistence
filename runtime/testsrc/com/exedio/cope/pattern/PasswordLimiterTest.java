@@ -19,14 +19,14 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.SchemaInfoAssert.assertNoUpdateCounterColumn;
-import static com.exedio.cope.pattern.PasswordLimiterItem.atendofperiod;
-import static com.exedio.cope.pattern.PasswordLimiterItem.atendofsecondperiod;
-import static com.exedio.cope.pattern.PasswordLimiterItem.beforeendofperiod;
-import static com.exedio.cope.pattern.PasswordLimiterItem.directlyafterendofperiod;
-import static com.exedio.cope.pattern.PasswordLimiterItem.directlyafterendofsecondperiod;
 import static com.exedio.cope.pattern.PasswordLimiterItem.passwordLimited;
+import static com.exedio.cope.pattern.PasswordLimiterItem.period0;
+import static com.exedio.cope.pattern.PasswordLimiterItem.period1;
+import static com.exedio.cope.pattern.PasswordLimiterItem.period1M;
+import static com.exedio.cope.pattern.PasswordLimiterItem.period1P;
+import static com.exedio.cope.pattern.PasswordLimiterItem.period2;
+import static com.exedio.cope.pattern.PasswordLimiterItem.period2P;
 import static com.exedio.cope.pattern.PasswordLimiterItem.purgePasswordLimited;
-import static com.exedio.cope.pattern.PasswordLimiterItem.start;
 import static com.exedio.cope.tojunit.Assert.list;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -77,54 +77,54 @@ public class PasswordLimiterTest extends TestWithEnvironment
 		assertEquals(list(), getRefusals());
 		assertTrue(i2.checkPassword(PASSWORD2));
 
-		assertTrue(i.checkPasswordLimited(PASSWORD, clock, start));
+		assertTrue(i.checkPasswordLimited(PASSWORD, clock, period0));
 		assertEquals(list(), getRefusals());
-		assertTrue(i2.checkPasswordLimited(PASSWORD2, clock, start));
+		assertTrue(i2.checkPasswordLimited(PASSWORD2, clock, period0));
 
-		final Refusal refusal1 = refuse(start);
+		final Refusal refusal1 = refuse(period0);
 		assertEquals(list(refusal1), getRefusals());
-		assertTrue(i.checkPasswordLimited(PASSWORD, clock, start));
-		assertTrue(i2.checkPasswordLimited(PASSWORD2, clock, start));
+		assertTrue(i.checkPasswordLimited(PASSWORD, clock, period0));
+		assertTrue(i2.checkPasswordLimited(PASSWORD2, clock, period0));
 
-		final Refusal refusal2 = refuse(start);
+		final Refusal refusal2 = refuse(period0);
 		assertEquals(list(refusal1, refusal2), getRefusals());
 
-		assertFalse(i.checkPasswordLimited(PASSWORD, clock, start));
+		assertFalse(i.checkPasswordLimited(PASSWORD, clock, period0));
 		assertEquals(list(refusal1, refusal2), getRefusals());
-		assertTrue(i2.checkPasswordLimited(PASSWORD2, clock, start));
+		assertTrue(i2.checkPasswordLimited(PASSWORD2, clock, period0));
 
-		assertFalse(i.checkPasswordLimited("wrongpass", clock, start));
+		assertFalse(i.checkPasswordLimited("wrongpass", clock, period0));
 		assertEquals(list(refusal1, refusal2), getRefusals());
 
-		clock.add(start);
+		clock.add(period0);
 		assertEquals(0, purge());
 		clock.assertEmpty();
 		assertEquals(list(refusal1, refusal2), getRefusals());
 		assertTrue(refusal1.existsCopeItem());
 		assertTrue(refusal2.existsCopeItem());
 
-		clock.add(beforeendofperiod);
+		clock.add(period1M);
 		assertFalse(i.checkPasswordLimited(PASSWORD));
 		clock.assertEmpty();
 
-		clock.add(atendofperiod);
+		clock.add(period1);
 		assertTrue(i.checkPasswordLimited(PASSWORD));
 		clock.assertEmpty();
 
-		final Refusal refusal3 = refuse(atendofperiod);
+		final Refusal refusal3 = refuse(period1);
 		assertEquals(list(refusal1, refusal2, refusal3), getRefusals());
-		assertTrue(i.checkPasswordLimited(PASSWORD, clock, atendofperiod));
+		assertTrue(i.checkPasswordLimited(PASSWORD, clock, period1));
 
-		final Refusal refusal4 = refuse(atendofperiod);
+		final Refusal refusal4 = refuse(period1);
 		assertEquals(list(refusal1, refusal2, refusal3, refusal4), getRefusals());
 
-		assertFalse(i.checkPasswordLimited(PASSWORD, clock, atendofperiod));
+		assertFalse(i.checkPasswordLimited(PASSWORD, clock, period1));
 		assertEquals(list(refusal1, refusal2, refusal3, refusal4), getRefusals());
 
-		assertFalse(i.checkPasswordLimited("wrongpass", clock, atendofperiod));
+		assertFalse(i.checkPasswordLimited("wrongpass", clock, period1));
 		assertEquals(list(refusal1, refusal2, refusal3, refusal4), getRefusals());
 
-		clock.add(atendofperiod);
+		clock.add(period1);
 		assertEquals(0, purge());
 		clock.assertEmpty();
 		assertEquals(list(refusal1, refusal2, refusal3, refusal4), getRefusals());
@@ -133,7 +133,7 @@ public class PasswordLimiterTest extends TestWithEnvironment
 		assertTrue(refusal3.existsCopeItem());
 		assertTrue(refusal4.existsCopeItem());
 
-		clock.add(directlyafterendofperiod); // refusal expires
+		clock.add(period1P); // refusal expires
 		assertEquals(2, purge());
 		clock.assertEmpty();
 		assertEquals(list(refusal3, refusal4), getRefusals());
@@ -142,7 +142,7 @@ public class PasswordLimiterTest extends TestWithEnvironment
 		assertTrue(refusal3.existsCopeItem());
 		assertTrue(refusal4.existsCopeItem());
 
-		clock.add(atendofsecondperiod);
+		clock.add(period2);
 		assertEquals(0, purge());
 		clock.assertEmpty();
 		assertEquals(list(refusal3, refusal4), getRefusals());
@@ -151,7 +151,7 @@ public class PasswordLimiterTest extends TestWithEnvironment
 		assertTrue(refusal3.existsCopeItem());
 		assertTrue(refusal4.existsCopeItem());
 
-		clock.add(directlyafterendofsecondperiod); // refusal expires
+		clock.add(period2P); // refusal expires
 		assertEquals(2, purge());
 		clock.assertEmpty();
 		assertEquals(list(), getRefusals());
@@ -163,7 +163,7 @@ public class PasswordLimiterTest extends TestWithEnvironment
 
 	@Test public void testReset()
 	{
-		final String now = start;
+		final String now = period0;
 		assertEquals(list(), getRefusals());
 		assertEquals(true, i .checkPasswordLimited(PASSWORD , clock, now));
 		assertEquals(true, i2.checkPasswordLimited(PASSWORD2, clock, now));
