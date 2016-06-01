@@ -125,10 +125,9 @@ public class PasswordLimiterVerboseTest extends TestWithEnvironment
 		assertTrue(refusal1.existsCopeItem());
 		assertTrue(refusal2.existsCopeItem());
 
-		clock.add(period1M);
 		try
 		{
-			i.checkPasswordLimitedVerbosely(PASSWORD);
+			i.checkPasswordLimitedVerbosely(PASSWORD, clock, period1M);
 			fail();
 		}
 		catch(final ExceededException e)
@@ -138,11 +137,8 @@ public class PasswordLimiterVerboseTest extends TestWithEnvironment
 			assertEqualsDate(period1, e.getReleaseDate());
 			assertEquals("password limit exceeded on " + i + " for PasswordLimiterItem.passwordLimited until " + e.getReleaseDate(), e.getMessage());
 		}
-		clock.assertEmpty();
 
-		clock.add(period1); // refusal expires
-		assertTrue(i.checkPasswordLimitedVerbosely(PASSWORD));
-		clock.assertEmpty();
+		assertTrue(i.checkPasswordLimitedVerbosely(PASSWORD, clock, period1)); // refusal expires
 
 		final Refusal refusal3 = refuse(period1);
 		assertEquals(list(refusal1, refusal2, refusal3), getRefusals());
@@ -219,9 +215,7 @@ public class PasswordLimiterVerboseTest extends TestWithEnvironment
 	private final Refusal refuse(final String date) throws ExceededException
 	{
 		final List<Refusal> existing = getRefusals();
-		clock.add(date);
-		assertEquals(false, i.checkPasswordLimitedVerbosely("wrongpass"));
-		clock.assertEmpty();
+		assertEquals(false, i.checkPasswordLimitedVerbosely("wrongpass", clock, date));
 		final Refusal result = passwordLimited.getRefusalType().searchSingletonStrict(passwordLimited.getRefusalType().getThis().in(existing).not());
 		assertNotNull(result);
 		assertEqualsDate(date, result.getDate());

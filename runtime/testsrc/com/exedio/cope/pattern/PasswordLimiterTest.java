@@ -103,13 +103,8 @@ public class PasswordLimiterTest extends TestWithEnvironment
 		assertTrue(refusal1.existsCopeItem());
 		assertTrue(refusal2.existsCopeItem());
 
-		clock.add(period1M);
-		assertFalse(i.checkPasswordLimited(PASSWORD));
-		clock.assertEmpty();
-
-		clock.add(period1);
-		assertTrue(i.checkPasswordLimited(PASSWORD));
-		clock.assertEmpty();
+		assertFalse(i.checkPasswordLimited(PASSWORD, clock, period1M));
+		assertTrue (i.checkPasswordLimited(PASSWORD, clock, period1 ));
 
 		final Refusal refusal3 = refuse(period1);
 		assertEquals(list(refusal1, refusal2, refusal3), getRefusals());
@@ -202,9 +197,7 @@ public class PasswordLimiterTest extends TestWithEnvironment
 	private final Refusal refuse(final PasswordLimiterItem item, final String date)
 	{
 		final List<Refusal> existing = getRefusals();
-		clock.add(date);
-		assertEquals(false, item.checkPasswordLimited("wrongpass"));
-		clock.assertEmpty();
+		assertEquals(false, item.checkPasswordLimited("wrongpass", clock, date));
 		final Refusal result = passwordLimited.getRefusalType().searchSingletonStrict(passwordLimited.getRefusalType().getThis().in(existing).not());
 		assertNotNull(result);
 		assertEqualsDate(date, result.getDate());

@@ -25,6 +25,11 @@ import com.exedio.cope.pattern.PasswordLimiter.ExceededException;
 public final class PasswordLimiterItem extends Item
 {
 	static final Hash password = new Hash(MessageDigestHash.algorithm(8));
+
+	/**
+	 * @cope.check private
+	 * @cope.checkVerbosely private
+	 */
 	static final PasswordLimiter passwordLimited = new PasswordLimiter(password, 60*1000, 2);
 
 	final boolean checkPasswordLimited(
@@ -154,7 +159,7 @@ public final class PasswordLimiterItem extends Item
 	 *       It can be customized with the tag <tt>@cope.check public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final boolean checkPasswordLimited(final java.lang.String password)
+	private final boolean checkPasswordLimited(final java.lang.String password)
 	{
 		return PasswordLimiterItem.passwordLimited.check(this,password);
 	}/**
@@ -164,7 +169,7 @@ public final class PasswordLimiterItem extends Item
 	 *       It can be customized with the tag <tt>@cope.checkVerbosely public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final boolean checkPasswordLimitedVerbosely(final java.lang.String password)
+	private final boolean checkPasswordLimitedVerbosely(final java.lang.String password)
 			throws
 				com.exedio.cope.pattern.PasswordLimiter.ExceededException
 	{
