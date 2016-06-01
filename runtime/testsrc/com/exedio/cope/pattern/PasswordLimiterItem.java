@@ -19,6 +19,7 @@
 package com.exedio.cope.pattern;
 
 import com.exedio.cope.Item;
+import com.exedio.cope.junit.AbsoluteMockClockStrategy;
 import com.exedio.cope.pattern.PasswordLimiter.ExceededException;
 import com.exedio.cope.tojunit.RelativeMockClockStrategy;
 
@@ -27,9 +28,12 @@ public final class PasswordLimiterItem extends Item
 	static final Hash password = new Hash(MessageDigestHash.algorithm(8));
 	static final PasswordLimiter passwordLimited = new PasswordLimiter(password, 1000, 2);
 
-	final boolean checkPasswordLimited(final String password, final RelativeMockClockStrategy clock)
+	final boolean checkPasswordLimited(
+			final String password,
+			final AbsoluteMockClockStrategy clock,
+			final String date)
 	{
-		clock.addNow();
+		clock.add(date);
 		final boolean result = checkPasswordLimited(password);
 		clock.assertEmpty();
 		return result;
