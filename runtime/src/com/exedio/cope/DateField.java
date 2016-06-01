@@ -188,6 +188,8 @@ public final class DateField extends FunctionField<Date>
 	 * that differs from this DateField
 	 * by having a {@link #getPrecision() precision} of
 	 * {@link Precision#SECOND seconds}.
+	 * This means, dates stored into the field are
+	 * constrained to whole seconds.
 	 */
 	public DateField precisionSecond()
 	{
@@ -199,6 +201,8 @@ public final class DateField extends FunctionField<Date>
 	 * that differs from this DateField
 	 * by having a {@link #getPrecision() precision} of
 	 * {@link Precision#MINUTE minutes}.
+	 * This means, dates stored into the field are
+	 * constrained to whole minutes.
 	 */
 	public DateField precisionMinute()
 	{
@@ -210,6 +214,15 @@ public final class DateField extends FunctionField<Date>
 	 * that differs from this DateField
 	 * by having a {@link #getPrecision() precision} of
 	 * {@link Precision#HOUR hours}.
+	 * This means, dates stored into the field are
+	 * constrained to whole hours
+	 * as represented in GMT (Greenwich Mean Time).
+	 * <p>
+	 * <b>NOTE:</b>
+	 * Some time zones do have an offset to GMT, that is not a whole hour -
+	 * for instance Indian Standard Time with an offset of 5 hours and 30 minutes.
+	 * All dates allowed for the field will have a minute part of 30
+	 * when being represented in Indian Standard Time.
 	 */
 	public DateField precisionHour()
 	{
