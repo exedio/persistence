@@ -42,11 +42,13 @@ public class PartOfModelTest
 	{
 		assertEqualsUnmodifiable(list(
 				PartOfItem.TYPE,
-				PartOfContainerItem.TYPE
+				PartOfContainerItem.TYPE,
+				PartOfWithOptionalContainerItem.TYPE
 			), MODEL.getTypes());
 		assertEqualsUnmodifiable(list(
 				PartOfItem.TYPE,
-				PartOfContainerItem.TYPE
+				PartOfContainerItem.TYPE,
+				PartOfWithOptionalContainerItem.TYPE
 			), MODEL.getTypesSortedByHierarchy());
 	}
 
@@ -84,8 +86,8 @@ public class PartOfModelTest
 	{
 		assertEqualsUnmodifiable(list(), PartOf.getDeclaredPartOfs(PartOfItem.TYPE));
 		assertEqualsUnmodifiable(list(), PartOf.getPartOfs(PartOfItem.TYPE));
-		assertEqualsUnmodifiable(list(PartOfItem.unordered, PartOfItem.ordered), PartOf.getDeclaredPartOfs(PartOfContainerItem.TYPE));
-		assertEqualsUnmodifiable(list(PartOfItem.unordered, PartOfItem.ordered), PartOf.getPartOfs(PartOfContainerItem.TYPE));
+		assertEqualsUnmodifiable(list(PartOfItem.unordered, PartOfItem.ordered, PartOfWithOptionalContainerItem.parts), PartOf.getDeclaredPartOfs(PartOfContainerItem.TYPE));
+		assertEqualsUnmodifiable(list(PartOfItem.unordered, PartOfItem.ordered, PartOfWithOptionalContainerItem.parts), PartOf.getPartOfs(PartOfContainerItem.TYPE));
 		assertEquals(list(), PartOf.getPartOfs(PartOfItem.unordered));
 	}
 
