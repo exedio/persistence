@@ -26,6 +26,7 @@
 					windowtitle="@{title}"
 					splitindex="on"
 					failonerror="true"
+					useexternalfile="true"
 				>
 				<sourcefiles>
 					<src />
