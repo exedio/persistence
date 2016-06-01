@@ -30,6 +30,7 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import javax.annotation.Nullable;
 
 @WrapFeature
 public final class UniqueConstraint extends Feature implements Copyable
@@ -176,6 +177,7 @@ public final class UniqueConstraint extends Feature implements Copyable
 		return getType().searchSingleton(Cope.and(conditions));
 	}
 
+	// TODO COPE-8 - varargs?
 	/**
 	 * Finds an item by its unique fields.
 	 * @return null if there is no matching item.
@@ -184,6 +186,7 @@ public final class UniqueConstraint extends Feature implements Copyable
 			varargsFeatures=SearchVarargs.class,
 			doc="Finds a {2} by it''s unique fields.",
 			docReturn="null if there is no matching item.")
+	@Nullable
 	public <P extends Item> P search(
 			final Class<P> typeClass,
 			@Parameter(doc="shall be equal to field {0}.") final Object... values)

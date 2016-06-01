@@ -35,6 +35,7 @@ import java.util.GregorianCalendar;
 import java.util.Locale;
 import java.util.Set;
 import java.util.TimeZone;
+import javax.annotation.Nonnull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -439,8 +440,8 @@ public final class DateField extends FunctionField<Date>
 			hide={FinalSettableGetter.class, PrecisionConstrainsGetter.class, RoundingModeUnnecessaryGetter.class},
 			thrownGetter=InitialThrownRounded.class)
 	public void setRounded(
-			final Item item,
-			final Date value)
+			@Nonnull final Item item,
+			@Parameter(nullability=NullableIfOptional.class) final Date value)
 	{
 		item.set(this, precision.round(value, roundingMode, this, item));
 	}
@@ -468,9 +469,9 @@ public final class DateField extends FunctionField<Date>
 			hide={FinalSettableGetter.class, PrecisionConstrainsGetter.class},
 			thrownGetter=InitialThrown.class)
 	public void setRounded(
-			final Item item,
-			final Date value,
-			@Parameter("roundingMode") final RoundingMode roundingMode)
+			@Nonnull final Item item,
+			@Parameter(nullability=NullableIfOptional.class) final Date value,
+			@Nonnull @Parameter("roundingMode") final RoundingMode roundingMode)
 	{
 		item.set(this, precision.round(value, roundingMode, this, item));
 	}
@@ -514,7 +515,7 @@ public final class DateField extends FunctionField<Date>
 	@Wrap(order=10,
 			doc="Sets the current date for the date field {0}.", // TODO better text
 			hide={FinalSettableGetter.class, TouchGetter.class})
-	public void touch(final Item item)
+	public void touch(@Nonnull final Item item)
 	{
 		set(item, precision.round(Clock.newDate(), roundingMode, this, item)); // TODO: make a more efficient implementation
 	}

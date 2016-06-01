@@ -22,6 +22,8 @@ import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.instrument.FinalSettableGetter;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 public final class BooleanField extends FunctionField<Boolean>
 {
@@ -138,7 +140,7 @@ public final class BooleanField extends FunctionField<Boolean>
 	 * @throws IllegalArgumentException if this field is not {@link #isMandatory() mandatory}.
 	 */
 	@Wrap(order=10, name="get{0}", doc="Returns the value of {0}.", hide=OptionalGetter.class)
-	public final boolean getMandatory(final Item item)
+	public final boolean getMandatory(@Nonnull final Item item)
 	{
 		return getMandatoryObject(item).booleanValue();
 	}
@@ -147,7 +149,7 @@ public final class BooleanField extends FunctionField<Boolean>
 			doc="Sets a new value for {0}.",
 			hide={FinalSettableGetter.class, OptionalGetter.class},
 			thrownGetter=InitialThrown.class)
-	public final void set(final Item item, final boolean value)
+	public final void set(@Nonnull final Item item, final boolean value)
 	{
 		set(item, Boolean.valueOf(value));
 	}
@@ -161,8 +163,9 @@ public final class BooleanField extends FunctionField<Boolean>
 			doc="Finds a {2} by it''s {0}.",
 			docReturn="null if there is no matching item.",
 			hide={OptionalGetter.class, NonUniqueGetter.class})
+	@Nullable
 	public final <P extends Item> P searchUnique(
-			final Class<P> typeClass,
+			@Nonnull final Class<P> typeClass,
 			@Parameter(doc="shall be equal to field {0}.") final boolean value)
 	{
 		return super.searchUnique(typeClass, Boolean.valueOf(value));
