@@ -31,7 +31,7 @@ import org.junit.Test;
 
 public class PartOfModelTest
 {
-	static final Model MODEL = new Model(PartOfItem.TYPE, PartOfContainerItem.TYPE);
+	static final Model MODEL = new Model(PartOfItem.TYPE, PartOfContainerItem.TYPE, PartOfWithOptionalContainerItem.TYPE);
 
 	static
 	{
