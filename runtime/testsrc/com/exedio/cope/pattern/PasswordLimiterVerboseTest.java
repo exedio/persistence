@@ -18,8 +18,14 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.pattern.PasswordLimiterItem.atendofperiod;
+import static com.exedio.cope.pattern.PasswordLimiterItem.atendofsecondperiod;
+import static com.exedio.cope.pattern.PasswordLimiterItem.beforeendofperiod;
+import static com.exedio.cope.pattern.PasswordLimiterItem.directlyafterendofperiod;
+import static com.exedio.cope.pattern.PasswordLimiterItem.directlyafterendofsecondperiod;
 import static com.exedio.cope.pattern.PasswordLimiterItem.passwordLimited;
 import static com.exedio.cope.pattern.PasswordLimiterItem.purgePasswordLimited;
+import static com.exedio.cope.pattern.PasswordLimiterItem.start;
 import static com.exedio.cope.tojunit.Assert.list;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -71,55 +77,55 @@ public class PasswordLimiterVerboseTest extends TestWithEnvironment
 		assertEquals(list(), getRefusals());
 		assertTrue(i2.checkPassword(PASSWORD2));
 
-		assertTrue(i.checkPasswordLimitedVerbosely(PASSWORD, clock, "2005-05-12 13:11:22.333")); // start
+		assertTrue(i.checkPasswordLimitedVerbosely(PASSWORD, clock, start));
 		assertEquals(list(), getRefusals());
-		assertTrue(i2.checkPasswordLimitedVerbosely(PASSWORD2, clock, "2005-05-12 13:11:22.333")); // start
+		assertTrue(i2.checkPasswordLimitedVerbosely(PASSWORD2, clock, start));
 
-		final Refusal refusal1 = refuse("2005-05-12 13:11:22.333"); // start
+		final Refusal refusal1 = refuse(start);
 		assertEquals(list(refusal1), getRefusals());
-		assertTrue(i.checkPasswordLimitedVerbosely(PASSWORD, clock, "2005-05-12 13:11:22.333")); // start
-		assertTrue(i2.checkPasswordLimitedVerbosely(PASSWORD2, clock, "2005-05-12 13:11:22.333")); // start
+		assertTrue(i.checkPasswordLimitedVerbosely(PASSWORD, clock, start));
+		assertTrue(i2.checkPasswordLimitedVerbosely(PASSWORD2, clock, start));
 
-		final Refusal refusal2 = refuse("2005-05-12 13:11:22.333"); // start
+		final Refusal refusal2 = refuse(start);
 		assertEquals(list(refusal1, refusal2), getRefusals());
 
 		try
 		{
-			i.checkPasswordLimitedVerbosely(PASSWORD, clock, "2005-05-12 13:11:22.333"); // start
+			i.checkPasswordLimitedVerbosely(PASSWORD, clock, start);
 			fail("fails spuriously");
 		}
 		catch(final ExceededException e)
 		{
 			assertSame(passwordLimited, e.getLimiter());
 			assertSame(i, e.getItem());
-			assertEqualsDate("2005-05-12 13:11:23.333", e.getReleaseDate()); // at end of period
+			assertEqualsDate(atendofperiod, e.getReleaseDate());
 			assertEquals("password limit exceeded on " + i + " for PasswordLimiterItem.passwordLimited until " + e.getReleaseDate(), e.getMessage());
 		}
-		assertTrue(i2.checkPasswordLimitedVerbosely(PASSWORD2, clock, "2005-05-12 13:11:22.333")); // start
+		assertTrue(i2.checkPasswordLimitedVerbosely(PASSWORD2, clock, start));
 		assertEquals(list(refusal1, refusal2), getRefusals());
 
 		try
 		{
-			i.checkPasswordLimitedVerbosely("wrongpass", clock, "2005-05-12 13:11:22.333"); // start
+			i.checkPasswordLimitedVerbosely("wrongpass", clock, start);
 			fail();
 		}
 		catch(final ExceededException e)
 		{
 			assertSame(passwordLimited, e.getLimiter());
 			assertSame(i, e.getItem());
-			assertEqualsDate("2005-05-12 13:11:23.333", e.getReleaseDate()); // at end of period
+			assertEqualsDate(atendofperiod, e.getReleaseDate());
 			assertEquals("password limit exceeded on " + i + " for PasswordLimiterItem.passwordLimited until " + e.getReleaseDate(), e.getMessage());
 		}
 		assertEquals(list(refusal1, refusal2), getRefusals());
 
-		clock.add("2005-05-12 13:11:22.333"); // start
+		clock.add(start); // start
 		assertEquals("fails spuriously with actual 2", 0, purge());
 		clock.assertEmpty();
 		assertEquals(list(refusal1, refusal2), getRefusals());
 		assertTrue(refusal1.existsCopeItem());
 		assertTrue(refusal2.existsCopeItem());
 
-		clock.add("2005-05-12 13:11:23.332"); // before end of period (1 second)
+		clock.add(beforeendofperiod);
 		try
 		{
 			i.checkPasswordLimitedVerbosely(PASSWORD);
@@ -129,51 +135,51 @@ public class PasswordLimiterVerboseTest extends TestWithEnvironment
 		{
 			assertSame(passwordLimited, e.getLimiter());
 			assertSame(i, e.getItem());
-			assertEqualsDate("2005-05-12 13:11:23.333", e.getReleaseDate()); // at end of period
+			assertEqualsDate(atendofperiod, e.getReleaseDate());
 			assertEquals("password limit exceeded on " + i + " for PasswordLimiterItem.passwordLimited until " + e.getReleaseDate(), e.getMessage());
 		}
 		clock.assertEmpty();
 
-		clock.add("2005-05-12 13:11:23.333"); // at end of period, refusal expires
+		clock.add(atendofperiod); // refusal expires
 		assertTrue(i.checkPasswordLimitedVerbosely(PASSWORD));
 		clock.assertEmpty();
 
-		final Refusal refusal3 = refuse("2005-05-12 13:11:23.333"); // at end of period
+		final Refusal refusal3 = refuse(atendofperiod);
 		assertEquals(list(refusal1, refusal2, refusal3), getRefusals());
-		assertTrue(i.checkPasswordLimitedVerbosely(PASSWORD, clock, "2005-05-12 13:11:23.333")); // at end of period
+		assertTrue(i.checkPasswordLimitedVerbosely(PASSWORD, clock, atendofperiod));
 
-		final Refusal refusal4 = refuse("2005-05-12 13:11:23.333"); // at end of period
+		final Refusal refusal4 = refuse(atendofperiod);
 		assertEquals(list(refusal1, refusal2, refusal3, refusal4), getRefusals());
 
 		try
 		{
-			i.checkPasswordLimitedVerbosely(PASSWORD, clock, "2005-05-12 13:11:23.333"); // at end of period
+			i.checkPasswordLimitedVerbosely(PASSWORD, clock, atendofperiod);
 			fail("fails spuriously");
 		}
 		catch(final ExceededException e)
 		{
 			assertSame(passwordLimited, e.getLimiter());
 			assertSame(i, e.getItem());
-			assertEqualsDate("2005-05-12 13:11:24.333", e.getReleaseDate()); // at end of second period
+			assertEqualsDate(atendofsecondperiod, e.getReleaseDate());
 			assertEquals("password limit exceeded on " + i + " for PasswordLimiterItem.passwordLimited until " + e.getReleaseDate(), e.getMessage());
 		}
 		assertEquals(list(refusal1, refusal2, refusal3, refusal4), getRefusals());
 
 		try
 		{
-			i.checkPasswordLimitedVerbosely("wrongpass", clock, "2005-05-12 13:11:23.333"); // at end of period
+			i.checkPasswordLimitedVerbosely("wrongpass", clock, atendofperiod);
 			fail();
 		}
 		catch(final ExceededException e)
 		{
 			assertSame(passwordLimited, e.getLimiter());
 			assertSame(i, e.getItem());
-			assertEqualsDate("2005-05-12 13:11:24.333", e.getReleaseDate()); // at end of second period
+			assertEqualsDate(atendofsecondperiod, e.getReleaseDate());
 			assertEquals("password limit exceeded on " + i + " for PasswordLimiterItem.passwordLimited until " + e.getReleaseDate(), e.getMessage());
 		}
 		assertEquals(list(refusal1, refusal2, refusal3, refusal4), getRefusals());
 
-		clock.add("2005-05-12 13:11:23.333"); // at end of period
+		clock.add(atendofperiod);
 		assertEquals(0, purge());
 		clock.assertEmpty();
 		assertEquals(list(refusal1, refusal2, refusal3, refusal4), getRefusals());
@@ -182,7 +188,7 @@ public class PasswordLimiterVerboseTest extends TestWithEnvironment
 		assertTrue(refusal3.existsCopeItem());
 		assertTrue(refusal4.existsCopeItem());
 
-		clock.add("2005-05-12 13:11:23.334"); // directly after end of period, refusal expires
+		clock.add(directlyafterendofperiod); // refusal expires
 		assertEquals(2, purge());
 		clock.assertEmpty();
 		assertEquals(list(refusal3, refusal4), getRefusals());
@@ -191,7 +197,7 @@ public class PasswordLimiterVerboseTest extends TestWithEnvironment
 		assertTrue(refusal3.existsCopeItem());
 		assertTrue(refusal4.existsCopeItem());
 
-		clock.add("2005-05-12 13:11:24.333"); // at end of second period
+		clock.add(atendofsecondperiod);
 		assertEquals(0, purge());
 		clock.assertEmpty();
 		assertEquals(list(refusal3, refusal4), getRefusals());
@@ -200,7 +206,7 @@ public class PasswordLimiterVerboseTest extends TestWithEnvironment
 		assertTrue(refusal3.existsCopeItem());
 		assertTrue(refusal4.existsCopeItem());
 
-		clock.add("2005-05-12 13:11:24.334"); // directly after end of second period, refusal expires
+		clock.add(directlyafterendofsecondperiod); // refusal expires
 		assertEquals(2, purge());
 		clock.assertEmpty();
 		assertEquals(list(), getRefusals());
