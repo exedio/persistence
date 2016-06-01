@@ -28,23 +28,24 @@ import java.util.LinkedList;
 
 public final class AbsoluteMockClockStrategy implements Strategy
 {
-	private final LinkedList<Date> events = new LinkedList<>();
+	private final LinkedList<Long> events = new LinkedList<>();
 
 	public long currentTimeMillis()
 	{
 		assertFalse("no pending clock events", events.isEmpty());
-		return events.removeFirst().getTime();
+		return events.removeFirst();
 	}
 
 	public Date add(final Date date)
 	{
-		events.add(date);
+		events.add(date.getTime());
 		return date;
 	}
 
 	public Date add(final long date)
 	{
-		return add(new Date(date));
+		events.add(date);
+		return new Date(date);
 	}
 
 	public void assertEmpty()
