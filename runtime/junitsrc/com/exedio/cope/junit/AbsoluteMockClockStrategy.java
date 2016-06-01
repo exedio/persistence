@@ -18,22 +18,48 @@
 
 package com.exedio.cope.junit;
 
+import static com.exedio.cope.util.TimeZoneStrict.getTimeZone;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
 import com.exedio.cope.util.Clock.Strategy;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.Date;
 import java.util.LinkedList;
 
 public final class AbsoluteMockClockStrategy implements Strategy
 {
+	private final SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+	{
+		df.setTimeZone(getTimeZone("GMT"));
+		df.setLenient(false);
+	}
+
 	private final LinkedList<Long> events = new LinkedList<>();
 
 	public long currentTimeMillis()
 	{
 		assertFalse("no pending clock events", events.isEmpty());
 		return events.removeFirst();
+	}
+
+	public Date add(final String date)
+	{
+		return add(parse(date));
+	}
+
+	private Date parse(final String date)
+	{
+		try
+		{
+			return df.parse(date);
+		}
+		catch(final ParseException e)
+		{
+			throw new RuntimeException(e.getMessage(), e);
+		}
 	}
 
 	public Date add(final Date date)
@@ -51,5 +77,15 @@ public final class AbsoluteMockClockStrategy implements Strategy
 	public void assertEmpty()
 	{
 		assertEquals("pending clock events", Collections.EMPTY_LIST, events);
+	}
+
+	public void assertEqualsFormatted(final String expected, final Date actual)
+	{
+		assertEquals(expected, format(actual));
+	}
+
+	private String format(final Date date)
+	{
+		return date!=null ? df.format(date) : null;
 	}
 }

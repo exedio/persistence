@@ -37,11 +37,11 @@ import com.exedio.cope.Feature;
 import com.exedio.cope.Model;
 import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.Type;
+import com.exedio.cope.junit.AbsoluteMockClockStrategy;
 import com.exedio.cope.misc.Computed;
 import com.exedio.cope.pattern.PasswordRecovery.Config;
 import com.exedio.cope.pattern.PasswordRecovery.Token;
 import com.exedio.cope.tojunit.ClockRule;
-import com.exedio.cope.tojunit.RelativeMockClockStrategy;
 import java.util.Arrays;
 import java.util.Date;
 import org.junit.Before;
@@ -63,7 +63,7 @@ public class PasswordRecoveryTest extends TestWithEnvironment
 		super(MODEL);
 	}
 
-	private final RelativeMockClockStrategy clock = new RelativeMockClockStrategy();
+	private final AbsoluteMockClockStrategy clock = new AbsoluteMockClockStrategy();
 	private final ClockRule clockRule = new ClockRule();
 
 	@Rule public final RuleChain ruleChain = RuleChain.outerRule(clockRule);
@@ -123,23 +123,23 @@ public class PasswordRecoveryTest extends TestWithEnvironment
 		assertTrue(i.checkPassword("oldpass"));
 		assertEquals(list(), passwordRecovery.getTokenType().search());
 
-		final long issueTime = clock.addNow();
+		clock.add("2005-05-12 13:11:22.333");
 		final Token token = i.issuePasswordRecovery(config);
 		clock.assertEmpty();
 		final long tokenSecret = token.getSecret();
 		assertTrue(i.checkPassword("oldpass"));
 		final Date expires = token.getExpires();
-		assertEquals(new Date(issueTime + config.getExpiryMillis()), expires);
+		assertEqualsDate("2005-05-12 13:12:22.333", expires);
 		assertEquals(list(token), passwordRecovery.getTokenType().search());
 
-		clock.addOffset(config.getExpiryMillis());
+		clock.add("2005-05-12 13:12:22.333"); // at expiry
 		assertEquals(null, i.redeemPasswordRecovery(tokenSecret+1));
 		clock.assertEmpty();
 		assertTrue(i.checkPassword("oldpass"));
 		assertEquals(tokenSecret, token.getSecret());
 		assertEquals(expires, token.getExpires());
 
-		clock.addNow();
+		clock.add("2005-05-12 13:12:22.333"); // at expiry
 		final String newPassword = i.redeemPasswordRecovery(tokenSecret);
 		clock.assertEmpty();
 		assertNotNull(newPassword);
@@ -147,7 +147,7 @@ public class PasswordRecoveryTest extends TestWithEnvironment
 		assertFalse(token.existsCopeItem());
 		assertEquals(list(), passwordRecovery.getTokenType().search());
 
-		clock.addNow();
+		clock.add("2005-05-12 13:12:22.333"); // at expiry
 		assertEquals(null, i.redeemPasswordRecovery(tokenSecret));
 		clock.assertEmpty();
 		assertNotNull(newPassword);
@@ -155,7 +155,7 @@ public class PasswordRecoveryTest extends TestWithEnvironment
 		assertFalse(token.existsCopeItem());
 		assertEquals(list(), passwordRecovery.getTokenType().search());
 
-		clock.addNow();
+		clock.add("2005-05-12 13:12:22.333"); // at expiry
 		assertEquals(0, purge());
 		clock.assertEmpty();
 		assertTrue(i.checkPassword(newPassword));
@@ -167,16 +167,16 @@ public class PasswordRecoveryTest extends TestWithEnvironment
 	{
 		final Config config = new Config(20);
 
-		final long issueTime = clock.addNow();
+		clock.add("2005-05-12 13:11:22.333");
 		final Token token = i.issuePasswordRecovery(config);
 		clock.assertEmpty();
 		final long tokenSecret = token.getSecret();
 		assertTrue(i.checkPassword("oldpass"));
 		final Date expires = token.getExpires();
-		assertEquals(new Date(issueTime + config.getExpiryMillis()), expires);
+		assertEqualsDate("2005-05-12 13:11:22.353", expires);
 		assertEquals(list(token), passwordRecovery.getTokenType().search());
 
-		clock.addOffset(config.getExpiryMillis() + 1);
+		clock.add("2005-05-12 13:11:22.354"); // exactly after expiry
 		assertEquals(null, i.redeemPasswordRecovery(tokenSecret));
 		clock.assertEmpty();
 		assertTrue(i.checkPassword("oldpass"));
@@ -184,7 +184,7 @@ public class PasswordRecoveryTest extends TestWithEnvironment
 		assertEquals(expires, token.getExpires());
 		assertEquals(list(token), passwordRecovery.getTokenType().search());
 
-		clock.addNow();
+		clock.add("2005-05-12 13:11:22.354"); // exactly after expiry
 		assertEquals(1, purge());
 		clock.assertEmpty();
 		assertTrue(i.checkPassword("oldpass"));
@@ -215,27 +215,27 @@ public class PasswordRecoveryTest extends TestWithEnvironment
 	{
 		final Config config = new Config(15*60*1000, 10*1000);
 
-		final long issueTime1 = clock.addNow();
+		clock.add("2005-05-12 13:11:22.333");
 		final Token token1 = i.issuePasswordRecovery(config);
 		clock.assertEmpty();
-		assertEquals(new Date(issueTime1 + config.getExpiryMillis()), token1.getExpires());
+		assertEqualsDate("2005-05-12 13:26:22.333", token1.getExpires());
 		assertContains(token1, passwordRecovery.getTokenType().search());
 
-		clock.addNow();
+		clock.add("2005-05-12 13:11:22.333"); // same time
 		assertEquals(token1, i.issuePasswordRecovery(config));
 		clock.assertEmpty();
 		assertContains(token1, passwordRecovery.getTokenType().search());
 
-		clock.addOffset(config.getReuseMillis());
+		clock.add("2005-05-12 13:11:32.333"); // almost out of reuse
 		assertEquals(token1, i.issuePasswordRecovery(config));
 		clock.assertEmpty();
 		assertContains(token1, passwordRecovery.getTokenType().search());
 
-		final long issueTime3 = clock.addOffset(1);
+		clock.add("2005-05-12 13:11:32.334"); // out of reuse
 		final Token token3 = i.issuePasswordRecovery(config);
 		clock.assertEmpty();
 		assertFalse(token3.equals(token1));
-		assertEquals(new Date(issueTime3 + config.getExpiryMillis()), token3.getExpires());
+		assertEqualsDate("2005-05-12 13:26:32.334", token3.getExpires());
 		assertContains(token1, token3, passwordRecovery.getTokenType().search());
 		assertFalse(token3.equals(token1));
 	}
@@ -244,16 +244,16 @@ public class PasswordRecoveryTest extends TestWithEnvironment
 	{
 		final Config config = new Config(15*60*1000, 0);
 
-		final long issueTime1 = clock.addNow();
+		clock.add("2005-05-12 13:11:22.333");
 		final Token token1 = i.issuePasswordRecovery(config);
-		assertEquals(new Date(issueTime1 + config.getExpiryMillis()), token1.getExpires());
+		assertEqualsDate("2005-05-12 13:26:22.333", token1.getExpires());
 		assertContains(token1, passwordRecovery.getTokenType().search());
 
-		clock.addNow();
+		clock.add("2005-05-12 13:11:22.333"); // same time
 		final Token token3 = i.issuePasswordRecovery(config);
 		clock.assertEmpty();
 		assertFalse(token3.equals(token1));
-		assertEquals(new Date(issueTime1 + config.getExpiryMillis()), token3.getExpires());
+		assertEqualsDate("2005-05-12 13:26:22.333", token3.getExpires());
 		assertContains(token1, token3, passwordRecovery.getTokenType().search());
 		assertFalse(token3.equals(token1));
 	}
@@ -279,5 +279,10 @@ public class PasswordRecoveryTest extends TestWithEnvironment
 		{
 			assertEquals("expiryMillis must be greater zero, but was 0", e.getMessage());
 		}
+	}
+
+	private void assertEqualsDate(final String expected, final Date actual)
+	{
+		clock.assertEqualsFormatted(expected, actual);
 	}
 }
