@@ -73,7 +73,7 @@ public class PasswordLimiterModelTest
 		assertEquals(passwordLimited.getRefusals(), passwordLimited.getDate().getPattern());
 
 		assertSame(password, passwordLimited.getPassword());
-		assertEquals(1000, passwordLimited.getPeriod());
+		assertEquals(60*1000, passwordLimited.getPeriod());
 		assertEquals(2, passwordLimited.getLimit());
 
 		assertFalse(password                        .isAnnotationPresent(Computed.class));

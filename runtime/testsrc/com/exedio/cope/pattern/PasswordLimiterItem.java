@@ -25,7 +25,7 @@ import com.exedio.cope.pattern.PasswordLimiter.ExceededException;
 public final class PasswordLimiterItem extends Item
 {
 	static final Hash password = new Hash(MessageDigestHash.algorithm(8));
-	static final PasswordLimiter passwordLimited = new PasswordLimiter(password, 1000, 2);
+	static final PasswordLimiter passwordLimited = new PasswordLimiter(password, 60*1000, 2);
 
 	final boolean checkPasswordLimited(
 			final String password,
@@ -51,11 +51,11 @@ public final class PasswordLimiterItem extends Item
 	}
 
 	static final String period0  = "2005-05-12 13:11:22.333";
-	static final String period1M = "2005-05-12 13:11:23.332";
-	static final String period1  = "2005-05-12 13:11:23.333";
-	static final String period1P = "2005-05-12 13:11:23.334";
-	static final String period2  = "2005-05-12 13:11:24.333";
-	static final String period2P = "2005-05-12 13:11:24.334";
+	static final String period1M = "2005-05-12 13:12:22.332";
+	static final String period1  = "2005-05-12 13:12:22.333";
+	static final String period1P = "2005-05-12 13:12:22.334";
+	static final String period2  = "2005-05-12 13:13:22.333";
+	static final String period2P = "2005-05-12 13:13:22.334";
 
 
 	/**
