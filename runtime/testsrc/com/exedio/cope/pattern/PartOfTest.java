@@ -87,13 +87,4 @@ public class PartOfTest extends TestWithEnvironment
 		assertEquals(list(part2, part1, part3), container.getOrdered(null));
 		assertEquals(list(part1              ), container.getOrdered(PartOfItem.partString.equal("part1")));
 	}
-
-	@Test public void testOptionalContainer()
-	{
-		final PartOfContainerItem container = new PartOfContainerItem("x");
-		final PartOfWithOptionalContainerItem withContainer = new PartOfWithOptionalContainerItem(container);
-		final PartOfWithOptionalContainerItem withoutContainer = new PartOfWithOptionalContainerItem((PartOfContainerItem)null);
-		assertEquals(list(withContainer), PartOfWithOptionalContainerItem.getPartsParts(container));
-		assertEquals(list(withoutContainer), PartOfWithOptionalContainerItem.getPartsParts(null));
-	}
 }

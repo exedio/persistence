@@ -24,9 +24,9 @@ import com.exedio.cope.ItemField;
 class PartOfWithOptionalContainerItem extends Item
 {
 	/** @cope.initial */
-	static final ItemField<PartOfContainerItem> container = ItemField.create(PartOfContainerItem.class).optional();
+	static final ItemField<PartOfOptionalContainerItem> container = ItemField.create(PartOfOptionalContainerItem.class).optional();
 
-	static final PartOf<PartOfContainerItem> parts = PartOf.create(container);
+	static final PartOf<PartOfOptionalContainerItem> parts = PartOf.create(container);
 
 /**
 
@@ -38,7 +38,7 @@ class PartOfWithOptionalContainerItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	PartOfWithOptionalContainerItem(
-				final PartOfContainerItem container)
+				final PartOfOptionalContainerItem container)
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
 			PartOfWithOptionalContainerItem.container.map(container),
@@ -62,7 +62,7 @@ class PartOfWithOptionalContainerItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final PartOfContainerItem getContainer()
+	final PartOfOptionalContainerItem getContainer()
 	{
 		return PartOfWithOptionalContainerItem.container.get(this);
 	}/**
@@ -73,7 +73,7 @@ class PartOfWithOptionalContainerItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setContainer(final PartOfContainerItem container)
+	final void setContainer(final PartOfOptionalContainerItem container)
 	{
 		PartOfWithOptionalContainerItem.container.set(this,container);
 	}/**
@@ -84,7 +84,7 @@ class PartOfWithOptionalContainerItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getContainer public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final PartOfContainerItem getPartsContainer()
+	final PartOfOptionalContainerItem getPartsContainer()
 	{
 		return PartOfWithOptionalContainerItem.parts.getContainer(this);
 	}/**
@@ -95,7 +95,7 @@ class PartOfWithOptionalContainerItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getParts public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	static final java.util.List<PartOfWithOptionalContainerItem> getPartsParts(final PartOfContainerItem container)
+	static final java.util.List<PartOfWithOptionalContainerItem> getPartsParts(final PartOfOptionalContainerItem container)
 	{
 		return PartOfWithOptionalContainerItem.parts.getParts(PartOfWithOptionalContainerItem.class,container);
 	}/**
@@ -106,7 +106,7 @@ class PartOfWithOptionalContainerItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getParts public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	static final java.util.List<PartOfWithOptionalContainerItem> getPartsParts(final PartOfContainerItem container,final com.exedio.cope.Condition condition)
+	static final java.util.List<PartOfWithOptionalContainerItem> getPartsParts(final PartOfOptionalContainerItem container,final com.exedio.cope.Condition condition)
 	{
 		return PartOfWithOptionalContainerItem.parts.getParts(PartOfWithOptionalContainerItem.class,container,condition);
 	}/**
