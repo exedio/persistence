@@ -94,7 +94,7 @@ public final class DatePrecisionViolationException extends ConstraintViolationEx
 	 * and as close as possible to
 	 * {@link #getValue() the value attempted to be written} the future.
 	 */
-	public Date getValueRoundedToFuture()
+	public Date getValueAllowedInFuture()
 	{
 		return feature.getPrecision().round(getValue(), RoundingMode.FUTURE);
 	}
@@ -120,7 +120,7 @@ public final class DatePrecisionViolationException extends ConstraintViolationEx
 		bf.append(", round either to ").
 			append(df.format(getValueAllowedInPast())).
 			append(" in the past or ").
-			append(df.format(getValueRoundedToFuture())).
+			append(df.format(getValueAllowedInFuture())).
 			append(" in the future.");
 
 		return bf.toString();

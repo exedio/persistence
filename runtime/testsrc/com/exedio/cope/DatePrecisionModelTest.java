@@ -150,7 +150,7 @@ public class DatePrecisionModelTest
 			assertEquals(field, e.getFeature());
 			assertEquals(wrong, e.getValue());
 			assertEquals(past  , e.getValueAllowedInPast  ());
-			assertEquals(future, e.getValueRoundedToFuture());
+			assertEquals(future, e.getValueAllowedInFuture());
 		}
 	}
 
