@@ -18,6 +18,10 @@
 
 package com.exedio.cope.pattern;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.fail;
+
 import com.exedio.cope.Item;
 import com.exedio.cope.junit.AbsoluteMockClockStrategy;
 import com.exedio.cope.pattern.PasswordLimiter.ExceededException;
@@ -32,7 +36,7 @@ public final class PasswordLimiterItem extends Item
 	 */
 	static final PasswordLimiter passwordLimited = new PasswordLimiter(password, 60*1000, 2);
 
-	final boolean checkPasswordLimited(
+	boolean checkPasswordLimited(
 			final String password,
 			final AbsoluteMockClockStrategy clock,
 			final String date)
@@ -43,7 +47,7 @@ public final class PasswordLimiterItem extends Item
 		return result;
 	}
 
-	final boolean checkPasswordLimitedVerbosely(
+	boolean checkPasswordLimitedVerbosely(
 			final String password,
 			final AbsoluteMockClockStrategy clock,
 			final String date)
@@ -53,6 +57,32 @@ public final class PasswordLimiterItem extends Item
 		final boolean result = checkPasswordLimitedVerbosely(password);
 		clock.assertEmpty();
 		return result;
+	}
+
+	void checkPasswordLimitedVerboselyFails(
+			final String password,
+			final AbsoluteMockClockStrategy clock,
+			final String date,
+			final String releaseDate)
+	{
+		clock.add(date);
+		try
+		{
+			checkPasswordLimitedVerbosely(password);
+			fail("should have thrown ExceededException");
+		}
+		catch(final ExceededException e)
+		{
+			assertSame(passwordLimited, e.getLimiter());
+			assertSame(this, e.getItem());
+			clock.assertEqualsFormatted(releaseDate, e.getReleaseDate());
+			assertEquals(
+					"password limit exceeded on " + this +
+					" for PasswordLimiterItem.passwordLimited until " +
+					e.getReleaseDate(),
+					e.getMessage());
+		}
+		clock.assertEmpty();
 	}
 
 	static final String period0  = "2005-05-12 13:11:22.333";
