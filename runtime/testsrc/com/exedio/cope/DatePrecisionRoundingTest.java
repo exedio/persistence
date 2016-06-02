@@ -273,6 +273,10 @@ public class DatePrecisionRoundingTest
 		assertMap(f, null, f.map(null));
 		assertMap(f, null, f.mapRounded(null, RoundingMode.PAST  ));
 		assertMap(f, null, f.mapRounded(null, RoundingMode.FUTURE));
+
+		assertMap(f, past, f.map(past));
+		assertMap(f, past, f.mapRounded(past, RoundingMode.PAST  ));
+		assertMap(f, past, f.mapRounded(past, RoundingMode.FUTURE));
 	}
 
 	private static void assertMap(
