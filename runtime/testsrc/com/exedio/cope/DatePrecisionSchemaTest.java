@@ -165,9 +165,9 @@ public class DatePrecisionSchemaTest extends TestWithEnvironment
 	{
 		assertEquals(asList(MILLI, SECOND, MINUTE, HOUR), asList(Precision.values()));
 		assertEquals(10, getColumnValue(MILLI ));
-		assertEquals(20, getColumnValue(SECOND  ));
-		assertEquals(30, getColumnValue(MINUTE ));
-		assertEquals(40, getColumnValue(HOUR));
+		assertEquals(20, getColumnValue(SECOND));
+		assertEquals(30, getColumnValue(MINUTE));
+		assertEquals(40, getColumnValue(HOUR  ));
 	}
 
 	@Test public void testEnumSchemaRoundingMode()
