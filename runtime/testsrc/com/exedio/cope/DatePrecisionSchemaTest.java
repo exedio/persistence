@@ -24,6 +24,7 @@ import static com.exedio.cope.DateField.Precision.MINUTE;
 import static com.exedio.cope.DateField.Precision.SECOND;
 import static com.exedio.cope.DateField.RoundingMode.FUTURE;
 import static com.exedio.cope.DateField.RoundingMode.PAST;
+import static com.exedio.cope.DateField.RoundingMode.UNNECESSARY;
 import static com.exedio.cope.DatePrecisionItem.TYPE;
 import static com.exedio.cope.DatePrecisionItem.hours;
 import static com.exedio.cope.DatePrecisionItem.minutes;
@@ -174,8 +175,9 @@ public class DatePrecisionSchemaTest extends TestWithEnvironment
 
 	@Test public void testEnumSchemaRoundingMode()
 	{
-		assertEquals(asList(FUTURE, PAST), asList(RoundingMode.values()));
+		assertEquals(asList(FUTURE, PAST, UNNECESSARY), asList(RoundingMode.values()));
 		assertEquals(10, getColumnValue(FUTURE));
 		assertEquals(20, getColumnValue(PAST));
+		assertEquals(30, getColumnValue(UNNECESSARY));
 	}
 }

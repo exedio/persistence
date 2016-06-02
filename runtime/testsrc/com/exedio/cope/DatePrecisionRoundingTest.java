@@ -22,6 +22,7 @@ import static com.exedio.cope.DateField.Precision.ZONE;
 import static com.exedio.cope.DatePrecisionConditionTest.date;
 import static com.exedio.cope.util.TimeZoneStrict.getTimeZone;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.fail;
 
@@ -256,6 +257,25 @@ public class DatePrecisionRoundingTest
 		{
 			assertEquals(past  , origin);
 			assertEquals(future, origin);
+			assertEquals("UNNECESSARY", origin, precision.round(origin, RoundingMode.UNNECESSARY));
+		}
+		else
+		{
+			try
+			{
+				precision.round(origin, RoundingMode.UNNECESSARY);
+				fail("UNNECESSARY should have failed");
+			}
+			catch(final DatePrecisionViolationException e)
+			{
+				assertEquals(null, e.getItem());
+				assertEquals(null, e.getFeature());
+				assertEquals(precision, e.getPrecision());
+				assertEquals(origin, e.getValue());
+				assertEquals(past  , e.getValueAllowedInPast());
+				assertEquals(future, e.getValueAllowedInFuture());
+				assertNotNull(e.getMessage());
+			}
 		}
 	}
 
@@ -269,14 +289,30 @@ public class DatePrecisionRoundingTest
 		assertMap(f, value , f.map(value));
 		assertMap(f, past  , f.mapRounded(value, RoundingMode.PAST  ));
 		assertMap(f, future, f.mapRounded(value, RoundingMode.FUTURE));
+		try
+		{
+			f.mapRounded(value, RoundingMode.UNNECESSARY);
+			fail();
+		}
+		catch(final DatePrecisionViolationException e)
+		{
+			assertEquals(null, e.getItem());
+			assertEquals(null, e.getFeature()); // TODO should be f
+			assertEquals(Precision.MINUTE, e.getPrecision());
+			assertEquals(value, e.getValue());
+			assertEquals(past  , e.getValueAllowedInPast  ());
+			assertEquals(future, e.getValueAllowedInFuture());
+		}
 
 		assertMap(f, null, f.map(null));
 		assertMap(f, null, f.mapRounded(null, RoundingMode.PAST  ));
 		assertMap(f, null, f.mapRounded(null, RoundingMode.FUTURE));
+		assertMap(f, null, f.mapRounded(null, RoundingMode.UNNECESSARY));
 
 		assertMap(f, past, f.map(past));
 		assertMap(f, past, f.mapRounded(past, RoundingMode.PAST  ));
 		assertMap(f, past, f.mapRounded(past, RoundingMode.FUTURE));
+		assertMap(f, past, f.mapRounded(past, RoundingMode.UNNECESSARY));
 	}
 
 	private static void assertMap(

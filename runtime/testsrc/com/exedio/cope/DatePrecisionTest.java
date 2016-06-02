@@ -140,6 +140,27 @@ public class DatePrecisionTest extends TestWithEnvironment
 
 		item.setSecondsRounded(future, RoundingMode.FUTURE);
 		assertEquals(future, item.getSeconds());
+
+		try
+		{
+			item.setSecondsRounded(value, RoundingMode.UNNECESSARY);
+			fail();
+		}
+		catch(final DatePrecisionViolationException e)
+		{
+			assertEquals(null, e.getItem()); // TODO should be item
+			assertEquals(null, e.getFeature()); // TODO should be seconds
+			assertEquals(Precision.SECOND, e.getPrecision());
+			assertEquals(value, e.getValue());
+			assertEquals(past  , e.getValueAllowedInPast  ());
+			assertEquals(future, e.getValueAllowedInFuture());
+		}
+
+		item.setSecondsRounded(null, RoundingMode.UNNECESSARY);
+		assertEquals(null, item.getSeconds());
+
+		item.setSecondsRounded(future, RoundingMode.UNNECESSARY);
+		assertEquals(future, item.getSeconds());
 	}
 
 	@Test public void testMinutesRound()
@@ -166,6 +187,27 @@ public class DatePrecisionTest extends TestWithEnvironment
 		assertEquals(null, item.getMinutes());
 
 		item.setMinutesRounded(future, RoundingMode.FUTURE);
+		assertEquals(future, item.getMinutes());
+
+		try
+		{
+			item.setMinutesRounded(value, RoundingMode.UNNECESSARY);
+			fail();
+		}
+		catch(final DatePrecisionViolationException e)
+		{
+			assertEquals(null, e.getItem()); // TODO should be item
+			assertEquals(null, e.getFeature()); // TODO should be minutes
+			assertEquals(Precision.MINUTE, e.getPrecision());
+			assertEquals(value, e.getValue());
+			assertEquals(past  , e.getValueAllowedInPast  ());
+			assertEquals(future, e.getValueAllowedInFuture());
+		}
+
+		item.setMinutesRounded(null, RoundingMode.UNNECESSARY);
+		assertEquals(null, item.getMinutes());
+
+		item.setMinutesRounded(future, RoundingMode.UNNECESSARY);
 		assertEquals(future, item.getMinutes());
 	}
 

@@ -144,6 +144,13 @@ public final class DateField extends FunctionField<Date>
 				throw new RuntimeException();
 
 			precision = ((DateField)field).getPrecision();
+
+			// TODO test
+			if(precision.constrains() &&
+				roundingMode==RoundingMode.UNNECESSARY)
+				throw new IllegalArgumentException(
+						"precision constraint and roundingMode " + RoundingMode.UNNECESSARY +
+						" do make no sense with defaultToNow");
 		}
 	}
 
@@ -308,6 +315,12 @@ public final class DateField extends FunctionField<Date>
 			if(!constrains)
 				return value;
 
+			if(roundingMode==RoundingMode.UNNECESSARY)
+			{
+				check(null, value, null);
+				return value;
+			}
+
 			final GregorianCalendar cal = newGregorianCalendar(value);
 			for(final int field : fields)
 				cal.set(field, 0);
@@ -341,7 +354,15 @@ public final class DateField extends FunctionField<Date>
 		 * Rounding mode to round towards past.
 		 * This rounding mode is analogous to {@link java.math.RoundingMode#FLOOR}.
 		 */
-		PAST;
+		PAST,
+
+		/**
+		 * Rounding mode that does not round.
+		 * Instead it asserts that the value is already rounded.
+		 * Otherwise a {@link DatePrecisionViolationException} is thrown.
+		 * This rounding mode is analogous to {@link java.math.RoundingMode#UNNECESSARY}.
+		 */
+		UNNECESSARY;
 	}
 
 
