@@ -179,6 +179,9 @@ public class MultiItemFieldTest extends TestWithEnvironment
 					"value is com.exedio.cope.pattern.MultiItemFieldComponentxC for MultiItemFieldItem.field, " +
 					"must be one of [class com.exedio.cope.pattern.MultiItemFieldComponentxA, class com.exedio.cope.pattern.MultiItemFieldComponentxB].",
 					e.getMessage());
+			assertEquals(
+					"com.exedio.cope.pattern.MultiItemField$IllegalInstanceException",
+					e.getClass().getName());
 		}
 		assertEquals(expected, item.getField());
 	}
