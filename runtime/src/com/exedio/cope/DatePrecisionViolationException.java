@@ -20,7 +20,9 @@ package com.exedio.cope;
 
 import static com.exedio.cope.DateField.Precision.ZONE;
 import static com.exedio.cope.DateField.Precision.ZONE_ID;
+import static java.util.Objects.requireNonNull;
 
+import com.exedio.cope.DateField.Precision;
 import com.exedio.cope.DateField.RoundingMode;
 import com.exedio.cope.instrument.ConstructorComment;
 import java.text.SimpleDateFormat;
@@ -41,6 +43,7 @@ public final class DatePrecisionViolationException extends ConstraintViolationEx
 	private static final long serialVersionUID = 1l;
 
 	private final DateField feature;
+	private final Precision precision;
 	private final long value;
 	private final int violation;
 
@@ -52,12 +55,14 @@ public final class DatePrecisionViolationException extends ConstraintViolationEx
 	 */
 	DatePrecisionViolationException(
 			final DateField feature,
+			final Precision precision,
 			final Item item,
 			final Date value,
 			final int violation)
 	{
 		super(item, null);
 		this.feature = feature;
+		this.precision = requireNonNull(precision);
 		this.value = value.getTime();
 		this.violation = violation;
 	}
@@ -69,6 +74,14 @@ public final class DatePrecisionViolationException extends ConstraintViolationEx
 	public DateField getFeature()
 	{
 		return feature;
+	}
+
+	/**
+	 * Returns the precision the value was too precise for.
+	 */
+	public Precision getPrecision()
+	{
+		return precision;
 	}
 
 	/**
@@ -86,7 +99,7 @@ public final class DatePrecisionViolationException extends ConstraintViolationEx
 	 */
 	public Date getValueAllowedInPast()
 	{
-		return feature.getPrecision().round(getValue(), RoundingMode.PAST);
+		return precision.round(getValue(), RoundingMode.PAST);
 	}
 
 	/**
@@ -96,7 +109,7 @@ public final class DatePrecisionViolationException extends ConstraintViolationEx
 	 */
 	public Date getValueAllowedInFuture()
 	{
-		return feature.getPrecision().round(getValue(), RoundingMode.FUTURE);
+		return precision.round(getValue(), RoundingMode.FUTURE);
 	}
 
 	@Override
@@ -112,7 +125,7 @@ public final class DatePrecisionViolationException extends ConstraintViolationEx
 			append(" " + ZONE_ID + " (").
 			append(violation).
 			append(") is too precise for ").
-			append(feature.getPrecision().name());
+			append(precision.name());
 
 		if(withFeature)
 			bf.append(" of ").

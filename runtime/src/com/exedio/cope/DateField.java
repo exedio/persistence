@@ -295,7 +295,7 @@ public final class DateField extends FunctionField<Date>
 			{
 				final int violation = cal.get(field);
 				if(violation!=0)
-					throw new DatePrecisionViolationException(feature, exceptionItem, value, violation);
+					throw new DatePrecisionViolationException(feature, this, exceptionItem, value, violation);
 			}
 		}
 

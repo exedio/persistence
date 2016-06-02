@@ -148,6 +148,7 @@ public class DatePrecisionModelTest
 					e.getMessageWithoutFeature());
 			assertEquals(null, e.getItem());
 			assertEquals(field, e.getFeature());
+			assertEquals(field.getPrecision(), e.getPrecision());
 			assertEquals(wrong, e.getValue());
 			assertEquals(past  , e.getValueAllowedInPast  ());
 			assertEquals(future, e.getValueAllowedInFuture());

@@ -25,6 +25,7 @@ import static com.exedio.cope.DatePrecisionItem.seconds;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
+import com.exedio.cope.DateField.Precision;
 import com.exedio.cope.DateField.RoundingMode;
 import java.util.Date;
 import org.junit.Test;
@@ -70,6 +71,7 @@ public class DatePrecisionTest extends TestWithEnvironment
 					e.getMessageWithoutFeature());
 			assertEquals(item, e.getItem());
 			assertEquals(seconds, e.getFeature());
+			assertEquals(Precision.SECOND, e.getPrecision());
 			assertEquals(wrong, e.getValue());
 		}
 		assertEquals(ok, item.getSeconds());
@@ -107,6 +109,7 @@ public class DatePrecisionTest extends TestWithEnvironment
 					e.getMessageWithoutFeature());
 			assertEquals(item, e.getItem());
 			assertEquals(minutes, e.getFeature());
+			assertEquals(Precision.MINUTE, e.getPrecision());
 			assertEquals(wrong, e.getValue());
 		}
 		assertEquals(ok, item.getMinutes());
