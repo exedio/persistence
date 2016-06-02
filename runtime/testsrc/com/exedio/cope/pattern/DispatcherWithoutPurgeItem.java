@@ -190,7 +190,7 @@ public final class DispatcherWithoutPurgeItem extends Item implements Dispatchab
 	 *       It can be customized with the tag <tt>@cope.dispatch public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@Deprecated
+	@Deprecated()
 	static final int dispatchToTarget(final com.exedio.cope.pattern.Dispatcher.Config config,final com.exedio.cope.util.Interrupter interrupter)
 	{
 		return DispatcherWithoutPurgeItem.toTarget.dispatch(DispatcherWithoutPurgeItem.class,config,interrupter);

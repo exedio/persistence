@@ -121,6 +121,11 @@ public final class AntTask extends Task
 		params.verbose = value;
 	}
 
+	public void setParenthesesOnAllMethodAnnotations(final boolean value)
+	{
+		params.parenthesesOnAllMethodAnnotations = value;
+	}
+
 	@Override
 	public void execute() throws BuildException
 	{

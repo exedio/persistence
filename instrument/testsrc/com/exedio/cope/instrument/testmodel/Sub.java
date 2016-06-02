@@ -163,7 +163,7 @@ public final class Sub extends Super
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@java.lang.Override final java.lang.Long getOverride()
+	@java.lang.Override() final java.lang.Long getOverride()
 	{
 		return Sub.override.get(this);
 	}/**

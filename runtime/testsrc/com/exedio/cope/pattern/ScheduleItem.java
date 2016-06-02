@@ -141,7 +141,7 @@ public final class ScheduleItem extends Item implements Scheduleable
 	 *       It can be customized with the tag <tt>@cope.run public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@Deprecated
+	@Deprecated()
 	static final int runReport(final com.exedio.cope.util.Interrupter interrupter)
 	{
 		return ScheduleItem.report.run(ScheduleItem.class,interrupter);

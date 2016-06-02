@@ -84,6 +84,7 @@ final class Generator
 	private final boolean genericSetValueArray;
 	private final boolean directSetValueMap;
 	private final String hidingWarningSuppressor;
+	private final boolean parenthesesOnAllMethodAnnotations;
 	private int typeIndent = Integer.MIN_VALUE;
 
 
@@ -100,6 +101,7 @@ final class Generator
 		this.genericSetValueArray = params.genericSetValueArray;
 		this.directSetValueMap = params.directSetValueMap;
 		this.hidingWarningSuppressor = params.hidingWarningSuppressor;
+		this.parenthesesOnAllMethodAnnotations = params.parenthesesOnAllMethodAnnotations;
 	}
 
 	private static final String toCamelCase(final String name)
@@ -464,6 +466,7 @@ final class Generator
 			{
 				writeIndent();
 				write("@Deprecated");
+				writeEmptyParenthesesForAnnotation();
 				write(lineSeparator);
 			}
 
@@ -473,6 +476,7 @@ final class Generator
 			{
 				write('@');
 				write(Override.class.getName());
+				writeEmptyParenthesesForAnnotation();
 				write(' ');
 			}
 
@@ -616,6 +620,14 @@ final class Generator
 			write(lineSeparator);
 			writeIndent();
 			write('}');
+		}
+	}
+
+	private void writeEmptyParenthesesForAnnotation()
+	{
+		if(parenthesesOnAllMethodAnnotations)
+		{
+			write("()");
 		}
 	}
 

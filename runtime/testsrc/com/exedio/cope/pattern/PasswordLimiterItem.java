@@ -222,7 +222,7 @@ public final class PasswordLimiterItem extends Item
 	 *       It can be customized with the tag <tt>@cope.purge public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@Deprecated
+	@Deprecated()
 	static final int purgePasswordLimited(final com.exedio.cope.util.Interrupter interrupter)
 	{
 		return PasswordLimiterItem.passwordLimited.purge(interrupter);
