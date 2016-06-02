@@ -21,6 +21,7 @@ package com.exedio.cope.pattern;
 import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
 import static com.exedio.cope.pattern.SerializerItem.TYPE;
 import static com.exedio.cope.pattern.SerializerItem.integer;
+import static com.exedio.cope.pattern.SerializerItem.mandatoryString;
 import static com.exedio.cope.pattern.SerializerItem.map;
 import static com.exedio.cope.pattern.SerializerItem.mapWildcard;
 import static com.exedio.cope.tojunit.Assert.assertContains;
@@ -30,8 +31,10 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import com.exedio.cope.Feature;
+import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Model;
 import com.exedio.cope.SchemaInfo;
 import com.exedio.cope.SetValue;
@@ -61,7 +64,7 @@ public class SerializerTest extends TestWithEnvironment
 
 	@Before public final void setUp()
 	{
-		item = new SerializerItem();
+		item = new SerializerItem("mandatory");
 	}
 
 	@Test public void testSerializer()
@@ -75,6 +78,8 @@ public class SerializerTest extends TestWithEnvironment
 				map.getSource(),
 				mapWildcard,
 				mapWildcard.getSource(),
+				mandatoryString,
+				mandatoryString.getSource(),
 			}), TYPE.getFeatures());
 		assertEquals(Arrays.asList(new Feature[]{
 				TYPE.getThis(),
@@ -84,6 +89,8 @@ public class SerializerTest extends TestWithEnvironment
 				map.getSource(),
 				mapWildcard,
 				mapWildcard.getSource(),
+				mandatoryString,
+				mandatoryString.getSource(),
 			}), TYPE.getDeclaredFeatures());
 
 		assertEquals(TYPE, integer.getSource().getType());
@@ -103,11 +110,18 @@ public class SerializerTest extends TestWithEnvironment
 		assertEquals(false, integer.isFinal());
 		assertEquals(Integer.class, integer.getInitialType());
 		assertContains(integer.getInitialExceptions());
+
 		assertEquals(false, map.isInitial());
 		assertEquals(false, map.isMandatory());
 		assertEquals(false, map.isFinal());
 		assertEquals(Map.class, map.getInitialType());
 		assertContains(map.getInitialExceptions());
+
+		assertEquals(true, mandatoryString.isInitial());
+		assertEquals(true, mandatoryString.isMandatory());
+		assertEquals(false, mandatoryString.isFinal());
+		assertEquals(String.class, mandatoryString.getInitialType());
+		assertContains(MandatoryViolationException.class, mandatoryString.getInitialExceptions());
 
 		assertFalse(integer            .isAnnotationPresent(Computed.class));
 		assertFalse(map                .isAnnotationPresent(Computed.class));
@@ -156,18 +170,43 @@ public class SerializerTest extends TestWithEnvironment
 		final SerializerItem item2 = new SerializerItem(new SetValue<?>[]{
 				integer.map(33),
 				map.map(map1),
+				mandatoryString.map("")
 		});
 		assertEquals(valueOf(33), item2.getInteger());
 		assertEquals(map1, item2.getMap());
 		assertNotSame(map1, item2.getMap());
+		assertEquals("", item2.getMandatoryString());
 
 		final SerializerItem item3 = SerializerItem.TYPE.newItem(
 				integer.map(44),
-				map.map(map2)
+				map.map(map2),
+				mandatoryString.map("x")
 		);
 		assertEquals(valueOf(44), item3.getInteger());
 		assertEquals(map2, item3.getMap());
 		assertNotSame(map2, item3.getMap());
+		assertEquals("x", item3.getMandatoryString());
 	}
 
+	@Test public void testMandatoryMustBeSet()
+	{
+		try
+		{
+			item.setMandatoryString(null);
+			fail();
+		}
+		catch(final MandatoryViolationException e)
+		{
+			assertEquals(mandatoryString.getSource(), e.getFeature());
+		}
+		try
+		{
+			new SerializerItem((String)null);
+			fail();
+		}
+		catch(final MandatoryViolationException e)
+		{
+			assertEquals(mandatoryString.getSource(), e.getFeature());
+		}
+	}
 }
