@@ -126,11 +126,17 @@ public class DatePrecisionTest extends TestWithEnvironment
 		item.setSecondsRounded(null, RoundingMode.PAST);
 		assertEquals(null, item.getSeconds());
 
+		item.setSecondsRounded(past, RoundingMode.PAST);
+		assertEquals(past, item.getSeconds());
+
 		item.setSecondsRounded(value, RoundingMode.FUTURE);
 		assertEquals(future, item.getSeconds());
 
 		item.setSecondsRounded(null, RoundingMode.FUTURE);
 		assertEquals(null, item.getSeconds());
+
+		item.setSecondsRounded(future, RoundingMode.FUTURE);
+		assertEquals(future, item.getSeconds());
 	}
 
 	@Test public void testMinutesRound()
@@ -147,11 +153,17 @@ public class DatePrecisionTest extends TestWithEnvironment
 		item.setMinutesRounded(null, RoundingMode.PAST);
 		assertEquals(null, item.getMinutes());
 
+		item.setMinutesRounded(past, RoundingMode.PAST);
+		assertEquals(past, item.getMinutes());
+
 		item.setMinutesRounded(value, RoundingMode.FUTURE);
 		assertEquals(future, item.getMinutes());
 
 		item.setMinutesRounded(null, RoundingMode.FUTURE);
 		assertEquals(null, item.getMinutes());
+
+		item.setMinutesRounded(future, RoundingMode.FUTURE);
+		assertEquals(future, item.getMinutes());
 	}
 
 	@Test public void testNullMode()
