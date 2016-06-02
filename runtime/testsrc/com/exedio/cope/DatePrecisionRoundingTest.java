@@ -30,6 +30,7 @@ import com.exedio.cope.DateField.RoundingMode;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Objects;
 import org.junit.Test;
 
 public class DatePrecisionRoundingTest
@@ -250,6 +251,12 @@ public class DatePrecisionRoundingTest
 	{
 		assertEquals("past"  , past  , precision.round(origin, RoundingMode.PAST  ));
 		assertEquals("future", future, precision.round(origin, RoundingMode.FUTURE));
+
+		if(Objects.equals(past, future))
+		{
+			assertEquals(past  , origin);
+			assertEquals(future, origin);
+		}
 	}
 
 	@Test public void testMap()
