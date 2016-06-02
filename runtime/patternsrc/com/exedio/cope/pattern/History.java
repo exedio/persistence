@@ -42,6 +42,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import javax.annotation.Nonnull;
 
 public final class History extends Pattern
 {
@@ -94,7 +95,8 @@ public final class History extends Pattern
 	}
 
 	@Wrap(order=100, name="{1}EventParent", doc="Returns the parent field of the event type of {0}.")
-	public <P extends Item> ItemField<P> getEventParent(final Class<P> parentClass)
+	@Nonnull
+	public <P extends Item> ItemField<P> getEventParent(@Nonnull final Class<P> parentClass)
 	{
 		assert eventParent!=null;
 		return eventParent.as(parentClass);
@@ -193,6 +195,7 @@ public final class History extends Pattern
 	}
 
 	@Wrap(order=10, doc="Returns the events of the history {0}.")
+	@Nonnull
 	public List<Event> getEvents(final Item item)
 	{
 		final Query<Event> q = eventType.newQuery(Cope.equalAndCast(eventParent, item));
@@ -203,9 +206,10 @@ public final class History extends Pattern
 	}
 
 	@Wrap(order=20, doc="Creates a new event for the history {0}.")
+	@Nonnull
 	public Event createEvent(
-			final Item item,
-			@Parameter("author") final String author,
+			@Nonnull final Item item,
+			@Nonnull @Parameter("author") final String author,
 			@Parameter("isNew") final boolean isNew)
 	{
 		return eventType.newItem(

@@ -37,6 +37,7 @@ import java.util.Collections;
 import java.util.EnumMap;
 import java.util.EnumSet;
 import java.util.Set;
+import javax.annotation.Nonnull;
 
 public final class EnumSetField<E extends Enum<E>> extends Pattern implements Settable<EnumSet<E>>
 {
@@ -91,19 +92,19 @@ public final class EnumSetField<E extends Enum<E>> extends Pattern implements Se
 	}
 
 	@Wrap(order=10)
-	public boolean contains(final Item item, @Parameter("element") final E element)
+	public boolean contains(@Nonnull final Item item, @Nonnull @Parameter("element") final E element)
 	{
 		return field(element).get(item);
 	}
 
 	@Wrap(order=20, hide=FinalSettableGetter.class)
-	public void add(final Item item, @Parameter("element") final E element)
+	public void add(@Nonnull final Item item, @Nonnull @Parameter("element") final E element)
 	{
 		field(element).set(item, true);
 	}
 
 	@Wrap(order=30, hide=FinalSettableGetter.class)
-	public void remove(final Item item, @Parameter("element") final E element)
+	public void remove(@Nonnull final Item item, @Nonnull @Parameter("element") final E element)
 	{
 		field(element).set(item, false);
 	}
@@ -113,7 +114,8 @@ public final class EnumSetField<E extends Enum<E>> extends Pattern implements Se
 	 * Results are not unmodifiable, since EnumSets cannot be unmodifiable.
 	 */
 	@Wrap(order=40)
-	public EnumSet<E> get(final Item item)
+	@Nonnull
+	public EnumSet<E> get(@Nonnull final Item item)
 	{
 		final EnumSet<E> result = EnumSet.<E>noneOf(elementClass);
 		for(final E element : fields.keySet())
@@ -125,7 +127,7 @@ public final class EnumSetField<E extends Enum<E>> extends Pattern implements Se
 	}
 
 	@Wrap(order=50, hide=FinalSettableGetter.class)
-	public void set(final Item item, final EnumSet<E> value)
+	public void set(@Nonnull final Item item, @Nonnull final EnumSet<E> value)
 	{
 		if(value==null)
 			throw MandatoryViolationException.create(this, item);

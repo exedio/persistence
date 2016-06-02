@@ -30,14 +30,17 @@ import com.exedio.cope.Join;
 import com.exedio.cope.LongField;
 import com.exedio.cope.LongRangeViolationException;
 import com.exedio.cope.MandatoryViolationException;
+import com.exedio.cope.NullableIfOptional;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
+import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.ComputedElement;
 import com.exedio.cope.misc.instrument.FinalSettableGetter;
 import com.exedio.cope.misc.instrument.InitialExceptionsSettableGetter;
 import java.util.Set;
+import javax.annotation.Nonnull;
 
 public final class PriceField extends Pattern implements Settable<Price>, Copyable, PriceFunction
 {
@@ -154,8 +157,8 @@ public final class PriceField extends Pattern implements Settable<Price>, Copyab
 		return result;
 	}
 
-	@Wrap(order=10, doc="Returns the value of {0}.")
-	public Price get(final Item item)
+	@Wrap(order=10, doc="Returns the value of {0}.", nullability=NullableIfOptional.class)
+	public Price get(@Nonnull final Item item)
 	{
 		return
 			mandatory
@@ -167,7 +170,7 @@ public final class PriceField extends Pattern implements Settable<Price>, Copyab
 			doc="Sets a new value for {0}.",
 			thrownGetter=InitialExceptionsSettableGetter.class,
 			hide=FinalSettableGetter.class)
-	public void set(final Item item, final Price value)
+	public void set(@Nonnull final Item item, @Parameter(nullability=NullableIfOptional.class) final Price value)
 	{
 		if(isfinal)
 			throw FinalViolationException.create(this, item);

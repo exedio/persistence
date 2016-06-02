@@ -42,7 +42,7 @@ public class DrivebyHashMigrationTest extends TestWithEnvironment
 		super(MODEL);
 	}
 
-	@SuppressFBWarnings("NP_NONNULL_PARAM_VIOLATION")
+	@SuppressFBWarnings(value={"NP_NONNULL_PARAM_VIOLATION", "NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS"})
 	@Test public void testSetNull()
 	{
 		final DrivebyHashMigrationItem item = new DrivebyHashMigrationItem("111111", 1.1);

@@ -27,10 +27,12 @@ import com.exedio.cope.IsNullCondition;
 import com.exedio.cope.Item;
 import com.exedio.cope.Join;
 import com.exedio.cope.MandatoryViolationException;
+import com.exedio.cope.NullableIfOptional;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
 import com.exedio.cope.instrument.InstrumentContext;
+import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.instrument.FinalSettableGetter;
 import com.exedio.cope.misc.instrument.InitialExceptionsSettableGetter;
@@ -43,6 +45,7 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import javax.annotation.Nonnull;
 
 public final class CompositeField<E extends Composite> extends Pattern implements Settable<E>
 {
@@ -186,9 +189,9 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 		return unison;
 	}
 
-	@Wrap(order=10, doc="Returns the value of {0}.")
+	@Wrap(order=10, doc="Returns the value of {0}.", nullability=NullableIfOptional.class)
 	@SuppressWarnings({"unchecked", "rawtypes"})
-	public E get(final Item item)
+	public E get(@Nonnull final Item item)
 	{
 		if(mandatoryComponent!=null && mandatoryComponent.get(item)==null)
 			return null;
@@ -212,7 +215,7 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 			thrownGetter=InitialExceptionsSettableGetter.class,
 			hide=FinalSettableGetter.class)
 	@SuppressWarnings({"unchecked", "rawtypes"})
-	public void set(final Item item, final E value)
+	public void set(@Nonnull final Item item, @Parameter(nullability=NullableIfOptional.class) final E value)
 	{
 		final SetValue[] setValues = new SetValue[componentSize];
 		int i = 0;

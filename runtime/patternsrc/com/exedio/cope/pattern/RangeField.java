@@ -24,13 +24,16 @@ import com.exedio.cope.CheckConstraint;
 import com.exedio.cope.Condition;
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.Item;
+import com.exedio.cope.NullableIfOptional;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
+import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.ReflectionTypes;
 import com.exedio.cope.misc.instrument.FinalSettableGetter;
 import java.util.Set;
+import javax.annotation.Nonnull;
 
 public final class RangeField<E extends Comparable<E>> extends Pattern implements Settable<Range<E>>
 {
@@ -71,45 +74,46 @@ public final class RangeField<E extends Comparable<E>> extends Pattern implement
 	}
 
 	@Wrap(order=10)
-	public Range<E> get(final Item item)
+	@Nonnull
+	public Range<E> get(@Nonnull final Item item)
 	{
 		return Range.valueOf(from.get(item), to.get(item));
 	}
 
 	@Wrap(order=20, hide=FinalSettableGetter.class)
-	public void set(final Item item, final Range<? extends E> value)
+	public void set(@Nonnull final Item item, @Nonnull final Range<? extends E> value)
 	{
 		item.set(
 				this.from.map(value.getFrom()),
 				this.to  .map(value.getTo  ()));
 	}
 
-	@Wrap(order=30)
-	public E getFrom(final Item item)
+	@Wrap(order=30, nullability=NullableIfOptional.class)
+	public E getFrom(@Nonnull final Item item)
 	{
 		return from.get(item);
 	}
 
-	@Wrap(order=40)
-	public E getTo(final Item item)
+	@Wrap(order=40, nullability=NullableIfOptional.class)
+	public E getTo(@Nonnull final Item item)
 	{
 		return to.get(item);
 	}
 
 	@Wrap(order=50, hide=FinalSettableGetter.class)
-	public void setFrom(final Item item, final E from)
+	public void setFrom(@Nonnull final Item item, @Parameter(nullability=NullableIfOptional.class) final E from)
 	{
 		this.from.set(item, from);
 	}
 
 	@Wrap(order=60, hide=FinalSettableGetter.class)
-	public void setTo(final Item item, final E to)
+	public void setTo(@Nonnull final Item item, @Parameter(nullability=NullableIfOptional.class) final E to)
 	{
 		this.to.set(item, to);
 	}
 
 	@Wrap(order=70)
-	public boolean doesContain(final Item item, final E value)
+	public boolean doesContain(@Nonnull final Item item, @Nonnull final E value)
 	{
 		requireNonNull(value, "value");
 

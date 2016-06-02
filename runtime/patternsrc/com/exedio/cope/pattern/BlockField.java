@@ -32,6 +32,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import javax.annotation.Nonnull;
 
 public final class BlockField<E extends Block> extends Pattern implements Copyable
 {
@@ -125,6 +126,7 @@ public final class BlockField<E extends Block> extends Pattern implements Copyab
 	}
 
 	@Wrap(order=10, name="{1}", doc="Returns the value of {0}.")
+	@Nonnull
 	public E get(final Item item)
 	{
 		return valueType.newValue(this, item);

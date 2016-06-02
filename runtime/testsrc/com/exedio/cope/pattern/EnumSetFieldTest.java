@@ -198,6 +198,7 @@ public class EnumSetFieldTest extends TestWithEnvironment
 		assertEquals(EnumSet.of(DE, EN), item.getActiveLanguage());
 	}
 
+	@SuppressFBWarnings(value={"NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS", "NP_NONNULL_PARAM_VIOLATION"})
 	@Test public void testSetSetNull()
 	{
 		item.setActiveLanguage(EnumSet.of(DE, EN));

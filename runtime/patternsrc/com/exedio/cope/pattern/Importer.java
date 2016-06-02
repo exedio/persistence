@@ -31,6 +31,7 @@ import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.SetValueUtil;
 import com.exedio.cope.util.Cast;
 import java.util.List;
+import javax.annotation.Nonnull;
 
 public final class Importer<K extends Object> extends Pattern
 {
@@ -61,19 +62,21 @@ public final class Importer<K extends Object> extends Pattern
 	}
 
 	@Wrap(order=20, name="import{0}", doc="Import {0}.", docReturn="the imported item")
+	@Nonnull
 	public <P extends Item> P doImport(
-			final Class<P> parentClass,
-			@Parameter("keyValue") final K keyValue,
-			@Parameter("setValues") final List<? extends SetValue<?>> setValues)
+			@Nonnull final Class<P> parentClass,
+			@Nonnull @Parameter("keyValue") final K keyValue,
+			@Nonnull @Parameter("setValues") final List<? extends SetValue<?>> setValues)
 	{
 		return doImport(parentClass, keyValue, SetValueUtil.toArray(setValues));
 	}
 
 	@Wrap(order=10, name="import{0}", doc="Import {0}.", docReturn="the imported item")
+	@Nonnull
 	public <P extends Item> P doImport(
-			final Class<P> parentClass,
-			@Parameter("keyValue") final K keyValue,
-			@Parameter("setValues") final SetValue<?>... setValues)
+			@Nonnull final Class<P> parentClass,
+			@Nonnull @Parameter("keyValue") final K keyValue,
+			@Nonnull @Parameter("setValues") final SetValue<?>... setValues)
 	{
 		requireNonNull(keyValue, "keyValue");
 		requireNonNull(setValues, "setValues");

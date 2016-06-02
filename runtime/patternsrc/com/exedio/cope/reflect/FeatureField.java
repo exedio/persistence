@@ -26,6 +26,7 @@ import com.exedio.cope.Feature;
 import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.Item;
 import com.exedio.cope.MandatoryViolationException;
+import com.exedio.cope.NullableIfOptional;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
@@ -42,6 +43,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 public final class FeatureField<E extends Feature> extends Pattern implements Settable<E>
 {
@@ -129,8 +132,8 @@ public final class FeatureField<E extends Feature> extends Pattern implements Se
 		return idField.getImplicitUniqueConstraint();
 	}
 
-	@Wrap(order=10, doc="Returns the value of {0}.")
-	public E get(final Item item)
+	@Wrap(order=10, doc="Returns the value of {0}.", nullability=NullableIfOptional.class)
+	public E get(@Nonnull final Item item)
 	{
 		final String id = idField.get(item);
 		if(id==null)
@@ -211,7 +214,7 @@ public final class FeatureField<E extends Feature> extends Pattern implements Se
 			doc="Sets a new value for {0}.",
 			thrownGetter=InitialExceptionsSettableGetter.class,
 			hide=FinalSettableGetter.class)
-	public void set(final Item item, final E value)
+	public void set(@Nonnull final Item item, @Parameter(nullability=NullableIfOptional.class) final E value)
 	{
 		if(isfinal)
 			throw FinalViolationException.create(this, item);
@@ -267,9 +270,10 @@ public final class FeatureField<E extends Feature> extends Pattern implements Se
 			doc="Finds a {2} by it''s {0}.",
 			docReturn="null if there is no matching item.",
 			hide=NonUniqueGetter.class)
+	@Nullable
 	public final <P extends Item> P searchUnique(
-			final Class<P> typeClass,
-			@Parameter(doc="shall be equal to field {0}.") final E value)
+			@Nonnull final Class<P> typeClass,
+			@Nonnull @Parameter(doc="shall be equal to field {0}.") final E value)
 	{
 		return idField.searchUnique(typeClass, value.getID());
 	}

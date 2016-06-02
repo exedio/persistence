@@ -24,6 +24,7 @@ import com.exedio.cope.Pattern;
 import com.exedio.cope.Type;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.ComputedElement;
+import javax.annotation.Nonnull;
 
 public final class Singleton extends Pattern
 {
@@ -50,7 +51,8 @@ public final class Singleton extends Pattern
 			name="instance",
 			doc={"Gets the single instance of {2}.", "Creates an instance, if none exists."},
 			docReturn="never returns null.")
-	public final <P extends Item> P instance(final Class<P> typeClass)
+	@Nonnull
+	public final <P extends Item> P instance(@Nonnull final Class<P> typeClass)
 	{
 		final Type<P> type = getType().as(typeClass);
 		final P found = type.searchSingleton(source.equal(THE_ONE_OBJECT));

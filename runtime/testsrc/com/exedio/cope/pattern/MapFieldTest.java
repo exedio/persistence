@@ -34,6 +34,7 @@ import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Query;
 import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.pattern.MapFieldItem.Language;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -172,6 +173,7 @@ public class MapFieldTest extends TestWithEnvironment
 		assertEquals(map(), item.getNameMap());
 	}
 
+	@SuppressFBWarnings(value={"NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS", "NP_NONNULL_PARAM_VIOLATION"})
 	@Test public void testMapSetNull()
 	{
 		final HashMap<Language, String> map = new HashMap<>();

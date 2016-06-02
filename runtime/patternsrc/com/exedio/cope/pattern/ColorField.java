@@ -27,14 +27,17 @@ import com.exedio.cope.IntegerRangeViolationException;
 import com.exedio.cope.IsNullCondition;
 import com.exedio.cope.Item;
 import com.exedio.cope.MandatoryViolationException;
+import com.exedio.cope.NullableIfOptional;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
+import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.instrument.FinalSettableGetter;
 import com.exedio.cope.misc.instrument.InitialExceptionsSettableGetter;
 import java.awt.Color;
 import java.util.Set;
+import javax.annotation.Nonnull;
 
 public final class ColorField extends Pattern implements Settable<Color>, Copyable
 {
@@ -159,8 +162,8 @@ public final class ColorField extends Pattern implements Settable<Color>, Copyab
 	}
 
 	@Wrap(order=10,
-			doc="Returns the value of {0}.")
-	public Color get(final Item item)
+			doc="Returns the value of {0}.", nullability=NullableIfOptional.class)
+	public Color get(@Nonnull final Item item)
 	{
 		return
 			mandatory
@@ -177,7 +180,7 @@ public final class ColorField extends Pattern implements Settable<Color>, Copyab
 			doc="Sets a new value for {0}.",
 			hide=FinalSettableGetter.class,
 			thrownGetter=InitialExceptionsSettableGetter.class)
-	public void set(final Item item, final Color value)
+	public void set(@Nonnull final Item item, @Parameter(nullability=NullableIfOptional.class) final Color value)
 	{
 		rgb.set(item, rgb(value, item));
 	}

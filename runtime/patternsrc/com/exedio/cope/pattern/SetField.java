@@ -45,6 +45,7 @@ import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
+import javax.annotation.Nonnull;
 
 public final class SetField<E> extends Pattern
 {
@@ -116,7 +117,8 @@ public final class SetField<E> extends Pattern
 	}
 
 	@Wrap(order=100, name="{1}Parent", doc="Returns the parent field of the type of {0}.")
-	public <P extends Item> ItemField<P> getParent(final Class<P> parentClass)
+	@Nonnull
+	public <P extends Item> ItemField<P> getParent(@Nonnull final Class<P> parentClass)
 	{
 		return mount().parent.as(parentClass);
 	}
@@ -144,13 +146,15 @@ public final class SetField<E> extends Pattern
 	private static final String MODIFICATION_RETURN = "<tt>true</tt> if the field set changed as a result of the call.";
 
 	@Wrap(order=10, doc="Returns the value of {0}.")
-	public Set<E> get(final Item item)
+	@Nonnull
+	public Set<E> get(@Nonnull final Item item)
 	{
 		return Collections.unmodifiableSet(new HashSet<>(getQuery(item).search()));
 	}
 
 	@Wrap(order=20, doc="Returns a query for the value of {0}.")
-	public Query<E> getQuery(final Item item)
+	@Nonnull
+	public Query<E> getQuery(@Nonnull final Item item)
 	{
 		return new Query<>(element, Cope.equalAndCast(mount().parent, item));
 	}
@@ -162,9 +166,10 @@ public final class SetField<E> extends Pattern
 	@Wrap(order=30,
 			name="getParentsOf{0}",
 			doc="Returns the items, for which field set {0} contains the given element.")
+	@Nonnull
 	public <P extends Item> List<P> getParents(
-			final Class<P> parentClass,
-			@Parameter("element") final E element)
+			@Nonnull final Class<P> parentClass,
+			@Nonnull @Parameter("element") final E element)
 	{
 		return new Query<>(
 				mount().parent.as(parentClass),
@@ -177,8 +182,8 @@ public final class SetField<E> extends Pattern
 	 */
 	@Wrap(order=50, name="addTo{0}", doc="Adds a new element to {0}.", docReturn=MODIFICATION_RETURN, thrownGetter=Thrown.class)
 	public boolean add(
-			final Item item,
-			@Parameter("element") final E element)
+			@Nonnull final Item item,
+			@Nonnull @Parameter("element") final E element)
 	{
 		final Mount mount = mount();
 		try
@@ -201,8 +206,8 @@ public final class SetField<E> extends Pattern
 	 */
 	@Wrap(order=60, name="removeFrom{0}", doc="Removes an element from {0}.", docReturn=MODIFICATION_RETURN, thrownGetter=Thrown.class)
 	public boolean remove(
-			final Item item,
-			@Parameter("element") final E element)
+			@Nonnull final Item item,
+			@Nonnull @Parameter("element") final E element)
 	{
 		final Item row =
 			mount().uniqueConstraint.search(item, element);
@@ -219,7 +224,7 @@ public final class SetField<E> extends Pattern
 	}
 
 	@Wrap(order=40, doc="Sets a new value for {0}.", thrownGetter=Thrown.class)
-	public void set(final Item item, final Collection<? extends E> value)
+	public void set(@Nonnull final Item item, @Nonnull final Collection<? extends E> value)
 	{
 		if(value==null)
 			throw MandatoryViolationException.create(this, item);

@@ -65,6 +65,7 @@ public class EnumMapFieldMandatoryTest extends TestWithEnvironment
 		assertEquals(true,  text.isInitial());
 	}
 
+	@SuppressFBWarnings("NP_NONNULL_PARAM_VIOLATION")
 	@Test public void testSet()
 	{
 		final EnumMapFieldMandatoryItem item = new EnumMapFieldMandatoryItem(FULL);

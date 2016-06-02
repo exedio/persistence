@@ -149,6 +149,7 @@ public class ColorFieldTest extends TestWithEnvironment
 		assertEquals(color, i.getAlpha());
 	}
 
+	@SuppressFBWarnings("NP_NONNULL_PARAM_VIOLATION")
 	@Test public void testMandatoryAlpha()
 	{
 		assertEquals(new Color(122, 133, 199, 253), i.getMandatoryAlpha());
@@ -252,6 +253,7 @@ public class ColorFieldTest extends TestWithEnvironment
 		assertEquals(null, i.getOptional());
 	}
 
+	@SuppressFBWarnings("NP_NONNULL_PARAM_VIOLATION")
 	@Test public void testDefaultTo()
 	{
 		assertEquals(new Color(22, 33, 44), i.getDefaultTo());

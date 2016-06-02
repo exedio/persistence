@@ -40,6 +40,7 @@ import com.exedio.cope.SchemaInfo;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.misc.Computed;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -188,6 +189,7 @@ public class SerializerTest extends TestWithEnvironment
 		assertEquals("x", item3.getMandatoryString());
 	}
 
+	@SuppressFBWarnings("NP_NONNULL_PARAM_VIOLATION")
 	@Test public void testMandatoryMustBeSet()
 	{
 		try
