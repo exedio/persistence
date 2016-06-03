@@ -1055,6 +1055,7 @@
 			<class location="${basedir}/build/classes/instrument/src" />
 			<class location="${basedir}/build/classes/instrument/antsrc" />
 			<class location="${basedir}/build/classes/runtime/testsrc" />
+			<class location="${basedir}/build/classes/runtime/testfeaturesrc" />
 			<auxclasspath>
 				<pathelement location="${basedir}/lib/exedio-cope-util.jar" />
 				<pathelement location="${basedir}/lib/exedio-cope-servletutil.jar" />

@@ -39,6 +39,7 @@ import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Model;
 import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.util.Hex;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Arrays;
 import org.junit.Before;
 import org.junit.Test;
@@ -68,6 +69,7 @@ public class MessageDigestHashTest extends TestWithEnvironment
 		item = new MessageDigestHashItem("finalo", "musso");
 	}
 
+	@SuppressFBWarnings("BC_UNCONFIRMED_CAST_OF_RETURN_VALUE")
 	private static final void expectSalt(final Hash hash, final String bytes)
 	{
 		((MockSecureRandom2)algo(hash).getSaltSource()).expectNextBytes(Hex.decodeLower(bytes));
