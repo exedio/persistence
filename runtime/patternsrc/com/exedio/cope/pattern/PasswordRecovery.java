@@ -313,7 +313,7 @@ public final class PasswordRecovery extends Pattern
 	 */
 	@Deprecated
 	@Wrap(order=11)
-	// TODO COPE-8 @Nonnull
+	@Nonnull
 	public Token issue(
 			@Nonnull final Item item,
 			@Parameter(value="expiryMillis", doc="the time span, after which this token will not be valid anymore, in milliseconds") final int expiryMillis)

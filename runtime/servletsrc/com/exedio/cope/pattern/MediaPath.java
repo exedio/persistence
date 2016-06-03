@@ -41,6 +41,7 @@ import java.security.MessageDigest;
 import java.util.Date;
 import java.util.Enumeration;
 import java.util.List;
+import javax.annotation.Nonnull;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -249,7 +250,7 @@ public abstract class MediaPath extends Pattern
 		 * Returns the same value as {@link MediaPath#getURL(Item)}.
 		 * @see #appendURLByConnect(StringBuilder)
 		 */
-		public String getURLByConnect()
+		@Nonnull public String getURLByConnect()
 		{
 			final StringBuilder bf = new StringBuilder();
 			appendURLByConnect(bf);
@@ -296,7 +297,8 @@ public abstract class MediaPath extends Pattern
 	 * Returns null, if there is no such content.
 	 */
 	@Wrap(order=20, doc="Returns a Locator the content of {0} is available under.")
-	public final Locator getLocator(final Item item)
+	// TODO COPE-8 MediaPath mandatory?
+	public final Locator getLocator(@Nonnull final Item item)
 	{
 		final String contentType = getContentType(item);
 
@@ -317,7 +319,8 @@ public abstract class MediaPath extends Pattern
 	 * @see Locator#getURLByConnect()
 	 */
 	@Wrap(order=10, doc="Returns a URL the content of {0} is available under.")
-	public final String getURL(final Item item)
+	// TODO COPE-8 MediaPath mandatory?
+	public final String getURL(@Nonnull final Item item)
 	{
 		final Locator locator = getLocator(item);
 		return locator!=null ? locator.getURLByConnect() : null;
@@ -666,7 +669,8 @@ public abstract class MediaPath extends Pattern
 	public abstract boolean isMandatory();
 
 	@Wrap(order=30, doc="Returns the content type of the media {0}.", hide=ContentTypeGetter.class)
-	public abstract String getContentType(Item item);
+	// TODO COPE-8 MediaPath mandatory?
+	public abstract String getContentType(@Nonnull Item item);
 
 	private static final class ContentTypeGetter implements BooleanGetter<MediaPath>
 	{

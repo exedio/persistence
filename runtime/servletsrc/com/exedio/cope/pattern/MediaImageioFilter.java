@@ -30,6 +30,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Locale;
 import java.util.Set;
+import javax.annotation.Nonnull;
 import javax.imageio.IIOImage;
 import javax.imageio.ImageReader;
 import javax.imageio.ImageWriteParam;
@@ -139,8 +140,8 @@ public abstract class MediaImageioFilter extends MediaFilter
 	}
 
 	@SuppressFBWarnings("PZLA_PREFER_ZERO_LENGTH_ARRAYS")
-	@Wrap(order=10, doc="Returns the body of {0}.", thrown=@Wrap.Thrown(IOException.class))
-	public final byte[] get(final Item item) throws IOException
+	@Wrap(order=10, doc="Returns the body of {0}.", thrown=@Wrap.Thrown(IOException.class), nullability=NullableIfSourceOptional.class)
+	public final byte[] get(@Nonnull final Item item) throws IOException
 	{
 		final String contentType = source.getContentType(item);
 		if(contentType==null)
