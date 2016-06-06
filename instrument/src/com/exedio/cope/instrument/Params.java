@@ -37,5 +37,5 @@ final class Params
 	boolean parenthesesOnEmptyMemberAnnotations = true;
 	boolean verbose = false;
 	File timestampFile = null;
-	boolean nullabilityAnnotations = true;
+	boolean nullabilityAnnotations = false;
 }
