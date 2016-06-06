@@ -45,6 +45,7 @@ public final class DateField extends FunctionField<Date>
 	private static final long serialVersionUID = 1l;
 
 	private final Precision precision;
+	private final RoundingMode roundingMode;
 
 	private DateField(
 			final boolean isfinal,
@@ -52,77 +53,79 @@ public final class DateField extends FunctionField<Date>
 			final boolean unique,
 			final ItemField<?>[] copyFrom,
 			final DefaultSource<Date> defaultSource,
-			final Precision precision)
+			final Precision precision,
+			final RoundingMode roundingMode)
 	{
 		super(isfinal, optional, Date.class, unique, copyFrom, defaultSource);
 		this.precision = requireNonNull(precision, "precision");
+		this.roundingMode = requireNonNull(roundingMode, "roundingMode");
 
 		mountDefaultSource();
 	}
 
 	public DateField()
 	{
-		this(false, false, false, null, null, Precision.MILLI);
+		this(false, false, false, null, null, Precision.MILLI, RoundingMode.UNNECESSARY);
 	}
 
 	@Override
 	public DateField copy()
 	{
-		return new DateField(isfinal, optional, unique, copyFrom, defaultSource, precision);
+		return new DateField(isfinal, optional, unique, copyFrom, defaultSource, precision, roundingMode);
 	}
 
 	@Override
 	public DateField toFinal()
 	{
-		return new DateField(true, optional, unique, copyFrom, defaultSource, precision);
+		return new DateField(true, optional, unique, copyFrom, defaultSource, precision, roundingMode);
 	}
 
 	@Override
 	public DateField optional()
 	{
-		return new DateField(isfinal, true, unique, copyFrom, defaultSource, precision);
+		return new DateField(isfinal, true, unique, copyFrom, defaultSource, precision, roundingMode);
 	}
 
 	@Override
 	public DateField unique()
 	{
-		return new DateField(isfinal, optional, true, copyFrom, defaultSource, precision);
+		return new DateField(isfinal, optional, true, copyFrom, defaultSource, precision, roundingMode);
 	}
 
 	@Override
 	public DateField nonUnique()
 	{
-		return new DateField(isfinal, optional, false, copyFrom, defaultSource, precision);
+		return new DateField(isfinal, optional, false, copyFrom, defaultSource, precision, roundingMode);
 	}
 
 	@Override
 	public DateField copyFrom(final ItemField<?> copyFrom)
 	{
-		return new DateField(isfinal, optional, unique, addCopyFrom(copyFrom), defaultSource, precision);
+		return new DateField(isfinal, optional, unique, addCopyFrom(copyFrom), defaultSource, precision, roundingMode);
 	}
 
 	@Override
 	public DateField noDefault()
 	{
-		return new DateField(isfinal, optional, unique, copyFrom, null, precision);
+		return new DateField(isfinal, optional, unique, copyFrom, null, precision, roundingMode);
 	}
 
 	@Override
 	public DateField defaultTo(final Date defaultConstant)
 	{
-		return new DateField(isfinal, optional, unique, copyFrom, defaultConstantWithCreatedTime(defaultConstant), precision);
+		return new DateField(isfinal, optional, unique, copyFrom, defaultConstantWithCreatedTime(defaultConstant), precision, roundingMode);
 	}
 
 	private static final class DefaultNow extends DefaultSource<Date>
 	{
-		final RoundingMode roundingMode;
-
 		@SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
 		private Precision precision;
+		@SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
+		private RoundingMode roundingMode;
 
-		DefaultNow(final RoundingMode roundingMode)
+		DefaultNow()
 		{
-			this.roundingMode = requireNonNull(roundingMode, "roundingMode");
+			// just make package private
 		}
 
 		@Override
@@ -134,7 +137,7 @@ public final class DateField extends FunctionField<Date>
 		@Override
 		DefaultSource<Date> forNewField()
 		{
-			return new DefaultNow(roundingMode);
+			return new DefaultNow();
 		}
 
 		@Override
@@ -142,8 +145,11 @@ public final class DateField extends FunctionField<Date>
 		{
 			if(precision!=null)
 				throw new RuntimeException();
+			if(roundingMode!=null)
+				throw new RuntimeException();
 
 			precision = ((DateField)field).getPrecision();
+			roundingMode = ((DateField)field).getRoundingMode();
 
 			if(precision.constrains() &&
 				roundingMode==RoundingMode.UNNECESSARY)
@@ -153,39 +159,14 @@ public final class DateField extends FunctionField<Date>
 		}
 	}
 
-	/**
-	 * @see #defaultToNow(RoundingMode)
-	 */
 	public DateField defaultToNow()
 	{
-		return defaultToNow(RoundingMode.PAST);
-	}
-
-	/**
-	 * @param roundingMode
-	 *    specifies the rounding mode of the current date
-	 *    if there is a precision constraint on this field.
-	 *    Does not make any difference, if there is no precision constraint.
-	 * @see #defaultToNow()
-	 */
-	public DateField defaultToNow(final RoundingMode roundingMode)
-	{
-		return new DateField(isfinal, optional, unique, copyFrom, new DefaultNow(roundingMode), precision);
+		return new DateField(isfinal, optional, unique, copyFrom, new DefaultNow(), precision, roundingMode);
 	}
 
 	public boolean isDefaultNow()
 	{
 		return defaultSource instanceof DefaultNow;
-	}
-
-	public RoundingMode getDefaultNowRoundingMode()
-	{
-		if(defaultSource==null)
-			throw new IllegalArgumentException("" + this + " has no default");
-		if(!(defaultSource instanceof DefaultNow))
-			throw new IllegalArgumentException("" + this + " is not default now");
-
-		return ((DefaultNow)defaultSource).roundingMode;
 	}
 
 
@@ -237,7 +218,7 @@ public final class DateField extends FunctionField<Date>
 
 	private DateField precision(final Precision precision)
 	{
-		return new DateField(isfinal, optional, unique, copyFrom, defaultSource, precision);
+		return new DateField(isfinal, optional, unique, copyFrom, defaultSource, precision, roundingMode);
 	}
 
 	public Precision getPrecision()
@@ -343,6 +324,22 @@ public final class DateField extends FunctionField<Date>
 
 		static final String ZONE_ID = "GMT";
 		static final TimeZone ZONE = getTimeZone(ZONE_ID);
+	}
+
+	/**
+	 * @param roundingMode
+	 *    specifies the rounding mode of the current date
+	 *    if there is a precision constraint on this field.
+	 *    Does not make any difference, if there is no precision constraint.
+	 */
+	public DateField roundingMode(final RoundingMode roundingMode)
+	{
+		return new DateField(isfinal, optional, unique, copyFrom, defaultSource, precision, roundingMode);
+	}
+
+	public RoundingMode getRoundingMode()
+	{
+		return roundingMode;
 	}
 
 	public enum RoundingMode

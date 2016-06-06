@@ -59,9 +59,10 @@ public class DatePrecisionDefaultToTest
 	@Test public void testDefaultToNowWithoutRounding1()
 	{
 		final DateField f = new DateField().precisionMinute();
+		assertEquals(RoundingMode.UNNECESSARY, f.getRoundingMode());
 		try
 		{
-			f.defaultToNow(RoundingMode.UNNECESSARY);
+			f.defaultToNow();
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -75,7 +76,8 @@ public class DatePrecisionDefaultToTest
 	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
 	@Test public void testDefaultToNowWithoutRounding2()
 	{
-		final DateField f = new DateField().defaultToNow(RoundingMode.UNNECESSARY);
+		final DateField f = new DateField().defaultToNow();
+		assertEquals(RoundingMode.UNNECESSARY, f.getRoundingMode());
 		try
 		{
 			f.precisionMinute();
@@ -89,31 +91,21 @@ public class DatePrecisionDefaultToTest
 		}
 	}
 
-	@Test public void testGetDefaultNowRoundingModeNoDefault()
+	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
+	@Test public void testDefaultToNowWithoutRounding3()
 	{
-		final DateField f = new DateField();
+		final DateField f = new DateField().precisionMinute().roundingMode(RoundingMode.PAST).defaultToNow();
+		assertEquals(RoundingMode.PAST, f.getRoundingMode());
 		try
 		{
-			f.getDefaultNowRoundingMode();
+			f.roundingMode(RoundingMode.UNNECESSARY);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("" + f + " has no default", e.getMessage());
-		}
-	}
-
-	@Test public void testGetDefaultNowRoundingModeOtherDefault()
-	{
-		final DateField f = new DateField().defaultTo(new Date());
-		try
-		{
-			f.getDefaultNowRoundingMode();
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("" + f + " is not default now", e.getMessage()); // TODO report default
+			assertEquals(
+					"precision constraint and RoundingMode.UNNECESSARY do make no sense with defaultToNow",
+					e.getMessage());
 		}
 	}
 }

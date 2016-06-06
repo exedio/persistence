@@ -52,8 +52,8 @@ public class DatePrecisionDefaultToNowTest extends TestWithEnvironment
 		assertEquals(true, future.hasDefault());
 		assertEquals(true, past  .isDefaultNow());
 		assertEquals(true, future.isDefaultNow());
-		assertEquals(RoundingMode.PAST  , past  .getDefaultNowRoundingMode());
-		assertEquals(RoundingMode.FUTURE, future.getDefaultNowRoundingMode());
+		assertEquals(RoundingMode.PAST  , past  .getRoundingMode());
+		assertEquals(RoundingMode.FUTURE, future.getRoundingMode());
 		assertEquals(null, past  .getDefaultConstant());
 		assertEquals(null, future.getDefaultConstant());
 
@@ -90,8 +90,8 @@ public class DatePrecisionDefaultToNowTest extends TestWithEnvironment
 
 	static final class AnItem extends Item
 	{
-		static final DateField past   = new DateField().defaultToNow(RoundingMode.PAST  ).precisionMinute();
-		static final DateField future = new DateField().defaultToNow(RoundingMode.FUTURE).precisionMinute();
+		static final DateField past   = new DateField().precisionMinute().roundingMode(RoundingMode.PAST  ).defaultToNow();
+		static final DateField future = new DateField().precisionMinute().roundingMode(RoundingMode.FUTURE).defaultToNow();
 
 		AnItem(final Date past, final Date future)
 		{
