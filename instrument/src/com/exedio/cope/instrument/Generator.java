@@ -84,7 +84,7 @@ final class Generator
 	private final boolean genericSetValueArray;
 	private final boolean directSetValueMap;
 	private final String hidingWarningSuppressor;
-	private final boolean parenthesesOnAllMethodAnnotations;
+	private final boolean parenthesesOnEmptyMemberAnnotations;
 	private int typeIndent = Integer.MIN_VALUE;
 
 
@@ -101,7 +101,7 @@ final class Generator
 		this.genericSetValueArray = params.genericSetValueArray;
 		this.directSetValueMap = params.directSetValueMap;
 		this.hidingWarningSuppressor = params.hidingWarningSuppressor;
-		this.parenthesesOnAllMethodAnnotations = params.parenthesesOnAllMethodAnnotations;
+		this.parenthesesOnEmptyMemberAnnotations = params.parenthesesOnEmptyMemberAnnotations;
 	}
 
 	private static final String toCamelCase(final String name)
@@ -625,7 +625,7 @@ final class Generator
 
 	private void writeEmptyParenthesesForAnnotation()
 	{
-		if(parenthesesOnAllMethodAnnotations)
+		if(parenthesesOnEmptyMemberAnnotations)
 		{
 			write("()");
 		}

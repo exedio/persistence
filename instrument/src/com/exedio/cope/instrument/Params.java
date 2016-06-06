@@ -34,7 +34,7 @@ final class Params
 	boolean genericSetValueArray = true;
 	boolean directSetValueMap = false;
 	String hidingWarningSuppressor = null;
-	boolean parenthesesOnAllMethodAnnotations = true;
+	boolean parenthesesOnEmptyMemberAnnotations = true;
 	boolean verbose = false;
 	File timestampFile = null;
 }

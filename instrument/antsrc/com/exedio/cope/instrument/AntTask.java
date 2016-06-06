@@ -116,9 +116,9 @@ public final class AntTask extends Task
 		params.hidingWarningSuppressor = value;
 	}
 
-	public void setParenthesesOnAllMethodAnnotations(final boolean value)
+	public void setParenthesesOnEmptyMemberAnnotations(final boolean value)
 	{
-		params.parenthesesOnAllMethodAnnotations = value;
+		params.parenthesesOnEmptyMemberAnnotations = value;
 	}
 
 	public void setVerbose(final boolean value)
