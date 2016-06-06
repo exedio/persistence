@@ -66,7 +66,7 @@ public class DatePrecisionDefaultToTest
 		catch(final IllegalArgumentException e)
 		{
 			assertEquals(
-					"precision constraint and roundingMode UNNECESSARY do make no sense with defaultToNow",
+					"precision constraint and RoundingMode.UNNECESSARY do make no sense with defaultToNow",
 					e.getMessage());
 		}
 	}
@@ -82,7 +82,7 @@ public class DatePrecisionDefaultToTest
 		catch(final IllegalArgumentException e)
 		{
 			assertEquals(
-					"precision constraint and roundingMode UNNECESSARY do make no sense with defaultToNow",
+					"precision constraint and RoundingMode.UNNECESSARY do make no sense with defaultToNow",
 					e.getMessage());
 		}
 	}

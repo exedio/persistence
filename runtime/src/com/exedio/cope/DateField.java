@@ -148,7 +148,7 @@ public final class DateField extends FunctionField<Date>
 			if(precision.constrains() &&
 				roundingMode==RoundingMode.UNNECESSARY)
 				throw new IllegalArgumentException(
-						"precision constraint and roundingMode " + RoundingMode.UNNECESSARY +
+						"precision constraint and " + RoundingMode.class.getSimpleName() + '.' + roundingMode +
 						" do make no sense with defaultToNow");
 		}
 	}
