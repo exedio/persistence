@@ -148,8 +148,8 @@ public class DatePrecisionTest extends TestWithEnvironment
 		}
 		catch(final DatePrecisionViolationException e)
 		{
-			assertEquals(null, e.getItem()); // TODO should be item
-			assertEquals(null, e.getFeature()); // TODO should be seconds
+			assertEquals(item, e.getItem());
+			assertEquals(seconds, e.getFeature());
 			assertEquals(Precision.SECOND, e.getPrecision());
 			assertEquals(value, e.getValue());
 			assertEquals(past  , e.getValueAllowedInPast  ());
@@ -196,8 +196,8 @@ public class DatePrecisionTest extends TestWithEnvironment
 		}
 		catch(final DatePrecisionViolationException e)
 		{
-			assertEquals(null, e.getItem()); // TODO should be item
-			assertEquals(null, e.getFeature()); // TODO should be minutes
+			assertEquals(item, e.getItem());
+			assertEquals(minutes, e.getFeature());
 			assertEquals(Precision.MINUTE, e.getPrecision());
 			assertEquals(value, e.getValue());
 			assertEquals(past  , e.getValueAllowedInPast  ());

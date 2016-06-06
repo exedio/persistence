@@ -128,7 +128,7 @@ public final class DateField extends FunctionField<Date>
 		@Override
 		Date generate(final long now)
 		{
-			return precision.round(new Date(now), roundingMode);
+			return precision.round(new Date(now), roundingMode, null, null);
 		}
 
 		@Override
@@ -305,7 +305,11 @@ public final class DateField extends FunctionField<Date>
 			}
 		}
 
-		Date round(final Date value, final RoundingMode roundingMode)
+		Date round(
+				final Date value,
+				final RoundingMode roundingMode,
+				final DateField exceptionFeature,
+				final Item exceptionItem)
 		{
 			requireNonNull(roundingMode, "roundingMode");
 
@@ -316,7 +320,7 @@ public final class DateField extends FunctionField<Date>
 
 			if(roundingMode==RoundingMode.UNNECESSARY)
 			{
-				check(null, value, null);
+				check(exceptionFeature, value, exceptionItem);
 				return value;
 			}
 
@@ -430,7 +434,7 @@ public final class DateField extends FunctionField<Date>
 
 	public SetValue<Date> mapRounded(final Date value, final RoundingMode roundingMode)
 	{
-		return SetValue.map(this, precision.round(value, roundingMode));
+		return SetValue.map(this, precision.round(value, roundingMode, this, null));
 	}
 
 	@Wrap(order=5,
@@ -442,7 +446,7 @@ public final class DateField extends FunctionField<Date>
 			final Date value,
 			@Parameter("roundingMode") final RoundingMode roundingMode)
 	{
-		item.set(this, precision.round(value, roundingMode));
+		item.set(this, precision.round(value, roundingMode, this, item));
 	}
 
 	private static final class PrecisionGetter implements BooleanGetter<DateField>
@@ -466,25 +470,25 @@ public final class DateField extends FunctionField<Date>
 	@Override
 	public CompareCondition<Date> less(final Date value)
 	{
-		return super.less(precision.round(value, RoundingMode.FUTURE));
+		return super.less(precision.round(value, RoundingMode.FUTURE, null, null));
 	}
 
 	@Override
 	public CompareCondition<Date> lessOrEqual(final Date value)
 	{
-		return super.lessOrEqual(precision.round(value, RoundingMode.PAST));
+		return super.lessOrEqual(precision.round(value, RoundingMode.PAST, null, null));
 	}
 
 	@Override
 	public CompareCondition<Date> greater(final Date value)
 	{
-		return super.greater(precision.round(value, RoundingMode.PAST));
+		return super.greater(precision.round(value, RoundingMode.PAST, null, null));
 	}
 
 	@Override
 	public CompareCondition<Date> greaterOrEqual(final Date value)
 	{
-		return super.greaterOrEqual(precision.round(value, RoundingMode.FUTURE));
+		return super.greaterOrEqual(precision.round(value, RoundingMode.FUTURE, null, null));
 	}
 
 	/**
@@ -496,6 +500,6 @@ public final class DateField extends FunctionField<Date>
 			hide=FinalSettableGetter.class)
 	public void touch(final Item item)
 	{
-		set(item, precision.round(Clock.newDate(), RoundingMode.PAST)); // TODO: make a more efficient implementation
+		set(item, precision.round(Clock.newDate(), RoundingMode.PAST, null, item)); // TODO: make a more efficient implementation
 	}
 }

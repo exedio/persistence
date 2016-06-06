@@ -99,7 +99,7 @@ public final class DatePrecisionViolationException extends ConstraintViolationEx
 	 */
 	public Date getValueAllowedInPast()
 	{
-		return precision.round(getValue(), RoundingMode.PAST);
+		return precision.round(getValue(), RoundingMode.PAST, null, null);
 	}
 
 	/**
@@ -109,7 +109,7 @@ public final class DatePrecisionViolationException extends ConstraintViolationEx
 	 */
 	public Date getValueAllowedInFuture()
 	{
-		return precision.round(getValue(), RoundingMode.FUTURE);
+		return precision.round(getValue(), RoundingMode.FUTURE, null, null);
 	}
 
 	@Override

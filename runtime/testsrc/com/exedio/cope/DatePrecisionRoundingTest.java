@@ -250,20 +250,20 @@ public class DatePrecisionRoundingTest
 			final Date past,
 			final Date future)
 	{
-		assertEquals("past"  , past  , precision.round(origin, RoundingMode.PAST  ));
-		assertEquals("future", future, precision.round(origin, RoundingMode.FUTURE));
+		assertEquals("past"  , past  , precision.round(origin, RoundingMode.PAST  , null, null));
+		assertEquals("future", future, precision.round(origin, RoundingMode.FUTURE, null, null));
 
 		if(Objects.equals(past, future))
 		{
 			assertEquals(past  , origin);
 			assertEquals(future, origin);
-			assertEquals("UNNECESSARY", origin, precision.round(origin, RoundingMode.UNNECESSARY));
+			assertEquals("UNNECESSARY", origin, precision.round(origin, RoundingMode.UNNECESSARY, null, null));
 		}
 		else
 		{
 			try
 			{
-				precision.round(origin, RoundingMode.UNNECESSARY);
+				precision.round(origin, RoundingMode.UNNECESSARY, null, null);
 				fail("UNNECESSARY should have failed");
 			}
 			catch(final DatePrecisionViolationException e)
@@ -297,7 +297,7 @@ public class DatePrecisionRoundingTest
 		catch(final DatePrecisionViolationException e)
 		{
 			assertEquals(null, e.getItem());
-			assertEquals(null, e.getFeature()); // TODO should be f
+			assertEquals(f, e.getFeature());
 			assertEquals(Precision.MINUTE, e.getPrecision());
 			assertEquals(value, e.getValue());
 			assertEquals(past  , e.getValueAllowedInPast  ());
