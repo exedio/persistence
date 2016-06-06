@@ -23,6 +23,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.fail;
 
+import com.exedio.cope.DateField.RoundingMode;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Date;
 import org.junit.Test;
@@ -30,7 +31,7 @@ import org.junit.Test;
 public class DatePrecisionDefaultToTest
 {
 	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
-	@Test public void test()
+	@Test public void testIllegalConstant()
 	{
 		final DateField f = new DateField().precisionMinute();
 		final Date wrong = date(11, 22, 44, 55, 66);
@@ -51,6 +52,38 @@ public class DatePrecisionDefaultToTest
 					"Default constant was '" + wrong.toString() + "'.",
 					e.getMessage());
 			assertNull(e.getCause());
+		}
+	}
+
+	@Test public void testDefaultToNowWithoutRounding1()
+	{
+		final DateField f = new DateField().precisionMinute();
+		try
+		{
+			f.defaultToNow(RoundingMode.UNNECESSARY);
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals(
+					"precision constraint and roundingMode UNNECESSARY do make no sense with defaultToNow",
+					e.getMessage());
+		}
+	}
+
+	@Test public void testDefaultToNowWithoutRounding2()
+	{
+		final DateField f = new DateField().defaultToNow(RoundingMode.UNNECESSARY);
+		try
+		{
+			f.precisionMinute();
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals(
+					"precision constraint and roundingMode UNNECESSARY do make no sense with defaultToNow",
+					e.getMessage());
 		}
 	}
 

@@ -145,7 +145,6 @@ public final class DateField extends FunctionField<Date>
 
 			precision = ((DateField)field).getPrecision();
 
-			// TODO test
 			if(precision.constrains() &&
 				roundingMode==RoundingMode.UNNECESSARY)
 				throw new IllegalArgumentException(
