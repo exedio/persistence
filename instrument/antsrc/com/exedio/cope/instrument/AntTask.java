@@ -116,14 +116,14 @@ public final class AntTask extends Task
 		params.hidingWarningSuppressor = value;
 	}
 
-	public void setVerbose(final boolean value)
-	{
-		params.verbose = value;
-	}
-
 	public void setParenthesesOnAllMethodAnnotations(final boolean value)
 	{
 		params.parenthesesOnAllMethodAnnotations = value;
+	}
+
+	public void setVerbose(final boolean value)
+	{
+		params.verbose = value;
 	}
 
 	@Override
