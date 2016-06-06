@@ -55,6 +55,7 @@ public class DatePrecisionDefaultToTest
 		}
 	}
 
+	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
 	@Test public void testDefaultToNowWithoutRounding1()
 	{
 		final DateField f = new DateField().precisionMinute();
@@ -71,6 +72,7 @@ public class DatePrecisionDefaultToTest
 		}
 	}
 
+	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
 	@Test public void testDefaultToNowWithoutRounding2()
 	{
 		final DateField f = new DateField().defaultToNow(RoundingMode.UNNECESSARY);
