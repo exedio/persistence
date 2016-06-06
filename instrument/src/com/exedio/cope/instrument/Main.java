@@ -33,7 +33,6 @@ import java.nio.charset.Charset;
 import java.nio.charset.CharsetEncoder;
 import java.util.ArrayList;
 import java.util.Iterator;
-import static java.lang.System.lineSeparator;
 
 final class Main
 {
