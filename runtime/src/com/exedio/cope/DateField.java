@@ -494,9 +494,19 @@ public final class DateField extends FunctionField<Date>
 	 */
 	@Wrap(order=10,
 			doc="Sets the current date for the date field {0}.", // TODO better text
-			hide=FinalSettableGetter.class)
+			hide={FinalSettableGetter.class, NowGetter.class})
 	public void touch(final Item item)
 	{
 		set(item, precision.round(Clock.newDate(), roundingMode, this, item)); // TODO: make a more efficient implementation
+	}
+
+	private static final class NowGetter implements BooleanGetter<DateField>
+	{
+		public boolean get(final DateField feature)
+		{
+			return
+					feature.getPrecision().constrains() &&
+					feature.getRoundingMode()==RoundingMode.UNNECESSARY;
+		}
 	}
 }
