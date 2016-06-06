@@ -77,7 +77,7 @@ public class DatePrecisionDefaultToNowTest extends TestWithEnvironment
 		assertEquals(date(11, 22, 44, 0, 0), item.getFuture());
 	}
 
-	@Test public void testTouch()
+	@Test public void testTouchPast()
 	{
 		final AnItem item = new AnItem(date(9, 9, 9, 0, 0), date(9, 9, 9, 0, 0));
 		clockRule.override(clock);
@@ -86,6 +86,17 @@ public class DatePrecisionDefaultToNowTest extends TestWithEnvironment
 		clock.assertEmpty();
 
 		assertEquals(date(11, 22, 44, 0, 0), item.getPast());
+	}
+
+	@Test public void testTouchFuture()
+	{
+		final AnItem item = new AnItem(date(9, 9, 9, 0, 0), date(9, 9, 9, 0, 0));
+		clockRule.override(clock);
+		clock.add(date(11, 22, 44, 55, 66));
+		item.touchFuture();
+		clock.assertEmpty();
+
+		assertEquals(date(11, 22, 44, 0, 0), item.getFuture()); // TODO should be 45 minutes
 	}
 
 	static final class AnItem extends Item
