@@ -90,6 +90,12 @@ public final class MediaPathFeature extends MediaPath
 	}
 
 	@Override
+	public boolean isMandatory()
+	{
+		return false;
+	}
+
+	@Override
 	public String getContentType(final Item item)
 	{
 		return contentType.get(item);

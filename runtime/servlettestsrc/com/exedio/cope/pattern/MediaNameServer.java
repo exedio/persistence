@@ -56,6 +56,12 @@ final class MediaNameServer extends MediaPath
 	}
 
 	@Override
+	public boolean isMandatory()
+	{
+		return source.isMandatory();
+	}
+
+	@Override
 	public String getContentType(final Item item)
 	{
 		return source.get(item)!=null ? "text/plain" : null;

@@ -72,6 +72,12 @@ public final class MediaRedirect extends MediaPath
 	}
 
 	@Override
+	public boolean isMandatory()
+	{
+		return target.isMandatory();
+	}
+
+	@Override
 	public String getContentType(final Item item)
 	{
 		return target.getContentType(item);

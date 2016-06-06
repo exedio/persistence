@@ -661,6 +661,8 @@ public abstract class MediaPath extends Pattern
 		getType().getModel().commit();
 	}
 
+	public abstract boolean isMandatory();
+
 	@Wrap(order=30, doc="Returns the content type of the media {0}.", hide=ContentTypeGetter.class)
 	public abstract String getContentType(Item item);
 

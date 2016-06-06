@@ -29,6 +29,7 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import com.exedio.cope.Model;
+import com.exedio.cope.StringField;
 import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.UniqueViolationException;
 import com.exedio.cope.pattern.MediaPath.NotFound;
@@ -240,6 +241,24 @@ public class TextUrlFilterTest extends TestWithEnvironment
 	{
 		item.setFertigRaw("<eins><paste>uno</paste><paste>duo</paste><zwei>");
 		assertEquals(new HashSet<>(Arrays.asList("uno","duo")), item.checkFertig());
+	}
+
+	@Test public void testMandatory()
+	{
+		assertEquals(false, TextUrlFilterItem.fertig.isMandatory());
+		assertEquals(
+			true,
+			new TextUrlFilter(new Media().contentType("eins"), "eins", UTF_8, "{", "}", new StringField(), new Media()).isMandatory()
+		);
+		assertEquals(
+			false,
+			new TextUrlFilter(new Media().contentType("eins", "zwei"), "eins", UTF_8, "{", "}", new StringField(), new Media()).isMandatory()
+		);
+		assertEquals(
+			false,
+			new TextUrlFilter(new Media().contentType("eins").optional(), "eins", UTF_8, "{", "}", new StringField(), new Media()).isMandatory()
+		);
+
 	}
 
 	private void assertGet(final String body) throws IOException, NotFound

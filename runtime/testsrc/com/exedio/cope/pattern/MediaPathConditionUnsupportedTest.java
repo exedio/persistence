@@ -95,6 +95,13 @@ public class MediaPathConditionUnsupportedTest
 
 	static final class APath extends MediaPath
 	{
+
+		@Override
+		public boolean isMandatory()
+		{
+			return false;
+		}
+
 		@Override
 		public String getContentType(final Item item)
 		{

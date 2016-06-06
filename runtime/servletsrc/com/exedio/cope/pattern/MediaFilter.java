@@ -88,23 +88,29 @@ public abstract class MediaFilter extends MediaPath
 		@SuppressWarnings("synthetic-access")
 		public boolean get(final MediaFilter feature)
 		{
-			return !feature.isURLWithFallbackToSourceWrapped();
+			return feature.canFilterAllSourceContentTypes();
 		}
 	}
 
-	private boolean isURLWithFallbackToSourceWrapped()
+	private boolean canFilterAllSourceContentTypes()
 	{
 		final List<String> contentTypesAllowed = source.getContentTypesAllowed();
 		if(contentTypesAllowed==null)
-			return true;
+			return false;
 
 		final Set<String> supportedSourceContentTypes = getSupportedSourceContentTypes();
 
 		for(final String s : contentTypesAllowed)
 			if(!supportedSourceContentTypes.contains(s))
-				return true;
+				return false;
 
-		return false;
+		return true;
+	}
+
+	@Override
+	public final boolean isMandatory()
+	{
+		return source.isMandatory() && canFilterAllSourceContentTypes();
 	}
 
 	@Override
