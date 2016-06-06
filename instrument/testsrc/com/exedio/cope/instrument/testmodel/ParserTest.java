@@ -39,4 +39,14 @@ class ParserTest
 	{
 		tx = tx + 1;
 	}
+
+	void methodParamAnnotatedParenthesisEmpty(@Parameter() int tx)
+	{
+		tx = tx + 1;
+	}
+
+	void methodParamAnnotatedParenthesisNonEmpty(@Parameter("string literal") int tx)
+	{
+		tx = tx + 1;
+	}
 }

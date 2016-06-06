@@ -234,12 +234,20 @@ final class Parser
 		throws EndException, ParseException
 	{
 		Token c = lexer.readToken();
+		int parameterListParenthesisLevel = 1;
 		// parsing parameter list
-		while(!c.contains(')'))
+		while(parameterListParenthesisLevel>0)
 		{
+			// TODO
+			// does not work if parameter has annotation with string literal
+			// containing parenthesis
+			if(c.contains('('))
+				parameterListParenthesisLevel++;
+			else if(c.contains(')'))
+				parameterListParenthesisLevel--;
+
 			c = lexer.readToken();
 		}
-		c = lexer.readToken();
 
 		// parsing throws clauses
 		if(c.contains("throws"))
