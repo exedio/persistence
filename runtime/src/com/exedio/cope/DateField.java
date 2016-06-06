@@ -435,7 +435,7 @@ public final class DateField extends FunctionField<Date>
 	}
 
 	@Wrap(order=5,
-			doc="Sets a new value for {0}, but rounds it before according to precision of field.",
+			doc="Sets a new value for {0}, but rounds it before according to the precision of the field.",
 			hide={FinalSettableGetter.class, PrecisionGetter.class},
 			thrownGetter=InitialThrownRounded.class)
 	public void setRounded(
