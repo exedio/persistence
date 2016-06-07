@@ -7,6 +7,10 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* @CopeSchemaValue changes semantics.
+	May subtly change the semantics of your database schema - therefore
+	DO A REGRESSION TEST !!!
+	May allow you to use much fewer @CopeSchemaValue annotations than before.
 * Add abstract method MediaPath#isMandatory()
 	Implementation will have to be added to custom MediaPath subclasses: Return "true" if
 	getContentType will never return null.

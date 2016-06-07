@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.EnumFieldType.roundUpTo10;
 import static com.exedio.cope.SchemaInfo.getColumnValue;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
@@ -27,6 +28,25 @@ import org.junit.Test;
 
 public class EnumSchemaTest
 {
+	@Test public void testRoundUpTo10()
+	{
+		assertEquals(-10, roundUpTo10(-12));
+		assertEquals(-10, roundUpTo10(-11));
+		assertEquals(-10, roundUpTo10(-10));
+		assertEquals(  0, roundUpTo10( -9));
+		assertEquals(  0, roundUpTo10( -8));
+		assertEquals(  0, roundUpTo10( -2));
+		assertEquals(  0, roundUpTo10( -1));
+		assertEquals(  0, roundUpTo10(  0));
+		assertEquals( 10, roundUpTo10(  1));
+		assertEquals( 10, roundUpTo10(  2));
+		assertEquals( 10, roundUpTo10(  8));
+		assertEquals( 10, roundUpTo10(  9));
+		assertEquals( 10, roundUpTo10( 10));
+		assertEquals( 20, roundUpTo10( 11));
+		assertEquals( 20, roundUpTo10( 12));
+	}
+
 	@Test public void testNormal()
 	{
 		assertColumnValues(Normal.class, 10, 20, 30);
@@ -126,7 +146,7 @@ public class EnumSchemaTest
 	{
 		assertFails(
 				CollisionBefore.class,
-				"@CopeSchemaValue for Zwei must be greater than 10 and less than 20, but was 10.");
+				"@CopeSchemaValue for Zwei must be greater than 10, but was 10.");
 	}
 	enum CollisionBefore
 	{
@@ -138,9 +158,7 @@ public class EnumSchemaTest
 
 	@Test public void testCollisionAfter()
 	{
-		assertFails(
-				CollisionAfter.class,
-				"@CopeSchemaValue for Zwei must be greater than 10 and less than 20, but was 20.");
+		assertColumnValues(CollisionAfter.class, 10, 20, 30);
 	}
 	enum CollisionAfter
 	{
@@ -152,9 +170,7 @@ public class EnumSchemaTest
 
 	@Test public void testCollisionStart()
 	{
-		assertFails(
-				CollisionStart.class,
-				"@CopeSchemaValue for Eins must be less than 10, but was 10.");
+		assertColumnValues(CollisionStart.class, 10, 20, 30);
 	}
 	enum CollisionStart
 	{
@@ -182,7 +198,7 @@ public class EnumSchemaTest
 	{
 		assertFails(
 				OrderBefore.class,
-				"@CopeSchemaValue for Zwei must be greater than 10 and less than 20, but was 9.");
+				"@CopeSchemaValue for Zwei must be greater than 10, but was 9.");
 	}
 	enum OrderBefore
 	{
@@ -194,9 +210,7 @@ public class EnumSchemaTest
 
 	@Test public void testOrderAfter()
 	{
-		assertFails(
-				OrderAfter.class,
-				"@CopeSchemaValue for Zwei must be greater than 10 and less than 20, but was 21.");
+		assertColumnValues(OrderAfter.class, 10, 21, 30);
 	}
 	enum OrderAfter
 	{
@@ -208,9 +222,7 @@ public class EnumSchemaTest
 
 	@Test public void testOrderStart()
 	{
-		assertFails(
-				OrderStart.class,
-				"@CopeSchemaValue for Eins must be less than 10, but was 11.");
+		assertColumnValues(OrderStart.class, 11, 20, 30);
 	}
 	enum OrderStart
 	{
@@ -260,7 +272,7 @@ public class EnumSchemaTest
 
 	@Test public void testNegativeFull()
 	{
-		assertColumnValues(NegativeFull.class, -40, -35, -5, 10, 20);
+		assertColumnValues(NegativeFull.class, -40, -35, -5, 0, 10);
 	}
 	enum NegativeFull
 	{
@@ -274,7 +286,7 @@ public class EnumSchemaTest
 
 	@Test public void testNegativeFirst()
 	{
-		assertColumnValues(NegativeFirst.class, -15, 10, 20, 30);
+		assertColumnValues(NegativeFirst.class, -15, -10, 0, 10);
 	}
 	enum NegativeFirst
 	{
