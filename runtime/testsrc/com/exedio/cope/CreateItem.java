@@ -61,7 +61,7 @@ final class CreateItem extends CreateSuperItem
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	CreateItem(
-				final java.lang.String text)
+				@javax.annotation.Nonnull final java.lang.String text)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException

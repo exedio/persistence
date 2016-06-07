@@ -54,8 +54,8 @@ public final class PriceFieldItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	PriceFieldItem(
-				final com.exedio.cope.pattern.Price finalPrice,
-				final com.exedio.cope.pattern.Price bigPrice)
+				@javax.annotation.Nonnull final com.exedio.cope.pattern.Price finalPrice,
+				@javax.annotation.Nonnull final com.exedio.cope.pattern.Price bigPrice)
 			throws
 				com.exedio.cope.LongRangeViolationException,
 				com.exedio.cope.MandatoryViolationException
@@ -83,6 +83,7 @@ public final class PriceFieldItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final com.exedio.cope.pattern.Price getFinalPrice()
 	{
 		return PriceFieldItem.finalPrice.get(this);
@@ -94,6 +95,7 @@ public final class PriceFieldItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final com.exedio.cope.pattern.Price getOptionalPrice()
 	{
 		return PriceFieldItem.optionalPrice.get(this);
@@ -105,7 +107,7 @@ public final class PriceFieldItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setOptionalPrice(final com.exedio.cope.pattern.Price optionalPrice)
+	final void setOptionalPrice(@javax.annotation.Nullable final com.exedio.cope.pattern.Price optionalPrice)
 	{
 		PriceFieldItem.optionalPrice.set(this,optionalPrice);
 	}/**
@@ -116,6 +118,7 @@ public final class PriceFieldItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final com.exedio.cope.pattern.Price getBigPrice()
 	{
 		return PriceFieldItem.bigPrice.get(this);
@@ -127,7 +130,7 @@ public final class PriceFieldItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setBigPrice(final com.exedio.cope.pattern.Price bigPrice)
+	final void setBigPrice(@javax.annotation.Nonnull final com.exedio.cope.pattern.Price bigPrice)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.LongRangeViolationException

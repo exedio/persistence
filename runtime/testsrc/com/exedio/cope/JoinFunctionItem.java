@@ -44,8 +44,8 @@ final class JoinFunctionItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	JoinFunctionItem(
-				final java.lang.String string,
-				final java.lang.Integer integer)
+				@javax.annotation.Nullable final java.lang.String string,
+				@javax.annotation.Nullable final java.lang.Integer integer)
 			throws
 				com.exedio.cope.StringLengthViolationException
 	{
@@ -72,6 +72,7 @@ final class JoinFunctionItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final java.lang.String getString()
 	{
 		return JoinFunctionItem.string.get(this);
@@ -83,7 +84,7 @@ final class JoinFunctionItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setString(final java.lang.String string)
+	final void setString(@javax.annotation.Nullable final java.lang.String string)
 			throws
 				com.exedio.cope.StringLengthViolationException
 	{
@@ -96,6 +97,7 @@ final class JoinFunctionItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final java.lang.Integer getInteger()
 	{
 		return JoinFunctionItem.integer.get(this);
@@ -107,7 +109,7 @@ final class JoinFunctionItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setInteger(final java.lang.Integer integer)
+	final void setInteger(@javax.annotation.Nullable final java.lang.Integer integer)
 	{
 		JoinFunctionItem.integer.set(this,integer);
 	}/**

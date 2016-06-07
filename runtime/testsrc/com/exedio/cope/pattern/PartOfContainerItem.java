@@ -70,7 +70,7 @@ public final class PartOfContainerItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	PartOfContainerItem(
-				final java.lang.String containerString)
+				@javax.annotation.Nonnull final java.lang.String containerString)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException
@@ -97,6 +97,7 @@ public final class PartOfContainerItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final java.lang.String getContainerString()
 	{
 		return PartOfContainerItem.containerString.get(this);
@@ -108,7 +109,7 @@ public final class PartOfContainerItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setContainerString(final java.lang.String containerString)
+	final void setContainerString(@javax.annotation.Nonnull final java.lang.String containerString)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException

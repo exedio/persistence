@@ -50,10 +50,10 @@ class CrossPackageSuper extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	CrossPackageSuper(
-				final SubTarget superField,
-				final SuperEnum superField2,
-				final EnumContainer.Enum3 externalEnum,
-				final Enum4 shortExternalEnum)
+				@javax.annotation.Nonnull final SubTarget superField,
+				@javax.annotation.Nonnull final SuperEnum superField2,
+				@javax.annotation.Nonnull final EnumContainer.Enum3 externalEnum,
+				@javax.annotation.Nonnull final Enum4 shortExternalEnum)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{
@@ -82,6 +82,7 @@ class CrossPackageSuper extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final SubTarget getSuperField()
 	{
 		return CrossPackageSuper.superField.get(this);
@@ -93,6 +94,7 @@ class CrossPackageSuper extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final SuperEnum getSuperField2()
 	{
 		return CrossPackageSuper.superField2.get(this);
@@ -104,6 +106,7 @@ class CrossPackageSuper extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final EnumContainer.Enum3 getExternalEnum()
 	{
 		return CrossPackageSuper.externalEnum.get(this);
@@ -115,6 +118,7 @@ class CrossPackageSuper extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final Enum4 getShortExternalEnum()
 	{
 		return CrossPackageSuper.shortExternalEnum.get(this);

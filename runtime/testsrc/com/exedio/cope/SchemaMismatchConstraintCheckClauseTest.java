@@ -99,7 +99,7 @@ public class SchemaMismatchConstraintCheckClauseTest extends SchemaMismatchTest
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	ItemA(
-				final int field)
+				@javax.annotation.Nonnull final int field)
 			throws
 				com.exedio.cope.IntegerRangeViolationException
 	{
@@ -169,7 +169,7 @@ public class SchemaMismatchConstraintCheckClauseTest extends SchemaMismatchTest
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	ItemB(
-				final int field)
+				@javax.annotation.Nonnull final int field)
 			throws
 				com.exedio.cope.IntegerRangeViolationException
 	{

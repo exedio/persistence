@@ -57,6 +57,7 @@ public class MultiItemFieldComponentxA extends Item implements MultiItemFieldVal
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	public final java.lang.String getValue()
 	{
 		return MultiItemFieldComponentxA.value.get(this);
@@ -68,7 +69,7 @@ public class MultiItemFieldComponentxA extends Item implements MultiItemFieldVal
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	public final void setValue(final java.lang.String value)
+	public final void setValue(@javax.annotation.Nonnull final java.lang.String value)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException

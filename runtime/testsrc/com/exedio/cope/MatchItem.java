@@ -62,6 +62,7 @@ final class MatchItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final java.lang.String getText()
 	{
 		return MatchItem.text.get(this);
@@ -73,7 +74,7 @@ final class MatchItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setText(final java.lang.String text)
+	final void setText(@javax.annotation.Nullable final java.lang.String text)
 			throws
 				com.exedio.cope.StringLengthViolationException
 	{

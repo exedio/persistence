@@ -32,7 +32,7 @@ public class PolymorphicBoundSelectSuperItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	public PolymorphicBoundSelectSuperItem(
-				final PolymorphicBoundSelectSuperItem parent)
+				@javax.annotation.Nullable final PolymorphicBoundSelectSuperItem parent)
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
 			PolymorphicBoundSelectSuperItem.parent.map(parent),
@@ -56,6 +56,7 @@ public class PolymorphicBoundSelectSuperItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	public final PolymorphicBoundSelectSuperItem getParent()
 	{
 		return PolymorphicBoundSelectSuperItem.parent.get(this);

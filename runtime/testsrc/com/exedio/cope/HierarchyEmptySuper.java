@@ -39,7 +39,7 @@ public class HierarchyEmptySuper extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	public HierarchyEmptySuper(
-				final int superInt)
+				@javax.annotation.Nonnull final int superInt)
 			throws
 				com.exedio.cope.UniqueViolationException
 	{
@@ -91,6 +91,7 @@ public class HierarchyEmptySuper extends Item
 	 *       It can be customized with the tag <tt>@cope.for public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	public static final HierarchyEmptySuper forSuperInt(final int superInt)
 	{
 		return HierarchyEmptySuper.superInt.searchUnique(HierarchyEmptySuper.class,superInt);

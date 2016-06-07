@@ -40,7 +40,7 @@ public final class LimitedListFieldItemFieldItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	LimitedListFieldItemFieldItem(
-				final LimitedListFieldItem limitedListFieldItem)
+				@javax.annotation.Nonnull final LimitedListFieldItem limitedListFieldItem)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{
@@ -66,6 +66,7 @@ public final class LimitedListFieldItemFieldItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final LimitedListFieldItem getLimitedListFieldItem()
 	{
 		return LimitedListFieldItemFieldItem.limitedListFieldItem.get(this);
@@ -77,7 +78,7 @@ public final class LimitedListFieldItemFieldItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setLimitedListFieldItem(final LimitedListFieldItem limitedListFieldItem)
+	final void setLimitedListFieldItem(@javax.annotation.Nonnull final LimitedListFieldItem limitedListFieldItem)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{

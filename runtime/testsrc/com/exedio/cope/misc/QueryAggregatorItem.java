@@ -35,7 +35,7 @@ final class QueryAggregatorItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	QueryAggregatorItem(
-				final int intx)
+				@javax.annotation.Nonnull final int intx)
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
 			QueryAggregatorItem.intx.map(intx),

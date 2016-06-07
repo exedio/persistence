@@ -95,6 +95,7 @@ class DataItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getArray public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final byte[] getDataArray()
 	{
 		return DataItem.data.getArray(this);
@@ -106,7 +107,7 @@ class DataItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void getData(final java.io.OutputStream data)
+	final void getData(@javax.annotation.Nonnull final java.io.OutputStream data)
 			throws
 				java.io.IOException
 	{
@@ -119,7 +120,7 @@ class DataItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void getData(final java.io.File data)
+	final void getData(@javax.annotation.Nonnull final java.io.File data)
 			throws
 				java.io.IOException
 	{
@@ -132,7 +133,7 @@ class DataItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setData(final com.exedio.cope.DataField.Value data)
+	final void setData(@javax.annotation.Nullable final com.exedio.cope.DataField.Value data)
 	{
 		DataItem.data.set(this,data);
 	}/**
@@ -143,7 +144,7 @@ class DataItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setData(final byte[] data)
+	final void setData(@javax.annotation.Nullable final byte[] data)
 	{
 		DataItem.data.set(this,data);
 	}/**
@@ -154,7 +155,7 @@ class DataItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setData(final java.io.InputStream data)
+	final void setData(@javax.annotation.Nullable final java.io.InputStream data)
 			throws
 				java.io.IOException
 	{
@@ -167,7 +168,7 @@ class DataItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setData(final java.io.File data)
+	final void setData(@javax.annotation.Nullable final java.io.File data)
 			throws
 				java.io.IOException
 	{
@@ -202,6 +203,7 @@ class DataItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getArray public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final byte[] getData10Array()
 	{
 		return DataItem.data10.getArray(this);
@@ -213,7 +215,7 @@ class DataItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void getData10(final java.io.OutputStream data10)
+	final void getData10(@javax.annotation.Nonnull final java.io.OutputStream data10)
 			throws
 				java.io.IOException
 	{
@@ -226,7 +228,7 @@ class DataItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void getData10(final java.io.File data10)
+	final void getData10(@javax.annotation.Nonnull final java.io.File data10)
 			throws
 				java.io.IOException
 	{
@@ -239,7 +241,7 @@ class DataItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setData10(final com.exedio.cope.DataField.Value data10)
+	final void setData10(@javax.annotation.Nullable final com.exedio.cope.DataField.Value data10)
 	{
 		DataItem.data10.set(this,data10);
 	}/**
@@ -250,7 +252,7 @@ class DataItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setData10(final byte[] data10)
+	final void setData10(@javax.annotation.Nullable final byte[] data10)
 	{
 		DataItem.data10.set(this,data10);
 	}/**
@@ -261,7 +263,7 @@ class DataItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setData10(final java.io.InputStream data10)
+	final void setData10(@javax.annotation.Nullable final java.io.InputStream data10)
 			throws
 				java.io.IOException
 	{
@@ -274,7 +276,7 @@ class DataItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setData10(final java.io.File data10)
+	final void setData10(@javax.annotation.Nullable final java.io.File data10)
 			throws
 				java.io.IOException
 	{
@@ -309,6 +311,7 @@ class DataItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getArray public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final byte[] getData10kArray()
 	{
 		return DataItem.data10k.getArray(this);
@@ -320,7 +323,7 @@ class DataItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void getData10k(final java.io.OutputStream data10k)
+	final void getData10k(@javax.annotation.Nonnull final java.io.OutputStream data10k)
 			throws
 				java.io.IOException
 	{
@@ -333,7 +336,7 @@ class DataItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void getData10k(final java.io.File data10k)
+	final void getData10k(@javax.annotation.Nonnull final java.io.File data10k)
 			throws
 				java.io.IOException
 	{
@@ -346,7 +349,7 @@ class DataItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setData10k(final com.exedio.cope.DataField.Value data10k)
+	final void setData10k(@javax.annotation.Nullable final com.exedio.cope.DataField.Value data10k)
 	{
 		DataItem.data10k.set(this,data10k);
 	}/**
@@ -357,7 +360,7 @@ class DataItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setData10k(final byte[] data10k)
+	final void setData10k(@javax.annotation.Nullable final byte[] data10k)
 	{
 		DataItem.data10k.set(this,data10k);
 	}/**
@@ -368,7 +371,7 @@ class DataItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setData10k(final java.io.InputStream data10k)
+	final void setData10k(@javax.annotation.Nullable final java.io.InputStream data10k)
 			throws
 				java.io.IOException
 	{
@@ -381,7 +384,7 @@ class DataItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setData10k(final java.io.File data10k)
+	final void setData10k(@javax.annotation.Nullable final java.io.File data10k)
 			throws
 				java.io.IOException
 	{
@@ -416,6 +419,7 @@ class DataItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getArray public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final byte[] getData100MArray()
 	{
 		return DataItem.data100M.getArray(this);
@@ -427,7 +431,7 @@ class DataItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void getData100M(final java.io.OutputStream data100M)
+	final void getData100M(@javax.annotation.Nonnull final java.io.OutputStream data100M)
 			throws
 				java.io.IOException
 	{
@@ -440,7 +444,7 @@ class DataItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void getData100M(final java.io.File data100M)
+	final void getData100M(@javax.annotation.Nonnull final java.io.File data100M)
 			throws
 				java.io.IOException
 	{
@@ -453,7 +457,7 @@ class DataItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setData100M(final com.exedio.cope.DataField.Value data100M)
+	final void setData100M(@javax.annotation.Nullable final com.exedio.cope.DataField.Value data100M)
 	{
 		DataItem.data100M.set(this,data100M);
 	}/**
@@ -464,7 +468,7 @@ class DataItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setData100M(final byte[] data100M)
+	final void setData100M(@javax.annotation.Nullable final byte[] data100M)
 	{
 		DataItem.data100M.set(this,data100M);
 	}/**
@@ -475,7 +479,7 @@ class DataItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setData100M(final java.io.InputStream data100M)
+	final void setData100M(@javax.annotation.Nullable final java.io.InputStream data100M)
 			throws
 				java.io.IOException
 	{
@@ -488,7 +492,7 @@ class DataItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setData100M(final java.io.File data100M)
+	final void setData100M(@javax.annotation.Nullable final java.io.File data100M)
 			throws
 				java.io.IOException
 	{
@@ -501,6 +505,7 @@ class DataItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final java.lang.String getName()
 	{
 		return DataItem.name.get(this);
@@ -512,7 +517,7 @@ class DataItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setName(final java.lang.String name)
+	final void setName(@javax.annotation.Nullable final java.lang.String name)
 			throws
 				com.exedio.cope.StringLengthViolationException
 	{

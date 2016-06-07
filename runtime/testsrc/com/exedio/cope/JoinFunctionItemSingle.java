@@ -38,7 +38,7 @@ public final class JoinFunctionItemSingle extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	public JoinFunctionItemSingle(
-				final java.lang.String name)
+				@javax.annotation.Nonnull final java.lang.String name)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException
@@ -65,6 +65,7 @@ public final class JoinFunctionItemSingle extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	public final java.lang.String getName()
 	{
 		return JoinFunctionItemSingle.name.get(this);
@@ -76,7 +77,7 @@ public final class JoinFunctionItemSingle extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	public final void setName(final java.lang.String name)
+	public final void setName(@javax.annotation.Nonnull final java.lang.String name)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException

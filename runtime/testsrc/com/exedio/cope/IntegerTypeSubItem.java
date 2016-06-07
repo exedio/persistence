@@ -58,6 +58,7 @@ public class IntegerTypeSubItem extends IntegerTypeBigIntItem
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final IntegerTypeSubItem getItemReference2()
 	{
 		return IntegerTypeSubItem.itemReference2.get(this);
@@ -69,7 +70,7 @@ public class IntegerTypeSubItem extends IntegerTypeBigIntItem
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setItemReference2(final IntegerTypeSubItem itemReference2)
+	final void setItemReference2(@javax.annotation.Nullable final IntegerTypeSubItem itemReference2)
 	{
 		IntegerTypeSubItem.itemReference2.set(this,itemReference2);
 	}/**
@@ -80,6 +81,7 @@ public class IntegerTypeSubItem extends IntegerTypeBigIntItem
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final java.lang.Long getValue2()
 	{
 		return IntegerTypeSubItem.value2.get(this);
@@ -91,7 +93,7 @@ public class IntegerTypeSubItem extends IntegerTypeBigIntItem
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setValue2(final java.lang.Long value2)
+	final void setValue2(@javax.annotation.Nullable final java.lang.Long value2)
 	{
 		IntegerTypeSubItem.value2.set(this,value2);
 	}/**

@@ -35,7 +35,7 @@ final class DayItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	DayItem(
-				final com.exedio.cope.util.Day day)
+				@javax.annotation.Nonnull final com.exedio.cope.util.Day day)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{
@@ -61,6 +61,7 @@ final class DayItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final com.exedio.cope.util.Day getDay()
 	{
 		return DayItem.day.get(this);
@@ -72,7 +73,7 @@ final class DayItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setDay(final com.exedio.cope.util.Day day)
+	final void setDay(@javax.annotation.Nonnull final com.exedio.cope.util.Day day)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{
@@ -85,7 +86,7 @@ final class DayItem extends Item
 	 *       It can be customized with the tag <tt>@cope.touch public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void touchDay(final java.util.TimeZone zone)
+	final void touchDay(@javax.annotation.Nonnull final java.util.TimeZone zone)
 	{
 		DayItem.day.touch(this,zone);
 	}/**
@@ -96,6 +97,7 @@ final class DayItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final com.exedio.cope.util.Day getOptionalDay()
 	{
 		return DayItem.optionalDay.get(this);
@@ -107,7 +109,7 @@ final class DayItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setOptionalDay(final com.exedio.cope.util.Day optionalDay)
+	final void setOptionalDay(@javax.annotation.Nullable final com.exedio.cope.util.Day optionalDay)
 	{
 		DayItem.optionalDay.set(this,optionalDay);
 	}/**
@@ -118,7 +120,7 @@ final class DayItem extends Item
 	 *       It can be customized with the tag <tt>@cope.touch public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void touchOptionalDay(final java.util.TimeZone zone)
+	final void touchOptionalDay(@javax.annotation.Nonnull final java.util.TimeZone zone)
 	{
 		DayItem.optionalDay.touch(this,zone);
 	}/**

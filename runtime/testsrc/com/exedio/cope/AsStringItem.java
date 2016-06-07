@@ -37,9 +37,9 @@ final class AsStringItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	AsStringItem(
-				final java.lang.Integer intx,
-				final java.lang.Long longx,
-				final java.lang.Double doublex)
+				@javax.annotation.Nullable final java.lang.Integer intx,
+				@javax.annotation.Nullable final java.lang.Long longx,
+				@javax.annotation.Nullable final java.lang.Double doublex)
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
 			AsStringItem.intx.map(intx),
@@ -65,6 +65,7 @@ final class AsStringItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final java.lang.Integer getIntx()
 	{
 		return AsStringItem.intx.get(this);
@@ -76,7 +77,7 @@ final class AsStringItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setIntx(final java.lang.Integer intx)
+	final void setIntx(@javax.annotation.Nullable final java.lang.Integer intx)
 	{
 		AsStringItem.intx.set(this,intx);
 	}/**
@@ -87,6 +88,7 @@ final class AsStringItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final java.lang.Long getLongx()
 	{
 		return AsStringItem.longx.get(this);
@@ -98,7 +100,7 @@ final class AsStringItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setLongx(final java.lang.Long longx)
+	final void setLongx(@javax.annotation.Nullable final java.lang.Long longx)
 	{
 		AsStringItem.longx.set(this,longx);
 	}/**
@@ -109,6 +111,7 @@ final class AsStringItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final java.lang.Double getDoublex()
 	{
 		return AsStringItem.doublex.get(this);
@@ -120,7 +123,7 @@ final class AsStringItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setDoublex(final java.lang.Double doublex)
+	final void setDoublex(@javax.annotation.Nullable final java.lang.Double doublex)
 	{
 		AsStringItem.doublex.set(this,doublex);
 	}/**

@@ -62,6 +62,7 @@ public final class SingletonItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final java.lang.Integer getInteger()
 	{
 		return SingletonItem.integer.get(this);
@@ -73,7 +74,7 @@ public final class SingletonItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setInteger(final java.lang.Integer integer)
+	final void setInteger(@javax.annotation.Nullable final java.lang.Integer integer)
 	{
 		SingletonItem.integer.set(this,integer);
 	}/**
@@ -130,6 +131,7 @@ public final class SingletonItem extends Item
 	 *       It can be customized with the tag <tt>@cope.instance public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	static final SingletonItem instance()
 	{
 		return SingletonItem.einzigartig.instance(SingletonItem.class);

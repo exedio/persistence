@@ -124,7 +124,7 @@ public class SchemaMismatchTableNameTest extends SchemaMismatchTest
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	ItemA(
-				final int field)
+				@javax.annotation.Nonnull final int field)
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
 			ItemA.field.map(field),
@@ -190,7 +190,7 @@ public class SchemaMismatchTableNameTest extends SchemaMismatchTest
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	ItemB(
-				final int field)
+				@javax.annotation.Nonnull final int field)
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
 			ItemB.field.map(field),

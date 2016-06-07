@@ -40,8 +40,8 @@ final class CompositeFieldRenamedSchemaComposite extends Composite
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	CompositeFieldRenamedSchemaComposite(
-				final java.lang.String virgnTemp,
-				final java.lang.String wrongTemp)
+				@javax.annotation.Nonnull final java.lang.String virgnTemp,
+				@javax.annotation.Nonnull final java.lang.String wrongTemp)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException
@@ -69,6 +69,7 @@ final class CompositeFieldRenamedSchemaComposite extends Composite
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final java.lang.String getVirgnTemp()
 	{
 		return get(CompositeFieldRenamedSchemaComposite.virgnTemp);
@@ -80,7 +81,7 @@ final class CompositeFieldRenamedSchemaComposite extends Composite
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setVirgnTemp(final java.lang.String virgnTemp)
+	final void setVirgnTemp(@javax.annotation.Nonnull final java.lang.String virgnTemp)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException
@@ -94,6 +95,7 @@ final class CompositeFieldRenamedSchemaComposite extends Composite
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final java.lang.String getWrongTemp()
 	{
 		return get(CompositeFieldRenamedSchemaComposite.wrongTemp);
@@ -105,7 +107,7 @@ final class CompositeFieldRenamedSchemaComposite extends Composite
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setWrongTemp(final java.lang.String wrongTemp)
+	final void setWrongTemp(@javax.annotation.Nonnull final java.lang.String wrongTemp)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException

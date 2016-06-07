@@ -61,7 +61,7 @@ public final class LongItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	public LongItem(
-				final long mandatory)
+				@javax.annotation.Nonnull final long mandatory)
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
 			LongItem.mandatory.map(mandatory),
@@ -85,6 +85,7 @@ public final class LongItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	public final java.lang.Long getAny()
 	{
 		return LongItem.any.get(this);
@@ -96,7 +97,7 @@ public final class LongItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	public final void setAny(final java.lang.Long any)
+	public final void setAny(@javax.annotation.Nullable final java.lang.Long any)
 	{
 		LongItem.any.set(this,any);
 	}/**
@@ -129,6 +130,7 @@ public final class LongItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	public final java.lang.Long getMin4()
 	{
 		return LongItem.min4.get(this);
@@ -140,7 +142,7 @@ public final class LongItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	public final void setMin4(final java.lang.Long min4)
+	public final void setMin4(@javax.annotation.Nullable final java.lang.Long min4)
 			throws
 				com.exedio.cope.LongRangeViolationException
 	{
@@ -153,6 +155,7 @@ public final class LongItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	public final java.lang.Long getMax4()
 	{
 		return LongItem.max4.get(this);
@@ -164,7 +167,7 @@ public final class LongItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	public final void setMax4(final java.lang.Long max4)
+	public final void setMax4(@javax.annotation.Nullable final java.lang.Long max4)
 			throws
 				com.exedio.cope.LongRangeViolationException
 	{
@@ -177,6 +180,7 @@ public final class LongItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	public final java.lang.Long getMin4Max8()
 	{
 		return LongItem.min4Max8.get(this);
@@ -188,7 +192,7 @@ public final class LongItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	public final void setMin4Max8(final java.lang.Long min4Max8)
+	public final void setMin4Max8(@javax.annotation.Nullable final java.lang.Long min4Max8)
 			throws
 				com.exedio.cope.LongRangeViolationException
 	{

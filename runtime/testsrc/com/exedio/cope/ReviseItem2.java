@@ -41,10 +41,10 @@ final class ReviseItem2 extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	ReviseItem2(
-				final java.lang.String field5,
-				final java.lang.String field6,
-				final java.lang.String field6b,
-				final java.lang.String field7)
+				@javax.annotation.Nonnull final java.lang.String field5,
+				@javax.annotation.Nonnull final java.lang.String field6,
+				@javax.annotation.Nonnull final java.lang.String field6b,
+				@javax.annotation.Nonnull final java.lang.String field7)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException
@@ -74,6 +74,7 @@ final class ReviseItem2 extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final java.lang.String getField5()
 	{
 		return ReviseItem2.field5.get(this);
@@ -85,7 +86,7 @@ final class ReviseItem2 extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setField5(final java.lang.String field5)
+	final void setField5(@javax.annotation.Nonnull final java.lang.String field5)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException
@@ -99,6 +100,7 @@ final class ReviseItem2 extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final java.lang.String getField6()
 	{
 		return ReviseItem2.field6.get(this);
@@ -110,7 +112,7 @@ final class ReviseItem2 extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setField6(final java.lang.String field6)
+	final void setField6(@javax.annotation.Nonnull final java.lang.String field6)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException
@@ -124,6 +126,7 @@ final class ReviseItem2 extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final java.lang.String getField6b()
 	{
 		return ReviseItem2.field6b.get(this);
@@ -135,7 +138,7 @@ final class ReviseItem2 extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setField6b(final java.lang.String field6b)
+	final void setField6b(@javax.annotation.Nonnull final java.lang.String field6b)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException
@@ -149,6 +152,7 @@ final class ReviseItem2 extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final java.lang.String getField7()
 	{
 		return ReviseItem2.field7.get(this);
@@ -160,7 +164,7 @@ final class ReviseItem2 extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setField7(final java.lang.String field7)
+	final void setField7(@javax.annotation.Nonnull final java.lang.String field7)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException

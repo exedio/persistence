@@ -41,7 +41,7 @@ public final class CompositeOptionalItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	public CompositeOptionalItem(
-				final java.lang.String code)
+				@javax.annotation.Nonnull final java.lang.String code)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException
@@ -68,6 +68,7 @@ public final class CompositeOptionalItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	public final java.lang.String getCode()
 	{
 		return CompositeOptionalItem.code.get(this);
@@ -79,6 +80,7 @@ public final class CompositeOptionalItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	public final CompositeValue getUno()
 	{
 		return CompositeOptionalItem.uno.get(this);
@@ -90,7 +92,7 @@ public final class CompositeOptionalItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	public final void setUno(final CompositeValue uno)
+	public final void setUno(@javax.annotation.Nullable final CompositeValue uno)
 	{
 		CompositeOptionalItem.uno.set(this,uno);
 	}/**
@@ -101,6 +103,7 @@ public final class CompositeOptionalItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	public final CompositeValue getDuo()
 	{
 		return CompositeOptionalItem.duo.get(this);
@@ -112,7 +115,7 @@ public final class CompositeOptionalItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	public final void setDuo(final CompositeValue duo)
+	public final void setDuo(@javax.annotation.Nullable final CompositeValue duo)
 	{
 		CompositeOptionalItem.duo.set(this,duo);
 	}/**

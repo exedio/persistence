@@ -38,6 +38,7 @@ public final class NullabilityItem extends Item
 	 *       It can be customized with the tag <tt>@cope.allCanReturnNull public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	static final java.lang.Object allOptionalCanReturnNull()
 	{
 		return NullabilityItem.optional.allCanReturnNull();
@@ -48,6 +49,7 @@ public final class NullabilityItem extends Item
 	 *       It can be customized with the tag <tt>@cope.allCannotReturnNull public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	static final java.lang.Object allOptionalCannotReturnNull()
 	{
 		return NullabilityItem.optional.allCannotReturnNull();
@@ -58,6 +60,7 @@ public final class NullabilityItem extends Item
 	 *       It can be customized with the tag <tt>@cope.onlyOptionalsCanReturnNull public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	static final java.lang.Object onlyOptionalOptionalsCanReturnNull()
 	{
 		return NullabilityItem.optional.onlyOptionalsCanReturnNull();
@@ -68,7 +71,7 @@ public final class NullabilityItem extends Item
 	 *       It can be customized with the tag <tt>@cope.allCanTakeNull public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	static final void allOptionalCanTakeNull(final java.lang.Object optional)
+	static final void allOptionalCanTakeNull(@javax.annotation.Nullable final java.lang.Object optional)
 	{
 		NullabilityItem.optional.allCanTakeNull(optional);
 	}/**
@@ -78,7 +81,7 @@ public final class NullabilityItem extends Item
 	 *       It can be customized with the tag <tt>@cope.allCannotTakeNull public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	static final void allOptionalCannotTakeNull(final java.lang.Object optional)
+	static final void allOptionalCannotTakeNull(@javax.annotation.Nonnull final java.lang.Object optional)
 	{
 		NullabilityItem.optional.allCannotTakeNull(optional);
 	}/**
@@ -88,7 +91,7 @@ public final class NullabilityItem extends Item
 	 *       It can be customized with the tag <tt>@cope.onlyOptionalsCanTakeNull public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void onlyOptionalOptionalsCanTakeNull(final java.lang.Object optional)
+	final void onlyOptionalOptionalsCanTakeNull(@javax.annotation.Nullable final java.lang.Object optional)
 	{
 		NullabilityItem.optional.onlyOptionalsCanTakeNull(this,optional);
 	}/**
@@ -98,6 +101,7 @@ public final class NullabilityItem extends Item
 	 *       It can be customized with the tag <tt>@cope.allCanReturnNull public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	static final java.lang.Object allMandatoryCanReturnNull()
 	{
 		return NullabilityItem.mandatory.allCanReturnNull();
@@ -108,6 +112,7 @@ public final class NullabilityItem extends Item
 	 *       It can be customized with the tag <tt>@cope.allCannotReturnNull public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	static final java.lang.Object allMandatoryCannotReturnNull()
 	{
 		return NullabilityItem.mandatory.allCannotReturnNull();
@@ -118,6 +123,7 @@ public final class NullabilityItem extends Item
 	 *       It can be customized with the tag <tt>@cope.onlyOptionalsCanReturnNull public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	static final java.lang.Object onlyMandatoryOptionalsCanReturnNull()
 	{
 		return NullabilityItem.mandatory.onlyOptionalsCanReturnNull();
@@ -128,7 +134,7 @@ public final class NullabilityItem extends Item
 	 *       It can be customized with the tag <tt>@cope.allCanTakeNull public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	static final void allMandatoryCanTakeNull(final java.lang.Object mandatory)
+	static final void allMandatoryCanTakeNull(@javax.annotation.Nullable final java.lang.Object mandatory)
 	{
 		NullabilityItem.mandatory.allCanTakeNull(mandatory);
 	}/**
@@ -138,7 +144,7 @@ public final class NullabilityItem extends Item
 	 *       It can be customized with the tag <tt>@cope.allCannotTakeNull public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	static final void allMandatoryCannotTakeNull(final java.lang.Object mandatory)
+	static final void allMandatoryCannotTakeNull(@javax.annotation.Nonnull final java.lang.Object mandatory)
 	{
 		NullabilityItem.mandatory.allCannotTakeNull(mandatory);
 	}/**
@@ -148,7 +154,7 @@ public final class NullabilityItem extends Item
 	 *       It can be customized with the tag <tt>@cope.onlyOptionalsCanTakeNull public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void onlyMandatoryOptionalsCanTakeNull(final java.lang.Object mandatory)
+	final void onlyMandatoryOptionalsCanTakeNull(@javax.annotation.Nonnull final java.lang.Object mandatory)
 	{
 		NullabilityItem.mandatory.onlyOptionalsCanTakeNull(this,mandatory);
 	}/**

@@ -96,6 +96,7 @@ public final class JavaViewItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final java.lang.String getNumberString()
 	{
 		return JavaViewItem.numberString.get(this);
@@ -107,7 +108,7 @@ public final class JavaViewItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setNumberString(final java.lang.String numberString)
+	final void setNumberString(@javax.annotation.Nullable final java.lang.String numberString)
 			throws
 				com.exedio.cope.StringLengthViolationException
 	{

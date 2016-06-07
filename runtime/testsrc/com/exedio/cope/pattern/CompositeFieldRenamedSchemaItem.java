@@ -40,8 +40,8 @@ final class CompositeFieldRenamedSchemaItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	CompositeFieldRenamedSchemaItem(
-				final CompositeFieldRenamedSchemaComposite virgnComp,
-				final CompositeFieldRenamedSchemaComposite wrongComp)
+				@javax.annotation.Nonnull final CompositeFieldRenamedSchemaComposite virgnComp,
+				@javax.annotation.Nonnull final CompositeFieldRenamedSchemaComposite wrongComp)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{
@@ -68,6 +68,7 @@ final class CompositeFieldRenamedSchemaItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final CompositeFieldRenamedSchemaComposite getVirgnComp()
 	{
 		return CompositeFieldRenamedSchemaItem.virgnComp.get(this);
@@ -79,7 +80,7 @@ final class CompositeFieldRenamedSchemaItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setVirgnComp(final CompositeFieldRenamedSchemaComposite virgnComp)
+	final void setVirgnComp(@javax.annotation.Nonnull final CompositeFieldRenamedSchemaComposite virgnComp)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{
@@ -92,6 +93,7 @@ final class CompositeFieldRenamedSchemaItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final CompositeFieldRenamedSchemaComposite getWrongComp()
 	{
 		return CompositeFieldRenamedSchemaItem.wrongComp.get(this);
@@ -103,7 +105,7 @@ final class CompositeFieldRenamedSchemaItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setWrongComp(final CompositeFieldRenamedSchemaComposite wrongComp)
+	final void setWrongComp(@javax.annotation.Nonnull final CompositeFieldRenamedSchemaComposite wrongComp)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{

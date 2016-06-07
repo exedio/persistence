@@ -164,13 +164,13 @@ public final class AttributeItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	public AttributeItem(
-				final java.lang.String someNotNullString,
-				final int someNotNullInteger,
-				final long someNotNullLong,
-				final double someNotNullDouble,
-				final boolean someNotNullBoolean,
-				final EmptyItem someNotNullItem,
-				final SomeEnum someNotNullEnum)
+				@javax.annotation.Nonnull final java.lang.String someNotNullString,
+				@javax.annotation.Nonnull final int someNotNullInteger,
+				@javax.annotation.Nonnull final long someNotNullLong,
+				@javax.annotation.Nonnull final double someNotNullDouble,
+				@javax.annotation.Nonnull final boolean someNotNullBoolean,
+				@javax.annotation.Nonnull final EmptyItem someNotNullItem,
+				@javax.annotation.Nonnull final SomeEnum someNotNullEnum)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException
@@ -203,6 +203,7 @@ public final class AttributeItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	public final java.lang.String getSomeString()
 	{
 		return AttributeItem.someString.get(this);
@@ -214,7 +215,7 @@ public final class AttributeItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	public final void setSomeString(final java.lang.String someString)
+	public final void setSomeString(@javax.annotation.Nullable final java.lang.String someString)
 			throws
 				com.exedio.cope.StringLengthViolationException
 	{
@@ -249,6 +250,7 @@ public final class AttributeItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	public final java.lang.String getSomeNotNullString()
 	{
 		return AttributeItem.someNotNullString.get(this);
@@ -260,7 +262,7 @@ public final class AttributeItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	public final void setSomeNotNullString(final java.lang.String someNotNullString)
+	public final void setSomeNotNullString(@javax.annotation.Nonnull final java.lang.String someNotNullString)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException
@@ -274,6 +276,7 @@ public final class AttributeItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	public final java.lang.Integer getSomeInteger()
 	{
 		return AttributeItem.someInteger.get(this);
@@ -285,7 +288,7 @@ public final class AttributeItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	public final void setSomeInteger(final java.lang.Integer someInteger)
+	public final void setSomeInteger(@javax.annotation.Nullable final java.lang.Integer someInteger)
 	{
 		AttributeItem.someInteger.set(this,someInteger);
 	}/**
@@ -318,6 +321,7 @@ public final class AttributeItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	public final java.lang.Long getSomeLong()
 	{
 		return AttributeItem.someLong.get(this);
@@ -329,7 +333,7 @@ public final class AttributeItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	public final void setSomeLong(final java.lang.Long someLong)
+	public final void setSomeLong(@javax.annotation.Nullable final java.lang.Long someLong)
 	{
 		AttributeItem.someLong.set(this,someLong);
 	}/**
@@ -362,6 +366,7 @@ public final class AttributeItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	public final java.lang.Double getSomeDouble()
 	{
 		return AttributeItem.someDouble.get(this);
@@ -373,7 +378,7 @@ public final class AttributeItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	public final void setSomeDouble(final java.lang.Double someDouble)
+	public final void setSomeDouble(@javax.annotation.Nullable final java.lang.Double someDouble)
 	{
 		AttributeItem.someDouble.set(this,someDouble);
 	}/**
@@ -406,6 +411,7 @@ public final class AttributeItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	public final java.util.Date getSomeDate()
 	{
 		return AttributeItem.someDate.get(this);
@@ -417,7 +423,7 @@ public final class AttributeItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	public final void setSomeDate(final java.util.Date someDate)
+	public final void setSomeDate(@javax.annotation.Nullable final java.util.Date someDate)
 	{
 		AttributeItem.someDate.set(this,someDate);
 	}/**
@@ -439,6 +445,7 @@ public final class AttributeItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	public final com.exedio.cope.util.Day getDay()
 	{
 		return AttributeItem.day.get(this);
@@ -450,7 +457,7 @@ public final class AttributeItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	public final void setDay(final com.exedio.cope.util.Day day)
+	public final void setDay(@javax.annotation.Nullable final com.exedio.cope.util.Day day)
 	{
 		AttributeItem.day.set(this,day);
 	}/**
@@ -461,7 +468,7 @@ public final class AttributeItem extends Item
 	 *       It can be customized with the tag <tt>@cope.touch public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	public final void touchDay(final java.util.TimeZone zone)
+	public final void touchDay(@javax.annotation.Nonnull final java.util.TimeZone zone)
 	{
 		AttributeItem.day.touch(this,zone);
 	}/**
@@ -472,6 +479,7 @@ public final class AttributeItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final|boolean-as-is</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	public final java.lang.Boolean getSomeBoolean()
 	{
 		return AttributeItem.someBoolean.get(this);
@@ -483,7 +491,7 @@ public final class AttributeItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	public final void setSomeBoolean(final java.lang.Boolean someBoolean)
+	public final void setSomeBoolean(@javax.annotation.Nullable final java.lang.Boolean someBoolean)
 	{
 		AttributeItem.someBoolean.set(this,someBoolean);
 	}/**
@@ -516,6 +524,7 @@ public final class AttributeItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	public final EmptyItem getSomeItem()
 	{
 		return AttributeItem.someItem.get(this);
@@ -527,7 +536,7 @@ public final class AttributeItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	public final void setSomeItem(final EmptyItem someItem)
+	public final void setSomeItem(@javax.annotation.Nullable final EmptyItem someItem)
 	{
 		AttributeItem.someItem.set(this,someItem);
 	}/**
@@ -538,6 +547,7 @@ public final class AttributeItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	public final EmptyItem getSomeNotNullItem()
 	{
 		return AttributeItem.someNotNullItem.get(this);
@@ -549,7 +559,7 @@ public final class AttributeItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	public final void setSomeNotNullItem(final EmptyItem someNotNullItem)
+	public final void setSomeNotNullItem(@javax.annotation.Nonnull final EmptyItem someNotNullItem)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{
@@ -562,6 +572,7 @@ public final class AttributeItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	public final SomeEnum getSomeEnum()
 	{
 		return AttributeItem.someEnum.get(this);
@@ -573,7 +584,7 @@ public final class AttributeItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	public final void setSomeEnum(final SomeEnum someEnum)
+	public final void setSomeEnum(@javax.annotation.Nullable final SomeEnum someEnum)
 	{
 		AttributeItem.someEnum.set(this,someEnum);
 	}/**
@@ -584,6 +595,7 @@ public final class AttributeItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	public final SomeEnum getSomeNotNullEnum()
 	{
 		return AttributeItem.someNotNullEnum.get(this);
@@ -595,7 +607,7 @@ public final class AttributeItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	public final void setSomeNotNullEnum(final SomeEnum someNotNullEnum)
+	public final void setSomeNotNullEnum(@javax.annotation.Nonnull final SomeEnum someNotNullEnum)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{
@@ -608,6 +620,7 @@ public final class AttributeItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getLocator public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	public final com.exedio.cope.pattern.MediaPath.Locator getSomeDataLocator()
 	{
 		return AttributeItem.someData.getLocator(this);
@@ -619,6 +632,7 @@ public final class AttributeItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getContentType public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	public final java.lang.String getSomeDataContentType()
 	{
 		return AttributeItem.someData.getContentType(this);
@@ -641,6 +655,7 @@ public final class AttributeItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getLastModified public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	public final java.util.Date getSomeDataLastModified()
 	{
 		return AttributeItem.someData.getLastModified(this);
@@ -663,6 +678,7 @@ public final class AttributeItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getBody public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	public final byte[] getSomeDataBody()
 	{
 		return AttributeItem.someData.getBody(this);
@@ -676,7 +692,7 @@ public final class AttributeItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getBody public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	public final void getSomeDataBody(final java.io.OutputStream body)
+	public final void getSomeDataBody(@javax.annotation.Nonnull final java.io.OutputStream body)
 			throws
 				java.io.IOException
 	{
@@ -691,7 +707,7 @@ public final class AttributeItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getBody public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	public final void getSomeDataBody(final java.io.File body)
+	public final void getSomeDataBody(@javax.annotation.Nonnull final java.io.File body)
 			throws
 				java.io.IOException
 	{
@@ -705,7 +721,7 @@ public final class AttributeItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	public final void setSomeData(final com.exedio.cope.pattern.Media.Value someData)
+	public final void setSomeData(@javax.annotation.Nullable final com.exedio.cope.pattern.Media.Value someData)
 			throws
 				java.io.IOException
 	{
@@ -718,7 +734,7 @@ public final class AttributeItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	public final void setSomeData(final byte[] body,final java.lang.String contentType)
+	public final void setSomeData(@javax.annotation.Nullable final byte[] body,@javax.annotation.Nullable final java.lang.String contentType)
 	{
 		AttributeItem.someData.set(this,body,contentType);
 	}/**
@@ -730,7 +746,7 @@ public final class AttributeItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	public final void setSomeData(final java.io.InputStream body,final java.lang.String contentType)
+	public final void setSomeData(@javax.annotation.Nullable final java.io.InputStream body,@javax.annotation.Nullable final java.lang.String contentType)
 			throws
 				java.io.IOException
 	{
@@ -744,7 +760,7 @@ public final class AttributeItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	public final void setSomeData(final java.io.File body,final java.lang.String contentType)
+	public final void setSomeData(@javax.annotation.Nullable final java.io.File body,@javax.annotation.Nullable final java.lang.String contentType)
 			throws
 				java.io.IOException
 	{

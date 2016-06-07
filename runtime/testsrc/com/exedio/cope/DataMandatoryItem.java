@@ -37,7 +37,7 @@ final class DataMandatoryItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	DataMandatoryItem(
-				final com.exedio.cope.DataField.Value data)
+				@javax.annotation.Nonnull final com.exedio.cope.DataField.Value data)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{
@@ -85,6 +85,7 @@ final class DataMandatoryItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getArray public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final byte[] getDataArray()
 	{
 		return DataMandatoryItem.data.getArray(this);
@@ -96,7 +97,7 @@ final class DataMandatoryItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void getData(final java.io.OutputStream data)
+	final void getData(@javax.annotation.Nonnull final java.io.OutputStream data)
 			throws
 				java.io.IOException
 	{
@@ -109,7 +110,7 @@ final class DataMandatoryItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void getData(final java.io.File data)
+	final void getData(@javax.annotation.Nonnull final java.io.File data)
 			throws
 				java.io.IOException
 	{
@@ -122,7 +123,7 @@ final class DataMandatoryItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setData(final com.exedio.cope.DataField.Value data)
+	final void setData(@javax.annotation.Nonnull final com.exedio.cope.DataField.Value data)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{
@@ -135,7 +136,7 @@ final class DataMandatoryItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setData(final byte[] data)
+	final void setData(@javax.annotation.Nonnull final byte[] data)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{
@@ -148,7 +149,7 @@ final class DataMandatoryItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setData(final java.io.InputStream data)
+	final void setData(@javax.annotation.Nonnull final java.io.InputStream data)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				java.io.IOException
@@ -162,7 +163,7 @@ final class DataMandatoryItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setData(final java.io.File data)
+	final void setData(@javax.annotation.Nonnull final java.io.File data)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				java.io.IOException

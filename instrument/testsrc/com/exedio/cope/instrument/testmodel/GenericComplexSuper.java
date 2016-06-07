@@ -51,9 +51,9 @@ public class GenericComplexSuper<N extends Number, L extends Collection<String>>
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	GenericComplexSuper(
-				final GenericComplexSub toSub,
-				final GenericComplexMid<?> toMid,
-				final GenericComplexSuper<?,?> toSuper)
+				@javax.annotation.Nonnull final GenericComplexSub toSub,
+				@javax.annotation.Nonnull final GenericComplexMid<?> toMid,
+				@javax.annotation.Nonnull final GenericComplexSuper<?,?> toSuper)
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
 			GenericComplexSuper.toSub.map(toSub),

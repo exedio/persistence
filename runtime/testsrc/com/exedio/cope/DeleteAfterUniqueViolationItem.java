@@ -45,7 +45,7 @@ public final class DeleteAfterUniqueViolationItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	public DeleteAfterUniqueViolationItem(
-				final java.lang.String name)
+				@javax.annotation.Nonnull final java.lang.String name)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException
@@ -72,6 +72,7 @@ public final class DeleteAfterUniqueViolationItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final java.lang.String getUniqueString()
 	{
 		return DeleteAfterUniqueViolationItem.uniqueString.get(this);
@@ -83,7 +84,7 @@ public final class DeleteAfterUniqueViolationItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setUniqueString(final java.lang.String uniqueString)
+	final void setUniqueString(@javax.annotation.Nullable final java.lang.String uniqueString)
 			throws
 				com.exedio.cope.UniqueViolationException,
 				com.exedio.cope.StringLengthViolationException
@@ -99,7 +100,8 @@ public final class DeleteAfterUniqueViolationItem extends Item
 	 *       It can be customized with the tag <tt>@cope.for public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	static final DeleteAfterUniqueViolationItem forUniqueString(final java.lang.String uniqueString)
+	@javax.annotation.Nullable()
+	static final DeleteAfterUniqueViolationItem forUniqueString(@javax.annotation.Nonnull final java.lang.String uniqueString)
 	{
 		return DeleteAfterUniqueViolationItem.uniqueString.searchUnique(DeleteAfterUniqueViolationItem.class,uniqueString);
 	}/**
@@ -110,6 +112,7 @@ public final class DeleteAfterUniqueViolationItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	public final java.lang.String getName()
 	{
 		return DeleteAfterUniqueViolationItem.name.get(this);
@@ -121,7 +124,7 @@ public final class DeleteAfterUniqueViolationItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	public final void setName(final java.lang.String name)
+	public final void setName(@javax.annotation.Nonnull final java.lang.String name)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException

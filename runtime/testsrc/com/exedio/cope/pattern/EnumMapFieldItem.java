@@ -80,7 +80,8 @@ public final class EnumMapFieldItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final String getName(final Language k)
+	@javax.annotation.Nullable()
+	final String getName(@javax.annotation.Nonnull final Language k)
 	{
 		return EnumMapFieldItem.name.get(this,k);
 	}/**
@@ -91,7 +92,7 @@ public final class EnumMapFieldItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setName(final Language k,final String name)
+	final void setName(@javax.annotation.Nonnull final Language k,@javax.annotation.Nullable final String name)
 	{
 		EnumMapFieldItem.name.set(this,k,name);
 	}/**
@@ -101,6 +102,7 @@ public final class EnumMapFieldItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getMap public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final java.util.Map<Language,String> getNameMap()
 	{
 		return EnumMapFieldItem.name.getMap(this);
@@ -111,7 +113,7 @@ public final class EnumMapFieldItem extends Item
 	 *       It can be customized with the tag <tt>@cope.setMap public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setNameMap(final java.util.Map<? extends Language,? extends String> name)
+	final void setNameMap(@javax.annotation.Nonnull final java.util.Map<? extends Language,? extends String> name)
 	{
 		EnumMapFieldItem.name.setMap(this,name);
 	}/**
@@ -122,7 +124,8 @@ public final class EnumMapFieldItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final Integer getNameLength(final Language k)
+	@javax.annotation.Nullable()
+	final Integer getNameLength(@javax.annotation.Nonnull final Language k)
 	{
 		return EnumMapFieldItem.nameLength.get(this,k);
 	}/**
@@ -133,7 +136,7 @@ public final class EnumMapFieldItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setNameLength(final Language k,final Integer nameLength)
+	final void setNameLength(@javax.annotation.Nonnull final Language k,@javax.annotation.Nullable final Integer nameLength)
 	{
 		EnumMapFieldItem.nameLength.set(this,k,nameLength);
 	}/**
@@ -143,6 +146,7 @@ public final class EnumMapFieldItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getMap public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final java.util.Map<Language,Integer> getNameLengthMap()
 	{
 		return EnumMapFieldItem.nameLength.getMap(this);
@@ -153,7 +157,7 @@ public final class EnumMapFieldItem extends Item
 	 *       It can be customized with the tag <tt>@cope.setMap public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setNameLengthMap(final java.util.Map<? extends Language,? extends Integer> nameLength)
+	final void setNameLengthMap(@javax.annotation.Nonnull final java.util.Map<? extends Language,? extends Integer> nameLength)
 	{
 		EnumMapFieldItem.nameLength.setMap(this,nameLength);
 	}/**
@@ -164,7 +168,8 @@ public final class EnumMapFieldItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final String getDefaults(final Language k)
+	@javax.annotation.Nullable()
+	final String getDefaults(@javax.annotation.Nonnull final Language k)
 	{
 		return EnumMapFieldItem.defaults.get(this,k);
 	}/**
@@ -175,7 +180,7 @@ public final class EnumMapFieldItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setDefaults(final Language k,final String defaults)
+	final void setDefaults(@javax.annotation.Nonnull final Language k,@javax.annotation.Nullable final String defaults)
 	{
 		EnumMapFieldItem.defaults.set(this,k,defaults);
 	}/**
@@ -185,6 +190,7 @@ public final class EnumMapFieldItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getMap public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final java.util.Map<Language,String> getDefaultsMap()
 	{
 		return EnumMapFieldItem.defaults.getMap(this);
@@ -195,7 +201,7 @@ public final class EnumMapFieldItem extends Item
 	 *       It can be customized with the tag <tt>@cope.setMap public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setDefaultsMap(final java.util.Map<? extends Language,? extends String> defaults)
+	final void setDefaultsMap(@javax.annotation.Nonnull final java.util.Map<? extends Language,? extends String> defaults)
 	{
 		EnumMapFieldItem.defaults.setMap(this,defaults);
 	}/**

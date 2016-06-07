@@ -58,6 +58,7 @@ final class ItemSerializationItem2 extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final java.lang.String getName2()
 	{
 		return ItemSerializationItem2.name2.get(this);
@@ -69,7 +70,7 @@ final class ItemSerializationItem2 extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setName2(final java.lang.String name2)
+	final void setName2(@javax.annotation.Nullable final java.lang.String name2)
 			throws
 				com.exedio.cope.StringLengthViolationException
 	{
@@ -82,6 +83,7 @@ final class ItemSerializationItem2 extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final java.util.List<String> getList()
 	{
 		return ItemSerializationItem2.list.get(this);
@@ -93,6 +95,7 @@ final class ItemSerializationItem2 extends Item
 	 *       It can be customized with the tag <tt>@cope.getQuery public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final com.exedio.cope.Query<String> getListQuery()
 	{
 		return ItemSerializationItem2.list.getQuery(this);
@@ -104,6 +107,7 @@ final class ItemSerializationItem2 extends Item
 	 *       It can be customized with the tag <tt>@cope.getDistinctParentsOf public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	static final java.util.List<ItemSerializationItem2> getDistinctParentsOfList(final String element)
 	{
 		return ItemSerializationItem2.list.getDistinctParents(ItemSerializationItem2.class,element);
@@ -115,7 +119,7 @@ final class ItemSerializationItem2 extends Item
 	 *       It can be customized with the tag <tt>@cope.addTo public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void addToList(final String list)
+	final void addToList(@javax.annotation.Nonnull final String list)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException,
@@ -130,7 +134,7 @@ final class ItemSerializationItem2 extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setList(final java.util.Collection<? extends String> list)
+	final void setList(@javax.annotation.Nonnull final java.util.Collection<? extends String> list)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException,
@@ -145,6 +149,7 @@ final class ItemSerializationItem2 extends Item
 	 *       It can be customized with the tag <tt>@cope.Parent public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	static final com.exedio.cope.ItemField<ItemSerializationItem2> listParent()
 	{
 		return ItemSerializationItem2.list.getParent(ItemSerializationItem2.class);

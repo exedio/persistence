@@ -42,7 +42,7 @@ public final class UniqueSingleNotNullItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	public UniqueSingleNotNullItem(
-				final java.lang.String uniqueNotNullString)
+				@javax.annotation.Nonnull final java.lang.String uniqueNotNullString)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException,
@@ -70,6 +70,7 @@ public final class UniqueSingleNotNullItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	public final java.lang.String getUniqueNotNullString()
 	{
 		return UniqueSingleNotNullItem.uniqueNotNullString.get(this);
@@ -81,7 +82,7 @@ public final class UniqueSingleNotNullItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	public final void setUniqueNotNullString(final java.lang.String uniqueNotNullString)
+	public final void setUniqueNotNullString(@javax.annotation.Nonnull final java.lang.String uniqueNotNullString)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.UniqueViolationException,
@@ -98,7 +99,8 @@ public final class UniqueSingleNotNullItem extends Item
 	 *       It can be customized with the tag <tt>@cope.for public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	public static final UniqueSingleNotNullItem forUniqueNotNullString(final java.lang.String uniqueNotNullString)
+	@javax.annotation.Nullable()
+	public static final UniqueSingleNotNullItem forUniqueNotNullString(@javax.annotation.Nonnull final java.lang.String uniqueNotNullString)
 	{
 		return UniqueSingleNotNullItem.uniqueNotNullString.searchUnique(UniqueSingleNotNullItem.class,uniqueNotNullString);
 	}/**

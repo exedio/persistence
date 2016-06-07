@@ -35,7 +35,7 @@ final class DeleteSchemaPointerB extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	DeleteSchemaPointerB(
-				final int code)
+				@javax.annotation.Nonnull final int code)
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
 			DeleteSchemaPointerB.code.map(code),
@@ -81,6 +81,7 @@ final class DeleteSchemaPointerB extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final DeleteSchemaPointerA getOther()
 	{
 		return DeleteSchemaPointerB.other.get(this);
@@ -92,7 +93,7 @@ final class DeleteSchemaPointerB extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setOther(final DeleteSchemaPointerA other)
+	final void setOther(@javax.annotation.Nullable final DeleteSchemaPointerA other)
 	{
 		DeleteSchemaPointerB.other.set(this,other);
 	}/**

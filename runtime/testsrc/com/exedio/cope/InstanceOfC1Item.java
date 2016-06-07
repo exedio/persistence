@@ -35,7 +35,7 @@ final class InstanceOfC1Item extends InstanceOfB1Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	InstanceOfC1Item(
-				final java.lang.String code)
+				@javax.annotation.Nonnull final java.lang.String code)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException,
@@ -63,6 +63,7 @@ final class InstanceOfC1Item extends InstanceOfB1Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final java.lang.String getTextc1()
 	{
 		return InstanceOfC1Item.textc1.get(this);
@@ -74,7 +75,7 @@ final class InstanceOfC1Item extends InstanceOfB1Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setTextc1(final java.lang.String textc1)
+	final void setTextc1(@javax.annotation.Nullable final java.lang.String textc1)
 			throws
 				com.exedio.cope.StringLengthViolationException
 	{

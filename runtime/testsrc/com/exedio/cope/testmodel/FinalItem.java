@@ -44,8 +44,8 @@ public final class FinalItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	public FinalItem(
-				final java.lang.String finalString,
-				final int nonFinalInteger)
+				@javax.annotation.Nonnull final java.lang.String finalString,
+				@javax.annotation.Nonnull final int nonFinalInteger)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException
@@ -73,6 +73,7 @@ public final class FinalItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	public final java.lang.String getFinalString()
 	{
 		return FinalItem.finalString.get(this);

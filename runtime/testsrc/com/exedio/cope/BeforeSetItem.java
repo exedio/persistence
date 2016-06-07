@@ -217,6 +217,7 @@ final class BeforeSetItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final Action getAction()
 	{
 		return BeforeSetItem.action.get(this);
@@ -228,7 +229,7 @@ final class BeforeSetItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setAction(final Action action)
+	final void setAction(@javax.annotation.Nullable final Action action)
 	{
 		BeforeSetItem.action.set(this,action);
 	}/**
@@ -239,6 +240,7 @@ final class BeforeSetItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final java.util.List<String> getCalls()
 	{
 		return BeforeSetItem.calls.get(this);
@@ -250,6 +252,7 @@ final class BeforeSetItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getQuery public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final com.exedio.cope.Query<String> getCallsQuery()
 	{
 		return BeforeSetItem.calls.getQuery(this);
@@ -261,6 +264,7 @@ final class BeforeSetItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getDistinctParentsOf public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	static final java.util.List<BeforeSetItem> getDistinctParentsOfCalls(final String element)
 	{
 		return BeforeSetItem.calls.getDistinctParents(BeforeSetItem.class,element);
@@ -272,7 +276,7 @@ final class BeforeSetItem extends Item
 	 *       It can be customized with the tag <tt>@cope.addTo public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void addToCalls(final String calls)
+	final void addToCalls(@javax.annotation.Nonnull final String calls)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException,
@@ -287,7 +291,7 @@ final class BeforeSetItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setCalls(final java.util.Collection<? extends String> calls)
+	final void setCalls(@javax.annotation.Nonnull final java.util.Collection<? extends String> calls)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException,
@@ -302,6 +306,7 @@ final class BeforeSetItem extends Item
 	 *       It can be customized with the tag <tt>@cope.Parent public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	static final com.exedio.cope.ItemField<BeforeSetItem> callsParent()
 	{
 		return BeforeSetItem.calls.getParent(BeforeSetItem.class);

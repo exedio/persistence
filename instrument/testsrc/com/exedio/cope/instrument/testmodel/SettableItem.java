@@ -76,19 +76,19 @@ final class SettableItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	SettableItem(
-				final AtomicInteger open,
-				final AtomicReference<AtomicLong> openParam,
-				final AtomicReference<?> openParamWildcard,
-				final AtomicReference<? extends AtomicLong> openParamBound,
-				final java.util.concurrent.atomic.AtomicBoolean fixed,
-				final java.util.concurrent.atomic.AtomicBoolean fixedSub,
-				final java.util.concurrent.atomic.AtomicReference<java.util.concurrent.atomic.AtomicBoolean> fixedParam,
-				final java.util.concurrent.atomic.AtomicReference<java.util.concurrent.atomic.AtomicBoolean> fixedParamSub,
-				final java.util.concurrent.atomic.AtomicReference<java.util.concurrent.atomic.AtomicBoolean> fixedParamImpl,
-				final java.util.concurrent.atomic.AtomicReference<?> fixedParamWildcard,
-				final java.util.concurrent.atomic.AtomicReference<?> fixedParamWildcardSub,
-				final java.util.concurrent.atomic.AtomicReference<? extends java.util.concurrent.atomic.AtomicLong> fixedParamBound,
-				final java.util.concurrent.atomic.AtomicReference<? extends java.util.concurrent.atomic.AtomicLong> fixedParamBoundSub)
+				@javax.annotation.Nonnull final AtomicInteger open,
+				@javax.annotation.Nonnull final AtomicReference<AtomicLong> openParam,
+				@javax.annotation.Nonnull final AtomicReference<?> openParamWildcard,
+				@javax.annotation.Nonnull final AtomicReference<? extends AtomicLong> openParamBound,
+				@javax.annotation.Nonnull final java.util.concurrent.atomic.AtomicBoolean fixed,
+				@javax.annotation.Nonnull final java.util.concurrent.atomic.AtomicBoolean fixedSub,
+				@javax.annotation.Nonnull final java.util.concurrent.atomic.AtomicReference<java.util.concurrent.atomic.AtomicBoolean> fixedParam,
+				@javax.annotation.Nonnull final java.util.concurrent.atomic.AtomicReference<java.util.concurrent.atomic.AtomicBoolean> fixedParamSub,
+				@javax.annotation.Nonnull final java.util.concurrent.atomic.AtomicReference<java.util.concurrent.atomic.AtomicBoolean> fixedParamImpl,
+				@javax.annotation.Nonnull final java.util.concurrent.atomic.AtomicReference<?> fixedParamWildcard,
+				@javax.annotation.Nonnull final java.util.concurrent.atomic.AtomicReference<?> fixedParamWildcardSub,
+				@javax.annotation.Nonnull final java.util.concurrent.atomic.AtomicReference<? extends java.util.concurrent.atomic.AtomicLong> fixedParamBound,
+				@javax.annotation.Nonnull final java.util.concurrent.atomic.AtomicReference<? extends java.util.concurrent.atomic.AtomicLong> fixedParamBoundSub)
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
 			SettableItem.open.map(open),

@@ -54,13 +54,13 @@ final class CompareConditionItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	CompareConditionItem(
-				final java.lang.String string,
-				final java.lang.Integer intx,
-				final java.lang.Long longx,
-				final java.lang.Double doublex,
-				final java.util.Date date,
-				final com.exedio.cope.util.Day day,
-				final YEnum enumx)
+				@javax.annotation.Nullable final java.lang.String string,
+				@javax.annotation.Nullable final java.lang.Integer intx,
+				@javax.annotation.Nullable final java.lang.Long longx,
+				@javax.annotation.Nullable final java.lang.Double doublex,
+				@javax.annotation.Nullable final java.util.Date date,
+				@javax.annotation.Nullable final com.exedio.cope.util.Day day,
+				@javax.annotation.Nullable final YEnum enumx)
 			throws
 				com.exedio.cope.StringLengthViolationException
 	{
@@ -92,6 +92,7 @@ final class CompareConditionItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final java.lang.String getString()
 	{
 		return CompareConditionItem.string.get(this);
@@ -103,7 +104,7 @@ final class CompareConditionItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setString(final java.lang.String string)
+	final void setString(@javax.annotation.Nullable final java.lang.String string)
 			throws
 				com.exedio.cope.StringLengthViolationException
 	{
@@ -116,6 +117,7 @@ final class CompareConditionItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final java.lang.String getOtherString()
 	{
 		return CompareConditionItem.otherString.get(this);
@@ -127,7 +129,7 @@ final class CompareConditionItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setOtherString(final java.lang.String otherString)
+	final void setOtherString(@javax.annotation.Nullable final java.lang.String otherString)
 			throws
 				com.exedio.cope.StringLengthViolationException
 	{
@@ -140,6 +142,7 @@ final class CompareConditionItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final java.lang.Integer getIntx()
 	{
 		return CompareConditionItem.intx.get(this);
@@ -151,7 +154,7 @@ final class CompareConditionItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setIntx(final java.lang.Integer intx)
+	final void setIntx(@javax.annotation.Nullable final java.lang.Integer intx)
 	{
 		CompareConditionItem.intx.set(this,intx);
 	}/**
@@ -162,6 +165,7 @@ final class CompareConditionItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final java.lang.Long getLongx()
 	{
 		return CompareConditionItem.longx.get(this);
@@ -173,7 +177,7 @@ final class CompareConditionItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setLongx(final java.lang.Long longx)
+	final void setLongx(@javax.annotation.Nullable final java.lang.Long longx)
 	{
 		CompareConditionItem.longx.set(this,longx);
 	}/**
@@ -184,6 +188,7 @@ final class CompareConditionItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final java.lang.Double getDoublex()
 	{
 		return CompareConditionItem.doublex.get(this);
@@ -195,7 +200,7 @@ final class CompareConditionItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setDoublex(final java.lang.Double doublex)
+	final void setDoublex(@javax.annotation.Nullable final java.lang.Double doublex)
 	{
 		CompareConditionItem.doublex.set(this,doublex);
 	}/**
@@ -206,6 +211,7 @@ final class CompareConditionItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final java.util.Date getDate()
 	{
 		return CompareConditionItem.date.get(this);
@@ -217,7 +223,7 @@ final class CompareConditionItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setDate(final java.util.Date date)
+	final void setDate(@javax.annotation.Nullable final java.util.Date date)
 	{
 		CompareConditionItem.date.set(this,date);
 	}/**
@@ -239,6 +245,7 @@ final class CompareConditionItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final com.exedio.cope.util.Day getDay()
 	{
 		return CompareConditionItem.day.get(this);
@@ -250,7 +257,7 @@ final class CompareConditionItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setDay(final com.exedio.cope.util.Day day)
+	final void setDay(@javax.annotation.Nullable final com.exedio.cope.util.Day day)
 	{
 		CompareConditionItem.day.set(this,day);
 	}/**
@@ -261,7 +268,7 @@ final class CompareConditionItem extends Item
 	 *       It can be customized with the tag <tt>@cope.touch public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void touchDay(final java.util.TimeZone zone)
+	final void touchDay(@javax.annotation.Nonnull final java.util.TimeZone zone)
 	{
 		CompareConditionItem.day.touch(this,zone);
 	}/**
@@ -272,6 +279,7 @@ final class CompareConditionItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final YEnum getEnumx()
 	{
 		return CompareConditionItem.enumx.get(this);
@@ -283,7 +291,7 @@ final class CompareConditionItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setEnumx(final YEnum enumx)
+	final void setEnumx(@javax.annotation.Nullable final YEnum enumx)
 	{
 		CompareConditionItem.enumx.set(this,enumx);
 	}/**
@@ -294,6 +302,7 @@ final class CompareConditionItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final CompareConditionItem getItem()
 	{
 		return CompareConditionItem.item.get(this);
@@ -305,7 +314,7 @@ final class CompareConditionItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setItem(final CompareConditionItem item)
+	final void setItem(@javax.annotation.Nullable final CompareConditionItem item)
 	{
 		CompareConditionItem.item.set(this,item);
 	}/**

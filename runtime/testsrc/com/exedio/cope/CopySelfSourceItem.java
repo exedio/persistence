@@ -41,8 +41,8 @@ final class CopySelfSourceItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	CopySelfSourceItem(
-				final CopySelfSourceItem selfTargetItem,
-				final CopyValueItem selfTemplateItem)
+				@javax.annotation.Nullable final CopySelfSourceItem selfTargetItem,
+				@javax.annotation.Nullable final CopyValueItem selfTemplateItem)
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
 			CopySelfSourceItem.selfTargetItem.map(selfTargetItem),
@@ -67,6 +67,7 @@ final class CopySelfSourceItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final CopySelfSourceItem getSelfTargetItem()
 	{
 		return CopySelfSourceItem.selfTargetItem.get(this);
@@ -78,6 +79,7 @@ final class CopySelfSourceItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final CopyValueItem getSelfTemplateItem()
 	{
 		return CopySelfSourceItem.selfTemplateItem.get(this);

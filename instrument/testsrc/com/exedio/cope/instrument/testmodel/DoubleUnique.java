@@ -54,8 +54,8 @@ public final class DoubleUnique extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	public DoubleUnique(
-				final java.lang.String string,
-				final SubTarget item)
+				@javax.annotation.Nonnull final java.lang.String string,
+				@javax.annotation.Nonnull final SubTarget item)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException,
@@ -84,6 +84,7 @@ public final class DoubleUnique extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	public final java.lang.String getString()
 	{
 		return DoubleUnique.string.get(this);
@@ -95,6 +96,7 @@ public final class DoubleUnique extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	public final SubTarget getItem()
 	{
 		return DoubleUnique.item.get(this);
@@ -109,7 +111,8 @@ public final class DoubleUnique extends Item
 	 *       It can be customized with the tag <tt>@cope.finder public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final DoubleUnique forUnique(final java.lang.String string,final SubTarget item)
+	@javax.annotation.Nullable()
+	private static final DoubleUnique forUnique(@javax.annotation.Nonnull final java.lang.String string,@javax.annotation.Nonnull final SubTarget item)
 	{
 		return DoubleUnique.unique.search(DoubleUnique.class,string,item);
 	}/**

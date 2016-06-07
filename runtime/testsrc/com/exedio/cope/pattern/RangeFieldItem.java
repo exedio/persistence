@@ -49,8 +49,8 @@ public final class RangeFieldItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	RangeFieldItem(
-				final com.exedio.cope.pattern.Range<Integer> valid,
-				final com.exedio.cope.pattern.Range<String> text)
+				@javax.annotation.Nullable final com.exedio.cope.pattern.Range<Integer> valid,
+				@javax.annotation.Nonnull final com.exedio.cope.pattern.Range<String> text)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException
@@ -77,6 +77,7 @@ public final class RangeFieldItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final com.exedio.cope.pattern.Range<Integer> getValid()
 	{
 		return RangeFieldItem.valid.get(this);
@@ -87,7 +88,7 @@ public final class RangeFieldItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setValid(final com.exedio.cope.pattern.Range<? extends Integer> valid)
+	final void setValid(@javax.annotation.Nonnull final com.exedio.cope.pattern.Range<? extends Integer> valid)
 	{
 		RangeFieldItem.valid.set(this,valid);
 	}/**
@@ -97,6 +98,7 @@ public final class RangeFieldItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getFrom public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final Integer getValidFrom()
 	{
 		return RangeFieldItem.valid.getFrom(this);
@@ -107,6 +109,7 @@ public final class RangeFieldItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getTo public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final Integer getValidTo()
 	{
 		return RangeFieldItem.valid.getTo(this);
@@ -117,7 +120,7 @@ public final class RangeFieldItem extends Item
 	 *       It can be customized with the tag <tt>@cope.setFrom public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setValidFrom(final Integer valid)
+	final void setValidFrom(@javax.annotation.Nullable final Integer valid)
 	{
 		RangeFieldItem.valid.setFrom(this,valid);
 	}/**
@@ -127,7 +130,7 @@ public final class RangeFieldItem extends Item
 	 *       It can be customized with the tag <tt>@cope.setTo public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setValidTo(final Integer valid)
+	final void setValidTo(@javax.annotation.Nullable final Integer valid)
 	{
 		RangeFieldItem.valid.setTo(this,valid);
 	}/**
@@ -137,7 +140,7 @@ public final class RangeFieldItem extends Item
 	 *       It can be customized with the tag <tt>@cope.doesContain public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final boolean doesValidContain(final Integer valid)
+	final boolean doesValidContain(@javax.annotation.Nonnull final Integer valid)
 	{
 		return RangeFieldItem.valid.doesContain(this,valid);
 	}/**
@@ -147,6 +150,7 @@ public final class RangeFieldItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final com.exedio.cope.pattern.Range<String> getText()
 	{
 		return RangeFieldItem.text.get(this);
@@ -157,6 +161,7 @@ public final class RangeFieldItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getFrom public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final String getTextFrom()
 	{
 		return RangeFieldItem.text.getFrom(this);
@@ -167,6 +172,7 @@ public final class RangeFieldItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getTo public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final String getTextTo()
 	{
 		return RangeFieldItem.text.getTo(this);
@@ -177,7 +183,7 @@ public final class RangeFieldItem extends Item
 	 *       It can be customized with the tag <tt>@cope.doesContain public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final boolean doesTextContain(final String text)
+	final boolean doesTextContain(@javax.annotation.Nonnull final String text)
 	{
 		return RangeFieldItem.text.doesContain(this,text);
 	}/**

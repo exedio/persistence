@@ -35,7 +35,7 @@ final class ReviseItem1 extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	ReviseItem1(
-				final java.lang.String field5)
+				@javax.annotation.Nonnull final java.lang.String field5)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException
@@ -62,6 +62,7 @@ final class ReviseItem1 extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final java.lang.String getField5()
 	{
 		return ReviseItem1.field5.get(this);
@@ -73,7 +74,7 @@ final class ReviseItem1 extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setField5(final java.lang.String field5)
+	final void setField5(@javax.annotation.Nonnull final java.lang.String field5)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException

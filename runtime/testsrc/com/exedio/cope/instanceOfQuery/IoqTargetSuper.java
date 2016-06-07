@@ -43,7 +43,7 @@ class IoqTargetSuper extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	IoqTargetSuper(
-				final java.lang.String code)
+				@javax.annotation.Nonnull final java.lang.String code)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException
@@ -70,6 +70,7 @@ class IoqTargetSuper extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final java.lang.String getCode()
 	{
 		return IoqTargetSuper.code.get(this);

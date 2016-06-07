@@ -44,8 +44,8 @@ final class UniqueDoubleItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	UniqueDoubleItem(
-				final java.lang.String string,
-				final int integer)
+				@javax.annotation.Nonnull final java.lang.String string,
+				@javax.annotation.Nonnull final int integer)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException,
@@ -74,6 +74,7 @@ final class UniqueDoubleItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final java.lang.String getString()
 	{
 		return UniqueDoubleItem.string.get(this);
@@ -85,7 +86,7 @@ final class UniqueDoubleItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setString(final java.lang.String string)
+	final void setString(@javax.annotation.Nonnull final java.lang.String string)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.UniqueViolationException,
@@ -127,7 +128,8 @@ final class UniqueDoubleItem extends Item
 	 *       It can be customized with the tag <tt>@cope.finder public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	static final UniqueDoubleItem forConstraint(final java.lang.String string,final int integer)
+	@javax.annotation.Nullable()
+	static final UniqueDoubleItem forConstraint(@javax.annotation.Nonnull final java.lang.String string,@javax.annotation.Nonnull final int integer)
 	{
 		return UniqueDoubleItem.constraint.search(UniqueDoubleItem.class,string,integer);
 	}/**

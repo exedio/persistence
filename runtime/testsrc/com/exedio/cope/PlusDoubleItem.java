@@ -83,6 +83,7 @@ public final class PlusDoubleItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	public final java.lang.Double getNumA()
 	{
 		return PlusDoubleItem.numA.get(this);
@@ -94,7 +95,7 @@ public final class PlusDoubleItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	public final void setNumA(final java.lang.Double numA)
+	public final void setNumA(@javax.annotation.Nullable final java.lang.Double numA)
 	{
 		PlusDoubleItem.numA.set(this,numA);
 	}/**
@@ -105,6 +106,7 @@ public final class PlusDoubleItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	public final java.lang.Double getNumB()
 	{
 		return PlusDoubleItem.numB.get(this);
@@ -116,7 +118,7 @@ public final class PlusDoubleItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	public final void setNumB(final java.lang.Double numB)
+	public final void setNumB(@javax.annotation.Nullable final java.lang.Double numB)
 	{
 		PlusDoubleItem.numB.set(this,numB);
 	}/**
@@ -127,6 +129,7 @@ public final class PlusDoubleItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	public final java.lang.Double getNumC()
 	{
 		return PlusDoubleItem.numC.get(this);
@@ -138,7 +141,7 @@ public final class PlusDoubleItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	public final void setNumC(final java.lang.Double numC)
+	public final void setNumC(@javax.annotation.Nullable final java.lang.Double numC)
 	{
 		PlusDoubleItem.numC.set(this,numC);
 	}/**

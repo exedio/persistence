@@ -36,7 +36,7 @@ public final class MD5Item extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	MD5Item(
-				final java.lang.String password)
+				@javax.annotation.Nonnull final java.lang.String password)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{
@@ -62,7 +62,7 @@ public final class MD5Item extends Item
 	 *       It can be customized with the tag <tt>@cope.check public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final boolean checkPassword(final java.lang.String password)
+	final boolean checkPassword(@javax.annotation.Nullable final java.lang.String password)
 	{
 		return MD5Item.password.check(this,password);
 	}/**
@@ -74,7 +74,7 @@ public final class MD5Item extends Item
 	 *       It can be customized with the tag <tt>@cope.blind public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	static final void blindPassword(final java.lang.String password)
+	static final void blindPassword(@javax.annotation.Nullable final java.lang.String password)
 	{
 		MD5Item.password.blind(password);
 	}/**
@@ -85,7 +85,7 @@ public final class MD5Item extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setPassword(final java.lang.String password)
+	final void setPassword(@javax.annotation.Nonnull final java.lang.String password)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{
@@ -98,6 +98,7 @@ public final class MD5Item extends Item
 	 *       It can be customized with the tag <tt>@cope.getMD5 public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final java.lang.String getPasswordMD5()
 	{
 		return MD5Item.password.getHash(this);
@@ -109,7 +110,7 @@ public final class MD5Item extends Item
 	 *       It can be customized with the tag <tt>@cope.setMD5 public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setPasswordMD5(final java.lang.String password)
+	final void setPasswordMD5(@javax.annotation.Nonnull final java.lang.String password)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{

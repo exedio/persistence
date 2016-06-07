@@ -155,6 +155,7 @@ public class JoinWithInheritanceTest extends TestWithEnvironment
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final java.util.List<Article> getArticles()
 	{
 		return Container.articles.get(this);
@@ -166,6 +167,7 @@ public class JoinWithInheritanceTest extends TestWithEnvironment
 	 *       It can be customized with the tag <tt>@cope.getQuery public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final com.exedio.cope.Query<Article> getArticlesQuery()
 	{
 		return Container.articles.getQuery(this);
@@ -177,6 +179,7 @@ public class JoinWithInheritanceTest extends TestWithEnvironment
 	 *       It can be customized with the tag <tt>@cope.getDistinctParentsOf public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	static final java.util.List<Container> getDistinctParentsOfArticles(final Article element)
 	{
 		return Container.articles.getDistinctParents(Container.class,element);
@@ -188,7 +191,7 @@ public class JoinWithInheritanceTest extends TestWithEnvironment
 	 *       It can be customized with the tag <tt>@cope.addTo public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void addToArticles(final Article articles)
+	final void addToArticles(@javax.annotation.Nonnull final Article articles)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				java.lang.ClassCastException
@@ -202,7 +205,7 @@ public class JoinWithInheritanceTest extends TestWithEnvironment
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setArticles(final java.util.Collection<? extends Article> articles)
+	final void setArticles(@javax.annotation.Nonnull final java.util.Collection<? extends Article> articles)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				java.lang.ClassCastException
@@ -216,6 +219,7 @@ public class JoinWithInheritanceTest extends TestWithEnvironment
 	 *       It can be customized with the tag <tt>@cope.Parent public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	static final com.exedio.cope.ItemField<Container> articlesParent()
 	{
 		return Container.articles.getParent(Container.class);
@@ -227,6 +231,7 @@ public class JoinWithInheritanceTest extends TestWithEnvironment
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final java.util.List<SpecificArticle> getSpecificArticles()
 	{
 		return Container.specificArticles.get(this);
@@ -238,6 +243,7 @@ public class JoinWithInheritanceTest extends TestWithEnvironment
 	 *       It can be customized with the tag <tt>@cope.getQuery public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final com.exedio.cope.Query<SpecificArticle> getSpecificArticlesQuery()
 	{
 		return Container.specificArticles.getQuery(this);
@@ -249,6 +255,7 @@ public class JoinWithInheritanceTest extends TestWithEnvironment
 	 *       It can be customized with the tag <tt>@cope.getDistinctParentsOf public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	static final java.util.List<Container> getDistinctParentsOfSpecificArticles(final SpecificArticle element)
 	{
 		return Container.specificArticles.getDistinctParents(Container.class,element);
@@ -260,7 +267,7 @@ public class JoinWithInheritanceTest extends TestWithEnvironment
 	 *       It can be customized with the tag <tt>@cope.addTo public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void addToSpecificArticles(final SpecificArticle specificArticles)
+	final void addToSpecificArticles(@javax.annotation.Nonnull final SpecificArticle specificArticles)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				java.lang.ClassCastException
@@ -274,7 +281,7 @@ public class JoinWithInheritanceTest extends TestWithEnvironment
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setSpecificArticles(final java.util.Collection<? extends SpecificArticle> specificArticles)
+	final void setSpecificArticles(@javax.annotation.Nonnull final java.util.Collection<? extends SpecificArticle> specificArticles)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				java.lang.ClassCastException
@@ -288,6 +295,7 @@ public class JoinWithInheritanceTest extends TestWithEnvironment
 	 *       It can be customized with the tag <tt>@cope.Parent public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	static final com.exedio.cope.ItemField<Container> specificArticlesParent()
 	{
 		return Container.specificArticles.getParent(Container.class);

@@ -34,7 +34,7 @@ public final class HierarchySecondSub extends HierarchySuper
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	public HierarchySecondSub(
-				final int superInt)
+				@javax.annotation.Nonnull final int superInt)
 			throws
 				com.exedio.cope.UniqueViolationException
 	{
@@ -60,6 +60,7 @@ public final class HierarchySecondSub extends HierarchySuper
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	public final java.lang.String getFirstSubString()
 	{
 		return HierarchySecondSub.firstSubString.get(this);
@@ -71,7 +72,7 @@ public final class HierarchySecondSub extends HierarchySuper
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	public final void setFirstSubString(final java.lang.String firstSubString)
+	public final void setFirstSubString(@javax.annotation.Nullable final java.lang.String firstSubString)
 			throws
 				com.exedio.cope.StringLengthViolationException
 	{

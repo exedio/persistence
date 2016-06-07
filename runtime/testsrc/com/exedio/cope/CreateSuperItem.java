@@ -83,7 +83,7 @@ class CreateSuperItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	CreateSuperItem(
-				final java.lang.String text)
+				@javax.annotation.Nonnull final java.lang.String text)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException
@@ -110,6 +110,7 @@ class CreateSuperItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final java.lang.String getText()
 	{
 		return CreateSuperItem.text.get(this);
@@ -121,7 +122,7 @@ class CreateSuperItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setText(final java.lang.String text)
+	final void setText(@javax.annotation.Nonnull final java.lang.String text)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException

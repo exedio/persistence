@@ -98,7 +98,7 @@ public class EnumSetFieldFinalTest
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	AnItem(
-				final java.util.EnumSet<AnEnum> field)
+				@javax.annotation.Nonnull final java.util.EnumSet<AnEnum> field)
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
 			AnItem.field.map(field),
@@ -121,7 +121,7 @@ public class EnumSetFieldFinalTest
 	 *       It can be customized with the tag <tt>@cope.contains public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final boolean containsField(final AnEnum element)
+	final boolean containsField(@javax.annotation.Nonnull final AnEnum element)
 	{
 		return AnItem.field.contains(this,element);
 	}/**
@@ -131,6 +131,7 @@ public class EnumSetFieldFinalTest
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final java.util.EnumSet<AnEnum> getField()
 	{
 		return AnItem.field.get(this);

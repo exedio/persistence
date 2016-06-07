@@ -41,7 +41,7 @@ public final class UniqueFinalItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	public UniqueFinalItem(
-				final java.lang.String uniqueFinalString)
+				@javax.annotation.Nullable final java.lang.String uniqueFinalString)
 			throws
 				com.exedio.cope.StringLengthViolationException,
 				com.exedio.cope.UniqueViolationException
@@ -68,6 +68,7 @@ public final class UniqueFinalItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	public final java.lang.String getUniqueFinalString()
 	{
 		return UniqueFinalItem.uniqueFinalString.get(this);
@@ -81,7 +82,8 @@ public final class UniqueFinalItem extends Item
 	 *       It can be customized with the tag <tt>@cope.for public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	public static final UniqueFinalItem forUniqueFinalString(final java.lang.String uniqueFinalString)
+	@javax.annotation.Nullable()
+	public static final UniqueFinalItem forUniqueFinalString(@javax.annotation.Nonnull final java.lang.String uniqueFinalString)
 	{
 		return UniqueFinalItem.uniqueFinalString.searchUnique(UniqueFinalItem.class,uniqueFinalString);
 	}/**

@@ -70,7 +70,8 @@ public final class MapFieldItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final String getName(final Language k)
+	@javax.annotation.Nullable()
+	final String getName(@javax.annotation.Nonnull final Language k)
 	{
 		return MapFieldItem.name.get(this,k);
 	}/**
@@ -81,7 +82,7 @@ public final class MapFieldItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setName(final Language k,final String name)
+	final void setName(@javax.annotation.Nonnull final Language k,@javax.annotation.Nullable final String name)
 	{
 		MapFieldItem.name.set(this,k,name);
 	}/**
@@ -91,6 +92,7 @@ public final class MapFieldItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getMap public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final java.util.Map<Language,String> getNameMap()
 	{
 		return MapFieldItem.name.getMap(this);
@@ -101,7 +103,7 @@ public final class MapFieldItem extends Item
 	 *       It can be customized with the tag <tt>@cope.setMap public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setNameMap(final java.util.Map<? extends Language,? extends String> name)
+	final void setNameMap(@javax.annotation.Nonnull final java.util.Map<? extends Language,? extends String> name)
 	{
 		MapFieldItem.name.setMap(this,name);
 	}/**
@@ -112,6 +114,7 @@ public final class MapFieldItem extends Item
 	 *       It can be customized with the tag <tt>@cope.Parent public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	static final com.exedio.cope.ItemField<MapFieldItem> nameParent()
 	{
 		return MapFieldItem.name.getParent(MapFieldItem.class);
@@ -123,7 +126,8 @@ public final class MapFieldItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final Integer getNameLength(final Language k)
+	@javax.annotation.Nullable()
+	final Integer getNameLength(@javax.annotation.Nonnull final Language k)
 	{
 		return MapFieldItem.nameLength.get(this,k);
 	}/**
@@ -134,7 +138,7 @@ public final class MapFieldItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setNameLength(final Language k,final Integer nameLength)
+	final void setNameLength(@javax.annotation.Nonnull final Language k,@javax.annotation.Nullable final Integer nameLength)
 	{
 		MapFieldItem.nameLength.set(this,k,nameLength);
 	}/**
@@ -144,6 +148,7 @@ public final class MapFieldItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getMap public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final java.util.Map<Language,Integer> getNameLengthMap()
 	{
 		return MapFieldItem.nameLength.getMap(this);
@@ -154,7 +159,7 @@ public final class MapFieldItem extends Item
 	 *       It can be customized with the tag <tt>@cope.setMap public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setNameLengthMap(final java.util.Map<? extends Language,? extends Integer> nameLength)
+	final void setNameLengthMap(@javax.annotation.Nonnull final java.util.Map<? extends Language,? extends Integer> nameLength)
 	{
 		MapFieldItem.nameLength.setMap(this,nameLength);
 	}/**
@@ -165,6 +170,7 @@ public final class MapFieldItem extends Item
 	 *       It can be customized with the tag <tt>@cope.Parent public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	static final com.exedio.cope.ItemField<MapFieldItem> nameLengthParent()
 	{
 		return MapFieldItem.nameLength.getParent(MapFieldItem.class);
@@ -176,7 +182,8 @@ public final class MapFieldItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final String getString(final String k)
+	@javax.annotation.Nullable()
+	final String getString(@javax.annotation.Nonnull final String k)
 	{
 		return MapFieldItem.string.get(this,k);
 	}/**
@@ -187,7 +194,7 @@ public final class MapFieldItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setString(final String k,final String string)
+	final void setString(@javax.annotation.Nonnull final String k,@javax.annotation.Nullable final String string)
 	{
 		MapFieldItem.string.set(this,k,string);
 	}/**
@@ -197,6 +204,7 @@ public final class MapFieldItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getMap public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final java.util.Map<String,String> getStringMap()
 	{
 		return MapFieldItem.string.getMap(this);
@@ -207,7 +215,7 @@ public final class MapFieldItem extends Item
 	 *       It can be customized with the tag <tt>@cope.setMap public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setStringMap(final java.util.Map<? extends String,? extends String> string)
+	final void setStringMap(@javax.annotation.Nonnull final java.util.Map<? extends String,? extends String> string)
 	{
 		MapFieldItem.string.setMap(this,string);
 	}/**
@@ -218,6 +226,7 @@ public final class MapFieldItem extends Item
 	 *       It can be customized with the tag <tt>@cope.Parent public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	static final com.exedio.cope.ItemField<MapFieldItem> stringParent()
 	{
 		return MapFieldItem.string.getParent(MapFieldItem.class);
@@ -229,7 +238,8 @@ public final class MapFieldItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final Integer getInteger(final String k)
+	@javax.annotation.Nullable()
+	final Integer getInteger(@javax.annotation.Nonnull final String k)
 	{
 		return MapFieldItem.integer.get(this,k);
 	}/**
@@ -240,7 +250,7 @@ public final class MapFieldItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setInteger(final String k,final Integer integer)
+	final void setInteger(@javax.annotation.Nonnull final String k,@javax.annotation.Nullable final Integer integer)
 	{
 		MapFieldItem.integer.set(this,k,integer);
 	}/**
@@ -250,6 +260,7 @@ public final class MapFieldItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getMap public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final java.util.Map<String,Integer> getIntegerMap()
 	{
 		return MapFieldItem.integer.getMap(this);
@@ -260,7 +271,7 @@ public final class MapFieldItem extends Item
 	 *       It can be customized with the tag <tt>@cope.setMap public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setIntegerMap(final java.util.Map<? extends String,? extends Integer> integer)
+	final void setIntegerMap(@javax.annotation.Nonnull final java.util.Map<? extends String,? extends Integer> integer)
 	{
 		MapFieldItem.integer.setMap(this,integer);
 	}/**
@@ -271,6 +282,7 @@ public final class MapFieldItem extends Item
 	 *       It can be customized with the tag <tt>@cope.Parent public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	static final com.exedio.cope.ItemField<MapFieldItem> integerParent()
 	{
 		return MapFieldItem.integer.getParent(MapFieldItem.class);

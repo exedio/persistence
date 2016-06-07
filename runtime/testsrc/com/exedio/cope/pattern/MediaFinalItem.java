@@ -50,7 +50,7 @@ public final class MediaFinalItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	MediaFinalItem(
-				final com.exedio.cope.pattern.Media.Value file)
+				@javax.annotation.Nullable final com.exedio.cope.pattern.Media.Value file)
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
 			MediaFinalItem.file.map(file),
@@ -74,6 +74,7 @@ public final class MediaFinalItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final java.lang.String getName()
 	{
 		return MediaFinalItem.name.get(this);
@@ -85,7 +86,7 @@ public final class MediaFinalItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setName(final java.lang.String name)
+	final void setName(@javax.annotation.Nullable final java.lang.String name)
 			throws
 				com.exedio.cope.StringLengthViolationException
 	{
@@ -98,6 +99,7 @@ public final class MediaFinalItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getLocator public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final com.exedio.cope.pattern.MediaPath.Locator getFileLocator()
 	{
 		return MediaFinalItem.file.getLocator(this);
@@ -109,6 +111,7 @@ public final class MediaFinalItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getContentType public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final java.lang.String getFileContentType()
 	{
 		return MediaFinalItem.file.getContentType(this);
@@ -131,6 +134,7 @@ public final class MediaFinalItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getLastModified public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final java.util.Date getFileLastModified()
 	{
 		return MediaFinalItem.file.getLastModified(this);
@@ -153,6 +157,7 @@ public final class MediaFinalItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getBody public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final byte[] getFileBody()
 	{
 		return MediaFinalItem.file.getBody(this);
@@ -166,7 +171,7 @@ public final class MediaFinalItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getBody public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void getFileBody(final java.io.OutputStream body)
+	final void getFileBody(@javax.annotation.Nonnull final java.io.OutputStream body)
 			throws
 				java.io.IOException
 	{
@@ -181,7 +186,7 @@ public final class MediaFinalItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getBody public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void getFileBody(final java.io.File body)
+	final void getFileBody(@javax.annotation.Nonnull final java.io.File body)
 			throws
 				java.io.IOException
 	{

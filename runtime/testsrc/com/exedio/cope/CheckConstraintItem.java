@@ -64,13 +64,13 @@ public final class CheckConstraintItem extends CheckConstraintSuperItem
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	public CheckConstraintItem(
-				final java.lang.Integer eins,
-				final java.lang.Integer zwei,
-				final java.lang.Integer drei,
-				final java.lang.Integer alpha,
-				final java.lang.Integer beta,
-				final java.lang.Integer gamma,
-				final java.lang.Integer delta)
+				@javax.annotation.Nullable final java.lang.Integer eins,
+				@javax.annotation.Nullable final java.lang.Integer zwei,
+				@javax.annotation.Nullable final java.lang.Integer drei,
+				@javax.annotation.Nullable final java.lang.Integer alpha,
+				@javax.annotation.Nullable final java.lang.Integer beta,
+				@javax.annotation.Nullable final java.lang.Integer gamma,
+				@javax.annotation.Nullable final java.lang.Integer delta)
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
 			com.exedio.cope.CheckConstraintSuperItem.eins.map(eins),
@@ -100,6 +100,7 @@ public final class CheckConstraintItem extends CheckConstraintSuperItem
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	public final java.lang.Integer getAlpha()
 	{
 		return CheckConstraintItem.alpha.get(this);
@@ -111,7 +112,7 @@ public final class CheckConstraintItem extends CheckConstraintSuperItem
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	public final void setAlpha(final java.lang.Integer alpha)
+	public final void setAlpha(@javax.annotation.Nullable final java.lang.Integer alpha)
 	{
 		CheckConstraintItem.alpha.set(this,alpha);
 	}/**
@@ -122,6 +123,7 @@ public final class CheckConstraintItem extends CheckConstraintSuperItem
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	public final java.lang.Integer getBeta()
 	{
 		return CheckConstraintItem.beta.get(this);
@@ -133,7 +135,7 @@ public final class CheckConstraintItem extends CheckConstraintSuperItem
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	public final void setBeta(final java.lang.Integer beta)
+	public final void setBeta(@javax.annotation.Nullable final java.lang.Integer beta)
 	{
 		CheckConstraintItem.beta.set(this,beta);
 	}/**
@@ -144,6 +146,7 @@ public final class CheckConstraintItem extends CheckConstraintSuperItem
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	public final java.lang.Integer getGamma()
 	{
 		return CheckConstraintItem.gamma.get(this);
@@ -155,7 +158,7 @@ public final class CheckConstraintItem extends CheckConstraintSuperItem
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	public final void setGamma(final java.lang.Integer gamma)
+	public final void setGamma(@javax.annotation.Nullable final java.lang.Integer gamma)
 	{
 		CheckConstraintItem.gamma.set(this,gamma);
 	}/**
@@ -166,6 +169,7 @@ public final class CheckConstraintItem extends CheckConstraintSuperItem
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	public final java.lang.Integer getDelta()
 	{
 		return CheckConstraintItem.delta.get(this);
@@ -177,7 +181,7 @@ public final class CheckConstraintItem extends CheckConstraintSuperItem
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	public final void setDelta(final java.lang.Integer delta)
+	public final void setDelta(@javax.annotation.Nullable final java.lang.Integer delta)
 	{
 		CheckConstraintItem.delta.set(this,delta);
 	}/**

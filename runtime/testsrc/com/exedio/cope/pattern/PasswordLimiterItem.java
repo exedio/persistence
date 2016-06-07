@@ -104,7 +104,7 @@ public final class PasswordLimiterItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	PasswordLimiterItem(
-				final java.lang.String password)
+				@javax.annotation.Nonnull final java.lang.String password)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{
@@ -130,7 +130,7 @@ public final class PasswordLimiterItem extends Item
 	 *       It can be customized with the tag <tt>@cope.check public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final boolean checkPassword(final java.lang.String password)
+	final boolean checkPassword(@javax.annotation.Nullable final java.lang.String password)
 	{
 		return PasswordLimiterItem.password.check(this,password);
 	}/**
@@ -142,7 +142,7 @@ public final class PasswordLimiterItem extends Item
 	 *       It can be customized with the tag <tt>@cope.blind public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	static final void blindPassword(final java.lang.String password)
+	static final void blindPassword(@javax.annotation.Nullable final java.lang.String password)
 	{
 		PasswordLimiterItem.password.blind(password);
 	}/**
@@ -153,7 +153,7 @@ public final class PasswordLimiterItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setPassword(final java.lang.String password)
+	final void setPassword(@javax.annotation.Nonnull final java.lang.String password)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{
@@ -166,6 +166,7 @@ public final class PasswordLimiterItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getSHA512s8i8 public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final java.lang.String getPasswordSHA512s8i8()
 	{
 		return PasswordLimiterItem.password.getHash(this);
@@ -177,7 +178,7 @@ public final class PasswordLimiterItem extends Item
 	 *       It can be customized with the tag <tt>@cope.setSHA512s8i8 public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setPasswordSHA512s8i8(final java.lang.String password)
+	final void setPasswordSHA512s8i8(@javax.annotation.Nonnull final java.lang.String password)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{
@@ -189,7 +190,7 @@ public final class PasswordLimiterItem extends Item
 	 *       It can be customized with the tag <tt>@cope.check public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private final boolean checkPasswordLimited(final java.lang.String password)
+	private final boolean checkPasswordLimited(@javax.annotation.Nullable final java.lang.String password)
 	{
 		return PasswordLimiterItem.passwordLimited.check(this,password);
 	}/**
@@ -199,7 +200,7 @@ public final class PasswordLimiterItem extends Item
 	 *       It can be customized with the tag <tt>@cope.checkVerbosely public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private final boolean checkPasswordLimitedVerbosely(final java.lang.String password)
+	private final boolean checkPasswordLimitedVerbosely(@javax.annotation.Nullable final java.lang.String password)
 			throws
 				com.exedio.cope.pattern.PasswordLimiter.ExceededException
 	{
@@ -223,7 +224,7 @@ public final class PasswordLimiterItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	@Deprecated()
-	static final int purgePasswordLimited(final com.exedio.cope.util.Interrupter interrupter)
+	static final int purgePasswordLimited(@javax.annotation.Nullable final com.exedio.cope.util.Interrupter interrupter)
 	{
 		return PasswordLimiterItem.passwordLimited.purge(interrupter);
 	}/**
@@ -233,7 +234,7 @@ public final class PasswordLimiterItem extends Item
 	 *       It can be customized with the tag <tt>@cope.purge public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	static final void purgePasswordLimited(final com.exedio.cope.util.JobContext ctx)
+	static final void purgePasswordLimited(@javax.annotation.Nonnull final com.exedio.cope.util.JobContext ctx)
 	{
 		PasswordLimiterItem.passwordLimited.purge(ctx);
 	}/**

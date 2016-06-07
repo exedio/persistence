@@ -42,7 +42,7 @@ public class MediaCatchPhraseSuperItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	MediaCatchPhraseSuperItem(
-				final com.exedio.cope.pattern.Media.Value feature)
+				@javax.annotation.Nonnull final com.exedio.cope.pattern.Media.Value feature)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{
@@ -68,6 +68,7 @@ public class MediaCatchPhraseSuperItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getLocator public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final com.exedio.cope.pattern.MediaPath.Locator getFeatureLocator()
 	{
 		return MediaCatchPhraseSuperItem.feature.getLocator(this);
@@ -79,6 +80,7 @@ public class MediaCatchPhraseSuperItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getLastModified public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final java.util.Date getFeatureLastModified()
 	{
 		return MediaCatchPhraseSuperItem.feature.getLastModified(this);
@@ -101,6 +103,7 @@ public class MediaCatchPhraseSuperItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getBody public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final byte[] getFeatureBody()
 	{
 		return MediaCatchPhraseSuperItem.feature.getBody(this);
@@ -114,7 +117,7 @@ public class MediaCatchPhraseSuperItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getBody public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void getFeatureBody(final java.io.OutputStream body)
+	final void getFeatureBody(@javax.annotation.Nonnull final java.io.OutputStream body)
 			throws
 				java.io.IOException
 	{
@@ -129,7 +132,7 @@ public class MediaCatchPhraseSuperItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getBody public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void getFeatureBody(final java.io.File body)
+	final void getFeatureBody(@javax.annotation.Nonnull final java.io.File body)
 			throws
 				java.io.IOException
 	{
@@ -143,7 +146,7 @@ public class MediaCatchPhraseSuperItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setFeature(final com.exedio.cope.pattern.Media.Value feature)
+	final void setFeature(@javax.annotation.Nonnull final com.exedio.cope.pattern.Media.Value feature)
 			throws
 				java.io.IOException
 	{
@@ -156,7 +159,7 @@ public class MediaCatchPhraseSuperItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setFeature(final byte[] body,final java.lang.String contentType)
+	final void setFeature(@javax.annotation.Nonnull final byte[] body,@javax.annotation.Nonnull final java.lang.String contentType)
 	{
 		MediaCatchPhraseSuperItem.feature.set(this,body,contentType);
 	}/**
@@ -168,7 +171,7 @@ public class MediaCatchPhraseSuperItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setFeature(final java.io.InputStream body,final java.lang.String contentType)
+	final void setFeature(@javax.annotation.Nonnull final java.io.InputStream body,@javax.annotation.Nonnull final java.lang.String contentType)
 			throws
 				java.io.IOException
 	{
@@ -182,7 +185,7 @@ public class MediaCatchPhraseSuperItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setFeature(final java.io.File body,final java.lang.String contentType)
+	final void setFeature(@javax.annotation.Nonnull final java.io.File body,@javax.annotation.Nonnull final java.lang.String contentType)
 			throws
 				java.io.IOException
 	{

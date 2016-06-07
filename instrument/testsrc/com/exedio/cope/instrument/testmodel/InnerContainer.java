@@ -57,10 +57,10 @@ final class InnerContainer
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	Super(
-				final Target superField,
-				final InnerSuperEnum superField2,
-				final EnumContainer.Enum3 externalEnum,
-				final Enum4 shortExternalEnum)
+				@javax.annotation.Nonnull final Target superField,
+				@javax.annotation.Nonnull final InnerSuperEnum superField2,
+				@javax.annotation.Nonnull final EnumContainer.Enum3 externalEnum,
+				@javax.annotation.Nonnull final Enum4 shortExternalEnum)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{
@@ -89,6 +89,7 @@ final class InnerContainer
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final Target getSuperField()
 	{
 		return Super.superField.get(this);
@@ -100,6 +101,7 @@ final class InnerContainer
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final InnerSuperEnum getSuperField2()
 	{
 		return Super.superField2.get(this);
@@ -111,6 +113,7 @@ final class InnerContainer
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final EnumContainer.Enum3 getExternalEnum()
 	{
 		return Super.externalEnum.get(this);
@@ -122,6 +125,7 @@ final class InnerContainer
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final Enum4 getShortExternalEnum()
 	{
 		return Super.shortExternalEnum.get(this);
@@ -168,9 +172,9 @@ final class InnerContainer
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	Sub(
-				final java.lang.String superMandatory,
-				final java.lang.Integer superInitial,
-				final java.lang.String subField)
+				@javax.annotation.Nonnull final java.lang.String superMandatory,
+				@javax.annotation.Nullable final java.lang.Integer superInitial,
+				@javax.annotation.Nonnull final java.lang.String subField)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException
@@ -199,6 +203,7 @@ final class InnerContainer
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final java.lang.String getSubField()
 	{
 		return Sub.subField.get(this);

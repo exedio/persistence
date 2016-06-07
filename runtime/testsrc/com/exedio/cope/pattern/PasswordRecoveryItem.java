@@ -38,7 +38,7 @@ public final class PasswordRecoveryItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	PasswordRecoveryItem(
-				final java.lang.String password)
+				@javax.annotation.Nonnull final java.lang.String password)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{
@@ -64,7 +64,7 @@ public final class PasswordRecoveryItem extends Item
 	 *       It can be customized with the tag <tt>@cope.check public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final boolean checkPassword(final java.lang.String password)
+	final boolean checkPassword(@javax.annotation.Nullable final java.lang.String password)
 	{
 		return PasswordRecoveryItem.password.check(this,password);
 	}/**
@@ -76,7 +76,7 @@ public final class PasswordRecoveryItem extends Item
 	 *       It can be customized with the tag <tt>@cope.blind public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	static final void blindPassword(final java.lang.String password)
+	static final void blindPassword(@javax.annotation.Nullable final java.lang.String password)
 	{
 		PasswordRecoveryItem.password.blind(password);
 	}/**
@@ -87,7 +87,7 @@ public final class PasswordRecoveryItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setPassword(final java.lang.String password)
+	final void setPassword(@javax.annotation.Nonnull final java.lang.String password)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{
@@ -100,6 +100,7 @@ public final class PasswordRecoveryItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getSHA512s8i5 public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final java.lang.String getPasswordSHA512s8i5()
 	{
 		return PasswordRecoveryItem.password.getHash(this);
@@ -111,7 +112,7 @@ public final class PasswordRecoveryItem extends Item
 	 *       It can be customized with the tag <tt>@cope.setSHA512s8i5 public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setPasswordSHA512s8i5(final java.lang.String password)
+	final void setPasswordSHA512s8i5(@javax.annotation.Nonnull final java.lang.String password)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{
@@ -123,7 +124,8 @@ public final class PasswordRecoveryItem extends Item
 	 *       It can be customized with the tag <tt>@cope.issue public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final com.exedio.cope.pattern.PasswordRecovery.Token issuePasswordRecovery(final com.exedio.cope.pattern.PasswordRecovery.Config config)
+	@javax.annotation.Nonnull()
+	final com.exedio.cope.pattern.PasswordRecovery.Token issuePasswordRecovery(@javax.annotation.Nonnull final com.exedio.cope.pattern.PasswordRecovery.Config config)
 	{
 		return PasswordRecoveryItem.passwordRecovery.issue(this,config);
 	}/**
@@ -135,6 +137,7 @@ public final class PasswordRecoveryItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	@Deprecated()
+	@javax.annotation.Nonnull()
 	final com.exedio.cope.pattern.PasswordRecovery.Token issuePasswordRecovery(final int expiryMillis)
 	{
 		return PasswordRecoveryItem.passwordRecovery.issue(this,expiryMillis);
@@ -147,6 +150,7 @@ public final class PasswordRecoveryItem extends Item
 	 *       It can be customized with the tag <tt>@cope.redeem public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final java.lang.String redeemPasswordRecovery(final long secret)
 	{
 		return PasswordRecoveryItem.passwordRecovery.redeem(this,secret);
@@ -159,7 +163,7 @@ public final class PasswordRecoveryItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	@Deprecated()
-	static final int purgePasswordRecovery(final com.exedio.cope.util.Interrupter interrupter)
+	static final int purgePasswordRecovery(@javax.annotation.Nullable final com.exedio.cope.util.Interrupter interrupter)
 	{
 		return PasswordRecoveryItem.passwordRecovery.purge(interrupter);
 	}/**
@@ -169,7 +173,7 @@ public final class PasswordRecoveryItem extends Item
 	 *       It can be customized with the tag <tt>@cope.purge public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	static final void purgePasswordRecovery(final com.exedio.cope.util.JobContext ctx)
+	static final void purgePasswordRecovery(@javax.annotation.Nonnull final com.exedio.cope.util.JobContext ctx)
 	{
 		PasswordRecoveryItem.passwordRecovery.purge(ctx);
 	}/**

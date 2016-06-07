@@ -36,8 +36,8 @@ public final class FullQualifyInput extends com.exedio.cope.instrument.testmodel
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	public FullQualifyInput(
-				final java.lang.String string,
-				final int integer)
+				@javax.annotation.Nonnull final java.lang.String string,
+				@javax.annotation.Nonnull final int integer)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException,

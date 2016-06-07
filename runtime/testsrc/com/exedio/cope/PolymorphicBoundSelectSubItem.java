@@ -30,7 +30,7 @@ public final class PolymorphicBoundSelectSubItem extends PolymorphicBoundSelectS
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	public PolymorphicBoundSelectSubItem(
-				final com.exedio.cope.PolymorphicBoundSelectSuperItem parent)
+				@javax.annotation.Nullable final com.exedio.cope.PolymorphicBoundSelectSuperItem parent)
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
 			com.exedio.cope.PolymorphicBoundSelectSuperItem.parent.map(parent),

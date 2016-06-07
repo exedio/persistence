@@ -58,10 +58,10 @@ public final class CompositeValue extends Composite
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	CompositeValue(
-				final java.lang.String aString,
-				final int anInt,
-				final AnEnum anEnum,
-				final CompositeOptionalItem anItem)
+				@javax.annotation.Nonnull final java.lang.String aString,
+				@javax.annotation.Nonnull final int anInt,
+				@javax.annotation.Nonnull final AnEnum anEnum,
+				@javax.annotation.Nonnull final CompositeOptionalItem anItem)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException
@@ -91,6 +91,7 @@ public final class CompositeValue extends Composite
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final java.lang.String getAString()
 	{
 		return get(CompositeValue.aString);
@@ -102,7 +103,7 @@ public final class CompositeValue extends Composite
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setAString(final java.lang.String aString)
+	final void setAString(@javax.annotation.Nonnull final java.lang.String aString)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException
@@ -138,6 +139,7 @@ public final class CompositeValue extends Composite
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final AnEnum getAnEnum()
 	{
 		return get(CompositeValue.anEnum);
@@ -149,7 +151,7 @@ public final class CompositeValue extends Composite
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setAnEnum(final AnEnum anEnum)
+	final void setAnEnum(@javax.annotation.Nonnull final AnEnum anEnum)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{
@@ -162,6 +164,7 @@ public final class CompositeValue extends Composite
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final CompositeOptionalItem getAnItem()
 	{
 		return get(CompositeValue.anItem);
@@ -173,7 +176,7 @@ public final class CompositeValue extends Composite
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setAnItem(final CompositeOptionalItem anItem)
+	final void setAnItem(@javax.annotation.Nonnull final CompositeOptionalItem anItem)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{

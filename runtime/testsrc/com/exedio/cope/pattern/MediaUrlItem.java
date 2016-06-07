@@ -71,7 +71,7 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	MediaUrlItem(
-				final java.lang.String catchphrase)
+				@javax.annotation.Nullable final java.lang.String catchphrase)
 			throws
 				com.exedio.cope.StringLengthViolationException
 	{
@@ -97,6 +97,7 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final java.lang.String getCatchphrase()
 	{
 		return MediaUrlItem.catchphrase.get(this);
@@ -108,7 +109,7 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setCatchphrase(final java.lang.String catchphrase)
+	final void setCatchphrase(@javax.annotation.Nullable final java.lang.String catchphrase)
 			throws
 				com.exedio.cope.StringLengthViolationException
 	{
@@ -121,6 +122,7 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 	 *       It can be customized with the tag <tt>@cope.getLocator public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final com.exedio.cope.pattern.MediaPath.Locator getFotoLocator()
 	{
 		return MediaUrlItem.foto.getLocator(this);
@@ -143,6 +145,7 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 	 *       It can be customized with the tag <tt>@cope.getLastModified public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final java.util.Date getFotoLastModified()
 	{
 		return MediaUrlItem.foto.getLastModified(this);
@@ -165,6 +168,7 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 	 *       It can be customized with the tag <tt>@cope.getBody public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final byte[] getFotoBody()
 	{
 		return MediaUrlItem.foto.getBody(this);
@@ -178,7 +182,7 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 	 *       It can be customized with the tag <tt>@cope.getBody public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void getFotoBody(final java.io.OutputStream body)
+	final void getFotoBody(@javax.annotation.Nonnull final java.io.OutputStream body)
 			throws
 				java.io.IOException
 	{
@@ -193,7 +197,7 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 	 *       It can be customized with the tag <tt>@cope.getBody public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void getFotoBody(final java.io.File body)
+	final void getFotoBody(@javax.annotation.Nonnull final java.io.File body)
 			throws
 				java.io.IOException
 	{
@@ -207,7 +211,7 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setFoto(final com.exedio.cope.pattern.Media.Value foto)
+	final void setFoto(@javax.annotation.Nullable final com.exedio.cope.pattern.Media.Value foto)
 			throws
 				java.io.IOException
 	{
@@ -220,7 +224,7 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setFoto(final byte[] body,final java.lang.String contentType)
+	final void setFoto(@javax.annotation.Nullable final byte[] body,@javax.annotation.Nullable final java.lang.String contentType)
 	{
 		MediaUrlItem.foto.set(this,body,contentType);
 	}/**
@@ -232,7 +236,7 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setFoto(final java.io.InputStream body,final java.lang.String contentType)
+	final void setFoto(@javax.annotation.Nullable final java.io.InputStream body,@javax.annotation.Nullable final java.lang.String contentType)
 			throws
 				java.io.IOException
 	{
@@ -246,7 +250,7 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setFoto(final java.io.File body,final java.lang.String contentType)
+	final void setFoto(@javax.annotation.Nullable final java.io.File body,@javax.annotation.Nullable final java.lang.String contentType)
 			throws
 				java.io.IOException
 	{
@@ -259,6 +263,7 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 	 *       It can be customized with the tag <tt>@cope.getLocator public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final com.exedio.cope.pattern.MediaPath.Locator getFotoSecureLocator()
 	{
 		return MediaUrlItem.fotoSecure.getLocator(this);
@@ -281,6 +286,7 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 	 *       It can be customized with the tag <tt>@cope.getLastModified public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final java.util.Date getFotoSecureLastModified()
 	{
 		return MediaUrlItem.fotoSecure.getLastModified(this);
@@ -303,6 +309,7 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 	 *       It can be customized with the tag <tt>@cope.getBody public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final byte[] getFotoSecureBody()
 	{
 		return MediaUrlItem.fotoSecure.getBody(this);
@@ -316,7 +323,7 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 	 *       It can be customized with the tag <tt>@cope.getBody public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void getFotoSecureBody(final java.io.OutputStream body)
+	final void getFotoSecureBody(@javax.annotation.Nonnull final java.io.OutputStream body)
 			throws
 				java.io.IOException
 	{
@@ -331,7 +338,7 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 	 *       It can be customized with the tag <tt>@cope.getBody public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void getFotoSecureBody(final java.io.File body)
+	final void getFotoSecureBody(@javax.annotation.Nonnull final java.io.File body)
 			throws
 				java.io.IOException
 	{
@@ -345,7 +352,7 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setFotoSecure(final com.exedio.cope.pattern.Media.Value fotoSecure)
+	final void setFotoSecure(@javax.annotation.Nullable final com.exedio.cope.pattern.Media.Value fotoSecure)
 			throws
 				java.io.IOException
 	{
@@ -358,7 +365,7 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setFotoSecure(final byte[] body,final java.lang.String contentType)
+	final void setFotoSecure(@javax.annotation.Nullable final byte[] body,@javax.annotation.Nullable final java.lang.String contentType)
 	{
 		MediaUrlItem.fotoSecure.set(this,body,contentType);
 	}/**
@@ -370,7 +377,7 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setFotoSecure(final java.io.InputStream body,final java.lang.String contentType)
+	final void setFotoSecure(@javax.annotation.Nullable final java.io.InputStream body,@javax.annotation.Nullable final java.lang.String contentType)
 			throws
 				java.io.IOException
 	{
@@ -384,7 +391,7 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setFotoSecure(final java.io.File body,final java.lang.String contentType)
+	final void setFotoSecure(@javax.annotation.Nullable final java.io.File body,@javax.annotation.Nullable final java.lang.String contentType)
 			throws
 				java.io.IOException
 	{
@@ -397,6 +404,7 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 	 *       It can be customized with the tag <tt>@cope.getLocator public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final com.exedio.cope.pattern.MediaPath.Locator getFotoFingerLocator()
 	{
 		return MediaUrlItem.fotoFinger.getLocator(this);
@@ -419,6 +427,7 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 	 *       It can be customized with the tag <tt>@cope.getLastModified public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final java.util.Date getFotoFingerLastModified()
 	{
 		return MediaUrlItem.fotoFinger.getLastModified(this);
@@ -441,6 +450,7 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 	 *       It can be customized with the tag <tt>@cope.getBody public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final byte[] getFotoFingerBody()
 	{
 		return MediaUrlItem.fotoFinger.getBody(this);
@@ -454,7 +464,7 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 	 *       It can be customized with the tag <tt>@cope.getBody public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void getFotoFingerBody(final java.io.OutputStream body)
+	final void getFotoFingerBody(@javax.annotation.Nonnull final java.io.OutputStream body)
 			throws
 				java.io.IOException
 	{
@@ -469,7 +479,7 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 	 *       It can be customized with the tag <tt>@cope.getBody public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void getFotoFingerBody(final java.io.File body)
+	final void getFotoFingerBody(@javax.annotation.Nonnull final java.io.File body)
 			throws
 				java.io.IOException
 	{
@@ -483,7 +493,7 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setFotoFinger(final com.exedio.cope.pattern.Media.Value fotoFinger)
+	final void setFotoFinger(@javax.annotation.Nullable final com.exedio.cope.pattern.Media.Value fotoFinger)
 			throws
 				java.io.IOException
 	{
@@ -496,7 +506,7 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setFotoFinger(final byte[] body,final java.lang.String contentType)
+	final void setFotoFinger(@javax.annotation.Nullable final byte[] body,@javax.annotation.Nullable final java.lang.String contentType)
 	{
 		MediaUrlItem.fotoFinger.set(this,body,contentType);
 	}/**
@@ -508,7 +518,7 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setFotoFinger(final java.io.InputStream body,final java.lang.String contentType)
+	final void setFotoFinger(@javax.annotation.Nullable final java.io.InputStream body,@javax.annotation.Nullable final java.lang.String contentType)
 			throws
 				java.io.IOException
 	{
@@ -522,7 +532,7 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setFotoFinger(final java.io.File body,final java.lang.String contentType)
+	final void setFotoFinger(@javax.annotation.Nullable final java.io.File body,@javax.annotation.Nullable final java.lang.String contentType)
 			throws
 				java.io.IOException
 	{
@@ -535,6 +545,7 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 	 *       It can be customized with the tag <tt>@cope.getLocator public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final com.exedio.cope.pattern.MediaPath.Locator getFileLocator()
 	{
 		return MediaUrlItem.file.getLocator(this);
@@ -557,6 +568,7 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 	 *       It can be customized with the tag <tt>@cope.getLastModified public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final java.util.Date getFileLastModified()
 	{
 		return MediaUrlItem.file.getLastModified(this);
@@ -579,6 +591,7 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 	 *       It can be customized with the tag <tt>@cope.getBody public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final byte[] getFileBody()
 	{
 		return MediaUrlItem.file.getBody(this);
@@ -592,7 +605,7 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 	 *       It can be customized with the tag <tt>@cope.getBody public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void getFileBody(final java.io.OutputStream body)
+	final void getFileBody(@javax.annotation.Nonnull final java.io.OutputStream body)
 			throws
 				java.io.IOException
 	{
@@ -607,7 +620,7 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 	 *       It can be customized with the tag <tt>@cope.getBody public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void getFileBody(final java.io.File body)
+	final void getFileBody(@javax.annotation.Nonnull final java.io.File body)
 			throws
 				java.io.IOException
 	{
@@ -621,7 +634,7 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setFile(final com.exedio.cope.pattern.Media.Value file)
+	final void setFile(@javax.annotation.Nullable final com.exedio.cope.pattern.Media.Value file)
 			throws
 				java.io.IOException
 	{
@@ -634,7 +647,7 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setFile(final byte[] body,final java.lang.String contentType)
+	final void setFile(@javax.annotation.Nullable final byte[] body,@javax.annotation.Nullable final java.lang.String contentType)
 	{
 		MediaUrlItem.file.set(this,body,contentType);
 	}/**
@@ -646,7 +659,7 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setFile(final java.io.InputStream body,final java.lang.String contentType)
+	final void setFile(@javax.annotation.Nullable final java.io.InputStream body,@javax.annotation.Nullable final java.lang.String contentType)
 			throws
 				java.io.IOException
 	{
@@ -660,7 +673,7 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setFile(final java.io.File body,final java.lang.String contentType)
+	final void setFile(@javax.annotation.Nullable final java.io.File body,@javax.annotation.Nullable final java.lang.String contentType)
 			throws
 				java.io.IOException
 	{
@@ -673,6 +686,7 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 	 *       It can be customized with the tag <tt>@cope.getLocator public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final com.exedio.cope.pattern.MediaPath.Locator getFileSecureLocator()
 	{
 		return MediaUrlItem.fileSecure.getLocator(this);
@@ -695,6 +709,7 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 	 *       It can be customized with the tag <tt>@cope.getLastModified public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final java.util.Date getFileSecureLastModified()
 	{
 		return MediaUrlItem.fileSecure.getLastModified(this);
@@ -717,6 +732,7 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 	 *       It can be customized with the tag <tt>@cope.getBody public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final byte[] getFileSecureBody()
 	{
 		return MediaUrlItem.fileSecure.getBody(this);
@@ -730,7 +746,7 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 	 *       It can be customized with the tag <tt>@cope.getBody public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void getFileSecureBody(final java.io.OutputStream body)
+	final void getFileSecureBody(@javax.annotation.Nonnull final java.io.OutputStream body)
 			throws
 				java.io.IOException
 	{
@@ -745,7 +761,7 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 	 *       It can be customized with the tag <tt>@cope.getBody public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void getFileSecureBody(final java.io.File body)
+	final void getFileSecureBody(@javax.annotation.Nonnull final java.io.File body)
 			throws
 				java.io.IOException
 	{
@@ -759,7 +775,7 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setFileSecure(final com.exedio.cope.pattern.Media.Value fileSecure)
+	final void setFileSecure(@javax.annotation.Nullable final com.exedio.cope.pattern.Media.Value fileSecure)
 			throws
 				java.io.IOException
 	{
@@ -772,7 +788,7 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setFileSecure(final byte[] body,final java.lang.String contentType)
+	final void setFileSecure(@javax.annotation.Nullable final byte[] body,@javax.annotation.Nullable final java.lang.String contentType)
 	{
 		MediaUrlItem.fileSecure.set(this,body,contentType);
 	}/**
@@ -784,7 +800,7 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setFileSecure(final java.io.InputStream body,final java.lang.String contentType)
+	final void setFileSecure(@javax.annotation.Nullable final java.io.InputStream body,@javax.annotation.Nullable final java.lang.String contentType)
 			throws
 				java.io.IOException
 	{
@@ -798,7 +814,7 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setFileSecure(final java.io.File body,final java.lang.String contentType)
+	final void setFileSecure(@javax.annotation.Nullable final java.io.File body,@javax.annotation.Nullable final java.lang.String contentType)
 			throws
 				java.io.IOException
 	{
@@ -811,6 +827,7 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 	 *       It can be customized with the tag <tt>@cope.getLocator public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final com.exedio.cope.pattern.MediaPath.Locator getFileFingerLocator()
 	{
 		return MediaUrlItem.fileFinger.getLocator(this);
@@ -833,6 +850,7 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 	 *       It can be customized with the tag <tt>@cope.getLastModified public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final java.util.Date getFileFingerLastModified()
 	{
 		return MediaUrlItem.fileFinger.getLastModified(this);
@@ -855,6 +873,7 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 	 *       It can be customized with the tag <tt>@cope.getBody public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final byte[] getFileFingerBody()
 	{
 		return MediaUrlItem.fileFinger.getBody(this);
@@ -868,7 +887,7 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 	 *       It can be customized with the tag <tt>@cope.getBody public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void getFileFingerBody(final java.io.OutputStream body)
+	final void getFileFingerBody(@javax.annotation.Nonnull final java.io.OutputStream body)
 			throws
 				java.io.IOException
 	{
@@ -883,7 +902,7 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 	 *       It can be customized with the tag <tt>@cope.getBody public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void getFileFingerBody(final java.io.File body)
+	final void getFileFingerBody(@javax.annotation.Nonnull final java.io.File body)
 			throws
 				java.io.IOException
 	{
@@ -897,7 +916,7 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setFileFinger(final com.exedio.cope.pattern.Media.Value fileFinger)
+	final void setFileFinger(@javax.annotation.Nullable final com.exedio.cope.pattern.Media.Value fileFinger)
 			throws
 				java.io.IOException
 	{
@@ -910,7 +929,7 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setFileFinger(final byte[] body,final java.lang.String contentType)
+	final void setFileFinger(@javax.annotation.Nullable final byte[] body,@javax.annotation.Nullable final java.lang.String contentType)
 	{
 		MediaUrlItem.fileFinger.set(this,body,contentType);
 	}/**
@@ -922,7 +941,7 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setFileFinger(final java.io.InputStream body,final java.lang.String contentType)
+	final void setFileFinger(@javax.annotation.Nullable final java.io.InputStream body,@javax.annotation.Nullable final java.lang.String contentType)
 			throws
 				java.io.IOException
 	{
@@ -936,7 +955,7 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setFileFinger(final java.io.File body,final java.lang.String contentType)
+	final void setFileFinger(@javax.annotation.Nullable final java.io.File body,@javax.annotation.Nullable final java.lang.String contentType)
 			throws
 				java.io.IOException
 	{

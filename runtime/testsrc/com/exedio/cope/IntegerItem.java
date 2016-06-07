@@ -61,7 +61,7 @@ public final class IntegerItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	public IntegerItem(
-				final int mandatory)
+				@javax.annotation.Nonnull final int mandatory)
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
 			IntegerItem.mandatory.map(mandatory),
@@ -85,6 +85,7 @@ public final class IntegerItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	public final java.lang.Integer getAny()
 	{
 		return IntegerItem.any.get(this);
@@ -96,7 +97,7 @@ public final class IntegerItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	public final void setAny(final java.lang.Integer any)
+	public final void setAny(@javax.annotation.Nullable final java.lang.Integer any)
 	{
 		IntegerItem.any.set(this,any);
 	}/**
@@ -129,6 +130,7 @@ public final class IntegerItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	public final java.lang.Integer getMin4()
 	{
 		return IntegerItem.min4.get(this);
@@ -140,7 +142,7 @@ public final class IntegerItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	public final void setMin4(final java.lang.Integer min4)
+	public final void setMin4(@javax.annotation.Nullable final java.lang.Integer min4)
 			throws
 				com.exedio.cope.IntegerRangeViolationException
 	{
@@ -153,6 +155,7 @@ public final class IntegerItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	public final java.lang.Integer getMax4()
 	{
 		return IntegerItem.max4.get(this);
@@ -164,7 +167,7 @@ public final class IntegerItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	public final void setMax4(final java.lang.Integer max4)
+	public final void setMax4(@javax.annotation.Nullable final java.lang.Integer max4)
 			throws
 				com.exedio.cope.IntegerRangeViolationException
 	{
@@ -177,6 +180,7 @@ public final class IntegerItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	public final java.lang.Integer getMin4Max8()
 	{
 		return IntegerItem.min4Max8.get(this);
@@ -188,7 +192,7 @@ public final class IntegerItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	public final void setMin4Max8(final java.lang.Integer min4Max8)
+	public final void setMin4Max8(@javax.annotation.Nullable final java.lang.Integer min4Max8)
 			throws
 				com.exedio.cope.IntegerRangeViolationException
 	{

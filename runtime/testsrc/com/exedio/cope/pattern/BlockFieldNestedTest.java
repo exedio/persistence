@@ -145,6 +145,7 @@ public class BlockFieldNestedTest extends TestWithEnvironment
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final java.lang.Integer getAlpha()
 	{
 		return field().of(Inner.alpha).get(item());
@@ -156,7 +157,7 @@ public class BlockFieldNestedTest extends TestWithEnvironment
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setAlpha(final java.lang.Integer alpha)
+	final void setAlpha(@javax.annotation.Nullable final java.lang.Integer alpha)
 	{
 		field().of(Inner.alpha).set(item(),alpha);
 	}/**
@@ -167,6 +168,7 @@ public class BlockFieldNestedTest extends TestWithEnvironment
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final java.lang.Integer getBeta()
 	{
 		return field().of(Inner.beta).get(item());
@@ -178,7 +180,7 @@ public class BlockFieldNestedTest extends TestWithEnvironment
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setBeta(final java.lang.Integer beta)
+	final void setBeta(@javax.annotation.Nullable final java.lang.Integer beta)
 	{
 		field().of(Inner.beta).set(item(),beta);
 	}/**
@@ -220,6 +222,7 @@ public class BlockFieldNestedTest extends TestWithEnvironment
 	 *       It can be customized with the tag <tt>@cope. public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final Inner eins()
 	{
 		return field().of(Outer.eins).get(item());
@@ -231,6 +234,7 @@ public class BlockFieldNestedTest extends TestWithEnvironment
 	 *       It can be customized with the tag <tt>@cope. public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final Inner zwei()
 	{
 		return field().of(Outer.zwei).get(item());
@@ -296,6 +300,7 @@ public class BlockFieldNestedTest extends TestWithEnvironment
 	 *       It can be customized with the tag <tt>@cope. public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final Outer uno()
 	{
 		return AnItem.uno.get(this);
@@ -307,6 +312,7 @@ public class BlockFieldNestedTest extends TestWithEnvironment
 	 *       It can be customized with the tag <tt>@cope. public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final Outer duo()
 	{
 		return AnItem.duo.get(this);

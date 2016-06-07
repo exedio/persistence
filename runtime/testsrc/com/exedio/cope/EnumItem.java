@@ -47,7 +47,7 @@ final class EnumItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	EnumItem(
-				final Status status)
+				@javax.annotation.Nonnull final Status status)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{
@@ -73,6 +73,7 @@ final class EnumItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final Status getStatus()
 	{
 		return EnumItem.status.get(this);
@@ -84,7 +85,7 @@ final class EnumItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setStatus(final Status status)
+	final void setStatus(@javax.annotation.Nonnull final Status status)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{
@@ -97,6 +98,7 @@ final class EnumItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final Single getSingle()
 	{
 		return EnumItem.single.get(this);
@@ -108,7 +110,7 @@ final class EnumItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setSingle(final Single single)
+	final void setSingle(@javax.annotation.Nullable final Single single)
 	{
 		EnumItem.single.set(this,single);
 	}/**

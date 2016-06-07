@@ -51,8 +51,8 @@ public abstract class Super extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	public Super(
-				final java.lang.String superMandatory,
-				final java.lang.Integer superInitial)
+				@javax.annotation.Nonnull final java.lang.String superMandatory,
+				@javax.annotation.Nullable final java.lang.Integer superInitial)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException
@@ -80,6 +80,7 @@ public abstract class Super extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	public final java.lang.String getSuperMandatory()
 	{
 		return Super.superMandatory.get(this);
@@ -91,7 +92,7 @@ public abstract class Super extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	public final void setSuperMandatory(final java.lang.String superMandatory)
+	public final void setSuperMandatory(@javax.annotation.Nonnull final java.lang.String superMandatory)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException
@@ -105,6 +106,7 @@ public abstract class Super extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	public final java.lang.Integer getSuperInitial()
 	{
 		return Super.superInitial.get(this);
@@ -116,7 +118,7 @@ public abstract class Super extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	public final void setSuperInitial(final java.lang.Integer superInitial)
+	public final void setSuperInitial(@javax.annotation.Nullable final java.lang.Integer superInitial)
 	{
 		Super.superInitial.set(this,superInitial);
 	}/**
@@ -127,6 +129,7 @@ public abstract class Super extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	public final com.exedio.cope.util.Day getSuperNonInitial()
 	{
 		return Super.superNonInitial.get(this);
@@ -138,7 +141,7 @@ public abstract class Super extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	public final void setSuperNonInitial(final com.exedio.cope.util.Day superNonInitial)
+	public final void setSuperNonInitial(@javax.annotation.Nullable final com.exedio.cope.util.Day superNonInitial)
 	{
 		Super.superNonInitial.set(this,superNonInitial);
 	}/**
@@ -149,7 +152,7 @@ public abstract class Super extends Item
 	 *       It can be customized with the tag <tt>@cope.touch public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	public final void touchSuperNonInitial(final java.util.TimeZone zone)
+	public final void touchSuperNonInitial(@javax.annotation.Nonnull final java.util.TimeZone zone)
 	{
 		Super.superNonInitial.touch(this,zone);
 	}/**

@@ -32,7 +32,7 @@ final class SchemaNamePolymorphicRefItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	SchemaNamePolymorphicRefItem(
-				final SchemaNamePolymorphicSuperItem ref)
+				@javax.annotation.Nonnull final SchemaNamePolymorphicSuperItem ref)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{
@@ -58,6 +58,7 @@ final class SchemaNamePolymorphicRefItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final SchemaNamePolymorphicSuperItem getRef()
 	{
 		return SchemaNamePolymorphicRefItem.ref.get(this);
@@ -69,7 +70,7 @@ final class SchemaNamePolymorphicRefItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setRef(final SchemaNamePolymorphicSuperItem ref)
+	final void setRef(@javax.annotation.Nonnull final SchemaNamePolymorphicSuperItem ref)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{
