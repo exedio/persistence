@@ -189,7 +189,7 @@ public final class PartOf<C extends Item> extends Pattern
 	static class NullableIfContainerOptional implements NullabilityGetter<PartOf<?>>
 	{
 		@Override
-		public Nullability getNullability(PartOf<?> feature)
+		public Nullability getNullability(final PartOf<?> feature)
 		{
 			return feature.container.isMandatory()?Nullability.NONNULL:Nullability.NULLABLE;
 		}

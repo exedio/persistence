@@ -290,7 +290,7 @@ public final class ListField<E> extends AbstractListField<E> implements Copyable
 	static class NullableIfElementOptional implements NullabilityGetter<ListField<?>>
 	{
 		@Override
-		public Nullability getNullability(ListField<?> feature)
+		public Nullability getNullability(final ListField<?> feature)
 		{
 			return feature.element.isMandatory()?Nullability.NONNULL:Nullability.NULLABLE;
 		}

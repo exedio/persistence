@@ -32,7 +32,7 @@ public class NullabilityFeature
 {
 	final boolean optional;
 
-	public NullabilityFeature(boolean optional)
+	public NullabilityFeature(final boolean optional)
 	{
 		this.optional=optional;
 	}
@@ -84,7 +84,7 @@ public class NullabilityFeature
 	static class IfOptional implements NullabilityGetter<NullabilityFeature>
 	{
 		@Override
-		public Nullability getNullability(NullabilityFeature feature)
+		public Nullability getNullability(final NullabilityFeature feature)
 		{
 			return feature.optional ? Nullability.NULLABLE : Nullability.NONNULL;
 		}

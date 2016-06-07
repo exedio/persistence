@@ -33,7 +33,7 @@ public class MediaFilterThatConvertsText extends MediaFilter
 
 	private static final String TEXT_PLAIN="text/plain";
 
-	public MediaFilterThatConvertsText(Media source)
+	public MediaFilterThatConvertsText(final Media source)
 	{
 		super(source);
 	}
@@ -45,13 +45,13 @@ public class MediaFilterThatConvertsText extends MediaFilter
 	}
 
 	@Override
-	public String getContentType(Item item)
+	public String getContentType(final Item item)
 	{
 		return TEXT_PLAIN.equals(getSource().getContentType(item))?"image/jpeg":null;
 	}
 
 	@Override
-	public void doGetAndCommit(HttpServletRequest request, HttpServletResponse response, Item item)
+	public void doGetAndCommit(final HttpServletRequest request, final HttpServletResponse response, final Item item)
 		throws IOException, NotFound
 	{
 		throw new RuntimeException("not implemented");

@@ -121,7 +121,7 @@ final class WrapperX
 		private final String name;
 		private final String[] comment;
 		final List<?> varargs;
-		private Nullability nullability;
+		private final Nullability nullability;
 
 		Parameter(
 				final java.lang.reflect.Type type,

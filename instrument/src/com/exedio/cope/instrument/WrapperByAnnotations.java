@@ -131,7 +131,7 @@ final class WrapperByAnnotations
 		return !isAnyBooleanGetterTrue(annotation.hide());
 	}
 
-	private boolean isAnyBooleanGetterTrue(Class<? extends BooleanGetter<?>>[] booleanGetters)
+	private boolean isAnyBooleanGetterTrue(final Class<? extends BooleanGetter<?>>[] booleanGetters)
 	{
 		for(final Class<? extends BooleanGetter<?>> hideGetterClass : booleanGetters)
 		{

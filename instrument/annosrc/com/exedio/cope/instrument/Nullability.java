@@ -27,7 +27,7 @@ public enum Nullability
 {
 	NULLABLE, NONNULL, DEFAULT;
 
-	public static Nullability fromAnnotations(Annotation[] annotations)
+	public static Nullability fromAnnotations(final Annotation[] annotations)
 	{
 		final Nonnull nonnullAnnotation = getAnnotation(Nonnull.class, annotations);
 		if (nonnullAnnotation!=null)

@@ -6,7 +6,7 @@ import com.exedio.cope.instrument.NullabilityGetter;
 public class NullableIfOptional implements NullabilityGetter<Settable<?>>
 {
 	@Override
-	public Nullability getNullability(Settable<?> feature)
+	public Nullability getNullability(final Settable<?> feature)
 	{
 		return feature.isMandatory() ? Nullability.NONNULL : Nullability.NULLABLE;
 	}

@@ -894,7 +894,7 @@ public abstract class MediaPath extends Pattern
 	static class NullableIfMediaPathOptional implements NullabilityGetter<MediaPath>
 	{
 		@Override
-		public Nullability getNullability(MediaPath feature)
+		public Nullability getNullability(final MediaPath feature)
 		{
 			return feature.isMandatory()?Nullability.NONNULL:Nullability.NULLABLE;
 		}

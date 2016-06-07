@@ -143,7 +143,7 @@ public abstract class MediaFilter extends MediaPath
 	static class NullableIfSourceOptional implements NullabilityGetter<MediaFilter>
 	{
 		@Override
-		public Nullability getNullability(MediaFilter feature)
+		public Nullability getNullability(final MediaFilter feature)
 		{
 			return feature.source.isMandatory()?Nullability.NONNULL:Nullability.NULLABLE;
 		}

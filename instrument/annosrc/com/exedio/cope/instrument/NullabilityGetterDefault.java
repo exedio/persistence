@@ -26,7 +26,7 @@ final class NullabilityGetterDefault implements NullabilityGetter<Object>
 	}
 
 	@Override
-	public Nullability getNullability(Object feature)
+	public Nullability getNullability(final Object feature)
 	{
 		throw new RuntimeException();
 	}

@@ -207,7 +207,7 @@ public final class UniqueConstraint extends Feature implements Copyable
 	private static final class FixedNonnull implements NullabilityGetter<UniqueConstraint>
 	{
 		@Override
-		public Nullability getNullability(UniqueConstraint feature)
+		public Nullability getNullability(final UniqueConstraint feature)
 		{
 			return Nullability.NONNULL;
 		}
