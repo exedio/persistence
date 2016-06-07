@@ -52,9 +52,6 @@ import java.util.Set;
 /**
  * Pattern which wraps a {@link Media} and applies a hash string. This allows
  * uniqueness.
- *
- * TODO implement a check if source type has no other initial (non-default &amp; mandatory) features beside this pattern and its source features, this can be done when a something like a postMount() method is possible
- *
  * @author knoefel
  */
 public final class UniqueHashedMedia extends Pattern implements Settable<Value>, Copyable
