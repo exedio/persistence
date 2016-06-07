@@ -140,7 +140,7 @@ public abstract class MediaImageioFilter extends MediaFilter
 	}
 
 	@SuppressFBWarnings("PZLA_PREFER_ZERO_LENGTH_ARRAYS")
-	@Wrap(order=10, doc="Returns the body of {0}.", thrown=@Wrap.Thrown(IOException.class), nullability=NullableIfSourceOptional.class)
+	@Wrap(order=10, doc="Returns the body of {0}.", thrown=@Wrap.Thrown(IOException.class), nullability=NullableIfMediaPathOptional.class)
 	public final byte[] get(@Nonnull final Item item) throws IOException
 	{
 		final String contentType = source.getContentType(item);

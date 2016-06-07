@@ -33,6 +33,8 @@ import com.exedio.cope.NoSuchIDException;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.TransactionTry;
 import com.exedio.cope.instrument.BooleanGetter;
+import com.exedio.cope.instrument.Nullability;
+import com.exedio.cope.instrument.NullabilityGetter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.util.Hex;
 import com.exedio.cope.util.MessageDigestUtil;
@@ -296,8 +298,7 @@ public abstract class MediaPath extends Pattern
 	 * if a {@link MediaServlet} is properly installed.
 	 * Returns null, if there is no such content.
 	 */
-	@Wrap(order=20, doc="Returns a Locator the content of {0} is available under.")
-	// TODO COPE-8 MediaPath mandatory?
+	@Wrap(order=20, doc="Returns a Locator the content of {0} is available under.", nullability=NullableIfMediaPathOptional.class)
 	public final Locator getLocator(@Nonnull final Item item)
 	{
 		final String contentType = getContentType(item);
@@ -318,8 +319,7 @@ public abstract class MediaPath extends Pattern
 	 * Returns null, if there is no such content.
 	 * @see Locator#getURLByConnect()
 	 */
-	@Wrap(order=10, doc="Returns a URL the content of {0} is available under.")
-	// TODO COPE-8 MediaPath mandatory?
+	@Wrap(order=10, doc="Returns a URL the content of {0} is available under.", nullability=NullableIfMediaPathOptional.class)
 	public final String getURL(@Nonnull final Item item)
 	{
 		final Locator locator = getLocator(item);
@@ -668,8 +668,7 @@ public abstract class MediaPath extends Pattern
 	 * not return <code>null</code> for any item. */
 	public abstract boolean isMandatory();
 
-	@Wrap(order=30, doc="Returns the content type of the media {0}.", hide=ContentTypeGetter.class)
-	// TODO COPE-8 MediaPath mandatory?
+	@Wrap(order=30, doc="Returns the content type of the media {0}.", hide=ContentTypeGetter.class, nullability=NullableIfMediaPathOptional.class)
 	public abstract String getContentType(@Nonnull Item item);
 
 	private static final class ContentTypeGetter implements BooleanGetter<MediaPath>
@@ -890,6 +889,15 @@ public abstract class MediaPath extends Pattern
 	private  UnsupportedOperationException unsupportedCondition()
 	{
 		return new UnsupportedOperationException("condition not supported by " + getID() + " of " + getClass().getName());
+	}
+
+	static class NullableIfMediaPathOptional implements NullabilityGetter<MediaPath>
+	{
+		@Override
+		public Nullability getNullability(MediaPath feature)
+		{
+			return feature.isMandatory()?Nullability.NONNULL:Nullability.NULLABLE;
+		}
 	}
 
 	// ------------------- deprecated stuff -------------------

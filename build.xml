@@ -843,6 +843,7 @@
 				<pathelement location="build/classes/instrument/src" />
 				<pathelement location="lib/exedio-cope-util.jar" />
 				<pathelement location="lib/junit.jar" />
+				<pathelement location="lib/javax.servlet-api.jar" />
 				<pathelement location="lib/findbugs-annotations.jar" />
 			</classpath>
 		</compile>
