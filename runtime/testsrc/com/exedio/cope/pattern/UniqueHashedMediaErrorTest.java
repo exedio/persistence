@@ -116,7 +116,7 @@ public class UniqueHashedMediaErrorTest
 	static class NonCreateableDataFieldItem extends Item
 	{
 		static final UniqueHashedMedia value = new UniqueHashedMedia(new Media());
-		static final IntegerField field = new IntegerField();
+		static final DataField field = new DataField();
 		static final Type<NonCreateableDataFieldItem> TYPE =
 				TypesBound.newType(NonCreateableDataFieldItem.class);
 
