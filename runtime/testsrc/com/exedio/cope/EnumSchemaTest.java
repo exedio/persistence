@@ -143,6 +143,13 @@ public class EnumSchemaTest
 			assertEquals(CollisionBefore.class.getName() + ": @CopeSchemaValue for Zwei must be greater than 10 and less than 20, but was 10.", e.getMessage());
 		}
 	}
+	enum CollisionBefore
+	{
+		Eins,
+		@CopeSchemaValue(10) Zwei,
+		Drei;
+	}
+
 	@Test public void testCollisionAfter()
 	{
 		try
@@ -155,6 +162,13 @@ public class EnumSchemaTest
 			assertEquals(CollisionAfter.class.getName() + ": @CopeSchemaValue for Zwei must be greater than 10 and less than 20, but was 20.", e.getMessage());
 		}
 	}
+	enum CollisionAfter
+	{
+		Eins,
+		@CopeSchemaValue(20) Zwei,
+		Drei;
+	}
+
 	@Test public void testCollisionStart()
 	{
 		try
@@ -167,6 +181,13 @@ public class EnumSchemaTest
 			assertEquals(CollisionStart.class.getName() + ": @CopeSchemaValue for Eins must be less than 10, but was 10.", e.getMessage());
 		}
 	}
+	enum CollisionStart
+	{
+		@CopeSchemaValue(10) Eins,
+		Zwei,
+		Drei;
+	}
+
 	@Test public void testCollisionEnd()
 	{
 		try
@@ -179,6 +200,13 @@ public class EnumSchemaTest
 			assertEquals(CollisionEnd.class.getName() + ": @CopeSchemaValue for Drei must be greater than 20, but was 20.", e.getMessage());
 		}
 	}
+	enum CollisionEnd
+	{
+		Eins,
+		Zwei,
+		@CopeSchemaValue(20) Drei;
+	}
+
 	@Test public void testOrderBefore()
 	{
 		try
@@ -191,6 +219,13 @@ public class EnumSchemaTest
 			assertEquals(OrderBefore.class.getName() + ": @CopeSchemaValue for Zwei must be greater than 10 and less than 20, but was 9.", e.getMessage());
 		}
 	}
+	enum OrderBefore
+	{
+		Eins,
+		@CopeSchemaValue(9) Zwei,
+		Drei;
+	}
+
 	@Test public void testOrderAfter()
 	{
 		try
@@ -203,6 +238,13 @@ public class EnumSchemaTest
 			assertEquals(OrderAfter.class.getName() + ": @CopeSchemaValue for Zwei must be greater than 10 and less than 20, but was 21.", e.getMessage());
 		}
 	}
+	enum OrderAfter
+	{
+		Eins,
+		@CopeSchemaValue(21) Zwei,
+		Drei;
+	}
+
 	@Test public void testOrderStart()
 	{
 		try
@@ -215,6 +257,13 @@ public class EnumSchemaTest
 			assertEquals(OrderStart.class.getName() + ": @CopeSchemaValue for Eins must be less than 10, but was 11.", e.getMessage());
 		}
 	}
+	enum OrderStart
+	{
+		@CopeSchemaValue(11) Eins,
+		Zwei,
+		Drei;
+	}
+
 	@Test public void testOrderEnd()
 	{
 		try
@@ -227,56 +276,6 @@ public class EnumSchemaTest
 			assertEquals(OrderEnd.class.getName() + ": @CopeSchemaValue for Drei must be greater than 20, but was 19.", e.getMessage());
 		}
 	}
-
-	enum CollisionBefore
-	{
-		Eins,
-		@CopeSchemaValue(10) Zwei,
-		Drei;
-	}
-
-	enum CollisionAfter
-	{
-		Eins,
-		@CopeSchemaValue(20) Zwei,
-		Drei;
-	}
-
-	enum CollisionStart
-	{
-		@CopeSchemaValue(10) Eins,
-		Zwei,
-		Drei;
-	}
-
-	enum CollisionEnd
-	{
-		Eins,
-		Zwei,
-		@CopeSchemaValue(20) Drei;
-	}
-
-	enum OrderBefore
-	{
-		Eins,
-		@CopeSchemaValue(9) Zwei,
-		Drei;
-	}
-
-	enum OrderAfter
-	{
-		Eins,
-		@CopeSchemaValue(21) Zwei,
-		Drei;
-	}
-
-	enum OrderStart
-	{
-		@CopeSchemaValue(11) Eins,
-		Zwei,
-		Drei;
-	}
-
 	enum OrderEnd
 	{
 		Eins,
