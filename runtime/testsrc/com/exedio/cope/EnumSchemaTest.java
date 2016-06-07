@@ -246,6 +246,18 @@ public class EnumSchemaTest
 	}
 
 
+	@Test public void testZero()
+	{
+		assertColumnValues(Zero.class, 0, 1, 2);
+	}
+	enum Zero
+	{
+		@CopeSchemaValue(0) Zero,
+		@CopeSchemaValue(1) Eins,
+		@CopeSchemaValue(2) Zwei;
+	}
+
+
 	private static final void assertColumnValues(
 			final Class<? extends Enum<?>> actual,
 			final int... expected)
