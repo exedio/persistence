@@ -436,7 +436,7 @@ public final class DateField extends FunctionField<Date>
 
 	@Wrap(order=4,
 			doc="Sets a new value for {0}, but rounds it before according to the precision of the field.",
-			hide={FinalSettableGetter.class, PrecisionGetter.class, RoundingModeUnnecessaryGetter.class},
+			hide={FinalSettableGetter.class, PrecisionConstrainsGetter.class, RoundingModeUnnecessaryGetter.class},
 			thrownGetter=InitialThrownRounded.class)
 	public void setRounded(
 			final Item item,
@@ -465,7 +465,7 @@ public final class DateField extends FunctionField<Date>
 
 	@Wrap(order=5,
 			doc="Sets a new value for {0}, but rounds it before according to the precision of the field.",
-			hide={FinalSettableGetter.class, PrecisionGetter.class},
+			hide={FinalSettableGetter.class, PrecisionConstrainsGetter.class},
 			thrownGetter=InitialThrown.class)
 	public void setRounded(
 			final Item item,
@@ -475,7 +475,7 @@ public final class DateField extends FunctionField<Date>
 		item.set(this, precision.round(value, roundingMode, this, item));
 	}
 
-	private static final class PrecisionGetter implements BooleanGetter<DateField>
+	private static final class PrecisionConstrainsGetter implements BooleanGetter<DateField>
 	{
 		public boolean get(final DateField feature)
 		{
@@ -513,13 +513,13 @@ public final class DateField extends FunctionField<Date>
 	 */
 	@Wrap(order=10,
 			doc="Sets the current date for the date field {0}.", // TODO better text
-			hide={FinalSettableGetter.class, NowGetter.class})
+			hide={FinalSettableGetter.class, TouchGetter.class})
 	public void touch(final Item item)
 	{
 		set(item, precision.round(Clock.newDate(), roundingMode, this, item)); // TODO: make a more efficient implementation
 	}
 
-	private static final class NowGetter implements BooleanGetter<DateField>
+	private static final class TouchGetter implements BooleanGetter<DateField>
 	{
 		public boolean get(final DateField feature)
 		{
