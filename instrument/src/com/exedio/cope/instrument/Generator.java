@@ -80,8 +80,8 @@ final class Generator
 	private final boolean longJavadoc;
 	private final boolean annotateGenerated;
 	private final String finalArgPrefix;
-	private final boolean suppressUnusedWarningOnPrivateActivationConstructor;
 	private final boolean nullabilityAnnotations;
+	private final boolean suppressUnusedWarningOnPrivateActivationConstructor;
 	private final boolean serialVersionUID;
 	private final boolean genericSetValueArray;
 	private final boolean directSetValueMap;
@@ -98,8 +98,8 @@ final class Generator
 		this.longJavadoc = params.longJavadoc;
 		this.annotateGenerated = params.annotateGenerated;
 		this.finalArgPrefix = params.finalArgs ? "final " : "";
-		this.suppressUnusedWarningOnPrivateActivationConstructor = params.suppressUnusedWarningOnPrivateActivationConstructor;
 		this.nullabilityAnnotations = params.nullabilityAnnotations;
+		this.suppressUnusedWarningOnPrivateActivationConstructor = params.suppressUnusedWarningOnPrivateActivationConstructor;
 		this.serialVersionUID = params.serialVersionUID;
 		this.genericSetValueArray = params.genericSetValueArray;
 		this.directSetValueMap = params.directSetValueMap;

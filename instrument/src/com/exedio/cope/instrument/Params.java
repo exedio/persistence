@@ -29,6 +29,7 @@ final class Params
 	boolean longJavadoc = true;
 	boolean annotateGenerated = true;
 	boolean finalArgs = true;
+	boolean nullabilityAnnotations = false;
 	boolean suppressUnusedWarningOnPrivateActivationConstructor = false;
 	boolean serialVersionUID = true;
 	boolean genericSetValueArray = true;
@@ -37,5 +38,4 @@ final class Params
 	boolean parenthesesOnEmptyMemberAnnotations = true;
 	boolean verbose = false;
 	File timestampFile = null;
-	boolean nullabilityAnnotations = false;
 }
