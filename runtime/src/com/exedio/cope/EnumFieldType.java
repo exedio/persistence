@@ -75,7 +75,10 @@ final class EnumFieldType<E extends Enum<E>> implements SelectType<E>
 		if(mod==0)
 			return n;
 
-		return n - mod + 10;
+		return
+			n>=0
+			? n - mod + 10
+			: n - mod;
 	}
 
 	private static final CopeSchemaValue schemaValue(final Enum<?> e)
