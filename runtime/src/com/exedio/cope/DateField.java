@@ -445,6 +445,24 @@ public final class DateField extends FunctionField<Date>
 		item.set(this, precision.round(value, roundingMode, this, item));
 	}
 
+	private static final class RoundingModeUnnecessaryGetter implements BooleanGetter<DateField>
+	{
+		public boolean get(final DateField feature)
+		{
+			return feature.getRoundingMode()==RoundingMode.UNNECESSARY;
+		}
+	}
+
+	private static final class InitialThrownRounded implements ThrownGetter<DateField>
+	{
+		public Set<Class<? extends Throwable>> get(final DateField feature)
+		{
+			final Set<Class<? extends Throwable>> result = feature.getInitialExceptions();
+			result.remove(DatePrecisionViolationException.class);
+			return result;
+		}
+	}
+
 	@Wrap(order=5,
 			doc="Sets a new value for {0}, but rounds it before according to the precision of the field.",
 			hide={FinalSettableGetter.class, PrecisionGetter.class},
@@ -462,24 +480,6 @@ public final class DateField extends FunctionField<Date>
 		public boolean get(final DateField feature)
 		{
 			return !feature.getPrecision().constrains();
-		}
-	}
-
-	private static final class RoundingModeUnnecessaryGetter implements BooleanGetter<DateField>
-	{
-		public boolean get(final DateField feature)
-		{
-			return feature.getRoundingMode()==RoundingMode.UNNECESSARY;
-		}
-	}
-
-	private static final class InitialThrownRounded implements ThrownGetter<DateField>
-	{
-		public Set<Class<? extends Throwable>> get(final DateField feature)
-		{
-			final Set<Class<? extends Throwable>> result = feature.getInitialExceptions();
-			result.remove(DatePrecisionViolationException.class);
-			return result;
 		}
 	}
 
