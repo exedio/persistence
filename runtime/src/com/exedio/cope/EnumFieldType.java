@@ -46,17 +46,19 @@ final class EnumFieldType<E extends Enum<E>> implements SelectType<E>
 		final int[] ordinalsToNumbers = new int[enumConstants.length];
 
 		int schemaValue = 0;
+		boolean first = true;
 		for(final E e : enumConstants)
 		{
 			final CopeSchemaValue annotation = schemaValue(e);
 			final int previousSchemaValue = schemaValue;
 			schemaValue = annotation!=null ? annotation.value() : roundUpTo10(schemaValue+1);
-			if(previousSchemaValue>=schemaValue)
+			if(!first && previousSchemaValue>=schemaValue)
 				throw new IllegalArgumentException(
 						valueClass.getName() + ": @" + CopeSchemaValue.class.getSimpleName() +
 						" for " + e.name() + " must be greater than " + previousSchemaValue +
 						", but was " + schemaValue + '.');
 
+			first = false;
 			numbersToValues.put(schemaValue, e);
 			ordinalsToNumbers[e.ordinal()] = schemaValue;
 		}
