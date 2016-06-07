@@ -258,6 +258,7 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 		return isfinal;
 	}
 
+	@Override
 	public final boolean isMandatory()
 	{
 		return !optional;
