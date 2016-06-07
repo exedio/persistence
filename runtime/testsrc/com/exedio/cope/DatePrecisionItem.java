@@ -114,6 +114,8 @@ public final class DatePrecisionItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	final void setSecondsRounded(final java.util.Date seconds,final com.exedio.cope.DateField.RoundingMode roundingMode)
+			throws
+				com.exedio.cope.DatePrecisionViolationException
 	{
 		DatePrecisionItem.seconds.setRounded(this,seconds,roundingMode);
 	}/**
@@ -149,6 +151,8 @@ public final class DatePrecisionItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	final void setMinutesRounded(final java.util.Date minutes,final com.exedio.cope.DateField.RoundingMode roundingMode)
+			throws
+				com.exedio.cope.DatePrecisionViolationException
 	{
 		DatePrecisionItem.minutes.setRounded(this,minutes,roundingMode);
 	}/**
@@ -184,6 +188,8 @@ public final class DatePrecisionItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	final void setHoursRounded(final java.util.Date hours,final com.exedio.cope.DateField.RoundingMode roundingMode)
+			throws
+				com.exedio.cope.DatePrecisionViolationException
 	{
 		DatePrecisionItem.hours.setRounded(this,hours,roundingMode);
 	}/**

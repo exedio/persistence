@@ -261,7 +261,8 @@ public class DatePrecisionDefaultToNowTest extends TestWithEnvironment
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	final void setPastRounded(final java.util.Date past,final com.exedio.cope.DateField.RoundingMode roundingMode)
 			throws
-				com.exedio.cope.MandatoryViolationException
+				com.exedio.cope.MandatoryViolationException,
+				com.exedio.cope.DatePrecisionViolationException
 	{
 		AnItem.past.setRounded(this,past,roundingMode);
 	}/**
@@ -323,7 +324,8 @@ public class DatePrecisionDefaultToNowTest extends TestWithEnvironment
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	final void setFutureRounded(final java.util.Date future,final com.exedio.cope.DateField.RoundingMode roundingMode)
 			throws
-				com.exedio.cope.MandatoryViolationException
+				com.exedio.cope.MandatoryViolationException,
+				com.exedio.cope.DatePrecisionViolationException
 	{
 		AnItem.future.setRounded(this,future,roundingMode);
 	}/**
@@ -370,6 +372,8 @@ public class DatePrecisionDefaultToNowTest extends TestWithEnvironment
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	final void setNoneRounded(final java.util.Date none,final com.exedio.cope.DateField.RoundingMode roundingMode)
+			throws
+				com.exedio.cope.DatePrecisionViolationException
 	{
 		AnItem.none.setRounded(this,none,roundingMode);
 	}/**
