@@ -553,17 +553,7 @@ final class Generator
 					if(parameter.varargs==null)
 					{
 						comma.appendTo(output);
-						if ( nullabilityAnnotations )
-						{
-							if ( parameter.isNonnull() )
-							{
-								write("@javax.annotation.Nonnull ");
-							}
-							if ( parameter.isNullable() )
-							{
-								write("@javax.annotation.Nullable ");
-							}
-						}
+						writeParameterNullability(parameter);
 						write(finalArgPrefix);
 						write(ctx.write(parameter.getType()));
 						write(' ');
@@ -577,6 +567,7 @@ final class Generator
 							final JavaField parameterField = javaClass.getFieldByInstance(parameterInstance);
 							final CopeFeature parameterFeature = feature.parent.getFeature(parameterField.name);
 
+							writeParameterNullability(parameter);
 							write(finalArgPrefix);
 							write(new Context(parameterFeature, false).write(parameterFeature.getInitialType()));
 							write(' ');
@@ -671,6 +662,21 @@ final class Generator
 	{
 		write('@');
 		write(annotationClass.getName());
+	}
+
+	private void writeParameterNullability(final WrapperX.Parameter parameter)
+	{
+		if ( nullabilityAnnotations )
+		{
+			if ( parameter.isNonnull() )
+			{
+				write("@javax.annotation.Nonnull ");
+			}
+			if ( parameter.isNullable() )
+			{
+				write("@javax.annotation.Nullable ");
+			}
+		}
 	}
 
 	private void writeEmptyParenthesesForAnnotation()
