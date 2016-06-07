@@ -258,6 +258,33 @@ public class EnumSchemaTest
 	}
 
 
+	@Test public void testNegativeFull()
+	{
+		assertColumnValues(NegativeFull.class, -40, -35, -5, 10, 20);
+	}
+	enum NegativeFull
+	{
+		@CopeSchemaValue(-40) Minus40,
+		@CopeSchemaValue(-35) Minus35,
+		@CopeSchemaValue( -5) Minus5,
+		Eins,
+		Zwei;
+	}
+
+
+	@Test public void testNegativeFirst()
+	{
+		assertColumnValues(NegativeFirst.class, -15, 10, 20, 30);
+	}
+	enum NegativeFirst
+	{
+		@CopeSchemaValue(-15) Minus15,
+		Eins,
+		Zwei,
+		Drei;
+	}
+
+
 	private static final void assertColumnValues(
 			final Class<? extends Enum<?>> actual,
 			final int... expected)
