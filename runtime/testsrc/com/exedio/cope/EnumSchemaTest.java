@@ -131,7 +131,7 @@ public class EnumSchemaTest
 		@CopeSchemaValue(21) Drei;
 	}
 
-	@Test public void testAnnotatedError()
+	@Test public void testCollisionBefore()
 	{
 		try
 		{
@@ -142,6 +142,9 @@ public class EnumSchemaTest
 		{
 			assertEquals(CollisionBefore.class.getName() + ": @CopeSchemaValue for Zwei must be greater than 10 and less than 20, but was 10.", e.getMessage());
 		}
+	}
+	@Test public void testCollisionAfter()
+	{
 		try
 		{
 			EnumField.create(CollisionAfter.class);
@@ -151,6 +154,9 @@ public class EnumSchemaTest
 		{
 			assertEquals(CollisionAfter.class.getName() + ": @CopeSchemaValue for Zwei must be greater than 10 and less than 20, but was 20.", e.getMessage());
 		}
+	}
+	@Test public void testCollisionStart()
+	{
 		try
 		{
 			EnumField.create(CollisionStart.class);
@@ -160,6 +166,9 @@ public class EnumSchemaTest
 		{
 			assertEquals(CollisionStart.class.getName() + ": @CopeSchemaValue for Eins must be less than 10, but was 10.", e.getMessage());
 		}
+	}
+	@Test public void testCollisionEnd()
+	{
 		try
 		{
 			EnumField.create(CollisionEnd.class);
@@ -169,6 +178,9 @@ public class EnumSchemaTest
 		{
 			assertEquals(CollisionEnd.class.getName() + ": @CopeSchemaValue for Drei must be greater than 20, but was 20.", e.getMessage());
 		}
+	}
+	@Test public void testOrderBefore()
+	{
 		try
 		{
 			EnumField.create(OrderBefore.class);
@@ -178,6 +190,9 @@ public class EnumSchemaTest
 		{
 			assertEquals(OrderBefore.class.getName() + ": @CopeSchemaValue for Zwei must be greater than 10 and less than 20, but was 9.", e.getMessage());
 		}
+	}
+	@Test public void testOrderAfter()
+	{
 		try
 		{
 			EnumField.create(OrderAfter.class);
@@ -187,6 +202,9 @@ public class EnumSchemaTest
 		{
 			assertEquals(OrderAfter.class.getName() + ": @CopeSchemaValue for Zwei must be greater than 10 and less than 20, but was 21.", e.getMessage());
 		}
+	}
+	@Test public void testOrderStart()
+	{
 		try
 		{
 			EnumField.create(OrderStart.class);
@@ -196,6 +214,9 @@ public class EnumSchemaTest
 		{
 			assertEquals(OrderStart.class.getName() + ": @CopeSchemaValue for Eins must be less than 10, but was 11.", e.getMessage());
 		}
+	}
+	@Test public void testOrderEnd()
+	{
 		try
 		{
 			EnumField.create(OrderEnd.class);
