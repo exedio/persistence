@@ -233,4 +233,20 @@ public class TextUrlFilterModelTest
 			assertEquals("pasteValue must be mandatory", e.getMessage());
 		}
 	}
+	@Test public void testMandatory()
+	{
+		assertEquals(false, TextUrlFilterItem.fertig.isMandatory());
+		assertEquals(
+			true,
+			new TextUrlFilter(new Media().contentType("eins"), "eins", UTF_8, "{", "}", new StringField(), new Media()).isMandatory()
+		);
+		assertEquals(
+			false,
+			new TextUrlFilter(new Media().contentType("eins", "zwei"), "eins", UTF_8, "{", "}", new StringField(), new Media()).isMandatory()
+		);
+		assertEquals(
+			false,
+			new TextUrlFilter(new Media().contentType("eins").optional(), "eins", UTF_8, "{", "}", new StringField(), new Media()).isMandatory()
+		);
+	}
 }

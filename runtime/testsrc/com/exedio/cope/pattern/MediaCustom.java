@@ -44,6 +44,12 @@ final class MediaCustom extends MediaPath
 	}
 
 	@Override
+	public boolean isMandatory()
+	{
+		return false;
+	}
+
+	@Override
 	public String getContentType(final Item item)
 	{
 		return source.get(item)!=null ? "text/plain" : null;
