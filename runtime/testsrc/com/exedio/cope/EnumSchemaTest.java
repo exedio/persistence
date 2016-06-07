@@ -32,11 +32,11 @@ public class EnumSchemaTest
 		assertEquals(20, getColumnValue(Normal.Zwei));
 		assertEquals(30, getColumnValue(Normal.Drei));
 	}
-
 	enum Normal
 	{
 		Eins, Zwei, Drei;
 	}
+
 
 	@Test public void testNormal2()
 	{
@@ -53,11 +53,11 @@ public class EnumSchemaTest
 			assertEquals(null, e.getMessage());
 		}
 	}
-
 	enum Normal2
 	{
 		Eins, Zwei;
 	}
+
 
 	@SuppressWarnings({"unchecked","cast", "rawtypes"}) // OK: test bad api usage
 	@Deprecated // OK: test deprecated api
@@ -75,13 +75,13 @@ public class EnumSchemaTest
 		}
 	}
 
+
 	@Test public void testAnnotatedBefore()
 	{
 		assertEquals(10, getColumnValue(AnnotatedBefore.Eins));
 		assertEquals(11, getColumnValue(AnnotatedBefore.Zwei));
 		assertEquals(20, getColumnValue(AnnotatedBefore.Drei));
 	}
-
 	enum AnnotatedBefore
 	{
 		Eins,
@@ -89,13 +89,13 @@ public class EnumSchemaTest
 		Drei;
 	}
 
+
 	@Test public void testAnnotatedAfter()
 	{
 		assertEquals(10, getColumnValue(AnnotatedAfter.Eins));
 		assertEquals(19, getColumnValue(AnnotatedAfter.Zwei));
 		assertEquals(20, getColumnValue(AnnotatedAfter.Drei));
 	}
-
 	enum AnnotatedAfter
 	{
 		Eins,
@@ -103,13 +103,13 @@ public class EnumSchemaTest
 		Drei;
 	}
 
+
 	@Test public void testAnnotatedStart()
 	{
 		assertEquals( 9, getColumnValue(AnnotatedStart.Eins));
 		assertEquals(10, getColumnValue(AnnotatedStart.Zwei));
 		assertEquals(20, getColumnValue(AnnotatedStart.Drei));
 	}
-
 	enum AnnotatedStart
 	{
 		@CopeSchemaValue(9) Eins,
@@ -117,19 +117,20 @@ public class EnumSchemaTest
 		Drei;
 	}
 
+
 	@Test public void testAnnotatedEnd()
 	{
 		assertEquals(10, getColumnValue(AnnotatedEnd.Eins));
 		assertEquals(20, getColumnValue(AnnotatedEnd.Zwei));
 		assertEquals(21, getColumnValue(AnnotatedEnd.Drei));
 	}
-
 	enum AnnotatedEnd
 	{
 		Eins,
 		Zwei,
 		@CopeSchemaValue(21) Drei;
 	}
+
 
 	@Test public void testCollisionBefore()
 	{
@@ -150,6 +151,7 @@ public class EnumSchemaTest
 		Drei;
 	}
 
+
 	@Test public void testCollisionAfter()
 	{
 		try
@@ -168,6 +170,7 @@ public class EnumSchemaTest
 		@CopeSchemaValue(20) Zwei,
 		Drei;
 	}
+
 
 	@Test public void testCollisionStart()
 	{
@@ -188,6 +191,7 @@ public class EnumSchemaTest
 		Drei;
 	}
 
+
 	@Test public void testCollisionEnd()
 	{
 		try
@@ -206,6 +210,7 @@ public class EnumSchemaTest
 		Zwei,
 		@CopeSchemaValue(20) Drei;
 	}
+
 
 	@Test public void testOrderBefore()
 	{
@@ -226,6 +231,7 @@ public class EnumSchemaTest
 		Drei;
 	}
 
+
 	@Test public void testOrderAfter()
 	{
 		try
@@ -244,6 +250,7 @@ public class EnumSchemaTest
 		@CopeSchemaValue(21) Zwei,
 		Drei;
 	}
+
 
 	@Test public void testOrderStart()
 	{
@@ -264,6 +271,7 @@ public class EnumSchemaTest
 		Drei;
 	}
 
+
 	@Test public void testOrderEnd()
 	{
 		try
@@ -283,12 +291,12 @@ public class EnumSchemaTest
 		@CopeSchemaValue(19) Drei;
 	}
 
+
 	@Test public void testSubclass()
 	{
 		assertEquals(1, getColumnValue(Subclass.Eins));
 		assertEquals(2, getColumnValue(Subclass.Zwei));
 	}
-
 	enum Subclass
 	{
 		@CopeSchemaValue(1) Eins {@Override int zack(){ return 1; } },
