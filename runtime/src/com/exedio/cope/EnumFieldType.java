@@ -49,9 +49,9 @@ final class EnumFieldType<E extends Enum<E>> implements SelectType<E>
 		for(final E e : enumConstants)
 		{
 			final CopeSchemaValue annotation = schemaValue(e);
-			final int number = annotation!=null ? annotation.value() : (schemaValue+=10);
-			numbersToValues.put(number, e);
-			ordinalsToNumbers[e.ordinal()] = number;
+			schemaValue = annotation!=null ? annotation.value() : roundUpTo10(schemaValue+1);
+			numbersToValues.put(schemaValue, e);
+			ordinalsToNumbers[e.ordinal()] = schemaValue;
 		}
 		final int l = ordinalsToNumbers.length-1;
 		int i = 0;
@@ -88,6 +88,15 @@ final class EnumFieldType<E extends Enum<E>> implements SelectType<E>
 		this.numbersToValues = numbersToValues;
 		this.ordinalsToNumbers = ordinalsToNumbers;
 		this.marshaller = new EnumMarshaller<>(this);
+	}
+
+	static int roundUpTo10(final int n)
+	{
+		final int mod = n % 10;
+		if(mod==0)
+			return n;
+
+		return n - mod + 10;
 	}
 
 	private static final CopeSchemaValue schemaValue(final Enum<?> e)
