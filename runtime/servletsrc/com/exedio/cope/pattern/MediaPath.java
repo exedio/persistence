@@ -661,7 +661,7 @@ public abstract class MediaPath extends Pattern
 		getType().getModel().commit();
 	}
 
-	/** A MediaPath is "mandatory" if {@link #getContentType} and {@link #getLocator} will
+	/** A MediaPath is "mandatory" if {@link #getContentType(Item)} and {@link #getLocator(Item)} will
 	 * not return <code>null</code> for any item. */
 	public abstract boolean isMandatory();
 
