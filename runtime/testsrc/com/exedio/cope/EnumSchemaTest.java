@@ -22,15 +22,14 @@ import static com.exedio.cope.SchemaInfo.getColumnValue;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
+import java.util.ArrayList;
 import org.junit.Test;
 
 public class EnumSchemaTest
 {
 	@Test public void testNormal()
 	{
-		assertEquals(10, getColumnValue(Normal.Eins));
-		assertEquals(20, getColumnValue(Normal.Zwei));
-		assertEquals(30, getColumnValue(Normal.Drei));
+		assertColumnValues(Normal.class, 10, 20, 30);
 	}
 	enum Normal
 	{
@@ -40,8 +39,7 @@ public class EnumSchemaTest
 
 	@Test public void testNormal2()
 	{
-		assertEquals(10, getColumnValue(Normal2.Eins));
-		assertEquals(20, getColumnValue(Normal2.Zwei));
+		assertColumnValues(Normal2.class, 10, 20);
 
 		try
 		{
@@ -78,9 +76,7 @@ public class EnumSchemaTest
 
 	@Test public void testAnnotatedBefore()
 	{
-		assertEquals(10, getColumnValue(AnnotatedBefore.Eins));
-		assertEquals(11, getColumnValue(AnnotatedBefore.Zwei));
-		assertEquals(20, getColumnValue(AnnotatedBefore.Drei));
+		assertColumnValues(AnnotatedBefore.class, 10, 11, 20);
 	}
 	enum AnnotatedBefore
 	{
@@ -92,9 +88,7 @@ public class EnumSchemaTest
 
 	@Test public void testAnnotatedAfter()
 	{
-		assertEquals(10, getColumnValue(AnnotatedAfter.Eins));
-		assertEquals(19, getColumnValue(AnnotatedAfter.Zwei));
-		assertEquals(20, getColumnValue(AnnotatedAfter.Drei));
+		assertColumnValues(AnnotatedAfter.class, 10, 19, 20);
 	}
 	enum AnnotatedAfter
 	{
@@ -106,9 +100,7 @@ public class EnumSchemaTest
 
 	@Test public void testAnnotatedStart()
 	{
-		assertEquals( 9, getColumnValue(AnnotatedStart.Eins));
-		assertEquals(10, getColumnValue(AnnotatedStart.Zwei));
-		assertEquals(20, getColumnValue(AnnotatedStart.Drei));
+		assertColumnValues(AnnotatedStart.class, 9, 10, 20);
 	}
 	enum AnnotatedStart
 	{
@@ -120,9 +112,7 @@ public class EnumSchemaTest
 
 	@Test public void testAnnotatedEnd()
 	{
-		assertEquals(10, getColumnValue(AnnotatedEnd.Eins));
-		assertEquals(20, getColumnValue(AnnotatedEnd.Zwei));
-		assertEquals(21, getColumnValue(AnnotatedEnd.Drei));
+		assertColumnValues(AnnotatedEnd.class, 10, 20, 21);
 	}
 	enum AnnotatedEnd
 	{
@@ -294,13 +284,28 @@ public class EnumSchemaTest
 
 	@Test public void testSubclass()
 	{
-		assertEquals(1, getColumnValue(Subclass.Eins));
-		assertEquals(2, getColumnValue(Subclass.Zwei));
+		assertColumnValues(Subclass.class, 1, 2);
 	}
 	enum Subclass
 	{
 		@CopeSchemaValue(1) Eins {@Override int zack(){ return 1; } },
 		@CopeSchemaValue(2) Zwei {@Override int zack(){ return 2; } };
 		abstract int zack();
+	}
+
+
+	private static final void assertColumnValues(
+			final Class<? extends Enum<?>> actual,
+			final int... expected)
+	{
+		final ArrayList<Integer> actualValues = new ArrayList<>(expected.length);
+		for(final Enum<?> e : actual.getEnumConstants())
+			actualValues.add(getColumnValue(e));
+
+		final ArrayList<Integer> expectedValues = new ArrayList<>(expected.length);
+		for(final int e : expected)
+			expectedValues.add(e);
+
+		assertEquals(actual.getName(), expectedValues, actualValues);
 	}
 }
