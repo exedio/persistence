@@ -224,7 +224,7 @@ public final class UniqueHashedMedia extends Pattern implements Settable<Value>,
 	/**
 	 * Returns the item containing given media value or creates a new one.
 	 *
-	 * @return null if any only if value is null.
+	 * @return null if and only if value is null.
 	 * @throws IOException
 	 *            if reading mediaValue throws an IOException.
 	 * @throws IllegalArgumentException
