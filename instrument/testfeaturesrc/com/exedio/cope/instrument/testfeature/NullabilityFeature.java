@@ -20,12 +20,12 @@ package com.exedio.cope.instrument.testfeature;
 
 import com.exedio.cope.Item;
 import com.exedio.cope.instrument.Nullability;
+import com.exedio.cope.instrument.NullabilityGetter;
+import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.WrapFeature;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import com.exedio.cope.instrument.NullabilityGetter;
-import com.exedio.cope.instrument.Parameter;
 
 @WrapFeature
 public class NullabilityFeature
