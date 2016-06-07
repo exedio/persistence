@@ -124,15 +124,9 @@ public class EnumSchemaTest
 
 	@Test public void testCollisionBefore()
 	{
-		try
-		{
-			EnumField.create(CollisionBefore.class);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals(CollisionBefore.class.getName() + ": @CopeSchemaValue for Zwei must be greater than 10 and less than 20, but was 10.", e.getMessage());
-		}
+		assertFails(
+				CollisionBefore.class,
+				"@CopeSchemaValue for Zwei must be greater than 10 and less than 20, but was 10.");
 	}
 	enum CollisionBefore
 	{
@@ -144,15 +138,9 @@ public class EnumSchemaTest
 
 	@Test public void testCollisionAfter()
 	{
-		try
-		{
-			EnumField.create(CollisionAfter.class);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals(CollisionAfter.class.getName() + ": @CopeSchemaValue for Zwei must be greater than 10 and less than 20, but was 20.", e.getMessage());
-		}
+		assertFails(
+				CollisionAfter.class,
+				"@CopeSchemaValue for Zwei must be greater than 10 and less than 20, but was 20.");
 	}
 	enum CollisionAfter
 	{
@@ -164,15 +152,9 @@ public class EnumSchemaTest
 
 	@Test public void testCollisionStart()
 	{
-		try
-		{
-			EnumField.create(CollisionStart.class);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals(CollisionStart.class.getName() + ": @CopeSchemaValue for Eins must be less than 10, but was 10.", e.getMessage());
-		}
+		assertFails(
+				CollisionStart.class,
+				"@CopeSchemaValue for Eins must be less than 10, but was 10.");
 	}
 	enum CollisionStart
 	{
@@ -184,15 +166,9 @@ public class EnumSchemaTest
 
 	@Test public void testCollisionEnd()
 	{
-		try
-		{
-			EnumField.create(CollisionEnd.class);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals(CollisionEnd.class.getName() + ": @CopeSchemaValue for Drei must be greater than 20, but was 20.", e.getMessage());
-		}
+		assertFails(
+				CollisionEnd.class,
+				"@CopeSchemaValue for Drei must be greater than 20, but was 20.");
 	}
 	enum CollisionEnd
 	{
@@ -204,15 +180,9 @@ public class EnumSchemaTest
 
 	@Test public void testOrderBefore()
 	{
-		try
-		{
-			EnumField.create(OrderBefore.class);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals(OrderBefore.class.getName() + ": @CopeSchemaValue for Zwei must be greater than 10 and less than 20, but was 9.", e.getMessage());
-		}
+		assertFails(
+				OrderBefore.class,
+				"@CopeSchemaValue for Zwei must be greater than 10 and less than 20, but was 9.");
 	}
 	enum OrderBefore
 	{
@@ -224,15 +194,9 @@ public class EnumSchemaTest
 
 	@Test public void testOrderAfter()
 	{
-		try
-		{
-			EnumField.create(OrderAfter.class);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals(OrderAfter.class.getName() + ": @CopeSchemaValue for Zwei must be greater than 10 and less than 20, but was 21.", e.getMessage());
-		}
+		assertFails(
+				OrderAfter.class,
+				"@CopeSchemaValue for Zwei must be greater than 10 and less than 20, but was 21.");
 	}
 	enum OrderAfter
 	{
@@ -244,15 +208,9 @@ public class EnumSchemaTest
 
 	@Test public void testOrderStart()
 	{
-		try
-		{
-			EnumField.create(OrderStart.class);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals(OrderStart.class.getName() + ": @CopeSchemaValue for Eins must be less than 10, but was 11.", e.getMessage());
-		}
+		assertFails(
+				OrderStart.class,
+				"@CopeSchemaValue for Eins must be less than 10, but was 11.");
 	}
 	enum OrderStart
 	{
@@ -264,15 +222,9 @@ public class EnumSchemaTest
 
 	@Test public void testOrderEnd()
 	{
-		try
-		{
-			EnumField.create(OrderEnd.class);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals(OrderEnd.class.getName() + ": @CopeSchemaValue for Drei must be greater than 20, but was 19.", e.getMessage());
-		}
+		assertFails(
+				OrderEnd.class,
+				"@CopeSchemaValue for Drei must be greater than 20, but was 19.");
 	}
 	enum OrderEnd
 	{
@@ -307,5 +259,20 @@ public class EnumSchemaTest
 			expectedValues.add(e);
 
 		assertEquals(actual.getName(), expectedValues, actualValues);
+	}
+
+	private static final <E extends Enum<E>> void assertFails(
+			final Class<E> actual,
+			final String message)
+	{
+		try
+		{
+			EnumField.create(actual);
+			fail(actual.getName());
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals(actual.getName() + ": " + message, e.getMessage());
+		}
 	}
 }
