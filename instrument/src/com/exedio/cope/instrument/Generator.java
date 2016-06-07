@@ -487,12 +487,14 @@ final class Generator
 			{
 				case NONNULL:
 					writeIndent();
-					write("@javax.annotation.Nonnull()");
+					write("@javax.annotation.Nonnull");
+					writeEmptyParenthesesForAnnotation();
 					write(lineSeparator);
 					break;
 				case NULLABLE:
 					writeIndent();
-					write("@javax.annotation.Nullable()");
+					write("@javax.annotation.Nullable");
+					writeEmptyParenthesesForAnnotation();
 					write(lineSeparator);
 					break;
 				case DEFAULT:

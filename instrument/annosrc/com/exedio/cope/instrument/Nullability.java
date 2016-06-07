@@ -3,6 +3,7 @@ package com.exedio.cope.instrument;
 import java.lang.annotation.Annotation;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.annotation.meta.When;
 
 public enum Nullability
 {
@@ -10,11 +11,19 @@ public enum Nullability
 
 	public static Nullability fromAnnotations(Annotation[] annotations)
 	{
-		if (containsAnnotation(Nonnull.class, annotations))
+		final Nonnull nonnullAnnotation = getAnnotation(Nonnull.class, annotations);
+		if (nonnullAnnotation!=null)
 		{
-			return Nullability.NONNULL;
+			if ( nonnullAnnotation.when().equals(When.ALWAYS) )
+			{
+				return Nullability.NONNULL;
+			}
+			else
+			{
+				throw new RuntimeException("non-default setting of Nonnull.when() not supported");
+			}
 		}
-		else if (containsAnnotation(Nullable.class, annotations))
+		else if (getAnnotation(Nullable.class, annotations)!=null)
 		{
 			return Nullability.NULLABLE;
 		}
@@ -24,15 +33,15 @@ public enum Nullability
 		}
 	}
 
-	private static boolean containsAnnotation(final Class<? extends Annotation> annotationClass, final Annotation[] annotations)
+	private static <A extends Annotation> A getAnnotation(final Class<A> annotationClass, final Annotation[] annotations)
 	{
 		for(final Annotation a : annotations)
 		{
 			if(a.annotationType().equals(annotationClass))
 			{
-				return true;
+				return annotationClass.cast(a);
 			}
 		}
-		return false;
+		return null;
 	}
 }
