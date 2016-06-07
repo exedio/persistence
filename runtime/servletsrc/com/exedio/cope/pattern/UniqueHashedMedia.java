@@ -156,8 +156,8 @@ public final class UniqueHashedMedia extends Pattern implements Settable<Value>,
 	}
 
 	/**
-	 * Returns the content type of this media. Returns null, if this media is
-	 * null.
+	 * Returns the content type of this media.
+	 * Does never return null.
 	 */
 	@Wrap(order = 30, name = "getContentType", doc = "Returns the content type of the media {0}.")
 	public String getContentType(final Item item)
@@ -166,8 +166,8 @@ public final class UniqueHashedMedia extends Pattern implements Settable<Value>,
 	}
 
 	/**
-	 * Returns the date of the last modification of the media. Returns null, if
-	 * the media is null.
+	 * Returns the date of the last modification of the media.
+	 * Does never return null.
 	 */
 	@Wrap(order = 40, name = "getLastModified", doc = "Returns the last modification date of media {0}.")
 	public Date getLastModified(final Item item)
@@ -176,8 +176,7 @@ public final class UniqueHashedMedia extends Pattern implements Settable<Value>,
 	}
 
 	/**
-	 * Returns the length of the body of the media. Returns -1, if the media is
-	 * null.
+	 * Returns the length of the body of the media.
 	 */
 	@Wrap(order = 50, name = "getLength", doc = "Returns the body length of the media {0}.")
 	public long getLength(final Item item)
@@ -186,7 +185,8 @@ public final class UniqueHashedMedia extends Pattern implements Settable<Value>,
 	}
 
 	/**
-	 * Returns the body of the media. Returns null, if the media is null.
+	 * Returns the body of the media.
+	 * Does never return null.
 	 */
 	@Wrap(order = 60, name = "getBody", doc = "Returns the body of the media {0}.")
 	public byte[] getBody(final Item item)
@@ -195,8 +195,8 @@ public final class UniqueHashedMedia extends Pattern implements Settable<Value>,
 	}
 
 	/**
-	 * Returns the hash of the body of this media. Returns null, if this media is
-	 * null.
+	 * Returns the hash of the body of this media.
+	 * Does never return null.
 	 */
 	@Wrap(order = 70, name = "getHash", doc = "Returns the hash of the media body {0}.")
 	public String getHash(final Item item)
