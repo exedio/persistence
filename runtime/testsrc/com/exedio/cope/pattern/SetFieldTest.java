@@ -76,7 +76,7 @@ public class SetFieldTest extends TestWithEnvironment
 		otherItem = new SetFieldItem();
 	}
 
-	@SuppressFBWarnings(value={"NP_NULL_PARAM_DEREF_NONVIRTUAL", "NP_NONNULL_PARAM_VIOLATION"})
+	@SuppressFBWarnings({"NP_NULL_PARAM_DEREF_NONVIRTUAL", "NP_NONNULL_PARAM_VIOLATION"})
 	@Test public void testIt()
 	{
 		final Type<?> stringsType = strings.getRelationType();
@@ -434,7 +434,7 @@ public class SetFieldTest extends TestWithEnvironment
 		}
 	}
 
-	@SuppressFBWarnings(value={"NP_NULL_PARAM_DEREF_NONVIRTUAL", "NP_NONNULL_PARAM_VIOLATION"})
+	@SuppressFBWarnings({"NP_NULL_PARAM_DEREF_NONVIRTUAL", "NP_NONNULL_PARAM_VIOLATION"})
 	@Test public void testMultipleItems() throws Exception
 	{
 		final String rot = "hellrot";
@@ -487,7 +487,7 @@ public class SetFieldTest extends TestWithEnvironment
 		assertEquals(0, q.total());
 	}
 
-	@SuppressFBWarnings(value={"NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS", "NP_NONNULL_PARAM_VIOLATION"})
+	@SuppressFBWarnings({"NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS", "NP_NONNULL_PARAM_VIOLATION"})
 	@Test public void testListSetNull()
 	{
 		item.setStrings(asList("hallo", "bello"));

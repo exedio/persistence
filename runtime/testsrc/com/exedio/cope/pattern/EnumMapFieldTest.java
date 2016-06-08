@@ -200,7 +200,7 @@ public class EnumMapFieldTest extends TestWithEnvironment
 		assertEqualsUnmodifiable(map(), item.getNameMap());
 	}
 
-	@SuppressFBWarnings(value={"NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS", "NP_NONNULL_PARAM_VIOLATION"})
+	@SuppressFBWarnings({"NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS", "NP_NONNULL_PARAM_VIOLATION"})
 	@Test public void testMapSetNull()
 	{
 		try

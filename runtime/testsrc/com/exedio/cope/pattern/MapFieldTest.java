@@ -173,7 +173,7 @@ public class MapFieldTest extends TestWithEnvironment
 		assertEquals(map(), item.getNameMap());
 	}
 
-	@SuppressFBWarnings(value={"NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS", "NP_NONNULL_PARAM_VIOLATION"})
+	@SuppressFBWarnings({"NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS", "NP_NONNULL_PARAM_VIOLATION"})
 	@Test public void testMapSetNull()
 	{
 		final HashMap<Language, String> map = new HashMap<>();

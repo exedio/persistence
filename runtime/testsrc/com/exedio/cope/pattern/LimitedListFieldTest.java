@@ -253,7 +253,7 @@ public class LimitedListFieldTest extends TestWithEnvironment
 		assertEquals(asList("hallo", "bello"), item.getStrings());
 	}
 
-	@SuppressFBWarnings(value={"NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS", "NP_NONNULL_PARAM_VIOLATION"})
+	@SuppressFBWarnings({"NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS", "NP_NONNULL_PARAM_VIOLATION"})
 	@Test public void testListSetNull()
 	{
 		item.setStrings(asList("hallo", "bello"));
