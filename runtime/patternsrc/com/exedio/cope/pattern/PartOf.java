@@ -157,6 +157,15 @@ public final class PartOf<C extends Item> extends Pattern
 		return result;
 	}
 
+	private static final class NullableIfContainerOptional implements NullabilityGetter<PartOf<?>>
+	{
+		@Override
+		public Nullability getNullability(final PartOf<?> feature)
+		{
+			return Nullability.forMandatory(feature.container.isMandatory());
+		}
+	}
+
 	// ------------------- deprecated stuff -------------------
 
 	/**
@@ -184,14 +193,5 @@ public final class PartOf<C extends Item> extends Pattern
 	public static final <C extends Item> PartOf<C> newPartOf(final ItemField<C> container, final FunctionField<?> order)
 	{
 		return create(container, order);
-	}
-
-	static class NullableIfContainerOptional implements NullabilityGetter<PartOf<?>>
-	{
-		@Override
-		public Nullability getNullability(final PartOf<?> feature)
-		{
-			return Nullability.forMandatory(feature.container.isMandatory());
-		}
 	}
 }
