@@ -61,18 +61,18 @@ public final class DatePrecisionItemInstrumented extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	DatePrecisionItemInstrumented(
-				final java.util.Date millis,
-				final java.util.Date seconds,
-				final java.util.Date minutes,
-				final java.util.Date hours,
-				final java.util.Date finalMillis,
-				final java.util.Date finalSeconds,
-				final java.util.Date finalMinutes,
-				final java.util.Date finalHours,
-				final java.util.Date pastMillis,
-				final java.util.Date pastSeconds,
-				final java.util.Date pastMinutes,
-				final java.util.Date pastHours)
+				@javax.annotation.Nonnull final java.util.Date millis,
+				@javax.annotation.Nonnull final java.util.Date seconds,
+				@javax.annotation.Nonnull final java.util.Date minutes,
+				@javax.annotation.Nonnull final java.util.Date hours,
+				@javax.annotation.Nonnull final java.util.Date finalMillis,
+				@javax.annotation.Nonnull final java.util.Date finalSeconds,
+				@javax.annotation.Nonnull final java.util.Date finalMinutes,
+				@javax.annotation.Nonnull final java.util.Date finalHours,
+				@javax.annotation.Nonnull final java.util.Date pastMillis,
+				@javax.annotation.Nonnull final java.util.Date pastSeconds,
+				@javax.annotation.Nonnull final java.util.Date pastMinutes,
+				@javax.annotation.Nonnull final java.util.Date pastHours)
 			throws
 				com.exedio.cope.DatePrecisionViolationException,
 				com.exedio.cope.MandatoryViolationException
@@ -110,6 +110,7 @@ public final class DatePrecisionItemInstrumented extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final java.util.Date getMillis()
 	{
 		return DatePrecisionItemInstrumented.millis.get(this);
@@ -121,7 +122,7 @@ public final class DatePrecisionItemInstrumented extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setMillis(final java.util.Date millis)
+	final void setMillis(@javax.annotation.Nonnull final java.util.Date millis)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{
@@ -145,6 +146,7 @@ public final class DatePrecisionItemInstrumented extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final java.util.Date getSeconds()
 	{
 		return DatePrecisionItemInstrumented.seconds.get(this);
@@ -156,7 +158,7 @@ public final class DatePrecisionItemInstrumented extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setSeconds(final java.util.Date seconds)
+	final void setSeconds(@javax.annotation.Nonnull final java.util.Date seconds)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.DatePrecisionViolationException
@@ -170,7 +172,7 @@ public final class DatePrecisionItemInstrumented extends Item
 	 *       It can be customized with the tag <tt>@cope.setRounded public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setSecondsRounded(final java.util.Date seconds,final com.exedio.cope.DateField.RoundingMode roundingMode)
+	final void setSecondsRounded(@javax.annotation.Nonnull final java.util.Date seconds,@javax.annotation.Nonnull final com.exedio.cope.DateField.RoundingMode roundingMode)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.DatePrecisionViolationException
@@ -184,6 +186,7 @@ public final class DatePrecisionItemInstrumented extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final java.util.Date getMinutes()
 	{
 		return DatePrecisionItemInstrumented.minutes.get(this);
@@ -195,7 +198,7 @@ public final class DatePrecisionItemInstrumented extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setMinutes(final java.util.Date minutes)
+	final void setMinutes(@javax.annotation.Nonnull final java.util.Date minutes)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.DatePrecisionViolationException
@@ -209,7 +212,7 @@ public final class DatePrecisionItemInstrumented extends Item
 	 *       It can be customized with the tag <tt>@cope.setRounded public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setMinutesRounded(final java.util.Date minutes,final com.exedio.cope.DateField.RoundingMode roundingMode)
+	final void setMinutesRounded(@javax.annotation.Nonnull final java.util.Date minutes,@javax.annotation.Nonnull final com.exedio.cope.DateField.RoundingMode roundingMode)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.DatePrecisionViolationException
@@ -223,6 +226,7 @@ public final class DatePrecisionItemInstrumented extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final java.util.Date getHours()
 	{
 		return DatePrecisionItemInstrumented.hours.get(this);
@@ -234,7 +238,7 @@ public final class DatePrecisionItemInstrumented extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setHours(final java.util.Date hours)
+	final void setHours(@javax.annotation.Nonnull final java.util.Date hours)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.DatePrecisionViolationException
@@ -248,7 +252,7 @@ public final class DatePrecisionItemInstrumented extends Item
 	 *       It can be customized with the tag <tt>@cope.setRounded public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setHoursRounded(final java.util.Date hours,final com.exedio.cope.DateField.RoundingMode roundingMode)
+	final void setHoursRounded(@javax.annotation.Nonnull final java.util.Date hours,@javax.annotation.Nonnull final com.exedio.cope.DateField.RoundingMode roundingMode)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.DatePrecisionViolationException
@@ -262,6 +266,7 @@ public final class DatePrecisionItemInstrumented extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final java.util.Date getFinalMillis()
 	{
 		return DatePrecisionItemInstrumented.finalMillis.get(this);
@@ -273,6 +278,7 @@ public final class DatePrecisionItemInstrumented extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final java.util.Date getFinalSeconds()
 	{
 		return DatePrecisionItemInstrumented.finalSeconds.get(this);
@@ -284,6 +290,7 @@ public final class DatePrecisionItemInstrumented extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final java.util.Date getFinalMinutes()
 	{
 		return DatePrecisionItemInstrumented.finalMinutes.get(this);
@@ -295,6 +302,7 @@ public final class DatePrecisionItemInstrumented extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final java.util.Date getFinalHours()
 	{
 		return DatePrecisionItemInstrumented.finalHours.get(this);
@@ -306,6 +314,7 @@ public final class DatePrecisionItemInstrumented extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final java.util.Date getPastMillis()
 	{
 		return DatePrecisionItemInstrumented.pastMillis.get(this);
@@ -317,7 +326,7 @@ public final class DatePrecisionItemInstrumented extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setPastMillis(final java.util.Date pastMillis)
+	final void setPastMillis(@javax.annotation.Nonnull final java.util.Date pastMillis)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{
@@ -341,6 +350,7 @@ public final class DatePrecisionItemInstrumented extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final java.util.Date getPastSeconds()
 	{
 		return DatePrecisionItemInstrumented.pastSeconds.get(this);
@@ -352,7 +362,7 @@ public final class DatePrecisionItemInstrumented extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setPastSeconds(final java.util.Date pastSeconds)
+	final void setPastSeconds(@javax.annotation.Nonnull final java.util.Date pastSeconds)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.DatePrecisionViolationException
@@ -366,7 +376,7 @@ public final class DatePrecisionItemInstrumented extends Item
 	 *       It can be customized with the tag <tt>@cope.setRounded public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setPastSecondsRounded(final java.util.Date pastSeconds)
+	final void setPastSecondsRounded(@javax.annotation.Nonnull final java.util.Date pastSeconds)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{
@@ -379,7 +389,7 @@ public final class DatePrecisionItemInstrumented extends Item
 	 *       It can be customized with the tag <tt>@cope.setRounded public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setPastSecondsRounded(final java.util.Date pastSeconds,final com.exedio.cope.DateField.RoundingMode roundingMode)
+	final void setPastSecondsRounded(@javax.annotation.Nonnull final java.util.Date pastSeconds,@javax.annotation.Nonnull final com.exedio.cope.DateField.RoundingMode roundingMode)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.DatePrecisionViolationException
@@ -404,6 +414,7 @@ public final class DatePrecisionItemInstrumented extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final java.util.Date getPastMinutes()
 	{
 		return DatePrecisionItemInstrumented.pastMinutes.get(this);
@@ -415,7 +426,7 @@ public final class DatePrecisionItemInstrumented extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setPastMinutes(final java.util.Date pastMinutes)
+	final void setPastMinutes(@javax.annotation.Nonnull final java.util.Date pastMinutes)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.DatePrecisionViolationException
@@ -429,7 +440,7 @@ public final class DatePrecisionItemInstrumented extends Item
 	 *       It can be customized with the tag <tt>@cope.setRounded public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setPastMinutesRounded(final java.util.Date pastMinutes)
+	final void setPastMinutesRounded(@javax.annotation.Nonnull final java.util.Date pastMinutes)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{
@@ -442,7 +453,7 @@ public final class DatePrecisionItemInstrumented extends Item
 	 *       It can be customized with the tag <tt>@cope.setRounded public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setPastMinutesRounded(final java.util.Date pastMinutes,final com.exedio.cope.DateField.RoundingMode roundingMode)
+	final void setPastMinutesRounded(@javax.annotation.Nonnull final java.util.Date pastMinutes,@javax.annotation.Nonnull final com.exedio.cope.DateField.RoundingMode roundingMode)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.DatePrecisionViolationException
@@ -467,6 +478,7 @@ public final class DatePrecisionItemInstrumented extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final java.util.Date getPastHours()
 	{
 		return DatePrecisionItemInstrumented.pastHours.get(this);
@@ -478,7 +490,7 @@ public final class DatePrecisionItemInstrumented extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setPastHours(final java.util.Date pastHours)
+	final void setPastHours(@javax.annotation.Nonnull final java.util.Date pastHours)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.DatePrecisionViolationException
@@ -492,7 +504,7 @@ public final class DatePrecisionItemInstrumented extends Item
 	 *       It can be customized with the tag <tt>@cope.setRounded public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setPastHoursRounded(final java.util.Date pastHours)
+	final void setPastHoursRounded(@javax.annotation.Nonnull final java.util.Date pastHours)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{
@@ -505,7 +517,7 @@ public final class DatePrecisionItemInstrumented extends Item
 	 *       It can be customized with the tag <tt>@cope.setRounded public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setPastHoursRounded(final java.util.Date pastHours,final com.exedio.cope.DateField.RoundingMode roundingMode)
+	final void setPastHoursRounded(@javax.annotation.Nonnull final java.util.Date pastHours,@javax.annotation.Nonnull final com.exedio.cope.DateField.RoundingMode roundingMode)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.DatePrecisionViolationException
