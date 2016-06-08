@@ -127,7 +127,7 @@ public final class BlockField<E extends Block> extends Pattern implements Copyab
 
 	@Wrap(order=10, name="{1}", doc="Returns the value of {0}.")
 	@Nonnull
-	public E get(final Item item)
+	public E get(@Nonnull final Item item)
 	{
 		return valueType.newValue(this, item);
 	}
