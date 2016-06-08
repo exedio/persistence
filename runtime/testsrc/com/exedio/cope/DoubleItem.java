@@ -61,7 +61,7 @@ public final class DoubleItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	public DoubleItem(
-				@javax.annotation.Nonnull final double mandatory)
+				final double mandatory)
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
 			DoubleItem.mandatory.map(mandatory),

@@ -165,10 +165,10 @@ public final class AttributeItem extends Item
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	public AttributeItem(
 				@javax.annotation.Nonnull final java.lang.String someNotNullString,
-				@javax.annotation.Nonnull final int someNotNullInteger,
-				@javax.annotation.Nonnull final long someNotNullLong,
-				@javax.annotation.Nonnull final double someNotNullDouble,
-				@javax.annotation.Nonnull final boolean someNotNullBoolean,
+				final int someNotNullInteger,
+				final long someNotNullLong,
+				final double someNotNullDouble,
+				final boolean someNotNullBoolean,
 				@javax.annotation.Nonnull final EmptyItem someNotNullItem,
 				@javax.annotation.Nonnull final SomeEnum someNotNullEnum)
 			throws

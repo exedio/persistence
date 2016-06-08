@@ -61,8 +61,8 @@ final class CheckConstraintConditionItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	CheckConstraintConditionItem(
-				@javax.annotation.Nonnull final int integer1,
-				@javax.annotation.Nonnull final int integer2,
+				final int integer1,
+				final int integer2,
 				@javax.annotation.Nonnull final CheckConstraintConditionItemTarget item)
 			throws
 				com.exedio.cope.MandatoryViolationException

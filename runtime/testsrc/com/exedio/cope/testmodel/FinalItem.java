@@ -45,7 +45,7 @@ public final class FinalItem extends Item
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	public FinalItem(
 				@javax.annotation.Nonnull final java.lang.String finalString,
-				@javax.annotation.Nonnull final int nonFinalInteger)
+				final int nonFinalInteger)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException

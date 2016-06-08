@@ -119,7 +119,7 @@ public class SchemaMismatchColumnNameTest extends SchemaMismatchTest
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	ItemA(
-				@javax.annotation.Nonnull final boolean fieldA)
+				final boolean fieldA)
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
 			ItemA.fieldA.map(fieldA),
@@ -186,7 +186,7 @@ public class SchemaMismatchColumnNameTest extends SchemaMismatchTest
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	ItemB(
-				@javax.annotation.Nonnull final boolean fieldB)
+				final boolean fieldB)
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
 			ItemB.fieldB.map(fieldB),

@@ -75,7 +75,7 @@ public class CreateLimitMinimumTest extends TestWithEnvironment
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	AnItem(
-				@javax.annotation.Nonnull final int number)
+				final int number)
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
 			AnItem.number.map(number),

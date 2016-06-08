@@ -146,7 +146,7 @@ public class SchemaMismatchColumnTypeTest extends SchemaMismatchTest
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	ItemB(
-				@javax.annotation.Nonnull final int field)
+				final int field)
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
 			ItemB.field.map(field),

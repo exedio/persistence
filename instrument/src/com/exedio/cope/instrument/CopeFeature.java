@@ -42,6 +42,7 @@ final class CopeFeature
 	private Object value;
 	private Type initialType;
 	private SortedSet<Class<? extends Throwable>> initialExceptions;
+	private boolean initialTypePrimitive;
 
 	CopeFeature(final CopeType parent, final JavaField javaField)
 	{
@@ -101,6 +102,14 @@ final class CopeFeature
 		return initialExceptions;
 	}
 
+	final boolean isInitialTypePrimitive()
+	{
+		if(initialType==null)
+			makeInitialTypeAndExceptions();
+
+		return initialTypePrimitive;
+	}
+
 	@SuppressWarnings("rawtypes")
 	private static final GenericResolver<Settable> settableResolver = GenericResolver.neW(Settable.class);
 
@@ -140,6 +149,7 @@ final class CopeFeature
 
 		this.initialType = initialType;
 		this.initialExceptions = initialExceptions;
+		this.initialTypePrimitive = primitive;
 	}
 
 	final boolean isDefault()

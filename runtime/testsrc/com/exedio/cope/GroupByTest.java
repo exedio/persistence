@@ -241,7 +241,7 @@ public class GroupByTest extends TestWithEnvironment
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	AnItem(
 				@javax.annotation.Nonnull final java.lang.String string,
-				@javax.annotation.Nonnull final int integer)
+				final int integer)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException

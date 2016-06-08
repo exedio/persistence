@@ -43,7 +43,7 @@ final class SubContainer extends SuperContainer
 	SubContainer(
 				@javax.annotation.Nonnull final java.lang.String code,
 				@javax.annotation.Nonnull final com.exedio.cope.badquery.QueryItem queryItem,
-				@javax.annotation.Nonnull final boolean superflag,
+				final boolean superflag,
 				@javax.annotation.Nonnull final SuperContainer superContainer)
 			throws
 				com.exedio.cope.MandatoryViolationException,

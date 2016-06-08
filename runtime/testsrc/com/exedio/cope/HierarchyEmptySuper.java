@@ -39,7 +39,7 @@ public class HierarchyEmptySuper extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	public HierarchyEmptySuper(
-				@javax.annotation.Nonnull final int superInt)
+				final int superInt)
 			throws
 				com.exedio.cope.UniqueViolationException
 	{

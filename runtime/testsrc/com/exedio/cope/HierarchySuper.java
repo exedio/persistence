@@ -37,7 +37,7 @@ public abstract class HierarchySuper extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	public HierarchySuper(
-				@javax.annotation.Nonnull final int superInt)
+				final int superInt)
 			throws
 				com.exedio.cope.UniqueViolationException
 	{

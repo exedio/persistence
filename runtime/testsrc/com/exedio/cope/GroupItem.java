@@ -37,7 +37,7 @@ final class GroupItem extends Item
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	GroupItem(
 				@javax.annotation.Nonnull final com.exedio.cope.util.Day day,
-				@javax.annotation.Nonnull final int number)
+				final int number)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{

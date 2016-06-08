@@ -61,7 +61,7 @@ public final class LongItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	public LongItem(
-				@javax.annotation.Nonnull final long mandatory)
+				final long mandatory)
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
 			LongItem.mandatory.map(mandatory),

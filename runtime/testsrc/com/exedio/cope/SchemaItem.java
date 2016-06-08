@@ -83,13 +83,13 @@ final class SchemaItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	SchemaItem(
-				@javax.annotation.Nonnull final int nonFinalInteger,
+				final int nonFinalInteger,
 				@javax.annotation.Nonnull final java.lang.String string,
-				@javax.annotation.Nonnull final int integ,
-				@javax.annotation.Nonnull final double doub,
+				final int integ,
+				final double doub,
 				@javax.annotation.Nonnull final java.util.Date date,
 				@javax.annotation.Nonnull final com.exedio.cope.util.Day day,
-				@javax.annotation.Nonnull final boolean bool,
+				final boolean bool,
 				@javax.annotation.Nonnull final SomeEnum anEnum,
 				@javax.annotation.Nonnull final SchemaTargetItem item,
 				@javax.annotation.Nonnull final SchemaTargetPolymorphicItem poly,

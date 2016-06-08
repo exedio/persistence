@@ -37,7 +37,7 @@ public final class DefaultTextInput extends Input
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	public DefaultTextInput(
 				@javax.annotation.Nonnull final java.lang.String string,
-				@javax.annotation.Nonnull final int integer)
+				final int integer)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException,

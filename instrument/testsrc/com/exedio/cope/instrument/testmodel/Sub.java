@@ -55,7 +55,7 @@ public final class Sub extends Super
 	public Sub(
 				@javax.annotation.Nonnull final java.lang.String superMandatory,
 				@javax.annotation.Nullable final java.lang.Integer superInitial,
-				@javax.annotation.Nonnull final boolean subMandatory,
+				final boolean subMandatory,
 				@javax.annotation.Nullable final java.lang.Long subInitial)
 			throws
 				com.exedio.cope.MandatoryViolationException,

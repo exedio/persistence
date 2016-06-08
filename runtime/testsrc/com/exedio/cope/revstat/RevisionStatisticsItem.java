@@ -46,7 +46,7 @@ final class RevisionStatisticsItem extends Item
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	RevisionStatisticsItem(
 				@javax.annotation.Nonnull final java.lang.String field,
-				@javax.annotation.Nonnull final int num)
+				final int num)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException

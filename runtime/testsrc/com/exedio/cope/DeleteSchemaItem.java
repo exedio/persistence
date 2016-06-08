@@ -58,7 +58,7 @@ final class DeleteSchemaItem extends DeleteSchemaItemSuper
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private DeleteSchemaItem(
 				@javax.annotation.Nonnull final java.lang.String field,
-				@javax.annotation.Nonnull final int nextUnused)
+				final int nextUnused)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException

@@ -52,9 +52,9 @@ public final class PartOfItem extends Item
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	PartOfItem(
 				@javax.annotation.Nonnull final PartOfContainerItem container,
-				@javax.annotation.Nonnull final int order,
+				final int order,
 				@javax.annotation.Nonnull final java.lang.String partString,
-				@javax.annotation.Nonnull final int partInteger)
+				final int partInteger)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException

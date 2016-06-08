@@ -95,7 +95,7 @@ public final class OptionFeatureItem extends OptionFeatureSuperItem
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	OptionFeatureItem(
-				@javax.annotation.Nonnull final boolean booleanAs)
+				final boolean booleanAs)
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
 			OptionFeatureItem.booleanAs.map(booleanAs),

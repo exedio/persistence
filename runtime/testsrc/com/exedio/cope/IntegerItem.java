@@ -61,7 +61,7 @@ public final class IntegerItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	public IntegerItem(
-				@javax.annotation.Nonnull final int mandatory)
+				final int mandatory)
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
 			IntegerItem.mandatory.map(mandatory),

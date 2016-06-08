@@ -137,8 +137,8 @@ public class PartOfContainerReuseTest
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	APart(
 				@javax.annotation.Nonnull final AContainer container,
-				@javax.annotation.Nonnull final int order1,
-				@javax.annotation.Nonnull final int order2)
+				final int order1,
+				final int order2)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{

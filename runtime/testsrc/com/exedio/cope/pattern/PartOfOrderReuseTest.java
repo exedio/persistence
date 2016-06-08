@@ -135,7 +135,7 @@ public class PartOfOrderReuseTest
 	APart(
 				@javax.annotation.Nonnull final AContainer container1,
 				@javax.annotation.Nonnull final AContainer container2,
-				@javax.annotation.Nonnull final int order)
+				final int order)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{

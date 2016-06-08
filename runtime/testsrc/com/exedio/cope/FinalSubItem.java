@@ -33,8 +33,8 @@ public final class FinalSubItem extends FinalSuperItem
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	public FinalSubItem(
-				@javax.annotation.Nonnull final int superInt,
-				@javax.annotation.Nonnull final int subInt)
+				final int superInt,
+				final int subInt)
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
 			com.exedio.cope.FinalSuperItem.superInt.map(superInt),

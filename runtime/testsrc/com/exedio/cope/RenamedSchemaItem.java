@@ -55,7 +55,7 @@ package com.exedio.cope;
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	RenamedSchemaItem(
 				@javax.annotation.Nonnull final java.lang.String uniqueDouble1,
-				@javax.annotation.Nonnull final int uniqueDouble2)
+				final int uniqueDouble2)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException,

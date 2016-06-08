@@ -576,10 +576,10 @@ public class CompositeTest
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	Value(
 				@javax.annotation.Nonnull final java.lang.String string4,
-				@javax.annotation.Nonnull final int intMax4,
-				@javax.annotation.Nonnull final long longField,
-				@javax.annotation.Nonnull final double doubleField,
-				@javax.annotation.Nonnull final boolean booleanField)
+				final int intMax4,
+				final long longField,
+				final double doubleField,
+				final boolean booleanField)
 			throws
 				com.exedio.cope.IntegerRangeViolationException,
 				com.exedio.cope.MandatoryViolationException,
@@ -962,10 +962,10 @@ public class CompositeTest
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	ValueX(
 				@javax.annotation.Nonnull final java.lang.String stringField,
-				@javax.annotation.Nonnull final int intField,
-				@javax.annotation.Nonnull final long longField,
-				@javax.annotation.Nonnull final double doubleField,
-				@javax.annotation.Nonnull final boolean booleanField)
+				final int intField,
+				final long longField,
+				final double doubleField,
+				final boolean booleanField)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException

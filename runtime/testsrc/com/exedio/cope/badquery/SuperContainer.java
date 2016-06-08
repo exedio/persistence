@@ -42,7 +42,7 @@ class SuperContainer extends SuperItem
 	SuperContainer(
 				@javax.annotation.Nonnull final java.lang.String code,
 				@javax.annotation.Nonnull final QueryItem queryItem,
-				@javax.annotation.Nonnull final boolean superflag)
+				final boolean superflag)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException

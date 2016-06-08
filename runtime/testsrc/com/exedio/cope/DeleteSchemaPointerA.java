@@ -36,7 +36,7 @@ final class DeleteSchemaPointerA extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	DeleteSchemaPointerA(
-				@javax.annotation.Nonnull final int code)
+				final int code)
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
 			DeleteSchemaPointerA.code.map(code),

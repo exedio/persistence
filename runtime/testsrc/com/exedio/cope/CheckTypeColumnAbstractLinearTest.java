@@ -171,7 +171,7 @@ public class CheckTypeColumnAbstractLinearTest extends TestWithEnvironment
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	Type01C(
-				@javax.annotation.Nonnull final int intField)
+				final int intField)
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
 			Type01C.intField.map(intField),
@@ -301,7 +301,7 @@ public class CheckTypeColumnAbstractLinearTest extends TestWithEnvironment
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	Type021C(
-				@javax.annotation.Nonnull final int intField)
+				final int intField)
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
 			Type021C.intField.map(intField),

@@ -76,8 +76,8 @@ public class SchemaMismatchConstraintUniqueNameTest extends SchemaMismatchTest
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	ItemA(
-				@javax.annotation.Nonnull final int field1,
-				@javax.annotation.Nonnull final int field2)
+				final int field1,
+				final int field2)
 			throws
 				com.exedio.cope.UniqueViolationException
 	{
@@ -178,8 +178,8 @@ public class SchemaMismatchConstraintUniqueNameTest extends SchemaMismatchTest
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	ItemB(
-				@javax.annotation.Nonnull final int field1,
-				@javax.annotation.Nonnull final int field2)
+				final int field1,
+				final int field2)
 			throws
 				com.exedio.cope.UniqueViolationException
 	{

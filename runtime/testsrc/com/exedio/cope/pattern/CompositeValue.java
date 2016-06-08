@@ -59,7 +59,7 @@ public final class CompositeValue extends Composite
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	CompositeValue(
 				@javax.annotation.Nonnull final java.lang.String aString,
-				@javax.annotation.Nonnull final int anInt,
+				final int anInt,
 				@javax.annotation.Nonnull final AnEnum anEnum,
 				@javax.annotation.Nonnull final CompositeOptionalItem anItem)
 			throws

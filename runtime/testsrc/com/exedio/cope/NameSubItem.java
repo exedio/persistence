@@ -55,11 +55,11 @@ public final class NameSubItem extends NameLongItem
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	NameSubItem(
 				@javax.annotation.Nonnull final java.lang.String code,
-				@javax.annotation.Nonnull final int unique,
-				@javax.annotation.Nonnull final int integer,
+				final int unique,
+				final int integer,
 				@javax.annotation.Nonnull final NameSubItem item,
-				@javax.annotation.Nonnull final int uniqueX,
-				@javax.annotation.Nonnull final int integerX,
+				final int uniqueX,
+				final int integerX,
 				@javax.annotation.Nonnull final NameSubItem itemX)
 			throws
 				com.exedio.cope.MandatoryViolationException,

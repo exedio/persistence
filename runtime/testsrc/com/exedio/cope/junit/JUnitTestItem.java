@@ -39,7 +39,7 @@ final class JUnitTestItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	JUnitTestItem(
-				@javax.annotation.Nonnull final int code)
+				final int code)
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
 			JUnitTestItem.code.map(code),

@@ -261,13 +261,17 @@ final class Generator
 			{
 				if (feature.isMandatory())
 				{
-					writeAnnotation(Nonnull.class);
+					if (!feature.isInitialTypePrimitive())
+					{
+						writeAnnotation(Nonnull.class);
+						write(' ');
+					}
 				}
 				else
 				{
 					writeAnnotation(Nullable.class);
+					write(' ');
 				}
-				write(' ');
 			}
 			write(finalArgPrefix);
 			write(new Context(feature, feature.parent!=type).write(feature.getInitialType()));

@@ -70,7 +70,7 @@ final class DefaultToItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	DefaultToItem(
-				@javax.annotation.Nonnull final boolean booleanNone)
+				final boolean booleanNone)
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
 			DefaultToItem.booleanNone.map(booleanNone),

@@ -54,11 +54,11 @@ final class WrapPrimitiveItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	WrapPrimitiveItem(
-				@javax.annotation.Nonnull final int integer,
+				final int integer,
 				@javax.annotation.Nonnull final java.util.Date date,
-				@javax.annotation.Nonnull final boolean booleanField,
-				@javax.annotation.Nonnull final long longField,
-				@javax.annotation.Nonnull final double doubleField)
+				final boolean booleanField,
+				final long longField,
+				final double doubleField)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.UniqueViolationException
