@@ -191,7 +191,7 @@ public final class PartOf<C extends Item> extends Pattern
 		@Override
 		public Nullability getNullability(final PartOf<?> feature)
 		{
-			return feature.container.isMandatory()?Nullability.NONNULL:Nullability.NULLABLE;
+			return Nullability.forMandatory(feature.container.isMandatory());
 		}
 	}
 }

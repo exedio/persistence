@@ -86,7 +86,7 @@ public class NullabilityFeature
 		@Override
 		public Nullability getNullability(final NullabilityFeature feature)
 		{
-			return feature.optional ? Nullability.NULLABLE : Nullability.NONNULL;
+			return Nullability.forOptional(feature.optional);
 		}
 	}
 

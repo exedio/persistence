@@ -254,7 +254,7 @@ public final class EnumMapField<K extends Enum<K>,V> extends Pattern implements 
 		@Override
 		public Nullability getNullability(final EnumMapField<?,?> feature)
 		{
-			return feature.valueTemplate.isMandatory()?Nullability.NONNULL:Nullability.NULLABLE;
+			return Nullability.forMandatory(feature.valueTemplate.isMandatory());
 		}
 	}
 

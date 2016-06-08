@@ -8,6 +8,6 @@ public class NullableIfOptional implements NullabilityGetter<Settable<?>>
 	@Override
 	public Nullability getNullability(final Settable<?> feature)
 	{
-		return feature.isMandatory() ? Nullability.NONNULL : Nullability.NULLABLE;
+		return Nullability.forMandatory(feature.isMandatory());
 	}
 }

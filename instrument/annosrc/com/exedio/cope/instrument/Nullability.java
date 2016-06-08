@@ -27,6 +27,16 @@ public enum Nullability
 {
 	NULLABLE, NONNULL, DEFAULT;
 
+	public static Nullability forOptional(boolean optional)
+	{
+		return optional?NULLABLE:NONNULL;
+	}
+
+	public static Nullability forMandatory(boolean mandatory)
+	{
+		return forOptional(!mandatory);
+	}
+
 	public static Nullability fromAnnotations(final Annotation[] annotations)
 	{
 		final Nonnull nonnullAnnotation = getAnnotation(Nonnull.class, annotations);

@@ -896,7 +896,7 @@ public abstract class MediaPath extends Pattern
 		@Override
 		public Nullability getNullability(final MediaPath feature)
 		{
-			return feature.isMandatory()?Nullability.NONNULL:Nullability.NULLABLE;
+			return Nullability.forMandatory(feature.isMandatory());
 		}
 	}
 
