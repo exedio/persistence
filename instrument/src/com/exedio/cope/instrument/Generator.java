@@ -32,6 +32,7 @@ import com.exedio.cope.TypesBound;
 import com.exedio.cope.pattern.Block;
 import com.exedio.cope.pattern.BlockActivationParameters;
 import com.exedio.cope.pattern.BlockType;
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Modifier;
 import java.util.Collection;
 import java.util.Collections;
@@ -178,8 +179,7 @@ final class Generator
 		if(annotateGenerated)
 		{
 			writeIndent();
-			write('@');
-			write(Generated.class.getName());
+			writeAnnotation(Generated.class);
 			write("(\"com.exedio.cope.instrument\")");
 			write(lineSeparator);
 		}
@@ -474,8 +474,7 @@ final class Generator
 
 			if(option.override)
 			{
-				write('@');
-				write(Override.class.getName());
+				writeAnnotation(Override.class);
 				writeEmptyParenthesesForAnnotation();
 				write(' ');
 			}
@@ -621,6 +620,12 @@ final class Generator
 			writeIndent();
 			write('}');
 		}
+	}
+
+	private void writeAnnotation(final Class<? extends Annotation> annotationClass)
+	{
+		write('@');
+		write(annotationClass.getName());
 	}
 
 	private void writeEmptyParenthesesForAnnotation()
