@@ -159,7 +159,7 @@ final class WrapperByAnnotations
 				@SuppressWarnings("rawtypes")
 				final NullabilityGetter source = instantiate(nullabilityClass);
 				@SuppressWarnings("unchecked")
-				final Nullability result=source.getNullability(feature);
+				final Nullability result = source.getNullability(feature);
 				return result;
 			}
 		}

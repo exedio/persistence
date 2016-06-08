@@ -34,7 +34,7 @@ public class NullabilityFeature
 
 	public NullabilityFeature(final boolean optional)
 	{
-		this.optional=optional;
+		this.optional = optional;
 	}
 
 	@SuppressWarnings("static-method")
