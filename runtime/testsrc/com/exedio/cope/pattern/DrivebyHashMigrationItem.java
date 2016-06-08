@@ -49,7 +49,7 @@ final class DrivebyHashMigrationItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	DrivebyHashMigrationItem(
-				final java.lang.String password)
+				@javax.annotation.Nonnull final java.lang.String password)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{
@@ -75,7 +75,7 @@ final class DrivebyHashMigrationItem extends Item
 	 *       It can be customized with the tag <tt>@cope.check public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final boolean checkPassword(final java.lang.String password)
+	final boolean checkPassword(@javax.annotation.Nullable final java.lang.String password)
 	{
 		return DrivebyHashMigrationItem.password.check(this,password);
 	}/**
@@ -87,7 +87,7 @@ final class DrivebyHashMigrationItem extends Item
 	 *       It can be customized with the tag <tt>@cope.blind public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	static final void blindPassword(final java.lang.String password)
+	static final void blindPassword(@javax.annotation.Nullable final java.lang.String password)
 	{
 		DrivebyHashMigrationItem.password.blind(password);
 	}/**
@@ -98,7 +98,7 @@ final class DrivebyHashMigrationItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setPassword(final java.lang.String password)
+	final void setPassword(@javax.annotation.Nonnull final java.lang.String password)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{

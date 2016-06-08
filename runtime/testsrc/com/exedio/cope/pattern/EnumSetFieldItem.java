@@ -58,7 +58,7 @@ public final class EnumSetFieldItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	EnumSetFieldItem(
-				final java.util.EnumSet<Language> activeLanguage)
+				@javax.annotation.Nonnull final java.util.EnumSet<Language> activeLanguage)
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
 			EnumSetFieldItem.activeLanguage.map(activeLanguage),
@@ -81,7 +81,7 @@ public final class EnumSetFieldItem extends Item
 	 *       It can be customized with the tag <tt>@cope.contains public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final boolean containsActiveLanguage(final Language element)
+	final boolean containsActiveLanguage(@javax.annotation.Nonnull final Language element)
 	{
 		return EnumSetFieldItem.activeLanguage.contains(this,element);
 	}/**
@@ -91,7 +91,7 @@ public final class EnumSetFieldItem extends Item
 	 *       It can be customized with the tag <tt>@cope.add public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void addActiveLanguage(final Language element)
+	final void addActiveLanguage(@javax.annotation.Nonnull final Language element)
 	{
 		EnumSetFieldItem.activeLanguage.add(this,element);
 	}/**
@@ -101,7 +101,7 @@ public final class EnumSetFieldItem extends Item
 	 *       It can be customized with the tag <tt>@cope.remove public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void removeActiveLanguage(final Language element)
+	final void removeActiveLanguage(@javax.annotation.Nonnull final Language element)
 	{
 		EnumSetFieldItem.activeLanguage.remove(this,element);
 	}/**
@@ -111,6 +111,7 @@ public final class EnumSetFieldItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final java.util.EnumSet<Language> getActiveLanguage()
 	{
 		return EnumSetFieldItem.activeLanguage.get(this);
@@ -121,7 +122,7 @@ public final class EnumSetFieldItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setActiveLanguage(final java.util.EnumSet<Language> activeLanguage)
+	final void setActiveLanguage(@javax.annotation.Nonnull final java.util.EnumSet<Language> activeLanguage)
 	{
 		EnumSetFieldItem.activeLanguage.set(this,activeLanguage);
 	}/**

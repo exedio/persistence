@@ -55,8 +55,8 @@ public final class MediaCatchPhraseItem extends MediaCatchPhraseSuperItem implem
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	MediaCatchPhraseItem(
-				final com.exedio.cope.pattern.Media.Value feature,
-				final java.lang.String catchphrase)
+				@javax.annotation.Nonnull final com.exedio.cope.pattern.Media.Value feature,
+				@javax.annotation.Nullable final java.lang.String catchphrase)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException
@@ -84,6 +84,7 @@ public final class MediaCatchPhraseItem extends MediaCatchPhraseSuperItem implem
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final java.lang.String getCatchphrase()
 	{
 		return MediaCatchPhraseItem.catchphrase.get(this);
@@ -95,7 +96,7 @@ public final class MediaCatchPhraseItem extends MediaCatchPhraseSuperItem implem
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setCatchphrase(final java.lang.String catchphrase)
+	final void setCatchphrase(@javax.annotation.Nullable final java.lang.String catchphrase)
 			throws
 				com.exedio.cope.StringLengthViolationException
 	{

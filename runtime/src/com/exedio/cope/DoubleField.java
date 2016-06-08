@@ -22,6 +22,8 @@ import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.instrument.FinalSettableGetter;
 import java.util.Set;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 public final class DoubleField extends NumberField<Double>
 {
@@ -190,7 +192,7 @@ public final class DoubleField extends NumberField<Double>
 	 * @throws IllegalArgumentException if this field is not {@link #isMandatory() mandatory}.
 	 */
 	@Wrap(order=10, name="get{0}", doc="Returns the value of {0}.", hide=OptionalGetter.class)
-	public final double getMandatory(final Item item)
+	public final double getMandatory(@Nonnull final Item item)
 	{
 		return getMandatoryObject(item).doubleValue();
 	}
@@ -199,7 +201,7 @@ public final class DoubleField extends NumberField<Double>
 			doc="Sets a new value for {0}.",
 			hide={FinalSettableGetter.class, OptionalGetter.class},
 			thrownGetter=InitialThrown.class)
-	public final void set(final Item item, final double value)
+	public final void set(@Nonnull final Item item, final double value)
 	{
 		set(item, Double.valueOf(value));
 	}
@@ -213,8 +215,9 @@ public final class DoubleField extends NumberField<Double>
 			doc="Finds a {2} by it''s {0}.",
 			docReturn="null if there is no matching item.",
 			hide={OptionalGetter.class, NonUniqueGetter.class})
+	@Nullable
 	public final <P extends Item> P searchUnique(
-			final Class<P> typeClass,
+			@Nonnull final Class<P> typeClass,
 			@Parameter(doc="shall be equal to field {0}.") final double value)
 	{
 		return super.searchUnique(typeClass, Double.valueOf(value));

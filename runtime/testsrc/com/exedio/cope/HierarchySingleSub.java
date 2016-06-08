@@ -64,6 +64,7 @@ public final class HierarchySingleSub extends HierarchySingleSuper
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	public final java.lang.String getSubString()
 	{
 		return HierarchySingleSub.subString.get(this);
@@ -75,7 +76,7 @@ public final class HierarchySingleSub extends HierarchySingleSuper
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	public final void setSubString(final java.lang.String subString)
+	public final void setSubString(@javax.annotation.Nullable final java.lang.String subString)
 			throws
 				com.exedio.cope.StringLengthViolationException
 	{
@@ -88,6 +89,7 @@ public final class HierarchySingleSub extends HierarchySingleSuper
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	public final HierarchySuper getHierarchySuper()
 	{
 		return HierarchySingleSub.hierarchySuper.get(this);
@@ -99,7 +101,7 @@ public final class HierarchySingleSub extends HierarchySingleSuper
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	public final void setHierarchySuper(final HierarchySuper hierarchySuper)
+	public final void setHierarchySuper(@javax.annotation.Nullable final HierarchySuper hierarchySuper)
 	{
 		HierarchySingleSub.hierarchySuper.set(this,hierarchySuper);
 	}/**

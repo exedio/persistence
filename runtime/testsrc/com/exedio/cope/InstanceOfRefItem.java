@@ -52,8 +52,8 @@ final class InstanceOfRefItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private InstanceOfRefItem(
-				final InstanceOfAItem ref,
-				final java.lang.String code)
+				@javax.annotation.Nullable final InstanceOfAItem ref,
+				@javax.annotation.Nonnull final java.lang.String code)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException,
@@ -82,6 +82,7 @@ final class InstanceOfRefItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final InstanceOfAItem getRef()
 	{
 		return InstanceOfRefItem.ref.get(this);
@@ -93,6 +94,7 @@ final class InstanceOfRefItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final java.lang.String getCode()
 	{
 		return InstanceOfRefItem.code.get(this);
@@ -106,7 +108,8 @@ final class InstanceOfRefItem extends Item
 	 *       It can be customized with the tag <tt>@cope.for public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	static final InstanceOfRefItem forCode(final java.lang.String code)
+	@javax.annotation.Nullable()
+	static final InstanceOfRefItem forCode(@javax.annotation.Nonnull final java.lang.String code)
 	{
 		return InstanceOfRefItem.code.searchUnique(InstanceOfRefItem.class,code);
 	}/**
@@ -117,6 +120,7 @@ final class InstanceOfRefItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final InstanceOfB2Item getRefb2()
 	{
 		return InstanceOfRefItem.refb2.get(this);
@@ -128,7 +132,7 @@ final class InstanceOfRefItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setRefb2(final InstanceOfB2Item refb2)
+	final void setRefb2(@javax.annotation.Nullable final InstanceOfB2Item refb2)
 	{
 		InstanceOfRefItem.refb2.set(this,refb2);
 	}/**

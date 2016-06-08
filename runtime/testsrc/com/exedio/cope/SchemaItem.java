@@ -84,16 +84,16 @@ final class SchemaItem extends Item
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	SchemaItem(
 				final int nonFinalInteger,
-				final java.lang.String string,
+				@javax.annotation.Nonnull final java.lang.String string,
 				final int integ,
 				final double doub,
-				final java.util.Date date,
-				final com.exedio.cope.util.Day day,
+				@javax.annotation.Nonnull final java.util.Date date,
+				@javax.annotation.Nonnull final com.exedio.cope.util.Day day,
 				final boolean bool,
-				final SomeEnum anEnum,
-				final SchemaTargetItem item,
-				final SchemaTargetPolymorphicItem poly,
-				final java.lang.String stringLong)
+				@javax.annotation.Nonnull final SomeEnum anEnum,
+				@javax.annotation.Nonnull final SchemaTargetItem item,
+				@javax.annotation.Nonnull final SchemaTargetPolymorphicItem poly,
+				@javax.annotation.Nonnull final java.lang.String stringLong)
 			throws
 				com.exedio.cope.DoubleRangeViolationException,
 				com.exedio.cope.IntegerRangeViolationException,
@@ -155,6 +155,7 @@ final class SchemaItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final java.lang.String getString()
 	{
 		return SchemaItem.string.get(this);
@@ -166,7 +167,7 @@ final class SchemaItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setString(final java.lang.String string)
+	final void setString(@javax.annotation.Nonnull final java.lang.String string)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.UniqueViolationException,
@@ -229,6 +230,7 @@ final class SchemaItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final java.util.Date getDate()
 	{
 		return SchemaItem.date.get(this);
@@ -240,7 +242,7 @@ final class SchemaItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setDate(final java.util.Date date)
+	final void setDate(@javax.annotation.Nonnull final java.util.Date date)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{
@@ -264,6 +266,7 @@ final class SchemaItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final com.exedio.cope.util.Day getDay()
 	{
 		return SchemaItem.day.get(this);
@@ -275,7 +278,7 @@ final class SchemaItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setDay(final com.exedio.cope.util.Day day)
+	final void setDay(@javax.annotation.Nonnull final com.exedio.cope.util.Day day)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{
@@ -288,7 +291,7 @@ final class SchemaItem extends Item
 	 *       It can be customized with the tag <tt>@cope.touch public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void touchDay(final java.util.TimeZone zone)
+	final void touchDay(@javax.annotation.Nonnull final java.util.TimeZone zone)
 	{
 		SchemaItem.day.touch(this,zone);
 	}/**
@@ -321,6 +324,7 @@ final class SchemaItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final SomeEnum getAnEnum()
 	{
 		return SchemaItem.anEnum.get(this);
@@ -332,7 +336,7 @@ final class SchemaItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setAnEnum(final SomeEnum anEnum)
+	final void setAnEnum(@javax.annotation.Nonnull final SomeEnum anEnum)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.UniqueViolationException
@@ -346,6 +350,7 @@ final class SchemaItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final SchemaTargetItem getItem()
 	{
 		return SchemaItem.item.get(this);
@@ -357,7 +362,7 @@ final class SchemaItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setItem(final SchemaTargetItem item)
+	final void setItem(@javax.annotation.Nonnull final SchemaTargetItem item)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{
@@ -370,6 +375,7 @@ final class SchemaItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final SchemaTargetPolymorphicItem getPoly()
 	{
 		return SchemaItem.poly.get(this);
@@ -381,7 +387,7 @@ final class SchemaItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setPoly(final SchemaTargetPolymorphicItem poly)
+	final void setPoly(@javax.annotation.Nonnull final SchemaTargetPolymorphicItem poly)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{
@@ -394,6 +400,7 @@ final class SchemaItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final java.lang.String getStringOpt()
 	{
 		return SchemaItem.stringOpt.get(this);
@@ -405,7 +412,7 @@ final class SchemaItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setStringOpt(final java.lang.String stringOpt)
+	final void setStringOpt(@javax.annotation.Nullable final java.lang.String stringOpt)
 			throws
 				com.exedio.cope.StringLengthViolationException
 	{
@@ -418,6 +425,7 @@ final class SchemaItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final java.lang.Integer getIntegOpt()
 	{
 		return SchemaItem.integOpt.get(this);
@@ -429,7 +437,7 @@ final class SchemaItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setIntegOpt(final java.lang.Integer integOpt)
+	final void setIntegOpt(@javax.annotation.Nullable final java.lang.Integer integOpt)
 			throws
 				com.exedio.cope.IntegerRangeViolationException
 	{
@@ -442,6 +450,7 @@ final class SchemaItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final java.lang.Double getDoubOpt()
 	{
 		return SchemaItem.doubOpt.get(this);
@@ -453,7 +462,7 @@ final class SchemaItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setDoubOpt(final java.lang.Double doubOpt)
+	final void setDoubOpt(@javax.annotation.Nullable final java.lang.Double doubOpt)
 			throws
 				com.exedio.cope.DoubleRangeViolationException
 	{
@@ -466,6 +475,7 @@ final class SchemaItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final java.util.Date getDateOpt()
 	{
 		return SchemaItem.dateOpt.get(this);
@@ -477,7 +487,7 @@ final class SchemaItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setDateOpt(final java.util.Date dateOpt)
+	final void setDateOpt(@javax.annotation.Nullable final java.util.Date dateOpt)
 	{
 		SchemaItem.dateOpt.set(this,dateOpt);
 	}/**
@@ -499,6 +509,7 @@ final class SchemaItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final com.exedio.cope.util.Day getDayOpt()
 	{
 		return SchemaItem.dayOpt.get(this);
@@ -510,7 +521,7 @@ final class SchemaItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setDayOpt(final com.exedio.cope.util.Day dayOpt)
+	final void setDayOpt(@javax.annotation.Nullable final com.exedio.cope.util.Day dayOpt)
 	{
 		SchemaItem.dayOpt.set(this,dayOpt);
 	}/**
@@ -521,7 +532,7 @@ final class SchemaItem extends Item
 	 *       It can be customized with the tag <tt>@cope.touch public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void touchDayOpt(final java.util.TimeZone zone)
+	final void touchDayOpt(@javax.annotation.Nonnull final java.util.TimeZone zone)
 	{
 		SchemaItem.dayOpt.touch(this,zone);
 	}/**
@@ -532,6 +543,7 @@ final class SchemaItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final|boolean-as-is</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final java.lang.Boolean getBoolOpt()
 	{
 		return SchemaItem.boolOpt.get(this);
@@ -543,7 +555,7 @@ final class SchemaItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setBoolOpt(final java.lang.Boolean boolOpt)
+	final void setBoolOpt(@javax.annotation.Nullable final java.lang.Boolean boolOpt)
 	{
 		SchemaItem.boolOpt.set(this,boolOpt);
 	}/**
@@ -554,6 +566,7 @@ final class SchemaItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final SomeEnum getEnumOpt()
 	{
 		return SchemaItem.enumOpt.get(this);
@@ -565,7 +578,7 @@ final class SchemaItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setEnumOpt(final SomeEnum enumOpt)
+	final void setEnumOpt(@javax.annotation.Nullable final SomeEnum enumOpt)
 	{
 		SchemaItem.enumOpt.set(this,enumOpt);
 	}/**
@@ -576,6 +589,7 @@ final class SchemaItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final SchemaTargetItem getItemOpt()
 	{
 		return SchemaItem.itemOpt.get(this);
@@ -587,7 +601,7 @@ final class SchemaItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setItemOpt(final SchemaTargetItem itemOpt)
+	final void setItemOpt(@javax.annotation.Nullable final SchemaTargetItem itemOpt)
 	{
 		SchemaItem.itemOpt.set(this,itemOpt);
 	}/**
@@ -598,6 +612,7 @@ final class SchemaItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final SchemaTargetPolymorphicItem getPolyOpt()
 	{
 		return SchemaItem.polyOpt.get(this);
@@ -609,7 +624,7 @@ final class SchemaItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setPolyOpt(final SchemaTargetPolymorphicItem polyOpt)
+	final void setPolyOpt(@javax.annotation.Nullable final SchemaTargetPolymorphicItem polyOpt)
 	{
 		SchemaItem.polyOpt.set(this,polyOpt);
 	}/**
@@ -620,6 +635,7 @@ final class SchemaItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final java.lang.String getUniqueString()
 	{
 		return SchemaItem.uniqueString.get(this);
@@ -631,7 +647,7 @@ final class SchemaItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setUniqueString(final java.lang.String uniqueString)
+	final void setUniqueString(@javax.annotation.Nullable final java.lang.String uniqueString)
 			throws
 				com.exedio.cope.UniqueViolationException,
 				com.exedio.cope.StringLengthViolationException
@@ -647,7 +663,8 @@ final class SchemaItem extends Item
 	 *       It can be customized with the tag <tt>@cope.for public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	static final SchemaItem forUniqueString(final java.lang.String uniqueString)
+	@javax.annotation.Nullable()
+	static final SchemaItem forUniqueString(@javax.annotation.Nonnull final java.lang.String uniqueString)
 	{
 		return SchemaItem.uniqueString.searchUnique(SchemaItem.class,uniqueString);
 	}/**
@@ -661,7 +678,8 @@ final class SchemaItem extends Item
 	 *       It can be customized with the tag <tt>@cope.finder public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	static final SchemaItem forDoubleUnique(final java.lang.String string,final SomeEnum anEnum)
+	@javax.annotation.Nullable()
+	static final SchemaItem forDoubleUnique(@javax.annotation.Nonnull final java.lang.String string,@javax.annotation.Nonnull final SomeEnum anEnum)
 	{
 		return SchemaItem.doubleUnique.search(SchemaItem.class,string,anEnum);
 	}/**
@@ -672,6 +690,7 @@ final class SchemaItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final java.lang.String getStringMin4()
 	{
 		return SchemaItem.stringMin4.get(this);
@@ -683,7 +702,7 @@ final class SchemaItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setStringMin4(final java.lang.String stringMin4)
+	final void setStringMin4(@javax.annotation.Nullable final java.lang.String stringMin4)
 			throws
 				com.exedio.cope.StringLengthViolationException
 	{
@@ -696,6 +715,7 @@ final class SchemaItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final java.lang.String getStringMax4()
 	{
 		return SchemaItem.stringMax4.get(this);
@@ -707,7 +727,7 @@ final class SchemaItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setStringMax4(final java.lang.String stringMax4)
+	final void setStringMax4(@javax.annotation.Nullable final java.lang.String stringMax4)
 			throws
 				com.exedio.cope.StringLengthViolationException
 	{
@@ -720,6 +740,7 @@ final class SchemaItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final java.lang.String getStringMin4Max8()
 	{
 		return SchemaItem.stringMin4Max8.get(this);
@@ -731,7 +752,7 @@ final class SchemaItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setStringMin4Max8(final java.lang.String stringMin4Max8)
+	final void setStringMin4Max8(@javax.annotation.Nullable final java.lang.String stringMin4Max8)
 			throws
 				com.exedio.cope.StringLengthViolationException
 	{
@@ -744,6 +765,7 @@ final class SchemaItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final java.lang.String getStringExact6()
 	{
 		return SchemaItem.stringExact6.get(this);
@@ -755,7 +777,7 @@ final class SchemaItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setStringExact6(final java.lang.String stringExact6)
+	final void setStringExact6(@javax.annotation.Nullable final java.lang.String stringExact6)
 			throws
 				com.exedio.cope.StringLengthViolationException
 	{
@@ -768,6 +790,7 @@ final class SchemaItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final java.lang.String getStringUpper6()
 	{
 		return SchemaItem.stringUpper6.get(this);
@@ -779,7 +802,7 @@ final class SchemaItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setStringUpper6(final java.lang.String stringUpper6)
+	final void setStringUpper6(@javax.annotation.Nullable final java.lang.String stringUpper6)
 			throws
 				com.exedio.cope.StringLengthViolationException,
 				com.exedio.cope.StringCharSetViolationException
@@ -793,6 +816,7 @@ final class SchemaItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final java.lang.String getStringEmpty()
 	{
 		return SchemaItem.stringEmpty.get(this);
@@ -804,7 +828,7 @@ final class SchemaItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setStringEmpty(final java.lang.String stringEmpty)
+	final void setStringEmpty(@javax.annotation.Nullable final java.lang.String stringEmpty)
 			throws
 				com.exedio.cope.StringLengthViolationException
 	{
@@ -817,6 +841,7 @@ final class SchemaItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final java.lang.String getStringLong()
 	{
 		return SchemaItem.stringLong.get(this);
@@ -828,7 +853,7 @@ final class SchemaItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setStringLong(final java.lang.String stringLong)
+	final void setStringLong(@javax.annotation.Nonnull final java.lang.String stringLong)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException
@@ -864,6 +889,7 @@ final class SchemaItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getArray public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final byte[] getDataArray()
 	{
 		return SchemaItem.data.getArray(this);
@@ -875,7 +901,7 @@ final class SchemaItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void getData(final java.io.OutputStream data)
+	final void getData(@javax.annotation.Nonnull final java.io.OutputStream data)
 			throws
 				java.io.IOException
 	{
@@ -888,7 +914,7 @@ final class SchemaItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void getData(final java.io.File data)
+	final void getData(@javax.annotation.Nonnull final java.io.File data)
 			throws
 				java.io.IOException
 	{
@@ -901,7 +927,7 @@ final class SchemaItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setData(final com.exedio.cope.DataField.Value data)
+	final void setData(@javax.annotation.Nullable final com.exedio.cope.DataField.Value data)
 	{
 		SchemaItem.data.set(this,data);
 	}/**
@@ -912,7 +938,7 @@ final class SchemaItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setData(final byte[] data)
+	final void setData(@javax.annotation.Nullable final byte[] data)
 	{
 		SchemaItem.data.set(this,data);
 	}/**
@@ -923,7 +949,7 @@ final class SchemaItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setData(final java.io.InputStream data)
+	final void setData(@javax.annotation.Nullable final java.io.InputStream data)
 			throws
 				java.io.IOException
 	{
@@ -936,7 +962,7 @@ final class SchemaItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setData(final java.io.File data)
+	final void setData(@javax.annotation.Nullable final java.io.File data)
 			throws
 				java.io.IOException
 	{

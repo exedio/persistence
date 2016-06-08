@@ -57,7 +57,7 @@ final class DeleteSchemaItem extends DeleteSchemaItemSuper
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private DeleteSchemaItem(
-				final java.lang.String field,
+				@javax.annotation.Nonnull final java.lang.String field,
 				final int nextUnused)
 			throws
 				com.exedio.cope.MandatoryViolationException,
@@ -86,6 +86,7 @@ final class DeleteSchemaItem extends DeleteSchemaItemSuper
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final java.lang.String getField()
 	{
 		return DeleteSchemaItem.field.get(this);
@@ -97,7 +98,7 @@ final class DeleteSchemaItem extends DeleteSchemaItemSuper
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setField(final java.lang.String field)
+	final void setField(@javax.annotation.Nonnull final java.lang.String field)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException

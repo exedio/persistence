@@ -80,6 +80,7 @@ public final class HashItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final java.lang.String getExplicitExternalWrap()
 	{
 		return HashItem.explicitExternalWrap.get(this);
@@ -91,7 +92,7 @@ public final class HashItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setExplicitExternalWrap(final java.lang.String explicitExternalWrap)
+	final void setExplicitExternalWrap(@javax.annotation.Nullable final java.lang.String explicitExternalWrap)
 			throws
 				com.exedio.cope.StringLengthViolationException
 	{
@@ -104,7 +105,7 @@ public final class HashItem extends Item
 	 *       It can be customized with the tag <tt>@cope.check public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final boolean checkExplicitExternal(final java.lang.String explicitExternal)
+	final boolean checkExplicitExternal(@javax.annotation.Nullable final java.lang.String explicitExternal)
 	{
 		return HashItem.explicitExternal.check(this,explicitExternal);
 	}/**
@@ -116,7 +117,7 @@ public final class HashItem extends Item
 	 *       It can be customized with the tag <tt>@cope.blind public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	static final void blindExplicitExternal(final java.lang.String explicitExternal)
+	static final void blindExplicitExternal(@javax.annotation.Nullable final java.lang.String explicitExternal)
 	{
 		HashItem.explicitExternal.blind(explicitExternal);
 	}/**
@@ -127,7 +128,7 @@ public final class HashItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setExplicitExternal(final java.lang.String explicitExternal)
+	final void setExplicitExternal(@javax.annotation.Nullable final java.lang.String explicitExternal)
 	{
 		HashItem.explicitExternal.set(this,explicitExternal);
 	}/**
@@ -138,6 +139,7 @@ public final class HashItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getwrap public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final java.lang.String getExplicitExternalwrap()
 	{
 		return HashItem.explicitExternal.getHash(this);
@@ -149,7 +151,7 @@ public final class HashItem extends Item
 	 *       It can be customized with the tag <tt>@cope.setwrap public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setExplicitExternalwrap(final java.lang.String explicitExternal)
+	final void setExplicitExternalwrap(@javax.annotation.Nullable final java.lang.String explicitExternal)
 	{
 		HashItem.explicitExternal.setHash(this,explicitExternal);
 	}/**
@@ -160,7 +162,7 @@ public final class HashItem extends Item
 	 *       It can be customized with the tag <tt>@cope.check public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final boolean checkImplicitExternal(final java.lang.String implicitExternal)
+	final boolean checkImplicitExternal(@javax.annotation.Nullable final java.lang.String implicitExternal)
 	{
 		return HashItem.implicitExternal.check(this,implicitExternal);
 	}/**
@@ -172,7 +174,7 @@ public final class HashItem extends Item
 	 *       It can be customized with the tag <tt>@cope.blind public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	static final void blindImplicitExternal(final java.lang.String implicitExternal)
+	static final void blindImplicitExternal(@javax.annotation.Nullable final java.lang.String implicitExternal)
 	{
 		HashItem.implicitExternal.blind(implicitExternal);
 	}/**
@@ -183,7 +185,7 @@ public final class HashItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setImplicitExternal(final java.lang.String implicitExternal)
+	final void setImplicitExternal(@javax.annotation.Nullable final java.lang.String implicitExternal)
 	{
 		HashItem.implicitExternal.set(this,implicitExternal);
 	}/**
@@ -194,6 +196,7 @@ public final class HashItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getwrap public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final java.lang.String getImplicitExternalwrap()
 	{
 		return HashItem.implicitExternal.getHash(this);
@@ -205,7 +208,7 @@ public final class HashItem extends Item
 	 *       It can be customized with the tag <tt>@cope.setwrap public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setImplicitExternalwrap(final java.lang.String implicitExternal)
+	final void setImplicitExternalwrap(@javax.annotation.Nullable final java.lang.String implicitExternal)
 	{
 		HashItem.implicitExternal.setHash(this,implicitExternal);
 	}/**
@@ -216,7 +219,7 @@ public final class HashItem extends Item
 	 *       It can be customized with the tag <tt>@cope.check public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final boolean checkInternal(final java.lang.String internal)
+	final boolean checkInternal(@javax.annotation.Nullable final java.lang.String internal)
 	{
 		return HashItem.internal.check(this,internal);
 	}/**
@@ -228,7 +231,7 @@ public final class HashItem extends Item
 	 *       It can be customized with the tag <tt>@cope.blind public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	static final void blindInternal(final java.lang.String internal)
+	static final void blindInternal(@javax.annotation.Nullable final java.lang.String internal)
 	{
 		HashItem.internal.blind(internal);
 	}/**
@@ -239,7 +242,7 @@ public final class HashItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setInternal(final java.lang.String internal)
+	final void setInternal(@javax.annotation.Nullable final java.lang.String internal)
 	{
 		HashItem.internal.set(this,internal);
 	}/**
@@ -250,6 +253,7 @@ public final class HashItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getwrap public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final java.lang.String getInternalwrap()
 	{
 		return HashItem.internal.getHash(this);
@@ -261,7 +265,7 @@ public final class HashItem extends Item
 	 *       It can be customized with the tag <tt>@cope.setwrap public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setInternalwrap(final java.lang.String internal)
+	final void setInternalwrap(@javax.annotation.Nullable final java.lang.String internal)
 	{
 		HashItem.internal.setHash(this,internal);
 	}/**
@@ -272,7 +276,7 @@ public final class HashItem extends Item
 	 *       It can be customized with the tag <tt>@cope.check public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final boolean checkLimited15(final java.lang.String limited15)
+	final boolean checkLimited15(@javax.annotation.Nullable final java.lang.String limited15)
 	{
 		return HashItem.limited15.check(this,limited15);
 	}/**
@@ -284,7 +288,7 @@ public final class HashItem extends Item
 	 *       It can be customized with the tag <tt>@cope.blind public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	static final void blindLimited15(final java.lang.String limited15)
+	static final void blindLimited15(@javax.annotation.Nullable final java.lang.String limited15)
 	{
 		HashItem.limited15.blind(limited15);
 	}/**
@@ -295,7 +299,7 @@ public final class HashItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setLimited15(final java.lang.String limited15)
+	final void setLimited15(@javax.annotation.Nullable final java.lang.String limited15)
 	{
 		HashItem.limited15.set(this,limited15);
 	}/**
@@ -306,6 +310,7 @@ public final class HashItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getwrap public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final java.lang.String getLimited15wrap()
 	{
 		return HashItem.limited15.getHash(this);
@@ -317,7 +322,7 @@ public final class HashItem extends Item
 	 *       It can be customized with the tag <tt>@cope.setwrap public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setLimited15wrap(final java.lang.String limited15)
+	final void setLimited15wrap(@javax.annotation.Nullable final java.lang.String limited15)
 	{
 		HashItem.limited15.setHash(this,limited15);
 	}/**
@@ -328,7 +333,7 @@ public final class HashItem extends Item
 	 *       It can be customized with the tag <tt>@cope.check public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final boolean checkWithCorruptValidator(final java.lang.String withCorruptValidator)
+	final boolean checkWithCorruptValidator(@javax.annotation.Nullable final java.lang.String withCorruptValidator)
 	{
 		return HashItem.withCorruptValidator.check(this,withCorruptValidator);
 	}/**
@@ -340,7 +345,7 @@ public final class HashItem extends Item
 	 *       It can be customized with the tag <tt>@cope.blind public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	static final void blindWithCorruptValidator(final java.lang.String withCorruptValidator)
+	static final void blindWithCorruptValidator(@javax.annotation.Nullable final java.lang.String withCorruptValidator)
 	{
 		HashItem.withCorruptValidator.blind(withCorruptValidator);
 	}/**
@@ -351,7 +356,7 @@ public final class HashItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setWithCorruptValidator(final java.lang.String withCorruptValidator)
+	final void setWithCorruptValidator(@javax.annotation.Nullable final java.lang.String withCorruptValidator)
 	{
 		HashItem.withCorruptValidator.set(this,withCorruptValidator);
 	}/**
@@ -362,6 +367,7 @@ public final class HashItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getwrap public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final java.lang.String getWithCorruptValidatorwrap()
 	{
 		return HashItem.withCorruptValidator.getHash(this);
@@ -373,7 +379,7 @@ public final class HashItem extends Item
 	 *       It can be customized with the tag <tt>@cope.setwrap public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setWithCorruptValidatorwrap(final java.lang.String withCorruptValidator)
+	final void setWithCorruptValidatorwrap(@javax.annotation.Nullable final java.lang.String withCorruptValidator)
 	{
 		HashItem.withCorruptValidator.setHash(this,withCorruptValidator);
 	}/**
@@ -384,7 +390,7 @@ public final class HashItem extends Item
 	 *       It can be customized with the tag <tt>@cope.check public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final boolean checkWith3PinValidator(final java.lang.String with3PinValidator)
+	final boolean checkWith3PinValidator(@javax.annotation.Nullable final java.lang.String with3PinValidator)
 	{
 		return HashItem.with3PinValidator.check(this,with3PinValidator);
 	}/**
@@ -396,7 +402,7 @@ public final class HashItem extends Item
 	 *       It can be customized with the tag <tt>@cope.blind public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	static final void blindWith3PinValidator(final java.lang.String with3PinValidator)
+	static final void blindWith3PinValidator(@javax.annotation.Nullable final java.lang.String with3PinValidator)
 	{
 		HashItem.with3PinValidator.blind(with3PinValidator);
 	}/**
@@ -407,7 +413,7 @@ public final class HashItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setWith3PinValidator(final java.lang.String with3PinValidator)
+	final void setWith3PinValidator(@javax.annotation.Nullable final java.lang.String with3PinValidator)
 	{
 		HashItem.with3PinValidator.set(this,with3PinValidator);
 	}/**
@@ -418,6 +424,7 @@ public final class HashItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getwrap public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final java.lang.String getWith3PinValidatorwrap()
 	{
 		return HashItem.with3PinValidator.getHash(this);
@@ -429,7 +436,7 @@ public final class HashItem extends Item
 	 *       It can be customized with the tag <tt>@cope.setwrap public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setWith3PinValidatorwrap(final java.lang.String with3PinValidator)
+	final void setWith3PinValidatorwrap(@javax.annotation.Nullable final java.lang.String with3PinValidator)
 	{
 		HashItem.with3PinValidator.setHash(this,with3PinValidator);
 	}/**

@@ -39,6 +39,7 @@ import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Model;
 import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.pattern.MoneyFieldItem.Currency;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.Test;
 
 public class MoneyFieldTest extends TestWithEnvironment
@@ -269,6 +270,8 @@ public class MoneyFieldTest extends TestWithEnvironment
 		assertEquals(gbp , i.getCurrency());
 		assertEquals(null, i.getShared());
 	}
+
+	@SuppressFBWarnings("NP_NONNULL_PARAM_VIOLATION")
 	@Test public void testSharedMandatorySingle()
 	{
 		final MoneyFieldItem i = sharedMandatory(eur, valueOf(5.55, eur));

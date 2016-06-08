@@ -21,6 +21,8 @@ package com.exedio.cope;
 import static com.exedio.cope.Intern.intern;
 
 import com.exedio.cope.instrument.FeaturesGetter;
+import com.exedio.cope.instrument.Nullability;
+import com.exedio.cope.instrument.NullabilityGetter;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.WrapFeature;
@@ -30,6 +32,7 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import javax.annotation.Nullable;
 
 @WrapFeature
 public final class UniqueConstraint extends Feature implements Copyable
@@ -184,9 +187,10 @@ public final class UniqueConstraint extends Feature implements Copyable
 			varargsFeatures=SearchVarargs.class,
 			doc="Finds a {2} by it''s unique fields.",
 			docReturn="null if there is no matching item.")
+	@Nullable
 	public <P extends Item> P search(
 			final Class<P> typeClass,
-			@Parameter(doc="shall be equal to field {0}.") final Object... values)
+			@Parameter(doc="shall be equal to field {0}.", nullability=FixedNonnull.class) final Object... values)
 	{
 		return Cast.verboseCast(typeClass, search(values));
 	}
@@ -196,6 +200,16 @@ public final class UniqueConstraint extends Feature implements Copyable
 		public List<?> get(final UniqueConstraint feature)
 		{
 			return feature.getFields();
+		}
+	}
+
+	/** used instead of a standard @Nonnull annotation, since semantics of that are unclear for varargs */
+	private static final class FixedNonnull implements NullabilityGetter<UniqueConstraint>
+	{
+		@Override
+		public Nullability getNullability(final UniqueConstraint feature)
+		{
+			return Nullability.NONNULL;
 		}
 	}
 

@@ -28,6 +28,7 @@ import com.exedio.cope.util.Day;
 import java.lang.reflect.AnnotatedElement;
 import java.util.Date;
 import java.util.TimeZone;
+import javax.annotation.Nonnull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -199,7 +200,7 @@ public final class DayField extends FunctionField<Day>
 	@Wrap(order=10,
 			doc="Sets today for the date field {0}.", // TODO better text
 			hide=FinalSettableGetter.class)
-	public void touch(final Item item, @Parameter("zone") final TimeZone zone)
+	public void touch(@Nonnull final Item item, @Nonnull @Parameter("zone") final TimeZone zone)
 	{
 		set(item, new Day(zone)); // TODO: make a more efficient implementation
 	}

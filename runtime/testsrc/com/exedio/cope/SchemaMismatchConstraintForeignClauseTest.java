@@ -74,7 +74,7 @@ public class SchemaMismatchConstraintForeignClauseTest extends SchemaMismatchTes
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	ItemA(
-				final TargetA field)
+				@javax.annotation.Nonnull final TargetA field)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{
@@ -100,6 +100,7 @@ public class SchemaMismatchConstraintForeignClauseTest extends SchemaMismatchTes
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final TargetA getField()
 	{
 		return ItemA.field.get(this);
@@ -144,7 +145,7 @@ public class SchemaMismatchConstraintForeignClauseTest extends SchemaMismatchTes
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	ItemB(
-				final TargetB field)
+				@javax.annotation.Nonnull final TargetB field)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{
@@ -170,6 +171,7 @@ public class SchemaMismatchConstraintForeignClauseTest extends SchemaMismatchTes
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final TargetB getField()
 	{
 		return ItemB.field.get(this);

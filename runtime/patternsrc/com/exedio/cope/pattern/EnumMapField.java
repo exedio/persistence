@@ -26,6 +26,8 @@ import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
+import com.exedio.cope.instrument.Nullability;
+import com.exedio.cope.instrument.NullabilityGetter;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.EnumAnnotatedElement;
@@ -35,6 +37,7 @@ import java.util.EnumMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import javax.annotation.Nonnull;
 
 public final class EnumMapField<K extends Enum<K>,V> extends Pattern implements Settable<EnumMap<K,V>>, MapFieldInterface<K,V>
 {
@@ -103,10 +106,10 @@ public final class EnumMapField<K extends Enum<K>,V> extends Pattern implements 
 	}
 
 	@Override
-	@Wrap(order=10, doc="Returns the value mapped to <tt>" + KEY + "</tt> by the field map {0}.")
+	@Wrap(order=10, doc="Returns the value mapped to <tt>" + KEY + "</tt> by the field map {0}.", nullability=MapValueNullable.class)
 	public V get(
-			final Item item,
-			@Parameter(KEY) final K key)
+			@Nonnull final Item item,
+			@Nonnull @Parameter(KEY) final K key)
 	{
 		return field(key).get(item);
 	}
@@ -114,16 +117,17 @@ public final class EnumMapField<K extends Enum<K>,V> extends Pattern implements 
 	@Override
 	@Wrap(order=20, doc="Associates <tt>" + KEY + "</tt> to a new value in the field map {0}.")
 	public void set(
-			final Item item,
-			@Parameter(KEY) final K key,
-			final V value)
+			@Nonnull final Item item,
+			@Nonnull @Parameter(KEY) final K key,
+			@Parameter(nullability=MapValueNullable.class) final V value)
 	{
 		field(key).set(item, value);
 	}
 
 	@Override
 	@Wrap(order=110)
-	public Map<K,V> getMap(final Item item)
+	@Nonnull
+	public Map<K,V> getMap(@Nonnull final Item item)
 	{
 		final EnumMap<K,V> result = new EnumMap<>(keyClass);
 		for(final K key : keyClass.getEnumConstants())
@@ -137,7 +141,7 @@ public final class EnumMapField<K extends Enum<K>,V> extends Pattern implements 
 
 	@Override
 	@Wrap(order=120)
-	public void setMap(final Item item, final Map<? extends K,? extends V> map)
+	public void setMap(@Nonnull final Item item, @Nonnull final Map<? extends K,? extends V> map)
 	{
 		if( map==null || map.containsKey(null) )
 			throw MandatoryViolationException.create(this, item);
@@ -245,6 +249,14 @@ public final class EnumMapField<K extends Enum<K>,V> extends Pattern implements 
 					" of " + valueClass.getName());
 	}
 
+	private static final class MapValueNullable implements NullabilityGetter<EnumMapField<?,?>>
+	{
+		@Override
+		public Nullability getNullability(final EnumMapField<?,?> feature)
+		{
+			return Nullability.forMandatory(feature.valueTemplate.isMandatory());
+		}
+	}
 
 	// ------------------- deprecated stuff -------------------
 

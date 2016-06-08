@@ -45,7 +45,7 @@ public class Input extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	public Input(
-				final java.lang.String string,
+				@javax.annotation.Nonnull final java.lang.String string,
 				final int integer)
 			throws
 				com.exedio.cope.MandatoryViolationException,
@@ -75,6 +75,7 @@ public class Input extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	public final java.lang.String getString()
 	{
 		return Input.string.get(this);
@@ -100,7 +101,8 @@ public class Input extends Item
 	 *       It can be customized with the tag <tt>@cope.finder public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	public static final Input forUnique(final java.lang.String string,final int integer)
+	@javax.annotation.Nullable()
+	public static final Input forUnique(@javax.annotation.Nonnull final java.lang.String string,@javax.annotation.Nonnull final int integer)
 	{
 		return Input.unique.search(Input.class,string,integer);
 	}/**

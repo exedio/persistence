@@ -40,6 +40,8 @@ import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.List;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 public final class DynamicModel<L> extends Pattern
 {
@@ -279,7 +281,8 @@ public final class DynamicModel<L> extends Pattern
 	}
 
 	@Wrap(order=10, doc="Returns the dynamic type of this item in the model {0}.")
-	public Type<L> getType(final Item item)
+	@Nullable
+	public Type<L> getType(@Nonnull final Item item)
 	{
 		return mount().type.get(item);
 	}
@@ -321,8 +324,8 @@ public final class DynamicModel<L> extends Pattern
 
 	@Wrap(order=20, doc="Sets the dynamic type of this item in the model {0}.")
 	public void setType(
-			final Item item,
-			@Parameter("type") final Type<L> type)
+			@Nonnull final Item item,
+			@Nullable @Parameter("type") final Type<L> type)
 	{
 		if(type!=null && !this.equals(type.getModel()))
 			throw new IllegalArgumentException(
@@ -393,9 +396,10 @@ public final class DynamicModel<L> extends Pattern
 	}
 
 	@Wrap(order=30, doc="Returns the value of <tt>field</tt> for this item in the model {0}.")
+	@Nullable
 	public Object get(
-			final Item item,
-			@Parameter("field") final Field<L> field)
+			@Nonnull final Item item,
+			@Nonnull @Parameter("field") final Field<L> field)
 	{
 		assertType(item, field);
 		return getField(field).get(item);
@@ -403,9 +407,9 @@ public final class DynamicModel<L> extends Pattern
 
 	@Wrap(order=40, doc="Sets the value of <tt>field</tt> for this item in the model {0}.")
 	public void set(
-			final Item item,
-			@Parameter("field") final Field<L> field,
-			@Parameter("value") final Object value)
+			@Nonnull final Item item,
+			@Nonnull @Parameter("field") final Field<L> field,
+			@Nullable @Parameter("value") final Object value)
 	{
 		assertType(item, field);
 

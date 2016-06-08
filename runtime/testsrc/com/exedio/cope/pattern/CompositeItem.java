@@ -43,9 +43,9 @@ public final class CompositeItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	CompositeItem(
-				final java.lang.String code,
-				final CompositeValue eins,
-				final CompositeValue zwei)
+				@javax.annotation.Nonnull final java.lang.String code,
+				@javax.annotation.Nonnull final CompositeValue eins,
+				@javax.annotation.Nonnull final CompositeValue zwei)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException
@@ -74,6 +74,7 @@ public final class CompositeItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final java.lang.String getCode()
 	{
 		return CompositeItem.code.get(this);
@@ -85,6 +86,7 @@ public final class CompositeItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final CompositeValue getEins()
 	{
 		return CompositeItem.eins.get(this);
@@ -96,7 +98,7 @@ public final class CompositeItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setEins(final CompositeValue eins)
+	final void setEins(@javax.annotation.Nonnull final CompositeValue eins)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{
@@ -109,6 +111,7 @@ public final class CompositeItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final CompositeValue getZwei()
 	{
 		return CompositeItem.zwei.get(this);
@@ -120,7 +123,7 @@ public final class CompositeItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setZwei(final CompositeValue zwei)
+	final void setZwei(@javax.annotation.Nonnull final CompositeValue zwei)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{

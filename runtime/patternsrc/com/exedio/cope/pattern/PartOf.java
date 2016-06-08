@@ -30,11 +30,15 @@ import com.exedio.cope.Pattern;
 import com.exedio.cope.Query;
 import com.exedio.cope.This;
 import com.exedio.cope.Type;
+import com.exedio.cope.instrument.Nullability;
+import com.exedio.cope.instrument.NullabilityGetter;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.util.Cast;
 import java.util.ArrayList;
 import java.util.List;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 public final class PartOf<C extends Item> extends Pattern
 {
@@ -73,25 +77,27 @@ public final class PartOf<C extends Item> extends Pattern
 		return order;
 	}
 
-	@Wrap(order=10, doc="Returns the container this item is part of by {0}.")
-	public C getContainer(final Item part)
+	@Wrap(order=10, doc="Returns the container this item is part of by {0}.", nullability=NullableIfContainerOptional.class)
+	public C getContainer(@Nonnull final Item part)
 	{
 		return container.get(part);
 	}
 
 	@Wrap(order=20, doc="Returns the parts of the given container.")
+	@Nonnull
 	public <P extends Item> List<P> getParts(
-			final Class<P> partClass,
-			@Parameter("container") final C container)
+			@Nonnull final Class<P> partClass,
+			@Parameter(value="container", nullability=NullableIfContainerOptional.class) final C container)
 	{
 		return getParts(partClass, container, null);
 	}
 
 	@Wrap(order=30, doc="Returns the parts of the given container matching the given condition.")
+	@Nonnull
 	public <P extends Item> List<P> getParts(
-			final Class<P> partClass,
-			@Parameter("container") final C container,
-			@Parameter("condition") final Condition condition)
+			@Nonnull final Class<P> partClass,
+			@Parameter(value="container", nullability=NullableIfContainerOptional.class) final C container,
+			@Nullable @Parameter("condition") final Condition condition)
 	{
 		final Type<P> type = getType().as(partClass);
 		final Condition parentCondition = this.container.equal(container);
@@ -149,6 +155,15 @@ public final class PartOf<C extends Item> extends Pattern
 			}
 		}
 		return result;
+	}
+
+	private static final class NullableIfContainerOptional implements NullabilityGetter<PartOf<?>>
+	{
+		@Override
+		public Nullability getNullability(final PartOf<?> feature)
+		{
+			return Nullability.forMandatory(feature.container.isMandatory());
+		}
 	}
 
 	// ------------------- deprecated stuff -------------------

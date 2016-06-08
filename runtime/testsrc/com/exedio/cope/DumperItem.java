@@ -66,9 +66,9 @@ public class DumperItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	DumperItem(
-				final java.lang.String string,
-				final java.lang.String unique,
-				final com.exedio.cope.DataField.Value data)
+				@javax.annotation.Nonnull final java.lang.String string,
+				@javax.annotation.Nonnull final java.lang.String unique,
+				@javax.annotation.Nonnull final com.exedio.cope.DataField.Value data)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException,
@@ -98,6 +98,7 @@ public class DumperItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final java.lang.String getString()
 	{
 		return DumperItem.string.get(this);
@@ -109,7 +110,7 @@ public class DumperItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setString(final java.lang.String string)
+	final void setString(@javax.annotation.Nonnull final java.lang.String string)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException
@@ -123,6 +124,7 @@ public class DumperItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final java.lang.String getUnique()
 	{
 		return DumperItem.unique.get(this);
@@ -134,7 +136,7 @@ public class DumperItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setUnique(final java.lang.String unique)
+	final void setUnique(@javax.annotation.Nonnull final java.lang.String unique)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.UniqueViolationException,
@@ -151,7 +153,8 @@ public class DumperItem extends Item
 	 *       It can be customized with the tag <tt>@cope.for public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	static final DumperItem forUnique(final java.lang.String unique)
+	@javax.annotation.Nullable()
+	static final DumperItem forUnique(@javax.annotation.Nonnull final java.lang.String unique)
 	{
 		return DumperItem.unique.searchUnique(DumperItem.class,unique);
 	}/**
@@ -184,6 +187,7 @@ public class DumperItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getArray public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final byte[] getDataArray()
 	{
 		return DumperItem.data.getArray(this);
@@ -195,7 +199,7 @@ public class DumperItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void getData(final java.io.OutputStream data)
+	final void getData(@javax.annotation.Nonnull final java.io.OutputStream data)
 			throws
 				java.io.IOException
 	{
@@ -208,7 +212,7 @@ public class DumperItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void getData(final java.io.File data)
+	final void getData(@javax.annotation.Nonnull final java.io.File data)
 			throws
 				java.io.IOException
 	{
@@ -221,7 +225,7 @@ public class DumperItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setData(final com.exedio.cope.DataField.Value data)
+	final void setData(@javax.annotation.Nonnull final com.exedio.cope.DataField.Value data)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{
@@ -234,7 +238,7 @@ public class DumperItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setData(final byte[] data)
+	final void setData(@javax.annotation.Nonnull final byte[] data)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{
@@ -247,7 +251,7 @@ public class DumperItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setData(final java.io.InputStream data)
+	final void setData(@javax.annotation.Nonnull final java.io.InputStream data)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				java.io.IOException
@@ -261,7 +265,7 @@ public class DumperItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setData(final java.io.File data)
+	final void setData(@javax.annotation.Nonnull final java.io.File data)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				java.io.IOException

@@ -36,7 +36,7 @@ final class GroupItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	GroupItem(
-				final com.exedio.cope.util.Day day,
+				@javax.annotation.Nonnull final com.exedio.cope.util.Day day,
 				final int number)
 			throws
 				com.exedio.cope.MandatoryViolationException
@@ -64,6 +64,7 @@ final class GroupItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final com.exedio.cope.util.Day getDay()
 	{
 		return GroupItem.day.get(this);
@@ -75,7 +76,7 @@ final class GroupItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setDay(final com.exedio.cope.util.Day day)
+	final void setDay(@javax.annotation.Nonnull final com.exedio.cope.util.Day day)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{
@@ -88,7 +89,7 @@ final class GroupItem extends Item
 	 *       It can be customized with the tag <tt>@cope.touch public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void touchDay(final java.util.TimeZone zone)
+	final void touchDay(@javax.annotation.Nonnull final java.util.TimeZone zone)
 	{
 		GroupItem.day.touch(this,zone);
 	}/**
@@ -121,6 +122,7 @@ final class GroupItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final java.lang.Double getOptionalDouble()
 	{
 		return GroupItem.optionalDouble.get(this);
@@ -132,7 +134,7 @@ final class GroupItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setOptionalDouble(final java.lang.Double optionalDouble)
+	final void setOptionalDouble(@javax.annotation.Nullable final java.lang.Double optionalDouble)
 	{
 		GroupItem.optionalDouble.set(this,optionalDouble);
 	}/**

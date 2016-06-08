@@ -32,7 +32,7 @@ final class IoqTargetSub extends IoqTargetSuper
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	IoqTargetSub(
-				final java.lang.String code)
+				@javax.annotation.Nonnull final java.lang.String code)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException

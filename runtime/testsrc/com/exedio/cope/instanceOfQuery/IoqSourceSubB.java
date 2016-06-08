@@ -38,9 +38,9 @@ final class IoqSourceSubB extends IoqSourceSuper
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	IoqSourceSubB(
-				final com.exedio.cope.instanceOfQuery.IoqTargetSuper ref,
-				final java.lang.String code,
-				final IoqSourceSubA brother)
+				@javax.annotation.Nonnull final com.exedio.cope.instanceOfQuery.IoqTargetSuper ref,
+				@javax.annotation.Nonnull final java.lang.String code,
+				@javax.annotation.Nonnull final IoqSourceSubA brother)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException
@@ -69,6 +69,7 @@ final class IoqSourceSubB extends IoqSourceSuper
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final IoqSourceSubA getBrother()
 	{
 		return IoqSourceSubB.brother.get(this);
@@ -80,7 +81,7 @@ final class IoqSourceSubB extends IoqSourceSuper
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setBrother(final IoqSourceSubA brother)
+	final void setBrother(@javax.annotation.Nonnull final IoqSourceSubA brother)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{

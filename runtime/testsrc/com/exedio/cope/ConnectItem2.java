@@ -38,9 +38,9 @@ final class ConnectItem2 extends ConnectItem
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	ConnectItem2(
-				final com.exedio.cope.ConnectItem2 itemField,
-				final com.exedio.cope.ConnectItem itemFieldSelf,
-				final java.lang.String stringField)
+				@javax.annotation.Nonnull final com.exedio.cope.ConnectItem2 itemField,
+				@javax.annotation.Nonnull final com.exedio.cope.ConnectItem itemFieldSelf,
+				@javax.annotation.Nonnull final java.lang.String stringField)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException
@@ -69,6 +69,7 @@ final class ConnectItem2 extends ConnectItem
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final ConnectItem getItemField2()
 	{
 		return ConnectItem2.itemField2.get(this);
@@ -80,7 +81,7 @@ final class ConnectItem2 extends ConnectItem
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setItemField2(final ConnectItem itemField2)
+	final void setItemField2(@javax.annotation.Nullable final ConnectItem itemField2)
 	{
 		ConnectItem2.itemField2.set(this,itemField2);
 	}/**
@@ -91,6 +92,7 @@ final class ConnectItem2 extends ConnectItem
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final ConnectItem2 getItemFieldSelf2()
 	{
 		return ConnectItem2.itemFieldSelf2.get(this);
@@ -102,7 +104,7 @@ final class ConnectItem2 extends ConnectItem
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setItemFieldSelf2(final ConnectItem2 itemFieldSelf2)
+	final void setItemFieldSelf2(@javax.annotation.Nullable final ConnectItem2 itemFieldSelf2)
 	{
 		ConnectItem2.itemFieldSelf2.set(this,itemFieldSelf2);
 	}/**
@@ -113,6 +115,7 @@ final class ConnectItem2 extends ConnectItem
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final java.lang.String getStringField2()
 	{
 		return ConnectItem2.stringField2.get(this);
@@ -124,7 +127,7 @@ final class ConnectItem2 extends ConnectItem
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setStringField2(final java.lang.String stringField2)
+	final void setStringField2(@javax.annotation.Nullable final java.lang.String stringField2)
 			throws
 				com.exedio.cope.StringLengthViolationException
 	{

@@ -29,6 +29,8 @@ import com.exedio.cope.misc.ComputedElement;
 import com.exedio.cope.misc.instrument.InitialExceptionsSettableGetter;
 import java.security.SecureRandom;
 import java.util.Set;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 public final class DrivebyHashMigration extends Pattern implements HashInterface
 {
@@ -70,7 +72,8 @@ public final class DrivebyHashMigration extends Pattern implements HashInterface
 
 	@Wrap(order=10,
 			doc="Returns whether the given value corresponds to the hash in {0}.")
-	public boolean check(final Item item, final String actualPlainText)
+	@Override
+	public boolean check(@Nonnull final Item item, @Nullable final String actualPlainText)
 	{
 		if(!legacyHash.isNull(item))
 		{
@@ -85,12 +88,14 @@ public final class DrivebyHashMigration extends Pattern implements HashInterface
 		}
 	}
 
+	@Override
 	public boolean isNull(final Item item)
 	{
 		// needs actual implementation if there is optional()
 		return false;
 	}
 
+	@Override
 	public String getHash(final Item item)
 	{
 		final String targetHash = this.targetHash.getHash(item);
@@ -104,7 +109,7 @@ public final class DrivebyHashMigration extends Pattern implements HashInterface
 			doc={"Wastes (almost) as much cpu cycles, as a call to <tt>check{3}</tt> would have needed.",
 					"Needed to prevent Timing Attacks."})
 	@Override
-	public void blind(final String actualPlainText)
+	public void blind(@Nullable final String actualPlainText)
 	{
 		targetHash.blind(actualPlainText);
 	}
@@ -118,7 +123,8 @@ public final class DrivebyHashMigration extends Pattern implements HashInterface
 	@Wrap(order=30,
 			doc="Sets a new value for {0}.",
 			thrownGetter=InitialExceptionsSettableGetter.class)
-	public void set(final Item item, final String plainText)
+	@Override
+	public void set(@Nonnull final Item item, @Nonnull final String plainText)
 	{
 		if(plainText==null)
 			throw MandatoryViolationException.create(this, item);

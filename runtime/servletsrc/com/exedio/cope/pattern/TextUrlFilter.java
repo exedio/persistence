@@ -47,6 +47,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
+import javax.annotation.Nonnull;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -107,18 +108,19 @@ public class TextUrlFilter extends MediaFilter implements TextUrlFilterCheckable
 
 	@Wrap(order=10, thrown=@Wrap.Thrown(IOException.class))
 	public final void setRaw(
-			final Item item,
-			@Parameter("raw") final Media.Value raw )
+			@Nonnull final Item item,
+			@Parameter(value="raw", nullability=NullableIfSourceOptional.class) final Media.Value raw )
 	throws IOException
 	{
 		this.raw.set( item, raw );
 	}
 
 	@Wrap(order=20)
+	@Nonnull
 	public final Paste addPaste(
-			final Item item,
-			@Parameter("key") final String key,
-			@Parameter("value") final Media.Value value)
+			@Nonnull final Item item,
+			@Nonnull @Parameter("key") final String key,
+			@Nonnull @Parameter("value") final Media.Value value)
 	{
 		final Mount mount = mount();
 		return mount.pasteType.newItem(
@@ -129,19 +131,20 @@ public class TextUrlFilter extends MediaFilter implements TextUrlFilterCheckable
 
 	@Wrap(order=30, thrown=@Wrap.Thrown(IOException.class))
 	public final void modifyPaste(
-			final Item item,
-			@Parameter("key") final String key,
-			@Parameter("value") final Media.Value value )
+			@Nonnull final Item item,
+			@Nonnull @Parameter("key") final String key,
+			@Nonnull @Parameter("value") final Media.Value value )
 	throws IOException
 	{
 		pasteValue.set(getPaste(item, key), value);
 	}
 
 	@Wrap(order=50, thrown=@Wrap.Thrown(IOException.class))
+	@Nonnull
 	public final Paste putPaste(
-			final Item item,
-			@Parameter("key") final String key,
-			@Parameter("value") final Media.Value value)
+			@Nonnull final Item item,
+			@Nonnull @Parameter("key") final String key,
+			@Nonnull @Parameter("value") final Media.Value value)
 	throws IOException
 	{
 		final Mount mount = mount();
@@ -258,9 +261,10 @@ public class TextUrlFilter extends MediaFilter implements TextUrlFilterCheckable
 	}
 
 	@Wrap(order=80, thrown={@Wrap.Thrown(NotFound.class)})
+	@Nonnull
 	public final String getContent(
-			final Item item,
-			@Parameter("request") final HttpServletRequest request )
+			@Nonnull final Item item,
+			@Nonnull @Parameter("request") final HttpServletRequest request )
 		throws NotFound
 	{
 		checkContentType( item );
@@ -326,7 +330,8 @@ public class TextUrlFilter extends MediaFilter implements TextUrlFilterCheckable
 
 	@Override
 	@Wrap(order=90, thrown={@Wrap.Thrown(NotFound.class)})
-	public Set<String> check( final Item item ) throws NotFound
+	@Nonnull
+	public Set<String> check( @Nonnull final Item item ) throws NotFound
 	{
 		checkContentType( item );
 		final Set<String> brokenCodes = new HashSet<>();
@@ -419,8 +424,8 @@ public class TextUrlFilter extends MediaFilter implements TextUrlFilterCheckable
 
 	@Wrap(order=100, thrown=@Wrap.Thrown(value=IOException.class))
 	public final void putPastesFromZip(
-			final Item item,
-			@Parameter("file") final File file)
+			@Nonnull final Item item,
+			@Nonnull @Parameter("file") final File file)
 		throws IOException
 	{
 		try(ZipFile zipFile = new ZipFile(file))

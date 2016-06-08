@@ -40,6 +40,7 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+import javax.annotation.Nonnull;
 
 public final class LimitedListField<E> extends AbstractListField<E> implements Settable<Collection<E>>
 {
@@ -184,7 +185,8 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 
 	@Wrap(order=10, doc="Returns the value of {0}.")
 	@Override
-	public List<E> get(final Item item)
+	@Nonnull
+	public List<E> get(@Nonnull final Item item)
 	{
 		final int length = this.length.getMandatory(item);
 		final ArrayList<E> result = new ArrayList<>(length);
@@ -208,7 +210,7 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 			doc="Sets a new value for {0}.",
 			thrownGetter=Thrown.class)
 	@Override
-	public void set(final Item item, final Collection<? extends E> value)
+	public void set(@Nonnull final Item item, @Nonnull final Collection<? extends E> value)
 	{
 		assertValue(value, item);
 		int i = 0;

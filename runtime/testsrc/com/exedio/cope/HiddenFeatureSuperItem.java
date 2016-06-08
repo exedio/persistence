@@ -55,6 +55,7 @@ class HiddenFeatureSuperItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final java.lang.String getNonHiddenSuper()
 	{
 		return HiddenFeatureSuperItem.nonHiddenSuper.get(this);
@@ -66,7 +67,7 @@ class HiddenFeatureSuperItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setNonHiddenSuper(final java.lang.String nonHiddenSuper)
+	final void setNonHiddenSuper(@javax.annotation.Nullable final java.lang.String nonHiddenSuper)
 			throws
 				com.exedio.cope.StringLengthViolationException
 	{
@@ -79,6 +80,7 @@ class HiddenFeatureSuperItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final java.lang.String getHiddenSame()
 	{
 		return HiddenFeatureSuperItem.hiddenSame.get(this);
@@ -90,7 +92,7 @@ class HiddenFeatureSuperItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setHiddenSame(final java.lang.String hiddenSame)
+	final void setHiddenSame(@javax.annotation.Nullable final java.lang.String hiddenSame)
 			throws
 				com.exedio.cope.StringLengthViolationException
 	{
@@ -103,6 +105,7 @@ class HiddenFeatureSuperItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final java.lang.String getHiddenOther()
 	{
 		return HiddenFeatureSuperItem.hiddenOther.get(this);
@@ -114,7 +117,7 @@ class HiddenFeatureSuperItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setHiddenOther(final java.lang.String hiddenOther)
+	final void setHiddenOther(@javax.annotation.Nullable final java.lang.String hiddenOther)
 			throws
 				com.exedio.cope.StringLengthViolationException
 	{

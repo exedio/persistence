@@ -132,6 +132,7 @@ public final class LimitedListFieldItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final java.lang.Integer getNum1()
 	{
 		return LimitedListFieldItem.num1.get(this);
@@ -143,7 +144,7 @@ public final class LimitedListFieldItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setNum1(final java.lang.Integer num1)
+	final void setNum1(@javax.annotation.Nullable final java.lang.Integer num1)
 	{
 		LimitedListFieldItem.num1.set(this,num1);
 	}/**
@@ -154,6 +155,7 @@ public final class LimitedListFieldItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final java.lang.Integer getNum2()
 	{
 		return LimitedListFieldItem.num2.get(this);
@@ -165,7 +167,7 @@ public final class LimitedListFieldItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setNum2(final java.lang.Integer num2)
+	final void setNum2(@javax.annotation.Nullable final java.lang.Integer num2)
 	{
 		LimitedListFieldItem.num2.set(this,num2);
 	}/**
@@ -176,6 +178,7 @@ public final class LimitedListFieldItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final java.lang.Integer getNum3()
 	{
 		return LimitedListFieldItem.num3.get(this);
@@ -187,7 +190,7 @@ public final class LimitedListFieldItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setNum3(final java.lang.Integer num3)
+	final void setNum3(@javax.annotation.Nullable final java.lang.Integer num3)
 	{
 		LimitedListFieldItem.num3.set(this,num3);
 	}/**
@@ -198,6 +201,7 @@ public final class LimitedListFieldItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final java.util.List<Integer> getNums()
 	{
 		return LimitedListFieldItem.nums.get(this);
@@ -209,7 +213,7 @@ public final class LimitedListFieldItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setNums(final java.util.Collection<? extends Integer> nums)
+	final void setNums(@javax.annotation.Nonnull final java.util.Collection<? extends Integer> nums)
 			throws
 				java.lang.ClassCastException,
 				com.exedio.cope.pattern.ListSizeViolationException
@@ -223,6 +227,7 @@ public final class LimitedListFieldItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final java.util.List<Date> getDates()
 	{
 		return LimitedListFieldItem.dates.get(this);
@@ -234,7 +239,7 @@ public final class LimitedListFieldItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setDates(final java.util.Collection<? extends Date> dates)
+	final void setDates(@javax.annotation.Nonnull final java.util.Collection<? extends Date> dates)
 			throws
 				java.lang.ClassCastException,
 				com.exedio.cope.pattern.ListSizeViolationException
@@ -248,6 +253,7 @@ public final class LimitedListFieldItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final java.util.List<String> getStrings()
 	{
 		return LimitedListFieldItem.strings.get(this);
@@ -259,7 +265,7 @@ public final class LimitedListFieldItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setStrings(final java.util.Collection<? extends String> strings)
+	final void setStrings(@javax.annotation.Nonnull final java.util.Collection<? extends String> strings)
 			throws
 				com.exedio.cope.StringLengthViolationException,
 				java.lang.ClassCastException,

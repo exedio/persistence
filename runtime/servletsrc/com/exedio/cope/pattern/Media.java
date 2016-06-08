@@ -42,6 +42,7 @@ import com.exedio.cope.misc.ComputedElement;
 import com.exedio.cope.misc.Conditions;
 import com.exedio.cope.misc.SetValueUtil;
 import com.exedio.cope.misc.instrument.FinalSettableGetter;
+import com.exedio.cope.misc.instrument.NullableIfOptional;
 import com.exedio.cope.util.Clock;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.File;
@@ -53,6 +54,7 @@ import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
+import javax.annotation.Nonnull;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -341,7 +343,7 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 	}
 
 	@Wrap(order=10, doc="Returns whether media {0} is null.", hide=MandatoryGetter.class)
-	public boolean isNull(final Item item)
+	public boolean isNull(@Nonnull final Item item)
 	{
 		return optional ? (lastModified.get(item)==null) : false;
 	}
@@ -369,9 +371,9 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 	 * of this media.
 	 * Returns null, if this media is null.
 	 */
-	@Wrap(order=20, doc="Returns the last modification date of media {0}.")
+	@Wrap(order=20, doc="Returns the last modification date of media {0}.", nullability=NullableIfOptional.class)
 	@Override
-	public Date getLastModified(final Item item)
+	public Date getLastModified(@Nonnull final Item item)
 	{
 		return lastModified.get(item);
 	}
@@ -381,7 +383,7 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 	 * Returns -1, if this media is null.
 	 */
 	@Wrap(order=30, doc="Returns the body length of the media {0}.")
-	public long getLength(final Item item)
+	public long getLength(@Nonnull final Item item)
 	{
 		// do check before, because this check is supported by the item cache
 		if(isNull(item))
@@ -404,8 +406,8 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 			hide=FinalSettableGetter.class,
 			thrown=@Wrap.Thrown(value=IOException.class, doc="if accessing <tt>body</tt> throws an IOException."))
 	public void set(
-			final Item item,
-			final Media.Value value)
+			@Nonnull final Item item,
+			@Parameter(nullability=NullableIfOptional.class) final Media.Value value)
 		throws IOException
 	{
 		if(value==null && !optional)
@@ -418,8 +420,8 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 	 * Returns the body of this media.
 	 * Returns null, if this media is null.
 	 */
-	@Wrap(order=40, doc="Returns the body of the media {0}.")
-	public byte[] getBody(final Item item)
+	@Wrap(order=40, doc="Returns the body of the media {0}.", nullability=NullableIfOptional.class)
+	public byte[] getBody(@Nonnull final Item item)
 	{
 		return this.body.getArray(item);
 	}
@@ -434,9 +436,9 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 	 */
 	@Wrap(order=120, doc="Sets the content of media {0}.", hide=FinalSettableGetter.class)
 	public void set(
-			final Item item,
-			@Parameter("body") final byte[] body,
-			@Parameter("contentType") final String contentType)
+			@Nonnull final Item item,
+			@Parameter(value="body", nullability=NullableIfOptional.class) final byte[] body,
+			@Parameter(value="contentType", nullability=NullableIfOptional.class) final String contentType)
 	{
 		if((body==null||contentType==null) && !optional)
 			throw MandatoryViolationException.create(this, item);
@@ -463,8 +465,8 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 					"Does nothing, if the media is null."},
 			thrown=@Wrap.Thrown(value=IOException.class, doc="if accessing <tt>body</tt> throws an IOException."))
 	public void getBody(
-			final Item item,
-			@Parameter("body") final OutputStream body)
+			@Nonnull final Item item,
+			@Nonnull @Parameter("body") final OutputStream body)
 	throws IOException
 	{
 		this.body.get(item, body);
@@ -485,9 +487,9 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 			hide=FinalSettableGetter.class,
 			thrown=@Wrap.Thrown(value=IOException.class, doc="if accessing <tt>body</tt> throws an IOException."))
 	public void set(
-			final Item item,
-			@Parameter("body") final InputStream body,
-			@Parameter("contentType") final String contentType)
+			@Nonnull final Item item,
+			@Parameter(value="body", nullability=NullableIfOptional.class) final InputStream body,
+			@Parameter(value="contentType", nullability=NullableIfOptional.class) final String contentType)
 		throws IOException
 	{
 		if((body==null||contentType==null) && !optional)
@@ -516,8 +518,8 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 					"Does nothing, if the media is null."},
 			thrown=@Wrap.Thrown(value=IOException.class, doc="if accessing <tt>body</tt> throws an IOException."))
 	public void getBody(
-			final Item item,
-			@Parameter("body") final File body)
+			@Nonnull final Item item,
+			@Nonnull @Parameter("body") final File body)
 	throws IOException
 	{
 		this.body.get(item, body);
@@ -537,9 +539,9 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 			hide=FinalSettableGetter.class,
 			thrown=@Wrap.Thrown(value=IOException.class, doc="if accessing <tt>body</tt> throws an IOException."))
 	public void set(
-			final Item item,
-			@Parameter("body") final File body,
-			@Parameter("contentType") final String contentType)
+			@Nonnull final Item item,
+			@Parameter(value="body", nullability=NullableIfOptional.class) final File body,
+			@Parameter(value="contentType", nullability=NullableIfOptional.class) final String contentType)
 		throws IOException
 	{
 		if((body==null||contentType==null) && !optional)

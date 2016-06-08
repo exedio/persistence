@@ -94,6 +94,7 @@ final class DefaultToItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final|boolean-as-is</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final java.lang.Boolean getBooleanTrue()
 	{
 		return DefaultToItem.booleanTrue.get(this);
@@ -105,7 +106,7 @@ final class DefaultToItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setBooleanTrue(final java.lang.Boolean booleanTrue)
+	final void setBooleanTrue(@javax.annotation.Nullable final java.lang.Boolean booleanTrue)
 	{
 		DefaultToItem.booleanTrue.set(this,booleanTrue);
 	}/**
@@ -160,6 +161,7 @@ final class DefaultToItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final java.lang.Integer getIntegerFifty()
 	{
 		return DefaultToItem.integerFifty.get(this);
@@ -171,7 +173,7 @@ final class DefaultToItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setIntegerFifty(final java.lang.Integer integerFifty)
+	final void setIntegerFifty(@javax.annotation.Nullable final java.lang.Integer integerFifty)
 	{
 		DefaultToItem.integerFifty.set(this,integerFifty);
 	}/**
@@ -182,6 +184,7 @@ final class DefaultToItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final java.lang.Integer getIntegerNext()
 	{
 		return DefaultToItem.integerNext.get(this);
@@ -193,7 +196,7 @@ final class DefaultToItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setIntegerNext(final java.lang.Integer integerNext)
+	final void setIntegerNext(@javax.annotation.Nullable final java.lang.Integer integerNext)
 	{
 		DefaultToItem.integerNext.set(this,integerNext);
 	}/**
@@ -204,6 +207,7 @@ final class DefaultToItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final java.lang.Integer getIntegerNone()
 	{
 		return DefaultToItem.integerNone.get(this);
@@ -215,7 +219,7 @@ final class DefaultToItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setIntegerNone(final java.lang.Integer integerNone)
+	final void setIntegerNone(@javax.annotation.Nullable final java.lang.Integer integerNone)
 	{
 		DefaultToItem.integerNone.set(this,integerNone);
 	}/**
@@ -226,6 +230,7 @@ final class DefaultToItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final java.util.Date getDateEight()
 	{
 		return DefaultToItem.dateEight.get(this);
@@ -237,7 +242,7 @@ final class DefaultToItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setDateEight(final java.util.Date dateEight)
+	final void setDateEight(@javax.annotation.Nonnull final java.util.Date dateEight)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{
@@ -261,6 +266,7 @@ final class DefaultToItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final java.util.Date getDateEighty()
 	{
 		return DefaultToItem.dateEighty.get(this);
@@ -272,7 +278,7 @@ final class DefaultToItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setDateEighty(final java.util.Date dateEighty)
+	final void setDateEighty(@javax.annotation.Nullable final java.util.Date dateEighty)
 	{
 		DefaultToItem.dateEighty.set(this,dateEighty);
 	}/**
@@ -294,6 +300,7 @@ final class DefaultToItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final java.util.Date getDateNow()
 	{
 		return DefaultToItem.dateNow.get(this);
@@ -305,7 +312,7 @@ final class DefaultToItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setDateNow(final java.util.Date dateNow)
+	final void setDateNow(@javax.annotation.Nonnull final java.util.Date dateNow)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{
@@ -329,6 +336,7 @@ final class DefaultToItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final java.util.Date getDateNowOpt()
 	{
 		return DefaultToItem.dateNowOpt.get(this);
@@ -340,7 +348,7 @@ final class DefaultToItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setDateNowOpt(final java.util.Date dateNowOpt)
+	final void setDateNowOpt(@javax.annotation.Nullable final java.util.Date dateNowOpt)
 	{
 		DefaultToItem.dateNowOpt.set(this,dateNowOpt);
 	}/**
@@ -362,6 +370,7 @@ final class DefaultToItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final java.util.Date getDateNone()
 	{
 		return DefaultToItem.dateNone.get(this);
@@ -373,7 +382,7 @@ final class DefaultToItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setDateNone(final java.util.Date dateNone)
+	final void setDateNone(@javax.annotation.Nullable final java.util.Date dateNone)
 	{
 		DefaultToItem.dateNone.set(this,dateNone);
 	}/**
@@ -395,6 +404,7 @@ final class DefaultToItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final com.exedio.cope.util.Day getDayEight()
 	{
 		return DefaultToItem.dayEight.get(this);
@@ -406,7 +416,7 @@ final class DefaultToItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setDayEight(final com.exedio.cope.util.Day dayEight)
+	final void setDayEight(@javax.annotation.Nonnull final com.exedio.cope.util.Day dayEight)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{
@@ -419,7 +429,7 @@ final class DefaultToItem extends Item
 	 *       It can be customized with the tag <tt>@cope.touch public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void touchDayEight(final java.util.TimeZone zone)
+	final void touchDayEight(@javax.annotation.Nonnull final java.util.TimeZone zone)
 	{
 		DefaultToItem.dayEight.touch(this,zone);
 	}/**
@@ -430,6 +440,7 @@ final class DefaultToItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final com.exedio.cope.util.Day getDayNow()
 	{
 		return DefaultToItem.dayNow.get(this);
@@ -441,7 +452,7 @@ final class DefaultToItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setDayNow(final com.exedio.cope.util.Day dayNow)
+	final void setDayNow(@javax.annotation.Nonnull final com.exedio.cope.util.Day dayNow)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{
@@ -454,7 +465,7 @@ final class DefaultToItem extends Item
 	 *       It can be customized with the tag <tt>@cope.touch public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void touchDayNow(final java.util.TimeZone zone)
+	final void touchDayNow(@javax.annotation.Nonnull final java.util.TimeZone zone)
 	{
 		DefaultToItem.dayNow.touch(this,zone);
 	}/**
@@ -465,6 +476,7 @@ final class DefaultToItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final com.exedio.cope.util.Day getDayNowOpt()
 	{
 		return DefaultToItem.dayNowOpt.get(this);
@@ -476,7 +488,7 @@ final class DefaultToItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setDayNowOpt(final com.exedio.cope.util.Day dayNowOpt)
+	final void setDayNowOpt(@javax.annotation.Nullable final com.exedio.cope.util.Day dayNowOpt)
 	{
 		DefaultToItem.dayNowOpt.set(this,dayNowOpt);
 	}/**
@@ -487,7 +499,7 @@ final class DefaultToItem extends Item
 	 *       It can be customized with the tag <tt>@cope.touch public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void touchDayNowOpt(final java.util.TimeZone zone)
+	final void touchDayNowOpt(@javax.annotation.Nonnull final java.util.TimeZone zone)
 	{
 		DefaultToItem.dayNowOpt.touch(this,zone);
 	}/**
@@ -498,6 +510,7 @@ final class DefaultToItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final com.exedio.cope.util.Day getDayNone()
 	{
 		return DefaultToItem.dayNone.get(this);
@@ -509,7 +522,7 @@ final class DefaultToItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setDayNone(final com.exedio.cope.util.Day dayNone)
+	final void setDayNone(@javax.annotation.Nullable final com.exedio.cope.util.Day dayNone)
 	{
 		DefaultToItem.dayNone.set(this,dayNone);
 	}/**
@@ -520,7 +533,7 @@ final class DefaultToItem extends Item
 	 *       It can be customized with the tag <tt>@cope.touch public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void touchDayNone(final java.util.TimeZone zone)
+	final void touchDayNone(@javax.annotation.Nonnull final java.util.TimeZone zone)
 	{
 		DefaultToItem.dayNone.touch(this,zone);
 	}/**
@@ -531,6 +544,7 @@ final class DefaultToItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final java.lang.Long getLongRandom()
 	{
 		return DefaultToItem.longRandom.get(this);
@@ -542,7 +556,7 @@ final class DefaultToItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setLongRandom(final java.lang.Long longRandom)
+	final void setLongRandom(@javax.annotation.Nullable final java.lang.Long longRandom)
 			throws
 				com.exedio.cope.LongRangeViolationException
 	{
@@ -555,6 +569,7 @@ final class DefaultToItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final DefaultToEnum getEnumOne()
 	{
 		return DefaultToItem.enumOne.get(this);
@@ -566,7 +581,7 @@ final class DefaultToItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setEnumOne(final DefaultToEnum enumOne)
+	final void setEnumOne(@javax.annotation.Nonnull final DefaultToEnum enumOne)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{
@@ -579,6 +594,7 @@ final class DefaultToItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final DefaultToEnum getEnumTwo()
 	{
 		return DefaultToItem.enumTwo.get(this);
@@ -590,7 +606,7 @@ final class DefaultToItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setEnumTwo(final DefaultToEnum enumTwo)
+	final void setEnumTwo(@javax.annotation.Nullable final DefaultToEnum enumTwo)
 	{
 		DefaultToItem.enumTwo.set(this,enumTwo);
 	}/**
@@ -601,6 +617,7 @@ final class DefaultToItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final DefaultToEnum getEnumNone()
 	{
 		return DefaultToItem.enumNone.get(this);
@@ -612,7 +629,7 @@ final class DefaultToItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setEnumNone(final DefaultToEnum enumNone)
+	final void setEnumNone(@javax.annotation.Nullable final DefaultToEnum enumNone)
 	{
 		DefaultToItem.enumNone.set(this,enumNone);
 	}/**

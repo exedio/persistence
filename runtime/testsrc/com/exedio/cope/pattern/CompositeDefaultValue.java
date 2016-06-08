@@ -38,7 +38,7 @@ final class CompositeDefaultValue extends Composite
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	CompositeDefaultValue(
-				final java.lang.String normal)
+				@javax.annotation.Nonnull final java.lang.String normal)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException
@@ -65,6 +65,7 @@ final class CompositeDefaultValue extends Composite
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final java.lang.String getNormal()
 	{
 		return get(CompositeDefaultValue.normal);
@@ -76,7 +77,7 @@ final class CompositeDefaultValue extends Composite
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setNormal(final java.lang.String normal)
+	final void setNormal(@javax.annotation.Nonnull final java.lang.String normal)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException

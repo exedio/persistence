@@ -39,6 +39,7 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import com.exedio.cope.testmodel.StringItem;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -66,6 +67,7 @@ public class StringTest extends TestWithEnvironment
 		numberOfItems = 2;
 	}
 
+	@SuppressFBWarnings("NP_NONNULL_PARAM_VIOLATION")
 	@Test public void testStrings()
 	{
 		// test check method

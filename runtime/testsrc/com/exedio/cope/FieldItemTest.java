@@ -36,6 +36,7 @@ import com.exedio.cope.testmodel.EmptyItem2;
 import com.exedio.cope.testmodel.FinalItem;
 import com.exedio.cope.testmodel.PointerItem;
 import com.exedio.cope.testmodel.PointerTargetItem;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.Test;
 
 public class FieldItemTest extends FieldTest
@@ -97,6 +98,7 @@ public class FieldItemTest extends FieldTest
 		}
 	}
 
+	@SuppressFBWarnings("NP_NONNULL_PARAM_VIOLATION")
 	@Test public void testSomeNotNullItem()
 		throws MandatoryViolationException
 	{

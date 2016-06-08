@@ -94,6 +94,7 @@ public final class TextUrlFilterDelegatorItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final java.lang.String getName()
 	{
 		return TextUrlFilterDelegatorItem.name.get(this);
@@ -105,7 +106,7 @@ public final class TextUrlFilterDelegatorItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setName(final java.lang.String name)
+	final void setName(@javax.annotation.Nullable final java.lang.String name)
 			throws
 				com.exedio.cope.StringLengthViolationException
 	{
@@ -118,6 +119,7 @@ public final class TextUrlFilterDelegatorItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getLocator public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final com.exedio.cope.pattern.MediaPath.Locator getRohLocator()
 	{
 		return TextUrlFilterDelegatorItem.roh.getLocator(this);
@@ -129,6 +131,7 @@ public final class TextUrlFilterDelegatorItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getContentType public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final java.lang.String getRohContentType()
 	{
 		return TextUrlFilterDelegatorItem.roh.getContentType(this);
@@ -151,6 +154,7 @@ public final class TextUrlFilterDelegatorItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getLastModified public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final java.util.Date getRohLastModified()
 	{
 		return TextUrlFilterDelegatorItem.roh.getLastModified(this);
@@ -173,6 +177,7 @@ public final class TextUrlFilterDelegatorItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getBody public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final byte[] getRohBody()
 	{
 		return TextUrlFilterDelegatorItem.roh.getBody(this);
@@ -186,7 +191,7 @@ public final class TextUrlFilterDelegatorItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getBody public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void getRohBody(final java.io.OutputStream body)
+	final void getRohBody(@javax.annotation.Nonnull final java.io.OutputStream body)
 			throws
 				java.io.IOException
 	{
@@ -201,7 +206,7 @@ public final class TextUrlFilterDelegatorItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getBody public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void getRohBody(final java.io.File body)
+	final void getRohBody(@javax.annotation.Nonnull final java.io.File body)
 			throws
 				java.io.IOException
 	{
@@ -215,7 +220,7 @@ public final class TextUrlFilterDelegatorItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setRoh(final com.exedio.cope.pattern.Media.Value roh)
+	final void setRoh(@javax.annotation.Nullable final com.exedio.cope.pattern.Media.Value roh)
 			throws
 				java.io.IOException
 	{
@@ -228,7 +233,7 @@ public final class TextUrlFilterDelegatorItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setRoh(final byte[] body,final java.lang.String contentType)
+	final void setRoh(@javax.annotation.Nullable final byte[] body,@javax.annotation.Nullable final java.lang.String contentType)
 	{
 		TextUrlFilterDelegatorItem.roh.set(this,body,contentType);
 	}/**
@@ -240,7 +245,7 @@ public final class TextUrlFilterDelegatorItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setRoh(final java.io.InputStream body,final java.lang.String contentType)
+	final void setRoh(@javax.annotation.Nullable final java.io.InputStream body,@javax.annotation.Nullable final java.lang.String contentType)
 			throws
 				java.io.IOException
 	{
@@ -254,7 +259,7 @@ public final class TextUrlFilterDelegatorItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setRoh(final java.io.File body,final java.lang.String contentType)
+	final void setRoh(@javax.annotation.Nullable final java.io.File body,@javax.annotation.Nullable final java.lang.String contentType)
 			throws
 				java.io.IOException
 	{
@@ -267,6 +272,7 @@ public final class TextUrlFilterDelegatorItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getLocator public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final com.exedio.cope.pattern.MediaPath.Locator getFertigLocator()
 	{
 		return TextUrlFilterDelegatorItem.fertig.getLocator(this);
@@ -278,6 +284,7 @@ public final class TextUrlFilterDelegatorItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getURLWithFallbackToSource public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final java.lang.String getFertigURLWithFallbackToSource()
 	{
 		return TextUrlFilterDelegatorItem.fertig.getURLWithFallbackToSource(this);
@@ -289,6 +296,7 @@ public final class TextUrlFilterDelegatorItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getLocatorWithFallbackToSource public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final com.exedio.cope.pattern.MediaPath.Locator getFertigLocatorWithFallbackToSource()
 	{
 		return TextUrlFilterDelegatorItem.fertig.getLocatorWithFallbackToSource(this);
@@ -299,7 +307,7 @@ public final class TextUrlFilterDelegatorItem extends Item
 	 *       It can be customized with the tag <tt>@cope.setRaw public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setFertigRaw(final com.exedio.cope.pattern.Media.Value raw)
+	final void setFertigRaw(@javax.annotation.Nullable final com.exedio.cope.pattern.Media.Value raw)
 			throws
 				java.io.IOException
 	{
@@ -311,7 +319,8 @@ public final class TextUrlFilterDelegatorItem extends Item
 	 *       It can be customized with the tag <tt>@cope.addPaste public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final com.exedio.cope.pattern.TextUrlFilter.Paste addFertigPaste(final java.lang.String key,final com.exedio.cope.pattern.Media.Value value)
+	@javax.annotation.Nonnull()
+	final com.exedio.cope.pattern.TextUrlFilter.Paste addFertigPaste(@javax.annotation.Nonnull final java.lang.String key,@javax.annotation.Nonnull final com.exedio.cope.pattern.Media.Value value)
 	{
 		return TextUrlFilterDelegatorItem.fertig.addPaste(this,key,value);
 	}/**
@@ -321,7 +330,7 @@ public final class TextUrlFilterDelegatorItem extends Item
 	 *       It can be customized with the tag <tt>@cope.modifyPaste public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void modifyFertigPaste(final java.lang.String key,final com.exedio.cope.pattern.Media.Value value)
+	final void modifyFertigPaste(@javax.annotation.Nonnull final java.lang.String key,@javax.annotation.Nonnull final com.exedio.cope.pattern.Media.Value value)
 			throws
 				java.io.IOException
 	{
@@ -333,7 +342,8 @@ public final class TextUrlFilterDelegatorItem extends Item
 	 *       It can be customized with the tag <tt>@cope.putPaste public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final com.exedio.cope.pattern.TextUrlFilter.Paste putFertigPaste(final java.lang.String key,final com.exedio.cope.pattern.Media.Value value)
+	@javax.annotation.Nonnull()
+	final com.exedio.cope.pattern.TextUrlFilter.Paste putFertigPaste(@javax.annotation.Nonnull final java.lang.String key,@javax.annotation.Nonnull final com.exedio.cope.pattern.Media.Value value)
 			throws
 				java.io.IOException
 	{
@@ -345,7 +355,8 @@ public final class TextUrlFilterDelegatorItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getContent public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final java.lang.String getFertigContent(final javax.servlet.http.HttpServletRequest request)
+	@javax.annotation.Nonnull()
+	final java.lang.String getFertigContent(@javax.annotation.Nonnull final javax.servlet.http.HttpServletRequest request)
 			throws
 				com.exedio.cope.pattern.MediaPath.NotFound
 	{
@@ -357,6 +368,7 @@ public final class TextUrlFilterDelegatorItem extends Item
 	 *       It can be customized with the tag <tt>@cope.check public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final java.util.Set<java.lang.String> checkFertig()
 			throws
 				com.exedio.cope.pattern.MediaPath.NotFound
@@ -369,7 +381,7 @@ public final class TextUrlFilterDelegatorItem extends Item
 	 *       It can be customized with the tag <tt>@cope.putPastesFromZip public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void putFertigPastesFromZip(final java.io.File file)
+	final void putFertigPastesFromZip(@javax.annotation.Nonnull final java.io.File file)
 			throws
 				java.io.IOException
 	{
@@ -382,6 +394,7 @@ public final class TextUrlFilterDelegatorItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getLocator public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final com.exedio.cope.pattern.MediaPath.Locator getRoh2Locator()
 	{
 		return TextUrlFilterDelegatorItem.roh2.getLocator(this);
@@ -393,6 +406,7 @@ public final class TextUrlFilterDelegatorItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getContentType public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final java.lang.String getRoh2ContentType()
 	{
 		return TextUrlFilterDelegatorItem.roh2.getContentType(this);
@@ -415,6 +429,7 @@ public final class TextUrlFilterDelegatorItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getLastModified public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final java.util.Date getRoh2LastModified()
 	{
 		return TextUrlFilterDelegatorItem.roh2.getLastModified(this);
@@ -437,6 +452,7 @@ public final class TextUrlFilterDelegatorItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getBody public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final byte[] getRoh2Body()
 	{
 		return TextUrlFilterDelegatorItem.roh2.getBody(this);
@@ -450,7 +466,7 @@ public final class TextUrlFilterDelegatorItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getBody public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void getRoh2Body(final java.io.OutputStream body)
+	final void getRoh2Body(@javax.annotation.Nonnull final java.io.OutputStream body)
 			throws
 				java.io.IOException
 	{
@@ -465,7 +481,7 @@ public final class TextUrlFilterDelegatorItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getBody public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void getRoh2Body(final java.io.File body)
+	final void getRoh2Body(@javax.annotation.Nonnull final java.io.File body)
 			throws
 				java.io.IOException
 	{
@@ -479,7 +495,7 @@ public final class TextUrlFilterDelegatorItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setRoh2(final com.exedio.cope.pattern.Media.Value roh2)
+	final void setRoh2(@javax.annotation.Nullable final com.exedio.cope.pattern.Media.Value roh2)
 			throws
 				java.io.IOException
 	{
@@ -492,7 +508,7 @@ public final class TextUrlFilterDelegatorItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setRoh2(final byte[] body,final java.lang.String contentType)
+	final void setRoh2(@javax.annotation.Nullable final byte[] body,@javax.annotation.Nullable final java.lang.String contentType)
 	{
 		TextUrlFilterDelegatorItem.roh2.set(this,body,contentType);
 	}/**
@@ -504,7 +520,7 @@ public final class TextUrlFilterDelegatorItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setRoh2(final java.io.InputStream body,final java.lang.String contentType)
+	final void setRoh2(@javax.annotation.Nullable final java.io.InputStream body,@javax.annotation.Nullable final java.lang.String contentType)
 			throws
 				java.io.IOException
 	{
@@ -518,7 +534,7 @@ public final class TextUrlFilterDelegatorItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setRoh2(final java.io.File body,final java.lang.String contentType)
+	final void setRoh2(@javax.annotation.Nullable final java.io.File body,@javax.annotation.Nullable final java.lang.String contentType)
 			throws
 				java.io.IOException
 	{
@@ -531,6 +547,7 @@ public final class TextUrlFilterDelegatorItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getLocator public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final com.exedio.cope.pattern.MediaPath.Locator getFertig2Locator()
 	{
 		return TextUrlFilterDelegatorItem.fertig2.getLocator(this);
@@ -542,6 +559,7 @@ public final class TextUrlFilterDelegatorItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getURLWithFallbackToSource public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final java.lang.String getFertig2URLWithFallbackToSource()
 	{
 		return TextUrlFilterDelegatorItem.fertig2.getURLWithFallbackToSource(this);
@@ -553,6 +571,7 @@ public final class TextUrlFilterDelegatorItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getLocatorWithFallbackToSource public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final com.exedio.cope.pattern.MediaPath.Locator getFertig2LocatorWithFallbackToSource()
 	{
 		return TextUrlFilterDelegatorItem.fertig2.getLocatorWithFallbackToSource(this);
@@ -563,7 +582,7 @@ public final class TextUrlFilterDelegatorItem extends Item
 	 *       It can be customized with the tag <tt>@cope.setRaw public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setFertig2Raw(final com.exedio.cope.pattern.Media.Value raw)
+	final void setFertig2Raw(@javax.annotation.Nullable final com.exedio.cope.pattern.Media.Value raw)
 			throws
 				java.io.IOException
 	{
@@ -575,7 +594,8 @@ public final class TextUrlFilterDelegatorItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getContent public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final java.lang.String getFertig2Content(final javax.servlet.http.HttpServletRequest request)
+	@javax.annotation.Nonnull()
+	final java.lang.String getFertig2Content(@javax.annotation.Nonnull final javax.servlet.http.HttpServletRequest request)
 			throws
 				com.exedio.cope.pattern.MediaPath.NotFound
 	{
@@ -587,6 +607,7 @@ public final class TextUrlFilterDelegatorItem extends Item
 	 *       It can be customized with the tag <tt>@cope.check public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final java.util.Set<java.lang.String> checkFertig2()
 			throws
 				com.exedio.cope.pattern.MediaPath.NotFound

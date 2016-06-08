@@ -53,6 +53,7 @@ public abstract class HierarchySingleSuper extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	public final java.lang.Integer getSuperInt()
 	{
 		return HierarchySingleSuper.superInt.get(this);
@@ -64,7 +65,7 @@ public abstract class HierarchySingleSuper extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	public final void setSuperInt(final java.lang.Integer superInt)
+	public final void setSuperInt(@javax.annotation.Nullable final java.lang.Integer superInt)
 	{
 		HierarchySingleSuper.superInt.set(this,superInt);
 	}/**

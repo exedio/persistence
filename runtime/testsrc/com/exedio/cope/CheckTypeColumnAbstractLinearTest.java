@@ -383,7 +383,7 @@ public class CheckTypeColumnAbstractLinearTest extends TestWithEnvironment
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	TypeRef(
-				final Type0A ref0A)
+				@javax.annotation.Nonnull final Type0A ref0A)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{
@@ -409,6 +409,7 @@ public class CheckTypeColumnAbstractLinearTest extends TestWithEnvironment
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final Type0A getRef0A()
 	{
 		return TypeRef.ref0A.get(this);
@@ -420,7 +421,7 @@ public class CheckTypeColumnAbstractLinearTest extends TestWithEnvironment
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setRef0A(final Type0A ref0A)
+	final void setRef0A(@javax.annotation.Nonnull final Type0A ref0A)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{
@@ -433,6 +434,7 @@ public class CheckTypeColumnAbstractLinearTest extends TestWithEnvironment
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final Type01C getRef01C()
 	{
 		return TypeRef.ref01C.get(this);
@@ -444,7 +446,7 @@ public class CheckTypeColumnAbstractLinearTest extends TestWithEnvironment
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setRef01C(final Type01C ref01C)
+	final void setRef01C(@javax.annotation.Nullable final Type01C ref01C)
 	{
 		TypeRef.ref01C.set(this,ref01C);
 	}/**
@@ -455,6 +457,7 @@ public class CheckTypeColumnAbstractLinearTest extends TestWithEnvironment
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final Type02A getRef02A()
 	{
 		return TypeRef.ref02A.get(this);
@@ -466,7 +469,7 @@ public class CheckTypeColumnAbstractLinearTest extends TestWithEnvironment
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setRef02A(final Type02A ref02A)
+	final void setRef02A(@javax.annotation.Nullable final Type02A ref02A)
 	{
 		TypeRef.ref02A.set(this,ref02A);
 	}/**
@@ -477,6 +480,7 @@ public class CheckTypeColumnAbstractLinearTest extends TestWithEnvironment
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final Type021C getRef021C()
 	{
 		return TypeRef.ref021C.get(this);
@@ -488,7 +492,7 @@ public class CheckTypeColumnAbstractLinearTest extends TestWithEnvironment
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setRef021C(final Type021C ref021C)
+	final void setRef021C(@javax.annotation.Nullable final Type021C ref021C)
 	{
 		TypeRef.ref021C.set(this,ref021C);
 	}/**

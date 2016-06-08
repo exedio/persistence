@@ -91,6 +91,11 @@ public final class AntTask extends Task
 		params.finalArgs = value;
 	}
 
+	public void setNullabilityAnnotations(final boolean value)
+	{
+		params.nullabilityAnnotations = value;
+	}
+
 	public void setSuppressUnusedWarningOnPrivateActivationConstructor(final boolean value)
 	{
 		params.suppressUnusedWarningOnPrivateActivationConstructor = value;

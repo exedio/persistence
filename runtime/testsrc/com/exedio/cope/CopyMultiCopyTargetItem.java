@@ -42,8 +42,8 @@ final class CopyMultiCopyTargetItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	CopyMultiCopyTargetItem(
-				final java.lang.String copyA,
-				final java.lang.String copyB)
+				@javax.annotation.Nullable final java.lang.String copyA,
+				@javax.annotation.Nullable final java.lang.String copyB)
 			throws
 				com.exedio.cope.StringLengthViolationException
 	{
@@ -70,6 +70,7 @@ final class CopyMultiCopyTargetItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final java.lang.String getCopyA()
 	{
 		return CopyMultiCopyTargetItem.copyA.get(this);
@@ -81,6 +82,7 @@ final class CopyMultiCopyTargetItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final java.lang.String getCopyB()
 	{
 		return CopyMultiCopyTargetItem.copyB.get(this);

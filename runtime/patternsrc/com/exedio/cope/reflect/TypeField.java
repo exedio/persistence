@@ -37,10 +37,13 @@ import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.CopeSchemaNameElement;
 import com.exedio.cope.misc.instrument.FinalSettableGetter;
 import com.exedio.cope.misc.instrument.InitialExceptionsSettableGetter;
+import com.exedio.cope.misc.instrument.NullableIfOptional;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 public final class TypeField<E extends Item> extends Pattern implements Settable<Type<? extends E>>
 {
@@ -128,8 +131,8 @@ public final class TypeField<E extends Item> extends Pattern implements Settable
 		return idField.getImplicitUniqueConstraint();
 	}
 
-	@Wrap(order=10, doc="Returns the value of {0}.")
-	public Type<? extends E> get(final Item item)
+	@Wrap(order=10, doc="Returns the value of {0}.", nullability=NullableIfOptional.class)
+	public Type<? extends E> get(@Nonnull final Item item)
 	{
 		final String id = idField.get(item);
 		if(id==null)
@@ -210,7 +213,7 @@ public final class TypeField<E extends Item> extends Pattern implements Settable
 			doc="Sets a new value for {0}.",
 			thrownGetter=InitialExceptionsSettableGetter.class,
 			hide=FinalSettableGetter.class)
-	public void set(final Item item, final Type<? extends E> value)
+	public void set(@Nonnull final Item item, @Parameter(nullability=NullableIfOptional.class) final Type<? extends E> value)
 	{
 		if(isfinal)
 			throw FinalViolationException.create(this, item);
@@ -265,9 +268,10 @@ public final class TypeField<E extends Item> extends Pattern implements Settable
 			doc="Finds a {2} by it''s {0}.",
 			docReturn="null if there is no matching item.",
 			hide=NonUniqueGetter.class)
+	@Nullable
 	public final <P extends Item> P searchUnique(
-			final Class<P> typeClass,
-			@Parameter(doc="shall be equal to field {0}.") final Type<? extends E> value)
+			@Nonnull final Class<P> typeClass,
+			@Nonnull @Parameter(doc="shall be equal to field {0}.") final Type<? extends E> value)
 	{
 		return idField.searchUnique(typeClass, value.getID());
 	}

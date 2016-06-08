@@ -201,8 +201,8 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	DoubleCopyConstraintItem(
-				final java.lang.String value,
-				final java.lang.String template)
+				@javax.annotation.Nonnull final java.lang.String value,
+				@javax.annotation.Nonnull final java.lang.String template)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException
@@ -230,6 +230,7 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final java.lang.String getValue()
 	{
 		return DoubleCopyConstraintItem.value.get(this);
@@ -241,6 +242,7 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final java.lang.String getTemplate()
 	{
 		return DoubleCopyConstraintItem.template.get(this);
@@ -300,7 +302,7 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	AllCopyConstraintItem(
-				final java.lang.String value)
+				@javax.annotation.Nonnull final java.lang.String value)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException
@@ -327,6 +329,7 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final java.lang.String getValue()
 	{
 		return AllCopyConstraintItem.value.get(this);
@@ -386,7 +389,7 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	PartialCopyConstraintItem(
-				final java.lang.String value)
+				@javax.annotation.Nonnull final java.lang.String value)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException
@@ -413,6 +416,7 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final java.lang.String getValue()
 	{
 		return PartialCopyConstraintItem.value.get(this);
@@ -459,7 +463,7 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	A(
-				final java.lang.String value)
+				@javax.annotation.Nonnull final java.lang.String value)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException
@@ -486,6 +490,7 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	public final java.lang.String getValue()
 	{
 		return A.value.get(this);
@@ -532,7 +537,7 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	B(
-				final java.lang.String value)
+				@javax.annotation.Nonnull final java.lang.String value)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException
@@ -559,6 +564,7 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	public final java.lang.String getValue()
 	{
 		return B.value.get(this);
@@ -607,8 +613,8 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	C(
-				final java.lang.String value,
-				final java.lang.String template)
+				@javax.annotation.Nonnull final java.lang.String value,
+				@javax.annotation.Nonnull final java.lang.String template)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException
@@ -636,6 +642,7 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	public final java.lang.String getValue()
 	{
 		return C.value.get(this);
@@ -647,6 +654,7 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	public final java.lang.String getTemplate()
 	{
 		return C.template.get(this);

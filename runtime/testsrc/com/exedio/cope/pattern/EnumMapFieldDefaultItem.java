@@ -62,7 +62,8 @@ public final class EnumMapFieldDefaultItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final String getText(final EnumMapFieldItem.Language k)
+	@javax.annotation.Nonnull()
+	final String getText(@javax.annotation.Nonnull final EnumMapFieldItem.Language k)
 	{
 		return EnumMapFieldDefaultItem.text.get(this,k);
 	}/**
@@ -73,7 +74,7 @@ public final class EnumMapFieldDefaultItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setText(final EnumMapFieldItem.Language k,final String text)
+	final void setText(@javax.annotation.Nonnull final EnumMapFieldItem.Language k,@javax.annotation.Nonnull final String text)
 	{
 		EnumMapFieldDefaultItem.text.set(this,k,text);
 	}/**
@@ -83,6 +84,7 @@ public final class EnumMapFieldDefaultItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getMap public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final java.util.Map<EnumMapFieldItem.Language,String> getTextMap()
 	{
 		return EnumMapFieldDefaultItem.text.getMap(this);
@@ -93,7 +95,7 @@ public final class EnumMapFieldDefaultItem extends Item
 	 *       It can be customized with the tag <tt>@cope.setMap public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setTextMap(final java.util.Map<? extends EnumMapFieldItem.Language,? extends String> text)
+	final void setTextMap(@javax.annotation.Nonnull final java.util.Map<? extends EnumMapFieldItem.Language,? extends String> text)
 	{
 		EnumMapFieldDefaultItem.text.setMap(this,text);
 	}/**

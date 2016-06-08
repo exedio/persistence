@@ -46,6 +46,7 @@ import com.exedio.cope.StringField;
 import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.Type;
 import com.exedio.cope.misc.Computed;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.Iterator;
@@ -75,6 +76,7 @@ public class SetFieldTest extends TestWithEnvironment
 		otherItem = new SetFieldItem();
 	}
 
+	@SuppressFBWarnings({"NP_NULL_PARAM_DEREF_NONVIRTUAL", "NP_NONNULL_PARAM_VIOLATION"})
 	@Test public void testIt()
 	{
 		final Type<?> stringsType = strings.getRelationType();
@@ -432,6 +434,7 @@ public class SetFieldTest extends TestWithEnvironment
 		}
 	}
 
+	@SuppressFBWarnings({"NP_NULL_PARAM_DEREF_NONVIRTUAL", "NP_NONNULL_PARAM_VIOLATION"})
 	@Test public void testMultipleItems() throws Exception
 	{
 		final String rot = "hellrot";
@@ -484,6 +487,7 @@ public class SetFieldTest extends TestWithEnvironment
 		assertEquals(0, q.total());
 	}
 
+	@SuppressFBWarnings({"NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS", "NP_NONNULL_PARAM_VIOLATION"})
 	@Test public void testListSetNull()
 	{
 		item.setStrings(asList("hallo", "bello"));

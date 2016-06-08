@@ -7,6 +7,11 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* Add javax.annotation.Nonnull and javax.annotation.Nullable annotations to wrapped COPE feature methods,
+	and enable generation of such annotations by the instrumentor (disabled by default).
+	To have the instrumentor generate nullability annotations, adapt your ant script:
+	'<instrument ... nullabilityAnnotations="true">'.
+	(This needs javax.annotation.Nonnull/Nullable in the instrumentor classpath, usually from findbugs-annotations.jar.)
 * DateField supports precision constraint.
 * @CopeSchemaValue changes semantics.
 	May subtly change the semantics of your database schema - therefore

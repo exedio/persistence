@@ -27,6 +27,7 @@ import com.exedio.cope.instrument.ThrownGetter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.PrimitiveUtil;
 import com.exedio.cope.misc.instrument.FinalSettableGetter;
+import com.exedio.cope.misc.instrument.NullableIfOptional;
 import com.exedio.cope.search.ExtremumAggregate;
 import com.exedio.cope.util.Cast;
 import java.lang.reflect.AnnotatedElement;
@@ -36,6 +37,8 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 public abstract class FunctionField<E extends Object> extends Field<E>
 	implements Function<E>, Copyable
@@ -239,9 +242,9 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 	abstract E get(final Row row);
 	abstract void set(final Row row, final E surface);
 
-	@Wrap(order=10, doc="Returns the value of {0}.", hide=PrimitiveGetter.class)
+	@Wrap(order=10, doc="Returns the value of {0}.", hide=PrimitiveGetter.class, nullability=NullableIfOptional.class)
 	@Override
-	public final E get(final Item item)
+	public final E get(@Nonnull final Item item)
 	{
 		item.type.assertBelongs(this);
 
@@ -264,7 +267,7 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 			hide={FinalSettableGetter.class, PrimitiveGetter.class},
 			thrownGetter=InitialThrown.class)
 	@Override
-	public final void set(final Item item, final E value)
+	public final void set(@Nonnull final Item item, @Parameter(nullability=NullableIfOptional.class) final E value)
 	{
 		item.set(this, value);
 	}
@@ -420,9 +423,10 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 			doc="Finds a {2} by it''s {0}.",
 			docReturn="null if there is no matching item.",
 			hide={NonUniqueGetter.class, PrimitiveGetter.class})
+	@Nullable
 	public final <P extends Item> P searchUnique(
 			final Class<P> typeClass,
-			@Parameter(doc="shall be equal to field {0}.") final E value)
+			@Parameter(doc="shall be equal to field {0}.") @Nonnull final E value)
 	{
 		if(value==null)
 			throw new NullPointerException("cannot search uniquely for null on " + getID());

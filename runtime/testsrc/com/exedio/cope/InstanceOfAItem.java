@@ -42,7 +42,7 @@ class InstanceOfAItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	InstanceOfAItem(
-				final java.lang.String code)
+				@javax.annotation.Nonnull final java.lang.String code)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException,
@@ -70,6 +70,7 @@ class InstanceOfAItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final java.lang.String getCode()
 	{
 		return InstanceOfAItem.code.get(this);
@@ -83,7 +84,8 @@ class InstanceOfAItem extends Item
 	 *       It can be customized with the tag <tt>@cope.for public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	static final InstanceOfAItem forCode(final java.lang.String code)
+	@javax.annotation.Nullable()
+	static final InstanceOfAItem forCode(@javax.annotation.Nonnull final java.lang.String code)
 	{
 		return InstanceOfAItem.code.searchUnique(InstanceOfAItem.class,code);
 	}/**

@@ -45,7 +45,7 @@ public final class EnumMapFieldFinalItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	EnumMapFieldFinalItem(
-				final java.util.EnumMap<EnumMapFieldItem.Language,String> text)
+				@javax.annotation.Nonnull final java.util.EnumMap<EnumMapFieldItem.Language,String> text)
 			throws
 				com.exedio.cope.StringLengthViolationException
 	{
@@ -71,7 +71,8 @@ public final class EnumMapFieldFinalItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final String getText(final EnumMapFieldItem.Language k)
+	@javax.annotation.Nullable()
+	final String getText(@javax.annotation.Nonnull final EnumMapFieldItem.Language k)
 	{
 		return EnumMapFieldFinalItem.text.get(this,k);
 	}/**
@@ -82,7 +83,7 @@ public final class EnumMapFieldFinalItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setText(final EnumMapFieldItem.Language k,final String text)
+	final void setText(@javax.annotation.Nonnull final EnumMapFieldItem.Language k,@javax.annotation.Nullable final String text)
 	{
 		EnumMapFieldFinalItem.text.set(this,k,text);
 	}/**
@@ -92,6 +93,7 @@ public final class EnumMapFieldFinalItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getMap public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final java.util.Map<EnumMapFieldItem.Language,String> getTextMap()
 	{
 		return EnumMapFieldFinalItem.text.getMap(this);
@@ -102,7 +104,7 @@ public final class EnumMapFieldFinalItem extends Item
 	 *       It can be customized with the tag <tt>@cope.setMap public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setTextMap(final java.util.Map<? extends EnumMapFieldItem.Language,? extends String> text)
+	final void setTextMap(@javax.annotation.Nonnull final java.util.Map<? extends EnumMapFieldItem.Language,? extends String> text)
 	{
 		EnumMapFieldFinalItem.text.setMap(this,text);
 	}/**

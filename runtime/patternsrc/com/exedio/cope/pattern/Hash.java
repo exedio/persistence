@@ -31,6 +31,7 @@ import com.exedio.cope.SetValue;
 import com.exedio.cope.StringCharSetViolationException;
 import com.exedio.cope.StringField;
 import com.exedio.cope.StringLengthViolationException;
+import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.StringGetter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.ComputedElement;
@@ -38,10 +39,13 @@ import com.exedio.cope.misc.EncodingToCharset;
 import com.exedio.cope.misc.NonNegativeRandom;
 import com.exedio.cope.misc.instrument.FinalSettableGetter;
 import com.exedio.cope.misc.instrument.InitialExceptionsSettableGetter;
+import com.exedio.cope.misc.instrument.NullableIfOptional;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.nio.charset.Charset;
 import java.security.SecureRandom;
 import java.util.Set;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 public class Hash extends Pattern implements HashInterface
 {
@@ -258,14 +262,14 @@ public class Hash extends Pattern implements HashInterface
 			doc="Sets a new value for {0}.",
 			hide=FinalSettableGetter.class,
 			thrownGetter=InitialExceptionsSettableGetter.class)
-	public final void set(final Item item, final String plainText)
+	public final void set(@Nonnull final Item item, @Parameter(nullability=NullableIfOptional.class) final String plainText)
 	{
 		storage.set(item, hash(plainText, item));
 	}
 
 	@Wrap(order=10,
 			doc="Returns whether the given value corresponds to the hash in {0}.")
-	public final boolean check(final Item item, final String actualPlainText)
+	public final boolean check(@Nonnull final Item item, @Nullable final String actualPlainText)
 	{
 		final String expectedHash = storage.get(item);
 		if(actualPlainText!=null)
@@ -277,7 +281,7 @@ public class Hash extends Pattern implements HashInterface
 			return expectedHash==null;
 	}
 
-	public final boolean isNull(final Item item)
+	public final boolean isNull(@Nonnull final Item item)
 	{
 		return storage.get(item)==null;
 	}
@@ -293,7 +297,7 @@ public class Hash extends Pattern implements HashInterface
 	@Wrap(order=20,
 			doc={"Wastes (almost) as much cpu cycles, as a call to <tt>check{3}</tt> would have needed.",
 					"Needed to prevent Timing Attacks."})
-	public final void blind(final String actualPlainText)
+	public final void blind(@Nullable final String actualPlainText)
 	{
 		if(actualPlainText!=null)
 		{
@@ -315,8 +319,8 @@ public class Hash extends Pattern implements HashInterface
 		return new SetValue<?>[]{ storage.map(hash) };
 	}
 
-	@Wrap(order=40, nameGetter=GetNameGetter.class, doc="Returns the encoded hash value for hash {0}.")
-	public final String getHash(final Item item)
+	@Wrap(order=40, nameGetter=GetNameGetter.class, doc="Returns the encoded hash value for hash {0}.", nullability=NullableIfOptional.class)
+	public final String getHash(@Nonnull final Item item)
 	{
 		return storage.get(item);
 	}
@@ -334,7 +338,7 @@ public class Hash extends Pattern implements HashInterface
 			doc="Sets the encoded hash value for hash {0}.",
 			hide=FinalSettableGetter.class,
 			thrownGetter=InitialExceptionsSettableGetter.class)
-	public final void setHash(final Item item, final String hash)
+	public final void setHash(@Nonnull final Item item, @Parameter(nullability=NullableIfOptional.class) final String hash)
 	{
 		storage.set(item, hash);
 	}

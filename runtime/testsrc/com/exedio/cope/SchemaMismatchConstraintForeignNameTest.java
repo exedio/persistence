@@ -72,7 +72,7 @@ public class SchemaMismatchConstraintForeignNameTest extends SchemaMismatchTest
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	ItemA(
-				final TargetA fieldA)
+				@javax.annotation.Nonnull final TargetA fieldA)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{
@@ -98,6 +98,7 @@ public class SchemaMismatchConstraintForeignNameTest extends SchemaMismatchTest
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final TargetA getFieldA()
 	{
 		return ItemA.fieldA.get(this);
@@ -142,7 +143,7 @@ public class SchemaMismatchConstraintForeignNameTest extends SchemaMismatchTest
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	ItemB(
-				final TargetB fieldB)
+				@javax.annotation.Nonnull final TargetB fieldB)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{
@@ -168,6 +169,7 @@ public class SchemaMismatchConstraintForeignNameTest extends SchemaMismatchTest
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final TargetB getFieldB()
 	{
 		return ItemB.fieldB.get(this);

@@ -66,7 +66,7 @@ public class SettableFixedParamImpl implements SettableFixedParamInterface
 	@Override
 	public boolean isMandatory()
 	{
-		throw new AssertionError();
+		return true;
 	}
 
 	@Override

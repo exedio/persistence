@@ -36,7 +36,7 @@ final class InstanceOfB2Item extends InstanceOfAItem
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	InstanceOfB2Item(
-				final java.lang.String code)
+				@javax.annotation.Nonnull final java.lang.String code)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException,
@@ -64,6 +64,7 @@ final class InstanceOfB2Item extends InstanceOfAItem
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final java.lang.String getTextb2()
 	{
 		return InstanceOfB2Item.textb2.get(this);
@@ -75,7 +76,7 @@ final class InstanceOfB2Item extends InstanceOfAItem
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setTextb2(final java.lang.String textb2)
+	final void setTextb2(@javax.annotation.Nullable final java.lang.String textb2)
 			throws
 				com.exedio.cope.StringLengthViolationException
 	{

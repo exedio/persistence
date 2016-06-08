@@ -41,9 +41,9 @@ class HardJoinB2Item extends HardJoinB1Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	HardJoinB2Item(
-				final java.lang.String code,
-				final java.lang.Integer b1,
-				final java.lang.Integer b2)
+				@javax.annotation.Nonnull final java.lang.String code,
+				@javax.annotation.Nullable final java.lang.Integer b1,
+				@javax.annotation.Nullable final java.lang.Integer b2)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException,
@@ -73,6 +73,7 @@ class HardJoinB2Item extends HardJoinB1Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final java.lang.Integer getB2()
 	{
 		return HardJoinB2Item.b2.get(this);
@@ -84,7 +85,7 @@ class HardJoinB2Item extends HardJoinB1Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setB2(final java.lang.Integer b2)
+	final void setB2(@javax.annotation.Nullable final java.lang.Integer b2)
 	{
 		HardJoinB2Item.b2.set(this,b2);
 	}/**

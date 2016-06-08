@@ -188,7 +188,7 @@ public class SequenceCheckPrimaryKeyTest extends TestWithEnvironment
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	AnItem(
-				final java.lang.String field)
+				@javax.annotation.Nullable final java.lang.String field)
 			throws
 				com.exedio.cope.StringLengthViolationException
 	{
@@ -214,6 +214,7 @@ public class SequenceCheckPrimaryKeyTest extends TestWithEnvironment
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final java.lang.String getField()
 	{
 		return AnItem.field.get(this);

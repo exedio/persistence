@@ -36,11 +36,14 @@ import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.ComputedElement;
 import com.exedio.cope.misc.Iterables;
 import com.exedio.cope.misc.instrument.InitialExceptionsSettableGetter;
+import com.exedio.cope.misc.instrument.NullableIfOptional;
 import com.exedio.cope.util.JobContext;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.security.SecureRandom;
 import java.text.MessageFormat;
 import java.util.Set;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -89,7 +92,7 @@ public final class NestedHashMigration extends Pattern implements HashInterface
 
 	@Wrap(order=10,
 			doc="Returns whether the given value corresponds to the hash in {0}.")
-	public boolean check(final Item item, final String actualPlainText)
+	public boolean check(@Nonnull final Item item, @Nullable final String actualPlainText)
 	{
 		return select(item).check(item, actualPlainText);
 	}
@@ -121,7 +124,7 @@ public final class NestedHashMigration extends Pattern implements HashInterface
 			doc={"Wastes (almost) as much cpu cycles, as a call to <tt>check{3}</tt> would have needed.",
 					"Needed to prevent Timing Attacks."})
 	@Override
-	public void blind(final String actualPlainText)
+	public void blind(@Nonnull final String actualPlainText)
 	{
 		targetHash.blind(actualPlainText);
 	}
@@ -135,7 +138,7 @@ public final class NestedHashMigration extends Pattern implements HashInterface
 	@Wrap(order=30,
 			doc="Sets a new value for {0}.",
 			thrownGetter=InitialExceptionsSettableGetter.class)
-	public void set(final Item item, final String plainText)
+	public void set(@Nonnull final Item item, @Parameter(nullability=NullableIfOptional.class) final String plainText)
 	{
 		if(plainText==null)
 			throw MandatoryViolationException.create(this, item);
@@ -147,7 +150,7 @@ public final class NestedHashMigration extends Pattern implements HashInterface
 
 	@Wrap(order=60,
 			doc="Re-hashes all legacy passwords to target ones.")
-	public void migrate(@Parameter("ctx") final JobContext ctx)
+	public void migrate(@Nonnull @Parameter("ctx") final JobContext ctx)
 	{
 		requireNonNull(ctx, "ctx");
 

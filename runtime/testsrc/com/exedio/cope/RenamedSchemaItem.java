@@ -54,7 +54,7 @@ package com.exedio.cope;
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	RenamedSchemaItem(
-				final java.lang.String uniqueDouble1,
+				@javax.annotation.Nonnull final java.lang.String uniqueDouble1,
 				final int uniqueDouble2)
 			throws
 				com.exedio.cope.MandatoryViolationException,
@@ -84,6 +84,7 @@ package com.exedio.cope;
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final RenamedSchemaTargetItem getItem()
 	{
 		return RenamedSchemaItem.item.get(this);
@@ -95,7 +96,7 @@ package com.exedio.cope;
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setItem(final RenamedSchemaTargetItem item)
+	final void setItem(@javax.annotation.Nullable final RenamedSchemaTargetItem item)
 	{
 		RenamedSchemaItem.item.set(this,item);
 	}/**
@@ -106,6 +107,7 @@ package com.exedio.cope;
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final java.lang.String getUniqueSingle()
 	{
 		return RenamedSchemaItem.uniqueSingle.get(this);
@@ -117,7 +119,7 @@ package com.exedio.cope;
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setUniqueSingle(final java.lang.String uniqueSingle)
+	final void setUniqueSingle(@javax.annotation.Nullable final java.lang.String uniqueSingle)
 			throws
 				com.exedio.cope.UniqueViolationException,
 				com.exedio.cope.StringLengthViolationException
@@ -133,7 +135,8 @@ package com.exedio.cope;
 	 *       It can be customized with the tag <tt>@cope.for public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	static final RenamedSchemaItem forUniqueSingle(final java.lang.String uniqueSingle)
+	@javax.annotation.Nullable()
+	static final RenamedSchemaItem forUniqueSingle(@javax.annotation.Nonnull final java.lang.String uniqueSingle)
 	{
 		return RenamedSchemaItem.uniqueSingle.searchUnique(RenamedSchemaItem.class,uniqueSingle);
 	}/**
@@ -144,6 +147,7 @@ package com.exedio.cope;
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final java.lang.String getUniqueDouble1()
 	{
 		return RenamedSchemaItem.uniqueDouble1.get(this);
@@ -155,7 +159,7 @@ package com.exedio.cope;
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setUniqueDouble1(final java.lang.String uniqueDouble1)
+	final void setUniqueDouble1(@javax.annotation.Nonnull final java.lang.String uniqueDouble1)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.UniqueViolationException,
@@ -197,7 +201,8 @@ package com.exedio.cope;
 	 *       It can be customized with the tag <tt>@cope.finder public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	static final RenamedSchemaItem forUniqueDouble(final java.lang.String uniqueDouble1,final int uniqueDouble2)
+	@javax.annotation.Nullable()
+	static final RenamedSchemaItem forUniqueDouble(@javax.annotation.Nonnull final java.lang.String uniqueDouble1,@javax.annotation.Nonnull final int uniqueDouble2)
 	{
 		return RenamedSchemaItem.uniqueDouble.search(RenamedSchemaItem.class,uniqueDouble1,uniqueDouble2);
 	}/**
@@ -208,6 +213,7 @@ package com.exedio.cope;
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final java.lang.String getString()
 	{
 		return RenamedSchemaItem.string.get(this);
@@ -219,7 +225,7 @@ package com.exedio.cope;
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setString(final java.lang.String string)
+	final void setString(@javax.annotation.Nullable final java.lang.String string)
 			throws
 				com.exedio.cope.StringLengthViolationException
 	{
@@ -232,6 +238,7 @@ package com.exedio.cope;
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final java.lang.Integer getInteger()
 	{
 		return RenamedSchemaItem.integer.get(this);
@@ -243,7 +250,7 @@ package com.exedio.cope;
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setInteger(final java.lang.Integer integer)
+	final void setInteger(@javax.annotation.Nullable final java.lang.Integer integer)
 	{
 		RenamedSchemaItem.integer.set(this,integer);
 	}/**

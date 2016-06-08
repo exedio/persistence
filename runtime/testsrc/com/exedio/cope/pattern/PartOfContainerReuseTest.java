@@ -136,7 +136,7 @@ public class PartOfContainerReuseTest
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	APart(
-				final AContainer container,
+				@javax.annotation.Nonnull final AContainer container,
 				final int order1,
 				final int order2)
 			throws
@@ -166,6 +166,7 @@ public class PartOfContainerReuseTest
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final AContainer getContainer()
 	{
 		return APart.container.get(this);
@@ -221,6 +222,7 @@ public class PartOfContainerReuseTest
 	 *       It can be customized with the tag <tt>@cope.getContainer public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final AContainer getParts1Container()
 	{
 		return APart.parts1.getContainer(this);
@@ -232,7 +234,8 @@ public class PartOfContainerReuseTest
 	 *       It can be customized with the tag <tt>@cope.getParts public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	static final java.util.List<APart> getParts1Parts(final AContainer container)
+	@javax.annotation.Nonnull()
+	static final java.util.List<APart> getParts1Parts(@javax.annotation.Nonnull final AContainer container)
 	{
 		return APart.parts1.getParts(APart.class,container);
 	}/**
@@ -243,7 +246,8 @@ public class PartOfContainerReuseTest
 	 *       It can be customized with the tag <tt>@cope.getParts public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	static final java.util.List<APart> getParts1Parts(final AContainer container,final com.exedio.cope.Condition condition)
+	@javax.annotation.Nonnull()
+	static final java.util.List<APart> getParts1Parts(@javax.annotation.Nonnull final AContainer container,@javax.annotation.Nullable final com.exedio.cope.Condition condition)
 	{
 		return APart.parts1.getParts(APart.class,container,condition);
 	}/**

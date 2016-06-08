@@ -221,6 +221,7 @@ public class DatePrecisionDefaultToNowTest extends TestWithEnvironment
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final java.util.Date getPast()
 	{
 		return AnItem.past.get(this);
@@ -232,7 +233,7 @@ public class DatePrecisionDefaultToNowTest extends TestWithEnvironment
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setPast(final java.util.Date past)
+	final void setPast(@javax.annotation.Nonnull final java.util.Date past)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.DatePrecisionViolationException
@@ -246,7 +247,7 @@ public class DatePrecisionDefaultToNowTest extends TestWithEnvironment
 	 *       It can be customized with the tag <tt>@cope.setRounded public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setPastRounded(final java.util.Date past)
+	final void setPastRounded(@javax.annotation.Nonnull final java.util.Date past)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{
@@ -259,7 +260,7 @@ public class DatePrecisionDefaultToNowTest extends TestWithEnvironment
 	 *       It can be customized with the tag <tt>@cope.setRounded public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setPastRounded(final java.util.Date past,final com.exedio.cope.DateField.RoundingMode roundingMode)
+	final void setPastRounded(@javax.annotation.Nonnull final java.util.Date past,@javax.annotation.Nonnull final com.exedio.cope.DateField.RoundingMode roundingMode)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.DatePrecisionViolationException
@@ -284,6 +285,7 @@ public class DatePrecisionDefaultToNowTest extends TestWithEnvironment
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final java.util.Date getFuture()
 	{
 		return AnItem.future.get(this);
@@ -295,7 +297,7 @@ public class DatePrecisionDefaultToNowTest extends TestWithEnvironment
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setFuture(final java.util.Date future)
+	final void setFuture(@javax.annotation.Nonnull final java.util.Date future)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.DatePrecisionViolationException
@@ -309,7 +311,7 @@ public class DatePrecisionDefaultToNowTest extends TestWithEnvironment
 	 *       It can be customized with the tag <tt>@cope.setRounded public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setFutureRounded(final java.util.Date future)
+	final void setFutureRounded(@javax.annotation.Nonnull final java.util.Date future)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{
@@ -322,7 +324,7 @@ public class DatePrecisionDefaultToNowTest extends TestWithEnvironment
 	 *       It can be customized with the tag <tt>@cope.setRounded public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setFutureRounded(final java.util.Date future,final com.exedio.cope.DateField.RoundingMode roundingMode)
+	final void setFutureRounded(@javax.annotation.Nonnull final java.util.Date future,@javax.annotation.Nonnull final com.exedio.cope.DateField.RoundingMode roundingMode)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.DatePrecisionViolationException
@@ -347,6 +349,7 @@ public class DatePrecisionDefaultToNowTest extends TestWithEnvironment
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final java.util.Date getNone()
 	{
 		return AnItem.none.get(this);
@@ -358,7 +361,7 @@ public class DatePrecisionDefaultToNowTest extends TestWithEnvironment
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setNone(final java.util.Date none)
+	final void setNone(@javax.annotation.Nullable final java.util.Date none)
 			throws
 				com.exedio.cope.DatePrecisionViolationException
 	{
@@ -371,7 +374,7 @@ public class DatePrecisionDefaultToNowTest extends TestWithEnvironment
 	 *       It can be customized with the tag <tt>@cope.setRounded public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setNoneRounded(final java.util.Date none,final com.exedio.cope.DateField.RoundingMode roundingMode)
+	final void setNoneRounded(@javax.annotation.Nullable final java.util.Date none,@javax.annotation.Nonnull final com.exedio.cope.DateField.RoundingMode roundingMode)
 			throws
 				com.exedio.cope.DatePrecisionViolationException
 	{

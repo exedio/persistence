@@ -27,14 +27,18 @@ import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
+import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.CopeSchemaNameElement;
 import com.exedio.cope.misc.ReflectionTypes;
 import com.exedio.cope.misc.instrument.FinalSettableGetter;
 import com.exedio.cope.misc.instrument.InitialExceptionsSettableGetter;
+import com.exedio.cope.misc.instrument.NullableIfOptional;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Arrays;
 import java.util.Set;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 public final class MoneyField<C extends Money.Currency> extends Pattern implements Settable<Money<C>>, CheckingSettable<Money<C>> // TODO currency
 {
@@ -157,7 +161,8 @@ public final class MoneyField<C extends Money.Currency> extends Pattern implemen
 	}
 
 	@Wrap(order=10, doc="Returns the value of {0}.")
-	public Money<C> get(final Item item)
+	@Nullable
+	public Money<C> get(@Nonnull final Item item)
 	{
 		final Price amountResult = amount.get(item);
 		return
@@ -170,7 +175,7 @@ public final class MoneyField<C extends Money.Currency> extends Pattern implemen
 			doc="Sets a new value for {0}.",
 			thrownGetter=InitialExceptionsSettableGetter.class,
 			hide=FinalSettableGetter.class)
-	public void set(final Item item, final Money<C> value)
+	public void set(@Nonnull final Item item, @Parameter(nullability=NullableIfOptional.class) final Money<C> value)
 	{
 		if(isfinal)
 			throw FinalViolationException.create(this, item);

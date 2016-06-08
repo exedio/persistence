@@ -40,7 +40,7 @@ class UniqueHierarchySuperItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	UniqueHierarchySuperItem(
-				final java.lang.String superField)
+				@javax.annotation.Nonnull final java.lang.String superField)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException
@@ -67,6 +67,7 @@ class UniqueHierarchySuperItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final java.lang.String getSuperField()
 	{
 		return UniqueHierarchySuperItem.superField.get(this);
@@ -78,7 +79,7 @@ class UniqueHierarchySuperItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setSuperField(final java.lang.String superField)
+	final void setSuperField(@javax.annotation.Nonnull final java.lang.String superField)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException

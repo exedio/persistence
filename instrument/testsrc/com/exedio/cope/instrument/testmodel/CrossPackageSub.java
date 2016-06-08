@@ -40,11 +40,11 @@ final class CrossPackageSub extends CrossPackageSuper
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	CrossPackageSub(
-				final com.exedio.cope.instrument.testmodel.sub.SubTarget superField,
-				final com.exedio.cope.instrument.testmodel.CrossPackageSuper.SuperEnum superField2,
-				final com.exedio.cope.instrument.testmodel.EnumContainer.Enum3 externalEnum,
-				final com.exedio.cope.instrument.testmodel.EnumContainer.Enum4 shortExternalEnum,
-				final java.lang.String subField)
+				@javax.annotation.Nonnull final com.exedio.cope.instrument.testmodel.sub.SubTarget superField,
+				@javax.annotation.Nonnull final com.exedio.cope.instrument.testmodel.CrossPackageSuper.SuperEnum superField2,
+				@javax.annotation.Nonnull final com.exedio.cope.instrument.testmodel.EnumContainer.Enum3 externalEnum,
+				@javax.annotation.Nonnull final com.exedio.cope.instrument.testmodel.EnumContainer.Enum4 shortExternalEnum,
+				@javax.annotation.Nonnull final java.lang.String subField)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException
@@ -75,6 +75,7 @@ final class CrossPackageSub extends CrossPackageSuper
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final java.lang.String getSubField()
 	{
 		return CrossPackageSub.subField.get(this);

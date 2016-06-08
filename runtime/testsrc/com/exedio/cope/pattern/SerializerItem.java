@@ -47,7 +47,7 @@ public final class SerializerItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	SerializerItem(
-				final String mandatoryString)
+				@javax.annotation.Nonnull final String mandatoryString)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{
@@ -73,6 +73,7 @@ public final class SerializerItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final Integer getInteger()
 	{
 		return SerializerItem.integer.get(this);
@@ -84,7 +85,7 @@ public final class SerializerItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setInteger(final Integer integer)
+	final void setInteger(@javax.annotation.Nullable final Integer integer)
 	{
 		SerializerItem.integer.set(this,integer);
 	}/**
@@ -95,6 +96,7 @@ public final class SerializerItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final Map getMap()
 	{
 		return SerializerItem.map.get(this);
@@ -106,7 +108,7 @@ public final class SerializerItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setMap(final Map map)
+	final void setMap(@javax.annotation.Nullable final Map map)
 	{
 		SerializerItem.map.set(this,map);
 	}/**
@@ -117,6 +119,7 @@ public final class SerializerItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final Map<?,?> getMapWildcard()
 	{
 		return SerializerItem.mapWildcard.get(this);
@@ -128,7 +131,7 @@ public final class SerializerItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setMapWildcard(final Map<?,?> mapWildcard)
+	final void setMapWildcard(@javax.annotation.Nullable final Map<?,?> mapWildcard)
 	{
 		SerializerItem.mapWildcard.set(this,mapWildcard);
 	}/**
@@ -139,6 +142,7 @@ public final class SerializerItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final String getMandatoryString()
 	{
 		return SerializerItem.mandatoryString.get(this);
@@ -150,7 +154,7 @@ public final class SerializerItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setMandatoryString(final String mandatoryString)
+	final void setMandatoryString(@javax.annotation.Nonnull final String mandatoryString)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{

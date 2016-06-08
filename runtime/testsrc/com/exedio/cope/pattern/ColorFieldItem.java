@@ -59,7 +59,7 @@ final class ColorFieldItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	ColorFieldItem(
-				final java.awt.Color mandatory)
+				@javax.annotation.Nonnull final java.awt.Color mandatory)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.pattern.ColorAlphaViolationException
@@ -86,6 +86,7 @@ final class ColorFieldItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final java.awt.Color getMandatory()
 	{
 		return ColorFieldItem.mandatory.get(this);
@@ -97,7 +98,7 @@ final class ColorFieldItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setMandatory(final java.awt.Color mandatory)
+	final void setMandatory(@javax.annotation.Nonnull final java.awt.Color mandatory)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.pattern.ColorAlphaViolationException
@@ -111,6 +112,7 @@ final class ColorFieldItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final java.awt.Color getOptional()
 	{
 		return ColorFieldItem.optional.get(this);
@@ -122,7 +124,7 @@ final class ColorFieldItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setOptional(final java.awt.Color optional)
+	final void setOptional(@javax.annotation.Nullable final java.awt.Color optional)
 			throws
 				com.exedio.cope.pattern.ColorAlphaViolationException
 	{
@@ -135,6 +137,7 @@ final class ColorFieldItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final java.awt.Color getDefaultTo()
 	{
 		return ColorFieldItem.defaultTo.get(this);
@@ -146,7 +149,7 @@ final class ColorFieldItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setDefaultTo(final java.awt.Color defaultTo)
+	final void setDefaultTo(@javax.annotation.Nonnull final java.awt.Color defaultTo)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.pattern.ColorAlphaViolationException
@@ -160,6 +163,7 @@ final class ColorFieldItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final java.awt.Color getAlpha()
 	{
 		return ColorFieldItem.alpha.get(this);
@@ -171,7 +175,7 @@ final class ColorFieldItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setAlpha(final java.awt.Color alpha)
+	final void setAlpha(@javax.annotation.Nullable final java.awt.Color alpha)
 	{
 		ColorFieldItem.alpha.set(this,alpha);
 	}/**
@@ -182,6 +186,7 @@ final class ColorFieldItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final java.awt.Color getMandatoryAlpha()
 	{
 		return ColorFieldItem.mandatoryAlpha.get(this);
@@ -193,7 +198,7 @@ final class ColorFieldItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setMandatoryAlpha(final java.awt.Color mandatoryAlpha)
+	final void setMandatoryAlpha(@javax.annotation.Nonnull final java.awt.Color mandatoryAlpha)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{

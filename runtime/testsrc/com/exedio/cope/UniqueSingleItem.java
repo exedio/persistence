@@ -70,6 +70,7 @@ public final class UniqueSingleItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	public final java.lang.String getUniqueString()
 	{
 		return UniqueSingleItem.uniqueString.get(this);
@@ -81,7 +82,7 @@ public final class UniqueSingleItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	public final void setUniqueString(final java.lang.String uniqueString)
+	public final void setUniqueString(@javax.annotation.Nullable final java.lang.String uniqueString)
 			throws
 				com.exedio.cope.UniqueViolationException,
 				com.exedio.cope.StringLengthViolationException
@@ -97,7 +98,8 @@ public final class UniqueSingleItem extends Item
 	 *       It can be customized with the tag <tt>@cope.for public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	public static final UniqueSingleItem forUniqueString(final java.lang.String uniqueString)
+	@javax.annotation.Nullable()
+	public static final UniqueSingleItem forUniqueString(@javax.annotation.Nonnull final java.lang.String uniqueString)
 	{
 		return UniqueSingleItem.uniqueString.searchUnique(UniqueSingleItem.class,uniqueString);
 	}/**
@@ -108,6 +110,7 @@ public final class UniqueSingleItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	public final java.lang.String getOtherString()
 	{
 		return UniqueSingleItem.otherString.get(this);
@@ -119,7 +122,7 @@ public final class UniqueSingleItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	public final void setOtherString(final java.lang.String otherString)
+	public final void setOtherString(@javax.annotation.Nullable final java.lang.String otherString)
 			throws
 				com.exedio.cope.StringLengthViolationException
 	{

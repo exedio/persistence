@@ -33,8 +33,8 @@ final class IoqSourceSubA extends IoqSourceSuper
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	IoqSourceSubA(
-				final com.exedio.cope.instanceOfQuery.IoqTargetSuper ref,
-				final java.lang.String code)
+				@javax.annotation.Nonnull final com.exedio.cope.instanceOfQuery.IoqTargetSuper ref,
+				@javax.annotation.Nonnull final java.lang.String code)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException

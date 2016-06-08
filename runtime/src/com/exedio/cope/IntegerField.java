@@ -26,6 +26,8 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedElement;
 import java.util.Set;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  * Represents a field within a {@link Type type},
@@ -324,7 +326,7 @@ public final class IntegerField extends NumberField<Integer>
 	 * @throws IllegalArgumentException if this field is not {@link #isMandatory() mandatory}.
 	 */
 	@Wrap(order=10, name="get{0}", doc="Returns the value of {0}.", hide=OptionalGetter.class)
-	public int getMandatory(final Item item)
+	public int getMandatory(@Nonnull final Item item)
 	{
 		return getMandatoryObject(item).intValue();
 	}
@@ -333,7 +335,7 @@ public final class IntegerField extends NumberField<Integer>
 			doc="Sets a new value for {0}.",
 			hide={FinalSettableGetter.class, OptionalGetter.class},
 			thrownGetter=InitialThrown.class)
-	public void set(final Item item, final int value)
+	public void set(@Nonnull final Item item, final int value)
 	{
 		set(item, Integer.valueOf(value));
 	}
@@ -347,6 +349,7 @@ public final class IntegerField extends NumberField<Integer>
 			doc="Finds a {2} by it''s {0}.",
 			docReturn="null if there is no matching item.",
 			hide={OptionalGetter.class, NonUniqueGetter.class})
+	@Nullable
 	public final <P extends Item> P searchUnique(
 			final Class<P> typeClass,
 			@Parameter(doc="shall be equal to field {0}.") final int value)

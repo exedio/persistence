@@ -59,6 +59,7 @@ public class IntegerTypeSmallIntItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final IntegerTypeSmallIntItem getItemReference()
 	{
 		return IntegerTypeSmallIntItem.itemReference.get(this);
@@ -70,7 +71,7 @@ public class IntegerTypeSmallIntItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setItemReference(final IntegerTypeSmallIntItem itemReference)
+	final void setItemReference(@javax.annotation.Nullable final IntegerTypeSmallIntItem itemReference)
 	{
 		IntegerTypeSmallIntItem.itemReference.set(this,itemReference);
 	}/**
@@ -81,6 +82,7 @@ public class IntegerTypeSmallIntItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final java.lang.Long getValue()
 	{
 		return IntegerTypeSmallIntItem.value.get(this);
@@ -92,7 +94,7 @@ public class IntegerTypeSmallIntItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setValue(final java.lang.Long value)
+	final void setValue(@javax.annotation.Nullable final java.lang.Long value)
 			throws
 				com.exedio.cope.LongRangeViolationException
 	{

@@ -32,6 +32,7 @@ import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Model;
 import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.util.AssertionErrorJobContext;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.Test;
 
 public class NestedHashMigrationTest extends TestWithEnvironment
@@ -43,6 +44,7 @@ public class NestedHashMigrationTest extends TestWithEnvironment
 		super(MODEL);
 	}
 
+	@SuppressFBWarnings("NP_NONNULL_PARAM_VIOLATION")
 	@Test public void testSetNull()
 	{
 		final NestedHashMigrationItem item = new NestedHashMigrationItem("111111", 1.1);

@@ -48,8 +48,8 @@ public final class PointerItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	public PointerItem(
-				final java.lang.String code,
-				final PointerTargetItem pointer)
+				@javax.annotation.Nonnull final java.lang.String code,
+				@javax.annotation.Nonnull final PointerTargetItem pointer)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException
@@ -77,6 +77,7 @@ public final class PointerItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	public final java.lang.String getCode()
 	{
 		return PointerItem.code.get(this);
@@ -88,7 +89,7 @@ public final class PointerItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	public final void setCode(final java.lang.String code)
+	public final void setCode(@javax.annotation.Nonnull final java.lang.String code)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException
@@ -102,6 +103,7 @@ public final class PointerItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	public final PointerTargetItem getPointer()
 	{
 		return PointerItem.pointer.get(this);
@@ -113,7 +115,7 @@ public final class PointerItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	public final void setPointer(final PointerTargetItem pointer)
+	public final void setPointer(@javax.annotation.Nonnull final PointerTargetItem pointer)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{
@@ -126,6 +128,7 @@ public final class PointerItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	public final PointerTargetItem getPointer2()
 	{
 		return PointerItem.pointer2.get(this);
@@ -137,7 +140,7 @@ public final class PointerItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	public final void setPointer2(final PointerTargetItem pointer2)
+	public final void setPointer2(@javax.annotation.Nullable final PointerTargetItem pointer2)
 	{
 		PointerItem.pointer2.set(this,pointer2);
 	}/**
@@ -148,6 +151,7 @@ public final class PointerItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	public final PointerItem getSelf()
 	{
 		return PointerItem.self.get(this);
@@ -159,7 +163,7 @@ public final class PointerItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	public final void setSelf(final PointerItem self)
+	public final void setSelf(@javax.annotation.Nullable final PointerItem self)
 	{
 		PointerItem.self.set(this,self);
 	}/**
@@ -170,6 +174,7 @@ public final class PointerItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	public final EmptyItem2 getEmpty2()
 	{
 		return PointerItem.empty2.get(this);
@@ -181,7 +186,7 @@ public final class PointerItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	public final void setEmpty2(final EmptyItem2 empty2)
+	public final void setEmpty2(@javax.annotation.Nullable final EmptyItem2 empty2)
 	{
 		PointerItem.empty2.set(this,empty2);
 	}/**

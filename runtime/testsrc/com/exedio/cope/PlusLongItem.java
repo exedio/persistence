@@ -83,6 +83,7 @@ public final class PlusLongItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	public final java.lang.Long getNumA()
 	{
 		return PlusLongItem.numA.get(this);
@@ -94,7 +95,7 @@ public final class PlusLongItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	public final void setNumA(final java.lang.Long numA)
+	public final void setNumA(@javax.annotation.Nullable final java.lang.Long numA)
 	{
 		PlusLongItem.numA.set(this,numA);
 	}/**
@@ -105,6 +106,7 @@ public final class PlusLongItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	public final java.lang.Long getNumB()
 	{
 		return PlusLongItem.numB.get(this);
@@ -116,7 +118,7 @@ public final class PlusLongItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	public final void setNumB(final java.lang.Long numB)
+	public final void setNumB(@javax.annotation.Nullable final java.lang.Long numB)
 	{
 		PlusLongItem.numB.set(this,numB);
 	}/**
@@ -127,6 +129,7 @@ public final class PlusLongItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	public final java.lang.Long getNumC()
 	{
 		return PlusLongItem.numC.get(this);
@@ -138,7 +141,7 @@ public final class PlusLongItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	public final void setNumC(final java.lang.Long numC)
+	public final void setNumC(@javax.annotation.Nullable final java.lang.Long numC)
 	{
 		PlusLongItem.numC.set(this,numC);
 	}/**

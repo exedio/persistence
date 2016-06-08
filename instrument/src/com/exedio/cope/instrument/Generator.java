@@ -40,6 +40,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.SortedSet;
 import javax.annotation.Generated;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 final class Generator
 {
@@ -80,6 +82,7 @@ final class Generator
 	private final boolean longJavadoc;
 	private final boolean annotateGenerated;
 	private final String finalArgPrefix;
+	private final boolean nullabilityAnnotations;
 	private final boolean suppressUnusedWarningOnPrivateActivationConstructor;
 	private final boolean serialVersionUID;
 	private final boolean genericSetValueArray;
@@ -97,6 +100,7 @@ final class Generator
 		this.longJavadoc = params.longJavadoc;
 		this.annotateGenerated = params.annotateGenerated;
 		this.finalArgPrefix = params.finalArgs ? "final " : "";
+		this.nullabilityAnnotations = params.nullabilityAnnotations;
 		this.suppressUnusedWarningOnPrivateActivationConstructor = params.suppressUnusedWarningOnPrivateActivationConstructor;
 		this.serialVersionUID = params.serialVersionUID;
 		this.genericSetValueArray = params.genericSetValueArray;
@@ -253,6 +257,22 @@ final class Generator
 			comma.appendTo(output);
 			write(lineSeparator);
 			writeIndent(3);
+			if (nullabilityAnnotations)
+			{
+				if (feature.isMandatory())
+				{
+					if (!feature.isInitialTypePrimitive())
+					{
+						writeAnnotation(Nonnull.class);
+						write(' ');
+					}
+				}
+				else
+				{
+					writeAnnotation(Nullable.class);
+					write(' ');
+				}
+			}
 			write(finalArgPrefix);
 			write(new Context(feature, feature.parent!=type).write(feature.getInitialType()));
 			write(' ');
@@ -470,6 +490,27 @@ final class Generator
 				write(lineSeparator);
 			}
 
+			switch(wrapper.getMethodNullability())
+			{
+				case NONNULL:
+					writeIndent();
+					writeAnnotation(Nonnull.class);
+					writeEmptyParenthesesForAnnotation();
+					write(lineSeparator);
+					break;
+				case NULLABLE:
+					writeIndent();
+					writeAnnotation(Nullable.class);
+					writeEmptyParenthesesForAnnotation();
+					write(lineSeparator);
+					break;
+				case DEFAULT:
+					// nothing to do
+					break;
+				default:
+					throw new RuntimeException("invalid case");
+			}
+
 			writeIndent();
 
 			if(option.override)
@@ -519,6 +560,7 @@ final class Generator
 					if(parameter.varargs==null)
 					{
 						comma.appendTo(output);
+						writeParameterNullability(parameter);
 						write(finalArgPrefix);
 						write(ctx.write(parameter.getType()));
 						write(' ');
@@ -532,6 +574,7 @@ final class Generator
 							final JavaField parameterField = javaClass.getFieldByInstance(parameterInstance);
 							final CopeFeature parameterFeature = feature.parent.getFeature(parameterField.name);
 
+							writeParameterNullability(parameter);
 							write(finalArgPrefix);
 							write(new Context(parameterFeature, false).write(parameterFeature.getInitialType()));
 							write(' ');
@@ -628,6 +671,23 @@ final class Generator
 		write(annotationClass.getName());
 	}
 
+	private void writeParameterNullability(final WrapperX.Parameter parameter)
+	{
+		if ( nullabilityAnnotations )
+		{
+			if ( parameter.isNonnull() )
+			{
+				writeAnnotation(Nonnull.class);
+				write(' ');
+			}
+			if ( parameter.isNullable() )
+			{
+				writeAnnotation(Nullable.class);
+				write(' ');
+			}
+		}
+	}
+
 	private void writeEmptyParenthesesForAnnotation()
 	{
 		if(parenthesesOnEmptyMemberAnnotations)
@@ -648,7 +708,8 @@ final class Generator
 				feature,
 				clazz.getSuperclass().isAnnotationPresent(WrapFeature.class)
 				? getWrappers(clazz.getSuperclass(), feature)
-				: Collections.<WrapperX>emptyList());
+				: Collections.<WrapperX>emptyList(),
+				nullabilityAnnotations);
 	}
 
 	private void writeName(final String methodName, final String featureName)

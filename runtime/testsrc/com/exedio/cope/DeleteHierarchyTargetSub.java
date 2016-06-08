@@ -33,7 +33,7 @@ public final class DeleteHierarchyTargetSub extends DeleteHierarchyTargetSuper
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	DeleteHierarchyTargetSub(
-				final java.lang.String code)
+				@javax.annotation.Nonnull final java.lang.String code)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException

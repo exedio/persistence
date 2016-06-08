@@ -63,6 +63,8 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Locale;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -223,7 +225,8 @@ public final class Dispatcher extends Pattern
 	}
 
 	@Wrap(order=1000, name="{1}RunParent", doc="Returns the parent field of the run type of {0}.")
-	public <P extends Item> ItemField<P> getRunParent(final Class<P> parentClass)
+	@Nonnull
+	public <P extends Item> ItemField<P> getRunParent(@Nonnull final Class<P> parentClass)
 	{
 		return mount().runParent.as(parentClass);
 	}
@@ -260,9 +263,9 @@ public final class Dispatcher extends Pattern
 
 	@Wrap(order=20, doc="Dispatch by {0}.")
 	public <P extends Item & Dispatchable> void dispatch(
-			final Class<P> parentClass,
-			@Parameter("config") final Config config,
-			@Parameter("ctx") final JobContext ctx)
+			@Nonnull final Class<P> parentClass,
+			@Nonnull @Parameter("config") final Config config,
+			@Nonnull @Parameter("ctx") final JobContext ctx)
 	{
 		dispatch(parentClass, config, EMPTY_PROBE, ctx);
 	}
@@ -280,10 +283,10 @@ public final class Dispatcher extends Pattern
 	@SuppressFBWarnings("REC_CATCH_EXCEPTION") // Exception is caught when Exception is not thrown
 	@Wrap(order=21, doc="Dispatch by {0}.")
 	public <P extends Item & Dispatchable> void dispatch(
-			final Class<P> parentClass,
-			@Parameter("config") final Config config,
-			@Parameter("probe") final Runnable probe,
-			@Parameter("ctx") final JobContext ctx)
+			@Nonnull final Class<P> parentClass,
+			@Nonnull @Parameter("config") final Config config,
+			@Nonnull @Parameter("probe") final Runnable probe,
+			@Nonnull @Parameter("ctx") final JobContext ctx)
 	{
 		requireNonNull(config, "config");
 		requireNonNull(probe, "probe");
@@ -419,42 +422,44 @@ public final class Dispatcher extends Pattern
 	}
 
 	@Wrap(order=30, doc="Returns, whether this item is yet to be dispatched by {0}.")
-	public boolean isPending(final Item item)
+	public boolean isPending(@Nonnull final Item item)
 	{
 		return pending.getMandatory(item);
 	}
 
 	@Wrap(order=40, doc="Sets whether this item is yet to be dispatched by {0}.")
 	public void setPending(
-			final Item item,
+			@Nonnull final Item item,
 			@Parameter("pending") final boolean pending)
 	{
 		this.pending.set(item, pending);
 	}
 
 	@Wrap(order=45, doc="Returns, whether this item is allowed to be purged by {0}.", hide=SupportsPurgeGetter.class)
-	public boolean isNoPurge(final Item item)
+	public boolean isNoPurge(@Nonnull final Item item)
 	{
 		return noPurge.getMandatory(item);
 	}
 
 	@Wrap(order=47, doc="Sets whether this item is allowed to be purged by {0}.", hide=SupportsPurgeGetter.class)
 	public void setNoPurge(
-			final Item item,
+			@Nonnull final Item item,
 			@Parameter("noPurge") final boolean noPurge)
 	{
 		this.noPurge.set(item, noPurge);
 	}
 
 	@Wrap(order=50, doc="Returns the date, this item was last successfully dispatched by {0}.")
-	public Date getLastSuccessDate(final Item item)
+	@Nullable
+	public Date getLastSuccessDate(@Nonnull final Item item)
 	{
 		final Run success = getLastSuccess(item);
 		return success!=null ? runDate.get(success) : null;
 	}
 
 	@Wrap(order=60, doc="Returns the milliseconds, this item needed to be last successfully dispatched by {0}.")
-	public Long getLastSuccessElapsed(final Item item)
+	@Nullable
+	public Long getLastSuccessElapsed(@Nonnull final Item item)
 	{
 		final Run success = getLastSuccess(item);
 		return success!=null ? runElapsed.get(success) : null;
@@ -473,6 +478,7 @@ public final class Dispatcher extends Pattern
 	}
 
 	@Wrap(order=70, doc="Returns the attempts to dispatch this item by {0}.")
+	@Nonnull
 	public List<Run> getRuns(final Item item)
 	{
 		final Mount mount = mount();
@@ -484,6 +490,7 @@ public final class Dispatcher extends Pattern
 	}
 
 	@Wrap(order=80, doc="Returns the failed attempts to dispatch this item by {0}.")
+	@Nonnull
 	public List<Run> getFailures(final Item item)
 	{
 		final Mount mount = mount();
@@ -570,8 +577,8 @@ public final class Dispatcher extends Pattern
 	 */
 	@Wrap(order=100, hide=SupportsPurgeGetter.class)
 	public void purge(
-			@Parameter("properties") final DispatcherPurgeProperties properties,
-			@Parameter("ctx") final JobContext ctx)
+			@Nonnull @Parameter("properties") final DispatcherPurgeProperties properties,
+			@Nonnull @Parameter("ctx") final JobContext ctx)
 	{
 		requireNonNull(properties, "properties");
 		requireNonNull(ctx, "ctx");
@@ -641,9 +648,9 @@ public final class Dispatcher extends Pattern
 			docReturn="the number of successfully dispatched items")
 	@Deprecated
 	public <P extends Item & Dispatchable> int dispatch(
-			final Class<P> parentClass,
-			@Parameter("config") final Config config,
-			@Parameter("interrupter") final com.exedio.cope.util.Interrupter interrupter)
+			@Nonnull final Class<P> parentClass,
+			@Nonnull @Parameter("config") final Config config,
+			@Nullable @Parameter("interrupter") final com.exedio.cope.util.Interrupter interrupter)
 	{
 		return com.exedio.cope.util.InterrupterJobContextAdapter.run(
 			interrupter,

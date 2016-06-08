@@ -85,6 +85,7 @@ public final class DoubleItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	public final java.lang.Double getAny()
 	{
 		return DoubleItem.any.get(this);
@@ -96,7 +97,7 @@ public final class DoubleItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	public final void setAny(final java.lang.Double any)
+	public final void setAny(@javax.annotation.Nullable final java.lang.Double any)
 	{
 		DoubleItem.any.set(this,any);
 	}/**
@@ -129,6 +130,7 @@ public final class DoubleItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	public final java.lang.Double getMin4()
 	{
 		return DoubleItem.min4.get(this);
@@ -140,7 +142,7 @@ public final class DoubleItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	public final void setMin4(final java.lang.Double min4)
+	public final void setMin4(@javax.annotation.Nullable final java.lang.Double min4)
 			throws
 				com.exedio.cope.DoubleRangeViolationException
 	{
@@ -153,6 +155,7 @@ public final class DoubleItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	public final java.lang.Double getMax4()
 	{
 		return DoubleItem.max4.get(this);
@@ -164,7 +167,7 @@ public final class DoubleItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	public final void setMax4(final java.lang.Double max4)
+	public final void setMax4(@javax.annotation.Nullable final java.lang.Double max4)
 			throws
 				com.exedio.cope.DoubleRangeViolationException
 	{
@@ -177,6 +180,7 @@ public final class DoubleItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	public final java.lang.Double getMin4Max8()
 	{
 		return DoubleItem.min4Max8.get(this);
@@ -188,7 +192,7 @@ public final class DoubleItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	public final void setMin4Max8(final java.lang.Double min4Max8)
+	public final void setMin4Max8(@javax.annotation.Nullable final java.lang.Double min4Max8)
 			throws
 				com.exedio.cope.DoubleRangeViolationException
 	{

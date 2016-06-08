@@ -39,6 +39,7 @@ import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Query;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.TestWithEnvironment;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -252,6 +253,7 @@ public class LimitedListFieldTest extends TestWithEnvironment
 		assertEquals(asList("hallo", "bello"), item.getStrings());
 	}
 
+	@SuppressFBWarnings({"NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS", "NP_NONNULL_PARAM_VIOLATION"})
 	@Test public void testListSetNull()
 	{
 		item.setStrings(asList("hallo", "bello"));

@@ -137,7 +137,7 @@ public class MediaRootUrlTest
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	AnItem(
-				final com.exedio.cope.pattern.Media.Value file)
+				@javax.annotation.Nullable final com.exedio.cope.pattern.Media.Value file)
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
 			AnItem.file.map(file),
@@ -161,6 +161,7 @@ public class MediaRootUrlTest
 	 *       It can be customized with the tag <tt>@cope.getURL public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final java.lang.String getFileURL()
 	{
 		return AnItem.file.getURL(this);
@@ -172,6 +173,7 @@ public class MediaRootUrlTest
 	 *       It can be customized with the tag <tt>@cope.getLocator public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final com.exedio.cope.pattern.MediaPath.Locator getFileLocator()
 	{
 		return AnItem.file.getLocator(this);
@@ -183,6 +185,7 @@ public class MediaRootUrlTest
 	 *       It can be customized with the tag <tt>@cope.getContentType public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final java.lang.String getFileContentType()
 	{
 		return AnItem.file.getContentType(this);
@@ -205,6 +208,7 @@ public class MediaRootUrlTest
 	 *       It can be customized with the tag <tt>@cope.getLastModified public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final java.util.Date getFileLastModified()
 	{
 		return AnItem.file.getLastModified(this);
@@ -227,6 +231,7 @@ public class MediaRootUrlTest
 	 *       It can be customized with the tag <tt>@cope.getBody public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final byte[] getFileBody()
 	{
 		return AnItem.file.getBody(this);
@@ -240,7 +245,7 @@ public class MediaRootUrlTest
 	 *       It can be customized with the tag <tt>@cope.getBody public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void getFileBody(final java.io.OutputStream body)
+	final void getFileBody(@javax.annotation.Nonnull final java.io.OutputStream body)
 			throws
 				java.io.IOException
 	{
@@ -255,7 +260,7 @@ public class MediaRootUrlTest
 	 *       It can be customized with the tag <tt>@cope.getBody public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void getFileBody(final java.io.File body)
+	final void getFileBody(@javax.annotation.Nonnull final java.io.File body)
 			throws
 				java.io.IOException
 	{
@@ -269,7 +274,7 @@ public class MediaRootUrlTest
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setFile(final com.exedio.cope.pattern.Media.Value file)
+	final void setFile(@javax.annotation.Nullable final com.exedio.cope.pattern.Media.Value file)
 			throws
 				java.io.IOException
 	{
@@ -282,7 +287,7 @@ public class MediaRootUrlTest
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setFile(final byte[] body,final java.lang.String contentType)
+	final void setFile(@javax.annotation.Nullable final byte[] body,@javax.annotation.Nullable final java.lang.String contentType)
 	{
 		AnItem.file.set(this,body,contentType);
 	}/**
@@ -294,7 +299,7 @@ public class MediaRootUrlTest
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setFile(final java.io.InputStream body,final java.lang.String contentType)
+	final void setFile(@javax.annotation.Nullable final java.io.InputStream body,@javax.annotation.Nullable final java.lang.String contentType)
 			throws
 				java.io.IOException
 	{
@@ -308,7 +313,7 @@ public class MediaRootUrlTest
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setFile(final java.io.File body,final java.lang.String contentType)
+	final void setFile(@javax.annotation.Nullable final java.io.File body,@javax.annotation.Nullable final java.lang.String contentType)
 			throws
 				java.io.IOException
 	{

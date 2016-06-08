@@ -67,7 +67,7 @@ public class SettableFixedParam implements Settable<AtomicReference<AtomicBoolea
 	@Override
 	public boolean isMandatory()
 	{
-		throw new AssertionError();
+		return true;
 	}
 
 	@Override

@@ -39,6 +39,8 @@ import com.exedio.cope.util.Clock;
 import com.exedio.cope.util.JobContext;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Date;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 public final class PasswordLimiter extends Pattern
 {
@@ -153,8 +155,8 @@ public final class PasswordLimiter extends Pattern
 
 	@Wrap(order=10)
 	public boolean check(
-			final Item item,
-			@Parameter("password") final String password)
+			@Nonnull final Item item,
+			@Nullable @Parameter("password") final String password)
 	{
 		final long now = Clock.currentTimeMillis();
 		final Query<Refusal> query = getCheckQuery(item, now);
@@ -169,8 +171,8 @@ public final class PasswordLimiter extends Pattern
 
 	@Wrap(order=20, thrown=@Wrap.Thrown(ExceededException.class))
 	public boolean checkVerbosely(
-			final Item item,
-			@Parameter("password") final String password)
+			@Nonnull final Item item,
+			@Nullable @Parameter("password") final String password)
 	throws ExceededException
 	{
 		final long now = Clock.currentTimeMillis();
@@ -197,7 +199,7 @@ public final class PasswordLimiter extends Pattern
 				this.date.greater(getExpiryDate(now))));
 	}
 
-	private boolean checkInternally(final Item item, final String password, final long now)
+	private boolean checkInternally(@Nonnull final Item item, @Nullable final String password, final long now)
 	{
 		final boolean result = this.password.check(item, password);
 
@@ -256,7 +258,7 @@ public final class PasswordLimiter extends Pattern
 	}
 
 	@Wrap(order=25)
-	public void reset(final Item item)
+	public void reset(@Nonnull final Item item)
 	{
 		final Mount mount = mount();
 		for(final Refusal refusal : mount.refusalType.newQuery(
@@ -268,7 +270,7 @@ public final class PasswordLimiter extends Pattern
 
 	@Wrap(order=40)
 	public void purge(
-			@Parameter("ctx") final JobContext ctx)
+			@Nonnull @Parameter("ctx") final JobContext ctx)
 	{
 		final long now = Clock.currentTimeMillis();
 		Delete.delete(
@@ -326,7 +328,7 @@ public final class PasswordLimiter extends Pattern
 	@Wrap(order=30, docReturn="the number of refusals purged")
 	@Deprecated
 	public int purge(
-			@Parameter("interrupter") final com.exedio.cope.util.Interrupter interrupter)
+			@Nullable @Parameter("interrupter") final com.exedio.cope.util.Interrupter interrupter)
 	{
 		return com.exedio.cope.util.InterrupterJobContextAdapter.run(
 			interrupter,

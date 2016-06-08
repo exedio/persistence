@@ -42,8 +42,8 @@ final class UniqueHierarchySubItem extends UniqueHierarchySuperItem
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	UniqueHierarchySubItem(
-				final java.lang.String superField,
-				final java.lang.String subField)
+				@javax.annotation.Nonnull final java.lang.String superField,
+				@javax.annotation.Nonnull final java.lang.String subField)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException,
@@ -72,6 +72,7 @@ final class UniqueHierarchySubItem extends UniqueHierarchySuperItem
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final java.lang.String getSubField()
 	{
 		return UniqueHierarchySubItem.subField.get(this);
@@ -83,7 +84,7 @@ final class UniqueHierarchySubItem extends UniqueHierarchySuperItem
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setSubField(final java.lang.String subField)
+	final void setSubField(@javax.annotation.Nonnull final java.lang.String subField)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.UniqueViolationException,
@@ -100,7 +101,8 @@ final class UniqueHierarchySubItem extends UniqueHierarchySuperItem
 	 *       It can be customized with the tag <tt>@cope.for public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	static final UniqueHierarchySubItem forSubField(final java.lang.String subField)
+	@javax.annotation.Nullable()
+	static final UniqueHierarchySubItem forSubField(@javax.annotation.Nonnull final java.lang.String subField)
 	{
 		return UniqueHierarchySubItem.subField.searchUnique(UniqueHierarchySubItem.class,subField);
 	}/**

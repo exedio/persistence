@@ -41,7 +41,7 @@ public final class PointerTargetItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	public PointerTargetItem(
-				final java.lang.String code)
+				@javax.annotation.Nonnull final java.lang.String code)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException
@@ -68,6 +68,7 @@ public final class PointerTargetItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	public final java.lang.String getCode()
 	{
 		return PointerTargetItem.code.get(this);
@@ -79,7 +80,7 @@ public final class PointerTargetItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	public final void setCode(final java.lang.String code)
+	public final void setCode(@javax.annotation.Nonnull final java.lang.String code)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException
@@ -93,6 +94,7 @@ public final class PointerTargetItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	public final java.lang.Integer getNum1()
 	{
 		return PointerTargetItem.num1.get(this);
@@ -104,7 +106,7 @@ public final class PointerTargetItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	public final void setNum1(final java.lang.Integer num1)
+	public final void setNum1(@javax.annotation.Nullable final java.lang.Integer num1)
 	{
 		PointerTargetItem.num1.set(this,num1);
 	}/**
@@ -115,6 +117,7 @@ public final class PointerTargetItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	public final java.lang.Integer getNum2()
 	{
 		return PointerTargetItem.num2.get(this);
@@ -126,7 +129,7 @@ public final class PointerTargetItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	public final void setNum2(final java.lang.Integer num2)
+	public final void setNum2(@javax.annotation.Nullable final java.lang.Integer num2)
 	{
 		PointerTargetItem.num2.set(this,num2);
 	}/**

@@ -34,7 +34,7 @@ final class DataFinalItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	DataFinalItem(
-				final com.exedio.cope.DataField.Value data)
+				@javax.annotation.Nullable final com.exedio.cope.DataField.Value data)
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
 			DataFinalItem.data.map(data),
@@ -80,6 +80,7 @@ final class DataFinalItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getArray public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final byte[] getDataArray()
 	{
 		return DataFinalItem.data.getArray(this);
@@ -91,7 +92,7 @@ final class DataFinalItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void getData(final java.io.OutputStream data)
+	final void getData(@javax.annotation.Nonnull final java.io.OutputStream data)
 			throws
 				java.io.IOException
 	{
@@ -104,7 +105,7 @@ final class DataFinalItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void getData(final java.io.File data)
+	final void getData(@javax.annotation.Nonnull final java.io.File data)
 			throws
 				java.io.IOException
 	{

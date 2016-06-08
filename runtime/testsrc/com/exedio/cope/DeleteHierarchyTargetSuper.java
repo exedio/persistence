@@ -34,7 +34,7 @@ public class DeleteHierarchyTargetSuper extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	DeleteHierarchyTargetSuper(
-				final java.lang.String code)
+				@javax.annotation.Nonnull final java.lang.String code)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException
@@ -61,6 +61,7 @@ public class DeleteHierarchyTargetSuper extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final java.lang.String getCode()
 	{
 		return DeleteHierarchyTargetSuper.code.get(this);
@@ -72,7 +73,7 @@ public class DeleteHierarchyTargetSuper extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setCode(final java.lang.String code)
+	final void setCode(@javax.annotation.Nonnull final java.lang.String code)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException

@@ -36,7 +36,7 @@ final class CopyMultiTargetItemA extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	CopyMultiTargetItemA(
-				final java.lang.String copy)
+				@javax.annotation.Nullable final java.lang.String copy)
 			throws
 				com.exedio.cope.StringLengthViolationException
 	{
@@ -62,6 +62,7 @@ final class CopyMultiTargetItemA extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final java.lang.String getCopy()
 	{
 		return CopyMultiTargetItemA.copy.get(this);

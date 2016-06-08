@@ -40,7 +40,7 @@ public final class HashItemHolder extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	public HashItemHolder(
-				final HashItem hashItem)
+				@javax.annotation.Nonnull final HashItem hashItem)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{
@@ -66,6 +66,7 @@ public final class HashItemHolder extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	public final HashItem getHashItem()
 	{
 		return HashItemHolder.hashItem.get(this);
@@ -77,7 +78,7 @@ public final class HashItemHolder extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	public final void setHashItem(final HashItem hashItem)
+	public final void setHashItem(@javax.annotation.Nonnull final HashItem hashItem)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{

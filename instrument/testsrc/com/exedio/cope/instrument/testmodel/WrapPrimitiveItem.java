@@ -55,7 +55,7 @@ final class WrapPrimitiveItem extends Item
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	WrapPrimitiveItem(
 				final int integer,
-				final java.util.Date date,
+				@javax.annotation.Nonnull final java.util.Date date,
 				final boolean booleanField,
 				final long longField,
 				final double doubleField)
@@ -113,6 +113,7 @@ final class WrapPrimitiveItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final java.util.Date getDate()
 	{
 		return WrapPrimitiveItem.date.get(this);
@@ -124,7 +125,7 @@ final class WrapPrimitiveItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setDate(final java.util.Date date)
+	final void setDate(@javax.annotation.Nonnull final java.util.Date date)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.UniqueViolationException
@@ -149,6 +150,7 @@ final class WrapPrimitiveItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final java.lang.Integer getIntegerOptional()
 	{
 		return WrapPrimitiveItem.integerOptional.get(this);
@@ -160,7 +162,7 @@ final class WrapPrimitiveItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setIntegerOptional(final java.lang.Integer integerOptional)
+	final void setIntegerOptional(@javax.annotation.Nullable final java.lang.Integer integerOptional)
 			throws
 				com.exedio.cope.UniqueViolationException
 	{
@@ -177,7 +179,8 @@ final class WrapPrimitiveItem extends Item
 	 *       It can be customized with the tag <tt>@cope.finder public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	static final WrapPrimitiveItem forMixed(final int integer,final java.util.Date date,final java.lang.Integer integerOptional)
+	@javax.annotation.Nullable()
+	static final WrapPrimitiveItem forMixed(@javax.annotation.Nonnull final int integer,@javax.annotation.Nonnull final java.util.Date date,@javax.annotation.Nonnull final java.lang.Integer integerOptional)
 	{
 		return WrapPrimitiveItem.mixed.search(WrapPrimitiveItem.class,integer,date,integerOptional);
 	}/**
@@ -265,7 +268,8 @@ final class WrapPrimitiveItem extends Item
 	 *       It can be customized with the tag <tt>@cope.finder public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	static final WrapPrimitiveItem forPrimitive(final boolean booleanField,final int integer,final long longField,final double doubleField)
+	@javax.annotation.Nullable()
+	static final WrapPrimitiveItem forPrimitive(@javax.annotation.Nonnull final boolean booleanField,@javax.annotation.Nonnull final int integer,@javax.annotation.Nonnull final long longField,@javax.annotation.Nonnull final double doubleField)
 	{
 		return WrapPrimitiveItem.primitive.search(WrapPrimitiveItem.class,booleanField,integer,longField,doubleField);
 	}/**

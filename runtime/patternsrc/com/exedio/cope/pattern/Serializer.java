@@ -27,10 +27,12 @@ import com.exedio.cope.Pattern;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
 import com.exedio.cope.StringField;
+import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.ComputedElement;
 import com.exedio.cope.misc.instrument.FinalSettableGetter;
 import com.exedio.cope.misc.instrument.InitialExceptionsSettableGetter;
+import com.exedio.cope.misc.instrument.NullableIfOptional;
 import com.exedio.cope.util.Cast;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.ByteArrayInputStream;
@@ -39,6 +41,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.Set;
+import javax.annotation.Nonnull;
 
 /**
  * Stores a java object by serialization - use with care!
@@ -115,8 +118,8 @@ public final class Serializer<E> extends Pattern implements Settable<E>
 		return source.getInitialExceptions();
 	}
 
-	@Wrap(order=10, doc="Returns the value of {0}.")
-	public E get(final Item item)
+	@Wrap(order=10, doc="Returns the value of {0}.", nullability=NullableIfOptional.class)
+	public E get(@Nonnull final Item item)
 	{
 		final byte[] buf = source.getArray(item);
 
@@ -145,7 +148,7 @@ public final class Serializer<E> extends Pattern implements Settable<E>
 			doc="Sets a new value for {0}.",
 			thrownGetter=InitialExceptionsSettableGetter.class,
 			hide=FinalSettableGetter.class)
-	public void set(final Item item, final E value)
+	public void set(@Nonnull final Item item, @Parameter(nullability=NullableIfOptional.class) final E value)
 	{
 		source.set(item, serialize(value));
 	}

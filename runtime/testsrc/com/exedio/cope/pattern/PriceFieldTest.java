@@ -52,6 +52,7 @@ public class PriceFieldTest extends TestWithEnvironment
 		item = new PriceFieldItem(storeOf(555), storeOf(7777));
 	}
 
+	@SuppressFBWarnings("NP_NONNULL_PARAM_VIOLATION")
 	@Test public void testIt()
 	{
 		assertEquals("finalPrice_int", SchemaInfo.getColumnName(finalPrice.getInt()));

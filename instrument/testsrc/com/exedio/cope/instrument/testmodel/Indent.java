@@ -44,7 +44,7 @@ final class Indent extends Item
 			 */
 			@javax.annotation.Generated("com.exedio.cope.instrument")
 			Indent(
-						final java.lang.String two)
+						@javax.annotation.Nonnull final java.lang.String two)
 					throws
 						com.exedio.cope.MandatoryViolationException,
 						com.exedio.cope.StringLengthViolationException,
@@ -72,6 +72,7 @@ final class Indent extends Item
 			 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 			 */
 			@javax.annotation.Generated("com.exedio.cope.instrument")
+			@javax.annotation.Nullable()
 			final java.lang.String getOne()
 			{
 				return Indent.one.get(this);
@@ -83,7 +84,7 @@ final class Indent extends Item
 			 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 			 */
 			@javax.annotation.Generated("com.exedio.cope.instrument")
-			final void setOne(final java.lang.String one)
+			final void setOne(@javax.annotation.Nullable final java.lang.String one)
 					throws
 						com.exedio.cope.UniqueViolationException,
 						com.exedio.cope.StringLengthViolationException
@@ -97,6 +98,7 @@ final class Indent extends Item
 			 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 			 */
 			@javax.annotation.Generated("com.exedio.cope.instrument")
+			@javax.annotation.Nonnull()
 			final java.lang.String getTwo()
 			{
 				return Indent.two.get(this);
@@ -108,7 +110,7 @@ final class Indent extends Item
 			 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 			 */
 			@javax.annotation.Generated("com.exedio.cope.instrument")
-			final void setTwo(final java.lang.String two)
+			final void setTwo(@javax.annotation.Nonnull final java.lang.String two)
 					throws
 						com.exedio.cope.MandatoryViolationException,
 						com.exedio.cope.UniqueViolationException,
@@ -126,7 +128,8 @@ final class Indent extends Item
 			 *       It can be customized with the tag <tt>@cope.finder public|package|protected|private|none|non-final</tt> in the comment of the field.
 			 */
 			@javax.annotation.Generated("com.exedio.cope.instrument")
-			static final Indent forUnq(final java.lang.String one,final java.lang.String two)
+			@javax.annotation.Nullable()
+			static final Indent forUnq(@javax.annotation.Nonnull final java.lang.String one,@javax.annotation.Nonnull final java.lang.String two)
 			{
 				return Indent.unq.search(Indent.class,one,two);
 			}/**

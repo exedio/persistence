@@ -21,10 +21,12 @@ package com.exedio.cope.pattern;
 import com.exedio.cope.Item;
 import com.exedio.cope.Settable;
 import java.security.SecureRandom;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 public interface HashInterface extends Settable<String>
 {
-	boolean check(Item item, String actualPlainText);
+	boolean check(@Nonnull Item item, @Nullable String actualPlainText);
 	boolean isNull(Item item);
 	String getHash(Item item);
 	void set(Item item, String plainText);

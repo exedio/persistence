@@ -33,6 +33,8 @@ import com.exedio.cope.NoSuchIDException;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.TransactionTry;
 import com.exedio.cope.instrument.BooleanGetter;
+import com.exedio.cope.instrument.Nullability;
+import com.exedio.cope.instrument.NullabilityGetter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.util.Hex;
 import com.exedio.cope.util.MessageDigestUtil;
@@ -41,6 +43,7 @@ import java.security.MessageDigest;
 import java.util.Date;
 import java.util.Enumeration;
 import java.util.List;
+import javax.annotation.Nonnull;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -249,7 +252,7 @@ public abstract class MediaPath extends Pattern
 		 * Returns the same value as {@link MediaPath#getURL(Item)}.
 		 * @see #appendURLByConnect(StringBuilder)
 		 */
-		public String getURLByConnect()
+		@Nonnull public String getURLByConnect()
 		{
 			final StringBuilder bf = new StringBuilder();
 			appendURLByConnect(bf);
@@ -295,8 +298,8 @@ public abstract class MediaPath extends Pattern
 	 * if a {@link MediaServlet} is properly installed.
 	 * Returns null, if there is no such content.
 	 */
-	@Wrap(order=20, doc="Returns a Locator the content of {0} is available under.")
-	public final Locator getLocator(final Item item)
+	@Wrap(order=20, doc="Returns a Locator the content of {0} is available under.", nullability=NullableIfMediaPathOptional.class)
+	public final Locator getLocator(@Nonnull final Item item)
 	{
 		final String contentType = getContentType(item);
 
@@ -316,8 +319,8 @@ public abstract class MediaPath extends Pattern
 	 * Returns null, if there is no such content.
 	 * @see Locator#getURLByConnect()
 	 */
-	@Wrap(order=10, doc="Returns a URL the content of {0} is available under.")
-	public final String getURL(final Item item)
+	@Wrap(order=10, doc="Returns a URL the content of {0} is available under.", nullability=NullableIfMediaPathOptional.class)
+	public final String getURL(@Nonnull final Item item)
 	{
 		final Locator locator = getLocator(item);
 		return locator!=null ? locator.getURLByConnect() : null;
@@ -665,8 +668,8 @@ public abstract class MediaPath extends Pattern
 	 * not return <code>null</code> for any item. */
 	public abstract boolean isMandatory();
 
-	@Wrap(order=30, doc="Returns the content type of the media {0}.", hide=ContentTypeGetter.class)
-	public abstract String getContentType(Item item);
+	@Wrap(order=30, doc="Returns the content type of the media {0}.", hide=ContentTypeGetter.class, nullability=NullableIfMediaPathOptional.class)
+	public abstract String getContentType(@Nonnull Item item);
 
 	private static final class ContentTypeGetter implements BooleanGetter<MediaPath>
 	{
@@ -886,6 +889,15 @@ public abstract class MediaPath extends Pattern
 	private  UnsupportedOperationException unsupportedCondition()
 	{
 		return new UnsupportedOperationException("condition not supported by " + getID() + " of " + getClass().getName());
+	}
+
+	static class NullableIfMediaPathOptional implements NullabilityGetter<MediaPath>
+	{
+		@Override
+		public Nullability getNullability(final MediaPath feature)
+		{
+			return Nullability.forMandatory(feature.isMandatory());
+		}
 	}
 
 	// ------------------- deprecated stuff -------------------

@@ -37,7 +37,7 @@ final class ConnectTokenItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	ConnectTokenItem(
-				final java.lang.String name)
+				@javax.annotation.Nonnull final java.lang.String name)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException
@@ -64,6 +64,7 @@ final class ConnectTokenItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final java.lang.String getName()
 	{
 		return ConnectTokenItem.name.get(this);
@@ -75,7 +76,7 @@ final class ConnectTokenItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setName(final java.lang.String name)
+	final void setName(@javax.annotation.Nonnull final java.lang.String name)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException

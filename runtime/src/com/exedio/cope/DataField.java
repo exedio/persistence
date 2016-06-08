@@ -18,10 +18,12 @@
 
 package com.exedio.cope;
 
+import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.ThrownGetter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.instrument.FinalSettableGetter;
 import com.exedio.cope.misc.instrument.InitialExceptionsSettableGetter;
+import com.exedio.cope.misc.instrument.NullableIfOptional;
 import com.exedio.cope.util.Hex;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.ByteArrayOutputStream;
@@ -37,6 +39,8 @@ import java.security.MessageDigest;
 import java.util.Set;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 public final class DataField extends Field<DataField.Value>
 {
@@ -136,7 +140,7 @@ public final class DataField extends Field<DataField.Value>
 	 * Returns, whether there is no data for this field.
 	 */
 	@Wrap(order=10, doc="Returns, whether there is no data for field {0}.")
-	public boolean isNull(final Item item)
+	public boolean isNull(@Nonnull final Item item)
 	{
 		// TODO make this more efficient !!!
 		return getLength(item)<0;
@@ -147,7 +151,7 @@ public final class DataField extends Field<DataField.Value>
 	 * Returns -1, if there is no data for this field.
 	 */
 	@Wrap(order=20,doc="Returns the length of the data of the data field {0}.")
-	public long getLength(final Item item)
+	public long getLength(@Nonnull final Item item)
 	{
 		final Transaction tx = model.currentTransaction();
 		return column.loadLength(tx.getConnection(), tx.connect.executor, item);
@@ -169,7 +173,8 @@ public final class DataField extends Field<DataField.Value>
 	 * Returns null, if there is no data for this field.
 	 */
 	@Wrap(order=30, doc="Returns the value of the persistent field {0}.") // TODO better text
-	public byte[] getArray(final Item item)
+	@Nullable
+	public byte[] getArray(@Nonnull final Item item)
 	{
 		final Transaction tx = model.currentTransaction();
 		return column.load(tx.getConnection(), tx.connect.executor, item);
@@ -186,7 +191,7 @@ public final class DataField extends Field<DataField.Value>
 	@Wrap(order=40,
 			doc="Writes the data of this persistent data field into the given stream.",
 			thrown=@Wrap.Thrown(IOException.class))
-	public void get(final Item item, final OutputStream data) throws IOException
+	public void get(@Nonnull final Item item, @Nonnull final OutputStream data) throws IOException
 	{
 		if(data==null)
 			throw new NullPointerException();
@@ -206,7 +211,7 @@ public final class DataField extends Field<DataField.Value>
 	@Wrap(order=50,
 			doc="Writes the data of this persistent data field into the given file.",
 			thrown=@Wrap.Thrown(IOException.class))
-	public void get(final Item item, final File data) throws IOException
+	public void get(@Nonnull final Item item, @Nonnull final File data) throws IOException
 	{
 		if(data==null)
 			throw new NullPointerException();
@@ -234,7 +239,7 @@ public final class DataField extends Field<DataField.Value>
 			thrownGetter=InitialExceptionsSettableGetter.class,
 			hide=FinalSettableGetter.class)
 	@Override
-	public void set(final Item item, final Value data)
+	public void set(@Nonnull final Item item, @Parameter(nullability=NullableIfOptional.class) final Value data)
 	{
 		if(isfinal)
 			throw FinalViolationException.create(this, item);
@@ -265,7 +270,7 @@ public final class DataField extends Field<DataField.Value>
 			doc="Sets a new value for the persistent field {0}.", // TODO better text
 			thrownGetter=InitialExceptionsSettableGetter.class,
 			hide=FinalSettableGetter.class)
-	public void set(final Item item, final byte[] data)
+	public void set(@Nonnull final Item item, @Parameter(nullability=NullableIfOptional.class) final byte[] data)
 	{
 		set(item, toValue(data));
 	}
@@ -284,7 +289,7 @@ public final class DataField extends Field<DataField.Value>
 			doc="Sets a new value for the persistent field {0}.", // TODO better text
 			thrownGetter=InitialAndIOThrown.class,
 			hide=FinalSettableGetter.class)
-	public void set(final Item item, final InputStream data)
+	public void set(@Nonnull final Item item, @Parameter(nullability=NullableIfOptional.class) final InputStream data)
 	throws IOException
 	{
 		set(item, toValue(data));
@@ -303,7 +308,7 @@ public final class DataField extends Field<DataField.Value>
 			doc="Sets a new value for the persistent field {0}.", // TODO better text
 			thrownGetter=InitialAndIOThrown.class,
 			hide=FinalSettableGetter.class)
-	public void set(final Item item, final File data)
+	public void set(@Nonnull final Item item, @Parameter(nullability=NullableIfOptional.class) final File data)
 	throws IOException
 	{
 		set(item, toValue(data));

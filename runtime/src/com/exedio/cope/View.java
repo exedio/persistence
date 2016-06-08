@@ -29,6 +29,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import javax.annotation.Nonnull;
 
 /**
  * A <tt>view</tt> represents a value computed from the
@@ -86,7 +87,7 @@ public abstract class View<E> extends Feature
 	}
 
 	@Wrap(order=10, doc="Returns the value of {0}.") // TODO box into primitives
-	public final E get(final Item item)
+	public final E get(@Nonnull final Item item)
 	{
 		final Object[] values = new Object[sources.length];
 		int pos = 0;

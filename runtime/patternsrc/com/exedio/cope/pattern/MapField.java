@@ -39,6 +39,8 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 public final class MapField<K,V> extends Pattern implements MapFieldInterface<K,V>
 {
@@ -118,7 +120,8 @@ public final class MapField<K,V> extends Pattern implements MapFieldInterface<K,
 
 	@Wrap(order=200, name="{1}Parent",
 			doc="Returns the parent field of the type of {0}.")
-	public <P extends Item> ItemField<P> getParent(final Class<P> parentClass)
+	@Nonnull
+	public <P extends Item> ItemField<P> getParent(@Nonnull final Class<P> parentClass)
 	{
 		return mount().parent.as(parentClass);
 	}
@@ -165,9 +168,10 @@ public final class MapField<K,V> extends Pattern implements MapFieldInterface<K,
 	@Override
 	@Wrap(order=10,
 			doc="Returns the value mapped to <tt>" + KEY + "</tt> by the field map {0}.")
+	@Nullable
 	public V get(
-			final Item item,
-			@Parameter(KEY) final K key)
+			@Nonnull final Item item,
+			@Nonnull @Parameter(KEY) final K key)
 	{
 		requireNonNull(key, "key");
 
@@ -184,9 +188,9 @@ public final class MapField<K,V> extends Pattern implements MapFieldInterface<K,
 	@Wrap(order=20,
 			doc="Associates <tt>" + KEY + "</tt> to a new value in the field map {0}.")
 	public void set(
-			final Item item,
-			@Parameter(KEY) final K key,
-			final V value)
+			@Nonnull final Item item,
+			@Nonnull @Parameter(KEY) final K key,
+			@Nullable final V value)
 	{
 		requireNonNull(key, "key");
 
@@ -215,6 +219,7 @@ public final class MapField<K,V> extends Pattern implements MapFieldInterface<K,
 
 	@Override
 	@Wrap(order=110)
+	@Nonnull
 	public Map<K,V> getMap(final Item item)
 	{
 		final Mount mount = mount();
@@ -226,7 +231,7 @@ public final class MapField<K,V> extends Pattern implements MapFieldInterface<K,
 
 	@Override
 	@Wrap(order=120)
-	public void setMap(final Item item, final Map<? extends K,? extends V> map)
+	public void setMap(@Nonnull final Item item, @Nonnull final Map<? extends K,? extends V> map)
 	{
 		if(map==null)
 			throw MandatoryViolationException.create(this, item);

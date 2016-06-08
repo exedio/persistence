@@ -82,6 +82,7 @@ final class DeleteSchemaPointerA extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final DeleteSchemaPointerA getSelf()
 	{
 		return DeleteSchemaPointerA.self.get(this);
@@ -93,7 +94,7 @@ final class DeleteSchemaPointerA extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setSelf(final DeleteSchemaPointerA self)
+	final void setSelf(@javax.annotation.Nullable final DeleteSchemaPointerA self)
 	{
 		DeleteSchemaPointerA.self.set(this,self);
 	}/**
@@ -104,6 +105,7 @@ final class DeleteSchemaPointerA extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final DeleteSchemaPointerB getOther()
 	{
 		return DeleteSchemaPointerA.other.get(this);
@@ -115,7 +117,7 @@ final class DeleteSchemaPointerA extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setOther(final DeleteSchemaPointerB other)
+	final void setOther(@javax.annotation.Nullable final DeleteSchemaPointerB other)
 	{
 		DeleteSchemaPointerA.other.set(this,other);
 	}/**

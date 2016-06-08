@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<project name="cope" default="build" basedir=".">
+<project name="cope" default="build" basedir="." xmlns:if="ant:if" xmlns:unless="ant:unless">
 
 	<property file="local.properties" />
 	<property file="project.properties" />
@@ -351,6 +351,7 @@
 		<instrument
 				verify="${instrument.verify}"
 				suppressUnusedWarningOnPrivateActivationConstructor="true"
+				nullabilityAnnotations="${instrument.nullabilityAnnotations}"
 				timestampFile="build/timestamps/runtime.test.timestamp">
 			<resources refid="instrument.resources" />
 			<fileset dir="runtime/testsrc/com/exedio/cope">
@@ -690,6 +691,7 @@
 		<instrument
 				verify="${instrument.verify}"
 				suppressUnusedWarningOnPrivateActivationConstructor="true"
+				nullabilityAnnotations="${instrument.nullabilityAnnotations}"
 				annotateGenerated="false"
 				timestampFile="build/timestamps/runtime.servlet.test.timestamp">
 			<resources refid="instrument.resources" />
@@ -786,7 +788,11 @@
 	<!-- instrument -->
 
 	<target name="instrument.anno.compile">
-		<compile srcdir="instrument/annosrc" />
+		<compile srcdir="instrument/annosrc">
+			<classpath>
+				<pathelement location="lib/findbugs-annotations.jar"/>
+			</classpath>
+		</compile>
 	</target>
 
 	<target name="instrument.anno.jar" depends="instrument.anno.compile">
@@ -837,6 +843,7 @@
 				<pathelement location="build/classes/instrument/src" />
 				<pathelement location="lib/exedio-cope-util.jar" />
 				<pathelement location="lib/junit.jar" />
+				<pathelement location="lib/javax.servlet-api.jar" />
 				<pathelement location="lib/findbugs-annotations.jar" />
 			</classpath>
 		</compile>
@@ -864,6 +871,7 @@
 				<pathelement location="lib/javax.servlet-api.jar" />
 				<pathelement location="lib/bsh-core.jar" />
 				<pathelement location="lib/cojen.jar" />
+				<pathelement location="lib/findbugs-annotations.jar" if:true="${instrument.nullabilityAnnotations}"/>
 				<pathelement location="lib/junit.jar" />
 				<pathelement location="lib/slf4j-api.jar" />
 			</classpath>
@@ -877,6 +885,7 @@
 				encoding="ascii"
 				suppressUnusedWarningOnPrivateActivationConstructor="true"
 				hidingWarningSuppressor="hiding"
+				nullabilityAnnotations="${instrument.nullabilityAnnotations}"
 				timestampFile="build/timestamps/instrument.test.timestamp">
 			<resources refid="instrument.resources" />
 			<fileset dir="instrument/testsrc/com/exedio/cope/instrument/testmodel">

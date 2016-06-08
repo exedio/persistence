@@ -46,10 +46,10 @@ public final class DumperSubItem extends DumperItem
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	DumperSubItem(
-				final java.lang.String string,
-				final java.lang.String unique,
-				final com.exedio.cope.DataField.Value data,
-				final java.lang.String subString)
+				@javax.annotation.Nonnull final java.lang.String string,
+				@javax.annotation.Nonnull final java.lang.String unique,
+				@javax.annotation.Nonnull final com.exedio.cope.DataField.Value data,
+				@javax.annotation.Nonnull final java.lang.String subString)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException,
@@ -80,6 +80,7 @@ public final class DumperSubItem extends DumperItem
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final java.lang.String getSubString()
 	{
 		return DumperSubItem.subString.get(this);
@@ -91,7 +92,7 @@ public final class DumperSubItem extends DumperItem
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setSubString(final java.lang.String subString)
+	final void setSubString(@javax.annotation.Nonnull final java.lang.String subString)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException

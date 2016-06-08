@@ -24,10 +24,13 @@ import com.exedio.cope.Condition;
 import com.exedio.cope.Item;
 import com.exedio.cope.Join;
 import com.exedio.cope.instrument.BooleanGetter;
+import com.exedio.cope.instrument.Nullability;
+import com.exedio.cope.instrument.NullabilityGetter;
 import com.exedio.cope.instrument.Wrap;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
+import javax.annotation.Nonnull;
 
 public abstract class MediaFilter extends MediaPath
 {
@@ -64,8 +67,8 @@ public abstract class MediaFilter extends MediaPath
 	 * if this filter supports filtering the {@link #getSource() source media} for this item.
 	 * Otherwise it returns {@link #getSource()}.{@link #getURL(Item) getURL(item)}.
 	 */
-	@Wrap(order=10, doc="Returns a URL the content of {0} is available under, falling back to source if necessary.", hide=URLWithFallbackToSourceGetter.class)
-	public final String getURLWithFallbackToSource(final Item item)
+	@Wrap(order=10, doc="Returns a URL the content of {0} is available under, falling back to source if necessary.", hide=URLWithFallbackToSourceGetter.class, nullability=NullableIfSourceOptional.class)
+	public final String getURLWithFallbackToSource(@Nonnull final Item item)
 	{
 		final String myURL = getURL(item);
 		return (myURL!=null) ? myURL : source.getURL(item);
@@ -76,8 +79,8 @@ public abstract class MediaFilter extends MediaPath
 	 * if this filter supports filtering the {@link #getSource() source media} for this item.
 	 * Otherwise it returns {@link #getSource()}.{@link #getLocator(Item) getLocator(item)}.
 	 */
-	@Wrap(order=20, doc="Returns a Locator the content of {0} is available under, falling back to source if necessary.", hide=URLWithFallbackToSourceGetter.class)
-	public final Locator getLocatorWithFallbackToSource(final Item item)
+	@Wrap(order=20, doc="Returns a Locator the content of {0} is available under, falling back to source if necessary.", hide=URLWithFallbackToSourceGetter.class, nullability=NullableIfSourceOptional.class)
+	public final Locator getLocatorWithFallbackToSource(@Nonnull final Item item)
 	{
 		final Locator myURL = getLocator(item);
 		return (myURL!=null) ? myURL : source.getLocator(item);
@@ -135,5 +138,14 @@ public abstract class MediaFilter extends MediaPath
 	public final Condition isNotNull(final Join join)
 	{
 		return source.isNotNull(join); // TODO check for getSupportedSourceContentTypes
+	}
+
+	static final class NullableIfSourceOptional implements NullabilityGetter<MediaFilter>
+	{
+		@Override
+		public Nullability getNullability(final MediaFilter feature)
+		{
+			return Nullability.forMandatory(feature.source.isMandatory());
+		}
 	}
 }

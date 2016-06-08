@@ -56,8 +56,8 @@ final class StringCharSetItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	StringCharSetItem(
-				final java.lang.String code,
-				final java.lang.String any)
+				@javax.annotation.Nonnull final java.lang.String code,
+				@javax.annotation.Nullable final java.lang.String any)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException,
@@ -86,6 +86,7 @@ final class StringCharSetItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final java.lang.String getCode()
 	{
 		return StringCharSetItem.code.get(this);
@@ -97,7 +98,7 @@ final class StringCharSetItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setCode(final java.lang.String code)
+	final void setCode(@javax.annotation.Nonnull final java.lang.String code)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.UniqueViolationException,
@@ -114,7 +115,8 @@ final class StringCharSetItem extends Item
 	 *       It can be customized with the tag <tt>@cope.for public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	static final StringCharSetItem forCode(final java.lang.String code)
+	@javax.annotation.Nullable()
+	static final StringCharSetItem forCode(@javax.annotation.Nonnull final java.lang.String code)
 	{
 		return StringCharSetItem.code.searchUnique(StringCharSetItem.class,code);
 	}/**
@@ -125,6 +127,7 @@ final class StringCharSetItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final java.lang.String getAny()
 	{
 		return StringCharSetItem.any.get(this);
@@ -136,7 +139,7 @@ final class StringCharSetItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setAny(final java.lang.String any)
+	final void setAny(@javax.annotation.Nullable final java.lang.String any)
 			throws
 				com.exedio.cope.StringLengthViolationException
 	{
@@ -149,6 +152,7 @@ final class StringCharSetItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final java.lang.String getAlpha()
 	{
 		return StringCharSetItem.alpha.get(this);
@@ -160,7 +164,7 @@ final class StringCharSetItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setAlpha(final java.lang.String alpha)
+	final void setAlpha(@javax.annotation.Nullable final java.lang.String alpha)
 			throws
 				com.exedio.cope.StringLengthViolationException,
 				com.exedio.cope.StringCharSetViolationException
@@ -174,6 +178,7 @@ final class StringCharSetItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final java.lang.String getPrintable()
 	{
 		return StringCharSetItem.printable.get(this);
@@ -185,7 +190,7 @@ final class StringCharSetItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setPrintable(final java.lang.String printable)
+	final void setPrintable(@javax.annotation.Nullable final java.lang.String printable)
 			throws
 				com.exedio.cope.StringLengthViolationException,
 				com.exedio.cope.StringCharSetViolationException
@@ -199,6 +204,7 @@ final class StringCharSetItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final java.lang.String getApos()
 	{
 		return StringCharSetItem.apos.get(this);
@@ -210,7 +216,7 @@ final class StringCharSetItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setApos(final java.lang.String apos)
+	final void setApos(@javax.annotation.Nullable final java.lang.String apos)
 			throws
 				com.exedio.cope.StringLengthViolationException,
 				com.exedio.cope.StringCharSetViolationException

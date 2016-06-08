@@ -40,8 +40,8 @@ class SuperContainer extends SuperItem
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	SuperContainer(
-				final java.lang.String code,
-				final QueryItem queryItem,
+				@javax.annotation.Nonnull final java.lang.String code,
+				@javax.annotation.Nonnull final QueryItem queryItem,
 				final boolean superflag)
 			throws
 				com.exedio.cope.MandatoryViolationException,
@@ -71,6 +71,7 @@ class SuperContainer extends SuperItem
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	public final QueryItem getQueryItem()
 	{
 		return SuperContainer.queryItem.get(this);

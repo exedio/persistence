@@ -74,6 +74,7 @@ final class DeleteSchemaItemUnused extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final DeleteSchemaItem getUnusedPointer()
 	{
 		return DeleteSchemaItemUnused.unusedPointer.get(this);
@@ -85,7 +86,7 @@ final class DeleteSchemaItemUnused extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setUnusedPointer(final DeleteSchemaItem unusedPointer)
+	final void setUnusedPointer(@javax.annotation.Nullable final DeleteSchemaItem unusedPointer)
 	{
 		DeleteSchemaItemUnused.unusedPointer.set(this,unusedPointer);
 	}/**

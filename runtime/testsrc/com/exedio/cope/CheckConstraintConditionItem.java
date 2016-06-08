@@ -63,7 +63,7 @@ final class CheckConstraintConditionItem extends Item
 	CheckConstraintConditionItem(
 				final int integer1,
 				final int integer2,
-				final CheckConstraintConditionItemTarget item)
+				@javax.annotation.Nonnull final CheckConstraintConditionItemTarget item)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{
@@ -135,6 +135,7 @@ final class CheckConstraintConditionItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final CheckConstraintConditionItemTarget getItem()
 	{
 		return CheckConstraintConditionItem.item.get(this);
@@ -146,7 +147,7 @@ final class CheckConstraintConditionItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setItem(final CheckConstraintConditionItemTarget item)
+	final void setItem(@javax.annotation.Nonnull final CheckConstraintConditionItemTarget item)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{

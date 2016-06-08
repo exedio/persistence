@@ -42,6 +42,8 @@ import com.exedio.cope.util.JobContext;
 import java.security.SecureRandom;
 import java.util.Date;
 import java.util.List;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 public final class PasswordRecovery extends Pattern
 {
@@ -133,9 +135,10 @@ public final class PasswordRecovery extends Pattern
 	 * @return a valid token for password recovery
 	 */
 	@Wrap(order=10)
+	@Nonnull
 	public Token issue(
-			final Item item,
-			@Parameter("config") final Config config)
+			@Nonnull final Item item,
+			@Nonnull @Parameter("config") final Config config)
 	{
 		final int expiry = config.getExpiryMillis();
 		final int reuse = config.getReuseMillis();
@@ -169,8 +172,9 @@ public final class PasswordRecovery extends Pattern
 	 * @return a new password, if the token was valid, otherwise null
 	 */
 	@Wrap(order=20, docReturn="a new password, if the token was valid, otherwise null")
+	@Nullable
 	public String redeem(
-			final Item item,
+			@Nonnull final Item item,
 			@Parameter(value="secret", doc="a token secret for password recovery") final long secret)
 	{
 		if(secret==NOT_A_SECRET)
@@ -236,7 +240,7 @@ public final class PasswordRecovery extends Pattern
 
 	@Wrap(order=110)
 	public void purge(
-			@Parameter("ctx") final JobContext ctx)
+			@Nonnull @Parameter("ctx") final JobContext ctx)
 	{
 		Delete.delete(
 				tokenType.newQuery(this.expires.less(Clock.newDate())),
@@ -292,7 +296,7 @@ public final class PasswordRecovery extends Pattern
 	@Wrap(order=100, docReturn="the number of tokens purged")
 	@Deprecated
 	public int purge(
-			@Parameter("interrupter") final com.exedio.cope.util.Interrupter interrupter)
+			@Nullable @Parameter("interrupter") final com.exedio.cope.util.Interrupter interrupter)
 	{
 		return com.exedio.cope.util.InterrupterJobContextAdapter.run(
 			interrupter,
@@ -309,8 +313,9 @@ public final class PasswordRecovery extends Pattern
 	 */
 	@Deprecated
 	@Wrap(order=11)
+	@Nonnull
 	public Token issue(
-			final Item item,
+			@Nonnull final Item item,
 			@Parameter(value="expiryMillis", doc="the time span, after which this token will not be valid anymore, in milliseconds") final int expiryMillis)
 	{
 		return issue(item, new Config(expiryMillis));

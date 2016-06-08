@@ -63,6 +63,8 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Locale;
 import java.util.TimeZone;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -201,7 +203,8 @@ public final class Schedule extends Pattern
 	}
 
 	@Wrap(order=1000, name="{1}RunParent", doc="Returns the parent field of the run type of {0}.")
-	public <P extends Item> ItemField<P> getRunParent(final Class<P> parentClass)
+	@Nonnull
+	public <P extends Item> ItemField<P> getRunParent(@Nonnull final Class<P> parentClass)
 	{
 		return runs.mount().parent.as(parentClass);
 	}
@@ -252,37 +255,38 @@ public final class Schedule extends Pattern
 	}
 
 	@Wrap(order=10)
-	public boolean isEnabled(final Item item)
+	public boolean isEnabled(@Nonnull final Item item)
 	{
 		return this.enabled.getMandatory(item);
 	}
 
 	@Wrap(order=20)
 	public void setEnabled(
-			final Item item,
+			@Nonnull final Item item,
 			@Parameter("enabled") final boolean enabled)
 	{
 		this.enabled.set(item, enabled);
 	}
 
 	@Wrap(order=30)
-	public Interval getInterval(final Item item)
+	@Nonnull
+	public Interval getInterval(@Nonnull final Item item)
 	{
 		return this.interval.get(item);
 	}
 
 	@Wrap(order=40)
 	public void setInterval(
-			final Item item,
-			@Parameter("interval") final Interval interval)
+			@Nonnull final Item item,
+			@Nonnull @Parameter("interval") final Interval interval)
 	{
 		this.interval.set(item, interval);
 	}
 
 	@Wrap(order=60)
 	public <P extends Item & Scheduleable> void run(
-			final Class<P> parentClass,
-			@Parameter("ctx") final JobContext ctx)
+			@Nonnull final Class<P> parentClass,
+			@Nonnull @Parameter("ctx") final JobContext ctx)
 	{
 		requireNonNull(ctx, "ctx");
 
@@ -597,8 +601,8 @@ public final class Schedule extends Pattern
 	@Wrap(order=50)
 	@Deprecated
 	public <P extends Item & Scheduleable> int run(
-			@SuppressWarnings("unused") final Class<P> parentClass,
-			@Parameter("interrupter") final com.exedio.cope.util.Interrupter interrupter)
+			@Nonnull @SuppressWarnings("unused") final Class<P> parentClass,
+			@Nullable @Parameter("interrupter") final com.exedio.cope.util.Interrupter interrupter)
 	{
 		return com.exedio.cope.util.InterrupterJobContextAdapter.run(
 			interrupter,

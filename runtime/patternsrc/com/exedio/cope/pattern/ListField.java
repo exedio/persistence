@@ -33,6 +33,8 @@ import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Query;
 import com.exedio.cope.Type;
 import com.exedio.cope.UniqueConstraint;
+import com.exedio.cope.instrument.Nullability;
+import com.exedio.cope.instrument.NullabilityGetter;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.ThrownGetter;
 import com.exedio.cope.instrument.Wrap;
@@ -41,6 +43,7 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+import javax.annotation.Nonnull;
 
 public final class ListField<E> extends AbstractListField<E> implements Copyable
 {
@@ -120,7 +123,8 @@ public final class ListField<E> extends AbstractListField<E> implements Copyable
 
 	@Wrap(order=1000, name="{1}Parent",
 			doc="Returns the parent field of the type of {0}.")
-	public <P extends Item> ItemField<P> getParent(final Class<P> parentClass)
+	@Nonnull
+	public <P extends Item> ItemField<P> getParent(@Nonnull final Class<P> parentClass)
 	{
 		return mount().parent.as(parentClass);
 	}
@@ -156,6 +160,7 @@ public final class ListField<E> extends AbstractListField<E> implements Copyable
 	 */
 	@Wrap(order=10, doc="Returns the value of {0}.")
 	@Override
+	@Nonnull
 	public List<E> get(final Item item)
 	{
 		return getQuery(item).search();
@@ -165,6 +170,7 @@ public final class ListField<E> extends AbstractListField<E> implements Copyable
 	 * Returns the query that is used to implement {@link #get(Item)}.
 	 */
 	@Wrap(order=20, doc="Returns a query for the value of {0}.")
+	@Nonnull
 	public Query<E> getQuery(final Item item)
 	{
 		final Query<E> q =
@@ -181,8 +187,9 @@ public final class ListField<E> extends AbstractListField<E> implements Copyable
 	 */
 	@Wrap(order=30, name="getDistinctParentsOf{0}",
 			doc="Returns the items, for which field list {0} contains the given element.")
+	@Nonnull
 	public <P extends Item> List<P> getDistinctParents(
-			final Class<P> parentClass,
+			@Nonnull final Class<P> parentClass,
 			@Parameter("element") final E element)
 	{
 		final Query<P> q = new Query<>(
@@ -195,7 +202,7 @@ public final class ListField<E> extends AbstractListField<E> implements Copyable
 	@Wrap(order=40, name="addTo{0}",
 			doc="Adds a new value for {0}.",
 			thrownGetter=Thrown.class)
-	public void add(final Item item, final E value)
+	public void add(@Nonnull final Item item, @Parameter(nullability=NullableIfElementOptional.class) final E value)
 	{
 		final Mount mount = mount();
 		final Query<Integer> q = new Query<>(
@@ -213,7 +220,7 @@ public final class ListField<E> extends AbstractListField<E> implements Copyable
 			doc="Sets a new value for {0}.",
 			thrownGetter=Thrown.class)
 	@Override
-	public void set(final Item item, final Collection<? extends E> value)
+	public void set(@Nonnull final Item item, @Nonnull final Collection<? extends E> value)
 	{
 		if(value==null)
 			throw MandatoryViolationException.create(this, item);
@@ -266,6 +273,15 @@ public final class ListField<E> extends AbstractListField<E> implements Copyable
 				feature.getElement().getInitialExceptions();
 			exceptions.add(ClassCastException.class);
 			return exceptions;
+		}
+	}
+
+	private static final class NullableIfElementOptional implements NullabilityGetter<ListField<?>>
+	{
+		@Override
+		public Nullability getNullability(final ListField<?> feature)
+		{
+			return Nullability.forMandatory(feature.element.isMandatory());
 		}
 	}
 

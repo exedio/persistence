@@ -51,6 +51,7 @@ import com.exedio.cope.StringField;
 import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.Type;
 import com.exedio.cope.misc.Computed;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.Iterator;
@@ -526,6 +527,7 @@ public class ListFieldTest extends TestWithEnvironment
 		}
 	}
 
+	@SuppressFBWarnings({"NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS", "NP_NONNULL_PARAM_VIOLATION"})
 	@Test public void testListSetNull()
 	{
 		item.setStrings(asList("hallo", "bello"));

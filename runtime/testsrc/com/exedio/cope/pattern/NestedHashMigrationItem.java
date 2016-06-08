@@ -50,7 +50,7 @@ final class NestedHashMigrationItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	NestedHashMigrationItem(
-				final java.lang.String password)
+				@javax.annotation.Nonnull final java.lang.String password)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{
@@ -76,7 +76,7 @@ final class NestedHashMigrationItem extends Item
 	 *       It can be customized with the tag <tt>@cope.check public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final boolean checkPassword(final java.lang.String password)
+	final boolean checkPassword(@javax.annotation.Nullable final java.lang.String password)
 	{
 		return NestedHashMigrationItem.password.check(this,password);
 	}/**
@@ -88,7 +88,7 @@ final class NestedHashMigrationItem extends Item
 	 *       It can be customized with the tag <tt>@cope.blind public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	static final void blindPassword(final java.lang.String password)
+	static final void blindPassword(@javax.annotation.Nonnull final java.lang.String password)
 	{
 		NestedHashMigrationItem.password.blind(password);
 	}/**
@@ -99,7 +99,7 @@ final class NestedHashMigrationItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setPassword(final java.lang.String password)
+	final void setPassword(@javax.annotation.Nonnull final java.lang.String password)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{
@@ -112,7 +112,7 @@ final class NestedHashMigrationItem extends Item
 	 *       It can be customized with the tag <tt>@cope.migrate public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	static final void migratePassword(final com.exedio.cope.util.JobContext ctx)
+	static final void migratePassword(@javax.annotation.Nonnull final com.exedio.cope.util.JobContext ctx)
 	{
 		NestedHashMigrationItem.password.migrate(ctx);
 	}/**

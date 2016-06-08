@@ -40,7 +40,7 @@ public final class MediaItemHolder extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	public MediaItemHolder(
-				final MediaItem mediaItem)
+				@javax.annotation.Nonnull final MediaItem mediaItem)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{
@@ -66,6 +66,7 @@ public final class MediaItemHolder extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	public final MediaItem getMediaItem()
 	{
 		return MediaItemHolder.mediaItem.get(this);
@@ -77,7 +78,7 @@ public final class MediaItemHolder extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	public final void setMediaItem(final MediaItem mediaItem)
+	public final void setMediaItem(@javax.annotation.Nonnull final MediaItem mediaItem)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{

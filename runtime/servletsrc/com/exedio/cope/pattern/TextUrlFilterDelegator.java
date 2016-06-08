@@ -32,6 +32,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import javax.annotation.Nonnull;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -68,8 +69,8 @@ public class TextUrlFilterDelegator extends MediaFilter implements TextUrlFilter
 
 	@Wrap(order=10, thrown=@Wrap.Thrown(IOException.class))
 	public final void setRaw(
-			final Item item,
-			@Parameter("raw") final Media.Value raw )
+			@Nonnull final Item item,
+			@Parameter(value="raw", nullability=NullableIfSourceOptional.class) final Media.Value raw )
 	throws IOException
 	{
 		this.raw.set( item, raw );
@@ -133,9 +134,10 @@ public class TextUrlFilterDelegator extends MediaFilter implements TextUrlFilter
 	}
 
 	@Wrap(order=20, thrown={@Wrap.Thrown(NotFound.class)})
+	@Nonnull
 	public final String getContent(
-			final Item item,
-			@Parameter("request") final HttpServletRequest request )
+			@Nonnull final Item item,
+			@Nonnull @Parameter("request") final HttpServletRequest request )
 		throws NotFound
 	{
 		checkContentType( item );
@@ -201,7 +203,8 @@ public class TextUrlFilterDelegator extends MediaFilter implements TextUrlFilter
 
 	@Override
 	@Wrap(order=30, thrown={@Wrap.Thrown(NotFound.class)})
-	public Set<String> check( final Item item ) throws NotFound
+	@Nonnull
+	public Set<String> check( @Nonnull final Item item ) throws NotFound
 	{
 		checkContentType( item );
 		final Set<String> brokenCodes = new HashSet<>();

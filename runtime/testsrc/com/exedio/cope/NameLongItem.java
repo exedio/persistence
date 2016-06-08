@@ -44,7 +44,7 @@ class NameLongItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	NameLongItem(
-				final java.lang.String code)
+				@javax.annotation.Nonnull final java.lang.String code)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException,
@@ -72,6 +72,7 @@ class NameLongItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nonnull()
 	final java.lang.String getCode()
 	{
 		return NameLongItem.code.get(this);
@@ -83,7 +84,7 @@ class NameLongItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setCode(final java.lang.String code)
+	final void setCode(@javax.annotation.Nonnull final java.lang.String code)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.UniqueViolationException,
@@ -100,7 +101,8 @@ class NameLongItem extends Item
 	 *       It can be customized with the tag <tt>@cope.for public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	static final NameLongItem forCode(final java.lang.String code)
+	@javax.annotation.Nullable()
+	static final NameLongItem forCode(@javax.annotation.Nonnull final java.lang.String code)
 	{
 		return NameLongItem.code.searchUnique(NameLongItem.class,code);
 	}/**
@@ -111,6 +113,7 @@ class NameLongItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final java.lang.String getCodeLoooooooooooooooooooooooooooooooooooooooooooooooooooongName()
 	{
 		return NameLongItem.codeLoooooooooooooooooooooooooooooooooooooooooooooooooooongName.get(this);
@@ -122,7 +125,7 @@ class NameLongItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setCodeLoooooooooooooooooooooooooooooooooooooooooooooooooooongName(final java.lang.String codeLoooooooooooooooooooooooooooooooooooooooooooooooooooongName)
+	final void setCodeLoooooooooooooooooooooooooooooooooooooooooooooooooooongName(@javax.annotation.Nullable final java.lang.String codeLoooooooooooooooooooooooooooooooooooooooooooooooooooongName)
 			throws
 				com.exedio.cope.UniqueViolationException,
 				com.exedio.cope.StringLengthViolationException
@@ -138,7 +141,8 @@ class NameLongItem extends Item
 	 *       It can be customized with the tag <tt>@cope.for public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	static final NameLongItem forCodeLoooooooooooooooooooooooooooooooooooooooooooooooooooongName(final java.lang.String codeLoooooooooooooooooooooooooooooooooooooooooooooooooooongName)
+	@javax.annotation.Nullable()
+	static final NameLongItem forCodeLoooooooooooooooooooooooooooooooooooooooooooooooooooongName(@javax.annotation.Nonnull final java.lang.String codeLoooooooooooooooooooooooooooooooooooooooooooooooooooongName)
 	{
 		return NameLongItem.codeLoooooooooooooooooooooooooooooooooooooooooooooooooooongName.searchUnique(NameLongItem.class,codeLoooooooooooooooooooooooooooooooooooooooooooooooooooongName);
 	}/**
@@ -149,6 +153,7 @@ class NameLongItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@javax.annotation.Nullable()
 	final NameLongItem getPointerLoooooooooooooooooooooooooooooooooooooooooooooooooooongName()
 	{
 		return NameLongItem.pointerLoooooooooooooooooooooooooooooooooooooooooooooooooooongName.get(this);
@@ -160,7 +165,7 @@ class NameLongItem extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setPointerLoooooooooooooooooooooooooooooooooooooooooooooooooooongName(final NameLongItem pointerLoooooooooooooooooooooooooooooooooooooooooooooooooooongName)
+	final void setPointerLoooooooooooooooooooooooooooooooooooooooooooooooooooongName(@javax.annotation.Nullable final NameLongItem pointerLoooooooooooooooooooooooooooooooooooooooooooooooooooongName)
 	{
 		NameLongItem.pointerLoooooooooooooooooooooooooooooooooooooooooooooooooooongName.set(this,pointerLoooooooooooooooooooooooooooooooooooooooooooooooooooongName);
 	}/**
