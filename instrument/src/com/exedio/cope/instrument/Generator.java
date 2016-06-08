@@ -40,6 +40,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.SortedSet;
 import javax.annotation.Generated;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 final class Generator
 {
@@ -259,12 +261,13 @@ final class Generator
 			{
 				if (feature.isMandatory())
 				{
-					write("@javax.annotation.Nonnull ");
+					writeAnnotation(Nonnull.class);
 				}
 				else
 				{
-					write("@javax.annotation.Nullable ");
+					writeAnnotation(Nullable.class);
 				}
+				write(' ');
 			}
 			write(finalArgPrefix);
 			write(new Context(feature, feature.parent!=type).write(feature.getInitialType()));
@@ -487,13 +490,13 @@ final class Generator
 			{
 				case NONNULL:
 					writeIndent();
-					write("@javax.annotation.Nonnull");
+					writeAnnotation(Nonnull.class);
 					writeEmptyParenthesesForAnnotation();
 					write(lineSeparator);
 					break;
 				case NULLABLE:
 					writeIndent();
-					write("@javax.annotation.Nullable");
+					writeAnnotation(Nullable.class);
 					writeEmptyParenthesesForAnnotation();
 					write(lineSeparator);
 					break;
@@ -670,11 +673,13 @@ final class Generator
 		{
 			if ( parameter.isNonnull() )
 			{
-				write("@javax.annotation.Nonnull ");
+				writeAnnotation(Nonnull.class);
+				write(' ');
 			}
 			if ( parameter.isNullable() )
 			{
-				write("@javax.annotation.Nullable ");
+				writeAnnotation(Nullable.class);
+				write(' ');
 			}
 		}
 	}
