@@ -27,6 +27,7 @@ import static com.exedio.dsmf.PostgresqlDialect.SMALLINT;
 import static com.exedio.dsmf.PostgresqlDialect.TIMESTAMP;
 import static com.exedio.dsmf.PostgresqlDialect.VARCHAR_LIMIT;
 
+import com.exedio.cope.DateField.Precision;
 import com.exedio.cope.Executor.ResultSetHandler;
 import com.exedio.cope.util.Hex;
 import com.exedio.dsmf.Sequence;
@@ -128,6 +129,25 @@ final class PostgresqlDialect extends Dialect
 	String getDateTimestampType()
 	{
 		return TIMESTAMP;
+	}
+
+	@Override
+	String getDateExtract(final String quotedName, final Precision precision)
+	{
+		// EXTRACT works as well, but is normalized to date_part
+		return "\"date_part\"('" + precision.sql() + "'," + quotedName + ")";
+	}
+
+	@Override
+	String getFloor(final String quotedName)
+	{
+		return "\"floor\"(" + quotedName + ')';
+	}
+
+	@Override
+	String getDateIntegerPrecision(final String quotedName, final Precision precision)
+	{
+		return "(" + quotedName + " % " + precision.divisor() + ")=0";
 	}
 
 	@Override

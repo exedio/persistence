@@ -542,6 +542,7 @@
 				<pathelement location="build/classes/runtime/junitsrc" />
 				<pathelement location="build/classes/runtime/testfeaturesrc" />
 				<pathelement location="build/classes/runtime/testsrc" />
+				<pathelement location="build/classes/instrument/annosrc" />
 				<pathelement location="lib/trove4j.jar" />
 				<pathelement location="lib/javax.servlet-api.jar" />
 				<pathelement location="lib/hsqldb.jar" />

@@ -18,7 +18,13 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.DateField.Precision.MINUTE;
+import static com.exedio.cope.DateField.Precision.SECOND;
+
+import com.exedio.cope.DateField.Precision;
 import com.exedio.cope.util.TimeZoneStrict;
+import com.exedio.dsmf.CheckConstraint;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -31,19 +37,55 @@ import java.util.TimeZone;
 
 final class TimestampColumn extends Column
 {
+	private final Precision precision;
+
 	TimestampColumn(
 			final Table table,
 			final String id,
-			final boolean optional)
+			final boolean optional,
+			final Precision precision)
 	{
 		super(table, id, false, false, optional);
 		assert table.database.dialect.getDateTimestampType()!=null;
+		this.precision = precision;
 	}
 
 	@Override
 	String getDatabaseType()
 	{
 		return table.database.dialect.getDateTimestampType();
+	}
+
+	@Override
+	@SuppressWarnings("fallthrough")
+	@SuppressFBWarnings("SF_SWITCH_FALLTHROUGH")
+	void makeSchema(final com.exedio.dsmf.Table dt)
+	{
+		super.makeSchema(dt);
+
+		final Dialect dialect = table.database.dialect;
+		switch(precision)
+		{
+			case HOUR:
+				new CheckConstraint(dt, makeGlobalID("PM"),
+						dialect.getDateExtract(quotedID, MINUTE) + "=0");
+				// fall through
+
+			case MINUTE:
+			case SECOND:
+				final String seconds = dialect.getDateExtract(quotedID, SECOND);
+				new CheckConstraint(dt, makeGlobalID("PS"),
+						precision==SECOND
+						? (seconds + '=' + dialect.getFloor(seconds)) // is an integer
+						: (seconds + "=0"));
+				// fall through
+
+			case MILLI:
+				break; // nothing
+
+			default:
+				throw new RuntimeException("" + precision);
+		}
 	}
 
 	@Override

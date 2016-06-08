@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import com.exedio.cope.DateField.Precision;
 import com.exedio.cope.DayPartView.Part;
 import com.exedio.cope.Executor.ResultSetHandler;
 import com.exedio.cope.util.Hex;
@@ -152,6 +153,12 @@ final class OracleDialect extends Dialect
 	String getDateTimestampType()
 	{
 		return "TIMESTAMP(3)";
+	}
+
+	@Override
+	String getDateIntegerPrecision(final String quotedName, final Precision precision)
+	{
+		throw new RuntimeException(quotedName + '/' + precision); // TODO
 	}
 
 	@Override

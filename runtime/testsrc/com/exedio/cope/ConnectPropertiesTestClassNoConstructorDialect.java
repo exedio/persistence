@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import com.exedio.cope.DateField.Precision;
 import com.exedio.dsmf.Sequence;
 import java.sql.Connection;
 import java.util.List;
@@ -55,6 +56,11 @@ class ConnectPropertiesTestClassNoConstructorDialect extends Dialect
 	}
 	@Override
 	String getDateTimestampType()
+	{
+		throw new RuntimeException();
+	}
+	@Override
+	String getDateIntegerPrecision(final String quotedName, final Precision precision)
 	{
 		throw new RuntimeException();
 	}

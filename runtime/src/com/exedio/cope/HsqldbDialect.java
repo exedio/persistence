@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import com.exedio.cope.DateField.Precision;
 import com.exedio.cope.Executor.ResultSetHandler;
 import com.exedio.cope.util.Hex;
 import com.exedio.dsmf.SQLRuntimeException;
@@ -105,6 +106,12 @@ final class HsqldbDialect extends Dialect
 	String getDateTimestampType()
 	{
 		return "TIMESTAMP(3) WITHOUT TIME ZONE";
+	}
+
+	@Override
+	String getDateIntegerPrecision(final String quotedName, final Precision precision)
+	{
+		return "MOD(" + quotedName + ',' + precision.divisor() + ")=0";
 	}
 
 	@SuppressFBWarnings("PZLA_PREFER_ZERO_LENGTH_ARRAYS")
