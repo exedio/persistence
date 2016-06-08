@@ -27,12 +27,12 @@ public enum Nullability
 {
 	NULLABLE, NONNULL, DEFAULT;
 
-	public static Nullability forOptional(boolean optional)
+	public static Nullability forOptional(final boolean optional)
 	{
 		return optional?NULLABLE:NONNULL;
 	}
 
-	public static Nullability forMandatory(boolean mandatory)
+	public static Nullability forMandatory(final boolean mandatory)
 	{
 		return forOptional(!mandatory);
 	}
