@@ -81,7 +81,7 @@ public class NullabilityFeature
 		throw new RuntimeException();
 	}
 
-	static class IfOptional implements NullabilityGetter<NullabilityFeature>
+	private static final class IfOptional implements NullabilityGetter<NullabilityFeature>
 	{
 		@Override
 		public Nullability getNullability(final NullabilityFeature feature)
@@ -89,5 +89,4 @@ public class NullabilityFeature
 			return Nullability.forOptional(feature.optional);
 		}
 	}
-
 }

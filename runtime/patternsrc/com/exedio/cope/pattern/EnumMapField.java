@@ -249,7 +249,7 @@ public final class EnumMapField<K extends Enum<K>,V> extends Pattern implements 
 					" of " + valueClass.getName());
 	}
 
-	static class MapValueNullable implements NullabilityGetter<EnumMapField<?,?>>
+	private static final class MapValueNullable implements NullabilityGetter<EnumMapField<?,?>>
 	{
 		@Override
 		public Nullability getNullability(final EnumMapField<?,?> feature)

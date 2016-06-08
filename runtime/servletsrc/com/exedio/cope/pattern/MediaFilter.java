@@ -140,7 +140,7 @@ public abstract class MediaFilter extends MediaPath
 		return source.isNotNull(join); // TODO check for getSupportedSourceContentTypes
 	}
 
-	static class NullableIfSourceOptional implements NullabilityGetter<MediaFilter>
+	static final class NullableIfSourceOptional implements NullabilityGetter<MediaFilter>
 	{
 		@Override
 		public Nullability getNullability(final MediaFilter feature)
