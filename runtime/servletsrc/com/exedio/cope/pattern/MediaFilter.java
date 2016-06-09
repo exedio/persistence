@@ -145,7 +145,7 @@ public abstract class MediaFilter extends MediaPath
 		@Override
 		public Nullability getNullability(final MediaFilter feature)
 		{
-			return Nullability.forMandatory(feature.source.isMandatory());
+			return Nullability.forMandatory(feature.getSource().isMandatory());
 		}
 	}
 }

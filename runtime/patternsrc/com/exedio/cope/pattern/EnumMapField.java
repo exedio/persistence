@@ -252,6 +252,7 @@ public final class EnumMapField<K extends Enum<K>,V> extends Pattern implements 
 	private static final class MapValueNullable implements NullabilityGetter<EnumMapField<?,?>>
 	{
 		@Override
+		@SuppressWarnings("synthetic-access")
 		public Nullability getNullability(final EnumMapField<?,?> feature)
 		{
 			return Nullability.forMandatory(feature.valueTemplate.isMandatory());
