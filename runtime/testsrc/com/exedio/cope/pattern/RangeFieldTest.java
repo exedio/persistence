@@ -31,6 +31,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 import com.exedio.cope.CheckViolationException;
+import com.exedio.cope.IntegerRangeViolationException;
 import com.exedio.cope.TestWithEnvironment;
 import org.junit.Test;
 
@@ -92,5 +93,20 @@ public class RangeFieldTest extends TestWithEnvironment
 		assertContains(item, TYPE.search(valid.contains(8)));
 		assertContains(item, TYPE.search(valid.contains(9)));
 		assertContains(      TYPE.search(valid.contains(10)));
+	}
+
+	@Test public void testBorderConstraint()
+	{
+		try
+		{
+			new RangeFieldItem(-11, 5);
+			fail();
+		}
+		catch(final IntegerRangeViolationException e)
+		{
+			assertEquals(null, e.getItem());
+			assertEquals(valid.getFrom(), e.getFeature());
+			assertEquals(-11, e.getValue());
+		}
 	}
 }

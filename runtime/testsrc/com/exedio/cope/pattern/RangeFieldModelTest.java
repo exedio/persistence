@@ -29,6 +29,7 @@ import static org.junit.Assert.fail;
 import com.exedio.cope.Feature;
 import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.IntegerField;
+import com.exedio.cope.IntegerRangeViolationException;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Model;
 import com.exedio.cope.StringLengthViolationException;
@@ -82,7 +83,7 @@ public class RangeFieldModelTest
 		assertEquals(false, valid.isMandatory());
 		assertEquals(false, valid.getFrom().isFinal());
 		assertEquals(false, valid.getTo().isFinal());
-		assertContains(valid.getInitialExceptions());
+		assertContains(IntegerRangeViolationException.class, valid.getInitialExceptions());
 		assertSerializedSame(valid, 388);
 
 		assertEquals(true, text.isInitial());
