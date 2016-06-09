@@ -78,7 +78,7 @@ public class NullabilityFeature
 	@Wrap(order=60)
 	public void onlyOptionalsCanTakeNull(
 			@SuppressWarnings("unused") final Item item,
-			@SuppressWarnings("unused") @Parameter(nullability=NullabilityFeature.IfOptional.class) final Object parameter)
+			@SuppressWarnings("unused") @Parameter(nullability=IfOptional.class) final Object parameter)
 	{
 		throw new RuntimeException();
 	}
