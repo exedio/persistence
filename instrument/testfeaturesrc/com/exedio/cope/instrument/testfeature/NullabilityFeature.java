@@ -62,21 +62,23 @@ public class NullabilityFeature
 
 	@SuppressWarnings("static-method")
 	@Wrap(order=40)
-	public void allCanTakeNull(@Nullable final Object parameter)
+	public void allCanTakeNull(@Nullable @SuppressWarnings("unused") final Object parameter)
 	{
 		throw new RuntimeException();
 	}
 
 	@SuppressWarnings("static-method")
 	@Wrap(order=50)
-	public void allCannotTakeNull(@Nonnull final Object parameter)
+	public void allCannotTakeNull(@Nonnull @SuppressWarnings("unused") final Object parameter)
 	{
 		throw new RuntimeException();
 	}
 
 	@SuppressWarnings("static-method")
 	@Wrap(order=60)
-	public void onlyOptionalsCanTakeNull(final Item item, @Parameter(nullability=NullabilityFeature.IfOptional.class) final Object parameter)
+	public void onlyOptionalsCanTakeNull(
+			@SuppressWarnings("unused") final Item item,
+			@SuppressWarnings("unused") @Parameter(nullability=NullabilityFeature.IfOptional.class) final Object parameter)
 	{
 		throw new RuntimeException();
 	}
