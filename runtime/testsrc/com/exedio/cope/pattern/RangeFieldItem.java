@@ -91,6 +91,8 @@ public final class RangeFieldItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	final void setValid(@javax.annotation.Nonnull final com.exedio.cope.pattern.Range<? extends Integer> valid)
+			throws
+				com.exedio.cope.IntegerRangeViolationException
 	{
 		RangeFieldItem.valid.set(this,valid);
 	}/**
@@ -123,6 +125,8 @@ public final class RangeFieldItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	final void setValidFrom(@javax.annotation.Nullable final Integer valid)
+			throws
+				com.exedio.cope.IntegerRangeViolationException
 	{
 		RangeFieldItem.valid.setFrom(this,valid);
 	}/**
@@ -133,6 +137,8 @@ public final class RangeFieldItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	final void setValidTo(@javax.annotation.Nullable final Integer valid)
+			throws
+				com.exedio.cope.IntegerRangeViolationException
 	{
 		RangeFieldItem.valid.setTo(this,valid);
 	}/**

@@ -31,6 +31,7 @@ import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.ReflectionTypes;
 import com.exedio.cope.misc.instrument.FinalSettableGetter;
+import com.exedio.cope.misc.instrument.InitialExceptionsSettableGetter;
 import com.exedio.cope.misc.instrument.NullableIfOptional;
 import java.util.Set;
 import javax.annotation.Nonnull;
@@ -80,7 +81,9 @@ public final class RangeField<E extends Comparable<E>> extends Pattern implement
 		return Range.valueOf(from.get(item), to.get(item));
 	}
 
-	@Wrap(order=20, hide=FinalSettableGetter.class)
+	@Wrap(order=20,
+			thrownGetter=InitialExceptionsSettableGetter.class,
+			hide=FinalSettableGetter.class)
 	public void set(@Nonnull final Item item, @Nonnull final Range<? extends E> value)
 	{
 		item.set(
@@ -100,13 +103,17 @@ public final class RangeField<E extends Comparable<E>> extends Pattern implement
 		return to.get(item);
 	}
 
-	@Wrap(order=50, hide=FinalSettableGetter.class)
+	@Wrap(order=50,
+			thrownGetter=InitialExceptionsSettableGetter.class,
+			hide=FinalSettableGetter.class)
 	public void setFrom(@Nonnull final Item item, @Parameter(nullability=NullableIfOptional.class) final E from)
 	{
 		this.from.set(item, from);
 	}
 
-	@Wrap(order=60, hide=FinalSettableGetter.class)
+	@Wrap(order=60,
+			thrownGetter=InitialExceptionsSettableGetter.class,
+			hide=FinalSettableGetter.class)
 	public void setTo(@Nonnull final Item item, @Parameter(nullability=NullableIfOptional.class) final E to)
 	{
 		this.to.set(item, to);
