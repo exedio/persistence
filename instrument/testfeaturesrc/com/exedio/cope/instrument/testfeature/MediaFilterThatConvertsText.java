@@ -21,7 +21,6 @@ package com.exedio.cope.instrument.testfeature;
 import com.exedio.cope.Item;
 import com.exedio.cope.pattern.Media;
 import com.exedio.cope.pattern.MediaFilter;
-import java.io.IOException;
 import java.util.Collections;
 import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
@@ -52,7 +51,6 @@ public class MediaFilterThatConvertsText extends MediaFilter
 
 	@Override
 	public void doGetAndCommit(final HttpServletRequest request, final HttpServletResponse response, final Item item)
-		throws IOException, NotFound
 	{
 		throw new RuntimeException("not implemented");
 	}
