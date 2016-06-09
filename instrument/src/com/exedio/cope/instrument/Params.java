@@ -36,6 +36,7 @@ final class Params
 	boolean directSetValueMap = false;
 	String hidingWarningSuppressor = null;
 	boolean parenthesesOnEmptyMemberAnnotations = true;
+	boolean deprecatedFullyQualified = true;
 	boolean verbose = false;
 	File timestampFile = null;
 }

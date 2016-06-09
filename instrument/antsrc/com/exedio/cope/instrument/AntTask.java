@@ -126,6 +126,11 @@ public final class AntTask extends Task
 		params.parenthesesOnEmptyMemberAnnotations = value;
 	}
 
+	public void setDeprecatedFullyQualified(final boolean value)
+	{
+		params.deprecatedFullyQualified = value;
+	}
+
 	public void setVerbose(final boolean value)
 	{
 		params.verbose = value;

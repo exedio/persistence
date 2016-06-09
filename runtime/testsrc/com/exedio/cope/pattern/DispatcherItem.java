@@ -199,7 +199,7 @@ public final class DispatcherItem extends Item implements Dispatchable
 	 *       It can be customized with the tag <tt>@cope.dispatch public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@Deprecated()
+	@java.lang.Deprecated()
 	static final int dispatchToTarget(@javax.annotation.Nonnull final com.exedio.cope.pattern.Dispatcher.Config config,@javax.annotation.Nullable final com.exedio.cope.util.Interrupter interrupter)
 	{
 		return DispatcherItem.toTarget.dispatch(DispatcherItem.class,config,interrupter);

@@ -89,6 +89,7 @@ final class Generator
 	private final boolean directSetValueMap;
 	private final String hidingWarningSuppressor;
 	private final boolean parenthesesOnEmptyMemberAnnotations;
+	private final boolean deprecatedFullyQualified;
 	private int typeIndent = Integer.MIN_VALUE;
 
 
@@ -107,6 +108,7 @@ final class Generator
 		this.directSetValueMap = params.directSetValueMap;
 		this.hidingWarningSuppressor = params.hidingWarningSuppressor;
 		this.parenthesesOnEmptyMemberAnnotations = params.parenthesesOnEmptyMemberAnnotations;
+		this.deprecatedFullyQualified = params.deprecatedFullyQualified;
 	}
 
 	private static final String toCamelCase(final String name)
@@ -485,7 +487,10 @@ final class Generator
 			if(wrapper.isMethodDeprecated())
 			{
 				writeIndent();
-				write("@Deprecated");
+				if(deprecatedFullyQualified)
+					writeAnnotation(Deprecated.class);
+				else
+					write("@Deprecated");
 				writeEmptyParenthesesForAnnotation();
 				write(lineSeparator);
 			}

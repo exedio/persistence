@@ -136,7 +136,7 @@ public final class PasswordRecoveryItem extends Item
 	 *       It can be customized with the tag <tt>@cope.issue public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@Deprecated()
+	@java.lang.Deprecated()
 	@javax.annotation.Nonnull()
 	final com.exedio.cope.pattern.PasswordRecovery.Token issuePasswordRecovery(final int expiryMillis)
 	{
@@ -162,7 +162,7 @@ public final class PasswordRecoveryItem extends Item
 	 *       It can be customized with the tag <tt>@cope.purge public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@Deprecated()
+	@java.lang.Deprecated()
 	static final int purgePasswordRecovery(@javax.annotation.Nullable final com.exedio.cope.util.Interrupter interrupter)
 	{
 		return PasswordRecoveryItem.passwordRecovery.purge(interrupter);
