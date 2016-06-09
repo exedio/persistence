@@ -18,6 +18,8 @@
 
 package com.exedio.cope.instrument.testfeature;
 
+import static com.exedio.cope.pattern.MediaType.JPEG;
+
 import com.exedio.cope.Item;
 import com.exedio.cope.pattern.Media;
 import com.exedio.cope.pattern.MediaFilter;
@@ -30,7 +32,7 @@ public class MediaFilterThatConvertsText extends MediaFilter
 {
 	private static final long serialVersionUID=1L;
 
-	private static final String TEXT_PLAIN="text/plain";
+	private static final String TEXT_PLAIN = "text/plain";
 
 	public MediaFilterThatConvertsText(final Media source)
 	{
@@ -46,7 +48,7 @@ public class MediaFilterThatConvertsText extends MediaFilter
 	@Override
 	public String getContentType(final Item item)
 	{
-		return TEXT_PLAIN.equals(getSource().getContentType(item))?"image/jpeg":null;
+		return TEXT_PLAIN.equals(getSource().getContentType(item)) ? JPEG : null;
 	}
 
 	@Override
