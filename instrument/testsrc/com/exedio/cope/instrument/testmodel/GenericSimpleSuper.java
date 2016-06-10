@@ -22,6 +22,9 @@ import com.exedio.cope.Item;
 import com.exedio.cope.instrument.testfeature.GenericFeatureClass;
 import com.exedio.cope.instrument.testfeature.GenericFeatureReference;
 
+/**
+ * @param <N> just for tests
+ */
 public class GenericSimpleSuper<N extends Number> extends Item
 {
 	static final GenericFeatureReference<GenericSimpleSub  > toSub   = GenericFeatureReference.create(GenericSimpleSub.class  );

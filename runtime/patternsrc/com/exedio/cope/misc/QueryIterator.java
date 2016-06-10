@@ -22,6 +22,7 @@ import com.exedio.cope.Query;
 import java.util.Iterator;
 
 /**
+ * @param <E> was used when class was not yet deprecated
  * @deprecated Use {@link StableQueryIterator} instead.
  */
 @Deprecated

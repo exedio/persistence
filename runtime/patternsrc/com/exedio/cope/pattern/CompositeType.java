@@ -100,7 +100,7 @@ final class CompositeType<E>
 	}
 
 	@SuppressWarnings({"unchecked", "rawtypes"})
-	private static final <E> void check(final FunctionField field, final Object value)
+	private static final void check(final FunctionField field, final Object value)
 	{
 		field.check(value);
 	}

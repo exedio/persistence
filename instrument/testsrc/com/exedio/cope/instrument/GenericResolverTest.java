@@ -93,6 +93,10 @@ public class GenericResolverTest
 				asList(gr.get(Indirect2All2Implementation.class)));
 	}
 
+	/**
+	 * @param <K> just for tests
+	 * @param <V> just for tests
+	 */
 	interface Interface<K,V>
 	{
 		// empty

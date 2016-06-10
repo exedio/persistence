@@ -23,6 +23,10 @@ import com.exedio.cope.instrument.testfeature.GenericFeatureClass;
 import com.exedio.cope.instrument.testfeature.GenericFeatureReference;
 import java.util.Collection;
 
+/**
+ * @param <N> just for tests
+ * @param <L> just for tests
+ */
 public class GenericComplexSuper<N extends Number, L extends Collection<String>> extends Item
 {
 	static final GenericFeatureReference<GenericComplexSub  > toSub   = GenericFeatureReference.create(GenericComplexSub  .class);
