@@ -36,6 +36,7 @@ public class EnumMapFieldDefaultTest
 
 	@Test public void testModel()
 	{
+		assertEquals(null, text.getValueTemplate().getDefaultConstant());
 		assertEquals("defaultDE", text.getField(DE).getDefaultConstant());
 		assertEquals("defaultEN", text.getField(EN).getDefaultConstant());
 		assertEquals("defaultPL", text.getField(PL).getDefaultConstant());

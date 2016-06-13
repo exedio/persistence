@@ -91,6 +91,11 @@ public final class EnumMapField<K extends Enum<K>,V> extends Pattern implements 
 		return fields.get(key);
 	}
 
+	public FunctionField<V> getValueTemplate()
+	{
+		return valueTemplate;
+	}
+
 	@Override
 	public Class<V> getValueClass()
 	{
@@ -252,10 +257,9 @@ public final class EnumMapField<K extends Enum<K>,V> extends Pattern implements 
 	private static final class MapValueNullable implements NullabilityGetter<EnumMapField<?,?>>
 	{
 		@Override
-		@SuppressWarnings("synthetic-access")
 		public Nullability getNullability(final EnumMapField<?,?> feature)
 		{
-			return Nullability.forMandatory(feature.valueTemplate.isMandatory());
+			return Nullability.forMandatory(feature.getValueTemplate().isMandatory());
 		}
 	}
 

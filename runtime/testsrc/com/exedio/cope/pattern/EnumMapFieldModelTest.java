@@ -31,9 +31,12 @@ import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
 import static com.exedio.cope.tojunit.Assert.list;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import com.exedio.cope.IntegerField;
 import com.exedio.cope.Model;
+import com.exedio.cope.StringField;
 import com.exedio.cope.pattern.EnumMapFieldItem.Language;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.Test;
@@ -78,6 +81,19 @@ public class EnumMapFieldModelTest
 						nameLength.getField(DE), nameLength.getField(EN), nameLength.getField(PL), nameLength.getField(SUBCLASS),
 						defaults.getField(DE), defaults.getField(EN), defaults.getField(PL), defaults.getField(SUBCLASS)),
 				TYPE.getFields());
+
+		assertTrue(name      .getValueTemplate() instanceof StringField);
+		assertTrue(nameLength.getValueTemplate() instanceof IntegerField);
+		assertTrue(defaults  .getValueTemplate() instanceof StringField);
+		try
+		{
+			name.getValueTemplate().getType();
+			fail();
+		}
+		catch(final IllegalStateException e)
+		{
+			assertEquals("feature not mounted", e.getMessage());
+		}
 
 		assertEquals(String.class, name.getValueClass());
 		assertEquals(Integer.class, nameLength.getValueClass());
