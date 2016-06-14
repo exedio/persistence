@@ -77,6 +77,6 @@ public class ExampleAnn
 	}
 	
 	@Override
-	public boolean equals = true;
+	public boolean methodOverride() { return true; }
 
 }
