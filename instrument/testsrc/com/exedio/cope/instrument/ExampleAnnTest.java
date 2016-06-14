@@ -39,7 +39,7 @@ public class ExampleAnnTest extends ParserTest
 		assertImport("java.util.HashMap");
 		assertImport("java.util.HashSet");
 
-		final JavaClass exampleClass = assertClass("ExampleAnn", null, null);
+		final JavaClass exampleClass = assertClass("ExampleAnn", "ExampleSuper", null);
 
 		final JavaField name =
 			assertFieldHeader("name", "String", PRIVATE);

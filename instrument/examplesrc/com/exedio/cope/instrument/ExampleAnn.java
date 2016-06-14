@@ -23,7 +23,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 
 @SuppressWarnings("unchecked")
-public class ExampleAnn
+public class ExampleAnn extends ExampleSuper
 {
 	@SuppressWarnings("unchecked")
 	private String name;
