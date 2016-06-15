@@ -25,10 +25,28 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Specifies the integer used for an enum
- * value in the database schema.
+ * Specifies the schema value (an integer) of an enum facet
+ * stored in the column of an {@link EnumField}.
  * This may be useful to maintain schema compatibility to
  * former versions of the application or to a legacy application.
+ * <p>
+ * Schema values of enum facets are assigned by the following rules:
+ * <ul>
+ * <li>An annotated facet (by {@link CopeSchemaValue}) gets the schema value
+ *     specified by the annotation.</li>
+ * <li>A non-annotated facet, that is the first facet of its Enum,
+ *     gets a schema value of 10.</li>
+ * <li>Otherwise, a non-annotated facet gets the schema value
+ *     of the previous facet, plus one, rounded to full multiples of 10 towards
+ *     {@link Integer#MAX_VALUE}.
+ *     This holds regardless whether the previous facet is annotated or not.</li>
+ * </ul>
+ * If, by the rules above, a facet is assigned a schema value,
+ * that is not greater than the schema value of its previous facet,
+ * {@link EnumField#create(Class) EnumField.create} throws an
+ * {@link IllegalArgumentException}.
+ * This means you can't change the {@link Query#setOrderBy(Function, boolean) order}
+ * of enums with this annotation.
  */
 @Target(FIELD)
 @Retention(RetentionPolicy.RUNTIME)
