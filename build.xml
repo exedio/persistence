@@ -988,14 +988,14 @@
 	<target name="api">
 		<api title="cope persistence">
 			<src>
-				<fileset file="dsmf/src/com" includes="**/*.java" />
-				<fileset file="runtime/src/com" includes="**/*.java" />
-				<fileset file="runtime/patternsrc/com" includes="**/*.java" />
-				<fileset file="runtime/servletsrc/com" includes="**/*.java" />
-				<fileset file="runtime/junitsrc/com" includes="**/*.java" />
-				<fileset file="instrument/annosrc/com" includes="**/*.java" />
-				<fileset file="instrument/src/com" includes="**/*.java" />
-				<fileset file="instrument/antsrc/com" includes="**/*.java" />
+				<fileset dir="dsmf/src" includes="**/*.java" />
+				<fileset dir="runtime/src" includes="**/*.java" />
+				<fileset dir="runtime/patternsrc" includes="**/*.java" />
+				<fileset dir="runtime/servletsrc" includes="**/*.java" />
+				<fileset dir="runtime/junitsrc" includes="**/*.java" />
+				<fileset dir="instrument/annosrc" includes="**/*.java" />
+				<fileset dir="instrument/src" includes="**/*.java" />
+				<fileset dir="instrument/antsrc" includes="**/*.java" />
 			</src>
 			<myClasspath>
 				<pathelement location="lib/trove4j.jar" />
