@@ -283,17 +283,12 @@ final class ClusterProperties extends Properties
 
 	static Factory<ClusterProperties> factory()
 	{
-		return new Factory<ClusterProperties>()
-		{
-			@SuppressWarnings("synthetic-access")
-			@Override
-			public ClusterProperties create(final Source source)
+		return source ->
 			{
 				final ClusterProperties result = new ClusterProperties(source);
 				if(!result.isEnabled())
 					throw new RuntimeException(source.getDescription());
 				return result;
-			}
-		};
+			};
 	}
 }
