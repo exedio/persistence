@@ -80,8 +80,8 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 			final LinkedHashMap<FunctionField<?>, FunctionField<?>> templateToComponent = new LinkedHashMap<>();
 			final HashMap<FunctionField<?>, FunctionField<?>> componentToTemplate = new HashMap<>();
 			FunctionField<?> mandatoryComponent = null;
-			final ArrayList<Condition> isNull    = optional ? new ArrayList<Condition>() : null;
-			final ArrayList<Condition> isNotNull = optional ? new ArrayList<Condition>() : null;
+			final ArrayList<Condition> isNull    = optional ? new ArrayList<>() : null;
+			final ArrayList<Condition> isNotNull = optional ? new ArrayList<>() : null;
 
 			for(final Map.Entry<String, FunctionField<?>> e : valueType.getTemplateMap().entrySet())
 			{

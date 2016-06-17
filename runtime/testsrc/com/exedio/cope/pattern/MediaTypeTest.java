@@ -261,6 +261,6 @@ public class MediaTypeTest
 
 	private static final Set<Object> set(final MediaType... o)
 	{
-		return new LinkedHashSet<Object>(Arrays.asList(o));
+		return new LinkedHashSet<>(Arrays.asList(o));
 	}
 }

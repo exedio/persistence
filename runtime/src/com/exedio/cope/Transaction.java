@@ -458,7 +458,7 @@ public final class Transaction
 
 	public void setQueryInfoEnabled(final boolean enabled)
 	{
-		this.queryInfos = enabled ? new ArrayList<QueryInfo>() : null;
+		this.queryInfos = enabled ? new ArrayList<>() : null;
 	}
 
 	public List<QueryInfo> getQueryInfos()
