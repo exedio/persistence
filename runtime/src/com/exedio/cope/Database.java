@@ -181,20 +181,20 @@ final class Database
 		{
 			public String handle(final ResultSet resultSet) throws SQLException
 			{
-				StringBuilder message = null;
+				StringBuilder mb = null;
 				while(resultSet.next())
 				{
-					if(message==null)
-						message = new StringBuilder("schema not empty: ");
+					if(mb==null)
+						mb = new StringBuilder("schema not empty: ");
 					else
-						message.append(", ");
+						mb.append(", ");
 
-					message.
+					mb.
 						append(resultSet.getString(1).trim()). // trim needed for hsqldb
 						append(':').
 						append(resultSet.getInt(2));
 				}
-				return message!=null ? message.toString() : null;
+				return mb!=null ? mb.toString() : null;
 			}
 
 		});

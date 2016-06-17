@@ -347,7 +347,7 @@ final class OracleDialect extends Dialect
 			{
 				public QueryInfo handle(final ResultSet resultSet) throws SQLException
 				{
-					QueryInfo root = null;
+					QueryInfo currentRoot = null;
 					final TIntObjectHashMap<QueryInfo> infos = new TIntObjectHashMap<>();
 
 					final ResultSetMetaData metaData = resultSet.getMetaData();
@@ -397,9 +397,9 @@ final class OracleDialect extends Dialect
 						final QueryInfo info = new QueryInfo(qi.toString());
 						if(parentID==null)
 						{
-							if(root!=null)
+							if(currentRoot!=null)
 								throw new RuntimeException(String.valueOf(id));
-							root = info;
+							currentRoot = info;
 						}
 						else
 						{
@@ -410,7 +410,7 @@ final class OracleDialect extends Dialect
 						}
 						infos.put(id, info);
 					}
-					return root;
+					return currentRoot;
 				}
 			});
 		}
