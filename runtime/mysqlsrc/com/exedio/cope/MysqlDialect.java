@@ -413,22 +413,22 @@ final class MysqlDialect extends Dialect
 
 					while(resultSet.next())
 					{
-						final StringBuilder bf = new StringBuilder();
+						final StringBuilder qi = new StringBuilder();
 
 						for(int i = 1; i<=columnCount; i++)
 						{
 							final Object value = resultSet.getObject(i);
 							if(value!=null)
 							{
-								if(bf.length()>0)
-									bf.append(", ");
+								if(qi.length()>0)
+									qi.append(", ");
 
-								bf.append(metaData.getColumnName(i)).
+								qi.append(metaData.getColumnName(i)).
 									append('=').
 									append(value.toString());
 							}
 						}
-						root.addChild(new QueryInfo(bf.toString()));
+						root.addChild(new QueryInfo(qi.toString()));
 					}
 					return null;
 				}

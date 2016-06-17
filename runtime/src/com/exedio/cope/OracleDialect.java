@@ -363,19 +363,19 @@ final class OracleDialect extends Dialect
 						final int id = resultSet.getInt(ID);
 						final Number parentID = (Number)resultSet.getObject(PARENT_ID);
 
-						final StringBuilder bf = new StringBuilder(operation);
+						final StringBuilder qi = new StringBuilder(operation);
 
 						if(options!=null)
-							bf.append(" (").append(options).append(')');
+							qi.append(" (").append(options).append(')');
 
 						if(objectName!=null)
-							bf.append(" on ").append(objectName);
+							qi.append(" on ").append(objectName);
 
 						if(objectInstance!=0)
-							bf.append('[').append(objectInstance).append(']');
+							qi.append('[').append(objectInstance).append(']');
 
 						if(objectType!=null)
-							bf.append('[').append(objectType).append(']');
+							qi.append('[').append(objectType).append(']');
 
 
 						for(int i = 1; i<=columnCount; i++)
@@ -386,7 +386,7 @@ final class OracleDialect extends Dialect
 								final Object value = resultSet.getObject(i);
 								if(value!=null)
 								{
-									bf.append(' ').
+									qi.append(' ').
 										append(columnName.toLowerCase(Locale.ENGLISH)).
 										append('=').
 										append(value.toString());
@@ -394,7 +394,7 @@ final class OracleDialect extends Dialect
 							}
 						}
 
-						final QueryInfo info = new QueryInfo(bf.toString());
+						final QueryInfo info = new QueryInfo(qi.toString());
 						if(parentID==null)
 						{
 							if(root!=null)
