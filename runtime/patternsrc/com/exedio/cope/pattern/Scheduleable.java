@@ -21,6 +21,7 @@ package com.exedio.cope.pattern;
 import com.exedio.cope.util.JobContext;
 import java.util.Date;
 
+@FunctionalInterface
 public interface Scheduleable
 {
 	void run(Schedule schedule, Date from, Date until, JobContext ctx);

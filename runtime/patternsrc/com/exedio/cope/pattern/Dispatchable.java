@@ -18,6 +18,7 @@
 
 package com.exedio.cope.pattern;
 
+@FunctionalInterface
 public interface Dispatchable
 {
 	void dispatch(Dispatcher dispatcher) throws Exception;

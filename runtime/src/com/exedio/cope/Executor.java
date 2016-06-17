@@ -84,7 +84,7 @@ final class Executor
 		return new Statement(this, query, sqlOnly);
 	}
 
-	//@FunctionalInterface in JDK 1.8
+	@FunctionalInterface
 	static interface ResultSetHandler<R>
 	{
 		public R handle(ResultSet resultSet) throws SQLException;

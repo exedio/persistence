@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-//@FunctionalInterface in JDK 1.8
+@FunctionalInterface
 public interface RevisionsFuture
 {
 	/**

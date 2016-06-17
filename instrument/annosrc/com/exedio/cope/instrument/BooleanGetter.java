@@ -18,6 +18,7 @@
 
 package com.exedio.cope.instrument;
 
+@FunctionalInterface
 public interface BooleanGetter<F>
 {
 	boolean get(F feature);

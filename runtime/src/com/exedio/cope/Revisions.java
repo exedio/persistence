@@ -300,6 +300,7 @@ public final class Revisions
 	 * the model takes care, that {@link #create(Context)}
 	 * is called only while the model is connected and only once for each connect.
 	 */
+	@FunctionalInterface
 	public static interface Factory
 	{
 		Revisions create(Context ctx);

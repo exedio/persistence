@@ -22,6 +22,7 @@ import com.exedio.cope.Item;
 import com.exedio.cope.Transaction;
 import java.util.Collection;
 
+@FunctionalInterface
 public interface ModificationListener
 {
 	/**

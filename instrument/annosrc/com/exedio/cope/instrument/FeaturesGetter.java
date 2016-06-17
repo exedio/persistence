@@ -20,6 +20,7 @@ package com.exedio.cope.instrument;
 
 import java.util.List;
 
+@FunctionalInterface
 public interface FeaturesGetter<F>
 {
 	List<?> get(F feature);

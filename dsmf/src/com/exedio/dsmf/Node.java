@@ -76,7 +76,7 @@ public abstract class Node
 	static final String GET_TABLES = "getTables";
 	static final String GET_COLUMNS = "getColumns";
 
-	//@FunctionalInterface in JDK 1.8
+	@FunctionalInterface
 	static interface ResultSetHandler
 	{
 		public void run(ResultSet resultSet) throws SQLException;

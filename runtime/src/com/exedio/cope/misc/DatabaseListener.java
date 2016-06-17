@@ -20,6 +20,7 @@ package com.exedio.cope.misc;
 
 import java.util.List;
 
+@FunctionalInterface
 public interface DatabaseListener
 {
 	void onStatement(

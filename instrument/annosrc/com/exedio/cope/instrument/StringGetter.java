@@ -18,6 +18,7 @@
 
 package com.exedio.cope.instrument;
 
+@FunctionalInterface
 public interface StringGetter<F>
 {
 	String get(F feature);
