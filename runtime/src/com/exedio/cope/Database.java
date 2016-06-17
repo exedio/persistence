@@ -18,14 +18,11 @@
 
 package com.exedio.cope;
 
-import com.exedio.cope.Executor.ResultSetHandler;
 import com.exedio.dsmf.ConnectionProvider;
 import com.exedio.dsmf.Constraint;
 import com.exedio.dsmf.Schema;
 import com.exedio.dsmf.Sequence;
 import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.EnumSet;
@@ -177,9 +174,7 @@ final class Database
 		}
 		bf.append(") b WHERE c>0 ORDER BY n");
 
-		final String message = Executor.query(connection, bf.toString(), new ResultSetHandler<String>()
-		{
-			public String handle(final ResultSet resultSet) throws SQLException
+		final String message = Executor.query(connection, bf.toString(), resultSet ->
 			{
 				StringBuilder mb = null;
 				while(resultSet.next())
@@ -196,8 +191,7 @@ final class Database
 				}
 				return mb!=null ? mb.toString() : null;
 			}
-
-		});
+		);
 		if(message!=null)
 			throw new IllegalStateException(message);
 
@@ -284,9 +278,7 @@ final class Database
 
 		//System.out.println(bf.toString());
 
-		final WrittenState result = executor.query(connection, bf, null, false, new ResultSetHandler<WrittenState>()
-		{
-			public WrittenState handle(final ResultSet resultSet) throws SQLException
+		final WrittenState result = executor.query(connection, bf, null, false, resultSet ->
 			{
 				if(!resultSet.next())
 					throw new NoSuchItemException(item);
@@ -327,7 +319,7 @@ final class Database
 
 				return new WrittenState(item, row, updateCount);
 			}
-		});
+		);
 
 		return result;
 	}

@@ -28,7 +28,6 @@ import static com.exedio.dsmf.PostgresqlDialect.TIMESTAMP;
 import static com.exedio.dsmf.PostgresqlDialect.VARCHAR_LIMIT;
 
 import com.exedio.cope.DateField.Precision;
-import com.exedio.cope.Executor.ResultSetHandler;
 import com.exedio.cope.util.Hex;
 import com.exedio.dsmf.Sequence;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -271,9 +270,7 @@ final class PostgresqlDialect extends Dialect
 			append(quotedName).
 			append("')");
 
-		return executor.query(connection, bf, null, false, new ResultSetHandler<Long>()
-		{
-			public Long handle(final ResultSet resultSet) throws SQLException
+		return executor.query(connection, bf, null, false, resultSet ->
 			{
 				if(!resultSet.next())
 					throw new RuntimeException("empty in sequence " + quotedName);
@@ -282,7 +279,7 @@ final class PostgresqlDialect extends Dialect
 					throw new RuntimeException("null in sequence " + quotedName);
 				return (Long)o;
 			}
-		});
+		);
 	}
 
 	@Override
@@ -301,9 +298,7 @@ final class PostgresqlDialect extends Dialect
 		bf.append("SELECT LAST_VALUE FROM ").
 			append(dsmfDialect.quoteName(name));
 
-		return executor.query(connection, bf, null, false, new ResultSetHandler<Long>()
-		{
-			public Long handle(final ResultSet resultSet) throws SQLException
+		return executor.query(connection, bf, null, false, resultSet ->
 			{
 				if(!resultSet.next())
 					throw new RuntimeException("empty in sequence " + name);
@@ -312,7 +307,7 @@ final class PostgresqlDialect extends Dialect
 					throw new RuntimeException("null in sequence " + name);
 				return ((Long)o).longValue() + 1;
 			}
-		});
+		);
 	}
 
 	@Override

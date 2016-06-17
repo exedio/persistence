@@ -20,7 +20,6 @@ package com.exedio.cope;
 
 import com.exedio.cope.DateField.Precision;
 import com.exedio.cope.DayPartView.Part;
-import com.exedio.cope.Executor.ResultSetHandler;
 import com.exedio.cope.util.Hex;
 import com.exedio.dsmf.SQLRuntimeException;
 import com.exedio.dsmf.Sequence;
@@ -343,9 +342,7 @@ final class OracleDialect extends Dialect
 				appendParameter(statementID).
 				append(" ORDER BY "+ID);
 
-			root = executor.query(connection, bf, null, true, new ResultSetHandler<QueryInfo>()
-			{
-				public QueryInfo handle(final ResultSet resultSet) throws SQLException
+			root = executor.query(connection, bf, null, true, resultSet ->
 				{
 					QueryInfo currentRoot = null;
 					final TIntObjectHashMap<QueryInfo> infos = new TIntObjectHashMap<>();
@@ -412,7 +409,7 @@ final class OracleDialect extends Dialect
 					}
 					return currentRoot;
 				}
-			});
+			);
 		}
 		if(root==null)
 			throw new RuntimeException();
@@ -456,9 +453,7 @@ final class OracleDialect extends Dialect
 			append(quotedName).
 			append(".NEXTVAL FROM DUAL");
 
-		return executor.query(connection, bf, null, false, new ResultSetHandler<Long>()
-		{
-			public Long handle(final ResultSet resultSet) throws SQLException
+		return executor.query(connection, bf, null, false, resultSet ->
 			{
 				if(!resultSet.next())
 					throw new RuntimeException("empty in sequence " + quotedName);
@@ -467,7 +462,7 @@ final class OracleDialect extends Dialect
 					throw new RuntimeException("null in sequence " + quotedName);
 				return ((BigDecimal)o).longValueExact();
 			}
-		});
+		);
 	}
 
 	@Override
@@ -493,9 +488,7 @@ final class OracleDialect extends Dialect
 				"WHERE sequence_name=").
 			appendParameter(name);
 
-		return executor.query(connection, bf, null, false, new ResultSetHandler<Long>()
-		{
-			public Long handle(final ResultSet resultSet) throws SQLException
+		return executor.query(connection, bf, null, false, resultSet ->
 			{
 				if(!resultSet.next())
 					throw new RuntimeException("empty in sequence " + name);
@@ -504,7 +497,7 @@ final class OracleDialect extends Dialect
 					throw new RuntimeException("null in sequence " + name);
 				return ((BigDecimal)o).longValueExact();
 			}
-		});
+		);
 	}
 
 	@Override

@@ -50,9 +50,7 @@ final class ResultSetPrinter
 			System.out.println("----------"+i+":"+resultSet.getObject(i));
 	}
 
-	static final ResultSetHandler<Void> logHandler = new ResultSetHandler<Void>()
-	{
-		public Void handle(final ResultSet resultSet) throws SQLException
+	static final ResultSetHandler<Void> logHandler = resultSet ->
 		{
 			final int columnCount = resultSet.getMetaData().getColumnCount();
 			System.out.println("columnCount:"+columnCount);
@@ -69,6 +67,5 @@ final class ResultSetPrinter
 				}
 			}
 			return null;
-		}
-	};
+		};
 }

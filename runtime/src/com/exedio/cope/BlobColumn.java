@@ -20,7 +20,6 @@ package com.exedio.cope;
 
 import static com.exedio.cope.Executor.NO_SUCH_ROW;
 
-import com.exedio.cope.Executor.ResultSetHandler;
 import com.exedio.dsmf.CheckConstraint;
 import java.io.OutputStream;
 import java.sql.Connection;
@@ -95,16 +94,14 @@ final class BlobColumn extends Column
 			appendParameter(item.pk).
 			appendTypeCheck(table, item.type);
 
-		return executor.query(connection, bf, null, false, new ResultSetHandler<byte[]>()
-		{
-			public byte[] handle(final ResultSet resultSet) throws SQLException
+		return executor.query(connection, bf, null, false, resultSet ->
 			{
 				if(!resultSet.next())
 					throw new SQLException(NO_SUCH_ROW);
 
 				return executor.dialect.getBytes(resultSet, 1);
 			}
-		});
+		);
 	}
 
 	void load(final Connection connection, final Executor executor, final Item item, final OutputStream data, final DataField field)
@@ -121,9 +118,7 @@ final class BlobColumn extends Column
 			appendParameter(item.pk).
 			appendTypeCheck(table, item.type);
 
-		executor.query(connection, bf, null, false, new ResultSetHandler<Void>()
-		{
-			public Void handle(final ResultSet resultSet) throws SQLException
+		executor.query(connection, bf, null, false, resultSet ->
 			{
 				if(!resultSet.next())
 					throw new SQLException(NO_SUCH_ROW);
@@ -132,7 +127,7 @@ final class BlobColumn extends Column
 
 				return null;
 			}
-		});
+		);
 	}
 
 	long loadLength(final Connection connection, final Executor executor, final Item item)
@@ -149,9 +144,7 @@ final class BlobColumn extends Column
 			appendParameter(item.pk).
 			appendTypeCheck(table, item.type);
 
-		return executor.query(connection, bf, null, false, new ResultSetHandler<Long>()
-		{
-			public Long handle(final ResultSet resultSet) throws SQLException
+		return executor.query(connection, bf, null, false, resultSet ->
 			{
 				if(!resultSet.next())
 					throw new SQLException(NO_SUCH_ROW);
@@ -162,7 +155,7 @@ final class BlobColumn extends Column
 
 				return ((Number)o).longValue();
 			}
-		});
+		);
 	}
 
 	void store(

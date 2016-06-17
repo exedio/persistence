@@ -22,14 +22,12 @@ import static com.exedio.cope.Executor.integerResultSetHandler;
 import static com.exedio.cope.misc.Check.requireNonEmptyAndCopy;
 import static com.exedio.cope.misc.Check.requireNonNegative;
 
-import com.exedio.cope.Executor.ResultSetHandler;
 import com.exedio.dsmf.Column;
 import com.exedio.dsmf.PrimaryKeyConstraint;
 import com.exedio.dsmf.SQLRuntimeException;
 import com.exedio.dsmf.Schema;
 import com.exedio.dsmf.Table;
 import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.Collections;
@@ -183,9 +181,7 @@ public final class Revisions
 		final Connection connection = connectionPool.get(true);
 		try
 		{
-			executor.query(connection, bf, null, false, new ResultSetHandler<Void>()
-			{
-				public Void handle(final ResultSet resultSet) throws SQLException
+			executor.query(connection, bf, null, false, resultSet ->
 				{
 					while(resultSet.next())
 					{
@@ -198,7 +194,7 @@ public final class Revisions
 
 					return null;
 				}
-			});
+			);
 		}
 		finally
 		{

@@ -20,7 +20,6 @@ package com.exedio.cope;
 
 import com.exedio.cope.DateField.Precision;
 import com.exedio.cope.DayPartView.Part;
-import com.exedio.cope.Executor.ResultSetHandler;
 import com.exedio.cope.util.CharSet;
 import com.exedio.cope.util.Hex;
 import com.exedio.cope.util.JobContext;
@@ -404,9 +403,7 @@ final class MysqlDialect extends Dialect
 				append(statementText).
 				appendParameters(statement);
 
-			executor.query(connection, bf, null, true, new ResultSetHandler<Void>()
-			{
-				public Void handle(final ResultSet resultSet) throws SQLException
+			executor.query(connection, bf, null, true, resultSet ->
 				{
 					final ResultSetMetaData metaData = resultSet.getMetaData();
 					final int columnCount = metaData.getColumnCount();
@@ -432,7 +429,7 @@ final class MysqlDialect extends Dialect
 					}
 					return null;
 				}
-			});
+			);
 		}
 
 		return root;
@@ -462,9 +459,7 @@ final class MysqlDialect extends Dialect
 			append(quotedName).
 			append("()VALUES()");
 
-		final long result = executor.insertAndGetGeneratedKeys(connection, bf, new ResultSetHandler<Long>()
-		{
-			public Long handle(final ResultSet resultSet) throws SQLException
+		final long result = executor.insertAndGetGeneratedKeys(connection, bf, resultSet ->
 			{
 				if(!resultSet.next())
 					throw new RuntimeException("empty in sequence " + quotedName);
@@ -473,7 +468,7 @@ final class MysqlDialect extends Dialect
 					throw new RuntimeException("null in sequence " + quotedName);
 				return (Long)o;
 			}
-		}).longValue() - 1;
+		).longValue() - 1;
 
 		return result;
 	}
@@ -490,9 +485,7 @@ final class MysqlDialect extends Dialect
 			append(") FROM ").
 			append(dsmfDialect.quoteName(name));
 
-		return executor.query(connection, bf, null, false, new ResultSetHandler<Long>()
-		{
-			public Long handle(final ResultSet resultSet) throws SQLException
+		return executor.query(connection, bf, null, false, resultSet ->
 			{
 				if(!resultSet.next())
 					throw new RuntimeException("empty in sequence " + name);
@@ -500,7 +493,7 @@ final class MysqlDialect extends Dialect
 				// converts null into long 0
 				return resultSet.getLong(1);
 			}
-		});
+		);
 	}
 
 	@Override
@@ -659,9 +652,7 @@ final class MysqlDialect extends Dialect
 				final Number maxObject = Executor.query(
 						connection,
 						"SELECT MAX(" + column + ") FROM " + table,
-				new ResultSetHandler<Number>()
-				{
-					public Number handle(final ResultSet resultSet) throws SQLException
+						resultSet ->
 					{
 						if(!resultSet.next())
 							throw new RuntimeException("empty in sequence " + name);
@@ -670,7 +661,7 @@ final class MysqlDialect extends Dialect
 							return null;
 						return (Number)o;
 					}
-				});
+				);
 				if(maxObject==null)
 					continue;
 

@@ -19,7 +19,6 @@
 package com.exedio.cope;
 
 import com.exedio.cope.DateField.Precision;
-import com.exedio.cope.Executor.ResultSetHandler;
 import com.exedio.cope.util.Hex;
 import com.exedio.dsmf.SQLRuntimeException;
 import com.exedio.dsmf.Sequence;
@@ -234,9 +233,7 @@ final class HsqldbDialect extends Dialect
 				append(" FROM ").
 				append(TEMP_TABLE);
 
-			result = executor.query(connection, bf, null, false, new ResultSetHandler<Long>()
-			{
-				public Long handle(final ResultSet resultSet) throws SQLException
+			result = executor.query(connection, bf, null, false, resultSet ->
 				{
 					if(!resultSet.next())
 						throw new RuntimeException("empty in sequence " + quotedName);
@@ -245,7 +242,7 @@ final class HsqldbDialect extends Dialect
 						throw new RuntimeException("null in sequence " + quotedName);
 					return ((Number)o).longValue();
 				}
-			});
+			);
 		}
 		{
 			final Statement bf = executor.newStatement();
@@ -275,9 +272,7 @@ final class HsqldbDialect extends Dialect
 					" FROM INFORMATION_SCHEMA.SYSTEM_SEQUENCES" +
 					" WHERE SEQUENCE_NAME='").append(name).append('\'');
 
-		return executor.query(connection, bf, null, false, new ResultSetHandler<Long>()
-		{
-			public Long handle(final ResultSet resultSet) throws SQLException
+		return executor.query(connection, bf, null, false, resultSet ->
 			{
 				if(!resultSet.next())
 					throw new RuntimeException("empty in sequence " + name);
@@ -286,7 +281,7 @@ final class HsqldbDialect extends Dialect
 					throw new RuntimeException("null in sequence " + name);
 				return Long.valueOf((String)o);
 			}
-		});
+		);
 	}
 
 	@Override

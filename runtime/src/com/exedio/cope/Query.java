@@ -21,11 +21,8 @@ package com.exedio.cope;
 import static com.exedio.cope.misc.Check.requireNonNegative;
 import static java.util.Objects.requireNonNull;
 
-import com.exedio.cope.Executor.ResultSetHandler;
 import java.io.Serializable;
 import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -1065,9 +1062,7 @@ public final class Query<R> implements Serializable
 		//System.out.println(bf.toString());
 
 		final int sizeLimit = this.getSearchSizeLimit();
-		executor.query(connection, bf, queryInfo, false, new ResultSetHandler<Void>()
-		{
-			public Void handle(final ResultSet resultSet) throws SQLException
+		executor.query(connection, bf, queryInfo, false, resultSet ->
 			{
 				if(totalOnly)
 				{
@@ -1103,7 +1098,7 @@ public final class Query<R> implements Serializable
 
 				return null;
 			}
-		});
+		);
 
 		return result;
 	}

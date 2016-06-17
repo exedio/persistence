@@ -21,7 +21,6 @@ package com.exedio.cope;
 import static com.exedio.cope.Executor.NO_SUCH_ROW;
 
 import com.exedio.cope.DateField.Precision;
-import com.exedio.cope.Executor.ResultSetHandler;
 import com.exedio.dsmf.CheckConstraint;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -241,9 +240,7 @@ class IntegerColumn extends Column
 			append(") FROM ").
 			append(table.quotedID);
 
-		return executor.query(connection, bf, null, false, new ResultSetHandler<Long>()
-		{
-			public Long handle(final ResultSet resultSet) throws SQLException
+		return executor.query(connection, bf, null, false, resultSet ->
 			{
 				if(!resultSet.next())
 					throw new SQLException(NO_SUCH_ROW);
@@ -261,6 +258,6 @@ class IntegerColumn extends Column
 					return null;
 				}
 			}
-		});
+		);
 	}
 }

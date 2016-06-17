@@ -90,16 +90,13 @@ final class Executor
 		public R handle(ResultSet resultSet) throws SQLException;
 	}
 
-	static final ResultSetHandler<Integer> integerResultSetHandler = new ResultSetHandler<Integer>()
-	{
-		public Integer handle(final ResultSet resultSet) throws SQLException
+	static final ResultSetHandler<Integer> integerResultSetHandler = resultSet ->
 		{
 			if(!resultSet.next())
 				throw new RuntimeException();
 
 			return resultSet.getInt(1);
-		}
-	};
+		};
 
 	protected <R> R query(
 		final Connection connection,
