@@ -18,7 +18,6 @@
 
 package com.exedio.dsmf;
 
-import com.exedio.dsmf.Node.ResultSetHandler;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
@@ -108,9 +107,7 @@ public final class OracleDialect extends Dialect
 	{
 		super.verify(schema);
 
-		schema.querySQL("SELECT TABLE_NAME FROM user_tables", new ResultSetHandler()
-			{
-				public void run(final ResultSet resultSet) throws SQLException
+		schema.querySQL("SELECT TABLE_NAME FROM user_tables", resultSet ->
 				{
 					while(resultSet.next())
 					{
@@ -119,7 +116,7 @@ public final class OracleDialect extends Dialect
 						//System.out.println("EXISTS:"+tableName);
 					}
 				}
-			});
+			);
 
 		schema.querySQL(
 				"SELECT " +
@@ -134,9 +131,7 @@ public final class OracleDialect extends Dialect
 					"AND uc.TABLE_NAME=ucc.TABLE_NAME " +
 				"WHERE uc.CONSTRAINT_TYPE in ('C','P','U')" +
 				"ORDER BY uc.TABLE_NAME, uc.CONSTRAINT_NAME, ucc.POSITION",
-			new ResultSetHandler()
-			{
-				public void run(final ResultSet resultSet) throws SQLException
+			resultSet ->
 				{
 					final UniqueConstraintCollector uniqueConstraintCollector =
 							new UniqueConstraintCollector(schema);
@@ -183,7 +178,7 @@ public final class OracleDialect extends Dialect
 					}
 					uniqueConstraintCollector.finish();
 				}
-			});
+			);
 
 		verifyForeignKeyConstraints(
 				"SELECT uc.CONSTRAINT_NAME,uc.TABLE_NAME,ucc.COLUMN_NAME,uic.TABLE_NAME,uic.COLUMN_NAME " +
@@ -196,9 +191,7 @@ public final class OracleDialect extends Dialect
 		schema.querySQL(
 				"SELECT SEQUENCE_NAME, MAX_VALUE " +
 				"FROM USER_SEQUENCES",
-			new ResultSetHandler()
-			{
-				public void run(final ResultSet resultSet) throws SQLException
+			resultSet ->
 				{
 					//printMeta(resultSet);
 					while(resultSet.next())
@@ -209,7 +202,7 @@ public final class OracleDialect extends Dialect
 						schema.notifyExistentSequence(name, Sequence.Type.fromMaxValueExact(maxValue));
 					}
 				}
-			});
+			);
 	}
 
 	@Override

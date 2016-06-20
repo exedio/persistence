@@ -18,7 +18,6 @@
 
 package com.exedio.dsmf;
 
-import com.exedio.dsmf.Node.ResultSetHandler;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
@@ -126,9 +125,7 @@ public final class PostgresqlDialect extends Dialect
 				"FROM pg_constraint uc " +
 				"INNER JOIN pg_class ut on uc.conrelid=ut.oid " +
 				"WHERE ut.relname NOT LIKE 'pg_%' AND ut.relname NOT LIKE 'pga_%' AND uc.contype IN ('c','p')",
-			new ResultSetHandler()
-			{
-				public void run(final ResultSet resultSet) throws SQLException
+			resultSet ->
 				{
 					//printMeta(resultSet);
 					while(resultSet.next())
@@ -155,7 +152,7 @@ public final class PostgresqlDialect extends Dialect
 						//System.out.println("EXISTS:"+tableName);
 					}
 				}
-			});
+			);
 
 		final String catalog = schema.getCatalog();
 
@@ -168,9 +165,7 @@ public final class PostgresqlDialect extends Dialect
 				"AND tc.table_catalog='" + catalog + "' " +
 				"AND cu.table_catalog='" + catalog + "' " +
 				"ORDER BY tc.table_name, tc.constraint_name, cu.ordinal_position",
-			new ResultSetHandler()
-			{
-				public void run(final ResultSet resultSet) throws SQLException
+			resultSet ->
 				{
 					//printMeta(resultSet);
 					final UniqueConstraintCollector collector =
@@ -188,7 +183,7 @@ public final class PostgresqlDialect extends Dialect
 					}
 					collector.finish();
 				}
-			});
+			);
 
 		verifyForeignKeyConstraints(
 				"SELECT rc.constraint_name, src.table_name, src.column_name, tgt.table_name, tgt.column_name " +
@@ -202,9 +197,7 @@ public final class PostgresqlDialect extends Dialect
 				"SELECT sequence_name, maximum_value " +
 				"FROM information_schema.sequences " +
 				"WHERE sequence_catalog='" + catalog + '\'',
-			new ResultSetHandler()
-			{
-				public void run(final ResultSet resultSet) throws SQLException
+			resultSet ->
 				{
 					//printMeta(resultSet);
 					while(resultSet.next())
@@ -215,7 +208,7 @@ public final class PostgresqlDialect extends Dialect
 						schema.notifyExistentSequence(name, Sequence.Type.fromMaxValueExact(maxValue));
 					}
 				}
-			});
+			);
 	}
 
 	@Override

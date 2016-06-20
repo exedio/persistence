@@ -82,9 +82,7 @@ public final class HsqldbDialect extends Dialect
 				"FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS tc " +
 				"LEFT OUTER JOIN INFORMATION_SCHEMA.CHECK_CONSTRAINTS cc ON tc.CONSTRAINT_NAME = cc.CONSTRAINT_NAME " +
 				"WHERE tc.CONSTRAINT_TYPE IN ('CHECK','PRIMARY KEY','UNIQUE')",
-			new ResultSetHandler()
-			{
-				public void run(final ResultSet resultSet) throws SQLException
+			resultSet ->
 				{
 					while(resultSet.next())
 					{
@@ -149,7 +147,7 @@ public final class HsqldbDialect extends Dialect
 
 					}
 				}
-			});
+			);
 
 		verifyForeignKeyConstraints(
 				"SELECT tc.CONSTRAINT_NAME, tc.TABLE_NAME, ccu.COLUMN_NAME, kcu.TABLE_NAME, kcu.COLUMN_NAME " +
@@ -163,9 +161,7 @@ public final class HsqldbDialect extends Dialect
 		schema.querySQL(
 				"SELECT SEQUENCE_NAME, MAXIMUM_VALUE " +
 				"FROM INFORMATION_SCHEMA.SYSTEM_SEQUENCES",
-			new ResultSetHandler()
-			{
-				public void run(final ResultSet resultSet) throws SQLException
+			resultSet ->
 				{
 					//printMeta(resultSet);
 					while(resultSet.next())
@@ -178,7 +174,7 @@ public final class HsqldbDialect extends Dialect
 						schema.notifyExistentSequence(name, Sequence.Type.fromMaxValueExact(maxValue));
 					}
 				}
-			});
+			);
 	}
 
 	@Override

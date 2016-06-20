@@ -18,7 +18,6 @@
 
 package com.exedio.dsmf;
 
-import com.exedio.dsmf.Node.ResultSetHandler;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
@@ -66,9 +65,7 @@ public abstract class Dialect
 
 	void verify(final Schema schema)
 	{
-		schema.querySQL(Node.GET_TABLES, new ResultSetHandler()
-			{
-				public void run(final ResultSet resultSet) throws SQLException
+		schema.querySQL(Node.GET_TABLES, resultSet ->
 				{
 					//printMeta(resultSet);
 					while(resultSet.next())
@@ -82,11 +79,9 @@ public abstract class Dialect
 						//System.out.println("EXISTS:"+tableName);
 					}
 				}
-			});
+			);
 
-		schema.querySQL(Node.GET_COLUMNS, new ResultSetHandler()
-			{
-				public void run(final ResultSet resultSet) throws SQLException
+		schema.querySQL(Node.GET_COLUMNS, resultSet ->
 				{
 					while(resultSet.next())
 					{
@@ -106,16 +101,14 @@ public abstract class Dialect
 						//System.out.println("EXISTS:"+tableName);
 					}
 				}
-			});
+			);
 	}
 
 	static final void verifyForeignKeyConstraints(final String sql, final Schema schema)
 	{
 		schema.querySQL(
 			sql,
-			new ResultSetHandler()
-			{
-				public void run(final ResultSet resultSet) throws SQLException
+			resultSet ->
 				{
 					//printMeta(resultSet);
 					while(resultSet.next())
@@ -132,7 +125,7 @@ public abstract class Dialect
 							);
 					}
 				}
-			});
+			);
 	}
 
 	/**

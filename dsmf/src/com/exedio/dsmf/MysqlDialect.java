@@ -18,9 +18,7 @@
 
 package com.exedio.dsmf;
 
-import com.exedio.dsmf.Node.ResultSetHandler;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 
 public final class MysqlDialect extends Dialect
 {
@@ -83,7 +81,7 @@ public final class MysqlDialect extends Dialect
 			"SELECT TABLE_NAME " +
 				"FROM information_schema.TABLES " +
 				"WHERE TABLE_SCHEMA='" + catalog + "' AND TABLE_TYPE='BASE TABLE'",
-			new ResultSetHandler() { public void run(final ResultSet resultSet) throws SQLException
+			resultSet ->
 			{
 				//printMeta(resultSet);
 				while(resultSet.next())
@@ -96,12 +94,12 @@ public final class MysqlDialect extends Dialect
 						schema.notifyExistentTable(tableName);
 				}
 			}
-		});
+		);
 		schema.querySQL(
 			"SELECT TABLE_NAME,COLUMN_NAME,IS_NULLABLE,DATA_TYPE,CHARACTER_MAXIMUM_LENGTH,CHARACTER_SET_NAME,COLLATION_NAME,COLUMN_KEY " +
 			"FROM information_schema.COLUMNS " +
 			"WHERE TABLE_SCHEMA='" + catalog + '\'',
-			new ResultSetHandler() { public void run(final ResultSet resultSet) throws SQLException
+			resultSet ->
 			{
 				//printMeta(resultSet);
 				while(resultSet.next())
@@ -141,7 +139,7 @@ public final class MysqlDialect extends Dialect
 					}
 				}
 			}
-		});
+		);
 
 		verifyForeignKeyConstraints(
 			"SELECT tc.CONSTRAINT_NAME,tc.TABLE_NAME,kcu.COLUMN_NAME,kcu.REFERENCED_TABLE_NAME,kcu.REFERENCED_COLUMN_NAME " +
@@ -167,9 +165,7 @@ public final class MysqlDialect extends Dialect
 				"AND tc.TABLE_SCHEMA='" + catalog + "' " +
 				"AND tc.CONSTRAINT_TYPE IN ('" + PRIMARY_KEY + "','" + UNIQUE + "') " +
 			"ORDER BY tc.TABLE_NAME,tc.CONSTRAINT_NAME,kcu.ORDINAL_POSITION ",
-			new ResultSetHandler()
-		{
-			public void run(final ResultSet resultSet) throws SQLException
+			resultSet ->
 			{
 				//printMeta(resultSet);
 				final UniqueConstraintCollector uniqueConstraintCollector =
@@ -216,7 +212,7 @@ public final class MysqlDialect extends Dialect
 				}
 				uniqueConstraintCollector.finish();
 			}
-		});
+		);
 	}
 
 	private static final String ENGINE = " ENGINE=innodb";
