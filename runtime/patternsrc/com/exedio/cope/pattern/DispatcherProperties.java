@@ -36,7 +36,7 @@ public final class DispatcherProperties extends Properties
 
 	public static Factory<DispatcherProperties> factory()
 	{
-		return source -> new DispatcherProperties(source);
+		return DispatcherProperties::new;
 	}
 
 	private DispatcherProperties(final Source source)

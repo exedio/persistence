@@ -103,7 +103,7 @@ public final class SamplerProperties extends Properties
 
 		static Factory<PurgeDays> factory()
 		{
-			return source -> new PurgeDays(source);
+			return PurgeDays::new;
 		}
 
 		private PurgeDays(final Source source)
@@ -123,7 +123,7 @@ public final class SamplerProperties extends Properties
 
 	public static Factory<SamplerProperties> factory()
 	{
-		return source -> new SamplerProperties(source);
+		return SamplerProperties::new;
 	}
 
 	private SamplerProperties(final Source source)
