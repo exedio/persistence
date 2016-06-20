@@ -318,7 +318,7 @@ public final class Dispatcher extends Pattern
 					continue;
 				}
 
-				if(isDeferred(item))
+				if(item.isDeferred(this))
 				{
 					tx.commit();
 					if(logger.isDebugEnabled())
@@ -400,17 +400,6 @@ public final class Dispatcher extends Pattern
 		if(supportsPurge())
 			sv.add(unpend.map(new Unpend(success, date)));
 		item.set(sv.toArray(new SetValue<?>[sv.size()]));
-	}
-
-	/**
-	 * This helper method is needed to work around two unchecked cast warnings
-	 * issued by jdk1.7 javac.
-	 */
-	private boolean isDeferred(final Item item)
-	{
-		return
-			(item instanceof DispatchDeferrable) &&
-			((DispatchDeferrable)item).isDeferred(this);
 	}
 
 	/**

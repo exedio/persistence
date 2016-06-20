@@ -18,15 +18,12 @@
 
 package com.exedio.cope.pattern;
 
+/**
+ * @deprecated implement {@link Dispatchable} instead and
+ *             override {@link Dispatchable#isDeferred(Dispatcher)}
+ */
+@Deprecated
 public interface DispatchDeferrable extends Dispatchable
 {
-	/**
-	 * Allows to defer
-	 * {@link Dispatchable#dispatch(Dispatcher) dispatching}
-	 * an item even if it is pending.
-	 * <p>
-	 * Returning false is equivalent to not implementing
-	 * this interface at all.
-	 */
-	boolean isDeferred(Dispatcher dispatcher);
+	// empty as method was moved to super interface
 }

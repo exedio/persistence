@@ -90,7 +90,7 @@ public class DispatchableDeferrableTest extends TestWithEnvironment
 	}
 
 
-	static final class AnItem extends Item implements DispatchDeferrable
+	static final class AnItem extends Item implements Dispatchable
 	{
 		static final Dispatcher toTarget = new Dispatcher();
 		static final BooleanField deferred = new BooleanField().defaultTo(true);

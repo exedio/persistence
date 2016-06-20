@@ -23,6 +23,19 @@ public interface Dispatchable
 	void dispatch(Dispatcher dispatcher) throws Exception;
 
 	/**
+	 * Allows to defer
+	 * {@link #dispatch(Dispatcher) dispatching}
+	 * an item even if it is pending.
+	 * <p>
+	 * The default implementation returns false.
+	 * @param dispatcher used by subclasses
+	 */
+	default boolean isDeferred(final Dispatcher dispatcher)
+	{
+		return false;
+	}
+
+	/**
 	 * The default implementation does nothing.
 	 * @param dispatcher used by subclasses
 	 * @param cause used by subclasses

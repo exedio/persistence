@@ -7,6 +7,9 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* DispatchDeferrable#isDeferred moved up to Dispatchable.
+	This breaks backwards API compatibility, if you do not implement
+	interface DispatchDeferrable, but a method isDeferred(Dispatcher).
 * Dispatchable#notifyFinalFailure gets an empty default implementation.
 	You may want to remove your own implementation, if it is empty.
 * requires JDK 1.8.0_60
