@@ -1,8 +1,7 @@
 package com.exedio.cope.instrument;
 
-import com.sun.source.util.*;
-import java.net.URLClassLoader;
-import java.util.Arrays;
+import com.sun.source.util.DocTrees;
+import com.sun.source.util.TreePath;
 import java.util.Set;
 import javax.annotation.processing.AbstractProcessor;
 import javax.annotation.processing.ProcessingEnvironment;
@@ -15,16 +14,21 @@ import javax.lang.model.element.TypeElement;
 
 @SupportedSourceVersion(SourceVersion.RELEASE_8)
 @SupportedAnnotationTypes("*")
-public final class InstrumentorProcessor extends AbstractProcessor
+final class InstrumentorProcessor extends AbstractProcessor
 {
-	private Trees trees;
 	private DocTrees docTrees;
+
+	private final boolean deinstrument;
+
+	InstrumentorProcessor(boolean deinstrument)
+	{
+		this.deinstrument = deinstrument;
+	}
 
 	@Override
 	public void init(final ProcessingEnvironment pe)
 	{
 		super.init(pe);
-		trees = Trees.instance(pe);
 		docTrees = DocTrees.instance(pe);
 	}
 
@@ -33,11 +37,14 @@ public final class InstrumentorProcessor extends AbstractProcessor
 	{
 		for (final Element e: roundEnv.getRootElements())
 		{
-			final TreePath tp = trees.getPath(e);
+			final TreePath tp = docTrees.getPath(e);
 			// new TreeDump().scan(tp, null);
 			final InstrumentorVisitor visitor=new InstrumentorVisitor(tp.getCompilationUnit(), docTrees);
 			visitor.scan(tp, null);
-			visitor.removeAllGeneratedFragments();
+			if ( deinstrument )
+			{
+				visitor.removeAllGeneratedFragments();
+			}
 		}
 		return true;
 	}

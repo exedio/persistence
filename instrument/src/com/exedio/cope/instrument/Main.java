@@ -59,7 +59,7 @@ final class Main
 		if ( params.deinstrument )
 		{
 			final long start = System.currentTimeMillis();
-			runJavac(files);
+			runJavac(files, true);
 			System.out.println("runJavac "+(System.currentTimeMillis()-start)+" ms");
 			return;
 		}
@@ -191,7 +191,7 @@ final class Main
 		}
 	}
 
-	private void runJavac(final ArrayList<File> files)
+	private void runJavac(final ArrayList<File> files, boolean deinstrument)
 	{
 		// "JavacTool.create()" is not part of the "exported" API
 		// (not annotated with https://docs.oracle.com/javase/8/docs/jdk/api/javac/tree/jdk/Exported.html).
@@ -208,7 +208,7 @@ final class Main
 		optionList.addAll(asList("-classpath", toClasspath(com.exedio.cope.Item.class.getClassLoader())));
 		optionList.add("-proc:only");
 		final JavaCompiler.CompilationTask task = compiler.getTask(new StringWriter(), null, null, optionList, null, sources);
-		task.setProcessors(singleton(new InstrumentorProcessor()));
+		task.setProcessors(singleton(new InstrumentorProcessor(deinstrument)));
 		task.call();
 	}
 
