@@ -32,6 +32,7 @@ final class Params
 	boolean nullabilityAnnotations = false;
 	boolean suppressUnusedWarningOnPrivateActivationConstructor = false;
 	boolean serialVersionUID = true;
+	IntegerTypeSuffix serialVersionUIDSuffix = IntegerTypeSuffix.small;
 	boolean genericSetValueArray = true;
 	boolean directSetValueMap = false;
 	String hidingWarningSuppressor = null;
@@ -39,4 +40,22 @@ final class Params
 	boolean deprecatedFullyQualified = true;
 	boolean verbose = false;
 	File timestampFile = null;
+
+	enum IntegerTypeSuffix
+	{
+		/**
+		 * Not recommended by JLS 3.10.1 Integer Literals, as it might be hard
+		 * to distinguish from the digit one.
+		 */
+		small("l"),
+		capital("L"),
+		none(null);
+
+		final String code;
+
+		IntegerTypeSuffix(final String code)
+		{
+			this.code = code;
+		}
+	}
 }

@@ -85,6 +85,7 @@ final class Generator
 	private final boolean nullabilityAnnotations;
 	private final boolean suppressUnusedWarningOnPrivateActivationConstructor;
 	private final boolean serialVersionUID;
+	private final String serialVersionUIDSuffix;
 	private final boolean genericSetValueArray;
 	private final boolean directSetValueMap;
 	private final String hidingWarningSuppressor;
@@ -104,6 +105,7 @@ final class Generator
 		this.nullabilityAnnotations = params.nullabilityAnnotations;
 		this.suppressUnusedWarningOnPrivateActivationConstructor = params.suppressUnusedWarningOnPrivateActivationConstructor;
 		this.serialVersionUID = params.serialVersionUID;
+		this.serialVersionUIDSuffix = params.serialVersionUIDSuffix.code;
 		this.genericSetValueArray = params.genericSetValueArray;
 		this.directSetValueMap = params.directSetValueMap;
 		this.hidingWarningSuppressor = params.hidingWarningSuppressor;
@@ -778,7 +780,10 @@ final class Generator
 
 		writeIndent();
 		writeModifier(PRIVATE|STATIC|FINAL);
-		write("long serialVersionUID = 1l;");
+		write("long serialVersionUID = 1");
+		if(serialVersionUIDSuffix!=null)
+			write(serialVersionUIDSuffix);
+		write(';');
 	}
 
 	private void writeType(final CopeType type)

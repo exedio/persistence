@@ -18,6 +18,7 @@
 
 package com.exedio.cope.instrument;
 
+import com.exedio.cope.instrument.Params.IntegerTypeSuffix;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
@@ -104,6 +105,11 @@ public final class AntTask extends Task
 	public void setSerialVersionUID(final boolean value)
 	{
 		params.serialVersionUID = value;
+	}
+
+	public void setSerialVersionUIDSuffix(final IntegerTypeSuffix value)
+	{
+		params.serialVersionUIDSuffix = value;
 	}
 
 	public void setGenericSetValueArray(final boolean value)

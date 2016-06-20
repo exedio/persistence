@@ -884,6 +884,7 @@
 				verify="${instrument.verify}"
 				encoding="ascii"
 				suppressUnusedWarningOnPrivateActivationConstructor="true"
+				serialVersionUIDSuffix="small"
 				hidingWarningSuppressor="hiding"
 				nullabilityAnnotations="${instrument.nullabilityAnnotations}"
 				timestampFile="build/timestamps/instrument.test.timestamp">
