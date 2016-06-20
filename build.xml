@@ -1178,4 +1178,22 @@
 		</foreachEnvironment>
 	</target>
 
+	<target name="deinstrument" depends="instrument.taskdef">
+		<instrument deinstrument="true">
+			<fileset dir="runtime/testsrc/com/exedio/cope">
+				<include name="**/*.java" />
+			</fileset>
+		</instrument>
+		<instrument deinstrument="true">
+			<fileset dir="runtime/servlettestsrc">
+				<include name="**/*.java" />
+			</fileset>
+		</instrument>
+		<instrument deinstrument="true">
+			<fileset dir="instrument/testsrc/com/exedio/cope/instrument/testmodel">
+				<include name="**/*.java" />
+			</fileset>
+		</instrument>
+	</target>
+
 </project>

@@ -7,6 +7,7 @@ import com.sun.source.tree.ClassTree;
 import com.sun.source.tree.CompilationUnitTree;
 import com.sun.source.tree.ExpressionTree;
 import com.sun.source.tree.MethodTree;
+import com.sun.source.tree.Tree;
 import com.sun.source.tree.VariableTree;
 import com.sun.source.util.DocSourcePositions;
 import com.sun.source.util.DocTrees;
@@ -14,6 +15,7 @@ import com.sun.source.util.TreePathScanner;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
@@ -23,6 +25,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import javax.lang.model.element.Modifier;
+import javax.tools.JavaFileObject;
 
 class InstrumentorVisitor extends TreePathScanner<Void, Void>
 {
@@ -32,12 +35,10 @@ class InstrumentorVisitor extends TreePathScanner<Void, Void>
 	private final DocTrees docTrees;
 
 	private final Deque<ClassTree> classStack=new ArrayDeque<>();
-	private MethodTree method;
-	private boolean currentMethodHasGeneratedAnnotation = false;
 
 	private byte[] allBytes;
 
-	final List<GeneratedFragment> generatedFragments = new ArrayList<>();
+	private final List<GeneratedFragment> generatedFragments = new ArrayList<>();
 
 	InstrumentorVisitor(CompilationUnitTree compilationUnit, DocTrees docTrees)
 	{
@@ -53,16 +54,16 @@ class InstrumentorVisitor extends TreePathScanner<Void, Void>
 
 	private void addPotentialFeature(ClassTree clazz, VariableTree variable, ExpressionTree initializer)
 	{
-		System.out.println("potential feature "+clazz.getSimpleName()+" "+variable.getName()+": "+initializer);
+		// System.out.println("potential feature "+clazz.getSimpleName()+" "+variable.getName()+": "+initializer);
 	}
 
 	private byte[] getAllBytes()
 	{
 		if ( allBytes==null )
 		{
-			try
+			try (final InputStream inputStream=compilationUnit.getSourceFile().openInputStream())
 			{
-				allBytes=readFully(compilationUnit.getSourceFile().openInputStream());
+				allBytes=readFully(inputStream);
 			}
 			catch (IOException e)
 			{
@@ -107,25 +108,28 @@ class InstrumentorVisitor extends TreePathScanner<Void, Void>
 	@Override
 	public Void visitVariable(VariableTree node, Void p)
 	{
-		Set<Modifier> required = new HashSet<>();
+		final Set<Modifier> required = new HashSet<>();
 		required.add(Modifier.FINAL);
 		required.add(Modifier.STATIC);
 		if ( node.getModifiers().getFlags().containsAll(required) )
 		{
 			addPotentialFeature(getCurrentClass(), node, node.getInitializer());
 		}
-		return super.visitVariable(node, p); //To change body of generated methods, choose Tools | Templates.
+		final VariableVisitor variableVisitor=new VariableVisitor();
+		variableVisitor.visitVariable(node, null);
+		checkGenerated(node, variableVisitor.currentVariableHasGeneratedAnnotation);
+		return null;
 	}
 
 	@Override
 	public Void visitAnnotation(AnnotationTree node, Void p)
 	{
-		if ( method!=null && node.getAnnotationType().toString().contains("javax.annotation.Generated")
+		if ( node.getAnnotationType().toString().contains("javax.annotation.Generated")
 			&& node.getArguments().size()==1
 			&& node.getArguments().get(0).toString().equals("value = \"com.exedio.cope.instrument\"")
 			)
 		{
-			currentMethodHasGeneratedAnnotation = true;
+			throw new RuntimeException("'Generated' but not a method or variable");
 		}
 		return super.visitAnnotation(node, p);
 	}
@@ -183,10 +187,15 @@ class InstrumentorVisitor extends TreePathScanner<Void, Void>
 	@Override
 	public Void visitMethod(MethodTree mt, Void ignore)
 	{
-		if ( method!=null ) throw new RuntimeException();
-		method = mt;
-		final Void result=super.visitMethod(mt, ignore); // collects annotation info
-		if ( currentMethodHasGeneratedAnnotation || hasCopeGeneratedJavadocTag() )
+		final MethodVisitor methodVisitor=new MethodVisitor();
+		methodVisitor.visitMethod(mt, null);
+		checkGenerated(mt, methodVisitor.currentMethodHasGeneratedAnnotation);
+		return null;
+	}
+
+	private void checkGenerated(final Tree mt, final boolean hasGeneratedAnnotation) throws RuntimeException
+	{
+		if ( hasGeneratedAnnotation || hasCopeGeneratedJavadocTag() )
 		{
 			final int start=Math.toIntExact(sourcePositions.getStartPosition(compilationUnit, mt));
 			final int end=Math.toIntExact(sourcePositions.getEndPosition(compilationUnit, mt));
@@ -208,10 +217,7 @@ class InstrumentorVisitor extends TreePathScanner<Void, Void>
 				if ( !allWhitespace(inBetween) ) throw new RuntimeException(">"+inBetween+"<");
 				addGeneratedFragment(docStart, end);
 			}
-			currentMethodHasGeneratedAnnotation = false;
 		}
-		method = null;
-		return result;
 	}
 
 	private boolean allWhitespace(String s)
@@ -229,7 +235,10 @@ class InstrumentorVisitor extends TreePathScanner<Void, Void>
 	@Override
 	public Void visitBlock(BlockTree node, Void p)
 	{
-		// nobody cares -> don't traverse
+		if ( !node.isStatic() )
+		{
+			throw new RuntimeException();
+		}
 		return null;
 	}
 
@@ -245,6 +254,34 @@ class InstrumentorVisitor extends TreePathScanner<Void, Void>
 			baos.write(b);
 		}
 		return baos.toByteArray();
+	}
+
+	void removeAllGeneratedFragments()
+	{
+		if ( generatedFragments.isEmpty() )
+		{
+			return;
+		}
+		final JavaFileObject sourceFile=compilationUnit.getSourceFile();
+		System.out.println(sourceFile);
+		int start = 0;
+		try (final OutputStream os = sourceFile.openOutputStream())
+		{
+			int end;
+			final byte[] allBytes=getAllBytes();
+			for (final InstrumentorVisitor.GeneratedFragment generatedFragment: generatedFragments)
+			{
+				end = generatedFragment.fromInclusive;
+				os.write(allBytes, start, end-start);
+				start = generatedFragment.endExclusive;
+			}
+			os.write(allBytes, start, allBytes.length-start);
+		}
+		catch (IOException e)
+		{
+			throw new RuntimeException(e);
+		}
+
 	}
 
 	static class GeneratedFragment

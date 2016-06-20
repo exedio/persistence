@@ -34,16 +34,10 @@ public final class InstrumentorProcessor extends AbstractProcessor
 		for (final Element e: roundEnv.getRootElements())
 		{
 			final TreePath tp = trees.getPath(e);
+			// new TreeDump().scan(tp, null);
 			final InstrumentorVisitor visitor=new InstrumentorVisitor(tp.getCompilationUnit(), docTrees);
 			visitor.scan(tp, null);
-			if ( !visitor.generatedFragments.isEmpty() )
-			{
-				System.out.println(tp.getCompilationUnit().getSourceFile());
-				for (InstrumentorVisitor.GeneratedFragment generatedFragment: visitor.generatedFragments)
-				{
-					System.out.println("  "+generatedFragment.toString());
-				}
-			}
+			visitor.removeAllGeneratedFragments();
 		}
 		return true;
 	}

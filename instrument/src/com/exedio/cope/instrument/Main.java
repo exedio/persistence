@@ -56,7 +56,13 @@ final class Main
 			return;
 		}
 
-		runJavac(files);
+		if ( params.deinstrument )
+		{
+			final long start = System.currentTimeMillis();
+			runJavac(files);
+			System.out.println("runJavac "+(System.currentTimeMillis()-start)+" ms");
+			return;
+		}
 
 		if(params.verify)
 			System.out.println("Instrumenting in verify mode.");

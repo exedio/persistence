@@ -145,6 +145,11 @@ public final class AntTask extends Task
 		params.verbose = value;
 	}
 
+	public void setDeinstrument(final boolean value)
+	{
+		params.deinstrument = value;
+	}
+
 	@Override
 	public void execute() throws BuildException
 	{
