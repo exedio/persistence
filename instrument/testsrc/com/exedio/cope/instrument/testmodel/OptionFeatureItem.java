@@ -260,7 +260,8 @@ public final class OptionFeatureItem extends OptionFeatureSuperItem
 	 *       It can be customized with the tag <tt>@cope.simple public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@java.lang.Override() final void simpleOverride()
+	@java.lang.Override()
+	final void simpleOverride()
 	{
 		OptionFeatureItem.override.simple(this);
 	}/**

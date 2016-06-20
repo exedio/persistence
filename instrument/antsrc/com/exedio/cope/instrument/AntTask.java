@@ -137,6 +137,11 @@ public final class AntTask extends Task
 		params.deprecatedFullyQualified = value;
 	}
 
+	public void setOverrideOnSeparateLine(final boolean value)
+	{
+		params.overrideOnSeparateLine = value;
+	}
+
 	public void setVerbose(final boolean value)
 	{
 		params.verbose = value;

@@ -91,6 +91,7 @@ final class Generator
 	private final String hidingWarningSuppressor;
 	private final boolean parenthesesOnEmptyMemberAnnotations;
 	private final boolean deprecatedFullyQualified;
+	private final boolean overrideOnSeparateLine;
 	private int typeIndent = Integer.MIN_VALUE;
 
 
@@ -111,6 +112,7 @@ final class Generator
 		this.hidingWarningSuppressor = params.hidingWarningSuppressor;
 		this.parenthesesOnEmptyMemberAnnotations = params.parenthesesOnEmptyMemberAnnotations;
 		this.deprecatedFullyQualified = params.deprecatedFullyQualified;
+		this.overrideOnSeparateLine = params.overrideOnSeparateLine;
 	}
 
 	private static final String toCamelCase(final String name)
@@ -514,9 +516,14 @@ final class Generator
 					throw new RuntimeException("invalid case");
 			}
 
+			if(option.override && overrideOnSeparateLine)
+			{
+				writeEmptyAnnotationOnSeparateLine(Override.class);
+			}
+
 			writeIndent();
 
-			if(option.override)
+			if(option.override && !overrideOnSeparateLine)
 			{
 				writeAnnotation(Override.class);
 				writeEmptyParenthesesForAnnotation();

@@ -166,7 +166,8 @@ public final class Sub extends Super
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	@javax.annotation.Nullable()
-	@java.lang.Override() final java.lang.Long getOverride()
+	@java.lang.Override()
+	final java.lang.Long getOverride()
 	{
 		return Sub.override.get(this);
 	}/**

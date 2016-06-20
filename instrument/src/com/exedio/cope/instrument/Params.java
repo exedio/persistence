@@ -38,6 +38,7 @@ final class Params
 	String hidingWarningSuppressor = null;
 	boolean parenthesesOnEmptyMemberAnnotations = true;
 	boolean deprecatedFullyQualified = true;
+	boolean overrideOnSeparateLine = true;
 	boolean verbose = false;
 	File timestampFile = null;
 
