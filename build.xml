@@ -4,6 +4,7 @@
 
 	<property file="local.properties" />
 	<property file="project.properties" />
+	<property environment="env"/>
 
 	<import>
 		<fileset dir="macros">
@@ -805,8 +806,9 @@
 	</target>
 
 	<target name="instrument.core.compile" depends="runtime.core.compile, runtime.pattern.compile, instrument.anno.compile">
-		<compile srcdir="instrument/src">
+		<compile srcdir="instrument/src" includeAntRuntime="true">
 			<classpath>
+				<!--<pathelement location="${env.JAVA_HOME}/lib/tools.jar"/>-->
 				<pathelement location="build/classes/runtime/src" />
 				<pathelement location="build/classes/runtime/patternsrc" /><!-- TODO stricter, is for Composite only -->
 				<pathelement location="build/classes/instrument/annosrc" />
@@ -1012,6 +1014,7 @@
 				<pathelement location="lib/javax.servlet-api.jar" />
 				<pathelement location="lib/slf4j-api.jar" />
 				<pathelement location="lib/findbugs-annotations.jar" />
+				<pathelement location="${env.JAVA_HOME}/lib/tools.jar"/>
 			</myClasspath>
 		</api>
 	</target>

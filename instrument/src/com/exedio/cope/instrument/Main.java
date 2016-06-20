@@ -21,18 +21,28 @@ package com.exedio.cope.instrument;
 
 import static com.exedio.cope.util.StrictFile.delete;
 import static java.lang.System.lineSeparator;
+import static java.util.Arrays.asList;
+import static java.util.Collections.singleton;
 
 import com.exedio.cope.util.Clock;
 import com.exedio.cope.util.StrictFile;
+import com.sun.tools.javac.api.JavacTool;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.StringWriter;
 import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
 import java.nio.charset.Charset;
 import java.nio.charset.CharsetEncoder;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import javax.tools.JavaCompiler;
+import javax.tools.JavaFileObject;
+import javax.tools.StandardJavaFileManager;
 
 final class Main
 {
@@ -45,6 +55,8 @@ final class Main
 			System.out.println("No files or resources modified.");
 			return;
 		}
+
+		runJavac(files);
 
 		if(params.verify)
 			System.out.println("Instrumenting in verify mode.");
@@ -171,6 +183,35 @@ final class Main
 			}
 			return true;
 		}
+	}
+
+	private void runJavac(final ArrayList<File> files)
+	{
+		// "JavacTool.create()" is not part of the "exported" API
+		// (not annotated with https://docs.oracle.com/javase/8/docs/jdk/api/javac/tree/jdk/Exported.html).
+		// The more stable alternative would be calling "ToolProvider.getSystemJavaCompiler()", but that causes
+		// class path issues with when run as an ant task.
+		final JavaCompiler compiler=JavacTool.create();
+		if ( compiler==null )
+		{
+			throw new NullPointerException("no system java compiler found - please make sure your \"java\" is from a JDK, not a JRE");
+		}
+		final StandardJavaFileManager fileManager=compiler.getStandardFileManager(null, null, null);
+		final Iterable<? extends JavaFileObject> sources=fileManager.getJavaFileObjectsFromFiles(files);
+		final List<String> optionList = new ArrayList<>();
+		optionList.addAll(asList("-classpath", toClasspath(com.exedio.cope.Item.class.getClassLoader())));
+		optionList.add("-proc:only");
+		final JavaCompiler.CompilationTask task = compiler.getTask(new StringWriter(), null, null, optionList, null, sources);
+		task.setProcessors(singleton(new InstrumentorProcessor()));
+		task.call();
+	}
+
+	private String toClasspath(ClassLoader cl)
+	{
+		final Pattern pattern = Pattern.compile("AntClassLoader\\[(.*)\\]");
+		final Matcher matcher = pattern.matcher(cl.toString());
+		if ( !matcher.matches() ) throw new RuntimeException();
+		return matcher.group(1);
 	}
 
 	boolean verbose;
