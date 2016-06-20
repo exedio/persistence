@@ -26,7 +26,6 @@ import static org.junit.Assert.fail;
 import com.exedio.cope.tojunit.LogRule;
 import com.exedio.cope.util.ModificationListener;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import java.util.Collection;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.RuleChain;
@@ -43,7 +42,7 @@ public class ModificationListenerTest extends TestWithEnvironment
 
 	@Rule public final RuleChain ruleChain = RuleChain.outerRule(log);
 
-	final MockListener l = new MockListener();
+	final ModificationListener l = (modifiedItems, transaction) -> { fail(); };
 
 	// dead store is needed to assign null for testing garbage collection
 	@SuppressFBWarnings("DLS_DEAD_LOCAL_STORE_OF_NULL")
@@ -96,19 +95,5 @@ public class ModificationListenerTest extends TestWithEnvironment
 		assertEquals(0, model.getModificationListenersCleared());
 
 		log.assertEmpty();
-	}
-
-	private static final class MockListener implements ModificationListener
-	{
-		MockListener()
-		{
-			// make constructor non-private
-		}
-
-		@Deprecated
-		public void onModifyingCommit(final Collection<Item> modifiedItems, final Transaction transaction)
-		{
-			fail();
-		}
 	}
 }

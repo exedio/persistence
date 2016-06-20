@@ -23,12 +23,8 @@ import static com.exedio.cope.tojunit.Assert.list;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import com.exedio.cope.ChangeEvent;
-import com.exedio.cope.ChangeListener;
 import com.exedio.cope.Model;
 import com.exedio.cope.TestWithEnvironment;
-import com.exedio.cope.misc.DatabaseListener;
-import java.util.List;
 
 public abstract class CopeModelTestTest extends TestWithEnvironment
 {
@@ -71,24 +67,14 @@ public abstract class CopeModelTestTest extends TestWithEnvironment
 		assertEquals(2003, nextSequence());
 
 		assertEquals(null, model.getDatabaseListener());
-		model.setDatabaseListener(new DatabaseListener(){
-
-			public void onStatement(
-					final String sql, final List<Object> parameters,
-					final long durationPrepare, final long durationExecute, final long durationRead,
-					final long durationClose)
+		model.setDatabaseListener(
+			(sql, parameters, durationPrepare, durationExecute, durationRead, durationClose) ->
 			{
 				// do nothing
 			}
-		});
+		);
 
 		assertEquals(list(), model.getChangeListeners());
-		model.addChangeListener(new ChangeListener()
-		{
-			public void onChange(final ChangeEvent event)
-			{
-				throw new RuntimeException();
-			}
-		});
+		model.addChangeListener( (event) -> { throw new RuntimeException(); } );
 	}
 }
