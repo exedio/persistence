@@ -175,12 +175,6 @@ public final class EnumMapField<K extends Enum<K>,V> extends Pattern implements 
 	}
 
 	@Override
-	public SetValue<EnumMap<K, V>> map(final EnumMap<K, V> value)
-	{
-		return SetValue.map(this, value);
-	}
-
-	@Override
 	public SetValue<?>[] execute(final EnumMap<K, V> value, final Item exceptionItem)
 	{
 		if(value==null)

@@ -337,11 +337,6 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 		return isfinal || !optional;
 	}
 
-	public SetValue<Media.Value> map(final Value value)
-	{
-		return SetValue.map(this, value);
-	}
-
 	@Wrap(order=10, doc="Returns whether media {0} is null.", hide=MandatoryGetter.class)
 	public boolean isNull(@Nonnull final Item item)
 	{

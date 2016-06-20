@@ -240,11 +240,6 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 		}
 	}
 
-	public SetValue<Collection<E>> map(final Collection<E> value)
-	{
-		return SetValue.map(this, value);
-	}
-
 	public SetValue<?>[] execute(final Collection<E> value, final Item exceptionItem)
 	{
 		assertValue(value, exceptionItem);

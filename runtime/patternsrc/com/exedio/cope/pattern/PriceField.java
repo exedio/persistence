@@ -180,11 +180,6 @@ public final class PriceField extends Pattern implements Settable<Price>, Copyab
 		integer.set(item, value!=null ? value.store() : null);
 	}
 
-	public SetValue<Price> map(final Price value)
-	{
-		return SetValue.map(this, value);
-	}
-
 	public SetValue<?>[] execute(final Price value, final Item exceptionItem)
 	{
 		if(value==null && mandatory)

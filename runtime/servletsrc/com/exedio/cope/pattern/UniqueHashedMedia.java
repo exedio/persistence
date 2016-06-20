@@ -299,12 +299,6 @@ public final class UniqueHashedMedia extends Pattern implements Settable<Value>,
 	}
 
 	@Override
-	public SetValue<Value> map(final Value value)
-	{
-		return SetValue.map(this, value);
-	}
-
-	@Override
 	public SetValue<?>[] execute(final Value value, final Item exceptionItem)
 	{
 		final Value mediaValue;

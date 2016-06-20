@@ -223,11 +223,6 @@ public final class TypeField<E extends Item> extends Pattern implements Settable
 		idField.set(item, value!=null ? value.getID() : null);
 	}
 
-	public SetValue<Type<? extends E>> map(final Type<? extends E> value)
-	{
-		return SetValue.map(this, value);
-	}
-
 	public SetValue<?>[] execute(final Type<? extends E> value, final Item exceptionItem)
 	{
 		if(value==null && mandatory)

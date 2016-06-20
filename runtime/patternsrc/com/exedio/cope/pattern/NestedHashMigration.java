@@ -186,12 +186,6 @@ public final class NestedHashMigration extends Pattern implements HashInterface
 	}
 
 	@Override
-	public SetValue<String> map(final String value)
-	{
-		return SetValue.map(this, value);
-	}
-
-	@Override
 	public SetValue<?>[] execute(final String value, final Item exceptionItem)
 	{
 		if(value==null)

@@ -308,11 +308,6 @@ public class Hash extends Pattern implements HashInterface
 		}
 	}
 
-	public final SetValue<String> map(final String value)
-	{
-		return SetValue.map(this, value);
-	}
-
 	public final SetValue<?>[] execute(final String value, final Item exceptionItem) throws InvalidPlainTextException
 	{
 		final String hash = hash(value, exceptionItem);

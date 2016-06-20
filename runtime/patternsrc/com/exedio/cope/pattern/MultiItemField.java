@@ -262,11 +262,6 @@ public final class MultiItemField<E> extends Pattern implements Settable<E>
 		return Condition.FALSE;
 	}
 
-	public SetValue<E> map(final E value)
-	{
-		return SetValue.map(this, value);
-	}
-
 	@Override
 	public SetValue<?>[] execute(final E value, final Item exceptionItem)
 	{

@@ -140,12 +140,6 @@ public final class EnumSetField<E extends Enum<E>> extends Pattern implements Se
 	}
 
 	@Override
-	public SetValue<EnumSet<E>> map(final EnumSet<E> value)
-	{
-		return SetValue.map(this, value);
-	}
-
-	@Override
 	public SetValue<?>[] execute(final EnumSet<E> value, final Item exceptionItem)
 	{
 		if(value==null)

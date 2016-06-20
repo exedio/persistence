@@ -142,11 +142,6 @@ public final class RangeField<E extends Comparable<E>> extends Pattern implement
 			: from.isNull().or(from.lessOrEqual(value)).and(to.isNull().or(to.greaterOrEqual(value)));
 	}
 
-	public SetValue<Range<E>> map(final Range<E> value)
-	{
-		return SetValue.map(this, value);
-	}
-
 	public SetValue<?>[] execute(final Range<E> value, final Item exceptionItem)
 	{
 		return new SetValue<?>[]{

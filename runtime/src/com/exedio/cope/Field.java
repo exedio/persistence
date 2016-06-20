@@ -125,11 +125,6 @@ public abstract class Field<E> extends Feature implements Settable<E>
 		return Cast.castElements(valueClass, c);
 	}
 
-	public final SetValue<E> map(final E value)
-	{
-		return SetValue.map(this, value);
-	}
-
 	public final SetValue<E> mapNull()
 	{
 		return SetValue.map(this, null);

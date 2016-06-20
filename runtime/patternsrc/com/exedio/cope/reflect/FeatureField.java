@@ -224,11 +224,6 @@ public final class FeatureField<E extends Feature> extends Pattern implements Se
 		idField.set(item, value!=null ? value.getID() : null);
 	}
 
-	public SetValue<E> map(final E value)
-	{
-		return SetValue.map(this, value);
-	}
-
 	public SetValue<?>[] execute(final E value, final Item exceptionItem)
 	{
 		if(value==null && mandatory)

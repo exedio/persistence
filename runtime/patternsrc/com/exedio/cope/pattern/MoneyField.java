@@ -223,12 +223,6 @@ public final class MoneyField<C extends Money.Currency> extends Pattern implemen
 	}
 
 	@Override
-	public SetValue<Money<C>> map(final Money<C> value)
-	{
-		return SetValue.map(this, value);
-	}
-
-	@Override
 	public SetValue<?>[] execute(final Money<C> value, final Item exceptionItem)
 	{
 		return execute(value, exceptionItem, new SetValue<?>[]{});
