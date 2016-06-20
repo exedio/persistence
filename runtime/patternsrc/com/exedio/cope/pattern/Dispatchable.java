@@ -21,5 +21,14 @@ package com.exedio.cope.pattern;
 public interface Dispatchable
 {
 	void dispatch(Dispatcher dispatcher) throws Exception;
-	void notifyFinalFailure(Dispatcher dispatcher, Exception cause);
+
+	/**
+	 * The default implementation does nothing.
+	 * @param dispatcher used by subclasses
+	 * @param cause used by subclasses
+	 */
+	default void notifyFinalFailure(final Dispatcher dispatcher, final Exception cause)
+	{
+		// empty default implementation
+	}
 }
