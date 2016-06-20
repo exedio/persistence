@@ -64,7 +64,7 @@ public final class SamplerProperties extends Properties
 
 	// purge
 
-	final PurgeDays purgeDays = value("purgeDays", true, PurgeDays.factory());
+	final PurgeDays purgeDays = value("purgeDays", true, PurgeDays::new);
 
 	static final class PurgeDays extends Properties
 	{
@@ -101,12 +101,7 @@ public final class SamplerProperties extends Properties
 			sampler.purge(limits, ctx);
 		}
 
-		static Factory<PurgeDays> factory()
-		{
-			return PurgeDays::new;
-		}
-
-		private PurgeDays(final Source source)
+		PurgeDays(final Source source)
 		{
 			super(source);
 		}
