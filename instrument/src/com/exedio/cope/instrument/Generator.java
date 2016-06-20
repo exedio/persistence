@@ -488,28 +488,24 @@ final class Generator
 
 			if(wrapper.isMethodDeprecated())
 			{
-				writeIndent();
 				if(deprecatedFullyQualified)
-					writeAnnotation(Deprecated.class);
+					writeEmptyAnnotationOnSeparateLine(Deprecated.class);
 				else
+				{
+					writeIndent();
 					write("@Deprecated");
-				writeEmptyParenthesesForAnnotation();
-				write(lineSeparator);
+					writeEmptyParenthesesForAnnotation();
+					write(lineSeparator);
+				}
 			}
 
 			switch(wrapper.getMethodNullability())
 			{
 				case NONNULL:
-					writeIndent();
-					writeAnnotation(Nonnull.class);
-					writeEmptyParenthesesForAnnotation();
-					write(lineSeparator);
+					writeEmptyAnnotationOnSeparateLine(Nonnull.class);
 					break;
 				case NULLABLE:
-					writeIndent();
-					writeAnnotation(Nullable.class);
-					writeEmptyParenthesesForAnnotation();
-					write(lineSeparator);
+					writeEmptyAnnotationOnSeparateLine(Nullable.class);
 					break;
 				case DEFAULT:
 					// nothing to do
@@ -701,6 +697,14 @@ final class Generator
 		{
 			write("()");
 		}
+	}
+
+	private void writeEmptyAnnotationOnSeparateLine(final Class<? extends Annotation> annotationClass)
+	{
+		writeIndent();
+		writeAnnotation(annotationClass);
+		writeEmptyParenthesesForAnnotation();
+		write(lineSeparator);
 	}
 
 	private List<WrapperX> getWrappers(final Object feature)
