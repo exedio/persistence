@@ -223,10 +223,9 @@ public final class TypeField<E extends Item> extends Pattern implements Settable
 		idField.set(item, value!=null ? value.getID() : null);
 	}
 
-	@SuppressWarnings("deprecation") // not sure, why SetValue#map does not work
 	public SetValue<Type<? extends E>> map(final Type<? extends E> value)
 	{
-		return new SetValue<>(this, value);
+		return SetValue.map(this, value);
 	}
 
 	public SetValue<?>[] execute(final Type<? extends E> value, final Item exceptionItem)
