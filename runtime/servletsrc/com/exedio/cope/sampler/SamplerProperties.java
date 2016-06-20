@@ -27,7 +27,6 @@ import com.exedio.cope.misc.ConnectToken;
 import com.exedio.cope.util.Clock;
 import com.exedio.cope.util.JobContext;
 import com.exedio.cope.util.Properties;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -39,15 +38,7 @@ public final class SamplerProperties extends Properties
 
 	private static Factory<ConnectProperties> mask(final Factory<ConnectProperties> original)
 	{
-		return new Factory<ConnectProperties>()
-		{
-			@SuppressFBWarnings("BC_UNCONFIRMED_CAST_OF_RETURN_VALUE")
-			@Override
-			public ConnectProperties create(final Source source)
-			{
-				return original.create(Sampler.maskConnectSourceInternal(source));
-			}
-		};
+		return source -> original.create(Sampler.maskConnectSourceInternal(source));
 	}
 
 	public void setProperties(final Model model)
@@ -73,7 +64,7 @@ public final class SamplerProperties extends Properties
 
 	// purge
 
-	final PurgeDays purgeDays = value("purgeDays", true, PurgeDays.factory());
+	final PurgeDays purgeDays = value("purgeDays", true, PurgeDays::new);
 
 	static final class PurgeDays extends Properties
 	{
@@ -110,20 +101,7 @@ public final class SamplerProperties extends Properties
 			sampler.purge(limits, ctx);
 		}
 
-		static Factory<PurgeDays> factory()
-		{
-			return new Factory<PurgeDays>()
-			{
-				@Override
-				@SuppressWarnings("synthetic-access")
-				public PurgeDays create(final Source source)
-				{
-					return new PurgeDays(source);
-				}
-			};
-		}
-
-		private PurgeDays(final Source source)
+		PurgeDays(final Source source)
 		{
 			super(source);
 		}
@@ -140,15 +118,7 @@ public final class SamplerProperties extends Properties
 
 	public static Factory<SamplerProperties> factory()
 	{
-		return new Factory<SamplerProperties>()
-		{
-			@Override
-			@SuppressWarnings("synthetic-access")
-			public SamplerProperties create(final Source source)
-			{
-				return new SamplerProperties(source);
-			}
-		};
+		return SamplerProperties::new;
 	}
 
 	private SamplerProperties(final Source source)

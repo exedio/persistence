@@ -36,15 +36,7 @@ public final class DispatcherProperties extends Properties
 
 	public static Factory<DispatcherProperties> factory()
 	{
-		return new Factory<DispatcherProperties>()
-		{
-			@Override
-			@SuppressWarnings("synthetic-access")
-			public DispatcherProperties create(final Source source)
-			{
-				return new DispatcherProperties(source);
-			}
-		};
+		return DispatcherProperties::new;
 	}
 
 	private DispatcherProperties(final Source source)
