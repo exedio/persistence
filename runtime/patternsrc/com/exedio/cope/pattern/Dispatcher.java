@@ -643,10 +643,10 @@ public final class Dispatcher extends Pattern
 	{
 		return com.exedio.cope.util.InterrupterJobContextAdapter.run(
 			interrupter,
-			new com.exedio.cope.util.InterrupterJobContextAdapter.Body(){public void run(final JobContext ctx)
+			ctx ->
 			{
 				dispatch(parentClass, config, ctx);
-			}}
+			}
 		);
 	}
 }

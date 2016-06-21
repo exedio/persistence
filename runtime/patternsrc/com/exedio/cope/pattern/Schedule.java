@@ -606,10 +606,10 @@ public final class Schedule extends Pattern
 	{
 		return com.exedio.cope.util.InterrupterJobContextAdapter.run(
 			interrupter,
-			new com.exedio.cope.util.InterrupterJobContextAdapter.Body(){public void run(final JobContext ctx)
+			ctx ->
 			{
-				Schedule.this.run(parentClass, ctx);
-			}}
+				run(parentClass, ctx);
+			}
 		);
 	}
 }

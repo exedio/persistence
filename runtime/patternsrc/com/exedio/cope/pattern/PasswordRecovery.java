@@ -300,10 +300,10 @@ public final class PasswordRecovery extends Pattern
 	{
 		return com.exedio.cope.util.InterrupterJobContextAdapter.run(
 			interrupter,
-			new com.exedio.cope.util.InterrupterJobContextAdapter.Body(){public void run(final JobContext ctx)
+			ctx ->
 			{
 				purge(ctx);
-			}}
+			}
 		);
 	}
 
