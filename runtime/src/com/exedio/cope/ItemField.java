@@ -485,12 +485,6 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 	}
 
 	@Override
-	public BindItemFunction<E> bind(final Join join)
-	{
-		return new BindItemFunction<>(this, join);
-	}
-
-	@Override
 	public InstanceOfCondition<E> instanceOf(final Type<? extends E> type1)
 	{
 		return new InstanceOfCondition<>(this, false, type1);

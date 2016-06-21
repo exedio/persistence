@@ -124,12 +124,6 @@ public final class This<E extends Item> extends Feature
 	// Note about isNull/isNotNull: a primary key can become null in queries using outer joins.
 
 	@Override
-	public final BindItemFunction<E> bind(final Join join)
-	{
-		return new BindItemFunction<>(this, join);
-	}
-
-	@Override
 	public CompareFunctionCondition<?> equalTarget()
 	{
 		return ItemFunctionUtil.equalTarget(this);
