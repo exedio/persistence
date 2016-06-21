@@ -93,26 +93,31 @@ public final class Serializer<E> extends Pattern implements Settable<E>
 		return source;
 	}
 
+	@Override
 	public boolean isInitial()
 	{
 		return source.isInitial();
 	}
 
+	@Override
 	public boolean isFinal()
 	{
 		return source.isFinal();
 	}
 
+	@Override
 	public boolean isMandatory()
 	{
 		return source.isMandatory();
 	}
 
+	@Override
 	public Class<?> getInitialType()
 	{
 		return valueClass;
 	}
 
+	@Override
 	public Set<Class<? extends Throwable>> getInitialExceptions()
 	{
 		return source.getInitialExceptions();
@@ -153,6 +158,7 @@ public final class Serializer<E> extends Pattern implements Settable<E>
 		source.set(item, serialize(value));
 	}
 
+	@Override
 	public SetValue<?>[] execute(final E value, final Item exceptionItem)
 	{
 		return new SetValue<?>[]{ source.map(serialize(value)) };

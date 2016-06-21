@@ -46,16 +46,19 @@ final class AlgorithmAdapter implements HashAlgorithm
 		this.charset = requireNonNull(charset, "charset");
 	}
 
+	@Override
 	public String getID()
 	{
 		return algorithm.name();
 	}
 
+	@Override
 	public String getDescription()
 	{
 		return algorithm.name();
 	}
 
+	@Override
 	public StringField constrainStorage(final StringField storage)
 	{
 		return storage.
@@ -63,11 +66,13 @@ final class AlgorithmAdapter implements HashAlgorithm
 				lengthExact(2 * algorithm.length()); // factor two is because hex encoding needs two characters per byte
 	}
 
+	@Override
 	public String hash(final String plainText)
 	{
 		return Hex.encodeLower(algorithm.hash(plainText.getBytes(charset)));
 	}
 
+	@Override
 	public boolean check(final String plainText, final String hash)
 	{
 		return algorithm.check(plainText.getBytes(charset), Hex.decodeLower(hash));

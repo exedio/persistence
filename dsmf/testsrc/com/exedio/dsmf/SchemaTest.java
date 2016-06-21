@@ -149,18 +149,21 @@ public abstract class SchemaTest
 				c.setAutoCommit(true);
 		}
 
+		@Override
 		public Connection getConnection()
 		{
 			final Connection result = connections.remove(connections.size()-1);
 			return result;
 		}
 
+		@Override
 		public void putConnection(final Connection connection) throws SQLException
 		{
 			assert connection.getAutoCommit()==true;
 			connections.add(connection);
 		}
 
+		@Override
 		public boolean isSemicolonEnabled()
 		{
 			return false;

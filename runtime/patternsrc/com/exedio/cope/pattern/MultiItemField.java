@@ -355,26 +355,31 @@ public final class MultiItemField<E> extends Pattern implements Settable<E>
 			: Cope.and(parts);
 	}
 
+	@Override
 	public boolean isFinal()
 	{
 		return isFinal;
 	}
 
+	@Override
 	public boolean isMandatory()
 	{
 		return !optional;
 	}
 
+	@Override
 	public boolean isInitial()
 	{
 		return isFinal() || isMandatory();
 	}
 
+	@Override
 	public Class<E> getInitialType()
 	{
 		return valueClass;
 	}
 
+	@Override
 	public Set<Class<? extends Throwable>> getInitialExceptions()
 	{
 		final LinkedHashSet<Class<? extends Throwable>> result = new LinkedHashSet<>();

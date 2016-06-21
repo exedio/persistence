@@ -274,6 +274,7 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 
 	static final class InitialThrown implements ThrownGetter<FunctionField<?>>
 	{
+		@Override
 		public Set<Class<? extends Throwable>> get(final FunctionField<?> feature)
 		{
 			final Set<Class<? extends Throwable>> result = feature.getInitialExceptions();
@@ -286,6 +287,7 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 	/**
 	 * @deprecated For internal use within COPE only.
 	 */
+	@Override
 	@Deprecated // OK: for internal use within COPE only
 	public final void check(final TC tc, final Join join)
 	{
@@ -295,6 +297,7 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 	/**
 	 * @deprecated For internal use within COPE only.
 	 */
+	@Override
 	@Deprecated // OK: for internal use within COPE only
 	public final void append(final Statement bf, final Join join)
 	{
@@ -304,6 +307,7 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 	/**
 	 * @deprecated For internal use within COPE only.
 	 */
+	@Override
 	@Deprecated // OK: for internal use within COPE only
 	public void appendSelect(final Statement bf, final Join join)
 	{
@@ -442,6 +446,7 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 
 	private static final class PrimitiveGetter implements BooleanGetter<FunctionField<?>>
 	{
+		@Override
 		public boolean get(final FunctionField<?> feature)
 		{
 			return feature.isPrimitive();
@@ -450,6 +455,7 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 
 	static final class OptionalGetter implements BooleanGetter<FunctionField<?>>
 	{
+		@Override
 		public boolean get(final FunctionField<?> feature)
 		{
 			return !feature.isMandatory();
@@ -458,6 +464,7 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 
 	static final class NonUniqueGetter implements BooleanGetter<FunctionField<?>>
 	{
+		@Override
 		public boolean get(final FunctionField<?> feature)
 		{
 			return feature.getImplicitUniqueConstraint()==null;
@@ -466,26 +473,31 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 
 	// convenience methods for conditions and views ---------------------------------
 
+	@Override
 	public final IsNullCondition<E> isNull()
 	{
 		return new IsNullCondition<>(this, false);
 	}
 
+	@Override
 	public final IsNullCondition<E> isNotNull()
 	{
 		return new IsNullCondition<>(this, true);
 	}
 
+	@Override
 	public Condition equal(final E value)
 	{
 		return Cope.equal(this, value);
 	}
 
+	@Override
 	public final Condition equal(final Join join, final E value)
 	{
 		return this.bind(join).equal(value);
 	}
 
+	@Override
 	@SafeVarargs
 	@SuppressWarnings("varargs") // Varargs method could cause heap pollution from non-reifiable varargs parameter values
 	public final Condition in(final E... values)
@@ -493,81 +505,97 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 		return CompositeCondition.in(this, values);
 	}
 
+	@Override
 	public final Condition in(final Collection<? extends E> values)
 	{
 		return CompositeCondition.in(this, values);
 	}
 
+	@Override
 	public Condition notEqual(final E value)
 	{
 		return Cope.notEqual(this, value);
 	}
 
+	@Override
 	public CompareCondition<E> less(final E value)
 	{
 		return new CompareCondition<>(Operator.Less, (Selectable<E>)this, value);
 	}
 
+	@Override
 	public CompareCondition<E> lessOrEqual(final E value)
 	{
 		return new CompareCondition<>(Operator.LessEqual, (Selectable<E>)this, value);
 	}
 
+	@Override
 	public CompareCondition<E> greater(final E value)
 	{
 		return new CompareCondition<>(Operator.Greater, (Selectable<E>)this, value);
 	}
 
+	@Override
 	public CompareCondition<E> greaterOrEqual(final E value)
 	{
 		return new CompareCondition<>(Operator.GreaterEqual, (Selectable<E>)this, value);
 	}
 
+	@Override
 	public final Condition between(final E lowerBound, final E upperBound)
 	{
 		return greaterOrEqual(lowerBound).and(lessOrEqual(upperBound));
 	}
 
+	@Override
 	public final CompareFunctionCondition<E> equal(final Function<? extends E> right)
 	{
 		return new CompareFunctionCondition<>(Operator.Equal, this, right);
 	}
 
+	@Override
 	public final CompareFunctionCondition<E> notEqual(final Function<? extends E> right)
 	{
 		return new CompareFunctionCondition<>(Operator.NotEqual, this, right);
 	}
 
+	@Override
 	public final CompareFunctionCondition<E> less(final Function<? extends E> right)
 	{
 		return new CompareFunctionCondition<>(Operator.Less, this, right);
 	}
 
+	@Override
 	public final CompareFunctionCondition<E> lessOrEqual(final Function<? extends E> right)
 	{
 		return new CompareFunctionCondition<>(Operator.LessEqual, this, right);
 	}
 
+	@Override
 	public final CompareFunctionCondition<E> greater(final Function<? extends E> right)
 	{
 		return new CompareFunctionCondition<>(Operator.Greater, this, right);
 	}
 
+	@Override
 	public final CompareFunctionCondition<E> greaterOrEqual(final Function<? extends E> right)
 	{
 		return new CompareFunctionCondition<>(Operator.GreaterEqual, this, right);
 	}
 
+	@Override
 	public final ExtremumAggregate<E> min()
 	{
 		return new ExtremumAggregate<>(this, true);
 	}
 
+	@Override
 	public final ExtremumAggregate<E> max()
 	{
 		return new ExtremumAggregate<>(this, false);
 	}
 
+	@Override
 	public BindFunction<E> bind(final Join join)
 	{
 		return new BindFunction<>(this, join);

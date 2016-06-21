@@ -155,26 +155,31 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 		return sources.length;
 	}
 
+	@Override
 	public boolean isInitial()
 	{
 		return initial;
 	}
 
+	@Override
 	public boolean isFinal()
 	{
 		return isFinal;
 	}
 
+	@Override
 	public boolean isMandatory()
 	{
 		return true; // can be empty but is never null
 	}
 
+	@Override
 	public java.lang.reflect.Type getInitialType()
 	{
 		return ReflectionTypes.parameterized(List.class, sources[0].getValueClass());
 	}
 
+	@Override
 	public Set<Class<? extends Throwable>> getInitialExceptions()
 	{
 		final Set<Class<? extends Throwable>> result = sources[0].getInitialExceptions();
@@ -231,6 +236,7 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 
 	private static final class Thrown implements ThrownGetter<LimitedListField<?>>
 	{
+		@Override
 		public Set<Class<? extends Throwable>> get(final LimitedListField<?> feature)
 		{
 			final Set<Class<? extends Throwable>> result = feature.getInitialExceptions();
@@ -240,6 +246,7 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 		}
 	}
 
+	@Override
 	public SetValue<?>[] execute(final Collection<E> value, final Item exceptionItem)
 	{
 		assertValue(value, exceptionItem);

@@ -135,6 +135,7 @@ public class WrapFeature
 
 	private static final class TrueGetter implements BooleanGetter<WrapFeature>
 	{
+		@Override
 		public boolean get(final WrapFeature feature)
 		{
 			return true;
@@ -149,6 +150,7 @@ public class WrapFeature
 
 	private static final class FalseGetter implements BooleanGetter<WrapFeature>
 	{
+		@Override
 		public boolean get(final WrapFeature feature)
 		{
 			return false;

@@ -44,21 +44,25 @@ public class WrapHash extends Hash
 
 	private static final HashAlgorithm ALGORITHM = new HashAlgorithm()
 	{
+		@Override
 		public String getID()
 		{
 			return "wrap";
 		}
 
+		@Override
 		public String getDescription()
 		{
 			return "wrapDescription";
 		}
 
+		@Override
 		public StringField constrainStorage(final StringField storage)
 		{
 			return storage;
 		}
 
+		@Override
 		public String hash(final String plainText)
 		{
 			if(plainText==null)
@@ -67,6 +71,7 @@ public class WrapHash extends Hash
 			return "[" + plainText + "]";
 		}
 
+		@Override
 		public boolean check(final String plainText, final String hash)
 		{
 			if(plainText==null)

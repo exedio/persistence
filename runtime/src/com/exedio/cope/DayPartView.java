@@ -141,6 +141,7 @@ public final class DayPartView extends NumberView<Integer>
 		return part.getPart((Day)sourceValue);
 	}
 
+	@Override
 	@Deprecated // OK: for internal use within COPE only
 	public void append(final Statement bf, final Join join)
 	{

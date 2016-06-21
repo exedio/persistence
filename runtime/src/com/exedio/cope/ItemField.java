@@ -272,6 +272,7 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 	/**
 	 * Returns the type of items, this field accepts instances of.
 	 */
+	@Override
 	public Type<E> getValueType()
 	{
 		if(valueType==null)
@@ -356,6 +357,7 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 	/**
 	 * @deprecated For internal use within COPE only.
 	 */
+	@Override
 	@Deprecated // OK: for internal use within COPE only
 	public void appendType(final Statement bf, final Join join)
 	{
@@ -422,11 +424,13 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 		}
 	}
 
+	@Override
 	public boolean needsCheckTypeColumn()
 	{
 		return getTypeColumn()!=null;
 	}
 
+	@Override
 	public int checkTypeColumn()
 	{
 		ItemFunctionUtil.checkTypeColumnNeeded(this);
@@ -468,11 +472,13 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 
 	// convenience methods for conditions and views ---------------------------------
 
+	@Override
 	public CompareFunctionCondition<?> equalTarget()
 	{
 		return ItemFunctionUtil.equalTarget(this);
 	}
 
+	@Override
 	public CompareFunctionCondition<?> equalTarget(final Join targetJoin)
 	{
 		return ItemFunctionUtil.equalTarget(this, targetJoin);
@@ -484,52 +490,62 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 		return new BindItemFunction<>(this, join);
 	}
 
+	@Override
 	public InstanceOfCondition<E> instanceOf(final Type<? extends E> type1)
 	{
 		return new InstanceOfCondition<>(this, false, type1);
 	}
 
+	@Override
 	public InstanceOfCondition<E> instanceOf(final Type<? extends E> type1, final Type<? extends E> type2)
 	{
 		return new InstanceOfCondition<>(this, false, type1, type2);
 	}
 
+	@Override
 	public InstanceOfCondition<E> instanceOf(final Type<? extends E> type1, final Type<? extends E> type2, final Type<? extends E> type3)
 	{
 		return new InstanceOfCondition<>(this, false, type1, type2, type3);
 	}
 
+	@Override
 	public InstanceOfCondition<E> instanceOf(final Type<? extends E> type1, final Type<? extends E> type2, final Type<? extends E> type3, final Type<E> type4)
 	{
 		return new InstanceOfCondition<>(this, false, type1, type2, type3, type4);
 	}
 
+	@Override
 	@SuppressWarnings({"unchecked", "rawtypes"})
 	public InstanceOfCondition<E> instanceOf(final Type[] types)
 	{
 		return new InstanceOfCondition<>(this, false, types);
 	}
 
+	@Override
 	public InstanceOfCondition<E> notInstanceOf(final Type<? extends E> type1)
 	{
 		return new InstanceOfCondition<>(this, true, type1);
 	}
 
+	@Override
 	public InstanceOfCondition<E> notInstanceOf(final Type<? extends E> type1, final Type<? extends E> type2)
 	{
 		return new InstanceOfCondition<>(this, true, type1, type2);
 	}
 
+	@Override
 	public InstanceOfCondition<E> notInstanceOf(final Type<? extends E> type1, final Type<? extends E> type2, final Type<? extends E> type3)
 	{
 		return new InstanceOfCondition<>(this, true, type1, type2, type3);
 	}
 
+	@Override
 	public InstanceOfCondition<E> notInstanceOf(final Type<? extends E> type1, final Type<? extends E> type2, final Type<? extends E> type3, final Type<E> type4)
 	{
 		return new InstanceOfCondition<>(this, true, type1, type2, type3, type4);
 	}
 
+	@Override
 	@SuppressWarnings({"unchecked", "rawtypes"})
 	public InstanceOfCondition<E> notInstanceOf(final Type[] types)
 	{
@@ -556,30 +572,35 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 		return SchemaInfo.getTypeColumnName(this);
 	}
 
+	@Override
 	@Deprecated
 	public InstanceOfCondition<E> typeIn(final Type<? extends E> type1)
 	{
 		return instanceOf(type1);
 	}
 
+	@Override
 	@Deprecated
 	public InstanceOfCondition<E> typeIn(final Type<? extends E> type1, final Type<? extends E> type2)
 	{
 		return instanceOf(type1, type2);
 	}
 
+	@Override
 	@Deprecated
 	public InstanceOfCondition<E> typeIn(final Type<? extends E> type1, final Type<? extends E> type2, final Type<? extends E> type3)
 	{
 		return instanceOf(type1, type2, type3);
 	}
 
+	@Override
 	@Deprecated
 	public InstanceOfCondition<E> typeIn(final Type<? extends E> type1, final Type<? extends E> type2, final Type<? extends E> type3, final Type<E> type4)
 	{
 		return instanceOf(type1, type2, type3, type4);
 	}
 
+	@Override
 	@Deprecated
 	@SuppressWarnings({"unchecked", "rawtypes"})
 	public InstanceOfCondition<E> typeIn(final Type[] types)
@@ -587,30 +608,35 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 		return instanceOf(types);
 	}
 
+	@Override
 	@Deprecated
 	public InstanceOfCondition<E> typeNotIn(final Type<? extends E> type1)
 	{
 		return notInstanceOf(type1);
 	}
 
+	@Override
 	@Deprecated
 	public InstanceOfCondition<E> typeNotIn(final Type<? extends E> type1, final Type<? extends E> type2)
 	{
 		return notInstanceOf(type1, type2);
 	}
 
+	@Override
 	@Deprecated
 	public InstanceOfCondition<E> typeNotIn(final Type<? extends E> type1, final Type<? extends E> type2, final Type<? extends E> type3)
 	{
 		return notInstanceOf(type1, type2, type3);
 	}
 
+	@Override
 	@Deprecated
 	public InstanceOfCondition<E> typeNotIn(final Type<? extends E> type1, final Type<? extends E> type2, final Type<? extends E> type3, final Type<E> type4)
 	{
 		return notInstanceOf(type1, type2, type3, type4);
 	}
 
+	@Override
 	@Deprecated
 	@SuppressWarnings({"unchecked", "rawtypes"})
 	public InstanceOfCondition<E> typeNotIn(final Type[] types)

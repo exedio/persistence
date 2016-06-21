@@ -85,21 +85,25 @@ public final class ColorField extends Pattern implements Settable<Color>, Copyab
 		return new ColorField(rgb.range(Integer.MIN_VALUE, Integer.MAX_VALUE));
 	}
 
+	@Override
 	public boolean isInitial()
 	{
 		return rgb.isInitial();
 	}
 
+	@Override
 	public boolean isFinal()
 	{
 		return rgb.isFinal();
 	}
 
+	@Override
 	public boolean isMandatory()
 	{
 		return mandatory;
 	}
 
+	@Override
 	public Class<?> getInitialType()
 	{
 		return Color.class;
@@ -152,6 +156,7 @@ public final class ColorField extends Pattern implements Settable<Color>, Copyab
 		return rgb;
 	}
 
+	@Override
 	public Set<Class<? extends Throwable>> getInitialExceptions()
 	{
 		final Set<Class<? extends Throwable>> result = rgb.getInitialExceptions();
@@ -185,6 +190,7 @@ public final class ColorField extends Pattern implements Settable<Color>, Copyab
 		rgb.set(item, rgb(value, item));
 	}
 
+	@Override
 	public SetValue<?>[] execute(final Color value, final Item exceptionItem)
 	{
 		return new SetValue<?>[]{ rgb.map(rgb(value, exceptionItem)) };

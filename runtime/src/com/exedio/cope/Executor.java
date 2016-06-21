@@ -388,9 +388,11 @@ final class Executor
 
 	private static final TestDatabaseListener noopTestListener = new TestDatabaseListener()
 	{
+		@Override
 		public void load(final Connection connection, final Item item)
 		{/* DOES NOTHING */}
 
+		@Override
 		public void search(final Connection connection, final Query<?> query, final boolean totalOnly)
 		{/* DOES NOTHING */}
 	};

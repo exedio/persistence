@@ -37,6 +37,7 @@ final class MediaPathAnnotationProxy implements AnnotatedElement
 		this.computed = computed;
 	}
 
+	@Override
 	public boolean isAnnotationPresent(final Class<? extends Annotation> annotationClass)
 	{
 		if(computed && Computed.class==annotationClass)
@@ -48,6 +49,7 @@ final class MediaPathAnnotationProxy implements AnnotatedElement
 			: false;
 	}
 
+	@Override
 	public <T extends Annotation> T getAnnotation(final Class<T> annotationClass)
 	{
 		if(computed && Computed.class==annotationClass)
@@ -59,11 +61,13 @@ final class MediaPathAnnotationProxy implements AnnotatedElement
 			: null;
 	}
 
+	@Override
 	public Annotation[] getAnnotations()
 	{
 		throw new RuntimeException(source.toString());
 	}
 
+	@Override
 	public Annotation[] getDeclaredAnnotations()
 	{
 		throw new RuntimeException(source.toString());

@@ -83,6 +83,7 @@ final class ChangeListenerDispatcher implements Runnable
 		return !threadRun;
 	}
 
+	@Override
 	public void run()
 	{
 		while(threadRun)

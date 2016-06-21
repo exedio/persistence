@@ -276,6 +276,7 @@ public final class Dispatcher extends Pattern
 	{
 		EmptyProbe() { // make constructor non-private
 		}
+		@Override
 		public void run() { // do nothing
 		}
 	}
@@ -583,6 +584,7 @@ public final class Dispatcher extends Pattern
 
 	private static final class SupportsPurgeGetter implements BooleanGetter<Dispatcher>
 	{
+		@Override
 		public boolean get(final Dispatcher feature)
 		{
 			return !feature.supportsPurge();

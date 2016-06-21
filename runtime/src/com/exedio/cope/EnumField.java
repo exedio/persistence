@@ -104,6 +104,7 @@ public final class EnumField<E extends Enum<E>> extends FunctionField<E>
 		return valueType.values;
 	}
 
+	@Override
 	public SelectType<E> getValueType()
 	{
 		return valueType;

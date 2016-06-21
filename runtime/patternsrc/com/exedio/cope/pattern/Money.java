@@ -155,6 +155,7 @@ public final class Money<C extends Money.Currency>
 
 	// comparison
 
+	@Override
 	public int compareTo(final Money<C> other)
 	{
 		return amount.compareTo(unwrap(other));

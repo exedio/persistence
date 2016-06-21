@@ -20,6 +20,7 @@ package com.exedio.cope.instrument;
 
 final class StringGetterDefault implements StringGetter<Object>
 {
+	@Override
 	public String get(final Object feature)
 	{
 		throw new RuntimeException();

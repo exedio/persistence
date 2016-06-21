@@ -39,6 +39,7 @@ public final class MinusView<E extends Number> extends NumberView<E>
 		this.subtrahend = subtrahend;
 	}
 
+	@Override
 	public SelectType<E> getValueType()
 	{
 		return minuend.getValueType();
@@ -72,6 +73,7 @@ public final class MinusView<E extends Number> extends NumberView<E>
 			throw new RuntimeException(vc.getName());
 	}
 
+	@Override
 	@Deprecated // OK: for internal use within COPE only
 	public final void append(final Statement bf, final Join join)
 	{

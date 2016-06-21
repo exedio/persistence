@@ -35,8 +35,11 @@ public class GraphTest
 	@Before public final void setUp()
 	{
 		schema = new Schema(new HsqldbDialect(), new ConnectionProvider(){
+			@Override
 			public Connection getConnection() { throw new RuntimeException(); }
+			@Override
 			public void putConnection(final Connection connection) { throw new RuntimeException(); }
+			@Override
 			public boolean isSemicolonEnabled() { throw new RuntimeException(); }
 		});
 	}

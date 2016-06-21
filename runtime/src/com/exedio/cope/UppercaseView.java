@@ -51,6 +51,7 @@ public final class UppercaseView extends StringView
 		return sourceValue==null ? null : toUpperCase((String)sourceValue);
 	}
 
+	@Override
 	@Deprecated // OK: for internal use within COPE only
 	public final void append(final Statement bf, final Join join)
 	{

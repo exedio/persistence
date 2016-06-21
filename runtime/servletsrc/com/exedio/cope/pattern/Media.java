@@ -266,6 +266,7 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 		return !optional;
 	}
 
+	@Override
 	public Class<?> getInitialType()
 	{
 		return Value.class;
@@ -316,6 +317,7 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 		return unison;
 	}
 
+	@Override
 	public Set<Class<? extends Throwable>> getInitialExceptions()
 	{
 		final LinkedHashSet<Class<? extends Throwable>> result = new LinkedHashSet<>();
@@ -332,6 +334,7 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 		return !(contentType instanceof FixedContentType);
 	}
 
+	@Override
 	public boolean isInitial()
 	{
 		return isfinal || !optional;
@@ -345,6 +348,7 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 
 	private static final class MandatoryGetter implements BooleanGetter<Media>
 	{
+		@Override
 		public boolean get(final Media feature)
 		{
 			return feature.isMandatory();
@@ -592,6 +596,7 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 		return toValue(DataField.toValue(body), contentType);
 	}
 
+	@Override
 	public SetValue<?>[] execute(final Value value, final Item exceptionItem)
 	{
 		if(value!=null)

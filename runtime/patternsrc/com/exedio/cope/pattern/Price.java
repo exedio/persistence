@@ -245,6 +245,7 @@ public final class Price implements Serializable, Comparable<Price>
 
 	// comparison
 
+	@Override
 	public int compareTo(final Price other)
 	{
 		return Long.compare(store, other.store);

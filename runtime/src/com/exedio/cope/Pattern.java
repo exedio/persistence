@@ -97,6 +97,7 @@ public abstract class Pattern extends Feature
 			this.postfix = postfix;
 		}
 
+		@Override
 		public boolean isAnnotationPresent(final Class<? extends Annotation> annotationClass)
 		{
 			if(CopeSchemaName.class==annotationClass)
@@ -114,6 +115,7 @@ public abstract class Pattern extends Feature
 			return source.isAnnotationPresent(annotationClass);
 		}
 
+		@Override
 		public <T extends Annotation> T getAnnotation(final Class<T> annotationClass)
 		{
 			if(CopeSchemaName.class==annotationClass)
@@ -156,11 +158,13 @@ public abstract class Pattern extends Feature
 			return source.getAnnotation(annotationClass);
 		}
 
+		@Override
 		public Annotation[] getAnnotations()
 		{
 			throw new RuntimeException(Pattern.this.toString());
 		}
 
+		@Override
 		public Annotation[] getDeclaredAnnotations()
 		{
 			throw new RuntimeException(Pattern.this.toString());
@@ -230,6 +234,7 @@ public abstract class Pattern extends Feature
 			this.postfix = postfix;
 		}
 
+		@Override
 		public boolean isAnnotationPresent(final Class<? extends Annotation> annotationClass)
 		{
 			if(CopeSchemaName.class==annotationClass)
@@ -243,6 +248,7 @@ public abstract class Pattern extends Feature
 			return source.isAnnotationPresent(annotationClass);
 		}
 
+		@Override
 		public <T extends Annotation> T getAnnotation(final Class<T> annotationClass)
 		{
 			if(CopeSchemaName.class==annotationClass)
@@ -277,11 +283,13 @@ public abstract class Pattern extends Feature
 			return source.getAnnotation(annotationClass);
 		}
 
+		@Override
 		public Annotation[] getAnnotations()
 		{
 			throw new RuntimeException(Pattern.this.toString());
 		}
 
+		@Override
 		public Annotation[] getDeclaredAnnotations()
 		{
 			throw new RuntimeException(Pattern.this.toString());

@@ -111,21 +111,25 @@ public final class PriceField extends Pattern implements Settable<Price>, Copyab
 		return integer;
 	}
 
+	@Override
 	public boolean isInitial()
 	{
 		return integer.isInitial();
 	}
 
+	@Override
 	public boolean isFinal()
 	{
 		return isfinal;
 	}
 
+	@Override
 	public boolean isMandatory()
 	{
 		return mandatory;
 	}
 
+	@Override
 	public Class<?> getInitialType()
 	{
 		return Price.class;
@@ -146,6 +150,7 @@ public final class PriceField extends Pattern implements Settable<Price>, Copyab
 		return Price.storeOf(integer.getMaximum());
 	}
 
+	@Override
 	public Set<Class<? extends Throwable>> getInitialExceptions()
 	{
 		final Set<Class<? extends Throwable>> result = integer.getInitialExceptions();
@@ -180,6 +185,7 @@ public final class PriceField extends Pattern implements Settable<Price>, Copyab
 		integer.set(item, value!=null ? value.store() : null);
 	}
 
+	@Override
 	public SetValue<?>[] execute(final Price value, final Item exceptionItem)
 	{
 		if(value==null && mandatory)
@@ -195,46 +201,55 @@ public final class PriceField extends Pattern implements Settable<Price>, Copyab
 		return new PriceBindFunction(this, join);
 	}
 
+	@Override
 	public IsNullCondition<?> isNull()
 	{
 		return integer.isNull();
 	}
 
+	@Override
 	public IsNullCondition<?> isNotNull()
 	{
 		return integer.isNotNull();
 	}
 
+	@Override
 	public Condition equal(final Price value)
 	{
 		return value!=null ? integer.equal(value.store()) : integer.isNull();
 	}
 
+	@Override
 	public Condition notEqual(final Price value)
 	{
 		return value!=null ? integer.notEqual(value.store()) : integer.isNotNull();
 	}
 
+	@Override
 	public CompareCondition<?> less(final Price value)
 	{
 		return integer.less(value.store());
 	}
 
+	@Override
 	public CompareCondition<?> lessOrEqual(final Price value)
 	{
 		return integer.lessOrEqual(value.store());
 	}
 
+	@Override
 	public CompareCondition<?> greater(final Price value)
 	{
 		return integer.greater(value.store());
 	}
 
+	@Override
 	public CompareCondition<?> greaterOrEqual(final Price value)
 	{
 		return integer.greaterOrEqual(value.store());
 	}
 
+	@Override
 	public Condition between(final Price lowerBound, final Price upperBound)
 	{
 		return greaterOrEqual(lowerBound).and(lessOrEqual(upperBound));

@@ -45,17 +45,20 @@ public final class BindItemFunction<E extends Item> extends BindFunction<E>
 	/**
 	 * @deprecated For internal use within COPE only.
 	 */
+	@Override
 	@Deprecated // OK: for internal use within COPE only
 	public void appendType(final Statement bf, final Join join)
 	{
 		itemFunction.appendType(bf, this.join);
 	}
 
+	@Override
 	public boolean needsCheckTypeColumn()
 	{
 		return itemFunction.needsCheckTypeColumn();
 	}
 
+	@Override
 	public int checkTypeColumn()
 	{
 		return itemFunction.checkTypeColumn();
@@ -63,11 +66,13 @@ public final class BindItemFunction<E extends Item> extends BindFunction<E>
 
 	// convenience methods for conditions and views ---------------------------------
 
+	@Override
 	public CompareFunctionCondition<?> equalTarget()
 	{
 		return ItemFunctionUtil.equalTarget(this);
 	}
 
+	@Override
 	public CompareFunctionCondition<?> equalTarget(final Join targetJoin)
 	{
 		return ItemFunctionUtil.equalTarget(this, targetJoin);
@@ -84,82 +89,97 @@ public final class BindItemFunction<E extends Item> extends BindFunction<E>
 		return this;
 	}
 
+	@Override
 	public InstanceOfCondition<E> instanceOf(final Type<? extends E> type1)
 	{
 		return new InstanceOfCondition<>(this, false, type1);
 	}
 
+	@Override
 	public InstanceOfCondition<E> instanceOf(final Type<? extends E> type1, final Type<? extends E> type2)
 	{
 		return new InstanceOfCondition<>(this, false, type1, type2);
 	}
 
+	@Override
 	public InstanceOfCondition<E> instanceOf(final Type<? extends E> type1, final Type<? extends E> type2, final Type<? extends E> type3)
 	{
 		return new InstanceOfCondition<>(this, false, type1, type2, type3);
 	}
 
+	@Override
 	public InstanceOfCondition<E> instanceOf(final Type<? extends E> type1, final Type<? extends E> type2, final Type<? extends E> type3, final Type<E> type4)
 	{
 		return new InstanceOfCondition<>(this, false, type1, type2, type3, type4);
 	}
 
+	@Override
 	@SuppressWarnings({"unchecked", "rawtypes"})
 	public InstanceOfCondition<E> instanceOf(final Type[] types)
 	{
 		return new InstanceOfCondition<>(this, false, types);
 	}
 
+	@Override
 	public InstanceOfCondition<E> notInstanceOf(final Type<? extends E> type1)
 	{
 		return new InstanceOfCondition<>(this, true, type1);
 	}
 
+	@Override
 	public InstanceOfCondition<E> notInstanceOf(final Type<? extends E> type1, final Type<? extends E> type2)
 	{
 		return new InstanceOfCondition<>(this, true, type1, type2);
 	}
 
+	@Override
 	public InstanceOfCondition<E> notInstanceOf(final Type<? extends E> type1, final Type<? extends E> type2, final Type<? extends E> type3)
 	{
 		return new InstanceOfCondition<>(this, true, type1, type2, type3);
 	}
 
+	@Override
 	public InstanceOfCondition<E> notInstanceOf(final Type<? extends E> type1, final Type<? extends E> type2, final Type<? extends E> type3, final Type<E> type4)
 	{
 		return new InstanceOfCondition<>(this, true, type1, type2, type3, type4);
 	}
 
+	@Override
 	@SuppressWarnings({"unchecked", "rawtypes"})
 	public InstanceOfCondition<E> notInstanceOf(final Type[] types)
 	{
 		return new InstanceOfCondition<>(this, true, types);
 	}
 
+	@Override
 	@Deprecated
 	public InstanceOfCondition<E> typeIn(final Type<? extends E> type1)
 	{
 		return instanceOf(type1);
 	}
 
+	@Override
 	@Deprecated
 	public InstanceOfCondition<E> typeIn(final Type<? extends E> type1, final Type<? extends E> type2)
 	{
 		return instanceOf(type1, type2);
 	}
 
+	@Override
 	@Deprecated
 	public InstanceOfCondition<E> typeIn(final Type<? extends E> type1, final Type<? extends E> type2, final Type<? extends E> type3)
 	{
 		return instanceOf(type1, type2, type3);
 	}
 
+	@Override
 	@Deprecated
 	public InstanceOfCondition<E> typeIn(final Type<? extends E> type1, final Type<? extends E> type2, final Type<? extends E> type3, final Type<E> type4)
 	{
 		return instanceOf(type1, type2, type3, type4);
 	}
 
+	@Override
 	@Deprecated
 	@SuppressWarnings({"unchecked", "rawtypes"})
 	public InstanceOfCondition<E> typeIn(final Type[] types)
@@ -167,30 +187,35 @@ public final class BindItemFunction<E extends Item> extends BindFunction<E>
 		return instanceOf(types);
 	}
 
+	@Override
 	@Deprecated
 	public InstanceOfCondition<E> typeNotIn(final Type<? extends E> type1)
 	{
 		return notInstanceOf(type1);
 	}
 
+	@Override
 	@Deprecated
 	public InstanceOfCondition<E> typeNotIn(final Type<? extends E> type1, final Type<? extends E> type2)
 	{
 		return notInstanceOf(type1, type2);
 	}
 
+	@Override
 	@Deprecated
 	public InstanceOfCondition<E> typeNotIn(final Type<? extends E> type1, final Type<? extends E> type2, final Type<? extends E> type3)
 	{
 		return notInstanceOf(type1, type2, type3);
 	}
 
+	@Override
 	@Deprecated
 	public InstanceOfCondition<E> typeNotIn(final Type<? extends E> type1, final Type<? extends E> type2, final Type<? extends E> type3, final Type<E> type4)
 	{
 		return notInstanceOf(type1, type2, type3, type4);
 	}
 
+	@Override
 	@Deprecated
 	@SuppressWarnings({"unchecked", "rawtypes"})
 	public InstanceOfCondition<E> typeNotIn(final Type[] types)

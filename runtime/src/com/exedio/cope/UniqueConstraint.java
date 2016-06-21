@@ -197,6 +197,7 @@ public final class UniqueConstraint extends Feature implements Copyable
 
 	private static final class SearchVarargs implements FeaturesGetter<UniqueConstraint>
 	{
+		@Override
 		public List<?> get(final UniqueConstraint feature)
 		{
 			return feature.getFields();

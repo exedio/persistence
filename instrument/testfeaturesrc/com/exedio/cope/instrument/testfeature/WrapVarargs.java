@@ -68,6 +68,7 @@ public final class WrapVarargs
 
 	private static final class VarargsGetter implements FeaturesGetter<WrapVarargs>
 	{
+		@Override
 		public List<?> get(final WrapVarargs feature)
 		{
 			return feature.varargs;

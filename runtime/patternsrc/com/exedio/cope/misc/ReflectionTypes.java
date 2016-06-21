@@ -61,16 +61,19 @@ public final class ReflectionTypes
 			}
 		}
 
+		@Override
 		public Type[] getActualTypeArguments()
 		{
 			return com.exedio.cope.misc.Arrays.copyOf(arguments);
 		}
 
+		@Override
 		public Class<?> getRawType()
 		{
 			return rawType;
 		}
 
+		@Override
 		public Type getOwnerType()
 		{
 			return null;

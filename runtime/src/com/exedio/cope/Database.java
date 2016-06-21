@@ -484,6 +484,7 @@ final class Database
 		final boolean semicolonEnabled = !properties.isSupportDisabledForSemicolon() && dsmfDialect.supportsSemicolon();
 		final Schema result = new Schema(dsmfDialect, new ConnectionProvider()
 		{
+			@Override
 			public Connection getConnection()
 			{
 				transactions.assertNoCurrentTransaction();
@@ -491,11 +492,13 @@ final class Database
 				return connectionPool.get(true);
 			}
 
+			@Override
 			public void putConnection(final Connection connection)
 			{
 				connectionPool.put(connection);
 			}
 
+			@Override
 			public boolean isSemicolonEnabled()
 			{
 				return semicolonEnabled;

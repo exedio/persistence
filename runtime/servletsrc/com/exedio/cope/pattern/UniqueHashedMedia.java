@@ -342,6 +342,7 @@ public final class UniqueHashedMedia extends Pattern implements Settable<Value>,
 		return media.isMandatory();
 	}
 
+	@Override
 	public java.lang.reflect.Type getInitialType()
 	{
 		return Value.class;

@@ -22,6 +22,7 @@ import java.util.List;
 
 final class FeaturesGetterDefault implements FeaturesGetter<Object>
 {
+	@Override
 	public List<?> get(final Object feature)
 	{
 		throw new RuntimeException();

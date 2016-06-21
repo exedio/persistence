@@ -90,6 +90,7 @@ public final class NestedHashMigration extends Pattern implements HashInterface
 		return targetHash;
 	}
 
+	@Override
 	@Wrap(order=10,
 			doc="Returns whether the given value corresponds to the hash in {0}.")
 	public boolean check(@Nonnull final Item item, @Nullable final String actualPlainText)
@@ -105,12 +106,14 @@ public final class NestedHashMigration extends Pattern implements HashInterface
 			return targetHash;
 	}
 
+	@Override
 	public boolean isNull(final Item item)
 	{
 		// needs actual implementation if there is optional()
 		return false;
 	}
 
+	@Override
 	public String getHash(final Item item)
 	{
 		final String targetHash = this.targetHash.getHash(item);
@@ -135,6 +138,7 @@ public final class NestedHashMigration extends Pattern implements HashInterface
 		return targetHash.newRandomPassword(random);
 	}
 
+	@Override
 	@Wrap(order=30,
 			doc="Sets a new value for {0}.",
 			thrownGetter=InitialExceptionsSettableGetter.class)

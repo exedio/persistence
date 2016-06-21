@@ -98,26 +98,31 @@ public final class TypeField<E extends Item> extends Pattern implements Settable
 		return idField;
 	}
 
+	@Override
 	public boolean isInitial()
 	{
 		return idField.isInitial();
 	}
 
+	@Override
 	public boolean isFinal()
 	{
 		return isfinal;
 	}
 
+	@Override
 	public boolean isMandatory()
 	{
 		return mandatory;
 	}
 
+	@Override
 	public Class<?> getInitialType()
 	{
 		return valueClass;
 	}
 
+	@Override
 	public Set<Class<? extends Throwable>> getInitialExceptions()
 	{
 		return idField.getInitialExceptions();
@@ -223,6 +228,7 @@ public final class TypeField<E extends Item> extends Pattern implements Settable
 		idField.set(item, value!=null ? value.getID() : null);
 	}
 
+	@Override
 	public SetValue<?>[] execute(final Type<? extends E> value, final Item exceptionItem)
 	{
 		if(value==null && mandatory)
@@ -272,6 +278,7 @@ public final class TypeField<E extends Item> extends Pattern implements Settable
 
 	private static final class NonUniqueGetter implements BooleanGetter<TypeField<?>>
 	{
+		@Override
 		public boolean get(final TypeField<?> feature)
 		{
 			return feature.getIdField().getImplicitUniqueConstraint()==null;

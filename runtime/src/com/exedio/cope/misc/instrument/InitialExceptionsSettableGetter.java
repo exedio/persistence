@@ -24,6 +24,7 @@ import java.util.Set;
 
 public final class InitialExceptionsSettableGetter implements ThrownGetter<Settable<?>>
 {
+	@Override
 	public Set<Class<? extends Throwable>> get(final Settable<?> feature)
 	{
 		return feature.getInitialExceptions();

@@ -54,6 +54,7 @@ final class ConnectionFactory implements Pool.Factory<Connection>
 		this.transactionIsolation = dialect.getTransationIsolation();
 	}
 
+	@Override
 	public Connection create()
 	{
 		try
@@ -90,6 +91,7 @@ final class ConnectionFactory implements Pool.Factory<Connection>
 		return result;
 	}
 
+	@Override
 	@SuppressFBWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
 	public boolean isValidOnGet(final Connection e)
 	{
@@ -122,6 +124,7 @@ final class ConnectionFactory implements Pool.Factory<Connection>
 
 	boolean isValidOnGetFails = false;
 
+	@Override
 	public boolean isValidOnPut(final Connection e)
 	{
 		final boolean closed;
@@ -138,6 +141,7 @@ final class ConnectionFactory implements Pool.Factory<Connection>
 		return !closed;
 	}
 
+	@Override
 	public void dispose(final Connection e)
 	{
 		try

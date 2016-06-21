@@ -146,26 +146,31 @@ public class Hash extends Pattern implements HashInterface
 		return AlgorithmAdapter.unwrapEncoding(algorithm);
 	}
 
+	@Override
 	public final boolean isInitial()
 	{
 		return storage.isInitial();
 	}
 
+	@Override
 	public final boolean isFinal()
 	{
 		return storage.isFinal();
 	}
 
+	@Override
 	public final boolean isMandatory()
 	{
 		return storage.isMandatory();
 	}
 
+	@Override
 	public final Class<?> getInitialType()
 	{
 		return String.class;
 	}
 
+	@Override
 	public final Set<Class<? extends Throwable>> getInitialExceptions()
 	{
 		final Set<Class<? extends Throwable>> result = storage.getInitialExceptions();
@@ -258,6 +263,7 @@ public class Hash extends Pattern implements HashInterface
 		return new Hash(storage.copy(), plainTextLimit, algorithm, validator);
 	}
 
+	@Override
 	@Wrap(order=30,
 			doc="Sets a new value for {0}.",
 			hide=FinalSettableGetter.class,
@@ -267,6 +273,7 @@ public class Hash extends Pattern implements HashInterface
 		storage.set(item, hash(plainText, item));
 	}
 
+	@Override
 	@Wrap(order=10,
 			doc="Returns whether the given value corresponds to the hash in {0}.")
 	public final boolean check(@Nonnull final Item item, @Nullable final String actualPlainText)
@@ -281,6 +288,7 @@ public class Hash extends Pattern implements HashInterface
 			return expectedHash==null;
 	}
 
+	@Override
 	public final boolean isNull(@Nonnull final Item item)
 	{
 		return storage.get(item)==null;
@@ -294,6 +302,7 @@ public class Hash extends Pattern implements HashInterface
 	 * Needed to prevent Timing Attacks.
 	 * See http://en.wikipedia.org/wiki/Timing_attack
 	 */
+	@Override
 	@Wrap(order=20,
 			doc={"Wastes (almost) as much cpu cycles, as a call to <tt>check{3}</tt> would have needed.",
 					"Needed to prevent Timing Attacks."})
@@ -308,12 +317,14 @@ public class Hash extends Pattern implements HashInterface
 		}
 	}
 
+	@Override
 	public final SetValue<?>[] execute(final String value, final Item exceptionItem) throws InvalidPlainTextException
 	{
 		final String hash = hash(value, exceptionItem);
 		return new SetValue<?>[]{ storage.map(hash) };
 	}
 
+	@Override
 	@Wrap(order=40, nameGetter=GetNameGetter.class, doc="Returns the encoded hash value for hash {0}.", nullability=NullableIfOptional.class)
 	public final String getHash(@Nonnull final Item item)
 	{
@@ -322,6 +333,7 @@ public class Hash extends Pattern implements HashInterface
 
 	private static final class GetNameGetter implements StringGetter<Hash>
 	{
+		@Override
 		public String get(final Hash feature)
 		{
 			return "get{0}" + Hash.getMethodSuffixAlgorithm(feature);
@@ -340,6 +352,7 @@ public class Hash extends Pattern implements HashInterface
 
 	private static final class SetNameGetter implements StringGetter<Hash>
 	{
+		@Override
 		public String get(final Hash feature)
 		{
 			return "set{0}" + Hash.getMethodSuffixAlgorithm(feature);
@@ -401,6 +414,7 @@ public class Hash extends Pattern implements HashInterface
 		return storage.bind(join).isNotNull();
 	}
 
+	@Override
 	public final String newRandomPassword(final SecureRandom random)
 	{
 		return validator.newRandomPlainText(random);

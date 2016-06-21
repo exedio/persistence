@@ -93,11 +93,13 @@ public final class QueryIterators
 			this.iterator = search();
 		}
 
+		@Override
 		public boolean hasNext()
 		{
 			return iterator.hasNext();
 		}
 
+		@Override
 		public E next()
 		{
 			final E result = iterator.next();
@@ -143,6 +145,7 @@ public final class QueryIterators
 			return result.iterator();
 		}
 
+		@Override
 		public void remove()
 		{
 			throw new UnsupportedOperationException();
@@ -204,11 +207,13 @@ public final class QueryIterators
 			return query.search().iterator();
 		}
 
+		@Override
 		public boolean hasNext()
 		{
 			return iterator.hasNext();
 		}
 
+		@Override
 		public E next()
 		{
 			final E result = iterator.next();
@@ -222,6 +227,7 @@ public final class QueryIterators
 			return result;
 		}
 
+		@Override
 		public final void remove()
 		{
 			throw new UnsupportedOperationException();
@@ -267,11 +273,13 @@ public final class QueryIterators
 			return query.search().iterator();
 		}
 
+		@Override
 		public boolean hasNext()
 		{
 			return iterator!=null && iterator.hasNext();
 		}
 
+		@Override
 		public E next()
 		{
 			if(iterator==null)
@@ -288,6 +296,7 @@ public final class QueryIterators
 			return result;
 		}
 
+		@Override
 		public final void remove()
 		{
 			throw new UnsupportedOperationException();

@@ -79,6 +79,7 @@ public abstract class View<E> extends Feature
 	/**
 	 * @deprecated For internal use within COPE only.
 	 */
+	@Override
 	@Deprecated // OK: for internal use within COPE only
 	public final void check(final TC tc, final Join join)
 	{
@@ -86,6 +87,7 @@ public abstract class View<E> extends Feature
 			source.check(tc, join);
 	}
 
+	@Override
 	@Wrap(order=10, doc="Returns the value of {0}.") // TODO box into primitives
 	public final E get(@Nonnull final Item item)
 	{
@@ -106,6 +108,7 @@ public abstract class View<E> extends Feature
 		return get(item);
 	}
 
+	@Override
 	public final Class<E> getValueClass()
 	{
 		return valueClass;
@@ -114,6 +117,7 @@ public abstract class View<E> extends Feature
 	/**
 	 * @deprecated For internal use within COPE only.
 	 */
+	@Override
 	@Deprecated // OK: for internal use within COPE only
 	public final void appendSelect(final Statement bf, final Join join)
 	{
@@ -185,26 +189,31 @@ public abstract class View<E> extends Feature
 
 	// convenience methods for conditions and views ---------------------------------
 
+	@Override
 	public final IsNullCondition<E> isNull()
 	{
 		return new IsNullCondition<>(this, false);
 	}
 
+	@Override
 	public final IsNullCondition<E> isNotNull()
 	{
 		return new IsNullCondition<>(this, true);
 	}
 
+	@Override
 	public final Condition equal(final E value)
 	{
 		return Cope.equal(this, value);
 	}
 
+	@Override
 	public final Condition equal(final Join join, final E value)
 	{
 		return this.bind(join).equal(value);
 	}
 
+	@Override
 	@SafeVarargs
 	@SuppressWarnings("varargs") // Varargs method could cause heap pollution from non-reifiable varargs parameter values
 	public final Condition in(final E... values)
@@ -212,81 +221,97 @@ public abstract class View<E> extends Feature
 		return CompositeCondition.in(this, values);
 	}
 
+	@Override
 	public final Condition in(final Collection<? extends E> values)
 	{
 		return CompositeCondition.in(this, values);
 	}
 
+	@Override
 	public final Condition notEqual(final E value)
 	{
 		return Cope.notEqual(this, value);
 	}
 
+	@Override
 	public final CompareCondition<E> less(final E value)
 	{
 		return new CompareCondition<>(Operator.Less, (Selectable<E>)this, value);
 	}
 
+	@Override
 	public final CompareCondition<E> lessOrEqual(final E value)
 	{
 		return new CompareCondition<>(Operator.LessEqual, (Selectable<E>)this, value);
 	}
 
+	@Override
 	public final CompareCondition<E> greater(final E value)
 	{
 		return new CompareCondition<>(Operator.Greater, (Selectable<E>)this, value);
 	}
 
+	@Override
 	public final CompareCondition<E> greaterOrEqual(final E value)
 	{
 		return new CompareCondition<>(Operator.GreaterEqual, (Selectable<E>)this, value);
 	}
 
+	@Override
 	public Condition between(final E lowerBound, final E upperBound)
 	{
 		return greaterOrEqual(lowerBound).and(lessOrEqual(upperBound));
 	}
 
+	@Override
 	public final CompareFunctionCondition<E> equal(final Function<? extends E> right)
 	{
 		return new CompareFunctionCondition<>(Operator.Equal, this, right);
 	}
 
+	@Override
 	public final CompareFunctionCondition<E> notEqual(final Function<? extends E> right)
 	{
 		return new CompareFunctionCondition<>(Operator.NotEqual, this, right);
 	}
 
+	@Override
 	public final CompareFunctionCondition<E> less(final Function<? extends E> right)
 	{
 		return new CompareFunctionCondition<>(Operator.Less, this, right);
 	}
 
+	@Override
 	public final CompareFunctionCondition<E> lessOrEqual(final Function<? extends E> right)
 	{
 		return new CompareFunctionCondition<>(Operator.LessEqual, this, right);
 	}
 
+	@Override
 	public final CompareFunctionCondition<E> greater(final Function<? extends E> right)
 	{
 		return new CompareFunctionCondition<>(Operator.Greater, this, right);
 	}
 
+	@Override
 	public final CompareFunctionCondition<E> greaterOrEqual(final Function<? extends E> right)
 	{
 		return new CompareFunctionCondition<>(Operator.GreaterEqual, this, right);
 	}
 
+	@Override
 	public final ExtremumAggregate<E> min()
 	{
 		return new ExtremumAggregate<>(this, true);
 	}
 
+	@Override
 	public final ExtremumAggregate<E> max()
 	{
 		return new ExtremumAggregate<>(this, false);
 	}
 
+	@Override
 	public BindFunction<E> bind(final Join join)
 	{
 		return new BindFunction<>(this, join);

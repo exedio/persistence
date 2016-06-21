@@ -624,6 +624,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 				((Sequence)f).disconnect();
 	}
 
+	@Override
 	public Class<T> getJavaClass()
 	{
 		return javaClass;
@@ -1143,6 +1144,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		return new Query<>(thisFunction, this, Condition.FALSE);
 	}
 
+	@Override
 	@SuppressFBWarnings("EQ_COMPARETO_USE_OBJECT_EQUALS") // Class defines compareTo(...) and uses Object.equals()
 	public int compareTo(final Type<?> o)
 	{

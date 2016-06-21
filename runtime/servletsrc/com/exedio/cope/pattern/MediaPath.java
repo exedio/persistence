@@ -673,6 +673,7 @@ public abstract class MediaPath extends Pattern
 
 	private static final class ContentTypeGetter implements BooleanGetter<MediaPath>
 	{
+		@Override
 		public boolean get(final MediaPath feature)
 		{
 			return !feature.isContentTypeWrapped();

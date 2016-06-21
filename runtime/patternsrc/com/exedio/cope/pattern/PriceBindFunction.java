@@ -31,46 +31,55 @@ final class PriceBindFunction implements PriceFunction
 		integer = function.getInt().bind(join);
 	}
 
+	@Override
 	public Condition isNull()
 	{
 		return integer.isNull();
 	}
 
+	@Override
 	public Condition isNotNull()
 	{
 		return integer.isNotNull();
 	}
 
+	@Override
 	public Condition equal(final Price value)
 	{
 		return integer.equal(store(value));
 	}
 
+	@Override
 	public Condition notEqual(final Price value)
 	{
 		return integer.notEqual(store(value));
 	}
 
+	@Override
 	public Condition less(final Price value)
 	{
 		return integer.less(value.store());
 	}
 
+	@Override
 	public Condition lessOrEqual(final Price value)
 	{
 		return integer.lessOrEqual(value.store());
 	}
 
+	@Override
 	public Condition greater(final Price value)
 	{
 		return integer.greater(value.store());
 	}
 
+	@Override
 	public Condition greaterOrEqual(final Price value)
 	{
 		return integer.greaterOrEqual(value.store());
 	}
 
+	@Override
 	public Condition between(final Price lowerBound, final Price upperBound)
 	{
 		return integer.between(lowerBound.store(), upperBound.store());
