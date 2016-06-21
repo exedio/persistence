@@ -18,7 +18,6 @@
 
 package com.exedio.dsmf;
 
-import com.exedio.dsmf.Node.ResultSetHandler;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
@@ -119,9 +118,7 @@ public final class HsqldbDialect extends Dialect
 								append(constraintName).
 								append("_%' AND NON_UNIQUE=false ORDER BY ORDINAL_POSITION");
 
-							schema.querySQL(bf.toString(), new ResultSetHandler()
-								{
-									public void run(final ResultSet resultSetUnique) throws SQLException
+							schema.querySQL(bf.toString(), resultSetUnique ->
 									{
 										//printMeta(resultSet);
 										boolean first = true;
@@ -138,7 +135,7 @@ public final class HsqldbDialect extends Dialect
 										}
 										clause.append(')');
 									}
-								});
+								);
 
 							table.notifyExistentUniqueConstraint(constraintName, clause.toString());
 						}
