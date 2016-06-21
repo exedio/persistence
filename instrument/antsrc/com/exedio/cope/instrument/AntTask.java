@@ -107,9 +107,12 @@ public final class AntTask extends Task
 		params.serialVersionUID = value;
 	}
 
-	public void setSerialVersionUIDSuffix(final IntegerTypeSuffix value)
+	// TODO parameter type IntegerTypeSuffix instead of converting manually
+	// is supported by Ant version 1.9.0
+	// travis-ci just supports Ant version 1.8.2
+	public void setSerialVersionUIDSuffix(final String value)
 	{
-		params.serialVersionUIDSuffix = value;
+		params.serialVersionUIDSuffix = IntegerTypeSuffix.valueOf(value);
 	}
 
 	public void setGenericSetValueArray(final boolean value)
