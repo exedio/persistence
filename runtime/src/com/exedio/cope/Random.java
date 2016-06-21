@@ -20,11 +20,8 @@ package com.exedio.cope;
 
 import static java.util.Objects.requireNonNull;
 
-import com.exedio.cope.CompareFunctionCondition.Operator;
 import com.exedio.cope.search.AverageAggregate;
-import com.exedio.cope.search.ExtremumAggregate;
 import com.exedio.cope.search.SumAggregate;
-import java.util.Collection;
 
 public class Random implements NumberFunction<Double>
 {
@@ -131,126 +128,6 @@ public class Random implements NumberFunction<Double>
 	public final BindNumberFunction<Double> bind(final Join join)
 	{
 		return new BindNumberFunction<>(this, join);
-	}
-
-	@Override
-	public final IsNullCondition<Double> isNull()
-	{
-		return new IsNullCondition<>(this, false);
-	}
-
-	@Override
-	public final IsNullCondition<Double> isNotNull()
-	{
-		return new IsNullCondition<>(this, true);
-	}
-
-	@Override
-	public final Condition equal(final Double value)
-	{
-		return Cope.equal(this, value);
-	}
-
-	@Override
-	public final Condition equal(final Join join, final Double value)
-	{
-		return this.bind(join).equal(value);
-	}
-
-	@Override
-	public final Condition in(final Double... values)
-	{
-		return CompositeCondition.in(this, values);
-	}
-
-	@Override
-	public final Condition in(final Collection<? extends Double> values)
-	{
-		return CompositeCondition.in(this, values);
-	}
-
-	@Override
-	public final Condition notEqual(final Double value)
-	{
-		return Cope.notEqual(this, value);
-	}
-
-	@Override
-	public final CompareCondition<Double> less(final Double value)
-	{
-		return new CompareCondition<>(Operator.Less, (Selectable<Double>)this, value);
-	}
-
-	@Override
-	public final CompareCondition<Double> lessOrEqual(final Double value)
-	{
-		return new CompareCondition<>(Operator.LessEqual, (Selectable<Double>)this, value);
-	}
-
-	@Override
-	public final CompareCondition<Double> greater(final Double value)
-	{
-		return new CompareCondition<>(Operator.Greater, (Selectable<Double>)this, value);
-	}
-
-	@Override
-	public final CompareCondition<Double> greaterOrEqual(final Double value)
-	{
-		return new CompareCondition<>(Operator.GreaterEqual, (Selectable<Double>)this, value);
-	}
-
-	@Override
-	public Condition between(final Double lowerBound, final Double upperBound)
-	{
-		return greaterOrEqual(lowerBound).and(lessOrEqual(upperBound));
-	}
-
-	@Override
-	public final CompareFunctionCondition<Double> equal(final Function<? extends Double> right)
-	{
-		return new CompareFunctionCondition<>(Operator.Equal, this, right);
-	}
-
-	@Override
-	public final CompareFunctionCondition<Double> notEqual(final Function<? extends Double> right)
-	{
-		return new CompareFunctionCondition<>(Operator.NotEqual, this, right);
-	}
-
-	@Override
-	public final CompareFunctionCondition<Double> less(final Function<? extends Double> right)
-	{
-		return new CompareFunctionCondition<>(Operator.Less, this, right);
-	}
-
-	@Override
-	public final CompareFunctionCondition<Double> lessOrEqual(final Function<? extends Double> right)
-	{
-		return new CompareFunctionCondition<>(Operator.LessEqual, this, right);
-	}
-
-	@Override
-	public final CompareFunctionCondition<Double> greater(final Function<? extends Double> right)
-	{
-		return new CompareFunctionCondition<>(Operator.Greater, this, right);
-	}
-
-	@Override
-	public final CompareFunctionCondition<Double> greaterOrEqual(final Function<? extends Double> right)
-	{
-		return new CompareFunctionCondition<>(Operator.GreaterEqual, this, right);
-	}
-
-	@Override
-	public final ExtremumAggregate<Double> min()
-	{
-		return new ExtremumAggregate<>(this, true);
-	}
-
-	@Override
-	public final ExtremumAggregate<Double> max()
-	{
-		return new ExtremumAggregate<>(this, false);
 	}
 
 	@Override
