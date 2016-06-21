@@ -27,7 +27,6 @@ import com.exedio.cope.instrument.findtype.subfindtype.BothFindType2;
 import com.exedio.cope.instrument.findtype.subfindtype.SubFindType;
 import com.exedio.cope.instrument.findtype.subfindtype2.SubFindType2;
 import com.exedio.cope.instrument.findtype.subfindtype2.SubFindType3Non;
-import java.io.File;
 import org.junit.Test;
 
 public class ResolveImportTest
@@ -36,7 +35,8 @@ public class ResolveImportTest
 	@Test public void testImports() throws ParserException
 	{
 		final JavaRepository repository = new JavaRepository();
-		final JavaFile file = new JavaFile(repository, new File("SomeFile.java"));
+		// TODO COPE-10 provide source ref:
+		final JavaFile file = new JavaFile(repository, null);
 		file.setPackage("com.exedio.cope.instrument.findtype");
 
 		file.addImport("com.exedio.cope.instrument.findtype.subfindtype.*");

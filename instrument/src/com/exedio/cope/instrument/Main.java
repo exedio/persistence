@@ -59,7 +59,7 @@ final class Main
 		if ( params.deinstrument )
 		{
 			final long start = System.currentTimeMillis();
-			runJavac(files, true);
+			runJavac(files, true, new JavaRepository());
 			System.out.println("runJavac "+(System.currentTimeMillis()-start)+" ms");
 			return;
 		}
@@ -72,11 +72,13 @@ final class Main
 
 			final Charset charset = params.charset;
 			final JavaRepository repository = new JavaRepository();
-			final ArrayList<Parser> parsers = new ArrayList<>(files.size());
 
 			this.verbose = params.verbose;
 			instrumented = 0;
 			skipped = 0;
+
+			runJavac(files, false, repository);
+			/*
 			for(final File file : files)
 			{
 				if(!file.exists())
@@ -88,21 +90,22 @@ final class Main
 				final Parser parser = new Parser(new Lexer(file, charset, javaFile), new Instrumentor(), javaFile);
 				parser.parseFile();
 				parsers.add(parser);
-			}
+			}*/
 
 			repository.endBuildStage();
 
-			for(final Parser parser : parsers)
+			for(final JavaFile javaFile: repository.getFiles())
 			{
-				final JavaFile javaFile = parser.javaFile;
+				System.out.println(javaFile);
 				for(final JavaClass javaClass : javaFile.getClasses())
 				{
+					System.out.println("   "+javaClass);
 					final CopeType type = CopeType.getCopeType(javaClass);
 					if(type!=null)
 					{
 						if(!type.isInterface())
 						{
-							//System.out.println("onClassEnd("+jc.getName()+") writing");
+							System.out.println("       features: "+type.getFeatures());
 							for(final CopeFeature feature : type.getFeatures())
 								feature.getInstance();
 						}
@@ -110,37 +113,37 @@ final class Main
 				}
 			}
 
-			final Iterator<Parser> parsersIter = parsers.iterator();
-			for(final File file : files)
+			for(final JavaFile javaFile: repository.getFiles())
 			{
-				final Parser parser = parsersIter.next();
+				System.out.println("javaFile = " + javaFile);
+				final StringBuilder baos = new StringBuilder(/*TODO guess length*/);
+				final Generator generator = new Generator(javaFile, baos, params);
+				generator.write(params.charset);
+				System.out.println("  baos length "+baos.length());
 
-				final StringBuilder baos = new StringBuilder((int)file.length() + 100);
-				final Generator generator = new Generator(parser.javaFile, baos, params);
-				generator.write();
-
-				if(!parser.lexer.inputEqual(baos))
+				if(!javaFile.inputEqual(baos, params.charset))
 				{
+					// TODO if(params.verify) here
+					logInstrumented(javaFile);
+					// TODO delete(file);
+					final CharsetEncoder decoder = charset.newEncoder();
+					final ByteBuffer out = decoder.encode(CharBuffer.wrap(baos));
+					// TODO avoid copying
+					javaFile.overwrite(baos.toString().getBytes(params.charset));
 					if(params.verify)
 						throw new HumanReadableException(
-								"Not yet instrumented " + file.getAbsolutePath() + lineSeparator() +
+								"Not yet instrumented " + javaFile.getSourceFileName() + lineSeparator() +
 								"Instrumentor runs in verify mode, which is typically enabled while Continuous Integration." + lineSeparator() +
 								"Probably you did commit a change causing another change in instrumented code," + lineSeparator() +
 								"but you did not run the intrumentor.");
-					logInstrumented(file);
-					delete(file);
-					final CharsetEncoder decoder = charset.newEncoder();
-					final ByteBuffer out = decoder.encode(CharBuffer.wrap(baos));
-					try(FileOutputStream o = new FileOutputStream(file))
-					{
-						o.getChannel().write(out);
-					}
 				}
 				else
 				{
-					logSkipped(file);
+					logSkipped(javaFile);
 				}
 			}
+			/* TODO
+			*/
 
 			if ( params.timestampFile!=null )
 			{
@@ -191,7 +194,7 @@ final class Main
 		}
 	}
 
-	private void runJavac(final ArrayList<File> files, boolean deinstrument)
+	private void runJavac(final ArrayList<File> files, boolean deinstrument, JavaRepository repository)
 	{
 		// "JavacTool.create()" is not part of the "exported" API
 		// (not annotated with https://docs.oracle.com/javase/8/docs/jdk/api/javac/tree/jdk/Exported.html).
@@ -208,7 +211,7 @@ final class Main
 		optionList.addAll(asList("-classpath", toClasspath(com.exedio.cope.Item.class.getClassLoader())));
 		optionList.add("-proc:only");
 		final JavaCompiler.CompilationTask task = compiler.getTask(new StringWriter(), null, null, optionList, null, sources);
-		task.setProcessors(singleton(new InstrumentorProcessor(deinstrument)));
+		task.setProcessors(singleton(new InstrumentorProcessor(deinstrument, repository)));
 		task.call();
 	}
 
@@ -224,18 +227,18 @@ final class Main
 	int skipped;
 	int instrumented;
 
-	private void logSkipped(final File file)
+	private void logSkipped(final JavaFile file)
 	{
 		if(verbose)
-			System.out.println("Skipped " + file);
+			System.out.println("Skipped " + file.getSourceFileName());
 
 		skipped++;
 	}
 
-	private void logInstrumented(final File file)
+	private void logInstrumented(final JavaFile file)
 	{
 		if(verbose)
-			System.out.println("Instrumented " + file);
+			System.out.println("Instrumented " + file.getSourceFileName());
 
 		instrumented++;
 	}

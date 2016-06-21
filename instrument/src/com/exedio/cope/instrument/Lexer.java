@@ -87,7 +87,7 @@ final class Lexer
 		this.inputLength = buffer.length(); // BEWARE: May be less than input.length
 
 		this.fileName = inputFile.getName();
-		this.output = javaFile.buffer;
+		this.output = null; // TODO was: javaFile.buffer;
 	}
 
 	private final char read() throws EndException

@@ -7,7 +7,9 @@ import com.sun.source.tree.ClassTree;
 import com.sun.source.tree.CompilationUnitTree;
 import com.sun.source.tree.ExpressionTree;
 import com.sun.source.tree.MethodTree;
+import com.sun.source.tree.ModifiersTree;
 import com.sun.source.tree.Tree;
+import com.sun.source.tree.TypeParameterTree;
 import com.sun.source.tree.VariableTree;
 import com.sun.source.util.DocSourcePositions;
 import com.sun.source.util.DocTrees;
@@ -22,6 +24,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Deque;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import javax.lang.model.element.Modifier;
@@ -33,23 +36,38 @@ class InstrumentorVisitor extends TreePathScanner<Void, Void>
 	private final DocSourcePositions sourcePositions;
 	private final CompilationUnitTree compilationUnit;
 	private final DocTrees docTrees;
+	private final JavaFile javaFile;
 
 	private final Deque<ClassTree> classStack=new ArrayDeque<>();
+	private final Deque<JavaClass> javaClassStack=new ArrayDeque<>();
 
 	private byte[] allBytes;
 
 	private final List<GeneratedFragment> generatedFragments = new ArrayList<>();
+	private final List<ClassDetails> classDetails = new ArrayList<>();
 
-	InstrumentorVisitor(CompilationUnitTree compilationUnit, DocTrees docTrees)
+	InstrumentorVisitor(final CompilationUnitTree compilationUnit, final DocTrees docTrees, final JavaFile javaFile)
 	{
 		this.sourcePositions=docTrees.getSourcePositions();
 		this.compilationUnit=compilationUnit;
 		this.docTrees=docTrees;
+		this.javaFile = javaFile;
+	}
+
+	JavaFile getJavaFile()
+	{
+		return javaFile;
 	}
 
 	private void addGeneratedFragment(int start, int end)
 	{
 		generatedFragments.add( new GeneratedFragment(start, end) );
+		javaFile.markFragmentAsGenerated(start, end);
+	}
+
+	private void addClassDetails(ClassTree clazz, int end)
+	{
+		classDetails.add( new ClassDetails(clazz.getSimpleName().toString(), end) );
 	}
 
 	private void addPotentialFeature(ClassTree clazz, VariableTree variable, ExpressionTree initializer)
@@ -83,12 +101,42 @@ class InstrumentorVisitor extends TreePathScanner<Void, Void>
 		return new String(getSourceBytes(start, end), StandardCharsets.US_ASCII);
 	}
 
+	private static String getSimpleName(ClassTree ct)
+	{
+		String simpleName=ct.getSimpleName().toString();
+		if ( !ct.getTypeParameters().isEmpty() )
+		{
+			simpleName += "<"+ct.getTypeParameters().toString()+">";
+		}
+		return simpleName;
+	}
+
 	@Override
 	public Void visitClass(ClassTree ct, Void ignore)
 	{
 		classStack.addLast(ct);
+		JavaClass parent = javaClassStack.isEmpty() ? null : javaClassStack.getLast();
+		final String classExtends=ct.getExtendsClause()==null?null:ct.getExtendsClause().toString();
+		JavaClass javaClass = new JavaClass(javaFile, parent, toModifiersInt(ct.getModifiers()), ct.getKind()==Tree.Kind.ENUM, getSimpleName(ct), classExtends);
+		javaClass.setDocComment(getDocComment());
+		javaClass.setClassEndPosition( Math.toIntExact(sourcePositions.getEndPosition(compilationUnit, ct))-1 );
+		javaClassStack.addLast(javaClass);
 		final Void result=super.visitClass(ct, ignore);
+		if (javaClassStack.removeLast() != javaClass)
+		{
+			throw new RuntimeException();
+		}
 		if (classStack.removeLast() != ct)
+		{
+			throw new RuntimeException();
+		}
+		return result;
+	}
+
+	private JavaClass getCurrentJavaClass()
+	{
+		final JavaClass result=javaClassStack.getLast();
+		if (result == null)
 		{
 			throw new RuntimeException();
 		}
@@ -108,17 +156,55 @@ class InstrumentorVisitor extends TreePathScanner<Void, Void>
 	@Override
 	public Void visitVariable(VariableTree node, Void p)
 	{
+		if ( hasCopeIgnoreJavadocTag() )
+		{
+			return null;
+		}
 		final Set<Modifier> required = new HashSet<>();
 		required.add(Modifier.FINAL);
 		required.add(Modifier.STATIC);
-		if ( node.getModifiers().getFlags().containsAll(required) )
-		{
-			addPotentialFeature(getCurrentClass(), node, node.getInitializer());
-		}
 		final VariableVisitor variableVisitor=new VariableVisitor();
 		variableVisitor.visitVariable(node, null);
-		checkGenerated(node, variableVisitor.currentVariableHasGeneratedAnnotation);
+		final boolean generated = checkGenerated(node, variableVisitor.currentVariableHasGeneratedAnnotation);
+		if ( !generated && node.getModifiers().getFlags().containsAll(required) )
+		{
+			addPotentialFeature(getCurrentClass(), node, node.getInitializer());
+			final JavaField javaField = new JavaField(getCurrentJavaClass(), toModifiersInt(node.getModifiers()), removeSpacesAfterCommas(node.getType().toString()), node.getName().toString());
+			javaField.setDocComment(getDocComment());
+			//TODO:
+			for(char c: node.getInitializer().toString().toCharArray())
+			{
+				javaField.addToInitializer(c);
+			}
+		}
 		return null;
+	}
+
+	private static String removeSpacesAfterCommas(String s)
+	{
+		final StringBuilder result = new StringBuilder(s.length());
+		boolean foundComma = false;
+		for (int i=0; i < s.length(); i++)
+		{
+			final char c = s.charAt(i);
+			if ( foundComma )
+			{
+				if ( c!=' ' )
+				{
+					foundComma = false;
+					result.append(c);
+				}
+			}
+			else
+			{
+				result.append(c);
+				if ( c==',' )
+				{
+					foundComma = true;
+				}
+			}
+		}
+		return result.toString();
 	}
 
 	@Override
@@ -136,8 +222,23 @@ class InstrumentorVisitor extends TreePathScanner<Void, Void>
 
 	private boolean hasCopeGeneratedJavadocTag()
 	{
-		final String docComment=docTrees.getDocComment(getCurrentPath());
-		return docComment!=null && docComment.contains("@cope.generated");
+		return hasJavadocTag("@"+CopeFeature.TAG_PREFIX+"generated");
+	}
+
+	private boolean hasCopeIgnoreJavadocTag()
+	{
+		return hasJavadocTag("@"+CopeFeature.TAG_PREFIX+"ignore");
+	}
+
+	private boolean hasJavadocTag(String tag)
+	{
+		final String docComment=getDocComment();
+		return docComment!=null && docComment.contains(tag);
+	}
+
+	private String getDocComment()
+	{
+		return docTrees.getDocComment(getCurrentPath());
 	}
 
 	private int searchBefore(final int pos, final byte[] search)
@@ -193,7 +294,7 @@ class InstrumentorVisitor extends TreePathScanner<Void, Void>
 		return null;
 	}
 
-	private void checkGenerated(final Tree mt, final boolean hasGeneratedAnnotation) throws RuntimeException
+	private boolean  checkGenerated(final Tree mt, final boolean hasGeneratedAnnotation) throws RuntimeException
 	{
 		if ( hasGeneratedAnnotation || hasCopeGeneratedJavadocTag() )
 		{
@@ -217,6 +318,11 @@ class InstrumentorVisitor extends TreePathScanner<Void, Void>
 				if ( !allWhitespace(inBetween) ) throw new RuntimeException(">"+inBetween+"<");
 				addGeneratedFragment(docStart, end);
 			}
+			return true;
+		}
+		else
+		{
+			return false;
 		}
 	}
 
@@ -284,6 +390,36 @@ class InstrumentorVisitor extends TreePathScanner<Void, Void>
 
 	}
 
+	private int toModifiersInt(ModifiersTree modifiers)
+	{
+		int result = 0;
+		for (Modifier flag: modifiers.getFlags())
+		{
+			result |= toModifiersInt(flag);
+		}
+		return result;
+	}
+
+	private int toModifiersInt(Modifier flag)
+	{
+		switch (flag)
+		{
+			case ABSTRACT: return java.lang.reflect.Modifier.ABSTRACT;
+			case DEFAULT: throw new RuntimeException("unexpected DEFAULT modifier");
+			case FINAL: return java.lang.reflect.Modifier.FINAL;
+			case NATIVE: return java.lang.reflect.Modifier.NATIVE;
+			case PRIVATE: return java.lang.reflect.Modifier.PRIVATE;
+			case PROTECTED: return java.lang.reflect.Modifier.PROTECTED;
+			case PUBLIC: return java.lang.reflect.Modifier.PUBLIC;
+			case STATIC: return java.lang.reflect.Modifier.STATIC;
+			case STRICTFP: return java.lang.reflect.Modifier.STRICT;
+			case SYNCHRONIZED: return java.lang.reflect.Modifier.SYNCHRONIZED;
+			case TRANSIENT: return java.lang.reflect.Modifier.TRANSIENT;
+			case VOLATILE: return java.lang.reflect.Modifier.VOLATILE;
+			default: throw new RuntimeException(flag.toString());
+		}
+	}
+
 	static class GeneratedFragment
 	{
 		final int fromInclusive;
@@ -299,6 +435,18 @@ class InstrumentorVisitor extends TreePathScanner<Void, Void>
 		public String toString()
 		{
 			return String.format("%s-%s", fromInclusive, endExclusive);
+		}
+	}
+
+	static class ClassDetails
+	{
+		final String simpleName;
+		final int end;
+
+		ClassDetails(final String simpleName, final int end)
+		{
+			this.simpleName=simpleName;
+			this.end=end;
 		}
 	}
 }

@@ -173,11 +173,24 @@ final class JavaClass extends JavaFeature
 		this.classEndPosition = classEndPosition;
 	}
 
-	int getClassEndPosition()
+	int getClassEndPositionInSourceWithoutGeneratedFragments()
 	{
 		assert classEndPosition>=0;
 
-		return classEndPosition;
+		int generatedBytesBeforeClassEnd = 0;
+		for (JavaFile.GeneratedFragment generatedFragment: file.generatedFragments)
+		{
+			if ( generatedFragment.fromInclusive<=classEndPosition )
+			{
+				if ( generatedFragment.endExclusive>classEndPosition )
+				{
+					throw new RuntimeException("class end in generated fragment");
+				}
+				generatedBytesBeforeClassEnd += (generatedFragment.endExclusive-generatedFragment.fromInclusive);
+			}
+		}
+
+		return classEndPosition-generatedBytesBeforeClassEnd;
 	}
 
 	Object evaluate(final String s)

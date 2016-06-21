@@ -20,7 +20,13 @@
 package com.exedio.cope.instrument;
 
 import bsh.UtilEvalError;
-import java.io.File;
+import com.sun.source.tree.CompilationUnitTree;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -54,18 +60,109 @@ final class JavaFile
 	 */
 	private boolean buildStageForImports = true;
 
+	private final CompilationUnitTree compilationUnit;
 	final JavaRepository repository;
 	final ArrayList<JavaClass> classes = new ArrayList<>();
 
-	final StringBuilder buffer = new StringBuilder();
+	final List<GeneratedFragment> generatedFragments = new ArrayList<>();
 
-	public JavaFile(final JavaRepository repository, final File file)
+	public JavaFile(final JavaRepository repository, final CompilationUnitTree compilationUnit)
 	{
-		this.externalNameSpace = new CopeNameSpace(repository.externalNameSpace, file.getPath() + " external");
-		this.nameSpace = new CopeNameSpace(repository.nameSpace, file.getPath());
+		this.externalNameSpace = new CopeNameSpace(repository.externalNameSpace, compilationUnit.getSourceFile().getName() + " external");
+		this.nameSpace = new CopeNameSpace(repository.nameSpace, compilationUnit.getSourceFile().getName());
 
 		this.repository = repository;
 		repository.add(this);
+
+		this.compilationUnit = compilationUnit;
+	}
+
+	@Override
+	public String toString()
+	{
+		return "JavaFile("+compilationUnit.getSourceFile().getName()+")";
+	}
+
+	void markFragmentAsGenerated(int start, int end)
+	{
+		generatedFragments.add( new GeneratedFragment(start, end) );
+	}
+
+	byte[] getSourceWithoutGeneratedFragments()
+	{
+		// TODO more efficient
+		int start = 0;
+		try (final ByteArrayOutputStream os = new ByteArrayOutputStream())
+		{
+			int end;
+			final byte[] allBytes;
+			try (final InputStream inputStream=compilationUnit.getSourceFile().openInputStream())
+			{
+				allBytes=readFully(inputStream);
+			}
+			catch (IOException e)
+			{
+				throw new RuntimeException(e);
+			}
+
+			for (final GeneratedFragment generatedFragment: generatedFragments)
+			{
+				end = generatedFragment.fromInclusive;
+				os.write(allBytes, start, end-start);
+				start = generatedFragment.endExclusive;
+			}
+			os.write(allBytes, start, allBytes.length-start);
+
+			return os.toByteArray();
+		}
+		catch (IOException e)
+		{
+			throw new RuntimeException(e);
+		}
+	}
+
+	private static byte[] readFully(InputStream fis) throws IOException
+	{
+		try (final ByteArrayOutputStream baos = new ByteArrayOutputStream())
+		{
+			int b;
+			while ( (b=fis.read())!=-1 )
+			{
+				baos.write(b);
+			}
+			return baos.toByteArray();
+		}
+	}
+
+	String getSourceFileName()
+	{
+		return compilationUnit.getSourceFile().getName();
+	}
+
+	boolean inputEqual(final StringBuilder bf, final Charset charset)
+	{
+		try (
+			final InputStream actualBytes = compilationUnit.getSourceFile().openInputStream();
+			final InputStreamReader actualChars = new InputStreamReader(actualBytes, charset);
+			)
+		{
+			for ( int i=0; i<bf.length(); i++ )
+			{
+				final char expectedChar = bf.charAt(i);
+				final int actualChar = actualChars.read();
+				if ( actualChar==-1 ) return false;
+				if ( expectedChar!=(char)actualChar ) return false;
+			}
+			if ( actualChars.read()!=-1 )
+			{
+				return false;
+			}
+		}
+		catch (IOException e)
+		{
+			throw new RuntimeException(e);
+		}
+		return true;
 	}
 
 	void add(final JavaClass javaClass)
@@ -148,4 +245,33 @@ final class JavaFile
 		}
 	}
 
+	void overwrite(byte[] bytes)
+	{
+		try(final OutputStream o = compilationUnit.getSourceFile().openOutputStream())
+		{
+			o.write(bytes);
+		}
+		catch(IOException e)
+		{
+			throw new RuntimeException(e);
+		}
+	}
+
+	static class GeneratedFragment
+	{
+		final int fromInclusive;
+		final int endExclusive;
+
+		GeneratedFragment(int fromInclusive, int endExclusive)
+		{
+			this.fromInclusive=fromInclusive;
+			this.endExclusive=endExclusive;
+		}
+
+		@Override
+		public String toString()
+		{
+			return String.format("%s-%s", fromInclusive, endExclusive);
+		}
+	}
 }

@@ -34,6 +34,7 @@ import com.exedio.cope.pattern.BlockActivationParameters;
 import com.exedio.cope.pattern.BlockType;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Modifier;
+import java.nio.charset.Charset;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -856,14 +857,14 @@ final class Generator
 		}
 	}
 
-	void write() throws ParserException
+	void write(Charset charset) throws ParserException
 	{
-		final String buffer = javaFile.buffer.toString();
+		final String buffer = new String(javaFile.getSourceWithoutGeneratedFragments(), charset);
 		int previousClassEndPosition = 0;
 		for(final JavaClass javaClass : javaFile.getClasses())
 		{
 			final CopeType type = CopeType.getCopeType(javaClass);
-			final int classEndPosition = javaClass.getClassEndPosition();
+			final int classEndPosition = javaClass.getClassEndPositionInSourceWithoutGeneratedFragments();
 			if(type!=null)
 			{
 				assert previousClassEndPosition<=classEndPosition;

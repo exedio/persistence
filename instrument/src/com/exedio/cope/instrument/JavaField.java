@@ -111,6 +111,7 @@ final class JavaField
 
 		if(rtvalue==null)
 		{
+			if ( getInitializer()==null ) throw new RuntimeException("getInitializer() null");
 			rtvalue = parent.evaluate(getInitializer());
 			assert rtvalue!=null : getInitializer()+'/'+parent+'/'+name;
 			parent.registerInstance(this, rtvalue);
