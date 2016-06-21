@@ -121,19 +121,19 @@ public final class HsqldbDialect extends Dialect
 
 							schema.querySQL(bf.toString(), new ResultSetHandler()
 								{
-									public void run(final ResultSet resultSet) throws SQLException
+									public void run(final ResultSet resultSetUnique) throws SQLException
 									{
 										//printMeta(resultSet);
 										boolean first = true;
 										clause.append('(');
-										while(resultSet.next())
+										while(resultSetUnique.next())
 										{
 											//printRow(resultSet);
 											if(first)
 												first = false;
 											else
 												clause.append(',');
-											final String columnName = resultSet.getString(1);
+											final String columnName = resultSetUnique.getString(1);
 											clause.append(quoteName(columnName));
 										}
 										clause.append(')');
