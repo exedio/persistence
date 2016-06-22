@@ -18,6 +18,7 @@
 
 package com.exedio.cope.instrument;
 
+import static com.exedio.cope.instrument.CopeFeature.TAG_PREFIX;
 import static java.lang.reflect.Modifier.PRIVATE;
 import static java.lang.reflect.Modifier.PROTECTED;
 
@@ -34,7 +35,6 @@ import java.util.TreeSet;
 
 final class CopeType
 {
-	private static final String TAG_PREFIX = CopeFeature.TAG_PREFIX;
 	static final String TAG_TYPE                   = TAG_PREFIX + "type";
 	static final String TAG_INITIAL_CONSTRUCTOR    = TAG_PREFIX + "constructor";
 	static final String TAG_GENERIC_CONSTRUCTOR    = TAG_PREFIX + "generic.constructor";
