@@ -46,51 +46,61 @@ class CopeNameSpace extends NameSpace
 		importPackage("java.lang");
 	}
 
-	/*public Object get(final String name, final Interpreter interpreter) throws UtilEvalError
+	/*
+	@Override
+	public Object get(final String name, final Interpreter interpreter) throws UtilEvalError
 	{
 		System.out.println("++++++++++++++++get(\""+name+"\",Interpreter)");
 		return super.get(name, interpreter);
 	}
 
-	public Class getClass(final String name) throws UtilEvalError
+	@Override
+	public Class<?> getClass(final String name) throws UtilEvalError
 	{
 		System.out.println("++++++++++++++++getClass(\""+name+"\")");
 		return super.getClass(name);
 	}
 
+	@Override
 	public Object getVariable(final String name) throws UtilEvalError
 	{
 		System.out.println("++++++++++++++++getVariable(\""+name+"\")");
 		return super.getVariable(name);
 	}
 
+	@Override
 	public Object getVariable(final String name, final boolean recurse) throws UtilEvalError
 	{
 		System.out.println("++++++++++++++++getVariable(\""+name+"\","+recurse+")");
 		return super.getVariable(name, recurse);
 	}
 
+	@Override
 	protected Variable getVariableImpl(final String name, final boolean recurse) throws UtilEvalError
 	{
 		System.out.println("++++++++++++++++getVariableImpl(\""+name+"\","+recurse+")");
 		return super.getVariableImpl(name, recurse);
 	}
 
+	@Override
 	protected Variable getImportedVar(final String name) throws bsh.UtilEvalError
 	{
 		System.out.println("++++++++++++++++getImportedVar(\""+name+"\")");
 		return super.getImportedVar(name);
 	}
 
+	@Override
 	public String[] getVariableNames()
 	{
 		System.out.println("++++++++++++++++getVariableNames()");
 		return super.getVariableNames();
 	}
 
+	@Override
 	public Variable[] getDeclaredVariables()
 	{
 		System.out.println("++++++++++++++++getDeclaredVariables()");
 		return super.getDeclaredVariables();
-	}*/
+	}
+	*/
 }
