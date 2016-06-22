@@ -51,56 +51,62 @@ class CopeNameSpace extends NameSpace
 	public Object get(final String name, final Interpreter interpreter) throws UtilEvalError
 	{
 		System.out.println("++++++++++++++++get(\""+name+"\",Interpreter)");
-		return super.get(name, interpreter);
+		return report(super.get(name, interpreter));
 	}
 
 	@Override
 	public Class<?> getClass(final String name) throws UtilEvalError
 	{
 		System.out.println("++++++++++++++++getClass(\""+name+"\")");
-		return super.getClass(name);
+		return report(super.getClass(name));
 	}
 
 	@Override
 	public Object getVariable(final String name) throws UtilEvalError
 	{
 		System.out.println("++++++++++++++++getVariable(\""+name+"\")");
-		return super.getVariable(name);
+		return report(super.getVariable(name));
 	}
 
 	@Override
 	public Object getVariable(final String name, final boolean recurse) throws UtilEvalError
 	{
 		System.out.println("++++++++++++++++getVariable(\""+name+"\","+recurse+")");
-		return super.getVariable(name, recurse);
+		return report(super.getVariable(name, recurse));
 	}
 
 	@Override
 	protected Variable getVariableImpl(final String name, final boolean recurse) throws UtilEvalError
 	{
 		System.out.println("++++++++++++++++getVariableImpl(\""+name+"\","+recurse+")");
-		return super.getVariableImpl(name, recurse);
+		return report(super.getVariableImpl(name, recurse));
 	}
 
 	@Override
 	protected Variable getImportedVar(final String name) throws bsh.UtilEvalError
 	{
 		System.out.println("++++++++++++++++getImportedVar(\""+name+"\")");
-		return super.getImportedVar(name);
+		return report(super.getImportedVar(name));
 	}
 
 	@Override
 	public String[] getVariableNames()
 	{
 		System.out.println("++++++++++++++++getVariableNames()");
-		return super.getVariableNames();
+		return report(super.getVariableNames());
 	}
 
 	@Override
 	public Variable[] getDeclaredVariables()
 	{
 		System.out.println("++++++++++++++++getDeclaredVariables()");
-		return super.getDeclaredVariables();
+		return report(super.getDeclaredVariables());
+	}
+
+	private static <X> X report(final X x)
+	{
+		System.out.println("++++++++++++++++ result " + x);
+		return x;
 	}
 	*/
 }
