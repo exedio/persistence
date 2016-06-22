@@ -30,9 +30,9 @@ class CopeNameSpace extends NameSpace
 {
 	private static final long serialVersionUID = 1l;
 
-	CopeNameSpace(final CopeNameSpace parent)
+	CopeNameSpace(final CopeNameSpace parent, final String name)
 	{
-		super(parent, "zack");
+		super(parent, name);
 	}
 
 	/**

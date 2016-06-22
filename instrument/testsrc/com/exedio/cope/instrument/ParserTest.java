@@ -53,7 +53,7 @@ public abstract class ParserTest
 		parseEvents = new LinkedList<>();
 		testParseConsumer = new TestParseConsumer();
 		final JavaRepository repository = new JavaRepository();
-		final JavaFile javaFile = new JavaFile(repository);
+		final JavaFile javaFile = new JavaFile(repository, new File("SomeFile.java"));
 		final Parser parser = new Parser(new Lexer(inputFile, StandardCharsets.US_ASCII, javaFile), testParseConsumer, javaFile);
 		if(assertText)
 			testParseConsumer.output = parser.javaFile.buffer;

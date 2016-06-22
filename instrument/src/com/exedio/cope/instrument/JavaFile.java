@@ -20,6 +20,7 @@
 package com.exedio.cope.instrument;
 
 import bsh.UtilEvalError;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -58,10 +59,10 @@ final class JavaFile
 
 	final StringBuilder buffer = new StringBuilder();
 
-	public JavaFile(final JavaRepository repository)
+	public JavaFile(final JavaRepository repository, final File file)
 	{
-		this.externalNameSpace = new CopeNameSpace(repository.externalNameSpace);
-		this.nameSpace = new CopeNameSpace(repository.nameSpace);
+		this.externalNameSpace = new CopeNameSpace(repository.externalNameSpace, file.getPath() + " external");
+		this.nameSpace = new CopeNameSpace(repository.nameSpace, file.getPath());
 
 		this.repository = repository;
 		repository.add(this);
