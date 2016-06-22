@@ -15,17 +15,13 @@ import com.sun.source.util.TreePathScanner;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayDeque;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Deque;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import javax.lang.model.element.Modifier;
-import javax.tools.JavaFileObject;
 
 class InstrumentorVisitor extends TreePathScanner<Void, Void>
 {
@@ -38,8 +34,6 @@ class InstrumentorVisitor extends TreePathScanner<Void, Void>
 	private final Deque<JavaClass> javaClassStack=new ArrayDeque<>();
 
 	private byte[] allBytes;
-
-	private final List<GeneratedFragment> generatedFragments = new ArrayList<>();
 
 	InstrumentorVisitor(final CompilationUnitTree compilationUnit, final DocTrees docTrees, final JavaFile javaFile)
 	{
@@ -56,7 +50,6 @@ class InstrumentorVisitor extends TreePathScanner<Void, Void>
 
 	private void addGeneratedFragment(int start, int end)
 	{
-		generatedFragments.add( new GeneratedFragment(start, end) );
 		javaFile.markFragmentAsGenerated(start, end);
 	}
 
@@ -331,34 +324,6 @@ class InstrumentorVisitor extends TreePathScanner<Void, Void>
 		return baos.toByteArray();
 	}
 
-	void removeAllGeneratedFragments()
-	{
-		if ( generatedFragments.isEmpty() )
-		{
-			return;
-		}
-		final JavaFileObject sourceFile=compilationUnit.getSourceFile();
-		System.out.println(sourceFile);
-		int start = 0;
-		try (final OutputStream os = sourceFile.openOutputStream())
-		{
-			int end;
-			final byte[] allBytes=getAllBytes();
-			for (final InstrumentorVisitor.GeneratedFragment generatedFragment: generatedFragments)
-			{
-				end = generatedFragment.fromInclusive;
-				os.write(allBytes, start, end-start);
-				start = generatedFragment.endExclusive;
-			}
-			os.write(allBytes, start, allBytes.length-start);
-		}
-		catch (IOException e)
-		{
-			throw new RuntimeException(e);
-		}
-
-	}
-
 	private int toModifiersInt(ModifiersTree modifiers)
 	{
 		int result = 0;
@@ -386,24 +351,6 @@ class InstrumentorVisitor extends TreePathScanner<Void, Void>
 			case TRANSIENT: return java.lang.reflect.Modifier.TRANSIENT;
 			case VOLATILE: return java.lang.reflect.Modifier.VOLATILE;
 			default: throw new RuntimeException(flag.toString());
-		}
-	}
-
-	static class GeneratedFragment
-	{
-		final int fromInclusive;
-		final int endExclusive;
-
-		GeneratedFragment(int fromInclusive, int endExclusive)
-		{
-			this.fromInclusive=fromInclusive;
-			this.endExclusive=endExclusive;
-		}
-
-		@Override
-		public String toString()
-		{
-			return String.format("%s-%s", fromInclusive, endExclusive);
 		}
 	}
 }

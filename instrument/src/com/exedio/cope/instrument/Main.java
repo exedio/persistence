@@ -69,16 +69,13 @@ final class Main
 
 			for(final JavaFile javaFile: repository.getFiles())
 			{
-				System.out.println(javaFile);
 				for(final JavaClass javaClass : javaFile.getClasses())
 				{
-					System.out.println("   "+javaClass);
 					final CopeType type = CopeType.getCopeType(javaClass);
 					if(type!=null)
 					{
 						if(!type.isInterface())
 						{
-							System.out.println("       features: "+type.getFeatures());
 							for(final CopeFeature feature : type.getFeatures())
 								feature.getInstance();
 						}
@@ -88,11 +85,9 @@ final class Main
 
 			for(final JavaFile javaFile: repository.getFiles())
 			{
-				System.out.println("javaFile = " + javaFile);
 				final StringBuilder baos = new StringBuilder(/*TODO COPE-10 guess length*/);
 				final Generator generator = new Generator(javaFile, baos, params);
 				generator.write(charset);
-				System.out.println("  baos length "+baos.length());
 
 				if(!javaFile.inputEqual(baos, charset))
 				{
@@ -184,6 +179,7 @@ final class Main
 
 	private String toClasspath(ClassLoader cl)
 	{
+		// TODO COPE-10
 		final Pattern pattern = Pattern.compile("AntClassLoader\\[(.*)\\]");
 		final Matcher matcher = pattern.matcher(cl.toString());
 		if ( !matcher.matches() ) throw new RuntimeException();
