@@ -32,7 +32,7 @@ import org.junit.Test;
 public class ResolveImportTest
 {
 
-	@Test public void testImports() throws ParserException
+	@Test public void testImports()
 	{
 		final JavaRepository repository = new JavaRepository();
 		// TODO COPE-10 provide source ref:

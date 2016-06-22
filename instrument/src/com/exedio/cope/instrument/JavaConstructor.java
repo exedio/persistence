@@ -22,18 +22,17 @@ package com.exedio.cope.instrument;
 import java.lang.reflect.Modifier;
 
 /**
- * Represents a constructor of a class parsed by the java parser.
- * @see Parser
+ * Represents a constructor of a class.
  *
  * @author Ralf Wiebicke
  */
 final class JavaConstructor extends JavaBehaviour
 {
+	// TODO COPE-10 remove class
 	public JavaConstructor(
 						final JavaClass parent,
 						final int modifiers,
 						final String name)
-	throws ParserException
 	{
 		super(parent, modifiers, null, name);
 	}

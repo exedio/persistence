@@ -22,17 +22,14 @@ package com.exedio.cope.instrument;
 import java.lang.reflect.Modifier;
 
 /**
- * Represents an attribute of a class parsed by the
- * java parser.
+ * Represents an attribute of a class.
  * Contains additional information about this attribute
  * described in the doccomment of this attribute.
- * @see Parser
  *
  * @author Ralf Wiebicke
  */
 final class JavaField
 	extends JavaFeature
-	implements InitializerConsumer
 {
 	private String docComment;
 
@@ -43,7 +40,6 @@ final class JavaField
 		final int modifiers,
 		final String type,
 		final String name)
-		throws ParserException
 	{
 		// parent must not be null
 		super(parent.file, parent, modifiers, type, name);
@@ -60,7 +56,6 @@ final class JavaField
 	 * Needed for comma separated attributes.
 	 */
 	JavaField(final JavaField template, final String name)
-		throws ParserException
 	{
 		this(template.parent, template.modifier, template.type, name);
 	}
@@ -87,7 +82,6 @@ final class JavaField
 	private StringBuilder initializerBuf = new StringBuilder();
 	private String initializer = null;
 
-	@Override
 	public void addToInitializer(final char c)
 	{
 		initializerBuf.append(c);

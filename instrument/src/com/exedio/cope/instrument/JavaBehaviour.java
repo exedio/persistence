@@ -20,9 +20,8 @@
 package com.exedio.cope.instrument;
 
 /**
- * Represents a behavioral feature of a class parsed by the java parser.
+ * Represents a behavioral feature of a class.
  * May be either a method or a constructor.
- * @see Parser
  *
  * @author Ralf Wiebicke
  */
@@ -33,7 +32,6 @@ abstract class JavaBehaviour extends JavaFeature
 						final int modifiers,
 						final String type,
 						final String name)
-	throws ParserException
 	{
 		// parent must not be null
 		super(parent.file, parent, modifiers, type, name);

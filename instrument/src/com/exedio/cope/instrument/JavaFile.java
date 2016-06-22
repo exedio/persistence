@@ -50,6 +50,7 @@ final class JavaFile
 
 	final CopeNameSpace nameSpace;
 
+	// TODO COPE-10 final?
 	private String packagename;
 
 	/**
@@ -182,15 +183,13 @@ final class JavaFile
 	 * Sets the package of this file.
 	 * Necessary, since the package is not known at construction time.
 	 * @param packagename may be null for root package
-	 * @throws ParserException if called more than once.
 	 */
 	public final void setPackage(final String packagename)
-	throws ParserException
 	{
 		if(!buildStageForImports)
 			throw new RuntimeException();
 		if(this.packagename!=null)
-			throw new ParserException("only one package statement allowed.");
+			throw new RuntimeException("only one package statement allowed.");
 
 		this.packagename=packagename;
 		nameSpace.importPackage(packagename);
@@ -211,7 +210,6 @@ final class JavaFile
 	 * Adds the value of an import statement.
 	 */
 	public final void addImport(final String importname)
-	throws ParserException
 	{
 		if(!buildStageForImports)
 			throw new RuntimeException();

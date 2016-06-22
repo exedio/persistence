@@ -46,7 +46,7 @@ import javax.tools.StandardJavaFileManager;
 
 final class Main
 {
-	final void run(final ArrayList<File> files, final Params params, final ArrayList<File> resourceFiles) throws HumanReadableException, ParserException, IOException
+	final void run(final ArrayList<File> files, final Params params, final ArrayList<File> resourceFiles) throws HumanReadableException, IOException
 	{
 		if(files.isEmpty())
 			throw new HumanReadableException("nothing to do.");

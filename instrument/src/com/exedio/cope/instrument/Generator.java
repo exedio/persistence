@@ -396,7 +396,6 @@ final class Generator
 	}
 
 	private void writeFeature(final CopeFeature feature)
-	throws ParserException
 	{
 		final Object instance = feature.getInstance();
 		final JavaClass javaClass = feature.getParent();
@@ -845,7 +844,7 @@ final class Generator
 		write(");");
 	}
 
-	private void writeWildcard(final CopeType type) throws ParserException
+	private void writeWildcard(final CopeType type)
 	{
 		final int typeParameters = type.javaClass.typeParameters;
 		if(typeParameters>0)
@@ -857,7 +856,7 @@ final class Generator
 		}
 	}
 
-	void write(Charset charset) throws ParserException
+	void write(Charset charset)
 	{
 		final String buffer = new String(javaFile.getSourceWithoutGeneratedFragments(), charset);
 		int previousClassEndPosition = 0;
@@ -888,7 +887,6 @@ final class Generator
 	}
 
 	private void writeClassFeatures(final CopeType type)
-			throws ParserException
 	{
 		if(type.isInterface())
 			return;

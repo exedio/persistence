@@ -22,7 +22,6 @@ import static java.lang.System.lineSeparator;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
-import com.exedio.cope.instrument.Lexer.CommentToken;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -41,12 +40,11 @@ public abstract class ParserTest
 	}
 
 	LinkedList<ParseEvent> parseEvents;
-	private TestParseConsumer testParseConsumer;
 
 	public abstract void assertParse();
 
 	@Test public void testIt()
-		throws IOException, ParserException
+		throws IOException
 	{
 		/* TODO COPE-10
 		final File inputFile = new File(ParserTest.class.getResource(resourceName).getFile());
@@ -360,79 +358,4 @@ public abstract class ParserTest
 			return "ClassFeatureEvent("+javaFeature+")";
 		}
 	}
-
-	private class TestParseConsumer implements ParseConsumer
-	{
-		StringBuilder output;
-
-		TestParseConsumer()
-		{
-			// make constructor non-private
-		}
-
-		public void onPackage(final JavaFile javaFile) throws ParserException
-		{
-			//System.out.println("PACKAGE"+javaFile.getPackageName()+"--------------"+output.getBuffer());
-			addParseEvent(new PackageEvent(javaFile));
-		}
-
-		public void onImport(final String importname)
-		{
-			addParseEvent(new ImportEvent(importname));
-		}
-
-		public void onClass(final JavaClass cc)
-		{
-			addParseEvent(new ClassEvent(cc));
-		}
-
-		public void onClassEnd(final JavaClass cc)
-		{
-			addParseEvent(new ClassEndEvent(cc));
-		}
-
-		public void onBehaviourHeader(final JavaBehaviour jb)
-		{
-			addParseEvent(new BehaviourHeaderEvent(jb));
-		}
-
-		public void onFieldHeader(final JavaField ja)
-		{
-			addParseEvent(new FieldHeaderEvent(ja));
-		}
-
-		public void onClassFeature(final JavaFeature cf, final CommentToken doccomment)
-		{
-			//System.out.println("onClassFeature("+cf.name+" "+doccomment+")");
-			addParseEvent(new ClassFeatureEvent(cf, doccomment!=null ? doccomment.comment : null));
-		}
-
-		public boolean onDocComment(final CommentToken doccommentToken)
-		{
-			final String doccomment = doccommentToken.comment;
-			addParseEvent(new DocCommentEvent(doccomment));
-			return doccomment.indexOf("DO_DISCARD")<0;
-		}
-
-		public void onFileDocComment(final String doccomment)
-		{
-			addParseEvent(new FileDocCommentEvent(doccomment));
-		}
-
-		private void addParseEvent(final ParseEvent parseEvent)
-		{
-			flushOutput();
-			parseEvents.add(parseEvent);
-		}
-
-		private void flushOutput()
-		{
-			if(assertText && output.length()>0)
-			{
-				parseEvents.add(new TextEvent(output.toString()));
-				output.setLength(0);
-			}
-		}
-	}
-
 }

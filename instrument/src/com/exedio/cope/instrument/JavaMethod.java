@@ -22,8 +22,7 @@ package com.exedio.cope.instrument;
 import java.lang.reflect.Modifier;
 
 /**
- * Represents a method of a class parsed by the java parser.
- * @see Parser
+ * Represents a method of a class.
  *
  * @author Ralf Wiebicke
  */
@@ -31,7 +30,6 @@ final class JavaMethod extends JavaBehaviour
 {
 
 	public JavaMethod(final JavaClass parent, final int modifiers, final String type, final String name)
-	throws ParserException
 	{
 		// parent must not be null
 		super(parent, modifiers, type, name);
