@@ -43,16 +43,12 @@ final class InstrumentorProcessor extends AbstractProcessor
 		final Map<CompilationUnitTree,JavaFile> files = new HashMap<>();
 		for (final Element e: roundEnv.getRootElements())
 		{
-			final TypeElement typeElement=(TypeElement)e;
 			final TreePath tp = docTrees.getPath(e);
 			final CompilationUnitTree compilationUnit=tp.getCompilationUnit();
 			JavaFile javaFile=files.get(compilationUnit);
 			if ( javaFile==null )
 			{
-				files.put(compilationUnit, javaFile=new JavaFile(javaRepository, compilationUnit.getSourceFile()));
-				final String qualifiedName=typeElement.getQualifiedName().toString();
-				// TODO COPE-10 use class fqn
-				javaFile.setPackage(qualifiedName.substring(0, qualifiedName.lastIndexOf('.')));
+				files.put(compilationUnit, javaFile=new JavaFile(javaRepository, compilationUnit.getSourceFile(), compilationUnit.getPackageName().toString()));
 				for (ImportTree aImport: compilationUnit.getImports())
 				{
 					javaFile.addImport(aImport.getQualifiedIdentifier().toString());

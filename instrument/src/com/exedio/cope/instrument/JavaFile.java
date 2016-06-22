@@ -50,8 +50,7 @@ final class JavaFile
 
 	final CopeNameSpace nameSpace;
 
-	// TODO COPE-10 final?
-	private String packagename;
+	private final String packagename;
 
 	/**
 	 * Distiguishes two stages in life cycle of this object:
@@ -67,15 +66,17 @@ final class JavaFile
 
 	final List<GeneratedFragment> generatedFragments = new ArrayList<>();
 
-	public JavaFile(final JavaRepository repository, final JavaFileObject sourceFile)
+	public JavaFile(final JavaRepository repository, final JavaFileObject sourceFile, final String packagename)
 	{
-		this.externalNameSpace = new CopeNameSpace(repository.externalNameSpace, compilationUnit.getSourceFile().getName() + " external");
-		this.nameSpace = new CopeNameSpace(repository.nameSpace, compilationUnit.getSourceFile().getName());
+		this.externalNameSpace = new CopeNameSpace(repository.externalNameSpace, sourceFile.getName() + " external");
+		this.nameSpace = new CopeNameSpace(repository.nameSpace, sourceFile.getName());
+		this.sourceFile = sourceFile;
+		this.packagename = packagename;
+		nameSpace.importPackage(packagename);
+		externalNameSpace.importPackage(packagename);
 
 		this.repository = repository;
 		repository.add(this);
-
-		this.sourceFile = sourceFile;
 	}
 
 	@Override
@@ -177,23 +178,6 @@ final class JavaFile
 	{
 		assert !repository.isBuildStage();
 		return Collections.unmodifiableList(classes);
-	}
-
-	/**
-	 * Sets the package of this file.
-	 * Necessary, since the package is not known at construction time.
-	 * @param packagename may be null for root package
-	 */
-	public final void setPackage(final String packagename)
-	{
-		if(!buildStageForImports)
-			throw new RuntimeException();
-		if(this.packagename!=null)
-			throw new RuntimeException("only one package statement allowed.");
-
-		this.packagename=packagename;
-		nameSpace.importPackage(packagename);
-		externalNameSpace.importPackage(packagename);
 	}
 
 	/**
