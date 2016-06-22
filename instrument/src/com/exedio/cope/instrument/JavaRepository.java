@@ -20,8 +20,11 @@ package com.exedio.cope.instrument;
 
 import bsh.Interpreter;
 import bsh.UtilEvalError;
+import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.Item;
 import com.exedio.cope.SetValue;
+import com.exedio.cope.Type;
+import com.exedio.cope.TypesBound;
 import com.exedio.cope.pattern.Block;
 import com.exedio.cope.pattern.BlockActivationParameters;
 import com.exedio.cope.pattern.BlockType;
@@ -32,12 +35,6 @@ import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import org.cojen.classfile.ClassFile;
-import org.cojen.classfile.CodeBuilder;
-import org.cojen.classfile.MethodInfo;
-import org.cojen.classfile.Modifiers;
-import org.cojen.classfile.TypeDesc;
-import org.cojen.util.ClassInjector;
 
 final class JavaRepository
 {
@@ -205,11 +202,18 @@ final class JavaRepository
 			throw new RuntimeException(javaClass.getFullName());
 	}
 
+	private static final String DUMMY_ITEM = DummyItem.class.getName() + "$";
+
 	final JavaClass getJavaClass(final String name)
 	{
 		if(name.indexOf('.')<0)
 		{
 			return javaClassBySimpleName.get(name);
+		}
+		else if(name.startsWith(DUMMY_ITEM))
+		{
+			final String s = name.substring(DUMMY_ITEM.length(), name.length());
+			return javaClassBySimpleName.get(s);
 		}
 		else
 		{
@@ -296,11 +300,7 @@ final class JavaRepository
 					return EnumBeanShellHackClass.class;
 				if(isItem(javaClass))
 				{
-					final ClassFile cf =
-						new ClassFile(javaClass.getFullName(), Item.class);
-					addDelegateConstructor(cf,
-							Modifiers.PUBLIC, TypeDesc.forClass(SetValue.class).toArrayType());
-					return define(cf);
+					return DummyItem.class;
 				}
 				if("Block".equals(javaClass.classExtends)) // TODO does not work with subclasses an with fully qualified class names
 				{
@@ -314,23 +314,6 @@ final class JavaRepository
 
 			return null;
 		}
-
-		private final Class<?> define(final ClassFile cf)
-		{
-			return ClassInjector.createExplicit(
-					cf.getClassName(), getClass().getClassLoader()).defineClass(cf);
-		}
-
-		private final void addDelegateConstructor(final ClassFile cf, final Modifiers modifiers, final TypeDesc... args)
-		{
-			final MethodInfo creator = cf.addConstructor(modifiers, args);
-			final CodeBuilder cb = new CodeBuilder(creator);
-			cb.loadThis();
-			for(int i = 0; i<args.length; i++)
-				cb.loadLocal(cb.getParameter(i));
-			cb.invokeSuperConstructor(args);
-			cb.returnVoid();
-		}
 	}
 
 	// BEWARE
@@ -340,6 +323,13 @@ final class JavaRepository
 	public static enum EnumBeanShellHackClass implements Money.Currency
 	{
 		BEANSHELL_HACK_ATTRIBUTE;
+	}
+
+	public static final class DummyItem extends Item
+	{
+		private static final long serialVersionUID = 1l;
+		public static final Type<DummyItem> TYPE = TypesBound.newType(DummyItem.class);
+		private DummyItem(final ActivationParameters ap) { super(ap); }
 	}
 
 	public static final class DummyBlock extends Block

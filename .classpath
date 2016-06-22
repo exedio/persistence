@@ -20,7 +20,6 @@
 	<classpathentry kind="var" path="ANT_JAR"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="lib/bsh-core.jar" sourcepath="lib/bsh-src.jar"/>
-	<classpathentry kind="lib" path="lib/cojen.jar" sourcepath="lib/cojen-source.jar"/>
 	<classpathentry kind="lib" path="lib/junit.jar" sourcepath="lib/junit-source.jar"/>
 	<classpathentry kind="lib" path="lib/javax.servlet-api.jar" sourcepath="lib/javax.servlet-api-source.jar"/>
 	<classpathentry kind="lib" path="lib/trove4j.jar" sourcepath="lib/trove4j-source.jar"/>

@@ -38,10 +38,6 @@
 			<conf name="runtime" mapped="default" />
 			<conf name="build" mapped="sources" />
 		</dependency>
-		<dependency org="org.cojen" name="cojen" rev="2.0">
-			<conf name="runtime" mapped="default" />
-			<conf name="build" mapped="sources" />
-		</dependency>
 		<dependency org="org.beanshell-x" name="bsh" rev="2.0b4">
 			<conf name="runtime" mapped="default" />
 			<conf name="build" mapped="sources" />

@@ -2,7 +2,6 @@
 <module type="JAVA_MODULE" version="4">
   <component name="EclipseModuleManager">
     <libelement value="jar://$MODULE_DIR$/lib/bsh-core.jar!/" />
-    <libelement value="jar://$MODULE_DIR$/lib/cojen.jar!/" />
     <libelement value="jar://$MODULE_DIR$/lib/junit.jar!/" />
     <libelement value="jar://$MODULE_DIR$/lib/servlet-api.jar!/" />
     <libelement value="jar://$MODULE_DIR$/lib/trove4j.jar!/" />
@@ -77,17 +76,6 @@
         <JAVADOC />
         <SOURCES>
           <root url="jar://$MODULE_DIR$/lib/bsh-src.jar!/" />
-        </SOURCES>
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library name="cojen.jar">
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/cojen.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES>
-          <root url="jar://$MODULE_DIR$/lib/cojen-source.jar!/" />
         </SOURCES>
       </library>
     </orderEntry>
