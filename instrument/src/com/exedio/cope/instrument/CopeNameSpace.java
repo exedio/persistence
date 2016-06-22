@@ -103,9 +103,9 @@ class CopeNameSpace extends NameSpace
 		return report(super.getDeclaredVariables());
 	}
 
-	private static <X> X report(final X x)
+	private <X> X report(final X x)
 	{
-		System.out.println("+++    result " + x);
+		System.out.println("+++    result " + x + " in " + toString());
 		return x;
 	}
 	*/
