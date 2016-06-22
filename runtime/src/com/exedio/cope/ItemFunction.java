@@ -47,8 +47,15 @@ public interface ItemFunction<E extends Item> extends Function<E>
 		return new BindItemFunction<>(this, join);
 	}
 
-	CompareFunctionCondition<?> equalTarget();
-	CompareFunctionCondition<?> equalTarget(Join targetJoin);
+	default CompareFunctionCondition<?> equalTarget()
+	{
+		return ItemFunctionUtil.equalTarget(this);
+	}
+
+	default CompareFunctionCondition<?> equalTarget(final Join targetJoin)
+	{
+		return ItemFunctionUtil.equalTarget(this, targetJoin);
+	}
 
 	InstanceOfCondition<E> instanceOf(final Type<? extends E> type1);
 	InstanceOfCondition<E> instanceOf(final Type<? extends E> type1, final Type<? extends E> type2);

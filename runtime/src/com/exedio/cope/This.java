@@ -124,18 +124,6 @@ public final class This<E extends Item> extends Feature
 	// Note about isNull/isNotNull: a primary key can become null in queries using outer joins.
 
 	@Override
-	public CompareFunctionCondition<?> equalTarget()
-	{
-		return ItemFunctionUtil.equalTarget(this);
-	}
-
-	@Override
-	public CompareFunctionCondition<?> equalTarget(final Join targetJoin)
-	{
-		return ItemFunctionUtil.equalTarget(this, targetJoin);
-	}
-
-	@Override
 	public InstanceOfCondition<E> instanceOf(final Type<? extends E> type1)
 	{
 		return new InstanceOfCondition<>(this, false, type1);

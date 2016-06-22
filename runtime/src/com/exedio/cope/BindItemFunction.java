@@ -66,18 +66,6 @@ public final class BindItemFunction<E extends Item> extends BindFunction<E>
 
 	// convenience methods for conditions and views ---------------------------------
 
-	@Override
-	public CompareFunctionCondition<?> equalTarget()
-	{
-		return ItemFunctionUtil.equalTarget(this);
-	}
-
-	@Override
-	public CompareFunctionCondition<?> equalTarget(final Join targetJoin)
-	{
-		return ItemFunctionUtil.equalTarget(this, targetJoin);
-	}
-
 	/**
 	 * Return this.
 	 * It makes no sense wrapping a BindFunction into another BindFunction,

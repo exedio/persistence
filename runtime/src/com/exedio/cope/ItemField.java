@@ -473,18 +473,6 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 	// convenience methods for conditions and views ---------------------------------
 
 	@Override
-	public CompareFunctionCondition<?> equalTarget()
-	{
-		return ItemFunctionUtil.equalTarget(this);
-	}
-
-	@Override
-	public CompareFunctionCondition<?> equalTarget(final Join targetJoin)
-	{
-		return ItemFunctionUtil.equalTarget(this, targetJoin);
-	}
-
-	@Override
 	public InstanceOfCondition<E> instanceOf(final Type<? extends E> type1)
 	{
 		return new InstanceOfCondition<>(this, false, type1);
