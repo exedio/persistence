@@ -23,41 +23,85 @@ public interface StringFunction extends Function<String>
 {
 	// convenience methods for conditions and views ---------------------------------
 	@Override
-	BindStringFunction bind(Join join);
+	default BindStringFunction bind(final Join join)
+	{
+		return new BindStringFunction(this, join);
+	}
 
 	/**
 	 * Returns a condition, that is true for all items,
 	 * if and only if the value of this function for that item
 	 * is matches the given parameter.
 	 */
-	LikeCondition like(String value);
+	default LikeCondition like(final String value)
+	{
+		return new LikeCondition(this, value);
+	}
 
 	/**
 	 * Returns a condition, that is true for all items,
 	 * if and only if the value of this function for that item
 	 * starts with the given parameter.
 	 */
-	LikeCondition startsWith(String value);
+	default LikeCondition startsWith(final String value)
+	{
+		return LikeCondition.startsWith(this, value);
+	}
 
 	/**
 	 * Returns a condition, that is true for all items,
 	 * if and only if the value of this function for that item
 	 * ends with the given parameter.
 	 */
-	LikeCondition endsWith(String value);
+	default LikeCondition endsWith(final String value)
+	{
+		return LikeCondition.endsWith(this, value);
+	}
 
 	/**
 	 * Returns a condition, that is true for all items,
 	 * if and only if the value of this function for that item
 	 * contains the given parameter.
 	 */
-	LikeCondition contains(String value);
+	default LikeCondition contains(final String value)
+	{
+		return LikeCondition.contains(this, value);
+	}
 
-	LengthView length();
-	UppercaseView toUpperCase();
-	Condition equalIgnoreCase(String value);
-	LikeCondition likeIgnoreCase(String value);
-	LikeCondition startsWithIgnoreCase(String value);
-	LikeCondition endsWithIgnoreCase(String value);
-	LikeCondition containsIgnoreCase(String value);
+	default LengthView length()
+	{
+		return new LengthView(this);
+	}
+
+	default UppercaseView toUpperCase()
+	{
+		return new UppercaseView(this);
+	}
+
+	default Condition equalIgnoreCase(final String value)
+	{
+		return UppercaseView.equalIgnoreCase(this, value);
+	}
+
+	default LikeCondition likeIgnoreCase(final String value)
+	{
+		return UppercaseView.likeIgnoreCase(this, value);
+	}
+
+	default LikeCondition startsWithIgnoreCase(final String value)
+	{
+		return UppercaseView.startsWithIgnoreCase(this, value);
+	}
+
+	default LikeCondition endsWithIgnoreCase(final String value)
+	{
+		return UppercaseView.endsWithIgnoreCase(this, value);
+	}
+
+	default LikeCondition containsIgnoreCase(final String value)
+	{
+		return UppercaseView.containsIgnoreCase(this, value);
+	}
+
+	static final long serialVersionUID = 6196781661929849730L;
 }
