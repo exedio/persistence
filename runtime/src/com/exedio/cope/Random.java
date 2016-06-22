@@ -20,9 +20,6 @@ package com.exedio.cope;
 
 import static java.util.Objects.requireNonNull;
 
-import com.exedio.cope.search.AverageAggregate;
-import com.exedio.cope.search.SumAggregate;
-
 public class Random implements NumberFunction<Double>
 {
 	private static final long serialVersionUID = 1l;
@@ -120,97 +117,5 @@ public class Random implements NumberFunction<Double>
 	public void check(final TC tc, final Join join)
 	{
 		// nothing to do here, since there are no sources
-	}
-
-	// convenience methods for conditions and views ---------------------------------
-
-	@Override
-	public final BindNumberFunction<Double> bind(final Join join)
-	{
-		return new BindNumberFunction<>(this, join);
-	}
-
-	@Override
-	public final AsStringView asString()
-	{
-		return new AsStringView(this);
-	}
-
-	/**
-	 * You may want to use {@link PlusLiteralView#plus(Function, Number)} instead, if you do not have {@link NumberFunction}s available.
-	 */
-	@Override
-	public final PlusLiteralView<Double> plus(final Double value)
-	{
-		return PlusLiteralView.plus(this, value);
-	}
-
-	/**
-	 * You may want to use {@link MultiplyLiteralView#multiply(Function, Number)} instead, if you do not have {@link NumberFunction}s available.
-	 */
-	@Override
-	public final MultiplyLiteralView<Double> multiply(final Double value)
-	{
-		return MultiplyLiteralView.multiply(this, value);
-	}
-
-	/**
-	 * You may want to use {@link PlusView#plus(Function, Function)} instead, if you do not have {@link NumberFunction}s available.
-	 */
-	@Override
-	public final PlusView<Double> plus(final NumberFunction<Double> other)
-	{
-		return PlusView.plus(this, other);
-	}
-
-	/**
-	 * You may want to use {@link MinusView#minus(Function, Function)} instead, if you do not have {@link NumberFunction}s available.
-	 */
-	@Override
-	public final MinusView<Double> minus(final NumberFunction<Double> other)
-	{
-		return MinusView.minus(this, other);
-	}
-
-	/**
-	 * You may want to use {@link MultiplyView#multiply(Function, Function)} instead, if you do not have {@link NumberFunction}s available.
-	 */
-	@Override
-	public final MultiplyView<Double> multiply(final NumberFunction<Double> other)
-	{
-		return MultiplyView.multiply(this, other);
-	}
-
-	/**
-	 * You may want to use {@link DivideView#divide(Function, Function)} instead, if you do not have {@link NumberFunction}s available.
-	 */
-	@Override
-	public final DivideView<Double> divide(final NumberFunction<Double> other)
-	{
-		return DivideView.divide(this, other);
-	}
-
-	@Override
-	public final SumAggregate<Double> sum()
-	{
-		return new SumAggregate<>(this);
-	}
-
-	@Override
-	public final AverageAggregate<Double> average()
-	{
-		return new AverageAggregate<>(this);
-	}
-
-	// ------------------- deprecated stuff -------------------
-
-	/**
-	 * @deprecated renamed to {@link #plus(NumberFunction)}.
-	 */
-	@Override
-	@Deprecated
-	public final PlusView<Double> sum(final NumberFunction<Double> other)
-	{
-		return plus(other);
 	}
 }
