@@ -20,14 +20,13 @@ import javax.lang.model.element.TypeElement;
 @SupportedAnnotationTypes("*")
 final class InstrumentorProcessor extends AbstractProcessor
 {
-	private DocTrees docTrees;
 
-	private final boolean deinstrument;
 	private final JavaRepository javaRepository;
 
-	InstrumentorProcessor(boolean deinstrument, JavaRepository javaRepository)
+	private DocTrees docTrees;
+
+	InstrumentorProcessor(final JavaRepository javaRepository)
 	{
-		this.deinstrument = deinstrument;
 		this.javaRepository = javaRepository;
 	}
 
@@ -63,10 +62,6 @@ final class InstrumentorProcessor extends AbstractProcessor
 			// TODO COPE-10: check typeElement.getSuperclass()
 			final InstrumentorVisitor visitor=new InstrumentorVisitor(compilationUnit, docTrees, javaFile);
 			visitor.scan(tp, null);
-			if ( deinstrument )
-			{
-				visitor.removeAllGeneratedFragments();
-			}
 		}
 		return true;
 	}

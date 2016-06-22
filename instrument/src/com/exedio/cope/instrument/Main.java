@@ -50,14 +50,6 @@ final class Main
 			return;
 		}
 
-		if ( params.deinstrument )
-		{
-			final long start = System.currentTimeMillis();
-			runJavac(files, true, new JavaRepository());
-			System.out.println("runJavac "+(System.currentTimeMillis()-start)+" ms");
-			return;
-		}
-
 		if(params.verify)
 			System.out.println("Instrumenting in verify mode.");
 		try
@@ -71,20 +63,7 @@ final class Main
 			instrumented = 0;
 			skipped = 0;
 
-			runJavac(files, false, repository);
-			/*
-			for(final File file : files)
-			{
-				if(!file.exists())
-					throw new RuntimeException("error: input file " + file.getAbsolutePath() + " does not exist.");
-				if(!file.isFile())
-					throw new RuntimeException("error: input file " + file.getAbsolutePath() + " is not a regular file.");
-
-				final JavaFile javaFile = new JavaFile(repository, file);
-				final Parser parser = new Parser(new Lexer(file, charset, javaFile), new Instrumentor(), javaFile);
-				parser.parseFile();
-				parsers.add(parser);
-			}*/
+			runJavac(files, repository);
 
 			repository.endBuildStage();
 
@@ -182,7 +161,7 @@ final class Main
 		}
 	}
 
-	private void runJavac(final ArrayList<File> files, boolean deinstrument, JavaRepository repository)
+	private void runJavac(final ArrayList<File> files, JavaRepository repository)
 	{
 		// "JavacTool.create()" is not part of the "exported" API
 		// (not annotated with https://docs.oracle.com/javase/8/docs/jdk/api/javac/tree/jdk/Exported.html).
@@ -199,7 +178,7 @@ final class Main
 		optionList.addAll(asList("-classpath", toClasspath(com.exedio.cope.Item.class.getClassLoader())));
 		optionList.add("-proc:only");
 		final JavaCompiler.CompilationTask task = compiler.getTask(new StringWriter(), null, null, optionList, null, sources);
-		task.setProcessors(singleton(new InstrumentorProcessor(deinstrument, repository)));
+		task.setProcessors(singleton(new InstrumentorProcessor(repository)));
 		task.call();
 	}
 

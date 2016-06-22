@@ -40,7 +40,6 @@ final class Params
 	boolean overrideOnSeparateLine = true;
 	boolean verbose = false;
 	File timestampFile = null;
-	boolean deinstrument = false;
 
 	enum IntegerTypeSuffix
 	{
