@@ -20,7 +20,6 @@
 package com.exedio.cope.instrument;
 
 import bsh.UtilEvalError;
-import com.sun.source.tree.CompilationUnitTree;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -30,6 +29,7 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import javax.tools.JavaFileObject;
 
 /**
  * Represents a parsed java file.
@@ -61,13 +61,13 @@ final class JavaFile
 	 */
 	private boolean buildStageForImports = true;
 
-	private final CompilationUnitTree compilationUnit;
+	private final JavaFileObject sourceFile;
 	final JavaRepository repository;
 	final ArrayList<JavaClass> classes = new ArrayList<>();
 
 	final List<GeneratedFragment> generatedFragments = new ArrayList<>();
 
-	public JavaFile(final JavaRepository repository, final CompilationUnitTree compilationUnit)
+	public JavaFile(final JavaRepository repository, final JavaFileObject sourceFile)
 	{
 		this.externalNameSpace = new CopeNameSpace(repository.externalNameSpace, compilationUnit.getSourceFile().getName() + " external");
 		this.nameSpace = new CopeNameSpace(repository.nameSpace, compilationUnit.getSourceFile().getName());
@@ -75,13 +75,13 @@ final class JavaFile
 		this.repository = repository;
 		repository.add(this);
 
-		this.compilationUnit = compilationUnit;
+		this.sourceFile = sourceFile;
 	}
 
 	@Override
 	public String toString()
 	{
-		return "JavaFile("+compilationUnit.getSourceFile().getName()+")";
+		return "JavaFile("+sourceFile.getName()+")";
 	}
 
 	void markFragmentAsGenerated(int start, int end)
@@ -97,7 +97,7 @@ final class JavaFile
 		{
 			int end;
 			final byte[] allBytes;
-			try (final InputStream inputStream=compilationUnit.getSourceFile().openInputStream())
+			try (final InputStream inputStream=sourceFile.openInputStream())
 			{
 				allBytes=readFully(inputStream);
 			}
@@ -137,13 +137,13 @@ final class JavaFile
 
 	String getSourceFileName()
 	{
-		return compilationUnit.getSourceFile().getName();
+		return sourceFile.getName();
 	}
 
 	boolean inputEqual(final StringBuilder bf, final Charset charset)
 	{
 		try (
-			final InputStream actualBytes = compilationUnit.getSourceFile().openInputStream();
+			final InputStream actualBytes = sourceFile.openInputStream();
 			final InputStreamReader actualChars = new InputStreamReader(actualBytes, charset);
 			)
 		{
@@ -245,7 +245,7 @@ final class JavaFile
 
 	void overwrite(byte[] bytes)
 	{
-		try(final OutputStream o = compilationUnit.getSourceFile().openOutputStream())
+		try(final OutputStream o = sourceFile.openOutputStream())
 		{
 			o.write(bytes);
 		}

@@ -49,7 +49,7 @@ final class InstrumentorProcessor extends AbstractProcessor
 			JavaFile javaFile=files.get(compilationUnit);
 			if ( javaFile==null )
 			{
-				files.put(compilationUnit, javaFile=new JavaFile(javaRepository, compilationUnit));
+				files.put(compilationUnit, javaFile=new JavaFile(javaRepository, compilationUnit.getSourceFile()));
 				final String qualifiedName=typeElement.getQualifiedName().toString();
 				// TODO COPE-10 use class fqn
 				javaFile.setPackage(qualifiedName.substring(0, qualifiedName.lastIndexOf('.')));
