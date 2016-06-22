@@ -19,7 +19,6 @@
 package com.exedio.cope;
 
 import com.exedio.cope.search.AverageAggregate;
-import com.exedio.cope.search.SumAggregate;
 
 public abstract class NumberField<E extends Number> extends FunctionField<E>
 	implements NumberFunction<E>
@@ -37,97 +36,7 @@ public abstract class NumberField<E extends Number> extends FunctionField<E>
 		super(isfinal, optional, valueClass, unique, copyFrom, defaultSource);
 	}
 
-	// convenience methods for conditions and views ---------------------------------
-
-	@Override
-	public final BindNumberFunction<E> bind(final Join join)
-	{
-		return new BindNumberFunction<>(this, join);
-	}
-
-	@Override
-	public final AsStringView asString()
-	{
-		return new AsStringView(this);
-	}
-
-	/**
-	 * You may want to use {@link PlusLiteralView#plus(Function, Number)} instead, if you do not have {@link NumberFunction}s available.
-	 */
-	@Override
-	public final PlusLiteralView<E> plus(final E value)
-	{
-		return PlusLiteralView.plus(this, value);
-	}
-
-	/**
-	 * You may want to use {@link MultiplyLiteralView#multiply(Function, Number)} instead, if you do not have {@link NumberFunction}s available.
-	 */
-	@Override
-	public final MultiplyLiteralView<E> multiply(final E value)
-	{
-		return MultiplyLiteralView.multiply(this, value);
-	}
-
-	/**
-	 * You may want to use {@link PlusView#plus(Function, Function)} instead, if you do not have {@link NumberFunction}s available.
-	 */
-	@Override
-	public final PlusView<E> plus(final NumberFunction<E> other)
-	{
-		return PlusView.plus(this, other);
-	}
-
-	/**
-	 * You may want to use {@link MinusView#minus(Function, Function)} instead, if you do not have {@link NumberFunction}s available.
-	 */
-	@Override
-	public final MinusView<E> minus(final NumberFunction<E> other)
-	{
-		return MinusView.minus(this, other);
-	}
-
-	/**
-	 * You may want to use {@link MultiplyView#multiply(Function, Function)} instead, if you do not have {@link NumberFunction}s available.
-	 */
-	@Override
-	public final MultiplyView<E> multiply(final NumberFunction<E> other)
-	{
-		return MultiplyView.multiply(this, other);
-	}
-
-	/**
-	 * You may want to use {@link DivideView#divide(Function, Function)} instead, if you do not have {@link NumberFunction}s available.
-	 */
-	@Override
-	public final DivideView<E> divide(final NumberFunction<E> other)
-	{
-		return DivideView.divide(this, other);
-	}
-
-	@Override
-	public final SumAggregate<E> sum()
-	{
-		return new SumAggregate<>(this);
-	}
-
-	@Override
-	public final AverageAggregate<E> average()
-	{
-		return new AverageAggregate<>(this);
-	}
-
 	// ------------------- deprecated stuff -------------------
-
-	/**
-	 * @deprecated renamed to {@link #plus(NumberFunction)}.
-	 */
-	@Override
-	@Deprecated
-	public final PlusView<E> sum(final NumberFunction<E> other)
-	{
-		return plus(other);
-	}
 
 	/**
 	 * @deprecated Use {@link #average()} instead
