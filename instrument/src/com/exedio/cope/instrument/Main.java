@@ -110,7 +110,7 @@ final class Main
 			for(final JavaFile javaFile: repository.getFiles())
 			{
 				System.out.println("javaFile = " + javaFile);
-				final StringBuilder baos = new StringBuilder(/*TODO guess length*/);
+				final StringBuilder baos = new StringBuilder(/*TODO COPE-10 guess length*/);
 				final Generator generator = new Generator(javaFile, baos, params);
 				generator.write(charset);
 				System.out.println("  baos length "+baos.length());
@@ -124,7 +124,7 @@ final class Main
 								"Probably you did commit a change causing another change in instrumented code," + lineSeparator() +
 								"but you did not run the intrumentor.");
 					logInstrumented(javaFile);
-					// TODO avoid copying
+					// TODO COPE-10 avoid copying
 					javaFile.overwrite(baos.toString().getBytes(charset));
 				}
 				else

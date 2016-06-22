@@ -14,7 +14,6 @@ import javax.annotation.processing.SupportedAnnotationTypes;
 import javax.annotation.processing.SupportedSourceVersion;
 import javax.lang.model.SourceVersion;
 import javax.lang.model.element.Element;
-import javax.lang.model.element.Name;
 import javax.lang.model.element.TypeElement;
 
 @SupportedSourceVersion(SourceVersion.RELEASE_8)
@@ -53,7 +52,7 @@ final class InstrumentorProcessor extends AbstractProcessor
 			{
 				files.put(compilationUnit, javaFile=new JavaFile(javaRepository, compilationUnit));
 				final String qualifiedName=typeElement.getQualifiedName().toString();
-				// TODO use class fqn
+				// TODO COPE-10 use class fqn
 				javaFile.setPackage(qualifiedName.substring(0, qualifiedName.lastIndexOf('.')));
 				for (ImportTree aImport: compilationUnit.getImports())
 				{
@@ -61,7 +60,7 @@ final class InstrumentorProcessor extends AbstractProcessor
 				}
 			}
 			// new TreeDump().scan(tp, null);
-			// TODO: check typeElement.getSuperclass()
+			// TODO COPE-10: check typeElement.getSuperclass()
 			final InstrumentorVisitor visitor=new InstrumentorVisitor(compilationUnit, docTrees, javaFile);
 			visitor.scan(tp, null);
 			if ( deinstrument )

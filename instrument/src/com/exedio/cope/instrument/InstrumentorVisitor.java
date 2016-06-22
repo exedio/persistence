@@ -140,7 +140,7 @@ class InstrumentorVisitor extends TreePathScanner<Void, Void>
 		{
 			final JavaField javaField = new JavaField(getCurrentJavaClass(), toModifiersInt(node.getModifiers()), removeSpacesAfterCommas(node.getType().toString()), node.getName().toString());
 			javaField.setDocComment(getDocComment());
-			//TODO:
+			//TODO COPE-10:
 			for(char c: node.getInitializer().toString().toCharArray())
 			{
 				javaField.addToInitializer(c);

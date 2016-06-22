@@ -91,7 +91,7 @@ final class JavaFile
 
 	byte[] getSourceWithoutGeneratedFragments()
 	{
-		// TODO more efficient
+		// TODO COPE-10 more efficient
 		int start = 0;
 		try (final ByteArrayOutputStream os = new ByteArrayOutputStream())
 		{
