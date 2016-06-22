@@ -19,7 +19,6 @@
 
 package com.exedio.cope.instrument;
 
-import static com.exedio.cope.util.StrictFile.delete;
 import static java.lang.System.lineSeparator;
 import static java.util.Arrays.asList;
 import static java.util.Collections.singleton;
@@ -28,15 +27,10 @@ import com.exedio.cope.util.Clock;
 import com.exedio.cope.util.StrictFile;
 import com.sun.tools.javac.api.JavacTool;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.StringWriter;
-import java.nio.ByteBuffer;
-import java.nio.CharBuffer;
 import java.nio.charset.Charset;
-import java.nio.charset.CharsetEncoder;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -118,32 +112,26 @@ final class Main
 				System.out.println("javaFile = " + javaFile);
 				final StringBuilder baos = new StringBuilder(/*TODO guess length*/);
 				final Generator generator = new Generator(javaFile, baos, params);
-				generator.write(params.charset);
+				generator.write(charset);
 				System.out.println("  baos length "+baos.length());
 
-				if(!javaFile.inputEqual(baos, params.charset))
+				if(!javaFile.inputEqual(baos, charset))
 				{
-					// TODO if(params.verify) here
-					logInstrumented(javaFile);
-					// TODO delete(file);
-					final CharsetEncoder decoder = charset.newEncoder();
-					final ByteBuffer out = decoder.encode(CharBuffer.wrap(baos));
-					// TODO avoid copying
-					javaFile.overwrite(baos.toString().getBytes(params.charset));
 					if(params.verify)
 						throw new HumanReadableException(
 								"Not yet instrumented " + javaFile.getSourceFileName() + lineSeparator() +
 								"Instrumentor runs in verify mode, which is typically enabled while Continuous Integration." + lineSeparator() +
 								"Probably you did commit a change causing another change in instrumented code," + lineSeparator() +
 								"but you did not run the intrumentor.");
+					logInstrumented(javaFile);
+					// TODO avoid copying
+					javaFile.overwrite(baos.toString().getBytes(charset));
 				}
 				else
 				{
 					logSkipped(javaFile);
 				}
 			}
-			/* TODO
-			*/
 
 			if ( params.timestampFile!=null )
 			{

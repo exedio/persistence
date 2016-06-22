@@ -5,11 +5,9 @@ import com.sun.source.tree.AnnotationTree;
 import com.sun.source.tree.BlockTree;
 import com.sun.source.tree.ClassTree;
 import com.sun.source.tree.CompilationUnitTree;
-import com.sun.source.tree.ExpressionTree;
 import com.sun.source.tree.MethodTree;
 import com.sun.source.tree.ModifiersTree;
 import com.sun.source.tree.Tree;
-import com.sun.source.tree.TypeParameterTree;
 import com.sun.source.tree.VariableTree;
 import com.sun.source.util.DocSourcePositions;
 import com.sun.source.util.DocTrees;
@@ -24,7 +22,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Deque;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import javax.lang.model.element.Modifier;
@@ -38,13 +35,11 @@ class InstrumentorVisitor extends TreePathScanner<Void, Void>
 	private final DocTrees docTrees;
 	private final JavaFile javaFile;
 
-	private final Deque<ClassTree> classStack=new ArrayDeque<>();
 	private final Deque<JavaClass> javaClassStack=new ArrayDeque<>();
 
 	private byte[] allBytes;
 
 	private final List<GeneratedFragment> generatedFragments = new ArrayList<>();
-	private final List<ClassDetails> classDetails = new ArrayList<>();
 
 	InstrumentorVisitor(final CompilationUnitTree compilationUnit, final DocTrees docTrees, final JavaFile javaFile)
 	{
@@ -63,16 +58,6 @@ class InstrumentorVisitor extends TreePathScanner<Void, Void>
 	{
 		generatedFragments.add( new GeneratedFragment(start, end) );
 		javaFile.markFragmentAsGenerated(start, end);
-	}
-
-	private void addClassDetails(ClassTree clazz, int end)
-	{
-		classDetails.add( new ClassDetails(clazz.getSimpleName().toString(), end) );
-	}
-
-	private void addPotentialFeature(ClassTree clazz, VariableTree variable, ExpressionTree initializer)
-	{
-		// System.out.println("potential feature "+clazz.getSimpleName()+" "+variable.getName()+": "+initializer);
 	}
 
 	private byte[] getAllBytes()
@@ -114,7 +99,6 @@ class InstrumentorVisitor extends TreePathScanner<Void, Void>
 	@Override
 	public Void visitClass(ClassTree ct, Void ignore)
 	{
-		classStack.addLast(ct);
 		JavaClass parent = javaClassStack.isEmpty() ? null : javaClassStack.getLast();
 		final String classExtends=ct.getExtendsClause()==null?null:ct.getExtendsClause().toString();
 		JavaClass javaClass = new JavaClass(javaFile, parent, toModifiersInt(ct.getModifiers()), ct.getKind()==Tree.Kind.ENUM, getSimpleName(ct), classExtends);
@@ -126,26 +110,12 @@ class InstrumentorVisitor extends TreePathScanner<Void, Void>
 		{
 			throw new RuntimeException();
 		}
-		if (classStack.removeLast() != ct)
-		{
-			throw new RuntimeException();
-		}
 		return result;
 	}
 
 	private JavaClass getCurrentJavaClass()
 	{
 		final JavaClass result=javaClassStack.getLast();
-		if (result == null)
-		{
-			throw new RuntimeException();
-		}
-		return result;
-	}
-
-	private ClassTree getCurrentClass()
-	{
-		final ClassTree result=classStack.getLast();
 		if (result == null)
 		{
 			throw new RuntimeException();
@@ -168,7 +138,6 @@ class InstrumentorVisitor extends TreePathScanner<Void, Void>
 		final boolean generated = checkGenerated(node, variableVisitor.currentVariableHasGeneratedAnnotation);
 		if ( !generated && node.getModifiers().getFlags().containsAll(required) )
 		{
-			addPotentialFeature(getCurrentClass(), node, node.getInitializer());
 			final JavaField javaField = new JavaField(getCurrentJavaClass(), toModifiersInt(node.getModifiers()), removeSpacesAfterCommas(node.getType().toString()), node.getName().toString());
 			javaField.setDocComment(getDocComment());
 			//TODO:
@@ -435,18 +404,6 @@ class InstrumentorVisitor extends TreePathScanner<Void, Void>
 		public String toString()
 		{
 			return String.format("%s-%s", fromInclusive, endExclusive);
-		}
-	}
-
-	static class ClassDetails
-	{
-		final String simpleName;
-		final int end;
-
-		ClassDetails(final String simpleName, final int end)
-		{
-			this.simpleName=simpleName;
-			this.end=end;
 		}
 	}
 }
