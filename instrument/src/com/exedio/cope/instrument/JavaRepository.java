@@ -302,11 +302,11 @@ final class JavaRepository
 				{
 					return DummyItem.class;
 				}
-				if("Block".equals(javaClass.classExtends)) // TODO does not work with subclasses an with fully qualified class names
+				if(isBlock(javaClass))
 				{
 					return DummyBlock.class;
 				}
-				if("Composite".equals(javaClass.classExtends)) // TODO does not work with subclasses an with fully qualified class names
+				if(isComposite(javaClass))
 				{
 					return DummyComposite.class;
 				}
