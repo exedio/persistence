@@ -80,7 +80,6 @@ final class Generator
 	private final StringBuilder output;
 	private final String lineSeparator;
 	private final boolean longJavadoc;
-	private final boolean annotateGenerated;
 	private final String finalArgPrefix;
 	private final boolean nullabilityAnnotations;
 	private final boolean suppressUnusedWarningOnPrivateActivationConstructor;
@@ -101,7 +100,6 @@ final class Generator
 		this.output = output;
 		this.lineSeparator = System.lineSeparator();
 		this.longJavadoc = params.longJavadoc;
-		this.annotateGenerated = params.annotateGenerated;
 		this.finalArgPrefix = params.finalArgs ? "final " : "";
 		this.nullabilityAnnotations = params.nullabilityAnnotations;
 		this.suppressUnusedWarningOnPrivateActivationConstructor = params.suppressUnusedWarningOnPrivateActivationConstructor;
@@ -186,13 +184,10 @@ final class Generator
 		write(" */");
 		write(lineSeparator);
 
-		if(annotateGenerated)
-		{
-			writeIndent();
-			writeAnnotation(Generated.class);
-			write("(\"com.exedio.cope.instrument\")");
-			write(lineSeparator);
-		}
+		writeIndent();
+		writeAnnotation(Generated.class);
+		write("(\"com.exedio.cope.instrument\")");
+		write(lineSeparator);
 	}
 
 	private static final String link(final String target)

@@ -27,7 +27,6 @@ final class Params
 	boolean verify = false;
 	Charset charset = StandardCharsets.US_ASCII;
 	boolean longJavadoc = true;
-	boolean annotateGenerated = true;
 	boolean finalArgs = true;
 	boolean nullabilityAnnotations = false;
 	boolean suppressUnusedWarningOnPrivateActivationConstructor = false;
