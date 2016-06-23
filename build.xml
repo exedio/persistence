@@ -692,7 +692,6 @@
 				verify="${instrument.verify}"
 				suppressUnusedWarningOnPrivateActivationConstructor="true"
 				nullabilityAnnotations="${instrument.nullabilityAnnotations}"
-				annotateGenerated="false"
 				timestampFile="build/timestamps/runtime.servlet.test.timestamp">
 			<resources refid="instrument.resources" />
 			<fileset dir="runtime/servlettestsrc">
