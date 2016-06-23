@@ -304,7 +304,7 @@ final class RuntimeTester
 		for(final Type<?> type : model.getTypes())
 		{
 			if(type.needsCheckUpdateCounter())
-				assertEquals(0, type.checkUpdateCounter());
+				assertEquals(0, type.checkUpdateCounterL());
 			else
 				assertCheckUpdateCounterFails(type);
 		}
@@ -314,7 +314,7 @@ final class RuntimeTester
 	{
 		try
 		{
-			type.checkUpdateCounter();
+			type.checkUpdateCounterL();
 			fail();
 		}
 		catch(final RuntimeException e)
