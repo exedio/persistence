@@ -1271,7 +1271,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		return supertype!=null && getTable().updateCounter!=null;
 	}
 
-	public int checkUpdateCounter()
+	public long checkUpdateCounterL()
 	{
 		if(!needsCheckUpdateCounter())
 			throw new RuntimeException("no check for update counter needed for " + this);
@@ -1291,7 +1291,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 
 		//System.out.println("CHECKM:"+bf.toString());
 
-		return executor.query(tx.getConnection(), bf, null, false, integerResultSetHandler);
+		return executor.query(tx.getConnection(), bf, null, false, longResultSetHandler);
 	}
 
 	public Random random(final int seed)
@@ -1361,6 +1361,15 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	}
 
 	// ------------------- deprecated stuff -------------------
+
+	/**
+	 * @deprecated Use {@link #checkUpdateCounter()} instead
+	 */
+	@Deprecated
+	public int checkUpdateCounter()
+	{
+		return toIntCapped(checkUpdateCounterL());
+	}
 
 	/**
 	 * @deprecated Use {@link #checkCompletenessL(Type)} instead
