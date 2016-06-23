@@ -98,6 +98,14 @@ final class Executor
 			return resultSet.getInt(1);
 		};
 
+	static final ResultSetHandler<Long> longResultSetHandler = resultSet ->
+		{
+			if(!resultSet.next())
+				throw new RuntimeException();
+
+			return resultSet.getLong(1);
+		};
+
 	protected <R> R query(
 		final Connection connection,
 		final Statement statement,

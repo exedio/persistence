@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import static com.exedio.cope.CastUtils.toIntCapped;
 import static com.exedio.cope.Executor.integerResultSetHandler;
+import static com.exedio.cope.Executor.longResultSetHandler;
 import static com.exedio.cope.FeatureSubSet.features;
 import static com.exedio.cope.misc.Check.requireNonNegative;
 import static java.util.Objects.requireNonNull;
@@ -1243,7 +1244,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	/**
 	 * @param subType is allowed any type from {@link #getTypesOfInstances()}, but not itself.
 	 */
-	public int checkCompleteness(final Type<? extends T> subType)
+	public long checkCompletenessL(final Type<? extends T> subType)
 	{
 		requireNonNull(subType, "subType");
 		if(equals(subType) || !getTypesOfInstances().contains(subType))
@@ -1262,7 +1263,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		if(table.typeColumn!=null)
 			bf.append(" AND ").append(table.typeColumn).append('=').appendParameter(subType.schemaId);
 
-		return executor.query(tx.getConnection(), bf, null, false, integerResultSetHandler);
+		return executor.query(tx.getConnection(), bf, null, false, longResultSetHandler);
 	}
 
 	public boolean needsCheckUpdateCounter()
@@ -1360,6 +1361,15 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	}
 
 	// ------------------- deprecated stuff -------------------
+
+	/**
+	 * @deprecated Use {@link #checkCompletenessL(Type)} instead
+	 */
+	@Deprecated
+	public int checkCompleteness(final Type<? extends T> subType)
+	{
+		return toIntCapped(checkCompletenessL(subType));
+	}
 
 	/**
 	 * @deprecated Use {@link #castTypeExtends(Type)} instead
