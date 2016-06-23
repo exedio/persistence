@@ -37,7 +37,7 @@ public interface ItemFunction<E extends Item> extends Function<E>
 	/**
 	 * @see #needsCheckTypeColumn()
 	 */
-	int checkTypeColumn();
+	long checkTypeColumnL();
 
 	// convenience methods for conditions and views ---------------------------------
 
@@ -112,6 +112,12 @@ public interface ItemFunction<E extends Item> extends Function<E>
 	static final long serialVersionUID = -3944156504239779975L;
 
 	// ------------------- deprecated stuff -------------------
+
+	/**
+	 * @deprecated Use {@link #checkTypeColumnL()} instead
+	 */
+	@Deprecated
+	int checkTypeColumn();
 
 	/**
 	 * @deprecated Has been renamed to {@link #instanceOf(Type)}.

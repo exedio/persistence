@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.CastUtils.toIntCapped;
+
 import java.lang.reflect.AnnotatedElement;
 
 public final class This<E extends Item> extends Feature
@@ -113,7 +115,14 @@ public final class This<E extends Item> extends Feature
 	}
 
 	@Override
+	@Deprecated
 	public int checkTypeColumn()
+	{
+		return toIntCapped(checkTypeColumnL());
+	}
+
+	@Override
+	public long checkTypeColumnL()
 	{
 		ItemFunctionUtil.checkTypeColumnNeeded(this);
 		return type.checkTypeColumn();

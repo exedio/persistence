@@ -18,7 +18,8 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.Executor.integerResultSetHandler;
+import static com.exedio.cope.CastUtils.toIntCapped;
+import static com.exedio.cope.Executor.longResultSetHandler;
 import static com.exedio.cope.TypesBound.future;
 import static java.util.Objects.requireNonNull;
 
@@ -431,7 +432,7 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 	}
 
 	@Override
-	public int checkTypeColumn()
+	public long checkTypeColumnL()
 	{
 		ItemFunctionUtil.checkTypeColumnNeeded(this);
 
@@ -460,7 +461,7 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 
 		//System.out.println("CHECKA:"+bf.toString());
 
-		return executor.query(connection, bf, null, false, integerResultSetHandler);
+		return executor.query(connection, bf, null, false, longResultSetHandler);
 	}
 
 	public static enum DeletePolicy
@@ -471,6 +472,13 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 	}
 
 	// ------------------- deprecated stuff -------------------
+
+	@Override
+	@Deprecated
+	public int checkTypeColumn()
+	{
+		return toIntCapped(checkTypeColumnL());
+	}
 
 	/**
 	 * @deprecated Use {@link #as(Class)} instead

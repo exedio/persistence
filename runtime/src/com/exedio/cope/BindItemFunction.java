@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.CastUtils.toIntCapped;
+
 public final class BindItemFunction<E extends Item> extends BindFunction<E>
 	implements ItemFunction<E>
 {
@@ -59,9 +61,16 @@ public final class BindItemFunction<E extends Item> extends BindFunction<E>
 	}
 
 	@Override
+	@Deprecated
 	public int checkTypeColumn()
 	{
-		return itemFunction.checkTypeColumn();
+		return toIntCapped(checkTypeColumnL());
+	}
+
+	@Override
+	public long checkTypeColumnL()
+	{
+		return itemFunction.checkTypeColumnL();
 	}
 
 	// convenience methods for conditions and views ---------------------------------
