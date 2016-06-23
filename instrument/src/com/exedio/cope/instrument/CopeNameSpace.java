@@ -50,62 +50,62 @@ class CopeNameSpace extends NameSpace
 	@Override
 	public Object get(final String name, final bsh.Interpreter interpreter) throws bsh.UtilEvalError
 	{
-		System.out.println("++++++++++++++++get(\""+name+"\",Interpreter)");
+		System.out.println("+++ get(\""+name+"\",Interpreter)");
 		return report(super.get(name, interpreter));
 	}
 
 	@Override
 	public Class<?> getClass(final String name) throws bsh.UtilEvalError
 	{
-		System.out.println("++++++++++++++++getClass(\""+name+"\")");
+		System.out.println("+++ getClass(\""+name+"\")");
 		return report(super.getClass(name));
 	}
 
 	@Override
 	public Object getVariable(final String name) throws bsh.UtilEvalError
 	{
-		System.out.println("++++++++++++++++getVariable(\""+name+"\")");
+		System.out.println("+++ getVariable(\""+name+"\")");
 		return report(super.getVariable(name));
 	}
 
 	@Override
 	public Object getVariable(final String name, final boolean recurse) throws bsh.UtilEvalError
 	{
-		System.out.println("++++++++++++++++getVariable(\""+name+"\","+recurse+")");
+		System.out.println("+++ getVariable(\""+name+"\","+recurse+")");
 		return report(super.getVariable(name, recurse));
 	}
 
 	@Override
 	protected bsh.Variable getVariableImpl(final String name, final boolean recurse) throws bsh.UtilEvalError
 	{
-		System.out.println("++++++++++++++++getVariableImpl(\""+name+"\","+recurse+")");
+		System.out.println("+++ getVariableImpl(\""+name+"\","+recurse+")");
 		return report(super.getVariableImpl(name, recurse));
 	}
 
 	@Override
 	protected bsh.Variable getImportedVar(final String name) throws bsh.UtilEvalError
 	{
-		System.out.println("++++++++++++++++getImportedVar(\""+name+"\")");
+		System.out.println("+++ getImportedVar(\""+name+"\")");
 		return report(super.getImportedVar(name));
 	}
 
 	@Override
 	public String[] getVariableNames()
 	{
-		System.out.println("++++++++++++++++getVariableNames()");
+		System.out.println("+++ getVariableNames()");
 		return report(super.getVariableNames());
 	}
 
 	@Override
 	public bsh.Variable[] getDeclaredVariables()
 	{
-		System.out.println("++++++++++++++++getDeclaredVariables()");
+		System.out.println("+++ getDeclaredVariables()");
 		return report(super.getDeclaredVariables());
 	}
 
 	private static <X> X report(final X x)
 	{
-		System.out.println("++++++++++++++++ result " + x);
+		System.out.println("+++    result " + x);
 		return x;
 	}
 	*/
