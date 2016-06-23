@@ -101,7 +101,7 @@ public class SchemaNamePolymorphicTest extends TestWithEnvironment
 		}
 		toModel();
 		assertEquals(0, SchemaNamePolymorphicSubItem.TYPE.getThis().checkTypeColumn());
-		assertEquals(0, SchemaNamePolymorphicSuperItem.TYPE.checkCompleteness(SchemaNamePolymorphicSubItem.TYPE));
+		assertEquals(0, SchemaNamePolymorphicSuperItem.TYPE.checkCompletenessL(SchemaNamePolymorphicSubItem.TYPE));
 		assertEquals(0, SchemaNamePolymorphicRefItem.ref.checkTypeColumn());
 
 		// test update
@@ -118,7 +118,7 @@ public class SchemaNamePolymorphicTest extends TestWithEnvironment
 		}
 		toModel();
 		assertEquals(0, SchemaNamePolymorphicSubItem.TYPE.getThis().checkTypeColumn());
-		assertEquals(0, SchemaNamePolymorphicSuperItem.TYPE.checkCompleteness(SchemaNamePolymorphicSubItem.TYPE));
+		assertEquals(0, SchemaNamePolymorphicSuperItem.TYPE.checkCompletenessL(SchemaNamePolymorphicSubItem.TYPE));
 		assertEquals(0, SchemaNamePolymorphicRefItem.ref.checkTypeColumn());
 
 		// test delete

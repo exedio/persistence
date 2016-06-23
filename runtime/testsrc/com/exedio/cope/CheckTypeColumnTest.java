@@ -111,7 +111,7 @@ public class CheckTypeColumnTest extends TestWithEnvironment
 
 		try
 		{
-			InstanceOfAItem.TYPE.checkCompleteness(null);
+			InstanceOfAItem.TYPE.checkCompletenessL(null);
 			fail();
 		}
 		catch(final NullPointerException e)
@@ -120,17 +120,17 @@ public class CheckTypeColumnTest extends TestWithEnvironment
 		}
 		try
 		{
-			InstanceOfAItem.TYPE.checkCompleteness(InstanceOfAItem.TYPE);
+			InstanceOfAItem.TYPE.checkCompletenessL(InstanceOfAItem.TYPE);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
 		{
 			assertEquals("expected instantiable subtype of InstanceOfAItem, but was InstanceOfAItem", e.getMessage());
 		}
-		assertEquals(0, InstanceOfAItem.TYPE.checkCompleteness(InstanceOfB1Item.TYPE));
-		assertEquals(0, InstanceOfAItem.TYPE.checkCompleteness(InstanceOfB2Item.TYPE));
-		assertEquals(0, InstanceOfAItem.TYPE.checkCompleteness(InstanceOfC1Item.TYPE));
-		assertEquals(0, InstanceOfB1Item.TYPE.checkCompleteness(InstanceOfC1Item.TYPE));
+		assertEquals(0, InstanceOfAItem .TYPE.checkCompletenessL(InstanceOfB1Item.TYPE));
+		assertEquals(0, InstanceOfAItem .TYPE.checkCompletenessL(InstanceOfB2Item.TYPE));
+		assertEquals(0, InstanceOfAItem .TYPE.checkCompletenessL(InstanceOfC1Item.TYPE));
+		assertEquals(0, InstanceOfB1Item.TYPE.checkCompletenessL(InstanceOfC1Item.TYPE));
 
 		assertEquals(0, InstanceOfRefItem.ref.checkTypeColumn());
 		try
@@ -149,7 +149,7 @@ public class CheckTypeColumnTest extends TestWithEnvironment
 	{
 		try
 		{
-			InstanceOfB1Item.TYPE.checkCompleteness((Type)InstanceOfAItem.TYPE);
+			InstanceOfB1Item.TYPE.checkCompletenessL((Type)InstanceOfAItem.TYPE);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -158,7 +158,7 @@ public class CheckTypeColumnTest extends TestWithEnvironment
 		}
 		try
 		{
-			InstanceOfB1Item.TYPE.checkCompleteness((Type)InstanceOfB2Item.TYPE);
+			InstanceOfB1Item.TYPE.checkCompletenessL((Type)InstanceOfB2Item.TYPE);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -175,10 +175,10 @@ public class CheckTypeColumnTest extends TestWithEnvironment
 		assertEquals(0, InstanceOfB2Item.TYPE.getThis().checkTypeColumn());
 		assertEquals(0, InstanceOfC1Item.TYPE.getThis().checkTypeColumn());
 
-		assertEquals(1, InstanceOfAItem.TYPE.checkCompleteness(InstanceOfB1Item.TYPE));
-		assertEquals(0, InstanceOfAItem.TYPE.checkCompleteness(InstanceOfB2Item.TYPE));
-		assertEquals(0, InstanceOfAItem.TYPE.checkCompleteness(InstanceOfC1Item.TYPE));
-		assertEquals(0, InstanceOfB1Item.TYPE.checkCompleteness(InstanceOfC1Item.TYPE));
+		assertEquals(1, InstanceOfAItem .TYPE.checkCompletenessL(InstanceOfB1Item.TYPE));
+		assertEquals(0, InstanceOfAItem .TYPE.checkCompletenessL(InstanceOfB2Item.TYPE));
+		assertEquals(0, InstanceOfAItem .TYPE.checkCompletenessL(InstanceOfC1Item.TYPE));
+		assertEquals(0, InstanceOfB1Item.TYPE.checkCompletenessL(InstanceOfC1Item.TYPE));
 
 		assertEquals(1, InstanceOfRefItem.ref.checkTypeColumn());
 	}
@@ -191,10 +191,10 @@ public class CheckTypeColumnTest extends TestWithEnvironment
 		assertEquals(0, InstanceOfB2Item.TYPE.getThis().checkTypeColumn());
 		assertEquals(0, InstanceOfC1Item.TYPE.getThis().checkTypeColumn());
 
-		assertEquals(0, InstanceOfAItem.TYPE.checkCompleteness(InstanceOfB1Item.TYPE));
-		assertEquals(1, InstanceOfAItem.TYPE.checkCompleteness(InstanceOfB2Item.TYPE));
-		assertEquals(0, InstanceOfAItem.TYPE.checkCompleteness(InstanceOfC1Item.TYPE));
-		assertEquals(0, InstanceOfB1Item.TYPE.checkCompleteness(InstanceOfC1Item.TYPE));
+		assertEquals(0, InstanceOfAItem .TYPE.checkCompletenessL(InstanceOfB1Item.TYPE));
+		assertEquals(1, InstanceOfAItem .TYPE.checkCompletenessL(InstanceOfB2Item.TYPE));
+		assertEquals(0, InstanceOfAItem .TYPE.checkCompletenessL(InstanceOfC1Item.TYPE));
+		assertEquals(0, InstanceOfB1Item.TYPE.checkCompletenessL(InstanceOfC1Item.TYPE));
 
 		assertEquals(1, InstanceOfRefItem.ref.checkTypeColumn());
 	}
@@ -207,10 +207,10 @@ public class CheckTypeColumnTest extends TestWithEnvironment
 		assertEquals(0, InstanceOfB2Item.TYPE.getThis().checkTypeColumn());
 		assertEquals(0, InstanceOfC1Item.TYPE.getThis().checkTypeColumn());
 
-		assertEquals(0, InstanceOfAItem.TYPE.checkCompleteness(InstanceOfB1Item.TYPE));
-		assertEquals(0, InstanceOfAItem.TYPE.checkCompleteness(InstanceOfB2Item.TYPE));
-		assertEquals(0, InstanceOfAItem.TYPE.checkCompleteness(InstanceOfC1Item.TYPE));
-		assertEquals(1, InstanceOfB1Item.TYPE.checkCompleteness(InstanceOfC1Item.TYPE));
+		assertEquals(0, InstanceOfAItem .TYPE.checkCompletenessL(InstanceOfB1Item.TYPE));
+		assertEquals(0, InstanceOfAItem .TYPE.checkCompletenessL(InstanceOfB2Item.TYPE));
+		assertEquals(0, InstanceOfAItem .TYPE.checkCompletenessL(InstanceOfC1Item.TYPE));
+		assertEquals(1, InstanceOfB1Item.TYPE.checkCompletenessL(InstanceOfC1Item.TYPE));
 
 		assertEquals(0, InstanceOfRefItem.ref.checkTypeColumn());
 	}
@@ -223,10 +223,10 @@ public class CheckTypeColumnTest extends TestWithEnvironment
 		assertEquals(1, InstanceOfB2Item.TYPE.getThis().checkTypeColumn());
 		assertEquals(0, InstanceOfC1Item.TYPE.getThis().checkTypeColumn());
 
-		assertEquals(1, InstanceOfAItem.TYPE.checkCompleteness(InstanceOfB1Item.TYPE));
-		assertEquals(0, InstanceOfAItem.TYPE.checkCompleteness(InstanceOfB2Item.TYPE));
-		assertEquals(0, InstanceOfAItem.TYPE.checkCompleteness(InstanceOfC1Item.TYPE));
-		assertEquals(0, InstanceOfB1Item.TYPE.checkCompleteness(InstanceOfC1Item.TYPE));
+		assertEquals(1, InstanceOfAItem .TYPE.checkCompletenessL(InstanceOfB1Item.TYPE));
+		assertEquals(0, InstanceOfAItem .TYPE.checkCompletenessL(InstanceOfB2Item.TYPE));
+		assertEquals(0, InstanceOfAItem .TYPE.checkCompletenessL(InstanceOfC1Item.TYPE));
+		assertEquals(0, InstanceOfB1Item.TYPE.checkCompletenessL(InstanceOfC1Item.TYPE));
 
 		assertEquals(1, InstanceOfRefItem.ref.checkTypeColumn());
 	}
@@ -239,10 +239,10 @@ public class CheckTypeColumnTest extends TestWithEnvironment
 		assertEquals(0, InstanceOfB2Item.TYPE.getThis().checkTypeColumn());
 		assertEquals(0, InstanceOfC1Item.TYPE.getThis().checkTypeColumn());
 
-		assertEquals(0, InstanceOfAItem.TYPE.checkCompleteness(InstanceOfB1Item.TYPE));
-		assertEquals(1, InstanceOfAItem.TYPE.checkCompleteness(InstanceOfB2Item.TYPE));
-		assertEquals(0, InstanceOfAItem.TYPE.checkCompleteness(InstanceOfC1Item.TYPE));
-		assertEquals(0, InstanceOfB1Item.TYPE.checkCompleteness(InstanceOfC1Item.TYPE));
+		assertEquals(0, InstanceOfAItem .TYPE.checkCompletenessL(InstanceOfB1Item.TYPE));
+		assertEquals(1, InstanceOfAItem .TYPE.checkCompletenessL(InstanceOfB2Item.TYPE));
+		assertEquals(0, InstanceOfAItem .TYPE.checkCompletenessL(InstanceOfC1Item.TYPE));
+		assertEquals(0, InstanceOfB1Item.TYPE.checkCompletenessL(InstanceOfC1Item.TYPE));
 
 		assertEquals(1, InstanceOfRefItem.ref.checkTypeColumn());
 	}
@@ -255,10 +255,10 @@ public class CheckTypeColumnTest extends TestWithEnvironment
 		assertEquals(0, InstanceOfB2Item.TYPE.getThis().checkTypeColumn());
 		assertEquals(1, InstanceOfC1Item.TYPE.getThis().checkTypeColumn());
 
-		assertEquals(0, InstanceOfAItem.TYPE.checkCompleteness(InstanceOfB1Item.TYPE));
-		assertEquals(0, InstanceOfAItem.TYPE.checkCompleteness(InstanceOfB2Item.TYPE));
-		assertEquals(0, InstanceOfAItem.TYPE.checkCompleteness(InstanceOfC1Item.TYPE));
-		assertEquals(0, InstanceOfB1Item.TYPE.checkCompleteness(InstanceOfC1Item.TYPE));
+		assertEquals(0, InstanceOfAItem .TYPE.checkCompletenessL(InstanceOfB1Item.TYPE));
+		assertEquals(0, InstanceOfAItem .TYPE.checkCompletenessL(InstanceOfB2Item.TYPE));
+		assertEquals(0, InstanceOfAItem .TYPE.checkCompletenessL(InstanceOfC1Item.TYPE));
+		assertEquals(0, InstanceOfB1Item.TYPE.checkCompletenessL(InstanceOfC1Item.TYPE));
 
 		assertEquals(0, InstanceOfRefItem.ref.checkTypeColumn());
 	}
@@ -271,10 +271,10 @@ public class CheckTypeColumnTest extends TestWithEnvironment
 		assertEquals(0, InstanceOfB2Item.TYPE.getThis().checkTypeColumn());
 		assertEquals(0, InstanceOfC1Item.TYPE.getThis().checkTypeColumn());
 
-		assertEquals(1, InstanceOfAItem.TYPE.checkCompleteness(InstanceOfB1Item.TYPE));
-		assertEquals(0, InstanceOfAItem.TYPE.checkCompleteness(InstanceOfB2Item.TYPE));
-		assertEquals(0, InstanceOfAItem.TYPE.checkCompleteness(InstanceOfC1Item.TYPE));
-		assertEquals(0, InstanceOfB1Item.TYPE.checkCompleteness(InstanceOfC1Item.TYPE));
+		assertEquals(1, InstanceOfAItem .TYPE.checkCompletenessL(InstanceOfB1Item.TYPE));
+		assertEquals(0, InstanceOfAItem .TYPE.checkCompletenessL(InstanceOfB2Item.TYPE));
+		assertEquals(0, InstanceOfAItem .TYPE.checkCompletenessL(InstanceOfC1Item.TYPE));
+		assertEquals(0, InstanceOfB1Item.TYPE.checkCompletenessL(InstanceOfC1Item.TYPE));
 
 		assertEquals(0, InstanceOfRefItem.ref.checkTypeColumn());
 	}
@@ -287,10 +287,10 @@ public class CheckTypeColumnTest extends TestWithEnvironment
 		assertEquals(0, InstanceOfB2Item.TYPE.getThis().checkTypeColumn());
 		assertEquals(0, InstanceOfC1Item.TYPE.getThis().checkTypeColumn());
 
-		assertEquals(0, InstanceOfAItem.TYPE.checkCompleteness(InstanceOfB1Item.TYPE));
-		assertEquals(0, InstanceOfAItem.TYPE.checkCompleteness(InstanceOfB2Item.TYPE));
-		assertEquals(1, InstanceOfAItem.TYPE.checkCompleteness(InstanceOfC1Item.TYPE));
-		assertEquals(1, InstanceOfB1Item.TYPE.checkCompleteness(InstanceOfC1Item.TYPE));
+		assertEquals(0, InstanceOfAItem .TYPE.checkCompletenessL(InstanceOfB1Item.TYPE));
+		assertEquals(0, InstanceOfAItem .TYPE.checkCompletenessL(InstanceOfB2Item.TYPE));
+		assertEquals(1, InstanceOfAItem .TYPE.checkCompletenessL(InstanceOfC1Item.TYPE));
+		assertEquals(1, InstanceOfB1Item.TYPE.checkCompletenessL(InstanceOfC1Item.TYPE));
 
 		assertEquals(0, InstanceOfRefItem.ref.checkTypeColumn());
 
@@ -301,10 +301,10 @@ public class CheckTypeColumnTest extends TestWithEnvironment
 		assertEquals(0, InstanceOfB2Item.TYPE.getThis().checkTypeColumn());
 		assertEquals(0, InstanceOfC1Item.TYPE.getThis().checkTypeColumn());
 
-		assertEquals(0, InstanceOfAItem.TYPE.checkCompleteness(InstanceOfB1Item.TYPE));
-		assertEquals(0, InstanceOfAItem.TYPE.checkCompleteness(InstanceOfB2Item.TYPE));
-		assertEquals(1, InstanceOfAItem.TYPE.checkCompleteness(InstanceOfC1Item.TYPE));
-		assertEquals(0, InstanceOfB1Item.TYPE.checkCompleteness(InstanceOfC1Item.TYPE));
+		assertEquals(0, InstanceOfAItem .TYPE.checkCompletenessL(InstanceOfB1Item.TYPE));
+		assertEquals(0, InstanceOfAItem .TYPE.checkCompletenessL(InstanceOfB2Item.TYPE));
+		assertEquals(1, InstanceOfAItem .TYPE.checkCompletenessL(InstanceOfC1Item.TYPE));
+		assertEquals(0, InstanceOfB1Item.TYPE.checkCompletenessL(InstanceOfC1Item.TYPE));
 
 		assertEquals(0, InstanceOfRefItem.ref.checkTypeColumn());
 	}
@@ -320,10 +320,10 @@ public class CheckTypeColumnTest extends TestWithEnvironment
 		assertEquals(0, InstanceOfB2Item.TYPE.getThis().checkTypeColumn());
 		assertEquals(0, InstanceOfC1Item.TYPE.getThis().checkTypeColumn());
 
-		assertEquals(0, InstanceOfAItem.TYPE.checkCompleteness(InstanceOfB1Item.TYPE));
-		assertEquals(0, InstanceOfAItem.TYPE.checkCompleteness(InstanceOfB2Item.TYPE));
-		assertEquals(0, InstanceOfAItem.TYPE.checkCompleteness(InstanceOfC1Item.TYPE));
-		assertEquals(0, InstanceOfB1Item.TYPE.checkCompleteness(InstanceOfC1Item.TYPE));
+		assertEquals(0, InstanceOfAItem .TYPE.checkCompletenessL(InstanceOfB1Item.TYPE));
+		assertEquals(0, InstanceOfAItem .TYPE.checkCompletenessL(InstanceOfB2Item.TYPE));
+		assertEquals(0, InstanceOfAItem .TYPE.checkCompletenessL(InstanceOfC1Item.TYPE));
+		assertEquals(0, InstanceOfB1Item.TYPE.checkCompletenessL(InstanceOfC1Item.TYPE));
 
 		assertEquals(1, InstanceOfRefItem.ref.checkTypeColumn());
 	}

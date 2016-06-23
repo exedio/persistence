@@ -58,10 +58,10 @@ public class CheckTypeColumnAbstractTest extends TestWithEnvironment
 
 	@Test public void testIt() throws SQLException
 	{
-		assertEquals(0, HierarchySingleSuper.TYPE.checkCompleteness(HierarchySingleSub.TYPE));
+		assertEquals(0, HierarchySingleSuper.TYPE.checkCompletenessL(HierarchySingleSub.TYPE));
 
 		deleteRow(HierarchySingleSub.TYPE, item);
-		assertEquals(1, HierarchySingleSuper.TYPE.checkCompleteness(HierarchySingleSub.TYPE));
+		assertEquals(1, HierarchySingleSuper.TYPE.checkCompletenessL(HierarchySingleSub.TYPE));
 	}
 
 
