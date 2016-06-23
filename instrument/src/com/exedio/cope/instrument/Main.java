@@ -66,7 +66,7 @@ final class Main
 				if(!file.isFile())
 					throw new RuntimeException("error: input file " + file.getAbsolutePath() + " is not a regular file.");
 
-				final JavaFile javaFile = new JavaFile(repository);
+				final JavaFile javaFile = new JavaFile(repository, file);
 				final Parser parser = new Parser(new Lexer(file, charset, javaFile), new Instrumentor(), javaFile);
 				parser.parseFile();
 				parsers.add(parser);

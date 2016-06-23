@@ -203,7 +203,7 @@ final class JavaClass extends JavaFeature
 
 		NS(final CopeNameSpace parent)
 		{
-			super(parent);
+			super(parent, name);
 		}
 
 		@Override
