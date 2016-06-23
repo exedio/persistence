@@ -46,51 +46,67 @@ class CopeNameSpace extends NameSpace
 		importPackage("java.lang");
 	}
 
-	/*public Object get(final String name, final Interpreter interpreter) throws UtilEvalError
+	/*
+	@Override
+	public Object get(final String name, final bsh.Interpreter interpreter) throws bsh.UtilEvalError
 	{
-		System.out.println("++++++++++++++++get(\""+name+"\",Interpreter)");
-		return super.get(name, interpreter);
+		System.out.println("+++ get(\""+name+"\",Interpreter)");
+		return report(super.get(name, interpreter));
 	}
 
-	public Class getClass(final String name) throws UtilEvalError
+	@Override
+	public Class<?> getClass(final String name) throws bsh.UtilEvalError
 	{
-		System.out.println("++++++++++++++++getClass(\""+name+"\")");
-		return super.getClass(name);
+		System.out.println("+++ getClass(\""+name+"\")");
+		return report(super.getClass(name));
 	}
 
-	public Object getVariable(final String name) throws UtilEvalError
+	@Override
+	public Object getVariable(final String name) throws bsh.UtilEvalError
 	{
-		System.out.println("++++++++++++++++getVariable(\""+name+"\")");
-		return super.getVariable(name);
+		System.out.println("+++ getVariable(\""+name+"\")");
+		return report(super.getVariable(name));
 	}
 
-	public Object getVariable(final String name, final boolean recurse) throws UtilEvalError
+	@Override
+	public Object getVariable(final String name, final boolean recurse) throws bsh.UtilEvalError
 	{
-		System.out.println("++++++++++++++++getVariable(\""+name+"\","+recurse+")");
-		return super.getVariable(name, recurse);
+		System.out.println("+++ getVariable(\""+name+"\","+recurse+")");
+		return report(super.getVariable(name, recurse));
 	}
 
-	protected Variable getVariableImpl(final String name, final boolean recurse) throws UtilEvalError
+	@Override
+	protected bsh.Variable getVariableImpl(final String name, final boolean recurse) throws bsh.UtilEvalError
 	{
-		System.out.println("++++++++++++++++getVariableImpl(\""+name+"\","+recurse+")");
-		return super.getVariableImpl(name, recurse);
+		System.out.println("+++ getVariableImpl(\""+name+"\","+recurse+")");
+		return report(super.getVariableImpl(name, recurse));
 	}
 
-	protected Variable getImportedVar(final String name) throws bsh.UtilEvalError
+	@Override
+	protected bsh.Variable getImportedVar(final String name) throws bsh.UtilEvalError
 	{
-		System.out.println("++++++++++++++++getImportedVar(\""+name+"\")");
-		return super.getImportedVar(name);
+		System.out.println("+++ getImportedVar(\""+name+"\")");
+		return report(super.getImportedVar(name));
 	}
 
+	@Override
 	public String[] getVariableNames()
 	{
-		System.out.println("++++++++++++++++getVariableNames()");
-		return super.getVariableNames();
+		System.out.println("+++ getVariableNames()");
+		return report(super.getVariableNames());
 	}
 
-	public Variable[] getDeclaredVariables()
+	@Override
+	public bsh.Variable[] getDeclaredVariables()
 	{
-		System.out.println("++++++++++++++++getDeclaredVariables()");
-		return super.getDeclaredVariables();
-	}*/
+		System.out.println("+++ getDeclaredVariables()");
+		return report(super.getDeclaredVariables());
+	}
+
+	private static <X> X report(final X x)
+	{
+		System.out.println("+++    result " + x);
+		return x;
+	}
+	*/
 }
