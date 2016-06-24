@@ -175,20 +175,7 @@ final class JavaClass extends JavaFeature
 	{
 		assert classEndPosition>=0;
 
-		int generatedBytesBeforeClassEnd = 0;
-		for (JavaFile.GeneratedFragment generatedFragment: file.generatedFragments)
-		{
-			if ( generatedFragment.fromInclusive<=classEndPosition )
-			{
-				if ( generatedFragment.endExclusive>classEndPosition )
-				{
-					throw new RuntimeException("class end in generated fragment");
-				}
-				generatedBytesBeforeClassEnd += (generatedFragment.endExclusive-generatedFragment.fromInclusive);
-			}
-		}
-
-		return classEndPosition-generatedBytesBeforeClassEnd;
+		return file.translateToPositionInSourceWithoutGeneratedFragments(classEndPosition);
 	}
 
 	Object evaluate(final String s)

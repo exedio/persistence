@@ -1,5 +1,6 @@
 package com.exedio.cope.instrument;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -13,10 +14,17 @@ import javax.tools.JavaFileObject;
 class DummyJavaFileObject implements JavaFileObject
 {
 	private final String name;
+	private int dummyByteCount=-1;
 
 	DummyJavaFileObject(String name)
 	{
 		this.name=name;
+	}
+
+	DummyJavaFileObject withDummyBytes(int byteCount)
+	{
+		dummyByteCount=byteCount;
+		return this;
 	}
 
 	@Override
@@ -58,7 +66,16 @@ class DummyJavaFileObject implements JavaFileObject
 	@Override
 	public InputStream openInputStream() throws IOException
 	{
-		throw new RuntimeException();
+		if (dummyByteCount==-1)
+		{
+			throw new RuntimeException();
+		}
+		final byte[] bytes=new byte[dummyByteCount];
+		for (int i=0; i<dummyByteCount; i++)
+		{
+			bytes[i]=(byte)('0'+i%10);
+		}
+		return new ByteArrayInputStream(bytes);
 	}
 
 	@Override
