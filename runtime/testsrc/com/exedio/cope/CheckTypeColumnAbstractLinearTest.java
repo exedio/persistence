@@ -66,36 +66,36 @@ public class CheckTypeColumnAbstractLinearTest extends TestWithEnvironment
 		assertNotNeeded(ref021C);
 
 
-		assertEquals(0, this01C.checkTypeColumn());
-		assertEquals(0, this02A.checkTypeColumn());
-		assertEquals(0, ref0A  .checkTypeColumn());
+		assertEquals(0, this01C.checkTypeColumnL());
+		assertEquals(0, this02A.checkTypeColumnL());
+		assertEquals(0, ref0A  .checkTypeColumnL());
 
 		new TypeRef(new Type01C(1));
-		assertEquals(0, this01C.checkTypeColumn());
-		assertEquals(0, this02A.checkTypeColumn());
-		assertEquals(0, ref0A  .checkTypeColumn());
+		assertEquals(0, this01C.checkTypeColumnL());
+		assertEquals(0, this02A.checkTypeColumnL());
+		assertEquals(0, ref0A  .checkTypeColumnL());
 
 		new TypeRef(new Type01C(2));
-		assertEquals(0, this01C.checkTypeColumn());
-		assertEquals(0, this02A.checkTypeColumn());
-		assertEquals(0, ref0A  .checkTypeColumn());
+		assertEquals(0, this01C.checkTypeColumnL());
+		assertEquals(0, this02A.checkTypeColumnL());
+		assertEquals(0, ref0A  .checkTypeColumnL());
 
 		new TypeRef(new Type021C(5));
-		assertEquals(0, this01C.checkTypeColumn());
-		assertEquals(0, this02A.checkTypeColumn());
-		assertEquals(0, ref0A  .checkTypeColumn());
+		assertEquals(0, this01C.checkTypeColumnL());
+		assertEquals(0, this02A.checkTypeColumnL());
+		assertEquals(0, ref0A  .checkTypeColumnL());
 
 		new TypeRef(new Type021C(5));
-		assertEquals(0, this01C.checkTypeColumn());
-		assertEquals(0, this02A.checkTypeColumn());
-		assertEquals(0, ref0A  .checkTypeColumn());
+		assertEquals(0, this01C.checkTypeColumnL());
+		assertEquals(0, this02A.checkTypeColumnL());
+		assertEquals(0, ref0A  .checkTypeColumnL());
 	}
 
 	private static void assertNotNeeded(final ItemFunction<?> f)
 	{
 		try
 		{
-			f.checkTypeColumn();
+			f.checkTypeColumnL();
 			fail();
 		}
 		catch(final IllegalArgumentException e)

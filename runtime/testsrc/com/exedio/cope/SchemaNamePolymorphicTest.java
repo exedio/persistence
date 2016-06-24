@@ -100,9 +100,9 @@ public class SchemaNamePolymorphicTest extends TestWithEnvironment
 					model.getSchema().getTable(table).getConstraint("ScheNamPolRefIte_reTyp_EN").getRequiredCondition());
 		}
 		toModel();
-		assertEquals(0, SchemaNamePolymorphicSubItem.TYPE.getThis().checkTypeColumn());
+		assertEquals(0, SchemaNamePolymorphicSubItem.TYPE.getThis().checkTypeColumnL());
 		assertEquals(0, SchemaNamePolymorphicSuperItem.TYPE.checkCompletenessL(SchemaNamePolymorphicSubItem.TYPE));
-		assertEquals(0, SchemaNamePolymorphicRefItem.ref.checkTypeColumn());
+		assertEquals(0, SchemaNamePolymorphicRefItem.ref.checkTypeColumnL());
 
 		// test update
 		final SchemaNamePolymorphicSuperItem item2 = new SchemaNamePolymorphicSubItem();
@@ -117,9 +117,9 @@ public class SchemaNamePolymorphicTest extends TestWithEnvironment
 					fetch("select " + q(column) + " from " + q(table)));
 		}
 		toModel();
-		assertEquals(0, SchemaNamePolymorphicSubItem.TYPE.getThis().checkTypeColumn());
+		assertEquals(0, SchemaNamePolymorphicSubItem.TYPE.getThis().checkTypeColumnL());
 		assertEquals(0, SchemaNamePolymorphicSuperItem.TYPE.checkCompletenessL(SchemaNamePolymorphicSubItem.TYPE));
-		assertEquals(0, SchemaNamePolymorphicRefItem.ref.checkTypeColumn());
+		assertEquals(0, SchemaNamePolymorphicRefItem.ref.checkTypeColumnL());
 
 		// test delete
 		refItem.setRef(item);

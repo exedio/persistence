@@ -416,7 +416,7 @@ final class Types
 	{
 		if(f.needsCheckTypeColumn())
 		{
-			final int count = f.checkTypeColumn();
+			final long count = f.checkTypeColumnL();
 			if(count!=0)
 				throw new RuntimeException("wrong type column for " + f + " on " + count + " tuples.");
 		}
