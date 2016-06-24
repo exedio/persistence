@@ -18,6 +18,8 @@
 
 package com.exedio.dsmf;
 
+import static java.lang.Math.toIntExact;
+
 public final class Sequence extends Node
 {
 	final String name;
@@ -164,18 +166,5 @@ public final class Sequence extends Node
 	public int getStartWith()
 	{
 		return getStart();
-	}
-
-	/**
-	 * Can be replaced by static Math.toIntExact available in JDK 1.8
-	 */
-	@Deprecated
-	static int toIntExact(final long longValue)
-	{
-		if (longValue < Integer.MIN_VALUE || longValue > Integer.MAX_VALUE)
-		{
-			throw new ArithmeticException("value '"+longValue+"' out of integer range");
-		}
-		return (int)longValue;
 	}
 }
