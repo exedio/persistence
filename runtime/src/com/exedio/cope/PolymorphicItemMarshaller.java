@@ -49,7 +49,7 @@ final class PolymorphicItemMarshaller<E extends Item> extends Marshaller<E>
 		if(resultType==null)
 			throw new RuntimeException("invalid type column >" + pkCell + "< / >" + typeCell + '<');
 
-		return resultType.getItemObject(((Number)pkCell).intValue());
+		return resultType.getItemObject(((Number)pkCell).longValue());
 	}
 
 	@Override

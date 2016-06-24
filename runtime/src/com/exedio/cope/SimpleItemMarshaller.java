@@ -39,7 +39,7 @@ final class SimpleItemMarshaller<E extends Item> extends Marshaller<E>
 		if(cell==null)
 			return null;
 
-		return onlyPossibleTypeOfInstances.getItemObject(((Number)cell).intValue());
+		return onlyPossibleTypeOfInstances.getItemObject(((Number)cell).longValue());
 	}
 
 	@Override
