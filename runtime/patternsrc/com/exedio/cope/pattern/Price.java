@@ -134,17 +134,7 @@ public final class Price implements Serializable, Comparable<Price>
 	@Override
 	public int hashCode()
 	{
-		return hashCode(store) ^ 827345123;
-	}
-
-	/**
-	 * Returns the equivalent of {@link Long#hashCode()}
-	 * without instantiating a Long.
-	 * Can be replaced by static Long.hashCode available in JDK 1.8
-	 */
-	private static int hashCode(final long value)
-	{
-		return (int)(value ^ (value >>> 32));
+		return Long.hashCode(store) ^ 827345123;
 	}
 
 	/**
