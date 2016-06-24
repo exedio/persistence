@@ -23,18 +23,6 @@ import static java.lang.Integer.MIN_VALUE;
 
 final class CastUtils
 {
-	/**
-	 * Can be replaced by static Math.toIntExact available in JDK 1.8
-	 */
-	static int toIntExact(final long longValue)
-	{
-		if (longValue < MIN_VALUE || longValue > MAX_VALUE)
-		{
-			throw new ArithmeticException("value '"+longValue+"' out of integer range");
-		}
-		return (int)longValue;
-	}
-
 	static int toIntCapped(final long longValue)
 	{
 		if (longValue > MAX_VALUE)

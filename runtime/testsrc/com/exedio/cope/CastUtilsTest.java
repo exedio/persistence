@@ -19,9 +19,9 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.CastUtils.toIntCapped;
-import static com.exedio.cope.CastUtils.toIntExact;
 import static java.lang.Integer.MAX_VALUE;
 import static java.lang.Integer.MIN_VALUE;
+import static java.lang.Math.toIntExact;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
@@ -44,7 +44,7 @@ public class CastUtilsTest
 		}
 		catch(final ArithmeticException e)
 		{
-			assertEquals("value '2147483648' out of integer range", e.getMessage());
+			assertEquals("integer overflow", e.getMessage());
 		}
 		try
 		{
@@ -53,7 +53,7 @@ public class CastUtilsTest
 		}
 		catch(final ArithmeticException e)
 		{
-			assertEquals("value '-2147483649' out of integer range", e.getMessage());
+			assertEquals("integer overflow", e.getMessage());
 		}
 
 		try
@@ -63,7 +63,7 @@ public class CastUtilsTest
 		}
 		catch(final ArithmeticException e)
 		{
-			assertEquals("value '9223372036854775807' out of integer range", e.getMessage());
+			assertEquals("integer overflow", e.getMessage());
 		}
 
 		try
@@ -73,7 +73,7 @@ public class CastUtilsTest
 		}
 		catch(final ArithmeticException e)
 		{
-			assertEquals("value '-9223372036854775808' out of integer range", e.getMessage());
+			assertEquals("integer overflow", e.getMessage());
 		}
 	}
 

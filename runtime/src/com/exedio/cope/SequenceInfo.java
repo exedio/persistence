@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.CastUtils.toIntExact;
+import static java.lang.Math.toIntExact;
 
 public final class SequenceInfo
 {

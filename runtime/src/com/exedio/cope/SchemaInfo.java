@@ -18,8 +18,8 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.CastUtils.toIntExact;
 import static com.exedio.cope.misc.Check.requireNonEmpty;
+import static java.lang.Math.toIntExact;
 import static java.util.Objects.requireNonNull;
 
 import java.sql.Connection;
