@@ -87,12 +87,13 @@ final class Marshallers
 			Integer unmarshal(final ResultSet row, final int columnIndex) throws SQLException
 			{
 				final Object cell = row.getObject(columnIndex);
-				return
-					(cell==null)
-					? null
-					: (cell instanceof Integer)
-						? (Integer)cell
-						: Integer.valueOf(((Number)cell).intValue());
+				if(cell==null)
+					return null;
+
+				if(cell instanceof Integer)
+					return (Integer)cell;
+
+				return Integer.valueOf(((Number)cell).intValue());
 			}
 			@Override
 			String marshalLiteral(final Integer value)
