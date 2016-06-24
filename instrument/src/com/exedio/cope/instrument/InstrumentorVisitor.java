@@ -25,6 +25,14 @@ import javax.lang.model.element.Modifier;
 
 class InstrumentorVisitor extends TreePathScanner<Void, Void>
 {
+	static final Set<Modifier> REQUIRED_MODIFIERS_FOR_COPE_FEATURE;
+
+	static
+	{
+		REQUIRED_MODIFIERS_FOR_COPE_FEATURE=new HashSet<>();
+		REQUIRED_MODIFIERS_FOR_COPE_FEATURE.add(Modifier.FINAL);
+		REQUIRED_MODIFIERS_FOR_COPE_FEATURE.add(Modifier.STATIC);
+	}
 
 	private final DocSourcePositions sourcePositions;
 	private final CompilationUnitTree compilationUnit;
@@ -123,21 +131,19 @@ class InstrumentorVisitor extends TreePathScanner<Void, Void>
 		{
 			return null;
 		}
-		final Set<Modifier> required = new HashSet<>();
-		required.add(Modifier.FINAL);
-		required.add(Modifier.STATIC);
 		final VariableVisitor variableVisitor=new VariableVisitor();
 		variableVisitor.visitVariable(node, null);
 		final boolean generated = checkGenerated(node, variableVisitor.currentVariableHasGeneratedAnnotation);
-		if ( !generated && node.getModifiers().getFlags().containsAll(required) )
+		if ( !generated && node.getModifiers().getFlags().containsAll(REQUIRED_MODIFIERS_FOR_COPE_FEATURE) )
 		{
-			final JavaField javaField = new JavaField(getCurrentJavaClass(), toModifiersInt(node.getModifiers()), removeSpacesAfterCommas(node.getType().toString()), node.getName().toString());
-			javaField.setDocComment(getDocComment());
-			//TODO COPE-10:
-			for(char c: node.getInitializer().toString().toCharArray())
-			{
-				javaField.addToInitializer(c);
-			}
+			new JavaField(
+				getCurrentJavaClass(),
+				toModifiersInt(node.getModifiers()),
+				removeSpacesAfterCommas(node.getType().toString()),
+				node.getName().toString(),
+				getDocComment(),
+				node.getInitializer().toString()
+			);
 		}
 		return null;
 	}
