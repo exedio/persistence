@@ -25,7 +25,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -122,7 +122,7 @@ final class JavaFile
 	byte[] getSourceWithoutGeneratedFragments()
 	{
 		final Iterator<GeneratedFragment> generatedFragmentIter=generatedFragments.iterator();
-		try (final InputStream inputStream=new BufferedInputStream(sourceFile.openInputStream()); final ByteArrayOutputStream os = new ByteArrayOutputStream(16384))
+		try (final InputStream inputStream=new BufferedInputStream(sourceFile.openInputStream()); final ByteArrayOutputStream os = new ByteArrayOutputStream(Main.INITIAL_BUFFER_SIZE))
 		{
 			int indexInSource = 0;
 			int nextSourceByte;
@@ -165,7 +165,7 @@ final class JavaFile
 		return sourceFile.getName();
 	}
 
-	boolean inputEqual(final StringBuilder bf, final Charset charset)
+	boolean inputEqual(final CharSequence bf, final Charset charset)
 	{
 		try (
 			final InputStream actualBytes = sourceFile.openInputStream();
@@ -251,11 +251,14 @@ final class JavaFile
 		}
 	}
 
-	void overwrite(byte[] bytes)
+	void overwrite(CharSequence content, Charset charset)
 	{
-		try(final OutputStream o = sourceFile.openOutputStream())
+		try(final OutputStreamWriter w = new OutputStreamWriter(sourceFile.openOutputStream(), charset))
 		{
-			o.write(bytes);
+			for (int i=0; i<content.length(); i++)
+			{
+				w.write(content.charAt(i));
+			}
 		}
 		catch(IOException e)
 		{

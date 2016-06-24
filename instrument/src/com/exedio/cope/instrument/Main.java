@@ -40,6 +40,8 @@ import javax.tools.StandardJavaFileManager;
 
 final class Main
 {
+	static final int INITIAL_BUFFER_SIZE=16384;
+
 	final void run(final ArrayList<File> files, final Params params, final ArrayList<File> resourceFiles) throws HumanReadableException, IOException
 	{
 		if(files.isEmpty())
@@ -85,11 +87,11 @@ final class Main
 
 			for(final JavaFile javaFile: repository.getFiles())
 			{
-				final StringBuilder baos = new StringBuilder(/*TODO COPE-10 guess length*/);
-				final Generator generator = new Generator(javaFile, baos, params);
+				final StringBuilder buffer = new StringBuilder(INITIAL_BUFFER_SIZE);
+				final Generator generator = new Generator(javaFile, buffer, params);
 				generator.write(charset);
 
-				if(!javaFile.inputEqual(baos, charset))
+				if(!javaFile.inputEqual(buffer, charset))
 				{
 					if(params.verify)
 						throw new HumanReadableException(
@@ -98,8 +100,7 @@ final class Main
 								"Probably you did commit a change causing another change in instrumented code," + lineSeparator() +
 								"but you did not run the intrumentor.");
 					logInstrumented(javaFile);
-					// TODO COPE-10 avoid copying
-					javaFile.overwrite(baos.toString().getBytes(charset));
+					javaFile.overwrite(buffer, charset);
 				}
 				else
 				{
