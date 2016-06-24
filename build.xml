@@ -926,6 +926,7 @@
 				depends="runtime.compile, instrument.compile, instrument.test.compile">
 		<ljunit test="com.exedio.cope.instrument.AllTests">
 			<classpath>
+				<pathelement location="${env.JAVA_HOME}/lib/tools.jar"/>
 				<pathelement location="build/classes/dsmf/src" />
 				<pathelement location="build/classes/runtime/src" />
 				<pathelement location="build/classes/runtime/patternsrc" />

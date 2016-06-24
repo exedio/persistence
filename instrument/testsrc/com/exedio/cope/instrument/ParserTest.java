@@ -19,13 +19,12 @@
 package com.exedio.cope.instrument;
 
 import static java.lang.System.lineSeparator;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.util.LinkedList;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
 import org.junit.Test;
 
 public abstract class ParserTest
@@ -39,32 +38,32 @@ public abstract class ParserTest
 		this.assertText = assertText;
 	}
 
-	LinkedList<ParseEvent> parseEvents;
-
-	public abstract void assertParse();
+	abstract void assertParse(JavaFile file);
 
 	@Test public void testIt()
 		throws IOException
 	{
-		/* TODO COPE-10
 		final File inputFile = new File(ParserTest.class.getResource(resourceName).getFile());
-
-		parseEvents = new LinkedList<>();
-		testParseConsumer = new TestParseConsumer();
 		final JavaRepository repository = new JavaRepository();
-		final JavaFile javaFile = new JavaFile(repository, new File("SomeFile.java"));
-		final Parser parser = new Parser(new Lexer(inputFile, StandardCharsets.US_ASCII, javaFile), testParseConsumer, javaFile);
-		if(assertText)
-			testParseConsumer.output = parser.javaFile.buffer;
-		parser.parseFile();
-
-		assertParse();
-		parseEvents = null;*/
+		new Main().runJavac(Arrays.asList(inputFile), repository);
+		repository.stage=JavaRepository.Stage.GENERATE;
+		final JavaFile file=singleElement(repository.getFiles());
+		assertParse(file);
 	}
 
-	private ParseEvent fetchEvent()
+	<T> T singleElement(Iterable<T> iterable)
 	{
-		return parseEvents.removeFirst();
+		final Iterator<T> iter=iterable.iterator();
+		if (!iter.hasNext())
+		{
+			throw new RuntimeException(iterable.toString());
+		}
+		final T result=iter.next();
+		if (iter.hasNext())
+		{
+			throw new RuntimeException(iterable.toString());
+		}
+		return result;
 	}
 
 	private static String format(final String s)
@@ -88,274 +87,5 @@ public abstract class ParserTest
 		}
 		result.append(s.substring(lastpos+1));
 		return result.toString();
-	}
-
-	protected void assertEqualsText(final String expectedText, final String actualText)
-	{
-		assertEquals("ZAPP \n>"+format(expectedText)+"<\n>"+format(actualText)+"<\n", replaceLineBreaks(expectedText), actualText);
-	}
-
-	protected void assertText(final String text)
-	{
-		if(!assertText)
-			throw new RuntimeException("assertText is false");
-
-		final ParseEvent event = fetchEvent();
-		if(!(event instanceof TextEvent))
-			throw new AssertionError("expected text event >"+text+"<, but was "+event);
-		final String actualText = ((TextEvent)event).text;
-		assertEqualsText(text, actualText);
-	}
-
-	protected void assertPackage(final String packageName)
-	{
-		final ParseEvent event = fetchEvent();
-		assertEquals(packageName, ((PackageEvent)event).javafile.getPackageName());
-	}
-
-	protected void assertImport(final String importText)
-	{
-		final ParseEvent event = fetchEvent();
-		assertEquals(importText, ((ImportEvent)event).importText);
-	}
-
-	protected void assertDocComment(final String docComment)
-	{
-		final ParseEvent event = fetchEvent();
-		if(!(event instanceof DocCommentEvent))
-			throw new AssertionError("expected docComment event >"+docComment+"<, but was "+event);
-		assertEquals(replaceLineBreaks(docComment), ((DocCommentEvent)event).docComment);
-	}
-
-	protected void assertFileDocComment(final String docComment)
-	{
-		final ParseEvent event = fetchEvent();
-		assertEquals(replaceLineBreaks(docComment), ((FileDocCommentEvent)event).docComment);
-	}
-
-	protected JavaClass assertClass(final String className, final String classExtends)
-	{
-		return assertClass(className, classExtends, null);
-	}
-
-	protected JavaClass assertClass(final String className, final String classExtends, final JavaClass parent)
-	{
-		final ParseEvent event = fetchEvent();
-		if(!(event instanceof ClassEvent))
-			throw new RuntimeException(event.toString());
-		final JavaClass javaClass = ((ClassEvent)event).javaClass;
-		assertEquals(className, javaClass.name);
-		assertEquals(classExtends, javaClass.classExtends);
-		assertSame(parent, javaClass.parent);
-		return javaClass;
-	}
-
-	protected void assertClassEnd(final JavaClass expectedJavaClass)
-	{
-		final ParseEvent event = fetchEvent();
-		final JavaClass javaClass = ((ClassEndEvent)event).javaClass;
-		assertSame(expectedJavaClass, javaClass);
-	}
-
-	protected JavaBehaviour assertBehaviourHeader(final String name, final String type, final int modifier)
-	{
-		final ParseEvent event = fetchEvent();
-		if(!(event instanceof BehaviourHeaderEvent))
-			throw new AssertionError("expected BehaviourHeader event >"+name+"<, but was "+event);
-		final JavaBehaviour javaBehaviour = ((BehaviourHeaderEvent)event).javaBehaviour;
-		assertEquals(name, javaBehaviour.name);
-		assertEquals(type, javaBehaviour.type);
-		assertEquals(modifier, javaBehaviour.modifier);
-		return javaBehaviour;
-	}
-
-	protected JavaField assertFieldHeader(final String name, final String type, final int modifier)
-	{
-		final ParseEvent event = fetchEvent();
-		final JavaField javaAttribute = ((FieldHeaderEvent)event).javaField;
-		assertEquals(name, javaAttribute.name);
-		assertEquals(type, javaAttribute.type);
-		assertEquals(modifier, javaAttribute.modifier);
-		return javaAttribute;
-	}
-
-	private void assertFeature(final String name, final String docComment, final JavaFeature expectedJavaFeature)
-	{
-		final ParseEvent event = fetchEvent();
-		final JavaFeature javaFeature = ((ClassFeatureEvent)event).javaFeature;
-		assertEquals(name, javaFeature.name);
-		assertEquals(replaceLineBreaks(docComment), ((ClassFeatureEvent)event).docComment);
-		if(expectedJavaFeature!=null)
-			assertSame(expectedJavaFeature, javaFeature);
-	}
-
-	protected void assertField(final String name, final String docComment, final JavaField expectedJavaAttribute)
-	{
-		if(expectedJavaAttribute==null)
-			throw new NullPointerException();
-		assertFeature(name, docComment, expectedJavaAttribute);
-		//System.out.println("---"+name+" >"+expectedJavaAttribute.getInitializerTokens()+"<");
-	}
-
-	/**
-	 * TODO: InnerClassAttribute is non-sense, and should not be reported by the parser
-	 */
-	protected void assertInnerClassAttribute(final String name, final String docComment)
-	{
-		assertFeature(name, docComment, null);
-	}
-
-	protected void assertAttributeCommaSeparated(final String name, final String docComment)
-	{
-		assertFeature(name, docComment, null);
-	}
-
-	protected void assertMethod(final String name, final String docComment, final JavaBehaviour jb)
-	{
-		if(jb==null)
-			throw new NullPointerException();
-		assertFeature(name, docComment, jb);
-	}
-
-	protected void assertMethodDiscarded(final String name, final String docComment)
-	{
-		assertFeature(name, docComment, null);
-	}
-
-
-	private static class ParseEvent
-	{
-		ParseEvent()
-		{
-			// make constructor non-private
-		}
-		// just a common super class
-	}
-
-	private static class TextEvent extends ParseEvent
-	{
-		final String text;
-
-		TextEvent(final String text)
-		{
-			this.text = text;
-			//System.out.println("new TextEvent("+text+")");
-		}
-	}
-
-	private static class PackageEvent extends ParseEvent
-	{
-		final JavaFile javafile;
-
-		PackageEvent(final JavaFile javafile)
-		{
-			this.javafile = javafile;
-		}
-	}
-
-	private static class ImportEvent extends ParseEvent
-	{
-		final String importText;
-
-		ImportEvent(final String importText)
-		{
-			this.importText = importText;
-		}
-	}
-
-	private static class DocCommentEvent extends ParseEvent
-	{
-		final String docComment;
-
-		DocCommentEvent(final String docComment)
-		{
-			this.docComment = docComment;
-		}
-	}
-
-	private static class FileDocCommentEvent extends ParseEvent
-	{
-		final String docComment;
-
-		FileDocCommentEvent(final String docComment)
-		{
-			this.docComment = docComment;
-		}
-	}
-
-	private static abstract class AbstractClassEvent extends ParseEvent
-	{
-		final JavaClass javaClass;
-
-		AbstractClassEvent(final JavaClass javaClass)
-		{
-			this.javaClass = javaClass;
-		}
-	}
-
-	private static final class ClassEvent extends AbstractClassEvent
-	{
-		ClassEvent(final JavaClass javaClass)
-		{
-			super(javaClass);
-		}
-	}
-
-	private static final class ClassEndEvent extends AbstractClassEvent
-	{
-		ClassEndEvent(final JavaClass javaClass)
-		{
-			super(javaClass);
-		}
-	}
-
-	private static class BehaviourHeaderEvent extends ParseEvent
-	{
-		final JavaBehaviour javaBehaviour;
-
-		BehaviourHeaderEvent(final JavaBehaviour javaBehaviour)
-		{
-			this.javaBehaviour = javaBehaviour;
-		}
-
-		@Override
-		public String toString()
-		{
-			return "BehaviourHeaderEvent("+javaBehaviour+")";
-		}
-	}
-
-	private static class FieldHeaderEvent extends ParseEvent
-	{
-		final JavaField javaField;
-
-		FieldHeaderEvent(final JavaField javaField)
-		{
-			this.javaField = javaField;
-		}
-
-		@Override
-		public String toString()
-		{
-			return "FieldHeaderEvent:"+javaField.toString();
-		}
-	}
-
-	private static class ClassFeatureEvent extends ParseEvent
-	{
-		final JavaFeature javaFeature;
-		final String docComment;
-
-		ClassFeatureEvent(final JavaFeature javaFeature, final String docComment)
-		{
-			this.javaFeature = javaFeature;
-			this.docComment = docComment;
-		}
-
-		@Override
-		public String toString()
-		{
-			return "ClassFeatureEvent("+javaFeature+")";
-		}
 	}
 }

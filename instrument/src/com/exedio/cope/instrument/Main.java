@@ -29,8 +29,11 @@ import com.sun.tools.javac.api.JavacTool;
 import java.io.File;
 import java.io.IOException;
 import java.io.StringWriter;
+import java.net.URL;
+import java.net.URLClassLoader;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -157,7 +160,7 @@ final class Main
 		}
 	}
 
-	private void runJavac(final ArrayList<File> files, JavaRepository repository)
+	void runJavac(final List<File> files, JavaRepository repository)
 	{
 		// "JavacTool.create()" is not part of the "exported" API
 		// (not annotated with https://docs.oracle.com/javase/8/docs/jdk/api/javac/tree/jdk/Exported.html).
@@ -181,10 +184,29 @@ final class Main
 	private String toClasspath(ClassLoader cl)
 	{
 		// TODO COPE-10
-		final Pattern pattern = Pattern.compile("AntClassLoader\\[(.*)\\]");
-		final Matcher matcher = pattern.matcher(cl.toString());
-		if ( !matcher.matches() ) throw new RuntimeException();
-		return matcher.group(1);
+		if (cl instanceof URLClassLoader)
+		{
+			final URLClassLoader urlClassLoader=(URLClassLoader)cl;
+			final StringBuilder result=new StringBuilder();
+			for (int i=0; i < urlClassLoader.getURLs().length; i++)
+			{
+				if (i!=0)
+				{
+					result.append(File.pathSeparatorChar);
+				}
+				final URL url=urlClassLoader.getURLs()[i];
+				result.append(url.toString());
+			}
+			return result.toString();
+		}
+		else
+		{
+			final Pattern pattern = Pattern.compile("AntClassLoader\\[(.*)\\]");
+			final String classLoaderString=cl.toString();
+			final Matcher matcher = pattern.matcher(classLoaderString);
+			if ( !matcher.matches() ) throw new RuntimeException(classLoaderString);
+			return matcher.group(1);
+		}
 	}
 
 	boolean verbose;
