@@ -90,10 +90,17 @@ final class Marshallers
 				if(cell==null)
 					return null;
 
+				// must not use Number#intValue() as it wraps values outside 32bit
 				if(cell instanceof Integer)
 					return (Integer)cell;
-
-				return Integer.valueOf(((Number)cell).intValue());
+				else if(cell instanceof Long)
+					return Integer.valueOf(Math.toIntExact(((Long)cell).longValue()));
+				else if(cell instanceof BigDecimal)
+					return Integer.valueOf(((BigDecimal)cell).intValueExact());
+				else if(cell instanceof Double) // needed for DayPartView on postgresql
+					return Integer.valueOf(BigDecimal.valueOf(((Double)cell).doubleValue()).intValueExact());
+				else
+					throw new RuntimeException("" + cell + '/' + cell.getClass().getName());
 			}
 			@Override
 			String marshalLiteral(final Integer value)

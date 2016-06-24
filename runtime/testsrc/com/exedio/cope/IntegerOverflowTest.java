@@ -123,7 +123,37 @@ public class IntegerOverflowTest extends TestWithEnvironment
 
 		MODEL.startTransaction(IntegerOverflowTest.class.getName());
 
-		assertEquals(expectedInt, query.searchSingleton().intValue()); // TODO should be expectedLong or failure
+		if(expectedInt>=0)
+		{
+			assertEquals(expectedInt, query.searchSingleton().intValue());
+		}
+		else
+		{
+			try
+			{
+				query.searchSingleton();
+				fail();
+			}
+			catch(final ArithmeticException e)
+			{
+				final String expectedArithmeticException;
+				switch(dialect)
+				{
+					case hsqldb:
+					case postgresql:
+						expectedArithmeticException = "integer overflow"; // from Math#toIntExact
+						break;
+					case mysql:
+					case oracle:
+						expectedArithmeticException = "Overflow"; // from BigDecimal#intValueExact
+						break;
+					default:
+						throw new RuntimeException("" + dialect);
+				}
+
+				assertEquals(expectedArithmeticException, e.getMessage());
+			}
+		}
 	}
 
 
