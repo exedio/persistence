@@ -123,10 +123,15 @@ final class Marshallers
 
 			private final Long convert(final Object o)
 			{
+				// must not use Number#longValue() as it wraps values outside 32bit
 				if(o instanceof Long)
 					return (Long)o;
+				else if(o instanceof Integer)
+					return Long.valueOf(((Integer)o).intValue());
+				else if(o instanceof BigDecimal)
+					return Long.valueOf(((BigDecimal)o).longValueExact());
 				else
-					return Long.valueOf(((Number)o).longValue());
+					throw new RuntimeException("" + o + '/' + o.getClass().getName());
 			}
 
 			@Override

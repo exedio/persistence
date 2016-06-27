@@ -60,24 +60,24 @@ public class OverflowLongSumTest extends TestWithEnvironment
 		assertIt(MAX_VALUE);
 
 		new AnItem(1);
-		assertIt(MAX_VALUE, 1, MIN_VALUE);
+		assertIt(MAX_VALUE, 1);
 
 		new AnItem(5);
-		assertIt(MAX_VALUE, 6, MIN_VALUE + 5);
+		assertIt(MAX_VALUE, 6);
 	}
 
 	private void assertIt(final long expected) throws SQLException
 	{
-		assertIt(BigDecimal.valueOf(expected), expected);
+		assertIt(BigDecimal.valueOf(expected));
 	}
 
-	private void assertIt(final long expected1, final long expected2, final long expectedSum) throws SQLException
+	private void assertIt(final long expected1, final long expected2) throws SQLException
 	{
-		assertIt(BigDecimal.valueOf(expected1).add(BigDecimal.valueOf(expected2)), expectedSum);
+		assertIt(BigDecimal.valueOf(expected1).add(BigDecimal.valueOf(expected2)));
 	}
 
 	@SuppressFBWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
-	private void assertIt(final BigDecimal expected, final long expectedSum) throws SQLException
+	private void assertIt(final BigDecimal expected) throws SQLException
 	{
 		MODEL.commit();
 
@@ -131,7 +131,22 @@ public class OverflowLongSumTest extends TestWithEnvironment
 
 		MODEL.startTransaction(OverflowLongSumTest.class.getName());
 
-		assertEquals(expectedSum, query.searchSingleton().longValue()); // TODO should fail if too large
+		if(expectedIsLong)
+		{
+			assertEquals(expectedLong, query.searchSingleton().longValue());
+		}
+		else
+		{
+			try
+			{
+				query.searchSingleton();
+				fail();
+			}
+			catch(final ArithmeticException e)
+			{
+				assertEquals("Overflow", e.getMessage()); // from BigDecimal#intValueExact
+			}
+		}
 	}
 
 
