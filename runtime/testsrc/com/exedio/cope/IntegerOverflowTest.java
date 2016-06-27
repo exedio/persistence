@@ -25,7 +25,6 @@ import static com.exedio.cope.SchemaInfo.getTableName;
 import static com.exedio.cope.SchemaInfo.newConnection;
 import static com.exedio.cope.SchemaInfo.quoteName;
 import static java.lang.Integer.MAX_VALUE;
-import static java.lang.Integer.MIN_VALUE;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
@@ -60,19 +59,14 @@ public class IntegerOverflowTest extends TestWithEnvironment
 		assertIt(MAX_VALUE);
 
 		new AnItem(1);
-		assertIt(MIN_VALUE, 1l + MAX_VALUE);
+		assertIt(1l + MAX_VALUE);
 
 		new AnItem(5);
-		assertIt(MIN_VALUE + 5, 6l + MAX_VALUE);
-	}
-
-	private void assertIt(final int expectedInt) throws SQLException
-	{
-		assertIt(expectedInt, expectedInt);
+		assertIt(6l + MAX_VALUE);
 	}
 
 	@SuppressFBWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
-	private void assertIt(final int expectedInt, final long expectedLong) throws SQLException
+	private void assertIt(final long expected) throws SQLException
 	{
 		MODEL.commit();
 
@@ -85,9 +79,9 @@ public class IntegerOverflowTest extends TestWithEnvironment
 		{
 			assertTrue(rs.next());
 
-			if(expectedInt>=0)
+			if(expected<=MAX_VALUE)
 			{
-				assertEquals(expectedInt, rs.getInt(1));
+				assertEquals(expected, rs.getInt(1));
 			}
 			else
 			{
@@ -102,18 +96,18 @@ public class IntegerOverflowTest extends TestWithEnvironment
 				}
 			}
 
-			assertEquals(expectedLong, rs.getLong(1));
+			assertEquals(expected, rs.getLong(1));
 
 			final Object expectedObject;
 			switch(dialect)
 			{
 				case hsqldb:
 				case postgresql:
-					expectedObject = Long.valueOf(expectedLong);
+					expectedObject = Long.valueOf(expected);
 					break;
 				case mysql:
 				case oracle:
-					expectedObject = BigDecimal.valueOf(expectedLong);
+					expectedObject = BigDecimal.valueOf(expected);
 					break;
 				default:
 					throw new RuntimeException("" + dialect);
@@ -123,9 +117,9 @@ public class IntegerOverflowTest extends TestWithEnvironment
 
 		MODEL.startTransaction(IntegerOverflowTest.class.getName());
 
-		if(expectedInt>=0)
+		if(expected<=MAX_VALUE)
 		{
-			assertEquals(expectedInt, query.searchSingleton().intValue());
+			assertEquals(expected, query.searchSingleton().intValue());
 		}
 		else
 		{
