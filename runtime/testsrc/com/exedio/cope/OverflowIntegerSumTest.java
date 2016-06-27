@@ -18,8 +18,8 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.IntegerOverflowTest.AnItem.TYPE;
-import static com.exedio.cope.IntegerOverflowTest.AnItem.field;
+import static com.exedio.cope.OverflowIntegerSumTest.AnItem.TYPE;
+import static com.exedio.cope.OverflowIntegerSumTest.AnItem.field;
 import static com.exedio.cope.SchemaInfo.getColumnName;
 import static com.exedio.cope.SchemaInfo.getTableName;
 import static com.exedio.cope.SchemaInfo.newConnection;
@@ -37,11 +37,11 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import org.junit.Test;
 
-public class IntegerOverflowTest extends TestWithEnvironment
+public class OverflowIntegerSumTest extends TestWithEnvironment
 {
 	static final Model MODEL = new Model(TYPE);
 
-	public IntegerOverflowTest()
+	public OverflowIntegerSumTest()
 	{
 		super(MODEL);
 	}
@@ -115,7 +115,7 @@ public class IntegerOverflowTest extends TestWithEnvironment
 			assertEquals(expectedObject, rs.getObject(1));
 		}
 
-		MODEL.startTransaction(IntegerOverflowTest.class.getName());
+		MODEL.startTransaction(OverflowIntegerSumTest.class.getName());
 
 		if(expected<=MAX_VALUE)
 		{
