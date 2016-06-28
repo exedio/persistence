@@ -88,7 +88,9 @@ public abstract class SchemaTest
 		}
 		else if(url.startsWith("jdbc:mysql:"))
 		{
+			// see MysqlDialect#completeConnectionInfo
 			info.setProperty("allowMultiQueries", "true"); // needed for creating Sequence
+			info.setProperty("useSSL", "false");
 			dialect = new MysqlDialect(
 					"CopeSequenceAutoIncrementColumnForTest",
 					"NONE".equals(mysqlRowFormat) ? null : mysqlRowFormat);

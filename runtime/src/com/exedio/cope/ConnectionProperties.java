@@ -70,6 +70,11 @@ final class ConnectionProperties extends Properties
 			// see HsqldbDialect#completeConnectionInfo
 			result.setProperty("hsqldb.tx", "mvcc");
 		}
+		else if(url.startsWith("jdbc:mysql:"))
+		{
+			// see MysqlDialect#completeConnectionInfo
+			result.setProperty("useSSL", "false");
+		}
 
 		return result;
 	}
