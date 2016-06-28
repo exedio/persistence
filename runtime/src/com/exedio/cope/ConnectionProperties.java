@@ -76,6 +76,7 @@ final class ConnectionProperties extends Properties
 		{
 			// see MysqlDialect#completeConnectionInfo
 			result.setProperty("useSSL", "false");
+			result.setProperty("serverTimezone", "UTC");
 		}
 
 		return result;

@@ -64,18 +64,18 @@ public class OverflowLongSumTest extends TestWithEnvironment
 		assertIt(MAX_VALUE, 6);
 	}
 
-	private void assertIt(final long expected) throws SQLException
+	private static void assertIt(final long expected) throws SQLException
 	{
 		assertIt(BigDecimal.valueOf(expected));
 	}
 
-	private void assertIt(final long expected1, final long expected2) throws SQLException
+	private static void assertIt(final long expected1, final long expected2) throws SQLException
 	{
 		assertIt(BigDecimal.valueOf(expected1).add(BigDecimal.valueOf(expected2)));
 	}
 
 	@SuppressFBWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
-	private void assertIt(final BigDecimal expected) throws SQLException
+	private static void assertIt(final BigDecimal expected) throws SQLException
 	{
 		MODEL.commit();
 
@@ -105,11 +105,6 @@ public class OverflowLongSumTest extends TestWithEnvironment
 			}
 			else
 			{
-				if(mysql && !MODEL.getEnvironmentInfo().getDriverName().startsWith("MariaDB"))
-				{
-					assertEquals(MAX_VALUE, rs.getLong(1)); // https://bugs.mysql.com/bug.php?id=82032
-				}
-				else
 				{
 					try
 					{

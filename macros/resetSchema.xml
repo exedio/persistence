@@ -11,7 +11,7 @@
 	<target name="mysql" depends="prepare">
 		<sql
 				classpath="lib/${x-build.driver}"
-				driver="com.mysql.jdbc.Driver"
+				driver="com.mysql.cj.jdbc.Driver"
 				url="${connection.url}"
 				userid="${connection.username}"
 				password="${connection.password}"
@@ -20,6 +20,7 @@
 			<connectionProperty name="createDatabaseIfNotExist" value="true" />
 			<!-- see MysqlDialect#completeConnectionInfo -->
 			<connectionProperty name="useSSL" value="false" />
+			<connectionProperty name="serverTimezone" value="UTC" />
 			SET @myschema = CONCAT("`", DATABASE(), "`");
 			<!--
 				* IF EXISTS not needed for DROP SCHEMA, because connection

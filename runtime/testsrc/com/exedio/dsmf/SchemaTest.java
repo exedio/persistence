@@ -98,6 +98,7 @@ public abstract class SchemaTest
 			// see MysqlDialect#completeConnectionInfo
 			info.setProperty("allowMultiQueries", "true"); // needed for creating Sequence
 			info.setProperty("useSSL", "false");
+			info.setProperty("serverTimezone", "UTC");
 			dialect = newD("Mysql",
 					false, // TODO test true as well
 					"CopeSequenceAutoIncrementColumnForTest",

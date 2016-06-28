@@ -30,6 +30,7 @@ import com.exedio.dsmf.SQLRuntimeException;
 import com.exedio.dsmf.Sequence;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.IOException;
+import java.math.BigInteger;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
@@ -71,6 +72,7 @@ final class MysqlDialect extends Dialect
 	private final boolean supportsAnyValue;
 	private final boolean supportsNativeDate;
 	private final boolean supportsGtid;
+	private final boolean mariaDriver;
 	private final Pattern extractUniqueViolationMessagePattern;
 	private final int purgeSequenceLimit;
 
@@ -107,7 +109,7 @@ final class MysqlDialect extends Dialect
 
 		supportsAnyValue = env.isDatabaseVersionAtLeast(5, 7);
 		supportsNativeDate = supportsGtid = env.isDatabaseVersionAtLeast(5, 6);
-		final boolean mariaDriver = env.getDriverName().startsWith("MariaDB");
+		mariaDriver = env.getDriverName().startsWith("MariaDB");
 		extractUniqueViolationMessagePattern = mariaDriver ? Pattern.compile("^\\(conn=\\p{Digit}+\\) (.*)$") : null;
 		purgeSequenceLimit = properties.purgeSequenceLimit;
 	}
@@ -145,6 +147,14 @@ final class MysqlDialect extends Dialect
 		// You need either to explicitly disable SSL by setting useSSL=false, or set useSSL=true
 		// and provide truststore for server certificate verification.
 		requireConnectionInfo(info, "useSSL", "false");
+
+		// Without serverTimezone there is an error on MySQL 5.6 after
+		// upgrading mysql-connector from 5.1.45 to 8.0.13:
+		// java.sql.SQLException:
+		// The server time zone value 'CEST' is unrecognized or represents more than one time zone.
+		// You must configure either the server or JDBC driver (via the serverTimezone configuration property)
+		// to use a more specifc time zone value if you want to utilize time zone support.
+		requireConnectionInfo(info, "serverTimezone", "UTC");
 
 		//info.setProperty("profileSQL", TRUE);
 	}
@@ -560,7 +570,10 @@ final class MysqlDialect extends Dialect
 				final Object o = resultSet.getObject(1);
 				if(o==null)
 					throw new RuntimeException("null in sequence " + quotedName);
-				return (Long)o;
+				return
+						mariaDriver
+						? (Long)o
+						: ((BigInteger)o).longValueExact();
 			}
 		) - 1;
 	}
