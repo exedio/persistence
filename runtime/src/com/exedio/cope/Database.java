@@ -25,6 +25,7 @@ import com.exedio.dsmf.Sequence;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.EnumMap;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Map;
@@ -33,7 +34,7 @@ import org.slf4j.LoggerFactory;
 
 final class Database
 {
-	private final Trimmer nameTrimmer = new Trimmer(25);
+	private final EnumMap<TrimClass, Trimmer> nameTrimmers = new EnumMap<>(TrimClass.class);
 	private final ArrayList<Table> tables = new ArrayList<>();
 	private final ArrayList<SequenceX> sequences = new ArrayList<>();
 	private boolean buildStage = true;
@@ -63,6 +64,10 @@ final class Database
 		this.revisions = revisions;
 		this.connectionPool = connectionPool;
 		this.executor = executor;
+
+		dialect.setNameTrimmers(nameTrimmers);
+		if(nameTrimmers.size()!=TrimClass.values().length)
+			throw new RuntimeException("" + nameTrimmers);
 
 		//System.out.println("using database "+getClass());
 	}
@@ -473,9 +478,9 @@ final class Database
 		executor.updateStrict(connection, present ? state.item : null, bf);
 	}
 
-	String makeName(final String longName)
+	String makeName(final TrimClass trimClass, final String longName)
 	{
-		return nameTrimmer.trimString(longName);
+		return nameTrimmers.get(trimClass).trimString(longName);
 	}
 
 	Schema makeSchema()

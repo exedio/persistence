@@ -67,7 +67,7 @@ public final class CheckConstraint extends Feature implements Copyable
 
 		new com.exedio.dsmf.CheckConstraint(
 				dsmfTable,
-				intern(table.makeGlobalID(getDeclaredSchemaName())),
+				intern(table.makeGlobalID(TrimClass.CheckConstraint, getDeclaredSchemaName())),
 				statement.getText());
 	}
 

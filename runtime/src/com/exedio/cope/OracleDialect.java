@@ -32,6 +32,7 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.Arrays;
+import java.util.EnumMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
@@ -64,6 +65,18 @@ final class OracleDialect extends Dialect
 							"NLS_LANGUAGE='AMERICAN' " +
 							"NLS_TERRITORY='AMERICA'");
 		}
+	}
+
+	@Override
+	void setNameTrimmers(final EnumMap<TrimClass, Trimmer> trimmers)
+	{
+		super.setNameTrimmers(trimmers);
+
+		final Trimmer defaultTrimmer = trimmers.get(TrimClass.Other);
+
+		for(final TrimClass c : TrimClass.values())
+			if(c!=TrimClass.Other)
+				trimmers.put(c, defaultTrimmer);
 	}
 
 	/**

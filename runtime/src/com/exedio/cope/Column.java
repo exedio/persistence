@@ -45,7 +45,8 @@ abstract class Column
 	{
 		final Database database = table.database;
 		this.table = table;
-		this.id = intern(database.makeName((synthetic&&table.database.properties.longSyntheticNames) ? (id+table.id) : id));
+		this.id = intern(database.makeName(TrimClass.Other,
+				(synthetic&&table.database.properties.longSyntheticNames) ? (id+table.id) : id));
 		this.quotedID = intern(database.dsmfDialect.quoteName(this.id));
 		this.idForGlobal = id;
 		this.synthetic = synthetic;
@@ -58,16 +59,16 @@ abstract class Column
 
 	abstract String getDatabaseType();
 
-	final String makeGlobalID(final String suffix)
+	final String makeGlobalID(final TrimClass trimClass, final String suffix)
 	{
-		return table.makeGlobalID(idForGlobal + '_' + suffix);
+		return table.makeGlobalID(trimClass, idForGlobal + '_' + suffix);
 	}
 
 	final void newCheckConstraint(
 			final com.exedio.dsmf.Table dsmfTable,
 			final String suffix, final String condition)
 	{
-		new CheckConstraint(dsmfTable, makeGlobalID(suffix), condition);
+		new CheckConstraint(dsmfTable, makeGlobalID(TrimClass.CheckConstraint, suffix), condition);
 	}
 
 	@Override
@@ -96,6 +97,6 @@ abstract class Column
 		new com.exedio.dsmf.Column(dsmfTable, id, databaseTypeClause);
 
 		if(primaryKey)
-			new PrimaryKeyConstraint(dsmfTable, table.makeGlobalID("Pk"), id);
+			new PrimaryKeyConstraint(dsmfTable, table.makeGlobalID(TrimClass.Other, "Pk"), id);
 	}
 }

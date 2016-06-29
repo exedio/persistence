@@ -31,6 +31,7 @@ import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.EnumMap;
 import java.util.List;
 import java.util.Properties;
 
@@ -83,6 +84,24 @@ abstract class Dialect
 	void unprepareDumperConnection(final Appendable out) throws IOException
 	{
 		// default implementation does nothing, may be overwritten by subclasses
+	}
+
+	void setNameTrimmers(final EnumMap<TrimClass, Trimmer> trimmers)
+	{
+		// MySQL maximum length is 63:
+		// https://dev.mysql.com/doc/refman/5.6/en/identifiers.html
+		// MySQL does not support check constraints.
+
+		// Oracle maximum length is 30:
+		// https://docs.oracle.com/cd/B19306_01/server.102/b14200/sql_elements008.htm
+
+		// PostgreSQL maximum length is 63:
+		// https://www.postgresql.org/docs/9.3/static/sql-syntax-lexical.html#SQL-SYNTAX-IDENTIFIERS
+
+		final Trimmer defaultTrimmer = new Trimmer(25);
+
+		trimmers.put(TrimClass.Other, defaultTrimmer);
+		trimmers.put(TrimClass.CheckConstraint, new Trimmer(60));
 	}
 
 	String isValidOnGet42()

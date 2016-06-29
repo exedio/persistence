@@ -66,6 +66,7 @@ public class NameLengthTest extends TestWithEnvironment
 		final Schema schema = model.getVerifiedSchema();
 
 		final Table table = schema.getTable(getTableName(AnItem.TYPE));
+		final boolean cc = oracle;
 
 		assertIt(table, PrimaryKey, "AnItem_Pk");
 		assertIt(table, ForeignKey, "AnItem_foreignShort_Fk");
@@ -75,8 +76,8 @@ public class NameLengthTest extends TestWithEnvironment
 
 		assertIt(table, ForeignKey, "AnItem_foreignLooooooo_Fk");
 		assertIt(table, Unique,     "AnItem_fieldLoooooooo_Unq");
-		assertIt(table, Check,      "AnItem_fieldLooooooooo_EN");
-		assertIt(table, Check,      "AnItem_checkLoooooooooooo");
+		assertIt(table, Check, cc ? "AnItem_fieldLooooooooo_EN" : "AnItem_fieldLoooooooooooooooooooooooooooooooooooooooooooo_EN");
+		assertIt(table, Check, cc ? "AnItem_checkLoooooooooooo" : "AnItem_checkLooooooooooooooooooooooooooooooooooooooooooooooo");
 
 		final Table longTable = schema.getTable(getTableName(LongItem.TYPE));
 		assertIt(longTable, PrimaryKey, "LoooooooooooooooooItem_Pk");

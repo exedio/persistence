@@ -46,7 +46,7 @@ final class Table
 			final long maximum)
 	{
 		this.database = database;
-		this.id = intern(database.makeName(id));
+		this.id = intern(database.makeName(TrimClass.Other, id));
 		this.idLower = database.properties.filterTableName(this.id);
 		this.quotedID = intern(database.dsmfDialect.quoteName(this.idLower));
 		this.primaryKey =
@@ -204,9 +204,9 @@ final class Table
 		allColumnsModifiable = null;
 	}
 
-	String makeGlobalID(final String suffix)
+	String makeGlobalID(final TrimClass trimClass, final String suffix)
 	{
-		return database.makeName(id + '_' + suffix);
+		return database.makeName(trimClass, id + '_' + suffix);
 	}
 
 	void makeSchema(final Schema schema)
