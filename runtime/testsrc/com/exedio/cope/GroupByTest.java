@@ -96,36 +96,39 @@ public class GroupByTest extends TestWithEnvironment
 		switch(dialect)
 		{
 			case hsqldb:
-				notAllowed(query,
+			{
+				final String message =
 						"expression not in aggregate or GROUP BY columns: " +
-						"PUBLIC.\"" + table + "\".\"" + column + "\"");
-				notAllowedTotal(query,
-						"expression not in aggregate or GROUP BY columns: " +
-						"PUBLIC.\"" + table + "\".\"" + column + "\"");
+						"PUBLIC.\"" + table + "\".\"" + column + "\"";
+				notAllowed(query, message);
+				notAllowedTotal(query, message);
 				break;
+			}
 			case mysql:
-				notAllowed(query,
-						"'" + env.getCatalog() + "." + table + "." + column + "' isn't in GROUP BY");
-				notAllowedTotal(query,
-						"'" + env.getCatalog() + "." + table + "." + column + "' isn't in GROUP BY");
+			{
+				final String message =
+						"'" + env.getCatalog() + "." + table + "." + column + "' isn't in GROUP BY";
+				notAllowed(query, message);
+				notAllowedTotal(query, message);
 				break;
+			}
 			case oracle:
 				notAllowed(query,
 						"ORA-00979: not a GROUP BY expression\n");
 				assertEquals(4, query.total());
 				break;
 			case postgresql:
-				restartTransaction();
-				notAllowed(query,
+			{
+				final String message =
 						"ERROR: column \"" + table + "." + column + "\" must appear " +
 						"in the GROUP BY clause or be used in an aggregate function\n" +
-						"  Position: 8");
+						"  Position: ";
 				restartTransaction();
-				notAllowedTotal(query,
-						"ERROR: column \"" + table + "." + column + "\" must appear " +
-						"in the GROUP BY clause or be used in an aggregate function\n" +
-						"  Position: 31");
+				notAllowed(query, message + "8");
+				restartTransaction();
+				notAllowedTotal(query, message + "31");
 				break;
+			}
 			default:
 				throw new RuntimeException("" + dialect);
 		}
