@@ -149,8 +149,17 @@ public class QueryGroupingTest extends TestWithEnvironment
 			}
 			case mysql:
 			{
-				final String message =
-						"'" + env.getCatalog() + "." + table + "." + column + "' isn't in GROUP BY";
+				final String message;
+				if(env.isDatabaseVersionAtLeast(5, 7))
+					message =
+							"Expression #1 of SELECT list is not in GROUP BY clause and " +
+							"contains nonaggregated column '" + env.getCatalog() + ".GroupItem.day' " +
+							"which is not functionally dependent on columns in GROUP BY clause; " +
+							"this is incompatible with sql_mode=only_full_group_by";
+				else
+					message =
+							"'" + env.getCatalog() + "." + table + "." + column + "' isn't in GROUP BY";
+
 				notAllowed(query, message);
 				notAllowedTotal(query, message);
 				break;

@@ -106,8 +106,17 @@ public class GroupByTest extends TestWithEnvironment
 			}
 			case mysql:
 			{
-				final String message =
-						"'" + env.getCatalog() + "." + table + "." + column + "' isn't in GROUP BY";
+				final String message;
+				if(env.isDatabaseVersionAtLeast(5, 7))
+					message =
+							"Expression #1 of SELECT list is not in GROUP BY clause and " +
+							"contains nonaggregated column '" + env.getCatalog() + ".AnItem.integer' " +
+							"which is not functionally dependent on columns in GROUP BY clause; " +
+							"this is incompatible with sql_mode=only_full_group_by";
+				else
+					message =
+							"'" + env.getCatalog() + "." + table + "." + column + "' isn't in GROUP BY";
+
 				notAllowed(query, message);
 				notAllowedTotal(query, message);
 				break;
@@ -153,7 +162,13 @@ public class GroupByTest extends TestWithEnvironment
 						"invalid ORDER BY expression");
 				break;
 			case mysql:
-				if(env.isDatabaseVersionAtLeast(5, 6))
+				if(env.isDatabaseVersionAtLeast(5, 7))
+					notAllowed(query,
+							"Expression #1 of ORDER BY clause is not in GROUP BY clause and " +
+							"contains nonaggregated column '" + env.getCatalog() + ".AnItem.integer' " +
+							"which is not functionally dependent on columns in GROUP BY clause; " +
+							"this is incompatible with sql_mode=only_full_group_by");
+				else if(env.isDatabaseVersionAtLeast(5, 6))
 					notAllowed(query,
 							"'" + env.getCatalog() + "." + table + "." + column + "' isn't in GROUP BY");
 				else
@@ -180,6 +195,8 @@ public class GroupByTest extends TestWithEnvironment
 		query.setDistinct(true);
 		query.setOrderBy(integer, true);
 
+		final EnvironmentInfo env = model.getEnvironmentInfo();
+
 		assertEquals(4, query.total());
 
 		switch(dialect)
@@ -189,7 +206,13 @@ public class GroupByTest extends TestWithEnvironment
 						"invalid ORDER BY expression");
 				break;
 			case mysql:
-				assertContains("foo", "bar", "goo", "car", query.search());
+				if(env.isDatabaseVersionAtLeast(5, 7))
+					notAllowed(query,
+							"Expression #1 of ORDER BY clause is not in SELECT list, " +
+							"references column '" + env.getCatalog() + ".AnItem.integer' " +
+							"which is not in SELECT list; this is incompatible with DISTINCT");
+				else
+					assertContains("foo", "bar", "goo", "car", query.search());
 				break;
 			case oracle:
 				notAllowed(query,

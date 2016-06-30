@@ -105,6 +105,7 @@ public class DistinctOrderByTest extends TestWithEnvironment
 
 		assertEquals(3, query.total());
 
+		final EnvironmentInfo env = model.getEnvironmentInfo();
 		switch(dialect)
 		{
 			case hsqldb:
@@ -118,7 +119,14 @@ public class DistinctOrderByTest extends TestWithEnvironment
 						"JOIN `PlusIntegerItem` PlusIntegerItem1 ON PlusIntegerItem0.`numC`=PlusIntegerItem1.`numC` " +
 						"ORDER BY PlusIntegerItem0.`numA`",
 						SchemaInfo.search(query));
-				assertContains(item2, item3, item1, query.search());
+
+				if(env.isDatabaseVersionAtLeast(5, 7))
+					notAllowed(query,
+							"Expression #1 of ORDER BY clause is not in SELECT list, " +
+							"references column '" + env.getCatalog() + ".PlusIntegerItem0.numA' which is not in SELECT list; " +
+							"this is incompatible with DISTINCT");
+				else
+					assertContains(item2, item3, item1, query.search());
 				break;
 			case oracle:
 				notAllowed(query,
