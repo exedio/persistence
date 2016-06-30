@@ -29,8 +29,11 @@ public class EnviromentInfoTest
 {
 	@Test public void testInt() throws SQLException
 	{
-		final EnvironmentInfo i = new EnvironmentInfo(new VersionDatabaseMetaData(5, 3, 14, 18));
+		final EnvironmentInfo i = new EnvironmentInfo(
+				"getCatalog",
+				new VersionDatabaseMetaData(5, 3, 14, 18));
 
+		assertEquals("getCatalog", i.getCatalog());
 		assertEquals("getDatabaseProductName", i.getDatabaseProductName());
 		assertEquals("getDatabaseProductVersion", i.getDatabaseProductVersion());
 		assertEquals("getDriverName", i.getDriverName());
@@ -91,6 +94,7 @@ public class EnviromentInfoTest
 	@Test public void testShortDescription() throws SQLException
 	{
 		final EnvironmentInfo i = new EnvironmentInfo(
+				"getCatalog",
 				new VersionDatabaseMetaData("5.3.1", 5, 3, "14.18a", 14, 18));
 
 		assertEquals("getDatabaseProductName", i.getDatabaseProductName());
@@ -133,6 +137,7 @@ public class EnviromentInfoTest
 	@Test public void testShortDescriptionExact() throws SQLException
 	{
 		final EnvironmentInfo i = new EnvironmentInfo(
+				"getCatalog",
 				new VersionDatabaseMetaData("5.3", 5, 3, "14.18", 14, 18));
 
 		assertEquals("5.3", i.getDatabaseVersionDescription());
@@ -141,6 +146,7 @@ public class EnviromentInfoTest
 	@Test public void testShortDescriptionMismatchMajor() throws SQLException
 	{
 		final EnvironmentInfo i = new EnvironmentInfo(
+				"getCatalog",
 				new VersionDatabaseMetaData("6.3", 5, 3, "14.18", 14, 18));
 
 		assertEquals("6.3 (5.3)", i.getDatabaseVersionDescription());
@@ -149,6 +155,7 @@ public class EnviromentInfoTest
 	@Test public void testShortDescriptionMismatchMinor() throws SQLException
 	{
 		final EnvironmentInfo i = new EnvironmentInfo(
+				"getCatalog",
 				new VersionDatabaseMetaData("5.4", 5, 3, "14.18", 14, 18));
 
 		assertEquals("5.4 (5.3)", i.getDatabaseVersionDescription());
@@ -157,6 +164,7 @@ public class EnviromentInfoTest
 	@Test public void testShortDescriptionDotMissing() throws SQLException
 	{
 		final EnvironmentInfo i = new EnvironmentInfo(
+				"getCatalog",
 				new VersionDatabaseMetaData("53", 5, 3, "14.18", 14, 18));
 
 		assertEquals("53 (5.3)", i.getDatabaseVersionDescription());
@@ -165,6 +173,7 @@ public class EnviromentInfoTest
 	@Test public void testShortDescriptionDotOther() throws SQLException
 	{
 		final EnvironmentInfo i = new EnvironmentInfo(
+				"getCatalog",
 				new VersionDatabaseMetaData("5x3", 5, 3, "14.18", 14, 18));
 
 		assertEquals("5x3 (5.3)", i.getDatabaseVersionDescription());
@@ -173,6 +182,7 @@ public class EnviromentInfoTest
 	@Test public void testShortDescriptionDigitAfter() throws SQLException
 	{
 		final EnvironmentInfo i = new EnvironmentInfo(
+				"getCatalog",
 				new VersionDatabaseMetaData("5.31", 5, 3, "14.18", 14, 18));
 
 		assertEquals("5.31 (5.3)", i.getDatabaseVersionDescription());
@@ -181,6 +191,7 @@ public class EnviromentInfoTest
 	@Test public void testShortDescriptionDigitBefore() throws SQLException
 	{
 		final EnvironmentInfo i = new EnvironmentInfo(
+				"getCatalog",
 				new VersionDatabaseMetaData("15.3", 5, 3, "14.18", 14, 18));
 
 		assertEquals("15.3 (5.3)", i.getDatabaseVersionDescription());
@@ -189,6 +200,7 @@ public class EnviromentInfoTest
 	@Test public void testShortDescriptionOtherAfter() throws SQLException
 	{
 		final EnvironmentInfo i = new EnvironmentInfo(
+				"getCatalog",
 				new VersionDatabaseMetaData("5.3z", 5, 3, "14.18", 14, 18));
 
 		assertEquals("5.3z", i.getDatabaseVersionDescription());
@@ -197,6 +209,7 @@ public class EnviromentInfoTest
 	@Test public void testShortDescriptionOtherBefore() throws SQLException
 	{
 		final EnvironmentInfo i = new EnvironmentInfo(
+				"getCatalog",
 				new VersionDatabaseMetaData("z5.3", 5, 3, "14.18", 14, 18));
 
 		assertEquals("z5.3", i.getDatabaseVersionDescription());

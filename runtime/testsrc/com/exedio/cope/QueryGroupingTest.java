@@ -26,15 +26,12 @@ import static com.exedio.cope.GroupItem.number;
 import static com.exedio.cope.GroupItem.optionalDouble;
 import static com.exedio.cope.SchemaInfo.getColumnName;
 import static com.exedio.cope.SchemaInfo.getTableName;
-import static com.exedio.cope.SchemaInfo.newConnection;
 import static com.exedio.cope.tojunit.Assert.assertContains;
 import static com.exedio.cope.tojunit.Assert.list;
 import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
 
 import com.exedio.cope.util.Day;
-import java.sql.Connection;
-import java.sql.SQLException;
 import org.junit.Test;
 
 public class QueryGroupingTest extends TestWithEnvironment
@@ -128,7 +125,7 @@ public class QueryGroupingTest extends TestWithEnvironment
 		assertEquals(1, query.total());
 	}
 
-	@Test public void testUngroupedSelect() throws SQLException
+	@Test public void testUngroupedSelect()
 	{
 		new GroupItem(day1, 1);
 		new GroupItem(day2, 2);
@@ -138,6 +135,7 @@ public class QueryGroupingTest extends TestWithEnvironment
 
 		final String table = getTableName(TYPE);
 		final String column = getColumnName(day);
+		final EnvironmentInfo env = model.getEnvironmentInfo();
 		switch(dialect)
 		{
 			case hsqldb:
@@ -150,9 +148,9 @@ public class QueryGroupingTest extends TestWithEnvironment
 				break;
 			case mysql:
 				notAllowed(query,
-						"'" + catalog() + "." + table + "." + column + "' isn't in GROUP BY");
+						"'" + env.getCatalog() + "." + table + "." + column + "' isn't in GROUP BY");
 				notAllowedTotal(query,
-						"'" + catalog() + "." + table + "." + column + "' isn't in GROUP BY");
+						"'" + env.getCatalog() + "." + table + "." + column + "' isn't in GROUP BY");
 				break;
 			case oracle:
 				notAllowed(query,
@@ -174,18 +172,6 @@ public class QueryGroupingTest extends TestWithEnvironment
 			default:
 				throw new RuntimeException("" + dialect);
 		}
-	}
-
-	private String catalog() throws SQLException
-	{
-		model.commit();
-		final String result;
-		try(Connection con = newConnection(model))
-		{
-			result = con.getCatalog();
-		}
-		model.startTransaction(GroupByTest.class.getName());
-		return result;
 	}
 
 	@Test public void testSingleSelect()

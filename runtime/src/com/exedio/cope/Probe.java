@@ -42,7 +42,9 @@ final class Probe
 	{
 		this.properties = properties;
 		this.driver = driver;
-		this.environmentInfo = new EnvironmentInfo(connection.getMetaData());
+		this.environmentInfo = new EnvironmentInfo(
+				connection.getCatalog(),
+				connection.getMetaData());
 	}
 
 	Map<String, String> getRevisionEnvironment()

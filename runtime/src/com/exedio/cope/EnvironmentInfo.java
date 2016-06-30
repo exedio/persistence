@@ -26,11 +26,16 @@ import java.util.regex.Pattern;
 
 public final class EnvironmentInfo
 {
+	private final String catalog;
 	private final Product database;
 	private final Product driver;
 
-	EnvironmentInfo(final DatabaseMetaData dmd) throws SQLException
+	EnvironmentInfo(
+			final String catalog,
+			final DatabaseMetaData dmd)
+		throws SQLException
 	{
+		this.catalog = catalog;
 		database = new Product(
 				dmd.getDatabaseProductName(),
 				dmd.getDatabaseProductVersion(),
@@ -41,6 +46,11 @@ public final class EnvironmentInfo
 				dmd.getDriverVersion(),
 				dmd.getDriverMajorVersion(),
 				dmd.getDriverMinorVersion());
+	}
+
+	public String getCatalog()
+	{
+		return catalog;
 	}
 
 	public String getDatabaseProductName()

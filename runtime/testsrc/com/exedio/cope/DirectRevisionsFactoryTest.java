@@ -36,7 +36,9 @@ public class DirectRevisionsFactoryTest
 
 		final Revisions r = new Revisions(0);
 		final DirectRevisionsFactory f = make(r);
-		assertSame(r, f.create(new Revisions.Factory.Context(new EnvironmentInfo(new VersionDatabaseMetaData(5, 3, 6, 2)))));
+		assertSame(r, f.create(new Revisions.Factory.Context(new EnvironmentInfo(
+				"getCatalog",
+				new VersionDatabaseMetaData(5, 3, 6, 2)))));
 
 		try
 		{

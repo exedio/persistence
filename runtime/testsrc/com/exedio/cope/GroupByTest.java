@@ -25,12 +25,9 @@ import static com.exedio.cope.GroupByTest.AnItem.integer;
 import static com.exedio.cope.GroupByTest.AnItem.string;
 import static com.exedio.cope.SchemaInfo.getColumnName;
 import static com.exedio.cope.SchemaInfo.getTableName;
-import static com.exedio.cope.SchemaInfo.newConnection;
 import static com.exedio.cope.junit.CopeAssert.assertContains;
 import static org.junit.Assert.assertEquals;
 
-import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
@@ -87,13 +84,14 @@ public class GroupByTest extends TestWithEnvironment
 		assertCount(items, 3, 4);
 	}
 
-	@Test public void testGroupByInvalidSelect() throws SQLException
+	@Test public void testGroupByInvalidSelect()
 	{
 		final Query<Integer> query = new Query<>(integer);
 		query.setGroupBy(string);
 
 		final String table = getTableName(TYPE);
 		final String column = getColumnName(integer);
+		final EnvironmentInfo env = model.getEnvironmentInfo();
 
 		switch(dialect)
 		{
@@ -107,9 +105,9 @@ public class GroupByTest extends TestWithEnvironment
 				break;
 			case mysql:
 				notAllowed(query,
-						"'" + catalog() + "." + table + "." + column + "' isn't in GROUP BY");
+						"'" + env.getCatalog() + "." + table + "." + column + "' isn't in GROUP BY");
 				notAllowedTotal(query,
-						"'" + catalog() + "." + table + "." + column + "' isn't in GROUP BY");
+						"'" + env.getCatalog() + "." + table + "." + column + "' isn't in GROUP BY");
 				break;
 			case oracle:
 				notAllowed(query,
@@ -133,7 +131,7 @@ public class GroupByTest extends TestWithEnvironment
 		}
 	}
 
-	@Test public void testGroupByInvalidOrderBy() throws SQLException
+	@Test public void testGroupByInvalidOrderBy()
 	{
 		final Query<String> query = new Query<>(string);
 		query.setGroupBy(string);
@@ -154,7 +152,7 @@ public class GroupByTest extends TestWithEnvironment
 			case mysql:
 				if(env.isDatabaseVersionAtLeast(5, 6))
 					notAllowed(query,
-							"'" + catalog() + "." + table + "." + column + "' isn't in GROUP BY");
+							"'" + env.getCatalog() + "." + table + "." + column + "' isn't in GROUP BY");
 				else
 					assertContains("foo", "bar", "goo", "car", query.search());
 				break;
@@ -208,18 +206,6 @@ public class GroupByTest extends TestWithEnvironment
 	{
 		assertEquals(expectedSize, items.search().size());
 		assertEquals(expectedTotal, items.total());
-	}
-
-	private String catalog() throws SQLException
-	{
-		model.commit();
-		final String result;
-		try(Connection con = newConnection(model))
-		{
-			result = con.getCatalog();
-		}
-		model.startTransaction(GroupByTest.class.getName());
-		return result;
 	}
 
 	static final class AnItem extends Item

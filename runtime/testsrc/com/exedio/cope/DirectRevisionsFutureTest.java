@@ -34,7 +34,9 @@ public class DirectRevisionsFutureTest
 
 		final Revisions r = new Revisions(0);
 		final com.exedio.cope.misc.DirectRevisionsFuture f = com.exedio.cope.misc.DirectRevisionsFuture.make(r);
-		assertSame(r, f.get(new EnvironmentInfo(new VersionDatabaseMetaData(5, 3, 6, 2))));
+		assertSame(r, f.get(new EnvironmentInfo(
+				"getCatalog",
+				new VersionDatabaseMetaData(5, 3, 6, 2))));
 
 		try
 		{
