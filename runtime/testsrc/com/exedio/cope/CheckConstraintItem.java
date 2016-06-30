@@ -33,7 +33,7 @@ public final class CheckConstraintItem extends CheckConstraintSuperItem
 	/** @cope.initial */
 	public static final IntegerField delta = new IntegerField().optional();
 
-	public static final CheckConstraint alphaLessBeta = new CheckConstraint(alpha.less(beta));
+	public static final CheckConstraint alphaToBeta = new CheckConstraint(alpha.less(beta));
 
 	void setAlphaBeta(final Integer alpha, final Integer beta)
 	{

@@ -20,13 +20,13 @@ package com.exedio.cope;
 
 import static com.exedio.cope.CheckConstraintItem.TYPE;
 import static com.exedio.cope.CheckConstraintItem.alpha;
-import static com.exedio.cope.CheckConstraintItem.alphaLessBeta;
+import static com.exedio.cope.CheckConstraintItem.alphaToBeta;
 import static com.exedio.cope.CheckConstraintItem.beta;
 import static com.exedio.cope.CheckConstraintItem.delta;
 import static com.exedio.cope.CheckConstraintItem.gamma;
 import static com.exedio.cope.CheckConstraintSuperItem.drei;
 import static com.exedio.cope.CheckConstraintSuperItem.eins;
-import static com.exedio.cope.CheckConstraintSuperItem.einsGreaterOrEqualZwei;
+import static com.exedio.cope.CheckConstraintSuperItem.einsToZwei;
 import static com.exedio.cope.CheckConstraintSuperItem.zwei;
 import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
@@ -51,48 +51,48 @@ public class CheckConstraintModelTest
 			list(
 				TYPE.getThis(),
 				alpha, beta, gamma, delta,
-				alphaLessBeta),
+				alphaToBeta),
 			TYPE.getDeclaredFeatures());
 		assertEqualsUnmodifiable(
 			list(
 				TYPE.getThis(),
 				eins, zwei, drei,
-				einsGreaterOrEqualZwei,
+				einsToZwei,
 				alpha, beta, gamma, delta,
-				alphaLessBeta),
+				alphaToBeta),
 			TYPE.getFeatures());
 		assertEqualsUnmodifiable(
 			list(
-				alphaLessBeta),
+				alphaToBeta),
 			TYPE.getDeclaredCheckConstraints());
 		assertEqualsUnmodifiable(
 			list(
-				einsGreaterOrEqualZwei,
-				alphaLessBeta),
+				einsToZwei,
+				alphaToBeta),
 			TYPE.getCheckConstraints());
 		assertEqualsUnmodifiable(
 			list(
 				CheckConstraintSuperItem.TYPE.getThis(),
 				eins, zwei, drei,
-				einsGreaterOrEqualZwei),
+				einsToZwei),
 			CheckConstraintSuperItem.TYPE.getDeclaredFeatures());
 		assertEqualsUnmodifiable(
 			list(
 				CheckConstraintSuperItem.TYPE.getThis(),
 				eins, zwei, drei,
-				einsGreaterOrEqualZwei),
+				einsToZwei),
 			CheckConstraintSuperItem.TYPE.getFeatures());
 		assertEqualsUnmodifiable(
 			list(
-				einsGreaterOrEqualZwei),
+				einsToZwei),
 			CheckConstraintSuperItem.TYPE.getDeclaredCheckConstraints());
 		assertEqualsUnmodifiable(
 			list(
-				einsGreaterOrEqualZwei),
+				einsToZwei),
 			CheckConstraintSuperItem.TYPE.getCheckConstraints());
 
-		assertEquals(alpha.less(beta), alphaLessBeta.getCondition());
-		assertEquals(eins.greaterOrEqual(zwei), einsGreaterOrEqualZwei.getCondition());
+		assertEquals(alpha.less(beta), alphaToBeta.getCondition());
+		assertEquals(eins.greaterOrEqual(zwei), einsToZwei.getCondition());
 
 		try
 		{
@@ -122,6 +122,6 @@ public class CheckConstraintModelTest
 			assertEquals("literal condition makes no sense, but was Condition.FALSE", e.getMessage());
 		}
 
-		assertSerializedSame(alphaLessBeta, 383);
+		assertSerializedSame(alphaToBeta, 381);
 	}
 }

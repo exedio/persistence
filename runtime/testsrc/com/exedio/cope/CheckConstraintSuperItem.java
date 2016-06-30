@@ -30,7 +30,7 @@ public class CheckConstraintSuperItem extends Item
 	/** @cope.initial */
 	public static final IntegerField drei = new IntegerField().optional();
 
-	public static final CheckConstraint einsGreaterOrEqualZwei = new CheckConstraint(eins.greaterOrEqual(zwei));
+	public static final CheckConstraint einsToZwei = new CheckConstraint(eins.greaterOrEqual(zwei));
 
 	void setEinsZwei(final Integer eins, final Integer zwei)
 	{

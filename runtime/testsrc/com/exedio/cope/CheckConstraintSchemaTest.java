@@ -54,11 +54,11 @@ public class CheckConstraintSchemaTest extends TestWithEnvironment
 		assertEquals(null, superTable.getError());
 		assertEquals(Schema.Color.OK, superTable.getParticularColor());
 
-		assertCheckConstraint(table, "Main_alpha_MN"     , q(alpha)+">=-2147483648");
-		assertCheckConstraint(table, "Main_alpha_MX"     , q(alpha)+"<=2147483647");
-		assertCheckConstraint(table, "Main_alphaLessBeta", q(alpha)+"<"+q(beta));
+		assertCheckConstraint(table, "Main_alpha_MN"   , q(alpha)+">=-2147483648");
+		assertCheckConstraint(table, "Main_alpha_MX"   , q(alpha)+"<=2147483647");
+		assertCheckConstraint(table, "Main_alphaToBeta", q(alpha)+"<"+q(beta));
 
-		assertCheckConstraint(superTable, "Super_einsGreatOrEquaZwei", q(eins)+">="+q(zwei));
+		assertCheckConstraint(superTable, "Super_einsToZwei", q(eins)+">="+q(zwei));
 	}
 
 	private final String q(final IntegerField f)

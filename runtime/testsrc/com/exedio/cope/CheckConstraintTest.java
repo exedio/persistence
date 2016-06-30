@@ -19,8 +19,8 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.CheckConstraintItem.TYPE;
-import static com.exedio.cope.CheckConstraintItem.alphaLessBeta;
-import static com.exedio.cope.CheckConstraintSuperItem.einsGreaterOrEqualZwei;
+import static com.exedio.cope.CheckConstraintItem.alphaToBeta;
+import static com.exedio.cope.CheckConstraintSuperItem.einsToZwei;
 import static com.exedio.cope.tojunit.Assert.list;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
@@ -37,8 +37,8 @@ public class CheckConstraintTest extends TestWithEnvironment
 
 	@Test public void testIsSupportedBySchema()
 	{
-		assertEquals(true, einsGreaterOrEqualZwei.isSupportedBySchemaIfSupportedByDialect());
-		assertEquals(true, alphaLessBeta.isSupportedBySchemaIfSupportedByDialect());
+		assertEquals(true, einsToZwei .isSupportedBySchemaIfSupportedByDialect());
+		assertEquals(true, alphaToBeta.isSupportedBySchemaIfSupportedByDialect());
 	}
 
 	@Test public void testSet()
@@ -54,8 +54,8 @@ public class CheckConstraintTest extends TestWithEnvironment
 		catch(final CheckViolationException e)
 		{
 			assertSame(item, e.getItem());
-			assertSame(alphaLessBeta, e.getFeature());
-			assertEquals("check violation on " + item.getCopeID() + " for " + alphaLessBeta.getID(), e.getMessage());
+			assertSame(alphaToBeta, e.getFeature());
+			assertEquals("check violation on " + item.getCopeID() + " for " + alphaToBeta.getID(), e.getMessage());
 		}
 		assertIt(102, 101, 103, 4, 5, 6, 7, item);
 
@@ -67,8 +67,8 @@ public class CheckConstraintTest extends TestWithEnvironment
 		catch(final CheckViolationException e)
 		{
 			assertSame(item, e.getItem());
-			assertSame(alphaLessBeta, e.getFeature());
-			assertEquals("check violation on " + item.getCopeID() + " for " + alphaLessBeta.getID(), e.getMessage());
+			assertSame(alphaToBeta, e.getFeature());
+			assertEquals("check violation on " + item.getCopeID() + " for " + alphaToBeta.getID(), e.getMessage());
 		}
 		assertIt(102, 101, 103, 4, 5, 6, 7, item);
 
@@ -95,8 +95,8 @@ public class CheckConstraintTest extends TestWithEnvironment
 		catch(final CheckViolationException e)
 		{
 			assertSame(item, e.getItem());
-			assertSame(einsGreaterOrEqualZwei, e.getFeature());
-			assertEquals("check violation on " + item.getCopeID() + " for " + einsGreaterOrEqualZwei.getID(), e.getMessage());
+			assertSame(einsToZwei, e.getFeature());
+			assertEquals("check violation on " + item.getCopeID() + " for " + einsToZwei.getID(), e.getMessage());
 		}
 		assertIt(102, 101, 103, 4, 5, 6, 7, item);
 
@@ -108,8 +108,8 @@ public class CheckConstraintTest extends TestWithEnvironment
 		catch(final CheckViolationException e)
 		{
 			assertSame(item, e.getItem());
-			assertSame(einsGreaterOrEqualZwei, e.getFeature());
-			assertEquals("check violation on " + item.getCopeID() + " for " + einsGreaterOrEqualZwei.getID(), e.getMessage());
+			assertSame(einsToZwei, e.getFeature());
+			assertEquals("check violation on " + item.getCopeID() + " for " + einsToZwei.getID(), e.getMessage());
 		}
 		assertIt(102, 101, 103, 4, 5, 6, 7, item);
 
@@ -136,8 +136,8 @@ public class CheckConstraintTest extends TestWithEnvironment
 		catch(final CheckViolationException e)
 		{
 			assertSame(item, e.getItem());
-			assertSame(alphaLessBeta, e.getFeature());
-			assertEquals("check violation on " + item.getCopeID() + " for " + alphaLessBeta.getID(), e.getMessage());
+			assertSame(alphaToBeta, e.getFeature());
+			assertEquals("check violation on " + item.getCopeID() + " for " + alphaToBeta.getID(), e.getMessage());
 		}
 		assertIt(102, 101, 103, 4, 5, 6, 7, item);
 
@@ -149,8 +149,8 @@ public class CheckConstraintTest extends TestWithEnvironment
 		catch(final CheckViolationException e)
 		{
 			assertSame(item, e.getItem());
-			assertSame(alphaLessBeta, e.getFeature());
-			assertEquals("check violation on " + item.getCopeID() + " for " + alphaLessBeta.getID(), e.getMessage());
+			assertSame(alphaToBeta, e.getFeature());
+			assertEquals("check violation on " + item.getCopeID() + " for " + alphaToBeta.getID(), e.getMessage());
 		}
 		assertIt(102, 101, 103, 4, 5, 6, 7, item);
 
@@ -177,8 +177,8 @@ public class CheckConstraintTest extends TestWithEnvironment
 		catch(final CheckViolationException e)
 		{
 			assertSame(item, e.getItem());
-			assertSame(einsGreaterOrEqualZwei, e.getFeature());
-			assertEquals("check violation on " + item.getCopeID() + " for " + einsGreaterOrEqualZwei.getID(), e.getMessage());
+			assertSame(einsToZwei, e.getFeature());
+			assertEquals("check violation on " + item.getCopeID() + " for " + einsToZwei.getID(), e.getMessage());
 		}
 		assertIt(102, 101, 103, 4, 5, 6, 7, item);
 
@@ -190,8 +190,8 @@ public class CheckConstraintTest extends TestWithEnvironment
 		catch(final CheckViolationException e)
 		{
 			assertSame(item, e.getItem());
-			assertSame(einsGreaterOrEqualZwei, e.getFeature());
-			assertEquals("check violation on " + item.getCopeID() + " for " + einsGreaterOrEqualZwei.getID(), e.getMessage());
+			assertSame(einsToZwei, e.getFeature());
+			assertEquals("check violation on " + item.getCopeID() + " for " + einsToZwei.getID(), e.getMessage());
 		}
 		assertIt(102, 101, 103, 4, 5, 6, 7, item);
 
@@ -215,8 +215,8 @@ public class CheckConstraintTest extends TestWithEnvironment
 		catch(final CheckViolationException e)
 		{
 			assertSame(null, e.getItem());
-			assertSame(alphaLessBeta, e.getFeature());
-			assertEquals("check violation for " + alphaLessBeta.getID(), e.getMessage());
+			assertSame(alphaToBeta, e.getFeature());
+			assertEquals("check violation for " + alphaToBeta.getID(), e.getMessage());
 		}
 		assertEquals(list(), TYPE.search());
 	}
@@ -231,8 +231,8 @@ public class CheckConstraintTest extends TestWithEnvironment
 		catch(final CheckViolationException e)
 		{
 			assertSame(null, e.getItem());
-			assertSame(einsGreaterOrEqualZwei, e.getFeature());
-			assertEquals("check violation for " + einsGreaterOrEqualZwei.getID(), e.getMessage());
+			assertSame(einsToZwei, e.getFeature());
+			assertEquals("check violation for " + einsToZwei.getID(), e.getMessage());
 		}
 		assertEquals(list(), TYPE.search());
 	}
@@ -254,7 +254,7 @@ public class CheckConstraintTest extends TestWithEnvironment
 		assertEquals(beta,  item.getBeta ());
 		assertEquals(gamma, item.getGamma());
 		assertEquals(delta, item.getDelta());
-		assertEquals(0, einsGreaterOrEqualZwei.check());
-		assertEquals(0, alphaLessBeta.check());
+		assertEquals(0, einsToZwei .check());
+		assertEquals(0, alphaToBeta.check());
 	}
 }
