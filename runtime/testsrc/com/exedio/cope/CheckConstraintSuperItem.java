@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+@CopeName("Super")
 public class CheckConstraintSuperItem extends Item
 {
 	/** @cope.initial */

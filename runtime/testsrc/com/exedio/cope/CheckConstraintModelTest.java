@@ -122,6 +122,6 @@ public class CheckConstraintModelTest
 			assertEquals("literal condition makes no sense, but was Condition.FALSE", e.getMessage());
 		}
 
-		assertSerializedSame(alphaLessBeta, 398);
+		assertSerializedSame(alphaLessBeta, 383);
 	}
 }
