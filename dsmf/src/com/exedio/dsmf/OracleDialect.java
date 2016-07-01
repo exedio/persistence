@@ -107,78 +107,73 @@ public final class OracleDialect extends Dialect
 	{
 		super.verify(schema);
 
-		schema.querySQL("SELECT TABLE_NAME FROM user_tables", resultSet ->
-				{
-					while(resultSet.next())
-					{
-						final String tableName = resultSet.getString(1);
-						schema.notifyExistentTable(tableName);
-						//System.out.println("EXISTS:"+tableName);
-					}
-				}
-			);
+		schema.querySQL(
+				"SELECT TABLE_NAME FROM user_tables",
+		resultSet ->
+		{
+			while(resultSet.next())
+			{
+				final String tableName = resultSet.getString(1);
+				schema.notifyExistentTable(tableName);
+			}
+		});
 
 		schema.querySQL(
 				"SELECT " +
-				"uc.TABLE_NAME," +
-				"uc.CONSTRAINT_NAME," +
-				"uc.CONSTRAINT_TYPE," +
-				"uc.SEARCH_CONDITION," +
-				"ucc.COLUMN_NAME " +
+				"uc.TABLE_NAME," + // 1
+				"uc.CONSTRAINT_NAME," + // 2
+				"uc.CONSTRAINT_TYPE," + // 3
+				"uc.SEARCH_CONDITION," + // 4
+				"ucc.COLUMN_NAME " + // 5
 				"FROM user_constraints uc " +
 				"LEFT OUTER JOIN user_cons_columns ucc " +
 					"ON uc.CONSTRAINT_NAME=ucc.CONSTRAINT_NAME " +
 					"AND uc.TABLE_NAME=ucc.TABLE_NAME " +
 				"WHERE uc.CONSTRAINT_TYPE in ('C','P','U')" +
 				"ORDER BY uc.TABLE_NAME, uc.CONSTRAINT_NAME, ucc.POSITION",
-			resultSet ->
+		resultSet ->
+		{
+			final UniqueConstraintCollector uniqueConstraintCollector =
+					new UniqueConstraintCollector(schema);
+			final HashMap<String, String> duplicateCheckConstraints = new HashMap<>();
+			while(resultSet.next())
+			{
+				//printRow(resultSet);
+				final String tableName = resultSet.getString(1);
+				final String constraintName = resultSet.getString(2);
+				final String constraintType = resultSet.getString(3);
+				final Table table = schema.notifyExistentTable(tableName);
+				if("C".equals(constraintType))
 				{
-					final UniqueConstraintCollector uniqueConstraintCollector =
-							new UniqueConstraintCollector(schema);
-					final HashMap<String, String> duplicateCheckConstraints = new HashMap<>();
-					while(resultSet.next())
+					if(constraintName.startsWith("SYS_"))
+						continue;
+
+					final String searchCondition = resultSet.getString(4);
+					final String duplicateCondition =
+						duplicateCheckConstraints.put(constraintName, searchCondition);
+					if(duplicateCondition!=null)
 					{
-						//printRow(resultSet);
-						final String tableName = resultSet.getString(1);
-						final String constraintName = resultSet.getString(2);
-						final String constraintType = resultSet.getString(3);
-						final Table table = schema.notifyExistentTable(tableName);
-						//System.out.println("tableName:"+tableName+" constraintName:"+constraintName+" constraintType:>"+constraintType+"<");
-						if("C".equals(constraintType))
-						{
-							if(constraintName.startsWith("SYS_"))
-								continue;
-
-							final String searchCondition = resultSet.getString(4);
-							//System.out.println("searchCondition:>"+constraintName+"< >"+searchCondition+"<");
-							final String duplicateCondition =
-								duplicateCheckConstraints.put(constraintName, searchCondition);
-							if(duplicateCondition!=null)
-							{
-								System.out.println(
-										"mysterious duplicate check constraint >" + constraintName +
-										"< with " +(searchCondition.equals(duplicateCondition)
-												? ("equal condition >" + searchCondition + '<')
-												: ("different conditions >" + searchCondition + "< and >" + duplicateCondition + '<')));
-								continue;
-							}
-							table.notifyExistentCheckConstraint(constraintName, searchCondition);
-						}
-						else if("P".equals(constraintType))
-							table.notifyExistentPrimaryKeyConstraint(constraintName);
-						else if("U".equals(constraintType))
-						{
-							final String columnName = resultSet.getString(5);
-							uniqueConstraintCollector.onColumn(table, constraintName, columnName);
-						}
-						else
-							throw new RuntimeException(constraintType+'-'+constraintName);
-
-						//System.out.println("EXISTS:"+tableName);
+						System.out.println(
+								"mysterious duplicate check constraint >" + constraintName +
+								"< with " +(searchCondition.equals(duplicateCondition)
+										? ("equal condition >" + searchCondition + '<')
+										: ("different conditions >" + searchCondition + "< and >" + duplicateCondition + '<')));
+						continue;
 					}
-					uniqueConstraintCollector.finish();
+					table.notifyExistentCheckConstraint(constraintName, searchCondition);
 				}
-			);
+				else if("P".equals(constraintType))
+					table.notifyExistentPrimaryKeyConstraint(constraintName);
+				else if("U".equals(constraintType))
+				{
+					final String columnName = resultSet.getString(5);
+					uniqueConstraintCollector.onColumn(table, constraintName, columnName);
+				}
+				else
+					throw new RuntimeException(constraintType+'-'+constraintName);
+			}
+			uniqueConstraintCollector.finish();
+		});
 
 		verifyForeignKeyConstraints(
 				"SELECT uc.CONSTRAINT_NAME,uc.TABLE_NAME,ucc.COLUMN_NAME,uic.TABLE_NAME,uic.COLUMN_NAME " +
@@ -191,18 +186,17 @@ public final class OracleDialect extends Dialect
 		schema.querySQL(
 				"SELECT SEQUENCE_NAME, MAX_VALUE " +
 				"FROM USER_SEQUENCES",
-			resultSet ->
-				{
-					//printMeta(resultSet);
-					while(resultSet.next())
-					{
-						//printRow(resultSet);
-						final String name = resultSet.getString(1);
-						final long maxValue = resultSet.getLong(2);
-						schema.notifyExistentSequence(name, Sequence.Type.fromMaxValueExact(maxValue));
-					}
-				}
-			);
+		resultSet ->
+		{
+			//printMeta(resultSet);
+			while(resultSet.next())
+			{
+				//printRow(resultSet);
+				final String name = resultSet.getString(1);
+				final long maxValue = resultSet.getLong(2);
+				schema.notifyExistentSequence(name, Sequence.Type.fromMaxValueExact(maxValue));
+			}
+		});
 	}
 
 	@Override
