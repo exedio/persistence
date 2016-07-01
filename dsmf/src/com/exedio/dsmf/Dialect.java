@@ -63,7 +63,9 @@ public abstract class Dialect
 
 	abstract String getColumnType(int dataType, ResultSet resultSet) throws SQLException;
 
-	void verify(final Schema schema)
+	abstract void verify(Schema schema);
+
+	static final void verifyTablesByMetaData(final Schema schema)
 	{
 		schema.querySQL(Node.GET_TABLES, resultSet ->
 		{
@@ -73,7 +75,10 @@ public abstract class Dialect
 				schema.notifyExistentTable(tableName);
 			}
 		});
+	}
 
+	final void verifyColumnsByMetaData(final Schema schema)
+	{
 		schema.querySQL(Node.GET_COLUMNS, resultSet ->
 		{
 			while(resultSet.next())

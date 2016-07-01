@@ -104,7 +104,8 @@ public final class OracleDialect extends Dialect
 	@Override
 	void verify(final Schema schema)
 	{
-		super.verify(schema);
+		verifyTablesByMetaData(schema);
+		verifyColumnsByMetaData(schema);
 
 		schema.querySQL(
 				"SELECT TABLE_NAME FROM user_tables",

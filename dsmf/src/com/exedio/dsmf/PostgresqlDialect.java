@@ -114,7 +114,8 @@ public final class PostgresqlDialect extends Dialect
 	@Override
 	void verify(final Schema schema)
 	{
-		super.verify(schema);
+		verifyTablesByMetaData(schema);
+		verifyColumnsByMetaData(schema);
 
 		schema.querySQL(
 				"SELECT " +
