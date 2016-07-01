@@ -198,6 +198,8 @@
 						<pathelement location="build/classes/dsmf/testsrc" />
 						<pathelement location="lib/@{env.driver}" />
 						<pathelement location="lib/slf4j-api.jar" />
+						<pathelement location="lib/slf4j-log4j12.jar" />
+						<pathelement location="lib/log4j-bundle.jar" />
 						<pathelement location="lib/junit.jar" />
 						<pathelement location="lib/cpsuite.jar" />
 						<pathelement location="lib/exedio-cope-util.jar" />
