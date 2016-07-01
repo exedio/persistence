@@ -125,6 +125,7 @@ public final class OracleDialect extends Dialect
 				"SEARCH_CONDITION " + // 4
 				"FROM user_constraints " +
 				"WHERE CONSTRAINT_TYPE in ('C','P') " +
+				"AND CONSTRAINT_NAME NOT LIKE 'SYS_%' " +
 				"ORDER BY TABLE_NAME, CONSTRAINT_NAME",
 		resultSet ->
 		{
@@ -139,9 +140,6 @@ public final class OracleDialect extends Dialect
 				{
 					case "C":
 					{
-						if(constraintName.startsWith("SYS_"))
-							continue;
-
 						final String searchCondition = resultSet.getString(4);
 						table.notifyExistentCheckConstraint(constraintName, searchCondition);
 						break;
