@@ -119,13 +119,13 @@ public final class OracleDialect extends Dialect
 
 		schema.querySQL(
 				"SELECT " +
-				"uc.TABLE_NAME," + // 1
-				"uc.CONSTRAINT_NAME," + // 2
-				"uc.CONSTRAINT_TYPE," + // 3
-				"uc.SEARCH_CONDITION " + // 4
-				"FROM user_constraints uc " +
-				"WHERE uc.CONSTRAINT_TYPE in ('C','P') " +
-				"ORDER BY uc.TABLE_NAME, uc.CONSTRAINT_NAME",
+				"TABLE_NAME," + // 1
+				"CONSTRAINT_NAME," + // 2
+				"CONSTRAINT_TYPE," + // 3
+				"SEARCH_CONDITION " + // 4
+				"FROM user_constraints " +
+				"WHERE CONSTRAINT_TYPE in ('C','P') " +
+				"ORDER BY TABLE_NAME, CONSTRAINT_NAME",
 		resultSet ->
 		{
 			while(resultSet.next())
