@@ -176,7 +176,7 @@ public final class OracleDialect extends Dialect
 				"ORDER BY uc.TABLE_NAME, uc.CONSTRAINT_NAME, ucc.POSITION",
 		resultSet ->
 		{
-			final UniqueConstraintCollector uniqueConstraintCollector =
+			final UniqueConstraintCollector collector =
 					new UniqueConstraintCollector(schema);
 			while(resultSet.next())
 			{
@@ -185,9 +185,9 @@ public final class OracleDialect extends Dialect
 				final String constraintName = resultSet.getString(2);
 				final Table table = schema.notifyExistentTable(tableName);
 				final String columnName = resultSet.getString(3);
-				uniqueConstraintCollector.onColumn(table, constraintName, columnName);
+				collector.onColumn(table, constraintName, columnName);
 			}
-			uniqueConstraintCollector.finish();
+			collector.finish();
 		});
 
 		schema.querySQL(
