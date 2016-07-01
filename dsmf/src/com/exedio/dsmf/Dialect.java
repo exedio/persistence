@@ -66,42 +66,36 @@ public abstract class Dialect
 	void verify(final Schema schema)
 	{
 		schema.querySQL(Node.GET_TABLES, resultSet ->
-				{
-					//printMeta(resultSet);
-					while(resultSet.next())
-					{
-						final String tableName = resultSet.getString("TABLE_NAME");
-						if("BLOCKS".equals(tableName) || "LOBS".equals(tableName) || "LOB_IDS".equals(tableName))
-							continue;
-						//printRow(resultSet);
+		{
+			while(resultSet.next())
+			{
+				final String tableName = resultSet.getString("TABLE_NAME");
+				if("BLOCKS".equals(tableName) || "LOBS".equals(tableName) || "LOB_IDS".equals(tableName))
+					continue;
 
-						schema.notifyExistentTable(tableName);
-						//System.out.println("EXISTS:"+tableName);
-					}
-				}
-			);
+				schema.notifyExistentTable(tableName);
+			}
+		});
 
 		schema.querySQL(Node.GET_COLUMNS, resultSet ->
+		{
+			while(resultSet.next())
+			{
+				final String tableName  = resultSet.getString("TABLE_NAME" );
+				final String columnName = resultSet.getString("COLUMN_NAME");
+				final int    dataType   = resultSet.getInt   ("DATA_TYPE"  );
+
+				final Table table = schema.getTable(tableName);
+				if(table!=null)
 				{
-					while(resultSet.next())
-					{
-						final String tableName  = resultSet.getString("TABLE_NAME" );
-						final String columnName = resultSet.getString("COLUMN_NAME");
-						final int    dataType   = resultSet.getInt   ("DATA_TYPE"  );
+					String columnType = getColumnType(dataType, resultSet);
+					if(columnType==null)
+						columnType = "DATA_TYPE(" + dataType + ')';
 
-						final Table table = schema.getTable(tableName);
-						if(table!=null)
-						{
-							String columnType = getColumnType(dataType, resultSet);
-							if(columnType==null)
-								columnType = "DATA_TYPE(" + dataType + ')';
-
-							table.notifyExistentColumn(columnName, columnType);
-						}
-						//System.out.println("EXISTS:"+tableName);
-					}
+					table.notifyExistentColumn(columnName, columnType);
 				}
-			);
+			}
+		});
 	}
 
 	static final void verifyForeignKeyConstraints(final String sql, final Schema schema)
