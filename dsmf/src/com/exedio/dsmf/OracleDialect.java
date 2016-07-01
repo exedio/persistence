@@ -143,34 +143,40 @@ public final class OracleDialect extends Dialect
 				final String constraintName = resultSet.getString(2);
 				final String constraintType = resultSet.getString(3);
 				final Table table = schema.notifyExistentTable(tableName);
-				if("C".equals(constraintType))
+				switch(constraintType)
 				{
-					if(constraintName.startsWith("SYS_"))
-						continue;
-
-					final String searchCondition = resultSet.getString(4);
-					final String duplicateCondition =
-						duplicateCheckConstraints.put(constraintName, searchCondition);
-					if(duplicateCondition!=null)
+					case "C":
 					{
-						System.out.println(
-								"mysterious duplicate check constraint >" + constraintName +
-								"< with " +(searchCondition.equals(duplicateCondition)
-										? ("equal condition >" + searchCondition + '<')
-										: ("different conditions >" + searchCondition + "< and >" + duplicateCondition + '<')));
-						continue;
+						if(constraintName.startsWith("SYS_"))
+							continue;
+
+						final String searchCondition = resultSet.getString(4);
+						final String duplicateCondition =
+							duplicateCheckConstraints.put(constraintName, searchCondition);
+						if(duplicateCondition!=null)
+						{
+							System.out.println(
+									"mysterious duplicate check constraint >" + constraintName +
+									"< with " +(searchCondition.equals(duplicateCondition)
+											? ("equal condition >" + searchCondition + '<')
+											: ("different conditions >" + searchCondition + "< and >" + duplicateCondition + '<')));
+							continue;
+						}
+						table.notifyExistentCheckConstraint(constraintName, searchCondition);
+						break;
 					}
-					table.notifyExistentCheckConstraint(constraintName, searchCondition);
+					case "P":
+						table.notifyExistentPrimaryKeyConstraint(constraintName);
+						break;
+					case "U":
+					{
+						final String columnName = resultSet.getString(5);
+						uniqueConstraintCollector.onColumn(table, constraintName, columnName);
+						break;
+					}
+					default:
+						throw new RuntimeException(constraintType+'-'+constraintName);
 				}
-				else if("P".equals(constraintType))
-					table.notifyExistentPrimaryKeyConstraint(constraintName);
-				else if("U".equals(constraintType))
-				{
-					final String columnName = resultSet.getString(5);
-					uniqueConstraintCollector.onColumn(table, constraintName, columnName);
-				}
-				else
-					throw new RuntimeException(constraintType+'-'+constraintName);
 			}
 			uniqueConstraintCollector.finish();
 		});
