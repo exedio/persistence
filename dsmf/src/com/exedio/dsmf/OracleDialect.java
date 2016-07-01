@@ -21,7 +21,6 @@ package com.exedio.dsmf;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
-import java.util.HashMap;
 
 public final class OracleDialect extends Dialect
 {
@@ -123,19 +122,12 @@ public final class OracleDialect extends Dialect
 				"uc.TABLE_NAME," + // 1
 				"uc.CONSTRAINT_NAME," + // 2
 				"uc.CONSTRAINT_TYPE," + // 3
-				"uc.SEARCH_CONDITION," + // 4
-				"ucc.COLUMN_NAME " + // 5
+				"uc.SEARCH_CONDITION " + // 4
 				"FROM user_constraints uc " +
-				"LEFT OUTER JOIN user_cons_columns ucc " +
-					"ON uc.CONSTRAINT_NAME=ucc.CONSTRAINT_NAME " +
-					"AND uc.TABLE_NAME=ucc.TABLE_NAME " +
-				"WHERE uc.CONSTRAINT_TYPE in ('C','P','U')" +
-				"ORDER BY uc.TABLE_NAME, uc.CONSTRAINT_NAME, ucc.POSITION",
+				"WHERE uc.CONSTRAINT_TYPE in ('C','P') " +
+				"ORDER BY uc.TABLE_NAME, uc.CONSTRAINT_NAME",
 		resultSet ->
 		{
-			final UniqueConstraintCollector uniqueConstraintCollector =
-					new UniqueConstraintCollector(schema);
-			final HashMap<String, String> duplicateCheckConstraints = new HashMap<>();
 			while(resultSet.next())
 			{
 				//printRow(resultSet);
@@ -151,34 +143,16 @@ public final class OracleDialect extends Dialect
 							continue;
 
 						final String searchCondition = resultSet.getString(4);
-						final String duplicateCondition =
-							duplicateCheckConstraints.put(constraintName, searchCondition);
-						if(duplicateCondition!=null)
-						{
-							System.out.println(
-									"mysterious duplicate check constraint >" + constraintName +
-									"< with " +(searchCondition.equals(duplicateCondition)
-											? ("equal condition >" + searchCondition + '<')
-											: ("different conditions >" + searchCondition + "< and >" + duplicateCondition + '<')));
-							continue;
-						}
 						table.notifyExistentCheckConstraint(constraintName, searchCondition);
 						break;
 					}
 					case "P":
 						table.notifyExistentPrimaryKeyConstraint(constraintName);
 						break;
-					case "U":
-					{
-						final String columnName = resultSet.getString(5);
-						uniqueConstraintCollector.onColumn(table, constraintName, columnName);
-						break;
-					}
 					default:
 						throw new RuntimeException(constraintType+'-'+constraintName);
 				}
 			}
-			uniqueConstraintCollector.finish();
 		});
 
 		verifyForeignKeyConstraints(
@@ -188,6 +162,33 @@ public final class OracleDialect extends Dialect
 				"JOIN USER_IND_COLUMNS uic ON uc.R_CONSTRAINT_NAME=uic.INDEX_NAME " +
 				"WHERE uc.CONSTRAINT_TYPE='R'",
 				schema);
+
+		schema.querySQL(
+				"SELECT " +
+				"uc.TABLE_NAME," + // 1
+				"uc.CONSTRAINT_NAME," + // 2
+				"ucc.COLUMN_NAME " + // 3
+				"FROM user_constraints uc " +
+				"LEFT OUTER JOIN user_cons_columns ucc " +
+					"ON uc.CONSTRAINT_NAME=ucc.CONSTRAINT_NAME " +
+					"AND uc.TABLE_NAME=ucc.TABLE_NAME " +
+				"WHERE uc.CONSTRAINT_TYPE='U' " +
+				"ORDER BY uc.TABLE_NAME, uc.CONSTRAINT_NAME, ucc.POSITION",
+		resultSet ->
+		{
+			final UniqueConstraintCollector uniqueConstraintCollector =
+					new UniqueConstraintCollector(schema);
+			while(resultSet.next())
+			{
+				//printRow(resultSet);
+				final String tableName = resultSet.getString(1);
+				final String constraintName = resultSet.getString(2);
+				final Table table = schema.notifyExistentTable(tableName);
+				final String columnName = resultSet.getString(3);
+				uniqueConstraintCollector.onColumn(table, constraintName, columnName);
+			}
+			uniqueConstraintCollector.finish();
+		});
 
 		schema.querySQL(
 				"SELECT SEQUENCE_NAME, MAX_VALUE " +
