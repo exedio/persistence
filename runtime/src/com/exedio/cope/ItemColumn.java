@@ -24,8 +24,8 @@ import com.exedio.dsmf.ForeignKeyConstraint;
 
 final class ItemColumn extends IntegerColumn
 {
-	final Type<?> targetType;
-	final String integrityConstraintName;
+	private final Type<?> targetType;
+	private final String integrityConstraintName;
 
 	ItemColumn(
 			final Table table,
