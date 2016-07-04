@@ -56,14 +56,14 @@ public class DatePrecisionTest extends TestWithEnvironment
 		catch(final DatePrecisionViolationException e)
 		{
 			assertEquals(
-					"precision violation on DatePrecisionItem-0, " +
-					"1970-01-01 00:00:55.066 GMT (66) is too precise for SECOND of DatePrecisionItem.seconds, " +
+					"precision violation on Main-0, " +
+					"1970-01-01 00:00:55.066 GMT (66) is too precise for SECOND of Main.seconds, " +
 					"round either to " +
 					"1970-01-01 00:00:55.000 in the past or " +
 					"1970-01-01 00:00:56.000 in the future.",
 					e.getMessage());
 			assertEquals(
-					"precision violation on DatePrecisionItem-0, " +
+					"precision violation on Main-0, " +
 					"1970-01-01 00:00:55.066 GMT (66) is too precise for SECOND, " +
 					"round either to " +
 					"1970-01-01 00:00:55.000 in the past or " +
@@ -94,14 +94,14 @@ public class DatePrecisionTest extends TestWithEnvironment
 		catch(final DatePrecisionViolationException e)
 		{
 			assertEquals(
-					"precision violation on DatePrecisionItem-0, " +
-					"1970-01-01 00:45:55.066 GMT (66) is too precise for MINUTE of DatePrecisionItem.minutes, " +
+					"precision violation on Main-0, " +
+					"1970-01-01 00:45:55.066 GMT (66) is too precise for MINUTE of Main.minutes, " +
 					"round either to " +
 					"1970-01-01 00:45:00.000 in the past or " +
 					"1970-01-01 00:46:00.000 in the future.",
 					e.getMessage());
 			assertEquals(
-					"precision violation on DatePrecisionItem-0, " +
+					"precision violation on Main-0, " +
 					"1970-01-01 00:45:55.066 GMT (66) is too precise for MINUTE, " +
 					"round either to " +
 					"1970-01-01 00:45:00.000 in the past or " +

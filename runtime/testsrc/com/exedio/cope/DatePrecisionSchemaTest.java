@@ -61,15 +61,15 @@ public class DatePrecisionSchemaTest extends TestWithEnvironment
 
 		final Table table = schema.getTable(getTableName(TYPE));
 
-		final Constraint secondsPR = table.getConstraint("DatePrecisiItem_second_PR");
-		final Constraint minutesPR = table.getConstraint("DatePrecisiItem_minute_PR");
-		final Constraint   hoursPR = table.getConstraint("DatePrecisioItem_hours_PR");
+		final Constraint secondsPR = table.getConstraint("Main_seconds_PR");
+		final Constraint minutesPR = table.getConstraint("Main_minutes_PR");
+		final Constraint   hoursPR = table.getConstraint("Main_hours_PR");
 
-		final Constraint   hoursPM = table.getConstraint("DatePrecisioItem_hours_PM");
+		final Constraint   hoursPM = table.getConstraint("Main_hours_PM");
 
-		final Constraint secondsPS = table.getConstraint("DatePrecisiItem_second_PS");
-		final Constraint minutesPS = table.getConstraint("DatePrecisiItem_minute_PS");
-		final Constraint   hoursPS = table.getConstraint("DatePrecisioItem_hours_PS");
+		final Constraint secondsPS = table.getConstraint("Main_seconds_PS");
+		final Constraint minutesPS = table.getConstraint("Main_minutes_PS");
+		final Constraint   hoursPS = table.getConstraint("Main_hours_PS");
 
 		if(supportsNativeDate(model))
 		{

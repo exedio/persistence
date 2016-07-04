@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+@CopeName("Main")
 public final class DatePrecisionItem extends Item
 {
 	static final DateField millis  = new DateField().optional();
