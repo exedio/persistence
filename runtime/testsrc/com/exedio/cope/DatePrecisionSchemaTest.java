@@ -39,9 +39,11 @@ import static org.junit.Assert.assertEquals;
 
 import com.exedio.cope.DateField.Precision;
 import com.exedio.cope.DateField.RoundingMode;
+import com.exedio.dsmf.CheckConstraint;
 import com.exedio.dsmf.Constraint;
 import com.exedio.dsmf.Schema;
 import com.exedio.dsmf.Table;
+import java.util.ArrayList;
 import org.junit.Test;
 
 public class DatePrecisionSchemaTest extends TestWithEnvironment
@@ -59,55 +61,37 @@ public class DatePrecisionSchemaTest extends TestWithEnvironment
 
 		final Table table = schema.getTable(getTableName(TYPE));
 
-		final Constraint  millisPR = table.getConstraint("DatePrecisiItem_millis_PR");
 		final Constraint secondsPR = table.getConstraint("DatePrecisiItem_second_PR");
 		final Constraint minutesPR = table.getConstraint("DatePrecisiItem_minute_PR");
 		final Constraint   hoursPR = table.getConstraint("DatePrecisioItem_hours_PR");
 
-		final Constraint  millisPM = table.getConstraint("DatePrecisiItem_millis_PM");
-		final Constraint secondsPM = table.getConstraint("DatePrecisiItem_second_PM");
-		final Constraint minutesPM = table.getConstraint("DatePrecisiItem_minute_PM");
 		final Constraint   hoursPM = table.getConstraint("DatePrecisioItem_hours_PM");
 
-		final Constraint  millisPS = table.getConstraint("DatePrecisiItem_millis_PS");
 		final Constraint secondsPS = table.getConstraint("DatePrecisiItem_second_PS");
 		final Constraint minutesPS = table.getConstraint("DatePrecisiItem_minute_PS");
 		final Constraint   hoursPS = table.getConstraint("DatePrecisioItem_hours_PS");
 
 		if(supportsNativeDate(model))
 		{
-			assertEquals(null,  millisPR);
-			assertEquals(null, secondsPR);
-			assertEquals(null, minutesPR);
-			assertEquals(null,   hoursPR);
-
-			assertEquals(null,  millisPM);
-			assertEquals(null, secondsPM);
-			assertEquals(null, minutesPM);
 			assertEquals(extract(hours  , MINUTE)+"=0",   hoursPM.getRequiredCondition());
 
-			assertEquals(null, millisPS);
 			assertEquals(extract(seconds, SECOND)+"=" + floor(extract(seconds, SECOND)), secondsPS.getRequiredCondition());
 			assertEquals(extract(minutes, SECOND)+"=0", minutesPS.getRequiredCondition());
 			assertEquals(extract(hours  , SECOND)+"=0",   hoursPS.getRequiredCondition());
 
+			assertEquals(asList(
+					secondsPS, minutesPS, hoursPM, hoursPS),
+					getDateCheckConstraints(table));
 		}
 		else
 		{
-			assertEquals(null, millisPR);
 			assertEquals(precision(seconds,    1000), secondsPR.getRequiredCondition());
 			assertEquals(precision(minutes,   60000), minutesPR.getRequiredCondition());
 			assertEquals(precision(hours  , 3600000),   hoursPR.getRequiredCondition());
 
-			assertEquals(null,  millisPM);
-			assertEquals(null, secondsPM);
-			assertEquals(null, minutesPM);
-			assertEquals(null,   hoursPM);
-
-			assertEquals(null,  millisPS);
-			assertEquals(null, secondsPS);
-			assertEquals(null, minutesPS);
-			assertEquals(null,   hoursPS);
+			assertEquals(asList(
+					secondsPR, minutesPR, hoursPR),
+					getDateCheckConstraints(table));
 		}
 
 		model.startTransaction(DatePrecisionSchemaTest.class.getName());
@@ -162,6 +146,20 @@ public class DatePrecisionSchemaTest extends TestWithEnvironment
 	private final String q(final Field<?> f)
 	{
 		return quoteName(model, getColumnName(f));
+	}
+
+	private static ArrayList<CheckConstraint> getDateCheckConstraints(final Table table)
+	{
+		final ArrayList<CheckConstraint> result = new ArrayList<>();
+		for(final Constraint c : table.getConstraints())
+		{
+			final String name = c.getName();
+			if(!name.endsWith("_MN") &&
+				!name.endsWith("_MX") &&
+				c instanceof CheckConstraint)
+				result.add((CheckConstraint)c);
+		}
+		return result;
 	}
 
 	@Test public void testEnumSchemaPrecision()
