@@ -21,7 +21,6 @@ package com.exedio.cope;
 import static com.exedio.cope.Executor.NO_SUCH_ROW;
 
 import com.exedio.cope.DateField.Precision;
-import com.exedio.dsmf.CheckConstraint;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -163,15 +162,15 @@ class IntegerColumn extends Column
 			}
 			bf.append(')');
 
-			new CheckConstraint(dt, makeGlobalID("EN"), bf.toString());
+			newCheckConstraint(dt, "EN", bf.toString());
 		}
 		else
 		{
-			new CheckConstraint(dt, makeGlobalID("MN"), quotedID + ">=" + minimum);
-			new CheckConstraint(dt, makeGlobalID("MX"), quotedID + "<=" + maximum);
+			newCheckConstraint(dt, "MN", quotedID + ">=" + minimum);
+			newCheckConstraint(dt, "MX", quotedID + "<=" + maximum);
 
 			if(precision.constrains())
-				new CheckConstraint(dt, makeGlobalID("PR"),
+				newCheckConstraint(dt, "PR",
 					table.database.dialect.getDateIntegerPrecision(quotedID, precision));
 		}
 	}

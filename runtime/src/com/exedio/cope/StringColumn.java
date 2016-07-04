@@ -21,7 +21,6 @@ package com.exedio.cope;
 import static com.exedio.cope.Intern.intern;
 
 import com.exedio.cope.util.CharSet;
-import com.exedio.dsmf.CheckConstraint;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -127,22 +126,22 @@ class StringColumn extends Column
 			}
 			bf.append(')');
 
-			new CheckConstraint(dt, makeGlobalID("EN"), bf.toString());
+			newCheckConstraint(dt, "EN", bf.toString());
 		}
 		else
 		{
 			final String length = table.database.dialect.getStringLength();
 			final boolean exact = minimumLength==maximumLength;
 			if(minimumLength>0)
-				new CheckConstraint(dt, makeGlobalID("MN"), length + '(' + quotedID + (exact?")=":")>=") + minimumLength);
+				newCheckConstraint(dt, "MN", length + '(' + quotedID + (exact?")=":")>=") + minimumLength);
 			if(!exact)
-				new CheckConstraint(dt, makeGlobalID("MX"), length + '(' + quotedID +             ")<="  + maximumLength);
+				newCheckConstraint(dt, "MX", length + '(' + quotedID +             ")<="  + maximumLength);
 
 			if(charSet!=null)
 			{
 				final String clause = table.database.dialect.getClause(quotedID, charSet);
 				if(clause!=null)
-					new CheckConstraint(dt, makeGlobalID("CS"), clause);
+					newCheckConstraint(dt, "CS", clause);
 			}
 		}
 	}

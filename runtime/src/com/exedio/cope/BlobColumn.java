@@ -20,7 +20,6 @@ package com.exedio.cope;
 
 import static com.exedio.cope.Executor.NO_SUCH_ROW;
 
-import com.exedio.dsmf.CheckConstraint;
 import java.io.OutputStream;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -56,7 +55,7 @@ final class BlobColumn extends Column
 	{
 		super.makeSchema(dsmfTable);
 
-		new CheckConstraint(dsmfTable, makeGlobalID("MX"),
+		newCheckConstraint(dsmfTable, "MX",
 				table.database.dialect.getBlobLength() + '(' + quotedID + ")<=" + maximumLength);
 	}
 

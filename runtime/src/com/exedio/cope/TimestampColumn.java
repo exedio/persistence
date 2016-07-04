@@ -23,7 +23,6 @@ import static com.exedio.cope.DateField.Precision.SECOND;
 
 import com.exedio.cope.DateField.Precision;
 import com.exedio.cope.util.TimeZoneStrict;
-import com.exedio.dsmf.CheckConstraint;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -67,14 +66,14 @@ final class TimestampColumn extends Column
 		switch(precision)
 		{
 			case HOUR:
-				new CheckConstraint(dt, makeGlobalID("PM"),
+				newCheckConstraint(dt, "PM",
 						dialect.getDateExtract(quotedID, MINUTE) + "=0");
 				// fall through
 
 			case MINUTE:
 			case SECOND:
 				final String seconds = dialect.getDateExtract(quotedID, SECOND);
-				new CheckConstraint(dt, makeGlobalID("PS"),
+				newCheckConstraint(dt, "PS",
 						precision==SECOND
 						? (seconds + '=' + dialect.getFloor(seconds)) // is an integer
 						: (seconds + "=0"));

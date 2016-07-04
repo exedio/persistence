@@ -18,8 +18,6 @@
 
 package com.exedio.cope;
 
-import com.exedio.dsmf.CheckConstraint;
-
 final class TypeColumn extends StringColumn
 {
 	private final String itemColumnQuotedID;
@@ -43,7 +41,7 @@ final class TypeColumn extends StringColumn
 		if(!optional)
 			return;
 
-		new CheckConstraint(dsmfTable, makeGlobalID("NS"),
+		newCheckConstraint(dsmfTable, "NS",
 				"((" + quotedID + " IS NOT NULL) AND (" + itemColumnQuotedID + " IS NOT NULL)) OR " +
 				"((" + quotedID + " IS "+ "NULL) AND (" + itemColumnQuotedID + " IS "+ "NULL))");
 	}

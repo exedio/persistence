@@ -21,6 +21,7 @@ package com.exedio.cope;
 import static com.exedio.cope.Intern.intern;
 import static com.exedio.dsmf.Dialect.NOT_NULL;
 
+import com.exedio.dsmf.CheckConstraint;
 import com.exedio.dsmf.PrimaryKeyConstraint;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -60,6 +61,13 @@ abstract class Column
 	final String makeGlobalID(final String suffix)
 	{
 		return table.makeGlobalID(idForGlobal + '_' + suffix);
+	}
+
+	final void newCheckConstraint(
+			final com.exedio.dsmf.Table dsmfTable,
+			final String suffix, final String condition)
+	{
+		new CheckConstraint(dsmfTable, makeGlobalID(suffix), condition);
 	}
 
 	@Override
