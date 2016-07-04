@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+@CopeName("Ref")
 final class SchemaNamePolymorphicRefItem extends Item
 {
 	static final ItemField<SchemaNamePolymorphicSuperItem> ref = ItemField.create(SchemaNamePolymorphicSuperItem.class);

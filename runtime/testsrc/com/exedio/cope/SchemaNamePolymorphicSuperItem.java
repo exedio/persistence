@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+@CopeName("Super")
 class SchemaNamePolymorphicSuperItem extends Item
 {
 /**

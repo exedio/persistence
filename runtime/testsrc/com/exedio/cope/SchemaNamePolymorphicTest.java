@@ -51,12 +51,8 @@ public class SchemaNamePolymorphicTest extends TestWithEnvironment
 
 	@Test public void test() throws SQLException
 	{
-		assertEquals(
-				"SchemaNamePolymorphicSuperItem",
-				getTypeColumnValue(SchemaNamePolymorphicSuperItem.TYPE));
-		assertEquals(
-				"SchemaNamePolymorphicSubItemRenamed",
-				getTypeColumnValue(SchemaNamePolymorphicSubItem.TYPE));
+		assertEquals("Super"     , getTypeColumnValue(SchemaNamePolymorphicSuperItem.TYPE));
+		assertEquals("SubRenamed", getTypeColumnValue(SchemaNamePolymorphicSubItem  .TYPE));
 
 		final SchemaNamePolymorphicSuperItem item = new SchemaNamePolymorphicSubItem();
 		final SchemaNamePolymorphicRefItem refItem = new SchemaNamePolymorphicRefItem(item);
@@ -79,25 +75,19 @@ public class SchemaNamePolymorphicTest extends TestWithEnvironment
 			final String column = getTypeColumnName(SchemaNamePolymorphicSuperItem.TYPE);
 			final String table = getTableName(SchemaNamePolymorphicSuperItem.TYPE);
 
+			assertEquals("SubRenamed", fetch("select " + q(column) + " from " + q(table)));
 			assertEquals(
-					"SchemaNamePolymorphicSubItemRenamed",
-					fetch("select " + q(column) + " from " + q(table)));
-
-			assertEquals(
-					hp(q(column)) + " IN ("+hp("'SchemaNamePolymorphicSuperItem'")+","+hp("'SchemaNamePolymorphicSubItemRenamed'")+")",
-					model.getSchema().getTable(table).getConstraint("ScheNamePolySupeIte_cl_EN").getRequiredCondition());
+					hp(q(column)) + " IN ("+hp("'Super'")+","+hp("'SubRenamed'")+")",
+					model.getSchema().getTable(table).getConstraint("Super_class_EN").getRequiredCondition());
 		}
 		{
 			final String column = getTypeColumnName(SchemaNamePolymorphicRefItem.ref);
 			final String table = getTableName(SchemaNamePolymorphicRefItem.TYPE);
 
+			assertEquals("SubRenamed", fetch("select " + q(column) + " from " + q(table)));
 			assertEquals(
-					"SchemaNamePolymorphicSubItemRenamed",
-					fetch("select " + q(column) + " from " + q(table)));
-
-			assertEquals(
-					hp(q(column)) + " IN ("+hp("'SchemaNamePolymorphicSuperItem'")+","+hp("'SchemaNamePolymorphicSubItemRenamed'")+")",
-					model.getSchema().getTable(table).getConstraint("ScheNamPolRefIte_reTyp_EN").getRequiredCondition());
+					hp(q(column)) + " IN ("+hp("'Super'")+","+hp("'SubRenamed'")+")",
+					model.getSchema().getTable(table).getConstraint("Ref_refType_EN").getRequiredCondition());
 		}
 		toModel();
 		assertEquals(0, SchemaNamePolymorphicSubItem.TYPE.getThis().checkTypeColumnL());
@@ -112,9 +102,7 @@ public class SchemaNamePolymorphicTest extends TestWithEnvironment
 			final String column = getTypeColumnName(SchemaNamePolymorphicRefItem.ref);
 			final String table = getTableName(SchemaNamePolymorphicRefItem.TYPE);
 
-			assertEquals(
-					"SchemaNamePolymorphicSubItemRenamed",
-					fetch("select " + q(column) + " from " + q(table)));
+			assertEquals("SubRenamed", fetch("select " + q(column) + " from " + q(table)));
 		}
 		toModel();
 		assertEquals(0, SchemaNamePolymorphicSubItem.TYPE.getThis().checkTypeColumnL());

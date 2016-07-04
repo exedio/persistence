@@ -18,7 +18,8 @@
 
 package com.exedio.cope;
 
-@CopeSchemaName("SchemaNamePolymorphicSubItemRenamed")
+@CopeName("Sub")
+@CopeSchemaName("SubRenamed")
 final class SchemaNamePolymorphicSubItem extends SchemaNamePolymorphicSuperItem
 {
 /**
