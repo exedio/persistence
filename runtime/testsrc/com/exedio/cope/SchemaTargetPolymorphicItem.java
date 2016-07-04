@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+@CopeName("Polymorphic")
 @CopeCreateLimit(567)
 class SchemaTargetPolymorphicItem extends Item
 {

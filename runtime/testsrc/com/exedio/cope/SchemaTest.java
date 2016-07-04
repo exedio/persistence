@@ -81,53 +81,53 @@ public class SchemaTest extends TestWithEnvironment
 		assertEquals(null, table.getError());
 		assertEquals(OK, table.getParticularColor());
 
-		assertCheckConstraint(table, "SchemaItem_string_MN", l(string)+">=1");
-		assertCheckConstraint(table, "SchemaItem_string_MX", l(string)+"<="+StringField.DEFAULT_MAXIMUM_LENGTH);
-		assertCheckConstraint(table, "SchemaItem_integ_MN", q(integ)+">=-10");
-		assertCheckConstraint(table, "SchemaItem_integ_MX", q(integ)+"<=10");
-		assertCheckConstraint(table, "SchemaItem_doub_MN", q(doub)+">=-11.1");
-		assertCheckConstraint(table, "SchemaItem_doub_MX", q(doub)+"<=11.1");
-		assertCheckConstraint(table, "SchemaItem_date_MN", q(date)+">="+Long.MIN_VALUE, !nativeDate);
-		assertCheckConstraint(table, "SchemaItem_date_MX", q(date)+"<="+Long.MAX_VALUE, !nativeDate);
-		assertCheckConstraint(table, "SchemaItem_day_MN", null, false);
-		assertCheckConstraint(table, "SchemaItem_day_MX", null, false);
-		assertCheckConstraint(table, "SchemaItem_bool_EN", hp(q(bool  ))+" IN ("+hp("0")+","+hp("1")+")");
-		assertCheckConstraint(table, "SchemaItem_anEnum_EN", hp(q(anEnum))+" IN ("+hp("10")+","+hp("20")+","+hp("30")+")");
-		assertCheckConstraint(table, "SchemaItem_item_MN", q(item)+">=0");
-		assertCheckConstraint(table, "SchemaItem_item_MX", q(item)+"<=567");
-		assertCheckConstraint(table, "SchemaItem_poly_MN", q(poly)+">=0");
-		assertCheckConstraint(table, "SchemaItem_poly_MX", q(poly)+"<=567");
-		assertCheckConstraint(table, "SchemaItem_polyType_EN", hp(t(poly))+" IN ("+hp("'SchemaTargetPolymorphicItem'")+","+hp("'SchemaTargetItem'")+")");
-		assertCheckConstraint(table, "SchemaItem_polyType_NS", null, false);
+		assertCheckConstraint(table, "Main_string_MN", l(string)+">=1");
+		assertCheckConstraint(table, "Main_string_MX", l(string)+"<="+StringField.DEFAULT_MAXIMUM_LENGTH);
+		assertCheckConstraint(table, "Main_integ_MN", q(integ)+">=-10");
+		assertCheckConstraint(table, "Main_integ_MX", q(integ)+"<=10");
+		assertCheckConstraint(table, "Main_doub_MN", q(doub)+">=-11.1");
+		assertCheckConstraint(table, "Main_doub_MX", q(doub)+"<=11.1");
+		assertCheckConstraint(table, "Main_date_MN", q(date)+">="+Long.MIN_VALUE, !nativeDate);
+		assertCheckConstraint(table, "Main_date_MX", q(date)+"<="+Long.MAX_VALUE, !nativeDate);
+		assertCheckConstraint(table, "Main_day_MN", null, false);
+		assertCheckConstraint(table, "Main_day_MX", null, false);
+		assertCheckConstraint(table, "Main_bool_EN", hp(q(bool  ))+" IN ("+hp("0")+","+hp("1")+")");
+		assertCheckConstraint(table, "Main_anEnum_EN", hp(q(anEnum))+" IN ("+hp("10")+","+hp("20")+","+hp("30")+")");
+		assertCheckConstraint(table, "Main_item_MN", q(item)+">=0");
+		assertCheckConstraint(table, "Main_item_MX", q(item)+"<=567");
+		assertCheckConstraint(table, "Main_poly_MN", q(poly)+">=0");
+		assertCheckConstraint(table, "Main_poly_MX", q(poly)+"<=567");
+		assertCheckConstraint(table, "Main_polyType_EN", hp(t(poly))+" IN ("+hp("'Polymorphic'")+","+hp("'Target'")+")");
+		assertCheckConstraint(table, "Main_polyType_NS", null, false);
 
-		assertCheckConstraint(table, "SchemaItem_stringOpt_MN", l(stringOpt)+">=1");
-		assertCheckConstraint(table, "SchemaItem_stringOpt_MX", l(stringOpt)+"<="+StringField.DEFAULT_MAXIMUM_LENGTH);
-		assertCheckConstraint(table, "SchemaItem_integOpt_MN", q(integOpt)+">=-10");
-		assertCheckConstraint(table, "SchemaItem_integOpt_MX", q(integOpt)+"<=10");
-		assertCheckConstraint(table, "SchemaItem_doubOpt_MN", q(doubOpt)+">=-11.1");
-		assertCheckConstraint(table, "SchemaItem_doubOpt_MX", q(doubOpt)+"<=11.1");
-		assertCheckConstraint(table, "SchemaItem_dateOpt_MN", q(dateOpt)+">="+Long.MIN_VALUE, !nativeDate);
-		assertCheckConstraint(table, "SchemaItem_dateOpt_MX", q(dateOpt)+"<="+Long.MAX_VALUE, !nativeDate);
-		assertCheckConstraint(table, "SchemaItem_dayOpt_MN", null, false);
-		assertCheckConstraint(table, "SchemaItem_dayOpt_MX", null, false);
-		assertCheckConstraint(table, "SchemaItem_boolOpt_EN", hp(q(boolOpt))+" IN ("+hp("0")+","+hp("1")+")");
-		assertCheckConstraint(table, "SchemaItem_enumOpt_EN", hp(q(enumOpt))+" IN ("+hp("10")+","+hp("20")+","+hp("30")+")");
-		assertCheckConstraint(table, "SchemaItem_itemOpt_MN", q(itemOpt)+">=0");
-		assertCheckConstraint(table, "SchemaItem_itemOpt_MX", q(itemOpt)+"<=567");
-		assertCheckConstraint(table, "SchemaItem_polyOpt_MN", q(polyOpt)+">=0");
-		assertCheckConstraint(table, "SchemaItem_polyOpt_MX", q(polyOpt)+"<=567");
-		assertCheckConstraint(table, "SchemaItem_polyOptType_EN", hp(t(polyOpt))+" IN ("+hp("'SchemaTargetPolymorphicItem'")+","+hp("'SchemaTargetItem'")+")");
-		assertCheckConstraint(table, "SchemaItem_polyOptType_NS",
+		assertCheckConstraint(table, "Main_stringOpt_MN", l(stringOpt)+">=1");
+		assertCheckConstraint(table, "Main_stringOpt_MX", l(stringOpt)+"<="+StringField.DEFAULT_MAXIMUM_LENGTH);
+		assertCheckConstraint(table, "Main_integOpt_MN", q(integOpt)+">=-10");
+		assertCheckConstraint(table, "Main_integOpt_MX", q(integOpt)+"<=10");
+		assertCheckConstraint(table, "Main_doubOpt_MN", q(doubOpt)+">=-11.1");
+		assertCheckConstraint(table, "Main_doubOpt_MX", q(doubOpt)+"<=11.1");
+		assertCheckConstraint(table, "Main_dateOpt_MN", q(dateOpt)+">="+Long.MIN_VALUE, !nativeDate);
+		assertCheckConstraint(table, "Main_dateOpt_MX", q(dateOpt)+"<="+Long.MAX_VALUE, !nativeDate);
+		assertCheckConstraint(table, "Main_dayOpt_MN", null, false);
+		assertCheckConstraint(table, "Main_dayOpt_MX", null, false);
+		assertCheckConstraint(table, "Main_boolOpt_EN", hp(q(boolOpt))+" IN ("+hp("0")+","+hp("1")+")");
+		assertCheckConstraint(table, "Main_enumOpt_EN", hp(q(enumOpt))+" IN ("+hp("10")+","+hp("20")+","+hp("30")+")");
+		assertCheckConstraint(table, "Main_itemOpt_MN", q(itemOpt)+">=0");
+		assertCheckConstraint(table, "Main_itemOpt_MX", q(itemOpt)+"<=567");
+		assertCheckConstraint(table, "Main_polyOpt_MN", q(polyOpt)+">=0");
+		assertCheckConstraint(table, "Main_polyOpt_MX", q(polyOpt)+"<=567");
+		assertCheckConstraint(table, "Main_polyOptType_EN", hp(t(polyOpt))+" IN ("+hp("'Polymorphic'")+","+hp("'Target'")+")");
+		assertCheckConstraint(table, "Main_polyOptType_NS",
 				"(("+t(polyOpt)+" IS NOT NULL) AND ("+q(polyOpt)+" IS NOT NULL))" +
 				" OR (("+t(polyOpt)+" IS NULL) AND ("+q(polyOpt)+" IS NULL))");
 
-		assertPkConstraint(table, "SchemaItem_Pk", null, getPrimaryKeyColumnName(TYPE));
+		assertPkConstraint(table, "Main_Pk", null, getPrimaryKeyColumnName(TYPE));
 
-		assertFkConstraint(table, "SchemaItem_item_Fk", getColumnName(item), getTableName(SchemaTargetItem.TYPE), getPrimaryKeyColumnName(SchemaTargetItem.TYPE));
+		assertFkConstraint(table, "Main_item_Fk", getColumnName(item), getTableName(SchemaTargetItem.TYPE), getPrimaryKeyColumnName(SchemaTargetItem.TYPE));
 
-		assertUniqueConstraint(table, "SchemaItem_uniquStrin_Unq", "("+q(uniqueString)+")");
+		assertUniqueConstraint(table, "Main_uniqueString_Unq", "("+q(uniqueString)+")");
 
-		assertUniqueConstraint(table, "SchemaItem_doublUniqu_Unq", "("+q(string)+","+q(anEnum)+")");
+		assertUniqueConstraint(table, "Main_doubleUnique_Unq", "("+q(string)+","+q(anEnum)+")");
 
 		final Column min4Max8Column = table.getColumn(getColumnName(stringMin4Max8));
 		assertEquals(null, min4Max8Column.getError());
@@ -148,20 +148,20 @@ public class SchemaTest extends TestWithEnvironment
 
 		final String upperSQL = mysql ? q(stringUpper6)+" REGEXP '^[A-Z]*$'" : "";
 
-		assertCheckConstraint(table, "SchemaItem_stringMin4_MN", l(stringMin4)+">=4");
-		assertCheckConstraint(table, "SchemaItem_stringMin4_MX", l(stringMin4)+"<="+StringField.DEFAULT_MAXIMUM_LENGTH);
-		assertCheckConstraint(table, "SchemaItem_stringMax4_MN", l(stringMax4)+">=1");
-		assertCheckConstraint(table, "SchemaItem_stringMax4_MX", l(stringMax4)+"<=4");
-		assertCheckConstraint(table, "SchemItem_striMin4Max8_MN", l(stringMin4Max8)+">=4");
-		assertCheckConstraint(table, "SchemItem_striMin4Max8_MX", l(stringMin4Max8)+"<=8");
-		assertCheckConstraint(table, "SchemaItem_strinExact6_MN", l(stringExact6)+"=6");
-		assertCheckConstraint(table, "SchemaItem_strinExact6_MX", null, false);
-		assertCheckConstraint(table, "SchemaItem_strinUpper6_MN", l(stringUpper6)+"=6");
-		assertCheckConstraint(table, "SchemaItem_strinUpper6_MX", null, false);
-		assertCheckConstraint(table, "SchemaItem_strinUpper6_CS", upperSQL, mysql);
-		assertCheckConstraint(table, "SchemaItem_stringEmpty_MN", null, false);
-		assertCheckConstraint(table, "SchemaItem_stringEmpty_MX", l(stringEmpty)+"<="+StringField.DEFAULT_MAXIMUM_LENGTH);
-		assertCheckConstraint(table, "SchemaItem_data_MX", l(data)+"<="+DataField.DEFAULT_LENGTH);
+		assertCheckConstraint(table, "Main_stringMin4_MN", l(stringMin4)+">=4");
+		assertCheckConstraint(table, "Main_stringMin4_MX", l(stringMin4)+"<="+StringField.DEFAULT_MAXIMUM_LENGTH);
+		assertCheckConstraint(table, "Main_stringMax4_MN", l(stringMax4)+">=1");
+		assertCheckConstraint(table, "Main_stringMax4_MX", l(stringMax4)+"<=4");
+		assertCheckConstraint(table, "Main_stringMin4Max8_MN", l(stringMin4Max8)+">=4");
+		assertCheckConstraint(table, "Main_stringMin4Max8_MX", l(stringMin4Max8)+"<=8");
+		assertCheckConstraint(table, "Main_stringExact6_MN", l(stringExact6)+"=6");
+		assertCheckConstraint(table, "Main_strinExact6_MX", null, false);
+		assertCheckConstraint(table, "Main_stringUpper6_MN", l(stringUpper6)+"=6");
+		assertCheckConstraint(table, "Main_stringUpper6_MX", null, false);
+		assertCheckConstraint(table, "Main_stringUpper6_CS", upperSQL, mysql);
+		assertCheckConstraint(table, "Main_stringEmpty_MN", null, false);
+		assertCheckConstraint(table, "Main_stringEmpty_MX", l(stringEmpty)+"<="+StringField.DEFAULT_MAXIMUM_LENGTH);
+		assertCheckConstraint(table, "Main_data_MX", l(data)+"<="+DataField.DEFAULT_LENGTH);
 
 		final Column stringLongColumn = table.getColumn(getColumnName(stringLong));
 		assertEquals(null, stringLongColumn.getError());
@@ -170,20 +170,20 @@ public class SchemaTest extends TestWithEnvironment
 		switch ( model.getConnectProperties().primaryKeyGenerator )
 		{
 			case memory:
-				assertEquals( null, schema.getSequence(filterTableName("SchemaItem_this_Seq")) );
-				assertEquals( null, schema.getSequence(filterTableName("SchemaItem_this_Seq6")) );
+				assertEquals( null, schema.getSequence(filterTableName("Main_this_Seq")) );
+				assertEquals( null, schema.getSequence(filterTableName("Main_this_Seq6")) );
 				break;
 			case sequence:
-				final Sequence sequence = schema.getSequence(filterTableName("SchemaItem_this_Seq"));
+				final Sequence sequence = schema.getSequence(filterTableName("Main_this_Seq"));
 				assertEquals(null, sequence.getError());
 				assertEquals(OK, sequence.getParticularColor());
-				assertEquals( null, schema.getSequence(filterTableName("SchemaItem_this_Seq6")) );
+				assertEquals( null, schema.getSequence(filterTableName("Main_this_Seq6")) );
 				break;
 			case batchedSequence:
-				final Sequence batchedSequence = schema.getSequence(filterTableName("SchemaItem_this_Seq6"));
+				final Sequence batchedSequence = schema.getSequence(filterTableName("Main_this_Seq6"));
 				assertEquals(null, batchedSequence.getError());
 				assertEquals(OK, batchedSequence.getParticularColor());
-				assertEquals( null, schema.getSequence(filterTableName("SchemaItem_this_Seq")) );
+				assertEquals( null, schema.getSequence(filterTableName("Main_this_Seq")) );
 				break;
 			default:
 				fail();

@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+@CopeName("Target")
 final class SchemaTargetItem extends SchemaTargetPolymorphicItem
 {
 	/**

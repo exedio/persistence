@@ -46,7 +46,7 @@ public class SchemaModifyTest extends TestWithEnvironment
 	{
 		final String TABLE1 = getTableName(SchemaItem.TYPE);
 		final String COLUMN1 = getColumnName(SchemaItem.nonFinalInteger);
-		assertEquals(filterTableName("SchemaItem"), TABLE1);
+		assertEquals(filterTableName("Main"), TABLE1);
 		assertEquals("nonFinalInteger", COLUMN1);
 
 		final String column1Type;
@@ -127,7 +127,7 @@ public class SchemaModifyTest extends TestWithEnvironment
 			assertEquals(null, table.getError());
 			assertEquals(OK, table.getParticularColor());
 
-			final Constraint constraint = table.getConstraint("SchemItem_nonFinalInte_MN");
+			final Constraint constraint = table.getConstraint("Main_nonFinalInteger_MN");
 			if(SchemaInfo.supportsCheckConstraints(model))
 				constraint.drop();
 
@@ -278,10 +278,10 @@ public class SchemaModifyTest extends TestWithEnvironment
 			assertEquals(OK, column.getParticularColor());
 			assertEquals(column1Type, column.getType());
 
-			table.getConstraint("SchemaItem_item_Fk").create();
-			table.getConstraint("SchemaItem_itemOpt_Fk").create();
-			table.getConstraint("SchemaItem_poly_Fk").create();
-			table.getConstraint("SchemaItem_polyOpt_Fk").create();
+			table.getConstraint("Main_item_Fk").create();
+			table.getConstraint("Main_itemOpt_Fk").create();
+			table.getConstraint("Main_poly_Fk").create();
+			table.getConstraint("Main_polyOpt_Fk").create();
 		}
 		// OK
 		{

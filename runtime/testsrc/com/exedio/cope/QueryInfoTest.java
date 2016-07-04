@@ -119,12 +119,12 @@ public class QueryInfoTest extends TestWithEnvironment
 							final Iterator<QueryInfo> planSelectChilds = planSelect.getChilds().iterator();
 							{
 								final QueryInfo planTableAccess = planSelectChilds.next();
-								assertTrue(planTableAccess.getText(), planTableAccess.getText().startsWith("TABLE ACCESS (BY INDEX ROWID) on SchemaItem[1]"));
+								assertTrue(planTableAccess.getText(), planTableAccess.getText().startsWith("TABLE ACCESS (BY INDEX ROWID) on Main[1]"));
 								{
 									final Iterator<QueryInfo> planTableAccessChilds = planTableAccess.getChilds().iterator();
 									{
 										final QueryInfo planUnique = planTableAccessChilds.next();
-										assertTrue(planUnique.getText(), planUnique.getText().startsWith("INDEX (UNIQUE SCAN) on SchemaItem_uniquStrin_Unq"));
+										assertTrue(planUnique.getText(), planUnique.getText().startsWith("INDEX (UNIQUE SCAN) on Main_uniqueString_Unq"));
 										assertEquals(list(), planUnique.getChilds());
 									}
 									assertTrue(!planTableAccessChilds.hasNext());
@@ -167,7 +167,7 @@ public class QueryInfoTest extends TestWithEnvironment
 
 		final String statement =
 			"select this " +
-			"from SchemaItem " +
+			"from Main " +
 			"where uniqueString='zack' " +
 			"order by uniqueString";
 
