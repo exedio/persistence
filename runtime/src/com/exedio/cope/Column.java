@@ -57,7 +57,7 @@ abstract class Column
 
 	abstract String getDatabaseType();
 
-	String makeGlobalID(final String suffix)
+	final String makeGlobalID(final String suffix)
 	{
 		return table.makeGlobalID(idForGlobal + '_' + suffix);
 	}
