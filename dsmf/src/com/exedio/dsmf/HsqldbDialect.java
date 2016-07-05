@@ -112,7 +112,6 @@ public final class HsqldbDialect extends Dialect
 							table.notifyExistentPrimaryKeyConstraint(constraintName);
 						else if("UNIQUE".equals(constraintType))
 						{
-							//printRow(resultSet);
 							final StringBuilder clause = new StringBuilder();
 							final StringBuilder bf = new StringBuilder();
 							bf.append("SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.SYSTEM_INDEXINFO WHERE INDEX_NAME LIKE 'SYS_IDX_").
@@ -121,12 +120,10 @@ public final class HsqldbDialect extends Dialect
 
 							schema.querySQL(bf.toString(), resultSetUnique ->
 									{
-										//printMeta(resultSet);
 										boolean first = true;
 										clause.append('(');
 										while(resultSetUnique.next())
 										{
-											//printRow(resultSet);
 											if(first)
 												first = false;
 											else
@@ -161,10 +158,8 @@ public final class HsqldbDialect extends Dialect
 				"FROM INFORMATION_SCHEMA.SYSTEM_SEQUENCES",
 			resultSet ->
 				{
-					//printMeta(resultSet);
 					while(resultSet.next())
 					{
-						//printRow(resultSet);
 						final String name = resultSet.getString(1);
 						if("LOB_ID".equals(name))
 							continue;

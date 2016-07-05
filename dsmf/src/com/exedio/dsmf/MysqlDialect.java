@@ -83,12 +83,9 @@ public final class MysqlDialect extends Dialect
 				"WHERE TABLE_SCHEMA='" + catalog + "' AND TABLE_TYPE='BASE TABLE'",
 			resultSet ->
 			{
-				//printMeta(resultSet);
 				while(resultSet.next())
 				{
 					final String tableName = resultSet.getString(1);
-					//printRow(resultSet);
-
 					final Sequence sequence = schema.getSequence(tableName);
 					if(sequence==null || !sequence.required())
 						schema.notifyExistentTable(tableName);
@@ -101,10 +98,8 @@ public final class MysqlDialect extends Dialect
 			"WHERE TABLE_SCHEMA='" + catalog + '\'',
 			resultSet ->
 			{
-				//printMeta(resultSet);
 				while(resultSet.next())
 				{
-					//printRow(resultSet);
 					final String tableName = resultSet.getString(1);
 					final String columnName = resultSet.getString(2);
 					final String isNullable = resultSet.getString(3);
@@ -167,12 +162,10 @@ public final class MysqlDialect extends Dialect
 			"ORDER BY tc.TABLE_NAME,tc.CONSTRAINT_NAME,kcu.ORDINAL_POSITION ",
 			resultSet ->
 			{
-				//printMeta(resultSet);
 				final UniqueConstraintCollector uniqueConstraintCollector =
 						new UniqueConstraintCollector(schema);
 				while(resultSet.next())
 				{
-					//printRow(resultSet);
 					final String constraintName = resultSet.getString(1);
 					final String tableName = resultSet.getString(2);
 					final String constraintType = resultSet.getString(3);

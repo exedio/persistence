@@ -132,7 +132,6 @@ public final class OracleDialect extends Dialect
 		{
 			while(resultSet.next())
 			{
-				//printRow(resultSet);
 				final String tableName = resultSet.getString(1);
 				final String constraintName = resultSet.getString(2);
 				final String constraintType = resultSet.getString(3);
@@ -179,7 +178,6 @@ public final class OracleDialect extends Dialect
 					new UniqueConstraintCollector(schema);
 			while(resultSet.next())
 			{
-				//printRow(resultSet);
 				final String tableName = resultSet.getString(1);
 				final String constraintName = resultSet.getString(2);
 				final Table table = schema.notifyExistentTable(tableName);
@@ -194,10 +192,8 @@ public final class OracleDialect extends Dialect
 				"FROM USER_SEQUENCES",
 		resultSet ->
 		{
-			//printMeta(resultSet);
 			while(resultSet.next())
 			{
-				//printRow(resultSet);
 				final String name = resultSet.getString(1);
 				final long maxValue = resultSet.getLong(2);
 				schema.notifyExistentSequence(name, Sequence.Type.fromMaxValueExact(maxValue));

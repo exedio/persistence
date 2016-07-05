@@ -106,10 +106,8 @@ public abstract class Dialect
 			sql,
 			resultSet ->
 				{
-					//printMeta(resultSet);
 					while(resultSet.next())
 					{
-						//printRow(resultSet);
 						final String tableName = resultSet.getString(2);
 						final Table table = schema.getTable(tableName);
 						if(table!=null)
@@ -210,23 +208,28 @@ public abstract class Dialect
 	 * @deprecated for debugging only, should never be used in committed code
 	 */
 	@Deprecated // OK: for debugging
-	static final void printMeta(final ResultSet resultSet) throws SQLException
+	static final void print(final ResultSet resultSet) throws SQLException
 	{
-		final ResultSetMetaData metaData = resultSet.getMetaData();
-		final int columnCount = metaData.getColumnCount();
-		for(int i = 1; i<=columnCount; i++)
-			System.out.println("------"+i+":"+metaData.getColumnName(i)+":"+metaData.getColumnType(i));
-	}
+		final StringBuilder bf = new StringBuilder();
 
-	/**
-	 * @deprecated for debugging only, should never be used in committed code
-	 */
-	@Deprecated // OK: for debugging
-	static final void printRow(final ResultSet resultSet) throws SQLException
-	{
 		final ResultSetMetaData metaData = resultSet.getMetaData();
 		final int columnCount = metaData.getColumnCount();
+
+		boolean first = true;
 		for(int i = 1; i<=columnCount; i++)
-			System.out.println("----------"+i+":"+resultSet.getObject(i));
+		{
+			if(first)
+				first = false;
+			else
+				bf.append(' ');
+
+			bf.append(metaData.getColumnName(i)).
+				append(':').
+				append(metaData.getColumnType(i)).
+				append('=').
+				append(resultSet.getObject(i));
+		}
+
+		System.out.println(bf.toString());
 	}
 }

@@ -128,10 +128,8 @@ public final class PostgresqlDialect extends Dialect
 				"WHERE ut.relname NOT LIKE 'pg_%' AND ut.relname NOT LIKE 'pga_%' AND uc.contype IN ('c','p')",
 			resultSet ->
 				{
-					//printMeta(resultSet);
 					while(resultSet.next())
 					{
-						//printRow(resultSet);
 						final String tableName = resultSet.getString(1);
 						final String constraintName = resultSet.getString(2);
 						final String constraintType = resultSet.getString(3);
@@ -168,12 +166,10 @@ public final class PostgresqlDialect extends Dialect
 				"ORDER BY tc.table_name, tc.constraint_name, cu.ordinal_position",
 			resultSet ->
 				{
-					//printMeta(resultSet);
 					final UniqueConstraintCollector collector =
 							new UniqueConstraintCollector(schema);
 					while(resultSet.next())
 					{
-						//printRow(resultSet);
 						final Table table = schema.getTable(resultSet.getString(1));
 						if(table!=null)
 						{
@@ -200,10 +196,8 @@ public final class PostgresqlDialect extends Dialect
 				"WHERE sequence_catalog='" + catalog + '\'',
 			resultSet ->
 				{
-					//printMeta(resultSet);
 					while(resultSet.next())
 					{
-						//printRow(resultSet);
 						final String name = resultSet.getString(1);
 						final long maxValue = resultSet.getLong(2);
 						schema.notifyExistentSequence(name, Sequence.Type.fromMaxValueExact(maxValue));
