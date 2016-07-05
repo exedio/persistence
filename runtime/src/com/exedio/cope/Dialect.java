@@ -98,10 +98,12 @@ abstract class Dialect
 		// PostgreSQL maximum length is 63:
 		// https://www.postgresql.org/docs/9.3/static/sql-syntax-lexical.html#SQL-SYNTAX-IDENTIFIERS
 
-		final Trimmer defaultTrimmer = new Trimmer(25);
+		final Trimmer dataTrimmer = new Trimmer(25);
+		trimmers.put(TrimClass.Data, dataTrimmer);
 
-		trimmers.put(TrimClass.Other, defaultTrimmer);
-		trimmers.put(TrimClass.CheckConstraint, new Trimmer(60));
+		final Trimmer constraintTrimmer = new Trimmer(60);
+		trimmers.put(TrimClass.Constraint, constraintTrimmer);
+		trimmers.put(TrimClass.CheckConstraint, constraintTrimmer);
 	}
 
 	String isValidOnGet42()

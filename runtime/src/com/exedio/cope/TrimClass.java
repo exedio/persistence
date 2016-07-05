@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 enum TrimClass
 {
-	Other,
+	Data,
+	Constraint,
 	CheckConstraint;
 }

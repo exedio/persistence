@@ -72,11 +72,11 @@ final class OracleDialect extends Dialect
 	{
 		super.setNameTrimmers(trimmers);
 
-		final Trimmer defaultTrimmer = trimmers.get(TrimClass.Other);
+		final Trimmer dataTrimmer = trimmers.get(TrimClass.Data);
 
 		for(final TrimClass c : TrimClass.values())
-			if(c!=TrimClass.Other)
-				trimmers.put(c, defaultTrimmer);
+			if(c!=TrimClass.Data)
+				trimmers.put(c, dataTrimmer);
 	}
 
 	/**

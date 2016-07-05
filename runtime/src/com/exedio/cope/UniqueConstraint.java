@@ -106,7 +106,7 @@ public final class UniqueConstraint extends Feature implements Copyable
 			(fields.length==1)
 			? fields[0].getDeclaredSchemaName()
 			: getDeclaredSchemaName();
-		this.databaseID = intern(table.makeGlobalID(TrimClass.Other, schemaName + "_Unq"));
+		this.databaseID = intern(table.makeGlobalID(TrimClass.Constraint, schemaName + "_Unq"));
 
 		table.database.executor.addUniqueConstraint(databaseID, this);
 	}

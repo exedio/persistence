@@ -67,6 +67,7 @@ public class NameLengthTest extends TestWithEnvironment
 
 		final Table table = schema.getTable(getTableName(AnItem.TYPE));
 		final boolean cc = oracle;
+		final boolean c  = oracle || (mysql && !model.getConnectProperties().mysqlLongConstraintNames);
 
 		assertIt(table, PrimaryKey, "AnItem_Pk");
 		assertIt(table, ForeignKey, "AnItem_foreignShort_Fk");
@@ -74,13 +75,15 @@ public class NameLengthTest extends TestWithEnvironment
 		assertIt(table, Check,      "AnItem_fieldShort_EN");
 		assertIt(table, Check,      "AnItem_checkShort");
 
-		assertIt(table, ForeignKey, "AnItem_foreignLooooooo_Fk");
-		assertIt(table, Unique,     "AnItem_fieldLoooooooo_Unq");
-		assertIt(table, Check, cc ? "AnItem_fieldLooooooooo_EN" : "AnItem_fieldLoooooooooooooooooooooooooooooooooooooooooooo_EN");
-		assertIt(table, Check, cc ? "AnItem_checkLoooooooooooo" : "AnItem_checkLooooooooooooooooooooooooooooooooooooooooooooooo");
+		assertIt(table, ForeignKey, c ? "AnItem_foreignLooooooo_Fk" : "AnItem_foreignLoooooooooooooooooooooooooooooooooooooooooo_Fk");
+		assertIt(table, Unique,     c ? "AnItem_fieldLoooooooo_Unq" : "AnItem_fieldLooooooooooooooooooooooooooooooooooooooooooo_Unq");
+		assertIt(table, Check,     cc ? "AnItem_fieldLooooooooo_EN" : "AnItem_fieldLoooooooooooooooooooooooooooooooooooooooooooo_EN");
+		assertIt(table, Check,     cc ? "AnItem_checkLoooooooooooo" : "AnItem_checkLooooooooooooooooooooooooooooooooooooooooooooooo");
 
 		final Table longTable = schema.getTable(getTableName(LongItem.TYPE));
-		assertIt(longTable, PrimaryKey, "LoooooooooooooooooItem_Pk");
+		assertIt(longTable, PrimaryKey, c
+				? "LoooooooooooooooooItem_Pk"
+				: "LooooooooooooooooooooItem_Pk");
 
 		assertEquals(OK, table.getCumulativeColor());
 		assertEquals(OK, schema.getCumulativeColor());

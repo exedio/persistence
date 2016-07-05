@@ -33,6 +33,7 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
+import java.util.EnumMap;
 import java.util.List;
 import java.util.Properties;
 import org.slf4j.Logger;
@@ -59,6 +60,7 @@ final class MysqlDialect extends Dialect
 
 	private final String deleteTable;
 	private final boolean smallIntegerTypes;
+	private final boolean shortConstraintNames;
 	final String sequenceColumnName;
 	private final boolean mariaDriver;
 
@@ -74,6 +76,7 @@ final class MysqlDialect extends Dialect
 		this.charset = " CHARACTER SET utf8" + mb4 + " COLLATE utf8" + mb4 + "_bin";
 		this.deleteTable = probe.properties.mysqlAvoidTruncate ? "delete from " : "truncate ";
 		this.smallIntegerTypes = probe.properties.mysqlSmallIntegerTypes;
+		this.shortConstraintNames = !probe.properties.mysqlLongConstraintNames;
 		this.sequenceColumnName = sequenceColumnName(probe.properties);
 
 		final EnvironmentInfo env = probe.environmentInfo;
@@ -152,6 +155,15 @@ final class MysqlDialect extends Dialect
 				st.execute("SET NAMES utf8mb4 COLLATE utf8mb4_bin");
 			}
 		}
+	}
+
+	@Override
+	void setNameTrimmers(final EnumMap<TrimClass, Trimmer> trimmers)
+	{
+		super.setNameTrimmers(trimmers);
+
+		if(shortConstraintNames)
+			trimmers.put(TrimClass.Constraint, trimmers.get(TrimClass.Data));
 	}
 
 	private static final String CHARSET = "utf8";
