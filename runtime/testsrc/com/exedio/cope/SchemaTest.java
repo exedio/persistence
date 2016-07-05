@@ -167,23 +167,23 @@ public class SchemaTest extends TestWithEnvironment
 		assertEquals(null, stringLongColumn.getError());
 		assertEquals(OK, stringLongColumn.getParticularColor());
 
+		final Sequence sequence        = schema.getSequence(filterTableName("Main_this_Seq"));
+		final Sequence batchedSequence = schema.getSequence(filterTableName("Main_this_Seq6"));
 		switch ( model.getConnectProperties().primaryKeyGenerator )
 		{
 			case memory:
-				assertEquals( null, schema.getSequence(filterTableName("Main_this_Seq")) );
-				assertEquals( null, schema.getSequence(filterTableName("Main_this_Seq6")) );
+				assertEquals(null, sequence);
+				assertEquals(null, batchedSequence);
 				break;
 			case sequence:
-				final Sequence sequence = schema.getSequence(filterTableName("Main_this_Seq"));
 				assertEquals(null, sequence.getError());
 				assertEquals(OK, sequence.getParticularColor());
-				assertEquals( null, schema.getSequence(filterTableName("Main_this_Seq6")) );
+				assertEquals(null, batchedSequence);
 				break;
 			case batchedSequence:
-				final Sequence batchedSequence = schema.getSequence(filterTableName("Main_this_Seq6"));
 				assertEquals(null, batchedSequence.getError());
 				assertEquals(OK, batchedSequence.getParticularColor());
-				assertEquals( null, schema.getSequence(filterTableName("Main_this_Seq")) );
+				assertEquals(null, sequence);
 				break;
 			default:
 				fail();
