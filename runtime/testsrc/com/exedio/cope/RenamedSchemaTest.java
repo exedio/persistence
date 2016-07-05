@@ -85,28 +85,18 @@ public class RenamedSchemaTest extends TestWithEnvironment
 		final boolean cluster = props.primaryKeyGenerator.persistent;
 		final Iterator<Sequence> sequences = schema.getSequences().iterator();
 		if(cluster)
-		{
-			final Sequence sequence = sequences.next();
-			assertEquals(primaryKeySequenceName("Zain_this_Seq"), sequence.getName());
-			assertEquals(0, sequence.getStartL());
-		}
-		{
-			final Sequence sequence = sequences.next();
-			assertEquals(filterTableName("Zain_zinteger_Seq"), sequence.getName());
-			assertEquals(1234, sequence.getStartL());
-		}
-		{
-			final Sequence sequence = sequences.next();
-			assertEquals(props.filterTableName("Zain_zequence"), sequence.getName());
-			assertEquals(555, sequence.getStartL());
-		}
+			assertIt(sequences.next(), primaryKeySequenceName("Zain_this_Seq"), 0);
+		assertIt(sequences.next(), filterTableName("Zain_zinteger_Seq"), 1234);
+		assertIt(sequences.next(), props.filterTableName("Zain_zequence"), 555);
 		if(cluster)
-		{
-			final Sequence sequence = sequences.next();
-			assertEquals(primaryKeySequenceName("Target_this_Seq"), sequence.getName());
-			assertEquals(0, sequence.getStartL());
-		}
+			assertIt(sequences.next(), primaryKeySequenceName("Target_this_Seq"), 0);
 		assertFalse(sequences.hasNext());
+	}
+
+	private void assertIt(final Sequence sequence, final String name, final int start)
+	{
+		assertEquals(filterTableName(name), sequence.getName());
+		assertEquals(start, sequence.getStartL());
 	}
 
 	private final String q(final Field<?> f)
