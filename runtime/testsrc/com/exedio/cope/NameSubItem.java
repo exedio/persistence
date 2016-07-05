@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-@CopeName("NameSubItemX")
+@CopeName("Sub")
 public final class NameSubItem extends NameLongItem
 {
 	static final IntegerField unique = new IntegerField().unique();
