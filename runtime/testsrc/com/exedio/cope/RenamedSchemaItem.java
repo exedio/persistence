@@ -18,26 +18,26 @@
 
 package com.exedio.cope;
 
-@CopeSchemaName("ZackItem") final class RenamedSchemaItem extends Item
+@CopeSchemaName("Zain") final class RenamedSchemaItem extends Item
 {
-	@CopeSchemaName("zackItem")
+	@CopeSchemaName("zitem")
 	static final ItemField<RenamedSchemaTargetItem> item = ItemField.create(RenamedSchemaTargetItem.class).optional();
 
-	@CopeSchemaName("zackUniqueSingle")
+	@CopeSchemaName("zuniqueSingle")
 	static final StringField uniqueSingle = new StringField().optional().unique();
 
 	static final StringField uniqueDouble1 = new StringField();
 	static final IntegerField uniqueDouble2 = new IntegerField();
-	@CopeSchemaName("zackUniqueDouble")
+	@CopeSchemaName("zuniqueDouble")
 	static final UniqueConstraint uniqueDouble = new UniqueConstraint(uniqueDouble1, uniqueDouble2);
 
-	@CopeSchemaName("zackString")
+	@CopeSchemaName("zring")
 	static final StringField string = new StringField().optional().lengthMax(4);
 
-	@CopeSchemaName("zackInteger")
+	@CopeSchemaName("zinteger")
 	static final IntegerField integer = new IntegerField().optional().defaultToNext(1234);
 
-	@CopeSchemaName("zackSequence")
+	@CopeSchemaName("zequence")
 	static final Sequence sequence = new Sequence(555);
 
 	/**

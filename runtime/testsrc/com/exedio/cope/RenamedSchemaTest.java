@@ -52,16 +52,16 @@ public class RenamedSchemaTest extends TestWithEnvironment
 
 	@Test public void testSchema()
 	{
-		assertEquals(filterTableName("ZackItem"), getTableName(TYPE));
-		assertPrimaryKeySequenceName("ZackItem_this_Seq", TYPE);
-		assertEquals("zackUniqueSingle", getColumnName(uniqueSingle));
-		assertEquals("zackItem", getColumnName(item));
+		assertEquals(filterTableName("Zain"), getTableName(TYPE));
+		assertPrimaryKeySequenceName("Zain_this_Seq", TYPE);
+		assertEquals("zuniqueSingle", getColumnName(uniqueSingle));
+		assertEquals("zitem", getColumnName(item));
 		assertEquals("uniqueDouble1", getColumnName(uniqueDouble1));
 		assertEquals("uniqueDouble2", getColumnName(uniqueDouble2));
-		assertEquals("zackString", getColumnName(string));
-		assertEquals("zackInteger", getColumnName(integer));
-		assertDefaultToNextSequenceName("ZackItem_zackInteger_Seq", integer);
-		assertEquals(filterTableName("ZackItem_zackSequence"), getSequenceName(sequence));
+		assertEquals("zring", getColumnName(string));
+		assertEquals("zinteger", getColumnName(integer));
+		assertDefaultToNextSequenceName("Zain_zinteger_Seq", integer);
+		assertEquals(filterTableName("Zain_zequence"), getSequenceName(sequence));
 
 		final Schema schema = model.getVerifiedSchema();
 
@@ -70,16 +70,16 @@ public class RenamedSchemaTest extends TestWithEnvironment
 		assertEquals(null, table.getError());
 		assertEquals(Schema.Color.OK, table.getParticularColor());
 
-		assertPkConstraint(table, "ZackItem_Pk", null, getPrimaryKeyColumnName(TYPE));
+		assertPkConstraint(table, "Zain_Pk", null, getPrimaryKeyColumnName(TYPE));
 
-		assertFkConstraint(table, "ZackItem_zackItem_Fk", getColumnName(item), getTableName(RenamedSchemaTargetItem.TYPE), getPrimaryKeyColumnName(RenamedSchemaTargetItem.TYPE));
+		assertFkConstraint(table, "Zain_zitem_Fk", getColumnName(item), getTableName(RenamedSchemaTargetItem.TYPE), getPrimaryKeyColumnName(RenamedSchemaTargetItem.TYPE));
 
-		assertUniqueConstraint(table, "ZackItem_zackUniqSing_Unq", "("+q(uniqueSingle)+")");
+		assertUniqueConstraint(table, "Zain_zuniqueSingle_Unq", "("+q(uniqueSingle)+")");
 
-		assertUniqueConstraint(table, "ZackItem_zackUniqDoub_Unq", "("+q(uniqueDouble1)+","+q(uniqueDouble2)+")");
+		assertUniqueConstraint(table, "Zain_zuniqueDouble_Unq", "("+q(uniqueDouble1)+","+q(uniqueDouble2)+")");
 
-		assertCheckConstraint(table, "ZackItem_zackString_MN", l(string)+">=1");
-		assertCheckConstraint(table, "ZackItem_zackString_MX", l(string)+"<=4");
+		assertCheckConstraint(table, "Zain_zring_MN", l(string)+">=1");
+		assertCheckConstraint(table, "Zain_zring_MX", l(string)+"<=4");
 
 		final ConnectProperties props = model.getConnectProperties();
 		final boolean cluster = props.primaryKeyGenerator.persistent;
@@ -87,17 +87,17 @@ public class RenamedSchemaTest extends TestWithEnvironment
 		if(cluster)
 		{
 			final Sequence sequence = sequences.next();
-			assertEquals(primaryKeySequenceName("ZackItem_this_Seq"), sequence.getName());
+			assertEquals(primaryKeySequenceName("Zain_this_Seq"), sequence.getName());
 			assertEquals(0, sequence.getStartL());
 		}
 		{
 			final Sequence sequence = sequences.next();
-			assertEquals(filterTableName("ZackItem_zackInteger_Seq"), sequence.getName());
+			assertEquals(filterTableName("Zain_zinteger_Seq"), sequence.getName());
 			assertEquals(1234, sequence.getStartL());
 		}
 		{
 			final Sequence sequence = sequences.next();
-			assertEquals(props.filterTableName("ZackItem_zackSequence"), sequence.getName());
+			assertEquals(props.filterTableName("Zain_zequence"), sequence.getName());
 			assertEquals(555, sequence.getStartL());
 		}
 		if(cluster)
@@ -105,11 +105,11 @@ public class RenamedSchemaTest extends TestWithEnvironment
 			final Sequence sequence = sequences.next();
 			if ( model.getConnectProperties().primaryKeyGenerator==PrimaryKeyGenerator.batchedSequence )
 			{
-				assertEquals(primaryKeySequenceName("RenaScheTargItem_thi_Seq"), sequence.getName());
+				assertEquals(primaryKeySequenceName("Target_this_Seq"), sequence.getName());
 			}
 			else
 			{
-				assertEquals(primaryKeySequenceName("RenamScheTargItem_thi_Seq"), sequence.getName());
+				assertEquals(primaryKeySequenceName("Target_this_Seq"), sequence.getName());
 			}
 			assertEquals(0, sequence.getStartL());
 		}
