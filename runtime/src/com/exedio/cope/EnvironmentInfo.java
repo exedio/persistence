@@ -48,56 +48,95 @@ public final class EnvironmentInfo
 				dmd.getDriverMinorVersion());
 	}
 
+	/**
+	 * Provides {@link java.sql.Connection#getCatalog()}.
+	 */
 	public String getCatalog()
 	{
 		return catalog;
 	}
 
+	/**
+	 * Provides {@link java.sql.DatabaseMetaData#getDatabaseProductName()}.
+	 */
 	public String getDatabaseProductName()
 	{
 		return database.name;
 	}
 
+	/**
+	 * Provides {@link java.sql.DatabaseMetaData#getDatabaseProductVersion()}.
+	 */
 	public String getDatabaseProductVersion()
 	{
 		return database.version;
 	}
 
+	/**
+	 * Provides {@link java.sql.DatabaseMetaData#getDatabaseMajorVersion()}.
+	 */
 	public int getDatabaseMajorVersion()
 	{
 		return database.majorVersion;
 	}
 
+	/**
+	 * Provides {@link java.sql.DatabaseMetaData#getDatabaseMinorVersion()}.
+	 */
 	public int getDatabaseMinorVersion()
 	{
 		return database.minorVersion;
 	}
 
+	/**
+	 * Provides {@link java.sql.DatabaseMetaData#getDriverName()}.
+	 */
 	public String getDriverName()
 	{
 		return driver.name;
 	}
 
+	/**
+	 * Provides {@link java.sql.DatabaseMetaData#getDriverVersion()}.
+	 */
 	public String getDriverVersion()
 	{
 		return driver.version;
 	}
 
+	/**
+	 * Provides {@link java.sql.DatabaseMetaData#getDriverMajorVersion()}.
+	 */
 	public int getDriverMajorVersion()
 	{
 		return driver.majorVersion;
 	}
 
+	/**
+	 * Provides {@link java.sql.DatabaseMetaData#getDriverMinorVersion()}.
+	 */
 	public int getDriverMinorVersion()
 	{
 		return driver.minorVersion;
 	}
 
+	/**
+	 * Returns
+	 * {@link #getDatabaseProductVersion()} with
+	 * {@link #getDatabaseMajorVersion()} and
+	 * {@link #getDatabaseMinorVersion()}.
+	 */
 	public String getDatabaseVersionDescription()
 	{
 		return database.getVersionDescription();
 	}
 
+	/**
+	 * Returns
+	 * {@link #getDriverVersion()} with
+	 * {@link #getDriverMajorVersion()} and
+	 * {@link #getDriverMinorVersion()}.
+	 */
 	public String getDriverVersionDescription()
 	{
 		return driver.getVersionDescription();
