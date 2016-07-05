@@ -103,14 +103,7 @@ public class RenamedSchemaTest extends TestWithEnvironment
 		if(cluster)
 		{
 			final Sequence sequence = sequences.next();
-			if ( model.getConnectProperties().primaryKeyGenerator==PrimaryKeyGenerator.batchedSequence )
-			{
-				assertEquals(primaryKeySequenceName("Target_this_Seq"), sequence.getName());
-			}
-			else
-			{
-				assertEquals(primaryKeySequenceName("Target_this_Seq"), sequence.getName());
-			}
+			assertEquals(primaryKeySequenceName("Target_this_Seq"), sequence.getName());
 			assertEquals(0, sequence.getStartL());
 		}
 		assertFalse(sequences.hasNext());
