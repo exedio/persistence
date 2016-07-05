@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+@CopeName("Main")
 public final class DeleteAfterUniqueViolationItem extends Item
 {
 	static final StringField uniqueString = new StringField().optional().unique();
