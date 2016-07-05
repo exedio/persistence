@@ -80,9 +80,13 @@ final class MysqlDialect extends Dialect
 		this.sequenceColumnName = sequenceColumnName(probe.properties);
 
 		final EnvironmentInfo env = probe.environmentInfo;
-		if(!utf8mb4 && env.isDatabaseVersionAtLeast(5, 7))
+		if((!utf8mb4 || !smallIntegerTypes || shortConstraintNames) &&
+			env.isDatabaseVersionAtLeast(5, 7))
 			throw new IllegalArgumentException(
-					"utf8mb4 must be enabled on MySQL 5.7 and later: " +
+					"utf8mb4 (="+utf8mb4+"), " +
+					"smallIntegerTypes (="+smallIntegerTypes+") and " +
+					"longConstraintNames (="+(!shortConstraintNames)+") " +
+					"must be enabled on MySQL 5.7 and later: " +
 					env.getDatabaseVersionDescription());
 
 		mariaDriver = env.getDriverName().startsWith("MariaDB");
