@@ -36,7 +36,7 @@ public final class ExtremumAggregate<E> extends Aggregate<E>
 	 */
 	public ExtremumAggregate(final Function<E> source, final boolean minimum)
 	{
-		super(source, minimum?"min":"max", minimum?"min":"max");
+		super(source, minimum?"min":"max", minimum?"MIN":"MAX");
 		this.minimum = minimum;
 	}
 

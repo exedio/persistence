@@ -33,6 +33,6 @@ public final class AverageAggregate<E extends Number> extends Aggregate<E>
 	 */
 	public AverageAggregate(final Function<E> source)
 	{
-		super(source, "avg", "avg");
+		super(source, "avg", "AVG");
 	}
 }
