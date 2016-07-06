@@ -106,14 +106,12 @@ public abstract class Dialect
 		{
 			while(resultSet.next())
 			{
-				final String tableName = resultSet.getString(2);
-				final Table table = schema.getTable(tableName);
-				if(table!=null)
-					table.notifyExistentForeignKeyConstraint(
-							resultSet.getString(1), // constraintName
-							resultSet.getString(3), // foreignKeyColumn
-							resultSet.getString(4), // targetTable
-							resultSet.getString(5));// targetColumn
+				final Table table = schema.getTableStrict(resultSet, 2);
+				table.notifyExistentForeignKeyConstraint(
+						resultSet.getString(1), // constraintName
+						resultSet.getString(3), // foreignKeyColumn
+						resultSet.getString(4), // targetTable
+						resultSet.getString(5));// targetColumn
 			}
 		});
 	}
