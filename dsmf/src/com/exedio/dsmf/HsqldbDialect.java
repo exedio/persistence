@@ -81,7 +81,9 @@ public final class HsqldbDialect extends Dialect
 				"SELECT tc.CONSTRAINT_NAME, tc.CONSTRAINT_TYPE, tc.TABLE_NAME, cc.CHECK_CLAUSE " +
 				"FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS tc " +
 				"LEFT OUTER JOIN INFORMATION_SCHEMA.CHECK_CONSTRAINTS cc ON tc.CONSTRAINT_NAME = cc.CONSTRAINT_NAME " +
-				"WHERE tc.CONSTRAINT_TYPE IN ('CHECK','PRIMARY KEY','UNIQUE')",
+				"WHERE tc.CONSTRAINT_TYPE IN ('CHECK','PRIMARY KEY','UNIQUE') " +
+				"AND tc.CONSTRAINT_SCHEMA='PUBLIC' " +
+				"AND tc.TABLE_SCHEMA='PUBLIC'",
 		resultSet ->
 		{
 			while(resultSet.next())
@@ -89,9 +91,6 @@ public final class HsqldbDialect extends Dialect
 				final String constraintName = resultSet.getString(1);
 				final String constraintType = resultSet.getString(2);
 				final String tableName = resultSet.getString(3);
-
-				if("BLOCKS".equals(tableName) || "LOBS".equals(tableName) || "LOB_IDS".equals(tableName))
-					continue;
 				final Table table = schema.notifyExistentTable(tableName);
 
 				if("CHECK".equals(constraintType))
