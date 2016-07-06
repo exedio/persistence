@@ -20,7 +20,6 @@ package com.exedio.cope;
 
 import com.exedio.cope.util.Day;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -60,18 +59,18 @@ final class Marshallers
 			@Override
 			Boolean unmarshal(final ResultSet row, final int columnIndex) throws SQLException
 			{
-				final Object cell = row.getObject(columnIndex);
-				if(cell==null)
+				final int cell = row.getInt(columnIndex);
+				if(row.wasNull())
 					return null;
 
-				switch(((Number)cell).intValue())
+				switch(cell)
 				{
 					case 0:
 						return Boolean.FALSE;
 					case 1:
 						return Boolean.TRUE;
 					default:
-						throw new RuntimeException(cell.toString());
+						throw new RuntimeException("" + cell);
 				}
 			}
 			@Override
@@ -89,21 +88,11 @@ final class Marshallers
 			@Override
 			Integer unmarshal(final ResultSet row, final int columnIndex) throws SQLException
 			{
-				final Object cell = row.getObject(columnIndex);
-				if(cell==null)
+				final int cell = row.getInt(columnIndex);
+				if(row.wasNull())
 					return null;
 
-				// must not use Number#intValue() as it wraps values outside 32bit
-				if(cell instanceof Integer)
-					return (Integer)cell;
-				else if(cell instanceof Long)
-					return Math.toIntExact((Long)cell);
-				else if(cell instanceof BigDecimal)
-					return ((BigDecimal)cell).intValueExact();
-				else if(cell instanceof Double) // needed for DayPartView on postgresql
-					return BigDecimal.valueOf((Double)cell).intValueExact();
-				else
-					throw new RuntimeException("" + cell + '/' + cell.getClass().getName());
+				return cell;
 			}
 			@Override
 			String marshalLiteral(final Integer value)
@@ -121,23 +110,9 @@ final class Marshallers
 			@Override
 			Long unmarshal(final ResultSet row, final int columnIndex) throws SQLException
 			{
-				final Object cell = row.getObject(columnIndex);
-				return (cell!=null) ? convert(cell) : null;
+				final long cell = row.getLong(columnIndex);
+				return !row.wasNull() ? cell : null;
 			}
-
-			private Long convert(final Object o)
-			{
-				// must not use Number#longValue() as it wraps values outside 32bit
-				if(o instanceof Long)
-					return (Long)o;
-				else if(o instanceof Integer)
-					return Long.valueOf((Integer)o);
-				else if(o instanceof BigDecimal)
-					return ((BigDecimal)o).longValueExact();
-				else
-					throw new RuntimeException("" + o + '/' + o.getClass().getName());
-			}
-
 			@Override
 			String marshalLiteral(final Long value)
 			{
@@ -154,20 +129,10 @@ final class Marshallers
 			@Override
 			Double unmarshal(final ResultSet row, final int columnIndex) throws SQLException
 			{
-				final Object cell = row.getObject(columnIndex);
+				final double cell = row.getDouble(columnIndex);
 				//System.out.println("IntegerColumn.load "+trimmedName+" "+loadedInteger);
-				return (cell!=null) ? convert(cell) : null;
+				return !row.wasNull() ? cell : null;
 			}
-
-			@SuppressWarnings("OverlyStrongTypeCast")
-			private Double convert(final Object o)
-			{
-				if(o instanceof BigDecimal)
-					return ((BigDecimal)o).doubleValue(); // for SumAggregate on Oracle
-				else
-					return (Double)o;
-			}
-
 			@Override
 			String marshalLiteral(final Double value)
 			{
@@ -206,8 +171,8 @@ final class Marshallers
 				@Override
 				Date unmarshal(final ResultSet row, final int columnIndex) throws SQLException
 				{
-					final Object cell = row.getObject(columnIndex);
-					return (cell!=null) ? new Date(((Number)cell).longValue()) : null;
+					final long cell = row.getLong(columnIndex);
+					return !row.wasNull() ? new Date(cell) : null;
 				}
 				@Override
 				String marshalLiteral(final Date value)

@@ -27,12 +27,15 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.exedio.cope.tojunit.SI;
+import com.exedio.dsmf.SQLRuntimeException;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import org.junit.jupiter.api.Test;
 
 public class OverflowIntegerSumTest extends TestWithEnvironment
@@ -125,26 +128,41 @@ public class OverflowIntegerSumTest extends TestWithEnvironment
 				query.searchSingleton();
 				fail();
 			}
-			catch(final ArithmeticException e)
+			catch(final SQLRuntimeException e)
 			{
 				final String expectedArithmeticException;
 				switch(dialect)
 				{
 					case hsqldb:
-					case postgresql:
-						expectedArithmeticException = "integer overflow"; // from Math#toIntExact
+						expectedArithmeticException = "incompatible data type in conversion: from SQL type BIGINT to java.lang.Integer, value: " + expected;
 						break;
 					case mysql:
+						if(model.getEnvironmentInfo().getDriverName().startsWith("MariaDB"))
+							expectedArithmeticException = "Out of range value for column 'SUM(`field`)' : value " + expected + " is not in class java.lang.Integer range";
+						else
+							expectedArithmeticException = "Value '" + mysqlFormat(expected) + "' is outside of valid range for type java.lang.Integer";
+						break;
 					case oracle:
-						expectedArithmeticException = "Overflow"; // from BigDecimal#intValueExact
+						expectedArithmeticException = "Numeric Overflow";
+						break;
+					case postgresql:
+						expectedArithmeticException = "Bad value for type int : " + expected;
 						break;
 					default:
 						throw new RuntimeException("" + dialect, e);
 				}
 
-				assertEquals(expectedArithmeticException, e.getMessage());
+				assertEquals(expectedArithmeticException, e.getCause().getMessage());
 			}
 		}
+	}
+
+	private static String mysqlFormat(final long v)
+	{
+		final DecimalFormatSymbols nfs = new DecimalFormatSymbols();
+		nfs.setDecimalSeparator('.');
+		nfs.setGroupingSeparator(',');
+		return new DecimalFormat("", nfs).format(v);
 	}
 
 

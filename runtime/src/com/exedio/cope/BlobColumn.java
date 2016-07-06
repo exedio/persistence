@@ -148,11 +148,11 @@ final class BlobColumn extends Column
 				if(!resultSet.next())
 					throw new SQLException(NO_SUCH_ROW);
 
-				final Object o = resultSet.getObject(1);
-				if(o==null)
+				final long result = resultSet.getLong(1);
+				if(resultSet.wasNull())
 					return -1l;
 
-				return ((Number)o).longValue();
+				return result;
 			}
 		);
 	}

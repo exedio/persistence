@@ -318,10 +318,10 @@ final class HsqldbDialect extends Dialect
 				{
 					if(!resultSet.next())
 						throw new RuntimeException("empty in sequence " + quotedName);
-					final Object o = resultSet.getObject(1);
-					if(o==null)
+					final long resultX = resultSet.getLong(1);
+					if(resultSet.wasNull())
 						throw new RuntimeException("null in sequence " + quotedName);
-					return ((Number)o).longValue();
+					return resultX;
 				}
 			);
 		}
@@ -357,10 +357,10 @@ final class HsqldbDialect extends Dialect
 			{
 				if(!resultSet.next())
 					throw new RuntimeException("empty in sequence " + name);
-				final Object o = resultSet.getObject(1);
-				if(o==null)
+				final long result = resultSet.getLong(1);
+				if(resultSet.wasNull())
 					throw new RuntimeException("null in sequence " + name);
-				return Long.valueOf((String)o);
+				return result;
 			}
 		);
 	}

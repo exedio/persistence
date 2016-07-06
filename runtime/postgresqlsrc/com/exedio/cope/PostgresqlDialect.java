@@ -327,10 +327,10 @@ final class PostgresqlDialect extends Dialect
 			{
 				if(!resultSet.next())
 					throw new RuntimeException("empty in sequence " + quotedName);
-				final Object o = resultSet.getObject(1);
-				if(o==null)
+				final long result = resultSet.getLong(1);
+				if(resultSet.wasNull())
 					throw new RuntimeException("null in sequence " + quotedName);
-				return (Long)o;
+				return result;
 			}
 		);
 	}
@@ -355,10 +355,10 @@ final class PostgresqlDialect extends Dialect
 			{
 				if(!resultSet.next())
 					throw new RuntimeException("empty in sequence " + name);
-				final Object o = resultSet.getObject(1);
-				if(o==null)
+				final long result = resultSet.getLong(1);
+				if(resultSet.wasNull())
 					throw new RuntimeException("null in sequence " + name);
-				return (Long)o + 1;
+				return result + 1;
 			}
 		);
 	}

@@ -28,12 +28,15 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.exedio.cope.tojunit.SI;
+import com.exedio.dsmf.SQLRuntimeException;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import org.junit.jupiter.api.Test;
 
 public class OverflowLongSumTest extends TestWithEnvironment
@@ -64,18 +67,18 @@ public class OverflowLongSumTest extends TestWithEnvironment
 		assertIt(MAX_VALUE, 6);
 	}
 
-	private static void assertIt(final long expected) throws SQLException
+	private void assertIt(final long expected) throws SQLException
 	{
 		assertIt(BigDecimal.valueOf(expected));
 	}
 
-	private static void assertIt(final long expected1, final long expected2) throws SQLException
+	private void assertIt(final long expected1, final long expected2) throws SQLException
 	{
 		assertIt(BigDecimal.valueOf(expected1).add(BigDecimal.valueOf(expected2)));
 	}
 
 	@SuppressFBWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
-	private static void assertIt(final BigDecimal expected) throws SQLException
+	private void assertIt(final BigDecimal expected) throws SQLException
 	{
 		MODEL.commit();
 
@@ -132,11 +135,41 @@ public class OverflowLongSumTest extends TestWithEnvironment
 				query.searchSingleton();
 				fail();
 			}
-			catch(final ArithmeticException e)
+			catch(final SQLRuntimeException e)
 			{
-				assertEquals("Overflow", e.getMessage()); // from BigDecimal#intValueExact
+				final String expectedArithmeticException;
+				switch(dialect)
+				{
+					case hsqldb:
+						expectedArithmeticException = "incompatible data type in conversion: from SQL type DECIMAL to java.lang.Long, value: " + expected;
+						break;
+					case mysql:
+						if(model.getEnvironmentInfo().getDriverName().startsWith("MariaDB"))
+							expectedArithmeticException = "Out of range value for column 'SUM(`field`)' : value " + expected;
+						else
+							expectedArithmeticException = "Value '" + mysqlFormat(expected) + "' is outside of valid range for type java.lang.Long";
+						break;
+					case oracle:
+						expectedArithmeticException = "Numeric Overflow";
+						break;
+					case postgresql:
+						expectedArithmeticException = "Bad value for type long : " + expected;
+						break;
+					default:
+						throw new RuntimeException("" + dialect, e);
+				}
+
+				assertEquals(expectedArithmeticException, e.getCause().getMessage());
 			}
 		}
+	}
+
+	private static String mysqlFormat(final BigDecimal v)
+	{
+		final DecimalFormatSymbols nfs = new DecimalFormatSymbols();
+		nfs.setDecimalSeparator('.');
+		nfs.setGroupingSeparator(',');
+		return new DecimalFormat("", nfs).format(v);
 	}
 
 

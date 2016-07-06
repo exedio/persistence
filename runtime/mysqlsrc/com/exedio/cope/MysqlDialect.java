@@ -30,7 +30,6 @@ import com.exedio.dsmf.SQLRuntimeException;
 import com.exedio.dsmf.Sequence;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.IOException;
-import java.math.BigInteger;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
@@ -72,7 +71,6 @@ final class MysqlDialect extends Dialect
 	private final boolean supportsAnyValue;
 	private final boolean supportsNativeDate;
 	private final boolean supportsGtid;
-	private final boolean mariaDriver;
 	private final Pattern extractUniqueViolationMessagePattern;
 	private final int purgeSequenceLimit;
 
@@ -109,7 +107,7 @@ final class MysqlDialect extends Dialect
 
 		supportsAnyValue = env.isDatabaseVersionAtLeast(5, 7);
 		supportsNativeDate = supportsGtid = env.isDatabaseVersionAtLeast(5, 6);
-		mariaDriver = env.getDriverName().startsWith("MariaDB");
+		final boolean mariaDriver = env.getDriverName().startsWith("MariaDB");
 		extractUniqueViolationMessagePattern = mariaDriver ? Pattern.compile("^\\(conn=\\p{Digit}+\\) (.*)$") : null;
 		purgeSequenceLimit = properties.purgeSequenceLimit;
 	}
@@ -567,15 +565,12 @@ final class MysqlDialect extends Dialect
 			{
 				if(!resultSet.next())
 					throw new RuntimeException("empty in sequence " + quotedName);
-				final Object o = resultSet.getObject(1);
-				if(o==null)
+				final long result = resultSet.getLong(1);
+				if(resultSet.wasNull())
 					throw new RuntimeException("null in sequence " + quotedName);
-				return
-						mariaDriver
-						? (Long)o
-						: ((BigInteger)o).longValueExact();
+				return result - 1;
 			}
-		) - 1;
+		);
 	}
 
 	@Override
@@ -772,23 +767,23 @@ final class MysqlDialect extends Dialect
 					ctx.setMessage("sequence " + name + " query");
 				deferOrStopIfRequested(ctx);
 
-				final Number maxObject = Executor.query(
+				final Long maxObject = Executor.query(
 						connection,
 						"SELECT MAX(" + column + ") FROM " + table,
 						resultSet ->
 					{
 						if(!resultSet.next())
 							throw new RuntimeException("empty in sequence " + name);
-						final Object o = resultSet.getObject(1);
-						if(o==null)
+						final long result = resultSet.getLong(1);
+						if(resultSet.wasNull())
 							return null;
-						return (Number)o;
+						return result;
 					}
 				);
 				if(maxObject==null)
 					continue;
 
-				final long max = maxObject.longValue();
+				final long max = maxObject; // unbox
 
 				do
 				{

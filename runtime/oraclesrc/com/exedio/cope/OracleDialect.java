@@ -32,7 +32,6 @@ import com.exedio.dsmf.SQLRuntimeException;
 import com.exedio.dsmf.Sequence;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import gnu.trove.TIntObjectHashMap;
-import java.math.BigDecimal;
 import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -388,7 +387,8 @@ final class OracleDialect extends Dialect
 						final int objectInstance = resultSet.getInt(OBJECT_INSTANCE);
 						final String objectType = resultSet.getString(OBJECT_TYPE);
 						final int id = resultSet.getInt(ID);
-						final Number parentID = (Number)resultSet.getObject(PARENT_ID);
+						final int parentID = resultSet.getInt(PARENT_ID);
+						final boolean parentIDNull = resultSet.wasNull();
 
 						final StringBuilder qi = new StringBuilder(operation);
 
@@ -422,7 +422,7 @@ final class OracleDialect extends Dialect
 						}
 
 						final QueryInfo info = new QueryInfo(qi.toString());
-						if(parentID==null)
+						if(parentIDNull)
 						{
 							if(currentRoot!=null)
 								throw new RuntimeException(String.valueOf(id));
@@ -430,7 +430,7 @@ final class OracleDialect extends Dialect
 						}
 						else
 						{
-							final QueryInfo parent = infos.get(parentID.intValue());
+							final QueryInfo parent = infos.get(parentID);
 							if(parent==null)
 								throw new RuntimeException();
 							parent.addChild(info);
@@ -488,10 +488,10 @@ final class OracleDialect extends Dialect
 			{
 				if(!resultSet.next())
 					throw new RuntimeException("empty in sequence " + quotedName);
-				final Object o = resultSet.getObject(1);
-				if(o==null)
+				final long result = resultSet.getLong(1);
+				if(resultSet.wasNull())
 					throw new RuntimeException("null in sequence " + quotedName);
-				return ((BigDecimal)o).longValueExact();
+				return result;
 			}
 		);
 	}
@@ -523,10 +523,10 @@ final class OracleDialect extends Dialect
 			{
 				if(!resultSet.next())
 					throw new RuntimeException("empty in sequence " + name);
-				final Object o = resultSet.getObject(1);
-				if(o==null)
+				final long result = resultSet.getLong(1);
+				if(resultSet.wasNull())
 					throw new RuntimeException("null in sequence " + name);
-				return ((BigDecimal)o).longValueExact();
+				return result;
 			}
 		);
 	}

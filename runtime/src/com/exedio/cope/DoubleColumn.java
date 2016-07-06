@@ -18,7 +18,6 @@
 
 package com.exedio.cope;
 
-import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -62,22 +61,9 @@ final class DoubleColumn extends Column
 	void load(final ResultSet resultSet, final int columnIndex, final Row row)
 			throws SQLException
 	{
-		final Object loadedDouble = resultSet.getObject(columnIndex);
+		final double loadedDouble = resultSet.getDouble(columnIndex);
 		//System.out.println("IntegerColumn.load "+trimmedName+" "+loadedInteger);
-		row.put(this, (loadedDouble!=null) ? convertSQLResult(loadedDouble) : null);
-	}
-
-	@SuppressWarnings("OverlyStrongTypeCast")
-	private static Double convertSQLResult(final Object sqlDouble)
-	{
-		if(sqlDouble instanceof BigDecimal)
-		{
-			return ((BigDecimal)sqlDouble).doubleValue(); // for SumAggregate on Oracle
-		}
-		else
-		{
-			return (Double)sqlDouble;
-		}
+		row.put(this, !resultSet.wasNull() ? loadedDouble : null);
 	}
 
 	@Override

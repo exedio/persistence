@@ -37,13 +37,14 @@ final class PolymorphicItemMarshaller<E extends Item> extends Marshaller<E>
 	@Override
 	E unmarshal(final ResultSet row, final int columnIndex) throws SQLException
 	{
-		final Object pkCell = row.getObject(columnIndex);
+		final long pkCell = row.getLong(columnIndex);
+		final boolean pkCellNull = row.wasNull();
 		final String typeCell = row.getString(columnIndex + 1);
 
-		if((pkCell==null)!=(typeCell==null))
+		if(pkCellNull!=(typeCell==null))
 			throw new RuntimeException("inconsistent type column >" + pkCell + "< / >" + typeCell + '<');
 
-		if(pkCell==null)
+		if(pkCellNull)
 			return null;
 
 		final Type<? extends E> resultType = typesOfInstancesMap.get(typeCell);

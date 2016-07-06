@@ -35,11 +35,11 @@ final class SimpleItemMarshaller<E extends Item> extends Marshaller<E>
 	@Override
 	E unmarshal(final ResultSet row, final int columnIndex) throws SQLException
 	{
-		final Object cell = row.getObject(columnIndex);
-		if(cell==null)
+		final long cell = row.getLong(columnIndex);
+		if(row.wasNull())
 			return null;
 
-		return onlyPossibleTypeOfInstances.getItemObject(((Number)cell).longValue());
+		return onlyPossibleTypeOfInstances.getItemObject(cell);
 	}
 
 	@Override

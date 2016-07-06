@@ -69,11 +69,11 @@ final class EnumFieldType<E extends Enum<E>> implements SelectType<E>
 			@Override
 			E unmarshal(final ResultSet row, final int columnIndex) throws SQLException
 			{
-				final Object cell = row.getObject(columnIndex);
-				if(cell==null)
+				final int cell = row.getInt(columnIndex);
+				if(row.wasNull())
 					return null;
 
-				return getValueByNumber(((Number)cell).intValue());
+				return getValueByNumber(cell);
 			}
 
 			@Override

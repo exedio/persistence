@@ -172,10 +172,18 @@ class IntegerColumn extends Column
 	final void load(final ResultSet resultSet, final int columnIndex, final Row row)
 			throws SQLException
 	{
-		final Object loadedInteger = resultSet.getObject(columnIndex);
-		//System.out.println("IntegerColumn.load "+trimmedName+" "+loadedInteger);
-		// TODO: should have small numbers (or even bits) in cache instead of full integers if allowedValues!=null
-		row.put(this, (loadedInteger!=null) ? convertSQLResult(loadedInteger) : null);
+		if(longInsteadOfInt)
+		{
+			final long cell = resultSet.getLong(columnIndex);
+			row.put(this, !resultSet.wasNull() ? cell : null);
+		}
+		else
+		{
+			final int loadedInteger = resultSet.getInt(columnIndex);
+			//System.out.println("IntegerColumn.load "+trimmedName+" "+loadedInteger);
+			// TODO: should have small numbers (or even bits) in cache instead of full integers if allowedValues!=null
+			row.put(this, !resultSet.wasNull() ? loadedInteger : null);
+		}
 	}
 
 	@Override
@@ -197,32 +205,6 @@ class IntegerColumn extends Column
 		return cache;
 	}
 
-	private Number convertSQLResult(final Object sqlInteger)
-	{
-		// IMPLEMENTATION NOTE for Oracle
-		// Whether the returned object is an Integer or a BigDecimal,
-		// depends on whether OracleStatement.defineColumnType is used or not,
-		// so we support both here.
-		//
-		// IMPLEMENTATION NOTE for MySQL
-		// A SumAggregate across an IntegerFunction may return Longs or Doubles,
-		// so we support all here.
-		if (longInsteadOfInt)
-		{
-			if(sqlInteger instanceof Long)
-				return (Long)sqlInteger;
-			else
-				return ((Number)sqlInteger).longValue();
-		}
-		else
-		{
-			if(sqlInteger instanceof Integer)
-				return (Integer)sqlInteger;
-			else
-				return ((Number)sqlInteger).intValue();
-		}
-	}
-
 	Long max(final Connection connection, final Executor executor)
 	{
 		final Statement bf = executor.newStatement();
@@ -236,10 +218,9 @@ class IntegerColumn extends Column
 				if(!resultSet.next())
 					throw new SQLException(NO_SUCH_ROW);
 
-				final Object o = resultSet.getObject(1);
-				if(o!=null)
+				final long result = resultSet.getLong(1);
+				if(!resultSet.wasNull())
 				{
-					final long result = ((Number)o).longValue();
 					if(result<minimum || result>maximum)
 						throw new RuntimeException("invalid maximum " + result + " in column " + id);
 					return result;
