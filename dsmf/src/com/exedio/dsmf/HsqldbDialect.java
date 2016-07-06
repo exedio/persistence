@@ -91,12 +91,11 @@ public final class HsqldbDialect extends Dialect
 			{
 				final String constraintName = resultSet.getString(1);
 				final String constraintType = resultSet.getString(2);
-				final String tableName = resultSet.getString(3);
-				final Table table = schema.notifyExistentTable(tableName);
+				final Table table = schema.getTableStrict(resultSet, 3);
 
 				if("CHECK".equals(constraintType))
 				{
-					final String tablePrefix = quoteName(tableName)+'.';
+					final String tablePrefix = quoteName(table.getName())+'.';
 					String checkClause = resultSet.getString(4);
 					for(int pos = checkClause.indexOf(tablePrefix); pos>=0; pos = checkClause.indexOf(tablePrefix))
 						checkClause = checkClause.substring(0, pos) + checkClause.substring(pos+tablePrefix.length());
