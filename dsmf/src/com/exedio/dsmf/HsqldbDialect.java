@@ -83,7 +83,8 @@ public final class HsqldbDialect extends Dialect
 				"LEFT OUTER JOIN INFORMATION_SCHEMA.CHECK_CONSTRAINTS cc ON tc.CONSTRAINT_NAME = cc.CONSTRAINT_NAME " +
 				"WHERE tc.CONSTRAINT_TYPE IN ('CHECK','PRIMARY KEY','UNIQUE') " +
 				"AND tc.CONSTRAINT_SCHEMA='PUBLIC' " +
-				"AND tc.TABLE_SCHEMA='PUBLIC'",
+				"AND tc.TABLE_SCHEMA='PUBLIC' " +
+				"AND (tc.CONSTRAINT_TYPE<>'CHECK' OR tc.CONSTRAINT_NAME NOT LIKE 'SYS_CT_%')",
 		resultSet ->
 		{
 			while(resultSet.next())
@@ -95,9 +96,6 @@ public final class HsqldbDialect extends Dialect
 
 				if("CHECK".equals(constraintType))
 				{
-					if(constraintName.startsWith("SYS_CT_"))
-						continue;
-
 					final String tablePrefix = quoteName(tableName)+'.';
 					String checkClause = resultSet.getString(4);
 					for(int pos = checkClause.indexOf(tablePrefix); pos>=0; pos = checkClause.indexOf(tablePrefix))
