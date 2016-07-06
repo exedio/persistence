@@ -102,24 +102,20 @@ public abstract class Dialect
 
 	static final void verifyForeignKeyConstraints(final String sql, final Schema schema)
 	{
-		schema.querySQL(
-			sql,
-			resultSet ->
-				{
-					while(resultSet.next())
-					{
-						final String tableName = resultSet.getString(2);
-						final Table table = schema.getTable(tableName);
-						if(table!=null)
-							table.notifyExistentForeignKeyConstraint(
-									resultSet.getString(1), // constraintName
-									resultSet.getString(3), // foreignKeyColumn
-									resultSet.getString(4), // targetTable
-									resultSet.getString(5)  // targetColumn
-							);
-					}
-				}
-			);
+		schema.querySQL(sql, resultSet ->
+		{
+			while(resultSet.next())
+			{
+				final String tableName = resultSet.getString(2);
+				final Table table = schema.getTable(tableName);
+				if(table!=null)
+					table.notifyExistentForeignKeyConstraint(
+							resultSet.getString(1), // constraintName
+							resultSet.getString(3), // foreignKeyColumn
+							resultSet.getString(4), // targetTable
+							resultSet.getString(5));// targetColumn
+			}
+		});
 	}
 
 	static final void verifySequences(final String sql, final Schema schema)
