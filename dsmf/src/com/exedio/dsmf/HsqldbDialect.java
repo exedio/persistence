@@ -142,19 +142,11 @@ public final class HsqldbDialect extends Dialect
 				"WHERE tc.CONSTRAINT_TYPE='FOREIGN KEY'",
 				schema);
 
-		schema.querySQL(
+		verifySequences(
 				"SELECT SEQUENCE_NAME, MAXIMUM_VALUE " +
 				"FROM INFORMATION_SCHEMA.SYSTEM_SEQUENCES " +
 				"WHERE SEQUENCE_SCHEMA='PUBLIC'",
-		resultSet ->
-		{
-			while(resultSet.next())
-			{
-				final String name = resultSet.getString(1);
-				final long maxValue = resultSet.getLong(2);
-				schema.notifyExistentSequence(name, Sequence.Type.fromMaxValueExact(maxValue));
-			}
-		});
+				schema);
 	}
 
 	@Override

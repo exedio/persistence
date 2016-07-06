@@ -184,18 +184,10 @@ public final class OracleDialect extends Dialect
 			collector.finish();
 		});
 
-		schema.querySQL(
+		verifySequences(
 				"SELECT SEQUENCE_NAME, MAX_VALUE " +
 				"FROM USER_SEQUENCES",
-		resultSet ->
-		{
-			while(resultSet.next())
-			{
-				final String name = resultSet.getString(1);
-				final long maxValue = resultSet.getLong(2);
-				schema.notifyExistentSequence(name, Sequence.Type.fromMaxValueExact(maxValue));
-			}
-		});
+				schema);
 	}
 
 	@Override

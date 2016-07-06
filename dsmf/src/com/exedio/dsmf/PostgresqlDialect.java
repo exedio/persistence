@@ -186,20 +186,11 @@ public final class PostgresqlDialect extends Dialect
 				"WHERE rc.constraint_catalog='" + catalog + '\'',
 				schema);
 
-		schema.querySQL(
+		verifySequences(
 				"SELECT sequence_name, maximum_value " +
 				"FROM information_schema.sequences " +
 				"WHERE sequence_catalog='" + catalog + '\'',
-			resultSet ->
-				{
-					while(resultSet.next())
-					{
-						final String name = resultSet.getString(1);
-						final long maxValue = resultSet.getLong(2);
-						schema.notifyExistentSequence(name, Sequence.Type.fromMaxValueExact(maxValue));
-					}
-				}
-			);
+				schema);
 	}
 
 	@Override

@@ -122,6 +122,19 @@ public abstract class Dialect
 			);
 	}
 
+	static final void verifySequences(final String sql, final Schema schema)
+	{
+		schema.querySQL(sql, resultSet ->
+		{
+			while(resultSet.next())
+			{
+				final String name = resultSet.getString(1);
+				final long maxValue = resultSet.getLong(2);
+				schema.notifyExistentSequence(name, Sequence.Type.fromMaxValueExact(maxValue));
+			}
+		});
+	}
+
 	/**
 	 * @param bf used in subclasses
 	 */
