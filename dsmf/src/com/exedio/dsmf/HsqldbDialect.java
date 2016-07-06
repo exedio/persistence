@@ -95,13 +95,9 @@ public final class HsqldbDialect extends Dialect
 
 				if("CHECK".equals(constraintType))
 				{
-					final String tablePrefix = quoteName(table.getName())+'.';
+					final String tablePrefix = "PUBLIC." + quoteName(table.getName()) + '.';
 					String checkClause = resultSet.getString(4);
-					for(int pos = checkClause.indexOf(tablePrefix); pos>=0; pos = checkClause.indexOf(tablePrefix))
-						checkClause = checkClause.substring(0, pos) + checkClause.substring(pos+tablePrefix.length());
-
-					checkClause = checkClause.replace("PUBLIC.", "");
-
+					checkClause = checkClause.replace(tablePrefix, "");
 					table.notifyExistentCheckConstraint(constraintName, checkClause);
 				}
 				else if("PRIMARY KEY".equals(constraintType))
