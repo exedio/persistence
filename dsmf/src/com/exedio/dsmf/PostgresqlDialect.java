@@ -130,10 +130,9 @@ public final class PostgresqlDialect extends Dialect
 				{
 					while(resultSet.next())
 					{
-						final String tableName = resultSet.getString(1);
+						final Table table = schema.getTableStrict(resultSet, 1);
 						final String constraintName = resultSet.getString(2);
 						final String constraintType = resultSet.getString(3);
-						final Table table = schema.notifyExistentTable(tableName);
 						//System.out.println("tableName:"+tableName+" constraintName:"+constraintName+" constraintType:>"+constraintType+"<");
 						if("c".equals(constraintType))
 						{
