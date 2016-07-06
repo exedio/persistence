@@ -176,9 +176,8 @@ public final class OracleDialect extends Dialect
 					new UniqueConstraintCollector(schema);
 			while(resultSet.next())
 			{
-				final String tableName = resultSet.getString(1);
+				final Table table = schema.getTableStrict(resultSet, 1);
 				final String constraintName = resultSet.getString(2);
-				final Table table = schema.notifyExistentTable(tableName);
 				final String columnName = resultSet.getString(3);
 				collector.onColumn(table, constraintName, columnName);
 			}
