@@ -116,6 +116,23 @@ public abstract class Dialect
 		});
 	}
 
+	static final void verifyUniqueConstraints(final String sql, final Schema schema)
+	{
+		schema.querySQL(sql, resultSet ->
+		{
+			final UniqueConstraintCollector collector =
+					new UniqueConstraintCollector(schema);
+			while(resultSet.next())
+			{
+				final Table table = schema.getTableStrict(resultSet, 1);
+				final String constraintName = resultSet.getString(2);
+				final String columnName = resultSet.getString(3);
+				collector.onColumn(table, constraintName, columnName);
+			}
+			collector.finish();
+		});
+	}
+
 	static final void verifySequences(final String sql, final Schema schema)
 	{
 		schema.querySQL(sql, resultSet ->

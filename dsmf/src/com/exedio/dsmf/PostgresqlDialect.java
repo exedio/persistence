@@ -154,7 +154,7 @@ public final class PostgresqlDialect extends Dialect
 
 		final String catalog = schema.getCatalog();
 
-		schema.querySQL(
+		verifyUniqueConstraints(
 				"SELECT tc.table_name, tc.constraint_name, cu.column_name " +
 				"FROM information_schema.table_constraints tc " +
 				"JOIN information_schema.key_column_usage cu " +
@@ -163,20 +163,7 @@ public final class PostgresqlDialect extends Dialect
 				"AND tc.table_catalog='" + catalog + "' " +
 				"AND cu.table_catalog='" + catalog + "' " +
 				"ORDER BY tc.table_name, tc.constraint_name, cu.ordinal_position",
-			resultSet ->
-				{
-					final UniqueConstraintCollector collector =
-							new UniqueConstraintCollector(schema);
-					while(resultSet.next())
-					{
-						final Table table = schema.getTableStrict(resultSet, 1);
-						final String constraintName = resultSet.getString(2);
-						final String columnName = resultSet.getString(3);
-						collector.onColumn(table, constraintName, columnName);
-					}
-					collector.finish();
-				}
-			);
+				schema);
 
 		verifyForeignKeyConstraints(
 				"SELECT rc.constraint_name, src.table_name, src.column_name, tgt.table_name, tgt.column_name " +

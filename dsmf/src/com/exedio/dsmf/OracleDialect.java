@@ -159,7 +159,7 @@ public final class OracleDialect extends Dialect
 				"WHERE uc.CONSTRAINT_TYPE='R'",
 				schema);
 
-		schema.querySQL(
+		verifyUniqueConstraints(
 				"SELECT " +
 				"uc.TABLE_NAME," + // 1
 				"uc.CONSTRAINT_NAME," + // 2
@@ -170,19 +170,7 @@ public final class OracleDialect extends Dialect
 					"AND uc.TABLE_NAME=ucc.TABLE_NAME " +
 				"WHERE uc.CONSTRAINT_TYPE='U' " +
 				"ORDER BY uc.TABLE_NAME, uc.CONSTRAINT_NAME, ucc.POSITION",
-		resultSet ->
-		{
-			final UniqueConstraintCollector collector =
-					new UniqueConstraintCollector(schema);
-			while(resultSet.next())
-			{
-				final Table table = schema.getTableStrict(resultSet, 1);
-				final String constraintName = resultSet.getString(2);
-				final String columnName = resultSet.getString(3);
-				collector.onColumn(table, constraintName, columnName);
-			}
-			collector.finish();
-		});
+				schema);
 
 		verifySequences(
 				"SELECT SEQUENCE_NAME, MAX_VALUE " +
