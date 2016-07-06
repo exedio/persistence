@@ -82,67 +82,64 @@ public final class HsqldbDialect extends Dialect
 				"FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS tc " +
 				"LEFT OUTER JOIN INFORMATION_SCHEMA.CHECK_CONSTRAINTS cc ON tc.CONSTRAINT_NAME = cc.CONSTRAINT_NAME " +
 				"WHERE tc.CONSTRAINT_TYPE IN ('CHECK','PRIMARY KEY','UNIQUE')",
-			resultSet ->
+		resultSet ->
+		{
+			while(resultSet.next())
+			{
+				final String constraintName = resultSet.getString(1);
+				final String constraintType = resultSet.getString(2);
+				final String tableName = resultSet.getString(3);
+
+				if("BLOCKS".equals(tableName) || "LOBS".equals(tableName) || "LOB_IDS".equals(tableName))
+					continue;
+				final Table table = schema.notifyExistentTable(tableName);
+
+				if("CHECK".equals(constraintType))
 				{
-					while(resultSet.next())
-					{
-						final String constraintName = resultSet.getString(1);
-						final String constraintType = resultSet.getString(2);
-						final String tableName = resultSet.getString(3);
+					if(constraintName.startsWith("SYS_CT_"))
+						continue;
 
-						if("BLOCKS".equals(tableName) || "LOBS".equals(tableName) || "LOB_IDS".equals(tableName))
-							continue;
-						final Table table = schema.notifyExistentTable(tableName);
+					final String tablePrefix = quoteName(tableName)+'.';
+					String checkClause = resultSet.getString(4);
+					for(int pos = checkClause.indexOf(tablePrefix); pos>=0; pos = checkClause.indexOf(tablePrefix))
+						checkClause = checkClause.substring(0, pos) + checkClause.substring(pos+tablePrefix.length());
 
-						if("CHECK".equals(constraintType))
-						{
-							if(constraintName.startsWith("SYS_CT_"))
-								continue;
+					checkClause = checkClause.replace("PUBLIC.", "");
 
-							final String tablePrefix = quoteName(tableName)+'.';
-							String checkClause = resultSet.getString(4);
-							for(int pos = checkClause.indexOf(tablePrefix); pos>=0; pos = checkClause.indexOf(tablePrefix))
-								checkClause = checkClause.substring(0, pos) + checkClause.substring(pos+tablePrefix.length());
-
-							checkClause = checkClause.replace("PUBLIC.", "");
-
-							table.notifyExistentCheckConstraint(constraintName, checkClause);
-						}
-						else if("PRIMARY KEY".equals(constraintType))
-							table.notifyExistentPrimaryKeyConstraint(constraintName);
-						else if("UNIQUE".equals(constraintType))
-						{
-							final StringBuilder clause = new StringBuilder();
-							final StringBuilder bf = new StringBuilder();
-							bf.append("SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.SYSTEM_INDEXINFO WHERE INDEX_NAME LIKE 'SYS_IDX_").
-								append(constraintName).
-								append("_%' AND NON_UNIQUE=false ORDER BY ORDINAL_POSITION");
-
-							schema.querySQL(bf.toString(), resultSetUnique ->
-									{
-										boolean first = true;
-										clause.append('(');
-										while(resultSetUnique.next())
-										{
-											if(first)
-												first = false;
-											else
-												clause.append(',');
-											final String columnName = resultSetUnique.getString(1);
-											clause.append(quoteName(columnName));
-										}
-										clause.append(')');
-									}
-								);
-
-							table.notifyExistentUniqueConstraint(constraintName, clause.toString());
-						}
-						else
-							throw new RuntimeException(constraintType+'-'+constraintName);
-
-					}
+					table.notifyExistentCheckConstraint(constraintName, checkClause);
 				}
-			);
+				else if("PRIMARY KEY".equals(constraintType))
+					table.notifyExistentPrimaryKeyConstraint(constraintName);
+				else if("UNIQUE".equals(constraintType))
+				{
+					final StringBuilder clause = new StringBuilder();
+					final StringBuilder bf = new StringBuilder();
+					bf.append("SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.SYSTEM_INDEXINFO WHERE INDEX_NAME LIKE 'SYS_IDX_").
+						append(constraintName).
+						append("_%' AND NON_UNIQUE=false ORDER BY ORDINAL_POSITION");
+
+					schema.querySQL(bf.toString(), resultSetUnique ->
+					{
+						boolean first = true;
+						clause.append('(');
+						while(resultSetUnique.next())
+						{
+							if(first)
+								first = false;
+							else
+								clause.append(',');
+							final String columnName = resultSetUnique.getString(1);
+							clause.append(quoteName(columnName));
+						}
+						clause.append(')');
+					});
+
+					table.notifyExistentUniqueConstraint(constraintName, clause.toString());
+				}
+				else
+					throw new RuntimeException(constraintType+'-'+constraintName);
+			}
+		});
 
 		verifyForeignKeyConstraints(
 				"SELECT tc.CONSTRAINT_NAME, tc.TABLE_NAME, ccu.COLUMN_NAME, kcu.TABLE_NAME, kcu.COLUMN_NAME " +
@@ -156,18 +153,17 @@ public final class HsqldbDialect extends Dialect
 		schema.querySQL(
 				"SELECT SEQUENCE_NAME, MAXIMUM_VALUE " +
 				"FROM INFORMATION_SCHEMA.SYSTEM_SEQUENCES",
-			resultSet ->
-				{
-					while(resultSet.next())
-					{
-						final String name = resultSet.getString(1);
-						if("LOB_ID".equals(name))
-							continue;
-						final long maxValue = resultSet.getLong(2);
-						schema.notifyExistentSequence(name, Sequence.Type.fromMaxValueExact(maxValue));
-					}
-				}
-			);
+		resultSet ->
+		{
+			while(resultSet.next())
+			{
+				final String name = resultSet.getString(1);
+				if("LOB_ID".equals(name))
+					continue;
+				final long maxValue = resultSet.getLong(2);
+				schema.notifyExistentSequence(name, Sequence.Type.fromMaxValueExact(maxValue));
+			}
+		});
 	}
 
 	@Override
