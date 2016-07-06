@@ -170,13 +170,10 @@ public final class PostgresqlDialect extends Dialect
 							new UniqueConstraintCollector(schema);
 					while(resultSet.next())
 					{
-						final Table table = schema.getTable(resultSet.getString(1));
-						if(table!=null)
-						{
-							final String constraintName = resultSet.getString(2);
-							final String columnName = resultSet.getString(3);
-							collector.onColumn(table, constraintName, columnName);
-						}
+						final Table table = schema.getTableStrict(resultSet, 1);
+						final String constraintName = resultSet.getString(2);
+						final String columnName = resultSet.getString(3);
+						collector.onColumn(table, constraintName, columnName);
 					}
 					collector.finish();
 				}

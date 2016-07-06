@@ -18,6 +18,8 @@
 
 package com.exedio.dsmf;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.HashMap;
@@ -62,6 +64,16 @@ public final class Schema extends Node
 	public Table getTable(final String name)
 	{
 		return tableMap.get(name);
+	}
+
+	Table getTableStrict(final ResultSet resultSet, final int columnIndex) throws SQLException
+	{
+		final String name = resultSet.getString(columnIndex);
+		final Table result = getTable(name);
+		if(result!=null)
+			return result;
+
+		throw new IllegalStateException(name);
 	}
 
 	public List<Table> getTables()
