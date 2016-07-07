@@ -538,7 +538,8 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 						info.getDatabaseProductName() + ' ' +
 						info.getDatabaseVersionDescription() + ' ' +
 						info.getDriverName() + ' ' +
-						info.getDriverVersionDescription();
+						info.getDriverVersionDescription() + ' ' +
+						info.getCatalog();
 			}
 			@Override
 			public String toString()
