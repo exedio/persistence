@@ -116,8 +116,8 @@ public abstract class SchemaTest
 			Class.forName("org.postgresql.Driver");
 			dialect = new PostgresqlDialect(username);
 			stringType = "character varying(8)";
-			intType  = PostgresqlDialect.INTEGER;
-			intType2 = PostgresqlDialect.BIGINT;
+			intType  = "integer";
+			intType2 = "bigint";
 			hsqldb = false;
 			postgresql = true;
 		}

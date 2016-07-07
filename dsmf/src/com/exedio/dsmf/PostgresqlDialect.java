@@ -64,15 +64,6 @@ public final class PostgresqlDialect extends Dialect
 		return result;
 	}
 
-	public static final String SMALLINT  = "smallint";
-	public static final String INTEGER   = "integer";
-	public static final String BIGINT    = "bigint";
-	public static final String DOUBLE    = "double precision";
-	public static final int VARCHAR_LIMIT = 10485760;
-	public static final String DATE      = "\"date\"";
-	public static final String TIMESTAMP = "timestamp (3) without time zone"; // "3" are fractional digits retained in the seconds field
-	public static final String BINARY    = "\"bytea\"";
-
 	@Override
 	String getColumnType(final int dataType, final ResultSet resultSet)
 	{

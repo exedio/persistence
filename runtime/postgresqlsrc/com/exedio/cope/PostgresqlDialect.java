@@ -18,15 +18,6 @@
 
 package com.exedio.cope;
 
-import static com.exedio.dsmf.PostgresqlDialect.BIGINT;
-import static com.exedio.dsmf.PostgresqlDialect.BINARY;
-import static com.exedio.dsmf.PostgresqlDialect.DATE;
-import static com.exedio.dsmf.PostgresqlDialect.DOUBLE;
-import static com.exedio.dsmf.PostgresqlDialect.INTEGER;
-import static com.exedio.dsmf.PostgresqlDialect.SMALLINT;
-import static com.exedio.dsmf.PostgresqlDialect.TIMESTAMP;
-import static com.exedio.dsmf.PostgresqlDialect.VARCHAR_LIMIT;
-
 import com.exedio.cope.DateField.Precision;
 import com.exedio.cope.util.Hex;
 import com.exedio.dsmf.Sequence;
@@ -68,6 +59,15 @@ final class PostgresqlDialect extends Dialect
 			st.execute("SET quote_all_identifiers TO ON");
 		}
 	}
+
+	private static final String SMALLINT  = "smallint";
+	private static final String INTEGER   = "integer";
+	private static final String BIGINT    = "bigint";
+	private static final String DOUBLE    = "double precision";
+	private static final int VARCHAR_LIMIT = 10485760;
+	private static final String DATE      = "\"date\"";
+	private static final String TIMESTAMP = "timestamp (3) without time zone"; // "3" are fractional digits retained in the seconds field
+	private static final String BINARY    = "\"bytea\"";
 
 	/**
 	 * See http://www.postgresql.org/docs/9.3/static/datatype-numeric.html
