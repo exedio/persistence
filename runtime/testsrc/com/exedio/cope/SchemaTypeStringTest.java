@@ -114,11 +114,11 @@ public class SchemaTypeStringTest extends TestWithEnvironment
 		}
 		else if(postgresql)
 		{
-			assertType("varchar(1)", f1);
-			assertType("varchar(2)", f2);
-			assertType("varchar(10485760)", f10485760);
-			assertType("text",              f10485761);
-			assertType("text",              fMax);
+			assertType("character varying(1)", f1);
+			assertType("character varying(2)", f2);
+			assertType("character varying(10485760)", f10485760);
+			assertType("\"text\"",                    f10485761);
+			assertType("\"text\"",                    fMax);
 		}
 	}
 

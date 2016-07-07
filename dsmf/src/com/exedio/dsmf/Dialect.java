@@ -150,6 +150,46 @@ public abstract class Dialect
 		});
 	}
 
+	boolean getBooleanStrict(
+			final ResultSet resultSet,
+			final int columnIndex,
+			final String trueValue,
+			final String falseValue)
+	throws SQLException
+	{
+		final String value = resultSet.getString(columnIndex);
+		if(falseValue.equals(value))
+			return false;
+		else if(trueValue.equals(value))
+			return true;
+
+		final StringBuilder bf = new StringBuilder();
+		bf.append("inconsistent boolean value, \"").
+			append(trueValue).
+			append("\"/\"").
+			append(falseValue).
+			append("\" required, result set was");
+
+		final ResultSetMetaData metaData = resultSet.getMetaData();
+		final int columnCount = metaData.getColumnCount();
+
+		for(int i = 1; i<=columnCount; i++)
+		{
+			final Object o = resultSet.getObject(i);
+			if(o==null)
+				continue;
+
+			bf.append(' ').
+				append(metaData.getColumnName(i));
+			if(i==columnIndex)
+				bf.append('*');
+			bf.append('=').
+				append(o);
+		}
+
+		throw new IllegalStateException(bf.toString());
+	}
+
 	/**
 	 * @param bf used in subclasses
 	 */

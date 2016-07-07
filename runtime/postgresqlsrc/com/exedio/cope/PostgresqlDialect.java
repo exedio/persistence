@@ -49,7 +49,8 @@ final class PostgresqlDialect extends Dialect
 	PostgresqlDialect(final Probe probe)
 	{
 		super(
-				new com.exedio.dsmf.PostgresqlDialect());
+				new com.exedio.dsmf.PostgresqlDialect(
+						probe.properties.getConnectionUsername()));
 
 		searchPath = probe.properties.connectionPostgresqlSearchPath;
 	}
@@ -106,7 +107,7 @@ final class PostgresqlDialect extends Dialect
 			final int maxChars,
 			final MysqlExtendedVarchar mysqlExtendedVarchar)
 	{
-		return (maxChars>VARCHAR_LIMIT) ? "text" : "varchar("+maxChars+')';
+		return (maxChars>VARCHAR_LIMIT) ? "\"text\"" : "character varying("+maxChars+')';
 	}
 
 	@Override

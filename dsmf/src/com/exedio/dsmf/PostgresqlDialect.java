@@ -19,14 +19,12 @@
 package com.exedio.dsmf;
 
 import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Types;
 
 public final class PostgresqlDialect extends Dialect
 {
-	public PostgresqlDialect()
+	public PostgresqlDialect(final String schema)
 	{
-		super(null);
+		super(schema);
 	}
 
 	@Override
@@ -71,51 +69,67 @@ public final class PostgresqlDialect extends Dialect
 	public static final String BIGINT    = "bigint";
 	public static final String DOUBLE    = "double precision";
 	public static final int VARCHAR_LIMIT = 10485760;
-	public static final String DATE      = "date";
-	public static final String TIMESTAMP = "timestamp (3) without time zone"; // "3" are fractional digits retained in the seconds field, TODO fetch precision and time zone
-	public static final String BINARY    = "bytea";
+	public static final String DATE      = "\"date\"";
+	public static final String TIMESTAMP = "timestamp (3) without time zone"; // "3" are fractional digits retained in the seconds field
+	public static final String BINARY    = "\"bytea\"";
 
 	@Override
-	String getColumnType(final int dataType, final ResultSet resultSet) throws SQLException
+	String getColumnType(final int dataType, final ResultSet resultSet)
 	{
-		final String withoutNullable = getColumnTypeWithoutNullable(dataType, resultSet);
-		if(withoutNullable==null)
-			return null;
-
-		final boolean nullable = resultSet.getBoolean("NULLABLE");
-		if(nullable || "this".equals(resultSet.getString("COLUMN_NAME"))) // TODO does not work with primary key of table 'while'
-			return withoutNullable;
-
-		return withoutNullable + NOT_NULL;
-	}
-
-	private static String getColumnTypeWithoutNullable(final int dataType, final ResultSet resultSet) throws SQLException
-	{
-		final int columnSize = resultSet.getInt("COLUMN_SIZE");
-		switch(dataType)
-		{
-			case Types.SMALLINT:  return SMALLINT;
-			case Types.INTEGER:   return INTEGER;
-			case Types.BIGINT:    return BIGINT;
-			case Types.DOUBLE:    return DOUBLE;
-			case Types.VARCHAR:
-				if( columnSize<0 || columnSize>VARCHAR_LIMIT )
-					return "text";
-				else
-					return "varchar("+columnSize+')';
-			case Types.DATE:      return DATE;
-			case Types.TIMESTAMP: return TIMESTAMP;
-			case Types.BINARY:    return BINARY;
-			default:
-				return null;
-		}
+		throw new RuntimeException();
 	}
 
 	@Override
 	void verify(final Schema schema)
 	{
 		verifyTablesByMetaData(schema);
-		verifyColumnsByMetaData(schema);
+
+		final String catalog = schema.getCatalog();
+
+		schema.querySQL(
+				"SELECT " +
+						"table_name, " + // 1
+						"column_name, " + // 2
+						"is_nullable, " + // 3
+						"data_type, " + // 4
+						"character_maximum_length, " + // 5
+						"datetime_precision " + // 6
+				"FROM information_schema.columns " +
+				"WHERE table_catalog='" + catalog + "' AND table_schema='" + this.schema + "' ",
+		resultSet ->
+		{
+			while(resultSet.next())
+			{
+				final Table table = schema.getTableStrict(resultSet, 1);
+				final String columnName = resultSet.getString(2);
+
+				final String notNull =
+					(getBooleanStrict(resultSet, 3, "YES", "NO") ||
+						"this".equals(columnName)) // TODO does not work with primary key of table 'while'
+					? ""
+					: NOT_NULL;
+
+				final String dataType = resultSet.getString(4);
+				final String type;
+				switch(dataType)
+				{
+					case "character varying":
+						type = dataType + '(' + resultSet.getInt(5) + ')' + notNull;
+						break;
+					case "timestamp without time zone":
+						type = "timestamp (" + resultSet.getInt(6) + ") without time zone" + notNull;
+						break;
+					case "timestamp with time zone": // is never created by cope
+						type = "timestamp (" + resultSet.getInt(6) + ") with time zone" + notNull;
+						break;
+					default:
+						type = dataType + notNull;
+						break;
+				}
+
+				table.notifyExistentColumn(columnName, type);
+			}
+		});
 
 		schema.querySQL(
 				"SELECT " +
@@ -151,8 +165,6 @@ public final class PostgresqlDialect extends Dialect
 					}
 				}
 			);
-
-		final String catalog = schema.getCatalog();
 
 		verifyUniqueConstraints(
 				"SELECT tc.table_name, tc.constraint_name, cu.column_name " +

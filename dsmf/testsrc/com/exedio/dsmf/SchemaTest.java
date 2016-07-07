@@ -114,8 +114,8 @@ public abstract class SchemaTest
 		else if(url.startsWith("jdbc:postgresql:"))
 		{
 			Class.forName("org.postgresql.Driver");
-			dialect = new PostgresqlDialect();
-			stringType = "varchar(8)";
+			dialect = new PostgresqlDialect(username);
+			stringType = "character varying(8)";
 			intType  = PostgresqlDialect.INTEGER;
 			intType2 = PostgresqlDialect.BIGINT;
 			hsqldb = false;
