@@ -69,9 +69,10 @@ public abstract class Dialect
 	{
 		schema.querySQL(Node.GET_TABLES, resultSet ->
 		{
+			final int TABLE_NAME = resultSet.findColumn("TABLE_NAME");
 			while(resultSet.next())
 			{
-				final String tableName = resultSet.getString("TABLE_NAME");
+				final String tableName = resultSet.getString(TABLE_NAME);
 				schema.notifyExistentTable(tableName);
 			}
 		});
@@ -81,11 +82,14 @@ public abstract class Dialect
 	{
 		schema.querySQL(Node.GET_COLUMNS, resultSet ->
 		{
+			final int TABLE_NAME  = resultSet.findColumn("TABLE_NAME" );
+			final int COLUMN_NAME = resultSet.findColumn("COLUMN_NAME");
+			final int DATA_TYPE   = resultSet.findColumn("DATA_TYPE"  );
 			while(resultSet.next())
 			{
-				final String tableName  = resultSet.getString("TABLE_NAME" );
-				final String columnName = resultSet.getString("COLUMN_NAME");
-				final int    dataType   = resultSet.getInt   ("DATA_TYPE"  );
+				final String tableName  = resultSet.getString(TABLE_NAME );
+				final String columnName = resultSet.getString(COLUMN_NAME);
+				final int    dataType   = resultSet.getInt   (DATA_TYPE  );
 
 				final Table table = schema.getTable(tableName);
 				if(table!=null)
