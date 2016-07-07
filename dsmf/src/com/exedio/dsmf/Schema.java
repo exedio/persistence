@@ -19,6 +19,7 @@
 package com.exedio.dsmf;
 
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.EnumSet;
@@ -73,7 +74,29 @@ public final class Schema extends Node
 		if(result!=null)
 			return result;
 
-		throw new IllegalStateException(name);
+		final StringBuilder bf = new StringBuilder();
+		bf.append("table \"").
+			append(name).
+			append("\" required, result set was");
+
+		final ResultSetMetaData metaData = resultSet.getMetaData();
+		final int columnCount = metaData.getColumnCount();
+
+		for(int i = 1; i<=columnCount; i++)
+		{
+			final Object o = resultSet.getObject(i);
+			if(o==null)
+				continue;
+
+			bf.append(' ').
+				append(metaData.getColumnName(i));
+			if(i==columnIndex)
+				bf.append('*');
+			bf.append('=').
+				append(o);
+		}
+
+		throw new IllegalStateException(bf.toString());
 	}
 
 	public List<Table> getTables()
