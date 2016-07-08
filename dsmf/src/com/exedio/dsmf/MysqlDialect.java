@@ -184,7 +184,7 @@ public final class MysqlDialect extends Dialect
 				if(sequence!=null && sequence.required())
 					continue;
 
-				final Table table = schema.notifyExistentTable(tableName);
+				final Table table = schema.getTableStrict(resultSet, 2);
 
 				if(PRIMARY_KEY.equals(constraintType))
 				{
