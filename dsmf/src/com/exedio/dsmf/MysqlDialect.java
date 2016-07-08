@@ -77,135 +77,146 @@ public final class MysqlDialect extends Dialect
 	void verify(final Schema schema)
 	{
 		final String catalog = schema.getCatalog();
+
 		schema.querySQL(
-			"SELECT TABLE_NAME " +
+				"SELECT TABLE_NAME " +
 				"FROM information_schema.TABLES " +
 				"WHERE TABLE_SCHEMA='" + catalog + "' AND TABLE_TYPE='BASE TABLE'",
-			resultSet ->
+		resultSet ->
+		{
+			while(resultSet.next())
 			{
-				while(resultSet.next())
-				{
-					final String tableName = resultSet.getString(1);
-					final Sequence sequence = schema.getSequence(tableName);
-					if(sequence==null || !sequence.required())
-						schema.notifyExistentTable(tableName);
-				}
+				final String tableName = resultSet.getString(1);
+				final Sequence sequence = schema.getSequence(tableName);
+				if(sequence==null || !sequence.required())
+					schema.notifyExistentTable(tableName);
 			}
-		);
+		});
+
 		schema.querySQL(
-			"SELECT TABLE_NAME,COLUMN_NAME,IS_NULLABLE,DATA_TYPE,CHARACTER_MAXIMUM_LENGTH,CHARACTER_SET_NAME,COLLATION_NAME,COLUMN_KEY " +
-			"FROM information_schema.COLUMNS " +
-			"WHERE TABLE_SCHEMA='" + catalog + '\'',
-			resultSet ->
+				"SELECT " +
+						"TABLE_NAME," + // 1
+						"COLUMN_NAME," + // 2
+						"IS_NULLABLE," + // 3
+						"DATA_TYPE," + // 4
+						"CHARACTER_MAXIMUM_LENGTH," + // 5
+						"CHARACTER_SET_NAME," + // 6
+						"COLLATION_NAME," + // 7
+						"COLUMN_KEY " + // 8
+				"FROM information_schema.COLUMNS " +
+				"WHERE TABLE_SCHEMA='" + catalog + '\'',
+		resultSet ->
+		{
+			while(resultSet.next())
 			{
-				while(resultSet.next())
+				final String tableName = resultSet.getString(1);
+				final String columnName = resultSet.getString(2);
+				final String isNullable = resultSet.getString(3);
+				final String dataType = resultSet.getString(4);
+				final String characterSet = resultSet.getString(6);
+				final String collation = resultSet.getString(7);
+
+				final StringBuilder type = new StringBuilder(dataType);
+				if("varchar".equals(dataType))
+					type.append('(').append(resultSet.getInt(5)).append(')');
+				if(characterSet!=null)
+					type.append(" CHARACTER SET ").append(characterSet);
+				if(collation!=null)
+					type.append(" COLLATE ").append(collation);
+
+				if("NO".equals(isNullable))
 				{
-					final String tableName = resultSet.getString(1);
-					final String columnName = resultSet.getString(2);
-					final String isNullable = resultSet.getString(3);
-					final String dataType = resultSet.getString(4);
-					final String characterSet = resultSet.getString(6);
-					final String collation = resultSet.getString(7);
+					if(!"PRI".equals(resultSet.getString(8)))
+						type.append(NOT_NULL);
+				}
+				else if(!"YES".equals(isNullable))
+					throw new RuntimeException(tableName + '#' + columnName + '#' + isNullable);
 
-					final StringBuilder type = new StringBuilder(dataType);
-					if("varchar".equals(dataType))
-						type.append('(').append(resultSet.getInt(5)).append(')');
-					if(characterSet!=null)
-						type.append(" CHARACTER SET ").append(characterSet);
-					if(collation!=null)
-						type.append(" COLLATE ").append(collation);
-
-					if("NO".equals(isNullable))
-					{
-						if(!"PRI".equals(resultSet.getString(8)))
-							type.append(NOT_NULL);
-					}
-					else if(!"YES".equals(isNullable))
-						throw new RuntimeException(tableName + '#' + columnName + '#' + isNullable);
-
-					final Table table = schema.getTable(tableName);
-					if(table!=null)
-						table.notifyExistentColumn(columnName, type.toString());
-					else
-					{
-						final Sequence sequence = schema.getSequence(tableName);
-						if(sequence!=null && sequenceColumnName.equals(columnName))
-							sequence.notifyExists(sequenceTypeMapper.unmap(dataType, columnName));
-					}
+				final Table table = schema.getTable(tableName);
+				if(table!=null)
+					table.notifyExistentColumn(columnName, type.toString());
+				else
+				{
+					final Sequence sequence = schema.getSequence(tableName);
+					if(sequence!=null && sequenceColumnName.equals(columnName))
+						sequence.notifyExists(sequenceTypeMapper.unmap(dataType, columnName));
 				}
 			}
-		);
+		});
 
 		verifyForeignKeyConstraints(
-			"SELECT tc.CONSTRAINT_NAME,tc.TABLE_NAME,kcu.COLUMN_NAME,kcu.REFERENCED_TABLE_NAME,kcu.REFERENCED_COLUMN_NAME " +
-			"FROM information_schema.TABLE_CONSTRAINTS tc " +
-			"LEFT JOIN information_schema.KEY_COLUMN_USAGE kcu " +
-				"ON tc.CONSTRAINT_NAME=kcu.CONSTRAINT_NAME " +
-				"AND kcu.CONSTRAINT_SCHEMA='" + catalog + "' " +
-			"WHERE tc.CONSTRAINT_SCHEMA='" + catalog + "' " +
-				"AND tc.TABLE_SCHEMA='" + catalog + "' " +
-				"AND tc.CONSTRAINT_TYPE='FOREIGN KEY'",
-			schema);
+				"SELECT tc.CONSTRAINT_NAME,tc.TABLE_NAME,kcu.COLUMN_NAME,kcu.REFERENCED_TABLE_NAME,kcu.REFERENCED_COLUMN_NAME " +
+				"FROM information_schema.TABLE_CONSTRAINTS tc " +
+				"LEFT JOIN information_schema.KEY_COLUMN_USAGE kcu " +
+						"ON tc.CONSTRAINT_NAME=kcu.CONSTRAINT_NAME " +
+						"AND kcu.CONSTRAINT_SCHEMA='" + catalog + "' " +
+				"WHERE tc.CONSTRAINT_SCHEMA='" + catalog + "' " +
+						"AND tc.TABLE_SCHEMA='" + catalog + "' " +
+						"AND tc.CONSTRAINT_TYPE='FOREIGN KEY'",
+				schema);
 
 		final String PRIMARY_KEY = "PRIMARY KEY";
 		final String UNIQUE = "UNIQUE";
 		schema.querySQL(
-			"SELECT tc.CONSTRAINT_NAME,tc.TABLE_NAME,tc.CONSTRAINT_TYPE,kcu.COLUMN_NAME " +
-			"FROM information_schema.TABLE_CONSTRAINTS tc " +
-			"LEFT JOIN information_schema.KEY_COLUMN_USAGE kcu " +
-				"ON tc.CONSTRAINT_NAME=kcu.CONSTRAINT_NAME " +
-				"AND tc.TABLE_NAME=kcu.TABLE_NAME " +
-				"AND kcu.CONSTRAINT_SCHEMA='" + catalog + "' " +
-			"WHERE tc.CONSTRAINT_SCHEMA='" + catalog + "' " +
-				"AND tc.TABLE_SCHEMA='" + catalog + "' " +
-				"AND tc.CONSTRAINT_TYPE IN ('" + PRIMARY_KEY + "','" + UNIQUE + "') " +
-			"ORDER BY tc.TABLE_NAME,tc.CONSTRAINT_NAME,kcu.ORDINAL_POSITION ",
-			resultSet ->
+				"SELECT " +
+						"tc.CONSTRAINT_NAME," + // 1
+						"tc.TABLE_NAME," + // 2
+						"tc.CONSTRAINT_TYPE," + // 3
+						"kcu.COLUMN_NAME " + // 4
+				"FROM information_schema.TABLE_CONSTRAINTS tc " +
+				"LEFT JOIN information_schema.KEY_COLUMN_USAGE kcu " +
+						"ON tc.CONSTRAINT_NAME=kcu.CONSTRAINT_NAME " +
+						"AND tc.TABLE_NAME=kcu.TABLE_NAME " +
+						"AND kcu.CONSTRAINT_SCHEMA='" + catalog + "' " +
+				"WHERE tc.CONSTRAINT_SCHEMA='" + catalog + "' " +
+						"AND tc.TABLE_SCHEMA='" + catalog + "' " +
+						"AND tc.CONSTRAINT_TYPE IN ('" + PRIMARY_KEY + "','" + UNIQUE + "') " +
+				"ORDER BY tc.TABLE_NAME,tc.CONSTRAINT_NAME,kcu.ORDINAL_POSITION ",
+		resultSet ->
+		{
+			final UniqueConstraintCollector uniqueConstraintCollector =
+					new UniqueConstraintCollector(schema);
+			while(resultSet.next())
 			{
-				final UniqueConstraintCollector uniqueConstraintCollector =
-						new UniqueConstraintCollector(schema);
-				while(resultSet.next())
+				final String constraintName = resultSet.getString(1);
+				final String tableName = resultSet.getString(2);
+				final String constraintType = resultSet.getString(3);
+				final String columnName = resultSet.getString(4);
+
+				final Sequence sequence = schema.getSequence(tableName);
+				if(sequence!=null && sequence.required())
+					continue;
+
+				final Table table = schema.notifyExistentTable(tableName);
+
+				if(PRIMARY_KEY.equals(constraintType))
 				{
-					final String constraintName = resultSet.getString(1);
-					final String tableName = resultSet.getString(2);
-					final String constraintType = resultSet.getString(3);
-					final String columnName = resultSet.getString(4);
-
-					final Sequence sequence = schema.getSequence(tableName);
-					if(sequence!=null && sequence.required())
-						continue;
-
-					final Table table = schema.notifyExistentTable(tableName);
-
-					if(PRIMARY_KEY.equals(constraintType))
+					if(table.required())
 					{
-						if(table.required())
+						boolean found = false;
+						for(final Constraint c : table.getConstraints())
 						{
-							boolean found = false;
-							for(final Constraint c : table.getConstraints())
+							if(c instanceof PrimaryKeyConstraint &&
+								((PrimaryKeyConstraint)c).primaryKeyColumn.equals(columnName))
 							{
-								if(c instanceof PrimaryKeyConstraint &&
-									((PrimaryKeyConstraint)c).primaryKeyColumn.equals(columnName))
-								{
-									table.notifyExistentPrimaryKeyConstraint(c.name);
-									found = true;
-									break;
-								}
+								table.notifyExistentPrimaryKeyConstraint(c.name);
+								found = true;
+								break;
 							}
-							if(!found)
-								table.notifyExistentPrimaryKeyConstraint(columnName+"_Pk");
 						}
+						if(!found)
+							table.notifyExistentPrimaryKeyConstraint(columnName+"_Pk");
 					}
-					else if(UNIQUE.equals(constraintType))
-					{
-						uniqueConstraintCollector.onColumn(table, constraintName, columnName);
-					}
-					else
-						throw new RuntimeException(constraintType+'-'+constraintName);
 				}
-				uniqueConstraintCollector.finish();
+				else if(UNIQUE.equals(constraintType))
+				{
+					uniqueConstraintCollector.onColumn(table, constraintName, columnName);
+				}
+				else
+					throw new RuntimeException(constraintType+'-'+constraintName);
 			}
-		);
+			uniqueConstraintCollector.finish();
+		});
 	}
 
 	private static final String ENGINE = " ENGINE=innodb";
