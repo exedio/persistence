@@ -99,14 +99,11 @@ public abstract class Dialect
 				final int    dataType   = resultSet.getInt   (DATA_TYPE  );
 
 				final Table table = schema.getTableStrict(resultSet, TABLE_NAME);
-				if(table!=null)
-				{
-					String columnType = getColumnType(dataType, resultSet);
-					if(columnType==null)
-						columnType = "DATA_TYPE(" + dataType + ')';
+				String columnType = getColumnType(dataType, resultSet);
+				if(columnType==null)
+					columnType = "DATA_TYPE(" + dataType + ')';
 
-					table.notifyExistentColumn(columnName, columnType);
-				}
+				table.notifyExistentColumn(columnName, columnType);
 			}
 		});
 	}
