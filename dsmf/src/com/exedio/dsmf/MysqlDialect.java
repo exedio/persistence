@@ -111,7 +111,6 @@ public final class MysqlDialect extends Dialect
 			{
 				final String tableName = resultSet.getString(1);
 				final String columnName = resultSet.getString(2);
-				final String isNullable = resultSet.getString(3);
 				final String dataType = resultSet.getString(4);
 				final String characterSet = resultSet.getString(6);
 				final String collation = resultSet.getString(7);
@@ -124,13 +123,9 @@ public final class MysqlDialect extends Dialect
 				if(collation!=null)
 					type.append(" COLLATE ").append(collation);
 
-				if("NO".equals(isNullable))
-				{
-					if(!"PRI".equals(resultSet.getString(8)))
-						type.append(NOT_NULL);
-				}
-				else if(!"YES".equals(isNullable))
-					throw new RuntimeException(tableName + '#' + columnName + '#' + isNullable);
+				if(!getBooleanStrict(resultSet, 3, "YES", "NO") &&
+						!"PRI".equals(resultSet.getString(8)))
+					type.append(NOT_NULL);
 
 				final Table table = schema.getTable(tableName);
 				if(table!=null)
