@@ -60,15 +60,6 @@ final class PostgresqlDialect extends Dialect
 		}
 	}
 
-	private static final String SMALLINT  = "smallint";
-	private static final String INTEGER   = "integer";
-	private static final String BIGINT    = "bigint";
-	private static final String DOUBLE    = "double precision";
-	private static final int VARCHAR_LIMIT = 10485760;
-	private static final String DATE      = "\"date\"";
-	private static final String TIMESTAMP = "timestamp (3) without time zone"; // "3" are fractional digits retained in the seconds field
-	private static final String BINARY    = "\"bytea\"";
-
 	/**
 	 * See http://www.postgresql.org/docs/9.3/static/datatype-numeric.html
 	 */
@@ -76,17 +67,17 @@ final class PostgresqlDialect extends Dialect
 	String getIntegerType(final long minimum, final long maximum)
 	{
 		if(minimum>=Short.MIN_VALUE && maximum<=Short.MAX_VALUE)
-			return SMALLINT;
+			return "smallint";
 		else if(minimum>=Integer.MIN_VALUE && maximum<=Integer.MAX_VALUE)
-			return INTEGER;
+			return "integer";
 		else
-			return BIGINT;
+			return "bigint";
 	}
 
 	@Override
 	String getDoubleType()
 	{
-		return DOUBLE;
+		return "double precision";
 	}
 
 	@Override
@@ -107,7 +98,7 @@ final class PostgresqlDialect extends Dialect
 			final int maxChars,
 			final MysqlExtendedVarchar mysqlExtendedVarchar)
 	{
-		return (maxChars>VARCHAR_LIMIT) ? "\"text\"" : "character varying("+maxChars+')';
+		return (maxChars>10485760) ? "\"text\"" : "character varying("+maxChars+')';
 	}
 
 	@Override
@@ -122,13 +113,13 @@ final class PostgresqlDialect extends Dialect
 	@Override
 	String getDayType()
 	{
-		return DATE;
+		return "\"date\"";
 	}
 
 	@Override
 	String getDateTimestampType()
 	{
-		return TIMESTAMP;
+		return "timestamp (3) without time zone"; // "3" are fractional digits retained in the seconds field;
 	}
 
 	@Override
@@ -153,7 +144,7 @@ final class PostgresqlDialect extends Dialect
 	@Override
 	String getBlobType(final long maximumLength)
 	{
-		return (maximumLength<Integer.MAX_VALUE) ? BINARY : null;
+		return (maximumLength<Integer.MAX_VALUE) ? "\"bytea\"" : null;
 	}
 
 	/**
