@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.junit.CopeAssert.assertEqualsUnmodifiable;
 import static com.exedio.dsmf.Node.Color.ERROR;
 import static com.exedio.dsmf.Node.Color.OK;
 import static java.util.Arrays.asList;
@@ -54,8 +55,8 @@ public class SchemaMismatchColumnTypeTest extends SchemaMismatchTest
 				"different type in database: >" + type(ItemA.field) + "<",
 				ERROR, ERROR, field = table.getColumn(name(ItemA.field)));
 
-		assertEquals(asList(pk, field), table.getColumns());
-		assertEquals(asList(table), schema.getTables());
+		assertEqualsUnmodifiable(asList(pk, field), table.getColumns());
+		assertEqualsUnmodifiable(asList(table), schema.getTables());
 	}
 
 	@CopeName("ItemAB")

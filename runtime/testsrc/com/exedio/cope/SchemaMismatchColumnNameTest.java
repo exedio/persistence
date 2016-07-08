@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.SchemaInfo.supportsCheckConstraints;
+import static com.exedio.cope.junit.CopeAssert.assertEqualsUnmodifiable;
 import static com.exedio.dsmf.Constraint.Type.Check;
 import static com.exedio.dsmf.Constraint.Type.PrimaryKey;
 import static com.exedio.dsmf.Node.Color.ERROR;
@@ -60,7 +61,7 @@ public class SchemaMismatchColumnNameTest extends SchemaMismatchTest
 			assertIt("not used", WARNING, WARNING, fieldA = table.getColumn(name(ItemA.fieldA)));
 			assertIt("missing",  ERROR,   ERROR,   fieldB = table.getColumn(name(ItemB.fieldB)));
 
-			assertEquals(asList(pk, fieldB, fieldA), table.getColumns());
+			assertEqualsUnmodifiable(asList(pk, fieldB, fieldA), table.getColumns());
 		}
 
 		// test check constraints as well
@@ -94,14 +95,14 @@ public class SchemaMismatchColumnNameTest extends SchemaMismatchTest
 			assertTrue(checkPkMax instanceof com.exedio.dsmf.CheckConstraint);
 			assertTrue(checkB  instanceof com.exedio.dsmf.CheckConstraint);
 
-			assertEquals(
+			assertEqualsUnmodifiable(
 					supported
 					? asList(pkPk, checkPkMin, checkPkMax, checkB, checkA)
 					: asList(pkPk, checkPkMin, checkPkMax, checkB),
 					table.getConstraints());
 			}
 
-		assertEquals(asList(table), schema.getTables());
+		assertEqualsUnmodifiable(asList(table), schema.getTables());
 	}
 
 	@CopeName("ItemAB")

@@ -18,6 +18,8 @@
 
 package com.exedio.dsmf;
 
+import static java.util.Collections.unmodifiableList;
+
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
@@ -101,7 +103,7 @@ public final class Schema extends Node
 
 	public List<Table> getTables()
 	{
-		return tableList;
+		return unmodifiableList(tableList);
 	}
 
 	void register(final Sequence sequence)
@@ -129,7 +131,7 @@ public final class Schema extends Node
 
 	public List<Sequence> getSequences()
 	{
-		return sequenceList;
+		return unmodifiableList(sequenceList);
 	}
 
 	void register(final Constraint constraint)
@@ -380,7 +382,7 @@ public final class Schema extends Node
 
 	public void checkUnsupportedConstraints()
 	{
-		for(final Table t : getTables())
+		for(final Table t : tableList)
 			t.checkUnsupportedConstraints();
 	}
 

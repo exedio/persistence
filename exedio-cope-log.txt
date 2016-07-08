@@ -7,6 +7,9 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* bugfix: getter results became unmodifiable in com.exedio.dsmf for
+	Schema#getTables(), #getSequences(), Table#getColumns(), and #getConstraints().
+	This breaks backwards API compatibility.
 * Constraint names can use up to 60 characters instead of just 25.
 	This heavily affects database schema.
 	Use schema.mysql.longConstraintNames=false in ConnectProperties to

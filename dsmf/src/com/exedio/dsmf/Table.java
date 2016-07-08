@@ -18,6 +18,8 @@
 
 package com.exedio.dsmf;
 
+import static java.util.Collections.unmodifiableList;
+
 import com.exedio.dsmf.Constraint.Type;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -144,7 +146,7 @@ public final class Table extends Node
 
 	public Collection<Column> getColumns()
 	{
-		return columnList;
+		return unmodifiableList(columnList);
 	}
 
 	public Column getColumn(final String columnName)
@@ -154,7 +156,7 @@ public final class Table extends Node
 
 	public Collection<Constraint> getConstraints()
 	{
-		return constraintList;
+		return unmodifiableList(constraintList);
 	}
 
 	public Constraint getConstraint(final String constraintName)

@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.junit.CopeAssert.assertEqualsUnmodifiable;
 import static com.exedio.dsmf.Node.Color.ERROR;
 import static com.exedio.dsmf.Node.Color.OK;
 import static java.util.Arrays.asList;
@@ -51,18 +52,18 @@ public class SchemaMismatchSequenceTypeTest extends SchemaMismatchTest
 		assertIt(
 				"different type in database: >" + type(ItemA.TYPE.getThis()) + "<",
 				ERROR, ERROR, table.getColumn(name(ItemA.TYPE.getThis())));
-		assertEquals(asList(table), schema.getTables());
+		assertEqualsUnmodifiable(asList(table), schema.getTables());
 
 		if(model.getConnectProperties().primaryKeyGenerator.persistent)
 		{
 			assertEquals(nameSeq(ItemA.TYPE.getThis()), nameSeq(ItemB.TYPE.getThis()));
 			final Sequence seq = schema.getSequence(nameSeq(ItemB.TYPE.getThis()));
 			assertIt("different type in database: >bit31<", ERROR, ERROR, seq);
-			assertEquals(asList(seq), schema.getSequences());
+			assertEqualsUnmodifiable(asList(seq), schema.getSequences());
 		}
 		else
 		{
-			assertEquals(asList(), schema.getSequences());
+			assertEqualsUnmodifiable(asList(), schema.getSequences());
 		}
 	}
 
