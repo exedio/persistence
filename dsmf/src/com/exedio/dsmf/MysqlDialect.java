@@ -112,6 +112,15 @@ public final class MysqlDialect extends Dialect
 				final String tableName = resultSet.getString(1);
 				final String columnName = resultSet.getString(2);
 				final String dataType = resultSet.getString(4);
+				{
+					final Sequence sequence = schema.getSequence(tableName);
+					if(sequence!=null && sequenceColumnName.equals(columnName))
+					{
+						sequence.notifyExists(sequenceTypeMapper.unmap(dataType, columnName));
+						continue;
+					}
+				}
+
 				final String characterSet = resultSet.getString(6);
 				final String collation = resultSet.getString(7);
 
@@ -127,15 +136,8 @@ public final class MysqlDialect extends Dialect
 						!"PRI".equals(resultSet.getString(8)))
 					type.append(NOT_NULL);
 
-				final Table table = schema.getTable(tableName);
-				if(table!=null)
-					table.notifyExistentColumn(columnName, type.toString());
-				else
-				{
-					final Sequence sequence = schema.getSequence(tableName);
-					if(sequence!=null && sequenceColumnName.equals(columnName))
-						sequence.notifyExists(sequenceTypeMapper.unmap(dataType, columnName));
-				}
+				final Table table = schema.getTableStrict(resultSet, 1);
+				table.notifyExistentColumn(columnName, type.toString());
 			}
 		});
 
