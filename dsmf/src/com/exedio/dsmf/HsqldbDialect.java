@@ -75,7 +75,7 @@ public final class HsqldbDialect extends Dialect
 	void verify(final Schema schema)
 	{
 		verifyTablesByMetaData(schema);
-		verifyColumnsByMetaData(schema);
+		verifyColumnsByMetaData(schema, "PUBLIC");
 
 		schema.querySQL(
 				"SELECT tc.CONSTRAINT_NAME, tc.CONSTRAINT_TYPE, tc.TABLE_NAME, cc.CHECK_CLAUSE " +

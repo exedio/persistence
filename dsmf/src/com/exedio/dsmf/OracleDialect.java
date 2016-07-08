@@ -115,7 +115,7 @@ public final class OracleDialect extends Dialect
 			}
 		});
 
-		verifyColumnsByMetaData(schema);
+		verifyColumnsByMetaData(schema, null);
 
 		schema.querySQL(
 				"SELECT " +
