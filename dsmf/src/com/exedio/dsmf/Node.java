@@ -204,6 +204,9 @@ public abstract class Node
 
 	final void notifyExistsNode()
 	{
+		if(exists)
+			throw new IllegalStateException("duplicate notifyExistsNode on " + this);
+
 		exists = true;
 	}
 
