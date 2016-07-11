@@ -26,6 +26,7 @@ import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
+import com.exedio.cope.instrument.BooleanGetter;
 import com.exedio.cope.instrument.Nullability;
 import com.exedio.cope.instrument.NullabilityGetter;
 import com.exedio.cope.instrument.Parameter;
@@ -44,23 +45,28 @@ public final class EnumMapField<K extends Enum<K>,V> extends Pattern implements 
 	private static final long serialVersionUID = 1l;
 
 	private final Class<K> keyClass;
+	private final K fallback;
 	private final FunctionField<V> valueTemplate;
 	private final EnumMap<K, FunctionField<V>> fields;
 	private final EnumMap<K, V> defaultConstant;
 
 	private EnumMapField(
 			final Class<K> keyClass,
+			final K fallback,
 			final FunctionField<V> valueTemplate,
 			final EnumMap<K, V> defaultConstant)
 	{
 		this.keyClass = keyClass;
+		this.fallback = fallback;
 		this.valueTemplate = valueTemplate;
 		this.fields = new EnumMap<>(keyClass);
 		this.defaultConstant = defaultConstant;
 
 		for(final K key : keyClass.getEnumConstants())
 		{
-			final FunctionField<V> value = valueTemplate.defaultTo(defaultConstant.get(key));
+			FunctionField<V> value = valueTemplate.defaultTo(defaultConstant.get(key));
+			if(fallback!=null && key!=fallback && value.isMandatory())
+				value = (FunctionField<V>)value.optional();
 			addSource(value, stripUnderline(key.name()), EnumAnnotatedElement.get(key));
 			fields.put(key, value);
 		}
@@ -70,14 +76,19 @@ public final class EnumMapField<K extends Enum<K>,V> extends Pattern implements 
 			final Class<K> keyClass,
 			final FunctionField<V> value)
 	{
-		return new EnumMapField<>(keyClass, value, new EnumMap<K, V>(keyClass));
+		return new EnumMapField<>(keyClass, null, value, new EnumMap<K, V>(keyClass));
+	}
+
+	public EnumMapField<K,V> fallbackTo(final K key)
+	{
+		return new EnumMapField<>(keyClass, requireNonNull(key, "key"), valueTemplate, defaultConstant);
 	}
 
 	public EnumMapField<K,V> defaultTo(final K key, final V value)
 	{
 		final EnumMap<K, V> defaultConstant = new EnumMap<>(this.defaultConstant);
 		defaultConstant.put(key, value);
-		return new EnumMapField<>(keyClass, valueTemplate, defaultConstant);
+		return new EnumMapField<>(keyClass, fallback, valueTemplate, defaultConstant);
 	}
 
 	@Override
@@ -256,6 +267,82 @@ public final class EnumMapField<K extends Enum<K>,V> extends Pattern implements 
 			return Nullability.forMandatory(feature.getValueTemplate().isMandatory());
 		}
 	}
+
+
+	// fallbacks
+
+	public boolean hasFallbacks()
+	{
+		return fallback!=null;
+	}
+
+	public K getFallback()
+	{
+		return fallback;
+	}
+
+	@Wrap(order=11,
+			doc="Returns the value mapped to <tt>" + KEY + "</tt> by the field map {0}.",
+			hide=NoFallbacksGetter.class,
+			nullability=MapValueNullable.class)
+	public V getWithFallback(
+			@Nonnull final Item item,
+			@Nonnull @Parameter(KEY) final K key)
+	{
+		assertFallbacks();
+
+		final V withoutFallback = field(key).get(item);
+		if(withoutFallback!=null)
+			return withoutFallback;
+
+		return field(fallback).get(item);
+	}
+
+	@Wrap(order=111, hide=NoFallbacksGetter.class)
+	@Nonnull
+	public Map<K,V> getMapWithFallback(@Nonnull final Item item)
+	{
+		assertFallbacks();
+
+		final EnumMap<K,V> result = new EnumMap<>(keyClass);
+		V fallbackValue = null;
+		for(final K key : keyClass.getEnumConstants())
+		{
+			final V value = fields.get(key).get(item);
+			if(value!=null) // null value not allowed
+			{
+				result.put(key, value);
+
+				if(key==fallback)
+					fallbackValue = value;
+			}
+		}
+
+		if(fallbackValue!=null)
+		{
+			for(final K key : keyClass.getEnumConstants())
+				if(!result.containsKey(key))
+					result.put(key, fallbackValue);
+		}
+
+		return Collections.unmodifiableMap(result);
+	}
+
+	private void assertFallbacks()
+	{
+		if(fallback==null)
+			throw new IllegalArgumentException("field " + toString() + " has no fallbacks");
+	}
+
+	private static final class NoFallbacksGetter implements BooleanGetter<EnumMapField<?,?>>
+	{
+		@Override
+		public boolean get(final EnumMapField<?,?> feature)
+		{
+			return !feature.hasFallbacks();
+		}
+	}
+
 
 	// ------------------- deprecated stuff -------------------
 
