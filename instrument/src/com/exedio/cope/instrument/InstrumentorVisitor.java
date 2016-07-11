@@ -42,7 +42,7 @@ import java.util.HashSet;
 import java.util.Set;
 import javax.lang.model.element.Modifier;
 
-class InstrumentorVisitor extends TreePathScanner<Void, Void>
+final class InstrumentorVisitor extends TreePathScanner<Void, Void>
 {
 	static final Set<Modifier> REQUIRED_MODIFIERS_FOR_COPE_FEATURE;
 
@@ -75,7 +75,7 @@ class InstrumentorVisitor extends TreePathScanner<Void, Void>
 		return javaFile;
 	}
 
-	private void addGeneratedFragment(int start, int end)
+	private void addGeneratedFragment(final int start, final int end)
 	{
 		javaFile.markFragmentAsGenerated(start, end);
 	}
@@ -96,17 +96,17 @@ class InstrumentorVisitor extends TreePathScanner<Void, Void>
 		return allBytes;
 	}
 
-	private byte[] getSourceBytes(int start, int end)
+	private byte[] getSourceBytes(final int start, final int end)
 	{
 		return Arrays.copyOfRange(getAllBytes(), start, end);
 	}
 
-	private String getSourceString(int start, int end)
+	private String getSourceString(final int start, final int end)
 	{
 		return new String(getSourceBytes(start, end), StandardCharsets.US_ASCII);
 	}
 
-	private static String getSimpleName(ClassTree ct)
+	private static String getSimpleName(final ClassTree ct)
 	{
 		String simpleName=ct.getSimpleName().toString();
 		if ( !ct.getTypeParameters().isEmpty() )
@@ -117,11 +117,11 @@ class InstrumentorVisitor extends TreePathScanner<Void, Void>
 	}
 
 	@Override
-	public Void visitClass(ClassTree ct, Void ignore)
+	public Void visitClass(final ClassTree ct, final Void ignore)
 	{
-		JavaClass parent = javaClassStack.isEmpty() ? null : javaClassStack.getLast();
+		final JavaClass parent=javaClassStack.isEmpty()?null:javaClassStack.getLast();
 		final String classExtends=ct.getExtendsClause()==null?null:ct.getExtendsClause().toString();
-		JavaClass javaClass = new JavaClass(javaFile, parent, toModifiersInt(ct.getModifiers()), ct.getKind()==Tree.Kind.ENUM, getSimpleName(ct), classExtends);
+		final JavaClass javaClass = new JavaClass(javaFile, parent, toModifiersInt(ct.getModifiers()), ct.getKind()==Tree.Kind.ENUM, getSimpleName(ct), classExtends);
 		javaClass.setDocComment(getDocComment());
 		javaClass.setClassEndPosition( Math.toIntExact(sourcePositions.getEndPosition(compilationUnit, ct))-1 );
 		javaClassStack.addLast(javaClass);
@@ -144,7 +144,7 @@ class InstrumentorVisitor extends TreePathScanner<Void, Void>
 	}
 
 	@Override
-	public Void visitVariable(VariableTree node, Void p)
+	public Void visitVariable(final VariableTree node, final Void p)
 	{
 		if ( hasCopeIgnoreJavadocTag() )
 		{
@@ -152,7 +152,7 @@ class InstrumentorVisitor extends TreePathScanner<Void, Void>
 		}
 		final VariableVisitor variableVisitor=new VariableVisitor();
 		variableVisitor.visitVariable(node, null);
-		final boolean generated = checkGenerated(node, variableVisitor.currentVariableHasGeneratedAnnotation);
+		final boolean generated=checkGenerated(node, variableVisitor.currentVariableHasGeneratedAnnotation);
 		if ( !generated && node.getModifiers().getFlags().containsAll(REQUIRED_MODIFIERS_FOR_COPE_FEATURE) )
 		{
 			new JavaField(
@@ -167,7 +167,7 @@ class InstrumentorVisitor extends TreePathScanner<Void, Void>
 		return null;
 	}
 
-	private static String removeSpacesAfterCommas(String s)
+	private static String removeSpacesAfterCommas(final String s)
 	{
 		final StringBuilder result = new StringBuilder(s.length());
 		boolean foundComma = false;
@@ -217,7 +217,7 @@ class InstrumentorVisitor extends TreePathScanner<Void, Void>
 		return hasJavadocTag("@"+CopeFeature.TAG_PREFIX+"ignore");
 	}
 
-	private boolean hasJavadocTag(String tag)
+	private boolean hasJavadocTag(final String tag)
 	{
 		final String docComment=getDocComment();
 		return docComment!=null && docComment.contains(tag);
@@ -230,7 +230,7 @@ class InstrumentorVisitor extends TreePathScanner<Void, Void>
 
 	private int searchBefore(final int pos, final byte[] search)
 	{
-		int searchPos = pos-search.length;
+		int searchPos=pos-search.length;
 		while (true)
 		{
 			if ( bytesMatch(searchPos, search) )
@@ -246,7 +246,7 @@ class InstrumentorVisitor extends TreePathScanner<Void, Void>
 
 	private int searchAfter(final int pos, final byte[] search)
 	{
-		int searchPos = pos+1;
+		int searchPos=pos+1;
 		while (true)
 		{
 			if ( bytesMatch(searchPos, search) )
@@ -262,7 +262,7 @@ class InstrumentorVisitor extends TreePathScanner<Void, Void>
 
 	private boolean bytesMatch(final int pos, final byte[] search)
 	{
-		for (int i=0; i < search.length; i++)
+		for (int i=0; i<search.length; i++)
 		{
 			if ( getAllBytes()[pos+i]!=search[i] )
 			{
@@ -273,7 +273,7 @@ class InstrumentorVisitor extends TreePathScanner<Void, Void>
 	}
 
 	@Override
-	public Void visitMethod(MethodTree mt, Void ignore)
+	public Void visitMethod(final MethodTree mt, final Void ignore)
 	{
 		final MethodVisitor methodVisitor=new MethodVisitor();
 		methodVisitor.visitMethod(mt, null);
@@ -281,7 +281,7 @@ class InstrumentorVisitor extends TreePathScanner<Void, Void>
 		return null;
 	}
 
-	private boolean  checkGenerated(final Tree mt, final boolean hasGeneratedAnnotation) throws RuntimeException
+	private boolean checkGenerated(final Tree mt, final boolean hasGeneratedAnnotation) throws RuntimeException
 	{
 		if ( hasGeneratedAnnotation || hasCopeGeneratedJavadocTag() )
 		{
@@ -299,7 +299,7 @@ class InstrumentorVisitor extends TreePathScanner<Void, Void>
 				final int docEnd=searchAfter( Math.toIntExact(sourcePositions.getEndPosition(compilationUnit, docCommentTree, docCommentTree)), "*/".getBytes(StandardCharsets.US_ASCII) );
 				if ( docEnd>=start ) throw new RuntimeException();
 				final String commentSource=getSourceString(docStart, docEnd);
-				final String inBetween = getSourceString(docEnd+1, start-1);
+				final String inBetween=getSourceString(docEnd+1, start-1);
 				if ( !commentSource.startsWith("/**") ) throw new RuntimeException();
 				if ( !commentSource.endsWith("*/") ) throw new RuntimeException();
 				if ( !allWhitespace(inBetween) ) throw new RuntimeException(">"+inBetween+"<");
@@ -313,7 +313,7 @@ class InstrumentorVisitor extends TreePathScanner<Void, Void>
 		}
 	}
 
-	private boolean allWhitespace(String s)
+	private boolean allWhitespace(final String s)
 	{
 		for (char c: s.toCharArray())
 		{
@@ -326,7 +326,7 @@ class InstrumentorVisitor extends TreePathScanner<Void, Void>
 	}
 
 	@Override
-	public Void visitBlock(BlockTree node, Void p)
+	public Void visitBlock(final BlockTree node, final Void p)
 	{
 		if ( !node.isStatic() )
 		{
@@ -335,23 +335,20 @@ class InstrumentorVisitor extends TreePathScanner<Void, Void>
 		return null;
 	}
 
-	/** here is some great javadoc {@link InstrumentorProcessor}
-	 second line */
-	@SuppressWarnings("x")
-	private static byte[] readFully(InputStream fis) throws IOException
+	private static byte[] readFully(final InputStream fis) throws IOException
 	{
-		final ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		final ByteArrayOutputStream baos=new ByteArrayOutputStream();
 		int b;
 		while ( (b=fis.read())!=-1 )
-		\u007B
+		{
 			baos.write(b);
 		}
 		return baos.toByteArray();
 	}
 
-	private int toModifiersInt(ModifiersTree modifiers)
+	private int toModifiersInt(final ModifiersTree modifiers)
 	{
-		int result = 0;
+		int result=0;
 		for (Modifier flag: modifiers.getFlags())
 		{
 			result |= toModifiersInt(flag);
@@ -359,7 +356,7 @@ class InstrumentorVisitor extends TreePathScanner<Void, Void>
 		return result;
 	}
 
-	private int toModifiersInt(Modifier flag)
+	private int toModifiersInt(final Modifier flag)
 	{
 		switch (flag)
 		{
