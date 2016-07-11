@@ -172,7 +172,19 @@ public abstract class Dialect
 			append(trueValue).
 			append("\"/\"").
 			append(falseValue).
-			append("\" required, result set was");
+			append("\" required");
+
+		append(bf, resultSet, columnIndex);
+
+		throw new IllegalStateException(bf.toString());
+	}
+
+	static void append(
+			final StringBuilder bf, final ResultSet resultSet,
+			final int columnIndexMarked)
+	throws SQLException
+	{
+		bf.append(", result set was");
 
 		final ResultSetMetaData metaData = resultSet.getMetaData();
 		final int columnCount = metaData.getColumnCount();
@@ -185,13 +197,11 @@ public abstract class Dialect
 
 			bf.append(' ').
 				append(metaData.getColumnName(i));
-			if(i==columnIndex)
+			if(i==columnIndexMarked)
 				bf.append('*');
 			bf.append('=').
 				append(o);
 		}
-
-		throw new IllegalStateException(bf.toString());
 	}
 
 	/**

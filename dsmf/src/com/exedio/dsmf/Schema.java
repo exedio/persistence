@@ -21,7 +21,6 @@ package com.exedio.dsmf;
 import static java.util.Collections.unmodifiableList;
 
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.EnumSet;
@@ -79,24 +78,9 @@ public final class Schema extends Node
 		final StringBuilder bf = new StringBuilder();
 		bf.append("table \"").
 			append(name).
-			append("\" required, result set was");
+			append("\" required");
 
-		final ResultSetMetaData metaData = resultSet.getMetaData();
-		final int columnCount = metaData.getColumnCount();
-
-		for(int i = 1; i<=columnCount; i++)
-		{
-			final Object o = resultSet.getObject(i);
-			if(o==null)
-				continue;
-
-			bf.append(' ').
-				append(metaData.getColumnName(i));
-			if(i==columnIndex)
-				bf.append('*');
-			bf.append('=').
-				append(o);
-		}
+		Dialect.append(bf, resultSet, columnIndex);
 
 		throw new IllegalStateException(bf.toString());
 	}
