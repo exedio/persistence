@@ -164,7 +164,27 @@ public abstract class Constraint extends Node
 		return true;
 	}
 
-	public int check()
+	/**
+	 * @deprecated Use {@link #checkL()} instead
+	 */
+	@Deprecated
+	public final int check()
+	{
+		return toIntCapped(checkL());
+	}
+
+	// copied from CastUtils
+	@Deprecated
+	private static int toIntCapped(final long longValue)
+	{
+		if(longValue>Integer.MAX_VALUE)
+			return Integer.MAX_VALUE;
+		if(longValue<Integer.MIN_VALUE)
+			return Integer.MIN_VALUE;
+		return (int)longValue;
+	}
+
+	public long checkL()
 	{
 		throw new RuntimeException("no yet implemented"); // TODO
 	}

@@ -56,7 +56,7 @@ public final class CheckConstraint extends Constraint
 	}
 
 	@Override
-	public int check()
+	public long checkL()
 	{
 		final StringBuilder bf = new StringBuilder();
 		bf.append("SELECT COUNT(*) FROM ").
@@ -74,7 +74,7 @@ public final class CheckConstraint extends Constraint
 
 	private static class CheckResultSetHandler implements ResultSetHandler
 	{
-		int result = Integer.MIN_VALUE;
+		long result = Long.MIN_VALUE;
 
 		CheckResultSetHandler()
 		{
@@ -87,7 +87,7 @@ public final class CheckConstraint extends Constraint
 			if(!resultSet.next())
 				throw new RuntimeException();
 
-			result = resultSet.getInt(1);
+			result = resultSet.getLong(1);
 		}
 	}
 
