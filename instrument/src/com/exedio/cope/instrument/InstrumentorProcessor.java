@@ -73,7 +73,6 @@ final class InstrumentorProcessor extends AbstractProcessor
 					javaFile.addImport(aImport.getQualifiedIdentifier().toString());
 				}
 			}
-			// new TreeDump().scan(tp, null);
 			// TODO COPE-10: check typeElement.getSuperclass()
 			final InstrumentorVisitor visitor=new InstrumentorVisitor(compilationUnit, docTrees, javaFile);
 			visitor.scan(tp, null);
