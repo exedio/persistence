@@ -315,7 +315,7 @@ final class InstrumentorVisitor extends TreePathScanner<Void, Void>
 
 	private boolean allWhitespace(final String s)
 	{
-		for (char c: s.toCharArray())
+		for (final char c: s.toCharArray())
 		{
 			if ( !Character.isWhitespace(c) )
 			{
@@ -349,7 +349,7 @@ final class InstrumentorVisitor extends TreePathScanner<Void, Void>
 	private int toModifiersInt(final ModifiersTree modifiers)
 	{
 		int result=0;
-		for (Modifier flag: modifiers.getFlags())
+		for (final Modifier flag: modifiers.getFlags())
 		{
 			result |= toModifiersInt(flag);
 		}
