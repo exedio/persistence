@@ -310,7 +310,7 @@ public final class Table extends Node
 		for(final Constraint c : getConstraints())
 			if(!c.isSupported())
 			{
-				final int count = c.check();
+				final long count = c.checkL();
 				if(count!=0)
 					throw new RuntimeException("constraint violated for " + c + " on " + count + " tuples.");
 			}

@@ -143,9 +143,9 @@ public class DatePrecisionSchemaViolationTest extends SchemaMismatchTest
 				tx.commit();
 
 				final Table table = modelA.getSchema().getTable(tableName);
-				assertEquals(  "hoursCheck",   hoursCheck, table.getConstraint("ItemAB_hours_PR"  ).check());
-				assertEquals("minutesCheck", minutesCheck, table.getConstraint("ItemAB_minutes_PR").check());
-				assertEquals("secondsCheck", secondsCheck, table.getConstraint("ItemAB_seconds_PR").check());
+				assertEquals(  "hoursCheck",   hoursCheck, table.getConstraint("ItemAB_hours_PR"  ).checkL());
+				assertEquals("minutesCheck", minutesCheck, table.getConstraint("ItemAB_minutes_PR").checkL());
+				assertEquals("secondsCheck", secondsCheck, table.getConstraint("ItemAB_seconds_PR").checkL());
 			}
 		}
 	}
