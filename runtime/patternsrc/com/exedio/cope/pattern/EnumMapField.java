@@ -27,6 +27,7 @@ import com.exedio.cope.Pattern;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
 import com.exedio.cope.instrument.BooleanGetter;
+import com.exedio.cope.instrument.InstrumentContext;
 import com.exedio.cope.instrument.Nullability;
 import com.exedio.cope.instrument.NullabilityGetter;
 import com.exedio.cope.instrument.Parameter;
@@ -82,6 +83,15 @@ public final class EnumMapField<K extends Enum<K>,V> extends Pattern implements 
 	public EnumMapField<K,V> fallbackTo(final K key)
 	{
 		return new EnumMapField<>(keyClass, requireNonNull(key, "key"), valueTemplate, defaultConstant);
+	}
+
+	/**
+	 * @see CopeEnumFallback
+	 * @see #fallbackTo(Enum)
+	 */
+	public EnumMapField<K,V> fallback()
+	{
+		return fallbackTo(getFallbackByAnnotation());
 	}
 
 	public EnumMapField<K,V> defaultTo(final K key, final V value)
@@ -341,6 +351,32 @@ public final class EnumMapField<K extends Enum<K>,V> extends Pattern implements 
 		{
 			return !feature.hasFallbacks();
 		}
+	}
+
+	private K getFallbackByAnnotation()
+	{
+		if(InstrumentContext.isRunning())
+			return keyClass.getEnumConstants()[0];
+
+		K result = null;
+		for(final K key : keyClass.getEnumConstants())
+		{
+			if(EnumAnnotatedElement.get(key).isAnnotationPresent(CopeEnumFallback.class))
+			{
+				if(result!=null)
+					throw new IllegalArgumentException(
+							"duplicate @" + CopeEnumFallback.class.getSimpleName() + " in " + keyClass.getName() +
+							" at " + result.name() + " and " + key.name());
+
+				result = key;
+			}
+		}
+
+		if(result==null)
+			throw new IllegalArgumentException(
+					"missing @" + CopeEnumFallback.class.getSimpleName() + " in " + keyClass.getName());
+
+		return result;
 	}
 
 

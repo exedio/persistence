@@ -88,7 +88,7 @@ public class EnumMapFieldFallbackModelTest
 
 	static enum AnEnum
 	{
-		one, two, fall;
+		one, two, @CopeEnumFallback fall;
 	}
 
 	static final class AnItem extends com.exedio.cope.Item // TODO use import, but this is not accepted by javac
@@ -96,8 +96,8 @@ public class EnumMapFieldFallbackModelTest
 		static final EnumMapField<AnEnum, String> noneMand = EnumMapField.create(AnEnum.class, new StringField());
 		static final EnumMapField<AnEnum, String> noneOpt  = EnumMapField.create(AnEnum.class, new StringField().optional());
 
-		static final EnumMapField<AnEnum, String> fallMand = EnumMapField.create(AnEnum.class, new StringField()).fallbackTo(AnEnum.fall);
-		static final EnumMapField<AnEnum, String> fallOpt  = EnumMapField.create(AnEnum.class, new StringField().optional()).fallbackTo(AnEnum.fall);
+		static final EnumMapField<AnEnum, String> fallMand = EnumMapField.create(AnEnum.class, new StringField()).fallback();
+		static final EnumMapField<AnEnum, String> fallOpt  = EnumMapField.create(AnEnum.class, new StringField().optional()).fallback();
 
 	/**
 

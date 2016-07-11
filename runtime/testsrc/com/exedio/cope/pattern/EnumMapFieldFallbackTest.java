@@ -97,14 +97,14 @@ public class EnumMapFieldFallbackTest extends TestWithEnvironment
 
 	static enum AnEnum
 	{
-		present, missing, fallback;
+		present, missing, @CopeEnumFallback fallback;
 	}
 
 	static final class AnItem extends Item
 	{
 		/** @cope.initial */
 		static final EnumMapField<AnEnum, String> text =
-				EnumMapField.create(AnEnum.class, new StringField().optional()).fallbackTo(AnEnum.fallback);
+				EnumMapField.create(AnEnum.class, new StringField().optional()).fallback();
 
 	/**
 
