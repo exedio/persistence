@@ -117,4 +117,27 @@ public class EnumMapFieldFinalTest extends TestWithEnvironment
 			assertEquals(text, e.getFeature());
 		}
 	}
+
+	@Test public void testFallbackFails()
+	{
+		final EnumMapFieldFinalItem item = new EnumMapFieldFinalItem();
+		try
+		{
+			item.getTextWithFallback(DE);
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals("field EnumMapFieldFinalItem.text has no fallbacks", e.getMessage());
+		}
+		try
+		{
+			item.getTextMapWithFallback();
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals("field EnumMapFieldFinalItem.text has no fallbacks", e.getMessage());
+		}
+	}
 }
