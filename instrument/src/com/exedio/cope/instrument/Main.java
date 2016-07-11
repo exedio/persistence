@@ -174,18 +174,26 @@ final class Main
 		final StandardJavaFileManager fileManager=compiler.getStandardFileManager(null, null, null);
 		final Iterable<? extends JavaFileObject> sources=fileManager.getJavaFileObjectsFromFiles(files);
 		final List<String> optionList = new ArrayList<>();
-		optionList.addAll(asList("-classpath", toClasspath(com.exedio.cope.Item.class.getClassLoader())));
+		optionList.addAll(asList("-classpath", getJavacClasspath()));
 		optionList.add("-proc:only");
 		final JavaCompiler.CompilationTask task = compiler.getTask(new StringWriter(), null, null, optionList, null, sources);
 		task.setProcessors(singleton(new InstrumentorProcessor(repository)));
 		task.call();
 	}
 
+	private String getJavacClasspath()
+	{
+		// This is a hack:
+		// We want to use the current classpath also in the javac task that's being started, so we
+		// have to reconstruct a file-based classpath from a class loader.
+		return toClasspath(com.exedio.cope.Item.class.getClassLoader());
+	}
+
 	private String toClasspath(ClassLoader cl)
 	{
-		// TODO COPE-10
 		if (cl instanceof URLClassLoader)
 		{
+			// this works for JUnit tests
 			final URLClassLoader urlClassLoader=(URLClassLoader)cl;
 			final StringBuilder result=new StringBuilder();
 			for (int i=0; i < urlClassLoader.getURLs().length; i++)
@@ -201,10 +209,11 @@ final class Main
 		}
 		else
 		{
+			// this works for Ant
 			final Pattern pattern = Pattern.compile("AntClassLoader\\[(.*)\\]");
 			final String classLoaderString=cl.toString();
 			final Matcher matcher = pattern.matcher(classLoaderString);
-			if ( !matcher.matches() ) throw new RuntimeException(classLoaderString);
+			if ( !matcher.matches() ) throw new RuntimeException("failed to construct file-based classpath from class loader; see Main.java getJavacClasspath(); class loader: "+classLoaderString);
 			return matcher.group(1);
 		}
 	}
