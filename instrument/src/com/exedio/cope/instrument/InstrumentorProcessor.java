@@ -62,6 +62,8 @@ final class InstrumentorProcessor extends AbstractProcessor
 		final Map<CompilationUnitTree,JavaFile> files = new HashMap<>();
 		for (final Element e: roundEnv.getRootElements())
 		{
+			// We could check for ((TypeElement)e).getSuperclass() here to only visit "interesting" elements,
+			// but in a test run that made hardly any runtime difference and cause quite some complications.
 			final TreePath tp = docTrees.getPath(e);
 			final CompilationUnitTree compilationUnit=tp.getCompilationUnit();
 			JavaFile javaFile=files.get(compilationUnit);
@@ -73,7 +75,6 @@ final class InstrumentorProcessor extends AbstractProcessor
 					javaFile.addImport(aImport.getQualifiedIdentifier().toString());
 				}
 			}
-			// TODO COPE-10: check typeElement.getSuperclass()
 			final InstrumentorVisitor visitor=new InstrumentorVisitor(compilationUnit, docTrees, javaFile);
 			visitor.scan(tp, null);
 		}
