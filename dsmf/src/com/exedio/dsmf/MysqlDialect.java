@@ -177,7 +177,6 @@ public final class MysqlDialect extends Dialect
 			{
 				final String constraintName = resultSet.getString(1);
 				final String tableName = resultSet.getString(2);
-				final String constraintType = resultSet.getString(3);
 				final String columnName = resultSet.getString(4);
 
 				final Sequence sequence = schema.getSequence(tableName);
@@ -186,7 +185,7 @@ public final class MysqlDialect extends Dialect
 
 				final Table table = schema.getTableStrict(resultSet, 2);
 
-				if(PRIMARY_KEY.equals(constraintType))
+				if(getBooleanStrict(resultSet, 3, PRIMARY_KEY, UNIQUE))
 				{
 					if(table.required())
 					{
@@ -205,12 +204,10 @@ public final class MysqlDialect extends Dialect
 							table.notifyExistentPrimaryKeyConstraint(columnName+"_Pk");
 					}
 				}
-				else if(UNIQUE.equals(constraintType))
+				else
 				{
 					uniqueConstraintCollector.onColumn(table, constraintName, columnName);
 				}
-				else
-					throw new RuntimeException(constraintType+'-'+constraintName);
 			}
 			uniqueConstraintCollector.finish();
 		});
