@@ -121,16 +121,19 @@ public final class MysqlDialect extends Dialect
 					}
 				}
 
-				final String characterSet = resultSet.getString(6);
-				final String collation = resultSet.getString(7);
-
 				final StringBuilder type = new StringBuilder(dataType);
 				if("varchar".equals(dataType))
 					type.append('(').append(resultSet.getInt(5)).append(')');
-				if(characterSet!=null)
-					type.append(" CHARACTER SET ").append(characterSet);
-				if(collation!=null)
-					type.append(" COLLATE ").append(collation);
+				{
+					final String characterSet = resultSet.getString(6);
+					if(characterSet!=null)
+						type.append(" CHARACTER SET ").append(characterSet);
+				}
+				{
+					final String collation = resultSet.getString(7);
+					if(collation!=null)
+						type.append(" COLLATE ").append(collation);
+				}
 
 				if(!getBooleanStrict(resultSet, 3, "YES", "NO") &&
 						!"PRI".equals(resultSet.getString(8)))
