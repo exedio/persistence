@@ -38,20 +38,13 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayDeque;
 import java.util.Arrays;
 import java.util.Deque;
-import java.util.HashSet;
+import java.util.EnumSet;
 import java.util.Set;
 import javax.lang.model.element.Modifier;
 
 final class InstrumentorVisitor extends TreePathScanner<Void, Void>
 {
-	static final Set<Modifier> REQUIRED_MODIFIERS_FOR_COPE_FEATURE;
-
-	static
-	{
-		REQUIRED_MODIFIERS_FOR_COPE_FEATURE=new HashSet<>();
-		REQUIRED_MODIFIERS_FOR_COPE_FEATURE.add(Modifier.FINAL);
-		REQUIRED_MODIFIERS_FOR_COPE_FEATURE.add(Modifier.STATIC);
-	}
+	static final Set<Modifier> REQUIRED_MODIFIERS_FOR_COPE_FEATURE = EnumSet.of(Modifier.FINAL, Modifier.STATIC);
 
 	private final DocSourcePositions sourcePositions;
 	private final CompilationUnitTree compilationUnit;
