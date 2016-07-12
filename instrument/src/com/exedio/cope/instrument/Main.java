@@ -33,7 +33,6 @@ import java.net.URL;
 import java.net.URLClassLoader;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -189,7 +188,7 @@ final class Main
 		return toClasspath(com.exedio.cope.Item.class.getClassLoader());
 	}
 
-	private String toClasspath(ClassLoader cl)
+	private String toClasspath(final ClassLoader cl)
 	{
 		if (cl instanceof URLClassLoader)
 		{
