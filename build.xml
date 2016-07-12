@@ -851,11 +851,6 @@
 				<pathelement location="lib/findbugs-annotations.jar" />
 			</classpath>
 		</compile>
-		<copy todir="build/classes/instrument/testsrc">
-			<fileset dir="instrument/examplesrc">
-				<include name="**/*.java" />
-			</fileset>
-		</copy>
 	</target>
 
 	<target name="instrument.taskdef" depends="dsmf.compile, runtime.core.compile, runtime.pattern.compile, runtime.servlet.compile, instrument.compile, instrument.testfeature.compile, runtime.test.feature.compile">
@@ -915,11 +910,6 @@
 				<pathelement location="lib/findbugs-annotations.jar" />
 			</classpath>
 		</compile>
-		<copy todir="build/classes/instrument/testsrc">
-			<fileset dir="instrument/examplesrc">
-				<include name="**/*.java" />
-			</fileset>
-		</copy>
 	</target>
 
 	<target name="instrument.test"
@@ -1116,7 +1106,6 @@
 				<include name="dsmf/testsrc/**/*.java" />
 				<include name="instrument/annosrc/**/*.java" />
 				<include name="instrument/antsrc/**/*.java" />
-				<include name="instrument/examplesrc/**/*.java" />
 				<include name="instrument/testfeaturesrc/**/*.java" />
 				<include name="instrument/testsrc/**/*.java" />
 				<include name="runtime/junitsrc/**/*.java" />
