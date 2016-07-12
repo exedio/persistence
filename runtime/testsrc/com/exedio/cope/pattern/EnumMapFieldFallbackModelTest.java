@@ -70,6 +70,39 @@ public class EnumMapFieldFallbackModelTest
 		assertEquals(fall, fallOpt .getFallback());
 	}
 
+	@Test public void testGetFunctionWithFallback()
+	{
+		assertEquals("coalesce(AnItem.fallMand-one,AnItem.fallMand-fall)", fallMand.getFunctionWithFallback(one ).toString());
+		assertEquals("coalesce(AnItem.fallMand-two,AnItem.fallMand-fall)", fallMand.getFunctionWithFallback(two ).toString());
+		assertEquals(                             "AnItem.fallMand-fall" , fallMand.getFunctionWithFallback(fall).toString());
+	}
+
+	@Test public void testGetFunctionWithFallbackWithoutFallback()
+	{
+		try
+		{
+			noneMand.getFunctionWithFallback(one);
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals("field AnItem.noneMand has no fallbacks", e.getMessage());
+		}
+	}
+
+	@Test public void testGetFunctionWithFallbackNullKey()
+	{
+		try
+		{
+			fallMand.getFunctionWithFallback(null);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals("key", e.getMessage());
+		}
+	}
+
 	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
 	@Test public void testFallbackToNull()
 	{

@@ -18,8 +18,10 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.CoalesceView.coalesce;
 import static java.util.Objects.requireNonNull;
 
+import com.exedio.cope.Function;
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.Item;
 import com.exedio.cope.MandatoryViolationException;
@@ -336,6 +338,18 @@ public final class EnumMapField<K extends Enum<K>,V> extends Pattern implements 
 		}
 
 		return Collections.unmodifiableMap(result);
+	}
+
+	public Function<V> getFunctionWithFallback(final K key)
+	{
+		assertFallbacks();
+
+		final Function<V> forKey = fields.get(requireNonNull(key, "key"));
+
+		if(fallback==key)
+			return forKey;
+		else
+			return coalesce(forKey, fields.get(fallback));
 	}
 
 	private void assertFallbacks()

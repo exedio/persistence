@@ -21,9 +21,9 @@ package com.exedio.cope.pattern;
 import static com.exedio.cope.pattern.EnumMapFieldFallbackTest.AnEnum.fallback;
 import static com.exedio.cope.pattern.EnumMapFieldFallbackTest.AnEnum.missing;
 import static com.exedio.cope.pattern.EnumMapFieldFallbackTest.AnEnum.present;
+import static com.exedio.cope.pattern.EnumMapFieldFallbackTest.AnItem.text;
 import static org.junit.Assert.assertEquals;
 
-import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.StringField;
 import com.exedio.cope.TestWithEnvironment;
@@ -55,6 +55,16 @@ public class EnumMapFieldFallbackTest extends TestWithEnvironment
 
 		assertEquals(map, item.getTextMap());
 		assertEquals(map, item.getTextMapWithFallback());
+
+		assertSearch(item, item, present,  "vPres");
+		assertSearch(null, null, missing,  "vPres");
+		assertSearch(null, null, fallback, "vPres");
+		assertSearch(null, null, present,  null);
+		assertSearch(item, item, missing,  null);
+		assertSearch(item, item, fallback, null);
+		assertSearch(null, null, present,  "any");
+		assertSearch(null, null, missing,  "any");
+		assertSearch(null, null, fallback, "any");
 	}
 
 	@Test public void testWithFallback()
@@ -75,6 +85,19 @@ public class EnumMapFieldFallbackTest extends TestWithEnvironment
 		assertEquals(map, item.getTextMap());
 		map.put(missing, "vFall");
 		assertEquals(map, item.getTextMapWithFallback());
+
+		assertSearch(item, item, present,  "vPres");
+		assertSearch(null, null, missing,  "vPres");
+		assertSearch(null, null, fallback, "vPres");
+		assertSearch(null, null, present,  "vFall");
+		assertSearch(null, item, missing,  "vFall");
+		assertSearch(item, item, fallback, "vFall");
+		assertSearch(null, null, present,  null);
+		assertSearch(item, null, missing,  null);
+		assertSearch(null, null, fallback, null);
+		assertSearch(null, null, present,  "any");
+		assertSearch(null, null, missing,  "any");
+		assertSearch(null, null, fallback, "any");
 	}
 
 	@Test public void testEmpty()
@@ -92,6 +115,22 @@ public class EnumMapFieldFallbackTest extends TestWithEnvironment
 
 		assertEquals(map, item.getTextMap());
 		assertEquals(map, item.getTextMapWithFallback());
+
+		assertSearch(item, item, present,  null);
+		assertSearch(item, item, missing,  null);
+		assertSearch(item, item, fallback, null);
+		assertSearch(null, null, present,  "any");
+		assertSearch(null, null, missing,  "any");
+		assertSearch(null, null, fallback, "any");
+	}
+
+
+	private static void assertSearch(
+			final AnItem directItem, final AnItem fallbackItem,
+			final AnEnum key, final String value)
+	{
+		assertEquals("direct",     directItem, AnItem.TYPE.searchSingleton(text.getField               (key).equal(value)));
+		assertEquals("fallback", fallbackItem, AnItem.TYPE.searchSingleton(text.getFunctionWithFallback(key).equal(value)));
 	}
 
 
@@ -100,7 +139,7 @@ public class EnumMapFieldFallbackTest extends TestWithEnvironment
 		present, missing, @CopeEnumFallback fallback;
 	}
 
-	static final class AnItem extends Item
+	static final class AnItem extends com.exedio.cope.Item // TODO use import, but this is not accepted by javac
 	{
 		/** @cope.initial */
 		static final EnumMapField<AnEnum, String> text =
