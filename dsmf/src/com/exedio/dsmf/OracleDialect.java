@@ -120,20 +120,14 @@ public final class OracleDialect extends Dialect
 			{
 				final Table table = schema.getTableStrict(resultSet, 1);
 				final String constraintName = resultSet.getString(2);
-				final String constraintType = resultSet.getString(3);
-				switch(constraintType)
+				if(getBooleanStrict(resultSet, 3, "C", "P"))
 				{
-					case "C":
-					{
-						final String searchCondition = resultSet.getString(4);
-						table.notifyExistentCheckConstraint(constraintName, searchCondition);
-						break;
-					}
-					case "P":
-						table.notifyExistentPrimaryKeyConstraint(constraintName);
-						break;
-					default:
-						throw new RuntimeException(constraintType+'-'+constraintName);
+					final String searchCondition = resultSet.getString(4);
+					table.notifyExistentCheckConstraint(constraintName, searchCondition);
+				}
+				else
+				{
+					table.notifyExistentPrimaryKeyConstraint(constraintName);
 				}
 			}
 		});
