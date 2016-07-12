@@ -29,7 +29,7 @@ import org.junit.After;
 
 public abstract class ClusterNetworkTest
 {
-	ConnectProperties getProperties(final boolean multicast, final int sendPort, final int listenPort)
+	static final ConnectProperties getProperties(final boolean multicast, final int sendPort, final int listenPort)
 	{
 		final Properties p = new Properties();
 		p.setProperty("schema.primaryKeyGenerator", PrimaryKeyGenerator.sequence.name());
