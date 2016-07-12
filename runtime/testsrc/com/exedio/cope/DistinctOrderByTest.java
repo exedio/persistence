@@ -25,6 +25,7 @@ import static com.exedio.cope.tojunit.Assert.assertContains;
 import static com.exedio.cope.tojunit.Assert.assertContainsList;
 import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import com.exedio.cope.tojunit.SI;
@@ -275,6 +276,49 @@ public class DistinctOrderByTest extends TestWithEnvironment
 		}
 	}
 
+	@Test public void testDistinctOrderByAnyAggregate()
+	{
+		final Query<PlusIntegerItem> query = TYPE.newQuery();
+		final Join join = query.join(TYPE);
+		join.setCondition(numC.equal(numC.bind(join)));
+		query.setDistinct(true);
+		query.setOrderBy(numA.any(), true);
+
+		assertEquals(
+				"select distinct this from PlusIntegerItem " +
+				"join PlusIntegerItem p1 on numC=p1.numC " +
+				"order by any(numA)",
+				query.toString());
+
+		assertEquals(3, query.total());
+
+		final EnvironmentInfo env = model.getEnvironmentInfo();
+		switch(dialect)
+		{
+			case hsqldb:
+				notAllowed(query,
+						"user lacks privilege or object not found: ANY_VALUE");
+				break;
+			case mysql:
+				if(env.isDatabaseVersionAtLeast(5, 7))
+					assertContains(item2, item3, item1, query.search());
+				else
+					notAllowed(query,
+							"FUNCTION " + env.getCatalog() + ".ANY_VALUE does not exist");
+				break;
+			case oracle:
+				notAllowed(query,
+						"ORA-00904: \"ANY_VALUE\": invalid identifier\n");
+				break;
+			case postgresql:
+				notAllowedStartsWith(query,
+						"ERROR: function any_value(integer) does not exist\n");
+				break;
+			default:
+				throw new RuntimeException(dialect.name());
+		}
+	}
+
 
 	static void notAllowed(final Query<?> query, final String message)
 	{
@@ -286,6 +330,19 @@ public class DistinctOrderByTest extends TestWithEnvironment
 		catch(final SQLRuntimeException e)
 		{
 			assertEquals(message, e.getCause().getMessage());
+		}
+	}
+
+	static void notAllowedStartsWith(final Query<?> query, final String message)
+	{
+		try
+		{
+			final List<?> result = query.search();
+			fail("search is expected to fail, but returned " + result);
+		}
+		catch(final SQLRuntimeException e)
+		{
+			assertTrue(e.getCause().getMessage(), e.getCause().getMessage().startsWith(message));
 		}
 	}
 

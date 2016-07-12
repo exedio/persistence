@@ -197,6 +197,16 @@ public interface Function<E> extends Selectable<E>
 		return new ExtremumAggregate<>(this, false);
 	}
 
+	/**
+	 * <b>BEWARE:</b>
+	 * This aggregate works on MySQL 5.7 or later only.
+	 * See <a href="https://dev.mysql.com/doc/refman/5.7/en/miscellaneous-functions.html#function_any-value">ANY_VALUE</a>.
+	 */
+	default Aggregate<E> any()
+	{
+		return new AnyAggregate<>(this);
+	}
+
 	default BindFunction<E> bind(final Join join)
 	{
 		return new BindFunction<>(this, join);
