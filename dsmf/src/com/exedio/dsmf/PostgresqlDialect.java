@@ -124,10 +124,10 @@ public final class PostgresqlDialect extends Dialect
 
 		schema.querySQL(
 				"SELECT " +
-				"ut.relname," +
-				"uc.conname," +
-				"uc.contype," +
-				"uc.consrc " +
+				"ut.relname," + // 1
+				"uc.conname," + // 2
+				"uc.contype," + // 3
+				"uc.consrc "  + // 4
 				"FROM pg_constraint uc " +
 				"INNER JOIN pg_class ut on uc.conrelid=ut.oid " +
 				"WHERE ut.relname NOT LIKE 'pg_%' AND ut.relname NOT LIKE 'pga_%' AND uc.contype IN ('c','p')",
