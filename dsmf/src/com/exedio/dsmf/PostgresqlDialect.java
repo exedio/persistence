@@ -137,9 +137,8 @@ public final class PostgresqlDialect extends Dialect
 					{
 						final Table table = schema.getTableStrict(resultSet, 1);
 						final String constraintName = resultSet.getString(2);
-						final String constraintType = resultSet.getString(3);
 						//System.out.println("tableName:"+tableName+" constraintName:"+constraintName+" constraintType:>"+constraintType+"<");
-						if("c".equals(constraintType))
+						if(getBooleanStrict(resultSet, 3, "c", "p"))
 						{
 							String searchCondition = resultSet.getString(4);
 							//System.out.println("searchCondition:>"+searchCondition+"<");
@@ -147,10 +146,8 @@ public final class PostgresqlDialect extends Dialect
 								searchCondition = searchCondition.substring(1, searchCondition.length()-1);
 							table.notifyExistentCheckConstraint(constraintName, searchCondition);
 						}
-						else if("p".equals(constraintType))
-							table.notifyExistentPrimaryKeyConstraint(constraintName);
 						else
-							throw new RuntimeException(constraintType+'-'+constraintName);
+							table.notifyExistentPrimaryKeyConstraint(constraintName);
 
 						//System.out.println("EXISTS:"+tableName);
 					}
