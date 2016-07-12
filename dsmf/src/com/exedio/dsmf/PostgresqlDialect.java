@@ -124,35 +124,34 @@ public final class PostgresqlDialect extends Dialect
 
 		schema.querySQL(
 				"SELECT " +
-				"ut.relname," + // 1
-				"uc.conname," + // 2
-				"uc.contype," + // 3
-				"uc.consrc "  + // 4
+						"ut.relname," + // 1
+						"uc.conname," + // 2
+						"uc.contype," + // 3
+						"uc.consrc "  + // 4
 				"FROM pg_constraint uc " +
 				"INNER JOIN pg_class ut on uc.conrelid=ut.oid " +
 				"WHERE ut.relname NOT LIKE 'pg_%' AND ut.relname NOT LIKE 'pga_%' AND uc.contype IN ('c','p')",
-			resultSet ->
+		resultSet ->
+		{
+			while(resultSet.next())
+			{
+				final Table table = schema.getTableStrict(resultSet, 1);
+				final String constraintName = resultSet.getString(2);
+				//System.out.println("tableName:"+tableName+" constraintName:"+constraintName+" constraintType:>"+constraintType+"<");
+				if(getBooleanStrict(resultSet, 3, "c", "p"))
 				{
-					while(resultSet.next())
-					{
-						final Table table = schema.getTableStrict(resultSet, 1);
-						final String constraintName = resultSet.getString(2);
-						//System.out.println("tableName:"+tableName+" constraintName:"+constraintName+" constraintType:>"+constraintType+"<");
-						if(getBooleanStrict(resultSet, 3, "c", "p"))
-						{
-							String searchCondition = resultSet.getString(4);
-							//System.out.println("searchCondition:>"+searchCondition+"<");
-							if(searchCondition.startsWith("(")&& searchCondition.endsWith(")"))
-								searchCondition = searchCondition.substring(1, searchCondition.length()-1);
-							table.notifyExistentCheckConstraint(constraintName, searchCondition);
-						}
-						else
-							table.notifyExistentPrimaryKeyConstraint(constraintName);
-
-						//System.out.println("EXISTS:"+tableName);
-					}
+					String searchCondition = resultSet.getString(4);
+					//System.out.println("searchCondition:>"+searchCondition+"<");
+					if(searchCondition.startsWith("(")&& searchCondition.endsWith(")"))
+						searchCondition = searchCondition.substring(1, searchCondition.length()-1);
+					table.notifyExistentCheckConstraint(constraintName, searchCondition);
 				}
-			);
+				else
+					table.notifyExistentPrimaryKeyConstraint(constraintName);
+
+				//System.out.println("EXISTS:"+tableName);
+			}
+		});
 
 		verifyUniqueConstraints(
 				"SELECT tc.table_name, tc.constraint_name, cu.column_name " +
