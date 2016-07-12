@@ -69,7 +69,11 @@ public final class HsqldbDialect extends Dialect
 		verifyColumnsByMetaData(schema, "PUBLIC");
 
 		schema.querySQL(
-				"SELECT tc.CONSTRAINT_NAME, tc.CONSTRAINT_TYPE, tc.TABLE_NAME, cc.CHECK_CLAUSE " +
+				"SELECT " +
+						"tc.CONSTRAINT_NAME, " + // 1
+						"tc.CONSTRAINT_TYPE, " + // 2
+						"tc.TABLE_NAME, " + // 3
+						"cc.CHECK_CLAUSE " + // 4
 				"FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS tc " +
 				"LEFT OUTER JOIN INFORMATION_SCHEMA.CHECK_CONSTRAINTS cc ON tc.CONSTRAINT_NAME = cc.CONSTRAINT_NAME " +
 				"WHERE tc.CONSTRAINT_TYPE IN ('CHECK','PRIMARY KEY','UNIQUE') " +
