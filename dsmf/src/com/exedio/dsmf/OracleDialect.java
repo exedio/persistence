@@ -42,24 +42,11 @@ public final class OracleDialect extends Dialect
 		if(withoutNullable==null)
 			return null;
 
-		final String nullable = resultSet.getString("IS_NULLABLE");
-		if("YES".equals(nullable))
-			return withoutNullable;
-		else if("NO".equals(nullable))
-		{
-			if("this".equals(resultSet.getString("COLUMN_NAME"))) // TODO does not work with primary key of table 'while'
-				return withoutNullable;
-
-			return withoutNullable + NOT_NULL;
-		}
-		else
-			throw new RuntimeException(
-					resultSet.getString("TABLE_NAME") + '/' +
-					resultSet.getString("COLUMN_NAME") + '/' +
-					resultSet.getString("TYPE_NAME") + '/' +
-					dataType + '/' +
-					nullable + '/' +
-					resultSet.getString("NULLABLE"));
+		return
+			((getBooleanStrict(resultSet, resultSet.findColumn("IS_NULLABLE"), "YES", "NO") ||
+				"this".equals(resultSet.getString("COLUMN_NAME")))) // TODO does not work with primary key of table 'while'
+			? withoutNullable
+			: withoutNullable + NOT_NULL;
 	}
 
 	private static String getColumnTypeWithoutNullable(final int dataType, final ResultSet resultSet) throws SQLException
