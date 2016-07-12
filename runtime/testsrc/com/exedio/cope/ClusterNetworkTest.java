@@ -29,29 +29,39 @@ import org.junit.After;
 
 public abstract class ClusterNetworkTest
 {
-	static final ConnectProperties getProperties(final boolean multicast, final int sendPort, final int listenPort)
+	static final ConnectProperties getPropertiesMulticast()
 	{
 		final Properties p = new Properties();
-		p.setProperty("schema.primaryKeyGenerator", PrimaryKeyGenerator.sequence.name());
-		p.setProperty("cluster", "true");
-		p.setProperty("cluster.secret", "1234");
-		p.setProperty("cluster.listenThreads", "2");
-		if(!multicast)
-		{
-			p.setProperty("cluster.multicast", "false");
-			p.setProperty("cluster.sendAddress"  , "127.0.0.1");
-			p.setProperty("cluster.listenAddress", "127.0.0.1");
-			p.setProperty("cluster.sendDestinationPort", String.valueOf(sendPort));
-			p.setProperty("cluster.listenPort", String.valueOf(listenPort));
-		}
-		return getProperties(p,
-				multicast
-				? "Connect Properties Source (multicast)"
-				: ("Connect Properties Source (" + sendPort + '>' + listenPort + ")"));
+		return getProperties(p, "Connect Properties Source (multicast)");
+	}
+
+	static final ConnectProperties getPropertiesSinglecast(final boolean forward)
+	{
+		final Properties p = new Properties();
+		p.setProperty("cluster.multicast", "false");
+		p.setProperty("cluster.sendAddress"  , "127.0.0.1");
+		p.setProperty("cluster.listenAddress", "127.0.0.1");
+		p.setProperty("cluster.sendDestinationPort", forward ? PORT_SEND : PORT_LISTEN);
+		p.setProperty("cluster.listenPort",          forward ? PORT_LISTEN : PORT_SEND);
+		return getProperties(p, "Connect Properties Source (singlecast " + (forward ? "forward" : "backward") + ")");
+	}
+
+	private static final String PORT_SEND;
+	private static final String PORT_LISTEN;
+	static
+	{
+		final String prefix = ClusterNetworkTest.class.getName() + ".port";
+		PORT_SEND   = System.getProperty(prefix + ".send",   "14446");
+		PORT_LISTEN = System.getProperty(prefix + ".listen", "14447");
+		System.out.println(prefix + " " + PORT_SEND + '>' + PORT_LISTEN);
 	}
 
 	private static ConnectProperties getProperties(final Properties properties, final String description)
 	{
+		properties.setProperty("schema.primaryKeyGenerator", PrimaryKeyGenerator.sequence.name());
+		properties.setProperty("cluster", "true");
+		properties.setProperty("cluster.secret", "1234");
+		properties.setProperty("cluster.listenThreads", "2");
 		return ConnectProperties.factory().create(describe(
 				cascade(
 						view(properties, "ZACK"),

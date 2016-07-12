@@ -560,6 +560,8 @@
 			<test name="${runtime.test.withoutEnv}" todir="build/testresults" outfile="runtime-noEnv" />
 			<sysproperty key="java.io.tmpdir" value="${basedir}/build/testtmpdir" />
 			<sysproperty key="user.timezone" value="${test-DefaultTimeZone}" />
+			<sysproperty key="com.exedio.cope.ClusterNetworkTest.port.send"   value="${runtime.test.ClusterNetworkTest.port.send}"   />
+			<sysproperty key="com.exedio.cope.ClusterNetworkTest.port.listen" value="${runtime.test.ClusterNetworkTest.port.listen}" />
 			<assertions><enable/></assertions>
 		</junit>
 	</target>

@@ -50,8 +50,8 @@ public class ClusterNetworkChangeListenerTest extends ClusterNetworkTest
 	@Test public void testMulticast() throws InterruptedException, NotAvailableException
 	{
 		// when running this test alone, it fails on Windows if modelA is connected before modelB
-		modelB.connect(getProperties(true, -1, -1));
-		modelA.connect(getProperties(true, -1, -1));
+		modelB.connect(getPropertiesMulticast());
+		modelA.connect(getPropertiesMulticast());
 		modelA.createSchema();
 
 		assertEquals("Connect Properties Source (multicast)", modelA.getConnectProperties().getSource());
@@ -62,12 +62,12 @@ public class ClusterNetworkChangeListenerTest extends ClusterNetworkTest
 
 	@Test public void testSinglecast() throws InterruptedException, NotAvailableException
 	{
-		modelA.connect(getProperties(false, 14446, 14447));
-		modelB.connect(getProperties(false, 14447, 14446));
+		modelA.connect(getPropertiesSinglecast(true));
+		modelB.connect(getPropertiesSinglecast(false));
 		modelA.createSchema();
 
-		assertEquals("Connect Properties Source (14446>14447)", modelA.getConnectProperties().getSource());
-		assertEquals("Connect Properties Source (14447>14446)", modelB.getConnectProperties().getSource());
+		assertEquals("Connect Properties Source (singlecast forward)",  modelA.getConnectProperties().getSource());
+		assertEquals("Connect Properties Source (singlecast backward)", modelB.getConnectProperties().getSource());
 
 		test();
 	}
