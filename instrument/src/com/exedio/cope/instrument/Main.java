@@ -159,7 +159,7 @@ final class Main
 		}
 	}
 
-	void runJavac(final List<File> files, JavaRepository repository)
+	void runJavac(final List<File> files, JavaRepository repository) throws IOException
 	{
 		// "JavacTool.create()" is not part of the "exported" API
 		// (not annotated with https://docs.oracle.com/javase/8/docs/jdk/api/javac/tree/jdk/Exported.html).
@@ -170,14 +170,16 @@ final class Main
 		{
 			throw new NullPointerException("no system java compiler found - please make sure your \"java\" is from a JDK, not a JRE");
 		}
-		final StandardJavaFileManager fileManager=compiler.getStandardFileManager(null, null, null);
-		final Iterable<? extends JavaFileObject> sources=fileManager.getJavaFileObjectsFromFiles(files);
-		final List<String> optionList = new ArrayList<>();
-		optionList.addAll(asList("-classpath", getJavacClasspath()));
-		optionList.add("-proc:only");
-		final JavaCompiler.CompilationTask task = compiler.getTask(new StringWriter(), null, null, optionList, null, sources);
-		task.setProcessors(singleton(new InstrumentorProcessor(repository)));
-		task.call();
+		try (final StandardJavaFileManager fileManager=compiler.getStandardFileManager(null, null, null))
+		{
+			final Iterable<? extends JavaFileObject> sources=fileManager.getJavaFileObjectsFromFiles(files);
+			final List<String> optionList = new ArrayList<>();
+			optionList.addAll(asList("-classpath", getJavacClasspath()));
+			optionList.add("-proc:only");
+			final JavaCompiler.CompilationTask task = compiler.getTask(new StringWriter(), null, null, optionList, null, sources);
+			task.setProcessors(singleton(new InstrumentorProcessor(repository)));
+			task.call();
+		}
 	}
 
 	private String getJavacClasspath()
