@@ -178,7 +178,6 @@ public final class MysqlDialect extends Dialect
 					new UniqueConstraintCollector(schema);
 			while(resultSet.next())
 			{
-				final String constraintName = resultSet.getString(1);
 				final String tableName = resultSet.getString(2);
 				final String columnName = resultSet.getString(4);
 
@@ -209,7 +208,7 @@ public final class MysqlDialect extends Dialect
 				}
 				else
 				{
-					uniqueConstraintCollector.onColumn(table, constraintName, columnName);
+					uniqueConstraintCollector.onColumn(table, resultSet.getString(1), columnName);
 				}
 			}
 			uniqueConstraintCollector.finish();
