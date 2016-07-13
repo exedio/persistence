@@ -75,7 +75,7 @@ final class InstrumentorProcessor extends AbstractProcessor
 					javaFile.addImport(aImport.getQualifiedIdentifier().toString());
 				}
 			}
-			final InstrumentorVisitor visitor=new InstrumentorVisitor(compilationUnit, docTrees, javaFile);
+			final CompilationUnitVisitor visitor=new CompilationUnitVisitor(new TreeApiContext(docTrees, javaFile,compilationUnit));
 			visitor.scan(tp, null);
 		}
 		return true;
