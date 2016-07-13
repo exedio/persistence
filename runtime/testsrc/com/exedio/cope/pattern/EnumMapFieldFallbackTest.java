@@ -22,6 +22,7 @@ import static com.exedio.cope.pattern.EnumMapFieldFallbackTest.AnEnum.fallback;
 import static com.exedio.cope.pattern.EnumMapFieldFallbackTest.AnEnum.missing;
 import static com.exedio.cope.pattern.EnumMapFieldFallbackTest.AnEnum.present;
 import static com.exedio.cope.pattern.EnumMapFieldFallbackTest.AnItem.text;
+import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
 import static org.junit.Assert.assertEquals;
 
 import com.exedio.cope.Model;
@@ -53,8 +54,8 @@ public class EnumMapFieldFallbackTest extends TestWithEnvironment
 		assertEquals(null,    item.getTextWithFallback(missing));
 		assertEquals(null,    item.getTextWithFallback(fallback));
 
-		assertEquals(map, item.getTextMap());
-		assertEquals(map, item.getTextMapWithFallback());
+		assertEqualsUnmodifiable(map, item.getTextMap());
+		assertEqualsUnmodifiable(map, item.getTextMapWithFallback());
 
 		assertSearch(item, item, present,  "vPres");
 		assertSearch(null, null, missing,  "vPres");
@@ -82,9 +83,9 @@ public class EnumMapFieldFallbackTest extends TestWithEnvironment
 		assertEquals("vFall", item.getTextWithFallback(missing));
 		assertEquals("vFall", item.getTextWithFallback(fallback));
 
-		assertEquals(map, item.getTextMap());
+		assertEqualsUnmodifiable(map, item.getTextMap());
 		map.put(missing, "vFall");
-		assertEquals(map, item.getTextMapWithFallback());
+		assertEqualsUnmodifiable(map, item.getTextMapWithFallback());
 
 		assertSearch(item, item, present,  "vPres");
 		assertSearch(null, null, missing,  "vPres");
@@ -113,8 +114,8 @@ public class EnumMapFieldFallbackTest extends TestWithEnvironment
 		assertEquals(null, item.getTextWithFallback(missing));
 		assertEquals(null, item.getTextWithFallback(fallback));
 
-		assertEquals(map, item.getTextMap());
-		assertEquals(map, item.getTextMapWithFallback());
+		assertEqualsUnmodifiable(map, item.getTextMap());
+		assertEqualsUnmodifiable(map, item.getTextMapWithFallback());
 
 		assertSearch(item, item, present,  null);
 		assertSearch(item, item, missing,  null);
