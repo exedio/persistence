@@ -1028,6 +1028,7 @@
 				<pathelement location="${basedir}/lib/slf4j-log4j12.jar" />
 				<pathelement location="${basedir}/lib/log4j-bundle.jar" />
 				<pathelement location="${ant.core.lib}" />
+				<pathelement location="${env.JAVA_HOME}/lib/tools.jar"/>
 			</auxclasspath>
 		</findbugs>
 	</target>
