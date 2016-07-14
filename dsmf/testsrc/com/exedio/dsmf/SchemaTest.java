@@ -23,7 +23,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import org.junit.After;
 import org.junit.Before;
@@ -38,8 +37,7 @@ public abstract class SchemaTest
 	boolean hsqldb = false; // TODO remove
 	boolean postgresql = false; // TODO remove
 	private SimpleConnectionProvider provider;
-	private Connection connection1;
-	private Connection connection2;
+	private final ArrayList<Connection> connections = new ArrayList<>();
 
 	static final File getDefaultPropertyFile()
 	{
@@ -72,10 +70,12 @@ public abstract class SchemaTest
 		final String password = config.connectionPassword;
 		final String mysqlRowFormat = config.mysqlRowFormat;
 
+		int numberOfConnections = 1;
 		if(url.startsWith("jdbc:hsqldb:"))
 		{
 			Class.forName("org.hsqldb.jdbcDriver");
 			dialect = new HsqldbDialect();
+			numberOfConnections = 2;
 			stringType = "VARCHAR(8)";
 			intType = "INTEGER";
 			intType2 = "BIGINT";
@@ -125,17 +125,15 @@ public abstract class SchemaTest
 			throw new RuntimeException(url);
 
 		supportsCheckConstraints = dialect.supportsCheckConstraints();
-		connection1 = DriverManager.getConnection(url, username, password);
-		connection2 = DriverManager.getConnection(url, username, password);
-		provider = new SimpleConnectionProvider(Arrays.asList(new Connection[]{connection1, connection2}));
+		for(int i = 0; i<numberOfConnections; i++)
+			connections.add(DriverManager.getConnection(url, username, password));
+		provider = new SimpleConnectionProvider(connections);
 	}
 
 	@After public final void tearDownSchemaTest() throws SQLException
 	{
-		if(connection1!=null)
-			connection1.close();
-		if(connection2!=null)
-			connection2.close();
+		for(final Connection connection : connections)
+			connection.close();
 	}
 
 	private static final class SimpleConnectionProvider implements ConnectionProvider
