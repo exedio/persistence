@@ -54,6 +54,7 @@ public abstract class SchemaTest
 		final String connectionUsername = value      ("connection.username", (String)null);
 		final String connectionPassword = valueHidden("connection.password", (String)null);
 		final String mysqlRowFormat     = value      ("schema.mysql.rowFormat", "NONE");
+		final String connectionPostgresqlSearchPath = value("connection.postgresql.search_path", connectionUsername);
 
 		@SuppressWarnings("deprecation")
 		Properties()
@@ -114,7 +115,7 @@ public abstract class SchemaTest
 		else if(url.startsWith("jdbc:postgresql:"))
 		{
 			Class.forName("org.postgresql.Driver");
-			dialect = new PostgresqlDialect(username);
+			dialect = new PostgresqlDialect(config.connectionPostgresqlSearchPath);
 			stringType = "character varying(8)";
 			intType  = "integer";
 			intType2 = "bigint";
@@ -127,6 +128,19 @@ public abstract class SchemaTest
 		supportsCheckConstraints = dialect.supportsCheckConstraints();
 		for(int i = 0; i<numberOfConnections; i++)
 			connections.add(DriverManager.getConnection(url, username, password));
+
+		if(postgresql)
+		{
+			for(final Connection connection : connections)
+			{
+				try(java.sql.Statement st = connection.createStatement())
+				{
+					// http://www.postgresql.org/docs/9.3/interactive/runtime-config-client.html#GUC-SEARCH-PATH
+					st.execute("SET search_path TO " + config.connectionPostgresqlSearchPath);
+				}
+			}
+		}
+
 		provider = new SimpleConnectionProvider(connections);
 	}
 

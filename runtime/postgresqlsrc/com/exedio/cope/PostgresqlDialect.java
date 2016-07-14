@@ -41,7 +41,7 @@ final class PostgresqlDialect extends Dialect
 	{
 		super(
 				new com.exedio.dsmf.PostgresqlDialect(
-						probe.properties.getConnectionUsername()));
+						probe.properties.connectionPostgresqlSearchPath));
 
 		searchPath = probe.properties.connectionPostgresqlSearchPath;
 	}

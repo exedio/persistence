@@ -46,7 +46,7 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	private final String connectionUrl      = value      ("connection.url",      (String)null);
 	private final String connectionUsername = value      ("connection.username", (String)null);
 	private final String connectionPassword = valueHidden("connection.password", (String)null);
-	final String connectionPostgresqlSearchPath = value  ("connection.postgresql.search_path", "\"$user\"");
+	final String connectionPostgresqlSearchPath = value  ("connection.postgresql.search_path", connectionUsername);
 
 
 	private final boolean disableEmptyStrings       = value("disableSupport.emptyStrings", false);
