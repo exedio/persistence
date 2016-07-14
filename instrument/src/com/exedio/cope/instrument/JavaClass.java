@@ -28,6 +28,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Represents a class parsed by the java parser.
@@ -63,6 +64,10 @@ final class JavaClass extends JavaFeature
 		this.isEnum = isEnum;
 		this.classExtends = Generics.strip(classExtends);
 		file.add(this);
+		if (parent!=null)
+		{
+			parent.addInnerClass(this);
+		}
 	}
 
 	void add(final JavaField javaField)
@@ -196,6 +201,13 @@ final class JavaClass extends JavaFeature
 		}
 	}
 
+	// TODO EnumCollision move var up in file
+	private final Map<String,JavaClass> innerClasses = new HashMap<>();
+	void addInnerClass(JavaClass c)
+	{
+		innerClasses.put(c.name, c);
+	}
+
 	@SuppressFBWarnings("SE_BAD_FIELD_INNER_CLASS") // Non-serializable class has a serializable inner class
 	private final class NS extends CopeNameSpace
 	{
@@ -204,6 +216,32 @@ final class JavaClass extends JavaFeature
 		NS(final CopeNameSpace parent)
 		{
 			super(parent, name);
+		}
+
+		@Override
+		public Class<?> getClass(final String name) throws UtilEvalError
+		{
+			final String innerClassName;
+			// TODO EnumCollision constant foe "DummyItem$"
+			// TODO EnumCollision really no better way? gets wrong for inner classes of other classes
+			if ( name.startsWith(JavaRepository.DummyItem.class.getName()+"$") )
+			{
+				innerClassName=name.substring((JavaRepository.DummyItem.class.getName()+"$").length());
+			}
+			else
+			{
+				innerClassName=name;
+			}
+			final JavaClass inner=innerClasses.get(innerClassName);
+			// TODO EnumCollision proper handling of isEnum
+			if ( inner==null || !inner.isEnum )
+			{
+				return super.getClass(name);
+			}
+			else
+			{
+				return JavaRepository.EnumBeanShellHackClass.class;
+			}
 		}
 
 		@Override
