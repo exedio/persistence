@@ -38,7 +38,7 @@ public abstract class SchemaTest
 	boolean hsqldb = false; // TODO remove
 	boolean postgresql = false; // TODO remove
 	private SimpleConnectionProvider provider;
-	Connection connection1; // visible for BatchTest
+	private Connection connection1;
 	private Connection connection2;
 
 	static final File getDefaultPropertyFile()
