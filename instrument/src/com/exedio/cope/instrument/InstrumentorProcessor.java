@@ -63,7 +63,7 @@ final class InstrumentorProcessor extends AbstractProcessor
 		for (final Element e: roundEnv.getRootElements())
 		{
 			// We could check for ((TypeElement)e).getSuperclass() here to only visit "interesting" elements,
-			// but in a test run that made hardly any runtime difference and cause quite some complications.
+			// but in a test run that made hardly any runtime difference and caused quite some complications.
 			final TreePath tp = docTrees.getPath(e);
 			final CompilationUnitTree compilationUnit=tp.getCompilationUnit();
 			JavaFile javaFile=files.get(compilationUnit);
