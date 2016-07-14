@@ -46,7 +46,7 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	private final String connectionUrl      = value      ("connection.url",      (String)null);
 	private final String connectionUsername = value      ("connection.username", (String)null);
 	private final String connectionPassword = valueHidden("connection.password", (String)null);
-	final String connectionPostgresqlSearchPath = value  ("connection.postgresql.search_path", connectionUsername);
+	final String connectionPostgresqlSearchPath = valueX ("connection.postgresql.search_path", connectionUsername, ',');
 
 
 	private final boolean disableEmptyStrings       = value("disableSupport.emptyStrings", false);
@@ -381,15 +381,20 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 			dialectCode = dialectCodeRaw;
 
 		dialect = getDialectConstructor(dialectCode);
+	}
 
-		{
-			final int position = connectionPostgresqlSearchPath.indexOf(',');
-			if(position>=0)
-				throw newException(
-					"connection.postgresql.search_path",
-					"must not contain commas, " +
-					"but did at position " + position + " and was '" + connectionPostgresqlSearchPath + '\'');
-		}
+	private String valueX(final String key, final String defaultValue, final char forbidden)
+	{
+		final String result = value(key, defaultValue);
+
+		final int position = result.indexOf(forbidden);
+		if(position>=0)
+			throw newException(
+				key,
+				"must not contain '" + forbidden + "', " +
+				"but did at position " + position + " and was '" + result + '\'');
+
+		return result;
 	}
 
 	private final Constructor<? extends Dialect> getDialectConstructor(final String dialectCode)

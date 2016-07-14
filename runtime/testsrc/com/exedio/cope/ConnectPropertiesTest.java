@@ -157,7 +157,7 @@ public class ConnectPropertiesTest
 		catch(final IllegalPropertiesException e)
 		{
 			assertEquals(
-					"property " + propKey + " in DESC must not contain commas, "+
+					"property " + propKey + " in DESC must not contain ',', "+
 					"but did at position 3 and was '123,567'",
 					e.getMessage());
 		}
