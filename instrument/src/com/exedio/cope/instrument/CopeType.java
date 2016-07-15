@@ -229,14 +229,8 @@ final class CopeType
 		return constructorExceptions;
 	}
 
-	static final Comparator<Class<?>> CLASS_COMPARATOR = new Comparator<Class<?>>()
-	{
-		@Override
-		public int compare(final Class<?> c1, final Class<?> c2)
-		{
-			return c1.getName().compareTo(c2.getName());
-		}
-	};
+	static final Comparator<Class<?>> CLASS_COMPARATOR =
+			(c1, c2) -> c1.getName().compareTo(c2.getName());
 
 	int getSerialVersionUID()
 	{
