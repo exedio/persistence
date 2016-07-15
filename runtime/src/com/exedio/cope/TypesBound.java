@@ -150,14 +150,8 @@ public final class TypesBound
 
 	private static final int STATIC_FINAL = Modifier.STATIC | Modifier.FINAL;
 
-	private static final Comparator<Feature> INSTANTIATION_COMPARATOR = new Comparator<Feature>()
-	{
-		@Override
-		public int compare(final Feature f1, final Feature f2)
-		{
-			return (f1==f2) ? 0 : Integer.compare(f1.instantiationOrder, f2.instantiationOrder);
-		}
-	};
+	private static final Comparator<Feature> INSTANTIATION_COMPARATOR =
+			(f1, f2) -> (f1==f2) ? 0 : Integer.compare(f1.instantiationOrder, f2.instantiationOrder);
 
 
 	// TODO reuse futures
