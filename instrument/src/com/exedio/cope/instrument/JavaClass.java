@@ -38,13 +38,13 @@ import java.util.List;
  */
 final class JavaClass extends JavaFeature
 {
-	private static final String PREFIX_OF_INNER_CLASS_IN_DUMMY=JavaRepository.DummyItem.class.getName()+"$";
+	static final String PREFIX_OF_INNER_CLASS_IN_DUMMY=JavaRepository.DummyItem.class.getName()+"$";
 
 	final CopeNameSpace nameSpace;
 
 	private final HashMap<String, JavaField> fields = new HashMap<>();
 	private final ArrayList<JavaField> fieldList = new ArrayList<>();
-	private final HashMap<String,JavaClass> innerClasses = new HashMap<>();
+	final HashMap<String,JavaClass> innerClasses = new HashMap<>();
 	final int typeParameters;
 	final boolean isEnum;
 	final String classExtends;
