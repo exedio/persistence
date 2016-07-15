@@ -70,7 +70,7 @@ final class InstrumentorProcessor extends AbstractProcessor
 			if ( javaFile==null )
 			{
 				files.put(compilationUnit, javaFile=new JavaFile(javaRepository, compilationUnit.getSourceFile(), compilationUnit.getPackageName().toString()));
-				for (ImportTree aImport: compilationUnit.getImports())
+				for (final ImportTree aImport: compilationUnit.getImports())
 				{
 					if (!aImport.isStatic())
 					{

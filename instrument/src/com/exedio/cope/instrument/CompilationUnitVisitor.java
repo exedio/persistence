@@ -49,7 +49,7 @@ final class CompilationUnitVisitor extends TreePathScanner<Void, Void>
 	}
 
 	@Override
-	public Void visitMethod(MethodTree node, Void p)
+	public Void visitMethod(final MethodTree node, final Void p)
 	{
 		throw new RuntimeException("unexpected - visiting classes is delegated");
 	}

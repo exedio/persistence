@@ -37,7 +37,7 @@ public class JavaFileTest
 			javaFile.markFragmentAsGenerated(5, 7);
 			fail();
 		}
-		catch (RuntimeException e)
+		catch (final RuntimeException e)
 		{
 			assertEquals("fragments must be marked from start to end", e.getMessage());
 		}
@@ -51,7 +51,7 @@ public class JavaFileTest
 			javaFile.markFragmentAsGenerated(10, 9);
 			fail();
 		}
-		catch (RuntimeException e)
+		catch (final RuntimeException e)
 		{
 			// fine
 		}
@@ -60,7 +60,7 @@ public class JavaFileTest
 			javaFile.markFragmentAsGenerated(10, 10);
 			fail();
 		}
-		catch (RuntimeException e)
+		catch (final RuntimeException e)
 		{
 			// fine
 		}
@@ -69,7 +69,7 @@ public class JavaFileTest
 			javaFile.markFragmentAsGenerated(-1, 10);
 			fail();
 		}
-		catch (RuntimeException e)
+		catch (final RuntimeException e)
 		{
 			// fine
 		}
@@ -95,7 +95,7 @@ public class JavaFileTest
 			javaFile.getSourceWithoutGeneratedFragments();
 			fail();
 		}
-		catch (RuntimeException e)
+		catch (final RuntimeException e)
 		{
 			assertEquals("unconsumed GeneratedFragment at end of file", e.getMessage());
 		}
@@ -110,13 +110,13 @@ public class JavaFileTest
 			javaFile.getSourceWithoutGeneratedFragments();
 			fail();
 		}
-		catch (RuntimeException e)
+		catch (final RuntimeException e)
 		{
 			assertEquals("unconsumed GeneratedFragment at end of file", e.getMessage());
 		}
 	}
 
-	private void assertSourcesWithoutGeneratedFragments(String expected, JavaFile javaFile)
+	private void assertSourcesWithoutGeneratedFragments(final String expected, final JavaFile javaFile)
 	{
 		assertEquals(expected, new String(javaFile.getSourceWithoutGeneratedFragments(), StandardCharsets.US_ASCII));
 	}

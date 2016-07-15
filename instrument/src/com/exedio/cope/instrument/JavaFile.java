@@ -154,7 +154,7 @@ final class JavaFile
 			}
 			return os.toByteArray();
 		}
-		catch (IOException e)
+		catch (final IOException e)
 		{
 			throw new RuntimeException(e);
 		}
@@ -184,7 +184,7 @@ final class JavaFile
 				return false;
 			}
 		}
-		catch (IOException e)
+		catch (final IOException e)
 		{
 			throw new RuntimeException(e);
 		}
@@ -251,7 +251,7 @@ final class JavaFile
 		}
 	}
 
-	void overwrite(CharSequence content, Charset charset)
+	void overwrite(final CharSequence content, final Charset charset)
 	{
 		try(final OutputStreamWriter w = new OutputStreamWriter(sourceFile.openOutputStream(), charset))
 		{
@@ -260,7 +260,7 @@ final class JavaFile
 				w.write(content.charAt(i));
 			}
 		}
-		catch(IOException e)
+		catch(final IOException e)
 		{
 			throw new RuntimeException(e);
 		}
@@ -271,7 +271,7 @@ final class JavaFile
 		final int startInclusive;
 		final int endExclusive;
 
-		GeneratedFragment(int startInclusive, int endExclusive)
+		GeneratedFragment(final int startInclusive, final int endExclusive)
 		{
 			if (startInclusive<0) throw new RuntimeException();
 			if (startInclusive>=endExclusive) throw new RuntimeException();

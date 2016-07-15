@@ -49,7 +49,7 @@ class ClassVisitor extends TreePathScanner<Void,Void>
 	}
 
 	@Override
-	public Void visitClass(ClassTree ct, Void ignore)
+	public Void visitClass(final ClassTree ct, final Void ignore)
 	{
 		if (javaClass==null)
 		{
@@ -203,7 +203,7 @@ class ClassVisitor extends TreePathScanner<Void,Void>
 	}
 
 	@Override
-	public Void visitAnnotation(AnnotationTree node, Void p)
+	public Void visitAnnotation(final AnnotationTree node, final Void p)
 	{
 		if ( node.getAnnotationType().toString().contains("javax.annotation.Generated")
 			&& node.getArguments().size()==1

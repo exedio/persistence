@@ -159,7 +159,7 @@ final class Main
 		}
 	}
 
-	void runJavac(final List<File> files, JavaRepository repository) throws IOException
+	void runJavac(final List<File> files, final JavaRepository repository) throws IOException
 	{
 		// "JavacTool.create()" is not part of the "exported" API
 		// (not annotated with https://docs.oracle.com/javase/8/docs/jdk/api/javac/tree/jdk/Exported.html).

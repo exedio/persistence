@@ -856,7 +856,7 @@ final class Generator
 		}
 	}
 
-	void write(Charset charset)
+	void write(final Charset charset)
 	{
 		final String buffer = new String(javaFile.getSourceWithoutGeneratedFragments(), charset);
 		int previousClassEndPosition = 0;

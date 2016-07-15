@@ -29,37 +29,37 @@ class TreeApiContext
 		this.sourcePositions=docTrees.getSourcePositions();
 	}
 
-	void markFragmentAsGenerated(int start, int end)
+	void markFragmentAsGenerated(final int start, final int end)
 	{
 		javaFile.markFragmentAsGenerated(start, end);
 	}
 
-	String getDocComment(TreePath path)
+	String getDocComment(final TreePath path)
 	{
 		return docTrees.getDocComment(path);
 	}
 
-	long getStartPosition(Tree mt)
+	long getStartPosition(final Tree mt)
 	{
 		return sourcePositions.getStartPosition(compilationUnit, mt);
 	}
 
-	long getEndPosition(Tree mt)
+	long getEndPosition(final Tree mt)
 	{
 		return sourcePositions.getEndPosition(compilationUnit, mt);
 	}
 
-	DocCommentTree getDocCommentTree(TreePath currentPath)
+	DocCommentTree getDocCommentTree(final TreePath currentPath)
 	{
 		return docTrees.getDocCommentTree(currentPath);
 	}
 
-	long getStartPosition(DocCommentTree docCommentTree, DocCommentTree docCommentTree0)
+	long getStartPosition(final DocCommentTree docCommentTree, final DocCommentTree docCommentTree0)
 	{
 		return sourcePositions.getStartPosition(compilationUnit, docCommentTree, docCommentTree);
 	}
 
-	long getEndPosition(DocCommentTree docCommentTree, DocCommentTree docCommentTree0)
+	long getEndPosition(final DocCommentTree docCommentTree, final DocCommentTree docCommentTree0)
 	{
 		return sourcePositions.getEndPosition(compilationUnit, docCommentTree, docCommentTree);
 	}
@@ -72,7 +72,7 @@ class TreeApiContext
 			{
 				allBytes=readFully(inputStream);
 			}
-			catch (IOException e)
+			catch (final IOException e)
 			{
 				throw new RuntimeException(e);
 			}

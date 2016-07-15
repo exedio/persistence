@@ -16,12 +16,12 @@ class DummyJavaFileObject implements JavaFileObject
 	private final String name;
 	private int dummyByteCount=-1;
 
-	DummyJavaFileObject(String name)
+	DummyJavaFileObject(final String name)
 	{
 		this.name=name;
 	}
 
-	DummyJavaFileObject withDummyBytes(int byteCount)
+	DummyJavaFileObject withDummyBytes(final int byteCount)
 	{
 		dummyByteCount=byteCount;
 		return this;
@@ -40,7 +40,7 @@ class DummyJavaFileObject implements JavaFileObject
 	}
 
 	@Override
-	public boolean isNameCompatible(String simpleName, Kind kind)
+	public boolean isNameCompatible(final String simpleName, final Kind kind)
 	{
 		throw new RuntimeException();
 	}
@@ -85,13 +85,13 @@ class DummyJavaFileObject implements JavaFileObject
 	}
 
 	@Override
-	public Reader openReader(boolean ignoreEncodingErrors) throws IOException
+	public Reader openReader(final boolean ignoreEncodingErrors) throws IOException
 	{
 		throw new RuntimeException();
 	}
 
 	@Override
-	public CharSequence getCharContent(boolean ignoreEncodingErrors) throws IOException
+	public CharSequence getCharContent(final boolean ignoreEncodingErrors) throws IOException
 	{
 		throw new RuntimeException();
 	}

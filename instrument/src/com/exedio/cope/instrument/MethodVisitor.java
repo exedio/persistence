@@ -29,7 +29,7 @@ class MethodVisitor extends TreeScanner<Void,Void>
 	boolean currentMethodHasGeneratedAnnotation = false;
 
 	@Override
-	public Void visitAnnotation(AnnotationTree node, Void p)
+	public Void visitAnnotation(final AnnotationTree node, final Void p)
 	{
 		if ( node.getAnnotationType().toString().contains("javax.annotation.Generated")
 			&& node.getArguments().size()==1
@@ -42,7 +42,7 @@ class MethodVisitor extends TreeScanner<Void,Void>
 	}
 
 	@Override
-	public Void visitVariable(VariableTree node, Void p)
+	public Void visitVariable(final VariableTree node, final Void p)
 	{
 		// this is a method parameter
 		// nobody cares -> don't traverse
@@ -50,11 +50,9 @@ class MethodVisitor extends TreeScanner<Void,Void>
 	}
 
 	@Override
-	public Void visitBlock(BlockTree node, Void p)
+	public Void visitBlock(final BlockTree node, final Void p)
 	{
 		// nobody cares -> don't traverse
 		return null;
 	}
-
-
 }

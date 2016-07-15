@@ -27,7 +27,7 @@ class VariableVisitor extends TreeScanner<Void,Void>
 	boolean currentVariableHasGeneratedAnnotation = false;
 
 	@Override
-	public Void visitAnnotation(AnnotationTree node, Void p)
+	public Void visitAnnotation(final AnnotationTree node, final Void p)
 	{
 		if ( node.getAnnotationType().toString().contains("javax.annotation.Generated")
 			&& node.getArguments().size()==1
@@ -38,7 +38,4 @@ class VariableVisitor extends TreeScanner<Void,Void>
 		}
 		return super.visitAnnotation(node, p);
 	}
-
-
-
 }
