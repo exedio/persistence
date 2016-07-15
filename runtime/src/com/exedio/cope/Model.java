@@ -1298,18 +1298,12 @@ public final class Model implements Serializable
 	}
 
 	@Deprecated
+	@SuppressWarnings("deprecation") // needed just for eclipse
 	private static final Revisions.Factory wrap(final RevisionsFuture revisions)
 	{
 		if(revisions==null)
 			return null;
 
-		return new Revisions.Factory()
-		{
-			@Override
-			public Revisions create(final Revisions.Factory.Context ctx)
-			{
-				return revisions.get(ctx.getEnvironment());
-			}
-		};
+		return ctx -> revisions.get(ctx.getEnvironment());
 	}
 }
