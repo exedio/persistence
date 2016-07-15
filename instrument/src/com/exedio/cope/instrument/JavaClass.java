@@ -204,7 +204,7 @@ final class JavaClass extends JavaFeature
 		}
 	}
 
-	void addInnerClass(JavaClass c)
+	void addInnerClass(final JavaClass c)
 	{
 		innerClasses.put(c.name, c);
 	}
