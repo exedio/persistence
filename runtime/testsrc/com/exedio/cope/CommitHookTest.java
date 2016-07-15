@@ -131,24 +131,12 @@ public class CommitHookTest
 
 	private static Runnable appender(final StringBuilder bf, final String value)
 	{
-		return new Runnable(){
-			@Override
-			public void run()
-			{
-				bf.append(value).append(',');
-			}
-		};
+		return () -> bf.append(value).append(',');
 	}
 
 	private static Runnable thrower(final String message)
 	{
-		return new Runnable(){
-			@Override
-			public void run()
-			{
-				throw new IllegalPathStateException(message);
-			}
-		};
+		return () -> { throw new IllegalPathStateException(message); };
 	}
 
 
