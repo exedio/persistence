@@ -202,7 +202,7 @@ final class JavaRepository
 			throw new RuntimeException(javaClass.getFullName());
 	}
 
-	private static final String DUMMY_ITEM = DummyItem.class.getName() + "$";
+	static final String DUMMY_ITEM_PREFIX = DummyItem.class.getName() + "$";
 
 	final JavaClass getJavaClass(final String name)
 	{
@@ -210,9 +210,9 @@ final class JavaRepository
 		{
 			return javaClassBySimpleName.get(name);
 		}
-		else if(name.startsWith(DUMMY_ITEM))
+		else if(name.startsWith(DUMMY_ITEM_PREFIX))
 		{
-			final String s = name.substring(DUMMY_ITEM.length(), name.length());
+			final String s = name.substring(DUMMY_ITEM_PREFIX.length(), name.length());
 			return javaClassBySimpleName.get(s);
 		}
 		else

@@ -38,8 +38,6 @@ import java.util.List;
  */
 final class JavaClass extends JavaFeature
 {
-	static final String PREFIX_OF_INNER_CLASS_IN_DUMMY=JavaRepository.DummyItem.class.getName()+"$";
-
 	final CopeNameSpace nameSpace;
 
 	private final HashMap<String, JavaField> fields = new HashMap<>();
@@ -222,11 +220,11 @@ final class JavaClass extends JavaFeature
 		public Class<?> getClass(final String name) throws UtilEvalError
 		{
 			final String innerClassName;
-			// Un-prefixing PREFIX_OF_INNER_CLASS_IN_DUMMY is not a clean solution.
+			// Un-prefixing DUMMY_ITEM_PREFIX is not a clean solution.
 			// See SameInnerTypeCollision for an example where the hack does not work.
-			if ( name.startsWith(PREFIX_OF_INNER_CLASS_IN_DUMMY) )
+			if ( name.startsWith(JavaRepository.DUMMY_ITEM_PREFIX) )
 			{
-				innerClassName=name.substring(PREFIX_OF_INNER_CLASS_IN_DUMMY.length());
+				innerClassName=name.substring(JavaRepository.DUMMY_ITEM_PREFIX.length());
 			}
 			else
 			{
