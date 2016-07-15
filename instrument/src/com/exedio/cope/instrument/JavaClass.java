@@ -28,7 +28,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Represents a class parsed by the java parser.
@@ -39,15 +38,19 @@ import java.util.Map;
  */
 final class JavaClass extends JavaFeature
 {
+	private static final String PREFIX_OF_INNER_CLASS_IN_DUMMY=JavaRepository.DummyItem.class.getName()+"$";
+
 	final CopeNameSpace nameSpace;
 
 	private final HashMap<String, JavaField> fields = new HashMap<>();
 	private final ArrayList<JavaField> fieldList = new ArrayList<>();
+	private final HashMap<String,JavaClass> innerClasses = new HashMap<>();
 	final int typeParameters;
 	final boolean isEnum;
 	final String classExtends;
 	private String docComment;
 	private int classEndPosition = -1;
+
 
 	/**
 	 * @param parent may be null for non-inner classes
@@ -201,8 +204,6 @@ final class JavaClass extends JavaFeature
 		}
 	}
 
-	// TODO EnumCollision move var up in file
-	private final Map<String,JavaClass> innerClasses = new HashMap<>();
 	void addInnerClass(JavaClass c)
 	{
 		innerClasses.put(c.name, c);
@@ -222,11 +223,10 @@ final class JavaClass extends JavaFeature
 		public Class<?> getClass(final String name) throws UtilEvalError
 		{
 			final String innerClassName;
-			// TODO EnumCollision constant foe "DummyItem$"
 			// TODO EnumCollision really no better way? gets wrong for inner classes of other classes
-			if ( name.startsWith(JavaRepository.DummyItem.class.getName()+"$") )
+			if ( name.startsWith(PREFIX_OF_INNER_CLASS_IN_DUMMY) )
 			{
-				innerClassName=name.substring((JavaRepository.DummyItem.class.getName()+"$").length());
+				innerClassName=name.substring(PREFIX_OF_INNER_CLASS_IN_DUMMY.length());
 			}
 			else
 			{
