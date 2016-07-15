@@ -234,7 +234,6 @@ final class JavaClass extends JavaFeature
 				innerClassName=name;
 			}
 			final JavaClass inner=innerClasses.get(innerClassName);
-			// TODO EnumCollision proper handling of isEnum
 			if ( inner==null || !inner.isEnum )
 			{
 				return super.getClass(name);
