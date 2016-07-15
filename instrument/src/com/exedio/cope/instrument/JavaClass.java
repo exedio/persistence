@@ -51,7 +51,6 @@ final class JavaClass extends JavaFeature
 	private String docComment;
 	private int classEndPosition = -1;
 
-
 	/**
 	 * @param parent may be null for non-inner classes
 	 */
