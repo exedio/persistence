@@ -960,6 +960,8 @@
 
 	<target name="jar" depends="runtime.jar, instrument.anno.jar, instrument.jar" />
 
+	<target name="testWithEnv" depends="dsmf.test, runtime.test.withEnv, testprotocol" />
+
 	<target name="test" depends="dsmf.test, runtime.test, instrument.test" />
 
 	<target name="web" depends="runtime.web" />
