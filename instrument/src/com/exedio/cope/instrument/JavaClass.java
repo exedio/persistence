@@ -223,7 +223,8 @@ final class JavaClass extends JavaFeature
 		public Class<?> getClass(final String name) throws UtilEvalError
 		{
 			final String innerClassName;
-			// TODO EnumCollision really no better way? gets wrong for inner classes of other classes
+			// Un-prefixing PREFIX_OF_INNER_CLASS_IN_DUMMY is not a clean solution.
+			// See SameInnerTypeCollision for an example where the hack does not work.
 			if ( name.startsWith(PREFIX_OF_INNER_CLASS_IN_DUMMY) )
 			{
 				innerClassName=name.substring(PREFIX_OF_INNER_CLASS_IN_DUMMY.length());
