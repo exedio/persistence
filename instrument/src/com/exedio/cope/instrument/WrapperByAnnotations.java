@@ -119,10 +119,7 @@ final class WrapperByAnnotations
 		@Override
 		public int compare(final Wrap o1, final Wrap o2)
 		{
-			if(o1==o2)
-				return 0;
-
-			return Integer.compare(o1.order(), o2.order());
+			return (o1==o2) ? 0 : Integer.compare(o1.order(), o2.order());
 		}
 	};
 
