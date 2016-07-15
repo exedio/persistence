@@ -929,6 +929,7 @@
 				<pathelement location="build/classes/runtime/servletsrc" />
 				<pathelement location="build/classes/runtime/junitsrc" />
 				<pathelement location="build/classes/instrument/src" />
+				<pathelement location="build/classes/instrument/annosrc" />
 				<pathelement location="build/classes/instrument/testfeaturesrc" />
 				<pathelement location="build/classes/instrument/testsrc" />
 				<pathelement location="lib/exedio-cope-util.jar" />

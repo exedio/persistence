@@ -114,14 +114,8 @@ final class WrapperByAnnotations
 		return bf.toString();
 	}
 
-	private static final Comparator<Wrap> ORDER_COMPARATOR = new Comparator<Wrap>()
-	{
-		@Override
-		public int compare(final Wrap o1, final Wrap o2)
-		{
-			return (o1==o2) ? 0 : Integer.compare(o1.order(), o2.order());
-		}
-	};
+	private static final Comparator<Wrap> ORDER_COMPARATOR =
+			(o1, o2) -> (o1==o2) ? 0 : Integer.compare(o1.order(), o2.order());
 
 	private boolean isNotHidden(final Wrap annotation)
 	{
