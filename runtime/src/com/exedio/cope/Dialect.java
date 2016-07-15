@@ -102,8 +102,8 @@ abstract class Dialect
 		trimmers.put(TrimClass.Data, dataTrimmer);
 
 		final Trimmer constraintTrimmer = new Trimmer(60);
-		trimmers.put(TrimClass.Constraint, constraintTrimmer);
-		trimmers.put(TrimClass.CheckConstraint, constraintTrimmer);
+		trimmers.put(TrimClass.ForeignKeyUniqueConstraint, constraintTrimmer);
+		trimmers.put(TrimClass. PrimaryKeyCheckConstraint, constraintTrimmer);
 	}
 
 	String isValidOnGet42()

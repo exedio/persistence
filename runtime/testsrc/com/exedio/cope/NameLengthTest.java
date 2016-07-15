@@ -81,7 +81,7 @@ public class NameLengthTest extends TestWithEnvironment
 		assertIt(table, Check,     cc ? "AnItem_checkLoooooooooooo" : "AnItem_checkLooooooooooooooooooooooooooooooooooooooooooooooo");
 
 		final Table longTable = schema.getTable(getTableName(LongItem.TYPE));
-		assertIt(longTable, PrimaryKey, c
+		assertIt(longTable, PrimaryKey, cc
 				? "LoooooooooooooooooItem_Pk"
 				: "LooooooooooooooooooooItem_Pk");
 

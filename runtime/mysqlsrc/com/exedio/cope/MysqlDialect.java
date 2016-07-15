@@ -167,7 +167,7 @@ final class MysqlDialect extends Dialect
 		super.setNameTrimmers(trimmers);
 
 		if(shortConstraintNames)
-			trimmers.put(TrimClass.Constraint, trimmers.get(TrimClass.Data));
+			trimmers.put(TrimClass.ForeignKeyUniqueConstraint, trimmers.get(TrimClass.Data));
 	}
 
 	private static final String CHARSET = "utf8";
