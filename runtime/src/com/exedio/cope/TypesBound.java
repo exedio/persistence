@@ -137,7 +137,8 @@ public final class TypesBound
 				final Feature feature = (Feature)field.get(null);
 				if(feature==null)
 					throw new NullPointerException(clazz.getName() + '#' + field.getName());
-				result.put(feature, field);
+				if(result.put(feature, field)!=null)
+					throw new RuntimeException("" + field);
 			}
 		}
 		catch(final IllegalAccessException e)
@@ -154,19 +155,7 @@ public final class TypesBound
 		@Override
 		public int compare(final Feature f1, final Feature f2)
 		{
-			if(f1==f2)
-				return 0;
-
-			final int o1 = f1.instantiationOrder;
-			final int o2 = f2.instantiationOrder;
-
-			if(o1<o2)
-				return -1;
-			else
-			{
-				assert o1>o2 : f1.toString() + '/' + f2;
-				return 1;
-			}
+			return (f1==f2) ? 0 : Integer.compare(f1.instantiationOrder, f2.instantiationOrder);
 		}
 	};
 
