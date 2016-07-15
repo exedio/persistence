@@ -159,7 +159,7 @@ final class Main
 		}
 	}
 
-	void runJavac(final List<File> files, final JavaRepository repository) throws IOException
+	static void runJavac(final List<File> files, final JavaRepository repository) throws IOException
 	{
 		// "JavacTool.create()" is not part of the "exported" API
 		// (not annotated with https://docs.oracle.com/javase/8/docs/jdk/api/javac/tree/jdk/Exported.html).
@@ -182,7 +182,7 @@ final class Main
 		}
 	}
 
-	private String getJavacClasspath()
+	private static String getJavacClasspath()
 	{
 		// This is a hack:
 		// We want to use the current classpath also in the javac task that's being started, so we
@@ -190,7 +190,7 @@ final class Main
 		return toClasspath(com.exedio.cope.Item.class.getClassLoader());
 	}
 
-	private String toClasspath(final ClassLoader cl)
+	private static String toClasspath(final ClassLoader cl)
 	{
 		if (cl instanceof URLClassLoader)
 		{

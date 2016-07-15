@@ -115,7 +115,7 @@ public class JavaFileTest
 		}
 	}
 
-	private void assertSourcesWithoutGeneratedFragments(final String expected, final JavaFile javaFile)
+	private static void assertSourcesWithoutGeneratedFragments(final String expected, final JavaFile javaFile)
 	{
 		assertEquals(expected, new String(javaFile.getSourceWithoutGeneratedFragments(), StandardCharsets.US_ASCII));
 	}

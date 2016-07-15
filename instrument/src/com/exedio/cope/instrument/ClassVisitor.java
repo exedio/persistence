@@ -190,7 +190,7 @@ class ClassVisitor extends TreePathScanner<Void,Void>
 		return simpleName;
 	}
 
-	private boolean allWhitespace(final String s)
+	private static boolean allWhitespace(final String s)
 	{
 		for (final char c: s.toCharArray())
 		{
