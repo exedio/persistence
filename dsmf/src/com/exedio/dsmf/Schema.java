@@ -372,32 +372,29 @@ public final class Schema extends Node
 
 	private static <E> Iterable<E> reverse(final List<E> l)
 	{
-		return new Iterable<E>(){
-			@Override
-			public Iterator<E> iterator()
+		return () ->
+		{
+			final ListIterator<E> iterator = l.listIterator(l.size());
+			return new Iterator<E>()
 			{
-				final ListIterator<E> iterator = l.listIterator(l.size());
-				return new Iterator<E>()
+				@Override
+				public boolean hasNext()
 				{
-					@Override
-					public boolean hasNext()
-					{
-						return iterator.hasPrevious();
-					}
+					return iterator.hasPrevious();
+				}
 
-					@Override
-					public E next()
-					{
-						return iterator.previous();
-					}
+				@Override
+				public E next()
+				{
+					return iterator.previous();
+				}
 
-					@Override
-					public void remove()
-					{
-						throw new UnsupportedOperationException();
-					}
-				};
-			}
+				@Override
+				public void remove()
+				{
+					throw new UnsupportedOperationException();
+				}
+			};
 		};
 	}
 }
