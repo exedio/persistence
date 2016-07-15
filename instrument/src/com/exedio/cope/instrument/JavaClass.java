@@ -42,6 +42,7 @@ final class JavaClass extends JavaFeature
 
 	private final HashMap<String, JavaField> fields = new HashMap<>();
 	private final ArrayList<JavaField> fieldList = new ArrayList<>();
+	final HashMap<String,JavaClass> innerClasses = new HashMap<>();
 	final int typeParameters;
 	final boolean isEnum;
 	final String classExtends;
@@ -63,6 +64,10 @@ final class JavaClass extends JavaFeature
 		this.isEnum = isEnum;
 		this.classExtends = Generics.strip(classExtends);
 		file.add(this);
+		if (parent!=null)
+		{
+			parent.addInnerClass(this);
+		}
 	}
 
 	void add(final JavaField javaField)
@@ -196,6 +201,11 @@ final class JavaClass extends JavaFeature
 		}
 	}
 
+	void addInnerClass(final JavaClass c)
+	{
+		innerClasses.put(c.name, c);
+	}
+
 	@SuppressFBWarnings("SE_BAD_FIELD_INNER_CLASS") // Non-serializable class has a serializable inner class
 	private final class NS extends CopeNameSpace
 	{
@@ -204,6 +214,31 @@ final class JavaClass extends JavaFeature
 		NS(final CopeNameSpace parent)
 		{
 			super(parent, name);
+		}
+
+		@Override
+		public Class<?> getClass(final String name) throws UtilEvalError
+		{
+			final String innerClassName;
+			// Un-prefixing DUMMY_ITEM_PREFIX is not a clean solution.
+			// See SameInnerTypeCollision for an example where the hack does not work.
+			if ( name.startsWith(JavaRepository.DUMMY_ITEM_PREFIX) )
+			{
+				innerClassName=name.substring(JavaRepository.DUMMY_ITEM_PREFIX.length());
+			}
+			else
+			{
+				innerClassName=name;
+			}
+			final JavaClass inner=innerClasses.get(innerClassName);
+			if ( inner==null || !inner.isEnum )
+			{
+				return super.getClass(name);
+			}
+			else
+			{
+				return JavaRepository.EnumBeanShellHackClass.class;
+			}
 		}
 
 		@Override
