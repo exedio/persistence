@@ -1,7 +1,6 @@
 package com.exedio.cope.instrument;
 
 import java.io.ByteArrayInputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Reader;
@@ -64,7 +63,7 @@ class DummyJavaFileObject implements JavaFileObject
 	}
 
 	@Override
-	public InputStream openInputStream() throws IOException
+	public InputStream openInputStream()
 	{
 		if (dummyByteCount==-1)
 		{
@@ -79,25 +78,25 @@ class DummyJavaFileObject implements JavaFileObject
 	}
 
 	@Override
-	public OutputStream openOutputStream() throws IOException
+	public OutputStream openOutputStream()
 	{
 		throw new RuntimeException();
 	}
 
 	@Override
-	public Reader openReader(final boolean ignoreEncodingErrors) throws IOException
+	public Reader openReader(final boolean ignoreEncodingErrors)
 	{
 		throw new RuntimeException();
 	}
 
 	@Override
-	public CharSequence getCharContent(final boolean ignoreEncodingErrors) throws IOException
+	public CharSequence getCharContent(final boolean ignoreEncodingErrors)
 	{
 		throw new RuntimeException();
 	}
 
 	@Override
-	public Writer openWriter() throws IOException
+	public Writer openWriter()
 	{
 		throw new RuntimeException();
 	}
