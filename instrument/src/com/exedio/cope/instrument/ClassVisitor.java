@@ -71,10 +71,6 @@ class ClassVisitor extends TreePathScanner<Void,Void>
 	@Override
 	public Void visitVariable(final VariableTree node, final Void p)
 	{
-		if ( hasCopeIgnoreJavadocTag() )
-		{
-			return null;
-		}
 		final VariableVisitor variableVisitor=new VariableVisitor();
 		variableVisitor.visitVariable(node, null);
 		final boolean generated=checkGenerated(node, variableVisitor.currentVariableHasGeneratedAnnotation);
@@ -141,11 +137,6 @@ class ClassVisitor extends TreePathScanner<Void,Void>
 	private boolean hasCopeGeneratedJavadocTag()
 	{
 		return hasJavadocTag("@"+CopeFeature.TAG_PREFIX+"generated");
-	}
-
-	private boolean hasCopeIgnoreJavadocTag()
-	{
-		return hasJavadocTag("@"+CopeFeature.TAG_PREFIX+"ignore");
 	}
 
 	private boolean hasJavadocTag(final String tag)
