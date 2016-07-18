@@ -41,4 +41,16 @@ public class GenericsTest
 		assertEquals(asList("Gen1<NestGen1A>", "Gen2<NestGen2A>"), get("Raw<Gen1<NestGen1A>,Gen2<NestGen2A>>"));
 		assertEquals(asList("Gen1<NestGen1A>", "Gen2<NestGen2A,NestGen2B,NestGen2C>"), get("Raw<Gen1<NestGen1A>,Gen2<NestGen2A,NestGen2B,NestGen2C>>"));
 	}
+
+	@Test public void testRemove()
+	{
+		assertEquals("new Foo()", Generics.remove("new Foo()"));
+		assertEquals("new Foo()", Generics.remove("new Foo<x>()"));
+		assertEquals("new Foo().x(\"y\")", Generics.remove("new Foo<x>().x(\"y\")"));
+		assertEquals("new Foo().x(\"\\u003C\")", Generics.remove("new Foo<x>().x(\"\\u003C\")"));
+		assertEquals("new Foo().x(\"<\")", Generics.remove("new Foo().x(\"<\")"));
+		assertEquals("new Foo('>')", Generics.remove("new Foo('>')"));
+		assertEquals("'\"'", Generics.remove("'\"'<>"));
+		assertEquals("'\\''", Generics.remove("'\\''"));
+	}
 }

@@ -29,22 +29,57 @@ final class Generics
 {
 	static String remove(final String s)
 	{
-		final int lt = s.indexOf('<');
-		//System.out.println("--------evaluate("+s+")"+lt);
-		if(lt>=0)
+		boolean inStringLiteral = false;
+		boolean inCharLiteral = false;
+		boolean backslash = false;
+		int posLessThan = -1;
+		int posGreatherThan = -1;
+		for (int i=0; i<s.length(); i++)
 		{
-			final int gt = s.indexOf('>', lt);
-			if(gt<0)
-				throw new RuntimeException(s);
-
-			//System.out.println("--------evaluate("+s+")"+gt);
-			if(gt<s.length())
-				return s.substring(0, lt) + s.substring(gt+1);
-			else
-				return s.substring(0, lt);
+			if (backslash)
+			{
+				backslash=false;
+				continue;
+			}
+			switch (s.charAt(i))
+			{
+				case '\\':
+					backslash=true;
+					break;
+				case '\'':
+					if (inStringLiteral) break;
+					inCharLiteral=!inCharLiteral;
+					break;
+				case '\"':
+					if (inCharLiteral) break;
+					inStringLiteral=!inStringLiteral;
+					break;
+				case '<':
+					if (inStringLiteral||inCharLiteral) break;
+					if (posLessThan!=-1) throw new RuntimeException("failed to remove generics from "+s);
+					posLessThan=i;
+					break;
+				case '>':
+					if (inStringLiteral||inCharLiteral) break;
+					if (posLessThan==-1) throw new RuntimeException("failed to remove generics from "+s);
+					posGreatherThan=i;
+					break;
+				default:
+					// ignore
+					break;
+			}
+		}
+		if (inStringLiteral) throw new RuntimeException("failed to remove generics from "+s);
+		if (inCharLiteral) throw new RuntimeException("failed to remove generics from "+s);
+		if (posLessThan>=0)
+		{
+			if (posGreatherThan==-1) throw new RuntimeException("failed to remove generics from "+s);
+			return s.substring(0, posLessThan)+s.substring(posGreatherThan+1);
 		}
 		else
+		{
 			return s;
+		}
 	}
 
 	static String strip(final String s)
