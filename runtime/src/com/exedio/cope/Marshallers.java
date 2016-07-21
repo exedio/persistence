@@ -21,6 +21,7 @@ package com.exedio.cope;
 import com.exedio.cope.util.Day;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -96,9 +97,9 @@ final class Marshallers
 				else if(cell instanceof Long)
 					return Integer.valueOf(Math.toIntExact(((Long)cell).longValue()));
 				else if(cell instanceof BigDecimal)
-					return Integer.valueOf(((BigDecimal)cell).intValueExact());
+					return Integer.valueOf(((BigDecimal)cell).setScale(0, RoundingMode.DOWN).intValueExact());
 				else if(cell instanceof Double) // needed for DayPartView on postgresql
-					return Integer.valueOf(BigDecimal.valueOf(((Double)cell).doubleValue()).intValueExact());
+					return Integer.valueOf(BigDecimal.valueOf(((Double)cell).doubleValue()).setScale(0, RoundingMode.DOWN).intValueExact());
 				else
 					throw new RuntimeException("" + cell + '/' + cell.getClass().getName());
 			}
@@ -129,7 +130,7 @@ final class Marshallers
 				else if(o instanceof Integer)
 					return Long.valueOf(((Integer)o).intValue());
 				else if(o instanceof BigDecimal)
-					return Long.valueOf(((BigDecimal)o).longValueExact());
+					return Long.valueOf(((BigDecimal)o).setScale(0, RoundingMode.DOWN).longValueExact());
 				else
 					throw new RuntimeException("" + o + '/' + o.getClass().getName());
 			}
