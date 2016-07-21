@@ -23,6 +23,7 @@ import com.sun.source.doctree.DocCommentTree;
 import com.sun.source.tree.AnnotationTree;
 import com.sun.source.tree.BlockTree;
 import com.sun.source.tree.ClassTree;
+import com.sun.source.tree.ExpressionTree;
 import com.sun.source.tree.MethodTree;
 import com.sun.source.tree.Tree;
 import com.sun.source.tree.VariableTree;
@@ -196,10 +197,7 @@ class ClassVisitor extends TreePathScanner<Void,Void>
 	@Override
 	public Void visitAnnotation(final AnnotationTree node, final Void p)
 	{
-		if ( node.getAnnotationType().toString().contains("javax.annotation.Generated")
-			&& node.getArguments().size()==1
-			&& node.getArguments().get(0).toString().equals("value = \"com.exedio.cope.instrument\"")
-			)
+		if ( TreeApiHelper.isGeneratedAnnotation(node) )
 		{
 			throw new RuntimeException("'Generated' but not a method or variable");
 		}
