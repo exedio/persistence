@@ -359,6 +359,48 @@ public class CompareConditionTest extends TestWithEnvironment
 		}
 	}
 
+	@Test public void testAverageRounding()
+	{
+		{
+			final Query<Integer> q = new Query<>(intx.average());
+			q.setCondition(intx.less(3));
+			assertEquals("select avg(" + intx.getName() + ") from " + TYPE + " where " + intx.getName() + "<'3'", q.toString());
+			assertEquals(valueOf(1) /* 1.5 */, q.searchSingleton());
+		}
+		{
+			final Query<Long> q = new Query<>(longx.average());
+			q.setCondition(longx.less(15l));
+			assertEquals("select avg(" + longx.getName() + ") from " + TYPE + " where " + longx.getName() + "<'15'", q.toString());
+			assertEquals(valueOf(12l /* 12.5 */), q.searchSingleton());
+		}
+
+		new CompareConditionItem(null, 5, 15l, null, null, null, null);
+
+		{
+			final Query<Integer> q = new Query<>(intx.average());
+			assertEquals("select avg(" + intx.getName() + ") from " + TYPE, q.toString());
+			assertEquals(valueOf(3) /* 3.33333333 */, q.searchSingleton());
+		}
+		{
+			final Query<Long> q = new Query<>(longx.average());
+			assertEquals("select avg(" + longx.getName() + ") from " + TYPE, q.toString());
+			assertEquals(valueOf(13l) /* 13.3333333 */, q.searchSingleton());
+		}
+
+		new CompareConditionItem(null, 7, 17l, null, null, null, null);
+
+		{
+			final Query<Integer> q = new Query<>(intx.average());
+			assertEquals("select avg(" + intx.getName() + ") from " + TYPE, q.toString());
+			assertEquals(valueOf(3) /* 3.85714286 */, q.searchSingleton());
+		}
+		{
+			final Query<Long> q = new Query<>(longx.average());
+			assertEquals("select avg(" + longx.getName() + ") from " + TYPE, q.toString());
+			assertEquals(valueOf(13l) /* 13.8571429 */, q.searchSingleton());
+		}
+	}
+
 	@Test public void testCheckUnsupportedConstraints()
 	{
 		commit();
