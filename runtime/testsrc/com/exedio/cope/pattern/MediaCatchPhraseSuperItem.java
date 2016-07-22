@@ -18,11 +18,14 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.instrument.Visibility.NONE;
+
 import com.exedio.cope.Item;
+import com.exedio.cope.instrument.Wrapper;
 
 public class MediaCatchPhraseSuperItem extends Item
 {
-	/** @cope.getURL none */
+	@Wrapper(wrap="getURL", visibility=NONE)
 	static final Media feature = new Media().lengthMax(2000).contentType("foo/bar");
 
 	MediaCatchPhraseSuperItem()

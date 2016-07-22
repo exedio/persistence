@@ -29,11 +29,13 @@ import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnName;
 import static com.exedio.cope.SchemaInfo.getTableName;
 import static com.exedio.cope.SchemaInfo.getTypeColumnName;
 import static com.exedio.cope.SchemaInfo.getUpdateCounterColumnName;
+import static com.exedio.cope.instrument.Visibility.NONE;
 import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
 
+import com.exedio.cope.instrument.WrapperType;
 import com.exedio.dsmf.Column;
 import com.exedio.dsmf.Constraint;
 import com.exedio.dsmf.Table;
@@ -144,10 +146,7 @@ public class ConstraintSetTest extends TestWithEnvironment
 		}
 	}
 
-	/**
-	 * @cope.constructor none
-	 * @cope.indent 2
-	 */
+	@com.exedio.cope.instrument.WrapperType(constructor=NONE, indent=2) // TODO use import, but this is not accepted by javac
 	static class AnItem extends Item
 	{
 		static final BooleanField field = new BooleanField().optional();
@@ -346,10 +345,7 @@ public class ConstraintSetTest extends TestWithEnvironment
 		protected AnItem(final com.exedio.cope.ActivationParameters ap){super(ap);
 }}
 
-	/**
-	 * @cope.constructor none
-	 * @cope.indent 2
-	 */
+	@WrapperType(constructor=NONE, indent=2)
 	static final class ASubItem extends AnItem
 	{
 		/**

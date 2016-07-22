@@ -70,7 +70,9 @@ final class CopeType
 		this.name = javaClass.name;
 		this.visibility = javaClass.getVisibility();
 		this.option = Tags.cascade(
+				javaClass,
 				Option.forType(javaClass.docComment),
+				javaClass.typeOption,
 				OPTION_DEFAULT);
 		copeTypeByJavaClass.put(javaClass, this);
 

@@ -18,12 +18,14 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.instrument.Visibility.NONE;
+
+import com.exedio.cope.instrument.Wrapper;
+
 abstract class DeleteSchemaItemSuper extends Item
 {
-	/**
-	 * @cope.get none
-	 * @cope.set none
-	 */
+	@Wrapper(wrap="get", visibility=NONE)
+	@Wrapper(wrap="set", visibility=NONE)
 	@SuppressWarnings("unused")
 	private static final StringField superField = new StringField().optional();
 

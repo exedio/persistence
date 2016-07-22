@@ -111,7 +111,12 @@ final class Option
 		final String line = getLine(docComment, CopeFeature.TAG_PREFIX + modifierTag);
 		if(line==null)
 			return null;
+		else
+			return forFeatureLine(line);
+	}
 
+	static Wrapper forFeatureLine(final String line)
+	{
 		final Visibility visibility = getVisibility(line);
 		final boolean internal = line.contains(TEXT_INTERNAL);
 		final boolean booleanAsIs = line.contains(TEXT_BOOLEAN_AS_IS);

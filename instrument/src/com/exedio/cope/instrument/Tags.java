@@ -20,6 +20,7 @@
 package com.exedio.cope.instrument;
 
 import java.lang.annotation.Annotation;
+import javax.annotation.Nonnull;
 
 final class Tags
 {
@@ -69,9 +70,22 @@ final class Tags
 	}
 
 	static <A extends Annotation> A cascade(
+			@Nonnull final JavaFeature exceptionObject,
 			final A byTags,
+			final A byAnnotation,
 			final A defaultValue)
 	{
+		if(byTags!=null && byAnnotation!=null)
+		{
+			exceptionObject.reportSourceError("mixing of javadoc tags and annotations not supported", "");
+			throw new RuntimeException(
+					"mixing of javadoc tags and annotations not supported at " +
+					exceptionObject);
+		}
+
+		if(byAnnotation!=null)
+			return byAnnotation;
+
 		if(byTags!=null)
 			return byTags;
 

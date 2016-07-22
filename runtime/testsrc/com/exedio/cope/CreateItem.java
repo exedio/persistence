@@ -18,14 +18,14 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.instrument.Visibility.PACKAGE;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
+import com.exedio.cope.instrument.WrapperType;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
-/**
- * @cope.generic.constructor package
- */
+@WrapperType(genericConstructor=PACKAGE)
 final class CreateItem extends CreateSuperItem
 {
 	@SuppressFBWarnings("UPM_UNCALLED_PRIVATE_METHOD") // called by reflection

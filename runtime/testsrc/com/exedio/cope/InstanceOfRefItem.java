@@ -18,9 +18,11 @@
 
 package com.exedio.cope;
 
-/**
- * @cope.constructor private
- */
+import static com.exedio.cope.instrument.Visibility.PRIVATE;
+
+import com.exedio.cope.instrument.WrapperType;
+
+@WrapperType(constructor=PRIVATE)
 final class InstanceOfRefItem extends Item
 {
 	static final ItemField<InstanceOfAItem> ref = ItemField.create(InstanceOfAItem.class).toFinal().optional();

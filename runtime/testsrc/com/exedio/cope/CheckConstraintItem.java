@@ -18,19 +18,21 @@
 
 package com.exedio.cope;
 
+import com.exedio.cope.instrument.WrapperInitial;
+
 @CopeName("Main")
 public final class CheckConstraintItem extends CheckConstraintSuperItem
 {
-	/** @cope.initial */
+	@WrapperInitial
 	public static final IntegerField alpha = new IntegerField().optional();
 
-	/** @cope.initial */
+	@WrapperInitial
 	public static final IntegerField beta = new IntegerField().optional();
 
-	/** @cope.initial */
+	@WrapperInitial
 	public static final IntegerField gamma = new IntegerField().optional();
 
-	/** @cope.initial */
+	@WrapperInitial
 	public static final IntegerField delta = new IntegerField().optional();
 
 	public static final CheckConstraint alphaToBeta = new CheckConstraint(alpha.less(beta));

@@ -18,8 +18,11 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.instrument.Visibility.NONE;
+
 import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
+import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.pattern.sub.TextUrlFilterOverride;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -28,10 +31,10 @@ public final class TextUrlFilterItem extends Item
 {
 	static final StringField name = new StringField().optional();
 
-	/** @cope.getURL none */
+	@Wrapper(wrap="getURL", visibility=NONE)
 	static final Media roh = new Media().optional();
 
-	/** @cope.getURL none */
+	@Wrapper(wrap="getURL", visibility=NONE)
 	static final TextUrlFilter fertig = new TextUrlFilterOverride(
 			roh,
 			"text/plain", StandardCharsets.UTF_8,

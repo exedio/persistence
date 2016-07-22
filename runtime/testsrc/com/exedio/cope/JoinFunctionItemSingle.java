@@ -18,11 +18,11 @@
 
 package com.exedio.cope;
 
+import com.exedio.cope.instrument.WrapperInitial;
+
 public final class JoinFunctionItemSingle extends Item
 {
-	/**
-	 * @cope.initial
-	 */
+	@WrapperInitial
 	public static final StringField name = new StringField();
 
 

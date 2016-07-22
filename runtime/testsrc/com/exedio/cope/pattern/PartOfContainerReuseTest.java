@@ -31,6 +31,7 @@ import static org.junit.Assert.assertSame;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
+import com.exedio.cope.instrument.WrapperIgnore;
 import org.junit.Test;
 
 public class PartOfContainerReuseTest
@@ -118,9 +119,7 @@ public class PartOfContainerReuseTest
 		static final IntegerField order2 = new IntegerField();
 
 		static final PartOf<AContainer> parts1 = PartOf.create(container, order1);
-		/**
-		 * @cope.ignore
-		 */
+		@WrapperIgnore
 		static final PartOf<AContainer> parts2 = PartOf.create(container, order2);
 
 

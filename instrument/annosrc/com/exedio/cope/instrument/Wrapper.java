@@ -19,13 +19,15 @@
 package com.exedio.cope.instrument;
 
 import java.lang.annotation.ElementType;
+import java.lang.annotation.Repeatable;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+@Repeatable(WrapperRepeated.class)
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.SOURCE)
-@interface Wrapper
+public @interface Wrapper
 {
 	String wrap();
 

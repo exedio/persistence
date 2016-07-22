@@ -18,17 +18,18 @@
 
 package com.exedio.cope.instrument.testmodel;
 
+import static com.exedio.cope.instrument.Visibility.PUBLIC;
+
 import com.exedio.cope.EnumField;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
 import com.exedio.cope.StringField;
+import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.instrument.testmodel.EnumContainer.Enum4;
 
 final class InnerContainer
 {
-	/**
-	 * @cope.generic.constructor public
-	 */
+	@WrapperType(genericConstructor=PUBLIC)
 	static class Super extends Item
 	{
 		static final ItemField<Target> superField = ItemField.create(Target.class).toFinal();

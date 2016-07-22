@@ -18,11 +18,11 @@
 
 package com.exedio.cope;
 
+import com.exedio.cope.instrument.WrapperInitial;
+
 final class CopyMultiTargetItemB extends Item
 {
-	/**
-	 * @cope.initial
-	 */
+	@WrapperInitial
 	static final StringField copy = new StringField().toFinal().optional();
 
 	/**

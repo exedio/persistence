@@ -18,14 +18,15 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.instrument.Visibility.PACKAGE;
+
+import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.util.Day;
 import com.exedio.cope.util.TimeZoneStrict;
 import java.util.Date;
 import java.util.Random;
 
-/**
- * @cope.generic.constructor package
- */
+@WrapperType(genericConstructor=PACKAGE)
 final class DefaultToItem extends Item
 {
 

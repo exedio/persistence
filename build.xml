@@ -372,6 +372,7 @@
 		<instrument
 				dir="runtime/testsrc"
 				verify="${instrument.verify}"
+				configByTags="error"
 				suppressUnusedWarningOnPrivateActivationConstructor="true"
 				nullabilityAnnotations="${instrument.nullabilityAnnotations}"
 				timestampFile="build/timestamps/runtime.test.timestamp">
@@ -655,6 +656,7 @@
 		<instrument
 				dir="runtime/servlettestsrc"
 				verify="${instrument.verify}"
+				configByTags="error"
 				suppressUnusedWarningOnPrivateActivationConstructor="true"
 				nullabilityAnnotations="${instrument.nullabilityAnnotations}"
 				timestampFile="build/timestamps/runtime.servlet.test.timestamp">
@@ -842,6 +844,7 @@
 				verify="${instrument.verify}"
 				encoding="ascii"
 				maxwarns="20000"
+				configByTags="support"
 				suppressUnusedWarningOnPrivateActivationConstructor="true"
 				serialVersionUIDSuffix="small"
 				hidingWarningSuppressor="hiding"
@@ -850,6 +853,7 @@
 			<resources refid="instrument.resources" />
 			<classpath>
 				<pathelement location="lib/cpsuite.jar" />
+				<pathelement location="${env.JAVA_HOME}/lib/tools.jar"/>
 			</classpath>
 			<!-- removing this ignore causes the instrumentor to resolve the wrong SubTarget class: -->
 			<ignore>
@@ -881,6 +885,7 @@
 				depends="runtime.compile, instrument.compile, instrument.test.compile">
 		<ljunit test="${instrument.test}">
 			<classpath>
+				<pathelement location="${env.JAVA_HOME}/lib/tools.jar"/>
 				<pathelement location="build/classes/dsmf/src" />
 				<pathelement location="build/classes/runtime/src" />
 				<pathelement location="build/classes/runtime/patternsrc" />

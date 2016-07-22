@@ -25,7 +25,9 @@ import com.sun.source.tree.MethodTree;
 import com.sun.source.tree.Tree;
 import com.sun.source.tree.VariableTree;
 import com.sun.source.util.TreePathScanner;
+import java.lang.annotation.Annotation;
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.Set;
 import javax.annotation.Generated;
@@ -60,8 +62,10 @@ class ClassVisitor extends TreePathScanner<Void,Void>
 				TreeApiHelper.toModifiersInt(ct.getModifiers()),
 				getSimpleName(ct),
 				context.getDocComment(getCurrentPath()),
+				context.getSourcePosition(ct),
 				ct.getKind()==Tree.Kind.ENUM,
 				classExtends,
+				getWrapperType(),
 				Math.toIntExact(context.getEndPosition(ct))-1
 			);
 			return super.visitClass(ct, ignore);
@@ -87,7 +91,11 @@ class ClassVisitor extends TreePathScanner<Void,Void>
 				removeSpacesAfterCommas(node.getType().toString()),
 				node.getName().toString(),
 				context.getDocComment(getCurrentPath()),
-				node.getInitializer()==null?null:node.getInitializer().toString()
+				context.getSourcePosition(node),
+				node.getInitializer()==null?null:node.getInitializer().toString(),
+				getAnnotation(WrapperInitial.class),
+				getAnnotation(WrapperIgnore.class),
+				Arrays.asList(getAnnotations(Wrapper.class))
 			);
 		}
 		return null;
@@ -140,11 +148,22 @@ class ClassVisitor extends TreePathScanner<Void,Void>
 
 	private boolean hasGeneratedAnnotation()
 	{
-		final Element element=context.getElement(getCurrentPath());
-		final Generated generated=element.getAnnotation(Generated.class);
+		final Generated generated=getAnnotation(Generated.class);
 		return generated!=null
 			&& generated.value().length==1
 			&& generated.value()[0].equals(Main.GENERATED_VALUE);
+	}
+
+	private <T extends Annotation> T getAnnotation(final Class<T> annotationType)
+	{
+		final Element element=context.getElement(getCurrentPath());
+		return element.getAnnotation(annotationType);
+	}
+
+	private <T extends Annotation> T[] getAnnotations(final Class<T> annotationType)
+	{
+		final Element element=context.getElement(getCurrentPath());
+		return element.getAnnotationsByType(annotationType);
 	}
 
 	private static String removeSpacesAfterCommas(final String s)
@@ -203,5 +222,11 @@ class ClassVisitor extends TreePathScanner<Void,Void>
 			throw new RuntimeException("unexpected - methods are not visited");
 		}
 		return null;
+	}
+
+	private WrapperType getWrapperType()
+	{
+		final Element element=context.getElement(getCurrentPath());
+		return element.getAnnotation(WrapperType.class);
 	}
 }

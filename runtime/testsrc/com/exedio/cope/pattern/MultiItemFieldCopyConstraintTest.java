@@ -29,6 +29,7 @@ import com.exedio.cope.ItemField;
 import com.exedio.cope.Model;
 import com.exedio.cope.StringField;
 import com.exedio.cope.TestWithEnvironment;
+import com.exedio.cope.instrument.Wrapper;
 import java.util.Iterator;
 import org.junit.Test;
 
@@ -438,7 +439,7 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 
 	static final class A extends com.exedio.cope.Item implements MultiItemFieldValuex
 	{
-		/** @cope.get override */
+		@Wrapper(wrap="get", override=true)
 		public static final StringField value = new StringField().toFinal();
 
 
@@ -514,7 +515,7 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 
 	static final class B extends com.exedio.cope.Item implements MultiItemFieldValuex
 	{
-		/** @cope.get override */
+		@Wrapper(wrap="get", override=true)
 		public static final StringField value = new StringField().toFinal();
 
 
@@ -590,7 +591,7 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 
 	static final class C extends com.exedio.cope.Item implements MultiItemFieldValuex
 	{
-		/** @cope.get override */
+		@Wrapper(wrap="get", override=true)
 		public static final StringField value = new StringField().toFinal();
 		public static final StringField template = new StringField().toFinal();
 

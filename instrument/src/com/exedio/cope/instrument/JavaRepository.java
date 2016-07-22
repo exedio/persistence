@@ -92,7 +92,7 @@ final class JavaRepository
 						continue feature;
 
 					final String docComment = javaField.docComment;
-					if(Tags.cascade(Option.forIgnore(docComment), null)!=null)
+					if(Tags.cascade(javaField, Option.forIgnore(docComment), javaField.wrapperIgnore, null)!=null)
 						continue feature;
 
 					final Class<?> typeClass = javaField.file.findTypeExternally(javaField.typeRaw);

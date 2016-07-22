@@ -18,6 +18,8 @@
 
 package com.exedio.cope.testmodel;
 
+import static com.exedio.cope.instrument.Visibility.NONE;
+
 import com.exedio.cope.BooleanField;
 import com.exedio.cope.DateField;
 import com.exedio.cope.DayField;
@@ -30,6 +32,7 @@ import com.exedio.cope.LengthView;
 import com.exedio.cope.LongField;
 import com.exedio.cope.StringField;
 import com.exedio.cope.UppercaseView;
+import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.pattern.Media;
 
 /**
@@ -129,8 +132,8 @@ public final class AttributeItem extends Item
 
 	/**
 	 * A data attribute.
-	 * @cope.getURL none
 	 */
+	@Wrapper(wrap="getURL", visibility=NONE)
 	public static final Media someData = new Media().optional();
 
 	/**

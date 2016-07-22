@@ -60,13 +60,16 @@ abstract class JavaFeature
 
 	final String docComment;
 
+	private final String sourceLocation;
+
 	JavaFeature(
 							final JavaFile file,
 							final JavaClass parent,
 							final int modifier,
 							final String type,
 							final String name,
-							final String docComment)
+							final String docComment,
+							final String sourceLocation)
 	{
 		this.file=file;
 		this.parent=parent;
@@ -75,6 +78,7 @@ abstract class JavaFeature
 		this.typeRaw=Generics.strip(type);
 		this.name=name;
 		this.docComment=docComment;
+		this.sourceLocation=sourceLocation;
 
 		if(file==null)
 			throw new RuntimeException();
@@ -88,6 +92,12 @@ abstract class JavaFeature
 			"modifier(s) "+Modifier.toString(over)+
 			" not allowed for class feature "+name+
 			" of type "+getClass().getName()+'.');
+	}
+
+	void reportSourceError(final String message, final String details)
+	{
+		System.out.println(sourceLocation+": error: "+message);
+		System.out.println(details);
 	}
 
 	/**

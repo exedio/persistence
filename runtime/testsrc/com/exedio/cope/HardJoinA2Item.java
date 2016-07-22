@@ -18,11 +18,11 @@
 
 package com.exedio.cope;
 
+import com.exedio.cope.instrument.WrapperInitial;
+
 class HardJoinA2Item extends HardJoinA1Item
 {
-	/**
-	 * @cope.initial
-	 */
+	@WrapperInitial
 	static final IntegerField a2 = new IntegerField().optional();
 
 

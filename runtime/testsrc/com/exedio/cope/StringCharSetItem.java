@@ -18,15 +18,14 @@
 
 package com.exedio.cope;
 
+import com.exedio.cope.instrument.WrapperInitial;
 import com.exedio.cope.util.CharSet;
 
 final class StringCharSetItem extends Item
 {
 	static final StringField code = new StringField().unique();
 
-	/**
-	 * @cope.initial
-	 */
+	@WrapperInitial
 	static final StringField any = new StringField().optional();
 
 	static final StringField alpha = new StringField().optional().charSet(CharSet.ALPHA);

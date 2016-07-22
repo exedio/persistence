@@ -18,13 +18,13 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.instrument.Visibility.PACKAGE;
 import static com.exedio.cope.pattern.Price.storeOf;
 
 import com.exedio.cope.Item;
+import com.exedio.cope.instrument.WrapperType;
 
-/**
- * @cope.generic.constructor package
- */
+@WrapperType(genericConstructor=PACKAGE)
 public final class PriceFieldItem extends Item
 {
 	static final PriceField finalPrice = new PriceField().toFinal();

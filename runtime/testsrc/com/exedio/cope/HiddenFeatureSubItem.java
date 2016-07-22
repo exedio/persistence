@@ -18,20 +18,20 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.instrument.Visibility.NONE;
+
+import com.exedio.cope.instrument.Wrapper;
+
 final class HiddenFeatureSubItem extends HiddenFeatureSuperItem
 {
 	static final StringField nonHiddenSub = new StringField().optional();
 
-	/**
-	 * @cope.get none
-	 * @cope.set none
-	 */
+	@Wrapper(wrap="get", visibility=NONE)
+	@Wrapper(wrap="set", visibility=NONE)
 	static final StringField hiddenSame = new StringField().optional();
 
-	/**
-	 * @cope.get none
-	 * @cope.set none
-	 */
+	@Wrapper(wrap="get", visibility=NONE)
+	@Wrapper(wrap="set", visibility=NONE)
 	static final IntegerField hiddenOther = new IntegerField().optional();
 
 	/**

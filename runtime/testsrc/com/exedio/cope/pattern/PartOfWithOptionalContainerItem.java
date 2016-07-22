@@ -20,10 +20,11 @@ package com.exedio.cope.pattern;
 
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
+import com.exedio.cope.instrument.WrapperInitial;
 
 class PartOfWithOptionalContainerItem extends Item
 {
-	/** @cope.initial */
+	@WrapperInitial
 	static final ItemField<PartOfOptionalContainerItem> container = ItemField.create(PartOfOptionalContainerItem.class).optional();
 
 	static final PartOf<PartOfOptionalContainerItem> parts = PartOf.create(container);

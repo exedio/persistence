@@ -20,13 +20,12 @@ package com.exedio.cope.pattern;
 
 import com.exedio.cope.CopeSchemaName;
 import com.exedio.cope.StringField;
+import com.exedio.cope.instrument.WrapperInitial;
 import org.junit.Assert;
 
 public final class MediaCatchPhraseItem extends MediaCatchPhraseSuperItem implements MediaUrlCatchphraseProvider
 {
-	/**
-	 * @cope.initial
-	 */
+	@WrapperInitial
 	@CopeSchemaName("phrase")
 	static final StringField catchphrase = new StringField().optional().lengthRange(0, 20);
 

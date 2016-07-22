@@ -30,6 +30,7 @@ import static org.junit.Assert.assertSame;
 
 import com.exedio.cope.BooleanField;
 import com.exedio.cope.Model;
+import com.exedio.cope.instrument.WrapperInitial;
 import org.junit.Test;
 
 public class EnumSetFieldFinalTest
@@ -77,9 +78,7 @@ public class EnumSetFieldFinalTest
 
 	static final class AnItem extends com.exedio.cope.Item // TODO use import, but this is not accepted by javac
 	{
-		/**
-		 * @cope.initial
-		 */
+		@WrapperInitial
 		static final EnumSetField<AnEnum> field = EnumSetField.create(AnEnum.class).toFinal();
 
 		public AnItem()

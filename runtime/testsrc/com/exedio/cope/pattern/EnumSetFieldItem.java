@@ -19,6 +19,7 @@
 package com.exedio.cope.pattern;
 
 import com.exedio.cope.Item;
+import com.exedio.cope.instrument.WrapperInitial;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public final class EnumSetFieldItem extends Item
@@ -37,9 +38,7 @@ public final class EnumSetFieldItem extends Item
 		};
 	}
 
-	/**
-	 * @cope.initial
-	 */
+	@WrapperInitial
 	static final EnumSetField<Language> activeLanguage = EnumSetField.create(Language.class);
 
 	public EnumSetFieldItem()

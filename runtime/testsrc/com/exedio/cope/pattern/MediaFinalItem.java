@@ -18,17 +18,20 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.instrument.Visibility.NONE;
+import static com.exedio.cope.instrument.Visibility.PACKAGE;
+
 import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
+import com.exedio.cope.instrument.Wrapper;
+import com.exedio.cope.instrument.WrapperType;
 
-/**
- * @cope.generic.constructor package
- */
+@WrapperType(genericConstructor=PACKAGE)
 public final class MediaFinalItem extends Item
 {
 	static final StringField name = new StringField().optional();
 
-	/** @cope.getURL none */
+	@Wrapper(wrap="getURL", visibility=NONE)
 	static final Media file = new Media().toFinal().optional().lengthMax(20);
 
 	/**

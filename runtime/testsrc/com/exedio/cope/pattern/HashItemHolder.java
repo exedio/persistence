@@ -18,12 +18,13 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.instrument.Visibility.PACKAGE;
+
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
+import com.exedio.cope.instrument.WrapperType;
 
-/**
- * @cope.generic.constructor package
- */
+@WrapperType(genericConstructor=PACKAGE)
 public final class HashItemHolder extends Item
 {
 	public static final ItemField<HashItem> hashItem = ItemField.create(HashItem.class);

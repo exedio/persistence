@@ -18,14 +18,15 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.instrument.Visibility.PACKAGE;
+
 import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
+import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.misc.DigitPinValidator;
 import com.exedio.cope.testmodel.WrapHash;
 
-/**
- * @cope.generic.constructor package
- */
+@WrapperType(genericConstructor=PACKAGE)
 public final class HashItem extends Item
 {
 	static final StringField explicitExternalWrap = new StringField().optional();

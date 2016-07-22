@@ -18,14 +18,15 @@
 
 package com.exedio.cope.reflect;
 
+import static com.exedio.cope.instrument.Visibility.NONE;
+
 import com.exedio.cope.CopeSchemaName;
 import com.exedio.cope.Item;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Type;
+import com.exedio.cope.instrument.WrapperType;
 
-/**
- * @cope.constructor none
- */
+@WrapperType(constructor=NONE)
 public final class TypeFieldItem extends Item
 {
 	static final TypeField<Item> standard = TypeField.create();

@@ -18,17 +18,15 @@
 
 package com.exedio.cope;
 
+import com.exedio.cope.instrument.WrapperInitial;
+
 final class CopyTargetItem extends Item
 {
-	/**
-	 * @cope.initial
-	 */
+	@WrapperInitial
 	static final StringField templateString = new StringField().toFinal().optional();
 	static final StringField otherString = new StringField();
 
-	/**
-	 * @cope.initial
-	 */
+	@WrapperInitial
 	static final ItemField<CopyValueItem> templateItem = ItemField.create(CopyValueItem.class).toFinal().optional();
 	static final ItemField<CopyValueItem> otherItem = ItemField.create(CopyValueItem.class);
 

@@ -18,38 +18,40 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.instrument.Visibility.NONE;
+
 import com.exedio.cope.CopeSchemaName;
 import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
+import com.exedio.cope.instrument.Wrapper;
+import com.exedio.cope.instrument.WrapperInitial;
 
 public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvider
 {
-	/**
-	 * @cope.initial
-	 */
+	@WrapperInitial
 	@CopeSchemaName("phrase")
 	static final StringField catchphrase = new StringField().optional();
 
 
-	/** @cope.getURL none */
+	@Wrapper(wrap="getURL", visibility=NONE)
 	static final Media foto = new Media().optional().lengthMax(2000).contentType("image/jpeg");
 
-	/** @cope.getURL none */
+	@Wrapper(wrap="getURL", visibility=NONE)
 	@PreventUrlGuessing
 	static final Media fotoSecure = new Media().optional().lengthMax(2000).contentType("image/jpeg");
 
-	/** @cope.getURL none */
+	@Wrapper(wrap="getURL", visibility=NONE)
 	@UrlFingerPrinting
 	static final Media fotoFinger = new Media().optional().lengthMax(2000).contentType("image/jpeg");
 
-	/** @cope.getURL none */
+	@Wrapper(wrap="getURL", visibility=NONE)
 	static final Media file = new Media().optional().lengthMax(2000).contentType("foo/bar");
 
-	/** @cope.getURL none */
+	@Wrapper(wrap="getURL", visibility=NONE)
 	@PreventUrlGuessing
 	static final Media fileSecure = new Media().optional().lengthMax(2000).contentType("foo/bar");
 
-	/** @cope.getURL none */
+	@Wrapper(wrap="getURL", visibility=NONE)
 	@UrlFingerPrinting
 	static final Media fileFinger = new Media().optional().lengthMax(2000).contentType("foo/bar");
 

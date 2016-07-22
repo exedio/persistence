@@ -18,6 +18,8 @@
 
 package com.exedio.cope.testmodel;
 
+import static com.exedio.cope.instrument.Visibility.PUBLIC;
+
 import com.exedio.cope.Item;
 import com.exedio.cope.LengthView;
 import com.exedio.cope.MandatoryViolationException;
@@ -26,12 +28,11 @@ import com.exedio.cope.SetValue;
 import com.exedio.cope.StringField;
 import com.exedio.cope.StringLengthViolationException;
 import com.exedio.cope.UppercaseView;
+import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.util.CharSet;
 import java.util.Date;
 
-/**
- * @cope.generic.constructor public
- */
+@WrapperType(genericConstructor=PUBLIC)
 public final class StringItem extends Item
 {
 	public static final StringField any = new StringField().optional().lengthMin(0);

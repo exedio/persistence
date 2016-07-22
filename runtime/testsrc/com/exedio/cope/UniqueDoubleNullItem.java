@@ -18,15 +18,17 @@
 
 package com.exedio.cope;
 
+import com.exedio.cope.instrument.WrapperInitial;
+
 /**
  * An item having two fields and a unique constraint over these fields.
  * @author Ralf Wiebicke
  */
 final class UniqueDoubleNullItem extends Item
 {
-	/** @cope.initial */ static final StringField string = new StringField().optional();
+	@WrapperInitial static final StringField string = new StringField().optional();
 
-	/** @cope.initial */ static final IntegerField integer = new IntegerField().optional();
+	@WrapperInitial static final IntegerField integer = new IntegerField().optional();
 
 	static final UniqueConstraint constraint = new UniqueConstraint(string, integer);
 

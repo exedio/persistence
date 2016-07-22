@@ -18,31 +18,32 @@
 
 package com.exedio.cope;
 
+import com.exedio.cope.instrument.WrapperInitial;
 import com.exedio.cope.util.Day;
 import java.util.Date;
 
 final class CompareFunctionConditionItem extends Item
 {
-	/** @cope.initial */ static final StringField stringA = new StringField().optional();
-	/** @cope.initial */ static final StringField stringB = new StringField().optional();
+	@WrapperInitial static final StringField stringA = new StringField().optional();
+	@WrapperInitial static final StringField stringB = new StringField().optional();
 
-	/** @cope.initial */ static final IntegerField intA = new IntegerField().optional();
-	/** @cope.initial */ static final IntegerField intB = new IntegerField().optional();
+	@WrapperInitial static final IntegerField intA = new IntegerField().optional();
+	@WrapperInitial static final IntegerField intB = new IntegerField().optional();
 
-	/** @cope.initial */ static final LongField longA = new LongField().optional();
-	/** @cope.initial */ static final LongField longB = new LongField().optional();
+	@WrapperInitial static final LongField longA = new LongField().optional();
+	@WrapperInitial static final LongField longB = new LongField().optional();
 
-	/** @cope.initial */ static final DoubleField doubleA = new DoubleField().optional();
-	/** @cope.initial */ static final DoubleField doubleB = new DoubleField().optional();
+	@WrapperInitial static final DoubleField doubleA = new DoubleField().optional();
+	@WrapperInitial static final DoubleField doubleB = new DoubleField().optional();
 
-	/** @cope.initial */ static final DateField dateA = new DateField().optional();
-	/** @cope.initial */ static final DateField dateB = new DateField().optional();
+	@WrapperInitial static final DateField dateA = new DateField().optional();
+	@WrapperInitial static final DateField dateB = new DateField().optional();
 
-	/** @cope.initial */ static final DayField dayA = new DayField().optional();
-	/** @cope.initial */ static final DayField dayB = new DayField().optional();
+	@WrapperInitial static final DayField dayA = new DayField().optional();
+	@WrapperInitial static final DayField dayB = new DayField().optional();
 
-	/** @cope.initial */ static final EnumField<XEnum> enumA = EnumField.create(XEnum.class).optional();
-	/** @cope.initial */ static final EnumField<XEnum> enumB = EnumField.create(XEnum.class).optional();
+	@WrapperInitial static final EnumField<XEnum> enumA = EnumField.create(XEnum.class).optional();
+	@WrapperInitial static final EnumField<XEnum> enumB = EnumField.create(XEnum.class).optional();
 
 	static enum XEnum
 	{

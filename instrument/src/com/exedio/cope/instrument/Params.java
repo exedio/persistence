@@ -46,6 +46,7 @@ final class Params
 		return String.valueOf(maxwarns);
 	}
 
+	ConfigurationByJavadocTags configByTags = ConfigurationByJavadocTags.warn;
 	boolean longJavadoc = true;
 	boolean finalArgs = true;
 	boolean nullabilityAnnotations = false;
@@ -60,6 +61,11 @@ final class Params
 	boolean overrideOnSeparateLine = true;
 	boolean verbose = false;
 	File timestampFile = null;
+
+	enum ConfigurationByJavadocTags
+	{
+		support, warn, error, ignore, convertToAnnotations
+	}
 
 	enum IntegerTypeSuffix
 	{

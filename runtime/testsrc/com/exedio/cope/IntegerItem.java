@@ -18,11 +18,12 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.instrument.Visibility.PACKAGE;
+
+import com.exedio.cope.instrument.WrapperType;
 import java.util.Date;
 
-/**
- * @cope.generic.constructor package
- */
+@WrapperType(genericConstructor=PACKAGE)
 public final class IntegerItem extends Item
 {
 	public static final IntegerField any = new IntegerField().optional();

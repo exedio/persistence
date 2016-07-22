@@ -18,11 +18,14 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.instrument.Visibility.NONE;
 import static com.exedio.cope.util.TimeZoneStrict.getTimeZone;
 
 import com.exedio.cope.DateField;
 import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
+import com.exedio.cope.instrument.Wrapper;
+import com.exedio.cope.instrument.WrapperInitial;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -34,16 +37,11 @@ import java.text.SimpleDateFormat;
 final class MediaServletItem extends Item
 	implements MediaUrlCatchphraseProvider
 {
-	/**
-	 * @cope.initial
-	 */
+	@WrapperInitial
 	static final StringField name = new StringField().optional();
 
-
-	/**
-	 * @cope.set internal
-	 * @cope.getURL none
-	 */
+	@Wrapper(wrap="set", internal=true)
+	@Wrapper(wrap="getURL", visibility=NONE)
 	@RedirectFrom({"contentAlt1", "contentAlt2"})
 	static final Media content = new Media().optional();
 
@@ -87,18 +85,18 @@ final class MediaServletItem extends Item
 	}
 
 
-	/** @cope.getURL none */
+	@Wrapper(wrap="getURL", visibility=NONE)
 	@Deprecated
 	static final MediaRedirect redirect = new MediaRedirect(content);
 
-	/** @cope.getURL none */
+	@Wrapper(wrap="getURL", visibility=NONE)
 	static final MediaThumbnail thumbnail = new MediaThumbnail(content, 150, 150);
 
-	/** @cope.getURL none */
+	@Wrapper(wrap="getURL", visibility=NONE)
 	@Deprecated
 	static final MediaRedirect thumbnailRedirect = new MediaRedirect(thumbnail);
 
-	/** @cope.getURL none */
+	@Wrapper(wrap="getURL", visibility=NONE)
 	static final TextUrlFilter html = new TextUrlFilter(
 			content,
 			"text/html", StandardCharsets.UTF_8,
@@ -106,11 +104,11 @@ final class MediaServletItem extends Item
 			new StringField(),
 			new Media());
 
-	/** @cope.getURL none */
+	@Wrapper(wrap="getURL", visibility=NONE)
 	@PreventUrlGuessing
 	static final MediaThumbnail tokened = new MediaThumbnail(content, 25, 25);
 
-	/** @cope.getURL none */
+	@Wrapper(wrap="getURL", visibility=NONE)
 	@UrlFingerPrinting
 	static final MediaThumbnail finger = new MediaThumbnail(content, 150, 150);
 

@@ -18,27 +18,30 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.instrument.Visibility.NONE;
+
 import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
+import com.exedio.cope.instrument.Wrapper;
 
 public final class MediaItem extends Item
 {
 	static final StringField name = new StringField().optional();
 
-	/** @cope.getURL none */
+	@Wrapper(wrap="getURL", visibility=NONE)
 	static final Media file = new Media().optional().lengthMax(20);
 
-	/** @cope.getURL none */
+	@Wrapper(wrap="getURL", visibility=NONE)
 	static final Media image = new Media().optional().contentTypeSub("image");
 
-	/** @cope.getURL none */
+	@Wrapper(wrap="getURL", visibility=NONE)
 	static final Media photo = new Media().optional().lengthMax(2000).contentType("image/jpeg");
 
-	/** @cope.getURL none */
+	@Wrapper(wrap="getURL", visibility=NONE)
 	@SuppressWarnings("deprecation") // OK: test deprecated api
 	static final MediaRedirect foto = new MediaRedirect(photo);
 
-	/** @cope.getURL none */
+	@Wrapper(wrap="getURL", visibility=NONE)
 	static final Media sheet = new Media().optional().lengthMax(5000).contentType("application/pdf", "image/png");
 
 	static final MediaCustom custom = new MediaCustom(name);

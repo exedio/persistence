@@ -20,10 +20,11 @@ package com.exedio.cope.pattern;
 
 import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
+import com.exedio.cope.instrument.Wrapper;
 
 public class MultiItemFieldComponentA extends Item implements MultiItemFieldValue
 {
-	/** @cope.get override */
+	@Wrapper(wrap="get", override=true)
 	public static final StringField value = new StringField().defaultTo("A");
 
 

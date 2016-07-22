@@ -23,6 +23,9 @@ import com.exedio.cope.Item;
 public abstract class OptionFeatureSuperItem extends Item
 {
 	abstract void simpleOverride();
+
+	abstract void simpleOverrideAnnotated();
+
 /**
 
 	 **

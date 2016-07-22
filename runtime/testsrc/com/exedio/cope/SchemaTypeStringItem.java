@@ -18,10 +18,11 @@
 
 package com.exedio.cope;
 
-/**
- * @cope.constructor none
- * @cope.generic.constructor none
- */
+import static com.exedio.cope.instrument.Visibility.NONE;
+
+import com.exedio.cope.instrument.WrapperType;
+
+@WrapperType(constructor=NONE, genericConstructor=NONE)
 public final class SchemaTypeStringItem extends Item
 {
 	static final SchemaTypeStringField f1        = new SchemaTypeStringField(      1);

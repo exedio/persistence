@@ -25,7 +25,7 @@ import java.lang.annotation.Target;
 
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.SOURCE)
-@interface WrapperType
+public @interface WrapperType
 {
 	/**
 	 * Overrides the visibility of the generated TYPE constant.

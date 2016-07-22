@@ -54,7 +54,7 @@ final class CopeFeature
 		this.visibility = javaField.getVisibility();
 
 		this.docComment = javaField.docComment;
-		this.initial = Tags.cascade(Option.forInitial(docComment), null)!=null;
+		this.initial = Tags.cascade(javaField, Option.forInitial(docComment), javaField.wrapperInitial, null)!=null;
 
 		parent.register(this);
 	}
@@ -161,7 +161,9 @@ final class CopeFeature
 	Wrapper getOption(final String modifierTag)
 	{
 		return Tags.cascade(
+				javaField,
 				Option.forFeature(docComment, modifierTag),
+				javaField.getWrappers(modifierTag),
 				OPTION_DEFAULT);
 	}
 

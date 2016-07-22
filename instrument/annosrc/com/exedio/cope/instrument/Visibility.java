@@ -20,7 +20,7 @@ package com.exedio.cope.instrument;
 
 import java.lang.reflect.Modifier;
 
-enum Visibility
+public enum Visibility
 {
 	/** don't generate the element */
 	NONE,

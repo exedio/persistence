@@ -18,11 +18,13 @@
 
 package com.exedio.cope;
 
+import com.exedio.cope.instrument.WrapperInitial;
+
 final class AsStringItem extends Item
 {
-	/** @cope.initial */ static final IntegerField intx = new IntegerField().optional();
-	/** @cope.initial */ static final LongField longx = new LongField().optional();
-	/** @cope.initial */ static final DoubleField doublex = new DoubleField().optional();
+	@WrapperInitial static final IntegerField intx = new IntegerField().optional();
+	@WrapperInitial static final LongField longx = new LongField().optional();
+	@WrapperInitial static final DoubleField doublex = new DoubleField().optional();
 
 
 	/**

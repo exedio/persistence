@@ -28,6 +28,7 @@ import static org.junit.Assert.assertEquals;
 import com.exedio.cope.Model;
 import com.exedio.cope.StringField;
 import com.exedio.cope.TestWithEnvironment;
+import com.exedio.cope.instrument.WrapperInitial;
 import java.util.EnumMap;
 import org.junit.Test;
 
@@ -142,7 +143,7 @@ public class EnumMapFieldFallbackTest extends TestWithEnvironment
 
 	static final class AnItem extends com.exedio.cope.Item // TODO use import, but this is not accepted by javac
 	{
-		/** @cope.initial */
+		@WrapperInitial
 		static final EnumMapField<AnEnum, String> text =
 				EnumMapField.create(AnEnum.class, new StringField().optional()).fallback();
 

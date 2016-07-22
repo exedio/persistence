@@ -18,22 +18,24 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.instrument.Visibility.NONE;
+import static com.exedio.cope.instrument.Visibility.PACKAGE;
+
+import com.exedio.cope.instrument.Wrapper;
+import com.exedio.cope.instrument.WrapperInitial;
+
 final class DeleteSchemaItem extends DeleteSchemaItemSuper
 {
 	static final StringField field = new StringField();
 	static final IntegerField next = new IntegerField().defaultToNext(1000);
 	static final Sequence sequence = new Sequence(2000);
 
-	/**
-	 * @cope.initial
-	 * @cope.get package
-	 * @cope.set none
-	 */
+	@WrapperInitial
+	@Wrapper(wrap="get", visibility=PACKAGE)
+	@Wrapper(wrap="set", visibility=NONE)
 	private static final IntegerField nextUnused = new IntegerField().defaultToNext(10000);
 
-	/**
-	 * @cope.next none
-	 */
+	@Wrapper(wrap="next", visibility=NONE)
 	@SuppressWarnings("unused")
 	private static final Sequence sequenceUnused = new Sequence(20000);
 

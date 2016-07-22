@@ -18,12 +18,13 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.instrument.Visibility.PACKAGE;
+
 import com.exedio.cope.Item;
+import com.exedio.cope.instrument.WrapperType;
 import java.util.Map;
 
-/**
- * @cope.generic.constructor package
- */
+@WrapperType(genericConstructor=PACKAGE)
 @SuppressWarnings("rawtypes")
 public final class SerializerItem extends Item
 {

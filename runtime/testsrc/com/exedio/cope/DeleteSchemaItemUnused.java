@@ -18,10 +18,11 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.instrument.Visibility.NONE;
 
-/**
- * @cope.constructor none
- */
+import com.exedio.cope.instrument.WrapperType;
+
+@WrapperType(constructor=NONE)
 final class DeleteSchemaItemUnused extends Item
 {
 	static final IntegerField code = new IntegerField();

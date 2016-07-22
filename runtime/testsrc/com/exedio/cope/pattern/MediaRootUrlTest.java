@@ -25,6 +25,7 @@ import static org.junit.Assert.assertSame;
 import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
+import com.exedio.cope.instrument.WrapperInitial;
 import com.exedio.cope.util.Properties;
 import com.exedio.cope.util.Sources;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -119,9 +120,7 @@ public class MediaRootUrlTest
 
 	static class AnItem extends Item
 	{
-		/**
-		 * @cope.initial
-		 */
+		@WrapperInitial
 		static final Media file = new Media().optional();
 
 		@SuppressWarnings("deprecation") // OK: testing deprecated api

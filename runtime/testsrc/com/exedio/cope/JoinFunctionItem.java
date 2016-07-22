@@ -18,17 +18,14 @@
 
 package com.exedio.cope;
 
+import com.exedio.cope.instrument.WrapperInitial;
 
 final class JoinFunctionItem extends Item
 {
-	/**
-	 * @cope.initial
-	 */
+	@WrapperInitial
 	static final StringField string = new StringField().optional();
 
-	/**
-	 * @cope.initial
-	 */
+	@WrapperInitial
 	static final IntegerField integer = new IntegerField().optional();
 
 

@@ -18,6 +18,7 @@
 
 package com.exedio.cope.instrument;
 
+import com.exedio.cope.instrument.Params.ConfigurationByJavadocTags;
 import com.exedio.cope.instrument.Params.IntegerTypeSuffix;
 import java.io.File;
 import java.io.IOException;
@@ -110,6 +111,14 @@ public final class AntTask extends Task
 				"<instrument ... uses deprecated attribute encoding=\"" + value + "\", " +
 				"use charset=\"" + value + "\" instead.");
 		setCharset(value);
+	}
+
+	// TODO parameter type ConfigurationByJavadocTags instead of converting manually
+	// is supported by Ant version 1.9.0
+	// travis-ci just supports Ant version 1.8.2
+	public void setConfigByTags(final String value)
+	{
+		params.configByTags = ConfigurationByJavadocTags.valueOf(value);
 	}
 
 	public void setLongJavadoc(final boolean value)
@@ -229,6 +238,11 @@ public final class AntTask extends Task
 			pathsToFiles(resources, resourceFiles, true);
 			pathsToFiles(classpath, classpathFiles, false);
 
+			if (params.configByTags==ConfigurationByJavadocTags.convertToAnnotations)
+			{
+				ConvertTagsToAnnotations.convert(params, classpathFiles);
+				throw new HumanReadableException("convertToAnnotations - stopping build");
+			}
 			(new Main()).run(params, classpathFiles, resourceFiles);
 		}
 		catch(final HumanReadableException e)

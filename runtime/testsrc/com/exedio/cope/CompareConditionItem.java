@@ -18,17 +18,18 @@
 
 package com.exedio.cope;
 
+import com.exedio.cope.instrument.WrapperInitial;
 
 final class CompareConditionItem extends Item
 {
-	/** @cope.initial */ static final StringField string = new StringField().optional();
+	@WrapperInitial static final StringField string = new StringField().optional();
 	static final StringField otherString = new StringField().optional();
-	/** @cope.initial */ static final IntegerField intx = new IntegerField().optional();
-	/** @cope.initial */ static final LongField longx = new LongField().optional();
-	/** @cope.initial */ static final DoubleField doublex = new DoubleField().optional();
-	/** @cope.initial */ static final DateField date = new DateField().optional();
-	/** @cope.initial */ static final DayField day = new DayField().optional();
-	/** @cope.initial */ static final EnumField<YEnum> enumx = EnumField.create(YEnum.class).optional();
+	@WrapperInitial static final IntegerField intx = new IntegerField().optional();
+	@WrapperInitial static final LongField longx = new LongField().optional();
+	@WrapperInitial static final DoubleField doublex = new DoubleField().optional();
+	@WrapperInitial static final DateField date = new DateField().optional();
+	@WrapperInitial static final DayField day = new DayField().optional();
+	@WrapperInitial static final EnumField<YEnum> enumx = EnumField.create(YEnum.class).optional();
 
 	static enum YEnum
 	{

@@ -18,8 +18,11 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.instrument.Visibility.NONE;
+
 import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
+import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.pattern.sub.TextUrlFilterDelegatorOverride;
 import com.exedio.cope.pattern.sub.TextUrlFilterOverride;
 import java.io.IOException;
@@ -29,20 +32,20 @@ public final class TextUrlFilterDelegatorItem extends Item
 {
 	static final StringField name = new StringField().optional();
 
-	/** @cope.getURL none */
+	@Wrapper(wrap="getURL", visibility=NONE)
 	static final Media roh = new Media().optional();
 
-	/** @cope.getURL none */
+	@Wrapper(wrap="getURL", visibility=NONE)
 	static final TextUrlFilter fertig = new TextUrlFilterOverride(
 			roh,
 			"text/plain", StandardCharsets.UTF_8,
 			new StringField(),
 			new Media().lengthMax(3).contentType(MediaType.PNG));
 
-	/** @cope.getURL none */
+	@Wrapper(wrap="getURL", visibility=NONE)
 	static final Media roh2 = new Media().optional();
 
-	/** @cope.getURL none */
+	@Wrapper(wrap="getURL", visibility=NONE)
 	static final TextUrlFilterDelegator fertig2 = new TextUrlFilterDelegatorOverride(
 			roh2,
 			fertig,

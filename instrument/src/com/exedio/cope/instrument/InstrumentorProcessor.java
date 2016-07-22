@@ -41,14 +41,16 @@ import javax.tools.JavaFileObject;
 final class InstrumentorProcessor extends AbstractProcessor
 {
 
+	private final Params.ConfigurationByJavadocTags javadocTagHandling;
 	private final JavaRepository javaRepository;
 	private final Set<JavaFileObject> ignoreFiles;
 
-	private DocTrees docTrees;
 	boolean processHasBeenCalled = false;
+	boolean foundJavadocControlTags = false;
 
-	InstrumentorProcessor(final JavaRepository javaRepository, final Iterable<? extends JavaFileObject> ignoreFiles)
+	InstrumentorProcessor(final Params.ConfigurationByJavadocTags javadocTagHandling, final JavaRepository javaRepository, final Iterable<? extends JavaFileObject> ignoreFiles)
 	{
+		this.javadocTagHandling = javadocTagHandling;
 		this.javaRepository = javaRepository;
 		this.ignoreFiles = new HashSet<>();
 		for (final JavaFileObject ignoreFile: ignoreFiles)
@@ -61,7 +63,6 @@ final class InstrumentorProcessor extends AbstractProcessor
 	public synchronized void init(final ProcessingEnvironment pe)
 	{
 		super.init(pe);
-		docTrees = DocTrees.instance(pe);
 	}
 
 	@Override
@@ -69,6 +70,7 @@ final class InstrumentorProcessor extends AbstractProcessor
 	{
 		processHasBeenCalled=true;
 		final Map<CompilationUnitTree,JavaFile> files = new HashMap<>();
+		final DocTrees docTrees = DocTrees.instance(processingEnv);
 		for (final Element e: roundEnv.getRootElements())
 		{
 			// We could check for ((TypeElement)e).getSuperclass() here to only visit "interesting" elements,
@@ -89,8 +91,13 @@ final class InstrumentorProcessor extends AbstractProcessor
 			}
 			if (!ignoreFiles.contains(compilationUnit.getSourceFile()))
 			{
-				final CompilationUnitVisitor visitor=new CompilationUnitVisitor(new TreeApiContext(docTrees, javaFile, compilationUnit));
+				final TreeApiContext treeApiContext=new TreeApiContext(javadocTagHandling, processingEnv, javaFile, compilationUnit);
+				final CompilationUnitVisitor visitor=new CompilationUnitVisitor(treeApiContext);
 				visitor.scan(tp, null);
+				if (treeApiContext.foundJavadocControlTags)
+				{
+					foundJavadocControlTags=true;
+				}
 			}
 		}
 		return true;

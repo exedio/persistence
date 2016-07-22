@@ -18,6 +18,7 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.instrument.Visibility.PUBLIC;
 import static com.exedio.cope.pattern.SettableMandatorySyntheticTest.AnItem.TYPE;
 import static com.exedio.cope.pattern.SettableMandatorySyntheticTest.AnItem.mandatory;
 import static org.junit.Assert.assertEquals;
@@ -70,9 +71,7 @@ public class SettableMandatorySyntheticTest extends TestWithEnvironment
 	}
 
 
-	/**
-	 * @cope.generic.constructor public
-	 */
+	@com.exedio.cope.instrument.WrapperType(genericConstructor=PUBLIC) // TODO use import, but this is not accepted by javac
 	static final class AnItem extends com.exedio.cope.Item // TODO use import, but this is not accepted by javac
 	{
 		static final SettableSyntheticField mandatory = new SettableSyntheticField();

@@ -18,18 +18,18 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.instrument.Visibility.NONE;
+
 import com.exedio.cope.Item;
 import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
+import com.exedio.cope.instrument.Wrapper;
+import com.exedio.cope.instrument.WrapperType;
 
-/**
- * @cope.type none
- */
+@WrapperType(type=NONE)
 public final class DispatcherNoneItem extends Item
 {
-	/**
-	 * @cope.dispatch none
-	 */
+	@Wrapper(wrap="dispatch", visibility=NONE)
 	static final Dispatcher wrong = new Dispatcher();
 
 	@SuppressWarnings({"unchecked", "rawtypes"}) // because instrumentor fails on correct version

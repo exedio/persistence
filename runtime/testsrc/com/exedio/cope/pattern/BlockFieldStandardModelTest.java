@@ -19,6 +19,7 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
+import static com.exedio.cope.instrument.Visibility.NONE;
 import static com.exedio.cope.pattern.BlockFieldStandardModelTest.ABlock.aColor;
 import static com.exedio.cope.pattern.BlockFieldStandardModelTest.ABlock.aList;
 import static com.exedio.cope.pattern.BlockFieldStandardModelTest.ABlock.aMedia;
@@ -40,6 +41,7 @@ import com.exedio.cope.IntegerField;
 import com.exedio.cope.ItemField;
 import com.exedio.cope.Model;
 import com.exedio.cope.StringField;
+import com.exedio.cope.instrument.Wrapper;
 import java.awt.Color;
 import java.util.Arrays;
 import org.junit.Test;
@@ -143,7 +145,7 @@ public class BlockFieldStandardModelTest
 		static final EnumField<AnEnum> anEnum = EnumField.create(AnEnum.class);
 		static final ItemField<AnItem> anItem = ItemField.create(AnItem.class).optional();
 		static final ColorField aColor = new ColorField();
-		/** @cope.getURL none */
+		@Wrapper(wrap="getURL", visibility=NONE)
 		static final Media aMedia = new Media().optional().contentType("text/plain");
 		static final ListField<String> aList = ListField.create(new StringField());
 

@@ -28,7 +28,7 @@ import java.lang.annotation.Target;
  */
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.SOURCE)
-@interface WrapperInitial
+public @interface WrapperInitial
 {
 	// empty
 }

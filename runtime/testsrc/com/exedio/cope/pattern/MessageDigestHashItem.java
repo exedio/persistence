@@ -18,19 +18,22 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.instrument.Visibility.NONE;
+
 import com.exedio.cope.Item;
+import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.util.Hex;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.nio.charset.StandardCharsets;
 
 public final class MessageDigestHashItem extends Item
 {
-	/** @cope.set none */
+	@Wrapper(wrap="set", visibility=NONE)
 	static final Hash password = new Hash(new MessageDigestAlgorithm("SHA-512", 0, 5).salt(8, new MockSecureRandom2())).optional().limit(200);
-	/** @cope.set none */
+	@Wrapper(wrap="set", visibility=NONE)
 	static final Hash passwordLatin = new Hash(new MessageDigestAlgorithm("SHA-512", 0, 5).salt(8, new MockSecureRandom2()), StandardCharsets.ISO_8859_1).optional();
 	static final Hash passwordFinal = new Hash(new MessageDigestAlgorithm("SHA-512", 0, 5).salt(8, new MockSecureRandom2())).toFinal();
-	/** @cope.set none */
+	@Wrapper(wrap="set", visibility=NONE)
 	static final Hash passwordMandatory = new Hash(new MessageDigestAlgorithm("SHA-512", 0, 5).salt(8, new MockSecureRandom2()));
 
 	void setPassword(final String password)

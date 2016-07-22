@@ -18,10 +18,13 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.instrument.Visibility.NONE;
+
 import com.exedio.cope.BooleanField;
 import com.exedio.cope.CopeSchemaName;
 import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
+import com.exedio.cope.instrument.Wrapper;
 import org.junit.Assert;
 
 public final class MediaPathItem extends Item implements MediaUrlCatchphraseProvider
@@ -32,18 +35,18 @@ public final class MediaPathItem extends Item implements MediaUrlCatchphraseProv
 	static final BooleanField accessControlAllowOriginWildcard = new BooleanField().defaultTo(false);
 
 
-	/** @cope.getURL none */
+	@Wrapper(wrap="getURL", visibility=NONE)
 	@RedirectFrom({"normalRedirect1", "normalRedirect2"})
 	static final MediaPathFeature normal = new MediaPathFeature();
 
 
-	/** @cope.getURL none */
+	@Wrapper(wrap="getURL", visibility=NONE)
 	@RedirectFrom({"fingerRedirect1", "fingerRedirect2"})
 	@UrlFingerPrinting
 	static final MediaPathFeature finger = new MediaPathFeature();
 
 
-	/** @cope.getURL none */
+	@Wrapper(wrap="getURL", visibility=NONE)
 	@PreventUrlGuessing
 	static final MediaPathFeature guess = new MediaPathFeature();
 

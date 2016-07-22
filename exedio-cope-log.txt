@@ -7,6 +7,28 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* Instrumentor is now controlled via annotations, instead of javadoc tags.
+
+	javadoc tag                       | annotation
+	----------------------------------+---------------------------------
+	/**                               | @WrapperType(
+	 * @cope.type none                |   type=NONE,
+	 * @cope.constructor none         |   constructor=NONE,
+	 * @cope.generic.constructor none |   genericConstructor=NONE,
+	 * @cope.indent 2                 |   indent=2
+	 */                               | )
+	/**                               |
+	 * @cope.ignore                   | @WrapperIgnore
+	 * @cope.initial                  | @WrapperInitial
+	 * @cope.methodName ...           | @Wrapper(wrap="methodName", ...)
+	 */
+
+	<instrument configByTags="support|warn|error|ignore|convertToAnnotations"> (default is "warn")
+	Steps for migrating from tags to annotations:
+	1. <instrument configByTags="support"> - verify that everthing works as before
+	2. <instrument configByTags="convertToAnnotations"> - run once to get feature-level tags auto-transformed
+	3. <instrument configByTags="support"> - manually fix imports for auto-transformed annotations
+	4. <instrument configByTags="error"> - manually convert type-level tags
 * bugfix: in instrumentor tags "internal" together with "package", "protected",
 	or "public" does work now. Before, "internal" methods always became private.
 * dsmf.getConstraints() added.

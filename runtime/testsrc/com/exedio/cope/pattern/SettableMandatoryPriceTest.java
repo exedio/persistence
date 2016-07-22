@@ -18,6 +18,7 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.instrument.Visibility.PUBLIC;
 import static com.exedio.cope.pattern.Price.valueOf;
 import static com.exedio.cope.pattern.SettableMandatoryPriceTest.AnItem.TYPE;
 import static com.exedio.cope.pattern.SettableMandatoryPriceTest.AnItem.mandatory;
@@ -71,9 +72,7 @@ public class SettableMandatoryPriceTest extends TestWithEnvironment
 	}
 
 
-	/**
-	 * @cope.generic.constructor public
-	 */
+	@com.exedio.cope.instrument.WrapperType(genericConstructor=PUBLIC) // TODO use import, but this is not accepted by javac
 	static final class AnItem extends com.exedio.cope.Item // TODO use import, but this is not accepted by javac
 	{
 		static final PriceField mandatory = new PriceField();

@@ -18,9 +18,11 @@
 
 package com.exedio.cope;
 
-/**
- * @cope.generic.constructor package
- */
+import static com.exedio.cope.instrument.Visibility.PACKAGE;
+
+import com.exedio.cope.instrument.WrapperType;
+
+@WrapperType(genericConstructor=PACKAGE)
 final class DataMandatoryItem extends Item
 {
 	static final DataField data = new DataField();

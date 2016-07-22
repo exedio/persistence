@@ -18,16 +18,18 @@
 
 package com.exedio.cope;
 
+import com.exedio.cope.instrument.WrapperInitial;
+
 @CopeName("Super")
 public class CheckConstraintSuperItem extends Item
 {
-	/** @cope.initial */
+	@WrapperInitial
 	public static final IntegerField eins = new IntegerField().optional();
 
-	/** @cope.initial */
+	@WrapperInitial
 	public static final IntegerField zwei = new IntegerField().optional();
 
-	/** @cope.initial */
+	@WrapperInitial
 	public static final IntegerField drei = new IntegerField().optional();
 
 	public static final CheckConstraint einsToZwei = new CheckConstraint(eins.greaterOrEqual(zwei));

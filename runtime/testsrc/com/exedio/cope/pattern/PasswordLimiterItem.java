@@ -18,11 +18,13 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.instrument.Visibility.PRIVATE;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.fail;
 
 import com.exedio.cope.Item;
+import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.junit.AbsoluteMockClockStrategy;
 import com.exedio.cope.pattern.PasswordLimiter.ExceededException;
 
@@ -30,10 +32,8 @@ public final class PasswordLimiterItem extends Item
 {
 	static final Hash password = new Hash(MessageDigestHash.algorithm(8));
 
-	/**
-	 * @cope.check private
-	 * @cope.checkVerbosely private
-	 */
+	@Wrapper(wrap="check", visibility=PRIVATE)
+	@Wrapper(wrap="checkVerbosely", visibility=PRIVATE)
 	static final PasswordLimiter passwordLimited = new PasswordLimiter(password, 60*1000, 2);
 
 	boolean checkPasswordLimited(

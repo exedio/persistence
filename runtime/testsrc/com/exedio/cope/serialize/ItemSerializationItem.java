@@ -20,13 +20,12 @@ package com.exedio.cope.serialize;
 
 import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
+import com.exedio.cope.instrument.WrapperInitial;
 import com.exedio.cope.pattern.ListField;
 
 final class ItemSerializationItem extends Item
 {
-	/**
-	 * @cope.initial
-	 */
+	@WrapperInitial
 	static final StringField name = new StringField().optional();
 	static final StringField name2 = new StringField().optional();
 	static final ListField<String> list = ListField.create(new StringField());

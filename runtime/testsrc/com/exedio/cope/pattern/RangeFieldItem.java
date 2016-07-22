@@ -23,10 +23,11 @@ import static com.exedio.cope.pattern.Range.valueOf;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
+import com.exedio.cope.instrument.WrapperInitial;
 
 public final class RangeFieldItem extends Item
 {
-	/** @cope.initial */ static final RangeField<Integer> valid = RangeField.create(new IntegerField().optional().min(-10));
+	@WrapperInitial static final RangeField<Integer> valid = RangeField.create(new IntegerField().optional().min(-10));
 	static final RangeField<String> text = RangeField.create(new StringField().toFinal());
 
 	RangeFieldItem(final Integer validFrom, final Integer validTo)

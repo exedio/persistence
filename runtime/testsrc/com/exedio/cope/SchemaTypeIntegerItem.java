@@ -18,10 +18,11 @@
 
 package com.exedio.cope;
 
-/**
- * @cope.constructor none
- * @cope.generic.constructor none
- */
+import static com.exedio.cope.instrument.Visibility.NONE;
+
+import com.exedio.cope.instrument.WrapperType;
+
+@WrapperType(constructor=NONE, genericConstructor=NONE)
 public final class SchemaTypeIntegerItem extends Item
 {
 	static final LongField byte1  = new LongField().range(-128, 127);

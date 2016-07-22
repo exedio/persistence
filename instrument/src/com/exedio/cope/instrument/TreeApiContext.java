@@ -29,20 +29,28 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
+import javax.annotation.processing.Messager;
+import javax.annotation.processing.ProcessingEnvironment;
 import javax.lang.model.element.Element;
+import javax.tools.Diagnostic;
 
 final class TreeApiContext
 {
+	private final Params.ConfigurationByJavadocTags javadocTagHandling;
 	private final DocTrees docTrees;
+	private final Messager messager;
 	final JavaFile javaFile;
 	private final CompilationUnitTree compilationUnit;
 	private final DocSourcePositions sourcePositions;
 
 	private byte[] allBytes;
+	boolean foundJavadocControlTags=false;
 
-	TreeApiContext(final DocTrees docTrees, final JavaFile javaFile, final CompilationUnitTree compilationUnit)
+	TreeApiContext(final Params.ConfigurationByJavadocTags javadocTagHandling, final ProcessingEnvironment processingEnv, final JavaFile javaFile, final CompilationUnitTree compilationUnit)
 	{
-		this.docTrees=docTrees;
+		this.javadocTagHandling=javadocTagHandling;
+		this.docTrees=DocTrees.instance(processingEnv);
+		this.messager=processingEnv.getMessager();
 		this.javaFile=javaFile;
 		this.compilationUnit=compilationUnit;
 		this.sourcePositions=docTrees.getSourcePositions();
@@ -60,7 +68,29 @@ final class TreeApiContext
 
 	String getDocComment(final TreePath path)
 	{
-		return docTrees.getDocComment(path);
+		if (javadocTagHandling==Params.ConfigurationByJavadocTags.ignore)
+		{
+			return null;
+		}
+		final String docComment=docTrees.getDocComment(path);
+		if (javadocTagHandling==Params.ConfigurationByJavadocTags.warn||javadocTagHandling==Params.ConfigurationByJavadocTags.error)
+		{
+			if (docComment!=null && docComment.contains('@'+CopeFeature.TAG_PREFIX))
+			{
+				final Diagnostic.Kind messageKind;
+				if (javadocTagHandling==Params.ConfigurationByJavadocTags.warn)
+				{
+					messageKind=Diagnostic.Kind.WARNING;
+				}
+				else
+				{
+					messageKind=Diagnostic.Kind.ERROR;
+				}
+				messager.printMessage(messageKind, "use of javadoc tags to control instrumentor is deprecated", getElement(path));
+				foundJavadocControlTags=true;
+			}
+		}
+		return docComment;
 	}
 
 	long getStartPosition(final Tree mt)
@@ -71,6 +101,13 @@ final class TreeApiContext
 	long getEndPosition(final Tree mt)
 	{
 		return sourcePositions.getEndPosition(compilationUnit, mt);
+	}
+
+	String getSourcePosition(final Tree t)
+	{
+		final long bytePos=getStartPosition(t);
+		final long lineNumber=compilationUnit.getLineMap().getLineNumber(bytePos);
+		return getFileName()+":"+lineNumber;
 	}
 
 	DocCommentTree getDocCommentTree(final TreePath currentPath)
@@ -93,7 +130,7 @@ final class TreeApiContext
 		return docTrees.getElement(tp);
 	}
 
-	private byte[] getAllBytes()
+	byte[] getAllBytes()
 	{
 		if ( allBytes==null )
 		{

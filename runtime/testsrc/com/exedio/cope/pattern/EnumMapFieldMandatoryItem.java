@@ -20,6 +20,7 @@ package com.exedio.cope.pattern;
 import com.exedio.cope.Item;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.StringField;
+import com.exedio.cope.instrument.WrapperInitial;
 // EnumMapFieldItem.Language has to be used with full name below, otherwise instrumentation fails on Windows:
 // import com.exedio.cope.pattern.EnumMapFieldItem.Language;
 
@@ -27,8 +28,8 @@ public final class EnumMapFieldMandatoryItem extends Item
 {
 	/**
 	 * TODO The initial should be determined automatically by the instrumentor.
-	 * @cope.initial
 	 */
+	@WrapperInitial
 	static final EnumMapField<EnumMapFieldItem.Language, String> text =
 			EnumMapField.create(EnumMapFieldItem.Language.class, new StringField()).
 				defaultTo(EnumMapFieldItem.Language.DE, "defaultDE").

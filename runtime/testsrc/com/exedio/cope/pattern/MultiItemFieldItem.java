@@ -19,6 +19,7 @@
 package com.exedio.cope.pattern;
 
 import com.exedio.cope.Item;
+import com.exedio.cope.instrument.WrapperIgnore;
 
 final class MultiItemFieldItem extends Item
 {
@@ -57,9 +58,7 @@ final class MultiItemFieldItem extends Item
 			MultiItemFieldValuex.class,
 			MultiItemFieldComponentxA.class, MultiItemFieldComponentxB.class).optional().unique();
 
-	/**
-	 * @cope.ignore
-	 */
+	@WrapperIgnore
 	static final PartOf<MultiItemFieldComponentxA> partOfClassA = PartOf.create(field.of(MultiItemFieldComponentxA.class));
 
 	MultiItemFieldItem(final MultiItemFieldValuex field)
