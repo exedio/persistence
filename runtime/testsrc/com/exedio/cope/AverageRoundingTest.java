@@ -18,18 +18,12 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.CompareConditionItem.TYPE;
+import static com.exedio.cope.CompareConditionItem.doublex;
 import static com.exedio.cope.CompareConditionItem.intx;
 import static com.exedio.cope.CompareConditionItem.longx;
 import static com.exedio.cope.CompareConditionTest.MODEL;
-import static java.lang.Integer.valueOf;
-import static java.lang.Long.valueOf;
 import static org.junit.Assert.assertEquals;
 
-import com.exedio.cope.CompareConditionItem.YEnum;
-import com.exedio.cope.util.Day;
-import java.util.Date;
-import org.junit.Before;
 import org.junit.Test;
 
 public class AverageRoundingTest extends TestWithEnvironment
@@ -39,69 +33,61 @@ public class AverageRoundingTest extends TestWithEnvironment
 		super(MODEL);
 	}
 
-	CompareConditionItem item1, item2, item3, item4, item5, itemX;
-	static final Date aDate = new Date(1087365298214l);
-	static final Day aDay = new Day(2007, 4, 28);
-
-	private static Date date(final long offset)
+	@Test public void testHalf()
 	{
-		return new Date(aDate.getTime()+offset);
+		create(11, 21l, 31.1);
+		create(12, 22l, 31.2);
+		assertIt(
+				11, // 11.5
+				21, // 21.5
+				31.15);
 	}
 
-	private static Day day(final int offset)
+	@Test public void testBelowHalf()
 	{
-		return aDay.add(offset);
+		create(11, 21l, 31.1);
+		create(11, 21l, 31.1);
+		create(12, 22l, 31.2);
+		assertIt(
+				11, // 11.33
+				21, // 21.33
+				31.1333333);
 	}
 
-	@Before public final void setUp()
+	@Test public void testAboveHalf()
 	{
-		item1 = new CompareConditionItem("string1", 1, 11l, 2.1, date(-2), day(-2), YEnum.V1);
-		item2 = new CompareConditionItem("string2", 2, 12l, 2.2, date(-1), day(-1), YEnum.V2);
-		item3 = new CompareConditionItem("string3", 3, 13l, 2.3, date( 0), day( 0), YEnum.V3);
-		item4 = new CompareConditionItem("string4", 4, 14l, 2.4, date(+1), day(+1), YEnum.V4);
-		item5 = new CompareConditionItem("string5", 5, 15l, 2.5, date(+2), day(+2), YEnum.V5);
-		itemX = new CompareConditionItem(null, null, null, null, null, null, null);
+		create(11, 21l, 31.1);
+		create(12, 22l, 31.2);
+		create(12, 22l, 31.2);
+		assertIt(
+				11, // 11.66
+				21, // 21.66
+				31.1666666);
 	}
 
-	@Test public void testAverageRounding()
+	@Test public void testExact()
 	{
-		{
-			final Query<Integer> q = new Query<>(intx.average());
-			q.setCondition(intx.less(3));
-			assertEquals("select avg(" + intx.getName() + ") from " + TYPE + " where " + intx.getName() + "<'3'", q.toString());
-			assertEquals(valueOf(1) /* 1.5 */, q.searchSingleton());
-		}
-		{
-			final Query<Long> q = new Query<>(longx.average());
-			q.setCondition(longx.less(15l));
-			assertEquals("select avg(" + longx.getName() + ") from " + TYPE + " where " + longx.getName() + "<'15'", q.toString());
-			assertEquals(valueOf(12l /* 12.5 */), q.searchSingleton());
-		}
+		create(11, 21l, 31.1);
+		create(11, 21l, 31.1);
+		assertIt(
+				11, // 11
+				21, // 21
+				31.1);
+	}
 
-		new CompareConditionItem(null, 5, 15l, null, null, null, null);
 
-		{
-			final Query<Integer> q = new Query<>(intx.average());
-			assertEquals("select avg(" + intx.getName() + ") from " + TYPE, q.toString());
-			assertEquals(valueOf(3) /* 3.33333333 */, q.searchSingleton());
-		}
-		{
-			final Query<Long> q = new Query<>(longx.average());
-			assertEquals("select avg(" + longx.getName() + ") from " + TYPE, q.toString());
-			assertEquals(valueOf(13l) /* 13.3333333 */, q.searchSingleton());
-		}
+	private static final void create(final int intx, final long longx, final double doublex)
+	{
+		new CompareConditionItem(null, intx, longx, doublex, null, null, null);
+	}
 
-		new CompareConditionItem(null, 7, 17l, null, null, null, null);
-
-		{
-			final Query<Integer> q = new Query<>(intx.average());
-			assertEquals("select avg(" + intx.getName() + ") from " + TYPE, q.toString());
-			assertEquals(valueOf(3) /* 3.85714286 */, q.searchSingleton());
-		}
-		{
-			final Query<Long> q = new Query<>(longx.average());
-			assertEquals("select avg(" + longx.getName() + ") from " + TYPE, q.toString());
-			assertEquals(valueOf(13l) /* 13.8571429 */, q.searchSingleton());
-		}
+	private static final void assertIt(
+			final int expectedInt,
+			final long expectedLong,
+			final double expectedDouble)
+	{
+		assertEquals("int",    expectedInt,    new Query<>(intx   .average()).searchSingleton().intValue());
+		assertEquals("long",   expectedLong,   new Query<>(longx  .average()).searchSingleton().longValue());
+		assertEquals("double", expectedDouble, new Query<>(doublex.average()).searchSingleton().doubleValue(), 0.0000005);
 	}
 }
