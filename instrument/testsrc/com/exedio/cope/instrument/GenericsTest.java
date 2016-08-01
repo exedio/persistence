@@ -19,6 +19,7 @@
 package com.exedio.cope.instrument;
 
 import static com.exedio.cope.instrument.Generics.get;
+import static com.exedio.cope.instrument.Generics.remove;
 import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
 
@@ -44,13 +45,13 @@ public class GenericsTest
 
 	@Test public void testRemove()
 	{
-		assertEquals("new Foo()", Generics.remove("new Foo()"));
-		assertEquals("new Foo()", Generics.remove("new Foo<x>()"));
-		assertEquals("new Foo().x(\"y\")", Generics.remove("new Foo<x>().x(\"y\")"));
-		assertEquals("new Foo().x(\"\\u003C\")", Generics.remove("new Foo<x>().x(\"\\u003C\")"));
-		assertEquals("new Foo().x(\"<\")", Generics.remove("new Foo().x(\"<\")"));
-		assertEquals("new Foo('>')", Generics.remove("new Foo('>')"));
-		assertEquals("'\"'", Generics.remove("'\"'<>"));
-		assertEquals("'\\''", Generics.remove("'\\''"));
+		assertEquals("new Foo()", remove("new Foo()"));
+		assertEquals("new Foo()", remove("new Foo<x>()"));
+		assertEquals("new Foo().x(\"y\")", remove("new Foo<x>().x(\"y\")"));
+		assertEquals("new Foo().x(\"\\u003C\")", remove("new Foo<x>().x(\"\\u003C\")"));
+		assertEquals("new Foo().x(\"<\")", remove("new Foo().x(\"<\")"));
+		assertEquals("new Foo('>')", remove("new Foo('>')"));
+		assertEquals("'\"'", remove("'\"'<>"));
+		assertEquals("'\\''", remove("'\\''"));
 	}
 }
