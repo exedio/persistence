@@ -30,6 +30,6 @@ public final class SumAggregate<E extends Number> extends Aggregate<E>
 	 */
 	public SumAggregate(final Function<E> source)
 	{
-		super(source, "sum", "SUM");
+		super(source, "sum", "SUM", source.getValueType());
 	}
 }

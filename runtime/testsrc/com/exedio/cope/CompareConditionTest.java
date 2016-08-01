@@ -334,20 +334,20 @@ public class CompareConditionTest extends TestWithEnvironment
 	@Test public void testAverage()
 	{
 		{
-			final Query<Integer> q = new Query<>(intx.average());
+			final Query<Double> q = new Query<>(intx.average());
 			assertEquals("select avg(" + intx.getName() + ") from " + TYPE, q.toString());
-			assertEquals(valueOf((1+2+3+4+5)/5), q.searchSingleton());
+			assertEquals(valueOf((1d+2+3+4+5)/5), q.searchSingleton());
 			q.setCondition(intx.less(4));
 			assertEquals("select avg(" + intx.getName() + ") from " + TYPE + " where " + intx.getName() + "<'4'", q.toString());
-			assertEquals(valueOf((1+2+3)/3), q.searchSingleton());
+			assertEquals(valueOf((1d+2+3)/3), q.searchSingleton());
 		}
 		{
-			final Query<Long> q = new Query<>(longx.average());
+			final Query<Double> q = new Query<>(longx.average());
 			assertEquals("select avg(" + longx.getName() + ") from " + TYPE, q.toString());
-			assertEquals(valueOf((11l+12l+13l+14l+15l)/5l), q.searchSingleton());
+			assertEquals(valueOf((11d+12+13+14+15)/5), q.searchSingleton());
 			q.setCondition(longx.less(14l));
 			assertEquals("select avg(" + longx.getName() + ") from " + TYPE + " where " + longx.getName() + "<'14'", q.toString());
-			assertEquals(valueOf((11+12+13)/3l), q.searchSingleton());
+			assertEquals(valueOf((11d+12+13)/3), q.searchSingleton());
 		}
 		{
 			final Query<Double> q = new Query<>(doublex.average());

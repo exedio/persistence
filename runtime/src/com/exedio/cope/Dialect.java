@@ -339,6 +339,16 @@ abstract class Dialect
 
 	abstract void appendStartsWith(Statement bf, BlobColumn column, byte[] value);
 
+	String getAveragePrefix()
+	{
+		return "AVG(";
+	}
+
+	String getAveragePostfix()
+	{
+		return ")";
+	}
+
 	/**
 	 * Returns null, if the dialect does not support clauses for CharacterSet.
 	 */

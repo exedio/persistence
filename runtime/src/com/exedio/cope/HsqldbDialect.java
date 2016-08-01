@@ -197,6 +197,18 @@ final class HsqldbDialect extends Dialect
 	}
 
 	@Override
+	String getAveragePrefix()
+	{
+		return "AVG(CAST(";
+	}
+
+	@Override
+	String getAveragePostfix()
+	{
+		return " AS DOUBLE))";
+	}
+
+	@Override
 	Long nextSequence(
 			final Executor executor,
 			final Connection connection,

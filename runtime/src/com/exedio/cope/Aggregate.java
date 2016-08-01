@@ -26,23 +26,23 @@ public abstract class Aggregate<E> implements Selectable<E>
 {
 	private static final long serialVersionUID = 1l;
 
-	/**
-	 * I'm not yet sure, whether the type of the aggregate
-	 * always equals the type of the source, but it does for
-	 * SUM, MIN, MAX, AVG.
-	 */
-	final Function<E> source;
+	final Function<?> source;
 	private final String name;
 	private final String sqlPrefix;
+	private final SelectType<E> valueType;
 
-	public Aggregate(final Function<E> source, final String name, final String sqlName)
+	public Aggregate(
+			final Function<?> source,
+			final String name, final String sqlName,
+			final SelectType<E> valueType)
 	{
 		this.source = requireNonNull(source, "source");
 		this.name = requireNonNull(name, "name");
 		this.sqlPrefix = requireNonNull(sqlName, "sqlName") + '(';
+		this.valueType = requireNonNull(valueType);
 	}
 
-	public final Function<E> getSource()
+	public final Function<?> getSource()
 	{
 		return source;
 	}
@@ -55,13 +55,13 @@ public abstract class Aggregate<E> implements Selectable<E>
 	@Override
 	public final Class<E> getValueClass()
 	{
-		return source.getValueClass();
+		return valueType.getJavaClass();
 	}
 
 	@Override
 	public final SelectType<E> getValueType()
 	{
-		return source.getValueType();
+		return valueType;
 	}
 
 	@Override
@@ -85,7 +85,7 @@ public abstract class Aggregate<E> implements Selectable<E>
 	 */
 	@Override
 	@Deprecated // OK: for internal use within COPE only
-	public final void append(final Statement bf, final Join join)
+	public void append(final Statement bf, final Join join)
 	{
 		bf.append(sqlPrefix).
 			append(source, join).
@@ -97,7 +97,7 @@ public abstract class Aggregate<E> implements Selectable<E>
 	 */
 	@Override
 	@Deprecated // OK: for internal use within COPE only
-	public final void appendSelect(final Statement bf, final Join join)
+	public void appendSelect(final Statement bf, final Join join)
 	{
 		bf.append(sqlPrefix).
 			appendSelect(source, join).

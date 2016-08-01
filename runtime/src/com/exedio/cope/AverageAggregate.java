@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-public final class AverageAggregate<E extends Number> extends Aggregate<E>
+public final class AverageAggregate extends Aggregate<Double>
 {
 	private static final long serialVersionUID = 1l;
 
@@ -28,8 +28,34 @@ public final class AverageAggregate<E extends Number> extends Aggregate<E>
 	 * you may want to use the convenience methods.
 	 * @see com.exedio.cope.NumberFunction#average()
 	 */
-	public AverageAggregate(final Function<E> source)
+	public AverageAggregate(final Function<? extends Number> source)
 	{
-		super(source, "avg", "AVG");
+		super(source, "avg", "AVG", SimpleSelectType.DOUBLE);
+	}
+
+	/**
+	 * @deprecated For internal use within COPE only.
+	 */
+	@Override
+	@Deprecated // OK: for internal use within COPE only
+	public final void append(final Statement bf, final Join join)
+	{
+		final Dialect dialect = bf.dialect;
+		bf.append(dialect.getAveragePrefix()).
+			append(getSource(), join).
+			append(dialect.getAveragePostfix());
+	}
+
+	/**
+	 * @deprecated For internal use within COPE only.
+	 */
+	@Override
+	@Deprecated // OK: for internal use within COPE only
+	public final void appendSelect(final Statement bf, final Join join)
+	{
+		final Dialect dialect = bf.dialect;
+		bf.append(dialect.getAveragePrefix()).
+			appendSelect(getSource(), join).
+			append(dialect.getAveragePostfix());
 	}
 }

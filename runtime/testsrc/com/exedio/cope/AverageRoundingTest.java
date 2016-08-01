@@ -38,8 +38,8 @@ public class AverageRoundingTest extends TestWithEnvironment
 		create(11, 21l, 31.1);
 		create(12, 22l, 31.2);
 		assertIt(
-				11, // 11.5
-				21, // 21.5
+				11.5,
+				21.5,
 				31.15);
 	}
 
@@ -49,8 +49,8 @@ public class AverageRoundingTest extends TestWithEnvironment
 		create(11, 21l, 31.1);
 		create(12, 22l, 31.2);
 		assertIt(
-				11, // 11.33
-				21, // 21.33
+				11.333,
+				21.333,
 				31.1333333);
 	}
 
@@ -60,8 +60,8 @@ public class AverageRoundingTest extends TestWithEnvironment
 		create(12, 22l, 31.2);
 		create(12, 22l, 31.2);
 		assertIt(
-				11, // 11.66
-				21, // 21.66
+				11.666,
+				21.666,
 				31.1666666);
 	}
 
@@ -70,8 +70,8 @@ public class AverageRoundingTest extends TestWithEnvironment
 		create(11, 21l, 31.1);
 		create(11, 21l, 31.1);
 		assertIt(
-				11, // 11
-				21, // 21
+				11,
+				21,
 				31.1);
 	}
 
@@ -82,12 +82,12 @@ public class AverageRoundingTest extends TestWithEnvironment
 	}
 
 	private static final void assertIt(
-			final int expectedInt,
-			final long expectedLong,
+			final double expectedInt,
+			final double expectedLong,
 			final double expectedDouble)
 	{
-		assertEquals("int",    expectedInt,    new Query<>(intx   .average()).searchSingleton().intValue());
-		assertEquals("long",   expectedLong,   new Query<>(longx  .average()).searchSingleton().longValue());
+		assertEquals("int",    expectedInt,    new Query<>(intx   .average()).searchSingleton().doubleValue(), 0.001);
+		assertEquals("long",   expectedLong,   new Query<>(longx  .average()).searchSingleton().doubleValue(), 0.001);
 		assertEquals("double", expectedDouble, new Query<>(doublex.average()).searchSingleton().doubleValue(), 0.0000005);
 	}
 }

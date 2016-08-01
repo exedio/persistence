@@ -40,7 +40,7 @@ public abstract class NumberField<E extends Number> extends FunctionField<E>
 	 * @deprecated Use {@link #average()} instead
 	 */
 	@Deprecated
-	public final AverageAggregate<E> avg()
+	public final AverageAggregate avg()
 	{
 		return average();
 	}
