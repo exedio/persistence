@@ -44,7 +44,6 @@ public final class Standard extends Item
 	public static final StringField notNullString = new StringField();
 	public static final StringField finalString = new StringField().toFinal().optional();
 	public static final StringField defaultToString = new StringField().defaultTo("defaultConstant for finalDefaultString");
-	// this fails in Generics#remove:
 	private static final StringField defaultToLessThanSignString = new StringField().lengthMax(256).defaultTo("<");
 	private static final StringField defaultToEscapedLessThanSignString = new StringField().lengthMax(256).defaultTo("\u003C");
 	private static final StringField lessThanSignInCommentString = new StringField(/*<*/).optional();
