@@ -69,7 +69,7 @@ public class Count implements Selectable<Integer>
 	@Override
 	public void append( final Statement bf, final Join join )
 	{
-		bf.append( "count(*)" );
+		bf.append("COUNT(*)");
 	}
 
 	/**
@@ -79,7 +79,6 @@ public class Count implements Selectable<Integer>
 	@Override
 	public void appendSelect( final Statement bf, final Join join )
 	{
-		bf.append( "count(*)" );
+		bf.append("COUNT(*)");
 	}
-
 }
