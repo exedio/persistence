@@ -208,7 +208,7 @@ abstract class Dialect
 			final Join join)
 	{
 		bf.append(dividend, join).
-			append("/").
+			append('/').
 			append(divisor, join);
 	}
 
