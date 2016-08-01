@@ -19,9 +19,9 @@
 package com.exedio.cope.instrument.testmodel;
 
 import com.exedio.cope.BooleanField;
+import com.exedio.cope.instrument.testfeature.FilterFeature;
 import com.exedio.cope.instrument.testfeature.OptionFeature;
 import com.exedio.cope.instrument.testfeature.OptionFeatureGet;
-import com.exedio.cope.instrument.testfeature.FilterFeature;
 
 public final class OptionFeatureItem extends OptionFeatureSuperItem
 {
