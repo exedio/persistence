@@ -1,8 +1,5 @@
 package com.exedio.cope.instrument;
 
-import com.sun.source.tree.AnnotationTree;
-import com.sun.source.tree.AssignmentTree;
-import com.sun.source.tree.ExpressionTree;
 import com.sun.source.tree.ModifiersTree;
 import javax.lang.model.element.Modifier;
 
@@ -36,22 +33,5 @@ class TreeApiHelper
 			case VOLATILE: return java.lang.reflect.Modifier.VOLATILE;
 			default: throw new RuntimeException(flag.toString());
 		}
-	}
-
-	static boolean isGeneratedAnnotation(AnnotationTree node)
-	{
-		if ( node.getAnnotationType().toString().equals(javax.annotation.Generated.class.getName()) )
-		{
-			for (final ExpressionTree argument: node.getArguments())
-			{
-				final AssignmentTree assignment=(AssignmentTree)argument;
-				if (assignment.getVariable().toString().equals("value"))
-				{
-					return assignment.getExpression().toString().equals("\"com.exedio.cope.instrument\"");
-				}
-			}
-			throw new RuntimeException("missing 'value' in Generated annotation");
-		}
-		return false;
 	}
 }

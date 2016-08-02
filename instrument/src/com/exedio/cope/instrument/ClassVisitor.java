@@ -20,7 +20,6 @@
 package com.exedio.cope.instrument;
 
 import com.sun.source.doctree.DocCommentTree;
-import com.sun.source.tree.AnnotationTree;
 import com.sun.source.tree.BlockTree;
 import com.sun.source.tree.ClassTree;
 import com.sun.source.tree.MethodTree;
@@ -30,6 +29,8 @@ import com.sun.source.util.TreePathScanner;
 import java.nio.charset.StandardCharsets;
 import java.util.EnumSet;
 import java.util.Set;
+import javax.annotation.Generated;
+import javax.lang.model.element.Element;
 import javax.lang.model.element.Modifier;
 
 class ClassVisitor extends TreePathScanner<Void,Void>
@@ -71,9 +72,7 @@ class ClassVisitor extends TreePathScanner<Void,Void>
 	@Override
 	public Void visitVariable(final VariableTree node, final Void p)
 	{
-		final VariableVisitor variableVisitor=new VariableVisitor();
-		variableVisitor.visitVariable(node, null);
-		final boolean generated=checkGenerated(node, variableVisitor.currentVariableHasGeneratedAnnotation);
+		final boolean generated=checkGenerated();
 		if ( !generated && node.getModifiers().getFlags().containsAll(REQUIRED_MODIFIERS_FOR_COPE_FEATURE) )
 		{
 			new JavaField(
@@ -91,9 +90,7 @@ class ClassVisitor extends TreePathScanner<Void,Void>
 	@Override
 	public Void visitMethod(final MethodTree mt, final Void ignore)
 	{
-		final MethodVisitor methodVisitor=new MethodVisitor();
-		methodVisitor.visitMethod(mt, null);
-		checkGenerated(mt, methodVisitor.currentMethodHasGeneratedAnnotation);
+		checkGenerated();
 		return null;
 	}
 
@@ -102,10 +99,11 @@ class ClassVisitor extends TreePathScanner<Void,Void>
 		context.markFragmentAsGenerated(start, end);
 	}
 
-	private boolean checkGenerated(final Tree mt, final boolean hasGeneratedAnnotation) throws RuntimeException
+	private boolean checkGenerated() throws RuntimeException
 	{
-		if ( hasGeneratedAnnotation || hasCopeGeneratedJavadocTag() )
+		if ( hasGeneratedAnnotation() || hasCopeGeneratedJavadocTag() )
 		{
+			final Tree mt=getCurrentPath().getLeaf();
 			final int start=Math.toIntExact(context.getStartPosition(mt));
 			final int end=Math.toIntExact(context.getEndPosition(mt));
 			if ( start<0 || end<0 ) throw new RuntimeException();
@@ -132,6 +130,15 @@ class ClassVisitor extends TreePathScanner<Void,Void>
 		{
 			return false;
 		}
+	}
+
+	private boolean hasGeneratedAnnotation()
+	{
+		final Element element=context.getElement(getCurrentPath());
+		final Generated generated=element.getAnnotation(Generated.class);
+		return generated!=null
+			&& generated.value().length==1
+			&& generated.value()[0].equals("com.exedio.cope.instrument");
 	}
 
 	private boolean hasCopeGeneratedJavadocTag()
@@ -194,21 +201,11 @@ class ClassVisitor extends TreePathScanner<Void,Void>
 	}
 
 	@Override
-	public Void visitAnnotation(final AnnotationTree node, final Void p)
-	{
-		if ( TreeApiHelper.isGeneratedAnnotation(node) )
-		{
-			throw new RuntimeException("'Generated' but not a method or variable");
-		}
-		return super.visitAnnotation(node, p);
-	}
-
-	@Override
 	public Void visitBlock(final BlockTree node, final Void p)
 	{
 		if ( !node.isStatic() )
 		{
-			throw new RuntimeException("unexpected - visiting methods is delegated");
+			throw new RuntimeException("unexpected - methods are not visited");
 		}
 		return null;
 	}

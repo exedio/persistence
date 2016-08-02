@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
+import javax.lang.model.element.Element;
 
 class TreeApiContext
 {
@@ -62,6 +63,11 @@ class TreeApiContext
 	long getEndPosition(final DocCommentTree docCommentTree, final DocCommentTree docCommentTree0)
 	{
 		return sourcePositions.getEndPosition(compilationUnit, docCommentTree, docCommentTree);
+	}
+
+	Element getElement(TreePath tp)
+	{
+		return docTrees.getElement(tp);
 	}
 
 	private byte[] getAllBytes()
