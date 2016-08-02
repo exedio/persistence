@@ -16,10 +16,7 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.cope.search;
-
-import com.exedio.cope.Aggregate;
-import com.exedio.cope.Function;
+package com.exedio.cope;
 
 public final class AverageAggregate<E extends Number> extends Aggregate<E>
 {

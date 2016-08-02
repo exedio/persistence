@@ -19,7 +19,6 @@
 package com.exedio.cope;
 
 import com.exedio.cope.CompareFunctionCondition.Operator;
-import com.exedio.cope.search.ExtremumAggregate;
 import java.util.Collection;
 
 public interface Function<E> extends Selectable<E>

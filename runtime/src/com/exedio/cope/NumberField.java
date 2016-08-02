@@ -18,8 +18,6 @@
 
 package com.exedio.cope;
 
-import com.exedio.cope.search.AverageAggregate;
-
 public abstract class NumberField<E extends Number> extends FunctionField<E>
 	implements NumberFunction<E>
 {

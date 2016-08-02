@@ -16,37 +16,20 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.cope.search;
+package com.exedio.cope;
 
-import com.exedio.cope.Aggregate;
-import com.exedio.cope.Function;
-
-public final class ExtremumAggregate<E> extends Aggregate<E>
+public final class SumAggregate<E extends Number> extends Aggregate<E>
 {
 	private static final long serialVersionUID = 1l;
 
-	final boolean minimum;
-
 	/**
-	 * Creates a new ExtremumAggregate.
+	 * Creates a new SumAggregate.
 	 * Instead of using this constructor directly,
 	 * you may want to use the convenience methods.
-	 * @see Function#min()
-	 * @see Function#max()
+	 * @see com.exedio.cope.NumberFunction#sum()
 	 */
-	public ExtremumAggregate(final Function<E> source, final boolean minimum)
+	public SumAggregate(final Function<E> source)
 	{
-		super(source, minimum?"min":"max", minimum?"MIN":"MAX");
-		this.minimum = minimum;
-	}
-
-	public final boolean isMinimum()
-	{
-		return minimum;
-	}
-
-	public final boolean isMaximum()
-	{
-		return !minimum;
+		super(source, "sum", "SUM");
 	}
 }

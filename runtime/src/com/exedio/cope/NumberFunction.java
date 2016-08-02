@@ -18,9 +18,6 @@
 
 package com.exedio.cope;
 
-import com.exedio.cope.search.AverageAggregate;
-import com.exedio.cope.search.SumAggregate;
-
 public interface NumberFunction<E extends Number> extends Function<E>
 {
 	// convenience methods for conditions and views ---------------------------------
