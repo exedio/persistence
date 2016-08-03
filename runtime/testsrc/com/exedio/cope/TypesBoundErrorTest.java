@@ -39,6 +39,8 @@ public class TypesBoundErrorTest
 			assertEquals("javaClass", e.getMessage());
 		}
 	}
+
+
 	@Test public void classItem()
 	{
 		try
@@ -51,6 +53,8 @@ public class TypesBoundErrorTest
 			assertEquals("Cannot make a type for " + Item.class + " itself, but only for subclasses.", e.getMessage());
 		}
 	}
+
+
 	@Test public void classNoItem()
 	{
 		try
@@ -63,6 +67,20 @@ public class TypesBoundErrorTest
 			assertEquals(NoItem.class.toString() + " is not a subclass of Item", e.getMessage());
 		}
 	}
+	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad API usage
+	private static final Class<Item> castItemClass(final Class c)
+	{
+		return c;
+	}
+	static class NoItem
+	{
+		NoItem()
+		{
+			// just a dummy constructor
+		}
+	}
+
+
 	@Test public void noActivationConstructor()
 	{
 		try
@@ -78,6 +96,12 @@ public class TypesBoundErrorTest
 			assertEquals(NoSuchMethodException.class, e.getCause().getClass());
 		}
 	}
+	static class NoActivationConstructor extends Item
+	{
+		private static final long serialVersionUID = 1l;
+	}
+
+
 	@Test public void wrongActivationConstructor()
 	{
 		final Type<WrongActivationConstructor> wrongActivationConstructor = newType(WrongActivationConstructor.class);
@@ -100,6 +124,17 @@ public class TypesBoundErrorTest
 			assertEquals("class is already bound to a type: " + WrongActivationConstructor.class.getName(), e.getMessage());
 		}
 	}
+	static class WrongActivationConstructor extends Item
+	{
+		private static final long serialVersionUID = 1l;
+
+		WrongActivationConstructor(final ActivationParameters ap)
+		{
+			super(new ActivationParameters(ap.type, ap.pk-1));
+		}
+	}
+
+
 	@Test public void featureNull()
 	{
 		try
@@ -112,6 +147,14 @@ public class TypesBoundErrorTest
 			assertEquals(NullFeature.class.getName() + "#nullFeature", e.getMessage());
 		}
 	}
+	static class NullFeature extends Item
+	{
+		private static final long serialVersionUID = 1l;
+
+		static final Feature nullFeature = null;
+	}
+
+
 	@Test public void nonResolvingItemField()
 	{
 		try
@@ -143,6 +186,19 @@ public class TypesBoundErrorTest
 			assertEquals("there is no type for class " + NullFeature.class.getName(), e.getMessage());
 		}
 	}
+	static class NonResolvingItemField extends Item
+	{
+		private static final long serialVersionUID = 1l;
+
+		static final ItemField<NullFeature> itemField = ItemField.create(NullFeature.class);
+
+		NonResolvingItemField(final ActivationParameters ap)
+		{
+			super(ap);
+		}
+	}
+
+
 	@Test public void beforeNewNotStatic()
 	{
 		try
@@ -159,65 +215,6 @@ public class TypesBoundErrorTest
 					e.getMessage());
 		}
 	}
-	@Test public void beforeNewWrongReturn()
-	{
-		try
-		{
-			newType(BeforeNewWrongReturn.class);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals(
-					"method beforeNewCopeItem(SetValue[]) " +
-					"in class " + BeforeNewWrongReturn.class.getName() +
-					" must return SetValue[], " +
-					"but returns java.lang.String", e.getMessage());
-		}
-	}
-
-	static class NoItem
-	{
-		NoItem()
-		{
-			// just a dummy constructor
-		}
-	}
-
-	static class NoActivationConstructor extends Item
-	{
-		private static final long serialVersionUID = 1l;
-	}
-
-	static class WrongActivationConstructor extends Item
-	{
-		private static final long serialVersionUID = 1l;
-
-		WrongActivationConstructor(final ActivationParameters ap)
-		{
-			super(new ActivationParameters(ap.type, ap.pk-1));
-		}
-	}
-
-	static class NullFeature extends Item
-	{
-		private static final long serialVersionUID = 1l;
-
-		static final Feature nullFeature = null;
-	}
-
-	static class NonResolvingItemField extends Item
-	{
-		private static final long serialVersionUID = 1l;
-
-		static final ItemField<NullFeature> itemField = ItemField.create(NullFeature.class);
-
-		NonResolvingItemField(final ActivationParameters ap)
-		{
-			super(ap);
-		}
-	}
-
 	static class BeforeNewNotStatic extends Item
 	{
 		private static final long serialVersionUID = 1l;
@@ -235,6 +232,23 @@ public class TypesBoundErrorTest
 		}
 	}
 
+
+	@Test public void beforeNewWrongReturn()
+	{
+		try
+		{
+			newType(BeforeNewWrongReturn.class);
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals(
+					"method beforeNewCopeItem(SetValue[]) " +
+					"in class " + BeforeNewWrongReturn.class.getName() +
+					" must return SetValue[], " +
+					"but returns java.lang.String", e.getMessage());
+		}
+	}
 	static class BeforeNewWrongReturn extends Item
 	{
 		private static final long serialVersionUID = 1l;
@@ -250,11 +264,5 @@ public class TypesBoundErrorTest
 		{
 			super(ap);
 		}
-	}
-
-	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad API usage
-	private static final Class<Item> castItemClass(final Class c)
-	{
-		return c;
 	}
 }
