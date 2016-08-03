@@ -55,12 +55,12 @@ class TreeApiContext
 		return docTrees.getDocCommentTree(currentPath);
 	}
 
-	long getStartPosition(final DocCommentTree docCommentTree, final DocCommentTree docCommentTree0)
+	long getStartPosition(final DocCommentTree docCommentTree)
 	{
 		return sourcePositions.getStartPosition(compilationUnit, docCommentTree, docCommentTree);
 	}
 
-	long getEndPosition(final DocCommentTree docCommentTree, final DocCommentTree docCommentTree0)
+	long getEndPosition(final DocCommentTree docCommentTree)
 	{
 		return sourcePositions.getEndPosition(compilationUnit, docCommentTree, docCommentTree);
 	}

@@ -114,8 +114,8 @@ class ClassVisitor extends TreePathScanner<Void,Void>
 			}
 			else
 			{
-				final int docStart=context.searchBefore( Math.toIntExact(context.getStartPosition(docCommentTree, docCommentTree)), "/**".getBytes(StandardCharsets.US_ASCII) );
-				final int docEnd=context.searchAfter( Math.toIntExact(context.getEndPosition(docCommentTree, docCommentTree)), "*/".getBytes(StandardCharsets.US_ASCII) );
+				final int docStart=context.searchBefore( Math.toIntExact(context.getStartPosition(docCommentTree)), "/**".getBytes(StandardCharsets.US_ASCII) );
+				final int docEnd=context.searchAfter( Math.toIntExact(context.getEndPosition(docCommentTree)), "*/".getBytes(StandardCharsets.US_ASCII) );
 				if ( docEnd>=start ) throw new RuntimeException();
 				final String commentSource=context.getSourceString(docStart, docEnd);
 				final String inBetween=context.getSourceString(docEnd+1, start-1);
