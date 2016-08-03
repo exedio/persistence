@@ -27,7 +27,7 @@ import org.junit.Test;
 
 public class TypesBoundErrorTest
 {
-	@Test public void testErrors()
+	@Test public void classNull()
 	{
 		try
 		{
@@ -38,6 +38,9 @@ public class TypesBoundErrorTest
 		{
 			assertEquals("javaClass", e.getMessage());
 		}
+	}
+	@Test public void classItem()
+	{
 		try
 		{
 			newType(Item.class);
@@ -47,6 +50,9 @@ public class TypesBoundErrorTest
 		{
 			assertEquals("Cannot make a type for " + Item.class + " itself, but only for subclasses.", e.getMessage());
 		}
+	}
+	@Test public void classNoItem()
+	{
 		try
 		{
 			newType(castItemClass(NoItem.class));
@@ -56,6 +62,9 @@ public class TypesBoundErrorTest
 		{
 			assertEquals(NoItem.class.toString() + " is not a subclass of Item", e.getMessage());
 		}
+	}
+	@Test public void noActivationConstructor()
+	{
 		try
 		{
 			newType(NoActivationConstructor.class);
@@ -68,6 +77,9 @@ public class TypesBoundErrorTest
 					" does not have an activation constructor NoActivationConstructor(" + ActivationParameters.class.getName() + ")", e.getMessage());
 			assertEquals(NoSuchMethodException.class, e.getCause().getClass());
 		}
+	}
+	@Test public void wrongActivationConstructor()
+	{
 		final Type<WrongActivationConstructor> wrongActivationConstructor = newType(WrongActivationConstructor.class);
 		try
 		{
@@ -87,6 +99,9 @@ public class TypesBoundErrorTest
 		{
 			assertEquals("class is already bound to a type: " + WrongActivationConstructor.class.getName(), e.getMessage());
 		}
+	}
+	@Test public void featureNull()
+	{
 		try
 		{
 			newType(NullFeature.class);
@@ -96,7 +111,9 @@ public class TypesBoundErrorTest
 		{
 			assertEquals(NullFeature.class.getName() + "#nullFeature", e.getMessage());
 		}
-
+	}
+	@Test public void nonResolvingItemField()
+	{
 		try
 		{
 			NonResolvingItemField.itemField.getValueType();
@@ -125,7 +142,9 @@ public class TypesBoundErrorTest
 		{
 			assertEquals("there is no type for class " + NullFeature.class.getName(), e.getMessage());
 		}
-
+	}
+	@Test public void beforeNewNotStatic()
+	{
 		try
 		{
 			newType(BeforeNewNotStatic.class);
@@ -139,6 +158,9 @@ public class TypesBoundErrorTest
 					" must be static",
 					e.getMessage());
 		}
+	}
+	@Test public void beforeNewWrongReturn()
+	{
 		try
 		{
 			newType(BeforeNewWrongReturn.class);
