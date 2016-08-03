@@ -125,12 +125,12 @@ public class CacheReadPoisoningBruteForceTest extends TestWithEnvironment
 					item.setName("itemName" + i);
 					model.commit();
 				}
-				assertTrue("itemCacheStamp "+i, itemCacheStamps);
+				assertTrue("itemCacheStamp " + itemCacheStamps + " " + i, itemCacheStamps);
 			}
 			catch(final TemporaryTransactionException e)
 			{
 				assertNotNull(e.getMessage());
-				assertFalse("itemCacheStamp "+i, itemCacheStamps);
+				assertFalse("itemCacheStamp " + itemCacheStamps + " " + i, itemCacheStamps);
 			}
 			finally
 			{
