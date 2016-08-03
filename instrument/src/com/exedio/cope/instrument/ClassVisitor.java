@@ -29,8 +29,6 @@ import com.sun.source.util.TreePathScanner;
 import java.nio.charset.StandardCharsets;
 import java.util.EnumSet;
 import java.util.Set;
-import javax.annotation.Generated;
-import javax.lang.model.element.Element;
 import javax.lang.model.element.Modifier;
 
 class ClassVisitor extends TreePathScanner<Void,Void>
@@ -101,7 +99,7 @@ class ClassVisitor extends TreePathScanner<Void,Void>
 
 	private boolean checkGenerated() throws RuntimeException
 	{
-		if ( hasGeneratedAnnotation() || hasCopeGeneratedJavadocTag() )
+		if ( hasCopeGeneratedJavadocTag() )
 		{
 			final Tree mt=getCurrentPath().getLeaf();
 			final int start=Math.toIntExact(context.getStartPosition(mt));
@@ -130,15 +128,6 @@ class ClassVisitor extends TreePathScanner<Void,Void>
 		{
 			return false;
 		}
-	}
-
-	private boolean hasGeneratedAnnotation()
-	{
-		final Element element=context.getElement(getCurrentPath());
-		final Generated generated=element.getAnnotation(Generated.class);
-		return generated!=null
-			&& generated.value().length==1
-			&& generated.value()[0].equals("com.exedio.cope.instrument");
 	}
 
 	private boolean hasCopeGeneratedJavadocTag()
