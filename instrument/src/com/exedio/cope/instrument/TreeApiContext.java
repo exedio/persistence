@@ -65,7 +65,7 @@ class TreeApiContext
 		return sourcePositions.getEndPosition(compilationUnit, docCommentTree, docCommentTree);
 	}
 
-	Element getElement(TreePath tp)
+	Element getElement(final TreePath tp)
 	{
 		return docTrees.getElement(tp);
 	}
