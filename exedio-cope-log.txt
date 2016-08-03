@@ -8,11 +8,11 @@ The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
 * Instrumentor is now based on Javac. This allows full use of generics and
-  annotation syntax in code that gets parsed.
-  This disables some bugs of the old, custom implementation - noteably, Java
-  source tokens after annotations without parentheses were dropped. Also, the
-  old implementation tolerated javadoc between annotations and field/method
-  (must be javadoc - annotations - field/method).
+	annotation syntax in code that gets parsed.
+	This disables some bugs of the old, custom implementation - noteably, Java
+	source tokens after annotations without parentheses were dropped. Also, the
+	old implementation tolerated javadoc between annotations and field/method
+	(must be javadoc - annotations - field/method).
 * AverageAggregate always returns double instead source type.
 	This breaks backwards API compatibility.
 * ExtremumAggregate/SumAggregate/AverageAggregate move from package
