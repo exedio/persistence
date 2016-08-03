@@ -155,6 +155,27 @@ public class TypesBoundErrorTest
 	}
 
 
+	@Test public void featureDuplicate()
+	{
+		try
+		{
+			newType(DuplicateFeature.class);
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals(DuplicateFeature.class.getName() + "#duplicate is same as #origin", e.getMessage());
+		}
+	}
+	static class DuplicateFeature extends Item
+	{
+		private static final long serialVersionUID = 1l;
+
+		static final Feature origin = new IntegerField();
+		static final Feature duplicate = origin;
+	}
+
+
 	@Test public void nonResolvingItemField()
 	{
 		try

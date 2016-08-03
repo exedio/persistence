@@ -137,8 +137,13 @@ public final class TypesBound
 				final Feature feature = (Feature)field.get(null);
 				if(feature==null)
 					throw new NullPointerException(clazz.getName() + '#' + field.getName());
-				if(result.put(feature, field)!=null)
-					throw new RuntimeException("" + field);
+				{
+					final Field duplicate = result.put(feature, field);
+					if(duplicate!=null)
+						throw new IllegalArgumentException(
+								clazz.getName() + '#' + field.getName() +
+								" is same as #" + duplicate.getName());
+				}
 			}
 		}
 		catch(final IllegalAccessException e)
