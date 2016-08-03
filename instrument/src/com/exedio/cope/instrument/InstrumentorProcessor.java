@@ -50,7 +50,7 @@ final class InstrumentorProcessor extends AbstractProcessor
 	}
 
 	@Override
-	public void init(final ProcessingEnvironment pe)
+	public synchronized void init(final ProcessingEnvironment pe)
 	{
 		super.init(pe);
 		docTrees = DocTrees.instance(pe);
