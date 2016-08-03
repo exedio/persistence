@@ -21,7 +21,7 @@ package com.exedio.cope.instrument;
 import com.sun.source.tree.ModifiersTree;
 import javax.lang.model.element.Modifier;
 
-class TreeApiHelper
+final class TreeApiHelper
 {
 	static int toModifiersInt(final ModifiersTree modifiers)
 	{
@@ -51,5 +51,11 @@ class TreeApiHelper
 			case VOLATILE: return java.lang.reflect.Modifier.VOLATILE;
 			default: throw new RuntimeException(flag.toString());
 		}
+	}
+
+
+	private TreeApiHelper()
+	{
+		// prevent instantiation
 	}
 }
