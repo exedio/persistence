@@ -50,7 +50,7 @@ public class DistinctOrderByTest extends TestWithEnvironment
 		item3 = new PlusIntegerItem(1, 4, 5);
 	}
 
-	@Test public void testVanilla()
+	@Test public void noDistinctOrOrder()
 	{
 		final Query<PlusIntegerItem> query = TYPE.newQuery();
 		final Join join = query.join(TYPE);
@@ -63,7 +63,7 @@ public class DistinctOrderByTest extends TestWithEnvironment
 		assertContainsList(asList(item1, item1, item1, item2, item2, item2, item3, item3, item3), query.search());
 	}
 
-	@Test public void testDistinct()
+	@Test public void noOrder()
 	{
 		final Query<PlusIntegerItem> query = TYPE.newQuery();
 		final Join join = query.join(TYPE);
@@ -77,7 +77,7 @@ public class DistinctOrderByTest extends TestWithEnvironment
 		assertContains(item1, item2, item3, query.search());
 	}
 
-	@Test public void testOrderBy()
+	@Test public void noDistinct()
 	{
 		final Query<PlusIntegerItem> query = TYPE.newQuery();
 		final Join join = query.join(TYPE);
@@ -92,7 +92,7 @@ public class DistinctOrderByTest extends TestWithEnvironment
 		assertContainsList(asList(item1, item1, item1, item2, item2, item2, item3, item3, item3), query.search());
 	}
 
-	@Test public void testDistinctOrderBy()
+	@Test public void problem()
 	{
 		final Query<PlusIntegerItem> query = TYPE.newQuery();
 		final Join join = query.join(TYPE);
