@@ -27,7 +27,7 @@ import static com.exedio.cope.SchemaInfo.getTableName;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-import com.exedio.cope.tojunit.SchemaName;
+import com.exedio.cope.tojunit.SI;
 import com.exedio.dsmf.Schema;
 import com.exedio.dsmf.Table;
 import org.junit.Test;
@@ -54,10 +54,10 @@ public class CheckConstraintSchemaTest extends TestWithEnvironment
 		assertEquals(null, superTable.getError());
 		assertEquals(Schema.Color.OK, superTable.getParticularColor());
 
-		assertCheckConstraint(table, "Main_alpha_MN"   , SchemaName.column(alpha)+">=-2147483648");
-		assertCheckConstraint(table, "Main_alpha_MX"   , SchemaName.column(alpha)+"<=2147483647");
-		assertCheckConstraint(table, "Main_alphaToBeta", SchemaName.column(alpha)+"<"+SchemaName.column(beta));
+		assertCheckConstraint(table, "Main_alpha_MN"   , SI.column(alpha)+">=-2147483648");
+		assertCheckConstraint(table, "Main_alpha_MX"   , SI.column(alpha)+"<=2147483647");
+		assertCheckConstraint(table, "Main_alphaToBeta", SI.column(alpha)+"<"+SI.column(beta));
 
-		assertCheckConstraint(superTable, "Super_einsToZwei", SchemaName.column(eins)+">="+SchemaName.column(zwei));
+		assertCheckConstraint(superTable, "Super_einsToZwei", SI.column(eins)+">="+SI.column(zwei));
 	}
 }

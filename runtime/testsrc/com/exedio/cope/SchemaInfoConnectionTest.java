@@ -19,7 +19,7 @@
 package com.exedio.cope;
 
 import com.exedio.cope.tojunit.ConnectionRule;
-import com.exedio.cope.tojunit.SchemaName;
+import com.exedio.cope.tojunit.SI;
 import java.sql.SQLException;
 import org.junit.Rule;
 import org.junit.Test;
@@ -41,15 +41,15 @@ public class SchemaInfoConnectionTest extends TestWithEnvironment
 	{
 		final StringBuilder bf = new StringBuilder();
 		bf.append("select ").
-			append(SchemaName.columnPk(InstanceOfAItem.TYPE)).
+			append(SI.columnPk(InstanceOfAItem.TYPE)).
 			append(',').
-			append(SchemaName.columnType(InstanceOfAItem.TYPE)).
+			append(SI.columnType(InstanceOfAItem.TYPE)).
 			append(',').
-			append(SchemaName.columnUpdate(InstanceOfAItem.TYPE)).
+			append(SI.columnUpdate(InstanceOfAItem.TYPE)).
 			append(',').
-			append(SchemaName.column(InstanceOfAItem.code)).
+			append(SI.column(InstanceOfAItem.code)).
 			append(" from ").
-			append(SchemaName.table(InstanceOfAItem.TYPE));
+			append(SI.table(InstanceOfAItem.TYPE));
 
 		connection.execute(bf.toString());
 	}
@@ -58,15 +58,15 @@ public class SchemaInfoConnectionTest extends TestWithEnvironment
 	{
 		final StringBuilder bf = new StringBuilder();
 		bf.append("select ").
-			append(SchemaName.columnPk(InstanceOfRefItem.TYPE)).
+			append(SI.columnPk(InstanceOfRefItem.TYPE)).
 			append(',').
-			append(SchemaName.columnUpdate(InstanceOfRefItem.TYPE)).
+			append(SI.columnUpdate(InstanceOfRefItem.TYPE)).
 			append(',').
-			append(SchemaName.column(InstanceOfRefItem.ref)).
+			append(SI.column(InstanceOfRefItem.ref)).
 			append(',').
-			append(SchemaName.columnType(InstanceOfRefItem.ref)).
+			append(SI.columnType(InstanceOfRefItem.ref)).
 			append(" from ").
-			append(SchemaName.table(InstanceOfRefItem.TYPE));
+			append(SI.table(InstanceOfRefItem.TYPE));
 
 		connection.execute(bf.toString());
 	}

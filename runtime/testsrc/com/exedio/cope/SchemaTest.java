@@ -54,7 +54,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
-import com.exedio.cope.tojunit.SchemaName;
+import com.exedio.cope.tojunit.SI;
 import com.exedio.dsmf.Column;
 import com.exedio.dsmf.Schema;
 import com.exedio.dsmf.Sequence;
@@ -194,12 +194,12 @@ public class SchemaTest extends TestWithEnvironment
 
 	private static String q(final Field<?> f)
 	{
-		return SchemaName.column(f);
+		return SI.column(f);
 	}
 
 	private static String t(final ItemField<?> f)
 	{
-		return SchemaName.columnType(f);
+		return SI.columnType(f);
 	}
 
 	private final String l(final StringField f)

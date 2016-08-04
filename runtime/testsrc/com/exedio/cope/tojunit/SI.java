@@ -29,7 +29,7 @@ import com.exedio.cope.Field;
 import com.exedio.cope.ItemField;
 import com.exedio.cope.Type;
 
-public final class SchemaName
+public final class SI
 {
 	public static String table(final Type<?> type)
 	{
@@ -62,7 +62,7 @@ public final class SchemaName
 	}
 
 
-	private SchemaName()
+	private SI()
 	{
 		// prevent instantiation
 	}

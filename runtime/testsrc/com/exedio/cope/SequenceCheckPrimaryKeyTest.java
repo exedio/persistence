@@ -25,7 +25,7 @@ import static com.exedio.cope.SequenceCheckPrimaryKeyTest.AnItem.field;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
-import com.exedio.cope.tojunit.SchemaName;
+import com.exedio.cope.tojunit.SI;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -154,9 +154,9 @@ public class SequenceCheckPrimaryKeyTest extends TestWithEnvironment
 		try(
 				Connection connection = newConnection(MODEL);
 				PreparedStatement statement = connection.prepareStatement(
-						"INSERT INTO " + SchemaName.table(TYPE) +
-						" (" + SchemaName.columnPk(TYPE) +
-						","  + SchemaName.column(field) +
+						"INSERT INTO " + SI.table(TYPE) +
+						" (" + SI.columnPk(TYPE) +
+						","  + SI.column(field) +
 						") VALUES (?,?)"))
 		{
 			statement.setInt(1, pk);

@@ -22,7 +22,7 @@ import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnValueL;
 import static org.junit.Assert.assertEquals;
 
 import com.exedio.cope.tojunit.ConnectionRule;
-import com.exedio.cope.tojunit.SchemaName;
+import com.exedio.cope.tojunit.SI;
 import java.sql.SQLException;
 import org.junit.After;
 import org.junit.Before;
@@ -70,8 +70,8 @@ public class CheckTypeColumnAbstractTest extends TestWithEnvironment
 	throws SQLException
 	{
 		execute(
-			"delete from " + SchemaName.table(type) + " " +
-			"where " + SchemaName.columnPk(type) + "=" + getPrimaryKeyColumnValueL(item));
+			"delete from " + SI.table(type) + " " +
+			"where " + SI.columnPk(type) + "=" + getPrimaryKeyColumnValueL(item));
 	}
 
 	private void execute(final String sql) throws SQLException

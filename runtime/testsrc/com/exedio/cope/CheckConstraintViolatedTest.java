@@ -27,7 +27,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 import com.exedio.cope.tojunit.ConnectionRule;
-import com.exedio.cope.tojunit.SchemaName;
+import com.exedio.cope.tojunit.SI;
 import java.sql.SQLException;
 import org.junit.Rule;
 import org.junit.Test;
@@ -95,8 +95,8 @@ public class CheckConstraintViolatedTest extends TestWithEnvironment
 	private void insert(final int pk, final Integer a, final Integer b) throws SQLException
 	{
 		connection.execute(
-				"INSERT INTO " + SchemaName.table(TYPE) +
-				"("+SchemaName.columnPk(TYPE)+","+SchemaName.column(alpha)+","+SchemaName.column(beta)+")" +
+				"INSERT INTO " + SI.table(TYPE) +
+				"("+SI.columnPk(TYPE)+","+SI.column(alpha)+","+SI.column(beta)+")" +
 				"VALUES" +
 				"("+pk+","+sql(a)+","+sql(b)+")");
 	}

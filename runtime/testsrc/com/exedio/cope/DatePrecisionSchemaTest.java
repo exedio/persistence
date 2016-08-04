@@ -37,7 +37,7 @@ import static org.junit.Assert.assertEquals;
 
 import com.exedio.cope.DateField.Precision;
 import com.exedio.cope.DateField.RoundingMode;
-import com.exedio.cope.tojunit.SchemaName;
+import com.exedio.cope.tojunit.SI;
 import com.exedio.dsmf.CheckConstraint;
 import com.exedio.dsmf.Constraint;
 import com.exedio.dsmf.Schema;
@@ -144,7 +144,7 @@ public class DatePrecisionSchemaTest extends TestWithEnvironment
 
 	private static String q(final Field<?> f)
 	{
-		return SchemaName.column(f);
+		return SI.column(f);
 	}
 
 	private static ArrayList<CheckConstraint> getDateCheckConstraints(final Table table)

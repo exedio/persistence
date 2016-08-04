@@ -28,7 +28,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 
-import com.exedio.cope.tojunit.SchemaName;
+import com.exedio.cope.tojunit.SI;
 import com.exedio.dsmf.CheckConstraint;
 import com.exedio.dsmf.Constraint;
 import com.exedio.dsmf.Schema;
@@ -70,7 +70,7 @@ public class CheckConstraintHierarchySchemaTest extends TestWithEnvironment
 			assertEquals("ItemBottom_bottom2_MX", next(i).getName());
 			assertEquals("ItemBottom_cross2_MN", next(i).getName());
 			assertEquals("ItemBottom_cross2_MX", next(i).getName());
-			assertIt("ItemBottom_bottom", SchemaName.column(bottom1)+"<"+SchemaName.column(bottom2), next(i));
+			assertIt("ItemBottom_bottom", SI.column(bottom1)+"<"+SI.column(bottom2), next(i));
 			assertFalse(hasNext(i));
 		}
 		{
@@ -90,7 +90,7 @@ public class CheckConstraintHierarchySchemaTest extends TestWithEnvironment
 			assertEquals("ItemTop_up2_MX", next(i).getName());
 			assertEquals("ItemTop_cross1_MN", next(i).getName());
 			assertEquals("ItemTop_cross1_MX", next(i).getName());
-			assertIt("ItemTop_top", SchemaName.column(top1)+"<"+SchemaName.column(top2), next(i));
+			assertIt("ItemTop_top", SI.column(top1)+"<"+SI.column(top2), next(i));
 			assertFalse(hasNext(i));
 		}
 	}
