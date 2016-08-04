@@ -95,7 +95,55 @@ public class DistinctOrderByTest extends TestWithEnvironment
 		assertEquals(9, query.total());
 	}
 
-	@Test public void problem()
+	@Test public void problemWithoutJoin()
+	{
+		final Query<PlusIntegerItem> query = TYPE.newQuery();
+		query.setOrderBy(numA, true);
+		query.setDistinct(true);
+
+		assertEquals(
+				"select distinct this from PlusIntegerItem " +
+				"order by numA",
+				query.toString());
+
+		assertEquals(3, query.total());
+
+		final EnvironmentInfo env = model.getEnvironmentInfo();
+		switch(dialect)
+		{
+			case hsqldb:
+				notAllowed(query,
+						"invalid ORDER BY expression");
+				break;
+			case mysql:
+				assertEquals(
+						"SELECT DISTINCT `this` " +
+						"FROM `PlusIntegerItem` " +
+						"ORDER BY `numA`",
+						SchemaInfo.search(query));
+
+				if(env.isDatabaseVersionAtLeast(5, 7))
+					notAllowed(query,
+							"Expression #1 of ORDER BY clause is not in SELECT list, " +
+							"references column '" + env.getCatalog() + ".PlusIntegerItem.numA' which is not in SELECT list; " +
+							"this is incompatible with DISTINCT");
+				else
+					assertContains(item2, item3, item1, query.search());
+				break;
+			case oracle:
+				assertContainsList(asList(item1, item2, item3), query.search());
+				break;
+			case postgresql:
+				notAllowed(query,
+						"ERROR: for SELECT DISTINCT, ORDER BY expressions must appear in select list\n" +
+						"  Position: 56");
+				break;
+			default:
+				throw new RuntimeException(dialect.name());
+		}
+	}
+
+	@Test public void problemWithJoin()
 	{
 		final Query<PlusIntegerItem> query = TYPE.newQuery();
 		final Join join = query.join(TYPE);
