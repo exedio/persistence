@@ -61,6 +61,7 @@ public class DistinctOrderByTest extends TestWithEnvironment
 				"join PlusIntegerItem p1 on numC=p1.numC",
 				query.toString());
 		assertContainsList(asList(item1, item1, item1, item2, item2, item2, item3, item3, item3), query.search());
+		assertEquals(9, query.total());
 	}
 
 	@Test public void noOrder()
@@ -75,6 +76,7 @@ public class DistinctOrderByTest extends TestWithEnvironment
 				"join PlusIntegerItem p1 on numC=p1.numC",
 				query.toString());
 		assertContains(item1, item2, item3, query.search());
+		assertEquals(3, query.total());
 	}
 
 	@Test public void noDistinct()
@@ -90,6 +92,7 @@ public class DistinctOrderByTest extends TestWithEnvironment
 				"order by numA",
 				query.toString());
 		assertContainsList(asList(item1, item1, item1, item2, item2, item2, item3, item3, item3), query.search());
+		assertEquals(9, query.total());
 	}
 
 	@Test public void problem()
