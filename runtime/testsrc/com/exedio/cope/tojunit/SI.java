@@ -29,6 +29,9 @@ import com.exedio.cope.Field;
 import com.exedio.cope.ItemField;
 import com.exedio.cope.Type;
 
+/**
+ * Shortcuts for {@link com.exedio.cope.SchemaInfo}
+ */
 public final class SI
 {
 	public static String tab(final Type<?> type)
