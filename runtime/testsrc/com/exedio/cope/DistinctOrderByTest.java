@@ -196,6 +196,59 @@ public class DistinctOrderByTest extends TestWithEnvironment
 		}
 	}
 
+	@Test public void problemWithJoinAndOtherOrder()
+	{
+		final Query<PlusIntegerItem> query = TYPE.newQuery();
+		final Join join = query.join(TYPE);
+		join.setCondition(numC.equal(numC.bind(join)));
+		query.setDistinct(true);
+		query.setOrderBy(numA.bind(join), true);
+
+		assertEquals(
+				"select distinct this from PlusIntegerItem " +
+				"join PlusIntegerItem p1 on numC=p1.numC " +
+				"order by p1.numA",
+				query.toString());
+
+		assertEquals(3, query.total());
+
+		final EnvironmentInfo env = model.getEnvironmentInfo();
+		switch(dialect)
+		{
+			case hsqldb:
+				notAllowed(query,
+						"invalid ORDER BY expression");
+				break;
+			case mysql:
+				assertEquals(
+						"SELECT DISTINCT PlusIntegerItem0.`this` " +
+						"FROM `PlusIntegerItem` PlusIntegerItem0 " +
+						"JOIN `PlusIntegerItem` PlusIntegerItem1 ON PlusIntegerItem0.`numC`=PlusIntegerItem1.`numC` " +
+						"ORDER BY PlusIntegerItem1.`numA`",
+						SchemaInfo.search(query));
+
+				if(env.isDatabaseVersionAtLeast(5, 7))
+					notAllowed(query,
+							"Expression #1 of ORDER BY clause is not in SELECT list, " +
+							"references column '" + env.getCatalog() + ".PlusIntegerItem1.numA' which is not in SELECT list; " +
+							"this is incompatible with DISTINCT");
+				else
+					assertContains(item2, item3, item1, query.search());
+				break;
+			case oracle:
+				notAllowed(query,
+						"ORA-01791: not a SELECTed expression\n");
+				break;
+			case postgresql:
+				notAllowed(query,
+						"ERROR: for SELECT DISTINCT, ORDER BY expressions must appear in select list\n" +
+						"  Position: 181");
+				break;
+			default:
+				throw new RuntimeException(dialect.name());
+		}
+	}
+
 
 	static void notAllowed(final Query<?> query, final String message)
 	{
