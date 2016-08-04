@@ -199,6 +199,11 @@ abstract class Dialect
 		throw new RuntimeException("not supported");
 	}
 
+	boolean supportsAnyValue()
+	{
+		return false;
+	}
+
 	abstract void addBlobInStatementText(StringBuilder statementText, byte[] parameter);
 
 	<E extends Number> void  appendIntegerDivision(

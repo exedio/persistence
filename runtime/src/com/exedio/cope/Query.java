@@ -1008,6 +1008,13 @@ public final class Query<R> implements Serializable
 
 			if(orderBy!=null)
 			{
+				final boolean anyValuePossible =
+						distinct &&
+						selects.length==1 &&
+						selects[0] instanceof This && // TODO could be broader
+						selects[0].getType()==type &&
+						dialect.supportsAnyValue();
+
 				final boolean[] orderAscending = this.orderAscending;
 				for(int i = 0; i<orderBy.length; i++)
 				{
@@ -1016,7 +1023,18 @@ public final class Query<R> implements Serializable
 					else
 						bf.append(',');
 
+					final boolean anyValue =
+							anyValuePossible &&
+							orderBy[i] instanceof FunctionField && // TODO could be broader, same join as select
+							orderBy[i].getType()==type;
+					if(anyValue)
+						bf.append("ANY_VALUE(");
+
 					bf.append(orderBy[i], (Join)null);
+
+					if(anyValue)
+						bf.append(')');
+
 					if(!orderAscending[i])
 						bf.append(" DESC");
 					dialect.appendOrderByPostfix(bf, orderAscending[i]);

@@ -136,12 +136,11 @@ public class DistinctOrderByTest extends TestWithEnvironment
 		assertEquals(
 				"SELECT DISTINCT " + SI.pk(TYPE) + " " +
 				"FROM " + SI.tab(TYPE) + " " +
-				"ORDER BY " + SI.col(numA) + NULLS_FIRST,
+				"ORDER BY " + ANY_VALUE(SI.col(numA)) + NULLS_FIRST,
 				SchemaInfo.search(query));
 
 		assertEquals(3, query.total());
 
-		final EnvironmentInfo env = model.getEnvironmentInfo();
 		switch(dialect)
 		{
 			case hsqldb:
@@ -149,13 +148,7 @@ public class DistinctOrderByTest extends TestWithEnvironment
 						"invalid ORDER BY expression");
 				break;
 			case mysql:
-				if(env.isDatabaseVersionAtLeast(5, 7))
-					notAllowed(query,
-							"Expression #1 of ORDER BY clause is not in SELECT list, " +
-							"references column '" + env.getCatalog() + ".PlusIntegerItem.numA' which is not in SELECT list; " +
-							"this is incompatible with DISTINCT");
-				else
-					assertContains(item2, item3, item1, query.search());
+				assertContains(item2, item3, item1, query.search());
 				break;
 			case oracle:
 				assertContainsList(asList(item1, item2, item3), query.search());
@@ -188,12 +181,11 @@ public class DistinctOrderByTest extends TestWithEnvironment
 				"FROM " + SI.tab(TYPE) + " " + ALIAS+"0 " +
 				"JOIN " + SI.tab(TYPE) + " " + ALIAS+"1 " +
 				"ON " + ALIAS+"0." + SI.col(numC) + "=" + ALIAS+"1." + SI.col(numC) + " " +
-				"ORDER BY " + ALIAS+"0." + SI.col(numA) + NULLS_FIRST,
+				"ORDER BY " + ANY_VALUE(ALIAS+"0." + SI.col(numA)) + NULLS_FIRST,
 				SchemaInfo.search(query));
 
 		assertEquals(3, query.total());
 
-		final EnvironmentInfo env = model.getEnvironmentInfo();
 		switch(dialect)
 		{
 			case hsqldb:
@@ -201,13 +193,7 @@ public class DistinctOrderByTest extends TestWithEnvironment
 						"invalid ORDER BY expression");
 				break;
 			case mysql:
-				if(env.isDatabaseVersionAtLeast(5, 7))
-					notAllowed(query,
-							"Expression #1 of ORDER BY clause is not in SELECT list, " +
-							"references column '" + env.getCatalog() + ".PlusIntegerItem0.numA' which is not in SELECT list; " +
-							"this is incompatible with DISTINCT");
-				else
-					assertContains(item2, item3, item1, query.search());
+				assertContains(item2, item3, item1, query.search());
 				break;
 			case oracle:
 				notAllowed(query,
@@ -319,6 +305,14 @@ public class DistinctOrderByTest extends TestWithEnvironment
 		}
 	}
 
+
+	private String ANY_VALUE(final String s)
+	{
+		return
+				(mysql && model.getEnvironmentInfo().isDatabaseVersionAtLeast(5, 7))
+				? ("ANY_VALUE(" + s + ")")
+				: s;
+	}
 
 	static void notAllowed(final Query<?> query, final String message)
 	{

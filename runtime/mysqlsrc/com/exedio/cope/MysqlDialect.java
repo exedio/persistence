@@ -62,6 +62,7 @@ final class MysqlDialect extends Dialect
 	private final boolean smallIntegerTypes;
 	private final boolean shortConstraintNames;
 	final String sequenceColumnName;
+	private final boolean supportsAnyValue;
 	private final boolean mariaDriver;
 
 	MysqlDialect(final Probe probe)
@@ -89,6 +90,7 @@ final class MysqlDialect extends Dialect
 					"must be enabled on MySQL 5.7 and later: " +
 					env.getDatabaseVersionDescription());
 
+		supportsAnyValue = env.isDatabaseVersionAtLeast(5, 7);
 		mariaDriver = env.getDriverName().startsWith("MariaDB");
 	}
 
@@ -641,6 +643,12 @@ final class MysqlDialect extends Dialect
 			return null;
 
 		return message.substring(infixEnd, postfixPosition);
+	}
+
+	@Override
+	boolean supportsAnyValue()
+	{
+		return supportsAnyValue;
 	}
 
 	@Override
