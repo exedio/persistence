@@ -42,21 +42,20 @@ public class DistinctOrderByTest extends TestWithEnvironment
 	private PlusIntegerItem item1;
 	private PlusIntegerItem item2;
 	private PlusIntegerItem item3;
-	private Query<PlusIntegerItem> query;
 
 	@Before public final void setUp()
 	{
 		item1 = new PlusIntegerItem(2, 4, 5);
 		item2 = new PlusIntegerItem(1, 4, 5);
 		item3 = new PlusIntegerItem(1, 4, 5);
-
-		query = TYPE.newQuery();
-		final Join join = query.join(TYPE);
-		join.setCondition(numC.equal(numC.bind(join)));
 	}
 
 	@Test public void testVanilla()
 	{
+		final Query<PlusIntegerItem> query = TYPE.newQuery();
+		final Join join = query.join(TYPE);
+		join.setCondition(numC.equal(numC.bind(join)));
+
 		assertEquals(
 				"select this from PlusIntegerItem " +
 				"join PlusIntegerItem p1 on numC=p1.numC",
@@ -66,6 +65,9 @@ public class DistinctOrderByTest extends TestWithEnvironment
 
 	@Test public void testDistinct()
 	{
+		final Query<PlusIntegerItem> query = TYPE.newQuery();
+		final Join join = query.join(TYPE);
+		join.setCondition(numC.equal(numC.bind(join)));
 		query.setDistinct(true);
 
 		assertEquals(
@@ -77,6 +79,9 @@ public class DistinctOrderByTest extends TestWithEnvironment
 
 	@Test public void testOrderBy()
 	{
+		final Query<PlusIntegerItem> query = TYPE.newQuery();
+		final Join join = query.join(TYPE);
+		join.setCondition(numC.equal(numC.bind(join)));
 		query.setOrderBy(numA, true);
 
 		assertEquals(
@@ -89,11 +94,9 @@ public class DistinctOrderByTest extends TestWithEnvironment
 
 	@Test public void testDistinctOrderBy()
 	{
-		assertEquals(
-				"select this from PlusIntegerItem " +
-				"join PlusIntegerItem p1 on numC=p1.numC",
-				query.toString());
-
+		final Query<PlusIntegerItem> query = TYPE.newQuery();
+		final Join join = query.join(TYPE);
+		join.setCondition(numC.equal(numC.bind(join)));
 		query.setDistinct(true);
 		query.setOrderBy(numA, true);
 
