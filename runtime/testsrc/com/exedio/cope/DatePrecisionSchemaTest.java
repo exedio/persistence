@@ -103,9 +103,9 @@ public class DatePrecisionSchemaTest extends TestWithEnvironment
 		switch(dialect)
 		{
 			case hsqldb    : // fall through
-			case oracle    : return "EXTRACT(" + precision.sql() + " FROM " + q(field) + ")";
+			case oracle    : return "EXTRACT(" + precision.sql() + " FROM " + SI.col(field) + ")";
 
-			case postgresql: return "\"date_part\"('" + precision.sql() + "'," + q(field) + ")";
+			case postgresql: return "\"date_part\"('" + precision.sql() + "'," + SI.col(field) + ")";
 
 			case mysql: // MySQL does not support native date
 			default:
@@ -133,18 +133,13 @@ public class DatePrecisionSchemaTest extends TestWithEnvironment
 	{
 		switch(dialect)
 		{
-			case hsqldb    : return "MOD(" + q(field) + "," + divisor + ")=0";
-			case mysql     : return "(" + q(field) + " MOD " + divisor + ")=0";
-			case postgresql: return "(" + q(field) +  " % "  + divisor + ")=0";
+			case hsqldb    : return "MOD(" + SI.col(field) + "," + divisor + ")=0";
+			case mysql     : return "(" + SI.col(field) + " MOD " + divisor + ")=0";
+			case postgresql: return "(" + SI.col(field) +  " % "  + divisor + ")=0";
 			case oracle: // TODO
 			default:
 				throw new RuntimeException("" + dialect);
 		}
-	}
-
-	private static String q(final Field<?> f)
-	{
-		return SI.col(f);
 	}
 
 	private static ArrayList<CheckConstraint> getDateCheckConstraints(final Table table)
