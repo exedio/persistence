@@ -20,16 +20,14 @@ package com.exedio.cope;
 
 import static com.exedio.cope.OverflowLongSumTest.AnItem.TYPE;
 import static com.exedio.cope.OverflowLongSumTest.AnItem.field;
-import static com.exedio.cope.SchemaInfo.getColumnName;
-import static com.exedio.cope.SchemaInfo.getTableName;
 import static com.exedio.cope.SchemaInfo.newConnection;
-import static com.exedio.cope.SchemaInfo.quoteName;
 import static java.lang.Long.MAX_VALUE;
 import static java.lang.Long.MIN_VALUE;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import com.exedio.cope.tojunit.SchemaName;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.math.BigDecimal;
 import java.sql.Connection;
@@ -97,8 +95,8 @@ public class OverflowLongSumTest extends TestWithEnvironment
 			Connection c = newConnection(MODEL);
 			Statement st = c.createStatement();
 			ResultSet rs = st.executeQuery(
-				"SELECT SUM(" + quoteName(MODEL, getColumnName(field)) + ") " +
-				"FROM " + quoteName(MODEL, getTableName(TYPE))))
+				"SELECT SUM(" + SchemaName.column(field) + ") " +
+				"FROM " + SchemaName.table(TYPE)))
 		{
 			assertTrue(rs.next());
 

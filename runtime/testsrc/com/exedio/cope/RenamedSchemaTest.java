@@ -34,6 +34,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 
+import com.exedio.cope.tojunit.SchemaName;
 import com.exedio.dsmf.Schema;
 import com.exedio.dsmf.Sequence;
 import com.exedio.dsmf.Table;
@@ -74,9 +75,9 @@ public class RenamedSchemaTest extends TestWithEnvironment
 
 		assertFkConstraint(table, "Zain_zitem_Fk", getColumnName(item), getTableName(RenamedSchemaTargetItem.TYPE), getPrimaryKeyColumnName(RenamedSchemaTargetItem.TYPE));
 
-		assertUniqueConstraint(table, "Zain_zuniqueSingle_Unq", "("+q(uniqueSingle)+")");
+		assertUniqueConstraint(table, "Zain_zuniqueSingle_Unq", "("+SchemaName.column(uniqueSingle)+")");
 
-		assertUniqueConstraint(table, "Zain_zuniqueDouble_Unq", "("+q(uniqueDouble1)+","+q(uniqueDouble2)+")");
+		assertUniqueConstraint(table, "Zain_zuniqueDouble_Unq", "("+SchemaName.column(uniqueDouble1)+","+SchemaName.column(uniqueDouble2)+")");
 
 		assertCheckConstraint(table, "Zain_zring_MN", l(string)+">=1");
 		assertCheckConstraint(table, "Zain_zring_MX", l(string)+"<=4");
@@ -99,13 +100,8 @@ public class RenamedSchemaTest extends TestWithEnvironment
 		assertEquals(start, sequence.getStartL());
 	}
 
-	private final String q(final Field<?> f)
-	{
-		return SchemaInfo.quoteName(model, getColumnName(f));
-	}
-
 	private final String l(final StringField f)
 	{
-		return model.connect().database.dialect.getStringLength() + '(' + q(f) + ')';
+		return model.connect().database.dialect.getStringLength() + '(' + SchemaName.column(f) + ')';
 	}
 }

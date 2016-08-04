@@ -18,12 +18,11 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnName;
 import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnValueL;
-import static com.exedio.cope.SchemaInfo.getTableName;
 import static org.junit.Assert.assertEquals;
 
 import com.exedio.cope.tojunit.ConnectionRule;
+import com.exedio.cope.tojunit.SchemaName;
 import java.sql.SQLException;
 import org.junit.After;
 import org.junit.Before;
@@ -71,8 +70,8 @@ public class CheckTypeColumnAbstractTest extends TestWithEnvironment
 	throws SQLException
 	{
 		execute(
-			"delete from " + q(getTableName(type)) + " " +
-			"where " + q(getPrimaryKeyColumnName(type)) + "=" + getPrimaryKeyColumnValueL(item));
+			"delete from " + SchemaName.table(type) + " " +
+			"where " + SchemaName.columnPk(type) + "=" + getPrimaryKeyColumnValueL(item));
 	}
 
 	private void execute(final String sql) throws SQLException
@@ -81,10 +80,5 @@ public class CheckTypeColumnAbstractTest extends TestWithEnvironment
 		model.commit();
 		assertEquals(1, connection.executeUpdate(sql));
 		model.startTransaction(transactionName);
-	}
-
-	private String q(final String s)
-	{
-		return SchemaInfo.quoteName(model, s);
 	}
 }

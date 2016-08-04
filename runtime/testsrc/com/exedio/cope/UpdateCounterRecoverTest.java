@@ -26,6 +26,7 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import com.exedio.cope.tojunit.ConnectionRule;
+import com.exedio.cope.tojunit.SchemaName;
 import java.sql.SQLException;
 import org.junit.Before;
 import org.junit.Rule;
@@ -255,8 +256,8 @@ public final class UpdateCounterRecoverTest extends TestWithEnvironment
 		commit();
 
 		execute(
-				"update " + q(getTableName(TYPE)) +
-				" set " + q(getUpdateCounterColumnName(TYPE)) + "=99");
+				"update " + SchemaName.table(TYPE) +
+				" set " + SchemaName.columnUpdate(TYPE) + "=99");
 
 		startTransaction();
 		assertEquals(true, item.existsCopeItem());

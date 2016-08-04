@@ -18,15 +18,13 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnName;
 import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnValueL;
-import static com.exedio.cope.SchemaInfo.getTableName;
-import static com.exedio.cope.SchemaInfo.getTypeColumnName;
 import static com.exedio.cope.SchemaInfo.getTypeColumnValue;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 import com.exedio.cope.tojunit.ConnectionRule;
+import com.exedio.cope.tojunit.SchemaName;
 import java.sql.SQLException;
 import org.junit.After;
 import org.junit.Before;
@@ -312,9 +310,9 @@ public class CheckTypeColumnTest extends TestWithEnvironment
 	@Test public void testWrongRef() throws SQLException
 	{
 		execute(
-				"update " + q(getTableName(InstanceOfRefItem.TYPE)) + " " +
-				"set " + q(getTypeColumnName(InstanceOfRefItem.ref)) + "='" + getTypeColumnValue(InstanceOfB1Item.TYPE) + "' " +
-				"where " + q(getPrimaryKeyColumnName(InstanceOfRefItem.TYPE)) + "=" + getPrimaryKeyColumnValueL(reffa));
+				"update " + SchemaName.table(InstanceOfRefItem.TYPE) + " " +
+				"set " + SchemaName.columnType(InstanceOfRefItem.ref) + "='" + getTypeColumnValue(InstanceOfB1Item.TYPE) + "' " +
+				"where " + SchemaName.columnPk(InstanceOfRefItem.TYPE) + "=" + getPrimaryKeyColumnValueL(reffa));
 
 		assertEquals(0, InstanceOfB1Item.TYPE.getThis().checkTypeColumnL());
 		assertEquals(0, InstanceOfB2Item.TYPE.getThis().checkTypeColumnL());
@@ -336,9 +334,9 @@ public class CheckTypeColumnTest extends TestWithEnvironment
 	throws SQLException
 	{
 		execute(
-			"update " + q(getTableName(type)) + " " +
-			"set " + q(getTypeColumnName(type)) + "='" + getTypeColumnValue(newType) + "' " +
-			"where " + q(getPrimaryKeyColumnName(type)) + "=" + getPrimaryKeyColumnValueL(item));
+			"update " + SchemaName.table(type) + " " +
+			"set " + SchemaName.columnType(type) + "='" + getTypeColumnValue(newType) + "' " +
+			"where " + SchemaName.columnPk(type) + "=" + getPrimaryKeyColumnValueL(item));
 	}
 
 	private <T extends Item> void deleteRow(
@@ -347,8 +345,8 @@ public class CheckTypeColumnTest extends TestWithEnvironment
 	throws SQLException
 	{
 		execute(
-			"delete from " + q(getTableName(type)) + " " +
-			"where " + q(getPrimaryKeyColumnName(type)) + "=" + getPrimaryKeyColumnValueL(item));
+			"delete from " + SchemaName.table(type) + " " +
+			"where " + SchemaName.columnPk(type) + "=" + getPrimaryKeyColumnValueL(item));
 	}
 
 	private void execute(final String sql) throws SQLException
@@ -357,10 +355,5 @@ public class CheckTypeColumnTest extends TestWithEnvironment
 		model.commit();
 		assertEquals(1, connection.executeUpdate(sql));
 		model.startTransaction(transactionName);
-	}
-
-	private String q(final String s)
-	{
-		return SchemaInfo.quoteName(model, s);
 	}
 }

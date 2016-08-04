@@ -18,14 +18,8 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.SchemaInfo.getColumnName;
-import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnName;
-import static com.exedio.cope.SchemaInfo.getTableName;
-import static com.exedio.cope.SchemaInfo.getTypeColumnName;
-import static com.exedio.cope.SchemaInfo.getUpdateCounterColumnName;
-import static com.exedio.cope.SchemaInfo.quoteName;
-
 import com.exedio.cope.tojunit.ConnectionRule;
+import com.exedio.cope.tojunit.SchemaName;
 import java.sql.SQLException;
 import org.junit.Rule;
 import org.junit.Test;
@@ -47,15 +41,15 @@ public class SchemaInfoConnectionTest extends TestWithEnvironment
 	{
 		final StringBuilder bf = new StringBuilder();
 		bf.append("select ").
-			append(q(getPrimaryKeyColumnName(InstanceOfAItem.TYPE))).
+			append(SchemaName.columnPk(InstanceOfAItem.TYPE)).
 			append(',').
-			append(q(getTypeColumnName(InstanceOfAItem.TYPE))).
+			append(SchemaName.columnType(InstanceOfAItem.TYPE)).
 			append(',').
-			append(q(getUpdateCounterColumnName(InstanceOfAItem.TYPE))).
+			append(SchemaName.columnUpdate(InstanceOfAItem.TYPE)).
 			append(',').
-			append(q(getColumnName(InstanceOfAItem.code))).
+			append(SchemaName.column(InstanceOfAItem.code)).
 			append(" from ").
-			append(q(getTableName(InstanceOfAItem.TYPE)));
+			append(SchemaName.table(InstanceOfAItem.TYPE));
 
 		connection.execute(bf.toString());
 	}
@@ -64,21 +58,16 @@ public class SchemaInfoConnectionTest extends TestWithEnvironment
 	{
 		final StringBuilder bf = new StringBuilder();
 		bf.append("select ").
-			append(q(getPrimaryKeyColumnName(InstanceOfRefItem.TYPE))).
+			append(SchemaName.columnPk(InstanceOfRefItem.TYPE)).
 			append(',').
-			append(q(getUpdateCounterColumnName(InstanceOfRefItem.TYPE))).
+			append(SchemaName.columnUpdate(InstanceOfRefItem.TYPE)).
 			append(',').
-			append(q(getColumnName(InstanceOfRefItem.ref))).
+			append(SchemaName.column(InstanceOfRefItem.ref)).
 			append(',').
-			append(q(getTypeColumnName(InstanceOfRefItem.ref))).
+			append(SchemaName.columnType(InstanceOfRefItem.ref)).
 			append(" from ").
-			append(q(getTableName(InstanceOfRefItem.TYPE)));
+			append(SchemaName.table(InstanceOfRefItem.TYPE));
 
 		connection.execute(bf.toString());
-	}
-
-	private String q(final String name)
-	{
-		return quoteName(model, name);
 	}
 }

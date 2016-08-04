@@ -29,16 +29,15 @@ import static com.exedio.cope.DatePrecisionItem.TYPE;
 import static com.exedio.cope.DatePrecisionItem.hours;
 import static com.exedio.cope.DatePrecisionItem.minutes;
 import static com.exedio.cope.DatePrecisionItem.seconds;
-import static com.exedio.cope.SchemaInfo.getColumnName;
 import static com.exedio.cope.SchemaInfo.getColumnValue;
 import static com.exedio.cope.SchemaInfo.getTableName;
-import static com.exedio.cope.SchemaInfo.quoteName;
 import static com.exedio.cope.SchemaInfo.supportsNativeDate;
 import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
 
 import com.exedio.cope.DateField.Precision;
 import com.exedio.cope.DateField.RoundingMode;
+import com.exedio.cope.tojunit.SchemaName;
 import com.exedio.dsmf.CheckConstraint;
 import com.exedio.dsmf.Constraint;
 import com.exedio.dsmf.Schema;
@@ -143,9 +142,9 @@ public class DatePrecisionSchemaTest extends TestWithEnvironment
 		}
 	}
 
-	private final String q(final Field<?> f)
+	private static String q(final Field<?> f)
 	{
-		return quoteName(model, getColumnName(f));
+		return SchemaName.column(f);
 	}
 
 	private static ArrayList<CheckConstraint> getDateCheckConstraints(final Table table)

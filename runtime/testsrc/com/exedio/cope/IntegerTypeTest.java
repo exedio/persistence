@@ -27,6 +27,7 @@ import static com.exedio.cope.SchemaInfo.newConnection;
 import static com.exedio.cope.SchemaInfo.quoteName;
 import static junit.framework.Assert.assertEquals;
 
+import com.exedio.cope.tojunit.SchemaName;
 import com.exedio.dsmf.Schema;
 import com.exedio.dsmf.Sequence;
 import com.exedio.dsmf.Table;
@@ -163,10 +164,7 @@ public class IntegerTypeTest extends TestWithEnvironment
 			type.newItem();
 			model.commit();
 
-			final String tableName = getTableName(type);
-			final String pkColumnName = getPrimaryKeyColumnName(type);
-			final String update = "UPDATE " + quoteName(MODEL, tableName) + " SET " + quoteName(MODEL, pkColumnName) + " = ? ";
-
+			final String update = "UPDATE " + SchemaName.table(type) + " SET " + SchemaName.columnPk(type) + " = ? ";
 			try (
 					Connection connection = newConnection(model);
 					PreparedStatement statement = connection.prepareStatement(update))
