@@ -22,15 +22,12 @@ import static com.exedio.cope.CheckConstraintViolatedTest.AnItem.TYPE;
 import static com.exedio.cope.CheckConstraintViolatedTest.AnItem.alpha;
 import static com.exedio.cope.CheckConstraintViolatedTest.AnItem.alphaLessBeta;
 import static com.exedio.cope.CheckConstraintViolatedTest.AnItem.beta;
-import static com.exedio.cope.SchemaInfo.getColumnName;
-import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnName;
-import static com.exedio.cope.SchemaInfo.getTableName;
-import static com.exedio.cope.SchemaInfo.quoteName;
 import static com.exedio.cope.SchemaInfo.supportsCheckConstraints;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 import com.exedio.cope.tojunit.ConnectionRule;
+import com.exedio.cope.tojunit.SI;
 import java.sql.SQLException;
 import org.junit.Rule;
 import org.junit.Test;
@@ -98,15 +95,10 @@ public class CheckConstraintViolatedTest extends TestWithEnvironment
 	private void insert(final int pk, final Integer a, final Integer b) throws SQLException
 	{
 		connection.execute(
-				"INSERT INTO " + q(getTableName(TYPE)) +
-				"("+q(getPrimaryKeyColumnName(TYPE))+","+q(getColumnName(alpha))+","+q(getColumnName(beta))+")" +
+				"INSERT INTO " + SI.tab(TYPE) +
+				"("+SI.pk(TYPE)+","+SI.col(alpha)+","+SI.col(beta)+")" +
 				"VALUES" +
 				"("+pk+","+sql(a)+","+sql(b)+")");
-	}
-
-	private String q(final String name)
-	{
-		return quoteName(model, name);
 	}
 
 	private static String sql(final Integer i)

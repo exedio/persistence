@@ -30,6 +30,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.fail;
 
+import com.exedio.cope.tojunit.SI;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.IOException;
 import org.junit.Before;
@@ -188,28 +189,28 @@ public class DumperTest extends TestWithEnvironment
 	}
 
 
-	private String tab(final Type<?> type)
+	private static String tab(final Type<?> type)
 	{
-		return SchemaInfo.quoteName(model, SchemaInfo.getTableName(type));
+		return SI.tab(type);
 	}
 
-	private String pk(final Type<?> type)
+	private static String pk(final Type<?> type)
 	{
-		return SchemaInfo.quoteName(model, SchemaInfo.getPrimaryKeyColumnName(type));
+		return SI.pk(type);
 	}
 
-	private String cls(final Type<?> type)
+	private static String cls(final Type<?> type)
 	{
-		return SchemaInfo.quoteName(model, SchemaInfo.getTypeColumnName(type));
+		return SI.type(type);
 	}
 
-	private String upd(final Type<?> type)
+	private static String upd(final Type<?> type)
 	{
-		return SchemaInfo.quoteName(model, SchemaInfo.getUpdateCounterColumnName(type));
+		return SI.update(type);
 	}
 
-	private String col(final Field<?> field)
+	private static String col(final Field<?> field)
 	{
-		return SchemaInfo.quoteName(model, SchemaInfo.getColumnName(field));
+		return SI.col(field);
 	}
 }

@@ -20,15 +20,13 @@ package com.exedio.cope;
 
 import static com.exedio.cope.OverflowIntegerSumTest.AnItem.TYPE;
 import static com.exedio.cope.OverflowIntegerSumTest.AnItem.field;
-import static com.exedio.cope.SchemaInfo.getColumnName;
-import static com.exedio.cope.SchemaInfo.getTableName;
 import static com.exedio.cope.SchemaInfo.newConnection;
-import static com.exedio.cope.SchemaInfo.quoteName;
 import static java.lang.Integer.MAX_VALUE;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import com.exedio.cope.tojunit.SI;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.math.BigDecimal;
 import java.sql.Connection;
@@ -74,8 +72,7 @@ public class OverflowIntegerSumTest extends TestWithEnvironment
 			Connection c = newConnection(MODEL);
 			Statement st = c.createStatement();
 			ResultSet rs = st.executeQuery(
-				"SELECT SUM(" + quoteName(MODEL, getColumnName(field)) + ") " +
-				"FROM " + quoteName(MODEL, getTableName(TYPE))))
+				"SELECT SUM(" + SI.col(field) + ") " + "FROM " + SI.tab(TYPE)))
 		{
 			assertTrue(rs.next());
 

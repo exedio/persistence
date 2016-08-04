@@ -18,14 +18,8 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.SchemaInfo.getColumnName;
-import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnName;
-import static com.exedio.cope.SchemaInfo.getTableName;
-import static com.exedio.cope.SchemaInfo.getTypeColumnName;
-import static com.exedio.cope.SchemaInfo.getUpdateCounterColumnName;
-import static com.exedio.cope.SchemaInfo.quoteName;
-
 import com.exedio.cope.tojunit.ConnectionRule;
+import com.exedio.cope.tojunit.SI;
 import java.sql.SQLException;
 import org.junit.Rule;
 import org.junit.Test;
@@ -47,15 +41,15 @@ public class SchemaInfoConnectionTest extends TestWithEnvironment
 	{
 		final StringBuilder bf = new StringBuilder();
 		bf.append("select ").
-			append(q(getPrimaryKeyColumnName(InstanceOfAItem.TYPE))).
+			append(SI.pk(InstanceOfAItem.TYPE)).
 			append(',').
-			append(q(getTypeColumnName(InstanceOfAItem.TYPE))).
+			append(SI.type(InstanceOfAItem.TYPE)).
 			append(',').
-			append(q(getUpdateCounterColumnName(InstanceOfAItem.TYPE))).
+			append(SI.update(InstanceOfAItem.TYPE)).
 			append(',').
-			append(q(getColumnName(InstanceOfAItem.code))).
+			append(SI.col(InstanceOfAItem.code)).
 			append(" from ").
-			append(q(getTableName(InstanceOfAItem.TYPE)));
+			append(SI.tab(InstanceOfAItem.TYPE));
 
 		connection.execute(bf.toString());
 	}
@@ -64,21 +58,16 @@ public class SchemaInfoConnectionTest extends TestWithEnvironment
 	{
 		final StringBuilder bf = new StringBuilder();
 		bf.append("select ").
-			append(q(getPrimaryKeyColumnName(InstanceOfRefItem.TYPE))).
+			append(SI.pk(InstanceOfRefItem.TYPE)).
 			append(',').
-			append(q(getUpdateCounterColumnName(InstanceOfRefItem.TYPE))).
+			append(SI.update(InstanceOfRefItem.TYPE)).
 			append(',').
-			append(q(getColumnName(InstanceOfRefItem.ref))).
+			append(SI.col(InstanceOfRefItem.ref)).
 			append(',').
-			append(q(getTypeColumnName(InstanceOfRefItem.ref))).
+			append(SI.type(InstanceOfRefItem.ref)).
 			append(" from ").
-			append(q(getTableName(InstanceOfRefItem.TYPE)));
+			append(SI.tab(InstanceOfRefItem.TYPE));
 
 		connection.execute(bf.toString());
-	}
-
-	private String q(final String name)
-	{
-		return quoteName(model, name);
 	}
 }

@@ -29,16 +29,15 @@ import static com.exedio.cope.DatePrecisionItem.TYPE;
 import static com.exedio.cope.DatePrecisionItem.hours;
 import static com.exedio.cope.DatePrecisionItem.minutes;
 import static com.exedio.cope.DatePrecisionItem.seconds;
-import static com.exedio.cope.SchemaInfo.getColumnName;
 import static com.exedio.cope.SchemaInfo.getColumnValue;
 import static com.exedio.cope.SchemaInfo.getTableName;
-import static com.exedio.cope.SchemaInfo.quoteName;
 import static com.exedio.cope.SchemaInfo.supportsNativeDate;
 import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
 
 import com.exedio.cope.DateField.Precision;
 import com.exedio.cope.DateField.RoundingMode;
+import com.exedio.cope.tojunit.SI;
 import com.exedio.dsmf.CheckConstraint;
 import com.exedio.dsmf.Constraint;
 import com.exedio.dsmf.Schema;
@@ -104,9 +103,9 @@ public class DatePrecisionSchemaTest extends TestWithEnvironment
 		switch(dialect)
 		{
 			case hsqldb    : // fall through
-			case oracle    : return "EXTRACT(" + precision.sql() + " FROM " + q(field) + ")";
+			case oracle    : return "EXTRACT(" + precision.sql() + " FROM " + SI.col(field) + ")";
 
-			case postgresql: return "\"date_part\"('" + precision.sql() + "'," + q(field) + ")";
+			case postgresql: return "\"date_part\"('" + precision.sql() + "'," + SI.col(field) + ")";
 
 			case mysql: // MySQL does not support native date
 			default:
@@ -134,18 +133,13 @@ public class DatePrecisionSchemaTest extends TestWithEnvironment
 	{
 		switch(dialect)
 		{
-			case hsqldb    : return "MOD(" + q(field) + "," + divisor + ")=0";
-			case mysql     : return "(" + q(field) + " MOD " + divisor + ")=0";
-			case postgresql: return "(" + q(field) +  " % "  + divisor + ")=0";
+			case hsqldb    : return "MOD(" + SI.col(field) + "," + divisor + ")=0";
+			case mysql     : return "(" + SI.col(field) + " MOD " + divisor + ")=0";
+			case postgresql: return "(" + SI.col(field) +  " % "  + divisor + ")=0";
 			case oracle: // TODO
 			default:
 				throw new RuntimeException("" + dialect);
 		}
-	}
-
-	private final String q(final Field<?> f)
-	{
-		return quoteName(model, getColumnName(f));
 	}
 
 	private static ArrayList<CheckConstraint> getDateCheckConstraints(final Table table)

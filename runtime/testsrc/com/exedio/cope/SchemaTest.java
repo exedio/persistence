@@ -22,7 +22,6 @@ import static com.exedio.cope.RuntimeTester.assertNotExistsConstraint;
 import static com.exedio.cope.SchemaInfo.getColumnName;
 import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnName;
 import static com.exedio.cope.SchemaInfo.getTableName;
-import static com.exedio.cope.SchemaInfo.getTypeColumnName;
 import static com.exedio.cope.SchemaInfo.supportsNativeDate;
 import static com.exedio.cope.SchemaItem.TYPE;
 import static com.exedio.cope.SchemaItem.anEnum;
@@ -55,6 +54,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
+import com.exedio.cope.tojunit.SI;
 import com.exedio.dsmf.Column;
 import com.exedio.dsmf.Schema;
 import com.exedio.dsmf.Sequence;
@@ -192,14 +192,14 @@ public class SchemaTest extends TestWithEnvironment
 		assertEquals(OK, table.getCumulativeColor());
 	}
 
-	private final String q(final Field<?> f)
+	private static String q(final Field<?> f)
 	{
-		return SchemaInfo.quoteName(model, getColumnName(f));
+		return SI.col(f);
 	}
 
-	private final String t(final ItemField<?> f)
+	private static String t(final ItemField<?> f)
 	{
-		return SchemaInfo.quoteName(model, getTypeColumnName(f));
+		return SI.type(f);
 	}
 
 	private final String l(final StringField f)

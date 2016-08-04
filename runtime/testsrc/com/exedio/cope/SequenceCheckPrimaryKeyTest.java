@@ -18,17 +18,14 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.SchemaInfo.getColumnName;
-import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnName;
 import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnValueL;
-import static com.exedio.cope.SchemaInfo.getTableName;
 import static com.exedio.cope.SchemaInfo.newConnection;
-import static com.exedio.cope.SchemaInfo.quoteName;
 import static com.exedio.cope.SequenceCheckPrimaryKeyTest.AnItem.TYPE;
 import static com.exedio.cope.SequenceCheckPrimaryKeyTest.AnItem.field;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
+import com.exedio.cope.tojunit.SI;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -157,20 +154,13 @@ public class SequenceCheckPrimaryKeyTest extends TestWithEnvironment
 		try(
 				Connection connection = newConnection(MODEL);
 				PreparedStatement statement = connection.prepareStatement(
-						"INSERT INTO " + q(getTableName(TYPE)) +
-						" (" + q(getPrimaryKeyColumnName(TYPE)) +
-						","  + q(getColumnName(field)) +
-						") VALUES (?,?)"))
+						"INSERT INTO " + SI.tab(TYPE) +
+						" (" + SI.pk(TYPE) + "," + SI.col(field) + ") VALUES (?,?)"))
 		{
 			statement.setInt(1, pk);
 			statement.setString(2, fieldValue);
 			assertEquals(1, statement.executeUpdate());
 		}
-	}
-
-	private static String q(final String name)
-	{
-		return quoteName(MODEL, name);
 	}
 
 	static final class AnItem extends Item
