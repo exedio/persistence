@@ -27,6 +27,7 @@ import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
+import com.exedio.cope.tojunit.SI;
 import com.exedio.dsmf.SQLRuntimeException;
 import java.util.List;
 import org.junit.Before;
@@ -43,11 +44,15 @@ public class DistinctOrderByTest extends TestWithEnvironment
 	private PlusIntegerItem item2;
 	private PlusIntegerItem item3;
 
+	private static final String ALIAS = "PlusIntegerItem";
+	private String NULLS_FIRST;
+
 	@Before public final void setUp()
 	{
 		item1 = new PlusIntegerItem(2, 4, 5);
 		item2 = new PlusIntegerItem(1, 4, 5);
 		item3 = new PlusIntegerItem(1, 4, 5);
+		NULLS_FIRST = (oracle|postgresql) ? " NULLS FIRST" : "";
 	}
 
 	@Test public void noDistinctOrOrder()
@@ -60,6 +65,13 @@ public class DistinctOrderByTest extends TestWithEnvironment
 				"select this from PlusIntegerItem " +
 				"join PlusIntegerItem p1 on numC=p1.numC",
 				query.toString());
+		assertEquals(
+				"SELECT " + ALIAS+"0." + SI.pk(TYPE) + " " +
+				"FROM " + SI.tab(TYPE) + " " + ALIAS+"0 " +
+				"JOIN " + SI.tab(TYPE) + " " + ALIAS+"1 " +
+				"ON " + ALIAS+"0." + SI.col(numC) + "=" + ALIAS+"1." + SI.col(numC),
+				SchemaInfo.search(query));
+
 		assertContainsList(asList(item1, item1, item1, item2, item2, item2, item3, item3, item3), query.search());
 		assertEquals(9, query.total());
 	}
@@ -75,6 +87,13 @@ public class DistinctOrderByTest extends TestWithEnvironment
 				"select distinct this from PlusIntegerItem " +
 				"join PlusIntegerItem p1 on numC=p1.numC",
 				query.toString());
+		assertEquals(
+				"SELECT DISTINCT " + ALIAS+"0." + SI.pk(TYPE) + " " +
+				"FROM " + SI.tab(TYPE) + " " + ALIAS+"0 " +
+				"JOIN " + SI.tab(TYPE) + " " + ALIAS+"1 " +
+				"ON " + ALIAS+"0." + SI.col(numC) + "=" + ALIAS+"1." + SI.col(numC),
+				SchemaInfo.search(query));
+
 		assertContains(item1, item2, item3, query.search());
 		assertEquals(3, query.total());
 	}
@@ -91,6 +110,14 @@ public class DistinctOrderByTest extends TestWithEnvironment
 				"join PlusIntegerItem p1 on numC=p1.numC " +
 				"order by numA",
 				query.toString());
+		assertEquals(
+				"SELECT " + ALIAS+"0." + SI.pk(TYPE) + " " +
+				"FROM " + SI.tab(TYPE) + " " + ALIAS+"0 " +
+				"JOIN " + SI.tab(TYPE) + " " + ALIAS+"1 " +
+				"ON " + ALIAS+"0." + SI.col(numC) + "=" + ALIAS+"1." + SI.col(numC) + " " +
+				"ORDER BY " + ALIAS+"0." + SI.col(numA) + NULLS_FIRST,
+				SchemaInfo.search(query));
+
 		assertContainsList(asList(item1, item1, item1, item2, item2, item2, item3, item3, item3), query.search());
 		assertEquals(9, query.total());
 	}
@@ -105,6 +132,11 @@ public class DistinctOrderByTest extends TestWithEnvironment
 				"select distinct this from PlusIntegerItem " +
 				"order by numA",
 				query.toString());
+		assertEquals(
+				"SELECT DISTINCT " + SI.pk(TYPE) + " " +
+				"FROM " + SI.tab(TYPE) + " " +
+				"ORDER BY " + SI.col(numA) + NULLS_FIRST,
+				SchemaInfo.search(query));
 
 		assertEquals(3, query.total());
 
@@ -116,12 +148,6 @@ public class DistinctOrderByTest extends TestWithEnvironment
 						"invalid ORDER BY expression");
 				break;
 			case mysql:
-				assertEquals(
-						"SELECT DISTINCT `this` " +
-						"FROM `PlusIntegerItem` " +
-						"ORDER BY `numA`",
-						SchemaInfo.search(query));
-
 				if(env.isDatabaseVersionAtLeast(5, 7))
 					notAllowed(query,
 							"Expression #1 of ORDER BY clause is not in SELECT list, " +
@@ -156,6 +182,13 @@ public class DistinctOrderByTest extends TestWithEnvironment
 				"join PlusIntegerItem p1 on numC=p1.numC " +
 				"order by numA",
 				query.toString());
+		assertEquals(
+				"SELECT DISTINCT " + ALIAS+"0." + SI.pk(TYPE) + " " +
+				"FROM " + SI.tab(TYPE) + " " + ALIAS+"0 " +
+				"JOIN " + SI.tab(TYPE) + " " + ALIAS+"1 " +
+				"ON " + ALIAS+"0." + SI.col(numC) + "=" + ALIAS+"1." + SI.col(numC) + " " +
+				"ORDER BY " + ALIAS+"0." + SI.col(numA) + NULLS_FIRST,
+				SchemaInfo.search(query));
 
 		assertEquals(3, query.total());
 
@@ -167,13 +200,6 @@ public class DistinctOrderByTest extends TestWithEnvironment
 						"invalid ORDER BY expression");
 				break;
 			case mysql:
-				assertEquals(
-						"SELECT DISTINCT PlusIntegerItem0.`this` " +
-						"FROM `PlusIntegerItem` PlusIntegerItem0 " +
-						"JOIN `PlusIntegerItem` PlusIntegerItem1 ON PlusIntegerItem0.`numC`=PlusIntegerItem1.`numC` " +
-						"ORDER BY PlusIntegerItem0.`numA`",
-						SchemaInfo.search(query));
-
 				if(env.isDatabaseVersionAtLeast(5, 7))
 					notAllowed(query,
 							"Expression #1 of ORDER BY clause is not in SELECT list, " +
@@ -209,6 +235,13 @@ public class DistinctOrderByTest extends TestWithEnvironment
 				"join PlusIntegerItem p1 on numC=p1.numC " +
 				"order by p1.numA",
 				query.toString());
+		assertEquals(
+				"SELECT DISTINCT " + ALIAS+"0." + SI.pk(TYPE) + " " +
+				"FROM " + SI.tab(TYPE) + " " + ALIAS+"0 " +
+				"JOIN " + SI.tab(TYPE) + " " + ALIAS+"1 " +
+				"ON " + ALIAS+"0." + SI.col(numC) + "=" + ALIAS+"1." + SI.col(numC) + " " +
+				"ORDER BY " + ALIAS+"1." + SI.col(numA) + NULLS_FIRST,
+				SchemaInfo.search(query));
 
 		assertEquals(3, query.total());
 
@@ -220,13 +253,6 @@ public class DistinctOrderByTest extends TestWithEnvironment
 						"invalid ORDER BY expression");
 				break;
 			case mysql:
-				assertEquals(
-						"SELECT DISTINCT PlusIntegerItem0.`this` " +
-						"FROM `PlusIntegerItem` PlusIntegerItem0 " +
-						"JOIN `PlusIntegerItem` PlusIntegerItem1 ON PlusIntegerItem0.`numC`=PlusIntegerItem1.`numC` " +
-						"ORDER BY PlusIntegerItem1.`numA`",
-						SchemaInfo.search(query));
-
 				if(env.isDatabaseVersionAtLeast(5, 7))
 					notAllowed(query,
 							"Expression #1 of ORDER BY clause is not in SELECT list, " +
