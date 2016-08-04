@@ -154,9 +154,9 @@ public class SequenceCheckPrimaryKeyTest extends TestWithEnvironment
 		try(
 				Connection connection = newConnection(MODEL);
 				PreparedStatement statement = connection.prepareStatement(
-						"INSERT INTO " + SI.table(TYPE) +
-						" (" + SI.columnPk(TYPE) +
-						","  + SI.column(field) +
+						"INSERT INTO " + SI.tab(TYPE) +
+						" (" + SI.pk(TYPE) +
+						","  + SI.col(field) +
 						") VALUES (?,?)"))
 		{
 			statement.setInt(1, pk);

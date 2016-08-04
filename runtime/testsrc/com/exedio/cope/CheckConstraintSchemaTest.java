@@ -54,10 +54,10 @@ public class CheckConstraintSchemaTest extends TestWithEnvironment
 		assertEquals(null, superTable.getError());
 		assertEquals(Schema.Color.OK, superTable.getParticularColor());
 
-		assertCheckConstraint(table, "Main_alpha_MN"   , SI.column(alpha)+">=-2147483648");
-		assertCheckConstraint(table, "Main_alpha_MX"   , SI.column(alpha)+"<=2147483647");
-		assertCheckConstraint(table, "Main_alphaToBeta", SI.column(alpha)+"<"+SI.column(beta));
+		assertCheckConstraint(table, "Main_alpha_MN"   , SI.col(alpha)+">=-2147483648");
+		assertCheckConstraint(table, "Main_alpha_MX"   , SI.col(alpha)+"<=2147483647");
+		assertCheckConstraint(table, "Main_alphaToBeta", SI.col(alpha)+"<"+SI.col(beta));
 
-		assertCheckConstraint(superTable, "Super_einsToZwei", SI.column(eins)+">="+SI.column(zwei));
+		assertCheckConstraint(superTable, "Super_einsToZwei", SI.col(eins)+">="+SI.col(zwei));
 	}
 }

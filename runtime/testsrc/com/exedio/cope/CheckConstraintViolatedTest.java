@@ -95,8 +95,8 @@ public class CheckConstraintViolatedTest extends TestWithEnvironment
 	private void insert(final int pk, final Integer a, final Integer b) throws SQLException
 	{
 		connection.execute(
-				"INSERT INTO " + SI.table(TYPE) +
-				"("+SI.columnPk(TYPE)+","+SI.column(alpha)+","+SI.column(beta)+")" +
+				"INSERT INTO " + SI.tab(TYPE) +
+				"("+SI.pk(TYPE)+","+SI.col(alpha)+","+SI.col(beta)+")" +
 				"VALUES" +
 				"("+pk+","+sql(a)+","+sql(b)+")");
 	}

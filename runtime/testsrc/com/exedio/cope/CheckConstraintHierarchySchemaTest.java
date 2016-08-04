@@ -70,7 +70,7 @@ public class CheckConstraintHierarchySchemaTest extends TestWithEnvironment
 			assertEquals("ItemBottom_bottom2_MX", next(i).getName());
 			assertEquals("ItemBottom_cross2_MN", next(i).getName());
 			assertEquals("ItemBottom_cross2_MX", next(i).getName());
-			assertIt("ItemBottom_bottom", SI.column(bottom1)+"<"+SI.column(bottom2), next(i));
+			assertIt("ItemBottom_bottom", SI.col(bottom1)+"<"+SI.col(bottom2), next(i));
 			assertFalse(hasNext(i));
 		}
 		{
@@ -90,7 +90,7 @@ public class CheckConstraintHierarchySchemaTest extends TestWithEnvironment
 			assertEquals("ItemTop_up2_MX", next(i).getName());
 			assertEquals("ItemTop_cross1_MN", next(i).getName());
 			assertEquals("ItemTop_cross1_MX", next(i).getName());
-			assertIt("ItemTop_top", SI.column(top1)+"<"+SI.column(top2), next(i));
+			assertIt("ItemTop_top", SI.col(top1)+"<"+SI.col(top2), next(i));
 			assertFalse(hasNext(i));
 		}
 	}

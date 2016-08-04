@@ -70,8 +70,8 @@ public class CheckTypeColumnAbstractTest extends TestWithEnvironment
 	throws SQLException
 	{
 		execute(
-			"delete from " + SI.table(type) + " " +
-			"where " + SI.columnPk(type) + "=" + getPrimaryKeyColumnValueL(item));
+			"delete from " + SI.tab(type) + " " +
+			"where " + SI.pk(type) + "=" + getPrimaryKeyColumnValueL(item));
 	}
 
 	private void execute(final String sql) throws SQLException

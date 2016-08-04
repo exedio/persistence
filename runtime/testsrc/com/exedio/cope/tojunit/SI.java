@@ -31,32 +31,32 @@ import com.exedio.cope.Type;
 
 public final class SI
 {
-	public static String table(final Type<?> type)
+	public static String tab(final Type<?> type)
 	{
 		return quoteName(type.getModel(), getTableName(type));
 	}
 
-	public static String columnPk(final Type<?> type)
+	public static String pk(final Type<?> type)
 	{
 		return quoteName(type.getModel(), getPrimaryKeyColumnName(type));
 	}
 
-	public static String columnType(final Type<?> type)
+	public static String type(final Type<?> type)
 	{
 		return quoteName(type.getModel(), getTypeColumnName(type));
 	}
 
-	public static String columnUpdate(final Type<?> type)
+	public static String update(final Type<?> type)
 	{
 		return quoteName(type.getModel(), getUpdateCounterColumnName(type));
 	}
 
-	public static String column(final Field<?> field)
+	public static String col(final Field<?> field)
 	{
 		return quoteName(field.getType().getModel(), getColumnName(field));
 	}
 
-	public static String columnType(final ItemField<?> field)
+	public static String type(final ItemField<?> field)
 	{
 		return quoteName(field.getType().getModel(), getTypeColumnName(field));
 	}

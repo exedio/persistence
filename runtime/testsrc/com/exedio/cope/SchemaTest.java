@@ -194,12 +194,12 @@ public class SchemaTest extends TestWithEnvironment
 
 	private static String q(final Field<?> f)
 	{
-		return SI.column(f);
+		return SI.col(f);
 	}
 
 	private static String t(final ItemField<?> f)
 	{
-		return SI.columnType(f);
+		return SI.type(f);
 	}
 
 	private final String l(final StringField f)

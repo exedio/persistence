@@ -164,7 +164,7 @@ public class IntegerTypeTest extends TestWithEnvironment
 			type.newItem();
 			model.commit();
 
-			final String update = "UPDATE " + SI.table(type) + " SET " + SI.columnPk(type) + " = ? ";
+			final String update = "UPDATE " + SI.tab(type) + " SET " + SI.pk(type) + " = ? ";
 			try (
 					Connection connection = newConnection(model);
 					PreparedStatement statement = connection.prepareStatement(update))

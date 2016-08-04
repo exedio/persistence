@@ -41,15 +41,15 @@ public class SchemaInfoConnectionTest extends TestWithEnvironment
 	{
 		final StringBuilder bf = new StringBuilder();
 		bf.append("select ").
-			append(SI.columnPk(InstanceOfAItem.TYPE)).
+			append(SI.pk(InstanceOfAItem.TYPE)).
 			append(',').
-			append(SI.columnType(InstanceOfAItem.TYPE)).
+			append(SI.type(InstanceOfAItem.TYPE)).
 			append(',').
-			append(SI.columnUpdate(InstanceOfAItem.TYPE)).
+			append(SI.update(InstanceOfAItem.TYPE)).
 			append(',').
-			append(SI.column(InstanceOfAItem.code)).
+			append(SI.col(InstanceOfAItem.code)).
 			append(" from ").
-			append(SI.table(InstanceOfAItem.TYPE));
+			append(SI.tab(InstanceOfAItem.TYPE));
 
 		connection.execute(bf.toString());
 	}
@@ -58,15 +58,15 @@ public class SchemaInfoConnectionTest extends TestWithEnvironment
 	{
 		final StringBuilder bf = new StringBuilder();
 		bf.append("select ").
-			append(SI.columnPk(InstanceOfRefItem.TYPE)).
+			append(SI.pk(InstanceOfRefItem.TYPE)).
 			append(',').
-			append(SI.columnUpdate(InstanceOfRefItem.TYPE)).
+			append(SI.update(InstanceOfRefItem.TYPE)).
 			append(',').
-			append(SI.column(InstanceOfRefItem.ref)).
+			append(SI.col(InstanceOfRefItem.ref)).
 			append(',').
-			append(SI.columnType(InstanceOfRefItem.ref)).
+			append(SI.type(InstanceOfRefItem.ref)).
 			append(" from ").
-			append(SI.table(InstanceOfRefItem.TYPE));
+			append(SI.tab(InstanceOfRefItem.TYPE));
 
 		connection.execute(bf.toString());
 	}

@@ -95,8 +95,8 @@ public class OverflowLongSumTest extends TestWithEnvironment
 			Connection c = newConnection(MODEL);
 			Statement st = c.createStatement();
 			ResultSet rs = st.executeQuery(
-				"SELECT SUM(" + SI.column(field) + ") " +
-				"FROM " + SI.table(TYPE)))
+				"SELECT SUM(" + SI.col(field) + ") " +
+				"FROM " + SI.tab(TYPE)))
 		{
 			assertTrue(rs.next());
 

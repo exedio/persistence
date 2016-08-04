@@ -256,8 +256,8 @@ public final class UpdateCounterRecoverTest extends TestWithEnvironment
 		commit();
 
 		execute(
-				"update " + SI.table(TYPE) +
-				" set " + SI.columnUpdate(TYPE) + "=99");
+				"update " + SI.tab(TYPE) +
+				" set " + SI.update(TYPE) + "=99");
 
 		startTransaction();
 		assertEquals(true, item.existsCopeItem());

@@ -144,7 +144,7 @@ public class DatePrecisionSchemaTest extends TestWithEnvironment
 
 	private static String q(final Field<?> f)
 	{
-		return SI.column(f);
+		return SI.col(f);
 	}
 
 	private static ArrayList<CheckConstraint> getDateCheckConstraints(final Table table)

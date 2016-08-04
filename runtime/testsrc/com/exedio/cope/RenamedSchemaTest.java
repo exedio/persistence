@@ -75,9 +75,9 @@ public class RenamedSchemaTest extends TestWithEnvironment
 
 		assertFkConstraint(table, "Zain_zitem_Fk", getColumnName(item), getTableName(RenamedSchemaTargetItem.TYPE), getPrimaryKeyColumnName(RenamedSchemaTargetItem.TYPE));
 
-		assertUniqueConstraint(table, "Zain_zuniqueSingle_Unq", "("+SI.column(uniqueSingle)+")");
+		assertUniqueConstraint(table, "Zain_zuniqueSingle_Unq", "("+SI.col(uniqueSingle)+")");
 
-		assertUniqueConstraint(table, "Zain_zuniqueDouble_Unq", "("+SI.column(uniqueDouble1)+","+SI.column(uniqueDouble2)+")");
+		assertUniqueConstraint(table, "Zain_zuniqueDouble_Unq", "("+SI.col(uniqueDouble1)+","+SI.col(uniqueDouble2)+")");
 
 		assertCheckConstraint(table, "Zain_zring_MN", l(string)+">=1");
 		assertCheckConstraint(table, "Zain_zring_MX", l(string)+"<=4");
@@ -102,6 +102,6 @@ public class RenamedSchemaTest extends TestWithEnvironment
 
 	private final String l(final StringField f)
 	{
-		return model.connect().database.dialect.getStringLength() + '(' + SI.column(f) + ')';
+		return model.connect().database.dialect.getStringLength() + '(' + SI.col(f) + ')';
 	}
 }

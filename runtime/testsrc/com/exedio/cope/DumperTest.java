@@ -191,26 +191,26 @@ public class DumperTest extends TestWithEnvironment
 
 	private static String tab(final Type<?> type)
 	{
-		return SI.table(type);
+		return SI.tab(type);
 	}
 
 	private static String pk(final Type<?> type)
 	{
-		return SI.columnPk(type);
+		return SI.pk(type);
 	}
 
 	private static String cls(final Type<?> type)
 	{
-		return SI.columnType(type);
+		return SI.type(type);
 	}
 
 	private static String upd(final Type<?> type)
 	{
-		return SI.columnUpdate(type);
+		return SI.update(type);
 	}
 
 	private static String col(final Field<?> field)
 	{
-		return SI.column(field);
+		return SI.col(field);
 	}
 }

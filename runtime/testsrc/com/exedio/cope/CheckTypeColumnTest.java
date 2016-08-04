@@ -310,9 +310,9 @@ public class CheckTypeColumnTest extends TestWithEnvironment
 	@Test public void testWrongRef() throws SQLException
 	{
 		execute(
-				"update " + SI.table(InstanceOfRefItem.TYPE) + " " +
-				"set " + SI.columnType(InstanceOfRefItem.ref) + "='" + getTypeColumnValue(InstanceOfB1Item.TYPE) + "' " +
-				"where " + SI.columnPk(InstanceOfRefItem.TYPE) + "=" + getPrimaryKeyColumnValueL(reffa));
+				"update " + SI.tab(InstanceOfRefItem.TYPE) + " " +
+				"set " + SI.type(InstanceOfRefItem.ref) + "='" + getTypeColumnValue(InstanceOfB1Item.TYPE) + "' " +
+				"where " + SI.pk(InstanceOfRefItem.TYPE) + "=" + getPrimaryKeyColumnValueL(reffa));
 
 		assertEquals(0, InstanceOfB1Item.TYPE.getThis().checkTypeColumnL());
 		assertEquals(0, InstanceOfB2Item.TYPE.getThis().checkTypeColumnL());
@@ -334,9 +334,9 @@ public class CheckTypeColumnTest extends TestWithEnvironment
 	throws SQLException
 	{
 		execute(
-			"update " + SI.table(type) + " " +
-			"set " + SI.columnType(type) + "='" + getTypeColumnValue(newType) + "' " +
-			"where " + SI.columnPk(type) + "=" + getPrimaryKeyColumnValueL(item));
+			"update " + SI.tab(type) + " " +
+			"set " + SI.type(type) + "='" + getTypeColumnValue(newType) + "' " +
+			"where " + SI.pk(type) + "=" + getPrimaryKeyColumnValueL(item));
 	}
 
 	private <T extends Item> void deleteRow(
@@ -345,8 +345,8 @@ public class CheckTypeColumnTest extends TestWithEnvironment
 	throws SQLException
 	{
 		execute(
-			"delete from " + SI.table(type) + " " +
-			"where " + SI.columnPk(type) + "=" + getPrimaryKeyColumnValueL(item));
+			"delete from " + SI.tab(type) + " " +
+			"where " + SI.pk(type) + "=" + getPrimaryKeyColumnValueL(item));
 	}
 
 	private void execute(final String sql) throws SQLException
