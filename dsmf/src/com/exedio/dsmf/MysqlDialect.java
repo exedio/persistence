@@ -104,7 +104,8 @@ public final class MysqlDialect extends Dialect
 						"COLLATION_NAME," + // 7
 						"COLUMN_KEY " + // 8
 				"FROM information_schema.COLUMNS " +
-				"WHERE TABLE_SCHEMA='" + catalog + '\'',
+				"WHERE TABLE_SCHEMA='" + catalog + "' " +
+				"ORDER BY ORDINAL_POSITION", // make it deterministic for multiple unused columns in one table
 		resultSet ->
 		{
 			while(resultSet.next())
