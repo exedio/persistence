@@ -122,7 +122,7 @@ public class NameTest extends TestWithEnvironment
 			assertEquals(Schema.Color.OK, nameSub.getParticularColor());
 
 			assertEquals(synthetic("this", "Sub"), nameSub.getColumn(synthetic("this", "Sub"))   .getName());
-			assertPkConstraint    (nameSub, "Sub_Pk",      null, getPrimaryKeyColumnName(NameSubItem.TYPE));
+			assertPkConstraint    (nameSub, "Sub_PK",      null, getPrimaryKeyColumnName(NameSubItem.TYPE));
 			assertCheckConstraint (nameSub, "Sub_this_MN", q(synthetic("this", "Sub"))+">=0");
 			assertCheckConstraint (nameSub, "Sub_this_MX", q(synthetic("this", "Sub"))+"<=2147483647");
 

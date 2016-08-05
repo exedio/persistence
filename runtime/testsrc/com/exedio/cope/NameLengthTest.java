@@ -69,7 +69,7 @@ public class NameLengthTest extends TestWithEnvironment
 		final boolean cc = oracle;
 		final boolean c  = oracle || (mysql && !model.getConnectProperties().mysqlLongConstraintNames);
 
-		assertIt(table, PrimaryKey, "AnItem_Pk");
+		assertIt(table, PrimaryKey, "AnItem_PK");
 		assertIt(table, ForeignKey, "AnItem_foreignShort_Fk");
 		assertIt(table, Unique,     "AnItem_fieldShort_Unq");
 		assertIt(table, Check,      "AnItem_fieldShort_EN");
@@ -82,8 +82,8 @@ public class NameLengthTest extends TestWithEnvironment
 
 		final Table longTable = schema.getTable(getTableName(LongItem.TYPE));
 		assertIt(longTable, PrimaryKey, cc
-				? "LoooooooooooooooooItem_Pk"
-				: "LooooooooooooooooooooItem_Pk");
+				? "LoooooooooooooooooItem_PK"
+				: "LooooooooooooooooooooItem_PK");
 
 		assertEquals(OK, table.getCumulativeColor());
 		assertEquals(OK, schema.getCumulativeColor());

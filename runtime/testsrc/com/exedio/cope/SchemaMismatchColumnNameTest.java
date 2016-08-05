@@ -68,7 +68,7 @@ public class SchemaMismatchColumnNameTest extends SchemaMismatchTest
 		{
 			final boolean supported = supportsCheckConstraints(model);
 			final Constraint pkPk, checkPkMin, checkPkMax;
-			assertIt(null, OK, OK, PrimaryKey, pkPk = table.getConstraint("ItemAB_Pk"));
+			assertIt(null, OK, OK, PrimaryKey, pkPk = table.getConstraint("ItemAB_PK"));
 			assertIt(
 					supported ? null : "not supported",
 					OK, OK, Check, checkPkMin = table.getConstraint("ItemAB_this_MN"));

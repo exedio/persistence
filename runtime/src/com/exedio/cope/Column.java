@@ -97,6 +97,6 @@ abstract class Column
 		new com.exedio.dsmf.Column(dsmfTable, id, databaseTypeClause);
 
 		if(primaryKey)
-			new PrimaryKeyConstraint(dsmfTable, table.makeGlobalID(TrimClass.PrimaryKeyCheckConstraint, "Pk"), id);
+			new PrimaryKeyConstraint(dsmfTable, table.makeGlobalID(TrimClass.PrimaryKeyCheckConstraint, "PK"), id);
 	}
 }

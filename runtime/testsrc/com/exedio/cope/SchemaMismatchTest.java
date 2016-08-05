@@ -67,7 +67,7 @@ public abstract class SchemaMismatchTest extends TestWithEnvironment
 	protected static final String namePk(final This<?> element)
 	{
 		// TODO this is guessing and works just for short names
-		return element.getType() + "_Pk";
+		return element.getType() + "_PK";
 	}
 
 	protected static final String name(final UniqueConstraint element)
