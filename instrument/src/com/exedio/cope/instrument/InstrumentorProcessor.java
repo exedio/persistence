@@ -42,6 +42,7 @@ final class InstrumentorProcessor extends AbstractProcessor
 	private final JavaRepository javaRepository;
 
 	private DocTrees docTrees;
+	boolean processHasBeenCalled = false;
 
 	InstrumentorProcessor(final JavaRepository javaRepository)
 	{
@@ -58,6 +59,7 @@ final class InstrumentorProcessor extends AbstractProcessor
 	@Override
 	public boolean process(final Set<? extends TypeElement> annotations, final RoundEnvironment roundEnv)
 	{
+		processHasBeenCalled=true;
 		final Map<CompilationUnitTree,JavaFile> files = new HashMap<>();
 		for (final Element e: roundEnv.getRootElements())
 		{

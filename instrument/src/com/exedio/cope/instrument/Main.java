@@ -28,7 +28,6 @@ import com.exedio.cope.util.StrictFile;
 import com.sun.tools.javac.api.JavacTool;
 import java.io.File;
 import java.io.IOException;
-import java.io.StringWriter;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.nio.charset.Charset;
@@ -159,7 +158,7 @@ final class Main
 		}
 	}
 
-	static void runJavac(final List<File> files, final JavaRepository repository) throws IOException
+	static void runJavac(final List<File> files, final JavaRepository repository) throws IOException, HumanReadableException
 	{
 		// "JavacTool.create()" is not part of the "exported" API
 		// (not annotated with https://docs.oracle.com/javase/8/docs/jdk/api/javac/tree/jdk/Exported.html).
@@ -176,9 +175,15 @@ final class Main
 			final List<String> optionList = new ArrayList<>();
 			optionList.addAll(asList("-classpath", getJavacClasspath()));
 			optionList.add("-proc:only");
-			final JavaCompiler.CompilationTask task = compiler.getTask(new StringWriter(), null, null, optionList, null, sources);
-			task.setProcessors(singleton(new InstrumentorProcessor(repository)));
+			final JavaCompiler.CompilationTask task = compiler.getTask(null, null, null, optionList, null, sources);
+			final InstrumentorProcessor instrumentorProcessor=new InstrumentorProcessor(repository);
+			task.setProcessors(singleton(instrumentorProcessor));
 			task.call();
+			if (!instrumentorProcessor.processHasBeenCalled)
+			{
+				// InstrumentorProcessor has not been invoked - this happens if parsing failed
+				throw new HumanReadableException("fix compiler errors");
+			}
 		}
 	}
 
