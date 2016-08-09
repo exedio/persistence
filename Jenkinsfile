@@ -24,6 +24,8 @@ timestamps
 				sh "java -version"
 				sh "${antHome}/bin/ant -version"
 				sh 'echo' +
+						' HOSTNAME -${HOSTNAME}-' +
+						' EXECUTOR_NUMBER -${EXECUTOR_NUMBER}-' +
 						' GIT_COMMIT -${GIT_COMMIT}-' +
 						' GIT_TREE -${GIT_TREE}-' +
 						' BUILD_TIMESTAMP -${BUILD_TIMESTAMP}-' +
@@ -35,6 +37,11 @@ timestamps
 				sh "${antHome}/bin/ant clean jenkins" +
 						' "-Dbuild.revision=${BUILD_NUMBER}"' +
 						' "-Dbuild.tag=git ${BRANCH_NAME} ${GIT_COMMIT} ${GIT_TREE} jenkins ${BUILD_NUMBER} ${BUILD_TIMESTAMP}"' +
+						' -Dinstrument.verify=true' +
+						' -Dtomcat.port.shutdown=' + port(0) +
+						' -Dtomcat.port.http=' + port(1) +
+						' -Druntime.test.ClusterNetworkTest.port.send=' + port(2) +
+						' -Druntime.test.ClusterNetworkTest.port.listen=' + port(3) +
 						' -Dfindbugs.output=xml'
 
 				stage 'Publish'
@@ -103,4 +110,11 @@ def abortable(Closure body)
 			return
 		throw e;
 	}
+}
+
+def port(int offset)
+{
+	int executorNumber = "${env.EXECUTOR_NUMBER}".toInteger()
+	int base = 28000 + 10*executorNumber
+	return base + offset
 }
