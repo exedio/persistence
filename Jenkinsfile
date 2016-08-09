@@ -70,6 +70,8 @@ timestamps
 					allowEmptyResults: false,
 					testResults: 'build/testresults/*.xml'])
 
+			archive 'build/testprotocol.*,build/*.log,tomcat/logs/*,build/testtmpdir'
+
 			def to = emailextrecipients([
 					[$class: 'CulpritsRecipientProvider'],
 					[$class: 'RequesterRecipientProvider']
