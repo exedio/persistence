@@ -78,7 +78,7 @@ class ClassVisitor extends TreePathScanner<Void,Void>
 				removeSpacesAfterCommas(node.getType().toString()),
 				node.getName().toString(),
 				context.getDocComment(getCurrentPath()),
-				node.getInitializer().toString()
+				node.getInitializer()==null?null:node.getInitializer().toString()
 			);
 		}
 		return null;
