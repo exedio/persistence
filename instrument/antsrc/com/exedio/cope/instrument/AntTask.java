@@ -293,7 +293,7 @@ public final class AntTask extends Task
 		final boolean dontIgnore;
 		final List<FileSet> fileSets = new ArrayList<>();
 
-		private Ignore(final boolean dontIgnore)
+		Ignore(final boolean dontIgnore)
 		{
 			this.dontIgnore=dontIgnore;
 		}
