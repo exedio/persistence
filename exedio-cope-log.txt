@@ -13,6 +13,32 @@ The items are sorted inversely, i.e. latest items are on top
 	source tokens after annotations without parentheses were dropped. Also, the
 	old implementation tolerated javadoc between annotations and field/method
 	(must be javadoc - annotations - field/method).
+	The instrumentor now needs to get access to libraries and the full source
+   code that's being	compiled. Adapt your instrumentor call:
+	Old:
+		<instrument>
+			<fileset dir="src/my/package">
+				<include name="SomeItem.java>
+			</fileset>
+			<fileset dir="additionalsrc/my/otherpackage">
+				<include name="Foo.java>
+			</fileset>
+		</instrument>
+	New - easy migration:
+		<instrument dir="src:additionalsrc">
+			<classpath refid="compile.lib" /> <!-- same as used for compiling -->
+			<dontignore>
+			  ... <!-- move old 'fileset' configuration here -->
+			</dontignore>
+		</instrument>
+	New - more compact form, especially since generics etc no longer have to be avoided:
+		<instrument dir="src:additionalsrc">
+			<classpath refid="compile.lib" /> <!-- same as used for compiling -->
+			<ignore>
+			  <fileset dir="src" includes="my/package/shop/**/*.java"/>
+			</ignore>
+		</instrument>
+	If using jspms, make sure the jspm compiler runs before the instrumentor.
 * AverageAggregate always returns double instead source type.
 	This breaks backwards API compatibility.
 * ExtremumAggregate/SumAggregate/AverageAggregate move from package
