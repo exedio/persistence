@@ -23,6 +23,7 @@ import com.sun.source.tree.ImportTree;
 import com.sun.source.util.DocTrees;
 import com.sun.source.util.TreePath;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import javax.annotation.processing.AbstractProcessor;
@@ -33,6 +34,7 @@ import javax.annotation.processing.SupportedSourceVersion;
 import javax.lang.model.SourceVersion;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.TypeElement;
+import javax.tools.JavaFileObject;
 
 @SupportedSourceVersion(SourceVersion.RELEASE_8)
 @SupportedAnnotationTypes("*")
@@ -40,13 +42,19 @@ final class InstrumentorProcessor extends AbstractProcessor
 {
 
 	private final JavaRepository javaRepository;
+	private final Set<JavaFileObject> ignoreFiles;
 
 	private DocTrees docTrees;
 	boolean processHasBeenCalled = false;
 
-	InstrumentorProcessor(final JavaRepository javaRepository)
+	InstrumentorProcessor(final JavaRepository javaRepository, final Iterable<? extends JavaFileObject> ignoreFiles)
 	{
 		this.javaRepository = javaRepository;
+		this.ignoreFiles = new HashSet<>();
+		for (JavaFileObject ignoreFile: ignoreFiles)
+		{
+			this.ignoreFiles.add(ignoreFile);
+		}
 	}
 
 	@Override
@@ -79,8 +87,11 @@ final class InstrumentorProcessor extends AbstractProcessor
 					}
 				}
 			}
-			final CompilationUnitVisitor visitor=new CompilationUnitVisitor(new TreeApiContext(docTrees, javaFile,compilationUnit));
-			visitor.scan(tp, null);
+			if (!ignoreFiles.contains(compilationUnit.getSourceFile()))
+			{
+				final CompilationUnitVisitor visitor=new CompilationUnitVisitor(new TreeApiContext(docTrees, javaFile, compilationUnit));
+				visitor.scan(tp, null);
+			}
 		}
 		return true;
 	}

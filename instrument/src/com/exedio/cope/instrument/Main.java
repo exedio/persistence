@@ -43,8 +43,10 @@ final class Main
 {
 	static final int INITIAL_BUFFER_SIZE=16384;
 
-	final void run(final ArrayList<File> files, final Params params, final ArrayList<File> resourceFiles) throws HumanReadableException, IOException
+	final void run(final Params params, final ArrayList<File> classpathFiles, final ArrayList<File> resourceFiles) throws HumanReadableException, IOException
 	{
+		final List<File> files = new ArrayList<>(params.sourceFiles);
+		files.removeAll(params.ignoreFiles);
 		if(files.isEmpty())
 			throw new HumanReadableException("nothing to do.");
 		if ( noFilesModifiedAfter(files, params.timestampFile, params.verbose) && noFilesModifiedAfter(resourceFiles, params.timestampFile, params.verbose) )
@@ -66,7 +68,7 @@ final class Main
 			instrumented = 0;
 			skipped = 0;
 
-			runJavac(files, repository);
+			runJavac(params, classpathFiles, repository);
 
 			repository.endBuildStage();
 
@@ -130,7 +132,7 @@ final class Main
 			System.out.println("Instrumented " + instrumented + ' ' + (instrumented==1 ? "file" : "files") + ", skipped " + skipped + " in " + files.iterator().next().getParentFile().getAbsolutePath());
 	}
 
-	private static boolean noFilesModifiedAfter(final ArrayList<File> checkFiles, final File referenceFile, final boolean verbose)
+	private static boolean noFilesModifiedAfter(final List<File> checkFiles, final File referenceFile, final boolean verbose)
 	{
 		if ( referenceFile==null || !referenceFile.exists() )
 		{
@@ -158,7 +160,7 @@ final class Main
 		}
 	}
 
-	static void runJavac(final List<File> files, final JavaRepository repository) throws IOException, HumanReadableException
+	static void runJavac(final Params params, final List<File> classpathFiles, final JavaRepository repository) throws IOException, HumanReadableException
 	{
 		// "JavacTool.create()" is not part of the "exported" API
 		// (not annotated with https://docs.oracle.com/javase/8/docs/jdk/api/javac/tree/jdk/Exported.html).
@@ -171,12 +173,12 @@ final class Main
 		}
 		try (final StandardJavaFileManager fileManager=compiler.getStandardFileManager(null, null, null))
 		{
-			final Iterable<? extends JavaFileObject> sources=fileManager.getJavaFileObjectsFromFiles(files);
+			final Iterable<? extends JavaFileObject> sources=fileManager.getJavaFileObjectsFromFiles(params.sourceFiles);
 			final List<String> optionList = new ArrayList<>();
-			optionList.addAll(asList("-classpath", getJavacClasspath()));
+			optionList.addAll(asList("-classpath", getJavacClasspath(classpathFiles).toString()));
 			optionList.add("-proc:only");
 			final JavaCompiler.CompilationTask task = compiler.getTask(null, null, null, optionList, null, sources);
-			final InstrumentorProcessor instrumentorProcessor=new InstrumentorProcessor(repository);
+			final InstrumentorProcessor instrumentorProcessor=new InstrumentorProcessor(repository, fileManager.getJavaFileObjectsFromFiles(params.ignoreFiles));
 			task.setProcessors(singleton(instrumentorProcessor));
 			task.call();
 			if (!instrumentorProcessor.processHasBeenCalled)
@@ -187,15 +189,15 @@ final class Main
 		}
 	}
 
-	private static String getJavacClasspath()
+	private static CharSequence getJavacClasspath(final List<File> classpathFiles)
 	{
 		// This is a hack:
 		// We want to use the current classpath also in the javac task that's being started, so we
 		// have to reconstruct a file-based classpath from a class loader.
-		return toClasspath(com.exedio.cope.Item.class.getClassLoader());
+		return toClasspath(classpathFiles, com.exedio.cope.Item.class.getClassLoader());
 	}
 
-	private static String toClasspath(final ClassLoader cl)
+	private static CharSequence toClasspath(final List<File> classpathFiles, final ClassLoader cl)
 	{
 		if (cl instanceof URLClassLoader)
 		{
@@ -211,7 +213,7 @@ final class Main
 				final URL url=urlClassLoader.getURLs()[i];
 				result.append(url.toString());
 			}
-			return result.toString();
+			return appendClasspath(result, classpathFiles);
 		}
 		else
 		{
@@ -220,8 +222,24 @@ final class Main
 			final String classLoaderString=cl.toString();
 			final Matcher matcher = pattern.matcher(classLoaderString);
 			if ( !matcher.matches() ) throw new RuntimeException("failed to construct file-based classpath from class loader; see Main.java getJavacClasspath(); class loader: "+classLoaderString);
-			return matcher.group(1);
+			return appendClasspath(matcher.group(1), classpathFiles);
 		}
+	}
+
+	private static CharSequence appendClasspath(final CharSequence classpathPart, final List<File> moreClasspathFiles)
+	{
+		final StringBuilder result=new StringBuilder(classpathPart);
+		boolean needSeparator=classpathPart.length()>0;
+		for (final File classpathFile: moreClasspathFiles)
+		{
+			if (needSeparator)
+			{
+				result.append(File.pathSeparatorChar);
+			}
+			result.append(classpathFile.getAbsolutePath());
+			needSeparator=true;
+		}
+		return result;
 	}
 
 	boolean verbose;
