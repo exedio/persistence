@@ -42,7 +42,7 @@ final class CompilationUnitVisitor extends TreePathScanner<Void, Void>
 			classVisitor.scan(getCurrentPath(), ignore);
 			return null;
 		}
-		catch (RuntimeException e)
+		catch (final RuntimeException e)
 		{
 			throw new RuntimeException("while processing "+context.getFileName(), e);
 		}

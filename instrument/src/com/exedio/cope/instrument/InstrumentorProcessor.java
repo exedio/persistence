@@ -51,7 +51,7 @@ final class InstrumentorProcessor extends AbstractProcessor
 	{
 		this.javaRepository = javaRepository;
 		this.ignoreFiles = new HashSet<>();
-		for (JavaFileObject ignoreFile: ignoreFiles)
+		for (final JavaFileObject ignoreFile: ignoreFiles)
 		{
 			this.ignoreFiles.add(ignoreFile);
 		}

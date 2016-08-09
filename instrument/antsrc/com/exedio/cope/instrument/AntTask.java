@@ -186,7 +186,7 @@ public final class AntTask extends Task
 			if (ignore!=null)
 			{
 				final List<File> listedFiles = new ArrayList<>();
-				for (FileSet fileSet: ignore.fileSets)
+				for (final FileSet fileSet: ignore.fileSets)
 				{
 					final DirectoryScanner ds=fileSet.getDirectoryScanner(getProject());
 					for (final String path: ds.getIncludedFiles())
@@ -293,12 +293,12 @@ public final class AntTask extends Task
 		final boolean dontIgnore;
 		final List<FileSet> fileSets = new ArrayList<>();
 
-		private Ignore(boolean dontIgnore)
+		private Ignore(final boolean dontIgnore)
 		{
 			this.dontIgnore=dontIgnore;
 		}
 
-		public void addFileset(FileSet fileSet)
+		public void addFileset(final FileSet fileSet)
 		{
 			fileSets.add(fileSet);
 		}
