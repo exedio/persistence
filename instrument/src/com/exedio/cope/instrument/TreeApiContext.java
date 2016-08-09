@@ -31,7 +31,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import javax.lang.model.element.Element;
 
-class TreeApiContext
+final class TreeApiContext
 {
 	private final DocTrees docTrees;
 	final JavaFile javaFile;
@@ -46,6 +46,11 @@ class TreeApiContext
 		this.javaFile=javaFile;
 		this.compilationUnit=compilationUnit;
 		this.sourcePositions=docTrees.getSourcePositions();
+	}
+
+	String getFileName()
+	{
+		return compilationUnit.getSourceFile().getName();
 	}
 
 	void markFragmentAsGenerated(final int start, final int end)

@@ -18,11 +18,17 @@
 
 package com.exedio.cope.instrument;
 
+import com.exedio.cope.Item;
+import com.exedio.cope.Pattern;
+import com.exedio.cope.pattern.Block;
+import com.exedio.cope.pattern.Composite;
 import com.sun.source.tree.BlockTree;
 import com.sun.source.tree.ClassTree;
 import com.sun.source.tree.MethodTree;
 import com.sun.source.tree.VariableTree;
 import com.sun.source.util.TreePathScanner;
+import javax.lang.model.element.ElementKind;
+import javax.lang.model.element.TypeElement;
 
 final class CompilationUnitVisitor extends TreePathScanner<Void, Void>
 {
@@ -36,9 +42,16 @@ final class CompilationUnitVisitor extends TreePathScanner<Void, Void>
 	@Override
 	public Void visitClass(final ClassTree ct, final Void ignore)
 	{
-		final ClassVisitor classVisitor = new ClassVisitor(context, null);
-		classVisitor.scan(getCurrentPath(), ignore);
-		return null;
+		try
+		{
+			final ClassVisitor classVisitor = new ClassVisitor(context, null);
+			classVisitor.scan(getCurrentPath(), ignore);
+			return null;
+		}
+		catch (RuntimeException e)
+		{
+			throw new RuntimeException("while processing "+context.getFileName(), e);
+		}
 	}
 
 	@Override
