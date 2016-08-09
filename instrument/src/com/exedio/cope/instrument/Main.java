@@ -175,7 +175,7 @@ final class Main
 		{
 			final Iterable<? extends JavaFileObject> sources=fileManager.getJavaFileObjectsFromFiles(params.sourceFiles);
 			final List<String> optionList = new ArrayList<>();
-			optionList.addAll(asList("-classpath", getJavacClasspath(classpathFiles).toString()));
+			optionList.addAll(asList("-classpath", combineClasspath(getCurrentClasspath(), getConfiguredClasspath(classpathFiles))));
 			optionList.add("-proc:only");
 			final JavaCompiler.CompilationTask task = compiler.getTask(null, null, null, optionList, null, sources);
 			final InstrumentorProcessor instrumentorProcessor=new InstrumentorProcessor(repository, fileManager.getJavaFileObjectsFromFiles(params.ignoreFiles));
@@ -189,15 +189,47 @@ final class Main
 		}
 	}
 
-	private static CharSequence getJavacClasspath(final List<File> classpathFiles)
+	private static String combineClasspath(final String classpathA, final String classpathB)
+	{
+		if (classpathA.isEmpty())
+		{
+			return classpathB;
+		}
+		else if (classpathB.isEmpty())
+		{
+			return classpathA;
+		}
+		else
+		{
+			return classpathA+File.pathSeparatorChar+classpathB;
+		}
+	}
+
+	private static String getConfiguredClasspath(final List<File> classpathFiles)
+	{
+		final StringBuilder result=new StringBuilder();
+		boolean needSeparator=false;
+		for (final File classpathFile: classpathFiles)
+		{
+			if (needSeparator)
+			{
+				result.append(File.pathSeparatorChar);
+			}
+			result.append(classpathFile.getAbsolutePath());
+			needSeparator=true;
+		}
+		return result.toString();
+	}
+
+	private static String getCurrentClasspath()
 	{
 		// This is a hack:
 		// We want to use the current classpath also in the javac task that's being started, so we
 		// have to reconstruct a file-based classpath from a class loader.
-		return toClasspath(classpathFiles, com.exedio.cope.Item.class.getClassLoader());
+		return toClasspath(com.exedio.cope.Item.class.getClassLoader());
 	}
 
-	private static CharSequence toClasspath(final List<File> classpathFiles, final ClassLoader cl)
+	private static String toClasspath(final ClassLoader cl)
 	{
 		if (cl instanceof URLClassLoader)
 		{
@@ -213,7 +245,7 @@ final class Main
 				final URL url=urlClassLoader.getURLs()[i];
 				result.append(url.toString());
 			}
-			return appendClasspath(result, classpathFiles);
+			return result.toString();
 		}
 		else
 		{
@@ -222,24 +254,8 @@ final class Main
 			final String classLoaderString=cl.toString();
 			final Matcher matcher = pattern.matcher(classLoaderString);
 			if ( !matcher.matches() ) throw new RuntimeException("failed to construct file-based classpath from class loader; see Main.java getJavacClasspath(); class loader: "+classLoaderString);
-			return appendClasspath(matcher.group(1), classpathFiles);
+			return matcher.group(1);
 		}
-	}
-
-	private static CharSequence appendClasspath(final CharSequence classpathPart, final List<File> moreClasspathFiles)
-	{
-		final StringBuilder result=new StringBuilder(classpathPart);
-		boolean needSeparator=classpathPart.length()>0;
-		for (final File classpathFile: moreClasspathFiles)
-		{
-			if (needSeparator)
-			{
-				result.append(File.pathSeparatorChar);
-			}
-			result.append(classpathFile.getAbsolutePath());
-			needSeparator=true;
-		}
-		return result;
 	}
 
 	boolean verbose;
