@@ -215,7 +215,7 @@ final class JavaClass extends JavaFeature
 		}
 
 		@Override
-		public Class<?> getClass(final String name) throws UtilEvalError
+		Class<?> getClassInternal(final String name) throws UtilEvalError
 		{
 			final String innerClassName;
 			// Un-prefixing DUMMY_ITEM_PREFIX is not a clean solution.
@@ -231,7 +231,7 @@ final class JavaClass extends JavaFeature
 			final JavaClass inner=innerClasses.get(innerClassName);
 			if ( inner==null || !inner.isEnum )
 			{
-				return super.getClass(name);
+				return super.getClassInternal(name);
 			}
 			else
 			{
@@ -240,10 +240,10 @@ final class JavaClass extends JavaFeature
 		}
 
 		@Override
-	   public Object getVariable(final String name) throws UtilEvalError
+	   Object getVariableInternal(final String name) throws UtilEvalError
 	   {
 			//System.out.println("++++++++++++++++1--------getVariable(\""+name+"\")");
-			final Object superResult = super.getVariable(name);
+			final Object superResult = super.getVariableInternal(name);
 			if(superResult!=Primitive.VOID)
 			{
 				//System.out.println("#####"+superResult+"--"+superResult.getClass());

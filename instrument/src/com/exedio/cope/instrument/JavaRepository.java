@@ -281,11 +281,11 @@ final class JavaRepository
 		}
 
 		@Override
-		public Class<?> getClass(final String name) throws UtilEvalError
+		Class<?> getClassInternal(final String name) throws UtilEvalError
 		{
 			assert stage==Stage.GENERATE;
 
-			final Class<?> superResult = super.getClass(name);
+			final Class<?> superResult = super.getClassInternal(name);
 			if(superResult!=null)
 				return superResult;
 

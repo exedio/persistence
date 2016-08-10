@@ -19,6 +19,8 @@
 package com.exedio.cope.instrument;
 
 import bsh.NameSpace;
+import bsh.UtilEvalError;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * Override default imports of standard NameSpace,
@@ -30,9 +32,32 @@ class CopeNameSpace extends NameSpace
 {
 	private static final long serialVersionUID = 1l;
 
+	private static final boolean debug = false;
+	private static int depth = 0;
+
 	CopeNameSpace(final CopeNameSpace parent, final String name)
 	{
 		super(parent, name);
+	}
+
+	@SuppressFBWarnings("ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD")
+	private void debugStart(final String message)
+	{
+		debug(message+" in "+toString());
+		depth++;
+	}
+
+	@SuppressFBWarnings("ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD")
+	private void debugEnd(final String message)
+	{
+		depth--;
+		debug(message);
+	}
+
+	private void debug(final String message)
+	{
+		for (int i=0; i<depth; i++) System.out.print("  ");
+		System.out.println(message);
 	}
 
 	/**
@@ -46,67 +71,75 @@ class CopeNameSpace extends NameSpace
 		importPackage("java.lang");
 	}
 
-	/*
 	@Override
-	public Object get(final String name, final bsh.Interpreter interpreter) throws bsh.UtilEvalError
+	public final Object get(final String name, final bsh.Interpreter interpreter) throws UtilEvalError
 	{
-		System.out.println("+++ get(\""+name+"\",Interpreter)");
+		if (debug) debugStart("+++ get(\""+name+"\",Interpreter)");
 		return report(super.get(name, interpreter));
 	}
 
 	@Override
-	public Class<?> getClass(final String name) throws bsh.UtilEvalError
+	public final Class<?> getClass(final String name) throws UtilEvalError
 	{
-		System.out.println("+++ getClass(\""+name+"\")");
-		return report(super.getClass(name));
+		if (debug) debugStart("+++ getClass(\""+name+"\")");
+		return report(getClassInternal(name));
+	}
+
+	Class<?> getClassInternal(final String name) throws UtilEvalError
+	{
+		return super.getClass(name);
 	}
 
 	@Override
-	public Object getVariable(final String name) throws bsh.UtilEvalError
+	public final Object getVariable(final String name) throws UtilEvalError
 	{
-		System.out.println("+++ getVariable(\""+name+"\")");
-		return report(super.getVariable(name));
+		if (debug) debugStart("+++ getVariable(\""+name+"\")");
+		return report(getVariableInternal(name));
+	}
+
+	Object getVariableInternal(final String name) throws UtilEvalError
+	{
+		return super.getVariable(name);
 	}
 
 	@Override
-	public Object getVariable(final String name, final boolean recurse) throws bsh.UtilEvalError
+	public final Object getVariable(final String name, final boolean recurse) throws UtilEvalError
 	{
-		System.out.println("+++ getVariable(\""+name+"\","+recurse+")");
+		if (debug) debugStart("+++ getVariable(\""+name+"\","+recurse+")");
 		return report(super.getVariable(name, recurse));
 	}
 
 	@Override
-	protected bsh.Variable getVariableImpl(final String name, final boolean recurse) throws bsh.UtilEvalError
+	protected final bsh.Variable getVariableImpl(final String name, final boolean recurse) throws UtilEvalError
 	{
-		System.out.println("+++ getVariableImpl(\""+name+"\","+recurse+")");
+		if (debug) debugStart("+++ getVariableImpl(\""+name+"\","+recurse+")");
 		return report(super.getVariableImpl(name, recurse));
 	}
 
 	@Override
-	protected bsh.Variable getImportedVar(final String name) throws bsh.UtilEvalError
+	protected final bsh.Variable getImportedVar(final String name) throws UtilEvalError
 	{
-		System.out.println("+++ getImportedVar(\""+name+"\")");
+		if (debug) debugStart("+++ getImportedVar(\""+name+"\")");
 		return report(super.getImportedVar(name));
 	}
 
 	@Override
-	public String[] getVariableNames()
+	public final String[] getVariableNames()
 	{
-		System.out.println("+++ getVariableNames()");
+		if (debug) debugStart("+++ getVariableNames()");
 		return report(super.getVariableNames());
 	}
 
 	@Override
-	public bsh.Variable[] getDeclaredVariables()
+	public final bsh.Variable[] getDeclaredVariables()
 	{
-		System.out.println("+++ getDeclaredVariables()");
+		if (debug) debugStart("+++ getDeclaredVariables()");
 		return report(super.getDeclaredVariables());
 	}
 
 	private <X> X report(final X x)
 	{
-		System.out.println("+++    result " + x + " in " + toString());
+		if (debug) debugEnd("+++    result " + x);
 		return x;
 	}
-	*/
 }
