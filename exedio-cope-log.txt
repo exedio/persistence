@@ -14,7 +14,7 @@ The items are sorted inversely, i.e. latest items are on top
 	old implementation tolerated javadoc between annotations and field/method
 	(must be javadoc - annotations - field/method).
 	The instrumentor now needs to get access to libraries and the full source
-	code that's being	compiled. Adapt your instrumentor call:
+	code that's being compiled. Adapt your instrumentor call:
 	Old:
 		<instrument>
 			<fileset dir="src/my/package">
