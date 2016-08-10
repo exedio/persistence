@@ -273,8 +273,7 @@ final class JavaFile
 
 		GeneratedFragment(final int startInclusive, final int endExclusive)
 		{
-			if (startInclusive<0) throw new RuntimeException();
-			if (startInclusive>=endExclusive) throw new RuntimeException();
+			if (startInclusive<0 || startInclusive>=endExclusive) throw new RuntimeException("" + startInclusive + '-' + endExclusive);
 			this.startInclusive=startInclusive;
 			this.endExclusive=endExclusive;
 		}
