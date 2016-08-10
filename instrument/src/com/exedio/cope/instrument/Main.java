@@ -32,6 +32,7 @@ import java.net.URL;
 import java.net.URLClassLoader;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -173,7 +174,11 @@ final class Main
 		}
 		try (final StandardJavaFileManager fileManager=compiler.getStandardFileManager(null, null, null))
 		{
-			final Iterable<? extends JavaFileObject> sources=fileManager.getJavaFileObjectsFromFiles(params.sourceFiles);
+			final List<File> sortedSourceFiles=new ArrayList<>(params.sourceFiles);
+			// We have to sort files to have a deterministic order - otherwise, resolving classes by
+			// simple name is not deterministic.
+			Collections.sort(sortedSourceFiles);
+			final Iterable<? extends JavaFileObject> sources=fileManager.getJavaFileObjectsFromFiles(sortedSourceFiles);
 			final List<String> optionList = new ArrayList<>();
 			optionList.addAll(asList("-classpath", combineClasspath(getCurrentClasspath(), getConfiguredClasspath(classpathFiles))));
 			optionList.add("-proc:only");
