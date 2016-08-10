@@ -102,7 +102,7 @@ final class Main
 								"Not yet instrumented " + javaFile.getSourceFileName() + lineSeparator() +
 								"Instrumentor runs in verify mode, which is typically enabled while Continuous Integration." + lineSeparator() +
 								"Probably you did commit a change causing another change in instrumented code," + lineSeparator() +
-								"but you did not run the intrumentor.");
+								"but you did not run the instrumentor.");
 					logInstrumented(javaFile);
 					javaFile.overwrite(buffer, charset);
 				}
