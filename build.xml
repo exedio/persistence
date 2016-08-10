@@ -4,6 +4,7 @@
 
 	<property file="local.properties" />
 	<property file="project.properties" />
+	<property environment="env"/>
 
 	<import>
 		<fileset dir="macros">
@@ -349,179 +350,137 @@
 		</compile>
 	</target>
 
-	<target name="runtime.test.instrument" depends="instrument.taskdef" unless="skip.instrument">
+	<path id="runtime.test.path">
+		<pathelement location="build/classes/dsmf/src" />
+		<pathelement location="build/classes/runtime/src" />
+		<pathelement location="build/classes/runtime/patternsrc" />
+		<pathelement location="build/classes/runtime/servletsrc" />
+		<pathelement location="build/classes/runtime/junitsrc" />
+		<pathelement location="build/classes/runtime/testfeaturesrc" />
+		<pathelement location="build/classes/instrument/annosrc" />
+		<pathelement location="lib/trove4j.jar" />
+		<pathelement location="lib/javax.servlet-api.jar" />
+		<pathelement location="lib/junit.jar" />
+		<pathelement location="lib/cpsuite.jar" />
+		<pathelement location="lib/slf4j-api.jar" />
+		<pathelement location="lib/log4j-bundle.jar" />
+		<pathelement location="lib/exedio-cope-util.jar" />
+		<pathelement location="lib/findbugs-annotations.jar" />
+	</path>
+
+	<target name="runtime.test.instrument" depends="instrument.taskdef, dsmf.compile, runtime.core.compile, runtime.pattern.compile, runtime.servlet.compile, runtime.junit.compile, runtime.test.feature.compile, instrument.anno.compile" unless="skip.instrument">
 		<instrument
+				dir="runtime/testsrc"
 				verify="${instrument.verify}"
 				suppressUnusedWarningOnPrivateActivationConstructor="true"
 				nullabilityAnnotations="${instrument.nullabilityAnnotations}"
 				timestampFile="build/timestamps/runtime.test.timestamp">
 			<resources refid="instrument.resources" />
-			<fileset dir="runtime/testsrc/com/exedio/cope">
-				<include name="**/*.java" />
-				<exclude name="AbstractRuntimeTest.java" /><!-- TODO remove -->
-				<exclude name="AbstractRuntimeModelTest.java" /><!-- TODO remove -->
-				<exclude name="SchemaTest.java" /><!-- TODO remove -->
-				<exclude name="TypesBoundTest.java" /><!-- ok, shall not instrument test types -->
-				<exclude name="TypesBoundComplexTest.java" /><!-- ok, shall not instrument test types -->
-				<exclude name="TypesBoundAnnotationTest.java" /><!-- ok, shall not instrument test types -->
-				<exclude name="TypesBoundErrorTest.java" /><!-- ok, shall not instrument test types -->
-				<exclude name="TypeSetTest.java" /><!-- ok, shall not instrument test types -->
-				<exclude name="TypeCompareTest.java" /><!-- ok, shall not instrument test types -->
-				<exclude name="CreateLimitAnnotationTest.java" /><!-- ok, shall not instrument test types -->
-				<exclude name="FeatureTest.java" /><!-- ok, shall not instrument test types -->
-				<exclude name="ModelCharSetTest.java" /><!-- ok, shall not instrument test types -->
-				<exclude name="RenamedSchemaPattern.java" /><!-- ok, shall not instrument test types -->
-				<exclude name="RenamedPatternSchemaTest.java" /><!-- ok, shall not instrument test types -->
-				<exclude name="SchemaTypeStringField.java" /><!-- ok, shall not instrument test types -->
-				<exclude name="EnumTest.java" /><!-- TODO remove -->
-				<exclude name="MakeMaxStringTest.java" /><!-- TODO remove -->
-				<exclude name="ModelTest.java" /><!-- ok, shall not instrument test types -->
-				<exclude name="CoalesceTest.java" /><!-- TODO remove -->
-				<exclude name="CoalesceFunctionTest.java" /><!-- TODO remove -->
-				<exclude name="InstanceOfTest.java" /><!-- TODO remove -->
-				<exclude name="NameTest.java" /><!-- TODO remove -->
-				<exclude name="FieldTest.java" /><!-- TODO remove -->
-				<exclude name="TestAnnotation.java" /><!-- TODO remove -->
-				<exclude name="TestAnnotation2.java" /><!-- TODO remove -->
-				<exclude name="RevisionInfoTest.java" /><!-- TODO remove -->
-				<exclude name="CheckTypeColumnTest.java" /><!-- TODO remove -->
-				<exclude name="CheckTypeColumnAbstractTest.java" /><!-- TODO remove -->
-				<exclude name="tojunit/Assert.java" /><!-- TODO remove -->
-				<exclude name="RuntimeAssert.java" /><!-- TODO remove -->
-				<exclude name="RuntimeTester.java" /><!-- TODO remove -->
-				<exclude name="QueryTest.java" /><!-- TODO remove -->
-				<exclude name="QueryCopyTest.java" /><!-- TODO remove -->
-				<exclude name="CapabilitiesTest.java" /><!-- TODO remove -->
-				<exclude name="ModificationListenerTest.java" /><!-- TODO remove -->
-				<exclude name="misc/ConnectTokenNotSetTest.java" /><!-- ok, shall not instrument test types -->
-				<exclude name="misc/ConnectTokenSetTest.java" /><!-- ok, shall not instrument test types -->
-				<exclude name="misc/AssertionFailedServletContext.java" /><!-- TODO remove -->
-				<exclude name="pattern/DispatcherTest.java" /><!-- TODO remove -->
-				<exclude name="pattern/DynamicModelTest.java" /><!-- TODO remove -->
-				<exclude name="pattern/CompositeErrorTest.java" /><!-- ok, shall not instrument test types -->
-				<exclude name="pattern/PasswordRecoveryTest.java" /><!-- TODO remove -->
-				<exclude name="pattern/PatternTest.java" /><!-- TODO remove -->
-				<exclude name="pattern/RecursiveTest.java" /><!-- TODO remove -->
-				<exclude name="pattern/TextUrlFilterModelTest.java" /><!-- TODO remove -->
-				<exclude name="pattern/MediaTest.java" /><!-- TODO remove -->
-				<exclude name="sampler/*.java" /><!-- TODO remove -->
-				<exclude name="mxsampler/*.java" /><!-- TODO remove -->
-				<exclude name="util/ConnectTokenTest.java" /><!-- TODO remove -->
-				<exclude name="util/TransactionSlicerTest.java" /><!-- TODO remove -->
-				<exclude name="pattern/PatternTestTypeItem.java" /><!-- ok, shall not instrument test types -->
-				<exclude name="serialize/ModelSerializationTest.java" /><!-- ok, shall not instrument test types -->
-				<exclude name="tojunit/Subclasses.java" /><!-- TODO remove -->
-				<exclude name="tojunit/LogRule.java" /><!-- TODO remove -->
-				<exclude name="tojunit/AssertionErrorResultSet.java" /><!-- TODO remove -->
-				<exclude name="ByteAlgorithmTest.java" /><!-- TODO remove -->
-				<exclude name="DirectRevisionsFactoryTest.java" /><!-- TODO remove -->
-				<exclude name="DirectRevisionsFutureTest.java" /><!-- TODO remove -->
-				<exclude name="DummyDatabaseMetaData.java" /><!-- TODO remove -->
-				<exclude name="EnumSchemaTest.java" /><!-- TODO remove -->
-				<exclude name="QueryCopyTest.java" /><!-- TODO remove -->
-				<exclude name="RevisionInfoTest.java" /><!-- TODO remove -->
-				<exclude name="StringCopyTest.java" /><!-- TODO remove -->
-				<exclude name="misc/CompareTest.java" /><!-- TODO remove -->
-				<exclude name="misc/CopeNameUtilFieldTest.java" /><!-- TODO remove -->
-				<exclude name="misc/ServletUtilContextTest.java" /><!-- TODO remove -->
-				<exclude name="mxsampler/SampleTest.java" /><!-- TODO remove -->
-				<exclude name="util/ServletUtilContextTest.java" /><!-- TODO remove -->
-				<!-- ok, shall not instrument test types -->
-				<exclude name="pattern/BlockErrorTest.java" />
-				<exclude name="pattern/CompositeErrorTest.java" />
-				<exclude name="pattern/HashAlgorithmAdapterTest.java" />
-				<exclude name="pattern/TextUrlFilterAnnotationTest.java" />
-				<exclude name="pattern/TextUrlFilterDelegatorAnnotationTest.java" />
-				<exclude name="AutoIncrementEvaluator.java" />
-				<exclude name="ChangeListenersTest.java" />
-				<exclude name="ClusterDisabledTest.java" />
-				<exclude name="ClusterNetworkTest.java" />
-				<exclude name="ClusterPropertiesNoContextTest.java" />
-				<exclude name="ClusterPropertiesTest.java" />
-				<exclude name="CommitHookTest.java" />
-				<exclude name="CopyConstraintNotAFunctionFieldTest.java" />
-				<exclude name="CopyConstraintNotFinalTest.java" />
-				<exclude name="CopyConstraintNotFoundTest.java" />
-				<exclude name="DateFieldWrongDefaultNowTest.java" />
-				<exclude name="DayFieldWrongDefaultNowTest.java" />
-				<exclude name="ItemCacheLimitTest.java" />
-				<exclude name="LRUMapTest.java" />
-				<exclude name="MediaUrlSecretTest.java" />
-				<exclude name="PatternComputedItem.java" />
-				<exclude name="PatternComputedPattern.java" />
-				<exclude name="QueryRangeTest.java" />
-				<exclude name="QuerySelectTest.java" />
-				<exclude name="QuerySerializeTest.java" />
-				<exclude name="TypeCollisionItem.java" />
-				<exclude name="TypeColumnTypeErrorTest.java" />
-				<exclude name="TypeColumnTypeTest.java" />
-				<exclude name="TypeCompareTest.java" />
-				<exclude name="TypeMountTest.java" />
-				<exclude name="TypeMountWrongTest.java" />
-				<exclude name="TypeSetModelComplexTest.java" />
-				<exclude name="TypeSetModelErrorTest.java" />
-				<exclude name="TypeSetModelTest.java" />
-				<exclude name="TypeSetTest.java" />
-				<exclude name="TypesBoundComplexTest.java" />
-				<exclude name="TypesBoundErrorTest.java" />
-				<exclude name="TypesBoundTest.java" />
-				<exclude name="ViewSerializeTest.java" />
-				<exclude name="misc/ComputedTest.java" />
-				<exclude name="misc/ConditionsTest.java" />
-				<exclude name="misc/ConnectTokenItem.java" />
-				<exclude name="misc/ConnectTokenNotSetTest.java" />
-				<exclude name="misc/ConnectTokenSetTest.java" />
-				<exclude name="misc/CopeNameUtilTest.java" />
-				<exclude name="misc/ModelByStringTest.java" />
-				<exclude name="misc/SerializationCheckTest.java" />
-				<exclude name="misc/ServletUtilTest.java" />
-				<exclude name="misc/SetValueUtilTest.java" />
-				<exclude name="pattern/BlockComputedTest.java" />
-				<exclude name="pattern/BlockMountTest.java" />
-				<exclude name="pattern/BlockRenamedIdTest.java" />
-				<exclude name="pattern/CompositeFieldComputedTest.java" />
-				<exclude name="pattern/CompositeFieldRenamedIdTest.java" />
-				<exclude name="pattern/CompositeMountTest.java" />
-				<exclude name="pattern/EnumFieldNameTest.java" />
-				<exclude name="pattern/EnumMapFieldSchemaNameTest.java" />
-				<exclude name="pattern/EnumSetFieldSchemaNameTest.java" />
-				<exclude name="pattern/JavaViewGetterMissingTest.java" />
-				<exclude name="pattern/JavaViewInPatternTest.java" />
-				<exclude name="pattern/MediaFilterFinalTest.java" />
-				<exclude name="pattern/MediaPathConditionUnsupportedTest.java" />
-				<exclude name="pattern/MultiItemFieldErrorTest.java" />
-				<exclude name="pattern/MultiItemFieldStandardTest.java" />
-				<exclude name="pattern/PartOfReverseTest.java" />
-				<exclude name="pattern/TypeFutureInPatternsFeature.java" />
-				<exclude name="pattern/TypeFutureInconsistentTest.java" />
-				<exclude name="pattern/UniqueHashedMediaAnnotationTest.java" />
-				<exclude name="pattern/UniqueHashedMediaErrorTest.java" />
-				<exclude name="typecollision/TypeCollisionItem.java" />
-				<exclude name="util/ServletUtilTest.java" />
-			</fileset>
+			<classpath refid="runtime.test.path"/>
+			<dontignore>
+				<fileset dir="runtime/testsrc/com/exedio/cope">
+					<include name="**/*.java" />
+					<exclude name="TypesBoundTest.java" /><!-- ok, shall not instrument test types -->
+					<exclude name="TypesBoundComplexTest.java" /><!-- ok, shall not instrument test types -->
+					<exclude name="TypesBoundAnnotationTest.java" /><!-- ok, shall not instrument test types -->
+					<exclude name="TypesBoundErrorTest.java" /><!-- ok, shall not instrument test types -->
+					<exclude name="TypeSetTest.java" /><!-- ok, shall not instrument test types -->
+					<exclude name="TypeCompareTest.java" /><!-- ok, shall not instrument test types -->
+					<exclude name="CreateLimitAnnotationTest.java" /><!-- ok, shall not instrument test types -->
+					<exclude name="FeatureTest.java" /><!-- ok, shall not instrument test types -->
+					<exclude name="ModelCharSetTest.java" /><!-- ok, shall not instrument test types -->
+					<exclude name="RenamedSchemaPattern.java" /><!-- ok, shall not instrument test types -->
+					<exclude name="RenamedPatternSchemaTest.java" /><!-- ok, shall not instrument test types -->
+					<exclude name="SchemaTypeStringField.java" /><!-- ok, shall not instrument test types -->
+					<exclude name="ModelTest.java" /><!-- ok, shall not instrument test types -->
+					<exclude name="misc/ConnectTokenNotSetTest.java" /><!-- ok, shall not instrument test types -->
+					<exclude name="misc/ConnectTokenSetTest.java" /><!-- ok, shall not instrument test types -->
+					<exclude name="pattern/CompositeErrorTest.java" /><!-- ok, shall not instrument test types -->
+					<exclude name="sampler/*.java" /><!-- TODO remove -->
+					<exclude name="pattern/PatternTestTypeItem.java" /><!-- ok, shall not instrument test types -->
+					<exclude name="serialize/ModelSerializationTest.java" /><!-- ok, shall not instrument test types -->
+					<exclude name="QueryCopyTest.java" /><!-- TODO remove -->
+					<!-- ok, shall not instrument test types -->
+					<exclude name="pattern/BlockErrorTest.java" />
+					<exclude name="pattern/CompositeErrorTest.java" />
+					<exclude name="pattern/HashAlgorithmAdapterTest.java" />
+					<exclude name="pattern/TextUrlFilterAnnotationTest.java" />
+					<exclude name="pattern/TextUrlFilterDelegatorAnnotationTest.java" />
+					<exclude name="AutoIncrementEvaluator.java" />
+					<exclude name="ChangeListenersTest.java" />
+					<exclude name="ClusterDisabledTest.java" />
+					<exclude name="ClusterNetworkTest.java" />
+					<exclude name="ClusterPropertiesNoContextTest.java" />
+					<exclude name="ClusterPropertiesTest.java" />
+					<exclude name="CommitHookTest.java" />
+					<exclude name="CopyConstraintNotAFunctionFieldTest.java" />
+					<exclude name="CopyConstraintNotFinalTest.java" />
+					<exclude name="CopyConstraintNotFoundTest.java" />
+					<exclude name="DateFieldWrongDefaultNowTest.java" />
+					<exclude name="DayFieldWrongDefaultNowTest.java" />
+					<exclude name="ItemCacheLimitTest.java" />
+					<exclude name="LRUMapTest.java" />
+					<exclude name="MediaUrlSecretTest.java" />
+					<exclude name="PatternComputedItem.java" />
+					<exclude name="PatternComputedPattern.java" />
+					<exclude name="QueryRangeTest.java" />
+					<exclude name="QuerySelectTest.java" />
+					<exclude name="QuerySerializeTest.java" />
+					<exclude name="TypeCollisionItem.java" />
+					<exclude name="TypeColumnTypeErrorTest.java" />
+					<exclude name="TypeColumnTypeTest.java" />
+					<exclude name="TypeCompareTest.java" />
+					<exclude name="TypeMountTest.java" />
+					<exclude name="TypeMountWrongTest.java" />
+					<exclude name="TypeSetModelComplexTest.java" />
+					<exclude name="TypeSetModelErrorTest.java" />
+					<exclude name="TypeSetModelTest.java" />
+					<exclude name="TypeSetTest.java" />
+					<exclude name="TypesBoundComplexTest.java" />
+					<exclude name="TypesBoundErrorTest.java" />
+					<exclude name="TypesBoundTest.java" />
+					<exclude name="ViewSerializeTest.java" />
+					<exclude name="misc/ComputedTest.java" />
+					<exclude name="misc/ConditionsTest.java" />
+					<exclude name="misc/ConnectTokenItem.java" />
+					<exclude name="misc/ConnectTokenNotSetTest.java" />
+					<exclude name="misc/ConnectTokenSetTest.java" />
+					<exclude name="misc/CopeNameUtilTest.java" />
+					<exclude name="misc/ModelByStringTest.java" />
+					<exclude name="misc/SerializationCheckTest.java" />
+					<exclude name="misc/ServletUtilTest.java" />
+					<exclude name="misc/SetValueUtilTest.java" />
+					<exclude name="pattern/BlockComputedTest.java" />
+					<exclude name="pattern/BlockMountTest.java" />
+					<exclude name="pattern/BlockRenamedIdTest.java" />
+					<exclude name="pattern/CompositeFieldComputedTest.java" />
+					<exclude name="pattern/CompositeFieldRenamedIdTest.java" />
+					<exclude name="pattern/CompositeMountTest.java" />
+					<exclude name="pattern/EnumFieldNameTest.java" />
+					<exclude name="pattern/EnumMapFieldSchemaNameTest.java" />
+					<exclude name="pattern/EnumSetFieldSchemaNameTest.java" />
+					<exclude name="pattern/JavaViewGetterMissingTest.java" />
+					<exclude name="pattern/JavaViewInPatternTest.java" />
+					<exclude name="pattern/MediaFilterFinalTest.java" />
+					<exclude name="pattern/MediaPathConditionUnsupportedTest.java" />
+					<exclude name="pattern/MultiItemFieldErrorTest.java" />
+					<exclude name="pattern/MultiItemFieldStandardTest.java" />
+					<exclude name="pattern/PartOfReverseTest.java" />
+					<exclude name="pattern/TypeFutureInPatternsFeature.java" />
+					<exclude name="pattern/TypeFutureInconsistentTest.java" />
+					<exclude name="pattern/UniqueHashedMediaAnnotationTest.java" />
+					<exclude name="pattern/UniqueHashedMediaErrorTest.java" />
+					<exclude name="typecollision/TypeCollisionItem.java" />
+					<exclude name="util/ServletUtilTest.java" />
+				</fileset>
+			</dontignore>
 		</instrument>
 	</target>
 
 	<target name="runtime.test.compile"
 			depends="runtime.test.instrument, dsmf.compile, runtime.core.compile, runtime.pattern.compile, runtime.servlet.compile, runtime.junit.compile, runtime.test.feature.compile, instrument.anno.compile">
 		<compile srcdir="runtime/testsrc">
-			<classpath>
-				<pathelement location="build/classes/dsmf/src" />
-				<pathelement location="build/classes/runtime/src" />
-				<pathelement location="build/classes/runtime/patternsrc" />
-				<pathelement location="build/classes/runtime/servletsrc" />
-				<pathelement location="build/classes/runtime/junitsrc" />
-				<pathelement location="build/classes/runtime/testfeaturesrc" />
-				<pathelement location="build/classes/instrument/annosrc" />
-				<pathelement location="lib/trove4j.jar" />
-				<pathelement location="lib/javax.servlet-api.jar" />
-				<pathelement location="lib/junit.jar" />
-				<pathelement location="lib/cpsuite.jar" />
-				<pathelement location="lib/slf4j-api.jar" />
-				<pathelement location="lib/log4j-bundle.jar" />
-				<pathelement location="lib/exedio-cope-util.jar" />
-				<pathelement location="lib/findbugs-annotations.jar" />
-			</classpath>
+			<classpath refid="runtime.test.path"/>
 		</compile>
 	</target>
 
@@ -693,15 +652,15 @@
 
 	<target name="runtime.servlet.test.instrument" depends="instrument.taskdef" unless="skip.instrument">
 		<instrument
+				dir="runtime/servlettestsrc"
 				verify="${instrument.verify}"
 				suppressUnusedWarningOnPrivateActivationConstructor="true"
 				nullabilityAnnotations="${instrument.nullabilityAnnotations}"
 				timestampFile="build/timestamps/runtime.servlet.test.timestamp">
 			<resources refid="instrument.resources" />
-			<fileset dir="runtime/servlettestsrc">
-				<include name="**/*.java" />
-				<exclude name="com/exedio/cope/pattern/MediaPattern.java" />
-			</fileset>
+			<ignore>
+				<fileset file="runtime/servlettestsrc/com/exedio/cope/pattern/MediaPattern.java" />
+			</ignore>
 		</instrument>
 	</target>
 
@@ -807,6 +766,7 @@
 	<target name="instrument.core.compile" depends="runtime.core.compile, runtime.pattern.compile, instrument.anno.compile">
 		<compile srcdir="instrument/src">
 			<classpath>
+				<pathelement location="${env.JAVA_HOME}/lib/tools.jar"/>
 				<pathelement location="build/classes/runtime/src" />
 				<pathelement location="build/classes/runtime/patternsrc" /><!-- TODO stricter, is for Composite only -->
 				<pathelement location="build/classes/instrument/annosrc" />
@@ -849,11 +809,6 @@
 				<pathelement location="lib/findbugs-annotations.jar" />
 			</classpath>
 		</compile>
-		<copy todir="build/classes/instrument/testsrc">
-			<fileset dir="instrument/examplesrc">
-				<include name="**/*.java" />
-			</fileset>
-		</copy>
 	</target>
 
 	<target name="instrument.taskdef" depends="dsmf.compile, runtime.core.compile, runtime.pattern.compile, runtime.servlet.compile, instrument.compile, instrument.testfeature.compile, runtime.test.feature.compile">
@@ -882,6 +837,7 @@
 
 	<target name="instrument.test.instrument" depends="instrument.taskdef" unless="skip.instrument">
 		<instrument
+				dir="instrument/testsrc"
 				verify="${instrument.verify}"
 				encoding="ascii"
 				suppressUnusedWarningOnPrivateActivationConstructor="true"
@@ -890,15 +846,16 @@
 				nullabilityAnnotations="${instrument.nullabilityAnnotations}"
 				timestampFile="build/timestamps/instrument.test.timestamp">
 			<resources refid="instrument.resources" />
-			<fileset dir="instrument/testsrc/com/exedio/cope/instrument/testmodel">
-				<include name="**/*.java" />
-			</fileset>
+			<classpath>
+				<pathelement location="lib/cpsuite.jar" />
+			</classpath>
 		</instrument>
 	</target>
 
 	<target name="instrument.test.compile" depends="instrument.test.instrument, instrument.testfeature.compile, runtime.core.compile, runtime.pattern.compile, runtime.servlet.compile, runtime.junit.compile, instrument.compile">
 		<compile srcdir="instrument/testsrc">
 			<classpath>
+				<pathelement location="${env.JAVA_HOME}/lib/tools.jar"/>
 				<pathelement location="build/classes/runtime/src" />
 				<pathelement location="build/classes/runtime/patternsrc" />
 				<pathelement location="build/classes/runtime/servletsrc" />
@@ -912,11 +869,6 @@
 				<pathelement location="lib/findbugs-annotations.jar" />
 			</classpath>
 		</compile>
-		<copy todir="build/classes/instrument/testsrc">
-			<fileset dir="instrument/examplesrc">
-				<include name="**/*.java" />
-			</fileset>
-		</copy>
 	</target>
 
 	<target name="instrument.test"
@@ -1012,6 +964,7 @@
 				<pathelement location="lib/javax.servlet-api.jar" />
 				<pathelement location="lib/slf4j-api.jar" />
 				<pathelement location="lib/findbugs-annotations.jar" />
+				<pathelement location="${env.JAVA_HOME}/lib/tools.jar"/>
 			</myClasspath>
 		</api>
 	</target>
@@ -1081,6 +1034,7 @@
 				<pathelement location="${basedir}/lib/slf4j-log4j12.jar" />
 				<pathelement location="${basedir}/lib/log4j-bundle.jar" />
 				<pathelement location="${ant.core.lib}" />
+				<pathelement location="${env.JAVA_HOME}/lib/tools.jar"/>
 			</auxclasspath>
 		</findbugs>
 	</target>
@@ -1111,7 +1065,6 @@
 				<include name="dsmf/testsrc/**/*.java" />
 				<include name="instrument/annosrc/**/*.java" />
 				<include name="instrument/antsrc/**/*.java" />
-				<include name="instrument/examplesrc/**/*.java" />
 				<include name="instrument/testfeaturesrc/**/*.java" />
 				<include name="instrument/testsrc/**/*.java" />
 				<include name="runtime/junitsrc/**/*.java" />

@@ -20,10 +20,18 @@
 package com.exedio.cope.instrument;
 
 import bsh.UtilEvalError;
-import java.io.File;
+import java.io.BufferedInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
+import javax.tools.JavaFileObject;
 
 /**
  * Represents a parsed java file.
@@ -44,7 +52,7 @@ final class JavaFile
 
 	final CopeNameSpace nameSpace;
 
-	private String packagename;
+	private final String packagename;
 
 	/**
 	 * Distiguishes two stages in life cycle of this object:
@@ -54,18 +62,133 @@ final class JavaFile
 	 */
 	private boolean buildStageForImports = true;
 
+	private final JavaFileObject sourceFile;
 	final JavaRepository repository;
 	final ArrayList<JavaClass> classes = new ArrayList<>();
 
-	final StringBuilder buffer = new StringBuilder();
+	private final List<GeneratedFragment> generatedFragments = new ArrayList<>();
 
-	public JavaFile(final JavaRepository repository, final File file)
+	public JavaFile(final JavaRepository repository, final JavaFileObject sourceFile, final String packagename)
 	{
-		this.externalNameSpace = new CopeNameSpace(repository.externalNameSpace, file.getPath() + " external");
-		this.nameSpace = new CopeNameSpace(repository.nameSpace, file.getPath());
+		this.externalNameSpace = new CopeNameSpace(repository.externalNameSpace, sourceFile.getName() + " external");
+		this.nameSpace = new CopeNameSpace(repository.nameSpace, sourceFile.getName());
+		this.sourceFile = sourceFile;
+		this.packagename = packagename;
+		nameSpace.importPackage(packagename);
+		externalNameSpace.importPackage(packagename);
 
 		this.repository = repository;
 		repository.add(this);
+	}
+
+	@Override
+	public String toString()
+	{
+		return "JavaFile("+sourceFile.getName()+")";
+	}
+
+	void markFragmentAsGenerated(final int startInclusive, final int endExclusive)
+	{
+		if (!generatedFragments.isEmpty())
+		{
+			final GeneratedFragment last=generatedFragments.get(generatedFragments.size()-1);
+			if (last.endExclusive>startInclusive) throw new RuntimeException("fragments must be marked from start to end");
+		}
+		generatedFragments.add( new GeneratedFragment(startInclusive, endExclusive) );
+	}
+
+	int translateToPositionInSourceWithoutGeneratedFragments(final int positionInRawSource)
+	{
+		int generatedBytesBeforeClassEnd = 0;
+		for (final JavaFile.GeneratedFragment generatedFragment: generatedFragments)
+		{
+			if (generatedFragment.startInclusive<=positionInRawSource)
+			{
+				if (generatedFragment.endExclusive>positionInRawSource)
+				{
+					throw new RuntimeException("in generated fragment");
+				}
+				generatedBytesBeforeClassEnd += (generatedFragment.endExclusive-generatedFragment.startInclusive);
+			}
+			else
+			{
+				break;
+			}
+		}
+
+		return positionInRawSource-generatedBytesBeforeClassEnd;
+	}
+
+	byte[] getSourceWithoutGeneratedFragments()
+	{
+		final Iterator<GeneratedFragment> generatedFragmentIter=generatedFragments.iterator();
+		try (final InputStream inputStream=new BufferedInputStream(sourceFile.openInputStream()); final ByteArrayOutputStream os = new ByteArrayOutputStream(Main.INITIAL_BUFFER_SIZE))
+		{
+			int indexInSource = 0;
+			int nextSourceByte;
+			GeneratedFragment currentGeneratedFragment=generatedFragmentIter.hasNext()?generatedFragmentIter.next():null;
+			while ( (nextSourceByte=inputStream.read())!=-1 )
+			{
+				if (currentGeneratedFragment==null || currentGeneratedFragment.startInclusive>indexInSource)
+				{
+					os.write(nextSourceByte);
+				}
+				else if (currentGeneratedFragment.endExclusive-1>indexInSource)
+				{
+					// generated, skip
+				}
+				else if (currentGeneratedFragment.endExclusive-1==indexInSource)
+				{
+					currentGeneratedFragment=generatedFragmentIter.hasNext()?generatedFragmentIter.next():null;
+				}
+				else
+				{
+					// currentGeneratedFragment should have already been discarded
+					throw new RuntimeException();
+				}
+				indexInSource++;
+			}
+			if (currentGeneratedFragment!=null)
+			{
+				throw new RuntimeException("unconsumed GeneratedFragment at end of file");
+			}
+			return os.toByteArray();
+		}
+		catch (final IOException e)
+		{
+			throw new RuntimeException(e);
+		}
+	}
+
+	String getSourceFileName()
+	{
+		return sourceFile.getName();
+	}
+
+	boolean inputEqual(final CharSequence bf, final Charset charset)
+	{
+		try (
+			final InputStream actualBytes = sourceFile.openInputStream();
+			final InputStreamReader actualChars = new InputStreamReader(actualBytes, charset);
+			)
+		{
+			for ( int i=0; i<bf.length(); i++ )
+			{
+				final char expectedChar = bf.charAt(i);
+				final int actualChar = actualChars.read();
+				if ( actualChar==-1 ) return false;
+				if ( expectedChar!=(char)actualChar ) return false;
+			}
+			if ( actualChars.read()!=-1 )
+			{
+				return false;
+			}
+		}
+		catch (final IOException e)
+		{
+			throw new RuntimeException(e);
+		}
+		return true;
 	}
 
 	void add(final JavaClass javaClass)
@@ -82,25 +205,6 @@ final class JavaFile
 	}
 
 	/**
-	 * Sets the package of this file.
-	 * Necessary, since the package is not known at construction time.
-	 * @param packagename may be null for root package
-	 * @throws ParserException if called more than once.
-	 */
-	public final void setPackage(final String packagename)
-	throws ParserException
-	{
-		if(!buildStageForImports)
-			throw new RuntimeException();
-		if(this.packagename!=null)
-			throw new ParserException("only one package statement allowed.");
-
-		this.packagename=packagename;
-		nameSpace.importPackage(packagename);
-		externalNameSpace.importPackage(packagename);
-	}
-
-	/**
 	 * Gets the value of the package statement encountered
 	 * in this java file.
 	 * Is null, if no package statement found.
@@ -114,7 +218,6 @@ final class JavaFile
 	 * Adds the value of an import statement.
 	 */
 	public final void addImport(final String importname)
-	throws ParserException
 	{
 		if(!buildStageForImports)
 			throw new RuntimeException();
@@ -148,4 +251,37 @@ final class JavaFile
 		}
 	}
 
+	void overwrite(final CharSequence content, final Charset charset)
+	{
+		try(final OutputStreamWriter w = new OutputStreamWriter(sourceFile.openOutputStream(), charset))
+		{
+			for (int i=0; i<content.length(); i++)
+			{
+				w.write(content.charAt(i));
+			}
+		}
+		catch(final IOException e)
+		{
+			throw new RuntimeException(e);
+		}
+	}
+
+	private final static class GeneratedFragment
+	{
+		final int startInclusive;
+		final int endExclusive;
+
+		GeneratedFragment(final int startInclusive, final int endExclusive)
+		{
+			if (startInclusive<0 || startInclusive>=endExclusive) throw new RuntimeException("" + startInclusive + '-' + endExclusive);
+			this.startInclusive=startInclusive;
+			this.endExclusive=endExclusive;
+		}
+
+		@Override
+		public String toString()
+		{
+			return String.format("%s-%s", startInclusive, endExclusive);
+		}
+	}
 }

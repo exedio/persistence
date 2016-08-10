@@ -66,7 +66,6 @@ final class CopeType
 	private final TreeMap<String, CopeFeature> featureMap = new TreeMap<>();
 
 	public CopeType(final JavaClass javaClass, final boolean isBlock, final boolean isComposite)
-		throws ParserException
 	{
 		this.javaClass = javaClass;
 		this.isBlock = isBlock;

@@ -27,7 +27,6 @@ import com.exedio.cope.instrument.testmodel.EnumContainer.Enum4;
 final class InnerContainer
 {
 	/**
-	 * TODO does not work
 	 * @cope.generic.constructor public
 	 */
 	static class Super extends Item
@@ -78,7 +77,7 @@ final class InnerContainer
 	 *       It can be customized with the tag <tt>@cope.generic.constructor public|package|protected|private|none</tt> in the class comment.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	protected Super(final com.exedio.cope.SetValue<?>... setValues)
+	public Super(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
 	}/**

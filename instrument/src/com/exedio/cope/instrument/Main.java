@@ -19,25 +19,34 @@
 
 package com.exedio.cope.instrument;
 
-import static com.exedio.cope.util.StrictFile.delete;
 import static java.lang.System.lineSeparator;
+import static java.util.Arrays.asList;
+import static java.util.Collections.singleton;
 
 import com.exedio.cope.util.Clock;
 import com.exedio.cope.util.StrictFile;
+import com.sun.tools.javac.api.JavacTool;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.nio.ByteBuffer;
-import java.nio.CharBuffer;
+import java.net.URL;
+import java.net.URLClassLoader;
 import java.nio.charset.Charset;
-import java.nio.charset.CharsetEncoder;
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import javax.tools.JavaCompiler;
+import javax.tools.JavaFileObject;
+import javax.tools.StandardJavaFileManager;
 
 final class Main
 {
-	final void run(final ArrayList<File> files, final Params params, final ArrayList<File> resourceFiles) throws HumanReadableException, ParserException, IOException
+	static final int INITIAL_BUFFER_SIZE=16384;
+
+	final void run(final Params params, final ArrayList<File> classpathFiles, final ArrayList<File> resourceFiles) throws HumanReadableException, IOException
 	{
+		final List<File> files = new ArrayList<>(params.sourceFiles);
+		files.removeAll(params.ignoreFiles);
 		if(files.isEmpty())
 			throw new HumanReadableException("nothing to do.");
 		if ( noFilesModifiedAfter(files, params.timestampFile, params.verbose) && noFilesModifiedAfter(resourceFiles, params.timestampFile, params.verbose) )
@@ -54,29 +63,17 @@ final class Main
 
 			final Charset charset = params.charset;
 			final JavaRepository repository = new JavaRepository();
-			final ArrayList<Parser> parsers = new ArrayList<>(files.size());
 
 			this.verbose = params.verbose;
 			instrumented = 0;
 			skipped = 0;
-			for(final File file : files)
-			{
-				if(!file.exists())
-					throw new RuntimeException("error: input file " + file.getAbsolutePath() + " does not exist.");
-				if(!file.isFile())
-					throw new RuntimeException("error: input file " + file.getAbsolutePath() + " is not a regular file.");
 
-				final JavaFile javaFile = new JavaFile(repository, file);
-				final Parser parser = new Parser(new Lexer(file, charset, javaFile), new Instrumentor(), javaFile);
-				parser.parseFile();
-				parsers.add(parser);
-			}
+			runJavac(params, classpathFiles, repository);
 
 			repository.endBuildStage();
 
-			for(final Parser parser : parsers)
+			for(final JavaFile javaFile: repository.getFiles())
 			{
-				final JavaFile javaFile = parser.javaFile;
 				for(final JavaClass javaClass : javaFile.getClasses())
 				{
 					final CopeType type = CopeType.getCopeType(javaClass);
@@ -84,7 +81,6 @@ final class Main
 					{
 						if(!type.isInterface())
 						{
-							//System.out.println("onClassEnd("+jc.getName()+") writing");
 							for(final CopeFeature feature : type.getFeatures())
 								feature.getInstance();
 						}
@@ -92,35 +88,26 @@ final class Main
 				}
 			}
 
-			final Iterator<Parser> parsersIter = parsers.iterator();
-			for(final File file : files)
+			for(final JavaFile javaFile: repository.getFiles())
 			{
-				final Parser parser = parsersIter.next();
+				final StringBuilder buffer = new StringBuilder(INITIAL_BUFFER_SIZE);
+				final Generator generator = new Generator(javaFile, buffer, params);
+				generator.write(charset);
 
-				final StringBuilder baos = new StringBuilder((int)file.length() + 100);
-				final Generator generator = new Generator(parser.javaFile, baos, params);
-				generator.write();
-
-				if(!parser.lexer.inputEqual(baos))
+				if(!javaFile.inputEqual(buffer, charset))
 				{
 					if(params.verify)
 						throw new HumanReadableException(
-								"Not yet instrumented " + file.getAbsolutePath() + lineSeparator() +
+								"Not yet instrumented " + javaFile.getSourceFileName() + lineSeparator() +
 								"Instrumentor runs in verify mode, which is typically enabled while Continuous Integration." + lineSeparator() +
 								"Probably you did commit a change causing another change in instrumented code," + lineSeparator() +
 								"but you did not run the intrumentor.");
-					logInstrumented(file);
-					delete(file);
-					final CharsetEncoder decoder = charset.newEncoder();
-					final ByteBuffer out = decoder.encode(CharBuffer.wrap(baos));
-					try(FileOutputStream o = new FileOutputStream(file))
-					{
-						o.getChannel().write(out);
-					}
+					logInstrumented(javaFile);
+					javaFile.overwrite(buffer, charset);
 				}
 				else
 				{
-					logSkipped(file);
+					logSkipped(javaFile);
 				}
 			}
 
@@ -145,7 +132,7 @@ final class Main
 			System.out.println("Instrumented " + instrumented + ' ' + (instrumented==1 ? "file" : "files") + ", skipped " + skipped + " in " + files.iterator().next().getParentFile().getAbsolutePath());
 	}
 
-	private static boolean noFilesModifiedAfter(final ArrayList<File> checkFiles, final File referenceFile, final boolean verbose)
+	private static boolean noFilesModifiedAfter(final List<File> checkFiles, final File referenceFile, final boolean verbose)
 	{
 		if ( referenceFile==null || !referenceFile.exists() )
 		{
@@ -173,22 +160,120 @@ final class Main
 		}
 	}
 
+	static void runJavac(final Params params, final List<File> classpathFiles, final JavaRepository repository) throws IOException, HumanReadableException
+	{
+		// "JavacTool.create()" is not part of the "exported" API
+		// (not annotated with https://docs.oracle.com/javase/8/docs/jdk/api/javac/tree/jdk/Exported.html).
+		// The more stable alternative would be calling "ToolProvider.getSystemJavaCompiler()", but that causes
+		// class path issues with when run as an ant task.
+		final JavaCompiler compiler=JavacTool.create();
+		if ( compiler==null )
+		{
+			throw new NullPointerException("no system java compiler found - please make sure your \"java\" is from a JDK, not a JRE");
+		}
+		try (final StandardJavaFileManager fileManager=compiler.getStandardFileManager(null, null, null))
+		{
+			final Iterable<? extends JavaFileObject> sources=fileManager.getJavaFileObjectsFromFiles(params.sourceFiles);
+			final List<String> optionList = new ArrayList<>();
+			optionList.addAll(asList("-classpath", combineClasspath(getCurrentClasspath(), getConfiguredClasspath(classpathFiles))));
+			optionList.add("-proc:only");
+			final JavaCompiler.CompilationTask task = compiler.getTask(null, null, null, optionList, null, sources);
+			final InstrumentorProcessor instrumentorProcessor=new InstrumentorProcessor(repository, fileManager.getJavaFileObjectsFromFiles(params.ignoreFiles));
+			task.setProcessors(singleton(instrumentorProcessor));
+			task.call();
+			if (!instrumentorProcessor.processHasBeenCalled)
+			{
+				// InstrumentorProcessor has not been invoked - this happens if parsing failed
+				throw new HumanReadableException("fix compiler errors");
+			}
+		}
+	}
+
+	private static String combineClasspath(final String classpathA, final String classpathB)
+	{
+		if (classpathA.isEmpty())
+		{
+			return classpathB;
+		}
+		else if (classpathB.isEmpty())
+		{
+			return classpathA;
+		}
+		else
+		{
+			return classpathA+File.pathSeparatorChar+classpathB;
+		}
+	}
+
+	private static String getConfiguredClasspath(final List<File> classpathFiles)
+	{
+		final StringBuilder result=new StringBuilder();
+		boolean needSeparator=false;
+		for (final File classpathFile: classpathFiles)
+		{
+			if (needSeparator)
+			{
+				result.append(File.pathSeparatorChar);
+			}
+			result.append(classpathFile.getAbsolutePath());
+			needSeparator=true;
+		}
+		return result.toString();
+	}
+
+	private static String getCurrentClasspath()
+	{
+		// This is a hack:
+		// We want to use the current classpath also in the javac task that's being started, so we
+		// have to reconstruct a file-based classpath from a class loader.
+		return toClasspath(com.exedio.cope.Item.class.getClassLoader());
+	}
+
+	private static String toClasspath(final ClassLoader cl)
+	{
+		if (cl instanceof URLClassLoader)
+		{
+			// this works for JUnit tests
+			final URLClassLoader urlClassLoader=(URLClassLoader)cl;
+			final StringBuilder result=new StringBuilder();
+			for (int i=0; i < urlClassLoader.getURLs().length; i++)
+			{
+				if (i!=0)
+				{
+					result.append(File.pathSeparatorChar);
+				}
+				final URL url=urlClassLoader.getURLs()[i];
+				result.append(url.toString());
+			}
+			return result.toString();
+		}
+		else
+		{
+			// this works for Ant
+			final Pattern pattern = Pattern.compile("AntClassLoader\\[(.*)\\]");
+			final String classLoaderString=cl.toString();
+			final Matcher matcher = pattern.matcher(classLoaderString);
+			if ( !matcher.matches() ) throw new RuntimeException("failed to construct file-based classpath from class loader; see Main.java getJavacClasspath(); class loader: "+classLoaderString);
+			return matcher.group(1);
+		}
+	}
+
 	boolean verbose;
 	int skipped;
 	int instrumented;
 
-	private void logSkipped(final File file)
+	private void logSkipped(final JavaFile file)
 	{
 		if(verbose)
-			System.out.println("Skipped " + file);
+			System.out.println("Skipped " + file.getSourceFileName());
 
 		skipped++;
 	}
 
-	private void logInstrumented(final File file)
+	private void logInstrumented(final JavaFile file)
 	{
 		if(verbose)
-			System.out.println("Instrumented " + file);
+			System.out.println("Instrumented " + file.getSourceFileName());
 
 		instrumented++;
 	}

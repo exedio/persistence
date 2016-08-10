@@ -17,6 +17,7 @@
 	<classpathentry kind="src" path="instrument/antsrc"/>
 	<classpathentry kind="src" path="instrument/testfeaturesrc"/>
 	<classpathentry kind="src" path="instrument/testsrc"/>
+	<classpathentry kind="var" path="TOOLS_JAR"/>
 	<classpathentry kind="var" path="ANT_JAR"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="lib/bsh-core.jar" sourcepath="lib/bsh-src.jar"/>

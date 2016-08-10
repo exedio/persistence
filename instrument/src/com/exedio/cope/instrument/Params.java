@@ -21,9 +21,14 @@ package com.exedio.cope.instrument;
 import java.io.File;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
 
 final class Params
 {
+	List<File> sourceFiles;
+	/** in {@link #sourceFiles}, the files to look at for understanding source code, but not instrument */
+	final List<File> ignoreFiles = new ArrayList<>();
 	boolean verify = false;
 	Charset charset = StandardCharsets.US_ASCII;
 	boolean longJavadoc = true;

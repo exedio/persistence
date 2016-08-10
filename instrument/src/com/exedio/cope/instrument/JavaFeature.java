@@ -64,7 +64,6 @@ abstract class JavaFeature
 							final int modifier,
 							final String type,
 							final String name)
-	throws ParserException
 	{
 		this.file=file;
 		this.parent=parent;
@@ -81,7 +80,7 @@ abstract class JavaFeature
 
 		final int over=modifier&~getAllowedModifiers();
 		if(over!=0)
-			throw new ParserException(
+			throw new RuntimeException(
 			"modifier(s) "+Modifier.toString(over)+
 			" not allowed for class feature "+name+
 			" of type "+getClass().getName()+'.');

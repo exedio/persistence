@@ -30,9 +30,8 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
- * Represents a class parsed by the java parser.
+ * Represents a class.
  * Is an inner class, if parent is not null.
- * @see Parser
  *
  * @author Ralf Wiebicke
  */
@@ -56,7 +55,6 @@ final class JavaClass extends JavaFeature
 			final JavaFile file, final JavaClass parent,
 			final int modifiers, final boolean isEnum, final String simpleName,
 			final String classExtends)
-	throws ParserException
 	{
 		super(file, parent, modifiers, null, Generics.strip(simpleName));
 		this.nameSpace = new NS(file.nameSpace);
@@ -173,11 +171,11 @@ final class JavaClass extends JavaFeature
 		this.classEndPosition = classEndPosition;
 	}
 
-	int getClassEndPosition()
+	int getClassEndPositionInSourceWithoutGeneratedFragments()
 	{
 		assert classEndPosition>=0;
 
-		return classEndPosition;
+		return file.translateToPositionInSourceWithoutGeneratedFragments(classEndPosition);
 	}
 
 	Object evaluate(final String s)

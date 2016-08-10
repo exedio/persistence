@@ -22,19 +22,17 @@ package com.exedio.cope.instrument;
 import java.lang.reflect.Modifier;
 
 /**
- * Represents an attribute of a class parsed by the
- * java parser.
+ * Represents an attribute of a class.
  * Contains additional information about this attribute
  * described in the doccomment of this attribute.
- * @see Parser
  *
  * @author Ralf Wiebicke
  */
 final class JavaField
 	extends JavaFeature
-	implements InitializerConsumer
 {
-	private String docComment;
+	private final String docComment;
+	private final String initializer;
 
 	private Object rtvalue = null;
 
@@ -42,27 +40,18 @@ final class JavaField
 		final JavaClass parent,
 		final int modifiers,
 		final String type,
-		final String name)
-		throws ParserException
+		final String name,
+		final String docComment,
+		final String initializer)
 	{
 		// parent must not be null
 		super(parent.file, parent, modifiers, type, name);
 		if (type == null)
 			throw new RuntimeException();
+		this.docComment=docComment;
+		this.initializer=initializer;
 
 		parent.add(this);
-	}
-
-	/**
-	 * Constructs a java attribute with the same
-	 * <tt>parent</tt>, <tt>modifiers</tt> and <tt>type</tt>
-	 * but the given name.
-	 * Needed for comma separated attributes.
-	 */
-	JavaField(final JavaField template, final String name)
-		throws ParserException
-	{
-		this(template.parent, template.modifier, template.type, name);
 	}
 
 	@Override
@@ -71,37 +60,13 @@ final class JavaField
 		return Modifier.fieldModifiers();
 	}
 
-	void setDocComment(final String docComment)
-	{
-		assert this.docComment==null;
-		this.docComment = docComment;
-	}
-
 	String getDocComment()
 	{
 		return docComment;
 	}
 
-	// --------------------
-
-	private StringBuilder initializerBuf = new StringBuilder();
-	private String initializer = null;
-
-	@Override
-	public void addToInitializer(final char c)
-	{
-		initializerBuf.append(c);
-	}
-
 	String getInitializer()
 	{
-		if(initializerBuf!=null)
-		{
-			assert initializer==null;
-			initializer = initializerBuf.length()>0 ? initializerBuf.toString() : null;
-			initializerBuf = null;
-		}
-
 		return initializer;
 	}
 
@@ -111,6 +76,7 @@ final class JavaField
 
 		if(rtvalue==null)
 		{
+			if ( getInitializer()==null ) throw new RuntimeException("getInitializer() null");
 			rtvalue = parent.evaluate(getInitializer());
 			assert rtvalue!=null : getInitializer()+'/'+parent+'/'+name;
 			parent.registerInstance(this, rtvalue);
@@ -118,5 +84,4 @@ final class JavaField
 
 		return rtvalue;
 	}
-
 }

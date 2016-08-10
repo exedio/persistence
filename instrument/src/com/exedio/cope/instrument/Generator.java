@@ -34,6 +34,7 @@ import com.exedio.cope.pattern.BlockActivationParameters;
 import com.exedio.cope.pattern.BlockType;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Modifier;
+import java.nio.charset.Charset;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -395,7 +396,6 @@ final class Generator
 	}
 
 	private void writeFeature(final CopeFeature feature)
-	throws ParserException
 	{
 		final Object instance = feature.getInstance();
 		final JavaClass javaClass = feature.getParent();
@@ -844,7 +844,7 @@ final class Generator
 		write(");");
 	}
 
-	private void writeWildcard(final CopeType type) throws ParserException
+	private void writeWildcard(final CopeType type)
 	{
 		final int typeParameters = type.javaClass.typeParameters;
 		if(typeParameters>0)
@@ -856,14 +856,14 @@ final class Generator
 		}
 	}
 
-	void write() throws ParserException
+	void write(final Charset charset)
 	{
-		final String buffer = javaFile.buffer.toString();
+		final String buffer = new String(javaFile.getSourceWithoutGeneratedFragments(), charset);
 		int previousClassEndPosition = 0;
 		for(final JavaClass javaClass : javaFile.getClasses())
 		{
 			final CopeType type = CopeType.getCopeType(javaClass);
-			final int classEndPosition = javaClass.getClassEndPosition();
+			final int classEndPosition = javaClass.getClassEndPositionInSourceWithoutGeneratedFragments();
 			if(type!=null)
 			{
 				assert previousClassEndPosition<=classEndPosition;
@@ -887,7 +887,6 @@ final class Generator
 	}
 
 	private void writeClassFeatures(final CopeType type)
-			throws ParserException
 	{
 		if(type.isInterface())
 			return;

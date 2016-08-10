@@ -23,29 +23,54 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.List;
 import org.apache.tools.ant.BuildException;
-import org.apache.tools.ant.Project;
+import org.apache.tools.ant.DirectoryScanner;
 import org.apache.tools.ant.Task;
-import org.apache.tools.ant.types.DataType;
-import org.apache.tools.ant.types.FileList;
 import org.apache.tools.ant.types.FileSet;
 import org.apache.tools.ant.types.Path;
 
 public final class AntTask extends Task
 {
-	private final ArrayList<DataType> fileSetsOrLists = new ArrayList<>();
 	private final Params params = new Params();
 	private final ArrayList<Path> resources = new ArrayList<>();
+	private final ArrayList<Path> classpath = new ArrayList<>();
+	private Ignore ignore;
 
-	public void addFileset(final FileSet value)
+	public void setDir(final Path path)
 	{
-		fileSetsOrLists.add(value);
+		if (params.sourceFiles!=null)
+		{
+			throw new BuildException("'dir' already specified");
+		}
+		params.sourceFiles=new ArrayList<>();
+		for (final String entry: path.list())
+		{
+			final File file=getProject().resolveFile(entry);
+			if (!file.isDirectory())
+			{
+				throw new BuildException("'dir' must be directories: "+file.getAbsolutePath());
+			}
+			collectFiles(params.sourceFiles, file, true, true);
+		}
+		if (params.sourceFiles.isEmpty())
+		{
+			throw new BuildException("no java files in 'dir'");
+		}
 	}
 
-	public void addFilelist(final FileList value)
+	public Ignore createIgnore()
 	{
-		fileSetsOrLists.add(value);
+		if (ignore!=null) throw new BuildException("duplicate <[dont]ignore> declaration");
+		ignore=new Ignore(false);
+		return ignore;
+	}
+
+	public Ignore createDontignore()
+	{
+		if (ignore!=null) throw new BuildException("duplicate <[dont]ignore> declaration");
+		ignore=new Ignore(true);
+		return ignore;
 	}
 
 	public void setVerify(final boolean value)
@@ -66,6 +91,11 @@ public final class AntTask extends Task
 	public void addResources(final Path value)
 	{
 		resources.add(value);
+	}
+
+	public void addClasspath(final Path value)
+	{
+		classpath.add(value);
 	}
 
 	@Deprecated
@@ -150,49 +180,49 @@ public final class AntTask extends Task
 	{
 		try
 		{
-			final Project project = getProject();
-			final ArrayList<File> sourcefiles = new ArrayList<>();
 			final ArrayList<File> resourceFiles = new ArrayList<>();
-			final HashSet<File> sourcefileSet = new HashSet<>();
+			final ArrayList<File> classpathFiles = new ArrayList<>();
 
-			for(final Object fileSetOrList : fileSetsOrLists)
+			if (ignore!=null)
 			{
-				final File dir;
-				final String[] fileNames;
-
-				if(fileSetOrList instanceof FileSet)
+				final List<File> listedFiles = new ArrayList<>();
+				for (final FileSet fileSet: ignore.fileSets)
 				{
-					final FileSet fileSet = (FileSet)fileSetOrList;
-					dir = fileSet.getDir(project);
-					fileNames = fileSet.getDirectoryScanner(project).getIncludedFiles();
+					final DirectoryScanner ds=fileSet.getDirectoryScanner(getProject());
+					for (final String path: ds.getIncludedFiles())
+					{
+						final File file = new File(ds.getBasedir(), path);
+						if (!file.isFile())
+						{
+							throw new RuntimeException("ignore list entry is not a file: "+file.getAbsolutePath());
+						}
+						if (!isInSourceFiles(file))
+						{
+							throw new BuildException("ignore list entry is not in 'dir': "+file.getAbsolutePath());
+						}
+						listedFiles.add(file);
+					}
+				}
+				if (ignore.dontIgnore)
+				{
+					if (params.sourceFiles==null) throw new RuntimeException();
+					final List<File> ignoreFiles = new ArrayList<>(params.sourceFiles);
+					ignoreFiles.removeAll(listedFiles);
+					params.ignoreFiles.addAll(ignoreFiles);
 				}
 				else
 				{
-					final FileList fileList = (FileList)fileSetOrList;
-					dir = fileList.getDir(project);
-					fileNames = fileList.getFiles(project);
-				}
-				for(final String fileName : fileNames)
-				{
-					final File file = new File(dir, fileName);
-					if(sourcefileSet.add(file))
-						sourcefiles.add(file);
+					params.ignoreFiles.addAll(listedFiles);
 				}
 			}
-			for (final Path resource: resources)
+			if (params.timestampFile==null && !resources.isEmpty())
 			{
-				if ( params.timestampFile==null )
-				{
-					throw new BuildException("resources require timestampFile");
-				}
-				for (final String fileName: resource.list())
-				{
-					final File file = new File(fileName);
-					addRecursively(file, resourceFiles);
-				}
+				throw new BuildException("resources require timestampFile");
 			}
+			pathsToFiles(resources, resourceFiles, true);
+			pathsToFiles(classpath, classpathFiles, false);
 
-			(new Main()).run(sourcefiles, params, resourceFiles);
+			(new Main()).run(params, classpathFiles, resourceFiles);
 		}
 		catch(final HumanReadableException e)
 		{
@@ -204,25 +234,73 @@ public final class AntTask extends Task
 		}
 	}
 
-	private void addRecursively(final File fileOrDir, final ArrayList<File> addTo)
+	private boolean isInSourceFiles(final File file)
+	{
+		if ( params.sourceFiles==null ) throw new BuildException("'dir' not set");
+		return params.sourceFiles.contains(file);
+	}
+
+	private void pathsToFiles(final ArrayList<Path> paths, final ArrayList<File> addTo, final boolean expandDirectories)
+	{
+		for (final Path resource: paths)
+		{
+			for (final String fileName: resource.list())
+			{
+				final File file = getProject().resolveFile(fileName);
+				addRecursively(file, addTo, expandDirectories);
+			}
+		}
+	}
+
+	private void addRecursively(final File fileOrDir, final ArrayList<File> addTo, final boolean expandDirectories)
 	{
 		if (!fileOrDir.exists())
 		{
 			throw new RuntimeException(fileOrDir.getAbsolutePath()+" does not exist");
 		}
-		if (fileOrDir.isDirectory())
+		if (expandDirectories && fileOrDir.isDirectory())
 		{
 			for (final File entry: fileOrDir.listFiles())
 			{
-				addRecursively(entry, addTo);
+				addRecursively(entry, addTo, expandDirectories);
 			}
 			return;
 		}
-		if (fileOrDir.isFile())
+		addTo.add(fileOrDir);
+	}
+
+	private static void collectFiles(final List<File> collectInto, final File fileOrDir, final boolean expandDirectories, final boolean onlyJava)
+	{
+		if (!fileOrDir.exists())
 		{
-			addTo.add(fileOrDir);
-			return;
+			throw new RuntimeException(fileOrDir.getAbsolutePath()+" does not exist");
 		}
-		throw new RuntimeException("can't handle "+fileOrDir.getAbsolutePath());
+		else if (expandDirectories && fileOrDir.isDirectory())
+		{
+			for (final File child: fileOrDir.listFiles())
+			{
+				collectFiles(collectInto, child, expandDirectories, onlyJava);
+			}
+		}
+		else if (!onlyJava || fileOrDir.isDirectory() || fileOrDir.getName().endsWith(".java"))
+		{
+			collectInto.add(fileOrDir);
+		}
+	}
+
+	public final static class Ignore
+	{
+		final boolean dontIgnore;
+		final List<FileSet> fileSets = new ArrayList<>();
+
+		Ignore(final boolean dontIgnore)
+		{
+			this.dontIgnore=dontIgnore;
+		}
+
+		public void addFileset(final FileSet fileSet)
+		{
+			fileSets.add(fileSet);
+		}
 	}
 }
