@@ -40,6 +40,7 @@ timestamps
 						' -Dinstrument.verify=true' +
 						' -Dtomcat.port.shutdown=' + port(0) +
 						' -Dtomcat.port.http=' + port(1) +
+						' -Druntime.test.ClusterNetworkTest.multicast=' + multicastAddress() +
 						' -Druntime.test.ClusterNetworkTest.port.send=' + port(2) +
 						' -Druntime.test.ClusterNetworkTest.port.listen=' + port(3) +
 						' -Dfindbugs.output=xml'
@@ -117,4 +118,17 @@ def port(int offset)
 	int executorNumber = "${env.EXECUTOR_NUMBER}".toInteger()
 	int base = 28000 + 10*executorNumber
 	return base + offset
+}
+
+def multicastAddress()
+{
+	String byHost
+	if('hudson'.equals(env.HOSTNAME))
+		byHost = '230.0.0.'
+	else if('hudson1'.equals(env.HOSTNAME))
+		byHost = '230.0.1.'
+	else
+		byHost = 'xxxx'
+
+	return byHost + (1 + env.EXECUTOR_NUMBER.toInteger())
 }

@@ -32,6 +32,8 @@ public abstract class ClusterNetworkTest
 	static final ConnectProperties getPropertiesMulticast()
 	{
 		final Properties p = new Properties();
+		p.setProperty("cluster.sendAddress"  , MULTICAST_ADDRESS);
+		p.setProperty("cluster.listenAddress", MULTICAST_ADDRESS);
 		return getProperties(p, "Connect Properties Source (multicast)");
 	}
 
@@ -46,14 +48,16 @@ public abstract class ClusterNetworkTest
 		return getProperties(p, "Connect Properties Source (singlecast " + (forward ? "forward" : "backward") + ")");
 	}
 
+	private static final String MULTICAST_ADDRESS;
 	private static final String PORT_SEND;
 	private static final String PORT_LISTEN;
 	static
 	{
+		MULTICAST_ADDRESS = System.getProperty(ClusterNetworkTest.class.getName() + ".multicast", "230.0.0.1");
 		final String prefix = ClusterNetworkTest.class.getName() + ".port";
 		PORT_SEND   = System.getProperty(prefix + ".send",   "14446");
 		PORT_LISTEN = System.getProperty(prefix + ".listen", "14447");
-		System.out.println(prefix + " " + PORT_SEND + '>' + PORT_LISTEN);
+		System.out.println(ClusterNetworkTest.class.getName() + ' ' + MULTICAST_ADDRESS + ' ' + PORT_SEND + '>' + PORT_LISTEN);
 	}
 
 	private static ConnectProperties getProperties(final Properties properties, final String description)
