@@ -23,4 +23,5 @@ package com.exedio.cope.instrument.testmodel.x;
  */
 class SubTarget
 {
+	// empty
 }
