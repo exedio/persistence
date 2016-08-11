@@ -81,7 +81,7 @@ public class DispatcherWithoutPurgeTest extends TestWithEnvironment
 	@Test public void testIt()
 	{
 		assertNoUpdateCounterColumn(toTarget.getRunType());
-		assertEquals("success", getColumnName(toTarget.getRunSuccess()));
+		assertEquals("success", getColumnName(toTarget.getRunResult()));
 
 		assertPending(item1, 0, list());
 		assertPending(item2, 0, list());
