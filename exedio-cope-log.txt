@@ -7,6 +7,9 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* Instrumentor determines whether an element (method or field) has been generated
+  by annotation @Generated rather than javadoc tag @cope.generated.
+  (makes no difference unless you still use <instrument annotateGenerated="false"/>)
 * Instrumentor is now based on Javac. This allows full use of generics and
 	annotation syntax in code that gets parsed.
 	This disables some bugs of the old, custom implementation - noteably, Java
