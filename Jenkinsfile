@@ -115,9 +115,7 @@ def abortable(Closure body)
 
 def port(int offset)
 {
-	int executorNumber = "${env.EXECUTOR_NUMBER}".toInteger()
-	int base = 28000 + 10*executorNumber
-	return base + offset
+	return 28000 + 10*env.EXECUTOR_NUMBER.toInteger() + offset
 }
 
 def multicastAddress()
