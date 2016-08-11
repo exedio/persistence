@@ -54,6 +54,7 @@ class CopeNameSpace extends NameSpace
 		debug(message);
 	}
 
+	@SuppressWarnings("static-method")
 	private void debug(final String message)
 	{
 		for (int i=0; i<depth; i++) System.out.print("  ");
