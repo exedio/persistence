@@ -240,8 +240,8 @@ final class JavaClass extends JavaFeature
 		}
 
 		@Override
-	   Object getVariableInternal(final String name) throws UtilEvalError
-	   {
+		Object getVariableInternal(final String name) throws UtilEvalError
+		{
 			//System.out.println("++++++++++++++++1--------getVariable(\""+name+"\")");
 			final Object superResult = super.getVariableInternal(name);
 			if(superResult!=Primitive.VOID)
@@ -259,7 +259,7 @@ final class JavaClass extends JavaFeature
 			}
 
 			return Primitive.VOID;
-	   }
+		}
 
 	}
 
