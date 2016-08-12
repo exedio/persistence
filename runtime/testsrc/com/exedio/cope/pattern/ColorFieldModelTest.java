@@ -132,6 +132,28 @@ public class ColorFieldModelTest
 		assertEquals(Integer.MIN_VALUE, mandatoryAlphaRGB.getMinimum());
 		assertEquals(Integer.MAX_VALUE, mandatoryAlphaRGB.getMaximum());
 
+		assertEquals(true, mandatory.isMandatory());
+		assertEquals(true, mandatoryRGB.isMandatory());
+		assertEquals(false, optional.isMandatory());
+		assertEquals(false, optionalRGB.isMandatory());
+		assertEquals(true, defaultTo.isMandatory());
+		assertEquals(true, defaultToRGB.isMandatory());
+		assertEquals(false, alpha.isMandatory());
+		assertEquals(false, alphaRGB.isMandatory());
+		assertEquals(true, mandatoryAlpha.isMandatory());
+		assertEquals(true, mandatoryAlphaRGB.isMandatory());
+
+		assertEquals(false, mandatory.isFinal());
+		assertEquals(false, mandatoryRGB.isFinal());
+		assertEquals(false, optional.isFinal());
+		assertEquals(false, optionalRGB.isFinal());
+		assertEquals(false, defaultTo.isFinal());
+		assertEquals(false, defaultToRGB.isFinal());
+		assertEquals(false, alpha.isFinal());
+		assertEquals(false, alphaRGB.isFinal());
+		assertEquals(false, mandatoryAlpha.isFinal());
+		assertEquals(false, mandatoryAlphaRGB.isFinal());
+
 		assertEquals(null, mandatory.getDefaultConstant());
 		assertEquals(null, optional .getDefaultConstant());
 		assertEquals(new Color( 22,  33,  44     ), defaultTo     .getDefaultConstant());
