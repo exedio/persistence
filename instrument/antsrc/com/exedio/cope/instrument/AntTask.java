@@ -219,6 +219,8 @@ public final class AntTask extends Task
 			{
 				throw new BuildException("resources require timestampFile");
 			}
+			final File buildFile = getProject().resolveFile(getLocation().getFileName());
+			resourceFiles.add(buildFile);
 			pathsToFiles(resources, resourceFiles, true);
 			pathsToFiles(classpath, classpathFiles, false);
 
