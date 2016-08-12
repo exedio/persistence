@@ -187,7 +187,7 @@ final class Generator
 
 		writeIndent();
 		writeAnnotation(Generated.class);
-		write("(\"com.exedio.cope.instrument\")");
+		write("(\"" + Main.GENERATED_VALUE + "\")");
 		write(lineSeparator);
 	}
 

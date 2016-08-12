@@ -137,7 +137,7 @@ class ClassVisitor extends TreePathScanner<Void,Void>
 		final Generated generated=element.getAnnotation(Generated.class);
 		return generated!=null
 			&& generated.value().length==1
-			&& generated.value()[0].equals("com.exedio.cope.instrument");
+			&& generated.value()[0].equals(Main.GENERATED_VALUE);
 	}
 
 	private static String removeSpacesAfterCommas(final String s)

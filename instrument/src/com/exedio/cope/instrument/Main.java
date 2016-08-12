@@ -42,6 +42,8 @@ import javax.tools.StandardJavaFileManager;
 
 final class Main
 {
+	static final String GENERATED_VALUE = "com.exedio.cope.instrument";
+
 	static final int INITIAL_BUFFER_SIZE=16384;
 
 	final void run(final Params params, final ArrayList<File> classpathFiles, final ArrayList<File> resourceFiles) throws HumanReadableException, IOException
