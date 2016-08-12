@@ -22,6 +22,7 @@ import com.exedio.cope.Condition;
 import com.exedio.cope.Cope;
 import com.exedio.cope.CopyMapper;
 import com.exedio.cope.Copyable;
+import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.IntegerRangeViolationException;
 import com.exedio.cope.IsNullCondition;
@@ -45,6 +46,7 @@ public final class ColorField extends Pattern implements Settable<Color>, Copyab
 
 	private final IntegerField rgb;
 	private final boolean mandatory;
+	private final boolean isfinal;
 	private final boolean alphaAllowed;
 
 	public ColorField()
@@ -56,6 +58,7 @@ public final class ColorField extends Pattern implements Settable<Color>, Copyab
 	{
 		addSource(this.rgb = rgb, "rgb");
 		this.mandatory = rgb.isMandatory();
+		this.isfinal = rgb.isFinal();
 		this.alphaAllowed = (rgb.getMinimum()==Integer.MIN_VALUE);
 		assert (alphaAllowed?Integer.MIN_VALUE:0       )==rgb.getMinimum();
 		assert (alphaAllowed?Integer.MAX_VALUE:0xffffff)==rgb.getMaximum();
@@ -77,6 +80,11 @@ public final class ColorField extends Pattern implements Settable<Color>, Copyab
 		return new ColorField(rgb.defaultTo(rgb(defaultConstant, null)));
 	}
 
+	public ColorField toFinal()
+	{
+		return new ColorField(rgb.toFinal());
+	}
+
 	/**
 	 * @see #isAlphaAllowed()
 	 */
@@ -94,7 +102,7 @@ public final class ColorField extends Pattern implements Settable<Color>, Copyab
 	@Override
 	public boolean isFinal()
 	{
-		return rgb.isFinal();
+		return isfinal;
 	}
 
 	@Override
@@ -198,6 +206,8 @@ public final class ColorField extends Pattern implements Settable<Color>, Copyab
 
 	private Integer rgb(final Color value, final Item exceptionItem)
 	{
+		if (exceptionItem != null && isFinal())
+			throw FinalViolationException.create(this, exceptionItem);
 		if(value==null)
 		{
 			if(mandatory)
