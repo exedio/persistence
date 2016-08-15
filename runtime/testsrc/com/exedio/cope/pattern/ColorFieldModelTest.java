@@ -155,6 +155,8 @@ public class ColorFieldModelTest
 		assertEquals(false, alphaRGB.isMandatory());
 		assertEquals(true, mandatoryAlpha.isMandatory());
 		assertEquals(true, mandatoryAlphaRGB.isMandatory());
+		assertEquals(false, finalColor.isMandatory());
+		assertEquals(false, finalColorRGB.isMandatory());
 
 		assertEquals(false, mandatory.isFinal());
 		assertEquals(false, mandatoryRGB.isFinal());
@@ -166,6 +168,8 @@ public class ColorFieldModelTest
 		assertEquals(false, alphaRGB.isFinal());
 		assertEquals(false, mandatoryAlpha.isFinal());
 		assertEquals(false, mandatoryAlphaRGB.isFinal());
+		assertEquals(true, finalColor.isFinal());
+		assertEquals(true, finalColorRGB.isFinal());
 
 		assertEquals(null, mandatory.getDefaultConstant());
 		assertEquals(null, optional .getDefaultConstant());
