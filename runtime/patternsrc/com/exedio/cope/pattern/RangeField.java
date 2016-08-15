@@ -22,6 +22,7 @@ import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.CheckConstraint;
 import com.exedio.cope.Condition;
+import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.Item;
 import com.exedio.cope.Pattern;
@@ -43,12 +44,14 @@ public final class RangeField<E extends Comparable<E>> extends Pattern implement
 	private final FunctionField<E> from;
 	private final FunctionField<E> to;
 	private final CheckConstraint unison;
+	private final boolean isfinal;
 
 	private RangeField(final FunctionField<E> borderTemplate)
 	{
 		addSource(from = borderTemplate.copy(), "from");
 		addSource(to   = borderTemplate.copy(), "to");
 		addSource(unison = new CheckConstraint(from.lessOrEqual(to)), "unison");
+		this.isfinal = from.isFinal();
 	}
 
 	public static final <E extends Comparable<E>> RangeField<E> create(final FunctionField<E> borderTemplate)
@@ -86,6 +89,9 @@ public final class RangeField<E extends Comparable<E>> extends Pattern implement
 			hide=FinalSettableGetter.class)
 	public void set(@Nonnull final Item item, @Nonnull final Range<? extends E> value)
 	{
+		if(isfinal)
+			throw FinalViolationException.create(this, item);
+
 		item.set(
 				this.from.map(value.getFrom()),
 				this.to  .map(value.getTo  ()));
@@ -108,6 +114,9 @@ public final class RangeField<E extends Comparable<E>> extends Pattern implement
 			hide=FinalSettableGetter.class)
 	public void setFrom(@Nonnull final Item item, @Parameter(nullability=NullableIfOptional.class) final E from)
 	{
+		if(isfinal)
+			throw FinalViolationException.create(this, item);
+
 		this.from.set(item, from);
 	}
 
@@ -116,6 +125,9 @@ public final class RangeField<E extends Comparable<E>> extends Pattern implement
 			hide=FinalSettableGetter.class)
 	public void setTo(@Nonnull final Item item, @Parameter(nullability=NullableIfOptional.class) final E to)
 	{
+		if(isfinal)
+			throw FinalViolationException.create(this, item);
+
 		this.to.set(item, to);
 	}
 
@@ -153,7 +165,7 @@ public final class RangeField<E extends Comparable<E>> extends Pattern implement
 	@Override
 	public boolean isFinal()
 	{
-		return from.isFinal();
+		return isfinal;
 	}
 
 	@Override

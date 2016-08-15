@@ -22,6 +22,7 @@ import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.DataField;
 import com.exedio.cope.DateField;
+import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.Item;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.SetValue;
@@ -155,6 +156,9 @@ public final class Serializer<E> extends Pattern implements Settable<E>
 			hide=FinalSettableGetter.class)
 	public void set(@Nonnull final Item item, @Parameter(nullability=NullableIfOptional.class) final E value)
 	{
+		if(source.isFinal())
+			throw FinalViolationException.create(this, item);
+
 		source.set(item, serialize(value));
 	}
 

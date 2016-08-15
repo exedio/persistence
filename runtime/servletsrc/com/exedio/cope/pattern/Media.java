@@ -409,6 +409,8 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 			@Parameter(nullability=NullableIfOptional.class) final Media.Value value)
 		throws IOException
 	{
+		if(isfinal)
+			throw FinalViolationException.create(this, item);
 		if(value==null && !optional)
 			throw MandatoryViolationException.create(this, item);
 
@@ -439,6 +441,8 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 			@Parameter(value="body", nullability=NullableIfOptional.class) final byte[] body,
 			@Parameter(value="contentType", nullability=NullableIfOptional.class) final String contentType)
 	{
+		if(isfinal)
+			throw FinalViolationException.create(this, item);
 		if((body==null||contentType==null) && !optional)
 			throw MandatoryViolationException.create(this, item);
 
@@ -491,6 +495,8 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 			@Parameter(value="contentType", nullability=NullableIfOptional.class) final String contentType)
 		throws IOException
 	{
+		if(isfinal)
+			throw FinalViolationException.create(this, item);
 		if((body==null||contentType==null) && !optional)
 			throw MandatoryViolationException.create(this, item);
 
@@ -543,6 +549,8 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 			@Parameter(value="contentType", nullability=NullableIfOptional.class) final String contentType)
 		throws IOException
 	{
+		if(isfinal)
+			throw FinalViolationException.create(this, item);
 		if((body==null||contentType==null) && !optional)
 			throw MandatoryViolationException.create(this, item);
 

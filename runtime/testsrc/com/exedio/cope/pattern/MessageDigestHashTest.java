@@ -224,7 +224,7 @@ public class MessageDigestHashTest extends TestWithEnvironment
 		catch(final FinalViolationException e)
 		{
 			assertEquals(item, e.getItem());
-			assertEquals(passwordFinal.getStorage(), e.getFeature()); // TODO should be passwordFinal
+			assertEquals(passwordFinal, e.getFeature());
 		}
 		assertEquals("885406ef34cef302ae05cffbfc7d490a7a38e92c241014c2cb8667fa30f039590c649c0d80b5ab21a0d5bae8ab016dcb43d9b233962917c61827f1e924c98ffed30e4675ab08230c", item.getPasswordFinalSHA512s8i5());
 		assertTrue(item.checkPasswordFinal("finalo"));

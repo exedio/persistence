@@ -21,6 +21,7 @@ package com.exedio.cope.pattern;
 import static com.exedio.cope.CoalesceView.coalesce;
 import static java.util.Objects.requireNonNull;
 
+import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.Function;
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.Item;
@@ -47,6 +48,7 @@ public final class EnumMapField<K extends Enum<K>,V> extends Pattern implements 
 {
 	private static final long serialVersionUID = 1l;
 
+	private final boolean isfinal;
 	private final Class<K> keyClass;
 	private final K fallback;
 	private final FunctionField<V> valueTemplate;
@@ -59,6 +61,7 @@ public final class EnumMapField<K extends Enum<K>,V> extends Pattern implements 
 			final FunctionField<V> valueTemplate,
 			final EnumMap<K, V> defaultConstant)
 	{
+		this.isfinal = valueTemplate.isFinal();
 		this.keyClass = keyClass;
 		this.fallback = fallback;
 		this.valueTemplate = valueTemplate;
@@ -149,6 +152,9 @@ public final class EnumMapField<K extends Enum<K>,V> extends Pattern implements 
 			@Nonnull @Parameter(KEY) final K key,
 			@Parameter(nullability=MapValueNullable.class) final V value)
 	{
+		if(isfinal)
+			throw FinalViolationException.create(this, item);
+
 		field(key).set(item, value);
 	}
 
@@ -171,6 +177,8 @@ public final class EnumMapField<K extends Enum<K>,V> extends Pattern implements 
 	@Wrap(order=120)
 	public void setMap(@Nonnull final Item item, @Nonnull final Map<? extends K,? extends V> map)
 	{
+		if(isfinal)
+			throw FinalViolationException.create(this, item);
 		if( map==null || map.containsKey(null) )
 			throw MandatoryViolationException.create(this, item);
 
@@ -213,7 +221,7 @@ public final class EnumMapField<K extends Enum<K>,V> extends Pattern implements 
 	@Override
 	public boolean isFinal()
 	{
-		return valueTemplate.isFinal();
+		return isfinal;
 	}
 
 	@Override

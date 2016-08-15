@@ -23,6 +23,7 @@ import static com.exedio.cope.pattern.EnumMapField.stripUnderline;
 
 import com.exedio.cope.BooleanField;
 import com.exedio.cope.Condition;
+import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.Item;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Pattern;
@@ -100,12 +101,18 @@ public final class EnumSetField<E extends Enum<E>> extends Pattern implements Se
 	@Wrap(order=20, hide=FinalSettableGetter.class)
 	public void add(@Nonnull final Item item, @Nonnull @Parameter("element") final E element)
 	{
+		if(isFinal)
+			throw FinalViolationException.create(this, item);
+
 		field(element).set(item, true);
 	}
 
 	@Wrap(order=30, hide=FinalSettableGetter.class)
 	public void remove(@Nonnull final Item item, @Nonnull @Parameter("element") final E element)
 	{
+		if(isFinal)
+			throw FinalViolationException.create(this, item);
+
 		field(element).set(item, false);
 	}
 
@@ -129,6 +136,8 @@ public final class EnumSetField<E extends Enum<E>> extends Pattern implements Se
 	@Wrap(order=50, hide=FinalSettableGetter.class)
 	public void set(@Nonnull final Item item, @Nonnull final EnumSet<E> value)
 	{
+		if(isFinal)
+			throw FinalViolationException.create(this, item);
 		if(value==null)
 			throw MandatoryViolationException.create(this, item);
 

@@ -24,6 +24,7 @@ import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.Condition;
 import com.exedio.cope.ConstraintViolationException;
+import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.Item;
 import com.exedio.cope.Join;
 import com.exedio.cope.Pattern;
@@ -54,6 +55,7 @@ public class Hash extends Pattern implements HashInterface
 	private static final long serialVersionUID = 1l;
 
 	private final StringField storage;
+	private final boolean isfinal;
 	private final int plainTextLimit;
 	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final HashAlgorithm algorithm;
@@ -108,6 +110,7 @@ public class Hash extends Pattern implements HashInterface
 			throw new IllegalArgumentException("algorithmID must not be empty");
 
 		addSource(this.storage = storage, algorithmID, ComputedElement.get());
+		this.isfinal = storage.isFinal();
 		this.plainTextLimit = plainTextLimit;
 
 		this.validator = validator;
@@ -155,7 +158,7 @@ public class Hash extends Pattern implements HashInterface
 	@Override
 	public final boolean isFinal()
 	{
-		return storage.isFinal();
+		return isfinal;
 	}
 
 	@Override
@@ -270,6 +273,9 @@ public class Hash extends Pattern implements HashInterface
 			thrownGetter=InitialExceptionsSettableGetter.class)
 	public final void set(@Nonnull final Item item, @Parameter(nullability=NullableIfOptional.class) final String plainText)
 	{
+		if(isfinal)
+			throw FinalViolationException.create(this, item);
+
 		storage.set(item, hash(plainText, item));
 	}
 
@@ -347,6 +353,9 @@ public class Hash extends Pattern implements HashInterface
 			thrownGetter=InitialExceptionsSettableGetter.class)
 	public final void setHash(@Nonnull final Item item, @Parameter(nullability=NullableIfOptional.class) final String hash)
 	{
+		if(isfinal)
+			throw FinalViolationException.create(this, item);
+
 		storage.set(item, hash);
 	}
 

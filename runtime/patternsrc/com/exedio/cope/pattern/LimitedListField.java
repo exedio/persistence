@@ -21,6 +21,7 @@ package com.exedio.cope.pattern;
 import com.exedio.cope.CheckConstraint;
 import com.exedio.cope.Condition;
 import com.exedio.cope.Cope;
+import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.Function;
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.IntegerField;
@@ -217,6 +218,9 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 	@Override
 	public void set(@Nonnull final Item item, @Nonnull final Collection<? extends E> value)
 	{
+		if(isFinal)
+			throw FinalViolationException.create(this, item);
+
 		assertValue(value, item);
 		int i = 0;
 		final SetValue<?>[] setValues = new SetValue<?>[sources.length+1];

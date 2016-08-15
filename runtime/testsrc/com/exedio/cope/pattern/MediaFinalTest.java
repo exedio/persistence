@@ -132,7 +132,7 @@ public class MediaFinalTest extends TestWithEnvironment
 		}
 		catch(final FinalViolationException e)
 		{
-			assertEquals(file.getContentType(), e.getFeature()); // TODO should be media itself, not the body
+			assertEquals(file, e.getFeature());
 			assertEquals(item, e.getItem());
 		}
 		assertContent(item, data20, before, after, "major/minor", "");
@@ -144,7 +144,7 @@ public class MediaFinalTest extends TestWithEnvironment
 		}
 		catch(final FinalViolationException e)
 		{
-			assertEquals(file.getContentType(), e.getFeature()); // TODO should be media itself, not the body
+			assertEquals(file, e.getFeature());
 			assertEquals(item, e.getItem());
 		}
 		assertContent(item, data20, before, after, "major/minor", "");
@@ -156,7 +156,7 @@ public class MediaFinalTest extends TestWithEnvironment
 		}
 		catch(final FinalViolationException e)
 		{
-			assertEquals(file.getContentType(), e.getFeature()); // TODO should be media itself, not the body
+			assertEquals(file, e.getFeature());
 			assertEquals(item, e.getItem());
 		}
 		assertContent(item, data20, before, after, "major/minor", "");

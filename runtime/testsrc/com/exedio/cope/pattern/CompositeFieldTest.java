@@ -377,7 +377,7 @@ public class CompositeFieldTest extends TestWithEnvironment
 		}
 		catch(final FinalViolationException e)
 		{
-			assertEquals("final violation on " + fItem + " for CompositeFinalItem.first-aString", e.getMessage()); // TODO feature should be CompositeFinalItem.first
+			assertEquals("final violation on " + fItem + " for CompositeFinalItem.first", e.getMessage());
 		}
 		try
 		{
@@ -386,7 +386,7 @@ public class CompositeFieldTest extends TestWithEnvironment
 		}
 		catch(final FinalViolationException e)
 		{
-			assertEquals("final violation on " + fItem + " for CompositeFinalItem.first-aString", e.getMessage()); // TODO feature should be CompositeFinalItem.first
+			assertEquals("final violation on " + fItem + " for CompositeFinalItem.first", e.getMessage());
 		}
 
 		// test value independence
