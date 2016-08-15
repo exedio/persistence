@@ -18,9 +18,9 @@
 
 package com.exedio.cope.pattern;
 
-import static com.exedio.cope.pattern.FinalSettablePriceTest.AnItem.TYPE;
-import static com.exedio.cope.pattern.FinalSettablePriceTest.AnItem.isfinal;
 import static com.exedio.cope.pattern.Price.valueOf;
+import static com.exedio.cope.pattern.SettableFinalPriceTest.AnItem.TYPE;
+import static com.exedio.cope.pattern.SettableFinalPriceTest.AnItem.isfinal;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
@@ -30,11 +30,11 @@ import com.exedio.cope.SetValue;
 import com.exedio.cope.TestWithEnvironment;
 import org.junit.Test;
 
-public class FinalSettablePriceTest extends TestWithEnvironment
+public class SettableFinalPriceTest extends TestWithEnvironment
 {
 	private static final Model MODEL = new Model(TYPE);
 
-	public FinalSettablePriceTest()
+	public SettableFinalPriceTest()
 	{
 		super(MODEL);
 	}

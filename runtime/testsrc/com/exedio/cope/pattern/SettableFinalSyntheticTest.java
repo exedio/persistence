@@ -18,8 +18,8 @@
 
 package com.exedio.cope.pattern;
 
-import static com.exedio.cope.pattern.FinalSettableSyntheticTest.AnItem.TYPE;
-import static com.exedio.cope.pattern.FinalSettableSyntheticTest.AnItem.isfinal;
+import static com.exedio.cope.pattern.SettableFinalSyntheticTest.AnItem.TYPE;
+import static com.exedio.cope.pattern.SettableFinalSyntheticTest.AnItem.isfinal;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
@@ -34,11 +34,11 @@ import com.exedio.cope.TestWithEnvironment;
 import java.util.Set;
 import org.junit.Test;
 
-public class FinalSettableSyntheticTest extends TestWithEnvironment
+public class SettableFinalSyntheticTest extends TestWithEnvironment
 {
 	private static final Model MODEL = new Model(TYPE);
 
-	public FinalSettableSyntheticTest()
+	public SettableFinalSyntheticTest()
 	{
 		super(MODEL);
 	}
