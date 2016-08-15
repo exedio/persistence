@@ -19,7 +19,7 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.pattern.FinalSettableSyntheticTest.AnItem.TYPE;
-import static com.exedio.cope.pattern.FinalSettableSyntheticTest.AnItem.field;
+import static com.exedio.cope.pattern.FinalSettableSyntheticTest.AnItem.isfinal;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
@@ -46,8 +46,8 @@ public class FinalSettableSyntheticTest extends TestWithEnvironment
 	@Test public void test()
 	{
 		@SuppressWarnings("synthetic-access")
-		final AnItem item = new AnItem(field.map(3));
-		final SetValue<?> setValue = field.map(5);
+		final AnItem item = new AnItem(isfinal.map(3));
+		final SetValue<?> setValue = isfinal.map(5);
 
 		try
 		{
@@ -56,11 +56,11 @@ public class FinalSettableSyntheticTest extends TestWithEnvironment
 		}
 		catch(final FinalViolationException e)
 		{
-			assertEquals(field, e.getFeature());
+			assertEquals(isfinal, e.getFeature());
 			assertEquals(item, e.getItem());
-			assertEquals("final violation on " + item + " for AnItem.field", e.getMessage());
+			assertEquals("final violation on " + item + " for AnItem.isfinal", e.getMessage());
 		}
-		assertEquals(3, field.source.getMandatory(item));
+		assertEquals(3, isfinal.source.getMandatory(item));
 	}
 
 
@@ -125,7 +125,7 @@ public class FinalSettableSyntheticTest extends TestWithEnvironment
 
 	static final class AnItem extends com.exedio.cope.Item // TODO use import, but this is not accepted by javac
 	{
-		static final AField field = new AField().toFinal();
+		static final AField isfinal = new AField().toFinal();
 
 	/**
 
