@@ -195,6 +195,9 @@ public final class ColorField extends Pattern implements Settable<Color>, Copyab
 			thrownGetter=InitialExceptionsSettableGetter.class)
 	public void set(@Nonnull final Item item, @Parameter(nullability=NullableIfOptional.class) final Color value)
 	{
+		if(isfinal)
+			throw FinalViolationException.create(this, item);
+
 		rgb.set(item, rgb(value, item));
 	}
 
@@ -206,8 +209,6 @@ public final class ColorField extends Pattern implements Settable<Color>, Copyab
 
 	private Integer rgb(final Color value, final Item exceptionItem)
 	{
-		if (exceptionItem != null && isFinal())
-			throw FinalViolationException.create(this, exceptionItem);
 		if(value==null)
 		{
 			if(mandatory)
