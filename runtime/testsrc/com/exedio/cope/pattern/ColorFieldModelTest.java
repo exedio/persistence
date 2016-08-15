@@ -22,6 +22,7 @@ import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
 import static com.exedio.cope.pattern.ColorFieldItem.TYPE;
 import static com.exedio.cope.pattern.ColorFieldItem.alpha;
 import static com.exedio.cope.pattern.ColorFieldItem.defaultTo;
+import static com.exedio.cope.pattern.ColorFieldItem.finalColor;
 import static com.exedio.cope.pattern.ColorFieldItem.mandatory;
 import static com.exedio.cope.pattern.ColorFieldItem.mandatoryAlpha;
 import static com.exedio.cope.pattern.ColorFieldItem.optional;
@@ -52,6 +53,7 @@ public class ColorFieldModelTest
 	private static final IntegerField defaultToRGB      = defaultTo     .getRGB();
 	private static final IntegerField alphaRGB          = alpha         .getRGB();
 	private static final IntegerField mandatoryAlphaRGB = mandatoryAlpha.getRGB();
+	private static final IntegerField finalColorRGB     = finalColor    .getRGB();
 
 	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
 	@Test public void testIt()
@@ -71,6 +73,8 @@ public class ColorFieldModelTest
 				alphaRGB,
 				mandatoryAlpha,
 				mandatoryAlphaRGB,
+				finalColor,
+				finalColorRGB,
 		}), TYPE.getFeatures());
 		assertEquals(Arrays.asList(new Feature[]{
 				TYPE.getThis(),
@@ -84,6 +88,8 @@ public class ColorFieldModelTest
 				alphaRGB,
 				mandatoryAlpha,
 				mandatoryAlphaRGB,
+				finalColor,
+				finalColorRGB,
 		}), TYPE.getDeclaredFeatures());
 
 		assertEquals(TYPE, mandatory.getType());
@@ -98,6 +104,8 @@ public class ColorFieldModelTest
 		assertEquals("alpha-rgb", alphaRGB.getName());
 		assertEquals("mandatoryAlpha", mandatoryAlpha.getName());
 		assertEquals("mandatoryAlpha-rgb", mandatoryAlphaRGB.getName());
+		assertEquals("finalColor", finalColor.getName());
+		assertEquals("finalColor-rgb", finalColorRGB.getName());
 
 		assertEquals(list(mandatoryRGB), mandatory.getSourceFeatures());
 		assertEquals(mandatory, mandatoryRGB.getPattern());
@@ -109,6 +117,7 @@ public class ColorFieldModelTest
 		assertEquals(alpha, alphaRGB.getPattern());
 		assertEquals(list(mandatoryAlphaRGB), mandatoryAlpha.getSourceFeatures());
 		assertEquals(mandatoryAlpha, mandatoryAlphaRGB.getPattern());
+		assertEquals(finalColor, finalColorRGB.getPattern());
 
 		assertSerializedSame(mandatory, 392);
 		assertSerializedSame(mandatoryRGB, 396);
@@ -120,6 +129,8 @@ public class ColorFieldModelTest
 		assertSerializedSame(alphaRGB, 392);
 		assertSerializedSame(mandatoryAlpha, 397);
 		assertSerializedSame(mandatoryAlphaRGB, 401);
+		assertSerializedSame(finalColor, 393);
+		assertSerializedSame(finalColorRGB, 397);
 
 		assertEquals(0, mandatoryRGB.getMinimum());
 		assertEquals(0xffffff, mandatoryRGB.getMaximum());
@@ -131,6 +142,8 @@ public class ColorFieldModelTest
 		assertEquals(Integer.MAX_VALUE, alphaRGB.getMaximum());
 		assertEquals(Integer.MIN_VALUE, mandatoryAlphaRGB.getMinimum());
 		assertEquals(Integer.MAX_VALUE, mandatoryAlphaRGB.getMaximum());
+		assertEquals(0, finalColorRGB.getMinimum());
+		assertEquals(0xffffff, finalColorRGB.getMaximum());
 
 		assertEquals(true, mandatory.isMandatory());
 		assertEquals(true, mandatoryRGB.isMandatory());
@@ -142,6 +155,8 @@ public class ColorFieldModelTest
 		assertEquals(false, alphaRGB.isMandatory());
 		assertEquals(true, mandatoryAlpha.isMandatory());
 		assertEquals(true, mandatoryAlphaRGB.isMandatory());
+		assertEquals(false, finalColor.isMandatory());
+		assertEquals(false, finalColorRGB.isMandatory());
 
 		assertEquals(false, mandatory.isFinal());
 		assertEquals(false, mandatoryRGB.isFinal());
@@ -153,9 +168,12 @@ public class ColorFieldModelTest
 		assertEquals(false, alphaRGB.isFinal());
 		assertEquals(false, mandatoryAlpha.isFinal());
 		assertEquals(false, mandatoryAlphaRGB.isFinal());
+		assertEquals(true, finalColor.isFinal());
+		assertEquals(true, finalColorRGB.isFinal());
 
 		assertEquals(null, mandatory.getDefaultConstant());
 		assertEquals(null, optional .getDefaultConstant());
+		assertEquals(null, finalColor.getDefaultConstant());
 		assertEquals(new Color( 22,  33,  44     ), defaultTo     .getDefaultConstant());
 		assertEquals(new Color( 77,  88,  99, 254), alpha         .getDefaultConstant());
 		assertEquals(new Color(122, 133, 199, 253), mandatoryAlpha.getDefaultConstant());

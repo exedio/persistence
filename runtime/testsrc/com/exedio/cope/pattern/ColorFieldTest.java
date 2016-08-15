@@ -27,6 +27,7 @@ import static com.exedio.cope.tojunit.Assert.assertContains;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
+import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.TestWithEnvironment;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -45,7 +46,7 @@ public class ColorFieldTest extends TestWithEnvironment
 
 	@Before public final void setUp()
 	{
-		i = new ColorFieldItem(new Color(1, 2, 3));
+		i = new ColorFieldItem(new Color(1, 2, 3), new Color (3, 4, 5));
 	}
 
 	@Test public void testMandatory()
@@ -234,6 +235,23 @@ public class ColorFieldTest extends TestWithEnvironment
 			assertEquals(alpha, e.getValue());
 		}
 		assertContains(i, TYPE.search());
+	}
+
+	@Test public void testFinalViolation()
+	{
+		final Color c = new Color(11, 12, 13);
+		try
+		{
+			ColorFieldItem.finalColor.set(i, c);
+			fail();
+		}
+		catch(final FinalViolationException e)
+		{
+			assertEquals("final violation on " + i + " for ColorFieldItem.finalColor", e.getMessage());
+			assertEquals(i, e.getItem());
+			assertEquals(ColorFieldItem.finalColor, e.getFeature());
+		}
+		assertEquals(new Color(3, 4, 5), i.getFinalColor());
 	}
 
 	@Test public void testOptional()
