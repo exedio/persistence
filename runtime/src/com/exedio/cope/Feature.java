@@ -32,7 +32,6 @@ import java.io.ObjectStreamException;
 import java.io.Serializable;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedElement;
-import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public abstract class Feature implements Serializable
@@ -273,19 +272,6 @@ public abstract class Feature implements Serializable
 			annotation!=null
 			? annotation.value()
 			: getName();
-	}
-
-	/**
-	 * @deprecated Not supported anymore, throws {@link NoSuchMethodError}.
-	 * Not used anymore by the framework,
-	 * equivalent of
-	 * {@link com.exedio.cope.instrument.Wrapper#getByAnnotations(Class, Feature, List)}
-	 * is fixed now.
-	 */
-	@Deprecated
-	public List<com.exedio.cope.instrument.Wrapper> getWrappers()
-	{
-		throw new NoSuchMethodError("wrapper mechanism not supported anymore");
 	}
 
 	/**

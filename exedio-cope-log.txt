@@ -7,6 +7,8 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* Class com.exedio.cope.instrument.Wrapper removed.
+	This breaks backwards API compatibility, causes compiler errors.
 * Instrumentor determines whether an element (method or field) has been generated
   by annotation @Generated rather than javadoc tag @cope.generated.
   (makes no difference unless you still use <instrument annotateGenerated="false"/>)
