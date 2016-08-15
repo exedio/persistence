@@ -45,8 +45,8 @@ public final class ColorField extends Pattern implements Settable<Color>, Copyab
 	private static final long serialVersionUID = 1l;
 
 	private final IntegerField rgb;
-	private final boolean mandatory;
 	private final boolean isfinal;
+	private final boolean mandatory;
 	private final boolean alphaAllowed;
 
 	public ColorField()
@@ -57,8 +57,8 @@ public final class ColorField extends Pattern implements Settable<Color>, Copyab
 	private ColorField(final IntegerField rgb)
 	{
 		addSource(this.rgb = rgb, "rgb");
-		this.mandatory = rgb.isMandatory();
 		this.isfinal = rgb.isFinal();
+		this.mandatory = rgb.isMandatory();
 		this.alphaAllowed = (rgb.getMinimum()==Integer.MIN_VALUE);
 		assert (alphaAllowed?Integer.MIN_VALUE:0       )==rgb.getMinimum();
 		assert (alphaAllowed?Integer.MAX_VALUE:0xffffff)==rgb.getMaximum();
@@ -70,6 +70,11 @@ public final class ColorField extends Pattern implements Settable<Color>, Copyab
 		return new ColorField(mapper.copy(rgb));
 	}
 
+	public ColorField toFinal()
+	{
+		return new ColorField(rgb.toFinal());
+	}
+
 	public ColorField optional()
 	{
 		return new ColorField(rgb.optional());
@@ -78,11 +83,6 @@ public final class ColorField extends Pattern implements Settable<Color>, Copyab
 	public ColorField defaultTo(final Color defaultConstant)
 	{
 		return new ColorField(rgb.defaultTo(rgb(defaultConstant, null)));
-	}
-
-	public ColorField toFinal()
-	{
-		return new ColorField(rgb.toFinal());
 	}
 
 	/**
