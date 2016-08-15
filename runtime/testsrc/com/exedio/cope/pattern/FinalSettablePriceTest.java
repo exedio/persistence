@@ -51,9 +51,9 @@ public class FinalSettablePriceTest extends TestWithEnvironment
 		}
 		catch(final FinalViolationException e)
 		{
-			assertEquals(field.getInt(), e.getFeature()); // TODO should be field itself
+			assertEquals(field, e.getFeature());
 			assertEquals(item, e.getItem());
-			assertEquals("final violation on " + item + " for AnItem.field-int", e.getMessage());
+			assertEquals("final violation on " + item + " for AnItem.field", e.getMessage());
 		}
 		assertEquals(valueOf(3.3), item.getField());
 	}

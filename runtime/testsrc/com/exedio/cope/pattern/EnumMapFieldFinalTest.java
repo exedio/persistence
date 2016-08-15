@@ -91,7 +91,7 @@ public class EnumMapFieldFinalTest extends TestWithEnvironment
 		catch(final FinalViolationException e)
 		{
 			assertEquals(item, e.getItem());
-			assertEquals(text.getField(DE), e.getFeature());
+			assertEquals(text, e.getFeature());
 		}
 	}
 

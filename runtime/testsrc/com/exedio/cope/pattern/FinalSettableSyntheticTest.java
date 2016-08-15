@@ -56,9 +56,9 @@ public class FinalSettableSyntheticTest extends TestWithEnvironment
 		}
 		catch(final FinalViolationException e)
 		{
-			assertEquals(field.source, e.getFeature()); // TODO should be field itself
+			assertEquals(field, e.getFeature());
 			assertEquals(item, e.getItem());
-			assertEquals("final violation on " + item + " for AnItem.field-source", e.getMessage());
+			assertEquals("final violation on " + item + " for AnItem.field", e.getMessage());
 		}
 		assertEquals(3, field.source.getMandatory(item));
 	}

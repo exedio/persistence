@@ -275,6 +275,15 @@ public abstract class Item implements Serializable, Comparable<Item>
 		if(setValues.length==0)
 			return;
 
+		for(final SetValue<?> sv : setValues)
+			if(sv.settable.isFinal())
+			{
+				@SuppressWarnings("deprecation")
+				final FinalViolationException ex =
+					new FinalViolationException((Feature)sv.settable, sv.settable, this);
+				throw ex;
+			}
+
 		final LinkedHashMap<Field<?>, Object> fieldValues = executeSetValues(setValues, this);
 		for(final Map.Entry<Field<?>, Object> e : fieldValues.entrySet())
 		{
