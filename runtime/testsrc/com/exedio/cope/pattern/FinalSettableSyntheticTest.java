@@ -72,8 +72,18 @@ public class FinalSettableSyntheticTest extends TestWithEnvironment
 
 		public AField()
 		{
-			this.source = new IntegerField().toFinal();
+			this(new IntegerField());
+		}
+
+		private AField(final IntegerField source)
+		{
+			this.source = source;
 			addSource(source, "source");
+		}
+
+		public AField toFinal()
+		{
+			return new AField(source.toFinal());
 		}
 
 		@Override
@@ -115,7 +125,7 @@ public class FinalSettableSyntheticTest extends TestWithEnvironment
 
 	static final class AnItem extends com.exedio.cope.Item // TODO use import, but this is not accepted by javac
 	{
-		static final AField field = new AField();
+		static final AField field = new AField().toFinal();
 
 	/**
 
