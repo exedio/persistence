@@ -56,13 +56,13 @@ public final class SettableSyntheticField extends Pattern implements Settable<In
 	@Override
 	public boolean isFinal()
 	{
-		return true;
+		return source.isFinal();
 	}
 
 	@Override
 	public boolean isMandatory()
 	{
-		return false;
+		return source.isMandatory();
 	}
 
 	@Override
