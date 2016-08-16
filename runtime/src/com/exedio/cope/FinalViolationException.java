@@ -21,6 +21,7 @@ package com.exedio.cope;
 import static java.util.Objects.requireNonNull;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import javax.annotation.Nonnull;
 
 /**
  * Signals, that an attempt to write an field has been failed,
@@ -33,6 +34,15 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  */
 public final class FinalViolationException extends ConstraintViolationException
 {
+	@SuppressFBWarnings("BC_UNCONFIRMED_CAST")
+	public static <F extends Feature & Settable<?>> void check(
+			@Nonnull final F feature,
+			@Nonnull final Item item)
+	{
+		if(feature.isFinal())
+			throw create(feature, item);
+	}
+
 	private static final long serialVersionUID = 1l;
 
 	private final Feature feature;

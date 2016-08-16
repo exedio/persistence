@@ -152,8 +152,7 @@ public final class EnumMapField<K extends Enum<K>,V> extends Pattern implements 
 			@Nonnull @Parameter(KEY) final K key,
 			@Parameter(nullability=MapValueNullable.class) final V value)
 	{
-		if(isfinal)
-			throw FinalViolationException.create(this, item);
+		FinalViolationException.check(this, item);
 
 		field(key).set(item, value);
 	}
@@ -177,8 +176,7 @@ public final class EnumMapField<K extends Enum<K>,V> extends Pattern implements 
 	@Wrap(order=120)
 	public void setMap(@Nonnull final Item item, @Nonnull final Map<? extends K,? extends V> map)
 	{
-		if(isfinal)
-			throw FinalViolationException.create(this, item);
+		FinalViolationException.check(this, item);
 		if( map==null || map.containsKey(null) )
 			throw MandatoryViolationException.create(this, item);
 

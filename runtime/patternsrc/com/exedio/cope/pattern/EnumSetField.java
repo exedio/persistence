@@ -101,8 +101,7 @@ public final class EnumSetField<E extends Enum<E>> extends Pattern implements Se
 	@Wrap(order=20, hide=FinalSettableGetter.class)
 	public void add(@Nonnull final Item item, @Nonnull @Parameter("element") final E element)
 	{
-		if(isFinal)
-			throw FinalViolationException.create(this, item);
+		FinalViolationException.check(this, item);
 
 		field(element).set(item, true);
 	}
@@ -110,8 +109,7 @@ public final class EnumSetField<E extends Enum<E>> extends Pattern implements Se
 	@Wrap(order=30, hide=FinalSettableGetter.class)
 	public void remove(@Nonnull final Item item, @Nonnull @Parameter("element") final E element)
 	{
-		if(isFinal)
-			throw FinalViolationException.create(this, item);
+		FinalViolationException.check(this, item);
 
 		field(element).set(item, false);
 	}
@@ -136,8 +134,7 @@ public final class EnumSetField<E extends Enum<E>> extends Pattern implements Se
 	@Wrap(order=50, hide=FinalSettableGetter.class)
 	public void set(@Nonnull final Item item, @Nonnull final EnumSet<E> value)
 	{
-		if(isFinal)
-			throw FinalViolationException.create(this, item);
+		FinalViolationException.check(this, item);
 		if(value==null)
 			throw MandatoryViolationException.create(this, item);
 

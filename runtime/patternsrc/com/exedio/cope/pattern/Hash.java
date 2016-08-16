@@ -273,8 +273,7 @@ public class Hash extends Pattern implements HashInterface
 			thrownGetter=InitialExceptionsSettableGetter.class)
 	public final void set(@Nonnull final Item item, @Parameter(nullability=NullableIfOptional.class) final String plainText)
 	{
-		if(isfinal)
-			throw FinalViolationException.create(this, item);
+		FinalViolationException.check(this, item);
 
 		storage.set(item, hash(plainText, item));
 	}
@@ -353,8 +352,7 @@ public class Hash extends Pattern implements HashInterface
 			thrownGetter=InitialExceptionsSettableGetter.class)
 	public final void setHash(@Nonnull final Item item, @Parameter(nullability=NullableIfOptional.class) final String hash)
 	{
-		if(isfinal)
-			throw FinalViolationException.create(this, item);
+		FinalViolationException.check(this, item);
 
 		storage.set(item, hash);
 	}

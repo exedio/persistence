@@ -290,9 +290,7 @@ public abstract class Item implements Serializable, Comparable<Item>
 			final Field<?> field = e.getKey();
 			type.assertBelongs(field);
 
-			if(field.isfinal)
-				throw FinalViolationException.create(field, this);
-
+			FinalViolationException.check(field, this);
 			field.check(e.getValue(), this);
 		}
 		type.checkUniqueConstraints(this, fieldValues);

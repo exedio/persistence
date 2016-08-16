@@ -220,8 +220,7 @@ public final class TypeField<E extends Item> extends Pattern implements Settable
 			hide=FinalSettableGetter.class)
 	public void set(@Nonnull final Item item, @Parameter(nullability=NullableIfOptional.class) final Type<? extends E> value)
 	{
-		if(isfinal)
-			throw FinalViolationException.create(this, item);
+		FinalViolationException.check(this, item);
 		if(value==null && mandatory)
 			throw MandatoryViolationException.create(this, item);
 

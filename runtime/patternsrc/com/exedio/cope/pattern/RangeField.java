@@ -89,8 +89,7 @@ public final class RangeField<E extends Comparable<E>> extends Pattern implement
 			hide=FinalSettableGetter.class)
 	public void set(@Nonnull final Item item, @Nonnull final Range<? extends E> value)
 	{
-		if(isfinal)
-			throw FinalViolationException.create(this, item);
+		FinalViolationException.check(this, item);
 
 		item.set(
 				this.from.map(value.getFrom()),
@@ -114,8 +113,7 @@ public final class RangeField<E extends Comparable<E>> extends Pattern implement
 			hide=FinalSettableGetter.class)
 	public void setFrom(@Nonnull final Item item, @Parameter(nullability=NullableIfOptional.class) final E from)
 	{
-		if(isfinal)
-			throw FinalViolationException.create(this, item);
+		FinalViolationException.check(this, item);
 
 		this.from.set(item, from);
 	}
@@ -125,8 +123,7 @@ public final class RangeField<E extends Comparable<E>> extends Pattern implement
 			hide=FinalSettableGetter.class)
 	public void setTo(@Nonnull final Item item, @Parameter(nullability=NullableIfOptional.class) final E to)
 	{
-		if(isfinal)
-			throw FinalViolationException.create(this, item);
+		FinalViolationException.check(this, item);
 
 		this.to.set(item, to);
 	}

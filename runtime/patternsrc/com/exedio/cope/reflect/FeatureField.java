@@ -221,8 +221,7 @@ public final class FeatureField<E extends Feature> extends Pattern implements Se
 			hide=FinalSettableGetter.class)
 	public void set(@Nonnull final Item item, @Parameter(nullability=NullableIfOptional.class) final E value)
 	{
-		if(isfinal)
-			throw FinalViolationException.create(this, item);
+		FinalViolationException.check(this, item);
 		if(value==null && mandatory)
 			throw MandatoryViolationException.create(this, item);
 

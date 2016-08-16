@@ -156,8 +156,7 @@ public final class Serializer<E> extends Pattern implements Settable<E>
 			hide=FinalSettableGetter.class)
 	public void set(@Nonnull final Item item, @Parameter(nullability=NullableIfOptional.class) final E value)
 	{
-		if(source.isFinal())
-			throw FinalViolationException.create(this, item);
+		FinalViolationException.check(this, item);
 
 		source.set(item, serialize(value));
 	}

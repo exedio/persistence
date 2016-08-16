@@ -241,8 +241,7 @@ public final class DataField extends Field<DataField.Value>
 	@Override
 	public void set(@Nonnull final Item item, @Parameter(nullability=NullableIfOptional.class) final Value data)
 	{
-		if(isfinal)
-			throw FinalViolationException.create(this, item);
+		FinalViolationException.check(this, item);
 
 		if(data==null)
 		{

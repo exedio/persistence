@@ -177,8 +177,7 @@ public final class MoneyField<C extends Money.Currency> extends Pattern implemen
 			hide=FinalSettableGetter.class)
 	public void set(@Nonnull final Item item, @Parameter(nullability=NullableIfOptional.class) final Money<C> value)
 	{
-		if(isfinal)
-			throw FinalViolationException.create(this, item);
+		FinalViolationException.check(this, item);
 
 		if(value==null)
 		{

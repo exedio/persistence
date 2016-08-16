@@ -217,8 +217,7 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 	@SuppressWarnings({"unchecked", "rawtypes"})
 	public void set(@Nonnull final Item item, @Parameter(nullability=NullableIfOptional.class) final E value)
 	{
-		if(isfinal)
-			throw FinalViolationException.create(this, item);
+		FinalViolationException.check(this, item);
 
 		final SetValue[] setValues = new SetValue[componentSize];
 		int i = 0;

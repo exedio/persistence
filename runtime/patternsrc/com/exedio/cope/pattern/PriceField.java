@@ -177,8 +177,7 @@ public final class PriceField extends Pattern implements Settable<Price>, Copyab
 			hide=FinalSettableGetter.class)
 	public void set(@Nonnull final Item item, @Parameter(nullability=NullableIfOptional.class) final Price value)
 	{
-		if(isfinal)
-			throw FinalViolationException.create(this, item);
+		FinalViolationException.check(this, item);
 		if(value==null && mandatory)
 			throw MandatoryViolationException.create(this, item);
 

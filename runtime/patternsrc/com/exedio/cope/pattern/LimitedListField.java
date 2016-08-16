@@ -218,8 +218,7 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 	@Override
 	public void set(@Nonnull final Item item, @Nonnull final Collection<? extends E> value)
 	{
-		if(isFinal)
-			throw FinalViolationException.create(this, item);
+		FinalViolationException.check(this, item);
 
 		assertValue(value, item);
 		int i = 0;
