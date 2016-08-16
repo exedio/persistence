@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import static java.util.Objects.requireNonNull;
+
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
@@ -52,13 +54,10 @@ public final class FinalViolationException extends ConstraintViolationException
 	@Deprecated
 	public FinalViolationException(final Feature feature, final Settable<?> settable, final Item item)
 	{
-		super(item, null);
+		super(requireNonNull(item, "item"), null);
 
 		if(feature!=settable)
 			throw new IllegalArgumentException("feature and settable must be the same object, but was " + feature + " and " + settable);
-		if(item==null)
-			throw new NullPointerException();
-
 		this.feature = feature;
 	}
 
