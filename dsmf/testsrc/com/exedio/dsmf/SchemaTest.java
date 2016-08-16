@@ -34,7 +34,7 @@ public abstract class SchemaTest
 	String intType;
 	String intType2;
 	boolean supportsCheckConstraints;
-	boolean hsqldb = false; // TODO remove
+	private boolean hsqldb = false;
 	boolean postgresql = false; // TODO remove
 	private SimpleConnectionProvider provider;
 	private final ArrayList<Connection> connections = new ArrayList<>();
