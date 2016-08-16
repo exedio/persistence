@@ -382,7 +382,6 @@ public class MultiItemFieldTest extends TestWithEnvironment
 
 	static final class AnCascadeItem extends Item
 	{
-		/** @cope.ignore */
 		static final MultiItemField<MultiItemFieldValuex> field = MultiItemField.create(
 				MultiItemFieldValuex.class,
 				MultiItemFieldComponentxA.class,

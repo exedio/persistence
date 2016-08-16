@@ -36,6 +36,7 @@ import com.exedio.cope.Type;
 import com.exedio.cope.UniqueConstraint;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
+import com.exedio.cope.instrument.WrapFeature;
 import com.exedio.cope.misc.ComputedElement;
 import com.exedio.cope.pattern.Media.Value;
 import com.exedio.cope.util.Hex;
@@ -56,6 +57,7 @@ import javax.annotation.Nullable;
  * uniqueness.
  * @author knoefel
  */
+@WrapFeature
 public final class UniqueHashedMedia extends Pattern implements Settable<Value>, Copyable
 {
 	private static final long serialVersionUID = 1l;

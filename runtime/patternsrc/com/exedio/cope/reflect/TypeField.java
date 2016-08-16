@@ -34,6 +34,7 @@ import com.exedio.cope.UniqueConstraint;
 import com.exedio.cope.instrument.BooleanGetter;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
+import com.exedio.cope.instrument.WrapFeature;
 import com.exedio.cope.misc.CopeSchemaNameElement;
 import com.exedio.cope.misc.instrument.FinalSettableGetter;
 import com.exedio.cope.misc.instrument.InitialExceptionsSettableGetter;
@@ -45,6 +46,7 @@ import java.util.Set;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+@WrapFeature
 public final class TypeField<E extends Item> extends Pattern implements Settable<Type<? extends E>>
 {
 	private static final long serialVersionUID = 1l;

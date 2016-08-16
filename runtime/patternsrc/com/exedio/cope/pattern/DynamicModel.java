@@ -38,11 +38,13 @@ import com.exedio.cope.StringField;
 import com.exedio.cope.UniqueConstraint;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
+import com.exedio.cope.instrument.WrapFeature;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.List;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+@WrapFeature
 public final class DynamicModel<L> extends Pattern
 {
 	private static final long serialVersionUID = 1l;

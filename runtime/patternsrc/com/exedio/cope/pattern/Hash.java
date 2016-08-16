@@ -35,6 +35,7 @@ import com.exedio.cope.StringLengthViolationException;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.StringGetter;
 import com.exedio.cope.instrument.Wrap;
+import com.exedio.cope.instrument.WrapFeature;
 import com.exedio.cope.misc.ComputedElement;
 import com.exedio.cope.misc.EncodingToCharset;
 import com.exedio.cope.misc.NonNegativeRandom;
@@ -48,6 +49,7 @@ import java.util.Set;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+@WrapFeature
 public class Hash extends Pattern implements HashInterface
 {
 	private static final int DEFAULT_PLAINTEXT_LIMIT = 150;

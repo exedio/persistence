@@ -7,6 +7,9 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* @WrapFeature moved from Pattern to its subclasses.
+	Add @WrapFeature to your own patterns, otherwise instrumentor will not work anymore.
+	You may remove @cope.ignore from MultiItemField.
 * Class com.exedio.cope.instrument.Wrapper removed.
 	This breaks backwards API compatibility, causes compiler errors.
 * Instrumentor determines whether an element (method or field) has been generated

@@ -30,6 +30,7 @@ import com.exedio.cope.Settable;
 import com.exedio.cope.StringField;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
+import com.exedio.cope.instrument.WrapFeature;
 import com.exedio.cope.misc.ComputedElement;
 import com.exedio.cope.misc.instrument.FinalSettableGetter;
 import com.exedio.cope.misc.instrument.InitialExceptionsSettableGetter;
@@ -57,6 +58,7 @@ import javax.annotation.Nonnull;
  * The main purpose is to maintain database compatibility
  * to legacy systems.
  */
+@WrapFeature
 public final class Serializer<E> extends Pattern implements Settable<E>
 {
 	private static final long serialVersionUID = 1l;

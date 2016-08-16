@@ -33,6 +33,7 @@ import com.exedio.cope.Query;
 import com.exedio.cope.Type;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
+import com.exedio.cope.instrument.WrapFeature;
 import com.exedio.cope.misc.Computed;
 import com.exedio.cope.misc.Delete;
 import com.exedio.cope.util.Clock;
@@ -42,6 +43,7 @@ import java.util.Date;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+@WrapFeature
 public final class PasswordLimiter extends Pattern
 {
 	private static final long serialVersionUID = 1l;

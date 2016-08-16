@@ -35,6 +35,7 @@ import com.exedio.cope.instrument.Nullability;
 import com.exedio.cope.instrument.NullabilityGetter;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
+import com.exedio.cope.instrument.WrapFeature;
 import com.exedio.cope.misc.EnumAnnotatedElement;
 import com.exedio.cope.misc.ReflectionTypes;
 import java.util.Collections;
@@ -44,6 +45,7 @@ import java.util.Map;
 import java.util.Set;
 import javax.annotation.Nonnull;
 
+@WrapFeature
 public final class EnumMapField<K extends Enum<K>,V> extends Pattern implements Settable<EnumMap<K,V>>, MapFieldInterface<K,V>
 {
 	private static final long serialVersionUID = 1l;

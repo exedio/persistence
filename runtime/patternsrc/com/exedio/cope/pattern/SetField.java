@@ -35,6 +35,7 @@ import com.exedio.cope.UniqueViolationException;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.ThrownGetter;
 import com.exedio.cope.instrument.Wrap;
+import com.exedio.cope.instrument.WrapFeature;
 import com.exedio.cope.util.Cast;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.ArrayList;
@@ -47,6 +48,7 @@ import java.util.List;
 import java.util.Set;
 import javax.annotation.Nonnull;
 
+@WrapFeature
 public final class SetField<E> extends Pattern
 {
 	private static final long serialVersionUID = 1l;

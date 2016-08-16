@@ -173,9 +173,6 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 		static final StringField value = new StringField().toFinal();
 		static final StringField template = new StringField().toFinal();
 
-		/**
-		 * @cope.ignore
-		 */
 		static final MultiItemField<MultiItemFieldValuex> field = MultiItemField.create(
 				MultiItemFieldValuex.class,
 				A.class,
@@ -275,9 +272,6 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 	{
 		static final StringField value = new StringField().toFinal();
 
-		/**
-		 * @cope.ignore
-		 */
 		static final MultiItemField<MultiItemFieldValuex> field = MultiItemField.create(
 				MultiItemFieldValuex.class,
 				A.class,
@@ -362,9 +356,6 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 	{
 		static final StringField value = new StringField().toFinal();
 
-		/**
-		 * @cope.ignore
-		 */
 		static final MultiItemField<MultiItemFieldValuex> field = MultiItemField.create(
 				MultiItemFieldValuex.class,
 				A.class,

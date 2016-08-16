@@ -23,8 +23,10 @@ import com.exedio.cope.Item;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
+import com.exedio.cope.instrument.WrapFeature;
 import java.util.Set;
 
+@WrapFeature
 public final class SettableSyntheticField extends Pattern implements Settable<Integer>
 {
 	private static final long serialVersionUID = 1l;

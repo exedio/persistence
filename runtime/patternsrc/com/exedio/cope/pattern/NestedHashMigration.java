@@ -33,6 +33,7 @@ import com.exedio.cope.TransactionTry;
 import com.exedio.cope.Type;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
+import com.exedio.cope.instrument.WrapFeature;
 import com.exedio.cope.misc.ComputedElement;
 import com.exedio.cope.misc.Iterables;
 import com.exedio.cope.misc.instrument.InitialExceptionsSettableGetter;
@@ -47,6 +48,7 @@ import javax.annotation.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+@WrapFeature
 public final class NestedHashMigration extends Pattern implements HashInterface
 {
 	private static final Logger logger = LoggerFactory.getLogger(Dispatcher.class);

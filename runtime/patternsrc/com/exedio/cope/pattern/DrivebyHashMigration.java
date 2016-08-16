@@ -25,6 +25,7 @@ import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.instrument.Wrap;
+import com.exedio.cope.instrument.WrapFeature;
 import com.exedio.cope.misc.ComputedElement;
 import com.exedio.cope.misc.instrument.InitialExceptionsSettableGetter;
 import java.security.SecureRandom;
@@ -32,6 +33,7 @@ import java.util.Set;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+@WrapFeature
 public final class DrivebyHashMigration extends Pattern implements HashInterface
 {
 	private static final long serialVersionUID = 1l;

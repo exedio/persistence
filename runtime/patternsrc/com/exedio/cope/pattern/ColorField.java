@@ -33,6 +33,7 @@ import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
+import com.exedio.cope.instrument.WrapFeature;
 import com.exedio.cope.misc.instrument.FinalSettableGetter;
 import com.exedio.cope.misc.instrument.InitialExceptionsSettableGetter;
 import com.exedio.cope.misc.instrument.NullableIfOptional;
@@ -40,6 +41,7 @@ import java.awt.Color;
 import java.util.Set;
 import javax.annotation.Nonnull;
 
+@WrapFeature
 public final class ColorField extends Pattern implements Settable<Color>, Copyable
 {
 	private static final long serialVersionUID = 1l;

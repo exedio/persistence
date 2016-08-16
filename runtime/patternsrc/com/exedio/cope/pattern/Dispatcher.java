@@ -44,6 +44,7 @@ import com.exedio.cope.Type;
 import com.exedio.cope.instrument.BooleanGetter;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
+import com.exedio.cope.instrument.WrapFeature;
 import com.exedio.cope.misc.Computed;
 import com.exedio.cope.misc.ComputedElement;
 import com.exedio.cope.misc.Delete;
@@ -68,6 +69,7 @@ import javax.annotation.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+@WrapFeature
 public final class Dispatcher extends Pattern
 {
 	private static final long serialVersionUID = 1l;

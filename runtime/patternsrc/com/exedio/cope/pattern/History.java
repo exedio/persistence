@@ -36,6 +36,7 @@ import com.exedio.cope.Type;
 import com.exedio.cope.UniqueConstraint;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
+import com.exedio.cope.instrument.WrapFeature;
 import com.exedio.cope.misc.Computed;
 import com.exedio.cope.reflect.FeatureField;
 import java.util.ArrayList;
@@ -44,6 +45,7 @@ import java.util.Date;
 import java.util.List;
 import javax.annotation.Nonnull;
 
+@WrapFeature
 public final class History extends Pattern
 {
 	private static final long serialVersionUID = 1l;

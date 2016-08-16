@@ -25,6 +25,7 @@ import com.exedio.cope.Item;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.instrument.InstrumentContext;
 import com.exedio.cope.instrument.Wrap;
+import com.exedio.cope.instrument.WrapFeature;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -34,6 +35,7 @@ import java.util.List;
 import java.util.Map;
 import javax.annotation.Nonnull;
 
+@WrapFeature
 public final class BlockField<E extends Block> extends Pattern implements Copyable
 {
 	private static final long serialVersionUID = 1l;

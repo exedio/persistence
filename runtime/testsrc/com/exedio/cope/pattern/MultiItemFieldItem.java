@@ -22,9 +22,6 @@ import com.exedio.cope.Item;
 
 final class MultiItemFieldItem extends Item
 {
-	/**
-	 * @cope.ignore
-	 */
 	static final MultiItemField<MultiItemFieldValuex> field = MultiItemField.create(
 			MultiItemFieldValuex.class,
 			MultiItemFieldComponentxA.class, MultiItemFieldComponentxB.class);
@@ -40,9 +37,6 @@ final class MultiItemFieldItem extends Item
 	}
 
 
-	/**
-	 * @cope.ignore
-	 */
 	static final MultiItemField<MultiItemFieldValuex> optionalField = MultiItemField.create(
 			MultiItemFieldValuex.class,
 			MultiItemFieldComponentxA.class, MultiItemFieldComponentxB.class)
@@ -59,9 +53,6 @@ final class MultiItemFieldItem extends Item
 	}
 
 
-	/**
-	 * @cope.ignore
-	 */
 	static final MultiItemField<MultiItemFieldValuex> uniqueField = MultiItemField.create(
 			MultiItemFieldValuex.class,
 			MultiItemFieldComponentxA.class, MultiItemFieldComponentxB.class).optional().unique();

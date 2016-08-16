@@ -21,7 +21,6 @@ package com.exedio.cope;
 import static com.exedio.cope.misc.Check.requireNonEmpty;
 import static java.util.Objects.requireNonNull;
 
-import com.exedio.cope.instrument.WrapFeature;
 import com.exedio.cope.misc.Computed;
 import com.exedio.cope.misc.CopeSchemaNameElement;
 import com.exedio.cope.misc.ListUtil;
@@ -59,7 +58,6 @@ import java.util.List;
  *
  * @author Ralf Wiebicke
  */
-@WrapFeature
 public abstract class Pattern extends Feature
 {
 	private static final long serialVersionUID = 1l;

@@ -28,11 +28,13 @@ import com.exedio.cope.Type;
 import com.exedio.cope.UniqueViolationException;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
+import com.exedio.cope.instrument.WrapFeature;
 import com.exedio.cope.misc.SetValueUtil;
 import com.exedio.cope.util.Cast;
 import java.util.List;
 import javax.annotation.Nonnull;
 
+@WrapFeature
 public final class Importer<K extends Object> extends Pattern
 {
 	private static final long serialVersionUID = 1l;

@@ -36,6 +36,7 @@ import com.exedio.cope.instrument.BooleanGetter;
 import com.exedio.cope.instrument.Nullability;
 import com.exedio.cope.instrument.NullabilityGetter;
 import com.exedio.cope.instrument.Wrap;
+import com.exedio.cope.instrument.WrapFeature;
 import com.exedio.cope.util.Hex;
 import com.exedio.cope.util.MessageDigestUtil;
 import java.io.IOException;
@@ -47,6 +48,7 @@ import javax.annotation.Nonnull;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+@WrapFeature
 public abstract class MediaPath extends Pattern
 {
 	private static final long serialVersionUID = 1l;

@@ -29,6 +29,7 @@ import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
+import com.exedio.cope.instrument.WrapFeature;
 import com.exedio.cope.misc.CopeSchemaNameElement;
 import com.exedio.cope.misc.ReflectionTypes;
 import com.exedio.cope.misc.instrument.FinalSettableGetter;
@@ -40,6 +41,7 @@ import java.util.Set;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+@WrapFeature
 public final class MoneyField<C extends Money.Currency> extends Pattern implements Settable<Money<C>>, CheckingSettable<Money<C>> // TODO currency
 {
 	private static final long serialVersionUID = 1l;

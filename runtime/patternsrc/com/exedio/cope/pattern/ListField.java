@@ -38,6 +38,7 @@ import com.exedio.cope.instrument.NullabilityGetter;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.ThrownGetter;
 import com.exedio.cope.instrument.Wrap;
+import com.exedio.cope.instrument.WrapFeature;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Collection;
 import java.util.Iterator;
@@ -45,6 +46,7 @@ import java.util.List;
 import java.util.Set;
 import javax.annotation.Nonnull;
 
+@WrapFeature
 public final class ListField<E> extends AbstractListField<E> implements Copyable
 {
 	private static final long serialVersionUID = 1l;

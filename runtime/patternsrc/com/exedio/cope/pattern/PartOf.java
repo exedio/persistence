@@ -34,12 +34,14 @@ import com.exedio.cope.instrument.Nullability;
 import com.exedio.cope.instrument.NullabilityGetter;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
+import com.exedio.cope.instrument.WrapFeature;
 import com.exedio.cope.util.Cast;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+@WrapFeature
 public final class PartOf<C extends Item> extends Pattern
 {
 	private static final long serialVersionUID = 1l;
