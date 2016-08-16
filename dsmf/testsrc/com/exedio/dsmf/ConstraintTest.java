@@ -99,15 +99,11 @@ public class ConstraintTest extends SchemaReadyTest
 		assertEquals(Schema.Color.OK, table.getParticularColor());
 
 		assertCheckConstraint(table, NOT_NULL_NAME, p(NOT_NULL_COLUMN)+" IS NOT NULL");
-		if(!postgresql)
-			assertCheckConstraint(table, CHECK_NAME, "("+p(CHECK_COLUMN)+" IS NOT NULL) AND ("+hp(p(CHECK_COLUMN))+" IN ("+hp("0")+","+hp("1")+"))");
+		assertCheckConstraint(table, CHECK_NAME, "("+p(CHECK_COLUMN)+" IS NOT NULL) AND ("+hp(p(CHECK_COLUMN))+" IN ("+hp("0")+","+hp("1")+"))");
 		assertPkConstraint(table, PK_NAME, null, PK_COLUMN);
 		assertFkConstraint(table, FK_NAME, FK_COLUMN, FK_TARGET_TABLE, FK_TARGET_COLUMN);
-		if(!postgresql)
-		{
-			assertUniqueConstraint(table, UNIQUE_SINGLE_NAME, "("+p(UNIQUE_SINGLE_COLUMN)+")");
-			assertUniqueConstraint(table, UNIQUE_DOUBLE_NAME, "("+p(UNIQUE_DOUBLE_COLUMN1)+","+p(UNIQUE_DOUBLE_COLUMN2)+")");
-		}
+		assertUniqueConstraint(table, UNIQUE_SINGLE_NAME, "("+p(UNIQUE_SINGLE_COLUMN)+")");
+		assertUniqueConstraint(table, UNIQUE_DOUBLE_NAME, "("+p(UNIQUE_DOUBLE_COLUMN1)+","+p(UNIQUE_DOUBLE_COLUMN2)+")");
 
 		table.getConstraint(FK_NAME).drop();
 		table.getConstraint(FK_NAME).create();

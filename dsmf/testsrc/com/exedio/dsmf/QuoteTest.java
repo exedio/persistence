@@ -98,8 +98,7 @@ public class QuoteTest extends SchemaReadyTest
 		assertSame(table, unc.getTable());
 		assertEquals(UNQ_NAME, unc.getName());
 		assertEquals("("+p(FK_COLUMN)+")", unc.getClause());
-		if(!postgresql)
-			assertEquals(null, unc.getError());
+		assertEquals(null, unc.getError());
 
 		final CheckConstraint ckc = (CheckConstraint)table.getConstraint(CHK_NAME);
 		assertNotNull(ckc);
