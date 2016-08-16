@@ -60,6 +60,9 @@ public class EnumMapFieldFinalTest extends TestWithEnvironment
 		assertEquals(null, text.getField(DE).getDefaultConstant());
 		assertEquals(null, text.getField(EN).getDefaultConstant());
 		assertEquals(null, text.getField(PL).getDefaultConstant());
+		assertEquals(true, text.getField(DE).isFinal());
+		assertEquals(true, text.getField(EN).isFinal());
+		assertEquals(true, text.getField(PL).isFinal());
 		assertEquals(true,  text.isFinal());
 		assertEquals(true,  text.isMandatory());
 		assertEquals(true,  text.isInitial());

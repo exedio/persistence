@@ -94,14 +94,14 @@ public class MessageDigestHashTest extends TestWithEnvironment
 		assertEquals("SHA512s8i5", password.getAlgorithmID());
 		assertEquals(TYPE, password.getStorage().getType());
 		assertEquals("password-SHA512s8i5", password.getStorage().getName());
-		assertEquals(false, password.getStorage().isFinal());
-		assertEquals(false, password.getStorage().isMandatory());
 		assertEquals(144, password.getStorage().getMinimumLength());
 		assertEquals(144, password.getStorage().getMaximumLength());
 		assertEquals(password, password.getStorage().getPattern());
 		assertEquals(false, password.isInitial());
 		assertEquals(false, password.isFinal());
+		assertEquals(false, password.getStorage().isFinal());
 		assertEquals(false, password.isMandatory());
+		assertEquals(false, password.getStorage().isMandatory());
 		assertEquals(String.class, password.getInitialType());
 		assertContains(password.getInitialExceptions());
 		assertEquals(UTF_8.name(), encoding(password));
@@ -124,7 +124,9 @@ public class MessageDigestHashTest extends TestWithEnvironment
 		assertEquals(passwordFinal, passwordFinal.getStorage().getPattern());
 		assertEquals(true, passwordFinal.isInitial());
 		assertEquals(true, passwordFinal.isFinal());
+		assertEquals(true, passwordFinal.getStorage().isFinal());
 		assertEquals(true, passwordFinal.isMandatory());
+		assertEquals(true, passwordFinal.getStorage().isMandatory());
 		assertEquals(String.class, passwordFinal.getInitialType());
 		assertContains(MandatoryViolationException.class, FinalViolationException.class, passwordFinal.getInitialExceptions());
 		assertEquals(UTF_8.name(), encoding(passwordFinal));
@@ -136,7 +138,9 @@ public class MessageDigestHashTest extends TestWithEnvironment
 		assertEquals(passwordMandatory, passwordMandatory.getStorage().getPattern());
 		assertEquals(true, passwordMandatory.isInitial());
 		assertEquals(false, passwordMandatory.isFinal());
+		assertEquals(false, passwordMandatory.getStorage().isFinal());
 		assertEquals(true, passwordMandatory.isMandatory());
+		assertEquals(true, passwordMandatory.getStorage().isMandatory());
 		assertEquals(String.class, passwordMandatory.getInitialType());
 		assertContains(MandatoryViolationException.class, passwordMandatory.getInitialExceptions());
 		assertEquals(UTF_8.name(), encoding(passwordMandatory));
