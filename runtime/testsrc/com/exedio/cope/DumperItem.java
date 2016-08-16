@@ -98,7 +98,7 @@ public class DumperItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final java.lang.String getString()
 	{
 		return DumperItem.string.get(this);
@@ -124,7 +124,7 @@ public class DumperItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final java.lang.String getUnique()
 	{
 		return DumperItem.unique.get(this);
@@ -153,7 +153,7 @@ public class DumperItem extends Item
 	 *       It can be customized with the tag <tt>@cope.for public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	static final DumperItem forUnique(@javax.annotation.Nonnull final java.lang.String unique)
 	{
 		return DumperItem.unique.searchUnique(DumperItem.class,unique);
@@ -187,7 +187,7 @@ public class DumperItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getArray public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final byte[] getDataArray()
 	{
 		return DumperItem.data.getArray(this);

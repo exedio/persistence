@@ -62,7 +62,7 @@ class PartOfWithOptionalContainerItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final PartOfOptionalContainerItem getContainer()
 	{
 		return PartOfWithOptionalContainerItem.container.get(this);
@@ -85,7 +85,7 @@ class PartOfWithOptionalContainerItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getContainer public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final PartOfOptionalContainerItem getPartsContainer()
 	{
 		return PartOfWithOptionalContainerItem.parts.getContainer(this);
@@ -97,7 +97,7 @@ class PartOfWithOptionalContainerItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getParts public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	static final java.util.List<PartOfWithOptionalContainerItem> getPartsParts(@javax.annotation.Nullable final PartOfOptionalContainerItem container)
 	{
 		return PartOfWithOptionalContainerItem.parts.getParts(PartOfWithOptionalContainerItem.class,container);
@@ -109,7 +109,7 @@ class PartOfWithOptionalContainerItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getParts public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	static final java.util.List<PartOfWithOptionalContainerItem> getPartsParts(@javax.annotation.Nullable final PartOfOptionalContainerItem container,@javax.annotation.Nullable final com.exedio.cope.Condition condition)
 	{
 		return PartOfWithOptionalContainerItem.parts.getParts(PartOfWithOptionalContainerItem.class,container,condition);

@@ -59,7 +59,7 @@ public class IntegerTypeIntItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final IntegerTypeIntItem getItemReference()
 	{
 		return IntegerTypeIntItem.itemReference.get(this);
@@ -82,7 +82,7 @@ public class IntegerTypeIntItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final java.lang.Long getValue()
 	{
 		return IntegerTypeIntItem.value.get(this);

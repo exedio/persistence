@@ -80,7 +80,7 @@ public abstract class Super extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	public final java.lang.String getSuperMandatory()
 	{
 		return Super.superMandatory.get(this);
@@ -106,7 +106,7 @@ public abstract class Super extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	public final java.lang.Integer getSuperInitial()
 	{
 		return Super.superInitial.get(this);
@@ -129,7 +129,7 @@ public abstract class Super extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	public final com.exedio.cope.util.Day getSuperNonInitial()
 	{
 		return Super.superNonInitial.get(this);

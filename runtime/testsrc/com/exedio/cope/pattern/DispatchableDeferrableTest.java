@@ -155,7 +155,7 @@ public class DispatchableDeferrableTest extends TestWithEnvironment
 	 *       It can be customized with the tag <tt>@cope.dispatch public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@java.lang.Deprecated()
+	@java.lang.Deprecated
 	static final int dispatchToTarget(@javax.annotation.Nonnull final com.exedio.cope.pattern.Dispatcher.Config config,@javax.annotation.Nullable final com.exedio.cope.util.Interrupter interrupter)
 	{
 		return AnItem.toTarget.dispatch(AnItem.class,config,interrupter);
@@ -233,7 +233,7 @@ public class DispatchableDeferrableTest extends TestWithEnvironment
 	 *       It can be customized with the tag <tt>@cope.getLastSuccessDate public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final java.util.Date getToTargetLastSuccessDate()
 	{
 		return AnItem.toTarget.getLastSuccessDate(this);
@@ -245,7 +245,7 @@ public class DispatchableDeferrableTest extends TestWithEnvironment
 	 *       It can be customized with the tag <tt>@cope.getLastSuccessElapsed public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final java.lang.Long getToTargetLastSuccessElapsed()
 	{
 		return AnItem.toTarget.getLastSuccessElapsed(this);
@@ -257,7 +257,7 @@ public class DispatchableDeferrableTest extends TestWithEnvironment
 	 *       It can be customized with the tag <tt>@cope.getRuns public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final java.util.List<com.exedio.cope.pattern.Dispatcher.Run> getToTargetRuns()
 	{
 		return AnItem.toTarget.getRuns(this);
@@ -269,7 +269,7 @@ public class DispatchableDeferrableTest extends TestWithEnvironment
 	 *       It can be customized with the tag <tt>@cope.getFailures public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final java.util.List<com.exedio.cope.pattern.Dispatcher.Run> getToTargetFailures()
 	{
 		return AnItem.toTarget.getFailures(this);
@@ -291,7 +291,7 @@ public class DispatchableDeferrableTest extends TestWithEnvironment
 	 *       It can be customized with the tag <tt>@cope.RunParent public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	static final com.exedio.cope.ItemField<AnItem> toTargetRunParent()
 	{
 		return AnItem.toTarget.getRunParent(AnItem.class);

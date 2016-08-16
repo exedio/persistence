@@ -87,7 +87,7 @@ public class CheckConstraintSuperItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	public final java.lang.Integer getEins()
 	{
 		return CheckConstraintSuperItem.eins.get(this);
@@ -110,7 +110,7 @@ public class CheckConstraintSuperItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	public final java.lang.Integer getZwei()
 	{
 		return CheckConstraintSuperItem.zwei.get(this);
@@ -133,7 +133,7 @@ public class CheckConstraintSuperItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	public final java.lang.Integer getDrei()
 	{
 		return CheckConstraintSuperItem.drei.get(this);

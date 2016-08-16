@@ -93,7 +93,7 @@ final class DeleteItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final DeleteItem getSelfForbid()
 	{
 		return DeleteItem.selfForbid.get(this);
@@ -116,7 +116,7 @@ final class DeleteItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final DeleteItem getSelfNullify()
 	{
 		return DeleteItem.selfNullify.get(this);
@@ -139,7 +139,7 @@ final class DeleteItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final DeleteItem getSelfCascade()
 	{
 		return DeleteItem.selfCascade.get(this);
@@ -162,7 +162,7 @@ final class DeleteItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final DeleteItem getSelfCascade2()
 	{
 		return DeleteItem.selfCascade2.get(this);
@@ -185,7 +185,7 @@ final class DeleteItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final DeleteOtherItem getOtherForbid()
 	{
 		return DeleteItem.otherForbid.get(this);
@@ -208,7 +208,7 @@ final class DeleteItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final DeleteOtherItem getOtherNullify()
 	{
 		return DeleteItem.otherNullify.get(this);
@@ -231,7 +231,7 @@ final class DeleteItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final DeleteOtherItem getOtherCascade()
 	{
 		return DeleteItem.otherCascade.get(this);

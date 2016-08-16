@@ -88,7 +88,7 @@ final class InnerContainer
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final Target getSuperField()
 	{
 		return Super.superField.get(this);
@@ -100,7 +100,7 @@ final class InnerContainer
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final InnerSuperEnum getSuperField2()
 	{
 		return Super.superField2.get(this);
@@ -112,7 +112,7 @@ final class InnerContainer
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final EnumContainer.Enum3 getExternalEnum()
 	{
 		return Super.externalEnum.get(this);
@@ -124,7 +124,7 @@ final class InnerContainer
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final Enum4 getShortExternalEnum()
 	{
 		return Super.shortExternalEnum.get(this);
@@ -202,7 +202,7 @@ final class InnerContainer
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final java.lang.String getSubField()
 	{
 		return Sub.subField.get(this);

@@ -143,7 +143,7 @@ public final class StringItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	public final java.lang.String getAny()
 	{
 		return StringItem.any.get(this);
@@ -168,7 +168,7 @@ public final class StringItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	public final java.lang.String getMandatory()
 	{
 		return StringItem.mandatory.get(this);
@@ -194,7 +194,7 @@ public final class StringItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	public final java.lang.String getMin4()
 	{
 		return StringItem.min4.get(this);
@@ -219,7 +219,7 @@ public final class StringItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	public final java.lang.String getMax4()
 	{
 		return StringItem.max4.get(this);
@@ -244,7 +244,7 @@ public final class StringItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	public final java.lang.String getMin4Max8()
 	{
 		return StringItem.min4Max8.get(this);
@@ -269,7 +269,7 @@ public final class StringItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	public final java.lang.String getExact6()
 	{
 		return StringItem.exact6.get(this);
@@ -294,7 +294,7 @@ public final class StringItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	public final java.lang.String getLowercase()
 	{
 		return StringItem.lowercase.get(this);
@@ -320,7 +320,7 @@ public final class StringItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	public final java.lang.String getLowercaseMin4()
 	{
 		return StringItem.lowercaseMin4.get(this);
@@ -346,7 +346,7 @@ public final class StringItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	public final java.lang.String getLong1K()
 	{
 		return StringItem.long1K.get(this);
@@ -371,7 +371,7 @@ public final class StringItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	public final java.lang.String getLong1M()
 	{
 		return StringItem.long1M.get(this);
@@ -396,7 +396,7 @@ public final class StringItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	public final java.lang.String getLong40M()
 	{
 		return StringItem.long40M.get(this);
@@ -421,7 +421,7 @@ public final class StringItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	public final java.lang.String getOracleNoCLOB()
 	{
 		return StringItem.oracleNoCLOB.get(this);
@@ -446,7 +446,7 @@ public final class StringItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	public final java.lang.String getOracleCLOB()
 	{
 		return StringItem.oracleCLOB.get(this);

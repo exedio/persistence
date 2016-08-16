@@ -170,7 +170,7 @@ final class MediaServletItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final java.lang.String getName()
 	{
 		return MediaServletItem.name.get(this);
@@ -195,7 +195,7 @@ final class MediaServletItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getLocator public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final com.exedio.cope.pattern.MediaPath.Locator getContentLocator()
 	{
 		return MediaServletItem.content.getLocator(this);
@@ -207,7 +207,7 @@ final class MediaServletItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getContentType public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final java.lang.String getContentContentType()
 	{
 		return MediaServletItem.content.getContentType(this);
@@ -230,7 +230,7 @@ final class MediaServletItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getLastModified public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final java.util.Date getContentLastModified()
 	{
 		return MediaServletItem.content.getLastModified(this);
@@ -253,7 +253,7 @@ final class MediaServletItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getBody public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final byte[] getContentBody()
 	{
 		return MediaServletItem.content.getBody(this);
@@ -348,7 +348,7 @@ final class MediaServletItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getLocator public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final com.exedio.cope.pattern.MediaPath.Locator getRedirectLocator()
 	{
 		return MediaServletItem.redirect.getLocator(this);
@@ -360,7 +360,7 @@ final class MediaServletItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getContentType public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final java.lang.String getRedirectContentType()
 	{
 		return MediaServletItem.redirect.getContentType(this);
@@ -372,7 +372,7 @@ final class MediaServletItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getLocator public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final com.exedio.cope.pattern.MediaPath.Locator getThumbnailLocator()
 	{
 		return MediaServletItem.thumbnail.getLocator(this);
@@ -384,7 +384,7 @@ final class MediaServletItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getURLWithFallbackToSource public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final java.lang.String getThumbnailURLWithFallbackToSource()
 	{
 		return MediaServletItem.thumbnail.getURLWithFallbackToSource(this);
@@ -396,7 +396,7 @@ final class MediaServletItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getLocatorWithFallbackToSource public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final com.exedio.cope.pattern.MediaPath.Locator getThumbnailLocatorWithFallbackToSource()
 	{
 		return MediaServletItem.thumbnail.getLocatorWithFallbackToSource(this);
@@ -408,7 +408,7 @@ final class MediaServletItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final byte[] getThumbnail()
 			throws
 				java.io.IOException
@@ -422,7 +422,7 @@ final class MediaServletItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getLocator public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final com.exedio.cope.pattern.MediaPath.Locator getThumbnailRedirectLocator()
 	{
 		return MediaServletItem.thumbnailRedirect.getLocator(this);
@@ -434,7 +434,7 @@ final class MediaServletItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getLocator public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final com.exedio.cope.pattern.MediaPath.Locator getHtmlLocator()
 	{
 		return MediaServletItem.html.getLocator(this);
@@ -446,7 +446,7 @@ final class MediaServletItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getURLWithFallbackToSource public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final java.lang.String getHtmlURLWithFallbackToSource()
 	{
 		return MediaServletItem.html.getURLWithFallbackToSource(this);
@@ -458,7 +458,7 @@ final class MediaServletItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getLocatorWithFallbackToSource public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final com.exedio.cope.pattern.MediaPath.Locator getHtmlLocatorWithFallbackToSource()
 	{
 		return MediaServletItem.html.getLocatorWithFallbackToSource(this);
@@ -481,7 +481,7 @@ final class MediaServletItem extends Item
 	 *       It can be customized with the tag <tt>@cope.addPaste public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final com.exedio.cope.pattern.TextUrlFilter.Paste addHtmlPaste(@javax.annotation.Nonnull final java.lang.String key,@javax.annotation.Nonnull final com.exedio.cope.pattern.Media.Value value)
 	{
 		return MediaServletItem.html.addPaste(this,key,value);
@@ -504,7 +504,7 @@ final class MediaServletItem extends Item
 	 *       It can be customized with the tag <tt>@cope.putPaste public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final com.exedio.cope.pattern.TextUrlFilter.Paste putHtmlPaste(@javax.annotation.Nonnull final java.lang.String key,@javax.annotation.Nonnull final com.exedio.cope.pattern.Media.Value value)
 			throws
 				java.io.IOException
@@ -517,7 +517,7 @@ final class MediaServletItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getContent public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final java.lang.String getHtmlContent(@javax.annotation.Nonnull final javax.servlet.http.HttpServletRequest request)
 			throws
 				com.exedio.cope.pattern.MediaPath.NotFound
@@ -530,7 +530,7 @@ final class MediaServletItem extends Item
 	 *       It can be customized with the tag <tt>@cope.check public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final java.util.Set<java.lang.String> checkHtml()
 			throws
 				com.exedio.cope.pattern.MediaPath.NotFound
@@ -556,7 +556,7 @@ final class MediaServletItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getLocator public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final com.exedio.cope.pattern.MediaPath.Locator getTokenedLocator()
 	{
 		return MediaServletItem.tokened.getLocator(this);
@@ -568,7 +568,7 @@ final class MediaServletItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getURLWithFallbackToSource public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final java.lang.String getTokenedURLWithFallbackToSource()
 	{
 		return MediaServletItem.tokened.getURLWithFallbackToSource(this);
@@ -580,7 +580,7 @@ final class MediaServletItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getLocatorWithFallbackToSource public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final com.exedio.cope.pattern.MediaPath.Locator getTokenedLocatorWithFallbackToSource()
 	{
 		return MediaServletItem.tokened.getLocatorWithFallbackToSource(this);
@@ -592,7 +592,7 @@ final class MediaServletItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final byte[] getTokened()
 			throws
 				java.io.IOException
@@ -606,7 +606,7 @@ final class MediaServletItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getLocator public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final com.exedio.cope.pattern.MediaPath.Locator getFingerLocator()
 	{
 		return MediaServletItem.finger.getLocator(this);
@@ -618,7 +618,7 @@ final class MediaServletItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getURLWithFallbackToSource public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final java.lang.String getFingerURLWithFallbackToSource()
 	{
 		return MediaServletItem.finger.getURLWithFallbackToSource(this);
@@ -630,7 +630,7 @@ final class MediaServletItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getLocatorWithFallbackToSource public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final com.exedio.cope.pattern.MediaPath.Locator getFingerLocatorWithFallbackToSource()
 	{
 		return MediaServletItem.finger.getLocatorWithFallbackToSource(this);
@@ -642,7 +642,7 @@ final class MediaServletItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final byte[] getFinger()
 			throws
 				java.io.IOException
@@ -656,7 +656,7 @@ final class MediaServletItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final java.util.Date getNameServerLastModified()
 	{
 		return MediaServletItem.nameServerLastModified.get(this);
@@ -690,7 +690,7 @@ final class MediaServletItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final java.lang.String getCatchPhrase()
 	{
 		return MediaServletItem.catchPhrase.get(this);

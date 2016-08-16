@@ -85,7 +85,7 @@ final class DataMandatoryItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getArray public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final byte[] getDataArray()
 	{
 		return DataMandatoryItem.data.getArray(this);

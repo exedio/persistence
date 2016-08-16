@@ -66,7 +66,7 @@ public final class TypePrivate extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	public final java.lang.String getDefaultString()
 	{
 		return TypePrivate.defaultString.get(this);

@@ -611,7 +611,7 @@ public class CompositeTest
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	public final java.lang.String getString4()
 	{
 		return get(Value.string4);
@@ -661,7 +661,7 @@ public class CompositeTest
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	public final java.lang.String getStringDefault()
 	{
 		return get(Value.stringDefault);
@@ -687,7 +687,7 @@ public class CompositeTest
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	public final java.lang.String getStringDefaultOptional()
 	{
 		return get(Value.stringDefaultOptional);
@@ -778,7 +778,7 @@ public class CompositeTest
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	public final java.lang.Integer getIntOptional()
 	{
 		return get(Value.intOptional);
@@ -801,7 +801,7 @@ public class CompositeTest
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	public final java.lang.Long getLongOptional()
 	{
 		return get(Value.longOptional);
@@ -824,7 +824,7 @@ public class CompositeTest
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	public final java.lang.Double getDoubleOptional()
 	{
 		return get(Value.doubleOptional);
@@ -847,7 +847,7 @@ public class CompositeTest
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final|boolean-as-is</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	public final java.lang.Boolean getBooleanOptional()
 	{
 		return get(Value.booleanOptional);
@@ -870,7 +870,7 @@ public class CompositeTest
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	public final java.util.Date getDate()
 	{
 		return get(Value.date);
@@ -904,7 +904,7 @@ public class CompositeTest
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	public final com.exedio.cope.util.Day getDay()
 	{
 		return get(Value.day);
@@ -996,7 +996,7 @@ public class CompositeTest
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	public final java.lang.String getStringField()
 	{
 		return get(ValueX.stringField);

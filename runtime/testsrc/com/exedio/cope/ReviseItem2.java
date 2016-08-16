@@ -74,7 +74,7 @@ final class ReviseItem2 extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final java.lang.String getField5()
 	{
 		return ReviseItem2.field5.get(this);
@@ -100,7 +100,7 @@ final class ReviseItem2 extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final java.lang.String getField6()
 	{
 		return ReviseItem2.field6.get(this);
@@ -126,7 +126,7 @@ final class ReviseItem2 extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final java.lang.String getField6b()
 	{
 		return ReviseItem2.field6b.get(this);
@@ -152,7 +152,7 @@ final class ReviseItem2 extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final java.lang.String getField7()
 	{
 		return ReviseItem2.field7.get(this);

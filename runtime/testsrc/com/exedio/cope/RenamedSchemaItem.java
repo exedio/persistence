@@ -84,7 +84,7 @@ package com.exedio.cope;
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final RenamedSchemaTargetItem getItem()
 	{
 		return RenamedSchemaItem.item.get(this);
@@ -107,7 +107,7 @@ package com.exedio.cope;
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final java.lang.String getUniqueSingle()
 	{
 		return RenamedSchemaItem.uniqueSingle.get(this);
@@ -135,7 +135,7 @@ package com.exedio.cope;
 	 *       It can be customized with the tag <tt>@cope.for public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	static final RenamedSchemaItem forUniqueSingle(@javax.annotation.Nonnull final java.lang.String uniqueSingle)
 	{
 		return RenamedSchemaItem.uniqueSingle.searchUnique(RenamedSchemaItem.class,uniqueSingle);
@@ -147,7 +147,7 @@ package com.exedio.cope;
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final java.lang.String getUniqueDouble1()
 	{
 		return RenamedSchemaItem.uniqueDouble1.get(this);
@@ -201,7 +201,7 @@ package com.exedio.cope;
 	 *       It can be customized with the tag <tt>@cope.finder public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	static final RenamedSchemaItem forUniqueDouble(@javax.annotation.Nonnull final java.lang.String uniqueDouble1,@javax.annotation.Nonnull final int uniqueDouble2)
 	{
 		return RenamedSchemaItem.uniqueDouble.search(RenamedSchemaItem.class,uniqueDouble1,uniqueDouble2);
@@ -213,7 +213,7 @@ package com.exedio.cope;
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final java.lang.String getString()
 	{
 		return RenamedSchemaItem.string.get(this);
@@ -238,7 +238,7 @@ package com.exedio.cope;
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final java.lang.Integer getInteger()
 	{
 		return RenamedSchemaItem.integer.get(this);

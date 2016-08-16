@@ -68,7 +68,7 @@ final class ModelSerializationItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final java.lang.String getName()
 	{
 		return ModelSerializationItem.name.get(this);
@@ -93,7 +93,7 @@ final class ModelSerializationItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final java.util.List<String> getList()
 	{
 		return ModelSerializationItem.list.get(this);
@@ -105,7 +105,7 @@ final class ModelSerializationItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getQuery public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final com.exedio.cope.Query<String> getListQuery()
 	{
 		return ModelSerializationItem.list.getQuery(this);
@@ -117,7 +117,7 @@ final class ModelSerializationItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getDistinctParentsOf public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	static final java.util.List<ModelSerializationItem> getDistinctParentsOfList(final String element)
 	{
 		return ModelSerializationItem.list.getDistinctParents(ModelSerializationItem.class,element);
@@ -159,7 +159,7 @@ final class ModelSerializationItem extends Item
 	 *       It can be customized with the tag <tt>@cope.Parent public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	static final com.exedio.cope.ItemField<ModelSerializationItem> listParent()
 	{
 		return ModelSerializationItem.list.getParent(ModelSerializationItem.class);

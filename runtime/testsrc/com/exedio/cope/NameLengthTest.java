@@ -212,7 +212,7 @@ public class NameLengthTest extends TestWithEnvironment
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final AnEnum getFieldLong()
 	{
 		return AnItem.fieldLong.get(this);
@@ -226,7 +226,7 @@ public class NameLengthTest extends TestWithEnvironment
 	 *       It can be customized with the tag <tt>@cope.for public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	static final AnItem forFieldLong(@javax.annotation.Nonnull final AnEnum fieldLong)
 	{
 		return AnItem.fieldLong.searchUnique(AnItem.class,fieldLong);
@@ -238,7 +238,7 @@ public class NameLengthTest extends TestWithEnvironment
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final AnEnum getFieldShort()
 	{
 		return AnItem.fieldShort.get(this);
@@ -252,7 +252,7 @@ public class NameLengthTest extends TestWithEnvironment
 	 *       It can be customized with the tag <tt>@cope.for public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	static final AnItem forFieldShort(@javax.annotation.Nonnull final AnEnum fieldShort)
 	{
 		return AnItem.fieldShort.searchUnique(AnItem.class,fieldShort);
@@ -264,7 +264,7 @@ public class NameLengthTest extends TestWithEnvironment
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final AnItem getForeignLong()
 	{
 		return AnItem.foreignLong.get(this);
@@ -276,7 +276,7 @@ public class NameLengthTest extends TestWithEnvironment
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final AnItem getForeignShort()
 	{
 		return AnItem.foreignShort.get(this);

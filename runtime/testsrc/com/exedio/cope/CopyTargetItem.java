@@ -87,7 +87,7 @@ final class CopyTargetItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final java.lang.String getTemplateString()
 	{
 		return CopyTargetItem.templateString.get(this);
@@ -99,7 +99,7 @@ final class CopyTargetItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final java.lang.String getOtherString()
 	{
 		return CopyTargetItem.otherString.get(this);
@@ -125,7 +125,7 @@ final class CopyTargetItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final CopyValueItem getTemplateItem()
 	{
 		return CopyTargetItem.templateItem.get(this);
@@ -137,7 +137,7 @@ final class CopyTargetItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final CopyValueItem getOtherItem()
 	{
 		return CopyTargetItem.otherItem.get(this);

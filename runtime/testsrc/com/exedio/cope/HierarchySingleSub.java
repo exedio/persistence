@@ -64,7 +64,7 @@ public final class HierarchySingleSub extends HierarchySingleSuper
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	public final java.lang.String getSubString()
 	{
 		return HierarchySingleSub.subString.get(this);
@@ -89,7 +89,7 @@ public final class HierarchySingleSub extends HierarchySingleSuper
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	public final HierarchySuper getHierarchySuper()
 	{
 		return HierarchySingleSub.hierarchySuper.get(this);

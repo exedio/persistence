@@ -69,7 +69,7 @@ final class ConnectItem2 extends ConnectItem
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final ConnectItem getItemField2()
 	{
 		return ConnectItem2.itemField2.get(this);
@@ -92,7 +92,7 @@ final class ConnectItem2 extends ConnectItem
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final ConnectItem2 getItemFieldSelf2()
 	{
 		return ConnectItem2.itemFieldSelf2.get(this);
@@ -115,7 +115,7 @@ final class ConnectItem2 extends ConnectItem
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final java.lang.String getStringField2()
 	{
 		return ConnectItem2.stringField2.get(this);

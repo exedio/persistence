@@ -98,7 +98,7 @@ public final class MD5Item extends Item
 	 *       It can be customized with the tag <tt>@cope.getMD5 public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final java.lang.String getPasswordMD5()
 	{
 		return MD5Item.password.getHash(this);

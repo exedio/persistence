@@ -221,7 +221,7 @@ public class DatePrecisionDefaultToNowTest extends TestWithEnvironment
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final java.util.Date getPast()
 	{
 		return AnItem.past.get(this);
@@ -285,7 +285,7 @@ public class DatePrecisionDefaultToNowTest extends TestWithEnvironment
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final java.util.Date getFuture()
 	{
 		return AnItem.future.get(this);
@@ -349,7 +349,7 @@ public class DatePrecisionDefaultToNowTest extends TestWithEnvironment
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final java.util.Date getNone()
 	{
 		return AnItem.none.get(this);

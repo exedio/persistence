@@ -83,7 +83,7 @@ public final class FeatureFieldItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final java.lang.Integer getInteger1()
 	{
 		return FeatureFieldItem.integer1.get(this);
@@ -106,7 +106,7 @@ public final class FeatureFieldItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final java.lang.Integer getInteger2()
 	{
 		return FeatureFieldItem.integer2.get(this);
@@ -129,7 +129,7 @@ public final class FeatureFieldItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final java.lang.Integer getInteger3()
 	{
 		return FeatureFieldItem.integer3.get(this);
@@ -152,7 +152,7 @@ public final class FeatureFieldItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final java.lang.String getString1()
 	{
 		return FeatureFieldItem.string1.get(this);
@@ -177,7 +177,7 @@ public final class FeatureFieldItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final java.lang.String getString2()
 	{
 		return FeatureFieldItem.string2.get(this);
@@ -202,7 +202,7 @@ public final class FeatureFieldItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final java.lang.String getString3()
 	{
 		return FeatureFieldItem.string3.get(this);
@@ -227,7 +227,7 @@ public final class FeatureFieldItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final Feature getStandard()
 	{
 		return FeatureFieldItem.standard.get(this);
@@ -253,7 +253,7 @@ public final class FeatureFieldItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final Feature getIsFinal()
 	{
 		return FeatureFieldItem.isFinal.get(this);
@@ -265,7 +265,7 @@ public final class FeatureFieldItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final Feature getOptional()
 	{
 		return FeatureFieldItem.optional.get(this);
@@ -290,7 +290,7 @@ public final class FeatureFieldItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final Feature getUnique()
 	{
 		return FeatureFieldItem.unique.get(this);
@@ -318,7 +318,7 @@ public final class FeatureFieldItem extends Item
 	 *       It can be customized with the tag <tt>@cope.for public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	static final FeatureFieldItem forUnique(@javax.annotation.Nonnull final Feature unique)
 	{
 		return FeatureFieldItem.unique.searchUnique(FeatureFieldItem.class,unique);
@@ -330,7 +330,7 @@ public final class FeatureFieldItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final Feature getRenamed()
 	{
 		return FeatureFieldItem.renamed.get(this);
@@ -355,7 +355,7 @@ public final class FeatureFieldItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final StringField getRestricted()
 	{
 		return FeatureFieldItem.restricted.get(this);

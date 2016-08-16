@@ -110,7 +110,7 @@ public final class DatePrecisionItemInstrumented extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final java.util.Date getMillis()
 	{
 		return DatePrecisionItemInstrumented.millis.get(this);
@@ -146,7 +146,7 @@ public final class DatePrecisionItemInstrumented extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final java.util.Date getSeconds()
 	{
 		return DatePrecisionItemInstrumented.seconds.get(this);
@@ -186,7 +186,7 @@ public final class DatePrecisionItemInstrumented extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final java.util.Date getMinutes()
 	{
 		return DatePrecisionItemInstrumented.minutes.get(this);
@@ -226,7 +226,7 @@ public final class DatePrecisionItemInstrumented extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final java.util.Date getHours()
 	{
 		return DatePrecisionItemInstrumented.hours.get(this);
@@ -266,7 +266,7 @@ public final class DatePrecisionItemInstrumented extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final java.util.Date getFinalMillis()
 	{
 		return DatePrecisionItemInstrumented.finalMillis.get(this);
@@ -278,7 +278,7 @@ public final class DatePrecisionItemInstrumented extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final java.util.Date getFinalSeconds()
 	{
 		return DatePrecisionItemInstrumented.finalSeconds.get(this);
@@ -290,7 +290,7 @@ public final class DatePrecisionItemInstrumented extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final java.util.Date getFinalMinutes()
 	{
 		return DatePrecisionItemInstrumented.finalMinutes.get(this);
@@ -302,7 +302,7 @@ public final class DatePrecisionItemInstrumented extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final java.util.Date getFinalHours()
 	{
 		return DatePrecisionItemInstrumented.finalHours.get(this);
@@ -314,7 +314,7 @@ public final class DatePrecisionItemInstrumented extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final java.util.Date getPastMillis()
 	{
 		return DatePrecisionItemInstrumented.pastMillis.get(this);
@@ -350,7 +350,7 @@ public final class DatePrecisionItemInstrumented extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final java.util.Date getPastSeconds()
 	{
 		return DatePrecisionItemInstrumented.pastSeconds.get(this);
@@ -414,7 +414,7 @@ public final class DatePrecisionItemInstrumented extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final java.util.Date getPastMinutes()
 	{
 		return DatePrecisionItemInstrumented.pastMinutes.get(this);
@@ -478,7 +478,7 @@ public final class DatePrecisionItemInstrumented extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final java.util.Date getPastHours()
 	{
 		return DatePrecisionItemInstrumented.pastHours.get(this);

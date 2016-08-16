@@ -140,7 +140,7 @@ public final class DispatcherWithoutPurgeItem extends Item implements Dispatchab
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final java.lang.String getBody()
 	{
 		return DispatcherWithoutPurgeItem.body.get(this);
@@ -191,7 +191,7 @@ public final class DispatcherWithoutPurgeItem extends Item implements Dispatchab
 	 *       It can be customized with the tag <tt>@cope.dispatch public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@java.lang.Deprecated()
+	@java.lang.Deprecated
 	static final int dispatchToTarget(@javax.annotation.Nonnull final com.exedio.cope.pattern.Dispatcher.Config config,@javax.annotation.Nullable final com.exedio.cope.util.Interrupter interrupter)
 	{
 		return DispatcherWithoutPurgeItem.toTarget.dispatch(DispatcherWithoutPurgeItem.class,config,interrupter);
@@ -247,7 +247,7 @@ public final class DispatcherWithoutPurgeItem extends Item implements Dispatchab
 	 *       It can be customized with the tag <tt>@cope.getLastSuccessDate public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final java.util.Date getToTargetLastSuccessDate()
 	{
 		return DispatcherWithoutPurgeItem.toTarget.getLastSuccessDate(this);
@@ -259,7 +259,7 @@ public final class DispatcherWithoutPurgeItem extends Item implements Dispatchab
 	 *       It can be customized with the tag <tt>@cope.getLastSuccessElapsed public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final java.lang.Long getToTargetLastSuccessElapsed()
 	{
 		return DispatcherWithoutPurgeItem.toTarget.getLastSuccessElapsed(this);
@@ -271,7 +271,7 @@ public final class DispatcherWithoutPurgeItem extends Item implements Dispatchab
 	 *       It can be customized with the tag <tt>@cope.getRuns public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final java.util.List<com.exedio.cope.pattern.Dispatcher.Run> getToTargetRuns()
 	{
 		return DispatcherWithoutPurgeItem.toTarget.getRuns(this);
@@ -283,7 +283,7 @@ public final class DispatcherWithoutPurgeItem extends Item implements Dispatchab
 	 *       It can be customized with the tag <tt>@cope.getFailures public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final java.util.List<com.exedio.cope.pattern.Dispatcher.Run> getToTargetFailures()
 	{
 		return DispatcherWithoutPurgeItem.toTarget.getFailures(this);
@@ -295,7 +295,7 @@ public final class DispatcherWithoutPurgeItem extends Item implements Dispatchab
 	 *       It can be customized with the tag <tt>@cope.RunParent public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	static final com.exedio.cope.ItemField<DispatcherWithoutPurgeItem> toTargetRunParent()
 	{
 		return DispatcherWithoutPurgeItem.toTarget.getRunParent(DispatcherWithoutPurgeItem.class);

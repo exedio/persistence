@@ -74,7 +74,7 @@ final class SubContainer extends SuperContainer
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	public final SuperContainer getSuperContainer()
 	{
 		return SubContainer.superContainer.get(this);
@@ -86,7 +86,7 @@ final class SubContainer extends SuperContainer
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final|boolean-as-is</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	public final java.lang.Boolean getSubflag()
 	{
 		return SubContainer.subflag.get(this);

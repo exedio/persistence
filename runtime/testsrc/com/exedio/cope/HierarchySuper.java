@@ -89,7 +89,7 @@ public abstract class HierarchySuper extends Item
 	 *       It can be customized with the tag <tt>@cope.for public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	public static final HierarchySuper forSuperInt(final int superInt)
 	{
 		return HierarchySuper.superInt.searchUnique(HierarchySuper.class,superInt);
@@ -101,7 +101,7 @@ public abstract class HierarchySuper extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	public final java.lang.String getSuperString()
 	{
 		return HierarchySuper.superString.get(this);

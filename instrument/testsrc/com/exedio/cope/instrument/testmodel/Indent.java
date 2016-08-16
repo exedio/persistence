@@ -72,7 +72,7 @@ final class Indent extends Item
 			 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 			 */
 			@javax.annotation.Generated("com.exedio.cope.instrument")
-			@javax.annotation.Nullable()
+			@javax.annotation.Nullable
 			final java.lang.String getOne()
 			{
 				return Indent.one.get(this);
@@ -98,7 +98,7 @@ final class Indent extends Item
 			 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 			 */
 			@javax.annotation.Generated("com.exedio.cope.instrument")
-			@javax.annotation.Nonnull()
+			@javax.annotation.Nonnull
 			final java.lang.String getTwo()
 			{
 				return Indent.two.get(this);
@@ -128,7 +128,7 @@ final class Indent extends Item
 			 *       It can be customized with the tag <tt>@cope.finder public|package|protected|private|none|non-final</tt> in the comment of the field.
 			 */
 			@javax.annotation.Generated("com.exedio.cope.instrument")
-			@javax.annotation.Nullable()
+			@javax.annotation.Nullable
 			static final Indent forUnq(@javax.annotation.Nonnull final java.lang.String one,@javax.annotation.Nonnull final java.lang.String two)
 			{
 				return Indent.unq.search(Indent.class,one,two);

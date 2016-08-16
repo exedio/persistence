@@ -73,7 +73,7 @@ public class MediaFilterItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getURL public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final java.lang.String getTextURL()
 	{
 		return MediaFilterItem.text.getURL(this);
@@ -85,7 +85,7 @@ public class MediaFilterItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getLocator public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final com.exedio.cope.pattern.MediaPath.Locator getTextLocator()
 	{
 		return MediaFilterItem.text.getLocator(this);
@@ -97,7 +97,7 @@ public class MediaFilterItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getLastModified public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final java.util.Date getTextLastModified()
 	{
 		return MediaFilterItem.text.getLastModified(this);
@@ -120,7 +120,7 @@ public class MediaFilterItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getBody public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final byte[] getTextBody()
 	{
 		return MediaFilterItem.text.getBody(this);
@@ -215,7 +215,7 @@ public class MediaFilterItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getURL public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final java.lang.String getTextConvertedURL()
 	{
 		return MediaFilterItem.textConverted.getURL(this);
@@ -227,7 +227,7 @@ public class MediaFilterItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getLocator public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final com.exedio.cope.pattern.MediaPath.Locator getTextConvertedLocator()
 	{
 		return MediaFilterItem.textConverted.getLocator(this);
@@ -239,7 +239,7 @@ public class MediaFilterItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getContentType public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final java.lang.String getTextConvertedContentType()
 	{
 		return MediaFilterItem.textConverted.getContentType(this);
@@ -251,7 +251,7 @@ public class MediaFilterItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getURL public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final java.lang.String getOptionalTextURL()
 	{
 		return MediaFilterItem.optionalText.getURL(this);
@@ -263,7 +263,7 @@ public class MediaFilterItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getLocator public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final com.exedio.cope.pattern.MediaPath.Locator getOptionalTextLocator()
 	{
 		return MediaFilterItem.optionalText.getLocator(this);
@@ -286,7 +286,7 @@ public class MediaFilterItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getLastModified public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final java.util.Date getOptionalTextLastModified()
 	{
 		return MediaFilterItem.optionalText.getLastModified(this);
@@ -309,7 +309,7 @@ public class MediaFilterItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getBody public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final byte[] getOptionalTextBody()
 	{
 		return MediaFilterItem.optionalText.getBody(this);
@@ -404,7 +404,7 @@ public class MediaFilterItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getURL public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final java.lang.String getOptionalTextConvertedURL()
 	{
 		return MediaFilterItem.optionalTextConverted.getURL(this);
@@ -416,7 +416,7 @@ public class MediaFilterItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getLocator public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final com.exedio.cope.pattern.MediaPath.Locator getOptionalTextConvertedLocator()
 	{
 		return MediaFilterItem.optionalTextConverted.getLocator(this);
@@ -428,7 +428,7 @@ public class MediaFilterItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getContentType public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final java.lang.String getOptionalTextConvertedContentType()
 	{
 		return MediaFilterItem.optionalTextConverted.getContentType(this);
@@ -440,7 +440,7 @@ public class MediaFilterItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getURL public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final java.lang.String getTextOrImageURL()
 	{
 		return MediaFilterItem.textOrImage.getURL(this);
@@ -452,7 +452,7 @@ public class MediaFilterItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getLocator public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final com.exedio.cope.pattern.MediaPath.Locator getTextOrImageLocator()
 	{
 		return MediaFilterItem.textOrImage.getLocator(this);
@@ -464,7 +464,7 @@ public class MediaFilterItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getContentType public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final java.lang.String getTextOrImageContentType()
 	{
 		return MediaFilterItem.textOrImage.getContentType(this);
@@ -476,7 +476,7 @@ public class MediaFilterItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getLastModified public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final java.util.Date getTextOrImageLastModified()
 	{
 		return MediaFilterItem.textOrImage.getLastModified(this);
@@ -499,7 +499,7 @@ public class MediaFilterItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getBody public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final byte[] getTextOrImageBody()
 	{
 		return MediaFilterItem.textOrImage.getBody(this);
@@ -594,7 +594,7 @@ public class MediaFilterItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getURL public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final java.lang.String getTextOrImageConvertedURL()
 	{
 		return MediaFilterItem.textOrImageConverted.getURL(this);
@@ -606,7 +606,7 @@ public class MediaFilterItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getLocator public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final com.exedio.cope.pattern.MediaPath.Locator getTextOrImageConvertedLocator()
 	{
 		return MediaFilterItem.textOrImageConverted.getLocator(this);
@@ -618,7 +618,7 @@ public class MediaFilterItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getContentType public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final java.lang.String getTextOrImageConvertedContentType()
 	{
 		return MediaFilterItem.textOrImageConverted.getContentType(this);
@@ -630,7 +630,7 @@ public class MediaFilterItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getURLWithFallbackToSource public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final java.lang.String getTextOrImageConvertedURLWithFallbackToSource()
 	{
 		return MediaFilterItem.textOrImageConverted.getURLWithFallbackToSource(this);
@@ -642,7 +642,7 @@ public class MediaFilterItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getLocatorWithFallbackToSource public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final com.exedio.cope.pattern.MediaPath.Locator getTextOrImageConvertedLocatorWithFallbackToSource()
 	{
 		return MediaFilterItem.textOrImageConverted.getLocatorWithFallbackToSource(this);

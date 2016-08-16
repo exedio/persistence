@@ -32,7 +32,7 @@ public final class BlockFully extends com.exedio.cope.pattern.Block
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final java.lang.String getField()
 	{
 		return field().of(BlockFully.field).get(item());

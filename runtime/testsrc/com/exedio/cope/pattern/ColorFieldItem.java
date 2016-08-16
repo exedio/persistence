@@ -96,7 +96,7 @@ final class ColorFieldItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final java.awt.Color getMandatory()
 	{
 		return ColorFieldItem.mandatory.get(this);
@@ -122,7 +122,7 @@ final class ColorFieldItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final java.awt.Color getOptional()
 	{
 		return ColorFieldItem.optional.get(this);
@@ -147,7 +147,7 @@ final class ColorFieldItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final java.awt.Color getDefaultTo()
 	{
 		return ColorFieldItem.defaultTo.get(this);
@@ -173,7 +173,7 @@ final class ColorFieldItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final java.awt.Color getAlpha()
 	{
 		return ColorFieldItem.alpha.get(this);
@@ -196,7 +196,7 @@ final class ColorFieldItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final java.awt.Color getMandatoryAlpha()
 	{
 		return ColorFieldItem.mandatoryAlpha.get(this);
@@ -221,7 +221,7 @@ final class ColorFieldItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final java.awt.Color getFinalColor()
 	{
 		return ColorFieldItem.finalColor.get(this);

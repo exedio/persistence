@@ -73,7 +73,7 @@ public final class SerializerItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final Integer getInteger()
 	{
 		return SerializerItem.integer.get(this);
@@ -96,7 +96,7 @@ public final class SerializerItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final Map getMap()
 	{
 		return SerializerItem.map.get(this);
@@ -119,7 +119,7 @@ public final class SerializerItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final Map<?,?> getMapWildcard()
 	{
 		return SerializerItem.mapWildcard.get(this);
@@ -142,7 +142,7 @@ public final class SerializerItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final String getMandatoryString()
 	{
 		return SerializerItem.mandatoryString.get(this);

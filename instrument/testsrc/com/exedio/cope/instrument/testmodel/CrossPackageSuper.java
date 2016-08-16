@@ -95,7 +95,7 @@ class CrossPackageSuper extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final SubTarget getSuperField()
 	{
 		return CrossPackageSuper.superField.get(this);
@@ -107,7 +107,7 @@ class CrossPackageSuper extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final SuperEnum getSuperField2()
 	{
 		return CrossPackageSuper.superField2.get(this);
@@ -119,7 +119,7 @@ class CrossPackageSuper extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final EnumContainer.Enum3 getExternalEnum()
 	{
 		return CrossPackageSuper.externalEnum.get(this);
@@ -131,7 +131,7 @@ class CrossPackageSuper extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final Enum4 getShortExternalEnum()
 	{
 		return CrossPackageSuper.shortExternalEnum.get(this);
@@ -143,7 +143,7 @@ class CrossPackageSuper extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final CompositeImported getCompositeImported()
 	{
 		return CrossPackageSuper.compositeImported.get(this);
@@ -155,7 +155,7 @@ class CrossPackageSuper extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final CompositeFully getCompositeFully()
 	{
 		return CrossPackageSuper.compositeFully.get(this);
@@ -167,7 +167,7 @@ class CrossPackageSuper extends Item
 	 *       It can be customized with the tag <tt>@cope. public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final BlockImported blockImported()
 	{
 		return CrossPackageSuper.blockImported.get(this);
@@ -179,7 +179,7 @@ class CrossPackageSuper extends Item
 	 *       It can be customized with the tag <tt>@cope. public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final BlockFully blockFully()
 	{
 		return CrossPackageSuper.blockFully.get(this);

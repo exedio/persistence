@@ -64,7 +64,7 @@ public final class UniqueHashedMediaItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getURL public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final java.lang.String getURL()
 	{
 		return UniqueHashedMediaItem.value.getURL(this);
@@ -76,7 +76,7 @@ public final class UniqueHashedMediaItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getLocator public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final com.exedio.cope.pattern.MediaPath.Locator getLocator()
 	{
 		return UniqueHashedMediaItem.value.getLocator(this);
@@ -88,7 +88,7 @@ public final class UniqueHashedMediaItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getContentType public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final java.lang.String getContentType()
 	{
 		return UniqueHashedMediaItem.value.getContentType(this);
@@ -100,7 +100,7 @@ public final class UniqueHashedMediaItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getLastModified public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final java.util.Date getLastModified()
 	{
 		return UniqueHashedMediaItem.value.getLastModified(this);
@@ -123,7 +123,7 @@ public final class UniqueHashedMediaItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getBody public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final byte[] getBody()
 	{
 		return UniqueHashedMediaItem.value.getBody(this);
@@ -135,7 +135,7 @@ public final class UniqueHashedMediaItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getHash public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final java.lang.String getHash()
 	{
 		return UniqueHashedMediaItem.value.getHash(this);
@@ -148,7 +148,7 @@ public final class UniqueHashedMediaItem extends Item
 	 *       It can be customized with the tag <tt>@cope.forHash public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	static final UniqueHashedMediaItem forHash(@javax.annotation.Nonnull final java.lang.String valueHash)
 	{
 		return UniqueHashedMediaItem.value.forHash(UniqueHashedMediaItem.class,valueHash);
@@ -162,7 +162,7 @@ public final class UniqueHashedMediaItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getOrCreate public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	static final UniqueHashedMediaItem getOrCreate(@javax.annotation.Nullable final com.exedio.cope.pattern.Media.Value value)
 			throws
 				java.io.IOException
@@ -176,7 +176,7 @@ public final class UniqueHashedMediaItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getURL public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final java.lang.String getW200URL()
 	{
 		return UniqueHashedMediaItem.w200.getURL(this);
@@ -188,7 +188,7 @@ public final class UniqueHashedMediaItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getLocator public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final com.exedio.cope.pattern.MediaPath.Locator getW200Locator()
 	{
 		return UniqueHashedMediaItem.w200.getLocator(this);
@@ -200,7 +200,7 @@ public final class UniqueHashedMediaItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getURLWithFallbackToSource public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final java.lang.String getW200URLWithFallbackToSource()
 	{
 		return UniqueHashedMediaItem.w200.getURLWithFallbackToSource(this);
@@ -212,7 +212,7 @@ public final class UniqueHashedMediaItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getLocatorWithFallbackToSource public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final com.exedio.cope.pattern.MediaPath.Locator getW200LocatorWithFallbackToSource()
 	{
 		return UniqueHashedMediaItem.w200.getLocatorWithFallbackToSource(this);
@@ -224,7 +224,7 @@ public final class UniqueHashedMediaItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final byte[] getW200()
 			throws
 				java.io.IOException
@@ -238,7 +238,7 @@ public final class UniqueHashedMediaItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getURL public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final java.lang.String getW300URL()
 	{
 		return UniqueHashedMediaItem.w300.getURL(this);
@@ -250,7 +250,7 @@ public final class UniqueHashedMediaItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getLocator public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final com.exedio.cope.pattern.MediaPath.Locator getW300Locator()
 	{
 		return UniqueHashedMediaItem.w300.getLocator(this);
@@ -262,7 +262,7 @@ public final class UniqueHashedMediaItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getURLWithFallbackToSource public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final java.lang.String getW300URLWithFallbackToSource()
 	{
 		return UniqueHashedMediaItem.w300.getURLWithFallbackToSource(this);
@@ -274,7 +274,7 @@ public final class UniqueHashedMediaItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getLocatorWithFallbackToSource public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final com.exedio.cope.pattern.MediaPath.Locator getW300LocatorWithFallbackToSource()
 	{
 		return UniqueHashedMediaItem.w300.getLocatorWithFallbackToSource(this);
@@ -286,7 +286,7 @@ public final class UniqueHashedMediaItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final byte[] getW300()
 			throws
 				java.io.IOException

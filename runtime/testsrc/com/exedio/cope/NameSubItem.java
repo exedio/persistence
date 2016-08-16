@@ -120,7 +120,7 @@ public final class NameSubItem extends NameLongItem
 	 *       It can be customized with the tag <tt>@cope.for public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	static final NameSubItem forUnique(final int unique)
 	{
 		return NameSubItem.unique.searchUnique(NameSubItem.class,unique);
@@ -156,7 +156,7 @@ public final class NameSubItem extends NameLongItem
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final NameSubItem getItem()
 	{
 		return NameSubItem.item.get(this);
@@ -185,7 +185,7 @@ public final class NameSubItem extends NameLongItem
 	 *       It can be customized with the tag <tt>@cope.finder public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	static final NameSubItem forIntegers(@javax.annotation.Nonnull final int integer,@javax.annotation.Nonnull final NameSubItem item)
 	{
 		return NameSubItem.integers.search(NameSubItem.class,integer,item);
@@ -223,7 +223,7 @@ public final class NameSubItem extends NameLongItem
 	 *       It can be customized with the tag <tt>@cope.for public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	static final NameSubItem forUniqueX(final int uniqueX)
 	{
 		return NameSubItem.uniqueX.searchUnique(NameSubItem.class,uniqueX);
@@ -259,7 +259,7 @@ public final class NameSubItem extends NameLongItem
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final NameSubItem getItemX()
 	{
 		return NameSubItem.itemX.get(this);
@@ -288,7 +288,7 @@ public final class NameSubItem extends NameLongItem
 	 *       It can be customized with the tag <tt>@cope.finder public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	static final NameSubItem forIntegersX(@javax.annotation.Nonnull final int integerX,@javax.annotation.Nonnull final NameSubItem itemX)
 	{
 		return NameSubItem.integersX.search(NameSubItem.class,integerX,itemX);

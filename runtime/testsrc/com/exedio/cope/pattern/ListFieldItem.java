@@ -61,7 +61,7 @@ public final class ListFieldItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final java.util.List<String> getStrings()
 	{
 		return ListFieldItem.strings.get(this);
@@ -73,7 +73,7 @@ public final class ListFieldItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getQuery public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final com.exedio.cope.Query<String> getStringsQuery()
 	{
 		return ListFieldItem.strings.getQuery(this);
@@ -85,7 +85,7 @@ public final class ListFieldItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getDistinctParentsOf public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	static final java.util.List<ListFieldItem> getDistinctParentsOfStrings(final String element)
 	{
 		return ListFieldItem.strings.getDistinctParents(ListFieldItem.class,element);
@@ -125,7 +125,7 @@ public final class ListFieldItem extends Item
 	 *       It can be customized with the tag <tt>@cope.Parent public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	static final com.exedio.cope.ItemField<ListFieldItem> stringsParent()
 	{
 		return ListFieldItem.strings.getParent(ListFieldItem.class);
@@ -137,7 +137,7 @@ public final class ListFieldItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final java.util.List<Date> getDates()
 	{
 		return ListFieldItem.dates.get(this);
@@ -149,7 +149,7 @@ public final class ListFieldItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getQuery public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final com.exedio.cope.Query<Date> getDatesQuery()
 	{
 		return ListFieldItem.dates.getQuery(this);
@@ -161,7 +161,7 @@ public final class ListFieldItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getDistinctParentsOf public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	static final java.util.List<ListFieldItem> getDistinctParentsOfDates(final Date element)
 	{
 		return ListFieldItem.dates.getDistinctParents(ListFieldItem.class,element);
@@ -201,7 +201,7 @@ public final class ListFieldItem extends Item
 	 *       It can be customized with the tag <tt>@cope.Parent public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	static final com.exedio.cope.ItemField<ListFieldItem> datesParent()
 	{
 		return ListFieldItem.dates.getParent(ListFieldItem.class);
@@ -213,7 +213,7 @@ public final class ListFieldItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final java.util.List<ListFieldItem> getItems()
 	{
 		return ListFieldItem.items.get(this);
@@ -225,7 +225,7 @@ public final class ListFieldItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getQuery public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final com.exedio.cope.Query<ListFieldItem> getItemsQuery()
 	{
 		return ListFieldItem.items.getQuery(this);
@@ -237,7 +237,7 @@ public final class ListFieldItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getDistinctParentsOf public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	static final java.util.List<ListFieldItem> getDistinctParentsOfItems(final ListFieldItem element)
 	{
 		return ListFieldItem.items.getDistinctParents(ListFieldItem.class,element);
@@ -277,7 +277,7 @@ public final class ListFieldItem extends Item
 	 *       It can be customized with the tag <tt>@cope.Parent public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	static final com.exedio.cope.ItemField<ListFieldItem> itemsParent()
 	{
 		return ListFieldItem.items.getParent(ListFieldItem.class);

@@ -86,7 +86,7 @@ final class StringCharSetItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final java.lang.String getCode()
 	{
 		return StringCharSetItem.code.get(this);
@@ -115,7 +115,7 @@ final class StringCharSetItem extends Item
 	 *       It can be customized with the tag <tt>@cope.for public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	static final StringCharSetItem forCode(@javax.annotation.Nonnull final java.lang.String code)
 	{
 		return StringCharSetItem.code.searchUnique(StringCharSetItem.class,code);
@@ -127,7 +127,7 @@ final class StringCharSetItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final java.lang.String getAny()
 	{
 		return StringCharSetItem.any.get(this);
@@ -152,7 +152,7 @@ final class StringCharSetItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final java.lang.String getAlpha()
 	{
 		return StringCharSetItem.alpha.get(this);
@@ -178,7 +178,7 @@ final class StringCharSetItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final java.lang.String getPrintable()
 	{
 		return StringCharSetItem.printable.get(this);
@@ -204,7 +204,7 @@ final class StringCharSetItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final java.lang.String getApos()
 	{
 		return StringCharSetItem.apos.get(this);

@@ -68,7 +68,7 @@ public class MediaCatchPhraseSuperItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getLocator public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final com.exedio.cope.pattern.MediaPath.Locator getFeatureLocator()
 	{
 		return MediaCatchPhraseSuperItem.feature.getLocator(this);
@@ -80,7 +80,7 @@ public class MediaCatchPhraseSuperItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getLastModified public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final java.util.Date getFeatureLastModified()
 	{
 		return MediaCatchPhraseSuperItem.feature.getLastModified(this);
@@ -103,7 +103,7 @@ public class MediaCatchPhraseSuperItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getBody public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final byte[] getFeatureBody()
 	{
 		return MediaCatchPhraseSuperItem.feature.getBody(this);

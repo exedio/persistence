@@ -119,7 +119,7 @@ public class BlockFieldMediaFilterTest extends TestWithEnvironment
 	 *       It can be customized with the tag <tt>@cope.getLocator public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final com.exedio.cope.pattern.MediaPath.Locator getSourceLocator()
 	{
 		return field().of(ABlock.source).getLocator(item());
@@ -142,7 +142,7 @@ public class BlockFieldMediaFilterTest extends TestWithEnvironment
 	 *       It can be customized with the tag <tt>@cope.getLastModified public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final java.util.Date getSourceLastModified()
 	{
 		return field().of(ABlock.source).getLastModified(item());
@@ -165,7 +165,7 @@ public class BlockFieldMediaFilterTest extends TestWithEnvironment
 	 *       It can be customized with the tag <tt>@cope.getBody public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final byte[] getSourceBody()
 	{
 		return field().of(ABlock.source).getBody(item());
@@ -260,7 +260,7 @@ public class BlockFieldMediaFilterTest extends TestWithEnvironment
 	 *       It can be customized with the tag <tt>@cope.getLocator public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final com.exedio.cope.pattern.MediaPath.Locator getFilterLocator()
 	{
 		return field().of(ABlock.filter).getLocator(item());
@@ -272,7 +272,7 @@ public class BlockFieldMediaFilterTest extends TestWithEnvironment
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final byte[] getFilter()
 			throws
 				java.io.IOException
@@ -340,7 +340,7 @@ public class BlockFieldMediaFilterTest extends TestWithEnvironment
 	 *       It can be customized with the tag <tt>@cope. public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final ABlock eins()
 	{
 		return AnItem.eins.get(this);
@@ -352,7 +352,7 @@ public class BlockFieldMediaFilterTest extends TestWithEnvironment
 	 *       It can be customized with the tag <tt>@cope. public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final ABlock zwei()
 	{
 		return AnItem.zwei.get(this);

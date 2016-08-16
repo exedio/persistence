@@ -92,7 +92,7 @@ public final class PlusIntegerItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	public final java.lang.Integer getNumA()
 	{
 		return PlusIntegerItem.numA.get(this);
@@ -115,7 +115,7 @@ public final class PlusIntegerItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	public final java.lang.Integer getNumB()
 	{
 		return PlusIntegerItem.numB.get(this);
@@ -138,7 +138,7 @@ public final class PlusIntegerItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	public final java.lang.Integer getNumC()
 	{
 		return PlusIntegerItem.numC.get(this);

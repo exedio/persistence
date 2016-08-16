@@ -68,7 +68,7 @@ final class CopyMultiTargetSourceItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final CopyMultiTargetItemA getTargetA()
 	{
 		return CopyMultiTargetSourceItem.targetA.get(this);
@@ -80,7 +80,7 @@ final class CopyMultiTargetSourceItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final CopyMultiTargetItemB getTargetB()
 	{
 		return CopyMultiTargetSourceItem.targetB.get(this);
@@ -92,7 +92,7 @@ final class CopyMultiTargetSourceItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final java.lang.String getCopy()
 	{
 		return CopyMultiTargetSourceItem.copy.get(this);

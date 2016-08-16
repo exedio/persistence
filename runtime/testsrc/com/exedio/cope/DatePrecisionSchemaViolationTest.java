@@ -208,7 +208,7 @@ public class DatePrecisionSchemaViolationTest extends SchemaMismatchTest
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final java.util.Date getHours()
 	{
 		return ItemA.hours.get(this);
@@ -220,7 +220,7 @@ public class DatePrecisionSchemaViolationTest extends SchemaMismatchTest
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final java.util.Date getMinutes()
 	{
 		return ItemA.minutes.get(this);
@@ -232,7 +232,7 @@ public class DatePrecisionSchemaViolationTest extends SchemaMismatchTest
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final java.util.Date getSeconds()
 	{
 		return ItemA.seconds.get(this);
@@ -312,7 +312,7 @@ public class DatePrecisionSchemaViolationTest extends SchemaMismatchTest
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final java.util.Date getHours()
 	{
 		return ItemB.hours.get(this);
@@ -324,7 +324,7 @@ public class DatePrecisionSchemaViolationTest extends SchemaMismatchTest
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final java.util.Date getMinutes()
 	{
 		return ItemB.minutes.get(this);
@@ -336,7 +336,7 @@ public class DatePrecisionSchemaViolationTest extends SchemaMismatchTest
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final java.util.Date getSeconds()
 	{
 		return ItemB.seconds.get(this);

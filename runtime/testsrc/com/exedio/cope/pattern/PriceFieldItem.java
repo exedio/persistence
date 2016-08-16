@@ -83,7 +83,7 @@ public final class PriceFieldItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final com.exedio.cope.pattern.Price getFinalPrice()
 	{
 		return PriceFieldItem.finalPrice.get(this);
@@ -95,7 +95,7 @@ public final class PriceFieldItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final com.exedio.cope.pattern.Price getOptionalPrice()
 	{
 		return PriceFieldItem.optionalPrice.get(this);
@@ -118,7 +118,7 @@ public final class PriceFieldItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final com.exedio.cope.pattern.Price getBigPrice()
 	{
 		return PriceFieldItem.bigPrice.get(this);

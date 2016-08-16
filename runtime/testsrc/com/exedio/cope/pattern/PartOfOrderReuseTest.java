@@ -163,7 +163,7 @@ public class PartOfOrderReuseTest
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final AContainer getContainer1()
 	{
 		return APart.container1.get(this);
@@ -175,7 +175,7 @@ public class PartOfOrderReuseTest
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final AContainer getContainer2()
 	{
 		return APart.container2.get(this);
@@ -209,7 +209,7 @@ public class PartOfOrderReuseTest
 	 *       It can be customized with the tag <tt>@cope.getContainer public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final AContainer getParts1Container()
 	{
 		return APart.parts1.getContainer(this);
@@ -221,7 +221,7 @@ public class PartOfOrderReuseTest
 	 *       It can be customized with the tag <tt>@cope.getParts public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	static final java.util.List<APart> getParts1Parts(@javax.annotation.Nonnull final AContainer container)
 	{
 		return APart.parts1.getParts(APart.class,container);
@@ -233,7 +233,7 @@ public class PartOfOrderReuseTest
 	 *       It can be customized with the tag <tt>@cope.getParts public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	static final java.util.List<APart> getParts1Parts(@javax.annotation.Nonnull final AContainer container,@javax.annotation.Nullable final com.exedio.cope.Condition condition)
 	{
 		return APart.parts1.getParts(APart.class,container,condition);
@@ -245,7 +245,7 @@ public class PartOfOrderReuseTest
 	 *       It can be customized with the tag <tt>@cope.getContainer public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final AContainer getParts2Container()
 	{
 		return APart.parts2.getContainer(this);
@@ -257,7 +257,7 @@ public class PartOfOrderReuseTest
 	 *       It can be customized with the tag <tt>@cope.getParts public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	static final java.util.List<APart> getParts2Parts(@javax.annotation.Nonnull final AContainer container)
 	{
 		return APart.parts2.getParts(APart.class,container);
@@ -269,7 +269,7 @@ public class PartOfOrderReuseTest
 	 *       It can be customized with the tag <tt>@cope.getParts public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	static final java.util.List<APart> getParts2Parts(@javax.annotation.Nonnull final AContainer container,@javax.annotation.Nullable final com.exedio.cope.Condition condition)
 	{
 		return APart.parts2.getParts(APart.class,container,condition);

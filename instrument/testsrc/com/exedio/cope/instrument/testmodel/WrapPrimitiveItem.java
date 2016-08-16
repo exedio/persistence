@@ -113,7 +113,7 @@ final class WrapPrimitiveItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final java.util.Date getDate()
 	{
 		return WrapPrimitiveItem.date.get(this);
@@ -150,7 +150,7 @@ final class WrapPrimitiveItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final java.lang.Integer getIntegerOptional()
 	{
 		return WrapPrimitiveItem.integerOptional.get(this);
@@ -179,7 +179,7 @@ final class WrapPrimitiveItem extends Item
 	 *       It can be customized with the tag <tt>@cope.finder public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	static final WrapPrimitiveItem forMixed(@javax.annotation.Nonnull final int integer,@javax.annotation.Nonnull final java.util.Date date,@javax.annotation.Nonnull final java.lang.Integer integerOptional)
 	{
 		return WrapPrimitiveItem.mixed.search(WrapPrimitiveItem.class,integer,date,integerOptional);
@@ -268,7 +268,7 @@ final class WrapPrimitiveItem extends Item
 	 *       It can be customized with the tag <tt>@cope.finder public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	static final WrapPrimitiveItem forPrimitive(@javax.annotation.Nonnull final boolean booleanField,@javax.annotation.Nonnull final int integer,@javax.annotation.Nonnull final long longField,@javax.annotation.Nonnull final double doubleField)
 	{
 		return WrapPrimitiveItem.primitive.search(WrapPrimitiveItem.class,booleanField,integer,longField,doubleField);

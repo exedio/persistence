@@ -75,7 +75,7 @@ final class ImporterItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final java.lang.String getCode()
 	{
 		return ImporterItem.code.get(this);
@@ -89,7 +89,7 @@ final class ImporterItem extends Item
 	 *       It can be customized with the tag <tt>@cope.for public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	static final ImporterItem forCode(@javax.annotation.Nonnull final java.lang.String code)
 	{
 		return ImporterItem.code.searchUnique(ImporterItem.class,code);
@@ -102,7 +102,7 @@ final class ImporterItem extends Item
 	 *       It can be customized with the tag <tt>@cope.import public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	static final ImporterItem importByCode(@javax.annotation.Nonnull final String keyValue,@javax.annotation.Nonnull final com.exedio.cope.SetValue<?>... setValues)
 	{
 		return ImporterItem.byCode.doImport(ImporterItem.class,keyValue,setValues);
@@ -115,7 +115,7 @@ final class ImporterItem extends Item
 	 *       It can be customized with the tag <tt>@cope.import public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	static final ImporterItem importByCode(@javax.annotation.Nonnull final String keyValue,@javax.annotation.Nonnull final java.util.List<? extends com.exedio.cope.SetValue<?>> setValues)
 	{
 		return ImporterItem.byCode.doImport(ImporterItem.class,keyValue,setValues);
@@ -127,7 +127,7 @@ final class ImporterItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final java.lang.String getDescription()
 	{
 		return ImporterItem.description.get(this);
@@ -153,7 +153,7 @@ final class ImporterItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final java.lang.String getDescription2()
 	{
 		return ImporterItem.description2.get(this);

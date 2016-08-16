@@ -63,7 +63,7 @@ public final class SimpleItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final java.lang.String getUniqueString()
 	{
 		return SimpleItem.uniqueString.get(this);
@@ -91,7 +91,7 @@ public final class SimpleItem extends Item
 	 *       It can be customized with the tag <tt>@cope.for public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	static final SimpleItem forUniqueString(@javax.annotation.Nonnull final java.lang.String uniqueString)
 	{
 		return SimpleItem.uniqueString.searchUnique(SimpleItem.class,uniqueString);
@@ -103,7 +103,7 @@ public final class SimpleItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	public final java.lang.String getName()
 	{
 		return SimpleItem.name.get(this);

@@ -98,7 +98,7 @@ public class SchemaMismatchConstraintForeignNameTest extends SchemaMismatchTest
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final TargetA getFieldA()
 	{
 		return ItemA.fieldA.get(this);
@@ -169,7 +169,7 @@ public class SchemaMismatchConstraintForeignNameTest extends SchemaMismatchTest
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final TargetB getFieldB()
 	{
 		return ItemB.fieldB.get(this);

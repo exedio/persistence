@@ -77,7 +77,7 @@ public final class PointerItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	public final java.lang.String getCode()
 	{
 		return PointerItem.code.get(this);
@@ -103,7 +103,7 @@ public final class PointerItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	public final PointerTargetItem getPointer()
 	{
 		return PointerItem.pointer.get(this);
@@ -128,7 +128,7 @@ public final class PointerItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	public final PointerTargetItem getPointer2()
 	{
 		return PointerItem.pointer2.get(this);
@@ -151,7 +151,7 @@ public final class PointerItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	public final PointerItem getSelf()
 	{
 		return PointerItem.self.get(this);
@@ -174,7 +174,7 @@ public final class PointerItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	public final EmptyItem2 getEmpty2()
 	{
 		return PointerItem.empty2.get(this);

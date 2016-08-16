@@ -125,7 +125,7 @@ public class BlockFieldUniqueModelTest
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final java.lang.String getAlpha()
 	{
 		return field().of(ABlock.alpha).get(item());
@@ -176,7 +176,7 @@ public class BlockFieldUniqueModelTest
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final com.exedio.cope.pattern.Price getAlphaPrice()
 	{
 		return field().of(ABlock.alphaPrice).get(item());
@@ -202,7 +202,7 @@ public class BlockFieldUniqueModelTest
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final com.exedio.cope.pattern.Price getBetaPrice()
 	{
 		return field().of(ABlock.betaPrice).get(item());
@@ -306,7 +306,7 @@ public class BlockFieldUniqueModelTest
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final java.lang.String getCode()
 	{
 		return AnItem.code.get(this);
@@ -318,7 +318,7 @@ public class BlockFieldUniqueModelTest
 	 *       It can be customized with the tag <tt>@cope. public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final ABlock eins()
 	{
 		return AnItem.eins.get(this);
@@ -330,7 +330,7 @@ public class BlockFieldUniqueModelTest
 	 *       It can be customized with the tag <tt>@cope. public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final ABlock zwei()
 	{
 		return AnItem.zwei.get(this);

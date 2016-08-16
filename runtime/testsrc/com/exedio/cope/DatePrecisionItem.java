@@ -57,7 +57,7 @@ public final class DatePrecisionItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final java.util.Date getMillis()
 	{
 		return DatePrecisionItem.millis.get(this);
@@ -91,7 +91,7 @@ public final class DatePrecisionItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final java.util.Date getSeconds()
 	{
 		return DatePrecisionItem.seconds.get(this);
@@ -129,7 +129,7 @@ public final class DatePrecisionItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final java.util.Date getMinutes()
 	{
 		return DatePrecisionItem.minutes.get(this);
@@ -167,7 +167,7 @@ public final class DatePrecisionItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final java.util.Date getHours()
 	{
 		return DatePrecisionItem.hours.get(this);

@@ -86,7 +86,7 @@ public final class MediaPathItem extends Item implements MediaUrlCatchphraseProv
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final java.lang.String getCatchphrase()
 	{
 		return MediaPathItem.catchphrase.get(this);
@@ -133,7 +133,7 @@ public final class MediaPathItem extends Item implements MediaUrlCatchphraseProv
 	 *       It can be customized with the tag <tt>@cope.getLocator public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final com.exedio.cope.pattern.MediaPath.Locator getNormalLocator()
 	{
 		return MediaPathItem.normal.getLocator(this);
@@ -145,7 +145,7 @@ public final class MediaPathItem extends Item implements MediaUrlCatchphraseProv
 	 *       It can be customized with the tag <tt>@cope.getContentType public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final java.lang.String getNormalContentType()
 	{
 		return MediaPathItem.normal.getContentType(this);
@@ -187,7 +187,7 @@ public final class MediaPathItem extends Item implements MediaUrlCatchphraseProv
 	 *       It can be customized with the tag <tt>@cope.getLocator public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final com.exedio.cope.pattern.MediaPath.Locator getFingerLocator()
 	{
 		return MediaPathItem.finger.getLocator(this);
@@ -199,7 +199,7 @@ public final class MediaPathItem extends Item implements MediaUrlCatchphraseProv
 	 *       It can be customized with the tag <tt>@cope.getContentType public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final java.lang.String getFingerContentType()
 	{
 		return MediaPathItem.finger.getContentType(this);
@@ -241,7 +241,7 @@ public final class MediaPathItem extends Item implements MediaUrlCatchphraseProv
 	 *       It can be customized with the tag <tt>@cope.getLocator public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final com.exedio.cope.pattern.MediaPath.Locator getGuessLocator()
 	{
 		return MediaPathItem.guess.getLocator(this);
@@ -253,7 +253,7 @@ public final class MediaPathItem extends Item implements MediaUrlCatchphraseProv
 	 *       It can be customized with the tag <tt>@cope.getContentType public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final java.lang.String getGuessContentType()
 	{
 		return MediaPathItem.guess.getContentType(this);

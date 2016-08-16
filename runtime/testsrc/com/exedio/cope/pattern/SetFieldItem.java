@@ -60,7 +60,7 @@ public final class SetFieldItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final java.util.Set<String> getStrings()
 	{
 		return SetFieldItem.strings.get(this);
@@ -72,7 +72,7 @@ public final class SetFieldItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getQuery public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final com.exedio.cope.Query<String> getStringsQuery()
 	{
 		return SetFieldItem.strings.getQuery(this);
@@ -84,7 +84,7 @@ public final class SetFieldItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getParentsOf public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	static final java.util.List<SetFieldItem> getParentsOfStrings(@javax.annotation.Nonnull final String element)
 	{
 		return SetFieldItem.strings.getParents(SetFieldItem.class,element);
@@ -143,7 +143,7 @@ public final class SetFieldItem extends Item
 	 *       It can be customized with the tag <tt>@cope.Parent public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	static final com.exedio.cope.ItemField<SetFieldItem> stringsParent()
 	{
 		return SetFieldItem.strings.getParent(SetFieldItem.class);
@@ -155,7 +155,7 @@ public final class SetFieldItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final java.util.Set<Date> getDates()
 	{
 		return SetFieldItem.dates.get(this);
@@ -167,7 +167,7 @@ public final class SetFieldItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getQuery public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final com.exedio.cope.Query<Date> getDatesQuery()
 	{
 		return SetFieldItem.dates.getQuery(this);
@@ -179,7 +179,7 @@ public final class SetFieldItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getParentsOf public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	static final java.util.List<SetFieldItem> getParentsOfDates(@javax.annotation.Nonnull final Date element)
 	{
 		return SetFieldItem.dates.getParents(SetFieldItem.class,element);
@@ -235,7 +235,7 @@ public final class SetFieldItem extends Item
 	 *       It can be customized with the tag <tt>@cope.Parent public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	static final com.exedio.cope.ItemField<SetFieldItem> datesParent()
 	{
 		return SetFieldItem.dates.getParent(SetFieldItem.class);

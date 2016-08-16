@@ -108,7 +108,7 @@ public final class Sub extends Super
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	public final java.lang.Long getSubInitial()
 	{
 		return Sub.subInitial.get(this);
@@ -131,7 +131,7 @@ public final class Sub extends Super
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	public final java.util.Date getSubNonInitial()
 	{
 		return Sub.subNonInitial.get(this);
@@ -165,8 +165,8 @@ public final class Sub extends Super
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
-	@java.lang.Override()
+	@javax.annotation.Nullable
+	@java.lang.Override
 	final java.lang.Long getOverride()
 	{
 		return Sub.override.get(this);

@@ -120,7 +120,7 @@ public final class MessageDigestHashItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getSHA512s8i5 public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final java.lang.String getPasswordSHA512s8i5()
 	{
 		return MessageDigestHashItem.password.getHash(this);
@@ -166,7 +166,7 @@ public final class MessageDigestHashItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getSHA512s8i5 public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final java.lang.String getPasswordLatinSHA512s8i5()
 	{
 		return MessageDigestHashItem.passwordLatin.getHash(this);
@@ -212,7 +212,7 @@ public final class MessageDigestHashItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getSHA512s8i5 public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final java.lang.String getPasswordFinalSHA512s8i5()
 	{
 		return MessageDigestHashItem.passwordFinal.getHash(this);
@@ -247,7 +247,7 @@ public final class MessageDigestHashItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getSHA512s8i5 public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final java.lang.String getPasswordMandatorySHA512s8i5()
 	{
 		return MessageDigestHashItem.passwordMandatory.getHash(this);

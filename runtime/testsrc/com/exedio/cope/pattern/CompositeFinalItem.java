@@ -74,7 +74,7 @@ public final class CompositeFinalItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	public final java.lang.String getCode()
 	{
 		return CompositeFinalItem.code.get(this);
@@ -86,7 +86,7 @@ public final class CompositeFinalItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	public final CompositeValue getFirst()
 	{
 		return CompositeFinalItem.first.get(this);
@@ -98,7 +98,7 @@ public final class CompositeFinalItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	public final CompositeValue getSecond()
 	{
 		return CompositeFinalItem.second.get(this);

@@ -71,7 +71,7 @@ final class CollisionBase extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final ACollide1 getInnerA1()
 	{
 		return CollisionBase.innerA1.get(this);
@@ -96,7 +96,7 @@ final class CollisionBase extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final XCollide1 getInnerX1()
 	{
 		return CollisionBase.innerX1.get(this);
@@ -121,7 +121,7 @@ final class CollisionBase extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final XCollide2 getInnerX2()
 	{
 		return CollisionBase.innerX2.get(this);
@@ -146,7 +146,7 @@ final class CollisionBase extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final CollisionBase.ACollide1 getTopA1()
 	{
 		return CollisionBase.topA1.get(this);
@@ -171,7 +171,7 @@ final class CollisionBase extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final CollisionBase.XCollide1 getTopX1()
 	{
 		return CollisionBase.topX1.get(this);
@@ -196,7 +196,7 @@ final class CollisionBase extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final CollisionBase.XCollide2 getTopX2()
 	{
 		return CollisionBase.topX2.get(this);
@@ -221,7 +221,7 @@ final class CollisionBase extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final com.exedio.cope.instrument.testmodel.enumcollision.CollisionBase.ACollide1 getFullA1()
 	{
 		return CollisionBase.fullA1.get(this);
@@ -246,7 +246,7 @@ final class CollisionBase extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final com.exedio.cope.instrument.testmodel.enumcollision.CollisionBase.XCollide1 getFullX1()
 	{
 		return CollisionBase.fullX1.get(this);
@@ -271,7 +271,7 @@ final class CollisionBase extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final com.exedio.cope.instrument.testmodel.enumcollision.CollisionBase.XCollide2 getFullX2()
 	{
 		return CollisionBase.fullX2.get(this);

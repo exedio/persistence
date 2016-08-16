@@ -114,7 +114,7 @@ public final class DispatcherNoneItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getLastSuccessDate public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final java.util.Date getWrongLastSuccessDate()
 	{
 		return DispatcherNoneItem.wrong.getLastSuccessDate(this);
@@ -126,7 +126,7 @@ public final class DispatcherNoneItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getLastSuccessElapsed public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final java.lang.Long getWrongLastSuccessElapsed()
 	{
 		return DispatcherNoneItem.wrong.getLastSuccessElapsed(this);
@@ -138,7 +138,7 @@ public final class DispatcherNoneItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getRuns public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final java.util.List<com.exedio.cope.pattern.Dispatcher.Run> getWrongRuns()
 	{
 		return DispatcherNoneItem.wrong.getRuns(this);
@@ -150,7 +150,7 @@ public final class DispatcherNoneItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getFailures public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final java.util.List<com.exedio.cope.pattern.Dispatcher.Run> getWrongFailures()
 	{
 		return DispatcherNoneItem.wrong.getFailures(this);
@@ -172,7 +172,7 @@ public final class DispatcherNoneItem extends Item
 	 *       It can be customized with the tag <tt>@cope.RunParent public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	static final com.exedio.cope.ItemField<DispatcherNoneItem> wrongRunParent()
 	{
 		return DispatcherNoneItem.wrong.getRunParent(DispatcherNoneItem.class);

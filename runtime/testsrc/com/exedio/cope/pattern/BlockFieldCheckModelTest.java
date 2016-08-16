@@ -252,7 +252,7 @@ public class BlockFieldCheckModelTest
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final java.lang.String getCode()
 	{
 		return AnItem.code.get(this);
@@ -264,7 +264,7 @@ public class BlockFieldCheckModelTest
 	 *       It can be customized with the tag <tt>@cope. public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final ABlock eins()
 	{
 		return AnItem.eins.get(this);
@@ -276,7 +276,7 @@ public class BlockFieldCheckModelTest
 	 *       It can be customized with the tag <tt>@cope. public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final ABlock zwei()
 	{
 		return AnItem.zwei.get(this);

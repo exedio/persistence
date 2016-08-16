@@ -121,7 +121,7 @@ public final class ScheduleItem extends Item implements Scheduleable
 	 *       It can be customized with the tag <tt>@cope.getInterval public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final com.exedio.cope.pattern.Schedule.Interval getReportInterval()
 	{
 		return ScheduleItem.report.getInterval(this);
@@ -142,7 +142,7 @@ public final class ScheduleItem extends Item implements Scheduleable
 	 *       It can be customized with the tag <tt>@cope.run public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@java.lang.Deprecated()
+	@java.lang.Deprecated
 	static final int runReport(@javax.annotation.Nullable final com.exedio.cope.util.Interrupter interrupter)
 	{
 		return ScheduleItem.report.run(ScheduleItem.class,interrupter);
@@ -164,7 +164,7 @@ public final class ScheduleItem extends Item implements Scheduleable
 	 *       It can be customized with the tag <tt>@cope.RunParent public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	static final com.exedio.cope.ItemField<ScheduleItem> reportRunParent()
 	{
 		return ScheduleItem.report.getRunParent(ScheduleItem.class);
@@ -198,7 +198,7 @@ public final class ScheduleItem extends Item implements Scheduleable
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final java.lang.Integer getProgress()
 	{
 		return ScheduleItem.progress.get(this);

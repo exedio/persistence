@@ -80,7 +80,7 @@ public final class HashItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final java.lang.String getExplicitExternalWrap()
 	{
 		return HashItem.explicitExternalWrap.get(this);
@@ -139,7 +139,7 @@ public final class HashItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getwrap public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final java.lang.String getExplicitExternalwrap()
 	{
 		return HashItem.explicitExternal.getHash(this);
@@ -196,7 +196,7 @@ public final class HashItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getwrap public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final java.lang.String getImplicitExternalwrap()
 	{
 		return HashItem.implicitExternal.getHash(this);
@@ -253,7 +253,7 @@ public final class HashItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getwrap public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final java.lang.String getInternalwrap()
 	{
 		return HashItem.internal.getHash(this);
@@ -310,7 +310,7 @@ public final class HashItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getwrap public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final java.lang.String getLimited15wrap()
 	{
 		return HashItem.limited15.getHash(this);
@@ -367,7 +367,7 @@ public final class HashItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getwrap public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final java.lang.String getWithCorruptValidatorwrap()
 	{
 		return HashItem.withCorruptValidator.getHash(this);
@@ -424,7 +424,7 @@ public final class HashItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getwrap public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final java.lang.String getWith3PinValidatorwrap()
 	{
 		return HashItem.with3PinValidator.getHash(this);

@@ -152,7 +152,7 @@ public final class MoneyFieldItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final com.exedio.cope.pattern.Money<CurrencyFixed> getFixed()
 	{
 		return MoneyFieldItem.fixed.get(this);
@@ -175,7 +175,7 @@ public final class MoneyFieldItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final com.exedio.cope.pattern.Money<Currency> getFixedEnum()
 	{
 		return MoneyFieldItem.fixedEnum.get(this);
@@ -198,7 +198,7 @@ public final class MoneyFieldItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final Currency getCurrency()
 	{
 		return MoneyFieldItem.currency.get(this);
@@ -223,7 +223,7 @@ public final class MoneyFieldItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final com.exedio.cope.pattern.Money<Currency> getShared()
 	{
 		return MoneyFieldItem.shared.get(this);
@@ -246,7 +246,7 @@ public final class MoneyFieldItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final com.exedio.cope.pattern.Money<Currency> getSharedMandatory()
 	{
 		return MoneyFieldItem.sharedMandatory.get(this);
@@ -271,7 +271,7 @@ public final class MoneyFieldItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final com.exedio.cope.pattern.Money<Currency> getExclusive()
 	{
 		return MoneyFieldItem.exclusive.get(this);

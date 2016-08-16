@@ -166,7 +166,7 @@ public final class PasswordLimiterItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getSHA512s8i8 public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final java.lang.String getPasswordSHA512s8i8()
 	{
 		return PasswordLimiterItem.password.getHash(this);
@@ -223,7 +223,7 @@ public final class PasswordLimiterItem extends Item
 	 *       It can be customized with the tag <tt>@cope.purge public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@java.lang.Deprecated()
+	@java.lang.Deprecated
 	static final int purgePasswordLimited(@javax.annotation.Nullable final com.exedio.cope.util.Interrupter interrupter)
 	{
 		return PasswordLimiterItem.passwordLimited.purge(interrupter);

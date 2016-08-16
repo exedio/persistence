@@ -174,7 +174,7 @@ public class EnumMapFieldFallbackModelTest
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final String getNoneMand(@javax.annotation.Nonnull final AnEnum k)
 	{
 		return AnItem.noneMand.get(this,k);
@@ -196,7 +196,7 @@ public class EnumMapFieldFallbackModelTest
 	 *       It can be customized with the tag <tt>@cope.getMap public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final java.util.Map<AnEnum,String> getNoneMandMap()
 	{
 		return AnItem.noneMand.getMap(this);
@@ -218,7 +218,7 @@ public class EnumMapFieldFallbackModelTest
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final String getNoneOpt(@javax.annotation.Nonnull final AnEnum k)
 	{
 		return AnItem.noneOpt.get(this,k);
@@ -240,7 +240,7 @@ public class EnumMapFieldFallbackModelTest
 	 *       It can be customized with the tag <tt>@cope.getMap public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final java.util.Map<AnEnum,String> getNoneOptMap()
 	{
 		return AnItem.noneOpt.getMap(this);
@@ -262,7 +262,7 @@ public class EnumMapFieldFallbackModelTest
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final String getFallMand(@javax.annotation.Nonnull final AnEnum k)
 	{
 		return AnItem.fallMand.get(this,k);
@@ -274,7 +274,7 @@ public class EnumMapFieldFallbackModelTest
 	 *       It can be customized with the tag <tt>@cope.getWithFallback public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final String getFallMandWithFallback(@javax.annotation.Nonnull final AnEnum k)
 	{
 		return AnItem.fallMand.getWithFallback(this,k);
@@ -296,7 +296,7 @@ public class EnumMapFieldFallbackModelTest
 	 *       It can be customized with the tag <tt>@cope.getMap public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final java.util.Map<AnEnum,String> getFallMandMap()
 	{
 		return AnItem.fallMand.getMap(this);
@@ -307,7 +307,7 @@ public class EnumMapFieldFallbackModelTest
 	 *       It can be customized with the tag <tt>@cope.getMapWithFallback public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final java.util.Map<AnEnum,String> getFallMandMapWithFallback()
 	{
 		return AnItem.fallMand.getMapWithFallback(this);
@@ -329,7 +329,7 @@ public class EnumMapFieldFallbackModelTest
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final String getFallOpt(@javax.annotation.Nonnull final AnEnum k)
 	{
 		return AnItem.fallOpt.get(this,k);
@@ -341,7 +341,7 @@ public class EnumMapFieldFallbackModelTest
 	 *       It can be customized with the tag <tt>@cope.getWithFallback public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final String getFallOptWithFallback(@javax.annotation.Nonnull final AnEnum k)
 	{
 		return AnItem.fallOpt.getWithFallback(this,k);
@@ -363,7 +363,7 @@ public class EnumMapFieldFallbackModelTest
 	 *       It can be customized with the tag <tt>@cope.getMap public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final java.util.Map<AnEnum,String> getFallOptMap()
 	{
 		return AnItem.fallOpt.getMap(this);
@@ -374,7 +374,7 @@ public class EnumMapFieldFallbackModelTest
 	 *       It can be customized with the tag <tt>@cope.getMapWithFallback public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final java.util.Map<AnEnum,String> getFallOptMapWithFallback()
 	{
 		return AnItem.fallOpt.getMapWithFallback(this);

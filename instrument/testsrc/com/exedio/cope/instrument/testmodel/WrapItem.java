@@ -188,7 +188,7 @@ final class WrapItem extends Item
 	 *       It can be customized with the tag <tt>@cope.deprecation public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@java.lang.Deprecated()
+	@java.lang.Deprecated
 	final int deprecationFeature()
 	{
 		return WrapItem.feature.deprecation(this);

@@ -66,7 +66,7 @@ public final class ThumbnailItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getLocator public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final com.exedio.cope.pattern.MediaPath.Locator getFileLocator()
 	{
 		return ThumbnailItem.file.getLocator(this);
@@ -78,7 +78,7 @@ public final class ThumbnailItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getContentType public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final java.lang.String getFileContentType()
 	{
 		return ThumbnailItem.file.getContentType(this);
@@ -101,7 +101,7 @@ public final class ThumbnailItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getLastModified public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final java.util.Date getFileLastModified()
 	{
 		return ThumbnailItem.file.getLastModified(this);
@@ -124,7 +124,7 @@ public final class ThumbnailItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getBody public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final byte[] getFileBody()
 	{
 		return ThumbnailItem.file.getBody(this);
@@ -219,7 +219,7 @@ public final class ThumbnailItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getLocator public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final com.exedio.cope.pattern.MediaPath.Locator getThumbLocator()
 	{
 		return ThumbnailItem.thumb.getLocator(this);
@@ -231,7 +231,7 @@ public final class ThumbnailItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getURLWithFallbackToSource public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final java.lang.String getThumbURLWithFallbackToSource()
 	{
 		return ThumbnailItem.thumb.getURLWithFallbackToSource(this);
@@ -243,7 +243,7 @@ public final class ThumbnailItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getLocatorWithFallbackToSource public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final com.exedio.cope.pattern.MediaPath.Locator getThumbLocatorWithFallbackToSource()
 	{
 		return ThumbnailItem.thumb.getLocatorWithFallbackToSource(this);
@@ -255,7 +255,7 @@ public final class ThumbnailItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final byte[] getThumb()
 			throws
 				java.io.IOException

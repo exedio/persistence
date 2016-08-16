@@ -84,7 +84,7 @@ public final class PartOfItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final PartOfContainerItem getContainer()
 	{
 		return PartOfItem.container.get(this);
@@ -118,7 +118,7 @@ public final class PartOfItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getContainer public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final PartOfContainerItem getUnorderedContainer()
 	{
 		return PartOfItem.unordered.getContainer(this);
@@ -130,7 +130,7 @@ public final class PartOfItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getParts public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	static final java.util.List<PartOfItem> getUnorderedParts(@javax.annotation.Nonnull final PartOfContainerItem container)
 	{
 		return PartOfItem.unordered.getParts(PartOfItem.class,container);
@@ -142,7 +142,7 @@ public final class PartOfItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getParts public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	static final java.util.List<PartOfItem> getUnorderedParts(@javax.annotation.Nonnull final PartOfContainerItem container,@javax.annotation.Nullable final com.exedio.cope.Condition condition)
 	{
 		return PartOfItem.unordered.getParts(PartOfItem.class,container,condition);
@@ -154,7 +154,7 @@ public final class PartOfItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getContainer public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final PartOfContainerItem getOrderedContainer()
 	{
 		return PartOfItem.ordered.getContainer(this);
@@ -166,7 +166,7 @@ public final class PartOfItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getParts public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	static final java.util.List<PartOfItem> getOrderedParts(@javax.annotation.Nonnull final PartOfContainerItem container)
 	{
 		return PartOfItem.ordered.getParts(PartOfItem.class,container);
@@ -178,7 +178,7 @@ public final class PartOfItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getParts public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	static final java.util.List<PartOfItem> getOrderedParts(@javax.annotation.Nonnull final PartOfContainerItem container,@javax.annotation.Nullable final com.exedio.cope.Condition condition)
 	{
 		return PartOfItem.ordered.getParts(PartOfItem.class,container,condition);
@@ -190,7 +190,7 @@ public final class PartOfItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final java.lang.String getPartString()
 	{
 		return PartOfItem.partString.get(this);

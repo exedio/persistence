@@ -76,7 +76,7 @@ final class HardJoinA3Item extends HardJoinA2Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final java.lang.Integer getA3()
 	{
 		return HardJoinA3Item.a3.get(this);

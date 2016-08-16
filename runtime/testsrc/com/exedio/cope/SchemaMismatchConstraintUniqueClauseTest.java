@@ -131,7 +131,7 @@ public class SchemaMismatchConstraintUniqueClauseTest extends SchemaMismatchTest
 	 *       It can be customized with the tag <tt>@cope.finder public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	static final ItemA forUnique(@javax.annotation.Nonnull final int field1,@javax.annotation.Nonnull final int field2)
 	{
 		return ItemA.unique.search(ItemA.class,field1,field2);
@@ -233,7 +233,7 @@ public class SchemaMismatchConstraintUniqueClauseTest extends SchemaMismatchTest
 	 *       It can be customized with the tag <tt>@cope.finder public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	static final ItemB forUnique(@javax.annotation.Nonnull final int field2,@javax.annotation.Nonnull final int field1)
 	{
 		return ItemB.unique.search(ItemB.class,field2,field1);

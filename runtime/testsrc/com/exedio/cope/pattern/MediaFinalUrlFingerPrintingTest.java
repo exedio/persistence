@@ -99,7 +99,7 @@ public class MediaFinalUrlFingerPrintingTest
 	 *       It can be customized with the tag <tt>@cope.getURL public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final java.lang.String getNonFinalURL()
 	{
 		return AnItem.nonFinal.getURL(this);
@@ -111,7 +111,7 @@ public class MediaFinalUrlFingerPrintingTest
 	 *       It can be customized with the tag <tt>@cope.getLocator public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final com.exedio.cope.pattern.MediaPath.Locator getNonFinalLocator()
 	{
 		return AnItem.nonFinal.getLocator(this);
@@ -123,7 +123,7 @@ public class MediaFinalUrlFingerPrintingTest
 	 *       It can be customized with the tag <tt>@cope.getContentType public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final java.lang.String getNonFinalContentType()
 	{
 		return AnItem.nonFinal.getContentType(this);
@@ -135,7 +135,7 @@ public class MediaFinalUrlFingerPrintingTest
 	 *       It can be customized with the tag <tt>@cope.getLastModified public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final java.util.Date getNonFinalLastModified()
 	{
 		return AnItem.nonFinal.getLastModified(this);
@@ -158,7 +158,7 @@ public class MediaFinalUrlFingerPrintingTest
 	 *       It can be customized with the tag <tt>@cope.getBody public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final byte[] getNonFinalBody()
 	{
 		return AnItem.nonFinal.getBody(this);
@@ -253,7 +253,7 @@ public class MediaFinalUrlFingerPrintingTest
 	 *       It can be customized with the tag <tt>@cope.getURL public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final java.lang.String getIsFinalURL()
 	{
 		return AnItem.isFinal.getURL(this);
@@ -265,7 +265,7 @@ public class MediaFinalUrlFingerPrintingTest
 	 *       It can be customized with the tag <tt>@cope.getLocator public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final com.exedio.cope.pattern.MediaPath.Locator getIsFinalLocator()
 	{
 		return AnItem.isFinal.getLocator(this);
@@ -277,7 +277,7 @@ public class MediaFinalUrlFingerPrintingTest
 	 *       It can be customized with the tag <tt>@cope.getContentType public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final java.lang.String getIsFinalContentType()
 	{
 		return AnItem.isFinal.getContentType(this);
@@ -289,7 +289,7 @@ public class MediaFinalUrlFingerPrintingTest
 	 *       It can be customized with the tag <tt>@cope.getLastModified public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final java.util.Date getIsFinalLastModified()
 	{
 		return AnItem.isFinal.getLastModified(this);
@@ -312,7 +312,7 @@ public class MediaFinalUrlFingerPrintingTest
 	 *       It can be customized with the tag <tt>@cope.getBody public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final byte[] getIsFinalBody()
 	{
 		return AnItem.isFinal.getBody(this);
@@ -354,7 +354,7 @@ public class MediaFinalUrlFingerPrintingTest
 	 *       It can be customized with the tag <tt>@cope.getURL public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final java.lang.String getNonFinalFingerURL()
 	{
 		return AnItem.nonFinalFinger.getURL(this);
@@ -366,7 +366,7 @@ public class MediaFinalUrlFingerPrintingTest
 	 *       It can be customized with the tag <tt>@cope.getLocator public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final com.exedio.cope.pattern.MediaPath.Locator getNonFinalFingerLocator()
 	{
 		return AnItem.nonFinalFinger.getLocator(this);
@@ -378,7 +378,7 @@ public class MediaFinalUrlFingerPrintingTest
 	 *       It can be customized with the tag <tt>@cope.getContentType public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final java.lang.String getNonFinalFingerContentType()
 	{
 		return AnItem.nonFinalFinger.getContentType(this);
@@ -390,7 +390,7 @@ public class MediaFinalUrlFingerPrintingTest
 	 *       It can be customized with the tag <tt>@cope.getLastModified public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final java.util.Date getNonFinalFingerLastModified()
 	{
 		return AnItem.nonFinalFinger.getLastModified(this);
@@ -413,7 +413,7 @@ public class MediaFinalUrlFingerPrintingTest
 	 *       It can be customized with the tag <tt>@cope.getBody public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final byte[] getNonFinalFingerBody()
 	{
 		return AnItem.nonFinalFinger.getBody(this);
@@ -508,7 +508,7 @@ public class MediaFinalUrlFingerPrintingTest
 	 *       It can be customized with the tag <tt>@cope.getURL public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final java.lang.String getIsFinalFingerURL()
 	{
 		return AnItem.isFinalFinger.getURL(this);
@@ -520,7 +520,7 @@ public class MediaFinalUrlFingerPrintingTest
 	 *       It can be customized with the tag <tt>@cope.getLocator public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final com.exedio.cope.pattern.MediaPath.Locator getIsFinalFingerLocator()
 	{
 		return AnItem.isFinalFinger.getLocator(this);
@@ -532,7 +532,7 @@ public class MediaFinalUrlFingerPrintingTest
 	 *       It can be customized with the tag <tt>@cope.getContentType public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final java.lang.String getIsFinalFingerContentType()
 	{
 		return AnItem.isFinalFinger.getContentType(this);
@@ -544,7 +544,7 @@ public class MediaFinalUrlFingerPrintingTest
 	 *       It can be customized with the tag <tt>@cope.getLastModified public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final java.util.Date getIsFinalFingerLastModified()
 	{
 		return AnItem.isFinalFinger.getLastModified(this);
@@ -567,7 +567,7 @@ public class MediaFinalUrlFingerPrintingTest
 	 *       It can be customized with the tag <tt>@cope.getBody public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final byte[] getIsFinalFingerBody()
 	{
 		return AnItem.isFinalFinger.getBody(this);

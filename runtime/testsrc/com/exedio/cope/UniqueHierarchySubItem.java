@@ -72,7 +72,7 @@ final class UniqueHierarchySubItem extends UniqueHierarchySuperItem
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final java.lang.String getSubField()
 	{
 		return UniqueHierarchySubItem.subField.get(this);
@@ -101,7 +101,7 @@ final class UniqueHierarchySubItem extends UniqueHierarchySuperItem
 	 *       It can be customized with the tag <tt>@cope.for public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	static final UniqueHierarchySubItem forSubField(@javax.annotation.Nonnull final java.lang.String subField)
 	{
 		return UniqueHierarchySubItem.subField.searchUnique(UniqueHierarchySubItem.class,subField);

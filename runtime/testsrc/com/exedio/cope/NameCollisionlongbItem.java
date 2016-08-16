@@ -66,7 +66,7 @@ final class NameCollisionlongbItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final java.lang.String getCode()
 	{
 		return NameCollisionlongbItem.code.get(this);
@@ -95,7 +95,7 @@ final class NameCollisionlongbItem extends Item
 	 *       It can be customized with the tag <tt>@cope.for public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	static final NameCollisionlongbItem forCode(@javax.annotation.Nonnull final java.lang.String code)
 	{
 		return NameCollisionlongbItem.code.searchUnique(NameCollisionlongbItem.class,code);

@@ -70,7 +70,7 @@ class InstanceOfAItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final java.lang.String getCode()
 	{
 		return InstanceOfAItem.code.get(this);
@@ -84,7 +84,7 @@ class InstanceOfAItem extends Item
 	 *       It can be customized with the tag <tt>@cope.for public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	static final InstanceOfAItem forCode(@javax.annotation.Nonnull final java.lang.String code)
 	{
 		return InstanceOfAItem.code.searchUnique(InstanceOfAItem.class,code);

@@ -259,7 +259,7 @@ public final class Standard extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	public final java.lang.String getDefaultString()
 	{
 		return Standard.defaultString.get(this);
@@ -284,7 +284,7 @@ public final class Standard extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	public final java.lang.String getNotNullString()
 	{
 		return Standard.notNullString.get(this);
@@ -310,7 +310,7 @@ public final class Standard extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	public final java.lang.String getFinalString()
 	{
 		return Standard.finalString.get(this);
@@ -322,7 +322,7 @@ public final class Standard extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	public final java.lang.String getDefaultToString()
 	{
 		return Standard.defaultToString.get(this);
@@ -348,7 +348,7 @@ public final class Standard extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	private final java.lang.String getDefaultToLessThanSignString()
 	{
 		return Standard.defaultToLessThanSignString.get(this);
@@ -374,7 +374,7 @@ public final class Standard extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	private final java.lang.String getDefaultToEscapedLessThanSignString()
 	{
 		return Standard.defaultToEscapedLessThanSignString.get(this);
@@ -400,7 +400,7 @@ public final class Standard extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	private final java.lang.String getLessThanSignInCommentString()
 	{
 		return Standard.lessThanSignInCommentString.get(this);
@@ -425,7 +425,7 @@ public final class Standard extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	public final java.lang.String getUniqueString()
 	{
 		return Standard.uniqueString.get(this);
@@ -453,7 +453,7 @@ public final class Standard extends Item
 	 *       It can be customized with the tag <tt>@cope.for public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	public static final Standard forUniqueString(@javax.annotation.Nonnull final java.lang.String uniqueString)
 	{
 		return Standard.uniqueString.searchUnique(Standard.class,uniqueString);
@@ -465,7 +465,7 @@ public final class Standard extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	public final java.lang.String getInitialString()
 	{
 		return Standard.initialString.get(this);
@@ -490,7 +490,7 @@ public final class Standard extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	public final java.lang.Integer getDefaultInteger()
 	{
 		return Standard.defaultInteger.get(this);
@@ -535,7 +535,7 @@ public final class Standard extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	public final java.lang.Long getDefaultLong()
 	{
 		return Standard.defaultLong.get(this);
@@ -580,7 +580,7 @@ public final class Standard extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	public final java.lang.Double getDefaultDouble()
 	{
 		return Standard.defaultDouble.get(this);
@@ -625,7 +625,7 @@ public final class Standard extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final|boolean-as-is</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	public final java.lang.Boolean getDefaultBoolean()
 	{
 		return Standard.defaultBoolean.get(this);
@@ -670,7 +670,7 @@ public final class Standard extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	public final java.util.Date getMandatoryDate()
 	{
 		return Standard.mandatoryDate.get(this);
@@ -706,7 +706,7 @@ public final class Standard extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	private final java.util.Date getPrivateDate()
 	{
 		return Standard.privateDate.get(this);
@@ -740,7 +740,7 @@ public final class Standard extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	public final java.util.Date getNowDate()
 	{
 		return Standard.nowDate.get(this);
@@ -776,7 +776,7 @@ public final class Standard extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	public final Enum1 getMandatoryEnum()
 	{
 		return Standard.mandatoryEnum.get(this);
@@ -801,7 +801,7 @@ public final class Standard extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	protected final Enum2 getProtectedEnum()
 	{
 		return Standard.protectedEnum.get(this);
@@ -824,7 +824,7 @@ public final class Standard extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	protected final EnumContainer.Enum3 getExternalEnum()
 	{
 		return Standard.externalEnum.get(this);
@@ -847,7 +847,7 @@ public final class Standard extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	protected final Enum4 getShortExternalEnum()
 	{
 		return Standard.shortExternalEnum.get(this);
@@ -914,7 +914,7 @@ public final class Standard extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	private final java.lang.String getPrivateString()
 	{
 		return Standard.privateString.get(this);
@@ -952,7 +952,7 @@ public final class Standard extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	private final java.lang.String getPrivateGetterString()
 	{
 		return Standard.privateGetterString.get(this);
@@ -977,7 +977,7 @@ public final class Standard extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	private final java.lang.String getInternalGetterStringInternal()
 	{
 		return Standard.internalGetterString.get(this);
@@ -1002,7 +1002,7 @@ public final class Standard extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	public final java.lang.String getNoneSetterString()
 	{
 		return Standard.noneSetterString.get(this);
@@ -1014,7 +1014,7 @@ public final class Standard extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	public final java.lang.String getPrivateSetterString()
 	{
 		return Standard.privateSetterString.get(this);
@@ -1039,7 +1039,7 @@ public final class Standard extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	public final java.lang.String getInternalSetterString()
 	{
 		return Standard.internalSetterString.get(this);
@@ -1064,7 +1064,7 @@ public final class Standard extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	public java.lang.String getNonfinalGetterString()
 	{
 		return Standard.nonfinalGetterString.get(this);
@@ -1089,7 +1089,7 @@ public final class Standard extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	protected final java.lang.String getNonfinalSetterString()
 	{
 		return Standard.nonfinalSetterString.get(this);
@@ -1114,7 +1114,7 @@ public final class Standard extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final|boolean-as-is</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	public final java.lang.Boolean isAsIsBoolean()
 	{
 		return Standard.asIsBoolean.get(this);
@@ -1137,7 +1137,7 @@ public final class Standard extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	public final java.lang.String getDoubleUnique1()
 	{
 		return Standard.doubleUnique1.get(this);
@@ -1163,7 +1163,7 @@ public final class Standard extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	public final java.lang.Integer getDoubleUnique2()
 	{
 		return Standard.doubleUnique2.get(this);
@@ -1191,7 +1191,7 @@ public final class Standard extends Item
 	 *       It can be customized with the tag <tt>@cope.finder public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	public static final Standard forDoubleUnique(@javax.annotation.Nonnull final java.lang.String doubleUnique1,@javax.annotation.Nonnull final java.lang.Integer doubleUnique2)
 	{
 		return Standard.doubleUnique.search(Standard.class,doubleUnique1,doubleUnique2);
@@ -1203,7 +1203,7 @@ public final class Standard extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final java.lang.Double get()
 	{
 		return Standard.defaultFeature.get(this);
@@ -1231,7 +1231,7 @@ public final class Standard extends Item
 	 *       It can be customized with the tag <tt>@cope.for public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	static final Standard forDefaultFeature(@javax.annotation.Nonnull final java.lang.Double defaultFeature)
 	{
 		return Standard.defaultFeature.searchUnique(Standard.class,defaultFeature);
@@ -1277,7 +1277,7 @@ public final class Standard extends Item
 	 *       It can be customized with the tag <tt>@cope.getSHA512s8i5 public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	public final java.lang.String getPublicHashSHA512s8i5()
 	{
 		return Standard.publicHash.getHash(this);
@@ -1334,7 +1334,7 @@ public final class Standard extends Item
 	 *       It can be customized with the tag <tt>@cope.getSHA512s8i5 public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	private final java.lang.String getPrivateHashSHA512s8i5()
 	{
 		return Standard.privateHash.getHash(this);
@@ -1393,7 +1393,7 @@ public final class Standard extends Item
 	 *       It can be customized with the tag <tt>@cope.getSHA512s8i5 public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	public final java.lang.String getMandatoryHashSHA512s8i5()
 	{
 		return Standard.mandatoryHash.getHash(this);
@@ -1454,7 +1454,7 @@ public final class Standard extends Item
 	 *       It can be customized with the tag <tt>@cope.getSHA512s8i5 public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	public final java.lang.String getPrivateSetterHashSHA512s8i5()
 	{
 		return Standard.privateSetterHash.getHash(this);
@@ -1479,7 +1479,7 @@ public final class Standard extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final java.lang.String getXMLReader()
 	{
 		return Standard.XMLReader.get(this);

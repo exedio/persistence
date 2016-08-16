@@ -65,7 +65,7 @@ final class ItemCacheDataItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final java.lang.String getString()
 	{
 		return ItemCacheDataItem.string.get(this);
@@ -112,7 +112,7 @@ final class ItemCacheDataItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getArray public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final byte[] getDataArray()
 	{
 		return ItemCacheDataItem.data.getArray(this);

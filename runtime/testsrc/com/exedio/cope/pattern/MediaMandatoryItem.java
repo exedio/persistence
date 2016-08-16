@@ -84,7 +84,7 @@ public final class MediaMandatoryItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final java.lang.String getName()
 	{
 		return MediaMandatoryItem.name.get(this);
@@ -109,7 +109,7 @@ public final class MediaMandatoryItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getLocator public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final com.exedio.cope.pattern.MediaPath.Locator getFileLocator()
 	{
 		return MediaMandatoryItem.file.getLocator(this);
@@ -121,7 +121,7 @@ public final class MediaMandatoryItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getContentType public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final java.lang.String getFileContentType()
 	{
 		return MediaMandatoryItem.file.getContentType(this);
@@ -133,7 +133,7 @@ public final class MediaMandatoryItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getLastModified public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final java.util.Date getFileLastModified()
 	{
 		return MediaMandatoryItem.file.getLastModified(this);
@@ -156,7 +156,7 @@ public final class MediaMandatoryItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getBody public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final byte[] getFileBody()
 	{
 		return MediaMandatoryItem.file.getBody(this);

@@ -156,7 +156,7 @@ public class BlockFieldStandardModelTest
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final java.lang.String getAString()
 	{
 		return field().of(ABlock.aString).get(item());
@@ -204,7 +204,7 @@ public class BlockFieldStandardModelTest
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final AnEnum getAnEnum()
 	{
 		return field().of(ABlock.anEnum).get(item());
@@ -229,7 +229,7 @@ public class BlockFieldStandardModelTest
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final AnItem getAnItem()
 	{
 		return field().of(ABlock.anItem).get(item());
@@ -252,7 +252,7 @@ public class BlockFieldStandardModelTest
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final java.awt.Color getAColor()
 	{
 		return field().of(ABlock.aColor).get(item());
@@ -278,7 +278,7 @@ public class BlockFieldStandardModelTest
 	 *       It can be customized with the tag <tt>@cope.getLocator public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final com.exedio.cope.pattern.MediaPath.Locator getAMediaLocator()
 	{
 		return field().of(ABlock.aMedia).getLocator(item());
@@ -301,7 +301,7 @@ public class BlockFieldStandardModelTest
 	 *       It can be customized with the tag <tt>@cope.getLastModified public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final java.util.Date getAMediaLastModified()
 	{
 		return field().of(ABlock.aMedia).getLastModified(item());
@@ -324,7 +324,7 @@ public class BlockFieldStandardModelTest
 	 *       It can be customized with the tag <tt>@cope.getBody public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final byte[] getAMediaBody()
 	{
 		return field().of(ABlock.aMedia).getBody(item());
@@ -419,7 +419,7 @@ public class BlockFieldStandardModelTest
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final java.util.List<String> getAList()
 	{
 		return field().of(ABlock.aList).get(item());
@@ -431,7 +431,7 @@ public class BlockFieldStandardModelTest
 	 *       It can be customized with the tag <tt>@cope.getQuery public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final com.exedio.cope.Query<String> getAListQuery()
 	{
 		return field().of(ABlock.aList).getQuery(item());
@@ -551,7 +551,7 @@ public class BlockFieldStandardModelTest
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final java.lang.String getCode()
 	{
 		return AnItem.code.get(this);
@@ -563,7 +563,7 @@ public class BlockFieldStandardModelTest
 	 *       It can be customized with the tag <tt>@cope. public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final ABlock eins()
 	{
 		return AnItem.eins.get(this);
@@ -575,7 +575,7 @@ public class BlockFieldStandardModelTest
 	 *       It can be customized with the tag <tt>@cope. public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final ABlock zwei()
 	{
 		return AnItem.zwei.get(this);

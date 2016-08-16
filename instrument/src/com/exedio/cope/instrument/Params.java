@@ -40,7 +40,7 @@ final class Params
 	boolean genericSetValueArray = true;
 	boolean directSetValueMap = false;
 	String hidingWarningSuppressor = null;
-	boolean parenthesesOnEmptyMemberAnnotations = true;
+	boolean parenthesesOnEmptyMemberAnnotations = false;
 	boolean deprecatedFullyQualified = true;
 	boolean overrideOnSeparateLine = true;
 	boolean verbose = false;

@@ -183,7 +183,7 @@ public class EnumMapFieldFallbackTest extends TestWithEnvironment
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final String getText(@javax.annotation.Nonnull final AnEnum k)
 	{
 		return AnItem.text.get(this,k);
@@ -195,7 +195,7 @@ public class EnumMapFieldFallbackTest extends TestWithEnvironment
 	 *       It can be customized with the tag <tt>@cope.getWithFallback public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final String getTextWithFallback(@javax.annotation.Nonnull final AnEnum k)
 	{
 		return AnItem.text.getWithFallback(this,k);
@@ -217,7 +217,7 @@ public class EnumMapFieldFallbackTest extends TestWithEnvironment
 	 *       It can be customized with the tag <tt>@cope.getMap public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final java.util.Map<AnEnum,String> getTextMap()
 	{
 		return AnItem.text.getMap(this);
@@ -228,7 +228,7 @@ public class EnumMapFieldFallbackTest extends TestWithEnvironment
 	 *       It can be customized with the tag <tt>@cope.getMapWithFallback public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final java.util.Map<AnEnum,String> getTextMapWithFallback()
 	{
 		return AnItem.text.getMapWithFallback(this);

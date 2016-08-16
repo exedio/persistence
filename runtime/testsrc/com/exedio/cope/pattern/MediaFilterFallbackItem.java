@@ -80,7 +80,7 @@ final class MediaFilterFallbackItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getURL public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final java.lang.String getAnyURL()
 	{
 		return MediaFilterFallbackItem.any.getURL(this);
@@ -92,7 +92,7 @@ final class MediaFilterFallbackItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getLocator public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final com.exedio.cope.pattern.MediaPath.Locator getAnyLocator()
 	{
 		return MediaFilterFallbackItem.any.getLocator(this);
@@ -104,7 +104,7 @@ final class MediaFilterFallbackItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getContentType public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final java.lang.String getAnyContentType()
 	{
 		return MediaFilterFallbackItem.any.getContentType(this);
@@ -116,7 +116,7 @@ final class MediaFilterFallbackItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getLastModified public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final java.util.Date getAnyLastModified()
 	{
 		return MediaFilterFallbackItem.any.getLastModified(this);
@@ -139,7 +139,7 @@ final class MediaFilterFallbackItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getBody public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final byte[] getAnyBody()
 	{
 		return MediaFilterFallbackItem.any.getBody(this);
@@ -234,7 +234,7 @@ final class MediaFilterFallbackItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getURL public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final java.lang.String getAnFilterURL()
 	{
 		return MediaFilterFallbackItem.anFilter.getURL(this);
@@ -246,7 +246,7 @@ final class MediaFilterFallbackItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getLocator public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final com.exedio.cope.pattern.MediaPath.Locator getAnFilterLocator()
 	{
 		return MediaFilterFallbackItem.anFilter.getLocator(this);
@@ -258,7 +258,7 @@ final class MediaFilterFallbackItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getURLWithFallbackToSource public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final java.lang.String getAnFilterURLWithFallbackToSource()
 	{
 		return MediaFilterFallbackItem.anFilter.getURLWithFallbackToSource(this);
@@ -270,7 +270,7 @@ final class MediaFilterFallbackItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getLocatorWithFallbackToSource public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final com.exedio.cope.pattern.MediaPath.Locator getAnFilterLocatorWithFallbackToSource()
 	{
 		return MediaFilterFallbackItem.anFilter.getLocatorWithFallbackToSource(this);
@@ -282,7 +282,7 @@ final class MediaFilterFallbackItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getURL public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final java.lang.String getNonSupportedURL()
 	{
 		return MediaFilterFallbackItem.nonSupported.getURL(this);
@@ -294,7 +294,7 @@ final class MediaFilterFallbackItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getLocator public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final com.exedio.cope.pattern.MediaPath.Locator getNonSupportedLocator()
 	{
 		return MediaFilterFallbackItem.nonSupported.getLocator(this);
@@ -306,7 +306,7 @@ final class MediaFilterFallbackItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getContentType public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final java.lang.String getNonSupportedContentType()
 	{
 		return MediaFilterFallbackItem.nonSupported.getContentType(this);
@@ -318,7 +318,7 @@ final class MediaFilterFallbackItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getLastModified public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final java.util.Date getNonSupportedLastModified()
 	{
 		return MediaFilterFallbackItem.nonSupported.getLastModified(this);
@@ -341,7 +341,7 @@ final class MediaFilterFallbackItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getBody public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final byte[] getNonSupportedBody()
 	{
 		return MediaFilterFallbackItem.nonSupported.getBody(this);
@@ -436,7 +436,7 @@ final class MediaFilterFallbackItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getURL public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final java.lang.String getNonSupportedFilterURL()
 	{
 		return MediaFilterFallbackItem.nonSupportedFilter.getURL(this);
@@ -448,7 +448,7 @@ final class MediaFilterFallbackItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getLocator public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final com.exedio.cope.pattern.MediaPath.Locator getNonSupportedFilterLocator()
 	{
 		return MediaFilterFallbackItem.nonSupportedFilter.getLocator(this);
@@ -460,7 +460,7 @@ final class MediaFilterFallbackItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getURLWithFallbackToSource public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final java.lang.String getNonSupportedFilterURLWithFallbackToSource()
 	{
 		return MediaFilterFallbackItem.nonSupportedFilter.getURLWithFallbackToSource(this);
@@ -472,7 +472,7 @@ final class MediaFilterFallbackItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getLocatorWithFallbackToSource public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final com.exedio.cope.pattern.MediaPath.Locator getNonSupportedFilterLocatorWithFallbackToSource()
 	{
 		return MediaFilterFallbackItem.nonSupportedFilter.getLocatorWithFallbackToSource(this);
@@ -484,7 +484,7 @@ final class MediaFilterFallbackItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getURL public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final java.lang.String getSupportedURL()
 	{
 		return MediaFilterFallbackItem.supported.getURL(this);
@@ -496,7 +496,7 @@ final class MediaFilterFallbackItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getLocator public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final com.exedio.cope.pattern.MediaPath.Locator getSupportedLocator()
 	{
 		return MediaFilterFallbackItem.supported.getLocator(this);
@@ -508,7 +508,7 @@ final class MediaFilterFallbackItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getLastModified public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final java.util.Date getSupportedLastModified()
 	{
 		return MediaFilterFallbackItem.supported.getLastModified(this);
@@ -531,7 +531,7 @@ final class MediaFilterFallbackItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getBody public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final byte[] getSupportedBody()
 	{
 		return MediaFilterFallbackItem.supported.getBody(this);
@@ -626,7 +626,7 @@ final class MediaFilterFallbackItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getURL public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final java.lang.String getSupportedFilterURL()
 	{
 		return MediaFilterFallbackItem.supportedFilter.getURL(this);
@@ -638,7 +638,7 @@ final class MediaFilterFallbackItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getLocator public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final com.exedio.cope.pattern.MediaPath.Locator getSupportedFilterLocator()
 	{
 		return MediaFilterFallbackItem.supportedFilter.getLocator(this);
@@ -650,7 +650,7 @@ final class MediaFilterFallbackItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getURL public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final java.lang.String getSupportedTwoURL()
 	{
 		return MediaFilterFallbackItem.supportedTwo.getURL(this);
@@ -662,7 +662,7 @@ final class MediaFilterFallbackItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getLocator public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final com.exedio.cope.pattern.MediaPath.Locator getSupportedTwoLocator()
 	{
 		return MediaFilterFallbackItem.supportedTwo.getLocator(this);
@@ -674,7 +674,7 @@ final class MediaFilterFallbackItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getContentType public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final java.lang.String getSupportedTwoContentType()
 	{
 		return MediaFilterFallbackItem.supportedTwo.getContentType(this);
@@ -686,7 +686,7 @@ final class MediaFilterFallbackItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getLastModified public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final java.util.Date getSupportedTwoLastModified()
 	{
 		return MediaFilterFallbackItem.supportedTwo.getLastModified(this);
@@ -709,7 +709,7 @@ final class MediaFilterFallbackItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getBody public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final byte[] getSupportedTwoBody()
 	{
 		return MediaFilterFallbackItem.supportedTwo.getBody(this);
@@ -804,7 +804,7 @@ final class MediaFilterFallbackItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getURL public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final java.lang.String getSupportedTwoFilterURL()
 	{
 		return MediaFilterFallbackItem.supportedTwoFilter.getURL(this);
@@ -816,7 +816,7 @@ final class MediaFilterFallbackItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getLocator public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final com.exedio.cope.pattern.MediaPath.Locator getSupportedTwoFilterLocator()
 	{
 		return MediaFilterFallbackItem.supportedTwoFilter.getLocator(this);

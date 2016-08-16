@@ -101,7 +101,7 @@ public class ConstraintSetTest extends TestWithEnvironment
 		 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final|boolean-as-is</tt> in the comment of the field.
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		@javax.annotation.Nullable()
+		@javax.annotation.Nullable
 		final java.lang.Boolean getField()
 		{
 			return AnItem.field.get(this);
@@ -124,7 +124,7 @@ public class ConstraintSetTest extends TestWithEnvironment
 		 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		@javax.annotation.Nullable()
+		@javax.annotation.Nullable
 		final AnItem getItem()
 		{
 			return AnItem.item.get(this);
@@ -147,7 +147,7 @@ public class ConstraintSetTest extends TestWithEnvironment
 		 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final|boolean-as-is</tt> in the comment of the field.
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		@javax.annotation.Nullable()
+		@javax.annotation.Nullable
 		final java.lang.Boolean getUniqueSingle()
 		{
 			return AnItem.uniqueSingle.get(this);
@@ -174,7 +174,7 @@ public class ConstraintSetTest extends TestWithEnvironment
 		 *       It can be customized with the tag <tt>@cope.for public|package|protected|private|none|non-final</tt> in the comment of the field.
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		@javax.annotation.Nullable()
+		@javax.annotation.Nullable
 		static final AnItem forUniqueSingle(@javax.annotation.Nonnull final java.lang.Boolean uniqueSingle)
 		{
 			return AnItem.uniqueSingle.searchUnique(AnItem.class,uniqueSingle);
@@ -186,7 +186,7 @@ public class ConstraintSetTest extends TestWithEnvironment
 		 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final|boolean-as-is</tt> in the comment of the field.
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		@javax.annotation.Nullable()
+		@javax.annotation.Nullable
 		final java.lang.Boolean getUniqueA()
 		{
 			return AnItem.uniqueA.get(this);
@@ -211,7 +211,7 @@ public class ConstraintSetTest extends TestWithEnvironment
 		 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final|boolean-as-is</tt> in the comment of the field.
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		@javax.annotation.Nullable()
+		@javax.annotation.Nullable
 		final java.lang.Boolean getUniqueB()
 		{
 			return AnItem.uniqueB.get(this);
@@ -239,7 +239,7 @@ public class ConstraintSetTest extends TestWithEnvironment
 		 *       It can be customized with the tag <tt>@cope.finder public|package|protected|private|none|non-final</tt> in the comment of the field.
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		@javax.annotation.Nullable()
+		@javax.annotation.Nullable
 		static final AnItem forUniqueDouble(@javax.annotation.Nonnull final java.lang.Boolean uniqueA,@javax.annotation.Nonnull final java.lang.Boolean uniqueB)
 		{
 			return AnItem.uniqueDouble.search(AnItem.class,uniqueA,uniqueB);

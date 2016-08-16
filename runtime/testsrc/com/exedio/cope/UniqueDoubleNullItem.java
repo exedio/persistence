@@ -72,7 +72,7 @@ final class UniqueDoubleNullItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final java.lang.String getString()
 	{
 		return UniqueDoubleNullItem.string.get(this);
@@ -98,7 +98,7 @@ final class UniqueDoubleNullItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final java.lang.Integer getInteger()
 	{
 		return UniqueDoubleNullItem.integer.get(this);
@@ -126,7 +126,7 @@ final class UniqueDoubleNullItem extends Item
 	 *       It can be customized with the tag <tt>@cope.finder public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	static final UniqueDoubleNullItem forConstraint(@javax.annotation.Nonnull final java.lang.String string,@javax.annotation.Nonnull final java.lang.Integer integer)
 	{
 		return UniqueDoubleNullItem.constraint.search(UniqueDoubleNullItem.class,string,integer);

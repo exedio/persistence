@@ -60,7 +60,7 @@ public final class HistoryItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final java.lang.Integer getAmount()
 	{
 		return HistoryItem.amount.get(this);
@@ -83,7 +83,7 @@ public final class HistoryItem extends Item
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final java.lang.String getComment()
 	{
 		return HistoryItem.comment.get(this);
@@ -108,7 +108,7 @@ public final class HistoryItem extends Item
 	 *       It can be customized with the tag <tt>@cope.getEvents public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final java.util.List<com.exedio.cope.pattern.History.Event> getAuditEvents()
 	{
 		return HistoryItem.audit.getEvents(this);
@@ -120,7 +120,7 @@ public final class HistoryItem extends Item
 	 *       It can be customized with the tag <tt>@cope.createEvent public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final com.exedio.cope.pattern.History.Event createAuditEvent(@javax.annotation.Nonnull final java.lang.String author,final boolean isNew)
 	{
 		return HistoryItem.audit.createEvent(this,author,isNew);
@@ -132,7 +132,7 @@ public final class HistoryItem extends Item
 	 *       It can be customized with the tag <tt>@cope.EventParent public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	static final com.exedio.cope.ItemField<HistoryItem> auditEventParent()
 	{
 		return HistoryItem.audit.getEventParent(HistoryItem.class);

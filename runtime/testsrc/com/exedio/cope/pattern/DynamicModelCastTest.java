@@ -149,7 +149,7 @@ public class DynamicModelCastTest extends TestWithEnvironment
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nonnull()
+	@javax.annotation.Nonnull
 	final java.lang.String getName()
 	{
 		return ModelItem.name.get(this);
@@ -161,7 +161,7 @@ public class DynamicModelCastTest extends TestWithEnvironment
 	 *       It can be customized with the tag <tt>@cope.getType public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final com.exedio.cope.pattern.DynamicModel.Type<Locale> getAlphaType()
 	{
 		return ModelItem.alpha.getType(this);
@@ -184,7 +184,7 @@ public class DynamicModelCastTest extends TestWithEnvironment
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final java.lang.Object getAlpha(@javax.annotation.Nonnull final com.exedio.cope.pattern.DynamicModel.Field<Locale> field)
 	{
 		return ModelItem.alpha.get(this,field);
@@ -207,7 +207,7 @@ public class DynamicModelCastTest extends TestWithEnvironment
 	 *       It can be customized with the tag <tt>@cope.getType public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final com.exedio.cope.pattern.DynamicModel.Type<Locale> getAlfaType()
 	{
 		return ModelItem.alfa.getType(this);
@@ -230,7 +230,7 @@ public class DynamicModelCastTest extends TestWithEnvironment
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final java.lang.Object getAlfa(@javax.annotation.Nonnull final com.exedio.cope.pattern.DynamicModel.Field<Locale> field)
 	{
 		return ModelItem.alfa.get(this,field);
@@ -253,7 +253,7 @@ public class DynamicModelCastTest extends TestWithEnvironment
 	 *       It can be customized with the tag <tt>@cope.getType public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final com.exedio.cope.pattern.DynamicModel.Type<String> getBetaType()
 	{
 		return ModelItem.beta.getType(this);
@@ -276,7 +276,7 @@ public class DynamicModelCastTest extends TestWithEnvironment
 	 *       It can be customized with the tag <tt>@cope.get public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@javax.annotation.Nullable()
+	@javax.annotation.Nullable
 	final java.lang.Object getBeta(@javax.annotation.Nonnull final com.exedio.cope.pattern.DynamicModel.Field<String> field)
 	{
 		return ModelItem.beta.get(this,field);
