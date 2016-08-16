@@ -37,6 +37,7 @@ public final class Table extends Node
 
 	private final HashMap<String, Constraint> constraintMap = new HashMap<>();
 	private final ArrayList<Constraint> constraintList = new ArrayList<>();
+	private final ArrayList<Constraint> tableConstraints = new ArrayList<>();
 
 	public Table(final Schema schema, final String name)
 	{
@@ -73,6 +74,8 @@ public final class Table extends Node
 		if(constraintMap.put(constraint.name, constraint)!=null)
 			throw new RuntimeException("duplicate constraint name in table " + name + ": " + constraint.name);
 		constraintList.add(constraint);
+		if(constraint.column==null)
+			tableConstraints.add(constraint);
 		schema.register(constraint);
 	}
 
@@ -97,7 +100,7 @@ public final class Table extends Node
 		Constraint result = constraintMap.get(constraintName);
 
 		if(result==null)
-			result = new CheckConstraint(this, constraintName, false, condition);
+			result = new CheckConstraint(this, null, constraintName, false, condition);
 		else
 			result.notifyExistsCondition(condition);
 
@@ -109,7 +112,7 @@ public final class Table extends Node
 		Constraint result = constraintMap.get(constraintName);
 
 		if(result==null)
-			result = new PrimaryKeyConstraint(this, constraintName, false, null);
+			result = new PrimaryKeyConstraint(this, null, constraintName, false, null);
 		else
 			result.notifyExists();
 
@@ -125,7 +128,9 @@ public final class Table extends Node
 		ForeignKeyConstraint result = (ForeignKeyConstraint)constraintMap.get(constraintName);
 
 		if(result==null)
-			result = new ForeignKeyConstraint(this, constraintName, false, foreignKeyColumn, targetTable, targetColumn);
+			result = new ForeignKeyConstraint(
+					this, getColumn(foreignKeyColumn), constraintName, false,
+					foreignKeyColumn, targetTable, targetColumn);
 		else
 			result.notifyExists(foreignKeyColumn, targetTable, targetColumn);
 
@@ -137,7 +142,7 @@ public final class Table extends Node
 		Constraint result = constraintMap.get(constraintName);
 
 		if(result==null)
-			result = new UniqueConstraint(this, constraintName, false, condition);
+			result = new UniqueConstraint(this, null, constraintName, false, condition);
 		else
 			result.notifyExistsCondition(condition);
 
@@ -154,9 +159,24 @@ public final class Table extends Node
 		return columnMap.get(columnName);
 	}
 
+	/**
+	 * Returns all constraints of this table, including constraints returned
+	 * by {@link Column#getConstraints()}.
+	 * @see #getTableConstraints()
+	 */
 	public Collection<Constraint> getConstraints()
 	{
 		return unmodifiableList(constraintList);
+	}
+
+	/**
+	 * Returns constraints of this table, that are not already returned
+	 * by {@link Column#getConstraints()}.
+	 * @see #getConstraints()
+	 */
+	public Collection<Constraint> getTableConstraints()
+	{
+		return unmodifiableList(tableConstraints);
 	}
 
 	public Constraint getConstraint(final String constraintName)

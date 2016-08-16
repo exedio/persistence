@@ -46,20 +46,20 @@ public class CircleTest extends SchemaReadyTest
 		final Table table1 = new Table(result, TABLE1);
 		final Table table2 = new Table(result, TABLE2);
 
-		new Column(table1, PK_COLUMN, stringType);
-		new Column(table2, PK_COLUMN, stringType);
+		final Column pk1 = new Column(table1, PK_COLUMN, stringType);
+		final Column pk2 = new Column(table2, PK_COLUMN, stringType);
 
-		new PrimaryKeyConstraint(table1, PK_NAME1, PK_COLUMN);
-		new PrimaryKeyConstraint(table2, PK_NAME2, PK_COLUMN);
+		new PrimaryKeyConstraint(pk1, PK_NAME1);
+		new PrimaryKeyConstraint(pk2, PK_NAME2);
 
-		new Column(table1, FK_COLUMN, stringType);
-		new Column(table2, FK_COLUMN, stringType);
+		final Column fk1 = new Column(table1, FK_COLUMN, stringType);
+		final Column fk2 = new Column(table2, FK_COLUMN, stringType);
 
-		new ForeignKeyConstraint(table1, FK_NAME1, FK_COLUMN, TABLE2, PK_COLUMN);
-		new ForeignKeyConstraint(table2, FK_NAME2, FK_COLUMN, TABLE1, PK_COLUMN);
+		new ForeignKeyConstraint(fk1, FK_NAME1, TABLE2, PK_COLUMN);
+		new ForeignKeyConstraint(fk2, FK_NAME2, TABLE1, PK_COLUMN);
 
-		new Column(table1, SELF_COLUMN, stringType);
-		new ForeignKeyConstraint(table1, SELF_NAME, SELF_COLUMN, TABLE1, PK_COLUMN);
+		final Column fkSelf = new Column(table1, SELF_COLUMN, stringType);
+		new ForeignKeyConstraint(fkSelf, SELF_NAME, TABLE1, PK_COLUMN);
 
 		return result;
 	}

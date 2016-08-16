@@ -120,9 +120,9 @@ public final class Revisions
 			final Dialect dialect)
 	{
 		final Table table = new com.exedio.dsmf.Table(result, properties.revisionTableName);
-		new Column(table, COLUMN_NUMBER_NAME, dialect.getIntegerType(RevisionInfoMutex.NUMBER, Integer.MAX_VALUE));
+		final Column pk = new Column(table, COLUMN_NUMBER_NAME, dialect.getIntegerType(RevisionInfoMutex.NUMBER, Integer.MAX_VALUE));
 		new Column(table, COLUMN_INFO_NAME, dialect.getBlobType(100*1000));
-		new PrimaryKeyConstraint(table, properties.revisionPrimaryKeyName, COLUMN_NUMBER_NAME);
+		new PrimaryKeyConstraint(pk, properties.revisionPrimaryKeyName);
 	}
 
 	private static int getActualNumber(

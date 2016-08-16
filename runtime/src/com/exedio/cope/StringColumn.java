@@ -95,10 +95,8 @@ class StringColumn extends Column
 	}
 
 	@Override
-	void makeSchema(final com.exedio.dsmf.Table dsmf)
+	void makeSchema(final com.exedio.dsmf.Column dsmf)
 	{
-		super.makeSchema(dsmf);
-
 		if(allowedValues!=null)
 		{
 			final boolean parenthesis = table.database.dialect.inRequiresParenthesis();

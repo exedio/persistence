@@ -27,24 +27,24 @@ public final class ForeignKeyConstraint extends Constraint
 	final String targetColumn;
 
 	public ForeignKeyConstraint(
-			final Table table,
+			final Column column,
 			final String name,
-			final String foreignKeyColumn,
 			final String targetTable,
 			final String targetColumn)
 	{
-		this(table, name, true, foreignKeyColumn, targetTable, targetColumn);
+		this(column.table, column, name, true, column.name, targetTable, targetColumn);
 	}
 
 	ForeignKeyConstraint(
 			final Table table,
+			final Column column,
 			final String name,
 			final boolean required,
 			final String foreignKeyColumn,
 			final String targetTable,
 			final String targetColumn)
 	{
-		super(table, name, Type.ForeignKey, required, makeClause(foreignKeyColumn, targetTable, targetColumn));
+		super(table, column, name, Type.ForeignKey, required, makeClause(foreignKeyColumn, targetTable, targetColumn));
 
 		this.foreignKeyColumn = requireNonNull(foreignKeyColumn, name);
 		this.targetTable = requireNonNull(targetTable, name);

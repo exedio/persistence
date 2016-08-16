@@ -22,6 +22,7 @@ import static com.exedio.dsmf.Constraint.Type.Unique;
 import static com.exedio.dsmf.Node.Color.ERROR;
 import static com.exedio.dsmf.Node.Color.OK;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
 import com.exedio.dsmf.Constraint;
@@ -54,6 +55,9 @@ public class SchemaMismatchConstraintUniqueNameTest extends SchemaMismatchTest
 
 		assertTrue(uniqueA instanceof com.exedio.dsmf.UniqueConstraint);
 		assertTrue(uniqueB instanceof com.exedio.dsmf.UniqueConstraint);
+
+		assertSame(null, uniqueA.getColumn());
+		assertSame(null, uniqueB.getColumn());
 	}
 
 	@CopeName("ItemAB")

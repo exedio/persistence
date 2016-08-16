@@ -48,9 +48,11 @@ public class GraphTest
 	{
 		final Table tabT = new Table(schema, "tabT");
 		final Table tab1 = new Table(schema, "tab1");
-		fk(tab1, "fk1", "tabT");
+		final Column col1 = new Column(tab1, "col1", "type1");
+		fk(col1, "fk1", "tabT");
 		final Table tab2 = new Table(schema, "tab2");
-		fk(tab2, "fk2", "tabT");
+		final Column col2 = new Column(tab2, "col2", "type2");
+		fk(col2, "fk2", "tabT");
 		final Graph graph = new Graph(schema);
 
 		assertEquals(list(tabT, tab1, tab2), graph.getTablesOrdered());
@@ -60,7 +62,8 @@ public class GraphTest
 	@Test public void testSelf()
 	{
 		final Table tab = new Table(schema, "tab");
-		fk(tab, "fk", "tab");
+		final Column col = new Column(tab, "col", "type");
+		fk(col, "fk", "tab");
 		final Graph graph = new Graph(schema);
 
 		assertEquals(list(tab), graph.getTablesOrdered());
@@ -70,9 +73,11 @@ public class GraphTest
 	@Test public void testReorder()
 	{
 		final Table tab1 = new Table(schema, "tab1");
-		fk(tab1, "fk1", "tabT");
+		final Column col1 = new Column(tab1, "col1", "type1");
+		fk(col1, "fk1", "tabT");
 		final Table tab2 = new Table(schema, "tab2");
-		fk(tab2, "fk2", "tabT");
+		final Column col2 = new Column(tab2, "col2", "type2");
+		fk(col2, "fk2", "tabT");
 		final Table tabT = new Table(schema, "tabT");
 		final Graph graph = new Graph(schema);
 
@@ -84,9 +89,11 @@ public class GraphTest
 	{
 		final Table tab1 = new Table(schema, "tab1");
 		final Table tab2 = new Table(schema, "tab2");
+		final Column col1 = new Column(tab1, "col1", "type1");
+		final Column col2 = new Column(tab2, "col2", "type2");
 		final ForeignKeyConstraint fk1 =
-			fk(tab1, "fk1", "tab2");
-		fk(tab2, "fk2", "tab1");
+			fk(col1, "fk1", "tab2");
+		fk(col2, "fk2", "tab1");
 		final Graph graph = new Graph(schema);
 
 		assertEquals(list(tab1, tab2), graph.getTablesOrdered());
@@ -97,11 +104,13 @@ public class GraphTest
 	{
 		final Table tab1 = new Table(schema, "tab1");
 		final Table tab2 = new Table(schema, "tab2");
+		final Column col1 = new Column(tab1, "col1", "type1");
+		final Column col2 = new Column(tab2, "col2", "type2");
 		final ForeignKeyConstraint fk1a =
-			fk(tab1, "fk1a", "tab2");
+			fk(col1, "fk1a", "tab2");
 		final ForeignKeyConstraint fk1b =
-			fk(tab1, "fk1b", "tab2");
-		fk(tab2, "fk2", "tab1");
+			fk(col1, "fk1b", "tab2");
+		fk(col2, "fk2", "tab1");
 		final Graph graph = new Graph(schema);
 
 		assertEquals(list(tab1, tab2), graph.getTablesOrdered());
@@ -109,9 +118,9 @@ public class GraphTest
 	}
 
 
-	private static ForeignKeyConstraint fk(final Table table, final String name, final String targetTable)
+	private static ForeignKeyConstraint fk(final Column column, final String name, final String targetTable)
 	{
-		return new ForeignKeyConstraint(table, name, name + "Col", targetTable, name + "Pk");
+		return new ForeignKeyConstraint(column, name, targetTable, name + "Pk");
 	}
 
 	private static <E> List<E> setAsList(final Set<E> set)

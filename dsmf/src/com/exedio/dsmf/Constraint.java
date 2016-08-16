@@ -33,6 +33,7 @@ public abstract class Constraint extends Node
 	}
 
 	final Table table;
+	final Column column;
 	final String name;
 	final Type type;
 	final String requiredCondition;
@@ -40,6 +41,7 @@ public abstract class Constraint extends Node
 
 	Constraint(
 			final Table table,
+			final Column column,
 			final String name,
 			final Type type,
 			final boolean required,
@@ -53,6 +55,7 @@ public abstract class Constraint extends Node
 			throw new RuntimeException(table.name);
 
 		this.table = table;
+		this.column = column;
 		this.name = name;
 		this.type = type;
 		if(required)
@@ -63,11 +66,18 @@ public abstract class Constraint extends Node
 			this.existingCondition = condition;
 		}
 		table.register(this);
+		if(column!=null)
+			column.register(this);
 	}
 
 	public final Table getTable()
 	{
 		return table;
+	}
+
+	public final Column getColumn()
+	{
+		return column;
 	}
 
 	public final String getName()

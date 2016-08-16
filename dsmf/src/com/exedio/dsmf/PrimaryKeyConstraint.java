@@ -23,20 +23,20 @@ public final class PrimaryKeyConstraint extends Constraint
 	final String primaryKeyColumn;
 
 	public PrimaryKeyConstraint(
-			final Table table,
-			final String name,
-			final String primaryKeyColumn)
+			final Column column,
+			final String name)
 	{
-		this(table, name, true, primaryKeyColumn);
+		this(column.table, column, name, true, column.name);
 	}
 
 	PrimaryKeyConstraint(
 			final Table table,
+			final Column column,
 			final String name,
 			final boolean required,
 			final String primaryKeyColumn)
 	{
-		super(table, name, Type.PrimaryKey, required, null);
+		super(table, column, name, Type.PrimaryKey, required, null);
 
 		if(required && primaryKeyColumn==null)
 			throw new RuntimeException(name);

@@ -62,30 +62,30 @@ public class ConstraintTest extends SchemaReadyTest
 
 		if(supportsCheckConstraints)
 		{
-			new Column(table, NOT_NULL_COLUMN, stringType);
-			new CheckConstraint(table, NOT_NULL_NAME, p(NOT_NULL_COLUMN)+" IS NOT NULL");
+			final Column nn = new Column(table, NOT_NULL_COLUMN, stringType);
+			new CheckConstraint(nn, NOT_NULL_NAME, p(NOT_NULL_COLUMN)+" IS NOT NULL");
 
-			new Column(table, CHECK_COLUMN, intType);
-			new CheckConstraint(table, CHECK_NAME, "("+p(CHECK_COLUMN)+" IS NOT NULL) AND ("+hp(p(CHECK_COLUMN))+" IN ("+hp("0")+","+hp("1")+"))");
+			final Column check = new Column(table, CHECK_COLUMN, intType);
+			new CheckConstraint(check, CHECK_NAME, "("+p(CHECK_COLUMN)+" IS NOT NULL) AND ("+hp(p(CHECK_COLUMN))+" IN ("+hp("0")+","+hp("1")+"))");
 		}
 
-		new Column(table, PK_COLUMN, stringType);
-		new PrimaryKeyConstraint(table, PK_NAME, PK_COLUMN);
+		final Column pk = new Column(table, PK_COLUMN, stringType);
+		new PrimaryKeyConstraint(pk, PK_NAME);
 
-		new Column(table, FK_COLUMN, stringType);
+		final Column fkColumn = new Column(table, FK_COLUMN, stringType);
 		{
 			final Table targetTable = new Table(result, FK_TARGET_TABLE);
-			new Column(targetTable, FK_TARGET_COLUMN, stringType);
-			new PrimaryKeyConstraint(targetTable, "targetPrimaryKey_Pk", FK_TARGET_COLUMN);
+			final Column targetPk = new Column(targetTable, FK_TARGET_COLUMN, stringType);
+			new PrimaryKeyConstraint(targetPk, "targetPrimaryKey_Pk");
 		}
-		new ForeignKeyConstraint(table, FK_NAME, FK_COLUMN, FK_TARGET_TABLE, FK_TARGET_COLUMN);
+		new ForeignKeyConstraint(fkColumn, FK_NAME, FK_TARGET_TABLE, FK_TARGET_COLUMN);
 
-		new Column(table, UNIQUE_SINGLE_COLUMN, stringType);
-		new UniqueConstraint(table, UNIQUE_SINGLE_NAME, "("+p(UNIQUE_SINGLE_COLUMN)+")");
+		final Column unqCol = new Column(table, UNIQUE_SINGLE_COLUMN, stringType);
+		new UniqueConstraint(table, unqCol, UNIQUE_SINGLE_NAME, "("+p(UNIQUE_SINGLE_COLUMN)+")");
 
 		new Column(table, UNIQUE_DOUBLE_COLUMN1, stringType);
 		new Column(table, UNIQUE_DOUBLE_COLUMN2, intType);
-		new UniqueConstraint(table, UNIQUE_DOUBLE_NAME, "("+p(UNIQUE_DOUBLE_COLUMN1)+","+p(UNIQUE_DOUBLE_COLUMN2)+")");
+		new UniqueConstraint(table, null, UNIQUE_DOUBLE_NAME, "("+p(UNIQUE_DOUBLE_COLUMN1)+","+p(UNIQUE_DOUBLE_COLUMN2)+")");
 
 		return result;
 	}
@@ -111,6 +111,15 @@ public class ConstraintTest extends SchemaReadyTest
 				? asList(nn, ck, pk, fk, us, ud)
 				: asList(pk, fk, us, ud),
 				table.getConstraints());
+		assertEquals(asList(ud), table.getTableConstraints());
+		if(supportsCheckConstraints)
+		{
+			assertEquals(asList(nn), table.getColumn(NOT_NULL_COLUMN).getConstraints());
+			assertEquals(asList(ck), table.getColumn(CHECK_NAME).getConstraints());
+		}
+		assertEquals(asList(pk), table.getColumn(PK_COLUMN).getConstraints());
+		assertEquals(asList(fk), table.getColumn(FK_COLUMN).getConstraints());
+		assertEquals(asList(us), table.getColumn(UNIQUE_SINGLE_COLUMN).getConstraints());
 
 		table.getConstraint(FK_NAME).drop();
 		table.getConstraint(FK_NAME).create();

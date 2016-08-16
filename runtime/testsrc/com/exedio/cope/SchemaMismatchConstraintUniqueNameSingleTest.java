@@ -18,10 +18,12 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.SchemaInfo.getColumnName;
 import static com.exedio.dsmf.Constraint.Type.Unique;
 import static com.exedio.dsmf.Node.Color.ERROR;
 import static com.exedio.dsmf.Node.Color.OK;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
 import com.exedio.dsmf.Constraint;
@@ -54,6 +56,9 @@ public class SchemaMismatchConstraintUniqueNameSingleTest extends SchemaMismatch
 
 		assertTrue(uniqueA instanceof com.exedio.dsmf.UniqueConstraint);
 		assertTrue(uniqueB instanceof com.exedio.dsmf.UniqueConstraint);
+
+		assertSame(null, uniqueA.getColumn()); // TODO should be ItemA.fieldA
+		assertSame(table.getColumn(getColumnName(ItemB.fieldB)), uniqueB.getColumn());
 	}
 
 	@CopeName("ItemAB")

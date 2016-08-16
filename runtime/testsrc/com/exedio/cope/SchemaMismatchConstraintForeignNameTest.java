@@ -18,10 +18,12 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.SchemaInfo.getColumnName;
 import static com.exedio.dsmf.Constraint.Type.ForeignKey;
 import static com.exedio.dsmf.Node.Color.ERROR;
 import static com.exedio.dsmf.Node.Color.OK;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
 import com.exedio.dsmf.Constraint;
@@ -54,6 +56,9 @@ public class SchemaMismatchConstraintForeignNameTest extends SchemaMismatchTest
 
 		assertTrue(fkA instanceof com.exedio.dsmf.ForeignKeyConstraint);
 		assertTrue(fkB instanceof com.exedio.dsmf.ForeignKeyConstraint);
+
+		assertSame(table.getColumn(getColumnName(ItemA.fieldA)), fkA.getColumn());
+		assertSame(table.getColumn(getColumnName(ItemB.fieldB)), fkB.getColumn());
 	}
 
 	@CopeName("ItemAB")

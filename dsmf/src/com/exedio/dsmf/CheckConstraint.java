@@ -24,20 +24,29 @@ import java.sql.SQLException;
 public final class CheckConstraint extends Constraint
 {
 	public CheckConstraint(
+			final Column column,
+			final String name,
+			final String condition)
+	{
+		this(column.table, column, name, true, condition);
+	}
+
+	public CheckConstraint(
 			final Table table,
 			final String name,
 			final String condition)
 	{
-		this(table, name, true, condition);
+		this(table, null, name, true, condition);
 	}
 
 	CheckConstraint(
 			final Table table,
+			final Column column,
 			final String name,
 			final boolean required,
 			final String condition)
 	{
-		super(table, name, Type.Check, required, condition);
+		super(table, column, name, Type.Check, required, condition);
 
 		if(condition==null)
 			throw new RuntimeException(name);

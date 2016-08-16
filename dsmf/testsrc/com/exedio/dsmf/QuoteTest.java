@@ -45,12 +45,12 @@ public class QuoteTest extends SchemaReadyTest
 
 		final Table table = new Table(result, TABLE);
 
-		new Column(table, PK_COLUMN, stringType);
-		new PrimaryKeyConstraint(table, PK_NAME, PK_COLUMN);
+		final Column pk = new Column(table, PK_COLUMN, stringType);
+		new PrimaryKeyConstraint(pk, PK_NAME);
 
-		new Column(table, FK_COLUMN, stringType);
-		new ForeignKeyConstraint(table, FK_NAME, FK_COLUMN, TABLE, PK_COLUMN);
-		new UniqueConstraint(table, UNQ_NAME, "("+p(FK_COLUMN)+")");
+		final Column fk = new Column(table, FK_COLUMN, stringType);
+		new ForeignKeyConstraint(fk, FK_NAME, TABLE, PK_COLUMN);
+		new UniqueConstraint(table, null, UNQ_NAME, "("+p(FK_COLUMN)+")");
 		// Do not just use simple NOT NULL condition. Because then hsqldb discovers column type as not null.
 		new CheckConstraint(table, CHK_NAME, "(" + p(FK_COLUMN)+" IS NOT NULL) OR (" + p(FK_COLUMN) + " IS NOT NULL)");
 

@@ -26,6 +26,7 @@ import static com.exedio.dsmf.Node.Color.WARNING;
 import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
 import com.exedio.dsmf.Column;
@@ -58,12 +59,14 @@ public class SchemaMismatchTableNameTest extends SchemaMismatchTest
 			assertEqualsUnmodifiable(asList(pkA, fdA), tableA.getColumns());
 		}
 		final Table tableB = schema.getTable(name(ItemB.TYPE));
+		Column pkBcolumn;
 		{
 			final Column pkB, fdB;
 			assertIt("missing", ERROR, ERROR, tableB);
 			assertIt("missing", ERROR, ERROR, pkB = tableB.getColumn(name(ItemB.TYPE.getThis())));
 			assertIt("missing", ERROR, ERROR, fdB = tableB.getColumn(name(ItemB.field)));
 			assertEqualsUnmodifiable(asList(pkB, fdB), tableB.getColumns());
+			pkBcolumn = pkB;
 		}
 		{
 			final Constraint pkA = tableA.getConstraint(namePk(ItemA.TYPE.getThis()));
@@ -76,9 +79,11 @@ public class SchemaMismatchTableNameTest extends SchemaMismatchTest
 			{
 				assertIt("not used", WARNING, WARNING, PrimaryKey, pkA);
 				assertTrue(pkA instanceof com.exedio.dsmf.PrimaryKeyConstraint);
+				assertSame(null, pkA.getColumn()); // TODO should be pkAcolumn
 			}
 			assertIt("missing", ERROR, ERROR, PrimaryKey, pkB);
 			assertTrue(pkB instanceof com.exedio.dsmf.PrimaryKeyConstraint);
+			assertSame(pkBcolumn, pkB.getColumn());
 		}
 
 		if(model.getConnectProperties().primaryKeyGenerator.persistent)

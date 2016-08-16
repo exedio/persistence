@@ -34,7 +34,7 @@ final class TypeColumn extends StringColumn
 	}
 
 	@Override
-	void makeSchema(final com.exedio.dsmf.Table dsmf)
+	void makeSchema(final com.exedio.dsmf.Column dsmf)
 	{
 		super.makeSchema(dsmf);
 

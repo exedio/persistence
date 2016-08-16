@@ -140,7 +140,9 @@ public final class UniqueConstraint extends Feature implements Copyable
 		}
 		bf.append(')');
 
-		new com.exedio.dsmf.UniqueConstraint(dsmf, getDatabaseID(), bf.toString());
+		new com.exedio.dsmf.UniqueConstraint(dsmf,
+				(fields.length==1) ? dsmf.getColumn(fields[0].getColumn().id) : null,
+				getDatabaseID(), bf.toString());
 	}
 
 	@Override

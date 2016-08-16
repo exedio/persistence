@@ -19,10 +19,22 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.ConstraintSetTest.AnItem.TYPE;
+import static com.exedio.cope.ConstraintSetTest.AnItem.field;
+import static com.exedio.cope.ConstraintSetTest.AnItem.item;
+import static com.exedio.cope.ConstraintSetTest.AnItem.uniqueA;
+import static com.exedio.cope.ConstraintSetTest.AnItem.uniqueB;
+import static com.exedio.cope.ConstraintSetTest.AnItem.uniqueSingle;
+import static com.exedio.cope.SchemaInfo.getColumnName;
+import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnName;
 import static com.exedio.cope.SchemaInfo.getTableName;
+import static com.exedio.cope.SchemaInfo.getTypeColumnName;
+import static com.exedio.cope.SchemaInfo.getUpdateCounterColumnName;
 import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertSame;
 
+import com.exedio.dsmf.Column;
 import com.exedio.dsmf.Constraint;
 import com.exedio.dsmf.Table;
 import java.util.ArrayList;
@@ -56,6 +68,48 @@ public class ConstraintSetTest extends TestWithEnvironment
 				"AnItem_uniqueSingle_Unq",
 				"AnItem_uniqueDouble_Unq"),
 				names(table.getConstraints()));
+
+		assertColumn(table, getPrimaryKeyColumnName(TYPE), "AnItem_PK", "AnItem_this_MN", "AnItem_this_MX");
+		assertColumn(table, getTypeColumnName(TYPE), "AnItem_class_EN");
+		assertColumn(table, getUpdateCounterColumnName(TYPE), "AnItem_catch_MN", "AnItem_catch_MX");
+		assertColumn(table, getColumnName(field), "AnItem_field_EN");
+		assertColumn(table, getColumnName(item), "AnItem_item_MN", "AnItem_item_MX", "AnItem_item_Fk");
+		assertColumn(table, getTypeColumnName(item), "AnItem_itemType_EN", "AnItem_itemType_NS");
+		assertColumn(table, getColumnName(uniqueSingle), "AnItem_uniqueSingle_EN", "AnItem_uniqueSingle_Unq");
+		assertColumn(table, getColumnName(uniqueA), "AnItem_uniqueA_EN");
+		assertColumn(table, getColumnName(uniqueB), "AnItem_uniqueB_EN");
+		assertColumn(table, null, "AnItem_uniqueDouble_Unq");
+
+		assertEquals(asList(
+				"AnItem_PK", "AnItem_this_MN", "AnItem_this_MX"),
+				names(table.getColumn(getPrimaryKeyColumnName(TYPE)).getConstraints()));
+		assertEquals(asList(
+				"AnItem_class_EN"),
+				names(table.getColumn(getTypeColumnName(TYPE)).getConstraints()));
+		assertEquals(asList(
+				"AnItem_catch_MN", "AnItem_catch_MX"),
+				names(table.getColumn(getUpdateCounterColumnName(TYPE)).getConstraints()));
+		assertEquals(asList(
+				"AnItem_field_EN"),
+				names(table.getColumn(getColumnName(field)).getConstraints()));
+		assertEquals(asList(
+				"AnItem_item_MN", "AnItem_item_MX", "AnItem_item_Fk"),
+				names(table.getColumn(getColumnName(item)).getConstraints()));
+		assertEquals(asList(
+				"AnItem_itemType_EN", "AnItem_itemType_NS"),
+				names(table.getColumn(getTypeColumnName(item)).getConstraints()));
+		assertEquals(asList(
+				"AnItem_uniqueSingle_EN", "AnItem_uniqueSingle_Unq"),
+				names(table.getColumn(getColumnName(uniqueSingle)).getConstraints()));
+		assertEquals(asList(
+				"AnItem_uniqueA_EN"),
+				names(table.getColumn(getColumnName(uniqueA)).getConstraints()));
+		assertEquals(asList(
+				"AnItem_uniqueB_EN"),
+				names(table.getColumn(getColumnName(uniqueB)).getConstraints()));
+		assertEquals(asList(
+				"AnItem_uniqueDouble_Unq"),
+				names(table.getTableConstraints()));
 	}
 
 	private static List<String> names(final Collection<Constraint> constraints)
@@ -64,6 +118,30 @@ public class ConstraintSetTest extends TestWithEnvironment
 		for(final Constraint c : constraints)
 			result.add(c.getName());
 		return result;
+	}
+
+	private static void assertColumn(
+			final Table table,
+			final String columnName,
+			final String... constraintNames)
+	{
+		final Column column;
+		if(columnName!=null)
+		{
+			column = table.getColumn(columnName);
+			assertNotNull(column);
+		}
+		else
+		{
+			column = null;
+		}
+		for(final String constraintName : constraintNames)
+		{
+			assertNotNull(constraintName);
+			final Constraint constraint = table.getConstraint(constraintName);
+			assertNotNull(constraint);
+			assertSame(column, constraint.getColumn());
+		}
 	}
 
 	/**

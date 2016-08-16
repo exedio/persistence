@@ -18,11 +18,17 @@
 
 package com.exedio.dsmf;
 
+import static java.util.Collections.unmodifiableList;
+
+import java.util.ArrayList;
+import java.util.Collection;
+
 public final class Column extends Node
 {
 	final Table table;
 	final String name;
 	private final Field<String> type;
+	private final ArrayList<Constraint> constraints = new ArrayList<>();
 
 	public Column(final Table table, final String name, final String type)
 	{
@@ -54,6 +60,14 @@ public final class Column extends Node
 		return name;
 	}
 
+	void register(final Constraint constraint)
+	{
+		if(table!=constraint.table)
+			throw new RuntimeException(table.name + '#' + constraint.name + '>' + name);
+
+		constraints.add(constraint);
+	}
+
 	void notifyExists(final String existingType)
 	{
 		notifyExistsNode();
@@ -74,6 +88,15 @@ public final class Column extends Node
 					"different type in database: >"+type.getExisting()+"<");
 
 		return Result.ok;
+	}
+
+	/**
+	 * @see Table#getConstraints()
+	 * @see Table#getTableConstraints()
+	 */
+	public Collection<Constraint> getConstraints()
+	{
+		return unmodifiableList(constraints);
 	}
 
 	public String getType()

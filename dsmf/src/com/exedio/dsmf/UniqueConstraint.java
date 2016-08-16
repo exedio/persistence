@@ -24,19 +24,21 @@ public final class UniqueConstraint extends Constraint
 
 	public UniqueConstraint(
 			final Table table,
+			final Column column,
 			final String name,
 			final String clause)
 	{
-		this(table, name, true, clause);
+		this(table, column, name, true, clause);
 	}
 
 	UniqueConstraint(
 			final Table table,
+			final Column column,
 			final String name,
 			final boolean required,
 			final String clause)
 	{
-		super(table, name, Type.Unique, required, clause);
+		super(table, column, name, Type.Unique, required, clause);
 
 		if(clause==null)
 			throw new RuntimeException(name);

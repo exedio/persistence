@@ -28,6 +28,7 @@ import static com.exedio.dsmf.Node.Color.WARNING;
 import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
 import com.exedio.dsmf.Column;
@@ -55,8 +56,8 @@ public class SchemaMismatchColumnNameTest extends SchemaMismatchTest
 		final Table table = schema.getTable(name(ItemA.TYPE));
 		assertIt(null, OK, ERROR, table);
 
+		final Column pk, fieldA, fieldB;
 		{
-			final Column pk, fieldA, fieldB;
 			assertIt(null, OK, OK, pk = table.getColumn(name(ItemA.TYPE.getThis())));
 			assertIt("not used", WARNING, WARNING, fieldA = table.getColumn(name(ItemA.fieldA)));
 			assertIt("missing",  ERROR,   ERROR,   fieldB = table.getColumn(name(ItemB.fieldB)));
@@ -100,6 +101,12 @@ public class SchemaMismatchColumnNameTest extends SchemaMismatchTest
 					? asList(pkPk, checkPkMin, checkPkMax, checkB, checkA)
 					: asList(pkPk, checkPkMin, checkPkMax, checkB),
 					table.getConstraints());
+			assertSame(pk, pkPk.getColumn());
+			assertSame(pk, checkPkMin.getColumn());
+			assertSame(pk, checkPkMax.getColumn());
+			if(supported)
+				assertSame(null, checkA.getColumn()); // TODO should be fieldA
+			assertSame(fieldB, checkB.getColumn());
 		}
 
 		assertEqualsUnmodifiable(asList(table), schema.getTables());

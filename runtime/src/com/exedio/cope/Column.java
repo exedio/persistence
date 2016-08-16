@@ -65,7 +65,7 @@ abstract class Column
 	}
 
 	final void newCheckConstraint(
-			final com.exedio.dsmf.Table dsmf,
+			final com.exedio.dsmf.Column dsmf,
 			final String suffix, final String condition)
 	{
 		new CheckConstraint(dsmf, makeGlobalID(TrimClass.PrimaryKeyCheckConstraint, suffix), condition);
@@ -86,7 +86,7 @@ abstract class Column
 	abstract String cacheToDatabase(Object cache);
 	abstract Object cacheToDatabasePrepared(Object cache);
 
-	void makeSchema(final com.exedio.dsmf.Table dsmf)
+	final void makeSchema(final com.exedio.dsmf.Table dsmf)
 	{
 		final String databaseType = getDatabaseType();
 		final String databaseTypeClause =
@@ -94,9 +94,20 @@ abstract class Column
 			? databaseType + NOT_NULL
 			: databaseType;
 
-		new com.exedio.dsmf.Column(dsmf, id, databaseTypeClause);
+		final com.exedio.dsmf.Column dsmfColumn =
+				new com.exedio.dsmf.Column(dsmf, id, databaseTypeClause);
 
 		if(primaryKey)
-			new PrimaryKeyConstraint(dsmf, table.makeGlobalID(TrimClass.PrimaryKeyCheckConstraint, "PK"), id);
+			new PrimaryKeyConstraint(dsmfColumn, table.makeGlobalID(TrimClass.PrimaryKeyCheckConstraint, "PK"));
+
+		makeSchema(dsmfColumn);
+	}
+
+	/**
+	 * @param dsmf used in subclasses
+	 */
+	void makeSchema(final com.exedio.dsmf.Column dsmf)
+	{
+		// empty default implementation
 	}
 }
