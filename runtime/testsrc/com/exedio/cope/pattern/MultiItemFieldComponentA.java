@@ -23,6 +23,7 @@ import com.exedio.cope.StringField;
 
 public class MultiItemFieldComponentA extends Item implements MultiItemFieldValue
 {
+	/** @cope.get override */
 	public static final StringField value = new StringField().defaultTo("A");
 
 
@@ -58,6 +59,7 @@ public class MultiItemFieldComponentA extends Item implements MultiItemFieldValu
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	@javax.annotation.Nonnull
+	@java.lang.Override
 	public final java.lang.String getValue()
 	{
 		return MultiItemFieldComponentA.value.get(this);
