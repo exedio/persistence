@@ -43,390 +43,390 @@ import javax.servlet.http.Part;
 @SuppressFBWarnings("NM_CONFUSING")
 class HttpServletRequestDummy implements HttpServletRequest
 {
-	@Override()
+	@Override
 	public Object getAttribute(final String name)
 	{
 		throw new AssertionError();
 	}
 
-	@Override()
+	@Override
 	public Enumeration<String> getAttributeNames()
 	{
 		throw new AssertionError();
 	}
 
-	@Override()
+	@Override
 	public String getCharacterEncoding()
 	{
 		throw new AssertionError();
 	}
 
 	@SuppressWarnings("unused")
-	@Override()
+	@Override
 	public void setCharacterEncoding(final String env) throws UnsupportedEncodingException
 	{
 		throw new AssertionError();
 	}
 
-	@Override()
+	@Override
 	public int getContentLength()
 	{
 		throw new AssertionError();
 	}
 
-	@Override()
+	@Override
 	public String getContentType()
 	{
 		throw new AssertionError();
 	}
 
 	@SuppressWarnings("unused")
-	@Override()
+	@Override
 	public ServletInputStream getInputStream() throws IOException
 	{
 		throw new AssertionError();
 	}
 
-	@Override()
+	@Override
 	public String getParameter(final String name)
 	{
 		throw new AssertionError(name);
 	}
 
-	@Override()
+	@Override
 	public Enumeration<String> getParameterNames()
 	{
 		throw new AssertionError();
 	}
 
-	@Override()
+	@Override
 	public String[] getParameterValues(final String name)
 	{
 		throw new AssertionError();
 	}
 
-	@Override()
+	@Override
 	public Map<String, String[]>getParameterMap()
 	{
 		throw new AssertionError();
 	}
 
-	@Override()
+	@Override
 	public String getProtocol()
 	{
 		throw new AssertionError();
 	}
 
-	@Override()
+	@Override
 	public String getScheme()
 	{
 		throw new AssertionError();
 	}
 
-	@Override()
+	@Override
 	public String getServerName()
 	{
 		throw new AssertionError();
 	}
 
-	@Override()
+	@Override
 	public int getServerPort()
 	{
 		throw new AssertionError();
 	}
 
 	@SuppressWarnings("unused")
-	@Override()
+	@Override
 	public BufferedReader getReader() throws IOException
 	{
 		throw new AssertionError();
 	}
 
-	@Override()
+	@Override
 	public String getRemoteAddr()
 	{
 		throw new AssertionError();
 	}
 
-	@Override()
+	@Override
 	public String getRemoteHost()
 	{
 		throw new AssertionError();
 	}
 
-	@Override()
+	@Override
 	public void setAttribute(final String name, final Object o)
 	{
 		throw new AssertionError();
 	}
 
-	@Override()
+	@Override
 	public void removeAttribute(final String name)
 	{
 		throw new AssertionError();
 	}
 
-	@Override()
+	@Override
 	public Locale getLocale()
 	{
 		throw new AssertionError();
 	}
 
-	@Override()
+	@Override
 	public Enumeration<Locale> getLocales()
 	{
 		throw new AssertionError();
 	}
 
-	@Override()
+	@Override
 	public boolean isSecure()
 	{
 		throw new AssertionError();
 	}
 
-	@Override()
+	@Override
 	public RequestDispatcher getRequestDispatcher(final String path)
 	{
 		throw new AssertionError();
 	}
 
-	@Deprecated()
-	@Override()
+	@Deprecated
+	@Override
 	public String getRealPath(final String path)
 	{
 		throw new AssertionError();
 	}
 
-	@Override()
+	@Override
 	public int getRemotePort()
 	{
 		throw new AssertionError();
 	}
 
-	@Override()
+	@Override
 	public String getLocalName()
 	{
 		throw new AssertionError();
 	}
 
-	@Override()
+	@Override
 	public String getLocalAddr()
 	{
 		throw new AssertionError();
 	}
 
-	@Override()
+	@Override
 	public int getLocalPort()
 	{
 		throw new AssertionError();
 	}
 
-	@Override()
+	@Override
 	public String getAuthType()
 	{
 		throw new AssertionError();
 	}
 
-	@Override()
+	@Override
 	public Cookie[] getCookies()
 	{
 		throw new AssertionError();
 	}
 
-	@Override()
+	@Override
 	public long getDateHeader(final String name)
 	{
 		throw new AssertionError(name);
 	}
 
-	@Override()
+	@Override
 	public String getHeader(final String name)
 	{
 		throw new AssertionError(name);
 	}
 
-	@Override()
+	@Override
 	public Enumeration<String> getHeaders(final String name)
 	{
 		throw new AssertionError();
 	}
 
-	@Override()
+	@Override
 	public Enumeration<String> getHeaderNames()
 	{
 		throw new AssertionError();
 	}
 
-	@Override()
+	@Override
 	public int getIntHeader(final String name)
 	{
 		throw new AssertionError();
 	}
 
-	@Override()
+	@Override
 	public String getMethod()
 	{
 		throw new AssertionError();
 	}
 
-	@Override()
+	@Override
 	public String getPathInfo()
 	{
 		throw new AssertionError();
 	}
 
-	@Override()
+	@Override
 	public String getPathTranslated()
 	{
 		throw new AssertionError();
 	}
 
-	@Override()
+	@Override
 	public String getContextPath()
 	{
 		throw new AssertionError();
 	}
 
-	@Override()
+	@Override
 	public String getQueryString()
 	{
 		throw new AssertionError();
 	}
 
-	@Override()
+	@Override
 	public String getRemoteUser()
 	{
 		throw new AssertionError();
 	}
 
-	@Override()
+	@Override
 	public boolean isUserInRole(final String role)
 	{
 		throw new AssertionError();
 	}
 
-	@Override()
+	@Override
 	public Principal getUserPrincipal()
 	{
 		throw new AssertionError();
 	}
 
-	@Override()
+	@Override
 	public String getRequestedSessionId()
 	{
 		throw new AssertionError();
 	}
 
-	@Override()
+	@Override
 	public String getRequestURI()
 	{
 		throw new AssertionError();
 	}
 
-	@Override()
+	@Override
 	public StringBuffer getRequestURL()
 	{
 		throw new AssertionError();
 	}
 
-	@Override()
+	@Override
 	public String getServletPath()
 	{
 		throw new AssertionError();
 	}
 
-	@Override()
+	@Override
 	public HttpSession getSession(final boolean create)
 	{
 		throw new AssertionError();
 	}
 
-	@Override()
+	@Override
 	public HttpSession getSession()
 	{
 		throw new AssertionError();
 	}
 
-	@Override()
+	@Override
 	public boolean isRequestedSessionIdValid()
 	{
 		throw new AssertionError();
 	}
 
-	@Override()
+	@Override
 	public boolean isRequestedSessionIdFromCookie()
 	{
 		throw new AssertionError();
 	}
 
-	@Override()
+	@Override
 	public boolean isRequestedSessionIdFromURL()
 	{
 		throw new AssertionError();
 	}
 
-	@Deprecated()
-	@Override()
+	@Deprecated
+	@Override
 	public boolean isRequestedSessionIdFromUrl()
 	{
 		throw new AssertionError();
 	}
 
-	@Override()
+	@Override
 	public boolean authenticate(final HttpServletResponse response)
 	{
 		throw new AssertionError();
 	}
 
-	@Override()
+	@Override
 	public void login(final String username, final String password)
 	{
 		throw new AssertionError();
 	}
 
-	@Override()
+	@Override
 	public void logout()
 	{
 		throw new AssertionError();
 	}
 
-	@Override()
+	@Override
 	public Collection<Part> getParts()
 	{
 		throw new AssertionError();
 	}
 
-	@Override()
+	@Override
 	public Part getPart(final String name)
 	{
 		throw new AssertionError();
 	}
 
-	@Override()
+	@Override
 	public ServletContext getServletContext()
 	{
 		throw new AssertionError();
 	}
 
-	@Override()
+	@Override
 	public AsyncContext startAsync() throws IllegalStateException
 	{
 		throw new AssertionError();
 	}
 
-	@Override()
+	@Override
 	public AsyncContext startAsync(final ServletRequest servletRequest, final ServletResponse servletResponse) throws IllegalStateException
 	{
 		throw new AssertionError();
 	}
 
-	@Override()
+	@Override
 	public boolean isAsyncStarted()
 	{
 		throw new AssertionError();
 	}
 
-	@Override()
+	@Override
 	public boolean isAsyncSupported()
 	{
 		throw new AssertionError();

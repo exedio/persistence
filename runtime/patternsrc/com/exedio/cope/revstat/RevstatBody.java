@@ -34,7 +34,7 @@ import com.exedio.cope.misc.Computed;
 import com.exedio.cope.pattern.PartOf;
 import java.util.List;
 
-@Computed()
+@Computed
 @CopeName("CopeRevstatBody")
 final class RevstatBody extends Item
 {

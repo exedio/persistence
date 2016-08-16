@@ -31,226 +31,226 @@ import javax.servlet.http.HttpServletResponse;
 class HttpServletResponseDummy implements HttpServletResponse
 {
 
-	@Override()
+	@Override
 	public String getCharacterEncoding()
 	{
 		throw new AssertionError();
 	}
 
-	@Override()
+	@Override
 	public String getContentType()
 	{
 		throw new AssertionError();
 	}
 
 	@SuppressWarnings("unused")
-	@Override()
+	@Override
 	public ServletOutputStream getOutputStream() throws IOException
 	{
 		throw new AssertionError();
 	}
 
 	@SuppressWarnings("unused")
-	@Override()
+	@Override
 	public PrintWriter getWriter() throws IOException
 	{
 		throw new AssertionError();
 	}
 
-	@Override()
+	@Override
 	public void setCharacterEncoding(final String charset)
 	{
 		throw new AssertionError();
 	}
 
-	@Override()
+	@Override
 	public void setContentLength(final int len)
 	{
 		throw new AssertionError();
 	}
 
-	@Override()
+	@Override
 	public void setContentType(final String type)
 	{
 		throw new AssertionError();
 	}
 
-	@Override()
+	@Override
 	public void setBufferSize(final int size)
 	{
 		throw new AssertionError();
 	}
 
-	@Override()
+	@Override
 	public int getBufferSize()
 	{
 		throw new AssertionError();
 	}
 
 	@SuppressWarnings("unused")
-	@Override()
+	@Override
 	public void flushBuffer() throws IOException
 	{
 		throw new AssertionError();
 	}
 
-	@Override()
+	@Override
 	public void resetBuffer()
 	{
 		throw new AssertionError();
 	}
 
-	@Override()
+	@Override
 	public boolean isCommitted()
 	{
 		throw new AssertionError();
 	}
 
-	@Override()
+	@Override
 	public void reset()
 	{
 		throw new AssertionError();
 	}
 
-	@Override()
+	@Override
 	public void setLocale(final Locale loc)
 	{
 		throw new AssertionError();
 	}
 
-	@Override()
+	@Override
 	public Locale getLocale()
 	{
 		throw new AssertionError();
 	}
 
-	@Override()
+	@Override
 	public void addCookie(final Cookie cookie)
 	{
 		throw new AssertionError();
 	}
 
-	@Override()
+	@Override
 	public boolean containsHeader(final String name)
 	{
 		throw new AssertionError();
 	}
 
-	@Override()
+	@Override
 	public String encodeURL(final String url)
 	{
 		throw new AssertionError();
 	}
 
-	@Override()
+	@Override
 	public String encodeRedirectURL(final String url)
 	{
 		throw new AssertionError();
 	}
 
-	@Deprecated()
-	@Override()
+	@Deprecated
+	@Override
 	public String encodeUrl(final String url)
 	{
 		throw new AssertionError();
 	}
 
-	@Deprecated()
-	@Override()
+	@Deprecated
+	@Override
 	public String encodeRedirectUrl(final String url)
 	{
 		throw new AssertionError();
 	}
 
 	@SuppressWarnings("unused")
-	@Override()
+	@Override
 	public void sendError(final int sc, final String msg) throws IOException
 	{
 		throw new AssertionError();
 	}
 
 	@SuppressWarnings("unused")
-	@Override()
+	@Override
 	public void sendError(final int sc) throws IOException
 	{
 		throw new AssertionError();
 	}
 
 	@SuppressWarnings("unused")
-	@Override()
+	@Override
 	public void sendRedirect(final String location) throws IOException
 	{
 		throw new AssertionError();
 	}
 
-	@Override()
+	@Override
 	public void setDateHeader(final String name, final long date)
 	{
 		throw new AssertionError(name);
 	}
 
-	@Override()
+	@Override
 	public void addDateHeader(final String name, final long date)
 	{
 		throw new AssertionError();
 	}
 
-	@Override()
+	@Override
 	public void setHeader(final String name, final String value)
 	{
 		throw new AssertionError(name);
 	}
 
-	@Override()
+	@Override
 	public void addHeader(final String name, final String value)
 	{
 		throw new AssertionError();
 	}
 
-	@Override()
+	@Override
 	public void setIntHeader(final String name, final int value)
 	{
 		throw new AssertionError();
 	}
 
-	@Override()
+	@Override
 	public void addIntHeader(final String name, final int value)
 	{
 		throw new AssertionError();
 	}
 
-	@Override()
+	@Override
 	public void setStatus(final int sc)
 	{
 		throw new AssertionError();
 	}
 
-	@Deprecated()
-	@Override()
+	@Deprecated
+	@Override
 	public void setStatus(final int sc, final String sm)
 	{
 		throw new AssertionError();
 	}
 
-	@Override()
+	@Override
 	public int getStatus()
 	{
 		throw new AssertionError();
 	}
 
-	@Override()
+	@Override
 	public String getHeader(final String name)
 	{
 		throw new AssertionError();
 	}
 
-	@Override()
+	@Override
 	public Collection<String> getHeaders(final String name)
 	{
 		throw new AssertionError();
 	}
 
-	@Override()
+	@Override
 	public Collection<String> getHeaderNames()
 	{
 		throw new AssertionError();

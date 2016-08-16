@@ -183,13 +183,13 @@ public class ServletUtilTest
 
 			this.config = new ServletConfig()
 			{
-				@Override()
+				@Override
 				public ServletContext getServletContext()
 				{
 					return new MockServletContext(null);
 				}
 
-				@Override()
+				@Override
 				public String getInitParameter(final String name)
 				{
 					if("model".equals(name))
@@ -200,13 +200,13 @@ public class ServletUtilTest
 						throw new RuntimeException(name);
 				}
 
-				@Override()
+				@Override
 				public String getServletName()
 				{
 					return name;
 				}
 
-				@Override()
+				@Override
 				public Enumeration<String> getInitParameterNames()
 				{
 					throw new RuntimeException();
@@ -214,31 +214,31 @@ public class ServletUtilTest
 			};
 		}
 
-		@Override()
+		@Override
 		public ServletConfig getServletConfig()
 		{
 			return config;
 		}
 
-		@Override()
+		@Override
 		public void destroy()
 		{
 			throw new RuntimeException();
 		}
 
-		@Override()
+		@Override
 		public String getServletInfo()
 		{
 			throw new RuntimeException();
 		}
 
-		@Override()
+		@Override
 		public void init(final ServletConfig arg0)
 		{
 			throw new RuntimeException();
 		}
 
-		@Override()
+		@Override
 		public void service(final ServletRequest arg0, final ServletResponse arg1)
 		{
 			throw new RuntimeException();
@@ -252,19 +252,19 @@ public class ServletUtilTest
 			// just make it package private
 		}
 
-		@Override()
+		@Override
 		public void destroy()
 		{
 			throw new RuntimeException();
 		}
 
-		@Override()
+		@Override
 		public void doFilter(final ServletRequest arg0, final ServletResponse arg1, final FilterChain arg2)
 		{
 			throw new RuntimeException();
 		}
 
-		@Override()
+		@Override
 		public void init(final FilterConfig arg0)
 		{
 			throw new RuntimeException();
@@ -291,13 +291,13 @@ public class ServletUtilTest
 			assert context!=null;
 		}
 
-		@Override()
+		@Override
 		public ServletContext getServletContext()
 		{
 			return context;
 		}
 
-		@Override()
+		@Override
 		public String getInitParameter(final String name)
 		{
 			if("model".equals(name))
@@ -308,13 +308,13 @@ public class ServletUtilTest
 				throw new RuntimeException(name);
 		}
 
-		@Override()
+		@Override
 		public String getFilterName()
 		{
 			return name;
 		}
 
-		@Override()
+		@Override
 		public Enumeration<String> getInitParameterNames()
 		{
 			throw new RuntimeException();

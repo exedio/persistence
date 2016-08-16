@@ -67,7 +67,7 @@ public class CompositeFieldComputedTest
 	static final class MyComposite extends Composite
 	{
 		static final StringField virgnTemp = new StringField();
-		@Computed()
+		@Computed
 		static final StringField compuTemp = new StringField();
 
 		private MyComposite(final SetValue<?>... setValues) { super(setValues); }
@@ -77,7 +77,7 @@ public class CompositeFieldComputedTest
 	static final class MyItem extends com.exedio.cope.Item // TODO use import, but this is not accepted by javac
 	{
 		static final CompositeField<MyComposite> virgnComp = CompositeField.create(MyComposite.class);
-		@Computed()
+		@Computed
 		static final CompositeField<MyComposite> compuComp = CompositeField.create(MyComposite.class);
 
 		private static final long serialVersionUID = 1l;

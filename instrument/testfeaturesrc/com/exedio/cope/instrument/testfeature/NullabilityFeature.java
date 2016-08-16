@@ -39,7 +39,7 @@ public class NullabilityFeature
 
 	@SuppressWarnings("static-method")
 	@Wrap(order=10)
-	@Nullable()
+	@Nullable
 	public Object allCanReturnNull()
 	{
 		throw new RuntimeException();

@@ -66,7 +66,7 @@ public class BlockComputedTest
 	static final class MyBlock extends Block
 	{
 		static final StringField virgnTemp = new StringField();
-		@Computed()
+		@Computed
 		static final StringField compuTemp = new StringField();
 
 		private MyBlock(final BlockActivationParameters ap) { super(ap); }
@@ -77,7 +77,7 @@ public class BlockComputedTest
 	static final class MyItem extends com.exedio.cope.Item // TODO use import, but this is not accepted by javac
 	{
 		static final BlockField<MyBlock> virgnComp = BlockField.create(MyBlock.TYPE);
-		@Computed()
+		@Computed
 		static final BlockField<MyBlock> compuComp = BlockField.create(MyBlock.TYPE);
 
 		private static final long serialVersionUID = 1l;

@@ -38,7 +38,7 @@ import com.exedio.cope.pattern.CompositeField;
 import java.util.Arrays;
 import java.util.List;
 
-@Purgeable()
+@Purgeable
 @CopeSchemaName("DiffClusterNode")
 final class SamplerClusterNode extends Item
 {

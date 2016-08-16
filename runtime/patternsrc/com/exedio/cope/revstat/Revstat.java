@@ -37,7 +37,7 @@ import com.exedio.cope.util.JobContext;
 import java.util.Date;
 import java.util.List;
 
-@Computed()
+@Computed
 @CopeName("CopeRevstat")
 final class Revstat extends Item
 {

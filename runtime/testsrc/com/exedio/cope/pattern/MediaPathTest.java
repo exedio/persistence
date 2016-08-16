@@ -521,13 +521,13 @@ public final class MediaPathTest extends TestWithEnvironment
 			return this;
 		}
 
-		@Override()
+		@Override
 		public String getRemoteAddr()
 		{
 			return "testRemoteAddr";
 		}
 
-		@Override()
+		@Override
 		public boolean isSecure()
 		{
 			return false;
@@ -539,7 +539,7 @@ public final class MediaPathTest extends TestWithEnvironment
 			return "GET";
 		}
 
-		@Override()
+		@Override
 		public String getHeader(final String name)
 		{
 			if("Host".equals(name))
@@ -552,7 +552,7 @@ public final class MediaPathTest extends TestWithEnvironment
 				return super.getHeader(name);
 		}
 
-		@Override()
+		@Override
 		public long getDateHeader(final String name)
 		{
 			if("If-Modified-Since".equals(name))
@@ -561,13 +561,13 @@ public final class MediaPathTest extends TestWithEnvironment
 				return super.getDateHeader(name);
 		}
 
-		@Override()
+		@Override
 		public String getContextPath()
 		{
 			return "/testContextPath";
 		}
 
-		@Override()
+		@Override
 		public String getServletPath()
 		{
 			return "/testServletPath";
@@ -585,7 +585,7 @@ public final class MediaPathTest extends TestWithEnvironment
 			return token!=null ? ("t=" + token) : null;
 		}
 
-		@Override()
+		@Override
 		@SuppressFBWarnings("PZLA_PREFER_ZERO_LENGTH_ARRAYS")
 		public String[] getParameterValues(final String name)
 		{
@@ -595,13 +595,13 @@ public final class MediaPathTest extends TestWithEnvironment
 			return token!=null ? new String[]{token} : null;
 		}
 
-		@Override()
+		@Override
 		public Enumeration<String> getParameterNames()
 		{
 			return token!=null ? new Vector<>(Arrays.asList("t")).elements() : null;
 		}
 
-		@Override()
+		@Override
 		public String getParameter(final String name)
 		{
 			if("t".equals(name))
@@ -623,7 +623,7 @@ public final class MediaPathTest extends TestWithEnvironment
 		private String cacheControl;
 		private String accessControlAllowOrigin;
 
-		@Override()
+		@Override
 		public void setHeader(final String name, final String value)
 		{
 			if("Location".equals(name))
@@ -654,7 +654,7 @@ public final class MediaPathTest extends TestWithEnvironment
 
 		private long lastModified = Long.MIN_VALUE;
 
-		@Override()
+		@Override
 		public void setDateHeader(final String name, final long date)
 		{
 			if("Last-Modified".equals(name))
@@ -717,7 +717,7 @@ public final class MediaPathTest extends TestWithEnvironment
 		}
 
 
-		@Override()
+		@Override
 		public boolean isCommitted()
 		{
 			assertNull(out);
@@ -725,7 +725,7 @@ public final class MediaPathTest extends TestWithEnvironment
 			return false;
 		}
 
-		@Override()
+		@Override
 		public void reset()
 		{
 			assertNull(out);

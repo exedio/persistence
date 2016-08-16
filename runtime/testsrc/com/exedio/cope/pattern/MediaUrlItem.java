@@ -35,22 +35,22 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 	static final Media foto = new Media().optional().lengthMax(2000).contentType("image/jpeg");
 
 	/** @cope.getURL none */
-	@PreventUrlGuessing()
+	@PreventUrlGuessing
 	static final Media fotoSecure = new Media().optional().lengthMax(2000).contentType("image/jpeg");
 
 	/** @cope.getURL none */
-	@UrlFingerPrinting()
+	@UrlFingerPrinting
 	static final Media fotoFinger = new Media().optional().lengthMax(2000).contentType("image/jpeg");
 
 	/** @cope.getURL none */
 	static final Media file = new Media().optional().lengthMax(2000).contentType("foo/bar");
 
 	/** @cope.getURL none */
-	@PreventUrlGuessing()
+	@PreventUrlGuessing
 	static final Media fileSecure = new Media().optional().lengthMax(2000).contentType("foo/bar");
 
 	/** @cope.getURL none */
-	@UrlFingerPrinting()
+	@UrlFingerPrinting
 	static final Media fileFinger = new Media().optional().lengthMax(2000).contentType("foo/bar");
 
 

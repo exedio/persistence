@@ -147,13 +147,13 @@ public class ErrorLogTest
 			this.secure = secure;
 		}
 
-		@Override()
+		@Override
 		public String getRemoteAddr()
 		{
 			return "RemoteAddr" + n;
 		}
 
-		@Override()
+		@Override
 		public boolean isSecure()
 		{
 			return secure;

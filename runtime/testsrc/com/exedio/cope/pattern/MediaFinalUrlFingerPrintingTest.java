@@ -48,9 +48,9 @@ public class MediaFinalUrlFingerPrintingTest
 	{
 		static final Media nonFinal = new Media();
 		static final Media isFinal = new Media().toFinal();
-		@UrlFingerPrinting()
+		@UrlFingerPrinting
 		static final Media nonFinalFinger = new Media();
-		@UrlFingerPrinting()
+		@UrlFingerPrinting
 		static final Media isFinalFinger = new Media().toFinal();
 
 	/**

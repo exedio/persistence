@@ -37,7 +37,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-@Purgeable()
+@Purgeable
 @CopeSchemaName("DiffTransaction")
 final class SamplerTransaction extends Item
 {

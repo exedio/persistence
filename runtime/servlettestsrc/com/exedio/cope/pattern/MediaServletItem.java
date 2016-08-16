@@ -88,14 +88,14 @@ final class MediaServletItem extends Item
 
 
 	/** @cope.getURL none */
-	@Deprecated()
+	@Deprecated
 	static final MediaRedirect redirect = new MediaRedirect(content);
 
 	/** @cope.getURL none */
 	static final MediaThumbnail thumbnail = new MediaThumbnail(content, 150, 150);
 
 	/** @cope.getURL none */
-	@Deprecated()
+	@Deprecated
 	static final MediaRedirect thumbnailRedirect = new MediaRedirect(thumbnail);
 
 	/** @cope.getURL none */
@@ -107,11 +107,11 @@ final class MediaServletItem extends Item
 			new Media());
 
 	/** @cope.getURL none */
-	@PreventUrlGuessing()
+	@PreventUrlGuessing
 	static final MediaThumbnail tokened = new MediaThumbnail(content, 25, 25);
 
 	/** @cope.getURL none */
-	@UrlFingerPrinting()
+	@UrlFingerPrinting
 	static final MediaThumbnail finger = new MediaThumbnail(content, 150, 150);
 
 	static final DateField nameServerLastModified = new DateField().optional();

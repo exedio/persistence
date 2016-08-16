@@ -23,7 +23,7 @@ import com.exedio.cope.misc.Computed;
 final class PatternComputedItem extends Item
 {
 	static final PatternComputedPattern virgnComp = new PatternComputedPattern();
-	@Computed()
+	@Computed
 	static final PatternComputedPattern compuComp = new PatternComputedPattern();
 
 

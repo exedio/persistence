@@ -39,12 +39,12 @@ public final class MediaPathItem extends Item implements MediaUrlCatchphraseProv
 
 	/** @cope.getURL none */
 	@RedirectFrom({"fingerRedirect1", "fingerRedirect2"})
-	@UrlFingerPrinting()
+	@UrlFingerPrinting
 	static final MediaPathFeature finger = new MediaPathFeature();
 
 
 	/** @cope.getURL none */
-	@PreventUrlGuessing()
+	@PreventUrlGuessing
 	static final MediaPathFeature guess = new MediaPathFeature();
 
 

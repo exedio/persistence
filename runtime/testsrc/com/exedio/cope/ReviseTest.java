@@ -629,14 +629,14 @@ public class ReviseTest
 			fallback = Sources.load(ConnectProperties.getDefaultPropertyFile());
 		}
 
-		@Override()
+		@Override
 		public String get( final String key )
 		{
 			final String override = overrides.get( key );
 			return override==null ? fallback.get( key ) : override;
 		}
 
-		@Override()
+		@Override
 		public Collection<String> keySet()
 		{
 			final Set<String> keys = new HashSet<>();
@@ -645,7 +645,7 @@ public class ReviseTest
 			return keys;
 		}
 
-		@Override()
+		@Override
 		public String getDescription()
 		{
 			return "TestSource";

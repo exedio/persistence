@@ -123,7 +123,7 @@ public class SequenceTest extends TestWithEnvironment
 			expected.add( i );
 			threads[i] = new Thread()
 			{
-				@Override()
+				@Override
 				public void run()
 				{
 					fullIds.add( nextFull() );
