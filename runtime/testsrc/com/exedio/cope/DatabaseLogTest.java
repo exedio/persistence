@@ -109,6 +109,7 @@ public class DatabaseLogTest extends TestWithEnvironment
 	{
 		private String sql = null;
 
+		@Override
 		public void onStatement(
 				final String sql,
 				final List<Object> parameters,

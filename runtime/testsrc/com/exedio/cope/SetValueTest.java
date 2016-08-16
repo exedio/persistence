@@ -95,36 +95,43 @@ public class SetValueTest
 			this.toString = toString;
 		}
 
+		@Override
 		public SetValue<?>[] execute(final String value, final Item exceptionItem)
 		{
 			throw new RuntimeException();
 		}
 
+		@Override
 		public Set<Class<? extends Throwable>> getInitialExceptions()
 		{
 			throw new RuntimeException();
 		}
 
+		@Override
 		public Type getInitialType()
 		{
 			throw new RuntimeException();
 		}
 
+		@Override
 		public boolean isFinal()
 		{
 			throw new RuntimeException();
 		}
 
+		@Override
 		public boolean isMandatory()
 		{
 			throw new RuntimeException();
 		}
 
+		@Override
 		public boolean isInitial()
 		{
 			throw new RuntimeException();
 		}
 
+		@Override
 		public SetValue<String> map(final String value)
 		{
 			throw new RuntimeException();

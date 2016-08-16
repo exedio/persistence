@@ -104,6 +104,7 @@ public class TransactionOnlyTest extends TestWithEnvironment
 		final IllegalStateExceptionReference rer = new IllegalStateExceptionReference();
 
 		final Thread t2 = new Thread(new Runnable(){
+			@Override
 			@SuppressWarnings("synthetic-access")
 			public void run()
 			{

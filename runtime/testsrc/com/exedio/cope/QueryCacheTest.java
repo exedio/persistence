@@ -160,11 +160,13 @@ public class QueryCacheTest extends TestWithEnvironment
 			// make constructor non-private
 		}
 
+		@Override
 		public void load(final Connection connection, final Item item)
 		{
 			throw new RuntimeException();
 		}
 
+		@Override
 		public void search(final Connection connection, final Query<?> query, final boolean totalOnly)
 		{
 			scs.add(new SC(query, totalOnly));

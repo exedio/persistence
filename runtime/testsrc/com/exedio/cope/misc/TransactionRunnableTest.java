@@ -53,6 +53,7 @@ public class TransactionRunnableTest extends TestWithEnvironment
 		assertFalse(model.hasCurrentTransaction());
 		final TransactionRunnable tr1 =
 			new TransactionRunnable(model, new Runnable(){
+				@Override
 				@SuppressWarnings("synthetic-access")
 				// no thread is spawned, thus asserts still can cause the test to fail.
 				@SuppressFBWarnings("IJU_ASSERT_METHOD_INVOKED_FROM_RUN_METHOD")
@@ -65,6 +66,7 @@ public class TransactionRunnableTest extends TestWithEnvironment
 			"name1");
 		final TransactionRunnable tr2 =
 			new TransactionRunnable(model, new Runnable(){
+				@Override
 				@SuppressWarnings("synthetic-access")
 				// no thread is spawned, thus asserts still can cause the test to fail.
 				@SuppressFBWarnings("IJU_ASSERT_METHOD_INVOKED_FROM_RUN_METHOD")

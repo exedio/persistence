@@ -124,6 +124,7 @@ public final class SchemaTypeStringField extends Pattern
 			this.source = requireNonNull(source);
 		}
 
+		@Override
 		public boolean isAnnotationPresent(final Class<? extends Annotation> annotationClass)
 		{
 			return
@@ -132,6 +133,7 @@ public final class SchemaTypeStringField extends Pattern
 				: false;
 		}
 
+		@Override
 		public <T extends Annotation> T getAnnotation(final Class<T> annotationClass)
 		{
 			return
@@ -140,11 +142,13 @@ public final class SchemaTypeStringField extends Pattern
 				: null;
 		}
 
+		@Override
 		public Annotation[] getAnnotations()
 		{
 			throw new RuntimeException(source.toString());
 		}
 
+		@Override
 		public Annotation[] getDeclaredAnnotations()
 		{
 			throw new RuntimeException(source.toString());

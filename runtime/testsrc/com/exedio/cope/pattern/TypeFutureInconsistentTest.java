@@ -83,6 +83,7 @@ public class TypeFutureInconsistentTest
 	{
 		static final ItemField<ValueClassItem> itemField = ItemField.create(ValueClassItem.class, new TypeFuture<ValueClassItem>(){
 
+			@Override
 			@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad API usage
 			public Type<ValueClassItem> get()
 			{

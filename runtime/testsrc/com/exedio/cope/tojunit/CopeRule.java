@@ -124,6 +124,7 @@ public abstract class CopeRule implements TestRule
 	}
 
 
+	@Override
 	public final Statement apply(final Statement base, final Description description)
 	{
 		final Adaptee test = this.test; // avoid synthetic-access warning

@@ -35,6 +35,7 @@ public class ClusterPropertiesTest
 	{
 		final Source s = new Source()
 		{
+			@Override
 			public String get(final String key)
 			{
 				if(key.equals("cluster.secret"))
@@ -47,11 +48,13 @@ public class ClusterPropertiesTest
 					return null;
 			}
 
+			@Override
 			public String getDescription()
 			{
 				return "Cluster Properties";
 			}
 
+			@Override
 			public Collection<String> keySet()
 			{
 				return null;
@@ -69,6 +72,7 @@ public class ClusterPropertiesTest
 	{
 		final Source s = new Source()
 		{
+			@Override
 			public String get(final String key)
 			{
 				if(key.equals("cluster.secret"))
@@ -81,11 +85,13 @@ public class ClusterPropertiesTest
 					return null;
 			}
 
+			@Override
 			public String getDescription()
 			{
 				return "Cluster Properties";
 			}
 
+			@Override
 			public Collection<String> keySet()
 			{
 				return null;
@@ -114,6 +120,7 @@ public class ClusterPropertiesTest
 				new ConnectProperties(new File("runtime/utiltest.properties")).getSourceObject();
 		final Properties.Source source = new Properties.Source()
 		{
+			@Override
 			public String get(final String key)
 			{
 				if(key.equals("cluster"))
@@ -122,11 +129,13 @@ public class ClusterPropertiesTest
 					return defaultSource.get(key);
 			}
 
+			@Override
 			public String getDescription()
 			{
 				return defaultSource.getDescription();
 			}
 
+			@Override
 			public Collection<String> keySet()
 			{
 				return defaultSource.keySet();
@@ -134,6 +143,7 @@ public class ClusterPropertiesTest
 		};
 		final Properties.Source context = new Properties.Source()
 		{
+			@Override
 			public String get(final String key)
 			{
 				if(key.equals("cluster.secret"))
@@ -142,11 +152,13 @@ public class ClusterPropertiesTest
 					return null;
 			}
 
+			@Override
 			public String getDescription()
 			{
 				return "Connect Properties Context";
 			}
 
+			@Override
 			public Collection<String> keySet()
 			{
 				return null;

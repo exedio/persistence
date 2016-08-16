@@ -169,11 +169,13 @@ public class LogRule extends ExternalResource
 				events.add( event );
 		}
 
+		@Override
 		public boolean requiresLayout()
 		{
 			return false;
 		}
 
+		@Override
 		public void close() throws SecurityException
 		{
 			throw new RuntimeException();

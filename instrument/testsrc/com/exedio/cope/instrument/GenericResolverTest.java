@@ -220,16 +220,19 @@ public class GenericResolverTest
 
 		return new ParameterizedType()
 		{
+			@Override
 			public Type getRawType()
 			{
 				return rawType;
 			}
 
+			@Override
 			public Type getOwnerType()
 			{
 				return null;
 			}
 
+			@Override
 			public Type[] getActualTypeArguments()
 			{
 				return Arrays.copyOf(actualTypeArguments);

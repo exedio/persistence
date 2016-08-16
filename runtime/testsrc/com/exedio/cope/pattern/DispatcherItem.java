@@ -70,6 +70,7 @@ public final class DispatcherItem extends Item implements Dispatchable
 		return date!=null ? Integer.valueOf((int)date.getTime()) : null;
 	}
 
+	@Override
 	public void dispatch(final Dispatcher dispatcher) throws IOException, InterruptedException
 	{
 		Assert.assertSame(toTarget, dispatcher);
@@ -88,6 +89,7 @@ public final class DispatcherItem extends Item implements Dispatchable
 		log.dispatchLastSuccessElapsed = toMillies(nanoTime(), start);
 	}
 
+	@Override
 	public void notifyFinalFailure(final Dispatcher dispatcher, final Exception cause)
 	{
 		Assert.assertSame(toTarget, dispatcher);

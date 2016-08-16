@@ -52,6 +52,7 @@ public abstract class ConnectedTest extends TestWithEnvironment
 	{
 		return new Properties.Source(){
 
+			@Override
 			public String get(final String key)
 			{
 				// If this is explicitly specified, the table name
@@ -63,11 +64,13 @@ public abstract class ConnectedTest extends TestWithEnvironment
 				return original.get(key);
 			}
 
+			@Override
 			public String getDescription()
 			{
 				return original.getDescription();
 			}
 
+			@Override
 			public Collection<String> keySet()
 			{
 				return original.keySet();

@@ -29,26 +29,31 @@ public class ByteAlgorithmTest
 {
 	private static final Hash.Algorithm a = new Hash.Algorithm(){
 
+			@Override
 			public boolean check(final byte[] plainText, final byte[] hash)
 			{
 				throw new RuntimeException();
 			}
 
+			@Override
 			public byte[] hash(final byte[] plainText)
 			{
 				throw new RuntimeException();
 			}
 
+			@Override
 			public int length()
 			{
 				return 1;
 			}
 
+			@Override
 			public String name()
 			{
 				return "name";
 			}
 
+			@Override
 			public boolean compatibleTo(final Hash.Algorithm other)
 			{
 				throw new RuntimeException();

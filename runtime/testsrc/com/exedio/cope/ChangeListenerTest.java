@@ -151,6 +151,7 @@ public class ChangeListenerTest extends TestWithEnvironment
 			// make constructor non-private
 		}
 
+		@Override
 		@SuppressWarnings("synthetic-access")
 		public void onChange(final ChangeEvent event) throws IOException
 		{
