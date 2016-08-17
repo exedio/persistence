@@ -318,7 +318,7 @@ public class DispatcherTest extends TestWithEnvironment
 			final DispatcherItem item,
 			final int dispatchCountCommitted,
 			final Date date,
-			final List<ExpectedRun> failures)
+			final List<ExpectedRun> expectedRuns)
 	{
 		final DispatcherItem.Log log = DispatcherItem.logs.get(item);
 		assertEquals(false, item.isToTargetPending());
@@ -326,61 +326,61 @@ public class DispatcherTest extends TestWithEnvironment
 		assertTrue(
 				String.valueOf(item.getToTargetLastSuccessElapsed())+">="+log.dispatchLastSuccessElapsed,
 				item.getToTargetLastSuccessElapsed()>=log.dispatchLastSuccessElapsed);
-		assertIt(dispatchCountCommitted, failures.size(), failures, item, 0);
+		assertIt(dispatchCountCommitted, expectedRuns.size(), expectedRuns, item, 0);
 	}
 
 	private static void assertPending(
 			final DispatcherItem item,
 			final int dispatchCountCommitted,
-			final List<ExpectedRun> failures)
+			final List<ExpectedRun> expectedRuns)
 	{
 		assertTrue(item.isToTargetPending());
 		assertNull(item.getToTargetLastSuccessDate());
 		assertNull(item.getToTargetLastSuccessElapsed());
 		assertEquals(0, dispatchCountCommitted);
-		assertIt(dispatchCountCommitted, failures.size(), failures, item, 0);
+		assertIt(dispatchCountCommitted, expectedRuns.size(), expectedRuns, item, 0);
 	}
 
 	private static void assertFailed(
 			final DispatcherItem item,
 			final int dispatchCountCommitted,
-			final List<ExpectedRun> failures)
+			final List<ExpectedRun> expectedRuns)
 	{
 		assertFalse(item.isToTargetPending());
 		assertNull(item.getToTargetLastSuccessDate());
 		assertNull(item.getToTargetLastSuccessElapsed());
 		assertEquals(0, dispatchCountCommitted);
-		assertIt(dispatchCountCommitted, failures.size(), failures, item, 1);
+		assertIt(dispatchCountCommitted, expectedRuns.size(), expectedRuns, item, 1);
 	}
 
 	private static void assertIt(
 			final int dispatchCountCommitted,
 			final int dispatchCount,
-			final List<ExpectedRun> failures,
+			final List<ExpectedRun> expectedRuns,
 			final DispatcherItem item,
 			final int notifyFinalFailureCount)
 	{
 		assertEquals(dispatchCountCommitted, item.getDispatchCountCommitted());
 		assertEquals(dispatchCount, DispatcherItem.logs.get(item).dispatchCount);
 
-		final List<Run> actualFailures = item.getToTargetRuns();
-		assertTrue(actualFailures.size()<=3);
-		assertEquals(failures.size(), actualFailures.size());
+		final List<Run> actualRuns = item.getToTargetRuns();
+		assertTrue(actualRuns.size()<=3);
+		assertEquals(expectedRuns.size(), actualRuns.size());
 
-		final List<Long> failuresElapsed = DispatcherItem.logs.get(item).dispatchRunElapsed;
-		assertEquals(failures.size(), failuresElapsed.size());
-		final Iterator<Long> failureElapsedIter = failuresElapsed.iterator();
+		final List<Long> runsElapsed = DispatcherItem.logs.get(item).dispatchRunElapsed;
+		assertEquals(expectedRuns.size(), runsElapsed.size());
+		final Iterator<Long> runElapsedIter = runsElapsed.iterator();
 
-		final Iterator<ExpectedRun> expectedFailureIter = failures.iterator();
+		final Iterator<ExpectedRun> expectedRunIter = expectedRuns.iterator();
 		final ArrayList<Run> expectedFailures = new ArrayList<>();
-		for(final Run actual : actualFailures)
+		for(final Run actual : actualRuns)
 		{
-			final Long failureElapsed = failureElapsedIter.next();
-			final ExpectedRun expected = expectedFailureIter.next();
+			final Long runElapsed = runElapsedIter.next();
+			final ExpectedRun expected = expectedRunIter.next();
 			assertSame(toTarget, actual.getPattern());
 			assertEquals(item, actual.getParent());
 			expected.assertIt(actual);
-			assertTrue(String.valueOf(actual.getElapsed())+">="+failureElapsed, actual.getElapsed()>=failureElapsed.intValue());
+			assertTrue(String.valueOf(actual.getElapsed())+">="+runElapsed, actual.getElapsed()>=runElapsed.intValue());
 			if(expected.success)
 			{
 				// assertEquals(null, actual.getFailure()); TODO
