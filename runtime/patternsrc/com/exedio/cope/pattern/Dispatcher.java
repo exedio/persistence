@@ -389,7 +389,7 @@ public final class Dispatcher extends Pattern
 					else
 					{
 						if(logger.isWarnEnabled())
-							logger.warn("temporary failure for " + itemID + ", took " + elapsed + "ms", cause);
+							logger.warn("transient failure for " + itemID + ", took " + elapsed + "ms", cause);
 					}
 				}
 			}
