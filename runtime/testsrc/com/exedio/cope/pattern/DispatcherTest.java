@@ -127,14 +127,14 @@ public class DispatcherTest extends TestWithEnvironment
 		assertSuccess(item1, 1, d1[0], success(d1[0]));
 		assertSuccess(item2, 1, d3[0], failure(d1[1]), failure(d2[0]), success(d3[0]));
 		assertSuccess(item3, 1, d1[2], success(d1[2]));
-		assertFailed (item4, failure(d1[3]), failure(d2[1]), failure(d3[1]));
+		assertFailed (item4, failure(d1[3]), failure(d2[1]), finalFailure(d3[1]));
 
 		dispatch(0);
 		log.assertEmpty();
 		assertSuccess(item1, 1, d1[0], success(d1[0]));
 		assertSuccess(item2, 1, d3[0], failure(d1[1]), failure(d2[0]), success(d3[0]));
 		assertSuccess(item3, 1, d1[2], success(d1[2]));
-		assertFailed (item4, failure(d1[3]), failure(d2[1]), failure(d3[1]));
+		assertFailed (item4, failure(d1[3]), failure(d2[1]), finalFailure(d3[1]));
 
 		item1.setToTargetPending(true);
 		final Date[] d4 = dispatch(1);
@@ -144,14 +144,14 @@ public class DispatcherTest extends TestWithEnvironment
 		assertSuccess(item1, 2, d4[0], success(d1[0]), success(d4[0]));
 		assertSuccess(item2, 1, d3[0], failure(d1[1]), failure(d2[0]), success(d3[0]));
 		assertSuccess(item3, 1, d1[2], success(d1[2]));
-		assertFailed (item4, failure(d1[3]), failure(d2[1]), failure(d3[1]));
+		assertFailed (item4, failure(d1[3]), failure(d2[1]), finalFailure(d3[1]));
 
 		dispatch(0);
 		log.assertEmpty();
 		assertSuccess(item1, 2, d4[0], success(d1[0]), success(d4[0]));
 		assertSuccess(item2, 1, d3[0], failure(d1[1]), failure(d2[0]), success(d3[0]));
 		assertSuccess(item3, 1, d1[2], success(d1[2]));
-		assertFailed (item4, failure(d1[3]), failure(d2[1]), failure(d3[1]));
+		assertFailed (item4, failure(d1[3]), failure(d2[1]), finalFailure(d3[1]));
 
 		log.assertEmpty();
 	}
@@ -400,7 +400,12 @@ public class DispatcherTest extends TestWithEnvironment
 
 	private static ExpectedRun failure(final Date date)
 	{
-		return new ExpectedRun(date, Result.failure, false);
+		return new ExpectedRun(date, Result.transientFailure, false);
+	}
+
+	private static ExpectedRun finalFailure(final Date date)
+	{
+		return new ExpectedRun(date, Result.finalFailure, false);
 	}
 
 	private static final class ExpectedRun

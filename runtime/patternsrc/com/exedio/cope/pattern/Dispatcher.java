@@ -100,8 +100,27 @@ public final class Dispatcher extends Pattern
 
 	public enum Result
 	{
+		/**
+		 * A failure that leaves {@link Dispatcher#isPending(Item) pending} unchanged.
+		 */
+		@CopeSchemaValue(-20)
+		transientFailure,
+
+		/**
+		 * A failure that causes {@link Dispatcher#isPending(Item) pending} to be set to false.
+		 */
+		@CopeSchemaValue(-10)
+		finalFailure,
+
+		/**
+		 * @deprecated
+		 * A historical failure where it is not known, whether it was
+		 * {@link #transientFailure transient} or  {@link #finalFailure final}.
+		 */
+		@Deprecated
 		@CopeSchemaValue(0) // matches value "false" of former BooleanField
 		failure,
+
 		@CopeSchemaValue(1) // matches value "true" of former BooleanField
 		success;
 	}
@@ -385,7 +404,7 @@ public final class Dispatcher extends Pattern
 						runParent.map(item),
 						runDate.map(new Date(start)),
 						runElapsed.map(elapsed),
-						runResult.map(Result.failure),
+						runResult.map(isFinal ? Result.finalFailure : Result.transientFailure),
 						runFailure.map(baos.toByteArray()));
 
 					if(isFinal)
