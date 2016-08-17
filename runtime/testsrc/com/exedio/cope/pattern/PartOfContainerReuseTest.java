@@ -29,6 +29,7 @@ import static com.exedio.cope.tojunit.Assert.list;
 import static org.junit.Assert.assertSame;
 
 import com.exedio.cope.IntegerField;
+import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
 import org.junit.Test;
 
@@ -59,7 +60,7 @@ public class PartOfContainerReuseTest
 	}
 
 
-	static final class AContainer extends com.exedio.cope.Item // TODO use import, but this is not accepted by javac
+	static final class AContainer extends Item
 	{
 		/**
 

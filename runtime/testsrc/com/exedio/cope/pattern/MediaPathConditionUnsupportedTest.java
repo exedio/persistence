@@ -120,7 +120,7 @@ public class MediaPathConditionUnsupportedTest
 		private static final long serialVersionUID = 1l;
 	}
 
-	static final class AnItem extends com.exedio.cope.Item // TODO use import, but this is not accepted by javac
+	static final class AnItem extends Item
 	{
 		static final APath path = new APath();
 

@@ -106,7 +106,7 @@ public class CheckConstraintViolatedTest extends TestWithEnvironment
 		return i!=null ? Integer.toString(i) : "NULL";
 	}
 
-	static final class AnItem extends com.exedio.cope.Item // TODO use import, but this is not accepted by javac
+	static final class AnItem extends Item
 	{
 		static final IntegerField alpha = new IntegerField().toFinal().optional();
 
