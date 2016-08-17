@@ -128,6 +128,11 @@ public final class Dispatcher extends Pattern
 		{
 			return this==success;
 		}
+
+		static Result failure(final boolean isFinal)
+		{
+			return isFinal ? finalFailure : transientFailure;
+		}
 	}
 
 	final DateField runDate = new DateField().toFinal();
@@ -409,7 +414,7 @@ public final class Dispatcher extends Pattern
 						runParent.map(item),
 						runDate.map(new Date(start)),
 						runElapsed.map(elapsed),
-						runResult.map(isFinal ? Result.finalFailure : Result.transientFailure),
+						runResult.map(Result.failure(isFinal)),
 						runFailure.map(baos.toByteArray()));
 
 					if(isFinal)
