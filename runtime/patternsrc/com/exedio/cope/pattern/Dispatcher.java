@@ -366,6 +366,10 @@ public final class Dispatcher extends Pattern
 
 					tx.startTransaction(id + " register failure " + itemID);
 
+					final boolean isFinal =
+							mount.runType.newQuery(runParent.equal(item)).total() >=
+							config.getFailureLimit() - 1;
+
 					mount.runType.newItem(
 						runParent.map(item),
 						runDate.map(new Date(start)),
@@ -373,8 +377,6 @@ public final class Dispatcher extends Pattern
 						runSuccess.map(false),
 						runFailure.map(baos.toByteArray()));
 
-					final boolean isFinal =
-						mount.runType.newQuery(runParent.equal(item)).total()>=config.getFailureLimit();
 					if(isFinal)
 						unpend(item, false, new Date(start));
 
