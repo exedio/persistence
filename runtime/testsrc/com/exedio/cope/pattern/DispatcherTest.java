@@ -31,6 +31,7 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import com.exedio.cope.TestWithEnvironment;
+import com.exedio.cope.pattern.Dispatcher.Result;
 import com.exedio.cope.pattern.Dispatcher.Run;
 import com.exedio.cope.tojunit.ClockRule;
 import com.exedio.cope.tojunit.LogRule;
@@ -394,22 +395,24 @@ public class DispatcherTest extends TestWithEnvironment
 
 	private static ExpectedRun success(final Date date)
 	{
-		return new ExpectedRun(date, true);
+		return new ExpectedRun(date, Result.success, true);
 	}
 
 	private static ExpectedRun failure(final Date date)
 	{
-		return new ExpectedRun(date, false);
+		return new ExpectedRun(date, Result.failure, false);
 	}
 
 	private static final class ExpectedRun
 	{
 		final Date date;
+		final Result result;
 		final boolean success;
 
-		ExpectedRun(final Date date, final boolean success)
+		ExpectedRun(final Date date, final Result result, final boolean success)
 		{
 			this.date = date;
+			this.result = result;
 			this.success = success;
 			assertNotNull(date);
 		}
@@ -417,6 +420,7 @@ public class DispatcherTest extends TestWithEnvironment
 		void assertIt(final Run actual)
 		{
 			assertEquals(date, actual.getDate());
+			assertEquals(result, actual.getResult());
 			assertEquals(success, actual.isSuccess());
 		}
 	}
