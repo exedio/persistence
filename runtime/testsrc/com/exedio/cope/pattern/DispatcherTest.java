@@ -24,6 +24,7 @@ import static com.exedio.cope.pattern.DispatcherItem.toTarget;
 import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
@@ -39,6 +40,7 @@ import com.exedio.cope.util.EmptyJobContext;
 import com.exedio.cope.util.JobContext;
 import com.exedio.cope.util.JobStop;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -98,10 +100,10 @@ public class DispatcherTest extends TestWithEnvironment
 		log.assertDebug("dispatching " + item4);
 		log.assertWarn("temporary failure for " + item4 + ", " + "took " + item4.lastElapsed() + "ms");
 		log.assertEmpty();
-		assertSuccess(item1, 1, d1[0], asList());
-		assertPending(item2, 0, asList(d1[1]));
-		assertSuccess(item3, 1, d1[2], asList());
-		assertPending(item4, 0, asList(d1[3]));
+		assertSuccess(item1, 1, d1[0], asList(success(d1[0])));
+		assertPending(item2, 0, asList(failure(d1[1])));
+		assertSuccess(item3, 1, d1[2], asList(success(d1[2])));
+		assertPending(item4, 0, asList(failure(d1[3])));
 
 		final Date[] d2 = dispatch(2);
 		log.assertDebug("dispatching " + item2);
@@ -109,10 +111,10 @@ public class DispatcherTest extends TestWithEnvironment
 		log.assertDebug("dispatching " + item4);
 		log.assertWarn("temporary failure for " + item4 + ", " + "took " + item4.lastElapsed() + "ms");
 		log.assertEmpty();
-		assertSuccess(item1, 1, d1[0], asList());
-		assertPending(item2, 0, asList(d1[1], d2[0]));
-		assertSuccess(item3, 1, d1[2], asList());
-		assertPending(item4, 0, asList(d1[3], d2[1]));
+		assertSuccess(item1, 1, d1[0], asList(success(d1[0])));
+		assertPending(item2, 0, asList(failure(d1[1]), failure(d2[0])));
+		assertSuccess(item3, 1, d1[2], asList(success(d1[2])));
+		assertPending(item4, 0, asList(failure(d1[3]), failure(d2[1])));
 
 		DispatcherItem.logs.get(item2).fail = false;
 		final Date[] d3 = dispatch(2);
@@ -121,34 +123,34 @@ public class DispatcherTest extends TestWithEnvironment
 		log.assertDebug("dispatching " + item4);
 		log.assertError("final failure for " + item4 + ", " + "took " + item4.lastElapsed() + "ms" );
 		log.assertEmpty();
-		assertSuccess(item1, 1, d1[0], asList());
-		assertSuccess(item2, 1, d3[0], asList(d1[1], d2[0]));
-		assertSuccess(item3, 1, d1[2], asList());
-		assertFailed (item4, 0, asList(d1[3], d2[1], d3[1]));
+		assertSuccess(item1, 1, d1[0], asList(success(d1[0])));
+		assertSuccess(item2, 1, d3[0], asList(failure(d1[1]), failure(d2[0]), success(d3[0])));
+		assertSuccess(item3, 1, d1[2], asList(success(d1[2])));
+		assertFailed (item4, 0, asList(failure(d1[3]), failure(d2[1]), failure(d3[1])));
 
 		dispatch(0);
 		log.assertEmpty();
-		assertSuccess(item1, 1, d1[0], asList());
-		assertSuccess(item2, 1, d3[0], asList(d1[1], d2[0]));
-		assertSuccess(item3, 1, d1[2], asList());
-		assertFailed (item4, 0, asList(d1[3], d2[1], d3[1]));
+		assertSuccess(item1, 1, d1[0], asList(success(d1[0])));
+		assertSuccess(item2, 1, d3[0], asList(failure(d1[1]), failure(d2[0]), success(d3[0])));
+		assertSuccess(item3, 1, d1[2], asList(success(d1[2])));
+		assertFailed (item4, 0, asList(failure(d1[3]), failure(d2[1]), failure(d3[1])));
 
 		item1.setToTargetPending(true);
 		final Date[] d4 = dispatch(1);
 		log.assertDebug("dispatching " + item1);
 		log.assertInfo("success for " + item1 + ", " + "took " + item1.lastElapsed() + "ms");
 		log.assertEmpty();
-		assertSuccess(item1, 2, d4[0], asList());
-		assertSuccess(item2, 1, d3[0], asList(d1[1], d2[0]));
-		assertSuccess(item3, 1, d1[2], asList());
-		assertFailed (item4, 0, asList(d1[3], d2[1], d3[1]));
+		assertSuccess(item1, 2, d4[0], asList(success(d1[0]), success(d4[0])));
+		assertSuccess(item2, 1, d3[0], asList(failure(d1[1]), failure(d2[0]), success(d3[0])));
+		assertSuccess(item3, 1, d1[2], asList(success(d1[2])));
+		assertFailed (item4, 0, asList(failure(d1[3]), failure(d2[1]), failure(d3[1])));
 
 		dispatch(0);
 		log.assertEmpty();
-		assertSuccess(item1, 2, d4[0], asList());
-		assertSuccess(item2, 1, d3[0], asList(d1[1], d2[0]));
-		assertSuccess(item3, 1, d1[2], asList());
-		assertFailed (item4, 0, asList(d1[3], d2[1], d3[1]));
+		assertSuccess(item1, 2, d4[0], asList(success(d1[0]), success(d4[0])));
+		assertSuccess(item2, 1, d3[0], asList(failure(d1[1]), failure(d2[0]), success(d3[0])));
+		assertSuccess(item3, 1, d1[2], asList(success(d1[2])));
+		assertFailed (item4, 0, asList(failure(d1[3]), failure(d2[1]), failure(d3[1])));
 
 		log.assertEmpty();
 	}
@@ -197,7 +199,7 @@ public class DispatcherTest extends TestWithEnvironment
 	@Test public void testStop1()
 	{
 		final Date[] d = dispatch(1, 1);
-		assertSuccess(item1, 1, d[0], asList());
+		assertSuccess(item1, 1, d[0], asList(success(d[0])));
 		assertPending(item2, 0, asList());
 		assertPending(item3, 0, asList());
 		assertPending(item4, 0, asList());
@@ -206,8 +208,8 @@ public class DispatcherTest extends TestWithEnvironment
 	@Test public void testStop2()
 	{
 		final Date[] d = dispatch(2, 2);
-		assertSuccess(item1, 1, d[0], asList());
-		assertPending(item2, 0, asList(d[1]));
+		assertSuccess(item1, 1, d[0], asList(success(d[0])));
+		assertPending(item2, 0, asList(failure(d[1])));
 		assertPending(item3, 0, asList());
 		assertPending(item4, 0, asList());
 	}
@@ -215,28 +217,28 @@ public class DispatcherTest extends TestWithEnvironment
 	@Test public void testStop3()
 	{
 		final Date[] d = dispatch(3, 3);
-		assertSuccess(item1, 1, d[0], asList());
-		assertPending(item2, 0, asList(d[1]));
-		assertSuccess(item3, 1, d[2], asList());
+		assertSuccess(item1, 1, d[0], asList(success(d[0])));
+		assertPending(item2, 0, asList(failure(d[1])));
+		assertSuccess(item3, 1, d[2], asList(success(d[2])));
 		assertPending(item4, 0, asList());
 	}
 
 	@Test public void testStop4()
 	{
 		final Date[] d = dispatch(4, 4, 4);
-		assertSuccess(item1, 1, d[0], asList());
-		assertPending(item2, 0, asList(d[1]));
-		assertSuccess(item3, 1, d[2], asList());
-		assertPending(item4, 0, asList(d[3]));
+		assertSuccess(item1, 1, d[0], asList(success(d[0])));
+		assertPending(item2, 0, asList(failure(d[1])));
+		assertSuccess(item3, 1, d[2], asList(success(d[2])));
+		assertPending(item4, 0, asList(failure(d[3])));
 	}
 
 	@Test public void testStop5()
 	{
 		final Date[] d = dispatch(4, 5, 4);
-		assertSuccess(item1, 1, d[0], asList());
-		assertPending(item2, 0, asList(d[1]));
-		assertSuccess(item3, 1, d[2], asList());
-		assertPending(item4, 0, asList(d[3]));
+		assertSuccess(item1, 1, d[0], asList(success(d[0])));
+		assertPending(item2, 0, asList(failure(d[1])));
+		assertSuccess(item3, 1, d[2], asList(success(d[2])));
+		assertPending(item4, 0, asList(failure(d[3])));
 	}
 
 	private Date[] dispatch(final int expectedProgress)
@@ -316,7 +318,7 @@ public class DispatcherTest extends TestWithEnvironment
 			final DispatcherItem item,
 			final int dispatchCountCommitted,
 			final Date date,
-			final List<Date> failures)
+			final List<ExpectedRun> failures)
 	{
 		final DispatcherItem.Log log = DispatcherItem.logs.get(item);
 		assertEquals(false, item.isToTargetPending());
@@ -324,13 +326,13 @@ public class DispatcherTest extends TestWithEnvironment
 		assertTrue(
 				String.valueOf(item.getToTargetLastSuccessElapsed())+">="+log.dispatchLastSuccessElapsed,
 				item.getToTargetLastSuccessElapsed()>=log.dispatchLastSuccessElapsed);
-		assertIt(dispatchCountCommitted, failures.size()+dispatchCountCommitted, failures, item, 0);
+		assertIt(dispatchCountCommitted, failures.size(), failures, item, 0);
 	}
 
 	private static void assertPending(
 			final DispatcherItem item,
 			final int dispatchCountCommitted,
-			final List<Date> failures)
+			final List<ExpectedRun> failures)
 	{
 		assertTrue(item.isToTargetPending());
 		assertNull(item.getToTargetLastSuccessDate());
@@ -342,7 +344,7 @@ public class DispatcherTest extends TestWithEnvironment
 	private static void assertFailed(
 			final DispatcherItem item,
 			final int dispatchCountCommitted,
-			final List<Date> failures)
+			final List<ExpectedRun> failures)
 	{
 		assertFalse(item.isToTargetPending());
 		assertNull(item.getToTargetLastSuccessDate());
@@ -354,33 +356,72 @@ public class DispatcherTest extends TestWithEnvironment
 	private static void assertIt(
 			final int dispatchCountCommitted,
 			final int dispatchCount,
-			final List<Date> failures,
+			final List<ExpectedRun> failures,
 			final DispatcherItem item,
 			final int notifyFinalFailureCount)
 	{
 		assertEquals(dispatchCountCommitted, item.getDispatchCountCommitted());
 		assertEquals(dispatchCount, DispatcherItem.logs.get(item).dispatchCount);
 
-		final List<Run> actualFailures = item.getToTargetFailures();
+		final List<Run> actualFailures = item.getToTargetRuns();
 		assertTrue(actualFailures.size()<=3);
 		assertEquals(failures.size(), actualFailures.size());
 
-		final List<Long> failuresElapsed = DispatcherItem.logs.get(item).dispatchFailureElapsed;
+		final List<Long> failuresElapsed = DispatcherItem.logs.get(item).dispatchRunElapsed;
 		assertEquals(failures.size(), failuresElapsed.size());
 		final Iterator<Long> failureElapsedIter = failuresElapsed.iterator();
 
-		final Iterator<Date> expectedFailureIter = failures.iterator();
+		final Iterator<ExpectedRun> expectedFailureIter = failures.iterator();
+		final ArrayList<Run> expectedFailures = new ArrayList<>();
 		for(final Run actual : actualFailures)
 		{
 			final Long failureElapsed = failureElapsedIter.next();
-			final Date expected = expectedFailureIter.next();
+			final ExpectedRun expected = expectedFailureIter.next();
 			assertSame(toTarget, actual.getPattern());
 			assertEquals(item, actual.getParent());
-			assertEquals(expected, actual.getDate());
+			expected.assertIt(actual);
 			assertTrue(String.valueOf(actual.getElapsed())+">="+failureElapsed, actual.getElapsed()>=failureElapsed.intValue());
-			assertFalse(actual.isSuccess());
-			assertTrue(actual.getFailure(), actual.getFailure().startsWith(IOException.class.getName()+": "+item.getBody()));
+			if(expected.success)
+			{
+				// assertEquals(null, actual.getFailure()); TODO
+			}
+			else
+			{
+				expectedFailures.add(actual);
+				assertTrue(actual.getFailure(), actual.getFailure().startsWith(IOException.class.getName()+": "+item.getBody()));
+			}
 		}
+		assertEquals(expectedFailures, item.getToTargetFailures());
 		assertEquals(notifyFinalFailureCount, DispatcherItem.logs.get(item).notifyFinalFailureCount);
+	}
+
+
+	private static ExpectedRun success(final Date date)
+	{
+		return new ExpectedRun(date, true);
+	}
+
+	private static ExpectedRun failure(final Date date)
+	{
+		return new ExpectedRun(date, false);
+	}
+
+	private static final class ExpectedRun
+	{
+		final Date date;
+		final boolean success;
+
+		ExpectedRun(final Date date, final boolean success)
+		{
+			this.date = date;
+			this.success = success;
+			assertNotNull(date);
+		}
+
+		void assertIt(final Run actual)
+		{
+			assertEquals(date, actual.getDate());
+			assertEquals(success, actual.isSuccess());
+		}
 	}
 }

@@ -43,7 +43,7 @@ public final class DispatcherItem extends Item implements Dispatchable
 		boolean fail;
 		int dispatchCount = 0;
 		long dispatchLastSuccessElapsed = 0;
-		final ArrayList<Long> dispatchFailureElapsed = new ArrayList<>();
+		final ArrayList<Long> dispatchRunElapsed = new ArrayList<>();
 		int notifyFinalFailureCount = 0;
 
 		Log(final boolean fail)
@@ -81,12 +81,9 @@ public final class DispatcherItem extends Item implements Dispatchable
 		final long start = nanoTime();
 		log.dispatchCount++;
 		Thread.sleep(5);
+		log.dispatchRunElapsed.add(toMillies(nanoTime(), start));
 		if(log.fail)
-		{
-			log.dispatchFailureElapsed.add(toMillies(nanoTime(), start));
 			throw new IOException(getBody());
-		}
-		log.dispatchLastSuccessElapsed = toMillies(nanoTime(), start);
 	}
 
 	@Override
