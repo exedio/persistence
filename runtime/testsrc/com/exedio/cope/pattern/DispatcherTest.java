@@ -379,7 +379,7 @@ public class DispatcherTest extends TestWithEnvironment
 			assertTrue(String.valueOf(actual.getElapsed())+">="+runElapsed, actual.getElapsed()>=runElapsed.intValue());
 			if(expected.success)
 			{
-				// assertEquals(null, actual.getFailure()); TODO
+				assertEquals(null, actual.getFailure());
 			}
 			else
 			{

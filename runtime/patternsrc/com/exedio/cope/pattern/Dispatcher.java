@@ -559,7 +559,11 @@ public final class Dispatcher extends Pattern
 
 		public String getFailure()
 		{
-			return new String(getPattern().runFailure.getArray(this), ENCODING);
+			final byte[] bytes = getPattern().runFailure.getArray(this);
+			return
+					bytes!=null
+					? new String(bytes, ENCODING)
+					: null;
 		}
 	}
 
