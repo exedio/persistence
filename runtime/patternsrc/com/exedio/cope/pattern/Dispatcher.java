@@ -123,6 +123,11 @@ public final class Dispatcher extends Pattern
 
 		@CopeSchemaValue(1) // matches value "true" of former BooleanField
 		success;
+
+		public boolean isSuccess()
+		{
+			return this==success;
+		}
 	}
 
 	final DateField runDate = new DateField().toFinal();
@@ -592,7 +597,7 @@ public final class Dispatcher extends Pattern
 
 		public boolean isSuccess()
 		{
-			return getResult()==Result.success;
+			return getResult().isSuccess();
 		}
 
 		public String getFailure()

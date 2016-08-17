@@ -38,6 +38,7 @@ import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.Type;
 import com.exedio.cope.misc.Computed;
+import com.exedio.cope.pattern.Dispatcher.Result;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.List;
 import org.junit.Test;
@@ -195,5 +196,16 @@ public class DispatcherModelTest
 					", but was " + DispatcherNoneItem.class.getName(),
 					e.getMessage());
 		}
+	}
+
+	@Test public void testResult()
+	{
+		@SuppressWarnings("deprecation") // OK: testing deprecated api
+		final Result failure = Result.failure;
+
+		assertEquals(false, Result.transientFailure.isSuccess());
+		assertEquals(false, Result.finalFailure.isSuccess());
+		assertEquals(false, failure.isSuccess());
+		assertEquals(true, Result.success.isSuccess());
 	}
 }
