@@ -335,6 +335,7 @@ public class DispatcherTest extends TestWithEnvironment
 		assertTrue(item.isToTargetPending());
 		assertNull(item.getToTargetLastSuccessDate());
 		assertNull(item.getToTargetLastSuccessElapsed());
+		assertEquals(0, dispatchCountCommitted);
 		assertIt(dispatchCountCommitted, failures.size(), failures, item, 0);
 	}
 
@@ -346,6 +347,7 @@ public class DispatcherTest extends TestWithEnvironment
 		assertFalse(item.isToTargetPending());
 		assertNull(item.getToTargetLastSuccessDate());
 		assertNull(item.getToTargetLastSuccessElapsed());
+		assertEquals(0, dispatchCountCommitted);
 		assertIt(dispatchCountCommitted, failures.size(), failures, item, 1);
 	}
 
