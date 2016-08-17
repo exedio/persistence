@@ -354,7 +354,6 @@ public final class Dispatcher extends Pattern
 					probeRequired = true;
 					tx.rollbackIfNotCommitted();
 
-					tx.startTransaction(id + " register failure " + itemID);
 					final ByteArrayOutputStream baos = new ByteArrayOutputStream();
 					try(PrintStream out = new PrintStream(baos, false, ENCODING.name()))
 					{
@@ -364,6 +363,8 @@ public final class Dispatcher extends Pattern
 					{
 						throw new RuntimeException(ENCODING.name(), e);
 					}
+
+					tx.startTransaction(id + " register failure " + itemID);
 
 					mount.runType.newItem(
 						runParent.map(item),
