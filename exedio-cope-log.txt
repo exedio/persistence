@@ -7,6 +7,8 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* bugfix: wrong column type for EnumField with negative @CopeSchemaValue.
+	Affects database schema.
 * Instrumentor parameter default changed. For previous behaviour set:
 	<instrument ... parenthesesOnEmptyMemberAnnotations="true">
 * @WrapFeature moved from Pattern to its subclasses.

@@ -72,7 +72,7 @@ class IntegerColumn extends Column
 			final int[] allowedValues)
 	{
 		super(table, id, false, false, optional);
-		this.minimum = 0;
+		this.minimum = min(allowedValues);
 		this.maximum = max(allowedValues);
 		this.longInsteadOfInt = false;
 		this.allowedValues = allowedValues;
@@ -91,9 +91,22 @@ class IntegerColumn extends Column
 		assert assertMembers();
 	}
 
+	private static final int min(final int[] ints)
+	{
+		int result = Integer.MAX_VALUE;
+
+		for(final int inti : ints)
+		{
+			if(result>inti)
+				result = inti;
+		}
+
+		return result;
+	}
+
 	private static final int max(final int[] ints)
 	{
-		int result = 0;
+		int result = Integer.MIN_VALUE;
 
 		for(final int inti : ints)
 		{
