@@ -373,14 +373,14 @@ public final class Dispatcher extends Pattern
 						runSuccess.map(false),
 						runFailure.map(baos.toByteArray()));
 
-					final boolean finalFailure =
+					final boolean isFinal =
 						mount.runType.newQuery(runParent.equal(item)).total()>=config.getFailureLimit();
-					if(finalFailure)
+					if(isFinal)
 						unpend(item, false, new Date(start));
 
 					tx.commit();
 
-					if(finalFailure)
+					if(isFinal)
 					{
 						if(logger.isErrorEnabled())
 							logger.error("final failure for " + itemID + ", took " + elapsed + "ms", cause);
