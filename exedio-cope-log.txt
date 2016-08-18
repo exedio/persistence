@@ -7,6 +7,9 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* Dispatcher.Result added
+	Dispatcher#getRunSuccess() replaced by getRunResult()
+	This breaks backwards API compatibility, causes compiler error.
 * bugfix: wrong column type for EnumField with negative @CopeSchemaValue.
 	Affects database schema.
 * Instrumentor parameter default changed. For previous behaviour set:

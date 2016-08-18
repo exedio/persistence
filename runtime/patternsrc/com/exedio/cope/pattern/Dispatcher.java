@@ -30,8 +30,10 @@ import com.exedio.cope.BooleanField;
 import com.exedio.cope.CheckConstraint;
 import com.exedio.cope.Condition;
 import com.exedio.cope.Cope;
+import com.exedio.cope.CopeSchemaValue;
 import com.exedio.cope.DataField;
 import com.exedio.cope.DateField;
+import com.exedio.cope.EnumField;
 import com.exedio.cope.Features;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
@@ -47,6 +49,7 @@ import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.WrapFeature;
 import com.exedio.cope.misc.Computed;
 import com.exedio.cope.misc.ComputedElement;
+import com.exedio.cope.misc.CopeSchemaNameElement;
 import com.exedio.cope.misc.Delete;
 import com.exedio.cope.misc.Iterables;
 import com.exedio.cope.util.Clock;
@@ -95,9 +98,46 @@ public final class Dispatcher extends Pattern
 		private static final long serialVersionUID = 1l;
 	}
 
+	public enum Result
+	{
+		/**
+		 * A failure that leaves {@link Dispatcher#isPending(Item) pending} unchanged.
+		 */
+		@CopeSchemaValue(-20)
+		transientFailure,
+
+		/**
+		 * A failure that causes {@link Dispatcher#isPending(Item) pending} to be set to false.
+		 */
+		@CopeSchemaValue(-10)
+		finalFailure,
+
+		/**
+		 * @deprecated
+		 * A historical failure where it is not known, whether it was
+		 * {@link #transientFailure transient} or  {@link #finalFailure final}.
+		 */
+		@Deprecated
+		@CopeSchemaValue(0) // matches value "false" of former BooleanField
+		failure,
+
+		@CopeSchemaValue(1) // matches value "true" of former BooleanField
+		success;
+
+		public boolean isSuccess()
+		{
+			return this==success;
+		}
+
+		static Result failure(final boolean isFinal)
+		{
+			return isFinal ? finalFailure : transientFailure;
+		}
+	}
+
 	final DateField runDate = new DateField().toFinal();
 	final LongField runElapsed = new LongField().toFinal().min(0);
-	final BooleanField runSuccess = new BooleanField().toFinal();
+	final EnumField<Result> runResult = EnumField.create(Result.class).toFinal();
 	final DataField runFailure = new DataField().toFinal().optional();
 	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private Mount mountIfMounted = null;
@@ -161,7 +201,7 @@ public final class Dispatcher extends Pattern
 		features.put("date", runDate);
 		features.put("runs", runRuns);
 		features.put("elapsed", runElapsed);
-		features.put("success", runSuccess);
+		features.put("result", runResult, CustomAnnotatedElement.create(CopeSchemaNameElement.get("success")));
 		features.put("failure", runFailure);
 		final Type<Run> runType = newSourceType(Run.class, features, "Run");
 		this.mountIfMounted = new Mount(runParent, runRuns, runType);
@@ -248,9 +288,9 @@ public final class Dispatcher extends Pattern
 		return runElapsed;
 	}
 
-	public BooleanField getRunSuccess()
+	public EnumField<Result> getRunResult()
 	{
-		return runSuccess;
+		return runResult;
 	}
 
 	public DataField getRunFailure()
@@ -343,7 +383,7 @@ public final class Dispatcher extends Pattern
 							runParent.map(item),
 							runDate.map(new Date(start)),
 							runElapsed.map(elapsed),
-							runSuccess.map(true));
+							runResult.map(Result.success));
 
 					tx.commit();
 					logger.info("success for {}, took {}ms", itemID, elapsed);
@@ -374,7 +414,7 @@ public final class Dispatcher extends Pattern
 						runParent.map(item),
 						runDate.map(new Date(start)),
 						runElapsed.map(elapsed),
-						runSuccess.map(false),
+						runResult.map(Result.failure(isFinal)),
 						runFailure.map(baos.toByteArray()));
 
 					if(isFinal)
@@ -466,7 +506,7 @@ public final class Dispatcher extends Pattern
 		final Query<Run> q =
 			mount.runType.newQuery(Cope.and(
 				Cope.equalAndCast(mount.runParent, item),
-				runSuccess.equal(true)));
+				runResult.equal(Result.success)));
 		q.setOrderBy(mount.runType.getThis(), false);
 		q.setLimit(0, 1);
 		return q.searchSingleton();
@@ -493,7 +533,7 @@ public final class Dispatcher extends Pattern
 			mount.runType.search(
 					Cope.and(
 							Cope.equalAndCast(mount.runParent, item),
-							runSuccess.equal(false)),
+							runResult.notEqual(Result.success)),
 					mount.runType.getThis(),
 					true);
 	}
@@ -555,9 +595,14 @@ public final class Dispatcher extends Pattern
 			return getPattern().runElapsed.getMandatory(this);
 		}
 
+		public Result getResult()
+		{
+			return getPattern().runResult.get(this);
+		}
+
 		public boolean isSuccess()
 		{
-			return getPattern().runSuccess.getMandatory(this);
+			return getResult().isSuccess();
 		}
 
 		public String getFailure()
