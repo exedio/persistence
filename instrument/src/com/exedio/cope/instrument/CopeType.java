@@ -55,7 +55,7 @@ final class CopeType
 	final boolean isBlock;
 	final boolean isComposite;
 	final String name;
-	final Visibility visibility;
+	final InternalVisibility visibility;
 	final Option typeOption;
 	final Option initialConstructorOption;
 	final Option genericConstructorOption;
@@ -170,10 +170,10 @@ final class CopeType
 
 	public int getInitialConstructorModifier()
 	{
-		Visibility inheritedVisibility = visibility;
+		InternalVisibility inheritedVisibility = visibility;
 		for(final CopeFeature initialFeature : getInitialFeatures())
 		{
-			final Visibility intialFeatureVisibility = initialFeature.visibility;
+			final InternalVisibility intialFeatureVisibility = initialFeature.visibility;
 			if(inheritedVisibility.ordinal()<intialFeatureVisibility.ordinal())
 				inheritedVisibility = intialFeatureVisibility;
 		}

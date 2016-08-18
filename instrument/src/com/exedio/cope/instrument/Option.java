@@ -33,7 +33,7 @@ final class Option
 	private static final String TEXT_OVERRIDE = "override";
 
 	final boolean exists;
-	final Visibility visibility;
+	final InternalVisibility visibility;
 	final String suffix;
 	final boolean booleanAsIs;
 	final boolean isFinal;
@@ -61,31 +61,31 @@ final class Option
 			else if(optionString.indexOf(TEXT_INTERNAL)>=0)
 			{
 				exists = true;
-				visibility = Visibility.PRIVATE;
+				visibility = InternalVisibility.PRIVATE;
 				suffix = "Internal";
 			}
 			else if(optionString.indexOf(TEXT_VISIBILITY_PRIVATE)>=0)
 			{
 				exists = true;
-				visibility = Visibility.PRIVATE;
+				visibility = InternalVisibility.PRIVATE;
 				suffix = "";
 			}
 			else if(optionString.indexOf(TEXT_VISIBILITY_PROTECTED)>=0)
 			{
 				exists = true;
-				visibility = Visibility.PROTECTED;
+				visibility = InternalVisibility.PROTECTED;
 				suffix = "";
 			}
 			else if(optionString.indexOf(TEXT_VISIBILITY_PACKAGE)>=0)
 			{
 				exists = true;
-				visibility = Visibility.PACKAGE;
+				visibility = InternalVisibility.PACKAGE;
 				suffix = "";
 			}
 			else if(optionString.indexOf(TEXT_VISIBILITY_PUBLIC)>=0)
 			{
 				exists = true;
-				visibility = Visibility.PUBLIC;
+				visibility = InternalVisibility.PUBLIC;
 				suffix = "";
 			}
 			else

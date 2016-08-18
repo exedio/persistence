@@ -103,9 +103,9 @@ abstract class JavaFeature
 		return Modifier.isFinal(modifier);
 	}
 
-	final Visibility getVisibility()
+	final InternalVisibility getVisibility()
 	{
-		return Visibility.forModifier(modifier);
+		return InternalVisibility.forModifier(modifier);
 	}
 
 	@Override

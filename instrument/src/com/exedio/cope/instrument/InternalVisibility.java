@@ -20,7 +20,7 @@ package com.exedio.cope.instrument;
 
 import java.lang.reflect.Modifier;
 
-enum Visibility
+enum InternalVisibility
 {
 	PUBLIC(Modifier.PUBLIC),
 	PACKAGE(0),
@@ -29,12 +29,12 @@ enum Visibility
 
 	final int modifier;
 
-	Visibility(final int modifier)
+	InternalVisibility(final int modifier)
 	{
 		this.modifier = modifier;
 	}
 
-	static Visibility forModifier(final int modifier)
+	static InternalVisibility forModifier(final int modifier)
 	{
 		switch(modifier & (Modifier.PUBLIC | Modifier.PROTECTED | Modifier.PRIVATE))
 		{

@@ -35,7 +35,7 @@ final class CopeFeature
 	final JavaField javaField;
 	final String name;
 	final int modifier;
-	final Visibility visibility;
+	final InternalVisibility visibility;
 	final String docComment;
 	final boolean initial;
 
