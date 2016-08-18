@@ -72,10 +72,10 @@ class IntegerColumn extends Column
 			final int[] allowedValues)
 	{
 		super(table, id, false, false, optional);
-		this.minimum = min(allowedValues);
-		this.maximum = max(allowedValues);
 		this.longInsteadOfInt = false;
 		this.allowedValues = strictlyMonotonicallyIncreasing(allowedValues);
+		this.minimum = allowedValues[0];
+		this.maximum = allowedValues[allowedValues.length-1];
 		this.precision = Precision.MILLI;
 
 		assert allowedValues.length>(optional?0:1) : id;
@@ -96,32 +96,6 @@ class IntegerColumn extends Column
 			current = allowedValue;
 		}
 		return allowedValues;
-	}
-
-	private static final int min(final int[] ints)
-	{
-		int result = Integer.MAX_VALUE;
-
-		for(final int inti : ints)
-		{
-			if(result>inti)
-				result = inti;
-		}
-
-		return result;
-	}
-
-	private static final int max(final int[] ints)
-	{
-		int result = Integer.MIN_VALUE;
-
-		for(final int inti : ints)
-		{
-			if(result<inti)
-				result = inti;
-		}
-
-		return result;
 	}
 
 	/**
