@@ -187,7 +187,7 @@ final class Main
 			optionList.add("-encoding");
 			optionList.add(params.charset.name());
 			optionList.add("-Xmaxwarns");
-			optionList.add("10000");
+			optionList.add(params.getMaxwarns());
 			final JavaCompiler.CompilationTask task = compiler.getTask(null, null, null, optionList, null, sources);
 			final InstrumentorProcessor instrumentorProcessor=new InstrumentorProcessor(repository, fileManager.getJavaFileObjectsFromFiles(params.ignoreFiles));
 			task.setProcessors(singleton(instrumentorProcessor));

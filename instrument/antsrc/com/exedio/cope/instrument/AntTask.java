@@ -83,6 +83,11 @@ public final class AntTask extends Task
 		params.charset = Charset.forName(value);
 	}
 
+	public void setMaxwarns(final int value)
+	{
+		params.setMaxwarns(value);
+	}
+
 	public void setTimestampFile(final File value)
 	{
 		params.timestampFile = value;

@@ -18,6 +18,8 @@
 
 package com.exedio.cope.instrument;
 
+import static com.exedio.cope.misc.Check.requireNonNegative;
+
 import java.io.File;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
@@ -31,6 +33,19 @@ final class Params
 	final List<File> ignoreFiles = new ArrayList<>();
 	boolean verify = false;
 	Charset charset = StandardCharsets.US_ASCII;
+
+	private int maxwarns = 10000;
+
+	void setMaxwarns(final int value)
+	{
+		maxwarns = requireNonNegative(value, "maxwarns");
+	}
+
+	String getMaxwarns()
+	{
+		return String.valueOf(maxwarns);
+	}
+
 	boolean longJavadoc = true;
 	boolean finalArgs = true;
 	boolean nullabilityAnnotations = false;
