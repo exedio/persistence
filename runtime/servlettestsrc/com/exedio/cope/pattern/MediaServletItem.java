@@ -116,7 +116,6 @@ final class MediaServletItem extends Item
 
 	static final DateField nameServerLastModified = new DateField().optional();
 
-	/** @cope.getURL none */
 	static final MediaNameServer nameServer = new MediaNameServer(name, nameServerLastModified);
 
 
