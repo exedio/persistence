@@ -85,11 +85,14 @@ class IntegerColumn extends Column
 	static final int[] strictlyMonotonicallyIncreasing(final int[] allowedValues)
 	{
 		// ensure, that allowedValues are unique and ordered
-		int current = Integer.MIN_VALUE;
-		for(final int allowedValue : allowedValues)
+		if(allowedValues.length==0)
+			throw new IllegalArgumentException("empty");
+		int current = allowedValues[0];
+		for(int i = 1; i<allowedValues.length; i++)
 		{
+			final int allowedValue = allowedValues[i];
 			if(current>=allowedValue)
-				throw new IllegalArgumentException("" + current + ">=" + allowedValue);
+				throw new IllegalArgumentException("" + current + ">=" + allowedValue + " at " + i);
 			current = allowedValue;
 		}
 		return allowedValues;

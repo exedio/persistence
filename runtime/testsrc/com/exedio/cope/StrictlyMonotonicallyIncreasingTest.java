@@ -34,31 +34,33 @@ public class StrictlyMonotonicallyIncreasingTest
 		assertGood(1);
 		assertGood(1, 2);
 		assertGood(1, 2, 3, 4, 5);
-		assertFail("1>=1", 1, 1);
-		assertFail("5>=5", 1, 2, 3, 4, 5, 5);
-		assertFail("1>=0", 1, 0);
-		assertFail("5>=4", 1, 2, 3, 4, 5, 4);
+		assertFail("1>=1 at 1", 1, 1);
+		assertFail("5>=5 at 5", 1, 2, 3, 4, 5, 5);
+		assertFail("1>=0 at 1", 1, 0);
+		assertFail("5>=4 at 5", 1, 2, 3, 4, 5, 4);
 	}
 
 	@Test public void testMin()
 	{
 		assertGood(
 				MAX_VALUE-2, MAX_VALUE-1, MAX_VALUE);
-		assertFail("2147483647>=2147483647",
+		assertFail("2147483647>=2147483647 at 3",
 				MAX_VALUE-2, MAX_VALUE-1, MAX_VALUE, MAX_VALUE);
 	}
 
 	@Test public void testMax()
 	{
-		assertFail("-2147483648>=-2147483648",
-				MIN_VALUE, MIN_VALUE+1, MIN_VALUE+2); // TODO should be ok
-		assertFail("-2147483648>=-2147483648", // TODO wrong message
+		assertGood(
+				MIN_VALUE, MIN_VALUE+1, MIN_VALUE+2);
+		assertFail("-2147483646>=-2147483646 at 3",
 				MIN_VALUE, MIN_VALUE+1, MIN_VALUE+2, MIN_VALUE+2);
+		assertFail("-2147483648>=-2147483648 at 1",
+				MIN_VALUE, MIN_VALUE, MIN_VALUE+1, MIN_VALUE+2);
 	}
 
 	@Test public void testEmpty()
 	{
-		assertGood();
+		assertFail("empty");
 	}
 
 	private static void assertGood(final int... allowedValues)
