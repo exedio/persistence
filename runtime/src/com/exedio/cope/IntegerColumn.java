@@ -75,11 +75,15 @@ class IntegerColumn extends Column
 		this.minimum = min(allowedValues);
 		this.maximum = max(allowedValues);
 		this.longInsteadOfInt = false;
-		this.allowedValues = allowedValues;
+		this.allowedValues = strictlyMonotonicallyIncreasing(allowedValues);
 		this.precision = Precision.MILLI;
 
 		assert allowedValues.length>(optional?0:1) : id;
+		assert assertMembers();
+	}
 
+	static final int[] strictlyMonotonicallyIncreasing(final int[] allowedValues)
+	{
 		// ensure, that allowedValues are unique and ordered
 		int current = Integer.MIN_VALUE;
 		for(final int allowedValue : allowedValues)
@@ -88,7 +92,7 @@ class IntegerColumn extends Column
 				throw new RuntimeException();
 			current = allowedValue;
 		}
-		assert assertMembers();
+		return allowedValues;
 	}
 
 	private static final int min(final int[] ints)
