@@ -184,6 +184,8 @@ final class Main
 			final List<String> optionList = new ArrayList<>();
 			optionList.addAll(asList("-classpath", combineClasspath(getCurrentClasspath(), getConfiguredClasspath(classpathFiles))));
 			optionList.add("-proc:only");
+			optionList.add("-encoding");
+			optionList.add(params.charset.name());
 			optionList.add("-Xmaxwarns");
 			optionList.add("10000");
 			final JavaCompiler.CompilationTask task = compiler.getTask(null, null, null, optionList, null, sources);
