@@ -34,22 +34,26 @@ public class StrictlyMonotonicallyIncreasingTest
 		assertGood(1);
 		assertGood(1, 2);
 		assertGood(1, 2, 3, 4, 5);
-		assertFail(1, 1);
-		assertFail(1, 2, 3, 4, 5, 5);
-		assertFail(1, 0);
-		assertFail(1, 2, 3, 4, 5, 4);
+		assertFail("1>=1", 1, 1);
+		assertFail("5>=5", 1, 2, 3, 4, 5, 5);
+		assertFail("1>=0", 1, 0);
+		assertFail("5>=4", 1, 2, 3, 4, 5, 4);
 	}
 
 	@Test public void testMin()
 	{
-		assertGood(MAX_VALUE-2, MAX_VALUE-1, MAX_VALUE);
-		assertFail(MAX_VALUE-2, MAX_VALUE-1, MAX_VALUE, MAX_VALUE);
+		assertGood(
+				MAX_VALUE-2, MAX_VALUE-1, MAX_VALUE);
+		assertFail("2147483647>=2147483647",
+				MAX_VALUE-2, MAX_VALUE-1, MAX_VALUE, MAX_VALUE);
 	}
 
 	@Test public void testMax()
 	{
-		assertFail(MIN_VALUE, MIN_VALUE+1, MIN_VALUE+2); // TODO should be ok
-		assertFail(MIN_VALUE, MIN_VALUE+1, MIN_VALUE+2, MIN_VALUE+2);
+		assertFail("-2147483648>=-2147483648",
+				MIN_VALUE, MIN_VALUE+1, MIN_VALUE+2); // TODO should be ok
+		assertFail("-2147483648>=-2147483648", // TODO wrong message
+				MIN_VALUE, MIN_VALUE+1, MIN_VALUE+2, MIN_VALUE+2);
 	}
 
 	@Test public void testEmpty()
@@ -62,17 +66,16 @@ public class StrictlyMonotonicallyIncreasingTest
 		assertSame(allowedValues, strictlyMonotonicallyIncreasing(allowedValues));
 	}
 
-	private static void assertFail(final int... allowedValues)
+	private static void assertFail(final String message, final int... allowedValues)
 	{
 		try
 		{
 			strictlyMonotonicallyIncreasing(allowedValues);
 			fail();
 		}
-		catch(final RuntimeException e)
+		catch(final IllegalArgumentException e)
 		{
-			assertEquals(null, e.getMessage()); // TODO
-			assertEquals(RuntimeException.class, e.getClass()); // TODO
+			assertEquals(message, e.getMessage());
 		}
 	}
 }
