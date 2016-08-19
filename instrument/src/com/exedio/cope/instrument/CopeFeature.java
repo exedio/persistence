@@ -21,6 +21,7 @@ package com.exedio.cope.instrument;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Settable;
 import com.exedio.cope.misc.PrimitiveUtil;
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
 import java.util.Set;
 import java.util.SortedSet;
@@ -36,7 +37,7 @@ final class CopeFeature
 	final String name;
 	final int modifier;
 	final InternalVisibility visibility;
-	final String docComment;
+	private final String docComment;
 	final boolean initial;
 
 	private Object value;
@@ -53,7 +54,7 @@ final class CopeFeature
 		this.visibility = javaField.getVisibility();
 
 		this.docComment = javaField.docComment;
-		this.initial = Tags.has(docComment, TAG_INITIAL);
+		this.initial = Tags.cascade(Option.forInitial(docComment), null)!=null;
 
 		parent.register(this);
 	}
@@ -156,6 +157,24 @@ final class CopeFeature
 	{
 		return "defaultFeature".equals(name);
 	}
+
+	Wrapper getOption(final String modifierTag)
+	{
+		return Tags.cascade(
+				Option.forFeature(docComment, modifierTag),
+				OPTION_DEFAULT);
+	}
+
+	private static final Wrapper OPTION_DEFAULT = new Wrapper()
+	{
+		@Override public Class<? extends Annotation> annotationType() { throw new RuntimeException(); }
+		@Override public String wrap() { throw new RuntimeException(); }
+		@Override public Visibility visibility() { return Visibility.DEFAULT; }
+		@Override public boolean internal() { return false; }
+		@Override public boolean booleanAsIs() { return false; }
+		@Override public boolean asFinal() { return true; }
+		@Override public boolean override() { return false; }
+	};
 
 	@Override
 	public String toString()

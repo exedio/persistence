@@ -320,8 +320,8 @@ final class Generator
 		if(type.isBlock)
 			return;
 
-		final Option option = type.genericConstructorOption;
-		if(!option.exists)
+		final Visibility option = type.option.genericConstructor();
+		if(!option.exists())
 			return;
 
 		writeCommentHeader();
@@ -353,8 +353,8 @@ final class Generator
 		if(type.isComposite)
 			return;
 
-		final Option option = type.activationConstructorOption;
-		if(!option.exists)
+		final Visibility option = type.option.activationConstructor();
+		if(!option.exists())
 			return;
 
 		final boolean block = type.isBlock;
@@ -398,9 +398,9 @@ final class Generator
 		{
 			final String pattern = wrapper.getMethodWrapperPattern();
 			final String modifierTag = wrapper.getOptionTagName()!=null ? wrapper.getOptionTagName() : pattern!=null ? format(pattern, "", "") : wrapper.getName();
-			final Option option = new Option(Tags.getLine(feature.docComment, CopeFeature.TAG_PREFIX + modifierTag), true);
+			final Wrapper option = feature.getOption(modifierTag);
 
-			if(!option.exists)
+			if(!option.visibility().exists())
 				continue;
 			if(feature.parent.isBlock && wrapper.hasStaticClassToken())
 				continue;
@@ -506,23 +506,30 @@ final class Generator
 					throw new RuntimeException("invalid case");
 			}
 
-			if(option.override && overrideOnSeparateLine)
+			if(option.override() && overrideOnSeparateLine)
 			{
 				writeEmptyAnnotationOnSeparateLine(Override.class);
 			}
 
 			writeIndent();
 
-			if(option.override && !overrideOnSeparateLine)
+			if(option.override() && !overrideOnSeparateLine)
 			{
 				writeAnnotation(Override.class);
 				writeEmptyParenthesesForAnnotation();
 				write(' ');
 			}
 
-			writeModifier(option.getModifier(modifier) | (isStatic ? STATIC : 0));
+			writeModifier(
+					option.visibility().getModifier(
+							option.internal() && option.visibility().isDefault()
+							? PRIVATE
+							: modifier
+					) |
+					(isStatic ? STATIC : 0) |
+					(option.asFinal() ? FINAL : 0));
 			write(ctx.write(methodReturnType));
-			if(useIs && option.booleanAsIs)
+			if(useIs && option.booleanAsIs())
 			{
 				write(" is");
 				write(featureNameCamelCase);
@@ -551,7 +558,8 @@ final class Generator
 						writeName(methodName, featureNameCamelCase);
 				}
 			}
-			write(option.suffix);
+			if(option.internal())
+				write("Internal");
 			write('(');
 			{
 				final CharSeparator comma = new CharSeparator(',');
@@ -792,8 +800,8 @@ final class Generator
 		if(type.isComposite)
 			return;
 
-		final Option option = type.typeOption;
-		if(!option.exists)
+		final Visibility option = type.option.type();
+		if(!option.exists())
 			return;
 
 		final boolean block = type.isBlock;
@@ -867,7 +875,7 @@ final class Generator
 
 				try
 				{
-					typeIndent = type.indent;
+					typeIndent = type.option.indent();
 					writeClassFeatures(type);
 					typeIndent = Integer.MIN_VALUE;
 				}

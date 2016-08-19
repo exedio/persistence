@@ -240,7 +240,7 @@ public final class OptionFeatureItem extends OptionFeatureSuperItem
 	 *       It can be customized with the tag <tt>@cope.simple public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private final void simpleInternalPackageInternal()
+	final void simpleInternalPackageInternal()
 	{
 		OptionFeatureItem.internalPackage.simple(this);
 	}/**
@@ -250,7 +250,7 @@ public final class OptionFeatureItem extends OptionFeatureSuperItem
 	 *       It can be customized with the tag <tt>@cope.simple public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private final void simpleInternalProtectedInternal()
+	protected final void simpleInternalProtectedInternal()
 	{
 		OptionFeatureItem.internalProtected.simple(this);
 	}/**
@@ -260,7 +260,7 @@ public final class OptionFeatureItem extends OptionFeatureSuperItem
 	 *       It can be customized with the tag <tt>@cope.simple public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private final void simpleInternalPublicInternal()
+	public final void simpleInternalPublicInternal()
 	{
 		OptionFeatureItem.internalPublic.simple(this);
 	}/**

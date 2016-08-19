@@ -92,7 +92,7 @@ final class JavaRepository
 						continue feature;
 
 					final String docComment = javaField.docComment;
-					if(docComment!=null && docComment.indexOf('@' + CopeFeature.TAG_PREFIX + "ignore")>=0)
+					if(Tags.cascade(Option.forIgnore(docComment), null)!=null)
 						continue feature;
 
 					final Class<?> typeClass = javaField.file.findTypeExternally(javaField.typeRaw);

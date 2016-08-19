@@ -24,6 +24,7 @@ import static java.lang.reflect.Modifier.PROTECTED;
 
 import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.Item;
+import java.lang.annotation.Annotation;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -56,11 +57,7 @@ final class CopeType
 	final boolean isComposite;
 	final String name;
 	final InternalVisibility visibility;
-	final Option typeOption;
-	final Option initialConstructorOption;
-	final Option genericConstructorOption;
-	final Option activationConstructorOption;
-	final int indent;
+	final WrapperType option;
 
 	private final ArrayList<CopeFeature> features = new ArrayList<>();
 	private final TreeMap<String, CopeFeature> featureMap = new TreeMap<>();
@@ -72,19 +69,24 @@ final class CopeType
 		this.isComposite = isComposite;
 		this.name = javaClass.name;
 		this.visibility = javaClass.getVisibility();
+		this.option = Tags.cascade(
+				Option.forType(javaClass.docComment),
+				OPTION_DEFAULT);
 		copeTypeByJavaClass.put(javaClass, this);
 
-		final String docComment = javaClass.docComment;
-		this.typeOption                  = new Option(Tags.getLine(docComment, TAG_TYPE),                   false);
-		this.initialConstructorOption    = new Option(Tags.getLine(docComment, TAG_INITIAL_CONSTRUCTOR),    false);
-		this.genericConstructorOption    = new Option(Tags.getLine(docComment, TAG_GENERIC_CONSTRUCTOR),    false);
-		this.activationConstructorOption = new Option(Tags.getLine(docComment, TAG_ACTIVATION_CONSTRUCTOR), false);
-		final String indentLine = Tags.getLine(docComment, TAG_INDENT);
-		this.indent = indentLine!=null ? Integer.parseInt(indentLine) : 1;
-		//System.out.println("copeTypeByJavaClass "+javaClass.getName());
 		javaClass.nameSpace.importStatic(Item.class);
 		javaClass.file.repository.add(this);
 	}
+
+	private static final WrapperType OPTION_DEFAULT = new WrapperType()
+	{
+		@Override public Class<? extends Annotation> annotationType() { throw new RuntimeException(); }
+		@Override public Visibility type() { return Visibility.DEFAULT; }
+		@Override public Visibility constructor() { return Visibility.DEFAULT; }
+		@Override public Visibility genericConstructor() { return Visibility.DEFAULT; }
+		@Override public Visibility activationConstructor() { return Visibility.DEFAULT; }
+		@Override public int indent() { return 1; }
+	};
 
 	private boolean isFinal()
 	{
@@ -165,7 +167,7 @@ final class CopeType
 
 	public boolean hasInitialConstructor()
 	{
-		return initialConstructorOption.exists;
+		return option.constructor().exists();
 	}
 
 	public int getInitialConstructorModifier()
@@ -178,7 +180,7 @@ final class CopeType
 				inheritedVisibility = intialFeatureVisibility;
 		}
 
-		return initialConstructorOption.getModifier(inheritedVisibility.modifier);
+		return option.constructor().getModifier(inheritedVisibility.modifier);
 	}
 
 	private ArrayList<CopeFeature> initialFeatures = null;

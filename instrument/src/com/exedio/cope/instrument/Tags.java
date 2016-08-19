@@ -19,6 +19,8 @@
 
 package com.exedio.cope.instrument;
 
+import java.lang.annotation.Annotation;
+
 final class Tags
 {
 	static boolean has(final String doccomment, final String tagname)
@@ -64,6 +66,16 @@ final class Tags
 		final String result = doccomment.substring(start, end).trim();
 		//System.out.println("doctag:>"+tagname+"< >"+docComment.substring(start, end)+"<");
 		return result;
+	}
+
+	static <A extends Annotation> A cascade(
+			final A byTags,
+			final A defaultValue)
+	{
+		if(byTags!=null)
+			return byTags;
+
+		return defaultValue;
 	}
 
 	private Tags()

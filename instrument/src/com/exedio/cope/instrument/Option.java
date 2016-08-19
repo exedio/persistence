@@ -18,7 +18,15 @@
 
 package com.exedio.cope.instrument;
 
-import java.lang.reflect.Modifier;
+import static com.exedio.cope.instrument.CopeType.TAG_ACTIVATION_CONSTRUCTOR;
+import static com.exedio.cope.instrument.CopeType.TAG_GENERIC_CONSTRUCTOR;
+import static com.exedio.cope.instrument.CopeType.TAG_INDENT;
+import static com.exedio.cope.instrument.CopeType.TAG_INITIAL_CONSTRUCTOR;
+import static com.exedio.cope.instrument.CopeType.TAG_TYPE;
+import static com.exedio.cope.instrument.Tags.getLine;
+import static java.lang.Integer.parseInt;
+
+import java.lang.annotation.Annotation;
 
 final class Option
 {
@@ -32,91 +40,124 @@ final class Option
 	static final String TEXT_NON_FINAL = "non-final";
 	private static final String TEXT_OVERRIDE = "override";
 
-	final boolean exists;
-	final InternalVisibility visibility;
-	final String suffix;
-	final boolean booleanAsIs;
-	final boolean isFinal;
-	final boolean override;
-
-	Option(final String line, final boolean allowFinal)
+	private static Visibility getVisibility(final String line)
 	{
 		if(line==null)
 		{
-			exists = true;
-			visibility = null;
-			suffix = "";
-			booleanAsIs = false;
-			isFinal = allowFinal;
-			override = false;
+			return null;
+		}
+		else if(line.contains(TEXT_NONE))
+		{
+			return Visibility.NONE;
+		}
+		else if(line.contains(TEXT_VISIBILITY_PRIVATE))
+		{
+			return Visibility.PRIVATE;
+		}
+		else if(line.contains(TEXT_VISIBILITY_PROTECTED))
+		{
+			return Visibility.PROTECTED;
+		}
+		else if(line.contains(TEXT_VISIBILITY_PACKAGE))
+		{
+			return Visibility.PACKAGE;
+		}
+		else if(line.contains(TEXT_VISIBILITY_PUBLIC))
+		{
+			return Visibility.PUBLIC;
 		}
 		else
 		{
-			if(line.contains(TEXT_NONE))
-			{
-				exists = false;
-				visibility = null;
-				suffix = null;
-			}
-			else if(line.contains(TEXT_INTERNAL))
-			{
-				exists = true;
-				visibility = InternalVisibility.PRIVATE;
-				suffix = "Internal";
-			}
-			else if(line.contains(TEXT_VISIBILITY_PRIVATE))
-			{
-				exists = true;
-				visibility = InternalVisibility.PRIVATE;
-				suffix = "";
-			}
-			else if(line.contains(TEXT_VISIBILITY_PROTECTED))
-			{
-				exists = true;
-				visibility = InternalVisibility.PROTECTED;
-				suffix = "";
-			}
-			else if(line.contains(TEXT_VISIBILITY_PACKAGE))
-			{
-				exists = true;
-				visibility = InternalVisibility.PACKAGE;
-				suffix = "";
-			}
-			else if(line.contains(TEXT_VISIBILITY_PUBLIC))
-			{
-				exists = true;
-				visibility = InternalVisibility.PUBLIC;
-				suffix = "";
-			}
-			else
-			{
-				exists = true;
-				visibility = null;
-				suffix = "";
-			}
-
-			booleanAsIs = line.contains(TEXT_BOOLEAN_AS_IS);
-			if(allowFinal)
-				this.isFinal = !line.contains(TEXT_NON_FINAL);
-			else
-				this.isFinal = false;
-			override = line.contains(TEXT_OVERRIDE);
+			return Visibility.DEFAULT;
 		}
 	}
 
-	final int getModifier(final int inheritedModifier)
+	static WrapperType forType(final String docComment)
 	{
-		if(!exists)
-			throw new RuntimeException();
+		final Visibility type                  = getVisibility(getLine(docComment, TAG_TYPE));
+		final Visibility constructor           = getVisibility(getLine(docComment, TAG_INITIAL_CONSTRUCTOR));
+		final Visibility genericConstructor    = getVisibility(getLine(docComment, TAG_GENERIC_CONSTRUCTOR));
+		final Visibility activationConstructor = getVisibility(getLine(docComment, TAG_ACTIVATION_CONSTRUCTOR));
+		final String indentLine = getLine(docComment, TAG_INDENT);
+		if(
+			type==null &&
+			constructor==null &&
+			genericConstructor==null &&
+			activationConstructor==null &&
+			indentLine==null)
+		{
+			return null;
+		}
 
-		final int visibilityModifier =
-			visibility!=null
-			? visibility.modifier
-			: inheritedModifier & (Modifier.PUBLIC | Modifier.PROTECTED | Modifier.PRIVATE);
+		final int indent = indentLine!=null ? parseInt(indentLine) : 1;
+		return new WrapperType()
+		{
+			@Override public Class<? extends Annotation> annotationType() { throw new RuntimeException(); }
+			@Override public Visibility type() { return nullToDefault(type); }
+			@Override public Visibility constructor() { return nullToDefault(constructor); }
+			@Override public Visibility genericConstructor() { return nullToDefault(genericConstructor); }
+			@Override public Visibility activationConstructor() { return nullToDefault(activationConstructor);}
+			@Override public int indent() { return indent; }
 
-		if(isFinal)
-			return visibilityModifier | Modifier.FINAL;
+			private Visibility nullToDefault(final Visibility visibility)
+			{
+				return visibility==null ? Visibility.DEFAULT : visibility;
+			}
+		};
+	}
+
+	static Wrapper forFeature(final String docComment, final String modifierTag)
+	{
+		final String line = getLine(docComment, CopeFeature.TAG_PREFIX + modifierTag);
+		if(line==null)
+			return null;
+
+		final Visibility visibility = getVisibility(line);
+		final boolean internal = line.contains(TEXT_INTERNAL);
+		final boolean booleanAsIs = line.contains(TEXT_BOOLEAN_AS_IS);
+		final boolean asFinal = !line.contains(TEXT_NON_FINAL);
+		final boolean override = line.contains(TEXT_OVERRIDE);
+
+		return new Wrapper()
+		{
+			@Override public Class<? extends Annotation> annotationType() { throw new RuntimeException(); }
+			@Override public String wrap() { throw new RuntimeException(); }
+			@Override public Visibility visibility() { return visibility; }
+			@Override public boolean internal() { return internal; }
+			@Override public boolean booleanAsIs() { return booleanAsIs; }
+			@Override public boolean asFinal() { return asFinal; }
+			@Override public boolean override() { return override; }
+		};
+	}
+
+	private static final WrapperIgnore WRAPPER_IGNORE_INSTANCE = new WrapperIgnore()
+	{
+		@Override public Class<? extends Annotation> annotationType() { throw new RuntimeException(); }
+	};
+
+	static WrapperIgnore forIgnore(final String docComment)
+	{
+		if(Tags.has(docComment, CopeFeature.TAG_PREFIX + "ignore"))
+			return WRAPPER_IGNORE_INSTANCE;
 		else
-			return visibilityModifier;
+			return null;
+	}
+
+	private static final WrapperInitial WRAPPER_INITIAL_INSTANCE = new WrapperInitial()
+	{
+		@Override public Class<? extends Annotation> annotationType() { throw new RuntimeException(); }
+	};
+
+	static WrapperInitial forInitial(final String docComment)
+	{
+		if(Tags.has(docComment, CopeFeature.TAG_INITIAL))
+			return WRAPPER_INITIAL_INSTANCE;
+		else
+			return null;
+	}
+
+	private Option()
+	{
+		// prevent instantiation
 	}
 }
