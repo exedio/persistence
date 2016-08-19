@@ -52,37 +52,37 @@ final class Option
 		}
 		else
 		{
-			if(line.indexOf(TEXT_NONE)>=0)
+			if(line.contains(TEXT_NONE))
 			{
 				exists = false;
 				visibility = null;
 				suffix = null;
 			}
-			else if(line.indexOf(TEXT_INTERNAL)>=0)
+			else if(line.contains(TEXT_INTERNAL))
 			{
 				exists = true;
 				visibility = InternalVisibility.PRIVATE;
 				suffix = "Internal";
 			}
-			else if(line.indexOf(TEXT_VISIBILITY_PRIVATE)>=0)
+			else if(line.contains(TEXT_VISIBILITY_PRIVATE))
 			{
 				exists = true;
 				visibility = InternalVisibility.PRIVATE;
 				suffix = "";
 			}
-			else if(line.indexOf(TEXT_VISIBILITY_PROTECTED)>=0)
+			else if(line.contains(TEXT_VISIBILITY_PROTECTED))
 			{
 				exists = true;
 				visibility = InternalVisibility.PROTECTED;
 				suffix = "";
 			}
-			else if(line.indexOf(TEXT_VISIBILITY_PACKAGE)>=0)
+			else if(line.contains(TEXT_VISIBILITY_PACKAGE))
 			{
 				exists = true;
 				visibility = InternalVisibility.PACKAGE;
 				suffix = "";
 			}
-			else if(line.indexOf(TEXT_VISIBILITY_PUBLIC)>=0)
+			else if(line.contains(TEXT_VISIBILITY_PUBLIC))
 			{
 				exists = true;
 				visibility = InternalVisibility.PUBLIC;
@@ -95,12 +95,12 @@ final class Option
 				suffix = "";
 			}
 
-			booleanAsIs = (line.indexOf(TEXT_BOOLEAN_AS_IS)>=0);
+			booleanAsIs = line.contains(TEXT_BOOLEAN_AS_IS);
 			if(allowFinal)
-				this.isFinal = (line.indexOf(TEXT_NON_FINAL)<0);
+				this.isFinal = !line.contains(TEXT_NON_FINAL);
 			else
 				this.isFinal = false;
-			override = (line.indexOf(TEXT_OVERRIDE)>=0);
+			override = line.contains(TEXT_OVERRIDE);
 		}
 	}
 
