@@ -39,9 +39,9 @@ final class Option
 	final boolean isFinal;
 	final boolean override;
 
-	Option(final String optionString, final boolean allowFinal)
+	Option(final String line, final boolean allowFinal)
 	{
-		if(optionString==null)
+		if(line==null)
 		{
 			exists = true;
 			visibility = null;
@@ -52,37 +52,37 @@ final class Option
 		}
 		else
 		{
-			if(optionString.indexOf(TEXT_NONE)>=0)
+			if(line.indexOf(TEXT_NONE)>=0)
 			{
 				exists = false;
 				visibility = null;
 				suffix = null;
 			}
-			else if(optionString.indexOf(TEXT_INTERNAL)>=0)
+			else if(line.indexOf(TEXT_INTERNAL)>=0)
 			{
 				exists = true;
 				visibility = InternalVisibility.PRIVATE;
 				suffix = "Internal";
 			}
-			else if(optionString.indexOf(TEXT_VISIBILITY_PRIVATE)>=0)
+			else if(line.indexOf(TEXT_VISIBILITY_PRIVATE)>=0)
 			{
 				exists = true;
 				visibility = InternalVisibility.PRIVATE;
 				suffix = "";
 			}
-			else if(optionString.indexOf(TEXT_VISIBILITY_PROTECTED)>=0)
+			else if(line.indexOf(TEXT_VISIBILITY_PROTECTED)>=0)
 			{
 				exists = true;
 				visibility = InternalVisibility.PROTECTED;
 				suffix = "";
 			}
-			else if(optionString.indexOf(TEXT_VISIBILITY_PACKAGE)>=0)
+			else if(line.indexOf(TEXT_VISIBILITY_PACKAGE)>=0)
 			{
 				exists = true;
 				visibility = InternalVisibility.PACKAGE;
 				suffix = "";
 			}
-			else if(optionString.indexOf(TEXT_VISIBILITY_PUBLIC)>=0)
+			else if(line.indexOf(TEXT_VISIBILITY_PUBLIC)>=0)
 			{
 				exists = true;
 				visibility = InternalVisibility.PUBLIC;
@@ -95,12 +95,12 @@ final class Option
 				suffix = "";
 			}
 
-			booleanAsIs = (optionString.indexOf(TEXT_BOOLEAN_AS_IS)>=0);
+			booleanAsIs = (line.indexOf(TEXT_BOOLEAN_AS_IS)>=0);
 			if(allowFinal)
-				this.isFinal = (optionString.indexOf(TEXT_NON_FINAL)<0);
+				this.isFinal = (line.indexOf(TEXT_NON_FINAL)<0);
 			else
 				this.isFinal = false;
-			override = (optionString.indexOf(TEXT_OVERRIDE)>=0);
+			override = (line.indexOf(TEXT_OVERRIDE)>=0);
 		}
 	}
 
