@@ -45,7 +45,6 @@ final class JavaClass extends JavaFeature
 	final int typeParameters;
 	final boolean isEnum;
 	final String classExtends;
-	private String docComment;
 	private int classEndPosition = -1;
 
 	/**
@@ -54,10 +53,11 @@ final class JavaClass extends JavaFeature
 	public JavaClass(
 			final JavaFile file, final JavaClass parent,
 			final int modifiers, final String simpleName,
+			final String docComment,
 			final boolean isEnum,
 			final String classExtends)
 	{
-		super(file, parent, modifiers, null, Generics.strip(simpleName));
+		super(file, parent, modifiers, null, Generics.strip(simpleName), docComment);
 		this.nameSpace = new NS(file.nameSpace);
 		this.typeParameters = Generics.get(simpleName).size();
 		this.isEnum = isEnum;
@@ -150,17 +150,6 @@ final class JavaClass extends JavaFeature
 	public final int getAllowedModifiers()
 	{
 		return Modifier.INTERFACE | Modifier.classModifiers();
-	}
-
-	void setDocComment(final String docComment)
-	{
-		assert this.docComment==null;
-		this.docComment = docComment;
-	}
-
-	String getDocComment()
-	{
-		return docComment;
 	}
 
 	void setClassEndPosition(final int classEndPosition)

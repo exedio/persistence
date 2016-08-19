@@ -74,7 +74,7 @@ final class CopeType
 		this.visibility = javaClass.getVisibility();
 		copeTypeByJavaClass.put(javaClass, this);
 
-		final String docComment = javaClass.getDocComment();
+		final String docComment = javaClass.docComment;
 		this.typeOption                  = new Option(Tags.getLine(docComment, TAG_TYPE),                   false);
 		this.initialConstructorOption    = new Option(Tags.getLine(docComment, TAG_INITIAL_CONSTRUCTOR),    false);
 		this.genericConstructorOption    = new Option(Tags.getLine(docComment, TAG_GENERIC_CONSTRUCTOR),    false);

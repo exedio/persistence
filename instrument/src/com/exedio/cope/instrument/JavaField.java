@@ -31,7 +31,6 @@ import java.lang.reflect.Modifier;
 final class JavaField
 	extends JavaFeature
 {
-	private final String docComment;
 	private final String initializer;
 
 	private Object rtvalue = null;
@@ -45,10 +44,9 @@ final class JavaField
 		final String initializer)
 	{
 		// parent must not be null
-		super(parent.file, parent, modifiers, type, name);
+		super(parent.file, parent, modifiers, type, name, docComment);
 		if (type == null)
 			throw new RuntimeException();
-		this.docComment=docComment;
 		this.initializer=initializer;
 
 		parent.add(this);
@@ -58,11 +56,6 @@ final class JavaField
 	final int getAllowedModifiers()
 	{
 		return Modifier.fieldModifiers();
-	}
-
-	String getDocComment()
-	{
-		return docComment;
 	}
 
 	String getInitializer()

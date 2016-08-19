@@ -58,12 +58,15 @@ abstract class JavaFeature
 
 	final String name;
 
+	final String docComment;
+
 	JavaFeature(
 							final JavaFile file,
 							final JavaClass parent,
 							final int modifier,
 							final String type,
-							final String name)
+							final String name,
+							final String docComment)
 	{
 		this.file=file;
 		this.parent=parent;
@@ -71,6 +74,7 @@ abstract class JavaFeature
 		this.type=type;
 		this.typeRaw=Generics.strip(type);
 		this.name=name;
+		this.docComment=docComment;
 
 		if(file==null)
 			throw new RuntimeException();

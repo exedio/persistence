@@ -52,7 +52,7 @@ final class CopeFeature
 		this.modifier = javaField.modifier;
 		this.visibility = javaField.getVisibility();
 
-		this.docComment = javaField.getDocComment();
+		this.docComment = javaField.docComment;
 		this.initial = Tags.has(docComment, TAG_INITIAL);
 
 		parent.register(this);

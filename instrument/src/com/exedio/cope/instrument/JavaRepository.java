@@ -91,7 +91,7 @@ final class JavaRepository
 					if(!Modifier.isFinal(modifier) || !Modifier.isStatic(modifier))
 						continue feature;
 
-					final String docComment = javaField.getDocComment();
+					final String docComment = javaField.docComment;
 					if(docComment!=null && docComment.indexOf('@' + CopeFeature.TAG_PREFIX + "ignore")>=0)
 						continue feature;
 
