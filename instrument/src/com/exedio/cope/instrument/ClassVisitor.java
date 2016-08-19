@@ -58,8 +58,8 @@ class ClassVisitor extends TreePathScanner<Void,Void>
 				context.javaFile,
 				outerClass,
 				TreeApiHelper.toModifiersInt(ct.getModifiers()),
-				ct.getKind()==Tree.Kind.ENUM,
 				getSimpleName(ct),
+				ct.getKind()==Tree.Kind.ENUM,
 				classExtends
 			);
 			javaClass.setDocComment(context.getDocComment(getCurrentPath()));

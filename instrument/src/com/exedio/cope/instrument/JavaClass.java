@@ -53,7 +53,8 @@ final class JavaClass extends JavaFeature
 	 */
 	public JavaClass(
 			final JavaFile file, final JavaClass parent,
-			final int modifiers, final boolean isEnum, final String simpleName,
+			final int modifiers, final String simpleName,
+			final boolean isEnum,
 			final String classExtends)
 	{
 		super(file, parent, modifiers, null, Generics.strip(simpleName));
