@@ -61,9 +61,9 @@ class ClassVisitor extends TreePathScanner<Void,Void>
 				getSimpleName(ct),
 				context.getDocComment(getCurrentPath()),
 				ct.getKind()==Tree.Kind.ENUM,
-				classExtends
+				classExtends,
+				Math.toIntExact(context.getEndPosition(ct))-1
 			);
-			javaClass.setClassEndPosition( Math.toIntExact(context.getEndPosition(ct))-1 );
 			return super.visitClass(ct, ignore);
 		}
 		else

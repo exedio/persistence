@@ -45,7 +45,7 @@ final class JavaClass extends JavaFeature
 	final int typeParameters;
 	final boolean isEnum;
 	final String classExtends;
-	private int classEndPosition = -1;
+	private final int classEndPosition;
 
 	/**
 	 * @param parent may be null for non-inner classes
@@ -55,13 +55,15 @@ final class JavaClass extends JavaFeature
 			final int modifiers, final String simpleName,
 			final String docComment,
 			final boolean isEnum,
-			final String classExtends)
+			final String classExtends,
+			final int classEndPosition)
 	{
 		super(file, parent, modifiers, null, Generics.strip(simpleName), docComment);
 		this.nameSpace = new NS(file.nameSpace);
 		this.typeParameters = Generics.get(simpleName).size();
 		this.isEnum = isEnum;
 		this.classExtends = Generics.strip(classExtends);
+		this.classEndPosition = classEndPosition;
 		file.add(this);
 		if (parent!=null)
 		{
@@ -152,19 +154,8 @@ final class JavaClass extends JavaFeature
 		return Modifier.INTERFACE | Modifier.classModifiers();
 	}
 
-	void setClassEndPosition(final int classEndPosition)
-	{
-		assert file.repository.isBuildStage();
-		assert this.classEndPosition==-1;
-		assert classEndPosition>=0;
-
-		this.classEndPosition = classEndPosition;
-	}
-
 	int getClassEndPositionInSourceWithoutGeneratedFragments()
 	{
-		assert classEndPosition>=0;
-
 		return file.translateToPositionInSourceWithoutGeneratedFragments(classEndPosition);
 	}
 
