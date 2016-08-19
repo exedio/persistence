@@ -54,7 +54,14 @@ class ClassVisitor extends TreePathScanner<Void,Void>
 		if (javaClass==null)
 		{
 			final String classExtends=ct.getExtendsClause()==null?null:ct.getExtendsClause().toString();
-			javaClass = new JavaClass(context.javaFile, outerClass, TreeApiHelper.toModifiersInt(ct.getModifiers()), ct.getKind()==Tree.Kind.ENUM, getSimpleName(ct), classExtends);
+			javaClass = new JavaClass(
+				context.javaFile,
+				outerClass,
+				TreeApiHelper.toModifiersInt(ct.getModifiers()),
+				ct.getKind()==Tree.Kind.ENUM,
+				getSimpleName(ct),
+				classExtends
+			);
 			javaClass.setDocComment(context.getDocComment(getCurrentPath()));
 			javaClass.setClassEndPosition( Math.toIntExact(context.getEndPosition(ct))-1 );
 			return super.visitClass(ct, ignore);
