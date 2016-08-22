@@ -50,6 +50,11 @@ public final class Sequence extends Node
 		return name;
 	}
 
+	public Type getType()
+	{
+		return type.get();
+	}
+
 	/**
 	 * @deprecated Use {@link #getStartL()} instead
 	 */

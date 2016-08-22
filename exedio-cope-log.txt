@@ -7,6 +7,7 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* dsmf.Sequence#getType() added.
 * Dispatcher.Result added
 	Dispatcher#getRunSuccess() replaced by getRunResult()
 	This breaks backwards API compatibility, causes compiler error.

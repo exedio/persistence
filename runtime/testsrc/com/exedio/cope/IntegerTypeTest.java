@@ -25,6 +25,8 @@ import static com.exedio.cope.SchemaInfo.getPrimaryKeySequenceName;
 import static com.exedio.cope.SchemaInfo.getTableName;
 import static com.exedio.cope.SchemaInfo.newConnection;
 import static com.exedio.cope.SchemaInfo.quoteName;
+import static com.exedio.dsmf.Sequence.Type.bit31;
+import static com.exedio.dsmf.Sequence.Type.bit63;
 import static junit.framework.Assert.assertEquals;
 
 import com.exedio.cope.tojunit.SI;
@@ -332,5 +334,26 @@ public class IntegerTypeTest extends TestWithEnvironment
 	@Test public void testSchema()
 	{
 		assertSchema();
+
+		if(!model.getConnectProperties().primaryKeyGenerator.persistent)
+			return;
+
+		final Schema schema = model.getSchema();
+		assertSequence(schema, IntegerTypeTinyIntItem  .TYPE, bit31);
+		assertSequence(schema, IntegerTypeSmallIntItem .TYPE, bit31);
+		assertSequence(schema, IntegerTypeMediumIntItem.TYPE, bit31);
+		assertSequence(schema, IntegerTypeIntItem      .TYPE, bit31);
+		assertSequence(schema, IntegerTypeBigIntItem   .TYPE, bit63);
+		assertSequence(schema, IntegerTypeSubItem      .TYPE, bit63);
+	}
+
+	private static void assertSequence(
+			final Schema schema,
+			final Type<?> expected,
+			final Sequence.Type actual)
+	{
+		final Sequence sequence = schema.getSequence(getPrimaryKeySequenceName(expected));
+		assertEquals(actual, sequence.getType());
+		assertEquals(0, sequence.getStartL());
 	}
 }
