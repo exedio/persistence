@@ -82,6 +82,12 @@ public abstract class SchemaMismatchTest extends TestWithEnvironment
 		return element.getType() + "_" + element.getName() + "_Fk";
 	}
 
+	protected static final String nameUnq(final Field<?> element)
+	{
+		// TODO this is guessing and works just for short names
+		return element.getType() + "_" + element.getName() + "_Unq";
+	}
+
 	protected static final String nameCkEnum(final BooleanField element)
 	{
 		// TODO this is guessing and works just for short names
