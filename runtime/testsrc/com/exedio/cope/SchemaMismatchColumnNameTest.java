@@ -100,7 +100,7 @@ public class SchemaMismatchColumnNameTest extends SchemaMismatchTest
 					? asList(pkPk, checkPkMin, checkPkMax, checkB, checkA)
 					: asList(pkPk, checkPkMin, checkPkMax, checkB),
 					table.getConstraints());
-			}
+		}
 
 		assertEqualsUnmodifiable(asList(table), schema.getTables());
 	}
