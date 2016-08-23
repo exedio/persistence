@@ -38,7 +38,7 @@ public class JavaFileTest
 		}
 		catch (final RuntimeException e)
 		{
-			assertEquals("fragments must be marked from start to end", e.getMessage());
+			assertEquals("replacements must be marked from start to end", e.getMessage());
 		}
 	}
 
@@ -48,15 +48,6 @@ public class JavaFileTest
 		try
 		{
 			javaFile.markFragmentAsGenerated(10, 9);
-			fail();
-		}
-		catch (final RuntimeException e)
-		{
-			// fine
-		}
-		try
-		{
-			javaFile.markFragmentAsGenerated(10, 10);
 			fail();
 		}
 		catch (final RuntimeException e)
@@ -96,7 +87,7 @@ public class JavaFileTest
 		}
 		catch (final RuntimeException e)
 		{
-			assertEquals("unconsumed GeneratedFragment at end of file", e.getMessage());
+			assertEquals("unexpected EOF", e.getMessage());
 		}
 	}
 
@@ -111,7 +102,7 @@ public class JavaFileTest
 		}
 		catch (final RuntimeException e)
 		{
-			assertEquals("unconsumed GeneratedFragment at end of file", e.getMessage());
+			assertEquals("unexpected EOF while skipping Replacement[9-12]", e.getMessage());
 		}
 	}
 

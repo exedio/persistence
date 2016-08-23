@@ -21,7 +21,6 @@ package com.exedio.cope.instrument;
 
 import bsh.UtilEvalError;
 import java.io.BufferedInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -29,7 +28,6 @@ import java.io.OutputStreamWriter;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 import javax.tools.JavaFileObject;
 
@@ -66,7 +64,7 @@ final class JavaFile
 	final JavaRepository repository;
 	final ArrayList<JavaClass> classes = new ArrayList<>();
 
-	private final List<GeneratedFragment> generatedFragments = new ArrayList<>();
+	private final ByteReplacements generatedFragments = new ByteReplacements();
 
 	public JavaFile(final JavaRepository repository, final JavaFileObject sourceFile, final String packagename)
 	{
@@ -89,70 +87,19 @@ final class JavaFile
 
 	void markFragmentAsGenerated(final int startInclusive, final int endExclusive)
 	{
-		if (!generatedFragments.isEmpty())
-		{
-			final GeneratedFragment last=generatedFragments.get(generatedFragments.size()-1);
-			if (last.endExclusive>startInclusive) throw new RuntimeException("fragments must be marked from start to end");
-		}
-		generatedFragments.add( new GeneratedFragment(startInclusive, endExclusive) );
+		generatedFragments.addReplacement(startInclusive, endExclusive, new byte[0]);
 	}
 
 	int translateToPositionInSourceWithoutGeneratedFragments(final int positionInRawSource)
 	{
-		int generatedBytesBeforeClassEnd = 0;
-		for (final JavaFile.GeneratedFragment generatedFragment: generatedFragments)
-		{
-			if (generatedFragment.startInclusive<=positionInRawSource)
-			{
-				if (generatedFragment.endExclusive>positionInRawSource)
-				{
-					throw new RuntimeException("in generated fragment");
-				}
-				generatedBytesBeforeClassEnd += (generatedFragment.endExclusive-generatedFragment.startInclusive);
-			}
-			else
-			{
-				break;
-			}
-		}
-
-		return positionInRawSource-generatedBytesBeforeClassEnd;
+		return generatedFragments.translateToPositionInOutput(positionInRawSource);
 	}
 
 	byte[] getSourceWithoutGeneratedFragments()
 	{
-		final Iterator<GeneratedFragment> generatedFragmentIter=generatedFragments.iterator();
-		try (final InputStream inputStream=new BufferedInputStream(sourceFile.openInputStream()); final ByteArrayOutputStream os = new ByteArrayOutputStream(Main.INITIAL_BUFFER_SIZE))
+		try (final InputStream inputStream=new BufferedInputStream(sourceFile.openInputStream()))
 		{
-			int indexInSource = 0;
-			int nextSourceByte;
-			GeneratedFragment currentGeneratedFragment=generatedFragmentIter.hasNext()?generatedFragmentIter.next():null;
-			while ( (nextSourceByte=inputStream.read())!=-1 )
-			{
-				if (currentGeneratedFragment==null || currentGeneratedFragment.startInclusive>indexInSource)
-				{
-					os.write(nextSourceByte);
-				}
-				else if (currentGeneratedFragment.endExclusive-1>indexInSource)
-				{
-					// generated, skip
-				}
-				else if (currentGeneratedFragment.endExclusive-1==indexInSource)
-				{
-					currentGeneratedFragment=generatedFragmentIter.hasNext()?generatedFragmentIter.next():null;
-				}
-				else
-				{
-					// currentGeneratedFragment should have already been discarded
-					throw new RuntimeException();
-				}
-				indexInSource++;
-			}
-			if (currentGeneratedFragment!=null)
-			{
-				throw new RuntimeException("unconsumed GeneratedFragment at end of file");
-			}
-			return os.toByteArray();
+			return generatedFragments.applyReplacements(inputStream);
 		}
 		catch (final IOException e)
 		{
@@ -263,25 +210,6 @@ final class JavaFile
 		catch(final IOException e)
 		{
 			throw new RuntimeException(e);
-		}
-	}
-
-	private final static class GeneratedFragment
-	{
-		final int startInclusive;
-		final int endExclusive;
-
-		GeneratedFragment(final int startInclusive, final int endExclusive)
-		{
-			if (startInclusive<0 || startInclusive>=endExclusive) throw new RuntimeException("" + startInclusive + '-' + endExclusive);
-			this.startInclusive=startInclusive;
-			this.endExclusive=endExclusive;
-		}
-
-		@Override
-		public String toString()
-		{
-			return String.format("%s-%s", startInclusive, endExclusive);
 		}
 	}
 }
