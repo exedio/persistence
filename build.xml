@@ -879,7 +879,7 @@
 
 	<target name="instrument.test"
 				depends="runtime.compile, instrument.compile, instrument.test.compile">
-		<ljunit test="com.exedio.cope.instrument.AllTests">
+		<ljunit test="${instrument.test}">
 			<classpath>
 				<pathelement location="build/classes/dsmf/src" />
 				<pathelement location="build/classes/runtime/src" />
@@ -1078,53 +1078,6 @@
 				<exclude name="instrument/src/com/exedio/cope/instrument/Tags.java" />
 			</fileset>
 		</replaceregexp>
-	</target>
-
-	<target name="single.test" depends="runtime.test.compile">
-		<fail unless="testpath">provide test class path name</fail>
-		<propertyregex property="testclass"
-							input="${testpath}"
-							regexp="(.*testsrc\.)?(.*)"
-							select="\2"/>
-		<mkdir dir="build/testresults" />
-		<mkdir dir="build/testtmpdir" />
-		<foreachEnvironment skipSwitch="runtime.test">
-			<body>
-				<junit taskname="junit @{env}" fork="yes"
-						 haltonerror="true" haltonfailure="true"
-						 dir="${basedir}"
-						 showoutput="true" printsummary="true">
-					<formatter type="brief" usefile="false" />
-					<formatter type="xml" />
-					<!--jvmarg value="-Xdebug" />
-					<jvmarg value="-Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=8000" /-->
-					<classpath>
-						<pathelement location="build/classes/dsmf/src" />
-						<pathelement location="build/classes/runtime/src" />
-						<pathelement location="build/classes/runtime/dialects" />
-						<pathelement location="build/classes/runtime/patternsrc" />
-						<pathelement location="build/classes/runtime/servletsrc" />
-						<pathelement location="build/classes/runtime/junitsrc" />
-						<pathelement location="build/classes/runtime/testfeaturesrc" />
-						<pathelement location="build/classes/runtime/testsrc" />
-						<pathelement location="lib/trove4j.jar" />
-						<pathelement location="lib/javax.servlet-api.jar" />
-						<pathelement location="lib/@{env.driver}" />
-						<pathelement location="lib/junit.jar" />
-						<pathelement location="lib/slf4j-api.jar" />
-						<pathelement location="lib/slf4j-log4j12.jar" />
-						<pathelement location="lib/log4j-bundle.jar" />
-						<pathelement location="lib/exedio-cope-util.jar" />
-					</classpath>
-					<test name="${testclass}" todir="build/testresults" outfile="runtime-@{env}" />
-					<sysproperty key="java.io.tmpdir" value="${basedir}/build/testtmpdir" />
-					<sysproperty key="user.timezone" value="${test-DefaultTimeZone}" />
-					<sysproperty key="com.exedio.cope.properties" file="@{env.file}" />
-					<sysproperty key="contextPath" value="/junitContextPath" />
-					<assertions><enable/></assertions>
-				</junit>
-			</body>
-		</foreachEnvironment>
 	</target>
 
 </project>

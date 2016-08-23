@@ -170,11 +170,23 @@
                    <target>instrument.test.compile</target>
                 </action>
                 <action name="test.single">
-                    <target>single.test</target>
+                    <target>instrument.test</target>
                     <context>
-                        <property>testpath</property>
-                        <folder>.</folder>
-                        <pattern>.*testsrc.*\.java$</pattern>
+                        <property>instrument.test</property>
+                        <folder>instrument/testsrc</folder>
+                        <pattern>.*\.java$</pattern>
+                        <format>java-name</format>
+                        <arity>
+                            <one-file-only/>
+                        </arity>
+                    </context>
+                </action>
+                <action name="test.single">
+                    <target>runtime.test.withEnv</target>
+                    <context>
+                        <property>runtime.test.withEnv</property>
+                        <folder>runtime/testsrc</folder>
+                        <pattern>\.java$</pattern>
                         <format>java-name</format>
                         <arity>
                             <one-file-only/>
