@@ -79,9 +79,9 @@
                     <encoding>UTF-8</encoding>
                 </source-folder>
                 <source-folder>
-                    <label>runtime/servlettestweb</label>
+                    <label>runtime/servlettestwebsrc</label>
                     <type>java</type>
-                    <location>runtime/servlettestweb</location>
+                    <location>runtime/servlettestwebsrc</location>
                     <encoding>UTF-8</encoding>
                 </source-folder>
                 <source-folder>
@@ -229,8 +229,8 @@
                         <location>runtime/servlettestsrc</location>
                     </source-folder>
                     <source-folder style="packages">
-                        <label>runtime/servlettestweb</label>
-                        <location>runtime/servlettestweb</location>
+                        <label>runtime/servlettestwebsrc</label>
+                        <location>runtime/servlettestwebsrc</location>
                     </source-folder>
                     <source-folder style="packages">
                         <label>runtime/junitsrc</label>
@@ -303,7 +303,7 @@
                 <package-root>runtime/testsrc</package-root>
                 <package-root>runtime/servletsrc</package-root>
                 <package-root>runtime/servlettestsrc</package-root>
-                <package-root>runtime/servlettestweb</package-root>
+                <package-root>runtime/servlettestwebsrc</package-root>
                 <package-root>runtime/junitsrc</package-root>
                 <package-root>runtime/testfeaturesrc</package-root>
                 <package-root>copernica/webtestsrc</package-root>
