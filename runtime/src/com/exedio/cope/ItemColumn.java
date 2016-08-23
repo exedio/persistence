@@ -50,10 +50,10 @@ final class ItemColumn extends IntegerColumn
 	}
 
 	@Override
-	void makeSchema(final com.exedio.dsmf.Table dsmfTable)
+	void makeSchema(final com.exedio.dsmf.Table dsmf)
 	{
-		super.makeSchema(dsmfTable);
+		super.makeSchema(dsmf);
 		final Table targetTable = targetType.getTable();
-		new ForeignKeyConstraint(dsmfTable, integrityConstraintName, id, targetTable.idLower, targetTable.primaryKey.id);
+		new ForeignKeyConstraint(dsmf, integrityConstraintName, id, targetTable.idLower, targetTable.primaryKey.id);
 	}
 }

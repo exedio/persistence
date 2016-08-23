@@ -57,7 +57,7 @@ public final class CheckConstraint extends Feature implements Copyable
 		}
 	}
 
-	void makeSchema(final Table table, final com.exedio.dsmf.Table dsmfTable)
+	void makeSchema(final Table table, final com.exedio.dsmf.Table dsmf)
 	{
 		if(!isSupportedBySchemaIfSupportedByDialect())
 			return;
@@ -66,7 +66,7 @@ public final class CheckConstraint extends Feature implements Copyable
 		condition.append(statement);
 
 		new com.exedio.dsmf.CheckConstraint(
-				dsmfTable,
+				dsmf,
 				intern(table.makeGlobalID(TrimClass.PrimaryKeyCheckConstraint, getDeclaredSchemaName())),
 				statement.getText());
 	}

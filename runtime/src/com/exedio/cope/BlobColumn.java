@@ -51,11 +51,11 @@ final class BlobColumn extends Column
 	}
 
 	@Override
-	void makeSchema(final com.exedio.dsmf.Table dsmfTable)
+	void makeSchema(final com.exedio.dsmf.Table dsmf)
 	{
-		super.makeSchema(dsmfTable);
+		super.makeSchema(dsmf);
 
-		newCheckConstraint(dsmfTable, "MX",
+		newCheckConstraint(dsmf, "MX",
 				table.database.dialect.getBlobLength() + '(' + quotedID + ")<=" + maximumLength);
 	}
 

@@ -51,13 +51,13 @@ final class DoubleColumn extends Column
 	}
 
 	@Override
-	void makeSchema(final com.exedio.dsmf.Table dt)
+	void makeSchema(final com.exedio.dsmf.Table dsmf)
 	{
-		super.makeSchema(dt);
+		super.makeSchema(dsmf);
 
 		final Dialect dialect = table.database.dialect;
-		newCheckConstraint(dt, "MN", quotedID + ">=" + dialect.format(minimum));
-		newCheckConstraint(dt, "MX", quotedID + "<=" + dialect.format(maximum));
+		newCheckConstraint(dsmf, "MN", quotedID + ">=" + dialect.format(minimum));
+		newCheckConstraint(dsmf, "MX", quotedID + "<=" + dialect.format(maximum));
 	}
 
 	@Override

@@ -95,9 +95,9 @@ class StringColumn extends Column
 	}
 
 	@Override
-	void makeSchema(final com.exedio.dsmf.Table dt)
+	void makeSchema(final com.exedio.dsmf.Table dsmf)
 	{
-		super.makeSchema(dt);
+		super.makeSchema(dsmf);
 
 		if(allowedValues!=null)
 		{
@@ -126,22 +126,22 @@ class StringColumn extends Column
 			}
 			bf.append(')');
 
-			newCheckConstraint(dt, "EN", bf.toString());
+			newCheckConstraint(dsmf, "EN", bf.toString());
 		}
 		else
 		{
 			final String length = table.database.dialect.getStringLength();
 			final boolean exact = minimumLength==maximumLength;
 			if(minimumLength>0)
-				newCheckConstraint(dt, "MN", length + '(' + quotedID + (exact?")=":")>=") + minimumLength);
+				newCheckConstraint(dsmf, "MN", length + '(' + quotedID + (exact?")=":")>=") + minimumLength);
 			if(!exact)
-				newCheckConstraint(dt, "MX", length + '(' + quotedID +             ")<="  + maximumLength);
+				newCheckConstraint(dsmf, "MX", length + '(' + quotedID +             ")<="  + maximumLength);
 
 			if(charSet!=null)
 			{
 				final String clause = table.database.dialect.getClause(quotedID, charSet);
 				if(clause!=null)
-					newCheckConstraint(dt, "CS", clause);
+					newCheckConstraint(dsmf, "CS", clause);
 			}
 		}
 	}

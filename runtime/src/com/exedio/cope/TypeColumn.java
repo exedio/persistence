@@ -34,14 +34,14 @@ final class TypeColumn extends StringColumn
 	}
 
 	@Override
-	void makeSchema(final com.exedio.dsmf.Table dsmfTable)
+	void makeSchema(final com.exedio.dsmf.Table dsmf)
 	{
-		super.makeSchema(dsmfTable);
+		super.makeSchema(dsmf);
 
 		if(!optional)
 			return;
 
-		newCheckConstraint(dsmfTable, "NS",
+		newCheckConstraint(dsmf, "NS",
 				"((" + quotedID + " IS NOT NULL) AND (" + itemColumnQuotedID + " IS NOT NULL)) OR " +
 				"((" + quotedID + " IS "+ "NULL) AND (" + itemColumnQuotedID + " IS "+ "NULL))");
 	}

@@ -127,7 +127,7 @@ public final class UniqueConstraint extends Feature implements Copyable
 		return databaseID;
 	}
 
-	void makeSchema(final com.exedio.dsmf.Table dsmfTable)
+	void makeSchema(final com.exedio.dsmf.Table dsmf)
 	{
 		final StringBuilder bf = new StringBuilder();
 		bf.append('(');
@@ -140,7 +140,7 @@ public final class UniqueConstraint extends Feature implements Copyable
 		}
 		bf.append(')');
 
-		new com.exedio.dsmf.UniqueConstraint(dsmfTable, getDatabaseID(), bf.toString());
+		new com.exedio.dsmf.UniqueConstraint(dsmf, getDatabaseID(), bf.toString());
 	}
 
 	@Override

@@ -128,9 +128,9 @@ class IntegerColumn extends Column
 	}
 
 	@Override
-	void makeSchema(final com.exedio.dsmf.Table dt)
+	void makeSchema(final com.exedio.dsmf.Table dsmf)
 	{
-		super.makeSchema(dt);
+		super.makeSchema(dsmf);
 
 		if(allowedValues!=null)
 		{
@@ -156,15 +156,15 @@ class IntegerColumn extends Column
 			}
 			bf.append(')');
 
-			newCheckConstraint(dt, "EN", bf.toString());
+			newCheckConstraint(dsmf, "EN", bf.toString());
 		}
 		else
 		{
-			newCheckConstraint(dt, "MN", quotedID + ">=" + minimum);
-			newCheckConstraint(dt, "MX", quotedID + "<=" + maximum);
+			newCheckConstraint(dsmf, "MN", quotedID + ">=" + minimum);
+			newCheckConstraint(dsmf, "MX", quotedID + "<=" + maximum);
 
 			if(precision.constrains())
-				newCheckConstraint(dt, "PR",
+				newCheckConstraint(dsmf, "PR",
 					table.database.dialect.getDateIntegerPrecision(quotedID, precision));
 		}
 	}

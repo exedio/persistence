@@ -58,22 +58,22 @@ final class TimestampColumn extends Column
 	@Override
 	@SuppressWarnings("fallthrough")
 	@SuppressFBWarnings("SF_SWITCH_FALLTHROUGH")
-	void makeSchema(final com.exedio.dsmf.Table dt)
+	void makeSchema(final com.exedio.dsmf.Table dsmf)
 	{
-		super.makeSchema(dt);
+		super.makeSchema(dsmf);
 
 		final Dialect dialect = table.database.dialect;
 		switch(precision)
 		{
 			case HOUR:
-				newCheckConstraint(dt, "PM",
+				newCheckConstraint(dsmf, "PM",
 						dialect.getDateExtract(quotedID, MINUTE) + "=0");
 				// fall through
 
 			case MINUTE:
 			case SECOND:
 				final String seconds = dialect.getDateExtract(quotedID, SECOND);
-				newCheckConstraint(dt, "PS",
+				newCheckConstraint(dsmf, "PS",
 						precision==SECOND
 						? (seconds + '=' + dialect.getFloor(seconds)) // is an integer
 						: (seconds + "=0"));
