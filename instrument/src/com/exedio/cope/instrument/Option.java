@@ -94,7 +94,7 @@ final class Option
 		final int indent = indentLine!=null ? parseInt(indentLine) : 1;
 		return new WrapperType()
 		{
-			@Override public Class<? extends Annotation> annotationType() { throw new RuntimeException(); }
+			@Override public Class<? extends Annotation> annotationType() { return WrapperType.class; }
 			@Override public Visibility type() { return nullToDefault(type); }
 			@Override public Visibility constructor() { return nullToDefault(constructor); }
 			@Override public Visibility genericConstructor() { return nullToDefault(genericConstructor); }

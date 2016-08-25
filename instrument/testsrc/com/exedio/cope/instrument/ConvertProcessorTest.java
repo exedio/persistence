@@ -37,32 +37,36 @@ import org.junit.Test;
 @SuppressWarnings("synthetic-access")
 public class ConvertProcessorTest
 {
+	private String lineSeparator=System.lineSeparator();
+
 	@Test public void convertDocumentedWithUnixLineSeparator() throws URISyntaxException
 	{
-		assertDocumented("\n");
+		lineSeparator="\n";
+		assertDocumented();
 	}
 
 	@Test public void convertDocumentedWithWindowsLineSeparator() throws URISyntaxException
 	{
-		assertDocumented("\r\n");
+		lineSeparator="\r\n";
+		assertDocumented();
 	}
 
 	@Test public void convertUndocumentedWithUnixLineSeparator() throws URISyntaxException
 	{
-		assertUndocumented("\n");
+		lineSeparator="\n";
+		assertUndocumented();
 	}
 
 	@Test public void convertUndocumentedWithWindowsLineSeparator() throws URISyntaxException
 	{
-		assertUndocumented("\r\n");
+		lineSeparator="\r\n";
+		assertUndocumented();
 	}
 
-	private static void assertDocumented(final String lineSeparator) throws URISyntaxException
+	private void assertDocumented() throws URISyntaxException
 	{
-		assertWithLineSeparator(
-			lineSeparator,
+		assertConversion(
 			lines(
-				lineSeparator,
 				"class A",
 				"{",
 				"	/**",
@@ -75,7 +79,6 @@ public class ConvertProcessorTest
 				"}"
 			),
 			lines(
-				lineSeparator,
 				"class A",
 				"{",
 				"	/**",
@@ -90,19 +93,105 @@ public class ConvertProcessorTest
 		);
 	}
 
-	private static void assertUndocumented(final String lineSeparator) throws URISyntaxException
+	@Test public void singleLineComment() throws URISyntaxException
 	{
-		assertWithLineSeparator(
-			lineSeparator,
+		assertConversion(
 			lines(
-				lineSeparator,
+				"class A",
+				"{",
+				"	/** @cope.ignore */",
+				"	int i;",
+				"}"
+			),
+			lines(
+				"class A",
+				"{",
+				"	@WrapperIgnore",
+				"	int i;",
+				"}"
+			)
+		);
+	}
+
+	@Test public void convertClass() throws URISyntaxException
+	{
+		assertConversion(
+			lines(
+				"package x;",
+				"/** @cope.constructor public */",
+				"class A",
+				"{",
+				"}"
+			),
+			lines(
+				"package x;",
+				"@WrapperType(constructor=Visibility.PUBLIC)",
+				"class A",
+				"{",
+				"}"
+			)
+		);
+	}
+
+	@Test public void convertClassWithEmptyComment() throws URISyntaxException
+	{
+		assertConversion(
+			lines(
+				"package x;",
+				"/**",
+				" */",
+				"class A",
+				"{",
+				"}"
+			),
+			null // nothing to convert
+		);
+	}
+
+	@Test public void classWithoutPackage() throws URISyntaxException
+	{
+		assertConversion(
+			lines(
+				"/** @cope.type private */ class A {}"
+			),
+			lines(
+				"@WrapperType(type=Visibility.PRIVATE) class A {}"
+			)
+		);
+	}
+
+	@Test public void convertClassWithSeveralRules() throws URISyntaxException
+	{
+		assertConversion(
+			lines(
+				"package x;",
+				"/**",
+				" * @cope.type private",
+				" * @cope.constructor private",
+				" * @cope.generic.constructor public",
+				" * @cope.activation.constructor package",
+				" * @cope.indent 2",
+				" */",
+				"class A {}"
+			),
+			lines(
+				"package x;",
+				"@WrapperType(activationConstructor=Visibility.PACKAGE, constructor=Visibility.PRIVATE, genericConstructor=Visibility.PUBLIC, indent=2, type=Visibility.PRIVATE)",
+				"class A {}"
+			)
+		);
+	}
+
+	private void assertUndocumented() throws URISyntaxException
+	{
+		assertConversion(
+			lines(
 				"class A",
 				"{",
 				"	/** @cope.xyz public */ int j;",
 				"}"
 			),
 			lines(
-				lineSeparator,
 				"class A",
 				"{",
 				"	@Wrapper(wrap=\"xyz\", visibility=Visibility.PUBLIC) int j;",
@@ -111,7 +200,7 @@ public class ConvertProcessorTest
 		);
 	}
 
-	private static void assertWithLineSeparator(final String lineSeparator, final String originalText, final String expectedText) throws URISyntaxException
+	private void assertConversion(final String originalText, final String expectedText) throws URISyntaxException
 	{
 		final JavaCompiler compiler=JavacTool.create();
 		final StringJavaFileObject javaFile=new StringJavaFileObject(
@@ -132,7 +221,7 @@ public class ConvertProcessorTest
 		return singleton("-proc:only");
 	}
 
-	private static String lines(final String lineSeparator, final String... lines)
+	private String lines(final String... lines)
 	{
 		final StringBuilder result=new StringBuilder();
 		for (final String line: lines)
@@ -186,7 +275,7 @@ public class ConvertProcessorTest
 
 		private void validateNewContent()
 		{
-			final String actual=new String(outputStream.toByteArray(), StandardCharsets.US_ASCII);
+			final String actual=outputStream==null?null:new String(outputStream.toByteArray(), StandardCharsets.US_ASCII);
 			assertEquals(showWhitespace(expectedNewContent), showWhitespace(actual));
 			assertEquals(expectedNewContent, actual);
 		}
@@ -194,10 +283,17 @@ public class ConvertProcessorTest
 
 	private static String showWhitespace(final String s)
 	{
-		return s
-			.replaceAll(" ", ".")
-			.replaceAll("\\t", "+")
-			.replaceAll("\\n", "\\\\n\n")
-			.replaceAll("\\r", "\\\\r");
+		if (s==null)
+		{
+			return null;
+		}
+		else
+		{
+			return s
+				.replaceAll(" ", ".")
+				.replaceAll("\\t", "+")
+				.replaceAll("\\n", "\\\\n\n")
+				.replaceAll("\\r", "\\\\r");
+		}
 	}
 }

@@ -148,6 +148,7 @@ final class TreeApiContext
 
 	private byte[] getSourceBytes(final int start, final int end)
 	{
+		if (start<0) throw new IllegalArgumentException("start "+start);
 		return Arrays.copyOfRange(getAllBytes(), start, end);
 	}
 
@@ -172,6 +173,8 @@ final class TreeApiContext
 		int searchPos=pos-search.length;
 		while (true)
 		{
+			if ( searchPos<0 )
+				return -1;
 			if ( bytesMatch(searchPos, search) )
 			{
 				return searchPos;
@@ -201,6 +204,7 @@ final class TreeApiContext
 
 	private boolean bytesMatch(final int pos, final byte[] search)
 	{
+		if (pos<0) throw new ArrayIndexOutOfBoundsException(pos);
 		for (int i=0; i<search.length; i++)
 		{
 			if ( getAllBytes()[pos+i]!=search[i] )

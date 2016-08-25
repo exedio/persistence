@@ -20,6 +20,7 @@ package com.exedio.cope.instrument;
 
 import com.sun.source.doctree.DocCommentTree;
 import com.sun.source.tree.ClassTree;
+import com.sun.source.tree.Tree;
 import com.sun.source.tree.VariableTree;
 import com.sun.source.util.DocTrees;
 import com.sun.source.util.TreePath;
@@ -123,80 +124,108 @@ final class ConvertTagsToAnnotations
 					}
 
 					@Override
-					@SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR") // ctx initialised in 'scan'
+					public Void visitClass(final ClassTree node, final Void p)
+					{
+						try
+						{
+							convertCurrentPath(node, "[class]");
+						}
+						catch (final RuntimeException e)
+						{
+							throw new RuntimeException("while processing "+node.getSimpleName()+" in "+tp.getCompilationUnit().getSourceFile().getName(), e);
+						}
+						return super.visitClass(node, p);
+					}
+
+					@Override
 					public Void visitVariable(final VariableTree node, final Void p)
 					{
 						try
 						{
-							final DocCommentTree docCommentTree=docTrees.getDocCommentTree(getCurrentPath());
-							if (docCommentTree!=null)
-							{
-								final int docContentStart=Math.toIntExact(docTrees.getSourcePositions().getStartPosition(getCurrentPath().getCompilationUnit(), docCommentTree, docCommentTree));
-								final int docContentEnd=Math.toIntExact(docTrees.getSourcePositions().getEndPosition(getCurrentPath().getCompilationUnit(), docCommentTree, docCommentTree))+1;
-								final String docComment=ctx.getSourceString(docContentStart, docContentEnd).trim();
-								if (docComment.contains("@cope.") && !docComment.contains("@cope.generated"))
-								{
-									if (startMessage!=null)
-									{
-										System.out.println(startMessage);
-										startMessage=null;
-									}
-									System.out.println("  * "+node.getName());
-									final int docStart=ctx.searchBefore(
-										docContentStart,
-										"/**".getBytes(StandardCharsets.US_ASCII)
-									);
-									final int docEnd=ctx.searchAfter(
-										docContentEnd-1,
-										"*/".getBytes(StandardCharsets.US_ASCII)
-									);
-									final int elementStart=Math.toIntExact(docTrees.getSourcePositions().getStartPosition(getCurrentPath().getCompilationUnit(), node));
-									final String betweenCommentAndElement=ctx.getSourceString(docEnd, elementStart);
-									final JavadocAndAnnotations javadocAndAnnotations=convert(docComment, betweenCommentAndElement);
-									if ( javadocAndAnnotations.javadoc.trim().isEmpty() )
-									{
-										// drop complete comment
-										final int lineStart=ctx.searchBefore(docStart, lineSeparatorBytes)+lineSeparatorBytes.length;
-										final int lineEnd=ctx.searchAfter(docEnd-1, lineSeparatorBytes);
-										final String lineAfterComment=ctx.getSourceString(docEnd, lineEnd);
-										if (ctx.getSourceString(lineStart, docStart).trim().isEmpty() && lineAfterComment.trim().isEmpty())
-										{
-											replacements.addReplacement(
-												lineStart,
-												lineEnd,
-												""
-											);
-										}
-										else
-										{
-											replacements.addReplacement(
-												docStart,
-												docEnd+countStartingWhitespace(lineAfterComment),
-												""
-											);
-										}
-									}
-									else
-									{
-										replacements.addReplacement(
-											docContentStart,
-											docContentEnd,
-											javadocAndAnnotations.javadoc
-										);
-									}
-									replacements.addReplacement(
-										elementStart,
-										elementStart,
-										javadocAndAnnotations.annotations
-									);
-								}
-							}
+							convertCurrentPath(node, node.getName().toString());
 						}
-						catch (final IllegalArgumentException e)
+						catch (final RuntimeException e)
 						{
 							throw new RuntimeException("while processing "+node.getName()+" in "+tp.getCompilationUnit().getSourceFile().getName(), e);
 						}
 						return super.visitVariable(node, p);
+					}
+
+					@SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR") // ctx initialised in 'scan'
+					private void convertCurrentPath(final Tree node, final String positionForLog)
+					{
+						final DocCommentTree docCommentTree=docTrees.getDocCommentTree(getCurrentPath());
+						if (docCommentTree!=null)
+						{
+							final int docContentStart=Math.toIntExact(docTrees.getSourcePositions().getStartPosition(getCurrentPath().getCompilationUnit(), docCommentTree, docCommentTree));
+							if (docContentStart==-1)
+							{
+								// this happens for empty comments
+								return;
+							}
+							final int docContentEnd=Math.toIntExact(docTrees.getSourcePositions().getEndPosition(getCurrentPath().getCompilationUnit(), docCommentTree, docCommentTree))+1;
+							final String docComment=ctx.getSourceString(docContentStart, docContentEnd).trim();
+							if (docComment.contains("@cope.") && !docComment.contains("@cope.generated"))
+							{
+								if (startMessage!=null)
+								{
+									System.out.println(startMessage);
+									startMessage=null;
+								}
+								System.out.println("  * "+positionForLog);
+								final int docStart=ctx.searchBefore(
+									docContentStart,
+									"/**".getBytes(StandardCharsets.US_ASCII)
+								);
+								final int docEnd=ctx.searchAfter(
+									docContentEnd-1,
+									"*/".getBytes(StandardCharsets.US_ASCII)
+								);
+								final int elementStart=Math.toIntExact(docTrees.getSourcePositions().getStartPosition(getCurrentPath().getCompilationUnit(), node));
+								final String betweenCommentAndElement=ctx.getSourceString(docEnd, elementStart);
+								final JavadocAndAnnotations javadocAndAnnotations=convert(docComment, betweenCommentAndElement);
+								if ( javadocAndAnnotations.javadoc.trim().isEmpty() )
+								{
+									// drop complete comment
+									final int lineSeparatorBeforeDocStart=ctx.searchBefore(docStart, lineSeparatorBytes);
+									final int lineStart=lineSeparatorBeforeDocStart==-1?0:lineSeparatorBeforeDocStart+lineSeparatorBytes.length;
+									final int lineEnd=ctx.searchAfter(docEnd-1, lineSeparatorBytes);
+									final String lineAfterComment=ctx.getSourceString(docEnd, lineEnd);
+									if (ctx.getSourceString(lineStart, docStart).trim().isEmpty() && lineAfterComment.trim().isEmpty())
+									{
+										// the comment is on its own line
+										replacements.addReplacement(
+											lineStart,
+											lineEnd,
+											""
+										);
+
+									}
+									else
+									{
+										// the comment is in-line
+										replacements.addReplacement(
+											docStart,
+											docEnd+countStartingWhitespace(lineAfterComment),
+											""
+										);
+									}
+								}
+								else
+								{
+									replacements.addReplacement(
+										docContentStart,
+										docContentEnd,
+										javadocAndAnnotations.javadoc
+									);
+								}
+								replacements.addReplacement(
+									elementStart,
+									elementStart,
+									javadocAndAnnotations.annotations
+								);
+							}
+						}
 					}
 
 					private int countStartingWhitespace(final String s)
@@ -216,14 +245,32 @@ final class ConvertTagsToAnnotations
 						final StringBuilder annotations=new StringBuilder();
 						int to=s.indexOf("@cope.");
 						final String javadoc=dropTrailingSpaceAndStar(s.substring(0, to));
+						final StringBuilder tagsForWrapperType=new StringBuilder();
 						while(true)
 						{
 							final int from=to;
 							to=s.indexOf("@cope.", from+1);
 							final String tag=dropTrailingSpaceAndStar(s.substring(from, to==-1?s.length():to)).trim();
-							annotations.append(convertTag(tag));
-							annotations.append(afterEachAnnotation);
+							if (tag.contains(CopeType.TAG_ACTIVATION_CONSTRUCTOR)
+								||tag.contains(CopeType.TAG_GENERIC_CONSTRUCTOR)
+								||tag.contains(CopeType.TAG_INDENT)
+								||tag.contains(CopeType.TAG_INITIAL_CONSTRUCTOR)
+								||tag.contains(CopeType.TAG_TYPE)
+								)
+							{
+								tagsForWrapperType.append(tag).append(System.lineSeparator());
+							}
+							else
+							{
+								annotations.append(convertTag(tag));
+								annotations.append(afterEachAnnotation);
+							}
 							if (to==-1) break;
+						}
+						if (tagsForWrapperType.length()>0)
+						{
+							annotations.append(formatAnnotation(Option.forType(tagsForWrapperType.toString())));
+							annotations.append(afterEachAnnotation);
 						}
 						return new JavadocAndAnnotations(javadoc, annotations.toString()+(afterEachAnnotation.isEmpty()?" ":""));
 					}
@@ -304,13 +351,13 @@ final class ConvertTagsToAnnotations
 			return true;
 		}
 
-		private String toJava(Object o)
+		private String toJava(final Object o)
 		{
 			if (o instanceof String)
 			{
 				return "\""+o+"\"";
 			}
-			else if (o instanceof Boolean)
+			else if (o instanceof Boolean || o instanceof Number)
 			{
 				return o.toString();
 			}
