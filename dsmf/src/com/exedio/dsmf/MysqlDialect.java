@@ -222,6 +222,11 @@ public final class MysqlDialect extends Dialect
 	void appendTableCreateStatement(final StringBuilder bf)
 	{
 		bf.append(ENGINE);
+		appendRowFormat(bf);
+	}
+
+	private void appendRowFormat(final StringBuilder bf)
+	{
 		if(rowFormat!=null)
 			bf.append(" ROW_FORMAT=").
 				append(rowFormat);
@@ -327,10 +332,7 @@ public final class MysqlDialect extends Dialect
 			ENGINE +
 			" COMMENT='cope_sequence_table'");
 
-		if(rowFormat!=null)
-			bf.append(" ROW_FORMAT=").
-				append(rowFormat);
-
+		appendRowFormat(bf);
 		initializeSequence(bf, sequenceName, start);
 	}
 
