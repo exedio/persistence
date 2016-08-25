@@ -27,6 +27,8 @@ import static com.exedio.cope.instrument.Tags.getLine;
 import static java.lang.Integer.parseInt;
 
 import java.lang.annotation.Annotation;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 final class Option
 {
@@ -112,10 +114,10 @@ final class Option
 		if(line==null)
 			return null;
 		else
-			return forFeatureLine(line);
+			return forFeatureLine(modifierTag, line);
 	}
 
-	static Wrapper forFeatureLine(final String line)
+	static Wrapper forFeatureLine(final String modifierTag, final String line)
 	{
 		final Visibility visibility = getVisibility(line);
 		final boolean internal = line.contains(TEXT_INTERNAL);
@@ -125,8 +127,8 @@ final class Option
 
 		return new Wrapper()
 		{
-			@Override public Class<? extends Annotation> annotationType() { throw new RuntimeException(); }
-			@Override public String wrap() { throw new RuntimeException(); }
+			@Override public Class<? extends Annotation> annotationType() { return Wrapper.class; }
+			@Override public String wrap() { return modifierTag; }
 			@Override public Visibility visibility() { return visibility; }
 			@Override public boolean internal() { return internal; }
 			@Override public boolean booleanAsIs() { return booleanAsIs; }
@@ -137,7 +139,7 @@ final class Option
 
 	private static final WrapperIgnore WRAPPER_IGNORE_INSTANCE = new WrapperIgnore()
 	{
-		@Override public Class<? extends Annotation> annotationType() { throw new RuntimeException(); }
+		@Override public Class<? extends Annotation> annotationType() { return WrapperIgnore.class; }
 	};
 
 	static WrapperIgnore forIgnore(final String docComment)
@@ -150,7 +152,7 @@ final class Option
 
 	private static final WrapperInitial WRAPPER_INITIAL_INSTANCE = new WrapperInitial()
 	{
-		@Override public Class<? extends Annotation> annotationType() { throw new RuntimeException(); }
+		@Override public Class<? extends Annotation> annotationType() { return WrapperInitial.class; }
 	};
 
 	static WrapperInitial forInitial(final String docComment)

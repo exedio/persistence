@@ -29,12 +29,12 @@ import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.lang.annotation.Annotation;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -245,64 +245,56 @@ final class ConvertTagsToAnnotations
 					{
 						if (tag.equals("@cope.initial"))
 						{
-							return formatAnnotation(WrapperInitial.class, Collections.emptyMap());
+							return formatAnnotation(Option.forInitial(tag));
 						}
 						else if (tag.equals("@cope.ignore"))
 						{
-							return formatAnnotation(WrapperIgnore.class, Collections.emptyMap());
+							return formatAnnotation(Option.forIgnore(tag));
 						}
 						else
 						{
 							final Pattern wrapPattern=Pattern.compile("@cope\\.([^ ]*)( +(none|public|protected|package|private|override|boolean-as-is|non-final|internal))+");
 							final Matcher matcher=wrapPattern.matcher(tag);
 							if (!matcher.matches()) throw new RuntimeException(">"+tag+"<");
-							final Wrapper option=Option.forFeatureLine(tag);
-
-							final Map<String,String> annotationValues=new LinkedHashMap<>();
-							annotationValues.put("wrap", "\""+matcher.group(1)+"\"");
-							if (option.visibility()!=Visibility.DEFAULT)
-							{
-								annotationValues.put("visibility", Visibility.class.getSimpleName()+"."+option.visibility());
-							}
-							if (!option.asFinal())
-							{
-								annotationValues.put("asFinal", "false");
-							}
-							if (option.booleanAsIs())
-							{
-								annotationValues.put("booleanAsIs", "true");
-							}
-							if (option.internal())
-							{
-								annotationValues.put("internal", "true");
-							}
-							if (option.override())
-							{
-								annotationValues.put("override", "true");
-							}
-							return formatAnnotation(Wrapper.class, annotationValues);
+							final Wrapper option=Option.forFeatureLine(matcher.group(1), tag);
+							return formatAnnotation(option);
 						}
 					}
 
-					private String formatAnnotation(final Class<? extends Annotation> annotationClass, final Map<String,String> values)
+					private <A extends Annotation> String formatAnnotation(final A annotation)
 					{
 						final StringBuilder result=new StringBuilder();
 						result.append("@");
-						result.append(annotationClass.getSimpleName());
-						if (!values.isEmpty())
+						result.append(annotation.annotationType().getSimpleName());
+						boolean parenthesis=false;
+						final Method[] annotationMembers=annotation.annotationType().getDeclaredMethods();
+						Arrays.sort(annotationMembers, new ConvertComparator("wrap"));
+						for (final Method m: annotationMembers)
 						{
-							result.append("(");
-							for (final Iterator<Map.Entry<String, String>> iter=values.entrySet().iterator(); iter.hasNext();)
+							try
 							{
-								final Map.Entry<String, String> next=iter.next();
-								result.append(next.getKey());
-								result.append("=");
-								result.append(next.getValue());
-								if (iter.hasNext())
+								final Object value=m.invoke(annotation);
+								if (!value.equals(m.getDefaultValue()))
 								{
-									result.append(", ");
+									if (!parenthesis)
+									{
+										parenthesis=true;
+										result.append("(");
+									}
+									else
+									{
+										result.append(", ");
+									}
+									result.append(m.getName()).append("=").append(toJava(value));
 								}
 							}
+							catch (InvocationTargetException|IllegalAccessException e)
+							{
+								throw new RuntimeException(e);
+							}
+						}
+						if (parenthesis)
+						{
 							result.append(")");
 						}
 						return result.toString();
@@ -310,6 +302,26 @@ final class ConvertTagsToAnnotations
 				}.scan(tp, null);
 			}
 			return true;
+		}
+
+		private String toJava(Object o)
+		{
+			if (o instanceof String)
+			{
+				return "\""+o+"\"";
+			}
+			else if (o instanceof Boolean)
+			{
+				return o.toString();
+			}
+			else if (o instanceof Enum)
+			{
+				return o.getClass().getSimpleName()+"."+o;
+			}
+			else
+			{
+				throw new RuntimeException(o.toString());
+			}
 		}
 	}
 
@@ -325,6 +337,33 @@ final class ConvertTagsToAnnotations
 		}
 	}
 
+	@SuppressFBWarnings("SE_COMPARATOR_SHOULD_BE_SERIALIZABLE")
+	private static class ConvertComparator implements Comparator<Method>
+	{
+		final String preferredName;
+
+		ConvertComparator(String preferredName)
+		{
+			this.preferredName=preferredName;
+		}
+
+		@Override
+		public int compare(Method o1, Method o2)
+		{
+			if (o1.getName().equals(preferredName))
+			{
+				return o2.getName().equals(preferredName)?0:-1;
+			}
+			else if (o2.getName().equals(preferredName))
+			{
+				return 1;
+			}
+			else
+			{
+				return o1.getName().compareTo(o2.getName());
+			}
+		}
+	}
 
 	private ConvertTagsToAnnotations()
 	{
