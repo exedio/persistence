@@ -389,13 +389,13 @@ final class ConvertTagsToAnnotations
 	{
 		final String preferredName;
 
-		ConvertComparator(String preferredName)
+		ConvertComparator(final String preferredName)
 		{
 			this.preferredName=preferredName;
 		}
 
 		@Override
-		public int compare(Method o1, Method o2)
+		public int compare(final Method o1, final Method o2)
 		{
 			if (o1.getName().equals(preferredName))
 			{
