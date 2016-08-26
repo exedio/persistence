@@ -414,6 +414,7 @@ final class Generator
 			final String featureNameCamelCase = toCamelCase(feature.name);
 			final boolean isStatic = wrapper.isStatic();
 			final boolean internal = option.internal();
+			final boolean override = option.override();
 			final boolean useIs = instance instanceof BooleanField && methodName.startsWith("get");
 
 			final Object[] arguments = new String[]{
@@ -507,14 +508,14 @@ final class Generator
 					throw new RuntimeException("invalid case");
 			}
 
-			if(option.override() && overrideOnSeparateLine)
+			if(override && overrideOnSeparateLine)
 			{
 				writeEmptyAnnotationOnSeparateLine(Override.class);
 			}
 
 			writeIndent();
 
-			if(option.override() && !overrideOnSeparateLine)
+			if(override && !overrideOnSeparateLine)
 			{
 				writeAnnotation(Override.class);
 				writeEmptyParenthesesForAnnotation();
