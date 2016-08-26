@@ -412,7 +412,6 @@ final class Generator
 			final Map<Class<? extends Throwable>, String[]> throwsClause = wrapper.getThrowsClause();
 			final String featureNameCamelCase = toCamelCase(feature.name);
 			final boolean isStatic = wrapper.isStatic();
-			final int modifier = feature.modifier;
 			final boolean useIs = instance instanceof BooleanField && methodName.startsWith("get");
 
 			final Object[] arguments = new String[]{
@@ -524,7 +523,7 @@ final class Generator
 					option.visibility().getModifier(
 							option.internal() && option.visibility().isDefault()
 							? PRIVATE
-							: modifier
+							: feature.modifier
 					) |
 					(isStatic ? STATIC : 0) |
 					(option.asFinal() ? FINAL : 0));
