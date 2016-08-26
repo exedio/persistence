@@ -413,6 +413,7 @@ final class Generator
 			final Map<Class<? extends Throwable>, String[]> throwsClause = wrapper.getThrowsClause();
 			final String featureNameCamelCase = toCamelCase(feature.name);
 			final boolean isStatic = wrapper.isStatic();
+			final boolean internal = option.internal();
 			final boolean useIs = instance instanceof BooleanField && methodName.startsWith("get");
 
 			final Object[] arguments = new String[]{
@@ -522,7 +523,7 @@ final class Generator
 
 			writeModifier(
 					visibility.getModifier(
-							option.internal() && visibility.isDefault()
+							internal && visibility.isDefault()
 							? PRIVATE
 							: feature.modifier
 					) |
@@ -558,7 +559,7 @@ final class Generator
 						writeName(methodName, featureNameCamelCase);
 				}
 			}
-			if(option.internal())
+			if(internal)
 				write("Internal");
 			write('(');
 			{
