@@ -102,7 +102,7 @@ public class Input extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	@javax.annotation.Nullable
-	public static final Input forUnique(@javax.annotation.Nonnull final java.lang.String string,@javax.annotation.Nonnull final int integer)
+	public static final Input forUnique(@javax.annotation.Nonnull final java.lang.String string,final int integer)
 	{
 		return Input.unique.search(Input.class,string,integer);
 	}/**

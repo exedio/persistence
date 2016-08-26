@@ -134,7 +134,7 @@ public class SchemaMismatchConstraintUniqueNameTest extends SchemaMismatchTest
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	@javax.annotation.Nullable
-	static final ItemA forUniqueA(@javax.annotation.Nonnull final int field1,@javax.annotation.Nonnull final int field2)
+	static final ItemA forUniqueA(final int field1,final int field2)
 	{
 		return ItemA.uniqueA.search(ItemA.class,field1,field2);
 	}/**
@@ -236,7 +236,7 @@ public class SchemaMismatchConstraintUniqueNameTest extends SchemaMismatchTest
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	@javax.annotation.Nullable
-	static final ItemB forUniqueB(@javax.annotation.Nonnull final int field1,@javax.annotation.Nonnull final int field2)
+	static final ItemB forUniqueB(final int field1,final int field2)
 	{
 		return ItemB.uniqueB.search(ItemB.class,field1,field2);
 	}/**

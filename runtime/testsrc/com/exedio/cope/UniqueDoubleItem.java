@@ -129,7 +129,7 @@ final class UniqueDoubleItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	@javax.annotation.Nullable
-	static final UniqueDoubleItem forConstraint(@javax.annotation.Nonnull final java.lang.String string,@javax.annotation.Nonnull final int integer)
+	static final UniqueDoubleItem forConstraint(@javax.annotation.Nonnull final java.lang.String string,final int integer)
 	{
 		return UniqueDoubleItem.constraint.search(UniqueDoubleItem.class,string,integer);
 	}/**

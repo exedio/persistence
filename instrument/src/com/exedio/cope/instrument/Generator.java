@@ -584,7 +584,10 @@ final class Generator
 							final JavaField parameterField = javaClass.getFieldByInstance(parameterInstance);
 							final CopeFeature parameterFeature = feature.parent.getFeature(parameterField.name);
 
-							writeParameterNullability(parameter);
+							if (!parameterFeature.isInitialTypePrimitive())
+							{
+								writeParameterNullability(parameter);
+							}
 							write(finalArgPrefix);
 							write(new Context(parameterFeature, false).write(parameterFeature.getInitialType()));
 							write(' ');

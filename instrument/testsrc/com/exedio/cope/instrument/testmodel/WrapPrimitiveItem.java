@@ -180,7 +180,7 @@ final class WrapPrimitiveItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	@javax.annotation.Nullable
-	static final WrapPrimitiveItem forMixed(@javax.annotation.Nonnull final int integer,@javax.annotation.Nonnull final java.util.Date date,@javax.annotation.Nonnull final java.lang.Integer integerOptional)
+	static final WrapPrimitiveItem forMixed(final int integer,@javax.annotation.Nonnull final java.util.Date date,@javax.annotation.Nonnull final java.lang.Integer integerOptional)
 	{
 		return WrapPrimitiveItem.mixed.search(WrapPrimitiveItem.class,integer,date,integerOptional);
 	}/**
@@ -269,7 +269,7 @@ final class WrapPrimitiveItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	@javax.annotation.Nullable
-	static final WrapPrimitiveItem forPrimitive(@javax.annotation.Nonnull final boolean booleanField,@javax.annotation.Nonnull final int integer,@javax.annotation.Nonnull final long longField,@javax.annotation.Nonnull final double doubleField)
+	static final WrapPrimitiveItem forPrimitive(final boolean booleanField,final int integer,final long longField,final double doubleField)
 	{
 		return WrapPrimitiveItem.primitive.search(WrapPrimitiveItem.class,booleanField,integer,longField,doubleField);
 	}/**

@@ -186,7 +186,7 @@ public final class NameSubItem extends NameLongItem
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	@javax.annotation.Nullable
-	static final NameSubItem forIntegers(@javax.annotation.Nonnull final int integer,@javax.annotation.Nonnull final NameSubItem item)
+	static final NameSubItem forIntegers(final int integer,@javax.annotation.Nonnull final NameSubItem item)
 	{
 		return NameSubItem.integers.search(NameSubItem.class,integer,item);
 	}/**
@@ -289,7 +289,7 @@ public final class NameSubItem extends NameLongItem
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	@javax.annotation.Nullable
-	static final NameSubItem forIntegersX(@javax.annotation.Nonnull final int integerX,@javax.annotation.Nonnull final NameSubItem itemX)
+	static final NameSubItem forIntegersX(final int integerX,@javax.annotation.Nonnull final NameSubItem itemX)
 	{
 		return NameSubItem.integersX.search(NameSubItem.class,integerX,itemX);
 	}/**

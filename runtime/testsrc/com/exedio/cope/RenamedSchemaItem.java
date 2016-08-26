@@ -202,7 +202,7 @@ package com.exedio.cope;
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	@javax.annotation.Nullable
-	static final RenamedSchemaItem forUniqueDouble(@javax.annotation.Nonnull final java.lang.String uniqueDouble1,@javax.annotation.Nonnull final int uniqueDouble2)
+	static final RenamedSchemaItem forUniqueDouble(@javax.annotation.Nonnull final java.lang.String uniqueDouble1,final int uniqueDouble2)
 	{
 		return RenamedSchemaItem.uniqueDouble.search(RenamedSchemaItem.class,uniqueDouble1,uniqueDouble2);
 	}/**
