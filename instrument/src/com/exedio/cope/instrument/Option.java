@@ -27,8 +27,6 @@ import static com.exedio.cope.instrument.Tags.getLine;
 import static java.lang.Integer.parseInt;
 
 import java.lang.annotation.Annotation;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 final class Option
 {
