@@ -32,6 +32,7 @@ public final class PostgresqlDialect extends Dialect
 	{
 		final String s = x.
 				replace("::bigint", "").
+				replace("::integer", "").
 				replace("::text[]", "").
 				replace("::\"text\"[]", "").
 				replace("::text", "").
@@ -52,6 +53,7 @@ public final class PostgresqlDialect extends Dialect
 				case ' ':
 				case '(':
 				case ')':
+				case '\'': // TODO because of "column">='-1'::integer, see bug 14296 https://www.postgresql.org/message-id/20160826144958.15674.41360%40wrigleys.postgresql.org
 					// omit character
 					// TODO do omit outside string literals only
 					break;
