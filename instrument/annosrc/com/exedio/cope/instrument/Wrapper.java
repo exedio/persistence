@@ -34,7 +34,8 @@ public @interface Wrapper
 	/**
 	 * Overrides the visibility of the generated wrapper method.
 	 * The visibility {@link Visibility#DEFAULT defaults} to
-	 * the visibility of the feature.
+	 * the visibility of the feature,
+	 * unless {@link #internal() internal} is set.
 	 */
 	Visibility visibility() default Visibility.DEFAULT;
 
