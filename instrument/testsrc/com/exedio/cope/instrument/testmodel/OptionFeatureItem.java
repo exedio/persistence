@@ -76,7 +76,10 @@ public final class OptionFeatureItem extends OptionFeatureSuperItem
 
 	// boolean-as-is
 
-	/** @cope.get boolean-as-is */
+	/**
+	 * @cope.get boolean-as-is
+	 * @cope.set boolean-as-is
+	 */
 	static final BooleanField booleanAs = new BooleanField();
 
 	/** @cope.get boolean-as-is */
