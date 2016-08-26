@@ -400,7 +400,8 @@ final class Generator
 			final String modifierTag = wrapper.getOptionTagName()!=null ? wrapper.getOptionTagName() : pattern!=null ? format(pattern, "", "") : wrapper.getName();
 			final Wrapper option = feature.getOption(modifierTag);
 
-			if(!option.visibility().exists())
+			final Visibility visibility = option.visibility();
+			if(!visibility.exists())
 				continue;
 			if(feature.parent.isBlock && wrapper.hasStaticClassToken())
 				continue;
@@ -520,8 +521,8 @@ final class Generator
 			}
 
 			writeModifier(
-					option.visibility().getModifier(
-							option.internal() && option.visibility().isDefault()
+					visibility.getModifier(
+							option.internal() && visibility.isDefault()
 							? PRIVATE
 							: feature.modifier
 					) |
