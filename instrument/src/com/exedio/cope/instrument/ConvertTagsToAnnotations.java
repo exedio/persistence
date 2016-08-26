@@ -351,7 +351,7 @@ final class ConvertTagsToAnnotations
 			return true;
 		}
 
-		private String toJava(final Object o)
+		private static String toJava(final Object o)
 		{
 			if (o instanceof String)
 			{
