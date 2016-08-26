@@ -9,9 +9,10 @@
             <!-- Do not use Project Properties customizer when editing this file manually. -->
             <name>cope</name>
             <properties>
-					<property-file>nbproject/project.properties</property-file>
-					<property-file>nbproject/local.properties</property-file>
-				</properties>
+                <property-file>nbproject/project.properties</property-file>
+                <property-file>nbproject/local.properties</property-file>
+                <property name="libraries">${ant_jar}:${java.home}/../lib/tools.jar:lib/bsh-src.jar:lib/commons-fileupload.jar:lib/commons-io.jar:lib/bsh-core.jar:lib/javax.servlet-api.jar:lib/exedio-cope-util.jar:lib/exedio-cope-util.jar-src.zip:lib/junit.jar:lib/hsqldb.jar:lib/mysql-connector-java-5.0.3-bin.jar:lib/postgresql-8.1-404.jdbc3.jar:lib/exedio-cops.jar:lib/ant-contrib.jar:lib/exedio-cope-console.jar:lib/exedio-cops.jar-src.zip:lib/exedio-jspm.jar:lib/findbugs-annotations.jar:lib/log4j.jar:lib/javax.servlet-api-source.jar:lib/trove-src.jar:lib/trove.jar:lib/slf4j-api.jar:lib/slf4j-api-source.jar:lib/cpsuite.jar:lib/cpsuite-src.zip:lib/trove4j.jar:lib/trove4j-source.jar:lib/log4j-bundle.jar:lib/exedio-cope-servletutil.jar:lib/exedio-cope-servletutil-src.zip</property>
+            </properties>
             <folders>
                 <source-folder>
                     <label>cope</label>
@@ -37,18 +38,6 @@
                     <encoding>UTF-8</encoding>
                 </source-folder>
                 <source-folder>
-                    <label>instrument/testfeaturesrc</label>
-                    <type>java</type>
-                    <location>instrument/testfeaturesrc</location>
-                    <encoding>UTF-8</encoding>
-                </source-folder>
-                <source-folder>
-                    <label>instrument/testsrc</label>
-                    <type>java</type>
-                    <location>instrument/testsrc</location>
-                    <encoding>UTF-8</encoding>
-                </source-folder>
-                <source-folder>
                     <label>runtime/src</label>
                     <type>java</type>
                     <location>runtime/src</location>
@@ -61,27 +50,9 @@
                     <encoding>UTF-8</encoding>
                 </source-folder>
                 <source-folder>
-                    <label>runtime/testsrc</label>
-                    <type>java</type>
-                    <location>runtime/testsrc</location>
-                    <encoding>UTF-8</encoding>
-                </source-folder>
-                <source-folder>
                     <label>runtime/servletsrc</label>
                     <type>java</type>
                     <location>runtime/servletsrc</location>
-                    <encoding>UTF-8</encoding>
-                </source-folder>
-                <source-folder>
-                    <label>runtime/servlettestsrc</label>
-                    <type>java</type>
-                    <location>runtime/servlettestsrc</location>
-                    <encoding>UTF-8</encoding>
-                </source-folder>
-                <source-folder>
-                    <label>runtime/servlettestwebsrc</label>
-                    <type>java</type>
-                    <location>runtime/servlettestwebsrc</location>
                     <encoding>UTF-8</encoding>
                 </source-folder>
                 <source-folder>
@@ -91,51 +62,9 @@
                     <encoding>UTF-8</encoding>
                 </source-folder>
                 <source-folder>
-                    <label>runtime/testfeaturesrc</label>
-                    <type>java</type>
-                    <location>runtime/testfeaturesrc</location>
-                    <encoding>UTF-8</encoding>
-                </source-folder>
-                <source-folder>
-                    <label>copernica/webtestsrc</label>
-                    <type>java</type>
-                    <location>copernica/webtestsrc</location>
-                    <encoding>UTF-8</encoding>
-                </source-folder>
-                <source-folder>
-                    <label>copernica/testsrc</label>
-                    <type>java</type>
-                    <location>copernica/testsrc</location>
-                    <encoding>UTF-8</encoding>
-                </source-folder>
-                <source-folder>
-                    <label>console/src</label>
-                    <type>java</type>
-                    <location>console/src</location>
-                    <encoding>UTF-8</encoding>
-                </source-folder>
-                <source-folder>
-                    <label>console/websrc</label>
-                    <type>java</type>
-                    <location>console/websrc</location>
-                    <encoding>UTF-8</encoding>
-                </source-folder>
-                <source-folder>
-                    <label>console/testsrc</label>
-                    <type>java</type>
-                    <location>console/testsrc</location>
-                    <encoding>UTF-8</encoding>
-                </source-folder>
-                <source-folder>
                     <label>dsmf/src</label>
                     <type>java</type>
                     <location>dsmf/src</location>
-                    <encoding>UTF-8</encoding>
-                </source-folder>
-                <source-folder>
-                    <label>dsmf/testsrc</label>
-                    <type>java</type>
-                    <location>dsmf/testsrc</location>
                     <encoding>UTF-8</encoding>
                 </source-folder>
                 <source-folder>
@@ -150,12 +79,54 @@
                     <location>runtime/postgresqlsrc</location>
                     <encoding>UTF-8</encoding>
                 </source-folder>
+                <source-folder>
+                    <label>instrument\testfeaturesrc</label>
+                    <type>java</type>
+                    <location>instrument/testfeaturesrc</location>
+                    <encoding>UTF-8</encoding>
+                </source-folder>
+                <source-folder>
+                    <label>instrument\testsrc</label>
+                    <type>java</type>
+                    <location>instrument/testsrc</location>
+                    <encoding>UTF-8</encoding>
+                </source-folder>
+                <source-folder>
+                    <label>runtime\testsrc</label>
+                    <type>java</type>
+                    <location>runtime/testsrc</location>
+                    <encoding>UTF-8</encoding>
+                </source-folder>
+                <source-folder>
+                    <label>runtime\testfeaturesrc</label>
+                    <type>java</type>
+                    <location>runtime/testfeaturesrc</location>
+                    <encoding>UTF-8</encoding>
+                </source-folder>
+                <source-folder>
+                    <label>runtime\servlettestsrc</label>
+                    <type>java</type>
+                    <location>runtime/servlettestsrc</location>
+                    <encoding>UTF-8</encoding>
+                </source-folder>
+                <source-folder>
+                    <label>runtime\servlettestwebsrc</label>
+                    <type>java</type>
+                    <location>runtime/servlettestwebsrc</location>
+                    <encoding>UTF-8</encoding>
+                </source-folder>
+                <source-folder>
+                    <label>dsmf\testsrc</label>
+                    <type>java</type>
+                    <location>dsmf/testsrc</location>
+                    <encoding>UTF-8</encoding>
+                </source-folder>
             </folders>
             <ide-actions>
                 <action name="build">
-                   <target>compile</target>
-                   <target>runtime.test.readyToRun</target>
-                   <target>instrument.test.compile</target>
+                    <target>compile</target>
+                    <target>runtime.test.readyToRun</target>
+                    <target>instrument.test.compile</target>
                 </action>
                 <action name="clean">
                     <target>clean</target>
@@ -165,9 +136,9 @@
                 </action>
                 <action name="rebuild">
                     <target>clean</target>
-                   <target>compile</target>
-                   <target>runtime.test.readyToRun</target>
-                   <target>instrument.test.compile</target>
+                    <target>compile</target>
+                    <target>runtime.test.readyToRun</target>
+                    <target>instrument.test.compile</target>
                 </action>
                 <action name="test.single">
                     <target>instrument.test</target>
@@ -193,6 +164,30 @@
                         </arity>
                     </context>
                 </action>
+                <action name="run.single.method">
+                    <target>instrument.test</target>
+                    <context>
+                        <property>instrument.test</property>
+                        <folder>instrument/testsrc</folder>
+                        <pattern>.*\.java$</pattern>
+                        <format>java-name</format>
+                        <arity>
+                            <one-file-only/>
+                        </arity>
+                    </context>
+                </action>
+					 <action name="run.single.method">
+						 <target>runtime.test.withEnv</target>
+                    <context>
+                        <property>runtime.test.withEnv</property>
+                        <folder>runtime/testsrc</folder>
+                        <pattern>\.java$</pattern>
+                        <format>java-name</format>
+                        <arity>
+                            <one-file-only/>
+                        </arity>
+                    </context>
+					 </action>
             </ide-actions>
             <view>
                 <items>
@@ -205,20 +200,8 @@
                         <location>instrument/src</location>
                     </source-folder>
                     <source-folder style="packages">
-                        <label>instrument/examplesrc</label>
-                        <location>instrument/examplesrc</location>
-                    </source-folder>
-                    <source-folder style="packages">
                         <label>instrument/antsrc</label>
                         <location>instrument/antsrc</location>
-                    </source-folder>
-                    <source-folder style="packages">
-                        <label>instrument/testfeaturesrc</label>
-                        <location>instrument/testfeaturesrc</location>
-                    </source-folder>
-                    <source-folder style="packages">
-                        <label>instrument/testsrc</label>
-                        <location>instrument/testsrc</location>
                     </source-folder>
                     <source-folder style="packages">
                         <label>runtime/src</label>
@@ -229,48 +212,16 @@
                         <location>runtime/patternsrc</location>
                     </source-folder>
                     <source-folder style="packages">
-                        <label>runtime/testsrc</label>
-                        <location>runtime/testsrc</location>
-                    </source-folder>
-                    <source-folder style="packages">
                         <label>runtime/servletsrc</label>
                         <location>runtime/servletsrc</location>
-                    </source-folder>
-                    <source-folder style="packages">
-                        <label>runtime/servlettestsrc</label>
-                        <location>runtime/servlettestsrc</location>
-                    </source-folder>
-                    <source-folder style="packages">
-                        <label>runtime/servlettestwebsrc</label>
-                        <location>runtime/servlettestwebsrc</location>
                     </source-folder>
                     <source-folder style="packages">
                         <label>runtime/junitsrc</label>
                         <location>runtime/junitsrc</location>
                     </source-folder>
                     <source-folder style="packages">
-                        <label>runtime/testfeaturesrc</label>
-                        <location>runtime/testfeaturesrc</location>
-                    </source-folder>
-                    <source-folder style="packages">
-                        <label>copernica/webtestsrc</label>
-                        <location>copernica/webtestsrc</location>
-                    </source-folder>
-                    <source-folder style="packages">
-                        <label>copernica/testsrc</label>
-                        <location>copernica/testsrc</location>
-                    </source-folder>
-                    <source-folder style="packages">
-                        <label>console/src</label>
-                        <location>console/src</location>
-                    </source-folder>
-                    <source-folder style="packages">
-                        <label>console/websrc</label>
-                        <location>console/websrc</location>
-                    </source-folder>
-                    <source-folder style="packages">
-                        <label>console/testsrc</label>
-                        <location>console/testsrc</location>
+                        <label>dsmf/src</label>
+                        <location>dsmf/src</location>
                     </source-folder>
                     <source-folder style="packages">
                         <label>runtime/mysqlsrc</label>
@@ -281,11 +232,31 @@
                         <location>runtime/postgresqlsrc</location>
                     </source-folder>
                     <source-folder style="packages">
-                        <label>dsmf/src</label>
-                        <location>dsmf/src</location>
+                        <label>instrument\testfeaturesrc</label>
+                        <location>instrument/testfeaturesrc</location>
                     </source-folder>
                     <source-folder style="packages">
-                        <label>dsmf/testsrc</label>
+                        <label>instrument\testsrc</label>
+                        <location>instrument/testsrc</location>
+                    </source-folder>
+                    <source-folder style="packages">
+                        <label>runtime\testsrc</label>
+                        <location>runtime/testsrc</location>
+                    </source-folder>
+                    <source-folder style="packages">
+                        <label>runtime\testfeaturesrc</label>
+                        <location>runtime/testfeaturesrc</location>
+                    </source-folder>
+                    <source-folder style="packages">
+                        <label>runtime\servlettestsrc</label>
+                        <location>runtime/servlettestsrc</location>
+                    </source-folder>
+                    <source-folder style="packages">
+                        <label>runtime\servlettestwebsrc</label>
+                        <location>runtime/servlettestwebsrc</location>
+                    </source-folder>
+                    <source-folder style="packages">
+                        <label>dsmf\testsrc</label>
                         <location>dsmf/testsrc</location>
                     </source-folder>
                     <source-file>
@@ -310,30 +281,29 @@
         </general-data>
         <java-data xmlns="http://www.netbeans.org/ns/freeform-project-java/4">
             <compilation-unit>
+                <package-root>instrument/annosrc</package-root>
+                <package-root>instrument/src</package-root>
+                <package-root>instrument/antsrc</package-root>
                 <package-root>runtime/src</package-root>
                 <package-root>runtime/patternsrc</package-root>
-                <package-root>runtime/testsrc</package-root>
                 <package-root>runtime/servletsrc</package-root>
-                <package-root>runtime/servlettestsrc</package-root>
-                <package-root>runtime/servlettestwebsrc</package-root>
                 <package-root>runtime/junitsrc</package-root>
-                <package-root>runtime/testfeaturesrc</package-root>
-                <package-root>copernica/webtestsrc</package-root>
-                <package-root>copernica/testsrc</package-root>
-                <package-root>console/src</package-root>
-                <package-root>console/websrc</package-root>
-                <package-root>console/testsrc</package-root>
                 <package-root>dsmf/src</package-root>
-                <package-root>dsmf/testsrc</package-root>
                 <package-root>runtime/mysqlsrc</package-root>
                 <package-root>runtime/postgresqlsrc</package-root>
-                <package-root>instrument/src</package-root>
-                <package-root>instrument/examplesrc</package-root>
-                <package-root>instrument/annosrc</package-root>
-                <package-root>instrument/antsrc</package-root>
+                <classpath mode="compile">${libraries}</classpath>
+                <source-level>1.8</source-level>
+            </compilation-unit>
+            <compilation-unit>
                 <package-root>instrument/testfeaturesrc</package-root>
                 <package-root>instrument/testsrc</package-root>
-                <classpath mode="compile">${ant_jar}:${java.home}/../lib/tools.jar:lib/bsh-src.jar:lib/commons-fileupload.jar:lib/commons-io.jar:lib/bsh-core.jar:lib/javax.servlet-api.jar:lib/exedio-cope-util.jar:lib/exedio-cope-util.jar-src.zip:lib/junit.jar:lib/hsqldb.jar:lib/mysql-connector-java-5.0.3-bin.jar:lib/postgresql-8.1-404.jdbc3.jar:lib/exedio-cops.jar:lib/ant-contrib.jar:lib/exedio-cope-console.jar:lib/exedio-cops.jar-src.zip:lib/exedio-jspm.jar:lib/findbugs-annotations.jar:lib/log4j.jar:lib/javax.servlet-api-source.jar:lib/trove-src.jar:lib/trove.jar:lib/slf4j-api.jar:lib/slf4j-api-source.jar:lib/cpsuite.jar:lib/cpsuite-src.zip:lib/trove4j.jar:lib/trove4j-source.jar:lib/log4j-bundle.jar:lib/exedio-cope-servletutil.jar:lib/exedio-cope-servletutil-src.zip</classpath>
+                <package-root>runtime/testsrc</package-root>
+                <package-root>runtime/testfeaturesrc</package-root>
+                <package-root>runtime/servlettestsrc</package-root>
+                <package-root>runtime/servlettestwebsrc</package-root>
+                <package-root>dsmf/testsrc</package-root>
+                <unit-tests/>
+                <classpath mode="compile">${libraries}:instrument/annosrc:instrument/src:instrument/antsrc:runtime/src:runtime/patternsrc:runtime/servletsrc:runtime/junitsrc:dsmf/src:runtime/mysqlsrc:runtime/postgresqlsrc</classpath>
                 <source-level>1.8</source-level>
             </compilation-unit>
         </java-data>

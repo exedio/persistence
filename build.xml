@@ -75,7 +75,8 @@
 				<formatter type="brief" usefile="false" />
 				<formatter type="xml" />
 				<classpath />
-				<test name="@{test}" todir="build/testresults" outfile="@{test}-@{env}" />
+				<test name="@{test}" methods="${method}" todir="build/testresults" outfile="@{test}-@{env}" if="method"/>
+				<test name="@{test}"                     todir="build/testresults" outfile="@{test}-@{env}" unless="method"/>
 				<sysproperty key="java.io.tmpdir" value="${basedir}/build/testtmpdir" />
 				<sysproperty key="user.timezone" value="${test-DefaultTimeZone}" />
 				<sysproperty key="tomcat.port.http" value="${tomcat.port.http}" />
