@@ -26,7 +26,7 @@ The items are sorted inversely, i.e. latest items are on top
 	<instrument configByTags="support|warn|error|ignore|convertToAnnotations"> (default is "warn")
 	Steps for migrating from tags to annotations:
 	1. <instrument configByTags="support"> - verify that everthing works as before
-	2. <instrument configByTags="convertToAnnotations"> - run once to get feature-level tags auto-transformed
+	2. <instrument configByTags="convertToAnnotations"> - run once to get tags auto-transformed into annotations
 	3. <instrument configByTags="support"> - manually fix imports for auto-transformed annotations
 	4. <instrument configByTags="error"> - manually convert type-level tags
 * bugfix: in instrumentor tags "internal" together with "package", "protected",
