@@ -21,6 +21,7 @@ package com.exedio.cope.instrument;
 import com.sun.source.doctree.DocCommentTree;
 import com.sun.source.tree.ClassTree;
 import com.sun.source.tree.CompilationUnitTree;
+import com.sun.source.tree.ImportTree;
 import com.sun.source.tree.Tree;
 import com.sun.source.tree.VariableTree;
 import com.sun.source.util.DocTrees;
@@ -37,7 +38,10 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
+import java.util.TreeSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.annotation.processing.AbstractProcessor;
@@ -95,30 +99,12 @@ final class ConvertTagsToAnnotations
 			return true;
 		}
 
-		private static String toJava(final Object o)
-		{
-			if (o instanceof String)
-			{
-				return "\""+o+"\"";
-			}
-			else if (o instanceof Boolean || o instanceof Number)
-			{
-				return o.toString();
-			}
-			else if (o instanceof Enum)
-			{
-				return o.getClass().getSimpleName()+"."+o;
-			}
-			else
-			{
-				throw new RuntimeException(o.toString());
-			}
-		}
-
 		private class ConvertScanner extends TreePathScanner<Void, Void>
 		{
 			private final DocTrees docTrees;
 			final ByteReplacements replacements=new ByteReplacements();
+			final Set<String> requiredAnnotationClassImports=new HashSet<>();
+			final Set<String> requiredVisibilityEnumImport=new HashSet<>();
 
 			TreeApiContext ctx;
 			String startMessage=null;
@@ -128,6 +114,19 @@ final class ConvertTagsToAnnotations
 			ConvertScanner(final DocTrees docTrees)
 			{
 				this.docTrees=docTrees;
+			}
+
+			private void requireImport(final Annotation a)
+			{
+				requiredAnnotationClassImports.add(a.annotationType().getName());
+			}
+
+			private void requireImport(final Visibility v)
+			{
+				if (v!=null)
+				{
+					requiredVisibilityEnumImport.add(v.getClass().getName()+"."+v.name());
+				}
 			}
 
 			@Override
@@ -146,20 +145,22 @@ final class ConvertTagsToAnnotations
 						throw new RuntimeException(fileName);
 					}
 				}
-				startMessage="* "+((ClassTree)path.getLeaf()).getSimpleName();
+				final ClassTree classTree=(ClassTree)path.getLeaf();
+				startMessage="* "+classTree.getSimpleName();
 				if (ctx!=null) throw new RuntimeException();
 				ctx=new TreeApiContext(null, processingEnv, null, path.getCompilationUnit());
 
 				final Void result=super.scan(path, p);
 				if (!replacements.isEmpty())
 				{
-					final byte[] newSource=replacements.applyReplacements(ctx.getAllBytes());
+					final byte[] withAnnotations=replacements.applyReplacements(ctx.getAllBytes());
+					final byte[] withImports=addImports(withAnnotations);
 					try
 					{
 						final JavaFileObject f=path.getCompilationUnit().getSourceFile();
 						try (final OutputStream os=f.openOutputStream())
 						{
-							os.write(newSource);
+							os.write(withImports);
 						}
 					}
 					catch (final IOException e)
@@ -168,6 +169,42 @@ final class ConvertTagsToAnnotations
 					}
 				}
 				return result;
+			}
+
+			private byte[] addImports(final byte[] original)
+			{
+				final Set<String> staticImports=new TreeSet<>();
+				staticImports.addAll(ctx.getImports(true));
+				staticImports.addAll(requiredVisibilityEnumImport);
+
+				final Set<String> nonStaticImports=new TreeSet<>();
+				nonStaticImports.addAll(ctx.getImports(false));
+				nonStaticImports.addAll(requiredAnnotationClassImports);
+
+				final StringBuilder newImports=new StringBuilder();
+				final String lineSeparator=new String(lineSeparatorBytes, StandardCharsets.US_ASCII);
+				for (final String staticImport: staticImports)
+				{
+					newImports.append("import static ").append(staticImport).append(";").append(lineSeparator);
+				}
+				if (!staticImports.isEmpty() && !nonStaticImports.isEmpty())
+				{
+					newImports.append(lineSeparator);
+				}
+				for (Iterator<String> iter=nonStaticImports.iterator(); iter.hasNext();)
+				{
+					final String nonStaticImport=iter.next();
+					newImports.append("import ").append(nonStaticImport).append(";");
+					if (iter.hasNext()) newImports.append(lineSeparator);
+				}
+				final ByteReplacements importReplacements=new ByteReplacements();
+				final int importsStart=Math.toIntExact(ctx.getImportsStartPosition());
+				final int importsEnd=Math.toIntExact(ctx.getImportsEndPosition());
+				final boolean didHaveImports=importsStart!=importsEnd;
+				importReplacements.addReplacement(importsStart, importsEnd,
+					(didHaveImports?"":lineSeparator)+newImports.toString()+(didHaveImports?"":lineSeparator)
+				);
+				return importReplacements.applyReplacements(original);
 			}
 
 			@Override
@@ -369,6 +406,7 @@ final class ConvertTagsToAnnotations
 
 			private <A extends Annotation> String formatAnnotation(final A annotation)
 			{
+				requireImport(annotation);
 				final StringBuilder result=new StringBuilder();
 				result.append("@");
 				result.append(annotation.annotationType().getSimpleName());
@@ -415,6 +453,29 @@ final class ConvertTagsToAnnotations
 				}
 				System.out.println("  * "+message);
 			}
+
+			private String toJava(final Object o)
+			{
+				if (o instanceof String)
+				{
+					return "\""+o+"\"";
+				}
+				else if (o instanceof Boolean || o instanceof Number)
+				{
+					return o.toString();
+				}
+				else if (o instanceof Visibility)
+				{
+					final Visibility visibility=(Visibility)o;
+					requireImport(visibility);
+					return (visibility).name();
+				}
+				else
+				{
+					throw new RuntimeException(o.toString());
+				}
+			}
+
 		}
 	}
 

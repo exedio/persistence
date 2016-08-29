@@ -79,6 +79,8 @@ public class ConvertProcessorTest
 				"}"
 			),
 			lines(
+				"",
+				"import com.exedio.cope.instrument.WrapperIgnore;",
 				"class A",
 				"{",
 				"	/**",
@@ -104,6 +106,8 @@ public class ConvertProcessorTest
 				"}"
 			),
 			lines(
+				"",
+				"import com.exedio.cope.instrument.WrapperIgnore;",
 				"class A",
 				"{",
 				"	@WrapperIgnore",
@@ -124,6 +128,8 @@ public class ConvertProcessorTest
 				"}"
 			),
 			lines(
+				"",
+				"import com.exedio.cope.instrument.WrapperIgnore;",
 				"class A",
 				"{",
 				"	@WrapperIgnore",
@@ -138,6 +144,9 @@ public class ConvertProcessorTest
 		assertConversion(
 			lines(
 				"package x;",
+				"",
+				"import java.util.Collection;",
+				"",
 				"/** @cope.constructor public */",
 				"class A",
 				"{",
@@ -145,7 +154,13 @@ public class ConvertProcessorTest
 			),
 			lines(
 				"package x;",
-				"@WrapperType(constructor=Visibility.PUBLIC)",
+				"",
+				"import static com.exedio.cope.instrument.Visibility.PUBLIC;",
+				"",
+				"import com.exedio.cope.instrument.WrapperType;",
+				"import java.util.Collection;",
+				"",
+				"@WrapperType(constructor=PUBLIC)",
 				"class A",
 				"{",
 				"}"
@@ -175,7 +190,11 @@ public class ConvertProcessorTest
 				"/** @cope.type private */ class A {}"
 			),
 			lines(
-				"@WrapperType(type=Visibility.PRIVATE) class A {}"
+				"",
+				"import static com.exedio.cope.instrument.Visibility.PRIVATE;",
+				"",
+				"import com.exedio.cope.instrument.WrapperType;",
+				"@WrapperType(type=PRIVATE) class A {}"
 			)
 		);
 	}
@@ -185,6 +204,7 @@ public class ConvertProcessorTest
 		assertConversion(
 			lines(
 				"package x;",
+				"",
 				"/**",
 				" * @cope.type private",
 				" * @cope.constructor private",
@@ -196,7 +216,14 @@ public class ConvertProcessorTest
 			),
 			lines(
 				"package x;",
-				"@WrapperType(activationConstructor=Visibility.PACKAGE, constructor=Visibility.PRIVATE, genericConstructor=Visibility.PUBLIC, indent=2, type=Visibility.PRIVATE)",
+				"",
+				"import static com.exedio.cope.instrument.Visibility.PACKAGE;",
+				"import static com.exedio.cope.instrument.Visibility.PRIVATE;",
+				"import static com.exedio.cope.instrument.Visibility.PUBLIC;",
+				"",
+				"import com.exedio.cope.instrument.WrapperType;",
+				"",
+				"@WrapperType(activationConstructor=PACKAGE, constructor=PRIVATE, genericConstructor=PUBLIC, indent=2, type=PRIVATE)",
 				"class A {}"
 			)
 		);
@@ -233,9 +260,13 @@ public class ConvertProcessorTest
 				"}"
 			),
 			lines(
+				"",
+				"import static com.exedio.cope.instrument.Visibility.PUBLIC;",
+				"",
+				"import com.exedio.cope.instrument.Wrapper;",
 				"class A",
 				"{",
-				"	@Wrapper(wrap=\"xyz\", visibility=Visibility.PUBLIC) int j;",
+				"	@Wrapper(wrap=\"xyz\", visibility=PUBLIC) int j;",
 				"}"
 			)
 		);
