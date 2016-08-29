@@ -20,6 +20,7 @@ package com.exedio.cope.instrument;
 
 import com.sun.source.doctree.DocCommentTree;
 import com.sun.source.tree.ClassTree;
+import com.sun.source.tree.CompilationUnitTree;
 import com.sun.source.tree.Tree;
 import com.sun.source.tree.VariableTree;
 import com.sun.source.util.DocTrees;
@@ -102,6 +103,18 @@ final class ConvertTagsToAnnotations
 					@SuppressWarnings("synthetic-access")
 					public Void scan(final TreePath path, final Void p)
 					{
+						if (path.getLeaf() instanceof CompilationUnitTree)
+						{
+							final String fileName=((CompilationUnitTree)path.getLeaf()).getSourceFile().getName();
+							if (fileName.endsWith("package-info.java"))
+							{
+								return null;
+							}
+							else
+							{
+								throw new RuntimeException(fileName);
+							}
+						}
 						startMessage="* "+((ClassTree)path.getLeaf()).getSimpleName();
 						if (ctx!=null) throw new RuntimeException();
 						ctx=new TreeApiContext(null, processingEnv, null, path.getCompilationUnit());
