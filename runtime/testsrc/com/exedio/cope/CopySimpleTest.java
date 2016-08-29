@@ -274,28 +274,19 @@ public class CopySimpleTest extends TestWithEnvironment
 		check();
 	}
 
-	@Test public void testWrongStringOmittedCopy()
+	@Test public void testOkStringOmittedCopy()
 	{
 		final CopyValue value = new CopyValue();
 		final CopySimpleTarget target = new CopySimpleTarget("template1", "otherString1", value, new CopyValue());
-		try
-		{
-			CopySimpleSource.omitCopy(target);
-			fail();
-		}
-		catch(final CopyViolationException e)
-		{
-			assertFails(
-					templateStringCopyFromTarget, "template1", null, target,
-					"copy violation on " + templateStringCopyFromTarget + ", " +
-					"expected 'template1' " +
-					"from target " + target.getCopeID() + ", " +
-					"but was null", e);
-		}
+
+		final CopySimpleSource source = CopySimpleSource.omitCopy(target);
+		assertEquals(target, source.getTargetItem());
+		assertEquals("template1", source.getTemplateString());
+		assertEquals(value, source.getTemplateItem());
 		assertBeforeNewCopeItem(
 				CopySimpleSource.targetItem.map(target));
 
-		assertContains(TYPE.search());
+		assertContains(source, TYPE.search());
 		check();
 	}
 

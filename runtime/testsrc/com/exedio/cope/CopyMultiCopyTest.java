@@ -146,25 +146,16 @@ public class CopyMultiCopyTest extends TestWithEnvironment
 		assertContains(TYPE.search());
 	}
 
-	@Test public void testWrongCopyAOmitted()
+	@Test public void testOkCopyAOmitted()
 	{
 		final CopyMultiCopyTarget target =
 				new CopyMultiCopyTarget("targetValueA", "targetValueB");
-		try
-		{
-			createB("targetValueB", target);
-			fail();
-		}
-		catch(final CopyViolationException e)
-		{
-			assertFails(
-					constraintA, "targetValueA", null, target,
-					"copy violation on " + constraintA + ", " +
-					"expected 'targetValueA' " +
-					"from target " + target.getCopeID() + ", " +
-					"but was null", e);
-		}
-		assertContains(TYPE.search());
+
+		final CopyMultiCopySource source = createB("targetValueB", target);
+		assertEquals("targetValueA", source.getCopyA());
+		assertEquals("targetValueB", source.getCopyB());
+		assertEquals(target, source.getTarget());
+		assertContains(source, TYPE.search());
 	}
 
 	@Test public void testWrongCopyBNull()
@@ -188,25 +179,16 @@ public class CopyMultiCopyTest extends TestWithEnvironment
 		assertContains(TYPE.search());
 	}
 
-	@Test public void testWrongCopyBOmitted()
+	@Test public void testOkCopyBOmitted()
 	{
 		final CopyMultiCopyTarget target =
 				new CopyMultiCopyTarget("targetValueA", "targetValueB");
-		try
-		{
-			createA("targetValueA", target);
-			fail();
-		}
-		catch(final CopyViolationException e)
-		{
-			assertFails(
-					constraintB, "targetValueB", null, target,
-					"copy violation on " + constraintB + ", " +
-					"expected 'targetValueB' " +
-					"from target " + target.getCopeID() + ", " +
-					"but was null", e);
-		}
-		assertContains(TYPE.search());
+
+		final CopyMultiCopySource source = createA("targetValueA", target);
+		assertEquals("targetValueA", source.getCopyA());
+		assertEquals("targetValueB", source.getCopyB());
+		assertEquals(target, source.getTarget());
+		assertContains(source, TYPE.search());
 	}
 
 	@Test public void testWrongCopyABNull()
@@ -230,24 +212,15 @@ public class CopyMultiCopyTest extends TestWithEnvironment
 		assertContains(TYPE.search());
 	}
 
-	@Test public void testWrongCopyABOmitted()
+	@Test public void testOkCopyABOmitted()
 	{
 		final CopyMultiCopyTarget target =
 				new CopyMultiCopyTarget("targetValueA", "targetValueB");
-		try
-		{
-			create(target);
-			fail();
-		}
-		catch(final CopyViolationException e)
-		{
-			assertFails(
-					constraintA, "targetValueA", null, target,
-					"copy violation on " + constraintA + ", " +
-					"expected 'targetValueA' " +
-					"from target " + target.getCopeID() + ", " +
-					"but was null", e);
-		}
-		assertContains(TYPE.search());
+
+		final CopyMultiCopySource source = create(target);
+		assertEquals("targetValueA", source.getCopyA());
+		assertEquals("targetValueB", source.getCopyB());
+		assertEquals(target, source.getTarget());
+		assertContains(source, TYPE.search());
 	}
 }

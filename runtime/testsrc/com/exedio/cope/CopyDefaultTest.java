@@ -68,41 +68,21 @@ public class CopyDefaultTest extends TestWithEnvironment
 	@Test public void testOmitCopy()
 	{
 		final Target target = new Target("fieldValue");
-		try
-		{
-			Source.create(target);
-			fail();
-		}
-		catch(final CopyViolationException e)
-		{
-			assertFails(
-					constraint, "fieldValue", "defaultValue", target,
-					"copy violation on " + constraint + ", " +
-					"expected 'fieldValue' " +
-					"from target " + target + ", " +
-					"but was 'defaultValue'", e);
-		}
-		assertContains(Source.TYPE.search());
+		final Source source = Source.create(target);
+		assertContains(source, Source.TYPE.search());
+
+		assertEquals(target, source.getTarget());
+		assertEquals("fieldValue", source.getField());
 	}
 
 	@Test public void testOmitCopyNull()
 	{
 		final Target target = new Target((String)null);
-		try
-		{
-			Source.create(target);
-			fail();
-		}
-		catch(final CopyViolationException e)
-		{
-			assertFails(
-					constraint, null, "defaultValue", target,
-					"copy violation on " + constraint + ", " +
-					"expected null " +
-					"from target " + target + ", " +
-					"but was 'defaultValue'", e);
-		}
-		assertContains(Source.TYPE.search());
+		final Source source = Source.create(target);
+		assertContains(source, Source.TYPE.search());
+
+		assertEquals(target, source.getTarget());
+		assertEquals(null, source.getField());
 	}
 
 	@Test public void testOmitTarget()

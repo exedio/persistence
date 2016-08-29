@@ -23,6 +23,8 @@ import static com.exedio.cope.Executor.integerResultSetHandler;
 import static com.exedio.cope.Executor.longResultSetHandler;
 import static com.exedio.cope.FeatureSubSet.features;
 import static com.exedio.cope.misc.Check.requireNonNegative;
+import static java.util.Collections.emptyMap;
+import static java.util.Collections.unmodifiableMap;
 import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.ItemField.DeletePolicy;
@@ -50,6 +52,7 @@ import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public final class Type<T extends Item> implements SelectType<T>, Comparable<Type<?>>, Serializable
 {
@@ -84,6 +87,8 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 
 	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final FeatureSubSet<CopyConstraint> copyConstraints;
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
+	private final Map<FunctionField<?>,List<CopyConstraint>> copyConstraintsByCopy;
 
 	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final Constructor<T> activationConstructor;
@@ -251,6 +256,22 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 			this.uniqueConstraints = features(s==null ? null : s.uniqueConstraints, df, UniqueConstraint.class);
 			this. checkConstraints = features(s==null ? null : s. checkConstraints, df, CheckConstraint.class);
 			this.  copyConstraints = features(s==null ? null : s.  copyConstraints, df, CopyConstraint.class);
+		}
+		{
+			final LinkedHashMap<FunctionField<?>,List<CopyConstraint>> byCopy = new LinkedHashMap<>();
+			for(final CopyConstraint cc : copyConstraints.all)
+			{
+				final FunctionField<?> copy = cc.getCopy();
+
+				List<CopyConstraint> list = byCopy.get(copy);
+				if(list==null)
+				{
+					list = new ArrayList<>();
+					byCopy.put(copy, list);
+				}
+				list.add(cc);
+			}
+			this.copyConstraintsByCopy = byCopy.isEmpty() ? emptyMap() : unmodifiableMap(byCopy);
 		}
 
 		this.activationConstructor = getActivationConstructor(javaClass);
@@ -983,6 +1004,43 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	{
 		setValues = doBeforeNewItem(setValues);
 		final LinkedHashMap<Field<?>, Object> fieldValues = Item.executeSetValues(setValues, null);
+
+		for(final Map.Entry<FunctionField<?>,List<CopyConstraint>> e : copyConstraintsByCopy.entrySet())
+		{
+			final FunctionField<?> copy = e.getKey();
+			if(fieldValues.containsKey(copy))
+				continue;
+
+			Object value = null;
+			boolean hasNoValue = true;
+			for(final CopyConstraint cc : e.getValue())
+			{
+				final Item targetItem = (Item)fieldValues.get(cc.getTarget());
+				if(targetItem==null)
+					continue;
+
+				final Object template = cc.getTemplate().get(targetItem);
+				if(hasNoValue)
+				{
+					value = template;
+					hasNoValue = false;
+				}
+				else
+				{
+					if(Objects.equals(value, template))
+						value = template;
+					else
+					{
+						value = null;
+						hasNoValue = true;
+						break;
+					}
+				}
+			}
+			if(!hasNoValue)
+				fieldValues.put(copy, value);
+		}
+
 		long now = Long.MIN_VALUE;
 		boolean needsNow = true;
 		for(final Field<?> field : fields.all)

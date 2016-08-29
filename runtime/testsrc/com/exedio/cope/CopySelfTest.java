@@ -142,26 +142,16 @@ public class CopySelfTest extends TestWithEnvironment
 		check();
 	}
 
-	@Test public void testWrongOmittedCopy()
+	@Test public void testOkOmittedCopy()
 	{
 		final CopyValue value = new CopyValue();
 		final CopySelfSource target = new CopySelfSource((CopySelfSource)null, value);
-		try
-		{
-			CopySelfSource.omitCopy(target);
-			fail();
-		}
-		catch(final CopyViolationException e)
-		{
-			assertFails(
-					selfTemplateCopyFromTarget, value, null, target,
-					"copy violation on " + selfTemplateCopyFromTarget + ", " +
-					"expected '" + value.getCopeID() + "' " +
-					"from target " + target.getCopeID() + ", " +
-					"but was null", e);
-		}
 
-		assertContains(target, TYPE.search());
+		final CopySelfSource source = CopySelfSource.omitCopy(target);
+		assertEquals(target, source.getSelfTarget());
+		assertEquals(value, source.getSelfTemplate());
+
+		assertContains(target, source, TYPE.search());
 		check();
 	}
 
