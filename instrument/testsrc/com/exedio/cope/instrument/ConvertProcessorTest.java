@@ -229,6 +229,30 @@ public class ConvertProcessorTest
 		);
 	}
 
+	@Test public void multiAssignment() throws URISyntaxException
+	{
+		assertConversion(
+			lines(
+				"package x;",
+				"",
+				"class A {",
+				"	/** @cope.initial */",
+				"	int i=1, j=2;",
+				"}"
+			),
+			lines(
+				"package x;",
+				"",
+				"import com.exedio.cope.instrument.WrapperInitial;",
+				"",
+				"class A {",
+				"	@WrapperInitial",
+				"	int i=1, j=2;",
+				"}"
+			)
+		);
+	}
+
 	@Test public void tolerateDocContentEndBeingZero() throws URISyntaxException
 	{
 		assertConversion(
