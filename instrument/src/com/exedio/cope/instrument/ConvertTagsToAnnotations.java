@@ -21,7 +21,6 @@ package com.exedio.cope.instrument;
 import com.sun.source.doctree.DocCommentTree;
 import com.sun.source.tree.ClassTree;
 import com.sun.source.tree.CompilationUnitTree;
-import com.sun.source.tree.ImportTree;
 import com.sun.source.tree.Tree;
 import com.sun.source.tree.VariableTree;
 import com.sun.source.util.DocTrees;
