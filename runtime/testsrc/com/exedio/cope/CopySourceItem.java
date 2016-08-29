@@ -18,6 +18,12 @@
 
 package com.exedio.cope;
 
+import static org.junit.Assert.assertEquals;
+
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import java.util.ArrayList;
+import java.util.Arrays;
+
 final class CopySourceItem extends Item
 {
 	static final ItemField<CopyTargetItem> targetItem = ItemField.create(CopyTargetItem.class).toFinal().optional();
@@ -25,6 +31,30 @@ final class CopySourceItem extends Item
 	static final StringField templateString = new StringField().toFinal().optional().copyFrom(targetItem);
 
 	static final ItemField<CopyValueItem> templateItem = ItemField.create(CopyValueItem.class).toFinal().optional().copyFrom(targetItem);
+
+
+	@SuppressFBWarnings("UPM_UNCALLED_PRIVATE_METHOD") // called by reflection
+	@SuppressWarnings("unused")
+	private static SetValue<?>[] beforeNewCopeItem(final SetValue<?>[] setValues)
+	{
+		beforeNewCopeItemLog.add(setValues);
+		return setValues;
+	}
+
+	static void assertBeforeNewCopeItem(final SetValue<?>... expected)
+	{
+		assertEquals(1, beforeNewCopeItemLog.size());
+		assertEquals(Arrays.asList(expected), Arrays.asList(beforeNewCopeItemLog.get(0)));
+		beforeNewCopeItemLog.clear();
+	}
+
+	static void clearBeforeNewCopeItemLog()
+	{
+		beforeNewCopeItemLog.clear();
+	}
+
+	private static final ArrayList<SetValue<?>[]> beforeNewCopeItemLog = new ArrayList<>();
+
 
 	@Override
 	public String toString()

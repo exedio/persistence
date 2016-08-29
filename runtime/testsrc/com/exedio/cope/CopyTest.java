@@ -22,10 +22,13 @@ import static com.exedio.cope.CopyModelTest.selfTemplateItemCopyFromTarget;
 import static com.exedio.cope.CopyModelTest.templateItemCopyFromTarget;
 import static com.exedio.cope.CopyModelTest.templateStringCopyFromTarget;
 import static com.exedio.cope.CopySourceItem.TYPE;
+import static com.exedio.cope.CopySourceItem.assertBeforeNewCopeItem;
 import static com.exedio.cope.tojunit.Assert.assertContains;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 public class CopyTest extends TestWithEnvironment
@@ -46,6 +49,11 @@ public class CopyTest extends TestWithEnvironment
 		assertEquals(target, source.getTargetItem());
 		assertEquals("template1", source.getTemplateString());
 		assertEquals(value, source.getTemplateItem());
+		assertBeforeNewCopeItem(
+				CopySourceItem.targetItem.map(target),
+				CopySourceItem.templateString.map("template1"),
+				CopySourceItem.templateItem.map(value));
+
 		assertContains(source, TYPE.search());
 		check();
 	}
@@ -59,6 +67,11 @@ public class CopyTest extends TestWithEnvironment
 		assertEquals(target, source.getTargetItem());
 		assertEquals("template2", source.getTemplateString());
 		assertEquals(value, source.getTemplateItem());
+		assertBeforeNewCopeItem(
+				CopySourceItem.targetItem.map(target),
+				CopySourceItem.templateString.map("template2"),
+				CopySourceItem.templateItem.map(value));
+
 		assertContains(source, TYPE.search());
 		check();
 	}
@@ -71,6 +84,11 @@ public class CopyTest extends TestWithEnvironment
 		assertEquals(target, source.getTargetItem());
 		assertEquals(null, source.getTemplateString());
 		assertEquals(null, source.getTemplateItem());
+		assertBeforeNewCopeItem(
+				CopySourceItem.targetItem.map(target),
+				CopySourceItem.templateString.map(null),
+				CopySourceItem.templateItem.map(null));
+
 		assertContains(source, TYPE.search());
 		check();
 	}
@@ -83,6 +101,11 @@ public class CopyTest extends TestWithEnvironment
 		assertEquals(null, source.getTargetItem());
 		assertEquals("templateN", source.getTemplateString());
 		assertEquals(value, source.getTemplateItem());
+		assertBeforeNewCopeItem(
+				CopySourceItem.targetItem.map(null),
+				CopySourceItem.templateString.map("templateN"),
+				CopySourceItem.templateItem.map(value));
+
 		assertContains(source, TYPE.search());
 		check();
 	}
@@ -110,6 +133,11 @@ public class CopyTest extends TestWithEnvironment
 					"but was 'template1'",
 				e.getMessage());
 		}
+		assertBeforeNewCopeItem(
+				CopySourceItem.targetItem.map(target),
+				CopySourceItem.templateString.map("template1"),
+				CopySourceItem.templateItem.map(value));
+
 		assertContains(TYPE.search());
 		check();
 	}
@@ -137,6 +165,11 @@ public class CopyTest extends TestWithEnvironment
 					"but was null",
 				e.getMessage());
 		}
+		assertBeforeNewCopeItem(
+				CopySourceItem.targetItem.map(target),
+				CopySourceItem.templateString.map(null),
+				CopySourceItem.templateItem.map(value));
+
 		assertContains(TYPE.search());
 		check();
 	}
@@ -165,6 +198,11 @@ public class CopyTest extends TestWithEnvironment
 					"but was '" + value1.getCopeID() + "'",
 				e.getMessage());
 		}
+		assertBeforeNewCopeItem(
+				CopySourceItem.targetItem.map(target),
+				CopySourceItem.templateString.map("template2"),
+				CopySourceItem.templateItem.map(value1));
+
 		assertContains(TYPE.search());
 		check();
 	}
@@ -192,6 +230,11 @@ public class CopyTest extends TestWithEnvironment
 					"but was null",
 				e.getMessage());
 		}
+		assertBeforeNewCopeItem(
+				CopySourceItem.targetItem.map(target),
+				CopySourceItem.templateString.map("template2"),
+				CopySourceItem.templateItem.map(null));
+
 		assertContains(TYPE.search());
 		check();
 	}
@@ -219,6 +262,11 @@ public class CopyTest extends TestWithEnvironment
 					"but was 'template1'",
 				e.getMessage());
 		}
+		assertBeforeNewCopeItem(
+				CopySourceItem.targetItem.map(target),
+				CopySourceItem.templateString.map("template1"),
+				CopySourceItem.templateItem.map(value));
+
 		assertContains(TYPE.search());
 		check();
 	}
@@ -246,6 +294,11 @@ public class CopyTest extends TestWithEnvironment
 					"but was '" + value.getCopeID() + "'",
 				e.getMessage());
 		}
+		assertBeforeNewCopeItem(
+				CopySourceItem.targetItem.map(target),
+				CopySourceItem.templateString.map(null),
+				CopySourceItem.templateItem.map(value));
+
 		assertContains(TYPE.search());
 		check();
 	}
@@ -273,6 +326,9 @@ public class CopyTest extends TestWithEnvironment
 					"but was null",
 				e.getMessage());
 		}
+		assertBeforeNewCopeItem(
+				CopySourceItem.targetItem.map(target));
+
 		assertContains(TYPE.search());
 		check();
 	}
@@ -282,5 +338,16 @@ public class CopyTest extends TestWithEnvironment
 		assertEquals(0, templateStringCopyFromTarget.check());
 		assertEquals(0, templateItemCopyFromTarget.check());
 		assertEquals(0, selfTemplateItemCopyFromTarget.check());
+	}
+
+
+	@Before public void before()
+	{
+		CopySourceItem.clearBeforeNewCopeItemLog();
+	}
+
+	@After public void after()
+	{
+		CopySourceItem.clearBeforeNewCopeItemLog();
 	}
 }
