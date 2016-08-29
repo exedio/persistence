@@ -90,301 +90,7 @@ final class ConvertTagsToAnnotations
 			for (final Element e: roundEnv.getRootElements())
 			{
 				final TreePath tp = docTrees.getPath(e);
-				new TreePathScanner<Void, Void>()
-				{
-					final ByteReplacements replacements=new ByteReplacements();
-					TreeApiContext ctx;
-					String startMessage=null;
-
-					int previousDocCommentStart=Integer.MIN_VALUE;
-					int previousDocCommentEnd=Integer.MIN_VALUE;
-
-					@Override
-					@SuppressWarnings("synthetic-access")
-					public Void scan(final TreePath path, final Void p)
-					{
-						if (path.getLeaf() instanceof CompilationUnitTree)
-						{
-							final String fileName=((CompilationUnitTree)path.getLeaf()).getSourceFile().getName();
-							if (fileName.endsWith("package-info.java"))
-							{
-								return null;
-							}
-							else
-							{
-								throw new RuntimeException(fileName);
-							}
-						}
-						startMessage="* "+((ClassTree)path.getLeaf()).getSimpleName();
-						if (ctx!=null) throw new RuntimeException();
-						ctx=new TreeApiContext(null, processingEnv, null, path.getCompilationUnit());
-
-						final Void result=super.scan(path, p);
-						if (!replacements.isEmpty())
-						{
-							final byte[] newSource=replacements.applyReplacements(ctx.getAllBytes());
-							try
-							{
-								final JavaFileObject f=tp.getCompilationUnit().getSourceFile();
-								try (final OutputStream os=f.openOutputStream())
-								{
-									os.write(newSource);
-								}
-							}
-							catch (final IOException e)
-							{
-								throw new RuntimeException(e);
-							}
-						}
-						return result;
-					}
-
-					@Override
-					public Void visitClass(final ClassTree node, final Void p)
-					{
-						try
-						{
-							convertCurrentPath(node, "[class]");
-						}
-						catch (final RuntimeException e)
-						{
-							throw new RuntimeException("while processing "+node.getSimpleName()+" in "+tp.getCompilationUnit().getSourceFile().getName(), e);
-						}
-						return super.visitClass(node, p);
-					}
-
-					@Override
-					public Void visitVariable(final VariableTree node, final Void p)
-					{
-						try
-						{
-							convertCurrentPath(node, node.getName().toString());
-						}
-						catch (final RuntimeException e)
-						{
-							throw new RuntimeException("while processing "+node.getName()+" in "+tp.getCompilationUnit().getSourceFile().getName(), e);
-						}
-						return super.visitVariable(node, p);
-					}
-
-					@SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR") // ctx initialised in 'scan'
-					private void convertCurrentPath(final Tree node, final String positionForLog)
-					{
-						final DocCommentTree docCommentTree=docTrees.getDocCommentTree(getCurrentPath());
-						if (docCommentTree!=null)
-						{
-							final int docContentStart=Math.toIntExact(docTrees.getSourcePositions().getStartPosition(getCurrentPath().getCompilationUnit(), docCommentTree, docCommentTree));
-							final int docContentEnd=Math.toIntExact(docTrees.getSourcePositions().getEndPosition(getCurrentPath().getCompilationUnit(), docCommentTree, docCommentTree))+1;
-							if (docContentStart==-1)
-							{
-								// this happens for empty comments
-								return;
-							}
-							if (docContentEnd==0)
-							{
-								printProgressLog("WARNING: can't convert comment at "+positionForLog+" - check manually");
-								return;
-							}
-							if (previousDocCommentStart==docContentStart && previousDocCommentEnd==docContentEnd)
-							{
-								// This happens for multi-assignments, must be skipped:
-								// /** @cope.set none */
-								// public static final StringField
-								// 	firstWord = new StringField(),
-								// 	secondWord = new StringField(),
-								// 	...
-								return;
-							}
-							previousDocCommentStart=docContentStart;
-							previousDocCommentEnd=docContentEnd;
-							final String docComment=ctx.getSourceString(docContentStart, docContentEnd).trim();
-							if (docComment.contains("@cope.") && !docComment.contains("@cope.generated"))
-							{
-								printProgressLog(positionForLog);
-								final int docStart=ctx.searchBefore(
-									docContentStart,
-									"/**".getBytes(StandardCharsets.US_ASCII)
-								);
-								final int docEnd=ctx.searchAfter(
-									docContentEnd-2,
-									"*/".getBytes(StandardCharsets.US_ASCII)
-								);
-								final int elementStart=Math.toIntExact(docTrees.getSourcePositions().getStartPosition(getCurrentPath().getCompilationUnit(), node));
-								final String betweenCommentAndElement=ctx.getSourceString(docEnd, elementStart);
-								final JavadocAndAnnotations javadocAndAnnotations=convert(docComment, betweenCommentAndElement);
-								if ( javadocAndAnnotations.javadoc.trim().isEmpty() )
-								{
-									// drop complete comment
-									final int lineSeparatorBeforeDocStart=ctx.searchBefore(docStart, lineSeparatorBytes);
-									final int lineStart=lineSeparatorBeforeDocStart==-1?0:lineSeparatorBeforeDocStart+lineSeparatorBytes.length;
-									final int lineEnd=ctx.searchAfter(docEnd-1, lineSeparatorBytes);
-									final String lineAfterComment=ctx.getSourceString(docEnd, lineEnd);
-									if (ctx.getSourceString(lineStart, docStart).trim().isEmpty() && lineAfterComment.trim().isEmpty())
-									{
-										// the comment is on its own line
-										replacements.addReplacement(
-											lineStart,
-											lineEnd,
-											""
-										);
-
-									}
-									else
-									{
-										// the comment is in-line
-										replacements.addReplacement(
-											docStart,
-											docEnd+countStartingWhitespace(lineAfterComment),
-											""
-										);
-									}
-								}
-								else
-								{
-									replacements.addReplacement(
-										docContentStart,
-										docContentEnd,
-										javadocAndAnnotations.javadoc
-									);
-								}
-								replacements.addReplacement(
-									elementStart,
-									elementStart,
-									javadocAndAnnotations.annotations
-								);
-							}
-						}
-					}
-
-					private int countStartingWhitespace(final String s)
-					{
-						for (int i=0; i<s.length(); i++)
-						{
-							if (!Character.isWhitespace(s.charAt(i)))
-							{
-								return i;
-							}
-						}
-						return s.length();
-					}
-
-					private JavadocAndAnnotations convert(final String s, final String afterEachAnnotation)
-					{
-						final StringBuilder annotations=new StringBuilder();
-						int to=s.indexOf("@cope.");
-						final String javadoc=dropTrailingSpaceAndStar(s.substring(0, to));
-						final StringBuilder tagsForWrapperType=new StringBuilder();
-						while(true)
-						{
-							final int from=to;
-							to=s.indexOf("@cope.", from+1);
-							final String tag=dropTrailingSpaceAndStar(s.substring(from, to==-1?s.length():to)).trim();
-							if (tag.contains(CopeType.TAG_ACTIVATION_CONSTRUCTOR)
-								||tag.contains(CopeType.TAG_GENERIC_CONSTRUCTOR)
-								||tag.contains(CopeType.TAG_INDENT)
-								||tag.contains(CopeType.TAG_INITIAL_CONSTRUCTOR)
-								||tag.contains(CopeType.TAG_TYPE)
-								)
-							{
-								tagsForWrapperType.append(tag).append(System.lineSeparator());
-							}
-							else
-							{
-								annotations.append(convertTag(tag));
-								annotations.append(afterEachAnnotation);
-							}
-							if (to==-1) break;
-						}
-						if (tagsForWrapperType.length()>0)
-						{
-							annotations.append(formatAnnotation(Option.forType(tagsForWrapperType.toString())));
-							annotations.append(afterEachAnnotation);
-						}
-						return new JavadocAndAnnotations(javadoc, annotations.toString()+(afterEachAnnotation.isEmpty()?" ":""));
-					}
-
-					private String dropTrailingSpaceAndStar(final String s)
-					{
-						for (int i=s.length()-1; i>=0; i--)
-						{
-							final char c=s.charAt(i);
-							if (c!=' ' && c!='\t' && c!='*')
-							{
-								return s.substring(0, i+1);
-							}
-						}
-						return "";
-					}
-
-					private String convertTag(final String tag)
-					{
-						if (tag.equals("@cope.initial"))
-						{
-							return formatAnnotation(Option.forInitial(tag));
-						}
-						else if (tag.equals("@cope.ignore"))
-						{
-							return formatAnnotation(Option.forIgnore(tag));
-						}
-						else
-						{
-							final Pattern wrapPattern=Pattern.compile("@cope\\.([^ ]*)( +(none|public|protected|package|private|override|boolean-as-is|non-final|internal))+");
-							final Matcher matcher=wrapPattern.matcher(tag);
-							if (!matcher.matches()) throw new RuntimeException(">"+tag+"<");
-							final Wrapper option=Option.forFeatureLine(matcher.group(1), tag);
-							return formatAnnotation(option);
-						}
-					}
-
-					private <A extends Annotation> String formatAnnotation(final A annotation)
-					{
-						final StringBuilder result=new StringBuilder();
-						result.append("@");
-						result.append(annotation.annotationType().getSimpleName());
-						boolean parenthesis=false;
-						final Method[] annotationMembers=annotation.annotationType().getDeclaredMethods();
-						Arrays.sort(annotationMembers, new ConvertComparator("wrap"));
-						for (final Method m: annotationMembers)
-						{
-							try
-							{
-								final Object value=m.invoke(annotation);
-								if (!value.equals(m.getDefaultValue()))
-								{
-									if (!parenthesis)
-									{
-										parenthesis=true;
-										result.append("(");
-									}
-									else
-									{
-										result.append(", ");
-									}
-									result.append(m.getName()).append("=").append(toJava(value));
-								}
-							}
-							catch (InvocationTargetException|IllegalAccessException e)
-							{
-								throw new RuntimeException(e);
-							}
-						}
-						if (parenthesis)
-						{
-							result.append(")");
-						}
-						return result.toString();
-					}
-
-					private void printProgressLog(final String message)
-					{
-						if (startMessage!=null)
-						{
-							System.out.println(startMessage);
-							startMessage=null;
-						}
-						System.out.println("  * "+message);
-					}
-				}.scan(tp, null);
+				new ConvertScanner(docTrees).scan(tp, null);
 			}
 			return true;
 		}
@@ -406,6 +112,308 @@ final class ConvertTagsToAnnotations
 			else
 			{
 				throw new RuntimeException(o.toString());
+			}
+		}
+
+		private class ConvertScanner extends TreePathScanner<Void, Void>
+		{
+			private final DocTrees docTrees;
+			final ByteReplacements replacements=new ByteReplacements();
+
+			TreeApiContext ctx;
+			String startMessage=null;
+			int previousDocCommentStart=Integer.MIN_VALUE;
+			int previousDocCommentEnd=Integer.MIN_VALUE;
+
+			ConvertScanner(final DocTrees docTrees)
+			{
+				this.docTrees=docTrees;
+			}
+
+			@Override
+			@SuppressWarnings("synthetic-access")
+			public Void scan(final TreePath path, final Void p)
+			{
+				if (path.getLeaf() instanceof CompilationUnitTree)
+				{
+					final String fileName=((CompilationUnitTree)path.getLeaf()).getSourceFile().getName();
+					if (fileName.endsWith("package-info.java"))
+					{
+						return null;
+					}
+					else
+					{
+						throw new RuntimeException(fileName);
+					}
+				}
+				startMessage="* "+((ClassTree)path.getLeaf()).getSimpleName();
+				if (ctx!=null) throw new RuntimeException();
+				ctx=new TreeApiContext(null, processingEnv, null, path.getCompilationUnit());
+
+				final Void result=super.scan(path, p);
+				if (!replacements.isEmpty())
+				{
+					final byte[] newSource=replacements.applyReplacements(ctx.getAllBytes());
+					try
+					{
+						final JavaFileObject f=path.getCompilationUnit().getSourceFile();
+						try (final OutputStream os=f.openOutputStream())
+						{
+							os.write(newSource);
+						}
+					}
+					catch (final IOException e)
+					{
+						throw new RuntimeException(e);
+					}
+				}
+				return result;
+			}
+
+			@Override
+			public Void visitClass(final ClassTree node, final Void p)
+			{
+				try
+				{
+					convertCurrentPath(node, "[class]");
+				}
+				catch (final RuntimeException e)
+				{
+					throw new RuntimeException("while processing "+node.getSimpleName()+" in "+getCurrentPath().getCompilationUnit().getSourceFile().getName(), e);
+				}
+				return super.visitClass(node, p);
+			}
+
+			@Override
+			public Void visitVariable(final VariableTree node, final Void p)
+			{
+				try
+				{
+					convertCurrentPath(node, node.getName().toString());
+				}
+				catch (final RuntimeException e)
+				{
+					throw new RuntimeException("while processing "+node.getName()+" in "+getCurrentPath().getCompilationUnit().getSourceFile().getName(), e);
+				}
+				return super.visitVariable(node, p);
+			}
+
+			@SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR") // ctx initialised in 'scan'
+			private void convertCurrentPath(final Tree node, final String positionForLog)
+			{
+				final DocCommentTree docCommentTree=docTrees.getDocCommentTree(getCurrentPath());
+				if (docCommentTree!=null)
+				{
+					final int docContentStart=Math.toIntExact(docTrees.getSourcePositions().getStartPosition(getCurrentPath().getCompilationUnit(), docCommentTree, docCommentTree));
+					final int docContentEnd=Math.toIntExact(docTrees.getSourcePositions().getEndPosition(getCurrentPath().getCompilationUnit(), docCommentTree, docCommentTree))+1;
+					if (docContentStart==-1)
+					{
+						// this happens for empty comments
+						return;
+					}
+					if (docContentEnd==0)
+					{
+						printProgressLog("WARNING: can't convert comment at "+positionForLog+" - check manually");
+						return;
+					}
+					if (previousDocCommentStart==docContentStart && previousDocCommentEnd==docContentEnd)
+					{
+						// This happens for multi-assignments, must be skipped:
+						// /** @cope.set none */
+						// public static final StringField
+						// 	firstWord = new StringField(),
+						// 	secondWord = new StringField(),
+						// 	...
+						return;
+					}
+					previousDocCommentStart=docContentStart;
+					previousDocCommentEnd=docContentEnd;
+					final String docComment=ctx.getSourceString(docContentStart, docContentEnd).trim();
+					if (docComment.contains("@cope.") && !docComment.contains("@cope.generated"))
+					{
+						printProgressLog(positionForLog);
+						final int docStart=ctx.searchBefore(
+							docContentStart,
+							"/**".getBytes(StandardCharsets.US_ASCII)
+						);
+						final int docEnd=ctx.searchAfter(
+							docContentEnd-2,
+							"*/".getBytes(StandardCharsets.US_ASCII)
+						);
+						final int elementStart=Math.toIntExact(docTrees.getSourcePositions().getStartPosition(getCurrentPath().getCompilationUnit(), node));
+						final String betweenCommentAndElement=ctx.getSourceString(docEnd, elementStart);
+						final JavadocAndAnnotations javadocAndAnnotations=convert(docComment, betweenCommentAndElement);
+						if ( javadocAndAnnotations.javadoc.trim().isEmpty() )
+						{
+							// drop complete comment
+							final int lineSeparatorBeforeDocStart=ctx.searchBefore(docStart, lineSeparatorBytes);
+							final int lineStart=lineSeparatorBeforeDocStart==-1?0:lineSeparatorBeforeDocStart+lineSeparatorBytes.length;
+							final int lineEnd=ctx.searchAfter(docEnd-1, lineSeparatorBytes);
+							final String lineAfterComment=ctx.getSourceString(docEnd, lineEnd);
+							if (ctx.getSourceString(lineStart, docStart).trim().isEmpty() && lineAfterComment.trim().isEmpty())
+							{
+								// the comment is on its own line
+								replacements.addReplacement(
+									lineStart,
+									lineEnd,
+									""
+								);
+
+							}
+							else
+							{
+								// the comment is in-line
+								replacements.addReplacement(
+									docStart,
+									docEnd+countStartingWhitespace(lineAfterComment),
+									""
+								);
+							}
+						}
+						else
+						{
+							replacements.addReplacement(
+								docContentStart,
+								docContentEnd,
+								javadocAndAnnotations.javadoc
+							);
+						}
+						replacements.addReplacement(
+							elementStart,
+							elementStart,
+							javadocAndAnnotations.annotations
+						);
+					}
+				}
+			}
+
+			private int countStartingWhitespace(final String s)
+			{
+				for (int i=0; i<s.length(); i++)
+				{
+					if (!Character.isWhitespace(s.charAt(i)))
+					{
+						return i;
+					}
+				}
+				return s.length();
+			}
+
+			private JavadocAndAnnotations convert(final String s, final String afterEachAnnotation)
+			{
+				final StringBuilder annotations=new StringBuilder();
+				int to=s.indexOf("@cope.");
+				final String javadoc=dropTrailingSpaceAndStar(s.substring(0, to));
+				final StringBuilder tagsForWrapperType=new StringBuilder();
+				while(true)
+				{
+					final int from=to;
+					to=s.indexOf("@cope.", from+1);
+					final String tag=dropTrailingSpaceAndStar(s.substring(from, to==-1?s.length():to)).trim();
+					if (tag.contains(CopeType.TAG_ACTIVATION_CONSTRUCTOR)
+						||tag.contains(CopeType.TAG_GENERIC_CONSTRUCTOR)
+						||tag.contains(CopeType.TAG_INDENT)
+						||tag.contains(CopeType.TAG_INITIAL_CONSTRUCTOR)
+						||tag.contains(CopeType.TAG_TYPE)
+						)
+					{
+						tagsForWrapperType.append(tag).append(System.lineSeparator());
+					}
+					else
+					{
+						annotations.append(convertTag(tag));
+						annotations.append(afterEachAnnotation);
+					}
+					if (to==-1) break;
+				}
+				if (tagsForWrapperType.length()>0)
+				{
+					annotations.append(formatAnnotation(Option.forType(tagsForWrapperType.toString())));
+					annotations.append(afterEachAnnotation);
+				}
+				return new JavadocAndAnnotations(javadoc, annotations.toString()+(afterEachAnnotation.isEmpty()?" ":""));
+			}
+
+			private String dropTrailingSpaceAndStar(final String s)
+			{
+				for (int i=s.length()-1; i>=0; i--)
+				{
+					final char c=s.charAt(i);
+					if (c!=' ' && c!='\t' && c!='*')
+					{
+						return s.substring(0, i+1);
+					}
+				}
+				return "";
+			}
+
+			private String convertTag(final String tag)
+			{
+				if (tag.equals("@cope.initial"))
+				{
+					return formatAnnotation(Option.forInitial(tag));
+				}
+				else if (tag.equals("@cope.ignore"))
+				{
+					return formatAnnotation(Option.forIgnore(tag));
+				}
+				else
+				{
+					final Pattern wrapPattern=Pattern.compile("@cope\\.([^ ]*)( +(none|public|protected|package|private|override|boolean-as-is|non-final|internal))+");
+					final Matcher matcher=wrapPattern.matcher(tag);
+					if (!matcher.matches()) throw new RuntimeException(">"+tag+"<");
+					final Wrapper option=Option.forFeatureLine(matcher.group(1), tag);
+					return formatAnnotation(option);
+				}
+			}
+
+			private <A extends Annotation> String formatAnnotation(final A annotation)
+			{
+				final StringBuilder result=new StringBuilder();
+				result.append("@");
+				result.append(annotation.annotationType().getSimpleName());
+				boolean parenthesis=false;
+				final Method[] annotationMembers=annotation.annotationType().getDeclaredMethods();
+				Arrays.sort(annotationMembers, new ConvertComparator("wrap"));
+				for (final Method m: annotationMembers)
+				{
+					try
+					{
+						final Object value=m.invoke(annotation);
+						if (!value.equals(m.getDefaultValue()))
+						{
+							if (!parenthesis)
+							{
+								parenthesis=true;
+								result.append("(");
+							}
+							else
+							{
+								result.append(", ");
+							}
+							result.append(m.getName()).append("=").append(toJava(value));
+						}
+					}
+					catch (InvocationTargetException|IllegalAccessException e)
+					{
+						throw new RuntimeException(e);
+					}
+				}
+				if (parenthesis)
+				{
+					result.append(")");
+				}
+				return result.toString();
+			}
+
+			private void printProgressLog(final String message)
+			{
+				if (startMessage!=null)
+				{
+					System.out.println(startMessage);
+					startMessage=null;
+				}
+				System.out.println("  * "+message);
 			}
 		}
 	}
