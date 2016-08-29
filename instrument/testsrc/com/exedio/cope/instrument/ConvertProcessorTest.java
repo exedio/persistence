@@ -113,6 +113,26 @@ public class ConvertProcessorTest
 		);
 	}
 
+	@Test public void endNoWhiteSpace() throws URISyntaxException
+	{
+		assertConversion(
+			lines(
+				"class A",
+				"{",
+				"	/** @cope.ignore*/",
+				"	int i;",
+				"}"
+			),
+			lines(
+				"class A",
+				"{",
+				"	@WrapperIgnore",
+				"	int i;",
+				"}"
+			)
+		);
+	}
+
 	@Test public void convertClass() throws URISyntaxException
 	{
 		assertConversion(
@@ -179,6 +199,27 @@ public class ConvertProcessorTest
 				"@WrapperType(activationConstructor=Visibility.PACKAGE, constructor=Visibility.PRIVATE, genericConstructor=Visibility.PUBLIC, indent=2, type=Visibility.PRIVATE)",
 				"class A {}"
 			)
+		);
+	}
+
+	@Test public void tolerateDocContentEndBeingZero() throws URISyntaxException
+	{
+		assertConversion(
+			lines(
+				"/*",
+				" * Copyright ...",
+				" */",
+				"package com.exedio.copedemo.facet;",
+				"/**",
+				" * Facet type, e.g. Clock rate",
+				" *",
+				" * @author Dirk Forchel &lt;dirk.forchel@exedio.com&gt;",
+				" *",
+				" */",
+				"abstract class A implements java.io.Serializable",
+				"{}"
+			),
+			null
 		);
 	}
 

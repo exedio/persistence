@@ -164,21 +164,21 @@ final class ConvertTagsToAnnotations
 								return;
 							}
 							final int docContentEnd=Math.toIntExact(docTrees.getSourcePositions().getEndPosition(getCurrentPath().getCompilationUnit(), docCommentTree, docCommentTree))+1;
+							if (docContentEnd==0)
+							{
+								printProgressLog("WARNING: can't convert comment at "+positionForLog+" - check manually");
+								return;
+							}
 							final String docComment=ctx.getSourceString(docContentStart, docContentEnd).trim();
 							if (docComment.contains("@cope.") && !docComment.contains("@cope.generated"))
 							{
-								if (startMessage!=null)
-								{
-									System.out.println(startMessage);
-									startMessage=null;
-								}
-								System.out.println("  * "+positionForLog);
+								printProgressLog(positionForLog);
 								final int docStart=ctx.searchBefore(
 									docContentStart,
 									"/**".getBytes(StandardCharsets.US_ASCII)
 								);
 								final int docEnd=ctx.searchAfter(
-									docContentEnd-1,
+									docContentEnd-2,
 									"*/".getBytes(StandardCharsets.US_ASCII)
 								);
 								final int elementStart=Math.toIntExact(docTrees.getSourcePositions().getStartPosition(getCurrentPath().getCompilationUnit(), node));
@@ -345,6 +345,16 @@ final class ConvertTagsToAnnotations
 							result.append(")");
 						}
 						return result.toString();
+					}
+
+					private void printProgressLog(String message)
+					{
+						if (startMessage!=null)
+						{
+							System.out.println(startMessage);
+							startMessage=null;
+						}
+						System.out.println("  * "+message);
 					}
 				}.scan(tp, null);
 			}
