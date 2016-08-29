@@ -88,13 +88,13 @@ public final class CopyConstraint extends Feature
 	void check(final Map<Field<?>, Object> fieldValues)
 	{
 		final Item targetItem = (Item)fieldValues.get(target);
-		if(targetItem!=null)
-		{
-			final Object expectedValue = getTemplate().get(targetItem);
-			final Object actualValue = fieldValues.get(copy);
-			if(!Objects.equals(expectedValue, actualValue))
-				throw new CopyViolationException(targetItem, this, expectedValue, actualValue);
-		}
+		if(targetItem==null)
+			return;
+
+		final Object expectedValue = getTemplate().get(targetItem);
+		final Object actualValue = fieldValues.get(copy);
+		if(!Objects.equals(expectedValue, actualValue))
+			throw new CopyViolationException(targetItem, this, expectedValue, actualValue);
 	}
 
 	@SuppressWarnings({"unchecked", "rawtypes"})
