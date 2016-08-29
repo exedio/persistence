@@ -95,6 +95,9 @@ final class ConvertTagsToAnnotations
 					TreeApiContext ctx;
 					String startMessage=null;
 
+					int previousDocCommentStart=Integer.MIN_VALUE;
+					int previousDocCommentEnd=Integer.MIN_VALUE;
+
 					@Override
 					@SuppressWarnings("synthetic-access")
 					public Void scan(final TreePath path, final Void p)
@@ -158,17 +161,29 @@ final class ConvertTagsToAnnotations
 						if (docCommentTree!=null)
 						{
 							final int docContentStart=Math.toIntExact(docTrees.getSourcePositions().getStartPosition(getCurrentPath().getCompilationUnit(), docCommentTree, docCommentTree));
+							final int docContentEnd=Math.toIntExact(docTrees.getSourcePositions().getEndPosition(getCurrentPath().getCompilationUnit(), docCommentTree, docCommentTree))+1;
 							if (docContentStart==-1)
 							{
 								// this happens for empty comments
 								return;
 							}
-							final int docContentEnd=Math.toIntExact(docTrees.getSourcePositions().getEndPosition(getCurrentPath().getCompilationUnit(), docCommentTree, docCommentTree))+1;
 							if (docContentEnd==0)
 							{
 								printProgressLog("WARNING: can't convert comment at "+positionForLog+" - check manually");
 								return;
 							}
+							if (previousDocCommentStart==docContentStart && previousDocCommentEnd==docContentEnd)
+							{
+								// This happens for multi-assignments, must be skipped:
+								// /** @cope.set none */
+								// public static final StringField
+								// 	firstWord = new StringField(),
+								// 	secondWord = new StringField(),
+								// 	...
+								return;
+							}
+							previousDocCommentStart=docContentStart;
+							previousDocCommentEnd=docContentEnd;
 							final String docComment=ctx.getSourceString(docContentStart, docContentEnd).trim();
 							if (docComment.contains("@cope.") && !docComment.contains("@cope.generated"))
 							{
