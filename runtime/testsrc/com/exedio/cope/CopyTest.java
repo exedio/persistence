@@ -333,6 +333,34 @@ public class CopyTest extends TestWithEnvironment
 		check();
 	}
 
+	@Test public void testWrongStringOmittedTarget()
+	{
+		final CopyValueItem value = new CopyValueItem();
+
+		final CopySourceItem source = new CopySourceItem("template1", value);
+		assertEquals(null, source.getTargetItem());
+		assertEquals("template1", source.getTemplateString());
+		assertEquals(value, source.getTemplateItem());
+		assertBeforeNewCopeItem(
+				CopySourceItem.templateString.map("template1"),
+				CopySourceItem.templateItem.map(value));
+
+		assertContains(source, TYPE.search());
+		check();
+	}
+
+	@Test public void testWrongStringOmittedAll()
+	{
+		final CopySourceItem source = new CopySourceItem();
+		assertEquals(null, source.getTargetItem());
+		assertEquals(null, source.getTemplateString());
+		assertEquals(null, source.getTemplateItem());
+		assertBeforeNewCopeItem();
+
+		assertContains(source, TYPE.search());
+		check();
+	}
+
 	private static final void check()
 	{
 		assertEquals(0, templateStringCopyFromTarget.check());

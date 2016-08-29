@@ -63,11 +63,26 @@ final class CopySourceItem extends Item
 		return "toString(" + getCopeID() + ')';
 	}
 
-	CopySourceItem(final CopyTargetItem targetItem)
+	CopySourceItem(final CopyTargetItem targetItem) // OmittedCopy
 	{
 		this(
 			CopySourceItem.targetItem.map(targetItem)
 		);
+	}
+
+	CopySourceItem( // OmittedTarget
+			final String templateString,
+			final CopyValueItem templateItem)
+	{
+		this(
+			CopySourceItem.templateString.map(templateString),
+			CopySourceItem.templateItem.map(templateItem)
+		);
+	}
+
+	CopySourceItem() // OmittedAll
+	{
+		this(new SetValue<?>[]{});
 	}
 
 	/**
