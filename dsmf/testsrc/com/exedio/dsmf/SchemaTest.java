@@ -115,7 +115,7 @@ public abstract class SchemaTest
 		else if(url.startsWith("jdbc:postgresql:"))
 		{
 			Class.forName("org.postgresql.Driver");
-			dialect = new PostgresqlDialect(config.connectionPostgresqlSearchPath);
+			dialect = new PostgresqlDialect(config.connectionPostgresqlSearchPath, false);
 			stringType = "character varying(8)";
 			intType  = "integer";
 			intType2 = "bigint";
@@ -198,5 +198,13 @@ public abstract class SchemaTest
 			return "(" + s + ")";
 		else
 			return s;
+	}
+
+	/**
+	 * space after comma
+	 */
+	protected final String sac()
+	{
+		return postgresql ? " " : "";
 	}
 }

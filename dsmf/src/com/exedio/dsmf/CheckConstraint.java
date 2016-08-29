@@ -59,9 +59,9 @@ public final class CheckConstraint extends Constraint
 	}
 
 	@Override
-	String normalizeCondition(final String s)
+	String adjustExistingCondition(final String s)
 	{
-		return dialect.normalizeCheckConstraintCondition(s);
+		return dialect.adjustExistingCheckConstraintCondition(s);
 	}
 
 	@Override

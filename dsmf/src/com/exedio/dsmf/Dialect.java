@@ -56,7 +56,7 @@ public abstract class Dialect
 		return true;
 	}
 
-	String normalizeCheckConstraintCondition(final String s)
+	String adjustExistingCheckConstraintCondition(final String s)
 	{
 		return s;
 	}

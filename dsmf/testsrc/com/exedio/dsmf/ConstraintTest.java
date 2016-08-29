@@ -66,7 +66,7 @@ public class ConstraintTest extends SchemaReadyTest
 			new CheckConstraint(nn, NOT_NULL_NAME, p(NOT_NULL_COLUMN)+" IS NOT NULL");
 
 			final Column check = new Column(table, CHECK_COLUMN, intType);
-			new CheckConstraint(check, CHECK_NAME, "("+p(CHECK_COLUMN)+" IS NOT NULL) AND ("+hp(p(CHECK_COLUMN))+" IN ("+hp("0")+","+hp("1")+"))");
+			new CheckConstraint(check, CHECK_NAME, "("+p(CHECK_COLUMN)+" IS NOT NULL) AND ("+hp(p(CHECK_COLUMN))+" IN ("+hp("0")+","+sac()+hp("1")+"))");
 		}
 
 		final Column pk = new Column(table, PK_COLUMN, stringType);
@@ -100,7 +100,7 @@ public class ConstraintTest extends SchemaReadyTest
 		assertEquals(Schema.Color.OK, table.getParticularColor());
 
 		final CheckConstraint nn = assertCheckConstraint(table, NOT_NULL_NAME, p(NOT_NULL_COLUMN)+" IS NOT NULL");
-		final CheckConstraint ck = assertCheckConstraint(table, CHECK_NAME, "("+p(CHECK_COLUMN)+" IS NOT NULL) AND ("+hp(p(CHECK_COLUMN))+" IN ("+hp("0")+","+hp("1")+"))");
+		final CheckConstraint ck = assertCheckConstraint(table, CHECK_NAME, "("+p(CHECK_COLUMN)+" IS NOT NULL) AND ("+hp(p(CHECK_COLUMN))+" IN ("+hp("0")+","+sac()+hp("1")+"))");
 		final PrimaryKeyConstraint pk = assertPkConstraint(table, PK_NAME, null, PK_COLUMN);
 		final ForeignKeyConstraint fk = assertFkConstraint(table, FK_NAME, FK_COLUMN, FK_TARGET_TABLE, FK_TARGET_COLUMN);
 		final UniqueConstraint us = assertUniqueConstraint(table, UNIQUE_SINGLE_NAME, "("+p(UNIQUE_SINGLE_COLUMN)+")");

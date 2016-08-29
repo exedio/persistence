@@ -19,52 +19,78 @@
 package com.exedio.dsmf;
 
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.regex.Pattern;
 
 public final class PostgresqlDialect extends Dialect
 {
-	public PostgresqlDialect(final String schema)
+	public PostgresqlDialect(final String schema, final boolean version95)
 	{
 		super(schema);
+
+		final String digits = "\\d*";
+		// TODO do omit outside string literals only
+		add(p("(" + digits + ")")+"::bigint\\b", "$1"); // for DateField precision without native date
+		if(version95)
+		{
+			add(p("'(-?" + digits + "(?:\\." + digits + ")?)'::numeric")+"::double precision\\b", "$1");
+			add("'(-?" + digits + ")'::(?:integer|bigint)\\b", "$1"); // bug 14296 https://www.postgresql.org/message-id/20160826144958.15674.41360%40wrigleys.postgresql.org
+		}
+		else
+		{
+			add(p(p("(-" + digits + ")")+"::numeric")+"::double precision\\b", "$1");
+			add(p(  "("  + digits + ")" +"::numeric")+"::double precision\\b", "$1");
+			add("(" + digits + ")::bigint\\b", "$1");
+		}
+		add(  p("("  + digits + "(?:\\." + digits + ")?)") +"::double precision\\b", "$1");
+		add(p(p("(-" + digits +    "\\." + digits +   ")"))+"::double precision\\b", "$1");
+		add("('.*?')::character varying\\b", "$1");
+		add("('.*?')::\"text\"", "$1");
+		add(p("(\"\\w*\")")+"::\"text\"", "$1");
+		add( " = ANY "+  p("ARRAY\\[(.*?)]"),                     " IN ($1)");
+		add( " = ANY "+p(p("ARRAY\\[(.*?)]")+"::\"text\"\\[\\]"), " IN ($1)");
+		add(" <> ALL "+p(p("ARRAY\\[(.*?)]")+"::\"text\"\\[\\]"), " NOT IN ($1)");
+		add(" (=|<>|>=|<=|>|<) ", "$1");
+		if(!version95)
+			add(p("(-" + digits + ")"), "$1");
+	}
+
+	private static String p(final String s)
+	{
+		return "\\(" + s  + "\\)";
+	}
+
+	private void add(final String regex, final String replacement)
+	{
+		adjustExistingCheckConstraintCondition.add(new Replacement(Pattern.compile(regex), replacement));
 	}
 
 	@Override
-	String normalizeCheckConstraintCondition(final String x)
+	String adjustExistingCheckConstraintCondition(String s)
 	{
-		final String s = x.
-				replace("::bigint", "").
-				replace("::integer", "").
-				replace("::text[]", "").
-				replace("::\"text\"[]", "").
-				replace("::text", "").
-				replace("::\"text\"", "").
-				replace("::character varying", "").
-				replace("::double precision", "").
-				replace("::numeric", "").
-				replaceAll( " = ANY \\(*ARRAY\\[(.*?)]\\)*", " IN ($1)").
-				replaceAll(" <> ALL \\(*ARRAY\\[(.*?)]\\)*", " NOT IN ($1)");
-
-		final StringBuilder bf = new StringBuilder();
-		final int l = s.length();
-		for(int i = 0; i<l; i++)
-		{
-			final char c = s.charAt(i);
-			switch(c)
-			{
-				case ' ':
-				case '(':
-				case ')':
-				case '\'': // TODO because of "column">='-1'::integer, see bug 14296 https://www.postgresql.org/message-id/20160826144958.15674.41360%40wrigleys.postgresql.org
-					// omit character
-					// TODO do omit outside string literals only
-					break;
-				default:
-					bf.append(c);
-			}
-		}
-		final String result = bf.toString();
-		//System.out.println("---" + x + "---" + result + "---");
-		return result;
+		for(final Replacement replacement : adjustExistingCheckConstraintCondition)
+			s = replacement.apply(s);
+		return s;
 	}
+
+	private static final class Replacement
+	{
+		private final Pattern pattern;
+		private final String replacement;
+
+		Replacement(final Pattern pattern, final String replacement)
+		{
+			this.pattern = pattern;
+			this.replacement = replacement;
+		}
+
+		String apply(final String s)
+		{
+			return pattern.matcher(s).replaceAll(replacement);
+		}
+	}
+
+	private final ArrayList<Replacement> adjustExistingCheckConstraintCondition = new ArrayList<>();
 
 	@Override
 	String getColumnType(final int dataType, final ResultSet resultSet)
