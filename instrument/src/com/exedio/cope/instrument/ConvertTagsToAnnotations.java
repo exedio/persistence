@@ -375,7 +375,7 @@ final class ConvertTagsToAnnotations
 						return result.toString();
 					}
 
-					private void printProgressLog(String message)
+					private void printProgressLog(final String message)
 					{
 						if (startMessage!=null)
 						{
