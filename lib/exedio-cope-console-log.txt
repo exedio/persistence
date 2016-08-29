@@ -7,6 +7,9 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* now compatible with COPE version that has default implementations for interface methods (>=8904..8919)
+* requires JDK 1.8.0_60
+* "Unsupported Check Constraints By Table" tab added
 * Use Servlet API 3.0
 * Prepare MediaImageMagick[Filter|Thumbnail] being removed from cope.
 	This fixes NoClassDefFoundError with newer versions of cope.
