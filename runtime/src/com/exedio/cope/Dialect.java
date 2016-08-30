@@ -172,6 +172,11 @@ abstract class Dialect
 		return false;
 	}
 
+	String getInComma()
+	{
+		return ",";
+	}
+
 	boolean subqueryRequiresAlias()
 	{
 		return false;

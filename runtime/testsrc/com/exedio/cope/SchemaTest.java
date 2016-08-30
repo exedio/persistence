@@ -91,13 +91,13 @@ public class SchemaTest extends TestWithEnvironment
 		assertCheckConstraint(table, "Main_date_MX", q(date)+"<="+Long.MAX_VALUE, !nativeDate);
 		assertCheckConstraint(table, "Main_day_MN", null, false);
 		assertCheckConstraint(table, "Main_day_MX", null, false);
-		assertCheckConstraint(table, "Main_bool_EN", hp(q(bool  ))+" IN ("+hp("0")+","+hp("1")+")");
-		assertCheckConstraint(table, "Main_anEnum_EN", hp(q(anEnum))+" IN ("+hp("10")+","+hp("20")+","+hp("30")+")");
+		assertCheckConstraint(table, "Main_bool_EN", hp(q(bool  ))+" IN ("+hp("0")+","+sac()+hp("1")+")");
+		assertCheckConstraint(table, "Main_anEnum_EN", hp(q(anEnum))+" IN ("+hp("10")+","+sac()+hp("20")+","+sac()+hp("30")+")");
 		assertCheckConstraint(table, "Main_item_MN", q(item)+">=0");
 		assertCheckConstraint(table, "Main_item_MX", q(item)+"<=567");
 		assertCheckConstraint(table, "Main_poly_MN", q(poly)+">=0");
 		assertCheckConstraint(table, "Main_poly_MX", q(poly)+"<=567");
-		assertCheckConstraint(table, "Main_polyType_EN", hp(t(poly))+" IN ("+hp("'Polymorphic'")+","+hp("'Target'")+")");
+		assertCheckConstraint(table, "Main_polyType_EN", hp(t(poly))+" IN ("+hp("'Polymorphic'")+","+sac()+hp("'Target'")+")");
 		assertCheckConstraint(table, "Main_polyType_NS", null, false);
 
 		assertCheckConstraint(table, "Main_stringOpt_MN", l(stringOpt)+">=1");
@@ -110,13 +110,13 @@ public class SchemaTest extends TestWithEnvironment
 		assertCheckConstraint(table, "Main_dateOpt_MX", q(dateOpt)+"<="+Long.MAX_VALUE, !nativeDate);
 		assertCheckConstraint(table, "Main_dayOpt_MN", null, false);
 		assertCheckConstraint(table, "Main_dayOpt_MX", null, false);
-		assertCheckConstraint(table, "Main_boolOpt_EN", hp(q(boolOpt))+" IN ("+hp("0")+","+hp("1")+")");
-		assertCheckConstraint(table, "Main_enumOpt_EN", hp(q(enumOpt))+" IN ("+hp("10")+","+hp("20")+","+hp("30")+")");
+		assertCheckConstraint(table, "Main_boolOpt_EN", hp(q(boolOpt))+" IN ("+hp("0")+","+sac()+hp("1")+")");
+		assertCheckConstraint(table, "Main_enumOpt_EN", hp(q(enumOpt))+" IN ("+hp("10")+","+sac()+hp("20")+","+sac()+hp("30")+")");
 		assertCheckConstraint(table, "Main_itemOpt_MN", q(itemOpt)+">=0");
 		assertCheckConstraint(table, "Main_itemOpt_MX", q(itemOpt)+"<=567");
 		assertCheckConstraint(table, "Main_polyOpt_MN", q(polyOpt)+">=0");
 		assertCheckConstraint(table, "Main_polyOpt_MX", q(polyOpt)+"<=567");
-		assertCheckConstraint(table, "Main_polyOptType_EN", hp(t(polyOpt))+" IN ("+hp("'Polymorphic'")+","+hp("'Target'")+")");
+		assertCheckConstraint(table, "Main_polyOptType_EN", hp(t(polyOpt))+" IN ("+hp("'Polymorphic'")+","+sac()+hp("'Target'")+")");
 		assertCheckConstraint(table, "Main_polyOptType_NS",
 				"(("+t(polyOpt)+" IS NOT NULL) AND ("+q(polyOpt)+" IS NOT NULL))" +
 				" OR (("+t(polyOpt)+" IS NULL) AND ("+q(polyOpt)+" IS NULL))");

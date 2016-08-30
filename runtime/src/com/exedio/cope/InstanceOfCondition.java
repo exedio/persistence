@@ -129,13 +129,14 @@ public final class InstanceOfCondition<E extends Item> extends Condition
 				bf.append(" NOT");
 			bf.append(" IN (");
 
+			final String comma = bf.dialect.getInComma();
 			boolean first = true;
 			for(final String id : typeIds)
 			{
 				if(first)
 					first = false;
 				else
-					bf.append(',');
+					bf.append(comma);
 
 				if(parenthesis)
 					bf.append('(');

@@ -234,6 +234,12 @@ final class PostgresqlDialect extends Dialect
 	}
 
 	@Override
+	String getInComma()
+	{
+		return ", ";
+	}
+
+	@Override
 	boolean subqueryRequiresAlias()
 	{
 		return true;

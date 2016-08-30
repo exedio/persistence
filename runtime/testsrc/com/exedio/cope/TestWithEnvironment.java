@@ -183,4 +183,12 @@ public abstract class TestWithEnvironment
 	{
 		tester.assertCacheInfo(types, limitWeigths);
 	}
+
+	/**
+	 * space after comma
+	 */
+	protected final String sac()
+	{
+		return postgresql ? " " : "";
+	}
 }

@@ -100,6 +100,7 @@ class StringColumn extends Column
 		if(allowedValues!=null)
 		{
 			final boolean parenthesis = table.database.dialect.inRequiresParenthesis();
+			final String comma = table.database.dialect.getInComma();
 			final StringBuilder bf = new StringBuilder();
 
 			if(parenthesis)
@@ -112,7 +113,7 @@ class StringColumn extends Column
 			for(int j = 0; j<allowedValues.length; j++)
 			{
 				if(j>0)
-					bf.append(',');
+					bf.append(comma);
 
 				if(parenthesis)
 					bf.append('(');
