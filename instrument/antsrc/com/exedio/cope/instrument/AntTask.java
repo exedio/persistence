@@ -19,6 +19,7 @@
 package com.exedio.cope.instrument;
 
 import com.exedio.cope.instrument.Params.ConfigurationByJavadocTags;
+import com.exedio.cope.instrument.Params.HintFormat;
 import com.exedio.cope.instrument.Params.IntegerTypeSuffix;
 import java.io.File;
 import java.io.IOException;
@@ -182,6 +183,14 @@ public final class AntTask extends Task
 	public void setOverrideOnSeparateLine(final boolean value)
 	{
 		params.overrideOnSeparateLine = value;
+	}
+
+	// TODO parameter type IntegerTypeSuffix instead of converting manually
+	// is supported by Ant version 1.9.0
+	// travis-ci just supports Ant version 1.8.2
+	public void setHintFormat(final String value)
+	{
+		params.customizationHintsForTags = HintFormat.valueOf(value);
 	}
 
 	public void setVerbose(final boolean value)

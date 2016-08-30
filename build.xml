@@ -376,7 +376,8 @@
 				configByTags="error"
 				suppressUnusedWarningOnPrivateActivationConstructor="true"
 				nullabilityAnnotations="${instrument.nullabilityAnnotations}"
-				timestampFile="build/timestamps/runtime.test.timestamp">
+				timestampFile="build/timestamps/runtime.test.timestamp"
+				hintFormat="forTags">
 			<resources refid="instrument.resources" />
 			<classpath refid="runtime.test.path"/>
 			<dontignore>
@@ -660,7 +661,8 @@
 				configByTags="error"
 				suppressUnusedWarningOnPrivateActivationConstructor="true"
 				nullabilityAnnotations="${instrument.nullabilityAnnotations}"
-				timestampFile="build/timestamps/runtime.servlet.test.timestamp">
+				timestampFile="build/timestamps/runtime.servlet.test.timestamp"
+				hintFormat="forTags">
 			<resources refid="instrument.resources" />
 			<ignore>
 				<fileset file="runtime/servlettestsrc/com/exedio/cope/pattern/MediaPattern.java" />
@@ -850,7 +852,8 @@
 				serialVersionUIDSuffix="small"
 				hidingWarningSuppressor="hiding"
 				nullabilityAnnotations="${instrument.nullabilityAnnotations}"
-				timestampFile="build/timestamps/instrument.test.timestamp">
+				timestampFile="build/timestamps/instrument.test.timestamp"
+				hintFormat="forTags">
 			<resources refid="instrument.resources" />
 			<classpath>
 				<pathelement location="lib/cpsuite.jar" />
