@@ -63,26 +63,26 @@ final class CopySimpleSource extends Item
 		return "toString(" + getCopeID() + ')';
 	}
 
-	CopySimpleSource(final CopySimpleTarget targetItem) // OmittedCopy
+	static CopySimpleSource omitCopy(final CopySimpleTarget targetItem)
 	{
-		this(
+		return new CopySimpleSource(
 			CopySimpleSource.targetItem.map(targetItem)
 		);
 	}
 
-	CopySimpleSource( // OmittedTarget
+	static CopySimpleSource omitTarget(
 			final String templateString,
 			final CopyValue templateItem)
 	{
-		this(
+		return new CopySimpleSource(
 			CopySimpleSource.templateString.map(templateString),
 			CopySimpleSource.templateItem.map(templateItem)
 		);
 	}
 
-	CopySimpleSource() // OmittedAll
+	static CopySimpleSource omitAll()
 	{
-		this(new SetValue<?>[]{});
+		return new CopySimpleSource(new SetValue<?>[]{});
 	}
 
 	/**

@@ -309,7 +309,7 @@ public class CopySimpleTest extends TestWithEnvironment
 		final CopySimpleTarget target = new CopySimpleTarget("template1", "otherString1", value, new CopyValue());
 		try
 		{
-			new CopySimpleSource(target);
+			CopySimpleSource.omitCopy(target);
 			fail();
 		}
 		catch(final CopyViolationException e)
@@ -337,7 +337,7 @@ public class CopySimpleTest extends TestWithEnvironment
 	{
 		final CopyValue value = new CopyValue();
 
-		final CopySimpleSource source = new CopySimpleSource("template1", value);
+		final CopySimpleSource source = CopySimpleSource.omitTarget("template1", value);
 		assertEquals(null, source.getTargetItem());
 		assertEquals("template1", source.getTemplateString());
 		assertEquals(value, source.getTemplateItem());
@@ -351,7 +351,7 @@ public class CopySimpleTest extends TestWithEnvironment
 
 	@Test public void testWrongStringOmittedAll()
 	{
-		final CopySimpleSource source = new CopySimpleSource();
+		final CopySimpleSource source = CopySimpleSource.omitAll();
 		assertEquals(null, source.getTargetItem());
 		assertEquals(null, source.getTemplateString());
 		assertEquals(null, source.getTemplateItem());
