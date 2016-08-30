@@ -376,8 +376,7 @@
 				configByTags="error"
 				suppressUnusedWarningOnPrivateActivationConstructor="true"
 				nullabilityAnnotations="${instrument.nullabilityAnnotations}"
-				timestampFile="build/timestamps/runtime.test.timestamp"
-				hintFormat="forTags">
+				timestampFile="build/timestamps/runtime.test.timestamp">
 			<resources refid="instrument.resources" />
 			<classpath refid="runtime.test.path"/>
 			<dontignore>
@@ -662,7 +661,7 @@
 				suppressUnusedWarningOnPrivateActivationConstructor="true"
 				nullabilityAnnotations="${instrument.nullabilityAnnotations}"
 				timestampFile="build/timestamps/runtime.servlet.test.timestamp"
-				hintFormat="forTags">
+				hintFormat="forAnnotations">
 			<resources refid="instrument.resources" />
 			<ignore>
 				<fileset file="runtime/servlettestsrc/com/exedio/cope/pattern/MediaPattern.java" />
