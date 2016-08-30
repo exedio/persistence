@@ -113,8 +113,6 @@ public final class MoneyFieldItem extends Item
 	private static final Money<Currency> eurX = valueOf(8888.88, eur);
 
 	/**
-
-	 **
 	 * Creates a new MoneyFieldItem with all the fields initially needed.
 	 * @param currency the initial value for field {@link #currency}.
 	 * @param sharedMandatory the initial value for field {@link #sharedMandatory}.
@@ -131,18 +129,18 @@ public final class MoneyFieldItem extends Item
 			MoneyFieldItem.currency.map(currency),
 			MoneyFieldItem.sharedMandatory.map(sharedMandatory),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new MoneyFieldItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private MoneyFieldItem(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #fixed}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -150,18 +148,18 @@ public final class MoneyFieldItem extends Item
 	final com.exedio.cope.pattern.Money<CurrencyFixed> getFixed()
 	{
 		return MoneyFieldItem.fixed.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #fixed}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setFixed(@javax.annotation.Nullable final com.exedio.cope.pattern.Money<CurrencyFixed> fixed)
 	{
 		MoneyFieldItem.fixed.set(this,fixed);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #fixedEnum}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -169,18 +167,18 @@ public final class MoneyFieldItem extends Item
 	final com.exedio.cope.pattern.Money<Currency> getFixedEnum()
 	{
 		return MoneyFieldItem.fixedEnum.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #fixedEnum}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setFixedEnum(@javax.annotation.Nullable final com.exedio.cope.pattern.Money<Currency> fixedEnum)
 	{
 		MoneyFieldItem.fixedEnum.set(this,fixedEnum);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #currency}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -188,9 +186,9 @@ public final class MoneyFieldItem extends Item
 	final Currency getCurrency()
 	{
 		return MoneyFieldItem.currency.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #currency}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -199,9 +197,9 @@ public final class MoneyFieldItem extends Item
 				com.exedio.cope.MandatoryViolationException
 	{
 		MoneyFieldItem.currency.set(this,currency);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #shared}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -209,18 +207,18 @@ public final class MoneyFieldItem extends Item
 	final com.exedio.cope.pattern.Money<Currency> getShared()
 	{
 		return MoneyFieldItem.shared.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #shared}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setShared(@javax.annotation.Nullable final com.exedio.cope.pattern.Money<Currency> shared)
 	{
 		MoneyFieldItem.shared.set(this,shared);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #sharedMandatory}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -228,9 +226,9 @@ public final class MoneyFieldItem extends Item
 	final com.exedio.cope.pattern.Money<Currency> getSharedMandatory()
 	{
 		return MoneyFieldItem.sharedMandatory.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #sharedMandatory}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -239,9 +237,9 @@ public final class MoneyFieldItem extends Item
 				com.exedio.cope.MandatoryViolationException
 	{
 		MoneyFieldItem.sharedMandatory.set(this,sharedMandatory);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #exclusive}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -249,29 +247,29 @@ public final class MoneyFieldItem extends Item
 	final com.exedio.cope.pattern.Money<Currency> getExclusive()
 	{
 		return MoneyFieldItem.exclusive.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #exclusive}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setExclusive(@javax.annotation.Nullable final com.exedio.cope.pattern.Money<Currency> exclusive)
 	{
 		MoneyFieldItem.exclusive.set(this,exclusive);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for moneyFieldItem.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<MoneyFieldItem> TYPE = com.exedio.cope.TypesBound.newType(MoneyFieldItem.class);/**
+	public static final com.exedio.cope.Type<MoneyFieldItem> TYPE = com.exedio.cope.TypesBound.newType(MoneyFieldItem.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

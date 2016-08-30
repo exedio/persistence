@@ -42,8 +42,6 @@ final class StringCharSetItem extends Item
 
 
 	/**
-
-	 **
 	 * Creates a new StringCharSetItem with all the fields initially needed.
 	 * @param code the initial value for field {@link #code}.
 	 * @param any the initial value for field {@link #any}.
@@ -64,18 +62,18 @@ final class StringCharSetItem extends Item
 			StringCharSetItem.code.map(code),
 			StringCharSetItem.any.map(any),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new StringCharSetItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private StringCharSetItem(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #code}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -83,9 +81,9 @@ final class StringCharSetItem extends Item
 	final java.lang.String getCode()
 	{
 		return StringCharSetItem.code.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #code}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -96,9 +94,9 @@ final class StringCharSetItem extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		StringCharSetItem.code.set(this,code);
-	}/**
+	}
 
-	 **
+	/**
 	 * Finds a stringCharSetItem by it's {@link #code}.
 	 * @param code shall be equal to field {@link #code}.
 	 * @return null if there is no matching item.
@@ -108,9 +106,9 @@ final class StringCharSetItem extends Item
 	static final StringCharSetItem forCode(@javax.annotation.Nonnull final java.lang.String code)
 	{
 		return StringCharSetItem.code.searchUnique(StringCharSetItem.class,code);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #any}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -118,9 +116,9 @@ final class StringCharSetItem extends Item
 	final java.lang.String getAny()
 	{
 		return StringCharSetItem.any.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #any}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -129,9 +127,9 @@ final class StringCharSetItem extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		StringCharSetItem.any.set(this,any);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #alpha}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -139,9 +137,9 @@ final class StringCharSetItem extends Item
 	final java.lang.String getAlpha()
 	{
 		return StringCharSetItem.alpha.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #alpha}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -151,9 +149,9 @@ final class StringCharSetItem extends Item
 				com.exedio.cope.StringCharSetViolationException
 	{
 		StringCharSetItem.alpha.set(this,alpha);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #printable}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -161,9 +159,9 @@ final class StringCharSetItem extends Item
 	final java.lang.String getPrintable()
 	{
 		return StringCharSetItem.printable.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #printable}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -173,9 +171,9 @@ final class StringCharSetItem extends Item
 				com.exedio.cope.StringCharSetViolationException
 	{
 		StringCharSetItem.printable.set(this,printable);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #apos}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -183,9 +181,9 @@ final class StringCharSetItem extends Item
 	final java.lang.String getApos()
 	{
 		return StringCharSetItem.apos.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #apos}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -195,20 +193,20 @@ final class StringCharSetItem extends Item
 				com.exedio.cope.StringCharSetViolationException
 	{
 		StringCharSetItem.apos.set(this,apos);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for stringCharSetItem.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<StringCharSetItem> TYPE = com.exedio.cope.TypesBound.newType(StringCharSetItem.class);/**
+	static final com.exedio.cope.Type<StringCharSetItem> TYPE = com.exedio.cope.TypesBound.newType(StringCharSetItem.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

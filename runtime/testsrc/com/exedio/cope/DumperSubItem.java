@@ -31,8 +31,6 @@ public final class DumperSubItem extends DumperItem
 	}
 
 	/**
-
-	 **
 	 * Creates a new DumperSubItem with all the fields initially needed.
 	 * @param string the initial value for field {@link #string}.
 	 * @param unique the initial value for field {@link #unique}.
@@ -59,18 +57,18 @@ public final class DumperSubItem extends DumperItem
 			com.exedio.cope.DumperItem.data.map(data),
 			DumperSubItem.subString.map(subString),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new DumperSubItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private DumperSubItem(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #subString}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -78,9 +76,9 @@ public final class DumperSubItem extends DumperItem
 	final java.lang.String getSubString()
 	{
 		return DumperSubItem.subString.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #subString}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -90,20 +88,20 @@ public final class DumperSubItem extends DumperItem
 				com.exedio.cope.StringLengthViolationException
 	{
 		DumperSubItem.subString.set(this,subString);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for dumperSubItem.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<DumperSubItem> TYPE = com.exedio.cope.TypesBound.newType(DumperSubItem.class);/**
+	public static final com.exedio.cope.Type<DumperSubItem> TYPE = com.exedio.cope.TypesBound.newType(DumperSubItem.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

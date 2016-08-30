@@ -21,9 +21,9 @@ package com.exedio.cope;
 @CopeName("Target")
 final class SchemaTargetItem extends SchemaTargetPolymorphicItem
 {
-	/**
+	
 
-	 **
+	/**
 	 * Creates a new SchemaTargetItem with all the fields initially needed.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
@@ -31,29 +31,29 @@ final class SchemaTargetItem extends SchemaTargetPolymorphicItem
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new SchemaTargetItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private SchemaTargetItem(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for schemaTargetItem.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<SchemaTargetItem> TYPE = com.exedio.cope.TypesBound.newType(SchemaTargetItem.class);/**
+	static final com.exedio.cope.Type<SchemaTargetItem> TYPE = com.exedio.cope.TypesBound.newType(SchemaTargetItem.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

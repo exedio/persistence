@@ -25,8 +25,6 @@ final class SequenceItem extends Item
 
 
 	/**
-
-	 **
 	 * Creates a new SequenceItem with all the fields initially needed.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
@@ -34,18 +32,18 @@ final class SequenceItem extends Item
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new SequenceItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private SequenceItem(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Generates a new sequence number.
 	 * The result is not managed by a {@link com.exedio.cope.Transaction}.
 	 */
@@ -53,9 +51,9 @@ final class SequenceItem extends Item
 	static final int nextFull()
 	{
 		return SequenceItem.full.next();
-	}/**
+	}
 
-	 **
+	/**
 	 * Generates a new sequence number.
 	 * The result is not managed by a {@link com.exedio.cope.Transaction}.
 	 */
@@ -63,20 +61,20 @@ final class SequenceItem extends Item
 	static final int nextLimited()
 	{
 		return SequenceItem.limited.next();
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for sequenceItem.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<SequenceItem> TYPE = com.exedio.cope.TypesBound.newType(SequenceItem.class);/**
+	static final com.exedio.cope.Type<SequenceItem> TYPE = com.exedio.cope.TypesBound.newType(SequenceItem.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

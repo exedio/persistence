@@ -26,9 +26,7 @@ public final class JoinFunctionItemSingle extends Item
 	public static final StringField name = new StringField();
 
 
-/**
-
-	 **
+	/**
 	 * Creates a new JoinFunctionItemSingle with all the fields initially needed.
 	 * @param name the initial value for field {@link #name}.
 	 * @throws com.exedio.cope.MandatoryViolationException if name is null.
@@ -44,18 +42,18 @@ public final class JoinFunctionItemSingle extends Item
 		this(new com.exedio.cope.SetValue<?>[]{
 			JoinFunctionItemSingle.name.map(name),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new JoinFunctionItemSingle and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private JoinFunctionItemSingle(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #name}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -63,9 +61,9 @@ public final class JoinFunctionItemSingle extends Item
 	public final java.lang.String getName()
 	{
 		return JoinFunctionItemSingle.name.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #name}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -75,20 +73,20 @@ public final class JoinFunctionItemSingle extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		JoinFunctionItemSingle.name.set(this,name);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for joinFunctionItemSingle.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<JoinFunctionItemSingle> TYPE = com.exedio.cope.TypesBound.newType(JoinFunctionItemSingle.class);/**
+	public static final com.exedio.cope.Type<JoinFunctionItemSingle> TYPE = com.exedio.cope.TypesBound.newType(JoinFunctionItemSingle.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

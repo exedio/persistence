@@ -28,8 +28,6 @@ public final class UniqueHashedMediaItem extends Item
 	static final MediaThumbnail w300 = new MediaThumbnail(value.getMedia(), 300, 300);
 
 	/**
-
-	 **
 	 * Creates a new UniqueHashedMediaItem with all the fields initially needed.
 	 * @param value the initial value for field {@link #value}.
 	 * @throws com.exedio.cope.MandatoryViolationException if value is null.
@@ -43,18 +41,18 @@ public final class UniqueHashedMediaItem extends Item
 		this(new com.exedio.cope.SetValue<?>[]{
 			UniqueHashedMediaItem.value.map(value),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new UniqueHashedMediaItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private UniqueHashedMediaItem(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns a URL the content of {@link #value} is available under.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getURL")
@@ -62,9 +60,9 @@ public final class UniqueHashedMediaItem extends Item
 	final java.lang.String getURL()
 	{
 		return UniqueHashedMediaItem.value.getURL(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns a Locator the content of {@link #value} is available under.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLocator")
@@ -72,9 +70,9 @@ public final class UniqueHashedMediaItem extends Item
 	final com.exedio.cope.pattern.MediaPath.Locator getLocator()
 	{
 		return UniqueHashedMediaItem.value.getLocator(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the content type of the media {@link #value}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getContentType")
@@ -82,9 +80,9 @@ public final class UniqueHashedMediaItem extends Item
 	final java.lang.String getContentType()
 	{
 		return UniqueHashedMediaItem.value.getContentType(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the last modification date of media {@link #value}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLastModified")
@@ -92,18 +90,18 @@ public final class UniqueHashedMediaItem extends Item
 	final java.util.Date getLastModified()
 	{
 		return UniqueHashedMediaItem.value.getLastModified(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the body length of the media {@link #value}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLength")
 	final long getLength()
 	{
 		return UniqueHashedMediaItem.value.getLength(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the body of the media {@link #value}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
@@ -111,9 +109,9 @@ public final class UniqueHashedMediaItem extends Item
 	final byte[] getBody()
 	{
 		return UniqueHashedMediaItem.value.getBody(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the hash of the media body {@link #value}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getHash")
@@ -121,9 +119,9 @@ public final class UniqueHashedMediaItem extends Item
 	final java.lang.String getHash()
 	{
 		return UniqueHashedMediaItem.value.getHash(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Finds a uniqueHashedMediaItem by it's hash.
 	 * @return null if there is no matching item.
 	 */
@@ -132,9 +130,9 @@ public final class UniqueHashedMediaItem extends Item
 	static final UniqueHashedMediaItem forHash(@javax.annotation.Nonnull final java.lang.String valueHash)
 	{
 		return UniqueHashedMediaItem.value.forHash(UniqueHashedMediaItem.class,valueHash);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns a uniqueHashedMediaItem containing given media value or creates a new one.
 	 * @param value shall be equal to field {@link #value}.
 	 * @throws java.io.IOException if reading <tt>value</tt> throws an IOException.
@@ -146,9 +144,9 @@ public final class UniqueHashedMediaItem extends Item
 				java.io.IOException
 	{
 		return UniqueHashedMediaItem.value.getOrCreate(UniqueHashedMediaItem.class,value);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns a URL the content of {@link #w200} is available under.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getURL")
@@ -156,9 +154,9 @@ public final class UniqueHashedMediaItem extends Item
 	final java.lang.String getW200URL()
 	{
 		return UniqueHashedMediaItem.w200.getURL(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns a Locator the content of {@link #w200} is available under.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLocator")
@@ -166,9 +164,9 @@ public final class UniqueHashedMediaItem extends Item
 	final com.exedio.cope.pattern.MediaPath.Locator getW200Locator()
 	{
 		return UniqueHashedMediaItem.w200.getLocator(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns a URL the content of {@link #w200} is available under, falling back to source if necessary.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getURLWithFallbackToSource")
@@ -176,9 +174,9 @@ public final class UniqueHashedMediaItem extends Item
 	final java.lang.String getW200URLWithFallbackToSource()
 	{
 		return UniqueHashedMediaItem.w200.getURLWithFallbackToSource(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns a Locator the content of {@link #w200} is available under, falling back to source if necessary.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLocatorWithFallbackToSource")
@@ -186,9 +184,9 @@ public final class UniqueHashedMediaItem extends Item
 	final com.exedio.cope.pattern.MediaPath.Locator getW200LocatorWithFallbackToSource()
 	{
 		return UniqueHashedMediaItem.w200.getLocatorWithFallbackToSource(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the body of {@link #w200}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -198,9 +196,9 @@ public final class UniqueHashedMediaItem extends Item
 				java.io.IOException
 	{
 		return UniqueHashedMediaItem.w200.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns a URL the content of {@link #w300} is available under.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getURL")
@@ -208,9 +206,9 @@ public final class UniqueHashedMediaItem extends Item
 	final java.lang.String getW300URL()
 	{
 		return UniqueHashedMediaItem.w300.getURL(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns a Locator the content of {@link #w300} is available under.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLocator")
@@ -218,9 +216,9 @@ public final class UniqueHashedMediaItem extends Item
 	final com.exedio.cope.pattern.MediaPath.Locator getW300Locator()
 	{
 		return UniqueHashedMediaItem.w300.getLocator(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns a URL the content of {@link #w300} is available under, falling back to source if necessary.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getURLWithFallbackToSource")
@@ -228,9 +226,9 @@ public final class UniqueHashedMediaItem extends Item
 	final java.lang.String getW300URLWithFallbackToSource()
 	{
 		return UniqueHashedMediaItem.w300.getURLWithFallbackToSource(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns a Locator the content of {@link #w300} is available under, falling back to source if necessary.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLocatorWithFallbackToSource")
@@ -238,9 +236,9 @@ public final class UniqueHashedMediaItem extends Item
 	final com.exedio.cope.pattern.MediaPath.Locator getW300LocatorWithFallbackToSource()
 	{
 		return UniqueHashedMediaItem.w300.getLocatorWithFallbackToSource(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the body of {@link #w300}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -250,20 +248,20 @@ public final class UniqueHashedMediaItem extends Item
 				java.io.IOException
 	{
 		return UniqueHashedMediaItem.w300.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for uniqueHashedMediaItem.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<UniqueHashedMediaItem> TYPE = com.exedio.cope.TypesBound.newType(UniqueHashedMediaItem.class);/**
+	public static final com.exedio.cope.Type<UniqueHashedMediaItem> TYPE = com.exedio.cope.TypesBound.newType(UniqueHashedMediaItem.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

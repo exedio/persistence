@@ -29,9 +29,7 @@ public final class UniqueFinalItem extends Item
 	 */
 	public static final StringField uniqueFinalString = new StringField().toFinal().optional().unique();
 
-/**
-
-	 **
+	/**
 	 * Creates a new UniqueFinalItem with all the fields initially needed.
 	 * @param uniqueFinalString the initial value for field {@link #uniqueFinalString}.
 	 * @throws com.exedio.cope.StringLengthViolationException if uniqueFinalString violates its length constraint.
@@ -47,18 +45,18 @@ public final class UniqueFinalItem extends Item
 		this(new com.exedio.cope.SetValue<?>[]{
 			UniqueFinalItem.uniqueFinalString.map(uniqueFinalString),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new UniqueFinalItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private UniqueFinalItem(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #uniqueFinalString}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -66,9 +64,9 @@ public final class UniqueFinalItem extends Item
 	public final java.lang.String getUniqueFinalString()
 	{
 		return UniqueFinalItem.uniqueFinalString.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Finds a uniqueFinalItem by it's {@link #uniqueFinalString}.
 	 * @param uniqueFinalString shall be equal to field {@link #uniqueFinalString}.
 	 * @return null if there is no matching item.
@@ -78,20 +76,20 @@ public final class UniqueFinalItem extends Item
 	public static final UniqueFinalItem forUniqueFinalString(@javax.annotation.Nonnull final java.lang.String uniqueFinalString)
 	{
 		return UniqueFinalItem.uniqueFinalString.searchUnique(UniqueFinalItem.class,uniqueFinalString);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for uniqueFinalItem.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<UniqueFinalItem> TYPE = com.exedio.cope.TypesBound.newType(UniqueFinalItem.class);/**
+	public static final com.exedio.cope.Type<UniqueFinalItem> TYPE = com.exedio.cope.TypesBound.newType(UniqueFinalItem.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

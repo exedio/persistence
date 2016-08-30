@@ -29,8 +29,6 @@ public class IntegerTypeSmallIntItem extends Item
 
 
 	/**
-
-	 **
 	 * Creates a new IntegerTypeSmallIntItem with all the fields initially needed.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
@@ -38,18 +36,18 @@ public class IntegerTypeSmallIntItem extends Item
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new IntegerTypeSmallIntItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	protected IntegerTypeSmallIntItem(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #itemReference}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -57,18 +55,18 @@ public class IntegerTypeSmallIntItem extends Item
 	final IntegerTypeSmallIntItem getItemReference()
 	{
 		return IntegerTypeSmallIntItem.itemReference.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #itemReference}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setItemReference(@javax.annotation.Nullable final IntegerTypeSmallIntItem itemReference)
 	{
 		IntegerTypeSmallIntItem.itemReference.set(this,itemReference);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #value}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -76,9 +74,9 @@ public class IntegerTypeSmallIntItem extends Item
 	final java.lang.Long getValue()
 	{
 		return IntegerTypeSmallIntItem.value.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #value}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -87,20 +85,20 @@ public class IntegerTypeSmallIntItem extends Item
 				com.exedio.cope.LongRangeViolationException
 	{
 		IntegerTypeSmallIntItem.value.set(this,value);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for integerTypeSmallIntItem.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<IntegerTypeSmallIntItem> TYPE = com.exedio.cope.TypesBound.newType(IntegerTypeSmallIntItem.class);/**
+	public static final com.exedio.cope.Type<IntegerTypeSmallIntItem> TYPE = com.exedio.cope.TypesBound.newType(IntegerTypeSmallIntItem.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

@@ -20,9 +20,9 @@ package com.exedio.cope;
 
 class CheckConstraintConditionItemSub extends CheckConstraintConditionItemTarget
 {
-	/**
+	
 
-	 **
+	/**
 	 * Creates a new CheckConstraintConditionItemSub with all the fields initially needed.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
@@ -30,29 +30,29 @@ class CheckConstraintConditionItemSub extends CheckConstraintConditionItemTarget
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new CheckConstraintConditionItemSub and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	protected CheckConstraintConditionItemSub(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for checkConstraintConditionItemSub.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<CheckConstraintConditionItemSub> TYPE = com.exedio.cope.TypesBound.newType(CheckConstraintConditionItemSub.class);/**
+	static final com.exedio.cope.Type<CheckConstraintConditionItemSub> TYPE = com.exedio.cope.TypesBound.newType(CheckConstraintConditionItemSub.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

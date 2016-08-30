@@ -28,9 +28,7 @@ public class HierarchyEmptySuper extends Item
 	public static final IntegerField superInt = new IntegerField().unique();
 
 
-/**
-
-	 **
+	/**
 	 * Creates a new HierarchyEmptySuper with all the fields initially needed.
 	 * @param superInt the initial value for field {@link #superInt}.
 	 * @throws com.exedio.cope.UniqueViolationException if superInt is not unique.
@@ -44,27 +42,27 @@ public class HierarchyEmptySuper extends Item
 		this(new com.exedio.cope.SetValue<?>[]{
 			HierarchyEmptySuper.superInt.map(superInt),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new HierarchyEmptySuper and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	protected HierarchyEmptySuper(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #superInt}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	public final int getSuperInt()
 	{
 		return HierarchyEmptySuper.superInt.getMandatory(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #superInt}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -73,9 +71,9 @@ public class HierarchyEmptySuper extends Item
 				com.exedio.cope.UniqueViolationException
 	{
 		HierarchyEmptySuper.superInt.set(this,superInt);
-	}/**
+	}
 
-	 **
+	/**
 	 * Finds a hierarchyEmptySuper by it's {@link #superInt}.
 	 * @param superInt shall be equal to field {@link #superInt}.
 	 * @return null if there is no matching item.
@@ -85,20 +83,20 @@ public class HierarchyEmptySuper extends Item
 	public static final HierarchyEmptySuper forSuperInt(final int superInt)
 	{
 		return HierarchyEmptySuper.superInt.searchUnique(HierarchyEmptySuper.class,superInt);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for hierarchyEmptySuper.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<HierarchyEmptySuper> TYPE = com.exedio.cope.TypesBound.newType(HierarchyEmptySuper.class);/**
+	public static final com.exedio.cope.Type<HierarchyEmptySuper> TYPE = com.exedio.cope.TypesBound.newType(HierarchyEmptySuper.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

@@ -38,8 +38,6 @@ public final class SerializerItem extends Item
 
 
 	/**
-
-	 **
 	 * Creates a new SerializerItem with all the fields initially needed.
 	 * @param mandatoryString the initial value for field {@link #mandatoryString}.
 	 * @throws com.exedio.cope.MandatoryViolationException if mandatoryString is null.
@@ -53,18 +51,18 @@ public final class SerializerItem extends Item
 		this(new com.exedio.cope.SetValue<?>[]{
 			SerializerItem.mandatoryString.map(mandatoryString),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new SerializerItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	SerializerItem(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #integer}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -72,18 +70,18 @@ public final class SerializerItem extends Item
 	final Integer getInteger()
 	{
 		return SerializerItem.integer.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #integer}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setInteger(@javax.annotation.Nullable final Integer integer)
 	{
 		SerializerItem.integer.set(this,integer);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #map}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -91,18 +89,18 @@ public final class SerializerItem extends Item
 	final Map getMap()
 	{
 		return SerializerItem.map.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #map}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setMap(@javax.annotation.Nullable final Map map)
 	{
 		SerializerItem.map.set(this,map);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #mapWildcard}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -110,18 +108,18 @@ public final class SerializerItem extends Item
 	final Map<?,?> getMapWildcard()
 	{
 		return SerializerItem.mapWildcard.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #mapWildcard}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setMapWildcard(@javax.annotation.Nullable final Map<?,?> mapWildcard)
 	{
 		SerializerItem.mapWildcard.set(this,mapWildcard);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #mandatoryString}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -129,9 +127,9 @@ public final class SerializerItem extends Item
 	final String getMandatoryString()
 	{
 		return SerializerItem.mandatoryString.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #mandatoryString}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -140,20 +138,20 @@ public final class SerializerItem extends Item
 				com.exedio.cope.MandatoryViolationException
 	{
 		SerializerItem.mandatoryString.set(this,mandatoryString);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for serializerItem.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<SerializerItem> TYPE = com.exedio.cope.TypesBound.newType(SerializerItem.class);/**
+	public static final com.exedio.cope.Type<SerializerItem> TYPE = com.exedio.cope.TypesBound.newType(SerializerItem.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

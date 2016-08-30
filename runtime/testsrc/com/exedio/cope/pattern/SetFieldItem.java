@@ -30,8 +30,6 @@ public final class SetFieldItem extends Item
 
 
 	/**
-
-	 **
 	 * Creates a new SetFieldItem with all the fields initially needed.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
@@ -39,18 +37,18 @@ public final class SetFieldItem extends Item
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new SetFieldItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private SetFieldItem(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #strings}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -58,9 +56,9 @@ public final class SetFieldItem extends Item
 	final java.util.Set<String> getStrings()
 	{
 		return SetFieldItem.strings.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns a query for the value of {@link #strings}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getQuery")
@@ -68,9 +66,9 @@ public final class SetFieldItem extends Item
 	final com.exedio.cope.Query<String> getStringsQuery()
 	{
 		return SetFieldItem.strings.getQuery(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the items, for which field set {@link #strings} contains the given element.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getParentsOf")
@@ -78,9 +76,9 @@ public final class SetFieldItem extends Item
 	static final java.util.List<SetFieldItem> getParentsOfStrings(@javax.annotation.Nonnull final String element)
 	{
 		return SetFieldItem.strings.getParents(SetFieldItem.class,element);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #strings}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -91,9 +89,9 @@ public final class SetFieldItem extends Item
 				java.lang.ClassCastException
 	{
 		SetFieldItem.strings.set(this,strings);
-	}/**
+	}
 
-	 **
+	/**
 	 * Adds a new element to {@link #strings}.
 	 * @return <tt>true</tt> if the field set changed as a result of the call.
 	 */
@@ -105,9 +103,9 @@ public final class SetFieldItem extends Item
 				java.lang.ClassCastException
 	{
 		return SetFieldItem.strings.add(this,element);
-	}/**
+	}
 
-	 **
+	/**
 	 * Removes an element from {@link #strings}.
 	 * @return <tt>true</tt> if the field set changed as a result of the call.
 	 */
@@ -119,9 +117,9 @@ public final class SetFieldItem extends Item
 				java.lang.ClassCastException
 	{
 		return SetFieldItem.strings.remove(this,element);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the parent field of the type of {@link #strings}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="Parent")
@@ -129,9 +127,9 @@ public final class SetFieldItem extends Item
 	static final com.exedio.cope.ItemField<SetFieldItem> stringsParent()
 	{
 		return SetFieldItem.strings.getParent(SetFieldItem.class);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #dates}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -139,9 +137,9 @@ public final class SetFieldItem extends Item
 	final java.util.Set<Date> getDates()
 	{
 		return SetFieldItem.dates.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns a query for the value of {@link #dates}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getQuery")
@@ -149,9 +147,9 @@ public final class SetFieldItem extends Item
 	final com.exedio.cope.Query<Date> getDatesQuery()
 	{
 		return SetFieldItem.dates.getQuery(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the items, for which field set {@link #dates} contains the given element.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getParentsOf")
@@ -159,9 +157,9 @@ public final class SetFieldItem extends Item
 	static final java.util.List<SetFieldItem> getParentsOfDates(@javax.annotation.Nonnull final Date element)
 	{
 		return SetFieldItem.dates.getParents(SetFieldItem.class,element);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #dates}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -171,9 +169,9 @@ public final class SetFieldItem extends Item
 				java.lang.ClassCastException
 	{
 		SetFieldItem.dates.set(this,dates);
-	}/**
+	}
 
-	 **
+	/**
 	 * Adds a new element to {@link #dates}.
 	 * @return <tt>true</tt> if the field set changed as a result of the call.
 	 */
@@ -184,9 +182,9 @@ public final class SetFieldItem extends Item
 				java.lang.ClassCastException
 	{
 		return SetFieldItem.dates.add(this,element);
-	}/**
+	}
 
-	 **
+	/**
 	 * Removes an element from {@link #dates}.
 	 * @return <tt>true</tt> if the field set changed as a result of the call.
 	 */
@@ -197,9 +195,9 @@ public final class SetFieldItem extends Item
 				java.lang.ClassCastException
 	{
 		return SetFieldItem.dates.remove(this,element);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the parent field of the type of {@link #dates}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="Parent")
@@ -207,20 +205,20 @@ public final class SetFieldItem extends Item
 	static final com.exedio.cope.ItemField<SetFieldItem> datesParent()
 	{
 		return SetFieldItem.dates.getParent(SetFieldItem.class);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for setFieldItem.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<SetFieldItem> TYPE = com.exedio.cope.TypesBound.newType(SetFieldItem.class);/**
+	public static final com.exedio.cope.Type<SetFieldItem> TYPE = com.exedio.cope.TypesBound.newType(SetFieldItem.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

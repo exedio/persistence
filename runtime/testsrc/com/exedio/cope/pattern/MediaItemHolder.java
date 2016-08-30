@@ -30,9 +30,7 @@ public final class MediaItemHolder extends Item
 	public static final ItemField<MediaItem> mediaItem = ItemField.create(MediaItem.class);
 
 
-/**
-
-	 **
+	/**
 	 * Creates a new MediaItemHolder with all the fields initially needed.
 	 * @param mediaItem the initial value for field {@link #mediaItem}.
 	 * @throws com.exedio.cope.MandatoryViolationException if mediaItem is null.
@@ -46,18 +44,18 @@ public final class MediaItemHolder extends Item
 		this(new com.exedio.cope.SetValue<?>[]{
 			MediaItemHolder.mediaItem.map(mediaItem),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new MediaItemHolder and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	MediaItemHolder(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #mediaItem}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -65,9 +63,9 @@ public final class MediaItemHolder extends Item
 	public final MediaItem getMediaItem()
 	{
 		return MediaItemHolder.mediaItem.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #mediaItem}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -76,20 +74,20 @@ public final class MediaItemHolder extends Item
 				com.exedio.cope.MandatoryViolationException
 	{
 		MediaItemHolder.mediaItem.set(this,mediaItem);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for mediaItemHolder.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<MediaItemHolder> TYPE = com.exedio.cope.TypesBound.newType(MediaItemHolder.class);/**
+	public static final com.exedio.cope.Type<MediaItemHolder> TYPE = com.exedio.cope.TypesBound.newType(MediaItemHolder.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

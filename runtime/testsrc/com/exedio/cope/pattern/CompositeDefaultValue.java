@@ -27,8 +27,6 @@ final class CompositeDefaultValue extends Composite
 	static final IntegerField deflt = new IntegerField().defaultTo(5);
 
 	/**
-
-	 **
 	 * Creates a new CompositeDefaultValue with all the fields initially needed.
 	 * @param normal the initial value for field {@link #normal}.
 	 * @throws com.exedio.cope.MandatoryViolationException if normal is null.
@@ -44,18 +42,18 @@ final class CompositeDefaultValue extends Composite
 		this(new com.exedio.cope.SetValue<?>[]{
 			CompositeDefaultValue.normal.map(normal),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new CompositeDefaultValue and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private CompositeDefaultValue(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #normal}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -63,9 +61,9 @@ final class CompositeDefaultValue extends Composite
 	final java.lang.String getNormal()
 	{
 		return get(CompositeDefaultValue.normal);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #normal}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -75,27 +73,27 @@ final class CompositeDefaultValue extends Composite
 				com.exedio.cope.StringLengthViolationException
 	{
 		set(CompositeDefaultValue.normal,normal);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #deflt}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	final int getDeflt()
 	{
 		return getMandatory(CompositeDefaultValue.deflt);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #deflt}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setDeflt(final int deflt)
 	{
 		set(CompositeDefaultValue.deflt,deflt);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;}

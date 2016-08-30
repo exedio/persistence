@@ -66,8 +66,6 @@ public final class JavaViewItem extends Item
 	}
 
 	/**
-
-	 **
 	 * Creates a new JavaViewItem with all the fields initially needed.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
@@ -75,18 +73,18 @@ public final class JavaViewItem extends Item
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new JavaViewItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private JavaViewItem(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #numberString}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -94,9 +92,9 @@ public final class JavaViewItem extends Item
 	final java.lang.String getNumberString()
 	{
 		return JavaViewItem.numberString.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #numberString}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -105,20 +103,20 @@ public final class JavaViewItem extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		JavaViewItem.numberString.set(this,numberString);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for javaViewItem.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<JavaViewItem> TYPE = com.exedio.cope.TypesBound.newType(JavaViewItem.class);/**
+	public static final com.exedio.cope.Type<JavaViewItem> TYPE = com.exedio.cope.TypesBound.newType(JavaViewItem.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

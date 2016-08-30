@@ -32,8 +32,6 @@ final class TypeFutureInPatternsItem extends Item
 	}
 
 	/**
-
-	 **
 	 * Creates a new TypeFutureInPatternsItem with all the fields initially needed.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
@@ -41,29 +39,29 @@ final class TypeFutureInPatternsItem extends Item
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new TypeFutureInPatternsItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private TypeFutureInPatternsItem(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for typeFutureInPatternsItem.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<TypeFutureInPatternsItem> TYPE = com.exedio.cope.TypesBound.newType(TypeFutureInPatternsItem.class);/**
+	static final com.exedio.cope.Type<TypeFutureInPatternsItem> TYPE = com.exedio.cope.TypesBound.newType(TypeFutureInPatternsItem.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

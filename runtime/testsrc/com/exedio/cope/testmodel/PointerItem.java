@@ -35,9 +35,7 @@ public final class PointerItem extends Item
 
 	public static final ItemField<EmptyItem2> empty2 = ItemField.create(EmptyItem2.class).optional();
 
-/**
-
-	 **
+	/**
 	 * Creates a new PointerItem with all the fields initially needed.
 	 * @param code the initial value for field {@link #code}.
 	 * @param pointer the initial value for field {@link #pointer}.
@@ -56,18 +54,18 @@ public final class PointerItem extends Item
 			PointerItem.code.map(code),
 			PointerItem.pointer.map(pointer),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new PointerItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private PointerItem(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #code}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -75,9 +73,9 @@ public final class PointerItem extends Item
 	public final java.lang.String getCode()
 	{
 		return PointerItem.code.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #code}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -87,9 +85,9 @@ public final class PointerItem extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		PointerItem.code.set(this,code);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #pointer}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -97,9 +95,9 @@ public final class PointerItem extends Item
 	public final PointerTargetItem getPointer()
 	{
 		return PointerItem.pointer.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #pointer}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -108,9 +106,9 @@ public final class PointerItem extends Item
 				com.exedio.cope.MandatoryViolationException
 	{
 		PointerItem.pointer.set(this,pointer);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #pointer2}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -118,18 +116,18 @@ public final class PointerItem extends Item
 	public final PointerTargetItem getPointer2()
 	{
 		return PointerItem.pointer2.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #pointer2}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	public final void setPointer2(@javax.annotation.Nullable final PointerTargetItem pointer2)
 	{
 		PointerItem.pointer2.set(this,pointer2);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #self}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -137,18 +135,18 @@ public final class PointerItem extends Item
 	public final PointerItem getSelf()
 	{
 		return PointerItem.self.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #self}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	public final void setSelf(@javax.annotation.Nullable final PointerItem self)
 	{
 		PointerItem.self.set(this,self);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #empty2}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -156,29 +154,29 @@ public final class PointerItem extends Item
 	public final EmptyItem2 getEmpty2()
 	{
 		return PointerItem.empty2.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #empty2}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	public final void setEmpty2(@javax.annotation.Nullable final EmptyItem2 empty2)
 	{
 		PointerItem.empty2.set(this,empty2);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for pointerItem.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<PointerItem> TYPE = com.exedio.cope.TypesBound.newType(PointerItem.class);/**
+	public static final com.exedio.cope.Type<PointerItem> TYPE = com.exedio.cope.TypesBound.newType(PointerItem.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

@@ -35,8 +35,6 @@ final class MediaFilterFallbackItem extends Item
 	static final MediaFilterFallbackFeature supportedTwoFilter = new MediaFilterFallbackFeature(supportedTwo);
 
 	/**
-
-	 **
 	 * Creates a new MediaFilterFallbackItem with all the fields initially needed.
 	 * @param any the initial value for field {@link #any}.
 	 * @param nonSupported the initial value for field {@link #nonSupported}.
@@ -59,18 +57,18 @@ final class MediaFilterFallbackItem extends Item
 			MediaFilterFallbackItem.supported.map(supported),
 			MediaFilterFallbackItem.supportedTwo.map(supportedTwo),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new MediaFilterFallbackItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private MediaFilterFallbackItem(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns a URL the content of {@link #any} is available under.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getURL")
@@ -78,9 +76,9 @@ final class MediaFilterFallbackItem extends Item
 	final java.lang.String getAnyURL()
 	{
 		return MediaFilterFallbackItem.any.getURL(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns a Locator the content of {@link #any} is available under.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLocator")
@@ -88,9 +86,9 @@ final class MediaFilterFallbackItem extends Item
 	final com.exedio.cope.pattern.MediaPath.Locator getAnyLocator()
 	{
 		return MediaFilterFallbackItem.any.getLocator(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the content type of the media {@link #any}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getContentType")
@@ -98,9 +96,9 @@ final class MediaFilterFallbackItem extends Item
 	final java.lang.String getAnyContentType()
 	{
 		return MediaFilterFallbackItem.any.getContentType(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the last modification date of media {@link #any}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLastModified")
@@ -108,18 +106,18 @@ final class MediaFilterFallbackItem extends Item
 	final java.util.Date getAnyLastModified()
 	{
 		return MediaFilterFallbackItem.any.getLastModified(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the body length of the media {@link #any}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLength")
 	final long getAnyLength()
 	{
 		return MediaFilterFallbackItem.any.getLength(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the body of the media {@link #any}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
@@ -127,9 +125,9 @@ final class MediaFilterFallbackItem extends Item
 	final byte[] getAnyBody()
 	{
 		return MediaFilterFallbackItem.any.getBody(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Writes the body of media {@link #any} into the given stream.
 	 * Does nothing, if the media is null.
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
@@ -140,9 +138,9 @@ final class MediaFilterFallbackItem extends Item
 				java.io.IOException
 	{
 		MediaFilterFallbackItem.any.getBody(this,body);
-	}/**
+	}
 
-	 **
+	/**
 	 * Writes the body of media {@link #any} into the given file.
 	 * Does nothing, if the media is null.
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
@@ -153,9 +151,9 @@ final class MediaFilterFallbackItem extends Item
 				java.io.IOException
 	{
 		MediaFilterFallbackItem.any.getBody(this,body);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets the content of media {@link #any}.
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
 	 */
@@ -165,18 +163,18 @@ final class MediaFilterFallbackItem extends Item
 				java.io.IOException
 	{
 		MediaFilterFallbackItem.any.set(this,any);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets the content of media {@link #any}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setAny(@javax.annotation.Nonnull final byte[] body,@javax.annotation.Nonnull final java.lang.String contentType)
 	{
 		MediaFilterFallbackItem.any.set(this,body,contentType);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets the content of media {@link #any}.
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
 	 */
@@ -186,9 +184,9 @@ final class MediaFilterFallbackItem extends Item
 				java.io.IOException
 	{
 		MediaFilterFallbackItem.any.set(this,body,contentType);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets the content of media {@link #any}.
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
 	 */
@@ -198,9 +196,9 @@ final class MediaFilterFallbackItem extends Item
 				java.io.IOException
 	{
 		MediaFilterFallbackItem.any.set(this,body,contentType);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns a URL the content of {@link #anFilter} is available under.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getURL")
@@ -208,9 +206,9 @@ final class MediaFilterFallbackItem extends Item
 	final java.lang.String getAnFilterURL()
 	{
 		return MediaFilterFallbackItem.anFilter.getURL(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns a Locator the content of {@link #anFilter} is available under.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLocator")
@@ -218,9 +216,9 @@ final class MediaFilterFallbackItem extends Item
 	final com.exedio.cope.pattern.MediaPath.Locator getAnFilterLocator()
 	{
 		return MediaFilterFallbackItem.anFilter.getLocator(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns a URL the content of {@link #anFilter} is available under, falling back to source if necessary.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getURLWithFallbackToSource")
@@ -228,9 +226,9 @@ final class MediaFilterFallbackItem extends Item
 	final java.lang.String getAnFilterURLWithFallbackToSource()
 	{
 		return MediaFilterFallbackItem.anFilter.getURLWithFallbackToSource(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns a Locator the content of {@link #anFilter} is available under, falling back to source if necessary.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLocatorWithFallbackToSource")
@@ -238,9 +236,9 @@ final class MediaFilterFallbackItem extends Item
 	final com.exedio.cope.pattern.MediaPath.Locator getAnFilterLocatorWithFallbackToSource()
 	{
 		return MediaFilterFallbackItem.anFilter.getLocatorWithFallbackToSource(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns a URL the content of {@link #nonSupported} is available under.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getURL")
@@ -248,9 +246,9 @@ final class MediaFilterFallbackItem extends Item
 	final java.lang.String getNonSupportedURL()
 	{
 		return MediaFilterFallbackItem.nonSupported.getURL(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns a Locator the content of {@link #nonSupported} is available under.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLocator")
@@ -258,9 +256,9 @@ final class MediaFilterFallbackItem extends Item
 	final com.exedio.cope.pattern.MediaPath.Locator getNonSupportedLocator()
 	{
 		return MediaFilterFallbackItem.nonSupported.getLocator(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the content type of the media {@link #nonSupported}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getContentType")
@@ -268,9 +266,9 @@ final class MediaFilterFallbackItem extends Item
 	final java.lang.String getNonSupportedContentType()
 	{
 		return MediaFilterFallbackItem.nonSupported.getContentType(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the last modification date of media {@link #nonSupported}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLastModified")
@@ -278,18 +276,18 @@ final class MediaFilterFallbackItem extends Item
 	final java.util.Date getNonSupportedLastModified()
 	{
 		return MediaFilterFallbackItem.nonSupported.getLastModified(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the body length of the media {@link #nonSupported}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLength")
 	final long getNonSupportedLength()
 	{
 		return MediaFilterFallbackItem.nonSupported.getLength(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the body of the media {@link #nonSupported}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
@@ -297,9 +295,9 @@ final class MediaFilterFallbackItem extends Item
 	final byte[] getNonSupportedBody()
 	{
 		return MediaFilterFallbackItem.nonSupported.getBody(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Writes the body of media {@link #nonSupported} into the given stream.
 	 * Does nothing, if the media is null.
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
@@ -310,9 +308,9 @@ final class MediaFilterFallbackItem extends Item
 				java.io.IOException
 	{
 		MediaFilterFallbackItem.nonSupported.getBody(this,body);
-	}/**
+	}
 
-	 **
+	/**
 	 * Writes the body of media {@link #nonSupported} into the given file.
 	 * Does nothing, if the media is null.
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
@@ -323,9 +321,9 @@ final class MediaFilterFallbackItem extends Item
 				java.io.IOException
 	{
 		MediaFilterFallbackItem.nonSupported.getBody(this,body);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets the content of media {@link #nonSupported}.
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
 	 */
@@ -335,18 +333,18 @@ final class MediaFilterFallbackItem extends Item
 				java.io.IOException
 	{
 		MediaFilterFallbackItem.nonSupported.set(this,nonSupported);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets the content of media {@link #nonSupported}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setNonSupported(@javax.annotation.Nonnull final byte[] body,@javax.annotation.Nonnull final java.lang.String contentType)
 	{
 		MediaFilterFallbackItem.nonSupported.set(this,body,contentType);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets the content of media {@link #nonSupported}.
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
 	 */
@@ -356,9 +354,9 @@ final class MediaFilterFallbackItem extends Item
 				java.io.IOException
 	{
 		MediaFilterFallbackItem.nonSupported.set(this,body,contentType);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets the content of media {@link #nonSupported}.
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
 	 */
@@ -368,9 +366,9 @@ final class MediaFilterFallbackItem extends Item
 				java.io.IOException
 	{
 		MediaFilterFallbackItem.nonSupported.set(this,body,contentType);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns a URL the content of {@link #nonSupportedFilter} is available under.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getURL")
@@ -378,9 +376,9 @@ final class MediaFilterFallbackItem extends Item
 	final java.lang.String getNonSupportedFilterURL()
 	{
 		return MediaFilterFallbackItem.nonSupportedFilter.getURL(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns a Locator the content of {@link #nonSupportedFilter} is available under.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLocator")
@@ -388,9 +386,9 @@ final class MediaFilterFallbackItem extends Item
 	final com.exedio.cope.pattern.MediaPath.Locator getNonSupportedFilterLocator()
 	{
 		return MediaFilterFallbackItem.nonSupportedFilter.getLocator(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns a URL the content of {@link #nonSupportedFilter} is available under, falling back to source if necessary.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getURLWithFallbackToSource")
@@ -398,9 +396,9 @@ final class MediaFilterFallbackItem extends Item
 	final java.lang.String getNonSupportedFilterURLWithFallbackToSource()
 	{
 		return MediaFilterFallbackItem.nonSupportedFilter.getURLWithFallbackToSource(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns a Locator the content of {@link #nonSupportedFilter} is available under, falling back to source if necessary.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLocatorWithFallbackToSource")
@@ -408,9 +406,9 @@ final class MediaFilterFallbackItem extends Item
 	final com.exedio.cope.pattern.MediaPath.Locator getNonSupportedFilterLocatorWithFallbackToSource()
 	{
 		return MediaFilterFallbackItem.nonSupportedFilter.getLocatorWithFallbackToSource(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns a URL the content of {@link #supported} is available under.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getURL")
@@ -418,9 +416,9 @@ final class MediaFilterFallbackItem extends Item
 	final java.lang.String getSupportedURL()
 	{
 		return MediaFilterFallbackItem.supported.getURL(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns a Locator the content of {@link #supported} is available under.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLocator")
@@ -428,9 +426,9 @@ final class MediaFilterFallbackItem extends Item
 	final com.exedio.cope.pattern.MediaPath.Locator getSupportedLocator()
 	{
 		return MediaFilterFallbackItem.supported.getLocator(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the last modification date of media {@link #supported}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLastModified")
@@ -438,18 +436,18 @@ final class MediaFilterFallbackItem extends Item
 	final java.util.Date getSupportedLastModified()
 	{
 		return MediaFilterFallbackItem.supported.getLastModified(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the body length of the media {@link #supported}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLength")
 	final long getSupportedLength()
 	{
 		return MediaFilterFallbackItem.supported.getLength(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the body of the media {@link #supported}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
@@ -457,9 +455,9 @@ final class MediaFilterFallbackItem extends Item
 	final byte[] getSupportedBody()
 	{
 		return MediaFilterFallbackItem.supported.getBody(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Writes the body of media {@link #supported} into the given stream.
 	 * Does nothing, if the media is null.
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
@@ -470,9 +468,9 @@ final class MediaFilterFallbackItem extends Item
 				java.io.IOException
 	{
 		MediaFilterFallbackItem.supported.getBody(this,body);
-	}/**
+	}
 
-	 **
+	/**
 	 * Writes the body of media {@link #supported} into the given file.
 	 * Does nothing, if the media is null.
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
@@ -483,9 +481,9 @@ final class MediaFilterFallbackItem extends Item
 				java.io.IOException
 	{
 		MediaFilterFallbackItem.supported.getBody(this,body);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets the content of media {@link #supported}.
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
 	 */
@@ -495,18 +493,18 @@ final class MediaFilterFallbackItem extends Item
 				java.io.IOException
 	{
 		MediaFilterFallbackItem.supported.set(this,supported);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets the content of media {@link #supported}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setSupported(@javax.annotation.Nonnull final byte[] body,@javax.annotation.Nonnull final java.lang.String contentType)
 	{
 		MediaFilterFallbackItem.supported.set(this,body,contentType);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets the content of media {@link #supported}.
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
 	 */
@@ -516,9 +514,9 @@ final class MediaFilterFallbackItem extends Item
 				java.io.IOException
 	{
 		MediaFilterFallbackItem.supported.set(this,body,contentType);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets the content of media {@link #supported}.
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
 	 */
@@ -528,9 +526,9 @@ final class MediaFilterFallbackItem extends Item
 				java.io.IOException
 	{
 		MediaFilterFallbackItem.supported.set(this,body,contentType);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns a URL the content of {@link #supportedFilter} is available under.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getURL")
@@ -538,9 +536,9 @@ final class MediaFilterFallbackItem extends Item
 	final java.lang.String getSupportedFilterURL()
 	{
 		return MediaFilterFallbackItem.supportedFilter.getURL(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns a Locator the content of {@link #supportedFilter} is available under.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLocator")
@@ -548,9 +546,9 @@ final class MediaFilterFallbackItem extends Item
 	final com.exedio.cope.pattern.MediaPath.Locator getSupportedFilterLocator()
 	{
 		return MediaFilterFallbackItem.supportedFilter.getLocator(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns a URL the content of {@link #supportedTwo} is available under.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getURL")
@@ -558,9 +556,9 @@ final class MediaFilterFallbackItem extends Item
 	final java.lang.String getSupportedTwoURL()
 	{
 		return MediaFilterFallbackItem.supportedTwo.getURL(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns a Locator the content of {@link #supportedTwo} is available under.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLocator")
@@ -568,9 +566,9 @@ final class MediaFilterFallbackItem extends Item
 	final com.exedio.cope.pattern.MediaPath.Locator getSupportedTwoLocator()
 	{
 		return MediaFilterFallbackItem.supportedTwo.getLocator(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the content type of the media {@link #supportedTwo}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getContentType")
@@ -578,9 +576,9 @@ final class MediaFilterFallbackItem extends Item
 	final java.lang.String getSupportedTwoContentType()
 	{
 		return MediaFilterFallbackItem.supportedTwo.getContentType(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the last modification date of media {@link #supportedTwo}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLastModified")
@@ -588,18 +586,18 @@ final class MediaFilterFallbackItem extends Item
 	final java.util.Date getSupportedTwoLastModified()
 	{
 		return MediaFilterFallbackItem.supportedTwo.getLastModified(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the body length of the media {@link #supportedTwo}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLength")
 	final long getSupportedTwoLength()
 	{
 		return MediaFilterFallbackItem.supportedTwo.getLength(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the body of the media {@link #supportedTwo}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
@@ -607,9 +605,9 @@ final class MediaFilterFallbackItem extends Item
 	final byte[] getSupportedTwoBody()
 	{
 		return MediaFilterFallbackItem.supportedTwo.getBody(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Writes the body of media {@link #supportedTwo} into the given stream.
 	 * Does nothing, if the media is null.
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
@@ -620,9 +618,9 @@ final class MediaFilterFallbackItem extends Item
 				java.io.IOException
 	{
 		MediaFilterFallbackItem.supportedTwo.getBody(this,body);
-	}/**
+	}
 
-	 **
+	/**
 	 * Writes the body of media {@link #supportedTwo} into the given file.
 	 * Does nothing, if the media is null.
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
@@ -633,9 +631,9 @@ final class MediaFilterFallbackItem extends Item
 				java.io.IOException
 	{
 		MediaFilterFallbackItem.supportedTwo.getBody(this,body);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets the content of media {@link #supportedTwo}.
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
 	 */
@@ -645,18 +643,18 @@ final class MediaFilterFallbackItem extends Item
 				java.io.IOException
 	{
 		MediaFilterFallbackItem.supportedTwo.set(this,supportedTwo);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets the content of media {@link #supportedTwo}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setSupportedTwo(@javax.annotation.Nonnull final byte[] body,@javax.annotation.Nonnull final java.lang.String contentType)
 	{
 		MediaFilterFallbackItem.supportedTwo.set(this,body,contentType);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets the content of media {@link #supportedTwo}.
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
 	 */
@@ -666,9 +664,9 @@ final class MediaFilterFallbackItem extends Item
 				java.io.IOException
 	{
 		MediaFilterFallbackItem.supportedTwo.set(this,body,contentType);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets the content of media {@link #supportedTwo}.
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
 	 */
@@ -678,9 +676,9 @@ final class MediaFilterFallbackItem extends Item
 				java.io.IOException
 	{
 		MediaFilterFallbackItem.supportedTwo.set(this,body,contentType);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns a URL the content of {@link #supportedTwoFilter} is available under.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getURL")
@@ -688,9 +686,9 @@ final class MediaFilterFallbackItem extends Item
 	final java.lang.String getSupportedTwoFilterURL()
 	{
 		return MediaFilterFallbackItem.supportedTwoFilter.getURL(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns a Locator the content of {@link #supportedTwoFilter} is available under.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLocator")
@@ -698,20 +696,20 @@ final class MediaFilterFallbackItem extends Item
 	final com.exedio.cope.pattern.MediaPath.Locator getSupportedTwoFilterLocator()
 	{
 		return MediaFilterFallbackItem.supportedTwoFilter.getLocator(this);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for mediaFilterFallbackItem.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<MediaFilterFallbackItem> TYPE = com.exedio.cope.TypesBound.newType(MediaFilterFallbackItem.class);/**
+	static final com.exedio.cope.Type<MediaFilterFallbackItem> TYPE = com.exedio.cope.TypesBound.newType(MediaFilterFallbackItem.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

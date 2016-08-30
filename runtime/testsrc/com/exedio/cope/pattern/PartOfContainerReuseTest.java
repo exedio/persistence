@@ -63,9 +63,9 @@ public class PartOfContainerReuseTest
 
 	static final class AContainer extends Item
 	{
-		/**
+		
 
-	 **
+	/**
 	 * Creates a new AContainer with all the fields initially needed.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
@@ -73,29 +73,29 @@ public class PartOfContainerReuseTest
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new AContainer and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private AContainer(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for aContainer.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<AContainer> TYPE = com.exedio.cope.TypesBound.newType(AContainer.class);/**
+	static final com.exedio.cope.Type<AContainer> TYPE = com.exedio.cope.TypesBound.newType(AContainer.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
@@ -115,9 +115,7 @@ public class PartOfContainerReuseTest
 		static final PartOf<AContainer> parts2 = PartOf.create(container, order2);
 
 
-		/**
-
-	 **
+	/**
 	 * Creates a new APart with all the fields initially needed.
 	 * @param container the initial value for field {@link #container}.
 	 * @param order1 the initial value for field {@link #order1}.
@@ -137,18 +135,18 @@ public class PartOfContainerReuseTest
 			APart.order1.map(order1),
 			APart.order2.map(order2),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new APart and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private APart(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #container}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -156,45 +154,45 @@ public class PartOfContainerReuseTest
 	final AContainer getContainer()
 	{
 		return APart.container.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #order1}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	final int getOrder1()
 	{
 		return APart.order1.getMandatory(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #order1}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setOrder1(final int order1)
 	{
 		APart.order1.set(this,order1);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #order2}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	final int getOrder2()
 	{
 		return APart.order2.getMandatory(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #order2}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setOrder2(final int order2)
 	{
 		APart.order2.set(this,order2);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the container this item is part of by {@link #parts1}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getContainer")
@@ -202,9 +200,9 @@ public class PartOfContainerReuseTest
 	final AContainer getParts1Container()
 	{
 		return APart.parts1.getContainer(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the parts of the given container.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getParts")
@@ -212,9 +210,9 @@ public class PartOfContainerReuseTest
 	static final java.util.List<APart> getParts1Parts(@javax.annotation.Nonnull final AContainer container)
 	{
 		return APart.parts1.getParts(APart.class,container);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the parts of the given container matching the given condition.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getParts")
@@ -222,20 +220,20 @@ public class PartOfContainerReuseTest
 	static final java.util.List<APart> getParts1Parts(@javax.annotation.Nonnull final AContainer container,@javax.annotation.Nullable final com.exedio.cope.Condition condition)
 	{
 		return APart.parts1.getParts(APart.class,container,condition);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for aPart.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<APart> TYPE = com.exedio.cope.TypesBound.newType(APart.class);/**
+	static final com.exedio.cope.Type<APart> TYPE = com.exedio.cope.TypesBound.newType(APart.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

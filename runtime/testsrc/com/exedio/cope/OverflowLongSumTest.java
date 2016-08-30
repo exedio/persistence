@@ -152,8 +152,6 @@ public class OverflowLongSumTest extends TestWithEnvironment
 		static final LongField field = new LongField().toFinal();
 
 	/**
-
-	 **
 	 * Creates a new AnItem with all the fields initially needed.
 	 * @param field the initial value for field {@link #field}.
 	 */
@@ -164,38 +162,38 @@ public class OverflowLongSumTest extends TestWithEnvironment
 		this(new com.exedio.cope.SetValue<?>[]{
 			AnItem.field.map(field),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new AnItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private AnItem(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #field}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	final long getField()
 	{
 		return AnItem.field.getMandatory(this);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for anItem.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<AnItem> TYPE = com.exedio.cope.TypesBound.newType(AnItem.class);/**
+	static final com.exedio.cope.Type<AnItem> TYPE = com.exedio.cope.TypesBound.newType(AnItem.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

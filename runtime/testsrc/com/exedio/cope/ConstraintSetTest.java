@@ -160,17 +160,15 @@ public class ConstraintSetTest extends TestWithEnvironment
 		static final UniqueConstraint uniqueDouble = new UniqueConstraint(uniqueA, uniqueB);
 
 		/**
-
-		 **
 		 * Creates a new AnItem and sets the given fields initially.
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 		protected AnItem(final com.exedio.cope.SetValue<?>... setValues)
 		{
 			super(setValues);
-		}/**
+		}
 
-		 **
+		/**
 		 * Returns the value of {@link #field}.
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -178,18 +176,18 @@ public class ConstraintSetTest extends TestWithEnvironment
 		final java.lang.Boolean getField()
 		{
 			return AnItem.field.get(this);
-		}/**
+		}
 
-		 **
+		/**
 		 * Sets a new value for {@link #field}.
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 		final void setField(@javax.annotation.Nullable final java.lang.Boolean field)
 		{
 			AnItem.field.set(this,field);
-		}/**
+		}
 
-		 **
+		/**
 		 * Returns the value of {@link #item}.
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -197,18 +195,18 @@ public class ConstraintSetTest extends TestWithEnvironment
 		final AnItem getItem()
 		{
 			return AnItem.item.get(this);
-		}/**
+		}
 
-		 **
+		/**
 		 * Sets a new value for {@link #item}.
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 		final void setItem(@javax.annotation.Nullable final AnItem item)
 		{
 			AnItem.item.set(this,item);
-		}/**
+		}
 
-		 **
+		/**
 		 * Returns the value of {@link #uniqueSingle}.
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -216,9 +214,9 @@ public class ConstraintSetTest extends TestWithEnvironment
 		final java.lang.Boolean getUniqueSingle()
 		{
 			return AnItem.uniqueSingle.get(this);
-		}/**
+		}
 
-		 **
+		/**
 		 * Sets a new value for {@link #uniqueSingle}.
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -227,9 +225,9 @@ public class ConstraintSetTest extends TestWithEnvironment
 					com.exedio.cope.UniqueViolationException
 		{
 			AnItem.uniqueSingle.set(this,uniqueSingle);
-		}/**
+		}
 
-		 **
+		/**
 		 * Finds a anItem by it's {@link #uniqueSingle}.
 		 * @param uniqueSingle shall be equal to field {@link #uniqueSingle}.
 		 * @return null if there is no matching item.
@@ -239,9 +237,9 @@ public class ConstraintSetTest extends TestWithEnvironment
 		static final AnItem forUniqueSingle(@javax.annotation.Nonnull final java.lang.Boolean uniqueSingle)
 		{
 			return AnItem.uniqueSingle.searchUnique(AnItem.class,uniqueSingle);
-		}/**
+		}
 
-		 **
+		/**
 		 * Returns the value of {@link #uniqueA}.
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -249,9 +247,9 @@ public class ConstraintSetTest extends TestWithEnvironment
 		final java.lang.Boolean getUniqueA()
 		{
 			return AnItem.uniqueA.get(this);
-		}/**
+		}
 
-		 **
+		/**
 		 * Sets a new value for {@link #uniqueA}.
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -260,9 +258,9 @@ public class ConstraintSetTest extends TestWithEnvironment
 					com.exedio.cope.UniqueViolationException
 		{
 			AnItem.uniqueA.set(this,uniqueA);
-		}/**
+		}
 
-		 **
+		/**
 		 * Returns the value of {@link #uniqueB}.
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -270,9 +268,9 @@ public class ConstraintSetTest extends TestWithEnvironment
 		final java.lang.Boolean getUniqueB()
 		{
 			return AnItem.uniqueB.get(this);
-		}/**
+		}
 
-		 **
+		/**
 		 * Sets a new value for {@link #uniqueB}.
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -281,9 +279,9 @@ public class ConstraintSetTest extends TestWithEnvironment
 					com.exedio.cope.UniqueViolationException
 		{
 			AnItem.uniqueB.set(this,uniqueB);
-		}/**
+		}
 
-		 **
+		/**
 		 * Finds a anItem by it's unique fields.
 		 * @param uniqueA shall be equal to field {@link #uniqueA}.
 		 * @param uniqueB shall be equal to field {@link #uniqueB}.
@@ -294,20 +292,20 @@ public class ConstraintSetTest extends TestWithEnvironment
 		static final AnItem forUniqueDouble(@javax.annotation.Nonnull final java.lang.Boolean uniqueA,@javax.annotation.Nonnull final java.lang.Boolean uniqueB)
 		{
 			return AnItem.uniqueDouble.search(AnItem.class,uniqueA,uniqueB);
-		}/**
+		}
 
-		 **
+		/**
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		private static final long serialVersionUID = 1l;/**
+		private static final long serialVersionUID = 1l;
 
-		 **
+		/**
 		 * The persistent type information for anItem.
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-		static final com.exedio.cope.Type<AnItem> TYPE = com.exedio.cope.TypesBound.newType(AnItem.class);/**
+		static final com.exedio.cope.Type<AnItem> TYPE = com.exedio.cope.TypesBound.newType(AnItem.class);
 
-		 **
+		/**
 		 * Activation constructor. Used for internal purposes only.
 		 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 		 */
@@ -318,29 +316,29 @@ public class ConstraintSetTest extends TestWithEnvironment
 	@WrapperType(constructor=NONE, indent=2)
 	static final class ASubItem extends AnItem
 	{
-		/**
+		
 
-		 **
+		/**
 		 * Creates a new ASubItem and sets the given fields initially.
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 		private ASubItem(final com.exedio.cope.SetValue<?>... setValues)
 		{
 			super(setValues);
-		}/**
+		}
 
-		 **
+		/**
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		private static final long serialVersionUID = 1l;/**
+		private static final long serialVersionUID = 1l;
 
-		 **
+		/**
 		 * The persistent type information for aSubItem.
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-		static final com.exedio.cope.Type<ASubItem> TYPE = com.exedio.cope.TypesBound.newType(ASubItem.class);/**
+		static final com.exedio.cope.Type<ASubItem> TYPE = com.exedio.cope.TypesBound.newType(ASubItem.class);
 
-		 **
+		/**
 		 * Activation constructor. Used for internal purposes only.
 		 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 		 */

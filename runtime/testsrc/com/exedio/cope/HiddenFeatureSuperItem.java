@@ -25,8 +25,6 @@ class HiddenFeatureSuperItem extends Item
 	static final StringField hiddenOther = new StringField().optional();
 
 	/**
-
-	 **
 	 * Creates a new HiddenFeatureSuperItem with all the fields initially needed.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
@@ -34,18 +32,18 @@ class HiddenFeatureSuperItem extends Item
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new HiddenFeatureSuperItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	protected HiddenFeatureSuperItem(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #nonHiddenSuper}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -53,9 +51,9 @@ class HiddenFeatureSuperItem extends Item
 	final java.lang.String getNonHiddenSuper()
 	{
 		return HiddenFeatureSuperItem.nonHiddenSuper.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #nonHiddenSuper}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -64,9 +62,9 @@ class HiddenFeatureSuperItem extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		HiddenFeatureSuperItem.nonHiddenSuper.set(this,nonHiddenSuper);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #hiddenSame}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -74,9 +72,9 @@ class HiddenFeatureSuperItem extends Item
 	final java.lang.String getHiddenSame()
 	{
 		return HiddenFeatureSuperItem.hiddenSame.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #hiddenSame}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -85,9 +83,9 @@ class HiddenFeatureSuperItem extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		HiddenFeatureSuperItem.hiddenSame.set(this,hiddenSame);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #hiddenOther}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -95,9 +93,9 @@ class HiddenFeatureSuperItem extends Item
 	final java.lang.String getHiddenOther()
 	{
 		return HiddenFeatureSuperItem.hiddenOther.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #hiddenOther}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -106,20 +104,20 @@ class HiddenFeatureSuperItem extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		HiddenFeatureSuperItem.hiddenOther.set(this,hiddenOther);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for hiddenFeatureSuperItem.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<HiddenFeatureSuperItem> TYPE = com.exedio.cope.TypesBound.newType(HiddenFeatureSuperItem.class);/**
+	static final com.exedio.cope.Type<HiddenFeatureSuperItem> TYPE = com.exedio.cope.TypesBound.newType(HiddenFeatureSuperItem.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

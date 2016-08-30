@@ -30,9 +30,7 @@ public final class CompositeItemHolder extends Item
 	public static final ItemField<CompositeOptionalItem> anItem = ItemField.create(CompositeOptionalItem.class);
 
 
-/**
-
-	 **
+	/**
 	 * Creates a new CompositeItemHolder with all the fields initially needed.
 	 * @param anItem the initial value for field {@link #anItem}.
 	 * @throws com.exedio.cope.MandatoryViolationException if anItem is null.
@@ -46,18 +44,18 @@ public final class CompositeItemHolder extends Item
 		this(new com.exedio.cope.SetValue<?>[]{
 			CompositeItemHolder.anItem.map(anItem),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new CompositeItemHolder and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	CompositeItemHolder(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #anItem}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -65,9 +63,9 @@ public final class CompositeItemHolder extends Item
 	public final CompositeOptionalItem getAnItem()
 	{
 		return CompositeItemHolder.anItem.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #anItem}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -76,20 +74,20 @@ public final class CompositeItemHolder extends Item
 				com.exedio.cope.MandatoryViolationException
 	{
 		CompositeItemHolder.anItem.set(this,anItem);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for compositeItemHolder.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<CompositeItemHolder> TYPE = com.exedio.cope.TypesBound.newType(CompositeItemHolder.class);/**
+	public static final com.exedio.cope.Type<CompositeItemHolder> TYPE = com.exedio.cope.TypesBound.newType(CompositeItemHolder.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

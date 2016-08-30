@@ -40,8 +40,6 @@ public final class DispatcherNoneItem extends Item
 
 
 	/**
-
-	 **
 	 * Creates a new DispatcherNoneItem with all the fields initially needed.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
@@ -49,54 +47,54 @@ public final class DispatcherNoneItem extends Item
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new DispatcherNoneItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private DispatcherNoneItem(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns, whether this item is yet to be dispatched by {@link #wrong}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="isPending")
 	final boolean isWrongPending()
 	{
 		return DispatcherNoneItem.wrong.isPending(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets whether this item is yet to be dispatched by {@link #wrong}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setPending")
 	final void setWrongPending(final boolean pending)
 	{
 		DispatcherNoneItem.wrong.setPending(this,pending);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns, whether this item is allowed to be purged by {@link #wrong}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="isNoPurge")
 	final boolean isWrongNoPurge()
 	{
 		return DispatcherNoneItem.wrong.isNoPurge(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets whether this item is allowed to be purged by {@link #wrong}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setNoPurge")
 	final void setWrongNoPurge(final boolean noPurge)
 	{
 		DispatcherNoneItem.wrong.setNoPurge(this,noPurge);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the date, this item was last successfully dispatched by {@link #wrong}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLastSuccessDate")
@@ -104,9 +102,9 @@ public final class DispatcherNoneItem extends Item
 	final java.util.Date getWrongLastSuccessDate()
 	{
 		return DispatcherNoneItem.wrong.getLastSuccessDate(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the milliseconds, this item needed to be last successfully dispatched by {@link #wrong}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLastSuccessElapsed")
@@ -114,9 +112,9 @@ public final class DispatcherNoneItem extends Item
 	final java.lang.Long getWrongLastSuccessElapsed()
 	{
 		return DispatcherNoneItem.wrong.getLastSuccessElapsed(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the attempts to dispatch this item by {@link #wrong}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getRuns")
@@ -124,9 +122,9 @@ public final class DispatcherNoneItem extends Item
 	final java.util.List<com.exedio.cope.pattern.Dispatcher.Run> getWrongRuns()
 	{
 		return DispatcherNoneItem.wrong.getRuns(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the failed attempts to dispatch this item by {@link #wrong}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getFailures")
@@ -134,17 +132,17 @@ public final class DispatcherNoneItem extends Item
 	final java.util.List<com.exedio.cope.pattern.Dispatcher.Run> getWrongFailures()
 	{
 		return DispatcherNoneItem.wrong.getFailures(this);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="purge")
 	static final void purgeWrong(@javax.annotation.Nonnull final com.exedio.cope.pattern.DispatcherPurgeProperties properties,@javax.annotation.Nonnull final com.exedio.cope.util.JobContext ctx)
 	{
 		DispatcherNoneItem.wrong.purge(properties,ctx);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the parent field of the run type of {@link #wrong}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="RunParent")
@@ -152,14 +150,14 @@ public final class DispatcherNoneItem extends Item
 	static final com.exedio.cope.ItemField<DispatcherNoneItem> wrongRunParent()
 	{
 		return DispatcherNoneItem.wrong.getRunParent(DispatcherNoneItem.class);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

@@ -26,8 +26,6 @@ final class CopyMultiCopySource extends Item
 	static final ItemField<CopyMultiCopyTarget> target = ItemField.create(CopyMultiCopyTarget.class).toFinal().optional().copyTo(copyA).copyTo(copyB);
 
 	/**
-
-	 **
 	 * Creates a new CopyMultiCopySource with all the fields initially needed.
 	 * @param copyA the initial value for field {@link #copyA}.
 	 * @param copyB the initial value for field {@link #copyB}.
@@ -47,18 +45,18 @@ final class CopyMultiCopySource extends Item
 			CopyMultiCopySource.copyB.map(copyB),
 			CopyMultiCopySource.target.map(target),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new CopyMultiCopySource and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private CopyMultiCopySource(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #copyA}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -66,9 +64,9 @@ final class CopyMultiCopySource extends Item
 	final java.lang.String getCopyA()
 	{
 		return CopyMultiCopySource.copyA.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #copyB}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -76,9 +74,9 @@ final class CopyMultiCopySource extends Item
 	final java.lang.String getCopyB()
 	{
 		return CopyMultiCopySource.copyB.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #target}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -86,20 +84,20 @@ final class CopyMultiCopySource extends Item
 	final CopyMultiCopyTarget getTarget()
 	{
 		return CopyMultiCopySource.target.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for copyMultiCopySource.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<CopyMultiCopySource> TYPE = com.exedio.cope.TypesBound.newType(CopyMultiCopySource.class);/**
+	static final com.exedio.cope.Type<CopyMultiCopySource> TYPE = com.exedio.cope.TypesBound.newType(CopyMultiCopySource.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

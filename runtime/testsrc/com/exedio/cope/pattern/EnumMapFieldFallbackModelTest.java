@@ -133,8 +133,6 @@ public class EnumMapFieldFallbackModelTest
 		static final EnumMapField<AnEnum, String> fallOpt  = EnumMapField.create(AnEnum.class, new StringField().optional()).fallback();
 
 	/**
-
-	 **
 	 * Creates a new AnItem with all the fields initially needed.
 	 * @param noneMand the initial value for field {@link #noneMand}.
 	 * @param fallMand the initial value for field {@link #fallMand}.
@@ -153,18 +151,18 @@ public class EnumMapFieldFallbackModelTest
 			AnItem.noneMand.map(noneMand),
 			AnItem.fallMand.map(fallMand),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new AnItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private AnItem(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value mapped to <tt>k</tt> by the field map {@link #noneMand}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -172,35 +170,35 @@ public class EnumMapFieldFallbackModelTest
 	final String getNoneMand(@javax.annotation.Nonnull final AnEnum k)
 	{
 		return AnItem.noneMand.get(this,k);
-	}/**
+	}
 
-	 **
+	/**
 	 * Associates <tt>k</tt> to a new value in the field map {@link #noneMand}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setNoneMand(@javax.annotation.Nonnull final AnEnum k,@javax.annotation.Nonnull final String noneMand)
 	{
 		AnItem.noneMand.set(this,k,noneMand);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getMap")
 	@javax.annotation.Nonnull
 	final java.util.Map<AnEnum,String> getNoneMandMap()
 	{
 		return AnItem.noneMand.getMap(this);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setMap")
 	final void setNoneMandMap(@javax.annotation.Nonnull final java.util.Map<? extends AnEnum,? extends String> noneMand)
 	{
 		AnItem.noneMand.setMap(this,noneMand);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value mapped to <tt>k</tt> by the field map {@link #noneOpt}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -208,35 +206,35 @@ public class EnumMapFieldFallbackModelTest
 	final String getNoneOpt(@javax.annotation.Nonnull final AnEnum k)
 	{
 		return AnItem.noneOpt.get(this,k);
-	}/**
+	}
 
-	 **
+	/**
 	 * Associates <tt>k</tt> to a new value in the field map {@link #noneOpt}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setNoneOpt(@javax.annotation.Nonnull final AnEnum k,@javax.annotation.Nullable final String noneOpt)
 	{
 		AnItem.noneOpt.set(this,k,noneOpt);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getMap")
 	@javax.annotation.Nonnull
 	final java.util.Map<AnEnum,String> getNoneOptMap()
 	{
 		return AnItem.noneOpt.getMap(this);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setMap")
 	final void setNoneOptMap(@javax.annotation.Nonnull final java.util.Map<? extends AnEnum,? extends String> noneOpt)
 	{
 		AnItem.noneOpt.setMap(this,noneOpt);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value mapped to <tt>k</tt> by the field map {@link #fallMand}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -244,9 +242,9 @@ public class EnumMapFieldFallbackModelTest
 	final String getFallMand(@javax.annotation.Nonnull final AnEnum k)
 	{
 		return AnItem.fallMand.get(this,k);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value mapped to <tt>k</tt> by the field map {@link #fallMand}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getWithFallback")
@@ -254,44 +252,44 @@ public class EnumMapFieldFallbackModelTest
 	final String getFallMandWithFallback(@javax.annotation.Nonnull final AnEnum k)
 	{
 		return AnItem.fallMand.getWithFallback(this,k);
-	}/**
+	}
 
-	 **
+	/**
 	 * Associates <tt>k</tt> to a new value in the field map {@link #fallMand}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setFallMand(@javax.annotation.Nonnull final AnEnum k,@javax.annotation.Nonnull final String fallMand)
 	{
 		AnItem.fallMand.set(this,k,fallMand);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getMap")
 	@javax.annotation.Nonnull
 	final java.util.Map<AnEnum,String> getFallMandMap()
 	{
 		return AnItem.fallMand.getMap(this);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getMapWithFallback")
 	@javax.annotation.Nonnull
 	final java.util.Map<AnEnum,String> getFallMandMapWithFallback()
 	{
 		return AnItem.fallMand.getMapWithFallback(this);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setMap")
 	final void setFallMandMap(@javax.annotation.Nonnull final java.util.Map<? extends AnEnum,? extends String> fallMand)
 	{
 		AnItem.fallMand.setMap(this,fallMand);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value mapped to <tt>k</tt> by the field map {@link #fallOpt}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -299,9 +297,9 @@ public class EnumMapFieldFallbackModelTest
 	final String getFallOpt(@javax.annotation.Nonnull final AnEnum k)
 	{
 		return AnItem.fallOpt.get(this,k);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value mapped to <tt>k</tt> by the field map {@link #fallOpt}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getWithFallback")
@@ -309,55 +307,55 @@ public class EnumMapFieldFallbackModelTest
 	final String getFallOptWithFallback(@javax.annotation.Nonnull final AnEnum k)
 	{
 		return AnItem.fallOpt.getWithFallback(this,k);
-	}/**
+	}
 
-	 **
+	/**
 	 * Associates <tt>k</tt> to a new value in the field map {@link #fallOpt}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setFallOpt(@javax.annotation.Nonnull final AnEnum k,@javax.annotation.Nullable final String fallOpt)
 	{
 		AnItem.fallOpt.set(this,k,fallOpt);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getMap")
 	@javax.annotation.Nonnull
 	final java.util.Map<AnEnum,String> getFallOptMap()
 	{
 		return AnItem.fallOpt.getMap(this);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getMapWithFallback")
 	@javax.annotation.Nonnull
 	final java.util.Map<AnEnum,String> getFallOptMapWithFallback()
 	{
 		return AnItem.fallOpt.getMapWithFallback(this);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setMap")
 	final void setFallOptMap(@javax.annotation.Nonnull final java.util.Map<? extends AnEnum,? extends String> fallOpt)
 	{
 		AnItem.fallOpt.setMap(this,fallOpt);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for anItem.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<AnItem> TYPE = com.exedio.cope.TypesBound.newType(AnItem.class);/**
+	static final com.exedio.cope.Type<AnItem> TYPE = com.exedio.cope.TypesBound.newType(AnItem.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

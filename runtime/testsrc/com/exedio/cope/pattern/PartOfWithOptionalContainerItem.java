@@ -29,9 +29,7 @@ class PartOfWithOptionalContainerItem extends Item
 
 	static final PartOf<PartOfOptionalContainerItem> parts = PartOf.create(container);
 
-/**
-
-	 **
+	/**
 	 * Creates a new PartOfWithOptionalContainerItem with all the fields initially needed.
 	 * @param container the initial value for field {@link #container}.
 	 */
@@ -42,18 +40,18 @@ class PartOfWithOptionalContainerItem extends Item
 		this(new com.exedio.cope.SetValue<?>[]{
 			PartOfWithOptionalContainerItem.container.map(container),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new PartOfWithOptionalContainerItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	protected PartOfWithOptionalContainerItem(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #container}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -61,18 +59,18 @@ class PartOfWithOptionalContainerItem extends Item
 	final PartOfOptionalContainerItem getContainer()
 	{
 		return PartOfWithOptionalContainerItem.container.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #container}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setContainer(@javax.annotation.Nullable final PartOfOptionalContainerItem container)
 	{
 		PartOfWithOptionalContainerItem.container.set(this,container);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the container this item is part of by {@link #parts}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getContainer")
@@ -80,9 +78,9 @@ class PartOfWithOptionalContainerItem extends Item
 	final PartOfOptionalContainerItem getPartsContainer()
 	{
 		return PartOfWithOptionalContainerItem.parts.getContainer(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the parts of the given container.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getParts")
@@ -90,9 +88,9 @@ class PartOfWithOptionalContainerItem extends Item
 	static final java.util.List<PartOfWithOptionalContainerItem> getPartsParts(@javax.annotation.Nullable final PartOfOptionalContainerItem container)
 	{
 		return PartOfWithOptionalContainerItem.parts.getParts(PartOfWithOptionalContainerItem.class,container);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the parts of the given container matching the given condition.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getParts")
@@ -100,20 +98,20 @@ class PartOfWithOptionalContainerItem extends Item
 	static final java.util.List<PartOfWithOptionalContainerItem> getPartsParts(@javax.annotation.Nullable final PartOfOptionalContainerItem container,@javax.annotation.Nullable final com.exedio.cope.Condition condition)
 	{
 		return PartOfWithOptionalContainerItem.parts.getParts(PartOfWithOptionalContainerItem.class,container,condition);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for partOfWithOptionalContainerItem.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<PartOfWithOptionalContainerItem> TYPE = com.exedio.cope.TypesBound.newType(PartOfWithOptionalContainerItem.class);/**
+	static final com.exedio.cope.Type<PartOfWithOptionalContainerItem> TYPE = com.exedio.cope.TypesBound.newType(PartOfWithOptionalContainerItem.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

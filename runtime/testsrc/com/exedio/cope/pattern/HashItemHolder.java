@@ -30,9 +30,7 @@ public final class HashItemHolder extends Item
 	public static final ItemField<HashItem> hashItem = ItemField.create(HashItem.class);
 
 
-/**
-
-	 **
+	/**
 	 * Creates a new HashItemHolder with all the fields initially needed.
 	 * @param hashItem the initial value for field {@link #hashItem}.
 	 * @throws com.exedio.cope.MandatoryViolationException if hashItem is null.
@@ -46,18 +44,18 @@ public final class HashItemHolder extends Item
 		this(new com.exedio.cope.SetValue<?>[]{
 			HashItemHolder.hashItem.map(hashItem),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new HashItemHolder and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	HashItemHolder(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #hashItem}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -65,9 +63,9 @@ public final class HashItemHolder extends Item
 	public final HashItem getHashItem()
 	{
 		return HashItemHolder.hashItem.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #hashItem}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -76,20 +74,20 @@ public final class HashItemHolder extends Item
 				com.exedio.cope.MandatoryViolationException
 	{
 		HashItemHolder.hashItem.set(this,hashItem);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for hashItemHolder.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<HashItemHolder> TYPE = com.exedio.cope.TypesBound.newType(HashItemHolder.class);/**
+	public static final com.exedio.cope.Type<HashItemHolder> TYPE = com.exedio.cope.TypesBound.newType(HashItemHolder.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

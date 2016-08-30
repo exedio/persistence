@@ -32,8 +32,6 @@ class IoqTargetSuper extends Item
 	}
 
 	/**
-
-	 **
 	 * Creates a new IoqTargetSuper with all the fields initially needed.
 	 * @param code the initial value for field {@link #code}.
 	 * @throws com.exedio.cope.MandatoryViolationException if code is null.
@@ -49,18 +47,18 @@ class IoqTargetSuper extends Item
 		this(new com.exedio.cope.SetValue<?>[]{
 			IoqTargetSuper.code.map(code),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new IoqTargetSuper and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	protected IoqTargetSuper(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #code}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -68,20 +66,20 @@ class IoqTargetSuper extends Item
 	final java.lang.String getCode()
 	{
 		return IoqTargetSuper.code.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for ioqTargetSuper.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<IoqTargetSuper> TYPE = com.exedio.cope.TypesBound.newType(IoqTargetSuper.class);/**
+	static final com.exedio.cope.Type<IoqTargetSuper> TYPE = com.exedio.cope.TypesBound.newType(IoqTargetSuper.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

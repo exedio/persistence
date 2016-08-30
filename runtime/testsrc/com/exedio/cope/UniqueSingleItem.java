@@ -39,9 +39,7 @@ public final class UniqueSingleItem extends Item
 		});
 	}
 
-/**
-
-	 **
+	/**
 	 * Creates a new UniqueSingleItem with all the fields initially needed.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
@@ -49,18 +47,18 @@ public final class UniqueSingleItem extends Item
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new UniqueSingleItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private UniqueSingleItem(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #uniqueString}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -68,9 +66,9 @@ public final class UniqueSingleItem extends Item
 	public final java.lang.String getUniqueString()
 	{
 		return UniqueSingleItem.uniqueString.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #uniqueString}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -80,9 +78,9 @@ public final class UniqueSingleItem extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		UniqueSingleItem.uniqueString.set(this,uniqueString);
-	}/**
+	}
 
-	 **
+	/**
 	 * Finds a uniqueSingleItem by it's {@link #uniqueString}.
 	 * @param uniqueString shall be equal to field {@link #uniqueString}.
 	 * @return null if there is no matching item.
@@ -92,9 +90,9 @@ public final class UniqueSingleItem extends Item
 	public static final UniqueSingleItem forUniqueString(@javax.annotation.Nonnull final java.lang.String uniqueString)
 	{
 		return UniqueSingleItem.uniqueString.searchUnique(UniqueSingleItem.class,uniqueString);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #otherString}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -102,9 +100,9 @@ public final class UniqueSingleItem extends Item
 	public final java.lang.String getOtherString()
 	{
 		return UniqueSingleItem.otherString.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #otherString}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -113,20 +111,20 @@ public final class UniqueSingleItem extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		UniqueSingleItem.otherString.set(this,otherString);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for uniqueSingleItem.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<UniqueSingleItem> TYPE = com.exedio.cope.TypesBound.newType(UniqueSingleItem.class);/**
+	public static final com.exedio.cope.Type<UniqueSingleItem> TYPE = com.exedio.cope.TypesBound.newType(UniqueSingleItem.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

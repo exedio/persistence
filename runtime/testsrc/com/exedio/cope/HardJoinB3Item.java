@@ -27,8 +27,6 @@ final class HardJoinB3Item extends HardJoinB2Item
 
 
 	/**
-
-	 **
 	 * Creates a new HardJoinB3Item with all the fields initially needed.
 	 * @param code the initial value for field {@link #code}.
 	 * @param b1 the initial value for field {@link #b1}.
@@ -55,18 +53,18 @@ final class HardJoinB3Item extends HardJoinB2Item
 			com.exedio.cope.HardJoinB2Item.b2.map(b2),
 			HardJoinB3Item.b3.map(b3),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new HardJoinB3Item and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private HardJoinB3Item(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #b3}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -74,29 +72,29 @@ final class HardJoinB3Item extends HardJoinB2Item
 	final java.lang.Integer getB3()
 	{
 		return HardJoinB3Item.b3.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #b3}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setB3(@javax.annotation.Nullable final java.lang.Integer b3)
 	{
 		HardJoinB3Item.b3.set(this,b3);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for hardJoinB3Item.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<HardJoinB3Item> TYPE = com.exedio.cope.TypesBound.newType(HardJoinB3Item.class);/**
+	static final com.exedio.cope.Type<HardJoinB3Item> TYPE = com.exedio.cope.TypesBound.newType(HardJoinB3Item.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

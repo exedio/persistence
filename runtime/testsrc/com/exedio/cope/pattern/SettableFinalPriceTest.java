@@ -64,8 +64,6 @@ public class SettableFinalPriceTest extends TestWithEnvironment
 		static final PriceField isfinal = new PriceField().toFinal().optional();
 
 	/**
-
-	 **
 	 * Creates a new AnItem with all the fields initially needed.
 	 * @param isfinal the initial value for field {@link #isfinal}.
 	 */
@@ -76,18 +74,18 @@ public class SettableFinalPriceTest extends TestWithEnvironment
 		this(new com.exedio.cope.SetValue<?>[]{
 			AnItem.isfinal.map(isfinal),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new AnItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private AnItem(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #isfinal}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -95,20 +93,20 @@ public class SettableFinalPriceTest extends TestWithEnvironment
 	final com.exedio.cope.pattern.Price getIsfinal()
 	{
 		return AnItem.isfinal.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for anItem.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<AnItem> TYPE = com.exedio.cope.TypesBound.newType(AnItem.class);/**
+	static final com.exedio.cope.Type<AnItem> TYPE = com.exedio.cope.TypesBound.newType(AnItem.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

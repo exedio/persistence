@@ -26,8 +26,6 @@ public final class DynamicModelLocalizationItem extends Item
 	static final StringField isoCode = new StringField().toFinal().lengthExact(2);
 
 	/**
-
-	 **
 	 * Creates a new DynamicModelLocalizationItem with all the fields initially needed.
 	 * @param isoCode the initial value for field {@link #isoCode}.
 	 * @throws com.exedio.cope.MandatoryViolationException if isoCode is null.
@@ -43,18 +41,18 @@ public final class DynamicModelLocalizationItem extends Item
 		this(new com.exedio.cope.SetValue<?>[]{
 			DynamicModelLocalizationItem.isoCode.map(isoCode),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new DynamicModelLocalizationItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private DynamicModelLocalizationItem(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #isoCode}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -62,20 +60,20 @@ public final class DynamicModelLocalizationItem extends Item
 	final java.lang.String getIsoCode()
 	{
 		return DynamicModelLocalizationItem.isoCode.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for dynamicModelLocalizationItem.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<DynamicModelLocalizationItem> TYPE = com.exedio.cope.TypesBound.newType(DynamicModelLocalizationItem.class);/**
+	public static final com.exedio.cope.Type<DynamicModelLocalizationItem> TYPE = com.exedio.cope.TypesBound.newType(DynamicModelLocalizationItem.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

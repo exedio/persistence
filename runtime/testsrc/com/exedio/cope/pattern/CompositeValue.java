@@ -44,8 +44,6 @@ public final class CompositeValue extends Composite
 	static final Object noFeature = new BooleanField();
 
 	/**
-
-	 **
 	 * Creates a new CompositeValue with all the fields initially needed.
 	 * @param aString the initial value for field {@link #aString}.
 	 * @param anInt the initial value for field {@link #anInt}.
@@ -70,18 +68,18 @@ public final class CompositeValue extends Composite
 			CompositeValue.anEnum.map(anEnum),
 			CompositeValue.anItem.map(anItem),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new CompositeValue and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private CompositeValue(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #aString}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -89,9 +87,9 @@ public final class CompositeValue extends Composite
 	final java.lang.String getAString()
 	{
 		return get(CompositeValue.aString);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #aString}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -101,27 +99,27 @@ public final class CompositeValue extends Composite
 				com.exedio.cope.StringLengthViolationException
 	{
 		set(CompositeValue.aString,aString);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #anInt}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	final int getAnInt()
 	{
 		return getMandatory(CompositeValue.anInt);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #anInt}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setAnInt(final int anInt)
 	{
 		set(CompositeValue.anInt,anInt);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #anEnum}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -129,9 +127,9 @@ public final class CompositeValue extends Composite
 	final AnEnum getAnEnum()
 	{
 		return get(CompositeValue.anEnum);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #anEnum}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -140,9 +138,9 @@ public final class CompositeValue extends Composite
 				com.exedio.cope.MandatoryViolationException
 	{
 		set(CompositeValue.anEnum,anEnum);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #anItem}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -150,9 +148,9 @@ public final class CompositeValue extends Composite
 	final CompositeOptionalItem getAnItem()
 	{
 		return get(CompositeValue.anItem);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #anItem}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -161,9 +159,9 @@ public final class CompositeValue extends Composite
 				com.exedio.cope.MandatoryViolationException
 	{
 		set(CompositeValue.anItem,anItem);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;}

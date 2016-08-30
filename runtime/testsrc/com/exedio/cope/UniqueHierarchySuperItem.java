@@ -29,8 +29,6 @@ class UniqueHierarchySuperItem extends Item
 	}
 
 	/**
-
-	 **
 	 * Creates a new UniqueHierarchySuperItem with all the fields initially needed.
 	 * @param superField the initial value for field {@link #superField}.
 	 * @throws com.exedio.cope.MandatoryViolationException if superField is null.
@@ -46,18 +44,18 @@ class UniqueHierarchySuperItem extends Item
 		this(new com.exedio.cope.SetValue<?>[]{
 			UniqueHierarchySuperItem.superField.map(superField),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new UniqueHierarchySuperItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	protected UniqueHierarchySuperItem(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #superField}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -65,9 +63,9 @@ class UniqueHierarchySuperItem extends Item
 	final java.lang.String getSuperField()
 	{
 		return UniqueHierarchySuperItem.superField.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #superField}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -77,20 +75,20 @@ class UniqueHierarchySuperItem extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		UniqueHierarchySuperItem.superField.set(this,superField);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for uniqueHierarchySuperItem.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<UniqueHierarchySuperItem> TYPE = com.exedio.cope.TypesBound.newType(UniqueHierarchySuperItem.class);/**
+	static final com.exedio.cope.Type<UniqueHierarchySuperItem> TYPE = com.exedio.cope.TypesBound.newType(UniqueHierarchySuperItem.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

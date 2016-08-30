@@ -22,9 +22,9 @@ import com.exedio.cope.Item;
 
 public final class JavaViewItem2 extends Item
 {
-	/**
+	
 
-	 **
+	/**
 	 * Creates a new JavaViewItem2 with all the fields initially needed.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
@@ -32,29 +32,29 @@ public final class JavaViewItem2 extends Item
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new JavaViewItem2 and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private JavaViewItem2(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for javaViewItem2.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<JavaViewItem2> TYPE = com.exedio.cope.TypesBound.newType(JavaViewItem2.class);/**
+	public static final com.exedio.cope.Type<JavaViewItem2> TYPE = com.exedio.cope.TypesBound.newType(JavaViewItem2.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

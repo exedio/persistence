@@ -53,8 +53,6 @@ public final class DoubleItem extends Item
 	}
 
 	/**
-
-	 **
 	 * Creates a new DoubleItem with all the fields initially needed.
 	 * @param mandatory the initial value for field {@link #mandatory}.
 	 */
@@ -65,18 +63,18 @@ public final class DoubleItem extends Item
 		this(new com.exedio.cope.SetValue<?>[]{
 			DoubleItem.mandatory.map(mandatory),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new DoubleItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	DoubleItem(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #any}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -84,36 +82,36 @@ public final class DoubleItem extends Item
 	public final java.lang.Double getAny()
 	{
 		return DoubleItem.any.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #any}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	public final void setAny(@javax.annotation.Nullable final java.lang.Double any)
 	{
 		DoubleItem.any.set(this,any);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #mandatory}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	public final double getMandatory()
 	{
 		return DoubleItem.mandatory.getMandatory(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #mandatory}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	public final void setMandatory(final double mandatory)
 	{
 		DoubleItem.mandatory.set(this,mandatory);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #min4}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -121,9 +119,9 @@ public final class DoubleItem extends Item
 	public final java.lang.Double getMin4()
 	{
 		return DoubleItem.min4.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #min4}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -132,9 +130,9 @@ public final class DoubleItem extends Item
 				com.exedio.cope.DoubleRangeViolationException
 	{
 		DoubleItem.min4.set(this,min4);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #max4}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -142,9 +140,9 @@ public final class DoubleItem extends Item
 	public final java.lang.Double getMax4()
 	{
 		return DoubleItem.max4.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #max4}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -153,9 +151,9 @@ public final class DoubleItem extends Item
 				com.exedio.cope.DoubleRangeViolationException
 	{
 		DoubleItem.max4.set(this,max4);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #min4Max8}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -163,9 +161,9 @@ public final class DoubleItem extends Item
 	public final java.lang.Double getMin4Max8()
 	{
 		return DoubleItem.min4Max8.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #min4Max8}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -174,20 +172,20 @@ public final class DoubleItem extends Item
 				com.exedio.cope.DoubleRangeViolationException
 	{
 		DoubleItem.min4Max8.set(this,min4Max8);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for doubleItem.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<DoubleItem> TYPE = com.exedio.cope.TypesBound.newType(DoubleItem.class);/**
+	public static final com.exedio.cope.Type<DoubleItem> TYPE = com.exedio.cope.TypesBound.newType(DoubleItem.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

@@ -132,8 +132,6 @@ final class MediaServletItem extends Item
 	}
 
 	/**
-
-	 **
 	 * Creates a new MediaServletItem with all the fields initially needed.
 	 * @param name the initial value for field {@link #name}.
 	 * @throws com.exedio.cope.StringLengthViolationException if name violates its length constraint.
@@ -147,18 +145,18 @@ final class MediaServletItem extends Item
 		this(new com.exedio.cope.SetValue<?>[]{
 			MediaServletItem.name.map(name),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new MediaServletItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private MediaServletItem(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #name}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -166,9 +164,9 @@ final class MediaServletItem extends Item
 	final java.lang.String getName()
 	{
 		return MediaServletItem.name.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #name}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -177,9 +175,9 @@ final class MediaServletItem extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		MediaServletItem.name.set(this,name);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns a Locator the content of {@link #content} is available under.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLocator")
@@ -187,9 +185,9 @@ final class MediaServletItem extends Item
 	final com.exedio.cope.pattern.MediaPath.Locator getContentLocator()
 	{
 		return MediaServletItem.content.getLocator(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the content type of the media {@link #content}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getContentType")
@@ -197,18 +195,18 @@ final class MediaServletItem extends Item
 	final java.lang.String getContentContentType()
 	{
 		return MediaServletItem.content.getContentType(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns whether media {@link #content} is null.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="isNull")
 	final boolean isContentNull()
 	{
 		return MediaServletItem.content.isNull(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the last modification date of media {@link #content}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLastModified")
@@ -216,18 +214,18 @@ final class MediaServletItem extends Item
 	final java.util.Date getContentLastModified()
 	{
 		return MediaServletItem.content.getLastModified(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the body length of the media {@link #content}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLength")
 	final long getContentLength()
 	{
 		return MediaServletItem.content.getLength(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the body of the media {@link #content}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
@@ -235,9 +233,9 @@ final class MediaServletItem extends Item
 	final byte[] getContentBody()
 	{
 		return MediaServletItem.content.getBody(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Writes the body of media {@link #content} into the given stream.
 	 * Does nothing, if the media is null.
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
@@ -248,9 +246,9 @@ final class MediaServletItem extends Item
 				java.io.IOException
 	{
 		MediaServletItem.content.getBody(this,body);
-	}/**
+	}
 
-	 **
+	/**
 	 * Writes the body of media {@link #content} into the given file.
 	 * Does nothing, if the media is null.
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
@@ -261,9 +259,9 @@ final class MediaServletItem extends Item
 				java.io.IOException
 	{
 		MediaServletItem.content.getBody(this,body);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets the content of media {@link #content}.
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
 	 */
@@ -273,18 +271,18 @@ final class MediaServletItem extends Item
 				java.io.IOException
 	{
 		MediaServletItem.content.set(this,content);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets the content of media {@link #content}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	private final void setContentInternal(@javax.annotation.Nullable final byte[] body,@javax.annotation.Nullable final java.lang.String contentType)
 	{
 		MediaServletItem.content.set(this,body,contentType);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets the content of media {@link #content}.
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
 	 */
@@ -294,9 +292,9 @@ final class MediaServletItem extends Item
 				java.io.IOException
 	{
 		MediaServletItem.content.set(this,body,contentType);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets the content of media {@link #content}.
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
 	 */
@@ -306,9 +304,9 @@ final class MediaServletItem extends Item
 				java.io.IOException
 	{
 		MediaServletItem.content.set(this,body,contentType);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns a Locator the content of {@link #redirect} is available under.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLocator")
@@ -316,9 +314,9 @@ final class MediaServletItem extends Item
 	final com.exedio.cope.pattern.MediaPath.Locator getRedirectLocator()
 	{
 		return MediaServletItem.redirect.getLocator(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the content type of the media {@link #redirect}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getContentType")
@@ -326,9 +324,9 @@ final class MediaServletItem extends Item
 	final java.lang.String getRedirectContentType()
 	{
 		return MediaServletItem.redirect.getContentType(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns a Locator the content of {@link #thumbnail} is available under.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLocator")
@@ -336,9 +334,9 @@ final class MediaServletItem extends Item
 	final com.exedio.cope.pattern.MediaPath.Locator getThumbnailLocator()
 	{
 		return MediaServletItem.thumbnail.getLocator(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns a URL the content of {@link #thumbnail} is available under, falling back to source if necessary.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getURLWithFallbackToSource")
@@ -346,9 +344,9 @@ final class MediaServletItem extends Item
 	final java.lang.String getThumbnailURLWithFallbackToSource()
 	{
 		return MediaServletItem.thumbnail.getURLWithFallbackToSource(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns a Locator the content of {@link #thumbnail} is available under, falling back to source if necessary.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLocatorWithFallbackToSource")
@@ -356,9 +354,9 @@ final class MediaServletItem extends Item
 	final com.exedio.cope.pattern.MediaPath.Locator getThumbnailLocatorWithFallbackToSource()
 	{
 		return MediaServletItem.thumbnail.getLocatorWithFallbackToSource(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the body of {@link #thumbnail}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -368,9 +366,9 @@ final class MediaServletItem extends Item
 				java.io.IOException
 	{
 		return MediaServletItem.thumbnail.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns a Locator the content of {@link #thumbnailRedirect} is available under.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLocator")
@@ -378,9 +376,9 @@ final class MediaServletItem extends Item
 	final com.exedio.cope.pattern.MediaPath.Locator getThumbnailRedirectLocator()
 	{
 		return MediaServletItem.thumbnailRedirect.getLocator(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns a Locator the content of {@link #html} is available under.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLocator")
@@ -388,9 +386,9 @@ final class MediaServletItem extends Item
 	final com.exedio.cope.pattern.MediaPath.Locator getHtmlLocator()
 	{
 		return MediaServletItem.html.getLocator(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns a URL the content of {@link #html} is available under, falling back to source if necessary.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getURLWithFallbackToSource")
@@ -398,9 +396,9 @@ final class MediaServletItem extends Item
 	final java.lang.String getHtmlURLWithFallbackToSource()
 	{
 		return MediaServletItem.html.getURLWithFallbackToSource(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns a Locator the content of {@link #html} is available under, falling back to source if necessary.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLocatorWithFallbackToSource")
@@ -408,9 +406,9 @@ final class MediaServletItem extends Item
 	final com.exedio.cope.pattern.MediaPath.Locator getHtmlLocatorWithFallbackToSource()
 	{
 		return MediaServletItem.html.getLocatorWithFallbackToSource(this);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setRaw")
 	final void setHtmlRaw(@javax.annotation.Nullable final com.exedio.cope.pattern.Media.Value raw)
@@ -418,18 +416,18 @@ final class MediaServletItem extends Item
 				java.io.IOException
 	{
 		MediaServletItem.html.setRaw(this,raw);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="addPaste")
 	@javax.annotation.Nonnull
 	final com.exedio.cope.pattern.TextUrlFilter.Paste addHtmlPaste(@javax.annotation.Nonnull final java.lang.String key,@javax.annotation.Nonnull final com.exedio.cope.pattern.Media.Value value)
 	{
 		return MediaServletItem.html.addPaste(this,key,value);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="modifyPaste")
 	final void modifyHtmlPaste(@javax.annotation.Nonnull final java.lang.String key,@javax.annotation.Nonnull final com.exedio.cope.pattern.Media.Value value)
@@ -437,9 +435,9 @@ final class MediaServletItem extends Item
 				java.io.IOException
 	{
 		MediaServletItem.html.modifyPaste(this,key,value);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="putPaste")
 	@javax.annotation.Nonnull
@@ -448,9 +446,9 @@ final class MediaServletItem extends Item
 				java.io.IOException
 	{
 		return MediaServletItem.html.putPaste(this,key,value);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getContent")
 	@javax.annotation.Nonnull
@@ -459,9 +457,9 @@ final class MediaServletItem extends Item
 				com.exedio.cope.pattern.MediaPath.NotFound
 	{
 		return MediaServletItem.html.getContent(this,request);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="check")
 	@javax.annotation.Nonnull
@@ -470,9 +468,9 @@ final class MediaServletItem extends Item
 				com.exedio.cope.pattern.MediaPath.NotFound
 	{
 		return MediaServletItem.html.check(this);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="putPastesFromZip")
 	final void putHtmlPastesFromZip(@javax.annotation.Nonnull final java.io.File file)
@@ -480,9 +478,9 @@ final class MediaServletItem extends Item
 				java.io.IOException
 	{
 		MediaServletItem.html.putPastesFromZip(this,file);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns a Locator the content of {@link #tokened} is available under.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLocator")
@@ -490,9 +488,9 @@ final class MediaServletItem extends Item
 	final com.exedio.cope.pattern.MediaPath.Locator getTokenedLocator()
 	{
 		return MediaServletItem.tokened.getLocator(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns a URL the content of {@link #tokened} is available under, falling back to source if necessary.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getURLWithFallbackToSource")
@@ -500,9 +498,9 @@ final class MediaServletItem extends Item
 	final java.lang.String getTokenedURLWithFallbackToSource()
 	{
 		return MediaServletItem.tokened.getURLWithFallbackToSource(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns a Locator the content of {@link #tokened} is available under, falling back to source if necessary.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLocatorWithFallbackToSource")
@@ -510,9 +508,9 @@ final class MediaServletItem extends Item
 	final com.exedio.cope.pattern.MediaPath.Locator getTokenedLocatorWithFallbackToSource()
 	{
 		return MediaServletItem.tokened.getLocatorWithFallbackToSource(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the body of {@link #tokened}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -522,9 +520,9 @@ final class MediaServletItem extends Item
 				java.io.IOException
 	{
 		return MediaServletItem.tokened.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns a Locator the content of {@link #finger} is available under.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLocator")
@@ -532,9 +530,9 @@ final class MediaServletItem extends Item
 	final com.exedio.cope.pattern.MediaPath.Locator getFingerLocator()
 	{
 		return MediaServletItem.finger.getLocator(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns a URL the content of {@link #finger} is available under, falling back to source if necessary.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getURLWithFallbackToSource")
@@ -542,9 +540,9 @@ final class MediaServletItem extends Item
 	final java.lang.String getFingerURLWithFallbackToSource()
 	{
 		return MediaServletItem.finger.getURLWithFallbackToSource(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns a Locator the content of {@link #finger} is available under, falling back to source if necessary.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLocatorWithFallbackToSource")
@@ -552,9 +550,9 @@ final class MediaServletItem extends Item
 	final com.exedio.cope.pattern.MediaPath.Locator getFingerLocatorWithFallbackToSource()
 	{
 		return MediaServletItem.finger.getLocatorWithFallbackToSource(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the body of {@link #finger}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -564,9 +562,9 @@ final class MediaServletItem extends Item
 				java.io.IOException
 	{
 		return MediaServletItem.finger.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #nameServerLastModified}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -574,27 +572,27 @@ final class MediaServletItem extends Item
 	final java.util.Date getNameServerLastModified()
 	{
 		return MediaServletItem.nameServerLastModified.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #nameServerLastModified}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setNameServerLastModified(@javax.annotation.Nullable final java.util.Date nameServerLastModified)
 	{
 		MediaServletItem.nameServerLastModified.set(this,nameServerLastModified);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets the current date for the date field {@link #nameServerLastModified}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="touch")
 	final void touchNameServerLastModified()
 	{
 		MediaServletItem.nameServerLastModified.touch(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #catchPhrase}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -602,9 +600,9 @@ final class MediaServletItem extends Item
 	final java.lang.String getCatchPhrase()
 	{
 		return MediaServletItem.catchPhrase.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #catchPhrase}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -613,20 +611,20 @@ final class MediaServletItem extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		MediaServletItem.catchPhrase.set(this,catchPhrase);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for mediaServletItem.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<MediaServletItem> TYPE = com.exedio.cope.TypesBound.newType(MediaServletItem.class);/**
+	static final com.exedio.cope.Type<MediaServletItem> TYPE = com.exedio.cope.TypesBound.newType(MediaServletItem.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

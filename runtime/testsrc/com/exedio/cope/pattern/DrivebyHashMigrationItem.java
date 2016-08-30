@@ -39,8 +39,6 @@ final class DrivebyHashMigrationItem extends Item
 	}
 
 	/**
-
-	 **
 	 * Creates a new DrivebyHashMigrationItem with all the fields initially needed.
 	 * @param password the initial value for field {@link #password}.
 	 * @throws com.exedio.cope.MandatoryViolationException if password is null.
@@ -54,27 +52,27 @@ final class DrivebyHashMigrationItem extends Item
 		this(new com.exedio.cope.SetValue<?>[]{
 			DrivebyHashMigrationItem.password.map(password),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new DrivebyHashMigrationItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private DrivebyHashMigrationItem(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns whether the given value corresponds to the hash in {@link #password}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="check")
 	final boolean checkPassword(@javax.annotation.Nullable final java.lang.String password)
 	{
 		return DrivebyHashMigrationItem.password.check(this,password);
-	}/**
+	}
 
-	 **
+	/**
 	 * Wastes (almost) as much cpu cycles, as a call to <tt>checkPassword</tt> would have needed.
 	 * Needed to prevent Timing Attacks.
 	 */
@@ -82,9 +80,9 @@ final class DrivebyHashMigrationItem extends Item
 	static final void blindPassword(@javax.annotation.Nullable final java.lang.String password)
 	{
 		DrivebyHashMigrationItem.password.blind(password);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #password}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -93,20 +91,20 @@ final class DrivebyHashMigrationItem extends Item
 				com.exedio.cope.MandatoryViolationException
 	{
 		DrivebyHashMigrationItem.password.set(this,password);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for drivebyHashMigrationItem.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<DrivebyHashMigrationItem> TYPE = com.exedio.cope.TypesBound.newType(DrivebyHashMigrationItem.class);/**
+	static final com.exedio.cope.Type<DrivebyHashMigrationItem> TYPE = com.exedio.cope.TypesBound.newType(DrivebyHashMigrationItem.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

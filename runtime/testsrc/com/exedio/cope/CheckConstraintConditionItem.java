@@ -49,8 +49,6 @@ final class CheckConstraintConditionItem extends Item
 
 
 	/**
-
-	 **
 	 * Creates a new CheckConstraintConditionItem with all the fields initially needed.
 	 * @param integer1 the initial value for field {@link #integer1}.
 	 * @param integer2 the initial value for field {@link #integer2}.
@@ -70,54 +68,54 @@ final class CheckConstraintConditionItem extends Item
 			CheckConstraintConditionItem.integer2.map(integer2),
 			CheckConstraintConditionItem.item.map(item),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new CheckConstraintConditionItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private CheckConstraintConditionItem(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #integer1}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	final int getInteger1()
 	{
 		return CheckConstraintConditionItem.integer1.getMandatory(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #integer1}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setInteger1(final int integer1)
 	{
 		CheckConstraintConditionItem.integer1.set(this,integer1);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #integer2}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	final int getInteger2()
 	{
 		return CheckConstraintConditionItem.integer2.getMandatory(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #integer2}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setInteger2(final int integer2)
 	{
 		CheckConstraintConditionItem.integer2.set(this,integer2);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #item}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -125,9 +123,9 @@ final class CheckConstraintConditionItem extends Item
 	final CheckConstraintConditionItemTarget getItem()
 	{
 		return CheckConstraintConditionItem.item.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #item}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -136,20 +134,20 @@ final class CheckConstraintConditionItem extends Item
 				com.exedio.cope.MandatoryViolationException
 	{
 		CheckConstraintConditionItem.item.set(this,item);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for checkConstraintConditionItem.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<CheckConstraintConditionItem> TYPE = com.exedio.cope.TypesBound.newType(CheckConstraintConditionItem.class);/**
+	static final com.exedio.cope.Type<CheckConstraintConditionItem> TYPE = com.exedio.cope.TypesBound.newType(CheckConstraintConditionItem.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

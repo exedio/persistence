@@ -26,9 +26,7 @@ public final class HierarchyFirstSub extends HierarchySuper
 	public static final UppercaseView firstSubStringUpper = firstSubString.toUpperCase();
 
 
-/**
-
-	 **
+	/**
 	 * Creates a new HierarchyFirstSub with all the fields initially needed.
 	 * @param superInt the initial value for field {@link #superInt}.
 	 * @throws com.exedio.cope.UniqueViolationException if superInt is not unique.
@@ -42,18 +40,18 @@ public final class HierarchyFirstSub extends HierarchySuper
 		this(new com.exedio.cope.SetValue<?>[]{
 			com.exedio.cope.HierarchySuper.superInt.map(superInt),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new HierarchyFirstSub and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private HierarchyFirstSub(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #firstSubString}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -61,9 +59,9 @@ public final class HierarchyFirstSub extends HierarchySuper
 	public final java.lang.String getFirstSubString()
 	{
 		return HierarchyFirstSub.firstSubString.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #firstSubString}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -73,9 +71,9 @@ public final class HierarchyFirstSub extends HierarchySuper
 				com.exedio.cope.StringLengthViolationException
 	{
 		HierarchyFirstSub.firstSubString.set(this,firstSubString);
-	}/**
+	}
 
-	 **
+	/**
 	 * Finds a hierarchyFirstSub by it's {@link #firstSubString}.
 	 * @param firstSubString shall be equal to field {@link #firstSubString}.
 	 * @return null if there is no matching item.
@@ -85,29 +83,29 @@ public final class HierarchyFirstSub extends HierarchySuper
 	public static final HierarchyFirstSub forFirstSubString(@javax.annotation.Nonnull final java.lang.String firstSubString)
 	{
 		return HierarchyFirstSub.firstSubString.searchUnique(HierarchyFirstSub.class,firstSubString);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #firstSubStringUpper}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	public final java.lang.String getFirstSubStringUpper()
 	{
 		return HierarchyFirstSub.firstSubStringUpper.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for hierarchyFirstSub.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<HierarchyFirstSub> TYPE = com.exedio.cope.TypesBound.newType(HierarchyFirstSub.class);/**
+	public static final com.exedio.cope.Type<HierarchyFirstSub> TYPE = com.exedio.cope.TypesBound.newType(HierarchyFirstSub.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

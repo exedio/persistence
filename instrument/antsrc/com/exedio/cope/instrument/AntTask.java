@@ -190,7 +190,7 @@ public final class AntTask extends Task
 	// travis-ci just supports Ant version 1.8.2
 	public void setHintFormat(final String value)
 	{
-		params.customizationHintsForTags = HintFormat.valueOf(value);
+		params.hintFormat = HintFormat.valueOf(value);
 	}
 
 	public void setVerbose(final boolean value)
@@ -241,6 +241,10 @@ public final class AntTask extends Task
 			if (params.timestampFile==null && !resources.isEmpty())
 			{
 				throw new BuildException("resources require timestampFile");
+			}
+			if (!params.longJavadoc && params.hintFormat!=HintFormat.forTags)
+			{
+				throw new BuildException("longJavadoc only supported for hintFormat=\"forTags\"");
 			}
 			final File buildFile = getProject().resolveFile(getLocation().getFileName());
 			resourceFiles.add(buildFile);

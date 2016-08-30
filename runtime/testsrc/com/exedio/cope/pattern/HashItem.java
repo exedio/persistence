@@ -50,9 +50,7 @@ public final class HashItem extends Item
 		return HashItem.internal.isNull(this);
 	}
 
-/**
-
-	 **
+	/**
 	 * Creates a new HashItem with all the fields initially needed.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
@@ -60,18 +58,18 @@ public final class HashItem extends Item
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new HashItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	HashItem(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #explicitExternalWrap}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -79,9 +77,9 @@ public final class HashItem extends Item
 	final java.lang.String getExplicitExternalWrap()
 	{
 		return HashItem.explicitExternalWrap.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #explicitExternalWrap}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -90,18 +88,18 @@ public final class HashItem extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		HashItem.explicitExternalWrap.set(this,explicitExternalWrap);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns whether the given value corresponds to the hash in {@link #explicitExternal}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="check")
 	final boolean checkExplicitExternal(@javax.annotation.Nullable final java.lang.String explicitExternal)
 	{
 		return HashItem.explicitExternal.check(this,explicitExternal);
-	}/**
+	}
 
-	 **
+	/**
 	 * Wastes (almost) as much cpu cycles, as a call to <tt>checkExplicitExternal</tt> would have needed.
 	 * Needed to prevent Timing Attacks.
 	 */
@@ -109,18 +107,18 @@ public final class HashItem extends Item
 	static final void blindExplicitExternal(@javax.annotation.Nullable final java.lang.String explicitExternal)
 	{
 		HashItem.explicitExternal.blind(explicitExternal);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #explicitExternal}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setExplicitExternal(@javax.annotation.Nullable final java.lang.String explicitExternal)
 	{
 		HashItem.explicitExternal.set(this,explicitExternal);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the encoded hash value for hash {@link #explicitExternal}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getwrap")
@@ -128,27 +126,27 @@ public final class HashItem extends Item
 	final java.lang.String getExplicitExternalwrap()
 	{
 		return HashItem.explicitExternal.getHash(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets the encoded hash value for hash {@link #explicitExternal}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setwrap")
 	final void setExplicitExternalwrap(@javax.annotation.Nullable final java.lang.String explicitExternal)
 	{
 		HashItem.explicitExternal.setHash(this,explicitExternal);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns whether the given value corresponds to the hash in {@link #implicitExternal}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="check")
 	final boolean checkImplicitExternal(@javax.annotation.Nullable final java.lang.String implicitExternal)
 	{
 		return HashItem.implicitExternal.check(this,implicitExternal);
-	}/**
+	}
 
-	 **
+	/**
 	 * Wastes (almost) as much cpu cycles, as a call to <tt>checkImplicitExternal</tt> would have needed.
 	 * Needed to prevent Timing Attacks.
 	 */
@@ -156,18 +154,18 @@ public final class HashItem extends Item
 	static final void blindImplicitExternal(@javax.annotation.Nullable final java.lang.String implicitExternal)
 	{
 		HashItem.implicitExternal.blind(implicitExternal);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #implicitExternal}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setImplicitExternal(@javax.annotation.Nullable final java.lang.String implicitExternal)
 	{
 		HashItem.implicitExternal.set(this,implicitExternal);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the encoded hash value for hash {@link #implicitExternal}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getwrap")
@@ -175,27 +173,27 @@ public final class HashItem extends Item
 	final java.lang.String getImplicitExternalwrap()
 	{
 		return HashItem.implicitExternal.getHash(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets the encoded hash value for hash {@link #implicitExternal}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setwrap")
 	final void setImplicitExternalwrap(@javax.annotation.Nullable final java.lang.String implicitExternal)
 	{
 		HashItem.implicitExternal.setHash(this,implicitExternal);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns whether the given value corresponds to the hash in {@link #internal}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="check")
 	final boolean checkInternal(@javax.annotation.Nullable final java.lang.String internal)
 	{
 		return HashItem.internal.check(this,internal);
-	}/**
+	}
 
-	 **
+	/**
 	 * Wastes (almost) as much cpu cycles, as a call to <tt>checkInternal</tt> would have needed.
 	 * Needed to prevent Timing Attacks.
 	 */
@@ -203,18 +201,18 @@ public final class HashItem extends Item
 	static final void blindInternal(@javax.annotation.Nullable final java.lang.String internal)
 	{
 		HashItem.internal.blind(internal);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #internal}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setInternal(@javax.annotation.Nullable final java.lang.String internal)
 	{
 		HashItem.internal.set(this,internal);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the encoded hash value for hash {@link #internal}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getwrap")
@@ -222,27 +220,27 @@ public final class HashItem extends Item
 	final java.lang.String getInternalwrap()
 	{
 		return HashItem.internal.getHash(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets the encoded hash value for hash {@link #internal}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setwrap")
 	final void setInternalwrap(@javax.annotation.Nullable final java.lang.String internal)
 	{
 		HashItem.internal.setHash(this,internal);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns whether the given value corresponds to the hash in {@link #limited15}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="check")
 	final boolean checkLimited15(@javax.annotation.Nullable final java.lang.String limited15)
 	{
 		return HashItem.limited15.check(this,limited15);
-	}/**
+	}
 
-	 **
+	/**
 	 * Wastes (almost) as much cpu cycles, as a call to <tt>checkLimited15</tt> would have needed.
 	 * Needed to prevent Timing Attacks.
 	 */
@@ -250,18 +248,18 @@ public final class HashItem extends Item
 	static final void blindLimited15(@javax.annotation.Nullable final java.lang.String limited15)
 	{
 		HashItem.limited15.blind(limited15);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #limited15}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setLimited15(@javax.annotation.Nullable final java.lang.String limited15)
 	{
 		HashItem.limited15.set(this,limited15);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the encoded hash value for hash {@link #limited15}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getwrap")
@@ -269,27 +267,27 @@ public final class HashItem extends Item
 	final java.lang.String getLimited15wrap()
 	{
 		return HashItem.limited15.getHash(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets the encoded hash value for hash {@link #limited15}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setwrap")
 	final void setLimited15wrap(@javax.annotation.Nullable final java.lang.String limited15)
 	{
 		HashItem.limited15.setHash(this,limited15);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns whether the given value corresponds to the hash in {@link #withCorruptValidator}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="check")
 	final boolean checkWithCorruptValidator(@javax.annotation.Nullable final java.lang.String withCorruptValidator)
 	{
 		return HashItem.withCorruptValidator.check(this,withCorruptValidator);
-	}/**
+	}
 
-	 **
+	/**
 	 * Wastes (almost) as much cpu cycles, as a call to <tt>checkWithCorruptValidator</tt> would have needed.
 	 * Needed to prevent Timing Attacks.
 	 */
@@ -297,18 +295,18 @@ public final class HashItem extends Item
 	static final void blindWithCorruptValidator(@javax.annotation.Nullable final java.lang.String withCorruptValidator)
 	{
 		HashItem.withCorruptValidator.blind(withCorruptValidator);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #withCorruptValidator}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setWithCorruptValidator(@javax.annotation.Nullable final java.lang.String withCorruptValidator)
 	{
 		HashItem.withCorruptValidator.set(this,withCorruptValidator);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the encoded hash value for hash {@link #withCorruptValidator}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getwrap")
@@ -316,27 +314,27 @@ public final class HashItem extends Item
 	final java.lang.String getWithCorruptValidatorwrap()
 	{
 		return HashItem.withCorruptValidator.getHash(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets the encoded hash value for hash {@link #withCorruptValidator}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setwrap")
 	final void setWithCorruptValidatorwrap(@javax.annotation.Nullable final java.lang.String withCorruptValidator)
 	{
 		HashItem.withCorruptValidator.setHash(this,withCorruptValidator);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns whether the given value corresponds to the hash in {@link #with3PinValidator}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="check")
 	final boolean checkWith3PinValidator(@javax.annotation.Nullable final java.lang.String with3PinValidator)
 	{
 		return HashItem.with3PinValidator.check(this,with3PinValidator);
-	}/**
+	}
 
-	 **
+	/**
 	 * Wastes (almost) as much cpu cycles, as a call to <tt>checkWith3PinValidator</tt> would have needed.
 	 * Needed to prevent Timing Attacks.
 	 */
@@ -344,18 +342,18 @@ public final class HashItem extends Item
 	static final void blindWith3PinValidator(@javax.annotation.Nullable final java.lang.String with3PinValidator)
 	{
 		HashItem.with3PinValidator.blind(with3PinValidator);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #with3PinValidator}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setWith3PinValidator(@javax.annotation.Nullable final java.lang.String with3PinValidator)
 	{
 		HashItem.with3PinValidator.set(this,with3PinValidator);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the encoded hash value for hash {@link #with3PinValidator}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getwrap")
@@ -363,29 +361,29 @@ public final class HashItem extends Item
 	final java.lang.String getWith3PinValidatorwrap()
 	{
 		return HashItem.with3PinValidator.getHash(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets the encoded hash value for hash {@link #with3PinValidator}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setwrap")
 	final void setWith3PinValidatorwrap(@javax.annotation.Nullable final java.lang.String with3PinValidator)
 	{
 		HashItem.with3PinValidator.setHash(this,with3PinValidator);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for hashItem.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<HashItem> TYPE = com.exedio.cope.TypesBound.newType(HashItem.class);/**
+	public static final com.exedio.cope.Type<HashItem> TYPE = com.exedio.cope.TypesBound.newType(HashItem.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

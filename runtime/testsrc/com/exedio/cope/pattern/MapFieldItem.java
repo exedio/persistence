@@ -40,8 +40,6 @@ public final class MapFieldItem extends Item
 
 
 	/**
-
-	 **
 	 * Creates a new MapFieldItem with all the fields initially needed.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
@@ -49,18 +47,18 @@ public final class MapFieldItem extends Item
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new MapFieldItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private MapFieldItem(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value mapped to <tt>k</tt> by the field map {@link #name}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -68,35 +66,35 @@ public final class MapFieldItem extends Item
 	final String getName(@javax.annotation.Nonnull final Language k)
 	{
 		return MapFieldItem.name.get(this,k);
-	}/**
+	}
 
-	 **
+	/**
 	 * Associates <tt>k</tt> to a new value in the field map {@link #name}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setName(@javax.annotation.Nonnull final Language k,@javax.annotation.Nullable final String name)
 	{
 		MapFieldItem.name.set(this,k,name);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getMap")
 	@javax.annotation.Nonnull
 	final java.util.Map<Language,String> getNameMap()
 	{
 		return MapFieldItem.name.getMap(this);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setMap")
 	final void setNameMap(@javax.annotation.Nonnull final java.util.Map<? extends Language,? extends String> name)
 	{
 		MapFieldItem.name.setMap(this,name);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the parent field of the type of {@link #name}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="Parent")
@@ -104,9 +102,9 @@ public final class MapFieldItem extends Item
 	static final com.exedio.cope.ItemField<MapFieldItem> nameParent()
 	{
 		return MapFieldItem.name.getParent(MapFieldItem.class);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value mapped to <tt>k</tt> by the field map {@link #nameLength}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -114,35 +112,35 @@ public final class MapFieldItem extends Item
 	final Integer getNameLength(@javax.annotation.Nonnull final Language k)
 	{
 		return MapFieldItem.nameLength.get(this,k);
-	}/**
+	}
 
-	 **
+	/**
 	 * Associates <tt>k</tt> to a new value in the field map {@link #nameLength}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setNameLength(@javax.annotation.Nonnull final Language k,@javax.annotation.Nullable final Integer nameLength)
 	{
 		MapFieldItem.nameLength.set(this,k,nameLength);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getMap")
 	@javax.annotation.Nonnull
 	final java.util.Map<Language,Integer> getNameLengthMap()
 	{
 		return MapFieldItem.nameLength.getMap(this);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setMap")
 	final void setNameLengthMap(@javax.annotation.Nonnull final java.util.Map<? extends Language,? extends Integer> nameLength)
 	{
 		MapFieldItem.nameLength.setMap(this,nameLength);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the parent field of the type of {@link #nameLength}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="Parent")
@@ -150,9 +148,9 @@ public final class MapFieldItem extends Item
 	static final com.exedio.cope.ItemField<MapFieldItem> nameLengthParent()
 	{
 		return MapFieldItem.nameLength.getParent(MapFieldItem.class);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value mapped to <tt>k</tt> by the field map {@link #string}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -160,35 +158,35 @@ public final class MapFieldItem extends Item
 	final String getString(@javax.annotation.Nonnull final String k)
 	{
 		return MapFieldItem.string.get(this,k);
-	}/**
+	}
 
-	 **
+	/**
 	 * Associates <tt>k</tt> to a new value in the field map {@link #string}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setString(@javax.annotation.Nonnull final String k,@javax.annotation.Nullable final String string)
 	{
 		MapFieldItem.string.set(this,k,string);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getMap")
 	@javax.annotation.Nonnull
 	final java.util.Map<String,String> getStringMap()
 	{
 		return MapFieldItem.string.getMap(this);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setMap")
 	final void setStringMap(@javax.annotation.Nonnull final java.util.Map<? extends String,? extends String> string)
 	{
 		MapFieldItem.string.setMap(this,string);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the parent field of the type of {@link #string}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="Parent")
@@ -196,9 +194,9 @@ public final class MapFieldItem extends Item
 	static final com.exedio.cope.ItemField<MapFieldItem> stringParent()
 	{
 		return MapFieldItem.string.getParent(MapFieldItem.class);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value mapped to <tt>k</tt> by the field map {@link #integer}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -206,35 +204,35 @@ public final class MapFieldItem extends Item
 	final Integer getInteger(@javax.annotation.Nonnull final String k)
 	{
 		return MapFieldItem.integer.get(this,k);
-	}/**
+	}
 
-	 **
+	/**
 	 * Associates <tt>k</tt> to a new value in the field map {@link #integer}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setInteger(@javax.annotation.Nonnull final String k,@javax.annotation.Nullable final Integer integer)
 	{
 		MapFieldItem.integer.set(this,k,integer);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getMap")
 	@javax.annotation.Nonnull
 	final java.util.Map<String,Integer> getIntegerMap()
 	{
 		return MapFieldItem.integer.getMap(this);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setMap")
 	final void setIntegerMap(@javax.annotation.Nonnull final java.util.Map<? extends String,? extends Integer> integer)
 	{
 		MapFieldItem.integer.setMap(this,integer);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the parent field of the type of {@link #integer}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="Parent")
@@ -242,20 +240,20 @@ public final class MapFieldItem extends Item
 	static final com.exedio.cope.ItemField<MapFieldItem> integerParent()
 	{
 		return MapFieldItem.integer.getParent(MapFieldItem.class);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for mapFieldItem.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<MapFieldItem> TYPE = com.exedio.cope.TypesBound.newType(MapFieldItem.class);/**
+	public static final com.exedio.cope.Type<MapFieldItem> TYPE = com.exedio.cope.TypesBound.newType(MapFieldItem.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

@@ -27,8 +27,6 @@ final class SubContainer extends SuperContainer
 	public static final BooleanField subflag = new BooleanField().optional().defaultTo(false);
 
 	/**
-
-	 **
 	 * Creates a new SubContainer with all the fields initially needed.
 	 * @param code the initial value for field {@link #code}.
 	 * @param queryItem the initial value for field {@link #queryItem}.
@@ -53,18 +51,18 @@ final class SubContainer extends SuperContainer
 			com.exedio.cope.badquery.SuperContainer.superflag.map(superflag),
 			SubContainer.superContainer.map(superContainer),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new SubContainer and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private SubContainer(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #superContainer}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -72,9 +70,9 @@ final class SubContainer extends SuperContainer
 	public final SuperContainer getSuperContainer()
 	{
 		return SubContainer.superContainer.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #subflag}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -82,29 +80,29 @@ final class SubContainer extends SuperContainer
 	public final java.lang.Boolean getSubflag()
 	{
 		return SubContainer.subflag.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #subflag}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	public final void setSubflag(@javax.annotation.Nullable final java.lang.Boolean subflag)
 	{
 		SubContainer.subflag.set(this,subflag);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for subContainer.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<SubContainer> TYPE = com.exedio.cope.TypesBound.newType(SubContainer.class);/**
+	static final com.exedio.cope.Type<SubContainer> TYPE = com.exedio.cope.TypesBound.newType(SubContainer.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

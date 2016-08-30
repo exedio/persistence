@@ -23,8 +23,6 @@ public class PolymorphicBoundSelectSuperItem extends Item
 	public static final ItemField<PolymorphicBoundSelectSuperItem> parent = ItemField.create(PolymorphicBoundSelectSuperItem.class).optional().toFinal();
 
 	/**
-
-	 **
 	 * Creates a new PolymorphicBoundSelectSuperItem with all the fields initially needed.
 	 * @param parent the initial value for field {@link #parent}.
 	 */
@@ -35,18 +33,18 @@ public class PolymorphicBoundSelectSuperItem extends Item
 		this(new com.exedio.cope.SetValue<?>[]{
 			PolymorphicBoundSelectSuperItem.parent.map(parent),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new PolymorphicBoundSelectSuperItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	protected PolymorphicBoundSelectSuperItem(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #parent}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -54,20 +52,20 @@ public class PolymorphicBoundSelectSuperItem extends Item
 	public final PolymorphicBoundSelectSuperItem getParent()
 	{
 		return PolymorphicBoundSelectSuperItem.parent.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for polymorphicBoundSelectSuperItem.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<PolymorphicBoundSelectSuperItem> TYPE = com.exedio.cope.TypesBound.newType(PolymorphicBoundSelectSuperItem.class);/**
+	public static final com.exedio.cope.Type<PolymorphicBoundSelectSuperItem> TYPE = com.exedio.cope.TypesBound.newType(PolymorphicBoundSelectSuperItem.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

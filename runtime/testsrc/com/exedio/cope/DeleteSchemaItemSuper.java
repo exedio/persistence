@@ -30,8 +30,6 @@ abstract class DeleteSchemaItemSuper extends Item
 	private static final StringField superField = new StringField().optional();
 
 	/**
-
-	 **
 	 * Creates a new DeleteSchemaItemSuper with all the fields initially needed.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
@@ -39,29 +37,29 @@ abstract class DeleteSchemaItemSuper extends Item
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new DeleteSchemaItemSuper and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	protected DeleteSchemaItemSuper(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for deleteSchemaItemSuper.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<DeleteSchemaItemSuper> TYPE = com.exedio.cope.TypesBound.newType(DeleteSchemaItemSuper.class);/**
+	static final com.exedio.cope.Type<DeleteSchemaItemSuper> TYPE = com.exedio.cope.TypesBound.newType(DeleteSchemaItemSuper.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

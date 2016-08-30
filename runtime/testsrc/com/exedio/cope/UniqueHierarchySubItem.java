@@ -29,8 +29,6 @@ final class UniqueHierarchySubItem extends UniqueHierarchySuperItem
 	}
 
 	/**
-
-	 **
 	 * Creates a new UniqueHierarchySubItem with all the fields initially needed.
 	 * @param superField the initial value for field {@link #superField}.
 	 * @param subField the initial value for field {@link #subField}.
@@ -51,18 +49,18 @@ final class UniqueHierarchySubItem extends UniqueHierarchySuperItem
 			com.exedio.cope.UniqueHierarchySuperItem.superField.map(superField),
 			UniqueHierarchySubItem.subField.map(subField),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new UniqueHierarchySubItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private UniqueHierarchySubItem(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #subField}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -70,9 +68,9 @@ final class UniqueHierarchySubItem extends UniqueHierarchySuperItem
 	final java.lang.String getSubField()
 	{
 		return UniqueHierarchySubItem.subField.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #subField}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -83,9 +81,9 @@ final class UniqueHierarchySubItem extends UniqueHierarchySuperItem
 				com.exedio.cope.StringLengthViolationException
 	{
 		UniqueHierarchySubItem.subField.set(this,subField);
-	}/**
+	}
 
-	 **
+	/**
 	 * Finds a uniqueHierarchySubItem by it's {@link #subField}.
 	 * @param subField shall be equal to field {@link #subField}.
 	 * @return null if there is no matching item.
@@ -95,20 +93,20 @@ final class UniqueHierarchySubItem extends UniqueHierarchySuperItem
 	static final UniqueHierarchySubItem forSubField(@javax.annotation.Nonnull final java.lang.String subField)
 	{
 		return UniqueHierarchySubItem.subField.searchUnique(UniqueHierarchySubItem.class,subField);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for uniqueHierarchySubItem.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<UniqueHierarchySubItem> TYPE = com.exedio.cope.TypesBound.newType(UniqueHierarchySubItem.class);/**
+	static final com.exedio.cope.Type<UniqueHierarchySubItem> TYPE = com.exedio.cope.TypesBound.newType(UniqueHierarchySubItem.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

@@ -163,9 +163,7 @@ public class DatePrecisionSchemaViolationTest extends SchemaMismatchTest
 		static final DateField minutes = new DateField().toFinal().precisionMinute();
 		static final DateField seconds = new DateField().toFinal().precisionSecond();
 
-		/**
-
-	 **
+	/**
 	 * Creates a new ItemA with all the fields initially needed.
 	 * @param hours the initial value for field {@link #hours}.
 	 * @param minutes the initial value for field {@link #minutes}.
@@ -187,18 +185,18 @@ public class DatePrecisionSchemaViolationTest extends SchemaMismatchTest
 			ItemA.minutes.map(minutes),
 			ItemA.seconds.map(seconds),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new ItemA and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private ItemA(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #hours}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -206,9 +204,9 @@ public class DatePrecisionSchemaViolationTest extends SchemaMismatchTest
 	final java.util.Date getHours()
 	{
 		return ItemA.hours.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #minutes}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -216,9 +214,9 @@ public class DatePrecisionSchemaViolationTest extends SchemaMismatchTest
 	final java.util.Date getMinutes()
 	{
 		return ItemA.minutes.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #seconds}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -226,20 +224,20 @@ public class DatePrecisionSchemaViolationTest extends SchemaMismatchTest
 	final java.util.Date getSeconds()
 	{
 		return ItemA.seconds.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for itemA.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<ItemA> TYPE = com.exedio.cope.TypesBound.newType(ItemA.class);/**
+	static final com.exedio.cope.Type<ItemA> TYPE = com.exedio.cope.TypesBound.newType(ItemA.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
@@ -255,9 +253,7 @@ public class DatePrecisionSchemaViolationTest extends SchemaMismatchTest
 		static final DateField minutes = new DateField().toFinal();
 		static final DateField seconds = new DateField().toFinal();
 
-		/**
-
-	 **
+	/**
 	 * Creates a new ItemB with all the fields initially needed.
 	 * @param hours the initial value for field {@link #hours}.
 	 * @param minutes the initial value for field {@link #minutes}.
@@ -277,18 +273,18 @@ public class DatePrecisionSchemaViolationTest extends SchemaMismatchTest
 			ItemB.minutes.map(minutes),
 			ItemB.seconds.map(seconds),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new ItemB and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private ItemB(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #hours}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -296,9 +292,9 @@ public class DatePrecisionSchemaViolationTest extends SchemaMismatchTest
 	final java.util.Date getHours()
 	{
 		return ItemB.hours.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #minutes}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -306,9 +302,9 @@ public class DatePrecisionSchemaViolationTest extends SchemaMismatchTest
 	final java.util.Date getMinutes()
 	{
 		return ItemB.minutes.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #seconds}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -316,20 +312,20 @@ public class DatePrecisionSchemaViolationTest extends SchemaMismatchTest
 	final java.util.Date getSeconds()
 	{
 		return ItemB.seconds.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for itemB.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<ItemB> TYPE = com.exedio.cope.TypesBound.newType(ItemB.class);/**
+	static final com.exedio.cope.Type<ItemB> TYPE = com.exedio.cope.TypesBound.newType(ItemB.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

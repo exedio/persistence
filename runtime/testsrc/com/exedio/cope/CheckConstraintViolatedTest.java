@@ -115,8 +115,6 @@ public class CheckConstraintViolatedTest extends TestWithEnvironment
 		static final CheckConstraint alphaLessBeta = new CheckConstraint(alpha.less(beta));
 
 	/**
-
-	 **
 	 * Creates a new AnItem with all the fields initially needed.
 	 * @param alpha the initial value for field {@link #alpha}.
 	 * @param beta the initial value for field {@link #beta}.
@@ -130,18 +128,18 @@ public class CheckConstraintViolatedTest extends TestWithEnvironment
 			AnItem.alpha.map(alpha),
 			AnItem.beta.map(beta),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new AnItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private AnItem(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #alpha}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -149,9 +147,9 @@ public class CheckConstraintViolatedTest extends TestWithEnvironment
 	final java.lang.Integer getAlpha()
 	{
 		return AnItem.alpha.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #beta}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -159,20 +157,20 @@ public class CheckConstraintViolatedTest extends TestWithEnvironment
 	final java.lang.Integer getBeta()
 	{
 		return AnItem.beta.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for anItem.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<AnItem> TYPE = com.exedio.cope.TypesBound.newType(AnItem.class);/**
+	static final com.exedio.cope.Type<AnItem> TYPE = com.exedio.cope.TypesBound.newType(AnItem.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

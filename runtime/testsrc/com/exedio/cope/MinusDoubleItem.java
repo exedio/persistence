@@ -43,8 +43,6 @@ public final class MinusDoubleItem extends Item
 	}
 
 	/**
-
-	 **
 	 * Creates a new MinusDoubleItem with all the fields initially needed.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
@@ -52,18 +50,18 @@ public final class MinusDoubleItem extends Item
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new MinusDoubleItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private MinusDoubleItem(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #numA}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -71,18 +69,18 @@ public final class MinusDoubleItem extends Item
 	public final java.lang.Double getNumA()
 	{
 		return MinusDoubleItem.numA.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #numA}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	public final void setNumA(@javax.annotation.Nullable final java.lang.Double numA)
 	{
 		MinusDoubleItem.numA.set(this,numA);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #numB}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -90,18 +88,18 @@ public final class MinusDoubleItem extends Item
 	public final java.lang.Double getNumB()
 	{
 		return MinusDoubleItem.numB.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #numB}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	public final void setNumB(@javax.annotation.Nullable final java.lang.Double numB)
 	{
 		MinusDoubleItem.numB.set(this,numB);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #numC}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -109,56 +107,56 @@ public final class MinusDoubleItem extends Item
 	public final java.lang.Double getNumC()
 	{
 		return MinusDoubleItem.numC.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #numC}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	public final void setNumC(@javax.annotation.Nullable final java.lang.Double numC)
 	{
 		MinusDoubleItem.numC.set(this,numC);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #viewAB}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	public final Double getViewAB()
 	{
 		return MinusDoubleItem.viewAB.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #viewAC}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	public final Double getViewAC()
 	{
 		return MinusDoubleItem.viewAC.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #viewBC}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	public final Double getViewBC()
 	{
 		return MinusDoubleItem.viewBC.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for minusDoubleItem.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<MinusDoubleItem> TYPE = com.exedio.cope.TypesBound.newType(MinusDoubleItem.class);/**
+	public static final com.exedio.cope.Type<MinusDoubleItem> TYPE = com.exedio.cope.TypesBound.newType(MinusDoubleItem.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

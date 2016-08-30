@@ -27,8 +27,6 @@ final class ReviseItem2 extends Item
 	static final StringField field7 = new StringField();
 
 	/**
-
-	 **
 	 * Creates a new ReviseItem2 with all the fields initially needed.
 	 * @param field5 the initial value for field {@link #field5}.
 	 * @param field6 the initial value for field {@link #field6}.
@@ -53,18 +51,18 @@ final class ReviseItem2 extends Item
 			ReviseItem2.field6b.map(field6b),
 			ReviseItem2.field7.map(field7),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new ReviseItem2 and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private ReviseItem2(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #field5}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -72,9 +70,9 @@ final class ReviseItem2 extends Item
 	final java.lang.String getField5()
 	{
 		return ReviseItem2.field5.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #field5}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -84,9 +82,9 @@ final class ReviseItem2 extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		ReviseItem2.field5.set(this,field5);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #field6}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -94,9 +92,9 @@ final class ReviseItem2 extends Item
 	final java.lang.String getField6()
 	{
 		return ReviseItem2.field6.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #field6}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -106,9 +104,9 @@ final class ReviseItem2 extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		ReviseItem2.field6.set(this,field6);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #field6b}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -116,9 +114,9 @@ final class ReviseItem2 extends Item
 	final java.lang.String getField6b()
 	{
 		return ReviseItem2.field6b.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #field6b}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -128,9 +126,9 @@ final class ReviseItem2 extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		ReviseItem2.field6b.set(this,field6b);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #field7}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -138,9 +136,9 @@ final class ReviseItem2 extends Item
 	final java.lang.String getField7()
 	{
 		return ReviseItem2.field7.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #field7}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -150,20 +148,20 @@ final class ReviseItem2 extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		ReviseItem2.field7.set(this,field7);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for reviseItem2.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<ReviseItem2> TYPE = com.exedio.cope.TypesBound.newType(ReviseItem2.class);/**
+	static final com.exedio.cope.Type<ReviseItem2> TYPE = com.exedio.cope.TypesBound.newType(ReviseItem2.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

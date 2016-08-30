@@ -38,8 +38,6 @@ final class CopySimpleTarget extends Item
 	}
 
 	/**
-
-	 **
 	 * Creates a new CopySimpleTarget with all the fields initially needed.
 	 * @param templateString the initial value for field {@link #templateString}.
 	 * @param otherString the initial value for field {@link #otherString}.
@@ -64,18 +62,18 @@ final class CopySimpleTarget extends Item
 			CopySimpleTarget.templateItem.map(templateItem),
 			CopySimpleTarget.otherItem.map(otherItem),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new CopySimpleTarget and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private CopySimpleTarget(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #templateString}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -83,9 +81,9 @@ final class CopySimpleTarget extends Item
 	final java.lang.String getTemplateString()
 	{
 		return CopySimpleTarget.templateString.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #otherString}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -93,9 +91,9 @@ final class CopySimpleTarget extends Item
 	final java.lang.String getOtherString()
 	{
 		return CopySimpleTarget.otherString.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #otherString}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -105,9 +103,9 @@ final class CopySimpleTarget extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		CopySimpleTarget.otherString.set(this,otherString);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #templateItem}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -115,9 +113,9 @@ final class CopySimpleTarget extends Item
 	final CopyValue getTemplateItem()
 	{
 		return CopySimpleTarget.templateItem.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #otherItem}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -125,9 +123,9 @@ final class CopySimpleTarget extends Item
 	final CopyValue getOtherItem()
 	{
 		return CopySimpleTarget.otherItem.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #otherItem}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -136,20 +134,20 @@ final class CopySimpleTarget extends Item
 				com.exedio.cope.MandatoryViolationException
 	{
 		CopySimpleTarget.otherItem.set(this,otherItem);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for copySimpleTarget.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<CopySimpleTarget> TYPE = com.exedio.cope.TypesBound.newType(CopySimpleTarget.class);/**
+	static final com.exedio.cope.Type<CopySimpleTarget> TYPE = com.exedio.cope.TypesBound.newType(CopySimpleTarget.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

@@ -52,8 +52,6 @@ public class DumperItem extends Item
 
 
 	/**
-
-	 **
 	 * Creates a new DumperItem with all the fields initially needed.
 	 * @param string the initial value for field {@link #string}.
 	 * @param unique the initial value for field {@link #unique}.
@@ -77,18 +75,18 @@ public class DumperItem extends Item
 			DumperItem.unique.map(unique),
 			DumperItem.data.map(data),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new DumperItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	protected DumperItem(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #string}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -96,9 +94,9 @@ public class DumperItem extends Item
 	final java.lang.String getString()
 	{
 		return DumperItem.string.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #string}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -108,9 +106,9 @@ public class DumperItem extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		DumperItem.string.set(this,string);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #unique}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -118,9 +116,9 @@ public class DumperItem extends Item
 	final java.lang.String getUnique()
 	{
 		return DumperItem.unique.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #unique}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -131,9 +129,9 @@ public class DumperItem extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		DumperItem.unique.set(this,unique);
-	}/**
+	}
 
-	 **
+	/**
 	 * Finds a dumperItem by it's {@link #unique}.
 	 * @param unique shall be equal to field {@link #unique}.
 	 * @return null if there is no matching item.
@@ -143,27 +141,27 @@ public class DumperItem extends Item
 	static final DumperItem forUnique(@javax.annotation.Nonnull final java.lang.String unique)
 	{
 		return DumperItem.unique.searchUnique(DumperItem.class,unique);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns, whether there is no data for field {@link #data}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="isNull")
 	final boolean isDataNull()
 	{
 		return DumperItem.data.isNull(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the length of the data of the data field {@link #data}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLength")
 	final long getDataLength()
 	{
 		return DumperItem.data.getLength(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of the persistent field {@link #data}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getArray")
@@ -171,9 +169,9 @@ public class DumperItem extends Item
 	final byte[] getDataArray()
 	{
 		return DumperItem.data.getArray(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Writes the data of this persistent data field into the given stream.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -182,9 +180,9 @@ public class DumperItem extends Item
 				java.io.IOException
 	{
 		DumperItem.data.get(this,data);
-	}/**
+	}
 
-	 **
+	/**
 	 * Writes the data of this persistent data field into the given file.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -193,9 +191,9 @@ public class DumperItem extends Item
 				java.io.IOException
 	{
 		DumperItem.data.get(this,data);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for the persistent field {@link #data}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -204,9 +202,9 @@ public class DumperItem extends Item
 				com.exedio.cope.MandatoryViolationException
 	{
 		DumperItem.data.set(this,data);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for the persistent field {@link #data}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -215,9 +213,9 @@ public class DumperItem extends Item
 				com.exedio.cope.MandatoryViolationException
 	{
 		DumperItem.data.set(this,data);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for the persistent field {@link #data}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -227,9 +225,9 @@ public class DumperItem extends Item
 				java.io.IOException
 	{
 		DumperItem.data.set(this,data);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for the persistent field {@link #data}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -239,20 +237,20 @@ public class DumperItem extends Item
 				java.io.IOException
 	{
 		DumperItem.data.set(this,data);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for dumperItem.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<DumperItem> TYPE = com.exedio.cope.TypesBound.newType(DumperItem.class);/**
+	public static final com.exedio.cope.Type<DumperItem> TYPE = com.exedio.cope.TypesBound.newType(DumperItem.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

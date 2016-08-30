@@ -22,9 +22,7 @@ final class InstanceOfC1Item extends InstanceOfB1Item
 {
 	static final StringField textc1 = new StringField().optional();
 
-/**
-
-	 **
+	/**
 	 * Creates a new InstanceOfC1Item with all the fields initially needed.
 	 * @param code the initial value for field {@link #code}.
 	 * @throws com.exedio.cope.MandatoryViolationException if code is null.
@@ -42,18 +40,18 @@ final class InstanceOfC1Item extends InstanceOfB1Item
 		this(new com.exedio.cope.SetValue<?>[]{
 			com.exedio.cope.InstanceOfAItem.code.map(code),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new InstanceOfC1Item and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private InstanceOfC1Item(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #textc1}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -61,9 +59,9 @@ final class InstanceOfC1Item extends InstanceOfB1Item
 	final java.lang.String getTextc1()
 	{
 		return InstanceOfC1Item.textc1.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #textc1}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -72,20 +70,20 @@ final class InstanceOfC1Item extends InstanceOfB1Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		InstanceOfC1Item.textc1.set(this,textc1);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for instanceOfC1Item.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<InstanceOfC1Item> TYPE = com.exedio.cope.TypesBound.newType(InstanceOfC1Item.class);/**
+	static final com.exedio.cope.Type<InstanceOfC1Item> TYPE = com.exedio.cope.TypesBound.newType(InstanceOfC1Item.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

@@ -29,8 +29,6 @@ final class CopyMultiCopyTarget extends Item
 	static final StringField copyB = new StringField().toFinal().optional();
 
 	/**
-
-	 **
 	 * Creates a new CopyMultiCopyTarget with all the fields initially needed.
 	 * @param copyA the initial value for field {@link #copyA}.
 	 * @param copyB the initial value for field {@link #copyB}.
@@ -47,18 +45,18 @@ final class CopyMultiCopyTarget extends Item
 			CopyMultiCopyTarget.copyA.map(copyA),
 			CopyMultiCopyTarget.copyB.map(copyB),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new CopyMultiCopyTarget and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private CopyMultiCopyTarget(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #copyA}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -66,9 +64,9 @@ final class CopyMultiCopyTarget extends Item
 	final java.lang.String getCopyA()
 	{
 		return CopyMultiCopyTarget.copyA.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #copyB}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -76,20 +74,20 @@ final class CopyMultiCopyTarget extends Item
 	final java.lang.String getCopyB()
 	{
 		return CopyMultiCopyTarget.copyB.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for copyMultiCopyTarget.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<CopyMultiCopyTarget> TYPE = com.exedio.cope.TypesBound.newType(CopyMultiCopyTarget.class);/**
+	static final com.exedio.cope.Type<CopyMultiCopyTarget> TYPE = com.exedio.cope.TypesBound.newType(CopyMultiCopyTarget.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

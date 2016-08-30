@@ -33,8 +33,6 @@ final class CompositeDefaultItem extends Item
 
 
 	/**
-
-	 **
 	 * Creates a new CompositeDefaultItem with all the fields initially needed.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
@@ -42,18 +40,18 @@ final class CompositeDefaultItem extends Item
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new CompositeDefaultItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private CompositeDefaultItem(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #field}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -61,29 +59,29 @@ final class CompositeDefaultItem extends Item
 	final CompositeDefaultValue getField()
 	{
 		return CompositeDefaultItem.field.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #field}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setField(@javax.annotation.Nullable final CompositeDefaultValue field)
 	{
 		CompositeDefaultItem.field.set(this,field);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for compositeDefaultItem.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<CompositeDefaultItem> TYPE = com.exedio.cope.TypesBound.newType(CompositeDefaultItem.class);/**
+	static final com.exedio.cope.Type<CompositeDefaultItem> TYPE = com.exedio.cope.TypesBound.newType(CompositeDefaultItem.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

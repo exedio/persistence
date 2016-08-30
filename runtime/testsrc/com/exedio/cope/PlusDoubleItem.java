@@ -53,8 +53,6 @@ public final class PlusDoubleItem extends Item
 	}
 
 	/**
-
-	 **
 	 * Creates a new PlusDoubleItem with all the fields initially needed.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
@@ -62,18 +60,18 @@ public final class PlusDoubleItem extends Item
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new PlusDoubleItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private PlusDoubleItem(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #numA}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -81,18 +79,18 @@ public final class PlusDoubleItem extends Item
 	public final java.lang.Double getNumA()
 	{
 		return PlusDoubleItem.numA.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #numA}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	public final void setNumA(@javax.annotation.Nullable final java.lang.Double numA)
 	{
 		PlusDoubleItem.numA.set(this,numA);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #numB}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -100,18 +98,18 @@ public final class PlusDoubleItem extends Item
 	public final java.lang.Double getNumB()
 	{
 		return PlusDoubleItem.numB.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #numB}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	public final void setNumB(@javax.annotation.Nullable final java.lang.Double numB)
 	{
 		PlusDoubleItem.numB.set(this,numB);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #numC}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -119,101 +117,101 @@ public final class PlusDoubleItem extends Item
 	public final java.lang.Double getNumC()
 	{
 		return PlusDoubleItem.numC.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #numC}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	public final void setNumC(@javax.annotation.Nullable final java.lang.Double numC)
 	{
 		PlusDoubleItem.numC.set(this,numC);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #plusA9}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	public final Double getPlusA9()
 	{
 		return PlusDoubleItem.plusA9.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #plusAB}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	public final Double getPlusAB()
 	{
 		return PlusDoubleItem.plusAB.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #plusAC}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	public final Double getPlusAC()
 	{
 		return PlusDoubleItem.plusAC.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #plusBC}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	public final Double getPlusBC()
 	{
 		return PlusDoubleItem.plusBC.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #plusABC}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	public final Double getPlusABC()
 	{
 		return PlusDoubleItem.plusABC.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #plusABaC}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	public final Double getPlusABaC()
 	{
 		return PlusDoubleItem.plusABaC.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #multiplyB9}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	public final Double getMultiplyB9()
 	{
 		return PlusDoubleItem.multiplyB9.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #multiplyBC}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	public final Double getMultiplyBC()
 	{
 		return PlusDoubleItem.multiplyBC.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for plusDoubleItem.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<PlusDoubleItem> TYPE = com.exedio.cope.TypesBound.newType(PlusDoubleItem.class);/**
+	public static final com.exedio.cope.Type<PlusDoubleItem> TYPE = com.exedio.cope.TypesBound.newType(PlusDoubleItem.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

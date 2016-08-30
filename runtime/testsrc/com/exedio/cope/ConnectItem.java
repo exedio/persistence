@@ -26,8 +26,6 @@ class ConnectItem extends Item
 	static final IntegerField integerField = new IntegerField().defaultToNext(1234);
 
 	/**
-
-	 **
 	 * Creates a new ConnectItem with all the fields initially needed.
 	 * @param itemField the initial value for field {@link #itemField}.
 	 * @param itemFieldSelf the initial value for field {@link #itemFieldSelf}.
@@ -49,18 +47,18 @@ class ConnectItem extends Item
 			ConnectItem.itemFieldSelf.map(itemFieldSelf),
 			ConnectItem.stringField.map(stringField),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new ConnectItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	protected ConnectItem(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #itemField}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -68,9 +66,9 @@ class ConnectItem extends Item
 	final ConnectItem2 getItemField()
 	{
 		return ConnectItem.itemField.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #itemField}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -79,9 +77,9 @@ class ConnectItem extends Item
 				com.exedio.cope.MandatoryViolationException
 	{
 		ConnectItem.itemField.set(this,itemField);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #itemFieldSelf}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -89,9 +87,9 @@ class ConnectItem extends Item
 	final ConnectItem getItemFieldSelf()
 	{
 		return ConnectItem.itemFieldSelf.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #itemFieldSelf}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -100,9 +98,9 @@ class ConnectItem extends Item
 				com.exedio.cope.MandatoryViolationException
 	{
 		ConnectItem.itemFieldSelf.set(this,itemFieldSelf);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #stringField}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -110,9 +108,9 @@ class ConnectItem extends Item
 	final java.lang.String getStringField()
 	{
 		return ConnectItem.stringField.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #stringField}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -122,38 +120,38 @@ class ConnectItem extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		ConnectItem.stringField.set(this,stringField);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #integerField}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	final int getIntegerField()
 	{
 		return ConnectItem.integerField.getMandatory(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #integerField}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setIntegerField(final int integerField)
 	{
 		ConnectItem.integerField.set(this,integerField);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for connectItem.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<ConnectItem> TYPE = com.exedio.cope.TypesBound.newType(ConnectItem.class);/**
+	static final com.exedio.cope.Type<ConnectItem> TYPE = com.exedio.cope.TypesBound.newType(ConnectItem.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

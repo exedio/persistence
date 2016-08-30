@@ -63,9 +63,7 @@ public class SchemaMismatchConstraintForeignClauseTest extends SchemaMismatchTes
 	{
 		static final ItemField<TargetA> field = ItemField.create(TargetA.class).toFinal(); // avoid update counter
 
-		/**
-
-	 **
+	/**
 	 * Creates a new ItemA with all the fields initially needed.
 	 * @param field the initial value for field {@link #field}.
 	 * @throws com.exedio.cope.MandatoryViolationException if field is null.
@@ -79,18 +77,18 @@ public class SchemaMismatchConstraintForeignClauseTest extends SchemaMismatchTes
 		this(new com.exedio.cope.SetValue<?>[]{
 			ItemA.field.map(field),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new ItemA and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private ItemA(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #field}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -98,20 +96,20 @@ public class SchemaMismatchConstraintForeignClauseTest extends SchemaMismatchTes
 	final TargetA getField()
 	{
 		return ItemA.field.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for itemA.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<ItemA> TYPE = com.exedio.cope.TypesBound.newType(ItemA.class);/**
+	static final com.exedio.cope.Type<ItemA> TYPE = com.exedio.cope.TypesBound.newType(ItemA.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
@@ -124,9 +122,7 @@ public class SchemaMismatchConstraintForeignClauseTest extends SchemaMismatchTes
 	{
 		static final ItemField<TargetB> field = ItemField.create(TargetB.class).toFinal(); // avoid update counter
 
-		/**
-
-	 **
+	/**
 	 * Creates a new ItemB with all the fields initially needed.
 	 * @param field the initial value for field {@link #field}.
 	 * @throws com.exedio.cope.MandatoryViolationException if field is null.
@@ -140,18 +136,18 @@ public class SchemaMismatchConstraintForeignClauseTest extends SchemaMismatchTes
 		this(new com.exedio.cope.SetValue<?>[]{
 			ItemB.field.map(field),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new ItemB and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private ItemB(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #field}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -159,20 +155,20 @@ public class SchemaMismatchConstraintForeignClauseTest extends SchemaMismatchTes
 	final TargetB getField()
 	{
 		return ItemB.field.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for itemB.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<ItemB> TYPE = com.exedio.cope.TypesBound.newType(ItemB.class);/**
+	static final com.exedio.cope.Type<ItemB> TYPE = com.exedio.cope.TypesBound.newType(ItemB.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
@@ -182,9 +178,9 @@ public class SchemaMismatchConstraintForeignClauseTest extends SchemaMismatchTes
 
 	static final class TargetA extends Item
 	{
-	/**
+	
 
-	 **
+	/**
 	 * Creates a new TargetA with all the fields initially needed.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
@@ -192,29 +188,29 @@ public class SchemaMismatchConstraintForeignClauseTest extends SchemaMismatchTes
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new TargetA and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private TargetA(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for targetA.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<TargetA> TYPE = com.exedio.cope.TypesBound.newType(TargetA.class);/**
+	static final com.exedio.cope.Type<TargetA> TYPE = com.exedio.cope.TypesBound.newType(TargetA.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
@@ -224,9 +220,9 @@ public class SchemaMismatchConstraintForeignClauseTest extends SchemaMismatchTes
 
 	static final class TargetB extends Item
 	{
-	/**
+	
 
-	 **
+	/**
 	 * Creates a new TargetB with all the fields initially needed.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
@@ -234,29 +230,29 @@ public class SchemaMismatchConstraintForeignClauseTest extends SchemaMismatchTes
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new TargetB and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private TargetB(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for targetB.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<TargetB> TYPE = com.exedio.cope.TypesBound.newType(TargetB.class);/**
+	static final com.exedio.cope.Type<TargetB> TYPE = com.exedio.cope.TypesBound.newType(TargetB.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

@@ -30,8 +30,6 @@ public final class HistoryItem extends Item
 	static final History audit = new History();
 
 	/**
-
-	 **
 	 * Creates a new HistoryItem with all the fields initially needed.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
@@ -39,18 +37,18 @@ public final class HistoryItem extends Item
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new HistoryItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private HistoryItem(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #amount}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -58,18 +56,18 @@ public final class HistoryItem extends Item
 	final java.lang.Integer getAmount()
 	{
 		return HistoryItem.amount.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #amount}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setAmount(@javax.annotation.Nullable final java.lang.Integer amount)
 	{
 		HistoryItem.amount.set(this,amount);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #comment}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -77,9 +75,9 @@ public final class HistoryItem extends Item
 	final java.lang.String getComment()
 	{
 		return HistoryItem.comment.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #comment}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -88,9 +86,9 @@ public final class HistoryItem extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		HistoryItem.comment.set(this,comment);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the events of the history {@link #audit}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getEvents")
@@ -98,9 +96,9 @@ public final class HistoryItem extends Item
 	final java.util.List<com.exedio.cope.pattern.History.Event> getAuditEvents()
 	{
 		return HistoryItem.audit.getEvents(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new event for the history {@link #audit}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="createEvent")
@@ -108,9 +106,9 @@ public final class HistoryItem extends Item
 	final com.exedio.cope.pattern.History.Event createAuditEvent(@javax.annotation.Nonnull final java.lang.String author,final boolean isNew)
 	{
 		return HistoryItem.audit.createEvent(this,author,isNew);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the parent field of the event type of {@link #audit}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="EventParent")
@@ -118,20 +116,20 @@ public final class HistoryItem extends Item
 	static final com.exedio.cope.ItemField<HistoryItem> auditEventParent()
 	{
 		return HistoryItem.audit.getEventParent(HistoryItem.class);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for historyItem.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<HistoryItem> TYPE = com.exedio.cope.TypesBound.newType(HistoryItem.class);/**
+	public static final com.exedio.cope.Type<HistoryItem> TYPE = com.exedio.cope.TypesBound.newType(HistoryItem.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

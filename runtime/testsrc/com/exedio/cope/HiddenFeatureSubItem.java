@@ -35,8 +35,6 @@ final class HiddenFeatureSubItem extends HiddenFeatureSuperItem
 	static final IntegerField hiddenOther = new IntegerField().optional();
 
 	/**
-
-	 **
 	 * Creates a new HiddenFeatureSubItem with all the fields initially needed.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
@@ -44,18 +42,18 @@ final class HiddenFeatureSubItem extends HiddenFeatureSuperItem
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new HiddenFeatureSubItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private HiddenFeatureSubItem(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #nonHiddenSub}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -63,9 +61,9 @@ final class HiddenFeatureSubItem extends HiddenFeatureSuperItem
 	final java.lang.String getNonHiddenSub()
 	{
 		return HiddenFeatureSubItem.nonHiddenSub.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #nonHiddenSub}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -74,20 +72,20 @@ final class HiddenFeatureSubItem extends HiddenFeatureSuperItem
 				com.exedio.cope.StringLengthViolationException
 	{
 		HiddenFeatureSubItem.nonHiddenSub.set(this,nonHiddenSub);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for hiddenFeatureSubItem.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<HiddenFeatureSubItem> TYPE = com.exedio.cope.TypesBound.newType(HiddenFeatureSubItem.class);/**
+	static final com.exedio.cope.Type<HiddenFeatureSubItem> TYPE = com.exedio.cope.TypesBound.newType(HiddenFeatureSubItem.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

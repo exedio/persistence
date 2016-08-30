@@ -37,8 +37,6 @@ final class EnumItem extends Item
 	static final EnumField<Single> single = EnumField.create(Single.class).optional();
 
 	/**
-
-	 **
 	 * Creates a new EnumItem with all the fields initially needed.
 	 * @param status the initial value for field {@link #status}.
 	 * @throws com.exedio.cope.MandatoryViolationException if status is null.
@@ -52,18 +50,18 @@ final class EnumItem extends Item
 		this(new com.exedio.cope.SetValue<?>[]{
 			EnumItem.status.map(status),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new EnumItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private EnumItem(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #status}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -71,9 +69,9 @@ final class EnumItem extends Item
 	final Status getStatus()
 	{
 		return EnumItem.status.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #status}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -82,9 +80,9 @@ final class EnumItem extends Item
 				com.exedio.cope.MandatoryViolationException
 	{
 		EnumItem.status.set(this,status);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #single}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -92,29 +90,29 @@ final class EnumItem extends Item
 	final Single getSingle()
 	{
 		return EnumItem.single.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #single}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setSingle(@javax.annotation.Nullable final Single single)
 	{
 		EnumItem.single.set(this,single);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for enumItem.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<EnumItem> TYPE = com.exedio.cope.TypesBound.newType(EnumItem.class);/**
+	static final com.exedio.cope.Type<EnumItem> TYPE = com.exedio.cope.TypesBound.newType(EnumItem.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

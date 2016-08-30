@@ -22,9 +22,9 @@ package com.exedio.cope;
 @CopeSchemaName("SubRenamed")
 final class SchemaNamePolymorphicSubItem extends SchemaNamePolymorphicSuperItem
 {
-/**
 
-	 **
+
+	/**
 	 * Creates a new SchemaNamePolymorphicSubItem with all the fields initially needed.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
@@ -32,29 +32,29 @@ final class SchemaNamePolymorphicSubItem extends SchemaNamePolymorphicSuperItem
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new SchemaNamePolymorphicSubItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private SchemaNamePolymorphicSubItem(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for schemaNamePolymorphicSubItem.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<SchemaNamePolymorphicSubItem> TYPE = com.exedio.cope.TypesBound.newType(SchemaNamePolymorphicSubItem.class);/**
+	static final com.exedio.cope.Type<SchemaNamePolymorphicSubItem> TYPE = com.exedio.cope.TypesBound.newType(SchemaNamePolymorphicSubItem.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

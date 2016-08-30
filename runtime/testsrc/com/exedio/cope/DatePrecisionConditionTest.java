@@ -146,8 +146,6 @@ public class DatePrecisionConditionTest extends TestWithEnvironment
 		}
 
 	/**
-
-	 **
 	 * Creates a new AnItem with all the fields initially needed.
 	 * @param exact the initial value for field {@link #exact}.
 	 * @param rounded the initial value for field {@link #rounded}.
@@ -166,18 +164,18 @@ public class DatePrecisionConditionTest extends TestWithEnvironment
 			AnItem.exact.map(exact),
 			AnItem.rounded.map(rounded),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new AnItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private AnItem(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #exact}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -185,9 +183,9 @@ public class DatePrecisionConditionTest extends TestWithEnvironment
 	final java.util.Date getExact()
 	{
 		return AnItem.exact.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #rounded}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -195,20 +193,20 @@ public class DatePrecisionConditionTest extends TestWithEnvironment
 	final java.util.Date getRounded()
 	{
 		return AnItem.rounded.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for anItem.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<AnItem> TYPE = com.exedio.cope.TypesBound.newType(AnItem.class);/**
+	static final com.exedio.cope.Type<AnItem> TYPE = com.exedio.cope.TypesBound.newType(AnItem.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

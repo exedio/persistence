@@ -32,8 +32,6 @@ class NameLongItem extends Item
 		ItemField.create(NameLongItem.class).nullify();
 
 	/**
-
-	 **
 	 * Creates a new NameLongItem with all the fields initially needed.
 	 * @param code the initial value for field {@link #code}.
 	 * @throws com.exedio.cope.MandatoryViolationException if code is null.
@@ -51,18 +49,18 @@ class NameLongItem extends Item
 		this(new com.exedio.cope.SetValue<?>[]{
 			NameLongItem.code.map(code),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new NameLongItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	protected NameLongItem(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #code}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -70,9 +68,9 @@ class NameLongItem extends Item
 	final java.lang.String getCode()
 	{
 		return NameLongItem.code.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #code}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -83,9 +81,9 @@ class NameLongItem extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		NameLongItem.code.set(this,code);
-	}/**
+	}
 
-	 **
+	/**
 	 * Finds a nameLongItem by it's {@link #code}.
 	 * @param code shall be equal to field {@link #code}.
 	 * @return null if there is no matching item.
@@ -95,9 +93,9 @@ class NameLongItem extends Item
 	static final NameLongItem forCode(@javax.annotation.Nonnull final java.lang.String code)
 	{
 		return NameLongItem.code.searchUnique(NameLongItem.class,code);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #codeLoooooooooooooooooooooooooooooooooooooooooooooooooooongName}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -105,9 +103,9 @@ class NameLongItem extends Item
 	final java.lang.String getCodeLoooooooooooooooooooooooooooooooooooooooooooooooooooongName()
 	{
 		return NameLongItem.codeLoooooooooooooooooooooooooooooooooooooooooooooooooooongName.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #codeLoooooooooooooooooooooooooooooooooooooooooooooooooooongName}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -117,9 +115,9 @@ class NameLongItem extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		NameLongItem.codeLoooooooooooooooooooooooooooooooooooooooooooooooooooongName.set(this,codeLoooooooooooooooooooooooooooooooooooooooooooooooooooongName);
-	}/**
+	}
 
-	 **
+	/**
 	 * Finds a nameLongItem by it's {@link #codeLoooooooooooooooooooooooooooooooooooooooooooooooooooongName}.
 	 * @param codeLoooooooooooooooooooooooooooooooooooooooooooooooooooongName shall be equal to field {@link #codeLoooooooooooooooooooooooooooooooooooooooooooooooooooongName}.
 	 * @return null if there is no matching item.
@@ -129,9 +127,9 @@ class NameLongItem extends Item
 	static final NameLongItem forCodeLoooooooooooooooooooooooooooooooooooooooooooooooooooongName(@javax.annotation.Nonnull final java.lang.String codeLoooooooooooooooooooooooooooooooooooooooooooooooooooongName)
 	{
 		return NameLongItem.codeLoooooooooooooooooooooooooooooooooooooooooooooooooooongName.searchUnique(NameLongItem.class,codeLoooooooooooooooooooooooooooooooooooooooooooooooooooongName);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #pointerLoooooooooooooooooooooooooooooooooooooooooooooooooooongName}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -139,29 +137,29 @@ class NameLongItem extends Item
 	final NameLongItem getPointerLoooooooooooooooooooooooooooooooooooooooooooooooooooongName()
 	{
 		return NameLongItem.pointerLoooooooooooooooooooooooooooooooooooooooooooooooooooongName.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #pointerLoooooooooooooooooooooooooooooooooooooooooooooooooooongName}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setPointerLoooooooooooooooooooooooooooooooooooooooooooooooooooongName(@javax.annotation.Nullable final NameLongItem pointerLoooooooooooooooooooooooooooooooooooooooooooooooooooongName)
 	{
 		NameLongItem.pointerLoooooooooooooooooooooooooooooooooooooooooooooooooooongName.set(this,pointerLoooooooooooooooooooooooooooooooooooooooooooooooooooongName);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for nameLongItem.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<NameLongItem> TYPE = com.exedio.cope.TypesBound.newType(NameLongItem.class);/**
+	static final com.exedio.cope.Type<NameLongItem> TYPE = com.exedio.cope.TypesBound.newType(NameLongItem.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

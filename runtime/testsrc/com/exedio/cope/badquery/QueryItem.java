@@ -25,8 +25,6 @@ final class QueryItem extends SuperItem
 	static final StringField name = new StringField().optional();
 
 	/**
-
-	 **
 	 * Creates a new QueryItem with all the fields initially needed.
 	 * @param code the initial value for field {@link #code}.
 	 * @throws com.exedio.cope.MandatoryViolationException if code is null.
@@ -42,18 +40,18 @@ final class QueryItem extends SuperItem
 		this(new com.exedio.cope.SetValue<?>[]{
 			com.exedio.cope.badquery.SuperItem.code.map(code),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new QueryItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private QueryItem(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #name}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -61,9 +59,9 @@ final class QueryItem extends SuperItem
 	final java.lang.String getName()
 	{
 		return QueryItem.name.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #name}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -72,20 +70,20 @@ final class QueryItem extends SuperItem
 				com.exedio.cope.StringLengthViolationException
 	{
 		QueryItem.name.set(this,name);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for queryItem.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<QueryItem> TYPE = com.exedio.cope.TypesBound.newType(QueryItem.class);/**
+	static final com.exedio.cope.Type<QueryItem> TYPE = com.exedio.cope.TypesBound.newType(QueryItem.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

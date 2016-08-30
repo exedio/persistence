@@ -31,8 +31,6 @@ final class CopySelfSource extends Item
 	}
 
 	/**
-
-	 **
 	 * Creates a new CopySelfSource with all the fields initially needed.
 	 * @param selfTarget the initial value for field {@link #selfTarget}.
 	 * @param selfTemplate the initial value for field {@link #selfTemplate}.
@@ -46,18 +44,18 @@ final class CopySelfSource extends Item
 			CopySelfSource.selfTarget.map(selfTarget),
 			CopySelfSource.selfTemplate.map(selfTemplate),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new CopySelfSource and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private CopySelfSource(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #selfTarget}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -65,9 +63,9 @@ final class CopySelfSource extends Item
 	final CopySelfSource getSelfTarget()
 	{
 		return CopySelfSource.selfTarget.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #selfTemplate}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -75,20 +73,20 @@ final class CopySelfSource extends Item
 	final CopyValue getSelfTemplate()
 	{
 		return CopySelfSource.selfTemplate.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for copySelfSource.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<CopySelfSource> TYPE = com.exedio.cope.TypesBound.newType(CopySelfSource.class);/**
+	static final com.exedio.cope.Type<CopySelfSource> TYPE = com.exedio.cope.TypesBound.newType(CopySelfSource.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

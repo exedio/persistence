@@ -30,8 +30,6 @@ public final class EnumItem2 extends Item
 
 
 	/**
-
-	 **
 	 * Creates a new EnumItem2 with all the fields initially needed.
 	 * @param status the initial value for field {@link #status}.
 	 * @throws com.exedio.cope.MandatoryViolationException if status is null.
@@ -45,18 +43,18 @@ public final class EnumItem2 extends Item
 		this(new com.exedio.cope.SetValue<?>[]{
 			EnumItem2.status.map(status),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new EnumItem2 and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private EnumItem2(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #status}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -64,9 +62,9 @@ public final class EnumItem2 extends Item
 	public final Status getStatus()
 	{
 		return EnumItem2.status.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #status}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -75,20 +73,20 @@ public final class EnumItem2 extends Item
 				com.exedio.cope.MandatoryViolationException
 	{
 		EnumItem2.status.set(this,status);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for enumItem2.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<EnumItem2> TYPE = com.exedio.cope.TypesBound.newType(EnumItem2.class);/**
+	public static final com.exedio.cope.Type<EnumItem2> TYPE = com.exedio.cope.TypesBound.newType(EnumItem2.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

@@ -27,8 +27,6 @@ class SuperContainer extends SuperItem
 	public static final BooleanField superflag = new BooleanField();
 
 	/**
-
-	 **
 	 * Creates a new SuperContainer with all the fields initially needed.
 	 * @param code the initial value for field {@link #code}.
 	 * @param queryItem the initial value for field {@link #queryItem}.
@@ -50,18 +48,18 @@ class SuperContainer extends SuperItem
 			SuperContainer.queryItem.map(queryItem),
 			SuperContainer.superflag.map(superflag),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new SuperContainer and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	protected SuperContainer(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #queryItem}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -69,38 +67,38 @@ class SuperContainer extends SuperItem
 	public final QueryItem getQueryItem()
 	{
 		return SuperContainer.queryItem.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #superflag}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	public final boolean getSuperflag()
 	{
 		return SuperContainer.superflag.getMandatory(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #superflag}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	public final void setSuperflag(final boolean superflag)
 	{
 		SuperContainer.superflag.set(this,superflag);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for superContainer.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<SuperContainer> TYPE = com.exedio.cope.TypesBound.newType(SuperContainer.class);/**
+	static final com.exedio.cope.Type<SuperContainer> TYPE = com.exedio.cope.TypesBound.newType(SuperContainer.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

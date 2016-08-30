@@ -44,8 +44,6 @@ public final class MediaFinalItem extends Item
 
 
 	/**
-
-	 **
 	 * Creates a new MediaFinalItem with all the fields initially needed.
 	 * @param file the initial value for field {@link #file}.
 	 */
@@ -56,18 +54,18 @@ public final class MediaFinalItem extends Item
 		this(new com.exedio.cope.SetValue<?>[]{
 			MediaFinalItem.file.map(file),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new MediaFinalItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	MediaFinalItem(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #name}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -75,9 +73,9 @@ public final class MediaFinalItem extends Item
 	final java.lang.String getName()
 	{
 		return MediaFinalItem.name.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #name}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -86,9 +84,9 @@ public final class MediaFinalItem extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		MediaFinalItem.name.set(this,name);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns a Locator the content of {@link #file} is available under.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLocator")
@@ -96,9 +94,9 @@ public final class MediaFinalItem extends Item
 	final com.exedio.cope.pattern.MediaPath.Locator getFileLocator()
 	{
 		return MediaFinalItem.file.getLocator(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the content type of the media {@link #file}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getContentType")
@@ -106,18 +104,18 @@ public final class MediaFinalItem extends Item
 	final java.lang.String getFileContentType()
 	{
 		return MediaFinalItem.file.getContentType(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns whether media {@link #file} is null.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="isNull")
 	final boolean isFileNull()
 	{
 		return MediaFinalItem.file.isNull(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the last modification date of media {@link #file}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLastModified")
@@ -125,18 +123,18 @@ public final class MediaFinalItem extends Item
 	final java.util.Date getFileLastModified()
 	{
 		return MediaFinalItem.file.getLastModified(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the body length of the media {@link #file}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLength")
 	final long getFileLength()
 	{
 		return MediaFinalItem.file.getLength(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the body of the media {@link #file}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
@@ -144,9 +142,9 @@ public final class MediaFinalItem extends Item
 	final byte[] getFileBody()
 	{
 		return MediaFinalItem.file.getBody(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Writes the body of media {@link #file} into the given stream.
 	 * Does nothing, if the media is null.
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
@@ -157,9 +155,9 @@ public final class MediaFinalItem extends Item
 				java.io.IOException
 	{
 		MediaFinalItem.file.getBody(this,body);
-	}/**
+	}
 
-	 **
+	/**
 	 * Writes the body of media {@link #file} into the given file.
 	 * Does nothing, if the media is null.
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
@@ -170,20 +168,20 @@ public final class MediaFinalItem extends Item
 				java.io.IOException
 	{
 		MediaFinalItem.file.getBody(this,body);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for mediaFinalItem.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<MediaFinalItem> TYPE = com.exedio.cope.TypesBound.newType(MediaFinalItem.class);/**
+	public static final com.exedio.cope.Type<MediaFinalItem> TYPE = com.exedio.cope.TypesBound.newType(MediaFinalItem.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

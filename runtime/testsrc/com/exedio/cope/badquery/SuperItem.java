@@ -32,8 +32,6 @@ class SuperItem extends Item
 	}
 
 	/**
-
-	 **
 	 * Creates a new SuperItem with all the fields initially needed.
 	 * @param code the initial value for field {@link #code}.
 	 * @throws com.exedio.cope.MandatoryViolationException if code is null.
@@ -49,18 +47,18 @@ class SuperItem extends Item
 		this(new com.exedio.cope.SetValue<?>[]{
 			SuperItem.code.map(code),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new SuperItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	protected SuperItem(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #code}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -68,20 +66,20 @@ class SuperItem extends Item
 	final java.lang.String getCode()
 	{
 		return SuperItem.code.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for superItem.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<SuperItem> TYPE = com.exedio.cope.TypesBound.newType(SuperItem.class);/**
+	static final com.exedio.cope.Type<SuperItem> TYPE = com.exedio.cope.TypesBound.newType(SuperItem.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

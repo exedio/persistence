@@ -25,8 +25,6 @@ final class DataFinalItem extends Item
 	static final DataField data = new DataField().toFinal().optional();
 
 	/**
-
-	 **
 	 * Creates a new DataFinalItem with all the fields initially needed.
 	 * @param data the initial value for field {@link #data}.
 	 */
@@ -37,36 +35,36 @@ final class DataFinalItem extends Item
 		this(new com.exedio.cope.SetValue<?>[]{
 			DataFinalItem.data.map(data),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new DataFinalItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private DataFinalItem(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns, whether there is no data for field {@link #data}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="isNull")
 	final boolean isDataNull()
 	{
 		return DataFinalItem.data.isNull(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the length of the data of the data field {@link #data}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLength")
 	final long getDataLength()
 	{
 		return DataFinalItem.data.getLength(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of the persistent field {@link #data}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getArray")
@@ -74,9 +72,9 @@ final class DataFinalItem extends Item
 	final byte[] getDataArray()
 	{
 		return DataFinalItem.data.getArray(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Writes the data of this persistent data field into the given stream.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -85,9 +83,9 @@ final class DataFinalItem extends Item
 				java.io.IOException
 	{
 		DataFinalItem.data.get(this,data);
-	}/**
+	}
 
-	 **
+	/**
 	 * Writes the data of this persistent data field into the given file.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -96,20 +94,20 @@ final class DataFinalItem extends Item
 				java.io.IOException
 	{
 		DataFinalItem.data.get(this,data);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for dataFinalItem.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<DataFinalItem> TYPE = com.exedio.cope.TypesBound.newType(DataFinalItem.class);/**
+	static final com.exedio.cope.Type<DataFinalItem> TYPE = com.exedio.cope.TypesBound.newType(DataFinalItem.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

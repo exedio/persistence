@@ -138,8 +138,6 @@ public class BlockFieldNestedTest extends TestWithEnvironment
 
 
 	/**
-
-	 **
 	 * Returns the value of {@link #alpha}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -147,18 +145,18 @@ public class BlockFieldNestedTest extends TestWithEnvironment
 	final java.lang.Integer getAlpha()
 	{
 		return field().of(Inner.alpha).get(item());
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #alpha}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setAlpha(@javax.annotation.Nullable final java.lang.Integer alpha)
 	{
 		field().of(Inner.alpha).set(item(),alpha);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #beta}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -166,29 +164,29 @@ public class BlockFieldNestedTest extends TestWithEnvironment
 	final java.lang.Integer getBeta()
 	{
 		return field().of(Inner.beta).get(item());
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #beta}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setBeta(@javax.annotation.Nullable final java.lang.Integer beta)
 	{
 		field().of(Inner.beta).set(item(),beta);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The type information for inner.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	static final com.exedio.cope.pattern.BlockType<Inner> TYPE = com.exedio.cope.pattern.BlockType.newType(Inner.class);/**
+	static final com.exedio.cope.pattern.BlockType<Inner> TYPE = com.exedio.cope.pattern.BlockType.newType(Inner.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.pattern.Block#Block(com.exedio.cope.pattern.BlockActivationParameters)
 	 */
@@ -203,8 +201,6 @@ public class BlockFieldNestedTest extends TestWithEnvironment
 
 
 	/**
-
-	 **
 	 * Returns the value of {@link #eins}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="")
@@ -212,9 +208,9 @@ public class BlockFieldNestedTest extends TestWithEnvironment
 	final Inner eins()
 	{
 		return field().of(Outer.eins).get(item());
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #zwei}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="")
@@ -222,20 +218,20 @@ public class BlockFieldNestedTest extends TestWithEnvironment
 	final Inner zwei()
 	{
 		return field().of(Outer.zwei).get(item());
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The type information for outer.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	static final com.exedio.cope.pattern.BlockType<Outer> TYPE = com.exedio.cope.pattern.BlockType.newType(Outer.class);/**
+	static final com.exedio.cope.pattern.BlockType<Outer> TYPE = com.exedio.cope.pattern.BlockType.newType(Outer.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.pattern.Block#Block(com.exedio.cope.pattern.BlockActivationParameters)
 	 */
@@ -250,8 +246,6 @@ public class BlockFieldNestedTest extends TestWithEnvironment
 
 
 	/**
-
-	 **
 	 * Creates a new AnItem with all the fields initially needed.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
@@ -259,18 +253,18 @@ public class BlockFieldNestedTest extends TestWithEnvironment
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new AnItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private AnItem(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #uno}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="")
@@ -278,9 +272,9 @@ public class BlockFieldNestedTest extends TestWithEnvironment
 	final Outer uno()
 	{
 		return AnItem.uno.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #duo}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="")
@@ -288,20 +282,20 @@ public class BlockFieldNestedTest extends TestWithEnvironment
 	final Outer duo()
 	{
 		return AnItem.duo.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for anItem.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<AnItem> TYPE = com.exedio.cope.TypesBound.newType(AnItem.class);/**
+	static final com.exedio.cope.Type<AnItem> TYPE = com.exedio.cope.TypesBound.newType(AnItem.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

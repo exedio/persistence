@@ -43,8 +43,6 @@ public final class MediaCatchPhraseItem extends MediaCatchPhraseSuperItem implem
 
 
 	/**
-
-	 **
 	 * Creates a new MediaCatchPhraseItem with all the fields initially needed.
 	 * @param feature the initial value for field {@link #feature}.
 	 * @param catchphrase the initial value for field {@link #catchphrase}.
@@ -63,18 +61,18 @@ public final class MediaCatchPhraseItem extends MediaCatchPhraseSuperItem implem
 			com.exedio.cope.pattern.MediaCatchPhraseSuperItem.feature.map(feature),
 			MediaCatchPhraseItem.catchphrase.map(catchphrase),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new MediaCatchPhraseItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private MediaCatchPhraseItem(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #catchphrase}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -82,9 +80,9 @@ public final class MediaCatchPhraseItem extends MediaCatchPhraseSuperItem implem
 	final java.lang.String getCatchphrase()
 	{
 		return MediaCatchPhraseItem.catchphrase.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #catchphrase}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -93,20 +91,20 @@ public final class MediaCatchPhraseItem extends MediaCatchPhraseSuperItem implem
 				com.exedio.cope.StringLengthViolationException
 	{
 		MediaCatchPhraseItem.catchphrase.set(this,catchphrase);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for mediaCatchPhraseItem.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<MediaCatchPhraseItem> TYPE = com.exedio.cope.TypesBound.newType(MediaCatchPhraseItem.class);/**
+	public static final com.exedio.cope.Type<MediaCatchPhraseItem> TYPE = com.exedio.cope.TypesBound.newType(MediaCatchPhraseItem.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

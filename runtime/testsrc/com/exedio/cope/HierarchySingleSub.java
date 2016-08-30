@@ -33,9 +33,7 @@ public final class HierarchySingleSub extends HierarchySingleSuper
 		});
 	}
 
-/**
-
-	 **
+	/**
 	 * Creates a new HierarchySingleSub with all the fields initially needed.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
@@ -43,18 +41,18 @@ public final class HierarchySingleSub extends HierarchySingleSuper
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new HierarchySingleSub and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private HierarchySingleSub(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #subString}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -62,9 +60,9 @@ public final class HierarchySingleSub extends HierarchySingleSuper
 	public final java.lang.String getSubString()
 	{
 		return HierarchySingleSub.subString.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #subString}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -73,9 +71,9 @@ public final class HierarchySingleSub extends HierarchySingleSuper
 				com.exedio.cope.StringLengthViolationException
 	{
 		HierarchySingleSub.subString.set(this,subString);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #hierarchySuper}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -83,29 +81,29 @@ public final class HierarchySingleSub extends HierarchySingleSuper
 	public final HierarchySuper getHierarchySuper()
 	{
 		return HierarchySingleSub.hierarchySuper.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #hierarchySuper}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	public final void setHierarchySuper(@javax.annotation.Nullable final HierarchySuper hierarchySuper)
 	{
 		HierarchySingleSub.hierarchySuper.set(this,hierarchySuper);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for hierarchySingleSub.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<HierarchySingleSub> TYPE = com.exedio.cope.TypesBound.newType(HierarchySingleSub.class);/**
+	public static final com.exedio.cope.Type<HierarchySingleSub> TYPE = com.exedio.cope.TypesBound.newType(HierarchySingleSub.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

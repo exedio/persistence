@@ -22,9 +22,7 @@ public class DeleteHierarchyTargetSuper extends Item
 {
 	static final StringField code = new StringField();
 
-/**
-
-	 **
+	/**
 	 * Creates a new DeleteHierarchyTargetSuper with all the fields initially needed.
 	 * @param code the initial value for field {@link #code}.
 	 * @throws com.exedio.cope.MandatoryViolationException if code is null.
@@ -40,18 +38,18 @@ public class DeleteHierarchyTargetSuper extends Item
 		this(new com.exedio.cope.SetValue<?>[]{
 			DeleteHierarchyTargetSuper.code.map(code),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new DeleteHierarchyTargetSuper and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	protected DeleteHierarchyTargetSuper(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #code}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -59,9 +57,9 @@ public class DeleteHierarchyTargetSuper extends Item
 	final java.lang.String getCode()
 	{
 		return DeleteHierarchyTargetSuper.code.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #code}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -71,20 +69,20 @@ public class DeleteHierarchyTargetSuper extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		DeleteHierarchyTargetSuper.code.set(this,code);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for deleteHierarchyTargetSuper.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<DeleteHierarchyTargetSuper> TYPE = com.exedio.cope.TypesBound.newType(DeleteHierarchyTargetSuper.class);/**
+	public static final com.exedio.cope.Type<DeleteHierarchyTargetSuper> TYPE = com.exedio.cope.TypesBound.newType(DeleteHierarchyTargetSuper.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

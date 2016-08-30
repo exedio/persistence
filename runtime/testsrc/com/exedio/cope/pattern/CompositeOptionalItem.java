@@ -30,8 +30,6 @@ public final class CompositeOptionalItem extends Item
 
 
 	/**
-
-	 **
 	 * Creates a new CompositeOptionalItem with all the fields initially needed.
 	 * @param code the initial value for field {@link #code}.
 	 * @throws com.exedio.cope.MandatoryViolationException if code is null.
@@ -47,18 +45,18 @@ public final class CompositeOptionalItem extends Item
 		this(new com.exedio.cope.SetValue<?>[]{
 			CompositeOptionalItem.code.map(code),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new CompositeOptionalItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private CompositeOptionalItem(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #code}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -66,9 +64,9 @@ public final class CompositeOptionalItem extends Item
 	public final java.lang.String getCode()
 	{
 		return CompositeOptionalItem.code.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #uno}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -76,18 +74,18 @@ public final class CompositeOptionalItem extends Item
 	public final CompositeValue getUno()
 	{
 		return CompositeOptionalItem.uno.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #uno}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	public final void setUno(@javax.annotation.Nullable final CompositeValue uno)
 	{
 		CompositeOptionalItem.uno.set(this,uno);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #duo}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -95,29 +93,29 @@ public final class CompositeOptionalItem extends Item
 	public final CompositeValue getDuo()
 	{
 		return CompositeOptionalItem.duo.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #duo}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	public final void setDuo(@javax.annotation.Nullable final CompositeValue duo)
 	{
 		CompositeOptionalItem.duo.set(this,duo);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for compositeOptionalItem.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<CompositeOptionalItem> TYPE = com.exedio.cope.TypesBound.newType(CompositeOptionalItem.class);/**
+	public static final com.exedio.cope.Type<CompositeOptionalItem> TYPE = com.exedio.cope.TypesBound.newType(CompositeOptionalItem.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

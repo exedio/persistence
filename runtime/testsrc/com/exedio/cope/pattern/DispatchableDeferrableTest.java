@@ -127,8 +127,6 @@ public class DispatchableDeferrableTest extends TestWithEnvironment
 
 
 	/**
-
-	 **
 	 * Creates a new AnItem with all the fields initially needed.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
@@ -136,18 +134,18 @@ public class DispatchableDeferrableTest extends TestWithEnvironment
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new AnItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private AnItem(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Dispatch by {@link #toTarget}.
 	 * @return the number of successfully dispatched items
 	 */
@@ -156,63 +154,63 @@ public class DispatchableDeferrableTest extends TestWithEnvironment
 	static final int dispatchToTarget(@javax.annotation.Nonnull final com.exedio.cope.pattern.Dispatcher.Config config,@javax.annotation.Nullable final com.exedio.cope.util.Interrupter interrupter)
 	{
 		return AnItem.toTarget.dispatch(AnItem.class,config,interrupter);
-	}/**
+	}
 
-	 **
+	/**
 	 * Dispatch by {@link #toTarget}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="dispatch")
 	static final void dispatchToTarget(@javax.annotation.Nonnull final com.exedio.cope.pattern.Dispatcher.Config config,@javax.annotation.Nonnull final com.exedio.cope.util.JobContext ctx)
 	{
 		AnItem.toTarget.dispatch(AnItem.class,config,ctx);
-	}/**
+	}
 
-	 **
+	/**
 	 * Dispatch by {@link #toTarget}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="dispatch")
 	static final void dispatchToTarget(@javax.annotation.Nonnull final com.exedio.cope.pattern.Dispatcher.Config config,@javax.annotation.Nonnull final java.lang.Runnable probe,@javax.annotation.Nonnull final com.exedio.cope.util.JobContext ctx)
 	{
 		AnItem.toTarget.dispatch(AnItem.class,config,probe,ctx);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns, whether this item is yet to be dispatched by {@link #toTarget}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="isPending")
 	final boolean isToTargetPending()
 	{
 		return AnItem.toTarget.isPending(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets whether this item is yet to be dispatched by {@link #toTarget}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setPending")
 	final void setToTargetPending(final boolean pending)
 	{
 		AnItem.toTarget.setPending(this,pending);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns, whether this item is allowed to be purged by {@link #toTarget}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="isNoPurge")
 	final boolean isToTargetNoPurge()
 	{
 		return AnItem.toTarget.isNoPurge(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets whether this item is allowed to be purged by {@link #toTarget}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setNoPurge")
 	final void setToTargetNoPurge(final boolean noPurge)
 	{
 		AnItem.toTarget.setNoPurge(this,noPurge);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the date, this item was last successfully dispatched by {@link #toTarget}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLastSuccessDate")
@@ -220,9 +218,9 @@ public class DispatchableDeferrableTest extends TestWithEnvironment
 	final java.util.Date getToTargetLastSuccessDate()
 	{
 		return AnItem.toTarget.getLastSuccessDate(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the milliseconds, this item needed to be last successfully dispatched by {@link #toTarget}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLastSuccessElapsed")
@@ -230,9 +228,9 @@ public class DispatchableDeferrableTest extends TestWithEnvironment
 	final java.lang.Long getToTargetLastSuccessElapsed()
 	{
 		return AnItem.toTarget.getLastSuccessElapsed(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the attempts to dispatch this item by {@link #toTarget}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getRuns")
@@ -240,9 +238,9 @@ public class DispatchableDeferrableTest extends TestWithEnvironment
 	final java.util.List<com.exedio.cope.pattern.Dispatcher.Run> getToTargetRuns()
 	{
 		return AnItem.toTarget.getRuns(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the failed attempts to dispatch this item by {@link #toTarget}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getFailures")
@@ -250,17 +248,17 @@ public class DispatchableDeferrableTest extends TestWithEnvironment
 	final java.util.List<com.exedio.cope.pattern.Dispatcher.Run> getToTargetFailures()
 	{
 		return AnItem.toTarget.getFailures(this);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="purge")
 	static final void purgeToTarget(@javax.annotation.Nonnull final com.exedio.cope.pattern.DispatcherPurgeProperties properties,@javax.annotation.Nonnull final com.exedio.cope.util.JobContext ctx)
 	{
 		AnItem.toTarget.purge(properties,ctx);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the parent field of the run type of {@link #toTarget}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="RunParent")
@@ -268,74 +266,74 @@ public class DispatchableDeferrableTest extends TestWithEnvironment
 	static final com.exedio.cope.ItemField<AnItem> toTargetRunParent()
 	{
 		return AnItem.toTarget.getRunParent(AnItem.class);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #deferred}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	final boolean getDeferred()
 	{
 		return AnItem.deferred.getMandatory(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #deferred}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setDeferred(final boolean deferred)
 	{
 		AnItem.deferred.set(this,deferred);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #deferredCount}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	final int getDeferredCount()
 	{
 		return AnItem.deferredCount.getMandatory(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #deferredCount}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setDeferredCount(final int deferredCount)
 	{
 		AnItem.deferredCount.set(this,deferredCount);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #dispatchCount}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	final int getDispatchCount()
 	{
 		return AnItem.dispatchCount.getMandatory(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #dispatchCount}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setDispatchCount(final int dispatchCount)
 	{
 		AnItem.dispatchCount.set(this,dispatchCount);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for anItem.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<AnItem> TYPE = com.exedio.cope.TypesBound.newType(AnItem.class);/**
+	static final com.exedio.cope.Type<AnItem> TYPE = com.exedio.cope.TypesBound.newType(AnItem.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

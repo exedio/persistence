@@ -72,8 +72,6 @@ class CreateSuperItem extends Item
 
 
 	/**
-
-	 **
 	 * Creates a new CreateSuperItem with all the fields initially needed.
 	 * @param text the initial value for field {@link #text}.
 	 * @throws com.exedio.cope.MandatoryViolationException if text is null.
@@ -89,18 +87,18 @@ class CreateSuperItem extends Item
 		this(new com.exedio.cope.SetValue<?>[]{
 			CreateSuperItem.text.map(text),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new CreateSuperItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	protected CreateSuperItem(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #text}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -108,9 +106,9 @@ class CreateSuperItem extends Item
 	final java.lang.String getText()
 	{
 		return CreateSuperItem.text.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #text}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -120,20 +118,20 @@ class CreateSuperItem extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		CreateSuperItem.text.set(this,text);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for createSuperItem.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<CreateSuperItem> TYPE = com.exedio.cope.TypesBound.newType(CreateSuperItem.class);/**
+	static final com.exedio.cope.Type<CreateSuperItem> TYPE = com.exedio.cope.TypesBound.newType(CreateSuperItem.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

@@ -118,8 +118,6 @@ public class BlockFieldUniqueModelTest
 
 
 	/**
-
-	 **
 	 * Returns the value of {@link #alpha}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -127,9 +125,9 @@ public class BlockFieldUniqueModelTest
 	final java.lang.String getAlpha()
 	{
 		return field().of(ABlock.alpha).get(item());
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #alpha}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -140,18 +138,18 @@ public class BlockFieldUniqueModelTest
 				com.exedio.cope.StringLengthViolationException
 	{
 		field().of(ABlock.alpha).set(item(),alpha);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #beta}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	final int getBeta()
 	{
 		return field().of(ABlock.beta).getMandatory(item());
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #beta}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -160,9 +158,9 @@ public class BlockFieldUniqueModelTest
 				com.exedio.cope.UniqueViolationException
 	{
 		field().of(ABlock.beta).set(item(),beta);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #alphaPrice}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -170,9 +168,9 @@ public class BlockFieldUniqueModelTest
 	final com.exedio.cope.pattern.Price getAlphaPrice()
 	{
 		return field().of(ABlock.alphaPrice).get(item());
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #alphaPrice}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -182,9 +180,9 @@ public class BlockFieldUniqueModelTest
 				com.exedio.cope.UniqueViolationException
 	{
 		field().of(ABlock.alphaPrice).set(item(),alphaPrice);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #betaPrice}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -192,9 +190,9 @@ public class BlockFieldUniqueModelTest
 	final com.exedio.cope.pattern.Price getBetaPrice()
 	{
 		return field().of(ABlock.betaPrice).get(item());
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #betaPrice}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -204,20 +202,20 @@ public class BlockFieldUniqueModelTest
 				com.exedio.cope.UniqueViolationException
 	{
 		field().of(ABlock.betaPrice).set(item(),betaPrice);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The type information for aBlock.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	static final com.exedio.cope.pattern.BlockType<ABlock> TYPE = com.exedio.cope.pattern.BlockType.newType(ABlock.class);/**
+	static final com.exedio.cope.pattern.BlockType<ABlock> TYPE = com.exedio.cope.pattern.BlockType.newType(ABlock.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.pattern.Block#Block(com.exedio.cope.pattern.BlockActivationParameters)
 	 */
@@ -248,8 +246,6 @@ public class BlockFieldUniqueModelTest
 
 
 	/**
-
-	 **
 	 * Creates a new AnItem with all the fields initially needed.
 	 * @param code the initial value for field {@link #code}.
 	 * @throws com.exedio.cope.MandatoryViolationException if code is null.
@@ -265,18 +261,18 @@ public class BlockFieldUniqueModelTest
 		this(new com.exedio.cope.SetValue<?>[]{
 			AnItem.code.map(code),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new AnItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private AnItem(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #code}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -284,9 +280,9 @@ public class BlockFieldUniqueModelTest
 	final java.lang.String getCode()
 	{
 		return AnItem.code.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #eins}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="")
@@ -294,9 +290,9 @@ public class BlockFieldUniqueModelTest
 	final ABlock eins()
 	{
 		return AnItem.eins.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #zwei}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="")
@@ -304,20 +300,20 @@ public class BlockFieldUniqueModelTest
 	final ABlock zwei()
 	{
 		return AnItem.zwei.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for anItem.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<AnItem> TYPE = com.exedio.cope.TypesBound.newType(AnItem.class);/**
+	static final com.exedio.cope.Type<AnItem> TYPE = com.exedio.cope.TypesBound.newType(AnItem.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

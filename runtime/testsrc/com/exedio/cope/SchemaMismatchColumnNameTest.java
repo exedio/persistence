@@ -117,9 +117,7 @@ public class SchemaMismatchColumnNameTest extends SchemaMismatchTest
 	{
 		static final BooleanField fieldA = new BooleanField().toFinal(); // avoid update counter
 
-		/**
-
-	 **
+	/**
 	 * Creates a new ItemA with all the fields initially needed.
 	 * @param fieldA the initial value for field {@link #fieldA}.
 	 */
@@ -130,38 +128,38 @@ public class SchemaMismatchColumnNameTest extends SchemaMismatchTest
 		this(new com.exedio.cope.SetValue<?>[]{
 			ItemA.fieldA.map(fieldA),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new ItemA and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private ItemA(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #fieldA}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	final boolean getFieldA()
 	{
 		return ItemA.fieldA.getMandatory(this);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for itemA.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<ItemA> TYPE = com.exedio.cope.TypesBound.newType(ItemA.class);/**
+	static final com.exedio.cope.Type<ItemA> TYPE = com.exedio.cope.TypesBound.newType(ItemA.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
@@ -174,9 +172,7 @@ public class SchemaMismatchColumnNameTest extends SchemaMismatchTest
 	{
 		static final BooleanField fieldB = new BooleanField().toFinal(); // avoid update counter
 
-		/**
-
-	 **
+	/**
 	 * Creates a new ItemB with all the fields initially needed.
 	 * @param fieldB the initial value for field {@link #fieldB}.
 	 */
@@ -187,38 +183,38 @@ public class SchemaMismatchColumnNameTest extends SchemaMismatchTest
 		this(new com.exedio.cope.SetValue<?>[]{
 			ItemB.fieldB.map(fieldB),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new ItemB and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private ItemB(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #fieldB}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	final boolean getFieldB()
 	{
 		return ItemB.fieldB.getMandatory(this);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for itemB.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<ItemB> TYPE = com.exedio.cope.TypesBound.newType(ItemB.class);/**
+	static final com.exedio.cope.Type<ItemB> TYPE = com.exedio.cope.TypesBound.newType(ItemB.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

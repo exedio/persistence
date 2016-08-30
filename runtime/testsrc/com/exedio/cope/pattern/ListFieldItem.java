@@ -31,8 +31,6 @@ public final class ListFieldItem extends Item
 	static final ListField<ListFieldItem> items = ListField.create(ItemField.create(ListFieldItem.class).cascade());
 
 	/**
-
-	 **
 	 * Creates a new ListFieldItem with all the fields initially needed.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
@@ -40,18 +38,18 @@ public final class ListFieldItem extends Item
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new ListFieldItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private ListFieldItem(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #strings}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -59,9 +57,9 @@ public final class ListFieldItem extends Item
 	final java.util.List<String> getStrings()
 	{
 		return ListFieldItem.strings.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns a query for the value of {@link #strings}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getQuery")
@@ -69,9 +67,9 @@ public final class ListFieldItem extends Item
 	final com.exedio.cope.Query<String> getStringsQuery()
 	{
 		return ListFieldItem.strings.getQuery(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the items, for which field list {@link #strings} contains the given element.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getDistinctParentsOf")
@@ -79,9 +77,9 @@ public final class ListFieldItem extends Item
 	static final java.util.List<ListFieldItem> getDistinctParentsOfStrings(final String element)
 	{
 		return ListFieldItem.strings.getDistinctParents(ListFieldItem.class,element);
-	}/**
+	}
 
-	 **
+	/**
 	 * Adds a new value for {@link #strings}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="addTo")
@@ -91,9 +89,9 @@ public final class ListFieldItem extends Item
 				java.lang.ClassCastException
 	{
 		ListFieldItem.strings.add(this,strings);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #strings}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -103,9 +101,9 @@ public final class ListFieldItem extends Item
 				java.lang.ClassCastException
 	{
 		ListFieldItem.strings.set(this,strings);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the parent field of the type of {@link #strings}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="Parent")
@@ -113,9 +111,9 @@ public final class ListFieldItem extends Item
 	static final com.exedio.cope.ItemField<ListFieldItem> stringsParent()
 	{
 		return ListFieldItem.strings.getParent(ListFieldItem.class);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #dates}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -123,9 +121,9 @@ public final class ListFieldItem extends Item
 	final java.util.List<Date> getDates()
 	{
 		return ListFieldItem.dates.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns a query for the value of {@link #dates}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getQuery")
@@ -133,9 +131,9 @@ public final class ListFieldItem extends Item
 	final com.exedio.cope.Query<Date> getDatesQuery()
 	{
 		return ListFieldItem.dates.getQuery(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the items, for which field list {@link #dates} contains the given element.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getDistinctParentsOf")
@@ -143,9 +141,9 @@ public final class ListFieldItem extends Item
 	static final java.util.List<ListFieldItem> getDistinctParentsOfDates(final Date element)
 	{
 		return ListFieldItem.dates.getDistinctParents(ListFieldItem.class,element);
-	}/**
+	}
 
-	 **
+	/**
 	 * Adds a new value for {@link #dates}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="addTo")
@@ -155,9 +153,9 @@ public final class ListFieldItem extends Item
 				java.lang.ClassCastException
 	{
 		ListFieldItem.dates.add(this,dates);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #dates}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -167,9 +165,9 @@ public final class ListFieldItem extends Item
 				java.lang.ClassCastException
 	{
 		ListFieldItem.dates.set(this,dates);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the parent field of the type of {@link #dates}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="Parent")
@@ -177,9 +175,9 @@ public final class ListFieldItem extends Item
 	static final com.exedio.cope.ItemField<ListFieldItem> datesParent()
 	{
 		return ListFieldItem.dates.getParent(ListFieldItem.class);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #items}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -187,9 +185,9 @@ public final class ListFieldItem extends Item
 	final java.util.List<ListFieldItem> getItems()
 	{
 		return ListFieldItem.items.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns a query for the value of {@link #items}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getQuery")
@@ -197,9 +195,9 @@ public final class ListFieldItem extends Item
 	final com.exedio.cope.Query<ListFieldItem> getItemsQuery()
 	{
 		return ListFieldItem.items.getQuery(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the items, for which field list {@link #items} contains the given element.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getDistinctParentsOf")
@@ -207,9 +205,9 @@ public final class ListFieldItem extends Item
 	static final java.util.List<ListFieldItem> getDistinctParentsOfItems(final ListFieldItem element)
 	{
 		return ListFieldItem.items.getDistinctParents(ListFieldItem.class,element);
-	}/**
+	}
 
-	 **
+	/**
 	 * Adds a new value for {@link #items}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="addTo")
@@ -219,9 +217,9 @@ public final class ListFieldItem extends Item
 				java.lang.ClassCastException
 	{
 		ListFieldItem.items.add(this,items);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #items}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -231,9 +229,9 @@ public final class ListFieldItem extends Item
 				java.lang.ClassCastException
 	{
 		ListFieldItem.items.set(this,items);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the parent field of the type of {@link #items}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="Parent")
@@ -241,20 +239,20 @@ public final class ListFieldItem extends Item
 	static final com.exedio.cope.ItemField<ListFieldItem> itemsParent()
 	{
 		return ListFieldItem.items.getParent(ListFieldItem.class);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for listFieldItem.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<ListFieldItem> TYPE = com.exedio.cope.TypesBound.newType(ListFieldItem.class);/**
+	public static final com.exedio.cope.Type<ListFieldItem> TYPE = com.exedio.cope.TypesBound.newType(ListFieldItem.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

@@ -104,8 +104,6 @@ public final class DispatcherWithoutPurgeItem extends Item implements Dispatchab
 
 
 	/**
-
-	 **
 	 * Creates a new DispatcherWithoutPurgeItem with all the fields initially needed.
 	 * @param body the initial value for field {@link #body}.
 	 * @throws com.exedio.cope.MandatoryViolationException if body is null.
@@ -121,18 +119,18 @@ public final class DispatcherWithoutPurgeItem extends Item implements Dispatchab
 		this(new com.exedio.cope.SetValue<?>[]{
 			DispatcherWithoutPurgeItem.body.map(body),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new DispatcherWithoutPurgeItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private DispatcherWithoutPurgeItem(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #body}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -140,9 +138,9 @@ public final class DispatcherWithoutPurgeItem extends Item implements Dispatchab
 	final java.lang.String getBody()
 	{
 		return DispatcherWithoutPurgeItem.body.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #body}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -152,18 +150,18 @@ public final class DispatcherWithoutPurgeItem extends Item implements Dispatchab
 				com.exedio.cope.StringLengthViolationException
 	{
 		DispatcherWithoutPurgeItem.body.set(this,body);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #dispatchCountCommitted}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	final int getDispatchCountCommitted()
 	{
 		return DispatcherWithoutPurgeItem.dispatchCountCommitted.getMandatory(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #dispatchCountCommitted}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -172,9 +170,9 @@ public final class DispatcherWithoutPurgeItem extends Item implements Dispatchab
 				com.exedio.cope.IntegerRangeViolationException
 	{
 		DispatcherWithoutPurgeItem.dispatchCountCommitted.set(this,dispatchCountCommitted);
-	}/**
+	}
 
-	 **
+	/**
 	 * Dispatch by {@link #toTarget}.
 	 * @return the number of successfully dispatched items
 	 */
@@ -183,45 +181,45 @@ public final class DispatcherWithoutPurgeItem extends Item implements Dispatchab
 	static final int dispatchToTarget(@javax.annotation.Nonnull final com.exedio.cope.pattern.Dispatcher.Config config,@javax.annotation.Nullable final com.exedio.cope.util.Interrupter interrupter)
 	{
 		return DispatcherWithoutPurgeItem.toTarget.dispatch(DispatcherWithoutPurgeItem.class,config,interrupter);
-	}/**
+	}
 
-	 **
+	/**
 	 * Dispatch by {@link #toTarget}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="dispatch")
 	static final void dispatchToTarget(@javax.annotation.Nonnull final com.exedio.cope.pattern.Dispatcher.Config config,@javax.annotation.Nonnull final com.exedio.cope.util.JobContext ctx)
 	{
 		DispatcherWithoutPurgeItem.toTarget.dispatch(DispatcherWithoutPurgeItem.class,config,ctx);
-	}/**
+	}
 
-	 **
+	/**
 	 * Dispatch by {@link #toTarget}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="dispatch")
 	static final void dispatchToTarget(@javax.annotation.Nonnull final com.exedio.cope.pattern.Dispatcher.Config config,@javax.annotation.Nonnull final java.lang.Runnable probe,@javax.annotation.Nonnull final com.exedio.cope.util.JobContext ctx)
 	{
 		DispatcherWithoutPurgeItem.toTarget.dispatch(DispatcherWithoutPurgeItem.class,config,probe,ctx);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns, whether this item is yet to be dispatched by {@link #toTarget}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="isPending")
 	final boolean isToTargetPending()
 	{
 		return DispatcherWithoutPurgeItem.toTarget.isPending(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets whether this item is yet to be dispatched by {@link #toTarget}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setPending")
 	final void setToTargetPending(final boolean pending)
 	{
 		DispatcherWithoutPurgeItem.toTarget.setPending(this,pending);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the date, this item was last successfully dispatched by {@link #toTarget}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLastSuccessDate")
@@ -229,9 +227,9 @@ public final class DispatcherWithoutPurgeItem extends Item implements Dispatchab
 	final java.util.Date getToTargetLastSuccessDate()
 	{
 		return DispatcherWithoutPurgeItem.toTarget.getLastSuccessDate(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the milliseconds, this item needed to be last successfully dispatched by {@link #toTarget}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLastSuccessElapsed")
@@ -239,9 +237,9 @@ public final class DispatcherWithoutPurgeItem extends Item implements Dispatchab
 	final java.lang.Long getToTargetLastSuccessElapsed()
 	{
 		return DispatcherWithoutPurgeItem.toTarget.getLastSuccessElapsed(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the attempts to dispatch this item by {@link #toTarget}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getRuns")
@@ -249,9 +247,9 @@ public final class DispatcherWithoutPurgeItem extends Item implements Dispatchab
 	final java.util.List<com.exedio.cope.pattern.Dispatcher.Run> getToTargetRuns()
 	{
 		return DispatcherWithoutPurgeItem.toTarget.getRuns(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the failed attempts to dispatch this item by {@link #toTarget}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getFailures")
@@ -259,9 +257,9 @@ public final class DispatcherWithoutPurgeItem extends Item implements Dispatchab
 	final java.util.List<com.exedio.cope.pattern.Dispatcher.Run> getToTargetFailures()
 	{
 		return DispatcherWithoutPurgeItem.toTarget.getFailures(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the parent field of the run type of {@link #toTarget}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="RunParent")
@@ -269,20 +267,20 @@ public final class DispatcherWithoutPurgeItem extends Item implements Dispatchab
 	static final com.exedio.cope.ItemField<DispatcherWithoutPurgeItem> toTargetRunParent()
 	{
 		return DispatcherWithoutPurgeItem.toTarget.getRunParent(DispatcherWithoutPurgeItem.class);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for dispatcherWithoutPurgeItem.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<DispatcherWithoutPurgeItem> TYPE = com.exedio.cope.TypesBound.newType(DispatcherWithoutPurgeItem.class);/**
+	public static final com.exedio.cope.Type<DispatcherWithoutPurgeItem> TYPE = com.exedio.cope.TypesBound.newType(DispatcherWithoutPurgeItem.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

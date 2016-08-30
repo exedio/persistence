@@ -23,8 +23,6 @@ public final class FinalSubNoneItem extends FinalSuperItem
 	public static final IntegerField subIntNone = new IntegerField();
 
 	/**
-
-	 **
 	 * Creates a new FinalSubNoneItem with all the fields initially needed.
 	 * @param superInt the initial value for field {@link #superInt}.
 	 * @param subIntNone the initial value for field {@link #subIntNone}.
@@ -38,47 +36,47 @@ public final class FinalSubNoneItem extends FinalSuperItem
 			com.exedio.cope.FinalSuperItem.superInt.map(superInt),
 			FinalSubNoneItem.subIntNone.map(subIntNone),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new FinalSubNoneItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private FinalSubNoneItem(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #subIntNone}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	public final int getSubIntNone()
 	{
 		return FinalSubNoneItem.subIntNone.getMandatory(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #subIntNone}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	public final void setSubIntNone(final int subIntNone)
 	{
 		FinalSubNoneItem.subIntNone.set(this,subIntNone);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for finalSubNoneItem.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<FinalSubNoneItem> TYPE = com.exedio.cope.TypesBound.newType(FinalSubNoneItem.class);/**
+	public static final com.exedio.cope.Type<FinalSubNoneItem> TYPE = com.exedio.cope.TypesBound.newType(FinalSubNoneItem.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

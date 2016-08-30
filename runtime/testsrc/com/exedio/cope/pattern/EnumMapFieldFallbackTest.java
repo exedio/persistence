@@ -148,8 +148,6 @@ public class EnumMapFieldFallbackTest extends TestWithEnvironment
 				EnumMapField.create(AnEnum.class, new StringField().optional()).fallback();
 
 	/**
-
-	 **
 	 * Creates a new AnItem with all the fields initially needed.
 	 * @param text the initial value for field {@link #text}.
 	 * @throws com.exedio.cope.StringLengthViolationException if text violates its length constraint.
@@ -163,18 +161,18 @@ public class EnumMapFieldFallbackTest extends TestWithEnvironment
 		this(new com.exedio.cope.SetValue<?>[]{
 			AnItem.text.map(text),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new AnItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private AnItem(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value mapped to <tt>k</tt> by the field map {@link #text}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -182,9 +180,9 @@ public class EnumMapFieldFallbackTest extends TestWithEnvironment
 	final String getText(@javax.annotation.Nonnull final AnEnum k)
 	{
 		return AnItem.text.get(this,k);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value mapped to <tt>k</tt> by the field map {@link #text}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getWithFallback")
@@ -192,55 +190,55 @@ public class EnumMapFieldFallbackTest extends TestWithEnvironment
 	final String getTextWithFallback(@javax.annotation.Nonnull final AnEnum k)
 	{
 		return AnItem.text.getWithFallback(this,k);
-	}/**
+	}
 
-	 **
+	/**
 	 * Associates <tt>k</tt> to a new value in the field map {@link #text}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setText(@javax.annotation.Nonnull final AnEnum k,@javax.annotation.Nullable final String text)
 	{
 		AnItem.text.set(this,k,text);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getMap")
 	@javax.annotation.Nonnull
 	final java.util.Map<AnEnum,String> getTextMap()
 	{
 		return AnItem.text.getMap(this);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getMapWithFallback")
 	@javax.annotation.Nonnull
 	final java.util.Map<AnEnum,String> getTextMapWithFallback()
 	{
 		return AnItem.text.getMapWithFallback(this);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setMap")
 	final void setTextMap(@javax.annotation.Nonnull final java.util.Map<? extends AnEnum,? extends String> text)
 	{
 		AnItem.text.setMap(this,text);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for anItem.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<AnItem> TYPE = com.exedio.cope.TypesBound.newType(AnItem.class);/**
+	static final com.exedio.cope.Type<AnItem> TYPE = com.exedio.cope.TypesBound.newType(AnItem.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

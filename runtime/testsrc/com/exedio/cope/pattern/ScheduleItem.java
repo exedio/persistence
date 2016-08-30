@@ -73,8 +73,6 @@ public final class ScheduleItem extends Item implements Scheduleable
 
 
 	/**
-
-	 **
 	 * Creates a new ScheduleItem with all the fields initially needed.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
@@ -82,68 +80,68 @@ public final class ScheduleItem extends Item implements Scheduleable
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new ScheduleItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private ScheduleItem(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="isEnabled")
 	final boolean isReportEnabled()
 	{
 		return ScheduleItem.report.isEnabled(this);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setEnabled")
 	final void setReportEnabled(final boolean enabled)
 	{
 		ScheduleItem.report.setEnabled(this,enabled);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getInterval")
 	@javax.annotation.Nonnull
 	final com.exedio.cope.pattern.Schedule.Interval getReportInterval()
 	{
 		return ScheduleItem.report.getInterval(this);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setInterval")
 	final void setReportInterval(@javax.annotation.Nonnull final com.exedio.cope.pattern.Schedule.Interval interval)
 	{
 		ScheduleItem.report.setInterval(this,interval);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="run")
 	@java.lang.Deprecated
 	static final int runReport(@javax.annotation.Nullable final com.exedio.cope.util.Interrupter interrupter)
 	{
 		return ScheduleItem.report.run(ScheduleItem.class,interrupter);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="run")
 	static final void runReport(@javax.annotation.Nonnull final com.exedio.cope.util.JobContext ctx)
 	{
 		ScheduleItem.report.run(ScheduleItem.class,ctx);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the parent field of the run type of {@link #report}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="RunParent")
@@ -151,27 +149,27 @@ public final class ScheduleItem extends Item implements Scheduleable
 	static final com.exedio.cope.ItemField<ScheduleItem> reportRunParent()
 	{
 		return ScheduleItem.report.getRunParent(ScheduleItem.class);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #fail}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	final boolean getFail()
 	{
 		return ScheduleItem.fail.getMandatory(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #fail}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setFail(final boolean fail)
 	{
 		ScheduleItem.fail.set(this,fail);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #progress}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -179,9 +177,9 @@ public final class ScheduleItem extends Item implements Scheduleable
 	final java.lang.Integer getProgress()
 	{
 		return ScheduleItem.progress.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #progress}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -190,20 +188,20 @@ public final class ScheduleItem extends Item implements Scheduleable
 				com.exedio.cope.IntegerRangeViolationException
 	{
 		ScheduleItem.progress.set(this,progress);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for scheduleItem.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<ScheduleItem> TYPE = com.exedio.cope.TypesBound.newType(ScheduleItem.class);/**
+	public static final com.exedio.cope.Type<ScheduleItem> TYPE = com.exedio.cope.TypesBound.newType(ScheduleItem.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

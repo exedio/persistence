@@ -29,8 +29,6 @@ final class CompositeFieldRenamedSchemaItem extends Item
 
 
 	/**
-
-	 **
 	 * Creates a new CompositeFieldRenamedSchemaItem with all the fields initially needed.
 	 * @param virgnComp the initial value for field {@link #virgnComp}.
 	 * @param wrongComp the initial value for field {@link #wrongComp}.
@@ -47,18 +45,18 @@ final class CompositeFieldRenamedSchemaItem extends Item
 			CompositeFieldRenamedSchemaItem.virgnComp.map(virgnComp),
 			CompositeFieldRenamedSchemaItem.wrongComp.map(wrongComp),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new CompositeFieldRenamedSchemaItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private CompositeFieldRenamedSchemaItem(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #virgnComp}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -66,9 +64,9 @@ final class CompositeFieldRenamedSchemaItem extends Item
 	final CompositeFieldRenamedSchemaComposite getVirgnComp()
 	{
 		return CompositeFieldRenamedSchemaItem.virgnComp.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #virgnComp}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -77,9 +75,9 @@ final class CompositeFieldRenamedSchemaItem extends Item
 				com.exedio.cope.MandatoryViolationException
 	{
 		CompositeFieldRenamedSchemaItem.virgnComp.set(this,virgnComp);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #wrongComp}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -87,9 +85,9 @@ final class CompositeFieldRenamedSchemaItem extends Item
 	final CompositeFieldRenamedSchemaComposite getWrongComp()
 	{
 		return CompositeFieldRenamedSchemaItem.wrongComp.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #wrongComp}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -98,20 +96,20 @@ final class CompositeFieldRenamedSchemaItem extends Item
 				com.exedio.cope.MandatoryViolationException
 	{
 		CompositeFieldRenamedSchemaItem.wrongComp.set(this,wrongComp);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for compositeFieldRenamedSchemaItem.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<CompositeFieldRenamedSchemaItem> TYPE = com.exedio.cope.TypesBound.newType(CompositeFieldRenamedSchemaItem.class);/**
+	static final com.exedio.cope.Type<CompositeFieldRenamedSchemaItem> TYPE = com.exedio.cope.TypesBound.newType(CompositeFieldRenamedSchemaItem.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

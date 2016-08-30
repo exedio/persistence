@@ -47,8 +47,6 @@ final class DeleteSchemaItem extends DeleteSchemaItemSuper
 
 
 	/**
-
-	 **
 	 * Creates a new DeleteSchemaItem with all the fields initially needed.
 	 * @param field the initial value for field {@link #field}.
 	 * @param nextUnused the initial value for field {@link #nextUnused}.
@@ -67,18 +65,18 @@ final class DeleteSchemaItem extends DeleteSchemaItemSuper
 			DeleteSchemaItem.field.map(field),
 			DeleteSchemaItem.nextUnused.map(nextUnused),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new DeleteSchemaItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private DeleteSchemaItem(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #field}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -86,9 +84,9 @@ final class DeleteSchemaItem extends DeleteSchemaItemSuper
 	final java.lang.String getField()
 	{
 		return DeleteSchemaItem.field.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #field}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -98,27 +96,27 @@ final class DeleteSchemaItem extends DeleteSchemaItemSuper
 				com.exedio.cope.StringLengthViolationException
 	{
 		DeleteSchemaItem.field.set(this,field);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #next}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	final int getNext()
 	{
 		return DeleteSchemaItem.next.getMandatory(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #next}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setNext(final int next)
 	{
 		DeleteSchemaItem.next.set(this,next);
-	}/**
+	}
 
-	 **
+	/**
 	 * Generates a new sequence number.
 	 * The result is not managed by a {@link com.exedio.cope.Transaction}.
 	 */
@@ -126,29 +124,29 @@ final class DeleteSchemaItem extends DeleteSchemaItemSuper
 	static final int nextSequence()
 	{
 		return DeleteSchemaItem.sequence.next();
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #nextUnused}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	final int getNextUnused()
 	{
 		return DeleteSchemaItem.nextUnused.getMandatory(this);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for deleteSchemaItem.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<DeleteSchemaItem> TYPE = com.exedio.cope.TypesBound.newType(DeleteSchemaItem.class);/**
+	static final com.exedio.cope.Type<DeleteSchemaItem> TYPE = com.exedio.cope.TypesBound.newType(DeleteSchemaItem.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

@@ -26,9 +26,9 @@ import com.exedio.cope.Item;
  */
 public final class EmptyItem2 extends Item
 {
-/**
 
-	 **
+
+	/**
 	 * Creates a new EmptyItem2 with all the fields initially needed.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
@@ -36,29 +36,29 @@ public final class EmptyItem2 extends Item
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new EmptyItem2 and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private EmptyItem2(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for emptyItem2.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<EmptyItem2> TYPE = com.exedio.cope.TypesBound.newType(EmptyItem2.class);/**
+	public static final com.exedio.cope.Type<EmptyItem2> TYPE = com.exedio.cope.TypesBound.newType(EmptyItem2.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

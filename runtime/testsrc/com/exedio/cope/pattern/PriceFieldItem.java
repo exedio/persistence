@@ -42,8 +42,6 @@ public final class PriceFieldItem extends Item
 
 
 	/**
-
-	 **
 	 * Creates a new PriceFieldItem with all the fields initially needed.
 	 * @param finalPrice the initial value for field {@link #finalPrice}.
 	 * @param bigPrice the initial value for field {@link #bigPrice}.
@@ -62,18 +60,18 @@ public final class PriceFieldItem extends Item
 			PriceFieldItem.finalPrice.map(finalPrice),
 			PriceFieldItem.bigPrice.map(bigPrice),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new PriceFieldItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	PriceFieldItem(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #finalPrice}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -81,9 +79,9 @@ public final class PriceFieldItem extends Item
 	final com.exedio.cope.pattern.Price getFinalPrice()
 	{
 		return PriceFieldItem.finalPrice.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #optionalPrice}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -91,18 +89,18 @@ public final class PriceFieldItem extends Item
 	final com.exedio.cope.pattern.Price getOptionalPrice()
 	{
 		return PriceFieldItem.optionalPrice.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #optionalPrice}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setOptionalPrice(@javax.annotation.Nullable final com.exedio.cope.pattern.Price optionalPrice)
 	{
 		PriceFieldItem.optionalPrice.set(this,optionalPrice);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #bigPrice}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -110,9 +108,9 @@ public final class PriceFieldItem extends Item
 	final com.exedio.cope.pattern.Price getBigPrice()
 	{
 		return PriceFieldItem.bigPrice.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #bigPrice}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -122,20 +120,20 @@ public final class PriceFieldItem extends Item
 				com.exedio.cope.LongRangeViolationException
 	{
 		PriceFieldItem.bigPrice.set(this,bigPrice);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for priceFieldItem.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<PriceFieldItem> TYPE = com.exedio.cope.TypesBound.newType(PriceFieldItem.class);/**
+	public static final com.exedio.cope.Type<PriceFieldItem> TYPE = com.exedio.cope.TypesBound.newType(PriceFieldItem.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

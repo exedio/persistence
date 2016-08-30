@@ -22,9 +22,9 @@ package com.exedio.cope;
 @CopeCreateLimit(567)
 class SchemaTargetPolymorphicItem extends Item
 {
-	/**
+	
 
-	 **
+	/**
 	 * Creates a new SchemaTargetPolymorphicItem with all the fields initially needed.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
@@ -32,29 +32,29 @@ class SchemaTargetPolymorphicItem extends Item
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new SchemaTargetPolymorphicItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	protected SchemaTargetPolymorphicItem(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for schemaTargetPolymorphicItem.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<SchemaTargetPolymorphicItem> TYPE = com.exedio.cope.TypesBound.newType(SchemaTargetPolymorphicItem.class);/**
+	static final com.exedio.cope.Type<SchemaTargetPolymorphicItem> TYPE = com.exedio.cope.TypesBound.newType(SchemaTargetPolymorphicItem.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

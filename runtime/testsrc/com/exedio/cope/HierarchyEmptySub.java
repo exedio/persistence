@@ -26,9 +26,7 @@ package com.exedio.cope;
 public final class HierarchyEmptySub extends HierarchyEmptySuper
 {
 
-/**
-
-	 **
+	/**
 	 * Creates a new HierarchyEmptySub with all the fields initially needed.
 	 * @param superInt the initial value for field {@link #superInt}.
 	 * @throws com.exedio.cope.UniqueViolationException if superInt is not unique.
@@ -42,29 +40,29 @@ public final class HierarchyEmptySub extends HierarchyEmptySuper
 		this(new com.exedio.cope.SetValue<?>[]{
 			com.exedio.cope.HierarchyEmptySuper.superInt.map(superInt),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new HierarchyEmptySub and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private HierarchyEmptySub(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for hierarchyEmptySub.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<HierarchyEmptySub> TYPE = com.exedio.cope.TypesBound.newType(HierarchyEmptySub.class);/**
+	public static final com.exedio.cope.Type<HierarchyEmptySub> TYPE = com.exedio.cope.TypesBound.newType(HierarchyEmptySub.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

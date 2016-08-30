@@ -25,8 +25,6 @@ final class IoqSourceSubB extends IoqSourceSuper
 	static final ItemField<IoqSourceSubA> brother = ItemField.create(IoqSourceSubA.class);
 
 	/**
-
-	 **
 	 * Creates a new IoqSourceSubB with all the fields initially needed.
 	 * @param ref the initial value for field {@link #ref}.
 	 * @param code the initial value for field {@link #code}.
@@ -48,18 +46,18 @@ final class IoqSourceSubB extends IoqSourceSuper
 			com.exedio.cope.instanceOfQuery.IoqSourceSuper.code.map(code),
 			IoqSourceSubB.brother.map(brother),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new IoqSourceSubB and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private IoqSourceSubB(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #brother}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -67,9 +65,9 @@ final class IoqSourceSubB extends IoqSourceSuper
 	final IoqSourceSubA getBrother()
 	{
 		return IoqSourceSubB.brother.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #brother}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -78,20 +76,20 @@ final class IoqSourceSubB extends IoqSourceSuper
 				com.exedio.cope.MandatoryViolationException
 	{
 		IoqSourceSubB.brother.set(this,brother);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for ioqSourceSubB.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<IoqSourceSubB> TYPE = com.exedio.cope.TypesBound.newType(IoqSourceSubB.class);/**
+	static final com.exedio.cope.Type<IoqSourceSubB> TYPE = com.exedio.cope.TypesBound.newType(IoqSourceSubB.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

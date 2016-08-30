@@ -26,8 +26,6 @@ final class ConnectTokenItem extends Item
 	static final StringField name = new StringField();
 
 	/**
-
-	 **
 	 * Creates a new ConnectTokenItem with all the fields initially needed.
 	 * @param name the initial value for field {@link #name}.
 	 * @throws com.exedio.cope.MandatoryViolationException if name is null.
@@ -43,18 +41,18 @@ final class ConnectTokenItem extends Item
 		this(new com.exedio.cope.SetValue<?>[]{
 			ConnectTokenItem.name.map(name),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new ConnectTokenItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private ConnectTokenItem(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #name}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -62,9 +60,9 @@ final class ConnectTokenItem extends Item
 	final java.lang.String getName()
 	{
 		return ConnectTokenItem.name.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #name}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -74,20 +72,20 @@ final class ConnectTokenItem extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		ConnectTokenItem.name.set(this,name);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for connectTokenItem.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<ConnectTokenItem> TYPE = com.exedio.cope.TypesBound.newType(ConnectTokenItem.class);/**
+	static final com.exedio.cope.Type<ConnectTokenItem> TYPE = com.exedio.cope.TypesBound.newType(ConnectTokenItem.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

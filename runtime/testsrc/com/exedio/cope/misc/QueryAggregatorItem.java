@@ -26,8 +26,6 @@ final class QueryAggregatorItem extends Item
 	static final IntegerField intx = new IntegerField();
 
 	/**
-
-	 **
 	 * Creates a new QueryAggregatorItem with all the fields initially needed.
 	 * @param intx the initial value for field {@link #intx}.
 	 */
@@ -38,47 +36,47 @@ final class QueryAggregatorItem extends Item
 		this(new com.exedio.cope.SetValue<?>[]{
 			QueryAggregatorItem.intx.map(intx),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new QueryAggregatorItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private QueryAggregatorItem(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #intx}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	final int getIntx()
 	{
 		return QueryAggregatorItem.intx.getMandatory(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #intx}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setIntx(final int intx)
 	{
 		QueryAggregatorItem.intx.set(this,intx);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for queryAggregatorItem.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<QueryAggregatorItem> TYPE = com.exedio.cope.TypesBound.newType(QueryAggregatorItem.class);/**
+	static final com.exedio.cope.Type<QueryAggregatorItem> TYPE = com.exedio.cope.TypesBound.newType(QueryAggregatorItem.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

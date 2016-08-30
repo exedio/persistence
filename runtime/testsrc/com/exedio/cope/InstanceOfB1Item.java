@@ -22,9 +22,7 @@ class InstanceOfB1Item extends InstanceOfAItem
 {
 	static final StringField textb1 = new StringField().optional();
 
-/**
-
-	 **
+	/**
 	 * Creates a new InstanceOfB1Item with all the fields initially needed.
 	 * @param code the initial value for field {@link #code}.
 	 * @throws com.exedio.cope.MandatoryViolationException if code is null.
@@ -42,18 +40,18 @@ class InstanceOfB1Item extends InstanceOfAItem
 		this(new com.exedio.cope.SetValue<?>[]{
 			com.exedio.cope.InstanceOfAItem.code.map(code),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new InstanceOfB1Item and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	protected InstanceOfB1Item(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #textb1}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -61,9 +59,9 @@ class InstanceOfB1Item extends InstanceOfAItem
 	final java.lang.String getTextb1()
 	{
 		return InstanceOfB1Item.textb1.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #textb1}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -72,20 +70,20 @@ class InstanceOfB1Item extends InstanceOfAItem
 				com.exedio.cope.StringLengthViolationException
 	{
 		InstanceOfB1Item.textb1.set(this,textb1);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for instanceOfB1Item.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<InstanceOfB1Item> TYPE = com.exedio.cope.TypesBound.newType(InstanceOfB1Item.class);/**
+	static final com.exedio.cope.Type<InstanceOfB1Item> TYPE = com.exedio.cope.TypesBound.newType(InstanceOfB1Item.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

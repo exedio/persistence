@@ -60,8 +60,6 @@ final class SchemaItem extends Item
 	static final DataField data = new DataField().optional();
 
 	/**
-
-	 **
 	 * Creates a new SchemaItem with all the fields initially needed.
 	 * @param nonFinalInteger the initial value for field {@link #nonFinalInteger}.
 	 * @param string the initial value for field {@link #string}.
@@ -113,36 +111,36 @@ final class SchemaItem extends Item
 			SchemaItem.poly.map(poly),
 			SchemaItem.stringLong.map(stringLong),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new SchemaItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private SchemaItem(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #nonFinalInteger}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	final int getNonFinalInteger()
 	{
 		return SchemaItem.nonFinalInteger.getMandatory(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #nonFinalInteger}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setNonFinalInteger(final int nonFinalInteger)
 	{
 		SchemaItem.nonFinalInteger.set(this,nonFinalInteger);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #string}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -150,9 +148,9 @@ final class SchemaItem extends Item
 	final java.lang.String getString()
 	{
 		return SchemaItem.string.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #string}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -163,18 +161,18 @@ final class SchemaItem extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		SchemaItem.string.set(this,string);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #integ}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	final int getInteg()
 	{
 		return SchemaItem.integ.getMandatory(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #integ}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -183,18 +181,18 @@ final class SchemaItem extends Item
 				com.exedio.cope.IntegerRangeViolationException
 	{
 		SchemaItem.integ.set(this,integ);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #doub}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	final double getDoub()
 	{
 		return SchemaItem.doub.getMandatory(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #doub}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -203,9 +201,9 @@ final class SchemaItem extends Item
 				com.exedio.cope.DoubleRangeViolationException
 	{
 		SchemaItem.doub.set(this,doub);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #date}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -213,9 +211,9 @@ final class SchemaItem extends Item
 	final java.util.Date getDate()
 	{
 		return SchemaItem.date.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #date}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -224,18 +222,18 @@ final class SchemaItem extends Item
 				com.exedio.cope.MandatoryViolationException
 	{
 		SchemaItem.date.set(this,date);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets the current date for the date field {@link #date}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="touch")
 	final void touchDate()
 	{
 		SchemaItem.date.touch(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #day}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -243,9 +241,9 @@ final class SchemaItem extends Item
 	final com.exedio.cope.util.Day getDay()
 	{
 		return SchemaItem.day.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #day}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -254,36 +252,36 @@ final class SchemaItem extends Item
 				com.exedio.cope.MandatoryViolationException
 	{
 		SchemaItem.day.set(this,day);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets today for the date field {@link #day}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="touch")
 	final void touchDay(@javax.annotation.Nonnull final java.util.TimeZone zone)
 	{
 		SchemaItem.day.touch(this,zone);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #bool}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	final boolean getBool()
 	{
 		return SchemaItem.bool.getMandatory(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #bool}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setBool(final boolean bool)
 	{
 		SchemaItem.bool.set(this,bool);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #anEnum}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -291,9 +289,9 @@ final class SchemaItem extends Item
 	final SomeEnum getAnEnum()
 	{
 		return SchemaItem.anEnum.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #anEnum}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -303,9 +301,9 @@ final class SchemaItem extends Item
 				com.exedio.cope.UniqueViolationException
 	{
 		SchemaItem.anEnum.set(this,anEnum);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #item}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -313,9 +311,9 @@ final class SchemaItem extends Item
 	final SchemaTargetItem getItem()
 	{
 		return SchemaItem.item.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #item}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -324,9 +322,9 @@ final class SchemaItem extends Item
 				com.exedio.cope.MandatoryViolationException
 	{
 		SchemaItem.item.set(this,item);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #poly}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -334,9 +332,9 @@ final class SchemaItem extends Item
 	final SchemaTargetPolymorphicItem getPoly()
 	{
 		return SchemaItem.poly.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #poly}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -345,9 +343,9 @@ final class SchemaItem extends Item
 				com.exedio.cope.MandatoryViolationException
 	{
 		SchemaItem.poly.set(this,poly);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #stringOpt}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -355,9 +353,9 @@ final class SchemaItem extends Item
 	final java.lang.String getStringOpt()
 	{
 		return SchemaItem.stringOpt.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #stringOpt}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -366,9 +364,9 @@ final class SchemaItem extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		SchemaItem.stringOpt.set(this,stringOpt);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #integOpt}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -376,9 +374,9 @@ final class SchemaItem extends Item
 	final java.lang.Integer getIntegOpt()
 	{
 		return SchemaItem.integOpt.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #integOpt}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -387,9 +385,9 @@ final class SchemaItem extends Item
 				com.exedio.cope.IntegerRangeViolationException
 	{
 		SchemaItem.integOpt.set(this,integOpt);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #doubOpt}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -397,9 +395,9 @@ final class SchemaItem extends Item
 	final java.lang.Double getDoubOpt()
 	{
 		return SchemaItem.doubOpt.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #doubOpt}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -408,9 +406,9 @@ final class SchemaItem extends Item
 				com.exedio.cope.DoubleRangeViolationException
 	{
 		SchemaItem.doubOpt.set(this,doubOpt);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #dateOpt}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -418,27 +416,27 @@ final class SchemaItem extends Item
 	final java.util.Date getDateOpt()
 	{
 		return SchemaItem.dateOpt.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #dateOpt}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setDateOpt(@javax.annotation.Nullable final java.util.Date dateOpt)
 	{
 		SchemaItem.dateOpt.set(this,dateOpt);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets the current date for the date field {@link #dateOpt}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="touch")
 	final void touchDateOpt()
 	{
 		SchemaItem.dateOpt.touch(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #dayOpt}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -446,27 +444,27 @@ final class SchemaItem extends Item
 	final com.exedio.cope.util.Day getDayOpt()
 	{
 		return SchemaItem.dayOpt.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #dayOpt}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setDayOpt(@javax.annotation.Nullable final com.exedio.cope.util.Day dayOpt)
 	{
 		SchemaItem.dayOpt.set(this,dayOpt);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets today for the date field {@link #dayOpt}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="touch")
 	final void touchDayOpt(@javax.annotation.Nonnull final java.util.TimeZone zone)
 	{
 		SchemaItem.dayOpt.touch(this,zone);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #boolOpt}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -474,18 +472,18 @@ final class SchemaItem extends Item
 	final java.lang.Boolean getBoolOpt()
 	{
 		return SchemaItem.boolOpt.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #boolOpt}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setBoolOpt(@javax.annotation.Nullable final java.lang.Boolean boolOpt)
 	{
 		SchemaItem.boolOpt.set(this,boolOpt);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #enumOpt}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -493,18 +491,18 @@ final class SchemaItem extends Item
 	final SomeEnum getEnumOpt()
 	{
 		return SchemaItem.enumOpt.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #enumOpt}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setEnumOpt(@javax.annotation.Nullable final SomeEnum enumOpt)
 	{
 		SchemaItem.enumOpt.set(this,enumOpt);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #itemOpt}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -512,18 +510,18 @@ final class SchemaItem extends Item
 	final SchemaTargetItem getItemOpt()
 	{
 		return SchemaItem.itemOpt.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #itemOpt}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setItemOpt(@javax.annotation.Nullable final SchemaTargetItem itemOpt)
 	{
 		SchemaItem.itemOpt.set(this,itemOpt);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #polyOpt}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -531,18 +529,18 @@ final class SchemaItem extends Item
 	final SchemaTargetPolymorphicItem getPolyOpt()
 	{
 		return SchemaItem.polyOpt.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #polyOpt}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setPolyOpt(@javax.annotation.Nullable final SchemaTargetPolymorphicItem polyOpt)
 	{
 		SchemaItem.polyOpt.set(this,polyOpt);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #uniqueString}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -550,9 +548,9 @@ final class SchemaItem extends Item
 	final java.lang.String getUniqueString()
 	{
 		return SchemaItem.uniqueString.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #uniqueString}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -562,9 +560,9 @@ final class SchemaItem extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		SchemaItem.uniqueString.set(this,uniqueString);
-	}/**
+	}
 
-	 **
+	/**
 	 * Finds a schemaItem by it's {@link #uniqueString}.
 	 * @param uniqueString shall be equal to field {@link #uniqueString}.
 	 * @return null if there is no matching item.
@@ -574,9 +572,9 @@ final class SchemaItem extends Item
 	static final SchemaItem forUniqueString(@javax.annotation.Nonnull final java.lang.String uniqueString)
 	{
 		return SchemaItem.uniqueString.searchUnique(SchemaItem.class,uniqueString);
-	}/**
+	}
 
-	 **
+	/**
 	 * Finds a schemaItem by it's unique fields.
 	 * @param string shall be equal to field {@link #string}.
 	 * @param anEnum shall be equal to field {@link #anEnum}.
@@ -587,9 +585,9 @@ final class SchemaItem extends Item
 	static final SchemaItem forDoubleUnique(@javax.annotation.Nonnull final java.lang.String string,@javax.annotation.Nonnull final SomeEnum anEnum)
 	{
 		return SchemaItem.doubleUnique.search(SchemaItem.class,string,anEnum);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #stringMin4}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -597,9 +595,9 @@ final class SchemaItem extends Item
 	final java.lang.String getStringMin4()
 	{
 		return SchemaItem.stringMin4.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #stringMin4}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -608,9 +606,9 @@ final class SchemaItem extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		SchemaItem.stringMin4.set(this,stringMin4);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #stringMax4}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -618,9 +616,9 @@ final class SchemaItem extends Item
 	final java.lang.String getStringMax4()
 	{
 		return SchemaItem.stringMax4.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #stringMax4}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -629,9 +627,9 @@ final class SchemaItem extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		SchemaItem.stringMax4.set(this,stringMax4);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #stringMin4Max8}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -639,9 +637,9 @@ final class SchemaItem extends Item
 	final java.lang.String getStringMin4Max8()
 	{
 		return SchemaItem.stringMin4Max8.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #stringMin4Max8}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -650,9 +648,9 @@ final class SchemaItem extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		SchemaItem.stringMin4Max8.set(this,stringMin4Max8);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #stringExact6}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -660,9 +658,9 @@ final class SchemaItem extends Item
 	final java.lang.String getStringExact6()
 	{
 		return SchemaItem.stringExact6.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #stringExact6}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -671,9 +669,9 @@ final class SchemaItem extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		SchemaItem.stringExact6.set(this,stringExact6);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #stringUpper6}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -681,9 +679,9 @@ final class SchemaItem extends Item
 	final java.lang.String getStringUpper6()
 	{
 		return SchemaItem.stringUpper6.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #stringUpper6}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -693,9 +691,9 @@ final class SchemaItem extends Item
 				com.exedio.cope.StringCharSetViolationException
 	{
 		SchemaItem.stringUpper6.set(this,stringUpper6);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #stringEmpty}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -703,9 +701,9 @@ final class SchemaItem extends Item
 	final java.lang.String getStringEmpty()
 	{
 		return SchemaItem.stringEmpty.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #stringEmpty}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -714,9 +712,9 @@ final class SchemaItem extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		SchemaItem.stringEmpty.set(this,stringEmpty);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #stringLong}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -724,9 +722,9 @@ final class SchemaItem extends Item
 	final java.lang.String getStringLong()
 	{
 		return SchemaItem.stringLong.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #stringLong}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -736,27 +734,27 @@ final class SchemaItem extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		SchemaItem.stringLong.set(this,stringLong);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns, whether there is no data for field {@link #data}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="isNull")
 	final boolean isDataNull()
 	{
 		return SchemaItem.data.isNull(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the length of the data of the data field {@link #data}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLength")
 	final long getDataLength()
 	{
 		return SchemaItem.data.getLength(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of the persistent field {@link #data}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getArray")
@@ -764,9 +762,9 @@ final class SchemaItem extends Item
 	final byte[] getDataArray()
 	{
 		return SchemaItem.data.getArray(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Writes the data of this persistent data field into the given stream.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -775,9 +773,9 @@ final class SchemaItem extends Item
 				java.io.IOException
 	{
 		SchemaItem.data.get(this,data);
-	}/**
+	}
 
-	 **
+	/**
 	 * Writes the data of this persistent data field into the given file.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -786,27 +784,27 @@ final class SchemaItem extends Item
 				java.io.IOException
 	{
 		SchemaItem.data.get(this,data);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for the persistent field {@link #data}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setData(@javax.annotation.Nullable final com.exedio.cope.DataField.Value data)
 	{
 		SchemaItem.data.set(this,data);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for the persistent field {@link #data}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setData(@javax.annotation.Nullable final byte[] data)
 	{
 		SchemaItem.data.set(this,data);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for the persistent field {@link #data}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -815,9 +813,9 @@ final class SchemaItem extends Item
 				java.io.IOException
 	{
 		SchemaItem.data.set(this,data);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for the persistent field {@link #data}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -826,20 +824,20 @@ final class SchemaItem extends Item
 				java.io.IOException
 	{
 		SchemaItem.data.set(this,data);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for schemaItem.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<SchemaItem> TYPE = com.exedio.cope.TypesBound.newType(SchemaItem.class);/**
+	static final com.exedio.cope.Type<SchemaItem> TYPE = com.exedio.cope.TypesBound.newType(SchemaItem.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

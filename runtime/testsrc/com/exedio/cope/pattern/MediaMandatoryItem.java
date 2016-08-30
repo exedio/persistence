@@ -51,8 +51,6 @@ public final class MediaMandatoryItem extends Item
 
 
 	/**
-
-	 **
 	 * Creates a new MediaMandatoryItem with all the fields initially needed.
 	 * @param file the initial value for field {@link #file}.
 	 * @throws com.exedio.cope.MandatoryViolationException if file is null.
@@ -66,18 +64,18 @@ public final class MediaMandatoryItem extends Item
 		this(new com.exedio.cope.SetValue<?>[]{
 			MediaMandatoryItem.file.map(file),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new MediaMandatoryItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	MediaMandatoryItem(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #name}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -85,9 +83,9 @@ public final class MediaMandatoryItem extends Item
 	final java.lang.String getName()
 	{
 		return MediaMandatoryItem.name.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #name}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -96,9 +94,9 @@ public final class MediaMandatoryItem extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		MediaMandatoryItem.name.set(this,name);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns a Locator the content of {@link #file} is available under.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLocator")
@@ -106,9 +104,9 @@ public final class MediaMandatoryItem extends Item
 	final com.exedio.cope.pattern.MediaPath.Locator getFileLocator()
 	{
 		return MediaMandatoryItem.file.getLocator(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the content type of the media {@link #file}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getContentType")
@@ -116,9 +114,9 @@ public final class MediaMandatoryItem extends Item
 	final java.lang.String getFileContentType()
 	{
 		return MediaMandatoryItem.file.getContentType(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the last modification date of media {@link #file}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLastModified")
@@ -126,18 +124,18 @@ public final class MediaMandatoryItem extends Item
 	final java.util.Date getFileLastModified()
 	{
 		return MediaMandatoryItem.file.getLastModified(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the body length of the media {@link #file}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLength")
 	final long getFileLength()
 	{
 		return MediaMandatoryItem.file.getLength(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the body of the media {@link #file}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
@@ -145,9 +143,9 @@ public final class MediaMandatoryItem extends Item
 	final byte[] getFileBody()
 	{
 		return MediaMandatoryItem.file.getBody(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Writes the body of media {@link #file} into the given stream.
 	 * Does nothing, if the media is null.
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
@@ -158,9 +156,9 @@ public final class MediaMandatoryItem extends Item
 				java.io.IOException
 	{
 		MediaMandatoryItem.file.getBody(this,body);
-	}/**
+	}
 
-	 **
+	/**
 	 * Writes the body of media {@link #file} into the given file.
 	 * Does nothing, if the media is null.
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
@@ -171,9 +169,9 @@ public final class MediaMandatoryItem extends Item
 				java.io.IOException
 	{
 		MediaMandatoryItem.file.getBody(this,body);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets the content of media {@link #file}.
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
 	 */
@@ -183,18 +181,18 @@ public final class MediaMandatoryItem extends Item
 				java.io.IOException
 	{
 		MediaMandatoryItem.file.set(this,file);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets the content of media {@link #file}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setFile(@javax.annotation.Nonnull final byte[] body,@javax.annotation.Nonnull final java.lang.String contentType)
 	{
 		MediaMandatoryItem.file.set(this,body,contentType);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets the content of media {@link #file}.
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
 	 */
@@ -204,9 +202,9 @@ public final class MediaMandatoryItem extends Item
 				java.io.IOException
 	{
 		MediaMandatoryItem.file.set(this,body,contentType);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets the content of media {@link #file}.
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
 	 */
@@ -216,20 +214,20 @@ public final class MediaMandatoryItem extends Item
 				java.io.IOException
 	{
 		MediaMandatoryItem.file.set(this,body,contentType);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for mediaMandatoryItem.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<MediaMandatoryItem> TYPE = com.exedio.cope.TypesBound.newType(MediaMandatoryItem.class);/**
+	public static final com.exedio.cope.Type<MediaMandatoryItem> TYPE = com.exedio.cope.TypesBound.newType(MediaMandatoryItem.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

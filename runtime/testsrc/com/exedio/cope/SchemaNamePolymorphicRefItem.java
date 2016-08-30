@@ -22,9 +22,9 @@ package com.exedio.cope;
 final class SchemaNamePolymorphicRefItem extends Item
 {
 	static final ItemField<SchemaNamePolymorphicSuperItem> ref = ItemField.create(SchemaNamePolymorphicSuperItem.class);
-/**
 
-	 **
+
+	/**
 	 * Creates a new SchemaNamePolymorphicRefItem with all the fields initially needed.
 	 * @param ref the initial value for field {@link #ref}.
 	 * @throws com.exedio.cope.MandatoryViolationException if ref is null.
@@ -38,18 +38,18 @@ final class SchemaNamePolymorphicRefItem extends Item
 		this(new com.exedio.cope.SetValue<?>[]{
 			SchemaNamePolymorphicRefItem.ref.map(ref),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new SchemaNamePolymorphicRefItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private SchemaNamePolymorphicRefItem(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #ref}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -57,9 +57,9 @@ final class SchemaNamePolymorphicRefItem extends Item
 	final SchemaNamePolymorphicSuperItem getRef()
 	{
 		return SchemaNamePolymorphicRefItem.ref.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #ref}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -68,20 +68,20 @@ final class SchemaNamePolymorphicRefItem extends Item
 				com.exedio.cope.MandatoryViolationException
 	{
 		SchemaNamePolymorphicRefItem.ref.set(this,ref);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for schemaNamePolymorphicRefItem.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<SchemaNamePolymorphicRefItem> TYPE = com.exedio.cope.TypesBound.newType(SchemaNamePolymorphicRefItem.class);/**
+	static final com.exedio.cope.Type<SchemaNamePolymorphicRefItem> TYPE = com.exedio.cope.TypesBound.newType(SchemaNamePolymorphicRefItem.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

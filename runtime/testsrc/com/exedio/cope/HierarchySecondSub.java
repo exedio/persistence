@@ -23,9 +23,7 @@ public final class HierarchySecondSub extends HierarchySuper
 
 	public static final StringField firstSubString = new StringField().optional();
 
-/**
-
-	 **
+	/**
 	 * Creates a new HierarchySecondSub with all the fields initially needed.
 	 * @param superInt the initial value for field {@link #superInt}.
 	 * @throws com.exedio.cope.UniqueViolationException if superInt is not unique.
@@ -39,18 +37,18 @@ public final class HierarchySecondSub extends HierarchySuper
 		this(new com.exedio.cope.SetValue<?>[]{
 			com.exedio.cope.HierarchySuper.superInt.map(superInt),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new HierarchySecondSub and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private HierarchySecondSub(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #firstSubString}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -58,9 +56,9 @@ public final class HierarchySecondSub extends HierarchySuper
 	public final java.lang.String getFirstSubString()
 	{
 		return HierarchySecondSub.firstSubString.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #firstSubString}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -69,20 +67,20 @@ public final class HierarchySecondSub extends HierarchySuper
 				com.exedio.cope.StringLengthViolationException
 	{
 		HierarchySecondSub.firstSubString.set(this,firstSubString);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for hierarchySecondSub.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<HierarchySecondSub> TYPE = com.exedio.cope.TypesBound.newType(HierarchySecondSub.class);/**
+	public static final com.exedio.cope.Type<HierarchySecondSub> TYPE = com.exedio.cope.TypesBound.newType(HierarchySecondSub.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

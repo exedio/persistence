@@ -26,9 +26,7 @@ public abstract class HierarchySuper extends Item
 
 	public static final UppercaseView superStringUpper = superString.toUpperCase();
 
-/**
-
-	 **
+	/**
 	 * Creates a new HierarchySuper with all the fields initially needed.
 	 * @param superInt the initial value for field {@link #superInt}.
 	 * @throws com.exedio.cope.UniqueViolationException if superInt is not unique.
@@ -42,27 +40,27 @@ public abstract class HierarchySuper extends Item
 		this(new com.exedio.cope.SetValue<?>[]{
 			HierarchySuper.superInt.map(superInt),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new HierarchySuper and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	protected HierarchySuper(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #superInt}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	public final int getSuperInt()
 	{
 		return HierarchySuper.superInt.getMandatory(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #superInt}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -71,9 +69,9 @@ public abstract class HierarchySuper extends Item
 				com.exedio.cope.UniqueViolationException
 	{
 		HierarchySuper.superInt.set(this,superInt);
-	}/**
+	}
 
-	 **
+	/**
 	 * Finds a hierarchySuper by it's {@link #superInt}.
 	 * @param superInt shall be equal to field {@link #superInt}.
 	 * @return null if there is no matching item.
@@ -83,9 +81,9 @@ public abstract class HierarchySuper extends Item
 	public static final HierarchySuper forSuperInt(final int superInt)
 	{
 		return HierarchySuper.superInt.searchUnique(HierarchySuper.class,superInt);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #superString}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -93,9 +91,9 @@ public abstract class HierarchySuper extends Item
 	public final java.lang.String getSuperString()
 	{
 		return HierarchySuper.superString.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #superString}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -104,29 +102,29 @@ public abstract class HierarchySuper extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		HierarchySuper.superString.set(this,superString);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #superStringUpper}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	public final java.lang.String getSuperStringUpper()
 	{
 		return HierarchySuper.superStringUpper.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for hierarchySuper.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<HierarchySuper> TYPE = com.exedio.cope.TypesBound.newType(HierarchySuper.class);/**
+	public static final com.exedio.cope.Type<HierarchySuper> TYPE = com.exedio.cope.TypesBound.newType(HierarchySuper.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

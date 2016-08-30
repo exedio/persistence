@@ -30,8 +30,6 @@ public final class CompositeItem extends Item
 
 
 	/**
-
-	 **
 	 * Creates a new CompositeItem with all the fields initially needed.
 	 * @param code the initial value for field {@link #code}.
 	 * @param eins the initial value for field {@link #eins}.
@@ -53,18 +51,18 @@ public final class CompositeItem extends Item
 			CompositeItem.eins.map(eins),
 			CompositeItem.zwei.map(zwei),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new CompositeItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private CompositeItem(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #code}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -72,9 +70,9 @@ public final class CompositeItem extends Item
 	final java.lang.String getCode()
 	{
 		return CompositeItem.code.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #eins}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -82,9 +80,9 @@ public final class CompositeItem extends Item
 	final CompositeValue getEins()
 	{
 		return CompositeItem.eins.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #eins}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -93,9 +91,9 @@ public final class CompositeItem extends Item
 				com.exedio.cope.MandatoryViolationException
 	{
 		CompositeItem.eins.set(this,eins);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #zwei}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -103,9 +101,9 @@ public final class CompositeItem extends Item
 	final CompositeValue getZwei()
 	{
 		return CompositeItem.zwei.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #zwei}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -114,20 +112,20 @@ public final class CompositeItem extends Item
 				com.exedio.cope.MandatoryViolationException
 	{
 		CompositeItem.zwei.set(this,zwei);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for compositeItem.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<CompositeItem> TYPE = com.exedio.cope.TypesBound.newType(CompositeItem.class);/**
+	public static final com.exedio.cope.Type<CompositeItem> TYPE = com.exedio.cope.TypesBound.newType(CompositeItem.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

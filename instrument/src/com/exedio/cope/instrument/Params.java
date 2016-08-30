@@ -59,7 +59,7 @@ final class Params
 	boolean parenthesesOnEmptyMemberAnnotations = false; // non-default is deprecated
 	boolean deprecatedFullyQualified = true; // non-default is deprecated
 	boolean overrideOnSeparateLine = true; // non-default is deprecated
-	HintFormat customizationHintsForTags = HintFormat.forAnnotations;
+	HintFormat hintFormat = HintFormat.forAnnotations;
 	boolean verbose = false;
 	File timestampFile = null;
 

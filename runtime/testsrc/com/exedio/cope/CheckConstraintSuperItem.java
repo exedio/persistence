@@ -50,8 +50,6 @@ public class CheckConstraintSuperItem extends Item
 
 
 	/**
-
-	 **
 	 * Creates a new CheckConstraintSuperItem with all the fields initially needed.
 	 * @param eins the initial value for field {@link #eins}.
 	 * @param zwei the initial value for field {@link #zwei}.
@@ -68,18 +66,18 @@ public class CheckConstraintSuperItem extends Item
 			CheckConstraintSuperItem.zwei.map(zwei),
 			CheckConstraintSuperItem.drei.map(drei),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new CheckConstraintSuperItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	protected CheckConstraintSuperItem(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #eins}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -87,18 +85,18 @@ public class CheckConstraintSuperItem extends Item
 	public final java.lang.Integer getEins()
 	{
 		return CheckConstraintSuperItem.eins.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #eins}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	public final void setEins(@javax.annotation.Nullable final java.lang.Integer eins)
 	{
 		CheckConstraintSuperItem.eins.set(this,eins);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #zwei}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -106,18 +104,18 @@ public class CheckConstraintSuperItem extends Item
 	public final java.lang.Integer getZwei()
 	{
 		return CheckConstraintSuperItem.zwei.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #zwei}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	public final void setZwei(@javax.annotation.Nullable final java.lang.Integer zwei)
 	{
 		CheckConstraintSuperItem.zwei.set(this,zwei);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #drei}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -125,29 +123,29 @@ public class CheckConstraintSuperItem extends Item
 	public final java.lang.Integer getDrei()
 	{
 		return CheckConstraintSuperItem.drei.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #drei}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	public final void setDrei(@javax.annotation.Nullable final java.lang.Integer drei)
 	{
 		CheckConstraintSuperItem.drei.set(this,drei);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for checkConstraintSuperItem.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<CheckConstraintSuperItem> TYPE = com.exedio.cope.TypesBound.newType(CheckConstraintSuperItem.class);/**
+	public static final com.exedio.cope.Type<CheckConstraintSuperItem> TYPE = com.exedio.cope.TypesBound.newType(CheckConstraintSuperItem.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

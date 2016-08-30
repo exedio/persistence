@@ -35,8 +35,6 @@ final class ItemCacheDataItem extends Item
 
 
 	/**
-
-	 **
 	 * Creates a new ItemCacheDataItem with all the fields initially needed.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
@@ -44,18 +42,18 @@ final class ItemCacheDataItem extends Item
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new ItemCacheDataItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private ItemCacheDataItem(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #string}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -63,9 +61,9 @@ final class ItemCacheDataItem extends Item
 	final java.lang.String getString()
 	{
 		return ItemCacheDataItem.string.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #string}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -74,27 +72,27 @@ final class ItemCacheDataItem extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		ItemCacheDataItem.string.set(this,string);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns, whether there is no data for field {@link #data}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="isNull")
 	final boolean isDataNull()
 	{
 		return ItemCacheDataItem.data.isNull(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the length of the data of the data field {@link #data}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLength")
 	final long getDataLength()
 	{
 		return ItemCacheDataItem.data.getLength(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of the persistent field {@link #data}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getArray")
@@ -102,9 +100,9 @@ final class ItemCacheDataItem extends Item
 	final byte[] getDataArray()
 	{
 		return ItemCacheDataItem.data.getArray(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Writes the data of this persistent data field into the given stream.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -113,9 +111,9 @@ final class ItemCacheDataItem extends Item
 				java.io.IOException
 	{
 		ItemCacheDataItem.data.get(this,data);
-	}/**
+	}
 
-	 **
+	/**
 	 * Writes the data of this persistent data field into the given file.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -124,27 +122,27 @@ final class ItemCacheDataItem extends Item
 				java.io.IOException
 	{
 		ItemCacheDataItem.data.get(this,data);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for the persistent field {@link #data}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setData(@javax.annotation.Nullable final com.exedio.cope.DataField.Value data)
 	{
 		ItemCacheDataItem.data.set(this,data);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for the persistent field {@link #data}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setData(@javax.annotation.Nullable final byte[] data)
 	{
 		ItemCacheDataItem.data.set(this,data);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for the persistent field {@link #data}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -153,9 +151,9 @@ final class ItemCacheDataItem extends Item
 				java.io.IOException
 	{
 		ItemCacheDataItem.data.set(this,data);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for the persistent field {@link #data}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -164,20 +162,20 @@ final class ItemCacheDataItem extends Item
 				java.io.IOException
 	{
 		ItemCacheDataItem.data.set(this,data);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for itemCacheDataItem.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<ItemCacheDataItem> TYPE = com.exedio.cope.TypesBound.newType(ItemCacheDataItem.class);/**
+	static final com.exedio.cope.Type<ItemCacheDataItem> TYPE = com.exedio.cope.TypesBound.newType(ItemCacheDataItem.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

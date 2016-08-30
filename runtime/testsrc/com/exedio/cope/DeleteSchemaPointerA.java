@@ -27,8 +27,6 @@ final class DeleteSchemaPointerA extends Item
 
 
 	/**
-
-	 **
 	 * Creates a new DeleteSchemaPointerA with all the fields initially needed.
 	 * @param code the initial value for field {@link #code}.
 	 */
@@ -39,36 +37,36 @@ final class DeleteSchemaPointerA extends Item
 		this(new com.exedio.cope.SetValue<?>[]{
 			DeleteSchemaPointerA.code.map(code),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new DeleteSchemaPointerA and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private DeleteSchemaPointerA(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #code}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	final int getCode()
 	{
 		return DeleteSchemaPointerA.code.getMandatory(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #code}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setCode(final int code)
 	{
 		DeleteSchemaPointerA.code.set(this,code);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #self}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -76,18 +74,18 @@ final class DeleteSchemaPointerA extends Item
 	final DeleteSchemaPointerA getSelf()
 	{
 		return DeleteSchemaPointerA.self.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #self}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setSelf(@javax.annotation.Nullable final DeleteSchemaPointerA self)
 	{
 		DeleteSchemaPointerA.self.set(this,self);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #other}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -95,29 +93,29 @@ final class DeleteSchemaPointerA extends Item
 	final DeleteSchemaPointerB getOther()
 	{
 		return DeleteSchemaPointerA.other.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #other}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setOther(@javax.annotation.Nullable final DeleteSchemaPointerB other)
 	{
 		DeleteSchemaPointerA.other.set(this,other);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for deleteSchemaPointerA.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<DeleteSchemaPointerA> TYPE = com.exedio.cope.TypesBound.newType(DeleteSchemaPointerA.class);/**
+	static final com.exedio.cope.Type<DeleteSchemaPointerA> TYPE = com.exedio.cope.TypesBound.newType(DeleteSchemaPointerA.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

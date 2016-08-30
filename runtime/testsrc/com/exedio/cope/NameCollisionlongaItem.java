@@ -45,8 +45,6 @@ final class NameCollisionlongaItem extends Item
 		new IntegerField().optional();
 
 	/**
-
-	 **
 	 * Creates a new NameCollisionlongaItem with all the fields initially needed.
 	 * @param code the initial value for field {@link #code}.
 	 * @throws com.exedio.cope.MandatoryViolationException if code is null.
@@ -64,18 +62,18 @@ final class NameCollisionlongaItem extends Item
 		this(new com.exedio.cope.SetValue<?>[]{
 			NameCollisionlongaItem.code.map(code),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new NameCollisionlongaItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private NameCollisionlongaItem(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #code}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -83,9 +81,9 @@ final class NameCollisionlongaItem extends Item
 	final java.lang.String getCode()
 	{
 		return NameCollisionlongaItem.code.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #code}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -96,9 +94,9 @@ final class NameCollisionlongaItem extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		NameCollisionlongaItem.code.set(this,code);
-	}/**
+	}
 
-	 **
+	/**
 	 * Finds a nameCollisionlongaItem by it's {@link #code}.
 	 * @param code shall be equal to field {@link #code}.
 	 * @return null if there is no matching item.
@@ -108,9 +106,9 @@ final class NameCollisionlongaItem extends Item
 	static final NameCollisionlongaItem forCode(@javax.annotation.Nonnull final java.lang.String code)
 	{
 		return NameCollisionlongaItem.code.searchUnique(NameCollisionlongaItem.class,code);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #collisionloooooooooooooooooooooooooooooooooooooooooooooooongaNumber}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -118,18 +116,18 @@ final class NameCollisionlongaItem extends Item
 	final java.lang.Integer getCollisionloooooooooooooooooooooooooooooooooooooooooooooooongaNumber()
 	{
 		return NameCollisionlongaItem.collisionloooooooooooooooooooooooooooooooooooooooooooooooongaNumber.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #collisionloooooooooooooooooooooooooooooooooooooooooooooooongaNumber}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setCollisionloooooooooooooooooooooooooooooooooooooooooooooooongaNumber(@javax.annotation.Nullable final java.lang.Integer collisionloooooooooooooooooooooooooooooooooooooooooooooooongaNumber)
 	{
 		NameCollisionlongaItem.collisionloooooooooooooooooooooooooooooooooooooooooooooooongaNumber.set(this,collisionloooooooooooooooooooooooooooooooooooooooooooooooongaNumber);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #collisionloooooooooooooooooooooooooooooooooooooooooooooooongbNumber}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -137,29 +135,29 @@ final class NameCollisionlongaItem extends Item
 	final java.lang.Integer getCollisionloooooooooooooooooooooooooooooooooooooooooooooooongbNumber()
 	{
 		return NameCollisionlongaItem.collisionloooooooooooooooooooooooooooooooooooooooooooooooongbNumber.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #collisionloooooooooooooooooooooooooooooooooooooooooooooooongbNumber}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setCollisionloooooooooooooooooooooooooooooooooooooooooooooooongbNumber(@javax.annotation.Nullable final java.lang.Integer collisionloooooooooooooooooooooooooooooooooooooooooooooooongbNumber)
 	{
 		NameCollisionlongaItem.collisionloooooooooooooooooooooooooooooooooooooooooooooooongbNumber.set(this,collisionloooooooooooooooooooooooooooooooooooooooooooooooongbNumber);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for nameCollisionlongaItem.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<NameCollisionlongaItem> TYPE = com.exedio.cope.TypesBound.newType(NameCollisionlongaItem.class);/**
+	static final com.exedio.cope.Type<NameCollisionlongaItem> TYPE = com.exedio.cope.TypesBound.newType(NameCollisionlongaItem.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

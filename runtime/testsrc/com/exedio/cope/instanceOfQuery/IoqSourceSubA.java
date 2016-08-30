@@ -20,9 +20,9 @@ package com.exedio.cope.instanceOfQuery;
 
 final class IoqSourceSubA extends IoqSourceSuper
 {
-	/**
+	
 
-	 **
+	/**
 	 * Creates a new IoqSourceSubA with all the fields initially needed.
 	 * @param ref the initial value for field {@link #ref}.
 	 * @param code the initial value for field {@link #code}.
@@ -41,29 +41,29 @@ final class IoqSourceSubA extends IoqSourceSuper
 			com.exedio.cope.instanceOfQuery.IoqSourceSuper.ref.map(ref),
 			com.exedio.cope.instanceOfQuery.IoqSourceSuper.code.map(code),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new IoqSourceSubA and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private IoqSourceSubA(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for ioqSourceSubA.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<IoqSourceSubA> TYPE = com.exedio.cope.TypesBound.newType(IoqSourceSubA.class);/**
+	static final com.exedio.cope.Type<IoqSourceSubA> TYPE = com.exedio.cope.TypesBound.newType(IoqSourceSubA.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

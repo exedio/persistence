@@ -35,35 +35,33 @@ final class DeleteSchemaItemUnused extends Item
 
 
 	/**
-
-	 **
 	 * Creates a new DeleteSchemaItemUnused and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private DeleteSchemaItemUnused(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #code}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	final int getCode()
 	{
 		return DeleteSchemaItemUnused.code.getMandatory(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #code}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setCode(final int code)
 	{
 		DeleteSchemaItemUnused.code.set(this,code);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #unusedPointer}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -71,29 +69,29 @@ final class DeleteSchemaItemUnused extends Item
 	final DeleteSchemaItem getUnusedPointer()
 	{
 		return DeleteSchemaItemUnused.unusedPointer.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #unusedPointer}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setUnusedPointer(@javax.annotation.Nullable final DeleteSchemaItem unusedPointer)
 	{
 		DeleteSchemaItemUnused.unusedPointer.set(this,unusedPointer);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for deleteSchemaItemUnused.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<DeleteSchemaItemUnused> TYPE = com.exedio.cope.TypesBound.newType(DeleteSchemaItemUnused.class);/**
+	static final com.exedio.cope.Type<DeleteSchemaItemUnused> TYPE = com.exedio.cope.TypesBound.newType(DeleteSchemaItemUnused.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

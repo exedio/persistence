@@ -31,8 +31,6 @@ final class UniqueDoubleItem extends Item
 	static final UniqueConstraint constraint = new UniqueConstraint(string, integer);
 
 	/**
-
-	 **
 	 * Creates a new UniqueDoubleItem with all the fields initially needed.
 	 * @param string the initial value for field {@link #string}.
 	 * @param integer the initial value for field {@link #integer}.
@@ -53,18 +51,18 @@ final class UniqueDoubleItem extends Item
 			UniqueDoubleItem.string.map(string),
 			UniqueDoubleItem.integer.map(integer),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new UniqueDoubleItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private UniqueDoubleItem(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #string}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -72,9 +70,9 @@ final class UniqueDoubleItem extends Item
 	final java.lang.String getString()
 	{
 		return UniqueDoubleItem.string.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #string}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -85,18 +83,18 @@ final class UniqueDoubleItem extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		UniqueDoubleItem.string.set(this,string);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #integer}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	final int getInteger()
 	{
 		return UniqueDoubleItem.integer.getMandatory(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #integer}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -105,9 +103,9 @@ final class UniqueDoubleItem extends Item
 				com.exedio.cope.UniqueViolationException
 	{
 		UniqueDoubleItem.integer.set(this,integer);
-	}/**
+	}
 
-	 **
+	/**
 	 * Finds a uniqueDoubleItem by it's unique fields.
 	 * @param string shall be equal to field {@link #string}.
 	 * @param integer shall be equal to field {@link #integer}.
@@ -118,20 +116,20 @@ final class UniqueDoubleItem extends Item
 	static final UniqueDoubleItem forConstraint(@javax.annotation.Nonnull final java.lang.String string,final int integer)
 	{
 		return UniqueDoubleItem.constraint.search(UniqueDoubleItem.class,string,integer);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for uniqueDoubleItem.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<UniqueDoubleItem> TYPE = com.exedio.cope.TypesBound.newType(UniqueDoubleItem.class);/**
+	static final com.exedio.cope.Type<UniqueDoubleItem> TYPE = com.exedio.cope.TypesBound.newType(UniqueDoubleItem.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

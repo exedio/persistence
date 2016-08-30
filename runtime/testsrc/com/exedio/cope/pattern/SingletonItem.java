@@ -32,8 +32,6 @@ public final class SingletonItem extends Item
 
 
 	/**
-
-	 **
 	 * Creates a new SingletonItem with all the fields initially needed.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
@@ -41,18 +39,18 @@ public final class SingletonItem extends Item
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new SingletonItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private SingletonItem(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #integer}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -60,54 +58,54 @@ public final class SingletonItem extends Item
 	final java.lang.Integer getInteger()
 	{
 		return SingletonItem.integer.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #integer}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setInteger(@javax.annotation.Nullable final java.lang.Integer integer)
 	{
 		SingletonItem.integer.set(this,integer);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #integer55}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	final int getInteger55()
 	{
 		return SingletonItem.integer55.getMandatory(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #integer55}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setInteger55(final int integer55)
 	{
 		SingletonItem.integer55.set(this,integer55);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #booleanField}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	final boolean getBooleanField()
 	{
 		return SingletonItem.booleanField.getMandatory(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #booleanField}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setBooleanField(final boolean booleanField)
 	{
 		SingletonItem.booleanField.set(this,booleanField);
-	}/**
+	}
 
-	 **
+	/**
 	 * Gets the single instance of singletonItem.
 	 * Creates an instance, if none exists.
 	 * @return never returns null.
@@ -117,20 +115,20 @@ public final class SingletonItem extends Item
 	static final SingletonItem instance()
 	{
 		return SingletonItem.einzigartig.instance(SingletonItem.class);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for singletonItem.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<SingletonItem> TYPE = com.exedio.cope.TypesBound.newType(SingletonItem.class);/**
+	public static final com.exedio.cope.Type<SingletonItem> TYPE = com.exedio.cope.TypesBound.newType(SingletonItem.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

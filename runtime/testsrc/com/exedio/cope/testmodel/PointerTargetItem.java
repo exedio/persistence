@@ -30,8 +30,6 @@ public final class PointerTargetItem extends Item
 	public static final IntegerField num2 = new IntegerField().optional();
 
 	/**
-
-	 **
 	 * Creates a new PointerTargetItem with all the fields initially needed.
 	 * @param code the initial value for field {@link #code}.
 	 * @throws com.exedio.cope.MandatoryViolationException if code is null.
@@ -47,18 +45,18 @@ public final class PointerTargetItem extends Item
 		this(new com.exedio.cope.SetValue<?>[]{
 			PointerTargetItem.code.map(code),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new PointerTargetItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private PointerTargetItem(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #code}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -66,9 +64,9 @@ public final class PointerTargetItem extends Item
 	public final java.lang.String getCode()
 	{
 		return PointerTargetItem.code.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #code}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -78,9 +76,9 @@ public final class PointerTargetItem extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		PointerTargetItem.code.set(this,code);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #num1}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -88,18 +86,18 @@ public final class PointerTargetItem extends Item
 	public final java.lang.Integer getNum1()
 	{
 		return PointerTargetItem.num1.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #num1}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	public final void setNum1(@javax.annotation.Nullable final java.lang.Integer num1)
 	{
 		PointerTargetItem.num1.set(this,num1);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #num2}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -107,29 +105,29 @@ public final class PointerTargetItem extends Item
 	public final java.lang.Integer getNum2()
 	{
 		return PointerTargetItem.num2.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #num2}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	public final void setNum2(@javax.annotation.Nullable final java.lang.Integer num2)
 	{
 		PointerTargetItem.num2.set(this,num2);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for pointerTargetItem.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<PointerTargetItem> TYPE = com.exedio.cope.TypesBound.newType(PointerTargetItem.class);/**
+	public static final com.exedio.cope.Type<PointerTargetItem> TYPE = com.exedio.cope.TypesBound.newType(PointerTargetItem.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

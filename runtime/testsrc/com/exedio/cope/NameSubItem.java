@@ -36,8 +36,6 @@ public final class NameSubItem extends NameLongItem
 	static final UniqueConstraint integersX = new UniqueConstraint(integerX, itemX);
 
 	/**
-
-	 **
 	 * Creates a new NameSubItem with all the fields initially needed.
 	 * @param code the initial value for field {@link #code}.
 	 * @param unique the initial value for field {@link #unique}.
@@ -73,27 +71,27 @@ public final class NameSubItem extends NameLongItem
 			NameSubItem.integerX.map(integerX),
 			NameSubItem.itemX.map(itemX),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new NameSubItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private NameSubItem(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #unique}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	final int getUnique()
 	{
 		return NameSubItem.unique.getMandatory(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #unique}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -102,9 +100,9 @@ public final class NameSubItem extends NameLongItem
 				com.exedio.cope.UniqueViolationException
 	{
 		NameSubItem.unique.set(this,unique);
-	}/**
+	}
 
-	 **
+	/**
 	 * Finds a nameSubItem by it's {@link #unique}.
 	 * @param unique shall be equal to field {@link #unique}.
 	 * @return null if there is no matching item.
@@ -114,18 +112,18 @@ public final class NameSubItem extends NameLongItem
 	static final NameSubItem forUnique(final int unique)
 	{
 		return NameSubItem.unique.searchUnique(NameSubItem.class,unique);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #integer}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	final int getInteger()
 	{
 		return NameSubItem.integer.getMandatory(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #integer}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -134,9 +132,9 @@ public final class NameSubItem extends NameLongItem
 				com.exedio.cope.UniqueViolationException
 	{
 		NameSubItem.integer.set(this,integer);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #item}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -144,9 +142,9 @@ public final class NameSubItem extends NameLongItem
 	final NameSubItem getItem()
 	{
 		return NameSubItem.item.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #item}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -156,9 +154,9 @@ public final class NameSubItem extends NameLongItem
 				com.exedio.cope.UniqueViolationException
 	{
 		NameSubItem.item.set(this,item);
-	}/**
+	}
 
-	 **
+	/**
 	 * Finds a nameSubItem by it's unique fields.
 	 * @param integer shall be equal to field {@link #integer}.
 	 * @param item shall be equal to field {@link #item}.
@@ -169,18 +167,18 @@ public final class NameSubItem extends NameLongItem
 	static final NameSubItem forIntegers(final int integer,@javax.annotation.Nonnull final NameSubItem item)
 	{
 		return NameSubItem.integers.search(NameSubItem.class,integer,item);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #uniqueX}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	final int getUniqueX()
 	{
 		return NameSubItem.uniqueX.getMandatory(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #uniqueX}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -189,9 +187,9 @@ public final class NameSubItem extends NameLongItem
 				com.exedio.cope.UniqueViolationException
 	{
 		NameSubItem.uniqueX.set(this,uniqueX);
-	}/**
+	}
 
-	 **
+	/**
 	 * Finds a nameSubItem by it's {@link #uniqueX}.
 	 * @param uniqueX shall be equal to field {@link #uniqueX}.
 	 * @return null if there is no matching item.
@@ -201,18 +199,18 @@ public final class NameSubItem extends NameLongItem
 	static final NameSubItem forUniqueX(final int uniqueX)
 	{
 		return NameSubItem.uniqueX.searchUnique(NameSubItem.class,uniqueX);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #integerX}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	final int getIntegerX()
 	{
 		return NameSubItem.integerX.getMandatory(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #integerX}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -221,9 +219,9 @@ public final class NameSubItem extends NameLongItem
 				com.exedio.cope.UniqueViolationException
 	{
 		NameSubItem.integerX.set(this,integerX);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #itemX}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -231,9 +229,9 @@ public final class NameSubItem extends NameLongItem
 	final NameSubItem getItemX()
 	{
 		return NameSubItem.itemX.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #itemX}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -243,9 +241,9 @@ public final class NameSubItem extends NameLongItem
 				com.exedio.cope.UniqueViolationException
 	{
 		NameSubItem.itemX.set(this,itemX);
-	}/**
+	}
 
-	 **
+	/**
 	 * Finds a nameSubItem by it's unique fields.
 	 * @param integerX shall be equal to field {@link #integerX}.
 	 * @param itemX shall be equal to field {@link #itemX}.
@@ -256,20 +254,20 @@ public final class NameSubItem extends NameLongItem
 	static final NameSubItem forIntegersX(final int integerX,@javax.annotation.Nonnull final NameSubItem itemX)
 	{
 		return NameSubItem.integersX.search(NameSubItem.class,integerX,itemX);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for nameSubItem.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<NameSubItem> TYPE = com.exedio.cope.TypesBound.newType(NameSubItem.class);/**
+	public static final com.exedio.cope.Type<NameSubItem> TYPE = com.exedio.cope.TypesBound.newType(NameSubItem.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

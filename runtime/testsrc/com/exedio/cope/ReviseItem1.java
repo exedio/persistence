@@ -24,8 +24,6 @@ final class ReviseItem1 extends Item
 	static final StringField field5 = new StringField();
 
 	/**
-
-	 **
 	 * Creates a new ReviseItem1 with all the fields initially needed.
 	 * @param field5 the initial value for field {@link #field5}.
 	 * @throws com.exedio.cope.MandatoryViolationException if field5 is null.
@@ -41,18 +39,18 @@ final class ReviseItem1 extends Item
 		this(new com.exedio.cope.SetValue<?>[]{
 			ReviseItem1.field5.map(field5),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new ReviseItem1 and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private ReviseItem1(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #field5}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -60,9 +58,9 @@ final class ReviseItem1 extends Item
 	final java.lang.String getField5()
 	{
 		return ReviseItem1.field5.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #field5}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -72,20 +70,20 @@ final class ReviseItem1 extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		ReviseItem1.field5.set(this,field5);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for reviseItem1.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<ReviseItem1> TYPE = com.exedio.cope.TypesBound.newType(ReviseItem1.class);/**
+	static final com.exedio.cope.Type<ReviseItem1> TYPE = com.exedio.cope.TypesBound.newType(ReviseItem1.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

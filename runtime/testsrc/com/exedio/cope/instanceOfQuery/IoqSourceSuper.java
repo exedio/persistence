@@ -35,8 +35,6 @@ class IoqSourceSuper extends Item
 	}
 
 	/**
-
-	 **
 	 * Creates a new IoqSourceSuper with all the fields initially needed.
 	 * @param ref the initial value for field {@link #ref}.
 	 * @param code the initial value for field {@link #code}.
@@ -55,18 +53,18 @@ class IoqSourceSuper extends Item
 			IoqSourceSuper.ref.map(ref),
 			IoqSourceSuper.code.map(code),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new IoqSourceSuper and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	protected IoqSourceSuper(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #ref}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -74,9 +72,9 @@ class IoqSourceSuper extends Item
 	final IoqTargetSuper getRef()
 	{
 		return IoqSourceSuper.ref.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #ref}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -85,9 +83,9 @@ class IoqSourceSuper extends Item
 				com.exedio.cope.MandatoryViolationException
 	{
 		IoqSourceSuper.ref.set(this,ref);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #code}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -95,20 +93,20 @@ class IoqSourceSuper extends Item
 	final java.lang.String getCode()
 	{
 		return IoqSourceSuper.code.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for ioqSourceSuper.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<IoqSourceSuper> TYPE = com.exedio.cope.TypesBound.newType(IoqSourceSuper.class);/**
+	static final com.exedio.cope.Type<IoqSourceSuper> TYPE = com.exedio.cope.TypesBound.newType(IoqSourceSuper.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

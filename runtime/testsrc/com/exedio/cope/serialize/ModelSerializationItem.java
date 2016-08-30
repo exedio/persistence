@@ -31,8 +31,6 @@ final class ModelSerializationItem extends Item
 
 
 	/**
-
-	 **
 	 * Creates a new ModelSerializationItem with all the fields initially needed.
 	 * @param name the initial value for field {@link #name}.
 	 * @throws com.exedio.cope.StringLengthViolationException if name violates its length constraint.
@@ -46,18 +44,18 @@ final class ModelSerializationItem extends Item
 		this(new com.exedio.cope.SetValue<?>[]{
 			ModelSerializationItem.name.map(name),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new ModelSerializationItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private ModelSerializationItem(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #name}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -65,9 +63,9 @@ final class ModelSerializationItem extends Item
 	final java.lang.String getName()
 	{
 		return ModelSerializationItem.name.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #name}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -76,9 +74,9 @@ final class ModelSerializationItem extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		ModelSerializationItem.name.set(this,name);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #list}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -86,9 +84,9 @@ final class ModelSerializationItem extends Item
 	final java.util.List<String> getList()
 	{
 		return ModelSerializationItem.list.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns a query for the value of {@link #list}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getQuery")
@@ -96,9 +94,9 @@ final class ModelSerializationItem extends Item
 	final com.exedio.cope.Query<String> getListQuery()
 	{
 		return ModelSerializationItem.list.getQuery(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the items, for which field list {@link #list} contains the given element.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getDistinctParentsOf")
@@ -106,9 +104,9 @@ final class ModelSerializationItem extends Item
 	static final java.util.List<ModelSerializationItem> getDistinctParentsOfList(final String element)
 	{
 		return ModelSerializationItem.list.getDistinctParents(ModelSerializationItem.class,element);
-	}/**
+	}
 
-	 **
+	/**
 	 * Adds a new value for {@link #list}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="addTo")
@@ -119,9 +117,9 @@ final class ModelSerializationItem extends Item
 				java.lang.ClassCastException
 	{
 		ModelSerializationItem.list.add(this,list);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #list}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -132,9 +130,9 @@ final class ModelSerializationItem extends Item
 				java.lang.ClassCastException
 	{
 		ModelSerializationItem.list.set(this,list);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the parent field of the type of {@link #list}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="Parent")
@@ -142,20 +140,20 @@ final class ModelSerializationItem extends Item
 	static final com.exedio.cope.ItemField<ModelSerializationItem> listParent()
 	{
 		return ModelSerializationItem.list.getParent(ModelSerializationItem.class);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for modelSerializationItem.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<ModelSerializationItem> TYPE = com.exedio.cope.TypesBound.newType(ModelSerializationItem.class);/**
+	static final com.exedio.cope.Type<ModelSerializationItem> TYPE = com.exedio.cope.TypesBound.newType(ModelSerializationItem.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

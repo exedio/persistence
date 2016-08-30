@@ -32,8 +32,6 @@ final class MatchItem extends Item
 	}
 
 	/**
-
-	 **
 	 * Creates a new MatchItem with all the fields initially needed.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
@@ -41,18 +39,18 @@ final class MatchItem extends Item
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new MatchItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private MatchItem(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #text}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -60,9 +58,9 @@ final class MatchItem extends Item
 	final java.lang.String getText()
 	{
 		return MatchItem.text.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #text}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -71,20 +69,20 @@ final class MatchItem extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		MatchItem.text.set(this,text);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for matchItem.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<MatchItem> TYPE = com.exedio.cope.TypesBound.newType(MatchItem.class);/**
+	static final com.exedio.cope.Type<MatchItem> TYPE = com.exedio.cope.TypesBound.newType(MatchItem.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

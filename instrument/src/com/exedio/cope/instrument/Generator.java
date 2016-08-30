@@ -116,7 +116,7 @@ final class Generator
 		this.parenthesesOnEmptyMemberAnnotations = params.parenthesesOnEmptyMemberAnnotations;
 		this.deprecatedFullyQualified = params.deprecatedFullyQualified;
 		this.overrideOnSeparateLine = params.overrideOnSeparateLine;
-		this.hintFormat = params.customizationHintsForTags;
+		this.hintFormat = params.hintFormat;
 	}
 
 	private static final String toCamelCase(final String name)
@@ -171,10 +171,15 @@ final class Generator
 				commentLines.add(" *       "+extraCommentForTags);
 			}
 		}
-
+		if (hintFormat==HintFormat.forAnnotations)
+		{
+			write(lineSeparator);
+			write(lineSeparator);
+			writeIndent();
+		}
 		write("/**");
 		write(lineSeparator);
-		if(longJavadoc)
+		if(longJavadoc && hintFormat==HintFormat.forTags)
 		{
 			write(lineSeparator);
 			writeIndent();

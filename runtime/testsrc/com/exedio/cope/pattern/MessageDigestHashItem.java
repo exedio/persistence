@@ -61,8 +61,6 @@ public final class MessageDigestHashItem extends Item
 	}
 
 	/**
-
-	 **
 	 * Creates a new MessageDigestHashItem with all the fields initially needed.
 	 * @param passwordFinal the initial value for field {@link #passwordFinal}.
 	 * @param passwordMandatory the initial value for field {@link #passwordMandatory}.
@@ -79,27 +77,27 @@ public final class MessageDigestHashItem extends Item
 			MessageDigestHashItem.passwordFinal.map(passwordFinal),
 			MessageDigestHashItem.passwordMandatory.map(passwordMandatory),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new MessageDigestHashItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private MessageDigestHashItem(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns whether the given value corresponds to the hash in {@link #password}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="check")
 	final boolean checkPassword(@javax.annotation.Nullable final java.lang.String password)
 	{
 		return MessageDigestHashItem.password.check(this,password);
-	}/**
+	}
 
-	 **
+	/**
 	 * Wastes (almost) as much cpu cycles, as a call to <tt>checkPassword</tt> would have needed.
 	 * Needed to prevent Timing Attacks.
 	 */
@@ -107,9 +105,9 @@ public final class MessageDigestHashItem extends Item
 	static final void blindPassword(@javax.annotation.Nullable final java.lang.String password)
 	{
 		MessageDigestHashItem.password.blind(password);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the encoded hash value for hash {@link #password}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getSHA512s8i5")
@@ -117,27 +115,27 @@ public final class MessageDigestHashItem extends Item
 	final java.lang.String getPasswordSHA512s8i5()
 	{
 		return MessageDigestHashItem.password.getHash(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets the encoded hash value for hash {@link #password}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setSHA512s8i5")
 	final void setPasswordSHA512s8i5(@javax.annotation.Nullable final java.lang.String password)
 	{
 		MessageDigestHashItem.password.setHash(this,password);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns whether the given value corresponds to the hash in {@link #passwordLatin}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="check")
 	final boolean checkPasswordLatin(@javax.annotation.Nullable final java.lang.String passwordLatin)
 	{
 		return MessageDigestHashItem.passwordLatin.check(this,passwordLatin);
-	}/**
+	}
 
-	 **
+	/**
 	 * Wastes (almost) as much cpu cycles, as a call to <tt>checkPasswordLatin</tt> would have needed.
 	 * Needed to prevent Timing Attacks.
 	 */
@@ -145,9 +143,9 @@ public final class MessageDigestHashItem extends Item
 	static final void blindPasswordLatin(@javax.annotation.Nullable final java.lang.String passwordLatin)
 	{
 		MessageDigestHashItem.passwordLatin.blind(passwordLatin);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the encoded hash value for hash {@link #passwordLatin}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getSHA512s8i5")
@@ -155,27 +153,27 @@ public final class MessageDigestHashItem extends Item
 	final java.lang.String getPasswordLatinSHA512s8i5()
 	{
 		return MessageDigestHashItem.passwordLatin.getHash(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets the encoded hash value for hash {@link #passwordLatin}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setSHA512s8i5")
 	final void setPasswordLatinSHA512s8i5(@javax.annotation.Nullable final java.lang.String passwordLatin)
 	{
 		MessageDigestHashItem.passwordLatin.setHash(this,passwordLatin);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns whether the given value corresponds to the hash in {@link #passwordFinal}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="check")
 	final boolean checkPasswordFinal(@javax.annotation.Nullable final java.lang.String passwordFinal)
 	{
 		return MessageDigestHashItem.passwordFinal.check(this,passwordFinal);
-	}/**
+	}
 
-	 **
+	/**
 	 * Wastes (almost) as much cpu cycles, as a call to <tt>checkPasswordFinal</tt> would have needed.
 	 * Needed to prevent Timing Attacks.
 	 */
@@ -183,9 +181,9 @@ public final class MessageDigestHashItem extends Item
 	static final void blindPasswordFinal(@javax.annotation.Nullable final java.lang.String passwordFinal)
 	{
 		MessageDigestHashItem.passwordFinal.blind(passwordFinal);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the encoded hash value for hash {@link #passwordFinal}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getSHA512s8i5")
@@ -193,18 +191,18 @@ public final class MessageDigestHashItem extends Item
 	final java.lang.String getPasswordFinalSHA512s8i5()
 	{
 		return MessageDigestHashItem.passwordFinal.getHash(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns whether the given value corresponds to the hash in {@link #passwordMandatory}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="check")
 	final boolean checkPasswordMandatory(@javax.annotation.Nullable final java.lang.String passwordMandatory)
 	{
 		return MessageDigestHashItem.passwordMandatory.check(this,passwordMandatory);
-	}/**
+	}
 
-	 **
+	/**
 	 * Wastes (almost) as much cpu cycles, as a call to <tt>checkPasswordMandatory</tt> would have needed.
 	 * Needed to prevent Timing Attacks.
 	 */
@@ -212,9 +210,9 @@ public final class MessageDigestHashItem extends Item
 	static final void blindPasswordMandatory(@javax.annotation.Nullable final java.lang.String passwordMandatory)
 	{
 		MessageDigestHashItem.passwordMandatory.blind(passwordMandatory);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the encoded hash value for hash {@link #passwordMandatory}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getSHA512s8i5")
@@ -222,9 +220,9 @@ public final class MessageDigestHashItem extends Item
 	final java.lang.String getPasswordMandatorySHA512s8i5()
 	{
 		return MessageDigestHashItem.passwordMandatory.getHash(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets the encoded hash value for hash {@link #passwordMandatory}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setSHA512s8i5")
@@ -233,20 +231,20 @@ public final class MessageDigestHashItem extends Item
 				com.exedio.cope.MandatoryViolationException
 	{
 		MessageDigestHashItem.passwordMandatory.setHash(this,passwordMandatory);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for messageDigestHashItem.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<MessageDigestHashItem> TYPE = com.exedio.cope.TypesBound.newType(MessageDigestHashItem.class);/**
+	public static final com.exedio.cope.Type<MessageDigestHashItem> TYPE = com.exedio.cope.TypesBound.newType(MessageDigestHashItem.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

@@ -20,9 +20,9 @@ package com.exedio.cope.instanceOfQuery;
 
 final class IoqTargetSub extends IoqTargetSuper
 {
-	/**
+	
 
-	 **
+	/**
 	 * Creates a new IoqTargetSub with all the fields initially needed.
 	 * @param code the initial value for field {@link #code}.
 	 * @throws com.exedio.cope.MandatoryViolationException if code is null.
@@ -38,29 +38,29 @@ final class IoqTargetSub extends IoqTargetSuper
 		this(new com.exedio.cope.SetValue<?>[]{
 			com.exedio.cope.instanceOfQuery.IoqTargetSuper.code.map(code),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new IoqTargetSub and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private IoqTargetSub(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for ioqTargetSub.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<IoqTargetSub> TYPE = com.exedio.cope.TypesBound.newType(IoqTargetSub.class);/**
+	static final com.exedio.cope.Type<IoqTargetSub> TYPE = com.exedio.cope.TypesBound.newType(IoqTargetSub.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

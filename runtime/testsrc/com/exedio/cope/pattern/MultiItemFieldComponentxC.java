@@ -29,8 +29,6 @@ public class MultiItemFieldComponentxC extends Item implements MultiItemFieldVal
 
 
 	/**
-
-	 **
 	 * Creates a new MultiItemFieldComponentxC with all the fields initially needed.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
@@ -38,18 +36,18 @@ public class MultiItemFieldComponentxC extends Item implements MultiItemFieldVal
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new MultiItemFieldComponentxC and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	protected MultiItemFieldComponentxC(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #value}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -58,9 +56,9 @@ public class MultiItemFieldComponentxC extends Item implements MultiItemFieldVal
 	public final java.lang.String getValue()
 	{
 		return MultiItemFieldComponentxC.value.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #value}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -70,20 +68,20 @@ public class MultiItemFieldComponentxC extends Item implements MultiItemFieldVal
 				com.exedio.cope.StringLengthViolationException
 	{
 		MultiItemFieldComponentxC.value.set(this,value);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for multiItemFieldComponentxC.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<MultiItemFieldComponentxC> TYPE = com.exedio.cope.TypesBound.newType(MultiItemFieldComponentxC.class);/**
+	public static final com.exedio.cope.Type<MultiItemFieldComponentxC> TYPE = com.exedio.cope.TypesBound.newType(MultiItemFieldComponentxC.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

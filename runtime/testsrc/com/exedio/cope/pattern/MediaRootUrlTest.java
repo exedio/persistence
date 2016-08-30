@@ -130,8 +130,6 @@ public class MediaRootUrlTest
 		}
 
 	/**
-
-	 **
 	 * Creates a new AnItem with all the fields initially needed.
 	 * @param file the initial value for field {@link #file}.
 	 */
@@ -142,18 +140,18 @@ public class MediaRootUrlTest
 		this(new com.exedio.cope.SetValue<?>[]{
 			AnItem.file.map(file),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new AnItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	protected AnItem(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns a URL the content of {@link #file} is available under.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getURL")
@@ -161,9 +159,9 @@ public class MediaRootUrlTest
 	final java.lang.String getFileURL()
 	{
 		return AnItem.file.getURL(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns a Locator the content of {@link #file} is available under.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLocator")
@@ -171,9 +169,9 @@ public class MediaRootUrlTest
 	final com.exedio.cope.pattern.MediaPath.Locator getFileLocator()
 	{
 		return AnItem.file.getLocator(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the content type of the media {@link #file}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getContentType")
@@ -181,18 +179,18 @@ public class MediaRootUrlTest
 	final java.lang.String getFileContentType()
 	{
 		return AnItem.file.getContentType(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns whether media {@link #file} is null.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="isNull")
 	final boolean isFileNull()
 	{
 		return AnItem.file.isNull(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the last modification date of media {@link #file}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLastModified")
@@ -200,18 +198,18 @@ public class MediaRootUrlTest
 	final java.util.Date getFileLastModified()
 	{
 		return AnItem.file.getLastModified(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the body length of the media {@link #file}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLength")
 	final long getFileLength()
 	{
 		return AnItem.file.getLength(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the body of the media {@link #file}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
@@ -219,9 +217,9 @@ public class MediaRootUrlTest
 	final byte[] getFileBody()
 	{
 		return AnItem.file.getBody(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Writes the body of media {@link #file} into the given stream.
 	 * Does nothing, if the media is null.
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
@@ -232,9 +230,9 @@ public class MediaRootUrlTest
 				java.io.IOException
 	{
 		AnItem.file.getBody(this,body);
-	}/**
+	}
 
-	 **
+	/**
 	 * Writes the body of media {@link #file} into the given file.
 	 * Does nothing, if the media is null.
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
@@ -245,9 +243,9 @@ public class MediaRootUrlTest
 				java.io.IOException
 	{
 		AnItem.file.getBody(this,body);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets the content of media {@link #file}.
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
 	 */
@@ -257,18 +255,18 @@ public class MediaRootUrlTest
 				java.io.IOException
 	{
 		AnItem.file.set(this,file);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets the content of media {@link #file}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setFile(@javax.annotation.Nullable final byte[] body,@javax.annotation.Nullable final java.lang.String contentType)
 	{
 		AnItem.file.set(this,body,contentType);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets the content of media {@link #file}.
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
 	 */
@@ -278,9 +276,9 @@ public class MediaRootUrlTest
 				java.io.IOException
 	{
 		AnItem.file.set(this,body,contentType);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets the content of media {@link #file}.
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
 	 */
@@ -290,20 +288,20 @@ public class MediaRootUrlTest
 				java.io.IOException
 	{
 		AnItem.file.set(this,body,contentType);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for anItem.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<AnItem> TYPE = com.exedio.cope.TypesBound.newType(AnItem.class);/**
+	static final com.exedio.cope.Type<AnItem> TYPE = com.exedio.cope.TypesBound.newType(AnItem.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

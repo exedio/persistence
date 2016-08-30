@@ -25,8 +25,6 @@ final class ConnectItem2 extends ConnectItem
 	static final StringField stringField2 = new StringField().optional();
 
 	/**
-
-	 **
 	 * Creates a new ConnectItem2 with all the fields initially needed.
 	 * @param itemField the initial value for field {@link #itemField}.
 	 * @param itemFieldSelf the initial value for field {@link #itemFieldSelf}.
@@ -48,18 +46,18 @@ final class ConnectItem2 extends ConnectItem
 			com.exedio.cope.ConnectItem.itemFieldSelf.map(itemFieldSelf),
 			com.exedio.cope.ConnectItem.stringField.map(stringField),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new ConnectItem2 and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private ConnectItem2(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #itemField2}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -67,18 +65,18 @@ final class ConnectItem2 extends ConnectItem
 	final ConnectItem getItemField2()
 	{
 		return ConnectItem2.itemField2.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #itemField2}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setItemField2(@javax.annotation.Nullable final ConnectItem itemField2)
 	{
 		ConnectItem2.itemField2.set(this,itemField2);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #itemFieldSelf2}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -86,18 +84,18 @@ final class ConnectItem2 extends ConnectItem
 	final ConnectItem2 getItemFieldSelf2()
 	{
 		return ConnectItem2.itemFieldSelf2.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #itemFieldSelf2}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setItemFieldSelf2(@javax.annotation.Nullable final ConnectItem2 itemFieldSelf2)
 	{
 		ConnectItem2.itemFieldSelf2.set(this,itemFieldSelf2);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #stringField2}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -105,9 +103,9 @@ final class ConnectItem2 extends ConnectItem
 	final java.lang.String getStringField2()
 	{
 		return ConnectItem2.stringField2.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #stringField2}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -116,20 +114,20 @@ final class ConnectItem2 extends ConnectItem
 				com.exedio.cope.StringLengthViolationException
 	{
 		ConnectItem2.stringField2.set(this,stringField2);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for connectItem2.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<ConnectItem2> TYPE = com.exedio.cope.TypesBound.newType(ConnectItem2.class);/**
+	static final com.exedio.cope.Type<ConnectItem2> TYPE = com.exedio.cope.TypesBound.newType(ConnectItem2.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

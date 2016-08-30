@@ -28,8 +28,6 @@ final class AsStringItem extends Item
 
 
 	/**
-
-	 **
 	 * Creates a new AsStringItem with all the fields initially needed.
 	 * @param intx the initial value for field {@link #intx}.
 	 * @param longx the initial value for field {@link #longx}.
@@ -46,18 +44,18 @@ final class AsStringItem extends Item
 			AsStringItem.longx.map(longx),
 			AsStringItem.doublex.map(doublex),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new AsStringItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private AsStringItem(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #intx}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -65,18 +63,18 @@ final class AsStringItem extends Item
 	final java.lang.Integer getIntx()
 	{
 		return AsStringItem.intx.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #intx}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setIntx(@javax.annotation.Nullable final java.lang.Integer intx)
 	{
 		AsStringItem.intx.set(this,intx);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #longx}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -84,18 +82,18 @@ final class AsStringItem extends Item
 	final java.lang.Long getLongx()
 	{
 		return AsStringItem.longx.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #longx}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setLongx(@javax.annotation.Nullable final java.lang.Long longx)
 	{
 		AsStringItem.longx.set(this,longx);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #doublex}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -103,29 +101,29 @@ final class AsStringItem extends Item
 	final java.lang.Double getDoublex()
 	{
 		return AsStringItem.doublex.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #doublex}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setDoublex(@javax.annotation.Nullable final java.lang.Double doublex)
 	{
 		AsStringItem.doublex.set(this,doublex);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for asStringItem.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<AsStringItem> TYPE = com.exedio.cope.TypesBound.newType(AsStringItem.class);/**
+	static final com.exedio.cope.Type<AsStringItem> TYPE = com.exedio.cope.TypesBound.newType(AsStringItem.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

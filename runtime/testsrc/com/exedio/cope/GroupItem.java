@@ -24,9 +24,7 @@ final class GroupItem extends Item
 	static final IntegerField number = new IntegerField();
 	static final DoubleField optionalDouble = new DoubleField().optional();
 
-/**
-
-	 **
+	/**
 	 * Creates a new GroupItem with all the fields initially needed.
 	 * @param day the initial value for field {@link #day}.
 	 * @param number the initial value for field {@link #number}.
@@ -43,18 +41,18 @@ final class GroupItem extends Item
 			GroupItem.day.map(day),
 			GroupItem.number.map(number),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new GroupItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private GroupItem(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #day}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -62,9 +60,9 @@ final class GroupItem extends Item
 	final com.exedio.cope.util.Day getDay()
 	{
 		return GroupItem.day.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #day}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -73,36 +71,36 @@ final class GroupItem extends Item
 				com.exedio.cope.MandatoryViolationException
 	{
 		GroupItem.day.set(this,day);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets today for the date field {@link #day}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="touch")
 	final void touchDay(@javax.annotation.Nonnull final java.util.TimeZone zone)
 	{
 		GroupItem.day.touch(this,zone);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #number}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	final int getNumber()
 	{
 		return GroupItem.number.getMandatory(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #number}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setNumber(final int number)
 	{
 		GroupItem.number.set(this,number);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #optionalDouble}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -110,29 +108,29 @@ final class GroupItem extends Item
 	final java.lang.Double getOptionalDouble()
 	{
 		return GroupItem.optionalDouble.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #optionalDouble}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setOptionalDouble(@javax.annotation.Nullable final java.lang.Double optionalDouble)
 	{
 		GroupItem.optionalDouble.set(this,optionalDouble);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for groupItem.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<GroupItem> TYPE = com.exedio.cope.TypesBound.newType(GroupItem.class);/**
+	static final com.exedio.cope.Type<GroupItem> TYPE = com.exedio.cope.TypesBound.newType(GroupItem.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

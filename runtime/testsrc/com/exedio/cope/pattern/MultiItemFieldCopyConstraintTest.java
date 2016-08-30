@@ -187,8 +187,6 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 
 
 	/**
-
-	 **
 	 * Creates a new DoubleCopyConstraintItem with all the fields initially needed.
 	 * @param value the initial value for field {@link #value}.
 	 * @param template the initial value for field {@link #template}.
@@ -207,18 +205,18 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 			DoubleCopyConstraintItem.value.map(value),
 			DoubleCopyConstraintItem.template.map(template),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new DoubleCopyConstraintItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private DoubleCopyConstraintItem(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #value}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -226,9 +224,9 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 	final java.lang.String getValue()
 	{
 		return DoubleCopyConstraintItem.value.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #template}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -236,20 +234,20 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 	final java.lang.String getTemplate()
 	{
 		return DoubleCopyConstraintItem.template.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for doubleCopyConstraintItem.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<DoubleCopyConstraintItem> TYPE = com.exedio.cope.TypesBound.newType(DoubleCopyConstraintItem.class);/**
+	static final com.exedio.cope.Type<DoubleCopyConstraintItem> TYPE = com.exedio.cope.TypesBound.newType(DoubleCopyConstraintItem.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
@@ -274,8 +272,6 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 
 
 	/**
-
-	 **
 	 * Creates a new AllCopyConstraintItem with all the fields initially needed.
 	 * @param value the initial value for field {@link #value}.
 	 * @throws com.exedio.cope.MandatoryViolationException if value is null.
@@ -291,18 +287,18 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 		this(new com.exedio.cope.SetValue<?>[]{
 			AllCopyConstraintItem.value.map(value),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new AllCopyConstraintItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private AllCopyConstraintItem(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #value}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -310,20 +306,20 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 	final java.lang.String getValue()
 	{
 		return AllCopyConstraintItem.value.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for allCopyConstraintItem.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<AllCopyConstraintItem> TYPE = com.exedio.cope.TypesBound.newType(AllCopyConstraintItem.class);/**
+	static final com.exedio.cope.Type<AllCopyConstraintItem> TYPE = com.exedio.cope.TypesBound.newType(AllCopyConstraintItem.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
@@ -348,8 +344,6 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 
 
 	/**
-
-	 **
 	 * Creates a new PartialCopyConstraintItem with all the fields initially needed.
 	 * @param value the initial value for field {@link #value}.
 	 * @throws com.exedio.cope.MandatoryViolationException if value is null.
@@ -365,18 +359,18 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 		this(new com.exedio.cope.SetValue<?>[]{
 			PartialCopyConstraintItem.value.map(value),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new PartialCopyConstraintItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private PartialCopyConstraintItem(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #value}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -384,20 +378,20 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 	final java.lang.String getValue()
 	{
 		return PartialCopyConstraintItem.value.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for partialCopyConstraintItem.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<PartialCopyConstraintItem> TYPE = com.exedio.cope.TypesBound.newType(PartialCopyConstraintItem.class);/**
+	static final com.exedio.cope.Type<PartialCopyConstraintItem> TYPE = com.exedio.cope.TypesBound.newType(PartialCopyConstraintItem.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
@@ -413,8 +407,6 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 
 
 	/**
-
-	 **
 	 * Creates a new A with all the fields initially needed.
 	 * @param value the initial value for field {@link #value}.
 	 * @throws com.exedio.cope.MandatoryViolationException if value is null.
@@ -430,18 +422,18 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 		this(new com.exedio.cope.SetValue<?>[]{
 			A.value.map(value),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new A and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private A(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #value}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -450,20 +442,20 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 	public final java.lang.String getValue()
 	{
 		return A.value.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for a.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<A> TYPE = com.exedio.cope.TypesBound.newType(A.class);/**
+	static final com.exedio.cope.Type<A> TYPE = com.exedio.cope.TypesBound.newType(A.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
@@ -479,8 +471,6 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 
 
 	/**
-
-	 **
 	 * Creates a new B with all the fields initially needed.
 	 * @param value the initial value for field {@link #value}.
 	 * @throws com.exedio.cope.MandatoryViolationException if value is null.
@@ -496,18 +486,18 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 		this(new com.exedio.cope.SetValue<?>[]{
 			B.value.map(value),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new B and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private B(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #value}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -516,20 +506,20 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 	public final java.lang.String getValue()
 	{
 		return B.value.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for b.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<B> TYPE = com.exedio.cope.TypesBound.newType(B.class);/**
+	static final com.exedio.cope.Type<B> TYPE = com.exedio.cope.TypesBound.newType(B.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
@@ -546,8 +536,6 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 
 
 	/**
-
-	 **
 	 * Creates a new C with all the fields initially needed.
 	 * @param value the initial value for field {@link #value}.
 	 * @param template the initial value for field {@link #template}.
@@ -566,18 +554,18 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 			C.value.map(value),
 			C.template.map(template),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new C and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private C(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #value}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -586,9 +574,9 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 	public final java.lang.String getValue()
 	{
 		return C.value.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #template}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -596,20 +584,20 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 	public final java.lang.String getTemplate()
 	{
 		return C.template.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for c.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<C> TYPE = com.exedio.cope.TypesBound.newType(C.class);/**
+	static final com.exedio.cope.Type<C> TYPE = com.exedio.cope.TypesBound.newType(C.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

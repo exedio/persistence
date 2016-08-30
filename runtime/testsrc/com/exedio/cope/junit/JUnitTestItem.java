@@ -30,8 +30,6 @@ final class JUnitTestItem extends Item
 
 
 	/**
-
-	 **
 	 * Creates a new JUnitTestItem with all the fields initially needed.
 	 * @param code the initial value for field {@link #code}.
 	 */
@@ -42,54 +40,54 @@ final class JUnitTestItem extends Item
 		this(new com.exedio.cope.SetValue<?>[]{
 			JUnitTestItem.code.map(code),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new JUnitTestItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private JUnitTestItem(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #code}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	final int getCode()
 	{
 		return JUnitTestItem.code.getMandatory(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #code}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setCode(final int code)
 	{
 		JUnitTestItem.code.set(this,code);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #next}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	final int getNext()
 	{
 		return JUnitTestItem.next.getMandatory(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #next}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setNext(final int next)
 	{
 		JUnitTestItem.next.set(this,next);
-	}/**
+	}
 
-	 **
+	/**
 	 * Generates a new sequence number.
 	 * The result is not managed by a {@link com.exedio.cope.Transaction}.
 	 */
@@ -97,20 +95,20 @@ final class JUnitTestItem extends Item
 	static final int nextSequence()
 	{
 		return JUnitTestItem.sequence.next();
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for jUnitTestItem.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<JUnitTestItem> TYPE = com.exedio.cope.TypesBound.newType(JUnitTestItem.class);/**
+	static final com.exedio.cope.Type<JUnitTestItem> TYPE = com.exedio.cope.TypesBound.newType(JUnitTestItem.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

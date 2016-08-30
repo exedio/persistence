@@ -43,8 +43,6 @@ public final class DivideDoubleItem extends Item
 	}
 
 	/**
-
-	 **
 	 * Creates a new DivideDoubleItem with all the fields initially needed.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
@@ -52,18 +50,18 @@ public final class DivideDoubleItem extends Item
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new DivideDoubleItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private DivideDoubleItem(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #numA}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -71,18 +69,18 @@ public final class DivideDoubleItem extends Item
 	public final java.lang.Double getNumA()
 	{
 		return DivideDoubleItem.numA.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #numA}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	public final void setNumA(@javax.annotation.Nullable final java.lang.Double numA)
 	{
 		DivideDoubleItem.numA.set(this,numA);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #numB}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -90,18 +88,18 @@ public final class DivideDoubleItem extends Item
 	public final java.lang.Double getNumB()
 	{
 		return DivideDoubleItem.numB.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #numB}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	public final void setNumB(@javax.annotation.Nullable final java.lang.Double numB)
 	{
 		DivideDoubleItem.numB.set(this,numB);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #numC}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -109,56 +107,56 @@ public final class DivideDoubleItem extends Item
 	public final java.lang.Double getNumC()
 	{
 		return DivideDoubleItem.numC.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #numC}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	public final void setNumC(@javax.annotation.Nullable final java.lang.Double numC)
 	{
 		DivideDoubleItem.numC.set(this,numC);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #divideAB}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	public final Double getDivideAB()
 	{
 		return DivideDoubleItem.divideAB.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #divideAC}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	public final Double getDivideAC()
 	{
 		return DivideDoubleItem.divideAC.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #divideBC}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	public final Double getDivideBC()
 	{
 		return DivideDoubleItem.divideBC.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for divideDoubleItem.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<DivideDoubleItem> TYPE = com.exedio.cope.TypesBound.newType(DivideDoubleItem.class);/**
+	public static final com.exedio.cope.Type<DivideDoubleItem> TYPE = com.exedio.cope.TypesBound.newType(DivideDoubleItem.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

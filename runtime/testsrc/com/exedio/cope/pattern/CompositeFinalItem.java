@@ -30,8 +30,6 @@ public final class CompositeFinalItem extends Item
 
 
 	/**
-
-	 **
 	 * Creates a new CompositeFinalItem with all the fields initially needed.
 	 * @param code the initial value for field {@link #code}.
 	 * @param first the initial value for field {@link #first}.
@@ -53,18 +51,18 @@ public final class CompositeFinalItem extends Item
 			CompositeFinalItem.first.map(first),
 			CompositeFinalItem.second.map(second),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new CompositeFinalItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private CompositeFinalItem(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #code}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -72,9 +70,9 @@ public final class CompositeFinalItem extends Item
 	public final java.lang.String getCode()
 	{
 		return CompositeFinalItem.code.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #first}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -82,9 +80,9 @@ public final class CompositeFinalItem extends Item
 	public final CompositeValue getFirst()
 	{
 		return CompositeFinalItem.first.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #second}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -92,20 +90,20 @@ public final class CompositeFinalItem extends Item
 	public final CompositeValue getSecond()
 	{
 		return CompositeFinalItem.second.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for compositeFinalItem.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<CompositeFinalItem> TYPE = com.exedio.cope.TypesBound.newType(CompositeFinalItem.class);/**
+	public static final com.exedio.cope.Type<CompositeFinalItem> TYPE = com.exedio.cope.TypesBound.newType(CompositeFinalItem.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

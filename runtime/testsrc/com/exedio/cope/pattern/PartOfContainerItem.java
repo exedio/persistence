@@ -59,8 +59,6 @@ public final class PartOfContainerItem extends Item
 	}
 
 	/**
-
-	 **
 	 * Creates a new PartOfContainerItem with all the fields initially needed.
 	 * @param containerString the initial value for field {@link #containerString}.
 	 * @throws com.exedio.cope.MandatoryViolationException if containerString is null.
@@ -76,18 +74,18 @@ public final class PartOfContainerItem extends Item
 		this(new com.exedio.cope.SetValue<?>[]{
 			PartOfContainerItem.containerString.map(containerString),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new PartOfContainerItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private PartOfContainerItem(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #containerString}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -95,9 +93,9 @@ public final class PartOfContainerItem extends Item
 	final java.lang.String getContainerString()
 	{
 		return PartOfContainerItem.containerString.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #containerString}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -107,20 +105,20 @@ public final class PartOfContainerItem extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		PartOfContainerItem.containerString.set(this,containerString);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for partOfContainerItem.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<PartOfContainerItem> TYPE = com.exedio.cope.TypesBound.newType(PartOfContainerItem.class);/**
+	public static final com.exedio.cope.Type<PartOfContainerItem> TYPE = com.exedio.cope.TypesBound.newType(PartOfContainerItem.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

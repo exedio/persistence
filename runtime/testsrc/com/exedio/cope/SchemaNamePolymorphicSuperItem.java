@@ -21,9 +21,9 @@ package com.exedio.cope;
 @CopeName("Super")
 class SchemaNamePolymorphicSuperItem extends Item
 {
-/**
 
-	 **
+
+	/**
 	 * Creates a new SchemaNamePolymorphicSuperItem with all the fields initially needed.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
@@ -31,29 +31,29 @@ class SchemaNamePolymorphicSuperItem extends Item
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new SchemaNamePolymorphicSuperItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	protected SchemaNamePolymorphicSuperItem(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for schemaNamePolymorphicSuperItem.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<SchemaNamePolymorphicSuperItem> TYPE = com.exedio.cope.TypesBound.newType(SchemaNamePolymorphicSuperItem.class);/**
+	static final com.exedio.cope.Type<SchemaNamePolymorphicSuperItem> TYPE = com.exedio.cope.TypesBound.newType(SchemaNamePolymorphicSuperItem.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

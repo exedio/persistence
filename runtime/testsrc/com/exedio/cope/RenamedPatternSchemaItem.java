@@ -26,8 +26,6 @@ package com.exedio.cope;
 	static final RenamedSchemaPattern raw = new RenamedSchemaPattern();
 
 	/**
-
-	 **
 	 * Creates a new RenamedPatternSchemaItem with all the fields initially needed.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
@@ -35,29 +33,29 @@ package com.exedio.cope;
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new RenamedPatternSchemaItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private RenamedPatternSchemaItem(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for renamedPatternSchemaItem.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<RenamedPatternSchemaItem> TYPE = com.exedio.cope.TypesBound.newType(RenamedPatternSchemaItem.class);/**
+	static final com.exedio.cope.Type<RenamedPatternSchemaItem> TYPE = com.exedio.cope.TypesBound.newType(RenamedPatternSchemaItem.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

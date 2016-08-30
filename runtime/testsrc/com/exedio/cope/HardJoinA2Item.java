@@ -27,8 +27,6 @@ class HardJoinA2Item extends HardJoinA1Item
 
 
 	/**
-
-	 **
 	 * Creates a new HardJoinA2Item with all the fields initially needed.
 	 * @param code the initial value for field {@link #code}.
 	 * @param a1 the initial value for field {@link #a1}.
@@ -52,18 +50,18 @@ class HardJoinA2Item extends HardJoinA1Item
 			com.exedio.cope.HardJoinA1Item.a1.map(a1),
 			HardJoinA2Item.a2.map(a2),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new HardJoinA2Item and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	protected HardJoinA2Item(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #a2}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -71,29 +69,29 @@ class HardJoinA2Item extends HardJoinA1Item
 	final java.lang.Integer getA2()
 	{
 		return HardJoinA2Item.a2.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #a2}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setA2(@javax.annotation.Nullable final java.lang.Integer a2)
 	{
 		HardJoinA2Item.a2.set(this,a2);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for hardJoinA2Item.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<HardJoinA2Item> TYPE = com.exedio.cope.TypesBound.newType(HardJoinA2Item.class);/**
+	static final com.exedio.cope.Type<HardJoinA2Item> TYPE = com.exedio.cope.TypesBound.newType(HardJoinA2Item.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

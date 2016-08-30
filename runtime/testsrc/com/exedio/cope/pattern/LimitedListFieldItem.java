@@ -102,9 +102,7 @@ public final class LimitedListFieldItem extends Item
 		return strings.getLength().getMandatory(this);
 	}
 
-/**
-
-	 **
+	/**
 	 * Creates a new LimitedListFieldItem with all the fields initially needed.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
@@ -112,18 +110,18 @@ public final class LimitedListFieldItem extends Item
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new LimitedListFieldItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	LimitedListFieldItem(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #num1}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -131,18 +129,18 @@ public final class LimitedListFieldItem extends Item
 	final java.lang.Integer getNum1()
 	{
 		return LimitedListFieldItem.num1.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #num1}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setNum1(@javax.annotation.Nullable final java.lang.Integer num1)
 	{
 		LimitedListFieldItem.num1.set(this,num1);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #num2}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -150,18 +148,18 @@ public final class LimitedListFieldItem extends Item
 	final java.lang.Integer getNum2()
 	{
 		return LimitedListFieldItem.num2.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #num2}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setNum2(@javax.annotation.Nullable final java.lang.Integer num2)
 	{
 		LimitedListFieldItem.num2.set(this,num2);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #num3}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -169,18 +167,18 @@ public final class LimitedListFieldItem extends Item
 	final java.lang.Integer getNum3()
 	{
 		return LimitedListFieldItem.num3.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #num3}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setNum3(@javax.annotation.Nullable final java.lang.Integer num3)
 	{
 		LimitedListFieldItem.num3.set(this,num3);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #nums}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -188,9 +186,9 @@ public final class LimitedListFieldItem extends Item
 	final java.util.List<Integer> getNums()
 	{
 		return LimitedListFieldItem.nums.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #nums}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -200,9 +198,9 @@ public final class LimitedListFieldItem extends Item
 				com.exedio.cope.pattern.ListSizeViolationException
 	{
 		LimitedListFieldItem.nums.set(this,nums);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #dates}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -210,9 +208,9 @@ public final class LimitedListFieldItem extends Item
 	final java.util.List<Date> getDates()
 	{
 		return LimitedListFieldItem.dates.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #dates}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -222,9 +220,9 @@ public final class LimitedListFieldItem extends Item
 				com.exedio.cope.pattern.ListSizeViolationException
 	{
 		LimitedListFieldItem.dates.set(this,dates);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #strings}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -232,9 +230,9 @@ public final class LimitedListFieldItem extends Item
 	final java.util.List<String> getStrings()
 	{
 		return LimitedListFieldItem.strings.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #strings}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -245,20 +243,20 @@ public final class LimitedListFieldItem extends Item
 				com.exedio.cope.pattern.ListSizeViolationException
 	{
 		LimitedListFieldItem.strings.set(this,strings);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for limitedListFieldItem.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<LimitedListFieldItem> TYPE = com.exedio.cope.TypesBound.newType(LimitedListFieldItem.class);/**
+	public static final com.exedio.cope.Type<LimitedListFieldItem> TYPE = com.exedio.cope.TypesBound.newType(LimitedListFieldItem.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

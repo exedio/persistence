@@ -38,8 +38,6 @@ public final class RangeFieldItem extends Item
 	}
 
 	/**
-
-	 **
 	 * Creates a new RangeFieldItem with all the fields initially needed.
 	 * @param valid the initial value for field {@link #valid}.
 	 * @param text the initial value for field {@link #text}.
@@ -60,27 +58,27 @@ public final class RangeFieldItem extends Item
 			RangeFieldItem.valid.map(valid),
 			RangeFieldItem.text.map(text),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new RangeFieldItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private RangeFieldItem(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
 	final com.exedio.cope.pattern.Range<Integer> getValid()
 	{
 		return RangeFieldItem.valid.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setValid(@javax.annotation.Nonnull final com.exedio.cope.pattern.Range<? extends Integer> valid)
@@ -88,27 +86,27 @@ public final class RangeFieldItem extends Item
 				com.exedio.cope.IntegerRangeViolationException
 	{
 		RangeFieldItem.valid.set(this,valid);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getFrom")
 	@javax.annotation.Nullable
 	final Integer getValidFrom()
 	{
 		return RangeFieldItem.valid.getFrom(this);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getTo")
 	@javax.annotation.Nullable
 	final Integer getValidTo()
 	{
 		return RangeFieldItem.valid.getTo(this);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setFrom")
 	final void setValidFrom(@javax.annotation.Nullable final Integer valid)
@@ -116,9 +114,9 @@ public final class RangeFieldItem extends Item
 				com.exedio.cope.IntegerRangeViolationException
 	{
 		RangeFieldItem.valid.setFrom(this,valid);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setTo")
 	final void setValidTo(@javax.annotation.Nullable final Integer valid)
@@ -126,63 +124,63 @@ public final class RangeFieldItem extends Item
 				com.exedio.cope.IntegerRangeViolationException
 	{
 		RangeFieldItem.valid.setTo(this,valid);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="doesContain")
 	final boolean doesValidContain(@javax.annotation.Nonnull final Integer valid)
 	{
 		return RangeFieldItem.valid.doesContain(this,valid);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
 	final com.exedio.cope.pattern.Range<String> getText()
 	{
 		return RangeFieldItem.text.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getFrom")
 	@javax.annotation.Nonnull
 	final String getTextFrom()
 	{
 		return RangeFieldItem.text.getFrom(this);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getTo")
 	@javax.annotation.Nonnull
 	final String getTextTo()
 	{
 		return RangeFieldItem.text.getTo(this);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="doesContain")
 	final boolean doesTextContain(@javax.annotation.Nonnull final String text)
 	{
 		return RangeFieldItem.text.doesContain(this,text);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for rangeFieldItem.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<RangeFieldItem> TYPE = com.exedio.cope.TypesBound.newType(RangeFieldItem.class);/**
+	public static final com.exedio.cope.Type<RangeFieldItem> TYPE = com.exedio.cope.TypesBound.newType(RangeFieldItem.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

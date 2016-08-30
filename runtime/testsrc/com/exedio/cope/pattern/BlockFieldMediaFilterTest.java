@@ -114,8 +114,6 @@ public class BlockFieldMediaFilterTest extends TestWithEnvironment
 
 
 	/**
-
-	 **
 	 * Returns a Locator the content of {@link #source} is available under.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLocator")
@@ -123,18 +121,18 @@ public class BlockFieldMediaFilterTest extends TestWithEnvironment
 	final com.exedio.cope.pattern.MediaPath.Locator getSourceLocator()
 	{
 		return field().of(ABlock.source).getLocator(item());
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns whether media {@link #source} is null.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="isNull")
 	final boolean isSourceNull()
 	{
 		return field().of(ABlock.source).isNull(item());
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the last modification date of media {@link #source}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLastModified")
@@ -142,18 +140,18 @@ public class BlockFieldMediaFilterTest extends TestWithEnvironment
 	final java.util.Date getSourceLastModified()
 	{
 		return field().of(ABlock.source).getLastModified(item());
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the body length of the media {@link #source}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLength")
 	final long getSourceLength()
 	{
 		return field().of(ABlock.source).getLength(item());
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the body of the media {@link #source}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
@@ -161,9 +159,9 @@ public class BlockFieldMediaFilterTest extends TestWithEnvironment
 	final byte[] getSourceBody()
 	{
 		return field().of(ABlock.source).getBody(item());
-	}/**
+	}
 
-	 **
+	/**
 	 * Writes the body of media {@link #source} into the given stream.
 	 * Does nothing, if the media is null.
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
@@ -174,9 +172,9 @@ public class BlockFieldMediaFilterTest extends TestWithEnvironment
 				java.io.IOException
 	{
 		field().of(ABlock.source).getBody(item(),body);
-	}/**
+	}
 
-	 **
+	/**
 	 * Writes the body of media {@link #source} into the given file.
 	 * Does nothing, if the media is null.
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
@@ -187,9 +185,9 @@ public class BlockFieldMediaFilterTest extends TestWithEnvironment
 				java.io.IOException
 	{
 		field().of(ABlock.source).getBody(item(),body);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets the content of media {@link #source}.
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
 	 */
@@ -199,18 +197,18 @@ public class BlockFieldMediaFilterTest extends TestWithEnvironment
 				java.io.IOException
 	{
 		field().of(ABlock.source).set(item(),source);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets the content of media {@link #source}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setSource(@javax.annotation.Nullable final byte[] body,@javax.annotation.Nullable final java.lang.String contentType)
 	{
 		field().of(ABlock.source).set(item(),body,contentType);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets the content of media {@link #source}.
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
 	 */
@@ -220,9 +218,9 @@ public class BlockFieldMediaFilterTest extends TestWithEnvironment
 				java.io.IOException
 	{
 		field().of(ABlock.source).set(item(),body,contentType);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets the content of media {@link #source}.
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
 	 */
@@ -232,9 +230,9 @@ public class BlockFieldMediaFilterTest extends TestWithEnvironment
 				java.io.IOException
 	{
 		field().of(ABlock.source).set(item(),body,contentType);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns a Locator the content of {@link #filter} is available under.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLocator")
@@ -242,9 +240,9 @@ public class BlockFieldMediaFilterTest extends TestWithEnvironment
 	final com.exedio.cope.pattern.MediaPath.Locator getFilterLocator()
 	{
 		return field().of(ABlock.filter).getLocator(item());
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the body of {@link #filter}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -254,20 +252,20 @@ public class BlockFieldMediaFilterTest extends TestWithEnvironment
 				java.io.IOException
 	{
 		return field().of(ABlock.filter).get(item());
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The type information for aBlock.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	static final com.exedio.cope.pattern.BlockType<ABlock> TYPE = com.exedio.cope.pattern.BlockType.newType(ABlock.class);/**
+	static final com.exedio.cope.pattern.BlockType<ABlock> TYPE = com.exedio.cope.pattern.BlockType.newType(ABlock.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.pattern.Block#Block(com.exedio.cope.pattern.BlockActivationParameters)
 	 */
@@ -282,8 +280,6 @@ public class BlockFieldMediaFilterTest extends TestWithEnvironment
 
 
 	/**
-
-	 **
 	 * Creates a new AnItem with all the fields initially needed.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
@@ -291,18 +287,18 @@ public class BlockFieldMediaFilterTest extends TestWithEnvironment
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new AnItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private AnItem(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #eins}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="")
@@ -310,9 +306,9 @@ public class BlockFieldMediaFilterTest extends TestWithEnvironment
 	final ABlock eins()
 	{
 		return AnItem.eins.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #zwei}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="")
@@ -320,20 +316,20 @@ public class BlockFieldMediaFilterTest extends TestWithEnvironment
 	final ABlock zwei()
 	{
 		return AnItem.zwei.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for anItem.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<AnItem> TYPE = com.exedio.cope.TypesBound.newType(AnItem.class);/**
+	static final com.exedio.cope.Type<AnItem> TYPE = com.exedio.cope.TypesBound.newType(AnItem.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

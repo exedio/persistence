@@ -48,8 +48,6 @@ public final class EnumSetFieldItem extends Item
 	}
 
 	/**
-
-	 **
 	 * Creates a new EnumSetFieldItem with all the fields initially needed.
 	 * @param activeLanguage the initial value for field {@link #activeLanguage}.
 	 */
@@ -60,70 +58,70 @@ public final class EnumSetFieldItem extends Item
 		this(new com.exedio.cope.SetValue<?>[]{
 			EnumSetFieldItem.activeLanguage.map(activeLanguage),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new EnumSetFieldItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private EnumSetFieldItem(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="contains")
 	final boolean containsActiveLanguage(@javax.annotation.Nonnull final Language element)
 	{
 		return EnumSetFieldItem.activeLanguage.contains(this,element);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="add")
 	final void addActiveLanguage(@javax.annotation.Nonnull final Language element)
 	{
 		EnumSetFieldItem.activeLanguage.add(this,element);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="remove")
 	final void removeActiveLanguage(@javax.annotation.Nonnull final Language element)
 	{
 		EnumSetFieldItem.activeLanguage.remove(this,element);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
 	final java.util.EnumSet<Language> getActiveLanguage()
 	{
 		return EnumSetFieldItem.activeLanguage.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setActiveLanguage(@javax.annotation.Nonnull final java.util.EnumSet<Language> activeLanguage)
 	{
 		EnumSetFieldItem.activeLanguage.set(this,activeLanguage);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for enumSetFieldItem.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<EnumSetFieldItem> TYPE = com.exedio.cope.TypesBound.newType(EnumSetFieldItem.class);/**
+	public static final com.exedio.cope.Type<EnumSetFieldItem> TYPE = com.exedio.cope.TypesBound.newType(EnumSetFieldItem.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

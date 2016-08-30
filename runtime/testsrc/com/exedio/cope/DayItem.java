@@ -25,8 +25,6 @@ final class DayItem extends Item
 
 
 	/**
-
-	 **
 	 * Creates a new DayItem with all the fields initially needed.
 	 * @param day the initial value for field {@link #day}.
 	 * @throws com.exedio.cope.MandatoryViolationException if day is null.
@@ -40,18 +38,18 @@ final class DayItem extends Item
 		this(new com.exedio.cope.SetValue<?>[]{
 			DayItem.day.map(day),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new DayItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private DayItem(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #day}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -59,9 +57,9 @@ final class DayItem extends Item
 	final com.exedio.cope.util.Day getDay()
 	{
 		return DayItem.day.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #day}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -70,18 +68,18 @@ final class DayItem extends Item
 				com.exedio.cope.MandatoryViolationException
 	{
 		DayItem.day.set(this,day);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets today for the date field {@link #day}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="touch")
 	final void touchDay(@javax.annotation.Nonnull final java.util.TimeZone zone)
 	{
 		DayItem.day.touch(this,zone);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #optionalDay}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -89,38 +87,38 @@ final class DayItem extends Item
 	final com.exedio.cope.util.Day getOptionalDay()
 	{
 		return DayItem.optionalDay.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #optionalDay}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setOptionalDay(@javax.annotation.Nullable final com.exedio.cope.util.Day optionalDay)
 	{
 		DayItem.optionalDay.set(this,optionalDay);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets today for the date field {@link #optionalDay}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="touch")
 	final void touchOptionalDay(@javax.annotation.Nonnull final java.util.TimeZone zone)
 	{
 		DayItem.optionalDay.touch(this,zone);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for dayItem.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<DayItem> TYPE = com.exedio.cope.TypesBound.newType(DayItem.class);/**
+	static final com.exedio.cope.Type<DayItem> TYPE = com.exedio.cope.TypesBound.newType(DayItem.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

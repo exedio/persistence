@@ -31,8 +31,6 @@ public final class LimitedListFieldItemFieldItem extends Item
 
 
 	/**
-
-	 **
 	 * Creates a new LimitedListFieldItemFieldItem with all the fields initially needed.
 	 * @param limitedListFieldItem the initial value for field {@link #limitedListFieldItem}.
 	 * @throws com.exedio.cope.MandatoryViolationException if limitedListFieldItem is null.
@@ -46,18 +44,18 @@ public final class LimitedListFieldItemFieldItem extends Item
 		this(new com.exedio.cope.SetValue<?>[]{
 			LimitedListFieldItemFieldItem.limitedListFieldItem.map(limitedListFieldItem),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new LimitedListFieldItemFieldItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	LimitedListFieldItemFieldItem(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #limitedListFieldItem}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -65,9 +63,9 @@ public final class LimitedListFieldItemFieldItem extends Item
 	final LimitedListFieldItem getLimitedListFieldItem()
 	{
 		return LimitedListFieldItemFieldItem.limitedListFieldItem.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #limitedListFieldItem}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -76,20 +74,20 @@ public final class LimitedListFieldItemFieldItem extends Item
 				com.exedio.cope.MandatoryViolationException
 	{
 		LimitedListFieldItemFieldItem.limitedListFieldItem.set(this,limitedListFieldItem);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for limitedListFieldItemFieldItem.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<LimitedListFieldItemFieldItem> TYPE = com.exedio.cope.TypesBound.newType(LimitedListFieldItemFieldItem.class);/**
+	public static final com.exedio.cope.Type<LimitedListFieldItemFieldItem> TYPE = com.exedio.cope.TypesBound.newType(LimitedListFieldItemFieldItem.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

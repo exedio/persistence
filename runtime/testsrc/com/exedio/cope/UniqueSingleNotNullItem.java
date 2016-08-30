@@ -29,9 +29,7 @@ public final class UniqueSingleNotNullItem extends Item
 	 */
 	public static final StringField uniqueNotNullString = new StringField().unique();
 
-/**
-
-	 **
+	/**
 	 * Creates a new UniqueSingleNotNullItem with all the fields initially needed.
 	 * @param uniqueNotNullString the initial value for field {@link #uniqueNotNullString}.
 	 * @throws com.exedio.cope.MandatoryViolationException if uniqueNotNullString is null.
@@ -49,18 +47,18 @@ public final class UniqueSingleNotNullItem extends Item
 		this(new com.exedio.cope.SetValue<?>[]{
 			UniqueSingleNotNullItem.uniqueNotNullString.map(uniqueNotNullString),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new UniqueSingleNotNullItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private UniqueSingleNotNullItem(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #uniqueNotNullString}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -68,9 +66,9 @@ public final class UniqueSingleNotNullItem extends Item
 	public final java.lang.String getUniqueNotNullString()
 	{
 		return UniqueSingleNotNullItem.uniqueNotNullString.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #uniqueNotNullString}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -81,9 +79,9 @@ public final class UniqueSingleNotNullItem extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		UniqueSingleNotNullItem.uniqueNotNullString.set(this,uniqueNotNullString);
-	}/**
+	}
 
-	 **
+	/**
 	 * Finds a uniqueSingleNotNullItem by it's {@link #uniqueNotNullString}.
 	 * @param uniqueNotNullString shall be equal to field {@link #uniqueNotNullString}.
 	 * @return null if there is no matching item.
@@ -93,20 +91,20 @@ public final class UniqueSingleNotNullItem extends Item
 	public static final UniqueSingleNotNullItem forUniqueNotNullString(@javax.annotation.Nonnull final java.lang.String uniqueNotNullString)
 	{
 		return UniqueSingleNotNullItem.uniqueNotNullString.searchUnique(UniqueSingleNotNullItem.class,uniqueNotNullString);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for uniqueSingleNotNullItem.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<UniqueSingleNotNullItem> TYPE = com.exedio.cope.TypesBound.newType(UniqueSingleNotNullItem.class);/**
+	public static final com.exedio.cope.Type<UniqueSingleNotNullItem> TYPE = com.exedio.cope.TypesBound.newType(UniqueSingleNotNullItem.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

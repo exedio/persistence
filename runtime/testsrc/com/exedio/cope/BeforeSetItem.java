@@ -141,8 +141,6 @@ final class BeforeSetItem extends Item
 	}
 
 	/**
-
-	 **
 	 * Creates a new BeforeSetItem with all the fields initially needed.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
@@ -150,27 +148,27 @@ final class BeforeSetItem extends Item
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new BeforeSetItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private BeforeSetItem(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #field1}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	final int getField1()
 	{
 		return BeforeSetItem.field1.getMandatory(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #field1}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -179,27 +177,27 @@ final class BeforeSetItem extends Item
 				com.exedio.cope.IntegerRangeViolationException
 	{
 		BeforeSetItem.field1.set(this,field1);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #field2}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	final int getField2()
 	{
 		return BeforeSetItem.field2.getMandatory(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #field2}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setField2(final int field2)
 	{
 		BeforeSetItem.field2.set(this,field2);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #action}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -207,18 +205,18 @@ final class BeforeSetItem extends Item
 	final Action getAction()
 	{
 		return BeforeSetItem.action.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #action}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setAction(@javax.annotation.Nullable final Action action)
 	{
 		BeforeSetItem.action.set(this,action);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #calls}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -226,9 +224,9 @@ final class BeforeSetItem extends Item
 	final java.util.List<String> getCalls()
 	{
 		return BeforeSetItem.calls.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns a query for the value of {@link #calls}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getQuery")
@@ -236,9 +234,9 @@ final class BeforeSetItem extends Item
 	final com.exedio.cope.Query<String> getCallsQuery()
 	{
 		return BeforeSetItem.calls.getQuery(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the items, for which field list {@link #calls} contains the given element.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getDistinctParentsOf")
@@ -246,9 +244,9 @@ final class BeforeSetItem extends Item
 	static final java.util.List<BeforeSetItem> getDistinctParentsOfCalls(final String element)
 	{
 		return BeforeSetItem.calls.getDistinctParents(BeforeSetItem.class,element);
-	}/**
+	}
 
-	 **
+	/**
 	 * Adds a new value for {@link #calls}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="addTo")
@@ -259,9 +257,9 @@ final class BeforeSetItem extends Item
 				java.lang.ClassCastException
 	{
 		BeforeSetItem.calls.add(this,calls);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #calls}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -272,9 +270,9 @@ final class BeforeSetItem extends Item
 				java.lang.ClassCastException
 	{
 		BeforeSetItem.calls.set(this,calls);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the parent field of the type of {@link #calls}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="Parent")
@@ -282,20 +280,20 @@ final class BeforeSetItem extends Item
 	static final com.exedio.cope.ItemField<BeforeSetItem> callsParent()
 	{
 		return BeforeSetItem.calls.getParent(BeforeSetItem.class);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for beforeSetItem.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<BeforeSetItem> TYPE = com.exedio.cope.TypesBound.newType(BeforeSetItem.class);/**
+	static final com.exedio.cope.Type<BeforeSetItem> TYPE = com.exedio.cope.TypesBound.newType(BeforeSetItem.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

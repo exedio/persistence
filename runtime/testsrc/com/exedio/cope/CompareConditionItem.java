@@ -39,8 +39,6 @@ final class CompareConditionItem extends Item
 	static final ItemField<CompareConditionItem> item = ItemField.create(CompareConditionItem.class).nullify();
 
 	/**
-
-	 **
 	 * Creates a new CompareConditionItem with all the fields initially needed.
 	 * @param string the initial value for field {@link #string}.
 	 * @param intx the initial value for field {@link #intx}.
@@ -72,18 +70,18 @@ final class CompareConditionItem extends Item
 			CompareConditionItem.day.map(day),
 			CompareConditionItem.enumx.map(enumx),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new CompareConditionItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private CompareConditionItem(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #string}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -91,9 +89,9 @@ final class CompareConditionItem extends Item
 	final java.lang.String getString()
 	{
 		return CompareConditionItem.string.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #string}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -102,9 +100,9 @@ final class CompareConditionItem extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		CompareConditionItem.string.set(this,string);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #otherString}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -112,9 +110,9 @@ final class CompareConditionItem extends Item
 	final java.lang.String getOtherString()
 	{
 		return CompareConditionItem.otherString.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #otherString}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -123,9 +121,9 @@ final class CompareConditionItem extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		CompareConditionItem.otherString.set(this,otherString);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #intx}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -133,18 +131,18 @@ final class CompareConditionItem extends Item
 	final java.lang.Integer getIntx()
 	{
 		return CompareConditionItem.intx.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #intx}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setIntx(@javax.annotation.Nullable final java.lang.Integer intx)
 	{
 		CompareConditionItem.intx.set(this,intx);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #longx}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -152,18 +150,18 @@ final class CompareConditionItem extends Item
 	final java.lang.Long getLongx()
 	{
 		return CompareConditionItem.longx.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #longx}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setLongx(@javax.annotation.Nullable final java.lang.Long longx)
 	{
 		CompareConditionItem.longx.set(this,longx);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #doublex}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -171,18 +169,18 @@ final class CompareConditionItem extends Item
 	final java.lang.Double getDoublex()
 	{
 		return CompareConditionItem.doublex.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #doublex}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setDoublex(@javax.annotation.Nullable final java.lang.Double doublex)
 	{
 		CompareConditionItem.doublex.set(this,doublex);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #date}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -190,27 +188,27 @@ final class CompareConditionItem extends Item
 	final java.util.Date getDate()
 	{
 		return CompareConditionItem.date.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #date}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setDate(@javax.annotation.Nullable final java.util.Date date)
 	{
 		CompareConditionItem.date.set(this,date);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets the current date for the date field {@link #date}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="touch")
 	final void touchDate()
 	{
 		CompareConditionItem.date.touch(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #day}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -218,27 +216,27 @@ final class CompareConditionItem extends Item
 	final com.exedio.cope.util.Day getDay()
 	{
 		return CompareConditionItem.day.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #day}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setDay(@javax.annotation.Nullable final com.exedio.cope.util.Day day)
 	{
 		CompareConditionItem.day.set(this,day);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets today for the date field {@link #day}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="touch")
 	final void touchDay(@javax.annotation.Nonnull final java.util.TimeZone zone)
 	{
 		CompareConditionItem.day.touch(this,zone);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #enumx}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -246,18 +244,18 @@ final class CompareConditionItem extends Item
 	final YEnum getEnumx()
 	{
 		return CompareConditionItem.enumx.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #enumx}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setEnumx(@javax.annotation.Nullable final YEnum enumx)
 	{
 		CompareConditionItem.enumx.set(this,enumx);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #item}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -265,29 +263,29 @@ final class CompareConditionItem extends Item
 	final CompareConditionItem getItem()
 	{
 		return CompareConditionItem.item.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #item}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setItem(@javax.annotation.Nullable final CompareConditionItem item)
 	{
 		CompareConditionItem.item.set(this,item);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for compareConditionItem.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<CompareConditionItem> TYPE = com.exedio.cope.TypesBound.newType(CompareConditionItem.class);/**
+	static final com.exedio.cope.Type<CompareConditionItem> TYPE = com.exedio.cope.TypesBound.newType(CompareConditionItem.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

@@ -28,8 +28,6 @@ final class CompositeFieldRenamedSchemaComposite extends Composite
 	static final StringField wrongTemp = new StringField();
 
 	/**
-
-	 **
 	 * Creates a new CompositeFieldRenamedSchemaComposite with all the fields initially needed.
 	 * @param virgnTemp the initial value for field {@link #virgnTemp}.
 	 * @param wrongTemp the initial value for field {@link #wrongTemp}.
@@ -48,18 +46,18 @@ final class CompositeFieldRenamedSchemaComposite extends Composite
 			CompositeFieldRenamedSchemaComposite.virgnTemp.map(virgnTemp),
 			CompositeFieldRenamedSchemaComposite.wrongTemp.map(wrongTemp),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new CompositeFieldRenamedSchemaComposite and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private CompositeFieldRenamedSchemaComposite(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #virgnTemp}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -67,9 +65,9 @@ final class CompositeFieldRenamedSchemaComposite extends Composite
 	final java.lang.String getVirgnTemp()
 	{
 		return get(CompositeFieldRenamedSchemaComposite.virgnTemp);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #virgnTemp}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -79,9 +77,9 @@ final class CompositeFieldRenamedSchemaComposite extends Composite
 				com.exedio.cope.StringLengthViolationException
 	{
 		set(CompositeFieldRenamedSchemaComposite.virgnTemp,virgnTemp);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #wrongTemp}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -89,9 +87,9 @@ final class CompositeFieldRenamedSchemaComposite extends Composite
 	final java.lang.String getWrongTemp()
 	{
 		return get(CompositeFieldRenamedSchemaComposite.wrongTemp);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #wrongTemp}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -101,9 +99,9 @@ final class CompositeFieldRenamedSchemaComposite extends Composite
 				com.exedio.cope.StringLengthViolationException
 	{
 		set(CompositeFieldRenamedSchemaComposite.wrongTemp,wrongTemp);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;}

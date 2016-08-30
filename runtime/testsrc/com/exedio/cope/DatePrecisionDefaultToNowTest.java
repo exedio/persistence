@@ -191,8 +191,6 @@ public class DatePrecisionDefaultToNowTest extends TestWithEnvironment
 
 
 	/**
-
-	 **
 	 * Creates a new AnItem with all the fields initially needed.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
@@ -200,18 +198,18 @@ public class DatePrecisionDefaultToNowTest extends TestWithEnvironment
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new AnItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private AnItem(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #past}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -219,9 +217,9 @@ public class DatePrecisionDefaultToNowTest extends TestWithEnvironment
 	final java.util.Date getPast()
 	{
 		return AnItem.past.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #past}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -231,9 +229,9 @@ public class DatePrecisionDefaultToNowTest extends TestWithEnvironment
 				com.exedio.cope.DatePrecisionViolationException
 	{
 		AnItem.past.set(this,past);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #past}, but rounds it before according to the precision of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setRounded")
@@ -242,9 +240,9 @@ public class DatePrecisionDefaultToNowTest extends TestWithEnvironment
 				com.exedio.cope.MandatoryViolationException
 	{
 		AnItem.past.setRounded(this,past);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #past}, but rounds it before according to the precision of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setRounded")
@@ -254,18 +252,18 @@ public class DatePrecisionDefaultToNowTest extends TestWithEnvironment
 				com.exedio.cope.DatePrecisionViolationException
 	{
 		AnItem.past.setRounded(this,past,roundingMode);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets the current date for the date field {@link #past}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="touch")
 	final void touchPast()
 	{
 		AnItem.past.touch(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #future}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -273,9 +271,9 @@ public class DatePrecisionDefaultToNowTest extends TestWithEnvironment
 	final java.util.Date getFuture()
 	{
 		return AnItem.future.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #future}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -285,9 +283,9 @@ public class DatePrecisionDefaultToNowTest extends TestWithEnvironment
 				com.exedio.cope.DatePrecisionViolationException
 	{
 		AnItem.future.set(this,future);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #future}, but rounds it before according to the precision of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setRounded")
@@ -296,9 +294,9 @@ public class DatePrecisionDefaultToNowTest extends TestWithEnvironment
 				com.exedio.cope.MandatoryViolationException
 	{
 		AnItem.future.setRounded(this,future);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #future}, but rounds it before according to the precision of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setRounded")
@@ -308,18 +306,18 @@ public class DatePrecisionDefaultToNowTest extends TestWithEnvironment
 				com.exedio.cope.DatePrecisionViolationException
 	{
 		AnItem.future.setRounded(this,future,roundingMode);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets the current date for the date field {@link #future}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="touch")
 	final void touchFuture()
 	{
 		AnItem.future.touch(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #none}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -327,9 +325,9 @@ public class DatePrecisionDefaultToNowTest extends TestWithEnvironment
 	final java.util.Date getNone()
 	{
 		return AnItem.none.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #none}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -338,9 +336,9 @@ public class DatePrecisionDefaultToNowTest extends TestWithEnvironment
 				com.exedio.cope.DatePrecisionViolationException
 	{
 		AnItem.none.set(this,none);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #none}, but rounds it before according to the precision of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setRounded")
@@ -349,20 +347,20 @@ public class DatePrecisionDefaultToNowTest extends TestWithEnvironment
 				com.exedio.cope.DatePrecisionViolationException
 	{
 		AnItem.none.setRounded(this,none,roundingMode);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for anItem.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<AnItem> TYPE = com.exedio.cope.TypesBound.newType(AnItem.class);/**
+	static final com.exedio.cope.Type<AnItem> TYPE = com.exedio.cope.TypesBound.newType(AnItem.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

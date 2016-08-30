@@ -35,8 +35,6 @@ public final class DeleteAfterUniqueViolationItem extends Item
 	}
 
 	/**
-
-	 **
 	 * Creates a new DeleteAfterUniqueViolationItem with all the fields initially needed.
 	 * @param name the initial value for field {@link #name}.
 	 * @throws com.exedio.cope.MandatoryViolationException if name is null.
@@ -52,18 +50,18 @@ public final class DeleteAfterUniqueViolationItem extends Item
 		this(new com.exedio.cope.SetValue<?>[]{
 			DeleteAfterUniqueViolationItem.name.map(name),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new DeleteAfterUniqueViolationItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private DeleteAfterUniqueViolationItem(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #uniqueString}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -71,9 +69,9 @@ public final class DeleteAfterUniqueViolationItem extends Item
 	final java.lang.String getUniqueString()
 	{
 		return DeleteAfterUniqueViolationItem.uniqueString.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #uniqueString}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -83,9 +81,9 @@ public final class DeleteAfterUniqueViolationItem extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		DeleteAfterUniqueViolationItem.uniqueString.set(this,uniqueString);
-	}/**
+	}
 
-	 **
+	/**
 	 * Finds a deleteAfterUniqueViolationItem by it's {@link #uniqueString}.
 	 * @param uniqueString shall be equal to field {@link #uniqueString}.
 	 * @return null if there is no matching item.
@@ -95,9 +93,9 @@ public final class DeleteAfterUniqueViolationItem extends Item
 	static final DeleteAfterUniqueViolationItem forUniqueString(@javax.annotation.Nonnull final java.lang.String uniqueString)
 	{
 		return DeleteAfterUniqueViolationItem.uniqueString.searchUnique(DeleteAfterUniqueViolationItem.class,uniqueString);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #name}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -105,9 +103,9 @@ public final class DeleteAfterUniqueViolationItem extends Item
 	public final java.lang.String getName()
 	{
 		return DeleteAfterUniqueViolationItem.name.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #name}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -117,20 +115,20 @@ public final class DeleteAfterUniqueViolationItem extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		DeleteAfterUniqueViolationItem.name.set(this,name);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for deleteAfterUniqueViolationItem.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<DeleteAfterUniqueViolationItem> TYPE = com.exedio.cope.TypesBound.newType(DeleteAfterUniqueViolationItem.class);/**
+	public static final com.exedio.cope.Type<DeleteAfterUniqueViolationItem> TYPE = com.exedio.cope.TypesBound.newType(DeleteAfterUniqueViolationItem.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

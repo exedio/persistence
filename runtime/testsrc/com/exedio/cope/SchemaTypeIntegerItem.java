@@ -65,17 +65,15 @@ public final class SchemaTypeIntegerItem extends Item
 	static final LongField decimal11u = new LongField().range(- 99999999999l, 100000000000l);
 
 	/**
-
-	 **
 	 * Returns the value of {@link #byte1}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	final long getByte1()
 	{
 		return SchemaTypeIntegerItem.byte1.getMandatory(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #byte1}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -84,18 +82,18 @@ public final class SchemaTypeIntegerItem extends Item
 				com.exedio.cope.LongRangeViolationException
 	{
 		SchemaTypeIntegerItem.byte1.set(this,byte1);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #byte1l}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	final long getByte1l()
 	{
 		return SchemaTypeIntegerItem.byte1l.getMandatory(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #byte1l}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -104,18 +102,18 @@ public final class SchemaTypeIntegerItem extends Item
 				com.exedio.cope.LongRangeViolationException
 	{
 		SchemaTypeIntegerItem.byte1l.set(this,byte1l);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #byte1u}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	final long getByte1u()
 	{
 		return SchemaTypeIntegerItem.byte1u.getMandatory(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #byte1u}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -124,18 +122,18 @@ public final class SchemaTypeIntegerItem extends Item
 				com.exedio.cope.LongRangeViolationException
 	{
 		SchemaTypeIntegerItem.byte1u.set(this,byte1u);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #byte2}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	final long getByte2()
 	{
 		return SchemaTypeIntegerItem.byte2.getMandatory(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #byte2}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -144,18 +142,18 @@ public final class SchemaTypeIntegerItem extends Item
 				com.exedio.cope.LongRangeViolationException
 	{
 		SchemaTypeIntegerItem.byte2.set(this,byte2);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #byte2l}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	final long getByte2l()
 	{
 		return SchemaTypeIntegerItem.byte2l.getMandatory(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #byte2l}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -164,18 +162,18 @@ public final class SchemaTypeIntegerItem extends Item
 				com.exedio.cope.LongRangeViolationException
 	{
 		SchemaTypeIntegerItem.byte2l.set(this,byte2l);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #byte2u}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	final long getByte2u()
 	{
 		return SchemaTypeIntegerItem.byte2u.getMandatory(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #byte2u}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -184,18 +182,18 @@ public final class SchemaTypeIntegerItem extends Item
 				com.exedio.cope.LongRangeViolationException
 	{
 		SchemaTypeIntegerItem.byte2u.set(this,byte2u);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #byte3}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	final long getByte3()
 	{
 		return SchemaTypeIntegerItem.byte3.getMandatory(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #byte3}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -204,18 +202,18 @@ public final class SchemaTypeIntegerItem extends Item
 				com.exedio.cope.LongRangeViolationException
 	{
 		SchemaTypeIntegerItem.byte3.set(this,byte3);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #byte3l}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	final long getByte3l()
 	{
 		return SchemaTypeIntegerItem.byte3l.getMandatory(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #byte3l}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -224,18 +222,18 @@ public final class SchemaTypeIntegerItem extends Item
 				com.exedio.cope.LongRangeViolationException
 	{
 		SchemaTypeIntegerItem.byte3l.set(this,byte3l);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #byte3u}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	final long getByte3u()
 	{
 		return SchemaTypeIntegerItem.byte3u.getMandatory(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #byte3u}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -244,18 +242,18 @@ public final class SchemaTypeIntegerItem extends Item
 				com.exedio.cope.LongRangeViolationException
 	{
 		SchemaTypeIntegerItem.byte3u.set(this,byte3u);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #byte4}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	final long getByte4()
 	{
 		return SchemaTypeIntegerItem.byte4.getMandatory(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #byte4}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -264,18 +262,18 @@ public final class SchemaTypeIntegerItem extends Item
 				com.exedio.cope.LongRangeViolationException
 	{
 		SchemaTypeIntegerItem.byte4.set(this,byte4);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #byte4l}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	final long getByte4l()
 	{
 		return SchemaTypeIntegerItem.byte4l.getMandatory(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #byte4l}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -284,18 +282,18 @@ public final class SchemaTypeIntegerItem extends Item
 				com.exedio.cope.LongRangeViolationException
 	{
 		SchemaTypeIntegerItem.byte4l.set(this,byte4l);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #byte4u}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	final long getByte4u()
 	{
 		return SchemaTypeIntegerItem.byte4u.getMandatory(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #byte4u}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -304,36 +302,36 @@ public final class SchemaTypeIntegerItem extends Item
 				com.exedio.cope.LongRangeViolationException
 	{
 		SchemaTypeIntegerItem.byte4u.set(this,byte4u);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #byte8}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	final long getByte8()
 	{
 		return SchemaTypeIntegerItem.byte8.getMandatory(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #byte8}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setByte8(final long byte8)
 	{
 		SchemaTypeIntegerItem.byte8.set(this,byte8);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #decimal1}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	final long getDecimal1()
 	{
 		return SchemaTypeIntegerItem.decimal1.getMandatory(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #decimal1}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -342,18 +340,18 @@ public final class SchemaTypeIntegerItem extends Item
 				com.exedio.cope.LongRangeViolationException
 	{
 		SchemaTypeIntegerItem.decimal1.set(this,decimal1);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #decimal1l}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	final long getDecimal1l()
 	{
 		return SchemaTypeIntegerItem.decimal1l.getMandatory(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #decimal1l}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -362,18 +360,18 @@ public final class SchemaTypeIntegerItem extends Item
 				com.exedio.cope.LongRangeViolationException
 	{
 		SchemaTypeIntegerItem.decimal1l.set(this,decimal1l);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #decimal1u}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	final long getDecimal1u()
 	{
 		return SchemaTypeIntegerItem.decimal1u.getMandatory(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #decimal1u}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -382,18 +380,18 @@ public final class SchemaTypeIntegerItem extends Item
 				com.exedio.cope.LongRangeViolationException
 	{
 		SchemaTypeIntegerItem.decimal1u.set(this,decimal1u);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #decimal2}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	final long getDecimal2()
 	{
 		return SchemaTypeIntegerItem.decimal2.getMandatory(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #decimal2}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -402,18 +400,18 @@ public final class SchemaTypeIntegerItem extends Item
 				com.exedio.cope.LongRangeViolationException
 	{
 		SchemaTypeIntegerItem.decimal2.set(this,decimal2);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #decimal2l}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	final long getDecimal2l()
 	{
 		return SchemaTypeIntegerItem.decimal2l.getMandatory(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #decimal2l}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -422,18 +420,18 @@ public final class SchemaTypeIntegerItem extends Item
 				com.exedio.cope.LongRangeViolationException
 	{
 		SchemaTypeIntegerItem.decimal2l.set(this,decimal2l);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #decimal2u}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	final long getDecimal2u()
 	{
 		return SchemaTypeIntegerItem.decimal2u.getMandatory(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #decimal2u}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -442,18 +440,18 @@ public final class SchemaTypeIntegerItem extends Item
 				com.exedio.cope.LongRangeViolationException
 	{
 		SchemaTypeIntegerItem.decimal2u.set(this,decimal2u);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #decimal3}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	final long getDecimal3()
 	{
 		return SchemaTypeIntegerItem.decimal3.getMandatory(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #decimal3}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -462,18 +460,18 @@ public final class SchemaTypeIntegerItem extends Item
 				com.exedio.cope.LongRangeViolationException
 	{
 		SchemaTypeIntegerItem.decimal3.set(this,decimal3);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #decimal3l}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	final long getDecimal3l()
 	{
 		return SchemaTypeIntegerItem.decimal3l.getMandatory(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #decimal3l}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -482,18 +480,18 @@ public final class SchemaTypeIntegerItem extends Item
 				com.exedio.cope.LongRangeViolationException
 	{
 		SchemaTypeIntegerItem.decimal3l.set(this,decimal3l);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #decimal3u}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	final long getDecimal3u()
 	{
 		return SchemaTypeIntegerItem.decimal3u.getMandatory(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #decimal3u}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -502,18 +500,18 @@ public final class SchemaTypeIntegerItem extends Item
 				com.exedio.cope.LongRangeViolationException
 	{
 		SchemaTypeIntegerItem.decimal3u.set(this,decimal3u);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #decimal4}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	final long getDecimal4()
 	{
 		return SchemaTypeIntegerItem.decimal4.getMandatory(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #decimal4}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -522,18 +520,18 @@ public final class SchemaTypeIntegerItem extends Item
 				com.exedio.cope.LongRangeViolationException
 	{
 		SchemaTypeIntegerItem.decimal4.set(this,decimal4);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #decimal4l}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	final long getDecimal4l()
 	{
 		return SchemaTypeIntegerItem.decimal4l.getMandatory(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #decimal4l}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -542,18 +540,18 @@ public final class SchemaTypeIntegerItem extends Item
 				com.exedio.cope.LongRangeViolationException
 	{
 		SchemaTypeIntegerItem.decimal4l.set(this,decimal4l);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #decimal4u}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	final long getDecimal4u()
 	{
 		return SchemaTypeIntegerItem.decimal4u.getMandatory(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #decimal4u}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -562,18 +560,18 @@ public final class SchemaTypeIntegerItem extends Item
 				com.exedio.cope.LongRangeViolationException
 	{
 		SchemaTypeIntegerItem.decimal4u.set(this,decimal4u);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #decimal11}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	final long getDecimal11()
 	{
 		return SchemaTypeIntegerItem.decimal11.getMandatory(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #decimal11}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -582,18 +580,18 @@ public final class SchemaTypeIntegerItem extends Item
 				com.exedio.cope.LongRangeViolationException
 	{
 		SchemaTypeIntegerItem.decimal11.set(this,decimal11);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #decimal11l}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	final long getDecimal11l()
 	{
 		return SchemaTypeIntegerItem.decimal11l.getMandatory(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #decimal11l}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -602,18 +600,18 @@ public final class SchemaTypeIntegerItem extends Item
 				com.exedio.cope.LongRangeViolationException
 	{
 		SchemaTypeIntegerItem.decimal11l.set(this,decimal11l);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #decimal11u}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	final long getDecimal11u()
 	{
 		return SchemaTypeIntegerItem.decimal11u.getMandatory(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #decimal11u}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -622,20 +620,20 @@ public final class SchemaTypeIntegerItem extends Item
 				com.exedio.cope.LongRangeViolationException
 	{
 		SchemaTypeIntegerItem.decimal11u.set(this,decimal11u);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for schemaTypeIntegerItem.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<SchemaTypeIntegerItem> TYPE = com.exedio.cope.TypesBound.newType(SchemaTypeIntegerItem.class);/**
+	public static final com.exedio.cope.Type<SchemaTypeIntegerItem> TYPE = com.exedio.cope.TypesBound.newType(SchemaTypeIntegerItem.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

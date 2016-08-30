@@ -37,8 +37,6 @@ public final class PartOfItem extends Item
 
 
 	/**
-
-	 **
 	 * Creates a new PartOfItem with all the fields initially needed.
 	 * @param container the initial value for field {@link #container}.
 	 * @param order the initial value for field {@link #order}.
@@ -63,18 +61,18 @@ public final class PartOfItem extends Item
 			PartOfItem.partString.map(partString),
 			PartOfItem.partInteger.map(partInteger),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new PartOfItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private PartOfItem(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #container}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -82,27 +80,27 @@ public final class PartOfItem extends Item
 	final PartOfContainerItem getContainer()
 	{
 		return PartOfItem.container.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #order}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	final int getOrder()
 	{
 		return PartOfItem.order.getMandatory(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #order}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setOrder(final int order)
 	{
 		PartOfItem.order.set(this,order);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the container this item is part of by {@link #unordered}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getContainer")
@@ -110,9 +108,9 @@ public final class PartOfItem extends Item
 	final PartOfContainerItem getUnorderedContainer()
 	{
 		return PartOfItem.unordered.getContainer(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the parts of the given container.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getParts")
@@ -120,9 +118,9 @@ public final class PartOfItem extends Item
 	static final java.util.List<PartOfItem> getUnorderedParts(@javax.annotation.Nonnull final PartOfContainerItem container)
 	{
 		return PartOfItem.unordered.getParts(PartOfItem.class,container);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the parts of the given container matching the given condition.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getParts")
@@ -130,9 +128,9 @@ public final class PartOfItem extends Item
 	static final java.util.List<PartOfItem> getUnorderedParts(@javax.annotation.Nonnull final PartOfContainerItem container,@javax.annotation.Nullable final com.exedio.cope.Condition condition)
 	{
 		return PartOfItem.unordered.getParts(PartOfItem.class,container,condition);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the container this item is part of by {@link #ordered}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getContainer")
@@ -140,9 +138,9 @@ public final class PartOfItem extends Item
 	final PartOfContainerItem getOrderedContainer()
 	{
 		return PartOfItem.ordered.getContainer(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the parts of the given container.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getParts")
@@ -150,9 +148,9 @@ public final class PartOfItem extends Item
 	static final java.util.List<PartOfItem> getOrderedParts(@javax.annotation.Nonnull final PartOfContainerItem container)
 	{
 		return PartOfItem.ordered.getParts(PartOfItem.class,container);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the parts of the given container matching the given condition.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getParts")
@@ -160,9 +158,9 @@ public final class PartOfItem extends Item
 	static final java.util.List<PartOfItem> getOrderedParts(@javax.annotation.Nonnull final PartOfContainerItem container,@javax.annotation.Nullable final com.exedio.cope.Condition condition)
 	{
 		return PartOfItem.ordered.getParts(PartOfItem.class,container,condition);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #partString}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -170,9 +168,9 @@ public final class PartOfItem extends Item
 	final java.lang.String getPartString()
 	{
 		return PartOfItem.partString.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #partString}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -182,38 +180,38 @@ public final class PartOfItem extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		PartOfItem.partString.set(this,partString);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #partInteger}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	final int getPartInteger()
 	{
 		return PartOfItem.partInteger.getMandatory(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #partInteger}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setPartInteger(final int partInteger)
 	{
 		PartOfItem.partInteger.set(this,partInteger);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for partOfItem.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<PartOfItem> TYPE = com.exedio.cope.TypesBound.newType(PartOfItem.class);/**
+	public static final com.exedio.cope.Type<PartOfItem> TYPE = com.exedio.cope.TypesBound.newType(PartOfItem.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

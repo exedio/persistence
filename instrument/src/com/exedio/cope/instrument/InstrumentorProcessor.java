@@ -41,16 +41,16 @@ import javax.tools.JavaFileObject;
 final class InstrumentorProcessor extends AbstractProcessor
 {
 
-	private final Params.ConfigurationByJavadocTags javadocTagHandling;
+	private final Params params;
 	private final JavaRepository javaRepository;
 	private final Set<JavaFileObject> ignoreFiles;
 
 	boolean processHasBeenCalled = false;
 	boolean foundJavadocControlTags = false;
 
-	InstrumentorProcessor(final Params.ConfigurationByJavadocTags javadocTagHandling, final JavaRepository javaRepository, final Iterable<? extends JavaFileObject> ignoreFiles)
+	InstrumentorProcessor(final Params params, final JavaRepository javaRepository, final Iterable<? extends JavaFileObject> ignoreFiles)
 	{
-		this.javadocTagHandling = javadocTagHandling;
+		this.params = params;
 		this.javaRepository = javaRepository;
 		this.ignoreFiles = new HashSet<>();
 		for (final JavaFileObject ignoreFile: ignoreFiles)
@@ -91,7 +91,7 @@ final class InstrumentorProcessor extends AbstractProcessor
 			}
 			if (!ignoreFiles.contains(compilationUnit.getSourceFile()))
 			{
-				final TreeApiContext treeApiContext=new TreeApiContext(javadocTagHandling, processingEnv, javaFile, compilationUnit);
+				final TreeApiContext treeApiContext=new TreeApiContext(params.configByTags, params.hintFormat==Params.HintFormat.forAnnotations, processingEnv, javaFile, compilationUnit);
 				final CompilationUnitVisitor visitor=new CompilationUnitVisitor(treeApiContext);
 				visitor.scan(tp, null);
 				if (treeApiContext.foundJavadocControlTags)

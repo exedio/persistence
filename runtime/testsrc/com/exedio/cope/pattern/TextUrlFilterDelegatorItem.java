@@ -67,8 +67,6 @@ public final class TextUrlFilterDelegatorItem extends Item
 	}
 
 	/**
-
-	 **
 	 * Creates a new TextUrlFilterDelegatorItem with all the fields initially needed.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
@@ -76,18 +74,18 @@ public final class TextUrlFilterDelegatorItem extends Item
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new TextUrlFilterDelegatorItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private TextUrlFilterDelegatorItem(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #name}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -95,9 +93,9 @@ public final class TextUrlFilterDelegatorItem extends Item
 	final java.lang.String getName()
 	{
 		return TextUrlFilterDelegatorItem.name.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #name}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -106,9 +104,9 @@ public final class TextUrlFilterDelegatorItem extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		TextUrlFilterDelegatorItem.name.set(this,name);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns a Locator the content of {@link #roh} is available under.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLocator")
@@ -116,9 +114,9 @@ public final class TextUrlFilterDelegatorItem extends Item
 	final com.exedio.cope.pattern.MediaPath.Locator getRohLocator()
 	{
 		return TextUrlFilterDelegatorItem.roh.getLocator(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the content type of the media {@link #roh}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getContentType")
@@ -126,18 +124,18 @@ public final class TextUrlFilterDelegatorItem extends Item
 	final java.lang.String getRohContentType()
 	{
 		return TextUrlFilterDelegatorItem.roh.getContentType(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns whether media {@link #roh} is null.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="isNull")
 	final boolean isRohNull()
 	{
 		return TextUrlFilterDelegatorItem.roh.isNull(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the last modification date of media {@link #roh}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLastModified")
@@ -145,18 +143,18 @@ public final class TextUrlFilterDelegatorItem extends Item
 	final java.util.Date getRohLastModified()
 	{
 		return TextUrlFilterDelegatorItem.roh.getLastModified(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the body length of the media {@link #roh}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLength")
 	final long getRohLength()
 	{
 		return TextUrlFilterDelegatorItem.roh.getLength(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the body of the media {@link #roh}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
@@ -164,9 +162,9 @@ public final class TextUrlFilterDelegatorItem extends Item
 	final byte[] getRohBody()
 	{
 		return TextUrlFilterDelegatorItem.roh.getBody(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Writes the body of media {@link #roh} into the given stream.
 	 * Does nothing, if the media is null.
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
@@ -177,9 +175,9 @@ public final class TextUrlFilterDelegatorItem extends Item
 				java.io.IOException
 	{
 		TextUrlFilterDelegatorItem.roh.getBody(this,body);
-	}/**
+	}
 
-	 **
+	/**
 	 * Writes the body of media {@link #roh} into the given file.
 	 * Does nothing, if the media is null.
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
@@ -190,9 +188,9 @@ public final class TextUrlFilterDelegatorItem extends Item
 				java.io.IOException
 	{
 		TextUrlFilterDelegatorItem.roh.getBody(this,body);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets the content of media {@link #roh}.
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
 	 */
@@ -202,18 +200,18 @@ public final class TextUrlFilterDelegatorItem extends Item
 				java.io.IOException
 	{
 		TextUrlFilterDelegatorItem.roh.set(this,roh);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets the content of media {@link #roh}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setRoh(@javax.annotation.Nullable final byte[] body,@javax.annotation.Nullable final java.lang.String contentType)
 	{
 		TextUrlFilterDelegatorItem.roh.set(this,body,contentType);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets the content of media {@link #roh}.
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
 	 */
@@ -223,9 +221,9 @@ public final class TextUrlFilterDelegatorItem extends Item
 				java.io.IOException
 	{
 		TextUrlFilterDelegatorItem.roh.set(this,body,contentType);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets the content of media {@link #roh}.
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
 	 */
@@ -235,9 +233,9 @@ public final class TextUrlFilterDelegatorItem extends Item
 				java.io.IOException
 	{
 		TextUrlFilterDelegatorItem.roh.set(this,body,contentType);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns a Locator the content of {@link #fertig} is available under.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLocator")
@@ -245,9 +243,9 @@ public final class TextUrlFilterDelegatorItem extends Item
 	final com.exedio.cope.pattern.MediaPath.Locator getFertigLocator()
 	{
 		return TextUrlFilterDelegatorItem.fertig.getLocator(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns a URL the content of {@link #fertig} is available under, falling back to source if necessary.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getURLWithFallbackToSource")
@@ -255,9 +253,9 @@ public final class TextUrlFilterDelegatorItem extends Item
 	final java.lang.String getFertigURLWithFallbackToSource()
 	{
 		return TextUrlFilterDelegatorItem.fertig.getURLWithFallbackToSource(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns a Locator the content of {@link #fertig} is available under, falling back to source if necessary.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLocatorWithFallbackToSource")
@@ -265,9 +263,9 @@ public final class TextUrlFilterDelegatorItem extends Item
 	final com.exedio.cope.pattern.MediaPath.Locator getFertigLocatorWithFallbackToSource()
 	{
 		return TextUrlFilterDelegatorItem.fertig.getLocatorWithFallbackToSource(this);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setRaw")
 	final void setFertigRaw(@javax.annotation.Nullable final com.exedio.cope.pattern.Media.Value raw)
@@ -275,18 +273,18 @@ public final class TextUrlFilterDelegatorItem extends Item
 				java.io.IOException
 	{
 		TextUrlFilterDelegatorItem.fertig.setRaw(this,raw);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="addPaste")
 	@javax.annotation.Nonnull
 	final com.exedio.cope.pattern.TextUrlFilter.Paste addFertigPaste(@javax.annotation.Nonnull final java.lang.String key,@javax.annotation.Nonnull final com.exedio.cope.pattern.Media.Value value)
 	{
 		return TextUrlFilterDelegatorItem.fertig.addPaste(this,key,value);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="modifyPaste")
 	final void modifyFertigPaste(@javax.annotation.Nonnull final java.lang.String key,@javax.annotation.Nonnull final com.exedio.cope.pattern.Media.Value value)
@@ -294,9 +292,9 @@ public final class TextUrlFilterDelegatorItem extends Item
 				java.io.IOException
 	{
 		TextUrlFilterDelegatorItem.fertig.modifyPaste(this,key,value);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="putPaste")
 	@javax.annotation.Nonnull
@@ -305,9 +303,9 @@ public final class TextUrlFilterDelegatorItem extends Item
 				java.io.IOException
 	{
 		return TextUrlFilterDelegatorItem.fertig.putPaste(this,key,value);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getContent")
 	@javax.annotation.Nonnull
@@ -316,9 +314,9 @@ public final class TextUrlFilterDelegatorItem extends Item
 				com.exedio.cope.pattern.MediaPath.NotFound
 	{
 		return TextUrlFilterDelegatorItem.fertig.getContent(this,request);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="check")
 	@javax.annotation.Nonnull
@@ -327,9 +325,9 @@ public final class TextUrlFilterDelegatorItem extends Item
 				com.exedio.cope.pattern.MediaPath.NotFound
 	{
 		return TextUrlFilterDelegatorItem.fertig.check(this);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="putPastesFromZip")
 	final void putFertigPastesFromZip(@javax.annotation.Nonnull final java.io.File file)
@@ -337,9 +335,9 @@ public final class TextUrlFilterDelegatorItem extends Item
 				java.io.IOException
 	{
 		TextUrlFilterDelegatorItem.fertig.putPastesFromZip(this,file);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns a Locator the content of {@link #roh2} is available under.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLocator")
@@ -347,9 +345,9 @@ public final class TextUrlFilterDelegatorItem extends Item
 	final com.exedio.cope.pattern.MediaPath.Locator getRoh2Locator()
 	{
 		return TextUrlFilterDelegatorItem.roh2.getLocator(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the content type of the media {@link #roh2}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getContentType")
@@ -357,18 +355,18 @@ public final class TextUrlFilterDelegatorItem extends Item
 	final java.lang.String getRoh2ContentType()
 	{
 		return TextUrlFilterDelegatorItem.roh2.getContentType(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns whether media {@link #roh2} is null.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="isNull")
 	final boolean isRoh2Null()
 	{
 		return TextUrlFilterDelegatorItem.roh2.isNull(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the last modification date of media {@link #roh2}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLastModified")
@@ -376,18 +374,18 @@ public final class TextUrlFilterDelegatorItem extends Item
 	final java.util.Date getRoh2LastModified()
 	{
 		return TextUrlFilterDelegatorItem.roh2.getLastModified(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the body length of the media {@link #roh2}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLength")
 	final long getRoh2Length()
 	{
 		return TextUrlFilterDelegatorItem.roh2.getLength(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the body of the media {@link #roh2}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
@@ -395,9 +393,9 @@ public final class TextUrlFilterDelegatorItem extends Item
 	final byte[] getRoh2Body()
 	{
 		return TextUrlFilterDelegatorItem.roh2.getBody(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Writes the body of media {@link #roh2} into the given stream.
 	 * Does nothing, if the media is null.
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
@@ -408,9 +406,9 @@ public final class TextUrlFilterDelegatorItem extends Item
 				java.io.IOException
 	{
 		TextUrlFilterDelegatorItem.roh2.getBody(this,body);
-	}/**
+	}
 
-	 **
+	/**
 	 * Writes the body of media {@link #roh2} into the given file.
 	 * Does nothing, if the media is null.
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
@@ -421,9 +419,9 @@ public final class TextUrlFilterDelegatorItem extends Item
 				java.io.IOException
 	{
 		TextUrlFilterDelegatorItem.roh2.getBody(this,body);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets the content of media {@link #roh2}.
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
 	 */
@@ -433,18 +431,18 @@ public final class TextUrlFilterDelegatorItem extends Item
 				java.io.IOException
 	{
 		TextUrlFilterDelegatorItem.roh2.set(this,roh2);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets the content of media {@link #roh2}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setRoh2(@javax.annotation.Nullable final byte[] body,@javax.annotation.Nullable final java.lang.String contentType)
 	{
 		TextUrlFilterDelegatorItem.roh2.set(this,body,contentType);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets the content of media {@link #roh2}.
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
 	 */
@@ -454,9 +452,9 @@ public final class TextUrlFilterDelegatorItem extends Item
 				java.io.IOException
 	{
 		TextUrlFilterDelegatorItem.roh2.set(this,body,contentType);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets the content of media {@link #roh2}.
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
 	 */
@@ -466,9 +464,9 @@ public final class TextUrlFilterDelegatorItem extends Item
 				java.io.IOException
 	{
 		TextUrlFilterDelegatorItem.roh2.set(this,body,contentType);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns a Locator the content of {@link #fertig2} is available under.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLocator")
@@ -476,9 +474,9 @@ public final class TextUrlFilterDelegatorItem extends Item
 	final com.exedio.cope.pattern.MediaPath.Locator getFertig2Locator()
 	{
 		return TextUrlFilterDelegatorItem.fertig2.getLocator(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns a URL the content of {@link #fertig2} is available under, falling back to source if necessary.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getURLWithFallbackToSource")
@@ -486,9 +484,9 @@ public final class TextUrlFilterDelegatorItem extends Item
 	final java.lang.String getFertig2URLWithFallbackToSource()
 	{
 		return TextUrlFilterDelegatorItem.fertig2.getURLWithFallbackToSource(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns a Locator the content of {@link #fertig2} is available under, falling back to source if necessary.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLocatorWithFallbackToSource")
@@ -496,9 +494,9 @@ public final class TextUrlFilterDelegatorItem extends Item
 	final com.exedio.cope.pattern.MediaPath.Locator getFertig2LocatorWithFallbackToSource()
 	{
 		return TextUrlFilterDelegatorItem.fertig2.getLocatorWithFallbackToSource(this);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setRaw")
 	final void setFertig2Raw(@javax.annotation.Nullable final com.exedio.cope.pattern.Media.Value raw)
@@ -506,9 +504,9 @@ public final class TextUrlFilterDelegatorItem extends Item
 				java.io.IOException
 	{
 		TextUrlFilterDelegatorItem.fertig2.setRaw(this,raw);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getContent")
 	@javax.annotation.Nonnull
@@ -517,9 +515,9 @@ public final class TextUrlFilterDelegatorItem extends Item
 				com.exedio.cope.pattern.MediaPath.NotFound
 	{
 		return TextUrlFilterDelegatorItem.fertig2.getContent(this,request);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="check")
 	@javax.annotation.Nonnull
@@ -528,20 +526,20 @@ public final class TextUrlFilterDelegatorItem extends Item
 				com.exedio.cope.pattern.MediaPath.NotFound
 	{
 		return TextUrlFilterDelegatorItem.fertig2.check(this);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for textUrlFilterDelegatorItem.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<TextUrlFilterDelegatorItem> TYPE = com.exedio.cope.TypesBound.newType(TextUrlFilterDelegatorItem.class);/**
+	public static final com.exedio.cope.Type<TextUrlFilterDelegatorItem> TYPE = com.exedio.cope.TypesBound.newType(TextUrlFilterDelegatorItem.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

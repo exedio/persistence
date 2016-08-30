@@ -24,9 +24,9 @@ public final class PatternTestItem extends Item
 {
 	static final PatternTestPattern testPattern = new PatternTestPattern();
 	static final PatternTestPattern testPattern2 = new PatternTestPattern();
-/**
 
-	 **
+
+	/**
 	 * Creates a new PatternTestItem with all the fields initially needed.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
@@ -34,29 +34,29 @@ public final class PatternTestItem extends Item
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new PatternTestItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private PatternTestItem(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for patternTestItem.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<PatternTestItem> TYPE = com.exedio.cope.TypesBound.newType(PatternTestItem.class);/**
+	public static final com.exedio.cope.Type<PatternTestItem> TYPE = com.exedio.cope.TypesBound.newType(PatternTestItem.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

@@ -22,9 +22,7 @@ public abstract class HierarchySingleSuper extends Item
 {
 	public static final IntegerField superInt = new IntegerField().optional();
 
-/**
-
-	 **
+	/**
 	 * Creates a new HierarchySingleSuper with all the fields initially needed.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
@@ -32,18 +30,18 @@ public abstract class HierarchySingleSuper extends Item
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new HierarchySingleSuper and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	protected HierarchySingleSuper(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #superInt}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -51,29 +49,29 @@ public abstract class HierarchySingleSuper extends Item
 	public final java.lang.Integer getSuperInt()
 	{
 		return HierarchySingleSuper.superInt.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #superInt}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	public final void setSuperInt(@javax.annotation.Nullable final java.lang.Integer superInt)
 	{
 		HierarchySingleSuper.superInt.set(this,superInt);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for hierarchySingleSuper.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<HierarchySingleSuper> TYPE = com.exedio.cope.TypesBound.newType(HierarchySingleSuper.class);/**
+	public static final com.exedio.cope.Type<HierarchySingleSuper> TYPE = com.exedio.cope.TypesBound.newType(HierarchySingleSuper.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

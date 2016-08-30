@@ -35,8 +35,6 @@ public class MediaCatchPhraseSuperItem extends Item
 
 
 	/**
-
-	 **
 	 * Creates a new MediaCatchPhraseSuperItem with all the fields initially needed.
 	 * @param feature the initial value for field {@link #feature}.
 	 * @throws com.exedio.cope.MandatoryViolationException if feature is null.
@@ -50,18 +48,18 @@ public class MediaCatchPhraseSuperItem extends Item
 		this(new com.exedio.cope.SetValue<?>[]{
 			MediaCatchPhraseSuperItem.feature.map(feature),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new MediaCatchPhraseSuperItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	protected MediaCatchPhraseSuperItem(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns a Locator the content of {@link #feature} is available under.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLocator")
@@ -69,9 +67,9 @@ public class MediaCatchPhraseSuperItem extends Item
 	final com.exedio.cope.pattern.MediaPath.Locator getFeatureLocator()
 	{
 		return MediaCatchPhraseSuperItem.feature.getLocator(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the last modification date of media {@link #feature}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLastModified")
@@ -79,18 +77,18 @@ public class MediaCatchPhraseSuperItem extends Item
 	final java.util.Date getFeatureLastModified()
 	{
 		return MediaCatchPhraseSuperItem.feature.getLastModified(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the body length of the media {@link #feature}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLength")
 	final long getFeatureLength()
 	{
 		return MediaCatchPhraseSuperItem.feature.getLength(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the body of the media {@link #feature}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
@@ -98,9 +96,9 @@ public class MediaCatchPhraseSuperItem extends Item
 	final byte[] getFeatureBody()
 	{
 		return MediaCatchPhraseSuperItem.feature.getBody(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Writes the body of media {@link #feature} into the given stream.
 	 * Does nothing, if the media is null.
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
@@ -111,9 +109,9 @@ public class MediaCatchPhraseSuperItem extends Item
 				java.io.IOException
 	{
 		MediaCatchPhraseSuperItem.feature.getBody(this,body);
-	}/**
+	}
 
-	 **
+	/**
 	 * Writes the body of media {@link #feature} into the given file.
 	 * Does nothing, if the media is null.
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
@@ -124,9 +122,9 @@ public class MediaCatchPhraseSuperItem extends Item
 				java.io.IOException
 	{
 		MediaCatchPhraseSuperItem.feature.getBody(this,body);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets the content of media {@link #feature}.
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
 	 */
@@ -136,18 +134,18 @@ public class MediaCatchPhraseSuperItem extends Item
 				java.io.IOException
 	{
 		MediaCatchPhraseSuperItem.feature.set(this,feature);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets the content of media {@link #feature}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setFeature(@javax.annotation.Nonnull final byte[] body,@javax.annotation.Nonnull final java.lang.String contentType)
 	{
 		MediaCatchPhraseSuperItem.feature.set(this,body,contentType);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets the content of media {@link #feature}.
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
 	 */
@@ -157,9 +155,9 @@ public class MediaCatchPhraseSuperItem extends Item
 				java.io.IOException
 	{
 		MediaCatchPhraseSuperItem.feature.set(this,body,contentType);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets the content of media {@link #feature}.
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
 	 */
@@ -169,20 +167,20 @@ public class MediaCatchPhraseSuperItem extends Item
 				java.io.IOException
 	{
 		MediaCatchPhraseSuperItem.feature.set(this,body,contentType);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for mediaCatchPhraseSuperItem.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<MediaCatchPhraseSuperItem> TYPE = com.exedio.cope.TypesBound.newType(MediaCatchPhraseSuperItem.class);/**
+	public static final com.exedio.cope.Type<MediaCatchPhraseSuperItem> TYPE = com.exedio.cope.TypesBound.newType(MediaCatchPhraseSuperItem.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

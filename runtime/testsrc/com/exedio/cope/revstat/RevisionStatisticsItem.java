@@ -33,8 +33,6 @@ final class RevisionStatisticsItem extends Item
 	}
 
 	/**
-
-	 **
 	 * Creates a new RevisionStatisticsItem with all the fields initially needed.
 	 * @param field the initial value for field {@link #field}.
 	 * @param num the initial value for field {@link #num}.
@@ -53,18 +51,18 @@ final class RevisionStatisticsItem extends Item
 			RevisionStatisticsItem.field.map(field),
 			RevisionStatisticsItem.num.map(num),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new RevisionStatisticsItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private RevisionStatisticsItem(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #field}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -72,9 +70,9 @@ final class RevisionStatisticsItem extends Item
 	final java.lang.String getField()
 	{
 		return RevisionStatisticsItem.field.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #field}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -84,38 +82,38 @@ final class RevisionStatisticsItem extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		RevisionStatisticsItem.field.set(this,field);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #num}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	final int getNum()
 	{
 		return RevisionStatisticsItem.num.getMandatory(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #num}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setNum(final int num)
 	{
 		RevisionStatisticsItem.num.set(this,num);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for revisionStatisticsItem.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<RevisionStatisticsItem> TYPE = com.exedio.cope.TypesBound.newType(RevisionStatisticsItem.class);/**
+	static final com.exedio.cope.Type<RevisionStatisticsItem> TYPE = com.exedio.cope.TypesBound.newType(RevisionStatisticsItem.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

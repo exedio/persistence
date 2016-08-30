@@ -22,9 +22,7 @@ public final class DeleteHierarchySource extends Item
 {
 	static final ItemField<DeleteHierarchyTargetSuper> target = ItemField.create(DeleteHierarchyTargetSuper.class).cascade();
 
-/**
-
-	 **
+	/**
 	 * Creates a new DeleteHierarchySource with all the fields initially needed.
 	 * @param target the initial value for field {@link #target}.
 	 * @throws com.exedio.cope.MandatoryViolationException if target is null.
@@ -38,18 +36,18 @@ public final class DeleteHierarchySource extends Item
 		this(new com.exedio.cope.SetValue<?>[]{
 			DeleteHierarchySource.target.map(target),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new DeleteHierarchySource and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private DeleteHierarchySource(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #target}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -57,9 +55,9 @@ public final class DeleteHierarchySource extends Item
 	final DeleteHierarchyTargetSuper getTarget()
 	{
 		return DeleteHierarchySource.target.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #target}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -68,20 +66,20 @@ public final class DeleteHierarchySource extends Item
 				com.exedio.cope.MandatoryViolationException
 	{
 		DeleteHierarchySource.target.set(this,target);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for deleteHierarchySource.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<DeleteHierarchySource> TYPE = com.exedio.cope.TypesBound.newType(DeleteHierarchySource.class);/**
+	public static final com.exedio.cope.Type<DeleteHierarchySource> TYPE = com.exedio.cope.TypesBound.newType(DeleteHierarchySource.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

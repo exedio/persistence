@@ -23,8 +23,6 @@ public class FinalSuperItem extends Item
 	public static final IntegerField superInt = new IntegerField().toFinal();
 
 	/**
-
-	 **
 	 * Creates a new FinalSuperItem with all the fields initially needed.
 	 * @param superInt the initial value for field {@link #superInt}.
 	 */
@@ -35,38 +33,38 @@ public class FinalSuperItem extends Item
 		this(new com.exedio.cope.SetValue<?>[]{
 			FinalSuperItem.superInt.map(superInt),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new FinalSuperItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	protected FinalSuperItem(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #superInt}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	public final int getSuperInt()
 	{
 		return FinalSuperItem.superInt.getMandatory(this);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for finalSuperItem.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<FinalSuperItem> TYPE = com.exedio.cope.TypesBound.newType(FinalSuperItem.class);/**
+	public static final com.exedio.cope.Type<FinalSuperItem> TYPE = com.exedio.cope.TypesBound.newType(FinalSuperItem.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

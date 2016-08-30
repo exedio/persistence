@@ -39,8 +39,6 @@ public final class ThumbnailItem extends Item
 	}
 
 	/**
-
-	 **
 	 * Creates a new ThumbnailItem with all the fields initially needed.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
@@ -48,18 +46,18 @@ public final class ThumbnailItem extends Item
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new ThumbnailItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private ThumbnailItem(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns a Locator the content of {@link #file} is available under.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLocator")
@@ -67,9 +65,9 @@ public final class ThumbnailItem extends Item
 	final com.exedio.cope.pattern.MediaPath.Locator getFileLocator()
 	{
 		return ThumbnailItem.file.getLocator(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the content type of the media {@link #file}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getContentType")
@@ -77,18 +75,18 @@ public final class ThumbnailItem extends Item
 	final java.lang.String getFileContentType()
 	{
 		return ThumbnailItem.file.getContentType(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns whether media {@link #file} is null.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="isNull")
 	final boolean isFileNull()
 	{
 		return ThumbnailItem.file.isNull(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the last modification date of media {@link #file}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLastModified")
@@ -96,18 +94,18 @@ public final class ThumbnailItem extends Item
 	final java.util.Date getFileLastModified()
 	{
 		return ThumbnailItem.file.getLastModified(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the body length of the media {@link #file}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLength")
 	final long getFileLength()
 	{
 		return ThumbnailItem.file.getLength(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the body of the media {@link #file}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
@@ -115,9 +113,9 @@ public final class ThumbnailItem extends Item
 	final byte[] getFileBody()
 	{
 		return ThumbnailItem.file.getBody(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Writes the body of media {@link #file} into the given stream.
 	 * Does nothing, if the media is null.
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
@@ -128,9 +126,9 @@ public final class ThumbnailItem extends Item
 				java.io.IOException
 	{
 		ThumbnailItem.file.getBody(this,body);
-	}/**
+	}
 
-	 **
+	/**
 	 * Writes the body of media {@link #file} into the given file.
 	 * Does nothing, if the media is null.
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
@@ -141,9 +139,9 @@ public final class ThumbnailItem extends Item
 				java.io.IOException
 	{
 		ThumbnailItem.file.getBody(this,body);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets the content of media {@link #file}.
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
 	 */
@@ -153,18 +151,18 @@ public final class ThumbnailItem extends Item
 				java.io.IOException
 	{
 		ThumbnailItem.file.set(this,file);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets the content of media {@link #file}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setFile(@javax.annotation.Nullable final byte[] body,@javax.annotation.Nullable final java.lang.String contentType)
 	{
 		ThumbnailItem.file.set(this,body,contentType);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets the content of media {@link #file}.
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
 	 */
@@ -174,9 +172,9 @@ public final class ThumbnailItem extends Item
 				java.io.IOException
 	{
 		ThumbnailItem.file.set(this,body,contentType);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets the content of media {@link #file}.
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
 	 */
@@ -186,9 +184,9 @@ public final class ThumbnailItem extends Item
 				java.io.IOException
 	{
 		ThumbnailItem.file.set(this,body,contentType);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns a Locator the content of {@link #thumb} is available under.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLocator")
@@ -196,9 +194,9 @@ public final class ThumbnailItem extends Item
 	final com.exedio.cope.pattern.MediaPath.Locator getThumbLocator()
 	{
 		return ThumbnailItem.thumb.getLocator(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns a URL the content of {@link #thumb} is available under, falling back to source if necessary.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getURLWithFallbackToSource")
@@ -206,9 +204,9 @@ public final class ThumbnailItem extends Item
 	final java.lang.String getThumbURLWithFallbackToSource()
 	{
 		return ThumbnailItem.thumb.getURLWithFallbackToSource(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns a Locator the content of {@link #thumb} is available under, falling back to source if necessary.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLocatorWithFallbackToSource")
@@ -216,9 +214,9 @@ public final class ThumbnailItem extends Item
 	final com.exedio.cope.pattern.MediaPath.Locator getThumbLocatorWithFallbackToSource()
 	{
 		return ThumbnailItem.thumb.getLocatorWithFallbackToSource(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the body of {@link #thumb}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -228,20 +226,20 @@ public final class ThumbnailItem extends Item
 				java.io.IOException
 	{
 		return ThumbnailItem.thumb.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for thumbnailItem.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<ThumbnailItem> TYPE = com.exedio.cope.TypesBound.newType(ThumbnailItem.class);/**
+	public static final com.exedio.cope.Type<ThumbnailItem> TYPE = com.exedio.cope.TypesBound.newType(ThumbnailItem.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

@@ -49,17 +49,15 @@ public final class TypeFieldItem extends Item
 	}
 
 	/**
-
-	 **
 	 * Creates a new TypeFieldItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private TypeFieldItem(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #standard}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -67,9 +65,9 @@ public final class TypeFieldItem extends Item
 	final com.exedio.cope.Type<? extends Item> getStandard()
 	{
 		return TypeFieldItem.standard.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #standard}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -79,9 +77,9 @@ public final class TypeFieldItem extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		TypeFieldItem.standard.set(this,standard);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #isFinal}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -89,9 +87,9 @@ public final class TypeFieldItem extends Item
 	final com.exedio.cope.Type<? extends Item> getIsFinal()
 	{
 		return TypeFieldItem.isFinal.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #optional}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -99,9 +97,9 @@ public final class TypeFieldItem extends Item
 	final com.exedio.cope.Type<? extends Item> getOptional()
 	{
 		return TypeFieldItem.optional.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #optional}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -110,9 +108,9 @@ public final class TypeFieldItem extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		TypeFieldItem.optional.set(this,optional);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #unique}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -120,9 +118,9 @@ public final class TypeFieldItem extends Item
 	final com.exedio.cope.Type<? extends Item> getUnique()
 	{
 		return TypeFieldItem.unique.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #unique}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -132,9 +130,9 @@ public final class TypeFieldItem extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		TypeFieldItem.unique.set(this,unique);
-	}/**
+	}
 
-	 **
+	/**
 	 * Finds a typeFieldItem by it's {@link #unique}.
 	 * @param unique shall be equal to field {@link #unique}.
 	 * @return null if there is no matching item.
@@ -144,9 +142,9 @@ public final class TypeFieldItem extends Item
 	static final TypeFieldItem forUnique(@javax.annotation.Nonnull final com.exedio.cope.Type<? extends Item> unique)
 	{
 		return TypeFieldItem.unique.searchUnique(TypeFieldItem.class,unique);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #renamed}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -154,9 +152,9 @@ public final class TypeFieldItem extends Item
 	final com.exedio.cope.Type<? extends Item> getRenamed()
 	{
 		return TypeFieldItem.renamed.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #renamed}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -165,9 +163,9 @@ public final class TypeFieldItem extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		TypeFieldItem.renamed.set(this,renamed);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #restricted}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -175,9 +173,9 @@ public final class TypeFieldItem extends Item
 	final com.exedio.cope.Type<? extends TypeFieldSubItem> getRestricted()
 	{
 		return TypeFieldItem.restricted.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #restricted}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -186,20 +184,20 @@ public final class TypeFieldItem extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		TypeFieldItem.restricted.set(this,restricted);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for typeFieldItem.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<TypeFieldItem> TYPE = com.exedio.cope.TypesBound.newType(TypeFieldItem.class);/**
+	public static final com.exedio.cope.Type<TypeFieldItem> TYPE = com.exedio.cope.TypesBound.newType(TypeFieldItem.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

@@ -86,9 +86,7 @@ public class SchemaMismatchConstraintCheckClauseTest extends SchemaMismatchTest
 	{
 		static final IntegerField field = new IntegerField().range(0, 66).toFinal(); // avoid update counter
 
-		/**
-
-	 **
+	/**
 	 * Creates a new ItemA with all the fields initially needed.
 	 * @param field the initial value for field {@link #field}.
 	 * @throws com.exedio.cope.IntegerRangeViolationException if field violates its range constraint.
@@ -102,38 +100,38 @@ public class SchemaMismatchConstraintCheckClauseTest extends SchemaMismatchTest
 		this(new com.exedio.cope.SetValue<?>[]{
 			ItemA.field.map(field),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new ItemA and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private ItemA(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #field}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	final int getField()
 	{
 		return ItemA.field.getMandatory(this);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for itemA.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<ItemA> TYPE = com.exedio.cope.TypesBound.newType(ItemA.class);/**
+	static final com.exedio.cope.Type<ItemA> TYPE = com.exedio.cope.TypesBound.newType(ItemA.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
@@ -146,9 +144,7 @@ public class SchemaMismatchConstraintCheckClauseTest extends SchemaMismatchTest
 	{
 		static final IntegerField field = new IntegerField().range(0, 88).toFinal(); // avoid update counter
 
-		/**
-
-	 **
+	/**
 	 * Creates a new ItemB with all the fields initially needed.
 	 * @param field the initial value for field {@link #field}.
 	 * @throws com.exedio.cope.IntegerRangeViolationException if field violates its range constraint.
@@ -162,38 +158,38 @@ public class SchemaMismatchConstraintCheckClauseTest extends SchemaMismatchTest
 		this(new com.exedio.cope.SetValue<?>[]{
 			ItemB.field.map(field),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new ItemB and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private ItemB(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #field}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	final int getField()
 	{
 		return ItemB.field.getMandatory(this);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for itemB.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<ItemB> TYPE = com.exedio.cope.TypesBound.newType(ItemB.class);/**
+	static final com.exedio.cope.Type<ItemB> TYPE = com.exedio.cope.TypesBound.newType(ItemB.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

@@ -41,6 +41,7 @@ import javax.tools.Diagnostic;
 final class TreeApiContext
 {
 	private final Params.ConfigurationByJavadocTags javadocTagHandling;
+	final boolean dropSpaceBeforeGenerated;
 	private final DocTrees docTrees;
 	private final Messager messager;
 	final JavaFile javaFile;
@@ -50,9 +51,10 @@ final class TreeApiContext
 	private byte[] allBytes;
 	boolean foundJavadocControlTags=false;
 
-	TreeApiContext(final Params.ConfigurationByJavadocTags javadocTagHandling, final ProcessingEnvironment processingEnv, final JavaFile javaFile, final CompilationUnitTree compilationUnit)
+	TreeApiContext(final Params.ConfigurationByJavadocTags javadocTagHandling, final boolean dropSpaceBeforeGenerated, final ProcessingEnvironment processingEnv, final JavaFile javaFile, final CompilationUnitTree compilationUnit)
 	{
 		this.javadocTagHandling=javadocTagHandling;
+		this.dropSpaceBeforeGenerated=dropSpaceBeforeGenerated;
 		this.docTrees=DocTrees.instance(processingEnv);
 		this.messager=processingEnv.getMessager();
 		this.javaFile=javaFile;
@@ -172,6 +174,7 @@ final class TreeApiContext
 		return baos.toByteArray();
 	}
 
+	/** @return -1 if not found */
 	int searchBefore(final int pos, final byte[] search)
 	{
 		int searchPos=pos-search.length;

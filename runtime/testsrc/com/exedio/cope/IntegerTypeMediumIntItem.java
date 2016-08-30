@@ -29,8 +29,6 @@ public class IntegerTypeMediumIntItem extends Item
 
 
 	/**
-
-	 **
 	 * Creates a new IntegerTypeMediumIntItem with all the fields initially needed.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
@@ -38,18 +36,18 @@ public class IntegerTypeMediumIntItem extends Item
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new IntegerTypeMediumIntItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	protected IntegerTypeMediumIntItem(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #itemReference}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -57,18 +55,18 @@ public class IntegerTypeMediumIntItem extends Item
 	final IntegerTypeMediumIntItem getItemReference()
 	{
 		return IntegerTypeMediumIntItem.itemReference.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #itemReference}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setItemReference(@javax.annotation.Nullable final IntegerTypeMediumIntItem itemReference)
 	{
 		IntegerTypeMediumIntItem.itemReference.set(this,itemReference);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #value}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -76,9 +74,9 @@ public class IntegerTypeMediumIntItem extends Item
 	final java.lang.Long getValue()
 	{
 		return IntegerTypeMediumIntItem.value.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #value}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -87,20 +85,20 @@ public class IntegerTypeMediumIntItem extends Item
 				com.exedio.cope.LongRangeViolationException
 	{
 		IntegerTypeMediumIntItem.value.set(this,value);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for integerTypeMediumIntItem.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<IntegerTypeMediumIntItem> TYPE = com.exedio.cope.TypesBound.newType(IntegerTypeMediumIntItem.class);/**
+	public static final com.exedio.cope.Type<IntegerTypeMediumIntItem> TYPE = com.exedio.cope.TypesBound.newType(IntegerTypeMediumIntItem.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

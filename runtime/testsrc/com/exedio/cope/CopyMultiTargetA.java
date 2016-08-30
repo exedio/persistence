@@ -26,8 +26,6 @@ final class CopyMultiTargetA extends Item
 	static final StringField copy = new StringField().toFinal().optional();
 
 	/**
-
-	 **
 	 * Creates a new CopyMultiTargetA with all the fields initially needed.
 	 * @param copy the initial value for field {@link #copy}.
 	 * @throws com.exedio.cope.StringLengthViolationException if copy violates its length constraint.
@@ -41,18 +39,18 @@ final class CopyMultiTargetA extends Item
 		this(new com.exedio.cope.SetValue<?>[]{
 			CopyMultiTargetA.copy.map(copy),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new CopyMultiTargetA and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private CopyMultiTargetA(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #copy}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -60,20 +58,20 @@ final class CopyMultiTargetA extends Item
 	final java.lang.String getCopy()
 	{
 		return CopyMultiTargetA.copy.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for copyMultiTargetA.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<CopyMultiTargetA> TYPE = com.exedio.cope.TypesBound.newType(CopyMultiTargetA.class);/**
+	static final com.exedio.cope.Type<CopyMultiTargetA> TYPE = com.exedio.cope.TypesBound.newType(CopyMultiTargetA.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

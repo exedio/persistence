@@ -29,8 +29,6 @@ final class ImporterItem extends Item
 	static final StringField description2 = new StringField();
 
 	/**
-
-	 **
 	 * Creates a new ImporterItem with all the fields initially needed.
 	 * @param code the initial value for field {@link #code}.
 	 * @param description the initial value for field {@link #description}.
@@ -54,18 +52,18 @@ final class ImporterItem extends Item
 			ImporterItem.description.map(description),
 			ImporterItem.description2.map(description2),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new ImporterItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private ImporterItem(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #code}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -73,9 +71,9 @@ final class ImporterItem extends Item
 	final java.lang.String getCode()
 	{
 		return ImporterItem.code.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Finds a importerItem by it's {@link #code}.
 	 * @param code shall be equal to field {@link #code}.
 	 * @return null if there is no matching item.
@@ -85,9 +83,9 @@ final class ImporterItem extends Item
 	static final ImporterItem forCode(@javax.annotation.Nonnull final java.lang.String code)
 	{
 		return ImporterItem.code.searchUnique(ImporterItem.class,code);
-	}/**
+	}
 
-	 **
+	/**
 	 * Import {@link #byCode}.
 	 * @return the imported item
 	 */
@@ -96,9 +94,9 @@ final class ImporterItem extends Item
 	static final ImporterItem importByCode(@javax.annotation.Nonnull final String keyValue,@javax.annotation.Nonnull final com.exedio.cope.SetValue<?>... setValues)
 	{
 		return ImporterItem.byCode.doImport(ImporterItem.class,keyValue,setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Import {@link #byCode}.
 	 * @return the imported item
 	 */
@@ -107,9 +105,9 @@ final class ImporterItem extends Item
 	static final ImporterItem importByCode(@javax.annotation.Nonnull final String keyValue,@javax.annotation.Nonnull final java.util.List<? extends com.exedio.cope.SetValue<?>> setValues)
 	{
 		return ImporterItem.byCode.doImport(ImporterItem.class,keyValue,setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #description}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -117,9 +115,9 @@ final class ImporterItem extends Item
 	final java.lang.String getDescription()
 	{
 		return ImporterItem.description.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #description}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -129,9 +127,9 @@ final class ImporterItem extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		ImporterItem.description.set(this,description);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #description2}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -139,9 +137,9 @@ final class ImporterItem extends Item
 	final java.lang.String getDescription2()
 	{
 		return ImporterItem.description2.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #description2}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -151,20 +149,20 @@ final class ImporterItem extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		ImporterItem.description2.set(this,description2);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for importerItem.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<ImporterItem> TYPE = com.exedio.cope.TypesBound.newType(ImporterItem.class);/**
+	static final com.exedio.cope.Type<ImporterItem> TYPE = com.exedio.cope.TypesBound.newType(ImporterItem.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

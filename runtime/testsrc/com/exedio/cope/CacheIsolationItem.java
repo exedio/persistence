@@ -25,8 +25,6 @@ public final class CacheIsolationItem extends Item
 	public static final StringField name = new StringField();
 
 	/**
-
-	 **
 	 * Creates a new CacheIsolationItem with all the fields initially needed.
 	 * @param name the initial value for field {@link #name}.
 	 * @throws com.exedio.cope.MandatoryViolationException if name is null.
@@ -42,18 +40,18 @@ public final class CacheIsolationItem extends Item
 		this(new com.exedio.cope.SetValue<?>[]{
 			CacheIsolationItem.name.map(name),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new CacheIsolationItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private CacheIsolationItem(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #uniqueString}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -61,9 +59,9 @@ public final class CacheIsolationItem extends Item
 	final java.lang.String getUniqueString()
 	{
 		return CacheIsolationItem.uniqueString.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #uniqueString}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -73,9 +71,9 @@ public final class CacheIsolationItem extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		CacheIsolationItem.uniqueString.set(this,uniqueString);
-	}/**
+	}
 
-	 **
+	/**
 	 * Finds a cacheIsolationItem by it's {@link #uniqueString}.
 	 * @param uniqueString shall be equal to field {@link #uniqueString}.
 	 * @return null if there is no matching item.
@@ -85,9 +83,9 @@ public final class CacheIsolationItem extends Item
 	static final CacheIsolationItem forUniqueString(@javax.annotation.Nonnull final java.lang.String uniqueString)
 	{
 		return CacheIsolationItem.uniqueString.searchUnique(CacheIsolationItem.class,uniqueString);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #name}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -95,9 +93,9 @@ public final class CacheIsolationItem extends Item
 	public final java.lang.String getName()
 	{
 		return CacheIsolationItem.name.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #name}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -107,20 +105,20 @@ public final class CacheIsolationItem extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		CacheIsolationItem.name.set(this,name);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for cacheIsolationItem.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<CacheIsolationItem> TYPE = com.exedio.cope.TypesBound.newType(CacheIsolationItem.class);/**
+	public static final com.exedio.cope.Type<CacheIsolationItem> TYPE = com.exedio.cope.TypesBound.newType(CacheIsolationItem.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

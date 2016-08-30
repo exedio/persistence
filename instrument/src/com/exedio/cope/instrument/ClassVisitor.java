@@ -27,7 +27,6 @@ import com.sun.source.tree.VariableTree;
 import com.sun.source.util.TreePathScanner;
 import java.lang.annotation.Annotation;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.Set;
@@ -38,6 +37,7 @@ import javax.lang.model.element.Modifier;
 class ClassVisitor extends TreePathScanner<Void,Void>
 {
 	private static final Set<Modifier> REQUIRED_MODIFIERS_FOR_COPE_FEATURE = EnumSet.of(Modifier.FINAL, Modifier.STATIC);
+	private final byte[] DOUBLE_LINE_SEPARATOR_BYTES=(System.lineSeparator()+System.lineSeparator()).getBytes(StandardCharsets.US_ASCII);
 
 	private final JavaClass outerClass;
 	private final TreeApiContext context;
@@ -111,7 +111,28 @@ class ClassVisitor extends TreePathScanner<Void,Void>
 
 	private void addGeneratedFragment(final int start, final int end)
 	{
-		context.markFragmentAsGenerated(start, end);
+		final int realStart;
+		if (context.dropSpaceBeforeGenerated)
+		{
+			final int lineStart=context.searchBefore(start, DOUBLE_LINE_SEPARATOR_BYTES);
+			if (lineStart==-1)
+			{
+				realStart=start;
+			}
+			else
+			{
+				final String lineBeforeStart=context.getSourceString(lineStart, start);
+				if (allWhitespace(lineBeforeStart))
+					realStart=lineStart;
+				else
+					realStart=start;
+			}
+		}
+		else
+		{
+			realStart=start;
+		}
+		context.markFragmentAsGenerated(realStart, end);
 	}
 
 	private boolean checkGenerated() throws RuntimeException

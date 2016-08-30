@@ -29,8 +29,6 @@ class HardJoinA1Item extends Item
 
 
 	/**
-
-	 **
 	 * Creates a new HardJoinA1Item with all the fields initially needed.
 	 * @param code the initial value for field {@link #code}.
 	 * @param a1 the initial value for field {@link #a1}.
@@ -51,18 +49,18 @@ class HardJoinA1Item extends Item
 			HardJoinA1Item.code.map(code),
 			HardJoinA1Item.a1.map(a1),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new HardJoinA1Item and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	protected HardJoinA1Item(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #code}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -70,9 +68,9 @@ class HardJoinA1Item extends Item
 	final java.lang.String getCode()
 	{
 		return HardJoinA1Item.code.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #code}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -83,9 +81,9 @@ class HardJoinA1Item extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		HardJoinA1Item.code.set(this,code);
-	}/**
+	}
 
-	 **
+	/**
 	 * Finds a hardJoinA1Item by it's {@link #code}.
 	 * @param code shall be equal to field {@link #code}.
 	 * @return null if there is no matching item.
@@ -95,9 +93,9 @@ class HardJoinA1Item extends Item
 	static final HardJoinA1Item forCode(@javax.annotation.Nonnull final java.lang.String code)
 	{
 		return HardJoinA1Item.code.searchUnique(HardJoinA1Item.class,code);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #a1}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -105,29 +103,29 @@ class HardJoinA1Item extends Item
 	final java.lang.Integer getA1()
 	{
 		return HardJoinA1Item.a1.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #a1}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setA1(@javax.annotation.Nullable final java.lang.Integer a1)
 	{
 		HardJoinA1Item.a1.set(this,a1);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for hardJoinA1Item.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<HardJoinA1Item> TYPE = com.exedio.cope.TypesBound.newType(HardJoinA1Item.class);/**
+	static final com.exedio.cope.Type<HardJoinA1Item> TYPE = com.exedio.cope.TypesBound.newType(HardJoinA1Item.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

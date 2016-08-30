@@ -52,8 +52,6 @@ public final class CheckConstraintItem extends CheckConstraintSuperItem
 	}
 
 	/**
-
-	 **
 	 * Creates a new CheckConstraintItem with all the fields initially needed.
 	 * @param eins the initial value for field {@link #eins}.
 	 * @param zwei the initial value for field {@link #zwei}.
@@ -82,18 +80,18 @@ public final class CheckConstraintItem extends CheckConstraintSuperItem
 			CheckConstraintItem.gamma.map(gamma),
 			CheckConstraintItem.delta.map(delta),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new CheckConstraintItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private CheckConstraintItem(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #alpha}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -101,18 +99,18 @@ public final class CheckConstraintItem extends CheckConstraintSuperItem
 	public final java.lang.Integer getAlpha()
 	{
 		return CheckConstraintItem.alpha.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #alpha}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	public final void setAlpha(@javax.annotation.Nullable final java.lang.Integer alpha)
 	{
 		CheckConstraintItem.alpha.set(this,alpha);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #beta}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -120,18 +118,18 @@ public final class CheckConstraintItem extends CheckConstraintSuperItem
 	public final java.lang.Integer getBeta()
 	{
 		return CheckConstraintItem.beta.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #beta}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	public final void setBeta(@javax.annotation.Nullable final java.lang.Integer beta)
 	{
 		CheckConstraintItem.beta.set(this,beta);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #gamma}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -139,18 +137,18 @@ public final class CheckConstraintItem extends CheckConstraintSuperItem
 	public final java.lang.Integer getGamma()
 	{
 		return CheckConstraintItem.gamma.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #gamma}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	public final void setGamma(@javax.annotation.Nullable final java.lang.Integer gamma)
 	{
 		CheckConstraintItem.gamma.set(this,gamma);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #delta}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -158,29 +156,29 @@ public final class CheckConstraintItem extends CheckConstraintSuperItem
 	public final java.lang.Integer getDelta()
 	{
 		return CheckConstraintItem.delta.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #delta}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	public final void setDelta(@javax.annotation.Nullable final java.lang.Integer delta)
 	{
 		CheckConstraintItem.delta.set(this,delta);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for checkConstraintItem.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<CheckConstraintItem> TYPE = com.exedio.cope.TypesBound.newType(CheckConstraintItem.class);/**
+	public static final com.exedio.cope.Type<CheckConstraintItem> TYPE = com.exedio.cope.TypesBound.newType(CheckConstraintItem.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

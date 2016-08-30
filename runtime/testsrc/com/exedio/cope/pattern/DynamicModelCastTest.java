@@ -111,8 +111,6 @@ public class DynamicModelCastTest extends TestWithEnvironment
 
 
 	/**
-
-	 **
 	 * Creates a new ModelItem with all the fields initially needed.
 	 * @param name the initial value for field {@link #name}.
 	 * @throws com.exedio.cope.MandatoryViolationException if name is null.
@@ -128,18 +126,18 @@ public class DynamicModelCastTest extends TestWithEnvironment
 		this(new com.exedio.cope.SetValue<?>[]{
 			ModelItem.name.map(name),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new ModelItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private ModelItem(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #name}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -147,9 +145,9 @@ public class DynamicModelCastTest extends TestWithEnvironment
 	final java.lang.String getName()
 	{
 		return ModelItem.name.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the dynamic type of this item in the model {@link #alpha}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getType")
@@ -157,18 +155,18 @@ public class DynamicModelCastTest extends TestWithEnvironment
 	final com.exedio.cope.pattern.DynamicModel.Type<Locale> getAlphaType()
 	{
 		return ModelItem.alpha.getType(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets the dynamic type of this item in the model {@link #alpha}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setType")
 	final void setAlphaType(@javax.annotation.Nullable final com.exedio.cope.pattern.DynamicModel.Type<Locale> type)
 	{
 		ModelItem.alpha.setType(this,type);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of <tt>field</tt> for this item in the model {@link #alpha}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -176,18 +174,18 @@ public class DynamicModelCastTest extends TestWithEnvironment
 	final java.lang.Object getAlpha(@javax.annotation.Nonnull final com.exedio.cope.pattern.DynamicModel.Field<Locale> field)
 	{
 		return ModelItem.alpha.get(this,field);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets the value of <tt>field</tt> for this item in the model {@link #alpha}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setAlpha(@javax.annotation.Nonnull final com.exedio.cope.pattern.DynamicModel.Field<Locale> field,@javax.annotation.Nullable final java.lang.Object value)
 	{
 		ModelItem.alpha.set(this,field,value);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the dynamic type of this item in the model {@link #alfa}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getType")
@@ -195,18 +193,18 @@ public class DynamicModelCastTest extends TestWithEnvironment
 	final com.exedio.cope.pattern.DynamicModel.Type<Locale> getAlfaType()
 	{
 		return ModelItem.alfa.getType(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets the dynamic type of this item in the model {@link #alfa}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setType")
 	final void setAlfaType(@javax.annotation.Nullable final com.exedio.cope.pattern.DynamicModel.Type<Locale> type)
 	{
 		ModelItem.alfa.setType(this,type);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of <tt>field</tt> for this item in the model {@link #alfa}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -214,18 +212,18 @@ public class DynamicModelCastTest extends TestWithEnvironment
 	final java.lang.Object getAlfa(@javax.annotation.Nonnull final com.exedio.cope.pattern.DynamicModel.Field<Locale> field)
 	{
 		return ModelItem.alfa.get(this,field);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets the value of <tt>field</tt> for this item in the model {@link #alfa}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setAlfa(@javax.annotation.Nonnull final com.exedio.cope.pattern.DynamicModel.Field<Locale> field,@javax.annotation.Nullable final java.lang.Object value)
 	{
 		ModelItem.alfa.set(this,field,value);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the dynamic type of this item in the model {@link #beta}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getType")
@@ -233,18 +231,18 @@ public class DynamicModelCastTest extends TestWithEnvironment
 	final com.exedio.cope.pattern.DynamicModel.Type<String> getBetaType()
 	{
 		return ModelItem.beta.getType(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets the dynamic type of this item in the model {@link #beta}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setType")
 	final void setBetaType(@javax.annotation.Nullable final com.exedio.cope.pattern.DynamicModel.Type<String> type)
 	{
 		ModelItem.beta.setType(this,type);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of <tt>field</tt> for this item in the model {@link #beta}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -252,29 +250,29 @@ public class DynamicModelCastTest extends TestWithEnvironment
 	final java.lang.Object getBeta(@javax.annotation.Nonnull final com.exedio.cope.pattern.DynamicModel.Field<String> field)
 	{
 		return ModelItem.beta.get(this,field);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets the value of <tt>field</tt> for this item in the model {@link #beta}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setBeta(@javax.annotation.Nonnull final com.exedio.cope.pattern.DynamicModel.Field<String> field,@javax.annotation.Nullable final java.lang.Object value)
 	{
 		ModelItem.beta.set(this,field,value);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for modelItem.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<ModelItem> TYPE = com.exedio.cope.TypesBound.newType(ModelItem.class);/**
+	static final com.exedio.cope.Type<ModelItem> TYPE = com.exedio.cope.TypesBound.newType(ModelItem.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

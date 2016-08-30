@@ -66,9 +66,7 @@ public class SchemaMismatchConstraintUniqueClauseTest extends SchemaMismatchTest
 
 		static final UniqueConstraint unique = new UniqueConstraint(field1, field2);
 
-		/**
-
-	 **
+	/**
 	 * Creates a new ItemA with all the fields initially needed.
 	 * @param field1 the initial value for field {@link #field1}.
 	 * @param field2 the initial value for field {@link #field2}.
@@ -85,36 +83,36 @@ public class SchemaMismatchConstraintUniqueClauseTest extends SchemaMismatchTest
 			ItemA.field1.map(field1),
 			ItemA.field2.map(field2),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new ItemA and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private ItemA(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #field1}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	final int getField1()
 	{
 		return ItemA.field1.getMandatory(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #field2}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	final int getField2()
 	{
 		return ItemA.field2.getMandatory(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Finds a itemA by it's unique fields.
 	 * @param field1 shall be equal to field {@link #field1}.
 	 * @param field2 shall be equal to field {@link #field2}.
@@ -125,20 +123,20 @@ public class SchemaMismatchConstraintUniqueClauseTest extends SchemaMismatchTest
 	static final ItemA forUnique(final int field1,final int field2)
 	{
 		return ItemA.unique.search(ItemA.class,field1,field2);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for itemA.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<ItemA> TYPE = com.exedio.cope.TypesBound.newType(ItemA.class);/**
+	static final com.exedio.cope.Type<ItemA> TYPE = com.exedio.cope.TypesBound.newType(ItemA.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
@@ -154,9 +152,7 @@ public class SchemaMismatchConstraintUniqueClauseTest extends SchemaMismatchTest
 
 		static final UniqueConstraint unique = new UniqueConstraint(field2, field1);
 
-		/**
-
-	 **
+	/**
 	 * Creates a new ItemB with all the fields initially needed.
 	 * @param field1 the initial value for field {@link #field1}.
 	 * @param field2 the initial value for field {@link #field2}.
@@ -173,36 +169,36 @@ public class SchemaMismatchConstraintUniqueClauseTest extends SchemaMismatchTest
 			ItemB.field1.map(field1),
 			ItemB.field2.map(field2),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new ItemB and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private ItemB(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #field1}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	final int getField1()
 	{
 		return ItemB.field1.getMandatory(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #field2}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	final int getField2()
 	{
 		return ItemB.field2.getMandatory(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Finds a itemB by it's unique fields.
 	 * @param field2 shall be equal to field {@link #field2}.
 	 * @param field1 shall be equal to field {@link #field1}.
@@ -213,20 +209,20 @@ public class SchemaMismatchConstraintUniqueClauseTest extends SchemaMismatchTest
 	static final ItemB forUnique(final int field2,final int field1)
 	{
 		return ItemB.unique.search(ItemB.class,field2,field1);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for itemB.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<ItemB> TYPE = com.exedio.cope.TypesBound.newType(ItemB.class);/**
+	static final com.exedio.cope.Type<ItemB> TYPE = com.exedio.cope.TypesBound.newType(ItemB.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

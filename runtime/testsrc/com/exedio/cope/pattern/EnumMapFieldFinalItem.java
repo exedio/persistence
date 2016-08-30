@@ -47,8 +47,6 @@ public final class EnumMapFieldFinalItem extends Item
 	}
 
 	/**
-
-	 **
 	 * Creates a new EnumMapFieldFinalItem with all the fields initially needed.
 	 * @param text the initial value for field {@link #text}.
 	 * @throws com.exedio.cope.StringLengthViolationException if text violates its length constraint.
@@ -62,18 +60,18 @@ public final class EnumMapFieldFinalItem extends Item
 		this(new com.exedio.cope.SetValue<?>[]{
 			EnumMapFieldFinalItem.text.map(text),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new EnumMapFieldFinalItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private EnumMapFieldFinalItem(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value mapped to <tt>k</tt> by the field map {@link #text}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -81,46 +79,46 @@ public final class EnumMapFieldFinalItem extends Item
 	final String getText(@javax.annotation.Nonnull final EnumMapFieldItem.Language k)
 	{
 		return EnumMapFieldFinalItem.text.get(this,k);
-	}/**
+	}
 
-	 **
+	/**
 	 * Associates <tt>k</tt> to a new value in the field map {@link #text}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setText(@javax.annotation.Nonnull final EnumMapFieldItem.Language k,@javax.annotation.Nullable final String text)
 	{
 		EnumMapFieldFinalItem.text.set(this,k,text);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getMap")
 	@javax.annotation.Nonnull
 	final java.util.Map<EnumMapFieldItem.Language,String> getTextMap()
 	{
 		return EnumMapFieldFinalItem.text.getMap(this);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setMap")
 	final void setTextMap(@javax.annotation.Nonnull final java.util.Map<? extends EnumMapFieldItem.Language,? extends String> text)
 	{
 		EnumMapFieldFinalItem.text.setMap(this,text);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for enumMapFieldFinalItem.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<EnumMapFieldFinalItem> TYPE = com.exedio.cope.TypesBound.newType(EnumMapFieldFinalItem.class);/**
+	public static final com.exedio.cope.Type<EnumMapFieldFinalItem> TYPE = com.exedio.cope.TypesBound.newType(EnumMapFieldFinalItem.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

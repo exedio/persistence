@@ -165,8 +165,6 @@ public class NameLengthTest extends TestWithEnvironment
 		static final IntegerField nextShort = new IntegerField().toFinal().defaultToNext(5);
 
 	/**
-
-	 **
 	 * Creates a new AnItem with all the fields initially needed.
 	 * @param fieldLong the initial value for field {@link #fieldLong}.
 	 * @param fieldShort the initial value for field {@link #fieldShort}.
@@ -191,18 +189,18 @@ public class NameLengthTest extends TestWithEnvironment
 			AnItem.foreignLong.map(foreignLong),
 			AnItem.foreignShort.map(foreignShort),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new AnItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private AnItem(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #fieldLong}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -210,9 +208,9 @@ public class NameLengthTest extends TestWithEnvironment
 	final AnEnum getFieldLong()
 	{
 		return AnItem.fieldLong.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Finds a anItem by it's {@link #fieldLong}.
 	 * @param fieldLong shall be equal to field {@link #fieldLong}.
 	 * @return null if there is no matching item.
@@ -222,9 +220,9 @@ public class NameLengthTest extends TestWithEnvironment
 	static final AnItem forFieldLong(@javax.annotation.Nonnull final AnEnum fieldLong)
 	{
 		return AnItem.fieldLong.searchUnique(AnItem.class,fieldLong);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #fieldShort}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -232,9 +230,9 @@ public class NameLengthTest extends TestWithEnvironment
 	final AnEnum getFieldShort()
 	{
 		return AnItem.fieldShort.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Finds a anItem by it's {@link #fieldShort}.
 	 * @param fieldShort shall be equal to field {@link #fieldShort}.
 	 * @return null if there is no matching item.
@@ -244,9 +242,9 @@ public class NameLengthTest extends TestWithEnvironment
 	static final AnItem forFieldShort(@javax.annotation.Nonnull final AnEnum fieldShort)
 	{
 		return AnItem.fieldShort.searchUnique(AnItem.class,fieldShort);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #foreignLong}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -254,9 +252,9 @@ public class NameLengthTest extends TestWithEnvironment
 	final AnItem getForeignLong()
 	{
 		return AnItem.foreignLong.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #foreignShort}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -264,9 +262,9 @@ public class NameLengthTest extends TestWithEnvironment
 	final AnItem getForeignShort()
 	{
 		return AnItem.foreignShort.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Generates a new sequence number.
 	 * The result is not managed by a {@link com.exedio.cope.Transaction}.
 	 */
@@ -274,9 +272,9 @@ public class NameLengthTest extends TestWithEnvironment
 	static final int nextSequenceLong()
 	{
 		return AnItem.sequenceLong.next();
-	}/**
+	}
 
-	 **
+	/**
 	 * Generates a new sequence number.
 	 * The result is not managed by a {@link com.exedio.cope.Transaction}.
 	 */
@@ -284,38 +282,38 @@ public class NameLengthTest extends TestWithEnvironment
 	static final int nextSequenceShort()
 	{
 		return AnItem.sequenceShort.next();
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #nextLong}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	final int getNextLong()
 	{
 		return AnItem.nextLong.getMandatory(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #nextShort}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	final int getNextShort()
 	{
 		return AnItem.nextShort.getMandatory(this);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for anItem.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<AnItem> TYPE = com.exedio.cope.TypesBound.newType(AnItem.class);/**
+	static final com.exedio.cope.Type<AnItem> TYPE = com.exedio.cope.TypesBound.newType(AnItem.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
@@ -326,9 +324,9 @@ public class NameLengthTest extends TestWithEnvironment
 	@CopeName("LoooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooongItem")
 	static final class LongItem extends Item
 	{
-	/**
+	
 
-	 **
+	/**
 	 * Creates a new LongItem with all the fields initially needed.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
@@ -336,29 +334,29 @@ public class NameLengthTest extends TestWithEnvironment
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new LongItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private LongItem(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for longItem.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<LongItem> TYPE = com.exedio.cope.TypesBound.newType(LongItem.class);/**
+	static final com.exedio.cope.Type<LongItem> TYPE = com.exedio.cope.TypesBound.newType(LongItem.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

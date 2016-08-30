@@ -86,8 +86,6 @@ final class CopySimpleSource extends Item
 	}
 
 	/**
-
-	 **
 	 * Creates a new CopySimpleSource with all the fields initially needed.
 	 * @param targetItem the initial value for field {@link #targetItem}.
 	 * @param templateString the initial value for field {@link #templateString}.
@@ -107,18 +105,18 @@ final class CopySimpleSource extends Item
 			CopySimpleSource.templateString.map(templateString),
 			CopySimpleSource.templateItem.map(templateItem),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new CopySimpleSource and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private CopySimpleSource(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #targetItem}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -126,9 +124,9 @@ final class CopySimpleSource extends Item
 	final CopySimpleTarget getTargetItem()
 	{
 		return CopySimpleSource.targetItem.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #templateString}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -136,9 +134,9 @@ final class CopySimpleSource extends Item
 	final java.lang.String getTemplateString()
 	{
 		return CopySimpleSource.templateString.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #templateItem}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -146,20 +144,20 @@ final class CopySimpleSource extends Item
 	final CopyValue getTemplateItem()
 	{
 		return CopySimpleSource.templateItem.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for copySimpleSource.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<CopySimpleSource> TYPE = com.exedio.cope.TypesBound.newType(CopySimpleSource.class);/**
+	static final com.exedio.cope.Type<CopySimpleSource> TYPE = com.exedio.cope.TypesBound.newType(CopySimpleSource.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

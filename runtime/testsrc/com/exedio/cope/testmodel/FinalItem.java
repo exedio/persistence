@@ -31,9 +31,7 @@ public final class FinalItem extends Item
 	public static final StringField finalString = new StringField().toFinal();
 	public static final IntegerField nonFinalInteger = new IntegerField();
 
-/**
-
-	 **
+	/**
 	 * Creates a new FinalItem with all the fields initially needed.
 	 * @param finalString the initial value for field {@link #finalString}.
 	 * @param nonFinalInteger the initial value for field {@link #nonFinalInteger}.
@@ -52,18 +50,18 @@ public final class FinalItem extends Item
 			FinalItem.finalString.map(finalString),
 			FinalItem.nonFinalInteger.map(nonFinalInteger),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new FinalItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private FinalItem(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #finalString}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -71,38 +69,38 @@ public final class FinalItem extends Item
 	public final java.lang.String getFinalString()
 	{
 		return FinalItem.finalString.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #nonFinalInteger}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	public final int getNonFinalInteger()
 	{
 		return FinalItem.nonFinalInteger.getMandatory(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #nonFinalInteger}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	public final void setNonFinalInteger(final int nonFinalInteger)
 	{
 		FinalItem.nonFinalInteger.set(this,nonFinalInteger);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for finalItem.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<FinalItem> TYPE = com.exedio.cope.TypesBound.newType(FinalItem.class);/**
+	public static final com.exedio.cope.Type<FinalItem> TYPE = com.exedio.cope.TypesBound.newType(FinalItem.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

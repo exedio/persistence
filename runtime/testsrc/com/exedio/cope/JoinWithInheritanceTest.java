@@ -125,8 +125,6 @@ public class JoinWithInheritanceTest extends TestWithEnvironment
 		static final ListField<SpecificArticle> specificArticles = ListField.create(ItemField.create(SpecificArticle.class));
 
 	/**
-
-	 **
 	 * Creates a new Container with all the fields initially needed.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
@@ -134,18 +132,18 @@ public class JoinWithInheritanceTest extends TestWithEnvironment
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new Container and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	protected Container(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #articles}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -153,9 +151,9 @@ public class JoinWithInheritanceTest extends TestWithEnvironment
 	final java.util.List<Article> getArticles()
 	{
 		return Container.articles.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns a query for the value of {@link #articles}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getQuery")
@@ -163,9 +161,9 @@ public class JoinWithInheritanceTest extends TestWithEnvironment
 	final com.exedio.cope.Query<Article> getArticlesQuery()
 	{
 		return Container.articles.getQuery(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the items, for which field list {@link #articles} contains the given element.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getDistinctParentsOf")
@@ -173,9 +171,9 @@ public class JoinWithInheritanceTest extends TestWithEnvironment
 	static final java.util.List<Container> getDistinctParentsOfArticles(final Article element)
 	{
 		return Container.articles.getDistinctParents(Container.class,element);
-	}/**
+	}
 
-	 **
+	/**
 	 * Adds a new value for {@link #articles}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="addTo")
@@ -185,9 +183,9 @@ public class JoinWithInheritanceTest extends TestWithEnvironment
 				java.lang.ClassCastException
 	{
 		Container.articles.add(this,articles);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #articles}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -197,9 +195,9 @@ public class JoinWithInheritanceTest extends TestWithEnvironment
 				java.lang.ClassCastException
 	{
 		Container.articles.set(this,articles);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the parent field of the type of {@link #articles}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="Parent")
@@ -207,9 +205,9 @@ public class JoinWithInheritanceTest extends TestWithEnvironment
 	static final com.exedio.cope.ItemField<Container> articlesParent()
 	{
 		return Container.articles.getParent(Container.class);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #specificArticles}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -217,9 +215,9 @@ public class JoinWithInheritanceTest extends TestWithEnvironment
 	final java.util.List<SpecificArticle> getSpecificArticles()
 	{
 		return Container.specificArticles.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns a query for the value of {@link #specificArticles}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getQuery")
@@ -227,9 +225,9 @@ public class JoinWithInheritanceTest extends TestWithEnvironment
 	final com.exedio.cope.Query<SpecificArticle> getSpecificArticlesQuery()
 	{
 		return Container.specificArticles.getQuery(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the items, for which field list {@link #specificArticles} contains the given element.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getDistinctParentsOf")
@@ -237,9 +235,9 @@ public class JoinWithInheritanceTest extends TestWithEnvironment
 	static final java.util.List<Container> getDistinctParentsOfSpecificArticles(final SpecificArticle element)
 	{
 		return Container.specificArticles.getDistinctParents(Container.class,element);
-	}/**
+	}
 
-	 **
+	/**
 	 * Adds a new value for {@link #specificArticles}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="addTo")
@@ -249,9 +247,9 @@ public class JoinWithInheritanceTest extends TestWithEnvironment
 				java.lang.ClassCastException
 	{
 		Container.specificArticles.add(this,specificArticles);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #specificArticles}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -261,9 +259,9 @@ public class JoinWithInheritanceTest extends TestWithEnvironment
 				java.lang.ClassCastException
 	{
 		Container.specificArticles.set(this,specificArticles);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the parent field of the type of {@link #specificArticles}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="Parent")
@@ -271,20 +269,20 @@ public class JoinWithInheritanceTest extends TestWithEnvironment
 	static final com.exedio.cope.ItemField<Container> specificArticlesParent()
 	{
 		return Container.specificArticles.getParent(Container.class);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for container.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<Container> TYPE = com.exedio.cope.TypesBound.newType(Container.class);/**
+	static final com.exedio.cope.Type<Container> TYPE = com.exedio.cope.TypesBound.newType(Container.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
@@ -294,9 +292,9 @@ public class JoinWithInheritanceTest extends TestWithEnvironment
 
 	static abstract class Article extends Item
 	{
-	/**
+	
 
-	 **
+	/**
 	 * Creates a new Article with all the fields initially needed.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
@@ -304,29 +302,29 @@ public class JoinWithInheritanceTest extends TestWithEnvironment
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new Article and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	protected Article(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for article.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<Article> TYPE = com.exedio.cope.TypesBound.newType(Article.class);/**
+	static final com.exedio.cope.Type<Article> TYPE = com.exedio.cope.TypesBound.newType(Article.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
@@ -336,9 +334,9 @@ public class JoinWithInheritanceTest extends TestWithEnvironment
 
 	static class SpecificArticle extends Article
 	{
-	/**
+	
 
-	 **
+	/**
 	 * Creates a new SpecificArticle with all the fields initially needed.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
@@ -346,29 +344,29 @@ public class JoinWithInheritanceTest extends TestWithEnvironment
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new SpecificArticle and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	protected SpecificArticle(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for specificArticle.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<SpecificArticle> TYPE = com.exedio.cope.TypesBound.newType(SpecificArticle.class);/**
+	static final com.exedio.cope.Type<SpecificArticle> TYPE = com.exedio.cope.TypesBound.newType(SpecificArticle.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
@@ -378,9 +376,9 @@ public class JoinWithInheritanceTest extends TestWithEnvironment
 
 	static class ReallySpecificArticle extends SpecificArticle
 	{
-	/**
+	
 
-	 **
+	/**
 	 * Creates a new ReallySpecificArticle with all the fields initially needed.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
@@ -388,29 +386,29 @@ public class JoinWithInheritanceTest extends TestWithEnvironment
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new ReallySpecificArticle and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	protected ReallySpecificArticle(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for reallySpecificArticle.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<ReallySpecificArticle> TYPE = com.exedio.cope.TypesBound.newType(ReallySpecificArticle.class);/**
+	static final com.exedio.cope.Type<ReallySpecificArticle> TYPE = com.exedio.cope.TypesBound.newType(ReallySpecificArticle.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

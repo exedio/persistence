@@ -559,8 +559,6 @@ public class CompositeTest
 		}
 
 	/**
-
-	 **
 	 * Creates a new Value with all the fields initially needed.
 	 * @param string4 the initial value for field {@link #string4}.
 	 * @param intMax4 the initial value for field {@link #intMax4}.
@@ -590,18 +588,18 @@ public class CompositeTest
 			Value.doubleField.map(doubleField),
 			Value.booleanField.map(booleanField),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new Value and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private Value(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #string4}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -609,9 +607,9 @@ public class CompositeTest
 	public final java.lang.String getString4()
 	{
 		return get(Value.string4);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #string4}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -621,18 +619,18 @@ public class CompositeTest
 				com.exedio.cope.StringLengthViolationException
 	{
 		set(Value.string4,string4);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #intMax4}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	public final int getIntMax4()
 	{
 		return getMandatory(Value.intMax4);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #intMax4}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -641,9 +639,9 @@ public class CompositeTest
 				com.exedio.cope.IntegerRangeViolationException
 	{
 		set(Value.intMax4,intMax4);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #stringDefault}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -651,9 +649,9 @@ public class CompositeTest
 	public final java.lang.String getStringDefault()
 	{
 		return get(Value.stringDefault);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #stringDefault}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -663,9 +661,9 @@ public class CompositeTest
 				com.exedio.cope.StringLengthViolationException
 	{
 		set(Value.stringDefault,stringDefault);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #stringDefaultOptional}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -673,9 +671,9 @@ public class CompositeTest
 	public final java.lang.String getStringDefaultOptional()
 	{
 		return get(Value.stringDefaultOptional);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #stringDefaultOptional}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -684,63 +682,63 @@ public class CompositeTest
 				com.exedio.cope.StringLengthViolationException
 	{
 		set(Value.stringDefaultOptional,stringDefaultOptional);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #longField}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	public final long getLongField()
 	{
 		return getMandatory(Value.longField);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #longField}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	public final void setLongField(final long longField)
 	{
 		set(Value.longField,longField);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #doubleField}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	public final double getDoubleField()
 	{
 		return getMandatory(Value.doubleField);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #doubleField}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	public final void setDoubleField(final double doubleField)
 	{
 		set(Value.doubleField,doubleField);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #booleanField}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	public final boolean getBooleanField()
 	{
 		return getMandatory(Value.booleanField);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #booleanField}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	public final void setBooleanField(final boolean booleanField)
 	{
 		set(Value.booleanField,booleanField);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #intOptional}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -748,18 +746,18 @@ public class CompositeTest
 	public final java.lang.Integer getIntOptional()
 	{
 		return get(Value.intOptional);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #intOptional}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	public final void setIntOptional(@javax.annotation.Nullable final java.lang.Integer intOptional)
 	{
 		set(Value.intOptional,intOptional);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #longOptional}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -767,18 +765,18 @@ public class CompositeTest
 	public final java.lang.Long getLongOptional()
 	{
 		return get(Value.longOptional);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #longOptional}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	public final void setLongOptional(@javax.annotation.Nullable final java.lang.Long longOptional)
 	{
 		set(Value.longOptional,longOptional);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #doubleOptional}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -786,18 +784,18 @@ public class CompositeTest
 	public final java.lang.Double getDoubleOptional()
 	{
 		return get(Value.doubleOptional);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #doubleOptional}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	public final void setDoubleOptional(@javax.annotation.Nullable final java.lang.Double doubleOptional)
 	{
 		set(Value.doubleOptional,doubleOptional);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #booleanOptional}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -805,18 +803,18 @@ public class CompositeTest
 	public final java.lang.Boolean getBooleanOptional()
 	{
 		return get(Value.booleanOptional);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #booleanOptional}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	public final void setBooleanOptional(@javax.annotation.Nullable final java.lang.Boolean booleanOptional)
 	{
 		set(Value.booleanOptional,booleanOptional);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #date}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -824,27 +822,27 @@ public class CompositeTest
 	public final java.util.Date getDate()
 	{
 		return get(Value.date);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #date}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	public final void setDate(@javax.annotation.Nullable final java.util.Date date)
 	{
 		set(Value.date,date);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets the current date for the date field {@link #date}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="touch")
 	public final void touchDate()
 	{
 		touch(Value.date);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #day}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -852,27 +850,27 @@ public class CompositeTest
 	public final com.exedio.cope.util.Day getDay()
 	{
 		return get(Value.day);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #day}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	public final void setDay(@javax.annotation.Nullable final com.exedio.cope.util.Day day)
 	{
 		set(Value.day,day);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets today for the date field {@link #day}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="touch")
 	public final void touchDay(@javax.annotation.Nonnull final java.util.TimeZone zone)
 	{
 		touch(Value.day,zone);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;}
@@ -884,9 +882,9 @@ public class CompositeTest
 		public static final    LongField    longField = new    LongField();
 		public static final  DoubleField  doubleField = new  DoubleField();
 		public static final BooleanField booleanField = new BooleanField();
-	/**
+	
 
-	 **
+	/**
 	 * Creates a new ValueX with all the fields initially needed.
 	 * @param stringField the initial value for field {@link #stringField}.
 	 * @param intField the initial value for field {@link #intField}.
@@ -914,18 +912,18 @@ public class CompositeTest
 			ValueX.doubleField.map(doubleField),
 			ValueX.booleanField.map(booleanField),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new ValueX and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private ValueX(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #stringField}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -933,9 +931,9 @@ public class CompositeTest
 	public final java.lang.String getStringField()
 	{
 		return get(ValueX.stringField);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #stringField}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -945,81 +943,81 @@ public class CompositeTest
 				com.exedio.cope.StringLengthViolationException
 	{
 		set(ValueX.stringField,stringField);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #intField}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	public final int getIntField()
 	{
 		return getMandatory(ValueX.intField);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #intField}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	public final void setIntField(final int intField)
 	{
 		set(ValueX.intField,intField);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #longField}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	public final long getLongField()
 	{
 		return getMandatory(ValueX.longField);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #longField}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	public final void setLongField(final long longField)
 	{
 		set(ValueX.longField,longField);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #doubleField}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	public final double getDoubleField()
 	{
 		return getMandatory(ValueX.doubleField);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #doubleField}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	public final void setDoubleField(final double doubleField)
 	{
 		set(ValueX.doubleField,doubleField);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #booleanField}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	public final boolean getBooleanField()
 	{
 		return getMandatory(ValueX.booleanField);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #booleanField}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	public final void setBooleanField(final boolean booleanField)
 	{
 		set(ValueX.booleanField,booleanField);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;}

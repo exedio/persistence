@@ -22,9 +22,9 @@ import com.exedio.cope.Item;
 
 public final class TypeFieldSubItem extends Item
 {
-	/**
+	
 
-	 **
+	/**
 	 * Creates a new TypeFieldSubItem with all the fields initially needed.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
@@ -32,29 +32,29 @@ public final class TypeFieldSubItem extends Item
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new TypeFieldSubItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private TypeFieldSubItem(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for typeFieldSubItem.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<TypeFieldSubItem> TYPE = com.exedio.cope.TypesBound.newType(TypeFieldSubItem.class);/**
+	public static final com.exedio.cope.Type<TypeFieldSubItem> TYPE = com.exedio.cope.TypesBound.newType(TypeFieldSubItem.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

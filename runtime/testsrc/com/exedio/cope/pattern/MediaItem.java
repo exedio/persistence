@@ -88,8 +88,6 @@ public final class MediaItem extends Item
 	}
 
 	/**
-
-	 **
 	 * Creates a new MediaItem with all the fields initially needed.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
@@ -97,18 +95,18 @@ public final class MediaItem extends Item
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new MediaItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private MediaItem(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #name}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -116,9 +114,9 @@ public final class MediaItem extends Item
 	final java.lang.String getName()
 	{
 		return MediaItem.name.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #name}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -127,9 +125,9 @@ public final class MediaItem extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		MediaItem.name.set(this,name);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns a Locator the content of {@link #file} is available under.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLocator")
@@ -137,9 +135,9 @@ public final class MediaItem extends Item
 	final com.exedio.cope.pattern.MediaPath.Locator getFileLocator()
 	{
 		return MediaItem.file.getLocator(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the content type of the media {@link #file}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getContentType")
@@ -147,18 +145,18 @@ public final class MediaItem extends Item
 	final java.lang.String getFileContentType()
 	{
 		return MediaItem.file.getContentType(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns whether media {@link #file} is null.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="isNull")
 	final boolean isFileNull()
 	{
 		return MediaItem.file.isNull(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the last modification date of media {@link #file}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLastModified")
@@ -166,18 +164,18 @@ public final class MediaItem extends Item
 	final java.util.Date getFileLastModified()
 	{
 		return MediaItem.file.getLastModified(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the body length of the media {@link #file}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLength")
 	final long getFileLength()
 	{
 		return MediaItem.file.getLength(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the body of the media {@link #file}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
@@ -185,9 +183,9 @@ public final class MediaItem extends Item
 	final byte[] getFileBody()
 	{
 		return MediaItem.file.getBody(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Writes the body of media {@link #file} into the given stream.
 	 * Does nothing, if the media is null.
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
@@ -198,9 +196,9 @@ public final class MediaItem extends Item
 				java.io.IOException
 	{
 		MediaItem.file.getBody(this,body);
-	}/**
+	}
 
-	 **
+	/**
 	 * Writes the body of media {@link #file} into the given file.
 	 * Does nothing, if the media is null.
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
@@ -211,9 +209,9 @@ public final class MediaItem extends Item
 				java.io.IOException
 	{
 		MediaItem.file.getBody(this,body);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets the content of media {@link #file}.
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
 	 */
@@ -223,18 +221,18 @@ public final class MediaItem extends Item
 				java.io.IOException
 	{
 		MediaItem.file.set(this,file);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets the content of media {@link #file}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setFile(@javax.annotation.Nullable final byte[] body,@javax.annotation.Nullable final java.lang.String contentType)
 	{
 		MediaItem.file.set(this,body,contentType);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets the content of media {@link #file}.
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
 	 */
@@ -244,9 +242,9 @@ public final class MediaItem extends Item
 				java.io.IOException
 	{
 		MediaItem.file.set(this,body,contentType);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets the content of media {@link #file}.
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
 	 */
@@ -256,9 +254,9 @@ public final class MediaItem extends Item
 				java.io.IOException
 	{
 		MediaItem.file.set(this,body,contentType);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns a Locator the content of {@link #image} is available under.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLocator")
@@ -266,9 +264,9 @@ public final class MediaItem extends Item
 	final com.exedio.cope.pattern.MediaPath.Locator getImageLocator()
 	{
 		return MediaItem.image.getLocator(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the content type of the media {@link #image}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getContentType")
@@ -276,18 +274,18 @@ public final class MediaItem extends Item
 	final java.lang.String getImageContentType()
 	{
 		return MediaItem.image.getContentType(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns whether media {@link #image} is null.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="isNull")
 	final boolean isImageNull()
 	{
 		return MediaItem.image.isNull(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the last modification date of media {@link #image}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLastModified")
@@ -295,18 +293,18 @@ public final class MediaItem extends Item
 	final java.util.Date getImageLastModified()
 	{
 		return MediaItem.image.getLastModified(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the body length of the media {@link #image}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLength")
 	final long getImageLength()
 	{
 		return MediaItem.image.getLength(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the body of the media {@link #image}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
@@ -314,9 +312,9 @@ public final class MediaItem extends Item
 	final byte[] getImageBody()
 	{
 		return MediaItem.image.getBody(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Writes the body of media {@link #image} into the given stream.
 	 * Does nothing, if the media is null.
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
@@ -327,9 +325,9 @@ public final class MediaItem extends Item
 				java.io.IOException
 	{
 		MediaItem.image.getBody(this,body);
-	}/**
+	}
 
-	 **
+	/**
 	 * Writes the body of media {@link #image} into the given file.
 	 * Does nothing, if the media is null.
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
@@ -340,9 +338,9 @@ public final class MediaItem extends Item
 				java.io.IOException
 	{
 		MediaItem.image.getBody(this,body);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets the content of media {@link #image}.
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
 	 */
@@ -352,18 +350,18 @@ public final class MediaItem extends Item
 				java.io.IOException
 	{
 		MediaItem.image.set(this,image);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets the content of media {@link #image}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setImage(@javax.annotation.Nullable final byte[] body,@javax.annotation.Nullable final java.lang.String contentType)
 	{
 		MediaItem.image.set(this,body,contentType);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets the content of media {@link #image}.
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
 	 */
@@ -373,9 +371,9 @@ public final class MediaItem extends Item
 				java.io.IOException
 	{
 		MediaItem.image.set(this,body,contentType);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets the content of media {@link #image}.
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
 	 */
@@ -385,9 +383,9 @@ public final class MediaItem extends Item
 				java.io.IOException
 	{
 		MediaItem.image.set(this,body,contentType);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns a Locator the content of {@link #photo} is available under.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLocator")
@@ -395,18 +393,18 @@ public final class MediaItem extends Item
 	final com.exedio.cope.pattern.MediaPath.Locator getPhotoLocator()
 	{
 		return MediaItem.photo.getLocator(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns whether media {@link #photo} is null.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="isNull")
 	final boolean isPhotoNull()
 	{
 		return MediaItem.photo.isNull(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the last modification date of media {@link #photo}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLastModified")
@@ -414,18 +412,18 @@ public final class MediaItem extends Item
 	final java.util.Date getPhotoLastModified()
 	{
 		return MediaItem.photo.getLastModified(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the body length of the media {@link #photo}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLength")
 	final long getPhotoLength()
 	{
 		return MediaItem.photo.getLength(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the body of the media {@link #photo}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
@@ -433,9 +431,9 @@ public final class MediaItem extends Item
 	final byte[] getPhotoBody()
 	{
 		return MediaItem.photo.getBody(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Writes the body of media {@link #photo} into the given stream.
 	 * Does nothing, if the media is null.
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
@@ -446,9 +444,9 @@ public final class MediaItem extends Item
 				java.io.IOException
 	{
 		MediaItem.photo.getBody(this,body);
-	}/**
+	}
 
-	 **
+	/**
 	 * Writes the body of media {@link #photo} into the given file.
 	 * Does nothing, if the media is null.
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
@@ -459,9 +457,9 @@ public final class MediaItem extends Item
 				java.io.IOException
 	{
 		MediaItem.photo.getBody(this,body);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets the content of media {@link #photo}.
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
 	 */
@@ -471,18 +469,18 @@ public final class MediaItem extends Item
 				java.io.IOException
 	{
 		MediaItem.photo.set(this,photo);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets the content of media {@link #photo}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setPhoto(@javax.annotation.Nullable final byte[] body,@javax.annotation.Nullable final java.lang.String contentType)
 	{
 		MediaItem.photo.set(this,body,contentType);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets the content of media {@link #photo}.
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
 	 */
@@ -492,9 +490,9 @@ public final class MediaItem extends Item
 				java.io.IOException
 	{
 		MediaItem.photo.set(this,body,contentType);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets the content of media {@link #photo}.
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
 	 */
@@ -504,9 +502,9 @@ public final class MediaItem extends Item
 				java.io.IOException
 	{
 		MediaItem.photo.set(this,body,contentType);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns a Locator the content of {@link #foto} is available under.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLocator")
@@ -514,9 +512,9 @@ public final class MediaItem extends Item
 	final com.exedio.cope.pattern.MediaPath.Locator getFotoLocator()
 	{
 		return MediaItem.foto.getLocator(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns a Locator the content of {@link #sheet} is available under.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLocator")
@@ -524,9 +522,9 @@ public final class MediaItem extends Item
 	final com.exedio.cope.pattern.MediaPath.Locator getSheetLocator()
 	{
 		return MediaItem.sheet.getLocator(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the content type of the media {@link #sheet}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getContentType")
@@ -534,18 +532,18 @@ public final class MediaItem extends Item
 	final java.lang.String getSheetContentType()
 	{
 		return MediaItem.sheet.getContentType(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns whether media {@link #sheet} is null.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="isNull")
 	final boolean isSheetNull()
 	{
 		return MediaItem.sheet.isNull(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the last modification date of media {@link #sheet}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLastModified")
@@ -553,18 +551,18 @@ public final class MediaItem extends Item
 	final java.util.Date getSheetLastModified()
 	{
 		return MediaItem.sheet.getLastModified(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the body length of the media {@link #sheet}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLength")
 	final long getSheetLength()
 	{
 		return MediaItem.sheet.getLength(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the body of the media {@link #sheet}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
@@ -572,9 +570,9 @@ public final class MediaItem extends Item
 	final byte[] getSheetBody()
 	{
 		return MediaItem.sheet.getBody(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Writes the body of media {@link #sheet} into the given stream.
 	 * Does nothing, if the media is null.
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
@@ -585,9 +583,9 @@ public final class MediaItem extends Item
 				java.io.IOException
 	{
 		MediaItem.sheet.getBody(this,body);
-	}/**
+	}
 
-	 **
+	/**
 	 * Writes the body of media {@link #sheet} into the given file.
 	 * Does nothing, if the media is null.
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
@@ -598,9 +596,9 @@ public final class MediaItem extends Item
 				java.io.IOException
 	{
 		MediaItem.sheet.getBody(this,body);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets the content of media {@link #sheet}.
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
 	 */
@@ -610,18 +608,18 @@ public final class MediaItem extends Item
 				java.io.IOException
 	{
 		MediaItem.sheet.set(this,sheet);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets the content of media {@link #sheet}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setSheet(@javax.annotation.Nullable final byte[] body,@javax.annotation.Nullable final java.lang.String contentType)
 	{
 		MediaItem.sheet.set(this,body,contentType);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets the content of media {@link #sheet}.
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
 	 */
@@ -631,9 +629,9 @@ public final class MediaItem extends Item
 				java.io.IOException
 	{
 		MediaItem.sheet.set(this,body,contentType);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets the content of media {@link #sheet}.
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
 	 */
@@ -643,20 +641,20 @@ public final class MediaItem extends Item
 				java.io.IOException
 	{
 		MediaItem.sheet.set(this,body,contentType);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for mediaItem.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<MediaItem> TYPE = com.exedio.cope.TypesBound.newType(MediaItem.class);/**
+	public static final com.exedio.cope.Type<MediaItem> TYPE = com.exedio.cope.TypesBound.newType(MediaItem.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

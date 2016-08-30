@@ -105,9 +105,7 @@ public final class StringItem extends Item
 		});
 	}
 
-/**
-
-	 **
+	/**
 	 * Creates a new StringItem with all the fields initially needed.
 	 * @param mandatory the initial value for field {@link #mandatory}.
 	 * @throws com.exedio.cope.MandatoryViolationException if mandatory is null.
@@ -123,18 +121,18 @@ public final class StringItem extends Item
 		this(new com.exedio.cope.SetValue<?>[]{
 			StringItem.mandatory.map(mandatory),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new StringItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	public StringItem(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #any}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -142,9 +140,9 @@ public final class StringItem extends Item
 	public final java.lang.String getAny()
 	{
 		return StringItem.any.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #any}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -153,9 +151,9 @@ public final class StringItem extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		StringItem.any.set(this,any);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #mandatory}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -163,9 +161,9 @@ public final class StringItem extends Item
 	public final java.lang.String getMandatory()
 	{
 		return StringItem.mandatory.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #mandatory}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -175,9 +173,9 @@ public final class StringItem extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		StringItem.mandatory.set(this,mandatory);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #min4}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -185,9 +183,9 @@ public final class StringItem extends Item
 	public final java.lang.String getMin4()
 	{
 		return StringItem.min4.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #min4}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -196,9 +194,9 @@ public final class StringItem extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		StringItem.min4.set(this,min4);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #max4}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -206,9 +204,9 @@ public final class StringItem extends Item
 	public final java.lang.String getMax4()
 	{
 		return StringItem.max4.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #max4}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -217,9 +215,9 @@ public final class StringItem extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		StringItem.max4.set(this,max4);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #min4Max8}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -227,9 +225,9 @@ public final class StringItem extends Item
 	public final java.lang.String getMin4Max8()
 	{
 		return StringItem.min4Max8.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #min4Max8}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -238,9 +236,9 @@ public final class StringItem extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		StringItem.min4Max8.set(this,min4Max8);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #exact6}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -248,9 +246,9 @@ public final class StringItem extends Item
 	public final java.lang.String getExact6()
 	{
 		return StringItem.exact6.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #exact6}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -259,9 +257,9 @@ public final class StringItem extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		StringItem.exact6.set(this,exact6);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #lowercase}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -269,9 +267,9 @@ public final class StringItem extends Item
 	public final java.lang.String getLowercase()
 	{
 		return StringItem.lowercase.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #lowercase}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -281,9 +279,9 @@ public final class StringItem extends Item
 				com.exedio.cope.StringCharSetViolationException
 	{
 		StringItem.lowercase.set(this,lowercase);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #lowercaseMin4}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -291,9 +289,9 @@ public final class StringItem extends Item
 	public final java.lang.String getLowercaseMin4()
 	{
 		return StringItem.lowercaseMin4.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #lowercaseMin4}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -303,9 +301,9 @@ public final class StringItem extends Item
 				com.exedio.cope.StringCharSetViolationException
 	{
 		StringItem.lowercaseMin4.set(this,lowercaseMin4);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #long1K}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -313,9 +311,9 @@ public final class StringItem extends Item
 	public final java.lang.String getLong1K()
 	{
 		return StringItem.long1K.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #long1K}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -324,9 +322,9 @@ public final class StringItem extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		StringItem.long1K.set(this,long1K);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #long1M}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -334,9 +332,9 @@ public final class StringItem extends Item
 	public final java.lang.String getLong1M()
 	{
 		return StringItem.long1M.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #long1M}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -345,9 +343,9 @@ public final class StringItem extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		StringItem.long1M.set(this,long1M);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #long40M}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -355,9 +353,9 @@ public final class StringItem extends Item
 	public final java.lang.String getLong40M()
 	{
 		return StringItem.long40M.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #long40M}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -366,9 +364,9 @@ public final class StringItem extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		StringItem.long40M.set(this,long40M);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #oracleNoCLOB}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -376,9 +374,9 @@ public final class StringItem extends Item
 	public final java.lang.String getOracleNoCLOB()
 	{
 		return StringItem.oracleNoCLOB.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #oracleNoCLOB}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -387,9 +385,9 @@ public final class StringItem extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		StringItem.oracleNoCLOB.set(this,oracleNoCLOB);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #oracleCLOB}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -397,9 +395,9 @@ public final class StringItem extends Item
 	public final java.lang.String getOracleCLOB()
 	{
 		return StringItem.oracleCLOB.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #oracleCLOB}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -408,65 +406,65 @@ public final class StringItem extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		StringItem.oracleCLOB.set(this,oracleCLOB);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #min4Upper}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	public final java.lang.String getMin4Upper()
 	{
 		return StringItem.min4Upper.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #max4Upper}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	public final java.lang.String getMax4Upper()
 	{
 		return StringItem.max4Upper.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #min4UpperLength}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	public final java.lang.Integer getMin4UpperLength()
 	{
 		return StringItem.min4UpperLength.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #max4UpperLength}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	public final java.lang.Integer getMax4UpperLength()
 	{
 		return StringItem.max4UpperLength.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #min4AndMax4UpperLength}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	public final Integer getMin4AndMax4UpperLength()
 	{
 		return StringItem.min4AndMax4UpperLength.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for stringItem.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<StringItem> TYPE = com.exedio.cope.TypesBound.newType(StringItem.class);/**
+	public static final com.exedio.cope.Type<StringItem> TYPE = com.exedio.cope.TypesBound.newType(StringItem.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

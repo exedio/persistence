@@ -30,8 +30,6 @@ class InstanceOfAItem extends Item
 	}
 
 	/**
-
-	 **
 	 * Creates a new InstanceOfAItem with all the fields initially needed.
 	 * @param code the initial value for field {@link #code}.
 	 * @throws com.exedio.cope.MandatoryViolationException if code is null.
@@ -49,18 +47,18 @@ class InstanceOfAItem extends Item
 		this(new com.exedio.cope.SetValue<?>[]{
 			InstanceOfAItem.code.map(code),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new InstanceOfAItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	protected InstanceOfAItem(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #code}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -68,9 +66,9 @@ class InstanceOfAItem extends Item
 	final java.lang.String getCode()
 	{
 		return InstanceOfAItem.code.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Finds a instanceOfAItem by it's {@link #code}.
 	 * @param code shall be equal to field {@link #code}.
 	 * @return null if there is no matching item.
@@ -80,20 +78,20 @@ class InstanceOfAItem extends Item
 	static final InstanceOfAItem forCode(@javax.annotation.Nonnull final java.lang.String code)
 	{
 		return InstanceOfAItem.code.searchUnique(InstanceOfAItem.class,code);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for instanceOfAItem.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<InstanceOfAItem> TYPE = com.exedio.cope.TypesBound.newType(InstanceOfAItem.class);/**
+	static final com.exedio.cope.Type<InstanceOfAItem> TYPE = com.exedio.cope.TypesBound.newType(InstanceOfAItem.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

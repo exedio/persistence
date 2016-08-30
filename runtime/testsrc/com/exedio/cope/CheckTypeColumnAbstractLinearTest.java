@@ -109,8 +109,6 @@ public class CheckTypeColumnAbstractLinearTest extends TestWithEnvironment
 	{
 
 	/**
-
-	 **
 	 * Creates a new Type0A with all the fields initially needed.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
@@ -118,29 +116,29 @@ public class CheckTypeColumnAbstractLinearTest extends TestWithEnvironment
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new Type0A and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	protected Type0A(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for type0A.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<Type0A> TYPE = com.exedio.cope.TypesBound.newType(Type0A.class);/**
+	static final com.exedio.cope.Type<Type0A> TYPE = com.exedio.cope.TypesBound.newType(Type0A.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
@@ -154,8 +152,6 @@ public class CheckTypeColumnAbstractLinearTest extends TestWithEnvironment
 		static final IntegerField intField = new IntegerField();
 
 	/**
-
-	 **
 	 * Creates a new Type01C with all the fields initially needed.
 	 * @param intField the initial value for field {@link #intField}.
 	 */
@@ -166,47 +162,47 @@ public class CheckTypeColumnAbstractLinearTest extends TestWithEnvironment
 		this(new com.exedio.cope.SetValue<?>[]{
 			Type01C.intField.map(intField),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new Type01C and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private Type01C(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #intField}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	final int getIntField()
 	{
 		return Type01C.intField.getMandatory(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #intField}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setIntField(final int intField)
 	{
 		Type01C.intField.set(this,intField);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for type01C.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<Type01C> TYPE = com.exedio.cope.TypesBound.newType(Type01C.class);/**
+	static final com.exedio.cope.Type<Type01C> TYPE = com.exedio.cope.TypesBound.newType(Type01C.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
@@ -219,8 +215,6 @@ public class CheckTypeColumnAbstractLinearTest extends TestWithEnvironment
 	{
 
 	/**
-
-	 **
 	 * Creates a new Type02A with all the fields initially needed.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
@@ -228,29 +222,29 @@ public class CheckTypeColumnAbstractLinearTest extends TestWithEnvironment
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new Type02A and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	protected Type02A(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for type02A.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<Type02A> TYPE = com.exedio.cope.TypesBound.newType(Type02A.class);/**
+	static final com.exedio.cope.Type<Type02A> TYPE = com.exedio.cope.TypesBound.newType(Type02A.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
@@ -264,8 +258,6 @@ public class CheckTypeColumnAbstractLinearTest extends TestWithEnvironment
 		static final IntegerField intField = new IntegerField();
 
 	/**
-
-	 **
 	 * Creates a new Type021C with all the fields initially needed.
 	 * @param intField the initial value for field {@link #intField}.
 	 */
@@ -276,47 +268,47 @@ public class CheckTypeColumnAbstractLinearTest extends TestWithEnvironment
 		this(new com.exedio.cope.SetValue<?>[]{
 			Type021C.intField.map(intField),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new Type021C and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private Type021C(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #intField}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	final int getIntField()
 	{
 		return Type021C.intField.getMandatory(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #intField}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setIntField(final int intField)
 	{
 		Type021C.intField.set(this,intField);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for type021C.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<Type021C> TYPE = com.exedio.cope.TypesBound.newType(Type021C.class);/**
+	static final com.exedio.cope.Type<Type021C> TYPE = com.exedio.cope.TypesBound.newType(Type021C.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
@@ -333,8 +325,6 @@ public class CheckTypeColumnAbstractLinearTest extends TestWithEnvironment
 		static final ItemField<Type021C> ref021C = ItemField.create(Type021C.class).optional();
 
 	/**
-
-	 **
 	 * Creates a new TypeRef with all the fields initially needed.
 	 * @param ref0A the initial value for field {@link #ref0A}.
 	 * @throws com.exedio.cope.MandatoryViolationException if ref0A is null.
@@ -348,18 +338,18 @@ public class CheckTypeColumnAbstractLinearTest extends TestWithEnvironment
 		this(new com.exedio.cope.SetValue<?>[]{
 			TypeRef.ref0A.map(ref0A),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new TypeRef and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private TypeRef(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #ref0A}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -367,9 +357,9 @@ public class CheckTypeColumnAbstractLinearTest extends TestWithEnvironment
 	final Type0A getRef0A()
 	{
 		return TypeRef.ref0A.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #ref0A}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -378,9 +368,9 @@ public class CheckTypeColumnAbstractLinearTest extends TestWithEnvironment
 				com.exedio.cope.MandatoryViolationException
 	{
 		TypeRef.ref0A.set(this,ref0A);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #ref01C}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -388,18 +378,18 @@ public class CheckTypeColumnAbstractLinearTest extends TestWithEnvironment
 	final Type01C getRef01C()
 	{
 		return TypeRef.ref01C.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #ref01C}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setRef01C(@javax.annotation.Nullable final Type01C ref01C)
 	{
 		TypeRef.ref01C.set(this,ref01C);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #ref02A}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -407,18 +397,18 @@ public class CheckTypeColumnAbstractLinearTest extends TestWithEnvironment
 	final Type02A getRef02A()
 	{
 		return TypeRef.ref02A.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #ref02A}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setRef02A(@javax.annotation.Nullable final Type02A ref02A)
 	{
 		TypeRef.ref02A.set(this,ref02A);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #ref021C}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -426,29 +416,29 @@ public class CheckTypeColumnAbstractLinearTest extends TestWithEnvironment
 	final Type021C getRef021C()
 	{
 		return TypeRef.ref021C.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #ref021C}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setRef021C(@javax.annotation.Nullable final Type021C ref021C)
 	{
 		TypeRef.ref021C.set(this,ref021C);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for typeRef.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<TypeRef> TYPE = com.exedio.cope.TypesBound.newType(TypeRef.class);/**
+	static final com.exedio.cope.Type<TypeRef> TYPE = com.exedio.cope.TypesBound.newType(TypeRef.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */

@@ -55,8 +55,6 @@ final class ColorFieldItem extends Item
 	}
 
 	/**
-
-	 **
 	 * Creates a new ColorFieldItem with all the fields initially needed.
 	 * @param mandatory the initial value for field {@link #mandatory}.
 	 * @param finalColor the initial value for field {@link #finalColor}.
@@ -75,18 +73,18 @@ final class ColorFieldItem extends Item
 			ColorFieldItem.mandatory.map(mandatory),
 			ColorFieldItem.finalColor.map(finalColor),
 		});
-	}/**
+	}
 
-	 **
+	/**
 	 * Creates a new ColorFieldItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private ColorFieldItem(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #mandatory}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -94,9 +92,9 @@ final class ColorFieldItem extends Item
 	final java.awt.Color getMandatory()
 	{
 		return ColorFieldItem.mandatory.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #mandatory}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -106,9 +104,9 @@ final class ColorFieldItem extends Item
 				com.exedio.cope.pattern.ColorAlphaViolationException
 	{
 		ColorFieldItem.mandatory.set(this,mandatory);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #optional}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -116,9 +114,9 @@ final class ColorFieldItem extends Item
 	final java.awt.Color getOptional()
 	{
 		return ColorFieldItem.optional.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #optional}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -127,9 +125,9 @@ final class ColorFieldItem extends Item
 				com.exedio.cope.pattern.ColorAlphaViolationException
 	{
 		ColorFieldItem.optional.set(this,optional);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #defaultTo}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -137,9 +135,9 @@ final class ColorFieldItem extends Item
 	final java.awt.Color getDefaultTo()
 	{
 		return ColorFieldItem.defaultTo.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #defaultTo}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -149,9 +147,9 @@ final class ColorFieldItem extends Item
 				com.exedio.cope.pattern.ColorAlphaViolationException
 	{
 		ColorFieldItem.defaultTo.set(this,defaultTo);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #alpha}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -159,18 +157,18 @@ final class ColorFieldItem extends Item
 	final java.awt.Color getAlpha()
 	{
 		return ColorFieldItem.alpha.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #alpha}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setAlpha(@javax.annotation.Nullable final java.awt.Color alpha)
 	{
 		ColorFieldItem.alpha.set(this,alpha);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #mandatoryAlpha}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -178,9 +176,9 @@ final class ColorFieldItem extends Item
 	final java.awt.Color getMandatoryAlpha()
 	{
 		return ColorFieldItem.mandatoryAlpha.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 * Sets a new value for {@link #mandatoryAlpha}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -189,9 +187,9 @@ final class ColorFieldItem extends Item
 				com.exedio.cope.MandatoryViolationException
 	{
 		ColorFieldItem.mandatoryAlpha.set(this,mandatoryAlpha);
-	}/**
+	}
 
-	 **
+	/**
 	 * Returns the value of {@link #finalColor}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -199,20 +197,20 @@ final class ColorFieldItem extends Item
 	final java.awt.Color getFinalColor()
 	{
 		return ColorFieldItem.finalColor.get(this);
-	}/**
+	}
 
-	 **
+	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;/**
+	private static final long serialVersionUID = 1l;
 
-	 **
+	/**
 	 * The persistent type information for colorFieldItem.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<ColorFieldItem> TYPE = com.exedio.cope.TypesBound.newType(ColorFieldItem.class);/**
+	static final com.exedio.cope.Type<ColorFieldItem> TYPE = com.exedio.cope.TypesBound.newType(ColorFieldItem.class);
 
-	 **
+	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
