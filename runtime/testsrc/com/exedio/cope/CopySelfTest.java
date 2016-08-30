@@ -19,7 +19,7 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.CopySelfSource.TYPE;
-import static com.exedio.cope.CopySimpleModelTest.selfTemplateItemCopyFromTarget;
+import static com.exedio.cope.CopySimpleModelTest.selfTemplateCopyFromTarget;
 import static com.exedio.cope.CopySimpleModelTest.templateItemCopyFromTarget;
 import static com.exedio.cope.CopySimpleModelTest.templateStringCopyFromTarget;
 import static com.exedio.cope.tojunit.Assert.assertContains;
@@ -43,8 +43,8 @@ public class CopySelfTest extends TestWithEnvironment
 
 		final CopySelfSource source = new CopySelfSource(self, value);
 		assertContains(self, source, TYPE.search());
-		assertEquals(self, source.getSelfTargetItem());
-		assertEquals(value, source.getSelfTemplateItem());
+		assertEquals(self, source.getSelfTarget());
+		assertEquals(value, source.getSelfTemplate());
 		check();
 	}
 
@@ -55,8 +55,8 @@ public class CopySelfTest extends TestWithEnvironment
 
 		final CopySelfSource source = new CopySelfSource(self, value);
 		assertContains(self, source, TYPE.search());
-		assertEquals(self, source.getSelfTargetItem());
-		assertEquals(value, source.getSelfTemplateItem());
+		assertEquals(self, source.getSelfTarget());
+		assertEquals(value, source.getSelfTemplate());
 		check();
 	}
 
@@ -66,8 +66,8 @@ public class CopySelfTest extends TestWithEnvironment
 
 		final CopySelfSource source = new CopySelfSource(self, null);
 		assertContains(self, source, TYPE.search());
-		assertEquals(self, source.getSelfTargetItem());
-		assertEquals(null, source.getSelfTemplateItem());
+		assertEquals(self, source.getSelfTarget());
+		assertEquals(null, source.getSelfTemplate());
 		check();
 	}
 
@@ -77,8 +77,8 @@ public class CopySelfTest extends TestWithEnvironment
 
 		final CopySelfSource source = new CopySelfSource(null, value);
 		assertContains(source, TYPE.search());
-		assertEquals(null, source.getSelfTargetItem());
-		assertEquals(value, source.getSelfTemplateItem());
+		assertEquals(null, source.getSelfTarget());
+		assertEquals(value, source.getSelfTemplate());
 		check();
 	}
 
@@ -86,6 +86,6 @@ public class CopySelfTest extends TestWithEnvironment
 	{
 		assertEquals(0, templateStringCopyFromTarget.check());
 		assertEquals(0, templateItemCopyFromTarget.check());
-		assertEquals(0, selfTemplateItemCopyFromTarget.check());
+		assertEquals(0, selfTemplateCopyFromTarget.check());
 	}
 }

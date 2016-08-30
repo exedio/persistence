@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.CopySimpleModelTest.selfTemplateItemCopyFromTarget;
+import static com.exedio.cope.CopySimpleModelTest.selfTemplateCopyFromTarget;
 import static com.exedio.cope.CopySimpleModelTest.templateItemCopyFromTarget;
 import static com.exedio.cope.CopySimpleModelTest.templateStringCopyFromTarget;
 import static com.exedio.cope.CopySimpleSource.TYPE;
@@ -365,7 +365,7 @@ public class CopySimpleTest extends TestWithEnvironment
 	{
 		assertEquals(0, templateStringCopyFromTarget.check());
 		assertEquals(0, templateItemCopyFromTarget.check());
-		assertEquals(0, selfTemplateItemCopyFromTarget.check());
+		assertEquals(0, selfTemplateCopyFromTarget.check());
 	}
 
 
