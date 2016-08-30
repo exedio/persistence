@@ -30,6 +30,25 @@ final class CopySelfSource extends Item
 		return "toString(" + getCopeID() + ')';
 	}
 
+	static CopySelfSource omitCopy(final CopySelfSource selfTarget)
+	{
+		return new CopySelfSource(
+			CopySelfSource.selfTarget.map(selfTarget)
+		);
+	}
+
+	static CopySelfSource omitTarget(final CopyValue selfTemplate)
+	{
+		return new CopySelfSource(
+			CopySelfSource.selfTemplate.map(selfTemplate)
+		);
+	}
+
+	static CopySelfSource omitAll()
+	{
+		return new CopySelfSource(new SetValue<?>[]{});
+	}
+
 	/**
 	 * Creates a new CopySelfSource with all the fields initially needed.
 	 * @param selfTarget the initial value for field {@link #selfTarget}.

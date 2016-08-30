@@ -24,6 +24,7 @@ import static com.exedio.cope.CopySimpleModelTest.templateItemCopyFromTarget;
 import static com.exedio.cope.CopySimpleModelTest.templateStringCopyFromTarget;
 import static com.exedio.cope.tojunit.Assert.assertContains;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
@@ -67,6 +68,141 @@ public class CopySelfTest extends TestWithEnvironment
 		assertContains(source, TYPE.search());
 		assertEquals(null, source.getSelfTarget());
 		assertEquals(value, source.getSelfTemplate());
+		check();
+	}
+
+	@Test public void testWrong()
+	{
+		final CopyValue value1 = new CopyValue();
+		final CopyValue value2 = new CopyValue();
+		final CopySelfSource target = new CopySelfSource(null, value2);
+		try
+		{
+			new CopySelfSource(target, value1);
+			fail();
+		}
+		catch(final CopyViolationException e)
+		{
+			assertEquals(selfTemplateCopyFromTarget, e.getFeature());
+			assertEquals(null, e.getItem());
+			assertEquals(value2, e.getExpectedValue());
+			assertEquals(value1, e.getActualValue());
+			assertEquals(target, e.getTargetItem());
+			assertEquals(
+					"copy violation on " + selfTemplateCopyFromTarget + ", " +
+					"expected '" + value2.getCopeID() + "' " +
+					"from target " + target.getCopeID() + ", " +
+					"but was '" + value1.getCopeID() + "'",
+				e.getMessage());
+		}
+
+		assertContains(target, TYPE.search());
+		check();
+	}
+
+	@Test public void testWrongNullCopy()
+	{
+		final CopyValue value = new CopyValue();
+		final CopySelfSource target = new CopySelfSource(null, value);
+		try
+		{
+			new CopySelfSource(target, null);
+			fail();
+		}
+		catch(final CopyViolationException e)
+		{
+			assertEquals(selfTemplateCopyFromTarget, e.getFeature());
+			assertEquals(null, e.getItem());
+			assertEquals(value, e.getExpectedValue());
+			assertEquals(null, e.getActualValue());
+			assertEquals(target, e.getTargetItem());
+			assertEquals(
+					"copy violation on " + selfTemplateCopyFromTarget + ", " +
+					"expected '" + value.getCopeID() + "' " +
+					"from target " + target.getCopeID() + ", " +
+					"but was null",
+				e.getMessage());
+		}
+
+		assertContains(target, TYPE.search());
+		check();
+	}
+
+	@Test public void testWrongNullTemplate()
+	{
+		final CopyValue value = new CopyValue();
+		final CopySelfSource target = new CopySelfSource(null, null);
+		try
+		{
+			new CopySelfSource(target, value);
+			fail();
+		}
+		catch(final CopyViolationException e)
+		{
+			assertEquals(selfTemplateCopyFromTarget, e.getFeature());
+			assertEquals(null, e.getItem());
+			assertEquals(null, e.getExpectedValue());
+			assertEquals(value, e.getActualValue());
+			assertEquals(target, e.getTargetItem());
+			assertEquals(
+					"copy violation on " + selfTemplateCopyFromTarget + ", " +
+					"expected null " +
+					"from target " + target.getCopeID() + ", " +
+					"but was '" + value.getCopeID() + "'",
+				e.getMessage());
+		}
+
+		assertContains(target, TYPE.search());
+		check();
+	}
+
+	@Test public void testWrongOmittedCopy()
+	{
+		final CopyValue value = new CopyValue();
+		final CopySelfSource target = new CopySelfSource((CopySelfSource)null, value);
+		try
+		{
+			CopySelfSource.omitCopy(target);
+			fail();
+		}
+		catch(final CopyViolationException e)
+		{
+			assertEquals(selfTemplateCopyFromTarget, e.getFeature());
+			assertEquals(null, e.getItem());
+			assertEquals(value, e.getExpectedValue());
+			assertEquals(null, e.getActualValue());
+			assertEquals(target, e.getTargetItem());
+			assertEquals(
+					"copy violation on " + selfTemplateCopyFromTarget + ", " +
+					"expected '" + value.getCopeID() + "' " +
+					"from target " + target.getCopeID() + ", " +
+					"but was null",
+				e.getMessage());
+		}
+
+		assertContains(target, TYPE.search());
+		check();
+	}
+
+	@Test public void testWrongOmittedTarget()
+	{
+		final CopyValue value = new CopyValue();
+
+		final CopySelfSource source = CopySelfSource.omitTarget(value);
+		assertEquals(null, source.getSelfTarget());
+		assertEquals(value, source.getSelfTemplate());
+
+		assertContains(source, TYPE.search());
+		check();
+	}
+
+	@Test public void testWrongOmittedAll()
+	{
+		final CopySelfSource source = CopySelfSource.omitAll();
+		assertEquals(null, source.getSelfTarget());
+		assertEquals(null, source.getSelfTemplate());
+
+		assertContains(source, TYPE.search());
 		check();
 	}
 
