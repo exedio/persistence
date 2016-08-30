@@ -45,11 +45,9 @@ final class SamplerTransaction extends Item
 
 	private static final DateField date = new DateField().toFinal().copyFrom(model);
 
-	@SuppressWarnings("unchecked") static List<SetValue<?>> mapIt(final SamplerModel m)
+	static SetValue<?> mapIt(final SamplerModel m)
 	{
-		return Arrays.asList((SetValue<?>)
-			map(model, m),
-			map(date,  SamplerModel.date.get(m)));
+		return map(model, m);
 	}
 
 

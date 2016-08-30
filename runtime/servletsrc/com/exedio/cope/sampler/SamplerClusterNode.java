@@ -48,11 +48,9 @@ final class SamplerClusterNode extends Item
 	private static final DateField date = new DateField().toFinal().copyFrom(model);
 	@SuppressWarnings("unused") private static final UniqueConstraint dateAndId = new UniqueConstraint(date, id); // date must be first, so purging can use the index
 
-	@SuppressWarnings("unchecked") static List<SetValue<?>> mapIt(final SamplerModel m)
+	static SetValue<?> mapIt(final SamplerModel m)
 	{
-		return Arrays.asList((SetValue<?>)
-			map(model, m),
-			map(date,  SamplerModel.date.get(m)));
+		return map(model, m);
 	}
 
 

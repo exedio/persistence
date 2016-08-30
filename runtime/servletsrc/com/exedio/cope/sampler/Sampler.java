@@ -214,7 +214,7 @@ public class Sampler
 			for(final Transaction transaction : to.transactions)
 			{
 				sv.clear();
-				sv.addAll(SamplerTransaction.mapIt(model));
+				sv.add(SamplerTransaction.mapIt(model));
 				sv.addAll(SamplerTransaction.mapIt(transaction));
 				SamplerTransaction.TYPE.newItem(sv);
 			}
@@ -224,7 +224,7 @@ public class Sampler
 				if(payLoad!=null)
 				{
 					sv.clear();
-					sv.addAll(SamplerItemCache.mapIt(model));
+					sv.add(SamplerItemCache.mapIt(model));
 					sv.addAll(payLoad);
 					SamplerItemCache.TYPE.newItem(sv);
 				}
@@ -235,7 +235,7 @@ public class Sampler
 				if(payLoad!=null)
 				{
 					sv.clear();
-					sv.addAll(SamplerMedia.mapIt(model));
+					sv.add(SamplerMedia.mapIt(model));
 					sv.addAll(payLoad);
 					SamplerMedia.TYPE.newItem(sv);
 				}
@@ -248,7 +248,7 @@ public class Sampler
 					if(fromNode!=null)
 					{
 						sv.clear();
-						sv.addAll(SamplerClusterNode.mapIt(model));
+						sv.add(SamplerClusterNode.mapIt(model));
 						sv.addAll(SamplerClusterNode.mapIt(fromNode, toNode));
 						SamplerClusterNode.TYPE.newItem(sv);
 					}
