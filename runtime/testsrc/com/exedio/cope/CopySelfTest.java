@@ -18,10 +18,10 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.CopyModelTest.selfTemplateItemCopyFromTarget;
-import static com.exedio.cope.CopyModelTest.templateItemCopyFromTarget;
-import static com.exedio.cope.CopyModelTest.templateStringCopyFromTarget;
 import static com.exedio.cope.CopySelfSourceItem.TYPE;
+import static com.exedio.cope.CopySimpleModelTest.selfTemplateItemCopyFromTarget;
+import static com.exedio.cope.CopySimpleModelTest.templateItemCopyFromTarget;
+import static com.exedio.cope.CopySimpleModelTest.templateStringCopyFromTarget;
 import static com.exedio.cope.tojunit.Assert.assertContains;
 import static org.junit.Assert.assertEquals;
 
@@ -31,7 +31,7 @@ public class CopySelfTest extends TestWithEnvironment
 {
 	public CopySelfTest()
 	{
-		super(CopyModelTest.MODEL);
+		super(CopySimpleModelTest.MODEL);
 	}
 
 	@Test public void testOk1()
