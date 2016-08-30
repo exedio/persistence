@@ -30,7 +30,7 @@ final class CopySimpleSource extends Item
 
 	static final StringField templateString = new StringField().toFinal().optional().copyFrom(targetItem);
 
-	static final ItemField<CopyValueItem> templateItem = ItemField.create(CopyValueItem.class).toFinal().optional().copyFrom(targetItem);
+	static final ItemField<CopyValue> templateItem = ItemField.create(CopyValue.class).toFinal().optional().copyFrom(targetItem);
 
 
 	@SuppressFBWarnings("UPM_UNCALLED_PRIVATE_METHOD") // called by reflection
@@ -72,7 +72,7 @@ final class CopySimpleSource extends Item
 
 	CopySimpleSource( // OmittedTarget
 			final String templateString,
-			final CopyValueItem templateItem)
+			final CopyValue templateItem)
 	{
 		this(
 			CopySimpleSource.templateString.map(templateString),
@@ -100,7 +100,7 @@ final class CopySimpleSource extends Item
 	CopySimpleSource(
 				@javax.annotation.Nullable final CopySimpleTarget targetItem,
 				@javax.annotation.Nullable final java.lang.String templateString,
-				@javax.annotation.Nullable final CopyValueItem templateItem)
+				@javax.annotation.Nullable final CopyValue templateItem)
 			throws
 				com.exedio.cope.StringLengthViolationException
 	{
@@ -153,7 +153,7 @@ final class CopySimpleSource extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	@javax.annotation.Nullable
-	final CopyValueItem getTemplateItem()
+	final CopyValue getTemplateItem()
 	{
 		return CopySimpleSource.templateItem.get(this);
 	}/**

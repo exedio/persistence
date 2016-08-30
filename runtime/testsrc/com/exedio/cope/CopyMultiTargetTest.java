@@ -20,7 +20,7 @@ package com.exedio.cope;
 
 import static com.exedio.cope.CopyMultiTargetModelTest.constraintA;
 import static com.exedio.cope.CopyMultiTargetModelTest.constraintB;
-import static com.exedio.cope.CopyMultiTargetSourceItem.TYPE;
+import static com.exedio.cope.CopyMultiTargetSource.TYPE;
 import static com.exedio.cope.tojunit.Assert.assertContains;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
@@ -36,11 +36,11 @@ public class CopyMultiTargetTest extends TestWithEnvironment
 
 	@Test public void testOk()
 	{
-		final CopyMultiTargetItemA targetA = new CopyMultiTargetItemA("targetValue");
-		final CopyMultiTargetItemB targetB = new CopyMultiTargetItemB("targetValue");
+		final CopyMultiTargetA targetA = new CopyMultiTargetA("targetValue");
+		final CopyMultiTargetB targetB = new CopyMultiTargetB("targetValue");
 		assertContains(TYPE.search());
 
-		final CopyMultiTargetSourceItem source = new CopyMultiTargetSourceItem(targetA, targetB, "targetValue");
+		final CopyMultiTargetSource source = new CopyMultiTargetSource(targetA, targetB, "targetValue");
 		assertEquals(targetA, source.getTargetA());
 		assertEquals(targetB, source.getTargetB());
 		assertEquals("targetValue", source.getCopy());
@@ -49,11 +49,11 @@ public class CopyMultiTargetTest extends TestWithEnvironment
 
 	@Test public void testOkNullValue()
 	{
-		final CopyMultiTargetItemA targetA = new CopyMultiTargetItemA(null);
-		final CopyMultiTargetItemB targetB = new CopyMultiTargetItemB(null);
+		final CopyMultiTargetA targetA = new CopyMultiTargetA(null);
+		final CopyMultiTargetB targetB = new CopyMultiTargetB(null);
 		assertContains(TYPE.search());
 
-		final CopyMultiTargetSourceItem source = new CopyMultiTargetSourceItem(targetA, targetB, null);
+		final CopyMultiTargetSource source = new CopyMultiTargetSource(targetA, targetB, null);
 		assertEquals(targetA, source.getTargetA());
 		assertEquals(targetB, source.getTargetB());
 		assertEquals(null, source.getCopy());
@@ -62,11 +62,11 @@ public class CopyMultiTargetTest extends TestWithEnvironment
 
 	@Test public void testWrongA()
 	{
-		final CopyMultiTargetItemA targetA = new CopyMultiTargetItemA("targetValueAx");
-		final CopyMultiTargetItemB targetB = new CopyMultiTargetItemB("targetValue");
+		final CopyMultiTargetA targetA = new CopyMultiTargetA("targetValueAx");
+		final CopyMultiTargetB targetB = new CopyMultiTargetB("targetValue");
 		try
 		{
-			new CopyMultiTargetSourceItem(targetA, targetB, "targetValue");
+			new CopyMultiTargetSource(targetA, targetB, "targetValue");
 			fail();
 		}
 		catch(final CopyViolationException e)
@@ -88,11 +88,11 @@ public class CopyMultiTargetTest extends TestWithEnvironment
 
 	@Test public void testWrongB()
 	{
-		final CopyMultiTargetItemA targetA = new CopyMultiTargetItemA("targetValue");
-		final CopyMultiTargetItemB targetB = new CopyMultiTargetItemB("targetValueBx");
+		final CopyMultiTargetA targetA = new CopyMultiTargetA("targetValue");
+		final CopyMultiTargetB targetB = new CopyMultiTargetB("targetValueBx");
 		try
 		{
-			new CopyMultiTargetSourceItem(targetA, targetB, "targetValue");
+			new CopyMultiTargetSource(targetA, targetB, "targetValue");
 			fail();
 		}
 		catch(final CopyViolationException e)

@@ -20,7 +20,7 @@ package com.exedio.cope;
 
 import static com.exedio.cope.CopyMultiCopyModelTest.constraintA;
 import static com.exedio.cope.CopyMultiCopyModelTest.constraintB;
-import static com.exedio.cope.CopyMultiCopySourceItem.TYPE;
+import static com.exedio.cope.CopyMultiCopySource.TYPE;
 import static com.exedio.cope.tojunit.Assert.assertContains;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
@@ -36,11 +36,11 @@ public class CopyMultiCopyTest extends TestWithEnvironment
 
 	@Test public void testOk()
 	{
-		final CopyMultiCopyTargetItem target =
-				new CopyMultiCopyTargetItem("targetValueA", "targetValueB");
+		final CopyMultiCopyTarget target =
+				new CopyMultiCopyTarget("targetValueA", "targetValueB");
 		assertContains(TYPE.search());
 
-		final CopyMultiCopySourceItem source = new CopyMultiCopySourceItem("targetValueA", "targetValueB", target);
+		final CopyMultiCopySource source = new CopyMultiCopySource("targetValueA", "targetValueB", target);
 		assertEquals("targetValueA", source.getCopyA());
 		assertEquals("targetValueB", source.getCopyB());
 		assertEquals(target, source.getTarget());
@@ -49,11 +49,11 @@ public class CopyMultiCopyTest extends TestWithEnvironment
 
 	@Test public void testOkNullValue()
 	{
-		final CopyMultiCopyTargetItem target =
-				new CopyMultiCopyTargetItem(null, null);
+		final CopyMultiCopyTarget target =
+				new CopyMultiCopyTarget(null, null);
 		assertContains(TYPE.search());
 
-		final CopyMultiCopySourceItem source = new CopyMultiCopySourceItem(null, null, target);
+		final CopyMultiCopySource source = new CopyMultiCopySource(null, null, target);
 		assertEquals(null, source.getCopyA());
 		assertEquals(null, source.getCopyB());
 		assertEquals(target, source.getTarget());
@@ -62,11 +62,11 @@ public class CopyMultiCopyTest extends TestWithEnvironment
 
 	@Test public void testWrongA()
 	{
-		final CopyMultiCopyTargetItem target =
-				new CopyMultiCopyTargetItem("targetValueA", "targetValueB");
+		final CopyMultiCopyTarget target =
+				new CopyMultiCopyTarget("targetValueA", "targetValueB");
 		try
 		{
-			new CopyMultiCopySourceItem("targetValueAx", "targetValueB", target);
+			new CopyMultiCopySource("targetValueAx", "targetValueB", target);
 			fail();
 		}
 		catch(final CopyViolationException e)
@@ -88,11 +88,11 @@ public class CopyMultiCopyTest extends TestWithEnvironment
 
 	@Test public void testWrongB()
 	{
-		final CopyMultiCopyTargetItem target =
-				new CopyMultiCopyTargetItem("targetValueA", "targetValueB");
+		final CopyMultiCopyTarget target =
+				new CopyMultiCopyTarget("targetValueA", "targetValueB");
 		try
 		{
-			new CopyMultiCopySourceItem("targetValueA", "targetValueBx", target);
+			new CopyMultiCopySource("targetValueA", "targetValueBx", target);
 			fail();
 		}
 		catch(final CopyViolationException e)

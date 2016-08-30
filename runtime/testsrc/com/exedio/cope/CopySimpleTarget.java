@@ -27,8 +27,8 @@ final class CopySimpleTarget extends Item
 	static final StringField otherString = new StringField();
 
 	@WrapperInitial
-	static final ItemField<CopyValueItem> templateItem = ItemField.create(CopyValueItem.class).toFinal().optional();
-	static final ItemField<CopyValueItem> otherItem = ItemField.create(CopyValueItem.class);
+	static final ItemField<CopyValue> templateItem = ItemField.create(CopyValue.class).toFinal().optional();
+	static final ItemField<CopyValue> otherItem = ItemField.create(CopyValue.class);
 
 	@Override
 	public String toString()
@@ -54,8 +54,8 @@ final class CopySimpleTarget extends Item
 	CopySimpleTarget(
 				@javax.annotation.Nullable final java.lang.String templateString,
 				@javax.annotation.Nonnull final java.lang.String otherString,
-				@javax.annotation.Nullable final CopyValueItem templateItem,
-				@javax.annotation.Nonnull final CopyValueItem otherItem)
+				@javax.annotation.Nullable final CopyValue templateItem,
+				@javax.annotation.Nonnull final CopyValue otherItem)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException
@@ -124,7 +124,7 @@ final class CopySimpleTarget extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	@javax.annotation.Nullable
-	final CopyValueItem getTemplateItem()
+	final CopyValue getTemplateItem()
 	{
 		return CopySimpleTarget.templateItem.get(this);
 	}/**
@@ -136,7 +136,7 @@ final class CopySimpleTarget extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	@javax.annotation.Nonnull
-	final CopyValueItem getOtherItem()
+	final CopyValue getOtherItem()
 	{
 		return CopySimpleTarget.otherItem.get(this);
 	}/**
@@ -147,7 +147,7 @@ final class CopySimpleTarget extends Item
 	 *       It can be customized with the tag <tt>@cope.set public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void setOtherItem(@javax.annotation.Nonnull final CopyValueItem otherItem)
+	final void setOtherItem(@javax.annotation.Nonnull final CopyValue otherItem)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{

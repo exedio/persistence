@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.CopySelfSourceItem.TYPE;
+import static com.exedio.cope.CopySelfSource.TYPE;
 import static com.exedio.cope.CopySimpleModelTest.selfTemplateItemCopyFromTarget;
 import static com.exedio.cope.CopySimpleModelTest.templateItemCopyFromTarget;
 import static com.exedio.cope.CopySimpleModelTest.templateStringCopyFromTarget;
@@ -36,12 +36,12 @@ public class CopySelfTest extends TestWithEnvironment
 
 	@Test public void testOk1()
 	{
-		final CopyValueItem value = new CopyValueItem();
-		final CopySelfSourceItem self = new CopySelfSourceItem(null, value);
+		final CopyValue value = new CopyValue();
+		final CopySelfSource self = new CopySelfSource(null, value);
 		assertContains(self, TYPE.search());
 		check();
 
-		final CopySelfSourceItem source = new CopySelfSourceItem(self, value);
+		final CopySelfSource source = new CopySelfSource(self, value);
 		assertContains(self, source, TYPE.search());
 		assertEquals(self, source.getSelfTargetItem());
 		assertEquals(value, source.getSelfTemplateItem());
@@ -50,10 +50,10 @@ public class CopySelfTest extends TestWithEnvironment
 
 	@Test public void testOk2()
 	{
-		final CopyValueItem value = new CopyValueItem();
-		final CopySelfSourceItem self = new CopySelfSourceItem(null, value);
+		final CopyValue value = new CopyValue();
+		final CopySelfSource self = new CopySelfSource(null, value);
 
-		final CopySelfSourceItem source = new CopySelfSourceItem(self, value);
+		final CopySelfSource source = new CopySelfSource(self, value);
 		assertContains(self, source, TYPE.search());
 		assertEquals(self, source.getSelfTargetItem());
 		assertEquals(value, source.getSelfTemplateItem());
@@ -62,9 +62,9 @@ public class CopySelfTest extends TestWithEnvironment
 
 	@Test public void testOkNullValue()
 	{
-		final CopySelfSourceItem self = new CopySelfSourceItem(null, null);
+		final CopySelfSource self = new CopySelfSource(null, null);
 
-		final CopySelfSourceItem source = new CopySelfSourceItem(self, null);
+		final CopySelfSource source = new CopySelfSource(self, null);
 		assertContains(self, source, TYPE.search());
 		assertEquals(self, source.getSelfTargetItem());
 		assertEquals(null, source.getSelfTemplateItem());
@@ -73,9 +73,9 @@ public class CopySelfTest extends TestWithEnvironment
 
 	@Test public void testOkNullTarget()
 	{
-		final CopyValueItem value = new CopyValueItem();
+		final CopyValue value = new CopyValue();
 
-		final CopySelfSourceItem source = new CopySelfSourceItem(null, value);
+		final CopySelfSource source = new CopySelfSource(null, value);
 		assertContains(source, TYPE.search());
 		assertEquals(null, source.getSelfTargetItem());
 		assertEquals(value, source.getSelfTemplateItem());
