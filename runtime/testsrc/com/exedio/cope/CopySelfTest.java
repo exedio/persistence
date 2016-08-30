@@ -34,24 +34,12 @@ public class CopySelfTest extends TestWithEnvironment
 		super(CopySimpleModelTest.MODEL);
 	}
 
-	@Test public void testOk1()
+	@Test public void testOk()
 	{
 		final CopyValue value = new CopyValue();
 		final CopySelfSource self = new CopySelfSource(null, value);
 		assertContains(self, TYPE.search());
 		check();
-
-		final CopySelfSource source = new CopySelfSource(self, value);
-		assertContains(self, source, TYPE.search());
-		assertEquals(self, source.getSelfTarget());
-		assertEquals(value, source.getSelfTemplate());
-		check();
-	}
-
-	@Test public void testOk2()
-	{
-		final CopyValue value = new CopyValue();
-		final CopySelfSource self = new CopySelfSource(null, value);
 
 		final CopySelfSource source = new CopySelfSource(self, value);
 		assertContains(self, source, TYPE.search());
