@@ -126,7 +126,7 @@ final class PostgresqlDialect extends Dialect
 	String getDateExtract(final String quotedName, final Precision precision)
 	{
 		// EXTRACT works as well, but is normalized to date_part
-		return "\"date_part\"('" + precision.sql() + "'," + quotedName + ")";
+		return "\"date_part\"('" + precision.sql() + "', " + quotedName + ")";
 	}
 
 	@Override

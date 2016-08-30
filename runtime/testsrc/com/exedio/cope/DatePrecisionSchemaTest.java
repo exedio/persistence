@@ -105,7 +105,7 @@ public class DatePrecisionSchemaTest extends TestWithEnvironment
 			case hsqldb    : // fall through
 			case oracle    : return "EXTRACT(" + precision.sql() + " FROM " + SI.col(field) + ")";
 
-			case postgresql: return "\"date_part\"('" + precision.sql() + "'," + SI.col(field) + ")";
+			case postgresql: return "\"date_part\"('" + precision.sql() + "', " + SI.col(field) + ")";
 
 			case mysql: // MySQL does not support native date
 			default:
