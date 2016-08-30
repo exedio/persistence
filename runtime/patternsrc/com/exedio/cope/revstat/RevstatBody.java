@@ -40,7 +40,9 @@ final class RevstatBody extends Item
 {
 	private static final ItemField<Revstat> revision = ItemField.create(Revstat.class).toFinal();
 
+	@SuppressWarnings("unused")
 	private static final IntegerField number = new IntegerField().toFinal().min(0).copyFrom(revision);
+	@SuppressWarnings("unused")
 	private static final DateField date = new DateField().toFinal().copyFrom(revision);
 
 	private static final IntegerField bodyNumber = new IntegerField().toFinal().min(0);
@@ -55,8 +57,6 @@ final class RevstatBody extends Item
 	{
 		TYPE.newItem(
 				RevstatBody.revision.map(revision),
-				RevstatBody.number.map(revision.getNumber()),
-				RevstatBody.date.map(revision.getDate()),
 				RevstatBody.bodyNumber.map(bodyNumber),
 				RevstatBody.rows.map(body.getRows()),
 				RevstatBody.elapsed.map(body.getElapsed()),
