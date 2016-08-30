@@ -30,7 +30,7 @@ The items are sorted inversely, i.e. latest items are on top
 	3. <instrument configByTags="error"> - if necessary, manually convert tags that have not been auto-transformed
 * bugfix: in instrumentor tags "internal" together with "package", "protected",
 	or "public" does work now. Before, "internal" methods always became private.
-* dsmf.getConstraints() added.
+* dsmf.Column#getConstraints() added.
 * dsmf.Sequence#getType() added.
 * Dispatcher.Result added
 	Dispatcher#getRunSuccess() replaced by getRunResult()
