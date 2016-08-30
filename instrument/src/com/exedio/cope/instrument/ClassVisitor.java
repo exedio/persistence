@@ -27,6 +27,7 @@ import com.sun.source.tree.VariableTree;
 import com.sun.source.util.TreePathScanner;
 import java.lang.annotation.Annotation;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.Set;
@@ -128,8 +129,19 @@ class ClassVisitor extends TreePathScanner<Void,Void>
 			}
 			else
 			{
-				final int docStart=context.searchBefore( Math.toIntExact(context.getStartPosition(docCommentTree)), "/**".getBytes(StandardCharsets.US_ASCII) );
-				final int docEnd=context.searchAfter( Math.toIntExact(context.getEndPosition(docCommentTree)), "*/".getBytes(StandardCharsets.US_ASCII) );
+				final int docStart;
+				final int docEnd;
+				if ( docCommentTree.getFirstSentence().isEmpty() && docCommentTree.getBody().isEmpty() && docCommentTree.getBlockTags().isEmpty() )
+				{
+					// getStartPosition doesn't work for empty comments - search from commented element instead:
+					docStart=context.searchBefore( Math.toIntExact(context.getStartPosition(mt)), "/**".getBytes(StandardCharsets.US_ASCII) );
+					docEnd=context.searchAfter( Math.toIntExact(docStart), "*/".getBytes(StandardCharsets.US_ASCII) );
+				}
+				else
+				{
+					docStart=context.searchBefore( Math.toIntExact(context.getStartPosition(docCommentTree)), "/**".getBytes(StandardCharsets.US_ASCII) );
+					docEnd=context.searchAfter( Math.toIntExact(context.getEndPosition(docCommentTree)), "*/".getBytes(StandardCharsets.US_ASCII) );
+				}
 				if ( docEnd>=start ) throw new RuntimeException();
 				final String commentSource=context.getSourceString(docStart, docEnd);
 				final String inBetween=context.getSourceString(docEnd+1, start-1);
