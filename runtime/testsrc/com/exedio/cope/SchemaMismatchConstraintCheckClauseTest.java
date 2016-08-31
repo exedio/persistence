@@ -120,8 +120,6 @@ public class SchemaMismatchConstraintCheckClauseTest extends SchemaMismatchTest
 		return ItemA.field.getMandatory(this);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 
@@ -178,8 +176,6 @@ public class SchemaMismatchConstraintCheckClauseTest extends SchemaMismatchTest
 		return ItemB.field.getMandatory(this);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 

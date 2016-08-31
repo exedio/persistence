@@ -245,8 +245,6 @@ public final class LimitedListFieldItem extends Item
 		LimitedListFieldItem.strings.set(this,strings);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 

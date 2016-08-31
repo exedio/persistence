@@ -76,8 +76,6 @@ public final class MediaItemHolder extends Item
 		MediaItemHolder.mediaItem.set(this,mediaItem);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 

@@ -80,8 +80,6 @@ class HardJoinB2Item extends HardJoinB1Item
 		HardJoinB2Item.b2.set(this,b2);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 

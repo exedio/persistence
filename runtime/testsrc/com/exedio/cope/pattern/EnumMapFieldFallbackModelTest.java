@@ -181,8 +181,6 @@ public class EnumMapFieldFallbackModelTest
 		AnItem.noneMand.set(this,k,noneMand);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getMap")
 	@javax.annotation.Nonnull
 	final java.util.Map<AnEnum,String> getNoneMandMap()
@@ -190,8 +188,6 @@ public class EnumMapFieldFallbackModelTest
 		return AnItem.noneMand.getMap(this);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setMap")
 	final void setNoneMandMap(@javax.annotation.Nonnull final java.util.Map<? extends AnEnum,? extends String> noneMand)
 	{
@@ -217,8 +213,6 @@ public class EnumMapFieldFallbackModelTest
 		AnItem.noneOpt.set(this,k,noneOpt);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getMap")
 	@javax.annotation.Nonnull
 	final java.util.Map<AnEnum,String> getNoneOptMap()
@@ -226,8 +220,6 @@ public class EnumMapFieldFallbackModelTest
 		return AnItem.noneOpt.getMap(this);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setMap")
 	final void setNoneOptMap(@javax.annotation.Nonnull final java.util.Map<? extends AnEnum,? extends String> noneOpt)
 	{
@@ -263,8 +255,6 @@ public class EnumMapFieldFallbackModelTest
 		AnItem.fallMand.set(this,k,fallMand);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getMap")
 	@javax.annotation.Nonnull
 	final java.util.Map<AnEnum,String> getFallMandMap()
@@ -272,8 +262,6 @@ public class EnumMapFieldFallbackModelTest
 		return AnItem.fallMand.getMap(this);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getMapWithFallback")
 	@javax.annotation.Nonnull
 	final java.util.Map<AnEnum,String> getFallMandMapWithFallback()
@@ -281,8 +269,6 @@ public class EnumMapFieldFallbackModelTest
 		return AnItem.fallMand.getMapWithFallback(this);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setMap")
 	final void setFallMandMap(@javax.annotation.Nonnull final java.util.Map<? extends AnEnum,? extends String> fallMand)
 	{
@@ -318,8 +304,6 @@ public class EnumMapFieldFallbackModelTest
 		AnItem.fallOpt.set(this,k,fallOpt);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getMap")
 	@javax.annotation.Nonnull
 	final java.util.Map<AnEnum,String> getFallOptMap()
@@ -327,8 +311,6 @@ public class EnumMapFieldFallbackModelTest
 		return AnItem.fallOpt.getMap(this);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getMapWithFallback")
 	@javax.annotation.Nonnull
 	final java.util.Map<AnEnum,String> getFallOptMapWithFallback()
@@ -336,16 +318,12 @@ public class EnumMapFieldFallbackModelTest
 		return AnItem.fallOpt.getMapWithFallback(this);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setMap")
 	final void setFallOptMap(@javax.annotation.Nonnull final java.util.Map<? extends AnEnum,? extends String> fallOpt)
 	{
 		AnItem.fallOpt.setMap(this,fallOpt);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 

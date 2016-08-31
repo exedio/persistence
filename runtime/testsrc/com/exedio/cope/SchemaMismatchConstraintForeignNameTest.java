@@ -101,8 +101,6 @@ public class SchemaMismatchConstraintForeignNameTest extends SchemaMismatchTest
 		return ItemA.fieldA.get(this);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 
@@ -160,8 +158,6 @@ public class SchemaMismatchConstraintForeignNameTest extends SchemaMismatchTest
 		return ItemB.fieldB.get(this);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 
@@ -202,8 +198,6 @@ public class SchemaMismatchConstraintForeignNameTest extends SchemaMismatchTest
 		super(setValues);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 
@@ -244,8 +238,6 @@ public class SchemaMismatchConstraintForeignNameTest extends SchemaMismatchTest
 		super(setValues);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 

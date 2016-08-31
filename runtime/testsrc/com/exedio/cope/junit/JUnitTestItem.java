@@ -97,8 +97,6 @@ final class JUnitTestItem extends Item
 		return JUnitTestItem.sequence.next();
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 

@@ -294,8 +294,6 @@ public class ConstraintSetTest extends TestWithEnvironment
 			return AnItem.uniqueDouble.search(AnItem.class,uniqueA,uniqueB);
 		}
 
-		/**
-		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		private static final long serialVersionUID = 1l;
 
@@ -327,8 +325,6 @@ public class ConstraintSetTest extends TestWithEnvironment
 			super(setValues);
 		}
 
-		/**
-		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		private static final long serialVersionUID = 1l;
 

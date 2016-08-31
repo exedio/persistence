@@ -169,8 +169,6 @@ public final class DatePrecisionItem extends Item
 		DatePrecisionItem.hours.setRounded(this,hours,roundingMode);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 

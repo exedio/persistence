@@ -453,8 +453,6 @@ public final class StringItem extends Item
 		return StringItem.min4AndMax4UpperLength.get(this);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 

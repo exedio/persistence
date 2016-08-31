@@ -45,8 +45,6 @@ public final class PatternTestItem extends Item
 		super(setValues);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 

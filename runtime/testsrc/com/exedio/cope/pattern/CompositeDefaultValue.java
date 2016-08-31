@@ -93,8 +93,6 @@ final class CompositeDefaultValue extends Composite
 		set(CompositeDefaultValue.deflt,deflt);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 }

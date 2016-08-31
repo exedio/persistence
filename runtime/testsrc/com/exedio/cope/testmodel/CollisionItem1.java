@@ -81,8 +81,6 @@ public final class CollisionItem1 extends Item
 		return CollisionItem1.collisionAttribute.searchUnique(CollisionItem1.class,collisionAttribute);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 

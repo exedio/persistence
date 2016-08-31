@@ -195,8 +195,6 @@ final class StringCharSetItem extends Item
 		StringCharSetItem.apos.set(this,apos);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 

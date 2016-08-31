@@ -112,8 +112,6 @@ final class AsStringItem extends Item
 		AsStringItem.doublex.set(this,doublex);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 

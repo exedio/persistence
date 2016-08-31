@@ -265,8 +265,6 @@ public final class TextUrlFilterDelegatorItem extends Item
 		return TextUrlFilterDelegatorItem.fertig.getLocatorWithFallbackToSource(this);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setRaw")
 	final void setFertigRaw(@javax.annotation.Nullable final com.exedio.cope.pattern.Media.Value raw)
 			throws
@@ -275,8 +273,6 @@ public final class TextUrlFilterDelegatorItem extends Item
 		TextUrlFilterDelegatorItem.fertig.setRaw(this,raw);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="addPaste")
 	@javax.annotation.Nonnull
 	final com.exedio.cope.pattern.TextUrlFilter.Paste addFertigPaste(@javax.annotation.Nonnull final java.lang.String key,@javax.annotation.Nonnull final com.exedio.cope.pattern.Media.Value value)
@@ -284,8 +280,6 @@ public final class TextUrlFilterDelegatorItem extends Item
 		return TextUrlFilterDelegatorItem.fertig.addPaste(this,key,value);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="modifyPaste")
 	final void modifyFertigPaste(@javax.annotation.Nonnull final java.lang.String key,@javax.annotation.Nonnull final com.exedio.cope.pattern.Media.Value value)
 			throws
@@ -294,8 +288,6 @@ public final class TextUrlFilterDelegatorItem extends Item
 		TextUrlFilterDelegatorItem.fertig.modifyPaste(this,key,value);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="putPaste")
 	@javax.annotation.Nonnull
 	final com.exedio.cope.pattern.TextUrlFilter.Paste putFertigPaste(@javax.annotation.Nonnull final java.lang.String key,@javax.annotation.Nonnull final com.exedio.cope.pattern.Media.Value value)
@@ -305,8 +297,6 @@ public final class TextUrlFilterDelegatorItem extends Item
 		return TextUrlFilterDelegatorItem.fertig.putPaste(this,key,value);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getContent")
 	@javax.annotation.Nonnull
 	final java.lang.String getFertigContent(@javax.annotation.Nonnull final javax.servlet.http.HttpServletRequest request)
@@ -316,8 +306,6 @@ public final class TextUrlFilterDelegatorItem extends Item
 		return TextUrlFilterDelegatorItem.fertig.getContent(this,request);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="check")
 	@javax.annotation.Nonnull
 	final java.util.Set<java.lang.String> checkFertig()
@@ -327,8 +315,6 @@ public final class TextUrlFilterDelegatorItem extends Item
 		return TextUrlFilterDelegatorItem.fertig.check(this);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="putPastesFromZip")
 	final void putFertigPastesFromZip(@javax.annotation.Nonnull final java.io.File file)
 			throws
@@ -496,8 +482,6 @@ public final class TextUrlFilterDelegatorItem extends Item
 		return TextUrlFilterDelegatorItem.fertig2.getLocatorWithFallbackToSource(this);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setRaw")
 	final void setFertig2Raw(@javax.annotation.Nullable final com.exedio.cope.pattern.Media.Value raw)
 			throws
@@ -506,8 +490,6 @@ public final class TextUrlFilterDelegatorItem extends Item
 		TextUrlFilterDelegatorItem.fertig2.setRaw(this,raw);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getContent")
 	@javax.annotation.Nonnull
 	final java.lang.String getFertig2Content(@javax.annotation.Nonnull final javax.servlet.http.HttpServletRequest request)
@@ -517,8 +499,6 @@ public final class TextUrlFilterDelegatorItem extends Item
 		return TextUrlFilterDelegatorItem.fertig2.getContent(this,request);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="check")
 	@javax.annotation.Nonnull
 	final java.util.Set<java.lang.String> checkFertig2()
@@ -528,8 +508,6 @@ public final class TextUrlFilterDelegatorItem extends Item
 		return TextUrlFilterDelegatorItem.fertig2.check(this);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 

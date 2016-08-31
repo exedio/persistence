@@ -241,8 +241,6 @@ public final class ListFieldItem extends Item
 		return ListFieldItem.items.getParent(ListFieldItem.class);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 

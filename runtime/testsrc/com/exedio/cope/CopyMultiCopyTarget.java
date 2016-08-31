@@ -76,8 +76,6 @@ final class CopyMultiCopyTarget extends Item
 		return CopyMultiCopyTarget.copyB.get(this);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 

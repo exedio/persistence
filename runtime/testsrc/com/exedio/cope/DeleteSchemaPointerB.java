@@ -84,8 +84,6 @@ final class DeleteSchemaPointerB extends Item
 		DeleteSchemaPointerB.other.set(this,other);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 

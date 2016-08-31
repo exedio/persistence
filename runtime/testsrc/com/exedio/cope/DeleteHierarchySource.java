@@ -68,8 +68,6 @@ public final class DeleteHierarchySource extends Item
 		DeleteHierarchySource.target.set(this,target);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 

@@ -65,8 +65,6 @@ final class QueryAggregatorItem extends Item
 		QueryAggregatorItem.intx.set(this,intx);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 

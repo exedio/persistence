@@ -118,8 +118,6 @@ final class UniqueDoubleItem extends Item
 		return UniqueDoubleItem.constraint.search(UniqueDoubleItem.class,string,integer);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 

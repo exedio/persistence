@@ -89,8 +89,6 @@ final class NameCollisionlongbItem extends Item
 		return NameCollisionlongbItem.code.searchUnique(NameCollisionlongbItem.class,code);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 

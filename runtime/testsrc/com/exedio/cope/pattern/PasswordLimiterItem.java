@@ -169,16 +169,12 @@ public final class PasswordLimiterItem extends Item
 		PasswordLimiterItem.password.setHash(this,password);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="check")
 	private final boolean checkPasswordLimited(@javax.annotation.Nullable final java.lang.String password)
 	{
 		return PasswordLimiterItem.passwordLimited.check(this,password);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="checkVerbosely")
 	private final boolean checkPasswordLimitedVerbosely(@javax.annotation.Nullable final java.lang.String password)
 			throws
@@ -187,8 +183,6 @@ public final class PasswordLimiterItem extends Item
 		return PasswordLimiterItem.passwordLimited.checkVerbosely(this,password);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="reset")
 	final void resetPasswordLimited()
 	{
@@ -205,16 +199,12 @@ public final class PasswordLimiterItem extends Item
 		return PasswordLimiterItem.passwordLimited.purge(interrupter);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="purge")
 	static final void purgePasswordLimited(@javax.annotation.Nonnull final com.exedio.cope.util.JobContext ctx)
 	{
 		PasswordLimiterItem.passwordLimited.purge(ctx);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 

@@ -118,8 +118,6 @@ public final class HistoryItem extends Item
 		return HistoryItem.audit.getEventParent(HistoryItem.class);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 

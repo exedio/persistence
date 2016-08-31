@@ -114,8 +114,6 @@ public final class CompositeItem extends Item
 		CompositeItem.zwei.set(this,zwei);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 

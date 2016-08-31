@@ -104,8 +104,6 @@ public final class CompositeOptionalItem extends Item
 		CompositeOptionalItem.duo.set(this,duo);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 

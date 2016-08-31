@@ -75,8 +75,6 @@ public final class JoinFunctionItemSingle extends Item
 		JoinFunctionItemSingle.name.set(this,name);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 

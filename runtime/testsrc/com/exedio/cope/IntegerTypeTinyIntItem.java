@@ -87,8 +87,6 @@ public class IntegerTypeTinyIntItem extends Item
 		IntegerTypeTinyIntItem.value.set(this,value);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 

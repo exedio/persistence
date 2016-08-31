@@ -71,8 +71,6 @@ public class DeleteHierarchyTargetSuper extends Item
 		DeleteHierarchyTargetSuper.code.set(this,code);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 

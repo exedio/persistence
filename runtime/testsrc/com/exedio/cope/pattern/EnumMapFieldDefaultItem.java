@@ -69,8 +69,6 @@ public final class EnumMapFieldDefaultItem extends Item
 		EnumMapFieldDefaultItem.text.set(this,k,text);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getMap")
 	@javax.annotation.Nonnull
 	final java.util.Map<EnumMapFieldItem.Language,String> getTextMap()
@@ -78,16 +76,12 @@ public final class EnumMapFieldDefaultItem extends Item
 		return EnumMapFieldDefaultItem.text.getMap(this);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setMap")
 	final void setTextMap(@javax.annotation.Nonnull final java.util.Map<? extends EnumMapFieldItem.Language,? extends String> text)
 	{
 		EnumMapFieldDefaultItem.text.setMap(this,text);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 

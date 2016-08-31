@@ -320,8 +320,6 @@ public final class FeatureFieldItem extends Item
 		FeatureFieldItem.restricted.set(this,restricted);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 

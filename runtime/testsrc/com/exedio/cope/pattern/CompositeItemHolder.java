@@ -76,8 +76,6 @@ public final class CompositeItemHolder extends Item
 		CompositeItemHolder.anItem.set(this,anItem);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 

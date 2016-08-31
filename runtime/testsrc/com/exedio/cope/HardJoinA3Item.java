@@ -83,8 +83,6 @@ final class HardJoinA3Item extends HardJoinA2Item
 		HardJoinA3Item.a3.set(this,a3);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 

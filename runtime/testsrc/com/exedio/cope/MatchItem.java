@@ -71,8 +71,6 @@ final class MatchItem extends Item
 		MatchItem.text.set(this,text);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 

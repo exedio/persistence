@@ -103,8 +103,6 @@ public final class PasswordRecoveryItem extends Item
 		PasswordRecoveryItem.password.setHash(this,password);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="issue")
 	@javax.annotation.Nonnull
 	final com.exedio.cope.pattern.PasswordRecovery.Token issuePasswordRecovery(@javax.annotation.Nonnull final com.exedio.cope.pattern.PasswordRecovery.Config config)
@@ -144,16 +142,12 @@ public final class PasswordRecoveryItem extends Item
 		return PasswordRecoveryItem.passwordRecovery.purge(interrupter);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="purge")
 	static final void purgePasswordRecovery(@javax.annotation.Nonnull final com.exedio.cope.util.JobContext ctx)
 	{
 		PasswordRecoveryItem.passwordRecovery.purge(ctx);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 

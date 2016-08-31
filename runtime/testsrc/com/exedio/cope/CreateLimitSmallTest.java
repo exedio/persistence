@@ -114,8 +114,6 @@ public class CreateLimitSmallTest extends TestWithEnvironment
 		AnItem.number.set(this,number);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 

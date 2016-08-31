@@ -103,8 +103,6 @@ final class NestedHashMigrationItem extends Item
 		NestedHashMigrationItem.password.migrate(ctx);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 

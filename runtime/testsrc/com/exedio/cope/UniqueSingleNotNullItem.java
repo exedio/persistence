@@ -93,8 +93,6 @@ public final class UniqueSingleNotNullItem extends Item
 		return UniqueSingleNotNullItem.uniqueNotNullString.searchUnique(UniqueSingleNotNullItem.class,uniqueNotNullString);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 

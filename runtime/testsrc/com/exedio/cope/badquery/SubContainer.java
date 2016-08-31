@@ -91,8 +91,6 @@ final class SubContainer extends SuperContainer
 		SubContainer.subflag.set(this,subflag);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 

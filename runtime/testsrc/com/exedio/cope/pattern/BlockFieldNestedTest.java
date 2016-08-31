@@ -175,8 +175,6 @@ public class BlockFieldNestedTest extends TestWithEnvironment
 		field().of(Inner.beta).set(item(),beta);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 
@@ -220,8 +218,6 @@ public class BlockFieldNestedTest extends TestWithEnvironment
 		return field().of(Outer.zwei).get(item());
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 
@@ -284,8 +280,6 @@ public class BlockFieldNestedTest extends TestWithEnvironment
 		return AnItem.duo.get(this);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 

@@ -63,8 +63,6 @@ final class SequenceItem extends Item
 		return SequenceItem.limited.next();
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 

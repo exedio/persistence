@@ -159,8 +159,6 @@ public class BlockFieldCheckModelTest
 		field().of(ABlock.beta).set(item(),beta);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 
@@ -256,8 +254,6 @@ public class BlockFieldCheckModelTest
 		return AnItem.zwei.get(this);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 

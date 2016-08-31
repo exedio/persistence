@@ -174,8 +174,6 @@ public final class LongItem extends Item
 		LongItem.min4Max8.set(this,min4Max8);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 

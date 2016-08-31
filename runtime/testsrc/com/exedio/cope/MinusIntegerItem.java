@@ -145,8 +145,6 @@ public final class MinusIntegerItem extends Item
 		return MinusIntegerItem.viewBC.get(this);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 

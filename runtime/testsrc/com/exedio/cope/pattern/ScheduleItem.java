@@ -91,24 +91,18 @@ public final class ScheduleItem extends Item implements Scheduleable
 		super(setValues);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="isEnabled")
 	final boolean isReportEnabled()
 	{
 		return ScheduleItem.report.isEnabled(this);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setEnabled")
 	final void setReportEnabled(final boolean enabled)
 	{
 		ScheduleItem.report.setEnabled(this,enabled);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getInterval")
 	@javax.annotation.Nonnull
 	final com.exedio.cope.pattern.Schedule.Interval getReportInterval()
@@ -116,16 +110,12 @@ public final class ScheduleItem extends Item implements Scheduleable
 		return ScheduleItem.report.getInterval(this);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setInterval")
 	final void setReportInterval(@javax.annotation.Nonnull final com.exedio.cope.pattern.Schedule.Interval interval)
 	{
 		ScheduleItem.report.setInterval(this,interval);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="run")
 	@java.lang.Deprecated
 	static final int runReport(@javax.annotation.Nullable final com.exedio.cope.util.Interrupter interrupter)
@@ -133,8 +123,6 @@ public final class ScheduleItem extends Item implements Scheduleable
 		return ScheduleItem.report.run(ScheduleItem.class,interrupter);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="run")
 	static final void runReport(@javax.annotation.Nonnull final com.exedio.cope.util.JobContext ctx)
 	{
@@ -190,8 +178,6 @@ public final class ScheduleItem extends Item implements Scheduleable
 		ScheduleItem.progress.set(this,progress);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 

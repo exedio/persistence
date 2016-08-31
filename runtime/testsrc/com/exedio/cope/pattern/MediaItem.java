@@ -643,8 +643,6 @@ public final class MediaItem extends Item
 		MediaItem.sheet.set(this,body,contentType);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 

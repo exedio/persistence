@@ -77,8 +77,6 @@ public final class MapFieldItem extends Item
 		MapFieldItem.name.set(this,k,name);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getMap")
 	@javax.annotation.Nonnull
 	final java.util.Map<Language,String> getNameMap()
@@ -86,8 +84,6 @@ public final class MapFieldItem extends Item
 		return MapFieldItem.name.getMap(this);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setMap")
 	final void setNameMap(@javax.annotation.Nonnull final java.util.Map<? extends Language,? extends String> name)
 	{
@@ -123,8 +119,6 @@ public final class MapFieldItem extends Item
 		MapFieldItem.nameLength.set(this,k,nameLength);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getMap")
 	@javax.annotation.Nonnull
 	final java.util.Map<Language,Integer> getNameLengthMap()
@@ -132,8 +126,6 @@ public final class MapFieldItem extends Item
 		return MapFieldItem.nameLength.getMap(this);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setMap")
 	final void setNameLengthMap(@javax.annotation.Nonnull final java.util.Map<? extends Language,? extends Integer> nameLength)
 	{
@@ -169,8 +161,6 @@ public final class MapFieldItem extends Item
 		MapFieldItem.string.set(this,k,string);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getMap")
 	@javax.annotation.Nonnull
 	final java.util.Map<String,String> getStringMap()
@@ -178,8 +168,6 @@ public final class MapFieldItem extends Item
 		return MapFieldItem.string.getMap(this);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setMap")
 	final void setStringMap(@javax.annotation.Nonnull final java.util.Map<? extends String,? extends String> string)
 	{
@@ -215,8 +203,6 @@ public final class MapFieldItem extends Item
 		MapFieldItem.integer.set(this,k,integer);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getMap")
 	@javax.annotation.Nonnull
 	final java.util.Map<String,Integer> getIntegerMap()
@@ -224,8 +210,6 @@ public final class MapFieldItem extends Item
 		return MapFieldItem.integer.getMap(this);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setMap")
 	final void setIntegerMap(@javax.annotation.Nonnull final java.util.Map<? extends String,? extends Integer> integer)
 	{
@@ -242,8 +226,6 @@ public final class MapFieldItem extends Item
 		return MapFieldItem.integer.getParent(MapFieldItem.class);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 

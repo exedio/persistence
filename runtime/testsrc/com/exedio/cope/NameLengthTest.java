@@ -302,8 +302,6 @@ public class NameLengthTest extends TestWithEnvironment
 		return AnItem.nextShort.getMandatory(this);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 
@@ -345,8 +343,6 @@ public class NameLengthTest extends TestWithEnvironment
 		super(setValues);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 

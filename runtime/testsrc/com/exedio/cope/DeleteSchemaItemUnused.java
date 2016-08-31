@@ -80,8 +80,6 @@ final class DeleteSchemaItemUnused extends Item
 		DeleteSchemaItemUnused.unusedPointer.set(this,unusedPointer);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 

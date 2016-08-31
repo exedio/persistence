@@ -69,8 +69,6 @@ public final class HierarchySecondSub extends HierarchySuper
 		HierarchySecondSub.firstSubString.set(this,firstSubString);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 

@@ -45,8 +45,6 @@ public final class SchemaTypeStringItem extends Item
 	@MysqlExtendedVarchar static final SchemaTypeStringField f20846Ext = new SchemaTypeStringField(21846);
 
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 

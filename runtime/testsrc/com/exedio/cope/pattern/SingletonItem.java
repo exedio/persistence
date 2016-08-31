@@ -117,8 +117,6 @@ public final class SingletonItem extends Item
 		return SingletonItem.einzigartig.instance(SingletonItem.class);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 

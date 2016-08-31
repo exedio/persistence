@@ -261,8 +261,6 @@ public class DynamicModelCastTest extends TestWithEnvironment
 		ModelItem.beta.set(this,field,value);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 

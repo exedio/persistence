@@ -517,8 +517,6 @@ public class MediaFinalUrlFingerPrintingTest
 		AnItem.isFinalFinger.getBody(this,body);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 

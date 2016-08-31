@@ -140,8 +140,6 @@ class ConnectItem extends Item
 		ConnectItem.integerField.set(this,integerField);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 

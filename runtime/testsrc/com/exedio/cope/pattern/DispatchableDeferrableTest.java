@@ -250,8 +250,6 @@ public class DispatchableDeferrableTest extends TestWithEnvironment
 		return AnItem.toTarget.getFailures(this);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="purge")
 	static final void purgeToTarget(@javax.annotation.Nonnull final com.exedio.cope.pattern.DispatcherPurgeProperties properties,@javax.annotation.Nonnull final com.exedio.cope.util.JobContext ctx)
 	{
@@ -322,8 +320,6 @@ public class DispatchableDeferrableTest extends TestWithEnvironment
 		AnItem.dispatchCount.set(this,dispatchCount);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 

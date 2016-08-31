@@ -95,8 +95,6 @@ public class SettableFinalPriceTest extends TestWithEnvironment
 		return AnItem.isfinal.get(this);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 

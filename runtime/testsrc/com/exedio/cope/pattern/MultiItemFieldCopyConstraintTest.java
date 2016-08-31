@@ -236,8 +236,6 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 		return DoubleCopyConstraintItem.template.get(this);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 
@@ -308,8 +306,6 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 		return AllCopyConstraintItem.value.get(this);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 
@@ -380,8 +376,6 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 		return PartialCopyConstraintItem.value.get(this);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 
@@ -444,8 +438,6 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 		return A.value.get(this);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 
@@ -508,8 +500,6 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 		return B.value.get(this);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 
@@ -586,8 +576,6 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 		return C.template.get(this);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 

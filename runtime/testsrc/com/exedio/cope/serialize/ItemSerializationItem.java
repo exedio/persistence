@@ -164,8 +164,6 @@ final class ItemSerializationItem extends Item
 		return ItemSerializationItem.list.getParent(ItemSerializationItem.class);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 

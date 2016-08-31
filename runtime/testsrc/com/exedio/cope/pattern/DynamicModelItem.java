@@ -143,8 +143,6 @@ public final class DynamicModelItem extends Item
 		DynamicModelItem.small.set(this,field,value);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 

@@ -207,8 +207,6 @@ public final class SetFieldItem extends Item
 		return SetFieldItem.dates.getParent(SetFieldItem.class);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 

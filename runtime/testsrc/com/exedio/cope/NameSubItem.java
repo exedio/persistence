@@ -256,8 +256,6 @@ public final class NameSubItem extends NameLongItem
 		return NameSubItem.integersX.search(NameSubItem.class,integerX,itemX);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 

@@ -233,8 +233,6 @@ public final class MessageDigestHashItem extends Item
 		MessageDigestHashItem.passwordMandatory.setHash(this,passwordMandatory);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 

@@ -72,8 +72,6 @@ final class ReviseItem1 extends Item
 		ReviseItem1.field5.set(this,field5);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 

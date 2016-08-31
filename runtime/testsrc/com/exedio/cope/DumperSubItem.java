@@ -90,8 +90,6 @@ public final class DumperSubItem extends DumperItem
 		DumperSubItem.subString.set(this,subString);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 

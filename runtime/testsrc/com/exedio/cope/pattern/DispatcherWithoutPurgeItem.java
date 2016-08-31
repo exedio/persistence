@@ -269,8 +269,6 @@ public final class DispatcherWithoutPurgeItem extends Item implements Dispatchab
 		return DispatcherWithoutPurgeItem.toTarget.getRunParent(DispatcherWithoutPurgeItem.class);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 

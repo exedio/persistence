@@ -201,8 +201,6 @@ public class EnumMapFieldFallbackTest extends TestWithEnvironment
 		AnItem.text.set(this,k,text);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getMap")
 	@javax.annotation.Nonnull
 	final java.util.Map<AnEnum,String> getTextMap()
@@ -210,8 +208,6 @@ public class EnumMapFieldFallbackTest extends TestWithEnvironment
 		return AnItem.text.getMap(this);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getMapWithFallback")
 	@javax.annotation.Nonnull
 	final java.util.Map<AnEnum,String> getTextMapWithFallback()
@@ -219,16 +215,12 @@ public class EnumMapFieldFallbackTest extends TestWithEnvironment
 		return AnItem.text.getMapWithFallback(this);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setMap")
 	final void setTextMap(@javax.annotation.Nonnull final java.util.Map<? extends AnEnum,? extends String> text)
 	{
 		AnItem.text.setMap(this,text);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 

@@ -78,8 +78,6 @@ final class IoqSourceSubB extends IoqSourceSuper
 		IoqSourceSubB.brother.set(this,brother);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 

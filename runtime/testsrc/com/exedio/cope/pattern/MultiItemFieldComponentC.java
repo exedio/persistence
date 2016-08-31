@@ -70,8 +70,6 @@ public class MultiItemFieldComponentC extends Item implements MultiItemFieldValu
 		MultiItemFieldComponentC.value.set(this,value);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 

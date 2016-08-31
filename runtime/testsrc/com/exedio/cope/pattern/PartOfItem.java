@@ -200,8 +200,6 @@ public final class PartOfItem extends Item
 		PartOfItem.partInteger.set(this,partInteger);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 

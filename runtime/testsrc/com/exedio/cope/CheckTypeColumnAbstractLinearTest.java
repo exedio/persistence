@@ -127,8 +127,6 @@ public class CheckTypeColumnAbstractLinearTest extends TestWithEnvironment
 		super(setValues);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 
@@ -191,8 +189,6 @@ public class CheckTypeColumnAbstractLinearTest extends TestWithEnvironment
 		Type01C.intField.set(this,intField);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 
@@ -233,8 +229,6 @@ public class CheckTypeColumnAbstractLinearTest extends TestWithEnvironment
 		super(setValues);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 
@@ -297,8 +291,6 @@ public class CheckTypeColumnAbstractLinearTest extends TestWithEnvironment
 		Type021C.intField.set(this,intField);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 
@@ -427,8 +419,6 @@ public class CheckTypeColumnAbstractLinearTest extends TestWithEnvironment
 		TypeRef.ref021C.set(this,ref021C);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 

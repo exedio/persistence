@@ -282,8 +282,6 @@ public final class DispatcherItem extends Item implements Dispatchable
 		return DispatcherItem.toTarget.getFailures(this);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="purge")
 	static final void purgeToTarget(@javax.annotation.Nonnull final com.exedio.cope.pattern.DispatcherPurgeProperties properties,@javax.annotation.Nonnull final com.exedio.cope.util.JobContext ctx)
 	{
@@ -300,8 +298,6 @@ public final class DispatcherItem extends Item implements Dispatchable
 		return DispatcherItem.toTarget.getRunParent(DispatcherItem.class);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 

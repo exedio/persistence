@@ -73,8 +73,6 @@ final class InstanceOfB2Item extends InstanceOfAItem
 		InstanceOfB2Item.textb2.set(this,textb2);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 

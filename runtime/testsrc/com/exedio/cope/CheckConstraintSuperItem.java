@@ -134,8 +134,6 @@ public class CheckConstraintSuperItem extends Item
 		CheckConstraintSuperItem.drei.set(this,drei);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 

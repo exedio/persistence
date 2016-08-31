@@ -70,8 +70,6 @@ final class SchemaNamePolymorphicRefItem extends Item
 		SchemaNamePolymorphicRefItem.ref.set(this,ref);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 

@@ -91,8 +91,6 @@ public class SchemaMismatchSequenceTypeTest extends SchemaMismatchTest
 		super(setValues);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 
@@ -135,8 +133,6 @@ public class SchemaMismatchSequenceTypeTest extends SchemaMismatchTest
 		super(setValues);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 

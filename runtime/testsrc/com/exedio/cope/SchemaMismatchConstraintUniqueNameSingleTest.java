@@ -112,8 +112,6 @@ public class SchemaMismatchConstraintUniqueNameSingleTest extends SchemaMismatch
 		return ItemA.fieldA.searchUnique(ItemA.class,fieldA);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 
@@ -182,8 +180,6 @@ public class SchemaMismatchConstraintUniqueNameSingleTest extends SchemaMismatch
 		return ItemB.fieldB.searchUnique(ItemB.class,fieldB);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 

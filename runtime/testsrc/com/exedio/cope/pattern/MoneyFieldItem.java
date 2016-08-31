@@ -258,8 +258,6 @@ public final class MoneyFieldItem extends Item
 		MoneyFieldItem.exclusive.set(this,exclusive);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 

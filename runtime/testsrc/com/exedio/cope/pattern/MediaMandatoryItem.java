@@ -216,8 +216,6 @@ public final class MediaMandatoryItem extends Item
 		MediaMandatoryItem.file.set(this,body,contentType);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 

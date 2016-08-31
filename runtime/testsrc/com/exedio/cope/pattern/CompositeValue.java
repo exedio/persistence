@@ -161,8 +161,6 @@ public final class CompositeValue extends Composite
 		set(CompositeValue.anItem,anItem);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 }

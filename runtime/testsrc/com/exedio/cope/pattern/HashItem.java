@@ -372,8 +372,6 @@ public final class HashItem extends Item
 		HashItem.with3PinValidator.setHash(this,with3PinValidator);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 

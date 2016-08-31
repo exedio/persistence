@@ -107,8 +107,6 @@ public final class SimpleItem extends Item
 		SimpleItem.name.set(this,name);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 

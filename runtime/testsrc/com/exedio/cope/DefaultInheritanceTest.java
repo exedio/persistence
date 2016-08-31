@@ -106,8 +106,6 @@ public class DefaultInheritanceTest extends TestWithEnvironment
 		Alpha.field.set(this,field);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 
@@ -148,8 +146,6 @@ public class DefaultInheritanceTest extends TestWithEnvironment
 		super(setValues);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 
@@ -190,8 +186,6 @@ public class DefaultInheritanceTest extends TestWithEnvironment
 		super(setValues);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 

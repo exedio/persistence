@@ -93,8 +93,6 @@ public final class MediaCatchPhraseItem extends MediaCatchPhraseSuperItem implem
 		MediaCatchPhraseItem.catchphrase.set(this,catchphrase);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 

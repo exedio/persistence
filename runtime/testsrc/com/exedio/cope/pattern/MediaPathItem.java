@@ -137,24 +137,18 @@ public final class MediaPathItem extends Item implements MediaUrlCatchphraseProv
 		return MediaPathItem.normal.getContentType(this);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setContentType")
 	final void setNormalContentType(final java.lang.String normal)
 	{
 		MediaPathItem.normal.setContentType(this,normal);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setLastModified")
 	final void setNormalLastModified(final java.util.Date normal)
 	{
 		MediaPathItem.normal.setLastModified(this,normal);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setResult")
 	final void setNormalResult(final com.exedio.cope.pattern.MediaPathFeature.Result normal)
 	{
@@ -181,24 +175,18 @@ public final class MediaPathItem extends Item implements MediaUrlCatchphraseProv
 		return MediaPathItem.finger.getContentType(this);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setContentType")
 	final void setFingerContentType(final java.lang.String finger)
 	{
 		MediaPathItem.finger.setContentType(this,finger);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setLastModified")
 	final void setFingerLastModified(final java.util.Date finger)
 	{
 		MediaPathItem.finger.setLastModified(this,finger);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setResult")
 	final void setFingerResult(final com.exedio.cope.pattern.MediaPathFeature.Result finger)
 	{
@@ -225,32 +213,24 @@ public final class MediaPathItem extends Item implements MediaUrlCatchphraseProv
 		return MediaPathItem.guess.getContentType(this);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setContentType")
 	final void setGuessContentType(final java.lang.String guess)
 	{
 		MediaPathItem.guess.setContentType(this,guess);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setLastModified")
 	final void setGuessLastModified(final java.util.Date guess)
 	{
 		MediaPathItem.guess.setLastModified(this,guess);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setResult")
 	final void setGuessResult(final com.exedio.cope.pattern.MediaPathFeature.Result guess)
 	{
 		MediaPathItem.guess.setResult(this,guess);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 

@@ -69,8 +69,6 @@ public final class RangeFieldItem extends Item
 		super(setValues);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
 	final com.exedio.cope.pattern.Range<Integer> getValid()
@@ -78,8 +76,6 @@ public final class RangeFieldItem extends Item
 		return RangeFieldItem.valid.get(this);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setValid(@javax.annotation.Nonnull final com.exedio.cope.pattern.Range<? extends Integer> valid)
 			throws
@@ -88,8 +84,6 @@ public final class RangeFieldItem extends Item
 		RangeFieldItem.valid.set(this,valid);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getFrom")
 	@javax.annotation.Nullable
 	final Integer getValidFrom()
@@ -97,8 +91,6 @@ public final class RangeFieldItem extends Item
 		return RangeFieldItem.valid.getFrom(this);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getTo")
 	@javax.annotation.Nullable
 	final Integer getValidTo()
@@ -106,8 +98,6 @@ public final class RangeFieldItem extends Item
 		return RangeFieldItem.valid.getTo(this);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setFrom")
 	final void setValidFrom(@javax.annotation.Nullable final Integer valid)
 			throws
@@ -116,8 +106,6 @@ public final class RangeFieldItem extends Item
 		RangeFieldItem.valid.setFrom(this,valid);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setTo")
 	final void setValidTo(@javax.annotation.Nullable final Integer valid)
 			throws
@@ -126,16 +114,12 @@ public final class RangeFieldItem extends Item
 		RangeFieldItem.valid.setTo(this,valid);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="doesContain")
 	final boolean doesValidContain(@javax.annotation.Nonnull final Integer valid)
 	{
 		return RangeFieldItem.valid.doesContain(this,valid);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
 	final com.exedio.cope.pattern.Range<String> getText()
@@ -143,8 +127,6 @@ public final class RangeFieldItem extends Item
 		return RangeFieldItem.text.get(this);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getFrom")
 	@javax.annotation.Nonnull
 	final String getTextFrom()
@@ -152,8 +134,6 @@ public final class RangeFieldItem extends Item
 		return RangeFieldItem.text.getFrom(this);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getTo")
 	@javax.annotation.Nonnull
 	final String getTextTo()
@@ -161,16 +141,12 @@ public final class RangeFieldItem extends Item
 		return RangeFieldItem.text.getTo(this);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="doesContain")
 	final boolean doesTextContain(@javax.annotation.Nonnull final String text)
 	{
 		return RangeFieldItem.text.doesContain(this,text);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 

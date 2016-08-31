@@ -104,8 +104,6 @@ public final class CheckConstraintHierarchyItemBottom extends CheckConstraintHie
 		CheckConstraintHierarchyItemBottom.cross2.set(this,cross2);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 

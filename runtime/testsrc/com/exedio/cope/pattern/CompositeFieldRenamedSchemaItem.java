@@ -98,8 +98,6 @@ final class CompositeFieldRenamedSchemaItem extends Item
 		CompositeFieldRenamedSchemaItem.wrongComp.set(this,wrongComp);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 

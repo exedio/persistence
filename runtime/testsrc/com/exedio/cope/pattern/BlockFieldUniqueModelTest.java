@@ -204,8 +204,6 @@ public class BlockFieldUniqueModelTest
 		field().of(ABlock.betaPrice).set(item(),betaPrice);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 
@@ -302,8 +300,6 @@ public class BlockFieldUniqueModelTest
 		return AnItem.zwei.get(this);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 

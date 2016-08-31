@@ -76,8 +76,6 @@ public final class HashItemHolder extends Item
 		HashItemHolder.hashItem.set(this,hashItem);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 

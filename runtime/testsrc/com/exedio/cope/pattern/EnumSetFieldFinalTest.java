@@ -109,16 +109,12 @@ public class EnumSetFieldFinalTest
 		super(setValues);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="contains")
 	final boolean containsField(@javax.annotation.Nonnull final AnEnum element)
 	{
 		return AnItem.field.contains(this,element);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
 	final java.util.EnumSet<AnEnum> getField()
@@ -126,8 +122,6 @@ public class EnumSetFieldFinalTest
 		return AnItem.field.get(this);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 

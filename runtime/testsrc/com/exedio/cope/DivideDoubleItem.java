@@ -145,8 +145,6 @@ public final class DivideDoubleItem extends Item
 		return DivideDoubleItem.divideBC.get(this);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 

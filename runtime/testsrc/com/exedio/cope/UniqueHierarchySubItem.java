@@ -95,8 +95,6 @@ final class UniqueHierarchySubItem extends UniqueHierarchySuperItem
 		return UniqueHierarchySubItem.subField.searchUnique(UniqueHierarchySubItem.class,subField);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 

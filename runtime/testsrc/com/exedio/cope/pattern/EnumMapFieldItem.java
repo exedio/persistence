@@ -87,8 +87,6 @@ public final class EnumMapFieldItem extends Item
 		EnumMapFieldItem.name.set(this,k,name);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getMap")
 	@javax.annotation.Nonnull
 	final java.util.Map<Language,String> getNameMap()
@@ -96,8 +94,6 @@ public final class EnumMapFieldItem extends Item
 		return EnumMapFieldItem.name.getMap(this);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setMap")
 	final void setNameMap(@javax.annotation.Nonnull final java.util.Map<? extends Language,? extends String> name)
 	{
@@ -123,8 +119,6 @@ public final class EnumMapFieldItem extends Item
 		EnumMapFieldItem.nameLength.set(this,k,nameLength);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getMap")
 	@javax.annotation.Nonnull
 	final java.util.Map<Language,Integer> getNameLengthMap()
@@ -132,8 +126,6 @@ public final class EnumMapFieldItem extends Item
 		return EnumMapFieldItem.nameLength.getMap(this);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setMap")
 	final void setNameLengthMap(@javax.annotation.Nonnull final java.util.Map<? extends Language,? extends Integer> nameLength)
 	{
@@ -159,8 +151,6 @@ public final class EnumMapFieldItem extends Item
 		EnumMapFieldItem.defaults.set(this,k,defaults);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getMap")
 	@javax.annotation.Nonnull
 	final java.util.Map<Language,String> getDefaultsMap()
@@ -168,16 +158,12 @@ public final class EnumMapFieldItem extends Item
 		return EnumMapFieldItem.defaults.getMap(this);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setMap")
 	final void setDefaultsMap(@javax.annotation.Nonnull final java.util.Map<? extends Language,? extends String> defaults)
 	{
 		EnumMapFieldItem.defaults.setMap(this,defaults);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 

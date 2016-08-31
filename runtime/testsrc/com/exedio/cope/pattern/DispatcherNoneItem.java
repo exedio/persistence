@@ -134,8 +134,6 @@ public final class DispatcherNoneItem extends Item
 		return DispatcherNoneItem.wrong.getFailures(this);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="purge")
 	static final void purgeWrong(@javax.annotation.Nonnull final com.exedio.cope.pattern.DispatcherPurgeProperties properties,@javax.annotation.Nonnull final com.exedio.cope.util.JobContext ctx)
 	{
@@ -152,8 +150,6 @@ public final class DispatcherNoneItem extends Item
 		return DispatcherNoneItem.wrong.getRunParent(DispatcherNoneItem.class);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 

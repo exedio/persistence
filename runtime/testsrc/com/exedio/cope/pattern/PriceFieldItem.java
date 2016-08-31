@@ -122,8 +122,6 @@ public final class PriceFieldItem extends Item
 		PriceFieldItem.bigPrice.set(this,bigPrice);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 

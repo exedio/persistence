@@ -349,8 +349,6 @@ public class DatePrecisionDefaultToNowTest extends TestWithEnvironment
 		AnItem.none.setRounded(this,none,roundingMode);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 

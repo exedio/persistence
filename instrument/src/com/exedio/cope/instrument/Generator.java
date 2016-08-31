@@ -174,36 +174,40 @@ final class Generator
 		if (hintFormat==HintFormat.forAnnotations)
 		{
 			write(lineSeparator);
-			writeIndent();
+			if (!commentLines.isEmpty())
+				writeIndent();
 		}
-		write("/**");
-		write(lineSeparator);
-		if(longJavadoc && hintFormat==HintFormat.forTags)
+		if (!commentLines.isEmpty())
 		{
+			write("/**");
 			write(lineSeparator);
-			writeIndent();
-			write(" **");
-			write(lineSeparator);
-		}
+			if(longJavadoc && hintFormat==HintFormat.forTags)
+			{
+				write(lineSeparator);
+				writeIndent();
+				write(" **");
+				write(lineSeparator);
+			}
 
-		boolean first=false;
-		for (final String commentLine: commentLines)
-		{
-			if (first)
+			boolean first=false;
+			for (final String commentLine: commentLines)
 			{
-				first=false;
+				if (first)
+				{
+					first=false;
+				}
+				else
+				{
+					if (!commentLine.isEmpty())
+						writeIndent();
+				}
+				write(commentLine);
+				write(lineSeparator);
 			}
-			else
-			{
-				if (!commentLine.isEmpty())
-					writeIndent();
-			}
-			write(commentLine);
+			writeIndent();
+			write(" */");
 			write(lineSeparator);
 		}
-		writeIndent();
-		write(" */");
-		write(lineSeparator);
 	}
 
 	private void writeGeneratedAnnotation(final String extraCommentForAnnotations)

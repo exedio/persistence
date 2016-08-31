@@ -84,8 +84,6 @@ public class PartOfContainerReuseTest
 		super(setValues);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 
@@ -222,8 +220,6 @@ public class PartOfContainerReuseTest
 		return APart.parts1.getParts(APart.class,container,condition);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 

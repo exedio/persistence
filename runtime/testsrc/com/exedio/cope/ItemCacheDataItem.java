@@ -164,8 +164,6 @@ final class ItemCacheDataItem extends Item
 		ItemCacheDataItem.data.set(this,data);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 

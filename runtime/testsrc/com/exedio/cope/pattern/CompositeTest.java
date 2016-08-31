@@ -870,8 +870,6 @@ public class CompositeTest
 		touch(Value.day,zone);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 }
@@ -1018,8 +1016,6 @@ public class CompositeTest
 		set(ValueX.booleanField,booleanField);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 }

@@ -107,8 +107,6 @@ final class DayItem extends Item
 		DayItem.optionalDay.touch(this,zone);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 

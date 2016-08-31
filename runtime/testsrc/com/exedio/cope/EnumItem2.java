@@ -75,8 +75,6 @@ public final class EnumItem2 extends Item
 		EnumItem2.status.set(this,status);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 

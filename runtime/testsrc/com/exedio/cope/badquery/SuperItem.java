@@ -68,8 +68,6 @@ class SuperItem extends Item
 		return SuperItem.code.get(this);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 

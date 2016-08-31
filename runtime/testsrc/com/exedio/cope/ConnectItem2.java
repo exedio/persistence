@@ -116,8 +116,6 @@ final class ConnectItem2 extends ConnectItem
 		ConnectItem2.stringField2.set(this,stringField2);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 

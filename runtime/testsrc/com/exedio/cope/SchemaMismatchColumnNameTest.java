@@ -148,8 +148,6 @@ public class SchemaMismatchColumnNameTest extends SchemaMismatchTest
 		return ItemA.fieldA.getMandatory(this);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 
@@ -203,8 +201,6 @@ public class SchemaMismatchColumnNameTest extends SchemaMismatchTest
 		return ItemB.fieldB.getMandatory(this);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 

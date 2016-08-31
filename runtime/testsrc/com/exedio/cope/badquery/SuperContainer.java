@@ -87,8 +87,6 @@ class SuperContainer extends SuperItem
 		SuperContainer.superflag.set(this,superflag);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 

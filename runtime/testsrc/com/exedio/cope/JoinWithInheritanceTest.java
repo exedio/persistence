@@ -271,8 +271,6 @@ public class JoinWithInheritanceTest extends TestWithEnvironment
 		return Container.specificArticles.getParent(Container.class);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 
@@ -313,8 +311,6 @@ public class JoinWithInheritanceTest extends TestWithEnvironment
 		super(setValues);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 
@@ -355,8 +351,6 @@ public class JoinWithInheritanceTest extends TestWithEnvironment
 		super(setValues);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 
@@ -397,8 +391,6 @@ public class JoinWithInheritanceTest extends TestWithEnvironment
 		super(setValues);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 

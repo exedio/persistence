@@ -83,8 +83,6 @@ public class PartOfOrderReuseTest
 		super(setValues);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 
@@ -242,8 +240,6 @@ public class PartOfOrderReuseTest
 		return APart.parts2.getParts(APart.class,container,condition);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 

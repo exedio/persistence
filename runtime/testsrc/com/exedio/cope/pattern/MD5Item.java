@@ -101,8 +101,6 @@ public final class MD5Item extends Item
 		MD5Item.password.setHash(this,password);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 

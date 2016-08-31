@@ -116,8 +116,6 @@ public final class PointerTargetItem extends Item
 		PointerTargetItem.num2.set(this,num2);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 

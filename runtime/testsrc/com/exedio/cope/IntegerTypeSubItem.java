@@ -84,8 +84,6 @@ public class IntegerTypeSubItem extends IntegerTypeBigIntItem
 		IntegerTypeSubItem.value2.set(this,value2);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 

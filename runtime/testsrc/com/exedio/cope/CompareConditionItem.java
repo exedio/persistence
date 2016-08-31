@@ -274,8 +274,6 @@ final class CompareConditionItem extends Item
 		CompareConditionItem.item.set(this,item);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 

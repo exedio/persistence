@@ -114,8 +114,6 @@ class HardJoinB1Item extends Item
 		HardJoinB1Item.b1.set(this,b1);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 

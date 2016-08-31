@@ -159,8 +159,6 @@ public class CheckConstraintViolatedTest extends TestWithEnvironment
 		return AnItem.beta.get(this);
 	}
 
-	/**
-	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 
