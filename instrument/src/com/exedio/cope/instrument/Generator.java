@@ -779,7 +779,7 @@ final class Generator
 		write(featureName);
 	}
 
-	private void collectCommentParagraph(
+	private static void collectCommentParagraph(
 			final List<String> commentLines,
 			final String prefix1, final String prefixN,
 			final String[] lines,
