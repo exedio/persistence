@@ -22,7 +22,7 @@ import com.exedio.cope.Item;
 
 public final class JavaViewItem2 extends Item
 {
-	
+
 
 	/**
 	 * Creates a new JavaViewItem2 with all the fields initially needed.

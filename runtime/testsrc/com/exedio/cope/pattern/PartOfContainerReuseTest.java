@@ -63,7 +63,7 @@ public class PartOfContainerReuseTest
 
 	static final class AContainer extends Item
 	{
-		
+
 
 	/**
 	 * Creates a new AContainer with all the fields initially needed.

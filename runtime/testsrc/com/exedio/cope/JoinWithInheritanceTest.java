@@ -290,7 +290,7 @@ public class JoinWithInheritanceTest extends TestWithEnvironment
 
 	static abstract class Article extends Item
 	{
-	
+
 
 	/**
 	 * Creates a new Article with all the fields initially needed.
@@ -330,7 +330,7 @@ public class JoinWithInheritanceTest extends TestWithEnvironment
 
 	static class SpecificArticle extends Article
 	{
-	
+
 
 	/**
 	 * Creates a new SpecificArticle with all the fields initially needed.
@@ -370,7 +370,7 @@ public class JoinWithInheritanceTest extends TestWithEnvironment
 
 	static class ReallySpecificArticle extends SpecificArticle
 	{
-	
+
 
 	/**
 	 * Creates a new ReallySpecificArticle with all the fields initially needed.

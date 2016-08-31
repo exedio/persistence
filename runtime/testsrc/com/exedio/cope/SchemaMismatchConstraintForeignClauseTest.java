@@ -174,7 +174,7 @@ public class SchemaMismatchConstraintForeignClauseTest extends SchemaMismatchTes
 
 	static final class TargetA extends Item
 	{
-	
+
 
 	/**
 	 * Creates a new TargetA with all the fields initially needed.
@@ -214,7 +214,7 @@ public class SchemaMismatchConstraintForeignClauseTest extends SchemaMismatchTes
 
 	static final class TargetB extends Item
 	{
-	
+
 
 	/**
 	 * Creates a new TargetB with all the fields initially needed.

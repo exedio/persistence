@@ -391,7 +391,7 @@ public class MultiItemFieldTest extends TestWithEnvironment
 		{
 			this(field.map(value));
 		}
-		
+
 
 	/**
 	 * Creates a new AnCascadeItem with all the fields initially needed.

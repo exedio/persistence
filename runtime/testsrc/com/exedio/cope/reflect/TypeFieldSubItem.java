@@ -22,7 +22,7 @@ import com.exedio.cope.Item;
 
 public final class TypeFieldSubItem extends Item
 {
-	
+
 
 	/**
 	 * Creates a new TypeFieldSubItem with all the fields initially needed.

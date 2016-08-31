@@ -20,7 +20,7 @@ package com.exedio.cope;
 
 class CheckConstraintConditionItemSub extends CheckConstraintConditionItemTarget
 {
-	
+
 
 	/**
 	 * Creates a new CheckConstraintConditionItemSub with all the fields initially needed.

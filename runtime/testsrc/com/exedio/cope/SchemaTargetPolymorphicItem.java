@@ -22,7 +22,7 @@ package com.exedio.cope;
 @CopeCreateLimit(567)
 class SchemaTargetPolymorphicItem extends Item
 {
-	
+
 
 	/**
 	 * Creates a new SchemaTargetPolymorphicItem with all the fields initially needed.

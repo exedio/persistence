@@ -21,7 +21,7 @@ package com.exedio.cope;
 @CopeName("Target")
 final class RenamedSchemaTargetItem extends Item
 {
-	
+
 
 	/**
 	 * Creates a new RenamedSchemaTargetItem with all the fields initially needed.

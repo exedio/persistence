@@ -70,7 +70,7 @@ public class SchemaMismatchSequenceTypeTest extends SchemaMismatchTest
 	@CopeName("ItemAB")
 	static final class ItemA extends Item
 	{
-		
+
 
 	/**
 	 * Creates a new ItemA with all the fields initially needed.
@@ -112,7 +112,7 @@ public class SchemaMismatchSequenceTypeTest extends SchemaMismatchTest
 	@CopeName("ItemAB")
 	static final class ItemB extends Item
 	{
-		
+
 
 	/**
 	 * Creates a new ItemB with all the fields initially needed.

@@ -125,7 +125,7 @@ public class DefaultInheritanceTest extends TestWithEnvironment
 
 	static class Beta extends Alpha
 	{
-	
+
 
 	/**
 	 * Creates a new Beta with all the fields initially needed.
@@ -165,7 +165,7 @@ public class DefaultInheritanceTest extends TestWithEnvironment
 
 	static class Gamma extends Beta
 	{
-	
+
 
 	/**
 	 * Creates a new Gamma with all the fields initially needed.

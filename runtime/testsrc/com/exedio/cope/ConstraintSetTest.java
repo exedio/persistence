@@ -314,7 +314,7 @@ public class ConstraintSetTest extends TestWithEnvironment
 	@WrapperType(constructor=NONE, indent=2)
 	static final class ASubItem extends AnItem
 	{
-		
+
 
 		/**
 		 * Creates a new ASubItem and sets the given fields initially.

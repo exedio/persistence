@@ -20,7 +20,7 @@ package com.exedio.cope.instanceOfQuery;
 
 final class IoqSourceSubA extends IoqSourceSuper
 {
-	
+
 
 	/**
 	 * Creates a new IoqSourceSubA with all the fields initially needed.

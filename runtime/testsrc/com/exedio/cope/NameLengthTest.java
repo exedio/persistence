@@ -322,7 +322,7 @@ public class NameLengthTest extends TestWithEnvironment
 	@CopeName("LoooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooongItem")
 	static final class LongItem extends Item
 	{
-	
+
 
 	/**
 	 * Creates a new LongItem with all the fields initially needed.

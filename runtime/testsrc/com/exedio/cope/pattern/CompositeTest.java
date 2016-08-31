@@ -881,7 +881,7 @@ public class CompositeTest
 		public static final    LongField    longField = new    LongField();
 		public static final  DoubleField  doubleField = new  DoubleField();
 		public static final BooleanField booleanField = new BooleanField();
-	
+
 
 	/**
 	 * Creates a new ValueX with all the fields initially needed.

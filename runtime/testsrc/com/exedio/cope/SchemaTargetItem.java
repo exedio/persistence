@@ -21,7 +21,7 @@ package com.exedio.cope;
 @CopeName("Target")
 final class SchemaTargetItem extends SchemaTargetPolymorphicItem
 {
-	
+
 
 	/**
 	 * Creates a new SchemaTargetItem with all the fields initially needed.

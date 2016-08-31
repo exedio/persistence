@@ -20,7 +20,7 @@ package com.exedio.cope;
 
 public final class PolymorphicBoundSelectSubItem extends PolymorphicBoundSelectSuperItem
 {
-	
+
 
 	/**
 	 * Creates a new PolymorphicBoundSelectSubItem with all the fields initially needed.
