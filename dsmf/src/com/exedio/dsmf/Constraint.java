@@ -127,11 +127,13 @@ public abstract class Constraint extends Node
 				? Result.notUsedError
 				: Result.notUsedWarning;
 
+		final String existingConditionAdjusted =
+				existingCondition!=null
+				? adjustExistingCondition(existingCondition)
+				: null;
 		if(requiredCondition!=null && existingCondition!=null &&
-			!requiredCondition.equals(adjustExistingCondition(existingCondition)))
+			!requiredCondition.equals(existingConditionAdjusted))
 		{
-			final String existingConditionAdjusted = adjustExistingCondition(existingCondition);
-
 			final StringBuilder bf = new StringBuilder();
 			bf.append(
 					"different condition in database: " +
