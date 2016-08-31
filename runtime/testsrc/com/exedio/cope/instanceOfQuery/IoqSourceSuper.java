@@ -111,5 +111,5 @@ class IoqSourceSuper extends Item
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	protected IoqSourceSuper(final com.exedio.cope.ActivationParameters ap){super(ap);
-}}
+	protected IoqSourceSuper(final com.exedio.cope.ActivationParameters ap){super(ap);}
+}

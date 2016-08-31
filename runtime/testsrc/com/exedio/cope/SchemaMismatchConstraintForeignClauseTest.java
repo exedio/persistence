@@ -114,8 +114,8 @@ public class SchemaMismatchConstraintForeignClauseTest extends SchemaMismatchTes
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@SuppressWarnings("unused") private ItemA(final com.exedio.cope.ActivationParameters ap){super(ap);
-}}
+	@SuppressWarnings("unused") private ItemA(final com.exedio.cope.ActivationParameters ap){super(ap);}
+}
 
 	@CopeName("ItemAB")
 	static final class ItemB extends Item
@@ -173,8 +173,8 @@ public class SchemaMismatchConstraintForeignClauseTest extends SchemaMismatchTes
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@SuppressWarnings("unused") private ItemB(final com.exedio.cope.ActivationParameters ap){super(ap);
-}}
+	@SuppressWarnings("unused") private ItemB(final com.exedio.cope.ActivationParameters ap){super(ap);}
+}
 
 	static final class TargetA extends Item
 	{
@@ -215,8 +215,8 @@ public class SchemaMismatchConstraintForeignClauseTest extends SchemaMismatchTes
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@SuppressWarnings("unused") private TargetA(final com.exedio.cope.ActivationParameters ap){super(ap);
-}}
+	@SuppressWarnings("unused") private TargetA(final com.exedio.cope.ActivationParameters ap){super(ap);}
+}
 
 	static final class TargetB extends Item
 	{
@@ -257,8 +257,8 @@ public class SchemaMismatchConstraintForeignClauseTest extends SchemaMismatchTes
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@SuppressWarnings("unused") private TargetB(final com.exedio.cope.ActivationParameters ap){super(ap);
-}}
+	@SuppressWarnings("unused") private TargetB(final com.exedio.cope.ActivationParameters ap){super(ap);}
+}
 
 	static final Model modelA = new Model(ItemA.TYPE, TargetA.TYPE);
 	static final Model modelB = new Model(ItemB.TYPE, TargetB.TYPE);

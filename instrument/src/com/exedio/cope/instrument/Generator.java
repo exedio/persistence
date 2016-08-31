@@ -174,7 +174,6 @@ final class Generator
 		if (hintFormat==HintFormat.forAnnotations)
 		{
 			write(lineSeparator);
-			write(lineSeparator);
 			writeIndent();
 		}
 		write("/**");
@@ -333,6 +332,8 @@ final class Generator
 		write(lineSeparator);
 		writeIndent();
 		write('}');
+		if (hintFormat==HintFormat.forAnnotations)
+			write(lineSeparator);
 	}
 
 	private void writeGenericConstructor(final CopeType type)
@@ -364,6 +365,8 @@ final class Generator
 		write(lineSeparator);
 		writeIndent();
 		write('}');
+		if (hintFormat==HintFormat.forAnnotations)
+			write(lineSeparator);
 	}
 
 	private void writeActivationConstructor(final CopeType type)
@@ -394,8 +397,11 @@ final class Generator
 		write(finalArgPrefix);
 		write(activation);
 		write(" ap){super(ap);");
-		write(lineSeparator);
+		if (hintFormat==HintFormat.forTags)
+			write(lineSeparator);
 		write('}');
+		if (hintFormat==HintFormat.forAnnotations)
+			write(lineSeparator);
 	}
 
 	private void writeFeature(final CopeFeature feature)
@@ -694,6 +700,8 @@ final class Generator
 			write(lineSeparator);
 			writeIndent();
 			write('}');
+			if (hintFormat==HintFormat.forAnnotations)
+				write(lineSeparator);
 		}
 	}
 
@@ -800,6 +808,8 @@ final class Generator
 		if(serialVersionUIDSuffix!=null)
 			write(serialVersionUIDSuffix);
 		write(';');
+		if (hintFormat==HintFormat.forAnnotations)
+			write(lineSeparator);
 	}
 
 	private void writeType(final CopeType type)
@@ -857,6 +867,8 @@ final class Generator
 		if(type.javaClass.typeParameters>0)
 			write("Wildcard.value");
 		write(");");
+		if (hintFormat==HintFormat.forAnnotations)
+			write(lineSeparator);
 	}
 
 	private void writeWildcard(final CopeType type)

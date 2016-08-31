@@ -92,5 +92,5 @@ final class CreateItem extends CreateSuperItem
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@SuppressWarnings("unused") private CreateItem(final com.exedio.cope.ActivationParameters ap){super(ap);
-}}
+	@SuppressWarnings("unused") private CreateItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
+}

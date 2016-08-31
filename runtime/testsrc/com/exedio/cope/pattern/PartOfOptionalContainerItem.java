@@ -58,5 +58,5 @@ public class PartOfOptionalContainerItem extends Item
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	protected PartOfOptionalContainerItem(final com.exedio.cope.ActivationParameters ap){super(ap);
-}}
+	protected PartOfOptionalContainerItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
+}

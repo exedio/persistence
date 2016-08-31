@@ -306,8 +306,8 @@ public class MediaRootUrlTest
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	protected AnItem(final com.exedio.cope.ActivationParameters ap){super(ap);
-}}
+	protected AnItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
+}
 
 	static final Model MODEL = new Model(AnItem.TYPE);
 

@@ -143,8 +143,8 @@ public class CheckTypeColumnAbstractLinearTest extends TestWithEnvironment
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	protected Type0A(final com.exedio.cope.ActivationParameters ap){super(ap);
-}}
+	protected Type0A(final com.exedio.cope.ActivationParameters ap){super(ap);}
+}
 
 
 	static final class Type01C extends Type0A
@@ -207,8 +207,8 @@ public class CheckTypeColumnAbstractLinearTest extends TestWithEnvironment
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@SuppressWarnings("unused") private Type01C(final com.exedio.cope.ActivationParameters ap){super(ap);
-}}
+	@SuppressWarnings("unused") private Type01C(final com.exedio.cope.ActivationParameters ap){super(ap);}
+}
 
 
 	static abstract class Type02A extends Type0A
@@ -249,8 +249,8 @@ public class CheckTypeColumnAbstractLinearTest extends TestWithEnvironment
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	protected Type02A(final com.exedio.cope.ActivationParameters ap){super(ap);
-}}
+	protected Type02A(final com.exedio.cope.ActivationParameters ap){super(ap);}
+}
 
 
 	static final class Type021C extends Type02A
@@ -313,8 +313,8 @@ public class CheckTypeColumnAbstractLinearTest extends TestWithEnvironment
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@SuppressWarnings("unused") private Type021C(final com.exedio.cope.ActivationParameters ap){super(ap);
-}}
+	@SuppressWarnings("unused") private Type021C(final com.exedio.cope.ActivationParameters ap){super(ap);}
+}
 
 
 	static final class TypeRef extends Item
@@ -443,7 +443,7 @@ public class CheckTypeColumnAbstractLinearTest extends TestWithEnvironment
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@SuppressWarnings("unused") private TypeRef(final com.exedio.cope.ActivationParameters ap){super(ap);
-}}
+	@SuppressWarnings("unused") private TypeRef(final com.exedio.cope.ActivationParameters ap){super(ap);}
+}
 
 }

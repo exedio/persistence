@@ -103,5 +103,5 @@ class SuperContainer extends SuperItem
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	protected SuperContainer(final com.exedio.cope.ActivationParameters ap){super(ap);
-}}
+	protected SuperContainer(final com.exedio.cope.ActivationParameters ap){super(ap);}
+}

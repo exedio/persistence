@@ -100,8 +100,8 @@ public class PartOfContainerReuseTest
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@SuppressWarnings("unused") private AContainer(final com.exedio.cope.ActivationParameters ap){super(ap);
-}}
+	@SuppressWarnings("unused") private AContainer(final com.exedio.cope.ActivationParameters ap){super(ap);}
+}
 
 	static final class APart extends com.exedio.cope.Item // TODO use import, but this is not accepted by javac
 	{
@@ -238,7 +238,7 @@ public class PartOfContainerReuseTest
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@SuppressWarnings("unused") private APart(final com.exedio.cope.ActivationParameters ap){super(ap);
-}}
+	@SuppressWarnings("unused") private APart(final com.exedio.cope.ActivationParameters ap){super(ap);}
+}
 
 }

@@ -156,5 +156,5 @@ class ConnectItem extends Item
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	protected ConnectItem(final com.exedio.cope.ActivationParameters ap){super(ap);
-}}
+	protected ConnectItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
+}

@@ -129,5 +129,5 @@ public final class UniqueSingleItem extends Item
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@SuppressWarnings("unused") private UniqueSingleItem(final com.exedio.cope.ActivationParameters ap){super(ap);
-}}
+	@SuppressWarnings("unused") private UniqueSingleItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
+}

@@ -458,5 +458,5 @@ class DataItem extends Item
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	protected DataItem(final com.exedio.cope.ActivationParameters ap){super(ap);
-}}
+	protected DataItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
+}

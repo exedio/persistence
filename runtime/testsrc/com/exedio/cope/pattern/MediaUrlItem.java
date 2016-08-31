@@ -839,5 +839,5 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@SuppressWarnings("unused") private MediaUrlItem(final com.exedio.cope.ActivationParameters ap){super(ap);
-}}
+	@SuppressWarnings("unused") private MediaUrlItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
+}

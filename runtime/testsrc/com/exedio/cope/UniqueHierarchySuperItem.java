@@ -93,5 +93,5 @@ class UniqueHierarchySuperItem extends Item
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	protected UniqueHierarchySuperItem(final com.exedio.cope.ActivationParameters ap){super(ap);
-}}
+	protected UniqueHierarchySuperItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
+}

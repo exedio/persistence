@@ -70,5 +70,5 @@ public class PolymorphicBoundSelectSuperItem extends Item
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	protected PolymorphicBoundSelectSuperItem(final com.exedio.cope.ActivationParameters ap){super(ap);
-}}
+	protected PolymorphicBoundSelectSuperItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
+}

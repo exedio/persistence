@@ -69,5 +69,5 @@ public class FinalSuperItem extends Item
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	protected FinalSuperItem(final com.exedio.cope.ActivationParameters ap){super(ap);
-}}
+	protected FinalSuperItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
+}

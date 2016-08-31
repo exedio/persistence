@@ -873,7 +873,8 @@ public class CompositeTest
 	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;}
+	private static final long serialVersionUID = 1l;
+}
 
 	static final class ValueX extends Composite
 	{
@@ -1020,6 +1021,7 @@ public class CompositeTest
 	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;}
+	private static final long serialVersionUID = 1l;
+}
 
 }

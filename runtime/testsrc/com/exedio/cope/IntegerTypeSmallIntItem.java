@@ -103,5 +103,5 @@ public class IntegerTypeSmallIntItem extends Item
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	protected IntegerTypeSmallIntItem(final com.exedio.cope.ActivationParameters ap){super(ap);
-}}
+	protected IntegerTypeSmallIntItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
+}

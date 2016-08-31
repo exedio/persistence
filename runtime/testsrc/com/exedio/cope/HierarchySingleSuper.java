@@ -76,5 +76,5 @@ public abstract class HierarchySingleSuper extends Item
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	protected HierarchySingleSuper(final com.exedio.cope.ActivationParameters ap){super(ap);
-}}
+	protected HierarchySingleSuper(final com.exedio.cope.ActivationParameters ap){super(ap);}
+}

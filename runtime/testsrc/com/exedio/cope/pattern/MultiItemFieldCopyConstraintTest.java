@@ -252,8 +252,8 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@SuppressWarnings("unused") private DoubleCopyConstraintItem(final com.exedio.cope.ActivationParameters ap){super(ap);
-}}
+	@SuppressWarnings("unused") private DoubleCopyConstraintItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
+}
 
 	static final class AllCopyConstraintItem extends com.exedio.cope.Item
 	{
@@ -324,8 +324,8 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@SuppressWarnings("unused") private AllCopyConstraintItem(final com.exedio.cope.ActivationParameters ap){super(ap);
-}}
+	@SuppressWarnings("unused") private AllCopyConstraintItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
+}
 
 	static final class PartialCopyConstraintItem extends com.exedio.cope.Item
 	{
@@ -396,8 +396,8 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@SuppressWarnings("unused") private PartialCopyConstraintItem(final com.exedio.cope.ActivationParameters ap){super(ap);
-}}
+	@SuppressWarnings("unused") private PartialCopyConstraintItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
+}
 
 	static final class A extends com.exedio.cope.Item implements MultiItemFieldValuex
 	{
@@ -460,8 +460,8 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@SuppressWarnings("unused") private A(final com.exedio.cope.ActivationParameters ap){super(ap);
-}}
+	@SuppressWarnings("unused") private A(final com.exedio.cope.ActivationParameters ap){super(ap);}
+}
 
 	static final class B extends com.exedio.cope.Item implements MultiItemFieldValuex
 	{
@@ -524,8 +524,8 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@SuppressWarnings("unused") private B(final com.exedio.cope.ActivationParameters ap){super(ap);
-}}
+	@SuppressWarnings("unused") private B(final com.exedio.cope.ActivationParameters ap){super(ap);}
+}
 
 	static final class C extends com.exedio.cope.Item implements MultiItemFieldValuex
 	{
@@ -602,6 +602,6 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@SuppressWarnings("unused") private C(final com.exedio.cope.ActivationParameters ap){super(ap);
-}}
+	@SuppressWarnings("unused") private C(final com.exedio.cope.ActivationParameters ap){super(ap);}
+}
 }

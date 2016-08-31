@@ -59,5 +59,5 @@ class SchemaTargetPolymorphicItem extends Item
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	protected SchemaTargetPolymorphicItem(final com.exedio.cope.ActivationParameters ap){super(ap);
-}}
+	protected SchemaTargetPolymorphicItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
+}

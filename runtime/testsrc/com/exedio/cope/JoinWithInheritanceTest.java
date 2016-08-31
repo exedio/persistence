@@ -287,8 +287,8 @@ public class JoinWithInheritanceTest extends TestWithEnvironment
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	protected Container(final com.exedio.cope.ActivationParameters ap){super(ap);
-}}
+	protected Container(final com.exedio.cope.ActivationParameters ap){super(ap);}
+}
 
 	static abstract class Article extends Item
 	{
@@ -329,8 +329,8 @@ public class JoinWithInheritanceTest extends TestWithEnvironment
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	protected Article(final com.exedio.cope.ActivationParameters ap){super(ap);
-}}
+	protected Article(final com.exedio.cope.ActivationParameters ap){super(ap);}
+}
 
 	static class SpecificArticle extends Article
 	{
@@ -371,8 +371,8 @@ public class JoinWithInheritanceTest extends TestWithEnvironment
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	protected SpecificArticle(final com.exedio.cope.ActivationParameters ap){super(ap);
-}}
+	protected SpecificArticle(final com.exedio.cope.ActivationParameters ap){super(ap);}
+}
 
 	static class ReallySpecificArticle extends SpecificArticle
 	{
@@ -413,6 +413,6 @@ public class JoinWithInheritanceTest extends TestWithEnvironment
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	protected ReallySpecificArticle(final com.exedio.cope.ActivationParameters ap){super(ap);
-}}
+	protected ReallySpecificArticle(final com.exedio.cope.ActivationParameters ap){super(ap);}
+}
 }

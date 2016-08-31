@@ -57,5 +57,5 @@ class CheckConstraintConditionItemSub extends CheckConstraintConditionItemTarget
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	protected CheckConstraintConditionItemSub(final com.exedio.cope.ActivationParameters ap){super(ap);
-}}
+	protected CheckConstraintConditionItemSub(final com.exedio.cope.ActivationParameters ap){super(ap);}
+}

@@ -156,5 +156,5 @@ public class CheckConstraintHierarchyItemTop extends Item
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	protected CheckConstraintHierarchyItemTop(final com.exedio.cope.ActivationParameters ap){super(ap);
-}}
+	protected CheckConstraintHierarchyItemTop(final com.exedio.cope.ActivationParameters ap){super(ap);}
+}

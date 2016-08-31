@@ -96,4 +96,5 @@ final class CompositeDefaultValue extends Composite
 	/**
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;}
+	private static final long serialVersionUID = 1l;
+}

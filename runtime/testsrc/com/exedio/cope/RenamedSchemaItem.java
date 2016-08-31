@@ -247,5 +247,5 @@ package com.exedio.cope;
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@SuppressWarnings("unused") private RenamedSchemaItem(final com.exedio.cope.ActivationParameters ap){super(ap);
-}}
+	@SuppressWarnings("unused") private RenamedSchemaItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
+}

@@ -100,5 +100,5 @@ public class IntegerTypeSubItem extends IntegerTypeBigIntItem
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	protected IntegerTypeSubItem(final com.exedio.cope.ActivationParameters ap){super(ap);
-}}
+	protected IntegerTypeSubItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
+}

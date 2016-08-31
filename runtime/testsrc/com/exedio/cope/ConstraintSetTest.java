@@ -310,8 +310,8 @@ public class ConstraintSetTest extends TestWithEnvironment
 		 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		protected AnItem(final com.exedio.cope.ActivationParameters ap){super(ap);
-}}
+		protected AnItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
+}
 
 	@WrapperType(constructor=NONE, indent=2)
 	static final class ASubItem extends AnItem
@@ -343,6 +343,6 @@ public class ConstraintSetTest extends TestWithEnvironment
 		 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		@SuppressWarnings("unused") private ASubItem(final com.exedio.cope.ActivationParameters ap){super(ap);
-}}
+		@SuppressWarnings("unused") private ASubItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
+}
 }

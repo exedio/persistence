@@ -110,5 +110,5 @@ public final class HierarchyFirstSub extends HierarchySuper
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@SuppressWarnings("unused") private HierarchyFirstSub(final com.exedio.cope.ActivationParameters ap){super(ap);
-}}
+	@SuppressWarnings("unused") private HierarchyFirstSub(final com.exedio.cope.ActivationParameters ap){super(ap);}
+}

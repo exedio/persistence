@@ -37,7 +37,7 @@ import javax.lang.model.element.Modifier;
 class ClassVisitor extends TreePathScanner<Void,Void>
 {
 	private static final Set<Modifier> REQUIRED_MODIFIERS_FOR_COPE_FEATURE = EnumSet.of(Modifier.FINAL, Modifier.STATIC);
-	private final byte[] DOUBLE_LINE_SEPARATOR_BYTES=(System.lineSeparator()+System.lineSeparator()).getBytes(StandardCharsets.US_ASCII);
+	private final byte[] LINE_SEPARATOR_BYTES=System.lineSeparator().getBytes(StandardCharsets.US_ASCII);
 
 	private final JavaClass outerClass;
 	private final TreeApiContext context;
@@ -112,9 +112,10 @@ class ClassVisitor extends TreePathScanner<Void,Void>
 	private void addGeneratedFragment(final int start, final int end)
 	{
 		final int realStart;
-		if (context.dropSpaceBeforeGenerated)
+		final int realEnd;
+		if (context.extendGeneratedFragmentsToLineBreaks)
 		{
-			final int lineStart=context.searchBefore(start, DOUBLE_LINE_SEPARATOR_BYTES);
+			final int lineStart=context.searchBefore(start, LINE_SEPARATOR_BYTES);
 			if (lineStart==-1)
 			{
 				realStart=start;
@@ -127,12 +128,26 @@ class ClassVisitor extends TreePathScanner<Void,Void>
 				else
 					realStart=start;
 			}
+			final int lineEnd=context.searchAfter(end-1, LINE_SEPARATOR_BYTES);
+			if (lineEnd==-1)
+			{
+				realEnd=end;
+			}
+			else
+			{
+				final String lineAfterEnd=context.getSourceString(end, lineEnd);
+					if (allWhitespace(lineAfterEnd))
+						realEnd=lineEnd;
+					else
+						realEnd=end;
+			}
 		}
 		else
 		{
 			realStart=start;
+			realEnd=end;
 		}
-		context.markFragmentAsGenerated(realStart, end);
+		context.markFragmentAsGenerated(realStart, realEnd);
 	}
 
 	private boolean checkGenerated() throws RuntimeException

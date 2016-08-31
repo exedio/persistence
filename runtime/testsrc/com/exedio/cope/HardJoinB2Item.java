@@ -96,5 +96,5 @@ class HardJoinB2Item extends HardJoinB1Item
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	protected HardJoinB2Item(final com.exedio.cope.ActivationParameters ap){super(ap);
-}}
+	protected HardJoinB2Item(final com.exedio.cope.ActivationParameters ap){super(ap);}
+}

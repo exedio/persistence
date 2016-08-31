@@ -103,5 +103,5 @@ public class IntegerTypeMediumIntItem extends Item
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	protected IntegerTypeMediumIntItem(final com.exedio.cope.ActivationParameters ap){super(ap);
-}}
+	protected IntegerTypeMediumIntItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
+}

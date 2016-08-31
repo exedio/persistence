@@ -122,8 +122,8 @@ public class DefaultInheritanceTest extends TestWithEnvironment
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	protected Alpha(final com.exedio.cope.ActivationParameters ap){super(ap);
-}}
+	protected Alpha(final com.exedio.cope.ActivationParameters ap){super(ap);}
+}
 
 	static class Beta extends Alpha
 	{
@@ -164,8 +164,8 @@ public class DefaultInheritanceTest extends TestWithEnvironment
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	protected Beta(final com.exedio.cope.ActivationParameters ap){super(ap);
-}}
+	protected Beta(final com.exedio.cope.ActivationParameters ap){super(ap);}
+}
 
 	static class Gamma extends Beta
 	{
@@ -206,8 +206,8 @@ public class DefaultInheritanceTest extends TestWithEnvironment
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	protected Gamma(final com.exedio.cope.ActivationParameters ap){super(ap);
-}}
+	protected Gamma(final com.exedio.cope.ActivationParameters ap){super(ap);}
+}
 
 	public static final Model MODEL = new Model(Alpha.TYPE, Beta.TYPE, Gamma.TYPE);
 }

@@ -285,5 +285,5 @@ public final class DispatcherWithoutPurgeItem extends Item implements Dispatchab
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@SuppressWarnings("unused") private DispatcherWithoutPurgeItem(final com.exedio.cope.ActivationParameters ap){super(ap);
-}}
+	@SuppressWarnings("unused") private DispatcherWithoutPurgeItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
+}

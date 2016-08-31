@@ -175,8 +175,8 @@ public class CheckConstraintViolatedTest extends TestWithEnvironment
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@SuppressWarnings("unused") private AnItem(final com.exedio.cope.ActivationParameters ap){super(ap);
-}}
+	@SuppressWarnings("unused") private AnItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
+}
 
 	// WARNING: do not use for any other test
 	private static final Model MODEL = new Model(AnItem.TYPE);

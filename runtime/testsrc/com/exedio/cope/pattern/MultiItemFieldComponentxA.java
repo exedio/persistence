@@ -86,5 +86,5 @@ public class MultiItemFieldComponentxA extends Item implements MultiItemFieldVal
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	protected MultiItemFieldComponentxA(final com.exedio.cope.ActivationParameters ap){super(ap);
-}}
+	protected MultiItemFieldComponentxA(final com.exedio.cope.ActivationParameters ap){super(ap);}
+}
