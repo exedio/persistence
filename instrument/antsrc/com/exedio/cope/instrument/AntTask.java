@@ -246,6 +246,10 @@ public final class AntTask extends Task
 			{
 				throw new BuildException("longJavadoc only supported for hintFormat=\"forTags\"");
 			}
+			if (params.hintFormat==HintFormat.forTags && params.configByTags!=ConfigurationByJavadocTags.support)
+			{
+				System.out.println("<instrument ... uses deprecated combination of hintFormat and configByTags - use hintFormat=\"forAnnotations\" instead.");
+			}
 			final File buildFile = getProject().resolveFile(getLocation().getFileName());
 			resourceFiles.add(buildFile);
 			pathsToFiles(resources, resourceFiles, true);
