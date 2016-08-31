@@ -63,8 +63,8 @@ public class SchemaMismatchConstraintCheckClauseTest extends SchemaMismatchTest
 				error =
 						"different condition in database: " +
 						"expected "  + "---" + q("field") + "<=88---, " +
-						"but was "   + "---" + q("field") + " <= 66--- " +
-						"normalized to  ---" + q("field") + "<=66---";
+						"but was "   + "---" + q("field") + "<=66--- " +
+						"(originally "+"---" + q("field") + " <= 66---)";
 			}
 			else
 			{

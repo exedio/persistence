@@ -136,12 +136,12 @@ public abstract class Constraint extends Node
 			bf.append(
 					"different condition in database: " +
 					"expected ---").append(requiredCondition).append(
-					"---, but was ---").append(existingCondition).append("---");
+					"---, but was ---").append(existingConditionAdjusted).append("---");
 
 			if(!existingCondition.equals(existingConditionAdjusted))
-				bf.append(" normalized to  ---").
-					append(existingConditionAdjusted).
-					append("---");
+				bf.append(" (originally ---").
+					append(existingCondition).
+					append("---)");
 
 			return Result.error(bf.toString());
 		}
