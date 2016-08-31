@@ -39,7 +39,7 @@ public class ByteReplacementsTest
 		}
 		catch (final RuntimeException e)
 		{
-			assertEquals("replacements must be marked from start to end", e.getMessage());
+			assertEquals("replacements must be marked from start to end; [15-20] [5-7]", e.getMessage());
 		}
 		try
 		{
@@ -48,7 +48,7 @@ public class ByteReplacementsTest
 		}
 		catch (final RuntimeException e)
 		{
-			assertEquals("replacements must be marked from start to end", e.getMessage());
+			assertEquals("replacements must be marked from start to end; [15-20] [19-21]", e.getMessage());
 		}
 		replacements.addReplacement(20, 20, "");
 		replacements.addReplacement(20, 20, "");

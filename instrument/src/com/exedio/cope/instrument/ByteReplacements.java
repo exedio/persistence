@@ -51,7 +51,8 @@ final class ByteReplacements
 		if (!replacements.isEmpty())
 		{
 			final Replacement last=replacements.get(replacements.size()-1);
-			if (last.endExclusive>start) throw new IllegalArgumentException("replacements must be marked from start to end");
+			if (last.endExclusive>start)
+				throw new IllegalArgumentException("replacements must be marked from start to end; ["+last.startInclusive+"-"+last.endExclusive+"] ["+start+"-"+end+"]");
 		}
 		replacements.add(new Replacement(start, end, replacement));
 	}
