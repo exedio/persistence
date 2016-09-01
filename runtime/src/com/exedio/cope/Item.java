@@ -196,6 +196,11 @@ public abstract class Item implements Serializable, Comparable<Item>
 	 * Is called after every item creation.
 	 * Override this method when needed.
 	 * The default implementation does nothing.
+	 * <p>
+	 * If you want to affect field values <b>before</b> creating the item
+	 * write a method:
+	 * <p>
+	 * {@code static SetValue[] beforeNewCopeItem(SetValue[])}
 	 */
 	protected void afterNewCopeItem()
 	{
@@ -206,6 +211,11 @@ public abstract class Item implements Serializable, Comparable<Item>
 	 * Is called before every item modification.
 	 * Override this method when needed.
 	 * The default implementation does nothing.
+	 * <p>
+	 * If you want to affect field values before <b>creating</b> the item
+	 * write a method:
+	 * <p>
+	 * {@code static SetValue[] beforeNewCopeItem(SetValue[])}
 	 * @see Item#set(SetValue[])
 	 * @see Item#set(FunctionField, Object)
 	 * @param setValues is never null and never empty
