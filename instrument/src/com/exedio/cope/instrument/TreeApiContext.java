@@ -260,7 +260,7 @@ final class TreeApiContext
 	Set<String> getImports(final boolean staticImports)
 	{
 		final Set<String> result=new HashSet<>();
-		for (ImportTree aImport: compilationUnit.getImports())
+		for (final ImportTree aImport: compilationUnit.getImports())
 		{
 			if (aImport.isStatic()==staticImports)
 			{

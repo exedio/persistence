@@ -190,7 +190,7 @@ final class ConvertTagsToAnnotations
 				{
 					newImports.append(lineSeparator);
 				}
-				for (Iterator<String> iter=nonStaticImports.iterator(); iter.hasNext();)
+				for (final Iterator<String> iter=nonStaticImports.iterator(); iter.hasNext();)
 				{
 					final String nonStaticImport=iter.next();
 					newImports.append("import ").append(nonStaticImport).append(";");
