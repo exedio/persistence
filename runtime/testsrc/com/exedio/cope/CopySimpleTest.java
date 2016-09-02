@@ -25,6 +25,7 @@ import static com.exedio.cope.CopySimpleSource.TYPE;
 import static com.exedio.cope.CopySimpleSource.assertBeforeNewCopeItem;
 import static com.exedio.cope.tojunit.Assert.assertContains;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 import static org.junit.Assert.fail;
 
 import org.junit.After;
@@ -121,17 +122,12 @@ public class CopySimpleTest extends TestWithEnvironment
 		}
 		catch(final CopyViolationException e)
 		{
-			assertEquals(templateStringCopyFromTarget, e.getFeature());
-			assertEquals(null, e.getItem());
-			assertEquals("template2", e.getExpectedValue());
-			assertEquals("template1", e.getActualValue());
-			assertEquals(target, e.getTargetItem());
-			assertEquals(
+			assertFails(
+					templateStringCopyFromTarget, "template2", "template1", target,
 					"copy violation on " + templateStringCopyFromTarget + ", " +
 					"expected 'template2' " +
 					"from target " + target.getCopeID() + ", " +
-					"but was 'template1'",
-				e.getMessage());
+					"but was 'template1'", e);
 		}
 		assertBeforeNewCopeItem(
 				CopySimpleSource.targetItem.map(target),
@@ -153,17 +149,12 @@ public class CopySimpleTest extends TestWithEnvironment
 		}
 		catch(final CopyViolationException e)
 		{
-			assertEquals(templateStringCopyFromTarget, e.getFeature());
-			assertEquals(null, e.getItem());
-			assertEquals("template2", e.getExpectedValue());
-			assertEquals(null, e.getActualValue());
-			assertEquals(target, e.getTargetItem());
-			assertEquals(
+			assertFails(
+					templateStringCopyFromTarget, "template2", null, target,
 					"copy violation on " + templateStringCopyFromTarget + ", " +
 					"expected 'template2' " +
 					"from target " + target.getCopeID() + ", " +
-					"but was null",
-				e.getMessage());
+					"but was null", e);
 		}
 		assertBeforeNewCopeItem(
 				CopySimpleSource.targetItem.map(target),
@@ -186,17 +177,12 @@ public class CopySimpleTest extends TestWithEnvironment
 		}
 		catch(final CopyViolationException e)
 		{
-			assertEquals(templateItemCopyFromTarget, e.getFeature());
-			assertEquals(null, e.getItem());
-			assertEquals(value2, e.getExpectedValue());
-			assertEquals(value1, e.getActualValue());
-			assertEquals(target, e.getTargetItem());
-			assertEquals(
+			assertFails(
+					templateItemCopyFromTarget, value2, value1, target,
 					"copy violation on " + templateItemCopyFromTarget + ", " +
 					"expected '" + value2.getCopeID() + "' " +
 					"from target " + target.getCopeID() + ", " +
-					"but was '" + value1.getCopeID() + "'",
-				e.getMessage());
+					"but was '" + value1.getCopeID() + "'", e);
 		}
 		assertBeforeNewCopeItem(
 				CopySimpleSource.targetItem.map(target),
@@ -218,17 +204,12 @@ public class CopySimpleTest extends TestWithEnvironment
 		}
 		catch(final CopyViolationException e)
 		{
-			assertEquals(templateItemCopyFromTarget, e.getFeature());
-			assertEquals(null, e.getItem());
-			assertEquals(value, e.getExpectedValue());
-			assertEquals(null, e.getActualValue());
-			assertEquals(target, e.getTargetItem());
-			assertEquals(
+			assertFails(
+					templateItemCopyFromTarget, value, null, target,
 					"copy violation on " + templateItemCopyFromTarget + ", " +
 					"expected '" + value.getCopeID() + "' " +
 					"from target " + target.getCopeID() + ", " +
-					"but was null",
-				e.getMessage());
+					"but was null", e);
 		}
 		assertBeforeNewCopeItem(
 				CopySimpleSource.targetItem.map(target),
@@ -250,17 +231,12 @@ public class CopySimpleTest extends TestWithEnvironment
 		}
 		catch(final CopyViolationException e)
 		{
-			assertEquals(templateStringCopyFromTarget, e.getFeature());
-			assertEquals(null, e.getItem());
-			assertEquals(null, e.getExpectedValue());
-			assertEquals("template1", e.getActualValue());
-			assertEquals(target, e.getTargetItem());
-			assertEquals(
+			assertFails(
+					templateStringCopyFromTarget, null, "template1", target,
 					"copy violation on " + templateStringCopyFromTarget + ", " +
 					"expected null " +
 					"from target " + target.getCopeID() + ", " +
-					"but was 'template1'",
-				e.getMessage());
+					"but was 'template1'", e);
 		}
 		assertBeforeNewCopeItem(
 				CopySimpleSource.targetItem.map(target),
@@ -282,17 +258,12 @@ public class CopySimpleTest extends TestWithEnvironment
 		}
 		catch(final CopyViolationException e)
 		{
-			assertEquals(templateItemCopyFromTarget, e.getFeature());
-			assertEquals(null, e.getItem());
-			assertEquals(null, e.getExpectedValue());
-			assertEquals(value, e.getActualValue());
-			assertEquals(target, e.getTargetItem());
-			assertEquals(
+			assertFails(
+					templateItemCopyFromTarget, null, value, target,
 					"copy violation on " + templateItemCopyFromTarget + ", " +
 					"expected null " +
 					"from target " + target.getCopeID() + ", " +
-					"but was '" + value.getCopeID() + "'",
-				e.getMessage());
+					"but was '" + value.getCopeID() + "'", e);
 		}
 		assertBeforeNewCopeItem(
 				CopySimpleSource.targetItem.map(target),
@@ -314,17 +285,12 @@ public class CopySimpleTest extends TestWithEnvironment
 		}
 		catch(final CopyViolationException e)
 		{
-			assertEquals(templateStringCopyFromTarget, e.getFeature());
-			assertEquals(null, e.getItem());
-			assertEquals("template1", e.getExpectedValue());
-			assertEquals(null, e.getActualValue());
-			assertEquals(target, e.getTargetItem());
-			assertEquals(
+			assertFails(
+					templateStringCopyFromTarget, "template1", null, target,
 					"copy violation on " + templateStringCopyFromTarget + ", " +
 					"expected 'template1' " +
 					"from target " + target.getCopeID() + ", " +
-					"but was null",
-				e.getMessage());
+					"but was null", e);
 		}
 		assertBeforeNewCopeItem(
 				CopySimpleSource.targetItem.map(target));
@@ -377,5 +343,21 @@ public class CopySimpleTest extends TestWithEnvironment
 	@After public void after()
 	{
 		CopySimpleSource.clearBeforeNewCopeItemLog();
+	}
+
+	static <E> void assertFails(
+			final CopyConstraint feature,
+			final E expectedValue,
+			final E actualValue,
+			final Item targetItem,
+			final String message,
+			final CopyViolationException actual)
+	{
+		assertSame  ("feature", feature, actual.getFeature());
+		assertEquals("item", null, actual.getItem());
+		assertEquals("expectedValue", expectedValue, actual.getExpectedValue());
+		assertEquals("actualValue", actualValue, actual.getActualValue());
+		assertEquals("targetItem", targetItem, actual.getTargetItem());
+		assertEquals("message", message, actual.getMessage());
 	}
 }

@@ -22,6 +22,7 @@ import static com.exedio.cope.CopySelfSource.TYPE;
 import static com.exedio.cope.CopySimpleModelTest.selfTemplateCopyFromTarget;
 import static com.exedio.cope.CopySimpleModelTest.templateItemCopyFromTarget;
 import static com.exedio.cope.CopySimpleModelTest.templateStringCopyFromTarget;
+import static com.exedio.cope.CopySimpleTest.assertFails;
 import static com.exedio.cope.tojunit.Assert.assertContains;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
@@ -83,17 +84,12 @@ public class CopySelfTest extends TestWithEnvironment
 		}
 		catch(final CopyViolationException e)
 		{
-			assertEquals(selfTemplateCopyFromTarget, e.getFeature());
-			assertEquals(null, e.getItem());
-			assertEquals(value2, e.getExpectedValue());
-			assertEquals(value1, e.getActualValue());
-			assertEquals(target, e.getTargetItem());
-			assertEquals(
+			assertFails(
+					selfTemplateCopyFromTarget, value2, value1, target,
 					"copy violation on " + selfTemplateCopyFromTarget + ", " +
 					"expected '" + value2.getCopeID() + "' " +
 					"from target " + target.getCopeID() + ", " +
-					"but was '" + value1.getCopeID() + "'",
-				e.getMessage());
+					"but was '" + value1.getCopeID() + "'", e);
 		}
 
 		assertContains(target, TYPE.search());
@@ -111,17 +107,12 @@ public class CopySelfTest extends TestWithEnvironment
 		}
 		catch(final CopyViolationException e)
 		{
-			assertEquals(selfTemplateCopyFromTarget, e.getFeature());
-			assertEquals(null, e.getItem());
-			assertEquals(value, e.getExpectedValue());
-			assertEquals(null, e.getActualValue());
-			assertEquals(target, e.getTargetItem());
-			assertEquals(
+			assertFails(
+					selfTemplateCopyFromTarget, value, null, target,
 					"copy violation on " + selfTemplateCopyFromTarget + ", " +
 					"expected '" + value.getCopeID() + "' " +
 					"from target " + target.getCopeID() + ", " +
-					"but was null",
-				e.getMessage());
+					"but was null", e);
 		}
 
 		assertContains(target, TYPE.search());
@@ -139,17 +130,12 @@ public class CopySelfTest extends TestWithEnvironment
 		}
 		catch(final CopyViolationException e)
 		{
-			assertEquals(selfTemplateCopyFromTarget, e.getFeature());
-			assertEquals(null, e.getItem());
-			assertEquals(null, e.getExpectedValue());
-			assertEquals(value, e.getActualValue());
-			assertEquals(target, e.getTargetItem());
-			assertEquals(
+			assertFails(
+					selfTemplateCopyFromTarget, null, value, target,
 					"copy violation on " + selfTemplateCopyFromTarget + ", " +
 					"expected null " +
 					"from target " + target.getCopeID() + ", " +
-					"but was '" + value.getCopeID() + "'",
-				e.getMessage());
+					"but was '" + value.getCopeID() + "'", e);
 		}
 
 		assertContains(target, TYPE.search());
@@ -167,17 +153,12 @@ public class CopySelfTest extends TestWithEnvironment
 		}
 		catch(final CopyViolationException e)
 		{
-			assertEquals(selfTemplateCopyFromTarget, e.getFeature());
-			assertEquals(null, e.getItem());
-			assertEquals(value, e.getExpectedValue());
-			assertEquals(null, e.getActualValue());
-			assertEquals(target, e.getTargetItem());
-			assertEquals(
+			assertFails(
+					selfTemplateCopyFromTarget, value, null, target,
 					"copy violation on " + selfTemplateCopyFromTarget + ", " +
 					"expected '" + value.getCopeID() + "' " +
 					"from target " + target.getCopeID() + ", " +
-					"but was null",
-				e.getMessage());
+					"but was null", e);
 		}
 
 		assertContains(target, TYPE.search());

@@ -21,6 +21,7 @@ package com.exedio.cope;
 import static com.exedio.cope.CopyMultiTargetModelTest.constraintA;
 import static com.exedio.cope.CopyMultiTargetModelTest.constraintB;
 import static com.exedio.cope.CopyMultiTargetSource.TYPE;
+import static com.exedio.cope.CopySimpleTest.assertFails;
 import static com.exedio.cope.tojunit.Assert.assertContains;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
@@ -71,17 +72,12 @@ public class CopyMultiTargetTest extends TestWithEnvironment
 		}
 		catch(final CopyViolationException e)
 		{
-			assertEquals(constraintA, e.getFeature());
-			assertEquals(null, e.getItem());
-			assertEquals("targetValueAx", e.getExpectedValue());
-			assertEquals("targetValue", e.getActualValue());
-			assertEquals(targetA, e.getTargetItem());
-			assertEquals(
+			assertFails(
+					constraintA, "targetValueAx", "targetValue", targetA,
 					"copy violation on " + constraintA + ", " +
 					"expected 'targetValueAx' " +
 					"from target " + targetA.getCopeID() + ", " +
-					"but was 'targetValue'",
-				e.getMessage());
+					"but was 'targetValue'", e);
 		}
 		assertContains(TYPE.search());
 	}
@@ -97,17 +93,12 @@ public class CopyMultiTargetTest extends TestWithEnvironment
 		}
 		catch(final CopyViolationException e)
 		{
-			assertEquals(constraintB, e.getFeature());
-			assertEquals(null, e.getItem());
-			assertEquals("targetValueBx", e.getExpectedValue());
-			assertEquals("targetValue", e.getActualValue());
-			assertEquals(targetB, e.getTargetItem());
-			assertEquals(
+			assertFails(
+					constraintB, "targetValueBx", "targetValue", targetB,
 					"copy violation on " + constraintB + ", " +
 					"expected 'targetValueBx' " +
 					"from target " + targetB.getCopeID() + ", " +
-					"but was 'targetValue'",
-				e.getMessage());
+					"but was 'targetValue'", e);
 		}
 		assertContains(TYPE.search());
 	}
