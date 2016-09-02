@@ -660,6 +660,7 @@
 				configByTags="error"
 				suppressUnusedWarningOnPrivateActivationConstructor="true"
 				nullabilityAnnotations="${instrument.nullabilityAnnotations}"
+				hintFormat="forAnnotations"
 				timestampFile="build/timestamps/runtime.servlet.test.timestamp">
 			<resources refid="instrument.resources" />
 			<ignore>
@@ -850,6 +851,7 @@
 				serialVersionUIDSuffix="small"
 				hidingWarningSuppressor="hiding"
 				nullabilityAnnotations="${instrument.nullabilityAnnotations}"
+				hintFormat="forTags"
 				timestampFile="build/timestamps/instrument.test.timestamp">
 			<resources refid="instrument.resources" />
 			<classpath>

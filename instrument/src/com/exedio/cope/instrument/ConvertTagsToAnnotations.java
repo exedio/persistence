@@ -147,7 +147,7 @@ final class ConvertTagsToAnnotations
 				final ClassTree classTree=(ClassTree)path.getLeaf();
 				startMessage="* "+classTree.getSimpleName();
 				if (ctx!=null) throw new RuntimeException();
-				ctx=new TreeApiContext(null, processingEnv, null, path.getCompilationUnit());
+				ctx=new TreeApiContext(null, false, processingEnv, null, path.getCompilationUnit());
 
 				final Void result=super.scan(path, p);
 				if (!replacements.isEmpty())

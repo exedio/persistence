@@ -41,6 +41,7 @@ import javax.tools.Diagnostic;
 final class TreeApiContext
 {
 	private final Params.ConfigurationByJavadocTags javadocTagHandling;
+	final boolean extendGeneratedFragmentsToLineBreaks;
 	private final DocTrees docTrees;
 	private final Messager messager;
 	final JavaFile javaFile;
@@ -50,9 +51,10 @@ final class TreeApiContext
 	private byte[] allBytes;
 	boolean foundJavadocControlTags=false;
 
-	TreeApiContext(final Params.ConfigurationByJavadocTags javadocTagHandling, final ProcessingEnvironment processingEnv, final JavaFile javaFile, final CompilationUnitTree compilationUnit)
+	TreeApiContext(final Params.ConfigurationByJavadocTags javadocTagHandling, final boolean extendGeneratedFragmentsToLineBreaks, final ProcessingEnvironment processingEnv, final JavaFile javaFile, final CompilationUnitTree compilationUnit)
 	{
 		this.javadocTagHandling=javadocTagHandling;
+		this.extendGeneratedFragmentsToLineBreaks=extendGeneratedFragmentsToLineBreaks;
 		this.docTrees=DocTrees.instance(processingEnv);
 		this.messager=processingEnv.getMessager();
 		this.javaFile=javaFile;
@@ -172,6 +174,7 @@ final class TreeApiContext
 		return baos.toByteArray();
 	}
 
+	/** @return -1 if not found */
 	int searchBefore(final int pos, final byte[] search)
 	{
 		int searchPos=pos-search.length;
@@ -190,10 +193,12 @@ final class TreeApiContext
 		}
 	}
 
+	/** @return -1 if not found */
 	int searchAfter(final int pos, final byte[] search)
 	{
 		int searchPos=pos+1;
-		while (true)
+		final byte[] allBytes=getAllBytes();
+		while (searchPos+search.length<=allBytes.length)
 		{
 			if ( bytesMatch(searchPos, search) )
 			{
@@ -204,14 +209,18 @@ final class TreeApiContext
 				searchPos++;
 			}
 		}
+		return -1;
 	}
 
 	private boolean bytesMatch(final int pos, final byte[] search)
 	{
 		if (pos<0) throw new ArrayIndexOutOfBoundsException(pos);
+		final byte[] allBytes=getAllBytes();
+		if (pos+search.length>allBytes.length)
+			throw new IllegalArgumentException(""+pos+"+"+search.length+">"+allBytes.length);
 		for (int i=0; i<search.length; i++)
 		{
-			if ( getAllBytes()[pos+i]!=search[i] )
+			if ( allBytes[pos+i]!=search[i] )
 			{
 				return false;
 			}

@@ -37,6 +37,7 @@ import javax.lang.model.element.Modifier;
 class ClassVisitor extends TreePathScanner<Void,Void>
 {
 	private static final Set<Modifier> REQUIRED_MODIFIERS_FOR_COPE_FEATURE = EnumSet.of(Modifier.FINAL, Modifier.STATIC);
+	private final byte[] LINE_SEPARATOR_BYTES=System.lineSeparator().getBytes(StandardCharsets.US_ASCII);
 
 	private final JavaClass outerClass;
 	private final TreeApiContext context;
@@ -110,7 +111,43 @@ class ClassVisitor extends TreePathScanner<Void,Void>
 
 	private void addGeneratedFragment(final int start, final int end)
 	{
-		context.markFragmentAsGenerated(start, end);
+		final int realStart;
+		final int realEnd;
+		if (context.extendGeneratedFragmentsToLineBreaks)
+		{
+			final int lineStart=context.searchBefore(start, LINE_SEPARATOR_BYTES);
+			if (lineStart==-1)
+			{
+				realStart=start;
+			}
+			else
+			{
+				final String lineBeforeStart=context.getSourceString(lineStart, start);
+				if (allWhitespace(lineBeforeStart))
+					realStart=lineStart;
+				else
+					realStart=start;
+			}
+			final int lineEnd=context.searchAfter(end-1, LINE_SEPARATOR_BYTES);
+			if (lineEnd==-1)
+			{
+				realEnd=end;
+			}
+			else
+			{
+				final String lineAfterEnd=context.getSourceString(end, lineEnd);
+					if (allWhitespace(lineAfterEnd))
+						realEnd=lineEnd;
+					else
+						realEnd=end;
+			}
+		}
+		else
+		{
+			realStart=start;
+			realEnd=end;
+		}
+		context.markFragmentAsGenerated(realStart, realEnd);
 	}
 
 	private boolean checkGenerated() throws RuntimeException
@@ -128,8 +165,19 @@ class ClassVisitor extends TreePathScanner<Void,Void>
 			}
 			else
 			{
-				final int docStart=context.searchBefore( Math.toIntExact(context.getStartPosition(docCommentTree)), "/**".getBytes(StandardCharsets.US_ASCII) );
-				final int docEnd=context.searchAfter( Math.toIntExact(context.getEndPosition(docCommentTree)), "*/".getBytes(StandardCharsets.US_ASCII) );
+				final int docStart;
+				final int docEnd;
+				if ( docCommentTree.getFirstSentence().isEmpty() && docCommentTree.getBody().isEmpty() && docCommentTree.getBlockTags().isEmpty() )
+				{
+					// getStartPosition doesn't work for empty comments - search from commented element instead:
+					docStart=context.searchBefore( Math.toIntExact(context.getStartPosition(mt)), "/**".getBytes(StandardCharsets.US_ASCII) );
+					docEnd=context.searchAfter( Math.toIntExact(docStart), "*/".getBytes(StandardCharsets.US_ASCII) );
+				}
+				else
+				{
+					docStart=context.searchBefore( Math.toIntExact(context.getStartPosition(docCommentTree)), "/**".getBytes(StandardCharsets.US_ASCII) );
+					docEnd=context.searchAfter( Math.toIntExact(context.getEndPosition(docCommentTree)), "*/".getBytes(StandardCharsets.US_ASCII) );
+				}
 				if ( docEnd>=start ) throw new RuntimeException();
 				final String commentSource=context.getSourceString(docStart, docEnd);
 				final String inBetween=context.getSourceString(docEnd+1, start-1);
