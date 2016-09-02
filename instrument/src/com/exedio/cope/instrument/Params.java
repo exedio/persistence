@@ -47,18 +47,18 @@ final class Params
 	}
 
 	ConfigurationByJavadocTags configByTags = ConfigurationByJavadocTags.warn;
-	boolean longJavadoc = true;
-	boolean finalArgs = true;
+	boolean longJavadoc = true; // non-default is deprecated
+	boolean finalArgs = true; // non-default is deprecated
 	boolean nullabilityAnnotations = false;
 	boolean suppressUnusedWarningOnPrivateActivationConstructor = false;
 	boolean serialVersionUID = true;
 	IntegerTypeSuffix serialVersionUIDSuffix = IntegerTypeSuffix.small;
-	boolean genericSetValueArray = true;
+	boolean genericSetValueArray = true; // non-default is deprecated
 	boolean directSetValueMap = false;
 	String hidingWarningSuppressor = null;
-	boolean parenthesesOnEmptyMemberAnnotations = false;
-	boolean deprecatedFullyQualified = true;
-	boolean overrideOnSeparateLine = true;
+	boolean parenthesesOnEmptyMemberAnnotations = false; // non-default is deprecated
+	boolean deprecatedFullyQualified = true; // non-default is deprecated
+	boolean overrideOnSeparateLine = true; // non-default is deprecated
 	boolean verbose = false;
 	File timestampFile = null;
 
