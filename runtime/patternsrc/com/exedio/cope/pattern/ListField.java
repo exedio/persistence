@@ -33,17 +33,13 @@ import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Query;
 import com.exedio.cope.Type;
 import com.exedio.cope.UniqueConstraint;
-import com.exedio.cope.instrument.Nullability;
-import com.exedio.cope.instrument.NullabilityGetter;
 import com.exedio.cope.instrument.Parameter;
-import com.exedio.cope.instrument.ThrownGetter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.WrapFeature;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 import javax.annotation.Nonnull;
 
 @WrapFeature
@@ -203,7 +199,7 @@ public final class ListField<E> extends AbstractListField<E> implements Copyable
 
 	@Wrap(order=40, name="addTo{0}",
 			doc="Adds a new value for {0}.",
-			thrownGetter=Thrown.class)
+			thrownGetter=ListThrown.class)
 	public void add(@Nonnull final Item item, @Parameter(nullability=NullableIfElementOptional.class) final E value)
 	{
 		final Mount mount = mount();
@@ -220,7 +216,7 @@ public final class ListField<E> extends AbstractListField<E> implements Copyable
 
 	@Wrap(order=50,
 			doc="Sets a new value for {0}.",
-			thrownGetter=Thrown.class)
+			thrownGetter=ListThrown.class)
 	@Override
 	public void set(@Nonnull final Item item, @Nonnull final Collection<? extends E> value)
 	{
@@ -267,26 +263,6 @@ public final class ListField<E> extends AbstractListField<E> implements Copyable
 		}
 	}
 
-	private static final class Thrown implements ThrownGetter<ListField<?>>
-	{
-		@Override
-		public Set<Class<? extends Throwable>> get(final ListField<?> feature)
-		{
-			final Set<Class<? extends Throwable>> exceptions =
-				feature.getElement().getInitialExceptions();
-			exceptions.add(ClassCastException.class);
-			return exceptions;
-		}
-	}
-
-	private static final class NullableIfElementOptional implements NullabilityGetter<ListField<?>>
-	{
-		@Override
-		public Nullability getNullability(final ListField<?> feature)
-		{
-			return Nullability.forMandatory(feature.getElement().isMandatory());
-		}
-	}
 
 	// ------------------- deprecated stuff -------------------
 

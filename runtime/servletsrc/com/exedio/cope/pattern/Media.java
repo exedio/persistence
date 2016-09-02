@@ -35,7 +35,6 @@ import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
-import com.exedio.cope.instrument.BooleanGetter;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.ComputedElement;
@@ -354,15 +353,6 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 	public boolean isNull(@Nonnull final Item item)
 	{
 		return optional ? (lastModified.get(item)==null) : false;
-	}
-
-	private static final class MandatoryGetter implements BooleanGetter<Media>
-	{
-		@Override
-		public boolean get(final Media feature)
-		{
-			return feature.isMandatory();
-		}
 	}
 
 	/**

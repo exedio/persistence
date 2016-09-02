@@ -43,7 +43,6 @@ import com.exedio.cope.Query;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.TransactionTry;
 import com.exedio.cope.Type;
-import com.exedio.cope.instrument.BooleanGetter;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.WrapFeature;
@@ -634,15 +633,6 @@ public final class Dispatcher extends Pattern
 		final Query<? extends Item> query = purgeQuery(properties);
 		if(query!=null)
 			Delete.delete(query, "Dispatcher#purge " + getID(), ctx);
-	}
-
-	private static final class SupportsPurgeGetter implements BooleanGetter<Dispatcher>
-	{
-		@Override
-		public boolean get(final Dispatcher feature)
-		{
-			return !feature.supportsPurge();
-		}
 	}
 
 	Query<? extends Item> purgeQuery(final DispatcherPurgeProperties properties)

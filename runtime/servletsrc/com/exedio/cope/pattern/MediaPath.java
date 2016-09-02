@@ -32,9 +32,6 @@ import com.exedio.cope.Model;
 import com.exedio.cope.NoSuchIDException;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.TransactionTry;
-import com.exedio.cope.instrument.BooleanGetter;
-import com.exedio.cope.instrument.Nullability;
-import com.exedio.cope.instrument.NullabilityGetter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.WrapFeature;
 import com.exedio.cope.util.Hex;
@@ -673,15 +670,6 @@ public abstract class MediaPath extends Pattern
 	@Wrap(order=30, doc="Returns the content type of the media {0}.", hide=ContentTypeGetter.class, nullability=NullableIfMediaPathOptional.class)
 	public abstract String getContentType(@Nonnull Item item);
 
-	private static final class ContentTypeGetter implements BooleanGetter<MediaPath>
-	{
-		@Override
-		public boolean get(final MediaPath feature)
-		{
-			return !feature.isContentTypeWrapped();
-		}
-	}
-
 	// cache
 
 	private final void doGetAndCommitWithCache(
@@ -894,14 +882,6 @@ public abstract class MediaPath extends Pattern
 		return new UnsupportedOperationException("condition not supported by " + getID() + " of " + getClass().getName());
 	}
 
-	static class NullableIfMediaPathOptional implements NullabilityGetter<MediaPath>
-	{
-		@Override
-		public Nullability getNullability(final MediaPath feature)
-		{
-			return Nullability.forMandatory(feature.isMandatory());
-		}
-	}
 
 	// ------------------- deprecated stuff -------------------
 

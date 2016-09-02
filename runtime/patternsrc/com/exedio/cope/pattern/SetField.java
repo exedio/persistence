@@ -33,7 +33,6 @@ import com.exedio.cope.Type;
 import com.exedio.cope.UniqueConstraint;
 import com.exedio.cope.UniqueViolationException;
 import com.exedio.cope.instrument.Parameter;
-import com.exedio.cope.instrument.ThrownGetter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.WrapFeature;
 import com.exedio.cope.util.Cast;
@@ -182,7 +181,7 @@ public final class SetField<E> extends Pattern
 	/**
 	 * @return <tt>true</tt> if the result of {@link #get(Item)} changed as a result of the call.
 	 */
-	@Wrap(order=50, name="addTo{0}", doc="Adds a new element to {0}.", docReturn=MODIFICATION_RETURN, thrownGetter=Thrown.class)
+	@Wrap(order=50, name="addTo{0}", doc="Adds a new element to {0}.", docReturn=MODIFICATION_RETURN, thrownGetter=SetThrown.class)
 	public boolean add(
 			@Nonnull final Item item,
 			@Nonnull @Parameter("element") final E element)
@@ -206,7 +205,7 @@ public final class SetField<E> extends Pattern
 	/**
 	 * @return <tt>true</tt> if the result of {@link #get(Item)} changed as a result of the call.
 	 */
-	@Wrap(order=60, name="removeFrom{0}", doc="Removes an element from {0}.", docReturn=MODIFICATION_RETURN, thrownGetter=Thrown.class)
+	@Wrap(order=60, name="removeFrom{0}", doc="Removes an element from {0}.", docReturn=MODIFICATION_RETURN, thrownGetter=SetThrown.class)
 	public boolean remove(
 			@Nonnull final Item item,
 			@Nonnull @Parameter("element") final E element)
@@ -225,7 +224,7 @@ public final class SetField<E> extends Pattern
 		}
 	}
 
-	@Wrap(order=40, doc="Sets a new value for {0}.", thrownGetter=Thrown.class)
+	@Wrap(order=40, doc="Sets a new value for {0}.", thrownGetter=SetThrown.class)
 	public void set(@Nonnull final Item item, @Nonnull final Collection<? extends E> value)
 	{
 		if(value==null)
@@ -278,16 +277,6 @@ public final class SetField<E> extends Pattern
 		set(item, Cast.castElements(element.getValueClass(), value));
 	}
 
-	private static final class Thrown implements ThrownGetter<SetField<?>>
-	{
-		@Override
-		public Set<Class<? extends Throwable>> get(final SetField<?> feature)
-		{
-			final Set<Class<? extends Throwable>> result = feature.getElement().getInitialExceptions();
-			result.add(ClassCastException.class);
-			return result;
-		}
-	}
 
 	// ------------------- deprecated stuff -------------------
 

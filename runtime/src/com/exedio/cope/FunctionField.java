@@ -20,9 +20,7 @@ package com.exedio.cope;
 
 import static java.util.Objects.requireNonNull;
 
-import com.exedio.cope.instrument.BooleanGetter;
 import com.exedio.cope.instrument.Parameter;
-import com.exedio.cope.instrument.ThrownGetter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.PrimitiveUtil;
 import com.exedio.cope.misc.instrument.FinalSettableGetter;
@@ -269,18 +267,6 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 		item.set(this, value);
 	}
 
-	static final class InitialThrown implements ThrownGetter<FunctionField<?>>
-	{
-		@Override
-		public Set<Class<? extends Throwable>> get(final FunctionField<?> feature)
-		{
-			final Set<Class<? extends Throwable>> result = feature.getInitialExceptions();
-			if(feature.isPrimitive())
-				result.remove(MandatoryViolationException.class);
-			return result;
-		}
-	}
-
 	/**
 	 * @deprecated For internal use within COPE only.
 	 */
@@ -440,33 +426,6 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 		return isMandatory() && (PrimitiveUtil.toPrimitive(getValueClass())!=null);
 	}
 
-
-	private static final class PrimitiveGetter implements BooleanGetter<FunctionField<?>>
-	{
-		@Override
-		public boolean get(final FunctionField<?> feature)
-		{
-			return feature.isPrimitive();
-		}
-	}
-
-	static final class OptionalGetter implements BooleanGetter<FunctionField<?>>
-	{
-		@Override
-		public boolean get(final FunctionField<?> feature)
-		{
-			return !feature.isMandatory();
-		}
-	}
-
-	static final class NonUniqueGetter implements BooleanGetter<FunctionField<?>>
-	{
-		@Override
-		public boolean get(final FunctionField<?> feature)
-		{
-			return feature.getImplicitUniqueConstraint()==null;
-		}
-	}
 
 	// ------------------- deprecated stuff -------------------
 

@@ -30,7 +30,6 @@ import com.exedio.cope.Join;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
-import com.exedio.cope.instrument.ThrownGetter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.WrapFeature;
 import com.exedio.cope.misc.ComputedElement;
@@ -216,7 +215,7 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 
 	@Wrap(order=20,
 			doc="Sets a new value for {0}.",
-			thrownGetter=Thrown.class)
+			thrownGetter=LimitedListThrown.class)
 	@Override
 	public void set(@Nonnull final Item item, @Nonnull final Collection<? extends E> value)
 	{
@@ -237,18 +236,6 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 		setValues[i] = this.length.map(length);
 
 		item.set(setValues);
-	}
-
-	private static final class Thrown implements ThrownGetter<LimitedListField<?>>
-	{
-		@Override
-		public Set<Class<? extends Throwable>> get(final LimitedListField<?> feature)
-		{
-			final Set<Class<? extends Throwable>> result = feature.getInitialExceptions();
-			result.add(ClassCastException.class);
-			result.add(ListSizeViolationException.class);
-			return result;
-		}
 	}
 
 	@Override

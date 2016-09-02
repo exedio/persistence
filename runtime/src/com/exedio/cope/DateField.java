@@ -21,9 +21,7 @@ package com.exedio.cope;
 import static com.exedio.cope.util.TimeZoneStrict.getTimeZone;
 import static java.util.Objects.requireNonNull;
 
-import com.exedio.cope.instrument.BooleanGetter;
 import com.exedio.cope.instrument.Parameter;
-import com.exedio.cope.instrument.ThrownGetter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.instrument.FinalSettableGetter;
 import com.exedio.cope.misc.instrument.NullableIfOptional;
@@ -448,26 +446,6 @@ public final class DateField extends FunctionField<Date>
 		item.set(this, precision.round(value, roundingMode, this, item));
 	}
 
-	private static final class RoundingModeUnnecessaryGetter implements BooleanGetter<DateField>
-	{
-		@Override
-		public boolean get(final DateField feature)
-		{
-			return feature.getRoundingMode()==RoundingMode.UNNECESSARY;
-		}
-	}
-
-	private static final class InitialThrownRounded implements ThrownGetter<DateField>
-	{
-		@Override
-		public Set<Class<? extends Throwable>> get(final DateField feature)
-		{
-			final Set<Class<? extends Throwable>> result = feature.getInitialExceptions();
-			result.remove(DatePrecisionViolationException.class);
-			return result;
-		}
-	}
-
 	@Wrap(order=5,
 			doc="Sets a new value for {0}, but rounds it before according to the precision of the field.",
 			hide={FinalSettableGetter.class, PrecisionConstrainsGetter.class},
@@ -478,15 +456,6 @@ public final class DateField extends FunctionField<Date>
 			@Nonnull @Parameter("roundingMode") final RoundingMode roundingMode)
 	{
 		item.set(this, precision.round(value, roundingMode, this, item));
-	}
-
-	private static final class PrecisionConstrainsGetter implements BooleanGetter<DateField>
-	{
-		@Override
-		public boolean get(final DateField feature)
-		{
-			return !feature.getPrecision().constrains();
-		}
 	}
 
 	@Override
@@ -523,16 +492,5 @@ public final class DateField extends FunctionField<Date>
 	public void touch(@Nonnull final Item item)
 	{
 		set(item, precision.round(Clock.newDate(), roundingMode, this, item)); // TODO: make a more efficient implementation
-	}
-
-	private static final class TouchGetter implements BooleanGetter<DateField>
-	{
-		@Override
-		public boolean get(final DateField feature)
-		{
-			return
-					feature.getPrecision().constrains() &&
-					feature.getRoundingMode()==RoundingMode.UNNECESSARY;
-		}
 	}
 }

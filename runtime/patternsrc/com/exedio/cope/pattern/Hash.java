@@ -33,7 +33,6 @@ import com.exedio.cope.StringCharSetViolationException;
 import com.exedio.cope.StringField;
 import com.exedio.cope.StringLengthViolationException;
 import com.exedio.cope.instrument.Parameter;
-import com.exedio.cope.instrument.StringGetter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.WrapFeature;
 import com.exedio.cope.misc.ComputedElement;
@@ -338,15 +337,6 @@ public class Hash extends Pattern implements HashInterface
 		return storage.get(item);
 	}
 
-	private static final class GetNameGetter implements StringGetter<Hash>
-	{
-		@Override
-		public String get(final Hash feature)
-		{
-			return "get{0}" + Hash.getMethodSuffixAlgorithm(feature);
-		}
-	}
-
 	@Wrap(order=50,
 			nameGetter=SetNameGetter.class,
 			doc="Sets the encoded hash value for hash {0}.",
@@ -357,15 +347,6 @@ public class Hash extends Pattern implements HashInterface
 		FinalViolationException.check(this, item);
 
 		storage.set(item, hash);
-	}
-
-	private static final class SetNameGetter implements StringGetter<Hash>
-	{
-		@Override
-		public String get(final Hash feature)
-		{
-			return "set{0}" + Hash.getMethodSuffixAlgorithm(feature);
-		}
 	}
 
 	static String getMethodSuffixAlgorithm(final Hash feature)

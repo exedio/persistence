@@ -19,7 +19,6 @@
 package com.exedio.cope;
 
 import com.exedio.cope.instrument.Parameter;
-import com.exedio.cope.instrument.ThrownGetter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.instrument.FinalSettableGetter;
 import com.exedio.cope.misc.instrument.InitialExceptionsSettableGetter;
@@ -36,7 +35,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.security.MessageDigest;
-import java.util.Set;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 import javax.annotation.Nonnull;
@@ -311,17 +309,6 @@ public final class DataField extends Field<DataField.Value>
 	throws IOException
 	{
 		set(item, toValue(data));
-	}
-
-	private static final class InitialAndIOThrown implements ThrownGetter<Field<?>>
-	{
-		@Override
-		public Set<Class<? extends Throwable>> get(final Field<?> feature)
-		{
-			final Set<Class<? extends Throwable>> result = feature.getInitialExceptions();
-			result.add(IOException.class);
-			return result;
-		}
 	}
 
 	/**

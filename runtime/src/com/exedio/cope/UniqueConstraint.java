@@ -20,9 +20,6 @@ package com.exedio.cope;
 
 import static com.exedio.cope.Intern.intern;
 
-import com.exedio.cope.instrument.FeaturesGetter;
-import com.exedio.cope.instrument.Nullability;
-import com.exedio.cope.instrument.NullabilityGetter;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.WrapFeature;
@@ -195,25 +192,6 @@ public final class UniqueConstraint extends Feature implements Copyable
 			@Parameter(doc="shall be equal to field {0}.", nullability=FixedNonnull.class) final Object... values)
 	{
 		return Cast.verboseCast(typeClass, search(values));
-	}
-
-	private static final class SearchVarargs implements FeaturesGetter<UniqueConstraint>
-	{
-		@Override
-		public List<?> get(final UniqueConstraint feature)
-		{
-			return feature.getFields();
-		}
-	}
-
-	/** used instead of a standard @Nonnull annotation, since semantics of that are unclear for varargs */
-	private static final class FixedNonnull implements NullabilityGetter<UniqueConstraint>
-	{
-		@Override
-		public Nullability getNullability(final UniqueConstraint feature)
-		{
-			return Nullability.NONNULL;
-		}
 	}
 
 	void check(final Item item, final Map<? extends Field<?>, ?> fieldValues)

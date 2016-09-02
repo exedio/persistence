@@ -31,7 +31,6 @@ import com.exedio.cope.Settable;
 import com.exedio.cope.StringField;
 import com.exedio.cope.Type;
 import com.exedio.cope.UniqueConstraint;
-import com.exedio.cope.instrument.BooleanGetter;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.WrapFeature;
@@ -268,22 +267,13 @@ public final class TypeField<E extends Item> extends Pattern implements Settable
 	@Wrap(order=30, name="for{0}",
 			doc="Finds a {2} by it''s {0}.",
 			docReturn="null if there is no matching item.",
-			hide=NonUniqueGetter.class)
+			hide=TypeNonUniqueGetter.class)
 	@Nullable
 	public final <P extends Item> P searchUnique(
 			@Nonnull final Class<P> typeClass,
 			@Nonnull @Parameter(doc="shall be equal to field {0}.") final Type<? extends E> value)
 	{
 		return idField.searchUnique(typeClass, value.getID());
-	}
-
-	private static final class NonUniqueGetter implements BooleanGetter<TypeField<?>>
-	{
-		@Override
-		public boolean get(final TypeField<?> feature)
-		{
-			return feature.getIdField().getImplicitUniqueConstraint()==null;
-		}
 	}
 
 	private boolean isInstance(final Type<?> type)

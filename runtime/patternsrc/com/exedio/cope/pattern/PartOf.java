@@ -30,8 +30,6 @@ import com.exedio.cope.Pattern;
 import com.exedio.cope.Query;
 import com.exedio.cope.This;
 import com.exedio.cope.Type;
-import com.exedio.cope.instrument.Nullability;
-import com.exedio.cope.instrument.NullabilityGetter;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.WrapFeature;
@@ -159,14 +157,6 @@ public final class PartOf<C extends Item> extends Pattern
 		return result;
 	}
 
-	private static final class NullableIfContainerOptional implements NullabilityGetter<PartOf<?>>
-	{
-		@Override
-		public Nullability getNullability(final PartOf<?> feature)
-		{
-			return Nullability.forMandatory(feature.getContainer().isMandatory());
-		}
-	}
 
 	// ------------------- deprecated stuff -------------------
 

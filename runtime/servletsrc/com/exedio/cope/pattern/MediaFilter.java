@@ -23,9 +23,6 @@ import static java.util.Objects.requireNonNull;
 import com.exedio.cope.Condition;
 import com.exedio.cope.Item;
 import com.exedio.cope.Join;
-import com.exedio.cope.instrument.BooleanGetter;
-import com.exedio.cope.instrument.Nullability;
-import com.exedio.cope.instrument.NullabilityGetter;
 import com.exedio.cope.instrument.Wrap;
 import java.util.Date;
 import java.util.List;
@@ -86,15 +83,6 @@ public abstract class MediaFilter extends MediaPath
 		return (myURL!=null) ? myURL : source.getLocator(item);
 	}
 
-	private static final class URLWithFallbackToSourceGetter implements BooleanGetter<MediaFilter>
-	{
-		@Override
-		public boolean get(final MediaFilter feature)
-		{
-			return feature.canFilterAllSourceContentTypes();
-		}
-	}
-
 	boolean canFilterAllSourceContentTypes()
 	{
 		final List<String> contentTypesAllowed = source.getContentTypesAllowed();
@@ -138,14 +126,5 @@ public abstract class MediaFilter extends MediaPath
 	public final Condition isNotNull(final Join join)
 	{
 		return source.isNotNull(join); // TODO check for getSupportedSourceContentTypes
-	}
-
-	static final class NullableIfSourceOptional implements NullabilityGetter<MediaFilter>
-	{
-		@Override
-		public Nullability getNullability(final MediaFilter feature)
-		{
-			return Nullability.forMandatory(feature.getSource().isMandatory());
-		}
 	}
 }

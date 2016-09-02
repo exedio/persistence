@@ -29,10 +29,7 @@ import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
-import com.exedio.cope.instrument.BooleanGetter;
 import com.exedio.cope.instrument.InstrumentContext;
-import com.exedio.cope.instrument.Nullability;
-import com.exedio.cope.instrument.NullabilityGetter;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.WrapFeature;
@@ -279,15 +276,6 @@ public final class EnumMapField<K extends Enum<K>,V> extends Pattern implements 
 					" of " + valueClass.getName());
 	}
 
-	private static final class MapValueNullable implements NullabilityGetter<EnumMapField<?,?>>
-	{
-		@Override
-		public Nullability getNullability(final EnumMapField<?,?> feature)
-		{
-			return Nullability.forMandatory(feature.getValueTemplate().isMandatory());
-		}
-	}
-
 
 	// fallbacks
 
@@ -364,15 +352,6 @@ public final class EnumMapField<K extends Enum<K>,V> extends Pattern implements 
 	{
 		if(fallback==null)
 			throw new IllegalArgumentException("field " + toString() + " has no fallbacks");
-	}
-
-	private static final class NoFallbacksGetter implements BooleanGetter<EnumMapField<?,?>>
-	{
-		@Override
-		public boolean get(final EnumMapField<?,?> feature)
-		{
-			return !feature.hasFallbacks();
-		}
 	}
 
 	private K getFallbackByAnnotation()
