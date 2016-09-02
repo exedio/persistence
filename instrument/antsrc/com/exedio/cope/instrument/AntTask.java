@@ -242,10 +242,28 @@ public final class AntTask extends Task
 			{
 				throw new BuildException("resources require timestampFile");
 			}
-			if (!params.longJavadoc && params.hintFormat!=HintFormat.forTags)
+			if (params.hintFormat!=HintFormat.forTags)
 			{
-				throw new BuildException("longJavadoc only supported for hintFormat=\"forTags\"");
+				final StringBuilder invalidParameters=new StringBuilder();
+				if (params.longJavadoc!=true)
+					invalidParameters.append("longJavadoc=\"true\" ");
+				if (params.finalArgs!=true)
+					invalidParameters.append("finalArgs=\"true\" ");
+				if (params.genericSetValueArray!=true)
+					invalidParameters.append("genericSetValueArray=\"true\" ");
+				if (params.parenthesesOnEmptyMemberAnnotations!=false)
+					invalidParameters.append("parenthesesOnEmptyMemberAnnotations=\"false\" ");
+				if (params.deprecatedFullyQualified!=true)
+					invalidParameters.append("deprecatedFullyQualified=\"true\" ");
+				if (params.overrideOnSeparateLine!=true)
+					invalidParameters.append("overrideOnSeparateLine=\"true\" ");
+				if (invalidParameters.length()!=0)
+					throw new BuildException(
+						"unsupported <instrument> arguments for hintFormat other than \"forTags\" - please use:"+System.lineSeparator()+"\t"+invalidParameters+System.lineSeparator()+
+						"(these are the defaults, so you can also drop the arguments completely)"
+					);
 			}
+
 			if (params.hintFormat==HintFormat.forTags && params.configByTags!=ConfigurationByJavadocTags.support)
 			{
 				System.out.println("<instrument ... uses deprecated combination of hintFormat and configByTags - use hintFormat=\"forAnnotations\" instead.");
