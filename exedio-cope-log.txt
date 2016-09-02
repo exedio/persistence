@@ -90,7 +90,7 @@ The items are sorted inversely, i.e. latest items are on top
 * ExtremumAggregate/SumAggregate/AverageAggregate move from package
 	com.exedio.cope.search to com.exedio.cope.
 	This breaks backwards API compatibility.
-	requires copelive >= #242
+	requires copelive >= #242, copeview >= #2038
 * EnumMapField#fallbackTo(K) and #fallback() added.
 * bugfix: getter results became unmodifiable in com.exedio.dsmf for
 	Schema#getTables(), #getSequences(), Table#getColumns(), and #getConstraints().
