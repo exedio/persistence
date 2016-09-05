@@ -165,7 +165,7 @@ public class CopySelfTest extends TestWithEnvironment
 		check();
 	}
 
-	@Test public void testWrongOmittedTarget()
+	@Test public void testOkOmittedTarget()
 	{
 		final CopyValue value = new CopyValue();
 
@@ -177,7 +177,7 @@ public class CopySelfTest extends TestWithEnvironment
 		check();
 	}
 
-	@Test public void testWrongOmittedAll()
+	@Test public void testOkOmittedAll()
 	{
 		final CopySelfSource source = CopySelfSource.omitAll();
 		assertEquals(null, source.getSelfTarget());
