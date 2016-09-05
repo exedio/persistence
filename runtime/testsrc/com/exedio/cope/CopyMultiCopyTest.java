@@ -21,6 +21,7 @@ package com.exedio.cope;
 import static com.exedio.cope.CopyMultiCopyModelTest.constraintA;
 import static com.exedio.cope.CopyMultiCopyModelTest.constraintB;
 import static com.exedio.cope.CopyMultiCopySource.TYPE;
+import static com.exedio.cope.CopyMultiCopySource.createAB;
 import static com.exedio.cope.CopySimpleTest.assertFails;
 import static com.exedio.cope.tojunit.Assert.assertContains;
 import static org.junit.Assert.assertEquals;
@@ -41,7 +42,7 @@ public class CopyMultiCopyTest extends TestWithEnvironment
 				new CopyMultiCopyTarget("targetValueA", "targetValueB");
 		assertContains(TYPE.search());
 
-		final CopyMultiCopySource source = new CopyMultiCopySource("targetValueA", "targetValueB", target);
+		final CopyMultiCopySource source = createAB("targetValueA", "targetValueB", target);
 		assertEquals("targetValueA", source.getCopyA());
 		assertEquals("targetValueB", source.getCopyB());
 		assertEquals(target, source.getTarget());
@@ -54,7 +55,7 @@ public class CopyMultiCopyTest extends TestWithEnvironment
 				new CopyMultiCopyTarget(null, null);
 		assertContains(TYPE.search());
 
-		final CopyMultiCopySource source = new CopyMultiCopySource(null, null, target);
+		final CopyMultiCopySource source = createAB(null, null, target);
 		assertEquals(null, source.getCopyA());
 		assertEquals(null, source.getCopyB());
 		assertEquals(target, source.getTarget());
@@ -67,7 +68,7 @@ public class CopyMultiCopyTest extends TestWithEnvironment
 				new CopyMultiCopyTarget("targetValueA", "targetValueB");
 		try
 		{
-			new CopyMultiCopySource("targetValueAx", "targetValueB", target);
+			createAB("targetValueAx", "targetValueB", target);
 			fail();
 		}
 		catch(final CopyViolationException e)
@@ -88,7 +89,7 @@ public class CopyMultiCopyTest extends TestWithEnvironment
 				new CopyMultiCopyTarget("targetValueA", "targetValueB");
 		try
 		{
-			new CopyMultiCopySource("targetValueA", "targetValueBx", target);
+			createAB("targetValueA", "targetValueBx", target);
 			fail();
 		}
 		catch(final CopyViolationException e)

@@ -18,12 +18,27 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.instrument.Visibility.PRIVATE;
+
+import com.exedio.cope.instrument.WrapperType;
+
+@WrapperType(constructor=PRIVATE)
 final class CopyMultiCopySource extends Item
 {
 	static final StringField copyA = new StringField().toFinal().optional();
 	static final StringField copyB = new StringField().toFinal().optional();
 
 	static final ItemField<CopyMultiCopyTarget> target = ItemField.create(CopyMultiCopyTarget.class).toFinal().optional().copyTo(copyA).copyTo(copyB);
+
+
+	static CopyMultiCopySource createAB(
+			final String copyA,
+			final String copyB,
+			final CopyMultiCopyTarget target)
+	{
+		return new CopyMultiCopySource(copyA, copyB, target);
+	}
+
 
 	/**
 	 * Creates a new CopyMultiCopySource with all the fields initially needed.
@@ -33,7 +48,7 @@ final class CopyMultiCopySource extends Item
 	 * @throws com.exedio.cope.StringLengthViolationException if copyA, copyB violates its length constraint.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
-	CopyMultiCopySource(
+	private CopyMultiCopySource(
 				@javax.annotation.Nullable final java.lang.String copyA,
 				@javax.annotation.Nullable final java.lang.String copyB,
 				@javax.annotation.Nullable final CopyMultiCopyTarget target)
