@@ -91,7 +91,7 @@ final class InstrumentorProcessor extends AbstractProcessor
 			}
 			if (!ignoreFiles.contains(compilationUnit.getSourceFile()))
 			{
-				final TreeApiContext treeApiContext=new TreeApiContext(params.configByTags, params.hintFormat==Params.HintFormat.forAnnotations, processingEnv, javaFile, compilationUnit);
+				final TreeApiContext treeApiContext=new TreeApiContext(params.configByTags, params.hintFormat==HintFormat.forAnnotations, processingEnv, javaFile, compilationUnit);
 				final CompilationUnitVisitor visitor=new CompilationUnitVisitor(treeApiContext);
 				visitor.scan(tp, null);
 				if (treeApiContext.foundJavadocControlTags)

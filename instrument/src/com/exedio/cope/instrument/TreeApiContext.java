@@ -40,7 +40,7 @@ import javax.tools.Diagnostic;
 
 final class TreeApiContext
 {
-	private final Params.ConfigurationByJavadocTags javadocTagHandling;
+	private final ConfigurationByJavadocTags javadocTagHandling;
 	final boolean extendGeneratedFragmentsToLineBreaks;
 	private final DocTrees docTrees;
 	private final Messager messager;
@@ -51,7 +51,7 @@ final class TreeApiContext
 	private byte[] allBytes;
 	boolean foundJavadocControlTags=false;
 
-	TreeApiContext(final Params.ConfigurationByJavadocTags javadocTagHandling, final boolean extendGeneratedFragmentsToLineBreaks, final ProcessingEnvironment processingEnv, final JavaFile javaFile, final CompilationUnitTree compilationUnit)
+	TreeApiContext(final ConfigurationByJavadocTags javadocTagHandling, final boolean extendGeneratedFragmentsToLineBreaks, final ProcessingEnvironment processingEnv, final JavaFile javaFile, final CompilationUnitTree compilationUnit)
 	{
 		this.javadocTagHandling=javadocTagHandling;
 		this.extendGeneratedFragmentsToLineBreaks=extendGeneratedFragmentsToLineBreaks;
@@ -74,17 +74,17 @@ final class TreeApiContext
 
 	String getDocComment(final TreePath path)
 	{
-		if (javadocTagHandling==Params.ConfigurationByJavadocTags.ignore)
+		if (javadocTagHandling==ConfigurationByJavadocTags.ignore)
 		{
 			return null;
 		}
 		final String docComment=docTrees.getDocComment(path);
-		if (javadocTagHandling==Params.ConfigurationByJavadocTags.warn||javadocTagHandling==Params.ConfigurationByJavadocTags.error)
+		if (javadocTagHandling==ConfigurationByJavadocTags.warn||javadocTagHandling==ConfigurationByJavadocTags.error)
 		{
 			if (docComment!=null && docComment.contains('@'+CopeFeature.TAG_PREFIX))
 			{
 				final Diagnostic.Kind messageKind;
-				if (javadocTagHandling==Params.ConfigurationByJavadocTags.warn)
+				if (javadocTagHandling==ConfigurationByJavadocTags.warn)
 				{
 					messageKind=Diagnostic.Kind.WARNING;
 				}

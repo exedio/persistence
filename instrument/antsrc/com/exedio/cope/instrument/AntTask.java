@@ -18,9 +18,6 @@
 
 package com.exedio.cope.instrument;
 
-import com.exedio.cope.instrument.Params.ConfigurationByJavadocTags;
-import com.exedio.cope.instrument.Params.HintFormat;
-import com.exedio.cope.instrument.Params.IntegerTypeSuffix;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
@@ -114,12 +111,9 @@ public final class AntTask extends Task
 		setCharset(value);
 	}
 
-	// TODO parameter type ConfigurationByJavadocTags instead of converting manually
-	// is supported by Ant version 1.9.0
-	// travis-ci just supports Ant version 1.8.2
-	public void setConfigByTags(final String value)
+	public void setConfigByTags(final ConfigurationByJavadocTags value)
 	{
-		params.configByTags = ConfigurationByJavadocTags.valueOf(value);
+		params.configByTags = value;
 	}
 
 	public void setLongJavadoc(final boolean value)
@@ -147,12 +141,9 @@ public final class AntTask extends Task
 		params.serialVersionUID = value;
 	}
 
-	// TODO parameter type IntegerTypeSuffix instead of converting manually
-	// is supported by Ant version 1.9.0
-	// travis-ci just supports Ant version 1.8.2
-	public void setSerialVersionUIDSuffix(final String value)
+	public void setSerialVersionUIDSuffix(final IntegerTypeSuffix value)
 	{
-		params.serialVersionUIDSuffix = IntegerTypeSuffix.valueOf(value);
+		params.serialVersionUIDSuffix = value;
 	}
 
 	public void setGenericSetValueArray(final boolean value)
@@ -185,12 +176,9 @@ public final class AntTask extends Task
 		params.overrideOnSeparateLine = value;
 	}
 
-	// TODO parameter type IntegerTypeSuffix instead of converting manually
-	// is supported by Ant version 1.9.0
-	// travis-ci just supports Ant version 1.8.2
-	public void setHintFormat(final String value)
+	public void setHintFormat(final HintFormat value)
 	{
-		params.hintFormat = HintFormat.valueOf(value);
+		params.hintFormat = value;
 	}
 
 	public void setVerbose(final boolean value)

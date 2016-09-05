@@ -63,31 +63,4 @@ final class Params
 	boolean verbose = false;
 	File timestampFile = null;
 
-	enum ConfigurationByJavadocTags
-	{
-		support, warn, error, ignore, convertToAnnotations
-	}
-
-	enum IntegerTypeSuffix
-	{
-		/**
-		 * Not recommended by JLS 3.10.1 Integer Literals, as it might be hard
-		 * to distinguish from the digit one.
-		 */
-		small("l"),
-		capital("L"),
-		none(null);
-
-		final String code;
-
-		IntegerTypeSuffix(final String code)
-		{
-			this.code = code;
-		}
-	}
-
-	enum HintFormat
-	{
-		forAnnotations, forTags
-	}
 }

@@ -50,7 +50,7 @@ final class Main
 
 		if(params.verify)
 			System.out.println("Instrumenting in verify mode.");
-		if (params.configByTags==Params.ConfigurationByJavadocTags.convertToAnnotations)
+		if (params.configByTags==ConfigurationByJavadocTags.convertToAnnotations)
 			throw new HumanReadableException("configByTags set to convertToAnnotations - stopping");
 
 		try
@@ -193,7 +193,7 @@ final class Main
 					// InstrumentorProcessor has not been invoked - this happens if parsing failed
 					throw new HumanReadableException("fix compiler errors");
 				}
-				if (instrumentorProcessor.foundJavadocControlTags && params.configByTags==Params.ConfigurationByJavadocTags.error)
+				if (instrumentorProcessor.foundJavadocControlTags && params.configByTags==ConfigurationByJavadocTags.error)
 				{
 					throw new HumanReadableException("found javadoc instrumentor control tags");
 				}
