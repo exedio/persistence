@@ -39,6 +39,44 @@ final class CopyMultiCopySource extends Item
 		return new CopyMultiCopySource(copyA, copyB, target);
 	}
 
+	static CopyMultiCopySource createAB(
+			final String copyA,
+			final String copyB)
+	{
+		return new CopyMultiCopySource(
+				CopyMultiCopySource.copyA.map(copyA),
+				CopyMultiCopySource.copyB.map(copyB)
+		);
+	}
+
+	static CopyMultiCopySource createB(
+			final String copyB,
+			final CopyMultiCopyTarget target)
+	{
+		return new CopyMultiCopySource(
+				CopyMultiCopySource.copyB.map(copyB),
+				CopyMultiCopySource.target.map(target)
+		);
+	}
+
+	static CopyMultiCopySource createA(
+			final String copyA,
+			final CopyMultiCopyTarget target)
+	{
+		return new CopyMultiCopySource(
+				CopyMultiCopySource.copyA.map(copyA),
+				CopyMultiCopySource.target.map(target)
+		);
+	}
+
+	static CopyMultiCopySource create(
+			final CopyMultiCopyTarget target)
+	{
+		return new CopyMultiCopySource(
+				CopyMultiCopySource.target.map(target)
+		);
+	}
+
 
 	/**
 	 * Creates a new CopyMultiCopySource with all the fields initially needed.

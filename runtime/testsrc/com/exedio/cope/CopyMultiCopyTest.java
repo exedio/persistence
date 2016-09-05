@@ -21,7 +21,10 @@ package com.exedio.cope;
 import static com.exedio.cope.CopyMultiCopyModelTest.constraintA;
 import static com.exedio.cope.CopyMultiCopyModelTest.constraintB;
 import static com.exedio.cope.CopyMultiCopySource.TYPE;
+import static com.exedio.cope.CopyMultiCopySource.create;
+import static com.exedio.cope.CopyMultiCopySource.createA;
 import static com.exedio.cope.CopyMultiCopySource.createAB;
+import static com.exedio.cope.CopyMultiCopySource.createB;
 import static com.exedio.cope.CopySimpleTest.assertFails;
 import static com.exedio.cope.tojunit.Assert.assertContains;
 import static org.junit.Assert.assertEquals;
@@ -49,7 +52,7 @@ public class CopyMultiCopyTest extends TestWithEnvironment
 		assertContains(source, TYPE.search());
 	}
 
-	@Test public void testOkNullValue()
+	@Test public void testOkValueNull()
 	{
 		final CopyMultiCopyTarget target =
 				new CopyMultiCopyTarget(null, null);
@@ -59,6 +62,24 @@ public class CopyMultiCopyTest extends TestWithEnvironment
 		assertEquals(null, source.getCopyA());
 		assertEquals(null, source.getCopyB());
 		assertEquals(target, source.getTarget());
+		assertContains(source, TYPE.search());
+	}
+
+	@Test public void testOkTargetNull()
+	{
+		final CopyMultiCopySource source = createAB("targetValueA", "targetValueB", null);
+		assertEquals("targetValueA", source.getCopyA());
+		assertEquals("targetValueB", source.getCopyB());
+		assertEquals(null, source.getTarget());
+		assertContains(source, TYPE.search());
+	}
+
+	@Test public void testOkTargetOmitted()
+	{
+		final CopyMultiCopySource source = createAB("targetValueA", "targetValueB");
+		assertEquals("targetValueA", source.getCopyA());
+		assertEquals("targetValueB", source.getCopyB());
+		assertEquals(null, source.getTarget());
 		assertContains(source, TYPE.search());
 	}
 
@@ -100,6 +121,132 @@ public class CopyMultiCopyTest extends TestWithEnvironment
 					"expected 'targetValueB' " +
 					"from target " + target.getCopeID() + ", " +
 					"but was 'targetValueBx'", e);
+		}
+		assertContains(TYPE.search());
+	}
+
+	@Test public void testWrongCopyANull()
+	{
+		final CopyMultiCopyTarget target =
+				new CopyMultiCopyTarget("targetValueA", "targetValueB");
+		try
+		{
+			createAB(null, "targetValueB", target);
+			fail();
+		}
+		catch(final CopyViolationException e)
+		{
+			assertFails(
+					constraintA, "targetValueA", null, target,
+					"copy violation on " + constraintA + ", " +
+					"expected 'targetValueA' " +
+					"from target " + target.getCopeID() + ", " +
+					"but was null", e);
+		}
+		assertContains(TYPE.search());
+	}
+
+	@Test public void testWrongCopyAOmitted()
+	{
+		final CopyMultiCopyTarget target =
+				new CopyMultiCopyTarget("targetValueA", "targetValueB");
+		try
+		{
+			createB("targetValueB", target);
+			fail();
+		}
+		catch(final CopyViolationException e)
+		{
+			assertFails(
+					constraintA, "targetValueA", null, target,
+					"copy violation on " + constraintA + ", " +
+					"expected 'targetValueA' " +
+					"from target " + target.getCopeID() + ", " +
+					"but was null", e);
+		}
+		assertContains(TYPE.search());
+	}
+
+	@Test public void testWrongCopyBNull()
+	{
+		final CopyMultiCopyTarget target =
+				new CopyMultiCopyTarget("targetValueA", "targetValueB");
+		try
+		{
+			createAB("targetValueA", null, target);
+			fail();
+		}
+		catch(final CopyViolationException e)
+		{
+			assertFails(
+					constraintB, "targetValueB", null, target,
+					"copy violation on " + constraintB + ", " +
+					"expected 'targetValueB' " +
+					"from target " + target.getCopeID() + ", " +
+					"but was null", e);
+		}
+		assertContains(TYPE.search());
+	}
+
+	@Test public void testWrongCopyBOmitted()
+	{
+		final CopyMultiCopyTarget target =
+				new CopyMultiCopyTarget("targetValueA", "targetValueB");
+		try
+		{
+			createA("targetValueA", target);
+			fail();
+		}
+		catch(final CopyViolationException e)
+		{
+			assertFails(
+					constraintB, "targetValueB", null, target,
+					"copy violation on " + constraintB + ", " +
+					"expected 'targetValueB' " +
+					"from target " + target.getCopeID() + ", " +
+					"but was null", e);
+		}
+		assertContains(TYPE.search());
+	}
+
+	@Test public void testWrongCopyABNull()
+	{
+		final CopyMultiCopyTarget target =
+				new CopyMultiCopyTarget("targetValueA", "targetValueB");
+		try
+		{
+			createAB(null, null, target);
+			fail();
+		}
+		catch(final CopyViolationException e)
+		{
+			assertFails(
+					constraintA, "targetValueA", null, target,
+					"copy violation on " + constraintA + ", " +
+					"expected 'targetValueA' " +
+					"from target " + target.getCopeID() + ", " +
+					"but was null", e);
+		}
+		assertContains(TYPE.search());
+	}
+
+	@Test public void testWrongCopyABOmitted()
+	{
+		final CopyMultiCopyTarget target =
+				new CopyMultiCopyTarget("targetValueA", "targetValueB");
+		try
+		{
+			create(target);
+			fail();
+		}
+		catch(final CopyViolationException e)
+		{
+			assertFails(
+					constraintA, "targetValueA", null, target,
+					"copy violation on " + constraintA + ", " +
+					"expected 'targetValueA' " +
+					"from target " + target.getCopeID() + ", " +
+					"but was null", e);
 		}
 		assertContains(TYPE.search());
 	}
