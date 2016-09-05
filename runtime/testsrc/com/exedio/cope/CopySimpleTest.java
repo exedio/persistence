@@ -299,7 +299,7 @@ public class CopySimpleTest extends TestWithEnvironment
 		check();
 	}
 
-	@Test public void testWrongStringOmittedTarget()
+	@Test public void testOkStringOmittedTarget()
 	{
 		final CopyValue value = new CopyValue();
 
@@ -315,7 +315,7 @@ public class CopySimpleTest extends TestWithEnvironment
 		check();
 	}
 
-	@Test public void testWrongStringOmittedAll()
+	@Test public void testOkStringOmittedAll()
 	{
 		final CopySimpleSource source = CopySimpleSource.omitAll();
 		assertEquals(null, source.getTargetItem());
