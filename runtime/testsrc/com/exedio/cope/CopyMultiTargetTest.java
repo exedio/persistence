@@ -61,6 +61,29 @@ public class CopyMultiTargetTest extends TestWithEnvironment
 		assertContains(source, TYPE.search());
 	}
 
+	@Test public void testOkNullTargetA()
+	{
+		final CopyMultiTargetB targetB = new CopyMultiTargetB("targetValue");
+		assertContains(TYPE.search());
+
+		final CopyMultiTargetSource source = new CopyMultiTargetSource(null, targetB, "targetValue");
+		assertEquals(null, source.getTargetA());
+		assertEquals(targetB, source.getTargetB());
+		assertEquals("targetValue", source.getCopy());
+		assertContains(source, TYPE.search());
+	}
+
+	@Test public void testOkNullTargetAB()
+	{
+		assertContains(TYPE.search());
+
+		final CopyMultiTargetSource source = new CopyMultiTargetSource(null, null, "targetValue");
+		assertEquals(null, source.getTargetA());
+		assertEquals(null, source.getTargetB());
+		assertEquals("targetValue", source.getCopy());
+		assertContains(source, TYPE.search());
+	}
+
 	@Test public void testWrongA()
 	{
 		final CopyMultiTargetA targetA = new CopyMultiTargetA("targetValueAx");
@@ -99,6 +122,178 @@ public class CopyMultiTargetTest extends TestWithEnvironment
 					"expected 'targetValueBx' " +
 					"from target " + targetB.getCopeID() + ", " +
 					"but was 'targetValue'", e);
+		}
+		assertContains(TYPE.search());
+	}
+
+	@Test public void testWrongAB()
+	{
+		final CopyMultiTargetA targetA = new CopyMultiTargetA("targetValueAx");
+		final CopyMultiTargetB targetB = new CopyMultiTargetB("targetValueBx");
+		try
+		{
+			new CopyMultiTargetSource(targetA, targetB, "targetValue");
+			fail();
+		}
+		catch(final CopyViolationException e)
+		{
+			assertFails(
+					constraintA, "targetValueAx", "targetValue", targetA,
+					"copy violation on " + constraintA + ", " +
+					"expected 'targetValueAx' " +
+					"from target " + targetA.getCopeID() + ", " +
+					"but was 'targetValue'", e);
+		}
+		assertContains(TYPE.search());
+	}
+
+	@Test public void testWrongNullTargetA()
+	{
+		final CopyMultiTargetB targetB = new CopyMultiTargetB("targetValueBx");
+		try
+		{
+			new CopyMultiTargetSource(null, targetB, "targetValue");
+			fail();
+		}
+		catch(final CopyViolationException e)
+		{
+			assertFails(
+					constraintB, "targetValueBx", "targetValue", targetB,
+					"copy violation on " + constraintB + ", " +
+					"expected 'targetValueBx' " +
+					"from target " + targetB.getCopeID() + ", " +
+					"but was 'targetValue'", e);
+		}
+		assertContains(TYPE.search());
+	}
+
+	@Test public void testWrongOmittedCopyA()
+	{
+		final CopyMultiTargetA targetA = new CopyMultiTargetA("targetValue");
+		try
+		{
+			CopyMultiTargetSource.omitCopy(targetA, null);
+			fail();
+		}
+		catch(final CopyViolationException e)
+		{
+			assertFails(
+					constraintA, "targetValue", null, targetA,
+					"copy violation on " + constraintA + ", " +
+					"expected 'targetValue' " +
+					"from target " + targetA.getCopeID() + ", " +
+					"but was null", e);
+		}
+		assertContains(TYPE.search());
+	}
+
+	@Test public void testWrongOmittedCopyAndTargetA()
+	{
+		final CopyMultiTargetA targetA = new CopyMultiTargetA("targetValue");
+		try
+		{
+			CopyMultiTargetSource.omitCopy(targetA);
+			fail();
+		}
+		catch(final CopyViolationException e)
+		{
+			assertFails(
+					constraintA, "targetValue", null, targetA,
+					"copy violation on " + constraintA + ", " +
+					"expected 'targetValue' " +
+					"from target " + targetA.getCopeID() + ", " +
+					"but was null", e);
+		}
+		assertContains(TYPE.search());
+	}
+
+	@Test public void testWrongOmittedCopyB()
+	{
+		final CopyMultiTargetB targetB = new CopyMultiTargetB("targetValue");
+		try
+		{
+			CopyMultiTargetSource.omitCopy(null, targetB);
+			fail();
+		}
+		catch(final CopyViolationException e)
+		{
+			assertFails(
+					constraintB, "targetValue", null, targetB,
+					"copy violation on " + constraintB + ", " +
+					"expected 'targetValue' " +
+					"from target " + targetB.getCopeID() + ", " +
+					"but was null", e);
+		}
+		assertContains(TYPE.search());
+	}
+
+	@Test public void testWrongOmittedCopyAndTargetB()
+	{
+		final CopyMultiTargetB targetB = new CopyMultiTargetB("targetValue");
+		try
+		{
+			CopyMultiTargetSource.omitCopy(targetB);
+			fail();
+		}
+		catch(final CopyViolationException e)
+		{
+			assertFails(
+					constraintB, "targetValue", null, targetB,
+					"copy violation on " + constraintB + ", " +
+					"expected 'targetValue' " +
+					"from target " + targetB.getCopeID() + ", " +
+					"but was null", e);
+		}
+		assertContains(TYPE.search());
+	}
+
+	@Test public void testWrongOmittedCopyAB()
+	{
+		final CopyMultiTargetA targetA = new CopyMultiTargetA("targetValue");
+		final CopyMultiTargetB targetB = new CopyMultiTargetB("targetValue");
+		try
+		{
+			CopyMultiTargetSource.omitCopy(targetA, targetB);
+			fail();
+		}
+		catch(final CopyViolationException e)
+		{
+			assertFails(
+					constraintA, "targetValue", null, targetA,
+					"copy violation on " + constraintA + ", " +
+					"expected 'targetValue' " +
+					"from target " + targetA.getCopeID() + ", " +
+					"but was null", e);
+		}
+		assertContains(TYPE.search());
+	}
+
+	@Test public void testOkOmittedCopyAndTargetAB()
+	{
+		final CopyMultiTargetSource source = CopyMultiTargetSource.omitCopy();
+		assertEquals(null, source.getTargetA());
+		assertEquals(null, source.getTargetB());
+		assertEquals(null, source.getCopy());
+		assertContains(source, TYPE.search());
+	}
+
+	@Test public void testWrongOmittedCopyABCollide()
+	{
+		final CopyMultiTargetA targetA = new CopyMultiTargetA("targetValueAx");
+		final CopyMultiTargetB targetB = new CopyMultiTargetB("targetValueBx");
+		try
+		{
+			CopyMultiTargetSource.omitCopy(targetA, targetB);
+			fail();
+		}
+		catch(final CopyViolationException e)
+		{
+			assertFails(
+					constraintA, "targetValueAx", null, targetA,
+					"copy violation on " + constraintA + ", " +
+					"expected 'targetValueAx' " +
+					"from target " + targetA.getCopeID() + ", " +
+					"but was null", e);
 		}
 		assertContains(TYPE.search());
 	}

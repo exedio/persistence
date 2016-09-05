@@ -25,6 +25,39 @@ final class CopyMultiTargetSource extends Item
 
 	static final StringField copy = new StringField().toFinal().optional().copyFrom(targetA).copyFrom(targetB);
 
+
+	static CopyMultiTargetSource omitCopy(
+			final CopyMultiTargetA targetA,
+			final CopyMultiTargetB targetB)
+	{
+		return new CopyMultiTargetSource(
+				CopyMultiTargetSource.targetA.map(targetA),
+				CopyMultiTargetSource.targetB.map(targetB)
+		);
+	}
+
+	static CopyMultiTargetSource omitCopy(
+			final CopyMultiTargetA targetA)
+	{
+		return new CopyMultiTargetSource(
+				CopyMultiTargetSource.targetA.map(targetA)
+		);
+	}
+
+	static CopyMultiTargetSource omitCopy(
+			final CopyMultiTargetB targetB)
+	{
+		return new CopyMultiTargetSource(
+				CopyMultiTargetSource.targetB.map(targetB)
+		);
+	}
+
+	static CopyMultiTargetSource omitCopy()
+	{
+		return new CopyMultiTargetSource(new SetValue<?>[]{});
+	}
+
+
 	/**
 	 * Creates a new CopyMultiTargetSource with all the fields initially needed.
 	 * @param targetA the initial value for field {@link #targetA}.
