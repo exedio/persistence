@@ -153,7 +153,7 @@ final class JavaRepository
 				return false;
 			}
 		}
-		catch (NoClassDefFoundError e)
+		catch (final NoClassDefFoundError e)
 		{
 			throw new RuntimeException("error analyzing "+javaClass.getFullName(), e);
 		}
@@ -173,7 +173,7 @@ final class JavaRepository
 
 			return false;
 		}
-		catch (NoClassDefFoundError e)
+		catch (final NoClassDefFoundError e)
 		{
 			throw new RuntimeException("error analyzing "+javaClass.getFullName(), e);
 		}
