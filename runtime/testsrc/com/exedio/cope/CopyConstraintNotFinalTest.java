@@ -18,10 +18,12 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.instrument.Visibility.NONE;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 import com.exedio.cope.instrument.WrapperIgnore;
+import com.exedio.cope.instrument.WrapperType;
 import org.junit.Test;
 
 public class CopyConstraintNotFinalTest
@@ -42,24 +44,37 @@ public class CopyConstraintNotFinalTest
 		}
 	}
 
-	@WrapperIgnore
+	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	static class Source extends Item
 	{
+		@WrapperIgnore
 		static final ItemField<Target> target = ItemField.create(Target.class).toFinal();
+		@WrapperIgnore
 		static final StringField field = new StringField().toFinal().copyFrom(target);
 
-		static final Type<Source> TYPE = TypesBound.newType(Source.class);
+		@javax.annotation.Generated("com.exedio.cope.instrument")
 		private static final long serialVersionUID = 1l;
-		private Source(final ActivationParameters ap) { super(ap); }
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		static final com.exedio.cope.Type<Source> TYPE = com.exedio.cope.TypesBound.newType(Source.class);
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		protected Source(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
-	@WrapperIgnore
+	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	static class Target extends Item
 	{
+		@WrapperIgnore
 		static final StringField field = new StringField();
 
-		static final Type<Target> TYPE = TypesBound.newType(Target.class);
+		@javax.annotation.Generated("com.exedio.cope.instrument")
 		private static final long serialVersionUID = 1l;
-		private Target(final ActivationParameters ap) { super(ap); }
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		static final com.exedio.cope.Type<Target> TYPE = com.exedio.cope.TypesBound.newType(Target.class);
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		protected Target(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 }
