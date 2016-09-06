@@ -181,15 +181,22 @@ final class JavaRepository
 
 	static boolean isComposite(final JavaClass javaClass)
 	{
-		final String classExtends = javaClass.classExtends;
-		if(classExtends==null)
+		try
+		{
+			final String classExtends = javaClass.classExtends;
+			if(classExtends==null)
+				return false;
+
+			final Class<?> extendsClass = javaClass.file.findTypeExternally(classExtends);
+			if(extendsClass!=null)
+				return Composite.class.isAssignableFrom(extendsClass);
+
 			return false;
-
-		final Class<?> extendsClass = javaClass.file.findTypeExternally(classExtends);
-		if(extendsClass!=null)
-			return Composite.class.isAssignableFrom(extendsClass);
-
-		return false;
+		}
+		catch (final NoClassDefFoundError e)
+		{
+			throw new RuntimeException("error analyzing "+javaClass.getFullName(), e);
+		}
 	}
 
 	void add(final JavaFile file)
