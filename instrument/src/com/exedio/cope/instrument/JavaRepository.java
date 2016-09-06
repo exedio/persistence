@@ -64,6 +64,7 @@ final class JavaRepository
 	private final ArrayList<JavaFile> files = new ArrayList<>();
 	private final HashMap<String, JavaClass> javaClassBySimpleName = new HashMap<>();
 	private final HashMap<String, JavaClass> javaClassByFullName = new HashMap<>();
+	private final HashMap<String,List<JavaClass>> problematicSimpleNames = new HashMap<>();
 
 	private final HashMap<JavaClass, CopeType> copeTypeByJavaClass = new HashMap<>();
 
@@ -193,13 +194,39 @@ final class JavaRepository
 	{
 		assert stage==Stage.BUILD;
 
-		//final JavaClass previous =
-		javaClassBySimpleName.put(javaClass.name, javaClass);
+		final JavaClass previous=javaClassBySimpleName.put(javaClass.name, javaClass);
 
-		//if(previous!=null) System.out.println("collision:"+previous.getFullName()+','+javaClass.getFullName());
+		if(previous!=null)
+		{
+			List<JavaClass> classes=problematicSimpleNames.get(previous.name);
+			if (classes==null)
+			{
+				problematicSimpleNames.put(previous.name, classes=new ArrayList<>());
+				classes.add(previous);
+			}
+			classes.add(javaClass);
+		}
 
 		if(javaClassByFullName.put(javaClass.getFullName(), javaClass)!=null)
 			throw new RuntimeException(javaClass.getFullName());
+	}
+
+	private JavaClass resolveBySimpleName(final String name)
+	{
+		final JavaClass result=javaClassBySimpleName.get(name);
+		final List<JavaClass> problematicClasses=problematicSimpleNames.remove(name);
+		if (result!=null && problematicClasses!=null)
+		{
+			System.out.println("Problem resolving '"+name+"' - could be one of ...");
+			for (final JavaClass problematicClass: problematicClasses)
+			{
+				problematicClass.reportSourceProblem(JavaFeature.Severity.warning, name, null);
+			}
+			System.out.println("Will use "+result);
+			System.out.println("Try avoiding this, for example by <ignore>ing classes in the <instrument> call.");
+			System.out.println("");
+		}
+		return result;
 	}
 
 	static final String DUMMY_ITEM_PREFIX = DummyItem.class.getName() + "$";
@@ -208,12 +235,12 @@ final class JavaRepository
 	{
 		if(name.indexOf('.')<0)
 		{
-			return javaClassBySimpleName.get(name);
+			return resolveBySimpleName(name);
 		}
 		else if(name.startsWith(DUMMY_ITEM_PREFIX))
 		{
 			final String s = name.substring(DUMMY_ITEM_PREFIX.length(), name.length());
-			return javaClassBySimpleName.get(s);
+			return resolveBySimpleName(s);
 		}
 		else
 		{
@@ -223,7 +250,7 @@ final class JavaRepository
 
 			// for inner classes
 			final int dot = name.indexOf('.'); // cannot be negative in else branch
-			final JavaClass outer = javaClassBySimpleName.get(name.substring(0, dot));
+			final JavaClass outer = resolveBySimpleName(name.substring(0, dot));
 			if(outer!=null)
 				return javaClassByFullName.get(outer.file.getPackageName() + '.' + name.replace('.', '$'));
 

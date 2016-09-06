@@ -77,7 +77,7 @@ final class Tags
 	{
 		if(byTags!=null && byAnnotation!=null)
 		{
-			exceptionObject.reportSourceError("mixing of javadoc tags and annotations not supported", "");
+			exceptionObject.reportSourceProblem(JavaFeature.Severity.error, "mixing of javadoc tags and annotations not supported", "");
 			throw new RuntimeException(
 					"mixing of javadoc tags and annotations not supported at " +
 					exceptionObject);
