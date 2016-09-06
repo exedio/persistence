@@ -233,9 +233,13 @@ final class JavaRepository
 		{
 			final boolean resultIsItem=isItem(result);
 			final boolean resultIsBlock=isBlock(result);
+			final boolean resultIsComposite=isComposite(result);
 			for (final JavaClass checkProblematicClass: problematicClasses)
 			{
-				if (isItem(checkProblematicClass)!=resultIsItem || isBlock(checkProblematicClass)!=resultIsBlock || result.isEnum!=checkProblematicClass.isEnum)
+				if (isItem(checkProblematicClass)!=resultIsItem
+					|| isBlock(checkProblematicClass)!=resultIsBlock
+					|| isComposite(checkProblematicClass)!=resultIsComposite
+					|| result.isEnum!=checkProblematicClass.isEnum)
 				{
 					System.out.println("Problem resolving '"+name+"' - could be one of ...");
 					for (final JavaClass logProblematicClass: problematicClasses)
