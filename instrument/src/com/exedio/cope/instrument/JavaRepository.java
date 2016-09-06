@@ -217,14 +217,23 @@ final class JavaRepository
 		final List<JavaClass> problematicClasses=problematicSimpleNames.remove(name);
 		if (result!=null && problematicClasses!=null)
 		{
-			System.out.println("Problem resolving '"+name+"' - could be one of ...");
-			for (final JavaClass problematicClass: problematicClasses)
+			final boolean resultIsItem=isItem(result);
+			final boolean resultIsBlock=isBlock(result);
+			for (final JavaClass checkProblematicClass: problematicClasses)
 			{
-				problematicClass.reportSourceProblem(JavaFeature.Severity.warning, name, null);
+				if (isItem(checkProblematicClass)!=resultIsItem || isBlock(checkProblematicClass)!=resultIsBlock || result.isEnum!=checkProblematicClass.isEnum)
+				{
+					System.out.println("Problem resolving '"+name+"' - could be one of ...");
+					for (final JavaClass logProblematicClass: problematicClasses)
+					{
+						logProblematicClass.reportSourceProblem(JavaFeature.Severity.warning, "non-unique simple name "+name, null);
+					}
+					System.out.println("Will use "+result);
+					System.out.println("Try avoiding this, for example by <ignore>ing classes in the <instrument> call.");
+					System.out.println("");
+					break;
+				}
 			}
-			System.out.println("Will use "+result);
-			System.out.println("Try avoiding this, for example by <ignore>ing classes in the <instrument> call.");
-			System.out.println("");
 		}
 		return result;
 	}
