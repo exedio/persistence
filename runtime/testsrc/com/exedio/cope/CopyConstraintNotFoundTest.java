@@ -32,7 +32,7 @@ public class CopyConstraintNotFoundTest
 			new Model(Source.TYPE, Target.TYPE);
 			fail();
 		}
-		catch(final RuntimeException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals(
 				"not found on copy: Source.fieldCopyFromtarget",

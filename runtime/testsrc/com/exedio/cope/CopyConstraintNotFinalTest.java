@@ -32,7 +32,7 @@ public class CopyConstraintNotFinalTest
 			new Model(Source.TYPE, Target.TYPE);
 			fail();
 		}
-		catch(final RuntimeException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals(
 				"not final on copy: Source.fieldCopyFromtarget/Target.field",
