@@ -32,7 +32,7 @@ public class CopyConstraintNotAFunctionFieldTest
 			new Model(Source.TYPE, Target.TYPE);
 			fail();
 		}
-		catch(final RuntimeException e)
+		catch(final ClassCastException e)
 		{
 			assertEquals(
 				"not a FunctionField on copy: Source.fieldCopyFromtarget/Target.field/com.exedio.cope.DataField",
