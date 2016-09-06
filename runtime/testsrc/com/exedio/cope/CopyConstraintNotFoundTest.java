@@ -35,7 +35,8 @@ public class CopyConstraintNotFoundTest
 		catch(final IllegalArgumentException e)
 		{
 			assertEquals(
-				"not found on copy: Source.fieldCopyFromtarget",
+				"insufficient template for CopyConstraint Source.fieldCopyFromtarget: " +
+				"not found",
 				e.getMessage());
 		}
 	}

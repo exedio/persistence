@@ -67,12 +67,18 @@ public final class CopyConstraint extends Feature
 
 		final Feature feature = target.getValueType().getFeature(copy.getName());
 		if(feature==null)
-			throw new IllegalArgumentException("not found on copy: " + this);
+			throw new IllegalArgumentException(
+					"insufficient template for CopyConstraint " + this + ": " +
+					"not found");
 		if(!(feature instanceof FunctionField<?>))
-			throw new ClassCastException("not a FunctionField on copy: " + this + '/' + feature + '/' + feature.getClass().getName());
+			throw new ClassCastException(
+					"insufficient template for CopyConstraint " + this + ": " +
+					feature + " is not a FunctionField but " + feature.getClass().getName());
 		final FunctionField<?> result = (FunctionField<?>)feature;
 		if(!result.isfinal)
-			throw new IllegalArgumentException("not final on copy: " + this + '/' + result);
+			throw new IllegalArgumentException(
+					"insufficient template for CopyConstraint " + this + ": " +
+					result + " is not final");
 
 		templateIfSet = result;
 	}

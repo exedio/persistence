@@ -35,7 +35,8 @@ public class CopyConstraintNotFinalTest
 		catch(final IllegalArgumentException e)
 		{
 			assertEquals(
-				"not final on copy: Source.fieldCopyFromtarget/Target.field",
+				"insufficient template for CopyConstraint Source.fieldCopyFromtarget: " +
+				"Target.field is not final",
 				e.getMessage());
 		}
 	}

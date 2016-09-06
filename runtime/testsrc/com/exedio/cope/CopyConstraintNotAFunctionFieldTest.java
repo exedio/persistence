@@ -35,7 +35,8 @@ public class CopyConstraintNotAFunctionFieldTest
 		catch(final ClassCastException e)
 		{
 			assertEquals(
-				"not a FunctionField on copy: Source.fieldCopyFromtarget/Target.field/com.exedio.cope.DataField",
+				"insufficient template for CopyConstraint Source.fieldCopyFromtarget: " +
+				"Target.field is not a FunctionField but com.exedio.cope.DataField",
 				e.getMessage());
 		}
 	}
