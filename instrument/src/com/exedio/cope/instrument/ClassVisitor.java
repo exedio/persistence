@@ -54,7 +54,12 @@ class ClassVisitor extends TreePathScanner<Void,Void>
 	@Override
 	public Void visitClass(final ClassTree ct, final Void ignore)
 	{
-		if (javaClass==null)
+		if (getAnnotation(WrapperIgnore.class)!=null)
+		{
+			// skip the class
+			return null;
+		}
+		else if (javaClass==null)
 		{
 			final String classExtends=ct.getExtendsClause()==null?null:ct.getExtendsClause().toString();
 			javaClass = new JavaClass(

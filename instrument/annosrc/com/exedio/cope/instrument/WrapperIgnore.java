@@ -28,7 +28,7 @@ import java.lang.annotation.Target;
  * Specifically, it will not generate any wrappers, and not try to instantiate the
  * feature (unless required for an other, non-ignored feature).
  */
-@Target(ElementType.FIELD)
+@Target({ElementType.FIELD, ElementType.TYPE})
 @Retention(RetentionPolicy.SOURCE)
 public @interface WrapperIgnore
 {
