@@ -23,6 +23,15 @@ timestamps
 
 				sh "java -version"
 				sh "${antHome}/bin/ant -version"
+
+				def isRelease = env.BRANCH_NAME.toString().equals("master");
+
+				properties([[$class: 'jenkins.model.BuildDiscarderProperty',
+						strategy: [
+								$class               : 'LogRotator',
+								numToKeepStr         : isRelease ? '1000' : '15',
+								artifactNumToKeepStr : isRelease ? '1000' :  '2' ]]])
+
 				sh 'echo' +
 						' HOSTNAME -${HOSTNAME}-' +
 						' EXECUTOR_NUMBER -${EXECUTOR_NUMBER}-' +
@@ -31,7 +40,8 @@ timestamps
 						' BUILD_TIMESTAMP -${BUILD_TIMESTAMP}-' +
 						' BRANCH_NAME -${BRANCH_NAME}-' +
 						' BUILD_NUMBER -${BUILD_NUMBER}-' +
-						' BUILD_ID -${BUILD_ID}-'
+						' BUILD_ID -${BUILD_ID}-' +
+						' isRelease=' + isRelease
 
 				stage 'Build'
 				sh "${antHome}/bin/ant clean jenkins" +
