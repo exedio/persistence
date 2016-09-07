@@ -21,6 +21,7 @@ package com.exedio.cope.pattern;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
+import com.exedio.cope.instrument.WrapperIgnore;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.Test;
 
@@ -179,11 +180,13 @@ public class MultiItemFieldErrorTest
 		}
 	}
 
+	@WrapperIgnore
 	static final class AnotherItem1 extends com.exedio.cope.Item
 	{
 		private static final long serialVersionUID = 1l;
 	}
 
+	@WrapperIgnore
 	static final class AnotherItem2 extends com.exedio.cope.Item
 	{
 		private static final long serialVersionUID = 1l;

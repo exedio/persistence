@@ -25,6 +25,7 @@ import static com.exedio.cope.SchemaInfo.getColumnName;
 import static com.exedio.cope.SchemaInfo.getTableName;
 import static org.junit.Assert.assertEquals;
 
+import com.exedio.cope.instrument.WrapperIgnore;
 import org.junit.Test;
 
 public class RenamedPatternSchemaTest extends TestWithEnvironment
@@ -111,6 +112,7 @@ public class RenamedPatternSchemaTest extends TestWithEnvironment
 		return ann!=null ? ann.value() : null;
 	}
 
+	@WrapperIgnore
 	private static class RawItem extends Item
 	{
 		@CopeSchemaName("zack")

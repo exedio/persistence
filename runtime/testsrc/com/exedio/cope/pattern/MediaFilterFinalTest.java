@@ -22,6 +22,7 @@ import static org.junit.Assert.assertEquals;
 
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.Item;
+import com.exedio.cope.instrument.WrapperIgnore;
 import org.junit.Test;
 
 public class MediaFilterFinalTest
@@ -34,6 +35,7 @@ public class MediaFilterFinalTest
 		assertEquals(true , AnItem.filterFinal   .isFinal());
 	}
 
+	@WrapperIgnore
 	private static final class AnItem extends Item
 	{
 		static final Media sourceNonFinal = new Media();

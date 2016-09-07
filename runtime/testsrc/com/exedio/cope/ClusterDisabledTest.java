@@ -21,6 +21,7 @@ package com.exedio.cope;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
+import com.exedio.cope.instrument.WrapperIgnore;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -79,6 +80,7 @@ public class ClusterDisabledTest
 			model.disconnect();
 	}
 
+	@WrapperIgnore
 	private static final class AnItem extends Item
 	{
 		private AnItem(final ActivationParameters ap) { super(ap); }

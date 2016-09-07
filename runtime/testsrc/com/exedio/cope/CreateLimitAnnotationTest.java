@@ -22,6 +22,7 @@ import static com.exedio.cope.TypesBound.newType;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
+import com.exedio.cope.instrument.WrapperIgnore;
 import org.junit.Test;
 
 public class CreateLimitAnnotationTest
@@ -33,6 +34,7 @@ public class CreateLimitAnnotationTest
 
 	static final Type<DefaultItem> DefaultType = newType(DefaultItem.class);
 
+	@WrapperIgnore
 	static class DefaultItem extends Item
 	{
 		private static final long serialVersionUID = 1l;
@@ -49,6 +51,7 @@ public class CreateLimitAnnotationTest
 	static final Type<OkItem> OkType = newType(OkItem.class);
 
 	@CopeCreateLimit(5)
+	@WrapperIgnore
 	static class OkItem extends Item
 	{
 		private static final long serialVersionUID = 1l;
@@ -65,6 +68,7 @@ public class CreateLimitAnnotationTest
 	static final Type<MinimumItem> MinimumType = newType(MinimumItem.class);
 
 	@CopeCreateLimit(0)
+	@WrapperIgnore
 	static class MinimumItem extends Item
 	{
 		private static final long serialVersionUID = 1l;
@@ -89,6 +93,7 @@ public class CreateLimitAnnotationTest
 	}
 
 	@CopeCreateLimit(-1)
+	@WrapperIgnore
 	static class LessMinimumItem extends Item
 	{
 		private static final long serialVersionUID = 1l;
@@ -104,6 +109,7 @@ public class CreateLimitAnnotationTest
 
 	static final Type<SubOkItem> SubOkType = newType(SubOkItem.class);
 
+	@WrapperIgnore
 	static class SubOkItem extends OkItem
 	{
 		private static final long serialVersionUID = 1l;
@@ -129,6 +135,7 @@ public class CreateLimitAnnotationTest
 	}
 
 	@CopeCreateLimit(5)
+	@WrapperIgnore
 	static class SubItem extends OkItem
 	{
 		private static final long serialVersionUID = 1l;

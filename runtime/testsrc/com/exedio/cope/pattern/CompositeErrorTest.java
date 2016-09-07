@@ -29,6 +29,7 @@ import com.exedio.cope.Field;
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.StringField;
+import com.exedio.cope.instrument.WrapperIgnore;
 import org.junit.Test;
 
 public class CompositeErrorTest
@@ -62,6 +63,7 @@ public class CompositeErrorTest
 		}
 	}
 
+	@WrapperIgnore
 	static class NonFinal extends Composite
 	{
 		private static final long serialVersionUID = 1l;
@@ -85,6 +87,7 @@ public class CompositeErrorTest
 		}
 	}
 
+	@WrapperIgnore
 	static final class NoConstructor extends Composite
 	{
 		private static final long serialVersionUID = 1l;
@@ -104,6 +107,7 @@ public class CompositeErrorTest
 		}
 	}
 
+	@WrapperIgnore
 	static final class NoFields extends Composite
 	{
 		private static final long serialVersionUID = 1l;
@@ -124,6 +128,7 @@ public class CompositeErrorTest
 		}
 	}
 
+	@WrapperIgnore
 	static final class NullField extends Composite
 	{
 		private static final long serialVersionUID = 1l;
@@ -148,6 +153,7 @@ public class CompositeErrorTest
 		}
 	}
 
+	@WrapperIgnore
 	static final class NotFunctionField extends Composite
 	{
 		private static final long serialVersionUID = 1l;
@@ -188,6 +194,7 @@ public class CompositeErrorTest
 		}
 	}
 
+	@WrapperIgnore
 	static final class FinalField extends Composite
 	{
 		private static final long serialVersionUID = 1l;
@@ -212,6 +219,7 @@ public class CompositeErrorTest
 		}
 	}
 
+	@WrapperIgnore
 	static final class NonConstantDefaultField extends Composite
 	{
 		private static final long serialVersionUID = 1l;

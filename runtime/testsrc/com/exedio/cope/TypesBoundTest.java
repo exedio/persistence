@@ -28,6 +28,7 @@ import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import com.exedio.cope.instrument.WrapperIgnore;
 import org.junit.Test;
 
 public class TypesBoundTest
@@ -189,6 +190,7 @@ public class TypesBoundTest
 		}
 	}
 
+	@WrapperIgnore
 	static class AnItem extends Item
 	{
 		private static final long serialVersionUID = 1l;

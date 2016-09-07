@@ -21,6 +21,7 @@ package com.exedio.cope;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
+import com.exedio.cope.instrument.WrapperIgnore;
 import com.exedio.cope.util.IllegalPropertiesException;
 import com.exedio.cope.util.Properties;
 import com.exedio.cope.util.Properties.Source;
@@ -189,6 +190,7 @@ public class ClusterPropertiesNoContextTest
 			model.disconnect();
 	}
 
+	@WrapperIgnore
 	private static final class AType extends Item
 	{
 		private AType(final ActivationParameters ap) { super(ap); }

@@ -21,6 +21,7 @@ package com.exedio.cope;
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
 import static com.exedio.cope.tojunit.Assert.list;
 
+import com.exedio.cope.instrument.WrapperIgnore;
 import org.junit.Test;
 
 public class TypeSetModelTest
@@ -38,6 +39,7 @@ public class TypeSetModelTest
 		new TypeSet(new Type<?>[]{type1});
 	}
 
+	@WrapperIgnore
 	static class Item1 extends Item
 	{
 		private static final long serialVersionUID = 1l;

@@ -26,6 +26,7 @@ import com.exedio.cope.Item;
 import com.exedio.cope.Join;
 import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
+import com.exedio.cope.instrument.WrapperIgnore;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.junit.Test;
@@ -120,6 +121,7 @@ public class MediaPathConditionUnsupportedTest
 		private static final long serialVersionUID = 1l;
 	}
 
+	@WrapperIgnore
 	static final class AnItem extends Item
 	{
 		static final APath path = new APath();

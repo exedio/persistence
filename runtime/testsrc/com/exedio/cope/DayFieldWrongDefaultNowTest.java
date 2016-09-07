@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import static com.exedio.cope.TypesBound.newType;
 
+import com.exedio.cope.instrument.WrapperIgnore;
 import com.exedio.cope.tojunit.LogRule;
 import com.exedio.cope.util.Day;
 import java.util.TimeZone;
@@ -42,6 +43,7 @@ public class DayFieldWrongDefaultNowTest
 		log.assertEmpty();
 	}
 
+	@WrapperIgnore
 	static class AnItem extends Item
 	{
 		private static final long serialVersionUID = 1l;

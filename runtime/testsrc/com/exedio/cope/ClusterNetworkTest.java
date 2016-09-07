@@ -23,6 +23,7 @@ import static com.exedio.cope.util.Sources.cascade;
 import static com.exedio.cope.util.Sources.load;
 import static com.exedio.cope.util.Sources.view;
 
+import com.exedio.cope.instrument.WrapperIgnore;
 import java.io.File;
 import java.util.Properties;
 import org.junit.After;
@@ -84,6 +85,7 @@ public abstract class ClusterNetworkTest
 		modelB.removeAllChangeListeners();
 	}
 
+	@WrapperIgnore
 	static class TypeA extends Item
 	{
 		TypeA()
@@ -101,6 +103,7 @@ public abstract class ClusterNetworkTest
 		static final Type<TypeA> TYPE = TypesBound.newType(TypeA.class);
 	}
 
+	@WrapperIgnore
 	static class TypeB extends Item
 	{
 		private TypeB(final ActivationParameters ap)

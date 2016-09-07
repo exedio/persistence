@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import com.exedio.cope.instrument.WrapperIgnore;
 import com.exedio.cope.misc.Computed;
 import com.exedio.cope.misc.ComputedElement;
 
@@ -56,6 +57,7 @@ final class PatternComputedPattern extends Pattern
 		this.compuType = newSourceType(CompuType.class, features, "compu");
 	}
 
+	@WrapperIgnore
 	static final class VirgnType extends Item
 	{
 		private static final long serialVersionUID = 1l;
@@ -63,6 +65,7 @@ final class PatternComputedPattern extends Pattern
 	}
 
 	@Computed
+	@WrapperIgnore
 	static final class CompuType extends Item
 	{
 		private static final long serialVersionUID = 1l;

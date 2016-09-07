@@ -24,8 +24,10 @@ import com.exedio.cope.SetValue;
 import com.exedio.cope.StringField;
 import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
+import com.exedio.cope.instrument.WrapperIgnore;
 import com.exedio.cope.pattern.Media;
 
+@WrapperIgnore
 public class SampledModelItem extends Item
 {
 	static final StringField code = new StringField();

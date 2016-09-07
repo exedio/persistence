@@ -22,6 +22,7 @@ import static com.exedio.cope.tojunit.Assert.list;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
+import com.exedio.cope.instrument.WrapperIgnore;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.awt.geom.IllegalPathStateException;
 import java.io.File;
@@ -158,6 +159,7 @@ public class CommitHookTest
 
 	private static final Model model = new Model(AnItem.TYPE);
 
+	@WrapperIgnore
 	static class AnItem extends Item
 	{
 		private static final long serialVersionUID = 1l;

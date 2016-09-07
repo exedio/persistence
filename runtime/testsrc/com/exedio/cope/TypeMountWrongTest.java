@@ -22,6 +22,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.fail;
 
+import com.exedio.cope.instrument.WrapperIgnore;
 import org.junit.Test;
 
 public class TypeMountWrongTest
@@ -124,6 +125,7 @@ public class TypeMountWrongTest
 		}
 	}
 
+	@WrapperIgnore
 	static class Item1 extends Item
 	{
 		Item1(final ActivationParameters ap)
@@ -135,6 +137,7 @@ public class TypeMountWrongTest
 		static final Type<Item1> TYPE = TypesBound.newType(Item1.class);
 	}
 
+	@WrapperIgnore
 	static class Item2 extends Item
 	{
 		static final ItemField<Item1> f = ItemField.create(Item1.class);

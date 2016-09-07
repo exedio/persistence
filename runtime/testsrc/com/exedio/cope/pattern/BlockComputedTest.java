@@ -63,6 +63,7 @@ public class BlockComputedTest
 		return result;
 	}
 
+	@com.exedio.cope.instrument.WrapperIgnore // TODO use import, but this is not accepted by javac
 	static final class MyBlock extends Block
 	{
 		static final StringField virgnTemp = new StringField();
@@ -74,6 +75,7 @@ public class BlockComputedTest
 		private static final long serialVersionUID = 1l;
 	}
 
+	@com.exedio.cope.instrument.WrapperIgnore // TODO use import, but this is not accepted by javac
 	static final class MyItem extends com.exedio.cope.Item // TODO use import, but this is not accepted by javac
 	{
 		static final BlockField<MyBlock> virgnComp = BlockField.create(MyBlock.TYPE);

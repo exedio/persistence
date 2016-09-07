@@ -35,6 +35,7 @@ import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
+import com.exedio.cope.instrument.WrapperIgnore;
 import com.exedio.cope.tojunit.ConnectTokenRule;
 import java.io.File;
 import org.junit.Rule;
@@ -43,6 +44,7 @@ import org.junit.rules.RuleChain;
 
 public class ConnectTokenSetTest
 {
+	@WrapperIgnore
 	private static final class AnItem extends Item
 	{
 		private AnItem(final ActivationParameters ap) { super(ap); }

@@ -116,6 +116,7 @@ public class QueryRangeTest
 		return result;
 	}
 
+	@com.exedio.cope.instrument.WrapperIgnore // TODO use import, but this is not accepted by javac
 	static final class AnItem extends Item
 	{
 		static final Type<AnItem> TYPE = TypesBound.newType(AnItem.class);

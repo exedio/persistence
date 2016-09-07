@@ -21,6 +21,7 @@ package com.exedio.cope;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
+import com.exedio.cope.instrument.WrapperIgnore;
 import org.junit.Test;
 
 public class ModelCharSetTest
@@ -69,6 +70,7 @@ public class ModelCharSetTest
 		}
 	}
 
+	@WrapperIgnore
 	static class AnItem extends Item
 	{
 		private static final long serialVersionUID = 1l;

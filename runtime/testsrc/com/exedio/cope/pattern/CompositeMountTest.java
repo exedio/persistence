@@ -32,6 +32,7 @@ import com.exedio.cope.IntegerField;
 import com.exedio.cope.LongField;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.StringField;
+import com.exedio.cope.instrument.WrapperIgnore;
 import com.exedio.cope.misc.Computed;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -256,6 +257,7 @@ public class CompositeMountTest
 	}
 
 
+	@WrapperIgnore
 	static final class MyComposite extends Composite
 	{
 		@Anno("stringAnno")

@@ -18,8 +18,10 @@
 
 package com.exedio.cope;
 
+import com.exedio.cope.instrument.WrapperIgnore;
 import com.exedio.cope.misc.Computed;
 
+@WrapperIgnore
 final class PatternComputedItem extends Item
 {
 	static final PatternComputedPattern virgnComp = new PatternComputedPattern();

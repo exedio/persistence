@@ -25,6 +25,7 @@ import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
 import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
+import com.exedio.cope.instrument.WrapperIgnore;
 import org.junit.Test;
 
 public class EnumFieldNameTest
@@ -43,6 +44,7 @@ public class EnumFieldNameTest
 		under_line;
 	}
 
+	@WrapperIgnore
 	private static final class AnItem extends Item
 	{
 		static final EnumSetField<AnEnum        > set = EnumSetField.create(AnEnum.class);

@@ -21,6 +21,7 @@ package com.exedio.cope;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
+import com.exedio.cope.instrument.WrapperIgnore;
 import org.junit.Test;
 
 public class CopyConstraintNotAFunctionFieldTest
@@ -41,6 +42,7 @@ public class CopyConstraintNotAFunctionFieldTest
 		}
 	}
 
+	@WrapperIgnore
 	static class Source extends Item
 	{
 		static final ItemField<Target> target = ItemField.create(Target.class).toFinal();
@@ -51,6 +53,7 @@ public class CopyConstraintNotAFunctionFieldTest
 		private Source(final ActivationParameters ap) { super(ap); }
 	}
 
+	@WrapperIgnore
 	static class Target extends Item
 	{
 		static final DataField field = new DataField().toFinal();

@@ -26,6 +26,7 @@ import com.exedio.cope.BooleanField;
 import com.exedio.cope.Copyable;
 import com.exedio.cope.Field;
 import com.exedio.cope.Pattern;
+import com.exedio.cope.instrument.WrapperIgnore;
 import org.junit.Test;
 
 public class BlockErrorTest
@@ -59,6 +60,7 @@ public class BlockErrorTest
 		}
 	}
 
+	@WrapperIgnore
 	static class NonFinal extends Block
 	{
 		private static final long serialVersionUID = 1l;
@@ -83,6 +85,7 @@ public class BlockErrorTest
 		}
 	}
 
+	@WrapperIgnore
 	static final class NoConstructor extends Block
 	{
 		private static final long serialVersionUID = 1l;
@@ -103,6 +106,7 @@ public class BlockErrorTest
 		}
 	}
 
+	@WrapperIgnore
 	static final class NoFields extends Block
 	{
 		private static final long serialVersionUID = 1l;
@@ -123,6 +127,7 @@ public class BlockErrorTest
 		}
 	}
 
+	@WrapperIgnore
 	static final class NullField extends Block
 	{
 		private static final long serialVersionUID = 1l;
@@ -148,6 +153,7 @@ public class BlockErrorTest
 		}
 	}
 
+	@WrapperIgnore
 	static final class NotCopyableField extends Block
 	{
 		private static final long serialVersionUID = 1l;
@@ -211,6 +217,7 @@ public class BlockErrorTest
 		}
 	}
 
+	@WrapperIgnore
 	static final class AlreadyBound extends Block
 	{
 		private static final long serialVersionUID = 1l;

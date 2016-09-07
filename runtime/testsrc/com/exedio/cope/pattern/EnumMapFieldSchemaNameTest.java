@@ -29,6 +29,7 @@ import com.exedio.cope.Model;
 import com.exedio.cope.SchemaInfo;
 import com.exedio.cope.StringField;
 import com.exedio.cope.TypesBound;
+import com.exedio.cope.instrument.WrapperIgnore;
 import com.exedio.cope.util.Sources;
 import java.util.Properties;
 import org.junit.After;
@@ -61,6 +62,7 @@ public class EnumMapFieldSchemaNameTest
 		two;
 	}
 
+	@WrapperIgnore
 	private static final class AnItem extends Item
 	{
 		@CopeSchemaName("alfa")

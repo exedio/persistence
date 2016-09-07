@@ -22,6 +22,7 @@ import static com.exedio.cope.TypesBound.newType;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
+import com.exedio.cope.instrument.WrapperIgnore;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.Test;
 
@@ -96,7 +97,7 @@ public class TypesBoundErrorTest
 			assertEquals(NoSuchMethodException.class, e.getCause().getClass());
 		}
 	}
-	static class NoActivationConstructor extends Item
+	@WrapperIgnore static class NoActivationConstructor extends Item
 	{
 		private static final long serialVersionUID = 1l;
 	}
@@ -124,7 +125,7 @@ public class TypesBoundErrorTest
 			assertEquals("class is already bound to a type: " + WrongActivationConstructor.class.getName(), e.getMessage());
 		}
 	}
-	static class WrongActivationConstructor extends Item
+	@WrapperIgnore static class WrongActivationConstructor extends Item
 	{
 		private static final long serialVersionUID = 1l;
 
@@ -147,7 +148,7 @@ public class TypesBoundErrorTest
 			assertEquals(NullFeature.class.getName() + "#nullFeature", e.getMessage());
 		}
 	}
-	static class NullFeature extends Item
+	@WrapperIgnore static class NullFeature extends Item
 	{
 		private static final long serialVersionUID = 1l;
 
@@ -167,7 +168,7 @@ public class TypesBoundErrorTest
 			assertEquals(DuplicateFeature.class.getName() + "#duplicate is same as #origin", e.getMessage());
 		}
 	}
-	static class DuplicateFeature extends Item
+	@WrapperIgnore static class DuplicateFeature extends Item
 	{
 		private static final long serialVersionUID = 1l;
 
@@ -207,7 +208,7 @@ public class TypesBoundErrorTest
 			assertEquals("there is no type for class " + NullFeature.class.getName(), e.getMessage());
 		}
 	}
-	static class NonResolvingItemField extends Item
+	@WrapperIgnore static class NonResolvingItemField extends Item
 	{
 		private static final long serialVersionUID = 1l;
 
@@ -236,7 +237,7 @@ public class TypesBoundErrorTest
 					e.getMessage());
 		}
 	}
-	static class BeforeNewNotStatic extends Item
+	@WrapperIgnore static class BeforeNewNotStatic extends Item
 	{
 		private static final long serialVersionUID = 1l;
 
@@ -270,7 +271,7 @@ public class TypesBoundErrorTest
 					"but returns java.lang.String", e.getMessage());
 		}
 	}
-	static class BeforeNewWrongReturn extends Item
+	@WrapperIgnore static class BeforeNewWrongReturn extends Item
 	{
 		private static final long serialVersionUID = 1l;
 

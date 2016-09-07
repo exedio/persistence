@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import com.exedio.cope.instrument.WrapperIgnore;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedElement;
 
@@ -125,6 +126,7 @@ class RenamedSchemaPattern extends Pattern
 	}
 
 	@TestAnnotation("sourceType-TestAnnotation")
+	@WrapperIgnore
 	static final class SourceType extends Item
 	{
 		private static final long serialVersionUID = 1l;

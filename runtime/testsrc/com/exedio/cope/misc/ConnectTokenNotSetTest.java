@@ -30,12 +30,13 @@ import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
+import com.exedio.cope.instrument.WrapperIgnore;
 import org.junit.Test;
 
 public class ConnectTokenNotSetTest
 {
 	private static final Model model = new Model(AnItem.TYPE);
-	private static final class AnItem extends Item
+	@WrapperIgnore private static final class AnItem extends Item
 	{
 		private AnItem(final ActivationParameters ap) { super(ap); }
 		private static final long serialVersionUID = 1l;

@@ -28,6 +28,7 @@ import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
+import com.exedio.cope.instrument.WrapperIgnore;
 import org.junit.Test;
 
 public class ModelByStringTest
@@ -103,6 +104,7 @@ public class ModelByStringTest
 		}
 	}
 
+	@WrapperIgnore
 	static class ModelOk extends Item
 	{
 		private static final long serialVersionUID = 1l;
@@ -110,6 +112,7 @@ public class ModelByStringTest
 		private ModelOk(final ActivationParameters ap) { super(ap); }
 	}
 
+	@WrapperIgnore
 	static class ModelOk2 extends Item
 	{
 		private static final long serialVersionUID = 1l;
@@ -117,6 +120,7 @@ public class ModelByStringTest
 		private ModelOk2(final ActivationParameters ap) { super(ap); }
 	}
 
+	@WrapperIgnore
 	static class ModelContext extends Item
 	{
 		private static final long serialVersionUID = 1l;

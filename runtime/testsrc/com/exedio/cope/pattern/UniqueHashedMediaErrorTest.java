@@ -29,6 +29,7 @@ import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
+import com.exedio.cope.instrument.WrapperIgnore;
 import org.junit.Test;
 
 public class UniqueHashedMediaErrorTest
@@ -62,7 +63,7 @@ public class UniqueHashedMediaErrorTest
 					e.getMessage());
 		}
 	}
-	static abstract class AbstractItem extends Item
+	@WrapperIgnore static abstract class AbstractItem extends Item
 	{
 		static final UniqueHashedMedia value = new UniqueHashedMedia(new Media());
 
@@ -86,7 +87,7 @@ public class UniqueHashedMediaErrorTest
 					e.getMessage());
 		}
 	}
-	static class NonCreateableFunctionFieldItem extends Item
+	@WrapperIgnore static class NonCreateableFunctionFieldItem extends Item
 	{
 		static final UniqueHashedMedia value = new UniqueHashedMedia(new Media());
 		static final IntegerField field = new IntegerField();
@@ -113,7 +114,7 @@ public class UniqueHashedMediaErrorTest
 					e.getMessage());
 		}
 	}
-	static class NonCreateableDataFieldItem extends Item
+	@WrapperIgnore static class NonCreateableDataFieldItem extends Item
 	{
 		static final UniqueHashedMedia value = new UniqueHashedMedia(new Media());
 		static final DataField field = new DataField();
@@ -130,7 +131,7 @@ public class UniqueHashedMediaErrorTest
 		// test, that is does not throw an exception
 		new Model(CreateableItem.TYPE);
 	}
-	static class CreateableItem extends Item
+	@WrapperIgnore static class CreateableItem extends Item
 	{
 		static final UniqueHashedMedia value = new UniqueHashedMedia(new Media());
 		static final IntegerField optionalField = new IntegerField().optional();
