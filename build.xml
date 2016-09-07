@@ -401,7 +401,6 @@
 					<exclude name="sampler/*.java" /><!-- TODO remove -->
 					<exclude name="pattern/PatternTestTypeItem.java" /><!-- ok, shall not instrument test types -->
 					<exclude name="serialize/ModelSerializationTest.java" /><!-- ok, shall not instrument test types -->
-					<exclude name="QueryCopyTest.java" /><!-- TODO remove -->
 					<!-- ok, shall not instrument test types -->
 					<exclude name="pattern/BlockErrorTest.java" />
 					<exclude name="pattern/CompositeErrorTest.java" />

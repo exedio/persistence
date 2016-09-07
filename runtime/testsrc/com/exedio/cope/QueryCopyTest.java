@@ -22,10 +22,12 @@ import static com.exedio.cope.QueryCopyTest.AnItem.TYPE;
 import static com.exedio.cope.QueryCopyTest.AnItem.date;
 import static com.exedio.cope.QueryCopyTest.AnItem.intx;
 import static com.exedio.cope.QueryCopyTest.AnItem.string;
+import static com.exedio.cope.instrument.Visibility.NONE;
 import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
+import com.exedio.cope.instrument.WrapperIgnore;
 import java.util.Collections;
 import java.util.List;
 import org.junit.Test;
@@ -184,14 +186,31 @@ public class QueryCopyTest
 		}
 	}
 
+	@com.exedio.cope.instrument.WrapperType(indent=2, constructor=NONE, genericConstructor=NONE) // TODO use import, but this is not accepted by javac
 	static class AnItem extends Item
 	{
+		@WrapperIgnore
 		static final DayField date = new DayField();
+		@WrapperIgnore
 		static final IntegerField intx = new IntegerField();
+		@WrapperIgnore
 		static final StringField string = new StringField();
-		static final Type<AnItem> TYPE = TypesBound.newType(AnItem.class);
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
 		private static final long serialVersionUID = 1l;
-		private AnItem(final ActivationParameters ap) { super(ap); }
+
+		/**
+		 * The persistent type information for anItem.
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+		static final com.exedio.cope.Type<AnItem> TYPE = com.exedio.cope.TypesBound.newType(AnItem.class);
+
+		/**
+		 * Activation constructor. Used for internal purposes only.
+		 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		protected AnItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 	static

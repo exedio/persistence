@@ -67,7 +67,7 @@ class ClassVisitor extends TreePathScanner<Void,Void>
 				ct.getKind()==Tree.Kind.ENUM,
 				classExtends,
 				getWrapperType(),
-				Math.toIntExact(context.getEndPosition(ct))-1
+				findClassEndPosition(ct)
 			);
 			return super.visitClass(ct, ignore);
 		}
@@ -77,6 +77,19 @@ class ClassVisitor extends TreePathScanner<Void,Void>
 			final ClassVisitor classVisitor = new ClassVisitor(context, javaClass);
 			classVisitor.scan(getCurrentPath(), ignore);
 			return null;
+		}
+	}
+
+	private int findClassEndPosition(final ClassTree ct)
+	{
+		final int positionOfClosingBrace=Math.toIntExact(context.getEndPosition(ct));
+		if (context.extendGeneratedFragmentsToLineBreaks)
+		{
+			return includeLeadingWhitespaceLine(positionOfClosingBrace-1, false);
+		}
+		else
+		{
+			return positionOfClosingBrace-1;
 		}
 	}
 
@@ -115,19 +128,7 @@ class ClassVisitor extends TreePathScanner<Void,Void>
 		final int realEnd;
 		if (context.extendGeneratedFragmentsToLineBreaks)
 		{
-			final int lineStart=context.searchBefore(start, LINE_SEPARATOR_BYTES);
-			if (lineStart==-1)
-			{
-				realStart=start;
-			}
-			else
-			{
-				final String lineBeforeStart=context.getSourceString(lineStart, start);
-				if (allWhitespace(lineBeforeStart))
-					realStart=lineStart;
-				else
-					realStart=start;
-			}
+			realStart=includeLeadingWhitespaceLine(start, true);
 			final int lineEnd=context.searchAfter(end-1, LINE_SEPARATOR_BYTES);
 			if (lineEnd==-1)
 			{
@@ -148,6 +149,29 @@ class ClassVisitor extends TreePathScanner<Void,Void>
 			realEnd=end;
 		}
 		context.markFragmentAsGenerated(realStart, realEnd);
+	}
+
+	/** if the line before 'pos' is all whitespace, return the position of the start position of that line
+	 * (if 'posAfterLineSep': index of the line separator; otherwise index after line separator);
+	 * otherwise return 'pos'
+	 */
+	private int includeLeadingWhitespaceLine(final int pos, final boolean posOfLineSep)
+	{
+		int realStart;
+		final int lineStart=context.searchBefore(pos, LINE_SEPARATOR_BYTES);
+		if (lineStart==-1)
+		{
+			realStart=pos;
+		}
+		else
+		{
+			final String lineBeforeStart=context.getSourceString(lineStart, pos);
+			if (allWhitespace(lineBeforeStart))
+				realStart=lineStart+(posOfLineSep?0:LINE_SEPARATOR_BYTES.length);
+			else
+				realStart=pos;
+		}
+		return realStart;
 	}
 
 	private boolean checkGenerated() throws RuntimeException
