@@ -403,7 +403,6 @@
 					<exclude name="serialize/ModelSerializationTest.java" /><!-- ok, shall not instrument test types -->
 					<!-- ok, shall not instrument test types -->
 					<exclude name="pattern/BlockErrorTest.java" />
-					<exclude name="pattern/CompositeErrorTest.java" />
 					<exclude name="pattern/HashAlgorithmAdapterTest.java" />
 					<exclude name="pattern/TextUrlFilterAnnotationTest.java" />
 					<exclude name="pattern/TextUrlFilterDelegatorAnnotationTest.java" />
@@ -430,22 +429,15 @@
 					<exclude name="TypeCollisionItem.java" />
 					<exclude name="TypeColumnTypeErrorTest.java" />
 					<exclude name="TypeColumnTypeTest.java" />
-					<exclude name="TypeCompareTest.java" />
 					<exclude name="TypeMountTest.java" />
 					<exclude name="TypeMountWrongTest.java" />
 					<exclude name="TypeSetModelComplexTest.java" />
 					<exclude name="TypeSetModelErrorTest.java" />
 					<exclude name="TypeSetModelTest.java" />
-					<exclude name="TypeSetTest.java" />
-					<exclude name="TypesBoundComplexTest.java" />
-					<exclude name="TypesBoundErrorTest.java" />
-					<exclude name="TypesBoundTest.java" />
 					<exclude name="ViewSerializeTest.java" />
 					<exclude name="misc/ComputedTest.java" />
 					<exclude name="misc/ConditionsTest.java" />
 					<exclude name="misc/ConnectTokenItem.java" />
-					<exclude name="misc/ConnectTokenNotSetTest.java" />
-					<exclude name="misc/ConnectTokenSetTest.java" />
 					<exclude name="misc/CopeNameUtilTest.java" />
 					<exclude name="misc/ModelByStringTest.java" />
 					<exclude name="misc/SerializationCheckTest.java" />
