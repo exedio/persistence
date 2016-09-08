@@ -333,6 +333,7 @@
 			<zipfileset dir="${basedir}/runtime/patternsrc"><include name="**/*.java"/></zipfileset>
 			<zipfileset dir="${basedir}/runtime/servletsrc"><include name="**/*.java"/></zipfileset>
 			<zipfileset dir="${basedir}/runtime/junitsrc"  ><include name="**/*.java"/></zipfileset>
+			<zipfileset dir="${basedir}/instrument/annosrc"><include name="**/*.java"/></zipfileset>
 		</zip>
 	</target>
 
