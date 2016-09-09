@@ -100,9 +100,10 @@ timestamps
 					attachLog: true,
 					notifyEveryUnstableBuild: true])
 
-			if('SUCCESS'.equals(currentBuild.result))
+			if('SUCCESS'.equals(currentBuild.result) ||
+				'UNSTABLE'.equals(currentBuild.result))
 			{
-				echo("Delete working dir after SUCCESS");
+				echo("Delete working dir after " + currentBuild.result)
 				deleteDir()
 			}
 		}
