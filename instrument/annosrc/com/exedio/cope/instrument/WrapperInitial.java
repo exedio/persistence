@@ -31,4 +31,5 @@ import java.lang.annotation.Target;
 public @interface WrapperInitial
 {
 	// empty
+	boolean value() default true;
 }
