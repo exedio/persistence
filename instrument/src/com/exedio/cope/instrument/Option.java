@@ -152,7 +152,6 @@ final class Option
 	{
 		@Override public Class<? extends Annotation> annotationType() { return WrapperInitial.class; }
 		@Override public boolean value() { return true; }
-
 	};
 
 	static WrapperInitial forInitial(final String docComment)
