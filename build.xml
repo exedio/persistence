@@ -567,9 +567,6 @@
 				hintFormat="forAnnotations"
 				timestampFile="build/timestamps/runtime.servlet.test.timestamp">
 			<resources refid="instrument.resources" />
-			<ignore>
-				<fileset file="runtime/servlettestsrc/com/exedio/cope/pattern/MediaPattern.java" />
-			</ignore>
 		</instrument>
 	</target>
 
