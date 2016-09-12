@@ -762,6 +762,9 @@
 				<pathelement location="lib/cpsuite.jar" />
 				<pathelement location="${env.JAVA_HOME}/lib/tools.jar"/>
 			</classpath>
+			<ignore>
+				<fileset file="instrument/testsrc/com/exedio/cope/instrument/testmodel/DontInstrument.java" />
+			</ignore>
 		</instrument>
 	</target>
 
