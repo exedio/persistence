@@ -18,6 +18,8 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.misc.SetValueUtil.getFirstMapping;
+
 import com.exedio.cope.CheckingSettable;
 import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.FunctionField;
@@ -242,7 +244,7 @@ public final class MoneyField<C extends Money.Currency> extends Pattern implemen
 			if(value!=null)
 			{
 				{
-					final SetValue<C> c = getFirst(sources, currency.getField());
+					final SetValue<C> c = getFirstMapping(sources, currency.getField());
 					IllegalCurrencyException.check(this, exceptionItem, value,
 							c==null ? currency.get(exceptionItem) : c.value);
 				}
@@ -286,15 +288,6 @@ public final class MoneyField<C extends Money.Currency> extends Pattern implemen
 		{
 			throw new RuntimeException("" + currency);
 		}
-	}
-
-	@SuppressWarnings({"unchecked", "rawtypes"})
-	private static <E> SetValue<E> getFirst(final SetValue<?>[] setValues, final Settable<E> settable)
-	{
-		for(final SetValue setValue : setValues)
-			if(settable==setValue.settable)
-				return setValue;
-		return null;
 	}
 
 	private SetValue<?> amountExecute(final Price amount, final Item exceptionItem)
