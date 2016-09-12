@@ -850,10 +850,6 @@
 				<pathelement location="lib/cpsuite.jar" />
 				<pathelement location="${env.JAVA_HOME}/lib/tools.jar"/>
 			</classpath>
-			<!-- removing this ignore causes the instrumentor to resolve the wrong SubTarget class: -->
-			<ignore>
-				<fileset file="instrument/testsrc/com/exedio/cope/instrument/testmodel/x/SubTarget.java" />
-			</ignore>
 		</instrument>
 	</target>
 

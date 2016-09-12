@@ -18,9 +18,12 @@
 
 package com.exedio.cope.instrument.testmodel.x;
 
+import com.exedio.cope.instrument.WrapperIgnore;
+
 /**
  * This class is used only to illustrate a name collision with {@link com.exedio.cope.instrument.testmodel.sub.SubTarget}.
  */
+@WrapperIgnore // removing this WrapperIgnore causes the instrumentor to resolve the wrong SubTarget class in "CrossPackageSub"
 class SubTarget
 {
 	// empty
