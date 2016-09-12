@@ -38,7 +38,7 @@ final class CopeFeature
 	final int modifier;
 	final InternalVisibility visibility;
 	private final String docComment;
-	final boolean initial;
+	final Boolean initialByConfiguration;
 
 	private Object value;
 	private Type initialType;
@@ -54,7 +54,8 @@ final class CopeFeature
 		this.visibility = javaField.getVisibility();
 
 		this.docComment = javaField.docComment;
-		this.initial = Tags.cascade(javaField, Option.forInitial(docComment), javaField.wrapperInitial, null)!=null;
+		final WrapperInitial initialConfig = Tags.cascade(javaField, Option.forInitial(docComment), javaField.wrapperInitial, null);
+		this.initialByConfiguration = initialConfig==null ? null : initialConfig.value();
 
 		parent.register(this);
 	}
@@ -74,8 +75,8 @@ final class CopeFeature
 
 	final boolean isInitial()
 	{
-		if(initial)
-			return true;
+		if(initialByConfiguration!=null)
+			return initialByConfiguration;
 
 		final Object instance = getInstance();
 		return instance instanceof Settable<?> && ((Settable<?>)instance).isInitial();

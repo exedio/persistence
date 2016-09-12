@@ -24,11 +24,11 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Adds a feature to the {@link WrapperType#constructor() initial constructor}.
+ * Controls whether a feature becomes part of the {@link WrapperType#constructor() initial constructor}.
  */
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.SOURCE)
 public @interface WrapperInitial
 {
-	// empty
+	boolean value() default true;
 }

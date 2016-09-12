@@ -151,6 +151,7 @@ final class Option
 	private static final WrapperInitial WRAPPER_INITIAL_INSTANCE = new WrapperInitial()
 	{
 		@Override public Class<? extends Annotation> annotationType() { return WrapperInitial.class; }
+		@Override public boolean value() { return true; }
 	};
 
 	static WrapperInitial forInitial(final String docComment)
