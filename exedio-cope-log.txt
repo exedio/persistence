@@ -7,6 +7,7 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* util.CopeFilter removed, was deprecated since Dec 9 2009, use misc.CopeFilter instead.
 * @WrapperIgnore can be used at class level
 * exedio-cope-src.zip contains sources for exedio-cope-instrument-annotations.jar
 * The hints added to generated code changed, both in content (now hint to control via
