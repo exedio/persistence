@@ -21,6 +21,7 @@ package com.exedio.cope;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
+import com.exedio.cope.instrument.WrapperIgnore;
 import org.junit.Test;
 
 public class TypeSetModelErrorTest
@@ -79,12 +80,14 @@ public class TypeSetModelErrorTest
 		}
 	}
 
+	@WrapperIgnore
 	static class Item1 extends Item
 	{
 		private static final long serialVersionUID = 1l;
 		private Item1(final ActivationParameters ap) { super(ap); }
 	}
 
+	@WrapperIgnore
 	static class Item2 extends Item
 	{
 		private static final long serialVersionUID = 1l;

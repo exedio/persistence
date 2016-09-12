@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import static org.junit.Assert.assertEquals;
 
+import com.exedio.cope.instrument.WrapperIgnore;
 import com.exedio.cope.util.Sources;
 import java.util.Properties;
 import org.junit.After;
@@ -77,6 +78,7 @@ public class ItemCacheLimitTest
 	}
 
 	@CopeCacheWeight(10000)
+	@WrapperIgnore
 	static class Item1 extends Item
 	{
 		static final Type<Item1> TYPE = TypesBound.newType(Item1.class);
@@ -84,6 +86,7 @@ public class ItemCacheLimitTest
 		private Item1(final ActivationParameters ap) { super(ap); }
 	}
 
+	@WrapperIgnore
 	static class Item2 extends Item
 	{
 		static final Type<Item2> TYPE = TypesBound.newType(Item2.class);

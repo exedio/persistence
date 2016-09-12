@@ -23,7 +23,9 @@ import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
 import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
+import com.exedio.cope.instrument.WrapperIgnore;
 
+@WrapperIgnore
 public class TypeCollisionItem extends Item
 {
 	static final StringField code = new StringField().toFinal().unique();

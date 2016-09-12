@@ -33,11 +33,13 @@ import com.exedio.cope.ItemField;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
+import com.exedio.cope.instrument.WrapperIgnore;
 import java.util.List;
 import org.junit.Test;
 
 public class MultiItemFieldStandardTest
 {
+	@WrapperIgnore
 	static final class AnMandatoryItem extends com.exedio.cope.Item
 	{
 		private static final long serialVersionUID = 1l;
@@ -51,6 +53,7 @@ public class MultiItemFieldStandardTest
 		private AnMandatoryItem(final ActivationParameters ap) { super(ap); }
 	}
 
+	@WrapperIgnore
 	static final class AnOptionalItem extends com.exedio.cope.Item
 	{
 		private static final long serialVersionUID = 1l;
@@ -64,6 +67,7 @@ public class MultiItemFieldStandardTest
 		private AnOptionalItem(final ActivationParameters ap) { super(ap); }
 	}
 
+	@WrapperIgnore
 	static final class AnFinalItem extends com.exedio.cope.Item
 	{
 		private static final long serialVersionUID = 1l;
@@ -74,6 +78,7 @@ public class MultiItemFieldStandardTest
 				MultiItemFieldComponentB.class).toFinal();
 	}
 
+	@WrapperIgnore
 	static final class ThreeItem extends com.exedio.cope.Item
 	{
 		private static final long serialVersionUID = 1l;
@@ -95,6 +100,7 @@ public class MultiItemFieldStandardTest
 		private ThreeItem(final ActivationParameters ap) { super(ap); }
 	}
 
+	@WrapperIgnore
 	static final class AnCascadeItem extends com.exedio.cope.Item
 	{
 		private static final long serialVersionUID = 1l;

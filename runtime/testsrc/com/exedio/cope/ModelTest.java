@@ -22,6 +22,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
+import com.exedio.cope.instrument.WrapperIgnore;
 import com.exedio.cope.misc.DirectRevisionsFactory;
 import com.exedio.dsmf.Constraint;
 import com.exedio.dsmf.Schema;
@@ -33,6 +34,7 @@ import org.junit.Test;
  */
 public class ModelTest extends TestWithEnvironment
 {
+	@WrapperIgnore
 	static class ModelTestItem extends Item
 	{
 		private static final long serialVersionUID = 1l;

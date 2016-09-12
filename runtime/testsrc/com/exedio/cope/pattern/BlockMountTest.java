@@ -30,6 +30,7 @@ import static org.junit.Assert.fail;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.LongField;
 import com.exedio.cope.StringField;
+import com.exedio.cope.instrument.WrapperIgnore;
 import com.exedio.cope.misc.Computed;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -227,6 +228,7 @@ public class BlockMountTest
 	}
 
 
+	@WrapperIgnore
 	static final class MyBlock extends Block
 	{
 		@Anno("stringAnno")

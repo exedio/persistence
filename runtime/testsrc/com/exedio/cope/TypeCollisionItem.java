@@ -18,6 +18,9 @@
 
 package com.exedio.cope;
 
+import com.exedio.cope.instrument.WrapperIgnore;
+
+@WrapperIgnore
 class TypeCollisionItem extends Item
 {
 	static final StringField code = new StringField().toFinal().unique();

@@ -30,6 +30,7 @@ import com.exedio.cope.Model;
 import com.exedio.cope.StringField;
 import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
+import com.exedio.cope.instrument.WrapperIgnore;
 import com.exedio.cope.pattern.ListField;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -218,6 +219,7 @@ public class ModelSerializationTest
 		}
 	}
 
+	@WrapperIgnore
 	static class AnItem extends Item
 	{
 		private static final long serialVersionUID = 1l;

@@ -22,6 +22,7 @@ import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.Item;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.TypesBound;
+import com.exedio.cope.instrument.WrapperIgnore;
 import org.junit.Test;
 
 public class JavaViewInPatternTest
@@ -36,6 +37,7 @@ public class JavaViewInPatternTest
 		private static final long serialVersionUID = 1l;
 	}
 
+	@WrapperIgnore
 	private static final class AnItem extends Item
 	{
 		@SuppressWarnings("unused") // accessed by reflection

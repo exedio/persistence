@@ -23,6 +23,7 @@ import static com.exedio.cope.SchemaInfo.getTableName;
 import static java.util.Objects.requireNonNull;
 import static org.junit.Assert.fail;
 
+import com.exedio.cope.instrument.WrapperIgnore;
 import com.exedio.dsmf.SQLRuntimeException;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.lang.annotation.Annotation;
@@ -57,6 +58,7 @@ public final class SchemaTypeStringField extends Pattern
 		sourceTypeIfMounted = newSourceType(StringItem.class, features);
 	}
 
+	@WrapperIgnore
 	static final class StringItem extends Item
 	{
 		private static final long serialVersionUID = 1l;

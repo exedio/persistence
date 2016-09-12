@@ -127,6 +127,7 @@ public class ConditionsTest
 		}
 	}
 
+	@com.exedio.cope.instrument.WrapperIgnore // TODO use import, but this is not accepted by javac
 	static final class AnItem extends com.exedio.cope.Item // TODO use import, but this is not accepted by javac
 	{
 		static final StringField name1 = new StringField();

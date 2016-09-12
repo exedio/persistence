@@ -61,6 +61,7 @@ public class QuerySerializeTest
 		assertEquals(value.toString(), reserialize(value, expectedSize).toString());
 	}
 
+	@com.exedio.cope.instrument.WrapperIgnore // TODO use import, but this is not accepted by javac
 	static final class AnItem extends Item
 	{
 		static final StringField field = new StringField();

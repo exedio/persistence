@@ -23,6 +23,7 @@ import static com.exedio.cope.SchemaInfo.getTypeColumnValue;
 import static com.exedio.dsmf.Dialect.NOT_NULL;
 import static org.junit.Assert.assertEquals;
 
+import com.exedio.cope.instrument.WrapperIgnore;
 import java.io.File;
 import org.junit.After;
 import org.junit.Before;
@@ -65,6 +66,7 @@ public class TypeColumnTypeTest
 	}
 
 
+	@WrapperIgnore
 	private static class StandardSuper extends Item
 	{
 		private static final long serialVersionUID = 1l;
@@ -72,6 +74,7 @@ public class TypeColumnTypeTest
 		StandardSuper(final ActivationParameters ap) { super(ap); }
 	}
 
+	@WrapperIgnore
 	private static final class StandardSub extends StandardSuper
 	{
 		private static final long serialVersionUID = 1l;
@@ -80,6 +83,7 @@ public class TypeColumnTypeTest
 	}
 
 	@CopeTypeColumnMinLength(20)
+	@WrapperIgnore
 	private static class MinLengthSuper extends Item
 	{
 		private static final long serialVersionUID = 1l;
@@ -87,6 +91,7 @@ public class TypeColumnTypeTest
 		MinLengthSuper(final ActivationParameters ap) { super(ap); }
 	}
 
+	@WrapperIgnore
 	private static final class MinLengthSub extends MinLengthSuper
 	{
 		private static final long serialVersionUID = 1l;
@@ -95,6 +100,7 @@ public class TypeColumnTypeTest
 	}
 
 	@CopeTypeColumnMinLength(20)
+	@WrapperIgnore
 	private static class MinLengthIneffectiveSuper extends Item
 	{
 		private static final long serialVersionUID = 1l;
@@ -102,6 +108,7 @@ public class TypeColumnTypeTest
 		MinLengthIneffectiveSuper(final ActivationParameters ap) { super(ap); }
 	}
 
+	@WrapperIgnore
 	private static final class MinLengthIneffectiveSub extends MinLengthIneffectiveSuper
 	{
 		private static final long serialVersionUID = 1l;
@@ -109,6 +116,7 @@ public class TypeColumnTypeTest
 		private MinLengthIneffectiveSub(final ActivationParameters ap) { super(ap); }
 	}
 
+	@WrapperIgnore
 	private static final class Ref extends Item
 	{
 		static final ItemField<StandardSuper> standard = ItemField.create(StandardSuper.class);

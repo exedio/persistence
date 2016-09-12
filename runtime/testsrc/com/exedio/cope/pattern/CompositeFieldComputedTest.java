@@ -64,6 +64,7 @@ public class CompositeFieldComputedTest
 		return result;
 	}
 
+	@com.exedio.cope.instrument.WrapperIgnore // TODO use import, but this is not accepted by javac
 	static final class MyComposite extends Composite
 	{
 		static final StringField virgnTemp = new StringField();
@@ -74,6 +75,7 @@ public class CompositeFieldComputedTest
 		private static final long serialVersionUID = 1l;
 	}
 
+	@com.exedio.cope.instrument.WrapperIgnore // TODO use import, but this is not accepted by javac
 	static final class MyItem extends com.exedio.cope.Item // TODO use import, but this is not accepted by javac
 	{
 		static final CompositeField<MyComposite> virgnComp = CompositeField.create(MyComposite.class);

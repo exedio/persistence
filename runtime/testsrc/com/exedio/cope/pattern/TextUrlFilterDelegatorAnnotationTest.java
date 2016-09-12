@@ -29,6 +29,7 @@ import com.exedio.cope.Feature;
 import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
 import com.exedio.cope.Type;
+import com.exedio.cope.instrument.WrapperIgnore;
 import com.exedio.cope.misc.Computed;
 import java.lang.annotation.Annotation;
 import org.junit.Test;
@@ -81,6 +82,7 @@ public class TextUrlFilterDelegatorAnnotationTest
 			assertNull(ann);
 	}
 
+	@WrapperIgnore
 	static final class AnItem extends Item
 	{
 		static final TextUrlFilter delegate = new TextUrlFilter(new Media(), "text/plain", UTF_8, "<paste>", "</paste>", new StringField(), new Media());

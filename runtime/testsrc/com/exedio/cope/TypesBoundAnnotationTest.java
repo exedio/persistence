@@ -29,6 +29,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.fail;
 
+import com.exedio.cope.instrument.WrapperIgnore;
 import com.exedio.cope.pattern.SetField;
 import org.junit.Test;
 
@@ -90,6 +91,7 @@ public class TypesBoundAnnotationTest
 
 	@CopeName("AnItemAnn")
 	@TestAnnotation("AnItemAnnVal")
+	@WrapperIgnore
 	static class AnItem extends Item
 	{
 		private static final long serialVersionUID = 1l;

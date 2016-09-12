@@ -28,6 +28,7 @@ import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.Type;
+import com.exedio.cope.instrument.WrapperIgnore;
 import com.exedio.cope.misc.Computed;
 import java.text.DecimalFormat;
 import java.text.ParseException;
@@ -95,6 +96,7 @@ public final class MediaPattern extends Pattern
 	}
 
 	@Computed
+	@WrapperIgnore
 	static final class SourceItem extends Item
 	{
 		private static final long serialVersionUID = 1l;

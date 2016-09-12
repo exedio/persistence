@@ -16,15 +16,17 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.cope.instrument.testmodel.x;
+package com.exedio.cope.instrument.testmodel;
 
-import com.exedio.cope.instrument.WrapperIgnore;
+import com.exedio.cope.Item;
+import com.exedio.cope.instrument.testfeature.SimpleSettable;
 
 /**
- * This class is used only to illustrate a name collision with {@link com.exedio.cope.instrument.testmodel.sub.SubTarget}.
+ * This class tests that the 'ignore' element at the 'instrument' ant task works.
  */
-@WrapperIgnore // removing this WrapperIgnore causes the instrumentor to resolve the wrong SubTarget class in "CrossPackageSub"
-class SubTarget
+class DontInstrument extends Item
 {
-	// empty
+	private static final long serialVersionUID=1L;
+
+	static final SimpleSettable makeInstrumentorFail = null;
 }

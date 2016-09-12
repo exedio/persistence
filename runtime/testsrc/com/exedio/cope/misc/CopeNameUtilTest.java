@@ -26,6 +26,7 @@ import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
 import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
+import com.exedio.cope.instrument.WrapperIgnore;
 import org.junit.Test;
 
 public class CopeNameUtilTest
@@ -39,6 +40,7 @@ public class CopeNameUtilTest
 	}
 
 	@Deprecated
+	@WrapperIgnore
 	static final class AnItem extends Item
 	{
 		static final StringField naked = new StringField();

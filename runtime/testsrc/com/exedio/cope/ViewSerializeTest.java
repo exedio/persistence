@@ -103,6 +103,7 @@ public class ViewSerializeTest
 		assertSame(value, reserialize(value, expectedSize));
 	}
 
+	@com.exedio.cope.instrument.WrapperIgnore // TODO use import, but this is not accepted by javac
 	static final class AnItem extends Item
 	{
 		static final StringField field = new StringField();

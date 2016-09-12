@@ -29,6 +29,7 @@ import com.exedio.cope.ItemField;
 import com.exedio.cope.Model;
 import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
+import com.exedio.cope.instrument.WrapperIgnore;
 import org.junit.Test;
 
 public class PartOfReverseTest
@@ -59,7 +60,7 @@ public class PartOfReverseTest
 		assertEqualsUnmodifiable(asList(), getPartOfs(Order.TYPE));
 	}
 
-
+	@WrapperIgnore
 	static class SuperContainer extends Item
 	{
 		static final Type<SuperContainer> TYPE = TypesBound.newType(SuperContainer.class);
@@ -67,6 +68,7 @@ public class PartOfReverseTest
 		SuperContainer(final ActivationParameters ap) { super(ap); }
 	}
 
+	@WrapperIgnore
 	static class Container extends SuperContainer
 	{
 		static final Type<Container> TYPE = TypesBound.newType(Container.class);
@@ -74,6 +76,7 @@ public class PartOfReverseTest
 		Container(final ActivationParameters ap) { super(ap); }
 	}
 
+	@WrapperIgnore
 	static class SubContainer extends Container
 	{
 		static final Type<SubContainer> TYPE = TypesBound.newType(SubContainer.class);
@@ -81,6 +84,7 @@ public class PartOfReverseTest
 		SubContainer(final ActivationParameters ap) { super(ap); }
 	}
 
+	@WrapperIgnore
 	static class Order extends Item
 	{
 		static final Type<Order> TYPE = TypesBound.newType(Order.class);
@@ -88,6 +92,7 @@ public class PartOfReverseTest
 		Order(final ActivationParameters ap) { super(ap); }
 	}
 
+	@WrapperIgnore
 	static class Part extends Item
 	{
 		static final ItemField<Container> container = ItemField.create(Container.class);

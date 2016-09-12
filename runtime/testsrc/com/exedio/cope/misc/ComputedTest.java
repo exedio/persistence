@@ -24,6 +24,7 @@ import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.Item;
 import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
+import com.exedio.cope.instrument.WrapperIgnore;
 import org.junit.Test;
 
 public class ComputedTest
@@ -36,6 +37,7 @@ public class ComputedTest
 	}
 
 	@Computed
+	@WrapperIgnore
 	private static class Super extends Item
 	{
 
@@ -44,6 +46,7 @@ public class ComputedTest
 		Super(final ActivationParameters ap) { super(ap); }
 	}
 
+	@WrapperIgnore
 	private static class Sub extends Super
 	{
 		private static final long serialVersionUID = 1l;
@@ -51,6 +54,7 @@ public class ComputedTest
 		Sub(final ActivationParameters ap) { super(ap); }
 	}
 
+	@WrapperIgnore
 	private static class Single extends Item
 	{
 		private static final long serialVersionUID = 1l;

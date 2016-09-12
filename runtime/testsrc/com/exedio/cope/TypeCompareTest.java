@@ -22,6 +22,7 @@ import static com.exedio.cope.TypesBound.newType;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
+import com.exedio.cope.instrument.WrapperIgnore;
 import org.junit.Test;
 
 public class TypeCompareTest
@@ -114,6 +115,7 @@ public class TypeCompareTest
 		}
 	}
 
+	@WrapperIgnore
 	static class AnItem extends Item
 	{
 		private static final long serialVersionUID = 1l;
@@ -126,6 +128,7 @@ public class TypeCompareTest
 		static final IntegerField intField = new IntegerField();
 	}
 
+	@WrapperIgnore
 	static class AnotherItem extends Item
 	{
 		private static final long serialVersionUID = 1l;
@@ -138,6 +141,7 @@ public class TypeCompareTest
 		static final IntegerField intField = new IntegerField();
 	}
 
+	@WrapperIgnore
 	static class AnotherModelItem extends Item
 	{
 		private static final long serialVersionUID = 1l;

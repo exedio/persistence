@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import static com.exedio.cope.TypesBound.newType;
 
+import com.exedio.cope.instrument.WrapperIgnore;
 import com.exedio.cope.tojunit.LogRule;
 import java.util.Date;
 import org.junit.Rule;
@@ -41,6 +42,7 @@ public class DateFieldWrongDefaultNowTest
 		log.assertEmpty();
 	}
 
+	@WrapperIgnore
 	static class AnItem extends Item
 	{
 		private static final long serialVersionUID = 1l;

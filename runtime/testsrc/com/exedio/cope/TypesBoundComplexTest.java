@@ -29,6 +29,7 @@ import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import com.exedio.cope.instrument.WrapperIgnore;
 import org.junit.Test;
 
 public class TypesBoundComplexTest
@@ -296,6 +297,7 @@ public class TypesBoundComplexTest
 		assertEqualsUnmodifiable(list(typO), typO.getTypesOfInstances());
 	}
 
+	@WrapperIgnore
 	static class AnItem extends Item
 	{
 		private static final long serialVersionUID = 1l;
@@ -309,6 +311,7 @@ public class TypesBoundComplexTest
 		static final BooleanField boolField = new BooleanField();
 	}
 
+	@WrapperIgnore
 	static class AnotherItem extends AnItem
 	{
 		private static final long serialVersionUID = 1l;

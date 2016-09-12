@@ -21,6 +21,7 @@ package com.exedio.cope;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
+import com.exedio.cope.instrument.WrapperIgnore;
 import com.exedio.cope.pattern.MediaPath;
 import com.exedio.cope.util.IllegalPropertiesException;
 import com.exedio.cope.util.Sources;
@@ -144,6 +145,7 @@ public class MediaUrlSecretTest
 			model.disconnect();
 	}
 
+	@WrapperIgnore
 	static class AnItem extends Item
 	{
 		static final Type<AnItem> TYPE = TypesBound.newType(AnItem.class);

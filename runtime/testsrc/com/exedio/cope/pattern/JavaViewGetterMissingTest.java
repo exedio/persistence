@@ -24,10 +24,12 @@ import static org.junit.Assert.fail;
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.Item;
 import com.exedio.cope.TypesBound;
+import com.exedio.cope.instrument.WrapperIgnore;
 import org.junit.Test;
 
 public class JavaViewGetterMissingTest
 {
+	@WrapperIgnore
 	private static final class AnItem extends Item
 	{
 		@SuppressWarnings("unused")

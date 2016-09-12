@@ -27,6 +27,7 @@ import com.exedio.cope.ItemField.DeletePolicy;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.Type;
 import com.exedio.cope.TypeFuture;
+import com.exedio.cope.instrument.WrapperIgnore;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import junit.framework.AssertionFailedError;
 
@@ -107,6 +108,7 @@ final class TypeFutureInPatternsFeature extends Pattern
 	}
 
 
+	@WrapperIgnore
 	public static final class TypeItem extends Item
 	{
 		private static final long serialVersionUID = 1l;

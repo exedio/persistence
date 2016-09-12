@@ -29,6 +29,7 @@ import com.exedio.cope.Model;
 import com.exedio.cope.Type;
 import com.exedio.cope.TypeFuture;
 import com.exedio.cope.TypesBound;
+import com.exedio.cope.instrument.WrapperIgnore;
 import org.junit.Test;
 
 public class TypeFutureInconsistentTest
@@ -65,6 +66,7 @@ public class TypeFutureInconsistentTest
 		}
 	}
 
+	@WrapperIgnore
 	private static class ValueClassItem extends Item
 	{
 		static final Type<ValueClassItem> TYPE = TypesBound.newType(ValueClassItem.class);
@@ -72,6 +74,7 @@ public class TypeFutureInconsistentTest
 		private ValueClassItem(final ActivationParameters ap) { super(ap); }
 	}
 
+	@WrapperIgnore
 	private static class TypeItem extends Item
 	{
 		static final Type<TypeItem> TYPE = TypesBound.newType(TypeItem.class);
@@ -79,6 +82,7 @@ public class TypeFutureInconsistentTest
 		private TypeItem(final ActivationParameters ap) { super(ap); }
 	}
 
+	@WrapperIgnore
 	private static class FeatureItem extends Item
 	{
 		static final ItemField<ValueClassItem> itemField = ItemField.create(ValueClassItem.class, new TypeFuture<ValueClassItem>(){

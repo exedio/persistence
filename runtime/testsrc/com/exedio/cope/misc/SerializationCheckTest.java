@@ -30,6 +30,7 @@ import com.exedio.cope.Model;
 import com.exedio.cope.StringField;
 import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
+import com.exedio.cope.instrument.WrapperIgnore;
 import java.lang.reflect.Field;
 import org.junit.Test;
 
@@ -55,6 +56,7 @@ public class SerializationCheckTest
 	}
 
 
+	@WrapperIgnore
 	static class ItemOk extends Item
 	{
 		static final StringField f2 = new StringField();
@@ -71,6 +73,7 @@ public class SerializationCheckTest
 	private static Model MODEL_OK = new Model(ItemOk.TYPE);
 
 
+	@WrapperIgnore
 	static class Item1 extends Item
 	{
 		static final StringField f1 = new StringField();
@@ -85,6 +88,7 @@ public class SerializationCheckTest
 		static final Type<Item1> TYPE = TypesBound.newType(Item1.class);
 	}
 
+	@WrapperIgnore
 	static class Item2 extends Item
 	{
 		static final StringField f2 = new StringField();
