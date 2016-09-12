@@ -18,9 +18,8 @@
 
 package com.exedio.cope.pattern;
 
-import static com.exedio.cope.misc.SetValueUtil.getFirstMapping;
-
 import com.exedio.cope.CheckingSettable;
+import com.exedio.cope.Field;
 import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.IsNullCondition;
@@ -39,6 +38,7 @@ import com.exedio.cope.misc.instrument.InitialExceptionsSettableGetter;
 import com.exedio.cope.misc.instrument.NullableIfOptional;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Arrays;
+import java.util.Map;
 import java.util.Set;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -228,12 +228,6 @@ public final class MoneyField<C extends Money.Currency> extends Pattern implemen
 	@Override
 	public SetValue<?>[] execute(final Money<C> value, final Item exceptionItem)
 	{
-		return execute(value, exceptionItem, new SetValue<?>[]{});
-	}
-
-	@Override
-	public SetValue<?>[] execute(final Money<C> value, final Item exceptionItem, final SetValue<?>[] sources)
-	{
 		if(value==null && mandatory)
 			throw MandatoryViolationException.create(this, exceptionItem);
 
@@ -243,12 +237,6 @@ public final class MoneyField<C extends Money.Currency> extends Pattern implemen
 		{
 			if(value!=null)
 			{
-				{
-					final SetValue<C> c = getFirstMapping(sources, currency.getField());
-					IllegalCurrencyException.check(this, exceptionItem, value,
-							c==null ? currency.get(exceptionItem) : c.value);
-				}
-
 				return new SetValue<?>[]{
 					amountExecute( value.amountWithoutCurrency(), exceptionItem )
 				};
@@ -264,8 +252,6 @@ public final class MoneyField<C extends Money.Currency> extends Pattern implemen
 		{
 			if(value!=null)
 			{
-				IllegalCurrencyException.check(this, exceptionItem, value, currency.get(null));
-
 				return new SetValue<?>[]{
 					amountExecute( value.amountWithoutCurrency(), exceptionItem )
 				};
@@ -296,6 +282,27 @@ public final class MoneyField<C extends Money.Currency> extends Pattern implemen
 		if(array.length!=1)
 			throw new IllegalArgumentException(Arrays.toString(array));
 		return array[0];
+	}
+
+	@Override
+	public void check(final Money<C> value, final Item item, final Map<Field<?>, Object> sources)
+	{
+		// TODO polymorhism of CurrencySource
+		if(currency instanceof SharedCurrencySource<?>)
+		{
+			if(value!=null)
+			{
+				IllegalCurrencyException.check(this, item, value,
+						sources.containsKey(currency.getField()) ? (C)sources.get(currency.getField()) : currency.get(item));
+			}
+		}
+		else if(currency instanceof FixedCurrencySource<?>)
+		{
+			if(value!=null)
+			{
+				IllegalCurrencyException.check(this, item, value, currency.get(null));
+			}
+		}
 	}
 
 	// convenience methods for conditions and views ---------------------------------

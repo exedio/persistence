@@ -18,7 +18,9 @@
 
 package com.exedio.cope;
 
+import java.util.Map;
+
 public interface CheckingSettable<E> extends Settable<E>
 {
-	SetValue<?>[] execute(E value, Item exceptionItem, SetValue<?>[] sources);
+	void check(E value, Item exceptionItem, Map<Field<?>, Object> sources);
 }

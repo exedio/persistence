@@ -1085,6 +1085,8 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		for(final CopyConstraint cc : copyConstraints.all)
 			cc.check(fieldValues);
 
+		Item.checkSettables(null, setValues, fieldValues);
+
 		return fieldValues;
 	}
 
