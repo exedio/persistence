@@ -18,6 +18,7 @@
 
 package com.exedio.cope.pattern;
 
+import com.exedio.cope.FieldValues;
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.Item;
 
@@ -30,4 +31,5 @@ abstract class CurrencySource<C extends Money.Currency>
 	C getValue() { return null; }
 	abstract Class<C> getInitialType();
 	abstract C get(final Item item);
+	abstract void check(MoneyField<C> field, Money<C> value, FieldValues fieldValues);
 }

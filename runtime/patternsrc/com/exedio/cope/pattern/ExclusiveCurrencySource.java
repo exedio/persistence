@@ -20,6 +20,7 @@ package com.exedio.cope.pattern;
 
 import static java.util.Objects.requireNonNull;
 
+import com.exedio.cope.FieldValues;
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.Item;
 
@@ -66,5 +67,11 @@ final class ExclusiveCurrencySource<C extends Money.Currency> extends CurrencySo
 	C get(final Item item)
 	{
 		return currency.get(item);
+	}
+
+	@Override
+	void check(final MoneyField<C> field, final Money<C> value, final FieldValues fieldValues)
+	{
+		// empty
 	}
 }
