@@ -20,6 +20,7 @@ package com.exedio.cope.pattern;
 
 import com.exedio.cope.CheckingSettable;
 import com.exedio.cope.Field;
+import com.exedio.cope.FieldValues;
 import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.IsNullCondition;
@@ -38,7 +39,6 @@ import com.exedio.cope.misc.instrument.InitialExceptionsSettableGetter;
 import com.exedio.cope.misc.instrument.NullableIfOptional;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Arrays;
-import java.util.Map;
 import java.util.Set;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -285,7 +285,7 @@ public final class MoneyField<C extends Money.Currency> extends Pattern implemen
 	}
 
 	@Override
-	public void check(final Money<C> value, final Item item, final Map<? extends Field<?>, ?> sources)
+	public void check(final Money<C> value, final Item item, final FieldValues sources)
 	{
 		// TODO polymorhism of CurrencySource
 		if(currency instanceof SharedCurrencySource<?>)
@@ -294,7 +294,7 @@ public final class MoneyField<C extends Money.Currency> extends Pattern implemen
 			{
 				final Field<C> f = currency.getField();
 				IllegalCurrencyException.check(this, item, value,
-						sources.containsKey(f) ? get(sources, f) : currency.get(item));
+						sources.contains(f) ? sources.get(f) : currency.get(item));
 			}
 		}
 		else if(currency instanceof FixedCurrencySource<?>)
@@ -304,12 +304,6 @@ public final class MoneyField<C extends Money.Currency> extends Pattern implemen
 				IllegalCurrencyException.check(this, item, value, currency.get(null));
 			}
 		}
-	}
-
-	@SuppressWarnings("unchecked")
-	private static <E> E get(final Map<? extends Field<?>, ?> sources, final Field<E> field)
-	{
-		return (E)sources.get(field);
 	}
 
 	// convenience methods for conditions and views ---------------------------------

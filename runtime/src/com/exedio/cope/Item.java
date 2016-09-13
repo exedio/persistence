@@ -25,7 +25,6 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.Serializable;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
@@ -316,20 +315,17 @@ public abstract class Item implements Serializable, Comparable<Item>
 	static void checkSettables(
 			final Item item,
 			final SetValue<?>[] setValues,
-			final Map<? extends Field<?>, ?> fieldValues)
+			final LinkedHashMap<Field<?>, Object> fieldValues)
 	{
 		for(final SetValue<?> sv : setValues)
 			if(sv.settable instanceof CheckingSettable<?>)
-			{
-				// TODO test unmodifiableMap
-				check(item, sv, Collections.unmodifiableMap(fieldValues));
-			}
+				check(item, sv, new FieldValues(fieldValues));
 	}
 
 	private static <E> void check(
 			final Item item,
 			final SetValue<E> sv,
-			final Map<? extends Field<?>, ?> fieldValues)
+			final FieldValues fieldValues)
 	{
 		((CheckingSettable<E>)sv.settable).check(sv.value, item, fieldValues);
 	}

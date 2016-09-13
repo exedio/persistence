@@ -18,7 +18,25 @@
 
 package com.exedio.cope;
 
-public interface CheckingSettable<E> extends Settable<E>
+import java.util.LinkedHashMap;
+
+public final class FieldValues
 {
-	void check(E value, Item item, FieldValues fieldValues);
+	private final LinkedHashMap<Field<?>, Object> sources;
+
+	FieldValues(final LinkedHashMap<Field<?>, Object> sources)
+	{
+		this.sources = sources;
+	}
+
+	public boolean contains(final Field<?> field)
+	{
+		return sources.containsKey(field);
+	}
+
+	@SuppressWarnings("unchecked")
+	public <E> E get(final Field<E> field)
+	{
+		return (E)sources.get(field);
+	}
 }
