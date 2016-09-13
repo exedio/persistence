@@ -20,7 +20,6 @@ package com.exedio.cope.pattern;
 
 import com.exedio.cope.CheckingSettable;
 import com.exedio.cope.FieldValues;
-import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.IsNullCondition;
 import com.exedio.cope.Item;
@@ -181,48 +180,7 @@ public final class MoneyField<C extends Money.Currency> extends Pattern implemen
 			hide=FinalSettableGetter.class)
 	public void set(@Nonnull final Item item, @Parameter(nullability=NullableIfOptional.class) final Money<C> value)
 	{
-		FinalViolationException.check(this, item);
-
-		if(value==null)
-		{
-			if(mandatory)
-				throw MandatoryViolationException.create(this, item);
-
-			// TODO polymorhism of CurrencySource
-			if(currency instanceof FixedCurrencySource<?> ||
-				currency instanceof SharedCurrencySource<?>)
-			{
-				amount.set(item, null);
-			}
-			else if(currency instanceof ExclusiveCurrencySource<?>)
-			{
-				item.set(amount.map(null), currency.getField().map(null));
-			}
-			else
-			{
-				throw new RuntimeException("" + currency);
-			}
-		}
-		else
-		{
-			// TODO polymorhism of CurrencySource
-			if(currency instanceof FixedCurrencySource<?> ||
-				currency instanceof SharedCurrencySource<?>)
-			{
-				IllegalCurrencyException.check(this, item, value, currency.get(item));
-				amount.set(item, value.amountWithoutCurrency());
-			}
-			else if(currency instanceof ExclusiveCurrencySource<?>)
-			{
-				item.set(
-						amount.map(value.amountWithoutCurrency()),
-						currency.getField().map(value.getCurrency()));
-			}
-			else
-			{
-				throw new RuntimeException("" + currency);
-			}
-		}
+		item.set(map(value));
 	}
 
 	@Override
