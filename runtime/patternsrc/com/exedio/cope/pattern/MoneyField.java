@@ -230,16 +230,12 @@ public final class MoneyField<C extends Money.Currency> extends Pattern implemen
 		if(value==null && mandatory)
 			throw MandatoryViolationException.create(this, exceptionItem);
 
-		return currency.execute(amountExecute(value, exceptionItem), value, exceptionItem);
-	}
-
-	private SetValue<?> amountExecute(final Money<C> value, final Item exceptionItem)
-	{
 		final Price amount = value!=null ? value.amountWithoutCurrency() : null;
 		final SetValue<?>[] array = this.amount.execute(amount, exceptionItem);
 		if(array.length!=1)
 			throw new IllegalArgumentException(Arrays.toString(array));
-		return array[0];
+
+		return currency.execute(array[0], value, exceptionItem);
 	}
 
 	@Override
