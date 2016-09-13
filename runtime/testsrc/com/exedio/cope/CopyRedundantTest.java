@@ -19,11 +19,24 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.instrument.Visibility.NONE;
+import static org.junit.Assert.assertEquals;
 
 import com.exedio.cope.instrument.WrapperType;
+import org.junit.Test;
 
 public class CopyRedundantTest
 {
+	@Test public void testIsRedundant()
+	{
+		assertEquals(false, AnItem.targetMan.isRedundantByCopyConstraint());
+		assertEquals(false, AnItem.targetOpt.isRedundantByCopyConstraint());
+
+		assertEquals(false, AnItem.copyNone .isRedundantByCopyConstraint());
+		assertEquals(true,  AnItem.copyMan  .isRedundantByCopyConstraint());
+		assertEquals(false, AnItem.copyOpt  .isRedundantByCopyConstraint());
+		assertEquals(true,  AnItem.copyBoth .isRedundantByCopyConstraint());
+	}
+
 	@WrapperType(type=NONE, indent=2)
 	static final class AnItem extends Item
 	{
@@ -41,20 +54,16 @@ public class CopyRedundantTest
 		 * @param targetMan the initial value for field {@link #targetMan}.
 		 * @param targetOpt the initial value for field {@link #targetOpt}.
 		 * @param copyNone the initial value for field {@link #copyNone}.
-		 * @param copyMan the initial value for field {@link #copyMan}.
 		 * @param copyOpt the initial value for field {@link #copyOpt}.
-		 * @param copyBoth the initial value for field {@link #copyBoth}.
-		 * @throws com.exedio.cope.MandatoryViolationException if targetMan, copyNone, copyMan, copyOpt, copyBoth is null.
-		 * @throws com.exedio.cope.StringLengthViolationException if copyNone, copyMan, copyOpt, copyBoth violates its length constraint.
+		 * @throws com.exedio.cope.MandatoryViolationException if targetMan, copyNone, copyOpt is null.
+		 * @throws com.exedio.cope.StringLengthViolationException if copyNone, copyOpt violates its length constraint.
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
 		AnItem(
 					@javax.annotation.Nonnull final AnItem targetMan,
 					@javax.annotation.Nullable final AnItem targetOpt,
 					@javax.annotation.Nonnull final java.lang.String copyNone,
-					@javax.annotation.Nonnull final java.lang.String copyMan,
-					@javax.annotation.Nonnull final java.lang.String copyOpt,
-					@javax.annotation.Nonnull final java.lang.String copyBoth)
+					@javax.annotation.Nonnull final java.lang.String copyOpt)
 				throws
 					com.exedio.cope.MandatoryViolationException,
 					com.exedio.cope.StringLengthViolationException
@@ -63,9 +72,7 @@ public class CopyRedundantTest
 				AnItem.targetMan.map(targetMan),
 				AnItem.targetOpt.map(targetOpt),
 				AnItem.copyNone.map(copyNone),
-				AnItem.copyMan.map(copyMan),
 				AnItem.copyOpt.map(copyOpt),
-				AnItem.copyBoth.map(copyBoth),
 			});
 		}
 

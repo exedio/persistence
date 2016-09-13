@@ -46,6 +46,9 @@ public final class CopyConstraint extends Feature
 			throw new IllegalArgumentException("target must be final");
 		if(!copy.isfinal)
 			throw new IllegalArgumentException("copy must be final");
+
+		if(target.isMandatory())
+			copy.setRedundantByCopyConstraint();
 	}
 
 	public ItemField<?> getTarget()

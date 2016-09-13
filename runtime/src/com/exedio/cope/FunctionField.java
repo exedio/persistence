@@ -46,6 +46,7 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 	private final CopyConstraint[] implicitCopyConstraintsFrom;
 	final DefaultSource<E> defaultSource;
 	private ArrayList<UniqueConstraint> uniqueConstraints;
+	private boolean isRedundantByCopyConstraint;
 
 	FunctionField(
 			final boolean isfinal,
@@ -175,7 +176,7 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 	@Override
 	public final boolean isInitial()
 	{
-		return !hasDefault() && super.isInitial();
+		return !hasDefault() && !isRedundantByCopyConstraint && super.isInitial();
 	}
 
 	protected final ItemField<?>[] addCopyFrom(final ItemField<?> copyFrom)
@@ -390,6 +391,16 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 		}
 
 		uniqueConstraints.add(constraint);
+	}
+
+	final void setRedundantByCopyConstraint()
+	{
+		isRedundantByCopyConstraint = true;
+	}
+
+	public final boolean isRedundantByCopyConstraint()
+	{
+		return isRedundantByCopyConstraint;
 	}
 
 	/**
