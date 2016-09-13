@@ -237,7 +237,7 @@ public final class MoneyField<C extends Money.Currency> extends Pattern implemen
 			if(value!=null)
 			{
 				return new SetValue<?>[]{
-					amountExecute( value.amountWithoutCurrency(), exceptionItem )
+					amountExecute( value, exceptionItem )
 				};
 			}
 			else
@@ -252,7 +252,7 @@ public final class MoneyField<C extends Money.Currency> extends Pattern implemen
 			if(value!=null)
 			{
 				return new SetValue<?>[]{
-					amountExecute( value.amountWithoutCurrency(), exceptionItem )
+					amountExecute( value, exceptionItem )
 				};
 			}
 			else
@@ -265,7 +265,7 @@ public final class MoneyField<C extends Money.Currency> extends Pattern implemen
 		else if(currency instanceof ExclusiveCurrencySource<?>)
 		{
 			return new SetValue<?>[]{
-				amountExecute( value!=null ? value.amountWithoutCurrency() : null, exceptionItem ),
+				amountExecute( value , exceptionItem ),
 				currency.getField().map( value!=null ? value.getCurrency() : null )
 			};
 		}
@@ -275,8 +275,9 @@ public final class MoneyField<C extends Money.Currency> extends Pattern implemen
 		}
 	}
 
-	private SetValue<?> amountExecute(final Price amount, final Item exceptionItem)
+	private SetValue<?> amountExecute(final Money<C> value, final Item exceptionItem)
 	{
+		final Price amount = value!=null ? value.amountWithoutCurrency() : null;
 		final SetValue<?>[] array = this.amount.execute(amount, exceptionItem);
 		if(array.length!=1)
 			throw new IllegalArgumentException(Arrays.toString(array));
