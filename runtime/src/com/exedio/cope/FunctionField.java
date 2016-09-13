@@ -211,6 +211,10 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 			throw new RuntimeException("is not a subclass of " + superClass.getName() + ": "+valueClass.getName());
 	}
 
+	// just to make sure the result is a FunctionField
+	@Override public abstract FunctionField<E> toFinal();
+	@Override public abstract FunctionField<E> optional();
+
 	public abstract FunctionField<E> copy();
 
 	@Override

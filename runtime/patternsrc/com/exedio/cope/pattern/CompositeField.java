@@ -143,9 +143,9 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 	private FunctionField<?> copy(FunctionField<?> f)
 	{
 		if(isfinal)
-			f = (FunctionField<?>)f.toFinal();
+			f = f.toFinal();
 		if(optional)
-			f = (FunctionField<?>)f.optional();
+			f = f.optional();
 		f = f.noDefault();
 		return f;
 	}

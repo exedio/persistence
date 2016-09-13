@@ -49,13 +49,13 @@ final class ExclusiveCurrencySource<C extends Money.Currency> extends CurrencySo
 	@Override
 	CurrencySource<C> toFinal()
 	{
-		return new ExclusiveCurrencySource<>((FunctionField<C>)currency.toFinal());
+		return new ExclusiveCurrencySource<>(currency.toFinal());
 	}
 
 	@Override
 	CurrencySource<C> optional()
 	{
-		return new ExclusiveCurrencySource<>((FunctionField<C>)currency.optional());
+		return new ExclusiveCurrencySource<>(currency.optional());
 	}
 
 	@Override
