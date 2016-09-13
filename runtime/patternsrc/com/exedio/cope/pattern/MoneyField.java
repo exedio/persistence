@@ -232,35 +232,12 @@ public final class MoneyField<C extends Money.Currency> extends Pattern implemen
 
 
 		// TODO polymorhism of CurrencySource
-		if(currency instanceof SharedCurrencySource<?>)
+		if(currency instanceof SharedCurrencySource<?>||
+			currency instanceof FixedCurrencySource<?>)
 		{
-			if(value!=null)
-			{
-				return new SetValue<?>[]{
-					amountExecute( value, exceptionItem )
-				};
-			}
-			else
-			{
-				return new SetValue<?>[]{
-					amountExecute( null, exceptionItem )
-				};
-			}
-		}
-		else if(currency instanceof FixedCurrencySource<?>)
-		{
-			if(value!=null)
-			{
-				return new SetValue<?>[]{
-					amountExecute( value, exceptionItem )
-				};
-			}
-			else
-			{
-				return new SetValue<?>[]{
-					amountExecute( null, exceptionItem )
-				};
-			}
+			return new SetValue<?>[]{
+				amountExecute( value, exceptionItem )
+			};
 		}
 		else if(currency instanceof ExclusiveCurrencySource<?>)
 		{
