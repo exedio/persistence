@@ -319,15 +319,14 @@ public abstract class Item implements Serializable, Comparable<Item>
 	{
 		for(final SetValue<?> sv : setValues)
 			if(sv.settable instanceof CheckingSettable<?>)
-				check(item, sv, new FieldValues(fieldValues));
+				check(sv, new FieldValues(fieldValues, item));
 	}
 
 	private static <E> void check(
-			final Item item,
 			final SetValue<E> sv,
 			final FieldValues fieldValues)
 	{
-		((CheckingSettable<E>)sv.settable).check(sv.value, item, fieldValues);
+		((CheckingSettable<E>)sv.settable).check(sv.value, fieldValues);
 	}
 
 	/**

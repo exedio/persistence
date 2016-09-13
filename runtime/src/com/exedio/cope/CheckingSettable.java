@@ -20,5 +20,5 @@ package com.exedio.cope;
 
 public interface CheckingSettable<E> extends Settable<E>
 {
-	void check(E value, Item item, FieldValues fieldValues);
+	void check(E value, FieldValues fieldValues);
 }

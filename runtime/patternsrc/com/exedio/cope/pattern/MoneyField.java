@@ -284,22 +284,22 @@ public final class MoneyField<C extends Money.Currency> extends Pattern implemen
 	}
 
 	@Override
-	public void check(final Money<C> value, final Item item, final FieldValues fieldValues)
+	public void check(final Money<C> value, final FieldValues fieldValues)
 	{
 		// TODO polymorhism of CurrencySource
 		if(currency instanceof SharedCurrencySource<?>)
 		{
 			if(value!=null)
 			{
-				IllegalCurrencyException.check(this, item, value,
-						fieldValues.get(currency.getField(), item));
+				IllegalCurrencyException.check(this, fieldValues.getItem(), value,
+						fieldValues.get(currency.getField()));
 			}
 		}
 		else if(currency instanceof FixedCurrencySource<?>)
 		{
 			if(value!=null)
 			{
-				IllegalCurrencyException.check(this, item, value, currency.get(null));
+				IllegalCurrencyException.check(this, fieldValues.getItem(), value, currency.get(null));
 			}
 		}
 	}
