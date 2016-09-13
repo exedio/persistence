@@ -23,14 +23,14 @@ import java.util.LinkedHashMap;
 public final class FieldValues
 {
 	private final LinkedHashMap<Field<?>, Object> sources;
-	private final Item item;
+	private final Item backingItem;
 
 	FieldValues(
 			final LinkedHashMap<Field<?>, Object> sources,
-			final Item item)
+			final Item backingItem)
 	{
 		this.sources = sources;
-		this.item = item;
+		this.backingItem = backingItem;
 	}
 
 	public <E> E get(final Field<E> field)
@@ -38,8 +38,8 @@ public final class FieldValues
 		if(sources.containsKey(field))
 			return getX(field);
 
-		if(item!=null)
-			return field.get(item);
+		if(backingItem!=null)
+			return field.get(backingItem);
 
 		return null;
 	}
@@ -50,8 +50,8 @@ public final class FieldValues
 		return (E)sources.get(field);
 	}
 
-	public Item getItem()
+	public Item getBackingItem()
 	{
-		return item;
+		return backingItem;
 	}
 }

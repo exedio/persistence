@@ -291,7 +291,7 @@ public final class MoneyField<C extends Money.Currency> extends Pattern implemen
 		{
 			if(value!=null)
 			{
-				IllegalCurrencyException.check(this, fieldValues.getItem(), value,
+				IllegalCurrencyException.check(this, fieldValues.getBackingItem(), value,
 						fieldValues.get(currency.getField()));
 			}
 		}
@@ -299,7 +299,7 @@ public final class MoneyField<C extends Money.Currency> extends Pattern implemen
 		{
 			if(value!=null)
 			{
-				IllegalCurrencyException.check(this, fieldValues.getItem(), value, currency.get(null));
+				IllegalCurrencyException.check(this, fieldValues.getBackingItem(), value, currency.get(null));
 			}
 		}
 	}
