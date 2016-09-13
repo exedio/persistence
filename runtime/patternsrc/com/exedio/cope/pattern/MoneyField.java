@@ -230,26 +230,7 @@ public final class MoneyField<C extends Money.Currency> extends Pattern implemen
 		if(value==null && mandatory)
 			throw MandatoryViolationException.create(this, exceptionItem);
 
-
-		// TODO polymorhism of CurrencySource
-		if(currency instanceof SharedCurrencySource<?>||
-			currency instanceof FixedCurrencySource<?>)
-		{
-			return new SetValue<?>[]{
-				amountExecute( value, exceptionItem )
-			};
-		}
-		else if(currency instanceof ExclusiveCurrencySource<?>)
-		{
-			return new SetValue<?>[]{
-				amountExecute( value , exceptionItem ),
-				currency.getField().map( value!=null ? value.getCurrency() : null )
-			};
-		}
-		else
-		{
-			throw new RuntimeException("" + currency);
-		}
+		return currency.execute(amountExecute(value, exceptionItem), value, exceptionItem);
 	}
 
 	private SetValue<?> amountExecute(final Money<C> value, final Item exceptionItem)

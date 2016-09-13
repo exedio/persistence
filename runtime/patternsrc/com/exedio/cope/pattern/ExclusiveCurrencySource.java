@@ -23,6 +23,7 @@ import static java.util.Objects.requireNonNull;
 import com.exedio.cope.FieldValues;
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.Item;
+import com.exedio.cope.SetValue;
 
 final class ExclusiveCurrencySource<C extends Money.Currency> extends CurrencySource<C>
 {
@@ -67,6 +68,15 @@ final class ExclusiveCurrencySource<C extends Money.Currency> extends CurrencySo
 	C get(final Item item)
 	{
 		return currency.get(item);
+	}
+
+	@Override
+	SetValue<?>[] execute(final SetValue<?> amount, final Money<C> value, final Item exceptionItem)
+	{
+		return new SetValue<?>[]{
+			amount,
+			currency.map( value!=null ? value.getCurrency() : null )
+		};
 	}
 
 	@Override

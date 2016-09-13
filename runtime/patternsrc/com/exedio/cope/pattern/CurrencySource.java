@@ -21,6 +21,7 @@ package com.exedio.cope.pattern;
 import com.exedio.cope.FieldValues;
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.Item;
+import com.exedio.cope.SetValue;
 
 abstract class CurrencySource<C extends Money.Currency>
 {
@@ -31,5 +32,15 @@ abstract class CurrencySource<C extends Money.Currency>
 	C getValue() { return null; }
 	abstract Class<C> getInitialType();
 	abstract C get(final Item item);
+
+	/**
+	 * @param value used by subclasses
+	 * @param exceptionItem used by subclasses
+	 */
+	SetValue<?>[] execute(final SetValue<?> amount, final Money<C> value, final Item exceptionItem)
+	{
+		return new SetValue<?>[]{ amount };
+	}
+
 	abstract void check(MoneyField<C> field, Money<C> value, FieldValues fieldValues);
 }
