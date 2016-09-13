@@ -23,9 +23,9 @@ import com.exedio.cope.Item;
 
 abstract class CurrencySource<C extends Money.Currency>
 {
-	abstract CurrencySource<C> copy();
-	abstract CurrencySource<C> toFinal();
-	abstract CurrencySource<C> optional();
+	CurrencySource<C> copy()     { return this; }
+	CurrencySource<C> toFinal()  { return this; }
+	CurrencySource<C> optional() { return this; }
 	abstract FunctionField<C> getField();
 	C getValue() { return null; }
 	abstract Class<C> getInitialType();

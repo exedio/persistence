@@ -33,24 +33,6 @@ final class FixedCurrencySource<C extends Money.Currency> extends CurrencySource
 	}
 
 	@Override
-	CurrencySource<C> copy()
-	{
-		return this;
-	}
-
-	@Override
-	CurrencySource<C> toFinal()
-	{
-		return this;
-	}
-
-	@Override
-	CurrencySource<C> optional()
-	{
-		return this;
-	}
-
-	@Override
 	FunctionField<C> getField()
 	{
 		return null;
