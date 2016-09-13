@@ -22,5 +22,5 @@ import java.util.Map;
 
 public interface CheckingSettable<E> extends Settable<E>
 {
-	void check(E value, Item exceptionItem, Map<Field<?>, Object> sources);
+	void check(E value, Item item, Map<? extends Field<?>, ?> sources);
 }

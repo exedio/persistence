@@ -285,7 +285,7 @@ public final class MoneyField<C extends Money.Currency> extends Pattern implemen
 	}
 
 	@Override
-	public void check(final Money<C> value, final Item item, final Map<Field<?>, Object> sources)
+	public void check(final Money<C> value, final Item item, final Map<? extends Field<?>, ?> sources)
 	{
 		// TODO polymorhism of CurrencySource
 		if(currency instanceof SharedCurrencySource<?>)
@@ -307,7 +307,7 @@ public final class MoneyField<C extends Money.Currency> extends Pattern implemen
 	}
 
 	@SuppressWarnings("unchecked")
-	private static <E> E get(final Map<Field<?>, Object> sources, final Field<E> field)
+	private static <E> E get(final Map<? extends Field<?>, ?> sources, final Field<E> field)
 	{
 		return (E)sources.get(field);
 	}

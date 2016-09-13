@@ -322,8 +322,16 @@ public abstract class Item implements Serializable, Comparable<Item>
 			if(sv.settable instanceof CheckingSettable<?>)
 			{
 				// TODO test unmodifiableMap
-				((CheckingSettable)sv.settable).check(sv.value, item, Collections.unmodifiableMap(fieldValues));
+				check(item, sv, Collections.unmodifiableMap(fieldValues));
 			}
+	}
+
+	private static <E> void check(
+			final Item item,
+			final SetValue<E> sv,
+			final Map<? extends Field<?>, ?> fieldValues)
+	{
+		((CheckingSettable<E>)sv.settable).check(sv.value, item, fieldValues);
 	}
 
 	/**
