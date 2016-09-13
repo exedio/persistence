@@ -19,7 +19,6 @@
 package com.exedio.cope.pattern;
 
 import com.exedio.cope.CheckingSettable;
-import com.exedio.cope.Field;
 import com.exedio.cope.FieldValues;
 import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.FunctionField;
@@ -292,9 +291,8 @@ public final class MoneyField<C extends Money.Currency> extends Pattern implemen
 		{
 			if(value!=null)
 			{
-				final Field<C> f = currency.getField();
 				IllegalCurrencyException.check(this, item, value,
-						fieldValues.contains(f) ? fieldValues.get(f) : currency.get(item));
+						fieldValues.get(currency.getField(), item));
 			}
 		}
 		else if(currency instanceof FixedCurrencySource<?>)

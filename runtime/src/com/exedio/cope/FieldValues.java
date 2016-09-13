@@ -29,13 +29,19 @@ public final class FieldValues
 		this.sources = sources;
 	}
 
-	public boolean contains(final Field<?> field)
+	public <E> E get(final Field<E> field, final Item item)
 	{
-		return sources.containsKey(field);
+		if(sources.containsKey(field))
+			return get(field);
+
+		if(item!=null)
+			return field.get(item);
+
+		return null;
 	}
 
 	@SuppressWarnings("unchecked")
-	public <E> E get(final Field<E> field)
+	private <E> E get(final Field<E> field)
 	{
 		return (E)sources.get(field);
 	}
