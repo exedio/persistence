@@ -304,11 +304,29 @@ public abstract class Item implements Serializable, Comparable<Item>
 			field.check(e.getValue(), this);
 		}
 		type.checkUniqueConstraints(this, fieldValues);
+		checkSettables(this, setValues, fieldValues);
 
 		final Entity entity = getEntity();
 		entity.put(fieldValues);
 		type.checkCheckConstraints(this, entity, this);
 		entity.write(toBlobs(fieldValues, this));
+	}
+
+	static void checkSettables(
+			final Item item,
+			final SetValue<?>[] setValues,
+			final LinkedHashMap<Field<?>, Object> fieldValues)
+	{
+		for(final SetValue<?> sv : setValues)
+			if(sv.settable instanceof CheckingSettable<?>)
+				check(sv, new FieldValues(fieldValues, item));
+	}
+
+	private static <E> void check(
+			final SetValue<E> sv,
+			final FieldValues fieldValues)
+	{
+		((CheckingSettable<E>)sv.settable).check(sv.value, fieldValues);
 	}
 
 	/**
@@ -483,7 +501,7 @@ public abstract class Item implements Serializable, Comparable<Item>
 			}
 			else
 			{
-				for(final SetValue<?> part : execute(source, exceptionItem, sources))
+				for(final SetValue<?> part : execute(source, exceptionItem))
 					putField(result, part);
 			}
 		}
@@ -496,17 +514,9 @@ public abstract class Item implements Serializable, Comparable<Item>
 			throw new IllegalArgumentException("SetValues contain duplicate settable " + setValue.settable);
 	}
 
-	private static final <X> SetValue<?>[] execute(
-			final SetValue<X> sv,
-			final Item exceptionItem,
-			final SetValue<?>[] sources)
+	private static final <X> SetValue<?>[] execute(final SetValue<X> sv, final Item exceptionItem)
 	{
-		final Settable<X> settable = sv.settable;
-
-		if(settable instanceof CheckingSettable)
-			return ((CheckingSettable<X>)settable).execute(sv.value, exceptionItem, sources);
-		else
-			return settable.execute(sv.value, exceptionItem);
+		return sv.settable.execute(sv.value, exceptionItem);
 	}
 
 	@SuppressFBWarnings("WMI_WRONG_MAP_ITERATOR") // Inefficient use of keySet iterator instead of entrySet iterator

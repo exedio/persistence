@@ -87,15 +87,11 @@ public class MoneyCopyTest extends TestWithEnvironment
 	@Test public void testOmitCopy()
 	{
 		final Target target = new Target(euro);
-		try
-		{
-			Source.create(target, valueOf(4.44, euro), valueOf(5.55, euro));
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			// TODO this is a bug
-		}
+		final Source source = Source.create(target, valueOf(4.44, euro), valueOf(5.55, euro));
+		assertEquals(target, source.getTarget());
+		assertEquals(euro, source.getCurrency());
+		assertEquals(valueOf(4.44, euro), source.getFixed());
+		assertEquals(valueOf(5.55, euro), source.getShared());
 	}
 
 	@Test public void testOmitTarget()
