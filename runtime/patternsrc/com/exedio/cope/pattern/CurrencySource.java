@@ -25,6 +25,7 @@ import com.exedio.cope.SetValue;
 
 abstract class CurrencySource<C extends Money.Currency>
 {
+	FunctionField<?> sourceToBeAdded() { return null; }
 	CurrencySource<C> copy()     { return this; }
 	CurrencySource<C> toFinal()  { return this; }
 	CurrencySource<C> optional() { return this; }

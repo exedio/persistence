@@ -35,6 +35,12 @@ final class ExclusiveCurrencySource<C extends Money.Currency> extends CurrencySo
 	}
 
 	@Override
+	FunctionField<C> sourceToBeAdded()
+	{
+		return currency;
+	}
+
+	@Override
 	CurrencySource<C> copy()
 	{
 		return new ExclusiveCurrencySource<>(currency.copy());

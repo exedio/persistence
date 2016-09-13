@@ -81,9 +81,10 @@ public final class MoneyField<C extends Money.Currency> extends Pattern implemen
 		this.isfinal = amount.isFinal();
 		this.mandatory = amount.isMandatory();
 		this.currency = currency;
-		// TODO polymorhism of CurrencySource
-		if(currency instanceof ExclusiveCurrencySource<?>)
-			addSource(currency.getField(), "currency");
+
+		final FunctionField<?> currencySourceToBeAdded = currency.sourceToBeAdded();
+		if(currencySourceToBeAdded!=null)
+			addSource(currencySourceToBeAdded, "currency");
 	}
 
 	public MoneyField<C> toFinal()
