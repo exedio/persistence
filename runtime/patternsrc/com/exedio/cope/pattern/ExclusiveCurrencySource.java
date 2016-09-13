@@ -40,23 +40,9 @@ final class ExclusiveCurrencySource<C extends Money.Currency> extends CurrencySo
 		return currency;
 	}
 
-	@Override
-	CurrencySource<C> copy()
-	{
-		return new ExclusiveCurrencySource<>(currency.copy());
-	}
-
-	@Override
-	CurrencySource<C> toFinal()
-	{
-		return new ExclusiveCurrencySource<>(currency.toFinal());
-	}
-
-	@Override
-	CurrencySource<C> optional()
-	{
-		return new ExclusiveCurrencySource<>(currency.optional());
-	}
+	@Override CurrencySource<C> copy()     { return new ExclusiveCurrencySource<>(currency.copy()); }
+	@Override CurrencySource<C> toFinal()  { return new ExclusiveCurrencySource<>(currency.toFinal()); }
+	@Override CurrencySource<C> optional() { return new ExclusiveCurrencySource<>(currency.optional()); }
 
 	@Override
 	FunctionField<C> getField()
