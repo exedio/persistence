@@ -293,7 +293,7 @@ public final class MoneyField<C extends Money.Currency> extends Pattern implemen
 			if(value!=null)
 			{
 				IllegalCurrencyException.check(this, item, value,
-						sources.containsKey(currency.getField()) ? (C)sources.get(currency.getField()) : currency.get(item));
+						sources.containsKey(currency.getField()) ? get(sources, currency.getField()) : currency.get(item));
 			}
 		}
 		else if(currency instanceof FixedCurrencySource<?>)
@@ -303,6 +303,12 @@ public final class MoneyField<C extends Money.Currency> extends Pattern implemen
 				IllegalCurrencyException.check(this, item, value, currency.get(null));
 			}
 		}
+	}
+
+	@SuppressWarnings("unchecked")
+	private static <E> E get(final Map<Field<?>, Object> sources, final Field<E> field)
+	{
+		return (E)sources.get(field);
 	}
 
 	// convenience methods for conditions and views ---------------------------------
