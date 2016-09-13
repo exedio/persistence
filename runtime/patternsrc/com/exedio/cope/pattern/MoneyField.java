@@ -292,8 +292,9 @@ public final class MoneyField<C extends Money.Currency> extends Pattern implemen
 		{
 			if(value!=null)
 			{
+				final Field<C> f = currency.getField();
 				IllegalCurrencyException.check(this, item, value,
-						sources.containsKey(currency.getField()) ? get(sources, currency.getField()) : currency.get(item));
+						sources.containsKey(f) ? get(sources, f) : currency.get(item));
 			}
 		}
 		else if(currency instanceof FixedCurrencySource<?>)
