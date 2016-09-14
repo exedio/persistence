@@ -22,6 +22,8 @@ import javax.tools.Diagnostic;
 
 final class WarnForGeneratedVisitor extends GeneratedAwareScanner
 {
+	private static final String NON_GENERATED="non-generated";
+
 	WarnForGeneratedVisitor(final TreeApiContext context)
 	{
 		super(context);
@@ -30,6 +32,15 @@ final class WarnForGeneratedVisitor extends GeneratedAwareScanner
 	@Override
 	void visitGeneratedPath()
 	{
-		context.messager.printMessage(Diagnostic.Kind.WARNING, "@Generated annotation in non-generated code", context.getElement(getCurrentPath()));
+		final SuppressWarnings suppressWarnings=getAnnotation(SuppressWarnings.class);
+		if (suppressWarnings!=null)
+		{
+			for (String string: suppressWarnings.value())
+			{
+				if (NON_GENERATED.equals(string))
+					return;
+			}
+		}
+		context.messager.printMessage(Diagnostic.Kind.WARNING, "["+NON_GENERATED+"] @Generated annotation in non-generated code", context.getElement(getCurrentPath()));
 	}
 }

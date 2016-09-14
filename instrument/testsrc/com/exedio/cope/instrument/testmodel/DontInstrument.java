@@ -32,8 +32,9 @@ class DontInstrument extends Item
 	static final SimpleSettable makeInstrumentorFail = null;
 
 	@Generated("com.exedio.cope.instrument")
+	@SuppressWarnings("non-generated")
 	int generatedVariable;
 
-	@Generated("com.exedio.cope.instrument")
+	@Generated("other.than.com.exedio.cope.instrument")
 	void generatedMethod(){}
 }
