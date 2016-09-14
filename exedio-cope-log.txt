@@ -7,6 +7,9 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* MoneyField#exclusive creates unison check constraint if optional.
+	This requires modification of database schema where check constraints
+	are supported (not MySQL), if not, check unsupported constraints in cope console.
 * @WrapperInitial(false) can be used to mark features as _non_-initial
 * util.CopeFilter removed, was deprecated since Dec 9 2009, use misc.CopeFilter instead.
 * @WrapperIgnore can be used at class level
