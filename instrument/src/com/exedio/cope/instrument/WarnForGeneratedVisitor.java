@@ -16,25 +16,31 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.cope.instrument.testmodel;
+package com.exedio.cope.instrument;
 
-import com.exedio.cope.Item;
-import com.exedio.cope.instrument.testfeature.SimpleSettable;
-import javax.annotation.Generated;
+import javax.tools.Diagnostic;
 
-/**
- * This class tests that the 'ignore' element at the 'instrument' ant task works.
- */
-class DontInstrument extends Item
+final class WarnForGeneratedVisitor extends GeneratedAwareScanner
 {
-	private static final long serialVersionUID=1L;
+	private static final String NON_GENERATED="non-generated";
 
-	static final SimpleSettable makeInstrumentorFail = null;
+	WarnForGeneratedVisitor(final TreeApiContext context)
+	{
+		super(context);
+	}
 
-	@Generated("com.exedio.cope.instrument")
-	@SuppressWarnings("non-generated")
-	int generatedVariable;
-
-	@Generated("other.than.com.exedio.cope.instrument")
-	void generatedMethod(){}
+	@Override
+	void visitGeneratedPath()
+	{
+		final SuppressWarnings suppressWarnings=getAnnotation(SuppressWarnings.class);
+		if (suppressWarnings!=null)
+		{
+			for (final String string: suppressWarnings.value())
+			{
+				if (NON_GENERATED.equals(string))
+					return;
+			}
+		}
+		context.messager.printMessage(Diagnostic.Kind.WARNING, "["+NON_GENERATED+"] @Generated annotation in non-generated code", context.getElement(getCurrentPath()));
+	}
 }
