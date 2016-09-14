@@ -36,5 +36,8 @@ class DontInstrument extends Item
 	int generatedVariable;
 
 	@Generated("other.than.com.exedio.cope.instrument")
-	void generatedMethod(){}
+	void generatedMethod()
+	{
+		// empty
+	}
 }
