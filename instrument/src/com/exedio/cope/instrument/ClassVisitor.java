@@ -21,33 +21,29 @@ package com.exedio.cope.instrument;
 import com.sun.source.doctree.DocCommentTree;
 import com.sun.source.tree.BlockTree;
 import com.sun.source.tree.ClassTree;
-import com.sun.source.tree.MethodTree;
 import com.sun.source.tree.Tree;
 import com.sun.source.tree.VariableTree;
-import com.sun.source.util.TreePathScanner;
 import java.lang.annotation.Annotation;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.Set;
-import javax.annotation.Generated;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.Modifier;
 
-class ClassVisitor extends TreePathScanner<Void,Void>
+class ClassVisitor extends GeneratedAwareScanner
 {
 	private static final Set<Modifier> REQUIRED_MODIFIERS_FOR_COPE_FEATURE = EnumSet.of(Modifier.FINAL, Modifier.STATIC);
 	private final byte[] LINE_SEPARATOR_BYTES=System.lineSeparator().getBytes(StandardCharsets.US_ASCII);
 
 	private final JavaClass outerClass;
-	private final TreeApiContext context;
 
 	private JavaClass javaClass;
 
 	/** @param outer may be null (for non-inner classes) */
 	ClassVisitor(final TreeApiContext context, final JavaClass outer)
 	{
-		this.context=context;
+		super(context);
 		this.outerClass=outer;
 	}
 
@@ -101,8 +97,8 @@ class ClassVisitor extends TreePathScanner<Void,Void>
 	@Override
 	public Void visitVariable(final VariableTree node, final Void p)
 	{
-		final boolean generated=checkGenerated();
-		if ( !generated && node.getModifiers().getFlags().containsAll(REQUIRED_MODIFIERS_FOR_COPE_FEATURE) )
+		super.visitVariable(node, p);
+		if ( !hasGeneratedAnnotation() && node.getModifiers().getFlags().containsAll(REQUIRED_MODIFIERS_FOR_COPE_FEATURE) )
 		{
 			new JavaField(
 				javaClass,
@@ -117,13 +113,6 @@ class ClassVisitor extends TreePathScanner<Void,Void>
 				Arrays.asList(getAnnotations(Wrapper.class))
 			);
 		}
-		return null;
-	}
-
-	@Override
-	public Void visitMethod(final MethodTree mt, final Void ignore)
-	{
-		checkGenerated();
 		return null;
 	}
 
@@ -179,62 +168,41 @@ class ClassVisitor extends TreePathScanner<Void,Void>
 		return realStart;
 	}
 
-	private boolean checkGenerated() throws RuntimeException
+	@Override
+	void visitGeneratedPath()
 	{
-		if ( hasGeneratedAnnotation() )
+		final Tree mt=getCurrentPath().getLeaf();
+		final int start=Math.toIntExact(context.getStartPosition(mt));
+		final int end=Math.toIntExact(context.getEndPosition(mt));
+		if ( start<0 || end<0 ) throw new RuntimeException();
+		final DocCommentTree docCommentTree=context.getDocCommentTree(getCurrentPath());
+		if ( docCommentTree==null )
 		{
-			final Tree mt=getCurrentPath().getLeaf();
-			final int start=Math.toIntExact(context.getStartPosition(mt));
-			final int end=Math.toIntExact(context.getEndPosition(mt));
-			if ( start<0 || end<0 ) throw new RuntimeException();
-			final DocCommentTree docCommentTree=context.getDocCommentTree(getCurrentPath());
-			if ( docCommentTree==null )
-			{
-				addGeneratedFragment(start, end);
-			}
-			else
-			{
-				final int docStart;
-				final int docEnd;
-				if ( docCommentTree.getFirstSentence().isEmpty() && docCommentTree.getBody().isEmpty() && docCommentTree.getBlockTags().isEmpty() )
-				{
-					// getStartPosition doesn't work for empty comments - search from commented element instead:
-					docStart=context.searchBefore( Math.toIntExact(context.getStartPosition(mt)), "/**".getBytes(StandardCharsets.US_ASCII) );
-					docEnd=context.searchAfter( Math.toIntExact(docStart), "*/".getBytes(StandardCharsets.US_ASCII) );
-				}
-				else
-				{
-					docStart=context.searchBefore( Math.toIntExact(context.getStartPosition(docCommentTree)), "/**".getBytes(StandardCharsets.US_ASCII) );
-					docEnd=context.searchAfter( Math.toIntExact(context.getEndPosition(docCommentTree)), "*/".getBytes(StandardCharsets.US_ASCII) );
-				}
-				if ( docEnd>=start ) throw new RuntimeException();
-				final String commentSource=context.getSourceString(docStart, docEnd);
-				final String inBetween=context.getSourceString(docEnd+1, start-1);
-				if ( !commentSource.startsWith("/**") ) throw new RuntimeException();
-				if ( !commentSource.endsWith("*/") ) throw new RuntimeException();
-				if ( !allWhitespace(inBetween) ) throw new RuntimeException(">"+inBetween+"<");
-				addGeneratedFragment(docStart, end);
-			}
-			return true;
+			addGeneratedFragment(start, end);
 		}
 		else
 		{
-			return false;
+			final int docStart;
+			final int docEnd;
+			if ( docCommentTree.getFirstSentence().isEmpty() && docCommentTree.getBody().isEmpty() && docCommentTree.getBlockTags().isEmpty() )
+			{
+				// getStartPosition doesn't work for empty comments - search from commented element instead:
+				docStart=context.searchBefore( Math.toIntExact(context.getStartPosition(mt)), "/**".getBytes(StandardCharsets.US_ASCII) );
+				docEnd=context.searchAfter( Math.toIntExact(docStart), "*/".getBytes(StandardCharsets.US_ASCII) );
+			}
+			else
+			{
+				docStart=context.searchBefore( Math.toIntExact(context.getStartPosition(docCommentTree)), "/**".getBytes(StandardCharsets.US_ASCII) );
+				docEnd=context.searchAfter( Math.toIntExact(context.getEndPosition(docCommentTree)), "*/".getBytes(StandardCharsets.US_ASCII) );
+			}
+			if ( docEnd>=start ) throw new RuntimeException();
+			final String commentSource=context.getSourceString(docStart, docEnd);
+			final String inBetween=context.getSourceString(docEnd+1, start-1);
+			if ( !commentSource.startsWith("/**") ) throw new RuntimeException();
+			if ( !commentSource.endsWith("*/") ) throw new RuntimeException();
+			if ( !allWhitespace(inBetween) ) throw new RuntimeException(">"+inBetween+"<");
+			addGeneratedFragment(docStart, end);
 		}
-	}
-
-	private boolean hasGeneratedAnnotation()
-	{
-		final Generated generated=getAnnotation(Generated.class);
-		return generated!=null
-			&& generated.value().length==1
-			&& generated.value()[0].equals(Main.GENERATED_VALUE);
-	}
-
-	private <T extends Annotation> T getAnnotation(final Class<T> annotationType)
-	{
-		final Element element=context.getElement(getCurrentPath());
-		return element.getAnnotation(annotationType);
 	}
 
 	private <T extends Annotation> T[] getAnnotations(final Class<T> annotationType)

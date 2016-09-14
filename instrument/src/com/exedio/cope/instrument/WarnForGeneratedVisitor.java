@@ -18,56 +18,18 @@
 
 package com.exedio.cope.instrument;
 
-import com.sun.source.tree.MethodTree;
-import com.sun.source.tree.VariableTree;
-import com.sun.source.util.TreePathScanner;
-import java.lang.annotation.Annotation;
-import javax.annotation.Generated;
-import javax.lang.model.element.Element;
 import javax.tools.Diagnostic;
 
-final class WarnForGeneratedVisitor extends TreePathScanner<Void,Void>
+final class WarnForGeneratedVisitor extends GeneratedAwareScanner
 {
-	private final TreeApiContext context;
-
 	WarnForGeneratedVisitor(final TreeApiContext context)
 	{
-		this.context=context;
-	}
-
-	private boolean hasGeneratedAnnotation()
-	{
-		final Generated generated=getAnnotation(Generated.class);
-		return generated!=null
-			&& generated.value().length==1
-			&& generated.value()[0].equals(Main.GENERATED_VALUE);
-	}
-
-	private <T extends Annotation> T getAnnotation(final Class<T> annotationType)
-	{
-		final Element element=context.getElement(getCurrentPath());
-		return element.getAnnotation(annotationType);
+		super(context);
 	}
 
 	@Override
-	public Void visitVariable(final VariableTree node, final Void p)
+	void visitGeneratedPath()
 	{
-		checkGenerated();
-		return null;
-	}
-
-	private void checkGenerated()
-	{
-		if (hasGeneratedAnnotation())
-		{
-			context.messager.printMessage(Diagnostic.Kind.WARNING, "@Generated annotation in non-generated code", context.getElement(getCurrentPath()));
-		}
-	}
-
-	@Override
-	public Void visitMethod(final MethodTree node, final Void p)
-	{
-		checkGenerated();
-		return null;
+		context.messager.printMessage(Diagnostic.Kind.WARNING, "@Generated annotation in non-generated code", context.getElement(getCurrentPath()));
 	}
 }
