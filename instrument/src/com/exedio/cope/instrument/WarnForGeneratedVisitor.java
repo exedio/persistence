@@ -35,7 +35,7 @@ final class WarnForGeneratedVisitor extends GeneratedAwareScanner
 		final SuppressWarnings suppressWarnings=getAnnotation(SuppressWarnings.class);
 		if (suppressWarnings!=null)
 		{
-			for (String string: suppressWarnings.value())
+			for (final String string: suppressWarnings.value())
 			{
 				if (NON_GENERATED.equals(string))
 					return;
