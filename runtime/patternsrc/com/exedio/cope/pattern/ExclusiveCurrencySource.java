@@ -20,10 +20,13 @@ package com.exedio.cope.pattern;
 
 import static java.util.Objects.requireNonNull;
 
+import com.exedio.cope.CheckConstraint;
 import com.exedio.cope.FieldValues;
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.Item;
 import com.exedio.cope.SetValue;
+import com.exedio.cope.misc.Conditions;
+import java.util.Arrays;
 
 final class ExclusiveCurrencySource<C extends Money.Currency> extends CurrencySource<C>
 {
@@ -38,6 +41,17 @@ final class ExclusiveCurrencySource<C extends Money.Currency> extends CurrencySo
 	FunctionField<C> sourceToBeAdded()
 	{
 		return currency;
+	}
+
+	@Override
+	CheckConstraint unison(final PriceField amount)
+	{
+		if(amount.isMandatory())
+			return null;
+
+		return new CheckConstraint(Conditions.unisonNull(Arrays.asList(
+				amount.getInt(),
+				currency)));
 	}
 
 	@Override CurrencySource<C> copy()     { return new ExclusiveCurrencySource<>(currency.copy()); }

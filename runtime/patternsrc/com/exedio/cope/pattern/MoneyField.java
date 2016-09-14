@@ -31,7 +31,6 @@ import com.exedio.cope.Settable;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.WrapFeature;
-import com.exedio.cope.misc.Conditions;
 import com.exedio.cope.misc.CopeSchemaNameElement;
 import com.exedio.cope.misc.ReflectionTypes;
 import com.exedio.cope.misc.instrument.FinalSettableGetter;
@@ -86,25 +85,11 @@ public final class MoneyField<C extends Money.Currency> extends Pattern implemen
 
 		final FunctionField<?> currencySourceToBeAdded = currency.sourceToBeAdded();
 		if(currencySourceToBeAdded!=null)
-		{
 			addSource(currencySourceToBeAdded, "currency");
 
-			if(!mandatory)
-			{
-				addSource(
-						this.unison = new CheckConstraint(Conditions.unisonNull(Arrays.asList(
-								amount.getInt(), currencySourceToBeAdded))),
-						"unison");
-			}
-			else
-			{
-				this.unison = null;
-			}
-		}
-		else
-		{
-			this.unison = null;
-		}
+		this.unison = currency.unison(amount);
+		if(unison!=null)
+			addSource(unison, "unison");
 	}
 
 	public MoneyField<C> toFinal()
