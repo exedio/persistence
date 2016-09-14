@@ -80,43 +80,43 @@
                     <encoding>UTF-8</encoding>
                 </source-folder>
                 <source-folder>
-                    <label>instrument\testfeaturesrc</label>
+                    <label>instrument/testfeaturesrc</label>
                     <type>java</type>
                     <location>instrument/testfeaturesrc</location>
                     <encoding>UTF-8</encoding>
                 </source-folder>
                 <source-folder>
-                    <label>instrument\testsrc</label>
+                    <label>instrument/testsrc</label>
                     <type>java</type>
                     <location>instrument/testsrc</location>
                     <encoding>UTF-8</encoding>
                 </source-folder>
                 <source-folder>
-                    <label>runtime\testsrc</label>
+                    <label>runtime/testsrc</label>
                     <type>java</type>
                     <location>runtime/testsrc</location>
                     <encoding>UTF-8</encoding>
                 </source-folder>
                 <source-folder>
-                    <label>runtime\testfeaturesrc</label>
+                    <label>runtime/testfeaturesrc</label>
                     <type>java</type>
                     <location>runtime/testfeaturesrc</location>
                     <encoding>UTF-8</encoding>
                 </source-folder>
                 <source-folder>
-                    <label>runtime\servlettestsrc</label>
+                    <label>runtime/servlettestsrc</label>
                     <type>java</type>
                     <location>runtime/servlettestsrc</location>
                     <encoding>UTF-8</encoding>
                 </source-folder>
                 <source-folder>
-                    <label>runtime\servlettestwebsrc</label>
+                    <label>runtime/servlettestwebsrc</label>
                     <type>java</type>
                     <location>runtime/servlettestwebsrc</location>
                     <encoding>UTF-8</encoding>
                 </source-folder>
                 <source-folder>
-                    <label>dsmf\testsrc</label>
+                    <label>dsmf/testsrc</label>
                     <type>java</type>
                     <location>dsmf/testsrc</location>
                     <encoding>UTF-8</encoding>
@@ -232,31 +232,31 @@
                         <location>runtime/postgresqlsrc</location>
                     </source-folder>
                     <source-folder style="packages">
-                        <label>instrument\testfeaturesrc</label>
+                        <label>instrument/testfeaturesrc</label>
                         <location>instrument/testfeaturesrc</location>
                     </source-folder>
                     <source-folder style="packages">
-                        <label>instrument\testsrc</label>
+                        <label>instrument/testsrc</label>
                         <location>instrument/testsrc</location>
                     </source-folder>
                     <source-folder style="packages">
-                        <label>runtime\testsrc</label>
+                        <label>runtime/testsrc</label>
                         <location>runtime/testsrc</location>
                     </source-folder>
                     <source-folder style="packages">
-                        <label>runtime\testfeaturesrc</label>
+                        <label>runtime/testfeaturesrc</label>
                         <location>runtime/testfeaturesrc</location>
                     </source-folder>
                     <source-folder style="packages">
-                        <label>runtime\servlettestsrc</label>
+                        <label>runtime/servlettestsrc</label>
                         <location>runtime/servlettestsrc</location>
                     </source-folder>
                     <source-folder style="packages">
-                        <label>runtime\servlettestwebsrc</label>
+                        <label>runtime/servlettestwebsrc</label>
                         <location>runtime/servlettestwebsrc</location>
                     </source-folder>
                     <source-folder style="packages">
-                        <label>dsmf\testsrc</label>
+                        <label>dsmf/testsrc</label>
                         <location>dsmf/testsrc</location>
                     </source-folder>
                     <source-file>
