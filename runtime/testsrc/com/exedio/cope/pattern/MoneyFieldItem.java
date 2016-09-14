@@ -34,7 +34,8 @@ public final class MoneyFieldItem extends Item
 		return new MoneyFieldItem(
 			MoneyFieldItem.fixeOpt.map(fixeOpt),
 			MoneyFieldItem.currency.map(gbp),
-			MoneyFieldItem.sharMan.map(valueOf(8888.88, gbp))
+			MoneyFieldItem.sharMan.map(valueOf(8888.88, gbp)),
+			MoneyFieldItem.exclMan.map(valueOf(9999.99, gbp))
 		);
 	}
 
@@ -48,7 +49,8 @@ public final class MoneyFieldItem extends Item
 		return new MoneyFieldItem(
 			MoneyFieldItem.fixeEnu.map(fixeEnu),
 			MoneyFieldItem.currency.map(gbp),
-			MoneyFieldItem.sharMan.map(valueOf(8888.88, gbp))
+			MoneyFieldItem.sharMan.map(valueOf(8888.88, gbp)),
+			MoneyFieldItem.exclMan.map(valueOf(9999.99, gbp))
 		);
 	}
 
@@ -62,7 +64,8 @@ public final class MoneyFieldItem extends Item
 		return new MoneyFieldItem(
 			MoneyFieldItem.currency.map(currency),
 			MoneyFieldItem.sharOpt.map(sharOpt),
-			MoneyFieldItem.sharMan.map(eurX)
+			MoneyFieldItem.sharMan.map(eurX),
+			MoneyFieldItem.exclMan.map(valueOf(9999.99, gbp))
 		);
 	}
 
@@ -76,7 +79,8 @@ public final class MoneyFieldItem extends Item
 		return new MoneyFieldItem(
 			MoneyFieldItem.currency.map(currency),
 			MoneyFieldItem.sharOpt.map(eurX),
-			MoneyFieldItem.sharMan.map(sharMan)
+			MoneyFieldItem.sharMan.map(sharMan),
+			MoneyFieldItem.exclMan.map(valueOf(9999.99, gbp))
 		);
 	}
 
@@ -88,7 +92,8 @@ public final class MoneyFieldItem extends Item
 		return new MoneyFieldItem(
 			MoneyFieldItem.currency.map(currency),
 			MoneyFieldItem.sharOpt.map(sharOpt),
-			MoneyFieldItem.sharMan.map(sharMan)
+			MoneyFieldItem.sharMan.map(sharMan),
+			MoneyFieldItem.exclMan.map(valueOf(9999.99, gbp))
 		);
 	}
 
@@ -100,7 +105,8 @@ public final class MoneyFieldItem extends Item
 		return new MoneyFieldItem(
 			MoneyFieldItem.currency.map(eur),
 			MoneyFieldItem.sharMan.map(eurX),
-			MoneyFieldItem.exclOpt.map(exclOpt)
+			MoneyFieldItem.exclOpt.map(exclOpt),
+			MoneyFieldItem.exclMan.map(valueOf(9999.99, gbp))
 		);
 	}
 
@@ -110,24 +116,44 @@ public final class MoneyFieldItem extends Item
 	}
 
 
+	static final MoneyField<Currency> exclMan = MoneyField.exclusive(EnumField.create(Currency.class));
+
+	static MoneyFieldItem exclMan(final Money<Currency> exclMan)
+	{
+		return new MoneyFieldItem(
+			MoneyFieldItem.currency.map(eur),
+			MoneyFieldItem.sharMan.map(eurX),
+			MoneyFieldItem.exclMan.map(exclMan)
+		);
+	}
+
+	Currency getExclManCurrency()
+	{
+		return exclMan.getCurrencyField().get(this);
+	}
+
+
 	private static final Money<Currency> eurX = valueOf(8888.88, eur);
 
 	/**
 	 * Creates a new MoneyFieldItem with all the fields initially needed.
 	 * @param currency the initial value for field {@link #currency}.
 	 * @param sharMan the initial value for field {@link #sharMan}.
-	 * @throws com.exedio.cope.MandatoryViolationException if currency, sharMan is null.
+	 * @param exclMan the initial value for field {@link #exclMan}.
+	 * @throws com.exedio.cope.MandatoryViolationException if currency, sharMan, exclMan is null.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
 	MoneyFieldItem(
 				@javax.annotation.Nonnull final Currency currency,
-				@javax.annotation.Nonnull final com.exedio.cope.pattern.Money<Currency> sharMan)
+				@javax.annotation.Nonnull final com.exedio.cope.pattern.Money<Currency> sharMan,
+				@javax.annotation.Nonnull final com.exedio.cope.pattern.Money<Currency> exclMan)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
 			MoneyFieldItem.currency.map(currency),
 			MoneyFieldItem.sharMan.map(sharMan),
+			MoneyFieldItem.exclMan.map(exclMan),
 		});
 	}
 
@@ -256,6 +282,27 @@ public final class MoneyFieldItem extends Item
 	final void setExclOpt(@javax.annotation.Nullable final com.exedio.cope.pattern.Money<Currency> exclOpt)
 	{
 		MoneyFieldItem.exclOpt.set(this,exclOpt);
+	}
+
+	/**
+	 * Returns the value of {@link #exclMan}.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@javax.annotation.Nullable
+	final com.exedio.cope.pattern.Money<Currency> getExclMan()
+	{
+		return MoneyFieldItem.exclMan.get(this);
+	}
+
+	/**
+	 * Sets a new value for {@link #exclMan}.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	final void setExclMan(@javax.annotation.Nonnull final com.exedio.cope.pattern.Money<Currency> exclMan)
+			throws
+				com.exedio.cope.MandatoryViolationException
+	{
+		MoneyFieldItem.exclMan.set(this,exclMan);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument")

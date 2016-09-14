@@ -24,6 +24,7 @@ import static com.exedio.cope.pattern.CurrFix.fixOther;
 import static com.exedio.cope.pattern.Money.valueOf;
 import static com.exedio.cope.pattern.MoneyFieldItem.TYPE;
 import static com.exedio.cope.pattern.MoneyFieldItem.currency;
+import static com.exedio.cope.pattern.MoneyFieldItem.exclMan;
 import static com.exedio.cope.pattern.MoneyFieldItem.exclOpt;
 import static com.exedio.cope.pattern.MoneyFieldItem.fixeEnu;
 import static com.exedio.cope.pattern.MoneyFieldItem.fixeOpt;
@@ -76,6 +77,11 @@ public class MoneyFieldTest extends TestWithEnvironment
 		assertEquals("exclOpt-amount-int", exclOpt.getAmount().getInt().getName());
 		assertEquals("exclOpt-currency",   exclOpt.getCurrencyField()  .getName());
 		assertEquals(null,                 exclOpt.getCurrencyValue());
+		assertEquals("exclMan",            exclMan                     .getName());
+		assertEquals("exclMan-amount",     exclMan.getAmount()         .getName());
+		assertEquals("exclMan-amount-int", exclMan.getAmount().getInt().getName());
+		assertEquals("exclMan-currency",   exclMan.getCurrencyField()  .getName());
+		assertEquals(null,                 exclMan.getCurrencyValue());
 		assertSame(sharOpt.getCurrencyField(), sharMan.getCurrencyField());
 
 		assertEquals(CurrFix.class , fixeOpt.getCurrencyClass());
@@ -83,12 +89,14 @@ public class MoneyFieldTest extends TestWithEnvironment
 		assertEquals(Currency.class, sharOpt.getCurrencyClass());
 		assertEquals(Currency.class, sharMan.getCurrencyClass());
 		assertEquals(Currency.class, exclOpt.getCurrencyClass());
+		assertEquals(Currency.class, exclMan.getCurrencyClass());
 
 		assertEquals("com.exedio.cope.pattern.Money<" + CurrFix .class.getName() + ">", fixeOpt.getInitialType().toString());
 		assertEquals("com.exedio.cope.pattern.Money<" + Currency.class.getName() + ">", fixeEnu.getInitialType().toString());
 		assertEquals("com.exedio.cope.pattern.Money<" + Currency.class.getName() + ">", sharOpt.getInitialType().toString());
 		assertEquals("com.exedio.cope.pattern.Money<" + Currency.class.getName() + ">", sharMan.getInitialType().toString());
 		assertEquals("com.exedio.cope.pattern.Money<" + Currency.class.getName() + ">", exclOpt.getInitialType().toString());
+		assertEquals("com.exedio.cope.pattern.Money<" + Currency.class.getName() + ">", exclMan.getInitialType().toString());
 
 		assertEquals("fixeOpt_int",      getColumnName(fixeOpt.getAmount().getInt()));
 		assertEquals("fixeEnu_int",      getColumnName(fixeEnu.getAmount().getInt()));
@@ -96,6 +104,8 @@ public class MoneyFieldTest extends TestWithEnvironment
 		assertEquals("currency" ,        getColumnName(sharOpt.getCurrencyField()));
 		assertEquals("exclOpt_int",      getColumnName(exclOpt.getAmount().getInt()));
 		assertEquals("exclOpt_currency", getColumnName(exclOpt.getCurrencyField()));
+		assertEquals("exclMan_int",      getColumnName(exclMan.getAmount().getInt()));
+		assertEquals("exclMan_currency", getColumnName(exclMan.getCurrencyField()));
 	}
 	@Test public void testFixedConsistencyOkSingle()
 	{
@@ -457,5 +467,76 @@ public class MoneyFieldTest extends TestWithEnvironment
 		i.set(exclOpt.map(null));
 		assertEquals(null, i.getExclOpt());
 		assertEquals(null, i.getExclOptCurrency());
+	}
+	@SuppressFBWarnings("NP_NONNULL_PARAM_VIOLATION")
+	@Test public void testExclusiveMandatorySingle()
+	{
+		final MoneyFieldItem i = exclMan(valueOf(5.55, eur));
+		assertEquals(valueOf(5.55, eur), i.getExclMan());
+		assertEquals(eur, i.getExclManCurrency());
+
+		i.setExclMan(valueOf(6.66, eur));
+		assertEquals(valueOf(6.66, eur), i.getExclMan());
+		assertEquals(eur, i.getExclManCurrency());
+
+		i.setExclMan(valueOf(7.77, gbp));
+		assertEquals(valueOf(7.77, gbp), i.getExclMan());
+		assertEquals(gbp, i.getExclManCurrency());
+
+		try
+		{
+			i.setExclMan(null);
+			fail();
+		}
+		catch(final MandatoryViolationException e)
+		{
+			assertEquals("mandatory violation on " + i + " for MoneyFieldItem.exclMan", e.getMessage());
+			assertEquals(i, e.getItem());
+			assertEquals(exclMan, e.getFeature());
+		}
+		assertEquals(valueOf(7.77, gbp), i.getExclMan());
+		assertEquals(gbp, i.getExclManCurrency());
+	}
+	@Test public void testExclusiveMandatoryCreateNull()
+	{
+		try
+		{
+			exclMan(null);
+			fail();
+		}
+		catch(final MandatoryViolationException e)
+		{
+			assertEquals("mandatory violation for MoneyFieldItem.exclMan", e.getMessage());
+			assertEquals(null, e.getItem());
+			assertEquals(exclMan, e.getFeature());
+		}
+	}
+	@Test public void testExclusiveMandatoryMulti()
+	{
+		final MoneyFieldItem i = exclMan(valueOf(5.55, eur));
+		assertEquals(valueOf(5.55, eur), i.getExclMan());
+		assertEquals(eur, i.getExclManCurrency());
+
+		i.set(exclMan.map(valueOf(6.66, eur)));
+		assertEquals(valueOf(6.66, eur), i.getExclMan());
+		assertEquals(eur, i.getExclManCurrency());
+
+		i.set(exclMan.map(valueOf(7.77, gbp)));
+		assertEquals(valueOf(7.77, gbp), i.getExclMan());
+		assertEquals(gbp, i.getExclManCurrency());
+
+		try
+		{
+			i.set(exclMan.map(null));
+			fail();
+		}
+		catch(final MandatoryViolationException e)
+		{
+			assertEquals("mandatory violation on " + i + " for MoneyFieldItem.exclMan", e.getMessage());
+			assertEquals(i, e.getItem());
+			assertEquals(exclMan, e.getFeature());
+		}
+		assertEquals(valueOf(7.77, gbp), i.getExclMan());
+		assertEquals(gbp, i.getExclManCurrency());
 	}
 }
