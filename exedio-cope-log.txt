@@ -7,6 +7,9 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* Instrumentor omits fields from initial constructor, that are completely redundant,
+	because they are covered by a CopyConstraint with a mandatory target.
+	Use @WrapperInitial to enforce previous behaviour.
 * MoneyField#exclusive creates unison check constraint if optional.
 	This requires modification of database schema where check constraints
 	are supported (not MySQL), if not, check unsupported constraints in cope console.
