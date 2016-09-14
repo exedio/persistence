@@ -89,9 +89,13 @@ final class InstrumentorProcessor extends AbstractProcessor
 					}
 				}
 			}
-			if (!ignoreFiles.contains(compilationUnit.getSourceFile()))
+			final TreeApiContext treeApiContext=new TreeApiContext(params.configByTags, params.hintFormat==HintFormat.forAnnotations, processingEnv, javaFile, compilationUnit);
+			if (ignoreFiles.contains(compilationUnit.getSourceFile()))
 			{
-				final TreeApiContext treeApiContext=new TreeApiContext(params.configByTags, params.hintFormat==HintFormat.forAnnotations, processingEnv, javaFile, compilationUnit);
+				new WarnForGeneratedVisitor(treeApiContext).scan(tp, null);
+			}
+			else
+			{
 				final CompilationUnitVisitor visitor=new CompilationUnitVisitor(treeApiContext);
 				visitor.scan(tp, null);
 				if (treeApiContext.foundJavadocControlTags)

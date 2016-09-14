@@ -56,7 +56,7 @@ class ClassVisitor extends TreePathScanner<Void,Void>
 	{
 		if (getAnnotation(WrapperIgnore.class)!=null)
 		{
-			// skip the class
+			new WarnForGeneratedVisitor(context).scan(getCurrentPath(), ignore);
 			return null;
 		}
 		else if (javaClass==null)

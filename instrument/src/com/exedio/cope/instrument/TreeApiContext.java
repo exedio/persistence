@@ -43,7 +43,7 @@ final class TreeApiContext
 	private final ConfigurationByJavadocTags javadocTagHandling;
 	final boolean extendGeneratedFragmentsToLineBreaks;
 	private final DocTrees docTrees;
-	private final Messager messager;
+	final Messager messager;
 	final JavaFile javaFile;
 	private final CompilationUnitTree compilationUnit;
 	private final DocSourcePositions sourcePositions;
