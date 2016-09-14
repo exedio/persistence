@@ -18,7 +18,9 @@
 
 package com.exedio.cope.pattern;
 
+import com.exedio.cope.CheckConstraint;
 import com.exedio.cope.CheckingSettable;
+import com.exedio.cope.Condition;
 import com.exedio.cope.FieldValues;
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.IsNullCondition;
@@ -72,6 +74,7 @@ public final class MoneyField<C extends Money.Currency> extends Pattern implemen
 	private final CurrencySource<C> currency;
 	private final boolean isfinal;
 	private final boolean mandatory;
+	private final CheckConstraint unison;
 
 	private MoneyField(final PriceField amount, final CurrencySource<C> currency)
 	{
@@ -84,6 +87,12 @@ public final class MoneyField<C extends Money.Currency> extends Pattern implemen
 		final FunctionField<?> currencySourceToBeAdded = currency.sourceToBeAdded();
 		if(currencySourceToBeAdded!=null)
 			addSource(currencySourceToBeAdded, "currency");
+
+		final Condition unison = currency.unison(amount);
+		if(unison!=null)
+			addSource(this.unison = new CheckConstraint(unison), "unison");
+		else
+			this.unison = null;
 	}
 
 	public MoneyField<C> toFinal()
@@ -131,6 +140,11 @@ public final class MoneyField<C extends Money.Currency> extends Pattern implemen
 	public Class<C> getCurrencyClass()
 	{
 		return currency.getInitialType();
+	}
+
+	public CheckConstraint getUnison()
+	{
+		return unison;
 	}
 
 	@Override

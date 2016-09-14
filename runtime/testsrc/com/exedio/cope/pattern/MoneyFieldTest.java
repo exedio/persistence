@@ -76,6 +76,7 @@ public class MoneyFieldTest extends TestWithEnvironment
 		assertEquals("exclOpt-amount",     exclOpt.getAmount()         .getName());
 		assertEquals("exclOpt-amount-int", exclOpt.getAmount().getInt().getName());
 		assertEquals("exclOpt-currency",   exclOpt.getCurrencyField()  .getName());
+		assertEquals("exclOpt-unison",     exclOpt.getUnison()         .getName());
 		assertEquals(null,                 exclOpt.getCurrencyValue());
 		assertEquals("exclMan",            exclMan                     .getName());
 		assertEquals("exclMan-amount",     exclMan.getAmount()         .getName());
@@ -90,6 +91,16 @@ public class MoneyFieldTest extends TestWithEnvironment
 		assertEquals(Currency.class, sharMan.getCurrencyClass());
 		assertEquals(Currency.class, exclOpt.getCurrencyClass());
 		assertEquals(Currency.class, exclMan.getCurrencyClass());
+
+		assertEquals(null, fixeOpt.getUnison());
+		assertEquals(null, fixeEnu.getUnison());
+		assertEquals(null, sharOpt.getUnison());
+		assertEquals(null, sharMan.getUnison());
+		assertEquals(null, exclMan.getUnison());
+		assertEquals("(" +
+				"(MoneyFieldItem.exclOpt-amount-int is "+ "null AND MoneyFieldItem.exclOpt-currency "+ "is null) OR " +
+				"(MoneyFieldItem.exclOpt-amount-int is not null AND MoneyFieldItem.exclOpt-currency is not null))",
+				exclOpt.getUnison().getCondition().toString());
 
 		assertEquals("com.exedio.cope.pattern.Money<" + CurrFix .class.getName() + ">", fixeOpt.getInitialType().toString());
 		assertEquals("com.exedio.cope.pattern.Money<" + Currency.class.getName() + ">", fixeEnu.getInitialType().toString());

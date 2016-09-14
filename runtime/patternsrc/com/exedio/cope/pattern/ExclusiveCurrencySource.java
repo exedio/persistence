@@ -18,8 +18,11 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.misc.Conditions.unisonNull;
+import static java.util.Arrays.asList;
 import static java.util.Objects.requireNonNull;
 
+import com.exedio.cope.Condition;
 import com.exedio.cope.FieldValues;
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.Item;
@@ -38,6 +41,15 @@ final class ExclusiveCurrencySource<C extends Money.Currency> extends CurrencySo
 	FunctionField<C> sourceToBeAdded()
 	{
 		return currency;
+	}
+
+	@Override
+	Condition unison(final PriceField amount)
+	{
+		if(amount.isMandatory())
+			return null;
+
+		return unisonNull(asList(amount.getInt(), currency));
 	}
 
 	@Override CurrencySource<C> copy()     { return new ExclusiveCurrencySource<>(currency.copy()); }
