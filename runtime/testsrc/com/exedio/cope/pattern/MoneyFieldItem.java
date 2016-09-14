@@ -27,86 +27,86 @@ import com.exedio.cope.Item;
 
 public final class MoneyFieldItem extends Item
 {
-	static final MoneyField<CurrencyFixed> fixed = MoneyField.fixed(CurrencyFixed.fix).optional();
+	static final MoneyField<CurrFix> fixeOpt = MoneyField.fixed(CurrFix.fix).optional();
 
-	static MoneyFieldItem fixed(final Money<CurrencyFixed> fixedAny)
+	static MoneyFieldItem fixeOpt(final Money<CurrFix> fixeOpt)
 	{
 		return new MoneyFieldItem(
-			MoneyFieldItem.fixed.map(fixedAny),
+			MoneyFieldItem.fixeOpt.map(fixeOpt),
 			MoneyFieldItem.currency.map(gbp),
-			MoneyFieldItem.sharedMandatory.map(valueOf(8888.88, gbp))
+			MoneyFieldItem.sharMan.map(valueOf(8888.88, gbp))
 		);
 	}
 
 
 	enum Currency implements Money.Currency {eur,gbp}
 
-	static final MoneyField<Currency> fixedEnum = MoneyField.fixed(Currency.eur).optional();
+	static final MoneyField<Currency> fixeEnu = MoneyField.fixed(Currency.eur).optional();
 
-	static MoneyFieldItem fixedEnum(final Money<Currency> fixed)
+	static MoneyFieldItem fixeEnu(final Money<Currency> fixeEnu)
 	{
 		return new MoneyFieldItem(
-			MoneyFieldItem.fixedEnum.map(fixed),
+			MoneyFieldItem.fixeEnu.map(fixeEnu),
 			MoneyFieldItem.currency.map(gbp),
-			MoneyFieldItem.sharedMandatory.map(valueOf(8888.88, gbp))
+			MoneyFieldItem.sharMan.map(valueOf(8888.88, gbp))
 		);
 	}
 
 
 	static final EnumField<Currency> currency = EnumField.create(Currency.class);
 
-	static final MoneyField<Currency> shared = MoneyField.shared(currency).optional();
+	static final MoneyField<Currency> sharOpt = MoneyField.shared(currency).optional();
 
-	static MoneyFieldItem shared(final Currency currency, final Money<Currency> shared)
+	static MoneyFieldItem sharOpt(final Currency currency, final Money<Currency> sharOpt)
 	{
 		return new MoneyFieldItem(
 			MoneyFieldItem.currency.map(currency),
-			MoneyFieldItem.shared.map(shared),
-			MoneyFieldItem.sharedMandatory.map(eurX)
+			MoneyFieldItem.sharOpt.map(sharOpt),
+			MoneyFieldItem.sharMan.map(eurX)
 		);
 	}
 
 
-	static final MoneyField<Currency> sharedMandatory = MoneyField.shared(currency);
+	static final MoneyField<Currency> sharMan = MoneyField.shared(currency);
 
-	static MoneyFieldItem sharedMandatory(
+	static MoneyFieldItem sharMan(
 			final Currency currency,
-			final Money<Currency> sharedMandatory)
+			final Money<Currency> sharMan)
 	{
 		return new MoneyFieldItem(
 			MoneyFieldItem.currency.map(currency),
-			MoneyFieldItem.shared.map(eurX),
-			MoneyFieldItem.sharedMandatory.map(sharedMandatory)
+			MoneyFieldItem.sharOpt.map(eurX),
+			MoneyFieldItem.sharMan.map(sharMan)
 		);
 	}
 
-	static MoneyFieldItem sharedMandatory(
+	static MoneyFieldItem sharMan(
 			final Currency currency,
-			final Money<Currency> shared,
-			final Money<Currency> sharedMandatory)
+			final Money<Currency> sharOpt,
+			final Money<Currency> sharMan)
 	{
 		return new MoneyFieldItem(
 			MoneyFieldItem.currency.map(currency),
-			MoneyFieldItem.shared.map(shared),
-			MoneyFieldItem.sharedMandatory.map(sharedMandatory)
+			MoneyFieldItem.sharOpt.map(sharOpt),
+			MoneyFieldItem.sharMan.map(sharMan)
 		);
 	}
 
 
-	static final MoneyField<Currency> exclusive = MoneyField.exclusive(EnumField.create(Currency.class)).optional();
+	static final MoneyField<Currency> exclOpt = MoneyField.exclusive(EnumField.create(Currency.class)).optional();
 
-	static MoneyFieldItem exclusive(final Money<Currency> exclusive)
+	static MoneyFieldItem exclOpt(final Money<Currency> exclOpt)
 	{
 		return new MoneyFieldItem(
 			MoneyFieldItem.currency.map(eur),
-			MoneyFieldItem.sharedMandatory.map(eurX),
-			MoneyFieldItem.exclusive.map(exclusive)
+			MoneyFieldItem.sharMan.map(eurX),
+			MoneyFieldItem.exclOpt.map(exclOpt)
 		);
 	}
 
-	Currency getExclusiveCurrency()
+	Currency getExclOptCurrency()
 	{
-		return exclusive.getCurrencyField().get(this);
+		return exclOpt.getCurrencyField().get(this);
 	}
 
 
@@ -115,19 +115,19 @@ public final class MoneyFieldItem extends Item
 	/**
 	 * Creates a new MoneyFieldItem with all the fields initially needed.
 	 * @param currency the initial value for field {@link #currency}.
-	 * @param sharedMandatory the initial value for field {@link #sharedMandatory}.
-	 * @throws com.exedio.cope.MandatoryViolationException if currency, sharedMandatory is null.
+	 * @param sharMan the initial value for field {@link #sharMan}.
+	 * @throws com.exedio.cope.MandatoryViolationException if currency, sharMan is null.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
 	MoneyFieldItem(
 				@javax.annotation.Nonnull final Currency currency,
-				@javax.annotation.Nonnull final com.exedio.cope.pattern.Money<Currency> sharedMandatory)
+				@javax.annotation.Nonnull final com.exedio.cope.pattern.Money<Currency> sharMan)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
 			MoneyFieldItem.currency.map(currency),
-			MoneyFieldItem.sharedMandatory.map(sharedMandatory),
+			MoneyFieldItem.sharMan.map(sharMan),
 		});
 	}
 
@@ -141,41 +141,41 @@ public final class MoneyFieldItem extends Item
 	}
 
 	/**
-	 * Returns the value of {@link #fixed}.
+	 * Returns the value of {@link #fixeOpt}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final com.exedio.cope.pattern.Money<CurrencyFixed> getFixed()
+	final com.exedio.cope.pattern.Money<CurrFix> getFixeOpt()
 	{
-		return MoneyFieldItem.fixed.get(this);
+		return MoneyFieldItem.fixeOpt.get(this);
 	}
 
 	/**
-	 * Sets a new value for {@link #fixed}.
+	 * Sets a new value for {@link #fixeOpt}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setFixed(@javax.annotation.Nullable final com.exedio.cope.pattern.Money<CurrencyFixed> fixed)
+	final void setFixeOpt(@javax.annotation.Nullable final com.exedio.cope.pattern.Money<CurrFix> fixeOpt)
 	{
-		MoneyFieldItem.fixed.set(this,fixed);
+		MoneyFieldItem.fixeOpt.set(this,fixeOpt);
 	}
 
 	/**
-	 * Returns the value of {@link #fixedEnum}.
+	 * Returns the value of {@link #fixeEnu}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final com.exedio.cope.pattern.Money<Currency> getFixedEnum()
+	final com.exedio.cope.pattern.Money<Currency> getFixeEnu()
 	{
-		return MoneyFieldItem.fixedEnum.get(this);
+		return MoneyFieldItem.fixeEnu.get(this);
 	}
 
 	/**
-	 * Sets a new value for {@link #fixedEnum}.
+	 * Sets a new value for {@link #fixeEnu}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setFixedEnum(@javax.annotation.Nullable final com.exedio.cope.pattern.Money<Currency> fixedEnum)
+	final void setFixeEnu(@javax.annotation.Nullable final com.exedio.cope.pattern.Money<Currency> fixeEnu)
 	{
-		MoneyFieldItem.fixedEnum.set(this,fixedEnum);
+		MoneyFieldItem.fixeEnu.set(this,fixeEnu);
 	}
 
 	/**
@@ -200,62 +200,62 @@ public final class MoneyFieldItem extends Item
 	}
 
 	/**
-	 * Returns the value of {@link #shared}.
+	 * Returns the value of {@link #sharOpt}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final com.exedio.cope.pattern.Money<Currency> getShared()
+	final com.exedio.cope.pattern.Money<Currency> getSharOpt()
 	{
-		return MoneyFieldItem.shared.get(this);
+		return MoneyFieldItem.sharOpt.get(this);
 	}
 
 	/**
-	 * Sets a new value for {@link #shared}.
+	 * Sets a new value for {@link #sharOpt}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setShared(@javax.annotation.Nullable final com.exedio.cope.pattern.Money<Currency> shared)
+	final void setSharOpt(@javax.annotation.Nullable final com.exedio.cope.pattern.Money<Currency> sharOpt)
 	{
-		MoneyFieldItem.shared.set(this,shared);
+		MoneyFieldItem.sharOpt.set(this,sharOpt);
 	}
 
 	/**
-	 * Returns the value of {@link #sharedMandatory}.
+	 * Returns the value of {@link #sharMan}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final com.exedio.cope.pattern.Money<Currency> getSharedMandatory()
+	final com.exedio.cope.pattern.Money<Currency> getSharMan()
 	{
-		return MoneyFieldItem.sharedMandatory.get(this);
+		return MoneyFieldItem.sharMan.get(this);
 	}
 
 	/**
-	 * Sets a new value for {@link #sharedMandatory}.
+	 * Sets a new value for {@link #sharMan}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setSharedMandatory(@javax.annotation.Nonnull final com.exedio.cope.pattern.Money<Currency> sharedMandatory)
+	final void setSharMan(@javax.annotation.Nonnull final com.exedio.cope.pattern.Money<Currency> sharMan)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{
-		MoneyFieldItem.sharedMandatory.set(this,sharedMandatory);
+		MoneyFieldItem.sharMan.set(this,sharMan);
 	}
 
 	/**
-	 * Returns the value of {@link #exclusive}.
+	 * Returns the value of {@link #exclOpt}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final com.exedio.cope.pattern.Money<Currency> getExclusive()
+	final com.exedio.cope.pattern.Money<Currency> getExclOpt()
 	{
-		return MoneyFieldItem.exclusive.get(this);
+		return MoneyFieldItem.exclOpt.get(this);
 	}
 
 	/**
-	 * Sets a new value for {@link #exclusive}.
+	 * Sets a new value for {@link #exclOpt}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setExclusive(@javax.annotation.Nullable final com.exedio.cope.pattern.Money<Currency> exclusive)
+	final void setExclOpt(@javax.annotation.Nullable final com.exedio.cope.pattern.Money<Currency> exclOpt)
 	{
-		MoneyFieldItem.exclusive.set(this,exclusive);
+		MoneyFieldItem.exclOpt.set(this,exclOpt);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument")

@@ -18,14 +18,14 @@
 
 package com.exedio.cope.pattern;
 
-public final class CurrencyFixed implements Money.Currency
+public final class CurrFix implements Money.Currency
 {
-	public static final CurrencyFixed fix = new CurrencyFixed("fix");
-	public static final CurrencyFixed fixOther = new CurrencyFixed("fixOther");
+	public static final CurrFix fix = new CurrFix("fix");
+	public static final CurrFix fixOther = new CurrFix("fixOther");
 
 	private final String code;
 
-	private CurrencyFixed(final String code)
+	private CurrFix(final String code)
 	{
 		this.code = code;
 	}

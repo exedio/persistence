@@ -19,16 +19,16 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.SchemaInfo.getColumnName;
-import static com.exedio.cope.pattern.CurrencyFixed.fix;
-import static com.exedio.cope.pattern.CurrencyFixed.fixOther;
+import static com.exedio.cope.pattern.CurrFix.fix;
+import static com.exedio.cope.pattern.CurrFix.fixOther;
 import static com.exedio.cope.pattern.Money.valueOf;
 import static com.exedio.cope.pattern.MoneyFieldItem.TYPE;
 import static com.exedio.cope.pattern.MoneyFieldItem.currency;
-import static com.exedio.cope.pattern.MoneyFieldItem.exclusive;
-import static com.exedio.cope.pattern.MoneyFieldItem.fixed;
-import static com.exedio.cope.pattern.MoneyFieldItem.fixedEnum;
-import static com.exedio.cope.pattern.MoneyFieldItem.shared;
-import static com.exedio.cope.pattern.MoneyFieldItem.sharedMandatory;
+import static com.exedio.cope.pattern.MoneyFieldItem.exclOpt;
+import static com.exedio.cope.pattern.MoneyFieldItem.fixeEnu;
+import static com.exedio.cope.pattern.MoneyFieldItem.fixeOpt;
+import static com.exedio.cope.pattern.MoneyFieldItem.sharMan;
+import static com.exedio.cope.pattern.MoneyFieldItem.sharOpt;
 import static com.exedio.cope.pattern.MoneyFieldItem.Currency.eur;
 import static com.exedio.cope.pattern.MoneyFieldItem.Currency.gbp;
 import static org.junit.Assert.assertEquals;
@@ -53,409 +53,409 @@ public class MoneyFieldTest extends TestWithEnvironment
 
 	@Test public void testNames()
 	{
-		assertEquals("fixed",                fixed                     .getName());
-		assertEquals("fixed-amount",         fixed.getAmount()         .getName());
-		assertEquals("fixed-amount-int",     fixed.getAmount().getInt().getName());
-		assertEquals(null,                   fixed.getCurrencyField());
-		assertEquals(CurrencyFixed.fix,      fixed.getCurrencyValue());
-		assertEquals("fixedEnum",            fixedEnum                     .getName());
-		assertEquals("fixedEnum-amount",     fixedEnum.getAmount()         .getName());
-		assertEquals("fixedEnum-amount-int", fixedEnum.getAmount().getInt().getName());
-		assertEquals(null,                   fixedEnum.getCurrencyField());
-		assertEquals(Currency.eur,           fixedEnum.getCurrencyValue());
-		assertEquals("shared",               shared                     .getName());
-		assertEquals("shared-amount",        shared.getAmount()         .getName());
-		assertEquals("shared-amount-int",    shared.getAmount().getInt().getName());
-		assertEquals("sharedMandatory",            sharedMandatory                     .getName());
-		assertEquals("sharedMandatory-amount",     sharedMandatory.getAmount()         .getName());
-		assertEquals("sharedMandatory-amount-int", sharedMandatory.getAmount().getInt().getName());
-		assertEquals("currency",             shared.getCurrencyField()     .getName());
-		assertEquals(null,                   shared.getCurrencyValue());
-		assertEquals("exclusive",            exclusive                     .getName());
-		assertEquals("exclusive-amount",     exclusive.getAmount()         .getName());
-		assertEquals("exclusive-amount-int", exclusive.getAmount().getInt().getName());
-		assertEquals("exclusive-currency",   exclusive.getCurrencyField()  .getName());
-		assertEquals(null,                   exclusive.getCurrencyValue());
-		assertSame(shared.getCurrencyField(), sharedMandatory.getCurrencyField());
+		assertEquals("fixeOpt",            fixeOpt                     .getName());
+		assertEquals("fixeOpt-amount",     fixeOpt.getAmount()         .getName());
+		assertEquals("fixeOpt-amount-int", fixeOpt.getAmount().getInt().getName());
+		assertEquals(null,                 fixeOpt.getCurrencyField());
+		assertEquals(CurrFix.fix,          fixeOpt.getCurrencyValue());
+		assertEquals("fixeEnu",            fixeEnu                     .getName());
+		assertEquals("fixeEnu-amount",     fixeEnu.getAmount()         .getName());
+		assertEquals("fixeEnu-amount-int", fixeEnu.getAmount().getInt().getName());
+		assertEquals(null,                 fixeEnu.getCurrencyField());
+		assertEquals(Currency.eur,         fixeEnu.getCurrencyValue());
+		assertEquals("sharOpt",            sharOpt                     .getName());
+		assertEquals("sharOpt-amount",     sharOpt.getAmount()         .getName());
+		assertEquals("sharOpt-amount-int", sharOpt.getAmount().getInt().getName());
+		assertEquals("sharMan",            sharMan                     .getName());
+		assertEquals("sharMan-amount",     sharMan.getAmount()         .getName());
+		assertEquals("sharMan-amount-int", sharMan.getAmount().getInt().getName());
+		assertEquals("currency",           sharOpt.getCurrencyField()  .getName());
+		assertEquals(null,                 sharOpt.getCurrencyValue());
+		assertEquals("exclOpt",            exclOpt                     .getName());
+		assertEquals("exclOpt-amount",     exclOpt.getAmount()         .getName());
+		assertEquals("exclOpt-amount-int", exclOpt.getAmount().getInt().getName());
+		assertEquals("exclOpt-currency",   exclOpt.getCurrencyField()  .getName());
+		assertEquals(null,                 exclOpt.getCurrencyValue());
+		assertSame(sharOpt.getCurrencyField(), sharMan.getCurrencyField());
 
-		assertEquals(CurrencyFixed.class, fixed     .getCurrencyClass());
-		assertEquals(Currency.class, fixedEnum      .getCurrencyClass());
-		assertEquals(Currency.class, shared         .getCurrencyClass());
-		assertEquals(Currency.class, sharedMandatory.getCurrencyClass());
-		assertEquals(Currency.class, exclusive      .getCurrencyClass());
+		assertEquals(CurrFix.class , fixeOpt.getCurrencyClass());
+		assertEquals(Currency.class, fixeEnu.getCurrencyClass());
+		assertEquals(Currency.class, sharOpt.getCurrencyClass());
+		assertEquals(Currency.class, sharMan.getCurrencyClass());
+		assertEquals(Currency.class, exclOpt.getCurrencyClass());
 
-		assertEquals("com.exedio.cope.pattern.Money<" + CurrencyFixed.class.getName() + ">", fixed     .getInitialType().toString());
-		assertEquals("com.exedio.cope.pattern.Money<" + Currency.class.getName() + ">", fixedEnum      .getInitialType().toString());
-		assertEquals("com.exedio.cope.pattern.Money<" + Currency.class.getName() + ">", shared         .getInitialType().toString());
-		assertEquals("com.exedio.cope.pattern.Money<" + Currency.class.getName() + ">", sharedMandatory.getInitialType().toString());
-		assertEquals("com.exedio.cope.pattern.Money<" + Currency.class.getName() + ">", exclusive      .getInitialType().toString());
+		assertEquals("com.exedio.cope.pattern.Money<" + CurrFix .class.getName() + ">", fixeOpt.getInitialType().toString());
+		assertEquals("com.exedio.cope.pattern.Money<" + Currency.class.getName() + ">", fixeEnu.getInitialType().toString());
+		assertEquals("com.exedio.cope.pattern.Money<" + Currency.class.getName() + ">", sharOpt.getInitialType().toString());
+		assertEquals("com.exedio.cope.pattern.Money<" + Currency.class.getName() + ">", sharMan.getInitialType().toString());
+		assertEquals("com.exedio.cope.pattern.Money<" + Currency.class.getName() + ">", exclOpt.getInitialType().toString());
 
-		assertEquals("fixed_int",           getColumnName(fixed.getAmount().getInt()));
-		assertEquals("fixedEnum_int",       getColumnName(fixedEnum.getAmount().getInt()));
-		assertEquals("shared_int",          getColumnName(shared.getAmount().getInt()));
-		assertEquals("currency" ,           getColumnName(shared.getCurrencyField()));
-		assertEquals("exclusive_int",       getColumnName(exclusive.getAmount().getInt()));
-		assertEquals("exclusive_currency" , getColumnName(exclusive.getCurrencyField()));
+		assertEquals("fixeOpt_int",      getColumnName(fixeOpt.getAmount().getInt()));
+		assertEquals("fixeEnu_int",      getColumnName(fixeEnu.getAmount().getInt()));
+		assertEquals("sharOpt_int",      getColumnName(sharOpt.getAmount().getInt()));
+		assertEquals("currency" ,        getColumnName(sharOpt.getCurrencyField()));
+		assertEquals("exclOpt_int",      getColumnName(exclOpt.getAmount().getInt()));
+		assertEquals("exclOpt_currency", getColumnName(exclOpt.getCurrencyField()));
 	}
 	@Test public void testFixedConsistencyOkSingle()
 	{
-		final MoneyFieldItem i = fixed(valueOf(5.55, fix));
-		assertEquals(valueOf(5.55, fix), i.getFixed());
+		final MoneyFieldItem i = fixeOpt(valueOf(5.55, fix));
+		assertEquals(valueOf(5.55, fix), i.getFixeOpt());
 
-		i.setFixed(valueOf(6.66, fix));
-		assertEquals(valueOf(6.66, fix), i.getFixed());
+		i.setFixeOpt(valueOf(6.66, fix));
+		assertEquals(valueOf(6.66, fix), i.getFixeOpt());
 
-		i.setFixed(null);
-		assertEquals(null, i.getFixed());
+		i.setFixeOpt(null);
+		assertEquals(null, i.getFixeOpt());
 	}
 	@Test public void testFixedConsistencyCreateNull()
 	{
-		final MoneyFieldItem i = fixed(null);
-		assertEquals(null , i.getFixed());
+		final MoneyFieldItem i = fixeOpt(null);
+		assertEquals(null , i.getFixeOpt());
 	}
 	@Test public void testFixedConsistencyOkMulti()
 	{
-		final MoneyFieldItem i = fixed(valueOf(5.55, fix));
-		assertEquals(valueOf(5.55, fix), i.getFixed());
+		final MoneyFieldItem i = fixeOpt(valueOf(5.55, fix));
+		assertEquals(valueOf(5.55, fix), i.getFixeOpt());
 
-		i.set(fixed.map(valueOf(6.66, fix)));
-		assertEquals(valueOf(6.66, fix), i.getFixed());
+		i.set(fixeOpt.map(valueOf(6.66, fix)));
+		assertEquals(valueOf(6.66, fix), i.getFixeOpt());
 
-		i.set(fixed.map(null));
-		assertEquals(null, i.getFixed());
+		i.set(fixeOpt.map(null));
+		assertEquals(null, i.getFixeOpt());
 	}
 	@Test public void testFixedConsistencyBrokenCreate()
 	{
 		try
 		{
-			fixed(valueOf(5.55, fixOther));
+			fixeOpt(valueOf(5.55, fixOther));
 			fail();
 		}
 		catch(final IllegalCurrencyException e)
 		{
-			assertEquals(fixed, e.getFeature());
+			assertEquals(fixeOpt, e.getFeature());
 			assertEquals(null, e.getItem());
 			assertEquals(valueOf(5.55, fixOther), e.getValue());
 			assertEquals(fix, e.getAllowed());
 			assertEquals(
 					"illegal currency at '5.55fixOther' " +
-					"for MoneyFieldItem.fixed, " +
+					"for MoneyFieldItem.fixeOpt, " +
 					"allowed is 'fix'.",
 					e.getMessage());
 		}
 	}
 	@Test public void testFixedConsistencyBrokenSingle()
 	{
-		final MoneyFieldItem i = fixed(valueOf(5.55, fix));
-		assertEquals(valueOf(5.55, fix), i.getFixed());
+		final MoneyFieldItem i = fixeOpt(valueOf(5.55, fix));
+		assertEquals(valueOf(5.55, fix), i.getFixeOpt());
 
 		try
 		{
-			i.setFixed(valueOf(6.66, fixOther));
+			i.setFixeOpt(valueOf(6.66, fixOther));
 			fail();
 		}
 		catch(final IllegalCurrencyException e)
 		{
-			assertEquals(fixed, e.getFeature());
+			assertEquals(fixeOpt, e.getFeature());
 			assertEquals(i, e.getItem());
 			assertEquals(valueOf(6.66, fixOther), e.getValue());
 			assertEquals(fix, e.getAllowed());
 			assertEquals(
 					"illegal currency at '6.66fixOther' " +
-					"on " + i + " for MoneyFieldItem.fixed, " +
+					"on " + i + " for MoneyFieldItem.fixeOpt, " +
 					"allowed is 'fix'.",
 					e.getMessage());
 		}
-		assertEquals(valueOf(5.55, fix), i.getFixed());
+		assertEquals(valueOf(5.55, fix), i.getFixeOpt());
 	}
 	@Test public void testFixedConsistencyBrokenMulti()
 	{
-		final MoneyFieldItem i = fixed(valueOf(5.55, fix));
-		assertEquals(valueOf(5.55, fix), i.getFixed());
+		final MoneyFieldItem i = fixeOpt(valueOf(5.55, fix));
+		assertEquals(valueOf(5.55, fix), i.getFixeOpt());
 
 		try
 		{
-			i.set(fixed.map(valueOf(6.66, fixOther)));
+			i.set(fixeOpt.map(valueOf(6.66, fixOther)));
 			fail();
 		}
 		catch(final IllegalCurrencyException e)
 		{
-			assertEquals(fixed, e.getFeature());
+			assertEquals(fixeOpt, e.getFeature());
 			assertEquals(i, e.getItem());
 			assertEquals(valueOf(6.66, fixOther), e.getValue());
 			assertEquals(fix, e.getAllowed());
 			assertEquals(
 					"illegal currency at '6.66fixOther' " +
-					"on " + i + " for MoneyFieldItem.fixed, " +
+					"on " + i + " for MoneyFieldItem.fixeOpt, " +
 					"allowed is 'fix'.",
 					e.getMessage());
 		}
-		assertEquals(valueOf(5.55, fix), i.getFixed());
+		assertEquals(valueOf(5.55, fix), i.getFixeOpt());
 	}
 	@Test public void testFixedEnum()
 	{
-		final MoneyFieldItem i = fixedEnum(valueOf(5.55, eur));
-		assertEquals(valueOf(5.55, eur), i.getFixedEnum());
+		final MoneyFieldItem i = fixeEnu(valueOf(5.55, eur));
+		assertEquals(valueOf(5.55, eur), i.getFixeEnu());
 
-		i.setFixedEnum(valueOf(6.66, eur));
-		assertEquals(valueOf(6.66, eur), i.getFixedEnum());
+		i.setFixeEnu(valueOf(6.66, eur));
+		assertEquals(valueOf(6.66, eur), i.getFixeEnu());
 
-		i.setFixedEnum(null);
-		assertEquals(null, i.getFixedEnum());
+		i.setFixeEnu(null);
+		assertEquals(null, i.getFixeEnu());
 	}
 	@Test public void testSharedConsistencyOkSingle()
 	{
-		final MoneyFieldItem i = shared(eur, valueOf(5.55, eur));
+		final MoneyFieldItem i = sharOpt(eur, valueOf(5.55, eur));
 		assertEquals(eur , i.getCurrency());
-		assertEquals(valueOf(5.55, eur), i.getShared());
+		assertEquals(valueOf(5.55, eur), i.getSharOpt());
 
-		i.setShared(valueOf(6.66, eur));
+		i.setSharOpt(valueOf(6.66, eur));
 		assertEquals(eur , i.getCurrency());
-		assertEquals(valueOf(6.66, eur), i.getShared());
+		assertEquals(valueOf(6.66, eur), i.getSharOpt());
 
-		i.setShared(null);
+		i.setSharOpt(null);
 		assertEquals(eur , i.getCurrency());
-		assertEquals(null, i.getShared());
+		assertEquals(null, i.getSharOpt());
 	}
 	@Test public void testSharedConsistencyCreateNull()
 	{
-		final MoneyFieldItem i = shared(eur, null);
+		final MoneyFieldItem i = sharOpt(eur, null);
 		assertEquals(eur , i.getCurrency());
-		assertEquals(null, i.getShared());
+		assertEquals(null, i.getSharOpt());
 	}
 	@Test public void testSharedConsistencyOkMulti()
 	{
-		final MoneyFieldItem i = shared(eur, valueOf(5.55, eur));
+		final MoneyFieldItem i = sharOpt(eur, valueOf(5.55, eur));
 		assertEquals(eur , i.getCurrency());
-		assertEquals(valueOf(5.55, eur), i.getShared());
+		assertEquals(valueOf(5.55, eur), i.getSharOpt());
 
-		i.set(shared.map(valueOf(6.66, eur)));
+		i.set(sharOpt.map(valueOf(6.66, eur)));
 		assertEquals(eur , i.getCurrency());
-		assertEquals(valueOf(6.66, eur), i.getShared());
+		assertEquals(valueOf(6.66, eur), i.getSharOpt());
 
-		i.set(shared.map(null));
+		i.set(sharOpt.map(null));
 		assertEquals(eur , i.getCurrency());
-		assertEquals(null, i.getShared());
+		assertEquals(null, i.getSharOpt());
 	}
 	@Test public void testSharedConsistencyOkMultiWithCurrency()
 	{
-		final MoneyFieldItem i = shared(eur, valueOf(5.55, eur));
+		final MoneyFieldItem i = sharOpt(eur, valueOf(5.55, eur));
 		assertEquals(eur , i.getCurrency());
-		assertEquals(valueOf(5.55, eur), i.getShared());
+		assertEquals(valueOf(5.55, eur), i.getSharOpt());
 
-		i.set(shared.map(valueOf(6.66, eur)), currency.map(eur));
+		i.set(sharOpt.map(valueOf(6.66, eur)), currency.map(eur));
 		assertEquals(eur , i.getCurrency());
-		assertEquals(valueOf(6.66, eur), i.getShared());
+		assertEquals(valueOf(6.66, eur), i.getSharOpt());
 
-		i.set(shared.map(null), currency.map(eur));
+		i.set(sharOpt.map(null), currency.map(eur));
 		assertEquals(eur , i.getCurrency());
-		assertEquals(null, i.getShared());
+		assertEquals(null, i.getSharOpt());
 	}
 	@Test public void testSharedConsistencyOkMultiWithOtherCurrency()
 	{
-		final MoneyFieldItem i = sharedMandatory(eur, valueOf(15.55, eur), valueOf(25.55, eur));
+		final MoneyFieldItem i = sharMan(eur, valueOf(15.55, eur), valueOf(25.55, eur));
 		assertEquals(eur , i.getCurrency());
-		assertEquals(valueOf(15.55, eur), i.getShared());
-		assertEquals(valueOf(25.55, eur), i.getSharedMandatory());
+		assertEquals(valueOf(15.55, eur), i.getSharOpt());
+		assertEquals(valueOf(25.55, eur), i.getSharMan());
 
 		i.set(
-				shared.map(valueOf(16.66, gbp)),
-				sharedMandatory.map(valueOf(26.66, gbp)),
+				sharOpt.map(valueOf(16.66, gbp)),
+				sharMan.map(valueOf(26.66, gbp)),
 				currency.map(gbp));
 		assertEquals(gbp , i.getCurrency());
-		assertEquals(valueOf(16.66, gbp), i.getShared());
-		assertEquals(valueOf(26.66, gbp), i.getSharedMandatory());
+		assertEquals(valueOf(16.66, gbp), i.getSharOpt());
+		assertEquals(valueOf(26.66, gbp), i.getSharMan());
 
-		i.set(shared.map(null), currency.map(gbp));
+		i.set(sharOpt.map(null), currency.map(gbp));
 		assertEquals(gbp , i.getCurrency());
-		assertEquals(null, i.getShared());
+		assertEquals(null, i.getSharOpt());
 	}
 
 	@SuppressFBWarnings("NP_NONNULL_PARAM_VIOLATION")
 	@Test public void testSharedMandatorySingle()
 	{
-		final MoneyFieldItem i = sharedMandatory(eur, valueOf(5.55, eur));
+		final MoneyFieldItem i = sharMan(eur, valueOf(5.55, eur));
 		assertEquals(eur , i.getCurrency());
-		assertEquals(valueOf(5.55, eur), i.getSharedMandatory());
+		assertEquals(valueOf(5.55, eur), i.getSharMan());
 
-		i.setSharedMandatory(valueOf(6.66, eur));
+		i.setSharMan(valueOf(6.66, eur));
 		assertEquals(eur , i.getCurrency());
-		assertEquals(valueOf(6.66, eur), i.getSharedMandatory());
+		assertEquals(valueOf(6.66, eur), i.getSharMan());
 
 		try
 		{
-			i.setSharedMandatory(null);
+			i.setSharMan(null);
 			fail();
 		}
 		catch(final MandatoryViolationException e)
 		{
 			assertEquals(i, e.getItem());
-			assertEquals(sharedMandatory, e.getFeature());
+			assertEquals(sharMan, e.getFeature());
 		}
 		assertEquals(eur , i.getCurrency());
-		assertEquals(valueOf(6.66, eur), i.getSharedMandatory());
+		assertEquals(valueOf(6.66, eur), i.getSharMan());
 	}
 	@Test public void testSharedMandatoryMulti()
 	{
-		final MoneyFieldItem i = sharedMandatory(eur, valueOf(5.55, eur));
+		final MoneyFieldItem i = sharMan(eur, valueOf(5.55, eur));
 		assertEquals(eur , i.getCurrency());
-		assertEquals(valueOf(5.55, eur), i.getSharedMandatory());
+		assertEquals(valueOf(5.55, eur), i.getSharMan());
 
-		i.set(sharedMandatory.map(valueOf(6.66, eur)));
+		i.set(sharMan.map(valueOf(6.66, eur)));
 		assertEquals(eur , i.getCurrency());
-		assertEquals(valueOf(6.66, eur), i.getSharedMandatory());
+		assertEquals(valueOf(6.66, eur), i.getSharMan());
 
 		try
 		{
-			i.set(sharedMandatory.map(null));
+			i.set(sharMan.map(null));
 			fail();
 		}
 		catch(final MandatoryViolationException e)
 		{
 			assertEquals(i, e.getItem());
-			assertEquals(sharedMandatory, e.getFeature());
+			assertEquals(sharMan, e.getFeature());
 		}
 		assertEquals(eur , i.getCurrency());
-		assertEquals(valueOf(6.66, eur), i.getSharedMandatory());
+		assertEquals(valueOf(6.66, eur), i.getSharMan());
 	}
 	@Test public void testSharedConsistencyBrokenCreate()
 	{
 		try
 		{
-			shared(eur, valueOf(5.55, gbp));
+			sharOpt(eur, valueOf(5.55, gbp));
 			fail();
 		}
 		catch(final IllegalCurrencyException e)
 		{
-			assertEquals(shared, e.getFeature());
+			assertEquals(sharOpt, e.getFeature());
 			assertEquals(null, e.getItem());
 			assertEquals(valueOf(5.55, gbp), e.getValue());
 			assertEquals(eur, e.getAllowed());
 			assertEquals(
 					"illegal currency at '5.55gbp' " +
-					"for MoneyFieldItem.shared, " +
+					"for MoneyFieldItem.sharOpt, " +
 					"allowed is 'eur'.",
 					e.getMessage());
 		}
 	}
 	@Test public void testSharedConsistencyBrokenSingle()
 	{
-		final MoneyFieldItem i = shared(eur, valueOf(5.55, eur));
+		final MoneyFieldItem i = sharOpt(eur, valueOf(5.55, eur));
 		assertEquals(eur, i.getCurrency());
-		assertEquals(valueOf(5.55, eur), i.getShared());
+		assertEquals(valueOf(5.55, eur), i.getSharOpt());
 
 		try
 		{
-			i.setShared(valueOf(6.66, gbp));
+			i.setSharOpt(valueOf(6.66, gbp));
 			fail();
 		}
 		catch(final IllegalCurrencyException e)
 		{
-			assertEquals(shared, e.getFeature());
+			assertEquals(sharOpt, e.getFeature());
 			assertEquals(i, e.getItem());
 			assertEquals(valueOf(6.66, gbp), e.getValue());
 			assertEquals(eur, e.getAllowed());
 			assertEquals(
 					"illegal currency at '6.66gbp' " +
-					"on " + i + " for MoneyFieldItem.shared, " +
+					"on " + i + " for MoneyFieldItem.sharOpt, " +
 					"allowed is 'eur'.",
 					e.getMessage());
 		}
 		assertEquals(eur, i.getCurrency());
-		assertEquals(valueOf(5.55, eur), i.getShared());
+		assertEquals(valueOf(5.55, eur), i.getSharOpt());
 	}
 	@Test public void testSharedConsistencyBrokenMulti()
 	{
-		final MoneyFieldItem i = shared(eur, valueOf(5.55, eur));
+		final MoneyFieldItem i = sharOpt(eur, valueOf(5.55, eur));
 		assertEquals(eur, i.getCurrency());
-		assertEquals(valueOf(5.55, eur), i.getShared());
+		assertEquals(valueOf(5.55, eur), i.getSharOpt());
 
 		try
 		{
-			i.set(shared.map(valueOf(6.66, gbp)));
+			i.set(sharOpt.map(valueOf(6.66, gbp)));
 			fail();
 		}
 		catch(final IllegalCurrencyException e)
 		{
-			assertEquals(shared, e.getFeature());
+			assertEquals(sharOpt, e.getFeature());
 			assertEquals(i, e.getItem());
 			assertEquals(valueOf(6.66, gbp), e.getValue());
 			assertEquals(eur, e.getAllowed());
 			assertEquals(
 					"illegal currency at '6.66gbp' " +
-					"on " + i + " for MoneyFieldItem.shared, " +
+					"on " + i + " for MoneyFieldItem.sharOpt, " +
 					"allowed is 'eur'.",
 					e.getMessage());
 		}
 		assertEquals(eur, i.getCurrency());
-		assertEquals(valueOf(5.55, eur), i.getShared());
+		assertEquals(valueOf(5.55, eur), i.getSharOpt());
 	}
 	@Test public void testSharedConsistencyBrokenMultiWithCurrency()
 	{
-		final MoneyFieldItem i = shared(eur, valueOf(5.55, eur));
+		final MoneyFieldItem i = sharOpt(eur, valueOf(5.55, eur));
 		assertEquals(eur, i.getCurrency());
-		assertEquals(valueOf(5.55, eur), i.getShared());
+		assertEquals(valueOf(5.55, eur), i.getSharOpt());
 
 		try
 		{
-			i.set(shared.map(valueOf(6.66, gbp)), currency.map(eur));
+			i.set(sharOpt.map(valueOf(6.66, gbp)), currency.map(eur));
 			fail();
 		}
 		catch(final IllegalCurrencyException e)
 		{
-			assertEquals(shared, e.getFeature());
+			assertEquals(sharOpt, e.getFeature());
 			assertEquals(i, e.getItem());
 			assertEquals(valueOf(6.66, gbp), e.getValue());
 			assertEquals(eur, e.getAllowed());
 			assertEquals(
 					"illegal currency at '6.66gbp' " +
-					"on " + i + " for MoneyFieldItem.shared, " +
+					"on " + i + " for MoneyFieldItem.sharOpt, " +
 					"allowed is 'eur'.",
 					e.getMessage());
 		}
 		assertEquals(eur, i.getCurrency());
-		assertEquals(valueOf(5.55, eur), i.getShared());
+		assertEquals(valueOf(5.55, eur), i.getSharOpt());
 	}
 	@Test public void testExclusiveSingle()
 	{
-		final MoneyFieldItem i = exclusive(valueOf(5.55, eur));
-		assertEquals(valueOf(5.55, eur), i.getExclusive());
-		assertEquals(eur, i.getExclusiveCurrency());
+		final MoneyFieldItem i = exclOpt(valueOf(5.55, eur));
+		assertEquals(valueOf(5.55, eur), i.getExclOpt());
+		assertEquals(eur, i.getExclOptCurrency());
 
-		i.setExclusive(valueOf(6.66, eur));
-		assertEquals(valueOf(6.66, eur), i.getExclusive());
-		assertEquals(eur, i.getExclusiveCurrency());
+		i.setExclOpt(valueOf(6.66, eur));
+		assertEquals(valueOf(6.66, eur), i.getExclOpt());
+		assertEquals(eur, i.getExclOptCurrency());
 
-		i.setExclusive(valueOf(7.77, gbp));
-		assertEquals(valueOf(7.77, gbp), i.getExclusive());
-		assertEquals(gbp, i.getExclusiveCurrency());
+		i.setExclOpt(valueOf(7.77, gbp));
+		assertEquals(valueOf(7.77, gbp), i.getExclOpt());
+		assertEquals(gbp, i.getExclOptCurrency());
 
-		i.setExclusive(null);
-		assertEquals(null, i.getExclusive());
-		assertEquals(null, i.getExclusiveCurrency());
+		i.setExclOpt(null);
+		assertEquals(null, i.getExclOpt());
+		assertEquals(null, i.getExclOptCurrency());
 	}
 	@Test public void testExclusiveCreateNull()
 	{
-		final MoneyFieldItem i = exclusive(null);
-		assertEquals(null, i.getExclusive());
-		assertEquals(null, i.getExclusiveCurrency());
+		final MoneyFieldItem i = exclOpt(null);
+		assertEquals(null, i.getExclOpt());
+		assertEquals(null, i.getExclOptCurrency());
 	}
 	@Test public void testExclusiveMulti()
 	{
-		final MoneyFieldItem i = exclusive(valueOf(5.55, eur));
-		assertEquals(valueOf(5.55, eur), i.getExclusive());
-		assertEquals(eur, i.getExclusiveCurrency());
+		final MoneyFieldItem i = exclOpt(valueOf(5.55, eur));
+		assertEquals(valueOf(5.55, eur), i.getExclOpt());
+		assertEquals(eur, i.getExclOptCurrency());
 
-		i.set(exclusive.map(valueOf(6.66, eur)));
-		assertEquals(valueOf(6.66, eur), i.getExclusive());
-		assertEquals(eur, i.getExclusiveCurrency());
+		i.set(exclOpt.map(valueOf(6.66, eur)));
+		assertEquals(valueOf(6.66, eur), i.getExclOpt());
+		assertEquals(eur, i.getExclOptCurrency());
 
-		i.set(exclusive.map(valueOf(7.77, gbp)));
-		assertEquals(valueOf(7.77, gbp), i.getExclusive());
-		assertEquals(gbp, i.getExclusiveCurrency());
+		i.set(exclOpt.map(valueOf(7.77, gbp)));
+		assertEquals(valueOf(7.77, gbp), i.getExclOpt());
+		assertEquals(gbp, i.getExclOptCurrency());
 
-		i.set(exclusive.map(null));
-		assertEquals(null, i.getExclusive());
-		assertEquals(null, i.getExclusiveCurrency());
+		i.set(exclOpt.map(null));
+		assertEquals(null, i.getExclOpt());
+		assertEquals(null, i.getExclOptCurrency());
 	}
 }
