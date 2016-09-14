@@ -131,6 +131,14 @@ final class JavaField
 			}
 		}
 		unusedValidWrapKeys.add(modifierTag);
+		for (final Wrapper wrapper: wrappers)
+		{
+			if ("*".equals(wrapper.wrap()))
+			{
+				copeWrapsThatHaveBeenRead.add(wrapper);
+				return wrapper;
+			}
+		}
 		return null;
 	}
 
