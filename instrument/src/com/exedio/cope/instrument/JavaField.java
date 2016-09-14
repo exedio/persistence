@@ -126,18 +126,18 @@ final class JavaField
 	@Nullable
 	Wrapper getWrappers(final String modifierTag)
 	{
-		for (final Wrapper wrapper: wrappers)
-		{
-			if (modifierTag.equals(wrapper.wrap()))
-			{
-				copeWrapsThatHaveBeenRead.add(wrapper);
-				return wrapper;
-			}
-		}
+		final Wrapper byModifierTag=readWrapper(modifierTag);
+		if (byModifierTag!=null)
+			return byModifierTag;
 		unusedValidWrapKeys.add(modifierTag);
+		return readWrapper(Wrapper.ALL_WRAPS);
+	}
+
+	private Wrapper readWrapper(final String wrap)
+	{
 		for (final Wrapper wrapper: wrappers)
 		{
-			if (Wrapper.ALL_WRAPS.equals(wrapper.wrap()))
+			if (wrap.equals(wrapper.wrap()))
 			{
 				copeWrapsThatHaveBeenRead.add(wrapper);
 				return wrapper;
