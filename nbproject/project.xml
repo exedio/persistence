@@ -204,6 +204,14 @@
                         <location>instrument/antsrc</location>
                     </source-folder>
                     <source-folder style="packages">
+                        <label>instrument/testfeaturesrc</label>
+                        <location>instrument/testfeaturesrc</location>
+                    </source-folder>
+                    <source-folder style="packages">
+                        <label>instrument/testsrc</label>
+                        <location>instrument/testsrc</location>
+                    </source-folder>
+                    <source-folder style="packages">
                         <label>runtime/src</label>
                         <location>runtime/src</location>
                     </source-folder>
@@ -220,24 +228,12 @@
                         <location>runtime/junitsrc</location>
                     </source-folder>
                     <source-folder style="packages">
-                        <label>dsmf/src</label>
-                        <location>dsmf/src</location>
-                    </source-folder>
-                    <source-folder style="packages">
                         <label>runtime/mysqlsrc</label>
                         <location>runtime/mysqlsrc</location>
                     </source-folder>
                     <source-folder style="packages">
                         <label>runtime/postgresqlsrc</label>
                         <location>runtime/postgresqlsrc</location>
-                    </source-folder>
-                    <source-folder style="packages">
-                        <label>instrument/testfeaturesrc</label>
-                        <location>instrument/testfeaturesrc</location>
-                    </source-folder>
-                    <source-folder style="packages">
-                        <label>instrument/testsrc</label>
-                        <location>instrument/testsrc</location>
                     </source-folder>
                     <source-folder style="packages">
                         <label>runtime/testsrc</label>
@@ -256,17 +252,15 @@
                         <location>runtime/servlettestwebsrc</location>
                     </source-folder>
                     <source-folder style="packages">
+                        <label>dsmf/src</label>
+                        <location>dsmf/src</location>
+                    </source-folder>
+                    <source-folder style="packages">
                         <label>dsmf/testsrc</label>
                         <location>dsmf/testsrc</location>
                     </source-folder>
                     <source-file>
                         <location>build.xml</location>
-                    </source-file>
-                    <source-file>
-                        <location>getlib.xml</location>
-                    </source-file>
-                    <source-file>
-                        <location>getlib.properties</location>
                     </source-file>
                 </items>
                 <context-menu>
