@@ -18,7 +18,7 @@
 
 package com.exedio.cope.pattern;
 
-import com.exedio.cope.CheckConstraint;
+import com.exedio.cope.Condition;
 import com.exedio.cope.FieldValues;
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.Item;
@@ -27,7 +27,7 @@ import com.exedio.cope.SetValue;
 abstract class CurrencySource<C extends Money.Currency>
 {
 	FunctionField<?> sourceToBeAdded() { return null; }
-	/** @param amount used by subclasses */ CheckConstraint unison(final PriceField amount) { return null; }
+	/** @param amount used by subclasses */ Condition unison(final PriceField amount) { return null; }
 	CurrencySource<C> copy()     { return this; }
 	CurrencySource<C> toFinal()  { return this; }
 	CurrencySource<C> optional() { return this; }
