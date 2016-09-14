@@ -18,6 +18,7 @@
 
 package com.exedio.cope.pattern;
 
+import com.exedio.cope.CheckConstraint;
 import com.exedio.cope.CheckingSettable;
 import com.exedio.cope.FieldValues;
 import com.exedio.cope.FunctionField;
@@ -30,6 +31,7 @@ import com.exedio.cope.Settable;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.WrapFeature;
+import com.exedio.cope.misc.Conditions;
 import com.exedio.cope.misc.CopeSchemaNameElement;
 import com.exedio.cope.misc.ReflectionTypes;
 import com.exedio.cope.misc.instrument.FinalSettableGetter;
@@ -72,6 +74,7 @@ public final class MoneyField<C extends Money.Currency> extends Pattern implemen
 	private final CurrencySource<C> currency;
 	private final boolean isfinal;
 	private final boolean mandatory;
+	private final CheckConstraint unison;
 
 	private MoneyField(final PriceField amount, final CurrencySource<C> currency)
 	{
@@ -83,7 +86,25 @@ public final class MoneyField<C extends Money.Currency> extends Pattern implemen
 
 		final FunctionField<?> currencySourceToBeAdded = currency.sourceToBeAdded();
 		if(currencySourceToBeAdded!=null)
+		{
 			addSource(currencySourceToBeAdded, "currency");
+
+			if(!mandatory)
+			{
+				addSource(
+						this.unison = new CheckConstraint(Conditions.unisonNull(Arrays.asList(
+								amount.getInt(), currencySourceToBeAdded))),
+						"unison");
+			}
+			else
+			{
+				this.unison = null;
+			}
+		}
+		else
+		{
+			this.unison = null;
+		}
 	}
 
 	public MoneyField<C> toFinal()
@@ -131,6 +152,11 @@ public final class MoneyField<C extends Money.Currency> extends Pattern implemen
 	public Class<C> getCurrencyClass()
 	{
 		return currency.getInitialType();
+	}
+
+	public CheckConstraint getUnison()
+	{
+		return unison;
 	}
 
 	@Override
