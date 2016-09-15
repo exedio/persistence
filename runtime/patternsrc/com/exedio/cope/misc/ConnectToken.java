@@ -351,6 +351,9 @@ public final class ConnectToken
 	 */
 	public ConnectToken returnIfFails(final Consumer<ConnectToken> afterwards)
 	{
+		if(isReturned())
+			throw new IllegalStateException("connect token " + id + " already returned");
+
 		boolean mustReturn = true;
 		try
 		{

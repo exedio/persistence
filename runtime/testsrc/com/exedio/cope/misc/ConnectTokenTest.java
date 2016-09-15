@@ -255,10 +255,18 @@ public class ConnectTokenTest
 		assertTrue(token.isReturned());
 
 		final Afterwards afterwards = new Afterwards(false);
-		assertSame(token, token.returnIfFails(afterwards));
+		try
+		{
+			assertSame(token, token.returnIfFails(afterwards));
+			fail();
+		}
+		catch(final IllegalStateException e)
+		{
+			assertEquals("connect token 0 already returned", e.getMessage());
+		}
 		assertFalse(model.isConnected());
 		assertTrue(token.isReturned());
-		assertSame(token, afterwards.token());
+		assertSame(null, afterwards.token());
 	}
 
 	@Test public void testAfterwardsFail()
@@ -282,6 +290,33 @@ public class ConnectTokenTest
 		assertFalse(model.isConnected());
 		assertTrue(token.isReturned());
 		assertSame(token, afterwards.token());
+	}
+
+	@Test public void testAfterwardsFailReturned()
+	{
+		assertNotConnected();
+
+		final ConnectToken token = issue(model, "tokenName");
+		assertTrue(model.isConnected());
+		assertFalse(token.isReturned());
+
+		token.returnStrictly();
+		assertFalse(model.isConnected());
+		assertTrue(token.isReturned());
+
+		final Afterwards afterwards = new Afterwards(true);
+		try
+		{
+			token.returnIfFails(afterwards);
+			fail();
+		}
+		catch(final IllegalStateException e)
+		{
+			assertEquals("connect token 0 already returned", e.getMessage());
+		}
+		assertFalse(model.isConnected());
+		assertTrue(token.isReturned());
+		assertSame(null, afterwards.token());
 	}
 
 	private static class Afterwards implements Consumer<ConnectToken>
