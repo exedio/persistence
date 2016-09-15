@@ -70,7 +70,7 @@ final class MysqlDialect extends Dialect
 		super(
 				new com.exedio.dsmf.MysqlDialect(
 						sequenceColumnName(probe.properties),
-						probe.properties.mysqlRowFormat.sql));
+						probe.properties.mysqlRowFormat.sql()));
 		this.utf8mb4 = probe.properties.mysqlUtf8mb4;
 		this.maxBytesPerChar = utf8mb4 ? 4 : 3;
 		final String mb4 = utf8mb4 ? "mb4" : "";

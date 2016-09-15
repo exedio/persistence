@@ -24,19 +24,12 @@ enum MysqlRowFormat
 	 * This value means, that there is no ROW_FORMAT
 	 * clause at all.
 	 */
-	NONE(null),
+	NONE,
 
 	DEFAULT, DYNAMIC, FIXED, COMPRESSED, REDUNDANT, COMPACT;
 
-	final String sql;
-
-	MysqlRowFormat(final String sql)
+	String sql()
 	{
-		this.sql = sql;
-	}
-
-	MysqlRowFormat()
-	{
-		this.sql = name();
+		return (this==NONE) ? null : name();
 	}
 }
