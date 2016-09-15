@@ -80,7 +80,7 @@ public class MediaServlet extends HttpServlet
 	{
 		super.init();
 
-		connectToken = ServletUtil.getConnectedModel(this, (connectToken) ->
+		connectToken = ConnectToken.returnIfFails(ServletUtil.getConnectedModel(this), (connectToken) ->
 		{
 			initPathes(connectToken.getModel()); // TODO do this before connect
 			initConnected(connectToken.getModel());

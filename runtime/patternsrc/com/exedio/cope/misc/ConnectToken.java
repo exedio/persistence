@@ -346,30 +346,27 @@ public final class ConnectToken
 	}
 
 	/**
-	 * Calls {@link #issue(Model, String)} and then {@code afterwards}.
-	 * {@link #returnStrictly() Returns} the token, if {@code afterwards} fails.
+	 * Calls {@code afterwards} and {@link #returnStrictly() returns} the token,
+	 * if {@code afterwards} fails.
 	 */
-	public static final ConnectToken issue(
-			final Model model,
-			final String tokenName,
+	public static final ConnectToken returnIfFails(
+			final ConnectToken token,
 			final Consumer<ConnectToken> afterwards)
 	{
-		final ConnectToken result = issue(model, tokenName);
-
 		boolean mustReturn = true;
 		try
 		{
-			afterwards.accept(result);
+			afterwards.accept(token);
 			mustReturn = false;
 		}
 		finally
 		{
 			if(mustReturn)
-				result.returnStrictly();
+				token.returnStrictly();
 		}
 		// DO NOT WRITE ANYTHING HERE,
 		// OTHERWISE ConnectTokens MAY BE LOST
-		return result;
+		return token;
 	}
 
 	/**

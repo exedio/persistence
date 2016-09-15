@@ -231,10 +231,13 @@ public class ConnectTokenTest
 	{
 		assertNotConnected();
 
-		final Afterwards afterwards = new Afterwards(false);
-		final ConnectToken token = issue(model, "tokenName", afterwards);
+		final ConnectToken token = issue(model, "tokenName");
 		assertTrue(model.isConnected());
-		assertEquals("com.exedio.cope.misc.ConnectTokenTest#model/0(tokenName)", token.toString());
+
+		final Afterwards afterwards = new Afterwards(false);
+		assertSame(token, ConnectToken.returnIfFails(token, afterwards));
+		assertTrue(model.isConnected());
+		assertFalse(token.isReturned());
 		assertSame(token, afterwards.token());
 	}
 
@@ -242,10 +245,13 @@ public class ConnectTokenTest
 	{
 		assertNotConnected();
 
+		final ConnectToken token = issue(model, "tokenName");
+		assertTrue(model.isConnected());
+
 		final Afterwards afterwards = new Afterwards(true);
 		try
 		{
-			issue(model, "tokenName", afterwards);
+			assertSame(token, ConnectToken.returnIfFails(token, afterwards));
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -253,8 +259,8 @@ public class ConnectTokenTest
 			assertEquals("Afterwards fail", e.getMessage());
 		}
 		assertFalse(model.isConnected());
-		assertNotNull(afterwards.token());
-		assertEquals("tokenName", afterwards.tokenName());
+		assertTrue(token.isReturned());
+		assertSame(token, afterwards.token());
 	}
 
 	private static class Afterwards implements Consumer<ConnectToken>
@@ -267,9 +273,7 @@ public class ConnectTokenTest
 		}
 
 		private ConnectToken token;
-		private String tokenName;
 		ConnectToken token() { return token; }
-		String tokenName() { return tokenName; }
 
 		@Override
 		public void accept(final ConnectToken token)
@@ -277,7 +281,6 @@ public class ConnectTokenTest
 			assertNotNull(token);
 			assertNull(this.token);
 			this.token = token;
-			this.tokenName = token.getName();
 			if(fail)
 				throw new IllegalArgumentException("Afterwards fail");
 		}

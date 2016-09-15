@@ -23,7 +23,6 @@ import com.exedio.cope.Model;
 import com.exedio.cope.servletutil.ServletSource;
 import com.exedio.cope.util.Properties;
 import java.io.File;
-import java.util.function.Consumer;
 import javax.servlet.Filter;
 import javax.servlet.FilterConfig;
 import javax.servlet.Servlet;
@@ -99,43 +98,23 @@ public final class ServletUtil
 		};
 	}
 
-
 	public static final ConnectToken getConnectedModel(final Servlet servlet)
 	{
-		return getConnectedModel(servlet, EMTPY_AFTERWARDS);
+		return getConnectedModel(
+				wrap(servlet.getServletConfig()),
+				servlet);
 	}
 
 	public static final ConnectToken getConnectedModel(final Filter filter, final FilterConfig config)
 	{
-		return getConnectedModel(filter, config, EMTPY_AFTERWARDS);
-	}
-
-	private static final Consumer<ConnectToken> EMTPY_AFTERWARDS = (t)->{ /*empty*/ };
-
-
-	public static final ConnectToken getConnectedModel(
-			final Servlet servlet,
-			final Consumer<ConnectToken> afterwards)
-	{
-		return getConnectedModel(
-				wrap(servlet.getServletConfig()),
-				servlet, afterwards);
-	}
-
-	public static final ConnectToken getConnectedModel(
-			final Filter filter,
-			final FilterConfig config,
-			final Consumer<ConnectToken> afterwards)
-	{
 		return getConnectedModel(
 				wrap(config),
-				filter, afterwards);
+				filter);
 	}
 
 	private static final ConnectToken getConnectedModel(
 					final Config config,
-					final Object nameObject,
-					final Consumer<ConnectToken> afterwards)
+					final Object nameObject)
 	{
 		final String PARAMETER_MODEL = "model";
 		final String initParam = config.getInitParameter(PARAMETER_MODEL);
@@ -171,7 +150,7 @@ public final class ServletUtil
 		{
 			throw new IllegalArgumentException(description + ", " + modelNameSource + ' ' + PARAMETER_MODEL + ':' + ' ' + e.getMessage(), e);
 		}
-		return ConnectToken.issue(result, description, afterwards);
+		return ConnectToken.issue(result, description);
 	}
 
 	/**
