@@ -305,13 +305,4 @@ final class WrapperX
 
 
 	private static final String[] EMPTY_STRING_ARRAY = new String[]{};
-
-	static <F> List<WrapperX> getByAnnotations(
-			final Class<F> clazz,
-			final F feature,
-			final List<WrapperX> superResult,
-			final boolean enableNullability)
-	{
-		return WrapperByAnnotations.make(clazz, feature, superResult, enableNullability);
-	}
 }
