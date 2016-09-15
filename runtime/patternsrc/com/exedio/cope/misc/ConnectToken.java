@@ -349,24 +349,22 @@ public final class ConnectToken
 	 * Calls {@code afterwards} and {@link #returnStrictly() returns} the token,
 	 * if {@code afterwards} fails.
 	 */
-	public static final ConnectToken returnIfFails(
-			final ConnectToken token,
-			final Consumer<ConnectToken> afterwards)
+	public ConnectToken returnIfFails(final Consumer<ConnectToken> afterwards)
 	{
 		boolean mustReturn = true;
 		try
 		{
-			afterwards.accept(token);
+			afterwards.accept(this);
 			mustReturn = false;
 		}
 		finally
 		{
 			if(mustReturn)
-				token.returnStrictly();
+				returnStrictly();
 		}
 		// DO NOT WRITE ANYTHING HERE,
 		// OTHERWISE ConnectTokens MAY BE LOST
-		return token;
+		return this;
 	}
 
 	/**
