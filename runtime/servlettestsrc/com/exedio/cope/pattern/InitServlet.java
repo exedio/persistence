@@ -131,6 +131,8 @@ public class InitServlet extends HttpServlet
 				throw new RuntimeException(e);
 			}
 		});
+		// DO NOT WRITE ANYTHING HERE,
+		// OTHERWISE ConnectTokens MAY BE LOST
 	}
 
 	@Override
