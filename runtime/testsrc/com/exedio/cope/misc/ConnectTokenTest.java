@@ -242,6 +242,29 @@ public class ConnectTokenTest
 		assertSame(token, afterwards.token());
 	}
 
+	@Test public void testAfterwardsFail()
+	{
+		assertNotConnected();
+
+		final ConnectToken token = issue(model, "tokenName");
+		assertTrue(model.isConnected());
+		assertFalse(token.isReturned());
+
+		final Afterwards afterwards = new Afterwards(true);
+		try
+		{
+			assertSame(token, token.returnIfFails(afterwards));
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals("Afterwards fail", e.getMessage());
+		}
+		assertFalse(model.isConnected());
+		assertTrue(token.isReturned());
+		assertSame(token, afterwards.token());
+	}
+
 	@Test public void testAfterwardsOkReturned()
 	{
 		assertNotConnected();
@@ -267,29 +290,6 @@ public class ConnectTokenTest
 		assertFalse(model.isConnected());
 		assertTrue(token.isReturned());
 		assertSame(null, afterwards.token());
-	}
-
-	@Test public void testAfterwardsFail()
-	{
-		assertNotConnected();
-
-		final ConnectToken token = issue(model, "tokenName");
-		assertTrue(model.isConnected());
-		assertFalse(token.isReturned());
-
-		final Afterwards afterwards = new Afterwards(true);
-		try
-		{
-			assertSame(token, token.returnIfFails(afterwards));
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("Afterwards fail", e.getMessage());
-		}
-		assertFalse(model.isConnected());
-		assertTrue(token.isReturned());
-		assertSame(token, afterwards.token());
 	}
 
 	@Test public void testAfterwardsFailReturned()
