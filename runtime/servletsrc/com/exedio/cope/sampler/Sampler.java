@@ -140,22 +140,9 @@ public class Sampler
 
 	public final ConnectToken connect(final String tokenName)
 	{
-		final ConnectToken result = ConnectToken.issue(samplerModel, tokenName);
-
-		boolean mustReturn = true;
-		try
-		{
-			checkInternal();
-			mustReturn = false;
-		}
-		finally
-		{
-			if(mustReturn)
-				result.returnStrictly();
-		}
+		return ConnectToken.issue(samplerModel, tokenName, t -> { checkInternal(); });
 		// DO NOT WRITE ANYTHING HERE,
 		// OTHERWISE ConnectTokens MAY BE LOST
-		return result;
 	}
 
 	/**

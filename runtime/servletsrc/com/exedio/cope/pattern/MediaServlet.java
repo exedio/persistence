@@ -80,23 +80,11 @@ public class MediaServlet extends HttpServlet
 	{
 		super.init();
 
-		connectToken = ServletUtil.getConnectedModel(this);
-
-		boolean mustReturn = true;
-		try
+		connectToken = ServletUtil.getConnectedModel(this, (connectToken) ->
 		{
 			initPathes(connectToken.getModel()); // TODO do this before connect
 			initConnected(connectToken.getModel());
-			mustReturn = false;
-		}
-		finally
-		{
-			if(mustReturn)
-			{
-				connectToken.returnStrictly();
-				connectToken = null;
-			}
-		}
+		});
 		// DO NOT WRITE ANYTHING HERE, BUT IN initConnected ONLY
 		// OTHERWISE ConnectTokens MAY BE LOST
 	}

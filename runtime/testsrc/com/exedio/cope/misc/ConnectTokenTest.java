@@ -27,6 +27,7 @@ import static com.exedio.cope.tojunit.Assert.assertWithin;
 import static com.exedio.cope.tojunit.Assert.list;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
@@ -38,6 +39,7 @@ import com.exedio.cope.tojunit.ConnectTokenRule;
 import com.exedio.cope.tojunit.LogRule;
 import java.io.File;
 import java.util.Date;
+import java.util.function.Consumer;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -223,6 +225,62 @@ public class ConnectTokenTest
 		assertToken(0, before0, after0, "token0Name", false, true,  true, token0);
 		assertToken(1, before1, after1, "token1Name", false, false, true, token1);
 		log.assertWarn("" + model + ": returned 0 excessively (token0Name)");
+	}
+
+	@Test public void testAfterwardsOk()
+	{
+		assertNotConnected();
+
+		final Afterwards afterwards = new Afterwards(false);
+		final ConnectToken token = issue(model, "tokenName", afterwards);
+		assertTrue(model.isConnected());
+		assertEquals("com.exedio.cope.misc.ConnectTokenTest#model/0(tokenName)", token.toString());
+		assertSame(token, afterwards.token());
+	}
+
+	@Test public void testAfterwardsFail()
+	{
+		assertNotConnected();
+
+		final Afterwards afterwards = new Afterwards(true);
+		try
+		{
+			issue(model, "tokenName", afterwards);
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals("Afterwards fail", e.getMessage());
+		}
+		assertFalse(model.isConnected());
+		assertNotNull(afterwards.token());
+		assertEquals("tokenName", afterwards.tokenName());
+	}
+
+	private static class Afterwards implements Consumer<ConnectToken>
+	{
+		private final boolean fail;
+
+		Afterwards(final boolean fail)
+		{
+			this.fail = fail;
+		}
+
+		private ConnectToken token;
+		private String tokenName;
+		ConnectToken token() { return token; }
+		String tokenName() { return tokenName; }
+
+		@Override
+		public void accept(final ConnectToken token)
+		{
+			assertNotNull(token);
+			assertNull(this.token);
+			this.token = token;
+			this.tokenName = token.getName();
+			if(fail)
+				throw new IllegalArgumentException("Afterwards fail");
+		}
 	}
 
 	@Test public void testNullName()

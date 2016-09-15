@@ -29,6 +29,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.function.Consumer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -342,6 +343,33 @@ public final class ConnectToken
 			final String tokenName)
 	{
 		return manciple(model).issueIfConnected(model, tokenName);
+	}
+
+	/**
+	 * Calls {@link #issue(Model, String)} and then {@code afterwards}.
+	 * {@link #returnStrictly() Returns} the token, if {@code afterwards} fails.
+	 */
+	public static final ConnectToken issue(
+			final Model model,
+			final String tokenName,
+			final Consumer<ConnectToken> afterwards)
+	{
+		final ConnectToken result = issue(model, tokenName);
+
+		boolean mustReturn = true;
+		try
+		{
+			afterwards.accept(result);
+			mustReturn = false;
+		}
+		finally
+		{
+			if(mustReturn)
+				result.returnStrictly();
+		}
+		// DO NOT WRITE ANYTHING HERE,
+		// OTHERWISE ConnectTokens MAY BE LOST
+		return result;
 	}
 
 	/**

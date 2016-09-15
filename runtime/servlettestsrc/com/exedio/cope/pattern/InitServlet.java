@@ -45,90 +45,92 @@ public class InitServlet extends HttpServlet
 
 		final byte[] textValue = "This is an example file\nfor testing media data.\n".getBytes(UTF_8);
 		final Class<?> thisClass = InitServlet.class;
-		connectToken = ConnectToken.issue(model, thisClass.getName());
-		model.createSchema();
-		try(TransactionTry tx = model.startTransactionTry(thisClass.getName()))
+		connectToken = ConnectToken.issue(model, thisClass.getName(), t ->
 		{
-			final MediaServletItem text = new MediaServletItem();
-			assertID("MediaServletItem-0", text);
-			text.setContent(textValue, "text/plain", 0);
+			model.createSchema();
+			try(TransactionTry tx = model.startTransactionTry(thisClass.getName()))
+			{
+				final MediaServletItem text = new MediaServletItem();
+				assertID("MediaServletItem-0", text);
+				text.setContent(textValue, "text/plain", 0);
 
-			final MediaServletItem empty = new MediaServletItem();
-			assertID("MediaServletItem-1", empty);
+				final MediaServletItem empty = new MediaServletItem();
+				assertID("MediaServletItem-1", empty);
 
-			final MediaServletItem png = new MediaServletItem();
-			assertID("MediaServletItem-2", png);
-			png.setContent(thisClass.getResourceAsStream("osorno.png"), "image/png", 2);
-			assertPath("MediaServletItem/finger/.fjeCiepS/MediaServletItem-2.jpg", png.getFingerLocator());
+				final MediaServletItem png = new MediaServletItem();
+				assertID("MediaServletItem-2", png);
+				png.setContent(thisClass.getResourceAsStream("osorno.png"), "image/png", 2);
+				assertPath("MediaServletItem/finger/.fjeCiepS/MediaServletItem-2.jpg", png.getFingerLocator());
 
-			final MediaServletItem jpeg = new MediaServletItem();
-			assertID("MediaServletItem-3", jpeg);
-			jpeg.setContent(thisClass.getResourceAsStream("tree.jpg"), "image/jpeg", 3);
-			assertPath("MediaServletItem/finger/.fjYxvepS/MediaServletItem-3.jpg", jpeg.getFingerLocator());
+				final MediaServletItem jpeg = new MediaServletItem();
+				assertID("MediaServletItem-3", jpeg);
+				jpeg.setContent(thisClass.getResourceAsStream("tree.jpg"), "image/jpeg", 3);
+				assertPath("MediaServletItem/finger/.fjYxvepS/MediaServletItem-3.jpg", jpeg.getFingerLocator());
 
-			final MediaServletItem unknown = new MediaServletItem();
-			assertID("MediaServletItem-4", unknown);
-			unknown.setContent(textValue, "unknownma/unknownmi", 4);
+				final MediaServletItem unknown = new MediaServletItem();
+				assertID("MediaServletItem-4", unknown);
+				unknown.setContent(textValue, "unknownma/unknownmi", 4);
 
-			final MediaServletItem nameOk = new MediaServletItem("media item 1");
-			assertID("MediaServletItem-5", nameOk);
-			final MediaServletItem nameNull = new MediaServletItem(null);
-			assertID("MediaServletItem-6", nameNull);
-			final MediaServletItem nameError = new MediaServletItem("media item 3 error");
-			assertID("MediaServletItem-7", nameError);
+				final MediaServletItem nameOk = new MediaServletItem("media item 1");
+				assertID("MediaServletItem-5", nameOk);
+				final MediaServletItem nameNull = new MediaServletItem(null);
+				assertID("MediaServletItem-6", nameNull);
+				final MediaServletItem nameError = new MediaServletItem("media item 3 error");
+				assertID("MediaServletItem-7", nameError);
 
-			final MediaServletItem gif = new MediaServletItem();
-			assertID("MediaServletItem-8", gif);
-			gif.setContent(thisClass.getResourceAsStream("gif.gif"), "image/gif", 8);
+				final MediaServletItem gif = new MediaServletItem();
+				assertID("MediaServletItem-8", gif);
+				gif.setContent(thisClass.getResourceAsStream("gif.gif"), "image/gif", 8);
 
-			final MediaServletItem small = new MediaServletItem();
-			assertID("MediaServletItem-9", small);
-			small.setContent(thisClass.getResourceAsStream("small.jpg"), "image/jpeg", 9);
+				final MediaServletItem small = new MediaServletItem();
+				assertID("MediaServletItem-9", small);
+				small.setContent(thisClass.getResourceAsStream("small.jpg"), "image/jpeg", 9);
 
-			final MediaServletItem antialias = new MediaServletItem();
-			assertID("MediaServletItem-10", antialias);
-			antialias.setContent(thisClass.getResourceAsStream("antialias.png"), "image/png", 10);
+				final MediaServletItem antialias = new MediaServletItem();
+				assertID("MediaServletItem-10", antialias);
+				antialias.setContent(thisClass.getResourceAsStream("antialias.png"), "image/png", 10);
 
-			final MediaServletItem antialiasJpeg = new MediaServletItem();
-			assertID("MediaServletItem-11", antialiasJpeg);
-			antialiasJpeg.setContent(thisClass.getResourceAsStream("antialias.jpg"), "image/jpeg", 11);
+				final MediaServletItem antialiasJpeg = new MediaServletItem();
+				assertID("MediaServletItem-11", antialiasJpeg);
+				antialiasJpeg.setContent(thisClass.getResourceAsStream("antialias.jpg"), "image/jpeg", 11);
 
-			final MediaServletItem transparency = new MediaServletItem();
-			assertID("MediaServletItem-12", transparency);
-			transparency.setContent(thisClass.getResourceAsStream("transparency.png"), "image/png", 12);
+				final MediaServletItem transparency = new MediaServletItem();
+				assertID("MediaServletItem-12", transparency);
+				transparency.setContent(thisClass.getResourceAsStream("transparency.png"), "image/png", 12);
 
-			final MediaServletItem html = new MediaServletItem();
-			assertID("MediaServletItem-13", html);
-			html.setContent(thisClass.getResourceAsStream("filter.html"), "text/html", 13);
-			html.addHtmlPaste("small", Media.toValue(thisClass.getResourceAsStream("small.jpg"), "image/jpeg"));
-			html.addHtmlPaste("tree",  Media.toValue(thisClass.getResourceAsStream("tree.jpg"),  "image/jpeg"));
-			html.modifyHtmlPaste( "tree", Media.toValue( thisClass.getResourceAsStream( "small.jpg" ), "image/jpeg" ) );
-			html.modifyHtmlPaste( "tree", Media.toValue( thisClass.getResourceAsStream( "tree.jpg" ), "image/jpeg" ) );
+				final MediaServletItem html = new MediaServletItem();
+				assertID("MediaServletItem-13", html);
+				html.setContent(thisClass.getResourceAsStream("filter.html"), "text/html", 13);
+				html.addHtmlPaste("small", Media.toValue(thisClass.getResourceAsStream("small.jpg"), "image/jpeg"));
+				html.addHtmlPaste("tree",  Media.toValue(thisClass.getResourceAsStream("tree.jpg"),  "image/jpeg"));
+				html.modifyHtmlPaste( "tree", Media.toValue( thisClass.getResourceAsStream( "small.jpg" ), "image/jpeg" ) );
+				html.modifyHtmlPaste( "tree", Media.toValue( thisClass.getResourceAsStream( "tree.jpg" ), "image/jpeg" ) );
 
-			final MediaPatternItem pattern = new MediaPatternItem();
-			pattern.setSourceFeature(textValue, "text/plain", 10);
-			pattern.addSourceItem(textValue, "text/plain", 20);
-			pattern.addSourceItem(textValue, "text/plain", 21);
+				final MediaPatternItem pattern = new MediaPatternItem();
+				pattern.setSourceFeature(textValue, "text/plain", 10);
+				pattern.addSourceItem(textValue, "text/plain", 20);
+				pattern.addSourceItem(textValue, "text/plain", 21);
 
-			final MediaServletItem catchPhrase = new MediaServletItem();
-			assertID("MediaServletItem-14", catchPhrase);
-			catchPhrase.setCatchPhrase("zick");
-			catchPhrase.setContent(textValue, "text/plain", 14);
+				final MediaServletItem catchPhrase = new MediaServletItem();
+				assertID("MediaServletItem-14", catchPhrase);
+				catchPhrase.setCatchPhrase("zick");
+				catchPhrase.setContent(textValue, "text/plain", 14);
 
-			final MediaServletItem nameErrorLastModified = new MediaServletItem("media item 4 error");
-			assertID("MediaServletItem-15", nameErrorLastModified);
-			nameErrorLastModified.setNameServerLastModified(15);
+				final MediaServletItem nameErrorLastModified = new MediaServletItem("media item 4 error");
+				assertID("MediaServletItem-15", nameErrorLastModified);
+				nameErrorLastModified.setNameServerLastModified(15);
 
-			tx.commit();
-		}
-		catch(final IOException e)
-		{
-			throw new RuntimeException(e);
-		}
-		catch(final ParseException e)
-		{
-			throw new RuntimeException(e);
-		}
+				tx.commit();
+			}
+			catch(final IOException e)
+			{
+				throw new RuntimeException(e);
+			}
+			catch(final ParseException e)
+			{
+				throw new RuntimeException(e);
+			}
+		});
 	}
 
 	@Override
