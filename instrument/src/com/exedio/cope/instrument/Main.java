@@ -36,7 +36,7 @@ final class Main
 
 	static final int INITIAL_BUFFER_SIZE=16384;
 
-	final void run(final Params params, final ArrayList<File> classpathFiles, final ArrayList<File> resourceFiles) throws HumanReadableException, IOException
+	final void run(final Params params, final Iterable<File> classpathFiles, final Iterable<File> resourceFiles) throws HumanReadableException, IOException
 	{
 		final List<File> files = new ArrayList<>(params.sourceFiles);
 		files.removeAll(params.ignoreFiles);
@@ -147,7 +147,7 @@ final class Main
 			System.out.println("Instrumented " + instrumented + ' ' + (instrumented==1 ? "file" : "files") + ", skipped " + skipped + " in " + files.iterator().next().getParentFile().getAbsolutePath());
 	}
 
-	private static boolean noFilesModifiedAfter(final List<File> checkFiles, final File referenceFile, final boolean verbose)
+	private static boolean noFilesModifiedAfter(final Iterable<File> checkFiles, final File referenceFile, final boolean verbose)
 	{
 		if ( referenceFile==null || !referenceFile.exists() )
 		{
@@ -175,7 +175,7 @@ final class Main
 		}
 	}
 
-	static void runJavac(final Params params, final List<File> classpathFiles, final JavaRepository repository) throws IOException, HumanReadableException
+	private static void runJavac(final Params params, final Iterable<File> classpathFiles, final JavaRepository repository) throws IOException, HumanReadableException
 	{
 		new JavacRunner<InstrumentorProcessor>()
 		{

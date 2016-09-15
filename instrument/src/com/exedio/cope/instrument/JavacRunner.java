@@ -38,7 +38,7 @@ import javax.tools.StandardJavaFileManager;
 
 abstract class JavacRunner<P extends Processor>
 {
-	void run(final Params params, final List<File> classpathFiles) throws IOException, HumanReadableException
+	void run(final Params params, final Iterable<File> classpathFiles) throws IOException, HumanReadableException
 	{
 		// "JavacTool.create()" is not part of the "exported" API
 		// (not annotated with https://docs.oracle.com/javase/8/docs/jdk/api/javac/tree/jdk/Exported.html).
@@ -91,7 +91,7 @@ abstract class JavacRunner<P extends Processor>
 		}
 	}
 
-	private static String getConfiguredClasspath(final List<File> classpathFiles)
+	private static String getConfiguredClasspath(final Iterable<File> classpathFiles)
 	{
 		final StringBuilder result=new StringBuilder();
 		boolean needSeparator=false;
