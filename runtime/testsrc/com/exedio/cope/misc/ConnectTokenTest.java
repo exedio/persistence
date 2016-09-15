@@ -233,6 +233,7 @@ public class ConnectTokenTest
 
 		final ConnectToken token = issue(model, "tokenName");
 		assertTrue(model.isConnected());
+		assertFalse(token.isReturned());
 
 		final Afterwards afterwards = new Afterwards(false);
 		assertSame(token, token.returnIfFails(afterwards));
@@ -247,6 +248,7 @@ public class ConnectTokenTest
 
 		final ConnectToken token = issue(model, "tokenName");
 		assertTrue(model.isConnected());
+		assertFalse(token.isReturned());
 
 		final Afterwards afterwards = new Afterwards(true);
 		try
