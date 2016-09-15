@@ -242,6 +242,25 @@ public class ConnectTokenTest
 		assertSame(token, afterwards.token());
 	}
 
+	@Test public void testAfterwardsOkReturned()
+	{
+		assertNotConnected();
+
+		final ConnectToken token = issue(model, "tokenName");
+		assertTrue(model.isConnected());
+		assertFalse(token.isReturned());
+
+		token.returnStrictly();
+		assertFalse(model.isConnected());
+		assertTrue(token.isReturned());
+
+		final Afterwards afterwards = new Afterwards(false);
+		assertSame(token, token.returnIfFails(afterwards));
+		assertFalse(model.isConnected());
+		assertTrue(token.isReturned());
+		assertSame(token, afterwards.token());
+	}
+
 	@Test public void testAfterwardsFail()
 	{
 		assertNotConnected();
