@@ -59,5 +59,7 @@ public final class ConnectTokenRule extends ExternalResource
 	protected void after()
 	{
 		ConnectToken.removeProperties(model);
+		if(model.isConnected())
+			model.disconnect();
 	}
 }
