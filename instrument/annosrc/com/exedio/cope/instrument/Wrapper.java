@@ -29,6 +29,13 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.SOURCE)
 public @interface Wrapper
 {
+	static final String ALL_WRAPS="*";
+
+	/**
+	 * The {@link Wrap#name() name} of the 'wrap' that is being configured.
+	 * Use wrap="*" to influence all wraps of the field.
+	 * @see #ALL_WRAPS
+	 */
 	String wrap();
 
 	/**

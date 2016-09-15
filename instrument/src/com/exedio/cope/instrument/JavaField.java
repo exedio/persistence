@@ -86,6 +86,10 @@ final class JavaField
 			for (final Wrapper copeWrap: unused)
 			{
 				details.append(" ").append(copeWrap.wrap());
+				if (copeWrap.wrap().contains(Wrapper.ALL_WRAPS) && !Wrapper.ALL_WRAPS.equals(copeWrap.wrap()))
+				{
+					details.append(" (\"").append(Wrapper.ALL_WRAPS).append("\" is only supported as full value)");
+				}
 			}
 			details.append(System.lineSeparator());
 			if (unusedValidWrapKeys.isEmpty())
@@ -122,15 +126,23 @@ final class JavaField
 	@Nullable
 	Wrapper getWrappers(final String modifierTag)
 	{
+		final Wrapper byModifierTag=readWrapper(modifierTag);
+		if (byModifierTag!=null)
+			return byModifierTag;
+		unusedValidWrapKeys.add(modifierTag);
+		return readWrapper(Wrapper.ALL_WRAPS);
+	}
+
+	private Wrapper readWrapper(final String wrap)
+	{
 		for (final Wrapper wrapper: wrappers)
 		{
-			if (modifierTag.equals(wrapper.wrap()))
+			if (wrap.equals(wrapper.wrap()))
 			{
 				copeWrapsThatHaveBeenRead.add(wrapper);
 				return wrapper;
 			}
 		}
-		unusedValidWrapKeys.add(modifierTag);
 		return null;
 	}
 
