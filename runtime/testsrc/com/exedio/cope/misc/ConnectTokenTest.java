@@ -265,7 +265,7 @@ public class ConnectTokenTest
 		assertSame(token, afterwards.token());
 	}
 
-	@Test public void testAfterwardsOkReturned()
+	@Test public void testAfterwardsReturnedOk()
 	{
 		assertNotConnected();
 
@@ -292,7 +292,7 @@ public class ConnectTokenTest
 		assertSame(null, afterwards.token());
 	}
 
-	@Test public void testAfterwardsFailReturned()
+	@Test public void testAfterwardsReturnedFail()
 	{
 		assertNotConnected();
 
