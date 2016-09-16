@@ -14,6 +14,7 @@
 		<conf name="runtime" />
 		<conf name="sources" />
 		<conf name="changelog" />
+		<conf name="completion" description="For fetching exedio-cope-instrument-completion.jar" />
 		<conf name="junit" extends="runtime" description="For fetching exedio-cope-junit.jar" />
 		<conf name="build" extends="runtime" visibility="private" />
 
@@ -31,6 +32,7 @@
 		<artifact name="exedio-cope-instrument-annotations" />
 		<artifact name="exedio-cope-instrument" />
 		<artifact name="exedio-cope-junit" conf="junit" />
+		<artifact name="exedio-cope-instrument-completion" conf="completion" />
 	</publications>
 	<dependencies defaultconf="runtime->*">
 		<dependency org="javax.servlet" name="javax.servlet-api" rev="3.0.1" conf="runtime->default; build->sources" />
