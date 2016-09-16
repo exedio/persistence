@@ -669,6 +669,12 @@
 		</ljarn>
 	</target>
 
+	<target name="instrument.completion.jar" depends="instrument.completion.compile">
+		<ljarn name="cope instrumentor completions" jarfile="build/exedio-cope-instrument-completion.jar">
+			<fileset dir="build/classes/instrument/completionsrc" />
+		</ljarn>
+	</target>
+
 	<target name="instrument.core.compile" depends="runtime.core.compile, runtime.pattern.compile, instrument.anno.compile">
 		<compile srcdir="instrument/src">
 			<classpath>
@@ -692,7 +698,15 @@
 		</compile>
 	</target>
 
-	<target name="instrument.compile" depends="instrument.core.compile, instrument.ant.compile" />
+	<target name="instrument.completion.compile" depends="instrument.anno.compile">
+		<compile srcdir="instrument/completionsrc">
+			<classpath>
+				<pathelement location="build/classes/instrument/annosrc" />
+			</classpath>
+		</compile>
+	</target>
+
+	<target name="instrument.compile" depends="instrument.core.compile, instrument.ant.compile, instrument.completion.compile" />
 
 	<target name="instrument.jar" depends="instrument.core.compile, instrument.ant.compile">
 		<ljar name="cope instrumentor" jarfile="build/exedio-cope-instrument.jar" classpath="exedio-cope-instrument-annotations.jar exedio-cope.jar bsh-core.jar">
@@ -825,7 +839,7 @@
 			  runtime.test.compile,
 			  instrument.compile" />
 
-	<target name="jar" depends="runtime.jar, instrument.anno.jar, instrument.jar" />
+	<target name="jar" depends="runtime.jar, instrument.anno.jar, instrument.jar, instrument.completion.jar" />
 
 	<target name="testWithEnv" depends="dsmf.test, runtime.test.withEnv, testprotocol" />
 
@@ -962,6 +976,7 @@
 			<fileset file="${basedir}/build/exedio-cope-junit.jar" />
 			<fileset file="${basedir}/build/exedio-cope-instrument-annotations.jar" />
 			<fileset file="${basedir}/build/exedio-cope-instrument.jar" />
+			<fileset file="${basedir}/build/exedio-cope-instrument-completion.jar" />
 			<fileset file="${basedir}/exedio-cope-log.txt" />
 		</copy>
 		<copy file="ivy/ivy.xml" tofile="build/success/ivy.xml" overwrite="true">

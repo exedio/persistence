@@ -32,6 +32,12 @@
                     <encoding>UTF-8</encoding>
                 </source-folder>
                 <source-folder>
+                    <label>instrument/completionsrc</label>
+                    <type>java</type>
+                    <location>instrument/completionsrc</location>
+                    <encoding>UTF-8</encoding>
+                </source-folder>
+                <source-folder>
                     <label>instrument/antsrc</label>
                     <type>java</type>
                     <location>instrument/antsrc</location>
@@ -200,6 +206,10 @@
                         <location>instrument/src</location>
                     </source-folder>
                     <source-folder style="packages">
+                        <label>instrument/completionsrc</label>
+                        <location>instrument/completionsrc</location>
+                    </source-folder>
+                    <source-folder style="packages">
                         <label>instrument/antsrc</label>
                         <location>instrument/antsrc</location>
                     </source-folder>
@@ -277,6 +287,7 @@
             <compilation-unit>
                 <package-root>instrument/annosrc</package-root>
                 <package-root>instrument/src</package-root>
+					 <package-root>instrument/completionsrc</package-root>
                 <package-root>instrument/antsrc</package-root>
                 <package-root>runtime/src</package-root>
                 <package-root>runtime/patternsrc</package-root>
@@ -297,7 +308,7 @@
                 <package-root>runtime/servlettestwebsrc</package-root>
                 <package-root>dsmf/testsrc</package-root>
                 <unit-tests/>
-                <classpath mode="compile">${libraries}:instrument/annosrc:instrument/src:instrument/antsrc:runtime/src:runtime/patternsrc:runtime/servletsrc:runtime/junitsrc:dsmf/src:runtime/mysqlsrc:runtime/postgresqlsrc</classpath>
+                <classpath mode="compile">${libraries}:instrument/annosrc:instrument/src:instrument/completionsrc:instrument/antsrc:runtime/src:runtime/patternsrc:runtime/servletsrc:runtime/junitsrc:dsmf/src:runtime/mysqlsrc:runtime/postgresqlsrc</classpath>
                 <source-level>1.8</source-level>
             </compilation-unit>
         </java-data>
