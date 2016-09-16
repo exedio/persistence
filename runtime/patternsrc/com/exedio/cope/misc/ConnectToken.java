@@ -134,9 +134,14 @@ public final class ConnectToken
 	public boolean returnStrictly()
 	{
 		if(returned.getAndSet(true))
-			throw new IllegalStateException("connect token " + id + " already returned");
+			throw alreadyReturned();
 
 		return manciple.returnIt(this);
+	}
+
+	private IllegalStateException alreadyReturned()
+	{
+		return new IllegalStateException("connect token " + id + " already returned");
 	}
 
 	/**
@@ -165,7 +170,7 @@ public final class ConnectToken
 	public ConnectToken returnOnFailureOf(final Consumer<ConnectToken> target)
 	{
 		if(isReturned())
-			throw new IllegalStateException("connect token " + id + " already returned");
+			throw alreadyReturned();
 
 		boolean mustReturn = true;
 		try
