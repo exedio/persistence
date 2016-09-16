@@ -65,7 +65,7 @@ public class CompletionProcessor extends AbstractProcessor
 
 	private static void debug(final String message, final Object... params)
 	{
-		// uncomment to activate debug logs
+		// uncomment to activate debug logs:
 		// log.log(Level.INFO, message, params);
 	}
 
@@ -75,7 +75,7 @@ public class CompletionProcessor extends AbstractProcessor
 	}
 
 	@Override
-	public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv)
+	public boolean process(final Set<? extends TypeElement> annotations, final RoundEnvironment roundEnv)
 	{
 		return true;
 	}
@@ -106,7 +106,7 @@ public class CompletionProcessor extends AbstractProcessor
 	}
 
 	@Override
-	public Iterable<? extends Completion> getCompletions(Element element, AnnotationMirror annotation, ExecutableElement member, String userText)
+	public Iterable<? extends Completion> getCompletions(final Element element, final AnnotationMirror annotation, final ExecutableElement member, final String userText)
 	{
 		debug("getCompletions element={0} annotation={1} member={2} userText={3}", new Object[]{element, annotation, member, userText});
 
@@ -117,7 +117,7 @@ public class CompletionProcessor extends AbstractProcessor
 		return Collections.emptyList();
 	}
 
-	private Iterable<? extends Completion> getCompletionsForWrap(Element element)
+	private Iterable<? extends Completion> getCompletionsForWrap(final Element element)
 	{
 		final TypeMirror asType=element.asType();
 		if (!(asType instanceof DeclaredType))
@@ -166,48 +166,48 @@ public class CompletionProcessor extends AbstractProcessor
 	{
 		private final Map<String, List<String>> completionData;
 
-		private CompletionCollector(Map<String, List<String>> completionData)
+		private CompletionCollector(final Map<String, List<String>> completionData)
 		{
 			this.completionData=completionData;
 		}
 
 		@Override
-		public Void visit(TypeMirror t, Void p)
+		public Void visit(final TypeMirror t, final Void p)
 		{
 			log.log(Level.WARNING, "unexpected CompletionCollector visit(TM,V)");
 			return null;
 		}
 
 		@Override
-		public Void visit(TypeMirror t)
+		public Void visit(final TypeMirror t)
 		{
 			log.log(Level.WARNING, "unexpected CompletionCollector visit(TM)");
 			return null;
 		}
 
 		@Override
-		public Void visitPrimitive(PrimitiveType t, Void p)
+		public Void visitPrimitive(final PrimitiveType t, final Void p)
 		{
 			log.log(Level.WARNING, "unexpected CompletionCollector visitPrimitive");
 			return null;
 		}
 
 		@Override
-		public Void visitNull(NullType t, Void p)
+		public Void visitNull(final NullType t, final Void p)
 		{
 			log.log(Level.WARNING, "unexpected CompletionCollector visitNull");
 			return null;
 		}
 
 		@Override
-		public Void visitArray(ArrayType t, Void p)
+		public Void visitArray(final ArrayType t, final Void p)
 		{
 			log.log(Level.WARNING, "unexpected CompletionCollector visitArray");
 			return null;
 		}
 
 		@Override
-		public Void visitDeclared(DeclaredType declaredType, Void p)
+		public Void visitDeclared(final DeclaredType declaredType, final Void p)
 		{
 			debug("CompletionCollector visitDeclared "+declaredType);
 			final TypeElement typeElement=(TypeElement)declaredType.asElement();
@@ -266,60 +266,59 @@ public class CompletionProcessor extends AbstractProcessor
 		}
 
 		@Override
-		public Void visitError(ErrorType t, Void p)
+		public Void visitError(final ErrorType t, final Void p)
 		{
 			log.log(Level.WARNING, "unexpected CompletionCollector visitError");
 			return null;
 		}
 
 		@Override
-		public Void visitTypeVariable(TypeVariable t, Void p)
+		public Void visitTypeVariable(final TypeVariable t, final Void p)
 		{
 			log.log(Level.WARNING, "unexpected CompletionCollector visitTypeVariable");
 			return null;
 		}
 
 		@Override
-		public Void visitWildcard(WildcardType t, Void p)
+		public Void visitWildcard(final WildcardType t, final Void p)
 		{
 			log.log(Level.WARNING, "unexpected CompletionCollector visitWildcard");
 			return null;
 		}
 
 		@Override
-		public Void visitExecutable(ExecutableType t, Void p)
+		public Void visitExecutable(final ExecutableType t, final Void p)
 		{
 			log.log(Level.WARNING, "unexpected CompletionCollector visitExecutable");
 			return null;
 		}
 
 		@Override
-		public Void visitNoType(NoType t, Void p)
+		public Void visitNoType(final NoType t, final Void p)
 		{
 			debug("CompletionCollector visitNoType");
 			return null;
 		}
 
 		@Override
-		public Void visitUnknown(TypeMirror t, Void p)
+		public Void visitUnknown(final TypeMirror t, final Void p)
 		{
 			log.log(Level.WARNING, "unexpected CompletionCollector visitUnknown");
 			return null;
 		}
 
 		@Override
-		public Void visitUnion(UnionType t, Void p)
+		public Void visitUnion(final UnionType t, final Void p)
 		{
 			log.log(Level.WARNING, "unexpected CompletionCollector visitUnion");
 			return null;
 		}
 
 		@Override
-		public Void visitIntersection(IntersectionType t, Void p)
+		public Void visitIntersection(final IntersectionType t, final Void p)
 		{
 			log.log(Level.WARNING, "unexpected CompletionCollector visitIntersection");
 			return null;
 		}
-
 	}
 }
