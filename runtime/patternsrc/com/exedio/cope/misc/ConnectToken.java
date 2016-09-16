@@ -158,10 +158,10 @@ public final class ConnectToken
 	}
 
 	/**
-	 * Calls {@code afterwards} and {@link #returnStrictly() returns} the token,
-	 * if {@code afterwards} fails.
+	 * Calls {@code target} and {@link #returnStrictly() returns} the token,
+	 * if {@code target} fails.
 	 */
-	public ConnectToken returnOnFailureOf(final Consumer<ConnectToken> afterwards)
+	public ConnectToken returnOnFailureOf(final Consumer<ConnectToken> target)
 	{
 		if(isReturned())
 			throw new IllegalStateException("connect token " + id + " already returned");
@@ -169,7 +169,7 @@ public final class ConnectToken
 		boolean mustReturn = true;
 		try
 		{
-			afterwards.accept(this);
+			target.accept(this);
 			mustReturn = false;
 		}
 		finally
