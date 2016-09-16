@@ -235,11 +235,11 @@ public class ConnectTokenTest
 		assertTrue(model.isConnected());
 		assertFalse(token.isReturned());
 
-		final Afterwards afterwards = new Afterwards(false);
-		assertSame(token, token.returnOnFailureOf(afterwards));
+		final Target target = new Target(false);
+		assertSame(token, token.returnOnFailureOf(target));
 		assertTrue(model.isConnected());
 		assertFalse(token.isReturned());
-		assertSame(token, afterwards.token());
+		assertSame(token, target.token());
 	}
 
 	@Test public void testReturnOnFailureOfFail()
@@ -250,10 +250,10 @@ public class ConnectTokenTest
 		assertTrue(model.isConnected());
 		assertFalse(token.isReturned());
 
-		final Afterwards afterwards = new Afterwards(true);
+		final Target target = new Target(true);
 		try
 		{
-			assertSame(token, token.returnOnFailureOf(afterwards));
+			assertSame(token, token.returnOnFailureOf(target));
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -262,7 +262,7 @@ public class ConnectTokenTest
 		}
 		assertFalse(model.isConnected());
 		assertTrue(token.isReturned());
-		assertSame(token, afterwards.token());
+		assertSame(token, target.token());
 	}
 
 	@Test public void testReturnOnFailureOfReturnedOk()
@@ -274,10 +274,10 @@ public class ConnectTokenTest
 		assertFalse(model.isConnected());
 		assertTrue(token.isReturned());
 
-		final Afterwards afterwards = new Afterwards(false);
+		final Target target = new Target(false);
 		try
 		{
-			assertSame(token, token.returnOnFailureOf(afterwards));
+			assertSame(token, token.returnOnFailureOf(target));
 			fail();
 		}
 		catch(final IllegalStateException e)
@@ -286,7 +286,7 @@ public class ConnectTokenTest
 		}
 		assertFalse(model.isConnected());
 		assertTrue(token.isReturned());
-		assertSame(null, afterwards.token());
+		assertSame(null, target.token());
 	}
 
 	@Test public void testReturnOnFailureOfReturnedFail()
@@ -298,10 +298,10 @@ public class ConnectTokenTest
 		assertFalse(model.isConnected());
 		assertTrue(token.isReturned());
 
-		final Afterwards afterwards = new Afterwards(true);
+		final Target target = new Target(true);
 		try
 		{
-			token.returnOnFailureOf(afterwards);
+			token.returnOnFailureOf(target);
 			fail();
 		}
 		catch(final IllegalStateException e)
@@ -310,14 +310,14 @@ public class ConnectTokenTest
 		}
 		assertFalse(model.isConnected());
 		assertTrue(token.isReturned());
-		assertSame(null, afterwards.token());
+		assertSame(null, target.token());
 	}
 
-	private static class Afterwards implements Consumer<ConnectToken>
+	private static class Target implements Consumer<ConnectToken>
 	{
 		private final boolean fail;
 
-		Afterwards(final boolean fail)
+		Target(final boolean fail)
 		{
 			this.fail = fail;
 		}
