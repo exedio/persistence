@@ -236,7 +236,7 @@ public class ConnectTokenTest
 		assertFalse(token.isReturned());
 
 		final Afterwards afterwards = new Afterwards(false);
-		assertSame(token, token.returnIfFails(afterwards));
+		assertSame(token, token.returnOnFailureOf(afterwards));
 		assertTrue(model.isConnected());
 		assertFalse(token.isReturned());
 		assertSame(token, afterwards.token());
@@ -253,7 +253,7 @@ public class ConnectTokenTest
 		final Afterwards afterwards = new Afterwards(true);
 		try
 		{
-			assertSame(token, token.returnIfFails(afterwards));
+			assertSame(token, token.returnOnFailureOf(afterwards));
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -277,7 +277,7 @@ public class ConnectTokenTest
 		final Afterwards afterwards = new Afterwards(false);
 		try
 		{
-			assertSame(token, token.returnIfFails(afterwards));
+			assertSame(token, token.returnOnFailureOf(afterwards));
 			fail();
 		}
 		catch(final IllegalStateException e)
@@ -301,7 +301,7 @@ public class ConnectTokenTest
 		final Afterwards afterwards = new Afterwards(true);
 		try
 		{
-			token.returnIfFails(afterwards);
+			token.returnOnFailureOf(afterwards);
 			fail();
 		}
 		catch(final IllegalStateException e)

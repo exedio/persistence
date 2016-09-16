@@ -45,7 +45,7 @@ public class InitServlet extends HttpServlet
 
 		final byte[] textValue = "This is an example file\nfor testing media data.\n".getBytes(UTF_8);
 		final Class<?> thisClass = InitServlet.class;
-		connectToken = ConnectToken.issue(model, thisClass.getName()).returnIfFails(t ->
+		connectToken = ConnectToken.issue(model, thisClass.getName()).returnOnFailureOf(t ->
 		{
 			model.createSchema();
 			try(TransactionTry tx = model.startTransactionTry(thisClass.getName()))

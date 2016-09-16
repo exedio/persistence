@@ -349,7 +349,7 @@ public final class ConnectToken
 	 * Calls {@code afterwards} and {@link #returnStrictly() returns} the token,
 	 * if {@code afterwards} fails.
 	 */
-	public ConnectToken returnIfFails(final Consumer<ConnectToken> afterwards)
+	public ConnectToken returnOnFailureOf(final Consumer<ConnectToken> afterwards)
 	{
 		if(isReturned())
 			throw new IllegalStateException("connect token " + id + " already returned");

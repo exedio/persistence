@@ -140,7 +140,7 @@ public class Sampler
 
 	public final ConnectToken connect(final String tokenName)
 	{
-		return ConnectToken.issue(samplerModel, tokenName).returnIfFails(t -> { checkInternal(); });
+		return ConnectToken.issue(samplerModel, tokenName).returnOnFailureOf(t -> { checkInternal(); });
 		// DO NOT WRITE ANYTHING HERE,
 		// OTHERWISE ConnectTokens MAY BE LOST
 	}
