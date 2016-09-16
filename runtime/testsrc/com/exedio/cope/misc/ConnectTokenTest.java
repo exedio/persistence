@@ -253,7 +253,7 @@ public class ConnectTokenTest
 		final Target target = new Target(true);
 		try
 		{
-			assertSame(token, token.returnOnFailureOf(target));
+			token.returnOnFailureOf(target);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -277,7 +277,7 @@ public class ConnectTokenTest
 		final Target target = new Target(false);
 		try
 		{
-			assertSame(token, token.returnOnFailureOf(target));
+			token.returnOnFailureOf(target);
 			fail();
 		}
 		catch(final IllegalStateException e)
