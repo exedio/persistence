@@ -35,6 +35,7 @@ import static org.junit.Assert.fail;
 
 import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.Model;
+import com.exedio.cope.instrument.WrapperIgnore;
 import com.exedio.cope.tojunit.ConnectTokenRule;
 import com.exedio.cope.tojunit.LogRule;
 import java.io.File;
@@ -334,6 +335,7 @@ public class ConnectTokenTest
 		assertSame(null, target.token());
 	}
 
+	@WrapperIgnore
 	private static class Target implements Consumer<ConnectToken>
 	{
 		private final boolean fail;
