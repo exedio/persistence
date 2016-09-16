@@ -265,6 +265,27 @@ public class ConnectTokenTest
 		assertSame(token, target.token());
 	}
 
+	@Test public void testReturnOnFailureOfNullTarget()
+	{
+		assertNotConnected();
+
+		final ConnectToken token = issue(model, "tokenName");
+		assertTrue(model.isConnected());
+		assertFalse(token.isReturned());
+
+		try
+		{
+			token.returnOnFailureOf(null);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals(null, e.getMessage());
+		}
+		assertFalse(model.isConnected());
+		assertTrue(token.isReturned());
+	}
+
 	@Test public void testReturnOnFailureOfReturnedOk()
 	{
 		assertNotConnected();
