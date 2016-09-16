@@ -63,9 +63,15 @@ public class CompletionProcessor extends AbstractProcessor
 {
 	private static final Logger log = java.util.logging.Logger.getLogger(CompletionProcessor.class.getName());
 
+	private static void debug(final String message, final Object... params)
+	{
+		// uncomment to activate debug logs
+		// log.log(Level.INFO, message, params);
+	}
+
 	public CompletionProcessor()
 	{
-		log.log(Level.INFO, "create");
+		debug("create");
 	}
 
 	@Override
@@ -102,7 +108,7 @@ public class CompletionProcessor extends AbstractProcessor
 	@Override
 	public Iterable<? extends Completion> getCompletions(Element element, AnnotationMirror annotation, ExecutableElement member, String userText)
 	{
-		log.log(Level.INFO, "getCompletions element={0} annotation={1} member={2} userText={3}", new Object[]{element, annotation, member, userText});
+		debug("getCompletions element={0} annotation={1} member={2} userText={3}", new Object[]{element, annotation, member, userText});
 
 		if (member.getSimpleName().toString().equals("wrap"))
 		{
@@ -203,7 +209,7 @@ public class CompletionProcessor extends AbstractProcessor
 		@Override
 		public Void visitDeclared(DeclaredType declaredType, Void p)
 		{
-			log.log(Level.INFO, "CompletionCollector visitDeclared "+declaredType);
+			debug("CompletionCollector visitDeclared "+declaredType);
 			final TypeElement typeElement=(TypeElement)declaredType.asElement();
 			for (final Element enclosedElement: typeElement.getEnclosedElements())
 			{
@@ -290,7 +296,7 @@ public class CompletionProcessor extends AbstractProcessor
 		@Override
 		public Void visitNoType(NoType t, Void p)
 		{
-			log.log(Level.INFO, "CompletionCollector visitNoType");
+			debug("CompletionCollector visitNoType");
 			return null;
 		}
 
