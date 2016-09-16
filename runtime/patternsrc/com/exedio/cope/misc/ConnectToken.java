@@ -157,6 +157,31 @@ public final class ConnectToken
 		return manciple.returnIt(this);
 	}
 
+	/**
+	 * Calls {@code afterwards} and {@link #returnStrictly() returns} the token,
+	 * if {@code afterwards} fails.
+	 */
+	public ConnectToken returnOnFailureOf(final Consumer<ConnectToken> afterwards)
+	{
+		if(isReturned())
+			throw new IllegalStateException("connect token " + id + " already returned");
+
+		boolean mustReturn = true;
+		try
+		{
+			afterwards.accept(this);
+			mustReturn = false;
+		}
+		finally
+		{
+			if(mustReturn)
+				returnStrictly();
+		}
+		// DO NOT WRITE ANYTHING HERE,
+		// OTHERWISE ConnectTokens MAY BE LOST
+		return this;
+	}
+
 	@Override
 	public String toString()
 	{
@@ -343,31 +368,6 @@ public final class ConnectToken
 			final String tokenName)
 	{
 		return manciple(model).issueIfConnected(model, tokenName);
-	}
-
-	/**
-	 * Calls {@code afterwards} and {@link #returnStrictly() returns} the token,
-	 * if {@code afterwards} fails.
-	 */
-	public ConnectToken returnOnFailureOf(final Consumer<ConnectToken> afterwards)
-	{
-		if(isReturned())
-			throw new IllegalStateException("connect token " + id + " already returned");
-
-		boolean mustReturn = true;
-		try
-		{
-			afterwards.accept(this);
-			mustReturn = false;
-		}
-		finally
-		{
-			if(mustReturn)
-				returnStrictly();
-		}
-		// DO NOT WRITE ANYTHING HERE,
-		// OTHERWISE ConnectTokens MAY BE LOST
-		return this;
 	}
 
 	/**
