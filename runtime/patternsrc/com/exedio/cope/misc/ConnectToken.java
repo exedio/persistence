@@ -158,8 +158,9 @@ public final class ConnectToken
 	}
 
 	/**
-	 * Calls {@code target} and {@link #returnStrictly() returns} the token,
-	 * if {@code target} fails.
+	 * Calls {@code target}.
+	 * If {@code target} fails with an exception,
+	 * this token is {@link #returnStrictly() returned}.
 	 */
 	public ConnectToken returnOnFailureOf(final Consumer<ConnectToken> target)
 	{
