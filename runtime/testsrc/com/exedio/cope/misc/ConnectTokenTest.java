@@ -27,6 +27,7 @@ import static com.exedio.cope.tojunit.Assert.assertWithin;
 import static com.exedio.cope.tojunit.Assert.list;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
@@ -34,10 +35,12 @@ import static org.junit.Assert.fail;
 
 import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.Model;
+import com.exedio.cope.instrument.WrapperIgnore;
 import com.exedio.cope.tojunit.ConnectTokenRule;
 import com.exedio.cope.tojunit.LogRule;
 import java.io.File;
 import java.util.Date;
+import java.util.function.Consumer;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -223,6 +226,137 @@ public class ConnectTokenTest
 		assertToken(0, before0, after0, "token0Name", false, true,  true, token0);
 		assertToken(1, before1, after1, "token1Name", false, false, true, token1);
 		log.assertWarn("" + model + ": returned 0 excessively (token0Name)");
+	}
+
+	@Test public void testReturnOnFailureOfOk()
+	{
+		assertNotConnected();
+
+		final ConnectToken token = issue(model, "tokenName");
+		assertTrue(model.isConnected());
+		assertFalse(token.isReturned());
+
+		final Target target = new Target(false);
+		assertSame(token, token.returnOnFailureOf(target));
+		assertTrue(model.isConnected());
+		assertFalse(token.isReturned());
+		assertSame(token, target.token());
+	}
+
+	@Test public void testReturnOnFailureOfFail()
+	{
+		assertNotConnected();
+
+		final ConnectToken token = issue(model, "tokenName");
+		assertTrue(model.isConnected());
+		assertFalse(token.isReturned());
+
+		final Target target = new Target(true);
+		try
+		{
+			token.returnOnFailureOf(target);
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals("Afterwards fail", e.getMessage());
+		}
+		assertFalse(model.isConnected());
+		assertTrue(token.isReturned());
+		assertSame(token, target.token());
+	}
+
+	@Test public void testReturnOnFailureOfNullTarget()
+	{
+		assertNotConnected();
+
+		final ConnectToken token = issue(model, "tokenName");
+		assertTrue(model.isConnected());
+		assertFalse(token.isReturned());
+
+		try
+		{
+			token.returnOnFailureOf(null);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals(null, e.getMessage());
+		}
+		assertFalse(model.isConnected());
+		assertTrue(token.isReturned());
+	}
+
+	@Test public void testReturnOnFailureOfReturnedOk()
+	{
+		assertNotConnected();
+
+		final ConnectToken token = issue(model, "tokenName");
+		token.returnStrictly();
+		assertFalse(model.isConnected());
+		assertTrue(token.isReturned());
+
+		final Target target = new Target(false);
+		try
+		{
+			token.returnOnFailureOf(target);
+			fail();
+		}
+		catch(final IllegalStateException e)
+		{
+			assertEquals("connect token 0 already returned", e.getMessage());
+		}
+		assertFalse(model.isConnected());
+		assertTrue(token.isReturned());
+		assertSame(null, target.token());
+	}
+
+	@Test public void testReturnOnFailureOfReturnedFail()
+	{
+		assertNotConnected();
+
+		final ConnectToken token = issue(model, "tokenName");
+		token.returnStrictly();
+		assertFalse(model.isConnected());
+		assertTrue(token.isReturned());
+
+		final Target target = new Target(true);
+		try
+		{
+			token.returnOnFailureOf(target);
+			fail();
+		}
+		catch(final IllegalStateException e)
+		{
+			assertEquals("connect token 0 already returned", e.getMessage());
+		}
+		assertFalse(model.isConnected());
+		assertTrue(token.isReturned());
+		assertSame(null, target.token());
+	}
+
+	@WrapperIgnore
+	private static class Target implements Consumer<ConnectToken>
+	{
+		private final boolean fail;
+
+		Target(final boolean fail)
+		{
+			this.fail = fail;
+		}
+
+		private ConnectToken token;
+		ConnectToken token() { return token; }
+
+		@Override
+		public void accept(final ConnectToken token)
+		{
+			assertNotNull(token);
+			assertNull(this.token);
+			this.token = token;
+			if(fail)
+				throw new IllegalArgumentException("Afterwards fail");
+		}
 	}
 
 	@Test public void testNullName()

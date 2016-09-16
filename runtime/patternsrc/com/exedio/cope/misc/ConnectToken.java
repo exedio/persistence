@@ -29,6 +29,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.function.Consumer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -154,6 +155,32 @@ public final class ConnectToken
 		}
 
 		return manciple.returnIt(this);
+	}
+
+	/**
+	 * Calls {@code target}.
+	 * If {@code target} fails with an exception,
+	 * this token is {@link #returnStrictly() returned}.
+	 */
+	public ConnectToken returnOnFailureOf(final Consumer<ConnectToken> target)
+	{
+		if(isReturned())
+			throw new IllegalStateException("connect token " + id + " already returned");
+
+		boolean mustReturn = true;
+		try
+		{
+			target.accept(this);
+			mustReturn = false;
+		}
+		finally
+		{
+			if(mustReturn)
+				returnStrictly();
+		}
+		// DO NOT WRITE ANYTHING HERE,
+		// OTHERWISE ConnectTokens MAY BE LOST
+		return this;
 	}
 
 	@Override
