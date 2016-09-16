@@ -227,7 +227,7 @@ public class ConnectTokenTest
 		log.assertWarn("" + model + ": returned 0 excessively (token0Name)");
 	}
 
-	@Test public void testAfterwardsOk()
+	@Test public void testReturnOnFailureOfOk()
 	{
 		assertNotConnected();
 
@@ -242,7 +242,7 @@ public class ConnectTokenTest
 		assertSame(token, afterwards.token());
 	}
 
-	@Test public void testAfterwardsFail()
+	@Test public void testReturnOnFailureOfFail()
 	{
 		assertNotConnected();
 
@@ -265,7 +265,7 @@ public class ConnectTokenTest
 		assertSame(token, afterwards.token());
 	}
 
-	@Test public void testAfterwardsReturnedOk()
+	@Test public void testReturnOnFailureOfReturnedOk()
 	{
 		assertNotConnected();
 
@@ -289,7 +289,7 @@ public class ConnectTokenTest
 		assertSame(null, afterwards.token());
 	}
 
-	@Test public void testAfterwardsReturnedFail()
+	@Test public void testReturnOnFailureOfReturnedFail()
 	{
 		assertNotConnected();
 
