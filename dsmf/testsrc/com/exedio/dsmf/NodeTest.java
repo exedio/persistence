@@ -65,7 +65,7 @@ public class NodeTest
 		assertEquals(false, c.mismatchesType());
 		assertEquals("requiredType", c.getRequiredType());
 
-		table.notifyExistentColumn("colName", "existingType");
+		assertSame(c, table.notifyExistentColumn("colName", "existingType"));
 		assertSame(table, c.getTable());
 		assertEquals("colName", c.getName());
 		assertEquals("requiredType", c.getType());
