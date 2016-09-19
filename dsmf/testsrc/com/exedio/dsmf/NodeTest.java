@@ -41,6 +41,15 @@ public class NodeTest
 		assertEquals(false, c.exists());
 		assertEquals(false, c.mismatchesType());
 		assertEquals("requiredType", c.getRequiredType());
+		try
+		{
+			c.getExistingType();
+			fail();
+		}
+		catch(final IllegalStateException e)
+		{
+			assertEquals("not existing", e.getMessage());
+		}
 
 		assertSame(c, table.notifyExistentColumn("colName", "requiredType"));
 		assertSame(table, c.getTable());
@@ -50,6 +59,7 @@ public class NodeTest
 		assertEquals(true, c.exists());
 		assertEquals(false, c.mismatchesType());
 		assertEquals("requiredType", c.getRequiredType());
+		assertEquals("requiredType", c.getExistingType());
 	}
 
 	@Test public void testColumnWrongName()
@@ -65,6 +75,15 @@ public class NodeTest
 		assertEquals(false, c.exists());
 		assertEquals(false, c.mismatchesType());
 		assertEquals("requiredType", c.getRequiredType());
+		try
+		{
+			c.getExistingType();
+			fail();
+		}
+		catch(final IllegalStateException e)
+		{
+			assertEquals("not existing", e.getMessage());
+		}
 
 		final Column c2 = table.notifyExistentColumn("colName2", "requiredType");
 		assertNotSame(c, c2);
@@ -76,6 +95,15 @@ public class NodeTest
 		assertEquals(false, c.exists());
 		assertEquals(false, c.mismatchesType());
 		assertEquals("requiredType", c.getRequiredType());
+		try
+		{
+			c.getExistingType();
+			fail();
+		}
+		catch(final IllegalStateException e)
+		{
+			assertEquals("not existing", e.getMessage());
+		}
 
 		assertSame(table, c2.getTable());
 		assertEquals("colName2", c2.getName());
@@ -92,6 +120,7 @@ public class NodeTest
 		{
 			assertEquals("not required", e.getMessage());
 		}
+		assertEquals("requiredType", c2.getExistingType());
 	}
 
 	@Test public void testColumnWrongType()
@@ -107,6 +136,14 @@ public class NodeTest
 		assertEquals(false, c.exists());
 		assertEquals(false, c.mismatchesType());
 		assertEquals("requiredType", c.getRequiredType());
+		try
+		{
+			c.getExistingType();
+		}
+		catch(final IllegalStateException e)
+		{
+			assertEquals("not existing", e.getMessage());
+		}
 
 		assertSame(c, table.notifyExistentColumn("colName", "existingType"));
 		assertSame(table, c.getTable());
@@ -116,6 +153,7 @@ public class NodeTest
 		assertEquals(true, c.exists());
 		assertEquals(true, c.mismatchesType());
 		assertEquals("requiredType", c.getRequiredType());
+		assertEquals("existingType", c.getExistingType());
 	}
 
 	@Test public void testColumnNonRequires()
@@ -139,6 +177,7 @@ public class NodeTest
 		{
 			assertEquals("not required", e.getMessage());
 		}
+		assertEquals("existingType", c.getExistingType());
 	}
 
 

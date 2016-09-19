@@ -114,6 +114,11 @@ public final class Column extends Node
 		return type.getRequired();
 	}
 
+	public String getExistingType()
+	{
+		return type.getExisting();
+	}
+
 	public void create()
 	{
 		create(null);
