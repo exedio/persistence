@@ -42,7 +42,7 @@ public class NodeTest
 		assertEquals(false, c.mismatchesType());
 		assertEquals("requiredType", c.getRequiredType());
 
-		final Column c2 = table.notifyExistentColumn("tabName", "requiredType");
+		final Column c2 = table.notifyExistentColumn("colName2", "requiredType");
 		assertNotSame(c, c2);
 
 		assertSame(table, c.getTable());
@@ -54,7 +54,7 @@ public class NodeTest
 		assertEquals("requiredType", c.getRequiredType());
 
 		assertSame(table, c2.getTable());
-		assertEquals("tabName", c2.getName());
+		assertEquals("colName2", c2.getName());
 		assertEquals("requiredType", c2.getType());
 		assertEquals(false, c2.required());
 		assertEquals(true, c2.exists());
