@@ -19,6 +19,7 @@
 package com.exedio.dsmf;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.fail;
 
@@ -27,7 +28,7 @@ import org.junit.Test;
 
 public class NodeTest
 {
-	@Test public void testColumn()
+	@Test public void testColumnWrongName()
 	{
 		final Schema schema = new Schema(new HsqldbDialect(), connectionProvider);
 		final Table table = new Table(schema, "tabName");
@@ -41,7 +42,9 @@ public class NodeTest
 		assertEquals(false, c.mismatchesType());
 		assertEquals("requiredType", c.getRequiredType());
 
-		table.notifyExistentColumn("tabName", "requiredType");
+		final Column c2 = table.notifyExistentColumn("tabName", "requiredType");
+		assertNotSame(c, c2);
+
 		assertSame(table, c.getTable());
 		assertEquals("colName", c.getName());
 		assertEquals("requiredType", c.getType());
@@ -49,6 +52,22 @@ public class NodeTest
 		assertEquals(false, c.exists());
 		assertEquals(false, c.mismatchesType());
 		assertEquals("requiredType", c.getRequiredType());
+
+		assertSame(table, c2.getTable());
+		assertEquals("tabName", c2.getName());
+		assertEquals("requiredType", c2.getType());
+		assertEquals(false, c2.required());
+		assertEquals(true, c2.exists());
+		assertEquals(false, c2.mismatchesType());
+		try
+		{
+			c2.getRequiredType();
+			fail();
+		}
+		catch(final IllegalStateException e)
+		{
+			assertEquals("not required", e.getMessage());
+		}
 	}
 
 	@Test public void testColumnWrongType()
