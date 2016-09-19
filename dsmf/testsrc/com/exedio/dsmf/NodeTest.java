@@ -28,6 +28,30 @@ import org.junit.Test;
 
 public class NodeTest
 {
+	@Test public void testColumnOk()
+	{
+		final Schema schema = new Schema(new HsqldbDialect(), connectionProvider);
+		final Table table = new Table(schema, "tabName");
+		final Column c = new Column(table, "colName", "requiredType");
+
+		assertSame(table, c.getTable());
+		assertEquals("colName", c.getName());
+		assertEquals("requiredType", c.getType());
+		assertEquals(true, c.required());
+		assertEquals(false, c.exists());
+		assertEquals(false, c.mismatchesType());
+		assertEquals("requiredType", c.getRequiredType());
+
+		assertSame(c, table.notifyExistentColumn("colName", "requiredType"));
+		assertSame(table, c.getTable());
+		assertEquals("colName", c.getName());
+		assertEquals("requiredType", c.getType());
+		assertEquals(true, c.required());
+		assertEquals(true, c.exists());
+		assertEquals(false, c.mismatchesType());
+		assertEquals("requiredType", c.getRequiredType());
+	}
+
 	@Test public void testColumnWrongName()
 	{
 		final Schema schema = new Schema(new HsqldbDialect(), connectionProvider);
