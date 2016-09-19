@@ -24,6 +24,7 @@ import static com.exedio.cope.util.Sources.load;
 import static com.exedio.cope.util.Sources.view;
 
 import com.exedio.cope.instrument.WrapperIgnore;
+import com.exedio.cope.instrument.WrapperType;
 import java.io.File;
 import java.util.Properties;
 import org.junit.After;
@@ -85,22 +86,30 @@ public abstract class ClusterNetworkTest
 		modelB.removeAllChangeListeners();
 	}
 
-	@WrapperIgnore
+	@WrapperType(indent=2, comments=false)
 	static class TypeA extends Item
 	{
+		@javax.annotation.Generated("com.exedio.cope.instrument")
 		TypeA()
 		{
-			super(new SetValue<?>[]{});
+			this(new com.exedio.cope.SetValue<?>[]{
+			});
 		}
 
-		private TypeA(final ActivationParameters ap)
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		protected TypeA(final com.exedio.cope.SetValue<?>... setValues)
 		{
-			super(ap);
+			super(setValues);
 		}
 
+		@javax.annotation.Generated("com.exedio.cope.instrument")
 		private static final long serialVersionUID = 1l;
 
-		static final Type<TypeA> TYPE = TypesBound.newType(TypeA.class);
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		static final com.exedio.cope.Type<TypeA> TYPE = com.exedio.cope.TypesBound.newType(TypeA.class);
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		protected TypeA(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 	@WrapperIgnore

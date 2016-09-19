@@ -98,6 +98,7 @@ final class Option
 			@Override public Visibility genericConstructor() { return nullToDefault(genericConstructor); }
 			@Override public Visibility activationConstructor() { return nullToDefault(activationConstructor);}
 			@Override public int indent() { return indent; }
+			@Override public boolean comments() { return true; }
 
 			private Visibility nullToDefault(final Visibility visibility)
 			{

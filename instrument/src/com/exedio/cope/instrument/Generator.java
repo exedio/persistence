@@ -154,13 +154,17 @@ final class Generator
 		}
 	}
 
-	private void finishComment(final List<String> commentLines)
+	private void finishComment(final boolean addComments, final List<String> commentLines)
 	{
-		finishComment(commentLines, null);
+		finishComment(addComments, commentLines, null);
 	}
 
-	private void finishComment(final List<String> commentLines, final String extraCommentForTags)
+	private void finishComment(final boolean addComments, final List<String> commentLines, final String extraCommentForTags)
 	{
+		if (hintFormat==HintFormat.forTags && !addComments)
+		{
+			throw new RuntimeException("@WrapperType(comments=false) not supported for hintFormat=\""+HintFormat.forTags+"\"");
+		}
 		if (hintFormat==HintFormat.forTags)
 		{
 			commentLines.add(" * @" + CopeFeature.TAG_PREFIX + "generated" +
@@ -173,10 +177,10 @@ final class Generator
 		if (hintFormat==HintFormat.forAnnotations)
 		{
 			write(lineSeparator);
-			if (!commentLines.isEmpty())
+			if (addComments && !commentLines.isEmpty())
 				writeIndent();
 		}
-		if (!commentLines.isEmpty())
+		if (addComments && !commentLines.isEmpty())
 		{
 			write("/**");
 			write(lineSeparator);
@@ -209,12 +213,12 @@ final class Generator
 		}
 	}
 
-	private void writeGeneratedAnnotation(final String extraCommentForAnnotations)
+	private void writeGeneratedAnnotation(final boolean addComments, final String extraCommentForAnnotations)
 	{
 		writeIndent();
 		writeAnnotation(Generated.class);
 		write("(\"" + Main.GENERATED_VALUE + "\")");
-		if (hintFormat==HintFormat.forAnnotations && extraCommentForAnnotations!=null)
+		if (addComments && hintFormat==HintFormat.forAnnotations && extraCommentForAnnotations!=null)
 		{
 			write(" // "+extraCommentForAnnotations);
 		}
@@ -262,8 +266,8 @@ final class Generator
 			final String pattern = a.value();
 			commentLines.add(" * @throws "+constructorException.getCanonicalName()+' '+format(pattern, fields.toString()));
 		}
-		finishComment(commentLines, CONSTRUCTOR_INITIAL_CUSTOMIZE_TAGS);
-		writeGeneratedAnnotation(CONSTRUCTOR_INITIAL_CUSTOMIZE_ANNOTATIONS);
+		finishComment(type.option.comments(), commentLines, CONSTRUCTOR_INITIAL_CUSTOMIZE_TAGS);
+		writeGeneratedAnnotation(type.option.comments(), CONSTRUCTOR_INITIAL_CUSTOMIZE_ANNOTATIONS);
 
 		writeIndent();
 		writeModifier(type.getInitialConstructorModifier());
@@ -350,8 +354,8 @@ final class Generator
 
 		final List<String> commentLines=new ArrayList<>();
 		commentLines.add(" * "+format(CONSTRUCTOR_GENERIC, type.name));
-		finishComment(commentLines, CONSTRUCTOR_GENERIC_CUSTOMIZE_TAGS);
-		writeGeneratedAnnotation(CONSTRUCTOR_GENERIC_CUSTOMIZE_ANNOTATIONS);
+		finishComment(type.option.comments(), commentLines, CONSTRUCTOR_GENERIC_CUSTOMIZE_TAGS);
+		writeGeneratedAnnotation(type.option.comments(), CONSTRUCTOR_GENERIC_CUSTOMIZE_ANNOTATIONS);
 
 		writeIndent();
 		writeModifier(option.getModifier(type.getSubtypeModifier()));
@@ -388,8 +392,8 @@ final class Generator
 		final List<String> commentLines=new ArrayList<>();
 		commentLines.add(" * "+"Activation constructor. Used for internal purposes only.");
 		commentLines.add(" * @see "+constructor.getName()+'#'+constructor.getSimpleName()+'('+activation+')');
-		finishComment(commentLines);
-		writeGeneratedAnnotation(null);
+		finishComment(type.option.comments(), commentLines);
+		writeGeneratedAnnotation(type.option.comments(), null);
 
 		writeIndent();
 		if(suppressUnusedWarningOnPrivateActivationConstructor && !type.allowSubtypes())
@@ -487,6 +491,7 @@ final class Generator
 							e.getValue(), arguments);
 				}
 				finishComment(
+					feature.parent.option.comments(),
 					commentLines,
 					modifierTag!=null
 					?  "It can be customized with the tag " +
@@ -502,6 +507,7 @@ final class Generator
 					: null
 				);
 				writeGeneratedAnnotation(
+					feature.parent.option.comments(),
 					modifierTag!=null
 					?  getAnnotationsHint(Wrapper.class, "wrap", "\""+modifierTag+"\"")
 					: null
@@ -796,14 +802,14 @@ final class Generator
 		}
 	}
 
-	private void writeSerialVersionUID()
+	private void writeSerialVersionUID(final CopeType type)
 	{
 		if(!serialVersionUID)
 			return;
 
 		final List<String> commentLines=new ArrayList<>();
-		finishComment(commentLines);
-		writeGeneratedAnnotation(null);
+		finishComment(type.option.comments(), commentLines);
+		writeGeneratedAnnotation(type.option.comments(), null);
 
 		writeIndent();
 		writeModifier(PRIVATE|STATIC|FINAL);
@@ -834,6 +840,7 @@ final class Generator
 				lowerCamelCase(type.name))
 		);
 		finishComment(
+				type.option.comments(),
 				commentLines,
 				"It can be customized with the tag " +
 				"<tt>@" + CopeType.TAG_TYPE + ' ' +
@@ -846,6 +853,7 @@ final class Generator
 				"in the class comment."
 		);
 		writeGeneratedAnnotation(
+			type.option.comments(),
 			"customize with @"+WrapperType.class.getSimpleName()+"(type=...)"
 		);
 
@@ -927,7 +935,7 @@ final class Generator
 		for(final CopeFeature feature : type.getFeatures())
 			writeFeature(feature);
 
-		writeSerialVersionUID();
+		writeSerialVersionUID(type);
 		writeType(type);
 		writeActivationConstructor(type);
 	}

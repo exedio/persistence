@@ -88,6 +88,7 @@ final class CopeType
 		@Override public Visibility genericConstructor() { return Visibility.DEFAULT; }
 		@Override public Visibility activationConstructor() { return Visibility.DEFAULT; }
 		@Override public int indent() { return 1; }
+		@Override public boolean comments() { return true; }
 	};
 
 	private boolean isFinal()

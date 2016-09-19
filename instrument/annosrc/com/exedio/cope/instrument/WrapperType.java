@@ -66,4 +66,6 @@ public @interface WrapperType
 	Visibility activationConstructor() default Visibility.DEFAULT;
 
 	int indent() default 1;
+
+	boolean comments() default true;
 }
