@@ -18,10 +18,10 @@
 
 package com.exedio.cope.instrument;
 
-import static com.exedio.cope.instrument.Option.forFeature;
-import static com.exedio.cope.instrument.Option.forIgnore;
-import static com.exedio.cope.instrument.Option.forInitial;
-import static com.exedio.cope.instrument.Option.forType;
+import static com.exedio.cope.instrument.Tags.forFeature;
+import static com.exedio.cope.instrument.Tags.forIgnore;
+import static com.exedio.cope.instrument.Tags.forInitial;
+import static com.exedio.cope.instrument.Tags.forType;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;

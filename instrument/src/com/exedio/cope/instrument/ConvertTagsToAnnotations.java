@@ -364,7 +364,7 @@ final class ConvertTagsToAnnotations
 				}
 				if (tagsForWrapperType.length()>0)
 				{
-					annotations.append(formatAnnotation(Option.forType(tagsForWrapperType.toString())));
+					annotations.append(formatAnnotation(Tags.forType(tagsForWrapperType.toString())));
 					annotations.append(afterEachAnnotation);
 				}
 				return new JavadocAndAnnotations(javadoc, annotations.toString()+(afterEachAnnotation.isEmpty()?" ":""));
@@ -387,18 +387,18 @@ final class ConvertTagsToAnnotations
 			{
 				if (tag.equals("@cope.initial"))
 				{
-					return formatAnnotation(Option.forInitial(tag));
+					return formatAnnotation(Tags.forInitial(tag));
 				}
 				else if (tag.equals("@cope.ignore"))
 				{
-					return formatAnnotation(Option.forIgnore(tag));
+					return formatAnnotation(Tags.forIgnore(tag));
 				}
 				else
 				{
 					final Pattern wrapPattern=Pattern.compile("@cope\\.([^ ]*)( +(none|public|protected|package|private|override|boolean-as-is|non-final|internal))+");
 					final Matcher matcher=wrapPattern.matcher(tag);
 					if (!matcher.matches()) throw new RuntimeException(">"+tag+"<");
-					final Wrapper option=Option.forFeatureLine(matcher.group(1), tag);
+					final Wrapper option=Tags.forFeatureLine(matcher.group(1), tag);
 					return formatAnnotation(option);
 				}
 			}

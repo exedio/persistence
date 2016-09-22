@@ -54,7 +54,7 @@ final class CopeFeature
 		this.visibility = javaField.getVisibility();
 
 		this.docComment = javaField.docComment;
-		final WrapperInitial initialConfig = Tags.cascade(javaField, Option.forInitial(docComment), javaField.wrapperInitial, null);
+		final WrapperInitial initialConfig = Tags.cascade(javaField, Tags.forInitial(docComment), javaField.wrapperInitial, null);
 		this.initialByConfiguration = initialConfig==null ? null : initialConfig.value();
 
 		parent.register(this);
@@ -163,7 +163,7 @@ final class CopeFeature
 	{
 		return Tags.cascade(
 				javaField,
-				Option.forFeature(docComment, modifierTag),
+				Tags.forFeature(docComment, modifierTag),
 				javaField.getWrappers(modifierTag),
 				OPTION_DEFAULT);
 	}

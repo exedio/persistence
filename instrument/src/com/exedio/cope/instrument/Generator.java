@@ -53,11 +53,11 @@ final class Generator
 	private static final String CONSTRUCTOR_INITIAL_PARAMETER = "the initial value for field {0}.";
 	private static final String CONSTRUCTOR_INITIAL_CUSTOMIZE_TAGS = "It can be customized with the tags " +
 																					"<tt>@" + CopeType.TAG_INITIAL_CONSTRUCTOR + ' ' +
-																					Option.TEXT_VISIBILITY_PUBLIC + '|' +
-																					Option.TEXT_VISIBILITY_PACKAGE + '|' +
-																					Option.TEXT_VISIBILITY_PROTECTED + '|' +
-																					Option.TEXT_VISIBILITY_PRIVATE + '|' +
-																					Option.TEXT_NONE +
+																					Tags.TEXT_VISIBILITY_PUBLIC + '|' +
+																					Tags.TEXT_VISIBILITY_PACKAGE + '|' +
+																					Tags.TEXT_VISIBILITY_PROTECTED + '|' +
+																					Tags.TEXT_VISIBILITY_PRIVATE + '|' +
+																					Tags.TEXT_NONE +
 																					"</tt> " +
 																					"in the class comment and " +
 																					"<tt>@" + CopeFeature.TAG_INITIAL + "</tt> in the comment of fields.";
@@ -65,11 +65,11 @@ final class Generator
 	private static final String CONSTRUCTOR_GENERIC = "Creates a new {0} and sets the given fields initially.";
 	private static final String CONSTRUCTOR_GENERIC_CUSTOMIZE_TAGS = "It can be customized with the tag " +
 																					"<tt>@" + CopeType.TAG_GENERIC_CONSTRUCTOR + ' ' +
-																					Option.TEXT_VISIBILITY_PUBLIC + '|' +
-																					Option.TEXT_VISIBILITY_PACKAGE + '|' +
-																					Option.TEXT_VISIBILITY_PROTECTED + '|' +
-																					Option.TEXT_VISIBILITY_PRIVATE + '|' +
-																					Option.TEXT_NONE +
+																					Tags.TEXT_VISIBILITY_PUBLIC + '|' +
+																					Tags.TEXT_VISIBILITY_PACKAGE + '|' +
+																					Tags.TEXT_VISIBILITY_PROTECTED + '|' +
+																					Tags.TEXT_VISIBILITY_PRIVATE + '|' +
+																					Tags.TEXT_NONE +
 																					"</tt> " +
 																					"in the class comment.";
 	private static final String CONSTRUCTOR_GENERIC_CUSTOMIZE_ANNOTATIONS = getAnnotationsHint(WrapperType.class, "genericConstructor", "...");
@@ -496,13 +496,13 @@ final class Generator
 					modifierTag!=null
 					?  "It can be customized with the tag " +
 						"<tt>@" + CopeFeature.TAG_PREFIX + modifierTag + ' ' +
-						Option.TEXT_VISIBILITY_PUBLIC + '|' +
-						Option.TEXT_VISIBILITY_PACKAGE + '|' +
-						Option.TEXT_VISIBILITY_PROTECTED + '|' +
-						Option.TEXT_VISIBILITY_PRIVATE + '|' +
-						Option.TEXT_NONE + '|' +
-						Option.TEXT_NON_FINAL +
-						(useIs ? '|' + Option.TEXT_BOOLEAN_AS_IS : "") + "</tt> " +
+						Tags.TEXT_VISIBILITY_PUBLIC + '|' +
+						Tags.TEXT_VISIBILITY_PACKAGE + '|' +
+						Tags.TEXT_VISIBILITY_PROTECTED + '|' +
+						Tags.TEXT_VISIBILITY_PRIVATE + '|' +
+						Tags.TEXT_NONE + '|' +
+						Tags.TEXT_NON_FINAL +
+						(useIs ? '|' + Tags.TEXT_BOOLEAN_AS_IS : "") + "</tt> " +
 						"in the comment of the field."
 					: null
 				);
@@ -844,11 +844,11 @@ final class Generator
 				commentLines,
 				"It can be customized with the tag " +
 				"<tt>@" + CopeType.TAG_TYPE + ' ' +
-				Option.TEXT_VISIBILITY_PUBLIC + '|' +
-				Option.TEXT_VISIBILITY_PACKAGE + '|' +
-				Option.TEXT_VISIBILITY_PROTECTED + '|' +
-				Option.TEXT_VISIBILITY_PRIVATE + '|' +
-				Option.TEXT_NONE +
+				Tags.TEXT_VISIBILITY_PUBLIC + '|' +
+				Tags.TEXT_VISIBILITY_PACKAGE + '|' +
+				Tags.TEXT_VISIBILITY_PROTECTED + '|' +
+				Tags.TEXT_VISIBILITY_PRIVATE + '|' +
+				Tags.TEXT_NONE +
 				"</tt> " +
 				"in the class comment."
 		);
