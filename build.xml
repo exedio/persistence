@@ -79,7 +79,6 @@
 				<test name="@{test}"                     todir="build/testresults" outfile="@{test}-@{env}" unless="method"/>
 				<sysproperty key="java.io.tmpdir" value="${basedir}/build/testtmpdir" />
 				<sysproperty key="user.timezone" value="${test-DefaultTimeZone}" />
-				<sysproperty key="tomcat.port.http" value="${tomcat.port.http}" />
 				<assertions><enable/></assertions>
 			</junit>
 		</sequential>
@@ -634,6 +633,7 @@
 						<pathelement location="lib/junit.jar" />
 						<pathelement location="lib/cpsuite.jar" />
 					</classpath>
+					<sysproperty key="tomcat.port.http" value="${tomcat.port.http}" />
 				</ljunit>
 			</body>
 		</runInTomcat>
