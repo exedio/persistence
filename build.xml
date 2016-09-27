@@ -421,8 +421,6 @@
 	</target>
 
 	<target name="runtime.test.withEnv" depends="runtime.test.readyToRun">
-		<mkdir dir="build/testresults" />
-		<mkdir dir="build/testtmpdir" />
 		<foreachEnvironment skipSwitch="runtime.test">
 			<body>
 				<ljunit test="${runtime.test.withEnv}" env="@{env}">
