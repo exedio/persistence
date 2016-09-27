@@ -392,14 +392,7 @@
 	<target name="runtime.test.readyToRun" depends="dsmf.compile, runtime.core.compile, runtime.dialect.compile, runtime.pattern.compile, runtime.servlet.compile, runtime.junit.compile, runtime.test.feature.compile, runtime.test.compile" />
 
 	<target name="runtime.test.withoutEnv" depends="runtime.test.readyToRun">
-		<mkdir dir="build/testresults" />
-		<mkdir dir="build/testtmpdir" />
-		<junit taskname="junit noEnv" fork="yes"
-					haltonerror="true" haltonfailure="true"
-					dir="${basedir}"
-					showoutput="true" printsummary="true">
-			<formatter type="brief" usefile="false" />
-			<formatter type="xml" />
+		<ljunit test="${runtime.test.withoutEnv}">
 			<classpath>
 				<pathelement location="build/classes/dsmf/src" />
 				<pathelement location="build/classes/runtime/src" />
@@ -421,14 +414,10 @@
 				<pathelement location="lib/exedio-cope-util.jar" />
 				<pathelement location="lib/exedio-cope-servletutil.jar" />
 			</classpath>
-			<test name="${runtime.test.withoutEnv}" todir="build/testresults" outfile="runtime-noEnv" />
-			<sysproperty key="java.io.tmpdir" value="${basedir}/build/testtmpdir" />
-			<sysproperty key="user.timezone" value="${test-DefaultTimeZone}" />
 			<sysproperty key="com.exedio.cope.ClusterNetworkTest.multicast"   value="${runtime.test.ClusterNetworkTest.multicast}" />
 			<sysproperty key="com.exedio.cope.ClusterNetworkTest.port.send"   value="${runtime.test.ClusterNetworkTest.port.send}"   />
 			<sysproperty key="com.exedio.cope.ClusterNetworkTest.port.listen" value="${runtime.test.ClusterNetworkTest.port.listen}" />
-			<assertions><enable/></assertions>
-		</junit>
+		</ljunit>
 	</target>
 
 	<target name="runtime.test.withEnv" depends="runtime.test.readyToRun">
@@ -436,12 +425,7 @@
 		<mkdir dir="build/testtmpdir" />
 		<foreachEnvironment skipSwitch="runtime.test">
 			<body>
-				<junit taskname="junit @{env}" fork="yes"
-						 haltonerror="true" haltonfailure="true"
-						 dir="${basedir}"
-						 showoutput="true" printsummary="true">
-					<formatter type="brief" usefile="false" />
-					<formatter type="xml" />
+				<ljunit test="${runtime.test.withEnv}" env="@{env}">
 					<classpath>
 						<pathelement location="build/classes/dsmf/src" />
 						<pathelement location="build/classes/runtime/src" />
@@ -461,13 +445,9 @@
 						<pathelement location="lib/log4j-bundle.jar" />
 						<pathelement location="lib/exedio-cope-util.jar" />
 					</classpath>
-					<test name="${runtime.test.withEnv}" todir="build/testresults" outfile="runtime-@{env}" />
-					<sysproperty key="java.io.tmpdir" value="${basedir}/build/testtmpdir" />
-					<sysproperty key="user.timezone" value="${test-DefaultTimeZone}" />
 					<sysproperty key="com.exedio.cope.properties" file="@{env.file}" />
 					<sysproperty key="contextPath" value="/junitContextPath" />
-					<assertions><enable/></assertions>
-				</junit>
+				</ljunit>
 			</body>
 		</foreachEnvironment>
 	</target>
@@ -478,11 +458,7 @@
 		<delete file="build/classes/runtime/src/com/exedio/cope/testprotocol.properties" />
 		<foreachEnvironment skipSwitch="runtime.test.protocol">
 			<body>
-				<junit taskname="junit @{env}" fork="yes"
-						 haltonerror="true" haltonfailure="true"
-						 dir="${basedir}"
-						 showoutput="true" printsummary="true">
-					<formatter type="brief" usefile="false" />
+				<ljunit test="com.exedio.cope.ProtocolWriter">
 					<classpath>
 						<pathelement location="build/classes/dsmf/src" />
 						<pathelement location="build/classes/runtime/src" />
@@ -498,14 +474,11 @@
 						<pathelement location="lib/log4j-bundle.jar" />
 						<pathelement location="lib/exedio-cope-util.jar" />
 					</classpath>
-					<test name="com.exedio.cope.ProtocolWriter" />
-					<sysproperty key="user.timezone" value="${test-DefaultTimeZone}" />
 					<sysproperty key="com.exedio.cope.properties" file="@{env.file}" />
 					<sysproperty key="com.exedio.cope.testprotocol.file" file="build/classes/runtime/src/com/exedio/cope/testprotocol.properties" />
 					<sysproperty key="com.exedio.cope.testprotocol.prefix" value="@{env}" />
 					<sysproperty key="contextPath" value="/junitContextPath" />
-					<assertions><enable/></assertions>
-				</junit>
+				</ljunit>
 			</body>
 		</foreachEnvironment>
 	</target>
