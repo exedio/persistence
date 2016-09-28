@@ -163,8 +163,8 @@ final class CopeType
 
 	void endBuildStage()
 	{
-		assert !javaClass.file.repository.isBuildStage();
-		assert javaClass.file.repository.isGenerateStage();
+		assertNotBuildStage();
+		assertGenerateStage();
 
 		if(!isItem())
 			return;
@@ -183,14 +183,14 @@ final class CopeType
 
 	public CopeType getSuperclass()
 	{
-		assert !javaClass.file.repository.isBuildStage();
+		assertNotBuildStage();
 
 		return supertype;
 	}
 
 	boolean allowSubtypes()
 	{
-		assert !javaClass.file.repository.isBuildStage();
+		assertNotBuildStage();
 
 		return !isFinal();
 	}
@@ -202,8 +202,8 @@ final class CopeType
 
 	public void register(final CopeFeature feature)
 	{
-		assert !javaClass.file.repository.isBuildStage();
-		assert !javaClass.file.repository.isGenerateStage();
+		assertNotBuildStage();
+		assertNotGenerateStage();
 
 		features.add(feature);
 		final Object collision = featureMap.put(feature.name, feature);
@@ -212,13 +212,13 @@ final class CopeType
 
 	public CopeFeature getFeature(final String name)
 	{
-		assert !javaClass.file.repository.isBuildStage();
+		assertNotBuildStage();
 		return featureMap.get(name);
 	}
 
 	public List<CopeFeature> getFeatures()
 	{
-		assert !javaClass.file.repository.isBuildStage();
+		assertNotBuildStage();
 		return Collections.unmodifiableList(features);
 	}
 
@@ -315,4 +315,20 @@ final class CopeType
 	{
 		return javaClass.modifier;
 	}
+
+	private void assertNotBuildStage()
+	{
+		assert !javaClass.file.repository.isBuildStage();
+	}
+
+	private void assertGenerateStage()
+	{
+		assert javaClass.file.repository.isGenerateStage();
+	}
+
+	private void assertNotGenerateStage()
+	{
+		assert !javaClass.file.repository.isGenerateStage();
+	}
+
 }
