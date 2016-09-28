@@ -143,6 +143,12 @@ final class CopeType
 		return kind==Kind.composite;
 	}
 
+	/** @return null if the type has no field with that name */
+	JavaField getField(final String name)
+	{
+		return javaClass.getField(name);
+	}
+
 	private CopeType supertype;
 
 	void endBuildStage()

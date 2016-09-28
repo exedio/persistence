@@ -84,7 +84,7 @@ final class JavaClass extends JavaFeature
 		fieldList.add(javaField);
 	}
 
-	JavaField getFields(final String name)
+	JavaField getField(final String name)
 	{
 		assert !file.repository.isBuildStage();
 
@@ -238,7 +238,7 @@ final class JavaClass extends JavaFeature
 			//System.out.println("++++++++++++++++2--------getVariable(\""+name+"\")");
 			for(CopeType ct = CopeType.getCopeType(JavaClass.this); ct!=null; ct = ct.getSuperclass())
 			{
-				final JavaField ja = ct.javaClass.getFields(name);
+				final JavaField ja = ct.getField(name);
 				if(ja!=null)
 					return ja.evaluate();
 			}
