@@ -153,19 +153,15 @@ final class CopeType
 		if(!isItem())
 			return;
 
-		final String extname = javaClass.classExtends;
-
-		if(extname==null)
+		final Class<?> externalType = javaClass.file.findTypeExternally(javaClass.classExtends);
+		if(externalType==Item.class)
 		{
 			supertype = null;
 		}
 		else
 		{
-			final Class<?> externalType = javaClass.file.findTypeExternally(extname);
-			if(externalType==Item.class)
-				supertype = null;
-			else
-				supertype = javaClass.file.repository.getCopeType(extname);
+			supertype = javaClass.file.repository.getCopeType(javaClass.classExtends);
+			if (!supertype.isItem()) throw new RuntimeException();
 		}
 	}
 
