@@ -42,6 +42,34 @@ final class CopeType
 	static final String TAG_ACTIVATION_CONSTRUCTOR = TAG_PREFIX + "activation.constructor";
 	static final String TAG_INDENT                 = TAG_PREFIX + "indent";
 
+	private static enum Kind
+	{
+		item, composite, block
+	}
+
+	private static Kind toKind(final boolean isItem, final boolean isBlock, final boolean isComposite)
+	{
+		if (isItem)
+		{
+			if (isBlock||isComposite) throw new RuntimeException();
+			return Kind.item;
+		}
+		else if (isBlock)
+		{
+			if (isItem||isComposite) throw new RuntimeException();
+			return Kind.block;
+		}
+		else if (isComposite)
+		{
+			if (isItem||isBlock) throw new RuntimeException();
+			return Kind.composite;
+		}
+		else
+		{
+			throw new RuntimeException();
+		}
+	}
+
 	private static final HashMap<JavaClass, CopeType> copeTypeByJavaClass = new HashMap<>();
 
 	static final CopeType getCopeType(final JavaClass javaClass)
@@ -53,8 +81,7 @@ final class CopeType
 
 
 	final JavaClass javaClass;
-	final boolean isBlock;
-	final boolean isComposite;
+	private final Kind kind;
 	final String name;
 	final InternalVisibility visibility;
 	final WrapperType option;
@@ -62,11 +89,11 @@ final class CopeType
 	private final ArrayList<CopeFeature> features = new ArrayList<>();
 	private final TreeMap<String, CopeFeature> featureMap = new TreeMap<>();
 
-	public CopeType(final JavaClass javaClass, final boolean isBlock, final boolean isComposite)
+	CopeType(final JavaClass javaClass, final boolean isItem, final boolean isBlock, final boolean isComposite)
 	{
 		this.javaClass = javaClass;
-		this.isBlock = isBlock;
-		this.isComposite = isComposite;
+		this.kind = toKind(isItem, isBlock, isComposite);
+		if (javaClass.classExtends==null) throw new RuntimeException();
 		this.name = javaClass.name;
 		this.visibility = javaClass.getVisibility();
 		this.option = Tags.cascade(
@@ -101,6 +128,21 @@ final class CopeType
 		return javaClass.isInterface();
 	}
 
+	boolean isBlock()
+	{
+		return kind==Kind.block;
+	}
+
+	boolean isItem()
+	{
+		return kind==Kind.item;
+	}
+
+	boolean isComposite()
+	{
+		return kind==Kind.composite;
+	}
+
 	private CopeType supertype;
 
 	void endBuildStage()
@@ -108,7 +150,7 @@ final class CopeType
 		assert !javaClass.file.repository.isBuildStage();
 		assert javaClass.file.repository.isGenerateStage();
 
-		if(isBlock||isComposite)
+		if(!isItem())
 			return;
 
 		final String extname = javaClass.classExtends;

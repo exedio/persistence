@@ -84,7 +84,7 @@ final class JavaRepository
 			final boolean isComposite = isComposite(javaClass);
 			if(isItem||isBlock||isComposite)
 			{
-				final CopeType type = new CopeType(javaClass, isBlock, isComposite);
+				final CopeType type = new CopeType(javaClass, isItem, isBlock, isComposite);
 
 				feature: for(final JavaField javaField : javaClass.getFields())
 				{

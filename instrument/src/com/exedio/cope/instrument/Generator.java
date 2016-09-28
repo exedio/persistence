@@ -232,7 +232,7 @@ final class Generator
 
 	private void writeInitialConstructor(final CopeType type)
 	{
-		if(type.isBlock)
+		if(type.isBlock())
 			return;
 		if(!type.hasInitialConstructor())
 			return;
@@ -345,7 +345,7 @@ final class Generator
 
 	private void writeGenericConstructor(final CopeType type)
 	{
-		if(type.isBlock)
+		if(type.isBlock())
 			return;
 
 		final Visibility option = type.option.genericConstructor();
@@ -378,14 +378,14 @@ final class Generator
 
 	private void writeActivationConstructor(final CopeType type)
 	{
-		if(type.isComposite)
+		if(type.isComposite())
 			return;
 
 		final Visibility option = type.option.activationConstructor();
 		if(!option.exists())
 			return;
 
-		final boolean block = type.isBlock;
+		final boolean block = type.isBlock();
 		final Class<?> constructor = block ? Block.class : Item.class;
 		final String activation = (block ? BlockActivationParameters.class : ActivationParameters.class).getName();
 
@@ -424,7 +424,7 @@ final class Generator
 			final Visibility visibility = option.visibility();
 			if(!visibility.exists())
 				continue;
-			if(feature.parent.isBlock && wrapper.hasStaticClassToken())
+			if(feature.parent.isBlock() && wrapper.hasStaticClassToken())
 				continue;
 
 			final Context ctx = new Context(feature, wrapper);
@@ -639,7 +639,7 @@ final class Generator
 			writeIndent(1);
 			if(!methodReturnType.equals(void.class))
 				write("return ");
-		if(feature.parent.isComposite)
+		if(feature.parent.isComposite())
 		{
 			write(methodName);
 			write('(');
@@ -657,7 +657,7 @@ final class Generator
 		}
 		else
 		{
-			final boolean block = feature.parent.isBlock;
+			final boolean block = feature.parent.isBlock();
 			if(block)
 				write("field().of(");
 			write(feature.parent.name);
@@ -823,14 +823,14 @@ final class Generator
 
 	private void writeType(final CopeType type)
 	{
-		if(type.isComposite)
+		if(type.isComposite())
 			return;
 
 		final Visibility option = type.option.type();
 		if(!option.exists())
 			return;
 
-		final boolean block = type.isBlock;
+		final boolean block = type.isBlock();
 
 		final List<String> commentLines=new ArrayList<>();
 		commentLines.add(
