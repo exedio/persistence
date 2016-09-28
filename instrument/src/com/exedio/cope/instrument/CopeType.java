@@ -82,9 +82,9 @@ final class CopeType
 
 	final JavaClass javaClass;
 	private final Kind kind;
-	final String name;
-	final InternalVisibility visibility;
-	final WrapperType option;
+	private final String name;
+	private final InternalVisibility visibility;
+	private final WrapperType option;
 
 	private final ArrayList<CopeFeature> features = new ArrayList<>();
 	private final TreeMap<String, CopeFeature> featureMap = new TreeMap<>();
@@ -105,6 +105,16 @@ final class CopeType
 
 		javaClass.nameSpace.importStatic(Item.class);
 		javaClass.file.repository.add(this);
+	}
+
+	String getName()
+	{
+		return name;
+	}
+
+	WrapperType getOption()
+	{
+		return option;
 	}
 
 	private static final WrapperType OPTION_DEFAULT = new WrapperType()

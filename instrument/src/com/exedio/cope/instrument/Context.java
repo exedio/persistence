@@ -52,9 +52,9 @@ final class Context
 		final CopeType type = feature.parent;
 		final int typeParameters = type.getTypeParameters();
 		if(typeParameters==0)
-			return type.name;
+			return type.getName();
 
-		final StringBuilder bf = new StringBuilder(type.name);
+		final StringBuilder bf = new StringBuilder(type.getName());
 		if(typeParameters>0)
 		{
 			bf.append("<?");

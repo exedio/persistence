@@ -241,7 +241,7 @@ final class Generator
 		final SortedSet<Class<? extends Throwable>> constructorExceptions = type.getConstructorExceptions();
 
 		final List<String> commentLines=new ArrayList<>();
-		commentLines.add(" * "+format(CONSTRUCTOR_INITIAL, type.name));
+		commentLines.add(" * "+format(CONSTRUCTOR_INITIAL, type.getName()));
 		for(final CopeFeature feature : initialFeatures)
 		{
 			commentLines.add(" * @param "+feature.name+' '+format(CONSTRUCTOR_INITIAL_PARAMETER, link(feature.name)));
@@ -266,12 +266,12 @@ final class Generator
 			final String pattern = a.value();
 			commentLines.add(" * @throws "+constructorException.getCanonicalName()+' '+format(pattern, fields.toString()));
 		}
-		finishComment(type.option.comments(), commentLines, CONSTRUCTOR_INITIAL_CUSTOMIZE_TAGS);
-		writeGeneratedAnnotation(type.option.comments(), CONSTRUCTOR_INITIAL_CUSTOMIZE_ANNOTATIONS);
+		finishComment(type.getOption().comments(), commentLines, CONSTRUCTOR_INITIAL_CUSTOMIZE_TAGS);
+		writeGeneratedAnnotation(type.getOption().comments(), CONSTRUCTOR_INITIAL_CUSTOMIZE_ANNOTATIONS);
 
 		writeIndent();
 		writeModifier(type.getInitialConstructorModifier());
-		write(type.name);
+		write(type.getName());
 		write('(');
 
 		final CharSeparator comma = new CharSeparator(',');
@@ -321,7 +321,7 @@ final class Generator
 				write(SET_VALUE + ".map(");
 			final CopeType parent = feature.parent;
 			if(parent==type)
-				write(type.name);
+				write(type.getName());
 			else
 				write(parent.getFullName());
 			write('.');
@@ -348,18 +348,18 @@ final class Generator
 		if(type.isBlock())
 			return;
 
-		final Visibility option = type.option.genericConstructor();
+		final Visibility option = type.getOption().genericConstructor();
 		if(!option.exists())
 			return;
 
 		final List<String> commentLines=new ArrayList<>();
-		commentLines.add(" * "+format(CONSTRUCTOR_GENERIC, type.name));
-		finishComment(type.option.comments(), commentLines, CONSTRUCTOR_GENERIC_CUSTOMIZE_TAGS);
-		writeGeneratedAnnotation(type.option.comments(), CONSTRUCTOR_GENERIC_CUSTOMIZE_ANNOTATIONS);
+		commentLines.add(" * "+format(CONSTRUCTOR_GENERIC, type.getName()));
+		finishComment(type.getOption().comments(), commentLines, CONSTRUCTOR_GENERIC_CUSTOMIZE_TAGS);
+		writeGeneratedAnnotation(type.getOption().comments(), CONSTRUCTOR_GENERIC_CUSTOMIZE_ANNOTATIONS);
 
 		writeIndent();
 		writeModifier(option.getModifier(type.getSubtypeModifier()));
-		write(type.name);
+		write(type.getName());
 		write('(');
 		write(finalArgPrefix);
 		write(SET_VALUE + "<?>... setValues)");
@@ -381,7 +381,7 @@ final class Generator
 		if(type.isComposite())
 			return;
 
-		final Visibility option = type.option.activationConstructor();
+		final Visibility option = type.getOption().activationConstructor();
 		if(!option.exists())
 			return;
 
@@ -392,14 +392,14 @@ final class Generator
 		final List<String> commentLines=new ArrayList<>();
 		commentLines.add(" * "+"Activation constructor. Used for internal purposes only.");
 		commentLines.add(" * @see "+constructor.getName()+'#'+constructor.getSimpleName()+'('+activation+')');
-		finishComment(type.option.comments(), commentLines);
-		writeGeneratedAnnotation(type.option.comments(), null);
+		finishComment(type.getOption().comments(), commentLines);
+		writeGeneratedAnnotation(type.getOption().comments(), null);
 
 		writeIndent();
 		if(suppressUnusedWarningOnPrivateActivationConstructor && !type.allowSubtypes())
 			write("@SuppressWarnings(\"unused\") ");
 		writeModifier(option.getModifier(type.getSubtypeModifier()));
-		write(type.name);
+		write(type.getName());
 		write('(');
 		write(finalArgPrefix);
 		write(activation);
@@ -441,7 +441,7 @@ final class Generator
 			final Object[] arguments = new String[]{
 					link(feature.name),
 					feature.name,
-					lowerCamelCase(feature.parent.name),
+					lowerCamelCase(feature.parent.getName()),
 					featureNameCamelCase};
 			{
 				final List<String> commentLines=new ArrayList<>();
@@ -467,7 +467,7 @@ final class Generator
 							final Object[] parameterArguments = new String[]{
 									link(parameterFeature.name),
 									parameterFeature.name,
-									lowerCamelCase(parameterFeature.parent.name)};
+									lowerCamelCase(parameterFeature.parent.getName())};
 							collectCommentParagraph(
 									commentLines,
 									"@param " + format(parameterName, parameterArguments),
@@ -491,7 +491,7 @@ final class Generator
 							e.getValue(), arguments);
 				}
 				finishComment(
-					feature.parent.option.comments(),
+					feature.parent.getOption().comments(),
 					commentLines,
 					modifierTag!=null
 					?  "It can be customized with the tag " +
@@ -507,7 +507,7 @@ final class Generator
 					: null
 				);
 				writeGeneratedAnnotation(
-					feature.parent.option.comments(),
+					feature.parent.getOption().comments(),
 					modifierTag!=null
 					?  getAnnotationsHint(Wrapper.class, "wrap", "\""+modifierTag+"\"")
 					: null
@@ -644,7 +644,7 @@ final class Generator
 			write(methodName);
 			write('(');
 			{
-				write(feature.parent.name);
+				write(feature.parent.getName());
 				write('.');
 				write(feature.name);
 				for(final WrapperX.Parameter parameter : parameters)
@@ -660,7 +660,7 @@ final class Generator
 			final boolean block = feature.parent.isBlock();
 			if(block)
 				write("field().of(");
-			write(feature.parent.name);
+			write(feature.parent.getName());
 			write('.');
 			write(feature.name);
 			if(block)
@@ -675,7 +675,7 @@ final class Generator
 					if(wrapper.hasStaticClassToken())
 					{
 						comma.appendTo(output);
-						write(feature.parent.name);
+						write(feature.parent.getName());
 						write(".class");
 						if(feature.parent.getTypeParameters()>0)
 							write("Wildcard.value");
@@ -808,8 +808,8 @@ final class Generator
 			return;
 
 		final List<String> commentLines=new ArrayList<>();
-		finishComment(type.option.comments(), commentLines);
-		writeGeneratedAnnotation(type.option.comments(), null);
+		finishComment(type.getOption().comments(), commentLines);
+		writeGeneratedAnnotation(type.getOption().comments(), null);
 
 		writeIndent();
 		writeModifier(PRIVATE|STATIC|FINAL);
@@ -826,7 +826,7 @@ final class Generator
 		if(type.isComposite())
 			return;
 
-		final Visibility option = type.option.type();
+		final Visibility option = type.getOption().type();
 		if(!option.exists())
 			return;
 
@@ -837,10 +837,10 @@ final class Generator
 			" * "+
 			format(
 				block ? "The type information for {0}." : "The persistent type information for {0}.",
-				lowerCamelCase(type.name))
+				lowerCamelCase(type.getName()))
 		);
 		finishComment(
-				type.option.comments(),
+				type.getOption().comments(),
 				commentLines,
 				"It can be customized with the tag " +
 				"<tt>@" + CopeType.TAG_TYPE + ' ' +
@@ -853,7 +853,7 @@ final class Generator
 				"in the class comment."
 		);
 		writeGeneratedAnnotation(
-			type.option.comments(),
+			type.getOption().comments(),
 			"customize with @"+WrapperType.class.getSimpleName()+"(type=...)"
 		);
 
@@ -868,12 +868,12 @@ final class Generator
 		writeModifier(option.getModifier(type.getModifier()) | (STATIC|FINAL));
 		write((block ? BlockType.class : Type.class).getName());
 		write('<');
-		write(type.name);
+		write(type.getName());
 		writeWildcard(type);
 		write("> TYPE = ");
 		write((block ? BlockType.class : TypesBound.class).getName());
 		write(".newType(");
-		write(type.name);
+		write(type.getName());
 		write(".class");
 		if(type.getTypeParameters()>0)
 			write("Wildcard.value");
@@ -910,7 +910,7 @@ final class Generator
 
 				try
 				{
-					typeIndent = type.option.indent();
+					typeIndent = type.getOption().indent();
 					writeClassFeatures(type);
 					typeIndent = Integer.MIN_VALUE;
 				}
