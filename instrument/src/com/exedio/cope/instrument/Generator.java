@@ -323,7 +323,7 @@ final class Generator
 			if(parent==type)
 				write(type.name);
 			else
-				write(parent.javaClass.getFullName());
+				write(parent.getFullName());
 			write('.');
 			write(feature.name);
 			if(directSetValueMap)
@@ -677,7 +677,7 @@ final class Generator
 						comma.appendTo(output);
 						write(feature.parent.name);
 						write(".class");
-						if(feature.parent.javaClass.typeParameters>0)
+						if(feature.parent.getTypeParameters()>0)
 							write("Wildcard.value");
 					}
 				}
@@ -865,7 +865,7 @@ final class Generator
 		}
 
 		writeIndent();
-		writeModifier(option.getModifier(type.javaClass.modifier) | (STATIC|FINAL));
+		writeModifier(option.getModifier(type.getModifier()) | (STATIC|FINAL));
 		write((block ? BlockType.class : Type.class).getName());
 		write('<');
 		write(type.name);
@@ -875,7 +875,7 @@ final class Generator
 		write(".newType(");
 		write(type.name);
 		write(".class");
-		if(type.javaClass.typeParameters>0)
+		if(type.getTypeParameters()>0)
 			write("Wildcard.value");
 		write(");");
 		if (hintFormat==HintFormat.forAnnotations)
@@ -884,7 +884,7 @@ final class Generator
 
 	private void writeWildcard(final CopeType type)
 	{
-		final int typeParameters = type.javaClass.typeParameters;
+		final int typeParameters = type.getTypeParameters();
 		if(typeParameters>0)
 		{
 			write("<?");

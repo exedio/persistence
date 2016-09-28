@@ -290,4 +290,19 @@ final class CopeType
 	{
 		return name;
 	}
+
+	int getTypeParameters()
+	{
+		return javaClass.typeParameters;
+	}
+
+	String getFullName()
+	{
+		return javaClass.getFullName();
+	}
+
+	int getModifier()
+	{
+		return javaClass.modifier;
+	}
 }
