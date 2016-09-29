@@ -714,7 +714,17 @@ public final class Model implements Serializable
 
 	private void commitOrRollback(final boolean commit)
 	{
-		final Transaction tx = transactions.remove();
+		final Transaction tx = transactions.current();
+
+		// NOTE:
+		// Calling Pre-Commit Hooks must be the very first thing to do. Within the hook
+		// the transaction must be still available and usable. If one of the hooks
+		// fails, the commit fails as well, and probably the transaction is rolled back
+		// subsequently.
+		tx.preCommitHooks.handle(commit);
+
+		transactions.remove(tx);
+
 		tx.commitOrRollback(commit, this, transactionCounter);
 
 		if(tx.connect.properties.itemCacheStamps)
@@ -746,8 +756,40 @@ public final class Model implements Serializable
 	/**
 	 * Adds a hook to the current transaction.
 	 * The hook is called within {@link Model#commit()}.
+	 * When the hook is called, the transaction is not yet committed
+	 * and still available for use.
+	 * If you don't want this, use a
+	 * {@link #addPostCommitHookIfAbsent(Runnable) post-commit} hook instead.
+	 * <p>
+	 * Multiple hooks are called in order of addition.
+	 * <p>
+	 * If a hook {@link Object#equals(Object) equal} to {@code hook} has been added before,
+	 * this method does nothing and returns the hook previously added.
+	 * Otherwise {@code hook} is returned.
+	 * Note: this is different from {@link Map#putIfAbsent(Object, Object) Map.putIfAbsent}.
+	 * <p>
+	 * Note, this is something completely different than
+	 * {@link #addChangeListener(ChangeListener) Change Listeners}.
+	 *
+	 * @return the hook that is present after methods returns.
+	 *
+	 * @see Transaction#getPreCommitHookCount()
+	 * @see #addPostCommitHookIfAbsent(Runnable)
+	 */
+	@Nonnull
+	public <R extends Runnable> R addPreCommitHookIfAbsent(final R hook)
+	{
+		return transactions.current().preCommitHooks.add(hook);
+	}
+
+	/**
+	 * Adds a hook to the current transaction.
+	 * The hook is called within {@link Model#commit()}.
 	 * When the hook is called, the transaction is already committed
 	 * and not available for use anymore.
+	 * If you don't want this, use a
+	 * {@link #addPreCommitHookIfAbsent(Runnable) pre-commit} hook instead.
+	 * <p>
 	 * Multiple hooks are called in order of addition.
 	 * <p>
 	 * If a hook {@link Object#equals(Object) equal} to {@code hook} has been added before,
@@ -761,6 +803,7 @@ public final class Model implements Serializable
 	 * @return the hook that is present after methods returns.
 	 *
 	 * @see Transaction#getPostCommitHookCount()
+	 * @see #addPreCommitHookIfAbsent(Runnable)
 	 */
 	@Nonnull
 	public <R extends Runnable> R addPostCommitHookIfAbsent(final R hook)

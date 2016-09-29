@@ -18,22 +18,21 @@
 
 package com.exedio.cope;
 
-import static java.util.Arrays.asList;
+import static com.exedio.cope.CommitHookPostTest.FAIL;
+import static com.exedio.cope.CommitHookPostTest.assertNoTransaction;
+import static com.exedio.cope.CommitHookPostTest.assertTransaction;
+import static com.exedio.cope.CommitHookPostTest.model;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import com.exedio.cope.instrument.WrapperIgnore;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.File;
-import java.util.ArrayList;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-public class CommitHookPostTest
+public class CommitHookPreTest
 {
 	@Test public void testOne()
 	{
@@ -109,7 +108,7 @@ public class CommitHookPostTest
 			assertEquals("thrower", e.getMessage());
 		}
 		assertEquals("one,", bf.toString());
-		assertNoTransaction();
+		assertTransaction();
 	}
 
 	@Test public void testRollback()
@@ -131,36 +130,7 @@ public class CommitHookPostTest
 		model.startTransaction("tx");
 		add(1, () ->
 		{
-			assertNoTransaction();
-			bf.append("beforeAdd");
-			model.addPostCommitHookIfAbsent(FAIL);
-			bf.append("afterAdd");
-		});
-
-		assertEquals("", bf.toString());
-		assertTransaction();
-		try
-		{
-			model.commit();
-			fail();
-		}
-		catch(final IllegalStateException e)
-		{
-			assertEquals(
-					"there is no cope transaction bound to this thread, see Model#startTransaction",
-					e.getMessage());
-		}
-		assertEquals("beforeAdd", bf.toString());
-		assertNoTransaction();
-	}
-
-	@Test public void testAddPreHookInHook()
-	{
-		final StringBuilder bf = new StringBuilder();
-		model.startTransaction("tx");
-		add(1, () ->
-		{
-			assertNoTransaction();
+			assertTransaction();
 			bf.append("beforeAdd");
 			model.addPreCommitHookIfAbsent(FAIL);
 			bf.append("afterAdd");
@@ -176,29 +146,52 @@ public class CommitHookPostTest
 		catch(final IllegalStateException e)
 		{
 			assertEquals(
-					"there is no cope transaction bound to this thread, see Model#startTransaction",
+					"hooks are or have been handled",
 					e.getMessage());
 		}
 		assertEquals("beforeAdd", bf.toString());
+		assertTransaction();
+	}
+
+	@Test public void testAddPostHookInHook()
+	{
+		final StringBuilder bf = new StringBuilder();
+		model.startTransaction("tx");
+		add(1, () ->
+		{
+			assertTransaction();
+			bf.append("beforeAdd");
+			model.addPostCommitHookIfAbsent(() ->
+			{
+				assertNoTransaction();
+				bf.append("inPost");
+			});
+			bf.append("afterAdd");
+		});
+
+		assertEquals("", bf.toString());
+		assertTransaction();
+		model.commit();
+		assertEquals("beforeAddafterAddinPost", bf.toString());
 		assertNoTransaction();
 	}
 
 	@Test public void testNullHook()
 	{
 		model.startTransaction("tx");
-		assertEquals(0, model.currentTransaction().getPostCommitHookCount());
-		assertEquals(0, model.currentTransaction().getPostCommitHookDuplicates());
+		assertEquals(0, model.currentTransaction().getPreCommitHookCount());
+		assertEquals(0, model.currentTransaction().getPreCommitHookDuplicates());
 		try
 		{
-			model.addPostCommitHookIfAbsent(null);
+			model.addPreCommitHookIfAbsent(null);
 			fail();
 		}
 		catch(final NullPointerException e)
 		{
 			assertEquals("hook", e.getMessage());
 		}
-		assertEquals(0, model.currentTransaction().getPostCommitHookCount());
-		assertEquals(0, model.currentTransaction().getPostCommitHookDuplicates());
+		assertEquals(0, model.currentTransaction().getPreCommitHookCount());
+		assertEquals(0, model.currentTransaction().getPreCommitHookDuplicates());
 	}
 
 	@SuppressFBWarnings("NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS")
@@ -206,7 +199,7 @@ public class CommitHookPostTest
 	{
 		try
 		{
-			model.addPostCommitHookIfAbsent(null);
+			model.addPreCommitHookIfAbsent(null);
 			fail();
 		}
 		catch(final IllegalStateException e)
@@ -220,7 +213,7 @@ public class CommitHookPostTest
 	{
 		return () ->
 		{
-			assertNoTransaction();
+			assertTransaction();
 			bf.append(value).append(',');
 		};
 	}
@@ -229,7 +222,7 @@ public class CommitHookPostTest
 	{
 		return () ->
 		{
-			assertNoTransaction();
+			assertTransaction();
 			throw new IllegalArgumentException(message);
 		};
 	}
@@ -255,7 +248,7 @@ public class CommitHookPostTest
 		@SuppressWarnings("synthetic-access")
 		public void run()
 		{
-			assertNoTransaction();
+			assertTransaction();
 			bf.append(value).append('/').append(identity).append(',');
 		}
 		@Override
@@ -281,14 +274,14 @@ public class CommitHookPostTest
 			final Runnable hook)
 	{
 		final Transaction tx = model.currentTransaction();
-		final int previousCount = tx.getPostCommitHookCount();
-		final int previousDups  = tx.getPostCommitHookDuplicates();
+		final int previousCount = tx.getPreCommitHookCount();
+		final int previousDups  = tx.getPreCommitHookDuplicates();
 
-		assertSame(result, model.addPostCommitHookIfAbsent(hook));
-		assertEquals("count", count, tx.getPostCommitHookCount() - previousCount);
-		assertEquals("dups",  dups,  tx.getPostCommitHookDuplicates() - previousDups);
-		assertEquals("pre count", 0, tx.getPreCommitHookCount());
-		assertEquals("pre dups",  0, tx.getPreCommitHookDuplicates());
+		assertSame(result, model.addPreCommitHookIfAbsent(hook));
+		assertEquals("count", count, tx.getPreCommitHookCount() - previousCount);
+		assertEquals("dups",  dups,  tx.getPreCommitHookDuplicates() - previousDups);
+		assertEquals("post count", 0, tx.getPostCommitHookCount());
+		assertEquals("post dups",  0, tx.getPostCommitHookDuplicates());
 	}
 
 
@@ -303,30 +296,5 @@ public class CommitHookPostTest
 	{
 		model.rollbackIfNotCommitted();
 		model.disconnect();
-	}
-
-
-	static final Model model = new Model(AnItem.TYPE);
-
-	@WrapperIgnore
-	static class AnItem extends Item
-	{
-		private static final long serialVersionUID = 1l;
-		static final Type<AnItem> TYPE = TypesBound.newType(AnItem.class);
-		AnItem(final ActivationParameters ap) { super(ap); }
-	}
-
-	static final Runnable FAIL = () -> { fail(); };
-
-	static void assertNoTransaction()
-	{
-		assertFalse(model.hasCurrentTransaction());
-		assertTrue (model.getOpenTransactions().isEmpty());
-	}
-
-	static void assertTransaction()
-	{
-		assertEquals(true, model.hasCurrentTransaction());
-		assertEquals(asList(model.currentTransaction()), new ArrayList<>(model.getOpenTransactions()));
 	}
 }

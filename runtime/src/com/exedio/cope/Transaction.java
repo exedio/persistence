@@ -418,6 +418,26 @@ public final class Transaction
 
 	// commitHooks
 
+	final CommitHooks preCommitHooks = new CommitHooks();
+
+	/**
+	 * @see Model#addPreCommitHookIfAbsent(Runnable)
+	 * @see #getPreCommitHookDuplicates()
+	 */
+	public int getPreCommitHookCount()
+	{
+		return preCommitHooks.getCount();
+	}
+
+	/**
+	 * @see Model#addPreCommitHookIfAbsent(Runnable)
+	 * @see #getPreCommitHookCount()
+	 */
+	public int getPreCommitHookDuplicates()
+	{
+		return preCommitHooks.getDuplicates();
+	}
+
 	final CommitHooks postCommitHooks = new CommitHooks();
 
 	/**

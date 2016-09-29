@@ -83,10 +83,8 @@ final class Transactions
 			threadLocal.remove();
 	}
 
-	Transaction remove()
+	Transaction remove(final Transaction tx)
 	{
-		final Transaction tx = current();
-
 		synchronized(open)
 		{
 			open.remove(tx);
