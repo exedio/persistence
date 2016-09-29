@@ -47,7 +47,10 @@ abstract class CopeFeature
 
 	abstract int getModifier();
 
-	abstract InternalVisibility getVisibility();
+	final InternalVisibility getVisibility()
+	{
+		return InternalVisibility.forModifier(getModifier());
+	}
 
 	abstract Boolean getInitialByConfiguration();
 

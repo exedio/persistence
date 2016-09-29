@@ -44,18 +44,6 @@ final class ExternalCopeType extends CopeType
 	}
 
 	@Override
-	InternalVisibility getVisibility()
-	{
-		return InternalVisibility.forModifier(itemClass.getModifiers());
-	}
-
-	@Override
-	boolean isFinal()
-	{
-		return Modifier.isFinal(itemClass.getModifiers());
-	}
-
-	@Override
 	boolean isInterface()
 	{
 		return itemClass.isInterface();

@@ -23,6 +23,7 @@ import static java.lang.reflect.Modifier.PRIVATE;
 import static java.lang.reflect.Modifier.PROTECTED;
 
 import com.exedio.cope.FinalViolationException;
+import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -82,9 +83,15 @@ abstract class CopeType
 
 	abstract WrapperType getOption();
 
-	abstract InternalVisibility getVisibility();
+	final InternalVisibility getVisibility()
+	{
+		return InternalVisibility.forModifier(getModifier());
+	}
 
-	abstract boolean isFinal();
+	final boolean isFinal()
+	{
+		return Modifier.isFinal(getModifier());
+	}
 
 	abstract boolean isInterface();
 

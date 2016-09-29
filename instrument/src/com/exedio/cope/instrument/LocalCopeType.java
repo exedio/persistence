@@ -30,7 +30,6 @@ final class LocalCopeType extends CopeType
 
 	final JavaClass javaClass;
 	private final String name;
-	private final InternalVisibility visibility;
 	private final WrapperType option;
 
 	private CopeType supertype;
@@ -41,7 +40,6 @@ final class LocalCopeType extends CopeType
 		this.javaClass=javaClass;
 		if (javaClass.classExtends==null) throw new RuntimeException();
 		this.name = javaClass.name;
-		this.visibility = javaClass.getVisibility();
 		this.option = Tags.cascade(
 				javaClass,
 				Tags.forType(javaClass.docComment),
@@ -88,18 +86,6 @@ final class LocalCopeType extends CopeType
 	WrapperType getOption()
 	{
 		return option;
-	}
-
-	@Override
-	InternalVisibility getVisibility()
-	{
-		return visibility;
-	}
-
-	@Override
-	boolean isFinal()
-	{
-		return javaClass.isFinal();
 	}
 
 	@Override

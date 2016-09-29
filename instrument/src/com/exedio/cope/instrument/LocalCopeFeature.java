@@ -30,12 +30,6 @@ final class LocalCopeFeature extends CopeFeature
 	}
 
 	@Override
-	InternalVisibility getVisibility()
-	{
-		return javaField.getVisibility();
-	}
-
-	@Override
 	Boolean getInitialByConfiguration()
 	{
 		return initialByConfiguration;

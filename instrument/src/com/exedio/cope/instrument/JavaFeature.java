@@ -120,11 +120,6 @@ abstract class JavaFeature
 		return Modifier.isFinal(modifier);
 	}
 
-	final InternalVisibility getVisibility()
-	{
-		return InternalVisibility.forModifier(modifier);
-	}
-
 	@Override
 	public String toString()
 	{

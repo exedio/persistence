@@ -28,12 +28,6 @@ class ExternalCopeFeature extends CopeFeature
 	}
 
 	@Override
-	InternalVisibility getVisibility()
-	{
-		return InternalVisibility.forModifier(getModifier());
-	}
-
-	@Override
 	Boolean getInitialByConfiguration()
 	{
 		final WrapperInitial annotation=field.getAnnotation(WrapperInitial.class);
