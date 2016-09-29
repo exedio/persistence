@@ -31,14 +31,14 @@ abstract class CopeFeature
 	static final String TAG_PREFIX = "cope.";
 	static final String TAG_INITIAL = TAG_PREFIX + "initial";
 
-	final CopeType parent;
+	final CopeType<?> parent;
 
 	private Object value;
 	private Type initialType;
 	private SortedSet<Class<? extends Throwable>> initialExceptions;
 	private boolean initialTypePrimitive;
 
-	CopeFeature(final CopeType parent)
+	CopeFeature(final CopeType<?> parent)
 	{
 		this.parent = parent;
 	}
@@ -151,8 +151,6 @@ abstract class CopeFeature
 	{
 		return "defaultFeature".equals(getName());
 	}
-
-	abstract Wrapper getOption(final String modifierTag);
 
 	@Override
 	public String toString()

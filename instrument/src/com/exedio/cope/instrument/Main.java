@@ -72,12 +72,12 @@ final class Main
 			{
 				for(final JavaClass javaClass : javaFile.getClasses())
 				{
-					final CopeType type = LocalCopeType.getCopeType(javaClass);
+					final LocalCopeType type = LocalCopeType.getCopeType(javaClass);
 					if(type!=null)
 					{
 						if(!type.isInterface())
 						{
-							for(final CopeFeature feature : type.getFeatures())
+							for(final LocalCopeFeature feature : type.getFeatures())
 								feature.getInstance();
 						}
 					}

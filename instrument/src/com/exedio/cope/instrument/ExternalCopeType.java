@@ -5,7 +5,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 
-final class ExternalCopeType extends CopeType
+final class ExternalCopeType extends CopeType<ExternalCopeFeature>
 {
 	private final Class<?> itemClass;
 
@@ -71,7 +71,7 @@ final class ExternalCopeType extends CopeType
 	}
 
 	@Override
-	CopeType getSuperclass()
+	ExternalCopeType getSuperclass()
 	{
 		if (itemClass.getSuperclass()==Item.class)
 			return null;
@@ -94,7 +94,6 @@ final class ExternalCopeType extends CopeType
 	@Override
 	int getModifier()
 	{
-		// TODO COPE-20 ?
 		return itemClass.getModifiers();
 	}
 

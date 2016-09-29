@@ -32,7 +32,7 @@ import java.util.SortedSet;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
-abstract class CopeType
+abstract class CopeType<F extends CopeFeature>
 {
 	static final String TAG_TYPE                   = TAG_PREFIX + "type";
 	static final String TAG_INITIAL_CONSTRUCTOR    = TAG_PREFIX + "constructor";
@@ -71,8 +71,8 @@ abstract class CopeType
 
 	private final Kind kind;
 
-	private final ArrayList<CopeFeature> features = new ArrayList<>();
-	private final TreeMap<String, CopeFeature> featureMap = new TreeMap<>();
+	private final ArrayList<F> features = new ArrayList<>();
+	private final TreeMap<String, F> featureMap = new TreeMap<>();
 
 	CopeType(final boolean isItem, final boolean isBlock, final boolean isComposite)
 	{
@@ -112,7 +112,7 @@ abstract class CopeType
 
 	abstract Evaluatable getField(final String name);
 
-	abstract CopeType getSuperclass();
+	abstract CopeType<?> getSuperclass();
 
 	final boolean allowSubtypes()
 	{
@@ -126,7 +126,7 @@ abstract class CopeType
 		return allowSubtypes() ? PROTECTED : PRIVATE;
 	}
 
-	public void register(final CopeFeature feature)
+	public void register(final F feature)
 	{
 		assertNotBuildStage();
 		assertNotGenerateStage();
@@ -142,7 +142,7 @@ abstract class CopeType
 		return featureMap.get(name);
 	}
 
-	public List<CopeFeature> getFeatures()
+	public List<F> getFeatures()
 	{
 		assertNotBuildStage();
 		return Collections.unmodifiableList(features);
@@ -174,7 +174,7 @@ abstract class CopeType
 		initialFeatures = new ArrayList<>();
 		constructorExceptions = new TreeSet<>(CLASS_COMPARATOR);
 
-		final CopeType superclass = getSuperclass();
+		final CopeType<?> superclass = getSuperclass();
 		if(superclass!=null)
 		{
 			initialFeatures.addAll(superclass.getInitialFeatures());

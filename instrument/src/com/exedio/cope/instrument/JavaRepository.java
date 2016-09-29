@@ -31,7 +31,6 @@ import com.exedio.cope.pattern.BlockType;
 import com.exedio.cope.pattern.Composite;
 import com.exedio.cope.pattern.Money;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -283,7 +282,7 @@ final class JavaRepository
 		//System.out.println("--------- put cope type: "+name);
 	}
 
-	CopeType getCopeType(final String className)
+	LocalCopeType getCopeType(final String className)
 	{
 		assert stage==Stage.BETWEEN || stage==Stage.GENERATE;
 
@@ -291,7 +290,7 @@ final class JavaRepository
 		if(javaClass==null)
 			throw new RuntimeException("no java class for "+className);
 
-		final CopeType result = copeTypeByJavaClass.get(javaClass);
+		final LocalCopeType result = copeTypeByJavaClass.get(javaClass);
 		if(result==null)
 			throw new RuntimeException("no cope type for "+className);
 

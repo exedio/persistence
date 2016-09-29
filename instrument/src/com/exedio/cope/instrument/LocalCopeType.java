@@ -5,7 +5,7 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Modifier;
 import java.util.HashMap;
 
-final class LocalCopeType extends CopeType
+final class LocalCopeType extends CopeType<LocalCopeFeature>
 {
 	private static final WrapperType OPTION_DEFAULT = new WrapperType()
 	{
@@ -32,7 +32,7 @@ final class LocalCopeType extends CopeType
 	private final String name;
 	private final WrapperType option;
 
-	private CopeType supertype;
+	private CopeType<?> supertype;
 
 	LocalCopeType(final JavaClass javaClass, final boolean isItem, final boolean isBlock, final boolean isComposite)
 	{
@@ -126,7 +126,7 @@ final class LocalCopeType extends CopeType
 	}
 
 	@Override
-	CopeType getSuperclass()
+	CopeType<?> getSuperclass()
 	{
 		assert !javaClass.file.repository.isBuildStage();
 

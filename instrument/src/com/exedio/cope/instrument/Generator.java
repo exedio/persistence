@@ -230,7 +230,7 @@ final class Generator
 		return "{@link #" + target + '}';
 	}
 
-	private void writeInitialConstructor(final CopeType type)
+	private void writeInitialConstructor(final LocalCopeType type)
 	{
 		if(type.isBlock())
 			return;
@@ -319,7 +319,7 @@ final class Generator
 			writeIndent(2);
 			if(directSetValueMap)
 				write(SET_VALUE + ".map(");
-			final CopeType parent = feature.parent;
+			final CopeType<?> parent = feature.parent;
 			if(parent==type)
 				write(type.getName());
 			else
@@ -343,7 +343,7 @@ final class Generator
 			write(lineSeparator);
 	}
 
-	private void writeGenericConstructor(final CopeType type)
+	private void writeGenericConstructor(final LocalCopeType type)
 	{
 		if(type.isBlock())
 			return;
@@ -376,7 +376,7 @@ final class Generator
 			write(lineSeparator);
 	}
 
-	private void writeActivationConstructor(final CopeType type)
+	private void writeActivationConstructor(final LocalCopeType type)
 	{
 		if(type.isComposite())
 			return;
@@ -802,7 +802,7 @@ final class Generator
 		}
 	}
 
-	private void writeSerialVersionUID(final CopeType type)
+	private void writeSerialVersionUID(final LocalCopeType type)
 	{
 		if(!serialVersionUID)
 			return;
@@ -821,7 +821,7 @@ final class Generator
 			write(lineSeparator);
 	}
 
-	private void writeType(final CopeType type)
+	private void writeType(final LocalCopeType type)
 	{
 		if(type.isComposite())
 			return;
@@ -882,7 +882,7 @@ final class Generator
 			write(lineSeparator);
 	}
 
-	private void writeWildcard(final CopeType type)
+	private void writeWildcard(final LocalCopeType type)
 	{
 		final int typeParameters = type.getTypeParameters();
 		if(typeParameters>0)
@@ -900,7 +900,7 @@ final class Generator
 		int previousClassEndPosition = 0;
 		for(final JavaClass javaClass : javaFile.getClasses())
 		{
-			final CopeType type = LocalCopeType.getCopeType(javaClass);
+			final LocalCopeType type = LocalCopeType.getCopeType(javaClass);
 			final int classEndPosition = javaClass.getClassEndPositionInSourceWithoutGeneratedFragments();
 			if(type!=null)
 			{
@@ -924,7 +924,7 @@ final class Generator
 		output.append(buffer, previousClassEndPosition, buffer.length());
 	}
 
-	private void writeClassFeatures(final CopeType type)
+	private void writeClassFeatures(final LocalCopeType type)
 	{
 		if(type.isInterface())
 			return;
@@ -932,9 +932,8 @@ final class Generator
 		writeInitialConstructor(type);
 		writeGenericConstructor(type);
 
-		// TODO COPE-20 avoid cast
-		for(final CopeFeature feature : type.getFeatures())
-			writeFeature((LocalCopeFeature)feature);
+		for(final LocalCopeFeature feature : type.getFeatures())
+			writeFeature(feature);
 
 		writeSerialVersionUID(type);
 		writeType(type);

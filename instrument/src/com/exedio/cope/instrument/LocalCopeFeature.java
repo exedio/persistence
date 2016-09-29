@@ -47,7 +47,6 @@ final class LocalCopeFeature extends CopeFeature
 		return javaField.evaluate();
 	}
 
-	@Override
 	Wrapper getOption(final String modifierTag)
 	{
 		return Tags.cascade(

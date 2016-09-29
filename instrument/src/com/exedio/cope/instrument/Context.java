@@ -49,7 +49,7 @@ final class Context
 
 	private String getClassToken()
 	{
-		final CopeType type = feature.parent;
+		final CopeType<?> type = feature.parent;
 		final int typeParameters = type.getTypeParameters();
 		if(typeParameters==0)
 			return type.getName();

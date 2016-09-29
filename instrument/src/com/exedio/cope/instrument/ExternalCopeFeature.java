@@ -2,8 +2,6 @@ package com.exedio.cope.instrument;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.lang.reflect.Field;
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
 
 class ExternalCopeFeature extends CopeFeature
 {
@@ -53,11 +51,5 @@ class ExternalCopeFeature extends CopeFeature
 		{
 			throw new RuntimeException(e);
 		}
-	}
-
-	@Override
-	Wrapper getOption(String modifierTag)
-	{
-		throw new RuntimeException("unexpected call - should only be needed for generating the class itself");
 	}
 }
