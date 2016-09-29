@@ -125,8 +125,8 @@ abstract class CopeType
 		assertNotGenerateStage();
 
 		features.add(feature);
-		final Object collision = featureMap.put(feature.name, feature);
-		assert collision==null : feature.name;
+		final Object collision = featureMap.put(feature.getName(), feature);
+		assert collision==null : feature.getName();
 	}
 
 	public CopeFeature getFeature(final String name)
@@ -151,7 +151,7 @@ abstract class CopeType
 		InternalVisibility inheritedVisibility = getVisibility();
 		for(final CopeFeature initialFeature : getInitialFeatures())
 		{
-			final InternalVisibility intialFeatureVisibility = initialFeature.visibility;
+			final InternalVisibility intialFeatureVisibility = initialFeature.getVisibility();
 			if(inheritedVisibility.ordinal()<intialFeatureVisibility.ordinal())
 				inheritedVisibility = intialFeatureVisibility;
 		}

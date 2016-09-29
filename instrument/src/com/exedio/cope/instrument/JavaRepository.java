@@ -84,7 +84,7 @@ final class JavaRepository
 			final boolean isComposite = isComposite(javaClass);
 			if(isItem||isBlock||isComposite)
 			{
-				final CopeType type = new LocalCopeType(javaClass, isItem, isBlock, isComposite);
+				final LocalCopeType type = new LocalCopeType(javaClass, isItem, isBlock, isComposite);
 
 				feature: for(final JavaField javaField : javaClass.getFields())
 				{
@@ -101,7 +101,9 @@ final class JavaRepository
 						continue feature;
 
 					if(typeClass.isAnnotationPresent(WrapFeature.class))
-						new CopeFeature(type, javaField);
+					{
+						type.register(new LocalCopeFeature(type, javaField));
+					}
 				}
 			}
 		}

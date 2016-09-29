@@ -244,7 +244,7 @@ final class Generator
 		commentLines.add(" * "+format(CONSTRUCTOR_INITIAL, type.getName()));
 		for(final CopeFeature feature : initialFeatures)
 		{
-			commentLines.add(" * @param "+feature.name+' '+format(CONSTRUCTOR_INITIAL_PARAMETER, link(feature.name)));
+			commentLines.add(" * @param "+feature.getName()+' '+format(CONSTRUCTOR_INITIAL_PARAMETER, link(feature.getName())));
 		}
 		for(final Class<?> constructorException : constructorExceptions)
 		{
@@ -260,7 +260,7 @@ final class Generator
 					continue;
 
 				comma.appendTo(fields);
-				fields.append(feature.name);
+				fields.append(feature.getName());
 			}
 
 			final String pattern = a.value();
@@ -299,7 +299,7 @@ final class Generator
 			write(finalArgPrefix);
 			write(new Context(feature, feature.parent!=type).write(feature.getInitialType()));
 			write(' ');
-			write(feature.name);
+			write(feature.getName());
 		}
 
 		write(')');
@@ -325,12 +325,12 @@ final class Generator
 			else
 				write(parent.getFullName());
 			write('.');
-			write(feature.name);
+			write(feature.getName());
 			if(directSetValueMap)
 				write(',');
 			else
 				write(".map(");
-			write(feature.name);
+			write(feature.getName());
 			write("),");
 			write(lineSeparator);
 		}
@@ -411,7 +411,7 @@ final class Generator
 			write(lineSeparator);
 	}
 
-	private void writeFeature(final CopeFeature feature)
+	private void writeFeature(final LocalCopeFeature feature)
 	{
 		final Object instance = feature.getInstance();
 		final JavaClass javaClass = feature.getParent();
@@ -432,15 +432,15 @@ final class Generator
 			final java.lang.reflect.Type methodReturnType = wrapper.getReturnType();
 			final List<WrapperX.Parameter> parameters = wrapper.getParameters();
 			final Map<Class<? extends Throwable>, String[]> throwsClause = wrapper.getThrowsClause();
-			final String featureNameCamelCase = toCamelCase(feature.name);
+			final String featureNameCamelCase = toCamelCase(feature.getName());
 			final boolean isStatic = wrapper.isStatic();
 			final boolean internal = option.internal();
 			final boolean override = option.override();
 			final boolean useIs = instance instanceof BooleanField && methodName.startsWith("get");
 
 			final Object[] arguments = new String[]{
-					link(feature.name),
-					feature.name,
+					link(feature.getName()),
+					feature.getName(),
 					lowerCamelCase(feature.parent.getName()),
 					featureNameCamelCase};
 			{
@@ -465,8 +465,8 @@ final class Generator
 							final CopeFeature parameterFeature = feature.parent.getFeature(parameterName);
 
 							final Object[] parameterArguments = new String[]{
-									link(parameterFeature.name),
-									parameterFeature.name,
+									link(parameterFeature.getName()),
+									parameterFeature.getName(),
 									lowerCamelCase(parameterFeature.parent.getName())};
 							collectCommentParagraph(
 									commentLines,
@@ -560,7 +560,7 @@ final class Generator
 					visibility.getModifier(
 							internal && visibility.isDefault()
 							? PRIVATE
-							: feature.modifier
+							: feature.getModifier()
 					) |
 					(isStatic ? STATIC : 0) |
 					(option.asFinal() ? FINAL : 0));
@@ -581,10 +581,10 @@ final class Generator
 						if(!isKeyword(x))
 							write(x);
 						else
-							write(format(pattern, featureNameCamelCase, feature.name));
+							write(format(pattern, featureNameCamelCase, feature.getName()));
 					}
 					else
-						write(format(pattern, featureNameCamelCase, feature.name));
+						write(format(pattern, featureNameCamelCase, feature.getName()));
 				}
 				else
 				{
@@ -646,7 +646,7 @@ final class Generator
 			{
 				write(feature.parent.getName());
 				write('.');
-				write(feature.name);
+				write(feature.getName());
 				for(final WrapperX.Parameter parameter : parameters)
 				{
 					write(',');
@@ -662,7 +662,7 @@ final class Generator
 				write("field().of(");
 			write(feature.parent.getName());
 			write('.');
-			write(feature.name);
+			write(feature.getName());
 			if(block)
 				write(')');
 			write('.');
@@ -932,8 +932,9 @@ final class Generator
 		writeInitialConstructor(type);
 		writeGenericConstructor(type);
 
+		// TODO COPE-20 avoid cast
 		for(final CopeFeature feature : type.getFeatures())
-			writeFeature(feature);
+			writeFeature((LocalCopeFeature)feature);
 
 		writeSerialVersionUID(type);
 		writeType(type);

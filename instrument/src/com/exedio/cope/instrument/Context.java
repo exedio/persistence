@@ -67,7 +67,7 @@ final class Context
 
 	private String getGenericFieldParameter(final int number)
 	{
-		return Generics.get(feature.javaField.type).get(number);
+		return Generics.get(feature.getType()).get(number);
 	}
 
 	private Class<?> getFeatureClass()

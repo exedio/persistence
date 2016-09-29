@@ -21,62 +21,52 @@ package com.exedio.cope.instrument;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Settable;
 import com.exedio.cope.misc.PrimitiveUtil;
-import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-final class CopeFeature
+abstract class CopeFeature
 {
 	static final String TAG_PREFIX = "cope.";
 	static final String TAG_INITIAL = TAG_PREFIX + "initial";
 
 	final CopeType parent;
-	final JavaField javaField;
-	final String name;
-	final int modifier;
-	final InternalVisibility visibility;
-	private final String docComment;
-	final Boolean initialByConfiguration;
 
 	private Object value;
 	private Type initialType;
 	private SortedSet<Class<? extends Throwable>> initialExceptions;
 	private boolean initialTypePrimitive;
 
-	CopeFeature(final CopeType parent, final JavaField javaField)
+	CopeFeature(final CopeType parent)
 	{
 		this.parent = parent;
-		this.javaField = javaField;
-		this.name = javaField.name;
-		this.modifier = javaField.modifier;
-		this.visibility = javaField.getVisibility();
-
-		this.docComment = javaField.docComment;
-		final WrapperInitial initialConfig = Tags.cascade(javaField, Tags.forInitial(docComment), javaField.wrapperInitial, null);
-		this.initialByConfiguration = initialConfig==null ? null : initialConfig.value();
-
-		parent.register(this);
 	}
 
-	final JavaClass getParent()
-	{
-		return javaField.parent;
-	}
+	abstract String getName();
+
+	abstract int getModifier();
+
+	abstract InternalVisibility getVisibility();
+
+	abstract Boolean getInitialByConfiguration();
+
+	abstract String getType();
+
+	abstract Object evaluate();
 
 	final Object getInstance()
 	{
 		if(value==null)
-			value = javaField.evaluate();
+			value = evaluate();
 
 		return value;
 	}
 
 	final boolean isInitial()
 	{
-		if(initialByConfiguration!=null)
-			return initialByConfiguration;
+		if(getInitialByConfiguration()!=null)
+			return getInitialByConfiguration();
 
 		final Object instance = getInstance();
 		return instance instanceof Settable<?> && ((Settable<?>)instance).isInitial();
@@ -119,7 +109,7 @@ final class CopeFeature
 	{
 		final Settable<?> instance = (Settable<?>)getInstance();
 
-		final Type initialTypeX = settableResolver.get(instance.getClass(), Generics.getTypes(javaField.type))[0];
+		final Type initialTypeX = settableResolver.get(instance.getClass(), Generics.getTypes(getType()))[0];
 		final Type initialType;
 		final boolean primitive;
 		if(initialTypeX instanceof Class<?>)
@@ -156,32 +146,14 @@ final class CopeFeature
 
 	final boolean isDefault()
 	{
-		return "defaultFeature".equals(name);
+		return "defaultFeature".equals(getName());
 	}
 
-	Wrapper getOption(final String modifierTag)
-	{
-		return Tags.cascade(
-				javaField,
-				Tags.forFeature(docComment, modifierTag),
-				javaField.getWrappers(modifierTag),
-				OPTION_DEFAULT);
-	}
-
-	private static final Wrapper OPTION_DEFAULT = new Wrapper()
-	{
-		@Override public Class<? extends Annotation> annotationType() { throw new RuntimeException(); }
-		@Override public String wrap() { throw new RuntimeException(); }
-		@Override public Visibility visibility() { return Visibility.DEFAULT; }
-		@Override public boolean internal() { return false; }
-		@Override public boolean booleanAsIs() { return false; }
-		@Override public boolean asFinal() { return true; }
-		@Override public boolean override() { return false; }
-	};
+	abstract Wrapper getOption(final String modifierTag);
 
 	@Override
 	public String toString()
 	{
-		return parent.toString() + '#' + name;
+		return parent.toString() + '#' + getName();
 	}
 }
