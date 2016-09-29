@@ -4,11 +4,18 @@ import com.exedio.cope.instrument.testfeature.FilterFeature;
 import com.exedio.cope.instrument.testfeature.GenericFeatureReference;
 import com.exedio.cope.instrument.testlib.LibItem;
 
-class LibUser extends LibItem
+class LibUser extends LibItem<String>
 {
 	static final FilterFeature filter=new FilterFeature(option);
 
-	static final GenericFeatureReference<LibItem> ref=GenericFeatureReference.create(LibItem.class);
+	static final GenericFeatureReference<LibItem<?>> ref=GenericFeatureReference.create(LibItem.classWildcard.value);
+
+	@Override
+	public String makeTee()
+	{
+		return "tee";
+	}
+
 
 	/**
 
@@ -28,7 +35,7 @@ class LibUser extends LibItem
 				@javax.annotation.Nonnull final com.exedio.cope.instrument.testlib.LibItem.Inner inner,
 				@javax.annotation.Nonnull final java.lang.String[] strings,
 				@javax.annotation.Nonnull final java.util.Set<java.util.List<java.lang.Object>> nestedGenerics,
-				@javax.annotation.Nonnull final LibItem ref)
+				@javax.annotation.Nonnull final LibItem<?> ref)
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
 			com.exedio.cope.instrument.testlib.LibItem.a.map(a),
@@ -65,7 +72,7 @@ class LibUser extends LibItem
 	 *       It can be customized with the tag <tt>@cope.method public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final LibItem methodRef(final LibItem ref)
+	final LibItem<?> methodRef(final LibItem<?> ref)
 	{
 		return LibUser.ref.method(this,ref);
 	}/**

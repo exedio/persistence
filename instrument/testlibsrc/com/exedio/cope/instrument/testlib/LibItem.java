@@ -8,7 +8,7 @@ import com.exedio.cope.instrument.testfeature.SimpleSettable;
 import java.util.List;
 import java.util.Set;
 
-public class LibItem extends Item
+public abstract class LibItem<T> extends Item
 {
 	public enum	Inner { a, b, c }
 
@@ -22,6 +22,14 @@ public class LibItem extends Item
 	public static final SettableOpen<String[]> strings=new SettableOpen<>();
 
 	public static final SettableOpen<Set<List<Object>>> nestedGenerics=new SettableOpen<>();
+
+	public abstract T makeTee();
+
+	public static final class classWildcard
+	{
+		@SuppressWarnings("unchecked")
+		public static final Class<LibItem<?>> value = (Class<LibItem<?>>)(Class<?>)LibItem.class;
+	}
 
 	/**
 
@@ -122,7 +130,7 @@ public class LibItem extends Item
 	 *       It can be customized with the tag <tt>@cope.type public|package|protected|private|none</tt> in the class comment.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	public static final com.exedio.cope.Type<LibItem> TYPE = com.exedio.cope.TypesBound.newType(LibItem.class);/**
+	public static final com.exedio.cope.Type<LibItem<?>> TYPE = com.exedio.cope.TypesBound.newType(LibItem.classWildcard.value);/**
 
 	 **
 	 * Activation constructor. Used for internal purposes only.
