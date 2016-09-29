@@ -900,7 +900,7 @@ final class Generator
 		int previousClassEndPosition = 0;
 		for(final JavaClass javaClass : javaFile.getClasses())
 		{
-			final CopeType type = CopeType.getCopeType(javaClass);
+			final CopeType type = LocalCopeType.getCopeType(javaClass);
 			final int classEndPosition = javaClass.getClassEndPositionInSourceWithoutGeneratedFragments();
 			if(type!=null)
 			{

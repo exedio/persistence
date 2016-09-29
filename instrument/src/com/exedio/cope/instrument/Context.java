@@ -201,19 +201,26 @@ final class Context
 		final String name = t.name;
 		if(fullyQualified)
 		{
-			final JavaFile file = feature.parent.javaClass.file;
-			final String nameRaw = Generics.strip(name);
+			if (feature.parent instanceof LocalCopeType)
 			{
-				final Class<?> clazz = file.findTypeExternally(nameRaw);
-				if(clazz!=null)
-					return clazz.getCanonicalName();
+				final JavaFile file = ((LocalCopeType)feature.parent).javaClass.file;
+				final String nameRaw = Generics.strip(name);
+				{
+					final Class<?> clazz = file.findTypeExternally(nameRaw);
+					if(clazz!=null)
+						return clazz.getCanonicalName();
+				}
+				{
+					final JavaClass javaClass = file.repository.getJavaClass(nameRaw);
+					if(javaClass!=null)
+						return javaClass.getCanonicalNameWildcard();
+				}
+				throw new RuntimeException(name);
 			}
+			else
 			{
-				final JavaClass javaClass = file.repository.getJavaClass(nameRaw);
-				if(javaClass!=null)
-					return javaClass.getCanonicalNameWildcard();
+				throw new RuntimeException("TODO COPE-20");
 			}
-			throw new RuntimeException(name);
 		}
 		else
 		{

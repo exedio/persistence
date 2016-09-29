@@ -36,6 +36,7 @@ import javax.annotation.Nullable;
  */
 final class JavaField
 	extends JavaFeature
+	implements Evaluatable
 {
 	private final String initializer;
 	final WrapperInitial wrapperInitial;
@@ -157,7 +158,8 @@ final class JavaField
 		return initializer;
 	}
 
-	Object evaluate()
+	@Override
+	public Object evaluate()
 	{
 		assert !file.repository.isBuildStage();
 

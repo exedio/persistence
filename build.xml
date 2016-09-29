@@ -703,6 +703,7 @@
 	</target>
 
 	<target name="instrument.taskdef" depends="dsmf.compile, runtime.core.compile, runtime.pattern.compile, runtime.servlet.compile, instrument.compile, instrument.testfeature.compile, runtime.test.feature.compile">
+		<mkdir dir="build/classes/instrument/testlibsrc" />
 		<taskdef resource="com/exedio/cope/instrument/ant.properties">
 			<classpath id="instrument.resources">
 				<pathelement location="build/classes/dsmf/src" />
@@ -713,6 +714,7 @@
 				<pathelement location="build/classes/instrument/src" />
 				<pathelement location="build/classes/instrument/antsrc" />
 				<pathelement location="build/classes/instrument/testfeaturesrc" />
+				<pathelement location="build/classes/instrument/testlibsrc" />
 				<pathelement location="build/classes/runtime/testfeaturesrc" />
 				<pathelement location="lib/exedio-cope-util.jar" />
 				<pathelement location="lib/trove4j.jar" />
@@ -726,9 +728,11 @@
 		<mkdir dir="build/timestamps"/>
 	</target>
 
-	<target name="instrument.test.instrument" depends="instrument.taskdef" unless="skip.instrument">
+	<target name="instrument.test.instrument" depends="instrument.test.srcinstrument,instrument.test.libinstrument"/>
+
+	<target name="instrument.test.srcinstrument" depends="instrument.taskdef,instrument.test.libcompile" unless="skip.instrument">
 		<instrument
-				dir="instrument/testsrc:instrument/testlibsrc"
+				dir="instrument/testsrc"
 				verify="${instrument.verify}"
 				encoding="ascii"
 				maxwarns="20000"
@@ -738,7 +742,7 @@
 				hidingWarningSuppressor="hiding"
 				nullabilityAnnotations="${instrument.nullabilityAnnotations}"
 				hintFormat="forTags"
-				timestampFile="build/timestamps/instrument.test.timestamp">
+				timestampFile="build/timestamps/instrument.testsrc.timestamp">
 			<resources refid="instrument.resources" />
 			<classpath>
 				<pathelement location="lib/cpsuite.jar" />
@@ -750,7 +754,28 @@
 		</instrument>
 	</target>
 
-	<target name="instrument.test.libcompile" depends="instrument.test.instrument, instrument.testfeature.compile, runtime.core.compile, runtime.pattern.compile, runtime.servlet.compile, runtime.junit.compile, instrument.compile">
+	<target name="instrument.test.libinstrument" depends="instrument.taskdef" unless="skip.instrument">
+		<instrument
+				dir="instrument/testlibsrc"
+				verify="${instrument.verify}"
+				encoding="ascii"
+				maxwarns="20000"
+				configByTags="support"
+				suppressUnusedWarningOnPrivateActivationConstructor="true"
+				serialVersionUIDSuffix="small"
+				hidingWarningSuppressor="hiding"
+				nullabilityAnnotations="${instrument.nullabilityAnnotations}"
+				hintFormat="forTags"
+				timestampFile="build/timestamps/instrument.testlib.timestamp">
+			<resources refid="instrument.resources" />
+			<classpath>
+				<pathelement location="lib/cpsuite.jar" />
+				<pathelement location="${env.JAVA_HOME}/lib/tools.jar"/>
+			</classpath>
+		</instrument>
+	</target>
+
+	<target name="instrument.test.libcompile" depends="instrument.test.libinstrument, instrument.testfeature.compile, runtime.core.compile, runtime.pattern.compile, runtime.servlet.compile, runtime.junit.compile, instrument.compile">
 		<compile srcdir="instrument/testlibsrc">
 			<classpath>
 				<pathelement location="${env.JAVA_HOME}/lib/tools.jar"/>
@@ -769,7 +794,7 @@
 		</compile>
 	</target>
 
-	<target name="instrument.test.compile" depends="instrument.test.libcompile">
+	<target name="instrument.test.compile" depends="instrument.test.libcompile,instrument.test.srcinstrument">
 		<compile srcdir="instrument/testsrc">
 			<classpath>
 				<pathelement location="${env.JAVA_HOME}/lib/tools.jar"/>
