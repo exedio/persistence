@@ -94,8 +94,7 @@ final class ExternalCopeType extends CopeType
 	@Override
 	int getTypeParameters()
 	{
-		// TODO COPE-20
-		return 0;
+		throw new RuntimeException("unexpected call - should only be needed for generating the class itself");
 	}
 
 	@Override
