@@ -219,7 +219,7 @@ final class Context
 			}
 			else
 			{
-				throw new RuntimeException("TODO COPE-20");
+				return name;
 			}
 		}
 		else

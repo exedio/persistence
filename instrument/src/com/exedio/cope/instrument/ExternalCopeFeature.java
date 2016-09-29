@@ -2,6 +2,8 @@ package com.exedio.cope.instrument;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.lang.reflect.Field;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 
 class ExternalCopeFeature extends CopeFeature
 {
@@ -41,7 +43,7 @@ class ExternalCopeFeature extends CopeFeature
 	@Override
 	String getType()
 	{
-		return field.getType().toString();
+		return field.getGenericType().toString().replace('$', '.');
 	}
 
 	@Override
