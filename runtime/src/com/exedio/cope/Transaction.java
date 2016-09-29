@@ -430,6 +430,9 @@ public final class Transaction
 		commitHooks = null;
 	}
 
+	/**
+	 * @see Model#addCommitHook(Runnable)
+	 */
 	public int getCommitHookCount()
 	{
 		return commitHookCount;

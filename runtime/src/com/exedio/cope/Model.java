@@ -496,6 +496,9 @@ public final class Model implements Serializable
 		return connect().getThreadControllers();
 	}
 
+	/**
+	 * @see #addChangeListener(ChangeListener)
+	 */
 	public List<ChangeListener> getChangeListeners()
 	{
 		return changeListeners.get();
@@ -511,6 +514,19 @@ public final class Model implements Serializable
 		return connect().changeListenerDispatcher.getInfo();
 	}
 
+	/**
+	 * Adds a change listener to the model.
+	 * The listener is called for each {@link Model#commit()},
+	 * even on other nodes of the cluster.
+	 * When the listener is called, there is no transaction present,
+	 * you may create one if needed.
+	 * Multiple listeners are called in order of addition.
+	 * <p>
+	 * Note, this is something completely different than
+	 * {@link #addCommitHook(Runnable) commit hooks}.
+	 *
+	 * @see #getChangeListeners()
+	 */
 	public void addChangeListener(final ChangeListener listener)
 	{
 		changeListeners.add(listener);
@@ -721,6 +737,17 @@ public final class Model implements Serializable
 		return transactions.getOpen();
 	}
 
+	/**
+	 * Adds a hook to the current transaction.
+	 * The hook is called within {@link Model#commit()}.
+	 * When the hook is called, the transaction is already committed.
+	 * Multiple hooks are called in order of addition.
+	 * <p>
+	 * Note, this is something completely different than
+	 * {@link #addChangeListener(ChangeListener) Change Listeners}.
+	 *
+	 * @see Transaction#getCommitHookCount()
+	 */
 	public void addCommitHook(final Runnable hook)
 	{
 		transactions.current().addCommitHook(hook);
