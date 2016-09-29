@@ -20,6 +20,8 @@ package com.exedio.cope;
 
 import static com.exedio.cope.tojunit.Assert.list;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import com.exedio.cope.instrument.WrapperIgnore;
@@ -132,12 +134,22 @@ public class CommitHookTest
 
 	private static Runnable appender(final StringBuilder bf, final String value)
 	{
-		return () -> bf.append(value).append(',');
+		return () ->
+		{
+			assertFalse(model.hasCurrentTransaction());
+			assertTrue (model.getOpenTransactions().isEmpty());
+			bf.append(value).append(',');
+		};
 	}
 
 	private static Runnable thrower(final String message)
 	{
-		return () -> { throw new IllegalPathStateException(message); };
+		return () ->
+		{
+			assertFalse(model.hasCurrentTransaction());
+			assertTrue (model.getOpenTransactions().isEmpty());
+			throw new IllegalPathStateException(message);
+		};
 	}
 
 
