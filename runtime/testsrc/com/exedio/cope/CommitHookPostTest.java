@@ -39,9 +39,7 @@ public class CommitHookPostTest
 	{
 		final StringBuilder bf = new StringBuilder();
 		model.startTransaction("tx");
-		assertEquals(0, model.currentTransaction().getPostCommitHookCount());
-		model.addPostCommitHook(appender(bf, "one"));
-		assertEquals(1, model.currentTransaction().getPostCommitHookCount());
+		add(1, appender(bf, "one"));
 
 		assertEquals("", bf.toString());
 		model.commit();
@@ -52,11 +50,8 @@ public class CommitHookPostTest
 	{
 		final StringBuilder bf = new StringBuilder();
 		model.startTransaction("tx");
-		assertEquals(0, model.currentTransaction().getPostCommitHookCount());
-		model.addPostCommitHook(appender(bf, "one"));
-		assertEquals(1, model.currentTransaction().getPostCommitHookCount());
-		model.addPostCommitHook(appender(bf, "two"));
-		assertEquals(2, model.currentTransaction().getPostCommitHookCount());
+		add(1, appender(bf, "one"));
+		add(1, appender(bf, "two"));
 
 		assertEquals("", bf.toString());
 		model.commit();
@@ -67,9 +62,9 @@ public class CommitHookPostTest
 	{
 		final StringBuilder bf = new StringBuilder();
 		model.startTransaction("tx");
-		model.addPostCommitHook(appender(bf, "one"));
-		model.addPostCommitHook(thrower("thrower"));
-		model.addPostCommitHook(appender(bf, "two"));
+		add(1, appender(bf, "one"));
+		add(1, thrower("thrower"));
+		add(1, appender(bf, "two"));
 
 		assertEquals("", bf.toString());
 		assertEquals(true, model.hasCurrentTransaction());
@@ -92,7 +87,7 @@ public class CommitHookPostTest
 	{
 		final StringBuilder bf = new StringBuilder();
 		model.startTransaction("tx");
-		model.addPostCommitHook(appender(bf, "one"));
+		add(1, appender(bf, "one"));
 
 		assertEquals("", bf.toString());
 		assertEquals(true, model.hasCurrentTransaction());
@@ -150,6 +145,15 @@ public class CommitHookPostTest
 			assertTrue (model.getOpenTransactions().isEmpty());
 			throw new IllegalPathStateException(message);
 		};
+	}
+
+	private static void add(final int count, final Runnable hook)
+	{
+		final Transaction tx = model.currentTransaction();
+		final int previousCount = tx.getPostCommitHookCount();
+
+		model.addPostCommitHook(hook);
+		assertEquals("count", count, tx.getPostCommitHookCount() - previousCount);
 	}
 
 
