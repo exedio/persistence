@@ -2,6 +2,7 @@ package com.exedio.cope.instrument;
 
 import com.exedio.cope.Item;
 import java.lang.annotation.Annotation;
+import java.lang.reflect.Modifier;
 import java.util.HashMap;
 
 final class LocalCopeType extends CopeType
@@ -50,6 +51,31 @@ final class LocalCopeType extends CopeType
 
 		javaClass.nameSpace.importStatic(Item.class);
 		javaClass.file.repository.add(this);
+
+		registerFeatures();
+	}
+
+	private void registerFeatures()
+	{
+		feature: for(final JavaField javaField : javaClass.getFields())
+		{
+			final int modifier = javaField.modifier;
+			if(!Modifier.isFinal(modifier) || !Modifier.isStatic(modifier))
+				continue feature;
+
+			final String docComment = javaField.docComment;
+			if(Tags.cascade(javaField, Tags.forIgnore(docComment), javaField.wrapperIgnore, null)!=null)
+				continue feature;
+
+			final Class<?> typeClass = javaField.file.findTypeExternally(javaField.typeRaw);
+			if(typeClass==null)
+				continue feature;
+
+			if(typeClass.isAnnotationPresent(WrapFeature.class))
+			{
+				register(new LocalCopeFeature(this, javaField));
+			}
+		}
 	}
 
 	@Override

@@ -27,7 +27,7 @@ import java.lang.annotation.Target;
  * Controls whether a feature becomes part of the {@link WrapperType#constructor() initial constructor}.
  */
 @Target(ElementType.FIELD)
-@Retention(RetentionPolicy.SOURCE)
+@Retention(RetentionPolicy.RUNTIME)
 public @interface WrapperInitial
 {
 	boolean value() default true;

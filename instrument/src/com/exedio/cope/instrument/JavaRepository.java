@@ -85,26 +85,6 @@ final class JavaRepository
 			if(isItem||isBlock||isComposite)
 			{
 				final LocalCopeType type = new LocalCopeType(javaClass, isItem, isBlock, isComposite);
-
-				feature: for(final JavaField javaField : javaClass.getFields())
-				{
-					final int modifier = javaField.modifier;
-					if(!Modifier.isFinal(modifier) || !Modifier.isStatic(modifier))
-						continue feature;
-
-					final String docComment = javaField.docComment;
-					if(Tags.cascade(javaField, Tags.forIgnore(docComment), javaField.wrapperIgnore, null)!=null)
-						continue feature;
-
-					final Class<?> typeClass = javaField.file.findTypeExternally(javaField.typeRaw);
-					if(typeClass==null)
-						continue feature;
-
-					if(typeClass.isAnnotationPresent(WrapFeature.class))
-					{
-						type.register(new LocalCopeFeature(type, javaField));
-					}
-				}
 			}
 		}
 

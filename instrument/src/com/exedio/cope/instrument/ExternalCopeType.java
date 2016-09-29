@@ -14,6 +14,21 @@ final class ExternalCopeType extends CopeType
 		super(true, false, false);
 		if (!Item.class.isAssignableFrom(itemClass)) throw new RuntimeException();
 		this.itemClass=itemClass;
+		registerFeatures();
+	}
+
+	private void registerFeatures()
+	{
+		for (Field declaredField: itemClass.getDeclaredFields())
+		{
+			final int modifiers=declaredField.getModifiers();
+			if (!Modifier.isFinal(modifiers) || !Modifier.isStatic(modifiers))
+				continue;
+			if (declaredField.getAnnotation(WrapperIgnore.class)!=null)
+				continue;
+			if (declaredField.getType().isAnnotationPresent(WrapFeature.class))
+				register(new ExternalCopeFeature(this, declaredField));
+		}
 	}
 
 	@Override
