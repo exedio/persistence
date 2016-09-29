@@ -431,9 +431,9 @@ public final class Transaction
 	}
 
 	/**
-	 * @see Model#addCommitHook(Runnable)
+	 * @see Model#addPostCommitHook(Runnable)
 	 */
-	public int getCommitHookCount()
+	public int getPostCommitHookCount()
 	{
 		return commitHookCount;
 	}
@@ -485,4 +485,16 @@ public final class Transaction
 	}
 
 	static final String ANONYMOUS = "ANONYMOUS_TRANSACTION";
+
+
+	// ------------------- deprecated stuff -------------------
+
+	/**
+	 * @deprecated Use {@link #getPostCommitHookCount()} instead
+	 */
+	@Deprecated
+	public int getCommitHookCount()
+	{
+		return getPostCommitHookCount();
+	}
 }

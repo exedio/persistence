@@ -39,9 +39,9 @@ public class CommitHookTest
 	{
 		final StringBuilder bf = new StringBuilder();
 		model.startTransaction("tx");
-		assertEquals(0, model.currentTransaction().getCommitHookCount());
-		model.addCommitHook(appender(bf, "one"));
-		assertEquals(1, model.currentTransaction().getCommitHookCount());
+		assertEquals(0, model.currentTransaction().getPostCommitHookCount());
+		model.addPostCommitHook(appender(bf, "one"));
+		assertEquals(1, model.currentTransaction().getPostCommitHookCount());
 
 		assertEquals("", bf.toString());
 		model.commit();
@@ -52,11 +52,11 @@ public class CommitHookTest
 	{
 		final StringBuilder bf = new StringBuilder();
 		model.startTransaction("tx");
-		assertEquals(0, model.currentTransaction().getCommitHookCount());
-		model.addCommitHook(appender(bf, "one"));
-		assertEquals(1, model.currentTransaction().getCommitHookCount());
-		model.addCommitHook(appender(bf, "two"));
-		assertEquals(2, model.currentTransaction().getCommitHookCount());
+		assertEquals(0, model.currentTransaction().getPostCommitHookCount());
+		model.addPostCommitHook(appender(bf, "one"));
+		assertEquals(1, model.currentTransaction().getPostCommitHookCount());
+		model.addPostCommitHook(appender(bf, "two"));
+		assertEquals(2, model.currentTransaction().getPostCommitHookCount());
 
 		assertEquals("", bf.toString());
 		model.commit();
@@ -67,9 +67,9 @@ public class CommitHookTest
 	{
 		final StringBuilder bf = new StringBuilder();
 		model.startTransaction("tx");
-		model.addCommitHook(appender(bf, "one"));
-		model.addCommitHook(thrower("thrower"));
-		model.addCommitHook(appender(bf, "two"));
+		model.addPostCommitHook(appender(bf, "one"));
+		model.addPostCommitHook(thrower("thrower"));
+		model.addPostCommitHook(appender(bf, "two"));
 
 		assertEquals("", bf.toString());
 		assertEquals(true, model.hasCurrentTransaction());
@@ -92,7 +92,7 @@ public class CommitHookTest
 	{
 		final StringBuilder bf = new StringBuilder();
 		model.startTransaction("tx");
-		model.addCommitHook(appender(bf, "one"));
+		model.addPostCommitHook(appender(bf, "one"));
 
 		assertEquals("", bf.toString());
 		assertEquals(true, model.hasCurrentTransaction());
@@ -104,17 +104,17 @@ public class CommitHookTest
 	@Test public void testNullHook()
 	{
 		model.startTransaction("tx");
-		assertEquals(0, model.currentTransaction().getCommitHookCount());
+		assertEquals(0, model.currentTransaction().getPostCommitHookCount());
 		try
 		{
-			model.addCommitHook(null);
+			model.addPostCommitHook(null);
 			fail();
 		}
 		catch(final NullPointerException e)
 		{
 			assertEquals("hook", e.getMessage());
 		}
-		assertEquals(0, model.currentTransaction().getCommitHookCount());
+		assertEquals(0, model.currentTransaction().getPostCommitHookCount());
 	}
 
 	@SuppressFBWarnings("NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS")
@@ -122,7 +122,7 @@ public class CommitHookTest
 	{
 		try
 		{
-			model.addCommitHook(null);
+			model.addPostCommitHook(null);
 			fail();
 		}
 		catch(final IllegalStateException e)

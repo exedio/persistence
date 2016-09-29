@@ -523,7 +523,7 @@ public final class Model implements Serializable
 	 * Multiple listeners are called in order of addition.
 	 * <p>
 	 * Note, this is something completely different than
-	 * {@link #addCommitHook(Runnable) commit hooks}.
+	 * {@link #addPostCommitHook(Runnable) commit hooks}.
 	 *
 	 * @see #getChangeListeners()
 	 */
@@ -746,9 +746,9 @@ public final class Model implements Serializable
 	 * Note, this is something completely different than
 	 * {@link #addChangeListener(ChangeListener) Change Listeners}.
 	 *
-	 * @see Transaction#getCommitHookCount()
+	 * @see Transaction#getPostCommitHookCount()
 	 */
-	public void addCommitHook(final Runnable hook)
+	public void addPostCommitHook(final Runnable hook)
 	{
 		transactions.current().addCommitHook(hook);
 	}
@@ -917,6 +917,15 @@ public final class Model implements Serializable
 	}
 
 	// ------------------- deprecated stuff -------------------
+
+	/**
+	 * @deprecated Use {@link #addPostCommitHook(Runnable)} instead
+	 */
+	@Deprecated
+	public void addCommitHook(final Runnable hook)
+	{
+		addPostCommitHook(hook);
+	}
 
 	/**
 	 * @deprecated Use {@link #isClusterEnabled()} instead
