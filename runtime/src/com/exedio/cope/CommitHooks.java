@@ -21,14 +21,16 @@ package com.exedio.cope;
 import static java.util.Objects.requireNonNull;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import javax.annotation.Nonnull;
 
 final class CommitHooks
 {
 	private volatile boolean expired = false;
 	private volatile Content content = null;
 
-	void add(final Runnable hook)
+	@Nonnull
+	<R extends Runnable> R add(final R hook)
 	{
 		requireNonNull(hook, "hook");
 		if(expired)
@@ -37,7 +39,7 @@ final class CommitHooks
 		if(content==null)
 			content = new Content();
 
-		content.add(hook);
+		return content.add(hook);
 	}
 
 	void handle(final boolean commit)
@@ -57,25 +59,45 @@ final class CommitHooks
 		return content!=null ? content.count : 0;
 	}
 
+	int getDuplicates()
+	{
+		final Content content = this.content;
+		return content!=null ? content.duplicates : 0;
+	}
+
 	private static final class Content
 	{
-		private final ArrayList<Runnable> list = new ArrayList<>();
+		private final LinkedHashMap<Runnable,Runnable> list = new LinkedHashMap<>();
 		@SuppressFBWarnings("VO_VOLATILE_INCREMENT") // OK: is never incremented concurrently, as this works on current transaction only
 		volatile int count = 0;
+		@SuppressFBWarnings("VO_VOLATILE_INCREMENT") // OK: is never incremented concurrently, as this works on current transaction only
+		volatile int duplicates = 0;
 
 		Content(){} // just make package private
 
-		void add(final Runnable hook)
+		@Nonnull
+		<R extends Runnable> R add(final R hook)
 		{
-			list.add(hook);
-			count++;
+			final Runnable present = list.putIfAbsent(hook, hook);
+			if(present==null)
+			{
+				count++;
+				return hook;
+			}
+			else
+			{
+				duplicates++;
+				@SuppressWarnings("unchecked")
+				final R result = (R)present;
+				return result;
+			}
 		}
 
 		void handle(final boolean commit)
 		{
 			if(commit)
 			{
-				for(final Runnable hook : list)
+				for(final Runnable hook : list.keySet())
 					hook.run();
 			}
 

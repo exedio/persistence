@@ -45,6 +45,7 @@ import java.util.EnumSet;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
+import javax.annotation.Nonnull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -528,7 +529,7 @@ public final class Model implements Serializable
 	 * Multiple listeners are called in order of addition.
 	 * <p>
 	 * Note, this is something completely different than
-	 * {@link #addPostCommitHook(Runnable) commit hooks}.
+	 * {@link #addPostCommitHookIfAbsent(Runnable) commit hooks}.
 	 *
 	 * @see #getChangeListeners()
 	 */
@@ -748,14 +749,22 @@ public final class Model implements Serializable
 	 * When the hook is called, the transaction is already committed.
 	 * Multiple hooks are called in order of addition.
 	 * <p>
+	 * If a hook {@link Object#equals(Object) equal} to {@code hook} has been added before,
+	 * this method does nothing and returns the hook previously added.
+	 * Otherwise {@code hook} is returned.
+	 * Note: this is different from {@link Map#putIfAbsent(Object, Object) Map.putIfAbsent}.
+	 * <p>
 	 * Note, this is something completely different than
 	 * {@link #addChangeListener(ChangeListener) Change Listeners}.
 	 *
+	 * @return the hook that is present after methods returns.
+	 *
 	 * @see Transaction#getPostCommitHookCount()
 	 */
-	public void addPostCommitHook(final Runnable hook)
+	@Nonnull
+	public <R extends Runnable> R addPostCommitHookIfAbsent(final R hook)
 	{
-		transactions.current().postCommitHooks.add(hook);
+		return transactions.current().postCommitHooks.add(hook);
 	}
 
 	/**
@@ -927,6 +936,15 @@ public final class Model implements Serializable
 	// ------------------- deprecated stuff -------------------
 
 	/**
+	 * @deprecated Use {@link #addPostCommitHookIfAbsent(Runnable)} instead
+	 */
+	@Deprecated
+	public void addPostCommitHook(final Runnable hook)
+	{
+		addPostCommitHookIfAbsent(hook);
+	}
+
+	/**
 	 * @deprecated Use Model.{@link #builder() builder}().{@link ModelBuilder#add(Revisions.Factory) add}(revisions).{@link ModelBuilder#add(Type[]) add}(types).{@link ModelBuilder#build() build}() instead.
 	 */
 	@Deprecated
@@ -945,12 +963,12 @@ public final class Model implements Serializable
 	}
 
 	/**
-	 * @deprecated Use {@link #addPostCommitHook(Runnable)} instead
+	 * @deprecated Use {@link #addPostCommitHookIfAbsent(Runnable)} instead
 	 */
 	@Deprecated
 	public void addCommitHook(final Runnable hook)
 	{
-		addPostCommitHook(hook);
+		addPostCommitHookIfAbsent(hook);
 	}
 
 	/**

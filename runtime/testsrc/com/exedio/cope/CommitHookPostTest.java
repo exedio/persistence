@@ -21,6 +21,7 @@ package com.exedio.cope;
 import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
@@ -59,17 +60,18 @@ public class CommitHookPostTest
 
 	@Test public void testDuplicate()
 	{
+		Runnable two = null;
 		final StringBuilder bf = new StringBuilder();
 		model.startTransaction("tx");
 		add(1, appender(bf, "one"));
-		add(1, appender(bf, "two", "same"));
+		add(1, two = appender(bf, "two", "same"));
 		add(1, appender(bf, "three"));
-		add(1, appender(bf, "four", "same"));
+		add(two, 0, 1, appender(bf, "four", "same"));
 		add(1, appender(bf, "five"));
 
 		assertEquals("", bf.toString());
 		model.commit();
-		assertEquals("one,two/same,three,four/same,five,", bf.toString());
+		assertEquals("one,two/same,three,five,", bf.toString());
 	}
 
 	@Test public void testDuplicateNot()
@@ -131,7 +133,7 @@ public class CommitHookPostTest
 		{
 			assertNoTransaction();
 			bf.append("beforeAdd");
-			model.addPostCommitHook(FAIL);
+			model.addPostCommitHookIfAbsent(FAIL);
 			bf.append("afterAdd");
 		});
 
@@ -156,9 +158,10 @@ public class CommitHookPostTest
 	{
 		model.startTransaction("tx");
 		assertEquals(0, model.currentTransaction().getPostCommitHookCount());
+		assertEquals(0, model.currentTransaction().getPostCommitHookDuplicates());
 		try
 		{
-			model.addPostCommitHook(null);
+			model.addPostCommitHookIfAbsent(null);
 			fail();
 		}
 		catch(final NullPointerException e)
@@ -166,6 +169,7 @@ public class CommitHookPostTest
 			assertEquals("hook", e.getMessage());
 		}
 		assertEquals(0, model.currentTransaction().getPostCommitHookCount());
+		assertEquals(0, model.currentTransaction().getPostCommitHookDuplicates());
 	}
 
 	@SuppressFBWarnings("NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS")
@@ -173,7 +177,7 @@ public class CommitHookPostTest
 	{
 		try
 		{
-			model.addPostCommitHook(null);
+			model.addPostCommitHookIfAbsent(null);
 			fail();
 		}
 		catch(final IllegalStateException e)
@@ -240,11 +244,20 @@ public class CommitHookPostTest
 
 	private static void add(final int count, final Runnable hook)
 	{
+		add(hook, count, 0, hook);
+	}
+
+	private static void add(
+			final Runnable result, final int count, final int dups,
+			final Runnable hook)
+	{
 		final Transaction tx = model.currentTransaction();
 		final int previousCount = tx.getPostCommitHookCount();
+		final int previousDups  = tx.getPostCommitHookDuplicates();
 
-		model.addPostCommitHook(hook);
+		assertSame(result, model.addPostCommitHookIfAbsent(hook));
 		assertEquals("count", count, tx.getPostCommitHookCount() - previousCount);
+		assertEquals("dups",  dups,  tx.getPostCommitHookDuplicates() - previousDups);
 	}
 
 

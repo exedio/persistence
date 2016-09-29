@@ -421,11 +421,21 @@ public final class Transaction
 	final CommitHooks postCommitHooks = new CommitHooks();
 
 	/**
-	 * @see Model#addPostCommitHook(Runnable)
+	 * @see Model#addPostCommitHookIfAbsent(Runnable)
+	 * @see #getPostCommitHookDuplicates()
 	 */
 	public int getPostCommitHookCount()
 	{
 		return postCommitHooks.getCount();
+	}
+
+	/**
+	 * @see Model#addPostCommitHookIfAbsent(Runnable)
+	 * @see #getPostCommitHookCount()
+	 */
+	public int getPostCommitHookDuplicates()
+	{
+		return postCommitHooks.getDuplicates();
 	}
 
 
