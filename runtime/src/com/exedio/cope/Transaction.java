@@ -401,33 +401,33 @@ public final class Transaction
 
 	// commitHooks
 
-	private ArrayList<Runnable> commitHooks = null;
+	private ArrayList<Runnable> postCommitHooks = null;
 	@SuppressFBWarnings("VO_VOLATILE_INCREMENT") // OK: is never incremented concurrently, as this works on current transaction only
-	private volatile int commitHookCount = 0;
+	private volatile int postCommitHookCount = 0;
 
-	void addCommitHook(final Runnable hook)
+	void addPostCommitHook(final Runnable hook)
 	{
 		requireNonNull(hook, "hook");
-		if(commitHooks==null)
-			commitHooks = new ArrayList<>(5);
-		commitHooks.add(hook);
-		commitHookCount++;
+		if(postCommitHooks==null)
+			postCommitHooks = new ArrayList<>(5);
+		postCommitHooks.add(hook);
+		postCommitHookCount++;
 	}
 
-	void handleCommitHooks(final boolean commit)
+	void handlePostCommitHooks(final boolean commit)
 	{
-		if(commitHooks==null)
+		if(postCommitHooks==null)
 			return;
 
 		if(commit)
 		{
-			for(final Runnable hook : commitHooks)
+			for(final Runnable hook : postCommitHooks)
 				hook.run();
 		}
 
 		// cleanup
-		commitHooks.clear();
-		commitHooks = null;
+		postCommitHooks.clear();
+		postCommitHooks = null;
 	}
 
 	/**
@@ -435,7 +435,7 @@ public final class Transaction
 	 */
 	public int getPostCommitHookCount()
 	{
-		return commitHookCount;
+		return postCommitHookCount;
 	}
 
 

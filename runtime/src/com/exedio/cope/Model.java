@@ -721,7 +721,7 @@ public final class Model implements Serializable
 		// Calling Commit Hooks must be the very last thing to do. If one of the
 		// hooks fails, the transaction should still be successfully and completely
 		// committed.
-		tx.handleCommitHooks(commit);
+		tx.handlePostCommitHooks(commit);
 	}
 
 	/**
@@ -750,7 +750,7 @@ public final class Model implements Serializable
 	 */
 	public void addPostCommitHook(final Runnable hook)
 	{
-		transactions.current().addCommitHook(hook);
+		transactions.current().addPostCommitHook(hook);
 	}
 
 	/**
