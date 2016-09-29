@@ -18,10 +18,7 @@
 
 package com.exedio.cope;
 
-import static java.util.Objects.requireNonNull;
-
 import com.exedio.dsmf.SQLRuntimeException;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import gnu.trove.TLongHashSet;
 import gnu.trove.TLongObjectHashMap;
 import java.sql.Connection;
@@ -421,41 +418,14 @@ public final class Transaction
 
 	// commitHooks
 
-	private ArrayList<Runnable> postCommitHooks = null;
-	@SuppressFBWarnings("VO_VOLATILE_INCREMENT") // OK: is never incremented concurrently, as this works on current transaction only
-	private volatile int postCommitHookCount = 0;
-
-	void addPostCommitHook(final Runnable hook)
-	{
-		requireNonNull(hook, "hook");
-		if(postCommitHooks==null)
-			postCommitHooks = new ArrayList<>(5);
-		postCommitHooks.add(hook);
-		postCommitHookCount++;
-	}
-
-	void handlePostCommitHooks(final boolean commit)
-	{
-		if(postCommitHooks==null)
-			return;
-
-		if(commit)
-		{
-			for(final Runnable hook : postCommitHooks)
-				hook.run();
-		}
-
-		// cleanup
-		postCommitHooks.clear();
-		postCommitHooks = null;
-	}
+	final CommitHooks postCommitHooks = new CommitHooks();
 
 	/**
 	 * @see Model#addPostCommitHook(Runnable)
 	 */
 	public int getPostCommitHookCount()
 	{
-		return postCommitHookCount;
+		return postCommitHooks.getCount();
 	}
 
 
