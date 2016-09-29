@@ -57,6 +57,36 @@ public class CommitHookPostTest
 		assertEquals("one,two,", bf.toString());
 	}
 
+	@Test public void testDuplicate()
+	{
+		final StringBuilder bf = new StringBuilder();
+		model.startTransaction("tx");
+		add(1, appender(bf, "one"));
+		add(1, appender(bf, "two", "same"));
+		add(1, appender(bf, "three"));
+		add(1, appender(bf, "four", "same"));
+		add(1, appender(bf, "five"));
+
+		assertEquals("", bf.toString());
+		model.commit();
+		assertEquals("one,two/same,three,four/same,five,", bf.toString());
+	}
+
+	@Test public void testDuplicateNot()
+	{
+		final StringBuilder bf = new StringBuilder();
+		model.startTransaction("tx");
+		add(1, appender(bf, "one"));
+		add(1, appender(bf, "two", "same"));
+		add(1, appender(bf, "three"));
+		add(1, appender(bf, "four", "other"));
+		add(1, appender(bf, "five"));
+
+		assertEquals("", bf.toString());
+		model.commit();
+		assertEquals("one,two/same,three,four/other,five,", bf.toString());
+	}
+
 	@Test public void testThrower()
 	{
 		final StringBuilder bf = new StringBuilder();
@@ -169,6 +199,43 @@ public class CommitHookPostTest
 			assertNoTransaction();
 			throw new IllegalArgumentException(message);
 		};
+	}
+
+	private static Runnable appender(final StringBuilder bf, final String value, final String identity)
+	{
+		return new EqualHook(bf, value, identity);
+	}
+
+	private static final class EqualHook implements Runnable
+	{
+		final StringBuilder bf;
+		final String value;
+		final String identity;
+
+		EqualHook(final StringBuilder bf, final String value, final String identity)
+		{
+			this.bf = bf;
+			this.value = value;
+			this.identity = identity;
+		}
+		@Override
+		@SuppressWarnings("synthetic-access")
+		public void run()
+		{
+			assertNoTransaction();
+			bf.append(value).append('/').append(identity).append(',');
+		}
+		@Override
+		@SuppressFBWarnings({"BC_EQUALS_METHOD_SHOULD_WORK_FOR_ALL_OBJECTS","NP_EQUALS_SHOULD_HANDLE_NULL_ARGUMENT"})
+		public boolean equals(final Object o)
+		{
+			return identity.equals(((EqualHook)o).identity);
+		}
+		@Override
+		public int hashCode()
+		{
+			return identity.hashCode();
+		}
 	}
 
 	private static void add(final int count, final Runnable hook)
