@@ -9,7 +9,7 @@ final class ExternalCopeType extends CopeType<ExternalCopeFeature>
 {
 	private final Class<?> itemClass;
 
-	ExternalCopeType(Class<?> itemClass)
+	ExternalCopeType(final Class<?> itemClass)
 	{
 		super(true, false, false);
 		if (!Item.class.isAssignableFrom(itemClass)) throw new RuntimeException();
@@ -50,7 +50,7 @@ final class ExternalCopeType extends CopeType<ExternalCopeFeature>
 	}
 
 	@Override
-	Evaluatable getField(String name)
+	Evaluatable getField(final String name)
 	{
 		try
 		{
@@ -116,7 +116,7 @@ final class ExternalCopeType extends CopeType<ExternalCopeFeature>
 	{
 		private final Field field;
 
-		private ExternalEvaluatable(Field field)
+		private ExternalEvaluatable(final Field field)
 		{
 			if (!Modifier.isStatic(field.getModifiers())) throw new RuntimeException();
 			this.field=field;
