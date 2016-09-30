@@ -775,7 +775,7 @@
 		</instrument>
 	</target>
 
-	<target name="instrument.test.libcompile" depends="instrument.test.libinstrument, instrument.testfeature.compile, runtime.core.compile, runtime.pattern.compile, runtime.servlet.compile, runtime.junit.compile, instrument.compile">
+	<target name="instrument.test.libcompile" depends="instrument.test.libinstrument, runtime.core.compile, runtime.pattern.compile, runtime.servlet.compile, runtime.junit.compile, instrument.compile">
 		<compile srcdir="instrument/testlibsrc">
 			<classpath>
 				<pathelement location="${env.JAVA_HOME}/lib/tools.jar"/>
@@ -794,7 +794,7 @@
 		</compile>
 	</target>
 
-	<target name="instrument.test.compile" depends="instrument.test.libcompile,instrument.test.srcinstrument">
+	<target name="instrument.test.compile" depends="instrument.test.libcompile, instrument.testfeature.compile, instrument.test.srcinstrument">
 		<compile srcdir="instrument/testsrc">
 			<classpath>
 				<pathelement location="${env.JAVA_HOME}/lib/tools.jar"/>
