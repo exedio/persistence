@@ -25,6 +25,9 @@ import com.exedio.cope.util.Clock;
 import com.exedio.cope.util.StrictFile;
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLClassLoader;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
@@ -58,7 +61,7 @@ final class Main
 			InstrumentContext.enter();
 
 			final Charset charset = params.charset;
-			final JavaRepository repository = new JavaRepository();
+			final JavaRepository repository = new JavaRepository( createClassLoader(classpathFiles) );
 
 			this.verbose = params.verbose;
 			instrumented = 0;
@@ -145,6 +148,23 @@ final class Main
 
 		if(verbose || instrumented>0)
 			System.out.println("Instrumented " + instrumented + ' ' + (instrumented==1 ? "file" : "files") + ", skipped " + skipped + " in " + files.iterator().next().getParentFile().getAbsolutePath());
+	}
+
+	private ClassLoader createClassLoader(final Iterable<File> classpathFiles)
+	{
+		final List<URL> urls=new ArrayList<>();
+		for (final File classpathFile: classpathFiles)
+		{
+			try
+			{
+				urls.add(classpathFile.toURI().toURL());
+			}
+			catch (final MalformedURLException e)
+			{
+				throw new RuntimeException(e);
+			}
+		}
+		return new URLClassLoader(urls.toArray(new URL[urls.size()]), getClass().getClassLoader());
 	}
 
 	private static boolean noFilesModifiedAfter(final Iterable<File> checkFiles, final File referenceFile, final boolean verbose)

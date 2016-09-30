@@ -45,10 +45,10 @@ final class JavaRepository
 	 * Using this in JavaFile greatly reduces number of top name spaces,
 	 * for which a new BshClassManager must be created.
 	 */
-	final CopeNameSpace externalNameSpace = new CopeNameSpace(null, "external");
+	final CopeNameSpace externalNameSpace;
 
 	// reusing externalNameSpace is more efficient than another root nameSpace
-	final CopeNameSpace nameSpace = new NS(externalNameSpace);
+	final CopeNameSpace nameSpace;
 
 	final Interpreter interpreter = new Interpreter();
 
@@ -67,6 +67,13 @@ final class JavaRepository
 	private final HashMap<String,List<JavaClass>> problematicSimpleNames = new HashMap<>();
 
 	private final HashMap<JavaClass, LocalCopeType> copeTypeByJavaClass = new HashMap<>();
+
+	public JavaRepository(final ClassLoader cl)
+	{
+		externalNameSpace = new CopeNameSpace(null, "external");
+		externalNameSpace.getClassManager().setClassLoader(cl);
+		nameSpace = new NS(externalNameSpace);
+	}
 
 	void endBuildStage()
 	{

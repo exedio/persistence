@@ -539,6 +539,9 @@
 				hintFormat="forAnnotations"
 				timestampFile="build/timestamps/runtime.servlet.test.timestamp">
 			<resources refid="instrument.resources" />
+			<classpath>
+				<pathelement location="build/classes/runtime/servletsrc" /><!-- just that instrumentor knows Media, no static dependency -->
+			</classpath>
 		</instrument>
 	</target>
 
@@ -710,14 +713,10 @@
 			<classpath id="instrument.resources">
 				<pathelement location="build/classes/dsmf/src" />
 				<pathelement location="build/classes/runtime/src" />
-				<pathelement location="build/classes/runtime/patternsrc" /><!-- TODO stricter, is for Composite only - just that instrumentor knows Hash, no static dependency -->
-				<pathelement location="build/classes/runtime/servletsrc" /><!-- just that instrumentor knows Media, no static dependency -->
+				<pathelement location="build/classes/runtime/patternsrc" /><!-- TODO stricter, is for Composite and Block only -->
 				<pathelement location="build/classes/instrument/annosrc" />
 				<pathelement location="build/classes/instrument/src" />
 				<pathelement location="build/classes/instrument/antsrc" />
-				<pathelement location="build/classes/instrument/testfeaturesrc" />
-				<pathelement location="build/classes/instrument/testlibsrc" />
-				<pathelement location="build/classes/runtime/testfeaturesrc" />
 				<pathelement location="lib/exedio-cope-util.jar" />
 				<pathelement location="lib/trove4j.jar" />
 				<pathelement location="lib/javax.servlet-api.jar" />
@@ -747,6 +746,9 @@
 				timestampFile="build/timestamps/instrument.testsrc.timestamp">
 			<resources refid="instrument.resources" />
 			<classpath>
+				<pathelement location="build/classes/instrument/testfeaturesrc" />
+				<pathelement location="build/classes/instrument/testlibsrc" />
+				<pathelement location="build/classes/runtime/servletsrc" /><!-- just that instrumentor knows Media, no static dependency -->
 				<pathelement location="lib/cpsuite.jar" />
 				<pathelement location="${env.JAVA_HOME}/lib/tools.jar"/>
 			</classpath>
@@ -771,6 +773,7 @@
 				timestampFile="build/timestamps/instrument.testlib.timestamp">
 			<resources refid="instrument.resources" />
 			<classpath>
+				<pathelement location="build/classes/instrument/testfeaturesrc" />
 				<pathelement location="lib/cpsuite.jar" />
 				<pathelement location="${env.JAVA_HOME}/lib/tools.jar"/>
 			</classpath>
