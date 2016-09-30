@@ -10,6 +10,9 @@ import java.util.Set;
 
 public abstract class LibItem<T> extends Item
 {
+	/** check that we can access a field in the initialization of feature LibUser#simple2: */
+	public final static boolean CONSTANT_FOR_FALSE_IN_LIBITEM = false;
+
 	public enum	Inner { a, b, c }
 
 	@WrapperInitial
