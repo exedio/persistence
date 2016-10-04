@@ -113,79 +113,17 @@ final class JavaRepository
 
 	boolean isItem(JavaClass javaClass)
 	{
-		//System.out.println("--------------"+javaClass.getFullName());
-		try
-		{
-			while(true)
-			{
-				final String classExtends = javaClass.classExtends;
-				if(classExtends==null)
-					return false;
-
-				//System.out.println("--------------**"+javaClass.getFullName());
-				{
-					final Class<?> extendsClass = javaClass.file.findTypeExternally(classExtends);
-					//System.out.println("--------------*1"+extendsClass);
-					if(extendsClass!=null)
-						return Item.class.isAssignableFrom(extendsClass);
-				}
-				{
-					final JavaClass byName = getJavaClass(classExtends);
-					//System.out.println("--------------*2"+byName);
-					if(byName!=null)
-					{
-						javaClass = byName;
-						continue;
-					}
-				}
-				System.out.println("unknown type " + classExtends + " in " + javaClass);
-				return false;
-			}
-		}
-		catch (final NoClassDefFoundError e)
-		{
-			throw new RuntimeException("error analyzing "+javaClass.getFullName(), e);
-		}
+		return javaClass.isItem;
 	}
 
 	static boolean isBlock(final JavaClass javaClass)
 	{
-		try
-		{
-			final String classExtends = javaClass.classExtends;
-			if(classExtends==null)
-				return false;
-
-			final Class<?> extendsClass = javaClass.file.findTypeExternally(classExtends);
-			if(extendsClass!=null)
-				return Block.class.isAssignableFrom(extendsClass);
-
-			return false;
-		}
-		catch (final NoClassDefFoundError e)
-		{
-			throw new RuntimeException("error analyzing "+javaClass.getFullName(), e);
-		}
+		return javaClass.isBlock;
 	}
 
 	static boolean isComposite(final JavaClass javaClass)
 	{
-		try
-		{
-			final String classExtends = javaClass.classExtends;
-			if(classExtends==null)
-				return false;
-
-			final Class<?> extendsClass = javaClass.file.findTypeExternally(classExtends);
-			if(extendsClass!=null)
-				return Composite.class.isAssignableFrom(extendsClass);
-
-			return false;
-		}
-		catch (final NoClassDefFoundError e)
-		{
-			throw new RuntimeException("error analyzing "+javaClass.getFullName(), e);
-		}
+		return javaClass.isComposite;
 	}
 
 	void add(final JavaFile file)

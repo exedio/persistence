@@ -36,6 +36,8 @@ import java.util.Set;
 import javax.annotation.processing.Messager;
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.lang.model.element.Element;
+import javax.lang.model.util.Elements;
+import javax.lang.model.util.Types;
 import javax.tools.Diagnostic;
 
 final class TreeApiContext
@@ -44,6 +46,8 @@ final class TreeApiContext
 	final boolean extendGeneratedFragmentsToLineBreaks;
 	private final DocTrees docTrees;
 	final Messager messager;
+	private final Elements elements;
+	private final Types types;
 	final JavaFile javaFile;
 	private final CompilationUnitTree compilationUnit;
 	private final DocSourcePositions sourcePositions;
@@ -57,6 +61,8 @@ final class TreeApiContext
 		this.extendGeneratedFragmentsToLineBreaks=extendGeneratedFragmentsToLineBreaks;
 		this.docTrees=DocTrees.instance(processingEnv);
 		this.messager=processingEnv.getMessager();
+		this.elements=processingEnv.getElementUtils();
+		this.types=processingEnv.getTypeUtils();
 		this.javaFile=javaFile;
 		this.compilationUnit=compilationUnit;
 		this.sourcePositions=docTrees.getSourcePositions();
@@ -277,5 +283,11 @@ final class TreeApiContext
 			}
 		}
 		return result;
+	}
+
+	boolean isSubtype(final TreePath tp, Class<?> clazz)
+	{
+		final Element element=getElement(tp);
+		return types.isSubtype(element.asType(), elements.getTypeElement(clazz.getName()).asType());
 	}
 }
