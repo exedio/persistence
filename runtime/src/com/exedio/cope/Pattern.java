@@ -274,6 +274,13 @@ public abstract class Pattern extends Feature
 					return patternAnn;
 				return source.getAnnotation(annotationClass);
 			}
+			else if(CopeCacheWeight.class==annotationClass)
+			{
+				final T patternAnn = Pattern.this.getAnnotation(annotationClass);
+				if(patternAnn!=null)
+					return patternAnn;
+				return source.getAnnotation(annotationClass);
+			}
 
 			if(source==null)
 				return null;
