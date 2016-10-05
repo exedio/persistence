@@ -111,7 +111,17 @@ final class JavaClass extends JavaFeature
 	 * Constructs the fully qualified name of this class,
 	 * including package path.
 	 */
-	public String getFullName()
+	String getFullName()
+	{
+		return getCompleteName('$');
+	}
+
+	String getCanonicalName()
+	{
+		return getCompleteName('.');
+	}
+
+	private String getCompleteName(final char innerClassSeparator)
 	{
 		final StringBuilder buf=new StringBuilder();
 		final String packagename = file.getPackageName();
@@ -124,7 +134,7 @@ final class JavaClass extends JavaFeature
 		for(JavaClass i=this; i!=null; i=i.parent)
 		{
 			if(i!=this)
-				buf.insert(pos, '$');
+				buf.insert(pos, innerClassSeparator);
 			buf.insert(pos, i.name);
 		}
 		return buf.toString();

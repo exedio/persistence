@@ -714,6 +714,7 @@
 				<pathelement location="build/classes/dsmf/src" />
 				<pathelement location="build/classes/runtime/src" />
 				<pathelement location="build/classes/runtime/patternsrc" /><!-- TODO stricter, is for Composite and Block only -->
+				<pathelement location="build/classes/runtime/servletsrc" /><!-- just that instrumentor knows Media, no static dependency -->
 				<pathelement location="build/classes/instrument/annosrc" />
 				<pathelement location="build/classes/instrument/src" />
 				<pathelement location="build/classes/instrument/antsrc" />
@@ -748,7 +749,6 @@
 			<classpath>
 				<pathelement location="build/classes/instrument/testfeaturesrc" />
 				<pathelement location="build/classes/instrument/testlibsrc" />
-				<pathelement location="build/classes/runtime/servletsrc" /><!-- just that instrumentor knows Media, no static dependency -->
 				<pathelement location="lib/cpsuite.jar" />
 				<pathelement location="${env.JAVA_HOME}/lib/tools.jar"/>
 			</classpath>

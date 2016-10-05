@@ -49,8 +49,8 @@ class SubOfInnerSub extends InnerContainer.Sub
 		this(new com.exedio.cope.SetValue<?>[]{
 			com.exedio.cope.instrument.testmodel.Super.superMandatory.map(superMandatory),
 			com.exedio.cope.instrument.testmodel.Super.superInitial.map(superInitial),
-			com.exedio.cope.instrument.testmodel.InnerContainer$Sub.subField.map(subField),
-			com.exedio.cope.instrument.testmodel.InnerContainer$Sub.subReference.map(subReference),
+			com.exedio.cope.instrument.testmodel.InnerContainer.Sub.subField.map(subField),
+			com.exedio.cope.instrument.testmodel.InnerContainer.Sub.subReference.map(subReference),
 		});
 	}/**
 

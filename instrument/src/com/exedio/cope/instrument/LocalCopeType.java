@@ -164,6 +164,12 @@ final class LocalCopeType extends CopeType<LocalCopeFeature>
 	}
 
 	@Override
+	String getCanonicalName()
+	{
+		return javaClass.getCanonicalName();
+	}
+
+	@Override
 	int getModifier()
 	{
 		return javaClass.modifier;

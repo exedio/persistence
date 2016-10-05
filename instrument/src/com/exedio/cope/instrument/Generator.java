@@ -323,7 +323,7 @@ final class Generator
 			if(parent==type)
 				write(type.getName());
 			else
-				write(parent.getFullName());
+				write(parent.getCanonicalName());
 			write('.');
 			write(feature.getName());
 			if(directSetValueMap)

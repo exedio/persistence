@@ -231,6 +231,8 @@ abstract class CopeType<F extends CopeFeature>
 
 	abstract String getFullName();
 
+	abstract String getCanonicalName();
+
 	abstract int getModifier();
 
 	abstract void assertNotBuildStage();
