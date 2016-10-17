@@ -239,6 +239,8 @@ public abstract class Pattern extends Feature
 				return getAnnotation(annotationClass)!=null;
 			else if(Computed.class==annotationClass)
 				return getAnnotation(annotationClass)!=null;
+			else if(CopeCacheWeight.class==annotationClass)
+				return getAnnotation(annotationClass)!=null;
 
 			if(source==null)
 				return false;
