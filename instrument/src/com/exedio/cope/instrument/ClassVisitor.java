@@ -60,7 +60,7 @@ class ClassVisitor extends GeneratedAwareScanner
 		}
 		else if (javaClass==null)
 		{
-			final String classExtends=ct.getExtendsClause()==null?null:ct.getExtendsClause().toString();
+			final String classExtends=context.getFullyQualifiedSuperclass(getCurrentPath());
 			javaClass = new JavaClass(
 				context.javaFile,
 				outerClass,

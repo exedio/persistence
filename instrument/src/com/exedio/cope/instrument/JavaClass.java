@@ -47,7 +47,7 @@ final class JavaClass extends JavaFeature
 	final boolean isItem;
 	final boolean isBlock;
 	final boolean isComposite;
-	final String classExtends;
+	final String fullyQualifiedSuperclass;
 	final WrapperType typeOption;
 	private final int classEndPosition;
 
@@ -63,7 +63,7 @@ final class JavaClass extends JavaFeature
 			final boolean isItem,
 			final boolean isBlock,
 			final boolean isComposite,
-			final String classExtends,
+			final String fullyQualifiedSuperclass,
 			final WrapperType typeOption,
 			final int classEndPosition)
 	{
@@ -74,7 +74,7 @@ final class JavaClass extends JavaFeature
 		this.isItem = isItem;
 		this.isBlock = isBlock;
 		this.isComposite = isComposite;
-		this.classExtends = Generics.strip(classExtends);
+		this.fullyQualifiedSuperclass = Generics.strip(fullyQualifiedSuperclass);
 		this.typeOption=typeOption;
 		this.classEndPosition = classEndPosition;
 		file.add(this);

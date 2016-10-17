@@ -63,7 +63,7 @@ final class JavaRepository
 
 	private final ArrayList<JavaFile> files = new ArrayList<>();
 	private final HashMap<String, JavaClass> javaClassBySimpleName = new HashMap<>();
-	private final HashMap<String, JavaClass> javaClassByFullName = new HashMap<>();
+	private final HashMap<String, JavaClass> javaClassByCanonicalName = new HashMap<>();
 	private final HashMap<String,List<JavaClass>> problematicSimpleNames = new HashMap<>();
 
 	private final HashMap<JavaClass, LocalCopeType> copeTypeByJavaClass = new HashMap<>();
@@ -81,7 +81,7 @@ final class JavaRepository
 		stage = Stage.BETWEEN;
 
 		// TODO put this into a new class CopeType
-		for(final JavaClass javaClass : javaClassByFullName.values())
+		for(final JavaClass javaClass : javaClassByCanonicalName.values())
 		{
 			if(javaClass.isInterface())
 				continue;
@@ -155,8 +155,8 @@ final class JavaRepository
 			classes.add(javaClass);
 		}
 
-		if(javaClassByFullName.put(javaClass.getFullName(), javaClass)!=null)
-			throw new RuntimeException(javaClass.getFullName());
+		if(javaClassByCanonicalName.put(javaClass.getCanonicalName(), javaClass)!=null)
+			throw new RuntimeException(javaClass.getCanonicalName());
 	}
 
 	private JavaClass resolveBySimpleName(final String name)
@@ -205,15 +205,15 @@ final class JavaRepository
 		}
 		else
 		{
-			final JavaClass byFullName = javaClassByFullName.get(name);
-			if(byFullName!=null)
-				return byFullName;
+			final JavaClass byCanonicalName = javaClassByCanonicalName.get(name);
+			if(byCanonicalName!=null)
+				return byCanonicalName;
 
 			// for inner classes
 			final int dot = name.indexOf('.'); // cannot be negative in else branch
 			final JavaClass outer = resolveBySimpleName(name.substring(0, dot));
 			if(outer!=null)
-				return javaClassByFullName.get(outer.file.getPackageName() + '.' + name.replace('.', '$'));
+				return javaClassByCanonicalName.get(outer.file.getPackageName() + '.' + name);
 
 			return null;
 		}

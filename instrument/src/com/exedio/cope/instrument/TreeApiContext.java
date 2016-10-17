@@ -36,6 +36,7 @@ import java.util.Set;
 import javax.annotation.processing.Messager;
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.lang.model.element.Element;
+import javax.lang.model.element.TypeElement;
 import javax.lang.model.util.Elements;
 import javax.lang.model.util.Types;
 import javax.tools.Diagnostic;
@@ -289,5 +290,11 @@ final class TreeApiContext
 	{
 		final Element element=getElement(tp);
 		return types.isSubtype(element.asType(), elements.getTypeElement(clazz.getName()).asType());
+	}
+
+	String getFullyQualifiedSuperclass(final TreePath typePath)
+	{
+		final Element element=getElement(typePath);
+		return ((TypeElement)element).getSuperclass().toString();
 	}
 }

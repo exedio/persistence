@@ -56,7 +56,6 @@ final class LocalCopeType extends CopeType<LocalCopeFeature>
 	{
 		super(isItem, isBlock, isComposite);
 		this.javaClass=javaClass;
-		if (javaClass.classExtends==null) throw new RuntimeException();
 		this.name = javaClass.name;
 		this.option = Tags.cascade(
 				javaClass,
@@ -127,7 +126,7 @@ final class LocalCopeType extends CopeType<LocalCopeFeature>
 		if(!isItem())
 			return;
 
-		final Class<?> externalType = javaClass.file.findTypeExternally(javaClass.classExtends);
+		final Class<?> externalType = javaClass.file.findTypeExternally(javaClass.fullyQualifiedSuperclass);
 		if(externalType==Item.class)
 		{
 			supertype = null;
@@ -138,7 +137,7 @@ final class LocalCopeType extends CopeType<LocalCopeFeature>
 		}
 		else
 		{
-			supertype = javaClass.file.repository.getCopeType(javaClass.classExtends);
+			supertype = javaClass.file.repository.getCopeType(javaClass.fullyQualifiedSuperclass);
 			if (!supertype.isItem()) throw new RuntimeException();
 		}
 	}
