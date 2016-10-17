@@ -55,7 +55,7 @@ public class UniqueHierarchyTest extends TestWithEnvironment
 		}
 		catch(final UniqueViolationException e)
 		{
-			assertEquals(subField.getImplicitUniqueConstraint(), e.getFeature());
+			assertEquals(subField, e.getFeatureForDescription());
 			assertEquals(null, e.getItem());
 			assertEquals(null, e.getCause());
 		}
@@ -73,7 +73,7 @@ public class UniqueHierarchyTest extends TestWithEnvironment
 		}
 		catch(final UniqueViolationException e)
 		{
-			assertEquals(subField.getImplicitUniqueConstraint(), e.getFeature());
+			assertEquals(subField, e.getFeatureForDescription());
 			assertEquals(item2, e.getItem());
 			assertEquals(null, e.getCause());
 		}

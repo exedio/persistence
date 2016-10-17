@@ -58,7 +58,7 @@ public class DeleteAfterUniqueViolationTest extends TestWithEnvironment
 		}
 		catch(final UniqueViolationException e)
 		{
-			assertSame(DeleteAfterUniqueViolationItem.uniqueString.getImplicitUniqueConstraint(), e.getFeature());
+			assertSame(DeleteAfterUniqueViolationItem.uniqueString, e.getFeatureForDescription());
 			if(unq)
 			{
 				assertEquals(
@@ -94,7 +94,7 @@ public class DeleteAfterUniqueViolationTest extends TestWithEnvironment
 		}
 		catch(final UniqueViolationException e)
 		{
-			assertSame(DeleteAfterUniqueViolationItem.uniqueString.getImplicitUniqueConstraint(), e.getFeature());
+			assertSame(DeleteAfterUniqueViolationItem.uniqueString, e.getFeatureForDescription());
 			if(unq)
 			{
 				assertEquals(
