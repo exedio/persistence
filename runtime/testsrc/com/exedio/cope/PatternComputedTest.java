@@ -18,9 +18,9 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.PatternComputedTest.PatternComputedItem.TYPE;
-import static com.exedio.cope.PatternComputedTest.PatternComputedItem.compuComp;
-import static com.exedio.cope.PatternComputedTest.PatternComputedItem.virgnComp;
+import static com.exedio.cope.PatternComputedTest.MyItem.TYPE;
+import static com.exedio.cope.PatternComputedTest.MyItem.compuComp;
+import static com.exedio.cope.PatternComputedTest.MyItem.virgnComp;
 import static org.junit.Assert.assertEquals;
 
 import com.exedio.cope.instrument.WrapperIgnore;
@@ -78,26 +78,26 @@ public class PatternComputedTest
 
 
 	@com.exedio.cope.instrument.WrapperIgnore // TODO use import, but this is not accepted by javac
-	static final class PatternComputedItem extends Item
+	static final class MyItem extends Item
 	{
-		static final PatternComputedPattern virgnComp = new PatternComputedPattern();
+		static final MyPattern virgnComp = new MyPattern();
 		@Computed
-		static final PatternComputedPattern compuComp = new PatternComputedPattern();
+		static final MyPattern compuComp = new MyPattern();
 
 
 		private static final long serialVersionUID = 1l;
-		static final Type<PatternComputedItem> TYPE = TypesBound.newType(PatternComputedItem.class);
-		private PatternComputedItem(final ActivationParameters ap) { super(ap); }
+		static final Type<MyItem> TYPE = TypesBound.newType(MyItem.class);
+		private MyItem(final ActivationParameters ap) { super(ap); }
 	}
 
-	static final class PatternComputedPattern extends Pattern
+	static final class MyPattern extends Pattern
 	{
 		private static final long serialVersionUID = 1l;
 
 		final StringField virgnSource = new StringField();
 		final StringField compuSource = new StringField();
 
-		PatternComputedPattern()
+		MyPattern()
 		{
 			addSource(virgnSource, "virgnSource");
 			addSource(compuSource, "compuSource", ComputedElement.get());
