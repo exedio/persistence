@@ -20,6 +20,13 @@ package com.exedio.cope;
 
 import static com.exedio.cope.AbstractRuntimeTest.assertDelete;
 import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
+import static com.exedio.cope.UniqueFinalItem.forUniqueFinalString;
+import static com.exedio.cope.UniqueFinalItem.uniqueFinalString;
+import static com.exedio.cope.UniqueSingleItem.forUniqueString;
+import static com.exedio.cope.UniqueSingleItem.otherString;
+import static com.exedio.cope.UniqueSingleItem.uniqueString;
+import static com.exedio.cope.UniqueSingleNotNullItem.forUniqueNotNullString;
+import static com.exedio.cope.UniqueSingleNotNullItem.uniqueNotNullString;
 import static com.exedio.cope.tojunit.Assert.assertContains;
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
 import static com.exedio.cope.tojunit.Assert.list;
@@ -56,52 +63,52 @@ public class UniqueTest extends TestWithEnvironment
 		assertEqualsUnmodifiable(
 			list(
 				UniqueSingleItem.TYPE.getThis(),
-				UniqueSingleItem.uniqueString,
-				UniqueSingleItem.uniqueString.getImplicitUniqueConstraint(),
-				UniqueSingleItem.otherString
+				uniqueString,
+				uniqueString.getImplicitUniqueConstraint(),
+				otherString
 			),
 			UniqueSingleItem.TYPE.getDeclaredFeatures());
 		assertEqualsUnmodifiable(
 			list(
 				UniqueSingleItem.TYPE.getThis(),
-				UniqueSingleItem.uniqueString,
-				UniqueSingleItem.uniqueString.getImplicitUniqueConstraint(),
-				UniqueSingleItem.otherString
+				uniqueString,
+				uniqueString.getImplicitUniqueConstraint(),
+				otherString
 			),
 			UniqueSingleItem.TYPE.getFeatures());
 		assertEqualsUnmodifiable(
-			list(UniqueSingleItem.uniqueString),
-			UniqueSingleItem.uniqueString.getImplicitUniqueConstraint().getFields());
+			list(uniqueString),
+			uniqueString.getImplicitUniqueConstraint().getFields());
 		assertEqualsUnmodifiable(
-			list(UniqueSingleItem.uniqueString.getImplicitUniqueConstraint()),
-			UniqueSingleItem.uniqueString.getUniqueConstraints());
+			list(uniqueString.getImplicitUniqueConstraint()),
+			uniqueString.getUniqueConstraints());
 
 		assertEqualsUnmodifiable(
-			list(UniqueFinalItem.uniqueFinalString),
-			UniqueFinalItem.uniqueFinalString.getImplicitUniqueConstraint().getFields());
+			list(uniqueFinalString),
+			uniqueFinalString.getImplicitUniqueConstraint().getFields());
 		assertEqualsUnmodifiable(
-			list(UniqueFinalItem.uniqueFinalString.getImplicitUniqueConstraint()),
-			UniqueFinalItem.uniqueFinalString.getUniqueConstraints());
+			list(uniqueFinalString.getImplicitUniqueConstraint()),
+			uniqueFinalString.getUniqueConstraints());
 
 		assertEqualsUnmodifiable(
-			list(UniqueSingleNotNullItem.uniqueNotNullString),
-			UniqueSingleNotNullItem.uniqueNotNullString.getImplicitUniqueConstraint().getFields());
+			list(uniqueNotNullString),
+			uniqueNotNullString.getImplicitUniqueConstraint().getFields());
 		assertEqualsUnmodifiable(
-			list(UniqueSingleNotNullItem.uniqueNotNullString.getImplicitUniqueConstraint()),
-			UniqueSingleNotNullItem.uniqueNotNullString.getUniqueConstraints());
+			list(uniqueNotNullString.getImplicitUniqueConstraint()),
+			uniqueNotNullString.getUniqueConstraints());
 
-		assertSerializedSame(UniqueSingleItem.uniqueString.getImplicitUniqueConstraint(), 394);
+		assertSerializedSame(uniqueString.getImplicitUniqueConstraint(), 394);
 
 		// test persistence
-		assertEquals(null, UniqueSingleItem.forUniqueString("uniqueString"));
+		assertEquals(null, forUniqueString("uniqueString"));
 
 		// create two items with null, that must not interfere with uniqueness
 		final UniqueSingleItem nullItem1 = new UniqueSingleItem();
 		assertEquals(null, nullItem1.getUniqueString());
-		assertEquals(null, UniqueSingleItem.forUniqueString("uniqueString"));
+		assertEquals(null, forUniqueString("uniqueString"));
 		try
 		{
-			UniqueSingleItem.forUniqueString(null);
+			forUniqueString(null);
 			fail();
 		}
 		catch(final NullPointerException e)
@@ -111,10 +118,10 @@ public class UniqueTest extends TestWithEnvironment
 
 		final UniqueSingleItem nullItem2 = new UniqueSingleItem();
 		assertEquals(null, nullItem2.getUniqueString());
-		assertEquals(null, UniqueSingleItem.forUniqueString("uniqueString"));
+		assertEquals(null, forUniqueString("uniqueString"));
 		try
 		{
-			UniqueSingleItem.forUniqueString(null);
+			forUniqueString(null);
 			fail();
 		}
 		catch(final NullPointerException e)
@@ -124,10 +131,10 @@ public class UniqueTest extends TestWithEnvironment
 
 		nullItem2.setUniqueString("uniqueString");
 		assertEquals("uniqueString", nullItem2.getUniqueString());
-		assertEquals(nullItem2, UniqueSingleItem.forUniqueString("uniqueString"));
+		assertEquals(nullItem2, forUniqueString("uniqueString"));
 		try
 		{
-			UniqueSingleItem.forUniqueString(null);
+			forUniqueString(null);
 			fail();
 		}
 		catch(final NullPointerException e)
@@ -137,10 +144,10 @@ public class UniqueTest extends TestWithEnvironment
 
 		nullItem2.setUniqueString(null);
 		assertEquals(null, nullItem2.getUniqueString());
-		assertEquals(null, UniqueSingleItem.forUniqueString("uniqueString"));
+		assertEquals(null, forUniqueString("uniqueString"));
 		try
 		{
-			UniqueSingleItem.forUniqueString(null);
+			forUniqueString(null);
 			fail();
 		}
 		catch(final NullPointerException e)
@@ -151,11 +158,11 @@ public class UniqueTest extends TestWithEnvironment
 		// test non-null values
 		final UniqueSingleItem item = new UniqueSingleItem();
 		assertEquals(null, item.getUniqueString());
-		assertEquals(null, UniqueSingleItem.forUniqueString("uniqueString"));
+		assertEquals(null, forUniqueString("uniqueString"));
 
 		item.setUniqueString("uniqueString");
 		assertEquals("uniqueString", item.getUniqueString());
-		assertEquals(item, UniqueSingleItem.forUniqueString("uniqueString"));
+		assertEquals(item, forUniqueString("uniqueString"));
 
 		// test unique violation
 		{
@@ -168,13 +175,13 @@ public class UniqueTest extends TestWithEnvironment
 			}
 			catch(final UniqueViolationException e)
 			{
-				assertEquals(UniqueSingleItem.uniqueString.getImplicitUniqueConstraint(), e.getFeature());
+				assertEquals(uniqueString.getImplicitUniqueConstraint(), e.getFeature());
 				assertEquals(item2, e.getItem());
-				assertEquals("unique violation on " + item2 + " for " + UniqueSingleItem.uniqueString.getImplicitUniqueConstraint().toString(), e.getMessage());
+				assertEquals("unique violation on " + item2 + " for " + uniqueString.getImplicitUniqueConstraint().toString(), e.getMessage());
 				assertCause(e);
 			}
 			assertEquals("uniqueString2", item2.getUniqueString());
-			assertEquals(item2, UniqueSingleItem.forUniqueString("uniqueString2"));
+			assertEquals(item2, forUniqueString("uniqueString2"));
 
 			assertDelete(item2);
 		}
@@ -186,12 +193,12 @@ public class UniqueTest extends TestWithEnvironment
 		}
 		catch(final UniqueViolationException e)
 		{
-			assertEquals(UniqueSingleItem.uniqueString.getImplicitUniqueConstraint(), e.getFeature());
+			assertEquals(uniqueString.getImplicitUniqueConstraint(), e.getFeature());
 			assertEquals(null, e.getItem());
-			assertEquals("unique violation for " + UniqueSingleItem.uniqueString.getImplicitUniqueConstraint().toString(), e.getMessage());
+			assertEquals("unique violation for " + uniqueString.getImplicitUniqueConstraint().toString(), e.getMessage());
 			assertCause(e);
 		}
-		assertEquals(item, UniqueSingleItem.forUniqueString("uniqueString"));
+		assertEquals(item, forUniqueString("uniqueString"));
 
 		try
 		{
@@ -200,12 +207,12 @@ public class UniqueTest extends TestWithEnvironment
 		}
 		catch(final UniqueViolationException e)
 		{
-			assertEquals(UniqueSingleItem.uniqueString.getImplicitUniqueConstraint(), e.getFeature());
+			assertEquals(uniqueString.getImplicitUniqueConstraint(), e.getFeature());
 			assertEquals(null, e.getItem());
-			assertEquals("unique violation for " + UniqueSingleItem.uniqueString.getImplicitUniqueConstraint().toString(), e.getMessage());
+			assertEquals("unique violation for " + uniqueString.getImplicitUniqueConstraint().toString(), e.getMessage());
 			assertCause(e);
 		}
-		assertEquals(item, UniqueSingleItem.forUniqueString("uniqueString"));
+		assertEquals(item, forUniqueString("uniqueString"));
 
 		try
 		{
@@ -214,12 +221,12 @@ public class UniqueTest extends TestWithEnvironment
 		}
 		catch(final UniqueViolationException e)
 		{
-			assertEquals(UniqueSingleItem.uniqueString.getImplicitUniqueConstraint(), e.getFeature());
+			assertEquals(uniqueString.getImplicitUniqueConstraint(), e.getFeature());
 			assertEquals(null, e.getItem());
-			assertEquals("unique violation for " + UniqueSingleItem.uniqueString.getImplicitUniqueConstraint().toString(), e.getMessage());
+			assertEquals("unique violation for " + uniqueString.getImplicitUniqueConstraint().toString(), e.getMessage());
 			assertCause(e);
 		}
-		assertEquals(item, UniqueSingleItem.forUniqueString("uniqueString"));
+		assertEquals(item, forUniqueString("uniqueString"));
 
 		restartTransaction();
 		assertTrue(!item.isActiveCopeItem());
@@ -235,7 +242,7 @@ public class UniqueTest extends TestWithEnvironment
 		{
 			restartTransaction();
 			assertTrue(!item.isActiveCopeItem());
-			final UniqueSingleItem foundItem = UniqueSingleItem.forUniqueString("uniqueString");
+			final UniqueSingleItem foundItem = forUniqueString("uniqueString");
 			assertEquals(item, foundItem);
 			assertEquals(item.getCopeID(), foundItem.getCopeID());
 			assertEquals(item.hashCode(), foundItem.hashCode());
@@ -258,7 +265,7 @@ public class UniqueTest extends TestWithEnvironment
 		{
 			restartTransaction();
 			assertTrue(!item.isActiveCopeItem());
-			final UniqueSingleItem foundItem = UniqueSingleItem.forUniqueString("uniqueString");
+			final UniqueSingleItem foundItem = forUniqueString("uniqueString");
 			assertEquals("uniqueString", foundItem.getUniqueString());
 			assertEquals("uniqueString", item.getUniqueString());
 			assertEquals(item, foundItem);
@@ -289,15 +296,15 @@ public class UniqueTest extends TestWithEnvironment
 		final UniqueSingleItem item2 = new UniqueSingleItem();
 
 		item1.set(
-				UniqueSingleItem.uniqueString.map("uniqueString1"),
-				UniqueSingleItem.otherString.map("otherString1")
+				uniqueString.map("uniqueString1"),
+				otherString.map("otherString1")
 		);
 		assertEquals("uniqueString1", item1.getUniqueString());
 		assertEquals("otherString1", item1.getOtherString());
 
 		item2.set(
-				UniqueSingleItem.uniqueString.map("uniqueString2"),
-				UniqueSingleItem.otherString.map("otherString2")
+				uniqueString.map("uniqueString2"),
+				otherString.map("otherString2")
 		);
 		assertEquals("uniqueString2", item2.getUniqueString());
 		assertEquals("otherString2", item2.getOtherString());
@@ -306,16 +313,16 @@ public class UniqueTest extends TestWithEnvironment
 		try
 		{
 			item2.set(
-					UniqueSingleItem.uniqueString.map("uniqueString1"),
-					UniqueSingleItem.otherString.map("otherString1")
+					uniqueString.map("uniqueString1"),
+					otherString.map("otherString1")
 			);
 			fail();
 		}
 		catch(final UniqueViolationException e)
 		{
-			assertEquals(UniqueSingleItem.uniqueString.getImplicitUniqueConstraint(), e.getFeature());
+			assertEquals(uniqueString.getImplicitUniqueConstraint(), e.getFeature());
 			assertEquals(item2, e.getItem());
-			assertEquals("unique violation on " + item2 + " for " + UniqueSingleItem.uniqueString.getImplicitUniqueConstraint().toString(), e.getMessage());
+			assertEquals("unique violation on " + item2 + " for " + uniqueString.getImplicitUniqueConstraint().toString(), e.getMessage());
 			assertCause(e);
 		}
 		assertEquals("uniqueString2", item2.getUniqueString());
@@ -323,8 +330,8 @@ public class UniqueTest extends TestWithEnvironment
 
 		// test setting the value already set
 		item2.set(
-				UniqueSingleItem.uniqueString.map("uniqueString2"),
-				UniqueSingleItem.otherString.map("otherString1")
+				uniqueString.map("uniqueString2"),
+				otherString.map("otherString1")
 		);
 		assertEquals("uniqueString2", item2.getUniqueString());
 		assertEquals("otherString1", item2.getOtherString());
@@ -332,26 +339,26 @@ public class UniqueTest extends TestWithEnvironment
 
 	@Test public void testUniqueFinal()
 	{
-		assertEquals(null, UniqueFinalItem.forUniqueFinalString("uniqueString"));
+		assertEquals(null, forUniqueFinalString("uniqueString"));
 
 		final UniqueFinalItem item = new UniqueFinalItem("uniqueString");
 		assertEquals("uniqueString", item.getUniqueFinalString());
-		assertEquals(item, UniqueFinalItem.forUniqueFinalString("uniqueString"));
+		assertEquals(item, forUniqueFinalString("uniqueString"));
 
 		try
 		{
-			item.set(UniqueFinalItem.uniqueFinalString, "zapp");
+			item.set(uniqueFinalString, "zapp");
 			fail();
 		}
 		catch(final FinalViolationException e)
 		{
-			assertEquals(UniqueFinalItem.uniqueFinalString, e.getFeature());
-			assertEquals(UniqueFinalItem.uniqueFinalString, e.getFeature());
+			assertEquals(uniqueFinalString, e.getFeature());
+			assertEquals(uniqueFinalString, e.getFeature());
 			assertEquals(item, e.getItem());
-			assertEquals("final violation on " + item + " for " + UniqueFinalItem.uniqueFinalString, e.getMessage());
+			assertEquals("final violation on " + item + " for " + uniqueFinalString, e.getMessage());
 		}
 		assertEquals("uniqueString", item.getUniqueFinalString());
-		assertEquals(item, UniqueFinalItem.forUniqueFinalString("uniqueString"));
+		assertEquals(item, forUniqueFinalString("uniqueString"));
 
 		assertDelete(item);
 	}
@@ -359,18 +366,18 @@ public class UniqueTest extends TestWithEnvironment
 	@SuppressFBWarnings("NP_NONNULL_PARAM_VIOLATION")
 	@Test public void testItemWithSingleUniqueNotNull()
 	{
-		assertEquals(null, UniqueSingleNotNullItem.forUniqueNotNullString("uniqueString"));
-		assertEquals(null, UniqueSingleNotNullItem.forUniqueNotNullString("uniqueString2"));
+		assertEquals(null, forUniqueNotNullString("uniqueString"));
+		assertEquals(null, forUniqueNotNullString("uniqueString2"));
 
 		final UniqueSingleNotNullItem item = new UniqueSingleNotNullItem("uniqueString");
 		assertEquals("uniqueString", item.getUniqueNotNullString());
-		assertEquals(item, UniqueSingleNotNullItem.forUniqueNotNullString("uniqueString"));
-		assertEquals(null, UniqueSingleNotNullItem.forUniqueNotNullString("uniqueString2"));
+		assertEquals(item, forUniqueNotNullString("uniqueString"));
+		assertEquals(null, forUniqueNotNullString("uniqueString2"));
 
 		item.setUniqueNotNullString("uniqueString2");
 		assertEquals("uniqueString2", item.getUniqueNotNullString());
-		assertEquals(null, UniqueSingleNotNullItem.forUniqueNotNullString("uniqueString"));
-		assertEquals(item, UniqueSingleNotNullItem.forUniqueNotNullString("uniqueString2"));
+		assertEquals(null, forUniqueNotNullString("uniqueString"));
+		assertEquals(item, forUniqueNotNullString("uniqueString2"));
 
 		try
 		{
@@ -379,13 +386,13 @@ public class UniqueTest extends TestWithEnvironment
 		}
 		catch(final MandatoryViolationException e)
 		{
-			assertEquals(UniqueSingleNotNullItem.uniqueNotNullString, e.getFeature());
+			assertEquals(uniqueNotNullString, e.getFeature());
 			assertEquals(item, e.getItem());
-			assertEquals("mandatory violation on " + item + " for " + UniqueSingleNotNullItem.uniqueNotNullString, e.getMessage());
+			assertEquals("mandatory violation on " + item + " for " + uniqueNotNullString, e.getMessage());
 		}
 		assertEquals("uniqueString2", item.getUniqueNotNullString());
-		assertEquals(null, UniqueSingleNotNullItem.forUniqueNotNullString("uniqueString"));
-		assertEquals(item, UniqueSingleNotNullItem.forUniqueNotNullString("uniqueString2"));
+		assertEquals(null, forUniqueNotNullString("uniqueString"));
+		assertEquals(item, forUniqueNotNullString("uniqueString2"));
 
 		assertContains(item, UniqueSingleNotNullItem.TYPE.search(null));
 		try
@@ -395,21 +402,21 @@ public class UniqueTest extends TestWithEnvironment
 		}
 		catch(final MandatoryViolationException e)
 		{
-			assertEquals(UniqueSingleNotNullItem.uniqueNotNullString, e.getFeature());
+			assertEquals(uniqueNotNullString, e.getFeature());
 			assertEquals(null, e.getItem());
-			assertEquals("mandatory violation for " + UniqueSingleNotNullItem.uniqueNotNullString, e.getMessage());
+			assertEquals("mandatory violation for " + uniqueNotNullString, e.getMessage());
 		}
 		assertContains(item, UniqueSingleNotNullItem.TYPE.search(null));
 		try
 		{
-			UniqueSingleNotNullItem.TYPE.newItem(UniqueSingleNotNullItem.uniqueNotNullString.map(null));
+			UniqueSingleNotNullItem.TYPE.newItem(uniqueNotNullString.map(null));
 			fail();
 		}
 		catch(final MandatoryViolationException e)
 		{
-			assertEquals(UniqueSingleNotNullItem.uniqueNotNullString, e.getFeature());
+			assertEquals(uniqueNotNullString, e.getFeature());
 			assertEquals(null, e.getItem());
-			assertEquals("mandatory violation for " + UniqueSingleNotNullItem.uniqueNotNullString, e.getMessage());
+			assertEquals("mandatory violation for " + uniqueNotNullString, e.getMessage());
 		}
 		assertContains(item, UniqueSingleNotNullItem.TYPE.search(null));
 
