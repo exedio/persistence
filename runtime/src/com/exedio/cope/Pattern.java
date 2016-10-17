@@ -239,6 +239,8 @@ public abstract class Pattern extends Feature
 				return getAnnotation(annotationClass)!=null;
 			else if(Computed.class==annotationClass)
 				return getAnnotation(annotationClass)!=null;
+			else if(CopeCacheWeight.class==annotationClass)
+				return getAnnotation(annotationClass)!=null;
 
 			if(source==null)
 				return false;
@@ -273,6 +275,21 @@ public abstract class Pattern extends Feature
 				if(patternAnn!=null)
 					return patternAnn;
 				return source.getAnnotation(annotationClass);
+			}
+			else if(CopeCacheWeight.class==annotationClass)
+			{
+				final T patternAnn = Pattern.this.getAnnotation(annotationClass);
+				final T sourceAnn = source.getAnnotation(annotationClass);
+
+				if(patternAnn==null)
+					return sourceAnn;
+				else if(sourceAnn==null)
+					return patternAnn;
+				else
+					throw new IllegalStateException(
+							"conflicting @CopeCacheWeight: " +
+							CopeCacheWeight.class.cast(patternAnn).value() + " vs. " +
+							CopeCacheWeight.class.cast(sourceAnn ).value());
 			}
 
 			if(source==null)
