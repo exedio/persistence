@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import com.exedio.cope.instrument.ConstructorComment;
 import java.sql.SQLException;
+import java.util.List;
 
 /**
  * Signals, that an attempt to write an field has been failed,
@@ -61,6 +62,17 @@ public final class UniqueViolationException extends ConstraintViolationException
 	public UniqueConstraint getFeature()
 	{
 		return feature;
+	}
+
+	public Feature getFeatureForDescription()
+	{
+		final List<FunctionField<?>> fields = feature.getFields();
+		return fields.size()==1 ? fields.get(0) : feature;
+	}
+
+	public List<FunctionField<?>> getFields()
+	{
+		return feature.getFields();
 	}
 
 	/**

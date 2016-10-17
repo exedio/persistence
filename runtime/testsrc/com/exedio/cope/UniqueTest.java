@@ -30,6 +30,7 @@ import static com.exedio.cope.UniqueSingleNotNullItem.uniqueNotNullString;
 import static com.exedio.cope.tojunit.Assert.assertContains;
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
 import static com.exedio.cope.tojunit.Assert.list;
+import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertSame;
@@ -176,6 +177,8 @@ public class UniqueTest extends TestWithEnvironment
 			catch(final UniqueViolationException e)
 			{
 				assertEquals(uniqueString.getImplicitUniqueConstraint(), e.getFeature());
+				assertEquals(uniqueString, e.getFeatureForDescription());
+				assertEqualsUnmodifiable(asList(uniqueString), e.getFields());
 				assertEquals(item2, e.getItem());
 				assertEquals("unique violation on " + item2 + " for " + uniqueString.getImplicitUniqueConstraint().toString(), e.getMessage());
 				assertCause(e);

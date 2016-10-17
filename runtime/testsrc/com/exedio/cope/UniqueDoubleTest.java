@@ -24,6 +24,8 @@ import static com.exedio.cope.UniqueDoubleItem.constraint;
 import static com.exedio.cope.UniqueDoubleItem.forConstraint;
 import static com.exedio.cope.UniqueDoubleItem.integer;
 import static com.exedio.cope.UniqueDoubleItem.string;
+import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
+import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
@@ -61,6 +63,8 @@ public class UniqueDoubleTest extends TestWithEnvironment
 		catch(final UniqueViolationException e)
 		{
 			assertEquals(constraint, e.getFeature());
+			assertEquals(constraint, e.getFeatureForDescription());
+			assertEqualsUnmodifiable(asList(string, integer), e.getFields());
 			assertEquals(null, e.getItem());
 			assertEquals("unique violation for " + constraint, e.getMessage());
 			assertCause(e);
