@@ -286,7 +286,7 @@ final class TreeApiContext
 		return result;
 	}
 
-	boolean isSubtype(final TreePath tp, Class<?> clazz)
+	boolean isSubtype(final TreePath tp, final Class<?> clazz)
 	{
 		final Element element=getElement(tp);
 		return types.isSubtype(element.asType(), elements.getTypeElement(clazz.getName()).asType());
