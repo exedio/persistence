@@ -21,9 +21,10 @@ package com.exedio.cope;
 import static com.exedio.cope.PatternComputedTest.MyItem.TYPE;
 import static com.exedio.cope.PatternComputedTest.MyItem.compuComp;
 import static com.exedio.cope.PatternComputedTest.MyItem.virgnComp;
+import static com.exedio.cope.instrument.Visibility.NONE;
 import static org.junit.Assert.assertEquals;
 
-import com.exedio.cope.instrument.WrapperIgnore;
+import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.misc.Computed;
 import com.exedio.cope.misc.ComputedElement;
 import org.junit.Test;
@@ -77,7 +78,7 @@ public class PatternComputedTest
 	}
 
 
-	@com.exedio.cope.instrument.WrapperIgnore // TODO use import, but this is not accepted by javac
+	@com.exedio.cope.instrument.WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false) // TODO use import, but this is not accepted by javac
 	static final class MyItem extends Item
 	{
 		static final MyPattern virgnComp = new MyPattern();
@@ -85,9 +86,14 @@ public class PatternComputedTest
 		static final MyPattern compuComp = new MyPattern();
 
 
+		@javax.annotation.Generated("com.exedio.cope.instrument")
 		private static final long serialVersionUID = 1l;
-		static final Type<MyItem> TYPE = TypesBound.newType(MyItem.class);
-		private MyItem(final ActivationParameters ap) { super(ap); }
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		static final com.exedio.cope.Type<MyItem> TYPE = com.exedio.cope.TypesBound.newType(MyItem.class);
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@SuppressWarnings("unused") private MyItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 	static final class MyPattern extends Pattern
@@ -125,19 +131,25 @@ public class PatternComputedTest
 			this.compuType = newSourceType(CompuType.class, features, "compu");
 		}
 
-		@WrapperIgnore
+		@WrapperType(type=NONE, constructor=NONE, genericConstructor=NONE, indent=3, comments=false)
 		static final class VirgnType extends Item
 		{
+			@javax.annotation.Generated("com.exedio.cope.instrument")
 			private static final long serialVersionUID = 1l;
-			private VirgnType(final ActivationParameters ap) { super(ap); }
+
+			@javax.annotation.Generated("com.exedio.cope.instrument")
+			@SuppressWarnings("unused") private VirgnType(final com.exedio.cope.ActivationParameters ap){super(ap);}
 		}
 
 		@Computed
-		@WrapperIgnore
+		@WrapperType(type=NONE, constructor=NONE, genericConstructor=NONE, indent=3, comments=false)
 		static final class CompuType extends Item
 		{
+			@javax.annotation.Generated("com.exedio.cope.instrument")
 			private static final long serialVersionUID = 1l;
-			private CompuType(final ActivationParameters ap) { super(ap); }
+
+			@javax.annotation.Generated("com.exedio.cope.instrument")
+			@SuppressWarnings("unused") private CompuType(final com.exedio.cope.ActivationParameters ap){super(ap);}
 		}
 	}
 }
