@@ -23,6 +23,7 @@ import static com.exedio.cope.PatternCacheWeightTest.MyItem.absent;
 import static com.exedio.cope.PatternCacheWeightTest.MyItem.set222;
 import static com.exedio.cope.instrument.Visibility.NONE;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import com.exedio.cope.instrument.WrapperType;
 import org.junit.Test;
@@ -44,7 +45,7 @@ public class PatternCacheWeightTest
 		assertEquals(ABSENT, weight(absent.absentType));
 		assertEquals(333,    weight(absent.set333Type));
 		assertEquals(222,    weight(set222.absentType));
-		assertEquals(222,    weight(set222.set333Type)); // TODO should fail
+		assertWeightFails(set222.set333Type, "conflicting @CopeCacheWeight: 222 vs. 333");
 	}
 
 	private static int weight(final Feature f)
@@ -59,6 +60,28 @@ public class PatternCacheWeightTest
 		final CopeCacheWeight annotation = f.getAnnotation(CopeCacheWeight.class);
 		assertEquals(annotation!=null, f.isAnnotationPresent(CopeCacheWeight.class));
 		return annotation!=null ? annotation.value() : ABSENT;
+	}
+
+	private static void assertWeightFails(final Type<?> f, final String message)
+	{
+		try
+		{
+			f.getAnnotation(CopeCacheWeight.class);
+			fail();
+		}
+		catch(final IllegalStateException e)
+		{
+			assertEquals(message, e.getMessage());
+		}
+		try
+		{
+			f.isAnnotationPresent(CopeCacheWeight.class);
+			fail();
+		}
+		catch(final IllegalStateException e)
+		{
+			assertEquals(message, e.getMessage());
+		}
 	}
 
 	private static final int ABSENT = -123456789;

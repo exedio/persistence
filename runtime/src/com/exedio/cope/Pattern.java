@@ -279,9 +279,17 @@ public abstract class Pattern extends Feature
 			else if(CopeCacheWeight.class==annotationClass)
 			{
 				final T patternAnn = Pattern.this.getAnnotation(annotationClass);
-				if(patternAnn!=null)
+				final T sourceAnn = source.getAnnotation(annotationClass);
+
+				if(patternAnn==null)
+					return sourceAnn;
+				else if(sourceAnn==null)
 					return patternAnn;
-				return source.getAnnotation(annotationClass);
+				else
+					throw new IllegalStateException(
+							"conflicting @CopeCacheWeight: " +
+							CopeCacheWeight.class.cast(patternAnn).value() + " vs. " +
+							CopeCacheWeight.class.cast(sourceAnn ).value());
 			}
 
 			if(source==null)
