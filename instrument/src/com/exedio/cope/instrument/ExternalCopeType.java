@@ -37,7 +37,7 @@ final class ExternalCopeType extends CopeType<ExternalCopeFeature>
 
 	private void registerFeatures()
 	{
-		for (Field declaredField: itemClass.getDeclaredFields())
+		for (final Field declaredField: itemClass.getDeclaredFields())
 		{
 			final int modifiers=declaredField.getModifiers();
 			if (!Modifier.isFinal(modifiers) || !Modifier.isStatic(modifiers))
