@@ -18,12 +18,14 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.PatternComputedItem.TYPE;
-import static com.exedio.cope.PatternComputedItem.compuComp;
-import static com.exedio.cope.PatternComputedItem.virgnComp;
+import static com.exedio.cope.PatternComputedTest.PatternComputedItem.TYPE;
+import static com.exedio.cope.PatternComputedTest.PatternComputedItem.compuComp;
+import static com.exedio.cope.PatternComputedTest.PatternComputedItem.virgnComp;
 import static org.junit.Assert.assertEquals;
 
+import com.exedio.cope.instrument.WrapperIgnore;
 import com.exedio.cope.misc.Computed;
+import com.exedio.cope.misc.ComputedElement;
 import org.junit.Test;
 
 public class PatternComputedTest
@@ -72,5 +74,70 @@ public class PatternComputedTest
 		final boolean result = f.isAnnotationPresent(Computed.class);
 		assertEquals(result, f.getAnnotation(Computed.class)!=null);
 		return result;
+	}
+
+
+	@com.exedio.cope.instrument.WrapperIgnore // TODO use import, but this is not accepted by javac
+	static final class PatternComputedItem extends Item
+	{
+		static final PatternComputedPattern virgnComp = new PatternComputedPattern();
+		@Computed
+		static final PatternComputedPattern compuComp = new PatternComputedPattern();
+
+
+		private static final long serialVersionUID = 1l;
+		static final Type<PatternComputedItem> TYPE = TypesBound.newType(PatternComputedItem.class);
+		private PatternComputedItem(final ActivationParameters ap) { super(ap); }
+	}
+
+	static final class PatternComputedPattern extends Pattern
+	{
+		private static final long serialVersionUID = 1l;
+
+		final StringField virgnSource = new StringField();
+		final StringField compuSource = new StringField();
+
+		PatternComputedPattern()
+		{
+			addSource(virgnSource, "virgnSource");
+			addSource(compuSource, "compuSource", ComputedElement.get());
+		}
+
+		Type<?> virgnType = null;
+		Type<?> compuType = null;
+		final StringField virgnTypeVirgnField = new StringField();
+		final StringField virgnTypeCompuField = new StringField();
+		final StringField compuTypeVirgnField = new StringField();
+		final StringField compuTypeCompuField = new StringField();
+
+		@Override
+		protected void onMount()
+		{
+			super.onMount();
+			final Features features = new Features();
+			features.put("virgnField", virgnTypeVirgnField);
+			features.put("compuField", virgnTypeCompuField, ComputedElement.get());
+			this.virgnType = newSourceType(VirgnType.class, features, "virgn");
+
+			features.clear();
+			features.put("virgnField", compuTypeVirgnField);
+			features.put("compuField", compuTypeCompuField, ComputedElement.get());
+			this.compuType = newSourceType(CompuType.class, features, "compu");
+		}
+
+		@WrapperIgnore
+		static final class VirgnType extends Item
+		{
+			private static final long serialVersionUID = 1l;
+			private VirgnType(final ActivationParameters ap) { super(ap); }
+		}
+
+		@Computed
+		@WrapperIgnore
+		static final class CompuType extends Item
+		{
+			private static final long serialVersionUID = 1l;
+			private CompuType(final ActivationParameters ap) { super(ap); }
+		}
 	}
 }
