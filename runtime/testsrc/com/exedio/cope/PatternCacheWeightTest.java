@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import static com.exedio.cope.PatternCacheWeightTest.MyItem.TYPE;
 import static com.exedio.cope.PatternCacheWeightTest.MyItem.absent;
+import static com.exedio.cope.PatternCacheWeightTest.MyItem.set222;
 import static com.exedio.cope.instrument.Visibility.NONE;
 import static org.junit.Assert.assertEquals;
 
@@ -38,9 +39,12 @@ public class PatternCacheWeightTest
 	@Test public void testIt()
 	{
 		assertEquals(ABSENT, weight(absent));
+		assertEquals(222,    weight(set222));
 
 		assertEquals(ABSENT, weight(absent.absentType));
 		assertEquals(333,    weight(absent.set333Type));
+		assertEquals(222,    weight(set222.absentType));
+		assertEquals(222,    weight(set222.set333Type)); // TODO should fail
 	}
 
 	private static int weight(final Feature f)
@@ -64,6 +68,8 @@ public class PatternCacheWeightTest
 	static final class MyItem extends Item
 	{
 		static final MyPattern absent = new MyPattern();
+		@CopeCacheWeight(222)
+		static final MyPattern set222 = new MyPattern();
 
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
