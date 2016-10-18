@@ -49,7 +49,8 @@ final class GenericResolver<T>
 			throw new IllegalArgumentException(
 					"mismatching parameter count " +
 					Arrays.toString(clazz.getTypeParameters()) + ' ' +
-					Arrays.toString(parameters));
+					Arrays.toString(parameters) +
+					" for " + clazz);
 
 		return getX(clazz, parameters);
 	}

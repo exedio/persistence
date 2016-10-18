@@ -230,9 +230,9 @@ final class Generator
 		return "{@link #" + target + '}';
 	}
 
-	private void writeInitialConstructor(final CopeType type)
+	private void writeInitialConstructor(final LocalCopeType type)
 	{
-		if(type.isBlock)
+		if(type.isBlock())
 			return;
 		if(!type.hasInitialConstructor())
 			return;
@@ -241,10 +241,10 @@ final class Generator
 		final SortedSet<Class<? extends Throwable>> constructorExceptions = type.getConstructorExceptions();
 
 		final List<String> commentLines=new ArrayList<>();
-		commentLines.add(" * "+format(CONSTRUCTOR_INITIAL, type.name));
+		commentLines.add(" * "+format(CONSTRUCTOR_INITIAL, type.getName()));
 		for(final CopeFeature feature : initialFeatures)
 		{
-			commentLines.add(" * @param "+feature.name+' '+format(CONSTRUCTOR_INITIAL_PARAMETER, link(feature.name)));
+			commentLines.add(" * @param "+feature.getName()+' '+format(CONSTRUCTOR_INITIAL_PARAMETER, link(feature.getName())));
 		}
 		for(final Class<?> constructorException : constructorExceptions)
 		{
@@ -260,18 +260,18 @@ final class Generator
 					continue;
 
 				comma.appendTo(fields);
-				fields.append(feature.name);
+				fields.append(feature.getName());
 			}
 
 			final String pattern = a.value();
 			commentLines.add(" * @throws "+constructorException.getCanonicalName()+' '+format(pattern, fields.toString()));
 		}
-		finishComment(type.option.comments(), commentLines, CONSTRUCTOR_INITIAL_CUSTOMIZE_TAGS);
-		writeGeneratedAnnotation(type.option.comments(), CONSTRUCTOR_INITIAL_CUSTOMIZE_ANNOTATIONS);
+		finishComment(type.getOption().comments(), commentLines, CONSTRUCTOR_INITIAL_CUSTOMIZE_TAGS);
+		writeGeneratedAnnotation(type.getOption().comments(), CONSTRUCTOR_INITIAL_CUSTOMIZE_ANNOTATIONS);
 
 		writeIndent();
 		writeModifier(type.getInitialConstructorModifier());
-		write(type.name);
+		write(type.getName());
 		write('(');
 
 		final CharSeparator comma = new CharSeparator(',');
@@ -299,7 +299,7 @@ final class Generator
 			write(finalArgPrefix);
 			write(new Context(feature, feature.parent!=type).write(feature.getInitialType()));
 			write(' ');
-			write(feature.name);
+			write(feature.getName());
 		}
 
 		write(')');
@@ -319,18 +319,18 @@ final class Generator
 			writeIndent(2);
 			if(directSetValueMap)
 				write(SET_VALUE + ".map(");
-			final CopeType parent = feature.parent;
+			final CopeType<?> parent = feature.parent;
 			if(parent==type)
-				write(type.name);
+				write(type.getName());
 			else
-				write(parent.javaClass.getFullName());
+				write(parent.getFullName());
 			write('.');
-			write(feature.name);
+			write(feature.getName());
 			if(directSetValueMap)
 				write(',');
 			else
 				write(".map(");
-			write(feature.name);
+			write(feature.getName());
 			write("),");
 			write(lineSeparator);
 		}
@@ -343,23 +343,23 @@ final class Generator
 			write(lineSeparator);
 	}
 
-	private void writeGenericConstructor(final CopeType type)
+	private void writeGenericConstructor(final LocalCopeType type)
 	{
-		if(type.isBlock)
+		if(type.isBlock())
 			return;
 
-		final Visibility option = type.option.genericConstructor();
+		final Visibility option = type.getOption().genericConstructor();
 		if(!option.exists())
 			return;
 
 		final List<String> commentLines=new ArrayList<>();
-		commentLines.add(" * "+format(CONSTRUCTOR_GENERIC, type.name));
-		finishComment(type.option.comments(), commentLines, CONSTRUCTOR_GENERIC_CUSTOMIZE_TAGS);
-		writeGeneratedAnnotation(type.option.comments(), CONSTRUCTOR_GENERIC_CUSTOMIZE_ANNOTATIONS);
+		commentLines.add(" * "+format(CONSTRUCTOR_GENERIC, type.getName()));
+		finishComment(type.getOption().comments(), commentLines, CONSTRUCTOR_GENERIC_CUSTOMIZE_TAGS);
+		writeGeneratedAnnotation(type.getOption().comments(), CONSTRUCTOR_GENERIC_CUSTOMIZE_ANNOTATIONS);
 
 		writeIndent();
 		writeModifier(option.getModifier(type.getSubtypeModifier()));
-		write(type.name);
+		write(type.getName());
 		write('(');
 		write(finalArgPrefix);
 		write(SET_VALUE + "<?>... setValues)");
@@ -376,30 +376,30 @@ final class Generator
 			write(lineSeparator);
 	}
 
-	private void writeActivationConstructor(final CopeType type)
+	private void writeActivationConstructor(final LocalCopeType type)
 	{
-		if(type.isComposite)
+		if(type.isComposite())
 			return;
 
-		final Visibility option = type.option.activationConstructor();
+		final Visibility option = type.getOption().activationConstructor();
 		if(!option.exists())
 			return;
 
-		final boolean block = type.isBlock;
+		final boolean block = type.isBlock();
 		final Class<?> constructor = block ? Block.class : Item.class;
 		final String activation = (block ? BlockActivationParameters.class : ActivationParameters.class).getName();
 
 		final List<String> commentLines=new ArrayList<>();
 		commentLines.add(" * "+"Activation constructor. Used for internal purposes only.");
 		commentLines.add(" * @see "+constructor.getName()+'#'+constructor.getSimpleName()+'('+activation+')');
-		finishComment(type.option.comments(), commentLines);
-		writeGeneratedAnnotation(type.option.comments(), null);
+		finishComment(type.getOption().comments(), commentLines);
+		writeGeneratedAnnotation(type.getOption().comments(), null);
 
 		writeIndent();
 		if(suppressUnusedWarningOnPrivateActivationConstructor && !type.allowSubtypes())
 			write("@SuppressWarnings(\"unused\") ");
 		writeModifier(option.getModifier(type.getSubtypeModifier()));
-		write(type.name);
+		write(type.getName());
 		write('(');
 		write(finalArgPrefix);
 		write(activation);
@@ -411,7 +411,7 @@ final class Generator
 			write(lineSeparator);
 	}
 
-	private void writeFeature(final CopeFeature feature)
+	private void writeFeature(final LocalCopeFeature feature)
 	{
 		final Object instance = feature.getInstance();
 		final JavaClass javaClass = feature.getParent();
@@ -424,7 +424,7 @@ final class Generator
 			final Visibility visibility = option.visibility();
 			if(!visibility.exists())
 				continue;
-			if(feature.parent.isBlock && wrapper.hasStaticClassToken())
+			if(feature.parent.isBlock() && wrapper.hasStaticClassToken())
 				continue;
 
 			final Context ctx = new Context(feature, wrapper);
@@ -432,16 +432,16 @@ final class Generator
 			final java.lang.reflect.Type methodReturnType = wrapper.getReturnType();
 			final List<WrapperX.Parameter> parameters = wrapper.getParameters();
 			final Map<Class<? extends Throwable>, String[]> throwsClause = wrapper.getThrowsClause();
-			final String featureNameCamelCase = toCamelCase(feature.name);
+			final String featureNameCamelCase = toCamelCase(feature.getName());
 			final boolean isStatic = wrapper.isStatic();
 			final boolean internal = option.internal();
 			final boolean override = option.override();
 			final boolean useIs = instance instanceof BooleanField && methodName.startsWith("get");
 
 			final Object[] arguments = new String[]{
-					link(feature.name),
-					feature.name,
-					lowerCamelCase(feature.parent.name),
+					link(feature.getName()),
+					feature.getName(),
+					lowerCamelCase(feature.parent.getName()),
 					featureNameCamelCase};
 			{
 				final List<String> commentLines=new ArrayList<>();
@@ -465,9 +465,9 @@ final class Generator
 							final CopeFeature parameterFeature = feature.parent.getFeature(parameterName);
 
 							final Object[] parameterArguments = new String[]{
-									link(parameterFeature.name),
-									parameterFeature.name,
-									lowerCamelCase(parameterFeature.parent.name)};
+									link(parameterFeature.getName()),
+									parameterFeature.getName(),
+									lowerCamelCase(parameterFeature.parent.getName())};
 							collectCommentParagraph(
 									commentLines,
 									"@param " + format(parameterName, parameterArguments),
@@ -491,7 +491,7 @@ final class Generator
 							e.getValue(), arguments);
 				}
 				finishComment(
-					feature.parent.option.comments(),
+					feature.parent.getOption().comments(),
 					commentLines,
 					modifierTag!=null
 					?  "It can be customized with the tag " +
@@ -507,7 +507,7 @@ final class Generator
 					: null
 				);
 				writeGeneratedAnnotation(
-					feature.parent.option.comments(),
+					feature.parent.getOption().comments(),
 					modifierTag!=null
 					?  getAnnotationsHint(Wrapper.class, "wrap", "\""+modifierTag+"\"")
 					: null
@@ -560,7 +560,7 @@ final class Generator
 					visibility.getModifier(
 							internal && visibility.isDefault()
 							? PRIVATE
-							: feature.modifier
+							: feature.getModifier()
 					) |
 					(isStatic ? STATIC : 0) |
 					(option.asFinal() ? FINAL : 0));
@@ -581,10 +581,10 @@ final class Generator
 						if(!isKeyword(x))
 							write(x);
 						else
-							write(format(pattern, featureNameCamelCase, feature.name));
+							write(format(pattern, featureNameCamelCase, feature.getName()));
 					}
 					else
-						write(format(pattern, featureNameCamelCase, feature.name));
+						write(format(pattern, featureNameCamelCase, feature.getName()));
 				}
 				else
 				{
@@ -639,14 +639,14 @@ final class Generator
 			writeIndent(1);
 			if(!methodReturnType.equals(void.class))
 				write("return ");
-		if(feature.parent.isComposite)
+		if(feature.parent.isComposite())
 		{
 			write(methodName);
 			write('(');
 			{
-				write(feature.parent.name);
+				write(feature.parent.getName());
 				write('.');
-				write(feature.name);
+				write(feature.getName());
 				for(final WrapperX.Parameter parameter : parameters)
 				{
 					write(',');
@@ -657,12 +657,12 @@ final class Generator
 		}
 		else
 		{
-			final boolean block = feature.parent.isBlock;
+			final boolean block = feature.parent.isBlock();
 			if(block)
 				write("field().of(");
-			write(feature.parent.name);
+			write(feature.parent.getName());
 			write('.');
-			write(feature.name);
+			write(feature.getName());
 			if(block)
 				write(')');
 			write('.');
@@ -675,9 +675,9 @@ final class Generator
 					if(wrapper.hasStaticClassToken())
 					{
 						comma.appendTo(output);
-						write(feature.parent.name);
+						write(feature.parent.getName());
 						write(".class");
-						if(feature.parent.javaClass.typeParameters>0)
+						if(feature.parent.getTypeParameters()>0)
 							write("Wildcard.value");
 					}
 				}
@@ -802,14 +802,14 @@ final class Generator
 		}
 	}
 
-	private void writeSerialVersionUID(final CopeType type)
+	private void writeSerialVersionUID(final LocalCopeType type)
 	{
 		if(!serialVersionUID)
 			return;
 
 		final List<String> commentLines=new ArrayList<>();
-		finishComment(type.option.comments(), commentLines);
-		writeGeneratedAnnotation(type.option.comments(), null);
+		finishComment(type.getOption().comments(), commentLines);
+		writeGeneratedAnnotation(type.getOption().comments(), null);
 
 		writeIndent();
 		writeModifier(PRIVATE|STATIC|FINAL);
@@ -821,26 +821,26 @@ final class Generator
 			write(lineSeparator);
 	}
 
-	private void writeType(final CopeType type)
+	private void writeType(final LocalCopeType type)
 	{
-		if(type.isComposite)
+		if(type.isComposite())
 			return;
 
-		final Visibility option = type.option.type();
+		final Visibility option = type.getOption().type();
 		if(!option.exists())
 			return;
 
-		final boolean block = type.isBlock;
+		final boolean block = type.isBlock();
 
 		final List<String> commentLines=new ArrayList<>();
 		commentLines.add(
 			" * "+
 			format(
 				block ? "The type information for {0}." : "The persistent type information for {0}.",
-				lowerCamelCase(type.name))
+				lowerCamelCase(type.getName()))
 		);
 		finishComment(
-				type.option.comments(),
+				type.getOption().comments(),
 				commentLines,
 				"It can be customized with the tag " +
 				"<tt>@" + CopeType.TAG_TYPE + ' ' +
@@ -853,7 +853,7 @@ final class Generator
 				"in the class comment."
 		);
 		writeGeneratedAnnotation(
-			type.option.comments(),
+			type.getOption().comments(),
 			"customize with @"+WrapperType.class.getSimpleName()+"(type=...)"
 		);
 
@@ -865,26 +865,26 @@ final class Generator
 		}
 
 		writeIndent();
-		writeModifier(option.getModifier(type.javaClass.modifier) | (STATIC|FINAL));
+		writeModifier(option.getModifier(type.getModifier()) | (STATIC|FINAL));
 		write((block ? BlockType.class : Type.class).getName());
 		write('<');
-		write(type.name);
+		write(type.getName());
 		writeWildcard(type);
 		write("> TYPE = ");
 		write((block ? BlockType.class : TypesBound.class).getName());
 		write(".newType(");
-		write(type.name);
+		write(type.getName());
 		write(".class");
-		if(type.javaClass.typeParameters>0)
+		if(type.getTypeParameters()>0)
 			write("Wildcard.value");
 		write(");");
 		if (hintFormat==HintFormat.forAnnotations)
 			write(lineSeparator);
 	}
 
-	private void writeWildcard(final CopeType type)
+	private void writeWildcard(final LocalCopeType type)
 	{
-		final int typeParameters = type.javaClass.typeParameters;
+		final int typeParameters = type.getTypeParameters();
 		if(typeParameters>0)
 		{
 			write("<?");
@@ -900,7 +900,7 @@ final class Generator
 		int previousClassEndPosition = 0;
 		for(final JavaClass javaClass : javaFile.getClasses())
 		{
-			final CopeType type = CopeType.getCopeType(javaClass);
+			final LocalCopeType type = LocalCopeType.getCopeType(javaClass);
 			final int classEndPosition = javaClass.getClassEndPositionInSourceWithoutGeneratedFragments();
 			if(type!=null)
 			{
@@ -910,7 +910,7 @@ final class Generator
 
 				try
 				{
-					typeIndent = type.option.indent();
+					typeIndent = type.getOption().indent();
 					writeClassFeatures(type);
 					typeIndent = Integer.MIN_VALUE;
 				}
@@ -924,7 +924,7 @@ final class Generator
 		output.append(buffer, previousClassEndPosition, buffer.length());
 	}
 
-	private void writeClassFeatures(final CopeType type)
+	private void writeClassFeatures(final LocalCopeType type)
 	{
 		if(type.isInterface())
 			return;
@@ -932,7 +932,7 @@ final class Generator
 		writeInitialConstructor(type);
 		writeGenericConstructor(type);
 
-		for(final CopeFeature feature : type.getFeatures())
+		for(final LocalCopeFeature feature : type.getFeatures())
 			writeFeature(feature);
 
 		writeSerialVersionUID(type);

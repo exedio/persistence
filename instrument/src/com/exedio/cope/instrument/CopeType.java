@@ -23,18 +23,16 @@ import static java.lang.reflect.Modifier.PRIVATE;
 import static java.lang.reflect.Modifier.PROTECTED;
 
 import com.exedio.cope.FinalViolationException;
-import com.exedio.cope.Item;
-import java.lang.annotation.Annotation;
+import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
 import java.util.SortedSet;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
-final class CopeType
+abstract class CopeType<F extends CopeFeature>
 {
 	static final String TAG_TYPE                   = TAG_PREFIX + "type";
 	static final String TAG_INITIAL_CONSTRUCTOR    = TAG_PREFIX + "constructor";
@@ -42,148 +40,130 @@ final class CopeType
 	static final String TAG_ACTIVATION_CONSTRUCTOR = TAG_PREFIX + "activation.constructor";
 	static final String TAG_INDENT                 = TAG_PREFIX + "indent";
 
-	private static final HashMap<JavaClass, CopeType> copeTypeByJavaClass = new HashMap<>();
-
-	static final CopeType getCopeType(final JavaClass javaClass)
+	private static enum Kind
 	{
-		final CopeType result = copeTypeByJavaClass.get(javaClass);
-		//System.out.println("getCopeClass "+javaClass.getFullName()+" "+(result==null?"NULL":result.getName()));
-		return result;
+		item, composite, block
 	}
 
-
-	final JavaClass javaClass;
-	final boolean isBlock;
-	final boolean isComposite;
-	final String name;
-	final InternalVisibility visibility;
-	final WrapperType option;
-
-	private final ArrayList<CopeFeature> features = new ArrayList<>();
-	private final TreeMap<String, CopeFeature> featureMap = new TreeMap<>();
-
-	public CopeType(final JavaClass javaClass, final boolean isBlock, final boolean isComposite)
+	private static Kind toKind(final boolean isItem, final boolean isBlock, final boolean isComposite)
 	{
-		this.javaClass = javaClass;
-		this.isBlock = isBlock;
-		this.isComposite = isComposite;
-		this.name = javaClass.name;
-		this.visibility = javaClass.getVisibility();
-		this.option = Tags.cascade(
-				javaClass,
-				Tags.forType(javaClass.docComment),
-				javaClass.typeOption,
-				OPTION_DEFAULT);
-		copeTypeByJavaClass.put(javaClass, this);
-
-		javaClass.nameSpace.importStatic(Item.class);
-		javaClass.file.repository.add(this);
-	}
-
-	private static final WrapperType OPTION_DEFAULT = new WrapperType()
-	{
-		@Override public Class<? extends Annotation> annotationType() { throw new RuntimeException(); }
-		@Override public Visibility type() { return Visibility.DEFAULT; }
-		@Override public Visibility constructor() { return Visibility.DEFAULT; }
-		@Override public Visibility genericConstructor() { return Visibility.DEFAULT; }
-		@Override public Visibility activationConstructor() { return Visibility.DEFAULT; }
-		@Override public int indent() { return 1; }
-		@Override public boolean comments() { return true; }
-	};
-
-	private boolean isFinal()
-	{
-		return javaClass.isFinal();
-	}
-
-	public boolean isInterface()
-	{
-		return javaClass.isInterface();
-	}
-
-	private CopeType supertype;
-
-	void endBuildStage()
-	{
-		assert !javaClass.file.repository.isBuildStage();
-		assert javaClass.file.repository.isGenerateStage();
-
-		if(isBlock||isComposite)
-			return;
-
-		final String extname = javaClass.classExtends;
-
-		if(extname==null)
+		if (isItem)
 		{
-			supertype = null;
+			if (isBlock||isComposite) throw new RuntimeException();
+			return Kind.item;
+		}
+		else if (isBlock)
+		{
+			if (isItem||isComposite) throw new RuntimeException();
+			return Kind.block;
+		}
+		else if (isComposite)
+		{
+			if (isItem||isBlock) throw new RuntimeException();
+			return Kind.composite;
 		}
 		else
 		{
-			final Class<?> externalType = javaClass.file.findTypeExternally(extname);
-			if(externalType==Item.class)
-				supertype = null;
-			else
-				supertype = javaClass.file.repository.getCopeType(extname);
+			throw new RuntimeException();
 		}
 	}
 
-	public CopeType getSuperclass()
-	{
-		assert !javaClass.file.repository.isBuildStage();
 
-		return supertype;
+	private final Kind kind;
+
+	private final ArrayList<F> features = new ArrayList<>();
+	private final TreeMap<String, F> featureMap = new TreeMap<>();
+
+	CopeType(final boolean isItem, final boolean isBlock, final boolean isComposite)
+	{
+		this.kind = toKind(isItem, isBlock, isComposite);
 	}
 
-	boolean allowSubtypes()
+	abstract String getName();
+
+	abstract WrapperType getOption();
+
+	final InternalVisibility getVisibility()
 	{
-		assert !javaClass.file.repository.isBuildStage();
+		return InternalVisibility.forModifier(getModifier());
+	}
+
+	final boolean isFinal()
+	{
+		return Modifier.isFinal(getModifier());
+	}
+
+	abstract boolean isInterface();
+
+	final boolean isBlock()
+	{
+		return kind==Kind.block;
+	}
+
+	final boolean isItem()
+	{
+		return kind==Kind.item;
+	}
+
+	final boolean isComposite()
+	{
+		return kind==Kind.composite;
+	}
+
+	abstract Evaluatable getField(final String name);
+
+	abstract CopeType<?> getSuperclass();
+
+	final boolean allowSubtypes()
+	{
+		assertNotBuildStage();
 
 		return !isFinal();
 	}
 
-	int getSubtypeModifier()
+	final int getSubtypeModifier()
 	{
 		return allowSubtypes() ? PROTECTED : PRIVATE;
 	}
 
-	public void register(final CopeFeature feature)
+	final void register(final F feature)
 	{
-		assert !javaClass.file.repository.isBuildStage();
-		assert !javaClass.file.repository.isGenerateStage();
+		assertNotBuildStage();
+		assertNotGenerateStage();
 
 		features.add(feature);
-		final Object collision = featureMap.put(feature.name, feature);
-		assert collision==null : feature.name;
+		final Object collision = featureMap.put(feature.getName(), feature);
+		assert collision==null : feature.getName();
 	}
 
-	public CopeFeature getFeature(final String name)
+	final CopeFeature getFeature(final String name)
 	{
-		assert !javaClass.file.repository.isBuildStage();
+		assertNotBuildStage();
 		return featureMap.get(name);
 	}
 
-	public List<CopeFeature> getFeatures()
+	final List<F> getFeatures()
 	{
-		assert !javaClass.file.repository.isBuildStage();
+		assertNotBuildStage();
 		return Collections.unmodifiableList(features);
 	}
 
-	public boolean hasInitialConstructor()
+	final boolean hasInitialConstructor()
 	{
-		return option.constructor().exists();
+		return getOption().constructor().exists();
 	}
 
-	public int getInitialConstructorModifier()
+	final int getInitialConstructorModifier()
 	{
-		InternalVisibility inheritedVisibility = visibility;
+		InternalVisibility inheritedVisibility = getVisibility();
 		for(final CopeFeature initialFeature : getInitialFeatures())
 		{
-			final InternalVisibility intialFeatureVisibility = initialFeature.visibility;
+			final InternalVisibility intialFeatureVisibility = initialFeature.getVisibility();
 			if(inheritedVisibility.ordinal()<intialFeatureVisibility.ordinal())
 				inheritedVisibility = intialFeatureVisibility;
 		}
 
-		return option.constructor().getModifier(inheritedVisibility.modifier);
+		return getOption().constructor().getModifier(inheritedVisibility.modifier);
 	}
 
 	private ArrayList<CopeFeature> initialFeatures = null;
@@ -194,7 +174,7 @@ final class CopeType
 		initialFeatures = new ArrayList<>();
 		constructorExceptions = new TreeSet<>(CLASS_COMPARATOR);
 
-		final CopeType superclass = getSuperclass();
+		final CopeType<?> superclass = getSuperclass();
 		if(superclass!=null)
 		{
 			initialFeatures.addAll(superclass.getInitialFeatures());
@@ -212,7 +192,7 @@ final class CopeType
 		constructorExceptions.remove(FinalViolationException.class);
 	}
 
-	public final List<CopeFeature> getInitialFeatures()
+	final List<CopeFeature> getInitialFeatures()
 	{
 		if(initialFeatures == null)
 			makeInitialFeaturesAndConstructorExceptions();
@@ -226,7 +206,7 @@ final class CopeType
 	 * but without the FinalViolationException,
 	 * because final attributes can only be written in the constructor.
 	 */
-	public final SortedSet<Class<? extends Throwable>> getConstructorExceptions()
+	final SortedSet<Class<? extends Throwable>> getConstructorExceptions()
 	{
 		if(constructorExceptions == null)
 			makeInitialFeaturesAndConstructorExceptions();
@@ -236,14 +216,27 @@ final class CopeType
 	static final Comparator<Class<?>> CLASS_COMPARATOR =
 			(c1, c2) -> c1.getName().compareTo(c2.getName());
 
-	int getSerialVersionUID()
+	final int getSerialVersionUID()
 	{
-		return name.hashCode();
+		return getName().hashCode();
 	}
 
 	@Override
-	public String toString()
+	public final String toString()
 	{
-		return name;
+		return getName();
 	}
+
+	abstract int getTypeParameters();
+
+	abstract String getFullName();
+
+	abstract int getModifier();
+
+	abstract void assertNotBuildStage();
+
+	abstract void assertGenerateStage();
+
+	abstract void assertNotGenerateStage();
+
 }

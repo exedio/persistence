@@ -29,7 +29,7 @@ import java.lang.annotation.Target;
  * feature (unless required for an other, non-ignored feature).
  */
 @Target({ElementType.FIELD, ElementType.TYPE})
-@Retention(RetentionPolicy.SOURCE)
+@Retention(RetentionPolicy.RUNTIME)
 public @interface WrapperIgnore
 {
 	// empty

@@ -31,7 +31,6 @@ import com.exedio.cope.pattern.BlockType;
 import com.exedio.cope.pattern.Composite;
 import com.exedio.cope.pattern.Money;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -66,7 +65,7 @@ final class JavaRepository
 	private final HashMap<String, JavaClass> javaClassByFullName = new HashMap<>();
 	private final HashMap<String,List<JavaClass>> problematicSimpleNames = new HashMap<>();
 
-	private final HashMap<JavaClass, CopeType> copeTypeByJavaClass = new HashMap<>();
+	private final HashMap<JavaClass, LocalCopeType> copeTypeByJavaClass = new HashMap<>();
 
 	void endBuildStage()
 	{
@@ -84,31 +83,13 @@ final class JavaRepository
 			final boolean isComposite = isComposite(javaClass);
 			if(isItem||isBlock||isComposite)
 			{
-				final CopeType type = new CopeType(javaClass, isBlock, isComposite);
-
-				feature: for(final JavaField javaField : javaClass.getFields())
-				{
-					final int modifier = javaField.modifier;
-					if(!Modifier.isFinal(modifier) || !Modifier.isStatic(modifier))
-						continue feature;
-
-					final String docComment = javaField.docComment;
-					if(Tags.cascade(javaField, Tags.forIgnore(docComment), javaField.wrapperIgnore, null)!=null)
-						continue feature;
-
-					final Class<?> typeClass = javaField.file.findTypeExternally(javaField.typeRaw);
-					if(typeClass==null)
-						continue feature;
-
-					if(typeClass.isAnnotationPresent(WrapFeature.class))
-						new CopeFeature(type, javaField);
-				}
+				final LocalCopeType type = new LocalCopeType(javaClass, isItem, isBlock, isComposite);
 			}
 		}
 
 		stage = Stage.GENERATE;
 
-		for(final CopeType ct : copeTypeByJavaClass.values())
+		for(final LocalCopeType ct : copeTypeByJavaClass.values())
 			ct.endBuildStage();
 	}
 
@@ -292,7 +273,7 @@ final class JavaRepository
 		}
 	}
 
-	void add(final CopeType copeType)
+	void add(final LocalCopeType copeType)
 	{
 		assert stage==Stage.BETWEEN;
 
@@ -301,7 +282,7 @@ final class JavaRepository
 		//System.out.println("--------- put cope type: "+name);
 	}
 
-	CopeType getCopeType(final String className)
+	LocalCopeType getCopeType(final String className)
 	{
 		assert stage==Stage.BETWEEN || stage==Stage.GENERATE;
 
@@ -309,7 +290,7 @@ final class JavaRepository
 		if(javaClass==null)
 			throw new RuntimeException("no java class for "+className);
 
-		final CopeType result = copeTypeByJavaClass.get(javaClass);
+		final LocalCopeType result = copeTypeByJavaClass.get(javaClass);
 		if(result==null)
 			throw new RuntimeException("no cope type for "+className);
 

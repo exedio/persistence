@@ -222,6 +222,10 @@
                         <location>instrument/testsrc</location>
                     </source-folder>
                     <source-folder style="packages">
+                        <label>instrument/testlibsrc</label>
+                        <location>instrument/testlibsrc</location>
+                    </source-folder>
+                    <source-folder style="packages">
                         <label>runtime/src</label>
                         <location>runtime/src</location>
                     </source-folder>
@@ -302,6 +306,7 @@
             <compilation-unit>
                 <package-root>instrument/testfeaturesrc</package-root>
                 <package-root>instrument/testsrc</package-root>
+                <package-root>instrument/testlibsrc</package-root>
                 <package-root>runtime/testsrc</package-root>
                 <package-root>runtime/testfeaturesrc</package-root>
                 <package-root>runtime/servlettestsrc</package-root>

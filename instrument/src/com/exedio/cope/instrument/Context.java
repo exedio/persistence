@@ -49,12 +49,12 @@ final class Context
 
 	private String getClassToken()
 	{
-		final CopeType type = feature.parent;
-		final int typeParameters = type.javaClass.typeParameters;
+		final CopeType<?> type = feature.parent;
+		final int typeParameters = type.getTypeParameters();
 		if(typeParameters==0)
-			return type.name;
+			return type.getName();
 
-		final StringBuilder bf = new StringBuilder(type.name);
+		final StringBuilder bf = new StringBuilder(type.getName());
 		if(typeParameters>0)
 		{
 			bf.append("<?");
@@ -67,7 +67,7 @@ final class Context
 
 	private String getGenericFieldParameter(final int number)
 	{
-		return Generics.get(feature.javaField.type).get(number);
+		return Generics.get(feature.getType()).get(number);
 	}
 
 	private Class<?> getFeatureClass()
@@ -201,19 +201,26 @@ final class Context
 		final String name = t.name;
 		if(fullyQualified)
 		{
-			final JavaFile file = feature.parent.javaClass.file;
-			final String nameRaw = Generics.strip(name);
+			if (feature.parent instanceof LocalCopeType)
 			{
-				final Class<?> clazz = file.findTypeExternally(nameRaw);
-				if(clazz!=null)
-					return clazz.getCanonicalName();
+				final JavaFile file = ((LocalCopeType)feature.parent).javaClass.file;
+				final String nameRaw = Generics.strip(name);
+				{
+					final Class<?> clazz = file.findTypeExternally(nameRaw);
+					if(clazz!=null)
+						return clazz.getCanonicalName();
+				}
+				{
+					final JavaClass javaClass = file.repository.getJavaClass(nameRaw);
+					if(javaClass!=null)
+						return javaClass.getCanonicalNameWildcard();
+				}
+				throw new RuntimeException(name);
 			}
+			else
 			{
-				final JavaClass javaClass = file.repository.getJavaClass(nameRaw);
-				if(javaClass!=null)
-					return javaClass.getCanonicalNameWildcard();
+				return name;
 			}
-			throw new RuntimeException(name);
 		}
 		else
 		{

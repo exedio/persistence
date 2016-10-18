@@ -18,17 +18,7 @@
 
 package com.exedio.cope.instrument;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
-
-/**
- * Controls whether a feature becomes part of the {@link WrapperType#constructor() initial constructor}.
- */
-@Target(ElementType.FIELD)
-@Retention(RetentionPolicy.RUNTIME)
-public @interface WrapperInitial
+interface Evaluatable
 {
-	boolean value() default true;
+	public Object evaluate();
 }
