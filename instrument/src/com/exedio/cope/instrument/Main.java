@@ -30,6 +30,7 @@ import java.net.URL;
 import java.net.URLClassLoader;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import javax.tools.StandardJavaFileManager;
 
@@ -45,7 +46,9 @@ final class Main
 		files.removeAll(params.ignoreFiles);
 		if(files.isEmpty())
 			throw new HumanReadableException("nothing to do.");
-		if ( noFilesModifiedAfter(files, params.timestampFile, params.verbose) && noFilesModifiedAfter(resourceFiles, params.timestampFile, params.verbose) )
+		if ( noFilesModifiedAfter(files, params.timestampFile, params.verbose)
+			&& noFilesModifiedAfter(resourceFiles, params.timestampFile, params.verbose)
+			&& noFilesModifiedAfter(classpathFiles, params.timestampFile, params.verbose) )
 		{
 			System.out.println("No files or resources modified.");
 			return;
@@ -189,6 +192,13 @@ final class Main
 						System.out.println("File "+file+" changed after timestamp file, instrumentation required.");
 					}
 					return false;
+				}
+				if ( file.isDirectory() )
+				{
+					if ( !noFilesModifiedAfter(Arrays.asList(file.listFiles()), referenceFile, verbose) )
+					{
+						return false;
+					}
 				}
 			}
 			return true;
