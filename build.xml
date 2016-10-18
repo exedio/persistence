@@ -708,7 +708,6 @@
 	</target>
 
 	<target name="instrument.taskdef" depends="dsmf.compile, runtime.core.compile, runtime.pattern.compile, runtime.servlet.compile, instrument.compile, instrument.testfeature.compile, runtime.test.feature.compile">
-		<mkdir dir="build/classes/instrument/testlibsrc" />
 		<taskdef resource="com/exedio/cope/instrument/ant.properties">
 			<classpath id="instrument.resources">
 				<pathelement location="build/classes/dsmf/src" />
