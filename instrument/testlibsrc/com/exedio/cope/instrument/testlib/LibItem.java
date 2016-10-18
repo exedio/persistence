@@ -19,6 +19,7 @@
 package com.exedio.cope.instrument.testlib;
 
 import com.exedio.cope.Item;
+import com.exedio.cope.instrument.WrapperIgnore;
 import com.exedio.cope.instrument.WrapperInitial;
 import com.exedio.cope.instrument.testfeature.OptionFeature;
 import com.exedio.cope.instrument.testfeature.SettableOpen;
@@ -43,6 +44,9 @@ public abstract class LibItem<T> extends Item
 	public static final SettableOpen<String[]> strings=new SettableOpen<>();
 
 	public static final SettableOpen<Set<List<Object>>> nestedGenerics=new SettableOpen<>();
+
+	@WrapperIgnore
+	public static final SimpleSettable ignored=new SimpleSettable(true);
 
 	public abstract T makeTee();
 
