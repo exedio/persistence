@@ -107,7 +107,7 @@ final class LocalCopeType extends CopeType<LocalCopeFeature>
 	}
 
 	@Override
-	public boolean isInterface()
+	boolean isInterface()
 	{
 		return javaClass.isInterface();
 	}

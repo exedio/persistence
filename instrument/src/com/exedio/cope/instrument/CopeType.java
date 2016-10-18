@@ -95,17 +95,17 @@ abstract class CopeType<F extends CopeFeature>
 
 	abstract boolean isInterface();
 
-	boolean isBlock()
+	final boolean isBlock()
 	{
 		return kind==Kind.block;
 	}
 
-	boolean isItem()
+	final boolean isItem()
 	{
 		return kind==Kind.item;
 	}
 
-	boolean isComposite()
+	final boolean isComposite()
 	{
 		return kind==Kind.composite;
 	}
@@ -121,12 +121,12 @@ abstract class CopeType<F extends CopeFeature>
 		return !isFinal();
 	}
 
-	int getSubtypeModifier()
+	final int getSubtypeModifier()
 	{
 		return allowSubtypes() ? PROTECTED : PRIVATE;
 	}
 
-	public void register(final F feature)
+	final void register(final F feature)
 	{
 		assertNotBuildStage();
 		assertNotGenerateStage();
@@ -136,24 +136,24 @@ abstract class CopeType<F extends CopeFeature>
 		assert collision==null : feature.getName();
 	}
 
-	public CopeFeature getFeature(final String name)
+	final CopeFeature getFeature(final String name)
 	{
 		assertNotBuildStage();
 		return featureMap.get(name);
 	}
 
-	public List<F> getFeatures()
+	final List<F> getFeatures()
 	{
 		assertNotBuildStage();
 		return Collections.unmodifiableList(features);
 	}
 
-	public boolean hasInitialConstructor()
+	final boolean hasInitialConstructor()
 	{
 		return getOption().constructor().exists();
 	}
 
-	public int getInitialConstructorModifier()
+	final int getInitialConstructorModifier()
 	{
 		InternalVisibility inheritedVisibility = getVisibility();
 		for(final CopeFeature initialFeature : getInitialFeatures())
@@ -192,7 +192,7 @@ abstract class CopeType<F extends CopeFeature>
 		constructorExceptions.remove(FinalViolationException.class);
 	}
 
-	public final List<CopeFeature> getInitialFeatures()
+	final List<CopeFeature> getInitialFeatures()
 	{
 		if(initialFeatures == null)
 			makeInitialFeaturesAndConstructorExceptions();
@@ -206,7 +206,7 @@ abstract class CopeType<F extends CopeFeature>
 	 * but without the FinalViolationException,
 	 * because final attributes can only be written in the constructor.
 	 */
-	public final SortedSet<Class<? extends Throwable>> getConstructorExceptions()
+	final SortedSet<Class<? extends Throwable>> getConstructorExceptions()
 	{
 		if(constructorExceptions == null)
 			makeInitialFeaturesAndConstructorExceptions();
@@ -216,13 +216,13 @@ abstract class CopeType<F extends CopeFeature>
 	static final Comparator<Class<?>> CLASS_COMPARATOR =
 			(c1, c2) -> c1.getName().compareTo(c2.getName());
 
-	int getSerialVersionUID()
+	final int getSerialVersionUID()
 	{
 		return getName().hashCode();
 	}
 
 	@Override
-	public String toString()
+	public final String toString()
 	{
 		return getName();
 	}
