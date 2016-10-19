@@ -86,9 +86,9 @@ final class JavaRepository
 			if(javaClass.isInterface())
 				continue;
 
-			final boolean isItem = isItem(javaClass);
-			final boolean isBlock = isBlock(javaClass);
-			final boolean isComposite = isComposite(javaClass);
+			final boolean isItem = javaClass.isItem;
+			final boolean isBlock = javaClass.isBlock;
+			final boolean isComposite = javaClass.isComposite;
 			if(isItem||isBlock||isComposite)
 			{
 				new LocalCopeType(javaClass, isItem, isBlock, isComposite);
@@ -109,21 +109,6 @@ final class JavaRepository
 	boolean isGenerateStage()
 	{
 		return stage==Stage.GENERATE;
-	}
-
-	boolean isItem(JavaClass javaClass)
-	{
-		return javaClass.isItem;
-	}
-
-	static boolean isBlock(final JavaClass javaClass)
-	{
-		return javaClass.isBlock;
-	}
-
-	static boolean isComposite(final JavaClass javaClass)
-	{
-		return javaClass.isComposite;
 	}
 
 	void add(final JavaFile file)
@@ -165,14 +150,14 @@ final class JavaRepository
 		final List<JavaClass> problematicClasses=problematicSimpleNames.remove(name);
 		if (result!=null && problematicClasses!=null)
 		{
-			final boolean resultIsItem=isItem(result);
-			final boolean resultIsBlock=isBlock(result);
-			final boolean resultIsComposite=isComposite(result);
+			final boolean resultIsItem=result.isItem;
+			final boolean resultIsBlock=result.isBlock;
+			final boolean resultIsComposite=result.isComposite;
 			for (final JavaClass checkProblematicClass: problematicClasses)
 			{
-				if (isItem(checkProblematicClass)!=resultIsItem
-					|| isBlock(checkProblematicClass)!=resultIsBlock
-					|| isComposite(checkProblematicClass)!=resultIsComposite
+				if (checkProblematicClass.isItem!=resultIsItem
+					|| checkProblematicClass.isBlock!=resultIsBlock
+					|| checkProblematicClass.isComposite!=resultIsComposite
 					|| result.isEnum!=checkProblematicClass.isEnum)
 				{
 					System.out.println("Problem resolving '"+name+"' - could be one of ...");
@@ -286,15 +271,15 @@ final class JavaRepository
 				//System.out.println("++++++++++++++++getClass(\""+name+"\") == "+javaClass+","+javaClass.isEnum);
 				if(javaClass.isEnum)
 					return EnumBeanShellHackClass.class;
-				if(isItem(javaClass))
+				if(javaClass.isItem)
 				{
 					return DummyItem.class;
 				}
-				if(isBlock(javaClass))
+				if(javaClass.isBlock)
 				{
 					return DummyBlock.class;
 				}
-				if(isComposite(javaClass))
+				if(javaClass.isComposite)
 				{
 					return DummyComposite.class;
 				}
