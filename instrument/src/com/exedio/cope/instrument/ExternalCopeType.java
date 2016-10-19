@@ -104,12 +104,6 @@ final class ExternalCopeType extends CopeType<ExternalCopeFeature>
 	}
 
 	@Override
-	String getFullName()
-	{
-		return itemClass.getName();
-	}
-
-	@Override
 	String getCanonicalName()
 	{
 		return itemClass.getCanonicalName();
