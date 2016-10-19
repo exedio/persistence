@@ -43,7 +43,7 @@ public final class CopeNameUtil
 
 	public static String getAndFallbackToSimpleName(final Class<?> clazz)
 	{
-		final String result = CopeNameUtil.get(clazz);
+		final String result = get(clazz);
 		return (result!=null) ? result : clazz.getSimpleName();
 	}
 
