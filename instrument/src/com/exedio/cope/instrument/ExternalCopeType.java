@@ -118,23 +118,26 @@ final class ExternalCopeType extends CopeType<ExternalCopeFeature>
 	@Override
 	void assertNotBuildStage()
 	{
+		// empty
 	}
 
 	@Override
 	void assertGenerateStage()
 	{
+		// empty
 	}
 
 	@Override
 	void assertNotGenerateStage()
 	{
+		// empty
 	}
 
-	static class ExternalEvaluatable implements Evaluatable
+	private static class ExternalEvaluatable implements Evaluatable
 	{
 		private final Field field;
 
-		private ExternalEvaluatable(final Field field)
+		ExternalEvaluatable(final Field field)
 		{
 			if (!Modifier.isStatic(field.getModifiers())) throw new RuntimeException();
 			this.field=field;

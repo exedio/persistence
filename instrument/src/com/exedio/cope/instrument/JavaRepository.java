@@ -83,7 +83,7 @@ final class JavaRepository
 			final boolean isComposite = isComposite(javaClass);
 			if(isItem||isBlock||isComposite)
 			{
-				final LocalCopeType type = new LocalCopeType(javaClass, isItem, isBlock, isComposite);
+				new LocalCopeType(javaClass, isItem, isBlock, isComposite);
 			}
 		}
 
