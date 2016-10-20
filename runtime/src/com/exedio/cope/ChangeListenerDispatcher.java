@@ -74,7 +74,7 @@ final class ChangeListenerDispatcher implements Runnable
 		{
 			overflow.inc();
 			if(logger.isErrorEnabled())
-				logger.error("overflows {}", transactionInfo);
+				logger.error("overflows {} {}", overflow.get(), transactionInfo);
 		}
 	}
 
