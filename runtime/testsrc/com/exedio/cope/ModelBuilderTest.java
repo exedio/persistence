@@ -25,6 +25,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 import com.exedio.cope.instrument.WrapperType;
+import com.exedio.cope.misc.ChangeHooks;
+import com.exedio.cope.misc.ChangeHooksTest;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.jupiter.api.Test;
 
@@ -36,6 +38,7 @@ public class ModelBuilderTest
 				add(ItemType.TYPE).
 				build();
 		assertEquals(asList(ItemType.TYPE), m.getTypes());
+		assertEquals(DefaultChangeHook.class.getName(), m.getChangeHookString());
 		assertRevisionsDisabled(m);
 	}
 
@@ -45,6 +48,7 @@ public class ModelBuilderTest
 				add(new TypeSet(ItemTypeSet.TYPE)).
 				build();
 		assertEquals(asList(ItemTypeSet.TYPE), m.getTypes());
+		assertEquals(DefaultChangeHook.class.getName(), m.getChangeHookString());
 		assertRevisionsDisabled(m);
 	}
 
@@ -53,11 +57,13 @@ public class ModelBuilderTest
 		final Model m = Model.builder().
 				add(ItemAllType1.TYPE, ItemAllType2.TYPE).
 				add(new TypeSet(ItemAllTypeSet1.TYPE, ItemAllTypeSet2.TYPE)).
+				changeHooks(ChangeHooksTest.factoryToString("AllChangeHook")).
 				add((ctx) -> {throw new RuntimeException();}).
 				build();
 		assertEquals(
 				asList(ItemAllTypeSet1.TYPE, ItemAllTypeSet2.TYPE, ItemAllType1.TYPE, ItemAllType2.TYPE),
 				m.getTypes());
+		assertEquals("toStringHook(AllChangeHook)", m.getChangeHookString());
 		assertRevisionsEnabled(m);
 	}
 
@@ -160,6 +166,61 @@ public class ModelBuilderTest
 		}
 	}
 
+	@Test void testFailChangeHookNull()
+	{
+		final ModelBuilder m = Model.builder();
+		try
+		{
+			m.changeHooks((ChangeHook.Factory)null);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals("hooks[0]", e.getMessage());
+		}
+	}
+
+	@Test void testFailChangeHooksNull()
+	{
+		final ModelBuilder m = Model.builder();
+		try
+		{
+			m.changeHooks((ChangeHook.Factory[])null);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals("hooks", e.getMessage());
+		}
+	}
+
+	@Test void testFailChangeHookFactoryReturnsNull()
+	{
+		final ModelBuilder m = Model.builder().
+				add(ItemFail.TYPE).
+				changeHooks(new ChangeHook.Factory()
+				{
+					@SuppressFBWarnings("NP_NONNULL_RETURN_VIOLATION") // OK: testing bad behaviour
+					@Override public ChangeHook create(final Model model)
+					{
+						return null;
+					}
+					@Override public String toString()
+					{
+						return "toStringFactoryReturnsNull";
+					}
+				});
+		try
+		{
+			m.build();
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals("ChangeHook.Factory returned null: toStringFactoryReturnsNull", e.getMessage());
+		}
+	}
+
 	@Test void testFailRevisionsNull()
 	{
 		final ModelBuilder m = Model.builder();
@@ -194,6 +255,21 @@ public class ModelBuilderTest
 		try
 		{
 			m.add((TypeSet)null);
+			fail();
+		}
+		catch(final IllegalStateException e)
+		{
+			assertEquals("already set", e.getMessage());
+		}
+	}
+
+	@SuppressFBWarnings("NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS")
+	@Test void testAlreadySetChangeHook()
+	{
+		final ModelBuilder m = Model.builder().changeHooks(ChangeHooks.EMPTY);
+		try
+		{
+			m.changeHooks((ChangeHook.Factory[])null);
 			fail();
 		}
 		catch(final IllegalStateException e)

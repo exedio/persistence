@@ -44,6 +44,13 @@ public final class RuntimeAssert
 			fail("expected " + Arrays.toString(expectedData) + ", but was " + Arrays.toString(actualData));
 	}
 
+	public static <E extends Item> E activate(
+			final Type<E> type,
+			final long pk)
+	{
+		return type.activate(pk);
+	}
+
 
 	static <T extends Item> void assertCondition(final Type<T> type, final Condition actual)
 	{

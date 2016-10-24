@@ -21,6 +21,7 @@ package com.exedio.cope;
 import static com.exedio.cope.misc.Check.requireGreaterZero;
 import static java.util.Objects.requireNonNull;
 
+import com.exedio.cope.misc.ChangeHooks;
 import com.exedio.cope.misc.DatabaseListener;
 import com.exedio.cope.misc.DirectRevisionsFactory;
 import com.exedio.cope.misc.HiddenFeatures;
@@ -66,6 +67,8 @@ public final class Model implements Serializable
 	final Types types;
 	private final Instant initializeDate = Instant.now();
 	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
+	final ChangeHook changeHook;
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	final ChangeListeners changeListeners = new ChangeListeners();
 
 	private final Object connectLock = new Object();
@@ -100,12 +103,15 @@ public final class Model implements Serializable
 			final String name,
 			final Revisions.Factory revisions,
 			final TypeSet[] typeSets,
-			final Type<?>[] types)
+			final Type<?>[] types,
+			final ChangeHook.Factory changeHook)
 	{
 		this.name = name;
 		this.revisions = revisions;
 		//noinspection ThisEscapedInObjectConstruction
 		this.types = new Types(this, typeSets, types);
+		//noinspection ThisEscapedInObjectConstruction
+		this.changeHook = ChangeHooks.create(changeHook, this);
 
 		this.types.afterModelCreated();
 	}
@@ -518,6 +524,15 @@ public final class Model implements Serializable
 	public List<ThreadController> getThreadControllers()
 	{
 		return connect().getThreadControllers();
+	}
+
+	/**
+	 * Returns {@link Object#toString()} of the {@link ChangeHook} registered
+	 * for this model.
+	 */
+	public String getChangeHookString()
+	{
+		return changeHook.toString();
 	}
 
 	/**
@@ -1042,7 +1057,7 @@ public final class Model implements Serializable
 	@Deprecated
 	public Model(final Revisions.Factory revisions, final TypeSet[] typeSets, final Type<?>... types)
 	{
-		this(null, revisions, typeSets, types);
+		this(null, revisions, typeSets, types, DefaultChangeHook.factory());
 	}
 
 	/**

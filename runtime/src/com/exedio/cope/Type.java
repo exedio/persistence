@@ -44,8 +44,6 @@ import java.io.Serializable;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedElement;
 import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -99,8 +97,6 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 
 	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final Constructor<T> activationConstructor;
-	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
-	private final Method[] beforeNewItemMethods;
 	final long createLimit;
 	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final SequenceX primaryKeySequence;
@@ -292,7 +288,6 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		checkForDuplicateUniqueConstraint(id, uniqueConstraints.all);
 
 		this.activationConstructor = getActivationConstructor(javaClass);
-		this.beforeNewItemMethods = getBeforeNewItemMethods(javaClass, supertype);
 
 		if(supertype!=null)
 		{
@@ -356,76 +351,6 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		final HashMap<String, Feature> result = new HashMap<>(inherited);
 		result.putAll(declared);
 		return result;
-	}
-
-	private static Method[] getBeforeNewItemMethods(
-			final Class<? extends Item> javaClass,
-			final Type<?> supertype)
-	{
-		final Method declared = getBeforeNewItemMethod(javaClass);
-		final Method[] inherited = supertype!=null ? supertype.beforeNewItemMethods : null;
-		if(declared==null)
-			return inherited;
-		else if(inherited==null)
-			return new Method[]{declared};
-		else
-		{
-			final Method[] result = new Method[inherited.length+1];
-			result[0] = declared;
-			System.arraycopy(inherited, 0, result, 1, inherited.length);
-			return result;
-		}
-	}
-
-	private static Method getBeforeNewItemMethod(
-			final Class<? extends Item> javaClass)
-	{
-		final Method result;
-		try
-		{
-			//noinspection JavaReflectionMemberAccess
-			result = javaClass.getDeclaredMethod("beforeNewCopeItem", SetValue[].class);
-		}
-		catch(final NoSuchMethodException ignored)
-		{
-			return null;
-		}
-
-		if(!Modifier.isStatic(result.getModifiers()))
-			throw new IllegalArgumentException(
-					"method beforeNewCopeItem(SetValue[]) in class " + javaClass.getName() + " must be static");
-		if(!SetValue[].class.equals(result.getReturnType()))
-			throw new IllegalArgumentException(
-					"method beforeNewCopeItem(SetValue[]) in class " + javaClass.getName() + " must return SetValue[], " +
-							"but returns " + result.getReturnType().getName());
-
-		result.setAccessible(true);
-		return result;
-	}
-
-	private SetValue<?>[] doBeforeNewItem(SetValue<?>[] setValues)
-	{
-		if(beforeNewItemMethods!=null)
-		{
-			try
-			{
-				for(final Method m : beforeNewItemMethods)
-					setValues = (SetValue<?>[])m.invoke(null, (Object)setValues);
-			}
-			catch(final InvocationTargetException e)
-			{
-				final Throwable cause = e.getCause();
-				if(cause instanceof RuntimeException)
-					throw (RuntimeException)cause;
-				throw new RuntimeException(id, e);
-			}
-			catch(final IllegalAccessException e)
-			{
-				throw new RuntimeException(id, e);
-			}
-		}
-
-		return setValues;
 	}
 
 	void registerMounted(final Feature feature)
@@ -1058,7 +983,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 
 	FieldValues executeCreate(SetValue<?>[] setValues)
 	{
-		setValues = doBeforeNewItem(setValues);
+		setValues = getModel().changeHook.beforeNew(this, setValues);
 		final FieldValues fieldValues = new FieldValues(this, setValues);
 		executeCopyConstraints(fieldValues);
 

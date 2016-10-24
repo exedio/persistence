@@ -34,7 +34,8 @@ import java.lang.annotation.Target;
  *
  *	<p>
  * Listeners and hooks such as
- * {@link ChangeListener change listeners}
+ * {@link ChangeListener change listeners},
+ * {@link ChangeHook change hooks}
  * and item methods
  * beforeNewCopeItem,
  * {@link Item#afterNewCopeItem() afterNewCopeItem},

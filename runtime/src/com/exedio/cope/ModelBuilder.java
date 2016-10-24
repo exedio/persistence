@@ -22,11 +22,14 @@ import static com.exedio.cope.misc.Check.requireNonEmpty;
 import static com.exedio.cope.misc.Check.requireNonEmptyAndCopy;
 import static java.util.Objects.requireNonNull;
 
+import com.exedio.cope.misc.ChangeHooks;
+
 public final class ModelBuilder
 {
 	private String name;
 	private Type<?>[] types;
 	private TypeSet[] typeSets;
+	private ChangeHook.Factory changeHook;
 	private Revisions.Factory revisions;
 
 	ModelBuilder()
@@ -59,6 +62,22 @@ public final class ModelBuilder
 		return this;
 	}
 
+	/**
+	 * Installs a list of {@link ChangeHook change hooks}
+	 * for the model to be built by this model builder.
+	 * Hooks will be called in the order specified here.
+	 * <p>
+	 * If you do not call this method, a single {@link DefaultChangeHook} will be installed.
+	 * If you want to use a {@link DefaultChangeHook} additionally to other hooks,
+	 * you have specify it here together with the other hooks.
+	 */
+	public ModelBuilder changeHooks(final ChangeHook.Factory... hooks)
+	{
+		requireNull(this.changeHook);
+		this.changeHook = ChangeHooks.cascade(hooks);
+		return this;
+	}
+
 	public ModelBuilder add(final Revisions.Factory revisions)
 	{
 		requireNull(this.revisions);
@@ -74,6 +93,8 @@ public final class ModelBuilder
 
 	public Model build()
 	{
-		return new Model(name, revisions, typeSets, types);
+		return new Model(
+				name, revisions, typeSets, types,
+				changeHook!=null ? changeHook : DefaultChangeHook.factory());
 	}
 }

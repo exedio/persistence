@@ -196,12 +196,14 @@ public abstract class Item implements Serializable, Comparable<Item>
 		type.checkCheckConstraints(this, entity, null);
 		entity.write(fieldValues.toBlobs());
 
-		afterNewCopeItem();
+		type.getModel().changeHook.afterNew(this);
 	}
 
 
 	/**
 	 * Is called after every item creation.
+	 * Is called only, if {@link DefaultChangeHook} has been
+	 * {@link ModelBuilder#changeHooks(ChangeHook.Factory[]) installed}.
 	 * Override this method when needed.
 	 * The default implementation does nothing.
 	 * <p>
@@ -214,6 +216,8 @@ public abstract class Item implements Serializable, Comparable<Item>
 	 * use either
 	 * {@link Model#addPreCommitHookIfAbsent(Runnable) pre}- or
 	 * {@link Model#addPreCommitHookIfAbsent(Runnable) post}-commit hooks.
+	 *
+	 * @see ChangeHook#afterNew(Item)
 	 */
 	protected void afterNewCopeItem()
 	{
@@ -222,6 +226,8 @@ public abstract class Item implements Serializable, Comparable<Item>
 
 	/**
 	 * Is called before every item modification.
+	 * Is called only, if {@link DefaultChangeHook} has been
+	 * {@link ModelBuilder#changeHooks(ChangeHook.Factory[]) installed}.
 	 * Override this method when needed.
 	 * The default implementation does nothing.
 	 * <p>
@@ -239,6 +245,7 @@ public abstract class Item implements Serializable, Comparable<Item>
 	 * @see Item#set(FunctionField, Object)
 	 * @param setValues is never null and never empty
 	 * @return must not return null
+	 * @see ChangeHook#beforeSet(Item, SetValue[])
 	 */
 	protected SetValue<?>[] beforeSetCopeItem(final SetValue<?>[] setValues)
 	{
@@ -299,8 +306,8 @@ public abstract class Item implements Serializable, Comparable<Item>
 		if(setValues.length==0)
 			return;
 
-		setValues = beforeSetCopeItem(setValues);
-		requireNonNull(setValues, "setValues after beforeSetCopeItem");
+		setValues = type.getModel().changeHook.beforeSet(this, setValues);
+		requireNonNull(setValues, "setValues after ChangeHook#beforeSet");
 		if(setValues.length==0)
 			return;
 
@@ -370,6 +377,8 @@ public abstract class Item implements Serializable, Comparable<Item>
 
 	/**
 	 * Is called before every item deletion.
+	 * Is called only, if {@link DefaultChangeHook} has been
+	 * {@link ModelBuilder#changeHooks(ChangeHook.Factory[]) installed}.
 	 * Override this method when needed.
 	 * The default implementation does nothing.
 	 * <p>
@@ -377,6 +386,8 @@ public abstract class Item implements Serializable, Comparable<Item>
 	 * use either
 	 * {@link Model#addPreCommitHookIfAbsent(Runnable) pre}- or
 	 * {@link Model#addPreCommitHookIfAbsent(Runnable) post}-commit hooks.
+	 *
+	 * @see ChangeHook#beforeDelete(Item)
 	 */
 	protected void beforeDeleteCopeItem()
 	{
@@ -385,7 +396,7 @@ public abstract class Item implements Serializable, Comparable<Item>
 
 	private void deleteCopeItem(final HashSet<Item> toDelete)
 	{
-		beforeDeleteCopeItem();
+		type.getModel().changeHook.beforeDelete(this);
 		toDelete.add(this);
 
 		//final String tostring = toString();

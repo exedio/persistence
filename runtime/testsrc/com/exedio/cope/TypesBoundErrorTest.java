@@ -229,7 +229,7 @@ public class TypesBoundErrorTest
 	{
 		try
 		{
-			newType(BeforeNewNotStatic.class);
+			new Model(BeforeNewNotStatic.TYPE);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -252,6 +252,8 @@ public class TypesBoundErrorTest
 			throw new AssertionError();
 		}
 
+		static final Type<?> TYPE = TypesBound.newType(BeforeNewNotStatic.class);
+
 		BeforeNewNotStatic(final ActivationParameters ap)
 		{
 			super(ap);
@@ -263,7 +265,7 @@ public class TypesBoundErrorTest
 	{
 		try
 		{
-			newType(BeforeNewWrongReturn.class);
+			new Model(BeforeNewWrongReturn.TYPE);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -285,6 +287,8 @@ public class TypesBoundErrorTest
 		{
 			throw new AssertionError();
 		}
+
+		static final Type<?> TYPE = TypesBound.newType(BeforeNewWrongReturn.class);
 
 		BeforeNewWrongReturn(final ActivationParameters ap)
 		{
