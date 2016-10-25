@@ -37,7 +37,7 @@ public class UniqueManyTest extends TestWithEnvironment
 
 	@Test public void test()
 	{
-		final int maximum = 6;
+		final int maximum = 12;
 
 		for(int index = 2; index<=maximum; index++)
 		{
@@ -70,12 +70,24 @@ public class UniqueManyTest extends TestWithEnvironment
 		static final StringField field4 = new StringField();
 		static final StringField field5 = new StringField();
 		static final StringField field6 = new StringField();
+		static final StringField field7 = new StringField().lengthMax(10);
+		static final StringField field8 = new StringField().lengthMax(10);
+		static final StringField field9 = new StringField().lengthMax(10);
+		static final StringField field10= new StringField().lengthMax(10);
+		static final StringField field11= new StringField().lengthMax(10);
+		static final StringField field12= new StringField().lengthMax(10);
 
 		static final UniqueConstraint constraint2 = new UniqueConstraint(field1, field2);
 		static final UniqueConstraint constraint3 = new UniqueConstraint(field1, field2, field3);
 		static final UniqueConstraint constraint4 = new UniqueConstraint(field1, field2, field3, field4);
 		static final UniqueConstraint constraint5 = new UniqueConstraint(field1, field2, field3, field4, field5);
 		static final UniqueConstraint constraint6 = new UniqueConstraint(field1, field2, field3, field4, field5, field6);
+		static final UniqueConstraint constraint7 = new UniqueConstraint(field1, field2, field3, field4, field5, field6, field7);
+		static final UniqueConstraint constraint8 = new UniqueConstraint(field1, field2, field3, field4, field5, field6, field7, field8);
+		static final UniqueConstraint constraint9 = new UniqueConstraint(field1, field2, field3, field4, field5, field6, field7, field8, field9);
+		static final UniqueConstraint constraint10= new UniqueConstraint(field1, field2, field3, field4, field5, field6, field7, field8, field9, field10);
+		static final UniqueConstraint constraint11= new UniqueConstraint(field1, field2, field3, field4, field5, field6, field7, field8, field9, field10, field11);
+		static final UniqueConstraint constraint12= new UniqueConstraint(field1, field2, field3, field4, field5, field6, field7, field8, field9, field10, field11, field12);
 
 		static StringField field(final int index)
 		{
@@ -203,6 +215,108 @@ public class UniqueManyTest extends TestWithEnvironment
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@javax.annotation.Nonnull
+		final java.lang.String getField7()
+		{
+			return MyItem.field7.get(this);
+		}
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		final void setField7(@javax.annotation.Nonnull final java.lang.String field7)
+				throws
+					com.exedio.cope.MandatoryViolationException,
+					com.exedio.cope.UniqueViolationException,
+					com.exedio.cope.StringLengthViolationException
+		{
+			MyItem.field7.set(this,field7);
+		}
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@javax.annotation.Nonnull
+		final java.lang.String getField8()
+		{
+			return MyItem.field8.get(this);
+		}
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		final void setField8(@javax.annotation.Nonnull final java.lang.String field8)
+				throws
+					com.exedio.cope.MandatoryViolationException,
+					com.exedio.cope.UniqueViolationException,
+					com.exedio.cope.StringLengthViolationException
+		{
+			MyItem.field8.set(this,field8);
+		}
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@javax.annotation.Nonnull
+		final java.lang.String getField9()
+		{
+			return MyItem.field9.get(this);
+		}
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		final void setField9(@javax.annotation.Nonnull final java.lang.String field9)
+				throws
+					com.exedio.cope.MandatoryViolationException,
+					com.exedio.cope.UniqueViolationException,
+					com.exedio.cope.StringLengthViolationException
+		{
+			MyItem.field9.set(this,field9);
+		}
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@javax.annotation.Nonnull
+		final java.lang.String getField10()
+		{
+			return MyItem.field10.get(this);
+		}
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		final void setField10(@javax.annotation.Nonnull final java.lang.String field10)
+				throws
+					com.exedio.cope.MandatoryViolationException,
+					com.exedio.cope.UniqueViolationException,
+					com.exedio.cope.StringLengthViolationException
+		{
+			MyItem.field10.set(this,field10);
+		}
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@javax.annotation.Nonnull
+		final java.lang.String getField11()
+		{
+			return MyItem.field11.get(this);
+		}
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		final void setField11(@javax.annotation.Nonnull final java.lang.String field11)
+				throws
+					com.exedio.cope.MandatoryViolationException,
+					com.exedio.cope.UniqueViolationException,
+					com.exedio.cope.StringLengthViolationException
+		{
+			MyItem.field11.set(this,field11);
+		}
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@javax.annotation.Nonnull
+		final java.lang.String getField12()
+		{
+			return MyItem.field12.get(this);
+		}
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		final void setField12(@javax.annotation.Nonnull final java.lang.String field12)
+				throws
+					com.exedio.cope.MandatoryViolationException,
+					com.exedio.cope.UniqueViolationException,
+					com.exedio.cope.StringLengthViolationException
+		{
+			MyItem.field12.set(this,field12);
+		}
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
 		@javax.annotation.Nullable
 		static final MyItem forConstraint2(@javax.annotation.Nonnull final java.lang.String field1,@javax.annotation.Nonnull final java.lang.String field2)
 		{
@@ -235,6 +349,48 @@ public class UniqueManyTest extends TestWithEnvironment
 		static final MyItem forConstraint6(@javax.annotation.Nonnull final java.lang.String field1,@javax.annotation.Nonnull final java.lang.String field2,@javax.annotation.Nonnull final java.lang.String field3,@javax.annotation.Nonnull final java.lang.String field4,@javax.annotation.Nonnull final java.lang.String field5,@javax.annotation.Nonnull final java.lang.String field6)
 		{
 			return MyItem.constraint6.search(MyItem.class,field1,field2,field3,field4,field5,field6);
+		}
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@javax.annotation.Nullable
+		static final MyItem forConstraint7(@javax.annotation.Nonnull final java.lang.String field1,@javax.annotation.Nonnull final java.lang.String field2,@javax.annotation.Nonnull final java.lang.String field3,@javax.annotation.Nonnull final java.lang.String field4,@javax.annotation.Nonnull final java.lang.String field5,@javax.annotation.Nonnull final java.lang.String field6,@javax.annotation.Nonnull final java.lang.String field7)
+		{
+			return MyItem.constraint7.search(MyItem.class,field1,field2,field3,field4,field5,field6,field7);
+		}
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@javax.annotation.Nullable
+		static final MyItem forConstraint8(@javax.annotation.Nonnull final java.lang.String field1,@javax.annotation.Nonnull final java.lang.String field2,@javax.annotation.Nonnull final java.lang.String field3,@javax.annotation.Nonnull final java.lang.String field4,@javax.annotation.Nonnull final java.lang.String field5,@javax.annotation.Nonnull final java.lang.String field6,@javax.annotation.Nonnull final java.lang.String field7,@javax.annotation.Nonnull final java.lang.String field8)
+		{
+			return MyItem.constraint8.search(MyItem.class,field1,field2,field3,field4,field5,field6,field7,field8);
+		}
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@javax.annotation.Nullable
+		static final MyItem forConstraint9(@javax.annotation.Nonnull final java.lang.String field1,@javax.annotation.Nonnull final java.lang.String field2,@javax.annotation.Nonnull final java.lang.String field3,@javax.annotation.Nonnull final java.lang.String field4,@javax.annotation.Nonnull final java.lang.String field5,@javax.annotation.Nonnull final java.lang.String field6,@javax.annotation.Nonnull final java.lang.String field7,@javax.annotation.Nonnull final java.lang.String field8,@javax.annotation.Nonnull final java.lang.String field9)
+		{
+			return MyItem.constraint9.search(MyItem.class,field1,field2,field3,field4,field5,field6,field7,field8,field9);
+		}
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@javax.annotation.Nullable
+		static final MyItem forConstraint10(@javax.annotation.Nonnull final java.lang.String field1,@javax.annotation.Nonnull final java.lang.String field2,@javax.annotation.Nonnull final java.lang.String field3,@javax.annotation.Nonnull final java.lang.String field4,@javax.annotation.Nonnull final java.lang.String field5,@javax.annotation.Nonnull final java.lang.String field6,@javax.annotation.Nonnull final java.lang.String field7,@javax.annotation.Nonnull final java.lang.String field8,@javax.annotation.Nonnull final java.lang.String field9,@javax.annotation.Nonnull final java.lang.String field10)
+		{
+			return MyItem.constraint10.search(MyItem.class,field1,field2,field3,field4,field5,field6,field7,field8,field9,field10);
+		}
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@javax.annotation.Nullable
+		static final MyItem forConstraint11(@javax.annotation.Nonnull final java.lang.String field1,@javax.annotation.Nonnull final java.lang.String field2,@javax.annotation.Nonnull final java.lang.String field3,@javax.annotation.Nonnull final java.lang.String field4,@javax.annotation.Nonnull final java.lang.String field5,@javax.annotation.Nonnull final java.lang.String field6,@javax.annotation.Nonnull final java.lang.String field7,@javax.annotation.Nonnull final java.lang.String field8,@javax.annotation.Nonnull final java.lang.String field9,@javax.annotation.Nonnull final java.lang.String field10,@javax.annotation.Nonnull final java.lang.String field11)
+		{
+			return MyItem.constraint11.search(MyItem.class,field1,field2,field3,field4,field5,field6,field7,field8,field9,field10,field11);
+		}
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@javax.annotation.Nullable
+		static final MyItem forConstraint12(@javax.annotation.Nonnull final java.lang.String field1,@javax.annotation.Nonnull final java.lang.String field2,@javax.annotation.Nonnull final java.lang.String field3,@javax.annotation.Nonnull final java.lang.String field4,@javax.annotation.Nonnull final java.lang.String field5,@javax.annotation.Nonnull final java.lang.String field6,@javax.annotation.Nonnull final java.lang.String field7,@javax.annotation.Nonnull final java.lang.String field8,@javax.annotation.Nonnull final java.lang.String field9,@javax.annotation.Nonnull final java.lang.String field10,@javax.annotation.Nonnull final java.lang.String field11,@javax.annotation.Nonnull final java.lang.String field12)
+		{
+			return MyItem.constraint12.search(MyItem.class,field1,field2,field3,field4,field5,field6,field7,field8,field9,field10,field11,field12);
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")

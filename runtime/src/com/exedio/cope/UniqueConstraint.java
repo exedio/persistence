@@ -81,6 +81,36 @@ public final class UniqueConstraint extends Feature implements Copyable
 		this(new FunctionField<?>[]{field1, field2, field3, field4, field5, field6});
 	}
 
+	public UniqueConstraint(final FunctionField<?> field1, final FunctionField<?> field2, final FunctionField<?> field3, final FunctionField<?> field4, final FunctionField<?> field5, final FunctionField<?> field6, final FunctionField<?> field7)
+	{
+		this(new FunctionField<?>[]{field1, field2, field3, field4, field5, field6, field7});
+	}
+
+	public UniqueConstraint(final FunctionField<?> field1, final FunctionField<?> field2, final FunctionField<?> field3, final FunctionField<?> field4, final FunctionField<?> field5, final FunctionField<?> field6, final FunctionField<?> field7, final FunctionField<?> field8)
+	{
+		this(new FunctionField<?>[]{field1, field2, field3, field4, field5, field6, field7, field8});
+	}
+
+	public UniqueConstraint(final FunctionField<?> field1, final FunctionField<?> field2, final FunctionField<?> field3, final FunctionField<?> field4, final FunctionField<?> field5, final FunctionField<?> field6, final FunctionField<?> field7, final FunctionField<?> field8, final FunctionField<?> field9)
+	{
+		this(new FunctionField<?>[]{field1, field2, field3, field4, field5, field6, field7, field8, field9});
+	}
+
+	public UniqueConstraint(final FunctionField<?> field1, final FunctionField<?> field2, final FunctionField<?> field3, final FunctionField<?> field4, final FunctionField<?> field5, final FunctionField<?> field6, final FunctionField<?> field7, final FunctionField<?> field8, final FunctionField<?> field9, final FunctionField<?> field10)
+	{
+		this(new FunctionField<?>[]{field1, field2, field3, field4, field5, field6, field7, field8, field9, field10});
+	}
+
+	public UniqueConstraint(final FunctionField<?> field1, final FunctionField<?> field2, final FunctionField<?> field3, final FunctionField<?> field4, final FunctionField<?> field5, final FunctionField<?> field6, final FunctionField<?> field7, final FunctionField<?> field8, final FunctionField<?> field9, final FunctionField<?> field10, final FunctionField<?> field11)
+	{
+		this(new FunctionField<?>[]{field1, field2, field3, field4, field5, field6, field7, field8, field9, field10, field11});
+	}
+
+	public UniqueConstraint(final FunctionField<?> field1, final FunctionField<?> field2, final FunctionField<?> field3, final FunctionField<?> field4, final FunctionField<?> field5, final FunctionField<?> field6, final FunctionField<?> field7, final FunctionField<?> field8, final FunctionField<?> field9, final FunctionField<?> field10, final FunctionField<?> field11, final FunctionField<?> field12)
+	{
+		this(new FunctionField<?>[]{field1, field2, field3, field4, field5, field6, field7, field8, field9, field10, field11, field12});
+	}
+
 	@Override
 	public UniqueConstraint copy(final CopyMapper mapper)
 	{
