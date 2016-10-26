@@ -29,14 +29,14 @@ public class TypeSetModelTest
 	@Test public void testIt()
 	{
 		final Type<Item1> type1 = TypesBound.newType(Item1.class);
-		final TypeSet typeSet1 = new TypeSet(new Type<?>[]{type1});
-		new TypeSet(new Type<?>[]{type1});
+		final TypeSet typeSet1 = new TypeSet(type1);
+		new TypeSet(type1);
 
 		final Model model = new Model((Revisions.Factory)null, new TypeSet[]{typeSet1});
 		assertEqualsUnmodifiable(list(type1), model.getTypes());
 		assertEqualsUnmodifiable(list(type1), model.getTypesSortedByHierarchy());
 
-		new TypeSet(new Type<?>[]{type1});
+		new TypeSet(type1);
 	}
 
 	@WrapperIgnore

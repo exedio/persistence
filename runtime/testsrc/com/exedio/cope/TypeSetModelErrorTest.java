@@ -71,7 +71,7 @@ public class TypeSetModelErrorTest
 		final Type<Item2> type2 = TypesBound.newType(Item2.class);
 		try
 		{
-			new TypeSet(new Type<?>[]{type1, type2, type1});
+			new TypeSet(type1, type2, type1);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
