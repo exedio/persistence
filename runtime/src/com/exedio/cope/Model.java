@@ -58,9 +58,9 @@ public final class Model implements Serializable
 
 	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	final Types types;
-	private final long initializeDate;
+	private final long initializeDate = System.currentTimeMillis();
 	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
-	final ChangeListeners changeListeners;
+	final ChangeListeners changeListeners = new ChangeListeners();
 
 	private final Object connectLock = new Object();
 	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
@@ -90,8 +90,6 @@ public final class Model implements Serializable
 	{
 		this.revisions = revisions;
 		this.types = new Types(this, typeSets, types);
-		this.initializeDate = System.currentTimeMillis();
-		this.changeListeners = new ChangeListeners();
 
 		this.types.afterModelCreated();
 	}
