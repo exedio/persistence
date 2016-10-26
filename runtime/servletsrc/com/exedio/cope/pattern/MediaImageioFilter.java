@@ -63,12 +63,12 @@ public abstract class MediaImageioFilter extends MediaFilter
 		final HashMap<String, ImageReaderSpi> imageReaderSpi = new HashMap<>();
 		for(final Iterator<ImageReaderSpi> spiIt = registry.getServiceProviders(ImageReaderSpi.class, true); spiIt.hasNext(); )
 		{
-      	final ImageReaderSpi spi = spiIt.next();
-      	for(final String spiMimeType : spi.getMIMETypes())
-      	{
-      		if(!imageReaderSpi.containsKey(spiMimeType)) // first wins
-      			imageReaderSpi.put(spiMimeType, spi);
-      	}
+			final ImageReaderSpi spi = spiIt.next();
+			for(final String spiMimeType : spi.getMIMETypes())
+			{
+				if(!imageReaderSpi.containsKey(spiMimeType)) // first wins
+					imageReaderSpi.put(spiMimeType, spi);
+			}
 		}
 
 		// fix for MSIE behaviour
@@ -82,15 +82,15 @@ public abstract class MediaImageioFilter extends MediaFilter
 		spiLoop:
 		for(final Iterator<ImageWriterSpi> spiIt = registry.getServiceProviders(ImageWriterSpi.class, true); spiIt.hasNext(); )
 		{
-      	final ImageWriterSpi spi = spiIt.next();
-      	for(final String spiMimeType : spi.getMIMETypes())
-      	{
-      		if(outputContentType.equals(spiMimeType)) // first wins
-      		{
-      			imageWriterSpi = spi;
-      			break spiLoop;
-      		}
-      	}
+			final ImageWriterSpi spi = spiIt.next();
+			for(final String spiMimeType : spi.getMIMETypes())
+			{
+				if(outputContentType.equals(spiMimeType)) // first wins
+				{
+					imageWriterSpi = spi;
+					break spiLoop;
+				}
+			}
 		}
 		if(imageWriterSpi==null)
 			throw new RuntimeException("no jpeg encoder found");
