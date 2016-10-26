@@ -63,12 +63,12 @@ public class ReviseTest
 {
 	private static final TestRevisionsFactory revisionsFactory5 = new TestRevisionsFactory();
 
-	private static final Model model5 = new Model(revisionsFactory5, ReviseItem1.TYPE);
+	private static final Model model5 = Model.builder().add(revisionsFactory5).add(ReviseItem1.TYPE).build();
 
 
 	private static final TestRevisionsFactory revisionsFactory7 = new TestRevisionsFactory();
 
-	private static final Model model7 = new Model(revisionsFactory7, ReviseItem2.TYPE);
+	private static final Model model7 = Model.builder().add(revisionsFactory7).add(ReviseItem2.TYPE).build();
 
 	private static SimpleDateFormat df()
 	{

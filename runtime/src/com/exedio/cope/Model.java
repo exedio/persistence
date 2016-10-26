@@ -76,16 +76,29 @@ public final class Model implements Serializable
 	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final TransactionCounter transactionCounter = new TransactionCounter();
 
+	public static ModelBuilder builder()
+	{
+		return new ModelBuilder();
+	}
+
 	public Model(final Type<?>... types)
 	{
 		this((Revisions.Factory)null, (TypeSet[])null, types);
 	}
 
+	/**
+	 * @deprecated Use Model.{@link #builder() builder}().{@link ModelBuilder#add(Revisions.Factory) add}(revisions).{@link ModelBuilder#add(Type[]) add}(types).{@link ModelBuilder#build() build}() instead.
+	 */
+	@Deprecated
 	public Model(final Revisions.Factory revisions, final Type<?>... types)
 	{
 		this(revisions, (TypeSet[])null, types);
 	}
 
+	/**
+	 * @deprecated Use Model.{@link #builder() builder}().{@link ModelBuilder#add(Revisions.Factory) add}(revisions).{@link ModelBuilder#add(TypeSet[]) add}(typeSets).{@link ModelBuilder#add(Type[]) add}(types).{@link ModelBuilder#build() build}() instead.
+	 */
+	@Deprecated
 	public Model(final Revisions.Factory revisions, final TypeSet[] typeSets, final Type<?>... types)
 	{
 		this.revisions = revisions;

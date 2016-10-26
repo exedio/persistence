@@ -35,13 +35,13 @@ import org.junit.rules.RuleChain;
 
 public class DeleteSchemaTest extends TestWithEnvironment
 {
-	private static final Model MODEL = new Model(
-			DirectRevisionsFactory.make(new Revisions(5)),
+	private static final Model MODEL = Model.builder().
+			add(DirectRevisionsFactory.make(new Revisions(5))).add(
 			DeleteSchemaItem.TYPE,
 			DeleteSchemaItemSuper.TYPE,
 			DeleteSchemaItemUnused.TYPE,
 			DeleteSchemaPointerA.TYPE,
-			DeleteSchemaPointerB.TYPE);
+			DeleteSchemaPointerB.TYPE).build();
 
 	public DeleteSchemaTest()
 	{

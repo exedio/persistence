@@ -46,7 +46,7 @@ public class ModelTest extends TestWithEnvironment
 		static final Type<ModelTestItem> TYPE = TypesBound.newType(ModelTestItem.class);
  	}
 
-	private static Model model = new Model(DirectRevisionsFactory.make(new Revisions(0)), ModelTestItem.TYPE);
+	private static Model model = Model.builder().add(DirectRevisionsFactory.make(new Revisions(0))).add(ModelTestItem.TYPE).build();
 
 	public ModelTest()
 	{
