@@ -37,7 +37,7 @@ final class CustomAnnotatedElement
 			final Annotation a = annotations[i];
 			if(a==null)
 				throw new NullPointerException("annotations" + '[' + i + ']');
-			if(annotationMap.put(a.annotationType(), a)!=null)
+			if(annotationMap.putIfAbsent(a.annotationType(), a)!=null)
 				throw new IllegalArgumentException("duplicate " + a.annotationType());
 		}
 

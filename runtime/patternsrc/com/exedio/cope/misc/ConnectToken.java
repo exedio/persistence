@@ -289,10 +289,8 @@ public final class ConnectToken
 
 		synchronized(manciples)
 		{
-			if(manciples.containsKey(model))
+			if(manciples.putIfAbsent(model, new Manciple(properties))!=null)
 				throw new IllegalStateException("Properties already set for model " + model.toString() + '.');
-
-			manciples.put(model, new Manciple(properties));
 		}
 	}
 

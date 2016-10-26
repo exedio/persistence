@@ -277,7 +277,7 @@ final class JavaRepository
 	{
 		assert stage==Stage.BETWEEN;
 
-		if(copeTypeByJavaClass.put(copeType.javaClass, copeType)!=null)
+		if(copeTypeByJavaClass.putIfAbsent(copeType.javaClass, copeType)!=null)
 			throw new RuntimeException(copeType.javaClass.getFullName());
 		//System.out.println("--------- put cope type: "+name);
 	}

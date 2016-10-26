@@ -47,7 +47,7 @@ public final class Schema extends Node
 
 	void register(final Table table)
 	{
-		if(tableMap.put(table.name, table)!=null)
+		if(tableMap.putIfAbsent(table.name, table)!=null)
 			throw new RuntimeException("duplicate table name in schema: " + table.name);
 		tableList.add(table);
 	}
@@ -92,7 +92,7 @@ public final class Schema extends Node
 
 	void register(final Sequence sequence)
 	{
-		if(sequenceMap.put(sequence.name, sequence)!=null)
+		if(sequenceMap.putIfAbsent(sequence.name, sequence)!=null)
 			throw new RuntimeException("duplicate sequence name in schema: " + sequence.name);
 		sequenceList.add(sequence);
 	}
@@ -123,7 +123,7 @@ public final class Schema extends Node
 		if(!constraint.required())
 			return;
 
-		if(requiredConstraintMap.put(constraint.name, constraint)!=null)
+		if(requiredConstraintMap.putIfAbsent(constraint.name, constraint)!=null)
 			throw new RuntimeException("duplicate constraint name in schema : " + constraint.name);
 	}
 

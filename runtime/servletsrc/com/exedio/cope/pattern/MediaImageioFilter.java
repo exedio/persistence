@@ -65,10 +65,7 @@ public abstract class MediaImageioFilter extends MediaFilter
 		{
 			final ImageReaderSpi spi = spiIt.next();
 			for(final String spiMimeType : spi.getMIMETypes())
-			{
-				if(!imageReaderSpi.containsKey(spiMimeType)) // first wins
-					imageReaderSpi.put(spiMimeType, spi);
-			}
+				imageReaderSpi.putIfAbsent(spiMimeType, spi); // first wins
 		}
 
 		// fix for MSIE behaviour

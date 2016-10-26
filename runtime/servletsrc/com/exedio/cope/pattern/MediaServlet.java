@@ -122,7 +122,7 @@ public class MediaServlet extends HttpServlet
 
 	private static final void put(final HashMap<String, MediaPath> map, final String key, final MediaPath value)
 	{
-		final MediaPath collision = map.put(key, value);
+		final MediaPath collision = map.putIfAbsent(key, value);
 		if(collision!=null)
 			throw new RuntimeException("colliding path " + key + ':' + value + '/' + collision);
 	}

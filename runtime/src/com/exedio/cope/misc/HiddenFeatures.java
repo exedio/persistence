@@ -44,7 +44,7 @@ public final class HiddenFeatures
 				final Feature hidden = st.getFeature(f.getName());
 				if(hidden!=null)
 				{
-					final Feature previous = result.put(f, hidden);
+					final Feature previous = result.putIfAbsent(f, hidden);
 					assert previous==null;
 				}
 			}

@@ -63,14 +63,14 @@ final class Types
 		final ArrayList<Type<?>> concreteTypes = new ArrayList<>();
 		for(final Type<?> type : typesL)
 		{
-			final Type<?> collisionType = typesByID.put(type.id, type);
+			final Type<?> collisionType = typesByID.putIfAbsent(type.id, type);
 			if(collisionType!=null)
 				throw new IllegalArgumentException("duplicate type id \"" + type.id + "\" for classes " + collisionType.getJavaClass().getName() + " and " + type.getJavaClass().getName());
 			if(!type.isAbstract)
 				concreteTypes.add(type);
 
 			for(final Feature feature : type.getDeclaredFeatures())
-				if(featuresByID.put(feature.getID(), feature)!=null)
+				if(featuresByID.putIfAbsent(feature.getID(), feature)!=null)
 					throw new IllegalArgumentException("duplicate feature id \"" + feature.getID() + '"');
 		}
 

@@ -221,7 +221,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 			final HashMap<String, Feature> declaredFeaturesByName = new HashMap<>();
 			for(final Feature feature : featuresDeclared)
 			{
-				if(declaredFeaturesByName.put(feature.getName(), feature)!=null)
+				if(declaredFeaturesByName.putIfAbsent(feature.getName(), feature)!=null)
 					throw new RuntimeException(feature.getName() + '/' + javaClass.getName()); // Features must prevent this
 			}
 			this.featuresByNameDeclared = declaredFeaturesByName;
@@ -491,7 +491,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 					int i = 0;
 					for(final Type<?> t : typesOfInstances)
 					{
-						if(typesOfInstancesMap.put(t.schemaId, t)!=null)
+						if(typesOfInstancesMap.putIfAbsent(t.schemaId, t)!=null)
 							throw new RuntimeException(t.schemaId);
 						typesOfInstancesColumnValues[i++] = t.schemaId;
 					}

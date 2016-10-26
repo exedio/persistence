@@ -64,14 +64,14 @@ public final class Table extends Node
 
 	void register(final Column column)
 	{
-		if(columnMap.put(column.name, column)!=null)
+		if(columnMap.putIfAbsent(column.name, column)!=null)
 			throw new RuntimeException("duplicate column name in table " + name + ": " + column.name);
 		columnList.add(column);
 	}
 
 	void register(final Constraint constraint)
 	{
-		if(constraintMap.put(constraint.name, constraint)!=null)
+		if(constraintMap.putIfAbsent(constraint.name, constraint)!=null)
 			throw new RuntimeException("duplicate constraint name in table " + name + ": " + constraint.name);
 		constraintList.add(constraint);
 		if(constraint.column==null)

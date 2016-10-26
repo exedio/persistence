@@ -510,7 +510,7 @@ public abstract class Item implements Serializable, Comparable<Item>
 
 	private static final void putField(final LinkedHashMap<Field<?>, Object> result, final SetValue<?> setValue)
 	{
-		if(result.put((Field<?>)setValue.settable, setValue.value)!=null)
+		if(result.putIfAbsent((Field<?>)setValue.settable, setValue.value)!=null)
 			throw new IllegalArgumentException("SetValues contain duplicate settable " + setValue.settable);
 	}
 

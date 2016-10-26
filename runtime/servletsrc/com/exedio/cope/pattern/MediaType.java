@@ -274,7 +274,7 @@ public final class MediaType
 			final String key,
 			final MediaType value)
 	{
-		if(map.put(key, value)!=null)
+		if(map.putIfAbsent(key, value)!=null)
 			throw new RuntimeException(">"+key+"< already exists");
 	}
 

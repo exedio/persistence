@@ -104,7 +104,7 @@ public final class TypesBound
 				supertype,
 				features);
 
-		final Type<?> previous = types.put(javaClass, result);
+		final Type<?> previous = types.putIfAbsent(javaClass, result);
 		if(previous!=null)
 			throw new RuntimeException(javaClass.getName());
 

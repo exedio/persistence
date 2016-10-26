@@ -65,7 +65,7 @@ final class Executor
 
 	void addUniqueConstraint(final String id, final UniqueConstraint uniqueConstraint)
 	{
-		if(uniqueConstraints.put(id, uniqueConstraint)!=null)
+		if(uniqueConstraints.putIfAbsent(id, uniqueConstraint)!=null)
 			throw new RuntimeException(id);
 	}
 

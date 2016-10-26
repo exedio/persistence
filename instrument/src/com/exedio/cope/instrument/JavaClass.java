@@ -79,7 +79,7 @@ final class JavaClass extends JavaFeature
 	{
 		assert file.repository.isBuildStage();
 
-		if(fields.put(javaField.name, javaField)!=null)
+		if(fields.putIfAbsent(javaField.name, javaField)!=null)
 			throw new RuntimeException(name+'/'+javaField.name);
 		fieldList.add(javaField);
 	}

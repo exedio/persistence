@@ -240,7 +240,7 @@ final class Marshallers
 
 	private <E> void put(final SimpleSelectType<E> selectType, final Marshaller<E> marshaller)
 	{
-		if(marshallers.put(selectType.javaClass, marshaller)!=null)
+		if(marshallers.putIfAbsent(selectType.javaClass, marshaller)!=null)
 			throw new RuntimeException(selectType.javaClass.getName());
 	}
 

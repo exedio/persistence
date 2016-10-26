@@ -107,7 +107,7 @@ final class SamplerStep
 		{
 			this.clusterListenerInfoNodes = new HashMap<>();
 			for(final ClusterListenerInfo.Node node : clusterListenerInfo.getNodes())
-				if(this.clusterListenerInfoNodes.put(node.getID(), node)!=null)
+				if(this.clusterListenerInfoNodes.putIfAbsent(node.getID(), node)!=null)
 					throw new RuntimeException("" + node.getID());
 		}
 		else

@@ -103,7 +103,7 @@ final class Statement
 				final Table table = type.getTable();
 				final Object previous = tableToJoinTables.get(table);
 				final JoinTable current = new JoinTable(joinType.join, table);
-				if(joinTables.put(current, current)!=null)
+				if(joinTables.putIfAbsent(current, current)!=null)
 					assert false;
 				if(previous==null)
 					tableToJoinTables.put(table, current);
