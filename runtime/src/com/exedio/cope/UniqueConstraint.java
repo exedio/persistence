@@ -40,6 +40,7 @@ public final class UniqueConstraint extends Feature implements Copyable
 	private final List<FunctionField<?>> fieldList;
 	private String databaseID;
 
+	// cannot make this method public, because the instrumentor (i.e. beanshell) does not work with varargs
 	private UniqueConstraint(final FunctionField<?>[] fields)
 	{
 		this.fields = fields;
