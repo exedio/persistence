@@ -62,7 +62,6 @@ final class Transactions
 		final Transaction result = currentIfBound();
 		if(result==null)
 			throw new IllegalStateException("there is no cope transaction bound to this thread, see Model#startTransaction");
-		assert result.assertBoundToCurrentThread();
 		return result;
 	}
 
