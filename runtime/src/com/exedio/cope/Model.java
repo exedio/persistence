@@ -78,7 +78,7 @@ public final class Model implements Serializable
 
 	public Model(final Type<?>... types)
 	{
-		this((Revisions.Factory)null, types);
+		this((Revisions.Factory)null, (TypeSet[])null, types);
 	}
 
 	public Model(final Revisions.Factory revisions, final Type<?>... types)
