@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.tojunit.Assert.list;
+import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -67,8 +67,7 @@ public class CommitHookPostTest
 		add(1, appender(bf, "two"));
 
 		assertEquals("", bf.toString());
-		assertEquals(true, model.hasCurrentTransaction());
-		assertEquals(list(model.currentTransaction()), new ArrayList<>(model.getOpenTransactions()));
+		assertTransaction();
 		try
 		{
 			model.commit();
@@ -79,8 +78,7 @@ public class CommitHookPostTest
 			assertEquals("thrower", e.getMessage());
 		}
 		assertEquals("one,", bf.toString());
-		assertEquals(false, model.hasCurrentTransaction());
-		assertEquals(list(), new ArrayList<>(model.getOpenTransactions()));
+		assertNoTransaction();
 	}
 
 	@Test public void testRollback()
@@ -90,10 +88,10 @@ public class CommitHookPostTest
 		add(1, appender(bf, "one"));
 
 		assertEquals("", bf.toString());
-		assertEquals(true, model.hasCurrentTransaction());
+		assertTransaction();
 		model.rollback();
 		assertEquals("", bf.toString());
-		assertEquals(false, model.hasCurrentTransaction());
+		assertNoTransaction();
 	}
 
 	@Test public void testNullHook()
@@ -131,8 +129,7 @@ public class CommitHookPostTest
 	{
 		return () ->
 		{
-			assertFalse(model.hasCurrentTransaction());
-			assertTrue (model.getOpenTransactions().isEmpty());
+			assertNoTransaction();
 			bf.append(value).append(',');
 		};
 	}
@@ -141,8 +138,7 @@ public class CommitHookPostTest
 	{
 		return () ->
 		{
-			assertFalse(model.hasCurrentTransaction());
-			assertTrue (model.getOpenTransactions().isEmpty());
+			assertNoTransaction();
 			throw new IllegalPathStateException(message);
 		};
 	}
@@ -157,6 +153,17 @@ public class CommitHookPostTest
 	}
 
 
+	static void assertNoTransaction()
+	{
+		assertFalse(model.hasCurrentTransaction());
+		assertTrue (model.getOpenTransactions().isEmpty());
+	}
+
+	static void assertTransaction()
+	{
+		assertEquals(true, model.hasCurrentTransaction());
+		assertEquals(asList(model.currentTransaction()), new ArrayList<>(model.getOpenTransactions()));
+	}
 
 
 	@SuppressWarnings("static-method")
