@@ -26,7 +26,8 @@ public final class Stuff
 {
 	static final Model MODEL = Model.builder().
 			add(DirectRevisionsFactory.make(new Revisions(5))).
-			add(SampledModelItem.TYPE, SampledModelItem2.TYPE).build();
+			add(SampledModelItem.TYPE, SampledModelItem2.TYPE).
+			build();
 
 	static
 	{

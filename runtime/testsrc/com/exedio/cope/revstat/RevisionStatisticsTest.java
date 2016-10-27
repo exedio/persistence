@@ -40,7 +40,8 @@ public class RevisionStatisticsTest
 	private static final Model MODEL = Model.builder().
 			add(revisions).
 			add(RevisionStatistics.types).
-			add(RevisionStatisticsItem.TYPE).build();
+			add(RevisionStatisticsItem.TYPE).
+			build();
 
 	private static final ConnectProperties props = new ConnectProperties(new File("runtime/utiltest.properties"));
 

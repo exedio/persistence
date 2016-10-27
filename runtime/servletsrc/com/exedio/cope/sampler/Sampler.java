@@ -62,20 +62,21 @@ public class Sampler
 	{
 		this.sampledModel = requireNonNull(sampledModel, "sampledModel");
 
-		this.samplerModel =
-			Model.builder().
-				add(new SamplerRevisions()).add(
-				SamplerTypeId.TYPE,
-				SamplerMediaId.TYPE,
+		this.samplerModel = Model.builder().
+				add(new SamplerRevisions()).
+				add(
+					SamplerTypeId.TYPE,
+					SamplerMediaId.TYPE,
 
-				SamplerModel.TYPE,
-				SamplerTransaction.TYPE,
-				SamplerItemCache.TYPE,
-				SamplerClusterNode.TYPE,
-				SamplerMedia.TYPE,
+					SamplerModel.TYPE,
+					SamplerTransaction.TYPE,
+					SamplerItemCache.TYPE,
+					SamplerClusterNode.TYPE,
+					SamplerMedia.TYPE,
 
-				SamplerEnvironment.TYPE,
-				SamplerPurge.TYPE).build();
+					SamplerEnvironment.TYPE,
+					SamplerPurge.TYPE).
+				build();
 		// TODO make a meaningful samplerModel#toString()
 		final ArrayList<MediaPath> medias = new ArrayList<>();
 		for(final Type<?> type : sampledModel.getTypes())
