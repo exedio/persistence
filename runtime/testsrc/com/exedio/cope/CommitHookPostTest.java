@@ -94,6 +94,37 @@ public class CommitHookPostTest
 		assertNoTransaction();
 	}
 
+	@Test public void testAddInHook()
+	{
+		final StringBuilder bf = new StringBuilder();
+		model.startTransaction("tx");
+		add(1, () ->
+		{
+			assertNoTransaction();
+			bf.append("beforeAdd");
+			model.addPostCommitHook(() -> {
+				// empty
+			});
+			bf.append("afterAdd");
+		});
+
+		assertEquals("", bf.toString());
+		assertTransaction();
+		try
+		{
+			model.commit();
+			fail();
+		}
+		catch(final IllegalStateException e)
+		{
+			assertEquals(
+					"there is no cope transaction bound to this thread, see Model#startTransaction",
+					e.getMessage());
+		}
+		assertEquals("beforeAdd", bf.toString());
+		assertNoTransaction();
+	}
+
 	@Test public void testNullHook()
 	{
 		model.startTransaction("tx");
