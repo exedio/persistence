@@ -26,7 +26,6 @@ import com.exedio.cope.Copyable;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Item;
 import com.exedio.cope.TypesBound;
-import com.exedio.cope.instrument.InstrumentContext;
 import com.exedio.cope.misc.CopeNameUtil;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -124,7 +123,7 @@ public final class BlockType<E> // TODO make Serializable as singleton
 		final BlockType<T> result = new BlockType<>(javaClass);
 		types.put(javaClass, result);
 
-		if(result.componentSize==0 && !InstrumentContext.isRunning())
+		if(result.componentSize==0)
 			throw new IllegalArgumentException("block has no templates: " + javaClass.getName());
 
 		return result;
