@@ -829,6 +829,7 @@
 				<pathelement location="build/classes/instrument/src" />
 				<pathelement location="build/classes/instrument/annosrc" />
 				<pathelement location="build/classes/instrument/testfeaturesrc" />
+				<pathelement location="build/classes/instrument/testlibsrc" />
 				<pathelement location="build/classes/instrument/testsrc" />
 				<pathelement location="lib/exedio-cope-util.jar" />
 				<pathelement location="lib/trove4j.jar" />
