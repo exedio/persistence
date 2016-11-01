@@ -159,7 +159,7 @@ final class CompositeType<E>
 			}
 
 			if(result.componentSize==0 && !InstrumentContext.isRunning())
-				throw new IllegalArgumentException("composite has no templates");
+				throw new IllegalArgumentException("composite has no templates: " + valueClass.getName());
 
 			return result;
 		}

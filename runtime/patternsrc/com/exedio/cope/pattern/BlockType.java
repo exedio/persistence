@@ -125,7 +125,7 @@ public final class BlockType<E> // TODO make Serializable as singleton
 		types.put(javaClass, result);
 
 		if(result.componentSize==0 && !InstrumentContext.isRunning())
-			throw new IllegalArgumentException("block has no templates");
+			throw new IllegalArgumentException("block has no templates: " + javaClass.getName());
 
 		return result;
 	}

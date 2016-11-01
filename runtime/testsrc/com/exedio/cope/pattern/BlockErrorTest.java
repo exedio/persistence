@@ -102,7 +102,7 @@ public class BlockErrorTest
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("block has no templates", e.getMessage());
+			assertEquals("block has no templates: " + NoFields.class.getName(), e.getMessage());
 		}
 	}
 

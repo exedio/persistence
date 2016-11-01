@@ -103,7 +103,7 @@ public class CompositeErrorTest
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("composite has no templates", e.getMessage());
+			assertEquals("composite has no templates: " + NoFields.class.getName(), e.getMessage());
 		}
 	}
 
