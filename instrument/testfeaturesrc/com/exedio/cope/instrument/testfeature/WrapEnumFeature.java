@@ -18,6 +18,7 @@
 
 package com.exedio.cope.instrument.testfeature;
 
+import com.exedio.cope.instrument.InstrumentContext;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.WrapFeature;
 
@@ -26,7 +27,10 @@ public final class WrapEnumFeature<E extends Enum<E>>
 {
 	public static <E extends Enum<E>> WrapEnumFeature<E> create(final Class<E> clazz)
 	{
-		return new WrapEnumFeature<>(clazz, "com.exedio.cope.instrument.JavaRepository$EnumBeanShellHackClass");
+		return new WrapEnumFeature<>(clazz,
+				InstrumentContext.isRunning()
+				? "com.exedio.cope.instrument.JavaRepository$EnumBeanShellHackClass"
+				: clazz.getName());
 	}
 
 	public static <E extends Enum<E>> WrapEnumFeature<E> create(final Class<E> clazz, final String className)
