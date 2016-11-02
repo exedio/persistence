@@ -49,7 +49,7 @@
 			<conf name="build" mapped="sources" />
 			<exclude org="org.hamcrest" module="hamcrest-core" />
 		</dependency>
-		<dependency org="cpsuite" name="cpsuite" rev="1.2.6" conf="build->default" />
+		<dependency org="cpsuite" name="cpsuite" rev="1.2.7.1" conf="build->default" />
 		<dependency org="org.slf4j" name="slf4j-api" rev="1.6.4">
 			<conf name="runtime" mapped="default" />
 			<conf name="build" mapped="sources" />
