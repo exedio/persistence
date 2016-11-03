@@ -63,14 +63,16 @@ final class QueryCache
 		{
 			final ArrayList<Object> resultList =
 				query.searchUncached(transaction, totalOnly);
-		if(totalOnly || resultList.size()<=query.getSearchSizeCacheLimit())
-		{
-			result = new Value(query, resultList);
-			synchronized(map)
+
+			if(totalOnly ||
+				resultList.size()<=query.getSearchSizeCacheLimit())
 			{
-				map.put(key, result);
+				result = new Value(query, resultList);
+				synchronized(map)
+				{
+					map.put(key, result);
+				}
 			}
-		}
 			misses.inc();
 			return resultList;
 		}
