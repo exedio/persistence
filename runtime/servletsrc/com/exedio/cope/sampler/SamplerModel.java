@@ -132,10 +132,10 @@ final class SamplerModel extends Item
 	}
 
 
-	private static final IntegerField queryCacheHits          = new IntegerField().toFinal().min(0);
-	private static final IntegerField queryCacheMisses        = new IntegerField().toFinal().min(0);
-	private static final IntegerField queryCacheReplacements  = new IntegerField().toFinal().min(0);
-	private static final IntegerField queryCacheInvalidations = new IntegerField().toFinal().min(0);
+	private static final IntegerField queryCacheHits            = new IntegerField().toFinal().min(0);
+	private static final IntegerField queryCacheMisses          = new IntegerField().toFinal().min(0);
+	private static final IntegerField queryCacheReplacements    = new IntegerField().toFinal().min(0);
+	private static final IntegerField queryCacheInvalidations   = new IntegerField().toFinal().min(0);
 	private static final IntegerField queryCacheConcurrentLoads = new IntegerField().toFinal().min(0);
 
 	@SuppressWarnings("unchecked") static List<SetValue<?>> mapIt(
@@ -143,10 +143,10 @@ final class SamplerModel extends Item
 			final QueryCacheInfo to)
 	{
 		return Arrays.asList((SetValue<?>)
-			maD(queryCacheHits,          from.getHits         (), to.getHits         ()),
-			maD(queryCacheMisses,        from.getMisses       (), to.getMisses       ()),
-			maD(queryCacheReplacements,  from.getReplacements (), to.getReplacements ()),
-			maD(queryCacheInvalidations, from.getInvalidations(), to.getInvalidations()),
+			maD(queryCacheHits,            from.getHits           (), to.getHits           ()),
+			maD(queryCacheMisses,          from.getMisses         (), to.getMisses         ()),
+			maD(queryCacheReplacements,    from.getReplacements   (), to.getReplacements   ()),
+			maD(queryCacheInvalidations,   from.getInvalidations  (), to.getInvalidations  ()),
 			maD(queryCacheConcurrentLoads, from.getConcurrentLoads(), to.getConcurrentLoads()));
 	}
 
