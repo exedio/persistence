@@ -21,6 +21,7 @@ package com.exedio.cope.instrument;
 import bsh.Interpreter;
 import bsh.UtilEvalError;
 import com.exedio.cope.ActivationParameters;
+import com.exedio.cope.BooleanField;
 import com.exedio.cope.Item;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Type;
@@ -376,6 +377,7 @@ final class JavaRepository
 
 	public static final class DummyBlock extends Block
 	{
+		static final BooleanField field = new BooleanField();
 		private static final long serialVersionUID = 1l;
 		public static final BlockType<DummyBlock> TYPE = BlockType.newType(DummyBlock.class);
 		private DummyBlock(final BlockActivationParameters ap) { super(ap); }

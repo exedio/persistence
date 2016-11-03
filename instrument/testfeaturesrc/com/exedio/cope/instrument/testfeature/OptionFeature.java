@@ -19,6 +19,7 @@
 package com.exedio.cope.instrument.testfeature;
 
 import com.exedio.cope.Item;
+import com.exedio.cope.instrument.InstrumentContext;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.WrapFeature;
 
@@ -35,6 +36,9 @@ public final class OptionFeature
 	@SuppressWarnings("static-method")
 	public OptionFeature fail()
 	{
-		throw new RuntimeException("deliberatly fail");
+		if(InstrumentContext.isRunning())
+			throw new RuntimeException("deliberatly fail");
+
+		return this;
 	}
 }

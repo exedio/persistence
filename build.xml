@@ -433,6 +433,7 @@
 						<pathelement location="build/classes/runtime/junitsrc" />
 						<pathelement location="build/classes/runtime/testfeaturesrc" />
 						<pathelement location="build/classes/runtime/testsrc" />
+						<pathelement location="build/classes/instrument/annosrc" />
 						<pathelement location="lib/trove4j.jar" />
 						<pathelement location="lib/javax.servlet-api.jar" />
 						<pathelement location="lib/@{env.driver}" />
@@ -442,6 +443,7 @@
 						<pathelement location="lib/slf4j-log4j12.jar" />
 						<pathelement location="lib/log4j-bundle.jar" />
 						<pathelement location="lib/exedio-cope-util.jar" />
+						<pathelement location="lib/exedio-cope-servletutil.jar" />
 					</classpath>
 					<sysproperty key="com.exedio.cope.properties" file="@{env.file}" />
 					<sysproperty key="contextPath" value="/junitContextPath" />
@@ -827,6 +829,7 @@
 				<pathelement location="build/classes/instrument/src" />
 				<pathelement location="build/classes/instrument/annosrc" />
 				<pathelement location="build/classes/instrument/testfeaturesrc" />
+				<pathelement location="build/classes/instrument/testlibsrc" />
 				<pathelement location="build/classes/instrument/testsrc" />
 				<pathelement location="lib/exedio-cope-util.jar" />
 				<pathelement location="lib/trove4j.jar" />
