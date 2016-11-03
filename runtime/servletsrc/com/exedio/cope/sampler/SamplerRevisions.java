@@ -37,6 +37,10 @@ final class SamplerRevisions implements Revisions.Factory
 	private static Revisions getMysql()
 	{
 		return new Revisions(
+			new Revision(13, "add SamplerModel#queryCacheConcurrentLoads",
+				"ALTER TABLE `DiffModel` " +
+					"ADD COLUMN `queryCacheConcurrentLoads` int not null"
+			),
 			new Revision(12, "add SamplerEnvironment#buildTag",
 				"ALTER TABLE `SamplerEnvironment` " +
 					"ADD COLUMN `buildTag` text CHARACTER SET utf8 COLLATE utf8_bin"

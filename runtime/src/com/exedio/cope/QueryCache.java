@@ -40,6 +40,7 @@ final class QueryCache
 	private final VolatileLong hits = new VolatileLong();
 	private final VolatileLong misses = new VolatileLong();
 	private final VolatileLong invalidations = new VolatileLong();
+	private final VolatileLong concurrentLoads = new VolatileLong();
 
 	QueryCache(final int limit)
 	{
@@ -70,10 +71,13 @@ final class QueryCache
 				resultList.size()<=query.getSearchSizeCacheLimit())
 			{
 				result = new Value(query, resultList);
+				Object collision;
 				synchronized(map)
 				{
-					map.put(key, result);
+					collision = map.put(key, result);
 				}
+				if(collision!=null)
+					concurrentLoads.inc();
 			}
 			misses.inc();
 			return resultList;
@@ -161,6 +165,7 @@ final class QueryCache
 				misses.get(),
 				map!=null ? map.replacements.get() : 0l,
 				invalidations.get(),
+				concurrentLoads.get(),
 				level);
 	}
 

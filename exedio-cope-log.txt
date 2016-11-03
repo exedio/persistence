@@ -7,6 +7,7 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* QueryCacheInfo#getConcurrentLoads added.
 * instrumentor supports importing item types from classpath
 * dsmf.Column#getExistingType() added.
 * exedio-cope-instrument-completion.jar (get via ivy conf "completion") provides

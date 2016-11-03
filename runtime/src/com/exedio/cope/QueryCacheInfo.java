@@ -24,6 +24,7 @@ public final class QueryCacheInfo
 	private final long misses;
 	private final long replacements;
 	private final long invalidations;
+	private final long concurrentLoads;
 	private final int level;
 
 	QueryCacheInfo(
@@ -31,12 +32,14 @@ public final class QueryCacheInfo
 			final long misses,
 			final long replacements,
 			final long invalidations,
+			final long concurrentLoads,
 			final int level)
 	{
 		this.hits = hits;
 		this.misses = misses;
 		this.replacements = replacements;
 		this.invalidations = invalidations;
+		this.concurrentLoads = concurrentLoads;
 		this.level = level;
 	}
 
@@ -60,6 +63,11 @@ public final class QueryCacheInfo
 		return invalidations;
 	}
 
+	public long getConcurrentLoads()
+	{
+		return concurrentLoads;
+	}
+
 	public int getLevel()
 	{
 		return level;
@@ -78,6 +86,7 @@ public final class QueryCacheInfo
 				misses==o.misses &&
 				replacements==o.replacements &&
 				invalidations==o.invalidations &&
+				concurrentLoads==o.concurrentLoads &&
 				level==o.level;
 	}
 
@@ -89,6 +98,7 @@ public final class QueryCacheInfo
 				((int)misses) ^
 				((int)replacements) ^
 				((int)invalidations) ^
+				((int)concurrentLoads) ^
 				level ^
 				938675923;
 	}
@@ -101,6 +111,7 @@ public final class QueryCacheInfo
 				misses + '/' +
 				replacements + '/' +
 				invalidations + '/' +
+				concurrentLoads + '/' +
 				level;
 	}
 }
