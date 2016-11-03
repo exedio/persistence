@@ -37,7 +37,9 @@ final class QueryCache
 	// TODO use guava ComputingMap
 	// http://guava-libraries.googlecode.com/svn/tags/release09/javadoc/com/google/common/collect/MapMaker.html#makeComputingMap%28com.google.common.base.Function%29
 	private final LRUMap map;
-	private final VolatileLong hits = new VolatileLong(), misses = new VolatileLong(), invalidations = new VolatileLong();
+	private final VolatileLong hits = new VolatileLong();
+	private final VolatileLong misses = new VolatileLong();
+	private final VolatileLong invalidations = new VolatileLong();
 
 	QueryCache(final int limit)
 	{
