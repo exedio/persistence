@@ -101,9 +101,7 @@ public class CommitHookPostTest
 		{
 			assertNoTransaction();
 			bf.append("beforeAdd");
-			model.addPostCommitHook(() -> {
-				// empty
-			});
+			model.addPostCommitHook(FAIL);
 			bf.append("afterAdd");
 		});
 
@@ -182,6 +180,8 @@ public class CommitHookPostTest
 		assertEquals("count", count, tx.getPostCommitHookCount() - previousCount);
 	}
 
+
+	static final Runnable FAIL = () -> { fail(); };
 
 	static void assertNoTransaction()
 	{
