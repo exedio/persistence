@@ -181,21 +181,6 @@ public class CommitHookPostTest
 	}
 
 
-	static final Runnable FAIL = () -> { fail(); };
-
-	static void assertNoTransaction()
-	{
-		assertFalse(model.hasCurrentTransaction());
-		assertTrue (model.getOpenTransactions().isEmpty());
-	}
-
-	static void assertTransaction()
-	{
-		assertEquals(true, model.hasCurrentTransaction());
-		assertEquals(asList(model.currentTransaction()), new ArrayList<>(model.getOpenTransactions()));
-	}
-
-
 	@SuppressWarnings("static-method")
 	@Before public final void setUp()
 	{
@@ -218,5 +203,19 @@ public class CommitHookPostTest
 		private static final long serialVersionUID = 1l;
 		static final Type<AnItem> TYPE = TypesBound.newType(AnItem.class);
 		AnItem(final ActivationParameters ap) { super(ap); }
+	}
+
+	static final Runnable FAIL = () -> { fail(); };
+
+	static void assertNoTransaction()
+	{
+		assertFalse(model.hasCurrentTransaction());
+		assertTrue (model.getOpenTransactions().isEmpty());
+	}
+
+	static void assertTransaction()
+	{
+		assertEquals(true, model.hasCurrentTransaction());
+		assertEquals(asList(model.currentTransaction()), new ArrayList<>(model.getOpenTransactions()));
 	}
 }
