@@ -210,7 +210,7 @@ public class CommitHookPostTest
 	}
 
 
-	private static final Model model = new Model(AnItem.TYPE);
+	static final Model model = new Model(AnItem.TYPE);
 
 	@WrapperIgnore
 	static class AnItem extends Item
