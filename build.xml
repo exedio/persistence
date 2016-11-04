@@ -538,6 +538,10 @@
 				nullabilityAnnotations="${instrument.nullabilityAnnotations}"
 				hintFormat="forAnnotations"
 				timestampFile="build/timestamps/runtime.servlet.test.timestamp">
+			<classpath>
+				<pathelement location="build/classes/runtime/servletsrc" />
+				<pathelement location="lib/javax.servlet-api.jar" /><!-- required to instrument Media features-->
+			</classpath>
 			<resources refid="instrument.resources" />
 		</instrument>
 	</target>
@@ -710,13 +714,11 @@
 				<pathelement location="build/classes/dsmf/src" />
 				<pathelement location="build/classes/runtime/src" />
 				<pathelement location="build/classes/runtime/patternsrc" /><!-- TODO stricter, is for Composite and Block only -->
-				<pathelement location="build/classes/runtime/servletsrc" /><!-- just that instrumentor knows Media, no static dependency -->
 				<pathelement location="build/classes/instrument/annosrc" />
 				<pathelement location="build/classes/instrument/src" />
 				<pathelement location="build/classes/instrument/antsrc" />
 				<pathelement location="lib/exedio-cope-util.jar" />
 				<pathelement location="lib/trove4j.jar" />
-				<pathelement location="lib/javax.servlet-api.jar" /><!-- required to instrument Media features-->
 				<pathelement location="lib/bsh-core.jar" />
 				<pathelement location="lib/findbugs-annotations.jar" if:true="${instrument.nullabilityAnnotations}"/>
 				<pathelement location="lib/slf4j-api.jar" />
@@ -744,6 +746,8 @@
 			<classpath>
 				<pathelement location="build/classes/instrument/testfeaturesrc" />
 				<pathelement location="build/classes/instrument/testlibsrc" />
+				<pathelement location="build/classes/runtime/servletsrc" />
+				<pathelement location="lib/javax.servlet-api.jar" /><!-- required to instrument Media features-->
 				<pathelement location="lib/junit.jar" />
 				<pathelement location="lib/cpsuite.jar" />
 				<pathelement location="${env.JAVA_HOME}/lib/tools.jar"/>
