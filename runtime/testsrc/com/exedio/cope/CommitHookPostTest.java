@@ -26,7 +26,6 @@ import static org.junit.Assert.fail;
 
 import com.exedio.cope.instrument.WrapperIgnore;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import java.awt.geom.IllegalPathStateException;
 import java.io.File;
 import java.util.ArrayList;
 import org.junit.After;
@@ -73,7 +72,7 @@ public class CommitHookPostTest
 			model.commit();
 			fail();
 		}
-		catch(final IllegalPathStateException e)
+		catch(final IllegalArgumentException e)
 		{
 			assertEquals("thrower", e.getMessage());
 		}
@@ -170,7 +169,7 @@ public class CommitHookPostTest
 		return () ->
 		{
 			assertNoTransaction();
-			throw new IllegalPathStateException(message);
+			throw new IllegalArgumentException(message);
 		};
 	}
 
