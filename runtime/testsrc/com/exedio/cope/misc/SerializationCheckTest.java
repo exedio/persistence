@@ -70,7 +70,7 @@ public class SerializationCheckTest
 		static final Type<ItemOk> TYPE = TypesBound.newType(ItemOk.class);
 	}
 
-	private static Model MODEL_OK = new Model(ItemOk.TYPE);
+	private static final Model MODEL_OK = new Model(ItemOk.TYPE);
 
 
 	@WrapperIgnore
@@ -103,5 +103,5 @@ public class SerializationCheckTest
 		static final Type<Item2> TYPE = TypesBound.newType(Item2.class);
 	}
 
-	private static Model MODEL = new Model(Item1.TYPE, Item2.TYPE);
+	private static final Model MODEL = new Model(Item1.TYPE, Item2.TYPE);
 }
