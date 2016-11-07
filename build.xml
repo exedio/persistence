@@ -529,7 +529,7 @@
 		</foreachEnvironment>
 	</target>
 
-	<target name="runtime.servlet.test.instrument" depends="instrument.taskdef" unless="skip.instrument">
+	<target name="runtime.servlet.test.instrument" depends="instrument.taskdef,runtime.servlet.compile" unless="skip.instrument">
 		<instrument
 				dir="runtime/servlettestsrc"
 				verify="${instrument.verify}"
@@ -538,6 +538,10 @@
 				nullabilityAnnotations="${instrument.nullabilityAnnotations}"
 				hintFormat="forAnnotations"
 				timestampFile="build/timestamps/runtime.servlet.test.timestamp">
+			<classpath>
+				<pathelement location="build/classes/runtime/servletsrc" />
+				<pathelement location="lib/javax.servlet-api.jar" /><!-- required to instrument Media features-->
+			</classpath>
 			<resources refid="instrument.resources" />
 		</instrument>
 	</target>
@@ -704,26 +708,19 @@
 		</compile>
 	</target>
 
-	<target name="instrument.taskdef" depends="dsmf.compile, runtime.core.compile, runtime.pattern.compile, runtime.servlet.compile, instrument.compile, instrument.testfeature.compile, runtime.test.feature.compile">
-		<mkdir dir="build/classes/instrument/testlibsrc" />
+	<target name="instrument.taskdef" depends="dsmf.compile, runtime.core.compile, runtime.pattern.compile, instrument.compile">
 		<taskdef resource="com/exedio/cope/instrument/ant.properties">
 			<classpath id="instrument.resources">
 				<pathelement location="build/classes/dsmf/src" />
 				<pathelement location="build/classes/runtime/src" />
-				<pathelement location="build/classes/runtime/patternsrc" /><!-- TODO stricter, is for Composite only - just that instrumentor knows Hash, no static dependency -->
-				<pathelement location="build/classes/runtime/servletsrc" /><!-- just that instrumentor knows Media, no static dependency -->
+				<pathelement location="build/classes/runtime/patternsrc" /><!-- TODO stricter, is for Composite and Block only -->
 				<pathelement location="build/classes/instrument/annosrc" />
 				<pathelement location="build/classes/instrument/src" />
 				<pathelement location="build/classes/instrument/antsrc" />
-				<pathelement location="build/classes/instrument/testfeaturesrc" />
-				<pathelement location="build/classes/instrument/testlibsrc" />
-				<pathelement location="build/classes/runtime/testfeaturesrc" />
 				<pathelement location="lib/exedio-cope-util.jar" />
 				<pathelement location="lib/trove4j.jar" />
-				<pathelement location="lib/javax.servlet-api.jar" />
 				<pathelement location="lib/bsh-core.jar" />
 				<pathelement location="lib/findbugs-annotations.jar" if:true="${instrument.nullabilityAnnotations}"/>
-				<pathelement location="lib/junit.jar" />
 				<pathelement location="lib/slf4j-api.jar" />
 			</classpath>
 		</taskdef>
@@ -732,7 +729,7 @@
 
 	<target name="instrument.test.instrument" depends="instrument.test.srcinstrument,instrument.test.libinstrument"/>
 
-	<target name="instrument.test.srcinstrument" depends="instrument.taskdef,instrument.test.libcompile" unless="skip.instrument">
+	<target name="instrument.test.srcinstrument" depends="instrument.taskdef,instrument.test.libcompile,instrument.testfeature.compile" unless="skip.instrument">
 		<instrument
 				dir="instrument/testsrc"
 				verify="${instrument.verify}"
@@ -747,6 +744,11 @@
 				timestampFile="build/timestamps/instrument.testsrc.timestamp">
 			<resources refid="instrument.resources" />
 			<classpath>
+				<pathelement location="build/classes/instrument/testfeaturesrc" />
+				<pathelement location="build/classes/instrument/testlibsrc" />
+				<pathelement location="build/classes/runtime/servletsrc" />
+				<pathelement location="lib/javax.servlet-api.jar" /><!-- required to instrument Media features-->
+				<pathelement location="lib/junit.jar" />
 				<pathelement location="lib/cpsuite.jar" />
 				<pathelement location="${env.JAVA_HOME}/lib/tools.jar"/>
 			</classpath>
@@ -756,7 +758,7 @@
 		</instrument>
 	</target>
 
-	<target name="instrument.test.libinstrument" depends="instrument.taskdef" unless="skip.instrument">
+	<target name="instrument.test.libinstrument" depends="instrument.taskdef, instrument.testfeature.compile" unless="skip.instrument">
 		<instrument
 				dir="instrument/testlibsrc"
 				verify="${instrument.verify}"
@@ -771,8 +773,7 @@
 				timestampFile="build/timestamps/instrument.testlib.timestamp">
 			<resources refid="instrument.resources" />
 			<classpath>
-				<pathelement location="lib/cpsuite.jar" />
-				<pathelement location="${env.JAVA_HOME}/lib/tools.jar"/>
+				<pathelement location="build/classes/instrument/testfeaturesrc" />
 			</classpath>
 		</instrument>
 	</target>
@@ -780,7 +781,6 @@
 	<target name="instrument.test.libcompile" depends="instrument.test.libinstrument, runtime.core.compile, runtime.pattern.compile, runtime.servlet.compile, runtime.junit.compile, instrument.compile">
 		<compile srcdir="instrument/testlibsrc">
 			<classpath>
-				<pathelement location="${env.JAVA_HOME}/lib/tools.jar"/>
 				<pathelement location="build/classes/runtime/src" />
 				<pathelement location="build/classes/runtime/patternsrc" />
 				<pathelement location="build/classes/runtime/servletsrc" />
@@ -789,8 +789,6 @@
 				<pathelement location="build/classes/instrument/src" />
 				<pathelement location="build/classes/instrument/testfeaturesrc" />
 				<pathelement location="lib/exedio-cope-util.jar" />
-				<pathelement location="lib/junit.jar" />
-				<pathelement location="lib/cpsuite.jar" />
 				<pathelement location="lib/findbugs-annotations.jar" />
 			</classpath>
 		</compile>

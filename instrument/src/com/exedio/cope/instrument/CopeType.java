@@ -229,7 +229,7 @@ abstract class CopeType<F extends CopeFeature>
 
 	abstract int getTypeParameters();
 
-	abstract String getFullName();
+	abstract String getCanonicalName();
 
 	abstract int getModifier();
 

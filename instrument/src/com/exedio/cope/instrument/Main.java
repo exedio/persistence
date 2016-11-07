@@ -25,8 +25,12 @@ import com.exedio.cope.util.Clock;
 import com.exedio.cope.util.StrictFile;
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLClassLoader;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import javax.tools.StandardJavaFileManager;
 
@@ -42,7 +46,9 @@ final class Main
 		files.removeAll(params.ignoreFiles);
 		if(files.isEmpty())
 			throw new HumanReadableException("nothing to do.");
-		if ( noFilesModifiedAfter(files, params.timestampFile, params.verbose) && noFilesModifiedAfter(resourceFiles, params.timestampFile, params.verbose) )
+		if ( noFilesModifiedAfter(files, params.timestampFile, params.verbose)
+			&& noFilesModifiedAfter(resourceFiles, params.timestampFile, params.verbose)
+			&& noFilesModifiedAfter(classpathFiles, params.timestampFile, params.verbose) )
 		{
 			System.out.println("No files or resources modified.");
 			return;
@@ -58,7 +64,7 @@ final class Main
 			InstrumentContext.enter();
 
 			final Charset charset = params.charset;
-			final JavaRepository repository = new JavaRepository();
+			final JavaRepository repository = new JavaRepository( createClassLoader(classpathFiles) );
 
 			this.verbose = params.verbose;
 			instrumented = 0;
@@ -147,6 +153,23 @@ final class Main
 			System.out.println("Instrumented " + instrumented + ' ' + (instrumented==1 ? "file" : "files") + ", skipped " + skipped + " in " + files.iterator().next().getParentFile().getAbsolutePath());
 	}
 
+	private ClassLoader createClassLoader(final Iterable<File> classpathFiles)
+	{
+		final List<URL> urls=new ArrayList<>();
+		for (final File classpathFile: classpathFiles)
+		{
+			try
+			{
+				urls.add(classpathFile.toURI().toURL());
+			}
+			catch (final MalformedURLException e)
+			{
+				throw new RuntimeException(e);
+			}
+		}
+		return new URLClassLoader(urls.toArray(new URL[urls.size()]), getClass().getClassLoader());
+	}
+
 	private static boolean noFilesModifiedAfter(final Iterable<File> checkFiles, final File referenceFile, final boolean verbose)
 	{
 		if ( referenceFile==null || !referenceFile.exists() )
@@ -169,6 +192,13 @@ final class Main
 						System.out.println("File "+file+" changed after timestamp file, instrumentation required.");
 					}
 					return false;
+				}
+				if ( file.isDirectory() )
+				{
+					if ( !noFilesModifiedAfter(Arrays.asList(file.listFiles()), referenceFile, verbose) )
+					{
+						return false;
+					}
 				}
 			}
 			return true;

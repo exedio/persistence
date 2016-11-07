@@ -18,6 +18,9 @@
 
 package com.exedio.cope.instrument;
 
+import com.exedio.cope.Item;
+import com.exedio.cope.pattern.Block;
+import com.exedio.cope.pattern.Composite;
 import com.sun.source.doctree.DocCommentTree;
 import com.sun.source.tree.BlockTree;
 import com.sun.source.tree.ClassTree;
@@ -57,7 +60,7 @@ class ClassVisitor extends GeneratedAwareScanner
 		}
 		else if (javaClass==null)
 		{
-			final String classExtends=ct.getExtendsClause()==null?null:ct.getExtendsClause().toString();
+			final String classExtends=context.getFullyQualifiedSuperclass(getCurrentPath());
 			javaClass = new JavaClass(
 				context.javaFile,
 				outerClass,
@@ -66,6 +69,9 @@ class ClassVisitor extends GeneratedAwareScanner
 				context.getDocComment(getCurrentPath()),
 				context.getSourcePosition(ct),
 				ct.getKind()==Tree.Kind.ENUM,
+				context.isSubtype(getCurrentPath(), Item.class),
+				context.isSubtype(getCurrentPath(), Block.class),
+				context.isSubtype(getCurrentPath(), Composite.class),
 				classExtends,
 				getWrapperType(),
 				findClassEndPosition(ct)

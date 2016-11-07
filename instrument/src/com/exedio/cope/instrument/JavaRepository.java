@@ -45,10 +45,10 @@ final class JavaRepository
 	 * Using this in JavaFile greatly reduces number of top name spaces,
 	 * for which a new BshClassManager must be created.
 	 */
-	final CopeNameSpace externalNameSpace = new CopeNameSpace(null, "external");
+	final CopeNameSpace externalNameSpace;
 
 	// reusing externalNameSpace is more efficient than another root nameSpace
-	final CopeNameSpace nameSpace = new NS(externalNameSpace);
+	final CopeNameSpace nameSpace;
 
 	final Interpreter interpreter = new Interpreter();
 
@@ -63,10 +63,17 @@ final class JavaRepository
 
 	private final ArrayList<JavaFile> files = new ArrayList<>();
 	private final HashMap<String, JavaClass> javaClassBySimpleName = new HashMap<>();
-	private final HashMap<String, JavaClass> javaClassByFullName = new HashMap<>();
+	private final HashMap<String, JavaClass> javaClassByCanonicalName = new HashMap<>();
 	private final HashMap<String,List<JavaClass>> problematicSimpleNames = new HashMap<>();
 
 	private final HashMap<JavaClass, LocalCopeType> copeTypeByJavaClass = new HashMap<>();
+
+	public JavaRepository(final ClassLoader cl)
+	{
+		externalNameSpace = new CopeNameSpace(null, "external");
+		externalNameSpace.getClassManager().setClassLoader(cl);
+		nameSpace = new NS(externalNameSpace);
+	}
 
 	void endBuildStage()
 	{
@@ -74,14 +81,14 @@ final class JavaRepository
 		stage = Stage.BETWEEN;
 
 		// TODO put this into a new class CopeType
-		for(final JavaClass javaClass : javaClassByFullName.values())
+		for(final JavaClass javaClass : javaClassByCanonicalName.values())
 		{
 			if(javaClass.isInterface())
 				continue;
 
-			final boolean isItem = isItem(javaClass);
-			final boolean isBlock = isBlock(javaClass);
-			final boolean isComposite = isComposite(javaClass);
+			final boolean isItem = javaClass.isItem;
+			final boolean isBlock = javaClass.isBlock;
+			final boolean isComposite = javaClass.isComposite;
 			if(isItem||isBlock||isComposite)
 			{
 				new LocalCopeType(javaClass, isItem, isBlock, isComposite);
@@ -102,83 +109,6 @@ final class JavaRepository
 	boolean isGenerateStage()
 	{
 		return stage==Stage.GENERATE;
-	}
-
-	boolean isItem(JavaClass javaClass)
-	{
-		//System.out.println("--------------"+javaClass.getFullName());
-		try
-		{
-			while(true)
-			{
-				final String classExtends = javaClass.classExtends;
-				if(classExtends==null)
-					return false;
-
-				//System.out.println("--------------**"+javaClass.getFullName());
-				{
-					final Class<?> extendsClass = javaClass.file.findTypeExternally(classExtends);
-					//System.out.println("--------------*1"+extendsClass);
-					if(extendsClass!=null)
-						return Item.class.isAssignableFrom(extendsClass);
-				}
-				{
-					final JavaClass byName = getJavaClass(classExtends);
-					//System.out.println("--------------*2"+byName);
-					if(byName!=null)
-					{
-						javaClass = byName;
-						continue;
-					}
-				}
-				System.out.println("unknown type " + classExtends + " in " + javaClass);
-				return false;
-			}
-		}
-		catch (final NoClassDefFoundError e)
-		{
-			throw new RuntimeException("error analyzing "+javaClass.getFullName(), e);
-		}
-	}
-
-	static boolean isBlock(final JavaClass javaClass)
-	{
-		try
-		{
-			final String classExtends = javaClass.classExtends;
-			if(classExtends==null)
-				return false;
-
-			final Class<?> extendsClass = javaClass.file.findTypeExternally(classExtends);
-			if(extendsClass!=null)
-				return Block.class.isAssignableFrom(extendsClass);
-
-			return false;
-		}
-		catch (final NoClassDefFoundError e)
-		{
-			throw new RuntimeException("error analyzing "+javaClass.getFullName(), e);
-		}
-	}
-
-	static boolean isComposite(final JavaClass javaClass)
-	{
-		try
-		{
-			final String classExtends = javaClass.classExtends;
-			if(classExtends==null)
-				return false;
-
-			final Class<?> extendsClass = javaClass.file.findTypeExternally(classExtends);
-			if(extendsClass!=null)
-				return Composite.class.isAssignableFrom(extendsClass);
-
-			return false;
-		}
-		catch (final NoClassDefFoundError e)
-		{
-			throw new RuntimeException("error analyzing "+javaClass.getFullName(), e);
-		}
 	}
 
 	void add(final JavaFile file)
@@ -210,8 +140,8 @@ final class JavaRepository
 			classes.add(javaClass);
 		}
 
-		if(javaClassByFullName.put(javaClass.getFullName(), javaClass)!=null)
-			throw new RuntimeException(javaClass.getFullName());
+		if(javaClassByCanonicalName.put(javaClass.getCanonicalName(), javaClass)!=null)
+			throw new RuntimeException(javaClass.getCanonicalName());
 	}
 
 	private JavaClass resolveBySimpleName(final String name)
@@ -220,14 +150,14 @@ final class JavaRepository
 		final List<JavaClass> problematicClasses=problematicSimpleNames.remove(name);
 		if (result!=null && problematicClasses!=null)
 		{
-			final boolean resultIsItem=isItem(result);
-			final boolean resultIsBlock=isBlock(result);
-			final boolean resultIsComposite=isComposite(result);
+			final boolean resultIsItem=result.isItem;
+			final boolean resultIsBlock=result.isBlock;
+			final boolean resultIsComposite=result.isComposite;
 			for (final JavaClass checkProblematicClass: problematicClasses)
 			{
-				if (isItem(checkProblematicClass)!=resultIsItem
-					|| isBlock(checkProblematicClass)!=resultIsBlock
-					|| isComposite(checkProblematicClass)!=resultIsComposite
+				if (checkProblematicClass.isItem!=resultIsItem
+					|| checkProblematicClass.isBlock!=resultIsBlock
+					|| checkProblematicClass.isComposite!=resultIsComposite
 					|| result.isEnum!=checkProblematicClass.isEnum)
 				{
 					System.out.println("Problem resolving '"+name+"' - could be one of ...");
@@ -260,15 +190,15 @@ final class JavaRepository
 		}
 		else
 		{
-			final JavaClass byFullName = javaClassByFullName.get(name);
-			if(byFullName!=null)
-				return byFullName;
+			final JavaClass byCanonicalName = javaClassByCanonicalName.get(name);
+			if(byCanonicalName!=null)
+				return byCanonicalName;
 
 			// for inner classes
 			final int dot = name.indexOf('.'); // cannot be negative in else branch
 			final JavaClass outer = resolveBySimpleName(name.substring(0, dot));
 			if(outer!=null)
-				return javaClassByFullName.get(outer.file.getPackageName() + '.' + name.replace('.', '$'));
+				return javaClassByCanonicalName.get(outer.file.getPackageName() + '.' + name);
 
 			return null;
 		}
@@ -341,15 +271,15 @@ final class JavaRepository
 				//System.out.println("++++++++++++++++getClass(\""+name+"\") == "+javaClass+","+javaClass.isEnum);
 				if(javaClass.isEnum)
 					return EnumBeanShellHackClass.class;
-				if(isItem(javaClass))
+				if(javaClass.isItem)
 				{
 					return DummyItem.class;
 				}
-				if(isBlock(javaClass))
+				if(javaClass.isBlock)
 				{
 					return DummyBlock.class;
 				}
-				if(isComposite(javaClass))
+				if(javaClass.isComposite)
 				{
 					return DummyComposite.class;
 				}

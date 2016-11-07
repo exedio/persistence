@@ -28,7 +28,7 @@ public class JavaFileTest
 {
 	@Test public void fragmentsMustBeSequential()
 	{
-		final JavaFile javaFile=new JavaFile(new JavaRepository(), new DummyJavaFileObject("x"), "y");
+		final JavaFile javaFile=new JavaFile(createJavaRepository(), new DummyJavaFileObject("x"), "y");
 		javaFile.markFragmentAsGenerated(10, 15);
 		javaFile.markFragmentAsGenerated(15, 20);
 		try
@@ -44,7 +44,7 @@ public class JavaFileTest
 
 	@Test public void fragmentsMustHaveValidRange()
 	{
-		final JavaFile javaFile=new JavaFile(new JavaRepository(), new DummyJavaFileObject("x"), "y");
+		final JavaFile javaFile=new JavaFile(createJavaRepository(), new DummyJavaFileObject("x"), "y");
 		try
 		{
 			javaFile.markFragmentAsGenerated(10, 9);
@@ -67,7 +67,7 @@ public class JavaFileTest
 
 	@Test public void sourceWithoutGeneratedFragments()
 	{
-		final JavaFile javaFile=new JavaFile(new JavaRepository(), new DummyJavaFileObject("x").withDummyBytes(10), "y");
+		final JavaFile javaFile=new JavaFile(createJavaRepository(), new DummyJavaFileObject("x").withDummyBytes(10), "y");
 		javaFile.markFragmentAsGenerated(1, 2);
 		assertSourcesWithoutGeneratedFragments("023456789", javaFile);
 
@@ -77,7 +77,7 @@ public class JavaFileTest
 
 	@Test public void generatedFragmentBehindEnd()
 	{
-		final JavaFile javaFile=new JavaFile(new JavaRepository(), new DummyJavaFileObject("x").withDummyBytes(10), "y");
+		final JavaFile javaFile=new JavaFile(createJavaRepository(), new DummyJavaFileObject("x").withDummyBytes(10), "y");
 		javaFile.markFragmentAsGenerated(1, 2);
 		javaFile.markFragmentAsGenerated(11, 12);
 		try
@@ -93,7 +93,7 @@ public class JavaFileTest
 
 	@Test public void generatedFragmentIncludingEnd()
 	{
-		final JavaFile javaFile=new JavaFile(new JavaRepository(), new DummyJavaFileObject("x").withDummyBytes(10), "y");
+		final JavaFile javaFile=new JavaFile(createJavaRepository(), new DummyJavaFileObject("x").withDummyBytes(10), "y");
 		javaFile.markFragmentAsGenerated(9, 12);
 		try
 		{
@@ -109,5 +109,10 @@ public class JavaFileTest
 	private static void assertSourcesWithoutGeneratedFragments(final String expected, final JavaFile javaFile)
 	{
 		assertEquals(expected, new String(javaFile.getSourceWithoutGeneratedFragments(), StandardCharsets.US_ASCII));
+	}
+
+	private JavaRepository createJavaRepository()
+	{
+		return new JavaRepository(getClass().getClassLoader());
 	}
 }
