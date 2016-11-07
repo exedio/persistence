@@ -18,9 +18,11 @@
 
 package com.exedio.cope.misc;
 
-import com.exedio.cope.Item;
+import com.exedio.cope.Feature;
 import com.exedio.cope.Model;
 import com.exedio.cope.Type;
+import com.exedio.cope.pattern.BlockField;
+import com.exedio.cope.pattern.CompositeField;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
@@ -32,12 +34,21 @@ public final class SerializationCheck
 {
 	public static List<Field> check(final Model model)
 	{
-		final LinkedHashSet<Class<? extends Item>> classes = new LinkedHashSet<>();
+		final LinkedHashSet<Class<?>> classes = new LinkedHashSet<>();
 		for(final Type<?> type : model.getTypesSortedByHierarchy())
+		{
 			classes.add(type.getJavaClass());
+			for(final Feature feature : type.getDeclaredFeatures())
+			{
+				if(feature instanceof CompositeField<?>)
+					classes.add(((CompositeField<?>)feature).getValueClass());
+				else if(feature instanceof BlockField<?>)
+					classes.add(((BlockField<?>)feature).getValueClass());
+			}
+		}
 
 		ArrayList<Field> result = null;
-		for(final Class<? extends Item> clazz : classes)
+		for(final Class<?> clazz : classes)
 		{
 			for(final Field field : clazz.getDeclaredFields())
 			{

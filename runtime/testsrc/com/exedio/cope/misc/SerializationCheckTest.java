@@ -65,7 +65,9 @@ public class SerializationCheckTest
 		final Field field1 = Item1.class.getDeclaredField("serializedField1");
 		final Field field2 = Item2.class.getDeclaredField("serializedField2");
 		final Field patternField1 = PatternItem.class.getDeclaredField("serializedField1");
-		assertEqualsUnmodifiable(asList(field1, patternField1, field2), check(MODEL));
+		final Field compositeField1 = CompositeWrong.class.getDeclaredField("serializedField1");
+		final Field blockField1 = BlockWrong.class.getDeclaredField("serializedField1");
+		assertEqualsUnmodifiable(asList(field1, compositeField1, blockField1, patternField1, field2), check(MODEL));
 	}
 
 
