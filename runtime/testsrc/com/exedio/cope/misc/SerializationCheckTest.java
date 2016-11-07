@@ -21,7 +21,7 @@ package com.exedio.cope.misc;
 import static com.exedio.cope.instrument.Visibility.NONE;
 import static com.exedio.cope.misc.SerializationCheck.check;
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
-import static com.exedio.cope.tojunit.Assert.list;
+import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
@@ -52,7 +52,7 @@ public class SerializationCheckTest
 
 	@Test public void testOk()
 	{
-		assertEqualsUnmodifiable(list(), check(MODEL_OK));
+		assertEqualsUnmodifiable(asList(), check(MODEL_OK));
 	}
 
 	@Test public void testWrong() throws NoSuchFieldException
@@ -60,7 +60,7 @@ public class SerializationCheckTest
 		final Field field1 = Item1.class.getDeclaredField("serializedField1");
 		final Field field2 = Item2.class.getDeclaredField("serializedField2");
 		final Field patternField1 = PatternItem.class.getDeclaredField("serializedField1");
-		assertEqualsUnmodifiable(list(field1, patternField1, field2), check(MODEL));
+		assertEqualsUnmodifiable(asList(field1, patternField1, field2), check(MODEL));
 	}
 
 
