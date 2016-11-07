@@ -529,7 +529,7 @@
 		</foreachEnvironment>
 	</target>
 
-	<target name="runtime.servlet.test.instrument" depends="instrument.taskdef" unless="skip.instrument">
+	<target name="runtime.servlet.test.instrument" depends="instrument.taskdef,runtime.servlet.compile" unless="skip.instrument">
 		<instrument
 				dir="runtime/servlettestsrc"
 				verify="${instrument.verify}"
@@ -708,7 +708,7 @@
 		</compile>
 	</target>
 
-	<target name="instrument.taskdef" depends="dsmf.compile, runtime.core.compile, runtime.pattern.compile, runtime.servlet.compile, instrument.compile, instrument.testfeature.compile, runtime.test.feature.compile">
+	<target name="instrument.taskdef" depends="dsmf.compile, runtime.core.compile, runtime.pattern.compile, instrument.compile">
 		<taskdef resource="com/exedio/cope/instrument/ant.properties">
 			<classpath id="instrument.resources">
 				<pathelement location="build/classes/dsmf/src" />
@@ -729,7 +729,7 @@
 
 	<target name="instrument.test.instrument" depends="instrument.test.srcinstrument,instrument.test.libinstrument"/>
 
-	<target name="instrument.test.srcinstrument" depends="instrument.taskdef,instrument.test.libcompile" unless="skip.instrument">
+	<target name="instrument.test.srcinstrument" depends="instrument.taskdef,instrument.test.libcompile,instrument.testfeature.compile" unless="skip.instrument">
 		<instrument
 				dir="instrument/testsrc"
 				verify="${instrument.verify}"
@@ -758,7 +758,7 @@
 		</instrument>
 	</target>
 
-	<target name="instrument.test.libinstrument" depends="instrument.taskdef" unless="skip.instrument">
+	<target name="instrument.test.libinstrument" depends="instrument.taskdef, instrument.testfeature.compile" unless="skip.instrument">
 		<instrument
 				dir="instrument/testlibsrc"
 				verify="${instrument.verify}"
