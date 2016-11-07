@@ -36,7 +36,7 @@ import org.junit.Test;
 
 public class SerializationCheckTest
 {
-	@Test public void testIt() throws NoSuchFieldException
+	@Test public void testNull()
 	{
 		try
 		{
@@ -47,9 +47,15 @@ public class SerializationCheckTest
 		{
 			assertEquals(null, e.getMessage());
 		}
+	}
 
+	@Test public void testOk()
+	{
 		assertEqualsUnmodifiable(list(), check(MODEL_OK));
+	}
 
+	@Test public void testWrong() throws NoSuchFieldException
+	{
 		final Field field1 = Item1.class.getDeclaredField("serializedField1");
 		final Field field2 = Item2.class.getDeclaredField("serializedField2");
 		assertEqualsUnmodifiable(list(field1, field2), check(MODEL));
