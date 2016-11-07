@@ -25,8 +25,10 @@ import static com.exedio.cope.tojunit.Assert.list;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
+import com.exedio.cope.Features;
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
+import com.exedio.cope.Pattern;
 import com.exedio.cope.StringField;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.instrument.WrapperType;
@@ -57,7 +59,8 @@ public class SerializationCheckTest
 	{
 		final Field field1 = Item1.class.getDeclaredField("serializedField1");
 		final Field field2 = Item2.class.getDeclaredField("serializedField2");
-		assertEqualsUnmodifiable(list(field1, field2), check(MODEL));
+		final Field patternField1 = PatternItem.class.getDeclaredField("serializedField1");
+		assertEqualsUnmodifiable(list(field1, patternField1, field2), check(MODEL));
 	}
 
 
@@ -85,11 +88,41 @@ public class SerializationCheckTest
 	private static final Model MODEL_OK = new Model(ItemOk.TYPE);
 
 
+	@WrapperType(type=NONE, constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
+	static final class PatternItem extends Item
+	{
+		static int staticField1;
+		transient int transientField1;
+		static transient int staticTransientField1;
+		int serializedField1;
+
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		private static final long serialVersionUID = 1l;
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@SuppressWarnings("unused") private PatternItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
+	}
+
+	static class PatternFeature extends Pattern
+	{
+		@Override
+		protected void onMount()
+		{
+			super.onMount();
+			newSourceType(PatternItem.class, new Features());
+		}
+		private static final long serialVersionUID = 1l;
+	}
+
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	static class Item1 extends Item
 	{
 		@Wrapper(wrap="*", visibility=NONE)
 		static final StringField f1 = new StringField();
+
+		static final PatternFeature p1 = new PatternFeature();
+		static final PatternFeature p2 = new PatternFeature(); // check there are no duplicates
 
 		static int staticField1;
 		transient int transientField1;
