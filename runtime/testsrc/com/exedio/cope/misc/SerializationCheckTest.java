@@ -32,6 +32,11 @@ import com.exedio.cope.Pattern;
 import com.exedio.cope.StringField;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.instrument.WrapperType;
+import com.exedio.cope.pattern.Block;
+import com.exedio.cope.pattern.BlockField;
+import com.exedio.cope.pattern.Composite;
+import com.exedio.cope.pattern.CompositeField;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.lang.reflect.Field;
 import org.junit.Test;
 
@@ -115,6 +120,52 @@ public class SerializationCheckTest
 		private static final long serialVersionUID = 1l;
 	}
 
+	@WrapperType(constructor=NONE, indent=2, comments=false)
+	@SuppressFBWarnings("SE_TRANSIENT_FIELD_NOT_RESTORED")
+	static final class CompositeWrong extends Composite
+	{
+		@Wrapper(wrap="*", visibility=NONE)
+		static final StringField f1 = new StringField();
+
+		static int staticField1;
+		transient int transientField1;
+		static transient int staticTransientField1;
+		int serializedField1;
+
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		private CompositeWrong(final com.exedio.cope.SetValue<?>... setValues)
+		{
+			super(setValues);
+		}
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		private static final long serialVersionUID = 1l;
+	}
+
+	@WrapperType(constructor=NONE, indent=2, comments=false)
+	@SuppressFBWarnings("SE_TRANSIENT_FIELD_NOT_RESTORED")
+	static final class BlockWrong extends Block
+	{
+		@Wrapper(wrap="*", visibility=NONE)
+		static final StringField f1 = new StringField();
+
+		static int staticField1;
+		transient int transientField1;
+		static transient int staticTransientField1;
+		int serializedField1;
+
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		private static final long serialVersionUID = 1l;
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		static final com.exedio.cope.pattern.BlockType<BlockWrong> TYPE = com.exedio.cope.pattern.BlockType.newType(BlockWrong.class);
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@SuppressWarnings("unused") private BlockWrong(final com.exedio.cope.pattern.BlockActivationParameters ap){super(ap);}
+	}
+
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	static class Item1 extends Item
 	{
@@ -123,6 +174,15 @@ public class SerializationCheckTest
 
 		static final PatternFeature p1 = new PatternFeature();
 		static final PatternFeature p2 = new PatternFeature(); // check there are no duplicates
+
+		@Wrapper(wrap="*", visibility=NONE)
+		static final CompositeField<CompositeWrong> composite = CompositeField.create(CompositeWrong.class);
+		@Wrapper(wrap="*", visibility=NONE)
+		static final CompositeField<CompositeWrong> composite2 = CompositeField.create(CompositeWrong.class); // check there are no duplicates
+		@Wrapper(wrap="*", visibility=NONE)
+		static final BlockField<BlockWrong> block = BlockField.create(BlockWrong.TYPE);
+		@Wrapper(wrap="*", visibility=NONE)
+		static final BlockField<BlockWrong> block2 = BlockField.create(BlockWrong.TYPE);// check there are no duplicates
 
 		static int staticField1;
 		transient int transientField1;
