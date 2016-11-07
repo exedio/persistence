@@ -28,23 +28,22 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 final class QueryCache
 {
 	// TODO use guava ComputingMap
 	// http://guava-libraries.googlecode.com/svn/tags/release09/javadoc/com/google/common/collect/MapMaker.html#makeComputingMap%28com.google.common.base.Function%29
-	private final LRUMap map;
+	private final LRUMap<Key, Value> map;
 	private final VolatileLong hits = new VolatileLong();
 	private final VolatileLong misses = new VolatileLong();
 	private final VolatileLong invalidations = new VolatileLong();
 	private final VolatileLong concurrentLoads = new VolatileLong();
+	private final VolatileLong replacements = new VolatileLong();
 
 	QueryCache(final int limit)
 	{
-		this.map = limit>0 ? new LRUMap(limit) : null;
+		this.map = limit>0 ? new LRUMap<>(limit, x -> replacements.inc()) : null;
 	}
 
 	ArrayList<Object> search(
@@ -163,7 +162,7 @@ final class QueryCache
 		return new QueryCacheInfo(
 				hits.get(),
 				misses.get(),
-				map!=null ? map.replacements.get() : 0l,
+				replacements.get(),
 				invalidations.get(),
 				concurrentLoads.get(),
 				level);
@@ -253,30 +252,6 @@ final class QueryCache
 			this.invalidationTypesTransiently = typeSet.toArray();
 
 			this.list = list;
-		}
-	}
-
-	private static final class LRUMap extends LinkedHashMap<Key, Value>
-	{
-		private static final long serialVersionUID = 1l;
-
-		private final int maxSize;
-		final VolatileLong replacements = new VolatileLong();
-
-		LRUMap(final int maxSize)
-		{
-			super(maxSize, 0.75f/*DEFAULT_LOAD_FACTOR*/, true);
-			this.maxSize = maxSize;
-		}
-
-		@Override
-		protected boolean removeEldestEntry(final Map.Entry<Key,Value> eldest)
-		{
-			//System.out.println("-----eldest("+size()+"):"+eldest.getKey());
-			final boolean result = size() > maxSize;
-			if(result)
-				replacements.inc();
-			return result;
 		}
 	}
 }

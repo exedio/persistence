@@ -20,47 +20,17 @@ package com.exedio.cope;
 
 import static com.exedio.cope.misc.TimeUtil.toMillies;
 import static java.util.Arrays.asList;
-import static java.util.Objects.requireNonNull;
 import static org.junit.Assert.assertEquals;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import gnu.trove.TLongObjectHashMap;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.function.Consumer;
 import org.junit.Ignore;
 import org.junit.Test;
 
 public class LRUMapTest
 {
-	private static final class LRUMap<K, V> extends LinkedHashMap<K, V>
-	{
-		private static final long serialVersionUID = 1l;
-
-		private final int maxSize;
-
-		@SuppressFBWarnings("SE_BAD_FIELD")
-		private final Consumer<Map.Entry<K, V>> onReplace;
-
-		LRUMap(final int maxSize, final Consumer<Map.Entry<K, V>> onReplace)
-		{
-			super(maxSize, 0.75f/*DEFAULT_LOAD_FACTOR*/, true);
-			this.maxSize = maxSize;
-			this.onReplace = requireNonNull(onReplace);
-		}
-
-		@Override
-		protected boolean removeEldestEntry(final Map.Entry<K,V> eldest)
-		{
-			final boolean result = size() > maxSize;
-			if(result)
-				onReplace.accept(eldest);
-			return result;
-		}
-	}
-
 	private static final class DateMap<K, V> extends HashMap<K, V>
 	{
 		private static final long serialVersionUID = 1l;
