@@ -144,12 +144,6 @@ public final class QueryIterators
 
 			return result.iterator();
 		}
-
-		@Override
-		public void remove()
-		{
-			throw new UnsupportedOperationException();
-		}
 	}
 
 
@@ -226,12 +220,6 @@ public final class QueryIterators
 
 			return result;
 		}
-
-		@Override
-		public final void remove()
-		{
-			throw new UnsupportedOperationException();
-		}
 	}
 
 	private static final class ByStableQueryLimited<E> implements Iterator<E>
@@ -294,12 +282,6 @@ public final class QueryIterators
 			}
 
 			return result;
-		}
-
-		@Override
-		public final void remove()
-		{
-			throw new UnsupportedOperationException();
 		}
 	}
 
