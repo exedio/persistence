@@ -24,6 +24,8 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.fail;
 
+import java.util.Arrays;
+import java.util.stream.Collectors;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -163,7 +165,8 @@ public class CacheIsolationTest extends TestWithEnvironment
 
 	private final void assertInvalidations(final int ordered, final int done)
 	{
-		final ItemCacheInfo[] ci = model.getItemCacheInfo();
+		final ItemCacheStatistics statistics = model.getItemCacheStatistics();
+		final ItemCacheInfo[] ci = statistics.getItemCacheInfos();
 		if(model.getConnectProperties().getItemCacheLimit()>0)
 		{
 			assertEquals(1, ci.length);
@@ -173,7 +176,8 @@ public class CacheIsolationTest extends TestWithEnvironment
 		}
 		else
 		{
-			assertEquals(0, ci.length);
+			assertEquals(0, statistics.getLimit());
+			assertEquals(Arrays.asList(ci).stream().map( x -> x.getType() ).collect(Collectors.toList()).toString(), 0, ci.length);
 		}
 	}
 }

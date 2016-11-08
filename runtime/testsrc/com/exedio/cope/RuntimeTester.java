@@ -276,23 +276,16 @@ final class RuntimeTester
 		assertNull(name, table.getConstraint(name));
 	}
 
-	protected void assertCacheInfo(final Type<?>[] types, final int[] limitWeigths)
+	protected void assertCacheInfo(final Type<?>[] types)
 	{
-		assertEquals(types.length, limitWeigths.length);
-
-		int limitWeigthsSum = 0;
-		for(final int limitWeigth : limitWeigths)
-			limitWeigthsSum += limitWeigth;
-
 		final int limit = model.getConnectProperties().getItemCacheLimit();
-		final ItemCacheInfo[] ci = model.getItemCacheInfo();
+		final ItemCacheInfo[] ci = model.getItemCacheStatistics().getItemCacheInfos();
 		if(limit>0)
 		{
 			assertEquals(types.length, ci.length);
 			for(int i = 0; i<ci.length; i++)
 			{
 				assertEquals(types [i], ci[i].getType());
-				assertEquals(limitWeigths[i]*limit/limitWeigthsSum, ci[i].getLimit());
 			}
 		}
 		else

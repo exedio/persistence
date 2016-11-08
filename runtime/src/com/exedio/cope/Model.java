@@ -554,9 +554,16 @@ public final class Model implements Serializable
 		return connect().database.getSequenceInfo();
 	}
 
+	public ItemCacheStatistics getItemCacheStatistics()
+	{
+		return connect().itemCache.getStatistics(types.concreteTypeList);
+	}
+
+	/** use {@link #getItemCacheStatistics()} */
+	@Deprecated
 	public ItemCacheInfo[] getItemCacheInfo()
 	{
-		return connect().itemCache.getInfo(types.concreteTypeList);
+		return getItemCacheStatistics().getItemCacheInfos();
 	}
 
 	public QueryCacheInfo getQueryCacheInfo()

@@ -31,24 +31,27 @@ public class ItemCacheLimitTest
 	@Test public void testNormal()
 	{
 		model.connect(props(10100));
-		assertLimits(10000, 100);
+		assertLimits(10100, 0, 0);
 	}
 
 	@Test public void testMuch()
 	{
 		model.connect(props(101000));
-		assertLimits(100000, 1000);
+		assertLimits(101000, 0, 0);
 	}
 
 	@Test public void testOverflow()
 	{
 		model.connect(props(1010000));
-		assertLimits(1000000, 10000);
+		assertLimits(1010000, 0, 0);
 	}
 
-	private static void assertLimits(final int limit1, final int limit2)
+	private static void assertLimits(final int globalLimit, final int limit1, final int limit2)
 	{
-		final ItemCacheInfo[] infos = model.getItemCacheInfo();
+		final ItemCacheStatistics statistics = model.getItemCacheStatistics();
+		assertEquals(globalLimit, statistics.getLimit());
+
+		final ItemCacheInfo[] infos=statistics.getItemCacheInfos();
 		assertEquals(2, infos.length);
 
 		assertEquals(Item1.TYPE.getID(), Item1.TYPE, infos[0].getType());

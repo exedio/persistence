@@ -22,21 +22,16 @@ import static java.lang.Integer.MAX_VALUE;
 import static java.lang.Integer.MIN_VALUE;
 
 import com.exedio.cope.ItemCacheInfo;
+import com.exedio.cope.ItemCacheStatistics;
 import java.util.Date;
 
 public final class ItemCacheSummary
 {
-	private final int limit;
 	private final int level;
 	private final long hits;
 	private final long misses;
 	private final long concurrentLoads;
-	private final int replacementRuns;
 	private final long replacements;
-	private final long lastReplacementRun;
-	private final long ageMinMillis;
-	private final long ageAvgMillis;
-	private final long ageMaxMillis;
 	private final long invalidationsOrdered;
 	private final long invalidationsDone;
 	private final int  stampsSize;
@@ -45,18 +40,11 @@ public final class ItemCacheSummary
 
 	public ItemCacheSummary(final ItemCacheInfo[] infos)
 	{
-		int limit = 0;
 		int level = 0;
 		long hits = 0;
 		long misses = 0;
 		long concurrentLoads = 0;
-		int replacementRuns = 0;
 		long replacements = 0;
-		long lastReplacementRun = Long.MIN_VALUE;
-		long numAgeAverageMillis = 0;
-		long ageMinMillis = Long.MAX_VALUE;
-		long sumAgeAvgMillis = 0l;
-		long ageMaxMillis = 0l;
 		long invalidationsOrdered = 0l;
 		long invalidationsDone = 0l;
 		int  stampsSize = 0;
@@ -65,55 +53,23 @@ public final class ItemCacheSummary
 
 		for(final ItemCacheInfo info : infos)
 		{
-			limit += info.getLimit();
 			level += info.getLevel();
 			hits += info.getHits();
 			misses += info.getMisses();
 			concurrentLoads += info.getConcurrentLoads();
 
-			replacementRuns += info.getReplacementRuns();
-			replacements += info.getReplacementsL();
-
-			final Date currentLastReplacementRunDate = info.getLastReplacementRun();
-			if(currentLastReplacementRunDate!=null)
-			{
-				final long currentLastReplacementRun = currentLastReplacementRunDate.getTime();
-				if(lastReplacementRun<currentLastReplacementRun)
-					lastReplacementRun = currentLastReplacementRun;
-			}
-
-			if(info.getLevel()>0)
-			{
-				numAgeAverageMillis++;
-
-				final long currentMinAgeMillis = info.getAgeMinimumMillis();
-				if(ageMinMillis>currentMinAgeMillis)
-					ageMinMillis = currentMinAgeMillis;
-
-				sumAgeAvgMillis += info.getAgeAverageMillis();
-
-				final long currentMaxAgeMillis = info.getAgeMaximumMillis();
-				if(ageMaxMillis<currentMaxAgeMillis)
-					ageMaxMillis = currentMaxAgeMillis;
-			}
-
+			replacements += info.getReplacements();
 			invalidationsOrdered += info.getInvalidationsOrdered();
 			invalidationsDone += info.getInvalidationsDone();
 			stampsSize   += info.getStampsSize();
 			stampsHits   += info.getStampsHits();
 			stampsPurged += info.getStampsPurged();
 		}
-		this.limit = limit;
 		this.level = level;
 		this.hits = hits;
 		this.misses = misses;
 		this.concurrentLoads = concurrentLoads;
-		this.replacementRuns = replacementRuns;
 		this.replacements = replacements;
-		this.lastReplacementRun = lastReplacementRun;
-		this.ageMinMillis = ageMinMillis!=Long.MAX_VALUE ? ageMinMillis : 0;
-		this.ageAvgMillis = numAgeAverageMillis>0 ? sumAgeAvgMillis/numAgeAverageMillis : 0;
-		this.ageMaxMillis = ageMaxMillis;
 		this.invalidationsOrdered = invalidationsOrdered;
 		this.invalidationsDone = invalidationsDone;
 		this.stampsSize = stampsSize;
@@ -121,9 +77,11 @@ public final class ItemCacheSummary
 		this.stampsPurged = stampsPurged;
 	}
 
+	/** use {@link ItemCacheStatistics#getLimit()} */
+	@Deprecated
 	public int getLimit()
 	{
-		return limit;
+		return 0;
 	}
 
 	public int getLevel()
@@ -146,9 +104,11 @@ public final class ItemCacheSummary
 		return concurrentLoads;
 	}
 
+	/** due to changes to the cache implementation, this value is no longer meaningful */
+	@Deprecated
 	public int getReplacementRuns()
 	{
-		return replacementRuns;
+		return 0;
 	}
 
 	/**
@@ -165,24 +125,32 @@ public final class ItemCacheSummary
 		return replacements;
 	}
 
+	/** due to changes to the cache implementation, this value is no longer meaningful */
+	@Deprecated
 	public Date getLastReplacementRun()
 	{
-		return lastReplacementRun!=Long.MIN_VALUE ? new Date(lastReplacementRun) : null;
+		return null;
 	}
 
+	/** due to changes to the cache implementation, this value is no longer meaningful */
+	@Deprecated
 	public long getAgeMinimumMillis()
 	{
-		return ageMinMillis;
+		return -1;
 	}
 
+	/** due to changes to the cache implementation, this value is no longer meaningful */
+	@Deprecated
 	public long getAgeAverageMillis()
 	{
-		return ageAvgMillis;
+		return -1;
 	}
 
+	/** due to changes to the cache implementation, this value is no longer meaningful */
+	@Deprecated
 	public long getAgeMaximumMillis()
 	{
-		return ageMaxMillis;
+		return -1;
 	}
 
 	public long getInvalidationsOrdered()

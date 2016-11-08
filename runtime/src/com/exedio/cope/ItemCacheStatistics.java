@@ -18,35 +18,36 @@
 
 package com.exedio.cope;
 
-import static java.util.Objects.requireNonNull;
+import java.util.Arrays;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.function.Consumer;
-
-final class LRUMap<K, V> extends LinkedHashMap<K, V>
+public final class ItemCacheStatistics
 {
-	private static final long serialVersionUID = 1l;
+	private final int limit;
+	private final int level;
+	private final ItemCacheInfo[] itemCacheInfos;
 
-	final int maxSize;
-
-	@SuppressFBWarnings("SE_BAD_FIELD")
-	private final Consumer<Map.Entry<K, V>> onReplace;
-
-	LRUMap(final int maxSize, final Consumer<Map.Entry<K, V>> onReplace)
+	ItemCacheStatistics(final int limit, final int level, final ItemCacheInfo[] itemCacheInfos)
 	{
-		super(maxSize, 0.75f/*DEFAULT_LOAD_FACTOR*/, true);
-		this.maxSize = maxSize;
-		this.onReplace = requireNonNull(onReplace);
+		this.limit=limit;
+		this.level=level;
+		this.itemCacheInfos=itemCacheInfos;
 	}
 
-	@Override
-	protected boolean removeEldestEntry(final Map.Entry<K, V> eldest)
+	/**
+	 * Returns the maximum number of items in the cache.
+	 */
+	public int getLimit()
 	{
-		final boolean result = size() > maxSize;
-		if(result)
-			onReplace.accept(eldest);
-		return result;
+		return limit;
+	}
+
+	public int getLevel()
+	{
+		return level;
+	}
+
+	public ItemCacheInfo[] getItemCacheInfos()
+	{
+		return Arrays.copyOf(itemCacheInfos, itemCacheInfos.length);
 	}
 }

@@ -179,9 +179,16 @@ public abstract class TestWithEnvironment
 		tester.assertCause(e);
 	}
 
+	/** use {@link #assertCacheInfo(Type<?>[])} */
+	@Deprecated
 	protected void assertCacheInfo(final Type<?>[] types, final int[] limitWeigths)
 	{
-		tester.assertCacheInfo(types, limitWeigths);
+		assertCacheInfo(types);
+	}
+
+	protected void assertCacheInfo(final Type<?>[] types)
+	{
+		tester.assertCacheInfo(types);
 	}
 
 	/**
