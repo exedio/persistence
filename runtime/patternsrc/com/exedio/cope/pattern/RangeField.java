@@ -94,8 +94,8 @@ public final class RangeField<E extends Comparable<E>> extends Pattern implement
 		FinalViolationException.check(this, item);
 
 		item.set(
-				this.from.map(value.getFrom()),
-				this.to  .map(value.getTo  ()));
+				from.map(value.getFrom()),
+				to  .map(value.getTo  ()));
 	}
 
 	@Wrap(order=30, nullability=NullableIfOptional.class)
