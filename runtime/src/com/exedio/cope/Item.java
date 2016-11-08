@@ -21,6 +21,7 @@ package com.exedio.cope;
 import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.ItemField.DeletePolicy;
+import com.exedio.cope.instrument.WrapType;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -41,6 +42,14 @@ import java.util.Map;
  *
  * @author Ralf Wiebicke
  */
+@WrapType(
+		type=@WrapType.Type(
+				doc="The persistent type information for {0}.",
+				field=Type.class, factory=TypesBound.class
+		),
+		activationConstructor=ActivationParameters.class,
+		dummy=DummyItem.class
+)
 public abstract class Item implements Serializable, Comparable<Item>
 {
 	static final char ID_SEPARATOR = '-';

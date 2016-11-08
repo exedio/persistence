@@ -287,10 +287,11 @@
 		</compile>
 	</target>
 
-	<target name="runtime.junit.compile" depends="runtime.core.compile">
+	<target name="runtime.junit.compile" depends="runtime.core.compile, instrument.anno.compile">
 		<compile srcdir="runtime/junitsrc">
 			<classpath>
 				<pathelement location="build/classes/runtime/src" />
+				<pathelement location="build/classes/instrument/annosrc" />
 				<pathelement location="lib/exedio-cope-util.jar" />
 				<pathelement location="lib/junit.jar" />
 				<pathelement location="lib/slf4j-api.jar" />

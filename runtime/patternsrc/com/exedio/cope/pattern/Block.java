@@ -19,8 +19,20 @@
 package com.exedio.cope.pattern;
 
 import com.exedio.cope.Item;
+import com.exedio.cope.instrument.WrapType;
 import java.io.Serializable;
 
+@WrapType(
+		type=@WrapType.Type(
+				doc="The type information for {0}.",
+				field=BlockType.class, factory=BlockType.class
+		),
+		hasGenericConstructor=false,
+		activationConstructor=BlockActivationParameters.class,
+		allowStaticClassToken=false,
+		featurePrefix="field().of(", featurePostfix=")", featureThis="item()",
+		dummy=DummyBlock.class
+)
 public abstract class Block implements Serializable
 {
 	private static final long serialVersionUID = 1l;

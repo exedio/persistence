@@ -69,7 +69,7 @@ abstract class CopeType<F extends CopeFeature>
 
 	final boolean isItem()
 	{
-		return kind==Kind.item;
+		return kind.isItem;
 	}
 
 	abstract Evaluatable getField(final String name);

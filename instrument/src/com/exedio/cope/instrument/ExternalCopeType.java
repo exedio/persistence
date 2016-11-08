@@ -29,7 +29,7 @@ final class ExternalCopeType extends CopeType<ExternalCopeFeature>
 
 	ExternalCopeType(final Class<?> itemClass)
 	{
-		super(Kind.item);
+		super(Kind.valueOf(Item.class.getAnnotation(WrapType.class)));
 		if (!Item.class.isAssignableFrom(itemClass)) throw new RuntimeException();
 		this.itemClass=itemClass;
 		registerFeatures();

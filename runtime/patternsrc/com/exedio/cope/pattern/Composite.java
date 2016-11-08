@@ -30,12 +30,17 @@ import com.exedio.cope.ItemField;
 import com.exedio.cope.ItemField.DeletePolicy;
 import com.exedio.cope.LongField;
 import com.exedio.cope.SetValue;
+import com.exedio.cope.instrument.WrapType;
 import com.exedio.cope.util.Day;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.TimeZone;
 
+@WrapType(
+		revertFeatureBody=true,
+		dummy=DummyComposite.class
+)
 public abstract class Composite implements Serializable
 {
 	private static final long serialVersionUID = 1l;

@@ -18,57 +18,16 @@
 
 package com.exedio.cope.instrument;
 
-import com.exedio.cope.ActivationParameters;
+import static java.util.Objects.requireNonNull;
+
 import com.exedio.cope.Item;
-import com.exedio.cope.TypesBound;
-import com.exedio.cope.pattern.Block;
-import com.exedio.cope.pattern.BlockActivationParameters;
-import com.exedio.cope.pattern.BlockType;
-import com.exedio.cope.pattern.Composite;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import java.util.HashMap;
+import java.util.function.Supplier;
+import javax.lang.model.type.MirroredTypeException;
 
-@SuppressFBWarnings("SE_BAD_FIELD")
-enum Kind
+final class Kind
 {
-	item(
-			Item.class,
-			new Type(
-					"The persistent type information for {0}.",
-					com.exedio.cope.Type.class, TypesBound.class
-			),
-			true, // hasGenericConstructor
-			ActivationParameters.class,
-			true, // allowStaticClassToken
-			false, // revertFeatureBody
-			"", "", "this",
-			JavaRepository.DummyItem.class
-	),
-	composite(
-			Composite.class,
-			null, // type
-			true, // hasGenericConstructor
-			null, // activationConstructor
-			false, // allowStaticClassToken
-			true, // revertFeatureBody
-			"", "", "this",
-			JavaRepository.DummyComposite.class
-	),
-	block(
-			Block.class,
-			new Type(
-					"The type information for {0}.",
-					BlockType.class, BlockType.class
-			),
-			false, // hasGenericConstructor
-			BlockActivationParameters.class,
-			false, // allowStaticClassToken
-			false, // revertFeatureBody
-			"field().of(", ")", "item()",
-			JavaRepository.DummyBlock.class
-	);
-
-
-	final Class<?> topClass;
 	final String top;
 	final String topSimple;
 	final Type type;
@@ -82,30 +41,40 @@ enum Kind
 	final Class<?> dummy;
 	final boolean isItem; // TODO remove dependency on this field
 
-	private Kind(
-			final Class<?> topClass,
-			final Type type,
-			final boolean hasGenericConstructor,
-			final Class<?> activationConstructor,
-			final boolean allowStaticClassToken,
-			final boolean revertFeatureBody,
-			final String featurePrefix,
-			final String featurePostfix,
-			final String featureThis,
-			final Class<?> dummy)
+	private Kind(final WrapType anno)
 	{
-		this.topClass = topClass;
-		this.top = topClass.getName();
-		this.topSimple = topClass.getSimpleName();
-		this.type = type;
-		this.hasGenericConstructor = hasGenericConstructor;
-		this.activationConstructor = activationConstructor!=null ? activationConstructor.getName() : null;
-		this.allowStaticClassToken = allowStaticClassToken;
-		this.revertFeatureBody = revertFeatureBody;
-		this.featurePrefix = featurePrefix;
-		this.featurePostfix = featurePostfix;
-		this.featureThis = featureThis;
+		type = Type.valueOf(anno.type());
+		hasGenericConstructor = anno.hasGenericConstructor();
+		activationConstructor = name(() -> anno.activationConstructor());
+		allowStaticClassToken = anno.allowStaticClassToken();
+		revertFeatureBody = anno.revertFeatureBody();
+		featurePrefix = anno.featurePrefix();
+		featurePostfix = anno.featurePostfix();
+		featureThis = anno.featureThis();
+
+		Class<?> dummy;
+		try
+		{
+			dummy = anno.dummy();
+		}
+		catch(final MirroredTypeException e)
+		{
+			try
+			{
+				dummy = Class.forName(e.getTypeMirror().toString());
+			}
+			catch(final ClassNotFoundException e1)
+			{
+				throw new RuntimeException(e1);
+			}
+		}
 		this.dummy = dummy;
+
+		final Class<?> topClass = dummy.getSuperclass();
+		if(topClass.getDeclaredAnnotation(WrapType.class)==null)
+			throw new RuntimeException("" + topClass);
+		top = topClass.getName();
+		topSimple = topClass.getSimpleName();
 
 		isItem = topClass==Item.class;
 	}
@@ -117,31 +86,59 @@ enum Kind
 		final String field;
 		final String factory;
 
-		Type(
+		private Type(
 				final String doc,
-				final Class<?> field,
-				final Class<?> factory)
+				final String field,
+				final String factory)
 		{
-			this.doc = doc;
-			this.field = field.getName();
-			this.factory = factory.getName();
+			this.doc = requireNonNull(doc);
+			this.field = requireNonNull(field);
+			this.factory = requireNonNull(factory);
+			if(doc.isEmpty())
+				throw new IllegalArgumentException("@WrapType#doc must not be empty");
+		}
+
+		@SuppressFBWarnings("NP_NULL_PARAM_DEREF")
+		static Type valueOf(final WrapType.Type anno)
+		{
+			final String doc = anno.doc();
+			final String field = name(() -> anno.field());
+			final String factory = name(() -> anno.factory());
+			if(doc.isEmpty() && field==null && factory==null)
+				return null;
+
+			return new Type(doc, field, factory);
 		}
 	}
 
 
-	static Kind valueOf(final ClassVisitor visitor)
+	private static final HashMap<WrapType, Kind> kinds = new HashMap<>();
+
+	static Kind valueOf(final WrapType anno)
 	{
-		Kind result = null;
-		for(final Kind kind : values())
-		{
-			if(visitor.context.isSubtype(visitor.getCurrentPath(), kind.topClass))
-			{
-				if(result!=null)
-					throw new RuntimeException("" + result + '/' + kind);
+		if(anno==null)
+			return null;
 
-				result = kind;
-			}
-		}
-		return result;
+		return kinds.computeIfAbsent(anno, a -> new Kind(a));
 	}
+
+
+	static String name(final Supplier<Class<?>> clazz)
+	{
+		try
+		{
+			return clazz.get().getName();
+		}
+		catch(final MirroredTypeException e)
+		{
+			final String result = e.getTypeMirror().toString();
+
+			if(result.equals(DEFAULT_NAME))
+				return null;
+
+			return result;
+		}
+	}
+
+	private static final String DEFAULT_NAME = StringGetterDefault.class.getName();
 }

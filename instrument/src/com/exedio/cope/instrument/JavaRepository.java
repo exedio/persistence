@@ -20,16 +20,7 @@ package com.exedio.cope.instrument;
 
 import bsh.Interpreter;
 import bsh.UtilEvalError;
-import com.exedio.cope.ActivationParameters;
-import com.exedio.cope.BooleanField;
 import com.exedio.cope.Item;
-import com.exedio.cope.SetValue;
-import com.exedio.cope.Type;
-import com.exedio.cope.TypesBound;
-import com.exedio.cope.pattern.Block;
-import com.exedio.cope.pattern.BlockActivationParameters;
-import com.exedio.cope.pattern.BlockType;
-import com.exedio.cope.pattern.Composite;
 import com.exedio.cope.pattern.Money;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.ArrayList;
@@ -169,7 +160,7 @@ final class JavaRepository
 		return result;
 	}
 
-	static final String DUMMY_ITEM_PREFIX = DummyItem.class.getName() + "$";
+	static final String DUMMY_ITEM_PREFIX = "com.exedio.cope.DummyItem$";
 
 	final JavaClass getJavaClass(final String name)
 	{
@@ -280,26 +271,5 @@ final class JavaRepository
 	public static enum EnumBeanShellHackClass implements Money.Currency
 	{
 		BEANSHELL_HACK_ATTRIBUTE;
-	}
-
-	public static final class DummyItem extends Item
-	{
-		private static final long serialVersionUID = 1l;
-		public static final Type<DummyItem> TYPE = TypesBound.newType(DummyItem.class);
-		private DummyItem(final ActivationParameters ap) { super(ap); }
-	}
-
-	public static final class DummyBlock extends Block
-	{
-		static final BooleanField field = new BooleanField();
-		private static final long serialVersionUID = 1l;
-		public static final BlockType<DummyBlock> TYPE = BlockType.newType(DummyBlock.class);
-		private DummyBlock(final BlockActivationParameters ap) { super(ap); }
-	}
-
-	static final class DummyComposite extends Composite
-	{
-		protected DummyComposite(final SetValue<?>... setValues) { super(setValues); }
-		private static final long serialVersionUID = 1l;
 	}
 }
