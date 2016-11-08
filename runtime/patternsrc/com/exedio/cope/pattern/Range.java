@@ -20,6 +20,8 @@ package com.exedio.cope.pattern;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Objects;
+
 /**
  * If the value for {@link #getFrom() from} is null this means, that the range contains all values less    or equal to <code>to</code>.
  * If the value for {@link #getTo  () to  } is null this means, that the range contains all values greater or equal to <code>from</code>.
@@ -93,23 +95,13 @@ public final class Range<E extends Comparable<E>>
 			return false;
 
 		final Range<?> o = (Range<?>)other;
-		return equals(from, o.from) && equals(to, o.to);
-	}
-
-	private static boolean equals(final Object e1, final Object e2)
-	{
-		return e1!=null ? e1.equals(e2) : (e2==null);
+		return Objects.equals(from, o.from) && Objects.equals(to, o.to);
 	}
 
 	@Override
 	public int hashCode()
 	{
-		return hashCode(from) ^ (hashCode(to) << 2);
-	}
-
-	private static int hashCode(final Object e1)
-	{
-		return e1!=null ? e1.hashCode() : 0;
+		return Objects.hashCode(from) ^ (Objects.hashCode(to) << 2);
 	}
 
 	// ------------------- deprecated stuff -------------------
