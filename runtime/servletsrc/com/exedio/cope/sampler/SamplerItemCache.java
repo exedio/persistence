@@ -92,19 +92,19 @@ final class SamplerItemCache extends Item
 	{
 		final List<SetValue<?>> result = Arrays.asList((SetValue<?>)
 			maS(type ,  from.getType(), to.getType()),
-			map(limit,  to.getLimit()),
+			map(limit,  0),
 			map(level,  to.getLevel()),
 			maD(hits,   from.getHits  (), to.getHits  ()),
 			maD(misses, from.getMisses(), to.getMisses()),
 
 			maD(concurrentLoads, from.getConcurrentLoads(), to.getConcurrentLoads()),
-			maD(replacementRuns, from.getReplacementRuns(), to.getReplacementRuns()),
+			maD(replacementRuns, 0,									0),
 			maD(replacements,    from.getReplacementsL  (), to.getReplacementsL  ()),
-			map(lastReplacementRun, to.getLastReplacementRun()),
+			map(lastReplacementRun, null),
 
-			map(ageAverageMillis, to.getAgeAverageMillis()),
-			map(ageMinimumMillis, to.getAgeMinimumMillis()),
-			map(ageMaximumMillis, to.getAgeMaximumMillis()),
+			map(ageAverageMillis, 0L),
+			map(ageMinimumMillis, 0L),
+			map(ageMaximumMillis, 0L),
 
 			maD(invalidationsOrdered, from.getInvalidationsOrdered(), to.getInvalidationsOrdered()),
 			maD(invalidationsDone,    from.getInvalidationsDone   (), to.getInvalidationsDone   ()),

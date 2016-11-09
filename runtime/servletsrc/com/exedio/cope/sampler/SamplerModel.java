@@ -122,7 +122,7 @@ final class SamplerModel extends Item
 			maD(itemCacheMisses, from.getMisses(), to.getMisses()),
 
 			maD(itemCacheConcurrentLoads, from.getConcurrentLoads(), to.getConcurrentLoads()),
-			maD(itemCacheReplacementRuns, from.getReplacementRuns(), to.getReplacementRuns()),
+			maD(itemCacheReplacementRuns, 0,									0),
 			maD(itemCacheReplacements,    from.getReplacementsL  (), to.getReplacementsL  ()),
 
 			maD(itemCacheInvalidationsOrdered, from.getInvalidationsOrdered(), to.getInvalidationsOrdered()),

@@ -31,6 +31,26 @@ public class ItemCacheSummaryTest
 		final ItemCacheInfo i1 = new ItemCacheInfo(null, 21, 31, 41, 51, 71, 111, 121, 141, 151, 161);
 		final ItemCacheInfo i2 = new ItemCacheInfo(null, 23, 33, 43, 53, 73, 113, 123, 143, 153, 163);
 		final ItemCacheInfo i0 = new ItemCacheInfo(null,  0,  0,  0,  0,  0,   0,   0,   0,   0,   0);
+
+		final ItemCacheSummary ms = new ItemCacheSummary(new ItemCacheInfo[]{i1, i2, i0});
+		assertEquals( 44, ms.getLevel());
+		assertEquals( 64, ms.getHits());
+		assertEquals( 84, ms.getMisses());
+		assertEquals(104, ms.getConcurrentLoads());
+		assertEquals(144, ms.getReplacements());
+		assertEquals(224, ms.getInvalidationsOrdered());
+		assertEquals(244, ms.getInvalidationsDone());
+		assertEquals(284, ms.getStampsSize());
+		assertEquals(304, ms.getStampsHits());
+		assertEquals(324, ms.getStampsPurged());
+	}
+
+	@Deprecated // OK: testing deprecated API
+	@Test public void testItDeprecated()
+	{
+		final ItemCacheInfo i1 = new ItemCacheInfo(null, 21, 31, 41, 51, 71, 111, 121, 141, 151, 161);
+		final ItemCacheInfo i2 = new ItemCacheInfo(null, 23, 33, 43, 53, 73, 113, 123, 143, 153, 163);
+		final ItemCacheInfo i0 = new ItemCacheInfo(null,  0,  0,  0,  0,  0,   0,   0,   0,   0,   0);
 		assertEquals(null, i1.getLastReplacementRun());
 		assertEquals(null, i2.getLastReplacementRun());
 		assertEquals(null, i0.getLastReplacementRun());
@@ -40,21 +60,12 @@ public class ItemCacheSummaryTest
 
 		final ItemCacheSummary ms = new ItemCacheSummary(new ItemCacheInfo[]{i1, i2, i0});
 		assertEquals(  0, ms.getLimit());
-		assertEquals( 44, ms.getLevel());
-		assertEquals( 64, ms.getHits());
-		assertEquals( 84, ms.getMisses());
-		assertEquals(104, ms.getConcurrentLoads());
 		assertEquals(  0, ms.getReplacementRuns());
 		assertEquals(144, ms.getReplacementsL());
 		assertEquals(null, ms.getLastReplacementRun());
 		assertEquals( -1, ms.getAgeMinimumMillis());
 		assertEquals( -1, ms.getAgeAverageMillis());
 		assertEquals( -1, ms.getAgeMaximumMillis());
-		assertEquals(224, ms.getInvalidationsOrdered());
-		assertEquals(244, ms.getInvalidationsDone());
-		assertEquals(284, ms.getStampsSize());
-		assertEquals(304, ms.getStampsHits());
-		assertEquals(324, ms.getStampsPurged());
 	}
 
 	@Test public void testNull()
@@ -87,21 +98,27 @@ public class ItemCacheSummaryTest
 	@Test public void testEmpty()
 	{
 		final ItemCacheSummary ms = new ItemCacheSummary(new ItemCacheInfo[]{});
-		assertEquals(0, ms.getLimit());
 		assertEquals(0, ms.getLevel());
 		assertEquals(0, ms.getHits());
 		assertEquals(0, ms.getMisses());
 		assertEquals(0, ms.getConcurrentLoads());
-		assertEquals(0, ms.getReplacementRuns());
 		assertEquals(0, ms.getReplacementsL());
-		assertEquals(null, ms.getLastReplacementRun());
-		assertEquals(-1, ms.getAgeMinimumMillis());
-		assertEquals(-1, ms.getAgeAverageMillis());
-		assertEquals(-1, ms.getAgeMaximumMillis());
 		assertEquals(0, ms.getInvalidationsOrdered());
 		assertEquals(0, ms.getInvalidationsDone());
 		assertEquals(0, ms.getStampsSize());
 		assertEquals(0, ms.getStampsHits());
 		assertEquals(0, ms.getStampsPurged());
+	}
+
+	@Deprecated
+	@Test public void testEmptyDeprecated()
+	{
+		final ItemCacheSummary ms = new ItemCacheSummary(new ItemCacheInfo[]{});
+		assertEquals(0, ms.getLimit());
+		assertEquals(0, ms.getReplacementRuns());
+		assertEquals(null, ms.getLastReplacementRun());
+		assertEquals(-1, ms.getAgeMinimumMillis());
+		assertEquals(-1, ms.getAgeAverageMillis());
+		assertEquals(-1, ms.getAgeMaximumMillis());
 	}
 }

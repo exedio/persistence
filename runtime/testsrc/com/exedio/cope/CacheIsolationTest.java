@@ -53,7 +53,7 @@ public class CacheIsolationTest extends TestWithEnvironment
 		unq = model.connect().executor.supportsUniqueViolation;
 		if(model.getConnectProperties().getItemCacheLimit()>0)
 		{
-			final ItemCacheInfo[] ci = model.getItemCacheInfo();
+			final ItemCacheInfo[] ci = model.getItemCacheStatistics().getItemCacheInfos();
 			setupInvalidationsOrdered = ci[0].getInvalidationsOrdered();
 			setupInvalidationsDone    = ci[0].getInvalidationsDone();
 		}

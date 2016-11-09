@@ -77,7 +77,7 @@ final class SamplerStep
 		this.nextTransactionId = sampledModel.getNextTransactionId();
 		this.transactionCounters = sampledModel.getTransactionCounters();
 		final Collection<Transaction> openTransactions = sampledModel.getOpenTransactions();
-		this.itemCacheInfos = sampledModel.getItemCacheInfo();
+		this.itemCacheInfos = sampledModel.getItemCacheStatistics().getItemCacheInfos();
 		this.queryCacheInfo = sampledModel.getQueryCacheInfo();
 		this.changeListenerInfo = sampledModel.getChangeListenersInfo();
 		this.changeListenerDispatcherInfo = sampledModel.getChangeListenerDispatcherInfo();
