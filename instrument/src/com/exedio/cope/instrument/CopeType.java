@@ -40,35 +40,6 @@ abstract class CopeType<F extends CopeFeature>
 	static final String TAG_ACTIVATION_CONSTRUCTOR = TAG_PREFIX + "activation.constructor";
 	static final String TAG_INDENT                 = TAG_PREFIX + "indent";
 
-	private static enum Kind
-	{
-		item, composite, block
-	}
-
-	private static Kind toKind(final boolean isItem, final boolean isBlock, final boolean isComposite)
-	{
-		if (isItem)
-		{
-			if (isBlock||isComposite) throw new RuntimeException();
-			return Kind.item;
-		}
-		else if (isBlock)
-		{
-			if (isItem||isComposite) throw new RuntimeException();
-			return Kind.block;
-		}
-		else if (isComposite)
-		{
-			if (isItem||isBlock) throw new RuntimeException();
-			return Kind.composite;
-		}
-		else
-		{
-			throw new RuntimeException();
-		}
-	}
-
-
 	private final Kind kind;
 
 	private final ArrayList<F> features = new ArrayList<>();
@@ -76,7 +47,7 @@ abstract class CopeType<F extends CopeFeature>
 
 	CopeType(final boolean isItem, final boolean isBlock, final boolean isComposite)
 	{
-		this.kind = toKind(isItem, isBlock, isComposite);
+		this.kind = Kind.valueOf(isItem, isBlock, isComposite);
 	}
 
 	abstract String getName();
