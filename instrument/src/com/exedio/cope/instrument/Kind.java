@@ -20,7 +20,18 @@ package com.exedio.cope.instrument;
 
 enum Kind
 {
-	item, composite, block;
+	item(JavaRepository.DummyItem.class),
+	composite(JavaRepository.DummyComposite.class),
+	block(JavaRepository.DummyBlock.class);
+
+
+	final Class<?> dummy;
+
+	private Kind(final Class<?> dummy)
+	{
+		this.dummy = dummy;
+	}
+
 
 	static Kind valueOf(final boolean isItem, final boolean isBlock, final boolean isComposite)
 	{
@@ -41,7 +52,7 @@ enum Kind
 		}
 		else
 		{
-			throw new RuntimeException();
+			return null;
 		}
 	}
 }

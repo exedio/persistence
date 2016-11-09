@@ -69,9 +69,11 @@ class ClassVisitor extends GeneratedAwareScanner
 				context.getDocComment(getCurrentPath()),
 				context.getSourcePosition(ct),
 				ct.getKind()==Tree.Kind.ENUM,
-				context.isSubtype(getCurrentPath(), Item.class),
-				context.isSubtype(getCurrentPath(), Block.class),
-				context.isSubtype(getCurrentPath(), Composite.class),
+				Kind.valueOf(
+					context.isSubtype(getCurrentPath(), Item.class),
+					context.isSubtype(getCurrentPath(), Block.class),
+					context.isSubtype(getCurrentPath(), Composite.class)
+				),
 				classExtends,
 				getWrapperType(),
 				findClassEndPosition(ct)

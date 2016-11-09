@@ -52,9 +52,9 @@ final class LocalCopeType extends CopeType<LocalCopeFeature>
 
 	private CopeType<?> supertype;
 
-	LocalCopeType(final JavaClass javaClass, final boolean isItem, final boolean isBlock, final boolean isComposite)
+	LocalCopeType(final JavaClass javaClass, final Kind kind)
 	{
-		super(isItem, isBlock, isComposite);
+		super(kind);
 		this.javaClass=javaClass;
 		this.name = javaClass.name;
 		this.option = Tags.cascade(

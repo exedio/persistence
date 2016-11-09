@@ -44,9 +44,7 @@ final class JavaClass extends JavaFeature
 	final HashMap<String,JavaClass> innerClasses = new HashMap<>();
 	final int typeParameters;
 	final boolean isEnum;
-	final boolean isItem;
-	final boolean isBlock;
-	final boolean isComposite;
+	final Kind kind;
 	final String fullyQualifiedSuperclass;
 	final WrapperType typeOption;
 	private final int classEndPosition;
@@ -60,9 +58,7 @@ final class JavaClass extends JavaFeature
 			final String docComment,
 			final String sourceLocation,
 			final boolean isEnum,
-			final boolean isItem,
-			final boolean isBlock,
-			final boolean isComposite,
+			final Kind kind,
 			final String fullyQualifiedSuperclass,
 			final WrapperType typeOption,
 			final int classEndPosition)
@@ -71,9 +67,7 @@ final class JavaClass extends JavaFeature
 		this.nameSpace = new NS(file.nameSpace);
 		this.typeParameters = Generics.get(simpleName).size();
 		this.isEnum = isEnum;
-		this.isItem = isItem;
-		this.isBlock = isBlock;
-		this.isComposite = isComposite;
+		this.kind = kind;
 		this.fullyQualifiedSuperclass = Generics.strip(fullyQualifiedSuperclass);
 		this.typeOption=typeOption;
 		this.classEndPosition = classEndPosition;

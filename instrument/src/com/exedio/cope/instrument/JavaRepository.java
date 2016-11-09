@@ -35,6 +35,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
 final class JavaRepository
 {
@@ -86,12 +87,9 @@ final class JavaRepository
 			if(javaClass.isInterface())
 				continue;
 
-			final boolean isItem = javaClass.isItem;
-			final boolean isBlock = javaClass.isBlock;
-			final boolean isComposite = javaClass.isComposite;
-			if(isItem||isBlock||isComposite)
+			if(javaClass.kind!=null)
 			{
-				new LocalCopeType(javaClass, isItem, isBlock, isComposite);
+				new LocalCopeType(javaClass, javaClass.kind);
 			}
 		}
 
@@ -150,14 +148,10 @@ final class JavaRepository
 		final List<JavaClass> problematicClasses=problematicSimpleNames.remove(name);
 		if (result!=null && problematicClasses!=null)
 		{
-			final boolean resultIsItem=result.isItem;
-			final boolean resultIsBlock=result.isBlock;
-			final boolean resultIsComposite=result.isComposite;
+			final Kind resultKind=result.kind;
 			for (final JavaClass checkProblematicClass: problematicClasses)
 			{
-				if (checkProblematicClass.isItem!=resultIsItem
-					|| checkProblematicClass.isBlock!=resultIsBlock
-					|| checkProblematicClass.isComposite!=resultIsComposite
+				if (!Objects.equals(checkProblematicClass.kind, resultKind)
 					|| result.isEnum!=checkProblematicClass.isEnum)
 				{
 					System.out.println("Problem resolving '"+name+"' - could be one of ...");
@@ -271,18 +265,8 @@ final class JavaRepository
 				//System.out.println("++++++++++++++++getClass(\""+name+"\") == "+javaClass+","+javaClass.isEnum);
 				if(javaClass.isEnum)
 					return EnumBeanShellHackClass.class;
-				if(javaClass.isItem)
-				{
-					return DummyItem.class;
-				}
-				if(javaClass.isBlock)
-				{
-					return DummyBlock.class;
-				}
-				if(javaClass.isComposite)
-				{
-					return DummyComposite.class;
-				}
+				if(javaClass.kind!=null)
+					return javaClass.kind.dummy;
 			}
 
 			return null;

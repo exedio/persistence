@@ -21,6 +21,7 @@ package com.exedio.cope.instrument;
 import static com.exedio.cope.instrument.CopeFeature.TAG_PREFIX;
 import static java.lang.reflect.Modifier.PRIVATE;
 import static java.lang.reflect.Modifier.PROTECTED;
+import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.FinalViolationException;
 import java.lang.reflect.Modifier;
@@ -45,9 +46,9 @@ abstract class CopeType<F extends CopeFeature>
 	private final ArrayList<F> features = new ArrayList<>();
 	private final TreeMap<String, F> featureMap = new TreeMap<>();
 
-	CopeType(final boolean isItem, final boolean isBlock, final boolean isComposite)
+	CopeType(final Kind kind)
 	{
-		this.kind = Kind.valueOf(isItem, isBlock, isComposite);
+		this.kind = requireNonNull(kind);
 	}
 
 	abstract String getName();
