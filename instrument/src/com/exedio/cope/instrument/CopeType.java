@@ -41,7 +41,7 @@ abstract class CopeType<F extends CopeFeature>
 	static final String TAG_ACTIVATION_CONSTRUCTOR = TAG_PREFIX + "activation.constructor";
 	static final String TAG_INDENT                 = TAG_PREFIX + "indent";
 
-	private final Kind kind;
+	final Kind kind;
 
 	private final ArrayList<F> features = new ArrayList<>();
 	private final TreeMap<String, F> featureMap = new TreeMap<>();
@@ -67,19 +67,9 @@ abstract class CopeType<F extends CopeFeature>
 
 	abstract boolean isInterface();
 
-	final boolean isBlock()
-	{
-		return kind==Kind.block;
-	}
-
 	final boolean isItem()
 	{
 		return kind==Kind.item;
-	}
-
-	final boolean isComposite()
-	{
-		return kind==Kind.composite;
 	}
 
 	abstract Evaluatable getField(final String name);

@@ -23,15 +23,8 @@ import static java.lang.reflect.Modifier.PRIVATE;
 import static java.lang.reflect.Modifier.STATIC;
 import static java.text.MessageFormat.format;
 
-import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.BooleanField;
-import com.exedio.cope.Item;
 import com.exedio.cope.SetValue;
-import com.exedio.cope.Type;
-import com.exedio.cope.TypesBound;
-import com.exedio.cope.pattern.Block;
-import com.exedio.cope.pattern.BlockActivationParameters;
-import com.exedio.cope.pattern.BlockType;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Modifier;
 import java.nio.charset.Charset;
@@ -232,7 +225,7 @@ final class Generator
 
 	private void writeInitialConstructor(final LocalCopeType type)
 	{
-		if(type.isBlock())
+		if(!type.kind.hasGenericConstructor) // without generic constructor there can be no initial constructor
 			return;
 		if(!type.hasInitialConstructor())
 			return;
@@ -345,7 +338,7 @@ final class Generator
 
 	private void writeGenericConstructor(final LocalCopeType type)
 	{
-		if(type.isBlock())
+		if(!type.kind.hasGenericConstructor)
 			return;
 
 		final Visibility option = type.getOption().genericConstructor();
@@ -378,20 +371,17 @@ final class Generator
 
 	private void writeActivationConstructor(final LocalCopeType type)
 	{
-		if(type.isComposite())
+		final String activation = type.kind.activationConstructor;
+		if(activation==null)
 			return;
 
 		final Visibility option = type.getOption().activationConstructor();
 		if(!option.exists())
 			return;
 
-		final boolean block = type.isBlock();
-		final Class<?> constructor = block ? Block.class : Item.class;
-		final String activation = (block ? BlockActivationParameters.class : ActivationParameters.class).getName();
-
 		final List<String> commentLines=new ArrayList<>();
 		commentLines.add(" * "+"Activation constructor. Used for internal purposes only.");
-		commentLines.add(" * @see "+constructor.getName()+'#'+constructor.getSimpleName()+'('+activation+')');
+		commentLines.add(" * @see "+type.kind.top+'#'+type.kind.topSimple+'('+activation+')');
 		finishComment(type.getOption().comments(), commentLines);
 		writeGeneratedAnnotation(type.getOption().comments(), null);
 
@@ -415,6 +405,7 @@ final class Generator
 	{
 		final Object instance = feature.getInstance();
 		final JavaClass javaClass = feature.getParent();
+		final Kind kind = feature.parent.kind;
 		for(final WrapperX wrapper : getWrappers(instance))
 		{
 			final String pattern = wrapper.getMethodWrapperPattern();
@@ -424,7 +415,7 @@ final class Generator
 			final Visibility visibility = option.visibility();
 			if(!visibility.exists())
 				continue;
-			if(feature.parent.isBlock() && wrapper.hasStaticClassToken())
+			if(!kind.allowStaticClassToken && wrapper.hasStaticClassToken())
 				continue;
 
 			final Context ctx = new Context(feature, wrapper);
@@ -639,7 +630,7 @@ final class Generator
 			writeIndent(1);
 			if(!methodReturnType.equals(void.class))
 				write("return ");
-		if(feature.parent.isComposite())
+		if(kind.revertFeatureBody)
 		{
 			write(methodName);
 			write('(');
@@ -657,14 +648,11 @@ final class Generator
 		}
 		else
 		{
-			final boolean block = feature.parent.isBlock();
-			if(block)
-				write("field().of(");
+			write(kind.featurePrefix);
 			write(feature.parent.getName());
 			write('.');
 			write(feature.getName());
-			if(block)
-				write(')');
+			write(kind.featurePostfix);
 			write('.');
 			write(methodName);
 			write('(');
@@ -684,7 +672,7 @@ final class Generator
 				else
 				{
 					comma.appendTo(output);
-					write(block ? "item()" : "this");
+					write(kind.featureThis);
 				}
 				for(final WrapperX.Parameter parameter : parameters)
 				{
@@ -823,20 +811,19 @@ final class Generator
 
 	private void writeType(final LocalCopeType type)
 	{
-		if(type.isComposite())
+		final Kind.Type kind = type.kind.type;
+		if(kind==null)
 			return;
 
 		final Visibility option = type.getOption().type();
 		if(!option.exists())
 			return;
 
-		final boolean block = type.isBlock();
-
 		final List<String> commentLines=new ArrayList<>();
 		commentLines.add(
 			" * "+
 			format(
-				block ? "The type information for {0}." : "The persistent type information for {0}.",
+				kind.doc,
 				lowerCamelCase(type.getName()))
 		);
 		finishComment(
@@ -866,12 +853,12 @@ final class Generator
 
 		writeIndent();
 		writeModifier(option.getModifier(type.getModifier()) | (STATIC|FINAL));
-		write((block ? BlockType.class : Type.class).getName());
+		write(kind.field);
 		write('<');
 		write(type.getName());
 		writeWildcard(type);
 		write("> TYPE = ");
-		write((block ? BlockType.class : TypesBound.class).getName());
+		write(kind.factory);
 		write(".newType(");
 		write(type.getName());
 		write(".class");
