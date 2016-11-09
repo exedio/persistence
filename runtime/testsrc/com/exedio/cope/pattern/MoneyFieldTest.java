@@ -23,6 +23,7 @@ import static com.exedio.cope.pattern.CurrFix.fix;
 import static com.exedio.cope.pattern.CurrFix.fixOther;
 import static com.exedio.cope.pattern.Money.valueOf;
 import static com.exedio.cope.pattern.MoneyFieldItem.TYPE;
+import static com.exedio.cope.pattern.MoneyFieldItem.byItem;
 import static com.exedio.cope.pattern.MoneyFieldItem.currency;
 import static com.exedio.cope.pattern.MoneyFieldItem.exclMan;
 import static com.exedio.cope.pattern.MoneyFieldItem.exclOpt;
@@ -45,7 +46,7 @@ import org.junit.Test;
 
 public class MoneyFieldTest extends TestWithEnvironment
 {
-	private static final Model MODEL = new Model(TYPE);
+	private static final Model MODEL = new Model(TYPE, CurrencyItem.TYPE);
 
 	public MoneyFieldTest()
 	{
@@ -549,5 +550,13 @@ public class MoneyFieldTest extends TestWithEnvironment
 		}
 		assertEquals(valueOf(7.77, gbp), i.getExclMan());
 		assertEquals(gbp, i.getExclManCurrency());
+	}
+	@Test public void testByItem()
+	{
+		final CurrencyItem currency = new CurrencyItem();
+		final MoneyFieldItem i = byItem(valueOf(5.55, currency));
+		assertEquals(valueOf(5.55, currency), i.getByItem());
+		i.setByItem(valueOf(6.66, currency));
+		assertEquals(valueOf(6.66, currency), i.getByItem());
 	}
 }

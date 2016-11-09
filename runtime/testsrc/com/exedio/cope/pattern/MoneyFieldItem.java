@@ -24,6 +24,7 @@ import static com.exedio.cope.pattern.MoneyFieldItem.Currency.gbp;
 
 import com.exedio.cope.EnumField;
 import com.exedio.cope.Item;
+import com.exedio.cope.ItemField;
 
 public final class MoneyFieldItem extends Item
 {
@@ -130,6 +131,20 @@ public final class MoneyFieldItem extends Item
 	Currency getExclManCurrency()
 	{
 		return exclMan.getCurrencyField().get(this);
+	}
+
+
+	// test special cases in instrumentor
+	static final MoneyField<CurrencyItem> byItem = MoneyField.exclusive(ItemField.create(CurrencyItem.class)).optional();
+
+	static MoneyFieldItem byItem(final Money<CurrencyItem> byItem)
+	{
+		return new MoneyFieldItem(
+			MoneyFieldItem.currency.map(eur),
+			MoneyFieldItem.sharMan.map(eurX),
+			MoneyFieldItem.exclMan.map(valueOf(9999.99, gbp)),
+			MoneyFieldItem.byItem.map(byItem)
+		);
 	}
 
 
@@ -303,6 +318,25 @@ public final class MoneyFieldItem extends Item
 				com.exedio.cope.MandatoryViolationException
 	{
 		MoneyFieldItem.exclMan.set(this,exclMan);
+	}
+
+	/**
+	 * Returns the value of {@link #byItem}.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@javax.annotation.Nullable
+	final com.exedio.cope.pattern.Money<CurrencyItem> getByItem()
+	{
+		return MoneyFieldItem.byItem.get(this);
+	}
+
+	/**
+	 * Sets a new value for {@link #byItem}.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	final void setByItem(@javax.annotation.Nullable final com.exedio.cope.pattern.Money<CurrencyItem> byItem)
+	{
+		MoneyFieldItem.byItem.set(this,byItem);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument")
