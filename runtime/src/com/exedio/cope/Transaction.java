@@ -186,7 +186,7 @@ public final class Transaction
 	ArrayList<Object> search(final Query<?> query, final boolean totalOnly)
 	{
 		final QueryCache queryCache = connect.queryCache;
-		if(!queryCache.isEnabled() || isInvalidated(query))
+		if(!queryCache.isEnabled() || isInvalidated(query) || isCacheDisabled(query))
 		{
 			return query.searchUncached(this, totalOnly);
 		}
@@ -194,6 +194,31 @@ public final class Transaction
 		{
 			return queryCache.search(this, query, totalOnly);
 		}
+	}
+
+	private boolean isCacheDisabled(final Query<?> query)
+	{
+		if ( isCacheDisabled(query.type) )
+		{
+			return true;
+		}
+		if ( query.joins==null )
+		{
+			return false;
+		}
+		for(final Join nextJoin : query.joins)
+		{
+			if ( isCacheDisabled(nextJoin.type) )
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+
+	private boolean isCacheDisabled(final Type<?> type)
+	{
+		return type.isAnnotationPresent(CopeNoCache.class);
 	}
 
 	private boolean isInvalidated(final Query<?> query)

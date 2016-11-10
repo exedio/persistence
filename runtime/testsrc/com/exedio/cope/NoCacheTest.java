@@ -1,6 +1,7 @@
 package com.exedio.cope;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import com.exedio.cope.instrument.WrapperType;
 import org.junit.Test;
@@ -58,6 +59,37 @@ public class NoCacheTest extends TestWithEnvironment
 		{
 			assertEquals(0, model.getItemCacheInfo().length);
 		}
+	}
+
+	@Test
+	public void testQueries()
+	{
+		CachedItem.TYPE.search();
+		assertEquals(model.getConnectProperties().getQueryCacheLimit()>0 ? 1 : 0, model.getQueryCacheInfo().getLevel());
+		model.clearCache();
+
+		NoCacheItem.TYPE.search();
+		assertEquals(0, model.getQueryCacheInfo().getLevel());
+
+		searchJoin(CachedItem.TYPE, CachedItem.TYPE);
+		assertEquals(model.getConnectProperties().getQueryCacheLimit()>0 ? 1 : 0, model.getQueryCacheInfo().getLevel());
+		model.clearCache();
+
+		searchJoin(CachedItem.TYPE, NoCacheItem.TYPE);
+		assertEquals(0, model.getQueryCacheInfo().getLevel());
+
+		searchJoin(CachedItem.TYPE, NoCacheItem.TYPE);
+		assertEquals(0, model.getQueryCacheInfo().getLevel());
+
+		searchJoin(NoCacheItem.TYPE, CachedItem.TYPE);
+		assertEquals(0, model.getQueryCacheInfo().getLevel());
+	}
+
+	private void searchJoin(Type<?> queryType, Type<?> joinType)
+	{
+		final Query<?> q=queryType.newQuery();
+		q.join(joinType);
+		q.search();
 	}
 
 
