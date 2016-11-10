@@ -52,7 +52,8 @@ final class ItemCache
 		{
 			final Type<?> type = types.get(i);
 			final CopeCacheWeight weightAnnotation = type.getAnnotation(CopeCacheWeight.class);
-			final int weight = weightAnnotation!=null ? weightAnnotation.value() : 100;
+			final boolean noCache = type.isAnnotationPresent(CopeNoCache.class);
+			final int weight = noCache ? 0 : (weightAnnotation!=null ? weightAnnotation.value() : 100);
 			if(weight<0)
 				throw new IllegalArgumentException("illegal CopeCacheWeight for type " + type.getID() + ", must not be negative, but was " + weight);
 			weights[i] = weight;
