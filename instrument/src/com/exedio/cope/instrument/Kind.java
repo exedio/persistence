@@ -18,41 +18,51 @@
 
 package com.exedio.cope.instrument;
 
+import com.exedio.cope.Item;
+import com.exedio.cope.pattern.Block;
+import com.exedio.cope.pattern.Composite;
+
 enum Kind
 {
-	item(JavaRepository.DummyItem.class),
-	composite(JavaRepository.DummyComposite.class),
-	block(JavaRepository.DummyBlock.class);
+	item(
+			Item.class,
+			JavaRepository.DummyItem.class
+	),
+	composite(
+			Composite.class,
+			JavaRepository.DummyComposite.class
+	),
+	block(
+			Block.class,
+			JavaRepository.DummyBlock.class
+	);
 
 
+	final Class<?> topClass;
 	final Class<?> dummy;
 
-	private Kind(final Class<?> dummy)
+	private Kind(
+			final Class<?> topClass,
+			final Class<?> dummy)
 	{
+		this.topClass = topClass;
 		this.dummy = dummy;
 	}
 
 
-	static Kind valueOf(final boolean isItem, final boolean isBlock, final boolean isComposite)
+	static Kind valueOf(final ClassVisitor visitor)
 	{
-		if (isItem)
+		Kind result = null;
+		for(final Kind kind : values())
 		{
-			if (isBlock||isComposite) throw new RuntimeException();
-			return item;
+			if(visitor.context.isSubtype(visitor.getCurrentPath(), kind.topClass))
+			{
+				if(result!=null)
+					throw new RuntimeException("" + result + '/' + kind);
+
+				result = kind;
+			}
 		}
-		else if (isBlock)
-		{
-			if (isItem||isComposite) throw new RuntimeException();
-			return block;
-		}
-		else if (isComposite)
-		{
-			if (isItem||isBlock) throw new RuntimeException();
-			return composite;
-		}
-		else
-		{
-			return null;
-		}
+		return result;
 	}
 }

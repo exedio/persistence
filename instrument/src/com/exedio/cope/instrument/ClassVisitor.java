@@ -18,9 +18,6 @@
 
 package com.exedio.cope.instrument;
 
-import com.exedio.cope.Item;
-import com.exedio.cope.pattern.Block;
-import com.exedio.cope.pattern.Composite;
 import com.sun.source.doctree.DocCommentTree;
 import com.sun.source.tree.BlockTree;
 import com.sun.source.tree.ClassTree;
@@ -69,11 +66,7 @@ class ClassVisitor extends GeneratedAwareScanner
 				context.getDocComment(getCurrentPath()),
 				context.getSourcePosition(ct),
 				ct.getKind()==Tree.Kind.ENUM,
-				Kind.valueOf(
-					context.isSubtype(getCurrentPath(), Item.class),
-					context.isSubtype(getCurrentPath(), Block.class),
-					context.isSubtype(getCurrentPath(), Composite.class)
-				),
+				Kind.valueOf(this),
 				classExtends,
 				getWrapperType(),
 				findClassEndPosition(ct)
