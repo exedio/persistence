@@ -103,6 +103,8 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	private final SequenceX primaryKeySequence;
 	private final boolean uniqueConstraintsProblem;
 
+	final boolean cacheDisabled;
+
 	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private Mount<T> mountIfMounted = null;
 
@@ -309,6 +311,8 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 					createLimit);
 
 		this.uniqueConstraintsProblem = (supertype!=null) && (supertype.uniqueConstraintsProblem || !uniqueConstraints.all.isEmpty());
+
+		this.cacheDisabled = isAnnotationPresent(CopeNoCache.class);
 	}
 
 	@SuppressWarnings({"unchecked", "rawtypes"}) // TODO remove

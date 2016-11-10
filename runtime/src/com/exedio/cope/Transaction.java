@@ -198,7 +198,7 @@ public final class Transaction
 
 	private boolean isCacheDisabled(final Query<?> query)
 	{
-		if ( isCacheDisabled(query.type) )
+		if ( query.type.cacheDisabled )
 		{
 			return true;
 		}
@@ -208,17 +208,12 @@ public final class Transaction
 		}
 		for(final Join nextJoin : query.joins)
 		{
-			if ( isCacheDisabled(nextJoin.type) )
+			if ( nextJoin.type.cacheDisabled )
 			{
 				return true;
 			}
 		}
 		return false;
-	}
-
-	private boolean isCacheDisabled(final Type<?> type)
-	{
-		return type.isAnnotationPresent(CopeNoCache.class);
 	}
 
 	private boolean isInvalidated(final Query<?> query)

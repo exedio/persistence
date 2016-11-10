@@ -1,7 +1,6 @@
 package com.exedio.cope;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 import com.exedio.cope.instrument.WrapperType;
 import org.junit.Test;
