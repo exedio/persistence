@@ -64,15 +64,21 @@ public class NoCacheTest extends TestWithEnvironment
 	@Test
 	public void testQueries()
 	{
+		final int oneIfCacheActive=model.getConnectProperties().getQueryCacheLimit()>0 ? 1 : 0;
+
 		CachedItem.TYPE.search();
-		assertEquals(model.getConnectProperties().getQueryCacheLimit()>0 ? 1 : 0, model.getQueryCacheInfo().getLevel());
+		assertEquals(oneIfCacheActive, model.getQueryCacheInfo().getLevel());
 		model.clearCache();
 
 		NoCacheItem.TYPE.search();
 		assertEquals(0, model.getQueryCacheInfo().getLevel());
 
+		WeightZeroItem.TYPE.search();
+		assertEquals(oneIfCacheActive, model.getQueryCacheInfo().getLevel());
+		model.clearCache();
+
 		searchJoin(CachedItem.TYPE, CachedItem.TYPE);
-		assertEquals(model.getConnectProperties().getQueryCacheLimit()>0 ? 1 : 0, model.getQueryCacheInfo().getLevel());
+		assertEquals(oneIfCacheActive, model.getQueryCacheInfo().getLevel());
 		model.clearCache();
 
 		searchJoin(CachedItem.TYPE, NoCacheItem.TYPE);
