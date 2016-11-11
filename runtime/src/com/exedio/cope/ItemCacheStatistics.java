@@ -26,11 +26,62 @@ public final class ItemCacheStatistics
 	private final int level;
 	private final ItemCacheInfo[] itemCacheInfos;
 
+	private boolean summaryComputed=false;
+	private long summarizedHits;
+	private long summarizedMisses;
+	private long summarizedConcurrentLoads;
+	private int summarizedReplacements;
+	private long summarizedInvalidationsOrdered;
+	private long summarizedInvalidationsDone;
+	private int  summarizedStampsSize;
+	private long summarizedStampsHits;
+	private long summarizedStampsPurged;
+
 	ItemCacheStatistics(final int limit, final int level, final ItemCacheInfo[] itemCacheInfos)
 	{
-		this.limit=limit;
-		this.level=level;
-		this.itemCacheInfos=itemCacheInfos;
+		this.limit = limit;
+		this.level = level;
+		this.itemCacheInfos = itemCacheInfos;
+	}
+
+	private void requireSummary()
+	{
+		if (!this.summaryComputed)
+		{
+			long hits = 0;
+			long misses = 0;
+			long concurrentLoads = 0;
+			int replacements = 0;
+			long invalidationsOrdered = 0l;
+			long invalidationsDone = 0l;
+			int  stampsSize = 0;
+			long stampsHits = 0l;
+			long stampsPurged = 0l;
+
+			for(final ItemCacheInfo info : itemCacheInfos)
+			{
+				hits += info.getHits();
+				misses += info.getMisses();
+				concurrentLoads += info.getConcurrentLoads();
+
+				replacements += info.getReplacements();
+				invalidationsOrdered += info.getInvalidationsOrdered();
+				invalidationsDone += info.getInvalidationsDone();
+				stampsSize   += info.getStampsSize();
+				stampsHits   += info.getStampsHits();
+				stampsPurged += info.getStampsPurged();
+			}
+			this.summarizedHits = hits;
+			this.summarizedMisses = misses;
+			this.summarizedConcurrentLoads = concurrentLoads;
+			this.summarizedReplacements = replacements;
+			this.summarizedInvalidationsOrdered = invalidationsOrdered;
+			this.summarizedInvalidationsDone = invalidationsDone;
+			this.summarizedStampsSize = stampsSize;
+			this.summarizedStampsHits = stampsHits;
+			this.summarizedStampsPurged = stampsPurged;
+			this.summaryComputed=true;
+		}
 	}
 
 	/**
@@ -49,5 +100,59 @@ public final class ItemCacheStatistics
 	public ItemCacheInfo[] getItemCacheInfos()
 	{
 		return Arrays.copyOf(itemCacheInfos, itemCacheInfos.length);
+	}
+
+	public long getSummarizedHits()
+	{
+		requireSummary();
+		return summarizedHits;
+	}
+
+	public long getSummarizedMisses()
+	{
+		requireSummary();
+		return summarizedMisses;
+	}
+
+	public long getSummarizedConcurrentLoads()
+	{
+		requireSummary();
+		return summarizedConcurrentLoads;
+	}
+
+	public int getSummarizedReplacements()
+	{
+		requireSummary();
+		return summarizedReplacements;
+	}
+
+	public long getSummarizedInvalidationsOrdered()
+	{
+		requireSummary();
+		return summarizedInvalidationsOrdered;
+	}
+
+	public long getSummarizedInvalidationsDone()
+	{
+		requireSummary();
+		return summarizedInvalidationsDone;
+	}
+
+	public int getSummarizedStampsSize()
+	{
+		requireSummary();
+		return summarizedStampsSize;
+	}
+
+	public long getSummarizedStampsHits()
+	{
+		requireSummary();
+		return summarizedStampsHits;
+	}
+
+	public long getSummarizedStampsPurged()
+	{
+		requireSummary();
+		return summarizedStampsPurged;
 	}
 }

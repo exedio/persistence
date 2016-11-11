@@ -21,9 +21,9 @@ package com.exedio.cope;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
-import com.exedio.cope.misc.ItemCacheSummary;
 import org.junit.Test;
 
+@Deprecated // OK: testing deprecated API
 public class ItemCacheSummaryTest
 {
 	@Test public void testIt()
@@ -32,7 +32,7 @@ public class ItemCacheSummaryTest
 		final ItemCacheInfo i2 = new ItemCacheInfo(null, 23, 33, 43, 53, 73, 113, 123, 143, 153, 163);
 		final ItemCacheInfo i0 = new ItemCacheInfo(null,  0,  0,  0,  0,  0,   0,   0,   0,   0,   0);
 
-		final ItemCacheSummary ms = new ItemCacheSummary(new ItemCacheInfo[]{i1, i2, i0});
+		final com.exedio.cope.misc.ItemCacheSummary ms = new com.exedio.cope.misc.ItemCacheSummary(new ItemCacheInfo[]{i1, i2, i0});
 		assertEquals( 44, ms.getLevel());
 		assertEquals( 64, ms.getHits());
 		assertEquals( 84, ms.getMisses());
@@ -58,7 +58,7 @@ public class ItemCacheSummaryTest
 		assertEquals(0, i1.getAgeAverageMillis());
 		assertEquals(0, i2.getAgeAverageMillis());
 
-		final ItemCacheSummary ms = new ItemCacheSummary(new ItemCacheInfo[]{i1, i2, i0});
+		final com.exedio.cope.misc.ItemCacheSummary ms = new com.exedio.cope.misc.ItemCacheSummary(new ItemCacheInfo[]{i1, i2, i0});
 		assertEquals(  0, ms.getLimit());
 		assertEquals(  0, ms.getReplacementRuns());
 		assertEquals(144, ms.getReplacementsL());
@@ -72,7 +72,7 @@ public class ItemCacheSummaryTest
 	{
 		try
 		{
-			new ItemCacheSummary(null);
+			new com.exedio.cope.misc.ItemCacheSummary(null);
 			fail();
 		}
 		catch(final NullPointerException e)
@@ -86,7 +86,7 @@ public class ItemCacheSummaryTest
 		final ItemCacheInfo i1 = new ItemCacheInfo(null, 21, 31, 41, 51, 71, 111, 121, 131, 141, 151);
 		try
 		{
-			new ItemCacheSummary(new ItemCacheInfo[]{i1, null});
+			new com.exedio.cope.misc.ItemCacheSummary(new ItemCacheInfo[]{i1, null});
 			fail();
 		}
 		catch(final NullPointerException e)
@@ -97,7 +97,7 @@ public class ItemCacheSummaryTest
 
 	@Test public void testEmpty()
 	{
-		final ItemCacheSummary ms = new ItemCacheSummary(new ItemCacheInfo[]{});
+		final com.exedio.cope.misc.ItemCacheSummary ms = new com.exedio.cope.misc.ItemCacheSummary(new ItemCacheInfo[]{});
 		assertEquals(0, ms.getLevel());
 		assertEquals(0, ms.getHits());
 		assertEquals(0, ms.getMisses());
@@ -113,7 +113,7 @@ public class ItemCacheSummaryTest
 	@Deprecated
 	@Test public void testEmptyDeprecated()
 	{
-		final ItemCacheSummary ms = new ItemCacheSummary(new ItemCacheInfo[]{});
+		final com.exedio.cope.misc.ItemCacheSummary ms = new com.exedio.cope.misc.ItemCacheSummary(new ItemCacheInfo[]{});
 		assertEquals(0, ms.getLimit());
 		assertEquals(0, ms.getReplacementRuns());
 		assertEquals(null, ms.getLastReplacementRun());

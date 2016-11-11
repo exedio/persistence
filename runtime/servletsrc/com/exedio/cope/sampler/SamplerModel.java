@@ -39,7 +39,6 @@ import com.exedio.cope.SetValue;
 import com.exedio.cope.TransactionCounters;
 import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
-import com.exedio.cope.misc.ItemCacheSummary;
 import com.exedio.cope.misc.MediaSummary;
 import com.exedio.cope.pattern.CompositeField;
 import com.exedio.cope.util.Pool;
@@ -101,16 +100,6 @@ final class SamplerModel extends Item
 
 	private static final IntegerField itemCacheLimit                = new IntegerField().toFinal().min(0);
 	private static final IntegerField itemCacheLevel                = new IntegerField().toFinal().min(0);
-
-	@SuppressWarnings("unchecked") static List<SetValue<?>> mapIt(
-			final ItemCacheStatistics from,
-			final ItemCacheStatistics to)
-	{
-		return Arrays.asList((SetValue<?>)
-			map(itemCacheLimit, to.getLimit()),
-			map(itemCacheLevel, to.getLevel()));
-	}
-
 	private static final IntegerField itemCacheHits                 = new IntegerField().toFinal().min(0);
 	private static final IntegerField itemCacheMisses               = new IntegerField().toFinal().min(0);
 	private static final IntegerField itemCacheConcurrentLoads      = new IntegerField().toFinal().min(0);
@@ -118,7 +107,6 @@ final class SamplerModel extends Item
 	private static final IntegerField itemCacheReplacements         = new IntegerField().toFinal().min(0);
 	private static final IntegerField itemCacheInvalidationsOrdered = new IntegerField().toFinal().min(0);
 	private static final IntegerField itemCacheInvalidationsDone    = new IntegerField().toFinal().min(0);
-
 	@CopeSchemaName("itemCacheInvalidateLastSize")
 	private static final IntegerField itemCacheStampsSize   = new IntegerField().toFinal().min(0);
 	@CopeSchemaName("itemCacheInvalidateLastHits")
@@ -127,23 +115,26 @@ final class SamplerModel extends Item
 	private static final IntegerField itemCacheStampsPurged = new IntegerField().toFinal().min(0);
 
 	@SuppressWarnings("unchecked") static List<SetValue<?>> mapIt(
-			final ItemCacheSummary from,
-			final ItemCacheSummary to)
+			final ItemCacheStatistics from,
+			final ItemCacheStatistics to)
 	{
 		return Arrays.asList((SetValue<?>)
-			maD(itemCacheHits,   from.getHits  (), to.getHits  ()),
-			maD(itemCacheMisses, from.getMisses(), to.getMisses()),
+			map(itemCacheLimit, to.getLimit()),
+			map(itemCacheLevel, to.getLevel()),
+			
+			maD(itemCacheHits,   from.getSummarizedHits  (), to.getSummarizedHits  ()),
+			maD(itemCacheMisses, from.getSummarizedMisses(), to.getSummarizedMisses()),
 
-			maD(itemCacheConcurrentLoads, from.getConcurrentLoads(), to.getConcurrentLoads()),
-			maD(itemCacheReplacementRuns, 0,									0),
-			maD(itemCacheReplacements,    from.getReplacementsL  (), to.getReplacementsL  ()),
+			maD(itemCacheConcurrentLoads, from.getSummarizedConcurrentLoads(), to.getSummarizedConcurrentLoads()),
+			maD(itemCacheReplacementRuns, 0,                                   0),
+			maD(itemCacheReplacements,    from.getSummarizedReplacements   (), to.getSummarizedReplacements   ()),
 
-			maD(itemCacheInvalidationsOrdered, from.getInvalidationsOrdered(), to.getInvalidationsOrdered()),
-			maD(itemCacheInvalidationsDone,    from.getInvalidationsDone   (), to.getInvalidationsDone   ()),
+			maD(itemCacheInvalidationsOrdered, from.getSummarizedInvalidationsOrdered(), to.getSummarizedInvalidationsOrdered()),
+			maD(itemCacheInvalidationsDone,    from.getSummarizedInvalidationsDone   (), to.getSummarizedInvalidationsDone   ()),
 
-			map(itemCacheStampsSize,   to.getStampsSize()),
-			maD(itemCacheStampsHits,   from.getStampsHits  (), to.getStampsHits  ()),
-			maD(itemCacheStampsPurged, from.getStampsPurged(), to.getStampsPurged()));
+			map(itemCacheStampsSize,   to.getSummarizedStampsSize()),
+			maD(itemCacheStampsHits,   from.getSummarizedStampsHits  (), to.getSummarizedStampsHits  ()),
+			maD(itemCacheStampsPurged, from.getSummarizedStampsPurged(), to.getSummarizedStampsPurged()));
 	}
 
 

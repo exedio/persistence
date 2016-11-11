@@ -28,7 +28,6 @@ import com.exedio.cope.Model;
 import com.exedio.cope.QueryCacheInfo;
 import com.exedio.cope.Transaction;
 import com.exedio.cope.TransactionCounters;
-import com.exedio.cope.misc.ItemCacheSummary;
 import com.exedio.cope.misc.MediaSummary;
 import com.exedio.cope.pattern.MediaInfo;
 import com.exedio.cope.pattern.MediaPath;
@@ -58,7 +57,6 @@ final class SamplerStep
 	final long duration;
 
 	final ItemCacheInfo[] itemCacheInfos;
-	final ItemCacheSummary itemCacheSummary;
 	final MediaSummary mediaSummary;
 	final ArrayList<Transaction> transactions;
 
@@ -95,7 +93,6 @@ final class SamplerStep
 
 		// process data
 		this.itemCacheInfos = itemCacheStatistics.getItemCacheInfos();
-		this.itemCacheSummary = new ItemCacheSummary(itemCacheInfos);
 		this.mediaSummary = new MediaSummary(mediaInfos);
 		this.transactions = new ArrayList<>(openTransactions.size());
 		{
