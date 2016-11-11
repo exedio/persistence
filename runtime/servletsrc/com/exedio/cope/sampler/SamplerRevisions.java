@@ -37,6 +37,11 @@ final class SamplerRevisions implements Revisions.Factory
 	private static Revisions getMysql()
 	{
 		return new Revisions(
+			new Revision(14, "add SamplerModel#itemCacheLimit, #itemCacheLevel",
+				"ALTER TABLE `DiffModel` " +
+					"ADD COLUMN `itemCacheLimit` int not null, " +
+					"ADD COLUMN `itemCacheLevel` int not null"
+			),
 			new Revision(13, "add SamplerModel#queryCacheConcurrentLoads",
 				"ALTER TABLE `DiffModel` " +
 					"ADD COLUMN `queryCacheConcurrentLoads` int not null"

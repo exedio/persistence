@@ -23,6 +23,7 @@ import com.exedio.cope.ChangeListenerInfo;
 import com.exedio.cope.ClusterListenerInfo;
 import com.exedio.cope.ClusterSenderInfo;
 import com.exedio.cope.ItemCacheInfo;
+import com.exedio.cope.ItemCacheStatistics;
 import com.exedio.cope.Model;
 import com.exedio.cope.QueryCacheInfo;
 import com.exedio.cope.Transaction;
@@ -45,7 +46,7 @@ final class SamplerStep
 	final Pool.Info connectionPoolInfo;
 	final long nextTransactionId;
 	final TransactionCounters transactionCounters;
-	final ItemCacheInfo[] itemCacheInfos;
+	final ItemCacheStatistics itemCacheStatistics;
 	final QueryCacheInfo queryCacheInfo;
 	final ChangeListenerInfo changeListenerInfo;
 	final ChangeListenerDispatcherInfo changeListenerDispatcherInfo;
@@ -56,6 +57,7 @@ final class SamplerStep
 	private final HashMap<Integer, ClusterListenerInfo.Node> clusterListenerInfoNodes;
 	final long duration;
 
+	final ItemCacheInfo[] itemCacheInfos;
 	final ItemCacheSummary itemCacheSummary;
 	final MediaSummary mediaSummary;
 	final ArrayList<Transaction> transactions;
@@ -77,7 +79,7 @@ final class SamplerStep
 		this.nextTransactionId = sampledModel.getNextTransactionId();
 		this.transactionCounters = sampledModel.getTransactionCounters();
 		final Collection<Transaction> openTransactions = sampledModel.getOpenTransactions();
-		this.itemCacheInfos = sampledModel.getItemCacheStatistics().getItemCacheInfos();
+		this.itemCacheStatistics = sampledModel.getItemCacheStatistics();
 		this.queryCacheInfo = sampledModel.getQueryCacheInfo();
 		this.changeListenerInfo = sampledModel.getChangeListenersInfo();
 		this.changeListenerDispatcherInfo = sampledModel.getChangeListenerDispatcherInfo();
@@ -92,6 +94,7 @@ final class SamplerStep
 		this.duration = System.nanoTime() - start;
 
 		// process data
+		this.itemCacheInfos = itemCacheStatistics.getItemCacheInfos();
 		this.itemCacheSummary = new ItemCacheSummary(itemCacheInfos);
 		this.mediaSummary = new MediaSummary(mediaInfos);
 		this.transactions = new ArrayList<>(openTransactions.size());

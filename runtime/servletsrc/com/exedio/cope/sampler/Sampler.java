@@ -182,6 +182,7 @@ public class Sampler
 			sv.addAll(SamplerModel.mapIt(from.connectionPoolInfo, to.connectionPoolInfo));
 			sv.add(maD(SamplerModel.nextTransactionId, from.nextTransactionId, to.nextTransactionId));
 			sv.addAll(SamplerModel.mapIt(from.transactionCounters, to.transactionCounters));
+			sv.addAll(SamplerModel.mapIt(from.itemCacheStatistics, to.itemCacheStatistics));
 			sv.addAll(SamplerModel.mapIt(from.itemCacheSummary, to.itemCacheSummary));
 			sv.addAll(SamplerModel.mapIt(from.queryCacheInfo, to.queryCacheInfo));
 			sv.addAll(SamplerModel.mapIt(from.changeListenerInfo, to.changeListenerInfo));

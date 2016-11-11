@@ -66,16 +66,22 @@ final class SamplerItemCache extends Item
 	}
 
 
+	/** this field is no longer used - will always contain 0 for new items */
 	private static final IntegerField limit                = new IntegerField().toFinal().min(0);
 	private static final IntegerField level                = new IntegerField().toFinal().min(0);
 	private static final IntegerField hits                 = new IntegerField().toFinal().min(0);
 	private static final IntegerField misses               = new IntegerField().toFinal().min(0);
 	private static final IntegerField concurrentLoads      = new IntegerField().toFinal().min(0);
+	/** this field is no longer used - will always contain 0 for new items */
 	private static final IntegerField replacementRuns      = new IntegerField().toFinal().min(0);
 	private static final IntegerField replacements         = new IntegerField().toFinal().min(0);
+	/** this field is no longer used - will always contain null for new items */
 	private static final DateField lastReplacementRun      = new DateField().toFinal().optional();
+	/** this field is no longer used - will always contain 0 for new items */
 	private static final LongField ageAverageMillis        = new LongField().toFinal();
+	/** this field is no longer used - will always contain 0 for new items */
 	private static final LongField ageMinimumMillis        = new LongField().toFinal();
+	/** this field is no longer used - will always contain 0 for new items */
 	private static final LongField ageMaximumMillis        = new LongField().toFinal();
 	private static final IntegerField invalidationsOrdered = new IntegerField().toFinal().min(0);
 	private static final IntegerField invalidationsDone    = new IntegerField().toFinal().min(0);

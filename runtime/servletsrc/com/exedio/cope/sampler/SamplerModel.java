@@ -32,6 +32,7 @@ import com.exedio.cope.CopeSchemaName;
 import com.exedio.cope.DateField;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
+import com.exedio.cope.ItemCacheStatistics;
 import com.exedio.cope.LongField;
 import com.exedio.cope.QueryCacheInfo;
 import com.exedio.cope.SetValue;
@@ -97,6 +98,18 @@ final class SamplerModel extends Item
 			maD(rollbackWithConnection,    from.getRollbackWithConnection   (), to.getRollbackWithConnection   ()));
 	}
 
+
+	private static final IntegerField itemCacheLimit                = new IntegerField().toFinal().min(0);
+	private static final IntegerField itemCacheLevel                = new IntegerField().toFinal().min(0);
+
+	@SuppressWarnings("unchecked") static List<SetValue<?>> mapIt(
+			final ItemCacheStatistics from,
+			final ItemCacheStatistics to)
+	{
+		return Arrays.asList((SetValue<?>)
+			map(itemCacheLimit, to.getLimit()),
+			map(itemCacheLevel, to.getLevel()));
+	}
 
 	private static final IntegerField itemCacheHits                 = new IntegerField().toFinal().min(0);
 	private static final IntegerField itemCacheMisses               = new IntegerField().toFinal().min(0);
