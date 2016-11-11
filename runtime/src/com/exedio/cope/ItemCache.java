@@ -42,6 +42,7 @@ final class ItemCache
 		for(final Type<?> type : typesSorted)
 			if(!type.isAbstract)
 			{
+				@SuppressWarnings("deprecation")
 				final CopeCacheWeight cacheWeight=type.getAnnotation(CopeCacheWeight.class);
 				final boolean cachingDisabled = itemCacheLimit==0 || (cacheWeight!=null && cacheWeight.value()==0) || type.external;
 				typesStatsList.add(cachingDisabled?null:new TypeStats(type));

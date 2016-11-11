@@ -76,7 +76,6 @@ public class ItemCacheLimitTest
 			model.disconnect();
 	}
 
-	@CopeCacheWeight(10000)
 	@WrapperIgnore
 	static class Item1 extends Item
 	{

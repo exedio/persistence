@@ -235,11 +235,13 @@ public abstract class Pattern extends Feature
 		@Override
 		public boolean isAnnotationPresent(final Class<? extends Annotation> annotationClass)
 		{
+			@SuppressWarnings("deprecation")
+			final Class<?> copeCacheWeightClass=CopeCacheWeight.class;
 			if(CopeSchemaName.class==annotationClass)
 				return getAnnotation(annotationClass)!=null;
 			else if(Computed.class==annotationClass)
 				return getAnnotation(annotationClass)!=null;
-			else if(CopeCacheWeight.class==annotationClass)
+			else if(copeCacheWeightClass==annotationClass)
 				return getAnnotation(annotationClass)!=null;
 			else if(CopeExternal.class==annotationClass)
 				return getAnnotation(annotationClass)!=null;
@@ -253,6 +255,8 @@ public abstract class Pattern extends Feature
 		@Override
 		public <T extends Annotation> T getAnnotation(final Class<T> annotationClass)
 		{
+			@SuppressWarnings("deprecation")
+			final Class<CopeCacheWeight> copeCacheWeightClass=CopeCacheWeight.class;
 			if(CopeSchemaName.class==annotationClass)
 			{
 				if(source!=null && source.getAnnotation(annotationClass)!=null)
@@ -278,7 +282,7 @@ public abstract class Pattern extends Feature
 					return patternAnn;
 				return source.getAnnotation(annotationClass);
 			}
-			else if(CopeCacheWeight.class==annotationClass)
+			else if(copeCacheWeightClass==annotationClass)
 			{
 				final T patternAnn = Pattern.this.getAnnotation(annotationClass);
 				final T sourceAnn = source.getAnnotation(annotationClass);
@@ -290,8 +294,8 @@ public abstract class Pattern extends Feature
 				else
 					throw new IllegalStateException(
 							"conflicting @CopeCacheWeight: " +
-							CopeCacheWeight.class.cast(patternAnn).value() + " vs. " +
-							CopeCacheWeight.class.cast(sourceAnn ).value());
+							copeCacheWeightClass.cast(patternAnn).value() + " vs. " +
+							copeCacheWeightClass.cast(sourceAnn ).value());
 			}
 
 			if(source==null)

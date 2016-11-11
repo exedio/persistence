@@ -172,6 +172,7 @@ public class CopeExternalTest extends TestWithEnvironment
 	}
 
 	@WrapperType(indent=2, comments=false)
+	@SuppressWarnings("deprecation")
 	@CopeCacheWeight(0)
 	static class WeightZeroItem extends Item
 	{
