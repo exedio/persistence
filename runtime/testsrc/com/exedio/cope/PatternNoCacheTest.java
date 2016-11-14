@@ -20,13 +20,12 @@ package com.exedio.cope;
 
 import static com.exedio.cope.PatternNoCacheTest.MyItem.TYPE;
 import static com.exedio.cope.PatternNoCacheTest.MyItem.absent;
+import static com.exedio.cope.PatternNoCacheTest.MyItem.noCache;
 import static com.exedio.cope.instrument.Visibility.NONE;
 import static org.junit.Assert.assertEquals;
 
 import com.exedio.cope.instrument.WrapperType;
 import org.junit.Test;
-
-import static com.exedio.cope.PatternNoCacheTest.MyItem.noCache;
 
 public class PatternNoCacheTest
 {
