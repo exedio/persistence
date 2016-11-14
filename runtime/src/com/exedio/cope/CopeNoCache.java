@@ -25,6 +25,12 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+/**
+ * Disable COPE caching for the type. This allows modifying access to the database
+ * tables from outside COPE.
+ *
+ * <p>For subtypes, this annotation must be set if and only if it is set for the parent type.
+ */
 @Target({TYPE, FIELD})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface CopeNoCache
