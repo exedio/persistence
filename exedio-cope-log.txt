@@ -7,7 +7,9 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
-* annotating a class with @CopeNoCache disables item and query cache for that type
+* annotating a class with @CopeNoCache disables item and query cache for that type;
+	@CopeNoCache should replace @CopeCacheWeight(0) where it is used because because
+	database content is modified externally
 * ModelBuilder#name added.
 * dsmf.Column#getCumulativeColor considers Column#getConstraints()
 * cleaner instrument classpath handling:
