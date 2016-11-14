@@ -196,7 +196,7 @@ public final class Transaction
 		}
 	}
 
-	private boolean isCacheDisabled(final Query<?> query)
+	private static boolean isCacheDisabled(final Query<?> query)
 	{
 		if ( query.type.cacheDisabled )
 		{

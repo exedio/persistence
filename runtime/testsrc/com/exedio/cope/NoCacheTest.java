@@ -108,7 +108,7 @@ public class NoCacheTest extends TestWithEnvironment
 		assertEquals(0, model.getQueryCacheInfo().getLevel());
 	}
 
-	private void searchJoin(Type<?> queryType, Type<?> joinType)
+	private static void searchJoin(final Type<?> queryType, final Type<?> joinType)
 	{
 		final Query<?> q=queryType.newQuery();
 		q.join(joinType);
