@@ -77,6 +77,14 @@ public final class Column extends Node
 	@Override
 	Result computeResult()
 	{
+		Result cumulativeResult = computeParticularResult();
+		for(final Constraint constraint : constraints)
+			cumulativeResult = cumulativeResult.cumulate(constraint.finish());
+		return cumulativeResult;
+	}
+
+	private Result computeParticularResult()
+	{
 		if(!exists())
 			return Result.missing;
 
