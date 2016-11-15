@@ -51,15 +51,15 @@ public class PatternNoCacheTest
 
 	private static boolean noCache(final Feature f)
 	{
-		final CopeNoCache annotation = f.getAnnotation(CopeNoCache.class);
-		assertEquals(annotation!=null, f.isAnnotationPresent(CopeNoCache.class));
+		final CopeExternal annotation = f.getAnnotation(CopeExternal.class);
+		assertEquals(annotation!=null, f.isAnnotationPresent(CopeExternal.class));
 		return annotation!=null;
 	}
 
 	private static boolean noCache(final Type<?> f)
 	{
-		final CopeNoCache annotation = f.getAnnotation(CopeNoCache.class);
-		assertEquals(annotation!=null, f.isAnnotationPresent(CopeNoCache.class));
+		final CopeExternal annotation = f.getAnnotation(CopeExternal.class);
+		assertEquals(annotation!=null, f.isAnnotationPresent(CopeExternal.class));
 		return annotation!=null;
 	}
 
@@ -67,7 +67,7 @@ public class PatternNoCacheTest
 	static final class MyItem extends Item
 	{
 		static final MyPattern absent = new MyPattern();
-		@CopeNoCache
+		@CopeExternal
 		static final MyPattern noCache = new MyPattern();
 
 
@@ -107,7 +107,7 @@ public class PatternNoCacheTest
 			@SuppressWarnings("unused") private AbsentType(final com.exedio.cope.ActivationParameters ap){super(ap);}
 		}
 
-		@CopeNoCache
+		@CopeExternal
 		@WrapperType(type=NONE, constructor=NONE, genericConstructor=NONE, indent=3, comments=false)
 		static final class NoCacheType extends Item
 		{

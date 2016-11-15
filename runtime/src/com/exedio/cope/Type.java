@@ -312,9 +312,9 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 
 		this.uniqueConstraintsProblem = (supertype!=null) && (supertype.uniqueConstraintsProblem || !uniqueConstraints.all.isEmpty());
 
-		this.cacheDisabled = isAnnotationPresent(CopeNoCache.class);
+		this.cacheDisabled = isAnnotationPresent(CopeExternal.class);
 		if (supertype!=null && this.cacheDisabled!=supertype.cacheDisabled)
-			throw new IllegalArgumentException("@"+CopeNoCache.class.getSimpleName()+" must be set consistenly at type and supertype");
+			throw new IllegalArgumentException("@"+CopeExternal.class.getSimpleName()+" must be set consistenly at type and supertype");
 	}
 
 	@SuppressWarnings({"unchecked", "rawtypes"}) // TODO remove

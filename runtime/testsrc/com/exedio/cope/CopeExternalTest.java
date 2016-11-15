@@ -25,7 +25,7 @@ import static org.junit.Assert.fail;
 import com.exedio.cope.instrument.WrapperType;
 import org.junit.Test;
 
-public class NoCacheTest extends TestWithEnvironment
+public class CopeExternalTest extends TestWithEnvironment
 {
 	private static final Model MODEL = new Model(
 		CachedItem.TYPE,
@@ -33,7 +33,7 @@ public class NoCacheTest extends TestWithEnvironment
 		WeightZeroItem.TYPE
 	);
 
-	public NoCacheTest()
+	public CopeExternalTest()
 	{
 		super(MODEL);
 	}
@@ -120,7 +120,7 @@ public class NoCacheTest extends TestWithEnvironment
 		}
 		catch (IllegalArgumentException e)
 		{
-			assertEquals("@CopeNoCache must be set consistenly at type and supertype", e.getMessage());
+			assertEquals("@CopeExternal must be set consistenly at type and supertype", e.getMessage());
 		}
 	}
 
@@ -134,7 +134,7 @@ public class NoCacheTest extends TestWithEnvironment
 		}
 		catch (IllegalArgumentException e)
 		{
-			assertEquals("@CopeNoCache must be set consistenly at type and supertype", e.getMessage());
+			assertEquals("@CopeExternal must be set consistenly at type and supertype", e.getMessage());
 		}
 	}
 
@@ -174,7 +174,7 @@ public class NoCacheTest extends TestWithEnvironment
 	}
 
 	@WrapperType(indent=2, comments=false)
-	@CopeNoCache
+	@CopeExternal
 	static class NoCacheItem extends Item
 	{
 		@javax.annotation.Generated("com.exedio.cope.instrument")
@@ -238,7 +238,7 @@ public class NoCacheTest extends TestWithEnvironment
 	}
 
 	@WrapperType(indent=2, comments=false, type=NONE, genericConstructor=NONE, constructor=NONE)
-	@CopeNoCache
+	@CopeExternal
 	static class InvalidUncachedItem extends CachedItem
 	{
 		@javax.annotation.Generated("com.exedio.cope.instrument")

@@ -26,14 +26,19 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Disable COPE caching for the type. This allows modifying access to the database
- * tables from outside COPE.
+ * Allows a type's instances to be modified (created, updated and deleted) externally, directly in the database.
  *
- * <p>For subtypes, this annotation must be set if and only if it is set for the parent type.
+ * <p>COPE caches are disabled for the type.
+ *
+ * <p>External modifications of data must obey all consistency rules.
+ *
+ *	<p>Hooks (Item.beforeNewCopeItem, {@link Item#afterNewCopeItem()}, {@link Item#beforeSetCopeItem}, {@link Item#beforeDeleteCopeItem()}, {@link ChangeListener}) may not work.
+ *
+ * <p>For subtypes, this annotation must be set if and only if it is set for the {@link Type#getSupertype() supertype}.
  */
 @Target({TYPE, FIELD})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface CopeNoCache
+public @interface CopeExternal
 {
 	// no parameters
 }
