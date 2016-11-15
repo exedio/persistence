@@ -56,6 +56,9 @@ public class SchemaMismatchConstraintForeignClauseTest extends SchemaMismatchTes
 				ERROR, ERROR, ForeignKey, fk = table.getConstraint(nameFk(ItemA.field)));
 
 		assertTrue(fk instanceof com.exedio.dsmf.ForeignKeyConstraint);
+
+		// test propagation to cumulativeColor
+		assertIt(null, OK, OK, table.getColumn(name(ItemA.field)));
 	}
 
 	@CopeName("ItemAB")

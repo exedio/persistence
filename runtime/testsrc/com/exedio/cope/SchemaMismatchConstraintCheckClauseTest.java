@@ -74,9 +74,16 @@ public class SchemaMismatchConstraintCheckClauseTest extends SchemaMismatchTest
 						"but was "   + "---" + q("field") + "<=66---";
 			}
 			assertIt(error, ERROR, ERROR, Check, check);
+
+			// test propagation to cumulativeColor
+			assertIt(null, OK, OK, table.getColumn(name(ItemA.field)));
 		}
 		else
+		{
 			assertIt("not supported", OK, OK, Check, check);
+			// test propagation to cumulativeColor
+			assertIt(null, OK, OK, table.getColumn(name(ItemA.field)));
+		}
 
 		assertTrue(check instanceof com.exedio.dsmf.CheckConstraint);
 	}

@@ -56,6 +56,10 @@ public class SchemaMismatchConstraintUniqueClauseTest extends SchemaMismatchTest
 				ERROR, ERROR, Unique, unique = table.getConstraint(name(ItemA.unique)));
 
 		assertTrue(unique instanceof com.exedio.dsmf.UniqueConstraint);
+
+		// test propagation to cumulativeColor
+		assertIt(null, OK, OK, table.getColumn(name(ItemA.field1)));
+		assertIt(null, OK, OK, table.getColumn(name(ItemA.field1)));
 	}
 
 	@CopeName("ItemAB")
