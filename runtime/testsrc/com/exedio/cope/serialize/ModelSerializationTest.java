@@ -60,12 +60,12 @@ public class ModelSerializationTest
 		assertEquals(false, model.isSerializationEnabled());
 		assertNotSerializable(model, Model.class);
 		assertNotSerializable(ModelSerializationItem.TYPE, Model.class);
-		assertNotSerializable(AnItem.TYPE, Type.class);
+		assertNotSerializable(NotItem.TYPE, Type.class);
 		assertNotSerializable(ModelSerializationItem.TYPE.getThis(), Model.class);
 		assertNotSerializable(ModelSerializationItem.name, Model.class);
 		assertNotSerializable(ModelSerializationItem.list, Model.class);
-		assertNotSerializable(AnItem.field, Type.class);
-		assertNotSerializable(AnItem.pattern, Type.class);
+		assertNotSerializable(NotItem.field, Type.class);
+		assertNotSerializable(NotItem.pattern, Type.class);
 		assertNotSerializable(new StringField(), StringField.class);
 		assertNotSerializable(ListField.create(new StringField()), ListField.class);
 		assertNotNull(model.toString());
@@ -163,18 +163,18 @@ public class ModelSerializationTest
 		assertEquals(false, model.isSerializationEnabled());
 		assertNotSerializable(model, Model.class);
 		assertNotSerializable(ModelSerializationItem.TYPE, Model.class);
-		assertNotSerializable(AnItem.TYPE, Type.class);
+		assertNotSerializable(NotItem.TYPE, Type.class);
 
 		model.enableSerialization(testClass, "model");
 		assertEquals(true, model.isSerializationEnabled());
 		assertSerializedSame(model, 181);
 		assertSerializedSame(ModelSerializationItem.TYPE, 298);
-		assertNotSerializable(AnItem.TYPE, Type.class);
+		assertNotSerializable(NotItem.TYPE, Type.class);
 		assertSerializedSame(ModelSerializationItem.TYPE.getThis(), 400);
 		assertSerializedSame(ModelSerializationItem.name, 400);
 		assertSerializedSame(ModelSerializationItem.list, 400);
-		assertNotSerializable(AnItem.field, Type.class);
-		assertNotSerializable(AnItem.pattern, Type.class);
+		assertNotSerializable(NotItem.field, Type.class);
+		assertNotSerializable(NotItem.pattern, Type.class);
 		assertNotSerializable(new StringField(), StringField.class);
 		assertNotSerializable(ListField.create(new StringField()), ListField.class);
 		assertEquals(testClass.getName() + "#model", model.toString());
@@ -191,12 +191,12 @@ public class ModelSerializationTest
 		assertEquals(true, model.isSerializationEnabled());
 		assertSerializedSame(model, 181);
 		assertSerializedSame(ModelSerializationItem.TYPE, 298);
-		assertNotSerializable(AnItem.TYPE, Type.class);
+		assertNotSerializable(NotItem.TYPE, Type.class);
 		assertSerializedSame(ModelSerializationItem.TYPE.getThis(), 400);
 		assertSerializedSame(ModelSerializationItem.name, 400);
 		assertSerializedSame(ModelSerializationItem.list, 400);
-		assertNotSerializable(AnItem.field, Type.class);
-		assertNotSerializable(AnItem.pattern, Type.class);
+		assertNotSerializable(NotItem.field, Type.class);
+		assertNotSerializable(NotItem.pattern, Type.class);
 		assertNotSerializable(new StringField(), StringField.class);
 		assertNotSerializable(ListField.create(new StringField()), ListField.class);
 	}
@@ -220,11 +220,11 @@ public class ModelSerializationTest
 	}
 
 	@WrapperIgnore
-	static class AnItem extends Item
+	static class NotItem extends Item
 	{
 		private static final long serialVersionUID = 1l;
 
-		private AnItem(final ActivationParameters ap)
+		private NotItem(final ActivationParameters ap)
 		{
 			super(ap);
 		}
@@ -232,6 +232,6 @@ public class ModelSerializationTest
 		static final StringField field = new StringField();
 		static final ListField<String> pattern = ListField.create(new StringField());
 
-		static final Type<AnItem> TYPE = TypesBound.newType(AnItem.class);
+		static final Type<NotItem> TYPE = TypesBound.newType(NotItem.class);
 	}
 }
