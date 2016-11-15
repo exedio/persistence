@@ -19,18 +19,18 @@
 package com.exedio.cope.serialize;
 
 import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
+import static com.exedio.cope.instrument.Visibility.NONE;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
-import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.CacheIsolationTest;
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.StringField;
 import com.exedio.cope.Type;
-import com.exedio.cope.TypesBound;
-import com.exedio.cope.instrument.WrapperIgnore;
+import com.exedio.cope.instrument.Wrapper;
+import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.pattern.ListField;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -219,19 +219,21 @@ public class ModelSerializationTest
 		}
 	}
 
-	@WrapperIgnore
+	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	static class NotItem extends Item
 	{
-		private static final long serialVersionUID = 1l;
-
-		private NotItem(final ActivationParameters ap)
-		{
-			super(ap);
-		}
-
+		@Wrapper(wrap="*", visibility=NONE)
 		static final StringField field = new StringField();
+		@Wrapper(wrap="*", visibility=NONE)
 		static final ListField<String> pattern = ListField.create(new StringField());
 
-		static final Type<NotItem> TYPE = TypesBound.newType(NotItem.class);
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		private static final long serialVersionUID = 1l;
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		static final com.exedio.cope.Type<NotItem> TYPE = com.exedio.cope.TypesBound.newType(NotItem.class);
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		protected NotItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 }
