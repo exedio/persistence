@@ -41,7 +41,7 @@ import org.junit.Test;
 
 public class ModelSerializationTest
 {
-	private static final Model model = new Model(ModelSerializationItem.TYPE);
+	private static final Model model = new Model(MyItem.TYPE);
 
 	@SuppressWarnings("unused")
 	private final Model modelNonStatic = null;
@@ -52,18 +52,18 @@ public class ModelSerializationTest
 	@SuppressWarnings("unused")
 	private static final String modelWrong = "wrong";
 
-	private static final Class<?> itemClass = ModelSerializationItem.class;
+	private static final Class<?> itemClass = MyItem.class;
 	private static final Class<?> testClass = ModelSerializationTest.class;
 
 	@Test public void test() throws IOException
 	{
 		assertEquals(false, model.isSerializationEnabled());
 		assertNotSerializable(model, Model.class);
-		assertNotSerializable(ModelSerializationItem.TYPE, Model.class);
+		assertNotSerializable(MyItem.TYPE, Model.class);
 		assertNotSerializable(NotItem.TYPE, Type.class);
-		assertNotSerializable(ModelSerializationItem.TYPE.getThis(), Model.class);
-		assertNotSerializable(ModelSerializationItem.name, Model.class);
-		assertNotSerializable(ModelSerializationItem.list, Model.class);
+		assertNotSerializable(MyItem.TYPE.getThis(), Model.class);
+		assertNotSerializable(MyItem.name, Model.class);
+		assertNotSerializable(MyItem.list, Model.class);
 		assertNotSerializable(NotItem.field, Type.class);
 		assertNotSerializable(NotItem.pattern, Type.class);
 		assertNotSerializable(new StringField(), StringField.class);
@@ -162,17 +162,17 @@ public class ModelSerializationTest
 
 		assertEquals(false, model.isSerializationEnabled());
 		assertNotSerializable(model, Model.class);
-		assertNotSerializable(ModelSerializationItem.TYPE, Model.class);
+		assertNotSerializable(MyItem.TYPE, Model.class);
 		assertNotSerializable(NotItem.TYPE, Type.class);
 
 		model.enableSerialization(testClass, "model");
 		assertEquals(true, model.isSerializationEnabled());
 		assertSerializedSame(model, 181);
-		assertSerializedSame(ModelSerializationItem.TYPE, 298);
+		assertSerializedSame(MyItem.TYPE, 282);
 		assertNotSerializable(NotItem.TYPE, Type.class);
-		assertSerializedSame(ModelSerializationItem.TYPE.getThis(), 400);
-		assertSerializedSame(ModelSerializationItem.name, 400);
-		assertSerializedSame(ModelSerializationItem.list, 400);
+		assertSerializedSame(MyItem.TYPE.getThis(), 384);
+		assertSerializedSame(MyItem.name, 384);
+		assertSerializedSame(MyItem.list, 384);
 		assertNotSerializable(NotItem.field, Type.class);
 		assertNotSerializable(NotItem.pattern, Type.class);
 		assertNotSerializable(new StringField(), StringField.class);
@@ -190,11 +190,11 @@ public class ModelSerializationTest
 		}
 		assertEquals(true, model.isSerializationEnabled());
 		assertSerializedSame(model, 181);
-		assertSerializedSame(ModelSerializationItem.TYPE, 298);
+		assertSerializedSame(MyItem.TYPE, 282);
 		assertNotSerializable(NotItem.TYPE, Type.class);
-		assertSerializedSame(ModelSerializationItem.TYPE.getThis(), 400);
-		assertSerializedSame(ModelSerializationItem.name, 400);
-		assertSerializedSame(ModelSerializationItem.list, 400);
+		assertSerializedSame(MyItem.TYPE.getThis(), 384);
+		assertSerializedSame(MyItem.name, 384);
+		assertSerializedSame(MyItem.list, 384);
 		assertNotSerializable(NotItem.field, Type.class);
 		assertNotSerializable(NotItem.pattern, Type.class);
 		assertNotSerializable(new StringField(), StringField.class);
@@ -217,6 +217,25 @@ public class ModelSerializationTest
 					: exceptionMessage.getName(),
 				e.getMessage());
 		}
+	}
+
+	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
+	static final class MyItem extends Item
+	{
+		@Wrapper(wrap="*", visibility=NONE)
+		static final StringField name = new StringField().optional();
+		@Wrapper(wrap="*", visibility=NONE)
+		static final ListField<String> list = ListField.create(new StringField());
+
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		private static final long serialVersionUID = 1l;
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		static final com.exedio.cope.Type<MyItem> TYPE = com.exedio.cope.TypesBound.newType(MyItem.class);
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@SuppressWarnings("unused") private MyItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
