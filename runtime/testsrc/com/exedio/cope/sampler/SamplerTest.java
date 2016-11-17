@@ -33,6 +33,11 @@ public class SamplerTest
 		assertEquals("Sampler#com.exedio.cope.sampler.Stuff#MODEL", sampler.toString());
 	}
 
+	@Test public void testModelToString()
+	{
+		assertEquals("Sampler(com.exedio.cope.sampler.Stuff#MODEL)", sampler.getModel().toString());
+	}
+
 	@Test public void testConstructorNull()
 	{
 		try

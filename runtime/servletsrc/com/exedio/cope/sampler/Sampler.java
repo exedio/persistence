@@ -63,6 +63,7 @@ public class Sampler
 		this.sampledModel = requireNonNull(sampledModel, "sampledModel");
 
 		this.samplerModel = Model.builder().
+				name("Sampler(" + sampledModel.toString() + ')').
 				add(new SamplerRevisions()).
 				add(
 					SamplerTypeId.TYPE,
@@ -77,7 +78,6 @@ public class Sampler
 					SamplerEnvironment.TYPE,
 					SamplerPurge.TYPE).
 				build();
-		// TODO make a meaningful samplerModel#toString()
 		final ArrayList<MediaPath> medias = new ArrayList<>();
 		for(final Type<?> type : sampledModel.getTypes())
 			for(final Feature feature : type.getDeclaredFeatures())
