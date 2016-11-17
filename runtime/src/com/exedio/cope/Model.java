@@ -88,24 +88,6 @@ public final class Model implements Serializable
 		this((Revisions.Factory)null, (TypeSet[])null, types);
 	}
 
-	/**
-	 * @deprecated Use Model.{@link #builder() builder}().{@link ModelBuilder#add(Revisions.Factory) add}(revisions).{@link ModelBuilder#add(Type[]) add}(types).{@link ModelBuilder#build() build}() instead.
-	 */
-	@Deprecated
-	public Model(final Revisions.Factory revisions, final Type<?>... types)
-	{
-		this(revisions, (TypeSet[])null, types);
-	}
-
-	/**
-	 * @deprecated Use Model.{@link #builder() builder}().{@link ModelBuilder#add(Revisions.Factory) add}(revisions).{@link ModelBuilder#add(TypeSet[]) add}(typeSets).{@link ModelBuilder#add(Type[]) add}(types).{@link ModelBuilder#build() build}() instead.
-	 */
-	@Deprecated
-	public Model(final Revisions.Factory revisions, final TypeSet[] typeSets, final Type<?>... types)
-	{
-		this(null, revisions, typeSets, types);
-	}
-
 	Model(
 			final String name,
 			final Revisions.Factory revisions,
@@ -943,6 +925,24 @@ public final class Model implements Serializable
 	}
 
 	// ------------------- deprecated stuff -------------------
+
+	/**
+	 * @deprecated Use Model.{@link #builder() builder}().{@link ModelBuilder#add(Revisions.Factory) add}(revisions).{@link ModelBuilder#add(Type[]) add}(types).{@link ModelBuilder#build() build}() instead.
+	 */
+	@Deprecated
+	public Model(final Revisions.Factory revisions, final Type<?>... types)
+	{
+		this(revisions, (TypeSet[])null, types);
+	}
+
+	/**
+	 * @deprecated Use Model.{@link #builder() builder}().{@link ModelBuilder#add(Revisions.Factory) add}(revisions).{@link ModelBuilder#add(TypeSet[]) add}(typeSets).{@link ModelBuilder#add(Type[]) add}(types).{@link ModelBuilder#build() build}() instead.
+	 */
+	@Deprecated
+	public Model(final Revisions.Factory revisions, final TypeSet[] typeSets, final Type<?>... types)
+	{
+		this(null, revisions, typeSets, types);
+	}
 
 	/**
 	 * @deprecated Use {@link #addPostCommitHook(Runnable)} instead
