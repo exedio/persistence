@@ -21,6 +21,7 @@ package com.exedio.cope;
 import static com.exedio.cope.instrument.Visibility.NONE;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import com.exedio.cope.instrument.WrapperType;
 import org.junit.Test;
@@ -38,6 +39,28 @@ public class ModelNameTest
 	}
 
 
+	private static final Model LITERAL = Model.builder().add(Literal.TYPE).name("literalTestName").build();
+
+	@Test public void testLiteral()
+	{
+		assertEquals("literalTestName", LITERAL.toString());
+
+		LITERAL.enableSerialization(ModelNameTest.class, "LITERAL");
+		assertEquals("literalTestName", LITERAL.toString());
+	}
+
+
+	private static final Model CLASS_NAME = Model.builder().add(ClassNameItem.TYPE).name(ClassNameName.class).build();
+
+	@Test public void testClassName()
+	{
+		assertEquals(ClassNameName.class.getName(), CLASS_NAME.toString());
+
+		CLASS_NAME.enableSerialization(ModelNameTest.class, "CLASS_NAME");
+		assertEquals(ClassNameName.class.getName(), CLASS_NAME.toString());
+	}
+
+
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	static class Anonymous extends Item
 	{
@@ -49,5 +72,79 @@ public class ModelNameTest
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		protected Anonymous(final com.exedio.cope.ActivationParameters ap){super(ap);}
+	}
+
+	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
+	static class Literal extends Item
+	{
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		private static final long serialVersionUID = 1l;
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		static final com.exedio.cope.Type<Literal> TYPE = com.exedio.cope.TypesBound.newType(Literal.class);
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		protected Literal(final com.exedio.cope.ActivationParameters ap){super(ap);}
+	}
+
+	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
+	static class ClassNameItem extends Item
+	{
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		private static final long serialVersionUID = 1l;
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		static final com.exedio.cope.Type<ClassNameItem> TYPE = com.exedio.cope.TypesBound.newType(ClassNameItem.class);
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		protected ClassNameItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
+	}
+
+	static class ClassNameName
+	{
+		// empty
+	}
+
+
+	@Test public void testNull()
+	{
+		final ModelBuilder b = Model.builder();
+		try
+		{
+			b.name((String)null);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals("name", e.getMessage());
+		}
+	}
+
+	@Test public void testEmpty()
+	{
+		final ModelBuilder b = Model.builder();
+		try
+		{
+			b.name("");
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals("name must not be empty", e.getMessage());
+		}
+	}
+
+	@Test public void testClassNull()
+	{
+		final ModelBuilder b = Model.builder();
+		try
+		{
+			b.name((Class<?>)null);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals(null, e.getMessage());
+		}
 	}
 }

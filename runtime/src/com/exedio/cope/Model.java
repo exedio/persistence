@@ -52,6 +52,8 @@ public final class Model implements Serializable
 {
 	private static final Logger logger = LoggerFactory.getLogger(Model.class);
 
+	private final String name;
+
 	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final Revisions.Factory revisions;
 	private final Object reviseLock = new Object();
@@ -101,6 +103,16 @@ public final class Model implements Serializable
 	@Deprecated
 	public Model(final Revisions.Factory revisions, final TypeSet[] typeSets, final Type<?>... types)
 	{
+		this(null, revisions, typeSets, types);
+	}
+
+	Model(
+			final String name,
+			final Revisions.Factory revisions,
+			final TypeSet[] typeSets,
+			final Type<?>... types)
+	{
+		this.name = name;
 		this.revisions = revisions;
 		this.types = new Types(this, typeSets, types);
 
@@ -857,6 +869,9 @@ public final class Model implements Serializable
 	@Override
 	public String toString()
 	{
+		if(name!=null)
+			return name;
+
 		final Serialized serialized = this.serialized;
 		return
 			serialized!=null

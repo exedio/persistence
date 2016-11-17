@@ -18,11 +18,13 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.misc.Check.requireNonEmpty;
 import static com.exedio.cope.misc.Check.requireNonEmptyAndCopy;
 import static java.util.Objects.requireNonNull;
 
 public final class ModelBuilder
 {
+	private String name;
 	private Type<?>[] types;
 	private TypeSet[] typeSets;
 	private Revisions.Factory revisions;
@@ -30,6 +32,17 @@ public final class ModelBuilder
 	ModelBuilder()
 	{
 		// just make package private
+	}
+
+	public ModelBuilder name(final String name)
+	{
+		this.name = requireNonEmpty(name, "name");
+		return this;
+	}
+
+	public ModelBuilder name(final Class<?> clazz)
+	{
+		return name(clazz.getName());
 	}
 
 	public ModelBuilder add(final Type<?>... types)
@@ -59,9 +72,8 @@ public final class ModelBuilder
 			throw new IllegalStateException("already set");
 	}
 
-	@SuppressWarnings("deprecation") // OK: new API
 	public Model build()
 	{
-		return new Model(revisions, typeSets, types);
+		return new Model(name, revisions, typeSets, types);
 	}
 }
