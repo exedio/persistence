@@ -18,18 +18,17 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.Intern.intern;
-
 import com.exedio.cope.util.CharSet;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.SortedSet;
 
 class StringColumn extends Column
 {
 	final int minimumLength;
 	final int maximumLength;
 	final CharSet charSet;
-	final String[] allowedValues;
+	final SortedSet<String> allowedValues;
 	private final MysqlExtendedVarchar mysqlExtendedVarchar;
 
 	StringColumn(
@@ -57,7 +56,7 @@ class StringColumn extends Column
 			final boolean synthetic,
 			final boolean optional,
 			final int minLength,
-			final String[] allowedValues)
+			final SortedSet<String> allowedValues)
 	{
 		super(table, id, synthetic, false, optional);
 		this.minimumLength = 0;
@@ -66,15 +65,13 @@ class StringColumn extends Column
 		this.allowedValues = allowedValues;
 		this.mysqlExtendedVarchar = null;
 
-		if(allowedValues.length<2)
+		if(allowedValues.size()<2)
 			throw new RuntimeException(id);
-		for(int i = 0; i<allowedValues.length; i++)
-			allowedValues[i] = intern(allowedValues[i]);
 
 		assert minimumLength<=maximumLength;
 	}
 
-	private static final int maxLength(final String[] strings)
+	private static final int maxLength(final SortedSet<String> strings)
 	{
 		int result = 0;
 
@@ -110,15 +107,18 @@ class StringColumn extends Column
 				bf.append(')');
 			bf.append(" IN (");
 
-			for(int j = 0; j<allowedValues.length; j++)
+			boolean first = true;
+			for(final String allowedValue : allowedValues)
 			{
-				if(j>0)
+				if(first)
+					first = false;
+				else
 					bf.append(comma);
 
 				if(parenthesis)
 					bf.append('(');
 				bf.append('\'').
-					append(allowedValues[j]).
+					append(allowedValue).
 					append('\'');
 				if(parenthesis)
 					bf.append(')');

@@ -27,6 +27,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.lang.reflect.AnnotatedElement;
 import java.sql.Connection;
 import java.util.Set;
+import java.util.SortedSet;
 
 public final class ItemField<E extends Item> extends FunctionField<E>
 	implements ItemFunction<E>
@@ -301,7 +302,7 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 
 		final ItemColumn result = new ItemColumn(table, name, optional, valueType);
 
-		final String[] typeColumnValues = valueType.getTypesOfInstancesColumnValues();
+		final SortedSet<String> typeColumnValues = valueType.getTypesOfInstancesColumnValues();
 		if(typeColumnValues==null)
 			onlyPossibleValueType = valueType.getOnlyPossibleTypeOfInstances();
 		else

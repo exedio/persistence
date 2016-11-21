@@ -24,6 +24,7 @@ import com.exedio.dsmf.Schema;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.SortedSet;
 
 final class Table
 {
@@ -41,7 +42,7 @@ final class Table
 			final String id,
 			final Type<?> supertype,
 			final int typeColumnMinLength,
-			final String[] typesOfInstancesColumnValues,
+			final SortedSet<String> typesOfInstancesColumnValues,
 			final boolean updateCounter,
 			final long maximum)
 	{

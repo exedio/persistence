@@ -22,9 +22,11 @@ import static com.exedio.cope.CastUtils.toIntCapped;
 import static com.exedio.cope.Executor.integerResultSetHandler;
 import static com.exedio.cope.Executor.longResultSetHandler;
 import static com.exedio.cope.FeatureSubSet.features;
+import static com.exedio.cope.Intern.intern;
 import static com.exedio.cope.misc.Check.requireNonNegative;
 import static java.util.Collections.emptyMap;
 import static java.util.Collections.unmodifiableMap;
+import static java.util.Collections.unmodifiableSortedSet;
 import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.ItemField.DeletePolicy;
@@ -53,6 +55,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 public final class Type<T extends Item> implements SelectType<T>, Comparable<Type<?>>, Serializable
 {
@@ -181,7 +185,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		this.bound = bound;
 		this.id = id;
 		final CopeSchemaName schemaNameAnnotation = getAnnotation(CopeSchemaName.class);
-		this.schemaId = schemaNameAnnotation!=null ? schemaNameAnnotation.value() : id;
+		this.schemaId = intern(schemaNameAnnotation!=null ? schemaNameAnnotation.value() : id);
 		this.pattern = pattern;
 		this.isAbstract = isAbstract;
 		this.supertype = supertype;
@@ -459,7 +463,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 
 		final HashMap<String, Type<? extends C>> typesOfInstancesMap;
 		final Type<? extends C> onlyPossibleTypeOfInstances;
-		final String[] typesOfInstancesColumnValues;
+		final SortedSet<String> typesOfInstancesColumnValues;
 		final Marshaller<C> marshaller;
 
 		final List<ItemField<C>> declaredReferences;
@@ -487,15 +491,16 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 					break;
 				default:
 					final HashMap<String, Type<?>> typesOfInstancesMap = new HashMap<>();
-					this.typesOfInstancesColumnValues = new String[typesOfInstances.size()];
-					int i = 0;
+					final TreeSet<String> typesOfInstancesColumnValues = new TreeSet<>();
 					for(final Type<?> t : typesOfInstances)
 					{
 						if(typesOfInstancesMap.putIfAbsent(t.schemaId, t)!=null)
 							throw new RuntimeException(t.schemaId);
-						typesOfInstancesColumnValues[i++] = t.schemaId;
+						if(!typesOfInstancesColumnValues.add(t.schemaId))
+							throw new RuntimeException(t.schemaId);
 					}
 					this.typesOfInstancesMap = castTypeInstanceHasMap(typesOfInstancesMap);
+					this.typesOfInstancesColumnValues = unmodifiableSortedSet(typesOfInstancesColumnValues);
 					this.marshaller = new PolymorphicItemMarshaller<>(this.typesOfInstancesMap);
 					this.onlyPossibleTypeOfInstances = null;
 					break;
@@ -704,19 +709,9 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		return mount().marshaller;
 	}
 
-	@SuppressFBWarnings("PZLA_PREFER_ZERO_LENGTH_ARRAYS")
-	String[] getTypesOfInstancesColumnValues()
+	SortedSet<String> getTypesOfInstancesColumnValues()
 	{
-		final String[] typesOfInstancesColumnValues = mount().typesOfInstancesColumnValues;
-
-		if(typesOfInstancesColumnValues==null)
-			return null;
-		else
-		{
-			final String[] result = new String[typesOfInstancesColumnValues.length];
-			System.arraycopy(typesOfInstancesColumnValues, 0, result, 0, result.length);
-			return result;
-		}
+		return mount().typesOfInstancesColumnValues;
 	}
 
 	Table getTable()

@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import java.util.SortedSet;
+
 final class TypeColumn extends StringColumn
 {
 	private final String itemColumnQuotedID;
@@ -27,7 +29,7 @@ final class TypeColumn extends StringColumn
 			final ItemColumn itemColumn,
 			final boolean optional,
 			final int minLength,
-			final String[] allowedValues)
+			final SortedSet<String> allowedValues)
 	{
 		super(table, itemColumn.id + "Type"/* not equal to "name"! */, false, optional, minLength, allowedValues);
 		this.itemColumnQuotedID = itemColumn.quotedID;
