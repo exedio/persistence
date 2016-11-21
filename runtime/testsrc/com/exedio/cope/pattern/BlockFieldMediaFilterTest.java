@@ -19,10 +19,6 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.instrument.Visibility.NONE;
-import static com.exedio.cope.pattern.BlockFieldMediaFilterTest.ABlock.filter;
-import static com.exedio.cope.pattern.BlockFieldMediaFilterTest.ABlock.source;
-import static com.exedio.cope.pattern.BlockFieldMediaFilterTest.AnItem.eins;
-import static com.exedio.cope.pattern.BlockFieldMediaFilterTest.AnItem.zwei;
 import static com.exedio.cope.pattern.MediaLocatorAssert.assertLocator;
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
 import static com.exedio.cope.tojunit.Assert.list;
@@ -332,5 +328,12 @@ public class BlockFieldMediaFilterTest extends TestWithEnvironment
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	@SuppressWarnings("unused") private AnItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }
+
+
+	// workaround eclipse warnings about unused imports when using static imports instead
+	private static final Media source = ABlock.source;
+	private static final MediaThumbnail filter = ABlock.filter;
+	private static final BlockField<ABlock> eins = AnItem.eins;
+	private static final BlockField<ABlock> zwei = AnItem.zwei;
 }
 

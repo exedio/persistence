@@ -20,15 +20,6 @@ package com.exedio.cope.pattern;
 
 import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
 import static com.exedio.cope.instrument.Visibility.NONE;
-import static com.exedio.cope.pattern.BlockFieldStandardModelTest.ABlock.aColor;
-import static com.exedio.cope.pattern.BlockFieldStandardModelTest.ABlock.aList;
-import static com.exedio.cope.pattern.BlockFieldStandardModelTest.ABlock.aMedia;
-import static com.exedio.cope.pattern.BlockFieldStandardModelTest.ABlock.aString;
-import static com.exedio.cope.pattern.BlockFieldStandardModelTest.ABlock.anEnum;
-import static com.exedio.cope.pattern.BlockFieldStandardModelTest.ABlock.anInt;
-import static com.exedio.cope.pattern.BlockFieldStandardModelTest.ABlock.anItem;
-import static com.exedio.cope.pattern.BlockFieldStandardModelTest.AnItem.eins;
-import static com.exedio.cope.pattern.BlockFieldStandardModelTest.AnItem.zwei;
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
 import static com.exedio.cope.tojunit.Assert.list;
 import static org.junit.Assert.assertEquals;
@@ -529,5 +520,17 @@ public class BlockFieldStandardModelTest
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	@SuppressWarnings("unused") private AnItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }
+
+
+	// workaround eclipse warnings about unused imports when using static imports instead
+	static final StringField aString = ABlock.aString;
+	static final IntegerField anInt = ABlock.anInt;
+	static final EnumField<ABlock.AnEnum> anEnum = ABlock.anEnum;
+	private static final ItemField<AnItem> anItem = ABlock.anItem;
+	static final ColorField aColor = ABlock.aColor;
+	private static final Media aMedia = ABlock.aMedia;
+	private static final ListField<String> aList = ABlock.aList;
+	private static final BlockField<ABlock> eins = AnItem.eins;
+	private static final BlockField<ABlock> zwei = AnItem.zwei;
 }
 
