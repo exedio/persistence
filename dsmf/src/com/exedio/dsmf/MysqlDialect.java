@@ -95,17 +95,21 @@ public final class MysqlDialect extends Dialect
 
 		schema.querySQL(
 				"SELECT " +
-						"TABLE_NAME," + // 1
-						"COLUMN_NAME," + // 2
-						"IS_NULLABLE," + // 3
-						"DATA_TYPE," + // 4
-						"CHARACTER_MAXIMUM_LENGTH," + // 5
-						"CHARACTER_SET_NAME," + // 6
-						"COLLATION_NAME," + // 7
-						"COLUMN_KEY " + // 8
-				"FROM information_schema.COLUMNS " +
-				"WHERE TABLE_SCHEMA='" + catalog + "' " +
-				"ORDER BY ORDINAL_POSITION", // make it deterministic for multiple unused columns in one table
+						"c.TABLE_NAME," + // 1
+						"c.COLUMN_NAME," + // 2
+						"c.IS_NULLABLE," + // 3
+						"c.DATA_TYPE," + // 4
+						"c.CHARACTER_MAXIMUM_LENGTH," + // 5
+						"c.CHARACTER_SET_NAME," + // 6
+						"c.COLLATION_NAME," + // 7
+						"c.COLUMN_KEY " + // 8
+				"FROM information_schema.COLUMNS c " +
+				"JOIN information_schema.TABLES t " +
+					"ON c.TABLE_SCHEMA=t.TABLE_SCHEMA " +
+					"AND c.TABLE_NAME=t.TABLE_NAME " +
+				"WHERE c.TABLE_SCHEMA='" + catalog + "' " +
+				"AND t.TABLE_TYPE='BASE TABLE' " +
+				"ORDER BY c.ORDINAL_POSITION", // make it deterministic for multiple unused columns in one table
 		resultSet ->
 		{
 			while(resultSet.next())
