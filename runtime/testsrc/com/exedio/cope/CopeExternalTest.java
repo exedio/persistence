@@ -118,7 +118,7 @@ public class CopeExternalTest extends TestWithEnvironment
 			com.exedio.cope.TypesBound.newType(InvalidCachedItem.class);
 			fail();
 		}
-		catch (IllegalArgumentException e)
+		catch (final IllegalArgumentException e)
 		{
 			assertEquals("@CopeExternal must be set consistenly at type and supertype", e.getMessage());
 		}
@@ -132,7 +132,7 @@ public class CopeExternalTest extends TestWithEnvironment
 			com.exedio.cope.TypesBound.newType(InvalidUncachedItem.class);
 			fail();
 		}
-		catch (IllegalArgumentException e)
+		catch (final IllegalArgumentException e)
 		{
 			assertEquals("@CopeExternal must be set consistenly at type and supertype", e.getMessage());
 		}
