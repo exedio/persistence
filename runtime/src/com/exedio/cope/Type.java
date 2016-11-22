@@ -103,7 +103,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	private final SequenceX primaryKeySequence;
 	private final boolean uniqueConstraintsProblem;
 
-	final boolean cacheDisabled;
+	final boolean external;
 
 	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private Mount<T> mountIfMounted = null;
@@ -312,8 +312,8 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 
 		this.uniqueConstraintsProblem = (supertype!=null) && (supertype.uniqueConstraintsProblem || !uniqueConstraints.all.isEmpty());
 
-		this.cacheDisabled = isAnnotationPresent(CopeExternal.class);
-		if (supertype!=null && this.cacheDisabled!=supertype.cacheDisabled)
+		this.external = isAnnotationPresent(CopeExternal.class);
+		if(supertype!=null && this.external!=supertype.external)
 			throw new IllegalArgumentException("@"+CopeExternal.class.getSimpleName()+" must be set consistenly at type and supertype");
 	}
 

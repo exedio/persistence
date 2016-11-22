@@ -198,7 +198,7 @@ public final class Transaction
 
 	private static boolean isCacheDisabled(final Query<?> query)
 	{
-		if ( query.type.cacheDisabled )
+		if ( query.type.external )
 		{
 			return true;
 		}
@@ -208,7 +208,7 @@ public final class Transaction
 		}
 		for(final Join nextJoin : query.joins)
 		{
-			if ( nextJoin.type.cacheDisabled )
+			if ( nextJoin.type.external )
 			{
 				return true;
 			}
