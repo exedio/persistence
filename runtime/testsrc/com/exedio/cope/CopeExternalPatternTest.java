@@ -18,22 +18,22 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.PatternNoCacheTest.MyItem.TYPE;
-import static com.exedio.cope.PatternNoCacheTest.MyItem.absent;
-import static com.exedio.cope.PatternNoCacheTest.MyItem.noCache;
+import static com.exedio.cope.CopeExternalPatternTest.MyItem.TYPE;
+import static com.exedio.cope.CopeExternalPatternTest.MyItem.absent;
+import static com.exedio.cope.CopeExternalPatternTest.MyItem.noCache;
 import static com.exedio.cope.instrument.Visibility.NONE;
 import static org.junit.Assert.assertEquals;
 
 import com.exedio.cope.instrument.WrapperType;
 import org.junit.Test;
 
-public class PatternNoCacheTest
+public class CopeExternalPatternTest
 {
 	private static final Model MODEL = new Model(TYPE);
 
 	static
 	{
-		MODEL.enableSerialization(PatternNoCacheTest.class, "MODEL");
+		MODEL.enableSerialization(CopeExternalPatternTest.class, "MODEL");
 	}
 
 	@Test public void testIt()
