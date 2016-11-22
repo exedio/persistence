@@ -20,7 +20,7 @@ package com.exedio.cope;
 
 import static com.exedio.cope.CopeExternalPatternTest.MyItem.TYPE;
 import static com.exedio.cope.CopeExternalPatternTest.MyItem.absent;
-import static com.exedio.cope.CopeExternalPatternTest.MyItem.noCache;
+import static com.exedio.cope.CopeExternalPatternTest.MyItem.present;
 import static com.exedio.cope.instrument.Visibility.NONE;
 import static org.junit.Assert.assertEquals;
 
@@ -41,12 +41,12 @@ public class CopeExternalPatternTest
 		assertEquals(false, external(MyItem.TYPE));
 
 		assertEquals(false, external(absent));
-		assertEquals(true,  external(noCache));
+		assertEquals(true,  external(present));
 
 		assertEquals(false, external(absent.absentType));
-		assertEquals(true,  external(absent.noCacheType));
-		assertEquals(true,  external(noCache.absentType));
-		assertEquals(true,  external(noCache.noCacheType));
+		assertEquals(true,  external(absent.presentType));
+		assertEquals(true,  external(present.absentType));
+		assertEquals(true,  external(present.presentType));
 	}
 
 	private static boolean external(final Feature f)
@@ -68,7 +68,7 @@ public class CopeExternalPatternTest
 	{
 		static final MyPattern absent = new MyPattern();
 		@CopeExternal
-		static final MyPattern noCache = new MyPattern();
+		static final MyPattern present = new MyPattern();
 
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
@@ -86,7 +86,7 @@ public class CopeExternalPatternTest
 		private static final long serialVersionUID = 1l;
 
 		Type<?> absentType = null;
-		Type<?> noCacheType = null;
+		Type<?> presentType = null;
 
 		@Override
 		protected void onMount()
@@ -94,7 +94,7 @@ public class CopeExternalPatternTest
 			super.onMount();
 			final Features features = new Features();
 			this.absentType = newSourceType(AbsentType.class, features, "absent");
-			this.noCacheType = newSourceType(NoCacheType.class, features, "set333");
+			this.presentType = newSourceType(PresentType.class, features, "present");
 		}
 
 		@WrapperType(type=NONE, constructor=NONE, genericConstructor=NONE, indent=3, comments=false)
@@ -109,13 +109,13 @@ public class CopeExternalPatternTest
 
 		@CopeExternal
 		@WrapperType(type=NONE, constructor=NONE, genericConstructor=NONE, indent=3, comments=false)
-		static final class NoCacheType extends Item
+		static final class PresentType extends Item
 		{
 			@javax.annotation.Generated("com.exedio.cope.instrument")
 			private static final long serialVersionUID = 1l;
 
 			@javax.annotation.Generated("com.exedio.cope.instrument")
-			@SuppressWarnings("unused") private NoCacheType(final com.exedio.cope.ActivationParameters ap){super(ap);}
+			@SuppressWarnings("unused") private PresentType(final com.exedio.cope.ActivationParameters ap){super(ap);}
 		}
 	}
 }
