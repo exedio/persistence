@@ -38,25 +38,25 @@ public class CopeExternalPatternTest
 
 	@Test public void testIt()
 	{
-		assertEquals(false, noCache(MyItem.TYPE));
+		assertEquals(false, external(MyItem.TYPE));
 
-		assertEquals(false, noCache(absent));
-		assertEquals(true,  noCache(noCache));
+		assertEquals(false, external(absent));
+		assertEquals(true,  external(noCache));
 
-		assertEquals(false, noCache(absent.absentType));
-		assertEquals(true,  noCache(absent.noCacheType));
-		assertEquals(true,  noCache(noCache.absentType));
-		assertEquals(true,  noCache(noCache.noCacheType));
+		assertEquals(false, external(absent.absentType));
+		assertEquals(true,  external(absent.noCacheType));
+		assertEquals(true,  external(noCache.absentType));
+		assertEquals(true,  external(noCache.noCacheType));
 	}
 
-	private static boolean noCache(final Feature f)
+	private static boolean external(final Feature f)
 	{
 		final CopeExternal annotation = f.getAnnotation(CopeExternal.class);
 		assertEquals(annotation!=null, f.isAnnotationPresent(CopeExternal.class));
 		return annotation!=null;
 	}
 
-	private static boolean noCache(final Type<?> f)
+	private static boolean external(final Type<?> f)
 	{
 		final CopeExternal annotation = f.getAnnotation(CopeExternal.class);
 		assertEquals(annotation!=null, f.isAnnotationPresent(CopeExternal.class));
