@@ -56,10 +56,10 @@ public class CopeExternalPatternTest
 		return annotation!=null;
 	}
 
-	private static boolean external(final Type<?> f)
+	private static boolean external(final Type<?> t)
 	{
-		final CopeExternal annotation = f.getAnnotation(CopeExternal.class);
-		assertEquals(annotation!=null, f.isAnnotationPresent(CopeExternal.class));
+		final CopeExternal annotation = t.getAnnotation(CopeExternal.class);
+		assertEquals(annotation!=null, t.isAnnotationPresent(CopeExternal.class));
 		return annotation!=null;
 	}
 
