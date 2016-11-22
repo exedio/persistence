@@ -186,7 +186,7 @@ public final class Transaction
 	ArrayList<Object> search(final Query<?> query, final boolean totalOnly)
 	{
 		final QueryCache queryCache = connect.queryCache;
-		if(!queryCache.isEnabled() || isInvalidated(query) || isCacheDisabled(query))
+		if(!queryCache.isEnabled() || isInvalidated(query) || isExternal(query))
 		{
 			return query.searchUncached(this, totalOnly);
 		}
@@ -196,7 +196,7 @@ public final class Transaction
 		}
 	}
 
-	private static boolean isCacheDisabled(final Query<?> query)
+	private static boolean isExternal(final Query<?> query)
 	{
 		if ( query.type.external )
 		{
