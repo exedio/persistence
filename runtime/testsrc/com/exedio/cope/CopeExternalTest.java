@@ -18,9 +18,7 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.instrument.Visibility.NONE;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 
 import com.exedio.cope.instrument.WrapperType;
 import org.junit.Test;
@@ -111,34 +109,6 @@ public class CopeExternalTest extends TestWithEnvironment
 		assertEquals(0, model.getQueryCacheInfo().getLevel());
 	}
 
-	@Test
-	public void testInvalidCached()
-	{
-		try
-		{
-			com.exedio.cope.TypesBound.newType(InvalidCachedItem.class);
-			fail();
-		}
-		catch (final IllegalArgumentException e)
-		{
-			assertEquals("@CopeExternal must be set consistenly at type and supertype", e.getMessage());
-		}
-	}
-
-	@Test
-	public void testInvalidUncached()
-	{
-		try
-		{
-			com.exedio.cope.TypesBound.newType(InvalidUncachedItem.class);
-			fail();
-		}
-		catch (final IllegalArgumentException e)
-		{
-			assertEquals("@CopeExternal must be set consistenly at type and supertype", e.getMessage());
-		}
-	}
-
 	private static void searchJoin(final Type<?> queryType, final Type<?> joinType)
 	{
 		final Query<?> q=queryType.newQuery();
@@ -226,26 +196,5 @@ public class CopeExternalTest extends TestWithEnvironment
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		protected WeightZeroItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
-	}
-
-	@WrapperType(indent=2, comments=false, type=NONE, genericConstructor=NONE, constructor=NONE)
-	static class InvalidCachedItem extends NoCacheItem
-	{
-		@javax.annotation.Generated("com.exedio.cope.instrument")
-		private static final long serialVersionUID = 1l;
-
-		@javax.annotation.Generated("com.exedio.cope.instrument")
-		protected InvalidCachedItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
-	}
-
-	@WrapperType(indent=2, comments=false, type=NONE, genericConstructor=NONE, constructor=NONE)
-	@CopeExternal
-	static class InvalidUncachedItem extends CachedItem
-	{
-		@javax.annotation.Generated("com.exedio.cope.instrument")
-		private static final long serialVersionUID = 1l;
-
-		@javax.annotation.Generated("com.exedio.cope.instrument")
-		protected InvalidUncachedItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 }
