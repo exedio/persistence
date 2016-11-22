@@ -73,6 +73,7 @@ public class CopeExternalTest extends TestWithEnvironment
 			final ItemCacheInfo[] itemCacheInfo=model.getItemCacheInfo();
 			assertEquals(1, itemCacheInfo.length);
 			assertEquals(1, itemCacheInfo[0].getLevel());
+			assertEquals(CachedItem.TYPE, itemCacheInfo[0].getType());
 		}
 		else
 		{
