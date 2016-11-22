@@ -40,7 +40,7 @@ public class CopeExternalModelTest
 		}
 		catch (final IllegalArgumentException e)
 		{
-			assertEquals("@CopeExternal must be set consistenly at type and supertype", e.getMessage());
+			assertEquals("@CopeExternal must be set consistently at type and supertype", e.getMessage());
 		}
 	}
 
@@ -55,7 +55,7 @@ public class CopeExternalModelTest
 		}
 		catch (final IllegalArgumentException e)
 		{
-			assertEquals("@CopeExternal must be set consistenly at type and supertype", e.getMessage());
+			assertEquals("@CopeExternal must be set consistently at type and supertype", e.getMessage());
 		}
 	}
 

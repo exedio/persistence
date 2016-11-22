@@ -314,7 +314,9 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 
 		this.external = isAnnotationPresent(CopeExternal.class);
 		if(supertype!=null && this.external!=supertype.external)
-			throw new IllegalArgumentException("@"+CopeExternal.class.getSimpleName()+" must be set consistenly at type and supertype");
+			throw new IllegalArgumentException(
+					"@"+CopeExternal.class.getSimpleName() +
+					" must be set consistently at type and supertype");
 	}
 
 	@SuppressWarnings({"unchecked", "rawtypes"}) // TODO remove
