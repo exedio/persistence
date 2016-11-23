@@ -56,7 +56,7 @@ final class ItemCache
 
 	private boolean isStamped(final Item item, final long connectionStamp)
 	{
-		for (Map.Entry<Long, Set<Item>> entry: stampList.entrySet())
+		for (final Map.Entry<Long, Set<Item>> entry: stampList.entrySet())
 		{
 			if (entry.getKey()<connectionStamp) continue;
 			if (entry.getValue().contains(item)) return true;
@@ -172,9 +172,9 @@ final class ItemCache
 	{
 		synchronized (map)
 		{
-			for (Iterator<Map.Entry<Long, Set<Item>>> iter=stampList.entrySet().iterator(); iter.hasNext();)
+			for (final Iterator<Map.Entry<Long, Set<Item>>> iter=stampList.entrySet().iterator(); iter.hasNext();)
 			{
-				Map.Entry<Long, Set<Item>> entry=iter.next();
+				final Map.Entry<Long, Set<Item>> entry=iter.next();
 				if (entry.getKey()<untilStamp)
 				{
 					for (final Item item: entry.getValue())
@@ -214,19 +214,19 @@ final class ItemCache
 		synchronized (map)
 		{
 			level=map.size();
-			for (Item item: map.keySet())
+			for (final Item item: map.keySet())
 			{
 				levels[item.type.cacheIdTransiently]++;
 			}
-			for (Set<Item> value: stampList.values())
+			for (final Set<Item> value: stampList.values())
 			{
-				for (Item item: value)
+				for (final Item item: value)
 				{
 					stampsSizes[item.type.cacheIdTransiently]++;
 				}
 			}
 		}
-		int i=0;
+		final int i=0;
 		for(final Type<?> type : typesInOriginalOrder)
 		{
 			final TypeStats typeStat = typeStats[type.cacheIdTransiently];
@@ -249,12 +249,12 @@ final class ItemCache
 		private final VolatileLong stampsHit = new VolatileLong();
 		private final VolatileLong stampsPurged = new VolatileLong();
 
-		TypeStats(Type<?> type)
+		TypeStats(final Type<?> type)
 		{
 			this.type=type;
 		}
 
-		private ItemCacheInfo createItemCacheInfo(int[] levels, int[] stampsSizes)
+		private ItemCacheInfo createItemCacheInfo(final int[] levels, final int[] stampsSizes)
 		{
 			return new ItemCacheInfo(
 				type,

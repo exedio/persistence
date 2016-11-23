@@ -121,7 +121,7 @@ final class SamplerModel extends Item
 		return Arrays.asList((SetValue<?>)
 			map(itemCacheLimit, to.getLimit()),
 			map(itemCacheLevel, to.getLevel()),
-			
+
 			maD(itemCacheHits,   from.getSummarizedHits  (), to.getSummarizedHits  ()),
 			maD(itemCacheMisses, from.getSummarizedMisses(), to.getSummarizedMisses()),
 
