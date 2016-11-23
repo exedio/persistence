@@ -68,6 +68,7 @@ public final class ItemCacheInfo
 	 * use {@link ItemCacheStatistics#getLimit()}
 	 */
 	@Deprecated
+	@SuppressWarnings("static-method")
 	public int getLimit()
 	{
 		return 0;
@@ -98,6 +99,7 @@ public final class ItemCacheInfo
 
 	/** due to changes to the cache implementation, this value is no longer meaningful */
 	@Deprecated
+	@SuppressWarnings("static-method")
 	public int getReplacementRuns()
 	{
 		return 0;
@@ -119,6 +121,7 @@ public final class ItemCacheInfo
 
 	/** due to changes to the cache implementation, this value is no longer meaningful */
 	@Deprecated
+	@SuppressWarnings("static-method")
 	public Date getLastReplacementRun()
 	{
 		return null;
@@ -126,6 +129,7 @@ public final class ItemCacheInfo
 
 	/** due to changes to the cache implementation, this value is no longer meaningful */
 	@Deprecated
+	@SuppressWarnings("static-method")
 	public long getAgeAverageMillis()
 	{
 		return 0l;
@@ -133,6 +137,7 @@ public final class ItemCacheInfo
 
 	/** due to changes to the cache implementation, this value is no longer meaningful */
 	@Deprecated
+	@SuppressWarnings("static-method")
 	public long getAgeMinimumMillis()
 	{
 		return 0l;
@@ -140,6 +145,7 @@ public final class ItemCacheInfo
 
 	/** due to changes to the cache implementation, this value is no longer meaningful */
 	@Deprecated
+	@SuppressWarnings("static-method")
 	public long getAgeMaximumMillis()
 	{
 		return 0l;
