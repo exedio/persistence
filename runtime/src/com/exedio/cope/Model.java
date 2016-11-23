@@ -746,7 +746,8 @@ public final class Model implements Serializable
 	/**
 	 * Adds a hook to the current transaction.
 	 * The hook is called within {@link Model#commit()}.
-	 * When the hook is called, the transaction is already committed.
+	 * When the hook is called, the transaction is already committed
+	 * and not available for use anymore.
 	 * Multiple hooks are called in order of addition.
 	 * <p>
 	 * If a hook {@link Object#equals(Object) equal} to {@code hook} has been added before,
