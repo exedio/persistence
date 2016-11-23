@@ -186,7 +186,7 @@ public final class Transaction
 	ArrayList<Object> search(final Query<?> query, final boolean totalOnly)
 	{
 		final QueryCache queryCache = connect.queryCache;
-		if(!queryCache.isEnabled() || isInvalidated(query))
+		if(!queryCache.isEnabled() || isInvalidated(query) || isExternal(query))
 		{
 			return query.searchUncached(this, totalOnly);
 		}
@@ -194,6 +194,26 @@ public final class Transaction
 		{
 			return queryCache.search(this, query, totalOnly);
 		}
+	}
+
+	private static boolean isExternal(final Query<?> query)
+	{
+		if ( query.type.external )
+		{
+			return true;
+		}
+		if ( query.joins==null )
+		{
+			return false;
+		}
+		for(final Join nextJoin : query.joins)
+		{
+			if ( nextJoin.type.external )
+			{
+				return true;
+			}
+		}
+		return false;
 	}
 
 	private boolean isInvalidated(final Query<?> query)

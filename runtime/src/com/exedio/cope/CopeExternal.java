@@ -1,0 +1,44 @@
+/*
+ * Copyright (C) 2004-2015  exedio GmbH (www.exedio.com)
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ */
+
+package com.exedio.cope;
+
+import static java.lang.annotation.ElementType.FIELD;
+import static java.lang.annotation.ElementType.TYPE;
+
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
+/**
+ * Allows a type's instances to be modified (created, updated and deleted) externally, directly in the database.
+ *
+ * <p>COPE caches are disabled for the type.
+ *
+ * <p>External modifications of data must obey all consistency rules.
+ *
+ *	<p>Hooks (Item.beforeNewCopeItem, {@link Item#afterNewCopeItem()}, {@link Item#beforeSetCopeItem}, {@link Item#beforeDeleteCopeItem()}, {@link ChangeListener}) may not work.
+ *
+ * <p>For subtypes, this annotation must be set if and only if it is set for the {@link Type#getSupertype() supertype}.
+ */
+@Target({TYPE, FIELD})
+@Retention(RetentionPolicy.RUNTIME)
+public @interface CopeExternal
+{
+	// no parameters
+}

@@ -7,6 +7,9 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* @CopeExternal can be used to mark types whose instances are modified by other systems;
+	disables item and query cache for that type;
+	consider replacing @CopeCacheWeight(0) with @CopeExternal
 * ModelBuilder#name added.
 * dsmf.Column#getCumulativeColor considers Column#getConstraints()
 * cleaner instrument classpath handling:

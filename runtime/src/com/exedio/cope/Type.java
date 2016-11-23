@@ -103,6 +103,8 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	private final SequenceX primaryKeySequence;
 	private final boolean uniqueConstraintsProblem;
 
+	final boolean external;
+
 	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private Mount<T> mountIfMounted = null;
 
@@ -309,6 +311,12 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 					createLimit);
 
 		this.uniqueConstraintsProblem = (supertype!=null) && (supertype.uniqueConstraintsProblem || !uniqueConstraints.all.isEmpty());
+
+		this.external = isAnnotationPresent(CopeExternal.class);
+		if(supertype!=null && this.external!=supertype.external)
+			throw new IllegalArgumentException(
+					"@"+CopeExternal.class.getSimpleName() +
+					" must be set consistently at type and supertype");
 	}
 
 	@SuppressWarnings({"unchecked", "rawtypes"}) // TODO remove

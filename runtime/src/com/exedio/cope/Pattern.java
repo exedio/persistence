@@ -241,6 +241,8 @@ public abstract class Pattern extends Feature
 				return getAnnotation(annotationClass)!=null;
 			else if(CopeCacheWeight.class==annotationClass)
 				return getAnnotation(annotationClass)!=null;
+			else if(CopeExternal.class==annotationClass)
+				return getAnnotation(annotationClass)!=null;
 
 			if(source==null)
 				return false;
@@ -269,7 +271,7 @@ public abstract class Pattern extends Feature
 					));
 				}
 			}
-			else if(Computed.class==annotationClass)
+			else if(Computed.class==annotationClass || CopeExternal.class==annotationClass)
 			{
 				final T patternAnn = Pattern.this.getAnnotation(annotationClass);
 				if(patternAnn!=null)
