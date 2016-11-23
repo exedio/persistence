@@ -92,7 +92,7 @@ public final class Model implements Serializable
 			final String name,
 			final Revisions.Factory revisions,
 			final TypeSet[] typeSets,
-			final Type<?>... types)
+			final Type<?>[] types)
 	{
 		this.name = name;
 		this.revisions = revisions;
