@@ -35,8 +35,6 @@ public class PurgeTest extends ConnectedTest
 {
 	@Test public void testPurge() throws InterruptedException
 	{
-		assertEquals(0, samplerModel.getConnectProperties().getItemCacheLimit());
-		assertEquals(0, samplerModel.getConnectProperties().getQueryCacheLimit());
 		samplerModel.createSchema();
 		sampler.checkInternal();
 

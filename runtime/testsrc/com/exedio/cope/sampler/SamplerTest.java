@@ -22,6 +22,8 @@ import static com.exedio.cope.sampler.Stuff.sampler;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
+import com.exedio.cope.CopeExternal;
+import com.exedio.cope.Type;
 import com.exedio.cope.util.JobContexts;
 import java.util.Date;
 import org.junit.Test;
@@ -88,5 +90,14 @@ public class SamplerTest
 		{
 			assertEquals("limit", e.getMessage());
 		}
+	}
+
+	@Test public void testPurgeExternal()
+	{
+		for(final Type<?> type : sampler.getModel().getTypes())
+			assertEquals(
+					type.getID(),
+					type.isAnnotationPresent(Purgeable.class),
+					type.isAnnotationPresent(CopeExternal.class));
 	}
 }

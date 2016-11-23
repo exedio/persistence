@@ -25,6 +25,7 @@ import static com.exedio.cope.sampler.Util.maS;
 
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.Cope;
+import com.exedio.cope.CopeExternal;
 import com.exedio.cope.CopeSchemaName;
 import com.exedio.cope.DateField;
 import com.exedio.cope.IntegerField;
@@ -42,6 +43,7 @@ import java.util.Date;
 import java.util.List;
 
 @Purgeable
+@CopeExternal
 @CopeSchemaName("DiffMedia")
 final class SamplerMedia extends Item
 {

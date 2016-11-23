@@ -27,6 +27,7 @@ import com.exedio.cope.ChangeListenerInfo;
 import com.exedio.cope.CheckConstraint;
 import com.exedio.cope.ClusterListenerInfo;
 import com.exedio.cope.ClusterSenderInfo;
+import com.exedio.cope.CopeExternal;
 import com.exedio.cope.CopeSchemaName;
 import com.exedio.cope.DateField;
 import com.exedio.cope.IntegerField;
@@ -45,6 +46,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @Purgeable(last=true)
+@CopeExternal
 @CopeSchemaName("DiffModel")
 final class SamplerModel extends Item
 {

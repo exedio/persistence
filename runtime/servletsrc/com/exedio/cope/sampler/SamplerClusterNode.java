@@ -24,6 +24,7 @@ import static com.exedio.cope.sampler.Util.same;
 
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.ClusterListenerInfo;
+import com.exedio.cope.CopeExternal;
 import com.exedio.cope.CopeSchemaName;
 import com.exedio.cope.DateField;
 import com.exedio.cope.IntegerField;
@@ -39,6 +40,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @Purgeable
+@CopeExternal
 @CopeSchemaName("DiffClusterNode")
 final class SamplerClusterNode extends Item
 {

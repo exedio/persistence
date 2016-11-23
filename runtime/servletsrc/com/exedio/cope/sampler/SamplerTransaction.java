@@ -22,6 +22,7 @@ import static com.exedio.cope.SetValue.map;
 import static com.exedio.cope.sampler.Util.maC;
 
 import com.exedio.cope.ActivationParameters;
+import com.exedio.cope.CopeExternal;
 import com.exedio.cope.CopeSchemaName;
 import com.exedio.cope.DateField;
 import com.exedio.cope.Item;
@@ -38,6 +39,7 @@ import java.util.Date;
 import java.util.List;
 
 @Purgeable
+@CopeExternal
 @CopeSchemaName("DiffTransaction")
 final class SamplerTransaction extends Item
 {
