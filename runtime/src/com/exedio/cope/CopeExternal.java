@@ -32,7 +32,15 @@ import java.lang.annotation.Target;
  *
  * <p>External modifications of data must obey all consistency rules.
  *
- *	<p>Hooks (Item.beforeNewCopeItem, {@link Item#afterNewCopeItem()}, {@link Item#beforeSetCopeItem}, {@link Item#beforeDeleteCopeItem()}, {@link ChangeListener}) may not work.
+ *	<p>
+ * Listeners and hooks such as
+ * {@link ChangeListener change listeners}
+ * and item methods
+ * beforeNewCopeItem,
+ * {@link Item#afterNewCopeItem() afterNewCopeItem},
+ * {@link Item#beforeSetCopeItem beforeSetCopeItem}, and
+ * {@link Item#beforeDeleteCopeItem() beforeDeleteCopeItem}
+ * may not get called on external modifications.
  *
  * <p>For subtypes, this annotation must be set if and only if it is set for the {@link Type#getSupertype() supertype}.
  */
