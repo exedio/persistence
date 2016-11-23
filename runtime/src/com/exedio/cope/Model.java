@@ -723,7 +723,7 @@ public final class Model implements Serializable
 		}
 
 		// NOTE:
-		// Calling Commit Hooks must be the very last thing to do. If one of the
+		// Calling Post-Commit Hooks must be the very last thing to do. If one of the
 		// hooks fails, the transaction should still be successfully and completely
 		// committed.
 		tx.handlePostCommitHooks(commit);
