@@ -210,6 +210,11 @@ public abstract class Item implements Serializable, Comparable<Item>
 	 * write a method:
 	 * <p>
 	 * {@code static SetValue[] beforeNewCopeItem(SetValue[])}
+	 * <p>
+	 * If you want to postpone your action until the current transaction commits,
+	 * use either
+	 * {@link Model#addPreCommitHookIfAbsent(Runnable) pre}- or
+	 * {@link Model#addPreCommitHookIfAbsent(Runnable) post}-commit hooks.
 	 */
 	protected void afterNewCopeItem()
 	{
@@ -225,6 +230,12 @@ public abstract class Item implements Serializable, Comparable<Item>
 	 * write a method:
 	 * <p>
 	 * {@code static SetValue[] beforeNewCopeItem(SetValue[])}
+	 * <p>
+	 * If you want to postpone your action until the current transaction commits,
+	 * use either
+	 * {@link Model#addPreCommitHookIfAbsent(Runnable) pre}- or
+	 * {@link Model#addPreCommitHookIfAbsent(Runnable) post}-commit hooks.
+	 *
 	 * @see Item#set(SetValue[])
 	 * @see Item#set(FunctionField, Object)
 	 * @param setValues is never null and never empty
@@ -385,8 +396,11 @@ public abstract class Item implements Serializable, Comparable<Item>
 	 * Is called before every item deletion.
 	 * Override this method when needed.
 	 * The default implementation does nothing.
-	 * You may want to use {@link Model#addCommitHook} to postpone your action
-	 * until the deletion is committed by the current transaction.
+	 * <p>
+	 * If you want to postpone your action until the current transaction commits,
+	 * use either
+	 * {@link Model#addPreCommitHookIfAbsent(Runnable) pre}- or
+	 * {@link Model#addPreCommitHookIfAbsent(Runnable) post}-commit hooks.
 	 */
 	protected void beforeDeleteCopeItem()
 	{
