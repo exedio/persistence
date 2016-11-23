@@ -97,7 +97,7 @@ public final class ItemCacheInfo
 		return concurrentLoads;
 	}
 
-	/** due to changes to the cache implementation, this value is no longer meaningful */
+	/** @deprecated due to changes to the cache implementation, this value is no longer meaningful */
 	@Deprecated
 	@SuppressWarnings("static-method")
 	public int getReplacementRuns()
@@ -119,7 +119,7 @@ public final class ItemCacheInfo
 		return replacements;
 	}
 
-	/** due to changes to the cache implementation, this value is no longer meaningful */
+	/** @deprecated due to changes to the cache implementation, this value is no longer meaningful */
 	@Deprecated
 	@SuppressWarnings("static-method")
 	public Date getLastReplacementRun()
@@ -127,7 +127,7 @@ public final class ItemCacheInfo
 		return null;
 	}
 
-	/** due to changes to the cache implementation, this value is no longer meaningful */
+	/** @deprecated due to changes to the cache implementation, this value is no longer meaningful */
 	@Deprecated
 	@SuppressWarnings("static-method")
 	public long getAgeAverageMillis()
@@ -135,7 +135,7 @@ public final class ItemCacheInfo
 		return 0l;
 	}
 
-	/** due to changes to the cache implementation, this value is no longer meaningful */
+	/** @deprecated due to changes to the cache implementation, this value is no longer meaningful */
 	@Deprecated
 	@SuppressWarnings("static-method")
 	public long getAgeMinimumMillis()
@@ -143,7 +143,7 @@ public final class ItemCacheInfo
 		return 0l;
 	}
 
-	/** due to changes to the cache implementation, this value is no longer meaningful */
+	/** @deprecated due to changes to the cache implementation, this value is no longer meaningful */
 	@Deprecated
 	@SuppressWarnings("static-method")
 	public long getAgeMaximumMillis()

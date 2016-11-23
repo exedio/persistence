@@ -79,7 +79,7 @@ public final class ItemCacheSummary
 		this.stampsPurged = stampsPurged;
 	}
 
-	/** use {@link ItemCacheStatistics#getLimit()} */
+	/** @deprecated use {@link ItemCacheStatistics#getLimit()} */
 	@Deprecated
 	@SuppressWarnings("static-method")
 	public int getLimit()
@@ -107,7 +107,7 @@ public final class ItemCacheSummary
 		return concurrentLoads;
 	}
 
-	/** due to changes to the cache implementation, this value is no longer meaningful */
+	/** @deprecated due to changes to the cache implementation, this value is no longer meaningful */
 	@Deprecated
 	@SuppressWarnings("static-method")
 	public int getReplacementRuns()
@@ -129,7 +129,7 @@ public final class ItemCacheSummary
 		return replacements;
 	}
 
-	/** due to changes to the cache implementation, this value is no longer meaningful */
+	/** @deprecated due to changes to the cache implementation, this value is no longer meaningful */
 	@Deprecated
 	@SuppressWarnings("static-method")
 	public Date getLastReplacementRun()
@@ -137,7 +137,7 @@ public final class ItemCacheSummary
 		return null;
 	}
 
-	/** due to changes to the cache implementation, this value is no longer meaningful */
+	/** @deprecated due to changes to the cache implementation, this value is no longer meaningful */
 	@Deprecated
 	@SuppressWarnings("static-method")
 	public long getAgeMinimumMillis()
@@ -145,7 +145,7 @@ public final class ItemCacheSummary
 		return -1;
 	}
 
-	/** due to changes to the cache implementation, this value is no longer meaningful */
+	/** @deprecated due to changes to the cache implementation, this value is no longer meaningful */
 	@Deprecated
 	@SuppressWarnings("static-method")
 	public long getAgeAverageMillis()
@@ -153,7 +153,7 @@ public final class ItemCacheSummary
 		return -1;
 	}
 
-	/** due to changes to the cache implementation, this value is no longer meaningful */
+	/** @deprecated due to changes to the cache implementation, this value is no longer meaningful */
 	@Deprecated
 	@SuppressWarnings("static-method")
 	public long getAgeMaximumMillis()
