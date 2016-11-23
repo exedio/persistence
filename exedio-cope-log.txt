@@ -7,6 +7,9 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* ConnectProperties: key "dialect" changes its meaning.
+	This breaks backwards API compatibility, check your deployed systems!
+	Probably this key is at its default, then you don't have to do anything.
 * ConnectToken becomes AutoCloseable
 * @CopeExternal can be used to mark types whose instances are modified by other systems;
 	disables item and query cache for that type;

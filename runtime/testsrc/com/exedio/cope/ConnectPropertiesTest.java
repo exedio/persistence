@@ -33,6 +33,7 @@ import java.io.File;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.concurrent.Callable;
 import org.junit.Test;
 
@@ -63,8 +64,7 @@ public class ConnectPropertiesTest
 	{
 		assertConnectionUrlFailure(
 				"someUrl",
-				"property connection.url in DESC must start with 'jdbc:', " +
-				"but was 'someUrl'",
+				"property dialect in DESC must be specified as there is no default",
 				null);
 	}
 
@@ -72,8 +72,7 @@ public class ConnectPropertiesTest
 	{
 		assertConnectionUrlFailure(
 				"jdbc:someCode",
-				"property connection.url in DESC must contain two colons, " +
-				"but was 'jdbc:someCode'",
+				"property dialect in DESC must be specified as there is no default",
 				null);
 	}
 
@@ -81,8 +80,7 @@ public class ConnectPropertiesTest
 	{
 		assertConnectionUrlFailure(
 				"jdbc:a:",
-				"property dialect in DESC must have more than two characters, " +
-				"but was 'a'",
+				"property dialect in DESC must be specified as there is no default",
 				null);
 	}
 
@@ -90,8 +88,7 @@ public class ConnectPropertiesTest
 	{
 		assertConnectionUrlFailure(
 				"jdbc:ab:",
-				"property dialect in DESC must have more than two characters, " +
-				"but was 'ab'",
+				"property dialect in DESC must be specified as there is no default",
 				null);
 	}
 
@@ -104,28 +101,28 @@ public class ConnectPropertiesTest
 				ClassNotFoundException.class);
 	}
 
-	@Test public void testConnectionUrlClassNotFound()
+	@Test public void testDialectClassNotFound()
 	{
-		assertConnectionUrlFailure(
-				"jdbc:classNotFound:",
+		assertDialectFailure(
+				"com.exedio.cope.ClassNotFoundDialect",
 				"property dialect in DESC must name a class, " +
 				"but was 'com.exedio.cope.ClassNotFoundDialect'",
 				ClassNotFoundException.class);
 	}
 
-	@Test public void testConnectionUrlClassNotDialect()
+	@Test public void testDialectClassNotDialect()
 	{
-		assertConnectionUrlFailure(
-				"jdbc:connectPropertiesTestClassNotDialect:",
+		assertDialectFailure(
+				ConnectPropertiesTestClassNotDialectDialect.class.getName(),
 				"property dialect in DESC must name a subclass of com.exedio.cope.Dialect, " +
 				"but was " + ConnectPropertiesTestClassNotDialectDialect.class.getName(),
 				null);
 	}
 
-	@Test public void testConnectionUrlClassNoConstructor()
+	@Test public void testDialectClassNoConstructor()
 	{
-		assertConnectionUrlFailure(
-				"jdbc:connectPropertiesTestClassNoConstructor:",
+		assertDialectFailure(
+				ConnectPropertiesTestClassNoConstructorDialect.class.getName(),
 				"property dialect in DESC must name a class with a constructor with parameter com.exedio.cope.Probe, "+
 				"but was " + ConnectPropertiesTestClassNoConstructorDialect.class.getName(),
 				NoSuchMethodException.class);
@@ -138,11 +135,10 @@ public class ConnectPropertiesTest
 	{
 		final String propKey = "connection.url";
 		final Source source =
-				desc(cascade(
-						source("dialect", "from url"),
+				desc(erase("dialect", cascade(
 						source(propKey, url),
 						loadProperties()
-				));
+				)));
 		try
 		{
 			new ConnectProperties(source, null);
@@ -153,6 +149,30 @@ public class ConnectPropertiesTest
 			assertEquals(
 					message,
 					e.getMessage());
+
+			final Throwable actualCause = e.getCause();
+			assertEquals(cause, actualCause!=null ? actualCause.getClass() : null);
+		}
+	}
+
+	private static void assertDialectFailure(
+			final String dialect,
+			final String message,
+			final Class<? extends Exception> cause)
+	{
+		final Source source =
+				desc(cascade(
+						source("dialect", dialect),
+						loadProperties()
+				));
+		try
+		{
+			new ConnectProperties(source, null);
+			fail();
+		}
+		catch(final IllegalPropertiesException e)
+		{
+			assertEquals(message, e.getMessage());
 
 			final Throwable actualCause = e.getCause();
 			assertEquals(cause, actualCause!=null ? actualCause.getClass() : null);
@@ -276,6 +296,32 @@ public class ConnectPropertiesTest
 			public String getDescription()
 			{
 				return key1;
+			}
+		};
+	}
+
+	private static Source erase(final String keyToBeErased, final Source s)
+	{
+		return new Source(){
+			@Override
+			public String get(final String key)
+			{
+				if(key.equals(keyToBeErased))
+					return null;
+
+				return s.get(key);
+			}
+			@Override
+			public Collection<String> keySet()
+			{
+				final LinkedHashSet<String> result = new LinkedHashSet<>(s.keySet());
+				result.remove(keyToBeErased);
+				return result;
+			}
+			@Override
+			public String getDescription()
+			{
+				return s.getDescription();
 			}
 		};
 	}

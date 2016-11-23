@@ -40,14 +40,12 @@ import java.util.concurrent.Callable;
 @SuppressFBWarnings("BC_UNCONFIRMED_CAST_OF_RETURN_VALUE")
 public final class ConnectProperties extends com.exedio.cope.util.Properties
 {
-	private static final String DIALECT_FROM_URL = "from url";
-	private final String dialectCode = value("dialect", DIALECT_FROM_URL);
-
 	private final String connectionUrl      = value      ("connection.url",      (String)null);
 	private final String connectionUsername = value      ("connection.username", (String)null);
 	private final String connectionPassword = valueHidden("connection.password", (String)null);
 	final String connectionPostgresqlSearchPath = valueX ("connection.postgresql.search_path", connectionUsername, ',');
 
+	private final Constructor<? extends Dialect> dialect = valueDialect("dialect", fromUrl(connectionUrl));
 
 	private final boolean disableEmptyStrings       = value("disableSupport.emptyStrings", false);
 	private final boolean disablePreparedStatements = value("disableSupport.preparedStatements", false);
@@ -309,8 +307,6 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 		}
 	}
 
-	private final Constructor<? extends Dialect> dialect;
-
 	public ConnectProperties()
 	{
 		this(getDefaultPropertyFile(), null);
@@ -362,38 +358,33 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 
 		this.primaryKeyGenerator = valEn("schema.primaryKeyGenerator", primaryKeyGeneratorDefault);
 		this.mediaRooturl = value("media.rooturl", mediaRootUrlDefault);
-
-		final String dialectCodeRaw = this.dialectCode;
-
-		final String dialectCode;
-		if(DIALECT_FROM_URL.equals(dialectCodeRaw))
-		{
-			final String url = connectionUrl;
-			final String prefix = "jdbc:";
-			if(!url.startsWith(prefix))
-				throw newException("connection.url", "must start with '" + prefix + "', but was '" + url + '\'');
-			final int pos = url.indexOf(':', prefix.length());
-			if(pos<0)
-				throw newException("connection.url", "must contain two colons, but was '" + url + '\'');
-			dialectCode = url.substring(prefix.length(), pos);
-		}
-		else
-			dialectCode = dialectCodeRaw;
-
-		dialect = getDialectConstructor(dialectCode);
 	}
 
-	private final Constructor<? extends Dialect> getDialectConstructor(final String dialectCode)
+	private static final String fromUrl(final String url)
 	{
-		if(dialectCode.length()<=2)
-			throw newException("dialect", "must have more than two characters, but was '" + dialectCode + '\'');
+		final String prefix = "jdbc:";
+		if(!url.startsWith(prefix))
+			return null;
+		final int pos = url.indexOf(':', prefix.length());
+		if(pos<0)
+			return null;
 
-		final String dialectName =
+		final String dialectCode = url.substring(prefix.length(), pos);
+		if(dialectCode.length()<=2)
+			return null;
+
+		return
 			"com.exedio.cope." +
 			Character.toUpperCase(dialectCode.charAt(0)) +
 			dialectCode.substring(1) +
 			"Dialect";
+	}
 
+	private Constructor<? extends Dialect> valueDialect(
+			final String key,
+			final String defaultValue)
+	{
+		final String dialectName = value(key, defaultValue);
 		final Class<?> dialectClassRaw;
 		try
 		{
@@ -401,13 +392,13 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 		}
 		catch(final ClassNotFoundException e)
 		{
-			throw newException("dialect", "must name a class, but was '" + dialectName + '\'', e);
+			throw newException(key, "must name a class, but was '" + dialectName + '\'', e);
 		}
 
 		if(!Dialect.class.isAssignableFrom(dialectClassRaw))
 		{
 			throw newException(
-					"dialect",
+					key,
 					"must name a subclass of " + Dialect.class.getName() + ", " +
 					"but was " + dialectClassRaw.getName());
 		}
@@ -419,7 +410,7 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 		catch(final NoSuchMethodException e)
 		{
 			throw newException(
-					"dialect",
+					key,
 					"must name a class with a constructor with parameter " + Probe.class.getName() + ", " +
 					"but was " + dialectClassRaw.getName(), e);
 		}
