@@ -33,7 +33,7 @@ import java.util.function.Consumer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public final class ConnectToken
+public final class ConnectToken implements AutoCloseable
 {
 	private static final Logger logger = LoggerFactory.getLogger(ConnectToken.class);
 
@@ -160,6 +160,12 @@ public final class ConnectToken
 		}
 
 		return manciple.returnIt(this);
+	}
+
+	@Override
+	public void close()
+	{
+		returnItConditionally();
 	}
 
 	/**

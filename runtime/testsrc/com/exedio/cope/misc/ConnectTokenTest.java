@@ -359,6 +359,42 @@ public class ConnectTokenTest
 		}
 	}
 
+	@SuppressWarnings("resource")
+	@Test public void testAutoCloseable()
+	{
+		assertNotConnected();
+
+		ConnectToken tokenSave;
+		try(ConnectToken token = issue(model, "tokenName"))
+		{
+			tokenSave = token;
+			assertTrue(model.isConnected());
+			assertFalse(token.isReturned());
+		}
+		assertNotConnected();
+		assertTrue(tokenSave.isReturned());
+	}
+
+	@SuppressWarnings("resource")
+	@Test public void testAutoCloseableAlreadyReturned()
+	{
+		assertNotConnected();
+
+		ConnectToken tokenSave;
+		try(ConnectToken token = issue(model, "tokenName"))
+		{
+			tokenSave = token;
+			assertTrue(model.isConnected());
+			assertFalse(token.isReturned());
+
+			token.returnStrictly();
+			assertNotConnected();
+			assertTrue(tokenSave.isReturned());
+		}
+		assertNotConnected();
+		assertTrue(tokenSave.isReturned());
+	}
+
 	@Test public void testNullName()
 	{
 		assertNotConnected();
