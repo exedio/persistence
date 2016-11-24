@@ -224,6 +224,7 @@ public final class TypeField<E extends Item> extends Pattern implements Settable
 		FinalViolationException.check(this, item);
 		if(value==null && mandatory)
 			throw MandatoryViolationException.create(this, item);
+		check(value);
 
 		idField.set(item, value!=null ? value.getID() : null);
 	}
