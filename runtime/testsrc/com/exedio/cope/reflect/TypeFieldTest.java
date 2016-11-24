@@ -183,18 +183,16 @@ public class TypeFieldTest extends TestWithEnvironment
 
 	@Test public void testRestrictionViolatedExecute()
 	{
-		final TypeFieldItem item = TypeFieldItem.createRestrictedRaw(TYPE); // TODO should fail
 		try
 		{
-			item.getRestricted();
+			TypeFieldItem.createRestrictedRaw(TYPE);
 			fail();
 		}
-		catch(final TypeField.NotFound e)
+		catch(final ClassCastException e)
 		{
 			assertEquals(
-					"not found 'TypeFieldItem' on " + item + " for TypeFieldItem.restricted, " +
-					"expected instance of com.exedio.cope.reflect.TypeFieldSubItem, " +
-					"but was com.exedio.cope.reflect.TypeFieldItem.",
+					"expected a Type<? extends com.exedio.cope.reflect.TypeFieldSubItem>, " +
+					"but was a Type<com.exedio.cope.reflect.TypeFieldItem> for TypeFieldItem.restricted.",
 					e.getMessage());
 		}
 	}
