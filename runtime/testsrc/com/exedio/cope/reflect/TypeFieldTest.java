@@ -180,4 +180,43 @@ public class TypeFieldTest extends TestWithEnvironment
 			assertEquals(null, e.getMessage());
 		}
 	}
+
+	@Test public void testRestrictionViolatedExecute()
+	{
+		final TypeFieldItem item = TypeFieldItem.createRestrictedRaw(TYPE); // TODO should fail
+		try
+		{
+			item.getRestricted();
+			fail();
+		}
+		catch(final TypeField.NotFound e)
+		{
+			assertEquals(
+					"not found 'TypeFieldItem' on " + item + " for TypeFieldItem.restricted, " +
+					"expected instance of com.exedio.cope.reflect.TypeFieldSubItem, " +
+					"but was com.exedio.cope.reflect.TypeFieldItem.",
+					e.getMessage());
+		}
+	}
+
+	@Test public void testRestrictionViolatedSetter()
+	{
+		final TypeFieldItem item = new TypeFieldItem(TYPE, TypeFieldSubItem.TYPE);
+		assertEquals(null, item.getRestricted());
+
+		item.setRestrictedRaw(TYPE); // TODO should fail
+		try
+		{
+			item.getRestricted();
+			fail();
+		}
+		catch(final TypeField.NotFound e)
+		{
+			assertEquals(
+					"not found 'TypeFieldItem' on " + item + " for TypeFieldItem.restricted, " +
+					"expected instance of com.exedio.cope.reflect.TypeFieldSubItem, " +
+					"but was com.exedio.cope.reflect.TypeFieldItem.",
+					e.getMessage());
+		}
+	}
 }

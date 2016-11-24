@@ -37,6 +37,24 @@ public final class TypeFieldItem extends Item
 	static final TypeField<Item> renamed = TypeField.create().optional();
 	static final TypeField<TypeFieldSubItem> restricted = TypeField.create(TypeFieldSubItem.class).optional();
 
+
+	@SuppressWarnings({"rawtypes", "unchecked"}) // OK: test bad API usage
+	static TypeFieldItem createRestrictedRaw(final Type<?> restricted)
+	{
+		return new TypeFieldItem(new SetValue<?>[]{
+			TypeFieldItem.standard.map(TYPE),
+			TypeFieldItem.isFinal.map(TYPE),
+			TypeFieldItem.restricted.map((Type)restricted),
+		});
+	}
+
+	@SuppressWarnings({"rawtypes", "unchecked"}) // OK: test bad API usage
+	void setRestrictedRaw(final Type<?> restricted)
+	{
+		TypeFieldItem.restricted.set(this, (Type)restricted);
+	}
+
+
 	// TODO generate by instrumentor
 	TypeFieldItem(
 				final Type<? extends Item> standard,
