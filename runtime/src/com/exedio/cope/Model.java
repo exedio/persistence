@@ -257,7 +257,7 @@ public final class Model implements Serializable
 		final Connect connect = this.connectIfConnected;
 		if(connect==null)
 			return null;
-		return new Date(connect.date);
+		return Date.from(connect.date);
 	}
 
 	public List<Type<?>> getTypes()

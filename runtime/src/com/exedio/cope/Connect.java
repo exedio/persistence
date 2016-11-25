@@ -24,6 +24,7 @@ import com.exedio.cope.util.PoolCounter;
 import gnu.trove.TLongHashSet;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -31,7 +32,7 @@ import java.util.Map;
 
 final class Connect
 {
-	final long date = System.currentTimeMillis();
+	final Instant date = Instant.now();
 	private final RevisionsConnect revisions;
 	final ConnectProperties properties;
 	final Dialect dialect;
