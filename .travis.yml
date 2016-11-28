@@ -23,35 +23,35 @@ before_script:
     "connection.username=cope_test_user\n"\
     "connection.password=pass\n"\
     "x-build.driver=mysql-connector-java.jar\n"\
-    | tee conf/environment/mysql.properties
+    | tee conf/environment/my.properties
   - echo -e -n \
     "connection.url=jdbc:mysql://localhost/cope_test_db\n"\
     "connection.username=cope_test_user\n"\
     "connection.password=pass\n"\
     "schema.primaryKeyGenerator=sequence\n"\
     "x-build.driver=mysql-connector-java.jar\n"\
-    | tee conf/environment/mysql-seq.properties
+    | tee conf/environment/my-sq.properties
   - echo -e -n \
     "connection.url=jdbc:mysql://localhost/cope_test_db\n"\
     "connection.username=cope_test_user\n"\
     "connection.password=pass\n"\
     "disableSupport.preparedStatements=true\n"\
     "x-build.driver=mysql-connector-java.jar\n"\
-    | tee conf/environment/mysql-noPrep.properties
+    | tee conf/environment/my-nprep.properties
   - echo -e -n \
     "connection.url=jdbc:mysql://localhost/cope_test_db\n"\
     "connection.username=cope_test_user\n"\
     "connection.password=pass\n"\
     "schema.primaryKeyGenerator=sequence\n"\
     "x-build.driver=mariadb-java-client.jar\n"\
-    | tee conf/environment/mysql-maria.properties
+    | tee conf/environment/my-maria.properties
   - echo -e -n \
     "connection.url=jdbc:postgresql://localhost/cope_test\n"\
     "connection.username=postgres\n"\
     "connection.password=\n"\
     "connection.postgresql.search_path=public\n"\
     "x-build.driver=postgresql.jar\n"\
-    | tee conf/environment/postgresql.properties
+    | tee conf/environment/pg.properties
   - echo -e -n \
     "connection.url=jdbc:postgresql://localhost/cope_test\n"\
     "connection.username=postgres\n"\
@@ -59,7 +59,7 @@ before_script:
     "connection.postgresql.search_path=public\n"\
     "schema.primaryKeyGenerator=sequence\n"\
     "x-build.driver=postgresql.jar\n"\
-    | tee conf/environment/postgresql-seq.properties
+    | tee conf/environment/pg-sq.properties
   - echo -e -n \
     "connection.url=jdbc:postgresql://localhost/cope_test\n"\
     "connection.username=postgres\n"\
@@ -67,7 +67,7 @@ before_script:
     "connection.postgresql.search_path=public\n"\
     "disableSupport.preparedStatements=true\n"\
     "x-build.driver=postgresql.jar\n"\
-    | tee conf/environment/postgresql-noPrep.properties
+    | tee conf/environment/pg-nprep.properties
 
 script: "ant jenkins"
 
