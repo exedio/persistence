@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.instrument.Visibility.NONE;
 import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -25,7 +26,7 @@ import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import com.exedio.cope.instrument.WrapperIgnore;
+import com.exedio.cope.instrument.WrapperType;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.File;
 import java.util.ArrayList;
@@ -308,12 +309,17 @@ public class CommitHookPostTest
 
 	static final Model model = new Model(AnItem.TYPE);
 
-	@WrapperIgnore
+	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	static class AnItem extends Item
 	{
+		@javax.annotation.Generated("com.exedio.cope.instrument")
 		private static final long serialVersionUID = 1l;
-		static final Type<AnItem> TYPE = TypesBound.newType(AnItem.class);
-		AnItem(final ActivationParameters ap) { super(ap); }
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		static final com.exedio.cope.Type<AnItem> TYPE = com.exedio.cope.TypesBound.newType(AnItem.class);
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		protected AnItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 	static final Runnable FAIL = () -> { fail(); };
