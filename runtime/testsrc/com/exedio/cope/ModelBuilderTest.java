@@ -173,7 +173,7 @@ public class ModelBuilderTest
 		}
 	}
 
-	@Test public void testFailTypesTwice()
+	@Test public void testAlreadySetTypes()
 	{
 		final ModelBuilder m = Model.builder().add(ItemFail.TYPE);
 		try
@@ -187,7 +187,7 @@ public class ModelBuilderTest
 		}
 	}
 
-	@Test public void testFailTypeSetsTwice()
+	@Test public void testAlreadySetTypeSets()
 	{
 		final ModelBuilder m = Model.builder().add(new TypeSet(ItemFail.TYPE));
 		try
@@ -202,7 +202,7 @@ public class ModelBuilderTest
 	}
 
 	@SuppressFBWarnings("NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS")
-	@Test public void testFailRevisionsTwice()
+	@Test public void testAlreadySetRevisions()
 	{
 		final ModelBuilder m = Model.builder().add((ctx) -> {throw new RuntimeException();});
 		try
