@@ -31,6 +31,7 @@ import static org.junit.Assert.fail;
 import com.exedio.cope.tojunit.SI;
 import com.exedio.dsmf.SQLRuntimeException;
 import java.util.List;
+import java.util.function.Predicate;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -289,8 +290,13 @@ public class DistinctOrderByTest extends TestWithEnvironment
 				if(env.isDatabaseVersionAtLeast(5, 7))
 					assertContains(item2, item3, item1, query.search());
 				else
-					notAllowed(query,
-							"FUNCTION " + env.getCatalog() + ".ANY_VALUE does not exist");
+					notAllowed(query, msg ->
+							("FUNCTION " + env.getCatalog() + ".ANY_VALUE does not exist").equals(msg) ||
+							(
+									// happens without EXECUTE privilege
+									msg.startsWith("execute command denied to user ") &&
+									msg.endsWith(" for routine '" + env.getCatalog() + ".ANY_VALUE'")
+							));
 				break;
 			case oracle:
 				notAllowed(query,
@@ -337,6 +343,20 @@ public class DistinctOrderByTest extends TestWithEnvironment
 		catch(final SQLRuntimeException e)
 		{
 			assertTrue(e.getCause().getMessage(), e.getCause().getMessage().startsWith(message));
+		}
+	}
+
+	static void notAllowed(final Query<?> query, final Predicate<String> message)
+	{
+		try
+		{
+			final List<?> result = query.search();
+			fail("search is expected to fail, but returned " + result);
+		}
+		catch(final SQLRuntimeException e)
+		{
+			final String actual = e.getCause().getMessage();
+			assertTrue(actual, message.test(actual));
 		}
 	}
 
