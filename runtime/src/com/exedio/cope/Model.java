@@ -39,6 +39,7 @@ import java.io.Serializable;
 import java.lang.reflect.Modifier;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.util.Collection;
 import java.util.Date;
 import java.util.EnumSet;
@@ -61,7 +62,7 @@ public final class Model implements Serializable
 
 	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	final Types types;
-	private final long initializeDate = System.currentTimeMillis();
+	private final Instant initializeDate = Instant.now();
 	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	final ChangeListeners changeListeners = new ChangeListeners();
 
@@ -293,7 +294,7 @@ public final class Model implements Serializable
 
 	public Date getInitializeDate()
 	{
-		return new Date(initializeDate);
+		return Date.from(initializeDate);
 	}
 
 	/**
