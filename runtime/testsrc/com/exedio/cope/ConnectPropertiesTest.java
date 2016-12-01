@@ -77,12 +77,21 @@ public class ConnectPropertiesTest
 				null);
 	}
 
-	@Test public void testConnectionUrlTwoCharacters()
+	@Test public void testConnectionUrlOneCharacter()
 	{
 		assertConnectionUrlFailure(
 				"jdbc:a:",
 				"property dialect in DESC must have at least two characters, " +
 				"but was 'a'",
+				null);
+	}
+
+	@Test public void testConnectionUrlTwoCharacters()
+	{
+		assertConnectionUrlFailure(
+				"jdbc:ab:",
+				"property dialect in DESC must have at least two characters, " +
+				"but was 'ab'",
 				null);
 	}
 
