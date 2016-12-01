@@ -95,6 +95,15 @@ public class ConnectPropertiesTest
 				null);
 	}
 
+	@Test public void testConnectionUrlThreeCharacters()
+	{
+		assertConnectionUrlFailure(
+				"jdbc:abc:",
+				"property dialect in DESC must name a class, " +
+				"but was 'com.exedio.cope.AbcDialect'",
+				ClassNotFoundException.class);
+	}
+
 	@Test public void testConnectionUrlClassNotFound()
 	{
 		assertConnectionUrlFailure(
