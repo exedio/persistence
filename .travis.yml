@@ -17,7 +17,7 @@ before_script:
   - rm conf/environment/hy-nprep.properties
   - mysql -e 'CREATE DATABASE cope_test_db;'
   - echo "GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, DROP, INDEX, ALTER, CREATE VIEW ON cope_test_db.* TO 'cope_test_user'@'localhost' IDENTIFIED BY 'pass';" | sudo mysql --defaults-extra-file=/etc/mysql/debian.cnf
-  - psql  -c 'CREATE DATABASE cope_test;' -U postgres
+  - psql  -c 'CREATE DATABASE cope_test_db;' -U postgres
   - echo -e -n \
     "connection.url=jdbc:mysql://localhost/cope_test_db\n"\
     "connection.username=cope_test_user\n"\
@@ -46,14 +46,14 @@ before_script:
     "x-build.driver=mariadb-java-client.jar\n"\
     | tee conf/environment/my-maria.properties
   - echo -e -n \
-    "connection.url=jdbc:postgresql://localhost/cope_test\n"\
+    "connection.url=jdbc:postgresql://localhost/cope_test_db\n"\
     "connection.username=postgres\n"\
     "connection.password=\n"\
     "connection.postgresql.search_path=public\n"\
     "x-build.driver=postgresql.jar\n"\
     | tee conf/environment/pg.properties
   - echo -e -n \
-    "connection.url=jdbc:postgresql://localhost/cope_test\n"\
+    "connection.url=jdbc:postgresql://localhost/cope_test_db\n"\
     "connection.username=postgres\n"\
     "connection.password=\n"\
     "connection.postgresql.search_path=public\n"\
@@ -61,7 +61,7 @@ before_script:
     "x-build.driver=postgresql.jar\n"\
     | tee conf/environment/pg-sq.properties
   - echo -e -n \
-    "connection.url=jdbc:postgresql://localhost/cope_test\n"\
+    "connection.url=jdbc:postgresql://localhost/cope_test_db\n"\
     "connection.username=postgres\n"\
     "connection.password=\n"\
     "connection.postgresql.search_path=public\n"\
