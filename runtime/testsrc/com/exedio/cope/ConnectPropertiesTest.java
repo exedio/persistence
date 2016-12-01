@@ -81,7 +81,7 @@ public class ConnectPropertiesTest
 	{
 		assertConnectionUrlFailure(
 				"jdbc:a:",
-				"property dialect in DESC must have at least two characters, " +
+				"property dialect in DESC must have more than two characters, " +
 				"but was 'a'",
 				null);
 	}
@@ -90,7 +90,7 @@ public class ConnectPropertiesTest
 	{
 		assertConnectionUrlFailure(
 				"jdbc:ab:",
-				"property dialect in DESC must have at least two characters, " +
+				"property dialect in DESC must have more than two characters, " +
 				"but was 'ab'",
 				null);
 	}

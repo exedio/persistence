@@ -400,7 +400,7 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	private final Constructor<? extends Dialect> getDialectConstructor(final String dialectCode)
 	{
 		if(dialectCode.length()<=2)
-			throw newException("dialect", "must have at least two characters, but was '" + dialectCode + '\'');
+			throw newException("dialect", "must have more than two characters, but was '" + dialectCode + '\'');
 
 		final String dialectName =
 			"com.exedio.cope." +
