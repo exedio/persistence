@@ -383,20 +383,6 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 		dialect = getDialectConstructor(dialectCode);
 	}
 
-	private String valueX(final String key, final String defaultValue, final char forbidden)
-	{
-		final String result = value(key, defaultValue);
-
-		final int position = result.indexOf(forbidden);
-		if(position>=0)
-			throw newException(
-				key,
-				"must not contain '" + forbidden + "', " +
-				"but did at position " + position + " and was '" + result + '\'');
-
-		return result;
-	}
-
 	private final Constructor<? extends Dialect> getDialectConstructor(final String dialectCode)
 	{
 		if(dialectCode.length()<=2)
@@ -552,6 +538,20 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 				return "probe";
 			}
 		};
+	}
+
+	private String valueX(final String key, final String defaultValue, final char forbidden)
+	{
+		final String result = value(key, defaultValue);
+
+		final int position = result.indexOf(forbidden);
+		if(position>=0)
+			throw newException(
+				key,
+				"must not contain '" + forbidden + "', " +
+				"but did at position " + position + " and was '" + result + '\'');
+
+		return result;
 	}
 
 	// TODO move into framework
