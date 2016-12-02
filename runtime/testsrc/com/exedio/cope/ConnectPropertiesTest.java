@@ -246,6 +246,26 @@ public class ConnectPropertiesTest
 		}
 	}
 
+	@Test public void testItemCacheLimit()
+	{
+		final Source source =
+				cascade(
+						source("cache.item.globalLimit", "123"),
+						Sources.load(new File("runtime/utiltest.properties"))
+				);
+		assertEquals(123, new ConnectProperties(source, null).getItemCacheLimit());
+	}
+
+	@Test public void testItemCacheLimitFallback()
+	{
+		final Source source =
+				cascade(
+						source("cache.item.limit", "123"),
+						Sources.load(new File("runtime/utiltest.properties"))
+				);
+		assertEquals(123, new ConnectProperties(source, null).getItemCacheLimit());
+	}
+
 	@Test public void testMediaRootUrlStandard()
 	{
 		final ConnectProperties p = factory().
