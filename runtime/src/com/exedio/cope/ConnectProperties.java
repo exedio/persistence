@@ -440,7 +440,6 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	Probe probe()
 	{
 		final Driver driver;
-
 		try
 		{
 			driver = DriverManager.getDriver(connectionUrl);
