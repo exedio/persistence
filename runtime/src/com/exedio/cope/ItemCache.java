@@ -226,7 +226,6 @@ final class ItemCache
 				}
 			}
 		}
-		final int i=0;
 		for(final Type<?> type : typesInOriginalOrder)
 		{
 			final TypeStats typeStat = typeStats[type.cacheIdTransiently];
