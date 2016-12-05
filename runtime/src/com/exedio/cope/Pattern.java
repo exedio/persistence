@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.CopeCacheWeightHelper.value;
 import static com.exedio.cope.misc.Check.requireNonEmpty;
 import static java.util.Objects.requireNonNull;
 
@@ -294,8 +295,8 @@ public abstract class Pattern extends Feature
 				else
 					throw new IllegalStateException(
 							"conflicting @CopeCacheWeight: " +
-							copeCacheWeightClass.cast(patternAnn).value() + " vs. " +
-							copeCacheWeightClass.cast(sourceAnn ).value());
+							value(copeCacheWeightClass.cast(patternAnn)) + " vs. " +
+							value(copeCacheWeightClass.cast(sourceAnn )));
 			}
 
 			if(source==null)

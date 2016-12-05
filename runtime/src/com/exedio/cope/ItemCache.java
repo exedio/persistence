@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.CopeCacheWeightHelper.value;
+
 import gnu.trove.TLongHashSet;
 import gnu.trove.TLongIterator;
 import java.util.ArrayList;
@@ -44,7 +46,7 @@ final class ItemCache
 			{
 				@SuppressWarnings("deprecation")
 				final CopeCacheWeight cacheWeight=type.getAnnotation(CopeCacheWeight.class);
-				final boolean cachingDisabled = itemCacheLimit==0 || (cacheWeight!=null && cacheWeight.value()==0) || type.external;
+				final boolean cachingDisabled = itemCacheLimit==0 || (cacheWeight!=null && value(cacheWeight)==0) || type.external;
 				typesStatsList.add(cachingDisabled?null:new TypeStats(type));
 			}
 		typeStats=typesStatsList.toArray(new TypeStats[typesStatsList.size()]);
