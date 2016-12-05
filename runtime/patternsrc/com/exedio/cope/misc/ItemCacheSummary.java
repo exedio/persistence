@@ -25,7 +25,7 @@ import com.exedio.cope.ItemCacheInfo;
 import com.exedio.cope.ItemCacheStatistics;
 import java.util.Date;
 
-/** use summary methods at {@link ItemCacheStatistics} */
+/** @deprecated Use summary methods at {@link ItemCacheStatistics} instead */
 @Deprecated
 public final class ItemCacheSummary
 {
