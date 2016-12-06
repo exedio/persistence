@@ -29,6 +29,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assume.assumeTrue;
 
 import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.tojunit.SystemPropertyRule;
@@ -129,8 +130,8 @@ public final class MediaUrlTest extends TestWithEnvironment
 
 	@Test public void testFingerprintLimit()
 	{
-		if(model.getConnectProperties().isSupportDisabledForPreparedStatements() || postgresql)
-			return;
+		assumeTrue(!model.getConnectProperties().isSupportDisabledForPreparedStatements());
+		assumeTrue(!postgresql);
 
 		fileFinger.getLastModified().set(anond, new Date(Long.MIN_VALUE + 2));
 		assertIt("MediaUrlItem/fileFinger/.f.-_________H/", fileFinger, anond, "");

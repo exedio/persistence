@@ -43,6 +43,7 @@ import static com.exedio.cope.SchemaTypeStringItem.fMax;
 import static com.exedio.dsmf.Dialect.NOT_NULL;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
+import static org.junit.Assume.assumeTrue;
 
 import com.exedio.cope.SchemaTypeStringField.StringItem;
 import java.util.HashMap;
@@ -142,8 +143,7 @@ public class SchemaTypeStringTest extends TestWithEnvironment
 
 	@Test public void testValues()
 	{
-		if(oracle)
-			return;
+		assumeTrue(!oracle);
 
 		final List<SchemaTypeStringField> fields = SchemaTypeStringField.get(TYPE);
 		assertEquals(17, fields.size());

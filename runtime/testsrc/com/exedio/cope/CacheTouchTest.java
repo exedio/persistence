@@ -25,6 +25,7 @@ import static java.lang.Integer.MIN_VALUE;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.fail;
+import static org.junit.Assume.assumeTrue;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -45,7 +46,8 @@ public class CacheTouchTest extends TestWithEnvironment
 
 	@Test public void testIt()
 	{
-		if(!cache || oracle) return; // TODO
+		assumeTrue(cache);
+		assumeTrue(!oracle); // TODO
 		initCache();
 
 		assertUpdateCount(0, MIN_VALUE);

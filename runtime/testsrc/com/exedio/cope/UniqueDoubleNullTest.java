@@ -21,6 +21,7 @@ package com.exedio.cope;
 import static com.exedio.cope.UniqueDoubleNullItem.TYPE;
 import static com.exedio.cope.tojunit.Assert.list;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assume.assumeTrue;
 
 import java.util.Arrays;
 import org.junit.Test;
@@ -44,8 +45,7 @@ public class UniqueDoubleNullTest extends TestWithEnvironment
 
 	@Test public void test()
 	{
-		if(oracle) // Oracle violates SQL standard about this
-			return;
+		assumeTrue(!oracle); // Oracle violates SQL standard about this
 
 		assertEquals(list(), TYPE.search(null, TYPE.getThis(), true));
 

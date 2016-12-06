@@ -23,6 +23,7 @@ import static com.exedio.cope.SchemaInfo.getPrimaryKeySequenceName;
 import static com.exedio.cope.SchemaInfo.quoteName;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
+import static org.junit.Assume.assumeTrue;
 
 import com.exedio.cope.tojunit.ConnectionRule;
 import com.exedio.cope.util.AssertionErrorJobContext;
@@ -212,8 +213,8 @@ public class SchemaPurgeTest extends TestWithEnvironment
 
 	@Test public void testStop()
 	{
-		if(!(sequences && mysql))
-			return;
+		assumeTrue(sequences);
+		assumeTrue(mysql);
 
 		{
 			final JC ctx = new JC(5);
