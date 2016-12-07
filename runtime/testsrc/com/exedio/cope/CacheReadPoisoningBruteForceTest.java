@@ -79,7 +79,6 @@ public class CacheReadPoisoningBruteForceTest extends TestWithEnvironment
 
 	@Test public void testIt() throws InterruptedException
 	{
-		assumeTrue(!hsqldb); // TODO
 		assumeTrue(!oracle); // TODO
 
 		final Model model = this.model; // avoid warning about synthetic-access
