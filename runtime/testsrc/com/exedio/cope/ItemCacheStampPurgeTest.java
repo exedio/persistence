@@ -23,6 +23,7 @@ import static com.exedio.cope.CacheIsolationItem.name;
 import static com.exedio.cope.tojunit.Assert.list;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
+import static org.junit.Assume.assumeTrue;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.Before;
@@ -65,8 +66,8 @@ public class ItemCacheStampPurgeTest extends TestWithEnvironment
 
 	@Test public void testSequential()
 	{
-		if(quit)
-			return;
+		assumeTrue(!quit);
+
 		assertCache(0, 0, 0, 0, 0, 0, 0, 0);
 
 		item1.setName("item1a");
@@ -91,8 +92,8 @@ public class ItemCacheStampPurgeTest extends TestWithEnvironment
 
 	@Test public void testOverlappingOnce()
 	{
-		if(quit)
-			return;
+		assumeTrue(!quit);
+
 		assertCache(0, 0, 0, 0, 0, 0, 0, 0);
 
 		item1.setName("item1a");
@@ -122,8 +123,8 @@ public class ItemCacheStampPurgeTest extends TestWithEnvironment
 
 	@Test public void testOverlappingOnceWithoutConnection()
 	{
-		if(quit)
-			return;
+		assumeTrue(!quit);
+
 		assertCache(0, 0, 0, 0, 0, 0, 0, 0);
 
 		item1.setName("item1a");
@@ -152,8 +153,8 @@ public class ItemCacheStampPurgeTest extends TestWithEnvironment
 
 	@Test public void testOverlappingTwice()
 	{
-		if(quit)
-			return;
+		assumeTrue(!quit);
+
 		assertCache(0, 0, 0, 0, 0, 0, 0, 0);
 
 		item1.setName("item1a");
