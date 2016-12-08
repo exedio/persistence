@@ -396,12 +396,10 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 		}
 
 		if(!Dialect.class.isAssignableFrom(classRaw))
-		{
-			throw newException(
-					key,
+			throw newException(key,
 					"must name a subclass of " + Dialect.class.getName() + ", " +
 					"but was " + classRaw.getName());
-		}
+
 		final Class<? extends Dialect> clazz = classRaw.asSubclass(Dialect.class);
 		try
 		{
@@ -409,8 +407,7 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 		}
 		catch(final NoSuchMethodException e)
 		{
-			throw newException(
-					key,
+			throw newException(key,
 					"must name a class with a constructor with parameter " + Probe.class.getName() + ", " +
 					"but was " + classRaw.getName(), e);
 		}
