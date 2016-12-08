@@ -117,8 +117,18 @@ public class TransactionUniqueTest extends TestWithEnvironment
 		switch(dialect)
 		{
 			case mysql:
-				assertEquals("unique violation for MyItem.fieldImplicitUnique", failure.getMessage());
-				assertEquals(UniqueViolationException.class, failure.getClass());
+				if(MODEL.getConnectProperties().isSupportDisabledForUniqueViolation())
+				{
+					assertInsert(failure);
+					assertEquals(
+							"Duplicate entry 'collision' for key 'MyItem_field_Unq'",
+							failure.getCause().getMessage());
+				}
+				else
+				{
+					assertEquals("unique violation for MyItem.fieldImplicitUnique", failure.getMessage());
+					assertEquals(UniqueViolationException.class, failure.getClass());
+				}
 				break;
 			case oracle:
 				assertInsert(failure);
