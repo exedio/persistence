@@ -369,14 +369,14 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 		if(pos<0)
 			return null;
 
-		final String dialectCode = url.substring(prefix.length(), pos);
-		if(dialectCode.length()<=2)
+		final String code = url.substring(prefix.length(), pos);
+		if(code.length()<=2)
 			return null;
 
 		return
 			"com.exedio.cope." +
-			Character.toUpperCase(dialectCode.charAt(0)) +
-			dialectCode.substring(1) +
+			Character.toUpperCase(code.charAt(0)) +
+			code.substring(1) +
 			"Dialect";
 	}
 
@@ -384,35 +384,35 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 			final String key,
 			final String defaultValue)
 	{
-		final String dialectName = value(key, defaultValue);
-		final Class<?> dialectClassRaw;
+		final String name = value(key, defaultValue);
+		final Class<?> classRaw;
 		try
 		{
-			dialectClassRaw = Class.forName(dialectName);
+			classRaw = Class.forName(name);
 		}
 		catch(final ClassNotFoundException e)
 		{
-			throw newException(key, "must name a class, but was '" + dialectName + '\'', e);
+			throw newException(key, "must name a class, but was '" + name + '\'', e);
 		}
 
-		if(!Dialect.class.isAssignableFrom(dialectClassRaw))
+		if(!Dialect.class.isAssignableFrom(classRaw))
 		{
 			throw newException(
 					key,
 					"must name a subclass of " + Dialect.class.getName() + ", " +
-					"but was " + dialectClassRaw.getName());
+					"but was " + classRaw.getName());
 		}
-		final Class<? extends Dialect> dialectClass = dialectClassRaw.asSubclass(Dialect.class);
+		final Class<? extends Dialect> clazz = classRaw.asSubclass(Dialect.class);
 		try
 		{
-			return dialectClass.getDeclaredConstructor(Probe.class);
+			return clazz.getDeclaredConstructor(Probe.class);
 		}
 		catch(final NoSuchMethodException e)
 		{
 			throw newException(
 					key,
 					"must name a class with a constructor with parameter " + Probe.class.getName() + ", " +
-					"but was " + dialectClassRaw.getName(), e);
+					"but was " + classRaw.getName(), e);
 		}
 	}
 
