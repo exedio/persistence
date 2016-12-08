@@ -36,17 +36,17 @@ public class ItemCacheStampPurgeTest extends TestWithEnvironment
 		super(CacheIsolationTest.MODEL);
 	}
 
-	boolean quit;
+	boolean ignore;
 	@SuppressFBWarnings("URF_UNREAD_FIELD")
 	CacheIsolationItem item1, item2, itemX;
 
 	@Before public final void setUp()
 	{
 		final ConnectProperties props = model.getConnectProperties();
-		quit =
+		ignore =
 			props.getItemCacheLimit()==0 ||
 			!props.itemCacheStamps;
-		if(quit)
+		if(ignore)
 			return;
 
 		item1 = new CacheIsolationItem("item1");
@@ -66,7 +66,7 @@ public class ItemCacheStampPurgeTest extends TestWithEnvironment
 
 	@Test public void testSequential()
 	{
-		assumeTrue(!quit);
+		assumeTrue(!ignore);
 
 		assertCache(0, 0, 0, 0, 0, 0, 0, 0);
 
@@ -92,7 +92,7 @@ public class ItemCacheStampPurgeTest extends TestWithEnvironment
 
 	@Test public void testOverlappingOnce()
 	{
-		assumeTrue(!quit);
+		assumeTrue(!ignore);
 
 		assertCache(0, 0, 0, 0, 0, 0, 0, 0);
 
@@ -123,7 +123,7 @@ public class ItemCacheStampPurgeTest extends TestWithEnvironment
 
 	@Test public void testOverlappingOnceWithoutConnection()
 	{
-		assumeTrue(!quit);
+		assumeTrue(!ignore);
 
 		assertCache(0, 0, 0, 0, 0, 0, 0, 0);
 
@@ -153,7 +153,7 @@ public class ItemCacheStampPurgeTest extends TestWithEnvironment
 
 	@Test public void testOverlappingTwice()
 	{
-		assumeTrue(!quit);
+		assumeTrue(!ignore);
 
 		assertCache(0, 0, 0, 0, 0, 0, 0, 0);
 
