@@ -312,6 +312,12 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 		this(getDefaultPropertyFile(), null);
 	}
 
+	/**
+	 * @deprecated Use
+	 * {@link #ConnectProperties(File,Properties.Source) ConnectProperties}({@link #getDefaultPropertyFile()}, context)
+	 * instead.
+	 */
+	@Deprecated
 	public ConnectProperties(final Source context)
 	{
 		this(getDefaultPropertyFile(), context);

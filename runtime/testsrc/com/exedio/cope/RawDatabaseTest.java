@@ -33,7 +33,7 @@ public abstract class RawDatabaseTest
 	@Before public final void setUpRawDatabaseTest() throws SQLException
 	{
 		final ConnectProperties props =
-				new ConnectProperties(Properties.SYSTEM_PROPERTY_SOURCE);
+				new ConnectProperties(ConnectProperties.getDefaultPropertyFile(), Properties.SYSTEM_PROPERTY_SOURCE);
 
 		final String url = props.getConnectionUrl();
 		final Driver driver = DriverManager.getDriver(url);

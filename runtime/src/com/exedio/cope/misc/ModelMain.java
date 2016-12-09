@@ -30,7 +30,7 @@ public final class ModelMain
 			throw new RuntimeException("must have two arguments, model and action");
 
 		final Model model = ModelByString.get(args[0]);
-		model.connect(new ConnectProperties(Properties.SYSTEM_PROPERTY_SOURCE));
+		model.connect(new ConnectProperties(ConnectProperties.getDefaultPropertyFile(), Properties.SYSTEM_PROPERTY_SOURCE));
 		try
 		{
 			final String action = args[1];

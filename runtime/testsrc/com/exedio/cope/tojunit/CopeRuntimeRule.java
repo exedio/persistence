@@ -36,6 +36,6 @@ public final class CopeRuntimeRule extends CopeRule
 	@Override
 	public ConnectProperties getConnectProperties()
 	{
-		return new ConnectProperties(Properties.SYSTEM_PROPERTY_SOURCE);
+		return new ConnectProperties(ConnectProperties.getDefaultPropertyFile(), Properties.SYSTEM_PROPERTY_SOURCE);
 	}
 }
