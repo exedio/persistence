@@ -30,9 +30,8 @@ import com.exedio.cope.util.Properties.Field;
 import com.exedio.cope.util.Properties.Source;
 import com.exedio.cope.util.Sources;
 import java.io.File;
-import java.util.Arrays;
 import java.util.Collection;
-import java.util.HashSet;
+import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.concurrent.Callable;
 import org.junit.Test;
@@ -45,17 +44,22 @@ public class ConnectPropertiesTest
 	 */
 	@Test public void testRegression()
 	{
-		final HashSet<String> notOnDefault = new HashSet<>(Arrays.asList(
-				"dialect", "cluster", "cluster.secret"));
+		final HashMap<String,Object> notOnDefault = new HashMap<>();
+		notOnDefault.put("connection.url", "xxxurl");
+		notOnDefault.put("connection.username", "xxxusername");
+		notOnDefault.put("connection.password", "xxxpassword");
+		notOnDefault.put("dialect", HsqldbDialect.class.getName());
+		notOnDefault.put("cluster", true);
+		notOnDefault.put("cluster.secret", 1234);
 		final ConnectProperties p = new ConnectProperties(loadProperties(), null);
 
 		for(final Field field : p.getFields())
 		{
 			final String key = field.getKey();
 			assertTrue(key, field.isSpecified());
-			if(field.getDefaultValue()!=null &&
-				!notOnDefault.contains(key))
-				assertEquals(key, field.getDefaultValue(), field.getValue());
+			assertEquals(key,
+					notOnDefault.containsKey(key) ? notOnDefault.get(key) : field.getDefaultValue(),
+					field.getValue());
 		}
 
 		p.ensureValidity();
