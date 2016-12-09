@@ -23,7 +23,7 @@ import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import gnu.trove.TIntObjectHashMap;
+import gnu.trove.TLongObjectHashMap;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -112,39 +112,39 @@ public class LRUMapTest
 	{
 		for(int j = 0; j<8; j++)
 		{
-			assertPerformance(new HashMap<Integer, String>());
-			assertPerformance(new LRUMap <Integer, String>(2_000_000));
-			assertPerformance(new DateMap<Integer, String>());
-			assertPerformance(new TIntObjectHashMap<String>());
+			assertPerformance(new HashMap<Long, String>());
+			assertPerformance(new LRUMap <Long, String>(2_000_000));
+			assertPerformance(new DateMap<Long, String>());
+			assertPerformance(new TLongObjectHashMap<String>());
 			System.out.println();
 		}
 	}
 
-	private static void assertPerformance(final HashMap<Integer, String> map)
+	private static void assertPerformance(final HashMap<Long, String> map)
 	{
 		System.out.print(' ' + map.getClass().getSimpleName() + ":");
 		final long startMem = mem();
-		for(int i = 0; i<1_000_000; i++)
+		for(long i = 0; i<1_000_000; i++)
 			map.put(i, "val"+i);
 		final long endMem = mem();
 		System.out.print(" " + String.valueOf((startMem+endMem)/1000000) + "MB");
 		final long start = System.nanoTime();
-		for(int i = 0; i<1_000_000; i++)
+		for(long i = 0; i<1_000_000; i++)
 			map.get(i);
 		final long end = System.nanoTime();
 		System.out.print(" " + toMillies(end, start) + "ms");
 	}
 
-	private static void assertPerformance(final TIntObjectHashMap<String> map)
+	private static void assertPerformance(final TLongObjectHashMap<String> map)
 	{
 		System.out.print(' ' + map.getClass().getSimpleName() + ":");
 		final long startMem = mem();
-		for(int i = 0; i<1_000_000; i++)
+		for(long i = 0; i<1_000_000; i++)
 			map.put(i, "val"+i);
 		final long endMem = mem();
 		System.out.print(" " + String.valueOf((startMem+endMem)/1000000) + "MB");
 		final long start = System.nanoTime();
-		for(int i = 0; i<1_000_000; i++)
+		for(long i = 0; i<1_000_000; i++)
 			map.get(i);
 		final long end = System.nanoTime();
 		System.out.print(" " + toMillies(end, start) + "ms");
