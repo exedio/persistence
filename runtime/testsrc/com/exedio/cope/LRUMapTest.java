@@ -100,6 +100,9 @@ public class LRUMapTest
 
 		map.put("key4", "val4");
 		assertIt(map, new String[]{"key3", "key2", "key4"});
+
+		map.put("key5", "val5");
+		assertIt(map, new String[]{"key2", "key4", "key5"});
 	}
 
 	private static void assertIt(final LRUMap<String, String> map, final String[] keys)
