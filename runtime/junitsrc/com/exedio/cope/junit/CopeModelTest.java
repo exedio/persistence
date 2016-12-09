@@ -23,7 +23,6 @@ import static java.util.Objects.requireNonNull;
 import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
-import com.exedio.cope.util.Properties;
 
 /**
  * An abstract test case class for tests creating/using some persistent data.
@@ -49,7 +48,7 @@ public abstract class CopeModelTest extends CopeAssert
 	 */
 	public ConnectProperties getConnectProperties()
 	{
-		return new ConnectProperties(ConnectProperties.getDefaultPropertyFile(), Properties.SYSTEM_PROPERTY_SOURCE);
+		return new ConnectProperties(ConnectProperties.getDefaultPropertyFile());
 	}
 
 	/**

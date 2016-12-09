@@ -33,7 +33,6 @@ import static org.junit.Assume.assumeTrue;
 
 import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.TestWithEnvironment;
-import com.exedio.cope.util.Properties;
 import com.exedio.cope.util.Sources;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Date;
@@ -129,7 +128,7 @@ public final class MediaUrlTest extends TestWithEnvironment
 
 		model.commit();
 		model.disconnect();
-		model.connect(new ConnectProperties(copeRule.getConnectProperties().getSourceObject(), Properties.SYSTEM_PROPERTY_SOURCE));
+		model.connect(ConnectProperties.create(copeRule.getConnectProperties().getSourceObject()));
 	}
 
 	@Test public void testFingerprintLimit()

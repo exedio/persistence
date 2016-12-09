@@ -163,8 +163,7 @@ public final class ServletUtil
 	{
 		return
 			new ConnectProperties(
-				new File(context.getRealPath("WEB-INF/cope.properties")),
-				getPropertyContext(context)
+				new File(context.getRealPath("WEB-INF/cope.properties"))
 			);
 	}
 

@@ -301,7 +301,7 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 		@Override
 		public ConnectProperties create(final Source source)
 		{
-			return new ConnectProperties(source, null,
+			return new ConnectProperties(source,
 					primaryKeyGenerator,
 					mediaRootUrl);
 		}
@@ -321,11 +321,19 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 		this(file, null);
 	}
 
+	/**
+	 * @deprecated Use {@link #ConnectProperties(File)} instead as {@code context} is no longer supported.
+	 */
+	@Deprecated
 	public ConnectProperties(final File file, final Source context)
 	{
 		this(Sources.load(file), context);
 	}
 
+	/**
+	 * @deprecated Use {@link #create(Properties.Source)} instead as {@code context} is no longer supported.
+	 */
+	@Deprecated
 	public ConnectProperties(final java.util.Properties properties, final String sourceDescription, final Source context)
 	{
 		this(Sources.view(properties, sourceDescription), context);
@@ -336,20 +344,32 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 		return new ConnectProperties(source, null);
 	}
 
+	/**
+	 * @deprecated Use {@link #create(Properties.Source)} instead as {@code context} is no longer supported.
+	 */
+	@Deprecated
 	public ConnectProperties(final Source source, final Source context)
 	{
-		this(source, context,
+		this(noContext(source, context),
 				primaryKeyGeneratorDEFAULT,
 				mediaRooturlDEFAULT);
 	}
 
-	@SuppressWarnings("deprecation")
+	@Deprecated
+	private static Source noContext(final Source source, final Source context)
+	{
+		if(context!=null)
+			throw new NoSuchMethodError("context not allowed, but was " + context);
+
+		return source;
+	}
+
 	ConnectProperties(
-			final Source source, final Source context,
+			final Source source,
 			final PrimaryKeyGenerator primaryKeyGeneratorDefault,
 			final String mediaRootUrlDefault)
 	{
-		super(source, context);
+		super(source);
 
 		this.primaryKeyGenerator = valEn("schema.primaryKeyGenerator", primaryKeyGeneratorDefault);
 		this.mediaRooturl = value("media.rooturl", mediaRootUrlDefault);

@@ -25,6 +25,7 @@ import com.exedio.cope.instrument.WrapperIgnore;
 import com.exedio.cope.util.IllegalPropertiesException;
 import com.exedio.cope.util.Properties;
 import com.exedio.cope.util.Properties.Source;
+import com.exedio.cope.util.Sources;
 import java.io.File;
 import java.util.Collection;
 import org.junit.After;
@@ -34,12 +35,14 @@ public class ClusterPropertiesTest
 {
 	@Test public void testOk()
 	{
-		final Source s = new Source()
+		final Source s = Sources.cascade(ConnectSource.get(), new Source()
 		{
 			@Override
 			public String get(final String key)
 			{
-				if(key.equals("cluster.secret"))
+				if(key.equals("cluster"))
+					return "true";
+				else if(key.equals("cluster.secret"))
 					return String.valueOf("1234");
 				else if(key.equals("cluster.listenThreads"))
 					return "5";
@@ -60,9 +63,9 @@ public class ClusterPropertiesTest
 			{
 				return null;
 			}
-		};
+		});
 
-		model.connect(new ConnectProperties(ConnectSource.get(), s));
+		model.connect(ConnectProperties.create(s));
 		assertEquals(true, model.isClusterEnabled());
 		final ClusterProperties p = (ClusterProperties)model.getClusterProperties();
 		assertEquals(5, p.listenThreads);
@@ -71,12 +74,14 @@ public class ClusterPropertiesTest
 
 	@Test public void testFailListenThreads()
 	{
-		final Source s = new Source()
+		final Source s = Sources.cascade(ConnectSource.get(), new Source()
 		{
 			@Override
 			public String get(final String key)
 			{
-				if(key.equals("cluster.secret"))
+				if(key.equals("cluster"))
+					return "true";
+				else if(key.equals("cluster.secret"))
 					return String.valueOf("1234");
 				else if(key.equals("cluster.listenThreads"))
 					return "5";
@@ -97,18 +102,17 @@ public class ClusterPropertiesTest
 			{
 				return null;
 			}
-		};
+		});
 
-		final ConnectProperties properties = new ConnectProperties(ConnectSource.get(), s);
 		try
 		{
-			model.connect(properties);
+			ConnectProperties.create(s);
 			fail();
 		}
 		catch(final IllegalPropertiesException e)
 		{
 			assertEquals(
-					"property listenThreads in Cluster Properties (prefix cluster.) " +
+					"property cluster.listenThreads in Minimal Connect Properties Source / Cluster Properties " +
 					"must be less or equal listenThreadsMax=4, " +
 					"but was 5",
 					e.getMessage());
@@ -124,10 +128,7 @@ public class ClusterPropertiesTest
 			@Override
 			public String get(final String key)
 			{
-				if(key.equals("cluster"))
-					return "false";
-				else
-					return defaultSource.get(key);
+				return defaultSource.get(key);
 			}
 
 			@Override
@@ -147,7 +148,9 @@ public class ClusterPropertiesTest
 			@Override
 			public String get(final String key)
 			{
-				if(key.equals("cluster.secret"))
+				if(key.equals("cluster"))
+					return "true";
+				else if(key.equals("cluster.secret"))
 					return "1234";
 				else
 					return null;
@@ -166,7 +169,7 @@ public class ClusterPropertiesTest
 			}
 		};
 
-		final ConnectProperties props = new ConnectProperties(source, context);
+		final ConnectProperties props = ConnectProperties.create(Sources.cascade(source, context));
 		// TODO throw exception below already above
 		try
 		{
@@ -175,7 +178,7 @@ public class ClusterPropertiesTest
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("cluster network not supported together with schema.primaryKeyGenerator=memory", e.getMessage());
+			assertEquals("cluster network not supported together with schema.primaryKeyGenerator=memory (2)", e.getMessage());
 		}
 	}
 

@@ -20,7 +20,6 @@ package com.exedio.cope.misc;
 
 import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.Model;
-import com.exedio.cope.util.Properties;
 
 public final class ModelMain
 {
@@ -30,7 +29,7 @@ public final class ModelMain
 			throw new RuntimeException("must have two arguments, model and action");
 
 		final Model model = ModelByString.get(args[0]);
-		model.connect(new ConnectProperties(ConnectProperties.getDefaultPropertyFile(), Properties.SYSTEM_PROPERTY_SOURCE));
+		model.connect(new ConnectProperties(ConnectProperties.getDefaultPropertyFile()));
 		try
 		{
 			final String action = args[1];

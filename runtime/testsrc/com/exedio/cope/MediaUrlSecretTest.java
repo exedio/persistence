@@ -51,11 +51,18 @@ public class MediaUrlSecretTest
 
 	@Test public void testTooShort()
 	{
-		final ConnectProperties props = props("123456789");
-		model.connect(props);
-
-		assertEquals(false, MediaPath.isUrlGuessingPreventedSecurely(props));
-		assertEquals(null, props.getMediaUrlSecret());
+		try
+		{
+			props("123456789");
+			fail();
+		}
+		catch(final IllegalPropertiesException e)
+		{
+			assertEquals(
+					"property media.url.secret in MediaUrlSecretTestSource must have at least 10 characters, " +
+					"but was '123456789' with just 9 characters",
+					e.getMessage());
+		}
 	}
 
 	@Test public void testEmpty()
@@ -73,12 +80,10 @@ public class MediaUrlSecretTest
 		source.setProperty("connection.url", "jdbc:hsqldb:mem:MediaUrlSecretTest");
 		source.setProperty("connection.username", "sa");
 		source.setProperty("connection.password", "");
-		final Properties context = new Properties();
 		if(secret!=null)
-			context.setProperty("media.url.secret", secret);
-		return new ConnectProperties(
-				Sources.view(source , "MediaUrlSecretTestSource" ),
-				Sources.view(context, "MediaUrlSecretTestContext"));
+			source.setProperty("media.url.secret", secret);
+		return ConnectProperties.create(
+				Sources.view(source , "MediaUrlSecretTestSource" ));
 	}
 
 	@Test public void testOffNoContext()

@@ -20,7 +20,6 @@ package com.exedio.cope.tojunit;
 
 import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.Model;
-import com.exedio.cope.util.Properties;
 
 public final class CopeRuntimeRule extends CopeRule
 {
@@ -36,6 +35,6 @@ public final class CopeRuntimeRule extends CopeRule
 	@Override
 	public ConnectProperties getConnectProperties()
 	{
-		return new ConnectProperties(ConnectProperties.getDefaultPropertyFile(), Properties.SYSTEM_PROPERTY_SOURCE);
+		return new ConnectProperties(ConnectProperties.getDefaultPropertyFile());
 	}
 }
