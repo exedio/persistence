@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import static com.exedio.cope.misc.TimeUtil.toMillies;
 import static java.util.Arrays.asList;
+import static java.util.Objects.requireNonNull;
 import static org.junit.Assert.assertEquals;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -28,6 +29,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.function.Consumer;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -38,22 +40,23 @@ public class LRUMapTest
 		private static final long serialVersionUID = 1l;
 
 		private final int maxSize;
-		volatile long replacements = 0;
 
-		LRUMap(final int maxSize)
+		@SuppressFBWarnings("SE_BAD_FIELD")
+		private final Consumer<Map.Entry<K, V>> onReplace;
+
+		LRUMap(final int maxSize, final Consumer<Map.Entry<K, V>> onReplace)
 		{
 			super(maxSize, 0.75f/*DEFAULT_LOAD_FACTOR*/, true);
 			this.maxSize = maxSize;
+			this.onReplace = requireNonNull(onReplace);
 		}
 
 		@Override
-		@SuppressFBWarnings("VO_VOLATILE_INCREMENT")
 		protected boolean removeEldestEntry(final Map.Entry<K,V> eldest)
 		{
-			//System.out.println("-----eldest("+size()+"):"+eldest.getKey());
 			final boolean result = size() > maxSize;
 			if(result)
-				replacements++;
+				onReplace.accept(eldest);
 			return result;
 		}
 	}
@@ -83,29 +86,34 @@ public class LRUMapTest
 
 	@Test public void testIt()
 	{
-		final LRUMap<String, String> map = new LRUMap<>(3);
-		assertIt(map, new String[]{});
+		final ArrayList<String> replaced = new ArrayList<>();
+		final LRUMap<String, String> map = new LRUMap<>(3, eldest -> replaced.add(eldest.getKey()));
+		assertIt(map, new String[]{}, replaced);
 
 		map.put("key1", "val1");
-		assertIt(map, new String[]{"key1"});
+		assertIt(map, new String[]{"key1"}, replaced);
 
 		map.put("key2", "val2");
-		assertIt(map, new String[]{"key1", "key2"});
+		assertIt(map, new String[]{"key1", "key2"}, replaced);
 
 		map.put("key3", "val3");
-		assertIt(map, new String[]{"key1", "key2", "key3"});
+		assertIt(map, new String[]{"key1", "key2", "key3"}, replaced);
 
 		assertEquals("val2", map.get("key2"));
-		assertIt(map, new String[]{"key1", "key3", "key2"});
+		assertIt(map, new String[]{"key1", "key3", "key2"}, replaced);
 
 		map.put("key4", "val4");
-		assertIt(map, new String[]{"key3", "key2", "key4"});
+		assertIt(map, new String[]{"key3", "key2", "key4"}, replaced, "key1");
 
 		map.put("key5", "val5");
-		assertIt(map, new String[]{"key2", "key4", "key5"});
+		assertIt(map, new String[]{"key2", "key4", "key5"}, replaced, "key3");
 	}
 
-	private static void assertIt(final LRUMap<String, String> map, final String[] keys)
+	private static void assertIt(
+			final LRUMap<String, String> map,
+			final String[] keys,
+			final ArrayList<String> actualReplaced,
+			final String... expectedReplaced)
 	{
 		assertEquals(asList(keys), asList(map.keySet().toArray(new String[map.size()])));
 
@@ -113,15 +121,19 @@ public class LRUMapTest
 		for(final String key : keys)
 			values.add(key.replace("key", "val"));
 		assertEquals(values, new ArrayList<>(map.values()));
+
+		assertEquals(asList(expectedReplaced), actualReplaced);
+		actualReplaced.clear();
 	}
 
 	@Ignore
 	@Test public void testPerformance()
 	{
+		final VolatileLong counter = new VolatileLong();
 		for(int j = 0; j<8; j++)
 		{
 			assertPerformance(new HashMap<Long, String>());
-			assertPerformance(new LRUMap <Long, String>(2_000_000));
+			assertPerformance(new LRUMap <Long, String>(2_000_000, x -> {counter.inc();}));
 			assertPerformance(new DateMap<Long, String>());
 			assertPerformance(new TLongObjectHashMap<String>());
 			System.out.println();
