@@ -21,6 +21,7 @@ package com.exedio.cope;
 import static org.junit.Assert.fail;
 
 import com.exedio.cope.util.Properties;
+import com.exedio.cope.util.Sources;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.IOException;
 import java.net.SocketException;
@@ -39,14 +40,16 @@ public final class ClusterSenderMulticastTest
 	@Before public final void setUp()
 	{
 		final ClusterProperties properties = ClusterProperties.get(
-			new ConnectProperties(
+			ConnectProperties.create(Sources.cascade(
 				ConnectSource.get(),
 				new Properties.Source()
 				{
 					@Override
 					public String get(final String key)
 					{
-						if(key.equals("cluster.packetSize"))
+						if(key.equals("cluster"))
+							return "true";
+						else if(key.equals("cluster.packetSize"))
 							return "47";
 						else if(key.equals("cluster.secret"))
 							return String.valueOf(SECRET);
@@ -66,7 +69,7 @@ public final class ClusterSenderMulticastTest
 						return null;
 					}
 				}
-			));
+			)));
 		sender = new ClusterSenderMulticast(properties);
 	}
 

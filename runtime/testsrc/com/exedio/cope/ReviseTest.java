@@ -20,7 +20,6 @@ package com.exedio.cope;
 
 import static com.exedio.cope.RevisionInfo.parse;
 import static com.exedio.cope.tojunit.Assert.assertWithin;
-import static com.exedio.cope.util.Properties.SYSTEM_PROPERTY_SOURCE;
 import static java.lang.String.valueOf;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -95,7 +94,7 @@ public class ReviseTest
 		hostname = InetAddress.getLocalHost().getHostName();
 		final TestSource testSource = new TestSource();
 		testSource.putOverride("revise.auto.enabled", "true");
-		props = new ConnectProperties(testSource, SYSTEM_PROPERTY_SOURCE);
+		props = ConnectProperties.create(testSource);
 	}
 
 	String connectionUrl;
@@ -391,7 +390,7 @@ public class ReviseTest
 		revisionsFactory5.put( new Revisions(0) );
 		final TestSource testSource = new TestSource();
 		testSource.putOverride("revise.auto.enabled", "true");
-		model5.connect(new ConnectProperties(testSource, SYSTEM_PROPERTY_SOURCE));
+		model5.connect(ConnectProperties.create(testSource));
 		model5.createSchema();
 		model5.reviseIfSupportedAndAutoEnabled();
 		model5.disconnect();
@@ -399,7 +398,7 @@ public class ReviseTest
 		revisionsFactory5.assertEmpty();
 
 		testSource.putOverride("revise.auto.enabled", "false");
-		final ConnectProperties cp = new ConnectProperties(testSource, SYSTEM_PROPERTY_SOURCE);
+		final ConnectProperties cp = ConnectProperties.create(testSource);
 		model5.connect(cp);
 		assertEquals( false, cp.autoReviseEnabled );
 		revisionsFactory5.put( new Revisions(0) );
@@ -407,7 +406,7 @@ public class ReviseTest
 		revisionsFactory5.assertEmpty();
 		model5.disconnect();
 
-		model5.connect( new ConnectProperties(testSource, SYSTEM_PROPERTY_SOURCE) );
+		model5.connect( ConnectProperties.create(testSource) );
 		revisionsFactory5.put( new Revisions( new Revision(1, "rev1", "sql1") ) );
 		try
 		{
@@ -422,7 +421,7 @@ public class ReviseTest
 		model5.disconnect();
 
 		testSource.putOverride("revise.auto.enabled", "true");
-		model5.connect( new ConnectProperties(testSource, SYSTEM_PROPERTY_SOURCE) );
+		model5.connect( ConnectProperties.create(testSource) );
 		revisionsFactory5.put( new Revisions( new Revision(1, "rev1", "sql1") ) );
 		try
 		{

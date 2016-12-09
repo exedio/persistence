@@ -27,6 +27,7 @@ import static org.junit.Assert.fail;
 
 import com.exedio.cope.util.Hex;
 import com.exedio.cope.util.Properties;
+import com.exedio.cope.util.Sources;
 import gnu.trove.TIntHashSet;
 import gnu.trove.TIntIterator;
 import gnu.trove.TLongHashSet;
@@ -51,14 +52,16 @@ public abstract class ClusterTest
 	private static ClusterProperties getProperties(final int node)
 	{
 		return ClusterProperties.get(
-			new ConnectProperties(
+			ConnectProperties.create(Sources.cascade(
 				ConnectSource.get(),
 				new Properties.Source()
 				{
 					@Override
 					public String get(final String key)
 					{
-						if(key.equals("cluster.packetSize"))
+						if(key.equals("cluster"))
+							return "true";
+						else if(key.equals("cluster.packetSize"))
 							return "67";
 						else if(key.equals("cluster.secret"))
 							return String.valueOf(SECRET);
@@ -82,7 +85,7 @@ public abstract class ClusterTest
 						return null;
 					}
 				}
-			));
+			)));
 	}
 
 	@Before public final void setUpClusterTest()

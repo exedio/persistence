@@ -31,14 +31,14 @@ import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assume.assumeTrue;
 
+import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.TestWithEnvironment;
-import com.exedio.cope.tojunit.SystemPropertyRule;
+import com.exedio.cope.util.Properties;
+import com.exedio.cope.util.Sources;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Date;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.RuleChain;
 
 @SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
 public final class MediaUrlTest extends TestWithEnvironment
@@ -47,10 +47,6 @@ public final class MediaUrlTest extends TestWithEnvironment
 	{
 		super(MediaUrlModelTest.MODEL);
 	}
-
-	private final SystemPropertyRule secretProperty = new SystemPropertyRule("media.url.secret");
-
-	@Rule public final RuleChain ruleChain = RuleChain.outerRule(secretProperty);
 
 	private MediaUrlItem named, anond;
 
@@ -110,8 +106,12 @@ public final class MediaUrlTest extends TestWithEnvironment
 		// TODO separate tests
 		model.commit();
 		model.disconnect();
-		secretProperty.set("valueOfMediaUrlSecret");
-		model.connect(copeRule.getConnectProperties());
+		final java.util.Properties secretProperties = new java.util.Properties();
+		secretProperties.setProperty("media.url.secret", "valueOfMediaUrlSecret");
+		model.connect(ConnectProperties.create(Sources.cascade(
+				Sources.view(secretProperties, "Media Secret"),
+				copeRule.getConnectProperties().getSourceObject()
+		)));
 		assertTrue(MediaPath.isUrlGuessingPreventedSecurely(model.getConnectProperties()));
 		model.startTransaction("MediaUrlTest");
 		assertIt("MediaUrlItem/foto/", foto, named, "/phrase.jpg");
@@ -126,6 +126,10 @@ public final class MediaUrlTest extends TestWithEnvironment
 		assertIt("MediaUrlItem/fotoFinger/.fXD/", fotoFinger, anond,        ".jpg");
 		assertIt("MediaUrlItem/fileFinger/.fYC/", fileFinger, named, "/phrase"    );
 		assertIt("MediaUrlItem/fileFinger/.fYD/", fileFinger, anond,        ""    );
+
+		model.commit();
+		model.disconnect();
+		model.connect(new ConnectProperties(copeRule.getConnectProperties().getSourceObject(), Properties.SYSTEM_PROPERTY_SOURCE));
 	}
 
 	@Test public void testFingerprintLimit()

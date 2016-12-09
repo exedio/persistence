@@ -18,7 +18,6 @@
 
 package com.exedio.cope;
 
-import com.exedio.cope.util.Properties;
 import java.sql.Connection;
 import java.sql.Driver;
 import java.sql.DriverManager;
@@ -33,7 +32,7 @@ public abstract class RawDatabaseTest
 	@Before public final void setUpRawDatabaseTest() throws SQLException
 	{
 		final ConnectProperties props =
-				new ConnectProperties(ConnectProperties.getDefaultPropertyFile(), Properties.SYSTEM_PROPERTY_SOURCE);
+				new ConnectProperties(ConnectProperties.getDefaultPropertyFile());
 
 		final String url = props.getConnectionUrl();
 		final Driver driver = DriverManager.getDriver(url);
