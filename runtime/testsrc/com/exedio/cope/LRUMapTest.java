@@ -24,6 +24,7 @@ import static org.junit.Assert.assertEquals;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import gnu.trove.TLongObjectHashMap;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -83,28 +84,32 @@ public class LRUMapTest
 	@Test public void testIt()
 	{
 		final LRUMap<String, String> map = new LRUMap<>(3);
-		assertIt(map, new String[]{}, new String[]{});
+		assertIt(map, new String[]{});
 
 		map.put("key1", "val1");
-		assertIt(map, new String[]{"key1"}, new String[]{"val1"});
+		assertIt(map, new String[]{"key1"});
 
 		map.put("key2", "val2");
-		assertIt(map, new String[]{"key1", "key2"}, new String[]{"val1", "val2"});
+		assertIt(map, new String[]{"key1", "key2"});
 
 		map.put("key3", "val3");
-		assertIt(map, new String[]{"key1", "key2", "key3"}, new String[]{"val1", "val2", "val3"});
+		assertIt(map, new String[]{"key1", "key2", "key3"});
 
 		assertEquals("val2", map.get("key2"));
-		assertIt(map, new String[]{"key1", "key3", "key2"}, new String[]{"val1", "val3", "val2"});
+		assertIt(map, new String[]{"key1", "key3", "key2"});
 
 		map.put("key4", "val4");
-		assertIt(map, new String[]{"key3", "key2", "key4"}, new String[]{"val3", "val2", "val4"});
+		assertIt(map, new String[]{"key3", "key2", "key4"});
 	}
 
-	private static void assertIt(final LRUMap<String, String> map, final String[] keys, final String[] values)
+	private static void assertIt(final LRUMap<String, String> map, final String[] keys)
 	{
-		assertEquals(asList(keys),   asList(map.keySet().toArray(new String[map.size()])));
-		assertEquals(asList(values), asList(map.values().toArray(new String[map.size()])));
+		assertEquals(asList(keys), asList(map.keySet().toArray(new String[map.size()])));
+
+		final ArrayList<String> values = new ArrayList<>();
+		for(final String key : keys)
+			values.add(key.replace("key", "val"));
+		assertEquals(values, new ArrayList<>(map.values()));
 	}
 
 	@Ignore
