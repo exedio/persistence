@@ -39,7 +39,7 @@ public final class ClusterSenderMulticastTest
 
 	@Before public final void setUp()
 	{
-		final ClusterProperties properties = ClusterProperties.get(
+		final ClusterProperties properties =
 			ConnectProperties.create(Sources.cascade(
 				ConnectSource.get(),
 				new Properties.Source()
@@ -69,7 +69,7 @@ public final class ClusterSenderMulticastTest
 						return null;
 					}
 				}
-			)));
+			)).cluster;
 		sender = new ClusterSenderMulticast(properties);
 	}
 

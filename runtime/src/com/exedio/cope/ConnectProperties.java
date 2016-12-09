@@ -366,6 +366,10 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 
 		this.primaryKeyGenerator = valEn("schema.primaryKeyGenerator", primaryKeyGeneratorDefault);
 		this.mediaRooturl = value("media.rooturl", mediaRootUrlDefault);
+
+		if(cluster!=null && !primaryKeyGenerator.persistent)
+			throw newException("cluster",
+					"not supported together with schema.primaryKeyGenerator=" + primaryKeyGenerator);
 	}
 
 	private static final String fromUrl(final String url)

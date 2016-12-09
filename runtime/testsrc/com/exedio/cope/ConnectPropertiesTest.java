@@ -49,6 +49,7 @@ public class ConnectPropertiesTest
 		notOnDefault.put("connection.username", "xxxusername");
 		notOnDefault.put("connection.password", "xxxpassword");
 		notOnDefault.put("dialect", HsqldbDialect.class.getName());
+		notOnDefault.put("schema.primaryKeyGenerator", "sequence");
 		notOnDefault.put("cluster", true);
 		notOnDefault.put("cluster.secret", 1234);
 		final ConnectProperties p = ConnectProperties.create(loadProperties());
@@ -331,7 +332,7 @@ public class ConnectPropertiesTest
 		};
 	}
 
-	private static Source desc(final Source s)
+	static Source desc(final Source s)
 	{
 		return new Source(){
 			@Override

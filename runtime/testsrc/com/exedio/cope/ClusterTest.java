@@ -51,7 +51,7 @@ public abstract class ClusterTest
 
 	private static ClusterProperties getProperties(final int node)
 	{
-		return ClusterProperties.get(
+		return
 			ConnectProperties.create(Sources.cascade(
 				ConnectSource.get(),
 				new Properties.Source()
@@ -85,7 +85,7 @@ public abstract class ClusterTest
 						return null;
 					}
 				}
-			)));
+			)).cluster;
 	}
 
 	@Before public final void setUpClusterTest()

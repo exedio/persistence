@@ -39,16 +39,6 @@ final class ClusterProperties extends Properties
 {
 	private static final Logger logger = LoggerFactory.getLogger(ClusterProperties.class);
 
-	static ClusterProperties get(final ConnectProperties properties)
-	{
-		{
-			final ClusterProperties result = properties.cluster;
-			if(result!=null && !properties.primaryKeyGenerator.persistent)
-				throw new IllegalArgumentException("cluster network not supported together with schema.primaryKeyGenerator=" + properties.primaryKeyGenerator.name() + " (2)");
-			return result;
-		}
-	}
-
 	private static final String MULTICAST_ADDRESS = "230.0.0.1";
 	private static final int    MULTICAST_PORT = 14446;
 

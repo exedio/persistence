@@ -83,9 +83,7 @@ final class Connect
 		this.queryCache = new QueryCache(properties.getQueryCacheLimit());
 
 		{
-			final ClusterProperties clusterProperties =
-				ClusterProperties.get(properties);
-
+			final ClusterProperties clusterProperties = properties.cluster;
 			if(clusterProperties!=null)
 				this.cluster = new Cluster(modelName, types, clusterProperties, this);
 			else

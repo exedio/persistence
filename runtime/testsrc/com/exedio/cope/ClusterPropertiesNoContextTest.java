@@ -170,16 +170,17 @@ public class ClusterPropertiesNoContextTest
 			}
 		};
 
-		final ConnectProperties props = ConnectProperties.create(source);
-		// TODO throw exception below already above
+		final Source s = ConnectPropertiesTest.desc(source);
 		try
 		{
-			model.connect(props);
+			ConnectProperties.create(s);
 			fail();
 		}
-		catch(final IllegalArgumentException e)
+		catch(final IllegalPropertiesException e)
 		{
-			assertEquals("cluster network not supported together with schema.primaryKeyGenerator=memory (2)", e.getMessage());
+			assertEquals(
+					"property cluster in DESC not supported together with schema.primaryKeyGenerator=memory",
+					e.getMessage());
 		}
 	}
 
