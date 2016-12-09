@@ -51,10 +51,11 @@ public class ConnectPropertiesTest
 
 		for(final Field field : p.getFields())
 		{
-			assertTrue(field.getKey(), field.isSpecified());
+			final String key = field.getKey();
+			assertTrue(key, field.isSpecified());
 			if(field.getDefaultValue()!=null &&
-				!notOnDefault.contains(field.getKey()))
-				assertEquals(field.getKey(), field.getDefaultValue(), field.getValue());
+				!notOnDefault.contains(key))
+				assertEquals(key, field.getDefaultValue(), field.getValue());
 		}
 
 		p.ensureValidity();
