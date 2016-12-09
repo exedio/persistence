@@ -113,7 +113,7 @@ public class LRUMapTest
 		for(int j = 0; j<8; j++)
 		{
 			assertPerformance(new HashMap<Integer, String>());
-			assertPerformance(new LRUMap <Integer, String>(200000));
+			assertPerformance(new LRUMap <Integer, String>(2_000_000));
 			assertPerformance(new DateMap<Integer, String>());
 			assertPerformance(new TIntObjectHashMap<String>());
 			System.out.println();
@@ -124,12 +124,12 @@ public class LRUMapTest
 	{
 		System.out.print(' ' + map.getClass().getSimpleName() + ":");
 		final long startMem = mem();
-		for(int i = 0; i<100000; i++)
+		for(int i = 0; i<1_000_000; i++)
 			map.put(i, "val"+i);
 		final long endMem = mem();
 		System.out.print(" " + String.valueOf((startMem+endMem)/1000000) + "MB");
 		final long start = System.nanoTime();
-		for(int i = 0; i<100000; i++)
+		for(int i = 0; i<1_000_000; i++)
 			map.get(i);
 		final long end = System.nanoTime();
 		System.out.print(" " + toMillies(end, start) + "ms");
@@ -139,12 +139,12 @@ public class LRUMapTest
 	{
 		System.out.print(' ' + map.getClass().getSimpleName() + ":");
 		final long startMem = mem();
-		for(int i = 0; i<100000; i++)
+		for(int i = 0; i<1_000_000; i++)
 			map.put(i, "val"+i);
 		final long endMem = mem();
 		System.out.print(" " + String.valueOf((startMem+endMem)/1000000) + "MB");
 		final long start = System.nanoTime();
-		for(int i = 0; i<100000; i++)
+		for(int i = 0; i<1_000_000; i++)
 			map.get(i);
 		final long end = System.nanoTime();
 		System.out.print(" " + toMillies(end, start) + "ms");
