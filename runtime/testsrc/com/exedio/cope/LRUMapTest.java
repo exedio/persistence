@@ -19,11 +19,11 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.misc.TimeUtil.toMillies;
+import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import gnu.trove.TIntObjectHashMap;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -103,8 +103,8 @@ public class LRUMapTest
 
 	private static void assertIt(final LRUMap<String, String> map, final String[] keys, final String[] values)
 	{
-		assertEquals(Arrays.asList(keys),   Arrays.asList(map.keySet().toArray(new String[map.size()])));
-		assertEquals(Arrays.asList(values), Arrays.asList(map.values().toArray(new String[map.size()])));
+		assertEquals(asList(keys),   asList(map.keySet().toArray(new String[map.size()])));
+		assertEquals(asList(values), asList(map.values().toArray(new String[map.size()])));
 	}
 
 	@Ignore
