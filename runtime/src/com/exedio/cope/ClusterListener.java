@@ -54,7 +54,7 @@ abstract class ClusterListener
 			final int typeLength)
 	{
 		this.properties = properties;
-		this.secret = properties.getSecret();
+		this.secret = properties.secret;
 		this.localNode = properties.node;
 		this.sequenceCheckerCapacity = properties.listenSeqCheckCap;
 		this.typeLength = typeLength;

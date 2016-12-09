@@ -195,16 +195,14 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	final boolean changeListenersPrioritySet   = value("changeListeners.prioritySet",   false);
 	final     int changeListenersPriority      = value("changeListeners.priority",      MAX_PRIORITY, MIN_PRIORITY);
 
-	final ClusterProperties clusterWithoutContext = noContext() ? value("cluster", false, ClusterProperties.factory()) : null;
+	final ClusterProperties cluster = value("cluster", false, ClusterProperties.factory());
 
 
 	private static final String mediaRooturlDEFAULT = "media/";
 	private final String mediaRooturl;
 	private final int mediaOffsetExpires = value("media.offsetExpires", 1000 * 5, 0);
 	private final int mediaFingerOffset  = value("media.fingerprintOffset", 0, 0);
-	private final String mediaUrlSecret = noContext()
-			? checkMediaUrlSecret       (valueHidden(     "media.url.secret", ""))
-			: checkMediaUrlSecretContext(getContext().get("media.url.secret"));
+	private final String mediaUrlSecret = checkMediaUrlSecret(valueHidden("media.url.secret", ""));
 
 	private final String checkMediaUrlSecret(final String s)
 	{
@@ -217,11 +215,6 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 					"must have at least 10 characters, " +
 					"but was '" + s + "' with just " + length + " characters");
 		return s;
-	}
-
-	private static final String checkMediaUrlSecretContext(final String s)
-	{
-		return ( (s==null) || (s.length()<10) ) ? null : s;
 	}
 
 	public String getMediaRootUrl()
@@ -504,19 +497,6 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 			mysqlLowerCaseTableNames
 			? tableName.toLowerCase(Locale.ENGLISH)
 			: tableName;
-	}
-
-	boolean noContext()
-	{
-		try
-		{
-			getContext();
-			return false;
-		}
-		catch(final IllegalStateException e)
-		{
-			return true;
-		}
 	}
 
 	public Callable<?> getProbeTest()

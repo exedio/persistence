@@ -24,7 +24,6 @@ import static java.lang.Integer.MIN_VALUE;
 import static java.lang.Thread.MAX_PRIORITY;
 import static java.lang.Thread.MIN_PRIORITY;
 
-import com.exedio.cope.util.PrefixSource;
 import com.exedio.cope.util.Properties;
 import java.io.IOException;
 import java.net.DatagramSocket;
@@ -42,32 +41,18 @@ final class ClusterProperties extends Properties
 
 	static ClusterProperties get(final ConnectProperties properties)
 	{
-		if(properties.noContext())
 		{
-			final ClusterProperties result = properties.clusterWithoutContext;
+			final ClusterProperties result = properties.cluster;
 			if(result!=null && !properties.primaryKeyGenerator.persistent)
 				throw new IllegalArgumentException("cluster network not supported together with schema.primaryKeyGenerator=" + properties.primaryKeyGenerator.name() + " (2)");
 			return result;
 		}
-
-		final Properties.Source source = new PrefixSource(properties.getContext(), "cluster.");
-		final ClusterProperties clusterProperties = new ClusterProperties(source);
-		if(!clusterProperties.isEnabled())
-			return null;
-
-		if(!properties.primaryKeyGenerator.persistent)
-			throw new IllegalArgumentException("cluster network not supported together with schema.primaryKeyGenerator=" + properties.primaryKeyGenerator.name());
-
-		return clusterProperties;
 	}
 
 	private static final String MULTICAST_ADDRESS = "230.0.0.1";
 	private static final int    MULTICAST_PORT = 14446;
 
-	/**
-	 * a value of 0 disables cluster invalidation at all
-	 */
-	private final int     secret              = value("secret", 0, MIN_VALUE);
+	        final int     secret              = value("secret", 0, MIN_VALUE);
 	private final boolean nodeAuto            = value("nodeAuto" , true);
 	private final int     nodeField           = value("node"     , 0, MIN_VALUE);
 	private final boolean sendSourcePortAuto  = value("sendSourcePortAuto" , true);
@@ -101,7 +86,10 @@ final class ClusterProperties extends Properties
 	{
 		super(source);
 
-		if(isEnabled())
+		if(secret==0)
+			throw newException("secret", "must not be zero"); // TODO test
+
+		// TODO fix identation
 		{
 			if(nodeAuto)
 			{
@@ -130,12 +118,6 @@ final class ClusterProperties extends Properties
 					pingPayload[pos] = (byte)(r.nextInt()>>8);
 				this.pingPayload = pingPayload;
 			}
-		}
-		else
-		{
-			this.node = 0;
-			this.packetSize = MIN_VALUE;
-			this.pingPayload = null;
 		}
 	}
 
@@ -169,19 +151,6 @@ final class ClusterProperties extends Properties
 		}
 	}
 
-	private boolean isEnabled()
-	{
-		return secret!=0;
-	}
-
-	int getSecret()
-	{
-		if(!isEnabled())
-			throw new IllegalStateException("is disabled");
-
-		return secret;
-	}
-
 	int copyPingPayload(int pos, final byte[] destination)
 	{
 		for(; pos<packetSize; pos++)
@@ -202,9 +171,6 @@ final class ClusterProperties extends Properties
 
 	DatagramSocket newSendSocket()
 	{
-		if(!isEnabled())
-			throw new IllegalStateException("is disabled");
-
 		try
 		{
 			@SuppressWarnings("resource") // OK: is closed outside this factory method
@@ -235,9 +201,6 @@ final class ClusterProperties extends Properties
 
 	DatagramSocket newListenSocket()
 	{
-		if(!isEnabled())
-			throw new IllegalStateException("is disabled");
-
 		final int port = listenPort;
 		try
 		{
@@ -274,21 +237,12 @@ final class ClusterProperties extends Properties
 
 	void setListenPriority(final ThreadSwarm thread)
 	{
-		if(!isEnabled())
-			throw new IllegalStateException("is disabled");
-
 		if(listenPrioritySet)
 			thread.setPriority(listenPriority);
 	}
 
 	static Factory<ClusterProperties> factory()
 	{
-		return source ->
-			{
-				final ClusterProperties result = new ClusterProperties(source);
-				if(!result.isEnabled())
-					throw new RuntimeException(source.getDescription());
-				return result;
-			};
+		return ClusterProperties::new;
 	}
 }

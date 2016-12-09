@@ -58,7 +58,7 @@ abstract class ClusterSender
 			pingPongTemplate[2] = MAGIC2;
 			pingPongTemplate[3] = MAGIC3;
 			int pos = 4;
-			pos = marshal(pos, pingPongTemplate, properties.getSecret());
+			pos = marshal(pos, pingPongTemplate, properties.secret);
 			pos = marshal(pos, pingPongTemplate, properties.node);
 			assert pos==KIND;
 			pos = marshal(pos, pingPongTemplate, 0xeeeeee);
@@ -79,7 +79,7 @@ abstract class ClusterSender
 			invalidateTemplate[2] = MAGIC2;
 			invalidateTemplate[3] = MAGIC3;
 			int pos = 4;
-			pos = marshal(pos, invalidateTemplate, properties.getSecret());
+			pos = marshal(pos, invalidateTemplate, properties.secret);
 			pos = marshal(pos, invalidateTemplate, properties.node);
 			assert pos==KIND;
 			pos = marshal(pos, invalidateTemplate, KIND_INVALIDATE);
