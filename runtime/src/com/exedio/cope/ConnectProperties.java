@@ -307,28 +307,6 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 		}
 	}
 
-	/**
-	 * @deprecated Use
-	 * {@link #ConnectProperties(File) ConnectProperties}({@link #getDefaultPropertyFile()})
-	 * instead.
-	 */
-	@Deprecated
-	public ConnectProperties()
-	{
-		this(getDefaultPropertyFile(), null);
-	}
-
-	/**
-	 * @deprecated Use
-	 * {@link #ConnectProperties(File,Properties.Source) ConnectProperties}({@link #getDefaultPropertyFile()}, context)
-	 * instead.
-	 */
-	@Deprecated
-	public ConnectProperties(final Source context)
-	{
-		this(getDefaultPropertyFile(), context);
-	}
-
 	public static final File getDefaultPropertyFile()
 	{
 		String result = System.getProperty("com.exedio.cope.properties");
@@ -562,6 +540,28 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	}
 
 	// ------------------- deprecated stuff -------------------
+
+	/**
+	 * @deprecated Use
+	 * {@link #ConnectProperties(File) ConnectProperties}({@link #getDefaultPropertyFile()})
+	 * instead.
+	 */
+	@Deprecated
+	public ConnectProperties()
+	{
+		this(getDefaultPropertyFile(), null);
+	}
+
+	/**
+	 * @deprecated Use
+	 * {@link #ConnectProperties(File,Properties.Source) ConnectProperties}({@link #getDefaultPropertyFile()}, context)
+	 * instead.
+	 */
+	@Deprecated
+	public ConnectProperties(final Source context)
+	{
+		this(getDefaultPropertyFile(), context);
+	}
 
 	/**
 	 * @deprecated Use {@link #getConnectionUsername()} instead
