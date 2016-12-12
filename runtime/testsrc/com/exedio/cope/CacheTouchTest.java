@@ -94,7 +94,17 @@ public class CacheTouchTest extends TestWithEnvironment
 		assertUpdateCount(MIN_VALUE, st?MIN_VALUE:0);
 		assertCache(st?0:1, 0, 2, 2, 1);
 
-		if(!st)
+		if(st)
+		{
+			// the following fails, if transaction does run in
+			// repeatable-read isolation and does no itemCacheStamp.
+			item.setName("itemName3");
+			assertUpdateCount(2, 1);
+			assertCache(1, 0, 3, 2, 1);
+
+			assertEquals("itemName3", item.getName());
+		}
+		else
 		{
 			try
 			{
@@ -111,16 +121,6 @@ public class CacheTouchTest extends TestWithEnvironment
 			assertCache(0, 1, 2, 2, 1);
 
 			assertEquals("itemName2", item.getName());
-		}
-		else
-		{
-			// the following fails, if transaction does run in
-			// repeatable-read isolation and does no itemCacheStamp.
-			item.setName("itemName3");
-			assertUpdateCount(2, 1);
-			assertCache(1, 0, 3, 2, 1);
-
-			assertEquals("itemName3", item.getName());
 		}
 	}
 
