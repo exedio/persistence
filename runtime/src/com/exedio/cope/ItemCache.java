@@ -21,6 +21,7 @@ package com.exedio.cope;
 import gnu.trove.TLongHashSet;
 import gnu.trove.TLongIterator;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -31,7 +32,7 @@ import java.util.Set;
 final class ItemCache
 {
 	private final LRUMap<Item,WrittenState> map;
-	private final Map<Long,Set<Item>> stampList=new LinkedHashMap<>();
+	private final Map<Long,Set<Item>> stampList;
 
 	private final TypeStats[] typeStats;
 
@@ -54,16 +55,36 @@ final class ItemCache
 		{
 			typeStats[eldest.getKey().type.cacheIdTransiently].replacements++;
 		});
+		if (properties.itemCacheStamps)
+		{
+			stampList=new LinkedHashMap<>();
+		}
+		else
+		{
+			stampList=null;
+		}
+	}
+
+	private final boolean stampsEnabled()
+	{
+		return stampList!=null;
 	}
 
 	private boolean isStamped(final Item item, final long connectionStamp)
 	{
-		for (final Map.Entry<Long, Set<Item>> entry: stampList.entrySet())
+		if (stampsEnabled())
 		{
-			if (entry.getKey()<connectionStamp) continue;
-			if (entry.getValue().contains(item)) return true;
+			for (final Map.Entry<Long, Set<Item>> entry: stampList.entrySet())
+			{
+				if (entry.getKey()<connectionStamp) continue;
+				if (entry.getValue().contains(item)) return true;
+			}
+			return false;
 		}
-		return false;
+		else
+		{
+			return false;
+		}
 	}
 
 	WrittenState getState(final Transaction tx, final Item item)
@@ -137,7 +158,7 @@ final class ItemCache
 		final long stamp = ItemCacheStamp.next();
 		synchronized (map)
 		{
-			final Set<Item> invalidated=new HashSet<>();
+			final Set<Item> invalidated=stampsEnabled()?new HashSet<>():null;
 			for(int typeTransiently=0; typeTransiently<invalidations.length; typeTransiently++)
 			{
 				final TLongHashSet invalidatedPKs = invalidations[typeTransiently];
@@ -149,7 +170,7 @@ final class ItemCache
 						final Type<?> type=typeStat.type;
 						if (type.cacheIdTransiently!=typeTransiently) throw new RuntimeException();
 						final Item item=type.activate(i.next());
-						invalidated.add(item);
+						if (stampsEnabled()) invalidated.add(item);
 						typeStat.invalidationsOrdered++;
 						if (map.remove(item)!=null)
 						{
@@ -158,7 +179,7 @@ final class ItemCache
 					}
 				}
 			}
-			stampList.put(stamp, invalidated);
+			if (stampsEnabled()) stampList.put(stamp, invalidated);
 		}
 	}
 
@@ -172,23 +193,26 @@ final class ItemCache
 
 	void purgeStamps(final long untilStamp)
 	{
-		synchronized (map)
+		if (stampsEnabled())
 		{
-			for (final Iterator<Map.Entry<Long, Set<Item>>> iter=stampList.entrySet().iterator(); iter.hasNext();)
+			synchronized (map)
 			{
-				final Map.Entry<Long, Set<Item>> entry=iter.next();
-				if (entry.getKey()<untilStamp)
+				for (final Iterator<Map.Entry<Long, Set<Item>>> iter=stampList.entrySet().iterator(); iter.hasNext();)
 				{
-					for (final Item item: entry.getValue())
+					final Map.Entry<Long, Set<Item>> entry=iter.next();
+					if (entry.getKey()<untilStamp)
 					{
-						// non-cached items don't get stamped, so the typeStats entry can't be null
-						typeStats[item.type.cacheIdTransiently].stampsPurged++;
+						for (final Item item: entry.getValue())
+						{
+							// non-cached items don't get stamped, so the typeStats entry can't be null
+							typeStats[item.type.cacheIdTransiently].stampsPurged++;
+						}
+						iter.remove();
 					}
-					iter.remove();
-				}
-				else
-				{
-					break;
+					else
+					{
+						break;
+					}
 				}
 			}
 		}
@@ -200,9 +224,12 @@ final class ItemCache
 	@Deprecated
 	void clearStamps()
 	{
-		synchronized (map)
+		if (stampsEnabled())
 		{
-			stampList.clear();
+			synchronized (map)
+			{
+				stampList.clear();
+			}
 		}
 	}
 
@@ -220,11 +247,14 @@ final class ItemCache
 			{
 				levels[item.type.cacheIdTransiently]++;
 			}
-			for (final Set<Item> value: stampList.values())
+			if (stampsEnabled())
 			{
-				for (final Item item: value)
+				for (final Set<Item> value: stampList.values())
 				{
-					stampsSizes[item.type.cacheIdTransiently]++;
+					for (final Item item: value)
+					{
+						stampsSizes[item.type.cacheIdTransiently]++;
+					}
 				}
 			}
 		}
