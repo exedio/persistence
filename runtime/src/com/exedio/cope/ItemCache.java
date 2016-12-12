@@ -185,7 +185,7 @@ final class ItemCache
 		private final VolatileLong misses = new VolatileLong();
 		private long concurrentLoads = 0;
 		private int replacementRuns = 0;
-		private int replacements = 0;
+		private long replacements = 0;
 		private long lastReplacementRun = 0;
 		private long invalidationsOrdered = 0;
 		private long invalidationsDone = 0;
