@@ -99,7 +99,7 @@ final class SamplerItemCache extends Item
 
 			maD(concurrentLoads, from.getConcurrentLoads(), to.getConcurrentLoads()),
 			maD(replacementRuns, from.getReplacementRuns(), to.getReplacementRuns()),
-			maD(replacements,    from.getReplacements   (), to.getReplacements   ()),
+			maD(replacements,    from.getReplacementsL  (), to.getReplacementsL  ()),
 			map(lastReplacementRun, to.getLastReplacementRun()),
 
 			map(ageAverageMillis, to.getAgeAverageMillis()),
