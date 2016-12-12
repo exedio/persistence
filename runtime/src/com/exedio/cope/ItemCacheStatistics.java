@@ -30,7 +30,7 @@ public final class ItemCacheStatistics
 	private long summarizedHits;
 	private long summarizedMisses;
 	private long summarizedConcurrentLoads;
-	private int summarizedReplacements;
+	private long summarizedReplacements;
 	private long summarizedInvalidationsOrdered;
 	private long summarizedInvalidationsDone;
 	private int  summarizedStampsSize;
@@ -51,7 +51,7 @@ public final class ItemCacheStatistics
 			long hits = 0;
 			long misses = 0;
 			long concurrentLoads = 0;
-			int replacements = 0;
+			long replacements = 0;
 			long invalidationsOrdered = 0l;
 			long invalidationsDone = 0l;
 			int  stampsSize = 0;
@@ -64,7 +64,7 @@ public final class ItemCacheStatistics
 				misses += info.getMisses();
 				concurrentLoads += info.getConcurrentLoads();
 
-				replacements += info.getReplacements();
+				replacements += info.getReplacementsL();
 				invalidationsOrdered += info.getInvalidationsOrdered();
 				invalidationsDone += info.getInvalidationsDone();
 				stampsSize   += info.getStampsSize();
@@ -120,7 +120,7 @@ public final class ItemCacheStatistics
 		return summarizedConcurrentLoads;
 	}
 
-	public int getSummarizedReplacements()
+	public long getSummarizedReplacements()
 	{
 		requireSummary();
 		return summarizedReplacements;
