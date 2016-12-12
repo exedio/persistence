@@ -92,7 +92,7 @@ final class SamplerStep
 		this.duration = System.nanoTime() - start;
 
 		// process data
-		this.itemCacheInfos = itemCacheStatistics.getItemCacheInfos();
+		this.itemCacheInfos = itemCacheStatistics.getDetails();
 		this.mediaSummary = new MediaSummary(mediaInfos);
 		this.transactions = new ArrayList<>(openTransactions.size());
 		{

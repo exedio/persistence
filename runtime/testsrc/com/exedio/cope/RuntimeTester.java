@@ -279,7 +279,7 @@ final class RuntimeTester
 	protected void assertCacheInfo(final Type<?>[] types)
 	{
 		final int limit = model.getConnectProperties().getItemCacheLimit();
-		final ItemCacheInfo[] ci = model.getItemCacheStatistics().getItemCacheInfos();
+		final ItemCacheInfo[] ci = model.getItemCacheStatistics().getDetails();
 		if(limit>0)
 		{
 			assertEquals(types.length, ci.length);

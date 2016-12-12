@@ -208,7 +208,7 @@ final class ItemCache
 
 	ItemCacheStatistics getStatistics(final List<Type<?>> typesInOriginalOrder)
 	{
-		final List<ItemCacheInfo> itemCacheInfos = new ArrayList<>(typeStats.length);
+		final List<ItemCacheInfo> details = new ArrayList<>(typeStats.length);
 
 		final int[] levels=new int[typeStats.length];
 		final int[] stampsSizes=new int[typeStats.length];
@@ -232,10 +232,10 @@ final class ItemCache
 		{
 			final TypeStats typeStat = typeStats[type.cacheIdTransiently];
 			if (typeStat!=null)
-				itemCacheInfos.add( typeStat.createItemCacheInfo(levels, stampsSizes) );
+				details.add( typeStat.createItemCacheInfo(levels, stampsSizes) );
 		}
 
-		return new ItemCacheStatistics(map.maxSize, level, itemCacheInfos.toArray(new ItemCacheInfo[itemCacheInfos.size()]));
+		return new ItemCacheStatistics(map.maxSize, level, details.toArray(new ItemCacheInfo[details.size()]));
 	}
 
 	static class TypeStats

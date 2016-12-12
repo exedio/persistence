@@ -52,11 +52,11 @@ public class CopeExternalTest extends TestWithEnvironment
 		assertCacheInfo(new Type<?>[]{CachedItem.TYPE});
 		if (model.getConnectProperties().getItemCacheLimit()>0)
 		{
-			assertEquals(0, model.getItemCacheStatistics().getItemCacheInfos()[0].getLevel());
+			assertEquals(0, model.getItemCacheStatistics().getDetails()[0].getLevel());
 		}
 		else
 		{
-			assertEquals(0, model.getItemCacheStatistics().getItemCacheInfos().length);
+			assertEquals(0, model.getItemCacheStatistics().getDetails().length);
 		}
 
 		try (TransactionTry tx=model.startTransactionTry("NoCacheTest"))
@@ -68,14 +68,14 @@ public class CopeExternalTest extends TestWithEnvironment
 		}
 		if (model.getConnectProperties().getItemCacheLimit()>0)
 		{
-			final ItemCacheInfo[] itemCacheInfo=model.getItemCacheStatistics().getItemCacheInfos();
+			final ItemCacheInfo[] itemCacheInfo=model.getItemCacheStatistics().getDetails();
 			assertEquals(1, itemCacheInfo.length);
 			assertEquals(1, itemCacheInfo[0].getLevel());
 			assertEquals(CachedItem.TYPE, itemCacheInfo[0].getType());
 		}
 		else
 		{
-			assertEquals(0, model.getItemCacheStatistics().getItemCacheInfos().length);
+			assertEquals(0, model.getItemCacheStatistics().getDetails().length);
 		}
 	}
 

@@ -157,7 +157,7 @@ public class HierarchyEmptyTest extends TestWithEnvironment
 				HierarchyEmptySuper.TYPE
 			), model.getConcreteTypes());
 
-		final ItemCacheInfo[] itemCacheInfo = model.getItemCacheStatistics().getItemCacheInfos();
+		final ItemCacheInfo[] itemCacheInfo = model.getItemCacheStatistics().getDetails();
 		if(model.getConnectProperties().getItemCacheLimit()>0)
 		{
 			// must be the same order as in model constructor

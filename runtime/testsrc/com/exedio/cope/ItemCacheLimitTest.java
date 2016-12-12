@@ -51,7 +51,7 @@ public class ItemCacheLimitTest
 		final ItemCacheStatistics statistics = model.getItemCacheStatistics();
 		assertEquals(globalLimit, statistics.getLimit());
 
-		final ItemCacheInfo[] infos=statistics.getItemCacheInfos();
+		final ItemCacheInfo[] infos=statistics.getDetails();
 		assertEquals(2, infos.length);
 
 		assertEquals(Item1.TYPE.getID(), Item1.TYPE, infos[0].getType());

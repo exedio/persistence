@@ -197,7 +197,7 @@ public class ItemCacheStampPurgeTest extends TestWithEnvironment
 
 	private void initCache()
 	{
-		final ItemCacheInfo[] icis = model.getItemCacheStatistics().getItemCacheInfos();
+		final ItemCacheInfo[] icis = model.getItemCacheStatistics().getDetails();
 		assertEquals(1, icis.length);
 		final ItemCacheInfo ici = icis[0];
 		assertSame(TYPE, ici.getType());
@@ -219,7 +219,7 @@ public class ItemCacheStampPurgeTest extends TestWithEnvironment
 			final long stampsHits,
 			final long stampsPurged)
 	{
-		final ItemCacheInfo[] icis = model.getItemCacheStatistics().getItemCacheInfos();
+		final ItemCacheInfo[] icis = model.getItemCacheStatistics().getDetails();
 		assertEquals(1, icis.length);
 		final ItemCacheInfo ici = icis[0];
 		assertSame(TYPE, ici.getType());

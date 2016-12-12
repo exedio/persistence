@@ -24,7 +24,7 @@ public final class ItemCacheStatistics
 {
 	private final int limit;
 	private final int level;
-	private final ItemCacheInfo[] itemCacheInfos;
+	private final ItemCacheInfo[] details;
 
 	private boolean summaryComputed=false;
 	private long summarizedHits;
@@ -37,11 +37,11 @@ public final class ItemCacheStatistics
 	private long summarizedStampsHits;
 	private long summarizedStampsPurged;
 
-	ItemCacheStatistics(final int limit, final int level, final ItemCacheInfo[] itemCacheInfos)
+	ItemCacheStatistics(final int limit, final int level, final ItemCacheInfo[] details)
 	{
 		this.limit = limit;
 		this.level = level;
-		this.itemCacheInfos = itemCacheInfos;
+		this.details = details;
 	}
 
 	private void requireSummary()
@@ -58,7 +58,7 @@ public final class ItemCacheStatistics
 			long stampsHits = 0l;
 			long stampsPurged = 0l;
 
-			for(final ItemCacheInfo info : itemCacheInfos)
+			for(final ItemCacheInfo info : details)
 			{
 				hits += info.getHits();
 				misses += info.getMisses();
@@ -97,9 +97,9 @@ public final class ItemCacheStatistics
 		return level;
 	}
 
-	public ItemCacheInfo[] getItemCacheInfos()
+	public ItemCacheInfo[] getDetails()
 	{
-		return Arrays.copyOf(itemCacheInfos, itemCacheInfos.length);
+		return Arrays.copyOf(details, details.length);
 	}
 
 	public long getSummarizedHits()

@@ -563,7 +563,7 @@ public final class Model implements Serializable
 	@Deprecated
 	public ItemCacheInfo[] getItemCacheInfo()
 	{
-		return getItemCacheStatistics().getItemCacheInfos();
+		return getItemCacheStatistics().getDetails();
 	}
 
 	public QueryCacheInfo getQueryCacheInfo()
