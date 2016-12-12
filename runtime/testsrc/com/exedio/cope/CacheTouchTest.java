@@ -115,24 +115,22 @@ public class CacheTouchTest extends TestWithEnvironment
 	}
 	else
 	{
-		final boolean il = props.itemCacheStamps;
-
 		assertEquals("itemName", item.getName());
-		assertUpdateCount(0, il?MIN_VALUE:1);
-		assertCache(il?0:1, 0, 2, 2, 1);
+		assertUpdateCount(0, MIN_VALUE);
+		assertCache(0, 0, 2, 2, 1);
 
 		model.commit();
 
 		// failure
 		model.startTransaction("CacheTouchTest failer");
-		assertUpdateCount(MIN_VALUE, il?MIN_VALUE:1);
-		assertCache(il?0:1, 0, 2, 2, 1);
+		assertUpdateCount(MIN_VALUE, MIN_VALUE);
+		assertCache(0, 0, 2, 2, 1);
 
 		// the following fails, if transaction does run in
 		// repeatable-read isolation and does no itemCacheStamp.
 		item.setName("itemName3");
 		assertUpdateCount(2, 1);
-		assertCache(1, il?0:1, il?3:2, 2, 1);
+		assertCache(1, 0, 3, 2, 1);
 
 		assertEquals("itemName3", item.getName());
 	}
