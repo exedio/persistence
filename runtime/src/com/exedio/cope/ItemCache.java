@@ -52,7 +52,7 @@ final class ItemCache
 		typeStats=typesStatsList.toArray(new TypeStats[typesStatsList.size()]);
 		map = new LRUMap<>(itemCacheLimit, eldest ->
 		{
-			typeStats[eldest.getKey().type.cacheIdTransiently].replacements.inc();
+			typeStats[eldest.getKey().type.cacheIdTransiently].replacements++;
 		});
 	}
 
@@ -93,13 +93,13 @@ final class ItemCache
 				{
 					if (isStamped(item, tx.getCacheStamp()))
 					{
-						typeStat.stampsHit.inc();
+						typeStat.stampsHit++;
 					}
 					else
 					{
 						if(map.put(item, state)!=null)
 						{
-							typeStat.concurrentLoads.inc();
+							typeStat.concurrentLoads++;
 						}
 					}
 				}
@@ -150,10 +150,10 @@ final class ItemCache
 						if (type.cacheIdTransiently!=typeTransiently) throw new RuntimeException();
 						final Item item=type.activate(i.next());
 						invalidated.add(item);
-						typeStat.invalidationsOrdered.inc();
+						typeStat.invalidationsOrdered++;
 						if (map.remove(item)!=null)
 						{
-							typeStat.invalidationsDone.inc();
+							typeStat.invalidationsDone++;
 						}
 					}
 				}
@@ -182,7 +182,7 @@ final class ItemCache
 					for (final Item item: entry.getValue())
 					{
 						// non-cached items don't get stamped, so the typeStats entry can't be null
-						typeStats[item.type.cacheIdTransiently].stampsPurged.inc();
+						typeStats[item.type.cacheIdTransiently].stampsPurged++;
 					}
 					iter.remove();
 				}
@@ -243,12 +243,12 @@ final class ItemCache
 		private final Type<?> type;
 		private final VolatileLong hits = new VolatileLong();
 		private final VolatileLong misses = new VolatileLong();
-		private final VolatileLong concurrentLoads = new VolatileLong();
-		private final VolatileLong replacements = new VolatileLong();
-		private final VolatileLong invalidationsOrdered = new VolatileLong();
-		private final VolatileLong invalidationsDone = new VolatileLong();
-		private final VolatileLong stampsHit = new VolatileLong();
-		private final VolatileLong stampsPurged = new VolatileLong();
+		private long concurrentLoads = 0;
+		private long replacements = 0;
+		private long invalidationsOrdered = 0;
+		private long invalidationsDone = 0;
+		private long stampsHit = 0;
+		private long stampsPurged = 0;
 
 		TypeStats(final Type<?> type)
 		{
@@ -262,11 +262,11 @@ final class ItemCache
 				levels[type.cacheIdTransiently],
 				hits.get(),
 				misses.get(),
-				concurrentLoads.get(),
-				replacements.get(),
-				invalidationsOrdered.get(), invalidationsDone.get(),
+				concurrentLoads,
+				replacements,
+				invalidationsOrdered, invalidationsDone,
 				stampsSizes[type.cacheIdTransiently],
-				stampsHit.get(), stampsPurged.get()
+				stampsHit, stampsPurged
 			);
 		}
 	}
