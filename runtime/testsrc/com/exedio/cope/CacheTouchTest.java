@@ -94,8 +94,7 @@ public class CacheTouchTest extends TestWithEnvironment
 		assertUpdateCount(MIN_VALUE, st?MIN_VALUE:0);
 		assertCache(st?0:1, 0, 2, 2, 1);
 
-	if(!st)
-	{
+		if(!st)
 		{
 			try
 			{
@@ -113,17 +112,16 @@ public class CacheTouchTest extends TestWithEnvironment
 
 			assertEquals("itemName2", item.getName());
 		}
-	}
-	else
-	{
-		// the following fails, if transaction does run in
-		// repeatable-read isolation and does no itemCacheStamp.
-		item.setName("itemName3");
-		assertUpdateCount(2, 1);
-		assertCache(1, 0, 3, 2, 1);
+		else
+		{
+			// the following fails, if transaction does run in
+			// repeatable-read isolation and does no itemCacheStamp.
+			item.setName("itemName3");
+			assertUpdateCount(2, 1);
+			assertCache(1, 0, 3, 2, 1);
 
-		assertEquals("itemName3", item.getName());
-	}
+			assertEquals("itemName3", item.getName());
+		}
 	}
 
 	@SuppressWarnings("deprecation") // OK: using special accessors for tests
