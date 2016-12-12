@@ -26,6 +26,17 @@ final class CopeCacheWeightHelper
 		return ann.value();
 	}
 
+	@SuppressWarnings("deprecation")
+	static boolean isDisabled(final Type<?> type)
+	{
+		final CopeCacheWeight annotation =
+				type.getAnnotation(CopeCacheWeight.class);
+
+		return
+				annotation!=null &&
+				annotation.value()==0;
+	}
+
 
 	private CopeCacheWeightHelper()
 	{
