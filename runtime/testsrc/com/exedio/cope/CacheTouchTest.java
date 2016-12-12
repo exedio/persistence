@@ -81,25 +81,33 @@ public class CacheTouchTest extends TestWithEnvironment
 		assertUpdateCount(MIN_VALUE, MIN_VALUE);
 		assertCache(0, 0, 1, 2, 1);
 
-	final ConnectProperties props = model.getConnectProperties();
-	if(!props.itemCacheStamps)
-	{
+		final boolean st = model.getConnectProperties().itemCacheStamps;
+
 		assertEquals("itemName", item.getName());
-		assertUpdateCount(0, 0);
-		assertCache(1, 0, 2, 2, 1);
+		assertUpdateCount(0, st?MIN_VALUE:0);
+		assertCache(st?0:1, 0, 2, 2, 1);
 
 		model.commit();
 
 		// failure
 		model.startTransaction("CacheTouchTest failer");
-		assertUpdateCount(MIN_VALUE, 0);
-		assertCache(1, 0, 2, 2, 1);
+		assertUpdateCount(MIN_VALUE, st?MIN_VALUE:0);
+		assertCache(st?0:1, 0, 2, 2, 1);
 
+		if(st)
+		{
+			// the following fails, if transaction does run in
+			// repeatable-read isolation and does no itemCacheStamp.
+			item.setName("itemName3");
+			assertUpdateCount(2, 1);
+			assertCache(1, 0, 3, 2, 1);
+
+			assertEquals("itemName3", item.getName());
+		}
+		else
 		{
 			try
 			{
-				// TODO
-				// The exception is a bug that needs to be fixed.
 				item.setName("itemName3");
 				fail();
 			}
@@ -113,42 +121,14 @@ public class CacheTouchTest extends TestWithEnvironment
 			assertEquals("itemName2", item.getName());
 		}
 	}
-	else
-	{
-		final boolean il = props.itemCacheStamps;
-
-		assertEquals("itemName", item.getName());
-		assertUpdateCount(0, il?MIN_VALUE:1);
-		assertCache(il?0:1, 0, 2, 2, 1);
-
-		model.commit();
-
-		// failure
-		model.startTransaction("CacheTouchTest failer");
-		assertUpdateCount(MIN_VALUE, il?MIN_VALUE:1);
-		assertCache(il?0:1, 0, 2, 2, 1);
-
-		// the following fails, if transaction does run in
-		// repeatable-read isolation and does no itemCacheStamp.
-		item.setName("itemName3");
-		assertUpdateCount(2, 1);
-		assertCache(1, il?0:1, il?3:2, 2, 1);
-
-		assertEquals("itemName3", item.getName());
-	}
-	}
 
 	@SuppressWarnings("deprecation") // OK: using special accessors for tests
 	private void assertUpdateCount(final int expected, final int global)
 	{
-		final ConnectProperties props = model.getConnectProperties();
 		if(isUpdateCounterEnabled(model))
 		{
 			assertEquals("transaction", expected, item.getUpdateCountIfActive());
-			if(props.getItemCacheLimit()>0)
-				assertEquals("global", global, item.getUpdateCountGlobal());
-			else
-				assertEquals("global", Integer.MIN_VALUE, item.getUpdateCountGlobal());
+			assertEquals("global", global, item.getUpdateCountGlobal());
 		}
 	}
 
