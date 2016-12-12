@@ -21,7 +21,6 @@ package com.exedio.cope;
 import gnu.trove.TLongHashSet;
 import gnu.trove.TLongIterator;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
