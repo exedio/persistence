@@ -240,22 +240,22 @@ final class ItemCache
 
 	static class TypeStats
 	{
-		private final Type<?> type;
-		private final VolatileLong hits = new VolatileLong();
-		private final VolatileLong misses = new VolatileLong();
-		private long concurrentLoads = 0;
-		private long replacements = 0;
-		private long invalidationsOrdered = 0;
-		private long invalidationsDone = 0;
-		private long stampsHit = 0;
-		private long stampsPurged = 0;
+		final Type<?> type;
+		final VolatileLong hits = new VolatileLong();
+		final VolatileLong misses = new VolatileLong();
+		long concurrentLoads = 0;
+		long replacements = 0;
+		long invalidationsOrdered = 0;
+		long invalidationsDone = 0;
+		long stampsHit = 0;
+		long stampsPurged = 0;
 
 		TypeStats(final Type<?> type)
 		{
 			this.type=type;
 		}
 
-		private ItemCacheInfo createItemCacheInfo(final int[] levels, final int[] stampsSizes)
+		ItemCacheInfo createItemCacheInfo(final int[] levels, final int[] stampsSizes)
 		{
 			return new ItemCacheInfo(
 				type,
