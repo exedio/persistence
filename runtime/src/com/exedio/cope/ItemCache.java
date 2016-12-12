@@ -49,7 +49,19 @@ final class ItemCache
 
 				typesStatsList.add(cachingDisabled?null:new TypeStats(type));
 			}
+
 		typeStats=typesStatsList.toArray(new TypeStats[typesStatsList.size()]);
+		for(int i = 0; i<typeStats.length; i++)
+		{
+			final TypeStats stats = typeStats[i];
+			if(stats==null)
+				continue;
+
+			final Type<?> type = stats.type;
+			if(type.cacheIdTransiently!=i)
+				throw new RuntimeException("" + type.cacheIdTransiently + '/' + type.id + '/' + i);
+		}
+
 		map = new LRUMap<>(limit, eldest ->
 		{
 			typeStats[eldest.getKey().type.cacheIdTransiently].replacements++;
