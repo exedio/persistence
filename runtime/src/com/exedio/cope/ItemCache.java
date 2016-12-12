@@ -37,20 +37,20 @@ final class ItemCache
 
 	ItemCache(final List<Type<?>> typesSorted, final ConnectProperties properties)
 	{
-		final int itemCacheLimit=properties.getItemCacheLimit();
+		final int limit=properties.getItemCacheLimit();
 		final List<TypeStats> typesStatsList=new ArrayList<>();
 		for(final Type<?> type : typesSorted)
 			if(!type.isAbstract)
 			{
 				final boolean cachingDisabled =
-						itemCacheLimit==0 ||
+						limit==0 ||
 						type.external ||
 						CopeCacheWeightHelper.isDisabled(type);
 
 				typesStatsList.add(cachingDisabled?null:new TypeStats(type));
 			}
 		typeStats=typesStatsList.toArray(new TypeStats[typesStatsList.size()]);
-		map = new LRUMap<>(itemCacheLimit, eldest ->
+		map = new LRUMap<>(limit, eldest ->
 		{
 			typeStats[eldest.getKey().type.cacheIdTransiently].replacements++;
 		});
