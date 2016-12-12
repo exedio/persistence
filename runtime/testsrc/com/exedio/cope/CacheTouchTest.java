@@ -108,8 +108,6 @@ public class CacheTouchTest extends TestWithEnvironment
 		{
 			try
 			{
-				// TODO
-				// The exception is a bug that needs to be fixed.
 				item.setName("itemName3");
 				fail();
 			}
