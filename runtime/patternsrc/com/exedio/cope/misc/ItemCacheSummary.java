@@ -59,8 +59,7 @@ public final class ItemCacheSummary
 			hits += info.getHits();
 			misses += info.getMisses();
 			concurrentLoads += info.getConcurrentLoads();
-
-			replacements += info.getReplacements();
+			replacements += info.getReplacementsL();
 			invalidationsOrdered += info.getInvalidationsOrdered();
 			invalidationsDone += info.getInvalidationsDone();
 			stampsSize   += info.getStampsSize();
