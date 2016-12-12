@@ -139,14 +139,10 @@ public class CacheTouchTest extends TestWithEnvironment
 	@SuppressWarnings("deprecation") // OK: using special accessors for tests
 	private void assertUpdateCount(final int expected, final int global)
 	{
-		final ConnectProperties props = model.getConnectProperties();
 		if(isUpdateCounterEnabled(model))
 		{
 			assertEquals("transaction", expected, item.getUpdateCountIfActive());
-			if(props.getItemCacheLimit()>0)
-				assertEquals("global", global, item.getUpdateCountGlobal());
-			else
-				assertEquals("global", Integer.MIN_VALUE, item.getUpdateCountGlobal());
+			assertEquals("global", global, item.getUpdateCountGlobal());
 		}
 	}
 
