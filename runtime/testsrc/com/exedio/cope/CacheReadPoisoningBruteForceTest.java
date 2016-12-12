@@ -40,15 +40,15 @@ public class CacheReadPoisoningBruteForceTest extends TestWithEnvironment
 		copeRule.omitTransaction();
 	}
 
-	boolean itemCacheStamps;
+	boolean stamps;
 	CacheIsolationItem item;
 	final ThreadStoppable threads[] = new ThreadStoppable[10];
 
 	@Before public final void setUp()
 	{
-		itemCacheStamps = model.getConnectProperties().itemCacheStamps;
+		stamps = model.getConnectProperties().itemCacheStamps;
 
-		System.out.println("CacheReadPoisoningBruteForceTest cache.stamps " + itemCacheStamps);
+		System.out.println("CacheReadPoisoningBruteForceTest stamps " + stamps);
 
 		try(TransactionTry tx = model.startTransactionTry("CacheBadReadTest setUp"))
 		{
@@ -126,12 +126,12 @@ public class CacheReadPoisoningBruteForceTest extends TestWithEnvironment
 					item.setName("itemName" + i);
 					model.commit();
 				}
-				assertTrue("itemCacheStamp " + itemCacheStamps + " " + i, itemCacheStamps);
+				assertTrue("stamps " + stamps + " " + i, stamps);
 			}
 			catch(final TemporaryTransactionException e)
 			{
 				assertNotNull(e.getMessage());
-				assertFalse("itemCacheStamp " + itemCacheStamps + " " + i, itemCacheStamps);
+				assertFalse("stamps " + stamps + " " + i, stamps);
 			}
 			finally
 			{
