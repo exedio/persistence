@@ -49,7 +49,7 @@ public class ItemCacheSummaryTest
 		assertEquals( 84, ms.getMisses());
 		assertEquals(104, ms.getConcurrentLoads());
 		assertEquals(124, ms.getReplacementRuns());
-		assertEquals(144, ms.getReplacements());
+		assertEquals(144, ms.getReplacementsL());
 		assertEquals( D2, ms.getLastReplacementRun());
 		assertEquals( 91, ms.getAgeMinimumMillis());
 		assertEquals(  3, ms.getAgeAverageMillis());
@@ -97,7 +97,7 @@ public class ItemCacheSummaryTest
 		assertEquals(0, ms.getMisses());
 		assertEquals(0, ms.getConcurrentLoads());
 		assertEquals(0, ms.getReplacementRuns());
-		assertEquals(0, ms.getReplacements());
+		assertEquals(0, ms.getReplacementsL());
 		assertEquals(null, ms.getLastReplacementRun());
 		assertEquals(0, ms.getAgeMinimumMillis());
 		assertEquals(0, ms.getAgeAverageMillis());

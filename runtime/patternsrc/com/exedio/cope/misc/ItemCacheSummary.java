@@ -18,6 +18,9 @@
 
 package com.exedio.cope.misc;
 
+import static java.lang.Integer.MAX_VALUE;
+import static java.lang.Integer.MIN_VALUE;
+
 import com.exedio.cope.ItemCacheInfo;
 import java.util.Date;
 
@@ -29,7 +32,7 @@ public final class ItemCacheSummary
 	private final long misses;
 	private final long concurrentLoads;
 	private final int replacementRuns;
-	private final int replacements;
+	private final long replacements;
 	private final long lastReplacementRun;
 	private final long ageMinMillis;
 	private final long ageAvgMillis;
@@ -48,7 +51,7 @@ public final class ItemCacheSummary
 		long misses = 0;
 		long concurrentLoads = 0;
 		int replacementRuns = 0;
-		int replacements = 0;
+		long replacements = 0;
 		long lastReplacementRun = Long.MIN_VALUE;
 		long numAgeAverageMillis = 0;
 		long ageMinMillis = Long.MAX_VALUE;
@@ -69,7 +72,7 @@ public final class ItemCacheSummary
 			concurrentLoads += info.getConcurrentLoads();
 
 			replacementRuns += info.getReplacementRuns();
-			replacements += info.getReplacements();
+			replacements += info.getReplacementsL();
 
 			final Date currentLastReplacementRunDate = info.getLastReplacementRun();
 			if(currentLastReplacementRunDate!=null)
@@ -148,7 +151,16 @@ public final class ItemCacheSummary
 		return replacementRuns;
 	}
 
+	/**
+	 * @deprecated Use {@link #getReplacementsL()} instead
+	 */
+	@Deprecated
 	public int getReplacements()
+	{
+		return toIntCapped(getReplacementsL());
+	}
+
+	public long getReplacementsL()
 	{
 		return replacements;
 	}
@@ -199,6 +211,23 @@ public final class ItemCacheSummary
 	}
 
 	// ------------------- deprecated stuff -------------------
+
+	/**
+	 * @deprecated Copied from com.exedio.ope.CastUtils
+	 */
+	@Deprecated
+	private static int toIntCapped(final long longValue)
+	{
+		if (longValue > MAX_VALUE)
+		{
+			return MAX_VALUE;
+		}
+		if (longValue < MIN_VALUE)
+		{
+			return MIN_VALUE;
+		}
+		return (int)longValue;
+	}
 
 	/**
 	 * @deprecated Use {@link #getAgeMinimumMillis()} instead

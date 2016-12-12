@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.CastUtils.toIntCapped;
+
 import java.util.Date;
 
 public final class ItemCacheInfo
@@ -29,7 +31,7 @@ public final class ItemCacheInfo
 	private final long misses;
 	private final long concurrentLoads;
 	private final int replacementRuns;
-	private final int replacements;
+	private final long replacements;
 	private final long lastReplacementRun;
 	private final long ageSum;
 	private final long ageMin;
@@ -46,7 +48,7 @@ public final class ItemCacheInfo
 			final int level,
 			final long hits, final long misses,
 			final long concurrentLoads,
-			final int replacementRuns, final int replacements, final Date lastReplacementRun,
+			final int replacementRuns, final long replacements, final Date lastReplacementRun,
 			final long ageSum, final long ageMin, final long ageMax,
 			final long invalidationsOrdered, final long invalidationsDone,
 			final int stampsSize, final long stampsHits, final long stampsPurged
@@ -112,7 +114,16 @@ public final class ItemCacheInfo
 		return replacementRuns;
 	}
 
+	/**
+	 * @deprecated Use {@link #getReplacementsL()} instead
+	 */
+	@Deprecated
 	public int getReplacements()
+	{
+		return toIntCapped(getReplacementsL());
+	}
+
+	public long getReplacementsL()
 	{
 		return replacements;
 	}
