@@ -31,7 +31,7 @@ import java.util.Set;
 final class ItemCache
 {
 	private final LRUMap<Item,WrittenState> map;
-	private final Map<Long,Set<Item>> stampList;
+	private final LinkedHashMap<Long,Set<Item>> stampList;
 
 	private final TypeStats[] typeStats;
 
