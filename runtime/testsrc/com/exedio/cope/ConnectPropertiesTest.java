@@ -266,6 +266,17 @@ public class ConnectPropertiesTest
 		assertEquals(123, new ConnectProperties(source, null).getItemCacheLimit());
 	}
 
+	@Test public void testItemCacheLimitOverride()
+	{
+		final Source source =
+				cascade(
+						source("cache.item.limit", "123"),
+						source("cache.item.globalLimit", "456"),
+						Sources.load(new File("runtime/utiltest.properties"))
+				);
+		assertEquals(456, new ConnectProperties(source, null).getItemCacheLimit());
+	}
+
 	@Test public void testMediaRootUrlStandard()
 	{
 		final ConnectProperties p = factory().
