@@ -107,6 +107,7 @@ final class SamplerModel extends Item
 	private static final IntegerField itemCacheReplacements         = new IntegerField().toFinal().min(0);
 	private static final IntegerField itemCacheInvalidationsOrdered = new IntegerField().toFinal().min(0);
 	private static final IntegerField itemCacheInvalidationsDone    = new IntegerField().toFinal().min(0);
+
 	@CopeSchemaName("itemCacheInvalidateLastSize")
 	private static final IntegerField itemCacheStampsSize   = new IntegerField().toFinal().min(0);
 	@CopeSchemaName("itemCacheInvalidateLastHits")
@@ -126,7 +127,7 @@ final class SamplerModel extends Item
 			maD(itemCacheMisses, from.getSummarizedMisses(), to.getSummarizedMisses()),
 
 			maD(itemCacheConcurrentLoads, from.getSummarizedConcurrentLoads(), to.getSummarizedConcurrentLoads()),
-			maD(itemCacheReplacementRuns, 0,                                   0),
+			map(itemCacheReplacementRuns, 0),
 			maD(itemCacheReplacements,    from.getSummarizedReplacements   (), to.getSummarizedReplacements   ()),
 
 			maD(itemCacheInvalidationsOrdered, from.getSummarizedInvalidationsOrdered(), to.getSummarizedInvalidationsOrdered()),
