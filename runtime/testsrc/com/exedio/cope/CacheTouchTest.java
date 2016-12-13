@@ -51,51 +51,51 @@ public class CacheTouchTest extends TestWithEnvironment
 		initCache();
 
 		assertUpdateCount(0, MIN_VALUE);
-		assertCache(0, 0, 0, 0, 0);
+		assertCache(0, 0, 0, 0, 0, 0, 0, 0);
 		model.commit();
-		assertCache(0, 0, 0, 1, 0);
+		assertCache(0, 0, 0, 1, 0, 0, 0, 1);
 
 		// touch row
 		final Transaction loader = model.startTransaction("CacheTouchTest loader");
 		assertUpdateCount(MIN_VALUE, MIN_VALUE);
-		assertCache(0, 0, 0, 1, 0);
+		assertCache(0, 0, 0, 1, 0, 0, 0, 1);
 
 		assertEquals(item, TYPE.searchSingleton(name.equal("itemName")));
 		assertUpdateCount(MIN_VALUE, MIN_VALUE);
-		assertCache(0, 0, 0, 1, 0);
+		assertCache(0, 0, 0, 1, 0, 0, 0, 1);
 
 		assertSame(loader, model.leaveTransaction());
 
 		// change row
 		model.startTransaction("CacheTouchTest changer");
 		assertUpdateCount(MIN_VALUE, MIN_VALUE);
-		assertCache(0, 0, 0, 1, 0);
+		assertCache(0, 0, 0, 1, 0, 0, 0, 1);
 
 		item.setName("itemName2");
 		assertUpdateCount(1, 0);
-		assertCache(1, 0, 1, 1, 0);
+		assertCache(1, 0, 1, 1, 0, 0, 0, 1);
 
 		model.commit();
-		assertCache(0, 0, 1, 2, 1);
+		assertCache(0, 0, 1, 2, 1, 1, 0, 1);
 
 		// load row
 		model.joinTransaction(loader);
 		assertUpdateCount(MIN_VALUE, MIN_VALUE);
-		assertCache(0, 0, 1, 2, 1);
+		assertCache(0, 0, 1, 2, 1, 1, 0, 1);
 
 		final boolean st = model.getConnectProperties().itemCacheStamps;
 
 		assertEquals("itemName", item.getName());
 		assertUpdateCount(0, st?MIN_VALUE:0);
-		assertCache(st?0:1, 0, 2, 2, 1);
+		assertCache(st?0:1, 0, 2, 2, 1, 1, 1, 1);
 
 		model.commit();
-		assertCache(st?0:1, 0, 2, 2, 1);
+		assertCache(st?0:1, 0, 2, 2, 1, 0, 1, 2);
 
 		// failure
 		model.startTransaction("CacheTouchTest failer");
 		assertUpdateCount(MIN_VALUE, st?MIN_VALUE:0);
-		assertCache(st?0:1, 0, 2, 2, 1);
+		assertCache(st?0:1, 0, 2, 2, 1, 0, 1, 2);
 
 		if(st)
 		{
@@ -103,7 +103,7 @@ public class CacheTouchTest extends TestWithEnvironment
 			// repeatable-read isolation and does no itemCacheStamp.
 			item.setName("itemName3");
 			assertUpdateCount(2, 1);
-			assertCache(1, 0, 3, 2, 1);
+			assertCache(1, 0, 3, 2, 1, 0, 1, 2);
 
 			assertEquals("itemName3", item.getName());
 		}
@@ -119,7 +119,7 @@ public class CacheTouchTest extends TestWithEnvironment
 				// ok
 			}
 			assertUpdateCount(MIN_VALUE, MIN_VALUE);
-			assertCache(0, 1, 2, 2, 1);
+			assertCache(0, 1, 2, 2, 1, 0, 0, 0);
 
 			assertEquals("itemName2", item.getName());
 		}
@@ -136,7 +136,10 @@ public class CacheTouchTest extends TestWithEnvironment
 	}
 
 
-	private long initHits, initMisses, initInvalidationsOrdered, initInvalidationsDone;
+	private long
+			initHits, initMisses,
+			initInvalidationsOrdered, initInvalidationsDone,
+			initStampsSize, initStampsHits, initStampsPurged;
 
 	private void initCache()
 	{
@@ -148,6 +151,9 @@ public class CacheTouchTest extends TestWithEnvironment
 		initMisses = ici.getMisses();
 		initInvalidationsOrdered = ici.getInvalidationsOrdered();
 		initInvalidationsDone = ici.getInvalidationsDone();
+		initStampsSize = ici.getStampsSize();
+		initStampsHits = ici.getStampsHits();
+		initStampsPurged = ici.getStampsPurged();
 	}
 
 	private void assertCache(
@@ -155,8 +161,12 @@ public class CacheTouchTest extends TestWithEnvironment
 			final long hits,
 			final long misses,
 			final long invalidationsOrdered,
-			final long invalidationsDone)
+			final long invalidationsDone,
+			final long stampsSize,
+			final long stampsHits,
+			final long stampsPurged)
 	{
+		final boolean st = model.getConnectProperties().itemCacheStamps;
 		final ItemCacheInfo[] icis = model.getItemCacheInfo();
 		assertEquals(1, icis.length);
 		final ItemCacheInfo ici = icis[0];
@@ -166,5 +176,8 @@ public class CacheTouchTest extends TestWithEnvironment
 		assertEquals("misses"              , misses              , ici.getMisses()              -initMisses              );
 		assertEquals("invalidationsOrdered", invalidationsOrdered, ici.getInvalidationsOrdered()-initInvalidationsOrdered);
 		assertEquals("invalidationsDone"   , invalidationsDone   , ici.getInvalidationsDone()   -initInvalidationsDone   );
+		assertEquals("stampsSize"          , st?stampsSize  :0   , ici.getStampsSize()          -initStampsSize          );
+		assertEquals("stampsHits"          , st?stampsHits  :0   , ici.getStampsHits()          -initStampsHits          );
+		assertEquals("stampsPurged"        , st?stampsPurged:0   , ici.getStampsPurged()        -initStampsPurged        );
 	}
 }
