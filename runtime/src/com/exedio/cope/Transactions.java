@@ -96,7 +96,9 @@ final class Transactions
 
 	long getOldestCacheStamp()
 	{
-		long oldestStamp = Long.MAX_VALUE;
+		// DO NOT USE Long.MAX_VALUE below, otherwise we might miss concurrent transactions
+		long oldestStamp = ItemCacheStamp.current();
+
 		synchronized(open)
 		{
 			for(final Transaction tx : open)

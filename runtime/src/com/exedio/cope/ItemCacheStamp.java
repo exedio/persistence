@@ -29,6 +29,11 @@ final class ItemCacheStamp
 		return value.getAndIncrement();
 	}
 
+	static long current()
+	{
+		return value.get();
+	}
+
 	private ItemCacheStamp()
 	{
 		// prevent instantiation
