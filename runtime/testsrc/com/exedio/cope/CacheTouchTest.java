@@ -53,6 +53,7 @@ public class CacheTouchTest extends TestWithEnvironment
 		assertUpdateCount(0, MIN_VALUE);
 		assertCache(0, 0, 0, 0, 0);
 		model.commit();
+		assertCache(0, 0, 0, 1, 0);
 
 		// touch row
 		final Transaction loader = model.startTransaction("CacheTouchTest loader");
@@ -75,6 +76,7 @@ public class CacheTouchTest extends TestWithEnvironment
 		assertCache(1, 0, 1, 1, 0);
 
 		model.commit();
+		assertCache(0, 0, 1, 2, 1);
 
 		// load row
 		model.joinTransaction(loader);
@@ -88,6 +90,7 @@ public class CacheTouchTest extends TestWithEnvironment
 		assertCache(st?0:1, 0, 2, 2, 1);
 
 		model.commit();
+		assertCache(st?0:1, 0, 2, 2, 1);
 
 		// failure
 		model.startTransaction("CacheTouchTest failer");
