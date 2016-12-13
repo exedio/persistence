@@ -116,7 +116,7 @@ final class ItemCache
 
 	void invalidate(final TLongHashSet[] invalidations)
 	{
-		final long stamp = ItemCacheStamp.get();
+		final long stamp = ItemCacheStamp.next();
 		for(int typeTransiently=0; typeTransiently<invalidations.length; typeTransiently++)
 		{
 			final TLongHashSet invalidatedPKs = invalidations[typeTransiently];

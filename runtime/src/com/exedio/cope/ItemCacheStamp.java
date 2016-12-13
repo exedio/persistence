@@ -24,7 +24,7 @@ final class ItemCacheStamp
 {
 	private static final AtomicLong value = new AtomicLong(0);
 
-	static long get()
+	static long next()
 	{
 		return value.getAndIncrement();
 	}
