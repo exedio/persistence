@@ -83,7 +83,7 @@ public class MediaRootUrlTest
 	private static ConnectProperties getProperties(final String mediaRootUrl)
 	{
 		final Properties.Source source = Sources.load(new File("runtime/utiltest.properties"));
-		return ConnectProperties.factory().create(
+		return ConnectProperties.create(
 				new Properties.Source()
 				{
 					@Override

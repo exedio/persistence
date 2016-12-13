@@ -133,9 +133,8 @@ public class MediaUrlSecretTest
 		source.setProperty("connection.password", "");
 		if(secret!=null)
 			source.setProperty("media.url.secret", secret);
-		return new ConnectProperties(
-				Sources.view(source , "MediaUrlSecretTestSource"),
-				null);
+		return ConnectProperties.create(
+				Sources.view(source , "MediaUrlSecretTestSource"));
 	}
 
 	@SuppressWarnings("static-method")

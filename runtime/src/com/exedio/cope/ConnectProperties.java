@@ -331,6 +331,11 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 		this(Sources.view(properties, sourceDescription), context);
 	}
 
+	public static ConnectProperties create(final Source source)
+	{
+		return new ConnectProperties(source, null);
+	}
+
 	public ConnectProperties(final Source source, final Source context)
 	{
 		this(source, context,

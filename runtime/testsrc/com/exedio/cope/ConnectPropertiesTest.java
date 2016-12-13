@@ -51,7 +51,7 @@ public class ConnectPropertiesTest
 		notOnDefault.put("dialect", HsqldbDialect.class.getName());
 		notOnDefault.put("cluster", true);
 		notOnDefault.put("cluster.secret", 1234);
-		final ConnectProperties p = new ConnectProperties(loadProperties(), null);
+		final ConnectProperties p = ConnectProperties.create(loadProperties());
 
 		for(final Field field : p.getFields())
 		{
@@ -146,7 +146,7 @@ public class ConnectPropertiesTest
 				)));
 		try
 		{
-			new ConnectProperties(source, null);
+			ConnectProperties.create(source);
 			fail();
 		}
 		catch(final IllegalPropertiesException e)
@@ -172,7 +172,7 @@ public class ConnectPropertiesTest
 				));
 		try
 		{
-			new ConnectProperties(source, null);
+			ConnectProperties.create(source);
 			fail();
 		}
 		catch(final IllegalPropertiesException e)
@@ -194,7 +194,7 @@ public class ConnectPropertiesTest
 				));
 		try
 		{
-			new ConnectProperties(source, null);
+			ConnectProperties.create(source);
 			fail();
 		}
 		catch(final IllegalPropertiesException e)
@@ -233,7 +233,7 @@ public class ConnectPropertiesTest
 				));
 		try
 		{
-			new ConnectProperties(source, null);
+			ConnectProperties.create(source);
 			fail();
 		}
 		catch(final IllegalPropertiesException e)
@@ -376,8 +376,8 @@ public class ConnectPropertiesTest
 
 	@Test public void testProbe() throws Exception
 	{
-		final ConnectProperties p = new ConnectProperties(
-				Sources.load(new File("runtime/utiltest.properties")), null);
+		final ConnectProperties p = ConnectProperties.create(
+				Sources.load(new File("runtime/utiltest.properties")));
 
 		final Callable<?> test = p.getProbeTest();
 		assertEquals(

@@ -70,7 +70,7 @@ public class ClusterDisabledTest
 	@SuppressWarnings("static-method")
 	@Before public final void setUp()
 	{
-		model.connect(ConnectProperties.factory().create(ConnectSource.get()));
+		model.connect(ConnectProperties.create(ConnectSource.get()));
 	}
 
 	@SuppressWarnings("static-method")

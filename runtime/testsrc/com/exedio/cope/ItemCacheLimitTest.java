@@ -65,9 +65,8 @@ public class ItemCacheLimitTest
 		source.setProperty("connection.username", "sa");
 		source.setProperty("connection.password", "");
 		source.setProperty("cache.item.limit", String.valueOf(limit));
-		return new ConnectProperties(
-				Sources.view(source , "MediaUrlSecretTestSource"),
-				null);
+		return ConnectProperties.create(
+				Sources.view(source , "MediaUrlSecretTestSource"));
 	}
 
 	@SuppressWarnings("static-method")

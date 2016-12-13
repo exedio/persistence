@@ -81,7 +81,7 @@ public class EnumMapFieldSchemaNameTest
 		source.setProperty("connection.url", "jdbc:hsqldb:mem:EnumMapFieldSchemaNameTest");
 		source.setProperty("connection.username", "sa");
 		source.setProperty("connection.password", "");
-		MODEL.connect(new ConnectProperties(Sources.view(source , "EnumMapFieldSchemaNameTest"), null));
+		MODEL.connect(ConnectProperties.create(Sources.view(source , "EnumMapFieldSchemaNameTest")));
 	}
 
 	@SuppressWarnings("static-method")

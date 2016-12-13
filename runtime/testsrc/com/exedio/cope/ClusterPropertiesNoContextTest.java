@@ -73,7 +73,7 @@ public class ClusterPropertiesNoContextTest
 			}
 		};
 
-		model.connect(new ConnectProperties(s, null));
+		model.connect(ConnectProperties.create(s));
 		assertEquals(true, model.isClusterEnabled());
 		final ClusterProperties p = (ClusterProperties)model.getClusterProperties();
 		assertEquals(5, p.listenThreads);
@@ -121,7 +121,7 @@ public class ClusterPropertiesNoContextTest
 
 		try
 		{
-			new ConnectProperties(s, null);
+			ConnectProperties.create(s);
 			fail();
 		}
 		catch(final IllegalPropertiesException e)
@@ -170,7 +170,7 @@ public class ClusterPropertiesNoContextTest
 			}
 		};
 
-		final ConnectProperties props = new ConnectProperties(source, null);
+		final ConnectProperties props = ConnectProperties.create(source);
 		// TODO throw exception below already above
 		try
 		{
