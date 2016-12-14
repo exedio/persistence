@@ -18,13 +18,10 @@
 
 package com.exedio.cope;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import java.util.Objects;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -42,6 +39,7 @@ public class CacheReadPoisoningBruteForceTest extends TestWithEnvironment
 	boolean stamps;
 	CacheIsolationItem item;
 	final ThreadStoppable threads[] = new ThreadStoppable[10];
+	final StringBuilder failures = new StringBuilder();
 
 	@Before public final void setUp()
 	{
@@ -54,6 +52,8 @@ public class CacheReadPoisoningBruteForceTest extends TestWithEnvironment
 			item = new CacheIsolationItem("itemName");
 			tx.commit();
 		}
+
+		failures.setLength(0);
 	}
 
 	@After public final void tearDown() throws InterruptedException
@@ -72,8 +72,22 @@ public class CacheReadPoisoningBruteForceTest extends TestWithEnvironment
 
 	static class ThreadStoppable extends Thread
 	{
+		private final int number;
+
+		ThreadStoppable(final int number)
+		{
+			this.number = number;
+		}
+		@Override
+		public String toString()
+		{
+			return "thread" + number;
+		}
+
 		boolean proceed = true;
 		String errorName = null;
+		boolean finished = false;
+		Throwable failure = null;
 	}
 
 	@Test public void testIt() throws InterruptedException
@@ -81,14 +95,14 @@ public class CacheReadPoisoningBruteForceTest extends TestWithEnvironment
 		final Model model = this.model; // avoid warning about synthetic-access
 		for(int i = 0; i<threads.length; i++)
 		{
-			threads[i] = new ThreadStoppable(){
+			threads[i] = new ThreadStoppable(i){
 				@Override
 				public void run()
 				{
 					try
 					{
 						int i;
-						for(i = 0; i<10_000_000 && proceed; i++)
+						for(i = 0; i<20_000_000 && proceed; i++)
 						{
 							//if(i%100==0 || i<20) System.out.println("CacheBadReadTest read " + i);
 							//Thread.yield();
@@ -98,6 +112,12 @@ public class CacheReadPoisoningBruteForceTest extends TestWithEnvironment
 								errorName = name;
 							model.commit();
 						}
+						finished = true;
+					}
+					catch(final Throwable t)
+					{
+						failure = t;
+						throw new RuntimeException(t);
 					}
 					finally
 					{
@@ -115,7 +135,7 @@ public class CacheReadPoisoningBruteForceTest extends TestWithEnvironment
 			int i = 0;
 			try
 			{
-				for(; i<10_000; i++)
+				for(; i<20_000; i++)
 				{
 					//if(i%100==0 || i<20) System.out.println("CacheBadReadTest write " + i);
 					//Thread.yield();
@@ -127,7 +147,7 @@ public class CacheReadPoisoningBruteForceTest extends TestWithEnvironment
 			}
 			catch(final TemporaryTransactionException e)
 			{
-				assertNotNull(e.getMessage());
+				assertNotNull("TemporaryTransactionException message", e.getMessage());
 				assertFalse("stamps " + stamps + " " + i, stamps);
 			}
 			finally
@@ -138,12 +158,53 @@ public class CacheReadPoisoningBruteForceTest extends TestWithEnvironment
 
 
 		for(final ThreadStoppable thread : threads)
-			thread.proceed = false;
-		for(int i = 0; i<threads.length; i++)
 		{
-			threads[i].join();
-			assertNull(threads[i].errorName);
-			threads[i] = null;
+			assertEquals("finished too early " + thread, false, thread.finished);
+			assertNotEquals("not finished " + thread, Thread.State.TERMINATED, thread.getState());
 		}
+		for(final ThreadStoppable thread : threads)
+			thread.proceed = false;
+		for(final ThreadStoppable thread : threads)
+		{
+			thread.join();
+			if(thread.failure!=null)
+				thread.failure.printStackTrace();
+			assertEquals("error name " + thread, null, thread.errorName);
+			assertEquals("not finished normally " + thread, true, thread.finished);
+			assertEquals("finished with exception " + thread, null, thread.failure);
+			assertEquals("state " + thread, Thread.State.TERMINATED, thread.getState());
+		}
+
+		Assert.assertEquals("", failures.toString());
+	}
+
+	private void assertNotNull(final String message, final Object actual)
+	{
+		if(actual==null)
+			failures.append(message + " is null" + System.lineSeparator());
+	}
+
+	private void assertTrue(final String message, final boolean actual)
+	{
+		if(!actual)
+			failures.append(message + System.lineSeparator());
+	}
+
+	private void assertFalse(final String message, final boolean actual)
+	{
+		if(actual)
+			failures.append(message + System.lineSeparator());
+	}
+
+	private void assertEquals(final String message, final Object expected, final Object actual)
+	{
+		if(!Objects.equals(expected,  actual))
+			failures.append(message + " expected: " + expected + ", but was: " + actual + System.lineSeparator());
+	}
+
+	private void assertNotEquals(final String message, final Object expected, final Object actual)
+	{
+		if(Objects.equals(expected,  actual))
+			failures.append(message + " expected: " + expected + ", but was: " + actual + System.lineSeparator());
 	}
 }
