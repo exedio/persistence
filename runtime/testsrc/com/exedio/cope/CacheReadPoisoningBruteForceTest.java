@@ -91,7 +91,7 @@ public class CacheReadPoisoningBruteForceTest extends TestWithEnvironment
 					try
 					{
 						int i;
-						for(i = 0; i<10000000 && proceed; i++)
+						for(i = 0; i<10_000_000 && proceed; i++)
 						{
 							//if(i%100==0 || i<20) System.out.println("CacheBadReadTest read " + i);
 							//Thread.yield();
@@ -118,7 +118,7 @@ public class CacheReadPoisoningBruteForceTest extends TestWithEnvironment
 			int i = 0;
 			try
 			{
-				for(; i<10000; i++)
+				for(; i<10_000; i++)
 				{
 					//if(i%100==0 || i<20) System.out.println("CacheBadReadTest write " + i);
 					//Thread.yield();
