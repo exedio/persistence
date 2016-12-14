@@ -731,6 +731,11 @@ public final class Model implements Serializable
 		if(tx.connect.properties.itemCacheStamps)
 		{
 			final long oldestStamp = transactions.getOldestCacheStamp();
+
+			final Runnable within = this.withinPurgeStamps;
+			if(within!=null)
+				within.run();
+
 			connect().itemCache.purgeStamps(oldestStamp);
 		}
 
@@ -740,6 +745,13 @@ public final class Model implements Serializable
 		// committed.
 		tx.postCommitHooks.handle(commit);
 	}
+
+	/**
+	 * @deprecated for unit tests only
+	 */
+	@Deprecated
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
+	volatile Runnable withinPurgeStamps = null;
 
 	/**
 	 * Returns the collection of open {@link Transaction}s

@@ -23,6 +23,7 @@ import java.util.Objects;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
@@ -35,6 +36,11 @@ public class CacheReadPoisoningBruteForceTest extends TestWithEnvironment
 		super(CacheIsolationTest.MODEL);
 		copeRule.omitTransaction();
 	}
+
+	@SuppressFBWarnings("URF_UNREAD_PUBLIC_OR_PROTECTED_FIELD")
+	@Rule public final WithinPurgeStampsRule withinPurgeStamps = new WithinPurgeStampsRule(
+			CacheIsolationTest.MODEL,
+			Thread::yield);
 
 	boolean stamps;
 	CacheIsolationItem item;
