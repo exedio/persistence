@@ -22,7 +22,6 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assume.assumeTrue;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.After;
@@ -79,8 +78,6 @@ public class CacheReadPoisoningBruteForceTest extends TestWithEnvironment
 
 	@Test public void testIt() throws InterruptedException
 	{
-		assumeTrue(!oracle); // TODO
-
 		final Model model = this.model; // avoid warning about synthetic-access
 		for(int i = 0; i<threads.length; i++)
 		{
