@@ -128,6 +128,7 @@ final class OracleDialect extends Dialect
 			final int maxChars,
 			final MysqlExtendedVarchar mysqlExtendedVarchar)
 	{
+		// TODO Oracle 12 varchar2 with up to 32k characters
 		if(maxChars<=VARCHAR_MAX_CHARS)
 			return "VARCHAR2(" + (maxChars*MAX_BYTES_PER_CHARACTER_UTF8) + " BYTE)";
 		else
@@ -210,6 +211,7 @@ final class OracleDialect extends Dialect
 	@Override
 	void appendLimitClause(final Statement bf, final int offset, final int limit)
 	{
+		// TODO Oracle 12 OFFSET/LIMIT
 		assert offset>=0;
 		assert limit>0 || limit==Query.UNLIMITED;
 		assert offset>0 || limit>0;
@@ -224,6 +226,7 @@ final class OracleDialect extends Dialect
 	@Override
 	void appendLimitClause2(final Statement bf, final int offset, final int limit)
 	{
+		// TODO Oracle 12 OFFSET/LIMIT
 		assert offset>=0;
 		assert limit>0 || limit==Query.UNLIMITED;
 		assert offset>0 || limit>0;
@@ -442,6 +445,7 @@ final class OracleDialect extends Dialect
 			final StringBuilder bf, final String quotedName,
 			final Sequence.Type type, final long start)
 	{
+		// TODO Oracle 12
 		// There seems to be a restart command in Oracle 12c:
 		// ALTER SEQUENCE SERIAL RESTART START WITH start
 		// http://stackoverflow.com/questions/51470/how-do-i-reset-a-sequence-in-oracle
