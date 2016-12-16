@@ -77,7 +77,7 @@ final class ClusterProperties extends Properties
 		super(source);
 
 		if(secret==0)
-			throw newException("secret", "must not be zero"); // TODO test
+			throw newException("secret", "must not be zero");
 
 		if(nodeAuto)
 		{

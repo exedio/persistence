@@ -117,6 +117,46 @@ public class ClusterPropertiesTest
 		}
 	}
 
+	@Test public void testSecretZero()
+	{
+		final Source s = new Source()
+		{
+			@Override
+			public String get(final String key)
+			{
+				if(key.equals("secret"))
+					return String.valueOf("0");
+				else
+					return null;
+			}
+
+			@Override
+			public String getDescription()
+			{
+				return "Cluster Properties";
+			}
+
+			@Override
+			public Collection<String> keySet()
+			{
+				return null;
+			}
+		};
+
+		try
+		{
+			ClusterProperties.factory().create(s);
+			fail();
+		}
+		catch(final IllegalPropertiesException e)
+		{
+			assertEquals(
+					"property secret in Cluster Properties " +
+					"must not be zero",
+					e.getMessage());
+		}
+	}
+
 	@Test public void testFailPrimaryKeyGeneratorMemory()
 	{
 		final Properties.Source defaultSource =
