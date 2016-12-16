@@ -27,7 +27,7 @@ import static org.junit.Assert.fail;
 
 import com.exedio.cope.util.Hex;
 import com.exedio.cope.util.Properties;
-import com.exedio.cope.util.Sources;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import gnu.trove.TIntHashSet;
 import gnu.trove.TIntIterator;
 import gnu.trove.TLongHashSet;
@@ -49,25 +49,23 @@ public abstract class ClusterTest
 	private static final int SECRET = 0x88776655;
 	private static final int PACKET_SIZE = 64;
 
+	@SuppressFBWarnings("BC_UNCONFIRMED_CAST_OF_RETURN_VALUE")
 	private static ClusterProperties getProperties(final int node)
 	{
 		return
-			ConnectProperties.create(Sources.cascade(
-				ConnectSource.get(),
+			ClusterProperties.factory().create(
 				new Properties.Source()
 				{
 					@Override
 					public String get(final String key)
 					{
-						if(key.equals("cluster"))
-							return "true";
-						else if(key.equals("cluster.packetSize"))
+						if(key.equals("packetSize"))
 							return "67";
-						else if(key.equals("cluster.secret"))
+						else if(key.equals("secret"))
 							return String.valueOf(SECRET);
-						else if(key.equals("cluster.nodeAuto"))
+						else if(key.equals("nodeAuto"))
 							return "false";
-						else if(key.equals("cluster.node"))
+						else if(key.equals("node"))
 							return String.valueOf(node);
 						else
 							return null;
@@ -85,7 +83,7 @@ public abstract class ClusterTest
 						return null;
 					}
 				}
-			)).cluster;
+			);
 	}
 
 	@Before public final void setUpClusterTest()
