@@ -74,18 +74,16 @@ public class ClusterPropertiesTest
 
 	@Test public void testFailListenThreads()
 	{
-		final Source s = Sources.cascade(ConnectSource.get(), new Source()
+		final Source s = new Source()
 		{
 			@Override
 			public String get(final String key)
 			{
-				if(key.equals("cluster"))
-					return "true";
-				else if(key.equals("cluster.secret"))
+				if(key.equals("secret"))
 					return String.valueOf("1234");
-				else if(key.equals("cluster.listenThreads"))
+				else if(key.equals("listenThreads"))
 					return "5";
-				else if(key.equals("cluster.listenThreadsMax"))
+				else if(key.equals("listenThreadsMax"))
 					return "4";
 				else
 					return null;
@@ -102,17 +100,17 @@ public class ClusterPropertiesTest
 			{
 				return null;
 			}
-		});
+		};
 
 		try
 		{
-			ConnectProperties.create(s);
+			ClusterProperties.factory().create(s);
 			fail();
 		}
 		catch(final IllegalPropertiesException e)
 		{
 			assertEquals(
-					"property cluster.listenThreads in Minimal Connect Properties Source / Cluster Properties " +
+					"property listenThreads in Cluster Properties " +
 					"must be less or equal listenThreadsMax=4, " +
 					"but was 5",
 					e.getMessage());
