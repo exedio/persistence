@@ -18,6 +18,7 @@
 
 package com.exedio.dsmf;
 
+import com.exedio.cope.util.Sources;
 import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -56,10 +57,9 @@ public abstract class SchemaTest
 		final String mysqlRowFormat     = value      ("schema.mysql.rowFormat", "NONE");
 		final String connectionPostgresqlSearchPath = value("connection.postgresql.search_path", connectionUsername);
 
-		@SuppressWarnings("deprecation")
 		Properties()
 		{
-			super(getSource(getDefaultPropertyFile()), SYSTEM_PROPERTY_SOURCE);
+			super(Sources.load(getDefaultPropertyFile()));
 		}
 	}
 
