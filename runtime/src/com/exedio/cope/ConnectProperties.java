@@ -314,47 +314,9 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 		this(file, null);
 	}
 
-	/**
-	 * @deprecated Use {@link #ConnectProperties(File)} instead as {@code context} is no longer supported.
-	 */
-	@Deprecated
-	public ConnectProperties(final File file, final Source context)
-	{
-		this(Sources.load(file), context);
-	}
-
-	/**
-	 * @deprecated Use {@link #create(Properties.Source)} instead as {@code context} is no longer supported.
-	 */
-	@Deprecated
-	public ConnectProperties(final java.util.Properties properties, final String sourceDescription, final Source context)
-	{
-		this(Sources.view(properties, sourceDescription), context);
-	}
-
 	public static ConnectProperties create(final Source source)
 	{
 		return new ConnectProperties(source, null);
-	}
-
-	/**
-	 * @deprecated Use {@link #create(Properties.Source)} instead as {@code context} is no longer supported.
-	 */
-	@Deprecated
-	public ConnectProperties(final Source source, final Source context)
-	{
-		this(noContext(source, context),
-				primaryKeyGeneratorDEFAULT,
-				mediaRooturlDEFAULT);
-	}
-
-	@Deprecated
-	private static Source noContext(final Source source, final Source context)
-	{
-		if(context!=null)
-			throw new NoSuchMethodError("context not allowed, but was " + context);
-
-		return source;
 	}
 
 	ConnectProperties(
@@ -549,6 +511,44 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	}
 
 	// ------------------- deprecated stuff -------------------
+
+	/**
+	 * @deprecated Use {@link #ConnectProperties(File)} instead as {@code context} is no longer supported.
+	 */
+	@Deprecated
+	public ConnectProperties(final File file, final Source context)
+	{
+		this(Sources.load(file), context);
+	}
+
+	/**
+	 * @deprecated Use {@link #create(Properties.Source)} instead as {@code context} is no longer supported.
+	 */
+	@Deprecated
+	public ConnectProperties(final java.util.Properties properties, final String sourceDescription, final Source context)
+	{
+		this(Sources.view(properties, sourceDescription), context);
+	}
+
+	/**
+	 * @deprecated Use {@link #create(Properties.Source)} instead as {@code context} is no longer supported.
+	 */
+	@Deprecated
+	public ConnectProperties(final Source source, final Source context)
+	{
+		this(noContext(source, context),
+				primaryKeyGeneratorDEFAULT,
+				mediaRooturlDEFAULT);
+	}
+
+	@Deprecated
+	private static Source noContext(final Source source, final Source context)
+	{
+		if(context!=null)
+			throw new NoSuchMethodError("context not allowed, but was " + context);
+
+		return source;
+	}
 
 	/**
 	 * @deprecated Use
