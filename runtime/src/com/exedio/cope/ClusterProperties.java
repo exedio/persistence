@@ -79,35 +79,32 @@ final class ClusterProperties extends Properties
 		if(secret==0)
 			throw newException("secret", "must not be zero"); // TODO test
 
-		// TODO fix identation
+		if(nodeAuto)
 		{
-			if(nodeAuto)
-			{
-				this.node = nextNode();
-			}
-			else
-			{
-				this.node = nodeField;
-				if(node==0)
-					throw new IllegalArgumentException(); // must not be left at default value
-			}
-			if(logger.isInfoEnabled())
-				logger.info("node id: {}", ClusterSenderInfo.toStringNodeID(node));
+			this.node = nextNode();
+		}
+		else
+		{
+			this.node = nodeField;
+			if(node==0)
+				throw new IllegalArgumentException(); // must not be left at default value
+		}
+		if(logger.isInfoEnabled())
+			logger.info("node id: {}", ClusterSenderInfo.toStringNodeID(node));
 
-			if(listenThreads>listenThreadsMax)
-				throw newException(
-						"listenThreads",
-						"must be less or equal listenThreadsMax=" + listenThreadsMax + ", " +
-						"but was " + listenThreads);
+		if(listenThreads>listenThreadsMax)
+			throw newException(
+					"listenThreads",
+					"must be less or equal listenThreadsMax=" + listenThreadsMax + ", " +
+					"but was " + listenThreads);
 
-			this.packetSize = packetSizeField & (~3);
-			{
-				final Random r = new Random(secret);
-				final byte[] pingPayload = new byte[this.packetSize];
-				for(int pos = 28; pos<pingPayload.length; pos++)
-					pingPayload[pos] = (byte)(r.nextInt()>>8);
-				this.pingPayload = pingPayload;
-			}
+		this.packetSize = packetSizeField & (~3);
+		{
+			final Random r = new Random(secret);
+			final byte[] pingPayload = new byte[this.packetSize];
+			for(int pos = 28; pos<pingPayload.length; pos++)
+				pingPayload[pos] = (byte)(r.nextInt()>>8);
+			this.pingPayload = pingPayload;
 		}
 	}
 
