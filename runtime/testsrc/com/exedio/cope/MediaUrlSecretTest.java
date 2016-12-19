@@ -83,12 +83,12 @@ public class MediaUrlSecretTest
 		if(secret!=null)
 			source.setProperty("media.url.secret", secret);
 		return ConnectProperties.create(
-				Sources.view(source , "MediaUrlSecretTestSource" ));
+				Sources.view(source, "MediaUrlSecretTestSource"));
 	}
 
 	@Test public void testOffNoContext()
 	{
-		final ConnectProperties props = propsNoContext(null);
+		final ConnectProperties props = props(null);
 		model.connect(props);
 
 		assertEquals(false, MediaPath.isUrlGuessingPreventedSecurely(props));
@@ -97,7 +97,7 @@ public class MediaUrlSecretTest
 
 	@Test public void testOnNoContext()
 	{
-		final ConnectProperties props = propsNoContext("1234567890");
+		final ConnectProperties props = props("1234567890");
 		model.connect(props);
 
 		assertEquals(true, MediaPath.isUrlGuessingPreventedSecurely(props));
@@ -108,7 +108,7 @@ public class MediaUrlSecretTest
 	{
 		try
 		{
-			propsNoContext("123456789");
+			props("123456789");
 			fail();
 		}
 		catch(final IllegalPropertiesException e)
@@ -123,23 +123,11 @@ public class MediaUrlSecretTest
 
 	@Test public void testEmptyNoContext()
 	{
-		final ConnectProperties props = propsNoContext("");
+		final ConnectProperties props = props("");
 		model.connect(props);
 
 		assertEquals(false, MediaPath.isUrlGuessingPreventedSecurely(props));
 		assertEquals(null, props.getMediaUrlSecret());
-	}
-
-	private static ConnectProperties propsNoContext(final String secret)
-	{
-		final Properties source = new Properties();
-		source.setProperty("connection.url", "jdbc:hsqldb:mem:MediaUrlSecretTest");
-		source.setProperty("connection.username", "sa");
-		source.setProperty("connection.password", "");
-		if(secret!=null)
-			source.setProperty("media.url.secret", secret);
-		return ConnectProperties.create(
-				Sources.view(source , "MediaUrlSecretTestSource"));
 	}
 
 	@SuppressWarnings("static-method")
