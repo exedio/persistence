@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import static com.exedio.cope.ConnectProperties.factory;
 import static com.exedio.cope.tojunit.TestSources.describe;
+import static com.exedio.cope.tojunit.TestSources.erase;
 import static com.exedio.cope.util.Sources.cascade;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -33,7 +34,6 @@ import com.exedio.cope.util.Sources;
 import java.io.File;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.LinkedHashSet;
 import java.util.concurrent.Callable;
 import org.junit.Test;
 
@@ -303,32 +303,6 @@ public class ConnectPropertiesTest
 			public String getDescription()
 			{
 				return key1;
-			}
-		};
-	}
-
-	private static Source erase(final String keyToBeErased, final Source s)
-	{
-		return new Source(){
-			@Override
-			public String get(final String key)
-			{
-				if(key.equals(keyToBeErased))
-					return null;
-
-				return s.get(key);
-			}
-			@Override
-			public Collection<String> keySet()
-			{
-				final LinkedHashSet<String> result = new LinkedHashSet<>(s.keySet());
-				result.remove(keyToBeErased);
-				return result;
-			}
-			@Override
-			public String getDescription()
-			{
-				return s.getDescription();
 			}
 		};
 	}

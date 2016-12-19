@@ -22,10 +22,37 @@ import static com.exedio.cope.util.Sources.checkKey;
 
 import com.exedio.cope.util.Properties.Source;
 import java.util.Collection;
+import java.util.LinkedHashSet;
 
 // TODO move to com.exedio.cope.util.Sources
 public final class TestSources
 {
+	public static Source erase(final String keyToBeErased, final Source s)
+	{
+		return new Source(){
+			@Override
+			public String get(final String key)
+			{
+				if(key.equals(keyToBeErased))
+					return null;
+
+				return s.get(key);
+			}
+			@Override
+			public Collection<String> keySet()
+			{
+				final LinkedHashSet<String> result = new LinkedHashSet<>(s.keySet());
+				result.remove(keyToBeErased);
+				return result;
+			}
+			@Override
+			public String getDescription()
+			{
+				return s.getDescription() + " without " + keyToBeErased;
+			}
+		};
+	}
+
 	public static Source describe(final String description, final Source source)
 	{
 		return new Source(){
