@@ -159,29 +159,9 @@ public class ClusterPropertiesTest
 
 	@Test public void testFailPrimaryKeyGeneratorMemory()
 	{
-		final Properties.Source defaultSource =
+		final Properties.Source connect =
 				new ConnectProperties(new File("runtime/utiltest.properties")).getSourceObject();
-		final Properties.Source source = new Properties.Source()
-		{
-			@Override
-			public String get(final String key)
-			{
-				return defaultSource.get(key);
-			}
-
-			@Override
-			public String getDescription()
-			{
-				return defaultSource.getDescription();
-			}
-
-			@Override
-			public Collection<String> keySet()
-			{
-				return defaultSource.keySet();
-			}
-		};
-		final Properties.Source context = new Properties.Source()
+		final Properties.Source cluster = new Properties.Source()
 		{
 			@Override
 			public String get(final String key)
@@ -207,7 +187,7 @@ public class ClusterPropertiesTest
 			}
 		};
 
-		final Source s = ConnectPropertiesTest.desc(Sources.cascade(source, context));
+		final Source s = ConnectPropertiesTest.desc(Sources.cascade(connect, cluster));
 		try
 		{
 			ConnectProperties.create(s);
