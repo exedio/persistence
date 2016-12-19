@@ -62,7 +62,7 @@ final class Connect
 
 		this.revisions = RevisionsConnect.wrap(probe.environmentInfo, revisionsFactory);
 		this.dialect = properties.createDialect(probe);
-		this.connectionFactory = new ConnectionFactory(properties, probe.driver, dialect);
+		this.connectionFactory = new ConnectionFactory(properties.connection, probe.driver, dialect);
 		final Pool<Connection> pool = new Pool<>(
 				connectionFactory,
 				properties.connectionPool,

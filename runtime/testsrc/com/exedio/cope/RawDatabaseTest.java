@@ -39,7 +39,7 @@ public abstract class RawDatabaseTest
 		if(driver==null)
 			throw new RuntimeException(url);
 
-		con = driver.connect(url, props.newConnectionInfo());
+		con = driver.connect(url, props.connection.newInfo());
 	}
 
 	@After public final void tearDownRawDatabaseTest() throws Exception

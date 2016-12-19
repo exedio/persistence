@@ -25,14 +25,9 @@ import com.exedio.cope.pattern.MediaFingerprintOffset;
 import com.exedio.cope.util.PoolProperties;
 import com.exedio.cope.util.Properties;
 import com.exedio.cope.util.Sources;
-import com.exedio.dsmf.SQLRuntimeException;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.File;
 import java.lang.reflect.Constructor;
-import java.sql.Connection;
-import java.sql.Driver;
-import java.sql.DriverManager;
-import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.concurrent.Callable;
@@ -40,12 +35,9 @@ import java.util.concurrent.Callable;
 @SuppressFBWarnings("BC_UNCONFIRMED_CAST_OF_RETURN_VALUE")
 public final class ConnectProperties extends com.exedio.cope.util.Properties
 {
-	private final String connectionUrl      = value      ("connection.url",      (String)null);
-	private final String connectionUsername = value      ("connection.username", (String)null);
-	private final String connectionPassword = valueHidden("connection.password", (String)null);
-	final String connectionPostgresqlSearchPath = valueX ("connection.postgresql.search_path", connectionUsername, ',');
+	final ConnectionProperties connection = value("connection", ConnectionProperties::new);
 
-	private final Constructor<? extends Dialect> dialect = valueDialect("dialect", fromUrl(connectionUrl));
+	private final Constructor<? extends Dialect> dialect = valueDialect("dialect", fromUrl(connection.url));
 
 	private final boolean disableEmptyStrings       = value("disableSupport.emptyStrings", false);
 	private final boolean disablePreparedStatements = value("disableSupport.preparedStatements", false);
@@ -401,26 +393,7 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 
 	Probe probe()
 	{
-		final Driver driver;
-		try
-		{
-			driver = DriverManager.getDriver(connectionUrl);
-		}
-		catch(final SQLException e)
-		{
-			throw new SQLRuntimeException(e, connectionUrl);
-		}
-		if(driver==null)
-			throw new RuntimeException(connectionUrl);
-
-		try(Connection connection = driver.connect(connectionUrl, newConnectionInfo()))
-		{
-			return new Probe(this, driver, connection);
-		}
-		catch(final SQLException e)
-		{
-			throw new SQLRuntimeException(e, connectionUrl);
-		}
+		return connection.probe(this);
 	}
 
 	public String getDialect()
@@ -430,31 +403,22 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 
 	public String getConnectionUrl()
 	{
-		return connectionUrl;
+		return connection.url;
 	}
 
 	public String getConnectionUsername()
 	{
-		return connectionUsername;
+		return connection.username;
 	}
 
 	public String getConnectionPassword()
 	{
-		return connectionPassword;
-	}
-
-	java.util.Properties newConnectionInfo()
-	{
-		final java.util.Properties result = new java.util.Properties();
-		result.setProperty("user",     connectionUsername);
-		result.setProperty("password", connectionPassword);
-		return result;
+		return connection.password;
 	}
 
 	void putRevisionEnvironment(final HashMap<String, String> e)
 	{
-		e.put("connection.url",  connectionUrl);
-		e.put("connection.user", connectionUsername);
+		connection.putRevisionEnvironment("connection", e);
 	}
 
 	String filterTableName(final String tableName)
@@ -486,20 +450,6 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 				return "probe";
 			}
 		};
-	}
-
-	private String valueX(final String key, final String defaultValue, final char forbidden)
-	{
-		final String result = value(key, defaultValue);
-
-		final int position = result.indexOf(forbidden);
-		if(position>=0)
-			throw newException(
-				key,
-				"must not contain '" + forbidden + "', " +
-				"but did at position " + position + " and was '" + result + '\'');
-
-		return result;
 	}
 
 	// TODO move into framework

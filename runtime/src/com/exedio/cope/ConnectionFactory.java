@@ -40,15 +40,15 @@ final class ConnectionFactory implements Pool.Factory<Connection>
 	private final int transactionIsolation;
 
 	ConnectionFactory(
-			final ConnectProperties properties,
+			final ConnectionProperties properties,
 			final Driver driver,
 			final Dialect dialect)
 	{
-		this.url = properties.getConnectionUrl();
+		this.url = properties.url;
 		this.driver = driver;
 		this.dialect = dialect;
 
-		info = properties.newConnectionInfo();
+		info = properties.newInfo();
 		dialect.completeConnectionInfo(info);
 
 		this.transactionIsolation = dialect.getTransationIsolation();
