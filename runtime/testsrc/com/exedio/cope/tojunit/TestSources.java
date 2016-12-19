@@ -67,10 +67,15 @@ public final class TestSources
 
 	public static Source erase(final String keyToBeErased, final Source s)
 	{
+		requireNonNull(keyToBeErased);
+		requireNonNull(s);
+
 		return new Source(){
 			@Override
 			public String get(final String key)
 			{
+				checkKey(key);
+
 				if(key.equals(keyToBeErased))
 					return null;
 
@@ -93,6 +98,8 @@ public final class TestSources
 
 	public static Source describe(final String description, final Source source)
 	{
+		requireNonNull(source);
+
 		return new Source(){
 			@Override
 			public String get(final String key)
@@ -100,19 +107,16 @@ public final class TestSources
 				checkKey(key);
 				return source.get(key);
 			}
-
 			@Override
 			public Collection<String> keySet()
 			{
 				return source.keySet();
 			}
-
 			@Override
 			public String getDescription()
 			{
 				return description;
 			}
-
 			@Override
 			public String toString()
 			{
