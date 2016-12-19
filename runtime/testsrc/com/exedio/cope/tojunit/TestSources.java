@@ -26,7 +26,7 @@ import java.util.Collection;
 // TODO move to com.exedio.cope.util.Sources
 public final class TestSources
 {
-	public static Source describe(final Source source, final String description)
+	public static Source describe(final String description, final Source source)
 	{
 		return new Source(){
 			@Override

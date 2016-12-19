@@ -68,12 +68,11 @@ public abstract class ClusterNetworkTest
 		properties.setProperty("cluster", "true");
 		properties.setProperty("cluster.secret", "1234");
 		properties.setProperty("cluster.listenThreads", "2");
-		return ConnectProperties.create(describe(
+		return ConnectProperties.create(describe(description,
 				cascade(
 						view(properties, "ZACK"),
 						load(new File("runtime/utiltest.properties"))
-				),
-				description
+				)
 			));
 	}
 
