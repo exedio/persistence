@@ -21,6 +21,7 @@ package com.exedio.cope;
 import static com.exedio.cope.ConnectProperties.factory;
 import static com.exedio.cope.tojunit.TestSources.describe;
 import static com.exedio.cope.tojunit.TestSources.erase;
+import static com.exedio.cope.tojunit.TestSources.single;
 import static com.exedio.cope.util.Sources.cascade;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -32,7 +33,6 @@ import com.exedio.cope.util.IllegalPropertiesException;
 import com.exedio.cope.util.Properties.Field;
 import com.exedio.cope.util.Properties.Source;
 import com.exedio.cope.util.Sources;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.concurrent.Callable;
 import org.junit.Test;
@@ -142,7 +142,7 @@ public class ConnectPropertiesTest
 	{
 		final Source source =
 				describe("DESC", erase("dialect", cascade(
-						source("connection.url", url),
+						single("connection.url", url),
 						loadProperties()
 				)));
 		try
@@ -168,7 +168,7 @@ public class ConnectPropertiesTest
 	{
 		final Source source =
 				describe("DESC", cascade(
-						source("dialect", dialect),
+						single("dialect", dialect),
 						loadProperties()
 				));
 		try
@@ -190,7 +190,7 @@ public class ConnectPropertiesTest
 		final String propKey = "connection.postgresql.search_path";
 		final Source source =
 				describe("DESC", cascade(
-						source(propKey, "123,567"),
+						single(propKey, "123,567"),
 						loadProperties()
 				));
 		try
@@ -229,7 +229,7 @@ public class ConnectPropertiesTest
 		final String propKey = "connectionPool.idleInitial";
 		final Source source =
 				describe("DESC", cascade(
-						source(propKey, "51"),
+						single(propKey, "51"),
 						loadProperties()
 				));
 		try
@@ -280,31 +280,6 @@ public class ConnectPropertiesTest
 		}
 	}
 
-
-	private static Source source(
-			final String key1, final String value1)
-	{
-		return new Source(){
-			@Override
-			public String get(final String key)
-			{
-				if(key.equals(key1))
-					return value1;
-
-				return null;
-			}
-			@Override
-			public Collection<String> keySet()
-			{
-				throw new RuntimeException();
-			}
-			@Override
-			public String getDescription()
-			{
-				return key1;
-			}
-		};
-	}
 
 	private static Source loadProperties()
 	{

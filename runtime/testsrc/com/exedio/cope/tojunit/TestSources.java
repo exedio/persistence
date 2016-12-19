@@ -19,11 +19,13 @@
 package com.exedio.cope.tojunit;
 
 import static com.exedio.cope.util.Sources.checkKey;
+import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.util.Properties.Source;
 import com.exedio.cope.util.Sources;
 import java.io.File;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.LinkedHashSet;
 
 // TODO move to com.exedio.cope.util.Sources
@@ -32,6 +34,35 @@ public final class TestSources
 	public static Source minimal()
 	{
 		return Sources.load(new File("runtime/utiltest.properties"));
+	}
+
+	public static Source single(final String key, final String value)
+	{
+		requireNonNull(key);
+		requireNonNull(value);
+
+		return new Source(){
+			@Override
+			public String get(final String keyQueried)
+			{
+				checkKey(key);
+
+				if(key.equals(keyQueried))
+					return value;
+
+				return null;
+			}
+			@Override
+			public Collection<String> keySet()
+			{
+				return Collections.singleton(key);
+			}
+			@Override
+			public String getDescription()
+			{
+				return key + '=' + value;
+			}
+		};
 	}
 
 	public static Source erase(final String keyToBeErased, final Source s)
