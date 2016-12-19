@@ -18,6 +18,8 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.tojunit.TestSources.single;
+import static com.exedio.cope.util.Sources.cascade;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
@@ -27,9 +29,6 @@ import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.instrument.WrapperInitial;
 import com.exedio.cope.tojunit.TestSources;
-import com.exedio.cope.util.Properties;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import java.util.Collection;
 import org.junit.After;
 import org.junit.Test;
 
@@ -37,7 +36,10 @@ public class MediaRootUrlTest
 {
 	@Test public void testIt()
 	{
-		final ConnectProperties properties = getProperties("zack/");
+		final ConnectProperties properties = ConnectProperties.create(cascade(
+				single("media.rooturl", "zack/"),
+				TestSources.minimal()
+		));
 		assertEquals("zack/", properties.getMediaRootUrl());
 
 		MODEL.connect(properties);
@@ -76,37 +78,6 @@ public class MediaRootUrlTest
 		assertEquals("zack/AnItem/file/AnItem-0.jpg", i1.getNamedFileURL("hallo"));
 		assertEquals("zack/AnItem/file/AnItem-1.png", i2.getNamedFileURL(null));
 		assertEquals(null, iN.getNamedFileURL(null));
-	}
-
-	@SuppressFBWarnings("BC_UNCONFIRMED_CAST_OF_RETURN_VALUE")
-	private static ConnectProperties getProperties(final String mediaRootUrl)
-	{
-		final Properties.Source source = TestSources.minimal();
-		return ConnectProperties.create(
-				new Properties.Source()
-				{
-					@Override
-					public String get(final String key)
-					{
-						if(key.equals("media.rooturl"))
-							return mediaRootUrl;
-						else
-							return source.get(key);
-					}
-
-					@Override
-					public String getDescription()
-					{
-						return source.getDescription();
-					}
-
-					@Override
-					public Collection<String> keySet()
-					{
-						return source.keySet();
-					}
-				}
-			);
 	}
 
 	@SuppressWarnings("static-method")
