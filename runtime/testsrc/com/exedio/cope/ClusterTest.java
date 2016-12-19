@@ -20,20 +20,20 @@ package com.exedio.cope;
 
 import static com.exedio.cope.tojunit.Assert.assertUnmodifiable;
 import static com.exedio.cope.tojunit.Assert.list;
+import static com.exedio.cope.tojunit.TestSources.single;
+import static com.exedio.cope.util.Sources.cascade;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import com.exedio.cope.util.Hex;
-import com.exedio.cope.util.Properties;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import gnu.trove.TIntHashSet;
 import gnu.trove.TIntIterator;
 import gnu.trove.TLongHashSet;
 import java.net.DatagramPacket;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import org.junit.After;
 import org.junit.Before;
@@ -53,37 +53,12 @@ public abstract class ClusterTest
 	private static ClusterProperties getProperties(final int node)
 	{
 		return
-			ClusterProperties.factory().create(
-				new Properties.Source()
-				{
-					@Override
-					public String get(final String key)
-					{
-						if(key.equals("packetSize"))
-							return "67";
-						else if(key.equals("secret"))
-							return String.valueOf(SECRET);
-						else if(key.equals("nodeAuto"))
-							return "false";
-						else if(key.equals("node"))
-							return String.valueOf(node);
-						else
-							return null;
-					}
-
-					@Override
-					public String getDescription()
-					{
-						return "Cluster Properties";
-					}
-
-					@Override
-					public Collection<String> keySet()
-					{
-						return null;
-					}
-				}
-			);
+			ClusterProperties.factory().create(cascade(
+				single("packetSize", "67"),
+				single("secret", "" + SECRET),
+				single("nodeAuto", "false"),
+				single("node", "" + node)
+			));
 	}
 
 	@Before public final void setUpClusterTest()
