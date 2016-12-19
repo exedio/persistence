@@ -140,10 +140,9 @@ public class ConnectPropertiesTest
 			final String message,
 			final Class<? extends Exception> cause)
 	{
-		final String propKey = "connection.url";
 		final Source source =
 				describe("DESC", erase("dialect", cascade(
-						source(propKey, url),
+						source("connection.url", url),
 						loadProperties()
 				)));
 		try
