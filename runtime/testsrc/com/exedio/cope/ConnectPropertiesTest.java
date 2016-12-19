@@ -309,24 +309,7 @@ public class ConnectPropertiesTest
 
 	private static Source loadProperties()
 	{
-		final String name = "connectPropertiesTest.properties";
-		final Source s = Sources.load(
-				ConnectPropertiesTest.class.getResource(name));
-
-		return new Source(){
-			@Override public String get(final String key)
-			{
-				return s.get(key);
-			}
-			@Override public Collection<String> keySet()
-			{
-				return s.keySet();
-			}
-			@Override public String getDescription()
-			{
-				return name;
-			}
-		};
+		return Sources.load(ConnectPropertiesTest.class.getResource("connectPropertiesTest.properties"));
 	}
 
 	@Test public void testProbe() throws Exception
