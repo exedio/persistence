@@ -160,7 +160,7 @@ public class ClusterPropertiesTest
 	@Test public void testFailPrimaryKeyGeneratorMemory()
 	{
 		final Properties.Source connect =
-				new ConnectProperties(new File("runtime/utiltest.properties")).getSourceObject();
+				Sources.load(new File("runtime/utiltest.properties"));
 		final Properties.Source cluster = new Properties.Source()
 		{
 			@Override
