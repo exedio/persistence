@@ -20,6 +20,9 @@ package com.exedio.cope;
 
 import static com.exedio.cope.RevisionInfo.parse;
 import static com.exedio.cope.tojunit.Assert.assertWithin;
+import static com.exedio.cope.tojunit.TestSources.single;
+import static com.exedio.cope.util.Sources.cascade;
+import static com.exedio.cope.util.Sources.load;
 import static java.lang.String.valueOf;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -32,7 +35,6 @@ import static org.junit.Assert.fail;
 import com.exedio.cope.tojunit.LogRule;
 import com.exedio.cope.util.Hex;
 import com.exedio.cope.util.Properties.Source;
-import com.exedio.cope.util.Sources;
 import com.exedio.cope.util.TimeZoneStrict;
 import com.exedio.dsmf.Column;
 import com.exedio.dsmf.SQLRuntimeException;
@@ -43,15 +45,11 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Collection;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Properties;
-import java.util.Set;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -92,9 +90,7 @@ public class ReviseTest
 	@Before public final void setUp() throws UnknownHostException
 	{
 		hostname = InetAddress.getLocalHost().getHostName();
-		final TestSource testSource = new TestSource();
-		testSource.putOverride("revise.auto.enabled", "true");
-		props = ConnectProperties.create(testSource);
+		props = ConnectProperties.create(source(true));
 	}
 
 	String connectionUrl;
@@ -388,17 +384,16 @@ public class ReviseTest
 	@Test public void testAutoRevise()
 	{
 		revisionsFactory5.put( new Revisions(0) );
-		final TestSource testSource = new TestSource();
-		testSource.putOverride("revise.auto.enabled", "true");
-		model5.connect(ConnectProperties.create(testSource));
+		final Source sourceEnabled = source(true);
+		model5.connect(ConnectProperties.create(sourceEnabled));
 		model5.createSchema();
 		model5.reviseIfSupportedAndAutoEnabled();
 		model5.disconnect();
 		assertEquals( true, props.autoReviseEnabled );
 		revisionsFactory5.assertEmpty();
 
-		testSource.putOverride("revise.auto.enabled", "false");
-		final ConnectProperties cp = ConnectProperties.create(testSource);
+		final Source sourceDisabled = source(false);
+		final ConnectProperties cp = ConnectProperties.create(sourceDisabled);
 		model5.connect(cp);
 		assertEquals( false, cp.autoReviseEnabled );
 		revisionsFactory5.put( new Revisions(0) );
@@ -406,7 +401,7 @@ public class ReviseTest
 		revisionsFactory5.assertEmpty();
 		model5.disconnect();
 
-		model5.connect( ConnectProperties.create(testSource) );
+		model5.connect( ConnectProperties.create(sourceDisabled) );
 		revisionsFactory5.put( new Revisions( new Revision(1, "rev1", "sql1") ) );
 		try
 		{
@@ -420,8 +415,7 @@ public class ReviseTest
 		revisionsFactory5.assertEmpty();
 		model5.disconnect();
 
-		testSource.putOverride("revise.auto.enabled", "true");
-		model5.connect( ConnectProperties.create(testSource) );
+		model5.connect( ConnectProperties.create(sourceEnabled) );
 		revisionsFactory5.put( new Revisions( new Revision(1, "rev1", "sql1") ) );
 		try
 		{
@@ -435,6 +429,14 @@ public class ReviseTest
 		revisionsFactory5.assertEmpty();
 		model5.tearDownSchema();
 		model5.disconnect();
+	}
+
+	private static final Source source(final boolean auto)
+	{
+		return cascade(
+				single("revise.auto.enabled", "" + auto),
+				load(ConnectProperties.getDefaultPropertyFile())
+		);
 	}
 
 	private final Date assertCreate(final Date before, final Date after, final Map<Integer, byte[]> logs, final int revision) throws ParseException
@@ -618,44 +620,4 @@ public class ReviseTest
 			return revisions;
 		}
 	}
-
-	static final class TestSource implements Source
-	{
-		Source fallback;
-		Map<String,String> overrides = new HashMap<>();
-
-		TestSource()
-		{
-			fallback = Sources.load(ConnectProperties.getDefaultPropertyFile());
-		}
-
-		@Override
-		public String get( final String key )
-		{
-			final String override = overrides.get( key );
-			return override==null ? fallback.get( key ) : override;
-		}
-
-		@Override
-		public Collection<String> keySet()
-		{
-			final Set<String> keys = new HashSet<>();
-			keys.addAll( overrides.keySet() );
-			keys.addAll( fallback.keySet() );
-			return keys;
-		}
-
-		@Override
-		public String getDescription()
-		{
-			return "TestSource";
-		}
-
-		void putOverride( final String key, final String value )
-		{
-			overrides.put( key, value );
-		}
-
-	}
-
 }
