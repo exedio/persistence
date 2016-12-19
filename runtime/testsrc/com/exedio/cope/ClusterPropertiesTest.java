@@ -19,16 +19,16 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.tojunit.TestSources.describe;
+import static com.exedio.cope.tojunit.TestSources.single;
+import static com.exedio.cope.util.Sources.cascade;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 import com.exedio.cope.instrument.WrapperIgnore;
 import com.exedio.cope.tojunit.TestSources;
 import com.exedio.cope.util.IllegalPropertiesException;
-import com.exedio.cope.util.Properties;
 import com.exedio.cope.util.Properties.Source;
 import com.exedio.cope.util.Sources;
-import java.util.Collection;
 import org.junit.After;
 import org.junit.Test;
 
@@ -36,35 +36,13 @@ public class ClusterPropertiesTest
 {
 	@Test public void testOk()
 	{
-		final Source s = Sources.cascade(ConnectSource.get(), new Source()
-		{
-			@Override
-			public String get(final String key)
-			{
-				if(key.equals("cluster"))
-					return "true";
-				else if(key.equals("cluster.secret"))
-					return String.valueOf("1234");
-				else if(key.equals("cluster.listenThreads"))
-					return "5";
-				else if(key.equals("cluster.listenThreadsMax"))
-					return "5";
-				else
-					return null;
-			}
-
-			@Override
-			public String getDescription()
-			{
-				return "Cluster Properties";
-			}
-
-			@Override
-			public Collection<String> keySet()
-			{
-				return null;
-			}
-		});
+		final Source s = Sources.cascade(
+				ConnectSource.get(),
+				single("cluster", "true"),
+				single("cluster.secret", "1234"),
+				single("cluster.listenThreads", "5"),
+				single("cluster.listenThreadsMax", "5")
+		);
 
 		model.connect(ConnectProperties.create(s));
 		assertEquals(true, model.isClusterEnabled());
@@ -75,34 +53,11 @@ public class ClusterPropertiesTest
 
 	@Test public void testFailListenThreads()
 	{
-		final Source s = new Source()
-		{
-			@Override
-			public String get(final String key)
-			{
-				if(key.equals("secret"))
-					return String.valueOf("1234");
-				else if(key.equals("listenThreads"))
-					return "5";
-				else if(key.equals("listenThreadsMax"))
-					return "4";
-				else
-					return null;
-			}
-
-			@Override
-			public String getDescription()
-			{
-				return "Cluster Properties";
-			}
-
-			@Override
-			public Collection<String> keySet()
-			{
-				return null;
-			}
-		};
-
+		final Source s = describe("DESC", cascade(
+				single("secret", "1234"),
+				single("listenThreads", "5"),
+				single("listenThreadsMax", "4")
+		));
 		try
 		{
 			ClusterProperties.factory().create(s);
@@ -111,7 +66,7 @@ public class ClusterPropertiesTest
 		catch(final IllegalPropertiesException e)
 		{
 			assertEquals(
-					"property listenThreads in Cluster Properties " +
+					"property listenThreads in DESC " +
 					"must be less or equal listenThreadsMax=4, " +
 					"but was 5",
 					e.getMessage());
@@ -120,30 +75,9 @@ public class ClusterPropertiesTest
 
 	@Test public void testSecretZero()
 	{
-		final Source s = new Source()
-		{
-			@Override
-			public String get(final String key)
-			{
-				if(key.equals("secret"))
-					return String.valueOf("0");
-				else
-					return null;
-			}
-
-			@Override
-			public String getDescription()
-			{
-				return "Cluster Properties";
-			}
-
-			@Override
-			public Collection<String> keySet()
-			{
-				return null;
-			}
-		};
-
+		final Source s = describe("DESC",
+				single("secret", "0")
+		);
 		try
 		{
 			ClusterProperties.factory().create(s);
@@ -152,7 +86,7 @@ public class ClusterPropertiesTest
 		catch(final IllegalPropertiesException e)
 		{
 			assertEquals(
-					"property secret in Cluster Properties " +
+					"property secret in DESC " +
 					"must not be zero",
 					e.getMessage());
 		}
@@ -160,34 +94,11 @@ public class ClusterPropertiesTest
 
 	@Test public void testFailPrimaryKeyGeneratorMemory()
 	{
-		final Properties.Source connect = TestSources.minimal();
-		final Properties.Source cluster = new Properties.Source()
-		{
-			@Override
-			public String get(final String key)
-			{
-				if(key.equals("cluster"))
-					return "true";
-				else if(key.equals("cluster.secret"))
-					return "1234";
-				else
-					return null;
-			}
-
-			@Override
-			public String getDescription()
-			{
-				return "Connect Properties Context";
-			}
-
-			@Override
-			public Collection<String> keySet()
-			{
-				return null;
-			}
-		};
-
-		final Source s = describe("DESC", Sources.cascade(connect, cluster));
+		final Source s = describe("DESC", Sources.cascade(
+				TestSources.minimal(),
+				single("cluster", "true"),
+				single("cluster.secret", "1234")
+		));
 		try
 		{
 			ConnectProperties.create(s);
