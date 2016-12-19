@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.ConnectProperties.factory;
+import static com.exedio.cope.tojunit.TestSources.describe;
 import static com.exedio.cope.util.Sources.cascade;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -141,7 +142,7 @@ public class ConnectPropertiesTest
 	{
 		final String propKey = "connection.url";
 		final Source source =
-				desc(erase("dialect", cascade(
+				describe("DESC", erase("dialect", cascade(
 						source(propKey, url),
 						loadProperties()
 				)));
@@ -167,7 +168,7 @@ public class ConnectPropertiesTest
 			final Class<? extends Exception> cause)
 	{
 		final Source source =
-				desc(cascade(
+				describe("DESC", cascade(
 						source("dialect", dialect),
 						loadProperties()
 				));
@@ -189,7 +190,7 @@ public class ConnectPropertiesTest
 	{
 		final String propKey = "connection.postgresql.search_path";
 		final Source source =
-				desc(cascade(
+				describe("DESC", cascade(
 						source(propKey, "123,567"),
 						loadProperties()
 				));
@@ -228,7 +229,7 @@ public class ConnectPropertiesTest
 	{
 		final String propKey = "connectionPool.idleInitial";
 		final Source source =
-				desc(cascade(
+				describe("DESC", cascade(
 						source(propKey, "51"),
 						loadProperties()
 				));
@@ -328,27 +329,6 @@ public class ConnectPropertiesTest
 			public String getDescription()
 			{
 				return s.getDescription();
-			}
-		};
-	}
-
-	static Source desc(final Source s)
-	{
-		return new Source(){
-			@Override
-			public String get(final String key)
-			{
-				return s.get(key);
-			}
-			@Override
-			public Collection<String> keySet()
-			{
-				return s.keySet();
-			}
-			@Override
-			public String getDescription()
-			{
-				return "DESC";
 			}
 		};
 	}

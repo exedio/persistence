@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.tojunit.TestSources.describe;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
@@ -187,7 +188,7 @@ public class ClusterPropertiesTest
 			}
 		};
 
-		final Source s = ConnectPropertiesTest.desc(Sources.cascade(connect, cluster));
+		final Source s = describe("DESC", Sources.cascade(connect, cluster));
 		try
 		{
 			ConnectProperties.create(s);
