@@ -59,7 +59,8 @@ public class MediaUrlSecretTest
 		catch(final IllegalPropertiesException e)
 		{
 			assertEquals(
-					"property media.url.secret in MediaUrlSecretTestSource must have at least 10 characters, " +
+					"property media.url.secret in MediaUrlSecretTestSource " +
+					"must have at least 10 characters, " +
 					"but was '123456789' with just 9 characters",
 					e.getMessage());
 		}
@@ -102,23 +103,6 @@ public class MediaUrlSecretTest
 
 		assertEquals(true, MediaPath.isUrlGuessingPreventedSecurely(props));
 		assertEquals("1234567890", props.getMediaUrlSecret());
-	}
-
-	@Test public void testTooShortNoContext()
-	{
-		try
-		{
-			props("123456789");
-			fail();
-		}
-		catch(final IllegalPropertiesException e)
-		{
-			assertEquals(
-					"property media.url.secret in MediaUrlSecretTestSource " +
-					"must have at least 10 characters, " +
-					"but was '123456789' with just 9 characters",
-					e.getMessage());
-		}
 	}
 
 	@SuppressWarnings("static-method")
