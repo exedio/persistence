@@ -96,21 +96,21 @@ public final class TestSources
 		};
 	}
 
-	public static Source describe(final String description, final Source source)
+	public static Source describe(final String description, final Source s)
 	{
-		requireNonNull(source);
+		requireNonNull(s);
 
 		return new Source(){
 			@Override
 			public String get(final String key)
 			{
 				checkKey(key);
-				return source.get(key);
+				return s.get(key);
 			}
 			@Override
 			public Collection<String> keySet()
 			{
-				return source.keySet();
+				return s.keySet();
 			}
 			@Override
 			public String getDescription()
