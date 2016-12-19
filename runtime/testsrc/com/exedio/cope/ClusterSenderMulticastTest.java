@@ -18,13 +18,13 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.tojunit.TestSources.single;
+import static com.exedio.cope.util.Sources.cascade;
 import static org.junit.Assert.fail;
 
-import com.exedio.cope.util.Properties;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.IOException;
 import java.net.SocketException;
-import java.util.Collection;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -40,33 +40,10 @@ public final class ClusterSenderMulticastTest
 	@Before public final void setUp()
 	{
 		final ClusterProperties properties =
-			ClusterProperties.factory().create(
-				new Properties.Source()
-				{
-					@Override
-					public String get(final String key)
-					{
-						if(key.equals("packetSize"))
-							return "47";
-						else if(key.equals("secret"))
-							return String.valueOf(SECRET);
-						else
-							return null;
-					}
-
-					@Override
-					public String getDescription()
-					{
-						return "Cluster Properties";
-					}
-
-					@Override
-					public Collection<String> keySet()
-					{
-						return null;
-					}
-				}
-			);
+			ClusterProperties.factory().create(cascade(
+				single("packetSize", "47"),
+				single("secret", "" + SECRET)
+			));
 		sender = new ClusterSenderMulticast(properties);
 	}
 
