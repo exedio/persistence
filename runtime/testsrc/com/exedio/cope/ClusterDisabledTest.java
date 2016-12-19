@@ -22,6 +22,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 import com.exedio.cope.instrument.WrapperIgnore;
+import com.exedio.cope.tojunit.TestSources;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -70,7 +71,7 @@ public class ClusterDisabledTest
 	@SuppressWarnings("static-method")
 	@Before public final void setUp()
 	{
-		model.connect(ConnectProperties.create(ConnectSource.get()));
+		model.connect(ConnectProperties.create(TestSources.minimal()));
 	}
 
 	@SuppressWarnings("static-method")

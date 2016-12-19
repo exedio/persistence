@@ -37,7 +37,8 @@ public class ClusterPropertiesTest
 	@Test public void testOk()
 	{
 		final Source s = Sources.cascade(
-				ConnectSource.get(),
+				TestSources.minimal(),
+				single("schema.primaryKeyGenerator", PrimaryKeyGenerator.sequence.name()),
 				single("cluster", "true"),
 				single("cluster.secret", "1234"),
 				single("cluster.listenThreads", "5"),
