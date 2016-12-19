@@ -27,8 +27,8 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import com.exedio.cope.instrument.WrapperType;
+import com.exedio.cope.tojunit.TestSources;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import java.io.File;
 import java.util.ArrayList;
 import org.junit.After;
 import org.junit.Before;
@@ -296,7 +296,7 @@ public class CommitHookPostTest
 	@SuppressWarnings("static-method")
 	@Before public final void setUp()
 	{
-		model.connect(new ConnectProperties(new File("runtime/utiltest.properties")));
+		model.connect(ConnectProperties.create(TestSources.minimal()));
 	}
 
 	@SuppressWarnings("static-method")

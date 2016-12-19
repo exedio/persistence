@@ -26,10 +26,9 @@ import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.instrument.WrapperInitial;
+import com.exedio.cope.tojunit.TestSources;
 import com.exedio.cope.util.Properties;
-import com.exedio.cope.util.Sources;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import java.io.File;
 import java.util.Collection;
 import org.junit.After;
 import org.junit.Test;
@@ -82,7 +81,7 @@ public class MediaRootUrlTest
 	@SuppressFBWarnings("BC_UNCONFIRMED_CAST_OF_RETURN_VALUE")
 	private static ConnectProperties getProperties(final String mediaRootUrl)
 	{
-		final Properties.Source source = Sources.load(new File("runtime/utiltest.properties"));
+		final Properties.Source source = TestSources.minimal();
 		return ConnectProperties.create(
 				new Properties.Source()
 				{

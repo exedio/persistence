@@ -24,7 +24,7 @@ import static com.exedio.dsmf.Dialect.NOT_NULL;
 import static org.junit.Assert.assertEquals;
 
 import com.exedio.cope.instrument.WrapperIgnore;
-import java.io.File;
+import com.exedio.cope.tojunit.TestSources;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -146,5 +146,5 @@ public class TypeColumnTypeTest
 		model.disconnect();
 	}
 
-	private static final ConnectProperties props = new ConnectProperties(new File("runtime/utiltest.properties"));
+	private static final ConnectProperties props = ConnectProperties.create(TestSources.minimal());
 }

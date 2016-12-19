@@ -20,12 +20,11 @@ package com.exedio.cope;
 
 import static com.exedio.cope.tojunit.TestSources.describe;
 import static com.exedio.cope.util.Sources.cascade;
-import static com.exedio.cope.util.Sources.load;
 import static com.exedio.cope.util.Sources.view;
 
 import com.exedio.cope.instrument.WrapperIgnore;
 import com.exedio.cope.instrument.WrapperType;
-import java.io.File;
+import com.exedio.cope.tojunit.TestSources;
 import java.util.Properties;
 import org.junit.After;
 
@@ -71,7 +70,7 @@ public abstract class ClusterNetworkTest
 		return ConnectProperties.create(describe(description,
 				cascade(
 						view(properties, "ZACK"),
-						load(new File("runtime/utiltest.properties"))
+						TestSources.minimal()
 				)
 			));
 	}

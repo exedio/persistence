@@ -38,7 +38,7 @@ import com.exedio.cope.Model;
 import com.exedio.cope.instrument.WrapperIgnore;
 import com.exedio.cope.tojunit.ConnectTokenRule;
 import com.exedio.cope.tojunit.LogRule;
-import java.io.File;
+import com.exedio.cope.tojunit.TestSources;
 import java.util.Date;
 import java.util.function.Consumer;
 import org.junit.Before;
@@ -49,7 +49,7 @@ import org.junit.rules.RuleChain;
 public class ConnectTokenTest
 {
 	private static final Model model = new Model(ConnectTokenItem.TYPE);
-	private static final ConnectProperties props = new ConnectProperties(new File("runtime/utiltest.properties"));
+	private static final ConnectProperties props = ConnectProperties.create(TestSources.minimal());
 
 	static
 	{

@@ -26,8 +26,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.fail;
 
+import com.exedio.cope.tojunit.TestSources;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import java.io.File;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -288,7 +288,7 @@ public class CommitHookPreTest
 	@SuppressWarnings("static-method")
 	@Before public final void setUp()
 	{
-		model.connect(new ConnectProperties(new File("runtime/utiltest.properties")));
+		model.connect(ConnectProperties.create(TestSources.minimal()));
 	}
 
 	@SuppressWarnings("static-method")

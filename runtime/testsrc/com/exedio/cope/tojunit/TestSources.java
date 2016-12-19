@@ -21,12 +21,19 @@ package com.exedio.cope.tojunit;
 import static com.exedio.cope.util.Sources.checkKey;
 
 import com.exedio.cope.util.Properties.Source;
+import com.exedio.cope.util.Sources;
+import java.io.File;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 
 // TODO move to com.exedio.cope.util.Sources
 public final class TestSources
 {
+	public static Source minimal()
+	{
+		return Sources.load(new File("runtime/utiltest.properties"));
+	}
+
 	public static Source erase(final String keyToBeErased, final Source s)
 	{
 		return new Source(){

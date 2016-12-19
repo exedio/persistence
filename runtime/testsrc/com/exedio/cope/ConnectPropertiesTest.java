@@ -27,11 +27,11 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import com.exedio.cope.ConnectProperties.Factory;
+import com.exedio.cope.tojunit.TestSources;
 import com.exedio.cope.util.IllegalPropertiesException;
 import com.exedio.cope.util.Properties.Field;
 import com.exedio.cope.util.Properties.Source;
 import com.exedio.cope.util.Sources;
-import java.io.File;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.concurrent.Callable;
@@ -210,7 +210,7 @@ public class ConnectPropertiesTest
 	@Test public void testPrimaryKeyGeneratorDefaultStandard()
 	{
 		final ConnectProperties p = factory().
-				create(Sources.load(new File("runtime/utiltest.properties")));
+				create(TestSources.minimal());
 
 		assertEquals(PrimaryKeyGenerator.memory, p.primaryKeyGenerator);
 	}
@@ -219,7 +219,7 @@ public class ConnectPropertiesTest
 	{
 		final ConnectProperties p = factory().
 				primaryKeyGeneratorSequence().
-				create(Sources.load(new File("runtime/utiltest.properties")));
+				create(TestSources.minimal());
 
 		assertEquals(PrimaryKeyGenerator.sequence, p.primaryKeyGenerator);
 	}
@@ -249,7 +249,7 @@ public class ConnectPropertiesTest
 	@Test public void testMediaRootUrlStandard()
 	{
 		final ConnectProperties p = factory().
-				create(Sources.load(new File("runtime/utiltest.properties")));
+				create(TestSources.minimal());
 
 		assertEquals("media/", p.getMediaRootUrl());
 	}
@@ -258,7 +258,7 @@ public class ConnectPropertiesTest
 	{
 		final ConnectProperties p = factory().
 				mediaRootUrl("/custom/").
-				create(Sources.load(new File("runtime/utiltest.properties")));
+				create(TestSources.minimal());
 
 		assertEquals("/custom/", p.getMediaRootUrl());
 	}
@@ -266,7 +266,7 @@ public class ConnectPropertiesTest
 	@Test public void testMediaRootUrlNull()
 	{
 		final Factory f = factory().mediaRootUrl(null);
-		final Source s = Sources.load(new File("runtime/utiltest.properties"));
+		final Source s = TestSources.minimal();
 
 		try
 		{
@@ -313,8 +313,7 @@ public class ConnectPropertiesTest
 
 	@Test public void testProbe() throws Exception
 	{
-		final ConnectProperties p = ConnectProperties.create(
-				Sources.load(new File("runtime/utiltest.properties")));
+		final ConnectProperties p = ConnectProperties.create(TestSources.minimal());
 
 		final Callable<?> test = p.getProbeTest();
 		assertEquals(

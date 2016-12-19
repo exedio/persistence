@@ -27,8 +27,8 @@ import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.Model;
 import com.exedio.cope.Revision;
 import com.exedio.cope.Revisions;
+import com.exedio.cope.tojunit.TestSources;
 import com.exedio.cope.util.AssertionErrorJobContext;
-import java.io.File;
 import java.util.Iterator;
 import org.junit.After;
 import org.junit.Test;
@@ -43,7 +43,7 @@ public class RevisionStatisticsTest
 			add(RevisionStatisticsItem.TYPE).
 			build();
 
-	private static final ConnectProperties props = new ConnectProperties(new File("runtime/utiltest.properties"));
+	private static final ConnectProperties props = ConnectProperties.create(TestSources.minimal());
 
 	@Test public void testIt()
 	{

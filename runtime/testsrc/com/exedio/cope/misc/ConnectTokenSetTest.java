@@ -37,7 +37,7 @@ import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
 import com.exedio.cope.instrument.WrapperIgnore;
 import com.exedio.cope.tojunit.ConnectTokenRule;
-import java.io.File;
+import com.exedio.cope.tojunit.TestSources;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.RuleChain;
@@ -68,7 +68,7 @@ public class ConnectTokenSetTest
 		assertSame(null, getProperties(model));
 		assertNotSet();
 
-		final ConnectProperties properties = new ConnectProperties(new File("runtime/utiltest.properties"));
+		final ConnectProperties properties = ConnectProperties.create(TestSources.minimal());
 		ctr.set(properties);
 		assertSame(properties, getProperties(model));
 		assertEquals(list(), getTokens(model));
@@ -95,7 +95,7 @@ public class ConnectTokenSetTest
 		assertSame(null, getProperties(model));
 		assertNotSet();
 
-		final ConnectProperties properties = new ConnectProperties(new File("runtime/utiltest.properties"));
+		final ConnectProperties properties = ConnectProperties.create(TestSources.minimal());
 		ctr.set(properties);
 		assertSame(properties, getProperties(model));
 		assertEquals(list(), getTokens(model));

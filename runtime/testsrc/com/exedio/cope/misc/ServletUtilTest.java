@@ -31,7 +31,7 @@ import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
 import com.exedio.cope.instrument.WrapperIgnore;
 import com.exedio.cope.tojunit.ConnectTokenRule;
-import java.io.File;
+import com.exedio.cope.tojunit.TestSources;
 import java.util.Enumeration;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -61,7 +61,7 @@ public class ServletUtilTest
 
 	@Before public final void setUp()
 	{
-		final ConnectProperties props = new ConnectProperties(new File("runtime/utiltest.properties"));
+		final ConnectProperties props = ConnectProperties.create(TestSources.minimal());
 		ctrOk.set(props);
 		ctrOk2.set(props);
 		ctrContext.set(props);

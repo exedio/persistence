@@ -23,11 +23,11 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 import com.exedio.cope.instrument.WrapperIgnore;
+import com.exedio.cope.tojunit.TestSources;
 import com.exedio.cope.util.IllegalPropertiesException;
 import com.exedio.cope.util.Properties;
 import com.exedio.cope.util.Properties.Source;
 import com.exedio.cope.util.Sources;
-import java.io.File;
 import java.util.Collection;
 import org.junit.After;
 import org.junit.Test;
@@ -160,8 +160,7 @@ public class ClusterPropertiesTest
 
 	@Test public void testFailPrimaryKeyGeneratorMemory()
 	{
-		final Properties.Source connect =
-				Sources.load(new File("runtime/utiltest.properties"));
+		final Properties.Source connect = TestSources.minimal();
 		final Properties.Source cluster = new Properties.Source()
 		{
 			@Override
