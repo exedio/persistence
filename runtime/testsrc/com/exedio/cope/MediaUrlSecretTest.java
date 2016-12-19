@@ -121,15 +121,6 @@ public class MediaUrlSecretTest
 		}
 	}
 
-	@Test public void testEmptyNoContext()
-	{
-		final ConnectProperties props = props("");
-		model.connect(props);
-
-		assertEquals(false, MediaPath.isUrlGuessingPreventedSecurely(props));
-		assertEquals(null, props.getMediaUrlSecret());
-	}
-
 	@SuppressWarnings("static-method")
 	@After public final void tearDown()
 	{
