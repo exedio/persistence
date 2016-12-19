@@ -21,11 +21,11 @@ package com.exedio.cope.sampler;
 import static com.exedio.cope.sampler.Stuff.MODEL;
 import static com.exedio.cope.sampler.Stuff.sampler;
 import static com.exedio.cope.sampler.Stuff.samplerModel;
+import static com.exedio.cope.tojunit.TestSources.erase;
 
 import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.util.Properties;
-import java.util.Collection;
 import org.junit.After;
 import org.junit.Before;
 
@@ -49,32 +49,12 @@ public abstract class ConnectedTest extends TestWithEnvironment
 
 	private static Properties.Source maskRevisionSchemaNames(final Properties.Source original)
 	{
-		return new Properties.Source(){
-
-			@Override
-			public String get(final String key)
-			{
-				// If this is explicitly specified, the table name
-				// collides between the sampler model and the sampled model.
-				if("schema.revision.table" .equals(key) ||
-					"schema.revision.unique".equals(key))
-					return null;
-
-				return original.get(key);
-			}
-
-			@Override
-			public String getDescription()
-			{
-				return original.getDescription();
-			}
-
-			@Override
-			public Collection<String> keySet()
-			{
-				return original.keySet();
-			}
-		};
+		// If this is explicitly specified, the table name
+		// collides between the sampler model and the sampled model.
+		return
+				erase("schema.revision.table",
+				erase("schema.revision.unique",
+				original));
 	}
 
 	@SuppressWarnings("static-method")
