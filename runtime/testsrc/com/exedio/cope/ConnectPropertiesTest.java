@@ -250,8 +250,8 @@ public class ConnectPropertiesTest
 	{
 		final Source source =
 				cascade(
-						source("cache.item.globalLimit", "123"),
-						Sources.load(new File("runtime/utiltest.properties"))
+						single("cache.item.globalLimit", 123),
+						TestSources.minimal()
 				);
 		assertEquals(123, new ConnectProperties(source, null).getItemCacheLimit());
 	}
@@ -260,8 +260,8 @@ public class ConnectPropertiesTest
 	{
 		final Source source =
 				cascade(
-						source("cache.item.limit", "123"),
-						Sources.load(new File("runtime/utiltest.properties"))
+						single("cache.item.limit", 123),
+						TestSources.minimal()
 				);
 		assertEquals(123, new ConnectProperties(source, null).getItemCacheLimit());
 	}
@@ -270,9 +270,9 @@ public class ConnectPropertiesTest
 	{
 		final Source source =
 				cascade(
-						source("cache.item.limit", "123"),
-						source("cache.item.globalLimit", "456"),
-						Sources.load(new File("runtime/utiltest.properties"))
+						single("cache.item.limit", 123),
+						single("cache.item.globalLimit", 456),
+						TestSources.minimal()
 				);
 		assertEquals(456, new ConnectProperties(source, null).getItemCacheLimit());
 	}
