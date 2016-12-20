@@ -434,7 +434,7 @@ public class ReviseTest
 	private static final Source source(final boolean auto)
 	{
 		return cascade(
-				single("revise.auto.enabled", "" + auto),
+				single("revise.auto.enabled", auto),
 				load(ConnectProperties.getDefaultPropertyFile())
 		);
 	}

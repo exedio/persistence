@@ -41,8 +41,8 @@ public final class ClusterSenderMulticastTest
 	{
 		final ClusterProperties properties =
 			ClusterProperties.factory().create(cascade(
-				single("packetSize", "47"),
-				single("secret", "" + SECRET)
+				single("packetSize", 47),
+				single("secret", SECRET)
 			));
 		sender = new ClusterSenderMulticast(properties);
 	}

@@ -38,11 +38,11 @@ public class ClusterPropertiesTest
 	{
 		final Source s = Sources.cascade(
 				TestSources.minimal(),
-				single("schema.primaryKeyGenerator", PrimaryKeyGenerator.sequence.name()),
-				single("cluster", "true"),
-				single("cluster.secret", "1234"),
-				single("cluster.listenThreads", "5"),
-				single("cluster.listenThreadsMax", "5")
+				single("schema.primaryKeyGenerator", PrimaryKeyGenerator.sequence),
+				single("cluster", true),
+				single("cluster.secret", 1234),
+				single("cluster.listenThreads", 5),
+				single("cluster.listenThreadsMax", 5)
 		);
 
 		model.connect(ConnectProperties.create(s));
@@ -55,9 +55,9 @@ public class ClusterPropertiesTest
 	@Test public void testFailListenThreads()
 	{
 		final Source s = describe("DESC", cascade(
-				single("secret", "1234"),
-				single("listenThreads", "5"),
-				single("listenThreadsMax", "4")
+				single("secret", 1234),
+				single("listenThreads", 5),
+				single("listenThreadsMax", 4)
 		));
 		try
 		{
@@ -77,7 +77,7 @@ public class ClusterPropertiesTest
 	@Test public void testSecretZero()
 	{
 		final Source s = describe("DESC",
-				single("secret", "0")
+				single("secret", 0)
 		);
 		try
 		{
@@ -97,8 +97,8 @@ public class ClusterPropertiesTest
 	{
 		final Source s = describe("DESC", Sources.cascade(
 				TestSources.minimal(),
-				single("cluster", "true"),
-				single("cluster.secret", "1234")
+				single("cluster", true),
+				single("cluster.secret", 1234)
 		));
 		try
 		{

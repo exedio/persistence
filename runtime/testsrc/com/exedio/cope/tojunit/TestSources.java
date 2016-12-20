@@ -36,6 +36,21 @@ public final class TestSources
 		return Sources.load(new File("runtime/utiltest.properties"));
 	}
 
+	public static Source single(final String key, final boolean value)
+	{
+		return single(key, String.valueOf(value));
+	}
+
+	public static Source single(final String key, final int value)
+	{
+		return single(key, String.valueOf(value));
+	}
+
+	public static Source single(final String key, final Enum<?> value)
+	{
+		return single(key, value.name());
+	}
+
 	public static Source single(final String key, final String value)
 	{
 		requireNonNull(key);

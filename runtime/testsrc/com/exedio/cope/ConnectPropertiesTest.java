@@ -229,7 +229,7 @@ public class ConnectPropertiesTest
 		final String propKey = "connectionPool.idleInitial";
 		final Source source =
 				describe("DESC", cascade(
-						single(propKey, "51"),
+						single(propKey, 51),
 						loadProperties()
 				));
 		try

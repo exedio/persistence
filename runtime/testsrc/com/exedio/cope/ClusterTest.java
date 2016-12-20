@@ -54,10 +54,10 @@ public abstract class ClusterTest
 	{
 		return
 			ClusterProperties.factory().create(cascade(
-				single("packetSize", "67"),
-				single("secret", "" + SECRET),
-				single("nodeAuto", "false"),
-				single("node", "" + node)
+				single("packetSize", 67),
+				single("secret", SECRET),
+				single("nodeAuto", false),
+				single("node", node)
 			));
 	}
 
