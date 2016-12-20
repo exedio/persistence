@@ -7,6 +7,20 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* ConnectProperties: renamed several keys:
+
+	changeListeners.threads     -> changeListeners.threads.initial
+	changeListeners.threadsMax  -> changeListeners.threads.max
+	changeListeners.prioritySet -> changeListeners.threads.priority.set
+	changeListeners.priority    -> changeListeners.threads.priority.value
+	cluster.listenThreads       -> cluster.listen.threads.initial
+	cluster.listenThreadsMax    -> cluster.listen.threads.max
+	cluster.listenPrioritySet   -> cluster.listen.threads.priority.set
+	cluster.listenPriority      -> cluster.listen.threads.priority.value
+
+	This breaks backwards API compatibility, check your deployed systems!
+	Probably these keys is at their defaults, then you don't have to do anything.
+
 * ConnectProperties: key "dialect" changes its meaning.
 	This breaks backwards API compatibility, check your deployed systems!
 	Probably this key is at its default, then you don't have to do anything.

@@ -41,23 +41,23 @@ public class ClusterPropertiesTest
 				single("schema.primaryKeyGenerator", PrimaryKeyGenerator.sequence),
 				single("cluster", true),
 				single("cluster.secret", 1234),
-				single("cluster.listenThreads", 5),
-				single("cluster.listenThreadsMax", 5)
+				single("cluster.listen.threads.initial", 5),
+				single("cluster.listen.threads.max", 5)
 		);
 
 		model.connect(ConnectProperties.create(s));
 		assertEquals(true, model.isClusterEnabled());
 		final ClusterProperties p = (ClusterProperties)model.getClusterProperties();
-		assertEquals(5, p.listenThreads);
-		assertEquals(5, p.listenThreadsMax);
+		assertEquals(5, p.listenThreads.initial);
+		assertEquals(5, p.listenThreads.max);
 	}
 
 	@Test public void testFailListenThreads()
 	{
 		final Source s = describe("DESC", cascade(
 				single("secret", 1234),
-				single("listenThreads", 5),
-				single("listenThreadsMax", 4)
+				single("listen.threads.initial", 5),
+				single("listen.threads.max", 4)
 		));
 		try
 		{
@@ -67,8 +67,8 @@ public class ClusterPropertiesTest
 		catch(final IllegalPropertiesException e)
 		{
 			assertEquals(
-					"property listenThreads in DESC " +
-					"must be less or equal listenThreadsMax=4, " +
+					"property listen.threads.initial in DESC " +
+					"must be less or equal max=4, " +
 					"but was 5",
 					e.getMessage());
 		}

@@ -18,9 +18,6 @@
 
 package com.exedio.cope;
 
-import static java.lang.Thread.MAX_PRIORITY;
-import static java.lang.Thread.MIN_PRIORITY;
-
 import com.exedio.cope.pattern.MediaFingerprintOffset;
 import com.exedio.cope.util.PoolProperties;
 import com.exedio.cope.util.Properties;
@@ -182,10 +179,7 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	final int dataFieldBufferSizeLimit   = value("dataField.bufferSizeLimit", 1024*1024, 1);
 
 	final     int changeListenersQueueCapacity = value("changeListeners.queueCapacity", 1000, 1);
-	final     int changeListenersThreads       = value("changeListeners.threads",        1, 1);
-	final     int changeListenersThreadsMax    = value("changeListeners.threadsMax",    10, 1);
-	final boolean changeListenersPrioritySet   = value("changeListeners.prioritySet",   false);
-	final     int changeListenersPriority      = value("changeListeners.priority",      MAX_PRIORITY, MIN_PRIORITY);
+	final ThreadSwarmProperties chaListThreads = value("changeListeners.threads", ThreadSwarmProperties::new);
 
 	final ClusterProperties cluster = value("cluster", false, ClusterProperties.factory());
 

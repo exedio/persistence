@@ -21,8 +21,6 @@ package com.exedio.cope;
 import static com.exedio.cope.ClusterUtil.nextNode;
 import static com.exedio.cope.ClusterUtil.pingString;
 import static java.lang.Integer.MIN_VALUE;
-import static java.lang.Thread.MAX_PRIORITY;
-import static java.lang.Thread.MIN_PRIORITY;
 
 import com.exedio.cope.util.Properties;
 import java.io.IOException;
@@ -60,10 +58,7 @@ final class ClusterProperties extends Properties
 	private final boolean listenDisableLoopbk = value("listenDisableLoopback", false);
 	private final boolean listenBufferDefault = value("listenBufferDefault", true);
 	private final int     listenBuffer        = value("listenBuffer"       , 50000, 1);
-	        final int     listenThreads       = value("listenThreads",       1, 1);
-	        final int     listenThreadsMax    = value("listenThreadsMax",    10, 1);
-	private final boolean listenPrioritySet   = value("listenPrioritySet",   false);
-	private final int     listenPriority      = value("listenPriority",      MAX_PRIORITY, MIN_PRIORITY);
+	final ThreadSwarmProperties listenThreads = value("listen.threads"     , ThreadSwarmProperties::new);
 	        final int     listenSeqCheckCap   = value("listenSequenceCheckerCapacity", 200, 1);
 	private final boolean multicast           = value("multicast",           true);
 	private final int     packetSizeField     = value("packetSize",          1400, 32);
@@ -91,12 +86,6 @@ final class ClusterProperties extends Properties
 		}
 		if(logger.isInfoEnabled())
 			logger.info("node id: {}", ClusterSenderInfo.toStringNodeID(node));
-
-		if(listenThreads>listenThreadsMax)
-			throw newException(
-					"listenThreads",
-					"must be less or equal listenThreadsMax=" + listenThreadsMax + ", " +
-					"but was " + listenThreads);
 
 		this.packetSize = packetSizeField & (~3);
 		{
@@ -220,12 +209,6 @@ final class ClusterProperties extends Properties
 		{
 			throw new RuntimeException(String.valueOf(port), e);
 		}
-	}
-
-	void setListenPriority(final ThreadSwarm thread)
-	{
-		if(listenPrioritySet)
-			thread.setPriority(listenPriority);
 	}
 
 	static Factory<ClusterProperties> factory()

@@ -50,11 +50,9 @@ final class ChangeListenerDispatcher implements Runnable
 		this.threads = new ThreadSwarm(
 				this,
 				"COPE Change Listener Dispatcher " + modelName,
-				properties.changeListenersThreadsMax
+				properties.chaListThreads
 		);
-		if(properties.changeListenersPrioritySet)
-			threads.setPriority(properties.changeListenersPriority);
-		threads.start(properties.changeListenersThreads);
+		threads.start();
 	}
 
 	ChangeListenerDispatcherInfo getInfo()

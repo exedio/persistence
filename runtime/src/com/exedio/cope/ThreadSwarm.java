@@ -28,32 +28,32 @@ final class ThreadSwarm
 {
 	private static final Logger logger = LoggerFactory.getLogger(ThreadSwarm.class);
 
+	private final ThreadSwarmProperties properties;
 	private final ThreadController[] threads;
 
 	ThreadSwarm(
 			final Runnable target,
 			final String name,
-			final int size)
+			final ThreadSwarmProperties properties)
 	{
 		assert target!=null;
 		assert name!=null;
-		assert size>0;
 
-		this.threads = new ThreadController[size];
+		this.properties = properties;
+		this.threads = new ThreadController[properties.max];
 		for(int i = 0; i<threads.length; i++)
 		{
 			final ThreadController thread = new ThreadController(target,
-				name + ' ' + (i+1) + '/' + size,
+				name + ' ' + (i+1) + '/' + properties.max,
 				true);
+			properties.setPriority(thread);
 			threads[i] = thread;
 		}
 	}
 
-	void start(final int number)
+	void start()
 	{
-		assert number<=threads.length;
-
-		int toStart = number;
+		int toStart = properties.initial;
 		for(final ThreadController thread : threads)
 		{
 			if((--toStart)<0)
@@ -68,12 +68,6 @@ final class ThreadSwarm
 	void addThreadControllers(final ArrayList<ThreadController> result)
 	{
 		result.addAll(Arrays.asList(threads));
-	}
-
-	void setPriority(final int priority)
-	{
-		for(final ThreadController thread : threads)
-			thread.setPriority(priority);
 	}
 
 	void interrupt()
