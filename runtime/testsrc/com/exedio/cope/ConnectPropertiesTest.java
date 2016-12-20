@@ -253,7 +253,7 @@ public class ConnectPropertiesTest
 						single("cache.item.globalLimit", 123),
 						TestSources.minimal()
 				);
-		assertEquals(123, new ConnectProperties(source, null).getItemCacheLimit());
+		assertEquals(123, ConnectProperties.create(source).getItemCacheLimit());
 	}
 
 	@Test public void testItemCacheLimitFallback()
@@ -263,7 +263,7 @@ public class ConnectPropertiesTest
 						single("cache.item.limit", 123),
 						TestSources.minimal()
 				);
-		assertEquals(123, new ConnectProperties(source, null).getItemCacheLimit());
+		assertEquals(123, ConnectProperties.create(source).getItemCacheLimit());
 	}
 
 	@Test public void testItemCacheLimitOverride()
@@ -274,7 +274,7 @@ public class ConnectPropertiesTest
 						single("cache.item.globalLimit", 456),
 						TestSources.minimal()
 				);
-		assertEquals(456, new ConnectProperties(source, null).getItemCacheLimit());
+		assertEquals(456, ConnectProperties.create(source).getItemCacheLimit());
 	}
 
 	@Test public void testMediaRootUrlStandard()
