@@ -24,15 +24,12 @@ import static com.exedio.cope.misc.QueryIterators.iterateTypeTransactionally;
 import static com.exedio.cope.misc.TimeUtil.toMillies;
 import static com.exedio.cope.pattern.Schedule.Interval.DAILY;
 import static java.lang.System.nanoTime;
-import static java.util.Calendar.DAY_OF_MONTH;
-import static java.util.Calendar.DAY_OF_WEEK;
-import static java.util.Calendar.HOUR_OF_DAY;
-import static java.util.Calendar.MILLISECOND;
-import static java.util.Calendar.MINUTE;
-import static java.util.Calendar.MONDAY;
-import static java.util.Calendar.MONTH;
-import static java.util.Calendar.SECOND;
-import static java.util.Calendar.WEEK_OF_MONTH;
+import static java.time.DayOfWeek.MONDAY;
+import static java.time.temporal.ChronoField.DAY_OF_WEEK;
+import static java.time.temporal.ChronoUnit.DAYS;
+import static java.time.temporal.ChronoUnit.HOURS;
+import static java.time.temporal.ChronoUnit.MONTHS;
+import static java.time.temporal.ChronoUnit.WEEKS;
 import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.ActivationParameters;
@@ -58,6 +55,11 @@ import com.exedio.cope.util.Clock;
 import com.exedio.cope.util.JobContext;
 import com.exedio.cope.util.ProxyJobContext;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import java.time.Duration;
+import java.time.Instant;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Iterator;
@@ -79,58 +81,41 @@ public final class Schedule extends Pattern
 	public enum Interval
 	{
 		@CopeSchemaValue(7)
-		HOURLY(HOUR_OF_DAY, 30*24) // limit: 30 days
+		HOURLY(HOURS, 30*24) // limit: 30 days
 		{
-			@Override void setToFrom(final GregorianCalendar cal)
+			@Override ZonedDateTime toFrom(final ZonedDateTime date)
 			{
-				setIf(cal, MILLISECOND);
-				setIf(cal, SECOND);
-				setIf(cal, MINUTE);
-			}
-
-			/**
-			 * This is a workaround for a bug in GregorianCalendar.
-			 * Calling {@link java.util.Calendar#set(int, int)} instead
-			 * exposes a bug that adds another hour during autumn DST switch.
-			 */
-			private void setIf(final GregorianCalendar cal, final int field)
-			{
-				cal.add(field, -cal.get(field));
+				return date.withNano(0).withSecond(0).withMinute(0);
 			}
 		},
-		DAILY(DAY_OF_WEEK, 2*31) // limit: 2 months
+		DAILY(DAYS, 2*31) // limit: 2 months
 		{
-			@Override void setToFrom(final GregorianCalendar cal)
+			@Override ZonedDateTime toFrom(final ZonedDateTime date)
 			{
-				cal.set(MILLISECOND, 0);
-				cal.set(SECOND, 0);
-				cal.set(MINUTE, 0);
-				cal.set(HOUR_OF_DAY, 0);
+				return HOURLY.toFrom(date).withHour(0);
 			}
 		},
-		WEEKLY(WEEK_OF_MONTH, 25) // limit: half a year
+		WEEKLY(WEEKS, 25) // limit: half a year
 		{
-			@Override void setToFrom(final GregorianCalendar cal)
+			@Override ZonedDateTime toFrom(final ZonedDateTime date)
 			{
-				DAILY.setToFrom(cal);
-				cal.set(DAY_OF_WEEK, MONDAY);
+				return DAILY.toFrom(date).with(DAY_OF_WEEK, MONDAY.getValue());
 			}
 		},
-		MONTHLY(MONTH, 12) // limit: one year
+		MONTHLY(MONTHS, 12) // limit: one year
 		{
-			@Override void setToFrom(final GregorianCalendar cal)
+			@Override ZonedDateTime toFrom(final ZonedDateTime date)
 			{
-				DAILY.setToFrom(cal);
-				cal.set(DAY_OF_MONTH, 1);
+				return DAILY.toFrom(date).withDayOfMonth(1);
 			}
 		};
 
-		abstract void setToFrom(GregorianCalendar cal);
+		abstract ZonedDateTime toFrom(ZonedDateTime date);
 
-		final int addField;
+		final ChronoUnit addField;
 		final int limit; // TODO allow customization
 
-		Interval(final int addField, final int limit)
+		Interval(final ChronoUnit addField, final int limit)
 		{
 			this.addField = addField;
 			this.limit = limit;
@@ -139,13 +124,13 @@ public final class Schedule extends Pattern
 		}
 	}
 
-	private final TimeZone timeZone;
+	private final ZoneId timeZone;
 	private final Locale locale;
 
 	private final BooleanField enabled = new BooleanField().defaultTo(true);
 	private final EnumField<Interval> interval = EnumField.create(Interval.class).defaultTo(DAILY);
 
-	private static final int DELAY_MILLISECONDS = 5 * 60 * 1000; // 5 minutes
+	private static final Duration DELAY = Duration.ofMinutes(5);
 
 	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	final Runs runs = new Runs();
@@ -158,15 +143,20 @@ public final class Schedule extends Pattern
 	 */
 	public Schedule(final TimeZone timeZone, final Locale locale)
 	{
-		this.timeZone = requireNonNull(timeZone, "timeZone");
+		this.timeZone = requireNonNull(timeZone, "timeZone").toZoneId();
 		this.locale = requireNonNull(locale, "locale");
 		addSource(enabled,  "enabled");
 		addSource(interval, "interval");
 	}
 
-	public TimeZone getTimeZone()
+	public ZoneId getZoneId()
 	{
 		return timeZone;
+	}
+
+	public TimeZone getTimeZone()
+	{
+		return TimeZone.getTimeZone(timeZone);
 	}
 
 	public Locale getLocale()
@@ -176,7 +166,7 @@ public final class Schedule extends Pattern
 
 	public GregorianCalendar newGregorianCalendar()
 	{
-		final GregorianCalendar result = new GregorianCalendar(timeZone, locale);
+		final GregorianCalendar result = new GregorianCalendar(getTimeZone(), locale);
 		result.setLenient(false);
 		return result;
 	}
@@ -292,7 +282,7 @@ public final class Schedule extends Pattern
 	{
 		requireNonNull(ctx, "ctx");
 
-		final Date now = Clock.newDate(); // TODO per item
+		final Instant now = Clock.newDate().toInstant(); // TODO per item
 
 		for(final P item : once(iterateTypeTransactionally(
 				getType().as(parentClass), enabled.equal(true), 1000)))
@@ -304,11 +294,11 @@ public final class Schedule extends Pattern
 
 	private <P extends Item & Scheduleable> void runInternal(
 			final Class<P> parentClass,
-			final Date now,
+			final Instant now,
 			final P item,
 			final JobContext ctx)
 	{
-		final Date lastUntil;
+		final Instant lastUntil;
 		final Interval interval;
 		try(TransactionTry tx = startTransaction(item, "check"))
 		{
@@ -322,33 +312,34 @@ public final class Schedule extends Pattern
 				return;
 			}
 
-			lastUntil = new Query<>(
+			final Date lastUntilDate = new Query<>(
 					runs.until.max(),
 					runs.mount().parent.as(parentClass).equal(item)).
 					searchSingleton();
+			lastUntil = lastUntilDate!=null ? lastUntilDate.toInstant() : null;
 			interval = this.interval.get(item);
 			tx.commit();
 		}
 
-		final GregorianCalendar cal = newGregorianCalendar();
-		cal.setTimeInMillis(now.getTime() - DELAY_MILLISECONDS);
-		interval.setToFrom(cal);
-		assert !cal.getTime().after(now);
+		ZonedDateTime cal = interval.toFrom(ZonedDateTime.ofInstant(now.minus(DELAY), timeZone));
+		Instant calTime = cal.toInstant();
+		assert !calTime.isAfter(now);
 
 		if(lastUntil==null)
 		{
-			final Date until = cal.getTime();
-			cal.add(interval.addField, -1);
-			final Date from = cal.getTime();
+			final Instant until = calTime;
+			cal = cal.minus(1, interval.addField);
+			final Instant from = cal.toInstant();
 			runNow(item, interval, from, until, 1, 1, now, ctx);
 		}
 		else
 		{
-			final LinkedList<Date> dates = new LinkedList<>();
-			while(lastUntil.before(cal.getTime()))
+			final LinkedList<Instant> dates = new LinkedList<>();
+			while(lastUntil.isBefore(calTime))
 			{
-				dates.add(0, cal.getTime());
-				cal.add(interval.addField, -1);
+				dates.add(0, calTime);
+				cal = cal.minus(1, interval.addField);
+				calTime = cal.toInstant();
 			}
 			dates.add(0, lastUntil);
 
@@ -358,12 +349,12 @@ public final class Schedule extends Pattern
 						"schedule aborting because suspicious amount of work to do: " +
 						getID() + ',' + item.getCopeID() + ',' + total + ',' + interval + ',' + interval.limit);
 
-			final Iterator<Date> i = dates.iterator();
-			Date from = i.next();
+			final Iterator<Instant> i = dates.iterator();
+			Instant from = i.next();
 			int count = 1;
 			while(i.hasNext())
 			{
-				final Date until = i.next();
+				final Instant until = i.next();
 				runNow(item, interval, from, until, count++, total, now, ctx);
 				from = until;
 			}
@@ -373,13 +364,13 @@ public final class Schedule extends Pattern
 	private <P extends Item & Scheduleable> void runNow(
 			final P item,
 			final Interval interval,
-			final Date from, final Date until,
+			final Instant from, final Instant until,
 			final int count, final int total,
-			final Date now,
+			final Instant now,
 			final JobContext ctx)
 	{
-		assert from.before(until);
-		assert !now.before(until);
+		assert from.isBefore(until);
+		assert !now.isBefore(until);
 		assert count>0 : count;
 		assert total>0 : total;
 		assert count<=total : "" + count + '/' + total;
@@ -388,11 +379,13 @@ public final class Schedule extends Pattern
 		final RunContext runCtx = new RunContext(ctx);
 		try(TransactionTry tx = startTransaction(item, "run " + count + '/' + total))
 		{
+			final Date fromDate  = Date.from(from);
+			final Date untilDate = Date.from(until);
 			final long elapsedStart = nanoTime();
-			item.run(this, from, until, runCtx);
+			item.run(this, fromDate, untilDate, runCtx); // TODO switch to Instant
 			final long elapsedEnd = nanoTime();
 			runs.newItem(
-					item, interval, from, until, now,
+					item, interval, fromDate, untilDate, Date.from(now), // TODO switch to InstantField
 					runCtx.getProgress(),
 					toMillies(elapsedEnd, elapsedStart));
 			tx.commit();
