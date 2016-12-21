@@ -330,26 +330,18 @@ final class ItemCache
 					if(size==0)
 						return;
 
-					if(untilStamp==Long.MAX_VALUE)
+					int purged = 0;
+					for(final TLongLongIterator i = stamps.iterator(); i.hasNext(); )
 					{
-						stamps.clear();
-						stampsPurged += size;
-					}
-					else
-					{
-						int purged = 0;
-						for(final TLongLongIterator i = stamps.iterator(); i.hasNext(); )
+						i.advance();
+						if(i.value()<untilStamp)
 						{
-							i.advance();
-							if(i.value()<untilStamp)
-							{
-								purged++;
-								i.remove();
-							}
+							purged++;
+							i.remove();
 						}
-						if(purged>0)
-							stampsPurged += purged;
 					}
+					if(purged>0)
+						stampsPurged += purged;
 				}
 			}
 		}
