@@ -29,7 +29,7 @@ final class LRUMap<K, V> extends LinkedHashMap<K, V>
 {
 	private static final long serialVersionUID = 1l;
 
-	private final int maxSize;
+	final int maxSize;
 
 	@SuppressFBWarnings("SE_BAD_FIELD")
 	private final Consumer<Map.Entry<K, V>> onReplace;

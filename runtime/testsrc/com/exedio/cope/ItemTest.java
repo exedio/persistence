@@ -163,7 +163,7 @@ public class ItemTest extends TestmodelTest
 		}
 		model.dropSchemaConstraints(EnumSet.of(Constraint.Type.Check));
 		model.createSchemaConstraints(EnumSet.of(Constraint.Type.Check));
-		assertNotNull(model.getItemCacheInfo());
+		assertNotNull(model.getItemCacheStatistics().getDetails());
 		assertNotNull(model.getQueryCacheInfo());
 		assertNotNull(model.getQueryCacheHistogram());
 		assertNotNull(model.getConnectionPoolInfo());

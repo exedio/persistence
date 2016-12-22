@@ -7,6 +7,14 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* item cache is now global (rather than split into separate segments for each type)
+  * @CopeCacheWeight is no longer applicable, and therefore deprecated;
+    use @CopeExternal instead of @CopeCacheWeight(0) to disable caching of a type
+  * reconsider cache limits:
+    With the same limit, the global cache will end up having more entries (and
+    using more memory) than the per-type cache.
+    Cache limit is now controlled by property "cache.item.globalLimit", which falls
+    back to the old "cope.cache.item.limit".
 * ConnectProperties: renamed several keys:
 
 	changeListeners.threads     -> changeListeners.threads.initial

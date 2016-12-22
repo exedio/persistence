@@ -32,13 +32,13 @@ import com.exedio.cope.CopeSchemaName;
 import com.exedio.cope.DateField;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
+import com.exedio.cope.ItemCacheStatistics;
 import com.exedio.cope.LongField;
 import com.exedio.cope.QueryCacheInfo;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.TransactionCounters;
 import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
-import com.exedio.cope.misc.ItemCacheSummary;
 import com.exedio.cope.misc.MediaSummary;
 import com.exedio.cope.pattern.CompositeField;
 import com.exedio.cope.util.Pool;
@@ -98,6 +98,8 @@ final class SamplerModel extends Item
 	}
 
 
+	private static final IntegerField itemCacheLimit                = new IntegerField().toFinal().min(0);
+	private static final IntegerField itemCacheLevel                = new IntegerField().toFinal().min(0);
 	private static final IntegerField itemCacheHits                 = new IntegerField().toFinal().min(0);
 	private static final IntegerField itemCacheMisses               = new IntegerField().toFinal().min(0);
 	private static final IntegerField itemCacheConcurrentLoads      = new IntegerField().toFinal().min(0);
@@ -114,23 +116,26 @@ final class SamplerModel extends Item
 	private static final IntegerField itemCacheStampsPurged = new IntegerField().toFinal().min(0);
 
 	@SuppressWarnings("unchecked") static List<SetValue<?>> mapIt(
-			final ItemCacheSummary from,
-			final ItemCacheSummary to)
+			final ItemCacheStatistics from,
+			final ItemCacheStatistics to)
 	{
 		return Arrays.asList((SetValue<?>)
-			maD(itemCacheHits,   from.getHits  (), to.getHits  ()),
-			maD(itemCacheMisses, from.getMisses(), to.getMisses()),
+			map(itemCacheLimit, to.getLimit()),
+			map(itemCacheLevel, to.getLevel()),
 
-			maD(itemCacheConcurrentLoads, from.getConcurrentLoads(), to.getConcurrentLoads()),
-			maD(itemCacheReplacementRuns, from.getReplacementRuns(), to.getReplacementRuns()),
-			maD(itemCacheReplacements,    from.getReplacementsL  (), to.getReplacementsL  ()),
+			maD(itemCacheHits,   from.getSummarizedHits  (), to.getSummarizedHits  ()),
+			maD(itemCacheMisses, from.getSummarizedMisses(), to.getSummarizedMisses()),
 
-			maD(itemCacheInvalidationsOrdered, from.getInvalidationsOrdered(), to.getInvalidationsOrdered()),
-			maD(itemCacheInvalidationsDone,    from.getInvalidationsDone   (), to.getInvalidationsDone   ()),
+			maD(itemCacheConcurrentLoads, from.getSummarizedConcurrentLoads(), to.getSummarizedConcurrentLoads()),
+			map(itemCacheReplacementRuns, 0),
+			maD(itemCacheReplacements,    from.getSummarizedReplacements   (), to.getSummarizedReplacements   ()),
 
-			map(itemCacheStampsSize,   to.getStampsSize()),
-			maD(itemCacheStampsHits,   from.getStampsHits  (), to.getStampsHits  ()),
-			maD(itemCacheStampsPurged, from.getStampsPurged(), to.getStampsPurged()));
+			maD(itemCacheInvalidationsOrdered, from.getSummarizedInvalidationsOrdered(), to.getSummarizedInvalidationsOrdered()),
+			maD(itemCacheInvalidationsDone,    from.getSummarizedInvalidationsDone   (), to.getSummarizedInvalidationsDone   ()),
+
+			map(itemCacheStampsSize,   to.getSummarizedStampsSize()),
+			maD(itemCacheStampsHits,   from.getSummarizedStampsHits  (), to.getSummarizedStampsHits  ()),
+			maD(itemCacheStampsPurged, from.getSummarizedStampsPurged(), to.getSummarizedStampsPurged()));
 	}
 
 

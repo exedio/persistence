@@ -143,7 +143,7 @@ public class CacheTouchTest extends TestWithEnvironment
 
 	private void initCache()
 	{
-		final ItemCacheInfo[] icis = model.getItemCacheInfo();
+		final ItemCacheInfo[] icis = model.getItemCacheStatistics().getDetails();
 		assertEquals(1, icis.length);
 		final ItemCacheInfo ici = icis[0];
 		assertSame(TYPE, ici.getType());
@@ -167,7 +167,7 @@ public class CacheTouchTest extends TestWithEnvironment
 			final long stampsPurged)
 	{
 		final boolean st = model.getConnectProperties().itemCacheStamps;
-		final ItemCacheInfo[] icis = model.getItemCacheInfo();
+		final ItemCacheInfo[] icis = model.getItemCacheStatistics().getDetails();
 		assertEquals(1, icis.length);
 		final ItemCacheInfo ici = icis[0];
 		assertSame(TYPE, ici.getType());

@@ -66,16 +66,22 @@ final class SamplerItemCache extends Item
 	}
 
 
+	/** this field is no longer used - will always contain 0 for new items */
 	private static final IntegerField limit                = new IntegerField().toFinal().min(0);
 	private static final IntegerField level                = new IntegerField().toFinal().min(0);
 	private static final IntegerField hits                 = new IntegerField().toFinal().min(0);
 	private static final IntegerField misses               = new IntegerField().toFinal().min(0);
 	private static final IntegerField concurrentLoads      = new IntegerField().toFinal().min(0);
+	/** this field is no longer used - will always contain 0 for new items */
 	private static final IntegerField replacementRuns      = new IntegerField().toFinal().min(0);
 	private static final IntegerField replacements         = new IntegerField().toFinal().min(0);
+	/** this field is no longer used - will always contain null for new items */
 	private static final DateField lastReplacementRun      = new DateField().toFinal().optional();
+	/** this field is no longer used - will always contain 0 for new items */
 	private static final LongField ageAverageMillis        = new LongField().toFinal();
+	/** this field is no longer used - will always contain 0 for new items */
 	private static final LongField ageMinimumMillis        = new LongField().toFinal();
+	/** this field is no longer used - will always contain 0 for new items */
 	private static final LongField ageMaximumMillis        = new LongField().toFinal();
 	private static final IntegerField invalidationsOrdered = new IntegerField().toFinal().min(0);
 	private static final IntegerField invalidationsDone    = new IntegerField().toFinal().min(0);
@@ -92,19 +98,19 @@ final class SamplerItemCache extends Item
 	{
 		final List<SetValue<?>> result = Arrays.asList((SetValue<?>)
 			maS(type ,  from.getType(), to.getType()),
-			map(limit,  to.getLimit()),
+			map(limit,  0),
 			map(level,  to.getLevel()),
 			maD(hits,   from.getHits  (), to.getHits  ()),
 			maD(misses, from.getMisses(), to.getMisses()),
 
 			maD(concurrentLoads, from.getConcurrentLoads(), to.getConcurrentLoads()),
-			maD(replacementRuns, from.getReplacementRuns(), to.getReplacementRuns()),
+			map(replacementRuns, 0),
 			maD(replacements,    from.getReplacementsL  (), to.getReplacementsL  ()),
-			map(lastReplacementRun, to.getLastReplacementRun()),
+			map(lastReplacementRun, null),
 
-			map(ageAverageMillis, to.getAgeAverageMillis()),
-			map(ageMinimumMillis, to.getAgeMinimumMillis()),
-			map(ageMaximumMillis, to.getAgeMaximumMillis()),
+			map(ageAverageMillis, 0L),
+			map(ageMinimumMillis, 0L),
+			map(ageMaximumMillis, 0L),
 
 			maD(invalidationsOrdered, from.getInvalidationsOrdered(), to.getInvalidationsOrdered()),
 			maD(invalidationsDone,    from.getInvalidationsDone   (), to.getInvalidationsDone   ()),

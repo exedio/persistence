@@ -18,79 +18,129 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.IntRatio.ratio;
-
 import gnu.trove.TLongHashSet;
 import gnu.trove.TLongIterator;
-import gnu.trove.TLongLongHashMap;
-import gnu.trove.TLongLongIterator;
-import gnu.trove.TLongObjectHashMap;
-import gnu.trove.TLongObjectIterator;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 final class ItemCache
 {
-	/**
-	 * Index of array is {@link Type#cacheIdTransiently}.
-	 */
-	private final Cachlet[] cachlets;
+	private final LRUMap<Item,WrittenState> map;
+	private final LinkedHashMap<Long,Set<Item>> stampList;
+
+	private final TypeStats[] typeStats;
 
 	ItemCache(final List<Type<?>> typesSorted, final ConnectProperties properties)
 	{
-		final ArrayList<Type<?>> types = new ArrayList<>(typesSorted.size());
+		final int limit=properties.getItemCacheLimit();
+		final List<TypeStats> typesStatsList=new ArrayList<>();
 		for(final Type<?> type : typesSorted)
 			if(!type.isAbstract)
-				types.add(type);
+			{
+				final boolean cachingDisabled =
+						limit==0 ||
+						type.external ||
+						CopeCacheWeightHelper.isDisabled(type);
 
-		final int l = types.size();
+				typesStatsList.add(cachingDisabled?null:new TypeStats(type));
+			}
 
-		final int[] weights = new int[l];
-		int weightSum = 0;
-		for(int i = 0; i<l; i++)
+		typeStats=typesStatsList.toArray(new TypeStats[typesStatsList.size()]);
+		for(int i = 0; i<typeStats.length; i++)
 		{
-			final Type<?> type = types.get(i);
-			final CopeCacheWeight weightAnnotation = type.getAnnotation(CopeCacheWeight.class);
-			final int weight = type.external ? 0 : (weightAnnotation!=null ? weightAnnotation.value() : 100);
-			if(weight<0)
-				throw new IllegalArgumentException("illegal CopeCacheWeight for type " + type.getID() + ", must not be negative, but was " + weight);
-			weights[i] = weight;
-			weightSum += weight;
+			final TypeStats stats = typeStats[i];
+			if(stats==null)
+				continue;
+
+			final Type<?> type = stats.type;
+			if(type.cacheIdTransiently!=i)
+				throw new RuntimeException("" + type.cacheIdTransiently + '/' + type.id + '/' + i);
 		}
 
-		final boolean enableStamps = properties.itemCacheStamps;
-		cachlets = new Cachlet[l];
-		final int limit = properties.getItemCacheLimit();
-		for(int i=0; i<l; i++)
+		map = new LRUMap<>(limit, eldest ->
 		{
-			final Type<?> type = types.get(i);
-			assert !type.isAbstract : type.id;
-			assert type.cacheIdTransiently>=0 : String.valueOf(type.cacheIdTransiently) + '/' + type.id;
-			assert type.cacheIdTransiently <l : String.valueOf(type.cacheIdTransiently) + '/' + type.id;
-			assert type.cacheIdTransiently==i : String.valueOf(type.cacheIdTransiently) + '/' + type.id + '/' + i;
+			typeStats[eldest.getKey().type.cacheIdTransiently].replacements++;
+		});
+		if (properties.itemCacheStamps)
+		{
+			stampList=new LinkedHashMap<>();
+		}
+		else
+		{
+			stampList=null;
+		}
+	}
 
-			final int iLimit = ratio(weights[i], limit, weightSum);
-			cachlets[i] = (iLimit>0) ? new Cachlet(type, iLimit, enableStamps) : null;
+	private final boolean stampsEnabled()
+	{
+		return stampList!=null;
+	}
+
+	private boolean isStamped(final Item item, final long connectionStamp)
+	{
+		if (stampsEnabled())
+		{
+			for (final Map.Entry<Long, Set<Item>> entry: stampList.entrySet())
+			{
+				if (entry.getKey()<connectionStamp) continue;
+				if (entry.getValue().contains(item)) return true;
+			}
+			return false;
+		}
+		else
+		{
+			return false;
 		}
 	}
 
 	WrittenState getState(final Transaction tx, final Item item)
 	{
-		final Cachlet cachlet = cachlets[item.type.cacheIdTransiently];
+		final TypeStats typeStat=typeStats[item.type.cacheIdTransiently];
 
-		WrittenState state = null;
-		if(cachlet!=null)
-			state = cachlet.get(item.pk);
+		WrittenState state;
+		if (typeStat==null)
+		{
+			state = null;
+		}
+		else
+		{
+			synchronized (map)
+			{
+				state = map.get(item);
+			}
+		}
 
 		if ( state==null )
 		{
 			state = tx.connect.database.load(tx.getConnection(), item);
-
-			if(cachlet!=null)
-				cachlet.put(state, tx.getCacheStamp());
+			if (typeStat!=null)
+			{
+				typeStat.misses.inc();
+				synchronized (map)
+				{
+					if (isStamped(item, tx.getCacheStamp()))
+					{
+						typeStat.stampsHit++;
+					}
+					else
+					{
+						if(map.put(item, state)!=null)
+						{
+							typeStat.concurrentLoads++;
+						}
+					}
+				}
+			}
 		}
-
+		else
+		{
+			typeStat.hits.inc();
+		}
 		return state;
 	}
 
@@ -100,50 +150,82 @@ final class ItemCache
 	@Deprecated
 	WrittenState getStateIfPresent(final Item item)
 	{
-		final Cachlet cachlet = cachlets[item.type.cacheIdTransiently];
-		if(cachlet==null)
-			return null;
-
-		return cachlet.getInternal(item.pk);
+		synchronized (map)
+		{
+			return map.get(item);
+		}
 	}
 
 	void remove(final Item item)
 	{
-		final Cachlet cachlet = cachlets[item.type.cacheIdTransiently];
-		if(cachlet!=null)
-			cachlet.remove(item.pk);
+		synchronized (map)
+		{
+			map.remove(item);
+		}
 	}
 
 	void invalidate(final TLongHashSet[] invalidations)
 	{
 		final long stamp = ItemCacheStamp.next();
-		for(int typeTransiently=0; typeTransiently<invalidations.length; typeTransiently++)
+		synchronized (map)
 		{
-			final TLongHashSet invalidatedPKs = invalidations[typeTransiently];
-			if(invalidatedPKs!=null)
+			final Set<Item> invalidated=stampsEnabled()?new HashSet<>():null;
+			for(int typeTransiently=0; typeTransiently<invalidations.length; typeTransiently++)
 			{
-				final Cachlet cachlet = cachlets[typeTransiently];
-				if(cachlet!=null)
-					cachlet.invalidate(invalidatedPKs, stamp);
+				final TLongHashSet invalidatedPKs = invalidations[typeTransiently];
+				final TypeStats typeStat=typeStats[typeTransiently];
+				if(invalidatedPKs!=null && typeStat!=null)
+				{
+					for(final TLongIterator i = invalidatedPKs.iterator(); i.hasNext(); )
+					{
+						final Type<?> type=typeStat.type;
+						if (type.cacheIdTransiently!=typeTransiently) throw new RuntimeException();
+						final Item item=type.activate(i.next());
+						if (stampsEnabled()) invalidated.add(item);
+						typeStat.invalidationsOrdered++;
+						if (map.remove(item)!=null)
+						{
+							typeStat.invalidationsDone++;
+						}
+					}
+				}
 			}
+			if (stampsEnabled()) stampList.put(stamp, invalidated);
 		}
 	}
 
 	void clear()
 	{
-		for(final Cachlet cachlet : cachlets)
+		synchronized (map)
 		{
-			if(cachlet!=null)
-				cachlet.clear();
+			map.clear();
 		}
 	}
 
 	void purgeStamps(final long untilStamp)
 	{
-		for(final Cachlet cachlet : cachlets)
+		if (stampsEnabled())
 		{
-			if(cachlet!=null)
-				cachlet.purgeStamps(untilStamp);
+			synchronized (map)
+			{
+				for (final Iterator<Map.Entry<Long, Set<Item>>> iter=stampList.entrySet().iterator(); iter.hasNext();)
+				{
+					final Map.Entry<Long, Set<Item>> entry=iter.next();
+					if (entry.getKey()<untilStamp)
+					{
+						for (final Item item: entry.getValue())
+						{
+							// non-cached items don't get stamped, so the typeStats entry can't be null
+							typeStats[item.type.cacheIdTransiently].stampsPurged++;
+						}
+						iter.remove();
+					}
+					else
+					{
+						break;
+					}
+				}
+			}
 		}
 	}
 
@@ -153,253 +235,80 @@ final class ItemCache
 	@Deprecated
 	void clearStamps()
 	{
-		for(final Cachlet cachlet : cachlets)
+		if (stampsEnabled())
 		{
-			if(cachlet!=null)
-				cachlet.clearStamps();
+			synchronized (map)
+			{
+				stampList.clear();
+			}
 		}
 	}
 
-	ItemCacheInfo[] getInfo(final List<Type<?>> typesInOriginalOrder)
+	ItemCacheStatistics getStatistics(final List<Type<?>> typesInOriginalOrder)
 	{
-		final ArrayList<ItemCacheInfo> result = new ArrayList<>(cachlets.length);
+		final List<ItemCacheInfo> details = new ArrayList<>(typeStats.length);
 
+		final int[] levels=new int[typeStats.length];
+		final int[] stampsSizes=new int[typeStats.length];
+		final int level;
+		synchronized (map)
+		{
+			level=map.size();
+			for (final Item item: map.keySet())
+			{
+				levels[item.type.cacheIdTransiently]++;
+			}
+			if (stampsEnabled())
+			{
+				for (final Set<Item> value: stampList.values())
+				{
+					for (final Item item: value)
+					{
+						stampsSizes[item.type.cacheIdTransiently]++;
+					}
+				}
+			}
+		}
 		for(final Type<?> type : typesInOriginalOrder)
 		{
-			final Cachlet cachlet = cachlets[type.cacheIdTransiently];
-			if(cachlet!=null)
-				result.add(cachlet.getInfo());
+			final TypeStats typeStat = typeStats[type.cacheIdTransiently];
+			if (typeStat!=null)
+				details.add( typeStat.createItemCacheInfo(levels, stampsSizes) );
 		}
 
-		return result.toArray(new ItemCacheInfo[result.size()]);
+		return new ItemCacheStatistics(map.maxSize, level, details.toArray(new ItemCacheInfo[details.size()]));
 	}
 
-	private static final class Cachlet
+	static class TypeStats
 	{
-		private final Type<?> type;
-		private final int limit;
-		private final TLongObjectHashMap<WrittenState> map;
-		private final TLongLongHashMap stamps;
+		final Type<?> type;
+		final VolatileLong hits = new VolatileLong();
+		final VolatileLong misses = new VolatileLong();
+		long concurrentLoads = 0;
+		long replacements = 0;
+		long invalidationsOrdered = 0;
+		long invalidationsDone = 0;
+		long stampsHit = 0;
+		long stampsPurged = 0;
 
-		private final VolatileLong hits = new VolatileLong();
-		private final VolatileLong misses = new VolatileLong();
-		private long concurrentLoads = 0;
-		private int replacementRuns = 0;
-		private long replacements = 0;
-		private long lastReplacementRun = 0;
-		private long invalidationsOrdered = 0;
-		private long invalidationsDone = 0;
-		private long stampsHits = 0;
-		private long stampsPurged = 0;
-
-		Cachlet(final Type<?> type, final int limit, final boolean enableStamps)
+		TypeStats(final Type<?> type)
 		{
-			assert !type.isAbstract;
-			assert limit>0;
-
-			this.type = type;
-			this.limit = limit;
-			this.map = new TLongObjectHashMap<>();
-			this.stamps = enableStamps ? new TLongLongHashMap() : null;
+			this.type=type;
 		}
 
-		WrittenState get(final long pk)
+		ItemCacheInfo createItemCacheInfo(final int[] levels, final int[] stampsSizes)
 		{
-			final WrittenState result;
-			synchronized(map)
-			{
-				result = map.get(pk);
-			}
-
-			if(result!=null)
-			{
-				result.notifyUsed();
-				hits.inc();
-			}
-			else
-				misses.inc();
-
-			return result;
-		}
-
-		/**
-		 * @deprecated for unit tests only
-		 */
-		@Deprecated
-		WrittenState getInternal(final long pk)
-		{
-			synchronized(map)
-			{
-				return map.get(pk);
-			}
-		}
-
-		void put(final WrittenState state, final long connectionStamp)
-		{
-			synchronized(map)
-			{
-				if(stamps!=null)
-				{
-					final long stamp = this.stamps.get(state.pk);
-					if(stamp!=0 && stamp>=connectionStamp)
-					{
-						stampsHits++;
-						return;
-					}
-				}
-
-				if(map.put(state.pk, state)!=null)
-					concurrentLoads++;
-
-				// TODO use LRU with guava ComputingMap
-				// http://guava-libraries.googlecode.com/svn/tags/release09/javadoc/com/google/common/collect/MapMaker.html#makeComputingMap%28com.google.common.base.Function%29
-				final int mapSize = map.size();
-				if(mapSize>=limit)
-				{
-					final long now = System.currentTimeMillis();
-					long ageSum = 0;
-					for(final TLongObjectIterator<WrittenState> i = map.iterator(); i.hasNext(); )
-					{
-						i.advance();
-						final WrittenState currentState = i.value();
-						final long currentLastUsage = currentState.getLastUsageMillis();
-						ageSum+=(now-currentLastUsage);
-					}
-					final long age = ageSum / mapSize;
-					final long ageLimit = (limit * age) / mapSize;
-					final long timeLimit = now-ageLimit;
-					for(final TLongObjectIterator<WrittenState> i = map.iterator(); i.hasNext(); )
-					{
-						i.advance();
-						final WrittenState currentState = i.value();
-						final long currentLastUsage = currentState.getLastUsageMillis();
-						if(timeLimit>currentLastUsage)
-							i.remove();
-					}
-					replacementRuns++;
-					replacements += (mapSize - map.size());
-					lastReplacementRun = now;
-				}
-			}
-		}
-
-		void remove(final long pk)
-		{
-			synchronized(map)
-			{
-				map.remove(pk);
-			}
-		}
-
-		void invalidate(final TLongHashSet invalidatedPKs, final long stamp)
-		{
-			synchronized(map)
-			{
-				final int mapSizeBefore = map.size();
-
-				// TODO implement and use a removeAll
-				for(final TLongIterator i = invalidatedPKs.iterator(); i.hasNext(); )
-				{
-					final long pk = i.next();
-					map.remove(pk);
-
-					if(stamps!=null)
-						stamps.put(pk, stamp);
-				}
-
-				invalidationsOrdered += invalidatedPKs.size();
-				invalidationsDone    += (mapSizeBefore - map.size());
-			}
-		}
-
-		void clear()
-		{
-			synchronized(map)
-			{
-				map.clear();
-			}
-		}
-
-		void purgeStamps(final long untilStamp)
-		{
-			if(stamps!=null)
-			{
-				synchronized(map)
-				{
-					final int size = stamps.size();
-					if(size==0)
-						return;
-
-					int purged = 0;
-					for(final TLongLongIterator i = stamps.iterator(); i.hasNext(); )
-					{
-						i.advance();
-						if(i.value()<untilStamp)
-						{
-							purged++;
-							i.remove();
-						}
-					}
-					if(purged>0)
-						stampsPurged += purged;
-				}
-			}
-		}
-
-		/**
-		 * @deprecated for unit tests only
-		 */
-		@Deprecated
-		void clearStamps()
-		{
-			if(stamps!=null)
-			{
-				synchronized(map)
-				{
-					stamps.clear();
-				}
-			}
-		}
-
-		ItemCacheInfo getInfo()
-		{
-			final long now = System.currentTimeMillis();
-			final int level;
-			final long lastReplacementRun;
-			long ageSum = 0;
-			long ageMin = Long.MAX_VALUE;
-			long ageMax = 0;
-			final int stampsSize;
-
-			synchronized(map)
-			{
-				level = map.size();
-				lastReplacementRun = this.lastReplacementRun;
-				for(final TLongObjectIterator<WrittenState> stateMapI = map.iterator(); stateMapI.hasNext(); )
-				{
-					stateMapI.advance();
-					final WrittenState currentState = stateMapI.value();
-					final long currentLastUsage = currentState.getLastUsageMillis();
-					final long age = now-currentLastUsage;
-					ageSum += age;
-					if(ageMin>age)
-						ageMin = age;
-					if(ageMax<age)
-						ageMax = age;
-				}
-				stampsSize = stamps!=null ? stamps.size() : 0;
-			}
-
 			return new ItemCacheInfo(
 				type,
-				limit, level,
-				hits.get(), misses.get(),
+				levels[type.cacheIdTransiently],
+				hits.get(),
+				misses.get(),
 				concurrentLoads,
-				replacementRuns, replacements, (lastReplacementRun!=0 ? new Date(lastReplacementRun) : null),
-				ageSum, ageMin, ageMax,
+				replacements,
 				invalidationsOrdered, invalidationsDone,
-				stampsSize, stampsHits, stampsPurged
-				);
+				stampsSizes[type.cacheIdTransiently],
+				stampsHit, stampsPurged
+			);
 		}
 	}
 }

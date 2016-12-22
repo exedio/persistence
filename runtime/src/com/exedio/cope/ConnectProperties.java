@@ -145,7 +145,11 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 
 	private final int querySearchSizeLimit = value("query.searchSizeLimit", 100000, 1);
 
-	private final int itemCacheLimit      = value("cache.item.limit",     100000, 0);
+	/**
+	 * DO NOT USE the value of itemCacheLimitOLD, just for default of itemCacheLimit.
+	 */
+	private final int itemCacheLimitOLD   = value("cache.item.limit",     100000, 0);
+	private final int itemCacheLimit      = value("cache.item.globalLimit", itemCacheLimitOLD, 0);
 	private final int queryCacheLimit     = value("cache.query.limit",     10000, 0);
 	private final int queryCacheSizeLimit = value("cache.query.sizeLimit", 10000, 0);
 	        final boolean itemCacheStamps = value("cache.stamps", true);

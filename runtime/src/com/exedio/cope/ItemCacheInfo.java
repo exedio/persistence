@@ -25,17 +25,11 @@ import java.util.Date;
 public final class ItemCacheInfo
 {
 	private final Type<?> type;
-	private final int limit;
 	private final int level;
 	private final long hits;
 	private final long misses;
 	private final long concurrentLoads;
-	private final int replacementRuns;
 	private final long replacements;
-	private final long lastReplacementRun;
-	private final long ageSum;
-	private final long ageMin;
-	private final long ageMax;
 	private final long invalidationsOrdered;
 	private final long invalidationsDone;
 	private final int  stampsSize;
@@ -44,28 +38,20 @@ public final class ItemCacheInfo
 
 	ItemCacheInfo(
 			final Type<?> type,
-			final int limit,
 			final int level,
 			final long hits, final long misses,
 			final long concurrentLoads,
-			final int replacementRuns, final long replacements, final Date lastReplacementRun,
-			final long ageSum, final long ageMin, final long ageMax,
+			final long replacements,
 			final long invalidationsOrdered, final long invalidationsDone,
 			final int stampsSize, final long stampsHits, final long stampsPurged
 			)
 	{
 		this.type = type;
-		this.limit = limit;
 		this.level = level;
 		this.hits = hits;
 		this.misses = misses;
 		this.concurrentLoads = concurrentLoads;
-		this.replacementRuns = replacementRuns;
 		this.replacements = replacements;
-		this.lastReplacementRun = lastReplacementRun!=null ? lastReplacementRun.getTime() : Long.MIN_VALUE;
-		this.ageSum = ageSum;
-		this.ageMin = ageMin;
-		this.ageMax = ageMax;
 		this.invalidationsOrdered = invalidationsOrdered;
 		this.invalidationsDone = invalidationsDone;
 		this.stampsSize   = stampsSize;
@@ -79,11 +65,13 @@ public final class ItemCacheInfo
 	}
 
 	/**
-	 * Returns the maximum number of items in the cache.
+	 * use {@link ItemCacheStatistics#getLimit()}
 	 */
+	@Deprecated
+	@SuppressWarnings("static-method")
 	public int getLimit()
 	{
-		return limit;
+		return 0;
 	}
 
 	/**
@@ -109,9 +97,12 @@ public final class ItemCacheInfo
 		return concurrentLoads;
 	}
 
+	/** @deprecated due to changes to the cache implementation, this value is no longer meaningful */
+	@Deprecated
+	@SuppressWarnings("static-method")
 	public int getReplacementRuns()
 	{
-		return replacementRuns;
+		return 0;
 	}
 
 	/**
@@ -128,24 +119,36 @@ public final class ItemCacheInfo
 		return replacements;
 	}
 
+	/** @deprecated due to changes to the cache implementation, this value is no longer meaningful */
+	@Deprecated
+	@SuppressWarnings("static-method")
 	public Date getLastReplacementRun()
 	{
-		return lastReplacementRun!=Long.MIN_VALUE ? new Date(lastReplacementRun) : null;
+		return null;
 	}
 
+	/** @deprecated due to changes to the cache implementation, this value is no longer meaningful */
+	@Deprecated
+	@SuppressWarnings("static-method")
 	public long getAgeAverageMillis()
 	{
-		return (level!=0) ? (ageSum / level) : 0l;
+		return 0l;
 	}
 
+	/** @deprecated due to changes to the cache implementation, this value is no longer meaningful */
+	@Deprecated
+	@SuppressWarnings("static-method")
 	public long getAgeMinimumMillis()
 	{
-		return ageMin;
+		return 0l;
 	}
 
+	/** @deprecated due to changes to the cache implementation, this value is no longer meaningful */
+	@Deprecated
+	@SuppressWarnings("static-method")
 	public long getAgeMaximumMillis()
 	{
-		return ageMax;
+		return 0l;
 	}
 
 	public long getInvalidationsOrdered()

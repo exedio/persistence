@@ -23,13 +23,11 @@ import java.util.Map;
 final class WrittenState extends State
 {
 	private final Row row;
-	private long lastUsageMillis;
 
 	WrittenState(final Item item, final Row row, final int updateCount)
 	{
 		super(item, updateCount);
 		this.row = row;
-		lastUsageMillis = System.currentTimeMillis();
 	}
 
 	WrittenState(final State original)
@@ -37,7 +35,6 @@ final class WrittenState extends State
 		super(original.item, original.updateCount+1);
 		row = original.stealValues();
 		if(row==null) throw new RuntimeException(original.getClass().getName());
-		lastUsageMillis = System.currentTimeMillis();
 	}
 
 	@Override
@@ -87,16 +84,6 @@ final class WrittenState extends State
 	boolean exists()
 	{
 		return true;
-	}
-
-	void notifyUsed()
-	{
-		lastUsageMillis = System.currentTimeMillis();
-	}
-
-	long getLastUsageMillis()
-	{
-		return lastUsageMillis;
 	}
 
 	@Override

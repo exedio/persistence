@@ -23,11 +23,11 @@ import com.exedio.cope.ChangeListenerInfo;
 import com.exedio.cope.ClusterListenerInfo;
 import com.exedio.cope.ClusterSenderInfo;
 import com.exedio.cope.ItemCacheInfo;
+import com.exedio.cope.ItemCacheStatistics;
 import com.exedio.cope.Model;
 import com.exedio.cope.QueryCacheInfo;
 import com.exedio.cope.Transaction;
 import com.exedio.cope.TransactionCounters;
-import com.exedio.cope.misc.ItemCacheSummary;
 import com.exedio.cope.misc.MediaSummary;
 import com.exedio.cope.pattern.MediaInfo;
 import com.exedio.cope.pattern.MediaPath;
@@ -45,7 +45,7 @@ final class SamplerStep
 	final Pool.Info connectionPoolInfo;
 	final long nextTransactionId;
 	final TransactionCounters transactionCounters;
-	final ItemCacheInfo[] itemCacheInfos;
+	final ItemCacheStatistics itemCacheStatistics;
 	final QueryCacheInfo queryCacheInfo;
 	final ChangeListenerInfo changeListenerInfo;
 	final ChangeListenerDispatcherInfo changeListenerDispatcherInfo;
@@ -56,7 +56,7 @@ final class SamplerStep
 	private final HashMap<Integer, ClusterListenerInfo.Node> clusterListenerInfoNodes;
 	final long duration;
 
-	final ItemCacheSummary itemCacheSummary;
+	final ItemCacheInfo[] itemCacheInfos;
 	final MediaSummary mediaSummary;
 	final ArrayList<Transaction> transactions;
 
@@ -77,7 +77,7 @@ final class SamplerStep
 		this.nextTransactionId = sampledModel.getNextTransactionId();
 		this.transactionCounters = sampledModel.getTransactionCounters();
 		final Collection<Transaction> openTransactions = sampledModel.getOpenTransactions();
-		this.itemCacheInfos = sampledModel.getItemCacheInfo();
+		this.itemCacheStatistics = sampledModel.getItemCacheStatistics();
 		this.queryCacheInfo = sampledModel.getQueryCacheInfo();
 		this.changeListenerInfo = sampledModel.getChangeListenersInfo();
 		this.changeListenerDispatcherInfo = sampledModel.getChangeListenerDispatcherInfo();
@@ -92,7 +92,7 @@ final class SamplerStep
 		this.duration = System.nanoTime() - start;
 
 		// process data
-		this.itemCacheSummary = new ItemCacheSummary(itemCacheInfos);
+		this.itemCacheInfos = itemCacheStatistics.getDetails();
 		this.mediaSummary = new MediaSummary(mediaInfos);
 		this.transactions = new ArrayList<>(openTransactions.size());
 		{
