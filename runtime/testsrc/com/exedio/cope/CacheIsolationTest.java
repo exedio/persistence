@@ -24,8 +24,8 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.fail;
 
-import java.util.Arrays;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -177,7 +177,7 @@ public class CacheIsolationTest extends TestWithEnvironment
 		else
 		{
 			assertEquals(0, statistics.getLimit());
-			assertEquals(Arrays.asList(ci).stream().map( x -> x.getType() ).collect(Collectors.toList()).toString(), 0, ci.length);
+			assertEquals(Stream.of(ci).map( x -> x.getType() ).collect(Collectors.toList()).toString(), 0, ci.length);
 		}
 	}
 }
