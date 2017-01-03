@@ -37,6 +37,13 @@ final class SamplerRevisions implements Revisions.Factory
 	private static Revisions getMysql()
 	{
 		return new Revisions(
+			new Revision(15, "add SamplerTransaction commit-hooks",
+				"ALTER TABLE `DiffTransaction` " +
+					"ADD COLUMN `preCommitHookCount` int not null, " +
+					"ADD COLUMN `preCommitHookDuplicates` int not null, " +
+					"ADD COLUMN `postCommitHookCount` int not null, " +
+					"ADD COLUMN `postCommitHookDuplicates` int not null"
+			),
 			new Revision(14, "add SamplerModel#itemCacheLimit, #itemCacheLevel",
 				"ALTER TABLE `DiffModel` " +
 					"ADD COLUMN `itemCacheLimit` int not null, " +

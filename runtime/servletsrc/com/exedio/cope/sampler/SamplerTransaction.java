@@ -25,6 +25,7 @@ import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.CopeExternal;
 import com.exedio.cope.CopeSchemaName;
 import com.exedio.cope.DateField;
+import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
 import com.exedio.cope.LongField;
@@ -58,13 +59,22 @@ final class SamplerTransaction extends Item
 	private static final DateField startDate = new DateField().toFinal();
 	private static final CompositeField<SamplerThread> thread  = CompositeField.create(SamplerThread.class).toFinal().optional();
 
+	private static final IntegerField preCommitHookCount       = new IntegerField().toFinal().min(0);
+	private static final IntegerField preCommitHookDuplicates  = new IntegerField().toFinal().min(0);
+	private static final IntegerField postCommitHookCount      = new IntegerField().toFinal().min(0);
+	private static final IntegerField postCommitHookDuplicates = new IntegerField().toFinal().min(0);
+
 	@SuppressWarnings("unchecked") static List<SetValue<?>> mapIt(final Transaction transaction)
 	{
 		return Arrays.asList((SetValue<?>)
 			map(id,        transaction.getID()),
 			maC(name,      transaction.getName()),
 			map(startDate, transaction.getStartDate()),
-			map(thread,    SamplerThread.create(transaction.getBoundThread())));
+			map(thread,    SamplerThread.create(transaction.getBoundThread())),
+			map(preCommitHookCount,       transaction.getPreCommitHookCount()),
+			map(preCommitHookDuplicates,  transaction.getPreCommitHookDuplicates()),
+			map(postCommitHookCount,      transaction.getPostCommitHookCount()),
+			map(postCommitHookDuplicates, transaction.getPostCommitHookDuplicates()));
 	}
 
 
