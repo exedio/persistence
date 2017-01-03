@@ -28,15 +28,14 @@ import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
 import com.exedio.cope.pattern.ScheduleTest.Log;
 import com.exedio.cope.util.JobContext;
-import com.exedio.cope.util.TimeZoneStrict;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
-import java.util.Locale;
 
 public final class ScheduleItem extends Item implements Scheduleable
 {
-	static final Schedule report = new Schedule(TimeZoneStrict.getTimeZone("Europe/Berlin"), Locale.GERMAN);
+	static final Schedule report = new Schedule(ZoneId.of("Europe/Berlin"));
 	static final BooleanField fail = new BooleanField().defaultTo(false);
 	static final IntegerField progress = new IntegerField().optional().min(0);
 

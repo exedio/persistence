@@ -115,12 +115,32 @@ public class ScheduleModelTest
 	{
 		assertEquals(ZoneId.of("Europe/Berlin"), report.getZoneId());
 		assertEquals("Europe/Berlin", report.getTimeZone().getID());
-		assertSame(Locale.GERMAN, report.getLocale());
-		final GregorianCalendar cal = report.newGregorianCalendar();
-		assertEquals("Europe/Berlin", cal.getTimeZone().getID());
-		assertEquals(false, cal.isLenient());
 	}
 
+	@Deprecated // OK: testing deprecated api
+	@Test public void testConstructionParametersDeprecated()
+	{
+		try
+		{
+			report.getLocale();
+			fail();
+		}
+		catch(final IllegalStateException e)
+		{
+			assertEquals(report.getID(), e.getMessage());
+		}
+		try
+		{
+			report.newGregorianCalendar();
+			fail();
+		}
+		catch(final IllegalStateException e)
+		{
+			assertEquals(report.getID(), e.getMessage());
+		}
+	}
+
+	@Deprecated // OK: testing deprecated api
 	@Test public void testConstructionParametersByTimeZone()
 	{
 		final Schedule s = new Schedule(TimeZoneStrict.getTimeZone("Europe/Berlin"), Locale.GERMAN);
@@ -145,6 +165,7 @@ public class ScheduleModelTest
 		}
 	}
 
+	@Deprecated // OK: testing deprecated api
 	@Test public void testTimeZoneNull()
 	{
 		try
@@ -158,6 +179,7 @@ public class ScheduleModelTest
 		}
 	}
 
+	@Deprecated // OK: testing deprecated api
 	@Test public void testLocaleNull()
 	{
 		final TimeZone tz = TimeZone.getDefault();
