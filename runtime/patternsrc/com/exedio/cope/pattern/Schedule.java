@@ -136,15 +136,29 @@ public final class Schedule extends Pattern
 	final Runs runs = new Runs();
 
 	/**
+	 * @deprecated Use {@link #Schedule(ZoneId)} instead
 	 * @param locale
 	 *        specifies the locale used for creating the {@link GregorianCalendar}
 	 *        that does all the date computations.
 	 *        Is important for specifying the first day of week (Monday vs. Sunday)
 	 */
+	@Deprecated
 	public Schedule(final TimeZone timeZone, final Locale locale)
 	{
-		this.zoneId = requireNonNull(timeZone, "timeZone").toZoneId();
-		this.localeIfSupported = requireNonNull(locale, "locale");
+		this(
+			requireNonNull(timeZone, "timeZone").toZoneId(),
+			requireNonNull(locale, "locale"));
+	}
+
+	public Schedule(final ZoneId zoneId)
+	{
+		this(zoneId, null);
+	}
+
+	private Schedule(final ZoneId zoneId, final Locale locale)
+	{
+		this.zoneId = requireNonNull(zoneId, "zoneId");
+		this.localeIfSupported = locale;
 		addSource(enabled,  "enabled");
 		addSource(interval, "interval");
 	}
@@ -159,11 +173,24 @@ public final class Schedule extends Pattern
 		return TimeZone.getTimeZone(zoneId);
 	}
 
+	/**
+	 * @deprecated Supported only if constructed by {@link #Schedule(TimeZone, Locale)}.
+	 * @throws IllegalStateException if not supported
+	 */
+	@Deprecated
 	public Locale getLocale()
 	{
+		if(localeIfSupported==null)
+			throw new IllegalStateException(toString());
+
 		return localeIfSupported;
 	}
 
+	/**
+	 * @deprecated Supported only if constructed by {@link #Schedule(TimeZone, Locale)}.
+	 * @throws IllegalStateException if not supported
+	 */
+	@Deprecated
 	public GregorianCalendar newGregorianCalendar()
 	{
 		final GregorianCalendar result = new GregorianCalendar(getTimeZone(), getLocale());

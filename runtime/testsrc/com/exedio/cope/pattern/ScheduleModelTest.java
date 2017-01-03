@@ -132,6 +132,19 @@ public class ScheduleModelTest
 		assertEquals(false, cal.isLenient());
 	}
 
+	@Test public void testZoneIdNull()
+	{
+		try
+		{
+			new Schedule((ZoneId)null);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals("zoneId", e.getMessage());
+		}
+	}
+
 	@Test public void testTimeZoneNull()
 	{
 		try
