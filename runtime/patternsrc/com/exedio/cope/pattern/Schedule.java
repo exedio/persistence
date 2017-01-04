@@ -112,12 +112,12 @@ public final class Schedule extends Pattern
 
 		abstract ZonedDateTime toFrom(ZonedDateTime date);
 
-		final ChronoUnit addField;
+		final ChronoUnit unit;
 		final int limit; // TODO allow customization
 
-		Interval(final ChronoUnit addField, final int limit)
+		Interval(final ChronoUnit unit, final int limit)
 		{
-			this.addField = addField;
+			this.unit = unit;
 			this.limit = limit;
 
 			assert limit>=12 : limit;
@@ -328,7 +328,7 @@ public final class Schedule extends Pattern
 		if(lastUntil==null)
 		{
 			final Instant until = calTime;
-			cal = cal.minus(1, interval.addField);
+			cal = cal.minus(1, interval.unit);
 			final Instant from = cal.toInstant();
 			runNow(item, interval, from, until, 1, 1, now, ctx);
 		}
@@ -338,7 +338,7 @@ public final class Schedule extends Pattern
 			while(lastUntil.isBefore(calTime))
 			{
 				dates.add(0, calTime);
-				cal = cal.minus(1, interval.addField);
+				cal = cal.minus(1, interval.unit);
 				calTime = cal.toInstant();
 			}
 			dates.add(0, lastUntil);
