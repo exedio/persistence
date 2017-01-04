@@ -321,15 +321,15 @@ public final class Schedule extends Pattern
 			tx.commit();
 		}
 
-		ZonedDateTime cal = interval.toFrom(ZonedDateTime.ofInstant(now.minus(DELAY), zoneId));
-		Instant calTime = cal.toInstant();
+		ZonedDateTime current = interval.toFrom(ZonedDateTime.ofInstant(now.minus(DELAY), zoneId));
+		Instant calTime = current.toInstant();
 		assert !calTime.isAfter(now);
 
 		if(lastUntil==null)
 		{
 			final Instant until = calTime;
-			cal = cal.minus(1, interval.unit);
-			final Instant from = cal.toInstant();
+			current = current.minus(1, interval.unit);
+			final Instant from = current.toInstant();
 			runNow(item, interval, from, until, 1, 1, now, ctx);
 		}
 		else
@@ -338,8 +338,8 @@ public final class Schedule extends Pattern
 			while(lastUntil.isBefore(calTime))
 			{
 				dates.add(0, calTime);
-				cal = cal.minus(1, interval.unit);
-				calTime = cal.toInstant();
+				current = current.minus(1, interval.unit);
+				calTime = current.toInstant();
 			}
 			dates.add(0, lastUntil);
 
