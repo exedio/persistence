@@ -322,12 +322,12 @@ public final class Schedule extends Pattern
 		}
 
 		ZonedDateTime current = interval.toFrom(ZonedDateTime.ofInstant(now.minus(DELAY), zoneId));
-		Instant calTime = current.toInstant();
-		assert !calTime.isAfter(now);
+		Instant currentInstant = current.toInstant();
+		assert !currentInstant.isAfter(now);
 
 		if(lastUntil==null)
 		{
-			final Instant until = calTime;
+			final Instant until = currentInstant;
 			current = current.minus(1, interval.unit);
 			final Instant from = current.toInstant();
 			runNow(item, interval, from, until, 1, 1, now, ctx);
@@ -335,11 +335,11 @@ public final class Schedule extends Pattern
 		else
 		{
 			final LinkedList<Instant> dates = new LinkedList<>();
-			while(lastUntil.isBefore(calTime))
+			while(lastUntil.isBefore(currentInstant))
 			{
-				dates.add(0, calTime);
+				dates.add(0, currentInstant);
 				current = current.minus(1, interval.unit);
-				calTime = current.toInstant();
+				currentInstant = current.toInstant();
 			}
 			dates.add(0, lastUntil);
 
