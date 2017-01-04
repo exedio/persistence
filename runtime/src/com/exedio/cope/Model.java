@@ -559,13 +559,6 @@ public final class Model implements Serializable
 		return connect().itemCache.getStatistics(types.concreteTypeList);
 	}
 
-	/** use {@link #getItemCacheStatistics()} */
-	@Deprecated
-	public ItemCacheInfo[] getItemCacheInfo()
-	{
-		return getItemCacheStatistics().getDetails();
-	}
-
 	public QueryCacheInfo getQueryCacheInfo()
 	{
 		return connect().queryCache.getInfo();
@@ -998,6 +991,13 @@ public final class Model implements Serializable
 	}
 
 	// ------------------- deprecated stuff -------------------
+
+	/** use {@link #getItemCacheStatistics()} */
+	@Deprecated
+	public ItemCacheInfo[] getItemCacheInfo()
+	{
+		return getItemCacheStatistics().getDetails();
+	}
 
 	/**
 	 * @deprecated Use {@link #addPostCommitHookIfAbsent(Runnable)} instead

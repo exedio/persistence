@@ -65,16 +65,6 @@ public final class ItemCacheInfo
 	}
 
 	/**
-	 * use {@link ItemCacheStatistics#getLimit()}
-	 */
-	@Deprecated
-	@SuppressWarnings("static-method")
-	public int getLimit()
-	{
-		return 0;
-	}
-
-	/**
 	 * Returns the current number of items in the cache.
 	 */
 	public int getLevel()
@@ -97,6 +87,48 @@ public final class ItemCacheInfo
 		return concurrentLoads;
 	}
 
+	public long getReplacementsL()
+	{
+		return replacements;
+	}
+
+	public long getInvalidationsOrdered()
+	{
+		return invalidationsOrdered;
+	}
+
+	public long getInvalidationsDone()
+	{
+		return invalidationsDone;
+	}
+
+	public int getStampsSize()
+	{
+		return stampsSize;
+	}
+
+	public long getStampsHits()
+	{
+		return stampsHits;
+	}
+
+	public long getStampsPurged()
+	{
+		return stampsPurged;
+	}
+
+	// ------------------- deprecated stuff -------------------
+
+	/**
+	 * use {@link ItemCacheStatistics#getLimit()}
+	 */
+	@Deprecated
+	@SuppressWarnings("static-method")
+	public int getLimit()
+	{
+		return 0;
+	}
+
 	/** @deprecated due to changes to the cache implementation, this value is no longer meaningful */
 	@Deprecated
 	@SuppressWarnings("static-method")
@@ -112,11 +144,6 @@ public final class ItemCacheInfo
 	public int getReplacements()
 	{
 		return toIntCapped(getReplacementsL());
-	}
-
-	public long getReplacementsL()
-	{
-		return replacements;
 	}
 
 	/** @deprecated due to changes to the cache implementation, this value is no longer meaningful */
@@ -150,33 +177,6 @@ public final class ItemCacheInfo
 	{
 		return 0l;
 	}
-
-	public long getInvalidationsOrdered()
-	{
-		return invalidationsOrdered;
-	}
-
-	public long getInvalidationsDone()
-	{
-		return invalidationsDone;
-	}
-
-	public int getStampsSize()
-	{
-		return stampsSize;
-	}
-
-	public long getStampsHits()
-	{
-		return stampsHits;
-	}
-
-	public long getStampsPurged()
-	{
-		return stampsPurged;
-	}
-
-	// ------------------- deprecated stuff -------------------
 
 	/**
 	 * @deprecated Use {@link #getAgeMinimumMillis()} instead
