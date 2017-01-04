@@ -39,6 +39,7 @@ import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.misc.Computed;
 import com.exedio.cope.util.JobContext;
+import com.exedio.cope.util.TimeZoneStrict;
 import java.time.ZoneId;
 import java.util.GregorianCalendar;
 import java.util.Locale;
@@ -116,6 +117,17 @@ public class ScheduleModelTest
 		assertEquals("Europe/Berlin", report.getTimeZone().getID());
 		assertSame(Locale.GERMAN, report.getLocale());
 		final GregorianCalendar cal = report.newGregorianCalendar();
+		assertEquals("Europe/Berlin", cal.getTimeZone().getID());
+		assertEquals(false, cal.isLenient());
+	}
+
+	@Test public void testConstructionParametersByTimeZone()
+	{
+		final Schedule s = new Schedule(TimeZoneStrict.getTimeZone("Europe/Berlin"), Locale.GERMAN);
+		assertEquals(ZoneId.of("Europe/Berlin"), s.getZoneId());
+		assertEquals("Europe/Berlin", s.getTimeZone().getID());
+		assertSame(Locale.GERMAN, s.getLocale());
+		final GregorianCalendar cal = s.newGregorianCalendar();
 		assertEquals("Europe/Berlin", cal.getTimeZone().getID());
 		assertEquals(false, cal.isLenient());
 	}
