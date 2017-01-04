@@ -125,7 +125,6 @@ public final class Schedule extends Pattern
 	}
 
 	private final ZoneId zoneId;
-	private final Locale localeIfSupported;
 
 	private final BooleanField enabled = new BooleanField().defaultTo(true);
 	private final EnumField<Interval> interval = EnumField.create(Interval.class).defaultTo(DAILY);
@@ -134,21 +133,6 @@ public final class Schedule extends Pattern
 
 	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	final Runs runs = new Runs();
-
-	/**
-	 * @deprecated Use {@link #Schedule(ZoneId)} instead
-	 * @param locale
-	 *        specifies the locale used for creating the {@link GregorianCalendar}
-	 *        that does all the date computations.
-	 *        Is important for specifying the first day of week (Monday vs. Sunday)
-	 */
-	@Deprecated
-	public Schedule(final TimeZone timeZone, final Locale locale)
-	{
-		this(
-			requireNonNull(timeZone, "timeZone").toZoneId(),
-			requireNonNull(locale, "locale"));
-	}
 
 	public Schedule(final ZoneId zoneId)
 	{
@@ -171,31 +155,6 @@ public final class Schedule extends Pattern
 	public TimeZone getTimeZone()
 	{
 		return TimeZone.getTimeZone(zoneId);
-	}
-
-	/**
-	 * @deprecated Supported only if constructed by {@link #Schedule(TimeZone, Locale)}.
-	 * @throws IllegalStateException if not supported
-	 */
-	@Deprecated
-	public Locale getLocale()
-	{
-		if(localeIfSupported==null)
-			throw new IllegalStateException(toString());
-
-		return localeIfSupported;
-	}
-
-	/**
-	 * @deprecated Supported only if constructed by {@link #Schedule(TimeZone, Locale)}.
-	 * @throws IllegalStateException if not supported
-	 */
-	@Deprecated
-	public GregorianCalendar newGregorianCalendar()
-	{
-		final GregorianCalendar result = new GregorianCalendar(getTimeZone(), getLocale());
-		result.setLenient(false);
-		return result;
 	}
 
 	@Override
@@ -598,6 +557,49 @@ public final class Schedule extends Pattern
 	}
 
 	// ------------------- deprecated stuff -------------------
+
+	@Deprecated
+	private final Locale localeIfSupported;
+
+	/**
+	 * @deprecated Use {@link #Schedule(ZoneId)} instead
+	 * @param locale
+	 *        specifies the locale used for creating the {@link GregorianCalendar}
+	 *        that does all the date computations.
+	 *        Is important for specifying the first day of week (Monday vs. Sunday)
+	 */
+	@Deprecated
+	public Schedule(final TimeZone timeZone, final Locale locale)
+	{
+		this(
+			requireNonNull(timeZone, "timeZone").toZoneId(),
+			requireNonNull(locale, "locale"));
+	}
+
+	/**
+	 * @deprecated Supported only if constructed by {@link #Schedule(TimeZone, Locale)}.
+	 * @throws IllegalStateException if not supported
+	 */
+	@Deprecated
+	public Locale getLocale()
+	{
+		if(localeIfSupported==null)
+			throw new IllegalStateException(toString());
+
+		return localeIfSupported;
+	}
+
+	/**
+	 * @deprecated Supported only if constructed by {@link #Schedule(TimeZone, Locale)}.
+	 * @throws IllegalStateException if not supported
+	 */
+	@Deprecated
+	public GregorianCalendar newGregorianCalendar()
+	{
+		final GregorianCalendar result = new GregorianCalendar(getTimeZone(), getLocale());
+		result.setLenient(false);
+		return result;
+	}
 
 	/**
 	 * @deprecated Use {@link #Schedule(TimeZone,Locale)} instead.
