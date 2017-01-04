@@ -39,7 +39,7 @@ public class CopeExternalTest extends TestWithEnvironment
 	@Test
 	public void testItemCacheInfo()
 	{
-		assertCacheInfo(new Type<?>[]{CachedItem.TYPE});
+		assertCacheInfo(CachedItem.TYPE);
 	}
 
 	@Test
@@ -49,7 +49,7 @@ public class CopeExternalTest extends TestWithEnvironment
 		final NoCacheItem noCacheItem=new NoCacheItem();
 		final WeightZeroItem weightZeroItem=new WeightZeroItem();
 		model.commit();
-		assertCacheInfo(new Type<?>[]{CachedItem.TYPE});
+		assertCacheInfo(CachedItem.TYPE);
 		if (model.getConnectProperties().getItemCacheLimit()>0)
 		{
 			assertEquals(0, model.getItemCacheStatistics().getDetails()[0].getLevel());

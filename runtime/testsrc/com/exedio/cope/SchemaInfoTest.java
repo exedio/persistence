@@ -126,7 +126,7 @@ public class SchemaInfoTest extends TestWithEnvironment
 		assertEquals(synthetic("catch", "InstanceOfAItem"), getUpdateCounterColumnName(InstanceOfAItem.TYPE));
 
 		assertCacheInfo(
-			new Type<?>[]{InstanceOfAItem.TYPE, InstanceOfB1Item.TYPE, InstanceOfC1Item.TYPE, InstanceOfRefItem.TYPE}
+			InstanceOfAItem.TYPE, InstanceOfB1Item.TYPE, InstanceOfC1Item.TYPE, InstanceOfRefItem.TYPE
 		);
 	}
 }

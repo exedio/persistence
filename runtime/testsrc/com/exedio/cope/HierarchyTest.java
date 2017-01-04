@@ -372,10 +372,7 @@ public class HierarchyTest extends TestWithEnvironment
 		}
 
 		// must be the same order as in model constructor
-		assertCacheInfo(
-				new Type<?>[]{HierarchyFirstSub.TYPE, HierarchySecondSub.TYPE, HierarchySingleSub.TYPE}
-		);
-
+		assertCacheInfo(HierarchyFirstSub.TYPE, HierarchySecondSub.TYPE, HierarchySingleSub.TYPE);
 		assertNotNull(model.getQueryCacheInfo());
 		assertNotNull(model.getQueryCacheHistogram());
 		assertNotNull(model.getConnectionPoolInfo());

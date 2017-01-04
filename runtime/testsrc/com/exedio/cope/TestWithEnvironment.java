@@ -179,7 +179,7 @@ public abstract class TestWithEnvironment
 		tester.assertCause(e);
 	}
 
-	protected void assertCacheInfo(final Type<?>[] types)
+	protected final void assertCacheInfo(final Type<?>... types)
 	{
 		tester.assertCacheInfo(types);
 	}

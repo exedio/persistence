@@ -276,7 +276,7 @@ final class RuntimeTester
 		assertNull(name, table.getConstraint(name));
 	}
 
-	protected void assertCacheInfo(final Type<?>[] types)
+	protected void assertCacheInfo(final Type<?>... types)
 	{
 		final int limit = model.getConnectProperties().getItemCacheLimit();
 		final ItemCacheInfo[] ci = model.getItemCacheStatistics().getDetails();
