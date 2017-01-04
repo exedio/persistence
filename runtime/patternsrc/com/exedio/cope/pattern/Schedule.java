@@ -124,7 +124,7 @@ public final class Schedule extends Pattern
 		}
 	}
 
-	private final ZoneId timeZone;
+	private final ZoneId zoneId;
 	private final Locale locale;
 
 	private final BooleanField enabled = new BooleanField().defaultTo(true);
@@ -143,7 +143,7 @@ public final class Schedule extends Pattern
 	 */
 	public Schedule(final TimeZone timeZone, final Locale locale)
 	{
-		this.timeZone = requireNonNull(timeZone, "timeZone").toZoneId();
+		this.zoneId = requireNonNull(timeZone, "timeZone").toZoneId();
 		this.locale = requireNonNull(locale, "locale");
 		addSource(enabled,  "enabled");
 		addSource(interval, "interval");
@@ -151,12 +151,12 @@ public final class Schedule extends Pattern
 
 	public ZoneId getZoneId()
 	{
-		return timeZone;
+		return zoneId;
 	}
 
 	public TimeZone getTimeZone()
 	{
-		return TimeZone.getTimeZone(timeZone);
+		return TimeZone.getTimeZone(zoneId);
 	}
 
 	public Locale getLocale()
@@ -321,7 +321,7 @@ public final class Schedule extends Pattern
 			tx.commit();
 		}
 
-		ZonedDateTime cal = interval.toFrom(ZonedDateTime.ofInstant(now.minus(DELAY), timeZone));
+		ZonedDateTime cal = interval.toFrom(ZonedDateTime.ofInstant(now.minus(DELAY), zoneId));
 		Instant calTime = cal.toInstant();
 		assert !calTime.isAfter(now);
 
