@@ -125,7 +125,7 @@ public final class Schedule extends Pattern
 	}
 
 	private final ZoneId zoneId;
-	private final Locale locale;
+	private final Locale localeIfSupported;
 
 	private final BooleanField enabled = new BooleanField().defaultTo(true);
 	private final EnumField<Interval> interval = EnumField.create(Interval.class).defaultTo(DAILY);
@@ -144,7 +144,7 @@ public final class Schedule extends Pattern
 	public Schedule(final TimeZone timeZone, final Locale locale)
 	{
 		this.zoneId = requireNonNull(timeZone, "timeZone").toZoneId();
-		this.locale = requireNonNull(locale, "locale");
+		this.localeIfSupported = requireNonNull(locale, "locale");
 		addSource(enabled,  "enabled");
 		addSource(interval, "interval");
 	}
@@ -161,12 +161,12 @@ public final class Schedule extends Pattern
 
 	public Locale getLocale()
 	{
-		return locale;
+		return localeIfSupported;
 	}
 
 	public GregorianCalendar newGregorianCalendar()
 	{
-		final GregorianCalendar result = new GregorianCalendar(getTimeZone(), locale);
+		final GregorianCalendar result = new GregorianCalendar(getTimeZone(), getLocale());
 		result.setLenient(false);
 		return result;
 	}
