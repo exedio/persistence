@@ -321,6 +321,12 @@ public class ConnectPropertiesTest
 	{
 		final ConnectProperties p = ConnectProperties.create(TestSources.minimal());
 
+		assertEquals(
+				"HSQL Database Engine 2.2.9 " +
+				"HSQL Database Engine Driver 2.2.9 " +
+				"PUBLIC",
+				p.probe());
+
 		final Callable<?> test = p.getProbeTest();
 		assertEquals(
 				"HSQL Database Engine 2.2.9 " +

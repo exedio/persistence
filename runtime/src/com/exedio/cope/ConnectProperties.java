@@ -434,13 +434,7 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 			@Override
 			public String call()
 			{
-				final EnvironmentInfo info = probeInternal().environmentInfo;
-				return
-						info.getDatabaseProductName() + ' ' +
-						info.getDatabaseVersionDescription() + ' ' +
-						info.getDriverName() + ' ' +
-						info.getDriverVersionDescription() + ' ' +
-						info.getCatalog();
+				return probe();
 			}
 			@Override
 			public String toString()
@@ -448,6 +442,17 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 				return "probe";
 			}
 		};
+	}
+
+	public String probe()
+	{
+		final EnvironmentInfo info = probeInternal().environmentInfo;
+		return
+				info.getDatabaseProductName() + ' ' +
+				info.getDatabaseVersionDescription() + ' ' +
+				info.getDriverName() + ' ' +
+				info.getDriverVersionDescription() + ' ' +
+				info.getCatalog();
 	}
 
 	// TODO move into framework
