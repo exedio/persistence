@@ -389,7 +389,7 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 		}
 	}
 
-	Probe probe()
+	Probe probeInternal()
 	{
 		return connection.probe(this);
 	}
@@ -434,7 +434,7 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 			@Override
 			public String call()
 			{
-				final EnvironmentInfo info = probe().environmentInfo;
+				final EnvironmentInfo info = probeInternal().environmentInfo;
 				return
 						info.getDatabaseProductName() + ' ' +
 						info.getDatabaseVersionDescription() + ' ' +
