@@ -202,6 +202,10 @@ public final class Standard extends Item
 		touchPrivateDate();
 	}
 
+	{
+		// test non-static initializer
+	}
+
 
 /**
 
