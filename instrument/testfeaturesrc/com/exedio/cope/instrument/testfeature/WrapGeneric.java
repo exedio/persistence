@@ -21,6 +21,8 @@ package com.exedio.cope.instrument.testfeature;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import java.io.Writer;
+import java.util.Collection;
+import java.util.function.Supplier;
 
 public class WrapGeneric<Z, M, N> extends WrapGenericSuper<M, N, Z, Double>
 {
@@ -33,4 +35,27 @@ public class WrapGeneric<Z, M, N> extends WrapGenericSuper<M, N, Z, Double>
 	{
 		// empty
 	}
+
+	@Wrap(order=20)
+	public Supplier/* TODO: <?> */[] varargsMethod(
+			@SuppressWarnings("unused") @Parameter("varargs") final Collection<?>... varargs)
+	{
+		throw new RuntimeException();
+	}
+
+	@Wrap(order=30)
+	public void arrayMethod(
+			@SuppressWarnings("unused") @Parameter("varargs") final Collection<?>[] varargs)
+	{
+		throw new RuntimeException();
+	}
+
+	@Wrap(order=40)
+	public void arrayAndVarargsMethod(
+			@SuppressWarnings("unused") @Parameter("array") final Collection/* TODO <?> */[] array,
+			@SuppressWarnings("unused") @Parameter("varargs") final Collection<?>... varargs)
+	{
+		throw new RuntimeException();
+	}
+
 }
