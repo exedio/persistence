@@ -37,7 +37,7 @@ public class WrapGeneric<Z, M, N> extends WrapGenericSuper<M, N, Z, Double>
 	}
 
 	@Wrap(order=20)
-	public Supplier/* TODO: <?> */[] varargsMethod(
+	public Supplier<?>[] varargsMethod(
 			@SuppressWarnings("unused") @Parameter("varargs") final Collection<?>... varargs)
 	{
 		throw new RuntimeException();
@@ -52,7 +52,7 @@ public class WrapGeneric<Z, M, N> extends WrapGenericSuper<M, N, Z, Double>
 
 	@Wrap(order=40)
 	public void arrayAndVarargsMethod(
-			@SuppressWarnings("unused") @Parameter("array") final Collection/* TODO <?> */[] array,
+			@SuppressWarnings("unused") @Parameter("array") final Collection<?>[] array,
 			@SuppressWarnings("unused") @Parameter("varargs") final Collection<?>... varargs)
 	{
 		throw new RuntimeException();

@@ -31,6 +31,7 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.SortedSet;
@@ -290,7 +291,7 @@ final class Generator
 				}
 			}
 			write(finalArgPrefix);
-			write(new Context(feature, feature.parent!=type).write(feature.getInitialType()));
+			write(new Context(feature, feature.parent!=type).write(feature.getInitialType(), false));
 			write(' ');
 			write(feature.getName());
 		}
@@ -555,7 +556,7 @@ final class Generator
 					) |
 					(isStatic ? STATIC : 0) |
 					(option.asFinal() ? FINAL : 0));
-			write(ctx.write(methodReturnType));
+			write(ctx.write(methodReturnType, false));
 			if(useIs && option.booleanAsIs())
 			{
 				write(" is");
@@ -590,14 +591,15 @@ final class Generator
 			write('(');
 			{
 				final CharSeparator comma = new CharSeparator(',');
-				for(final WrapperX.Parameter parameter : parameters)
+				for (final Iterator<WrapperX.Parameter> iter = parameters.iterator(); iter.hasNext();)
 				{
+					final WrapperX.Parameter parameter = iter.next();
 					if(parameter.varargs==null)
 					{
 						comma.appendTo(output);
 						writeParameterNullability(parameter);
 						write(finalArgPrefix);
-						write(ctx.write(parameter.getType()));
+						write(ctx.write(parameter.getType(), !iter.hasNext()));
 						write(' ');
 						write(format(parameter.getName(), arguments));
 					}
@@ -614,7 +616,7 @@ final class Generator
 								writeParameterNullability(parameter);
 							}
 							write(finalArgPrefix);
-							write(new Context(parameterFeature, false).write(parameterFeature.getInitialType()));
+							write(new Context(parameterFeature, false).write(parameterFeature.getInitialType(), !iter.hasNext()));
 							write(' ');
 							write(format(parameterField.name, arguments));
 						}
