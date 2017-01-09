@@ -28,6 +28,11 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Wrap
 {
+	/**
+	 * Specifies the order of wrapped methods.
+	 * Is needed because the result of {@link Class#getDeclaredMethods()}
+	 * is not in any particular order.
+	 */
 	int order();
 
 	String name() default "";
