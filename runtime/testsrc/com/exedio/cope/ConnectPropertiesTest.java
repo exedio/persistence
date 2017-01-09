@@ -320,19 +320,15 @@ public class ConnectPropertiesTest
 	@Test public void testProbe() throws Exception
 	{
 		final ConnectProperties p = ConnectProperties.create(TestSources.minimal());
-
-		assertEquals(
+		final String expected =
 				"HSQL Database Engine 2.2.9 " +
 				"HSQL Database Engine Driver 2.2.9 " +
-				"PUBLIC",
-				p.probe());
+				"PUBLIC";
+
+		assertEquals(expected, p.probe());
 
 		final Callable<?> test = p.getProbeTest();
-		assertEquals(
-				"HSQL Database Engine 2.2.9 " +
-				"HSQL Database Engine Driver 2.2.9 " +
-				"PUBLIC",
-				test.call());
+		assertEquals(expected, test.call());
 		assertEquals("probe", test.toString());
 	}
 }
