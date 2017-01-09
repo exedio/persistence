@@ -594,12 +594,13 @@ final class Generator
 				for (final Iterator<WrapperX.Parameter> iter = parameters.iterator(); iter.hasNext();)
 				{
 					final WrapperX.Parameter parameter = iter.next();
+					final boolean makeVarargs = wrapper.isVarArgs() && !iter.hasNext();
 					if(parameter.varargs==null)
 					{
 						comma.appendTo(output);
 						writeParameterNullability(parameter);
 						write(finalArgPrefix);
-						write(ctx.write(parameter.getType(), !iter.hasNext()));
+						write(ctx.write(parameter.getType(), makeVarargs));
 						write(' ');
 						write(format(parameter.getName(), arguments));
 					}
@@ -616,7 +617,7 @@ final class Generator
 								writeParameterNullability(parameter);
 							}
 							write(finalArgPrefix);
-							write(new Context(parameterFeature, false).write(parameterFeature.getInitialType(), !iter.hasNext()));
+							write(new Context(parameterFeature, false).write(parameterFeature.getInitialType(), makeVarargs));
 							write(' ');
 							write(format(parameterField.name, arguments));
 						}

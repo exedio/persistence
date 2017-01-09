@@ -199,7 +199,7 @@ final class WrapItem extends Item
 	 *       It can be customized with the tag <tt>@cope.varargsMethod public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final byte[] varargsFeatureMethod(final java.lang.String array,final java.lang.Integer[] varargs)
+	final byte[] varargsFeatureMethod(final java.lang.String array,final java.lang.Integer... varargs)
 	{
 		return WrapItem.feature.varargsMethod(this,array,varargs);
 	}/**
@@ -219,7 +219,7 @@ final class WrapItem extends Item
 	 *       It can be customized with the tag <tt>@cope.arrayAndVarargsMethod public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final byte[] arrayFeatureAndVarargsMethod(final java.lang.Integer[] array,final java.lang.Integer[] varargs)
+	final byte[] arrayFeatureAndVarargsMethod(final java.lang.Integer[] array,final java.lang.Integer... varargs)
 	{
 		return WrapItem.feature.arrayAndVarargsMethod(this,array,varargs);
 	}/**
@@ -259,7 +259,7 @@ final class WrapItem extends Item
 	 *       It can be customized with the tag <tt>@cope.arrayMethod public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	static final void arrayGenericMethod(final java.util.Collection<?>... varargs)
+	static final void arrayGenericMethod(final java.util.Collection<?>[] varargs)
 	{
 		WrapItem.generic.arrayMethod(varargs);
 	}/**
