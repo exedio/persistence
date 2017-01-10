@@ -75,9 +75,9 @@ final class Context
 		return feature.getInstance().getClass();
 	}
 
-	private String write(final ParameterizedType t)
+	private String write(final ParameterizedType t, final boolean varArgs)
 	{
-		final StringBuilder bf = new StringBuilder(write(t.getRawType()));
+		final StringBuilder bf = new StringBuilder(write(t.getRawType(), varArgs));
 		bf.append('<');
 		boolean first = true;
 		for(final Type a : t.getActualTypeArguments())
@@ -87,7 +87,7 @@ final class Context
 			else
 				bf.append(',');
 
-			bf.append(write(a));
+			bf.append(write(a, varArgs));
 		}
 		bf.append('>');
 
@@ -168,7 +168,7 @@ final class Context
 		throw new RuntimeException("" + Arrays.asList(typeParameters) + '/' + typeParameter);
 	}
 
-	private String write(final WildcardType t)
+	private String write(final WildcardType t, final boolean varArgs)
 	{
 		final Type[] upper = t.getUpperBounds();
 		if(upper.length==1)
@@ -178,22 +178,34 @@ final class Context
 			if(Object.class.equals(upper[0]))
 				return "?";
 
-			return "? extends " + write(upper[0]);
+			return "? extends " + write(upper[0], varArgs);
 		}
 
 		final Type[] lower = t.getLowerBounds();
 		if(lower.length==1)
 		{
 			assert upper.length==0 : Arrays.asList(upper).toString();
-			return "? super " + write(lower[0]);
+			return "? super " + write(lower[0], varArgs);
 		}
 
 		throw new RuntimeException(Arrays.asList(upper).toString() + Arrays.asList(lower).toString());
 	}
 
-	private String write(final GenericArrayType t)
+	private static String write(final Class<?> t, final boolean varArgs)
 	{
-		return write(t.getGenericComponentType()) + "...";
+		if (varArgs && t.isArray())
+		{
+			return write(t.getComponentType(), false)+"...";
+		}
+		else
+		{
+			return t.getCanonicalName();
+		}
+	}
+
+	private String write(final GenericArrayType t, final boolean varArgs)
+	{
+		return write(t.getGenericComponentType(), varArgs) + (varArgs?"...":"[]");
 	}
 
 	private String write(final Generics.SourceType t)
@@ -228,18 +240,18 @@ final class Context
 		}
 	}
 
-	String write(final Type t)
+	String write(final Type t, final boolean varArgs)
 	{
 		if(t instanceof Class<?>)
-			return ((Class<?>)t).getCanonicalName();
+			return write((Class<?>)t, varArgs);
 		else if(t instanceof GenericArrayType)
-			return write((GenericArrayType)t);
+			return write((GenericArrayType)t, varArgs);
 		else if(t instanceof ParameterizedType)
-			return write((ParameterizedType)t);
+			return write((ParameterizedType)t, varArgs);
 		else if(t instanceof TypeVariable<?>)
 			return write((TypeVariable<?>)t);
 		else if(t instanceof WildcardType)
-			return write((WildcardType)t);
+			return write((WildcardType)t, varArgs);
 		else if(t instanceof Generics.SourceType)
 			return write((Generics.SourceType)t);
 		else

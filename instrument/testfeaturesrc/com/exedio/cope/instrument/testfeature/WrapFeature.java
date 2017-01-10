@@ -181,4 +181,21 @@ public class WrapFeature
 	{
 		throw new RuntimeException();
 	}
+
+	@Wrap(order=330)
+	public byte[] arrayMethod(
+			@SuppressWarnings("unused") final Item item,
+			@SuppressWarnings("unused") @Parameter("array") final Integer[] array)
+	{
+		throw new RuntimeException();
+	}
+
+	@Wrap(order=340)
+	public byte[] arrayAndVarargsMethod(
+			@SuppressWarnings("unused") final Item item,
+			@SuppressWarnings("unused") @Parameter("array") final Integer[] array,
+			@SuppressWarnings("unused") @Parameter("varargs") final Integer... varargs)
+	{
+		throw new RuntimeException();
+	}
 }

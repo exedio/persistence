@@ -115,6 +115,11 @@ final class WrapperX
 		return com.exedio.cope.misc.Arrays.copyOf(returnComment);
 	}
 
+	boolean isVarArgs()
+	{
+		return method.isVarArgs();
+	}
+
 	static final class Parameter
 	{
 		private final java.lang.reflect.Type type;
