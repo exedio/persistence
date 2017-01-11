@@ -7,6 +7,9 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* Attribute <instrument configByTags changes its default from "warn" to "error".
+	This attribute is to be removed in the near future, so you may want to remove
+	it from your build script.
 * item cache is now global (rather than split into separate segments for each type)
   * @CopeCacheWeight is no longer applicable, and therefore deprecated;
     use @CopeExternal instead of @CopeCacheWeight(0) to disable caching of a type

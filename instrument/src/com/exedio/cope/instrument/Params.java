@@ -46,7 +46,7 @@ final class Params
 		return String.valueOf(maxwarns);
 	}
 
-	ConfigurationByJavadocTags configByTags = ConfigurationByJavadocTags.warn;
+	ConfigurationByJavadocTags configByTags = ConfigurationByJavadocTags.error;
 	boolean longJavadoc = true; // non-default is deprecated
 	boolean finalArgs = true; // non-default is deprecated
 	boolean nullabilityAnnotations = false;

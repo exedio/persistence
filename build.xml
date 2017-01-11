@@ -374,7 +374,6 @@
 		<instrument
 				dir="runtime/testsrc"
 				verify="${instrument.verify}"
-				configByTags="error"
 				suppressUnusedWarningOnPrivateActivationConstructor="true"
 				nullabilityAnnotations="${instrument.nullabilityAnnotations}"
 				timestampFile="build/timestamps/runtime.test.timestamp">
@@ -534,7 +533,6 @@
 		<instrument
 				dir="runtime/servlettestsrc"
 				verify="${instrument.verify}"
-				configByTags="error"
 				suppressUnusedWarningOnPrivateActivationConstructor="true"
 				nullabilityAnnotations="${instrument.nullabilityAnnotations}"
 				hintFormat="forAnnotations"
