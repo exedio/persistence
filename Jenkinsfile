@@ -8,14 +8,12 @@ timestamps
 		{
 			abortable
 			{
-				stage 'Checkout'
 				checkout scm
 				sh 'git rev-parse HEAD > GIT_COMMIT'
 				env.GIT_COMMIT = readFile('GIT_COMMIT').trim()
 				sh "git cat-file -p HEAD | grep '^tree ' | sed -e 's/^tree //' > GIT_TREE"
 				env.GIT_TREE = readFile('GIT_TREE').trim()
 
-				stage 'Config'
 				env.BUILD_TIMESTAMP = new Date().format("yyyy-MM-dd_HH-mm-ss");
 				env.JAVA_HOME = "${tool 'jdk 1.8.0_60'}"
 				env.PATH = "${env.JAVA_HOME}/bin:${env.PATH}"
@@ -43,7 +41,6 @@ timestamps
 						' BUILD_ID -${BUILD_ID}-' +
 						' isRelease=' + isRelease
 
-				stage 'Build'
 				sh "${antHome}/bin/ant clean jenkins" +
 						' "-Dbuild.revision=${BUILD_NUMBER}"' +
 						' "-Dbuild.tag=git ${BRANCH_NAME} ${GIT_COMMIT} ${GIT_TREE} jenkins ${BUILD_NUMBER} ${BUILD_TIMESTAMP}"' +
@@ -55,7 +52,6 @@ timestamps
 						' -Druntime.test.ClusterNetworkTest.port.listen=' + port(3) +
 						' -Dfindbugs.output=xml'
 
-				stage 'Publish'
 				step([$class: 'WarningsPublisher',
 						canComputeNew: true,
 						canResolveRelativePaths: true,
