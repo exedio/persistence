@@ -98,7 +98,7 @@ abstract class CopeType<F extends CopeFeature>
 		assert collision==null : feature.getName();
 	}
 
-	final CopeFeature getFeature(final String name)
+	final F getFeature(final String name)
 	{
 		assertNotBuildStage();
 		return featureMap.get(name);

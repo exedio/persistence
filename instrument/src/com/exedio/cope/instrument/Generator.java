@@ -405,7 +405,6 @@ final class Generator
 	private void writeFeature(final LocalCopeFeature feature)
 	{
 		final Object instance = feature.getInstance();
-		final JavaClass javaClass = feature.getParent();
 		final Kind kind = feature.parent.kind;
 		for(final WrapperX wrapper : getWrappers(instance))
 		{
@@ -453,8 +452,8 @@ final class Generator
 					{
 						for(final Object parameterInstance : parameter.varargs)
 						{
-							final String parameterName = javaClass.getFieldByInstance(parameterInstance).name;
-							final CopeFeature parameterFeature = feature.parent.getFeature(parameterName);
+							final CopeFeature parameterFeature=((LocalCopeType)feature.parent).getFeatureByInstance(parameterInstance);
+							final String parameterName = parameterFeature.getName();
 
 							final Object[] parameterArguments = new String[]{
 									link(parameterFeature.getName()),
@@ -609,8 +608,7 @@ final class Generator
 						for(final Object parameterInstance : parameter.varargs)
 						{
 							comma.appendTo(output);
-							final JavaField parameterField = javaClass.getFieldByInstance(parameterInstance);
-							final CopeFeature parameterFeature = feature.parent.getFeature(parameterField.name);
+							final CopeFeature parameterFeature=((LocalCopeType)feature.parent).getFeatureByInstance(parameterInstance);
 
 							if (!parameterFeature.isInitialTypePrimitive())
 							{
@@ -619,7 +617,7 @@ final class Generator
 							write(finalArgPrefix);
 							write(new Context(parameterFeature, false).write(parameterFeature.getInitialType(), makeVarargs));
 							write(' ');
-							write(format(parameterField.name, arguments));
+							write(format(parameterFeature.getName(), arguments));
 						}
 					}
 				}
@@ -689,7 +687,7 @@ final class Generator
 						for(final Object parameterInstance : parameter.varargs)
 						{
 							comma.appendTo(output);
-							write(format(javaClass.getFieldByInstance(parameterInstance).name, arguments));
+							write(format(((LocalCopeType)feature.parent).getFeatureByInstance(parameterInstance).getName(), arguments));
 						}
 					}
 				}
