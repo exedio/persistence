@@ -452,7 +452,7 @@ final class Generator
 					{
 						for(final Object parameterInstance : parameter.varargs)
 						{
-							final CopeFeature parameterFeature=((LocalCopeType)feature.parent).getFeatureByInstance(parameterInstance);
+							final CopeFeature parameterFeature=feature.parent.getFeatureByInstance(parameterInstance);
 							final String parameterName = parameterFeature.getName();
 
 							final Object[] parameterArguments = new String[]{
@@ -608,7 +608,7 @@ final class Generator
 						for(final Object parameterInstance : parameter.varargs)
 						{
 							comma.appendTo(output);
-							final CopeFeature parameterFeature=((LocalCopeType)feature.parent).getFeatureByInstance(parameterInstance);
+							final CopeFeature parameterFeature=feature.parent.getFeatureByInstance(parameterInstance);
 
 							if (!parameterFeature.isInitialTypePrimitive())
 							{
@@ -687,7 +687,7 @@ final class Generator
 						for(final Object parameterInstance : parameter.varargs)
 						{
 							comma.appendTo(output);
-							write(format(((LocalCopeType)feature.parent).getFeatureByInstance(parameterInstance).getName(), arguments));
+							write(format(feature.parent.getFeatureByInstance(parameterInstance).getName(), arguments));
 						}
 					}
 				}

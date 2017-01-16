@@ -186,12 +186,21 @@ final class LocalCopeType extends CopeType<LocalCopeFeature>
 		assert !javaClass.file.repository.isGenerateStage();
 	}
 
+	@Override
 	CopeFeature getFeatureByInstance(final Object instance)
 	{
 		final JavaField field = javaClass.getFieldByInstance(instance);
-		final LocalCopeFeature localFeature = getFeature(field.name);
-		localFeature.assertJavaField(field);
-		return localFeature;
+		if (field!=null)
+		{
+			final LocalCopeFeature localFeature = getFeature(field.name);
+			localFeature.assertJavaField(field);
+			return localFeature;
+		}
+		final CopeType<?> superclass = getSuperclass();
+		if (superclass!=null)
+		{
+			return superclass.getFeatureByInstance(instance);
+		}
+		return null;
 	}
-
 }

@@ -74,6 +74,7 @@ abstract class CopeType<F extends CopeFeature>
 
 	abstract Evaluatable getField(final String name);
 
+	/** return null if the type has no persistent supertype */
 	abstract CopeType<?> getSuperclass();
 
 	final boolean allowSubtypes()
@@ -97,6 +98,8 @@ abstract class CopeType<F extends CopeFeature>
 		final Object collision = featureMap.put(feature.getName(), feature);
 		assert collision==null : feature.getName();
 	}
+
+	abstract CopeFeature getFeatureByInstance(Object instance);
 
 	final F getFeature(final String name)
 	{

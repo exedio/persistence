@@ -270,9 +270,7 @@ final class JavaClass extends JavaFeature
 
 	final JavaField getFieldByInstance(final Object instance)
 	{
-		final JavaField result = javaFieldsByInstance.get(instance);
-		assert result!=null;
-		return result;
+		return javaFieldsByInstance.get(instance);
 	}
 
 	@Override
