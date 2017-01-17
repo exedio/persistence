@@ -279,6 +279,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 			}
 			this.copyConstraintsByCopy = byCopy.isEmpty() ? emptyMap() : unmodifiableMap(byCopy);
 		}
+		checkForDuplicateUniqueConstraint(id, uniqueConstraints.all);
 
 		this.activationConstructor = getActivationConstructor(javaClass);
 		this.beforeNewItemMethods = getBeforeNewItemMethods(javaClass, supertype);
@@ -1240,6 +1241,31 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		catch(final ReflectiveOperationException e)
 		{
 			throw new RuntimeException(ap.toString() + '/' + javaClass.getName(), e);
+		}
+	}
+
+	private static void checkForDuplicateUniqueConstraint(final String id, final List<UniqueConstraint> constraints)
+	{
+		if(constraints.size()<=1)
+			return;
+
+		for(final UniqueConstraint a : constraints)
+		{
+			for(final UniqueConstraint b : constraints)
+			{
+				if(a==b)
+					continue; // do not compare twice
+
+				final List<FunctionField<?>> af = a.getFields();
+				final List<FunctionField<?>> bf = b.getFields();
+				if(new HashSet<>(af).equals(
+					new HashSet<>(bf)))
+				{
+					throw new IllegalArgumentException(
+							"duplicate unique constraints at type " + id + ": " + a + " and " + b +
+							" with fields " + af + (af.equals(bf) ? "" : (" and " + bf)) + '.');
+				}
+			}
 		}
 	}
 
