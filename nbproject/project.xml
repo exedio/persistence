@@ -92,6 +92,12 @@
                     <encoding>UTF-8</encoding>
                 </source-folder>
                 <source-folder>
+                    <label>instrument/testlibsrc</label>
+                    <type>java</type>
+                    <location>instrument/testlibsrc</location>
+                    <encoding>UTF-8</encoding>
+                </source-folder>
+                <source-folder>
                     <label>instrument/testsrc</label>
                     <type>java</type>
                     <location>instrument/testsrc</location>
