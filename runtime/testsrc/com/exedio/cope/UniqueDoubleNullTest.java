@@ -18,11 +18,12 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.UniqueDoubleNullItem.TYPE;
+import static com.exedio.cope.UniqueDoubleNullTest.MyItem.TYPE;
 import static com.exedio.cope.tojunit.Assert.list;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assume.assumeTrue;
 
+import com.exedio.cope.instrument.WrapperInitial;
 import java.util.Arrays;
 import org.junit.Test;
 
@@ -49,24 +50,24 @@ public class UniqueDoubleNullTest extends TestWithEnvironment
 
 		assertEquals(list(), TYPE.search(null, TYPE.getThis(), true));
 
-		final UniqueDoubleNullItem aN1 = new UniqueDoubleNullItem("a", null);
+		final MyItem aN1 = new MyItem("a", null);
 		assertEquals("a", aN1.getString());
 		assertAll(aN1);
 
-		final UniqueDoubleNullItem aN2 = new UniqueDoubleNullItem("a", null);
+		final MyItem aN2 = new MyItem("a", null);
 		assertEquals("a", aN2.getString());
 		assertAll(aN1, aN2);
 
-		final UniqueDoubleNullItem N11 = new UniqueDoubleNullItem(null, 1);
+		final MyItem N11 = new MyItem(null, 1);
 		assertAll(aN1, aN2, N11);
 
-		final UniqueDoubleNullItem N12 = new UniqueDoubleNullItem(null, 1);
+		final MyItem N12 = new MyItem(null, 1);
 		assertAll(aN1, aN2, N11, N12);
 
-		final UniqueDoubleNullItem NN1 = new UniqueDoubleNullItem(null, null);
+		final MyItem NN1 = new MyItem(null, null);
 		assertAll(aN1, aN2, N11, N12, NN1);
 
-		final UniqueDoubleNullItem NN2 = new UniqueDoubleNullItem(null, null);
+		final MyItem NN2 = new MyItem(null, null);
 		assertAll(aN1, aN2, N11, N12, NN1, NN2);
 
 		aN1.setString("b");
@@ -82,8 +83,85 @@ public class UniqueDoubleNullTest extends TestWithEnvironment
 		assertEquals(null, aN2.getString());
 	}
 
-	private static void assertAll(final UniqueDoubleNullItem... expected)
+	private static void assertAll(final MyItem... expected)
 	{
 		assertEquals(Arrays.asList(expected), TYPE.search(null, TYPE.getThis(), true));
+	}
+
+	@com.exedio.cope.instrument.WrapperType(indent=2, comments=false) // TODO use import, but this is not accepted by javac
+	static final class MyItem extends Item
+	{
+		@WrapperInitial static final StringField string = new StringField().optional();
+
+		@WrapperInitial static final IntegerField integer = new IntegerField().optional();
+
+		static final UniqueConstraint constraint = new UniqueConstraint(string, integer);
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		MyItem(
+					@javax.annotation.Nullable final java.lang.String string,
+					@javax.annotation.Nullable final java.lang.Integer integer)
+				throws
+					com.exedio.cope.StringLengthViolationException,
+					com.exedio.cope.UniqueViolationException
+		{
+			this(new com.exedio.cope.SetValue<?>[]{
+				MyItem.string.map(string),
+				MyItem.integer.map(integer),
+			});
+		}
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		private MyItem(final com.exedio.cope.SetValue<?>... setValues)
+		{
+			super(setValues);
+		}
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@javax.annotation.Nullable
+		final java.lang.String getString()
+		{
+			return MyItem.string.get(this);
+		}
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		final void setString(@javax.annotation.Nullable final java.lang.String string)
+				throws
+					com.exedio.cope.UniqueViolationException,
+					com.exedio.cope.StringLengthViolationException
+		{
+			MyItem.string.set(this,string);
+		}
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@javax.annotation.Nullable
+		final java.lang.Integer getInteger()
+		{
+			return MyItem.integer.get(this);
+		}
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		final void setInteger(@javax.annotation.Nullable final java.lang.Integer integer)
+				throws
+					com.exedio.cope.UniqueViolationException
+		{
+			MyItem.integer.set(this,integer);
+		}
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@javax.annotation.Nullable
+		static final MyItem forConstraint(@javax.annotation.Nonnull final java.lang.String string,@javax.annotation.Nonnull final java.lang.Integer integer)
+		{
+			return MyItem.constraint.search(MyItem.class,string,integer);
+		}
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		private static final long serialVersionUID = 1l;
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		static final com.exedio.cope.Type<MyItem> TYPE = com.exedio.cope.TypesBound.newType(MyItem.class);
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@SuppressWarnings("unused") private MyItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 }
