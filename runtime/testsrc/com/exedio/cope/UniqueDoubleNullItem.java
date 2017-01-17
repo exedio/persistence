@@ -20,10 +20,6 @@ package com.exedio.cope;
 
 import com.exedio.cope.instrument.WrapperInitial;
 
-/**
- * An item having two fields and a unique constraint over these fields.
- * @author Ralf Wiebicke
- */
 final class UniqueDoubleNullItem extends Item
 {
 	@WrapperInitial static final StringField string = new StringField().optional();
