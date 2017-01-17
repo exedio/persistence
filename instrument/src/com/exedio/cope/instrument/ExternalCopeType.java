@@ -116,9 +116,16 @@ final class ExternalCopeType extends CopeType<ExternalCopeFeature>
 	}
 
 	@Override
-	CopeFeature getFeatureByInstance(Object instance)
+	CopeFeature getFeatureByInstance(final Object instance)
 	{
-		throw new RuntimeException("varargs features for features declared in external libraries not supported");
+		for (final ExternalCopeFeature feature: getFeatures())
+		{
+			if (instance==feature.evaluate())
+			{
+				return feature;
+			}
+		}
+		return null;
 	}
 
 	@Override
