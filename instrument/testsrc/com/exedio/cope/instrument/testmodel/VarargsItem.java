@@ -18,6 +18,7 @@
 
 package com.exedio.cope.instrument.testmodel;
 
+import com.exedio.cope.instrument.WrapperIgnore;
 import com.exedio.cope.instrument.testfeature.SettableVarargs;
 import com.exedio.cope.instrument.testfeature.SettableVarargsInteger;
 import com.exedio.cope.instrument.testfeature.WrapVarargs;
@@ -34,6 +35,9 @@ final class VarargsItem extends VarargsSuper
 
 	static final WrapVarargs onlySuper = new WrapVarargs(superInteger);
 	static final WrapVarargs subAndSuper = new WrapVarargs(superInteger, doubleValue);
+
+	@WrapperIgnore // otherwise, this fails, as ExternalCopeType#getFeatureByInstance is not implemented
+	static final WrapVarargs onlyLib = new WrapVarargs(libInteger);
 
 	/**
 
