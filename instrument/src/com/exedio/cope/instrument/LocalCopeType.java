@@ -193,6 +193,8 @@ final class LocalCopeType extends CopeType<LocalCopeFeature>
 		if (field!=null)
 		{
 			final LocalCopeFeature localFeature = getFeature(field.name);
+			if (localFeature==null && field.wrapperIgnore!=null)
+				throw new RuntimeException("attempt to access ignored field '"+field.name+"'");
 			localFeature.assertJavaField(field);
 			return localFeature;
 		}
