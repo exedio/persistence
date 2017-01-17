@@ -19,12 +19,11 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.UniqueDoubleNullTest.MyItem.TYPE;
-import static com.exedio.cope.tojunit.Assert.list;
+import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assume.assumeTrue;
 
 import com.exedio.cope.instrument.WrapperInitial;
-import java.util.Arrays;
 import org.junit.Test;
 
 /**
@@ -48,7 +47,7 @@ public class UniqueDoubleNullTest extends TestWithEnvironment
 	{
 		assumeTrue(!oracle); // Oracle violates SQL standard about this
 
-		assertEquals(list(), TYPE.search(null, TYPE.getThis(), true));
+		assertEquals(asList(), TYPE.search(null, TYPE.getThis(), true));
 
 		final MyItem aN1 = new MyItem("a", null);
 		assertEquals("a", aN1.getString());
@@ -85,7 +84,7 @@ public class UniqueDoubleNullTest extends TestWithEnvironment
 
 	private static void assertAll(final MyItem... expected)
 	{
-		assertEquals(Arrays.asList(expected), TYPE.search(null, TYPE.getThis(), true));
+		assertEquals(asList(expected), TYPE.search(null, TYPE.getThis(), true));
 	}
 
 	@com.exedio.cope.instrument.WrapperType(indent=2, comments=false) // TODO use import, but this is not accepted by javac
