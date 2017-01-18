@@ -19,10 +19,12 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.TypesBound.newType;
+import static com.exedio.cope.instrument.Visibility.NONE;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 import com.exedio.cope.instrument.WrapperIgnore;
+import com.exedio.cope.instrument.WrapperType;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.Test;
 
@@ -286,5 +288,49 @@ public class TypesBoundErrorTest
 		{
 			super(ap);
 		}
+	}
+
+
+	@Test public void uniqueConstraintOnInheritedFeature()
+	{
+		try
+		{
+			newType(UniqueConstraintOnInheritedFeatureSub.class);
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals(
+				"UniqueConstraint UniqueConstraintOnInheritedFeatureSub.superAndSub cannot include field UniqueConstraintOnInheritedFeatureSuper.superField",
+				e.getMessage()
+			);
+		}
+	}
+	@WrapperType(comments=false, constructor=NONE, genericConstructor=NONE, indent=2)
+	static class UniqueConstraintOnInheritedFeatureSuper extends Item
+	{
+		@WrapperIgnore static final IntegerField superField=new IntegerField();
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		private static final long serialVersionUID = 1l;
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		static final com.exedio.cope.Type<UniqueConstraintOnInheritedFeatureSuper> TYPE = com.exedio.cope.TypesBound.newType(UniqueConstraintOnInheritedFeatureSuper.class);
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		protected UniqueConstraintOnInheritedFeatureSuper(final com.exedio.cope.ActivationParameters ap){super(ap);}
+	}
+	@WrapperType(comments=false, constructor=NONE, genericConstructor=NONE, type=NONE, indent=2)
+	static class UniqueConstraintOnInheritedFeatureSub extends UniqueConstraintOnInheritedFeatureSuper
+	{
+		@WrapperIgnore private static final IntegerField subField=new IntegerField();
+
+		@WrapperIgnore private static final UniqueConstraint superAndSub=new UniqueConstraint(superField, subField);
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		private static final long serialVersionUID = 1l;
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		protected UniqueConstraintOnInheritedFeatureSub(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 }

@@ -24,6 +24,7 @@ import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.WrapFeature;
 import com.exedio.cope.util.Cast;
+import java.lang.reflect.AnnotatedElement;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
@@ -110,6 +111,14 @@ public final class UniqueConstraint extends Feature implements Copyable
 	public UniqueConstraint(final FunctionField<?> field1, final FunctionField<?> field2, final FunctionField<?> field3, final FunctionField<?> field4, final FunctionField<?> field5, final FunctionField<?> field6, final FunctionField<?> field7, final FunctionField<?> field8, final FunctionField<?> field9, final FunctionField<?> field10, final FunctionField<?> field11, final FunctionField<?> field12)
 	{
 		this(new FunctionField<?>[]{field1, field2, field3, field4, field5, field6, field7, field8, field9, field10, field11, field12});
+	}
+
+	@Override
+	void mount(final Type<?> type, final String name, final AnnotatedElement annotationSource)
+	{
+		super.mount(type, name, annotationSource);
+		for(final FunctionField<?> f : fields)
+			if (f.getType()!=type) throw new IllegalArgumentException("UniqueConstraint "+toString()+" cannot include field "+f);
 	}
 
 	@Override
