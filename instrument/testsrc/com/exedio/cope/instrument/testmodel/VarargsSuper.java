@@ -25,7 +25,7 @@ public class VarargsSuper extends VarargsLib
 {
 	static final SettableVarargsInteger superInteger = new SettableVarargsInteger(false);
 
-	
+
 /**
 
 	 **
