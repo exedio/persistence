@@ -106,11 +106,6 @@ final class Revstat extends Item
 		return number.getMandatory(this);
 	}
 
-	static Revstat forNumber(final int number)
-	{
-		return Revstat.number.searchUnique(Revstat.class, number);
-	}
-
 	Date getDate()
 	{
 		return date.get(this);
