@@ -263,10 +263,8 @@ class ClassVisitor extends GeneratedAwareScanner
 	@Override
 	public Void visitBlock(final BlockTree node, final Void p)
 	{
-		if ( !node.isStatic() )
-		{
-			throw new RuntimeException("unexpected - methods are not visited");
-		}
+		// methods don't get visited - but still this method is called for
+		// static and non-static initializers
 		return null;
 	}
 
