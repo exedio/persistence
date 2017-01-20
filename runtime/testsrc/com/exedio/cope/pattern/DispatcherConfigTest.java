@@ -25,6 +25,12 @@ import org.junit.Test;
 
 public class DispatcherConfigTest
 {
+	@Test public void testDefault()
+	{
+		final Dispatcher.Config config = new Dispatcher.Config();
+		assertEquals(5, config.getFailureLimit());
+		assertEquals(100, config.getSearchSize());
+	}
 	@Test public void testOk()
 	{
 		final Dispatcher.Config config = new Dispatcher.Config(3, 2);
