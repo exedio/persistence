@@ -21,25 +21,26 @@ package com.exedio.cope.pattern;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
+import com.exedio.cope.pattern.Dispatcher.Config;
 import org.junit.Test;
 
 public class DispatcherConfigTest
 {
 	@Test public void testDefault()
 	{
-		final Dispatcher.Config config = new Dispatcher.Config();
+		final Config config = new Config();
 		assertEquals(5, config.getFailureLimit());
 		assertEquals(1000, config.getSearchSize());
 	}
 	@Test public void testOk()
 	{
-		final Dispatcher.Config config = new Dispatcher.Config(3, 2);
+		final Config config = new Config(3, 2);
 		assertEquals(3, config.getFailureLimit());
 		assertEquals(2, config.getSearchSize());
 	}
 	@Test public void testMinimal()
 	{
-		final Dispatcher.Config config = new Dispatcher.Config(1, 1);
+		final Config config = new Config(1, 1);
 		assertEquals(1, config.getFailureLimit());
 		assertEquals(1, config.getSearchSize());
 	}
@@ -47,7 +48,7 @@ public class DispatcherConfigTest
 	{
 		try
 		{
-			new Dispatcher.Config(0, 0);
+			new Config(0, 0);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -59,7 +60,7 @@ public class DispatcherConfigTest
 	{
 		try
 		{
-			new Dispatcher.Config(-10, 0);
+			new Config(-10, 0);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -71,7 +72,7 @@ public class DispatcherConfigTest
 	{
 		try
 		{
-			new Dispatcher.Config(1000, 0);
+			new Config(1000, 0);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -83,7 +84,7 @@ public class DispatcherConfigTest
 	{
 		try
 		{
-			new Dispatcher.Config(1000, -10);
+			new Config(1000, -10);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
