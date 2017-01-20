@@ -539,12 +539,15 @@ public final class Dispatcher extends Pattern
 
 	public static final class Config
 	{
+		static final int DEFAULT_FAILURE_LIMIT = 5;
+		static final int DEFAULT_SEARCH_SIZE = 100;
+
 		private final int failureLimit;
 		private final int searchSize;
 
 		public Config()
 		{
-			this(5, 100);
+			this(DEFAULT_FAILURE_LIMIT, DEFAULT_SEARCH_SIZE);
 		}
 
 		public Config(final int failureLimit, final int searchSize)
