@@ -29,7 +29,7 @@ public class DispatcherConfigTest
 	{
 		final Dispatcher.Config config = new Dispatcher.Config();
 		assertEquals(5, config.getFailureLimit());
-		assertEquals(100, config.getSearchSize());
+		assertEquals(1000, config.getSearchSize());
 	}
 	@Test public void testOk()
 	{
