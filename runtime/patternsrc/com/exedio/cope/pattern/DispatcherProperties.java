@@ -18,18 +18,19 @@
 
 package com.exedio.cope.pattern;
 
+import com.exedio.cope.pattern.Dispatcher.Config;
 import com.exedio.cope.util.Properties;
 
 public final class DispatcherProperties extends Properties
 {
 	private final int failureLimit = value("failureLimit", 5, 1);
 	private final int searchSize   = value("searchSize", 100, 1);
-	private final Dispatcher.Config value =
-			new Dispatcher.Config(
+	private final Config value =
+			new Config(
 				failureLimit,
 				searchSize);
 
-	public Dispatcher.Config get()
+	public Config get()
 	{
 		return value;
 	}
