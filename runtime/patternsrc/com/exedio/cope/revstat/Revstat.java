@@ -57,22 +57,22 @@ final class Revstat extends Item
 		if(number!=revision.getNumber())
 			throw new IllegalArgumentException("" + number + '/' + revision.getNumber());
 
-			ctx.stopIfRequested();
+		ctx.stopIfRequested();
 
-			final List<Body> bodies = revision.getBody();
-			int rows = 0;
-			long elapsed = 0;
-			for(final Body body : bodies)
-			{
-				rows += body.getRows();
-				elapsed += body.getElapsed();
-			}
+		final List<Body> bodies = revision.getBody();
+		int rows = 0;
+		long elapsed = 0;
+		for(final Body body : bodies)
+		{
+			rows += body.getRows();
+			elapsed += body.getElapsed();
+		}
 
-			String comment = revision.getComment();
-			if(comment==null)
-				comment = "FOUND NULL BY CopeRevstat";
-			else if(comment.isEmpty())
-				comment = "FOUND EMPTY BY CopeRevstat";
+		String comment = revision.getComment();
+		if(comment==null)
+			comment = "FOUND NULL BY CopeRevstat";
+		else if(comment.isEmpty())
+			comment = "FOUND EMPTY BY CopeRevstat";
 
 		try(TransactionTry tx = model.startTransactionTry(RevisionStatistics.class.getName() + '#' + number))
 		{
