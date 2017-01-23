@@ -21,7 +21,7 @@ package com.exedio.cope.instrument;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.lang.reflect.Field;
 
-class ExternalCopeFeature extends CopeFeature
+final class ExternalCopeFeature extends CopeFeature
 {
 	private final Field field;
 

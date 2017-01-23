@@ -116,6 +116,19 @@ final class ExternalCopeType extends CopeType<ExternalCopeFeature>
 	}
 
 	@Override
+	CopeFeature getFeatureByInstance(final Object instance)
+	{
+		for (final ExternalCopeFeature feature: getFeatures())
+		{
+			if (instance==feature.evaluate())
+			{
+				return feature;
+			}
+		}
+		return null;
+	}
+
+	@Override
 	void assertNotBuildStage()
 	{
 		// empty

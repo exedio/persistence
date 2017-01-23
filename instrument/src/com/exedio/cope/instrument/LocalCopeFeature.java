@@ -74,6 +74,15 @@ final class LocalCopeFeature extends CopeFeature
 				OPTION_DEFAULT);
 	}
 
+	/**
+	 * assert that the given JavaField is the one wrapped by this LocalCopeFeature
+	 */
+	void assertJavaField(final JavaField javaField)
+	{
+		if (javaField!=this.javaField)
+			throw new RuntimeException();
+	}
+
 	private static final Wrapper OPTION_DEFAULT = new Wrapper()
 	{
 		@Override public Class<? extends Annotation> annotationType() { throw new RuntimeException(); }
