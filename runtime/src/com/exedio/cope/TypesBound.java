@@ -97,7 +97,7 @@ public final class TypesBound
 		final Type<T> result = new Type<>(
 				javaClass,
 				javaClass, // annotationSource
-				true,
+				true, // bound
 				id,
 				null, // pattern
 				isAbstract,
