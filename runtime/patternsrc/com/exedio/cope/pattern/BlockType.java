@@ -49,19 +49,17 @@ public final class BlockType<E> // TODO make Serializable as singleton
 		this.javaClass = javaClass;
 		this.constructor = getConstructor(javaClass, BlockActivationParameters.class);
 		final String classID = javaClass.getName();
+		for(final Map.Entry<Feature, java.lang.reflect.Field> entry : TypesBound.getFeatures(javaClass).entrySet())
 		{
-			for(final Map.Entry<Feature, java.lang.reflect.Field> entry : TypesBound.getFeatures(javaClass).entrySet())
-			{
-				final Feature feature = entry.getKey();
-				final java.lang.reflect.Field field = entry.getValue();
-				final String fieldID = classID + '#' + field.getName();
-				if(!(feature instanceof Copyable))
-					throw new IllegalArgumentException(
-							fieldID + " must be an instance of " + Copyable.class + ", but was " +
-							feature.getClass().getName());
-				templates.put(CopeNameUtil.getAndFallbackToName(field), feature);
-				feature.mount(fieldID, SerializedReflectionField.make(feature, field), field);
-			}
+			final Feature feature = entry.getKey();
+			final java.lang.reflect.Field field = entry.getValue();
+			final String fieldID = classID + '#' + field.getName();
+			if(!(feature instanceof Copyable))
+				throw new IllegalArgumentException(
+						fieldID + " must be an instance of " + Copyable.class + ", but was " +
+						feature.getClass().getName());
+			templates.put(CopeNameUtil.getAndFallbackToName(field), feature);
+			feature.mount(fieldID, SerializedReflectionField.make(feature, field), field);
 		}
 		this.templateList = Collections.unmodifiableList(new ArrayList<>(templates.values()));
 		this.componentSize = templates.size();
