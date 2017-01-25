@@ -37,7 +37,7 @@ public class RevisionStatisticsTest
 {
 	private static final TestRevisionsFactory revisions = new TestRevisionsFactory();
 
-	private static final Model MODEL = Model.builder().
+	static final Model MODEL = Model.builder().
 			add(revisions).
 			add(RevisionStatistics.types).
 			add(RevisionStatisticsItem.TYPE).
