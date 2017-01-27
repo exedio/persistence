@@ -331,6 +331,12 @@ public abstract class Feature implements Serializable
 	}
 
 	/**
+	 * Returns the pattern, this feature is a source feature of.
+	 * NOTE:
+	 * Does not return the pattern that created the type
+	 * of this feature. For such cases use
+	 * {@link #getType()}.{@link Type#getPattern() getPattern()}.
+	 *
 	 * @see Pattern#getSourceFeatures()
 	 */
 	public final Pattern getPattern()
