@@ -331,7 +331,7 @@ public abstract class Feature implements Serializable
 	}
 
 	/**
-	 * @see Pattern#getSourceFields()
+	 * @see Pattern#getSourceFeatures()
 	 */
 	public final Pattern getPattern()
 	{
