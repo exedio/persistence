@@ -103,8 +103,8 @@ public final class CheckConstraint extends Feature implements Copyable
 	 * returns false.
 	 * <p>
 	 * Returns the number of items violating the check constraint.
-	 * As a consequence, this methods return 0 (zero),
-	 * iff the database fulfills this check constraint
+	 * As a consequence, this methods returns 0 (zero),
+	 * iff the database fulfills this check constraint.
 	 */
 	public int check()
 	{
