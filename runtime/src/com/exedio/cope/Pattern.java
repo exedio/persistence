@@ -229,7 +229,7 @@ public abstract class Pattern extends Feature
 
 		SourceTypeAnnotationProxy(final AnnotatedElement source, final String postfix)
 		{
-			this.source = source;
+			this.source = requireNonNull(source);
 			this.postfix = postfix;
 		}
 
@@ -247,9 +247,6 @@ public abstract class Pattern extends Feature
 			else if(CopeExternal.class==annotationClass)
 				return getAnnotation(annotationClass)!=null;
 
-			if(source==null)
-				return false;
-
 			return source.isAnnotationPresent(annotationClass);
 		}
 
@@ -260,7 +257,7 @@ public abstract class Pattern extends Feature
 			final Class<CopeCacheWeight> copeCacheWeightClass=CopeCacheWeight.class;
 			if(CopeSchemaName.class==annotationClass)
 			{
-				if(source!=null && source.getAnnotation(annotationClass)!=null)
+				if(source.getAnnotation(annotationClass)!=null)
 					throw new RuntimeException("conflicting @CopeSchemaName on " + Pattern.this.toString());
 
 				final Type<?> type = getType();
@@ -298,9 +295,6 @@ public abstract class Pattern extends Feature
 							value(copeCacheWeightClass.cast(patternAnn)) + " vs. " +
 							value(copeCacheWeightClass.cast(sourceAnn )));
 			}
-
-			if(source==null)
-				return null;
 
 			return source.getAnnotation(annotationClass);
 		}
