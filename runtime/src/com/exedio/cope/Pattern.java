@@ -88,7 +88,7 @@ public abstract class Pattern extends Feature
 	private final class SourceFeatureAnnotationProxy implements AnnotatedElement
 	{
 		private final AnnotatedElement source;
-		final String postfix;
+		private final String postfix;
 
 		SourceFeatureAnnotationProxy(final AnnotatedElement source, final String postfix)
 		{
@@ -225,7 +225,7 @@ public abstract class Pattern extends Feature
 	private final class SourceTypeAnnotationProxy implements AnnotatedElement
 	{
 		private final AnnotatedElement source;
-		final String postfix;
+		private final String postfix;
 
 		SourceTypeAnnotationProxy(final AnnotatedElement source, final String postfix)
 		{
