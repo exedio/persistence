@@ -261,14 +261,14 @@ public abstract class Pattern extends Feature
 					throw new RuntimeException("conflicting @CopeSchemaName on " + Pattern.this.toString());
 
 				final Type<?> type = getType();
-				final CopeSchemaName typeName = type.getAnnotation(CopeSchemaName.class);
-				final CopeSchemaName patternName = Pattern.this.getAnnotation(CopeSchemaName.class);
-				if(typeName!=null || patternName!=null)
+				final CopeSchemaName typeAnn = type.getAnnotation(CopeSchemaName.class);
+				final CopeSchemaName patternAnn = Pattern.this.getAnnotation(CopeSchemaName.class);
+				if(typeAnn!=null || patternAnn!=null)
 				{
 					return annotationClass.cast(CopeSchemaNameElement.get(
 						newSourceTypeId(
-							(   typeName!=null ?    typeName.value() : type.getID()),
-							(patternName!=null ? patternName.value() : Pattern.this.getName()),
+							(   typeAnn!=null ?    typeAnn.value() : type.getID()),
+							(patternAnn!=null ? patternAnn.value() : Pattern.this.getName()),
 							postfix)
 					));
 				}
