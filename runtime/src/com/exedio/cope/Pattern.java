@@ -119,22 +119,22 @@ public abstract class Pattern extends Feature
 		{
 			if(CopeSchemaName.class==annotationClass)
 			{
-				final CopeSchemaName patternName = Pattern.this.getAnnotation(CopeSchemaName.class);
-				final CopeSchemaName sourceName = source!=null ? source.getAnnotation(CopeSchemaName.class) : null;
+				final CopeSchemaName patternAnn = Pattern.this.getAnnotation(CopeSchemaName.class);
+				final CopeSchemaName sourceAnn = source!=null ? source.getAnnotation(CopeSchemaName.class) : null;
 
-				if(patternName==null && sourceName==null)
+				if(patternAnn==null && sourceAnn==null)
 					return null;
 
 				final StringBuilder bf = new StringBuilder();
 
 				bf.append(
-					patternName!=null
-					? patternName.value()
+					patternAnn!=null
+					? patternAnn.value()
 					: Pattern.this.getName());
 
-				if(sourceName!=null)
+				if(sourceAnn!=null)
 				{
-					final String v = sourceName.value();
+					final String v = sourceAnn.value();
 					if(!v.isEmpty())
 						bf.append('-').append(v);
 				}
