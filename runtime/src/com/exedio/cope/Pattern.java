@@ -227,7 +227,7 @@ public abstract class Pattern extends Feature
 		private final AnnotatedElement source;
 		private final String postfix;
 
-		SourceTypeAnnotationProxy(final AnnotatedElement source, final String postfix)
+		SourceTypeAnnotationProxy(final Class<? extends Item> source, final String postfix)
 		{
 			this.source = requireNonNull(source);
 			this.postfix = postfix;
