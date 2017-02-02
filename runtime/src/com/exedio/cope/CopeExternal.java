@@ -43,6 +43,14 @@ import java.lang.annotation.Target;
  * may not get called on external modifications.
  *
  * <p>For subtypes, this annotation must be set if and only if it is set for the {@link Type#getSupertype() supertype}.
+ *
+ * <p>
+ * This annotation is essentially applicable to types (@Target(TYPE)) only.
+ * When applying it to {@link Feature features} (@Target(FIELD)) that are {@link Pattern patterns},
+ * the annotation is forwarded to all
+ * {@link Pattern#getSourceTypes() source types} of that pattern.
+ * When applying it to features that are not patterns,
+ * there is no effect at all.
  */
 @Target({TYPE, FIELD})
 @Retention(RetentionPolicy.RUNTIME)
