@@ -37,6 +37,17 @@ import java.lang.annotation.Target;
  *    <li>resolve name conflicts caused by trimming names
  *        to the maximum length allowed by the database.
  * </ul>
+ * In particular it does the following:
+ * <ul>
+ * <li>Wherever a {@link Type#getID() type id} is used to determine names
+ *     in the database schema (tables, constraints, sequences},
+ *     a @CopeSchemaName at that type (@Target(TYPE)) overrides the type id.
+ * <li>Wherever a {@link Feature#getName() feature name} is used to determine names
+ *     in the database schema (tables, columns, constraints, sequences},
+ *     a @CopeSchemaName at that feature (@Target(FIELD)) overrides the feature name.
+ * </ul>
+ * Apart from affecting names in the database schema, this annotation does nothing else.
+ * In particular it does not affect the type id or the feature name itself.
  */
 @Target({TYPE, FIELD})
 @Retention(RetentionPolicy.RUNTIME)
