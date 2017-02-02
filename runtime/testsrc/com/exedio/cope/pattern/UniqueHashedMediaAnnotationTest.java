@@ -110,6 +110,12 @@ public class UniqueHashedMediaAnnotationTest
 		assertPath(false, false, AnItem.simple);
 		assertPath(true,  false, AnItem.secret);
 		assertPath(false, true,  AnItem.finger);
+
+		assertPath(true,  false, SecretItem.simple);
+		assertPath(true,  false, SecretItem.secret);
+
+		assertPath(false, true,  FingerItem.simple);
+		assertPath(false, true,  FingerItem.finger);
 	}
 
 	private static final void assertPath(
@@ -134,5 +140,31 @@ public class UniqueHashedMediaAnnotationTest
 		static final Type<AnItem> TYPE = TypesBound.newType(AnItem.class);
 		private static final long serialVersionUID = 1l;
 		private AnItem(final ActivationParameters ap) { super(ap); }
+	}
+
+	@PreventUrlGuessing
+	@WrapperIgnore
+	static final class SecretItem extends Item
+	{
+		static final UniqueHashedMedia simple = new UniqueHashedMedia(new Media());
+		@PreventUrlGuessing
+		static final UniqueHashedMedia secret = new UniqueHashedMedia(new Media());
+
+		private static final long serialVersionUID = 1l;
+		static final Type<SecretItem> TYPE = TypesBound.newType(SecretItem.class);
+		private SecretItem(final ActivationParameters ap) { super(ap); }
+	}
+
+	@UrlFingerPrinting
+	@WrapperIgnore
+	static final class FingerItem extends Item
+	{
+		static final UniqueHashedMedia simple = new UniqueHashedMedia(new Media());
+		@UrlFingerPrinting
+		static final UniqueHashedMedia finger = new UniqueHashedMedia(new Media());
+
+		private static final long serialVersionUID = 1l;
+		static final Type<FingerItem> TYPE = TypesBound.newType(FingerItem.class);
+		private FingerItem(final ActivationParameters ap) { super(ap); }
 	}
 }

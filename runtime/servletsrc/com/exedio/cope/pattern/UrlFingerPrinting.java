@@ -19,8 +19,10 @@
 package com.exedio.cope.pattern;
 
 import static java.lang.annotation.ElementType.FIELD;
+import static java.lang.annotation.ElementType.TYPE;
 
 import com.exedio.cope.Feature;
+import java.lang.annotation.Inherited;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
@@ -29,14 +31,17 @@ import java.lang.annotation.Target;
  * Enables url finger printing for any
  * {@link MediaPath}.
  * <p>
- * This annotation is applicable to {@link Feature features} (@Target(FIELD))
+ * This annotation is essentially applicable to {@link Feature features} (@Target(FIELD))
  * that are {@link MediaPath media pathes} only.
  * When applying it to other features, there is no effect at all.
+ * When applying it to types (@Target(TYPE),
+ * it is automatically applied to all features of that type.
  *
  * @see MediaPath#isUrlFingerPrinted()
  * @see <a href="https://developers.google.com/speed/docs/best-practices/caching#LeverageBrowserCaching">google</a>
  */
-@Target(FIELD)
+@Target({FIELD,TYPE})
+@Inherited
 @Retention(RetentionPolicy.RUNTIME)
 public @interface UrlFingerPrinting
 {

@@ -45,7 +45,7 @@ final class MediaPathAnnotationProxy implements AnnotatedElement
 
 		return
 			(PreventUrlGuessing.class==annotationClass || UrlFingerPrinting.class==annotationClass)
-			? source.isAnnotationPresent(annotationClass)
+			? MediaPath.isMyAnnotationPresent(source, annotationClass)
 			: false;
 	}
 
@@ -57,7 +57,7 @@ final class MediaPathAnnotationProxy implements AnnotatedElement
 
 		return
 			(PreventUrlGuessing.class==annotationClass || UrlFingerPrinting.class==annotationClass)
-			? source.getAnnotation(annotationClass)
+			? MediaPath.getMyAnnotation(source, annotationClass)
 			: null;
 	}
 

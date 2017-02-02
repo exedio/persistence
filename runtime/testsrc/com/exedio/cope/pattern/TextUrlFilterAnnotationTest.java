@@ -117,6 +117,12 @@ public class TextUrlFilterAnnotationTest
 		assertPath(false, false, AnItem.simple);
 		assertPath(true,  false, AnItem.secret);
 		assertPath(false, true,  AnItem.finger);
+
+		assertPath(true,  false, SecretItem.simple);
+		assertPath(true,  false, SecretItem.secret);
+
+		assertPath(false, true,  FingerItem.simple);
+		assertPath(false, true,  FingerItem.finger);
 	}
 
 	private static final void assertPath(
@@ -145,6 +151,32 @@ public class TextUrlFilterAnnotationTest
 		private static final long serialVersionUID = 1l;
 		static final Type<AnItem> TYPE = TypesBound.newType(AnItem.class);
 		private AnItem(final ActivationParameters ap) { super(ap); }
+	}
+
+	@PreventUrlGuessing
+	@WrapperIgnore
+	static final class SecretItem extends Item
+	{
+		static final TextUrlFilter simple = new ATextUrlFilter(new Media(), new Media());
+		@PreventUrlGuessing
+		static final TextUrlFilter secret = new ATextUrlFilter(new Media(), new Media());
+
+		private static final long serialVersionUID = 1l;
+		static final Type<SecretItem> TYPE = TypesBound.newType(SecretItem.class);
+		private SecretItem(final ActivationParameters ap) { super(ap); }
+	}
+
+	@UrlFingerPrinting
+	@WrapperIgnore
+	static final class FingerItem extends Item
+	{
+		static final TextUrlFilter simple = new ATextUrlFilter(new Media(), new Media());
+		@UrlFingerPrinting
+		static final TextUrlFilter finger = new ATextUrlFilter(new Media(), new Media());
+
+		private static final long serialVersionUID = 1l;
+		static final Type<FingerItem> TYPE = TypesBound.newType(FingerItem.class);
+		private FingerItem(final ActivationParameters ap) { super(ap); }
 	}
 
 	static final class ATextUrlFilter extends TextUrlFilter

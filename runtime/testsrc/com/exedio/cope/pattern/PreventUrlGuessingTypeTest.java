@@ -36,6 +36,8 @@ public class PreventUrlGuessingTypeTest
 	{
 		assertPresent(false, false, AbsentItem .absent );
 		assertPresent(true,  true,  AbsentItem .present);
+		assertPresent(true,  false, PresentItem.absent );
+		assertPresent(true,  true,  PresentItem.present);
 	}
 
 	private static final void assertPresent(
@@ -63,5 +65,18 @@ public class PreventUrlGuessingTypeTest
 		private static final long serialVersionUID = 1l;
 		static final Type<AbsentItem> TYPE = TypesBound.newType(AbsentItem.class);
 		private AbsentItem(final ActivationParameters ap) { super(ap); }
+	}
+
+	@WrapperIgnore
+	@PreventUrlGuessing
+	static final class PresentItem extends Item
+	{
+		static final Media absent = new Media();
+		@PreventUrlGuessing
+		static final Media present = new Media();
+
+		private static final long serialVersionUID = 1l;
+		static final Type<PresentItem> TYPE = TypesBound.newType(PresentItem.class);
+		private PresentItem(final ActivationParameters ap) { super(ap); }
 	}
 }

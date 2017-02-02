@@ -37,6 +37,7 @@ import com.exedio.cope.instrument.WrapFeature;
 import com.exedio.cope.util.Hex;
 import com.exedio.cope.util.MessageDigestUtil;
 import java.io.IOException;
+import java.lang.annotation.Annotation;
 import java.security.MessageDigest;
 import java.util.Date;
 import java.util.Enumeration;
@@ -61,8 +62,8 @@ public abstract class MediaPath extends Pattern
 		Mount(final MediaPath feature)
 		{
 			this.urlPath = feature.getType().getID() + '/' + feature.getName() + '/';
-			this.preventUrlGuessing = feature.isAnnotationPresent(PreventUrlGuessing.class);
-			this.urlFingerPrinting = feature.isAnnotationPresent(UrlFingerPrinting.class);
+			this.preventUrlGuessing = isMyAnnotationPresent(feature, PreventUrlGuessing.class);
+			this.urlFingerPrinting  = isMyAnnotationPresent(feature, UrlFingerPrinting.class);
 			if(preventUrlGuessing && feature.isAnnotationPresent(RedirectFrom.class))
 				throw new RuntimeException(
 						"not yet implemented: @" + PreventUrlGuessing.class.getSimpleName() +
@@ -74,6 +75,45 @@ public abstract class MediaPath extends Pattern
 						" at " + feature.getID() +
 						" together with @" + UrlFingerPrinting.class.getSimpleName());
 		}
+	}
+
+	/**
+	 * Must be consistent to {@link #getMyAnnotation(Pattern,Class)}.
+	 */
+	static boolean isMyAnnotationPresent(
+			final Pattern feature,
+			final Class<? extends Annotation> annotationClass)
+	{
+		assertMine(annotationClass);
+
+		return
+				feature.          isAnnotationPresent(annotationClass) ||
+				feature.getType().isAnnotationPresent(annotationClass);
+	}
+
+	/**
+	 * Must be consistent to {@link #isMyAnnotationPresent(Pattern,Class)}.
+	 */
+	static <T extends Annotation> T getMyAnnotation(
+			final Pattern feature,
+			final Class<T> annotationClass)
+	{
+		assertMine(annotationClass);
+
+		final T byFeature = feature.getAnnotation(annotationClass);
+		if(byFeature!=null)
+			return byFeature;
+
+		return feature.getType().getAnnotation(annotationClass);
+	}
+
+	private static void assertMine(
+			final Class<? extends Annotation> annotationClass)
+	{
+		if(!(
+				annotationClass==PreventUrlGuessing.class ||
+				annotationClass==UrlFingerPrinting.class  ))
+			throw new IllegalArgumentException("" + annotationClass);
 	}
 
 	@Override
