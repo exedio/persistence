@@ -18,7 +18,6 @@
 
 package com.exedio.cope.pattern;
 
-import static com.exedio.cope.TypesBound.newType;
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -29,6 +28,7 @@ import com.exedio.cope.Feature;
 import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
 import com.exedio.cope.Type;
+import com.exedio.cope.TypesBound;
 import com.exedio.cope.instrument.WrapperIgnore;
 import com.exedio.cope.misc.Computed;
 import java.lang.annotation.Annotation;
@@ -38,8 +38,6 @@ public class TextUrlFilterDelegatorAnnotationTest
 {
 	@Test public void testIt()
 	{
-		newType(AnItem.class);
-
 		final Media simpleVal = pasteValue(AnItem.simple);
 		final Media secretVal = pasteValue(AnItem.secret);
 		final Media fingerVal = pasteValue(AnItem.finger);
@@ -101,6 +99,7 @@ public class TextUrlFilterDelegatorAnnotationTest
 		static final TextUrlFilterDelegator finger = new ATextUrlFilterDelegator(new Media(), delegate);
 
 		private static final long serialVersionUID = 1l;
+		static final Type<AnItem> TYPE = TypesBound.newType(AnItem.class);
 		private AnItem(final ActivationParameters ap) { super(ap); }
 	}
 
