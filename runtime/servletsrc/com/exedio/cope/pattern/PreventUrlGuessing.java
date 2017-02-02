@@ -20,10 +20,21 @@ package com.exedio.cope.pattern;
 
 import static java.lang.annotation.ElementType.FIELD;
 
+import com.exedio.cope.Feature;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+/**
+ * Enables url guessing prevention for any
+ * {@link MediaPath}.
+ * <p>
+ * This annotation is applicable to {@link Feature features} (@Target(FIELD))
+ * that are {@link MediaPath media pathes} only.
+ * When applying it to other features, there is no effect at all.
+ *
+ * @see MediaPath#isUrlGuessingPrevented()
+ */
 @Target(FIELD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface PreventUrlGuessing
