@@ -40,33 +40,40 @@ public class TextUrlFilterDelegatorAnnotationTest
 	{
 		newType(AnItem.class);
 
-		assertPresent(false, pasteValue(AnItem.simple), PreventUrlGuessing.class);
-		assertPresent(false, AnItem.simple.getSource(), PreventUrlGuessing.class);
-		assertPresent(false, pasteValue(AnItem.secret), PreventUrlGuessing.class);
-		assertPresent(true,  AnItem.secret.getSource(), PreventUrlGuessing.class);
-		assertPresent(false, pasteValue(AnItem.finger), PreventUrlGuessing.class);
-		assertPresent(false, AnItem.finger.getSource(), PreventUrlGuessing.class);
+		final Media simpleVal = pasteValue(AnItem.simple);
+		final Media secretVal = pasteValue(AnItem.secret);
+		final Media fingerVal = pasteValue(AnItem.finger);
+		final Media simpleRaw = AnItem.simple.getSource();
+		final Media secretRaw = AnItem.secret.getSource();
+		final Media fingerRaw = AnItem.finger.getSource();
 
-		assertPresent(false, pasteValue(AnItem.simple), UrlFingerPrinting.class);
-		assertPresent(false, AnItem.simple.getSource(), UrlFingerPrinting.class);
-		assertPresent(false, pasteValue(AnItem.secret), UrlFingerPrinting.class);
-		assertPresent(false, AnItem.secret.getSource(), UrlFingerPrinting.class);
-		assertPresent(false, pasteValue(AnItem.finger), UrlFingerPrinting.class);
-		assertPresent(true,  AnItem.finger.getSource(), UrlFingerPrinting.class);
+		assertPresent(false, simpleVal, PreventUrlGuessing.class);
+		assertPresent(false, simpleRaw, PreventUrlGuessing.class);
+		assertPresent(false, secretVal, PreventUrlGuessing.class);
+		assertPresent(true,  secretRaw, PreventUrlGuessing.class);
+		assertPresent(false, fingerVal, PreventUrlGuessing.class);
+		assertPresent(false, fingerRaw, PreventUrlGuessing.class);
 
-		assertPresent(false, pasteValue(AnItem.simple), Computed.class);
-		assertPresent(false, AnItem.simple.getSource(), Computed.class);
-		assertPresent(false, pasteValue(AnItem.secret), Computed.class);
-		assertPresent(false, AnItem.secret.getSource(), Computed.class);
-		assertPresent(false, pasteValue(AnItem.finger), Computed.class);
-		assertPresent(false, AnItem.finger.getSource(), Computed.class);
+		assertPresent(false, simpleVal, UrlFingerPrinting.class);
+		assertPresent(false, simpleRaw, UrlFingerPrinting.class);
+		assertPresent(false, secretVal, UrlFingerPrinting.class);
+		assertPresent(false, secretRaw, UrlFingerPrinting.class);
+		assertPresent(false, fingerVal, UrlFingerPrinting.class);
+		assertPresent(true,  fingerRaw, UrlFingerPrinting.class);
 
-		assertPresent(false, pasteValue(AnItem.simple), Deprecated.class);
-		assertPresent(false, AnItem.simple.getSource(), Deprecated.class);
-		assertPresent(false, pasteValue(AnItem.secret), Deprecated.class);
-		assertPresent(false, AnItem.secret.getSource(), Deprecated.class);
-		assertPresent(false, pasteValue(AnItem.finger), Deprecated.class);
-		assertPresent(false, AnItem.finger.getSource(), Deprecated.class);
+		assertPresent(false, simpleVal, Computed.class);
+		assertPresent(false, simpleRaw, Computed.class);
+		assertPresent(false, secretVal, Computed.class);
+		assertPresent(false, secretRaw, Computed.class);
+		assertPresent(false, fingerVal, Computed.class);
+		assertPresent(false, fingerRaw, Computed.class);
+
+		assertPresent(false, simpleVal, Deprecated.class);
+		assertPresent(false, simpleRaw, Deprecated.class);
+		assertPresent(false, secretVal, Deprecated.class);
+		assertPresent(false, secretRaw, Deprecated.class);
+		assertPresent(false, fingerVal, Deprecated.class);
+		assertPresent(false, fingerRaw, Deprecated.class);
 	}
 
 	private static final void assertPresent(
