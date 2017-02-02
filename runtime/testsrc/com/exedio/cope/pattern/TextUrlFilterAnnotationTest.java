@@ -74,6 +74,29 @@ public class TextUrlFilterAnnotationTest
 		assertPresent(false, fingerRaw, Deprecated.class);
 	}
 
+	@Test public void testKey()
+	{
+		final StringField simpleKey = pasteKey(AnItem.simple);
+		final StringField secretKey = pasteKey(AnItem.secret);
+		final StringField fingerKey = pasteKey(AnItem.finger);
+
+		assertPresent(false, simpleKey, PreventUrlGuessing.class);
+		assertPresent(false, secretKey, PreventUrlGuessing.class);
+		assertPresent(false, fingerKey, PreventUrlGuessing.class);
+
+		assertPresent(false, simpleKey, UrlFingerPrinting.class);
+		assertPresent(false, secretKey, UrlFingerPrinting.class);
+		assertPresent(false, fingerKey, UrlFingerPrinting.class);
+
+		assertPresent(false, simpleKey, Computed.class);
+		assertPresent(false, secretKey, Computed.class);
+		assertPresent(false, fingerKey, Computed.class);
+
+		assertPresent(false, simpleKey, Deprecated.class);
+		assertPresent(false, secretKey, Deprecated.class);
+		assertPresent(false, fingerKey, Deprecated.class);
+	}
+
 	private static final void assertPresent(
 			final boolean expected,
 			final Feature feature,
@@ -118,5 +141,14 @@ public class TextUrlFilterAnnotationTest
 		final Media value = (Media)type.getFeature("value");
 		assertNotNull(value);
 		return value;
+	}
+
+	private static StringField pasteKey(final TextUrlFilter filter)
+	{
+		final Type<?> type = filter.getSourceTypes().get(0);
+		assertNotNull(type);
+		final StringField key = (StringField)type.getFeature("key");
+		assertNotNull(key);
+		return key;
 	}
 }
