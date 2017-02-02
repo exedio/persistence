@@ -81,6 +81,7 @@ final class MysqlDialect extends Dialect
 {
 	private static final Logger logger = LoggerFactory.getLogger(MysqlDialect.class);
 
+	private final boolean connectionCompress;
 	private final boolean utf8mb4;
 
 	/**
@@ -112,6 +113,7 @@ final class MysqlDialect extends Dialect
 		final EnvironmentInfo env = probe.environmentInfo;
 		env.requireDatabaseVersionAtLeast("MySQL", 5, 5);
 
+		this.connectionCompress = properties.connectionCompress;
 		this.utf8mb4 = properties.utf8mb4;
 		this.maxBytesPerChar = utf8mb4 ? 4 : 3;
 		final String mb4 = utf8mb4 ? "mb4" : "";
@@ -121,6 +123,10 @@ final class MysqlDialect extends Dialect
 		this.shortConstraintNames = !properties.longConstraintNames;
 		this.sequenceColumnName = sequenceColumnName(properties);
 
+		if(connectionCompress && !env.isDatabaseVersionAtLeast(5, 7))
+			throw new IllegalArgumentException(
+					"connection.compress is supported on MySQL 5.7 and later only: " +
+					env.getDatabaseVersionDescription());
 		if((!utf8mb4 || !smallIntegerTypes || shortConstraintNames) &&
 			env.isDatabaseVersionAtLeast(5, 7))
 			throw new IllegalArgumentException(
@@ -162,6 +168,8 @@ final class MysqlDialect extends Dialect
 		info.setProperty("sessionVariables", "sql_mode='" + SQL_MODE + "',innodb_strict_mode=1");
 		info.setProperty("useLocalSessionState", TRUE);
 		info.setProperty("allowMultiQueries", TRUE); // needed for deleteSchema
+		if(connectionCompress)
+			info.setProperty("useCompression", TRUE);
 		//info.setProperty("profileSQL", TRUE);
 	}
 

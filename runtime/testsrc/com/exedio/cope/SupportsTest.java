@@ -98,13 +98,15 @@ public class SupportsTest extends TestWithEnvironment
 	{
 		assumeTrue(mysql);
 
+		final boolean enabled = (Boolean)model.getConnectProperties().getField("dialect.connection.compress").get();
+
 		try(Connection c = SchemaInfo.newConnection(model);
 			 Statement s = c.createStatement();
 			 ResultSet rs = s.executeQuery("SHOW STATUS LIKE 'Compression'"))
 		{
 			assertTrue(rs.next());
 			assertEquals("Compression", rs.getString(1));
-			assertEquals("OFF", rs.getString(2));
+			assertEquals(enabled ? "ON" : "OFF", rs.getString(2));
 			assertFalse(rs.next());
 		}
 	}
