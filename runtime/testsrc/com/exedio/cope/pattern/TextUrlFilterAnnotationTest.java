@@ -102,12 +102,13 @@ public class TextUrlFilterAnnotationTest
 			final Feature feature,
 			final Class<? extends Annotation> annotationClass)
 	{
-		assertEquals(expected, feature.isAnnotationPresent(annotationClass));
+		final String msg = feature.toString();
+		assertEquals(msg, expected, feature.isAnnotationPresent(annotationClass));
 		final Annotation ann = feature.getAnnotation(annotationClass);
 		if(expected)
-			assertNotNull(ann);
+			assertNotNull(msg, ann);
 		else
-			assertNull(ann);
+			assertNull(msg, ann);
 	}
 
 	@WrapperIgnore
