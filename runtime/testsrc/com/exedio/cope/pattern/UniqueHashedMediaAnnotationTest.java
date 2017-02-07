@@ -54,6 +54,20 @@ public class UniqueHashedMediaAnnotationTest
 		assertPresent(true,  AnItem.finger.getMedia(), UrlFingerPrinting.class);
 	}
 
+	@Test public void testPreventUrlGuessingHash()
+	{
+		assertPresent(false, AnItem.simple.getHash(), PreventUrlGuessing.class);
+		assertPresent(false, AnItem.secret.getHash(), PreventUrlGuessing.class);
+		assertPresent(false, AnItem.finger.getHash(), PreventUrlGuessing.class);
+	}
+
+	@Test public void testUrlFingerPrintingHash()
+	{
+		assertPresent(false, AnItem.simple.getHash(), UrlFingerPrinting.class);
+		assertPresent(false, AnItem.secret.getHash(), UrlFingerPrinting.class);
+		assertPresent(false, AnItem.finger.getHash(), UrlFingerPrinting.class);
+	}
+
 	@Test public void testComputed()
 	{
 		assertPresent(false, AnItem.simple,            Computed.class);
