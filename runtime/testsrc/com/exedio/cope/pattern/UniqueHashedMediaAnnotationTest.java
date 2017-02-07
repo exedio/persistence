@@ -90,6 +90,24 @@ public class UniqueHashedMediaAnnotationTest
 			assertNull(ann);
 	}
 
+
+	@Test public void testGetters()
+	{
+		assertPath(false, false, AnItem.simple);
+		assertPath(true,  false, AnItem.secret);
+		assertPath(false, true,  AnItem.finger);
+	}
+
+	private static final void assertPath(
+			final boolean expectedSecret,
+			final boolean expectedFinger,
+			final UniqueHashedMedia filter)
+	{
+		assertEquals("secret", expectedSecret, filter.getMedia().isUrlGuessingPrevented());
+		assertEquals("finger", expectedFinger, filter.getMedia().isUrlFingerPrinted());
+	}
+
+
 	@WrapperIgnore
 	static class AnItem extends Item
 	{
