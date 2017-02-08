@@ -36,10 +36,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
 import java.util.Date;
-import java.util.Enumeration;
-import java.util.Vector;
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
@@ -321,22 +318,22 @@ public final class MediaPathTest extends TestWithEnvironment
 	@Test public void testGuess() throws ServletException, IOException
 	{
 		item.setGuessContentType("image/jpeg");
-		final String ok = "/MediaPathItem/guess/" + id + ".jpg";
-		assertEquals(ok + "?t=MediaPathItem.guess-" + id, "/" + item.getGuessLocator().getPath());
-		service(new Request(ok).token("MediaPathItem.guess-" + id)).assertOkAndCacheControl("private");
+		final String ok = "/MediaPathItem/guess/.tMediaPathItem.guess-" + id + "/" + id + ".jpg";
+		assertEquals(ok, "/" + item.getGuessLocator().getPath());
+		service(new Request(ok)).assertOkAndCacheControl("private");
 
-		assertNotFound(ok, "guessed url", "zack");
-		assertNotFound(ok, "guessed url", "");
-		assertNotFound(ok, "guessed url");
+		assertNotFound("/MediaPathItem/guess/.tzack/" + id + ".jpg", "guessed url");
+		assertNotFound("/MediaPathItem/guess/.t/"     + id + ".jpg", "guessed url");
+		assertNotFound("/MediaPathItem/guess/"        + id + ".jpg", "guessed url");
 	}
 
 	@Test public void testGuessAndAge() throws ServletException, IOException
 	{
 		item.setGuessContentType("image/jpeg");
 		item.setGuessLastModified(new Date(333338888));
-		final String ok = "/MediaPathItem/guess/" + id + ".jpg";
-		assertEquals(ok + "?t=MediaPathItem.guess-" + id, "/" + item.getGuessLocator().getPath());
-		service(new Request(ok).token("MediaPathItem.guess-" + id)).assertOkAndCacheControl(
+		final String ok = "/MediaPathItem/guess/.tMediaPathItem.guess-" + id + "/" + id + ".jpg";
+		assertEquals(ok, "/" + item.getGuessLocator().getPath());
+		service(new Request(ok)).assertOkAndCacheControl(
 				MODEL.getConnectProperties().getMediaOffsetExpires()>0
 				? "private,max-age=5"
 				: "private");
@@ -437,16 +434,7 @@ public final class MediaPathTest extends TestWithEnvironment
 			final String reason)
 		throws ServletException, IOException
 	{
-		assertNotFound(pathInfo, reason, null);
-	}
-
-	private void assertNotFound(
-			final String pathInfo,
-			final String reason,
-			final String token)
-		throws ServletException, IOException
-	{
-		service(new Request(pathInfo).token(token)).assertError(
+		service(new Request(pathInfo)).assertError(
 				SC_NOT_FOUND, "us-ascii", "text/html",
 				"<html>\n" +
 				"<head>\n" +
@@ -501,18 +489,11 @@ public final class MediaPathTest extends TestWithEnvironment
 	private static final class Request extends HttpServletRequestDummy
 	{
 		private final String pathInfo;
-		private String token;
 		private long ifModifiedSince = -1;
 
 		Request(final String pathInfo)
 		{
 			this.pathInfo = pathInfo;
-		}
-
-		Request token(final String token)
-		{
-			this.token = token;
-			return this;
 		}
 
 		Request ifModifiedSince(final long ifModifiedSince)
@@ -582,32 +563,7 @@ public final class MediaPathTest extends TestWithEnvironment
 		@Override
 		public String getQueryString()
 		{
-			return token!=null ? ("t=" + token) : null;
-		}
-
-		@Override
-		@SuppressFBWarnings("PZLA_PREFER_ZERO_LENGTH_ARRAYS")
-		public String[] getParameterValues(final String name)
-		{
-			if(!"t".equals(name))
-				return super.getParameterValues(name);
-
-			return token!=null ? new String[]{token} : null;
-		}
-
-		@Override
-		public Enumeration<String> getParameterNames()
-		{
-			return token!=null ? new Vector<>(Arrays.asList("t")).elements() : null;
-		}
-
-		@Override
-		public String getParameter(final String name)
-		{
-			if("t".equals(name))
-				return token;
-			else
-				return super.getParameter(name);
+			return null;
 		}
 	}
 

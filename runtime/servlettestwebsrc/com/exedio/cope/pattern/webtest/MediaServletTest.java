@@ -239,28 +239,34 @@ public class MediaServletTest
 		// runtime/servlettestweb/WEB-INF/cope.properties
 		//TOKEN = "74466680090a38495c89";
 		TOKEN = "MediaServletItem.tokened-" + ITEM_JPG;
-		assertBinPrivate(prefix + "tokened/" + ITEM_JPG +      ".jpg?t=" + TOKEN, "image/jpeg", hour8(3));
-		assertMoved(prefix + "tokened/" + ITEM_JPG + "/name.jpg?t=" + TOKEN, prefix + "tokened/" + ITEM_JPG + ".jpg?t=" + TOKEN);
+		assertBinPrivate(prefix + "tokened/.t" + TOKEN + "/" + ITEM_JPG +      ".jpg", "image/jpeg", hour8(3));
+		assertMoved(prefix + "tokened/.t" + TOKEN + "/" + ITEM_JPG + "/name.jpg", prefix + "tokened/.t" + TOKEN + "/" + ITEM_JPG + ".jpg");
 
-		assertNotFound(prefix + "tokened/" + ITEM_JPG + ".jpg"     , GUESSED_URL);
-		assertNotFound(prefix + "tokened/" + ITEM_JPG + ".jpg?t="  , GUESSED_URL);
-		assertNotFound(prefix + "tokened/" + ITEM_JPG + ".jpg?t=1" , GUESSED_URL);
-		assertNotFound(prefix + "tokened/" + ITEM_JPG + ".jpg?t=12", GUESSED_URL);
+		assertNotFound(prefix + "tokened/"      + ITEM_JPG + ".jpg", GUESSED_URL);
+		assertNotFound(prefix + "tokened/.t/"   + ITEM_JPG + ".jpg", GUESSED_URL);
+		assertNotFound(prefix + "tokened/.t1/"  + ITEM_JPG + ".jpg", GUESSED_URL);
+		assertNotFound(prefix + "tokened/.t12/" + ITEM_JPG + ".jpg", GUESSED_URL);
 
-		assertNotFound(prefix + "tokened/" + ITEM_JPG + ".png"     , GUESSED_URL);
-		assertNotFound(prefix + "tokened/" + ITEM_JPG + ".png?t=12", GUESSED_URL);
-		assertNotFound(prefix + "tokened/" + ITEM_JPG              , GUESSED_URL);
-		assertNotFound(prefix + "tokened/" + ITEM_JPG + "?t=12"    , GUESSED_URL);
-		assertMoved(prefix + "tokened/" + ITEM_JPG + ".png?t=" + TOKEN,
-						prefix + "tokened/" + ITEM_JPG + ".jpg?t=" + TOKEN);
-		assertNotFound(prefix + "tokened/" + ITEM_JPG + ".jpg?t=" + TOKEN + "&x=y", NOT_AN_ITEM);
-		assertNotFound(prefix + "tokened/" + ITEM_JPG + ".jpg?t=" + TOKEN + "&t=y", NOT_AN_ITEM);
+		assertNotFound(prefix + "tokened/"      + ITEM_JPG + ".png", GUESSED_URL);
+		assertNotFound(prefix + "tokened/.t12/" + ITEM_JPG + ".png", GUESSED_URL);
+		assertNotFound(prefix + "tokened/"      + ITEM_JPG         , GUESSED_URL);
+		assertNotFound(prefix + "tokened/.t12/" + ITEM_JPG         , GUESSED_URL);
+		assertMoved(prefix + "tokened/.t" + TOKEN + "/" + ITEM_JPG + ".png",
+						prefix + "tokened/.t" + TOKEN + "/" + ITEM_JPG + ".jpg");
+		assertNotFound(prefix + "tokened/.t" + TOKEN + "/" + ITEM_JPG + ".jpg?x=y", NOT_AN_ITEM);
+		assertNotFound(prefix + "tokened/.t" + TOKEN + "/" + ITEM_JPG + ".jpg?t=y", NOT_AN_ITEM);
 
-		assertNotFound(prefix + "tokened/" + ITEM_TXT + ".jpg?t=" + TOKEN, GUESSED_URL);
-		assertNotFound(prefix + "tokened/" + ITEM_EMP + ".jpg?t=" + TOKEN, GUESSED_URL);
-		assertNotFound(prefix + "tokened/" + ITEM_NX  + ".jpg?t=" + TOKEN, GUESSED_URL);
+		assertNotFound(prefix + "tokened/.t" + TOKEN + "/" + ITEM_TXT + ".jpg", GUESSED_URL);
+		assertNotFound(prefix + "tokened/.t" + TOKEN + "/" + ITEM_EMP + ".jpg", GUESSED_URL);
+		assertNotFound(prefix + "tokened/.t" + TOKEN + "/" + ITEM_NX  + ".jpg", GUESSED_URL);
 
-		assertNotFound(prefix + "content/" + ITEM_JPG + ".jpg?t=" + TOKEN, NOT_AN_ITEM);
+		// token on a media without @PreventUrlGuessing causes redirect to canonical url
+		assertMoved(prefix + "content/.t" + TOKEN + "/" + ITEM_JPG + ".jpg",
+						prefix + "content/"                 + ITEM_JPG + ".jpg");
+		assertMoved(prefix + "content/.tzack/"          + ITEM_JPG + ".jpg",
+						prefix + "content/"                 + ITEM_JPG + ".jpg");
+		assertMoved(prefix + "content/.t/"              + ITEM_JPG + ".jpg",
+						prefix + "content/"                 + ITEM_JPG + ".jpg");
 
 		// finger
 

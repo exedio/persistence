@@ -40,7 +40,6 @@ import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.security.MessageDigest;
 import java.util.Date;
-import java.util.Enumeration;
 import java.util.List;
 import javax.annotation.Nonnull;
 import javax.servlet.http.HttpServletRequest;
@@ -266,6 +265,13 @@ public abstract class MediaPath extends Pattern
 				bf.append('/');
 			}
 
+			if(withSecret && secret!=null)
+			{
+				bf.append("." + SPECIAL_TOKEN).
+					append(secret).
+					append('/');
+			}
+
 			item.appendCopeID(bf);
 
 			if(catchphrase!=null)
@@ -281,10 +287,6 @@ public abstract class MediaPath extends Pattern
 						bf.append(extension);
 				}
 			}
-
-			if(withSecret && secret!=null)
-				bf.append("?" + URL_TOKEN + "=").
-					append(secret);
 		}
 
 		/**
@@ -364,8 +366,6 @@ public abstract class MediaPath extends Pattern
 		final Locator locator = getLocator(item);
 		return locator!=null ? locator.getURLByConnect() : null;
 	}
-
-	static final String URL_TOKEN = "t";
 
 	private final String makeUrlToken(final Item item)
 	{
@@ -607,6 +607,7 @@ public abstract class MediaPath extends Pattern
 			final String pathInfo, final int fromIndexWithSpecial)
 		throws IOException, NotFound
 	{
+		String actualToken = null;
 		final int fromIndex;
 		if(pathInfo.length()>fromIndexWithSpecial && pathInfo.charAt(fromIndexWithSpecial)=='.')
 		{
@@ -623,6 +624,10 @@ public abstract class MediaPath extends Pattern
 			{
 				case SPECIAL_FINGERPRINT:
 					break; // do nothing, redirects are implemented below
+
+				case SPECIAL_TOKEN:
+					actualToken = pathInfo.substring(kindIndex+1, slash);
+					break;
 
 				default:
 					throw notFoundInvalidSpecial();
@@ -651,7 +656,6 @@ public abstract class MediaPath extends Pattern
 		final String token = makeUrlToken(id);
 		if(token!=null)
 		{
-			final String actualToken = request.getParameter(URL_TOKEN);
 			if(!token.equals(actualToken))
 				throw notFoundGuessedUrl();
 		}
@@ -666,7 +670,7 @@ public abstract class MediaPath extends Pattern
 				{
 					final StringBuilder expectedPathInfo = new StringBuilder();
 					expectedPathInfo.append('/');
-					locator.appendPath(expectedPathInfo, false);
+					locator.appendPath(expectedPathInfo, true); // TODO simplify
 					if(!expectedPathInfo.toString().equals(pathInfo))
 					{
 						final StringBuilder location = new StringBuilder();
@@ -700,6 +704,7 @@ public abstract class MediaPath extends Pattern
 	}
 
 	private static final char SPECIAL_FINGERPRINT = 'f';
+	private static final char SPECIAL_TOKEN = 't';
 
 	protected final void commit()
 	{
@@ -728,27 +733,16 @@ public abstract class MediaPath extends Pattern
 		// This code prevents a Denial of Service attack against the caching mechanism.
 		// Query strings can be used to effectively disable the cache by using many urls
 		// for one media value. Therefore they are forbidden completely.
-		if(isUrlGuessingPrevented())
-		{
-			final String[] tokens = request.getParameterValues(URL_TOKEN);
-			if(tokens!=null&&tokens.length>1)
-				throw notFoundNotAnItem();
-			for(final Enumeration<?> e = request.getParameterNames(); e.hasMoreElements(); )
-				if(!URL_TOKEN.equals(e.nextElement()))
-					throw notFoundNotAnItem();
+		if(request.getQueryString()!=null)
+			throw notFoundNotAnItem();
 
-			// Cache-Control forbids shared caches, such as company proxies to cache
-			// such urls.
-			// TODO make this customizable
-			// See http://httpd.apache.org/docs/2.2/mod/mod_cache.html#cachestoreprivate
-			// and RFC 2616 Section 14.9.1 What is Cacheable
+		// Cache-Control forbids shared caches, such as company proxies to cache
+		// such urls.
+		// TODO make this customizable
+		// See http://httpd.apache.org/docs/2.2/mod/mod_cache.html#cachestoreprivate
+		// and RFC 2616 Section 14.9.1 What is Cacheable
+		if(isUrlGuessingPrevented())
 			cacheControlPrivate = true;
-		}
-		else
-		{
-			if(request.getQueryString()!=null)
-				throw notFoundNotAnItem();
-		}
 
 		final Date lastModifiedRaw = getLastModified(item);
 		// if there is no LastModified, then there is no caching

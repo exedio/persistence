@@ -7,6 +7,15 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* MediaPathes with @PreventUrlGuessing do change their url pattern:
+
+	/media/Product/image/Product-42.jpg?t=abcdef0123456789abcd becomes
+	/media/Product/image/.tabcdef0123456789abcd/Product-42.jpg
+
+	BEWARE: Old urls will receive a http response "404 Not Found". You may want
+	to setup a rewrite rule in apache etc. From now on media urls do not use query
+	strings anymore.
+
 * @PreventUrlGuessing/@UrlFingerPrinting can be applied to types as well.
 * RevisionStatistics#getExplicitTypes and #isContainedIn added.
 * Attribute <instrument configByTags changes its default from "warn" to "error".
