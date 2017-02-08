@@ -68,6 +68,30 @@ public class UniqueHashedMediaAnnotationTest
 		assertPresent(false, AnItem.finger.getHash(), UrlFingerPrinting.class);
 	}
 
+	@Test public void testPreventUrlGuessingType()
+	{
+		assertPresent(false, SecretItem.simple,            PreventUrlGuessing.class);
+		assertPresent(true,  SecretItem.simple.getMedia(), PreventUrlGuessing.class); // TODO superfluous
+		assertPresent(true,  SecretItem.secret,            PreventUrlGuessing.class);
+		assertPresent(true,  SecretItem.secret.getMedia(), PreventUrlGuessing.class);
+		assertPresent(false, FingerItem.simple,            PreventUrlGuessing.class);
+		assertPresent(false, FingerItem.simple.getMedia(), PreventUrlGuessing.class);
+		assertPresent(false, FingerItem.finger,            PreventUrlGuessing.class);
+		assertPresent(false, FingerItem.finger.getMedia(), PreventUrlGuessing.class);
+	}
+
+	@Test public void testUrlFingerPrintingType()
+	{
+		assertPresent(false, SecretItem.simple,            UrlFingerPrinting.class);
+		assertPresent(false, SecretItem.simple.getMedia(), UrlFingerPrinting.class);
+		assertPresent(false, SecretItem.secret,            UrlFingerPrinting.class);
+		assertPresent(false, SecretItem.secret.getMedia(), UrlFingerPrinting.class);
+		assertPresent(false, FingerItem.simple,            UrlFingerPrinting.class);
+		assertPresent(true,  FingerItem.simple.getMedia(), UrlFingerPrinting.class); // TODO superfluous
+		assertPresent(true,  FingerItem.finger,            UrlFingerPrinting.class);
+		assertPresent(true,  FingerItem.finger.getMedia(), UrlFingerPrinting.class);
+	}
+
 	@Test public void testComputed()
 	{
 		assertPresent(false, AnItem.simple,            Computed.class);
