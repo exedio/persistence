@@ -65,8 +65,6 @@ public class TextUrlFilter extends MediaFilter implements TextUrlFilterCheckable
 	final StringField pasteKey;
 	final Media pasteValue;
 	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
-	private final MediaPathAnnotationProxy annotationProxy = new MediaPathAnnotationProxy(this, false);
-	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private Mount mountIfMounted = null;
 
 	public TextUrlFilter(
@@ -98,7 +96,7 @@ public class TextUrlFilter extends MediaFilter implements TextUrlFilterCheckable
 		if(!pasteValue.isMandatory())
 			throw new IllegalArgumentException("pasteValue must be mandatory");
 
-		addSource(raw, "Raw", annotationProxy);
+		addSource(raw, "Raw", new MediaPathFeatureAnnotationProxy(this, false));
 	}
 
 	Type<Paste> getPasteType()
@@ -187,7 +185,7 @@ public class TextUrlFilter extends MediaFilter implements TextUrlFilterCheckable
 		features.put("parent", pasteParent);
 		features.put("key", pasteKey);
 		features.put("parentAndKey", pasteParentAndKey);
-		features.put("value", pasteValue, annotationProxy);
+		features.put("value", pasteValue, new MediaPathFeatureOfTypeAnnotationProxy(this));
 		features.put("pastes", PartOf.create(pasteParent, pasteKey));
 		final Type<Paste> pasteType = newSourceType(Paste.class, features);
 		this.mountIfMounted = new Mount(pasteParent, pasteType);
