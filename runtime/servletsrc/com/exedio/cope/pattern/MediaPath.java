@@ -614,14 +614,15 @@ public abstract class MediaPath extends Pattern
 			if(!(pathInfo.length()>kindIndex))
 				throw notFoundInvalidSpecial();
 
+			final int slash = pathInfo.indexOf('/', kindIndex);
+			if(slash<0)
+				throw notFoundInvalidSpecial();
+			fromIndex = slash + 1;
+
 			switch(pathInfo.charAt(kindIndex))
 			{
 				case SPECIAL_FINGERPRINT:
-					final int slash = pathInfo.indexOf('/', kindIndex);
-					if(slash<0)
-						throw notFoundInvalidSpecial();
-					fromIndex = slash + 1;
-					break;
+					break; // do nothing, redirects are implemented below
 
 				default:
 					throw notFoundInvalidSpecial();
