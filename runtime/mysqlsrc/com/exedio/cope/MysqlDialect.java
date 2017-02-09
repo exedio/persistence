@@ -203,10 +203,12 @@ final class MysqlDialect extends Dialect
 	}
 
 	/**
+	 * Must be consistent with documentation of {@link MysqlExtendedVarchar}.
+	 *
 	 * Limits for datatypes are in bytes, but varchar parameter specifies
 	 * characters.
 	 *
-	 * Always returns "binary" types make string comparisions and
+	 * Always returns "binary" types make string comparisons and
 	 * unique constraints case sensitive.
 	 */
 	@Override

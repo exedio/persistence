@@ -24,6 +24,19 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+/**
+ * Enables {@code varchar} on MySQL for longer {@link StringField string fields}.
+ * <p>
+ * In general database columns for string fields with a
+ * {@link StringField#getMaximumLength() maximum length} of up to 85 characters
+ * do get type {@code varchar}, longer string fields do get {@code text}, {@code mediumtext} etc.
+ * This annotation increases the limit from 85 characters to 16382 characters.
+ * <p>
+ * This annotation is applicable to string fields only.
+ * When applying it to other features or
+ * when connecting to databases other than MySQL,
+ * there is no effect at all.
+ */
 @Target(FIELD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface MysqlExtendedVarchar
