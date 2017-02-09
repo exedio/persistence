@@ -651,8 +651,8 @@ public abstract class MediaPath extends Pattern
 		final String token = makeUrlToken(id);
 		if(token!=null)
 		{
-			final String x = request.getParameter(URL_TOKEN);
-			if(!token.equals(x))
+			final String actualToken = request.getParameter(URL_TOKEN);
+			if(!token.equals(actualToken))
 				throw notFoundGuessedUrl();
 		}
 
