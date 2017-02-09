@@ -261,7 +261,7 @@ public abstract class MediaPath extends Pattern
 
 			if(fingerprintLastModified!=Long.MIN_VALUE)
 			{
-				bf.append(".f");
+				bf.append("." + SPECIAL_FINGERPRINT);
 				MediaBase64.append(bf, fingerprintOffset(fingerprintLastModified, item));
 				bf.append('/');
 			}
@@ -616,7 +616,7 @@ public abstract class MediaPath extends Pattern
 
 			switch(pathInfo.charAt(kindIndex))
 			{
-				case 'f':
+				case SPECIAL_FINGERPRINT:
 					final int slash = pathInfo.indexOf('/', kindIndex);
 					if(slash<0)
 						throw notFoundInvalidSpecial();
@@ -697,6 +697,8 @@ public abstract class MediaPath extends Pattern
 			throw e.notAnID() ? notFoundNotAnItem() : notFoundNoSuchItem();
 		}
 	}
+
+	private static final char SPECIAL_FINGERPRINT = 'f';
 
 	protected final void commit()
 	{
