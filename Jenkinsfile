@@ -8,6 +8,9 @@ timestamps
 		{
 			abortable
 			{
+				echo("Delete working dir before build")
+				deleteDir()
+
 				checkout scm
 				sh 'git rev-parse HEAD > GIT_COMMIT'
 				env.GIT_COMMIT = readFile('GIT_COMMIT').trim()
