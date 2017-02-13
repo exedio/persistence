@@ -249,13 +249,6 @@ public abstract class MediaPath extends Pattern
 		 */
 		public void appendPath(final StringBuilder bf)
 		{
-			appendPath(bf, true);
-		}
-
-		void appendPath(
-				final StringBuilder bf,
-				final boolean withSecret)
-		{
 			bf.append(getUrlPath());
 
 			if(fingerprintLastModified!=Long.MIN_VALUE)
@@ -265,7 +258,7 @@ public abstract class MediaPath extends Pattern
 				bf.append('/');
 			}
 
-			if(withSecret && secret!=null)
+			if(secret!=null)
 			{
 				bf.append("." + SPECIAL_TOKEN).
 					append(secret).
@@ -306,7 +299,7 @@ public abstract class MediaPath extends Pattern
 		public void appendURLByConnect(final StringBuilder bf)
 		{
 			bf.append(getMediaRootUrl());
-			appendPath(bf, true);
+			appendPath(bf);
 		}
 
 		@Override
@@ -670,7 +663,7 @@ public abstract class MediaPath extends Pattern
 				{
 					final StringBuilder expectedPathInfo = new StringBuilder();
 					expectedPathInfo.append('/');
-					locator.appendPath(expectedPathInfo, true); // TODO simplify
+					locator.appendPath(expectedPathInfo);
 					if(!expectedPathInfo.toString().equals(pathInfo))
 					{
 						final StringBuilder location = new StringBuilder();
