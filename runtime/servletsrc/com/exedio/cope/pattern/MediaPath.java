@@ -720,8 +720,6 @@ public abstract class MediaPath extends Pattern
 			final Item item)
 		throws IOException, NotFound
 	{
-		boolean cacheControlPrivate = false;
-
 		// NOTE
 		// This code prevents a Denial of Service attack against the caching mechanism.
 		// Query strings can be used to effectively disable the cache by using many urls
@@ -729,19 +727,11 @@ public abstract class MediaPath extends Pattern
 		if(request.getQueryString()!=null)
 			throw notFoundNotAnItem();
 
-		// Cache-Control forbids shared caches, such as company proxies to cache
-		// such urls.
-		// TODO make this customizable
-		// See http://httpd.apache.org/docs/2.2/mod/mod_cache.html#cachestoreprivate
-		// and RFC 2616 Section 14.9.1 What is Cacheable
-		if(isUrlGuessingPrevented())
-			cacheControlPrivate = true;
-
 		final Date lastModifiedRaw = getLastModified(item);
 		// if there is no LastModified, then there is no caching
 		if(lastModifiedRaw==null)
 		{
-			setCacheControl(response, cacheControlPrivate, Integer.MIN_VALUE);
+			setCacheControl(response, Integer.MIN_VALUE);
 			deliver(request, response, item);
 			return;
 		}
@@ -768,7 +758,7 @@ public abstract class MediaPath extends Pattern
 			cacheControlMaxAge = (maxAge>0) ? maxAge : Integer.MIN_VALUE;
 		}
 
-		setCacheControl(response, cacheControlPrivate, cacheControlMaxAge);
+		setCacheControl(response, cacheControlMaxAge);
 
 		final long ifModifiedSince = request.getDateHeader("If-Modified-Since");
 		if(ifModifiedSince>=0 && ifModifiedSince>=lastModified)
@@ -806,9 +796,8 @@ public abstract class MediaPath extends Pattern
 		return (remainder==0) ? lastModified : (lastModified-remainder+1000);
 	}
 
-	private static void setCacheControl(
+	private void setCacheControl(
 			final HttpServletResponse response,
-			final boolean isPrivate,
 			final int maxAge)
 	{
 		// RFC 2616
@@ -823,7 +812,12 @@ public abstract class MediaPath extends Pattern
 
 		final StringBuilder bf = new StringBuilder();
 
-		if(isPrivate)
+		// Cache-Control forbids shared caches, such as company proxies to cache
+		// such urls.
+		// TODO make this customizable
+		// See http://httpd.apache.org/docs/2.2/mod/mod_cache.html#cachestoreprivate
+		// and RFC 2616 Section 14.9.1 What is Cacheable
+		if(isUrlGuessingPrevented())
 			bf.append("private");
 
 		if(maxAge>=0)
