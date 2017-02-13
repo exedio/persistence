@@ -600,6 +600,13 @@ public abstract class MediaPath extends Pattern
 			final String pathInfo, final int fromIndexWithSpecial)
 		throws IOException, NotFound
 	{
+		// NOTE
+		// This code prevents a Denial of Service attack against the caching mechanism.
+		// Query strings can be used to effectively disable the cache by using many urls
+		// for one media value. Therefore they are forbidden completely.
+		if(request.getQueryString()!=null)
+			throw notFoundNotAnItem();
+
 		String actualToken = null;
 		final int fromIndex;
 		if(pathInfo.length()>fromIndexWithSpecial && pathInfo.charAt(fromIndexWithSpecial)=='.')
@@ -720,13 +727,6 @@ public abstract class MediaPath extends Pattern
 			final Item item)
 		throws IOException, NotFound
 	{
-		// NOTE
-		// This code prevents a Denial of Service attack against the caching mechanism.
-		// Query strings can be used to effectively disable the cache by using many urls
-		// for one media value. Therefore they are forbidden completely.
-		if(request.getQueryString()!=null)
-			throw notFoundNotAnItem();
-
 		final Date lastModifiedRaw = getLastModified(item);
 		// if there is no LastModified, then there is no caching
 		if(lastModifiedRaw==null)
