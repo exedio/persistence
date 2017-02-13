@@ -235,6 +235,8 @@ public class MediaServletTest
 
 		// tokened
 		final String TOKEN;
+		// to use the token below, enable media.url.secret in
+		// runtime/servlettestweb/WEB-INF/cope.properties
 		//TOKEN = "74466680090a38495c89";
 		TOKEN = "MediaServletItem.tokened-" + ITEM_JPG;
 		assertBinPrivate(prefix + "tokened/" + ITEM_JPG +      ".jpg?t=" + TOKEN, "image/jpeg", hour8(3));
