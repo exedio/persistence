@@ -113,6 +113,7 @@ public final class OracleDialect extends Dialect
 				"FROM user_constraints " +
 				"WHERE CONSTRAINT_TYPE in ('C','P') " +
 				"AND CONSTRAINT_NAME NOT LIKE 'SYS_%' " +
+				"AND CONSTRAINT_NAME NOT LIKE 'BIN$%' " + // needed since Oracle 11.2
 				"ORDER BY TABLE_NAME, CONSTRAINT_NAME",
 		resultSet ->
 		{
@@ -149,6 +150,7 @@ public final class OracleDialect extends Dialect
 					"ON uc.CONSTRAINT_NAME=ucc.CONSTRAINT_NAME " +
 					"AND uc.TABLE_NAME=ucc.TABLE_NAME " +
 				"WHERE uc.CONSTRAINT_TYPE='U' " +
+				"AND uc.CONSTRAINT_NAME NOT LIKE 'BIN$%' " + // needed since Oracle 11.2
 				"ORDER BY uc.TABLE_NAME, uc.CONSTRAINT_NAME, ucc.POSITION",
 				schema);
 
