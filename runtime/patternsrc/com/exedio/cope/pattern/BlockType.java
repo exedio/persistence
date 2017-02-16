@@ -40,7 +40,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-public final class BlockType<T extends Block> implements Serializable
+public final class BlockType<T extends Block> implements TemplatedType<T>
 {
 	final Class<T> javaClass;
 	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
@@ -65,12 +65,13 @@ public final class BlockType<T extends Block> implements Serializable
 						feature.getClass().getName());
 			final String fieldName = CopeNameUtil.getAndFallbackToName(field);
 			templates.put(fieldName, feature);
-			feature.mount(fieldID, SerializedReflectionField.make(feature, field), field);
+			feature.mount(this, fieldName, fieldID, SerializedReflectionField.make(feature, field), field);
 		}
 		this.templateList = Collections.unmodifiableList(new ArrayList<>(templates.values()));
 		this.componentSize = templates.size();
 	}
 
+	@Override
 	public Class<T> getJavaClass()
 	{
 		return javaClass;
@@ -79,6 +80,42 @@ public final class BlockType<T extends Block> implements Serializable
 	Map<String,Feature> getTemplateMap()
 	{
 		return Collections.unmodifiableMap(templates);
+	}
+
+	@Override
+	public BlockType<? super T> getSupertype()
+	{
+		return null;
+	}
+
+	@Override
+	public List<? extends BlockType<? extends T>> getSubtypes()
+	{
+		return Collections.emptyList();
+	}
+
+	@Override
+	public List<? extends Feature> getDeclaredFeatures()
+	{
+		return templateList;
+	}
+
+	@Override
+	public List<? extends Feature> getFeatures()
+	{
+		return templateList;
+	}
+
+	@Override
+	public Feature getDeclaredFeature(final String name)
+	{
+		return templates.get(name);
+	}
+
+	@Override
+	public Feature getFeature(final String name)
+	{
+		return templates.get(name);
 	}
 
 	T newValue(final BlockField<?> field, final Item item)

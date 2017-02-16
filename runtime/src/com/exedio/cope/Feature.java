@@ -44,13 +44,19 @@ public abstract class Feature implements Serializable
 
 	private static abstract class Mount
 	{
+		final AbstractType<?> type;
+		final String name;
 		private final AnnotatedElement annotationSource;
 		final Pattern pattern;
 
 		Mount(
+				final AbstractType<?> type,
+				final String name,
 				final AnnotatedElement annotationSource,
 				final Pattern pattern)
 		{
+			this.type = requireNonNull(type);
+			this.name = intern(requireNonNull(name));
 			this.annotationSource = annotationSource;
 			this.pattern = pattern;
 		}
@@ -77,7 +83,6 @@ public abstract class Feature implements Serializable
 	private static final class MountType extends Mount
 	{
 		final Type<?> type;
-		final String name;
 		final String id;
 
 		MountType(
@@ -86,9 +91,8 @@ public abstract class Feature implements Serializable
 				final AnnotatedElement annotationSource,
 				final Pattern pattern)
 		{
-			super(annotationSource, pattern);
+			super(type, name, annotationSource, pattern);
 			this.type = requireNonNull(type);
-			this.name = intern(requireNonNull(name));
 			this.id =   intern(type.id + '.' + name);
 		}
 
@@ -137,17 +141,20 @@ public abstract class Feature implements Serializable
 		}
 	}
 
+	// TODO rename to MountAbstractType
 	private static final class MountString extends Mount
 	{
 		private final String string;
 		private final Serializable serializable;
 
 		MountString(
+				final AbstractType<?> type,
+				final String name,
 				final String string,
 				final Serializable serializable,
 				final AnnotatedElement annotationSource)
 		{
-			super(annotationSource, null);
+			super(type, name, annotationSource, null);
 			this.string = requireNonNull(string);
 			this.serializable = requireNonNull(serializable);
 		}
@@ -195,15 +202,19 @@ public abstract class Feature implements Serializable
 	}
 
 	public final void mount(
+			final AbstractType<?> type,
+			final String name,
 			final String string,
 			final Serializable serializable,
 			final AnnotatedElement annotationSource)
 	{
+		requireNonNull(type, "type");
+		requireNonNull(name, "name");
 		requireNonNull(string, "string");
 		requireNonNull(serializable, "serializable");
 		if(this.mountIfMounted!=null)
 			throw new IllegalStateException("feature already mounted: " + mountIfMounted.toString());
-		this.mountIfMounted = new MountString(string, serializable, annotationSource);
+		this.mountIfMounted = new MountString(type, name, string, serializable, annotationSource);
 	}
 
 	private final Mount mount()
@@ -234,6 +245,17 @@ public abstract class Feature implements Serializable
 		return (mount!=null) && (mount instanceof MountType);
 	}
 
+	/**
+	 * @see #getType()
+	 */
+	public AbstractType<?> getAbstractType()
+	{
+		return mount().type;
+	}
+
+	/**
+	 * @see #getAbstractType()
+	 */
 	public Type<?> getType()
 	{
 		return mountType().type;
@@ -241,7 +263,7 @@ public abstract class Feature implements Serializable
 
 	public final String getName()
 	{
-		return mountType().name;
+		return mount().name;
 	}
 
 	/**

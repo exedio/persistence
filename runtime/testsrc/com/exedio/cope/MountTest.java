@@ -60,6 +60,7 @@ public class MountTest
 		assertEquals("MyItem.field", f.toString());
 		assertEquals("MyItem.field", f.getID());
 		assertEquals( MyItem.TYPE,   f.getType());
+		assertEquals( MyItem.TYPE,   f.getAbstractType());
 		assertSerializedSame(f, 362);
 	}
 
@@ -70,6 +71,7 @@ public class MountTest
 		assertEquals("MyItem.actual", f.toString());
 		assertEquals("MyItem.actual", f.getID());
 		assertEquals( MyItem.TYPE,    f.getType());
+		assertEquals( MyItem.TYPE,    f.getAbstractType());
 		assertSerializedSame(f, 363);
 	}
 
@@ -80,6 +82,7 @@ public class MountTest
 		assertEquals("ActualItem.field", f.toString());
 		assertEquals("ActualItem.field", f.getID());
 		assertEquals(   PureItem.TYPE,   f.getType());
+		assertEquals(   PureItem.TYPE,   f.getAbstractType());
 		assertSerializedSame(f, 366);
 	}
 
@@ -90,6 +93,7 @@ public class MountTest
 		assertEquals("ActualItem.actual", f.toString());
 		assertEquals("ActualItem.actual", f.getID());
 		assertEquals(   PureItem.TYPE,    f.getType());
+		assertEquals(   PureItem.TYPE,    f.getAbstractType());
 		assertSerializedSame(f, 367);
 	}
 
@@ -112,40 +116,44 @@ public class MountTest
 	@Test public void testCompositeField()
 	{
 		final Feature f = MyComposite.field;
-		assertFails (PREFIX + "MyComposite#field", ()->f.getName());
+		assertEquals(                     "field",     f.getName());
 		assertEquals(PREFIX + "MyComposite#field",     f.toString());
 		assertFails (PREFIX + "MyComposite#field", ()->f.getID());
 		assertFails (PREFIX + "MyComposite#field", ()->f.getType());
+		assertEquals(          MyComposite.TYPE,       f.getAbstractType());
 		assertSerializedSame(f, 272);
 	}
 
 	@Test public void testCompositeFieldRenamed()
 	{
 		final Feature f = MyComposite.pure;
-		assertFails (PREFIX + "MyComposite#pure", ()->f.getName());
+		assertEquals(                     "actual",   f.getName());
 		assertEquals(PREFIX + "MyComposite#pure",     f.toString()); // pure is ok
 		assertFails (PREFIX + "MyComposite#pure", ()->f.getID());    // pure is ok
 		assertFails (PREFIX + "MyComposite#pure", ()->f.getType());  // pure is ok
+		assertEquals(          MyComposite.TYPE,      f.getAbstractType());
 		assertSerializedSame(f, 271);
 	}
 
 	@Test public void testCompositeRenamedField()
 	{
 		final Feature f = PureComposite.field;
-		assertFails (PREFIX + "PureComposite#field", ()->f.getName());
+		assertEquals(                       "field",     f.getName());
 		assertEquals(PREFIX + "PureComposite#field",     f.toString()); // pure is ok
 		assertFails (PREFIX + "PureComposite#field", ()->f.getID());    // pure is ok
 		assertFails (PREFIX + "PureComposite#field", ()->f.getType());  // pure is ok
+		assertEquals(          PureComposite.TYPE,       f.getAbstractType());
 		assertSerializedSame(f, 274);
 	}
 
 	@Test public void testCompositeRenamedFieldRenamed()
 	{
 		final Feature f = PureComposite.pure;
-		assertFails (PREFIX + "PureComposite#pure", ()->f.getName());
+		assertEquals(                       "actual",   f.getName());
 		assertEquals(PREFIX + "PureComposite#pure",     f.toString()); // pure is ok
 		assertFails (PREFIX + "PureComposite#pure", ()->f.getID());    // pure is ok
 		assertFails (PREFIX + "PureComposite#pure", ()->f.getType());  // pure is ok
+		assertEquals(          PureComposite.TYPE,      f.getAbstractType());
 		assertSerializedSame(f, 273);
 	}
 
@@ -168,40 +176,44 @@ public class MountTest
 	@Test public void testBlockField()
 	{
 		final Feature f = MyBlock.field;
-		assertFails (PREFIX + "MyBlock#field", ()->f.getName());
+		assertEquals(                 "field",     f.getName());
 		assertEquals(PREFIX + "MyBlock#field",     f.toString());
 		assertFails (PREFIX + "MyBlock#field", ()->f.getID());
 		assertFails (PREFIX + "MyBlock#field", ()->f.getType());
+		assertEquals(          MyBlock.TYPE,       f.getAbstractType());
 		assertSerializedSame(f, 312);
 	}
 
 	@Test public void testBlockFieldRenamed()
 	{
 		final Feature f = MyBlock.pure;
-		assertFails (PREFIX + "MyBlock#pure", ()->f.getName());
+		assertEquals(                 "actual",   f.getName());
 		assertEquals(PREFIX + "MyBlock#pure",     f.toString()); // pure is ok
 		assertFails (PREFIX + "MyBlock#pure", ()->f.getID());    // pure is ok
 		assertFails (PREFIX + "MyBlock#pure", ()->f.getType());  // pure is ok
+		assertEquals(          MyBlock.TYPE,      f.getAbstractType());
 		assertSerializedSame(f, 311);
 	}
 
 	@Test public void testBlockRenamedField()
 	{
 		final Feature f = PureBlock.field;
-		assertFails (PREFIX + "PureBlock#field", ()->f.getName());
+		assertEquals(                   "field",     f.getName());
 		assertEquals(PREFIX + "PureBlock#field",     f.toString()); // pure is ok
 		assertFails (PREFIX + "PureBlock#field", ()->f.getID());    // pure is ok
 		assertFails (PREFIX + "PureBlock#field", ()->f.getType());  // pure is ok
+		assertEquals(          PureBlock.TYPE,       f.getAbstractType());
 		assertSerializedSame(f, 314);
 	}
 
 	@Test public void testBlockRenamedFieldRenamed()
 	{
 		final Feature f = PureBlock.pure;
-		assertFails (PREFIX + "PureBlock#pure", ()->f.getName());
+		assertEquals(                   "actual",   f.getName());
 		assertEquals(PREFIX + "PureBlock#pure",     f.toString()); // pure is ok
 		assertFails (PREFIX + "PureBlock#pure", ()->f.getID());    // pure is ok
 		assertFails (PREFIX + "PureBlock#pure", ()->f.getType());  // pure is ok
+		assertEquals(          PureBlock.TYPE,      f.getAbstractType());
 		assertSerializedSame(f, 313);
 	}
 

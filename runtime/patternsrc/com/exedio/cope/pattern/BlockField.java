@@ -36,7 +36,7 @@ import java.util.Map;
 import javax.annotation.Nonnull;
 
 @WrapFeature
-public final class BlockField<E extends Block> extends Pattern implements Copyable
+public final class BlockField<E extends Block> extends Pattern implements Copyable, TemplatedField<E>
 {
 	private static final long serialVersionUID = 1l;
 
@@ -95,6 +95,7 @@ public final class BlockField<E extends Block> extends Pattern implements Copyab
 	 * Returns the component created for the given template within this BlockField.
 	 * The reverse operation is {@link #getTemplate(Feature)}.
 	 */
+	@Override
 	public <X extends Feature> X of(final X template)
 	{
 		@SuppressWarnings("unchecked")
@@ -108,6 +109,7 @@ public final class BlockField<E extends Block> extends Pattern implements Copyab
 	 * Returns the template the given component was created for.
 	 * The reverse operation is {@link #of(Feature)}.
 	 */
+	@Override
 	public <X extends Feature> X getTemplate(final X component)
 	{
 		@SuppressWarnings("unchecked")
@@ -122,6 +124,7 @@ public final class BlockField<E extends Block> extends Pattern implements Copyab
 		return valueType.templateList;
 	}
 
+	@Override
 	public List<? extends Feature> getComponents()
 	{
 		return componentList;
@@ -129,16 +132,19 @@ public final class BlockField<E extends Block> extends Pattern implements Copyab
 
 	@Wrap(order=10, name="{1}", doc="Returns the value of {0}.")
 	@Nonnull
+	@Override
 	public E get(@Nonnull final Item item)
 	{
 		return valueType.newValue(this, item);
 	}
 
+	@Override
 	public BlockType<E> getValueType()
 	{
 		return valueType;
 	}
 
+	@Override
 	public Class<E> getValueClass()
 	{
 		return valueClass;

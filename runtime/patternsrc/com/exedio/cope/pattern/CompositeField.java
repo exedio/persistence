@@ -21,6 +21,7 @@ package com.exedio.cope.pattern;
 import com.exedio.cope.CheckConstraint;
 import com.exedio.cope.Condition;
 import com.exedio.cope.Cope;
+import com.exedio.cope.Feature;
 import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.IsNullCondition;
@@ -49,7 +50,7 @@ import java.util.Set;
 import javax.annotation.Nonnull;
 
 @WrapFeature
-public final class CompositeField<E extends Composite> extends Pattern implements Settable<E>
+public final class CompositeField<E extends Composite> extends Pattern implements Settable<E>, TemplatedField<E>
 {
 	private static final long serialVersionUID = 1l;
 
@@ -176,11 +177,38 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 		return result;
 	}
 
+	@Override
+	@SuppressWarnings("unchecked")
+	@SuppressFBWarnings("BC_UNCONFIRMED_CAST")
+	public <X extends Feature> X of(final X template)
+	{
+		assertFunctionField(template);
+		return (X)of((FunctionField<?>)template);
+	}
+
+	@Override
+	@SuppressWarnings("unchecked")
+	@SuppressFBWarnings("BC_UNCONFIRMED_CAST")
+	public <X extends Feature> X getTemplate(final X component)
+	{
+		assertFunctionField(component);
+		return (X)getTemplate((FunctionField<?>)component);
+	}
+
+	private void assertFunctionField(final Feature f)
+	{
+		if(!(f instanceof FunctionField))
+			throw new IllegalArgumentException(
+					f + " is not a template/component of " + toString() + " " +
+					"because it is not a FunctionField, but a " + f.getClass().getName());
+	}
+
 	public List<? extends FunctionField<?>> getTemplates()
 	{
 		return valueType.templateList;
 	}
 
+	@Override
 	public List<? extends FunctionField<?>> getComponents()
 	{
 		return componentList;
@@ -192,6 +220,7 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 	}
 
 	@Wrap(order=10, doc="Returns the value of {0}.", nullability=NullableIfOptional.class)
+	@Override
 	@SuppressWarnings({"unchecked", "rawtypes"})
 	public E get(@Nonnull final Item item)
 	{
@@ -276,11 +305,13 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 		return valueClass;
 	}
 
+	@Override
 	public CompositeType<E> getValueType()
 	{
 		return valueType;
 	}
 
+	@Override
 	public Class<E> getValueClass()
 	{
 		return valueClass;

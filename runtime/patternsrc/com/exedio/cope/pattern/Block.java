@@ -33,7 +33,7 @@ import java.io.Serializable;
 		featurePrefix="field().of(", featurePostfix=")", featureThis="item()",
 		dummy=DummyBlock.class
 )
-public abstract class Block implements Serializable
+public abstract class Block implements Serializable, TemplatedValue
 {
 	private static final long serialVersionUID = 1l;
 
@@ -65,6 +65,7 @@ public abstract class Block implements Serializable
 		return item;
 	}
 
+	@Override
 	public final BlockType<?> getCopeType()
 	{
 		return field.getValueType();

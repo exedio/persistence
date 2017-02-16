@@ -19,8 +19,10 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.pattern.Composite.getTemplateName;
+import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
 import static com.exedio.cope.tojunit.Assert.reserialize;
 import static java.lang.annotation.ElementType.FIELD;
+import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
@@ -46,6 +48,23 @@ import org.junit.Test;
 
 public class CompositeMountTest
 {
+	@Test public void testAbstractType()
+	{
+		assertSame(field.getValueType(), MyComposite.string4.getAbstractType());
+		assertSame(field.getValueType(), MyComposite.intMax4.getAbstractType());
+
+		final LongField negative = new LongField();
+		try
+		{
+			negative.getAbstractType();
+			fail();
+		}
+		catch(final IllegalStateException e)
+		{
+			assertEquals("feature not mounted", e.getMessage());
+		}
+	}
+
 	@Test public void testType()
 	{
 		try
@@ -81,24 +100,8 @@ public class CompositeMountTest
 
 	@Test public void testName()
 	{
-		try
-		{
-			MyComposite.string4.getName();
-			fail();
-		}
-		catch(final IllegalStateException e)
-		{
-			assertEquals("feature not mounted to a type: " + valueName + "string4", e.getMessage());
-		}
-		try
-		{
-			MyComposite.intMax4.getName();
-			fail();
-		}
-		catch(final IllegalStateException e)
-		{
-			assertEquals("feature not mounted to a type: " + valueName + "intMax4", e.getMessage());
-		}
+		assertEquals("string4", MyComposite.string4.getName());
+		assertEquals("intMax4", MyComposite.intMax4.getName());
 
 		final LongField negative = new LongField();
 		try
@@ -261,6 +264,16 @@ public class CompositeMountTest
 	{
 		final CompositeType<MyComposite> type = field.getValueType();
 		assertEquals(MyComposite.class, type.getJavaClass());
+		assertEquals(null, type.getSupertype());
+		assertEqualsUnmodifiable(asList(), type.getSubtypes());
+		assertEqualsUnmodifiable(asList(MyComposite.string4, MyComposite.intMax4), type.getDeclaredFeatures());
+		assertEqualsUnmodifiable(asList(MyComposite.string4, MyComposite.intMax4), type.getFeatures());
+		assertSame(MyComposite.intMax4, type.getDeclaredFeature("intMax4"));
+		assertSame(MyComposite.intMax4, type.getFeature("intMax4"));
+		assertSame(null, type.getDeclaredFeature(""));
+		assertSame(null, type.getFeature(""));
+		assertSame(null, type.getDeclaredFeature(null));
+		assertSame(null, type.getFeature(null));
 	}
 
 

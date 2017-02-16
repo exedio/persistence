@@ -42,7 +42,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-public final class CompositeType<T extends Composite> implements Serializable
+public final class CompositeType<T extends Composite> implements TemplatedType<T>
 {
 	private final Class<T> javaClass;
 	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
@@ -77,7 +77,7 @@ public final class CompositeType<T extends Composite> implements Serializable
 				final String fieldName = CopeNameUtil.getAndFallbackToName(field);
 				templates.put(fieldName, template);
 				templatePositions.put(template, position++);
-				template.mount(fieldID, SerializedReflectionField.make(feature, field), field);
+				template.mount(this, fieldName, fieldID, SerializedReflectionField.make(feature, field), field);
 				templateNames.put(template, fieldName);
 			}
 		}
@@ -85,6 +85,7 @@ public final class CompositeType<T extends Composite> implements Serializable
 		this.componentSize = templates.size();
 	}
 
+	@Override
 	public Class<T> getJavaClass()
 	{
 		return javaClass;
@@ -120,6 +121,42 @@ public final class CompositeType<T extends Composite> implements Serializable
 	Map<String,FunctionField<?>> getTemplateMap()
 	{
 		return Collections.unmodifiableMap(templates);
+	}
+
+	@Override
+	public CompositeType<? super T> getSupertype()
+	{
+		return null;
+	}
+
+	@Override
+	public List<? extends CompositeType<? extends T>> getSubtypes()
+	{
+		return Collections.emptyList();
+	}
+
+	@Override
+	public List<? extends Feature> getDeclaredFeatures()
+	{
+		return templateList;
+	}
+
+	@Override
+	public List<? extends Feature> getFeatures()
+	{
+		return templateList;
+	}
+
+	@Override
+	public Feature getDeclaredFeature(final String name)
+	{
+		return templates.get(name);
+	}
+
+	@Override
+	public Feature getFeature(final String name)
+	{
+		return templates.get(name);
 	}
 
 	int position(final FunctionField<?> member)

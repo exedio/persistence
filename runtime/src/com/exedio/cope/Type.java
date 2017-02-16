@@ -58,7 +58,7 @@ import java.util.Objects;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-public final class Type<T extends Item> implements SelectType<T>, Comparable<Type<?>>, Serializable
+public final class Type<T extends Item> implements SelectType<T>, Comparable<Type<?>>, AbstractType<T>
 {
 	private final Class<T> javaClass;
 	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
@@ -768,6 +768,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	 * (i.e. the superclass of this type's java class is {@link Item}),
 	 * then null is returned.
 	 */
+	@Override
 	public Type<? super T> getSupertype()
 	{
 		return supertype;
@@ -778,6 +779,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	 * is this type.
 	 * @see #getSubtypesTransitively()
 	 */
+	@Override
 	public List<? extends Type<? extends T>> getSubtypes()
 	{
 		return mount().subtypes;
@@ -894,21 +896,25 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		return fields.all;
 	}
 
+	@Override
 	public List<? extends Feature> getDeclaredFeatures()
 	{
 		return featuresDeclared;
 	}
 
+	@Override
 	public List<? extends Feature> getFeatures()
 	{
 		return features;
 	}
 
+	@Override
 	public Feature getDeclaredFeature(final String name)
 	{
 		return featuresByNameDeclared.get(name);
 	}
 
+	@Override
 	public Feature getFeature(final String name)
 	{
 		return featuresByName.get(name);

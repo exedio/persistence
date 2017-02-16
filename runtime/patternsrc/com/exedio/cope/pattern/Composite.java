@@ -41,7 +41,7 @@ import java.util.TimeZone;
 		revertFeatureBody=true,
 		dummy=DummyComposite.class
 )
-public abstract class Composite implements Serializable
+public abstract class Composite implements Serializable, TemplatedValue
 {
 	private static final long serialVersionUID = 1l;
 
@@ -109,6 +109,7 @@ public abstract class Composite implements Serializable
 
 	private transient CompositeType<?> typeIfSet = null;
 
+	@Override
 	public final CompositeType<?> getCopeType()
 	{
 		CompositeType<?> typeIfSet = this.typeIfSet;

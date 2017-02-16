@@ -226,6 +226,14 @@ public class CompositeFieldTest extends TestWithEnvironment
 		assertSame(eins.getValueType(), uno.getValueType());
 		assertSame(eins.getValueType(), duo.getValueType());
 
+		// implementation of CompositionField
+		assertSame(eins.of(aString), eins.of((Feature)aString));
+		assertSame(eins.of(anInt  ), eins.of((Feature)anInt));
+		assertSame(uno .of(anInt  ), uno .of((Feature)anInt));
+		assertSame(eins.getTemplate(eins.of(aString)), eins.getTemplate((Feature)eins.of(aString)));
+		assertSame(eins.getTemplate(eins.of(anInt  )), eins.getTemplate((Feature)eins.of(anInt)));
+		assertSame(uno .getTemplate(uno .of(anInt  )), uno .getTemplate((Feature)uno .of(anInt)));
+
 		assertSerializedSame(eins, 385);
 		assertSerializedSame(zwei, 385);
 		assertSerializedSame(uno,  392);
@@ -264,6 +272,32 @@ public class CompositeFieldTest extends TestWithEnvironment
 		catch(final IllegalArgumentException e)
 		{
 			assertEquals("CompositeOptionalItem.duo-aString is not a component of CompositeOptionalItem.uno", e.getMessage());
+		}
+		// implementation of CompositionField
+		final PriceField feature = new PriceField();
+		try
+		{
+			eins.of(feature);
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals(
+					feature + " is not a template/component of CompositeItem.eins " +
+					"because it is not a FunctionField, but a " + PriceField.class.getName(),
+					e.getMessage());
+		}
+		try
+		{
+			eins.getTemplate(feature);
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals(
+					feature + " is not a template/component of CompositeItem.eins " +
+					"because it is not a FunctionField, but a " + PriceField.class.getName(),
+					e.getMessage());
 		}
 
 		{

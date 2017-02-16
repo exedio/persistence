@@ -81,6 +81,16 @@ public class BlockFieldStandardModelTest
 		assertEquals(true,  eins.of(aString).isMandatory());
 
 		assertEquals(ABlock.class, ABlock.TYPE.getJavaClass());
+		assertEquals(null, ABlock.TYPE.getSupertype());
+		assertEqualsUnmodifiable(list(), ABlock.TYPE.getSubtypes());
+		assertEqualsUnmodifiable(list(aString, anInt, anEnum, anItem, aColor, aMedia, aList, aSet), ABlock.TYPE.getDeclaredFeatures());
+		assertEqualsUnmodifiable(list(aString, anInt, anEnum, anItem, aColor, aMedia, aList, aSet), ABlock.TYPE.getFeatures());
+		assertSame(anInt, ABlock.TYPE.getDeclaredFeature("anInt"));
+		assertSame(anInt, ABlock.TYPE.getFeature("anInt"));
+		assertSame(null, ABlock.TYPE.getDeclaredFeature(""));
+		assertSame(null, ABlock.TYPE.getFeature(""));
+		assertSame(null, ABlock.TYPE.getDeclaredFeature(null));
+		assertSame(null, ABlock.TYPE.getFeature(null));
 
 		assertEquals(ABlock.TYPE, eins.getValueType());
 		assertEquals(ABlock.class, eins.getValueClass());

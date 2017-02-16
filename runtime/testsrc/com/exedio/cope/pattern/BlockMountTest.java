@@ -44,6 +44,23 @@ import org.junit.Test;
 
 public class BlockMountTest
 {
+	@Test public void testAbstractType()
+	{
+		assertSame(MyBlock.TYPE, MyBlock.string4.getAbstractType());
+		assertSame(MyBlock.TYPE, MyBlock.intMax4.getAbstractType());
+
+		final LongField negative = new LongField();
+		try
+		{
+			negative.getAbstractType();
+			fail();
+		}
+		catch(final IllegalStateException e)
+		{
+			assertEquals("feature not mounted", e.getMessage());
+		}
+	}
+
 	@Test public void testType()
 	{
 		try
@@ -79,24 +96,8 @@ public class BlockMountTest
 
 	@Test public void testName()
 	{
-		try
-		{
-			MyBlock.string4.getName();
-			fail();
-		}
-		catch(final IllegalStateException e)
-		{
-			assertEquals("feature not mounted to a type: " + blockName + "string4", e.getMessage());
-		}
-		try
-		{
-			MyBlock.intMax4.getName();
-			fail();
-		}
-		catch(final IllegalStateException e)
-		{
-			assertEquals("feature not mounted to a type: " + blockName + "intMax4", e.getMessage());
-		}
+		assertEquals("string4", MyBlock.string4.getName());
+		assertEquals("intMax4", MyBlock.intMax4.getName());
 
 		final LongField negative = new LongField();
 		try
