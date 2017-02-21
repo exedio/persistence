@@ -281,6 +281,14 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 		return valueClass;
 	}
 
+	/**
+	 * For junit tests only
+	 */
+	CompositeType<E> valueType()
+	{
+		return valueType;
+	}
+
 	// convenience methods for conditions and views ---------------------------------
 
 	public IsNullCondition<?> isNull()

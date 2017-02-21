@@ -222,10 +222,15 @@ public class CompositeFieldTest extends TestWithEnvironment
 					unison.getCondition());
 		}
 
+		assertSame(eins.valueType(), zwei.valueType());
+		assertSame(eins.valueType(), uno.valueType());
+		assertSame(eins.valueType(), duo.valueType());
+
 		assertSerializedSame(eins, 385);
 		assertSerializedSame(zwei, 385);
 		assertSerializedSame(uno,  392);
 		assertSerializedSame(duo,  392);
+		assertSerializedSame(eins.valueType(), 235);
 
 		// test type safety of template-component relation
 		second.of(aString).startsWith("zack");

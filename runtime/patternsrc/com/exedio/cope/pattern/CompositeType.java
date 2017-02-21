@@ -29,6 +29,10 @@ import com.exedio.cope.SetValue;
 import com.exedio.cope.TypesBound;
 import com.exedio.cope.instrument.InstrumentContext;
 import com.exedio.cope.misc.CopeNameUtil;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import java.io.InvalidObjectException;
+import java.io.ObjectInputStream;
+import java.io.Serializable;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -38,8 +42,10 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-final class CompositeType<T extends Composite>
+final class CompositeType<T extends Composite> implements Serializable
 {
+	private final Class<T> javaClass;
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final Constructor<T> constructor;
 	private final LinkedHashMap<String, FunctionField<?>> templates = new LinkedHashMap<>();
 	private final HashMap<FunctionField<?>, Integer> templatePositions = new HashMap<>();
@@ -51,6 +57,7 @@ final class CompositeType<T extends Composite>
 	private CompositeType(final Class<T> javaClass)
 	{
 		//System.out.println("---------------new Composite.Type(" + vc + ')');
+		this.javaClass = javaClass;
 		this.constructor = getConstructor(javaClass, SetValue[].class);
 		final String classID = javaClass.getName();
 		{
@@ -137,6 +144,62 @@ final class CompositeType<T extends Composite>
 		catch(final ReflectiveOperationException e)
 		{
 			throw new RuntimeException(e);
+		}
+	}
+
+	// serialization -------------
+
+	private static final long serialVersionUID = 1l;
+
+	/**
+	 * <a href="http://java.sun.com/j2se/1.5.0/docs/guide/serialization/spec/output.html#5324">See Spec</a>
+	 */
+	private Object writeReplace()
+	{
+		return new Serialized(javaClass);
+	}
+
+	/**
+	 * Block malicious data streams.
+	 * @see #writeReplace()
+	 */
+	@SuppressWarnings("static-method")
+	private void readObject(@SuppressWarnings("unused") final ObjectInputStream ois) throws InvalidObjectException
+	{
+		throw new InvalidObjectException("required " + Serialized.class);
+	}
+
+	/**
+	 * Block malicious data streams.
+	 * @see #writeReplace()
+	 */
+	@SuppressWarnings("static-method")
+	private Object readResolve() throws InvalidObjectException
+	{
+		throw new InvalidObjectException("required " + Serialized.class);
+	}
+
+	private static final class Serialized implements Serializable
+	{
+		private static final long serialVersionUID = 1l;
+
+		private final Class<? extends Composite> javaClass;
+
+		Serialized(final Class<? extends Composite> javaClass)
+		{
+			this.javaClass = javaClass;
+		}
+
+		/**
+		 * <a href="http://java.sun.com/j2se/1.5.0/docs/guide/serialization/spec/input.html#5903">See Spec</a>
+		 */
+		private Object readResolve() throws InvalidObjectException
+		{
+			@SuppressWarnings("synthetic-access")
+			final CompositeType<?> result = types.get(javaClass);
+			if(result==null)
+				throw new InvalidObjectException("type does not exist: " + javaClass);
+			return result;
 		}
 	}
 
