@@ -38,7 +38,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-final class CompositeType<E>
+final class CompositeType<E extends Composite>
 {
 	private final Constructor<E> constructor;
 	private final LinkedHashMap<String, FunctionField<?>> templates = new LinkedHashMap<>();
