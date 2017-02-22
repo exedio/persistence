@@ -36,30 +36,34 @@
       <src_folder value="file://$MODULE_DIR$/instrument/testsrc" expected_position="17" />
     </src_description>
   </component>
-  <component name="NewModuleRootManager" inherit-compiler-output="false">
-    <output url="file://$MODULE_DIR$/.eclipse-output" />
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
     <exclude-output />
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/dsmf/src" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/dsmf/testsrc" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/runtime/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/runtime/junitsrc" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/runtime/patternsrc" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/runtime/servletsrc" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/runtime/servlettestsrc" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/runtime/servlettestwebsrc" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/runtime/testfeaturesrc" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/runtime/testsrc" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/runtime/mysqlsrc" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/runtime/postgresqlsrc" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/instrument/annosrc" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/instrument/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/instrument/antsrc" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/instrument/testfeaturesrc" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/instrument/testsrc" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/instrument/testlibsrc" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/dsmf/testsrc" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/instrument/testfeaturesrc" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/instrument/testlibsrc" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/instrument/testsrc" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/runtime/testsrc" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/runtime/testfeaturesrc" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/runtime/servlettestsrc" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/runtime/servlettestwebsrc" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/instrument/completionsrc" isTestSource="false" />
+      <excludeFolder url="file://$MODULE_DIR$/.eclipse-output" />
+      <excludeFolder url="file://$MODULE_DIR$/build" />
+      <excludeFolder url="file://$MODULE_DIR$/ivy/artifacts" />
+      <excludeFolder url="file://$MODULE_DIR$/nbproject" />
     </content>
-    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="inheritedJdk" />
     <orderEntry type="module-library">
       <library name="ANT_JAR">
         <CLASSES>
@@ -78,151 +82,20 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="inheritedJdk" />
     <orderEntry type="module-library">
-      <library name="bsh-core.jar">
+      <library name="lib">
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/bsh-core.jar!/" />
+          <root url="file://$MODULE_DIR$/lib" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="jar://$MODULE_DIR$/lib/bsh-src.jar!/" />
+          <root url="file://$MODULE_DIR$/lib" />
         </SOURCES>
+        <jarDirectory url="file://$MODULE_DIR$/lib" recursive="false" />
+        <jarDirectory url="file://$MODULE_DIR$/lib" recursive="false" type="SOURCES" />
       </library>
     </orderEntry>
-    <orderEntry type="module-library">
-      <library name="junit.jar">
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/junit.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES>
-          <root url="jar://$MODULE_DIR$/lib/junit-source.jar!/" />
-        </SOURCES>
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/javax.servlet-api.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES>
-          <root url="jar://$MODULE_DIR$/lib/javax.servlet-api-source.jar!/" />
-        </SOURCES>
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library name="trove4j.jar">
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/trove4j.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES>
-          <root url="jar://$MODULE_DIR$/lib/trove4j-source.jar!/" />
-        </SOURCES>
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library name="exedio-cope-util.jar">
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/exedio-cope-util.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES>
-          <root url="jar://$MODULE_DIR$/lib/exedio-cope-util-src.zip!/" />
-        </SOURCES>
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library name="mysql-connector-java.jar">
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/mysql-connector-java.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library name="postgresql.jar">
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/postgresql.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library name="findbugs-annotations.jar">
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/findbugs-annotations.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library name="hsqldb.jar">
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/hsqldb.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library name="log4j-bundle.jar">
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/log4j-bundle.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES>
-          <root url="file://lib/log4j-source.jar" />
-        </SOURCES>
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library name="slf4j-api.jar">
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/slf4j-api.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES>
-          <root url="jar://$MODULE_DIR$/lib/slf4j-api-source.jar!/" />
-        </SOURCES>
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library name="slf4j-log4j12.jar">
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/slf4j-log4j12.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library name="exedio-cope-servletutil.jar">
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/exedio-cope-servletutil.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES>
-          <root url="jar://$MODULE_DIR$/lib/exedio-cope-servletutil-src.zip!/" />
-        </SOURCES>
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/cpsuite.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES>
-          <root url="jar://$MODULE_DIR$/lib/cpsuite-src.zip!/" />
-        </SOURCES>
-      </library>
-    </orderEntry>
+    <orderEntry type="sourceFolder" forTests="false" />
   </component>
   <component name="org.twodividedbyzero.idea.findbugs">
     <option name="_basePreferences">
