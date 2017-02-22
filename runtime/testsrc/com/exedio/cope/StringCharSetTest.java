@@ -88,6 +88,9 @@ public class StringCharSetTest extends TestWithEnvironment
 		final StringCharSetItem nl    = any("nl", "ab\ncd");
 		final StringCharSetItem cr    = any("cr", "ab\rcd");
 		final StringCharSetItem uuml  = any("uuml", "ab\u00fccd");
+		final StringCharSetItem del   = any("del", "\u007f");
+		final StringCharSetItem quote = any("quote", "\'");
+		final StringCharSetItem brkts = any("brackets", "][");
 
 		final CharSet printable7bit  = new CharSet(' ', '~');
 		final CharSet printable16bit = new CharSet(' ', '\uffff');
@@ -95,13 +98,19 @@ public class StringCharSetTest extends TestWithEnvironment
 		final CharSet whiteSpace16bit = new CharSet('\t', '\n', '\r', '\r', ' ', '\uffff');
 		final CharSet control7bit  = new CharSet((char)0, '~');
 		final CharSet control16bit = new CharSet((char)0, '\uffff');
+		final CharSet onlyDel = new CharSet('\u007f', '\u007f');
+		final CharSet onlyQuote = new CharSet('\'', '\'');
+		final CharSet brackets = new CharSet('[', ']');
 
-		assertIt(printable7bit,   true,  abc, space);
-		assertIt(printable16bit,  false, abc, space, uuml);
-		assertIt(whiteSpace7bit,  true,  abc, space,            tab, nl, cr);
-		assertIt(whiteSpace16bit, false, abc, space, uuml,      tab, nl, cr);
-		assertIt(control7bit,     true,  abc, space,       bsp, tab, nl, cr);
-		assertIt(control16bit,    false, abc, space, uuml, bsp, tab, nl, cr);
+		assertIt(printable7bit,   true,  abc, space,                              quote, brkts);
+		assertIt(printable16bit,  false, abc, space, uuml,                   del, quote, brkts);
+		assertIt(whiteSpace7bit,  true,  abc, space,            tab, nl, cr,      quote, brkts);
+		assertIt(whiteSpace16bit, false, abc, space, uuml,      tab, nl, cr, del, quote, brkts);
+		assertIt(control7bit,     true,  abc, space,       bsp, tab, nl, cr,      quote, brkts);
+		assertIt(control16bit,    false, abc, space, uuml, bsp, tab, nl, cr, del, quote, brkts);
+		assertIt(onlyDel,         true,                                      del);
+		assertIt(onlyQuote,       true,                                           quote);
+		assertIt(brackets,        true,                                                  brkts);
 	}
 
 	StringCharSetItem any(final String code, final String any)
