@@ -18,6 +18,9 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.instrument.Visibility.NONE;
+
+import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.instrument.WrapperInitial;
 import com.exedio.cope.util.CharSet;
 
@@ -35,6 +38,14 @@ final class StringCharSetItem extends Item
 	static final StringField apos = new StringField().optional().charSet(new CharSet('\'', '\'', 'A', 'Z'));
 
 	static final StringField email = new StringField().optional().charSet(CharSet.EMAIL_INTERNATIONAL);
+
+	/** all allowed chars are non-ascii */
+	@Wrapper(wrap="*", visibility=NONE)
+	static final StringField nonascii = new StringField().optional().charSet(new CharSet('\u00e4', '\u00f6'));
+
+	/** all ascii chars are allowed, plus others */
+	@Wrapper(wrap="*", visibility=NONE)
+	static final StringField asciiplus = new StringField().optional().charSet(new CharSet('\u0000', '\u007f', '\u00e4', '\u00f6'));
 
 	@Override
 	public String toString()

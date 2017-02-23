@@ -22,14 +22,18 @@ import static com.exedio.cope.SchemaInfo.newConnection;
 import static com.exedio.cope.StringCharSetItem.TYPE;
 import static com.exedio.cope.StringCharSetItem.alpha;
 import static com.exedio.cope.StringCharSetItem.any;
+import static com.exedio.cope.StringCharSetItem.asciiplus;
 import static com.exedio.cope.StringCharSetItem.email;
+import static com.exedio.cope.StringCharSetItem.nonascii;
 import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
 import com.exedio.cope.tojunit.SI;
 import com.exedio.cope.util.CharSet;
 import com.exedio.dsmf.Constraint;
+import com.exedio.dsmf.Table;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -121,7 +125,22 @@ public class StringCharSetTest extends TestWithEnvironment
 		assertIt(brackets,        true,                                                  brkts);
 	}
 
-	@Test public void testCheckLNonAscii() throws SQLException
+	private String charSetConstraintName(final StringField field)
+	{
+		return StringCharSetItem.TYPE.getID()+"_"+field.getName()+"_CS";
+	}
+
+	@Test public void testNonSubAsciiConstraints()
+	{
+		final Table table = MODEL.getSchema().getTable(SchemaInfo.getTableName(TYPE));
+		if (mysql)
+			assertNotNull(table.getConstraint(charSetConstraintName(nonascii)));
+		else
+			assertEquals(null, table.getConstraint(charSetConstraintName(nonascii)));
+		assertEquals(null, table.getConstraint(charSetConstraintName(asciiplus)));
+	}
+
+	@Test public void testCheckLEmail() throws SQLException
 	{
 		any("check", null);
 		checkEmail( "azAZ09!#$%&'*+-/=?^_`{|}~.", " (),:;<>\"[\\]" );
@@ -130,12 +149,13 @@ public class StringCharSetTest extends TestWithEnvironment
 	private void checkEmail( final String validChars, final String invalidChars ) throws SQLException
 	{
 		MODEL.commit();
-		final Constraint emailCsConstraint = MODEL.getSchema().getTable(SchemaInfo.getTableName(TYPE)).getConstraint("StringCharSetItem_email_CS");
+		final Constraint emailCsConstraint = MODEL.getSchema().getTable(SchemaInfo.getTableName(TYPE)).getConstraint(charSetConstraintName(email));
 		if (!mysql)
 		{
 			assertEquals(null, emailCsConstraint);
 			return;
 		}
+		assertNotNull(charSetConstraintName(email), emailCsConstraint);
 		assertEquals(0, emailCsConstraint.checkL());
 		setEmailBySql(validChars);
 		assertEquals(0, emailCsConstraint.checkL());
