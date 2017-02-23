@@ -65,7 +65,7 @@ final class MysqlDialect extends Dialect
 	private final boolean supportsAnyValue;
 	private final boolean mariaDriver;
 
-	MysqlDialect(final Probe probe)
+	MysqlDialect(final CopeProbe probe)
 	{
 		super(
 				new com.exedio.dsmf.MysqlDialect(

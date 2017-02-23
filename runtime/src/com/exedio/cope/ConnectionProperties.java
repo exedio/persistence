@@ -34,7 +34,7 @@ final class ConnectionProperties extends com.exedio.cope.util.Properties
 	final String postgresqlSearchPath = valueX("postgresql.search_path", username, ',');
 
 
-	Probe probe(final ConnectProperties outer)
+	CopeProbe probe(final ConnectProperties outer)
 	{
 		final Driver driver;
 		try
@@ -50,7 +50,7 @@ final class ConnectionProperties extends com.exedio.cope.util.Properties
 
 		try(Connection connection = driver.connect(url, newInfo()))
 		{
-			return new Probe(outer, driver, connection);
+			return new CopeProbe(outer, driver, connection);
 		}
 		catch(final SQLException e)
 		{

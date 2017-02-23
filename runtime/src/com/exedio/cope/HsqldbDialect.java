@@ -34,7 +34,7 @@ final class HsqldbDialect extends Dialect
 	/**
 	 * @param probe must be there to be called by reflection
 	 */
-	HsqldbDialect(final Probe probe)
+	HsqldbDialect(final CopeProbe probe)
 	{
 		super(
 				new com.exedio.dsmf.HsqldbDialect());

@@ -37,7 +37,7 @@ final class PostgresqlDialect extends Dialect
 	/**
 	 * @param probe must be there to be called by reflection
 	 */
-	PostgresqlDialect(final Probe probe)
+	PostgresqlDialect(final CopeProbe probe)
 	{
 		super(
 				new com.exedio.dsmf.PostgresqlDialect(

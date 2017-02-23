@@ -26,7 +26,7 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
-final class Probe
+final class CopeProbe
 {
 	final ConnectProperties properties;
 	final Driver driver;
@@ -34,7 +34,7 @@ final class Probe
 	// probed on the initial connection
 	final EnvironmentInfo environmentInfo;
 
-	Probe(
+	CopeProbe(
 			final ConnectProperties properties,
 			final Driver driver,
 			final Connection connection)

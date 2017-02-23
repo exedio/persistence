@@ -130,7 +130,7 @@ public class ConnectPropertiesTest
 	{
 		assertDialectFailure(
 				ConnectPropertiesTestClassNoConstructorDialect.class.getName(),
-				"property dialect in DESC must name a class with a constructor with parameter com.exedio.cope.Probe, "+
+				"property dialect in DESC must name a class with a constructor with parameter com.exedio.cope.CopeProbe, "+
 				"but was " + ConnectPropertiesTestClassNoConstructorDialect.class.getName(),
 				NoSuchMethodException.class);
 	}

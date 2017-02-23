@@ -218,7 +218,7 @@ public final class Revisions
 			final ConnectionFactory connectionFactory,
 			final ConnectionPool connectionPool,
 			final Executor executor,
-			final Probe probe,
+			final CopeProbe probe,
 			final Dialect dialect,
 			final boolean explicitRequest)
 	{

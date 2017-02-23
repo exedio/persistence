@@ -367,17 +367,17 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 		final Class<? extends Dialect> clazz = classRaw.asSubclass(Dialect.class);
 		try
 		{
-			return clazz.getDeclaredConstructor(Probe.class);
+			return clazz.getDeclaredConstructor(CopeProbe.class);
 		}
 		catch(final NoSuchMethodException e)
 		{
 			throw newException(key,
-					"must name a class with a constructor with parameter " + Probe.class.getName() + ", " +
+					"must name a class with a constructor with parameter " + CopeProbe.class.getName() + ", " +
 					"but was " + classRaw.getName(), e);
 		}
 	}
 
-	Dialect createDialect(final Probe probe)
+	Dialect createDialect(final CopeProbe probe)
 	{
 		try
 		{
@@ -389,7 +389,7 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 		}
 	}
 
-	Probe probeInternal()
+	CopeProbe probeInternal()
 	{
 		return connection.probe(this);
 	}

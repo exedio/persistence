@@ -40,7 +40,7 @@ final class Database
 	private boolean buildStage = true;
 	final ConnectProperties properties;
 	final com.exedio.dsmf.Dialect dsmfDialect;
-	final Probe probe;
+	final CopeProbe probe;
 	final Dialect dialect;
 	final Transactions transactions;
 	private final RevisionsConnect revisions;
@@ -49,7 +49,7 @@ final class Database
 
 	Database(
 			final com.exedio.dsmf.Dialect dsmfDialect,
-			final Probe probe,
+			final CopeProbe probe,
 			final Dialect dialect,
 			final ConnectionPool connectionPool,
 			final Executor executor,

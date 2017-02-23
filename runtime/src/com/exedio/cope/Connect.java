@@ -58,7 +58,7 @@ final class Connect
 	{
 		this.properties = properties;
 
-		final Probe probe = properties.probeInternal();
+		final CopeProbe probe = properties.probeInternal();
 
 		this.revisions = RevisionsConnect.wrap(probe.environmentInfo, revisionsFactory);
 		this.dialect = properties.createDialect(probe);

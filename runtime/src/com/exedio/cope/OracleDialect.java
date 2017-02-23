@@ -48,7 +48,7 @@ final class OracleDialect extends Dialect
 	private static final int VARCHAR_MAX_BYTES = 4000;
 	        static final int VARCHAR_MAX_CHARS = VARCHAR_MAX_BYTES / MAX_BYTES_PER_CHARACTER_UTF8;
 
-	OracleDialect(final Probe probe)
+	OracleDialect(final CopeProbe probe)
 	{
 		super(
 				new com.exedio.dsmf.OracleDialect(
