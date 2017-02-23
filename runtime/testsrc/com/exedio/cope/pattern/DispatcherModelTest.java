@@ -27,7 +27,6 @@ import static com.exedio.cope.pattern.DispatcherItem.toTarget;
 import static com.exedio.cope.pattern.DispatcherItem.toTargetRunParent;
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
 import static com.exedio.cope.tojunit.Assert.list;
-import static com.exedio.cope.util.Properties.EMPTY_SOURCE;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertSame;
@@ -39,6 +38,7 @@ import com.exedio.cope.Model;
 import com.exedio.cope.Type;
 import com.exedio.cope.misc.Computed;
 import com.exedio.cope.pattern.Dispatcher.Result;
+import com.exedio.cope.util.Sources;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.List;
 import org.junit.Test;
@@ -169,7 +169,7 @@ public class DispatcherModelTest
 	@Test public void testPurgeContextNull()
 	{
 		final DispatcherPurgeProperties properties =
-				DispatcherPurgeProperties.factory().delayDaysDefault(5).create(EMPTY_SOURCE);
+				DispatcherPurgeProperties.factory().delayDaysDefault(5).create(Sources.EMPTY);
 
 		try
 		{

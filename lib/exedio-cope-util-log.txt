@@ -7,6 +7,17 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* CharSet.EMAIL is now deprecated, use one of CharSet.EMAIL_* instead
+  (one-to-one replacement is CharSet.EMAIL_RESTRICTIVE)
+* Properties: workaround for javac problem with method value(String, Factory):
+		error: reference to value is ambiguous
+	Use new method valnp instead.
+* Properties do support Duration
+* Day#toLocalDate/from(LocalDate) added
+* requires JDK 1.8.0_60
+* Properties do support enum, added
+	value(String key, Class<Enum> valueClass) and
+	value(String key, Enum defaultValue)
 * added ivy configurations 'sources' and 'changelog'
 	sources and changelog won't be included in 'runtime' config per default anymore
 * Properties#newException added

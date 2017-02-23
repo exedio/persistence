@@ -58,7 +58,7 @@ final class ClusterProperties extends Properties
 	private final boolean listenDisableLoopbk = value("listenDisableLoopback", false);
 	private final boolean listenBufferDefault = value("listenBufferDefault", true);
 	private final int     listenBuffer        = value("listenBuffer"       , 50000, 1);
-	final ThreadSwarmProperties listenThreads = value("listen.threads"     , ThreadSwarmProperties::new);
+	final ThreadSwarmProperties listenThreads = valnp("listen.threads"     , ThreadSwarmProperties::new);
 	        final int     listenSeqCheckCap   = value("listenSequenceCheckerCapacity", 200, 1);
 	private final boolean multicast           = value("multicast",           true);
 	private final int     packetSizeField     = value("packetSize",          1400, 32);

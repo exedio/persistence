@@ -32,7 +32,7 @@ import java.util.concurrent.Callable;
 @SuppressFBWarnings("BC_UNCONFIRMED_CAST_OF_RETURN_VALUE")
 public final class ConnectProperties extends com.exedio.cope.util.Properties
 {
-	final ConnectionProperties connection = value("connection", ConnectionProperties::new);
+	final ConnectionProperties connection = valnp("connection", ConnectionProperties::new);
 
 	private final Constructor<? extends Dialect> dialect = valueDialect("dialect", fromUrl(connection.url));
 
@@ -183,7 +183,7 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	final int dataFieldBufferSizeLimit   = value("dataField.bufferSizeLimit", 1024*1024, 1);
 
 	final     int changeListenersQueueCapacity = value("changeListeners.queueCapacity", 1000, 1);
-	final ThreadSwarmProperties chaListThreads = value("changeListeners.threads", ThreadSwarmProperties::new);
+	final ThreadSwarmProperties chaListThreads = valnp("changeListeners.threads", ThreadSwarmProperties::new);
 
 	final ClusterProperties cluster = value("cluster", false, ClusterProperties.factory());
 
