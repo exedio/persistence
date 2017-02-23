@@ -34,6 +34,8 @@ final class StringCharSetItem extends Item
 
 	static final StringField apos = new StringField().optional().charSet(new CharSet('\'', '\'', 'A', 'Z'));
 
+	static final StringField email = new StringField().optional().charSet(CharSet.EMAIL_INTERNATIONAL);
+
 	@Override
 	public String toString()
 	{
@@ -193,6 +195,28 @@ final class StringCharSetItem extends Item
 				com.exedio.cope.StringCharSetViolationException
 	{
 		StringCharSetItem.apos.set(this,apos);
+	}
+
+	/**
+	 * Returns the value of {@link #email}.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@javax.annotation.Nullable
+	final java.lang.String getEmail()
+	{
+		return StringCharSetItem.email.get(this);
+	}
+
+	/**
+	 * Sets a new value for {@link #email}.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	final void setEmail(@javax.annotation.Nullable final java.lang.String email)
+			throws
+				com.exedio.cope.StringLengthViolationException,
+				com.exedio.cope.StringCharSetViolationException
+	{
+		StringCharSetItem.email.set(this,email);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument")
