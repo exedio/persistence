@@ -116,7 +116,7 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	final boolean         mysqlSmallIntegerTypes   = value("schema.mysql.smallIntegerTypes", true);
 	final boolean         mysqlLongConstraintNames = value("schema.mysql.longConstraintNames", true);
 	final boolean         mysqlFullSequenceColName = value("schema.mysql.fullSequenceColumnName", true);
-	final MysqlRowFormat  mysqlRowFormat           = valEn("schema.mysql.rowFormat", MysqlRowFormat.NONE);
+	final MysqlRowFormat  mysqlRowFormat           = value("schema.mysql.rowFormat", MysqlRowFormat.NONE);
 	final boolean         mysqlAvoidTruncate       = value("schema.mysql.avoidTruncate", false);
 
 	/**
@@ -316,7 +316,7 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	{
 		super(source);
 
-		this.primaryKeyGenerator = valEn("schema.primaryKeyGenerator", primaryKeyGeneratorDefault);
+		this.primaryKeyGenerator = value("schema.primaryKeyGenerator", primaryKeyGeneratorDefault);
 		this.mediaRooturl = value("media.rooturl", mediaRootUrlDefault);
 
 		if(cluster!=null && !primaryKeyGenerator.persistent)
@@ -453,14 +453,6 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 				info.getDriverName() + ' ' +
 				info.getDriverVersionDescription() + ' ' +
 				info.getCatalog();
-	}
-
-	// TODO move into framework
-	private <E extends Enum<E>> E valEn(
-			final String key,
-			final E defaultValue)
-	{
-		return Enum.valueOf(defaultValue.getDeclaringClass(), value(key, defaultValue.name()));
 	}
 
 	// ------------------- deprecated stuff -------------------
