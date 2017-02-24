@@ -34,7 +34,20 @@ import org.junit.Test;
 
 public class UniqueHashedMediaErrorTest
 {
-	@Test public void testOptional()
+	@Test public void testMediaNull()
+	{
+		try
+		{
+			new UniqueHashedMedia(null);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals(null, e.getMessage());
+		}
+	}
+
+	@Test public void testMediaOptional()
 	{
 		try
 		{
@@ -45,6 +58,15 @@ public class UniqueHashedMediaErrorTest
 		{
 			assertEquals("Media template must be mandatory", e.getMessage());
 		}
+	}
+
+
+	@Test public void testDigestDefault()
+	{
+		final UniqueHashedMedia m = new UniqueHashedMedia(new Media());
+		assertEquals(32, m.getHash().getMinimumLength());
+		assertEquals(32, m.getHash().getMaximumLength());
+		assertEquals("MD5", m.getMessageDigestAlgorithm());
 	}
 
 
