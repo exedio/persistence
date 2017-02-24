@@ -125,7 +125,7 @@ public class StringCharSetTest extends TestWithEnvironment
 		assertIt(brackets,        true,                                                  brkts);
 	}
 
-	private String charSetConstraintName(final StringField field)
+	private static String charSetConstraintName(final StringField field)
 	{
 		return StringCharSetItem.TYPE.getID()+"_"+field.getName()+"_CS";
 	}
@@ -170,7 +170,7 @@ public class StringCharSetTest extends TestWithEnvironment
 	}
 
 	@SuppressFBWarnings("SQL_PREPARED_STATEMENT_GENERATED_FROM_NONCONSTANT_STRING")
-	private void setEmailBySql(final String value) throws SQLException
+	private static void setEmailBySql(final String value) throws SQLException
 	{
 		final String update = "UPDATE " + SI.tab(TYPE) + " SET " + SI.col(email) + " = ? ";
 		try (
