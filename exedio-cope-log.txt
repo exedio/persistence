@@ -7,6 +7,10 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* StringFields with a char set allowing non-ASCII characters now get a check constraint on MySQL, verifying that the
+	data does not contain forbidden ASCII characters (characters > \u007F still don't get checked).
+	No impact on database schema, or Java-level checks of charsets.
+	Constraint checks that are started manually from COPE console can now detect additional errors.
 * MediaPathes with @PreventUrlGuessing do change their url pattern:
 
 	/media/Product/image/Product-42.jpg?t=abcdef0123456789abcd becomes

@@ -18,14 +18,26 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.SchemaInfo.newConnection;
 import static com.exedio.cope.StringCharSetItem.TYPE;
 import static com.exedio.cope.StringCharSetItem.alpha;
 import static com.exedio.cope.StringCharSetItem.any;
+import static com.exedio.cope.StringCharSetItem.asciiplus;
+import static com.exedio.cope.StringCharSetItem.email;
+import static com.exedio.cope.StringCharSetItem.nonascii;
 import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
+import com.exedio.cope.tojunit.SI;
 import com.exedio.cope.util.CharSet;
+import com.exedio.dsmf.Constraint;
+import com.exedio.dsmf.Table;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.HashSet;
 import org.junit.Test;
 
@@ -111,6 +123,63 @@ public class StringCharSetTest extends TestWithEnvironment
 		assertIt(onlyDel,         true,                                      del);
 		assertIt(onlyQuote,       true,                                           quote);
 		assertIt(brackets,        true,                                                  brkts);
+	}
+
+	private static String charSetConstraintName(final StringField field)
+	{
+		return StringCharSetItem.TYPE.getID()+"_"+field.getName()+"_CS";
+	}
+
+	@Test public void testNonSubAsciiConstraints()
+	{
+		final Table table = MODEL.getSchema().getTable(SchemaInfo.getTableName(TYPE));
+		if (mysql)
+			assertNotNull(table.getConstraint(charSetConstraintName(nonascii)));
+		else
+			assertEquals(null, table.getConstraint(charSetConstraintName(nonascii)));
+		assertEquals(null, table.getConstraint(charSetConstraintName(asciiplus)));
+	}
+
+	@Test public void testCheckLEmail() throws SQLException
+	{
+		any("check", null);
+		checkEmail( "azAZ09!#$%&'*+-/=?^_`{|}~.", " (),:;<>\"[\\]" );
+	}
+
+	private void checkEmail( final String validChars, final String invalidChars ) throws SQLException
+	{
+		MODEL.commit();
+		final Constraint emailCsConstraint = MODEL.getSchema().getTable(SchemaInfo.getTableName(TYPE)).getConstraint(charSetConstraintName(email));
+		if (!mysql)
+		{
+			assertEquals(null, emailCsConstraint);
+			return;
+		}
+		assertNotNull(charSetConstraintName(email), emailCsConstraint);
+		assertEquals(0, emailCsConstraint.checkL());
+		setEmailBySql(validChars);
+		assertEquals(0, emailCsConstraint.checkL());
+		final String mask = validChars.substring(0, Math.min(validChars.length(), invalidChars.length())-1);
+		for (int i = 0; i < invalidChars.length(); i++)
+		{
+			final char invalidChar = invalidChars.charAt(i);
+			final int insertIndex = i%(mask.length()+1);
+			setEmailBySql(mask.substring(0, insertIndex) + invalidChar + mask.substring(insertIndex));
+			assertEquals("invalid char not detected: "+invalidChar, 1, emailCsConstraint.checkL());
+		}
+	}
+
+	@SuppressFBWarnings("SQL_PREPARED_STATEMENT_GENERATED_FROM_NONCONSTANT_STRING")
+	private static void setEmailBySql(final String value) throws SQLException
+	{
+		final String update = "UPDATE " + SI.tab(TYPE) + " SET " + SI.col(email) + " = ?";
+		try (
+				Connection connection = newConnection(MODEL);
+				PreparedStatement statement = connection.prepareStatement(update))
+		{
+			statement.setString(1, value);
+			assertEquals(1, statement.executeUpdate());
+		}
 	}
 
 	StringCharSetItem any(final String code, final String any)

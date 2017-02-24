@@ -383,14 +383,30 @@ final class MysqlDialect extends Dialect
 	@Override
 	String getClause(final String column, final CharSet set)
 	{
-		if(!set.isSubsetOfAscii())
-			return super.getClause(column, set);
-
-		final StringBuilder bf = new StringBuilder();
-		bf.append(column).
-			append(" REGEXP ").
-			append(StringColumn.cacheToDatabaseStatic(set.getRegularExpression()));
-		return bf.toString();
+		if(set.isSubsetOfAscii())
+		{
+			final StringBuilder bf = new StringBuilder();
+			bf.append(column).
+				append(" REGEXP ").
+				append(StringColumn.cacheToDatabaseStatic(set.getRegularExpression()));
+			return bf.toString();
+		}
+		else
+		{
+			final String re = set.getRegularExpressionForInvalid7BitChars();
+			if (re==null)
+			{
+				return super.getClause(column, set);
+			}
+			else
+			{
+				final StringBuilder bf = new StringBuilder();
+				bf.append(column).
+					append(" NOT REGEXP ").
+					append(StringColumn.cacheToDatabaseStatic(set.getRegularExpressionForInvalid7BitChars()));
+				return bf.toString();
+			}
+		}
 	}
 
 	@Override
