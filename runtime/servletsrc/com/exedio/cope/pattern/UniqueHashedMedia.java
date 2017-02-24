@@ -83,14 +83,14 @@ public final class UniqueHashedMedia extends Pattern implements Settable<Value>,
 	 */
 	private UniqueHashedMedia(final Media mediaTemplate, final String messageDigestAlgorithm)
 	{
+		if(!mediaTemplate.isMandatory())
+			throw new IllegalArgumentException("Media template must be mandatory");
+
 		// will never be null as MessageDigestUtil return non-null or throws IllegalArgumentException
 		final MessageDigest messageDigest = MessageDigestUtil.getInstance(messageDigestAlgorithm);
 		final int digestLength = messageDigest.getDigestLength(); // digest length in bytes
 		if (digestLength == 0)
 			throw new IllegalArgumentException("MessageDigest "+messageDigestAlgorithm+" does no specify digest length, can't create field for hash.");
-
-		if (!mediaTemplate.isMandatory())
-			throw new IllegalArgumentException("Media template must be mandatory");
 
 		final int digestStringLength = digestLength * 2; // 1 byte is 2 hexadecimal chars
 		this.messageDigestAlgorithm = messageDigestAlgorithm;
