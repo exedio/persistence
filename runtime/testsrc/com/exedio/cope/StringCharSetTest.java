@@ -172,7 +172,7 @@ public class StringCharSetTest extends TestWithEnvironment
 	@SuppressFBWarnings("SQL_PREPARED_STATEMENT_GENERATED_FROM_NONCONSTANT_STRING")
 	private static void setEmailBySql(final String value) throws SQLException
 	{
-		final String update = "UPDATE " + SI.tab(TYPE) + " SET " + SI.col(email) + " = ? ";
+		final String update = "UPDATE " + SI.tab(TYPE) + " SET " + SI.col(email) + " = ?";
 		try (
 				Connection connection = newConnection(MODEL);
 				PreparedStatement statement = connection.prepareStatement(update))
