@@ -58,7 +58,7 @@ public class UniqueHashedMediaHashAnnotationTest
 		assertPresent(false, AnItem.shorter.getMedia(), MysqlExtendedVarchar.class);
 		assertPresent(false, AnItem.longer .getMedia(), MysqlExtendedVarchar.class);
 		assertPresent(false, AnItem.shorter.getHash(),  MysqlExtendedVarchar.class);
-		assertPresent(false, AnItem.longer .getHash(),  MysqlExtendedVarchar.class);
+		assertPresent(true,  AnItem.longer .getHash(),  MysqlExtendedVarchar.class);
 	}
 
 	private static final void assertPresent(

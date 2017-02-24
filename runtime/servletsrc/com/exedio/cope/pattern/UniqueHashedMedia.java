@@ -28,6 +28,7 @@ import com.exedio.cope.Field;
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.Item;
 import com.exedio.cope.MandatoryViolationException;
+import com.exedio.cope.MysqlExtendedVarchar;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
@@ -37,11 +38,13 @@ import com.exedio.cope.UniqueConstraint;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.WrapFeature;
+import com.exedio.cope.misc.Computed;
 import com.exedio.cope.misc.ComputedElement;
 import com.exedio.cope.pattern.Media.Value;
 import com.exedio.cope.util.Hex;
 import com.exedio.cope.util.MessageDigestUtil;
 import java.io.IOException;
+import java.lang.annotation.Annotation;
 import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -97,7 +100,12 @@ public final class UniqueHashedMedia extends Pattern implements Settable<Value>,
 		this.media = mediaTemplate.toFinal();
 		addSource(this.media, "media", new MediaPathFeatureAnnotationProxy(this, true));
 		this.hash = new StringField().toFinal().unique().lengthExact(digestStringLength).charSet(HEX_LOWER);
-		addSource(hash, "hash", ComputedElement.get());
+		addSource(hash, "hash",
+				digestStringLength<=32
+				? ComputedElement.get()
+				: CustomAnnotatedElement2.create(
+						new Computed() { @Override public Class<? extends Annotation> annotationType() { return Computed.class; } },
+						new MysqlExtendedVarchar() { @Override public Class<? extends Annotation> annotationType() { return MysqlExtendedVarchar.class; } }));
 	}
 
 	@Override
