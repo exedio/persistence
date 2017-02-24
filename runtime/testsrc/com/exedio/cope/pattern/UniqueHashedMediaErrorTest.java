@@ -20,6 +20,7 @@ package com.exedio.cope.pattern;
 
 import static com.exedio.cope.TypesBound.newType;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import com.exedio.cope.ActivationParameters;
@@ -67,6 +68,41 @@ public class UniqueHashedMediaErrorTest
 		assertEquals(32, m.getHash().getMinimumLength());
 		assertEquals(32, m.getHash().getMaximumLength());
 		assertEquals("MD5", m.getMessageDigestAlgorithm());
+	}
+
+	@Test public void testDigestOther()
+	{
+		final UniqueHashedMedia m = new UniqueHashedMedia(new Media(), "SHA-224");
+		assertEquals(56, m.getHash().getMinimumLength());
+		assertEquals(56, m.getHash().getMaximumLength());
+		assertEquals("SHA-224", m.getMessageDigestAlgorithm());
+	}
+
+	@Test public void testDigestNull()
+	{
+		try
+		{
+			new UniqueHashedMedia(new Media(), null);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals(null, e.getMessage());
+		}
+	}
+
+	@Test public void testDigestWrong()
+	{
+		try
+		{
+			new UniqueHashedMedia(new Media(), "XXX");
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			final String m = e.getMessage();
+			assertTrue(m, m.startsWith("no such MessageDigest XXX,"));
+		}
 	}
 
 

@@ -81,7 +81,7 @@ public final class UniqueHashedMedia extends Pattern implements Settable<Value>,
 	 *
 	 * Note: given media template must be mandatory
 	 */
-	private UniqueHashedMedia(final Media mediaTemplate, final String messageDigestAlgorithm)
+	public UniqueHashedMedia(final Media mediaTemplate, final String messageDigestAlgorithm)
 	{
 		if(!mediaTemplate.isMandatory())
 			throw new IllegalArgumentException("mediaTemplate must be mandatory");
