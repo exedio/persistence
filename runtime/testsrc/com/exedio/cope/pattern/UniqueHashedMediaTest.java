@@ -76,9 +76,9 @@ public class UniqueHashedMediaTest extends TestWithEnvironment
 				}),
 				TYPE.getFeatures());
 
-		 assertEquals(32, value.getHash().getMinimumLength());
-		 assertEquals(32, value.getHash().getMaximumLength());
-		 assertEquals("MD5", value.getMessageDigestAlgorithm());
+		 assertEquals(128, value.getHash().getMinimumLength());
+		 assertEquals(128, value.getHash().getMaximumLength());
+		 assertEquals("SHA-512", value.getMessageDigestAlgorithm());
 		 assertTrue(value.isFinal());
 		 assertTrue(value.isMandatory());
 		 assertFalse(value.isAnnotationPresent(Computed.class));
@@ -160,7 +160,7 @@ public class UniqueHashedMediaTest extends TestWithEnvironment
 	private static final byte[] bytes6 = { -97, 35, -126, 86, 19, -8 };
 	private static final byte[] bytes8 = { -54, 104, -63, 23, 19, -45, 71, -23 };
 
-	private static final String bytes4DigestHex = "904ac396ac3d50faa666e57146fe7862";
-	private static final String bytes6DigestHex = "fd1a3fcf7460406cbd20205e3185419a";
-	private static final String bytes8DigestHex = "3421f7e61c6657dff8de513e544dafc7";
+	private static final String bytes4DigestHex = "0d2c0948019645cc742f284e9d75bbf904ff035d42ed77c43fcceb8ab0918c15be18e7f8debce86775e498ad8c6e5e2d9cad80969efd2d5370b8db076a2a7060";
+	private static final String bytes6DigestHex = "13d33eddb02728843ad607e97f5fb3cf0e036079ed139b8d8393aacfef31d3219a34c39498b959e56f2b4b981034063f2d2b89f7d5e9b7ec4a44f6b401e9a4bb";
+	private static final String bytes8DigestHex = "21aee30f8333ecfe85fef21741f312589a6572dbd5f5b28fc292e2ed7937b87409513a021e0b0714cc8d3df40d46b31014abe38aa9d7c934dd4905a81e90c4fe";
 }
