@@ -135,6 +135,10 @@ def multicastAddress()
 		byHost = '230.0.0.'
 	else if('hudson1'.equals(env.HOSTNAME))
 		byHost = '230.0.1.'
+	else if('jenkins2'.equals(env.HOSTNAME))
+		byHost = '230.0.2.'
+	else if('jenkins3'.equals(env.HOSTNAME))
+		byHost = '230.0.3.'
 	else
 		byHost = 'xxxx'
 
