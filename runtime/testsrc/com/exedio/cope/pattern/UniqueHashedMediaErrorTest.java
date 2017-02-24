@@ -56,7 +56,7 @@ public class UniqueHashedMediaErrorTest
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("Media template must be mandatory", e.getMessage());
+			assertEquals("mediaTemplate must be mandatory", e.getMessage());
 		}
 	}
 
