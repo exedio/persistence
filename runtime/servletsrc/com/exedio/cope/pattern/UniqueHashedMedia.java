@@ -73,7 +73,7 @@ public final class UniqueHashedMedia extends Pattern implements Settable<Value>,
 	 */
 	public UniqueHashedMedia(final Media mediaTemplate)
 	{
-		this(mediaTemplate, "MD5");
+		this(mediaTemplate, "SHA-512");
 	}
 
 	/**

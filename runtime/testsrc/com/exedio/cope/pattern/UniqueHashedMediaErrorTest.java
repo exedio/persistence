@@ -65,9 +65,9 @@ public class UniqueHashedMediaErrorTest
 	@Test public void testDigestDefault()
 	{
 		final UniqueHashedMedia m = new UniqueHashedMedia(new Media());
-		assertEquals(32, m.getHash().getMinimumLength());
-		assertEquals(32, m.getHash().getMaximumLength());
-		assertEquals("MD5", m.getMessageDigestAlgorithm());
+		assertEquals(128, m.getHash().getMinimumLength());
+		assertEquals(128, m.getHash().getMaximumLength());
+		assertEquals("SHA-512", m.getMessageDigestAlgorithm());
 	}
 
 	@Test public void testDigestOther()

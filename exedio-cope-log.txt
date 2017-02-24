@@ -7,6 +7,9 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* UniqueHashedMedia changes its default digest from MD5 to SHA-512.
+	Affects database schema - you have to recompute all hashes.
+	For previous behaviour use: new UniqueHashedMedia(media, "MD5")
 * StringFields with a char set allowing non-ASCII characters now get a check constraint on MySQL, verifying that the
 	data does not contain forbidden ASCII characters (characters > \u007F still don't get checked).
 	No impact on database schema, or Java-level checks of charsets.
