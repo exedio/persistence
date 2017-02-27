@@ -36,15 +36,15 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-public final class BlockType<E extends Block> // TODO make Serializable as singleton
+public final class BlockType<T extends Block> // TODO make Serializable as singleton
 {
-	final Class<E> javaClass;
-	private final Constructor<E> constructor;
+	final Class<T> javaClass;
+	private final Constructor<T> constructor;
 	private final LinkedHashMap<String, Feature> templates = new LinkedHashMap<>();
 	final List<Feature> templateList;
 	final int componentSize;
 
-	private BlockType(final Class<E> javaClass)
+	private BlockType(final Class<T> javaClass)
 	{
 		this.javaClass = javaClass;
 		this.constructor = getConstructor(javaClass, BlockActivationParameters.class);
@@ -70,7 +70,7 @@ public final class BlockType<E extends Block> // TODO make Serializable as singl
 		return Collections.unmodifiableMap(templates);
 	}
 
-	E newValue(final BlockField<?> field, final Item item)
+	T newValue(final BlockField<?> field, final Item item)
 	{
 		try
 		{
