@@ -277,7 +277,8 @@ public final class Model implements Serializable
 	}
 
 	/**
-	 * @see Type#getID()
+	 * Finds a type by its {@link Type#getID() id}.
+	 * Returns null, if there is no such type.
 	 */
 	public Type<?> getType(final String id)
 	{

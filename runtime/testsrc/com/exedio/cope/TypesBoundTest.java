@@ -172,6 +172,9 @@ public class TypesBoundTest
 
 		final Model model = new Model(type);
 		assertSame(type, model.getType(type.getID()));
+		assertSame(null, model.getType("xxx"));
+		assertSame(null, model.getType(""));
+		assertSame(null, model.getType(null));
 		assertSame(model, type.getModel());
 		assertEqualsUnmodifiable(list(), type.getReferences());
 		assertEqualsUnmodifiable(list(), type.getDeclaredReferences());

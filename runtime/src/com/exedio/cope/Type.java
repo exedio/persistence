@@ -678,7 +678,9 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	}
 
 	/**
-	 * @see Model#getType(String)
+	 * Returns the id of this type.
+	 * Type ids are unique within a {@link Model model}.
+	 * Use {@link Model#getType(String)} for lookup.
 	 */
 	public String getID()
 	{
