@@ -118,7 +118,7 @@ final class CompositeType<T extends Composite>
 		return result.intValue();
 	}
 
-	public T newValue(final SetValue<?>... setValues)
+	T newValue(final SetValue<?>... setValues)
 	{
 		try
 		{
