@@ -29,10 +29,9 @@ final class BlockCompositeHelper
 	static <T> void assertFinalSubClass(
 			final Class<? extends Pattern> fieldClass,
 			final Class<T> superClass,
-			final String javaClassName,
 			final Class<? extends T> javaClass)
 	{
-		requireNonNull(javaClass, javaClassName);
+		requireNonNull(javaClass, "javaClass");
 		if(!superClass.isAssignableFrom(javaClass))
 			throw new IllegalArgumentException(
 					fieldClass.getSimpleName() + " requires a subclass of " + superClass.getName() + ": " + javaClass.getName());

@@ -114,7 +114,7 @@ public final class BlockType<T extends Block> // TODO make Serializable as singl
 
 	public static <T extends Block> BlockType<T> newType(final Class<T> javaClass)
 	{
-		assertFinalSubClass(BlockField.class, Block.class, "javaClass", javaClass);
+		assertFinalSubClass(BlockField.class, Block.class, javaClass);
 		if(types.containsKey(javaClass))
 			throw new IllegalArgumentException("class is already bound to a type: " + javaClass.getName());
 

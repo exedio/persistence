@@ -146,7 +146,7 @@ final class CompositeType<T extends Composite>
 
 	static final <T extends Composite> CompositeType<T> get(final Class<T> javaClass)
 	{
-		assertFinalSubClass(CompositeField.class, Composite.class, "javaClass", javaClass);
+		assertFinalSubClass(CompositeField.class, Composite.class, javaClass);
 
 		synchronized(types)
 		{
