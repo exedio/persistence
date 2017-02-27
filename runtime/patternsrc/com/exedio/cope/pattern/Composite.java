@@ -49,7 +49,7 @@ public abstract class Composite implements Serializable
 
 	protected Composite(final SetValue<?>... setValues)
 	{
-		values = type().values(setValues);
+		values = getType().values(setValues);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -109,7 +109,7 @@ public abstract class Composite implements Serializable
 
 	private transient CompositeType<?> typeIfSet = null;
 
-	private final CompositeType<?> type()
+	private final CompositeType<?> getType()
 	{
 		CompositeType<?> typeIfSet = this.typeIfSet;
 		if(typeIfSet!=null)
@@ -121,7 +121,7 @@ public abstract class Composite implements Serializable
 
 	private final int position(final FunctionField<?> member)
 	{
-		return type().position(member);
+		return getType().position(member);
 	}
 
 	public static final String getTemplateName(final FunctionField<?> template)
