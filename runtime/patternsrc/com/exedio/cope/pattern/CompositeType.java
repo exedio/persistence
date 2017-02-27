@@ -48,14 +48,14 @@ final class CompositeType<T extends Composite>
 
 	private static final HashMap<FunctionField<?>, String> templateNames = new HashMap<>();
 
-	private CompositeType(final Class<T> valueClass)
+	private CompositeType(final Class<T> javaClass)
 	{
 		//System.out.println("---------------new Composite.Type(" + vc + ')');
-		this.constructor = getConstructor(valueClass, SetValue[].class);
-		final String classID = valueClass.getName();
+		this.constructor = getConstructor(javaClass, SetValue[].class);
+		final String classID = javaClass.getName();
 		{
 			int position = 0;
-			for(final Map.Entry<Feature, java.lang.reflect.Field> entry : TypesBound.getFeatures(valueClass).entrySet())
+			for(final Map.Entry<Feature, java.lang.reflect.Field> entry : TypesBound.getFeatures(javaClass).entrySet())
 			{
 				final Feature feature = entry.getKey();
 				final java.lang.reflect.Field field = entry.getValue();
@@ -144,22 +144,22 @@ final class CompositeType<T extends Composite>
 
 	private static final HashMap<Class<?>, CompositeType<?>> types = new HashMap<>();
 
-	static final <T extends Composite> CompositeType<T> get(final Class<T> valueClass)
+	static final <T extends Composite> CompositeType<T> get(final Class<T> javaClass)
 	{
-		assertFinalSubClass(CompositeField.class, Composite.class, "valueClass", valueClass);
+		assertFinalSubClass(CompositeField.class, Composite.class, "javaClass", javaClass);
 
 		synchronized(types)
 		{
 			@SuppressWarnings({"unchecked", "rawtypes"})
-			CompositeType<T> result = (CompositeType)types.get(valueClass);
+			CompositeType<T> result = (CompositeType)types.get(javaClass);
 			if(result==null)
 			{
-				result = new CompositeType<>(valueClass);
-				types.put(valueClass, result);
+				result = new CompositeType<>(javaClass);
+				types.put(javaClass, result);
 			}
 
 			if(result.componentSize==0 && !InstrumentContext.isRunning())
-				throw new IllegalArgumentException("composite has no templates: " + valueClass.getName());
+				throw new IllegalArgumentException("composite has no templates: " + javaClass.getName());
 
 			return result;
 		}

@@ -40,7 +40,7 @@ public class BlockErrorTest
 		}
 		catch(final NullPointerException e)
 		{
-			assertEquals("valueClass", e.getMessage());
+			assertEquals("javaClass", e.getMessage());
 		}
 	}
 
