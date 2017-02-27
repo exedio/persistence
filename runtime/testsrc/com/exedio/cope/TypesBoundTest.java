@@ -86,6 +86,7 @@ public class TypesBoundTest
 		assertEquals("AnItem.this", type.getThis().toString());
 		assertEquals("this", type.getThis().getName());
 
+		assertEquals(null, type.getSupertype());
 		assertEqualsUnmodifiable(list(AnItem.intField, AnItem.boolField), type.getFields());
 		assertEqualsUnmodifiable(list(AnItem.intField, AnItem.boolField), type.getDeclaredFields());
 		assertEqualsUnmodifiable(list(), type.getUniqueConstraints());
@@ -97,6 +98,13 @@ public class TypesBoundTest
 		assertSame(AnItem.boolField, type.getFeature("boolField"));
 		assertSame(AnItem.intField, type.getDeclaredFeature("intField"));
 		assertSame(AnItem.boolField, type.getDeclaredFeature("boolField"));
+
+		assertSame(null, type.getFeature("xxx"));
+		assertSame(null, type.getDeclaredFeature("xxx"));
+		assertSame(null, type.getFeature(""));
+		assertSame(null, type.getDeclaredFeature(""));
+		assertSame(null, type.getFeature(null));
+		assertSame(null, type.getDeclaredFeature(null));
 
 		try
 		{
