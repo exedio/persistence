@@ -38,9 +38,9 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-final class CompositeType<E extends Composite>
+final class CompositeType<T extends Composite>
 {
-	private final Constructor<E> constructor;
+	private final Constructor<T> constructor;
 	private final LinkedHashMap<String, FunctionField<?>> templates = new LinkedHashMap<>();
 	private final HashMap<FunctionField<?>, Integer> templatePositions = new HashMap<>();
 	final List<FunctionField<?>> templateList;
@@ -48,7 +48,7 @@ final class CompositeType<E extends Composite>
 
 	private static final HashMap<FunctionField<?>, String> templateNames = new HashMap<>();
 
-	private CompositeType(final Class<E> valueClass)
+	private CompositeType(final Class<T> valueClass)
 	{
 		//System.out.println("---------------new Composite.Type(" + vc + ')');
 		this.constructor = getConstructor(valueClass, SetValue[].class);
@@ -118,7 +118,7 @@ final class CompositeType<E extends Composite>
 		return result.intValue();
 	}
 
-	public E newValue(final SetValue<?>... setValues)
+	public T newValue(final SetValue<?>... setValues)
 	{
 		try
 		{
@@ -144,14 +144,14 @@ final class CompositeType<E extends Composite>
 
 	private static final HashMap<Class<?>, CompositeType<?>> types = new HashMap<>();
 
-	static final <E extends Composite> CompositeType<E> get(final Class<E> valueClass)
+	static final <T extends Composite> CompositeType<T> get(final Class<T> valueClass)
 	{
 		assertFinalSubClass(CompositeField.class, Composite.class, "valueClass", valueClass);
 
 		synchronized(types)
 		{
 			@SuppressWarnings({"unchecked", "rawtypes"})
-			CompositeType<E> result = (CompositeType)types.get(valueClass);
+			CompositeType<T> result = (CompositeType)types.get(valueClass);
 			if(result==null)
 			{
 				result = new CompositeType<>(valueClass);
