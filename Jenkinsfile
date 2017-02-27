@@ -140,7 +140,7 @@ def multicastAddress()
 	else if('jenkins3'.equals(env.HOSTNAME))
 		byHost = '230.0.3.'
 	else
-		byHost = 'xxxx'
+		byHost = 'UndefinedMulticastAddressFromJenkinsfile'
 
 	return byHost + (1 + env.EXECUTOR_NUMBER.toInteger())
 }
