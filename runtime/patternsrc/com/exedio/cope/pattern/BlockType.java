@@ -53,12 +53,12 @@ public final class BlockType<T extends Block> implements Serializable
 	{
 		this.javaClass = javaClass;
 		this.constructor = getConstructor(javaClass, BlockActivationParameters.class);
-		final String classID = javaClass.getName();
+		final String id = javaClass.getName();
 		for(final Map.Entry<Feature, java.lang.reflect.Field> entry : TypesBound.getFeatures(javaClass).entrySet())
 		{
 			final Feature feature = entry.getKey();
 			final java.lang.reflect.Field field = entry.getValue();
-			final String fieldID = classID + '#' + field.getName();
+			final String fieldID = id + '#' + field.getName();
 			if(!(feature instanceof Copyable))
 				throw new IllegalArgumentException(
 						fieldID + " must be an instance of " + Copyable.class + ", but was " +

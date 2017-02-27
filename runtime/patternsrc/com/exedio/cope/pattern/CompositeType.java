@@ -59,14 +59,14 @@ final class CompositeType<T extends Composite> implements Serializable
 		//System.out.println("---------------new Composite.Type(" + vc + ')');
 		this.javaClass = javaClass;
 		this.constructor = getConstructor(javaClass, SetValue[].class);
-		final String classID = javaClass.getName();
+		final String id = javaClass.getName();
 		{
 			int position = 0;
 			for(final Map.Entry<Feature, java.lang.reflect.Field> entry : TypesBound.getFeatures(javaClass).entrySet())
 			{
 				final Feature feature = entry.getKey();
 				final java.lang.reflect.Field field = entry.getValue();
-				final String fieldID = classID + '#' + field.getName();
+				final String fieldID = id + '#' + field.getName();
 				if(!(feature instanceof FunctionField<?>))
 					throw new IllegalArgumentException(fieldID + " must be an instance of " + FunctionField.class);
 				final FunctionField<?> template = (FunctionField<?>)feature;
