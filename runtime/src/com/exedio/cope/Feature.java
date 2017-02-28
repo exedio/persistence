@@ -85,11 +85,8 @@ public abstract class Feature implements Serializable
 				final Pattern pattern)
 		{
 			super(annotationSource, pattern);
-			assert type!=null;
-			assert name!=null;
-
-			this.type = type;
-			this.name = intern(name);
+			this.type = requireNonNull(type);
+			this.name = intern(requireNonNull(name));
 			this.id =   intern(type.id + '.' + name);
 		}
 
@@ -146,11 +143,8 @@ public abstract class Feature implements Serializable
 		MountString(final String string, final Serializable serializable, final AnnotatedElement annotationSource)
 		{
 			super(annotationSource, null);
-			assert string!=null;
-			assert serializable!=null;
-
-			this.string = string;
-			this.serializable = serializable;
+			this.string = requireNonNull(string);
+			this.serializable = requireNonNull(serializable);
 		}
 
 		@Override
@@ -314,7 +308,7 @@ public abstract class Feature implements Serializable
 	final void registerPattern(final Pattern pattern)
 	{
 		assertNotMounted();
-		assert pattern!=null;
+		requireNonNull(pattern);
 
 		if(patternUntilMount!=null)
 			throw new IllegalStateException(
