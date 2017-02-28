@@ -70,6 +70,11 @@ public final class BlockType<T extends Block> implements Serializable
 		this.componentSize = templates.size();
 	}
 
+	public Class<T> getJavaClass()
+	{
+		return javaClass;
+	}
+
 	Map<String,Feature> getTemplateMap()
 	{
 		return Collections.unmodifiableMap(templates);

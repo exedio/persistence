@@ -257,6 +257,13 @@ public class CompositeMountTest
 	}
 
 
+	@Test public void testCompositeType()
+	{
+		final CompositeType<MyComposite> type = field.valueType();
+		assertEquals(MyComposite.class, type.getJavaClass());
+	}
+
+
 	@WrapperIgnore
 	static final class MyComposite extends Composite
 	{
@@ -278,5 +285,5 @@ public class CompositeMountTest
 	/**
 	 * Needed to instantiate {@link CompositeType}.
 	 */
-	static final CompositeField<?> field = CompositeField.create(MyComposite.class);
+	static final CompositeField<MyComposite> field = CompositeField.create(MyComposite.class);
 }

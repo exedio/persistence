@@ -85,6 +85,11 @@ final class CompositeType<T extends Composite> implements Serializable
 		this.componentSize = templates.size();
 	}
 
+	public Class<T> getJavaClass()
+	{
+		return javaClass;
+	}
+
 	Object[] values(final SetValue<?>... setValues)
 	{
 		final Object[] values = new Object[componentSize];

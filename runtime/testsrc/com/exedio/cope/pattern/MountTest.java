@@ -97,7 +97,7 @@ public class MountTest
 	@Test public void testCompositeType()
 	{
 		final CompositeType<?> t = MyComposite.TYPE;
-		// TODO t.getJavaClass()
+		assertEquals(MyComposite.class, t.getJavaClass());
 		// TODO t.toString()
 		assertSerializedSame(t, 242);
 	}
@@ -105,7 +105,7 @@ public class MountTest
 	@Test public void testCompositeTypeRenamed()
 	{
 		final CompositeType<?> t = PureComposite.TYPE;
-		// TODO t.getJavaClass()
+		assertEquals(PureComposite.class, t.getJavaClass());
 		// TODO t.toString()
 		assertSerializedSame(t, 244);
 	}
@@ -153,7 +153,7 @@ public class MountTest
 	@Test public void testBlockType()
 	{
 		final BlockType<?> t = MyBlock.TYPE;
-		// TODO t.getJavaClass()
+		assertEquals(MyBlock.class, t.getJavaClass());
 		assertEquals(PREFIX + "MyBlock", t.toString());
 		assertSerializedSame(t, 278);
 	}
@@ -161,7 +161,7 @@ public class MountTest
 	@Test public void testBlockTypeRenamed()
 	{
 		final BlockType<?> t = PureBlock.TYPE;
-		// TODO t.getJavaClass()
+		assertEquals(PureBlock.class, t.getJavaClass());
 		assertEquals(PREFIX + "PureBlock", t.toString()); // pure is ok
 		assertSerializedSame(t, 280);
 	}

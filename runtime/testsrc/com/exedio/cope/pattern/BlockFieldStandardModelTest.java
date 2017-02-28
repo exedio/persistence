@@ -78,6 +78,8 @@ public class BlockFieldStandardModelTest
 		assertEquals(false, eins.of(aString).isFinal());
 		assertEquals(true,  eins.of(aString).isMandatory());
 
+		assertEquals(ABlock.class, ABlock.TYPE.getJavaClass());
+
 		assertEquals(ABlock.TYPE, eins.getValueType());
 		assertEquals(ABlock.class, eins.getValueClass());
 
