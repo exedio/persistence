@@ -278,7 +278,7 @@ public class MountTest
 		@CopeName("actual")
 		static final IntegerField pure = new IntegerField();
 
-		static final CompositeType<MyComposite> TYPE = CompositeField.create(MyComposite.class).valueType();
+		static final CompositeType<MyComposite> TYPE = CompositeField.create(MyComposite.class).getValueType();
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		private MyComposite(final com.exedio.cope.SetValue<?>... setValues)
@@ -301,7 +301,7 @@ public class MountTest
 		@CopeName("actual")
 		static final IntegerField pure = new IntegerField();
 
-		static final CompositeType<PureComposite> TYPE = CompositeField.create(PureComposite.class).valueType();
+		static final CompositeType<PureComposite> TYPE = CompositeField.create(PureComposite.class).getValueType();
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		private PureComposite(final com.exedio.cope.SetValue<?>... setValues)

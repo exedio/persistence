@@ -42,7 +42,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-final class CompositeType<T extends Composite> implements Serializable
+public final class CompositeType<T extends Composite> implements Serializable
 {
 	private final Class<T> javaClass;
 	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace

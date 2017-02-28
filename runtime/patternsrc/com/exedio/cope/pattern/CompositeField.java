@@ -276,17 +276,14 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 		return valueClass;
 	}
 
+	public CompositeType<E> getValueType()
+	{
+		return valueType;
+	}
+
 	public Class<E> getValueClass()
 	{
 		return valueClass;
-	}
-
-	/**
-	 * For junit tests only
-	 */
-	CompositeType<E> valueType()
-	{
-		return valueType;
 	}
 
 	// convenience methods for conditions and views ---------------------------------

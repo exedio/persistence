@@ -259,7 +259,7 @@ public class CompositeMountTest
 
 	@Test public void testCompositeType()
 	{
-		final CompositeType<MyComposite> type = field.valueType();
+		final CompositeType<MyComposite> type = field.getValueType();
 		assertEquals(MyComposite.class, type.getJavaClass());
 	}
 
