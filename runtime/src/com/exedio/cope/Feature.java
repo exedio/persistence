@@ -47,7 +47,9 @@ public abstract class Feature implements Serializable
 		private final AnnotatedElement annotationSource;
 		final Pattern pattern;
 
-		Mount(final AnnotatedElement annotationSource, final Pattern pattern)
+		Mount(
+				final AnnotatedElement annotationSource,
+				final Pattern pattern)
 		{
 			this.annotationSource = annotationSource;
 			this.pattern = pattern;
@@ -140,7 +142,10 @@ public abstract class Feature implements Serializable
 		private final String string;
 		private final Serializable serializable;
 
-		MountString(final String string, final Serializable serializable, final AnnotatedElement annotationSource)
+		MountString(
+				final String string,
+				final Serializable serializable,
+				final AnnotatedElement annotationSource)
 		{
 			super(annotationSource, null);
 			this.string = requireNonNull(string);
@@ -169,7 +174,10 @@ public abstract class Feature implements Serializable
 	/**
 	 * Is called in the constructor of the containing type.
 	 */
-	void mount(final Type<?> type, final String name, final AnnotatedElement annotationSource)
+	void mount(
+			final Type<?> type,
+			final String name,
+			final AnnotatedElement annotationSource)
 	{
 		{
 			final int i = NAME_CHAR_SET.indexOfNotContains(name);
@@ -186,7 +194,10 @@ public abstract class Feature implements Serializable
 		this.patternUntilMount = null;
 	}
 
-	public final void mount(final String string, final Serializable serializable, final AnnotatedElement annotationSource)
+	public final void mount(
+			final String string,
+			final Serializable serializable,
+			final AnnotatedElement annotationSource)
 	{
 		requireNonNull(string, "string");
 		requireNonNull(serializable, "serializable");
