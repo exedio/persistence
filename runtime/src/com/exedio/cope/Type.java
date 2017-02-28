@@ -75,8 +75,8 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	private final HashSet<Type<?>> supertypes;
 
 	final This<T> thisFunction = new This<>(this);
-	private final List<Feature> featuresDeclared;
-	private final List<Feature> features;
+	private final List<? extends Feature> featuresDeclared;
+	private final List<? extends Feature> features;
 	private final HashMap<String, Feature> featuresByNameDeclared;
 	private final HashMap<String, Feature> featuresByName;
 
@@ -244,7 +244,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 			{
 				final ArrayList<Feature> features = new ArrayList<>();
 				features.add(thisFunction);
-				final List<Feature> superFeatures = supertype.getFeatures();
+				final List<? extends Feature> superFeatures = supertype.getFeatures();
 				features.addAll(superFeatures.subList(1, superFeatures.size()));
 				features.addAll(this.featuresDeclared.subList(1, this.featuresDeclared.size()));
 				features.trimToSize();
@@ -257,7 +257,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 
 		{
 			final Type<? super T> s = this.supertype;
-			final List<Feature> df = this.featuresDeclared;
+			final List<? extends Feature> df = this.featuresDeclared;
 			this.fields            = features(s==null ? null : s.fields           , df, cast(Field.class));
 			this.uniqueConstraints = features(s==null ? null : s.uniqueConstraints, df, UniqueConstraint.class);
 			this. checkConstraints = features(s==null ? null : s. checkConstraints, df, CheckConstraint.class);
@@ -778,7 +778,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	 * is this type.
 	 * @see #getSubtypesTransitively()
 	 */
-	public List<Type<? extends T>> getSubtypes()
+	public List<? extends Type<? extends T>> getSubtypes()
 	{
 		return mount().subtypes;
 	}
@@ -790,7 +790,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	 * own zeroth-order subtype.
 	 * @see #getSubtypes()
 	 */
-	public List<Type<? extends T>> getSubtypesTransitively()
+	public List<? extends Type<? extends T>> getSubtypesTransitively()
 	{
 		return mount().subtypesTransitively;
 	}
@@ -872,7 +872,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	 * Naming of this method is inspired by Java Reflection API
 	 * method {@link Class#getDeclaredFields() getDeclaredFields}.
 	 */
-	public List<Field<?>> getDeclaredFields()
+	public List<? extends Field<?>> getDeclaredFields()
 	{
 		return fields.declared;
 	}
@@ -889,17 +889,17 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	 * excluding fields inherited from super types,
 	 * use {@link #getDeclaredFields()}.
 	 */
-	public List<Field<?>> getFields()
+	public List<? extends Field<?>> getFields()
 	{
 		return fields.all;
 	}
 
-	public List<Feature> getDeclaredFeatures()
+	public List<? extends Feature> getDeclaredFeatures()
 	{
 		return featuresDeclared;
 	}
 
-	public List<Feature> getFeatures()
+	public List<? extends Feature> getFeatures()
 	{
 		return features;
 	}
@@ -914,32 +914,32 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		return featuresByName.get(name);
 	}
 
-	public List<UniqueConstraint> getDeclaredUniqueConstraints()
+	public List<? extends UniqueConstraint> getDeclaredUniqueConstraints()
 	{
 		return uniqueConstraints.declared;
 	}
 
-	public List<UniqueConstraint> getUniqueConstraints()
+	public List<? extends UniqueConstraint> getUniqueConstraints()
 	{
 		return uniqueConstraints.all;
 	}
 
-	public List<CheckConstraint> getDeclaredCheckConstraints()
+	public List<? extends CheckConstraint> getDeclaredCheckConstraints()
 	{
 		return checkConstraints.declared;
 	}
 
-	public List<CheckConstraint> getCheckConstraints()
+	public List<? extends CheckConstraint> getCheckConstraints()
 	{
 		return checkConstraints.all;
 	}
 
-	public List<CopyConstraint> getDeclaredCopyConstraints()
+	public List<? extends CopyConstraint> getDeclaredCopyConstraints()
 	{
 		return copyConstraints.declared;
 	}
 
-	public List<CopyConstraint> getCopyConstraints()
+	public List<? extends CopyConstraint> getCopyConstraints()
 	{
 		return copyConstraints.all;
 	}
@@ -1246,7 +1246,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		}
 	}
 
-	private static void checkForDuplicateUniqueConstraint(final String id, final List<UniqueConstraint> constraints)
+	private static void checkForDuplicateUniqueConstraint(final String id, final List<? extends UniqueConstraint> constraints)
 	{
 		if(constraints.size()<=1)
 			return;
@@ -1529,7 +1529,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	 * @deprecated Renamed to {@link #getDeclaredFields()}.
 	 */
 	@Deprecated
-	public List<Field<?>> getDeclaredAttributes()
+	public List<? extends Field<?>> getDeclaredAttributes()
 	{
 		return getDeclaredFields();
 	}
@@ -1538,7 +1538,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	 * @deprecated Renamed to {@link #getFields()}.
 	 */
 	@Deprecated
-	public List<Field<?>> getAttributes()
+	public List<? extends Field<?>> getAttributes()
 	{
 		return getFields();
 	}
@@ -1575,7 +1575,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	 */
 	@SuppressFBWarnings("NM_CONFUSING") // Confusing method names, the referenced methods have names that differ only by capitalization.
 	@Deprecated
-	public List<Type<? extends T>> getSubTypes()
+	public List<? extends Type<? extends T>> getSubTypes()
 	{
 		return getSubtypes();
 	}
@@ -1585,7 +1585,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	 */
 	@SuppressFBWarnings("NM_CONFUSING") // Confusing method names, the referenced methods have names that differ only by capitalization.
 	@Deprecated
-	public List<Type<? extends T>> getSubTypesTransitively()
+	public List<? extends Type<? extends T>> getSubTypesTransitively()
 	{
 		return getSubtypesTransitively();
 	}

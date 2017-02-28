@@ -7,6 +7,15 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* Return type of several methods is weakened from "List<Abc>" to "List<? extends Abc>":
+	- Type#getSubtypes[Transitively]
+	- Type#get[Declared]Features
+	- Type#get[Declared]Fields
+	- Type#get[Declared]UniqueConstraints
+	- Type#get[Declared]CheckConstraints
+	- Type#get[Declared]CopyConstraints
+	- [Composite|Block]Field#get[Templates|Components]
+	This breaks backwards API compatibility, causes compiler error.
 * Enum[Set|Map]Field supports @CopeName for enum facets.
 	Affects database schema if you already have such annotations.
 * CompositeType and CompositeField#getValueType() added.

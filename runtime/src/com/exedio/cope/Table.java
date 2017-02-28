@@ -69,8 +69,8 @@ final class Table
 	private List<Column> allColumnsModifiable = new ArrayList<>();
 	private List<Column> allColumns = null;
 
-	private List<UniqueConstraint> uniqueConstraints = null;
-	private List< CheckConstraint>  checkConstraints = null;
+	private List<? extends UniqueConstraint> uniqueConstraints = null;
+	private List<? extends  CheckConstraint>  checkConstraints = null;
 
 	/**
 	 * The column name for the primary key.
@@ -142,7 +142,7 @@ final class Table
 		return allColumns;
 	}
 
-	void setUniqueConstraints(final List<UniqueConstraint> uniqueConstraints)
+	void setUniqueConstraints(final List<? extends UniqueConstraint> uniqueConstraints)
 	{
 		if(uniqueConstraints==null)
 			throw new IllegalArgumentException();
@@ -154,7 +154,7 @@ final class Table
 		this.uniqueConstraints = uniqueConstraints;
 	}
 
-	List<UniqueConstraint> getUniqueConstraints()
+	List<? extends UniqueConstraint> getUniqueConstraints()
 	{
 		if(uniqueConstraints==null)
 			throw new RuntimeException();
@@ -162,7 +162,7 @@ final class Table
 		return uniqueConstraints;
 	}
 
-	void setCheckConstraints(final List<CheckConstraint> checkConstraints)
+	void setCheckConstraints(final List<? extends CheckConstraint> checkConstraints)
 	{
 		if(checkConstraints==null)
 			throw new IllegalArgumentException();
@@ -174,7 +174,7 @@ final class Table
 		this.checkConstraints = checkConstraints;
 	}
 
-	List<CheckConstraint> getCheckConstraints()
+	List<? extends CheckConstraint> getCheckConstraints()
 	{
 		if(checkConstraints==null)
 			throw new RuntimeException();

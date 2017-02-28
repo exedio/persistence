@@ -46,7 +46,7 @@ public final class BlockType<T extends Block> implements Serializable
 	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final Constructor<T> constructor;
 	private final LinkedHashMap<String, Feature> templates = new LinkedHashMap<>();
-	final List<Feature> templateList;
+	final List<? extends Feature> templateList;
 	final int componentSize;
 
 	private BlockType(final Class<T> javaClass)

@@ -63,7 +63,7 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 
 	private final LinkedHashMap<FunctionField<?>, FunctionField<?>> templateToComponent;
 	private final HashMap<FunctionField<?>, FunctionField<?>> componentToTemplate;
-	private final List<FunctionField<?>> componentList;
+	private final List<? extends FunctionField<?>> componentList;
 	private final FunctionField<?> mandatoryComponent;
 	private final FunctionField<?> isNullComponent;
 	private final CheckConstraint unison;
@@ -176,12 +176,12 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 		return result;
 	}
 
-	public List<FunctionField<?>> getTemplates()
+	public List<? extends FunctionField<?>> getTemplates()
 	{
 		return valueType.templateList;
 	}
 
-	public List<FunctionField<?>> getComponents()
+	public List<? extends FunctionField<?>> getComponents()
 	{
 		return componentList;
 	}

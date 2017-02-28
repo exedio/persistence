@@ -46,7 +46,7 @@ public final class BlockField<E extends Block> extends Pattern implements Copyab
 	private final BlockType<E> valueType;
 	private final LinkedHashMap<Feature, Feature> templateToComponent;
 	private final HashMap<Feature, Feature> componentToTemplate;
-	private final List<Feature> componentList;
+	private final List<? extends Feature> componentList;
 
 	private BlockField(final BlockType<E> valueType)
 	{
@@ -117,12 +117,12 @@ public final class BlockField<E extends Block> extends Pattern implements Copyab
 		return result;
 	}
 
-	public List<Feature> getTemplates()
+	public List<? extends Feature> getTemplates()
 	{
 		return valueType.templateList;
 	}
 
-	public List<Feature> getComponents()
+	public List<? extends Feature> getComponents()
 	{
 		return componentList;
 	}

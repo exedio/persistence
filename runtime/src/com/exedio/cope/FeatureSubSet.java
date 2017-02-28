@@ -27,18 +27,18 @@ final class FeatureSubSet<F extends Feature>
 {
 	static <F extends Feature> FeatureSubSet<F> features(
 			final FeatureSubSet<F> inherited,
-			final List<Feature> declaredFeatures,
+			final List<? extends Feature> declaredFeatures,
 			final Class<F> featureClass)
 	{
 		return new FeatureSubSet<>(inherited, declaredFeatures, featureClass);
 	}
 
-	final List<F> declared;
-	final List<F> all;
+	final List<? extends F> declared;
+	final List<? extends F> all;
 
 	private FeatureSubSet(
 			final FeatureSubSet<F> inherited,
-			final List<Feature> declaredFeatures,
+			final List<? extends Feature> declaredFeatures,
 			final Class<F> featureClass)
 	{
 		{
@@ -54,7 +54,7 @@ final class FeatureSubSet<F extends Feature>
 		this.all = (inherited==null) ? this.declared : inherit(inherited.all, this.declared);
 	}
 
-	private static final <F extends Feature> List<F> inherit(final List<F> inherited, final List<F> declared)
+	private static final <F extends Feature> List<? extends F> inherit(final List<? extends F> inherited, final List<? extends F> declared)
 	{
 		assert inherited!=null;
 

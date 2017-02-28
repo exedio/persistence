@@ -52,7 +52,7 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 
 	@Test public void testModelAll()
 	{
-		final Iterator<CopyConstraint> i = AllCopyConstraintItem.TYPE.getCopyConstraints().iterator();
+		final Iterator<? extends CopyConstraint> i = AllCopyConstraintItem.TYPE.getCopyConstraints().iterator();
 		assertIt(A.value, AllCopyConstraintItem.value, AllCopyConstraintItem.field.of(A.class), i.next());
 		assertIt(B.value, AllCopyConstraintItem.value, AllCopyConstraintItem.field.of(B.class), i.next());
 		assertFalse(i.hasNext());
@@ -60,7 +60,7 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 
 	@Test public void testModelDouble()
 	{
-		final Iterator<CopyConstraint> i = DoubleCopyConstraintItem.TYPE.getCopyConstraints().iterator();
+		final Iterator<? extends CopyConstraint> i = DoubleCopyConstraintItem.TYPE.getCopyConstraints().iterator();
 		assertIt(C.value,    DoubleCopyConstraintItem.value,    DoubleCopyConstraintItem.field.of(C.class), i.next());
 		assertIt(C.template, DoubleCopyConstraintItem.template, DoubleCopyConstraintItem.field.of(C.class), i.next());
 		assertFalse(i.hasNext());
@@ -68,7 +68,7 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 
 	@Test public void testModelPartial()
 	{
-		final Iterator<CopyConstraint> i = PartialCopyConstraintItem.TYPE.getCopyConstraints().iterator();
+		final Iterator<? extends CopyConstraint> i = PartialCopyConstraintItem.TYPE.getCopyConstraints().iterator();
 		assertIt(A.value, PartialCopyConstraintItem.value, PartialCopyConstraintItem.field.of(A.class), i.next());
 		assertFalse(i.hasNext());
 	}

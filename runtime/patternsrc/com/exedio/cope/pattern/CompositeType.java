@@ -49,7 +49,7 @@ public final class CompositeType<T extends Composite> implements Serializable
 	private final Constructor<T> constructor;
 	private final LinkedHashMap<String, FunctionField<?>> templates = new LinkedHashMap<>();
 	private final HashMap<FunctionField<?>, Integer> templatePositions = new HashMap<>();
-	final List<FunctionField<?>> templateList;
+	final List<? extends FunctionField<?>> templateList;
 	final int componentSize;
 
 	private static final HashMap<FunctionField<?>, String> templateNames = new HashMap<>();
