@@ -98,7 +98,7 @@ public class MountTest
 	{
 		final CompositeType<?> t = MyComposite.TYPE;
 		assertEquals(MyComposite.class, t.getJavaClass());
-		// TODO t.toString()
+		assertEquals(PREFIX + "MyComposite", t.toString());
 		assertSerializedSame(t, 242);
 	}
 
@@ -106,7 +106,7 @@ public class MountTest
 	{
 		final CompositeType<?> t = PureComposite.TYPE;
 		assertEquals(PureComposite.class, t.getJavaClass());
-		// TODO t.toString()
+		assertEquals(PREFIX + "PureComposite", t.toString()); // pure is ok
 		assertSerializedSame(t, 244);
 	}
 

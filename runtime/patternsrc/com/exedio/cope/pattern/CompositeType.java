@@ -152,6 +152,12 @@ final class CompositeType<T extends Composite> implements Serializable
 		}
 	}
 
+	@Override
+	public String toString()
+	{
+		return javaClass.getName();
+	}
+
 	// serialization -------------
 
 	private static final long serialVersionUID = 1l;
