@@ -65,6 +65,11 @@ public abstract class Block implements Serializable
 		return item;
 	}
 
+	public final BlockType<?> getType()
+	{
+		return field.getValueType();
+	}
+
 	@Override
 	public final boolean equals(final Object other)
 	{

@@ -109,7 +109,7 @@ public abstract class Composite implements Serializable
 
 	private transient CompositeType<?> typeIfSet = null;
 
-	private final CompositeType<?> getType()
+	public final CompositeType<?> getType()
 	{
 		CompositeType<?> typeIfSet = this.typeIfSet;
 		if(typeIfSet!=null)

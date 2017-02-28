@@ -422,6 +422,8 @@ public class CompositeFieldTest extends TestWithEnvironment
 		assertEquals(fItem.getFirst().hashCode(), fItem.getFirst().hashCode());
 		assertFalse(fItem.getFirst().hashCode()==oItem.getDuo().hashCode());
 
+		assertSame(eins.getValueType(), value.getType());
+
 		// test serialization
 		final CompositeValue serializedValue = reserialize(value, 481);
 		assertEquals(value, serializedValue);

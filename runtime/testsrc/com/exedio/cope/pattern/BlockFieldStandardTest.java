@@ -24,6 +24,7 @@ import static com.exedio.cope.tojunit.Assert.reserialize;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.assertSame;
 
 import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.pattern.BlockFieldStandardModelTest.ABlock;
@@ -119,6 +120,11 @@ public class BlockFieldStandardTest extends TestWithEnvironment
 		assertEquals("AnItem.zwei#AnItem-0", b1b.toString());
 		assertEquals("AnItem.eins#AnItem-1", b2a.toString());
 		assertEquals("AnItem.zwei#AnItem-1", b2b.toString());
+
+		assertSame(AnItem.eins.getValueType(), b1a.getType());
+		assertSame(AnItem.eins.getValueType(), b1b.getType());
+		assertSame(AnItem.eins.getValueType(), b2a.getType());
+		assertSame(AnItem.eins.getValueType(), b2b.getType());
 
 		// serialization
 		final ABlock b1aS = reserialize(b1a, 708);
