@@ -56,11 +56,13 @@ public class BlockFieldStandardModelTest
 				eins.of(aColor), eins.of(aColor).getRGB(),
 				eins.of(aMedia), eins.of(aMedia).getBody(), eins.of(aMedia).getLastModified(),
 				eins.of(aList),
+				eins.of(aSet),
 				zwei,
 				zwei.of(aString), zwei.of(anInt), zwei.of(anEnum), zwei.of(anItem),
 				zwei.of(aColor), zwei.of(aColor).getRGB(),
 				zwei.of(aMedia), zwei.of(aMedia).getBody(), zwei.of(aMedia).getLastModified(),
 				zwei.of(aList),
+				zwei.of(aSet),
 			}), AnItem.TYPE.getDeclaredFeatures());
 
 
@@ -72,7 +74,7 @@ public class BlockFieldStandardModelTest
 		assertEquals("AnItem.eins-aString", eins.of(aString).toString());
 		assertEquals("AnItem.eins", eins.toString());
 		assertEquals(eins, eins.of(aString).getPattern());
-		assertEqualsUnmodifiable(list(eins.of(aString), eins.of(anInt), eins.of(anEnum), eins.of(anItem), eins.of(aColor), eins.of(aMedia), eins.of(aList)), eins.getSourceFeatures());
+		assertEqualsUnmodifiable(list(eins.of(aString), eins.of(anInt), eins.of(anEnum), eins.of(anItem), eins.of(aColor), eins.of(aMedia), eins.of(aList), eins.of(aSet)), eins.getSourceFeatures());
 
 		assertEquals(true,  eins.of(aString).isInitial());
 		assertEquals(false, eins.of(aString).isFinal());
@@ -86,8 +88,8 @@ public class BlockFieldStandardModelTest
 		assertSame(aString, eins.getTemplate(eins.of(aString)));
 		assertSame(anInt,   eins.getTemplate(eins.of(anInt)));
 
-		assertEqualsUnmodifiable(list(aString, anInt, anEnum, anItem, aColor, aMedia, aList), eins.getTemplates());
-		assertEqualsUnmodifiable(list(eins.of(aString), eins.of(anInt), eins.of(anEnum), eins.of(anItem), eins.of(aColor), eins.of(aMedia), eins.of(aList)), eins.getComponents());
+		assertEqualsUnmodifiable(list(aString, anInt, anEnum, anItem, aColor, aMedia, aList, aSet), eins.getTemplates());
+		assertEqualsUnmodifiable(list(eins.of(aString), eins.of(anInt), eins.of(anEnum), eins.of(anItem), eins.of(aColor), eins.of(aMedia), eins.of(aList), eins.of(aSet)), eins.getComponents());
 
 		assertSerializedSame(aString, 339);
 		assertSerializedSame(aColor , 338);
@@ -142,6 +144,7 @@ public class BlockFieldStandardModelTest
 		@Wrapper(wrap="getURL", visibility=NONE)
 		static final Media aMedia = new Media().optional().contentType("text/plain");
 		static final ListField<String> aList = ListField.create(new StringField());
+		static final SetField<Integer> aSet = SetField.create(new IntegerField());
 
 
 	/**
@@ -411,6 +414,64 @@ public class BlockFieldStandardModelTest
 		field().of(ABlock.aList).set(item(),aList);
 	}
 
+	/**
+	 * Returns the value of {@link #aSet}.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@javax.annotation.Nonnull
+	final java.util.Set<Integer> getASet()
+	{
+		return field().of(ABlock.aSet).get(item());
+	}
+
+	/**
+	 * Returns a query for the value of {@link #aSet}.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getQuery")
+	@javax.annotation.Nonnull
+	final com.exedio.cope.Query<Integer> getASetQuery()
+	{
+		return field().of(ABlock.aSet).getQuery(item());
+	}
+
+	/**
+	 * Sets a new value for {@link #aSet}.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	final void setASet(@javax.annotation.Nonnull final java.util.Collection<? extends Integer> aSet)
+			throws
+				com.exedio.cope.MandatoryViolationException,
+				java.lang.ClassCastException
+	{
+		field().of(ABlock.aSet).set(item(),aSet);
+	}
+
+	/**
+	 * Adds a new element to {@link #aSet}.
+	 * @return <tt>true</tt> if the field set changed as a result of the call.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="addTo")
+	final boolean addToASet(@javax.annotation.Nonnull final Integer element)
+			throws
+				com.exedio.cope.MandatoryViolationException,
+				java.lang.ClassCastException
+	{
+		return field().of(ABlock.aSet).add(item(),element);
+	}
+
+	/**
+	 * Removes an element from {@link #aSet}.
+	 * @return <tt>true</tt> if the field set changed as a result of the call.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="removeFrom")
+	final boolean removeFromASet(@javax.annotation.Nonnull final Integer element)
+			throws
+				com.exedio.cope.MandatoryViolationException,
+				java.lang.ClassCastException
+	{
+		return field().of(ABlock.aSet).remove(item(),element);
+	}
+
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 
@@ -533,6 +594,7 @@ public class BlockFieldStandardModelTest
 	static final ColorField aColor = ABlock.aColor;
 	private static final Media aMedia = ABlock.aMedia;
 	private static final ListField<String> aList = ABlock.aList;
+	private static final SetField<Integer> aSet = ABlock.aSet;
 	private static final BlockField<ABlock> eins = AnItem.eins;
 	private static final BlockField<ABlock> zwei = AnItem.zwei;
 }

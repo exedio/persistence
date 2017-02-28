@@ -22,6 +22,8 @@ import static com.exedio.cope.ItemField.DeletePolicy.CASCADE;
 import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.Cope;
+import com.exedio.cope.CopyMapper;
+import com.exedio.cope.Copyable;
 import com.exedio.cope.Features;
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.Item;
@@ -48,7 +50,7 @@ import java.util.Set;
 import javax.annotation.Nonnull;
 
 @WrapFeature
-public final class SetField<E> extends Pattern
+public final class SetField<E> extends Pattern implements Copyable
 {
 	private static final long serialVersionUID = 1l;
 
@@ -70,6 +72,12 @@ public final class SetField<E> extends Pattern
 	public static final <E> SetField<E> create(final FunctionField<E> element)
 	{
 		return new SetField<>(element);
+	}
+
+	@Override
+	public SetField<E> copy(final CopyMapper mapper)
+	{
+		return new SetField<>(mapper.copy(element));
 	}
 
 	@Override

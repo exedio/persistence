@@ -21,6 +21,8 @@ package com.exedio.cope.pattern;
 import static com.exedio.cope.pattern.MediaLocatorAssert.assertLocator;
 import static com.exedio.cope.tojunit.Assert.list;
 import static com.exedio.cope.tojunit.Assert.reserialize;
+import static java.util.Collections.emptySet;
+import static java.util.Collections.singleton;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotSame;
@@ -79,6 +81,10 @@ public class BlockFieldStandardTest extends TestWithEnvironment
 		assertEquals(list(), b1b.getAList());
 		assertEquals(list(), b2a.getAList());
 		assertEquals(list(), b2b.getAList());
+		assertEquals(emptySet(), b1a.getASet());
+		assertEquals(emptySet(), b1b.getASet());
+		assertEquals(emptySet(), b2a.getASet());
+		assertEquals(emptySet(), b2b.getASet());
 		final ABlock b1A = i1.eins();
 		assertEquals(null, b1A.getAnItem());
 
@@ -100,6 +106,12 @@ public class BlockFieldStandardTest extends TestWithEnvironment
 		assertEquals(list(), b1b.getAList());
 		assertEquals(list(), b2a.getAList());
 		assertEquals(list(), b2b.getAList());
+
+		b1a.addToASet(23);
+		assertEquals(singleton(23), b1a.getASet());
+		assertEquals(emptySet(), b1b.getASet());
+		assertEquals(emptySet(), b2a.getASet());
+		assertEquals(emptySet(), b2b.getASet());
 
 		// hashCode
 		assertEquals(b1a, b1a);
