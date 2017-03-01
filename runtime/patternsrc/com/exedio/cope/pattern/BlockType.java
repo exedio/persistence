@@ -27,6 +27,7 @@ import com.exedio.cope.Feature;
 import com.exedio.cope.Item;
 import com.exedio.cope.TypesBound;
 import com.exedio.cope.misc.CopeNameUtil;
+import com.exedio.cope.misc.LocalizationKeys;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.InvalidObjectException;
 import java.io.ObjectInputStream;
@@ -116,6 +117,18 @@ public final class BlockType<T extends Block> implements TemplatedType<T>
 	public Feature getFeature(final String name)
 	{
 		return templates.get(name);
+	}
+
+	private List<String> localizationKeysIfInitialized = null;
+
+	@Override
+	public List<String> getLocalizationKeys()
+	{
+		if(localizationKeysIfInitialized!=null)
+			return localizationKeysIfInitialized;
+
+		localizationKeysIfInitialized = LocalizationKeys.get(javaClass);
+		return localizationKeysIfInitialized;
 	}
 
 	T newValue(final BlockField<?> field, final Item item)

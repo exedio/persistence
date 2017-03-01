@@ -30,6 +30,7 @@ import static java.util.Collections.unmodifiableSortedSet;
 import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.ItemField.DeletePolicy;
+import com.exedio.cope.misc.LocalizationKeys;
 import com.exedio.cope.misc.SetValueUtil;
 import com.exedio.cope.util.Cast;
 import com.exedio.cope.util.CharSet;
@@ -918,6 +919,18 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	public Feature getFeature(final String name)
 	{
 		return featuresByName.get(name);
+	}
+
+	private List<String> localizationKeysIfInitialized = null;
+
+	@Override
+	public List<String> getLocalizationKeys()
+	{
+		if(localizationKeysIfInitialized!=null)
+			return localizationKeysIfInitialized;
+
+		localizationKeysIfInitialized = LocalizationKeys.get(javaClass);
+		return localizationKeysIfInitialized;
 	}
 
 	public List<? extends UniqueConstraint> getDeclaredUniqueConstraints()

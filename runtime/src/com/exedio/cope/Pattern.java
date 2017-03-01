@@ -73,7 +73,7 @@ public abstract class Pattern extends Feature
 			final Feature feature,
 			final String postfix)
 	{
-		addSource(feature, postfix, null);
+		addSource(feature, postfix, null, getClass());
 	}
 
 	protected final void addSource(
@@ -81,12 +81,22 @@ public abstract class Pattern extends Feature
 			final String postfix,
 			final AnnotatedElement annotationSource)
 	{
+		addSource(feature, postfix, annotationSource, getClass());
+	}
+
+	protected final void addSource(
+			final Feature feature,
+			final String postfix,
+			final AnnotatedElement annotationSource,
+			final Class<?> precedingLocalizationKeysClass)
+	{
 		requireNonNull(feature, "feature");
 		requireNonEmpty(postfix, "postfix");
+		requireNonNull(precedingLocalizationKeysClass, "precedingLocalizationKeysClass");
 		if(sourceFeaturesGather==null)
 			throw new IllegalStateException("addSource can be called only until pattern is mounted, not afterwards");
 		assert sourceFeatureList==null;
-		feature.registerPattern(this);
+		feature.registerPattern(this, precedingLocalizationKeysClass, postfix);
 		sourceFeaturesGather.put(postfix, feature, new SourceFeatureAnnotationProxy(annotationSource, postfix));
 	}
 

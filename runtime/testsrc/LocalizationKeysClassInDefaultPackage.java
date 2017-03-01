@@ -16,23 +16,7 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.cope;
-
-import java.io.Serializable;
-import java.util.List;
-
-public interface AbstractType<T> extends Serializable
+public class LocalizationKeysClassInDefaultPackage
 {
-	Class<T> getJavaClass();
-	AbstractType<? super T> getSupertype();
-	List<? extends AbstractType<? extends T>> getSubtypes();
-	List<? extends Feature> getDeclaredFeatures();
-	List<? extends Feature> getFeatures();
-	Feature getDeclaredFeature(String name);
-	Feature getFeature(String name);
-
-	/**
-	 * @see com.exedio.cope.misc.LocalizationKeys
-	 */
-	List<String> getLocalizationKeys();
+	// empty
 }

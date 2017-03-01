@@ -53,7 +53,7 @@ public class ViewSerializeTest
 		assertEquals(TYPE, feature.getType());
 		assertEquals("upper(AnItem.field)", feature.toString());
 
-		final UppercaseView reserialized = reserialize(feature, 1147);
+		final UppercaseView reserialized = reserialize(feature, 1247);
 		assertNotSame(feature, reserialized);
 		assertEquals(asList(field), reserialized.getSources());
 		assertSame  (       field , reserialized.getSources().get(0));

@@ -22,6 +22,8 @@ import static com.exedio.cope.Intern.intern;
 import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.misc.Computed;
+import com.exedio.cope.misc.ListUtil;
+import com.exedio.cope.misc.LocalizationKeys;
 import com.exedio.cope.util.CharSet;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.IOException;
@@ -32,6 +34,8 @@ import java.io.ObjectStreamException;
 import java.io.Serializable;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedElement;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public abstract class Feature implements Serializable
@@ -76,6 +80,26 @@ public abstract class Feature implements Serializable
 				: null;
 		}
 
+		private List<String> localizationKeysIfInitialized = null;
+
+		final List<String> getLocalizationKeys()
+		{
+			if(localizationKeysIfInitialized!=null)
+				return localizationKeysIfInitialized;
+
+			final ArrayList<String> result = new ArrayList<>();
+			addLocalizationKeys(result);
+			localizationKeysIfInitialized = ListUtil.trimUnmodifiable(result);
+			return localizationKeysIfInitialized;
+		}
+
+		void addLocalizationKeys(final ArrayList<String> result)
+		{
+			final String suffix = '.' + name.replace('-', '.');
+			for(final String prefix : type.getLocalizationKeys())
+				result.add(prefix + suffix);
+		}
+
 		abstract void toString(StringBuilder bf, Type<?> defaultType);
 		abstract Serializable serializable();
 	}
@@ -84,16 +108,22 @@ public abstract class Feature implements Serializable
 	{
 		final Type<?> type;
 		final String id;
+		final Class<?> precedingLocalizationKeysClass;
+		final String precedingLocalizationKeysPostfix;
 
 		MountType(
 				final Type<?> type,
 				final String name,
 				final AnnotatedElement annotationSource,
-				final Pattern pattern)
+				final Pattern pattern,
+				final Class<?> precedingLocalizationKeysClass,
+				final String   precedingLocalizationKeysPostfix)
 		{
 			super(type, name, annotationSource, pattern);
 			this.type = requireNonNull(type);
 			this.id =   intern(type.id + '.' + name);
+			this.precedingLocalizationKeysClass   = precedingLocalizationKeysClass;
+			this.precedingLocalizationKeysPostfix = precedingLocalizationKeysPostfix;
 		}
 
 		@Override
@@ -120,6 +150,19 @@ public abstract class Feature implements Serializable
 			}
 
 			return super.getAnnotation(annotationClass);
+		}
+
+		@Override
+		void addLocalizationKeys(final ArrayList<String> result)
+		{
+			if(precedingLocalizationKeysClass!=null)
+			{
+				final String suffix = '.' + precedingLocalizationKeysPostfix;
+				for(final String prefix : LocalizationKeys.get(precedingLocalizationKeysClass))
+					result.add(prefix + suffix);
+			}
+
+			super.addLocalizationKeys(result);
 		}
 
 		@Override
@@ -194,11 +237,16 @@ public abstract class Feature implements Serializable
 
 		if(this.mountIfMounted!=null)
 			throw new IllegalStateException("feature already mounted: " + mountIfMounted.toString());
-		this.mountIfMounted = new MountType(type, name, annotationSource, patternUntilMount);
+		this.mountIfMounted = new MountType(
+				type, name, annotationSource, patternUntilMount,
+				precedingLocalizationKeysClassUntilMount,
+				precedingLocalizationKeysPostfixUntilMount);
 
 		type.registerMounted(this);
 
 		this.patternUntilMount = null;
+		this.precedingLocalizationKeysClassUntilMount   = null;
+		this.precedingLocalizationKeysPostfixUntilMount = null;
 	}
 
 	public final void mount(
@@ -291,6 +339,14 @@ public abstract class Feature implements Serializable
 		return mount().getAnnotation(annotationClass);
 	}
 
+	/**
+	 * @see com.exedio.cope.misc.LocalizationKeys
+	 */
+	public final List<String> getLocalizationKeys()
+	{
+		return mount().getLocalizationKeys();
+	}
+
 	final String getDeclaredSchemaName()
 	{
 		final CopeSchemaName annotation =
@@ -337,8 +393,13 @@ public abstract class Feature implements Serializable
 	// patterns ------------------
 
 	private Pattern patternUntilMount = null;
+	private Class<?> precedingLocalizationKeysClassUntilMount;
+	private String   precedingLocalizationKeysPostfixUntilMount;
 
-	final void registerPattern(final Pattern pattern)
+	final void registerPattern(
+			final Pattern pattern,
+			final Class<?> precedingLocalizationKeysClass,
+			final String precedingLocalizationKeysPostfix)
 	{
 		assertNotMounted();
 		requireNonNull(pattern);
@@ -349,6 +410,8 @@ public abstract class Feature implements Serializable
 					" and tried to register a new one: " + pattern);
 
 		this.patternUntilMount = pattern;
+		this.precedingLocalizationKeysClassUntilMount   = precedingLocalizationKeysClass;
+		this.precedingLocalizationKeysPostfixUntilMount = precedingLocalizationKeysPostfix;
 	}
 
 	public final boolean isSourceAlready()

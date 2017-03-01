@@ -64,7 +64,7 @@ public final class BlockField<E extends Block> extends Pattern implements Copyab
 			{
 				final Feature template = e.getValue();
 				final Feature component = mapper.put(template, ((Copyable)template).copy(mapper));
-				addSource(component, e.getKey(), new FeatureAnnotatedElementAdapter(template));
+				addSource(component, e.getKey(), new FeatureAnnotatedElementAdapter(template), valueClass);
 				templateToComponent.put(template, component);
 				componentToTemplate.put(component, template);
 			}

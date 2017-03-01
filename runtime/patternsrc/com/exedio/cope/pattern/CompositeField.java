@@ -90,7 +90,7 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 			{
 				final FunctionField<?> template = e.getValue();
 				final FunctionField<?> component = copy(template);
-				addSource(component, e.getKey(), new FeatureAnnotatedElementAdapter(template));
+				addSource(component, e.getKey(), new FeatureAnnotatedElementAdapter(template), valueClass);
 				templateToComponent.put(template, component);
 				componentToTemplate.put(component, template);
 				if(optional && mandatoryComponent==null && template.isMandatory())
