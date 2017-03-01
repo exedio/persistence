@@ -121,10 +121,10 @@ public class BlockFieldStandardTest extends TestWithEnvironment
 		assertEquals("AnItem.eins#AnItem-1", b2a.toString());
 		assertEquals("AnItem.zwei#AnItem-1", b2b.toString());
 
-		assertSame(AnItem.eins.getValueType(), b1a.getType());
-		assertSame(AnItem.eins.getValueType(), b1b.getType());
-		assertSame(AnItem.eins.getValueType(), b2a.getType());
-		assertSame(AnItem.eins.getValueType(), b2b.getType());
+		assertSame(AnItem.eins.getValueType(), b1a.getCopeType());
+		assertSame(AnItem.eins.getValueType(), b1b.getCopeType());
+		assertSame(AnItem.eins.getValueType(), b2a.getCopeType());
+		assertSame(AnItem.eins.getValueType(), b2b.getCopeType());
 
 		// serialization
 		final ABlock b1aS = reserialize(b1a, 708);

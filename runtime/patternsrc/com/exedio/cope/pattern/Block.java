@@ -65,7 +65,7 @@ public abstract class Block implements Serializable
 		return item;
 	}
 
-	public final BlockType<?> getType()
+	public final BlockType<?> getCopeType()
 	{
 		return field.getValueType();
 	}
