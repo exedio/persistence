@@ -334,7 +334,7 @@ public class MountTest
 	}
 
 	@WrapperType(constructor=NONE, indent=2, comments=false)
-	@CopeName("ActualComposite")
+	@CopeName("ActualBlock")
 	static final class PureBlock extends Block
 	{
 		@WrapperIgnore
