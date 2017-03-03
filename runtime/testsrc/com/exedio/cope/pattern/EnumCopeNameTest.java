@@ -34,8 +34,8 @@ public class EnumCopeNameTest
 	{
 		assertEquals("set-normal", MyItem.set.getField(MyEnum.normal).getName());
 		assertEquals("map-normal", MyItem.map.getField(MyEnum.normal).getName());
-		assertEquals("set-pure",   MyItem.set.getField(MyEnum.pure  ).getName()); // TODO actual
-		assertEquals("map-pure",   MyItem.map.getField(MyEnum.pure  ).getName()); // TODO actual
+		assertEquals("set-actual", MyItem.set.getField(MyEnum.pure  ).getName());
+		assertEquals("map-actual", MyItem.map.getField(MyEnum.pure  ).getName());
 	}
 
 	enum MyEnum

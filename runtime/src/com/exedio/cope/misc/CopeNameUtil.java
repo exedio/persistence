@@ -53,6 +53,12 @@ public final class CopeNameUtil
 		return (result!=null) ? result : field.getName();
 	}
 
+	public static String getAndFallbackToName(final Enum<?> value)
+	{
+		final String result = get(EnumAnnotatedElement.get(value));
+		return (result!=null) ? result : value.name();
+	}
+
 	private CopeNameUtil()
 	{
 		// prevent instantiation

@@ -72,4 +72,18 @@ public class CopeNameUtilFieldTest
 
 	/** @deprecated */ @Deprecated @com.exedio.cope.CopeID("bothAnnoID") @CopeName("bothAnnoName") private static int fieldBoth = 0;
 	/** @deprecated */ @Deprecated @com.exedio.cope.CopeID("bothAnnoID") @CopeName("bothAnnoName") private static class ClassBoth { /* empty */ }
+
+
+	private enum MyEnum
+	{
+		normal,
+		@CopeName("actual") pure,
+		@com.exedio.cope.CopeID("actualID") pureID;
+	}
+	@Test public void testEnum()
+	{
+		assertEquals("normal",   CopeNameUtil.getAndFallbackToName(MyEnum.normal));
+		assertEquals("actual",   CopeNameUtil.getAndFallbackToName(MyEnum.pure));
+		assertEquals("actualID", CopeNameUtil.getAndFallbackToName(MyEnum.pureID));
+	}
 }

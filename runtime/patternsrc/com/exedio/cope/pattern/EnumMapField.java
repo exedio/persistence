@@ -33,6 +33,7 @@ import com.exedio.cope.instrument.InstrumentContext;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.WrapFeature;
+import com.exedio.cope.misc.CopeNameUtil;
 import com.exedio.cope.misc.EnumAnnotatedElement;
 import com.exedio.cope.misc.ReflectionTypes;
 import java.util.Collections;
@@ -256,7 +257,7 @@ public final class EnumMapField<K extends Enum<K>,V> extends Pattern implements 
 
 	static String name(final Enum<?> value)
 	{
-		final String s = value.name();
+		final String s = CopeNameUtil.getAndFallbackToName(value);
 		if(s.indexOf('_')<0)
 			return s;
 
