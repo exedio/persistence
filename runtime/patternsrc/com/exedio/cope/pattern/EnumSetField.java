@@ -19,7 +19,7 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.pattern.EnumMapField.assertEnum;
-import static com.exedio.cope.pattern.EnumMapField.stripUnderline;
+import static com.exedio.cope.pattern.EnumMapField.name;
 
 import com.exedio.cope.BooleanField;
 import com.exedio.cope.Condition;
@@ -63,7 +63,7 @@ public final class EnumSetField<E extends Enum<E>> extends Pattern implements Se
 			BooleanField value = new BooleanField().defaultTo(false);
 			if(isFinal)
 				value = value.toFinal();
-			addSource(value, stripUnderline(element.name()), EnumAnnotatedElement.get(element));
+			addSource(value, name(element), EnumAnnotatedElement.get(element));
 			fields.put(element, value);
 		}
 	}

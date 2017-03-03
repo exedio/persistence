@@ -72,7 +72,7 @@ public final class EnumMapField<K extends Enum<K>,V> extends Pattern implements 
 			FunctionField<V> value = valueTemplate.defaultTo(defaultConstant.get(key));
 			if(fallback!=null && key!=fallback && value.isMandatory())
 				value = value.optional();
-			addSource(value, stripUnderline(key.name()), EnumAnnotatedElement.get(key));
+			addSource(value, name(key), EnumAnnotatedElement.get(key));
 			fields.put(key, value);
 		}
 	}
@@ -254,8 +254,9 @@ public final class EnumMapField<K extends Enum<K>,V> extends Pattern implements 
 
 	// helper methods for EnumMapField and EnumSetField
 
-	static String stripUnderline(final String s)
+	static String name(final Enum<?> value)
 	{
+		final String s = value.name();
 		if(s.indexOf('_')<0)
 			return s;
 
