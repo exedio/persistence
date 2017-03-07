@@ -19,6 +19,7 @@
 package com.exedio.cope.instrument;
 
 import com.sun.source.tree.CompilationUnitTree;
+import com.sun.source.tree.ExpressionTree;
 import com.sun.source.tree.ImportTree;
 import com.sun.source.util.DocTrees;
 import com.sun.source.util.TreePath;
@@ -80,7 +81,7 @@ final class InstrumentorProcessor extends AbstractProcessor
 			JavaFile javaFile=files.get(compilationUnit);
 			if ( javaFile==null )
 			{
-				files.put(compilationUnit, javaFile=new JavaFile(javaRepository, compilationUnit.getSourceFile(), compilationUnit.getPackageName().toString()));
+				files.put(compilationUnit, javaFile=new JavaFile(javaRepository, compilationUnit.getSourceFile(), getPackageName(compilationUnit)));
 				for (final ImportTree aImport: compilationUnit.getImports())
 				{
 					if (!aImport.isStatic())
@@ -105,5 +106,14 @@ final class InstrumentorProcessor extends AbstractProcessor
 			}
 		}
 		return true;
+	}
+
+	private static String getPackageName(final CompilationUnitTree compilationUnit)
+	{
+		final ExpressionTree packageName = compilationUnit.getPackageName();
+		return
+				packageName!=null
+				? packageName.toString()
+				: null;
 	}
 }

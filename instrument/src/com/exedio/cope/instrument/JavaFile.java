@@ -72,8 +72,11 @@ final class JavaFile
 		this.nameSpace = new CopeNameSpace(repository.nameSpace, sourceFile.getName());
 		this.sourceFile = sourceFile;
 		this.packagename = packagename;
-		nameSpace.importPackage(packagename);
-		externalNameSpace.importPackage(packagename);
+		if(packagename!=null)
+		{
+			nameSpace.importPackage(packagename);
+			externalNameSpace.importPackage(packagename);
+		}
 
 		this.repository = repository;
 		repository.add(this);
