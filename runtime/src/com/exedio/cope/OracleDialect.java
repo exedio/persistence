@@ -63,11 +63,11 @@ final class OracleDialect extends Dialect
 			st.execute(
 					"ALTER SESSION SET " +
 							"NLS_LANGUAGE='AMERICAN' " +
-							"NLS_TERRITORY='AMERICA'");
+							"NLS_TERRITORY='AMERICA' " +
 
-			// BEWARE: lots of objects in recyclebin slow down DDL operations.
-			// TODO: connect property for recyclebin=ON/OFF/DEFAULT
-			st.execute("ALTER SESSION SET recyclebin=OFF");
+							// BEWARE: lots of objects in recyclebin slow down DDL operations.
+							// TODO: connect property for recyclebin=ON/OFF/DEFAULT
+							"recyclebin=OFF");
 		}
 	}
 
