@@ -69,12 +69,17 @@ public abstract class Pattern extends Feature
 	private ArrayList<Type<?>> sourceTypesWhileGather = new ArrayList<>();
 	private List<Type<?>> sourceTypes = null;
 
-	protected final void addSource(final Feature feature, final String postfix)
+	protected final void addSource(
+			final Feature feature,
+			final String postfix)
 	{
 		addSource(feature, postfix, null);
 	}
 
-	protected final void addSource(final Feature feature, final String postfix, final AnnotatedElement annotationSource)
+	protected final void addSource(
+			final Feature feature,
+			final String postfix,
+			final AnnotatedElement annotationSource)
 	{
 		requireNonEmpty(postfix, "postfix");
 		requireNonNull(feature, "feature");
