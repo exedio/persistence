@@ -63,7 +63,8 @@ public final class BlockType<T extends Block> implements Serializable
 				throw new IllegalArgumentException(
 						fieldID + " must be an instance of " + Copyable.class + ", but was " +
 						feature.getClass().getName());
-			templates.put(CopeNameUtil.getAndFallbackToName(field), feature);
+			final String fieldName = CopeNameUtil.getAndFallbackToName(field);
+			templates.put(fieldName, feature);
 			feature.mount(fieldID, SerializedReflectionField.make(feature, field), field);
 		}
 		this.templateList = Collections.unmodifiableList(new ArrayList<>(templates.values()));
