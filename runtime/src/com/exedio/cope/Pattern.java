@@ -81,8 +81,8 @@ public abstract class Pattern extends Feature
 			final String postfix,
 			final AnnotatedElement annotationSource)
 	{
-		requireNonEmpty(postfix, "postfix");
 		requireNonNull(feature, "feature");
+		requireNonEmpty(postfix, "postfix");
 		if(sourceFeaturesGather==null)
 			throw new IllegalStateException("addSource can be called only until pattern is mounted, not afterwards");
 		assert sourceFeatureList==null;
