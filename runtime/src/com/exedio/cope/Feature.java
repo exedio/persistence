@@ -184,13 +184,12 @@ public abstract class Feature implements Serializable
 		}
 	}
 
-	// TODO rename to MountAbstractType
-	private static final class MountString extends Mount
+	private static final class MountAbstractType extends Mount
 	{
 		private final String string;
 		private final Serializable serializable;
 
-		MountString(
+		MountAbstractType(
 				final AbstractType<?> type,
 				final String name,
 				final String string,
@@ -262,7 +261,7 @@ public abstract class Feature implements Serializable
 		requireNonNull(serializable, "serializable");
 		if(this.mountIfMounted!=null)
 			throw new IllegalStateException("feature already mounted: " + mountIfMounted.toString());
-		this.mountIfMounted = new MountString(type, name, string, serializable, annotationSource);
+		this.mountIfMounted = new MountAbstractType(type, name, string, serializable, annotationSource);
 	}
 
 	private final Mount mount()
