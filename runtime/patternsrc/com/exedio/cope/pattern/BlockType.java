@@ -169,16 +169,6 @@ public final class BlockType<T extends Block> implements Serializable
 
 	private static final HashMap<Class<?>, BlockType<?>> types = new HashMap<>();
 
-	static <T extends Block> BlockType<T> forClass(final Class<T> javaClass)
-	{
-		final BlockType<?> result = types.get(javaClass);
-		if(result==null)
-			throw new IllegalArgumentException("there is no type for " + javaClass);
-		@SuppressWarnings("unchecked")
-		final BlockType<T> casted = (BlockType<T>)result;
-		return casted;
-	}
-
 	public static <T extends Block> BlockType<T> newType(final Class<T> javaClass)
 	{
 		assertFinalSubClass(BlockField.class, Block.class, javaClass);
