@@ -7,6 +7,8 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* Ivy configuration 'instrument' added.
+	Instrumentor is not included in configuration 'runtime' anymore.
 * Return type of several methods is weakened from "List<Abc>" to "List<? extends Abc>":
 	- Type#getSubtypes[Transitively]
 	- Type#get[Declared]Features

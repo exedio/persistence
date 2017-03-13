@@ -16,6 +16,7 @@
 		<conf name="changelog" />
 		<conf name="completion" description="For fetching exedio-cope-instrument-completion.jar" />
 		<conf name="junit" extends="runtime" description="For fetching exedio-cope-junit.jar" />
+		<conf name="instrument" extends="runtime" />
 		<conf name="build" extends="runtime" visibility="private" />
 
 		<!-- dialects -->
@@ -29,8 +30,8 @@
 		<artifact name="exedio-cope" conf="runtime" />
 		<artifact name="exedio-cope" conf="sources" type="src" ext="zip" />
 		<artifact name="exedio-cope" conf="changelog" type="log" ext="txt" />
-		<artifact name="exedio-cope-instrument-annotations" conf="runtime" />
-		<artifact name="exedio-cope-instrument" conf="runtime" />
+		<artifact name="exedio-cope-instrument-annotations" conf="instrument" />
+		<artifact name="exedio-cope-instrument" conf="instrument" />
 		<artifact name="exedio-cope-junit" conf="junit" />
 		<artifact name="exedio-cope-instrument-completion" conf="completion" />
 	</publications>
