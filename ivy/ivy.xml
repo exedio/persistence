@@ -25,12 +25,12 @@
 		<conf extends="runtime" name="oracle"     description="dialect for Oracle Database" />
 		<conf extends="runtime" name="postgresql" description="dialect for PostgreSQL" />
 	</configurations>
-	<publications defaultconf="runtime">
-		<artifact name="exedio-cope" />
+	<publications defaultconf="SPECIFY_A_CONFIGURATION">
+		<artifact name="exedio-cope" conf="runtime" />
 		<artifact name="exedio-cope" conf="sources" type="src" ext="zip" />
 		<artifact name="exedio-cope" conf="changelog" type="log" ext="txt" />
-		<artifact name="exedio-cope-instrument-annotations" />
-		<artifact name="exedio-cope-instrument" />
+		<artifact name="exedio-cope-instrument-annotations" conf="runtime" />
+		<artifact name="exedio-cope-instrument" conf="runtime" />
 		<artifact name="exedio-cope-junit" conf="junit" />
 		<artifact name="exedio-cope-instrument-completion" conf="completion" />
 	</publications>
