@@ -36,24 +36,13 @@
 	</publications>
 	<dependencies defaultconf="runtime->*">
 		<dependency org="javax.servlet" name="javax.servlet-api" rev="3.0.1" conf="runtime->default; build->sources" />
-		<dependency org="net.sf.trove4j" name="trove4j" rev="2.0.2">
-			<conf name="runtime" mapped="default" />
-			<conf name="build" mapped="sources" />
-		</dependency>
-		<dependency org="org.beanshell-x" name="bsh" rev="2.0b4">
-			<conf name="runtime" mapped="default" />
-			<conf name="build" mapped="sources" />
-		</dependency>
-		<dependency org="junit" name="junit" rev="4.10">
-			<conf name="junit" mapped="default" />
-			<conf name="build" mapped="sources" />
+		<dependency org="net.sf.trove4j" name="trove4j" rev="2.0.2" conf="runtime->default; build->sources" />
+		<dependency org="org.beanshell-x" name="bsh" rev="2.0b4" conf="runtime->default; build->sources" />
+		<dependency org="junit" name="junit" rev="4.10" conf="junit->default; build->sources">
 			<exclude org="org.hamcrest" module="hamcrest-core" />
 		</dependency>
 		<dependency org="cpsuite" name="cpsuite" rev="1.2.7.1" conf="build->default" />
-		<dependency org="org.slf4j" name="slf4j-api" rev="1.6.4">
-			<conf name="runtime" mapped="default" />
-			<conf name="build" mapped="sources" />
-		</dependency>
+		<dependency org="org.slf4j" name="slf4j-api" rev="1.6.4" conf="runtime->default; build->sources" />
 		<dependency org="org.slf4j" name="slf4j-log4j12" rev="1.6.4" conf="build->default" />
 		<dependency org="com.exedio" name="copeutil" rev="563" conf="runtime->runtime; build->runtime,sources,changelog" />
 		<dependency org="com.exedio" name="copeservletutil" rev="66" conf="runtime->runtime; build->runtime,sources,changelog" />
