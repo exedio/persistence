@@ -39,6 +39,7 @@ class ClassVisitor extends GeneratedAwareScanner
 	private final JavaClass outerClass;
 
 	private JavaClass javaClass;
+	private int previousGeneratedFragmentEnd = Integer.MAX_VALUE;
 
 	/** @param outer may be null (for non-inner classes) */
 	ClassVisitor(final TreeApiContext context, final JavaClass outer)
@@ -58,6 +59,7 @@ class ClassVisitor extends GeneratedAwareScanner
 		else if (javaClass==null)
 		{
 			final String classExtends=context.getFullyQualifiedSuperclass(getCurrentPath());
+			previousGeneratedFragmentEnd = 0;
 			javaClass = new JavaClass(
 				context.javaFile,
 				outerClass,
@@ -119,11 +121,12 @@ class ClassVisitor extends GeneratedAwareScanner
 
 	private void addGeneratedFragment(final int start, final int end)
 	{
+		if (start<previousGeneratedFragmentEnd) throw new RuntimeException(""+start+"<"+previousGeneratedFragmentEnd);
 		final int realStart;
 		final int realEnd;
 		if (context.extendGeneratedFragmentsToLineBreaks)
 		{
-			realStart=includeLeadingWhitespaceLine(start, true);
+			realStart=Math.max(previousGeneratedFragmentEnd, includeLeadingWhitespaceLine(start, true));
 			final int lineEnd=context.searchAfter(end-1, LINE_SEPARATOR_BYTES);
 			if (lineEnd==-1)
 			{
@@ -144,6 +147,7 @@ class ClassVisitor extends GeneratedAwareScanner
 			realEnd=end;
 		}
 		context.markFragmentAsGenerated(realStart, realEnd);
+		previousGeneratedFragmentEnd = realEnd;
 	}
 
 	/** if the line before 'pos' is all whitespace, return the position of the start position of that line
