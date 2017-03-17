@@ -306,7 +306,7 @@ public class TypesBoundErrorTest
 			);
 		}
 	}
-	@WrapperType(comments=false, constructor=NONE, genericConstructor=NONE, indent=2)
+	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	static class UniqueConstraintOnInheritedFeatureSuper extends Item
 	{
 		@WrapperIgnore static final IntegerField superField=new IntegerField();
@@ -320,7 +320,7 @@ public class TypesBoundErrorTest
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		protected UniqueConstraintOnInheritedFeatureSuper(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
-	@WrapperType(comments=false, constructor=NONE, genericConstructor=NONE, type=NONE, indent=2)
+	@WrapperType(type=NONE, constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	static class UniqueConstraintOnInheritedFeatureSub extends UniqueConstraintOnInheritedFeatureSuper
 	{
 		@WrapperIgnore private static final IntegerField subField=new IntegerField();
