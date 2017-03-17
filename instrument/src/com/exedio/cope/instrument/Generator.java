@@ -453,6 +453,8 @@ final class Generator
 						for(final Object parameterInstance : parameter.varargs)
 						{
 							final CopeFeature parameterFeature=feature.parent.getFeatureByInstance(parameterInstance);
+							if (parameterFeature==null)
+								throw new RuntimeException("cannot resolve parameter "+parameterInstance+" for "+feature.getName()+"/"+methodName);
 							final String parameterName = parameterFeature.getName();
 
 							final Object[] parameterArguments = new String[]{
