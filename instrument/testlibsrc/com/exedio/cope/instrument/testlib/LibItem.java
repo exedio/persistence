@@ -27,7 +27,7 @@ import com.exedio.cope.instrument.testfeature.SimpleSettable;
 import java.util.List;
 import java.util.Set;
 
-public abstract class LibItem<T> extends Item
+public abstract class LibItem<T> extends LibSuperItem
 {
 	/** check that we can access a field in the initialization of feature LibUser#simple2: */
 	public final static boolean CONSTANT_FOR_FALSE_IN_LIBITEM = false;
@@ -60,6 +60,7 @@ public abstract class LibItem<T> extends Item
 
 	 **
 	 * Creates a new LibItem with all the fields initially needed.
+	 * @param inSuper the initial value for field {@link #inSuper}.
 	 * @param a the initial value for field {@link #a}.
 	 * @param inner the initial value for field {@link #inner}.
 	 * @param strings the initial value for field {@link #strings}.
@@ -69,12 +70,14 @@ public abstract class LibItem<T> extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	public LibItem(
+				@javax.annotation.Nullable final java.lang.String inSuper,
 				@javax.annotation.Nullable final java.lang.String a,
 				@javax.annotation.Nonnull final LibItem.Inner inner,
 				@javax.annotation.Nonnull final String[] strings,
 				@javax.annotation.Nonnull final Set<List<Object>> nestedGenerics)
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
+			com.exedio.cope.instrument.testlib.LibSuperItem.inSuper.map(inSuper),
 			LibItem.a.map(a),
 			LibItem.inner.map(inner),
 			LibItem.strings.map(strings),
@@ -155,6 +158,7 @@ public abstract class LibItem<T> extends Item
 	 *       It can be customized with the tag <tt>@cope.type public|package|protected|private|none</tt> in the class comment.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@SuppressWarnings("hiding")
 	public static final com.exedio.cope.Type<LibItem<?>> TYPE = com.exedio.cope.TypesBound.newType(LibItem.classWildcard.value);/**
 
 	 **
