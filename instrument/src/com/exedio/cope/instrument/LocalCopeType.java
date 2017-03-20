@@ -187,7 +187,7 @@ final class LocalCopeType extends CopeType<LocalCopeFeature>
 	}
 
 	@Override
-	CopeFeature getFeatureByInstance(final Object instance)
+	CopeFeature getOwnFeatureByInstance(final Object instance)
 	{
 		final JavaField field = javaClass.getFieldByInstance(instance);
 		if (field!=null)
@@ -197,11 +197,6 @@ final class LocalCopeType extends CopeType<LocalCopeFeature>
 				throw new RuntimeException("attempt to access ignored field '"+field.name+"'");
 			localFeature.assertJavaField(field);
 			return localFeature;
-		}
-		final CopeType<?> superclass = getSuperclass();
-		if (superclass!=null)
-		{
-			return superclass.getFeatureByInstance(instance);
 		}
 		return null;
 	}

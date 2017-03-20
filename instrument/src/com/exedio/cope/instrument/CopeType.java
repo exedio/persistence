@@ -99,7 +99,20 @@ abstract class CopeType<F extends CopeFeature>
 		assert collision==null : feature.getName();
 	}
 
-	abstract CopeFeature getFeatureByInstance(Object instance);
+	final CopeFeature getFeatureByInstance(final Object instance)
+	{
+		final CopeFeature own = getOwnFeatureByInstance(instance);
+		if (own!=null)
+			return own;
+		final CopeType<?> superclass = getSuperclass();
+		if (superclass!=null)
+		{
+			return superclass.getFeatureByInstance(instance);
+		}
+		return null;
+	}
+
+	abstract CopeFeature getOwnFeatureByInstance(final Object instance);
 
 	final F getFeature(final String name)
 	{

@@ -116,7 +116,7 @@ final class ExternalCopeType extends CopeType<ExternalCopeFeature>
 	}
 
 	@Override
-	CopeFeature getFeatureByInstance(final Object instance)
+	CopeFeature getOwnFeatureByInstance(final Object instance)
 	{
 		for (final ExternalCopeFeature feature: getFeatures())
 		{
@@ -124,11 +124,6 @@ final class ExternalCopeType extends CopeType<ExternalCopeFeature>
 			{
 				return feature;
 			}
-		}
-		final CopeType<?> superclass = getSuperclass();
-		if (superclass!=null)
-		{
-			return superclass.getFeatureByInstance(instance);
 		}
 		return null;
 	}
