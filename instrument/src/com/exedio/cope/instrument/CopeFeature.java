@@ -157,4 +157,11 @@ abstract class CopeFeature
 	{
 		return parent.toString() + '#' + getName();
 	}
+
+	static final String link(final String target)
+	{
+		return "{@link #" + target + '}';
+	}
+
+	abstract String getJavadocReference();
 }

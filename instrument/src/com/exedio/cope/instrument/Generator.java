@@ -219,11 +219,6 @@ final class Generator
 		write(lineSeparator);
 	}
 
-	private static final String link(final String target)
-	{
-		return "{@link #" + target + '}';
-	}
-
 	private void writeInitialConstructor(final LocalCopeType type)
 	{
 		if(!type.kind.hasGenericConstructor) // without generic constructor there can be no initial constructor
@@ -238,7 +233,7 @@ final class Generator
 		commentLines.add(" * "+format(CONSTRUCTOR_INITIAL, type.getName()));
 		for(final CopeFeature feature : initialFeatures)
 		{
-			commentLines.add(" * @param "+feature.getName()+' '+format(CONSTRUCTOR_INITIAL_PARAMETER, link(feature.getName())));
+			commentLines.add(" * @param "+feature.getName()+' '+format(CONSTRUCTOR_INITIAL_PARAMETER, feature.getJavadocReference()));
 		}
 		for(final Class<?> constructorException : constructorExceptions)
 		{
@@ -430,7 +425,7 @@ final class Generator
 			final boolean useIs = instance instanceof BooleanField && methodName.startsWith("get");
 
 			final Object[] arguments = new String[]{
-					link(feature.getName()),
+					feature.getJavadocReference(),
 					feature.getName(),
 					lowerCamelCase(feature.parent.getName()),
 					featureNameCamelCase};
@@ -458,7 +453,7 @@ final class Generator
 							final String parameterName = parameterFeature.getName();
 
 							final Object[] parameterArguments = new String[]{
-									link(parameterFeature.getName()),
+									parameterFeature.getJavadocReference(),
 									parameterFeature.getName(),
 									lowerCamelCase(parameterFeature.parent.getName())};
 							collectCommentParagraph(

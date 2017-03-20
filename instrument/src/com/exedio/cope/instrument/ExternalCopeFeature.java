@@ -70,4 +70,10 @@ final class ExternalCopeFeature extends CopeFeature
 			throw new RuntimeException(e);
 		}
 	}
+
+	@Override
+	String getJavadocReference()
+	{
+		return link(getName());
+	}
 }
