@@ -18,7 +18,6 @@
 
 package com.exedio.cope.instrument.testlib;
 
-import com.exedio.cope.Item;
 import com.exedio.cope.instrument.WrapperIgnore;
 import com.exedio.cope.instrument.WrapperInitial;
 import com.exedio.cope.instrument.testfeature.OptionFeature;
