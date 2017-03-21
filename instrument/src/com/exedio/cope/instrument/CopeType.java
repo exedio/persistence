@@ -101,7 +101,7 @@ abstract class CopeType<F extends CopeFeature>
 
 	final CopeFeature getFeatureByInstance(final Object instance)
 	{
-		final CopeFeature own = getOwnFeatureByInstance(instance);
+		final CopeFeature own = getDeclaredFeatureByInstance(instance);
 		if (own!=null)
 			return own;
 		final CopeType<?> superclass = getSuperclass();
@@ -112,7 +112,7 @@ abstract class CopeType<F extends CopeFeature>
 		return null;
 	}
 
-	abstract CopeFeature getOwnFeatureByInstance(final Object instance);
+	abstract CopeFeature getDeclaredFeatureByInstance(final Object instance);
 
 	final F getFeature(final String name)
 	{

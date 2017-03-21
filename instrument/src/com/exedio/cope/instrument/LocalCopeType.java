@@ -187,7 +187,7 @@ final class LocalCopeType extends CopeType<LocalCopeFeature>
 	}
 
 	@Override
-	CopeFeature getOwnFeatureByInstance(final Object instance)
+	CopeFeature getDeclaredFeatureByInstance(final Object instance)
 	{
 		final JavaField field = javaClass.getFieldByInstance(instance);
 		if (field!=null)
