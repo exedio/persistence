@@ -25,7 +25,6 @@ import com.exedio.cope.pattern.TemplatedField;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.List;
 
@@ -42,7 +41,7 @@ public final class SerializationCheck
 					classes.add(((TemplatedField<?>)feature).getValueClass());
 		}
 
-		ArrayList<Field> result = null;
+		final ArrayList<Field> result = new ArrayList<>();
 		for(final Class<?> clazz : classes)
 		{
 			for(final Field field : clazz.getDeclaredFields())
@@ -54,17 +53,12 @@ public final class SerializationCheck
 				if(!Modifier.isStatic(modifiers) &&
 					!Modifier.isTransient(modifiers))
 				{
-					if(result==null)
-						result = new ArrayList<>();
 					result.add(field);
 				}
 			}
 		}
 
-		return
-			result!=null
-			? Collections.unmodifiableList(result)
-			: Collections.<Field>emptyList();
+		return ListUtil.trimUnmodifiable(result);
 	}
 
 	private SerializationCheck()
