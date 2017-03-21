@@ -21,8 +21,7 @@ package com.exedio.cope.misc;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Model;
 import com.exedio.cope.Type;
-import com.exedio.cope.pattern.BlockField;
-import com.exedio.cope.pattern.CompositeField;
+import com.exedio.cope.pattern.TemplatedField;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
@@ -39,12 +38,8 @@ public final class SerializationCheck
 		{
 			classes.add(type.getJavaClass());
 			for(final Feature feature : type.getDeclaredFeatures())
-			{
-				if(feature instanceof CompositeField<?>)
-					classes.add(((CompositeField<?>)feature).getValueClass());
-				else if(feature instanceof BlockField<?>)
-					classes.add(((BlockField<?>)feature).getValueClass());
-			}
+				if(feature instanceof TemplatedField<?>)
+					classes.add(((TemplatedField<?>)feature).getValueClass());
 		}
 
 		ArrayList<Field> result = null;
