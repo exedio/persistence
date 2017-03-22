@@ -74,6 +74,16 @@ public class PatternTest extends TestWithEnvironment
 					PatternTestItem.testPattern2.getOwnItem()
 				), PatternTestItem.testPattern2.getSourceFeatures());
 
+		try
+		{
+			PatternTestItem.testPattern.getSourceFeaturesGather();
+			fail();
+		}
+		catch (final RuntimeException e)
+		{
+			assertEquals("getSourceFeaturesGather can be called only before pattern is mounted, not afterwards", e.getMessage());
+		}
+
 		assertSame(PatternTestItem.testPattern, PatternTestItem.testPattern.ownString.getPattern());
 		assertSame(PatternTestItem.testPattern, PatternTestItem.testPattern.ownInt.getPattern());
 		assertSame(PatternTestItem.testPattern, PatternTestItem.testPattern.getOwnItem().getPattern());
