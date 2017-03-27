@@ -58,11 +58,13 @@ abstract class JavacRunner<P extends Processor>
 			final Iterable<? extends JavaFileObject> sources=fileManager.getJavaFileObjectsFromFiles(sortedSourceFiles);
 			final List<String> optionList = new ArrayList<>();
 			optionList.addAll(asList("-classpath", combineClasspath(getCurrentClasspath(), getConfiguredClasspath(classpathFiles))));
+			optionList.addAll(asList("-sourcepath", getConfiguredClasspath(params.sourceDirectories)));
 			optionList.add("-proc:only");
 			optionList.add("-encoding");
 			optionList.add(params.charset.name());
 			optionList.add("-Xmaxwarns");
 			optionList.add(params.getMaxwarns());
+			optionList.add("-implicit:none");
 			final JavaCompiler.CompilationTask task = compiler.getTask(null, null, null, optionList, null, sources);
 			final P processor=createProcessor(fileManager);
 			task.setProcessors(singleton(processor));

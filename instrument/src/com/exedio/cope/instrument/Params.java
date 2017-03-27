@@ -29,6 +29,7 @@ import java.util.List;
 final class Params
 {
 	List<File> sourceFiles;
+	List<File> sourceDirectories;
 	/** in {@link #sourceFiles}, the files to look at for understanding source code, but not instrument */
 	final List<File> ignoreFiles = new ArrayList<>();
 	boolean verify = false;

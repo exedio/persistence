@@ -38,11 +38,12 @@ public final class AntTask extends Task
 
 	public void setDir(final Path path)
 	{
-		if (params.sourceFiles!=null)
+		if (params.sourceFiles!=null || params.sourceDirectories!=null)
 		{
 			throw new BuildException("'dir' already specified");
 		}
 		params.sourceFiles=new ArrayList<>();
+		params.sourceDirectories=new ArrayList<>();
 		for (final String entry: path.list())
 		{
 			final File file=getProject().resolveFile(entry);
@@ -50,6 +51,7 @@ public final class AntTask extends Task
 			{
 				throw new BuildException("'dir' must be directories: "+file.getAbsolutePath());
 			}
+			params.sourceDirectories.add(file);
 			collectFiles(params.sourceFiles, file, true, true);
 		}
 		if (params.sourceFiles.isEmpty())
