@@ -32,7 +32,6 @@ import org.apache.tools.ant.types.Path;
 public final class AntTask extends Task
 {
 	private final Params params = new Params();
-	private final ArrayList<Path> resources = new ArrayList<>();
 	private Ignore ignore;
 
 	public void setDir(final Path path)
@@ -93,9 +92,10 @@ public final class AntTask extends Task
 		params.timestampFile = value;
 	}
 
-	public void addResources(final Path value)
+	public void addConfiguredResources(final Path value)
 	{
-		resources.add(value);
+		// get_Configured_Resources means we get called _after_ the resources have been set up by ant
+		pathToFiles(value, params.resources, true);
 	}
 
 	public void addConfiguredClasspath(final Path value)
@@ -193,8 +193,6 @@ public final class AntTask extends Task
 	{
 		try
 		{
-			final ArrayList<File> resourceFiles = new ArrayList<>();
-
 			if (ignore!=null)
 			{
 				final List<File> listedFiles = new ArrayList<>();
@@ -227,7 +225,7 @@ public final class AntTask extends Task
 					params.ignoreFiles.addAll(listedFiles);
 				}
 			}
-			if (params.timestampFile==null && !resources.isEmpty())
+			if (params.timestampFile==null && !params.resources.isEmpty())
 			{
 				throw new BuildException("resources require timestampFile");
 			}
@@ -258,15 +256,14 @@ public final class AntTask extends Task
 				System.out.println("<instrument ... uses deprecated combination of hintFormat and configByTags - use hintFormat=\"forAnnotations\" instead.");
 			}
 			final File buildFile = getProject().resolveFile(getLocation().getFileName());
-			resourceFiles.add(buildFile);
-			pathsToFiles(resources, resourceFiles, true);
+			params.resources.add(buildFile);
 
 			if (params.configByTags==ConfigurationByJavadocTags.convertToAnnotations)
 			{
 				ConvertTagsToAnnotations.convert(params);
 				throw new HumanReadableException("convertToAnnotations - stopping build");
 			}
-			(new Main()).run(params, resourceFiles);
+			new Main().run(params);
 		}
 		catch(final HumanReadableException e)
 		{
@@ -282,14 +279,6 @@ public final class AntTask extends Task
 	{
 		if ( params.sourceFiles==null ) throw new BuildException("'dir' not set");
 		return params.sourceFiles.contains(file);
-	}
-
-	private void pathsToFiles(final List<Path> paths, final List<File> addTo, final boolean expandDirectories)
-	{
-		for (final Path resource: paths)
-		{
-			pathToFiles(resource, addTo, expandDirectories);
-		}
 	}
 
 	private void pathToFiles(final Path resource, final List<File> addTo, final boolean expandDirectories)

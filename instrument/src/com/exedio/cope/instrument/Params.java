@@ -64,5 +64,6 @@ final class Params
 	boolean verbose = false;
 	File timestampFile = null;
 	final List<File> classpath = new ArrayList<>();
+	final List<File> resources = new ArrayList<>();
 
 }

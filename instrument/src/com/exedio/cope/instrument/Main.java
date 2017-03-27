@@ -40,14 +40,14 @@ final class Main
 
 	static final int INITIAL_BUFFER_SIZE=16384;
 
-	final void run(final Params params, final Iterable<File> resourceFiles) throws HumanReadableException, IOException
+	final void run(final Params params) throws HumanReadableException, IOException
 	{
 		final List<File> files = new ArrayList<>(params.sourceFiles);
 		files.removeAll(params.ignoreFiles);
 		if(files.isEmpty())
 			throw new HumanReadableException("nothing to do.");
 		if ( noFilesModifiedAfter(files, params.timestampFile, params.verbose)
-			&& noFilesModifiedAfter(resourceFiles, params.timestampFile, params.verbose)
+			&& noFilesModifiedAfter(params.resources, params.timestampFile, params.verbose)
 			&& noFilesModifiedAfter(params.classpath, params.timestampFile, params.verbose) )
 		{
 			System.out.println("No files or resources modified.");
