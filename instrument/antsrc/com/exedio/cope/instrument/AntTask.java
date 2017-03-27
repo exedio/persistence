@@ -286,7 +286,7 @@ public final class AntTask extends Task
 		return params.sourceFiles.contains(file);
 	}
 
-	private void pathsToFiles(final ArrayList<Path> paths, final ArrayList<File> addTo, final boolean expandDirectories)
+	private void pathsToFiles(final List<Path> paths, final List<File> addTo, final boolean expandDirectories)
 	{
 		for (final Path resource: paths)
 		{
@@ -298,7 +298,7 @@ public final class AntTask extends Task
 		}
 	}
 
-	private void addRecursively(final File fileOrDir, final ArrayList<File> addTo, final boolean expandDirectories)
+	private void addRecursively(final File fileOrDir, final List<File> addTo, final boolean expandDirectories)
 	{
 		if (!fileOrDir.exists())
 		{
