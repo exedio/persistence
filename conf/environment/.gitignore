@@ -1,4 +1,4 @@
-my*.properties
-ora*.properties
-pg*.properties
-disabled/
+/my*.properties
+/ora*.properties
+/pg*.properties
+/disabled/
