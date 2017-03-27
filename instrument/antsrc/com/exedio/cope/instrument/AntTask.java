@@ -277,8 +277,15 @@ public final class AntTask extends Task
 
 	private boolean isInSourceFiles(final File file)
 	{
-		if ( params.sourceFiles==null ) throw new BuildException("'dir' not set");
-		return params.sourceFiles.contains(file);
+		if (params.sourceDirectories==null) throw new BuildException("'dir' not set");
+		File check = file;
+		while (check!=null)
+		{
+			if (params.sourceDirectories.contains(check))
+				return true;
+			check = check.getParentFile();
+		}
+		return false;
 	}
 
 	private void pathToFiles(final Path resource, final List<File> addTo, final boolean expandDirectories)
