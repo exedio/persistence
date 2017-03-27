@@ -8,6 +8,7 @@
 /local.properties
 /.eclipse-output/
 /nbproject/private/
+/nbproject/local.properties
 /.idea/workspace.xml
 /.idea/scopes
 /.idea/uiDesigner.xml
