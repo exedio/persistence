@@ -63,5 +63,6 @@ final class Params
 	HintFormat hintFormat = HintFormat.forAnnotations;
 	boolean verbose = false;
 	File timestampFile = null;
+	final List<File> classpath = new ArrayList<>();
 
 }

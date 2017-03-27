@@ -40,7 +40,7 @@ final class Main
 
 	static final int INITIAL_BUFFER_SIZE=16384;
 
-	final void run(final Params params, final Iterable<File> classpathFiles, final Iterable<File> resourceFiles) throws HumanReadableException, IOException
+	final void run(final Params params, final Iterable<File> resourceFiles) throws HumanReadableException, IOException
 	{
 		final List<File> files = new ArrayList<>(params.sourceFiles);
 		files.removeAll(params.ignoreFiles);
@@ -48,7 +48,7 @@ final class Main
 			throw new HumanReadableException("nothing to do.");
 		if ( noFilesModifiedAfter(files, params.timestampFile, params.verbose)
 			&& noFilesModifiedAfter(resourceFiles, params.timestampFile, params.verbose)
-			&& noFilesModifiedAfter(classpathFiles, params.timestampFile, params.verbose) )
+			&& noFilesModifiedAfter(params.classpath, params.timestampFile, params.verbose) )
 		{
 			System.out.println("No files or resources modified.");
 			return;
@@ -64,13 +64,13 @@ final class Main
 			InstrumentContext.enter();
 
 			final Charset charset = params.charset;
-			final JavaRepository repository = new JavaRepository( createClassLoader(classpathFiles) );
+			final JavaRepository repository = new JavaRepository( createClassLoader(params.classpath) );
 
 			this.verbose = params.verbose;
 			instrumented = 0;
 			skipped = 0;
 
-			runJavac(params, classpathFiles, repository);
+			runJavac(params, repository);
 
 			repository.endBuildStage();
 
@@ -205,7 +205,7 @@ final class Main
 		}
 	}
 
-	private static void runJavac(final Params params, final Iterable<File> classpathFiles, final JavaRepository repository) throws IOException, HumanReadableException
+	private static void runJavac(final Params params, final JavaRepository repository) throws IOException, HumanReadableException
 	{
 		new JavacRunner<InstrumentorProcessor>()
 		{
@@ -229,7 +229,7 @@ final class Main
 				}
 			}
 
-		}.run(params, classpathFiles);
+		}.run(params);
 	}
 
 	boolean verbose;

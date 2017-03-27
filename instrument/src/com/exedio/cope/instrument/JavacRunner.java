@@ -38,7 +38,7 @@ import javax.tools.StandardJavaFileManager;
 
 abstract class JavacRunner<P extends Processor>
 {
-	void run(final Params params, final Iterable<File> classpathFiles) throws IOException, HumanReadableException
+	void run(final Params params) throws IOException, HumanReadableException
 	{
 		// "JavacTool.create()" is not part of the "exported" API
 		// (not annotated with https://docs.oracle.com/javase/8/docs/jdk/api/javac/tree/jdk/Exported.html).
@@ -57,7 +57,7 @@ abstract class JavacRunner<P extends Processor>
 			Collections.sort(sortedSourceFiles);
 			final Iterable<? extends JavaFileObject> sources=fileManager.getJavaFileObjectsFromFiles(sortedSourceFiles);
 			final List<String> optionList = new ArrayList<>();
-			optionList.addAll(asList("-classpath", combineClasspath(getCurrentClasspath(), getConfiguredClasspath(classpathFiles))));
+			optionList.addAll(asList("-classpath", combineClasspath(getCurrentClasspath(), getConfiguredClasspath(params.classpath))));
 			optionList.addAll(asList("-sourcepath", getConfiguredClasspath(params.sourceDirectories)));
 			optionList.add("-proc:only");
 			optionList.add("-encoding");

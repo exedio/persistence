@@ -33,7 +33,6 @@ public final class AntTask extends Task
 {
 	private final Params params = new Params();
 	private final ArrayList<Path> resources = new ArrayList<>();
-	private final ArrayList<Path> classpath = new ArrayList<>();
 	private Ignore ignore;
 
 	public void setDir(final Path path)
@@ -99,9 +98,10 @@ public final class AntTask extends Task
 		resources.add(value);
 	}
 
-	public void addClasspath(final Path value)
+	public void addConfiguredClasspath(final Path value)
 	{
-		classpath.add(value);
+		// get_Configured_Classpath means we get called _after_ the classpath has been set up by ant
+		pathToFiles(value, params.classpath, false);
 	}
 
 	@Deprecated
@@ -194,7 +194,6 @@ public final class AntTask extends Task
 		try
 		{
 			final ArrayList<File> resourceFiles = new ArrayList<>();
-			final ArrayList<File> classpathFiles = new ArrayList<>();
 
 			if (ignore!=null)
 			{
@@ -261,14 +260,13 @@ public final class AntTask extends Task
 			final File buildFile = getProject().resolveFile(getLocation().getFileName());
 			resourceFiles.add(buildFile);
 			pathsToFiles(resources, resourceFiles, true);
-			pathsToFiles(classpath, classpathFiles, false);
 
 			if (params.configByTags==ConfigurationByJavadocTags.convertToAnnotations)
 			{
-				ConvertTagsToAnnotations.convert(params, classpathFiles);
+				ConvertTagsToAnnotations.convert(params);
 				throw new HumanReadableException("convertToAnnotations - stopping build");
 			}
-			(new Main()).run(params, classpathFiles, resourceFiles);
+			(new Main()).run(params, resourceFiles);
 		}
 		catch(final HumanReadableException e)
 		{
@@ -290,11 +288,16 @@ public final class AntTask extends Task
 	{
 		for (final Path resource: paths)
 		{
-			for (final String fileName: resource.list())
-			{
-				final File file = getProject().resolveFile(fileName);
-				addRecursively(file, addTo, expandDirectories);
-			}
+			pathToFiles(resource, addTo, expandDirectories);
+		}
+	}
+
+	private void pathToFiles(final Path resource, final List<File> addTo, final boolean expandDirectories)
+	{
+		for (final String fileName: resource.list())
+		{
+			final File file = getProject().resolveFile(fileName);
+			addRecursively(file, addTo, expandDirectories);
 		}
 	}
 
