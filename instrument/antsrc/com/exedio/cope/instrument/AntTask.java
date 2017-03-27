@@ -52,7 +52,7 @@ public final class AntTask extends Task
 				throw new BuildException("'dir' must be directories: "+file.getAbsolutePath());
 			}
 			params.sourceDirectories.add(file);
-			collectFiles(params.sourceFiles, file, true, true);
+			collectFiles(params.sourceFiles, file);
 		}
 		if (params.sourceFiles.isEmpty())
 		{
@@ -315,20 +315,20 @@ public final class AntTask extends Task
 		addTo.add(fileOrDir);
 	}
 
-	private static void collectFiles(final List<File> collectInto, final File fileOrDir, final boolean expandDirectories, final boolean onlyJava)
+	private static void collectFiles(final List<File> collectInto, final File fileOrDir)
 	{
 		if (!fileOrDir.exists())
 		{
 			throw new RuntimeException(fileOrDir.getAbsolutePath()+" does not exist");
 		}
-		else if (expandDirectories && fileOrDir.isDirectory())
+		else if (fileOrDir.isDirectory())
 		{
 			for (final File child: fileOrDir.listFiles())
 			{
-				collectFiles(collectInto, child, expandDirectories, onlyJava);
+				collectFiles(collectInto, child);
 			}
 		}
-		else if (!onlyJava || fileOrDir.isDirectory() || fileOrDir.getName().endsWith(".java"))
+		else if (fileOrDir.getName().endsWith(".java"))
 		{
 			collectInto.add(fileOrDir);
 		}
