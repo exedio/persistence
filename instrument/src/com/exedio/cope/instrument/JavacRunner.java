@@ -31,6 +31,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 import javax.annotation.processing.Processor;
 import javax.tools.JavaCompiler;
 import javax.tools.JavaFileObject;
@@ -57,8 +58,8 @@ abstract class JavacRunner<P extends Processor>
 			Collections.sort(sortedSourceFiles);
 			final Iterable<? extends JavaFileObject> sources=fileManager.getJavaFileObjectsFromFiles(sortedSourceFiles);
 			final List<String> optionList = new ArrayList<>();
-			optionList.addAll(asList("-classpath", combineClasspath(getCurrentClasspath(), getConfiguredClasspath(params.classpath))));
-			optionList.addAll(asList("-sourcepath", getConfiguredClasspath(params.sourceDirectories)));
+			optionList.addAll(asList("-classpath", combineClasspath(getCurrentClasspath(), toClasspathString(params.classpath))));
+			optionList.addAll(asList("-sourcepath", toClasspathString(params.sourceDirectories)));
 			optionList.add("-proc:only");
 			optionList.add("-encoding");
 			optionList.add(params.charset.name());
@@ -93,7 +94,7 @@ abstract class JavacRunner<P extends Processor>
 		}
 	}
 
-	private static String getConfiguredClasspath(final Iterable<File> classpathFiles)
+	private static String toClasspathString(final Iterable<File> classpathFiles)
 	{
 		final StringBuilder result=new StringBuilder();
 		boolean needSeparator=false;
