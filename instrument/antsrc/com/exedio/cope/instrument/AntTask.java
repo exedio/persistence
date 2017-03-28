@@ -22,6 +22,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.DirectoryScanner;
@@ -36,11 +37,10 @@ public final class AntTask extends Task
 
 	public void setDir(final Path path)
 	{
-		if (params.sourceFiles!=null || params.sourceDirectories!=null)
+		if (params.sourceDirectories!=null)
 		{
 			throw new BuildException("'dir' already specified");
 		}
-		params.sourceFiles=new ArrayList<>();
 		params.sourceDirectories=new ArrayList<>();
 		for (final String entry: path.list())
 		{
@@ -50,11 +50,6 @@ public final class AntTask extends Task
 				throw new BuildException("'dir' must be directories: "+file.getAbsolutePath());
 			}
 			params.sourceDirectories.add(file);
-			collectFiles(params.sourceFiles, file);
-		}
-		if (params.sourceFiles.isEmpty())
-		{
-			throw new BuildException("no java files in 'dir'");
 		}
 	}
 
@@ -191,9 +186,22 @@ public final class AntTask extends Task
 	@Override
 	public void execute() throws BuildException
 	{
+		if (params.sourceDirectories==null)
+		{
+			throw new BuildException("'dir' required");
+		}
+		final List<File> javaSourceFiles = params.getAllJavaSourceFiles();
+		if (javaSourceFiles.isEmpty())
+		{
+			throw new BuildException("no java files in 'dir'");
+		}
 		try
 		{
-			if (ignore!=null)
+			if (ignore==null)
+			{
+				params.ignoreFiles = Collections.emptyList();
+			}
+			else
 			{
 				final List<File> listedFiles = new ArrayList<>();
 				for (final FileSet fileSet: ignore.fileSets)
@@ -215,14 +223,13 @@ public final class AntTask extends Task
 				}
 				if (ignore.dontIgnore)
 				{
-					if (params.sourceFiles==null) throw new RuntimeException();
-					final List<File> ignoreFiles = new ArrayList<>(params.sourceFiles);
+					final List<File> ignoreFiles = new ArrayList<>(javaSourceFiles);
 					ignoreFiles.removeAll(listedFiles);
-					params.ignoreFiles.addAll(ignoreFiles);
+					params.ignoreFiles = ignoreFiles;
 				}
 				else
 				{
-					params.ignoreFiles.addAll(listedFiles);
+					params.ignoreFiles = listedFiles;
 				}
 			}
 			if (params.timestampFile==null && !params.resources.isEmpty())
@@ -312,25 +319,6 @@ public final class AntTask extends Task
 			return;
 		}
 		addTo.add(fileOrDir);
-	}
-
-	private static void collectFiles(final List<File> collectInto, final File fileOrDir)
-	{
-		if (!fileOrDir.exists())
-		{
-			throw new RuntimeException(fileOrDir.getAbsolutePath()+" does not exist");
-		}
-		else if (fileOrDir.isDirectory())
-		{
-			for (final File child: fileOrDir.listFiles())
-			{
-				collectFiles(collectInto, child);
-			}
-		}
-		else if (fileOrDir.getName().endsWith(".java"))
-		{
-			collectInto.add(fileOrDir);
-		}
 	}
 
 	public final static class Ignore

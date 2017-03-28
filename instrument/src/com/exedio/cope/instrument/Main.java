@@ -42,8 +42,7 @@ final class Main
 
 	final void run(final Params params) throws HumanReadableException, IOException
 	{
-		final List<File> files = new ArrayList<>(params.sourceFiles);
-		files.removeAll(params.ignoreFiles);
+		final List<File> files = params.getJavaSourceFilesExcludingIgnored();
 		if(files.isEmpty())
 			throw new HumanReadableException("nothing to do.");
 		if ( noFilesModifiedAfter(files, params.timestampFile, params.verbose)
