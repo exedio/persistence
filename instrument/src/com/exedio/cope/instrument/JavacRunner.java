@@ -31,6 +31,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 import javax.annotation.processing.Processor;
 import javax.tools.JavaCompiler;
 import javax.tools.JavaFileObject;
@@ -38,7 +39,7 @@ import javax.tools.StandardJavaFileManager;
 
 abstract class JavacRunner<P extends Processor>
 {
-	void run(final Params params, final Iterable<File> classpathFiles) throws IOException, HumanReadableException
+	void run(final Params params) throws IOException, HumanReadableException
 	{
 		// "JavacTool.create()" is not part of the "exported" API
 		// (not annotated with https://docs.oracle.com/javase/8/docs/jdk/api/javac/tree/jdk/Exported.html).
@@ -51,18 +52,20 @@ abstract class JavacRunner<P extends Processor>
 		}
 		try (final StandardJavaFileManager fileManager=compiler.getStandardFileManager(null, null, null))
 		{
-			final List<File> sortedSourceFiles=new ArrayList<>(params.sourceFiles);
+			final List<File> sortedSourceFiles=params.getAllJavaSourceFiles();
 			// We have to sort files to have a deterministic order - otherwise, resolving classes by
 			// simple name is not deterministic.
 			Collections.sort(sortedSourceFiles);
 			final Iterable<? extends JavaFileObject> sources=fileManager.getJavaFileObjectsFromFiles(sortedSourceFiles);
 			final List<String> optionList = new ArrayList<>();
-			optionList.addAll(asList("-classpath", combineClasspath(getCurrentClasspath(), getConfiguredClasspath(classpathFiles))));
+			optionList.addAll(asList("-classpath", combineClasspath(getCurrentClasspath(), toClasspathString(params.classpath))));
+			optionList.addAll(asList("-sourcepath", toClasspathString(params.sourceDirectories)));
 			optionList.add("-proc:only");
 			optionList.add("-encoding");
 			optionList.add(params.charset.name());
 			optionList.add("-Xmaxwarns");
 			optionList.add(params.getMaxwarns());
+			optionList.add("-implicit:none");
 			final JavaCompiler.CompilationTask task = compiler.getTask(null, null, null, optionList, null, sources);
 			final P processor=createProcessor(fileManager);
 			task.setProcessors(singleton(processor));
@@ -91,20 +94,9 @@ abstract class JavacRunner<P extends Processor>
 		}
 	}
 
-	private static String getConfiguredClasspath(final Iterable<File> classpathFiles)
+	private static String toClasspathString(final List<File> classpathFiles)
 	{
-		final StringBuilder result=new StringBuilder();
-		boolean needSeparator=false;
-		for (final File classpathFile: classpathFiles)
-		{
-			if (needSeparator)
-			{
-				result.append(File.pathSeparatorChar);
-			}
-			result.append(classpathFile.getAbsolutePath());
-			needSeparator=true;
-		}
-		return result.toString();
+		return classpathFiles.stream().map(f->f.getAbsolutePath()).collect(Collectors.joining(File.pathSeparator));
 	}
 
 	private static String getCurrentClasspath()

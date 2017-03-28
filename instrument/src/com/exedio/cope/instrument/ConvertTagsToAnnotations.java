@@ -27,14 +27,12 @@ import com.sun.source.util.DocTrees;
 import com.sun.source.util.TreePath;
 import com.sun.source.util.TreePathScanner;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashSet;
@@ -56,7 +54,7 @@ import javax.tools.StandardJavaFileManager;
 @SuppressWarnings("synthetic-access")
 final class ConvertTagsToAnnotations
 {
-	static void convert(final Params params, final ArrayList<File> classpathFiles) throws IOException, HumanReadableException
+	static void convert(final Params params) throws IOException, HumanReadableException
 	{
 		new JavacRunner<ConvertProcessor>()
 		{
@@ -72,7 +70,7 @@ final class ConvertTagsToAnnotations
 			{
 				// empty
 			}
-		}.run(params, classpathFiles);
+		}.run(params);
 	}
 
 	@SupportedSourceVersion(SourceVersion.RELEASE_8)

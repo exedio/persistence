@@ -22,6 +22,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.DirectoryScanner;
@@ -32,17 +33,15 @@ import org.apache.tools.ant.types.Path;
 public final class AntTask extends Task
 {
 	private final Params params = new Params();
-	private final ArrayList<Path> resources = new ArrayList<>();
-	private final ArrayList<Path> classpath = new ArrayList<>();
 	private Ignore ignore;
 
 	public void setDir(final Path path)
 	{
-		if (params.sourceFiles!=null)
+		if (params.sourceDirectories!=null)
 		{
 			throw new BuildException("'dir' already specified");
 		}
-		params.sourceFiles=new ArrayList<>();
+		params.sourceDirectories=new ArrayList<>();
 		for (final String entry: path.list())
 		{
 			final File file=getProject().resolveFile(entry);
@@ -50,11 +49,7 @@ public final class AntTask extends Task
 			{
 				throw new BuildException("'dir' must be directories: "+file.getAbsolutePath());
 			}
-			collectFiles(params.sourceFiles, file, true, true);
-		}
-		if (params.sourceFiles.isEmpty())
-		{
-			throw new BuildException("no java files in 'dir'");
+			params.sourceDirectories.add(file);
 		}
 	}
 
@@ -92,14 +87,16 @@ public final class AntTask extends Task
 		params.timestampFile = value;
 	}
 
-	public void addResources(final Path value)
+	public void addConfiguredResources(final Path value)
 	{
-		resources.add(value);
+		// get_Configured_Resources means we get called _after_ the resources have been set up by ant
+		pathToFiles(value, params.resources, true);
 	}
 
-	public void addClasspath(final Path value)
+	public void addConfiguredClasspath(final Path value)
 	{
-		classpath.add(value);
+		// get_Configured_Classpath means we get called _after_ the classpath has been set up by ant
+		pathToFiles(value, params.classpath, false);
 	}
 
 	@Deprecated
@@ -189,12 +186,22 @@ public final class AntTask extends Task
 	@Override
 	public void execute() throws BuildException
 	{
+		if (params.sourceDirectories==null)
+		{
+			throw new BuildException("'dir' required");
+		}
+		final List<File> javaSourceFiles = params.getAllJavaSourceFiles();
+		if (javaSourceFiles.isEmpty())
+		{
+			throw new BuildException("no java files in 'dir'");
+		}
 		try
 		{
-			final ArrayList<File> resourceFiles = new ArrayList<>();
-			final ArrayList<File> classpathFiles = new ArrayList<>();
-
-			if (ignore!=null)
+			if (ignore==null)
+			{
+				params.ignoreFiles = Collections.emptyList();
+			}
+			else
 			{
 				final List<File> listedFiles = new ArrayList<>();
 				for (final FileSet fileSet: ignore.fileSets)
@@ -216,17 +223,16 @@ public final class AntTask extends Task
 				}
 				if (ignore.dontIgnore)
 				{
-					if (params.sourceFiles==null) throw new RuntimeException();
-					final List<File> ignoreFiles = new ArrayList<>(params.sourceFiles);
+					final List<File> ignoreFiles = new ArrayList<>(javaSourceFiles);
 					ignoreFiles.removeAll(listedFiles);
-					params.ignoreFiles.addAll(ignoreFiles);
+					params.ignoreFiles = ignoreFiles;
 				}
 				else
 				{
-					params.ignoreFiles.addAll(listedFiles);
+					params.ignoreFiles = listedFiles;
 				}
 			}
-			if (params.timestampFile==null && !resources.isEmpty())
+			if (params.timestampFile==null && !params.resources.isEmpty())
 			{
 				throw new BuildException("resources require timestampFile");
 			}
@@ -257,16 +263,14 @@ public final class AntTask extends Task
 				System.out.println("<instrument ... uses deprecated combination of hintFormat and configByTags - use hintFormat=\"forAnnotations\" instead.");
 			}
 			final File buildFile = getProject().resolveFile(getLocation().getFileName());
-			resourceFiles.add(buildFile);
-			pathsToFiles(resources, resourceFiles, true);
-			pathsToFiles(classpath, classpathFiles, false);
+			params.resources.add(buildFile);
 
 			if (params.configByTags==ConfigurationByJavadocTags.convertToAnnotations)
 			{
-				ConvertTagsToAnnotations.convert(params, classpathFiles);
+				ConvertTagsToAnnotations.convert(params);
 				throw new HumanReadableException("convertToAnnotations - stopping build");
 			}
-			(new Main()).run(params, classpathFiles, resourceFiles);
+			new Main().run(params);
 		}
 		catch(final HumanReadableException e)
 		{
@@ -280,23 +284,27 @@ public final class AntTask extends Task
 
 	private boolean isInSourceFiles(final File file)
 	{
-		if ( params.sourceFiles==null ) throw new BuildException("'dir' not set");
-		return params.sourceFiles.contains(file);
+		if (params.sourceDirectories==null) throw new BuildException("'dir' not set");
+		File check = file;
+		while (check!=null)
+		{
+			if (params.sourceDirectories.contains(check))
+				return true;
+			check = check.getParentFile();
+		}
+		return false;
 	}
 
-	private void pathsToFiles(final ArrayList<Path> paths, final ArrayList<File> addTo, final boolean expandDirectories)
+	private void pathToFiles(final Path resource, final List<File> addTo, final boolean expandDirectories)
 	{
-		for (final Path resource: paths)
+		for (final String fileName: resource.list())
 		{
-			for (final String fileName: resource.list())
-			{
-				final File file = getProject().resolveFile(fileName);
-				addRecursively(file, addTo, expandDirectories);
-			}
+			final File file = getProject().resolveFile(fileName);
+			addRecursively(file, addTo, expandDirectories);
 		}
 	}
 
-	private void addRecursively(final File fileOrDir, final ArrayList<File> addTo, final boolean expandDirectories)
+	private void addRecursively(final File fileOrDir, final List<File> addTo, final boolean expandDirectories)
 	{
 		if (!fileOrDir.exists())
 		{
@@ -311,25 +319,6 @@ public final class AntTask extends Task
 			return;
 		}
 		addTo.add(fileOrDir);
-	}
-
-	private static void collectFiles(final List<File> collectInto, final File fileOrDir, final boolean expandDirectories, final boolean onlyJava)
-	{
-		if (!fileOrDir.exists())
-		{
-			throw new RuntimeException(fileOrDir.getAbsolutePath()+" does not exist");
-		}
-		else if (expandDirectories && fileOrDir.isDirectory())
-		{
-			for (final File child: fileOrDir.listFiles())
-			{
-				collectFiles(collectInto, child, expandDirectories, onlyJava);
-			}
-		}
-		else if (!onlyJava || fileOrDir.isDirectory() || fileOrDir.getName().endsWith(".java"))
-		{
-			collectInto.add(fileOrDir);
-		}
 	}
 
 	public final static class Ignore

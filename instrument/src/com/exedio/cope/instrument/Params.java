@@ -28,9 +28,9 @@ import java.util.List;
 
 final class Params
 {
-	List<File> sourceFiles;
-	/** in {@link #sourceFiles}, the files to look at for understanding source code, but not instrument */
-	final List<File> ignoreFiles = new ArrayList<>();
+	List<File> sourceDirectories;
+	/** in {@link #sourceDirectories}, the files to look at for understanding source code, but not instrument */
+	List<File> ignoreFiles;
 	boolean verify = false;
 	Charset charset = StandardCharsets.US_ASCII;
 
@@ -62,5 +62,45 @@ final class Params
 	HintFormat hintFormat = HintFormat.forAnnotations;
 	boolean verbose = false;
 	File timestampFile = null;
+	final List<File> classpath = new ArrayList<>();
+	final List<File> resources = new ArrayList<>();
+
+	List<File> getAllJavaSourceFiles()
+	{
+		if (sourceDirectories==null) throw new RuntimeException("sourceDirectories not set");
+		final List<File> javaSourceFiles = new ArrayList<>();
+		for (final File sourceDirectory : sourceDirectories)
+		{
+			collectFiles(javaSourceFiles, sourceDirectory);
+		}
+		return javaSourceFiles;
+	}
+
+	List<File> getJavaSourceFilesExcludingIgnored()
+	{
+		if (ignoreFiles==null) throw new RuntimeException("ignoreFiles not set");
+		final List<File> result = getAllJavaSourceFiles();
+		result.removeAll(ignoreFiles);
+		return result;
+	}
+
+	private static void collectFiles(final List<File> collectInto, final File fileOrDir)
+	{
+		if (!fileOrDir.exists())
+		{
+			throw new RuntimeException(fileOrDir.getAbsolutePath()+" does not exist");
+		}
+		else if (fileOrDir.isDirectory())
+		{
+			for (final File child: fileOrDir.listFiles())
+			{
+				collectFiles(collectInto, child);
+			}
+		}
+		else if (fileOrDir.getName().endsWith(".java"))
+		{
+			collectInto.add(fileOrDir);
+		}
+	}
 
 }
