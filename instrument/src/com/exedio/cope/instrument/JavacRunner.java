@@ -94,20 +94,9 @@ abstract class JavacRunner<P extends Processor>
 		}
 	}
 
-	private static String toClasspathString(final Iterable<File> classpathFiles)
+	private static String toClasspathString(final List<File> classpathFiles)
 	{
-		final StringBuilder result=new StringBuilder();
-		boolean needSeparator=false;
-		for (final File classpathFile: classpathFiles)
-		{
-			if (needSeparator)
-			{
-				result.append(File.pathSeparatorChar);
-			}
-			result.append(classpathFile.getAbsolutePath());
-			needSeparator=true;
-		}
-		return result.toString();
+		return classpathFiles.stream().map(f->f.getAbsolutePath()).collect(Collectors.joining(File.pathSeparator));
 	}
 
 	private static String getCurrentClasspath()
