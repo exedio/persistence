@@ -56,7 +56,7 @@ public class ItemWithUniquePriceTest extends TestWithEnvironment
 			new ItemWithUniquePrice(Price.storeOf(234), "x");
 			fail();
 		}
-		catch (UniqueViolationException e)
+		catch (final UniqueViolationException e)
 		{
 			assertEquals(ItemWithUniquePrice.priceAndOther, e.getFeature());
 		}

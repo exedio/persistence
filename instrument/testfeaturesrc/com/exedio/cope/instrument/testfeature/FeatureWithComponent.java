@@ -71,7 +71,7 @@ public final class FeatureWithComponent extends Pattern implements Settable<Bool
 	}
 
 	@Override
-	public SetValue<?>[] execute(Boolean value, Item exceptionItem)
+	public SetValue<?>[] execute(final Boolean value, final Item exceptionItem)
 	{
 		throw new AssertionError();
 	}
