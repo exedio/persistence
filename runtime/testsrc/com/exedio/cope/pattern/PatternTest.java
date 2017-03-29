@@ -79,7 +79,7 @@ public class PatternTest extends TestWithEnvironment
 			PatternTestItem.testPattern.getSourceFeaturesGather();
 			fail();
 		}
-		catch (final RuntimeException e)
+		catch (final IllegalStateException e)
 		{
 			assertEquals("getSourceFeaturesGather can be called only before pattern is mounted, not afterwards", e.getMessage());
 		}
