@@ -24,11 +24,13 @@ import static java.lang.reflect.Modifier.PROTECTED;
 import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.FinalViolationException;
+import com.exedio.cope.Pattern;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 import java.util.SortedSet;
 import java.util.TreeMap;
 import java.util.TreeSet;
@@ -104,6 +106,18 @@ abstract class CopeType<F extends CopeFeature>
 		final CopeFeature own = getDeclaredFeatureByInstance(instance);
 		if (own!=null)
 			return own;
+		for (final CopeFeature container: getFeatures())
+		{
+			final Object containerInstance = container.getInstance();
+			if (containerInstance instanceof Pattern)
+			{
+				for (final Map.Entry<String,?> namedSource: ((Pattern)containerInstance).getSourceFeaturesGather().entrySet())
+				{
+					if (namedSource.getValue()==instance)
+						return new ComponentFeature(container, namedSource.getValue(), namedSource.getKey());
+				}
+			}
+		}
 		final CopeType<?> superclass = getSuperclass();
 		if (superclass!=null)
 		{

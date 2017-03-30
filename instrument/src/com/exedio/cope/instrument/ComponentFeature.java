@@ -18,62 +18,54 @@
 
 package com.exedio.cope.instrument;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import java.lang.reflect.Field;
-
-final class ExternalCopeFeature extends CopeFeature
+final class ComponentFeature extends CopeFeature
 {
-	private final Field field;
+	private final CopeFeature container;
+	private final Object component;
+	private final String postfix;
 
-	ExternalCopeFeature(final ExternalCopeType parent, final Field field)
+	ComponentFeature(final CopeFeature container, final Object component, final String postfix)
 	{
-		super(parent);
-		this.field=field;
+		super(container.parent);
+		this.container = container;
+		this.component = component;
+		this.postfix = postfix;
 	}
 
 	@Override
 	String getName()
 	{
-		return field.getName();
+		return container.getName()+"_"+postfix;
 	}
 
 	@Override
 	int getModifier()
 	{
-		return field.getModifiers();
-	}
-
-	@Override
-	Boolean getInitialByConfiguration()
-	{
-		final WrapperInitial annotation=field.getAnnotation(WrapperInitial.class);
-		return annotation==null?null:annotation.value();
-	}
-
-	@Override
-	String getType()
-	{
-		return field.getGenericType().toString().replace('$', '.');
-	}
-
-	@Override
-	@SuppressFBWarnings("DP_DO_INSIDE_DO_PRIVILEGED")
-	Object evaluate()
-	{
-		field.setAccessible(true);
-		try
-		{
-			return field.get(null);
-		}
-		catch (IllegalArgumentException | IllegalAccessException e)
-		{
-			throw new RuntimeException(e);
-		}
+		return container.getModifier();
 	}
 
 	@Override
 	String getJavadocReference()
 	{
-		return link(getName());
+		return "'"+postfix+"' of "+container.getJavadocReference();
 	}
+
+	@Override
+	Boolean getInitialByConfiguration()
+	{
+		return false;
+	}
+
+	@Override
+	String getType()
+	{
+		return "";
+	}
+
+	@Override
+	Object evaluate()
+	{
+		return component;
+	}
+
 }

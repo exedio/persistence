@@ -98,4 +98,10 @@ final class LocalCopeFeature extends CopeFeature
 	{
 		return javaField.parent;
 	}
+
+	@Override
+	String getJavadocReference()
+	{
+		return link(getName());
+	}
 }

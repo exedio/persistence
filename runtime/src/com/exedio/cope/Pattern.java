@@ -30,6 +30,7 @@ import java.lang.reflect.AnnotatedElement;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * A common super class for all patterns.
@@ -363,6 +364,14 @@ public abstract class Pattern extends Feature
 
 		this.sourceTypes = ListUtil.trimUnmodifiable(sourceTypesWhileGather);
 		this.sourceTypesWhileGather = null;
+	}
+
+	public final Map<String,Feature> getSourceFeaturesGather()
+	{
+		if(sourceFeaturesGather==null)
+			throw new IllegalStateException("getSourceFeaturesGather can be called only before pattern is mounted, not afterwards");
+		assert sourceFeatureList==null;
+		return sourceFeaturesGather.getNamedFeatures();
 	}
 
 	/**
