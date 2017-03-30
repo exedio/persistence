@@ -33,6 +33,17 @@ public final class DispatcherPurgeProperties extends Properties
 		return new Factory(0, 0);
 	}
 
+	private DispatcherPurgeProperties(
+			final Source source,
+			final int retainDaysSuccessDefault,
+			final int retainDaysFinalFailureDefault)
+	{
+		super(source);
+		retainDaysSuccess      = value("retainDays.success",      retainDaysSuccessDefault,      0);
+		retainDaysFinalFailure = value("retainDays.finalFailure", retainDaysFinalFailureDefault, 0);
+	}
+
+
 	public static class Factory implements Properties.Factory<DispatcherPurgeProperties>
 	{
 		private final int retainDaysSuccessDefault;
@@ -89,15 +100,5 @@ public final class DispatcherPurgeProperties extends Properties
 		{
 			return retainDaysDefault(success, finalFailure);
 		}
-	}
-
-	private DispatcherPurgeProperties(
-			final Source source,
-			final int retainDaysSuccessDefault,
-			final int retainDaysFinalFailureDefault)
-	{
-		super(source);
-		retainDaysSuccess      = value("retainDays.success",      retainDaysSuccessDefault,      0);
-		retainDaysFinalFailure = value("retainDays.finalFailure", retainDaysFinalFailureDefault, 0);
 	}
 }
