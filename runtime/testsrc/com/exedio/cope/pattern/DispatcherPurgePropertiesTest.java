@@ -32,29 +32,29 @@ public class DispatcherPurgePropertiesTest
 	@Test public void testDefault()
 	{
 		final DispatcherPurgeProperties props = create(factory());
-		assertEquals(0, props.delayDaysSuccess);
-		assertEquals(0, props.delayDaysFinalFailure);
+		assertEquals(0, props.retainDaysSuccess);
+		assertEquals(0, props.retainDaysFinalFailure);
 	}
 
 	@Test public void testCustom()
 	{
-		final DispatcherPurgeProperties props = create(factory().delayDaysDefault(4, 6));
-		assertEquals(4, props.delayDaysSuccess);
-		assertEquals(6, props.delayDaysFinalFailure);
+		final DispatcherPurgeProperties props = create(factory().retainDaysDefault(4, 6));
+		assertEquals(4, props.retainDaysSuccess);
+		assertEquals(6, props.retainDaysFinalFailure);
 	}
 
 	@Test public void testMinimum()
 	{
-		final DispatcherPurgeProperties props = create(factory().delayDaysDefault(1));
-		assertEquals(1, props.delayDaysSuccess);
-		assertEquals(1, props.delayDaysFinalFailure);
+		final DispatcherPurgeProperties props = create(factory().retainDaysDefault(1));
+		assertEquals(1, props.retainDaysSuccess);
+		assertEquals(1, props.retainDaysFinalFailure);
 	}
 
 	@Test public void testOmit()
 	{
-		final DispatcherPurgeProperties props = create(factory().delayDaysDefault(0));
-		assertEquals(0, props.delayDaysSuccess);
-		assertEquals(0, props.delayDaysFinalFailure);
+		final DispatcherPurgeProperties props = create(factory().retainDaysDefault(0));
+		assertEquals(0, props.retainDaysSuccess);
+		assertEquals(0, props.retainDaysFinalFailure);
 	}
 
 	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
@@ -63,12 +63,12 @@ public class DispatcherPurgePropertiesTest
 		final Factory factory = factory();
 		try
 		{
-			factory.delayDaysDefault(-1, 0);
+			factory.retainDaysDefault(-1, 0);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("delayDaysSuccess must not be negative, but was -1", e.getMessage());
+			assertEquals("retainDaysSuccess must not be negative, but was -1", e.getMessage());
 		}
 	}
 
@@ -78,12 +78,12 @@ public class DispatcherPurgePropertiesTest
 		final Factory factory = factory();
 		try
 		{
-			factory.delayDaysDefault(0, -1);
+			factory.retainDaysDefault(0, -1);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("delayDaysFinalFailure must not be negative, but was -1", e.getMessage());
+			assertEquals("retainDaysFinalFailure must not be negative, but was -1", e.getMessage());
 		}
 	}
 

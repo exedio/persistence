@@ -640,8 +640,8 @@ public final class Dispatcher extends Pattern
 
 	Query<? extends Item> purgeQuery(final DispatcherPurgeProperties properties)
 	{
-		final int success = properties.delayDaysSuccess;
-		final int failure = properties.delayDaysFinalFailure;
+		final int success = properties.retainDaysSuccess;
+		final int failure = properties.retainDaysFinalFailure;
 		if(success==0 && failure==0)
 			return null;
 

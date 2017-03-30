@@ -169,7 +169,7 @@ public class DispatcherModelTest
 	@Test public void testPurgeContextNull()
 	{
 		final DispatcherPurgeProperties properties =
-				DispatcherPurgeProperties.factory().delayDaysDefault(5).create(Sources.EMPTY);
+				DispatcherPurgeProperties.factory().retainDaysDefault(5).create(Sources.EMPTY);
 
 		try
 		{

@@ -7,6 +7,10 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* DispatcherPurgeProperties: rename keys delayDays[Success|FinalFailure] to
+	retainDays[Success|FinalFailure].
+	This breaks backwards API compatibility, check your deployed systems!
+	If these keys are at their defaults you don't have to do anything.
 * Ivy configuration 'instrument' added.
 	Instrumentor is not included in configuration 'runtime' anymore.
 * Return type of several methods is weakened from "List<Abc>" to "List<? extends Abc>":

@@ -140,12 +140,12 @@ public class DispatcherPurgeQueryTest
 	{
 		final Properties props = new Properties();
 		if(success!=null)
-			props.setProperty("delayDays.success",      Integer.toString(success));
+			props.setProperty("retainDays.success",      Integer.toString(success));
 		if(failure!=null)
-			props.setProperty("delayDays.finalFailure", Integer.toString(failure));
+			props.setProperty("retainDays.finalFailure", Integer.toString(failure));
 
 		final Query<? extends Item> query = DispatcherItem.toTarget.purgeQuery(
-				DispatcherPurgeProperties.factory().delayDaysDefault(4*365, 6*365).create(Sources.view(props, "description")));
+				DispatcherPurgeProperties.factory().retainDaysDefault(4*365, 6*365).create(Sources.view(props, "description")));
 		return query!=null ? query.toString() : null;
 	}
 }

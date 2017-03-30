@@ -190,9 +190,9 @@ public class DispatcherPurgeTest extends TestWithEnvironment
 
 		final Properties props = new Properties();
 		if(success!=null)
-			props.setProperty("delayDays.success",      Integer.toString(success));
+			props.setProperty("retainDays.success",      Integer.toString(success));
 		if(failure!=null)
-			props.setProperty("delayDays.finalFailure", Integer.toString(failure));
+			props.setProperty("retainDays.finalFailure", Integer.toString(failure));
 
 		final DispatcherPurgeProperties purgeProps =
 				DispatcherPurgeProperties.factory().create(Sources.view(props, "description"));

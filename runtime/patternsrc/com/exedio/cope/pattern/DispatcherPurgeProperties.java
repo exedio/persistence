@@ -24,8 +24,8 @@ import com.exedio.cope.util.Properties;
 
 public final class DispatcherPurgeProperties extends Properties
 {
-	final int delayDaysSuccess;
-	final int delayDaysFinalFailure;
+	final int retainDaysSuccess;
+	final int retainDaysFinalFailure;
 
 	@SuppressWarnings("synthetic-access")
 	public static Factory factory()
@@ -35,23 +35,23 @@ public final class DispatcherPurgeProperties extends Properties
 
 	public static class Factory implements Properties.Factory<DispatcherPurgeProperties>
 	{
-		private final int delayDaysSuccessDefault;
-		private final int delayDaysFinalFailureDefault;
+		private final int retainDaysSuccessDefault;
+		private final int retainDaysFinalFailureDefault;
 
 		private Factory(
-				final int delayDaysSuccessDefault,
-				final int delayDaysFinalFailureDefault)
+				final int retainDaysSuccessDefault,
+				final int retainDaysFinalFailureDefault)
 		{
-			this.delayDaysSuccessDefault      = requireNonNegative(delayDaysSuccessDefault,      "delayDaysSuccess");
-			this.delayDaysFinalFailureDefault = requireNonNegative(delayDaysFinalFailureDefault, "delayDaysFinalFailure");
+			this.retainDaysSuccessDefault      = requireNonNegative(retainDaysSuccessDefault,      "retainDaysSuccess");
+			this.retainDaysFinalFailureDefault = requireNonNegative(retainDaysFinalFailureDefault, "retainDaysFinalFailure");
 		}
 
-		public Factory delayDaysDefault(final int value)
+		public Factory retainDaysDefault(final int value)
 		{
-			return delayDaysDefault(value, value);
+			return retainDaysDefault(value, value);
 		}
 
-		public Factory delayDaysDefault(
+		public Factory retainDaysDefault(
 				final int success,
 				final int finalFailure)
 		{
@@ -64,18 +64,40 @@ public final class DispatcherPurgeProperties extends Properties
 		{
 			return new DispatcherPurgeProperties(
 					source,
-					delayDaysSuccessDefault,
-					delayDaysFinalFailureDefault);
+					retainDaysSuccessDefault,
+					retainDaysFinalFailureDefault);
+		}
+
+		// ------------------- deprecated stuff -------------------
+
+		/**
+		 * @deprecated Use {@link #retainDaysDefault(int)} instead
+		 */
+		@Deprecated
+		public Factory delayDaysDefault(final int value)
+		{
+			return retainDaysDefault(value);
+		}
+
+		/**
+		 * @deprecated Use {@link #retainDaysDefault(int,int)} instead
+		 */
+		@Deprecated
+		public Factory delayDaysDefault(
+				final int success,
+				final int finalFailure)
+		{
+			return retainDaysDefault(success, finalFailure);
 		}
 	}
 
 	private DispatcherPurgeProperties(
 			final Source source,
-			final int delayDaysSuccessDefault,
-			final int delayDaysFinalFailureDefault)
+			final int retainDaysSuccessDefault,
+			final int retainDaysFinalFailureDefault)
 	{
 		super(source);
-		delayDaysSuccess      = value("delayDays.success",      delayDaysSuccessDefault,      0);
-		delayDaysFinalFailure = value("delayDays.finalFailure", delayDaysFinalFailureDefault, 0);
+		retainDaysSuccess      = value("retainDays.success",      retainDaysSuccessDefault,      0);
+		retainDaysFinalFailure = value("retainDays.finalFailure", retainDaysFinalFailureDefault, 0);
 	}
 }
