@@ -660,7 +660,10 @@ public final class Dispatcher extends Pattern
 				);
 		}
 
-		return getType().newQuery(pending.equal(false).and(noPurge.equal(false)).and(dateCondition));
+		return getType().newQuery(
+				pending.equal(false).and(
+				noPurge.equal(false)).and(
+				dateCondition));
 	}
 
 	private Condition dateBefore(final long now, final int days)
