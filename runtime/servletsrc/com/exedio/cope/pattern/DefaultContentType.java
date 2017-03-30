@@ -33,7 +33,7 @@ final class DefaultContentType extends ContentType<String>
 			final boolean optional,
 			final int maxLength)
 	{
-		super(makeField(maxLength, new CharSet('+', '+', '-', '.', '/', '/', '0', '9', 'a', 'z')), isfinal, optional, "contentType");
+		super(makeField(maxLength, new CharSet('+', '+', '-', '9', 'a', 'z')), isfinal, optional, "contentType");
 		this.maxLength = maxLength;
 	}
 
