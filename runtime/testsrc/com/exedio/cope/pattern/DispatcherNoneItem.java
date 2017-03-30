@@ -140,6 +140,12 @@ public final class DispatcherNoneItem extends Item
 		DispatcherNoneItem.wrong.purge(properties,ctx);
 	}
 
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="purge")
+	static final void purgeWrong(@javax.annotation.Nonnull final com.exedio.cope.pattern.DispatcherPurgeProperties properties,@javax.annotation.Nonnull final com.exedio.cope.Condition restriction,@javax.annotation.Nonnull final com.exedio.cope.util.JobContext ctx)
+	{
+		DispatcherNoneItem.wrong.purge(properties,restriction,ctx);
+	}
+
 	/**
 	 * Returns the parent field of the run type of {@link #wrong}.
 	 */

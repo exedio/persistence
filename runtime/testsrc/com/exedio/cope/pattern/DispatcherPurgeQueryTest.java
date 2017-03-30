@@ -20,6 +20,7 @@ package com.exedio.cope.pattern;
 
 import static org.junit.Assert.assertEquals;
 
+import com.exedio.cope.Condition;
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.Query;
@@ -135,8 +136,53 @@ public class DispatcherPurgeQueryTest
 		clock.assertEmpty();
 	}
 
-	@SuppressFBWarnings("BC_UNCONFIRMED_CAST_OF_RETURN_VALUE")
+	@Test public void testRestriction()
+	{
+		clock.add(555);
+		assertEquals(
+				"select this from DispatcherItem " +
+				"where (toTarget-pending='false' " +
+				"AND toTarget-noPurge='false' " +
+				"AND body='bodyValue' " +
+				"AND (" +
+					"(toTarget-unpend-success='true' AND toTarget-unpend-date<'1969/12/12 00:00:00.555') OR " +
+					"(toTarget-unpend-success='false' AND toTarget-unpend-date<'1969/12/22 00:00:00.555')))",
+				query(20, 10, DispatcherItem.body.equal("bodyValue")));
+		clock.assertEmpty();
+	}
+
+	@Test public void testRestrictionTrue()
+	{
+		clock.add(555);
+		assertEquals(
+				"select this from DispatcherItem " +
+				"where (toTarget-pending='false' " +
+				"AND toTarget-noPurge='false' " +
+				"AND (" +
+					"(toTarget-unpend-success='true' AND toTarget-unpend-date<'1969/12/12 00:00:00.555') OR " +
+					"(toTarget-unpend-success='false' AND toTarget-unpend-date<'1969/12/22 00:00:00.555')))",
+				query(20, 10, Condition.TRUE));
+		clock.assertEmpty();
+	}
+
+	@Test public void testRestrictionFalse()
+	{
+		clock.add(555);
+		assertEquals(
+				"select this from DispatcherItem " +
+				"where FALSE",
+				query(20, 10, Condition.FALSE));
+		clock.assertEmpty();
+	}
+
+
 	private static String query(final Integer success, final Integer failure)
+	{
+		return query(success, failure, Condition.TRUE);
+	}
+
+	@SuppressFBWarnings("BC_UNCONFIRMED_CAST_OF_RETURN_VALUE")
+	private static String query(final Integer success, final Integer failure, final Condition restriction)
 	{
 		final Properties props = new Properties();
 		if(success!=null)
@@ -145,7 +191,8 @@ public class DispatcherPurgeQueryTest
 			props.setProperty("retainDays.finalFailure", Integer.toString(failure));
 
 		final Query<? extends Item> query = DispatcherItem.toTarget.purgeQuery(
-				DispatcherPurgeProperties.factory().retainDaysDefault(4*365, 6*365).create(Sources.view(props, "description")));
+				DispatcherPurgeProperties.factory().retainDaysDefault(4*365, 6*365).create(Sources.view(props, "description")),
+				restriction);
 		return query!=null ? query.toString() : null;
 	}
 }

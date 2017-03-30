@@ -256,6 +256,12 @@ public class DispatchableDeferrableTest extends TestWithEnvironment
 		AnItem.toTarget.purge(properties,ctx);
 	}
 
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="purge")
+	static final void purgeToTarget(@javax.annotation.Nonnull final com.exedio.cope.pattern.DispatcherPurgeProperties properties,@javax.annotation.Nonnull final com.exedio.cope.Condition restriction,@javax.annotation.Nonnull final com.exedio.cope.util.JobContext ctx)
+	{
+		AnItem.toTarget.purge(properties,restriction,ctx);
+	}
+
 	/**
 	 * Returns the parent field of the run type of {@link #toTarget}.
 	 */

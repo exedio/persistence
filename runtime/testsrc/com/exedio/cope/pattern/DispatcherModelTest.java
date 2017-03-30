@@ -33,6 +33,7 @@ import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import com.exedio.cope.Condition;
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.Type;
@@ -174,6 +175,51 @@ public class DispatcherModelTest
 		try
 		{
 			purgeToTarget(properties, null);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals("ctx", e.getMessage());
+		}
+	}
+
+	@Test public void testPurgeRestrictedPropertiesNull()
+	{
+		try
+		{
+			purgeToTarget(null, null, null);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals("properties", e.getMessage());
+		}
+	}
+
+	@Test public void testPurgeRestrictedRestrictionNull()
+	{
+		final DispatcherPurgeProperties properties =
+				DispatcherPurgeProperties.factory().retainDaysDefault(5).create(Sources.EMPTY);
+
+		try
+		{
+			purgeToTarget(properties, null, null);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals("restriction", e.getMessage());
+		}
+	}
+
+	@Test public void testPurgeRestrictedContextNull()
+	{
+		final DispatcherPurgeProperties properties =
+				DispatcherPurgeProperties.factory().retainDaysDefault(5).create(Sources.EMPTY);
+
+		try
+		{
+			purgeToTarget(properties, Condition.FALSE, null);
 			fail();
 		}
 		catch(final NullPointerException e)

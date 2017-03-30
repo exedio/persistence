@@ -20,6 +20,7 @@ package com.exedio.cope.pattern;
 
 import static org.junit.Assert.assertEquals;
 
+import com.exedio.cope.Condition;
 import com.exedio.cope.Item;
 import com.exedio.cope.Query;
 import com.exedio.cope.TestWithEnvironment;
@@ -153,6 +154,30 @@ public class DispatcherPurgeTest extends TestWithEnvironment
 		assertPurged(true, true);
 	}
 
+	@Test public void testRestriction()
+	{
+		dispatch(8, 8);
+
+		assertEquals(
+				"select this from DispatcherItem " +
+				"where (toTarget-pending='false' " +
+				"AND toTarget-noPurge='false' " +
+				"AND body='bodyMismatch' " +
+				"AND toTarget-unpend-date<'1970/01/09 00:00:00.555')",
+				purge(555+20*day, 12, 12, DispatcherItem.body.equal("bodyMismatch")));
+
+		assertPurged(true, true);
+
+		assertEquals(
+				"select this from DispatcherItem " +
+				"where (toTarget-pending='false' " +
+				"AND toTarget-noPurge='false' " +
+				"AND toTarget-unpend-date<'1970/01/09 00:00:00.555')",
+				purge(555+20*day, 12, 12));
+
+		assertPurged(false, false);
+	}
+
 
 	private static void assertIt(
 			final boolean pending,
@@ -183,8 +208,15 @@ public class DispatcherPurgeTest extends TestWithEnvironment
 		assertIt(false, false, 555+day*failure, itemFailureAfter );
 	}
 
-	@SuppressFBWarnings("BC_UNCONFIRMED_CAST_OF_RETURN_VALUE")
 	private String purge(final Integer now, final Integer success, final Integer failure)
+	{
+		return purge(now, success, failure, null);
+	}
+
+	@SuppressFBWarnings("BC_UNCONFIRMED_CAST_OF_RETURN_VALUE")
+	private String purge(
+			final Integer now, final Integer success, final Integer failure,
+			final Condition restriction)
 	{
 		model.commit();
 
@@ -199,12 +231,15 @@ public class DispatcherPurgeTest extends TestWithEnvironment
 
 		if(now!=null)
 			clock.add(now);
-		DispatcherItem.purgeToTarget(purgeProps, JobContexts.EMPTY);
+		if(restriction==null)
+			DispatcherItem.purgeToTarget(purgeProps, JobContexts.EMPTY);
+		else
+			DispatcherItem.purgeToTarget(purgeProps, restriction, JobContexts.EMPTY);
 		clock.assertEmpty();
 
 		if(now!=null)
 			clock.add(now);
-		final Query<? extends Item> query = DispatcherItem.toTarget.purgeQuery(purgeProps);
+		final Query<? extends Item> query = DispatcherItem.toTarget.purgeQuery(purgeProps, restriction!=null ? restriction : Condition.TRUE);
 		clock.assertEmpty();
 
 		model.startTransaction("DispatcherPurgeTest");

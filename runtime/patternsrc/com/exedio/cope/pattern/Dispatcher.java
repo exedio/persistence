@@ -628,17 +628,34 @@ public final class Dispatcher extends Pattern
 	{
 		requireNonNull(properties, "properties");
 		requireNonNull(ctx, "ctx");
+		purge(properties, Condition.TRUE, ctx);
+	}
+
+	/**
+	 * @throws IllegalArgumentException if purge is disabled by {@link #withoutPurge()}.
+	 */
+	@Wrap(order=110, hide=SupportsPurgeGetter.class)
+	public void purge(
+			@Nonnull @Parameter("properties") final DispatcherPurgeProperties properties,
+			@Nonnull @Parameter("restriction") final Condition restriction,
+			@Nonnull @Parameter("ctx") final JobContext ctx)
+	{
+		requireNonNull(properties, "properties");
+		requireNonNull(restriction, "restriction");
+		requireNonNull(ctx, "ctx");
 		if(!supportsPurge())
 			throw new IllegalArgumentException(
 					"purge has been disabled for Dispatcher " + getID() +
 					" by method withoutPurge()");
 
-		final Query<? extends Item> query = purgeQuery(properties);
+		final Query<? extends Item> query = purgeQuery(properties, restriction);
 		if(query!=null)
 			Delete.delete(query, "Dispatcher#purge " + getID(), ctx);
 	}
 
-	Query<? extends Item> purgeQuery(final DispatcherPurgeProperties properties)
+	Query<? extends Item> purgeQuery(
+			final DispatcherPurgeProperties properties,
+			final Condition restriction)
 	{
 		final int success = properties.retainDaysSuccess;
 		final int failure = properties.retainDaysFinalFailure;
@@ -663,6 +680,7 @@ public final class Dispatcher extends Pattern
 		return getType().newQuery(
 				pending.equal(false).and(
 				noPurge.equal(false)).and(
+				restriction).and(
 				dateCondition));
 	}
 
