@@ -2,7 +2,8 @@
 <project
 		xmlns:ivy="antlib:org.apache.ivy.ant"
 		name="ivy-common">
-	<target name="resolve">
+
+	<target name="prepare">
 		<delete dir="artifacts" />
 		<mkdir dir="artifacts" />
 		<get src="http://jenkins.exedio.com/job/ivyartifacts/lastSuccessfulBuild/artifact/ivy.jar" dest="artifacts/ivy.jar" />
@@ -12,8 +13,21 @@
 			classpath="artifacts/ivy.jar"
 			uri="antlib:org.apache.ivy.ant" />
 		<ivy:settings file="artifacts/ivysettings.xml" />
+	</target>
+
+	<target name="resolve" depends="prepare">
 		<ivy:retrieve file="ivy.xml" pattern="artifacts/lib/[artifact]-[type].[ext]" />
 		<fixcrlf srcDir="artifacts/lib" includes="**/*-log.txt,**/*-userlog.txt" fixlast="false" />
 		<ivy:report todir="artifacts" />
 	</target>
+
+	<target name="publishlocally" depends="prepare">
+		<ivy:resolve />
+		<ivy:publish resolver="localrepo" pubrevision="999999999" forcedeliver="true" overwrite="true">
+			<artifacts pattern="../build/[artifact].[ext]" />
+			<artifacts pattern="../build/[artifact]-[type].[ext]" />
+			<artifacts pattern="../[artifact]-[type].[ext]" />
+		</ivy:publish>
+	</target>
+
 </project>
