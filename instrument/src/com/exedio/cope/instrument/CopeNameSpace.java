@@ -40,6 +40,7 @@ class CopeNameSpace extends NameSpace
 		super(parent, name);
 	}
 
+	@SuppressWarnings("AssignmentToStaticFieldFromInstanceMethod")
 	@SuppressFBWarnings("ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD")
 	private void debugStart(final String message)
 	{
@@ -47,6 +48,7 @@ class CopeNameSpace extends NameSpace
 		depth++;
 	}
 
+	@SuppressWarnings("AssignmentToStaticFieldFromInstanceMethod")
 	@SuppressFBWarnings("ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD")
 	private void debugEnd(final String message)
 	{
@@ -54,7 +56,7 @@ class CopeNameSpace extends NameSpace
 		debug(message);
 	}
 
-	@SuppressWarnings("static-method")
+	@SuppressWarnings({"static-method", "MethodMayBeStatic"})
 	private void debug(final String message)
 	{
 		for (int i=0; i<depth; i++) System.out.print("  ");

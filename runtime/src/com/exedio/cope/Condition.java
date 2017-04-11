@@ -57,7 +57,9 @@ public abstract class Condition implements Serializable
 		return CompositeCondition.composite(CompositeCondition.Operator.OR, this, other);
 	}
 
+	@SuppressWarnings("StaticInitializerReferencesSubClass") // TODO is a serious problem
 	public static final Literal TRUE  = new Literal(true , "TRUE" );
+	@SuppressWarnings("StaticInitializerReferencesSubClass") // TODO is a serious problem
 	public static final Literal FALSE = new Literal(false, "FALSE");
 
 	static final class Literal extends Condition
@@ -65,8 +67,10 @@ public abstract class Condition implements Serializable
 		private static final long serialVersionUID = 1l;
 
 		final boolean value;
-		final transient Trilean valueTri; // restored by readResolve
-		private final transient String name; // restored by readResolve
+		@SuppressWarnings("TransientFieldNotInitialized") // OK: restored by readResolve
+		final transient Trilean valueTri;
+		@SuppressWarnings("TransientFieldNotInitialized") // OK: restored by readResolve
+		private final transient String name;
 
 		Literal(final boolean value, final String name)
 		{

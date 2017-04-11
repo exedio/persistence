@@ -37,6 +37,7 @@ public final class ItemCacheStatistics
 	private long summarizedStampsHits;
 	private long summarizedStampsPurged;
 
+	@SuppressWarnings("AssignmentToCollectionOrArrayFieldFromParameter")
 	ItemCacheStatistics(final int limit, final int level, final ItemCacheInfo[] details)
 	{
 		this.limit = limit;

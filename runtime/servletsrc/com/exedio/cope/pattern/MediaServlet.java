@@ -80,6 +80,7 @@ public class MediaServlet extends HttpServlet
 	{
 		super.init();
 
+		//noinspection resource OK: closed in destroy
 		connectToken = ServletUtil.getConnectedModel(this).returnOnFailureOf(connectToken ->
 		{
 			initPathes(connectToken.getModel()); // TODO do this before connect
@@ -212,6 +213,7 @@ public class MediaServlet extends HttpServlet
 				response.reset();
 
 				response.setStatus(SC_INTERNAL_SERVER_ERROR);
+				//noinspection HardcodedLineSeparator OK unix newline in html
 				MediaUtil.send("text/html", "us-ascii",
 					"<html>\n" +
 						"<head>\n" +
@@ -272,6 +274,7 @@ public class MediaServlet extends HttpServlet
 			final Exception exception)
 	{
 		if(logger.isErrorEnabled())
+			//noinspection StringConcatenationArgumentToLogCall
 			logger.error(
 					"Path="     + request.getPathInfo() +
 					" Query="   + request.getQueryString() +

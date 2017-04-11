@@ -66,6 +66,7 @@ public final class BlockType<T extends Block> implements TemplatedType<T>
 						feature.getClass().getName());
 			final String fieldName = CopeNameUtil.getAndFallbackToName(field);
 			templates.put(fieldName, feature);
+			//noinspection ThisEscapedInObjectConstruction
 			feature.mount(this, fieldName, fieldID, SerializedReflectionField.make(feature, field), field);
 		}
 		this.templateList = Collections.unmodifiableList(new ArrayList<>(templates.values()));
@@ -90,6 +91,7 @@ public final class BlockType<T extends Block> implements TemplatedType<T>
 	}
 
 	@Override
+	@SuppressWarnings("TypeParameterExtendsFinalClass") // OK: effectively makes collection somewhat compiler-unmodifiable
 	public List<? extends BlockType<? extends T>> getSubtypes()
 	{
 		return Collections.emptyList();

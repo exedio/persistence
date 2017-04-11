@@ -125,6 +125,7 @@ final class SamplerItemCache extends Item
 		return result;
 	}
 
+	@SuppressWarnings("ConstantConditions") // too complex to analyze
 	private static boolean isDefault(final List<SetValue<?>> result)
 	{
 		for(final SetValue<?> sv : result)

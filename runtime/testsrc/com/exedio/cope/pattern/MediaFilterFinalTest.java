@@ -45,6 +45,6 @@ public class MediaFilterFinalTest
 		static final MediaThumbnail filterFinal    = new MediaThumbnail(sourceFinal   , 10, 20);
 
 		private static final long serialVersionUID = 1l;
-		private AnItem(final ActivationParameters ap){super(ap);}
+		@SuppressWarnings("unused") private AnItem(final ActivationParameters ap){super(ap);}
 	}
 }

@@ -96,6 +96,7 @@ public class TextUrlFilter extends MediaFilter implements TextUrlFilterCheckable
 		if(!pasteValue.isMandatory())
 			throw new IllegalArgumentException("pasteValue must be mandatory");
 
+		//noinspection ThisEscapedInObjectConstruction
 		addSource(raw, "Raw", new MediaPathFeatureAnnotationProxy(this, false));
 	}
 
@@ -236,6 +237,7 @@ public class TextUrlFilter extends MediaFilter implements TextUrlFilterCheckable
 		checkContentType( item );
 
 		final byte[] sourceByte = raw.getBody().getArray(item);
+		//noinspection ConstantConditions OK: is checked before (contentType==null)
 		final String srcString = new String(sourceByte, charset);
 
 		final StringBuilder bf = new StringBuilder( srcString.length() );
@@ -265,6 +267,7 @@ public class TextUrlFilter extends MediaFilter implements TextUrlFilterCheckable
 		checkContentType( item );
 
 		final byte[] sourceByte = raw.getBody().getArray(item);
+		//noinspection ConstantConditions OK: is checked before (contentType==null)
 		final String srcString = new String(sourceByte, charset);
 
 		final StringBuilder bf = new StringBuilder( srcString.length() );
@@ -331,6 +334,7 @@ public class TextUrlFilter extends MediaFilter implements TextUrlFilterCheckable
 		checkContentType( item );
 		final Set<String> brokenCodes = new HashSet<>();
 		final byte[] sourceByte = getSource().getBody().getArray( item );
+		//noinspection ConstantConditions OK: is checked before (contentType==null)
 		final String srcString = new String( sourceByte, charset );
 		substitutePastes(null, brokenCodes, srcString, item, null);
 		return brokenCodes;
@@ -362,6 +366,7 @@ public class TextUrlFilter extends MediaFilter implements TextUrlFilterCheckable
 		bf.append(request.getContextPath());
 		bf.append(request.getServletPath());
 		bf.append('/');
+		//noinspection ConstantConditions OK: pasteValue is mandatory
 		pasteValue.getLocator(paste).appendPath(bf);
 	}
 

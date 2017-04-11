@@ -277,7 +277,7 @@ public abstract class Dialect
 	 * @deprecated Use {@link com.exedio.cope.Model#deleteSchema()} instead.
 	 */
 	@Deprecated
-	@SuppressWarnings("static-method")
+	@SuppressWarnings({"static-method", "MethodMayBeStatic"})
 	public final void deleteSchema(final Schema schema)
 	{
 		schema.drop();

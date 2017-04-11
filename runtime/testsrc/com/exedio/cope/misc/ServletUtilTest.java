@@ -107,6 +107,7 @@ public class ServletUtilTest
 			final String tokenName,
 			final MockServlet servlet)
 	{
+		@SuppressWarnings("resource") // OK: closed by ConnectTokenRule
 		final ConnectToken token = ServletUtil.getConnectedModel(servlet);
 		assertSame(model, token.getModel());
 		assertEquals(
@@ -121,6 +122,7 @@ public class ServletUtilTest
 			final MockFilter filter,
 			final MockFilterConfig config)
 	{
+		@SuppressWarnings("resource") // OK: closed by ConnectTokenRule
 		final ConnectToken token = ServletUtil.getConnectedModel(filter, config);
 		assertSame(model, token.getModel());
 		assertEquals(
@@ -136,6 +138,7 @@ public class ServletUtilTest
 	{
 		try
 		{
+			//noinspection resource OK: closed by ConnectTokenRule
 			ServletUtil.getConnectedModel(servlet);
 			fail();
 		}
@@ -156,6 +159,7 @@ public class ServletUtilTest
 	{
 		try
 		{
+			//noinspection resource OK: closed by ConnectTokenRule
 			ServletUtil.getConnectedModel(filter, config);
 			fail();
 		}

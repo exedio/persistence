@@ -38,6 +38,7 @@ final class Intern
 		if(skip)
 			return s;
 
+		@SuppressWarnings("UnnecessaryLocalVariable")
 		final String result = s.intern();
 		//System.out.println("Model.intern >" + s + "< " + (result!=s ? "NEW" : "OLD"));
 		return result;

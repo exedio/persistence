@@ -97,6 +97,7 @@ public class GenericResolverTest
 	 * @param <K> just for tests
 	 * @param <V> just for tests
 	 */
+	@SuppressWarnings("MarkerInterface")
 	interface Interface<K,V>
 	{
 		// empty
@@ -122,6 +123,7 @@ public class GenericResolverTest
 		private static final long serialVersionUID = 1l;
 	}
 
+	@SuppressWarnings("MarkerInterface")
 	interface AllInterfaceExt extends AllInterface
 	{
 		// empty

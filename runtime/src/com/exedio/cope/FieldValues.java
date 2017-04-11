@@ -25,6 +25,7 @@ public final class FieldValues
 	private final LinkedHashMap<Field<?>, Object> sources;
 	private final Item backingItem;
 
+	@SuppressWarnings("AssignmentToCollectionOrArrayFieldFromParameter")
 	FieldValues(
 			final LinkedHashMap<Field<?>, Object> sources,
 			final Item backingItem)

@@ -123,6 +123,7 @@ abstract class ClusterListener
 
 						final long pk = iter.nextLong();
 						if(pk==PK.NaPK)
+							//noinspection UnnecessaryLabelOnBreakStatement
 							break inner;
 
 						set.add(pk);
@@ -179,6 +180,7 @@ abstract class ClusterListener
 
 	private static final class Node
 	{
+		@SuppressWarnings("LoggerInitializedWithForeignClass")
 		private static final Logger logger = LoggerFactory.getLogger(ClusterListener.class);
 
 		private final int id;
@@ -225,6 +227,7 @@ abstract class ClusterListener
 
 		private static boolean check(final SequenceChecker checker, final int sequence)
 		{
+			//noinspection SynchronizationOnLocalVariableOrMethodParameter OK: parametersare not supplied from outside this class
 			synchronized(checker)
 			{
 				return checker.check(sequence);
@@ -283,6 +286,7 @@ abstract class ClusterListener
 
 		private static SequenceChecker.Info getInfo(final SequenceChecker checker)
 		{
+			//noinspection SynchronizationOnLocalVariableOrMethodParameter OK: parametersare not supplied from outside this class
 			synchronized(checker)
 			{
 				return checker.getInfo();

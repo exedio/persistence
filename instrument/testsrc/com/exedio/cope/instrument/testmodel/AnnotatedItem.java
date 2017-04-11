@@ -60,6 +60,7 @@ public class AnnotatedItem extends Item implements OneOverrideFeatureable
 	static final SimpleSettable privateFeature = new SimpleSettable();
 
 	@Wrapper(wrap="one", visibility=NONE)
+	@SuppressWarnings("unused")
 	private static final SimpleSettable noneFeature = new SimpleSettable();
 
 	@Wrapper(wrap="one", asFinal=false)

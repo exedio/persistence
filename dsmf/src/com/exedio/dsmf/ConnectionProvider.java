@@ -23,6 +23,7 @@ import java.sql.SQLException;
 
 public interface ConnectionProvider
 {
+	@SuppressWarnings("RedundantThrows")
 	Connection getConnection() throws SQLException;
 	void putConnection(Connection connection) throws SQLException;
 	boolean isSemicolonEnabled();

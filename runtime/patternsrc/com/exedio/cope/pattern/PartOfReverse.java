@@ -43,6 +43,7 @@ final class PartOfReverse
 
 	private static List<PartOf<?>> get(final boolean declared, final HashMap<Type<?>, List<PartOf<?>>> cache, final Type<?> type)
 	{
+		//noinspection SynchronizationOnLocalVariableOrMethodParameter OK: parametersare not supplied from outside this class
 		synchronized(cache)
 		{
 			{

@@ -111,6 +111,7 @@ public abstract class Item implements Serializable, Comparable<Item>
 			return false;
 
 		final Item i = (Item)o;
+		//noinspection NonFinalFieldReferenceInEquals
 		return type==i.type && pk==i.pk;
 	}
 
@@ -122,6 +123,7 @@ public abstract class Item implements Serializable, Comparable<Item>
 	@Override
 	public final int hashCode()
 	{
+		//noinspection NonFinalFieldReferencedInHashCode
 		return type.hashCode() ^ Long.hashCode(pk);
 	}
 
@@ -136,6 +138,7 @@ public abstract class Item implements Serializable, Comparable<Item>
 		if(this==o)
 			return 0;
 
+		@SuppressWarnings("CompareToUsesNonFinalVariable")
 		final int typeResult = type.toptype.compareTo(o.type.toptype);
 		if(typeResult!=0)
 			return typeResult;

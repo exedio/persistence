@@ -214,6 +214,7 @@ final class Statement
 	 * the command will return "0 rows affected"
 	 * and executeSQLUpdate will fail.
 	 */
+	@SuppressWarnings("UnusedReturnValue") // OK: is always the last in chain
 	Statement appendTypeCheck(final Table table, final Type<?> type)
 	{
 		final StringColumn column = table.typeColumn;
@@ -286,6 +287,7 @@ final class Statement
 
 	private static final char QUESTION_MARK = '?';
 
+	@SuppressWarnings("UnusedReturnValue") // OK: is always the last in chain
 	Statement appendParameter(final Column column, final Object value)
 	{
 		if(parameters==null)
@@ -334,6 +336,7 @@ final class Statement
 		return this;
 	}
 
+	@SuppressWarnings("UnusedReturnValue") // OK: is always the last in chain
 	Statement appendParameters(final Statement other)
 	{
 		assert (parameters==null) == (other.parameters==null);
@@ -437,6 +440,7 @@ final class Statement
 			return (join==null ? 1982763 : System.identityHashCode(join)) ^ System.identityHashCode(table);
 		}
 
+		@SuppressWarnings("EqualsWhichDoesntCheckParameterClass")
 		@SuppressFBWarnings({"BC_EQUALS_METHOD_SHOULD_WORK_FOR_ALL_OBJECTS", "NP_EQUALS_SHOULD_HANDLE_NULL_ARGUMENT"})
 		@Override
 		public boolean equals(final Object other)

@@ -25,6 +25,7 @@ import com.exedio.cope.instrument.testfeature.GenericFeatureReference;
 /**
  * @param <N> just for tests
  */
+@SuppressWarnings("UnnecessarilyQualifiedInnerClassAccess")
 public class GenericSimpleSuper<N extends Number> extends Item
 {
 	static final GenericFeatureReference<GenericSimpleSub  > toSub   = GenericFeatureReference.create(GenericSimpleSub.class  );

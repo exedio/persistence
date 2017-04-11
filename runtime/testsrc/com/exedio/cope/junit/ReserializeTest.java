@@ -28,6 +28,7 @@ import org.junit.Test;
 
 public class ReserializeTest
 {
+	@SuppressWarnings("RedundantStringConstructorCall")
 	@SuppressFBWarnings({"DM_STRING_CTOR","ES_COMPARING_STRINGS_WITH_EQ"})
 	@Test public void testIt()
 	{

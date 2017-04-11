@@ -133,6 +133,7 @@ public class WrapFeature
 		throw new RuntimeException();
 	}
 
+	@SuppressWarnings("unused")
 	private static final class TrueGetter implements BooleanGetter<WrapFeature>
 	{
 		@Override

@@ -142,6 +142,7 @@ public final class Schedule extends Pattern
 	private Schedule(final ZoneId zoneId, final Locale locale)
 	{
 		this.zoneId = requireNonNull(zoneId, "zoneId");
+		//noinspection deprecation
 		this.localeIfSupported = locale;
 		addSource(enabled,  "enabled");
 		addSource(interval, "interval");
@@ -313,6 +314,7 @@ public final class Schedule extends Pattern
 
 		if(lastUntil==null)
 		{
+			@SuppressWarnings("UnnecessaryLocalVariable")
 			final Instant until = currentInstant;
 			current = current.minus(1, interval.unit);
 			final Instant from = current.toInstant();

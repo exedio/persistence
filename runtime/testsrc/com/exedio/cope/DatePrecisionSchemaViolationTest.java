@@ -78,6 +78,7 @@ public class DatePrecisionSchemaViolationTest extends SchemaMismatchTest
 		}
 	}
 
+	@SuppressWarnings("HardcodedLineSeparator") // OK: newline in sql error
 	private void newItemBad(
 			final Date hours,
 			final Date minutes,

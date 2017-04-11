@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 @CopeName("ItemTop")
+@SuppressWarnings("SuspiciousNameCombination")
 public class CheckConstraintHierarchyItemTop extends Item
 {
 	static final IntegerField top1 = new IntegerField().defaultTo(100);

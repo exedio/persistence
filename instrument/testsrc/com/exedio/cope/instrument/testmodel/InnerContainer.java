@@ -27,6 +27,7 @@ import com.exedio.cope.StringField;
 import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.instrument.testmodel.EnumContainer.Enum4;
 
+@SuppressWarnings("EmptyClass")
 final class InnerContainer
 {
 	@WrapperType(genericConstructor=PUBLIC)
@@ -154,6 +155,7 @@ final class InnerContainer
 	protected Super(final com.exedio.cope.ActivationParameters ap){super(ap);
 }}
 
+	@SuppressWarnings("UnnecessarilyQualifiedInnerClassAccess")
 	static class Sub extends Super
 	{
 		static final StringField subField = new StringField().toFinal();

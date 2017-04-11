@@ -29,6 +29,7 @@ public final class PriceFieldItem extends Item
 {
 	static final PriceField finalPrice = new PriceField().toFinal();
 	static final PriceField optionalPrice = new PriceField().optional();
+	@SuppressWarnings("UnnecessarilyQualifiedStaticallyImportedElement") // TODO instrumentor does not support static imports
 	static final PriceField bigPrice = new PriceField().min(Price.storeOf(5000));
 
 	static PriceFieldItem n(final Price optionalPrice, final Price finalPrice)

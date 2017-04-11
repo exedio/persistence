@@ -31,6 +31,7 @@ import org.junit.Test;
 
 public class LRUMapTest
 {
+	@SuppressWarnings("ClassExtendsConcreteCollection") // OK: used for code injection in test
 	private static final class DateMap<K, V> extends HashMap<K, V>
 	{
 		private static final long serialVersionUID = 1l;

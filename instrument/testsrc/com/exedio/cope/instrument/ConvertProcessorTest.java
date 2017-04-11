@@ -34,7 +34,7 @@ import javax.tools.JavaFileObject;
 import javax.tools.SimpleJavaFileObject;
 import org.junit.Test;
 
-@SuppressWarnings("synthetic-access")
+@SuppressWarnings({"synthetic-access", "HardcodedLineSeparator"})
 public class ConvertProcessorTest
 {
 	private String lineSeparator=System.lineSeparator();

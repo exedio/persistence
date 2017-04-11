@@ -53,6 +53,7 @@ final class SamplerThread extends Composite
 			maC(stackTrace, toString(thread.getStackTrace())));
 	}
 
+	@SuppressWarnings("HardcodedLineSeparator") // OK unix newline in test file containing stack trace
 	private static String toString(final StackTraceElement[] trace)
 	{
 		final StringBuilder bf = new StringBuilder();

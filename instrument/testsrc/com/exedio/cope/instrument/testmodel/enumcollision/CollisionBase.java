@@ -21,6 +21,7 @@ package com.exedio.cope.instrument.testmodel.enumcollision;
 import com.exedio.cope.EnumField;
 import com.exedio.cope.Item;
 
+@SuppressWarnings("UnnecessarilyQualifiedInnerClassAccess")
 final class CollisionBase extends Item
 {
 	enum ACollide1 { one, two } // collides with item, but is early in alphabet

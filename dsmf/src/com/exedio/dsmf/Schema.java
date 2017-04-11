@@ -76,6 +76,7 @@ public final class Schema extends Node
 	{
 		final Table result = tableMap.get(tableName);
 		if(result==null)
+			//noinspection ResultOfObjectAllocationIgnored OK: constructor registers at parent
 			new Table(this, tableName, false);
 		else
 			result.notifyExists();
@@ -119,6 +120,7 @@ public final class Schema extends Node
 	{
 		final Sequence result = sequenceMap.get(sequenceName);
 		if(result==null)
+			//noinspection ResultOfObjectAllocationIgnored OK: constructor registers at parent
 			new Sequence(this, sequenceName, type, 0, false); // TODO extract start from dictionary
 		else
 			result.notifyExists(type);

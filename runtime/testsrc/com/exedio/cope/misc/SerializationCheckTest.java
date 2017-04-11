@@ -40,6 +40,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.lang.reflect.Field;
 import org.junit.Test;
 
+@SuppressWarnings("StaticVariableMayNotBeInitialized")
 public class SerializationCheckTest
 {
 	@Test public void testNull()

@@ -33,6 +33,7 @@ import java.util.Random;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+@SuppressWarnings("FieldCanBeLocal")
 final class ClusterProperties extends Properties
 {
 	private static final Logger logger = LoggerFactory.getLogger(ClusterProperties.class);
@@ -149,7 +150,7 @@ final class ClusterProperties extends Properties
 	{
 		try
 		{
-			@SuppressWarnings("resource") // OK: is closed outside this factory method
+			@SuppressWarnings({"resource", "IOResourceOpenedButNotSafelyClosed", "SocketOpenedButNotSafelyClosed"}) // OK: is closed outside this factory method
 			final DatagramSocket result =
 				sendSourcePortAuto
 				? new DatagramSocket()
@@ -182,7 +183,7 @@ final class ClusterProperties extends Properties
 			final DatagramSocket result;
 			if(multicast)
 			{
-				@SuppressWarnings("resource") // OK: is closed outside this factory method
+				@SuppressWarnings({"resource", "IOResourceOpenedButNotSafelyClosed", "SocketOpenedButNotSafelyClosed"}) // OK: is closed outside this factory method
 				final MulticastSocket resultMulti = new MulticastSocket(port);
 				// TODO close socket if code below fails
 				if(listenInterface!=null)
@@ -194,6 +195,7 @@ final class ClusterProperties extends Properties
 			}
 			else
 			{
+				//noinspection resource,IOResourceOpenedButNotSafelyClosed,SocketOpenedButNotSafelyClosed // OK: is closed outside this factory method
 				result = new DatagramSocket(port);
 			}
 			// TODO close socket if code below fails

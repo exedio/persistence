@@ -42,6 +42,7 @@ import java.util.Map;
 import org.junit.Before;
 import org.junit.Test;
 
+@SuppressWarnings("MapReplaceableByEnumMap")
 public class MapFieldTest extends TestWithEnvironment
 {
 	public MapFieldTest()

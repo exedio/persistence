@@ -28,6 +28,7 @@ import com.exedio.cope.pattern.MediaPath;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+@SuppressWarnings("StaticMethodOnlyUsedInOneClass")
 final class Util
 {
 	private static final Logger logger = LoggerFactory.getLogger(Util.class);

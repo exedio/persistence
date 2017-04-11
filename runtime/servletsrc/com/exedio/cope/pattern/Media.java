@@ -353,6 +353,7 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 	@Wrap(order=10, doc="Returns whether media {0} is null.", hide=MandatoryGetter.class)
 	public boolean isNull(@Nonnull final Item item)
 	{
+		//noinspection SimplifiableConditionalExpression
 		return optional ? (lastModified.get(item)==null) : false;
 	}
 
@@ -405,6 +406,7 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 			doc = "Sets the content of media {0}.",
 			hide=FinalSettableGetter.class,
 			thrown=@Wrap.Thrown(value=IOException.class, doc="if accessing <tt>body</tt> throws an IOException."))
+	@SuppressWarnings({"RedundantThrows", "RedundantThrowsDeclaration"}) // TODO should not wrap IOException into RuntimeException
 	public void set(
 			@Nonnull final Item item,
 			@Parameter(nullability=NullableIfOptional.class) final Value value)
@@ -557,6 +559,7 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 	/**
 	 * @throws IOException if reading data throws an IOException.
 	 */
+	@SuppressWarnings({"RedundantThrows", "RedundantThrowsDeclaration"}) // TODO should not wrap IOException into RuntimeException
 	private void set(
 			final Item item,
 			final DataField.Value body,

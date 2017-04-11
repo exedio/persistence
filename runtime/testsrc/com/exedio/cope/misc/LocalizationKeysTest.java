@@ -50,6 +50,7 @@ public class LocalizationKeysTest
 	}
 
 
+	@SuppressWarnings("EmptyClass")
 	class InnerLoc
 	{
 		class Innermost
@@ -96,7 +97,7 @@ public class LocalizationKeysTest
 		},
 		@CopeName("actual") pure;
 
-		void method()
+		@SuppressWarnings("unused") void method()
 		{
 			// empty
 		}

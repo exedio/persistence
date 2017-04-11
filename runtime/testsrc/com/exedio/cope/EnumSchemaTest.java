@@ -254,7 +254,8 @@ public class EnumSchemaTest
 	{
 		@CopeSchemaValue(1) Eins {@Override int zack(){ return 1; } },
 		@CopeSchemaValue(2) Zwei {@Override int zack(){ return 2; } };
-		abstract int zack();
+
+		@SuppressWarnings("unused") abstract int zack();
 	}
 
 

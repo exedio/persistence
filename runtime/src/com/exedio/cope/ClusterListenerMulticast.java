@@ -61,6 +61,7 @@ final class ClusterListenerMulticast extends ClusterListenerModel implements Run
 			throw new RuntimeException(e);
 		}
 
+		//noinspection ThisEscapedInObjectConstruction
 		this.threads = new ThreadSwarm(
 				this,
 				"COPE Cluster Listener " + modelName + ' ' + ClusterSenderInfo.toStringNodeID(properties.node),

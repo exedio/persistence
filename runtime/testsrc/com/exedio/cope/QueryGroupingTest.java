@@ -125,6 +125,7 @@ public class QueryGroupingTest extends TestWithEnvironment
 		assertEquals(1, query.total());
 	}
 
+	@SuppressWarnings("HardcodedLineSeparator") // OK: newline in sql error
 	@Test public void testUngroupedSelect()
 	{
 		new GroupItem(day1, 1);

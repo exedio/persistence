@@ -53,6 +53,7 @@ final class RevstatBody extends Item
 	private static final LongField elapsed = new LongField().toFinal().min(0);
 	private static final StringField sql = new StringField().toFinal().lengthMax(100000);
 
+	@SuppressWarnings("UnnecessarilyQualifiedStaticUsage")
 	static void get(final Revstat revision, final int bodyNumber, final Body body)
 	{
 		TYPE.newItem(

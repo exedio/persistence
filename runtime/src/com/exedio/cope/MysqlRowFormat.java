@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+@SuppressWarnings("unused")
 enum MysqlRowFormat
 {
 	/**

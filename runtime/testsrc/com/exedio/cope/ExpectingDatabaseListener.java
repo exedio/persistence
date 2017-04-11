@@ -128,6 +128,7 @@ public class ExpectingDatabaseListener implements TestDatabaseListener
 			throw new RuntimeException( "search in "+toString() );
 		}
 
+		@SuppressWarnings("resource")
 		void checkConnection( final Connection connection )
 		{
 			if ( ! tx.getConnection().equals(connection) )

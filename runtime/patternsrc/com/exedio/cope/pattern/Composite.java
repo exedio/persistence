@@ -107,6 +107,7 @@ public abstract class Composite implements Serializable, TemplatedValue
 	}
 
 
+	@SuppressWarnings("TransientFieldNotInitialized") // OK: lazy initialization
 	private transient CompositeType<?> typeIfSet = null;
 
 	@Override

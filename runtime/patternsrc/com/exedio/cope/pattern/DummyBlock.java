@@ -22,6 +22,7 @@ import com.exedio.cope.BooleanField;
 
 public final class DummyBlock extends Block
 {
+	@SuppressWarnings("unused")
 	static final BooleanField field = new BooleanField();
 	private static final long serialVersionUID = 1l;
 	public static final BlockType<DummyBlock> TYPE = BlockType.newType(DummyBlock.class);

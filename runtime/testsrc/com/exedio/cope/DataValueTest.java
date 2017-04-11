@@ -62,6 +62,7 @@ public class DataValueTest
 	public void stream()
 	{
 		final ByteArrayInputStream testBaos = new ByteArrayInputStream(bytes4);
+		//noinspection ObjectToString
 		assertEquals("DataField.Value:"+testBaos, toValue(testBaos).toString());
 	}
 	@Test

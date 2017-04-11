@@ -123,6 +123,7 @@ final class MysqlDialect extends Dialect
 	}
 
 	@Override
+	@SuppressWarnings("HardcodedLineSeparator") // OK unix newline in sql
 	void prepareDumperConnection(final Appendable out) throws IOException
 	{
 		out.append(
@@ -138,6 +139,7 @@ final class MysqlDialect extends Dialect
 	}
 
 	@Override
+	@SuppressWarnings("HardcodedLineSeparator") // OK unix newline in sql
 	void unprepareDumperConnection(final Appendable out) throws IOException
 	{
 		out.append(

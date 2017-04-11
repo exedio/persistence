@@ -151,6 +151,7 @@ public abstract class TestWithEnvironment
 		tester.assertUniqueConstraint(table, name, clause);
 	}
 
+	@SuppressWarnings("UnusedReturnValue")
 	protected final CheckConstraint assertCheckConstraint(
 			final com.exedio.dsmf.Table table,
 			final String name,

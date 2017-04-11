@@ -28,6 +28,7 @@ final class VolatileInt implements Serializable
 	@SuppressFBWarnings("VO_VOLATILE_INCREMENT")
 	private volatile int value = 0;
 
+	@SuppressWarnings("NonAtomicOperationOnVolatileField")
 	void inc()
 	{
 		value++;

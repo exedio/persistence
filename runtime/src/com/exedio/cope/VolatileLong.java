@@ -25,14 +25,17 @@ final class VolatileLong implements Serializable
 {
 	private static final long serialVersionUID = 1l;
 
+	@SuppressWarnings("VolatileLongOrDoubleField")
 	@SuppressFBWarnings("VO_VOLATILE_INCREMENT")
 	private volatile long value = 0;
 
+	@SuppressWarnings("NonAtomicOperationOnVolatileField")
 	void inc()
 	{
 		value++;
 	}
 
+	@SuppressWarnings("NonAtomicOperationOnVolatileField")
 	void inc(final long addend)
 	{
 		if(addend<0)

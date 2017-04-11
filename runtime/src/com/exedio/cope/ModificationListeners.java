@@ -32,6 +32,7 @@ final class ModificationListeners
 		return Collections.emptyList();
 	}
 
+	@SuppressWarnings("StaticMethodOnlyUsedInOneClass")
 	static int getCleared()
 	{
 		return 0;

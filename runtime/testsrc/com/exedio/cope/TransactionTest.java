@@ -74,6 +74,7 @@ public class TransactionTest extends TestmodelTest
 		assertSomeString(item, someString);
 	}
 
+	@SuppressWarnings({"EqualsWithItself", "ResultOfMethodCallIgnored"})
 	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT")
 	private static void assertNotExists(final AttributeItem actualItem)
 	{

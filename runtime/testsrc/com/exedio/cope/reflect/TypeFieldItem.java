@@ -38,7 +38,7 @@ public final class TypeFieldItem extends Item
 	static final TypeField<TypeFieldSubItem> restricted = TypeField.create(TypeFieldSubItem.class).optional();
 
 
-	@SuppressWarnings({"rawtypes", "unchecked"}) // OK: test bad API usage
+	@SuppressWarnings({"rawtypes", "unchecked", "UnusedReturnValue"}) // OK: test bad API usage
 	static TypeFieldItem createRestrictedRaw(final Type<?> restricted)
 	{
 		return new TypeFieldItem(new SetValue<?>[]{

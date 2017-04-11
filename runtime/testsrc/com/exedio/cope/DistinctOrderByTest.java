@@ -35,6 +35,7 @@ import java.util.function.Predicate;
 import org.junit.Before;
 import org.junit.Test;
 
+@SuppressWarnings("HardcodedLineSeparator") // OK: newline in sql error
 public class DistinctOrderByTest extends TestWithEnvironment
 {
 	public DistinctOrderByTest()

@@ -443,6 +443,7 @@ public class HashTest extends TestWithEnvironment
 		assertEquals("[978]", anItem.get(with3PinValidator.getStorage()));
 	}
 
+	@SuppressWarnings("SerializableInnerClassWithNonSerializableOuterClass")
 	@Test public void testValidatorNewRandomPassword()
 	{
 		assertEquals("012", with3PinValidator.newRandomPassword(new SecureRandom() {

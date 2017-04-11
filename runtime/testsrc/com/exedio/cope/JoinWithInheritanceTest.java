@@ -27,6 +27,7 @@ import static org.junit.Assert.fail;
 import com.exedio.cope.pattern.ListField;
 import org.junit.Test;
 
+@SuppressWarnings("OverlyStrongTypeCast")
 public class JoinWithInheritanceTest extends TestWithEnvironment
 {
 	static final Model MODEL = new Model(

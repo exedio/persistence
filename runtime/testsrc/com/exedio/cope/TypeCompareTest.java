@@ -27,6 +27,7 @@ import org.junit.Test;
 
 public class TypeCompareTest
 {
+	@SuppressWarnings("EqualsWithItself")
 	@Test public void testType()
 	{
 		final Type<AnItem> type1 = newType(AnItem.class);

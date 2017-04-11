@@ -299,11 +299,13 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 		return new File(result);
 	}
 
+	@SuppressWarnings("deprecation") // needed for idea
 	public ConnectProperties(final File file)
 	{
 		this(file, null);
 	}
 
+	@SuppressWarnings("deprecation") // needed for idea
 	public static ConnectProperties create(final Source source)
 	{
 		return new ConnectProperties(source, null);

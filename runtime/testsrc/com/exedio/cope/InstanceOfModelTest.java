@@ -116,6 +116,7 @@ public class InstanceOfModelTest
 	{
 		try
 		{
+			//noinspection OverlyStrongTypeCast
 			TYPE_A.getThis().instanceOf((Type[])null);
 			fail();
 		}

@@ -397,6 +397,7 @@ final class Types
 		return result;
 	}
 
+	@SuppressWarnings("OverlyStrongTypeCast")
 	void checkTypeColumns()
 	{
 		for(final Type<?> t : typesSorted)

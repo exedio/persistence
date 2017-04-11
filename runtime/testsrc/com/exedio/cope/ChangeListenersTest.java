@@ -164,6 +164,7 @@ public class ChangeListenersTest
 		assertEquals(list(l1), model.getChangeListeners());
 		assertInfo(1, 0, 0);
 
+		//noinspection UnusedAssignment
 		l1 = null; // release to GC
 		System.gc();
 		assertInfo(1, 0, 0);

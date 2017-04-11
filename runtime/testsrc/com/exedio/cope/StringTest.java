@@ -527,12 +527,14 @@ public class StringTest extends TestWithEnvironment
 		System.arraycopy(lengthString.toCharArray(), 0, buf, 0, Math.min(lengthString.length(), length));
 
 		//System.err.println("---------------------"+length+"--copied");
+		@SuppressWarnings("UnnecessaryLocalVariable")
 		final String result = new String(buf);
 		//System.err.println("---------------------"+length+"--stringed");
 		//System.err.println("---------------------"+length+"--end--"+result.substring(0, 80));
 		return result;
 	}
 
+	@SuppressWarnings("HardcodedLineSeparator")
 	void assertString(final Item item, final Item item2, final StringField sa)
 	{
 		final Type<?> type = item.getCopeType();

@@ -38,6 +38,7 @@ final class JPEGCodecAccess
 	{
 		try
 		{
+			//noinspection ConstantConditions
 			return (BufferedImage)decode.invoke(create.invoke(null, new ByteArrayInputStream(srcBytes)));
 		}
 		catch(final ReflectiveOperationException e)

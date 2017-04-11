@@ -103,7 +103,8 @@ public class EnumClassTest
 	{
 		Eins {@Override int zack(){ return 1; } },
 		Zwei {@Override int zack(){ return 2; } };
-		abstract int zack();
+
+		@SuppressWarnings("unused") abstract int zack();
 	}
 
 	@SuppressWarnings("unchecked") // OK: test bad api usage

@@ -90,6 +90,7 @@ public class TransactionUniqueTest extends TestWithEnvironment
 		item.assertIt();
 	}
 
+	@SuppressWarnings("HardcodedLineSeparator") // OK: newline in sql error
 	private void testBlocks() throws InterruptedException
 	{
 		final MyItem item = MyItem.create();

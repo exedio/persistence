@@ -18,6 +18,7 @@
 
 package com.exedio.cope.pattern;
 
+@SuppressWarnings("InterfaceMayBeAnnotatedFunctional") // OK: maybe we get more methods in the future
 public interface TemplatedValue
 {
 	TemplatedType<?> getCopeType();

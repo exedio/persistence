@@ -97,6 +97,7 @@ public final class DispatcherItem extends Item implements Dispatchable
 	DispatcherItem(final String body, final boolean fail)
 	{
 		this(body);
+		//noinspection ThisEscapedInObjectConstruction
 		logs.put(this, new Log(fail));
 	}
 

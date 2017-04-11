@@ -98,8 +98,10 @@ public final class UniqueHashedMedia extends Pattern implements Settable<Value>,
 		final int digestStringLength = digestLength * 2; // 1 byte is 2 hexadecimal chars
 		this.messageDigestAlgorithm = messageDigestAlgorithm;
 		this.media = mediaTemplate.toFinal();
+		//noinspection ThisEscapedInObjectConstruction
 		addSource(this.media, "media", new MediaPathFeatureAnnotationProxy(this, true));
 		this.hash = new StringField().toFinal().unique().lengthExact(digestStringLength).charSet(HEX_LOWER);
+		//noinspection AnonymousInnerClassMayBeStatic
 		addSource(this.hash, "hash",
 				digestStringLength<=32
 				? ComputedElement.get()
@@ -159,6 +161,7 @@ public final class UniqueHashedMedia extends Pattern implements Settable<Value>,
 	@Nonnull
 	public String getURL(@Nonnull final Item item)
 	{
+		//noinspection ConstantConditions OK: media is mandatory
 		return media.getURL(item);
 	}
 
@@ -166,6 +169,7 @@ public final class UniqueHashedMedia extends Pattern implements Settable<Value>,
 	@Nonnull
 	public MediaPath.Locator getLocator(@Nonnull final Item item)
 	{
+		//noinspection ConstantConditions OK: media is mandatory
 		return media.getLocator(item);
 	}
 

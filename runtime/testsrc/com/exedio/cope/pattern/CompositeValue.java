@@ -38,6 +38,7 @@ public final class CompositeValue extends Composite
 	static final ItemField<CompositeOptionalItem> anItem = ItemField.create(CompositeOptionalItem.class);
 
 	// test, that these fields do not become fields of the composite value
+	@SuppressWarnings("TransientFieldNotInitialized")
 	@SuppressFBWarnings("SE_TRANSIENT_FIELD_NOT_RESTORED")
 	final transient BooleanField notStatic = new BooleanField();
 	static BooleanField notFinal = new BooleanField();

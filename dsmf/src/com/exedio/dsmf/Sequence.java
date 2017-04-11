@@ -46,6 +46,7 @@ public final class Sequence extends Node
 		this.type = new Field<>(type, required);
 		this.start = start;
 
+		//noinspection ThisEscapedInObjectConstruction
 		schema.register(this);
 	}
 
@@ -147,6 +148,7 @@ public final class Sequence extends Node
 			this.MAX_VALUE = MAX_VALUE;
 		}
 
+		@SuppressWarnings("StaticMethodOnlyUsedInOneClass")
 		static Type fromMaxValueExact(final long maxValue)
 		{
 			if(maxValue==Integer.MAX_VALUE)

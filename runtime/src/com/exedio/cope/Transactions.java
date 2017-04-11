@@ -26,6 +26,8 @@ import java.util.HashSet;
 final class Transactions
 {
 	private final HashSet<Transaction> open = new HashSet<>();
+
+	@SuppressWarnings("ThreadLocalNotStaticFinal") // OK: class is instantiated on static context only
 	private final ThreadLocal<Transaction> threadLocal = new ThreadLocal<>();
 
 	void add(final Transaction tx)

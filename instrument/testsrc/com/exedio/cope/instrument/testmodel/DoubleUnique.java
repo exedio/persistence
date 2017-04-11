@@ -24,6 +24,7 @@ import com.exedio.cope.StringField;
 import com.exedio.cope.UniqueConstraint;
 import com.exedio.cope.instrument.testmodel.sub.SubTarget;
 
+@SuppressWarnings("UnusedReturnValue")
 public final class DoubleUnique extends Item
 {
 	public static final StringField string = new StringField().toFinal();

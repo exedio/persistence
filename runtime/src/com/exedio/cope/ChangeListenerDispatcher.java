@@ -47,6 +47,7 @@ final class ChangeListenerDispatcher implements Runnable
 		this.manager = manager;
 		this.queue = new LimitedQueue<>(properties.changeListenersQueueCapacity);
 
+		//noinspection ThisEscapedInObjectConstruction
 		this.threads = new ThreadSwarm(
 				this,
 				"COPE Change Listener Dispatcher " + modelName,

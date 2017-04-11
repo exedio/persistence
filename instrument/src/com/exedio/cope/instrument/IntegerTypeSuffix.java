@@ -25,7 +25,9 @@ enum IntegerTypeSuffix
 	 * to distinguish from the digit one.
 	 */
 	small("l"),
+	@SuppressWarnings("unused") // OK: evaluated generically
 	capital("L"),
+	@SuppressWarnings("unused") // OK: evaluated generically
 	none(null);
 
 	final String code;

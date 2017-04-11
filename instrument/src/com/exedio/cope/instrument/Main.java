@@ -167,6 +167,7 @@ final class Main
 				throw new RuntimeException(e);
 			}
 		}
+		//noinspection ClassLoaderInstantiation OK: not used in production but only on build time
 		return new URLClassLoader(urls.toArray(new URL[urls.size()]), getClass().getClassLoader());
 	}
 
@@ -196,6 +197,7 @@ final class Main
 				}
 				if ( file.isDirectory() )
 				{
+					//noinspection ConstantConditions OK: checks isDirectory before calling listFiles
 					if ( !noFilesModifiedAfter(Arrays.asList(file.listFiles()), referenceFile, verbose) )
 					{
 						return false;

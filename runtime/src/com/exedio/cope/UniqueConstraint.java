@@ -47,6 +47,7 @@ public final class UniqueConstraint extends Feature implements Copyable
 		this.fields = fields;
 		this.fieldList = Collections.unmodifiableList(Arrays.asList(fields));
 		for(final FunctionField<?> f : fields)
+			//noinspection ThisEscapedInObjectConstruction
 			f.registerUniqueConstraint(this);
 	}
 
@@ -212,6 +213,7 @@ public final class UniqueConstraint extends Feature implements Copyable
 
 		final Iterator<FunctionField<?>> fieldIter = fields.iterator();
 		final Condition[] conditions = new Condition[fields.size()];
+		//noinspection ForLoopThatDoesntUseLoopVariable
 		for(int j = 0; fieldIter.hasNext(); j++)
 			conditions[j] = Cope.equalAndCast(fieldIter.next(), values[j]);
 
@@ -256,6 +258,7 @@ public final class UniqueConstraint extends Feature implements Copyable
 				if(collision!=null && (item==null || !item.equals(collision)))
 					throw new UniqueViolationException(this, item, null);
 
+				//noinspection UnnecessaryLabelOnBreakStatement
 				break field;
 			}
 		}

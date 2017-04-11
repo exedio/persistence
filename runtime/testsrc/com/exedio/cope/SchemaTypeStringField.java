@@ -124,6 +124,7 @@ public final class SchemaTypeStringField extends Pattern
 		}
 
 		@Override
+		@SuppressWarnings("SimplifiableConditionalExpression")
 		public boolean isAnnotationPresent(final Class<? extends Annotation> annotationClass)
 		{
 			return

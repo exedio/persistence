@@ -107,6 +107,7 @@ public final class SequenceInfoAssert
 		final ArrayList<Feature> actualTypes = new ArrayList<>();
 		for(final SequenceInfo i : actual)
 			actualTypes.add(i.getFeature());
+		//noinspection MisorderedAssertEqualsArguments
 		assertEquals(Arrays.asList(expected), actualTypes);
 	}
 

@@ -183,6 +183,7 @@ final class Tags
 	 * @param tagname the tag name without the '@' prefix
 	 * @return the first line following the tag
 	 */
+	@SuppressWarnings("HardcodedLineSeparator") // OK handles all newline variants
 	private static String getLine(final String doccomment, final String tagname)
 	{
 		if(doccomment==null)
@@ -205,6 +206,7 @@ final class Tags
 					break li;
 			}
 		}
+		@SuppressWarnings("UnnecessaryLocalVariable")
 		final String result = doccomment.substring(start, end).trim();
 		//System.out.println("doctag:>"+tagname+"< >"+docComment.substring(start, end)+"<");
 		return result;

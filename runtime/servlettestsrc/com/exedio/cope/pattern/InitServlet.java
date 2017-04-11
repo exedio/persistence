@@ -43,8 +43,10 @@ public class InitServlet extends HttpServlet
 	{
 		super.init();
 
+		@SuppressWarnings("HardcodedLineSeparator")
 		final byte[] textValue = "This is an example file\nfor testing media data.\n".getBytes(UTF_8);
 		final Class<?> thisClass = InitServlet.class;
+		//noinspection resource OK: closed in destroy
 		connectToken = ConnectToken.issue(model, thisClass.getName()).returnOnFailureOf(t ->
 		{
 			model.createSchema();

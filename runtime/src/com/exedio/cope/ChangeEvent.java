@@ -28,6 +28,7 @@ public final class ChangeEvent
 	private final Item[] items;
 	private final TransactionInfo transactionInfo;
 
+	@SuppressWarnings("AssignmentToCollectionOrArrayFieldFromParameter")
 	ChangeEvent(final Item[] items, final TransactionInfo transactionInfo)
 	{
 		this.items = items;

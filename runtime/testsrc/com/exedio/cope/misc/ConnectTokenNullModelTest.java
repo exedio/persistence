@@ -31,6 +31,7 @@ import org.junit.Test;
 
 public class ConnectTokenNullModelTest
 {
+	@SuppressWarnings("resource")
 	@Test public void testIt()
 	{
 		try

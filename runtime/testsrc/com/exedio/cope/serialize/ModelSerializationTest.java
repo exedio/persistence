@@ -45,7 +45,7 @@ public class ModelSerializationTest
 
 	@SuppressWarnings("unused")
 	private final Model modelNonStatic = null;
-	@SuppressWarnings("unused")
+	@SuppressWarnings({"unused", "FieldMayBeFinal"})
 	private static Model modelNonFinal = null;
 	@SuppressWarnings("unused")
 	private static final Model modelNull = null;

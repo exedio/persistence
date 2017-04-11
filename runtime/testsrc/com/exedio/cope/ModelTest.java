@@ -236,6 +236,7 @@ public class ModelTest extends TestWithEnvironment
 
 		try
 		{
+			//noinspection resource
 			SchemaInfo.newConnection(model);
 			fail();
 		}

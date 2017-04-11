@@ -282,6 +282,7 @@ public final class MediaType
 	static Condition mismatches(final Media media)
 	{
 		final Condition[] conditions = new Condition[typesWithMagic.length];
+		//noinspection Java8ArraySetAll OK: performance
 		for(int i = 0; i<conditions.length; i++)
 			conditions[i] = typesWithMagic[i].mismatchesInstance(media);
 		return Cope.or(conditions);

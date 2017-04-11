@@ -103,6 +103,7 @@ class ClassVisitor extends GeneratedAwareScanner
 		super.visitVariable(node, p);
 		if ( !hasGeneratedAnnotation() && node.getModifiers().getFlags().containsAll(REQUIRED_MODIFIERS_FOR_COPE_FEATURE) )
 		{
+			//noinspection ResultOfObjectAllocationIgnored OK: constructor registers at parent
 			new JavaField(
 				javaClass,
 				TreeApiHelper.toModifiersInt(node.getModifiers()),

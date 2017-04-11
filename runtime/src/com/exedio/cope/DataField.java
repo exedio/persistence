@@ -191,8 +191,10 @@ public final class DataField extends Field<DataField.Value>
 	@Wrap(order=40,
 			doc="Writes the data of this persistent data field into the given stream.",
 			thrown=@Wrap.Thrown(IOException.class))
+	@SuppressWarnings({"RedundantThrows", "RedundantThrowsDeclaration"}) // TODO should not wrap IOException into RuntimeException
 	public void get(@Nonnull final Item item, @Nonnull final OutputStream data) throws IOException
 	{
+		//noinspection resource OK: fails only if null
 		requireNonNull(data);
 
 		final Transaction tx = model.currentTransaction();
@@ -286,6 +288,7 @@ public final class DataField extends Field<DataField.Value>
 			doc="Sets a new value for the persistent field {0}.", // TODO better text
 			thrownGetter=InitialAndIOThrown.class,
 			hide=FinalSettableGetter.class)
+	@SuppressWarnings({"RedundantThrows", "RedundantThrowsDeclaration"}) // TODO should not wrap IOException into RuntimeException
 	public void set(@Nonnull final Item item, @Parameter(nullability=NullableIfOptional.class) final InputStream data)
 	throws IOException
 	{
@@ -305,6 +308,7 @@ public final class DataField extends Field<DataField.Value>
 			doc="Sets a new value for the persistent field {0}.", // TODO better text
 			thrownGetter=InitialAndIOThrown.class,
 			hide=FinalSettableGetter.class)
+	@SuppressWarnings({"RedundantThrows", "RedundantThrowsDeclaration"}) // TODO should not wrap IOException into RuntimeException
 	public void set(@Nonnull final Item item, @Parameter(nullability=NullableIfOptional.class) final File data)
 	throws IOException
 	{
@@ -411,6 +415,7 @@ public final class DataField extends Field<DataField.Value>
 		try(InputStream in = input)
 		{
 			if(length==0)
+				//noinspection ZeroLengthArrayAllocation OK: happens almost never
 				return new byte[]{};
 
 			if(length>Integer.MAX_VALUE)
@@ -508,6 +513,7 @@ public final class DataField extends Field<DataField.Value>
 	{
 		final byte[] array;
 
+		@SuppressWarnings("AssignmentToCollectionOrArrayFieldFromParameter")
 		ArrayValue(final byte[] array)
 		{
 			this.array = array;

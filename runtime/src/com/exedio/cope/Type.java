@@ -59,6 +59,7 @@ import java.util.Objects;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+@SuppressWarnings("ComparableImplementedButEqualsNotOverridden") // OK: compareTo just changes order, but not equality
 public final class Type<T extends Item> implements SelectType<T>, Comparable<Type<?>>, AbstractType<T>
 {
 	private final Class<T> javaClass;
@@ -75,6 +76,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	final Type<? super T> toptype;
 	private final HashSet<Type<?>> supertypes;
 
+	@SuppressWarnings("ThisEscapedInObjectConstruction")
 	final This<T> thisFunction = new This<>(this);
 	private final List<? extends Feature> featuresDeclared;
 	private final List<? extends Feature> features;
@@ -215,7 +217,9 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 
 		// declared features
 		this.featuresWhileConstruction = new ArrayList<>(featuresParameter.size() + 1);
+		//noinspection ThisEscapedInObjectConstruction
 		thisFunction.mount(this, This.NAME, null);
+		//noinspection ThisEscapedInObjectConstruction
 		featuresParameter.mount(this);
 		featuresWhileConstruction.trimToSize();
 		this.featuresDeclared = Collections.unmodifiableList(featuresWhileConstruction);
@@ -549,7 +553,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 			return (List)l;
 		}
 
-		@SuppressWarnings({"unchecked", "rawtypes", "static-method"})
+		@SuppressWarnings({"unchecked", "rawtypes", "static-method", "MethodMayBeStatic"})
 		private List<ItemField<?>> castReferences(final List l)
 		{
 			return l;
@@ -772,6 +776,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	 * @see #getSubtypesTransitively()
 	 */
 	@Override
+	@SuppressWarnings("TypeParameterExtendsFinalClass") // OK: effectively makes collection somewhat compiler-unmodifiable
 	public List<? extends Type<? extends T>> getSubtypes()
 	{
 		return mount().subtypes;
@@ -784,6 +789,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	 * own zeroth-order subtype.
 	 * @see #getSubtypes()
 	 */
+	@SuppressWarnings("TypeParameterExtendsFinalClass") // OK: effectively makes collection somewhat compiler-unmodifiable
 	public List<? extends Type<? extends T>> getSubtypesTransitively()
 	{
 		return mount().subtypesTransitively;
@@ -924,31 +930,37 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		return localizationKeysIfInitialized;
 	}
 
+	@SuppressWarnings("TypeParameterExtendsFinalClass") // OK: effectively makes collection somewhat compiler-unmodifiable
 	public List<? extends UniqueConstraint> getDeclaredUniqueConstraints()
 	{
 		return uniqueConstraints.declared;
 	}
 
+	@SuppressWarnings("TypeParameterExtendsFinalClass") // OK: effectively makes collection somewhat compiler-unmodifiable
 	public List<? extends UniqueConstraint> getUniqueConstraints()
 	{
 		return uniqueConstraints.all;
 	}
 
+	@SuppressWarnings("TypeParameterExtendsFinalClass") // OK: effectively makes collection somewhat compiler-unmodifiable
 	public List<? extends CheckConstraint> getDeclaredCheckConstraints()
 	{
 		return checkConstraints.declared;
 	}
 
+	@SuppressWarnings("TypeParameterExtendsFinalClass") // OK: effectively makes collection somewhat compiler-unmodifiable
 	public List<? extends CheckConstraint> getCheckConstraints()
 	{
 		return checkConstraints.all;
 	}
 
+	@SuppressWarnings("TypeParameterExtendsFinalClass") // OK: effectively makes collection somewhat compiler-unmodifiable
 	public List<? extends CopyConstraint> getDeclaredCopyConstraints()
 	{
 		return copyConstraints.declared;
 	}
 
+	@SuppressWarnings("TypeParameterExtendsFinalClass") // OK: effectively makes collection somewhat compiler-unmodifiable
 	public List<? extends CopyConstraint> getCopyConstraints()
 	{
 		return copyConstraints.all;
@@ -1256,7 +1268,10 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		}
 	}
 
-	private static void checkForDuplicateUniqueConstraint(final String id, final List<? extends UniqueConstraint> constraints)
+	private static void checkForDuplicateUniqueConstraint(
+			final String id,
+			@SuppressWarnings("TypeParameterExtendsFinalClass") // OK: effectively makes collection somewhat compiler-unmodifiable
+			final List<? extends UniqueConstraint> constraints)
 	{
 		if(constraints.size()<=1)
 			return;
@@ -1585,6 +1600,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	 */
 	@SuppressFBWarnings("NM_CONFUSING") // Confusing method names, the referenced methods have names that differ only by capitalization.
 	@Deprecated
+	@SuppressWarnings("TypeParameterExtendsFinalClass") // OK: effectively makes collection somewhat compiler-unmodifiable
 	public List<? extends Type<? extends T>> getSubTypes()
 	{
 		return getSubtypes();
@@ -1595,6 +1611,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	 */
 	@SuppressFBWarnings("NM_CONFUSING") // Confusing method names, the referenced methods have names that differ only by capitalization.
 	@Deprecated
+	@SuppressWarnings("TypeParameterExtendsFinalClass") // OK: effectively makes collection somewhat compiler-unmodifiable
 	public List<? extends Type<? extends T>> getSubTypesTransitively()
 	{
 		return getSubtypesTransitively();

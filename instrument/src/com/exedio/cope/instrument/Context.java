@@ -96,6 +96,7 @@ final class Context
 
 	private String write(final TypeVariable<?> t)
 	{
+		//noinspection ConstantConditions
 		if(wrapper.matchesStaticToken(t))
 			return getClassToken();
 

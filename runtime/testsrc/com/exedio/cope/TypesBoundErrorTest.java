@@ -240,7 +240,7 @@ public class TypesBoundErrorTest
 	{
 		private static final long serialVersionUID = 1l;
 
-		@SuppressWarnings({"unused", "static-method"})
+		@SuppressWarnings({"unused", "static-method", "MethodMayBeStatic"})
 		@SuppressFBWarnings("UPM_UNCALLED_PRIVATE_METHOD")
 		private SetValue<?>[] beforeNewCopeItem(final SetValue<?>[] setValues)
 		{
@@ -322,6 +322,7 @@ public class TypesBoundErrorTest
 	{
 		@WrapperIgnore private static final IntegerField subField=new IntegerField();
 
+		@SuppressWarnings("unused")
 		@WrapperIgnore private static final UniqueConstraint superAndSub=new UniqueConstraint(superField, subField);
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")

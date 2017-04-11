@@ -30,6 +30,7 @@ import org.slf4j.LoggerFactory;
 
 public final class ThreadController
 {
+	@SuppressWarnings("LoggerInitializedWithForeignClass")
 	private static final Logger logger = LoggerFactory.getLogger(ThreadSwarm.class);
 
 	private static final int NO_PRIORITY = Integer.MIN_VALUE;
@@ -81,6 +82,7 @@ public final class ThreadController
 		thread.setName(name);
 		thread.setDaemon(daemon);
 		if(priority!=NO_PRIORITY)
+			//noinspection CallToThreadSetPriority
 			thread.setPriority(priority);
 		// thread.setUncaughtExceptionHandler(xxx); TODO save exception and make available by getter
 		return thread;

@@ -23,6 +23,7 @@ import static com.exedio.cope.misc.Check.requireNonNegative;
 
 import com.exedio.cope.Item;
 
+@SuppressWarnings("NonAtomicOperationOnVolatileField") // OK: strict serialization of operations not needed
 public final class MediaFingerprintOffset
 {
 	private volatile State state;

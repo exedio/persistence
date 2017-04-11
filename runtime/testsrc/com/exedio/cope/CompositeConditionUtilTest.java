@@ -35,6 +35,7 @@ import org.junit.Test;
 
 public class CompositeConditionUtilTest
 {
+	@SuppressWarnings("OverlyStrongTypeCast") // bug in idea inspection
 	@Test public void testIt()
 	{
 		final DoubleField field = new DoubleField().optional();
@@ -239,7 +240,7 @@ public class CompositeConditionUtilTest
 	}
 
 
-	@SuppressWarnings("deprecation")
+	@SuppressWarnings({"deprecation", "UnusedReturnValue"})
 	private static CompositeCondition newCompositeCondition(
 			final Operator operator,
 			final List<? extends Condition> conditions)

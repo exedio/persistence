@@ -134,7 +134,7 @@ public class QuerySelectTest
 		assertEquals("select this,field1 from AnItem", q.toString());
 	}
 
-	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad api usage
+	@SuppressWarnings({"unchecked", "rawtypes", "RawTypeCanBeGeneric"}) // OK: test bad api usage
 	@Test public void testSetSelectsUnchecked()
 	{
 		final Query q = newQuery(new Selectable[]{field1, field2}, TYPE, null);

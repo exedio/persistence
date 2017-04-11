@@ -35,6 +35,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
+@SuppressWarnings("UnusedReturnValue")
 final class MediaServletItem extends Item
 	implements MediaUrlCatchphraseProvider
 {

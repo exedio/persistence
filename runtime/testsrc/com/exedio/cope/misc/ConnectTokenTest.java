@@ -46,6 +46,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.RuleChain;
 
+@SuppressWarnings("resource")
 public class ConnectTokenTest
 {
 	private static final Model model = new Model(ConnectTokenItem.TYPE);

@@ -43,6 +43,7 @@ public final class MoneyFieldItem extends Item
 
 	enum Currency implements Money.Currency {eur,gbp}
 
+	@SuppressWarnings("UnnecessarilyQualifiedStaticallyImportedElement") // TODO instrumentor does not support static imports
 	static final MoneyField<Currency> fixeEnu = MoneyField.fixed(Currency.eur).optional();
 
 	static MoneyFieldItem fixeEnu(final Money<Currency> fixeEnu)

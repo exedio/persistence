@@ -33,6 +33,7 @@ public final class Money<C extends Currency>
 	 * implemented correctly.
 	 * For good exception messages, {@link Object#toString()} should be implemented as well.
 	 */
+	@SuppressWarnings("MarkerInterface") // OK: maybe we get methods in the future
 	public interface Currency
 	{
 		// empty
@@ -278,6 +279,7 @@ public final class Money<C extends Currency>
 	{
 		@SuppressWarnings({"unchecked","rawtypes"})
 		final Money<C>[] result = new Money[value.length];
+		//noinspection Java8ArraySetAll OK: performance
 		for(int i = 0; i<result.length; i++)
 			result[i] = valueOf(value[i], currency);
 		return result;

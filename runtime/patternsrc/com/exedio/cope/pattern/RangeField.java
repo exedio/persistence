@@ -93,6 +93,7 @@ public final class RangeField<E extends Comparable<E>> extends Pattern implement
 	{
 		FinalViolationException.check(this, item);
 
+		//noinspection unchecked
 		item.set(
 				from.map(value.getFrom()),
 				to  .map(value.getTo  ()));
@@ -131,6 +132,7 @@ public final class RangeField<E extends Comparable<E>> extends Pattern implement
 	}
 
 	@Wrap(order=70)
+	@SuppressWarnings("RedundantIfStatement")
 	public boolean doesContain(@Nonnull final Item item, @Nonnull final E value)
 	{
 		requireNonNull(value, "value");

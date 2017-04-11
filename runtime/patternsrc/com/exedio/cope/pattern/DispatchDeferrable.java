@@ -23,6 +23,9 @@ package com.exedio.cope.pattern;
  *             override {@link Dispatchable#isDeferred(Dispatcher)}
  */
 @Deprecated
+@SuppressWarnings({
+		"InterfaceMayBeAnnotatedFunctional", // OK: is to be implemented by Items only
+		"MarkerInterface", "InterfaceNeverImplemented"}) // OK: method moved up to Dispatchable
 public interface DispatchDeferrable extends Dispatchable
 {
 	// empty as method was moved to super interface

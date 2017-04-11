@@ -225,6 +225,7 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 		int i = 0;
 		final SetValue<?>[] setValues = new SetValue<?>[sources.length+1];
 
+		//noinspection ForLoopThatDoesntUseLoopVariable
 		for(final Iterator<? extends E> it = value.iterator(); it.hasNext(); i++)
 			setValues[i] = sources[i].map(it.next());
 
@@ -263,6 +264,7 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 		int i = 0;
 		final Condition[] conditions = new Condition[sources.length];
 
+		//noinspection ForLoopThatDoesntUseLoopVariable
 		for(final Iterator<E> it = value.iterator(); it.hasNext(); i++)
 			conditions[i] = sources[i].equal(it.next());
 

@@ -78,6 +78,7 @@ public final class CompositeType<T extends Composite> implements TemplatedType<T
 				final String fieldName = CopeNameUtil.getAndFallbackToName(field);
 				templates.put(fieldName, template);
 				templatePositions.put(template, position++);
+				//noinspection ThisEscapedInObjectConstruction
 				template.mount(this, fieldName, fieldID, SerializedReflectionField.make(feature, field), field);
 				templateNames.put(template, fieldName);
 			}
@@ -131,6 +132,7 @@ public final class CompositeType<T extends Composite> implements TemplatedType<T
 	}
 
 	@Override
+	@SuppressWarnings("TypeParameterExtendsFinalClass") // OK: effectively makes collection somewhat compiler-unmodifiable
 	public List<? extends CompositeType<? extends T>> getSubtypes()
 	{
 		return Collections.emptyList();

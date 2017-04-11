@@ -237,6 +237,7 @@
 			</path>
 			<sequential>
 				<basename file="@{dialect.file}" property="@{dialect.file}.name" suffix=".properties" />
+				<!--suppress AntMissingPropertiesFileInspection -->
 				<property file="@{dialect.file}" prefix="@{dialect.file}." />
 				<echo message="Compiling dialect ${@{dialect.file}.name} with ${@{dialect.file}.jar}." />
 				<!--echo message="file=@{dialect.file},dialect=${@{dialect.file}.name},jar=${@{dialect.file}.jar}." /-->

@@ -121,6 +121,7 @@ public class UniqueHashedMediaErrorTest
 					e.getMessage());
 		}
 	}
+	@SuppressWarnings({"ClassWithOnlyPrivateConstructors", "AbstractClassNeverImplemented"}) // OK: test broken input
 	@WrapperIgnore abstract static class AbstractItem extends Item
 	{
 		static final UniqueHashedMedia value = new UniqueHashedMedia(new Media());

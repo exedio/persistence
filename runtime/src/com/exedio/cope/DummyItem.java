@@ -21,6 +21,7 @@ package com.exedio.cope;
 final class DummyItem extends Item
 {
 	private static final long serialVersionUID = 1l;
+	@SuppressWarnings("unused")
 	static final Type<DummyItem> TYPE = TypesBound.newType(DummyItem.class);
 	private DummyItem(final ActivationParameters ap) { super(ap); }
 }

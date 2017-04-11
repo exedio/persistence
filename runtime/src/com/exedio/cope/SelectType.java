@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+@FunctionalInterface
 interface SelectType<E>
 {
 	Class<E> getJavaClass();

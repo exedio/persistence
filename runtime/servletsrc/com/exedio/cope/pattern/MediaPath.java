@@ -447,6 +447,8 @@ public abstract class MediaPath extends Pattern
 	public static final class NotFound extends Exception
 	{
 		private final String reason;
+
+		@SuppressWarnings("TransientFieldNotInitialized") // OK: class gets along without counter
 		private final transient ErrorLog counter;
 
 		NotFound(final String reason, final ErrorLog counter)
@@ -470,6 +472,7 @@ public abstract class MediaPath extends Pattern
 			if(counter!=null)
 				counter.count(request, this);
 
+			@SuppressWarnings("HardcodedLineSeparator") // OK unix newline in html
 			final String body =
 				"<html>\n" +
 					"<head>\n" +

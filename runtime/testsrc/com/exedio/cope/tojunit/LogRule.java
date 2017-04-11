@@ -157,6 +157,7 @@ public class LogRule extends ExternalResource
 	{
 		final List<LoggingEvent> events;
 
+		@SuppressWarnings("AssignmentToCollectionOrArrayFieldFromParameter")
 		Appender(final List<LoggingEvent> events)
 		{
 			this.events = events;

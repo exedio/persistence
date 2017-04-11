@@ -26,6 +26,7 @@ final class PolymorphicItemMarshaller<E extends Item> extends Marshaller<E>
 {
 	private final HashMap<String, Type<? extends E>> typesOfInstancesMap;
 
+	@SuppressWarnings("AssignmentToCollectionOrArrayFieldFromParameter")
 	PolymorphicItemMarshaller(final HashMap<String, Type<? extends E>> typesOfInstancesMap)
 	{
 		super(2);

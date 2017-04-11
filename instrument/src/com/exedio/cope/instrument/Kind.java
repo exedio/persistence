@@ -98,6 +98,7 @@ final class Kind
 				throw new IllegalArgumentException("@WrapType#doc must not be empty");
 		}
 
+		@SuppressWarnings("StaticMethodOnlyUsedInOneClass")
 		@SuppressFBWarnings("NP_NULL_PARAM_DEREF")
 		static Type valueOf(final WrapType.Type anno)
 		{
