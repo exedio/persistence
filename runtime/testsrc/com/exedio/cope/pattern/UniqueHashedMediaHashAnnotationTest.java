@@ -76,7 +76,7 @@ public class UniqueHashedMediaHashAnnotationTest
 
 
 	@WrapperIgnore
-	static class AnItem extends Item
+	static final class AnItem extends Item
 	{
 		static final UniqueHashedMedia shorter = new UniqueHashedMedia(new Media(), "MD5");
 		static final UniqueHashedMedia longer  = new UniqueHashedMedia(new Media(), "SHA");

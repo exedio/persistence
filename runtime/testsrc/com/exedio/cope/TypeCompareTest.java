@@ -129,7 +129,7 @@ public class TypeCompareTest
 	}
 
 	@WrapperIgnore
-	static class AnotherItem extends Item
+	static final class AnotherItem extends Item
 	{
 		private static final long serialVersionUID = 1l;
 
@@ -142,7 +142,7 @@ public class TypeCompareTest
 	}
 
 	@WrapperIgnore
-	static class AnotherModelItem extends Item
+	static final class AnotherModelItem extends Item
 	{
 		private static final long serialVersionUID = 1l;
 

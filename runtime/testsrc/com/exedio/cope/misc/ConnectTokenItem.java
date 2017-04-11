@@ -26,7 +26,7 @@ import com.exedio.cope.TypesBound;
 import com.exedio.cope.instrument.WrapperIgnore;
 
 @WrapperIgnore
-class ConnectTokenItem extends Item
+final class ConnectTokenItem extends Item
 {
 	static final StringField name = new StringField();
 

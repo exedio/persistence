@@ -204,7 +204,7 @@ public class QuerySelectTest
 	}
 
 	@com.exedio.cope.instrument.WrapperIgnore // TODO use import, but this is not accepted by javac
-	static class AnItem extends Item
+	static final class AnItem extends Item
 	{
 		static final DayField field1 = new DayField();
 		static final DayField field2 = new DayField();

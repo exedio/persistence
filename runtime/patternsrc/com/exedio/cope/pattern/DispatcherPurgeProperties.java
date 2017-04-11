@@ -44,7 +44,7 @@ public final class DispatcherPurgeProperties extends Properties
 	}
 
 
-	public static class Factory implements Properties.Factory<DispatcherPurgeProperties>
+	public static final class Factory implements Properties.Factory<DispatcherPurgeProperties>
 	{
 		private final int retainDaysSuccessDefault;
 		private final int retainDaysFinalFailureDefault;
@@ -62,6 +62,7 @@ public final class DispatcherPurgeProperties extends Properties
 			return retainDaysDefault(value, value);
 		}
 
+		@SuppressWarnings("static-method") // OK: will have to be non-static when there are more fields
 		public Factory retainDaysDefault(
 				final int success,
 				final int finalFailure)

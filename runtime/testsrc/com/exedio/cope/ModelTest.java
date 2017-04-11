@@ -35,7 +35,7 @@ import org.junit.Test;
 public class ModelTest extends TestWithEnvironment
 {
 	@WrapperIgnore
-	static class ModelTestItem extends Item
+	static final class ModelTestItem extends Item
 	{
 		private static final long serialVersionUID = 1l;
 

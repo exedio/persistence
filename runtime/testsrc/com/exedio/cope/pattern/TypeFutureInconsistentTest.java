@@ -67,7 +67,7 @@ public class TypeFutureInconsistentTest
 	}
 
 	@WrapperIgnore
-	private static class ValueClassItem extends Item
+	private static final class ValueClassItem extends Item
 	{
 		static final Type<ValueClassItem> TYPE = TypesBound.newType(ValueClassItem.class);
 		private static final long serialVersionUID = 1l;
@@ -75,7 +75,7 @@ public class TypeFutureInconsistentTest
 	}
 
 	@WrapperIgnore
-	private static class TypeItem extends Item
+	private static final class TypeItem extends Item
 	{
 		static final Type<TypeItem> TYPE = TypesBound.newType(TypeItem.class);
 		private static final long serialVersionUID = 1l;
@@ -83,7 +83,7 @@ public class TypeFutureInconsistentTest
 	}
 
 	@WrapperIgnore
-	private static class FeatureItem extends Item
+	private static final class FeatureItem extends Item
 	{
 		static final ItemField<ValueClassItem> itemField = ItemField.create(ValueClassItem.class, new TypeFuture<ValueClassItem>(){
 

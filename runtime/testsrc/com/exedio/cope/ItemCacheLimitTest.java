@@ -77,7 +77,7 @@ public class ItemCacheLimitTest
 	}
 
 	@WrapperIgnore
-	static class Item1 extends Item
+	static final class Item1 extends Item
 	{
 		static final Type<Item1> TYPE = TypesBound.newType(Item1.class);
 		private static final long serialVersionUID = 1l;
@@ -85,7 +85,7 @@ public class ItemCacheLimitTest
 	}
 
 	@WrapperIgnore
-	static class Item2 extends Item
+	static final class Item2 extends Item
 	{
 		static final Type<Item2> TYPE = TypesBound.newType(Item2.class);
 		private static final long serialVersionUID = 1l;

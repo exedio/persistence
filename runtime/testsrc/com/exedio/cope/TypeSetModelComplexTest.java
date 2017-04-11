@@ -74,42 +74,42 @@ public class TypeSetModelComplexTest
 	}
 
 	@WrapperIgnore
-	static class ItemA1 extends Item
+	static final class ItemA1 extends Item
 	{
 		private static final long serialVersionUID = 1l;
 		private ItemA1(final ActivationParameters ap) { super(ap); }
 	}
 
 	@WrapperIgnore
-	static class ItemA2 extends Item
+	static final class ItemA2 extends Item
 	{
 		private static final long serialVersionUID = 1l;
 		private ItemA2(final ActivationParameters ap) { super(ap); }
 	}
 
 	@WrapperIgnore
-	static class ItemB1 extends Item
+	static final class ItemB1 extends Item
 	{
 		private static final long serialVersionUID = 1l;
 		private ItemB1(final ActivationParameters ap) { super(ap); }
 	}
 
 	@WrapperIgnore
-	static class Item1 extends Item
+	static final class Item1 extends Item
 	{
 		private static final long serialVersionUID = 1l;
 		private Item1(final ActivationParameters ap) { super(ap); }
 	}
 
 	@WrapperIgnore
-	static class Item2 extends Item
+	static final class Item2 extends Item
 	{
 		private static final long serialVersionUID = 1l;
 		private Item2(final ActivationParameters ap) { super(ap); }
 	}
 
 	@WrapperIgnore
-	static class ItemX extends Item
+	static final class ItemX extends Item
 	{
 		private static final long serialVersionUID = 1l;
 		private ItemX(final ActivationParameters ap) { super(ap); }

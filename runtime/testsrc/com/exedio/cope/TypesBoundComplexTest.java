@@ -312,7 +312,7 @@ public class TypesBoundComplexTest
 	}
 
 	@WrapperIgnore
-	static class AnotherItem extends AnItem
+	static final class AnotherItem extends AnItem
 	{
 		private static final long serialVersionUID = 1l;
 

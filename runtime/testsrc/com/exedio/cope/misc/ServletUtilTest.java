@@ -357,7 +357,7 @@ public class ServletUtilTest
 	}
 
 	@WrapperIgnore
-	static class ModelOk extends Item
+	static final class ModelOk extends Item
 	{
 		private static final long serialVersionUID = 1l;
 		static final Type<ModelOk> TYPE = TypesBound.newType(ModelOk.class);
@@ -365,7 +365,7 @@ public class ServletUtilTest
 	}
 
 	@WrapperIgnore
-	static class ModelOk2 extends Item
+	static final class ModelOk2 extends Item
 	{
 		private static final long serialVersionUID = 1l;
 		static final Type<ModelOk2> TYPE = TypesBound.newType(ModelOk2.class);
@@ -373,7 +373,7 @@ public class ServletUtilTest
 	}
 
 	@WrapperIgnore
-	static class ModelContext extends Item
+	static final class ModelContext extends Item
 	{
 		private static final long serialVersionUID = 1l;
 		static final Type<ModelContext> TYPE = TypesBound.newType(ModelContext.class);

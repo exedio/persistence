@@ -145,7 +145,7 @@ public class UniqueHashedMediaErrorTest
 					e.getMessage());
 		}
 	}
-	@WrapperIgnore static class NonCreateableFunctionFieldItem extends Item
+	@WrapperIgnore static final class NonCreateableFunctionFieldItem extends Item
 	{
 		static final UniqueHashedMedia value = new UniqueHashedMedia(new Media());
 		static final IntegerField field = new IntegerField();
@@ -172,7 +172,7 @@ public class UniqueHashedMediaErrorTest
 					e.getMessage());
 		}
 	}
-	@WrapperIgnore static class NonCreateableDataFieldItem extends Item
+	@WrapperIgnore static final class NonCreateableDataFieldItem extends Item
 	{
 		static final UniqueHashedMedia value = new UniqueHashedMedia(new Media());
 		static final DataField field = new DataField();
@@ -189,7 +189,7 @@ public class UniqueHashedMediaErrorTest
 		// test, that is does not throw an exception
 		new Model(CreateableItem.TYPE);
 	}
-	@WrapperIgnore static class CreateableItem extends Item
+	@WrapperIgnore static final class CreateableItem extends Item
 	{
 		static final UniqueHashedMedia value = new UniqueHashedMedia(new Media());
 		static final IntegerField optionalField = new IntegerField().optional();

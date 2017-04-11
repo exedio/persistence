@@ -81,14 +81,14 @@ public class TypeSetModelErrorTest
 	}
 
 	@WrapperIgnore
-	static class Item1 extends Item
+	static final class Item1 extends Item
 	{
 		private static final long serialVersionUID = 1l;
 		private Item1(final ActivationParameters ap) { super(ap); }
 	}
 
 	@WrapperIgnore
-	static class Item2 extends Item
+	static final class Item2 extends Item
 	{
 		private static final long serialVersionUID = 1l;
 		private Item2(final ActivationParameters ap) { super(ap); }

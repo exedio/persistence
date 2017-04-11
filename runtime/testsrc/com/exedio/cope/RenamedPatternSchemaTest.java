@@ -113,7 +113,7 @@ public class RenamedPatternSchemaTest extends TestWithEnvironment
 	}
 
 	@WrapperIgnore
-	private static class RawItem extends Item
+	private static final class RawItem extends Item
 	{
 		@CopeSchemaName("zack")
 		static final RenamedSchemaPattern pattern = new RenamedSchemaPattern();

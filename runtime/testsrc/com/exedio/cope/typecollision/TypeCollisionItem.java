@@ -26,7 +26,7 @@ import com.exedio.cope.TypesBound;
 import com.exedio.cope.instrument.WrapperIgnore;
 
 @WrapperIgnore
-public class TypeCollisionItem extends Item
+public final class TypeCollisionItem extends Item
 {
 	static final StringField code = new StringField().toFinal().unique();
 	private static final long serialVersionUID = 1l;

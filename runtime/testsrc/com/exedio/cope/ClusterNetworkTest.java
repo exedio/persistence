@@ -111,7 +111,7 @@ public abstract class ClusterNetworkTest
 	}
 
 	@WrapperIgnore
-	static class TypeB extends Item
+	static final class TypeB extends Item
 	{
 		private TypeB(final ActivationParameters ap)
 		{

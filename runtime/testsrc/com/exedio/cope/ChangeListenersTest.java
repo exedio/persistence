@@ -221,7 +221,7 @@ public class ChangeListenersTest
 	private static final Model model = new Model(TypesBound.newType(AnItem.class));
 
 	@WrapperIgnore
-	private static class AnItem extends Item
+	private static final class AnItem extends Item
 	{
 		private static final long serialVersionUID = 1l;
 

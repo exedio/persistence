@@ -40,7 +40,7 @@ public class TypeSetModelTest
 	}
 
 	@WrapperIgnore
-	static class Item1 extends Item
+	static final class Item1 extends Item
 	{
 		private static final long serialVersionUID = 1l;
 		private Item1(final ActivationParameters ap) { super(ap); }

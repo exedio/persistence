@@ -153,7 +153,7 @@ public class UniqueHashedMediaAnnotationTest
 
 
 	@WrapperIgnore
-	static class AnItem extends Item
+	static final class AnItem extends Item
 	{
 		static final UniqueHashedMedia simple = new UniqueHashedMedia(new Media());
 		@PreventUrlGuessing

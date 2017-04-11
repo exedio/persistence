@@ -95,7 +95,7 @@ public class MediaUrlSecretTest
 	}
 
 	@WrapperIgnore
-	static class AnItem extends Item
+	static final class AnItem extends Item
 	{
 		static final Type<AnItem> TYPE = TypesBound.newType(AnItem.class);
 		private static final long serialVersionUID = 1l;

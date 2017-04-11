@@ -96,7 +96,7 @@ public class FeatureTest
 	}
 
 	@WrapperIgnore
-	static class AnItem extends Item
+	static final class AnItem extends Item
 	{
 		private static final long serialVersionUID = 1l;
 

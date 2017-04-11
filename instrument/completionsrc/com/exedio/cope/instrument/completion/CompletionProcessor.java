@@ -162,7 +162,7 @@ public class CompletionProcessor extends AbstractProcessor
 		}
 	}
 
-	private static class CompletionCollector implements TypeVisitor<Void, Void>
+	private static final class CompletionCollector implements TypeVisitor<Void, Void>
 	{
 		private final Map<String, List<String>> completionData;
 

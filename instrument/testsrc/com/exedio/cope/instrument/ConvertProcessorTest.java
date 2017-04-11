@@ -327,7 +327,7 @@ public class ConvertProcessorTest
 		return result.toString();
 	}
 
-	private static class StringJavaFileObject extends SimpleJavaFileObject
+	private static final class StringJavaFileObject extends SimpleJavaFileObject
 	{
 		private final String name;
 		private final String originalContent;
