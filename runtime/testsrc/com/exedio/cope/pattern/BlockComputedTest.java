@@ -71,7 +71,7 @@ public class BlockComputedTest
 		static final StringField compuTemp = new StringField();
 
 		private MyBlock(final BlockActivationParameters ap) { super(ap); }
-		static BlockType<MyBlock> TYPE = BlockType.newType(MyBlock.class);
+		static final BlockType<MyBlock> TYPE = BlockType.newType(MyBlock.class);
 		private static final long serialVersionUID = 1l;
 	}
 

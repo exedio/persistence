@@ -88,5 +88,5 @@ public class EnumMapFieldFallbackAnnotationTest
 
 
 
-	private static StringField VALUE = new StringField();
+	private static final StringField VALUE = new StringField();
 }

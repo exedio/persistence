@@ -33,7 +33,7 @@ import junit.framework.AssertionFailedError;
 
 final class TypeFutureInPatternsFeature extends Pattern
 {
-	IntegerField field = new IntegerField();
+	final IntegerField field = new IntegerField();
 
 	ItemField<TypeItem> self()
 	{
@@ -76,7 +76,7 @@ final class TypeFutureInPatternsFeature extends Pattern
 
 	private static final class Mount
 	{
-		ItemField<TypeItem> self;
+		final ItemField<TypeItem> self;
 		final Type<TypeItem> runType;
 
 		Mount(

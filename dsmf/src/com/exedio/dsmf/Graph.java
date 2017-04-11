@@ -192,7 +192,7 @@ final class Graph
 
 	static final class Edge
 	{
-		ForeignKeyConstraint constraint;
+		final ForeignKeyConstraint constraint;
 		private Node node = null;
 
 		public Edge(final ForeignKeyConstraint constraint)

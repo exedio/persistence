@@ -42,7 +42,7 @@ public final class Price implements Serializable, Comparable<Price>
 
 	// cache
 
-	private static int CACHE_MAX = 1001;
+	private static final int CACHE_MAX = 1001;
 
 	static Price[] newCache()
 	{
@@ -55,7 +55,7 @@ public final class Price implements Serializable, Comparable<Price>
 
 	private static final class Cache
 	{
-		static Price[] value = newCache();
+		static final Price[] value = newCache();
 	}
 
 	private static Price fromCache(final long store)

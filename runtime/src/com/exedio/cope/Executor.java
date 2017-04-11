@@ -372,7 +372,7 @@ final class Executor
 			queryInfo.addChild(plan);
 	}
 
-	private static DecimalFormat numberFormat;
+	private static final DecimalFormat numberFormat;
 
 	static
 	{

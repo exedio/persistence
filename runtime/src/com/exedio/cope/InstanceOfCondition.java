@@ -30,7 +30,7 @@ public final class InstanceOfCondition<E extends Item> extends Condition
 
 	private final ItemFunction<E> function;
 	private final boolean not;
-	private Type<E>[] types;
+	private final Type<E>[] types;
 
 	/**
 	 * Instead of using this constructor directly,

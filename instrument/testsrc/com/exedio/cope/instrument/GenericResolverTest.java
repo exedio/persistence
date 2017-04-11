@@ -199,7 +199,7 @@ public class GenericResolverTest
 
 	static class MyType implements Type
 	{
-		String name;
+		final String name;
 
 		MyType(final String name)
 		{

@@ -33,7 +33,7 @@ final class SubContentType extends ContentType<String>
 	private final int prefixLength;
 	private final int minorMaxLength;
 
-	static int DEFAULT_LENGTH = 30;
+	static final int DEFAULT_LENGTH = 30;
 
 	SubContentType(
 			final String major,
