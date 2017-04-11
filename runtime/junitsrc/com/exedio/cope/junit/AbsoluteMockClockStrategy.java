@@ -78,7 +78,7 @@ public final class AbsoluteMockClockStrategy implements Strategy
 
 	public void assertEmpty()
 	{
-		assertEquals("pending clock events", Collections.EMPTY_LIST, events);
+		assertEquals("pending clock events", Collections.emptyList(), events);
 	}
 
 	public void assertEqualsFormatted(final String expected, final Date actual)

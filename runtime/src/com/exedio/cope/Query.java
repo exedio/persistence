@@ -717,7 +717,7 @@ public final class Query<R> implements Serializable
 		}
 
 		@SuppressWarnings({"unchecked", "rawtypes"}) // OK: for singleton property
-		private static final Result EMPTY = new Result(Collections.EMPTY_LIST, 0, 0);
+		private static final Result EMPTY = new Result(Collections.emptyList(), 0, 0);
 
 		// ------------------- deprecated stuff -------------------
 

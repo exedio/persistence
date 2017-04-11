@@ -147,7 +147,7 @@ public class LogRule extends ExternalResource
 	public final void assertEmpty()
 	{
 		before.assertCalled();
-		assertEquals(Collections.EMPTY_LIST, events);
+		assertEquals(Collections.emptyList(), events);
 	}
 
 

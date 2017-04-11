@@ -49,6 +49,6 @@ public final class RelativeMockClockStrategy implements Strategy
 
 	public void assertEmpty()
 	{
-		Assert.assertEquals("pending clock events", Collections.EMPTY_LIST, events);
+		Assert.assertEquals("pending clock events", Collections.emptyList(), events);
 	}
 }
