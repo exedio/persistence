@@ -73,7 +73,7 @@ public class EnumSetFieldFinalTest
 
 	enum AnEnum
 	{
-		DE, EN, PL;
+		DE, EN, PL
 	}
 
 	static final class AnItem extends com.exedio.cope.Item // TODO use import, but this is not accepted by javac

@@ -469,7 +469,7 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 	{
 		FORBID,
 		NULLIFY,
-		CASCADE;
+		CASCADE
 	}
 
 	// ------------------- deprecated stuff -------------------

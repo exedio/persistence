@@ -48,7 +48,7 @@ final class JavaRepository
 	{
 		BUILD,
 		BETWEEN,
-		GENERATE;
+		GENERATE
 	}
 
 	Stage stage = Stage.BUILD;
@@ -270,6 +270,6 @@ final class JavaRepository
 	// see bsh-core.PATCH
 	public enum EnumBeanShellHackClass implements Money.Currency
 	{
-		BEANSHELL_HACK_ATTRIBUTE;
+		BEANSHELL_HACK_ATTRIBUTE
 	}
 }

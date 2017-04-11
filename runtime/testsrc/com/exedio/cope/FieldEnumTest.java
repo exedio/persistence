@@ -39,7 +39,7 @@ public class FieldEnumTest extends FieldTest
 	public enum SomeEnum2
 	{
 		enumValue1,
-		enumValue2;
+		enumValue2
 	}
 
 	@Test public void testSomeEnum()

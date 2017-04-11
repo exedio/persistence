@@ -362,7 +362,7 @@ public final class DateField extends FunctionField<Date>
 		 * Otherwise a {@link DatePrecisionViolationException} is thrown.
 		 * This rounding mode is analogous to {@link java.math.RoundingMode#UNNECESSARY}.
 		 */
-		UNNECESSARY;
+		UNNECESSARY
 	}
 
 

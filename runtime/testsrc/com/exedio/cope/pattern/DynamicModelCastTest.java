@@ -97,7 +97,7 @@ public class DynamicModelCastTest extends TestWithEnvironment
 
 	enum Locale
 	{
-		ONE, TWO;
+		ONE, TWO
 	}
 
 	static final class ModelItem extends Item

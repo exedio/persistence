@@ -41,7 +41,7 @@ public class EnumFieldNameTest
 	private enum AnEnum
 	{
 		normal,
-		under_line;
+		under_line
 	}
 
 	@WrapperIgnore

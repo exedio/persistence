@@ -23,7 +23,7 @@ public final class EnumItem2 extends Item
 	public enum Status
 	{
 		state1,
-		state2;
+		state2
 	}
 
 	public static final EnumField<Status> status = EnumField.create(Status.class);

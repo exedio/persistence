@@ -26,7 +26,7 @@ final class WrapEnumItem extends Item
 {
 	enum Normal
 	{
-		one, two;
+		one, two
 	}
 
 	static final WrapEnumFeature<Normal> normal = WrapEnumFeature.create(Normal.class);

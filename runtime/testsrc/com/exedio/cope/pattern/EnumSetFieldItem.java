@@ -35,7 +35,7 @@ public final class EnumSetFieldItem extends Item
 			{
 				// empty
 			}
-		};
+		}
 	}
 
 	@WrapperInitial

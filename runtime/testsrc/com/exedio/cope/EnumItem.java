@@ -24,14 +24,14 @@ final class EnumItem extends Item
 	{
 		status1,
 		status2,
-		status3;
+		status3
 	}
 
 	static final EnumField<Status> status = EnumField.create(Status.class);
 
 	enum Single
 	{
-		single;
+		single
 	}
 
 	static final EnumField<Single> single = EnumField.create(Single.class).optional();

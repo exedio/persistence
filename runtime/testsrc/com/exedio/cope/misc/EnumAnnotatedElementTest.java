@@ -39,7 +39,7 @@ public class EnumAnnotatedElementTest
 			@SuppressWarnings("unused")
 			@SuppressFBWarnings("UMAC_UNCALLABLE_METHOD_OF_ANONYMOUS_CLASS")
 			String method() {return "string"; }
-		};
+		}
 	}
 
 	@Test public void testIt()

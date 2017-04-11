@@ -59,7 +59,7 @@ public class EnumMapFieldSchemaNameTest
 	{
 		one,
 		@CopeSchemaName("woo")
-		two;
+		two
 	}
 
 	@WrapperIgnore

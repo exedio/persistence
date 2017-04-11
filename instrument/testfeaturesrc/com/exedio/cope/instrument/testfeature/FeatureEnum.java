@@ -20,5 +20,5 @@ package com.exedio.cope.instrument.testfeature;
 
 public enum FeatureEnum
 {
-	uno, duo;
+	uno, duo
 }

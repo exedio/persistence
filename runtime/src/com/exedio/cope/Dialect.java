@@ -308,7 +308,7 @@ abstract class Dialect
 	enum LimitSupport
 	{
 		CLAUSE_AFTER_WHERE,
-		CLAUSES_AROUND;
+		CLAUSES_AROUND
 	}
 
 	/**

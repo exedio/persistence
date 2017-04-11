@@ -138,7 +138,7 @@ public class EnumMapFieldFallbackTest extends TestWithEnvironment
 
 	enum AnEnum
 	{
-		present, missing, @CopeEnumFallback fallback;
+		present, missing, @CopeEnumFallback fallback
 	}
 
 	static final class AnItem extends com.exedio.cope.Item // TODO use import, but this is not accepted by javac

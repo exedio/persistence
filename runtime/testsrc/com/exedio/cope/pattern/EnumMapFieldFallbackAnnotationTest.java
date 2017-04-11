@@ -35,7 +35,7 @@ public class EnumMapFieldFallbackAnnotationTest
 
 	enum Ok
 	{
-		one, @CopeEnumFallback fall, two;
+		one, @CopeEnumFallback fall, two
 	}
 
 
@@ -58,7 +58,7 @@ public class EnumMapFieldFallbackAnnotationTest
 
 	enum Missing
 	{
-		one, two;
+		one, two
 	}
 
 
@@ -83,7 +83,7 @@ public class EnumMapFieldFallbackAnnotationTest
 	enum Duplicate
 	{
 		@CopeEnumFallback one,
-		@CopeEnumFallback two;
+		@CopeEnumFallback two
 	}
 
 

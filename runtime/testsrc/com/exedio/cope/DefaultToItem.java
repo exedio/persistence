@@ -54,7 +54,7 @@ final class DefaultToItem extends Item
 
 	enum DefaultToEnum
 	{
-		ONE, TWO, THREE;
+		ONE, TWO, THREE
 	}
 
 	static final EnumField<DefaultToEnum> enumOne = EnumField.create(DefaultToEnum.class).defaultTo(DefaultToEnum.ONE);

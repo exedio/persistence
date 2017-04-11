@@ -243,7 +243,7 @@ public class PurgePropertiesTest extends ConnectedTest
 		transaction,
 		itemCache,
 		clusterNode,
-		media;
+		media
 	}
 
 	private final Factory<SamplerProperties> factory = SamplerProperties.factory();

@@ -53,7 +53,7 @@ public class EnumSchemaTest
 	}
 	enum Normal
 	{
-		Eins, Zwei, Drei;
+		Eins, Zwei, Drei
 	}
 
 
@@ -73,7 +73,7 @@ public class EnumSchemaTest
 	}
 	enum Normal2
 	{
-		Eins, Zwei;
+		Eins, Zwei
 	}
 
 
@@ -102,7 +102,7 @@ public class EnumSchemaTest
 	{
 		Eins,
 		@CopeSchemaValue(11) Zwei,
-		Drei;
+		Drei
 	}
 
 
@@ -114,7 +114,7 @@ public class EnumSchemaTest
 	{
 		Eins,
 		@CopeSchemaValue(19) Zwei,
-		Drei;
+		Drei
 	}
 
 
@@ -126,7 +126,7 @@ public class EnumSchemaTest
 	{
 		@CopeSchemaValue(9) Eins,
 		Zwei,
-		Drei;
+		Drei
 	}
 
 
@@ -138,7 +138,7 @@ public class EnumSchemaTest
 	{
 		Eins,
 		Zwei,
-		@CopeSchemaValue(21) Drei;
+		@CopeSchemaValue(21) Drei
 	}
 
 
@@ -152,7 +152,7 @@ public class EnumSchemaTest
 	{
 		Eins,
 		@CopeSchemaValue(10) Zwei,
-		Drei;
+		Drei
 	}
 
 
@@ -164,7 +164,7 @@ public class EnumSchemaTest
 	{
 		Eins,
 		@CopeSchemaValue(20) Zwei,
-		Drei;
+		Drei
 	}
 
 
@@ -176,7 +176,7 @@ public class EnumSchemaTest
 	{
 		@CopeSchemaValue(10) Eins,
 		Zwei,
-		Drei;
+		Drei
 	}
 
 
@@ -190,7 +190,7 @@ public class EnumSchemaTest
 	{
 		Eins,
 		Zwei,
-		@CopeSchemaValue(20) Drei;
+		@CopeSchemaValue(20) Drei
 	}
 
 
@@ -204,7 +204,7 @@ public class EnumSchemaTest
 	{
 		Eins,
 		@CopeSchemaValue(9) Zwei,
-		Drei;
+		Drei
 	}
 
 
@@ -216,7 +216,7 @@ public class EnumSchemaTest
 	{
 		Eins,
 		@CopeSchemaValue(21) Zwei,
-		Drei;
+		Drei
 	}
 
 
@@ -228,7 +228,7 @@ public class EnumSchemaTest
 	{
 		@CopeSchemaValue(11) Eins,
 		Zwei,
-		Drei;
+		Drei
 	}
 
 
@@ -242,7 +242,7 @@ public class EnumSchemaTest
 	{
 		Eins,
 		Zwei,
-		@CopeSchemaValue(19) Drei;
+		@CopeSchemaValue(19) Drei
 	}
 
 
@@ -266,7 +266,7 @@ public class EnumSchemaTest
 	{
 		@CopeSchemaValue(0) Zero,
 		@CopeSchemaValue(1) Eins,
-		@CopeSchemaValue(2) Zwei;
+		@CopeSchemaValue(2) Zwei
 	}
 
 
@@ -280,7 +280,7 @@ public class EnumSchemaTest
 		@CopeSchemaValue(-35) Minus35,
 		@CopeSchemaValue( -5) Minus5,
 		Eins,
-		Zwei;
+		Zwei
 	}
 
 
@@ -293,7 +293,7 @@ public class EnumSchemaTest
 		@CopeSchemaValue(-15) Minus15,
 		Eins,
 		Zwei,
-		Drei;
+		Drei
 	}
 
 

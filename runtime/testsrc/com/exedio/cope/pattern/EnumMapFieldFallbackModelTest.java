@@ -121,7 +121,7 @@ public class EnumMapFieldFallbackModelTest
 
 	enum AnEnum
 	{
-		one, two, @CopeEnumFallback fall;
+		one, two, @CopeEnumFallback fall
 	}
 
 	static final class AnItem extends com.exedio.cope.Item // TODO use import, but this is not accepted by javac

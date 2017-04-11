@@ -36,7 +36,7 @@ public final class EnumMapFieldItem extends Item
 			{
 				// empty
 			}
-		};
+		}
 	}
 
 	static final EnumMapField<Language, String> name = EnumMapField.create(Language.class, new StringField().optional());

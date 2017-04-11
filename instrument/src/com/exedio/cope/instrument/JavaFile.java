@@ -119,8 +119,7 @@ final class JavaFile
 	{
 		try (
 			final InputStream actualBytes = sourceFile.openInputStream();
-			final InputStreamReader actualChars = new InputStreamReader(actualBytes, charset);
-			)
+			final InputStreamReader actualChars = new InputStreamReader(actualBytes, charset))
 		{
 			for ( int i=0; i<bf.length(); i++ )
 			{

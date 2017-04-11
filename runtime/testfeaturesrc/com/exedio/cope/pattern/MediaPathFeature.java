@@ -38,7 +38,7 @@ public final class MediaPathFeature extends MediaPath
 
 	enum Result
 	{
-		notFoundIsNull, notFoundNotComputable, IOException, RuntimeException;
+		notFoundIsNull, notFoundNotComputable, IOException, RuntimeException
 	}
 
 	private boolean isFinal = false;

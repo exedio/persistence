@@ -310,7 +310,7 @@ public class MoneyCopyTest extends TestWithEnvironment
 
 	enum Currency implements com.exedio.cope.pattern.Money.Currency
 	{
-		euro, pounds;
+		euro, pounds
 	}
 
 	private static final Model MODEL = new Model(Source.TYPE, Target.TYPE);

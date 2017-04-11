@@ -82,7 +82,7 @@ public final class Standard extends Item
 
 	public enum Enum1
 	{
-		ENUM1A, ENUM1B;
+		ENUM1A, ENUM1B
 	}
 
 	private static final StringField privateString = new StringField().optional();

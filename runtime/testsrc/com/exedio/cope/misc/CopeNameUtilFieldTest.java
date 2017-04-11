@@ -78,7 +78,7 @@ public class CopeNameUtilFieldTest
 	{
 		normal,
 		@CopeName("actual") pure,
-		@com.exedio.cope.CopeID("actualID") pureID;
+		@com.exedio.cope.CopeID("actualID") pureID
 	}
 	@Test public void testEnum()
 	{

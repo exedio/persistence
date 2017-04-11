@@ -32,7 +32,7 @@ public class MoneyTest
 {
 	enum Cy implements Money.Currency
 	{
-		eur, usd;
+		eur, usd
 	}
 
 

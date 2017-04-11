@@ -38,7 +38,7 @@ public class EnumClassTest
 
 	enum Normal
 	{
-		Eins, Zwei, Drei;
+		Eins, Zwei, Drei
 	}
 
 

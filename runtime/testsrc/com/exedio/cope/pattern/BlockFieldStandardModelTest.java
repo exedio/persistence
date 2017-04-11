@@ -143,7 +143,7 @@ public class BlockFieldStandardModelTest
 	{
 		enum AnEnum
 		{
-			facet1, facet2;
+			facet1, facet2
 		}
 
 		static final StringField aString = new StringField();

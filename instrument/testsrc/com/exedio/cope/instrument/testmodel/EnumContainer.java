@@ -24,12 +24,12 @@ public final class EnumContainer extends Item
 {
 	public enum Enum3
 	{
-		ENUM3A, ENUM3B;
+		ENUM3A, ENUM3B
 	}
 
 	public enum Enum4
 	{
-		ENUM4A, ENUM4B;
+		ENUM4A, ENUM4B
 	}
 
 	/**

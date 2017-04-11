@@ -58,7 +58,7 @@ public class EnumSetFieldSchemaNameTest
 	{
 		one,
 		@CopeSchemaName("woo")
-		two;
+		two
 	}
 
 	@WrapperIgnore

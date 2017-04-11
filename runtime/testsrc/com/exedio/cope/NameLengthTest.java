@@ -139,7 +139,7 @@ public class NameLengthTest extends TestWithEnvironment
 
 	enum AnEnum
 	{
-		eins, zwei;
+		eins, zwei
 	}
 
 	static final class AnItem extends Item

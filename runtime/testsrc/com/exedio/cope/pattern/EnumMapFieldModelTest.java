@@ -165,6 +165,6 @@ public class EnumMapFieldModelTest
 			{
 				// empty
 			}
-		};
+		}
 	}
 }

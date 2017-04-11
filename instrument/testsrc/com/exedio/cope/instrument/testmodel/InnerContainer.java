@@ -39,7 +39,7 @@ final class InnerContainer
 
 		enum InnerSuperEnum
 		{
-			A, B;
+			A, B
 		}
 
 

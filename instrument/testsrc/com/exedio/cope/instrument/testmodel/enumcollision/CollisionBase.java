@@ -23,9 +23,9 @@ import com.exedio.cope.Item;
 
 final class CollisionBase extends Item
 {
-	enum ACollide1 { one, two; } // collides with item, but is early in alphabet
-	enum XCollide1 { one, two; } // does not collide with any item
-	enum XCollide2 { one, two; }
+	enum ACollide1 { one, two } // collides with item, but is early in alphabet
+	enum XCollide1 { one, two } // does not collide with any item
+	enum XCollide2 { one, two }
 
 	static final EnumField<ACollide1> innerA1 = EnumField.create(ACollide1.class).defaultTo(ACollide1.one);
 	static final EnumField<XCollide1> innerX1 = EnumField.create(XCollide1.class).defaultTo(XCollide1.one);

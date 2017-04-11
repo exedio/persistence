@@ -35,7 +35,7 @@ class CrossPackageSuper extends Item
 
 	enum SuperEnum
 	{
-		A, B;
+		A, B
 	}
 
 	static final CompositeField<CompositeImported> compositeImported = CompositeField.create(CompositeImported.class).toFinal();

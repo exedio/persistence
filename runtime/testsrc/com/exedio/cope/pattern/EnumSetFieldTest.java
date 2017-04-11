@@ -300,6 +300,6 @@ public class EnumSetFieldTest extends TestWithEnvironment
 			{
 				// empty
 			}
-		};
+		}
 	}
 }

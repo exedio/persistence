@@ -27,7 +27,7 @@ public final class MapFieldItem extends Item
 {
 	enum Language
 	{
-		DE, EN, PL;
+		DE, EN, PL
 	}
 
 	static final MapField<Language, String> name = MapField.create(EnumField.create(Language.class).toFinal(), new StringField());
