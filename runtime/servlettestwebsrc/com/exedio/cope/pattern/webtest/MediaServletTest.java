@@ -25,6 +25,7 @@ import static java.net.HttpURLConnection.HTTP_MOVED_PERM;
 import static java.net.HttpURLConnection.HTTP_NOT_FOUND;
 import static java.net.HttpURLConnection.HTTP_NOT_MODIFIED;
 import static java.net.HttpURLConnection.HTTP_OK;
+import static java.nio.charset.StandardCharsets.US_ASCII;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -374,7 +375,7 @@ public class MediaServletTest
 	private static String getContentAsString( final InputStream is ) throws IOException
 	{
 		final StringBuilder builder = new StringBuilder();
-		try(BufferedReader br = new BufferedReader(new InputStreamReader(is)))
+		try(BufferedReader br = new BufferedReader(new InputStreamReader(is, US_ASCII)))
 		{
 			String s;
 			while ( (s=br.readLine())!=null )
@@ -433,7 +434,7 @@ public class MediaServletTest
 
 		assertFalse("private", conn.getHeaderField(CACHE_CONTROL) != null && conn.getHeaderField(CACHE_CONTROL).contains("private"));
 
-		try(BufferedReader is = new BufferedReader(new InputStreamReader(conn.getErrorStream())))
+		try(BufferedReader is = new BufferedReader(new InputStreamReader(conn.getErrorStream(), US_ASCII)))
 		{
 			assertEquals("<html>", is.readLine());
 			assertEquals("<head>", is.readLine());
@@ -524,7 +525,7 @@ public class MediaServletTest
 		assertEquals("Expires",      0, conn.getExpiration());
 		assertEquals(null, conn.getHeaderField(CACHE_CONTROL));
 
-		try(BufferedReader is = new BufferedReader(new InputStreamReader(conn.getErrorStream())))
+		try(BufferedReader is = new BufferedReader(new InputStreamReader(conn.getErrorStream(), US_ASCII)))
 		{
 			assertEquals("<html>", is.readLine());
 			assertEquals("<head>", is.readLine());
@@ -564,7 +565,7 @@ public class MediaServletTest
 		assertEquals(null, conn.getHeaderField(CACHE_CONTROL));
 		assertEquals(12, conn.getContentLength());
 
-		try(BufferedReader is = new BufferedReader(new InputStreamReader(conn.getInputStream())))
+		try(BufferedReader is = new BufferedReader(new InputStreamReader(conn.getInputStream(), US_ASCII)))
 		{
 			assertEquals("media item 1", is.readLine());
 			assertEquals(null, is.readLine());

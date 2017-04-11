@@ -22,6 +22,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.PrintStream;
+import java.io.UnsupportedEncodingException;
 import javax.servlet.http.HttpServletRequest;
 
 public final class MediaTestServlet extends MediaServlet
@@ -35,12 +36,12 @@ public final class MediaTestServlet extends MediaServlet
 	{
 		super.onException(request, exception);
 		final File file = new File("MediaTestServlet.log");
-		try(PrintStream out = new PrintStream(new FileOutputStream(file, true)))
+		try(PrintStream out = new PrintStream(new FileOutputStream(file, true), false, "US-ASCII"))
 		{
 			out.println(exception.getClass().getName());
 			out.println(exception.getMessage());
 		}
-		catch(final FileNotFoundException e)
+		catch(final FileNotFoundException | UnsupportedEncodingException e)
 		{
 			throw new RuntimeException(e);
 		}
