@@ -21,5 +21,5 @@ package com.exedio.cope.instrument;
 @FunctionalInterface
 public interface NullabilityGetter<F>
 {
-	public Nullability getNullability(F feature);
+	Nullability getNullability(F feature);
 }

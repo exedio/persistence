@@ -103,5 +103,5 @@ public interface StringFunction extends Function<String>
 		return UppercaseView.containsIgnoreCase(this, value);
 	}
 
-	static final long serialVersionUID = 6196781661929849730L;
+	long serialVersionUID = 6196781661929849730L;
 }

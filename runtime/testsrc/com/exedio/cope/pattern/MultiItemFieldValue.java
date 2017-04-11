@@ -22,5 +22,5 @@ import java.io.Serializable;
 
 public interface MultiItemFieldValue extends Serializable
 {
-	public String getValue();
+	String getValue();
 }

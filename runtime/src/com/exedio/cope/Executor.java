@@ -85,9 +85,9 @@ final class Executor
 	}
 
 	@FunctionalInterface
-	static interface ResultSetHandler<R>
+	interface ResultSetHandler<R>
 	{
-		public R handle(ResultSet resultSet) throws SQLException;
+		R handle(ResultSet resultSet) throws SQLException;
 	}
 
 	static final ResultSetHandler<Integer> integerResultSetHandler = resultSet ->

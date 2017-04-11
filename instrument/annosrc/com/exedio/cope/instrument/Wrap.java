@@ -41,7 +41,7 @@ public @interface Wrap
 
 	Class<? extends FeaturesGetter<?>> varargsFeatures() default FeaturesGetterDefault.class;
 
-	public @interface Thrown
+	@interface Thrown
 	{
 		Class<? extends Throwable> value();
 		String[] doc() default {};

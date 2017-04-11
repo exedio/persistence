@@ -301,11 +301,11 @@ public final class Revisions
 	 * is called only while the model is connected and only once for each connect.
 	 */
 	@FunctionalInterface
-	public static interface Factory
+	public interface Factory
 	{
 		Revisions create(Context ctx);
 
-		public static final class Context
+		final class Context
 		{
 			private final EnvironmentInfo environment;
 

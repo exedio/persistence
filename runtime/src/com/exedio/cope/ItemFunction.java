@@ -109,7 +109,7 @@ public interface ItemFunction<E extends Item> extends Function<E>
 		return new InstanceOfCondition<>(this, true, types);
 	}
 
-	static final long serialVersionUID = -3944156504239779975L;
+	long serialVersionUID = -3944156504239779975L;
 
 	// ------------------- deprecated stuff -------------------
 

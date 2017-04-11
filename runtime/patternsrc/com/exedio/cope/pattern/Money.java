@@ -32,7 +32,7 @@ public final class Money<C extends Money.Currency>
 	 * implemented correctly.
 	 * For good exception messages, {@link Object#toString()} should be implemented as well.
 	 */
-	public static interface Currency
+	public interface Currency
 	{
 		// empty
 	}

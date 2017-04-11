@@ -22,5 +22,5 @@ import java.io.Serializable;
 
 public interface MultiItemFieldValuex extends Serializable
 {
-	public String getValue();
+	String getValue();
 }

@@ -212,5 +212,5 @@ public interface Function<E> extends Selectable<E>
 		return new BindFunction<>(this, join);
 	}
 
-	static final long serialVersionUID = 8575436913882709690L;
+	long serialVersionUID = 8575436913882709690L;
 }

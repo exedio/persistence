@@ -107,7 +107,7 @@ public class GenericResolverTest
 		private static final long serialVersionUID = 1l;
 	}
 
-	static interface AllInterface extends Serializable, Interface<Reader, Writer>, Cloneable
+	interface AllInterface extends Serializable, Interface<Reader, Writer>, Cloneable
 	{
 		// empty
 	}
@@ -122,7 +122,7 @@ public class GenericResolverTest
 		private static final long serialVersionUID = 1l;
 	}
 
-	static interface AllInterfaceExt extends AllInterface
+	interface AllInterfaceExt extends AllInterface
 	{
 		// empty
 	}

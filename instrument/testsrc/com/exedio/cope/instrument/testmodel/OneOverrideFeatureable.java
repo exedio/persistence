@@ -20,5 +20,5 @@ package com.exedio.cope.instrument.testmodel;
 
 interface OneOverrideFeatureable
 {
-	public String oneOverrideFeature();
+	String oneOverrideFeature();
 }

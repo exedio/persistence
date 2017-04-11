@@ -77,9 +77,9 @@ public abstract class Node
 	static final String GET_COLUMNS = "getColumns";
 
 	@FunctionalInterface
-	static interface ResultSetHandler
+	interface ResultSetHandler
 	{
-		public void run(ResultSet resultSet) throws SQLException;
+		void run(ResultSet resultSet) throws SQLException;
 	}
 
 	@SuppressFBWarnings({"ES_COMPARING_PARAMETER_STRING_WITH_EQ", "SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE"}) // Comparison of String parameter using == or !=

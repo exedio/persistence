@@ -33,13 +33,13 @@ public final class Subclasses extends Suite
 	@Retention(RetentionPolicy.RUNTIME)
 	public @interface Include
 	{
-		public Class<?>[] value();
+		Class<?>[] value();
 	}
 
 	@Retention(RetentionPolicy.RUNTIME)
 	public @interface Exclude
 	{
-		public Class<?>[] value();
+		Class<?>[] value();
 	}
 
 	public Subclasses(final Class<?> klass, final RunnerBuilder builder) throws InitializationError
