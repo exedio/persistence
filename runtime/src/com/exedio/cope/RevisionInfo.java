@@ -31,6 +31,7 @@ import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Properties;
 
@@ -83,7 +84,7 @@ public abstract class RevisionInfo
 
 	private static SimpleDateFormat df()
 	{
-		final SimpleDateFormat result = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS");
+		final SimpleDateFormat result = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS", Locale.ENGLISH);
 		result.setTimeZone(TimeZoneStrict.getTimeZone("UTC"));
 		return result;
 	}

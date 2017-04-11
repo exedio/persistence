@@ -34,6 +34,7 @@ import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 public final class MediaPattern extends Pattern
 {
@@ -76,7 +77,7 @@ public final class MediaPattern extends Pattern
 
 	private static SimpleDateFormat df()
 	{
-		final SimpleDateFormat result = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+		final SimpleDateFormat result = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS", Locale.ENGLISH);
 		result.setTimeZone(getTimeZone("Europe/Berlin"));
 		result.setLenient(false);
 		return result;

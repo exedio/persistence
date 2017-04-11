@@ -31,6 +31,7 @@ import com.exedio.cope.DateField.RoundingMode;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 import java.util.Objects;
 import org.junit.Test;
 
@@ -210,7 +211,7 @@ public class DatePrecisionRoundingTest
 
 	private static Date dateS(final String date) throws ParseException
 	{
-		final SimpleDateFormat result = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+		final SimpleDateFormat result = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS", Locale.ENGLISH);
 		result.setTimeZone(ZONE);
 		result.setLenient(false);
 		return result.parse(date);
@@ -238,7 +239,7 @@ public class DatePrecisionRoundingTest
 
 	private static Date dateI(final String date) throws ParseException
 	{
-		final SimpleDateFormat result = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+		final SimpleDateFormat result = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS", Locale.ENGLISH);
 		result.setTimeZone(getTimeZone("IST")); // Indian Standard Time = UTC+5h30min
 		result.setLenient(false);
 		return result.parse(date);
@@ -351,7 +352,7 @@ public class DatePrecisionRoundingTest
 
 	@Test public void testIt() throws ParseException
 	{
-		final SimpleDateFormat df = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss.SSS");
+		final SimpleDateFormat df = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss.SSS", Locale.ENGLISH);
 		df.setTimeZone(getTimeZone("Europe/Berlin"));
 		assertEquals(1409234400000l, df.parse("28.08.2014 16:00:00.000").getTime());
 		// leap second on June 30th, 2015

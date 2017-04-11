@@ -44,6 +44,7 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.EnumSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
 import javax.annotation.Nonnull;
@@ -644,7 +645,7 @@ public final class Model implements Serializable
 					"tried to start a new transaction " +
 					(name!=null ? name : Transaction.ANONYMOUS) +
 					", but there is already a transaction " + previousTransaction +
-					" started on " + new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS").format(previousTransaction.getStartDate()) +
+					" started on " + new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS", Locale.ENGLISH).format(previousTransaction.getStartDate()) +
 					" bound to current thread");
 		}
 

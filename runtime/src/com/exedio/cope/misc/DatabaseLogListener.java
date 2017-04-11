@@ -25,6 +25,7 @@ import java.io.PrintStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public final class DatabaseLogListener implements DatabaseListener
 {
@@ -69,7 +70,7 @@ public final class DatabaseLogListener implements DatabaseListener
 			( (sql==null)    || (statement.indexOf(sql)>=0) ))
 		{
 			final StringBuilder bf = new StringBuilder(
-					new SimpleDateFormat("yyyy/dd/MM HH:mm:ss.SSS").format(new Date()));
+					new SimpleDateFormat("yyyy/dd/MM HH:mm:ss.SSS", Locale.ENGLISH).format(new Date()));
 
 			bf.append('|');
 			bf.append(durationPrepare);

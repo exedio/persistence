@@ -36,6 +36,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import junit.framework.TestCase;
 
@@ -274,7 +275,7 @@ public abstract class CopeAssert extends TestCase
 
 	public static final void assertWithin(final Date expectedBefore, final Date expectedAfter, final Date actual)
 	{
-		final SimpleDateFormat df = new SimpleDateFormat(DATE_FORMAT_FULL);
+		final SimpleDateFormat df = new SimpleDateFormat(DATE_FORMAT_FULL, Locale.ENGLISH);
 		final String message =
 			"expected date within " + df.format(expectedBefore) +
 			" and " + df.format(expectedAfter) +

@@ -33,6 +33,7 @@ import com.exedio.cope.tojunit.ClockRule;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -152,7 +153,7 @@ public class FieldDateTest extends FieldTest
 		item3.setSomeDate( dates[5] );
 		item4.setSomeDate( dates[7] );
 		final StringBuilder message = new StringBuilder();
-		final SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+		final SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS", Locale.ENGLISH);
 		for ( int i=0; i<dates.length; i++ )
 		{
 			if ( i!=0 ) message.append( "; " );
@@ -186,7 +187,7 @@ public class FieldDateTest extends FieldTest
 		AttributeItem item3, item4;
 		item3 = new AttributeItem("item3", 0, 0L, 0.0, true, emptyItem, AttributeItem.SomeEnum.enumValue1);
 		item4 = new AttributeItem("item4", 0, 0L, 0.0, true, emptyItem, AttributeItem.SomeEnum.enumValue1);
-		final SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+		final SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS", Locale.ENGLISH);
 		dates[0] = format.parse("2005-09-22 10:26:46.031");
 		dates[1] = format.parse("2005-09-22 10:26:46.046"); // item
 		dates[2] = format.parse("2005-09-22 10:26:46.062");
@@ -236,7 +237,7 @@ public class FieldDateTest extends FieldTest
 
 	private static String toString(final Date date)
 	{
-		final SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+		final SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS", Locale.ENGLISH);
 		return date==null ? "NULL" : df.format(date);
 	}
 

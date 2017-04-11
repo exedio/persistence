@@ -24,6 +24,7 @@ import static org.junit.Assert.assertEquals;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 import org.junit.Test;
 
 public class FieldDateDaylightSavingTest extends FieldTest
@@ -147,7 +148,7 @@ public class FieldDateDaylightSavingTest extends FieldTest
 
 	private static SimpleDateFormat df()
 	{
-		final SimpleDateFormat result = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS (z)");
+		final SimpleDateFormat result = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS (z)", Locale.ENGLISH);
 		result.setTimeZone(getTimeZone("Europe/Berlin"));
 		result.setLenient(false);
 		return result;

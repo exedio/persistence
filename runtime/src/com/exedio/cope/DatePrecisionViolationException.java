@@ -27,6 +27,7 @@ import com.exedio.cope.DateField.RoundingMode;
 import com.exedio.cope.instrument.ConstructorComment;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * Signals, that an attempt to write a {@link DateField date field} has been failed,
@@ -141,7 +142,7 @@ public final class DatePrecisionViolationException extends ConstraintViolationEx
 
 	private static SimpleDateFormat df()
 	{
-		final SimpleDateFormat result = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+		final SimpleDateFormat result = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS", Locale.ENGLISH);
 		result.setTimeZone(ZONE);
 		result.setLenient(false);
 		return result;

@@ -23,6 +23,7 @@ import static java.util.Objects.requireNonNull;
 import com.exedio.cope.util.TimeZoneStrict;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 public final class CompareCondition<E> extends Condition
 {
@@ -127,7 +128,7 @@ public final class CompareCondition<E> extends Condition
 
 	private static SimpleDateFormat df()
 	{
-		final SimpleDateFormat result = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS");
+		final SimpleDateFormat result = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS", Locale.ENGLISH);
 		result.setTimeZone(TimeZoneStrict.getTimeZone("UTC"));
 		return result;
 	}

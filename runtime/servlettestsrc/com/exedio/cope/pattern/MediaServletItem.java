@@ -33,6 +33,7 @@ import java.nio.charset.StandardCharsets;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Locale;
 
 final class MediaServletItem extends Item
 	implements MediaUrlCatchphraseProvider
@@ -71,7 +72,7 @@ final class MediaServletItem extends Item
 
 	private static SimpleDateFormat df()
 	{
-		final SimpleDateFormat result = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+		final SimpleDateFormat result = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS", Locale.ENGLISH);
 		result.setTimeZone(getTimeZone("Europe/Berlin"));
 		result.setLenient(false);
 		return result;

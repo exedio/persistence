@@ -48,6 +48,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
@@ -701,7 +702,8 @@ public class ScheduleTest extends TestWithEnvironment
 		final SimpleDateFormat result = new SimpleDateFormat(
 				withTimeZone
 				? "'TZ'Z yyyy/MM/dd-HH:mm:ss.SSS"
-				:       "yyyy/MM/dd-HH:mm:ss.SSS");
+				:       "yyyy/MM/dd-HH:mm:ss.SSS",
+				Locale.ENGLISH);
 		result.setTimeZone(report.getTimeZone());
 		result.setLenient(false);
 		return result;

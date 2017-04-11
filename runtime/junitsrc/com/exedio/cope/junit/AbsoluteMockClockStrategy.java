@@ -28,10 +28,11 @@ import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.Date;
 import java.util.LinkedList;
+import java.util.Locale;
 
 public final class AbsoluteMockClockStrategy implements Strategy
 {
-	private final SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+	private final SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS", Locale.ENGLISH);
 	{
 		df.setTimeZone(getTimeZone("GMT"));
 		df.setLenient(false);

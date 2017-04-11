@@ -45,6 +45,7 @@ import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -620,7 +621,7 @@ public class MediaServletTest
 
 	private static SimpleDateFormat df()
 	{
-		final SimpleDateFormat result = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+		final SimpleDateFormat result = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS", Locale.ENGLISH);
 		result.setTimeZone(getTimeZone("Europe/Berlin"));
 		result.setLenient(false);
 		return result;
@@ -637,7 +638,7 @@ public class MediaServletTest
 
 	private static void assertEqualsDate(final Date expected, final Date actual)
 	{
-		final SimpleDateFormat df = new SimpleDateFormat(DATE_FORMAT_FULL);
+		final SimpleDateFormat df = new SimpleDateFormat(DATE_FORMAT_FULL, Locale.ENGLISH);
 		assertEquals("expected " + df.format(expected) + ", but got " + df.format(actual), expected, actual);
 	}
 
@@ -648,7 +649,7 @@ public class MediaServletTest
 		final Date expectedBeforeFloor = new Date(((expectedBefore.getTime()-leftTolerance) / resolution) * resolution);
 		final Date expectedAfterCeil   = new Date(((expectedAfter.getTime() / resolution) * resolution) + resolution);
 
-		final SimpleDateFormat df = new SimpleDateFormat(DATE_FORMAT_FULL);
+		final SimpleDateFormat df = new SimpleDateFormat(DATE_FORMAT_FULL, Locale.ENGLISH);
 		final String message =
 			"expected date within " + df.format(expectedBeforeFloor) + " (" + df.format(expectedBefore) + ")" +
 			" and " + df.format(expectedAfterCeil) + " (" + df.format(expectedAfter) + ")" +
