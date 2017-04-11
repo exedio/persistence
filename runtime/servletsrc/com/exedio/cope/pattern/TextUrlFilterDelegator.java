@@ -184,7 +184,7 @@ public class TextUrlFilterDelegator extends MediaFilter implements TextUrlFilter
 				{
 					delegate.getPaste(item, key);
 				}
-				catch(final IllegalArgumentException e)
+				catch(final IllegalArgumentException ignored)
 				{
 					brokenCodes.add(key);
 				}

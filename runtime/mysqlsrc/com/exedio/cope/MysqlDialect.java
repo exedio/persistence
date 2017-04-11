@@ -587,7 +587,7 @@ final class MysqlDialect extends Dialect
 					// because foreign key constraints could be disabled
 					connection.close();
 				}
-				catch(final SQLException e)
+				catch(final SQLException ignored)
 				{
 					// exception is already thrown
 				}

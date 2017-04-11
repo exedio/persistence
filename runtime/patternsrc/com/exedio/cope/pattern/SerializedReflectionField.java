@@ -66,7 +66,7 @@ final class SerializedReflectionField implements Serializable
 		{
 			return resolve(clazz, fieldName);
 		}
-		catch(final ReflectiveOperationException e)
+		catch(final ReflectiveOperationException ignored)
 		{
 			throw new InvalidObjectException(clazz.getName() + '#' + fieldName);
 		}

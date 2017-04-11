@@ -55,7 +55,7 @@ final class CopeProbe
 		{
 			env.put("hostname", InetAddress.getLocalHost().getHostName());
 		}
-		catch(final UnknownHostException e)
+		catch(final UnknownHostException ignored)
 		{
 			// do not put in hostname
 		}

@@ -423,7 +423,7 @@ public class ReviseTest
 			model5.reviseIfSupportedAndAutoEnabled();
 			fail();
 		}
-		catch ( final SQLRuntimeException e )
+		catch ( final SQLRuntimeException ignored )
 		{
 			// fine
 		}

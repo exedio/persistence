@@ -293,7 +293,7 @@ public final class Table extends Node
 				{
 					constraint.drop(listener);
 				}
-				catch(final SQLRuntimeException e2)
+				catch(final SQLRuntimeException ignored)
 				{
 					// ignored in teardown
 					//System.err.println("failed:"+e2.getMessage());

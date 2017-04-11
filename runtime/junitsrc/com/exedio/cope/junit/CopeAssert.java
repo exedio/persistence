@@ -158,13 +158,13 @@ public abstract class CopeAssert extends TestCase
 			c.add(null);
 			Assert.fail("should have thrown UnsupportedOperationException");
 		}
-		catch(final UnsupportedOperationException e) {/*OK*/}
+		catch(final UnsupportedOperationException ignored) {/*OK*/}
 		try
 		{
 			c.addAll(Collections.singleton(null));
 			Assert.fail("should have thrown UnsupportedOperationException");
 		}
-		catch(final UnsupportedOperationException e) {/*OK*/}
+		catch(final UnsupportedOperationException ignored) {/*OK*/}
 
 		if(!c.isEmpty())
 		{
@@ -174,25 +174,25 @@ public abstract class CopeAssert extends TestCase
 				c.clear();
 				Assert.fail("should have thrown UnsupportedOperationException");
 			}
-			catch(final UnsupportedOperationException e) {/*OK*/}
+			catch(final UnsupportedOperationException ignored) {/*OK*/}
 			try
 			{
 				c.remove(o);
 				Assert.fail("should have thrown UnsupportedOperationException");
 			}
-			catch(final UnsupportedOperationException e) {/*OK*/}
+			catch(final UnsupportedOperationException ignored) {/*OK*/}
 			try
 			{
 				c.removeAll(Collections.singleton(o));
 				Assert.fail("should have thrown UnsupportedOperationException");
 			}
-			catch(final UnsupportedOperationException e) {/*OK*/}
+			catch(final UnsupportedOperationException ignored) {/*OK*/}
 			try
 			{
 				c.retainAll(Collections.emptyList());
 				Assert.fail("should have thrown UnsupportedOperationException");
 			}
-			catch(final UnsupportedOperationException e) {/*OK*/}
+			catch(final UnsupportedOperationException ignored) {/*OK*/}
 
 			final Iterator<?> iterator = c.iterator();
 			try
@@ -201,7 +201,7 @@ public abstract class CopeAssert extends TestCase
 				iterator.remove();
 				Assert.fail("should have thrown UnsupportedOperationException");
 			}
-			catch(final UnsupportedOperationException e) {/*OK*/}
+			catch(final UnsupportedOperationException ignored) {/*OK*/}
 		}
 
 		if(c instanceof List<?>)
@@ -215,7 +215,7 @@ public abstract class CopeAssert extends TestCase
 					l.set(0, null);
 					Assert.fail("should have thrown UnsupportedOperationException");
 				}
-				catch(final UnsupportedOperationException e) {/*OK*/}
+				catch(final UnsupportedOperationException ignored) {/*OK*/}
 			}
 		}
 	}
@@ -233,25 +233,25 @@ public abstract class CopeAssert extends TestCase
 			actual.clear();
 			Assert.fail("should have thrown UnsupportedOperationException");
 		}
-		catch(final UnsupportedOperationException e) {/*OK*/}
+		catch(final UnsupportedOperationException ignored) {/*OK*/}
 		try
 		{
 			actual.put(null, null);
 			Assert.fail("should have thrown UnsupportedOperationException");
 		}
-		catch(final UnsupportedOperationException e) {/*OK*/}
+		catch(final UnsupportedOperationException ignored) {/*OK*/}
 		try
 		{
 			actual.putAll(Collections.emptyMap());
 			Assert.fail("should have thrown UnsupportedOperationException");
 		}
-		catch(final UnsupportedOperationException e) {/*OK*/}
+		catch(final UnsupportedOperationException ignored) {/*OK*/}
 		try
 		{
 			actual.remove(null);
 			Assert.fail("should have thrown UnsupportedOperationException");
 		}
-		catch(final UnsupportedOperationException e) {/*OK*/}
+		catch(final UnsupportedOperationException ignored) {/*OK*/}
 		assertUnmodifiable(actual.keySet());
 		assertUnmodifiable(actual.values());
 		assertUnmodifiable(actual.entrySet());

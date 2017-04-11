@@ -88,7 +88,7 @@ public class CapabilitiesTest extends TestWithEnvironment
 					//System.out.println(result);
 					assertNotNull(result);
 				}
-				catch(final SQLException e)
+				catch(final SQLException ignored)
 				{
 					// ok
 				}

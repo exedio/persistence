@@ -87,7 +87,7 @@ public class OverflowIntegerSumTest extends TestWithEnvironment
 					rs.getInt(1);
 					fail();
 				}
-				catch(final SQLException e)
+				catch(final SQLException ignored)
 				{
 					//System.out.println(e.getMessage());
 				}

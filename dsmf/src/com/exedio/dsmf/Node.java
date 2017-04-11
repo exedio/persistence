@@ -124,7 +124,7 @@ public abstract class Node
 				{
 					connectionProvider.putConnection(connection);
 				}
-				catch(final SQLException e)
+				catch(final SQLException ignored)
 				{
 					// exception is already thrown
 				}
@@ -165,7 +165,7 @@ public abstract class Node
 				{
 					connectionProvider.putConnection(connection);
 				}
-				catch(final SQLException e)
+				catch(final SQLException ignored)
 				{
 					// exception is already thrown
 				}

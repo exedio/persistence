@@ -79,7 +79,7 @@ final class SamplerEnvironment extends Item
 		{
 			sv.add(hostname.map(InetAddress.getLocalHost().getHostName()));
 		}
-		catch(final UnknownHostException e)
+		catch(final UnknownHostException ignored)
 		{
 			// do not put in hostname
 		}

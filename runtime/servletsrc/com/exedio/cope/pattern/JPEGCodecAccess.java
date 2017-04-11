@@ -66,12 +66,12 @@ final class JPEGCodecAccess
 			logger.info("available: {}#{}", className, methodName);
 			return result;
 		}
-		catch(final ClassNotFoundException e)
+		catch(final ClassNotFoundException ignored)
 		{
 			logger.warn("not available: {}", className);
 			return null;
 		}
-		catch(final NoSuchMethodException e)
+		catch(final NoSuchMethodException ignored)
 		{
 			logger.warn("not available: {}#{}", className, methodName);
 			return null;

@@ -331,7 +331,7 @@ public class GeneratorTest
 			javaClass.getDeclaredField(name);
 			fail("field " + name + " exists.");
 		}
-		catch(final NoSuchFieldException e)
+		catch(final NoSuchFieldException ignored)
 		{
 			// success
 		}
@@ -387,7 +387,7 @@ public class GeneratorTest
 			javaClass.getDeclaredMethod(name, parameterTypes);
 			fail("method " + name + " exists.");
 		}
-		catch(final NoSuchMethodException e)
+		catch(final NoSuchMethodException ignored)
 		{
 			// success
 		}

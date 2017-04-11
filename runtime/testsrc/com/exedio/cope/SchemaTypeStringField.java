@@ -90,7 +90,7 @@ public final class SchemaTypeStringField extends Pattern
 			add(element);
 			fail(getID());
 		}
-		catch(final SQLRuntimeException e)
+		catch(final SQLRuntimeException ignored)
 		{
 			// expected
 		}

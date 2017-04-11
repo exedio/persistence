@@ -106,7 +106,7 @@ final class ChangeListenerDispatcher implements Runnable
 
 				manager.dispatch(event, this);
 			}
-			catch(final InterruptedException e)
+			catch(final InterruptedException ignored)
 			{
 				// do nothing, thread will be
 				// terminated by threadRun flag

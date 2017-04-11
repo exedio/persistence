@@ -312,7 +312,7 @@ public class TextUrlFilter extends MediaFilter implements TextUrlFilterCheckable
 				{
 					getPaste(item, key);
 				}
-				catch(final IllegalArgumentException e)
+				catch(final IllegalArgumentException ignored)
 				{
 					brokenCodes.add(key);
 				}

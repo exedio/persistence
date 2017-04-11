@@ -62,7 +62,7 @@ public final class Delete
 				if(itemsSize<LIMIT)
 					return;
 			}
-			catch(final JobStop js)
+			catch(final JobStop ignored)
 			{
 				model.commit();
 			}

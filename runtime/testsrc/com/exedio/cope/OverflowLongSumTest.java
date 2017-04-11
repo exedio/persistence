@@ -86,7 +86,7 @@ public class OverflowLongSumTest extends TestWithEnvironment
 			expectedLong = expected.longValueExact();
 			expectedIsLong = true;
 		}
-		catch(final ArithmeticException e)
+		catch(final ArithmeticException ignored)
 		{
 			// ok
 		}
@@ -116,7 +116,7 @@ public class OverflowLongSumTest extends TestWithEnvironment
 						rs.getLong(1);
 						fail();
 					}
-					catch(final SQLException e)
+					catch(final SQLException ignored)
 					{
 						//System.out.println(e.getMessage());
 					}

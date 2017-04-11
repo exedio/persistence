@@ -256,7 +256,7 @@ public final class Schema extends Node
 			{
 				sequence.drop(listener);
 			}
-			catch(final SQLRuntimeException e2)
+			catch(final SQLRuntimeException ignored)
 			{
 				// ignored in teardown
 				//System.err.println("failed:"+e2.getMessage());
@@ -280,7 +280,7 @@ public final class Schema extends Node
 			{
 				table.tearDownConstraints(EnumSet.allOf(Constraint.Type.class), true, listener);
 			}
-			catch(final SQLRuntimeException e2)
+			catch(final SQLRuntimeException ignored)
 			{
 				// ignored in teardown
 				//System.err.println("failed:"+e2.getMessage());
@@ -310,7 +310,7 @@ public final class Schema extends Node
 					// remember there was at least one table deleted
 					deleted = true;
 				}
-				catch(final SQLRuntimeException e2)
+				catch(final SQLRuntimeException ignored)
 				{
 					// ignored in teardown
 					//System.err.println("failed:"+e2.getMessage());

@@ -90,7 +90,7 @@ public abstract class SchemaTest
 			{
 				Class.forName("com.mysql.jdbc.Driver");
 			}
-			catch(final ClassNotFoundException e)
+			catch(final ClassNotFoundException ignored)
 			{
 				Class.forName("org.mariadb.jdbc.Driver");
 			}

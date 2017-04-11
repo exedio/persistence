@@ -64,7 +64,7 @@ public final class ClusterSenderMulticastTest
 			sender.send(b.length, b);
 			fail();
 		}
-		catch(final SocketException e)
+		catch(final SocketException ignored)
 		{
 			// do not assert message of foreign library
 		}

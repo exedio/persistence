@@ -76,7 +76,7 @@ final class ExternalCopeType extends CopeType<ExternalCopeFeature>
 				return null;
 			}
 		}
-		catch (final NoSuchFieldException e)
+		catch (final NoSuchFieldException ignored)
 		{
 			return null;
 		}

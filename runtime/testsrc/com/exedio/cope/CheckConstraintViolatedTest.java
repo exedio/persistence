@@ -69,7 +69,7 @@ public class CheckConstraintViolatedTest extends TestWithEnvironment
 			insert(5, 20, 10);
 			assertEquals(false, supported);
 		}
-		catch(final SQLException e)
+		catch(final SQLException ignored)
 		{
 			assertEquals(true, supported);
 		}
