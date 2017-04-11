@@ -72,19 +72,19 @@ final class LocalCopeType extends CopeType<LocalCopeFeature>
 
 	private void registerFeatures()
 	{
-		feature: for(final JavaField javaField : javaClass.getFields())
+		for(final JavaField javaField : javaClass.getFields())
 		{
 			final int modifier = javaField.modifier;
 			if(!Modifier.isFinal(modifier) || !Modifier.isStatic(modifier))
-				continue feature;
+				continue;
 
 			final String docComment = javaField.docComment;
 			if(Tags.cascade(javaField, Tags.forIgnore(docComment), javaField.wrapperIgnore, null)!=null)
-				continue feature;
+				continue;
 
 			final Class<?> typeClass = javaField.file.findTypeExternally(javaField.typeRaw);
 			if(typeClass==null)
-				continue feature;
+				continue;
 
 			if(typeClass.isAnnotationPresent(WrapFeature.class))
 			{
