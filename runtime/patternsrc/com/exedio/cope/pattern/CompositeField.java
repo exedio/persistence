@@ -324,7 +324,7 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 		return isNullComponent.isNull();
 	}
 
-	public final Condition isNull(final Join join)
+	public Condition isNull(final Join join)
 	{
 		return isNullComponent.bind(join).isNull();
 	}
@@ -334,7 +334,7 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 		return isNullComponent.isNotNull();
 	}
 
-	public final Condition isNotNull(final Join join)
+	public Condition isNotNull(final Join join)
 	{
 		return isNullComponent.bind(join).isNotNull();
 	}

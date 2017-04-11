@@ -37,7 +37,7 @@ public final class AsStringView extends StringView
 	}
 
 	@Override
-	public final String mapJava(final Object[] sourceValues)
+	public String mapJava(final Object[] sourceValues)
 	{
 		assert sourceValues.length==1;
 		final Object sourceValue = sourceValues[0];
@@ -46,7 +46,7 @@ public final class AsStringView extends StringView
 
 	@Override
 	@Deprecated // OK: for internal use within COPE only
-	public final void append(final Statement bf, final Join join)
+	public void append(final Statement bf, final Join join)
 	{
 		bf.dialect.appendAsString(bf, source, join);
 	}

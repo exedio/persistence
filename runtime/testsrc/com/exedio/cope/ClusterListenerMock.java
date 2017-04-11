@@ -34,13 +34,13 @@ final class ClusterListenerMock extends ClusterListener
 	}
 
 	@Override
-	final void invalidate(final int remoteNode, final TLongHashSet[] invalidations)
+	void invalidate(final int remoteNode, final TLongHashSet[] invalidations)
 	{
 		testSink.add(invalidations);
 	}
 
 	@Override
-	final void pong(final long pingNanos)
+	void pong(final long pingNanos)
 	{
 		testSink.add("PONG(" + Long.toHexString(pingNanos) + ")");
 	}

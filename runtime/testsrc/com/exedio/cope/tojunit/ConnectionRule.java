@@ -45,7 +45,7 @@ public final class ConnectionRule implements TestRule
 	private Connection connection;
 
 	@Override
-	public final org.junit.runners.model.Statement apply(
+	public org.junit.runners.model.Statement apply(
 			final org.junit.runners.model.Statement base,
 			final Description description)
 	{

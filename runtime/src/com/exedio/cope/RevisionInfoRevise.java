@@ -73,7 +73,7 @@ public final class RevisionInfoRevise extends RevisionInfo
 			store.setProperty(bodyPrefix + "elapsed", String.valueOf(elapsed));
 		}
 
-		static final Body read(final int index, final Properties p)
+		static Body read(final int index, final Properties p)
 		{
 			final String bodyPrefix = "body" + index + '.';
 			final String sql = p.getProperty(bodyPrefix + "sql");
@@ -142,7 +142,7 @@ public final class RevisionInfoRevise extends RevisionInfo
 		return store;
 	}
 
-	static final RevisionInfoRevise read(
+	static RevisionInfoRevise read(
 			final int number,
 			final String savepoint,
 			final Date date,

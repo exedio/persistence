@@ -291,7 +291,7 @@ final class WrapperX
 		return nullability;
 	}
 
-	static final void assertComment(final String comment)
+	static void assertComment(final String comment)
 	{
 		if(comment==null)
 			throw new NullPointerException("comment");

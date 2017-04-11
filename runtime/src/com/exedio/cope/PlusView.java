@@ -21,13 +21,13 @@ package com.exedio.cope;
 public final class PlusView<E extends Number> extends NumberView<E>
 {
 	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: no generic arrays
-	public static final <E extends Number> PlusView<E> plus(final Function<E> addend1, final Function<E> addend2)
+	public static <E extends Number> PlusView<E> plus(final Function<E> addend1, final Function<E> addend2)
 	{
 		return new PlusView<>(new Function[]{addend1, addend2});
 	}
 
 	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: no generic arrays
-	public static final <E extends Number> PlusView<E> plus(final Function<E> addend1, final Function<E> addend2, final Function<E> addend3)
+	public static <E extends Number> PlusView<E> plus(final Function<E> addend1, final Function<E> addend2, final Function<E> addend3)
 	{
 		return new PlusView<>(new Function[]{addend1, addend2, addend3});
 	}
@@ -78,7 +78,7 @@ public final class PlusView<E extends Number> extends NumberView<E>
 
 	@Override
 	@SuppressWarnings("unchecked")
-	public final E mapJava(final Object[] sourceValues)
+	public E mapJava(final Object[] sourceValues)
 	{
 		final Class<E> vc = valueClass;
 		if(valueClass==Integer.class)
@@ -120,7 +120,7 @@ public final class PlusView<E extends Number> extends NumberView<E>
 
 	@Override
 	@Deprecated // OK: for internal use within COPE only
-	public final void append(final Statement bf, final Join join)
+	public void append(final Statement bf, final Join join)
 	{
 		bf.append('(');
 		for(int i = 0; i<addends.length; i++)

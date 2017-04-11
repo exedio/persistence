@@ -117,7 +117,7 @@ final class SamplerEnvironment extends Item
 	private static final IntegerField driverVersionMajor     = new IntegerField().toFinal();
 	private static final IntegerField driverVersionMinor     = new IntegerField().toFinal();
 
-	private static final void addEnvironmentInfo(final ArrayList<SetValue<?>> sv, final Model model)
+	private static void addEnvironmentInfo(final ArrayList<SetValue<?>> sv, final Model model)
 	{
 		final EnvironmentInfo i = model.getEnvironmentInfo();
 		sv.add(databaseProductName   .map(i.getDatabaseProductName   ()));
@@ -130,7 +130,7 @@ final class SamplerEnvironment extends Item
 		sv.add(driverVersionMinor    .map(i.getDriverMinorVersion    ()));
 	}
 
-	private static final void addEnvironmentInfo(final ArrayList<SetValue<?>> sv, final Map<String, String> environment)
+	private static void addEnvironmentInfo(final ArrayList<SetValue<?>> sv, final Map<String, String> environment)
 	{
 		sv.add(databaseProductName   .map(getS(environment, "database.name")));
 		sv.add(databaseProductVersion.map(getS(environment, "database.version")));
@@ -145,7 +145,7 @@ final class SamplerEnvironment extends Item
 
 	private static final StringField buildTag = new StringField().toFinal().optional().lengthMax(1000);
 
-	private static final void addBuildTag(final ArrayList<SetValue<?>> sv, final String buildTag)
+	private static void addBuildTag(final ArrayList<SetValue<?>> sv, final String buildTag)
 	{
 		sv.add(maC(SamplerEnvironment.buildTag, buildTag));
 	}

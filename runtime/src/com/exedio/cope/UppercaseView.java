@@ -44,7 +44,7 @@ public final class UppercaseView extends StringView
 	}
 
 	@Override
-	public final String mapJava(final Object[] sourceValues)
+	public String mapJava(final Object[] sourceValues)
 	{
 		assert sourceValues.length==1;
 		final Object sourceValue = sourceValues[0];
@@ -53,7 +53,7 @@ public final class UppercaseView extends StringView
 
 	@Override
 	@Deprecated // OK: for internal use within COPE only
-	public final void append(final Statement bf, final Join join)
+	public void append(final Statement bf, final Join join)
 	{
 		bf.append("UPPER(").
 			append(source, join).
@@ -62,27 +62,27 @@ public final class UppercaseView extends StringView
 
 	// convenience methods for conditions and views ---------------------------------
 
-	public static final Condition equalIgnoreCase(final Function<String> function, final String value)
+	public static Condition equalIgnoreCase(final Function<String> function, final String value)
 	{
 		return new UppercaseView(function).equal(toUpperCase(value));
 	}
 
-	public static final LikeCondition likeIgnoreCase(final Function<String> function, final String value)
+	public static LikeCondition likeIgnoreCase(final Function<String> function, final String value)
 	{
 		return new UppercaseView(function).like(toUpperCase(value));
 	}
 
-	public static final LikeCondition startsWithIgnoreCase(final Function<String> function, final String value)
+	public static LikeCondition startsWithIgnoreCase(final Function<String> function, final String value)
 	{
 		return LikeCondition.startsWith(new UppercaseView(function), toUpperCase(value));
 	}
 
-	public static final LikeCondition endsWithIgnoreCase(final Function<String> function, final String value)
+	public static LikeCondition endsWithIgnoreCase(final Function<String> function, final String value)
 	{
 		return LikeCondition.endsWith(new UppercaseView(function), toUpperCase(value));
 	}
 
-	public static final LikeCondition containsIgnoreCase(final Function<String> function, final String value)
+	public static LikeCondition containsIgnoreCase(final Function<String> function, final String value)
 	{
 		return LikeCondition.contains(new UppercaseView(function), toUpperCase(value));
 	}

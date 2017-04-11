@@ -272,7 +272,7 @@ public final class FeatureField<E extends Feature> extends Pattern implements Se
 			docReturn="null if there is no matching item.",
 			hide=FeatureNonUniqueGetter.class)
 	@Nullable
-	public final <P extends Item> P searchUnique(
+	public <P extends Item> P searchUnique(
 			@Nonnull final Class<P> typeClass,
 			@Nonnull @Parameter(doc="shall be equal to field {0}.") final E value)
 	{

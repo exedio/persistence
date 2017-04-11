@@ -220,12 +220,12 @@ public final class MoneyField<C extends Money.Currency> extends Pattern implemen
 
 	// convenience methods for conditions and views ---------------------------------
 
-	public final IsNullCondition<?> isNull()
+	public IsNullCondition<?> isNull()
 	{
 		return amount.isNull();
 	}
 
-	public final IsNullCondition<?> isNotNull()
+	public IsNullCondition<?> isNotNull()
 	{
 		return amount.isNotNull();
 	}

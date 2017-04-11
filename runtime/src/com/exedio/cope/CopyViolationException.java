@@ -64,7 +64,7 @@ public final class CopyViolationException extends ConstraintViolationException
 		return targetItem;
 	}
 
-	private static final String toString(final Object s)
+	private static String toString(final Object s)
 	{
 		return s!=null ? ('\'' + (s instanceof Item ? ((Item)s).getCopeID() : s.toString()) + '\'') : "null";
 	}

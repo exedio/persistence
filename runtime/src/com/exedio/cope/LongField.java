@@ -219,7 +219,7 @@ public final class LongField extends NumberField<Long>
 	 * @throws IllegalArgumentException if this field is not {@link #isMandatory() mandatory}.
 	 */
 	@Wrap(order=10, name="get{0}", doc="Returns the value of {0}.", hide=OptionalGetter.class)
-	public final long getMandatory(@Nonnull final Item item)
+	public long getMandatory(@Nonnull final Item item)
 	{
 		return getMandatoryObject(item).longValue();
 	}
@@ -228,7 +228,7 @@ public final class LongField extends NumberField<Long>
 			doc="Sets a new value for {0}.",
 			hide={FinalSettableGetter.class, OptionalGetter.class},
 			thrownGetter=InitialThrown.class)
-	public final void set(@Nonnull final Item item, final long value)
+	public void set(@Nonnull final Item item, final long value)
 	{
 		set(item, Long.valueOf(value));
 	}
@@ -243,7 +243,7 @@ public final class LongField extends NumberField<Long>
 			docReturn="null if there is no matching item.",
 			hide={OptionalGetter.class, NonUniqueGetter.class})
 	@Nullable
-	public final <P extends Item> P searchUnique(
+	public <P extends Item> P searchUnique(
 			final Class<P> typeClass,
 			@Parameter(doc="shall be equal to field {0}.") final long value)
 	{

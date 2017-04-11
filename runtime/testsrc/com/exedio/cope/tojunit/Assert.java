@@ -135,7 +135,7 @@ public final class Assert
 		CopeAssert.assertEqualsUnmodifiable(expected, actual);
 	}
 
-	public static final void assertEqualsUnmodifiable(final Set<?> expected, final Collection<?> actual)
+	public static void assertEqualsUnmodifiable(final Set<?> expected, final Collection<?> actual)
 	{
 		assertUnmodifiable(actual);
 		assertEquals(expected, actual);

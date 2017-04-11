@@ -56,7 +56,7 @@ public final class DoubleField extends NumberField<Double>
 		mountDefaultSource();
 	}
 
-	private static final void assertLimit(final double value, final String name)
+	private static void assertLimit(final double value, final String name)
 	{
 		if(Double.isInfinite(value))
 			throw new IllegalArgumentException(name + " must not be infinite, but was " + value);
@@ -193,7 +193,7 @@ public final class DoubleField extends NumberField<Double>
 	 * @throws IllegalArgumentException if this field is not {@link #isMandatory() mandatory}.
 	 */
 	@Wrap(order=10, name="get{0}", doc="Returns the value of {0}.", hide=OptionalGetter.class)
-	public final double getMandatory(@Nonnull final Item item)
+	public double getMandatory(@Nonnull final Item item)
 	{
 		return getMandatoryObject(item).doubleValue();
 	}
@@ -202,7 +202,7 @@ public final class DoubleField extends NumberField<Double>
 			doc="Sets a new value for {0}.",
 			hide={FinalSettableGetter.class, OptionalGetter.class},
 			thrownGetter=InitialThrown.class)
-	public final void set(@Nonnull final Item item, final double value)
+	public void set(@Nonnull final Item item, final double value)
 	{
 		set(item, Double.valueOf(value));
 	}
@@ -217,7 +217,7 @@ public final class DoubleField extends NumberField<Double>
 			docReturn="null if there is no matching item.",
 			hide={OptionalGetter.class, NonUniqueGetter.class})
 	@Nullable
-	public final <P extends Item> P searchUnique(
+	public <P extends Item> P searchUnique(
 			@Nonnull final Class<P> typeClass,
 			@Parameter(doc="shall be equal to field {0}.") final double value)
 	{

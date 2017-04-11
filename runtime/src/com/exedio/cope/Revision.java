@@ -121,7 +121,7 @@ public final class Revision
 	}
 
 	@SuppressFBWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
-	private static final int executeUpdate(
+	private static int executeUpdate(
 			final Connection connection,
 			final String sql)
 	{
@@ -141,7 +141,7 @@ public final class Revision
 	 * @deprecated Use {@link RevisionInfo#parse(byte[])} instead
 	 */
 	@Deprecated
-	public static final Properties parse(final byte[] info)
+	public static Properties parse(final byte[] info)
 	{
 		return RevisionInfo.parse(info);
 	}

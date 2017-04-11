@@ -97,17 +97,17 @@ public final class LikeCondition extends Condition
 
 	public static final char WILDCARD = '%';
 
-	public static final LikeCondition startsWith(final StringFunction function, final String value)
+	public static LikeCondition startsWith(final StringFunction function, final String value)
 	{
 		return new LikeCondition(function, value + WILDCARD);
 	}
 
-	public static final LikeCondition endsWith(final StringFunction function, final String value)
+	public static LikeCondition endsWith(final StringFunction function, final String value)
 	{
 		return new LikeCondition(function, WILDCARD + value);
 	}
 
-	public static final LikeCondition contains(final StringFunction function, final String value)
+	public static LikeCondition contains(final StringFunction function, final String value)
 	{
 		return new LikeCondition(function, WILDCARD + value + WILDCARD);
 	}

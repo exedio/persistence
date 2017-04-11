@@ -68,7 +68,7 @@ public final class EnumSetField<E extends Enum<E>> extends Pattern implements Se
 		}
 	}
 
-	public static final <E extends Enum<E>> EnumSetField<E> create(final Class<E> elementClass)
+	public static <E extends Enum<E>> EnumSetField<E> create(final Class<E> elementClass)
 	{
 		return new EnumSetField<>(elementClass, false);
 	}
@@ -201,7 +201,7 @@ public final class EnumSetField<E extends Enum<E>> extends Pattern implements Se
 	 * @deprecated Use {@link #create(Class)} instead
 	 */
 	@Deprecated
-	public static final <E extends Enum<E>> EnumSetField<E> newSet(final Class<E> elementClass)
+	public static <E extends Enum<E>> EnumSetField<E> newSet(final Class<E> elementClass)
 	{
 		return create(elementClass);
 	}

@@ -162,17 +162,17 @@ public final class StringField extends FunctionField<String>
 		return new StringField(isfinal, optional, unique, copyFrom, defaultSource, minimumLength, maximumLength, charSet);
 	}
 
-	public final int getMinimumLength()
+	public int getMinimumLength()
 	{
 		return minimumLength;
 	}
 
-	public final int getMaximumLength()
+	public int getMaximumLength()
 	{
 		return maximumLength;
 	}
 
-	public final CharSet getCharSet()
+	public CharSet getCharSet()
 	{
 		return charSet;
 	}
@@ -284,7 +284,7 @@ public final class StringField extends FunctionField<String>
 	 * @deprecated renamed to {@link #toUpperCase()}
 	 */
 	@Deprecated
-	public final UppercaseView uppercase()
+	public UppercaseView uppercase()
 	{
 		return toUpperCase();
 	}

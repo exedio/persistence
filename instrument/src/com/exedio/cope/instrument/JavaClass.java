@@ -160,13 +160,13 @@ final class JavaClass extends JavaFeature
 		return buf.toString();
 	}
 
-	public final boolean isInterface()
+	public boolean isInterface()
 	{
 		return Modifier.isInterface(modifier);
 	}
 
 	@Override
-	public final int getAllowedModifiers()
+	public int getAllowedModifiers()
 	{
 		return Modifier.INTERFACE | Modifier.classModifiers();
 	}
@@ -268,7 +268,7 @@ final class JavaClass extends JavaFeature
 		javaFieldsByInstance.put(instance, field);
 	}
 
-	final JavaField getFieldByInstance(final Object instance)
+	JavaField getFieldByInstance(final Object instance)
 	{
 		return javaFieldsByInstance.get(instance);
 	}

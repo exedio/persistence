@@ -181,7 +181,7 @@ public final class Query<R> implements Serializable
 		this.selectsMulti = selectsCopy;
 	}
 
-	private static final Selectable<?>[] checkAndCopy(final Selectable<?>[] selects)
+	private static Selectable<?>[] checkAndCopy(final Selectable<?>[] selects)
 	{
 		if(selects.length<2)
 			throw new IllegalArgumentException("must have at least 2 selects, but was " + Arrays.asList(selects));
@@ -903,7 +903,7 @@ public final class Query<R> implements Serializable
 				transaction.queryInfos);
 	}
 
-	private static final Condition replaceTrue(final Condition c)
+	private static Condition replaceTrue(final Condition c)
 	{
 		return c==Condition.TRUE ? null : c;
 	}

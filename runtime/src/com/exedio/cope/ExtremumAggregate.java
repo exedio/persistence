@@ -37,12 +37,12 @@ public final class ExtremumAggregate<E> extends Aggregate<E>
 		this.minimum = minimum;
 	}
 
-	public final boolean isMinimum()
+	public boolean isMinimum()
 	{
 		return minimum;
 	}
 
-	public final boolean isMaximum()
+	public boolean isMaximum()
 	{
 		return !minimum;
 	}

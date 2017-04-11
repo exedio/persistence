@@ -40,7 +40,7 @@ final class Main
 
 	static final int INITIAL_BUFFER_SIZE=16384;
 
-	final void run(final Params params) throws HumanReadableException, IOException
+	void run(final Params params) throws HumanReadableException, IOException
 	{
 		final List<File> files = params.getJavaSourceFilesExcludingIgnored();
 		if(files.isEmpty())

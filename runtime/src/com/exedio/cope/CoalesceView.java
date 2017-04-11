@@ -65,7 +65,7 @@ public final class CoalesceView<E> extends View<E>
 
 	@Override
 	@SuppressWarnings("unchecked")
-	public final E mapJava(final Object[] sourceValues)
+	public E mapJava(final Object[] sourceValues)
 	{
 		for(final Object sourceValue : sourceValues)
 			if(sourceValue!=null)
@@ -97,7 +97,7 @@ public final class CoalesceView<E> extends View<E>
 
 	@Override
 	@Deprecated // OK: for internal use within COPE only
-	public final void append(final Statement bf, final Join join)
+	public void append(final Statement bf, final Join join)
 	{
 		bf.append("coalesce(");
 		boolean first = true;

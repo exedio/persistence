@@ -54,7 +54,7 @@ final class FeatureSubSet<F extends Feature>
 		this.all = (inherited==null) ? this.declared : inherit(inherited.all, this.declared);
 	}
 
-	private static final <F extends Feature> List<? extends F> inherit(final List<? extends F> inherited, final List<? extends F> declared)
+	private static <F extends Feature> List<? extends F> inherit(final List<? extends F> inherited, final List<? extends F> declared)
 	{
 		assert inherited!=null;
 

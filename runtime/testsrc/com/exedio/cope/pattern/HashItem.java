@@ -45,7 +45,7 @@ public final class HashItem extends Item
 	/**
 	 * Maybe instrumentor should create this.
 	 */
-	final boolean isInternalNull()
+	boolean isInternalNull()
 	{
 		return HashItem.internal.isNull(this);
 	}

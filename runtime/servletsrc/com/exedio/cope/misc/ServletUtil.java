@@ -44,7 +44,7 @@ public final class ServletUtil
 		String getKind();
 	}
 
-	private static final Config wrap(final ServletConfig config)
+	private static Config wrap(final ServletConfig config)
 	{
 		return new Config()
 		{
@@ -71,7 +71,7 @@ public final class ServletUtil
 		};
 	}
 
-	private static final Config wrap(final FilterConfig config)
+	private static Config wrap(final FilterConfig config)
 	{
 		return new Config()
 		{
@@ -98,21 +98,21 @@ public final class ServletUtil
 		};
 	}
 
-	public static final ConnectToken getConnectedModel(final Servlet servlet)
+	public static ConnectToken getConnectedModel(final Servlet servlet)
 	{
 		return getConnectedModel(
 				wrap(servlet.getServletConfig()),
 				servlet);
 	}
 
-	public static final ConnectToken getConnectedModel(final Filter filter, final FilterConfig config)
+	public static ConnectToken getConnectedModel(final Filter filter, final FilterConfig config)
 	{
 		return getConnectedModel(
 				wrap(config),
 				filter);
 	}
 
-	private static final ConnectToken getConnectedModel(
+	private static ConnectToken getConnectedModel(
 					final Config config,
 					final Object nameObject)
 	{
@@ -159,7 +159,7 @@ public final class ServletUtil
 	 * in the directory <tt>WEB-INF</tt>
 	 * of the web application.
 	 */
-	public static final ConnectProperties getConnectProperties(final ServletContext context)
+	public static ConnectProperties getConnectProperties(final ServletContext context)
 	{
 		return
 			new ConnectProperties(
@@ -171,7 +171,7 @@ public final class ServletUtil
 	 * @deprecated Use {@link ServletSource#create(ServletContext)} instead
 	 */
 	@Deprecated
-	public static final Properties.Source getPropertyContext(final ServletContext context)
+	public static Properties.Source getPropertyContext(final ServletContext context)
 	{
 		return ServletSource.create(context);
 	}
@@ -182,7 +182,7 @@ public final class ServletUtil
 	 * @deprecated Use {@link #getConnectedModel(Servlet)} instead
 	 */
 	@Deprecated
-	public static final ConnectToken getModel(final Servlet servlet)
+	public static ConnectToken getModel(final Servlet servlet)
 	{
 		return getConnectedModel(servlet);
 	}
@@ -191,7 +191,7 @@ public final class ServletUtil
 	 * @deprecated Use {@link #getConnectedModel(Filter,FilterConfig)} instead
 	 */
 	@Deprecated
-	public static final ConnectToken getModel(final Filter filter, final FilterConfig config)
+	public static ConnectToken getModel(final Filter filter, final FilterConfig config)
 	{
 		return getConnectedModel(filter, config);
 	}
@@ -200,7 +200,7 @@ public final class ServletUtil
 	 * @deprecated Renamed to {@link #connect(Model, ServletConfig, String)}.
 	 */
 	@Deprecated
-	public static final ConnectToken initialize(final Model model, final ServletConfig config, final String name)
+	public static ConnectToken initialize(final Model model, final ServletConfig config, final String name)
 	{
 		return connect(model, config, name);
 	}
@@ -210,7 +210,7 @@ public final class ServletUtil
 	 * @deprecated Use {@link ConnectToken#issue(Model,String)} instead.
 	 */
 	@Deprecated
-	public static final ConnectToken connect(final Model model, final ServletConfig config, final String name)
+	public static ConnectToken connect(final Model model, final ServletConfig config, final String name)
 	{
 		return ConnectToken.issue(model, name);
 	}
@@ -220,7 +220,7 @@ public final class ServletUtil
 	 * @deprecated Use {@link ConnectToken#issue(Model,String)} instead.
 	 */
 	@Deprecated
-	public static final ConnectToken connect(final Model model, final FilterConfig config, final String name)
+	public static ConnectToken connect(final Model model, final FilterConfig config, final String name)
 	{
 		return ConnectToken.issue(model, name);
 	}

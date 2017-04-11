@@ -41,7 +41,7 @@ public final class BindNumberFunction<E extends Number> extends BindFunction<E>
 	 * because the inner BindFunction &quot;wins&quot;.
 	 */
 	@Override
-	public final BindNumberFunction<E> bind(final Join join)
+	public BindNumberFunction<E> bind(final Join join)
 	{
 		return this;
 	}

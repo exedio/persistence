@@ -45,7 +45,7 @@ public final class RevisionInfoCreate extends RevisionInfo
 		return store;
 	}
 
-	static final RevisionInfoCreate read(
+	static RevisionInfoCreate read(
 			final int number,
 			final Date date,
 			final Map<String, String> environment,

@@ -20,7 +20,7 @@ package com.exedio.cope;
 
 public final class MinusView<E extends Number> extends NumberView<E>
 {
-	public static final <E extends Number> MinusView<E> minus(final Function<E> minuend, final Function<E> subtrahend)
+	public static <E extends Number> MinusView<E> minus(final Function<E> minuend, final Function<E> subtrahend)
 	{
 		return new MinusView<>(minuend, subtrahend);
 	}
@@ -47,7 +47,7 @@ public final class MinusView<E extends Number> extends NumberView<E>
 
 	@Override
 	@SuppressWarnings("unchecked")
-	public final E mapJava(final Object[] sourceValues)
+	public E mapJava(final Object[] sourceValues)
 	{
 		assert sourceValues.length==2;
 		final Number minuend = (Number)sourceValues[0];
@@ -75,7 +75,7 @@ public final class MinusView<E extends Number> extends NumberView<E>
 
 	@Override
 	@Deprecated // OK: for internal use within COPE only
-	public final void append(final Statement bf, final Join join)
+	public void append(final Statement bf, final Join join)
 	{
 		bf.append('(').
 			append(minuend, join).

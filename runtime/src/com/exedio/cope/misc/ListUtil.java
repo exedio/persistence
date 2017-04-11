@@ -25,7 +25,7 @@ import java.util.List;
 
 public final class ListUtil
 {
-	public static final <F> List<F> trimUnmodifiable(final ArrayList<F> list)
+	public static <F> List<F> trimUnmodifiable(final ArrayList<F> list)
 	{
 		final int size = list.size();
 		switch(size)

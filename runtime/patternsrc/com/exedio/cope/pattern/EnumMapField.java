@@ -78,7 +78,7 @@ public final class EnumMapField<K extends Enum<K>,V> extends Pattern implements 
 		}
 	}
 
-	public static final <K extends Enum<K>,V> EnumMapField<K,V> create(
+	public static <K extends Enum<K>,V> EnumMapField<K,V> create(
 			final Class<K> keyClass,
 			final FunctionField<V> value)
 	{
@@ -389,7 +389,7 @@ public final class EnumMapField<K extends Enum<K>,V> extends Pattern implements 
 	 * @deprecated Use {@link #create(Class,FunctionField)} instead
 	 */
 	@Deprecated
-	public static final <K extends Enum<K>,V> EnumMapField<K,V> newMap(
+	public static <K extends Enum<K>,V> EnumMapField<K,V> newMap(
 			final Class<K> keyClass,
 			final FunctionField<V> value)
 	{

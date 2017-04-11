@@ -475,7 +475,7 @@ public final class Schedule extends Pattern
 			}
 		}
 
-		final Mount mount()
+		Mount mount()
 		{
 			final Mount mount = this.mountIfMounted;
 			if(mount==null)

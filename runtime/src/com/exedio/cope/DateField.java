@@ -382,7 +382,7 @@ public final class DateField extends FunctionField<Date>
 	}
 
 	@Override
-	final void mount(final Type<?> type, final String name, final AnnotatedElement annotationSource)
+	void mount(final Type<?> type, final String name, final AnnotatedElement annotationSource)
 	{
 		super.mount(type, name, annotationSource);
 

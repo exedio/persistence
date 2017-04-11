@@ -32,7 +32,7 @@ final class SimpleSelectType<E> implements SelectType<E>
 	}
 
 	@Override
-	public final Class<E> getJavaClass()
+	public Class<E> getJavaClass()
 	{
 		return javaClass;
 	}

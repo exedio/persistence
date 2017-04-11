@@ -107,7 +107,7 @@ public final class CopyConstraint extends Feature
 	}
 
 	@SuppressWarnings({"unchecked", "rawtypes"})
-	private static final Condition notEqual(final FunctionField f1, final Function f2)
+	private static Condition notEqual(final FunctionField f1, final Function f2)
 	{
 		return f1.notEqual(f2);
 	}

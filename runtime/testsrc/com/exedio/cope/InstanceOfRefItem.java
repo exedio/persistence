@@ -30,7 +30,7 @@ final class InstanceOfRefItem extends Item
 	static final ItemField<InstanceOfB2Item> refb2 = ItemField.create(InstanceOfB2Item.class).optional();
 
 	@Override
-	public final String toString()
+	public String toString()
 	{
 		return getCode();
 	}

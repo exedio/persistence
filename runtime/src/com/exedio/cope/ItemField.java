@@ -88,17 +88,17 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 		this(false, policy==DeletePolicy.NULLIFY, valueClass, false, null, null, valueTypeFuture, policy);
 	}
 
-	public static final <E extends Item> ItemField<E> create(final Class<E> valueClass)
+	public static <E extends Item> ItemField<E> create(final Class<E> valueClass)
 	{
 		return create(valueClass, DeletePolicy.FORBID);
 	}
 
-	public static final <E extends Item> ItemField<E> create(final Class<E> valueClass, final DeletePolicy policy)
+	public static <E extends Item> ItemField<E> create(final Class<E> valueClass, final DeletePolicy policy)
 	{
 		return new ItemField<>(valueClass, future(valueClass), policy);
 	}
 
-	public static final <E extends Item> ItemField<E> create(
+	public static <E extends Item> ItemField<E> create(
 			final Class<E> valueClass,
 			final TypeFuture<E> valueType,
 			final DeletePolicy policy)
@@ -147,7 +147,7 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 		return new ItemField<>(isfinal, optional, valueClass, unique, copyFrom, addCopyTo(copyTo), valueTypeFuture, policy);
 	}
 
-	private final FunctionField<?>[] addCopyTo(final FunctionField<?> copyTo)
+	private FunctionField<?>[] addCopyTo(final FunctionField<?> copyTo)
 	{
 		requireNonNull(copyTo, "copyTo");
 		if(this.copyTo==null)
@@ -348,7 +348,7 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 	 */
 	@Override
 	@Deprecated // OK: for internal use within COPE only
-	public final void appendSelect(final Statement bf, final Join join)
+	public void appendSelect(final Statement bf, final Join join)
 	{
 		super.appendSelect(bf, join);
 		final StringColumn typeColumn = getTypeColumn();

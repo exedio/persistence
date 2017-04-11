@@ -84,7 +84,7 @@ public final class RevisionInfoMutex extends RevisionInfo
 		return store;
 	}
 
-	static final RevisionInfoMutex read(
+	static RevisionInfoMutex read(
 			final String savepoint,
 			final Date date,
 			final Map<String, String> environment,
@@ -101,7 +101,7 @@ public final class RevisionInfoMutex extends RevisionInfo
 				Integer.parseInt(p.getProperty(ACTUAL)));
 	}
 
-	static final void delete(
+	static void delete(
 			final ConnectProperties properties,
 			final ConnectionPool connectionPool,
 			final Executor executor)

@@ -270,12 +270,12 @@ public final class ColorField extends Pattern implements Settable<Color>, Copyab
 
 	// convenience methods for conditions and views ---------------------------------
 
-	public final IsNullCondition<?> isNull()
+	public IsNullCondition<?> isNull()
 	{
 		return rgb.isNull();
 	}
 
-	public final IsNullCondition<?> isNotNull()
+	public IsNullCondition<?> isNotNull()
 	{
 		return rgb.isNotNull();
 	}

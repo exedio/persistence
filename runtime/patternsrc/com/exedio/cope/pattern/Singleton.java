@@ -54,7 +54,7 @@ public final class Singleton extends Pattern
 			doc={"Gets the single instance of {2}.", "Creates an instance, if none exists."},
 			docReturn="never returns null.")
 	@Nonnull
-	public final <P extends Item> P instance(@Nonnull final Class<P> typeClass)
+	public <P extends Item> P instance(@Nonnull final Class<P> typeClass)
 	{
 		final Type<P> type = getType().as(typeClass);
 		final P found = type.searchSingleton(source.equal(THE_ONE_OBJECT));

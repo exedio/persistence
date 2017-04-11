@@ -67,7 +67,7 @@ final class DoubleColumn extends Column
 		row.put(this, (loadedDouble!=null) ? convertSQLResult(loadedDouble) : null);
 	}
 
-	private static final Double convertSQLResult(final Object sqlDouble)
+	private static Double convertSQLResult(final Object sqlDouble)
 	{
 		if(sqlDouble instanceof BigDecimal)
 		{

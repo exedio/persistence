@@ -160,7 +160,7 @@ final class PostgresqlDialect extends Dialect
 	}
 
 	@Override
-	final String getBlobLength()
+	String getBlobLength()
 	{
 		return "\"octet_length\"";
 	}

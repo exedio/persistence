@@ -126,7 +126,7 @@ public final class IntegerField extends NumberField<Integer>
 			getSequence().mount(type, sequenceName(name), new AnnotationProxy(annotationSource));
 		}
 
-		static final String sequenceName(final String name)
+		static String sequenceName(final String name)
 		{
 			return name + "-Seq";
 		}
@@ -355,7 +355,7 @@ public final class IntegerField extends NumberField<Integer>
 			docReturn="null if there is no matching item.",
 			hide={OptionalGetter.class, NonUniqueGetter.class})
 	@Nullable
-	public final <P extends Item> P searchUnique(
+	public <P extends Item> P searchUnique(
 			final Class<P> typeClass,
 			@Parameter(doc="shall be equal to field {0}.") final int value)
 	{

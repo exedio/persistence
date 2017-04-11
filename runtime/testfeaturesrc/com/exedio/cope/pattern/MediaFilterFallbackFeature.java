@@ -41,7 +41,7 @@ public final class MediaFilterFallbackFeature extends MediaFilter
 	}
 
 	@Override
-	public final boolean isContentTypeWrapped()
+	public boolean isContentTypeWrapped()
 	{
 		return false;
 	}

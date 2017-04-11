@@ -53,7 +53,7 @@ public final class Importer<K extends Object> extends Pattern
 			throw new IllegalArgumentException("key must be unique");
 	}
 
-	public static final <K> Importer<K> create(final FunctionField<K> key)
+	public static <K> Importer<K> create(final FunctionField<K> key)
 	{
 		return new Importer<>(key);
 	}
@@ -143,7 +143,7 @@ public final class Importer<K extends Object> extends Pattern
 	 * @deprecated Use {@link #create(FunctionField)} instead
 	 */
 	@Deprecated
-	public static final <K> Importer<K> newImporter(final FunctionField<K> key)
+	public static <K> Importer<K> newImporter(final FunctionField<K> key)
 	{
 		return create(key);
 	}

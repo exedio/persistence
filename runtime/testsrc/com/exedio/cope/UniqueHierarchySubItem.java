@@ -23,7 +23,7 @@ final class UniqueHierarchySubItem extends UniqueHierarchySuperItem
 	static final StringField subField = new StringField().unique();
 
 	@Override
-	public final String toString()
+	public String toString()
 	{
 		return getSubField();
 	}

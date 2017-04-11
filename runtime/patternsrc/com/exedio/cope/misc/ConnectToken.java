@@ -286,7 +286,7 @@ public final class ConnectToken implements AutoCloseable
 	 * {@link #getTokens(Model)}.
 	 * @see #removeProperties(Model)
 	 */
-	public static final void setProperties(
+	public static void setProperties(
 			final Model model,
 			final ConnectProperties properties)
 	{
@@ -300,7 +300,7 @@ public final class ConnectToken implements AutoCloseable
 		}
 	}
 
-	public static final ConnectProperties getProperties(final Model model)
+	public static ConnectProperties getProperties(final Model model)
 	{
 		requireNonNull(model, "model");
 
@@ -317,7 +317,7 @@ public final class ConnectToken implements AutoCloseable
 	/**
 	 * @see #setProperties(Model, ConnectProperties)
 	 */
-	public static final ConnectProperties removeProperties(final Model model)
+	public static ConnectProperties removeProperties(final Model model)
 	{
 		requireNonNull(model, "model");
 
@@ -331,7 +331,7 @@ public final class ConnectToken implements AutoCloseable
 		return manciple!=null ? manciple.properties : null;
 	}
 
-	private static final Manciple manciple(final Model model)
+	private static Manciple manciple(final Model model)
 	{
 		requireNonNull(model, "model");
 
@@ -355,7 +355,7 @@ public final class ConnectToken implements AutoCloseable
 	 * Usually you may want to use this method, if you want to connect this model
 	 * from different servlets with equal properties in an undefined order.
 	 */
-	public static final ConnectToken issue(
+	public static ConnectToken issue(
 			final Model model,
 			final String tokenName)
 	{
@@ -373,7 +373,7 @@ public final class ConnectToken implements AutoCloseable
 	 * Tokens returned by this method always do have {@link #didConnect()}==false.
 	 * @see #wasConditional()
 	 */
-	public static final ConnectToken issueIfConnected(
+	public static ConnectToken issueIfConnected(
 			final Model model,
 			final String tokenName)
 	{
@@ -388,7 +388,7 @@ public final class ConnectToken implements AutoCloseable
 	 * so iterating over the collection on a live server cannot cause
 	 * {@link java.util.ConcurrentModificationException}s.
 	 */
-	public static final List<ConnectToken> getTokens(final Model model)
+	public static List<ConnectToken> getTokens(final Model model)
 	{
 		return manciple(model).getTokens();
 	}
@@ -409,7 +409,7 @@ public final class ConnectToken implements AutoCloseable
 	 * @deprecated Use {@link #issue(Model, String)} instead. Parameter <tt>properties</tt> is ignored.
 	 */
 	@Deprecated
-	public static final ConnectToken issue(
+	public static ConnectToken issue(
 			final Model model,
 			final ConnectProperties properties,
 			final String tokenName)

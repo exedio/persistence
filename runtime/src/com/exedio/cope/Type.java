@@ -342,7 +342,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		return value;
 	}
 
-	private static final HashMap<String, Feature> inherit(final HashMap<String, Feature> inherited, final HashMap<String, Feature> declared)
+	private static HashMap<String, Feature> inherit(final HashMap<String, Feature> inherited, final HashMap<String, Feature> declared)
 	{
 		final HashMap<String, Feature> result = new HashMap<>(inherited);
 		result.putAll(declared);
@@ -1503,7 +1503,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	 * @deprecated Use {@link #forClass(Class)} instead
 	 */
 	@Deprecated
-	public static final <X extends Item> Type<X> findByJavaClass(final Class<X> javaClass)
+	public static <X extends Item> Type<X> findByJavaClass(final Class<X> javaClass)
 	{
 		return forClass(javaClass);
 	}
@@ -1512,7 +1512,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	 * @deprecated Use {@link #forClassUnchecked(Class)} instead
 	 */
 	@Deprecated
-	public static final Type<?> findByJavaClassUnchecked(final Class<?> javaClass)
+	public static Type<?> findByJavaClassUnchecked(final Class<?> javaClass)
 	{
 		return forClassUnchecked(javaClass);
 	}
@@ -1622,7 +1622,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	 * @deprecated Use {@link TypesBound#forClass(Class)} instead.
 	 */
 	@Deprecated
-	public static final <X extends Item> Type<X> forClass(final Class<X> javaClass)
+	public static <X extends Item> Type<X> forClass(final Class<X> javaClass)
 	{
 		return TypesBound.forClass(javaClass);
 	}
@@ -1631,7 +1631,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	 * @deprecated Use {@link TypesBound#forClassUnchecked(Class)} instead.
 	 */
 	@Deprecated
-	public static final Type<?> forClassUnchecked(final Class<?> javaClass)
+	public static Type<?> forClassUnchecked(final Class<?> javaClass)
 	{
 		return TypesBound.forClassUnchecked(javaClass);
 	}

@@ -40,7 +40,7 @@ final class LongFieldRangeDigits
 				pow(maximumDigits  )-1);
 	}
 
-	private static final void check(
+	private static void check(
 			final int minimum,
 			final int maximum,
 			final int actual,
@@ -52,7 +52,7 @@ final class LongFieldRangeDigits
 					", but was " + actual);
 	}
 
-	private static final long pow(final int exponent)
+	private static long pow(final int exponent)
 	{
 		return Math.round(Math.pow(10, exponent));
 	}

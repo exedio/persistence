@@ -278,7 +278,7 @@ public final class TypeField<E extends Item> extends Pattern implements Settable
 			docReturn="null if there is no matching item.",
 			hide=TypeNonUniqueGetter.class)
 	@Nullable
-	public final <P extends Item> P searchUnique(
+	public <P extends Item> P searchUnique(
 			@Nonnull final Class<P> typeClass,
 			@Nonnull @Parameter(doc="shall be equal to field {0}.") final Type<? extends E> value)
 	{

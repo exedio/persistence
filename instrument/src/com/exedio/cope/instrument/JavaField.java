@@ -148,7 +148,7 @@ final class JavaField
 	}
 
 	@Override
-	final int getAllowedModifiers()
+	int getAllowedModifiers()
 	{
 		return Modifier.fieldModifiers();
 	}

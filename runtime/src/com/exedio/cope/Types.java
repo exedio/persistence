@@ -164,7 +164,7 @@ final class Types
 		return result.toArray(new Type<?>[result.size()]);
 	}
 
-	private static final Type<?>[] sort(final Type<?>[] types)
+	private static Type<?>[] sort(final Type<?>[] types)
 	{
 		final HashSet<Type<?>> typeSet = new HashSet<>(Arrays.asList(types));
 		final HashSet<Type<?>> done = new HashSet<>();
@@ -205,7 +205,7 @@ final class Types
 		return result.toArray(new Type<?>[result.size()]);
 	}
 
-	private static final void addTypeIncludingSourceTypes(
+	private static void addTypeIncludingSourceTypes(
 			final Type<?> type,
 			final ArrayList<Type<?>> result,
 			int hopCount)
@@ -412,7 +412,7 @@ final class Types
 		}
 	}
 
-	private static final void checkTypeColumn(final ItemFunction<?> f)
+	private static void checkTypeColumn(final ItemFunction<?> f)
 	{
 		if(f.needsCheckTypeColumn())
 		{

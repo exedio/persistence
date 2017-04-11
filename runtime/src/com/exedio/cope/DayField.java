@@ -155,7 +155,7 @@ public final class DayField extends FunctionField<Day>
 	}
 
 	@Override
-	final void mount(final Type<?> type, final String name, final AnnotatedElement annotationSource)
+	void mount(final Type<?> type, final String name, final AnnotatedElement annotationSource)
 	{
 		super.mount(type, name, annotationSource);
 
@@ -226,22 +226,22 @@ public final class DayField extends FunctionField<Day>
 		return result;
 	}
 
-	public final DayPartView year()
+	public DayPartView year()
 	{
 		return new DayPartView(this, Part.YEAR);
 	}
 
-	public final DayPartView month()
+	public DayPartView month()
 	{
 		return new DayPartView(this, Part.MONTH);
 	}
 
-	public final DayPartView weekOfYear()
+	public DayPartView weekOfYear()
 	{
 		return new DayPartView(this, Part.WEEK_OF_YEAR);
 	}
 
-	public final DayPartView dayOfMonth()
+	public DayPartView dayOfMonth()
 	{
 		return new DayPartView(this, Part.DAY_OF_MONTH);
 	}

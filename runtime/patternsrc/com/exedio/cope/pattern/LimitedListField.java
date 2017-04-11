@@ -95,28 +95,28 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 		this(template2Sources(template, maximumSize));
 	}
 
-	public static final <E> LimitedListField<E> create(final FunctionField<E> source1, final FunctionField<E> source2)
+	public static <E> LimitedListField<E> create(final FunctionField<E> source1, final FunctionField<E> source2)
 	{
 		return new LimitedListField<>(source1, source2);
 	}
 
-	public static final <E> LimitedListField<E> create(final FunctionField<E> source1, final FunctionField<E> source2, final FunctionField<E> source3)
+	public static <E> LimitedListField<E> create(final FunctionField<E> source1, final FunctionField<E> source2, final FunctionField<E> source3)
 	{
 		return new LimitedListField<>(source1, source2, source3);
 	}
 
-	public static final <E> LimitedListField<E> create(final FunctionField<E> template, final int maximumSize)
+	public static <E> LimitedListField<E> create(final FunctionField<E> template, final int maximumSize)
 	{
 		return new LimitedListField<>(template, maximumSize);
 	}
 
 	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: no generic array creation
-	private static final <X> FunctionField<X>[] cast(final FunctionField[] o)
+	private static <X> FunctionField<X>[] cast(final FunctionField[] o)
 	{
 		return o;
 	}
 
-	private static final <Y> FunctionField<Y>[] template2Sources(final FunctionField<Y> template, final int maximumSize)
+	private static <Y> FunctionField<Y>[] template2Sources(final FunctionField<Y> template, final int maximumSize)
 	{
 		if(maximumSize<=1)
 			throw new IllegalArgumentException("maximumSize must be greater 1, but was " + maximumSize);
@@ -294,7 +294,7 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 		return contains(null, value);
 	}
 
-	public final Condition contains(final Join join, final E value)
+	public Condition contains(final Join join, final E value)
 	{
 		final Condition[] conditions = new Condition[sources.length];
 
@@ -314,7 +314,7 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 		return containsAny(null, set);
 	}
 
-	public final Condition containsAny(final Join join, final Collection<E> set)
+	public Condition containsAny(final Join join, final Collection<E> set)
 	{
 		final Condition[] conditions = new Condition[set.size()];
 		int i = 0;
@@ -330,7 +330,7 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 	 * @deprecated Use {@link #create(FunctionField,FunctionField)} instead
 	 */
 	@Deprecated
-	public static final <E> LimitedListField<E> newList(final FunctionField<E> source1, final FunctionField<E> source2)
+	public static <E> LimitedListField<E> newList(final FunctionField<E> source1, final FunctionField<E> source2)
 	{
 		return create(source1, source2);
 	}
@@ -339,7 +339,7 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 	 * @deprecated Use {@link #create(FunctionField,FunctionField,FunctionField)} instead
 	 */
 	@Deprecated
-	public static final <E> LimitedListField<E> newList(final FunctionField<E> source1, final FunctionField<E> source2, final FunctionField<E> source3)
+	public static <E> LimitedListField<E> newList(final FunctionField<E> source1, final FunctionField<E> source2, final FunctionField<E> source3)
 	{
 		return create(source1, source2, source3);
 	}
@@ -348,7 +348,7 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 	 * @deprecated Use {@link #create(FunctionField,int)} instead
 	 */
 	@Deprecated
-	public static final <E> LimitedListField<E> newList(final FunctionField<E> template, final int maximumSize)
+	public static <E> LimitedListField<E> newList(final FunctionField<E> template, final int maximumSize)
 	{
 		return create(template, maximumSize);
 	}

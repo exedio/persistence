@@ -92,7 +92,7 @@ final class RuntimeTester
 		cache = model.getConnectProperties().getItemCacheLimit()>0;
 	}
 
-	protected final String synthetic(final String name, final String global)
+	protected String synthetic(final String name, final String global)
 	{
 		return
 			model.getConnectProperties().longSyntheticNames
@@ -100,12 +100,12 @@ final class RuntimeTester
 			: name;
 	}
 
-	protected final void assertPrimaryKeySequenceName(final String sequenceNameBase, final Type<?> type)
+	protected void assertPrimaryKeySequenceName(final String sequenceNameBase, final Type<?> type)
 	{
 		assertPrimaryKeySequenceName( sequenceNameBase, sequenceNameBase+"6", type );
 	}
 
-	protected final void assertPrimaryKeySequenceName(final String sequenceNameBase, final String batchedSequenceNameBase, final Type<?> type)
+	protected void assertPrimaryKeySequenceName(final String sequenceNameBase, final String batchedSequenceNameBase, final Type<?> type)
 	{
 		if(model.getConnectProperties().primaryKeyGenerator.persistent)
 		{
@@ -134,12 +134,12 @@ final class RuntimeTester
 		}
 	}
 
-	protected final void assertDefaultToNextSequenceName(final String name, final IntegerField field)
+	protected void assertDefaultToNextSequenceName(final String name, final IntegerField field)
 	{
 		assertEquals(filterTableName(name), getDefaultToNextSequenceName(field));
 	}
 
-	protected final TestByteArrayInputStream stream(final byte[] data)
+	protected TestByteArrayInputStream stream(final byte[] data)
 	{
 		assertNull(testStream);
 		final TestByteArrayInputStream result = new TestByteArrayInputStream(data);
@@ -147,7 +147,7 @@ final class RuntimeTester
 		return result;
 	}
 
-	protected final void assertStreamClosed()
+	protected void assertStreamClosed()
 	{
 		assertNotNull(testStream);
 		testStream.assertClosed();
@@ -176,7 +176,7 @@ final class RuntimeTester
 			assertNotSame(o1, o2);
 	}
 
-	final String primaryKeySequenceName(final String nameBase)
+	String primaryKeySequenceName(final String nameBase)
 	{
 		final String name;
 		if ( model.getConnectProperties().primaryKeyGenerator==PrimaryKeyGenerator.batchedSequence )
@@ -190,12 +190,12 @@ final class RuntimeTester
 		return filterTableName( name );
 	}
 
-	final String filterTableName(final String name)
+	String filterTableName(final String name)
 	{
 		return model.getConnectProperties().filterTableName(name);
 	}
 
-	protected final void assertCause(final UniqueViolationException e)
+	protected void assertCause(final UniqueViolationException e)
 	{
 		final Throwable cause = e.getCause();
 		if(model.connect().executor.supportsUniqueViolation)
@@ -209,7 +209,7 @@ final class RuntimeTester
 		}
 	}
 
-	protected final CheckConstraint assertCheckConstraint(
+	protected CheckConstraint assertCheckConstraint(
 			final com.exedio.dsmf.Table table,
 			final String name,
 			final String condition)
@@ -217,7 +217,7 @@ final class RuntimeTester
 		return assertConstraint(table, CheckConstraint.class, name, condition);
 	}
 
-	protected final void assertPkConstraint(
+	protected void assertPkConstraint(
 			final com.exedio.dsmf.Table table,
 			final String name,
 			final String condition,
@@ -228,7 +228,7 @@ final class RuntimeTester
 		assertEquals(column, constraint.getPrimaryKeyColumn());
 	}
 
-	protected final void assertFkConstraint(
+	protected void assertFkConstraint(
 			final com.exedio.dsmf.Table table,
 			final String name,
 			final String column,
@@ -242,7 +242,7 @@ final class RuntimeTester
 		assertEquals(targetColumn, constraint.getTargetColumn());
 	}
 
-	protected final void assertUniqueConstraint(
+	protected void assertUniqueConstraint(
 			final com.exedio.dsmf.Table table,
 			final String name,
 			final String clause)
@@ -252,7 +252,7 @@ final class RuntimeTester
 		assertEquals(clause, constraint.getClause());
 	}
 
-	protected final <C extends Constraint> C assertConstraint(
+	protected <C extends Constraint> C assertConstraint(
 			final com.exedio.dsmf.Table table,
 			final Class<C> type,
 			final String name,
@@ -292,7 +292,7 @@ final class RuntimeTester
 			assertEquals(0, ci.length);
 	}
 
-	final void assertCheckUpdateCounters()
+	void assertCheckUpdateCounters()
 	{
 		for(final Type<?> type : model.getTypes())
 		{
@@ -303,7 +303,7 @@ final class RuntimeTester
 		}
 	}
 
-	private static final void assertCheckUpdateCounterFails(final Type<?> type)
+	private static void assertCheckUpdateCounterFails(final Type<?> type)
 	{
 		try
 		{
@@ -354,7 +354,7 @@ final class RuntimeTester
 		assertOk("schema", schema);
 	}
 
-	private static final void assertOk(final String message, final com.exedio.dsmf.Node node)
+	private static void assertOk(final String message, final com.exedio.dsmf.Node node)
 	{
 		assertEquals(message, null, node.getError());
 		assertEquals(message, Schema.Color.OK, node.getParticularColor());

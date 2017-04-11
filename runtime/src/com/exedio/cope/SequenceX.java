@@ -142,7 +142,7 @@ final class SequenceX
 	}
 
 	@Override
-	public final String toString()
+	public String toString()
 	{
 		return feature.toString();
 	}

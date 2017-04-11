@@ -57,7 +57,7 @@ public final class InstanceOfCondition<E extends Item> extends Condition
 	}
 
 	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: no generic array creation
-	private static final <T extends Item> Type<T>[] cast(final Type[] o)
+	private static <T extends Item> Type<T>[] cast(final Type[] o)
 	{
 		return o;
 	}

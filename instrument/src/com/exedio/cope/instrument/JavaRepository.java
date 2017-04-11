@@ -106,7 +106,7 @@ final class JavaRepository
 		files.add(file);
 	}
 
-	final List<JavaFile> getFiles()
+	List<JavaFile> getFiles()
 	{
 		assert stage==Stage.GENERATE;
 		return files;
@@ -162,7 +162,7 @@ final class JavaRepository
 
 	static final String DUMMY_ITEM_PREFIX = "com.exedio.cope.DummyItem$";
 
-	final JavaClass getJavaClass(final String name)
+	JavaClass getJavaClass(final String name)
 	{
 		if(name.indexOf('.')<0)
 		{

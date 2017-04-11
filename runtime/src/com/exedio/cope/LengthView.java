@@ -43,7 +43,7 @@ public final class LengthView extends NumberView<Integer>
 	}
 
 	@Override
-	public final Integer mapJava(final Object[] sourceValues)
+	public Integer mapJava(final Object[] sourceValues)
 	{
 		assert sourceValues.length==1;
 		final Object sourceValue = sourceValues[0];
@@ -52,7 +52,7 @@ public final class LengthView extends NumberView<Integer>
 
 	@Override
 	@Deprecated // OK: for internal use within COPE only
-	public final void append(final Statement bf, final Join join)
+	public void append(final Statement bf, final Join join)
 	{
 		bf.append(bf.dialect.getStringLength()).
 			append('(').

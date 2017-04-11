@@ -227,7 +227,7 @@ public final class Dispatcher extends Pattern
 		}
 	}
 
-	final Mount mount()
+	Mount mount()
 	{
 		final Mount mount = this.mountIfMounted;
 		if(mount==null)

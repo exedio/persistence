@@ -33,12 +33,12 @@ public final class MediaPathPostTest
 {
 	private MediaServlet servlet;
 
-	@Before public final void setUp()
+	@Before public void setUp()
 	{
 		servlet = new MediaServlet();
 	}
 
-	@After public final void tearDown()
+	@After public void tearDown()
 	{
 		servlet.destroy();
 	}

@@ -150,7 +150,7 @@ final class Statement
 	}
 
 	@SuppressWarnings("unchecked") // OK: tableToJoinTables contains both JoinTable and List<JoinTable>
-	private static final ArrayList<JoinTable> castJoinTable(final Object o)
+	private static ArrayList<JoinTable> castJoinTable(final Object o)
 	{
 		return (ArrayList<JoinTable>)o;
 	}
@@ -386,7 +386,7 @@ final class Statement
 		}
 	}
 
-	private static final void appendValue(final StringBuilder bf, final Object o)
+	private static void appendValue(final StringBuilder bf, final Object o)
 	{
 		if(o==null)
 			bf.append("NULL");
@@ -534,7 +534,7 @@ final class Statement
 		}
 	}
 
-	static final StringColumn assertTypeColumn(final StringColumn tc, final Type<?> t)
+	static StringColumn assertTypeColumn(final StringColumn tc, final Type<?> t)
 	{
 		if(tc==null)
 			throw new IllegalArgumentException("type " + t + " has no subtypes, therefore a TypeInCondition makes no sense");

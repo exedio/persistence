@@ -31,17 +31,17 @@ final class PartOfReverse
 	private static final HashMap<Type<?>, List<PartOf<?>>> cache = new HashMap<>();
 	private static final HashMap<Type<?>, List<PartOf<?>>> cacheDeclared = new HashMap<>();
 
-	static final List<PartOf<?>> get(final Type<?> type)
+	static List<PartOf<?>> get(final Type<?> type)
 	{
 		return get(false, cache, type);
 	}
 
-	static final List<PartOf<?>> getDeclared(final Type<?> type)
+	static List<PartOf<?>> getDeclared(final Type<?> type)
 	{
 		return get(true, cacheDeclared, type);
 	}
 
-	private static final List<PartOf<?>> get(final boolean declared, final HashMap<Type<?>, List<PartOf<?>>> cache, final Type<?> type)
+	private static List<PartOf<?>> get(final boolean declared, final HashMap<Type<?>, List<PartOf<?>>> cache, final Type<?> type)
 	{
 		synchronized(cache)
 		{

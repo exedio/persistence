@@ -369,7 +369,7 @@ public final class MediaType
 			assert magic!=null && magic.length<=MAGIC_MAX_LENGTH : Hex.encodeLower(magic);
 		}
 
-		private static final String[] names(final MediaType[] types)
+		private static String[] names(final MediaType[] types)
 		{
 			final ArrayList<String> result = new ArrayList<>();
 			for(final MediaType type : types)

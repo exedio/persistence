@@ -194,7 +194,7 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	private final int mediaFingerOffset  = value("media.fingerprintOffset", 0, 0);
 	private final String mediaUrlSecret = checkMediaUrlSecret(valueHidden("media.url.secret", ""));
 
-	private final String checkMediaUrlSecret(final String s)
+	private String checkMediaUrlSecret(final String s)
 	{
 		final int length = s.length();
 		if(length==0)
@@ -290,7 +290,7 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 		}
 	}
 
-	public static final File getDefaultPropertyFile()
+	public static File getDefaultPropertyFile()
 	{
 		String result = System.getProperty("com.exedio.cope.properties");
 		if(result==null)
@@ -324,7 +324,7 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 					"not supported together with schema.primaryKeyGenerator=" + primaryKeyGenerator);
 	}
 
-	private static final String fromUrl(final String url)
+	private static String fromUrl(final String url)
 	{
 		final String prefix = "jdbc:";
 		if(!url.startsWith(prefix))

@@ -43,7 +43,7 @@ public final class MessageDigestHash extends Hash
 		super(algorithm(iterations));
 	}
 
-	public static final Algorithm algorithm(final int iterations)
+	public static Algorithm algorithm(final int iterations)
 	{
 		return new MessageDigestAlgorithm(DEFAULT_DIGEST, DEFAULT_SALT_LENGTH, iterations);
 	}

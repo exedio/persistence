@@ -40,7 +40,7 @@ final class ClusterUtil
 	static final int KIND_PONG       = 0x00110002;
 	static final int KIND_INVALIDATE = 0x00120001;
 
-	static final int marshal(int pos, final byte[] buf, final int i)
+	static int marshal(int pos, final byte[] buf, final int i)
 	{
 		buf[pos++] = (byte)( i       & 0xff);
 		buf[pos++] = (byte)((i>>> 8) & 0xff);
@@ -49,7 +49,7 @@ final class ClusterUtil
 		return pos;
 	}
 
-	static final int marshal(int pos, final byte[] buf, final long i)
+	static int marshal(int pos, final byte[] buf, final long i)
 	{
 		buf[pos++] = (byte)( i       & 0xff);
 		buf[pos++] = (byte)((i>>> 8) & 0xff);

@@ -161,7 +161,7 @@ public final class TypesBound
 
 	// TODO reuse futures
 	// TODO use some direct future if javaclass is already in types
-	static final <T extends Item> TypeFuture<T> future(final Class<T> javaClass)
+	static <T extends Item> TypeFuture<T> future(final Class<T> javaClass)
 	{
 		return new TypeFuture<T>()
 		{
@@ -184,7 +184,7 @@ public final class TypesBound
 	 * @deprecated Use {@link ItemField#create(Class)} instead
 	 */
 	@Deprecated
-	public static final <E extends Item> ItemField<E> newItemField(final Class<E> valueClass)
+	public static <E extends Item> ItemField<E> newItemField(final Class<E> valueClass)
 	{
 		return ItemField.create(valueClass);
 	}
@@ -193,7 +193,7 @@ public final class TypesBound
 	 * @deprecated Use {@link ItemField#create(Class, DeletePolicy)} instead
 	 */
 	@Deprecated
-	public static final <E extends Item> ItemField<E> newItemField(final Class<E> valueClass, final DeletePolicy policy)
+	public static <E extends Item> ItemField<E> newItemField(final Class<E> valueClass, final DeletePolicy policy)
 	{
 		return ItemField.create(valueClass, policy);
 	}

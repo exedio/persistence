@@ -159,7 +159,7 @@ final class JavaFile
 	 * in this java file.
 	 * Is null, if no package statement found.
 	 */
-	public final String getPackageName()
+	public String getPackageName()
 	{
 		return packagename;
 	}
@@ -167,7 +167,7 @@ final class JavaFile
 	/**
 	 * Adds the value of an import statement.
 	 */
-	public final void addImport(final String importname)
+	public void addImport(final String importname)
 	{
 		if(!buildStageForImports)
 			throw new RuntimeException();
@@ -185,7 +185,7 @@ final class JavaFile
 		}
 	}
 
-	public final Class<?> findTypeExternally(final String typename)
+	public Class<?> findTypeExternally(final String typename)
 	{
 		//System.out.println("findtype: >"+typename+"<");
 

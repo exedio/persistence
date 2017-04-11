@@ -72,7 +72,7 @@ public final class Transaction
 	}
 
 	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: no generic array creation
-	private static final <X> TLongObjectHashMap<X>[] cast(final TLongObjectHashMap[] o)
+	private static <X> TLongObjectHashMap<X>[] cast(final TLongObjectHashMap[] o)
 	{
 		return o;
 	}

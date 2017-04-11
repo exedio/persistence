@@ -26,7 +26,7 @@ import com.exedio.cope.StringField;
  */
 public final class NestedHashAlgorithm
 {
-	public static final HashAlgorithm create(
+	public static HashAlgorithm create(
 			final HashAlgorithm legacy,
 			final HashAlgorithm target)
 	{

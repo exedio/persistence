@@ -51,7 +51,7 @@ import javax.servlet.ServletContextListener;
  */
 public final class PropertiesInitializer implements ServletContextListener
 {
-	private static final Model[] models()
+	private static Model[] models()
 	{
 		return new Model[]{
 				IntegerModelTest.MODEL,

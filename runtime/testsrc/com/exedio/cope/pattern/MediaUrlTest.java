@@ -49,7 +49,7 @@ public final class MediaUrlTest extends TestWithEnvironment
 
 	private MediaUrlItem named, anond;
 
-	@Before public final void setUp()
+	@Before public void setUp()
 	{
 		named = new MediaUrlItem("phrase");
 		anond = new MediaUrlItem(null);

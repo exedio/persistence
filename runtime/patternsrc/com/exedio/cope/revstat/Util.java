@@ -23,12 +23,12 @@ import com.exedio.cope.StringField;
 
 final class Util
 {
-	static final SetValue<String> cutAndMap(final StringField f, final String s)
+	static SetValue<String> cutAndMap(final StringField f, final String s)
 	{
 		return f.map(shortify(f, s));
 	}
 
-	private static final String shortify(final StringField f, final String s)
+	private static String shortify(final StringField f, final String s)
 	{
 		assert f.getMinimumLength()==1 : f;
 		assert f.getMaximumLength()>=POSTFIX.length() : f;

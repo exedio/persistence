@@ -73,7 +73,7 @@ public final class AbstractRuntimeTest
 	static final Double d8 = Double.valueOf(8.8);
 	static final Double d9 = Double.valueOf(9.9);
 
-	public static final void assertEqualContent(final byte[] expectedData, final File actualFile) throws IOException
+	public static void assertEqualContent(final byte[] expectedData, final File actualFile) throws IOException
 	{
 		if(expectedData==null)
 			assertFalse(actualFile.exists());

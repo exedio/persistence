@@ -74,12 +74,12 @@ public final class Serializer<E> extends Pattern implements Settable<E>
 		addSource(source, "data", ComputedElement.get());
 	}
 
-	public static final <E> Serializer<E> create(final Class<E> valueClass, final DataField source)
+	public static <E> Serializer<E> create(final Class<E> valueClass, final DataField source)
 	{
 		return new Serializer<>(valueClass, source);
 	}
 
-	public static final <E> Serializer<E> create(final Class<E> valueClass)
+	public static <E> Serializer<E> create(final Class<E> valueClass)
 	{
 		return new Serializer<>(valueClass, new DataField());
 	}
@@ -193,7 +193,7 @@ public final class Serializer<E> extends Pattern implements Settable<E>
 	 * @deprecated Use {@link #create(Class,DataField)} instead
 	 */
 	@Deprecated
-	public static final <E> Serializer<E> newSerializer(final Class<E> valueClass, final DataField source)
+	public static <E> Serializer<E> newSerializer(final Class<E> valueClass, final DataField source)
 	{
 		return create(valueClass, source);
 	}
@@ -202,7 +202,7 @@ public final class Serializer<E> extends Pattern implements Settable<E>
 	 * @deprecated Use {@link #create(Class)} instead
 	 */
 	@Deprecated
-	public static final <E> Serializer<E> newSerializer(final Class<E> valueClass)
+	public static <E> Serializer<E> newSerializer(final Class<E> valueClass)
 	{
 		return create(valueClass);
 	}

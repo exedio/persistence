@@ -69,7 +69,7 @@ public final class MapField<K,V> extends Pattern implements MapFieldInterface<K,
 		return field;
 	}
 
-	public static final <K,V> MapField<K,V> create(final FunctionField<K> key, final FunctionField<V> value)
+	public static <K,V> MapField<K,V> create(final FunctionField<K> key, final FunctionField<V> value)
 	{
 		return new MapField<>(key, value);
 	}
@@ -112,7 +112,7 @@ public final class MapField<K,V> extends Pattern implements MapFieldInterface<K,
 		}
 	}
 
-	private final Mount mount()
+	private Mount mount()
 	{
 		final Mount mount = this.mountIfMounted;
 		if(mount==null)
@@ -286,7 +286,7 @@ public final class MapField<K,V> extends Pattern implements MapFieldInterface<K,
 	 * @deprecated Use {@link #create(FunctionField,FunctionField)} instead
 	 */
 	@Deprecated
-	public static final <K,V> MapField<K,V> newMap(final FunctionField<K> key, final FunctionField<V> value)
+	public static <K,V> MapField<K,V> newMap(final FunctionField<K> key, final FunctionField<V> value)
 	{
 		return create(key, value);
 	}

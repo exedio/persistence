@@ -114,7 +114,7 @@ public final class CompositeType<T extends Composite> implements TemplatedType<T
 	}
 
 	@SuppressWarnings({"unchecked", "rawtypes"})
-	private static final void check(final FunctionField field, final Object value)
+	private static void check(final FunctionField field, final Object value)
 	{
 		field.check(value);
 	}
@@ -268,7 +268,7 @@ public final class CompositeType<T extends Composite> implements TemplatedType<T
 
 	private static final HashMap<Class<?>, CompositeType<?>> types = new HashMap<>();
 
-	static final <T extends Composite> CompositeType<T> get(final Class<T> javaClass)
+	static <T extends Composite> CompositeType<T> get(final Class<T> javaClass)
 	{
 		assertFinalSubClass(CompositeField.class, Composite.class, javaClass);
 

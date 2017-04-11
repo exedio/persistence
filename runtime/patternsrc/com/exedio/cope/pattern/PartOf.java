@@ -57,12 +57,12 @@ public final class PartOf<C extends Item> extends Pattern
 			addSource(order, "Order");
 	}
 
-	public static final <C extends Item> PartOf<C> create(final ItemField<C> container)
+	public static <C extends Item> PartOf<C> create(final ItemField<C> container)
 	{
 		return new PartOf<>(container, null);
 	}
 
-	public static final <C extends Item> PartOf<C> create(final ItemField<C> container, final FunctionField<?> order)
+	public static <C extends Item> PartOf<C> create(final ItemField<C> container, final FunctionField<?> order)
 	{
 		return new PartOf<>(container, requireNonNull(order, "order"));
 	}
@@ -123,7 +123,7 @@ public final class PartOf<C extends Item> extends Pattern
 	 * Returns all part-of declarations where <tt>type</tt> or any of it's super types is
 	 * the container type {@link #getContainer()}.{@link ItemField#getValueType() getValueType()}.
 	 */
-	public static final List<PartOf<?>> getPartOfs(final Type<?> type)
+	public static List<PartOf<?>> getPartOfs(final Type<?> type)
 	{
 		return PartOfReverse.get(type);
 	}
@@ -132,7 +132,7 @@ public final class PartOf<C extends Item> extends Pattern
 	 * Returns all part-of declarations where <tt>type</tt> is
 	 * the container type {@link #getContainer()}.{@link ItemField#getValueType() getValueType()}.
 	 */
-	public static final List<PartOf<?>> getDeclaredPartOfs(final Type<?> type)
+	public static List<PartOf<?>> getDeclaredPartOfs(final Type<?> type)
 	{
 		return PartOfReverse.getDeclared(type);
 	}
@@ -141,7 +141,7 @@ public final class PartOf<C extends Item> extends Pattern
 	 * Returns all partofs of the <tt>pattern</tt>. Considers a one step recursion
 	 * for {@link History}.
 	 */
-	public static final List<PartOf<?>> getPartOfs(final Pattern pattern)
+	public static List<PartOf<?>> getPartOfs(final Pattern pattern)
 	{
 		final ArrayList<PartOf<?>> result = new ArrayList<>();
 		for(final PartOf<?> partOf : PartOf.getPartOfs(pattern.getType()))
@@ -173,7 +173,7 @@ public final class PartOf<C extends Item> extends Pattern
 	 * @deprecated Use {@link #create(ItemField)} instead
 	 */
 	@Deprecated
-	public static final <C extends Item> PartOf<C> newPartOf(final ItemField<C> container)
+	public static <C extends Item> PartOf<C> newPartOf(final ItemField<C> container)
 	{
 		return create(container);
 	}
@@ -182,7 +182,7 @@ public final class PartOf<C extends Item> extends Pattern
 	 * @deprecated Use {@link #create(ItemField,FunctionField)} instead
 	 */
 	@Deprecated
-	public static final <C extends Item> PartOf<C> newPartOf(final ItemField<C> container, final FunctionField<?> order)
+	public static <C extends Item> PartOf<C> newPartOf(final ItemField<C> container, final FunctionField<?> order)
 	{
 		return create(container, order);
 	}

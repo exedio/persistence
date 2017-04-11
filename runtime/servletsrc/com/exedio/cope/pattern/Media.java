@@ -121,7 +121,7 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 	}
 
 	@SuppressWarnings({"unchecked", "rawtypes"})
-	static final <F extends Field> F applyConstraints(
+	static <F extends Field> F applyConstraints(
 			F field,
 			final boolean isfinal,
 			final boolean optional)
@@ -265,7 +265,7 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 	}
 
 	@Override
-	public final boolean isMandatory()
+	public boolean isMandatory()
 	{
 		return !optional;
 	}
@@ -567,7 +567,7 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 		item.set(execute(toValue(body, contentType), item));
 	}
 
-	public static final Value toValue(final DataField.Value body, final String contentType)
+	public static Value toValue(final DataField.Value body, final String contentType)
 	{
 		if(body!=null)
 		{
@@ -585,17 +585,17 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 		}
 	}
 
-	public static final Value toValue(final byte[] body, final String contentType)
+	public static Value toValue(final byte[] body, final String contentType)
 	{
 		return toValue(DataField.toValue(body), contentType);
 	}
 
-	public static final Value toValue(final InputStream body, final String contentType)
+	public static Value toValue(final InputStream body, final String contentType)
 	{
 		return toValue(DataField.toValue(body), contentType);
 	}
 
-	public static final Value toValue(final File body, final String contentType)
+	public static Value toValue(final File body, final String contentType)
 	{
 		return toValue(DataField.toValue(body), contentType);
 	}
@@ -635,7 +635,7 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 		}
 	}
 
-	public static final Media get(final DataField field)
+	public static Media get(final DataField field)
 	{
 		final Pattern pattern = field.getPattern();
 		if(pattern instanceof Media)

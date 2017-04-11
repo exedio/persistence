@@ -38,7 +38,7 @@ final class LocalCopeType extends CopeType<LocalCopeFeature>
 
 	private static final HashMap<JavaClass, LocalCopeType> copeTypeByJavaClass = new HashMap<>();
 
-	static final LocalCopeType getCopeType(final JavaClass javaClass)
+	static LocalCopeType getCopeType(final JavaClass javaClass)
 	{
 		final LocalCopeType result = copeTypeByJavaClass.get(javaClass);
 		//System.out.println("getCopeClass "+javaClass.getFullName()+" "+(result==null?"NULL":result.getName()));

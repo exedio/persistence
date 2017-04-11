@@ -52,7 +52,7 @@ public final class MultiplyView<E extends Number> extends NumberView<E>
 
 	@Override
 	@SuppressWarnings("unchecked")
-	public final E mapJava(final Object[] sourceValues)
+	public E mapJava(final Object[] sourceValues)
 	{
 		final Class<E> vc = valueClass;
 		if(valueClass==Integer.class)
@@ -94,7 +94,7 @@ public final class MultiplyView<E extends Number> extends NumberView<E>
 
 	@Override
 	@Deprecated // OK: for internal use within COPE only
-	public final void append(final Statement bf, final Join join)
+	public void append(final Statement bf, final Join join)
 	{
 		bf.append('(');
 		for(int i = 0; i<multipliers.length; i++)

@@ -36,7 +36,7 @@ public final class WithinPurgeStampsRule implements TestRule
 	}
 
 	@Override
-	public final Statement apply(final Statement base, final Description description)
+	public Statement apply(final Statement base, final Description description)
 	{
 		final Model model = this.model; // avoid synthetic-access warning
 		final Runnable within = this.within; // avoid synthetic-access warning

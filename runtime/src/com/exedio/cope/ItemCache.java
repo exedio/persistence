@@ -76,7 +76,7 @@ final class ItemCache
 		}
 	}
 
-	private final boolean stampsEnabled()
+	private boolean stampsEnabled()
 	{
 		return stampList!=null;
 	}

@@ -81,7 +81,7 @@ final class EnumFieldType<E extends Enum<E>> implements SelectType<E>
 			: n - mod;
 	}
 
-	private static final CopeSchemaValue schemaValue(final Enum<?> e)
+	private static CopeSchemaValue schemaValue(final Enum<?> e)
 	{
 		return EnumAnnotatedElement.get(e).getAnnotation(CopeSchemaValue.class);
 	}
@@ -138,7 +138,7 @@ final class EnumFieldType<E extends Enum<E>> implements SelectType<E>
 
 	private static final HashMap<Class<?>, EnumFieldType<?>> types = new HashMap<>();
 
-	static final <E extends Enum<E>> EnumFieldType<E> get(final Class<E> valueClass)
+	static <E extends Enum<E>> EnumFieldType<E> get(final Class<E> valueClass)
 	{
 		if(!valueClass.isEnum())
 			throw new IllegalArgumentException("not an enum: " + valueClass);

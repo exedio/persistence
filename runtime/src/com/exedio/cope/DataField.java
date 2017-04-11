@@ -116,7 +116,7 @@ public final class DataField extends Field<DataField.Value>
 		this.bufferSizeLimit   = limit;
 	}
 
-	private static final int toInt(final long l)
+	private static int toInt(final long l)
 	{
 		return min(Integer.MAX_VALUE, l);
 	}
@@ -124,7 +124,7 @@ public final class DataField extends Field<DataField.Value>
 	/**
 	 * @throws IllegalArgumentException if either i or l is negative
 	 */
-	public static final int min(final int i, final long l)
+	public static int min(final int i, final long l)
 	{
 		if(i<0)
 			throw new IllegalArgumentException("i must not be negative, but was " + i);
@@ -359,19 +359,19 @@ public final class DataField extends Field<DataField.Value>
 	}
 
 	@Override
-	final void checkNotNull(final Value value, final Item item)
+	void checkNotNull(final Value value, final Item item)
 	{
 		final long lengthIfKnown = value.estimateLength();
 		if(lengthIfKnown>maximumLength)
 			throw new DataLengthViolationException(this, item, lengthIfKnown, true);
 	}
 
-	final void copy(final InputStream in, final OutputStream out, final Item exceptionItem) throws IOException
+	void copy(final InputStream in, final OutputStream out, final Item exceptionItem) throws IOException
 	{
 		copy(in, out, bufferSizeDefault, exceptionItem);
 	}
 
-	final void copy(final InputStream in, final OutputStream out, final long length, final Item exceptionItem) throws IOException
+	void copy(final InputStream in, final OutputStream out, final long length, final Item exceptionItem) throws IOException
 	{
 		if(length==0)
 			return;
@@ -393,7 +393,7 @@ public final class DataField extends Field<DataField.Value>
 		}
 	}
 
-	static final byte[] copy(final InputStream in, final long length)
+	static byte[] copy(final InputStream in, final long length)
 	{
 		try
 		{

@@ -160,7 +160,7 @@ public final class CompositeCondition extends Condition
 	}
 
 	@SafeVarargs
-	public static final <E> Condition in(final Function<E> function, final E... values)
+	public static <E> Condition in(final Function<E> function, final E... values)
 	{
 		switch(values.length)
 		{
@@ -179,7 +179,7 @@ public final class CompositeCondition extends Condition
 		}
 	}
 
-	public static final <E> Condition in(final Function<E> function, final Collection<? extends E> values)
+	public static <E> Condition in(final Function<E> function, final Collection<? extends E> values)
 	{
 		switch(values.size())
 		{

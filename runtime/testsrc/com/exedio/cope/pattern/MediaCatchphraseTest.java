@@ -46,7 +46,7 @@ public final class MediaCatchphraseTest extends TestWithEnvironment
 	private MediaCatchPhraseItem wrong, normal, all, single, empty, nulL;
 	private MediaCatchPhraseSuperItem none;
 
-	@Before public final void setUp()
+	@Before public void setUp()
 	{
 		normal = new MediaCatchPhraseItem("normal");
 		all    = new MediaCatchPhraseItem("all01289ABCYZabcyz-_");

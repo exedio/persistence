@@ -45,7 +45,7 @@ public final class LocalizationKeys
 				withoutPackage));
 	}
 
-	private static final String withoutPackage(final Class<?> clazz)
+	private static String withoutPackage(final Class<?> clazz)
 	{
 		final String simple = CopeNameUtil.getAndFallbackToSimpleName(clazz);
 		final Class<?> enclosing = clazz.getEnclosingClass();

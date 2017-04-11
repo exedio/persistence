@@ -22,7 +22,7 @@ import static java.util.Objects.requireNonNull;
 
 public final class PlusLiteralView<E extends Number> extends NumberView<E>
 {
-	public static final <E extends Number> PlusLiteralView<E> plus(final Function<E> addend1, final E addend2)
+	public static <E extends Number> PlusLiteralView<E> plus(final Function<E> addend1, final E addend2)
 	{
 		return new PlusLiteralView<>(addend1, addend2);
 	}
@@ -49,7 +49,7 @@ public final class PlusLiteralView<E extends Number> extends NumberView<E>
 
 	@Override
 	@SuppressWarnings("unchecked")
-	public final E mapJava(final Object[] sourceValues)
+	public E mapJava(final Object[] sourceValues)
 	{
 		assert sourceValues.length==1;
 		final Number leftValue = (Number)sourceValues[0];
@@ -84,7 +84,7 @@ public final class PlusLiteralView<E extends Number> extends NumberView<E>
 
 	@Override
 	@Deprecated // OK: for internal use within COPE only
-	public final void append(final Statement bf, final Join join)
+	public void append(final Statement bf, final Join join)
 	{
 		bf.append('(');
 		bf.append(left, join);

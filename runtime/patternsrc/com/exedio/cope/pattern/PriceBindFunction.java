@@ -91,7 +91,7 @@ final class PriceBindFunction implements PriceFunction
 	}
 
 	@Override
-	public final String toString()
+	public String toString()
 	{
 		return integer.toString();
 	}

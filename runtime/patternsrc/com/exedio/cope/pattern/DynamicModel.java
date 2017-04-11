@@ -119,7 +119,7 @@ public final class DynamicModel<L> extends Pattern
 		return new ItemField[length];
 	}
 
-	public static final <L> DynamicModel<L> create(
+	public static <L> DynamicModel<L> create(
 			final FunctionField<L> locale,
 			final int stringCapacity,
 			final int booleanCapacity,
@@ -131,7 +131,7 @@ public final class DynamicModel<L> extends Pattern
 				stringCapacity, booleanCapacity, integerCapacity, doubleCapacity, enumCapacity);
 	}
 
-	public static final <L> DynamicModel<L> create(final FunctionField<L> locale)
+	public static <L> DynamicModel<L> create(final FunctionField<L> locale)
 	{
 		return new DynamicModel<>(locale, 5, 5, 5, 5, 5);
 	}
@@ -822,7 +822,7 @@ public final class DynamicModel<L> extends Pattern
 	 * @deprecated Use {@link #create(FunctionField,int,int,int,int,int)} instead
 	 */
 	@Deprecated
-	public static final <L> DynamicModel<L> newModel(
+	public static <L> DynamicModel<L> newModel(
 			final FunctionField<L> locale,
 			final int stringCapacity,
 			final int booleanCapacity,
@@ -838,7 +838,7 @@ public final class DynamicModel<L> extends Pattern
 	 * @deprecated Use {@link #create(FunctionField)} instead
 	 */
 	@Deprecated
-	public static final <L> DynamicModel<L> newModel(final FunctionField<L> locale)
+	public static <L> DynamicModel<L> newModel(final FunctionField<L> locale)
 	{
 		return create(locale);
 	}

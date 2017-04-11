@@ -112,7 +112,7 @@ final class Generator
 		this.hintFormat = params.hintFormat;
 	}
 
-	private static final String toCamelCase(final String name)
+	private static String toCamelCase(final String name)
 	{
 		final char first = name.charAt(0);
 		if (Character.isUpperCase(first))
@@ -121,7 +121,7 @@ final class Generator
 			return Character.toUpperCase(first) + name.substring(1);
 	}
 
-	private static final String lowerCamelCase(final String s)
+	private static String lowerCamelCase(final String s)
 	{
 		final char first = s.charAt(0);
 		if(Character.isLowerCase(first))

@@ -45,7 +45,7 @@ final class ModifiedState extends State
 	}
 
 	@Override
-	public final State delete( final Transaction transaction )
+	public State delete( final Transaction transaction )
 	{
 		return new DeletedState( transaction, this );
 	}

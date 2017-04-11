@@ -33,7 +33,7 @@ final class Intern
 			System.out.println("COPE: skipping String#intern()");
 	}
 
-	static final String intern(final String s)
+	static String intern(final String s)
 	{
 		if(skip)
 			return s;

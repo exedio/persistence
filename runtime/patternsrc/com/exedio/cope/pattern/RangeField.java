@@ -56,7 +56,7 @@ public final class RangeField<E extends Comparable<E>> extends Pattern implement
 		this.isfinal = from.isFinal();
 	}
 
-	public static final <E extends Comparable<E>> RangeField<E> create(final FunctionField<E> borderTemplate)
+	public static <E extends Comparable<E>> RangeField<E> create(final FunctionField<E> borderTemplate)
 	{
 		if(borderTemplate.getImplicitUniqueConstraint()!=null)
 			throw new IllegalArgumentException("unique borderTemplate is not supported");
@@ -197,7 +197,7 @@ public final class RangeField<E extends Comparable<E>> extends Pattern implement
 	 * @deprecated Use {@link #create(FunctionField)} instead
 	 */
 	@Deprecated
-	public static final <E extends Comparable<E>> RangeField<E> newRange(final FunctionField<E> borderTemplate)
+	public static <E extends Comparable<E>> RangeField<E> newRange(final FunctionField<E> borderTemplate)
 	{
 		return create(borderTemplate);
 	}

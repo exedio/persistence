@@ -282,7 +282,7 @@ public final class Money<C extends Money.Currency>
 		return result;
 	}
 
-	public static final <CURRENCY extends Money.Currency> Money<CURRENCY>[] array(final int size)
+	public static <CURRENCY extends Money.Currency> Money<CURRENCY>[] array(final int size)
 	{
 		@SuppressWarnings({"unchecked","rawtypes"})
 		final Money<CURRENCY>[] result = new Money[size];

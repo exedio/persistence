@@ -45,7 +45,7 @@ public final class EnumField<E extends Enum<E>> extends FunctionField<E>
 		mountDefaultSource();
 	}
 
-	public static final <E extends Enum<E>> EnumField<E> create(final Class<E> valueClass)
+	public static <E extends Enum<E>> EnumField<E> create(final Class<E> valueClass)
 	{
 		return new EnumField<>(false, false, valueClass, false, null, null);
 	}
@@ -140,7 +140,7 @@ public final class EnumField<E extends Enum<E>> extends FunctionField<E>
 	}
 
 	@Override
-	final void mount(final Type<?> type, final String name, final AnnotatedElement annotationSource)
+	void mount(final Type<?> type, final String name, final AnnotatedElement annotationSource)
 	{
 		if(!this.optional && valueType.isSingle())
 			throw new IllegalArgumentException(
@@ -189,7 +189,7 @@ public final class EnumField<E extends Enum<E>> extends FunctionField<E>
 	 * @deprecated Use {@link SchemaInfo#getColumnValue(EnumField,Enum)} instead
 	 */
 	@Deprecated
-	public final int getColumnValue(final E value)
+	public int getColumnValue(final E value)
 	{
 		return SchemaInfo.getColumnValue(this, value);
 	}

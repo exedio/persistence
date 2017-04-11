@@ -280,7 +280,7 @@ public final class History extends Pattern
 			return pattern.featureType.search(Cope.equalAndCast(pattern.featureEvent, this), pattern.featureType.getThis(), true);
 		}
 
-		private static final SetValue<?> cut(final StringField f, final Object o)
+		private static SetValue<?> cut(final StringField f, final Object o)
 		{
 			final String result;
 
@@ -367,7 +367,7 @@ public final class History extends Pattern
 		}
 	}
 
-	public static final List<History> getHistories(final Type<?> type)
+	public static List<History> getHistories(final Type<?> type)
 	{
 		ArrayList<History> result = null;
 		for(final com.exedio.cope.Feature f : type.getFeatures())

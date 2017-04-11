@@ -40,7 +40,7 @@ final class IntegerFieldRangeDigits
 				pow(maximumDigits  )-1);
 	}
 
-	private static final void check(
+	private static void check(
 			final int minimum,
 			final int maximum,
 			final int actual,
@@ -52,7 +52,7 @@ final class IntegerFieldRangeDigits
 					", but was " + actual);
 	}
 
-	private static final int pow(final int exponent)
+	private static int pow(final int exponent)
 	{
 		return (int)Math.round(Math.pow(10, exponent));
 	}

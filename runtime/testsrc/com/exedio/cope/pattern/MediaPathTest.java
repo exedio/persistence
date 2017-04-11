@@ -63,7 +63,7 @@ public final class MediaPathTest extends TestWithEnvironment
 	private MyMediaServlet servlet;
 	private MediaInfo normalInfo = null;
 
-	@Before public final void setUp()
+	@Before public void setUp()
 	{
 		item = new MediaPathItem();
 		id = item.getCopeID();
@@ -73,7 +73,7 @@ public final class MediaPathTest extends TestWithEnvironment
 		normalInfo = MediaPathItem.normal.getInfo();
 	}
 
-	@After public final void tearDown()
+	@After public void tearDown()
 	{
 		servlet.destroy();
 		for(final Type<?> type : MODEL.getTypes())

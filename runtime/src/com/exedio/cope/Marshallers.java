@@ -121,7 +121,7 @@ final class Marshallers
 				return (cell!=null) ? convert(cell) : null;
 			}
 
-			private final Long convert(final Object o)
+			private Long convert(final Object o)
 			{
 				// must not use Number#longValue() as it wraps values outside 32bit
 				if(o instanceof Long)
@@ -154,7 +154,7 @@ final class Marshallers
 				return (cell!=null) ? convert(cell) : null;
 			}
 
-			private final Double convert(final Object o)
+			private Double convert(final Object o)
 			{
 				if(o instanceof BigDecimal)
 					return Double.valueOf(((BigDecimal)o).doubleValue()); // for SumAggregate on Oracle

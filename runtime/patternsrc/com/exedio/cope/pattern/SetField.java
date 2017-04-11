@@ -69,7 +69,7 @@ public final class SetField<E> extends Pattern implements Copyable
 			throw new IllegalArgumentException("element must not be unique");
 	}
 
-	public static final <E> SetField<E> create(final FunctionField<E> element)
+	public static <E> SetField<E> create(final FunctionField<E> element)
 	{
 		return new SetField<>(element);
 	}
@@ -117,7 +117,7 @@ public final class SetField<E> extends Pattern implements Copyable
 		}
 	}
 
-	private final Mount mount()
+	private Mount mount()
 	{
 		final Mount mount = this.mountIfMounted;
 		if(mount==null)
@@ -292,7 +292,7 @@ public final class SetField<E> extends Pattern implements Copyable
 	 * @deprecated Use {@link #create(FunctionField)} instead
 	 */
 	@Deprecated
-	public static final <E> SetField<E> newSet(final FunctionField<E> element)
+	public static <E> SetField<E> newSet(final FunctionField<E> element)
 	{
 		return create(element);
 	}

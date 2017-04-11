@@ -94,7 +94,7 @@ final class LocalCopeFeature extends CopeFeature
 		@Override public boolean override() { return false; }
 	};
 
-	final JavaClass getParent()
+	JavaClass getParent()
 	{
 		return javaField.parent;
 	}

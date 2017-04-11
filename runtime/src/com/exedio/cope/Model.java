@@ -184,7 +184,7 @@ public final class Model implements Serializable
 		}
 	}
 
-	private final void assertRevisionEnabled()
+	private void assertRevisionEnabled()
 	{
 		if(revisions==null)
 			throw new IllegalArgumentException("revisions are not enabled");
@@ -1392,7 +1392,7 @@ public final class Model implements Serializable
 	 * @deprecated Use {@link ConnectProperties#isLoggingEnabled()} instead, always returns false.
 	 */
 	@Deprecated
-	public static final boolean isLoggingEnabled()
+	public static boolean isLoggingEnabled()
 	{
 		return false;
 	}
@@ -1444,7 +1444,7 @@ public final class Model implements Serializable
 
 	@Deprecated
 	@SuppressWarnings("deprecation") // needed just for eclipse
-	private static final Revisions.Factory wrap(final RevisionsFuture revisions)
+	private static Revisions.Factory wrap(final RevisionsFuture revisions)
 	{
 		if(revisions==null)
 			return null;

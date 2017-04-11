@@ -62,7 +62,7 @@ public final class ListField<E> extends AbstractListField<E> implements Copyable
 			throw new IllegalArgumentException("element must not be unique");
 	}
 
-	public static final <E> ListField<E> create(final FunctionField<E> element)
+	public static <E> ListField<E> create(final FunctionField<E> element)
 	{
 		return new ListField<>(element);
 	}
@@ -111,7 +111,7 @@ public final class ListField<E> extends AbstractListField<E> implements Copyable
 		}
 	}
 
-	private final Mount mount()
+	private Mount mount()
 	{
 		final Mount mount = this.mountIfMounted;
 		if(mount==null)
@@ -270,7 +270,7 @@ public final class ListField<E> extends AbstractListField<E> implements Copyable
 	 * @deprecated Use {@link #create(FunctionField)} instead
 	 */
 	@Deprecated
-	public static final <E> ListField<E> newList(final FunctionField<E> element)
+	public static <E> ListField<E> newList(final FunctionField<E> element)
 	{
 		return create(element);
 	}
