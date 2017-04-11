@@ -67,7 +67,7 @@ public final class DatabaseLogListener implements DatabaseListener
 			final long durationClose)
 	{
 		if(( (threshold==0) || ((durationPrepare+durationExecute+durationRead+durationClose)>=threshold) ) &&
-			( (sql==null)    || (statement.indexOf(sql)>=0) ))
+			( (sql==null)    || (statement.contains(sql)) ))
 		{
 			final StringBuilder bf = new StringBuilder(
 					new SimpleDateFormat("yyyy/dd/MM HH:mm:ss.SSS", Locale.ENGLISH).format(new Date()));
