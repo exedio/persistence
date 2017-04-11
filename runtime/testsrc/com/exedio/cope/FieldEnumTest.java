@@ -36,7 +36,7 @@ import org.junit.Test;
 
 public class FieldEnumTest extends FieldTest
 {
-	public static enum SomeEnum2
+	public enum SomeEnum2
 	{
 		enumValue1,
 		enumValue2;

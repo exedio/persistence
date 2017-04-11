@@ -44,7 +44,7 @@ final class JavaRepository
 
 	final Interpreter interpreter = new Interpreter();
 
-	static enum Stage
+	enum Stage
 	{
 		BUILD,
 		BETWEEN,
@@ -268,7 +268,7 @@ final class JavaRepository
 	// The name of this enum and its only enum value
 	// must match the names used in the hack of the beanshell.
 	// see bsh-core.PATCH
-	public static enum EnumBeanShellHackClass implements Money.Currency
+	public enum EnumBeanShellHackClass implements Money.Currency
 	{
 		BEANSHELL_HACK_ATTRIBUTE;
 	}

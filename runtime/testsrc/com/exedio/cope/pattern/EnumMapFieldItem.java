@@ -25,7 +25,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public final class EnumMapFieldItem extends Item
 {
-	static enum Language
+	enum Language
 	{
 		DE, EN, PL,
 		SUBCLASS

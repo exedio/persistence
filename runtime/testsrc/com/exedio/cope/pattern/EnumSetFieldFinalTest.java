@@ -71,7 +71,7 @@ public class EnumSetFieldFinalTest
 				TYPE.getFields());
 	}
 
-	static enum AnEnum
+	enum AnEnum
 	{
 		DE, EN, PL;
 	}

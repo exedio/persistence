@@ -27,7 +27,7 @@ public final class Join implements Serializable
 {
 	private static final long serialVersionUID = 1l;
 
-	public static enum Kind
+	public enum Kind
 	{
 		INNER("join ", "JOIN "),
 		OUTER_LEFT("left join ", "LEFT JOIN "),

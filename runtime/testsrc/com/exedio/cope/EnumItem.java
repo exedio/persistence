@@ -20,7 +20,7 @@ package com.exedio.cope;
 
 final class EnumItem extends Item
 {
-	static enum Status
+	enum Status
 	{
 		status1,
 		status2,
@@ -29,7 +29,7 @@ final class EnumItem extends Item
 
 	static final EnumField<Status> status = EnumField.create(Status.class);
 
-	static enum Single
+	enum Single
 	{
 		single;
 	}

@@ -105,7 +105,7 @@ public final class CompareFunctionCondition<E> extends Condition
 		right.toString(bf, defaultType);
 	}
 
-	public static enum Operator
+	public enum Operator
 	{
 		Equal("=")
 		{

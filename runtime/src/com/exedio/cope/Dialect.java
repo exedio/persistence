@@ -305,7 +305,7 @@ abstract class Dialect
 
 	abstract LimitSupport getLimitSupport();
 
-	static enum LimitSupport
+	enum LimitSupport
 	{
 		CLAUSE_AFTER_WHERE,
 		CLAUSES_AROUND;

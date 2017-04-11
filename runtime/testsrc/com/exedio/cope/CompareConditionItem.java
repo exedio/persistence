@@ -31,7 +31,7 @@ final class CompareConditionItem extends Item
 	@WrapperInitial static final DayField day = new DayField().optional();
 	@WrapperInitial static final EnumField<YEnum> enumx = EnumField.create(YEnum.class).optional();
 
-	static enum YEnum
+	enum YEnum
 	{
 		V1, V2, V3, V4, V5, VX;
 	}

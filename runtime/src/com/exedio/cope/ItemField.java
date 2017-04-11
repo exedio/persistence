@@ -465,7 +465,7 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 		return executor.query(connection, bf, null, false, longResultSetHandler);
 	}
 
-	public static enum DeletePolicy
+	public enum DeletePolicy
 	{
 		FORBID,
 		NULLIFY,

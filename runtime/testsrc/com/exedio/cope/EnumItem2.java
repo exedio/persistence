@@ -20,7 +20,7 @@ package com.exedio.cope;
 
 public final class EnumItem2 extends Item
 {
-	public static enum Status
+	public enum Status
 	{
 		state1,
 		state2;

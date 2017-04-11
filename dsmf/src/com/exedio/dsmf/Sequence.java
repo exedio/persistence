@@ -131,7 +131,7 @@ public final class Sequence extends Node
 		return name;
 	}
 
-	public static enum Type
+	public enum Type
 	{
 		bit31(Integer.MAX_VALUE),
 		bit63(Long   .MAX_VALUE);

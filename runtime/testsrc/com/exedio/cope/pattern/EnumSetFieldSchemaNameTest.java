@@ -54,7 +54,7 @@ public class EnumSetFieldSchemaNameTest
 		assertEquals("schemaName", schemaName, SchemaInfo.getColumnName(field));
 	}
 
-	private static enum AnEnum
+	private enum AnEnum
 	{
 		one,
 		@CopeSchemaName("woo")

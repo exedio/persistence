@@ -38,7 +38,7 @@ public class EnumFieldNameTest
 		assertEquals("map-underline", AnItem.map.getField(AnEnum.under_line).getName());
 	}
 
-	private static enum AnEnum
+	private enum AnEnum
 	{
 		normal,
 		under_line;

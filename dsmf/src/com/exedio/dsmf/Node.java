@@ -27,7 +27,7 @@ import java.sql.SQLException;
 
 public abstract class Node
 {
-	public static enum Color
+	public enum Color
 	{
 		OK("ok"),
 		WARNING("warning"),

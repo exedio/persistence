@@ -198,7 +198,7 @@ public final class CompositeCondition extends Condition
 		}
 	}
 
-	public static enum Operator
+	public enum Operator
 	{
 		AND(" AND ", FALSE, TRUE),
 		OR (" OR ",  TRUE, FALSE);
@@ -207,7 +207,7 @@ public final class CompositeCondition extends Condition
 		final Literal absorber;
 		final Literal identity;
 
-		private Operator(
+		Operator(
 				final String sql,
 				final Literal absorber,
 				final Literal identity)

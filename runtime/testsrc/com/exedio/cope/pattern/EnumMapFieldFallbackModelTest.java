@@ -119,7 +119,7 @@ public class EnumMapFieldFallbackModelTest
 	}
 
 
-	static enum AnEnum
+	enum AnEnum
 	{
 		one, two, @CopeEnumFallback fall;
 	}

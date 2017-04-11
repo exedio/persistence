@@ -45,7 +45,7 @@ final class CompareFunctionConditionItem extends Item
 	@WrapperInitial static final EnumField<XEnum> enumA = EnumField.create(XEnum.class).optional();
 	@WrapperInitial static final EnumField<XEnum> enumB = EnumField.create(XEnum.class).optional();
 
-	static enum XEnum
+	enum XEnum
 	{
 		V1, V2, V3, V4, V5;
 	}

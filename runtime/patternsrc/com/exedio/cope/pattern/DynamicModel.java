@@ -436,7 +436,7 @@ public final class DynamicModel<L> extends Pattern
 					", but was a " + pattern.localeTemplate.getValueClass().getName());
 	}
 
-	public static enum ValueType
+	public enum ValueType
 	{
 		STRING (String.class),
 		BOOLEAN(Boolean.class),

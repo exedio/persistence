@@ -25,7 +25,7 @@ import com.exedio.cope.StringField;
 
 public final class MapFieldItem extends Item
 {
-	static enum Language
+	enum Language
 	{
 		DE, EN, PL;
 	}

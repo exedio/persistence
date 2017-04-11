@@ -139,7 +139,7 @@ public final class AttributeItem extends Item
 	/**
 	 * An enum for the persistent enumeration attribute {@link #someEnum}.
 	 */
-	public static enum SomeEnum
+	public enum SomeEnum
 	{
 		enumValue1{@Override void zack(){/*empty*/}},
 		enumValue2{@Override void zack(){/*empty*/}},

@@ -136,7 +136,7 @@ public class EnumMapFieldFallbackTest extends TestWithEnvironment
 	}
 
 
-	static enum AnEnum
+	enum AnEnum
 	{
 		present, missing, @CopeEnumFallback fallback;
 	}
