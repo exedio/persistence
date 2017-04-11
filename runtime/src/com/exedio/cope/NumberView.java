@@ -23,7 +23,7 @@ public abstract class NumberView<E extends Number> extends View<E>
 {
 	private static final long serialVersionUID = 1l;
 
-	public NumberView(final Function<?>[] sources, final String name, final Class<E> valueClass)
+	protected NumberView(final Function<?>[] sources, final String name, final Class<E> valueClass)
 	{
 		super(sources, name, valueClass);
 	}

@@ -54,7 +54,7 @@ public abstract class MediaImageioFilter extends MediaFilter
 
 	private static final String outputContentType = "image/jpeg";
 
-	public MediaImageioFilter(final Media source)
+	protected MediaImageioFilter(final Media source)
 	{
 		super(source);
 		this.source = source;

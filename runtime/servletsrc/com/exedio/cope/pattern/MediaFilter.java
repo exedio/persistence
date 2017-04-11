@@ -35,7 +35,7 @@ public abstract class MediaFilter extends MediaPath
 
 	private final Media source;
 
-	public MediaFilter(final Media source)
+	protected MediaFilter(final Media source)
 	{
 		this.source = requireNonNull(source, "source");
 	}

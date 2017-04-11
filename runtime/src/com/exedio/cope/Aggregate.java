@@ -31,7 +31,7 @@ public abstract class Aggregate<E> implements Selectable<E>
 	private final String sqlPrefix;
 	private final SelectType<E> valueType;
 
-	public Aggregate(
+	protected Aggregate(
 			final Function<?> source,
 			final String name, final String sqlName,
 			final SelectType<E> valueType)

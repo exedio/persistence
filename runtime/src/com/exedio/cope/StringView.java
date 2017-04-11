@@ -23,7 +23,7 @@ public abstract class StringView extends View<String>
 {
 	private static final long serialVersionUID = 1l;
 
-	public StringView(final Function<?>[] sources, final String name)
+	protected StringView(final Function<?>[] sources, final String name)
 	{
 		super(sources, name, String.class);
 	}

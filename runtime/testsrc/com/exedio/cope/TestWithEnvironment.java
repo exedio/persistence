@@ -35,7 +35,7 @@ public abstract class TestWithEnvironment
 
 	private final RuntimeTester tester;
 
-	public TestWithEnvironment(final Model model)
+	protected TestWithEnvironment(final Model model)
 	{
 		copeRule = new CopeRuntimeRule(model);
 		this.model = model;

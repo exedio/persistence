@@ -22,7 +22,7 @@ import com.exedio.cope.testmodel.Main;
 
 public abstract class TestmodelTest extends TestWithEnvironment
 {
-	public TestmodelTest()
+	protected TestmodelTest()
 	{
 		super(Main.model);
 	}

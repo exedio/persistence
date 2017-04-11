@@ -30,7 +30,7 @@ public abstract class CopeModelTestTest extends TestWithEnvironment
 {
 	private static final Model MODEL = new Model(JUnitTestItem.TYPE);
 
-	public CopeModelTestTest()
+	protected CopeModelTestTest()
 	{
 		super(MODEL);
 	}

@@ -32,7 +32,7 @@ public abstract class SchemaMismatchTest extends TestWithEnvironment
 {
 	private final Model modelB;
 
-	public SchemaMismatchTest(final Model modelA, final Model modelB)
+	protected SchemaMismatchTest(final Model modelA, final Model modelB)
 	{
 		super(modelA);
 		copeRule.omitTransaction();

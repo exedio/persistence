@@ -29,7 +29,7 @@ public abstract class ConstraintViolationException extends RuntimeException
 
 	private final Item item;
 
-	public ConstraintViolationException(final Item item, final Throwable cause)
+	protected ConstraintViolationException(final Item item, final Throwable cause)
 	{
 		super(cause);
 		this.item = item;

@@ -48,7 +48,7 @@ public abstract class View<E> extends Feature
 	final Class<E> valueClass;
 	final Type<?> sourceType;
 
-	public View(final Function<?>[] sources, final String name, final Class<E> valueClass)
+	protected View(final Function<?>[] sources, final String name, final Class<E> valueClass)
 	{
 		this.sources = requireNonEmptyAndCopy(sources, "sources");
 		this.sourceList = Collections.unmodifiableList(Arrays.asList(this.sources));

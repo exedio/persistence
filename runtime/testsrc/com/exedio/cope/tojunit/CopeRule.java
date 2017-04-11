@@ -99,7 +99,7 @@ public abstract class CopeRule implements TestRule
 
 	private final Adaptee test;
 
-	public CopeRule(final Model model)
+	protected CopeRule(final Model model)
 	{
 		this.test = new Adaptee(model, this);
 	}
