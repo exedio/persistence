@@ -604,19 +604,19 @@ public class DoubleTest extends TestWithEnvironment
 		}
 	}
 
-	private static final IsNullCondition<Double> in(
+	private static IsNullCondition<Double> in(
 			final DoubleField field)
 	{
 		return new IsNullCondition<>(field, false);
 	}
 
-	private static final IsNullCondition<Double> nn(
+	private static IsNullCondition<Double> nn(
 			final DoubleField field)
 	{
 		return new IsNullCondition<>(field, true);
 	}
 
-	private static final CompareCondition<Double> cc(
+	private static CompareCondition<Double> cc(
 			final Operator operator,
 			final DoubleField field,
 			final Double value)

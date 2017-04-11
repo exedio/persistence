@@ -40,7 +40,7 @@ public class StringEscapeTest
 		assertEquals("'''''ab'", e("''ab"));
 	}
 
-	private static final String e(final String s)
+	private static String e(final String s)
 	{
 		return StringColumn.cacheToDatabaseStatic(s);
 	}

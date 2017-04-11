@@ -40,7 +40,7 @@ public class UrlFingerPrintingTypeTest
 		assertPresent(true,  true,  PresentItem.present);
 	}
 
-	private static final void assertPresent(
+	private static void assertPresent(
 			final boolean expectedValue,
 			final boolean expectedAnn,
 			final Media feature)

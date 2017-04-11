@@ -385,7 +385,7 @@ public class PriceTest
 		}
 	}
 
-	private static final BigDecimal bd(final long unscaledVal, final int scale)
+	private static BigDecimal bd(final long unscaledVal, final int scale)
 	{
 		return BigDecimal.valueOf(unscaledVal, scale);
 	}

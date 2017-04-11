@@ -259,7 +259,7 @@ public class MediaTypeTest
 		return MediaType.forMagic(magic);
 	}
 
-	private static final Set<Object> set(final MediaType... o)
+	private static Set<Object> set(final MediaType... o)
 	{
 		return new LinkedHashSet<>(Arrays.asList(o));
 	}

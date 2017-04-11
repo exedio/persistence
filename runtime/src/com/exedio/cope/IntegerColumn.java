@@ -198,7 +198,7 @@ class IntegerColumn extends Column
 		return longInsteadOfInt ? (Long)cache : (Object)(Integer)cache;
 	}
 
-	private final Number convertSQLResult(final Object sqlInteger)
+	private Number convertSQLResult(final Object sqlInteger)
 	{
 		// IMPLEMENTATION NOTE for Oracle
 		// Whether the returned object is an Integer or a BigDecimal,

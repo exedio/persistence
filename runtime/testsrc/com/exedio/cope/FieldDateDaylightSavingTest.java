@@ -140,12 +140,12 @@ public class FieldDateDaylightSavingTest extends FieldTest
 	}
 
 
-	private static final Date date(final String s) throws ParseException
+	private static Date date(final String s) throws ParseException
 	{
 		return df().parse(s);
 	}
 
-	private static final SimpleDateFormat df()
+	private static SimpleDateFormat df()
 	{
 		final SimpleDateFormat result = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS (z)");
 		result.setTimeZone(getTimeZone("Europe/Berlin"));

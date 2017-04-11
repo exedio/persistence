@@ -133,7 +133,7 @@ public class ClusterNetworkPingTest extends ClusterNetworkTest
 		}
 	}
 
-	private final void assertIt(
+	private void assertIt(
 			final int fromMyself,
 			final ClusterListenerInfo actual)
 	{
@@ -143,7 +143,7 @@ public class ClusterNetworkPingTest extends ClusterNetworkTest
 		assertEquals(this.fromMyself ? fromMyself : 0, actual.getFromMyself());
 	}
 
-	private static final void assertIt(
+	private static void assertIt(
 			final int inOrder,
 			final SequenceChecker.Info actual)
 	{
@@ -155,7 +155,7 @@ public class ClusterNetworkPingTest extends ClusterNetworkTest
 		assertEquals(0, actual.getPending());
 	}
 
-	private static final void assertLastRoundTripSet(
+	private static void assertLastRoundTripSet(
 			final boolean expected,
 			final ClusterListenerInfo.Node actual)
 	{

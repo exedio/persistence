@@ -98,7 +98,7 @@ public class DatePrecisionSchemaTest extends TestWithEnvironment
 	}
 
 	// native date
-	private final String extract(final DateField field, final Precision precision)
+	private String extract(final DateField field, final Precision precision)
 	{
 		switch(dialect)
 		{
@@ -113,7 +113,7 @@ public class DatePrecisionSchemaTest extends TestWithEnvironment
 		}
 	}
 
-	private final String floor(final String s)
+	private String floor(final String s)
 	{
 		switch(dialect)
 		{
@@ -129,7 +129,7 @@ public class DatePrecisionSchemaTest extends TestWithEnvironment
 	}
 
 	// integer date
-	private final String precision(final DateField field, final int divisor)
+	private String precision(final DateField field, final int divisor)
 	{
 		switch(dialect)
 		{

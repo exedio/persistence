@@ -74,7 +74,7 @@ public class TextUrlFilterDelegatorAnnotationTest
 		assertPresent(false, fingerRaw, Deprecated.class);
 	}
 
-	private static final void assertPresent(
+	private static void assertPresent(
 			final boolean expected,
 			final Feature feature,
 			final Class<? extends Annotation> annotationClass)
@@ -96,7 +96,7 @@ public class TextUrlFilterDelegatorAnnotationTest
 		assertPath(false, true,  AnItem.finger);
 	}
 
-	private static final void assertPath(
+	private static void assertPath(
 			final boolean expectedSecret,
 			final boolean expectedFinger,
 			final TextUrlFilterDelegator filter)

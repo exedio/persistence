@@ -71,7 +71,7 @@ class StringColumn extends Column
 		assert minimumLength<=maximumLength;
 	}
 
-	private static final int maxLength(final SortedSet<String> strings)
+	private static int maxLength(final SortedSet<String> strings)
 	{
 		int result = 0;
 

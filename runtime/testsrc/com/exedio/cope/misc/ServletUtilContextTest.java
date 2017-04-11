@@ -68,7 +68,7 @@ public class ServletUtilContextTest
 		}
 	}
 
-	private static final void assertFails(final Source source, final String key, final String failureKey)
+	private static void assertFails(final Source source, final String key, final String failureKey)
 	{
 		try
 		{

@@ -201,7 +201,7 @@ public class ModelSerializationTest
 		assertNotSerializable(ListField.create(new StringField()), ListField.class);
 	}
 
-	private static final void assertNotSerializable(final Serializable value, final Class<?> exceptionMessage) throws IOException
+	private static void assertNotSerializable(final Serializable value, final Class<?> exceptionMessage) throws IOException
 	{
 		final ByteArrayOutputStream bos = new ByteArrayOutputStream();
 		try(ObjectOutputStream oos = new ObjectOutputStream(bos))

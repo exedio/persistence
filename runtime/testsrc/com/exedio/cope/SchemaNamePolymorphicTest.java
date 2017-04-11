@@ -114,13 +114,13 @@ public class SchemaNamePolymorphicTest extends TestWithEnvironment
 		item2.deleteCopeItem();
 	}
 
-	private final void toSchema()
+	private void toSchema()
 	{
 		assertFalse(connection.isConnected());
 		commit();
 	}
 
-	private final void toModel() throws SQLException
+	private void toModel() throws SQLException
 	{
 		connection.close();
 		startTransaction();
@@ -137,12 +137,12 @@ public class SchemaNamePolymorphicTest extends TestWithEnvironment
 		}
 	}
 
-	private final String q(final String s)
+	private String q(final String s)
 	{
 		return SchemaInfo.quoteName(model, s);
 	}
 
-	private final String hp(final String s)
+	private String hp(final String s)
 	{
 		if(hsqldb)
 			return "(" + s + ")";

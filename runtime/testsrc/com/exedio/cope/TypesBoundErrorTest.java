@@ -71,7 +71,7 @@ public class TypesBoundErrorTest
 		}
 	}
 	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad API usage
-	private static final Class<Item> castItemClass(final Class c)
+	private static Class<Item> castItemClass(final Class c)
 	{
 		return c;
 	}
@@ -245,7 +245,7 @@ public class TypesBoundErrorTest
 
 		@SuppressWarnings({"unused", "static-method"})
 		@SuppressFBWarnings("UPM_UNCALLED_PRIVATE_METHOD")
-		private final SetValue<?>[] beforeNewCopeItem(final SetValue<?>[] setValues)
+		private SetValue<?>[] beforeNewCopeItem(final SetValue<?>[] setValues)
 		{
 			return setValues;
 		}
@@ -279,7 +279,7 @@ public class TypesBoundErrorTest
 
 		@SuppressWarnings("unused")
 		@SuppressFBWarnings("UPM_UNCALLED_PRIVATE_METHOD")
-		private static final String beforeNewCopeItem(final SetValue<?>[] setValues)
+		private static String beforeNewCopeItem(final SetValue<?>[] setValues)
 		{
 			return "";
 		}

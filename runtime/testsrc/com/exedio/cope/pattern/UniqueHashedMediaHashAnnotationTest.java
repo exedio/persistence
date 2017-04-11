@@ -61,7 +61,7 @@ public class UniqueHashedMediaHashAnnotationTest
 		assertPresent(true,  AnItem.longer .getHash(),  MysqlExtendedVarchar.class);
 	}
 
-	private static final void assertPresent(
+	private static void assertPresent(
 			final boolean expected,
 			final Feature feature,
 			final Class<? extends Annotation> annotationClass)

@@ -56,7 +56,7 @@ public class QuerySerializeTest
 		assertSerializedEquals(qMulti, size - 684);
 	}
 
-	private static final void assertSerializedEquals(final Query<?> value, final int expectedSize)
+	private static void assertSerializedEquals(final Query<?> value, final int expectedSize)
 	{
 		assertEquals(value.toString(), reserialize(value, expectedSize).toString());
 	}

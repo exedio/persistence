@@ -76,12 +76,12 @@ public class AverageRoundingTest extends TestWithEnvironment
 	}
 
 
-	private static final void create(final int intx, final long longx, final double doublex)
+	private static void create(final int intx, final long longx, final double doublex)
 	{
 		new CompareConditionItem(null, intx, longx, doublex, null, null, null);
 	}
 
-	private static final void assertIt(
+	private static void assertIt(
 			final double expectedInt,
 			final double expectedLong,
 			final double expectedDouble)

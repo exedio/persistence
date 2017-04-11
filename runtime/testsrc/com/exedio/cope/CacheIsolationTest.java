@@ -163,7 +163,7 @@ public class CacheIsolationTest extends TestWithEnvironment
 		assertSame(listener, model.setTestDatabaseListener(null));
 	}
 
-	private final void assertInvalidations(final int ordered, final int done)
+	private void assertInvalidations(final int ordered, final int done)
 	{
 		final ItemCacheStatistics statistics = model.getItemCacheStatistics();
 		final ItemCacheInfo[] ci = statistics.getDetails();

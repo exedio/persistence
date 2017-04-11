@@ -245,7 +245,7 @@ public class MultiItemFieldStandardTest
 			check(ThreeItem.optional).getCondition().toString());
 	}
 
-	private static final CheckConstraint check(final MultiItemField<?> field)
+	private static CheckConstraint check(final MultiItemField<?> field)
 	{
 		return (CheckConstraint)field.getSourceFeatures().get(field.getSourceFeatures().size()-1);
 	}

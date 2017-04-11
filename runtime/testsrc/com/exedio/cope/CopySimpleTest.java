@@ -318,7 +318,7 @@ public class CopySimpleTest extends TestWithEnvironment
 		check();
 	}
 
-	private static final void check()
+	private static void check()
 	{
 		assertEquals(0, templateStringCopyFromTarget.check());
 		assertEquals(0, templateItemCopyFromTarget.check());

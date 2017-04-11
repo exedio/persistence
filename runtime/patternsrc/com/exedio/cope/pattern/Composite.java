@@ -120,7 +120,7 @@ public abstract class Composite implements Serializable, TemplatedValue
 		return typeIfSet;
 	}
 
-	private final int position(final FunctionField<?> member)
+	private int position(final FunctionField<?> member)
 	{
 		return getCopeType().position(member);
 	}

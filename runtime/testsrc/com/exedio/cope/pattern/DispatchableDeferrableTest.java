@@ -71,7 +71,7 @@ public class DispatchableDeferrableTest extends TestWithEnvironment
 		assertIt(4, 1, 1, item3);
 	}
 
-	private static final void assertIt(
+	private static void assertIt(
 			final int deferredCount,
 			final int dispatchCount,
 			final int runCount,
@@ -82,7 +82,7 @@ public class DispatchableDeferrableTest extends TestWithEnvironment
 		assertEquals("runCount", runCount, item.getToTargetRuns().size());
 	}
 
-	private final void dispatch()
+	private void dispatch()
 	{
 		model.commit();
 		AnItem.dispatchToTarget(new Dispatcher.Config(), JobContexts.EMPTY);

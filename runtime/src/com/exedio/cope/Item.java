@@ -360,7 +360,7 @@ public abstract class Item implements Serializable, Comparable<Item>
 		deleteCopeItem(new HashSet<Item>());
 	}
 
-	private final void checkDeleteCopeItem(final HashSet<Item> toDelete)
+	private void checkDeleteCopeItem(final HashSet<Item> toDelete)
 	{
 		toDelete.add(this);
 
@@ -407,7 +407,7 @@ public abstract class Item implements Serializable, Comparable<Item>
 		// empty default implementation
 	}
 
-	private final void deleteCopeItem(final HashSet<Item> toDelete)
+	private void deleteCopeItem(final HashSet<Item> toDelete)
 	{
 		beforeDeleteCopeItem();
 		toDelete.add(this);
@@ -481,7 +481,7 @@ public abstract class Item implements Serializable, Comparable<Item>
 		return type.getModel().currentTransaction().getEntity(this, present);
 	}
 
-	private final Entity getEntityIfActive()
+	private Entity getEntityIfActive()
 	{
 		return type.getModel().currentTransaction().getEntityIfActive(type, pk);
 	}
@@ -531,13 +531,13 @@ public abstract class Item implements Serializable, Comparable<Item>
 		return result;
 	}
 
-	private static final void putField(final LinkedHashMap<Field<?>, Object> result, final SetValue<?> setValue)
+	private static void putField(final LinkedHashMap<Field<?>, Object> result, final SetValue<?> setValue)
 	{
 		if(result.putIfAbsent((Field<?>)setValue.settable, setValue.value)!=null)
 			throw new IllegalArgumentException("SetValues contain duplicate settable " + setValue.settable);
 	}
 
-	private static final <X> SetValue<?>[] execute(final SetValue<X> sv, final Item exceptionItem)
+	private static <X> SetValue<?>[] execute(final SetValue<X> sv, final Item exceptionItem)
 	{
 		return sv.settable.execute(sv.value, exceptionItem);
 	}

@@ -240,17 +240,17 @@ public class DefaultToTest extends TestWithEnvironment
 		assertNull(integerNone.getDefaultToNextInfo());
 	}
 
-	private static final Integer integer(final int i)
+	private static Integer integer(final int i)
 	{
 		return Integer.valueOf(i);
 	}
 
-	private static final Date date(final long l)
+	private static Date date(final long l)
 	{
 		return new Date(l);
 	}
 
-	private static final Day day(final int year, final int month, final int day)
+	private static Day day(final int year, final int month, final int day)
 	{
 		return new Day(year, month, day);
 	}

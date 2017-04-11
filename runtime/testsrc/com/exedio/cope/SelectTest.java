@@ -101,7 +101,7 @@ public class SelectTest extends TestmodelTest
 		assertRow(i, "1zzzzz", "1ZZZZZ", 6, "someString5", 2, 3l, 2.3, false, someItem2, AttributeItem.SomeEnum.enumValue3);
 	}
 
-	private static final void assertRow(
+	private static void assertRow(
 			final Iterator<List<Object>> i,
 			final String someString,
 			final String someStringUppercase,

@@ -360,7 +360,7 @@ public abstract class MediaPath extends Pattern
 		return locator!=null ? locator.getURLByConnect() : null;
 	}
 
-	private final String makeUrlToken(final Item item)
+	private String makeUrlToken(final Item item)
 	{
 		if(!mount().preventUrlGuessing)
 			return null;
@@ -383,7 +383,7 @@ public abstract class MediaPath extends Pattern
 		return makeUrlTokenDigest(bf.toString());
 	}
 
-	private final String makeUrlToken(final String itemID)
+	private String makeUrlToken(final String itemID)
 	{
 		if(!mount().preventUrlGuessing)
 			return null;
@@ -395,7 +395,7 @@ public abstract class MediaPath extends Pattern
 		return makeUrlTokenDigest(getUrlPath() + itemID + '-' + sss);
 	}
 
-	private static final String makeUrlTokenDigest(final String plainText)
+	private static String makeUrlTokenDigest(final String plainText)
 	{
 		final MessageDigest messageDigest = MessageDigestUtil.getInstance("SHA-512");
 		messageDigest.update(plainText.getBytes(UTF_8));
@@ -720,7 +720,7 @@ public abstract class MediaPath extends Pattern
 
 	// cache
 
-	private final void doGetAndCommitWithCache(
+	private void doGetAndCommitWithCache(
 			final MediaServlet servlet,
 			final HttpServletRequest request,
 			final HttpServletResponse response,

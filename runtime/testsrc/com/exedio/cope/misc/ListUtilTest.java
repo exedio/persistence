@@ -46,7 +46,7 @@ public class ListUtilTest
 		}
 	}
 
-	private static final ArrayList<String> l(final String... strings)
+	private static ArrayList<String> l(final String... strings)
 	{
 		return new ArrayList<>(java.util.Arrays.asList(strings));
 	}

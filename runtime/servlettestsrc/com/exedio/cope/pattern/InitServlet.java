@@ -143,13 +143,13 @@ public class InitServlet extends HttpServlet
 		super.destroy();
 	}
 
-	private static final void assertID(final String id, final MediaServletItem item)
+	private static void assertID(final String id, final MediaServletItem item)
 	{
 		if(!id.equals(item.getCopeID()))
 			throw new RuntimeException(item.getCopeID());
 	}
 
-	private static final void assertPath(final String expected, final Media.Locator locator)
+	private static void assertPath(final String expected, final Media.Locator locator)
 	{
 		final String path = locator.getPath();
 		if(!expected.equals(path))

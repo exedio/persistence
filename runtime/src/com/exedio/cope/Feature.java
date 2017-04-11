@@ -264,7 +264,7 @@ public abstract class Feature implements Serializable
 		this.mountIfMounted = new MountAbstractType(type, name, string, serializable, annotationSource);
 	}
 
-	private final Mount mount()
+	private Mount mount()
 	{
 		final Mount result = this.mountIfMounted;
 		if(result==null)
@@ -272,7 +272,7 @@ public abstract class Feature implements Serializable
 		return result;
 	}
 
-	private final MountType mountType()
+	private MountType mountType()
 	{
 		final Mount result = mount();
 		if(!(result instanceof MountType))

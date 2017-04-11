@@ -240,7 +240,7 @@ public abstract class Dialect
 	public abstract String createColumn(String tableName, String columnName, String columnType);
 	public abstract String modifyColumn(String tableName, String columnName, String newColumnType);
 
-	private static final void dropConstraint(final StringBuilder bf, final String tableName, final String constraintName)
+	private static void dropConstraint(final StringBuilder bf, final String tableName, final String constraintName)
 	{
 		bf.append("ALTER TABLE ").
 			append(tableName).

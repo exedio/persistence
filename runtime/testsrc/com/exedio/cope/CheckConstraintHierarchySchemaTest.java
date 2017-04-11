@@ -95,7 +95,7 @@ public class CheckConstraintHierarchySchemaTest extends TestWithEnvironment
 		}
 	}
 
-	private static final CheckConstraint next(final Iterator<Constraint> i)
+	private static CheckConstraint next(final Iterator<Constraint> i)
 	{
 		Constraint result = null;
 		do
@@ -107,7 +107,7 @@ public class CheckConstraintHierarchySchemaTest extends TestWithEnvironment
 		return (CheckConstraint)result;
 	}
 
-	private static final boolean hasNext(final Iterator<Constraint> i)
+	private static boolean hasNext(final Iterator<Constraint> i)
 	{
 		do
 		{

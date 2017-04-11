@@ -258,7 +258,7 @@ public class PasswordRecoveryTest extends TestWithEnvironment
 		assertFalse(token3.equals(token1));
 	}
 
-	private final int purge()
+	private int purge()
 	{
 		final CountJobContext ctx = new CountJobContext();
 		model.commit();

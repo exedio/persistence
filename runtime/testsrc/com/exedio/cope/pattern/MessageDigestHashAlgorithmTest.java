@@ -298,13 +298,13 @@ public class MessageDigestHashAlgorithmTest
 		mockSecureRandomInternalLength = -1;
 	}
 
-	private static final void assertEqualsN(final String name, final HashAlgorithm algorithm)
+	private static void assertEqualsN(final String name, final HashAlgorithm algorithm)
 	{
 		assertEquals(name, algorithm.getID());
 		assertEquals(name, algorithm.getDescription());
 	}
 
-	private static final void assertEqualsL(final int length, final HashAlgorithm algorithm)
+	private static void assertEqualsL(final int length, final HashAlgorithm algorithm)
 	{
 		final StringField field = algorithm.constrainStorage(new StringField());
 		assertEquals(2l*length, field.getMinimumLength());

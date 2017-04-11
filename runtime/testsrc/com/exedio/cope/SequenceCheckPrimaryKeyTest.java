@@ -132,7 +132,7 @@ public class SequenceCheckPrimaryKeyTest extends TestWithEnvironment
 		assertEquals("behindByDeprecated", behindBy, behindByDeprecated);
 	}
 
-	private static final void newSequence(
+	private static void newSequence(
 			final int pk,
 			final String field)
 	{
@@ -146,7 +146,7 @@ public class SequenceCheckPrimaryKeyTest extends TestWithEnvironment
 	}
 
 	@SuppressFBWarnings("SQL_PREPARED_STATEMENT_GENERATED_FROM_NONCONSTANT_STRING")
-	private static final void newManual(
+	private static void newManual(
 			final int pk,
 			final String fieldValue)
 	throws SQLException

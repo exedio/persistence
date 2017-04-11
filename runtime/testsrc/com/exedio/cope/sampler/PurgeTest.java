@@ -120,7 +120,7 @@ public class PurgeTest extends ConnectedTest
 		MODEL.startTransaction("HistoryTest2");
 	}
 
-	private static final void assertPurge(final Date date, final int... progress)
+	private static void assertPurge(final Date date, final int... progress)
 	{
 		final MockJobContext ctx = new MockJobContext();
 		sampler.purge(date, ctx);

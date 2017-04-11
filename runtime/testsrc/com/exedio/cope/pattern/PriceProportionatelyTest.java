@@ -152,7 +152,7 @@ public class PriceProportionatelyTest
 		}
 	}
 
-	private static final Price[] values(final double... values)
+	private static Price[] values(final double... values)
 	{
 		final Price[] result = new Price[values.length];
 		for(int i = 0; i<values.length; i++)

@@ -128,7 +128,7 @@ public class GraphTest
 		return new ArrayList<>(set);
 	}
 
-	private static final List<Object> list(final Object... o)
+	private static List<Object> list(final Object... o)
 	{
 		return Arrays.asList(o);
 	}

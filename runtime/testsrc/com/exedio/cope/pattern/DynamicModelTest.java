@@ -72,7 +72,7 @@ public class DynamicModelTest extends TestWithEnvironment
 		en = new DynamicModelLocalizationItem("en");
 	}
 
-	private static final void assertIt(final Pattern pattern, final Field<?> field, final String postfix)
+	private static void assertIt(final Pattern pattern, final Field<?> field, final String postfix)
 	{
 		assertEquals(pattern.getType(), field.getType());
 		assertEquals(pattern.getName() + '-' + postfix, field.getName());

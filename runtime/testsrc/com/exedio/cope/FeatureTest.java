@@ -88,7 +88,7 @@ public class FeatureTest
 		}
 	}
 
-	private static final String toString(final Feature f, final Type<?> defaultType)
+	private static String toString(final Feature f, final Type<?> defaultType)
 	{
 		final StringBuilder bf = new StringBuilder();
 		f.toString(bf, defaultType);

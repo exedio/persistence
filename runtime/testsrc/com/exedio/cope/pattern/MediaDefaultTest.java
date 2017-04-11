@@ -366,7 +366,7 @@ public class MediaDefaultTest extends TestWithEnvironment
 		assertLocator(file, path, item.getFileLocator());
 	}
 
-	private final void assertDataFile(final byte[] expectedData) throws IOException
+	private void assertDataFile(final byte[] expectedData) throws IOException
 	{
 		final File tempFile = files.newFileNotExists();
 		item.getFileBody(tempFile);

@@ -259,7 +259,7 @@ public class LimitedListFieldModelTest
 		}
 	}
 
-	private static final DateField assertDate(final Iterator<?> i, final int num)
+	private static DateField assertDate(final Iterator<?> i, final int num)
 	{
 		final DateField date = (DateField)i.next();
 		assertEquals(TYPE, date.getType());
@@ -269,7 +269,7 @@ public class LimitedListFieldModelTest
 		return date;
 	}
 
-	private static final StringField assertString(final Iterator<?> i, final int num)
+	private static StringField assertString(final Iterator<?> i, final int num)
 	{
 		final StringField string = (StringField)i.next();
 		assertEquals(TYPE, string.getType());

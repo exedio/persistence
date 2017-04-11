@@ -57,7 +57,7 @@ public class ArraysTest
 		assertIt("[20 ... (3)]", new byte[]{20, 21, 22}, 1);
 	}
 
-	private static final void assertIt(final String expected, final byte[] a, final int limit)
+	private static void assertIt(final String expected, final byte[] a, final int limit)
 	{
 		assertEquals(expected, Arrays.toString(a, limit));
 		final StringBuilder bf = new StringBuilder();

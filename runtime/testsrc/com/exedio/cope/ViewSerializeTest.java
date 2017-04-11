@@ -98,7 +98,7 @@ public class ViewSerializeTest
 	}
 
 
-	private static final void assertSerializedSame(final Feature value, final int expectedSize)
+	private static void assertSerializedSame(final Feature value, final int expectedSize)
 	{
 		assertSame(value, reserialize(value, expectedSize));
 	}

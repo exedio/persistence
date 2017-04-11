@@ -96,12 +96,12 @@ public class SampleMediaTest extends ConnectedTest
 		}
 	}
 
-	private static final void touch()
+	private static void touch()
 	{
 		SampledModelItem.mediaB.incrementDelivered();
 	}
 
-	private static final void assertIt(
+	private static void assertIt(
 			final SamplerModel model,
 			final Media media,
 			final int delivered)
@@ -113,7 +113,7 @@ public class SampleMediaTest extends ConnectedTest
 		samplerModel.commit();
 	}
 
-	private static final void assertIt(
+	private static void assertIt(
 			final SamplerModel model,
 			final Media media)
 	{

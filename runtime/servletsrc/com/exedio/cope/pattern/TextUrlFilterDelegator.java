@@ -76,7 +76,7 @@ public class TextUrlFilterDelegator extends MediaFilter implements TextUrlFilter
 		this.raw.set( item, raw );
 	}
 
-	private final Paste getPaste(final Item item, final String key)
+	private Paste getPaste(final Item item, final String key)
 	{
 		return delegate.getPaste(item, key);
 	}

@@ -102,7 +102,7 @@ public class ServletUtilTest
 				"nameNull", ", init-param model: field com.exedio.cope.misc.ServletUtilTest#modelNull is null.");
 	}
 
-	private static final void assertIt(
+	private static void assertIt(
 			final Model model,
 			final String tokenName,
 			final MockServlet servlet)
@@ -115,7 +115,7 @@ public class ServletUtilTest
 				token.getName());
 	}
 
-	private static final void assertIt(
+	private static void assertIt(
 			final Model model,
 			final String tokenName,
 			final MockFilter filter,
@@ -129,7 +129,7 @@ public class ServletUtilTest
 				token.getName());
 	}
 
-	private static final void assertFails(
+	private static void assertFails(
 			final MockServlet servlet,
 			final String name,
 			final String message)
@@ -148,7 +148,7 @@ public class ServletUtilTest
 		}
 	}
 
-	private static final void assertFails(
+	private static void assertFails(
 			final MockFilter filter,
 			final MockFilterConfig config,
 			final String name,

@@ -161,7 +161,7 @@ abstract class CopeType<F extends CopeFeature>
 	private ArrayList<CopeFeature> initialFeatures = null;
 	private TreeSet<Class<? extends Throwable>> constructorExceptions = null;
 
-	private final void makeInitialFeaturesAndConstructorExceptions()
+	private void makeInitialFeaturesAndConstructorExceptions()
 	{
 		initialFeatures = new ArrayList<>();
 		constructorExceptions = new TreeSet<>(CLASS_COMPARATOR);

@@ -202,12 +202,12 @@ public class SchemaTest extends TestWithEnvironment
 		return SI.type(f);
 	}
 
-	private final String l(final StringField f)
+	private String l(final StringField f)
 	{
 		return model.connect().database.dialect.getStringLength() + '(' + q(f) + ')';
 	}
 
-	private final String l(final DataField f)
+	private String l(final DataField f)
 	{
 		return model.connect().database.dialect.getBlobLength() + '(' + q(f) + ')';
 	}
@@ -220,7 +220,7 @@ public class SchemaTest extends TestWithEnvironment
 			return s;
 	}
 
-	private final void assertCheckConstraint(
+	private void assertCheckConstraint(
 			final Table table,
 			final String name,
 			final String condition,

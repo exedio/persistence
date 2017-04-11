@@ -155,7 +155,7 @@ public class PasswordLimiterVerboseTest extends TestWithEnvironment
 		assertFalse(refusal4.existsCopeItem());
 	}
 
-	private final Refusal refuse(final String date) throws ExceededException
+	private Refusal refuse(final String date) throws ExceededException
 	{
 		final List<Refusal> existing = getRefusals();
 		assertEquals(false, i.checkPasswordLimitedVerbosely("wrongpass", clock, date));
@@ -165,12 +165,12 @@ public class PasswordLimiterVerboseTest extends TestWithEnvironment
 		return result;
 	}
 
-	private static final List<Refusal> getRefusals()
+	private static List<Refusal> getRefusals()
 	{
 		return passwordLimited.getRefusalType().search(null, passwordLimited.getRefusalType().getThis(), true);
 	}
 
-	private final int purge()
+	private int purge()
 	{
 		final CountJobContext ctx = new CountJobContext();
 		model.commit();

@@ -59,7 +59,7 @@ public class SequenceInfoTest extends TestWithEnvironment
 		assertInfo(next, 2, 0, 1, next.getDefaultToNextInfo());
 	}
 
-	private static final AnItem newItem(
+	private static AnItem newItem(
 			final String field,
 			final int next)
 	{
@@ -71,7 +71,7 @@ public class SequenceInfoTest extends TestWithEnvironment
 		}
 	}
 
-	private static final AnItem newItem(
+	private static AnItem newItem(
 			final String field)
 	{
 		try(TransactionTry tx = MODEL.startTransactionTry(SequenceInfoTest.class.getName()))

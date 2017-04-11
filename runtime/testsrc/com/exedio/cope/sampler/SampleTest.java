@@ -217,7 +217,7 @@ public class SampleTest extends ConnectedTest
 		MODEL.startTransaction("HistoryTest2");
 	}
 
-	private static final SamplerModel assertIt(
+	private static SamplerModel assertIt(
 			final SamplerModel expected,
 			final Date before, final Date after,
 			final SamplerModel model)
@@ -229,7 +229,7 @@ public class SampleTest extends ConnectedTest
 		return model;
 	}
 
-	private static final SamplerTransaction assertIt(
+	private static SamplerTransaction assertIt(
 			final SamplerModel model,
 			final SamplerTransaction transaction)
 	{
@@ -243,7 +243,7 @@ public class SampleTest extends ConnectedTest
 		return transaction;
 	}
 
-	private static final SamplerItemCache assertIt(
+	private static SamplerItemCache assertIt(
 			final SamplerModel model,
 			final String id,
 			final SamplerItemCache itemCache)
@@ -254,7 +254,7 @@ public class SampleTest extends ConnectedTest
 		return itemCache;
 	}
 
-	private static final SamplerMedia assertIt(
+	private static SamplerMedia assertIt(
 			final SamplerModel model,
 			final String id,
 			final SamplerMedia media)
@@ -265,7 +265,7 @@ public class SampleTest extends ConnectedTest
 		return media;
 	}
 
-	private static final <E extends Item> Iterator<E> iter(final Type<E> type)
+	private static <E extends Item> Iterator<E> iter(final Type<E> type)
 	{
 		final Query<E> q = new Query<>(type.getThis());
 		q.setOrderBy(type.getThis(), true);

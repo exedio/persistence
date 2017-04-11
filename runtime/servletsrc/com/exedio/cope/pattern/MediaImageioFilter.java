@@ -150,7 +150,7 @@ public abstract class MediaImageioFilter extends MediaFilter
 		return execute(item, contentType, spi, false).toByteArray();
 	}
 
-	private final ByteArrayOutputStream execute(
+	private ByteArrayOutputStream execute(
 			final Item item,
 			final String contentType,
 			final ImageReaderSpi spi,

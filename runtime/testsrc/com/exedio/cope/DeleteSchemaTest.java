@@ -325,12 +325,12 @@ public class DeleteSchemaTest extends TestWithEnvironment
 		}
 	}
 
-	private static final void assertCreate(final Date date, final Map<Integer, byte[]> logs, final int revision)
+	private static void assertCreate(final Date date, final Map<Integer, byte[]> logs, final int revision)
 	{
 		assertCreate(date, date, logs, revision);
 	}
 
-	private static final Date assertCreate(final Date before, final Date after, final Map<Integer, byte[]> logs, final int revision)
+	private static Date assertCreate(final Date before, final Date after, final Map<Integer, byte[]> logs, final int revision)
 	{
 		final byte[] log = logs.get(revision);
 		assertNotNull(log);

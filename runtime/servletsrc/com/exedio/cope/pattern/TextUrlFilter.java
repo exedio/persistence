@@ -208,7 +208,7 @@ public class TextUrlFilter extends MediaFilter implements TextUrlFilterCheckable
 		}
 	}
 
-	private final Mount mount()
+	private Mount mount()
 	{
 		final Mount mount = this.mountIfMounted;
 		if(mount==null)

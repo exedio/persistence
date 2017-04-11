@@ -431,7 +431,7 @@ public class ReviseTest
 		model5.disconnect();
 	}
 
-	private static final Source source(final boolean auto)
+	private static Source source(final boolean auto)
 	{
 		return cascade(
 				single("revise.auto.enabled", auto),
@@ -439,7 +439,7 @@ public class ReviseTest
 		);
 	}
 
-	private final Date assertCreate(final Date before, final Date after, final Map<Integer, byte[]> logs, final int revision) throws ParseException
+	private Date assertCreate(final Date before, final Date after, final Map<Integer, byte[]> logs, final int revision) throws ParseException
 	{
 		final byte[] log = logs.get(revision);
 		assertNotNull(log);
@@ -454,12 +454,12 @@ public class ReviseTest
 		return date;
 	}
 
-	private final void assertCreate(final Date date, final Map<Integer, byte[]> logs, final int revision) throws ParseException
+	private void assertCreate(final Date date, final Map<Integer, byte[]> logs, final int revision) throws ParseException
 	{
 		assertEquals(date, assertCreate(date, date, logs, revision));
 	}
 
-	private final Date assertRevise(final Date before, final Date after, final Revisions revisions, final int revisionsIndex, final Map<Integer, byte[]> logs, final int number) throws ParseException
+	private Date assertRevise(final Date before, final Date after, final Revisions revisions, final int revisionsIndex, final Map<Integer, byte[]> logs, final int number) throws ParseException
 	{
 		final Revision revision = revisions.getList().get(revisionsIndex);
 		final byte[] log = logs.get(number);
@@ -482,12 +482,12 @@ public class ReviseTest
 		return date;
 	}
 
-	private final void assertRevise(final Date date, final Revisions revisions, final int revisionsIndex, final Map<Integer, byte[]> logs, final int number) throws ParseException
+	private void assertRevise(final Date date, final Revisions revisions, final int revisionsIndex, final Map<Integer, byte[]> logs, final int number) throws ParseException
 	{
 		assertEquals(date, assertRevise(date, date, revisions, revisionsIndex, logs, number));
 	}
 
-	private final Date assertMutex(
+	private Date assertMutex(
 			final Date before, final Date after,
 			final int expected, final int actual,
 			final Map<Integer, byte[]> logs) throws ParseException
@@ -508,7 +508,7 @@ public class ReviseTest
 		return date;
 	}
 
-	private final void assertMutex(
+	private void assertMutex(
 			final Date date,
 			final int expected, final int actual,
 			final Map<Integer, byte[]> logs) throws ParseException
@@ -516,7 +516,7 @@ public class ReviseTest
 		assertEquals(date, assertMutex(date, date, expected, actual, logs));
 	}
 
-	private final void assertRevisionEnvironment(final Properties p)
+	private void assertRevisionEnvironment(final Properties p)
 	{
 		assertNotNull(hostname);
 		assertNotNull(connectionUrl);
@@ -539,7 +539,7 @@ public class ReviseTest
 		assertEquals(valueOf(info.getDriverMinorVersion()), p.getProperty("env.driver.version.minor"));
 	}
 
-	private static final void assertMinInt(final int expectedMinimum, final String actual)
+	private static void assertMinInt(final int expectedMinimum, final String actual)
 	{
 		assertTrue(actual, Integer.parseInt(actual)>=expectedMinimum);
 	}
@@ -556,7 +556,7 @@ public class ReviseTest
 		model7.connect(c);
 	}
 
-	private final String synthetic(final String name, final String global)
+	private String synthetic(final String name, final String global)
 	{
 		return
 			longSyntheticNames

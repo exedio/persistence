@@ -297,7 +297,7 @@ public class EnumSchemaTest
 	}
 
 
-	private static final void assertColumnValues(
+	private static void assertColumnValues(
 			final Class<? extends Enum<?>> actual,
 			final int... expected)
 	{
@@ -312,7 +312,7 @@ public class EnumSchemaTest
 		assertEquals(actual.getName(), expectedValues, actualValues);
 	}
 
-	private static final <E extends Enum<E>> void assertFails(
+	private static <E extends Enum<E>> void assertFails(
 			final Class<E> actual,
 			final String message)
 	{

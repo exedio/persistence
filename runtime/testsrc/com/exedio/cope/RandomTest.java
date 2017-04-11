@@ -162,7 +162,7 @@ public class RandomTest extends TestWithEnvironment
 		assertSeed(Integer.MAX_VALUE);
 	}
 
-	private static final List<Long> toLong(final List<Double> l)
+	private static List<Long> toLong(final List<Double> l)
 	{
 		final ArrayList<Long> result = new ArrayList<>(l.size());
 		for(final Double d : l)

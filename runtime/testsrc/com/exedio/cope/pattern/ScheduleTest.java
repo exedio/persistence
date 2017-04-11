@@ -657,14 +657,14 @@ public class ScheduleTest extends TestWithEnvironment
 		assertFalse(runs.hasNext());
 	}
 
-	private final void run(final int progress, final String now)
+	private void run(final int progress, final String now)
 	{
 		final CountJobContext ctx = new CountJobContext();
 		run(date(now), ctx);
 		assertEquals(progress, ctx.progress);
 	}
 
-	private final void run(final int progress, final String now, final int interruptRequests)
+	private void run(final int progress, final String now, final int interruptRequests)
 	{
 		final CountJobContext ctx = new CountJobContext(){
 			int i = interruptRequests;
@@ -677,7 +677,7 @@ public class ScheduleTest extends TestWithEnvironment
 		assertEquals(progress, ctx.progress);
 	}
 
-	private final void run(final Date now, final JobContext ctx)
+	private void run(final Date now, final JobContext ctx)
 	{
 		try
 		{
@@ -707,7 +707,7 @@ public class ScheduleTest extends TestWithEnvironment
 		return result;
 	}
 
-	private static final Date date(final String s)
+	private static Date date(final String s)
 	{
 		final boolean withTimeZone = s.startsWith("TZ");
 		final String full;
@@ -729,12 +729,12 @@ public class ScheduleTest extends TestWithEnvironment
 		}
 	}
 
-	private final Log log(final String from, final String until)
+	private Log log(final String from, final String until)
 	{
 		return log(from, until, "1/1");
 	}
 
-	private final Log log(final String from, final String until, final String count)
+	private Log log(final String from, final String until, final String count)
 	{
 		return new Log(item, date(from), date(until), "ScheduleItem.report " + item.getCopeID() + " run " + count);
 	}
@@ -786,7 +786,7 @@ public class ScheduleTest extends TestWithEnvironment
 		}
 	}
 
-	private final ExpectedRun ern(final Interval interval, final String from, final String until, final String run)
+	private ExpectedRun ern(final Interval interval, final String from, final String until, final String run)
 	{
 		return new ExpectedRun(item, interval, date(from), date(until), date(run));
 	}

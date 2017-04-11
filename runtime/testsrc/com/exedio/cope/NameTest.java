@@ -189,7 +189,7 @@ public class NameTest extends TestWithEnvironment
 		assertContains(itemca, NameCollisionlongaItem.TYPE.search(NameCollisionlongaItem.collisionloooooooooooooooooooooooooooooooooooooooooooooooongaNumber.equal(Integer.valueOf(5))));
 	}
 
-	private final String q(final String name)
+	private String q(final String name)
 	{
 		return SchemaInfo.quoteName(model, name);
 	}

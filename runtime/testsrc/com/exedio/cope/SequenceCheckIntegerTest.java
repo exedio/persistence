@@ -114,7 +114,7 @@ public class SequenceCheckIntegerTest extends TestWithEnvironment
 		assertEquals("behindByDeprecated", behindBy, behindByDeprecated);
 	}
 
-	private static final AnItem newManual(
+	private static AnItem newManual(
 			final int next,
 			final String field)
 	{
@@ -126,7 +126,7 @@ public class SequenceCheckIntegerTest extends TestWithEnvironment
 		}
 	}
 
-	private static final void newSequence(
+	private static void newSequence(
 			final int next,
 			final String field)
 	{

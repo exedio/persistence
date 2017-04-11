@@ -189,12 +189,12 @@ public class PasswordLimiterTest extends TestWithEnvironment
 		assertEquals(false, i2.checkPasswordLimited(PASSWORD2, clock, now));
 	}
 
-	private final Refusal refuse(final String date)
+	private Refusal refuse(final String date)
 	{
 		return refuse(i, date);
 	}
 
-	private final Refusal refuse(final PasswordLimiterItem item, final String date)
+	private Refusal refuse(final PasswordLimiterItem item, final String date)
 	{
 		final List<Refusal> existing = getRefusals();
 		assertEquals(false, item.checkPasswordLimited("wrongpass", clock, date));
@@ -204,12 +204,12 @@ public class PasswordLimiterTest extends TestWithEnvironment
 		return result;
 	}
 
-	private static final List<Refusal> getRefusals()
+	private static List<Refusal> getRefusals()
 	{
 		return passwordLimited.getRefusalType().search(null, passwordLimited.getRefusalType().getThis(), true);
 	}
 
-	private final int purge()
+	private int purge()
 	{
 		final CountJobContext ctx = new CountJobContext();
 		model.commit();

@@ -104,7 +104,7 @@ public class SampleItemCacheTest extends ConnectedTest
 		MODEL.commit();
 	}
 
-	private final void assertIt(
+	private void assertIt(
 			final SamplerModel model,
 			final Type<?> type,
 			final int invalidationsOrdered)
@@ -123,7 +123,7 @@ public class SampleItemCacheTest extends ConnectedTest
 		samplerModel.commit();
 	}
 
-	private static final void assertIt(
+	private static void assertIt(
 			final SamplerModel model,
 			final Type<?> type)
 	{

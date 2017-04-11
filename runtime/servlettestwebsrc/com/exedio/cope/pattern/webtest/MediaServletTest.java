@@ -634,13 +634,13 @@ public class MediaServletTest
 
 	private static final String DATE_FORMAT_FULL = "dd.MM.yyyy HH:mm:ss.SSS";
 
-	private static final void assertEqualsDate(final Date expected, final Date actual)
+	private static void assertEqualsDate(final Date expected, final Date actual)
 	{
 		final SimpleDateFormat df = new SimpleDateFormat(DATE_FORMAT_FULL);
 		assertEquals("expected " + df.format(expected) + ", but got " + df.format(actual), expected, actual);
 	}
 
-	private static final void assertWithinHttpDate(final Date expectedBefore, final Date expectedAfter, final Date actual)
+	private static void assertWithinHttpDate(final Date expectedBefore, final Date expectedAfter, final Date actual)
 	{
 		final long resolution = 1000;
 		final long leftTolerance = 995;

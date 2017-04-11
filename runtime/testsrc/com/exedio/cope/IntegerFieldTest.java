@@ -248,19 +248,19 @@ public class IntegerFieldTest
 		}
 	}
 
-	private static final IsNullCondition<Integer> in(
+	private static IsNullCondition<Integer> in(
 			final IntegerField field)
 	{
 		return new IsNullCondition<>(field, false);
 	}
 
-	private static final IsNullCondition<Integer> nn(
+	private static IsNullCondition<Integer> nn(
 			final IntegerField field)
 	{
 		return new IsNullCondition<>(field, true);
 	}
 
-	private static final CompareCondition<Integer> cc(
+	private static CompareCondition<Integer> cc(
 			final Operator operator,
 			final IntegerField field,
 			final Integer value)
