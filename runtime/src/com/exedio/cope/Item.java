@@ -107,7 +107,7 @@ public abstract class Item implements Serializable, Comparable<Item>
 	{
 		if(this==o)
 			return true;
-		if(o==null || !(o instanceof Item))
+		if(!(o instanceof Item))
 			return false;
 
 		final Item i = (Item)o;

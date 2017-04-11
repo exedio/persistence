@@ -39,7 +39,7 @@ public final class RevisionStatistics
 			ctx.stopIfRequested();
 
 			final RevisionInfo info = RevisionInfo.read(entry.getValue());
-			if(info!=null && info instanceof RevisionInfoRevise)
+			if(info instanceof RevisionInfoRevise)
 				revisions.put(entry.getKey(), (RevisionInfoRevise)info);
 		}
 

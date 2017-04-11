@@ -289,7 +289,7 @@ public abstract class Feature implements Serializable
 	final boolean isMountedToType()
 	{
 		final Mount mount = mountIfMounted;
-		return (mount!=null) && (mount instanceof MountType);
+		return mount instanceof MountType;
 	}
 
 	/**

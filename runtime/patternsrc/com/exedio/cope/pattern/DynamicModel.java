@@ -415,9 +415,8 @@ public final class DynamicModel<L> extends Pattern
 	{
 		assertType(item, field);
 
-		if(value!=null &&
-			value instanceof DynamicModel.Enum<?> &&
-			field.getValueType()==ValueType.ENUM)
+		if(value instanceof DynamicModel.Enum<?> &&
+		   field.getValueType()==ValueType.ENUM)
 		{
 			final Enum<?> enumValue = (Enum<?>)value;
 			final Field<?> enumValueParent = enumValue.getParent();
