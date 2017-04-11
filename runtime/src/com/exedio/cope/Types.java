@@ -444,9 +444,8 @@ final class Types
 	Item[] activate(final TLongHashSet[] invalidations)
 	{
 		int length = 0;
-		for(int type = 0; type<invalidations.length; type++)
+		for(final TLongHashSet set : invalidations)
 		{
-			final TLongHashSet set = invalidations[type];
 			if(set!=null)
 				length += set.size();
 		}

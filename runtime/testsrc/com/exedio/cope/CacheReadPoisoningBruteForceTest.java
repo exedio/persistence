@@ -69,10 +69,10 @@ public class CacheReadPoisoningBruteForceTest extends TestWithEnvironment
 			if(thread!=null)
 				thread.proceed = false;
 		}
-		for(int i = 0; i<threads.length; i++)
+		for(final ThreadStoppable thread : threads)
 		{
-			if(threads[i]!=null)
-				threads[i].join();
+			if(thread!=null)
+				thread.join();
 		}
 	}
 

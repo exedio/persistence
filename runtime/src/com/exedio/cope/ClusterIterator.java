@@ -58,8 +58,8 @@ final class ClusterIterator
 	boolean checkBytes(final byte[] expected)
 	{
 		int pos = this.pos;
-		for(int i = 0; i<expected.length; i++)
-			if(expected[i]!=buf[pos++])
+		for(final byte anExpected : expected)
+			if(anExpected!=buf[pos++])
 			{
 				if(pos>endOffset)
 					throw new NoSuchElementException(String.valueOf(length));

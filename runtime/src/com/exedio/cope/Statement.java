@@ -134,9 +134,9 @@ final class Statement
 			{
 				final ArrayList<?> list = (ArrayList<?>)value;
 				int aliasNumber = 0;
-				for(final Iterator<?> j = list.iterator(); j.hasNext(); )
+				for(final Object o : list)
 				{
-					final JoinTable joinType = (JoinTable)j.next();
+					final JoinTable joinType = (JoinTable)o;
 					joinType.alias = table.id + (aliasNumber++);
 				}
 				if(ambiguousTables==null)
