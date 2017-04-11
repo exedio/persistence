@@ -28,7 +28,6 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import javax.annotation.processing.AbstractProcessor;
-import javax.annotation.processing.ProcessingEnvironment;
 import javax.annotation.processing.RoundEnvironment;
 import javax.annotation.processing.SupportedAnnotationTypes;
 import javax.annotation.processing.SupportedSourceVersion;
@@ -58,12 +57,6 @@ final class InstrumentorProcessor extends AbstractProcessor
 		{
 			this.ignoreFiles.add(ignoreFile);
 		}
-	}
-
-	@Override
-	public synchronized void init(final ProcessingEnvironment pe)
-	{
-		super.init(pe);
 	}
 
 	@Override
