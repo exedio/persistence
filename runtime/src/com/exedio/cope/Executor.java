@@ -69,17 +69,17 @@ final class Executor
 			throw new RuntimeException(id);
 	}
 
-	protected Statement newStatement()
+	Statement newStatement()
 	{
 		return newStatement(true);
 	}
 
-	protected Statement newStatement(final boolean qualifyTable)
+	Statement newStatement(final boolean qualifyTable)
 	{
 		return new Statement(this, qualifyTable);
 	}
 
-	protected Statement newStatement(final Query<? extends Object> query, final boolean sqlOnly)
+	Statement newStatement(final Query<? extends Object> query, final boolean sqlOnly)
 	{
 		return new Statement(this, query, sqlOnly);
 	}
@@ -106,7 +106,7 @@ final class Executor
 			return resultSet.getLong(1);
 		};
 
-	protected <R> R query(
+	<R> R query(
 		final Connection connection,
 		final Statement statement,
 		final QueryInfo queryInfo,

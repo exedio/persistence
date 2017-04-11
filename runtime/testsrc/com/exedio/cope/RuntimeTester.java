@@ -92,7 +92,7 @@ final class RuntimeTester
 		cache = model.getConnectProperties().getItemCacheLimit()>0;
 	}
 
-	protected String synthetic(final String name, final String global)
+	String synthetic(final String name, final String global)
 	{
 		return
 			model.getConnectProperties().longSyntheticNames
@@ -100,12 +100,12 @@ final class RuntimeTester
 			: name;
 	}
 
-	protected void assertPrimaryKeySequenceName(final String sequenceNameBase, final Type<?> type)
+	void assertPrimaryKeySequenceName(final String sequenceNameBase, final Type<?> type)
 	{
 		assertPrimaryKeySequenceName( sequenceNameBase, sequenceNameBase+"6", type );
 	}
 
-	protected void assertPrimaryKeySequenceName(final String sequenceNameBase, final String batchedSequenceNameBase, final Type<?> type)
+	void assertPrimaryKeySequenceName(final String sequenceNameBase, final String batchedSequenceNameBase, final Type<?> type)
 	{
 		if(model.getConnectProperties().primaryKeyGenerator.persistent)
 		{
@@ -134,12 +134,12 @@ final class RuntimeTester
 		}
 	}
 
-	protected void assertDefaultToNextSequenceName(final String name, final IntegerField field)
+	void assertDefaultToNextSequenceName(final String name, final IntegerField field)
 	{
 		assertEquals(filterTableName(name), getDefaultToNextSequenceName(field));
 	}
 
-	protected TestByteArrayInputStream stream(final byte[] data)
+	TestByteArrayInputStream stream(final byte[] data)
 	{
 		assertNull(testStream);
 		final TestByteArrayInputStream result = new TestByteArrayInputStream(data);
@@ -147,14 +147,14 @@ final class RuntimeTester
 		return result;
 	}
 
-	protected void assertStreamClosed()
+	void assertStreamClosed()
 	{
 		assertNotNull(testStream);
 		testStream.assertClosed();
 		testStream = null;
 	}
 
-	protected void assertIDFails(final String id, final String detail, final boolean notAnID)
+	void assertIDFails(final String id, final String detail, final boolean notAnID)
 	{
 		try
 		{
@@ -195,7 +195,7 @@ final class RuntimeTester
 		return model.getConnectProperties().filterTableName(name);
 	}
 
-	protected void assertCause(final UniqueViolationException e)
+	void assertCause(final UniqueViolationException e)
 	{
 		final Throwable cause = e.getCause();
 		if(model.connect().executor.supportsUniqueViolation)
@@ -209,7 +209,7 @@ final class RuntimeTester
 		}
 	}
 
-	protected CheckConstraint assertCheckConstraint(
+	CheckConstraint assertCheckConstraint(
 			final com.exedio.dsmf.Table table,
 			final String name,
 			final String condition)
@@ -217,7 +217,7 @@ final class RuntimeTester
 		return assertConstraint(table, CheckConstraint.class, name, condition);
 	}
 
-	protected void assertPkConstraint(
+	void assertPkConstraint(
 			final com.exedio.dsmf.Table table,
 			final String name,
 			final String condition,
@@ -228,7 +228,7 @@ final class RuntimeTester
 		assertEquals(column, constraint.getPrimaryKeyColumn());
 	}
 
-	protected void assertFkConstraint(
+	void assertFkConstraint(
 			final com.exedio.dsmf.Table table,
 			final String name,
 			final String column,
@@ -242,7 +242,7 @@ final class RuntimeTester
 		assertEquals(targetColumn, constraint.getTargetColumn());
 	}
 
-	protected void assertUniqueConstraint(
+	void assertUniqueConstraint(
 			final com.exedio.dsmf.Table table,
 			final String name,
 			final String clause)
@@ -252,7 +252,7 @@ final class RuntimeTester
 		assertEquals(clause, constraint.getClause());
 	}
 
-	protected <C extends Constraint> C assertConstraint(
+	<C extends Constraint> C assertConstraint(
 			final com.exedio.dsmf.Table table,
 			final Class<C> type,
 			final String name,
@@ -269,14 +269,14 @@ final class RuntimeTester
 		return type.cast(constraint);
 	}
 
-	protected static void assertNotExistsConstraint(
+	static void assertNotExistsConstraint(
 			final com.exedio.dsmf.Table table,
 			final String name)
 	{
 		assertNull(name, table.getConstraint(name));
 	}
 
-	protected void assertCacheInfo(final Type<?>... types)
+	void assertCacheInfo(final Type<?>... types)
 	{
 		final int limit = model.getConnectProperties().getItemCacheLimit();
 		final ItemCacheInfo[] ci = model.getItemCacheStatistics().getDetails();
@@ -316,7 +316,7 @@ final class RuntimeTester
 		}
 	}
 
-	protected void assertSchema()
+	void assertSchema()
 	{
 		model.commit();
 
