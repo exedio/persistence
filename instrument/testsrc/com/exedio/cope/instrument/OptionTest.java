@@ -26,6 +26,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
+import java.util.Locale;
 import org.junit.Test;
 
 public class OptionTest
@@ -95,7 +96,7 @@ public class OptionTest
 	}
 	private static String desc(final Visibility value)
 	{
-		return value.name().toLowerCase();
+		return value.name().toLowerCase(Locale.ENGLISH);
 	}
 
 	@Test public void testIgnore()

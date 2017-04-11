@@ -25,6 +25,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import org.junit.After;
 import org.junit.Before;
 
@@ -105,7 +106,7 @@ public abstract class SchemaTest
 		else if(url.startsWith("jdbc:oracle:"))
 		{
 			Class.forName("oracle.jdbc.driver.OracleDriver");
-			dialect = new OracleDialect(username.toUpperCase());
+			dialect = new OracleDialect(username.toUpperCase(Locale.ENGLISH));
 			stringType = "VARCHAR2(8 BYTE)";
 			intType = "NUMBER(12)";
 			intType2 = "NUMBER(15)";
