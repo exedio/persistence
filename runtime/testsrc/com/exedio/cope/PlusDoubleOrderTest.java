@@ -73,13 +73,13 @@ public class PlusDoubleOrderTest extends TestWithEnvironment
 		assertOrder(list(item1, item3, item2), multiplyBC);
 	}
 
-	private static void assertOrder(final List<? extends Object> expectedOrder, final Function<?> orderBy)
+	private static void assertOrder(final List<?> expectedOrder, final Function<?> orderBy)
 	{
 		final Query<PlusDoubleItem> query = TYPE.newQuery(null);
 		query.setOrderBy(orderBy, true);
 		assertEquals(expectedOrder, query.search());
 
-		final List<? extends Object> expectedReverseOrder = new ArrayList<>(expectedOrder);
+		final List<?> expectedReverseOrder = new ArrayList<>(expectedOrder);
 		Collections.reverse(expectedReverseOrder);
 		query.setOrderBy(orderBy, false);
 		assertEquals(expectedReverseOrder, query.search());

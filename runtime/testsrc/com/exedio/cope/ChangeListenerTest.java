@@ -194,7 +194,7 @@ public class ChangeListenerTest extends TestWithEnvironment
 			}
 		}
 
-		void assertIt(final List<? extends Object> expectedItems, final Transaction expectedTransaction) throws ChangeEvent.NotAvailableException
+		void assertIt(final List<?> expectedItems, final Transaction expectedTransaction) throws ChangeEvent.NotAvailableException
 		{
 			if(expectedTransaction!=null)
 			{

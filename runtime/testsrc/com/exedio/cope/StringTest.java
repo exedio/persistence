@@ -709,12 +709,12 @@ public class StringTest extends TestWithEnvironment
 		assertEquals(message, valueChars, new Query<>(sa.length(), Cope.equalAndCast(item.getCopeType().getThis(), item)).searchSingletonStrict());
 	}
 
-	protected static List<? extends Object> search(final FunctionField<? extends Object> selectAttribute)
+	protected static List<?> search(final FunctionField<?> selectAttribute)
 	{
 		return search(selectAttribute, null);
 	}
 
-	protected static List<? extends Object> search(final FunctionField<? extends Object> selectAttribute, final Condition condition)
+	protected static List<?> search(final FunctionField<?> selectAttribute, final Condition condition)
 	{
 		return new Query<>(selectAttribute, condition).search();
 	}

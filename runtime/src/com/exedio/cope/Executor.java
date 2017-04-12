@@ -79,7 +79,7 @@ final class Executor
 		return new Statement(this, qualifyTable);
 	}
 
-	Statement newStatement(final Query<? extends Object> query, final boolean sqlOnly)
+	Statement newStatement(final Query<?> query, final boolean sqlOnly)
 	{
 		return new Statement(this, query, sqlOnly);
 	}

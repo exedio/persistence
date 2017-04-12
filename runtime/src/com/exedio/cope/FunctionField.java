@@ -36,7 +36,7 @@ import java.util.Set;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public abstract class FunctionField<E extends Object> extends Field<E>
+public abstract class FunctionField<E> extends Field<E>
 	implements Function<E>, Copyable
 {
 	private static final long serialVersionUID = 1l;
@@ -201,7 +201,7 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 			defaultSource.mount(type, name, annotationSource);
 	}
 
-	final void checkValueClass(final Class<? extends Object> superClass)
+	final void checkValueClass(final Class<?> superClass)
 	{
 		if(!superClass.isAssignableFrom(valueClass))
 			throw new RuntimeException("is not a subclass of " + superClass.getName() + ": "+valueClass.getName());

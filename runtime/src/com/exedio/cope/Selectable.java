@@ -20,7 +20,7 @@ package com.exedio.cope;
 
 import java.io.Serializable;
 
-public interface Selectable<E extends Object> extends Serializable
+public interface Selectable<E> extends Serializable
 {
 	/**
 	 * Returns {@link #getValueType()}.{@link SelectType#getJavaClass() getJavaClass()}

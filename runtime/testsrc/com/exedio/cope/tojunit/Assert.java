@@ -120,7 +120,7 @@ public final class Assert
 		return CopeAssert.map(key1, value1, key2, value2);
 	}
 
-	public static <T extends Object> void assertUnmodifiable(final Collection<T> c)
+	public static <T> void assertUnmodifiable(final Collection<T> c)
 	{
 		CopeAssert.assertUnmodifiable(c);
 	}

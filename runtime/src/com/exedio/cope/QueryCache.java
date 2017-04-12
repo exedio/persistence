@@ -198,7 +198,7 @@ final class QueryCache
 
 		private static final Charset CHARSET = UTF_8;
 
-		Key(final Query<? extends Object> query, final boolean totalOnly)
+		Key(final Query<?> query, final boolean totalOnly)
 		{
 			text = query.toString(true, totalOnly).getBytes(CHARSET);
 			// TODO compress
@@ -237,7 +237,7 @@ final class QueryCache
 		final int[] invalidationTypesTransiently;
 		final VolatileLong hits = new VolatileLong();
 
-		Value(final Query<? extends Object> query, final ArrayList<Object> list)
+		Value(final Query<?> query, final ArrayList<Object> list)
 		{
 			final ArrayList<Join> joins = query.joins;
 			final TIntHashSet typeSet = new TIntHashSet();

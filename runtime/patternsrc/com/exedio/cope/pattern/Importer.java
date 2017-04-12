@@ -35,7 +35,7 @@ import java.util.List;
 import javax.annotation.Nonnull;
 
 @WrapFeature
-public final class Importer<K extends Object> extends Pattern
+public final class Importer<K> extends Pattern
 {
 	private static final long serialVersionUID = 1l;
 

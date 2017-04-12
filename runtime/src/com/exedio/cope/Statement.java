@@ -74,7 +74,7 @@ final class Statement
 		this.qualifyTable = false;
 	}
 
-	Statement(final Executor executor, final Query<? extends Object> query, final boolean sqlOnly)
+	Statement(final Executor executor, final Query<?> query, final boolean sqlOnly)
 	{
 		if(executor==null)
 			throw new NullPointerException();

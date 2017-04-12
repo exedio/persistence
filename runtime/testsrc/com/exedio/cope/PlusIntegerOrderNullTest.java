@@ -61,7 +61,7 @@ public class PlusIntegerOrderNullTest extends TestWithEnvironment
 		assertOrder(list(item0, item1, item2), numB, numC);
 	}
 
-	private static void assertOrder(final List<? extends Object> expectedOrder, final Function<?>... orderBy)
+	private static void assertOrder(final List<?> expectedOrder, final Function<?>... orderBy)
 	{
 		final Query<PlusIntegerItem> query = TYPE.newQuery(null);
 		final boolean[] ascending = new boolean[orderBy.length];
@@ -69,7 +69,7 @@ public class PlusIntegerOrderNullTest extends TestWithEnvironment
 		query.setOrderBy(orderBy, ascending);
 		assertEquals(expectedOrder, query.search());
 
-		final List<? extends Object> expectedReverseOrder = new ArrayList<>(expectedOrder);
+		final List<?> expectedReverseOrder = new ArrayList<>(expectedOrder);
 		Collections.reverse(expectedReverseOrder);
 		final boolean[] descending = new boolean[orderBy.length];
 		Arrays.fill(descending, false);
