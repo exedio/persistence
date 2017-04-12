@@ -51,7 +51,7 @@ import org.slf4j.LoggerFactory;
 @WrapFeature
 public final class NestedHashMigration extends Pattern implements HashInterface
 {
-	private static final Logger logger = LoggerFactory.getLogger(Dispatcher.class);
+	private static final Logger logger = LoggerFactory.getLogger(NestedHashMigration.class);
 
 	private static final long serialVersionUID = 1l;
 
