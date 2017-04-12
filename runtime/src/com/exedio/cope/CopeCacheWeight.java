@@ -28,7 +28,7 @@ import java.lang.annotation.Target;
 /**
  * @deprecated
  * Due to changes of the cache implementation, cache weighting is not required any more;
- * use {@link CopeExternal} (instead of <code>@CopeCacheWeight(0)</code>) to disable caching.
+ * use {@link CopeExternal} (instead of {@code @CopeCacheWeight(0)}) to disable caching.
  */
 @Target({TYPE, FIELD})
 @Retention(RetentionPolicy.RUNTIME)

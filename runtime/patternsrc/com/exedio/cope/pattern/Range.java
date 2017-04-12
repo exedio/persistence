@@ -23,8 +23,8 @@ import static java.util.Objects.requireNonNull;
 import java.util.Objects;
 
 /**
- * If the value for {@link #getFrom() from} is null this means, that the range contains all values less    or equal to <code>to</code>.
- * If the value for {@link #getTo  () to  } is null this means, that the range contains all values greater or equal to <code>from</code>.
+ * If the value for {@link #getFrom() from} is null this means, that the range contains all values less    or equal to {@code to}.
+ * If the value for {@link #getTo  () to  } is null this means, that the range contains all values greater or equal to {@code from}.
  * If both the value for {@link #getFrom() from} and {@link #getTo() to} is null this means,
  * that the range contains all values.
  */

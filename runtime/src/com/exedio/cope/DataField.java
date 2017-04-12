@@ -312,7 +312,7 @@ public final class DataField extends Field<DataField.Value>
 	}
 
 	/**
-	 * Returns null, if <code>array</code> is null.
+	 * Returns null, if {@code array} is null.
 	 */
 	public static Value toValue(final byte[] array)
 	{
@@ -320,7 +320,7 @@ public final class DataField extends Field<DataField.Value>
 	}
 
 	/**
-	 * Returns null, if <code>stream</code> is null.
+	 * Returns null, if {@code stream} is null.
 	 */
 	public static Value toValue(final InputStream stream)
 	{
@@ -328,7 +328,7 @@ public final class DataField extends Field<DataField.Value>
 	}
 
 	/**
-	 * Returns null, if <code>file</code> is null.
+	 * Returns null, if {@code file} is null.
 	 */
 	public static Value toValue(final File file)
 	{
@@ -336,7 +336,7 @@ public final class DataField extends Field<DataField.Value>
 	}
 
 	/**
-	 * Returns null, if <code>file</code> is null.
+	 * Returns null, if {@code file} is null.
 	 */
 	public static Value toValue(final ZipFile file, final ZipEntry entry)
 	{
