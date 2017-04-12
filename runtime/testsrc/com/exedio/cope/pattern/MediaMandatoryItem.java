@@ -46,7 +46,7 @@ public final class MediaMandatoryItem extends Item
 	// because file is mandatory
 	boolean isFileNull()
 	{
-		return MediaMandatoryItem.file.isNull(this);
+		return file.isNull(this);
 	}
 
 

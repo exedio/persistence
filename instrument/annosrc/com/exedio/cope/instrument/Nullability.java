@@ -44,7 +44,7 @@ public enum Nullability
 		{
 			if ( nonnullAnnotation.when().equals(When.ALWAYS) )
 			{
-				return Nullability.NONNULL;
+				return NONNULL;
 			}
 			else
 			{
@@ -53,11 +53,11 @@ public enum Nullability
 		}
 		else if (getAnnotation(Nullable.class, annotations)!=null)
 		{
-			return Nullability.NULLABLE;
+			return NULLABLE;
 		}
 		else
 		{
-			return Nullability.DEFAULT;
+			return DEFAULT;
 		}
 	}
 

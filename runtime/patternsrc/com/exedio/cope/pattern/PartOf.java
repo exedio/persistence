@@ -144,7 +144,7 @@ public final class PartOf<C extends Item> extends Pattern
 	public static List<PartOf<?>> getPartOfs(final Pattern pattern)
 	{
 		final ArrayList<PartOf<?>> result = new ArrayList<>();
-		for(final PartOf<?> partOf : PartOf.getPartOfs(pattern.getType()))
+		for(final PartOf<?> partOf : getPartOfs(pattern.getType()))
 		{
 			if (pattern.getSourceTypes().contains(partOf.getType()) ||
 					( pattern.getType().getPattern()!=null &&

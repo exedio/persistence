@@ -921,7 +921,7 @@ public final class Query<R> implements Serializable
 		final Dialect.LimitSupport limitSupport = executor.limitSupport;
 		final int offset = this.offset;
 		final int limit = this.limit;
-		final boolean limitActive = offset>0 || limit!=Query.UNLIMITED;
+		final boolean limitActive = offset>0 || limit!=UNLIMITED;
 		final boolean distinct = this.distinct;
 		if(offset<0)
 			throw new RuntimeException();

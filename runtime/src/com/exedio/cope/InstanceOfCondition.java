@@ -53,7 +53,7 @@ public final class InstanceOfCondition<E extends Item> extends Condition
 	{
 		this.function = requireNonNull(function, "function");
 		this.not = not;
-		this.types = InstanceOfCondition.cast(requireNonEmptyAndCopy(types, "types"));
+		this.types = cast(requireNonEmptyAndCopy(types, "types"));
 	}
 
 	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: no generic array creation

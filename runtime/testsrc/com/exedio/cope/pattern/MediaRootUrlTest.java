@@ -96,7 +96,7 @@ public class MediaRootUrlTest
 		@SuppressWarnings("deprecation") // OK: testing deprecated api
 		String getNamedFileURL(final String name)
 		{
-			return AnItem.file.getNamedURL(this, name);
+			return file.getNamedURL(this, name);
 		}
 
 	/**

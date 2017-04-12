@@ -63,7 +63,7 @@ public final class TextUrlFilterDelegatorItem extends Item
 
 	String getFertig2ContentType()
 	{
-		return TextUrlFilterDelegatorItem.fertig2.getContentType(this);
+		return fertig2.getContentType(this);
 	}
 
 	/**

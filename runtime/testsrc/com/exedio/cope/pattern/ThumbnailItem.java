@@ -35,7 +35,7 @@ public final class ThumbnailItem extends Item
 	// because photo has a fixed contentType
 	String getThumbContentType()
 	{
-		return ThumbnailItem.thumb.getContentType(this);
+		return thumb.getContentType(this);
 	}
 
 	/**

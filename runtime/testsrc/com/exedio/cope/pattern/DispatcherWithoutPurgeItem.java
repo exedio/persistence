@@ -59,7 +59,7 @@ public final class DispatcherWithoutPurgeItem extends Item implements Dispatchab
 	{
 		Assert.assertSame(toTarget, dispatcher);
 		Assert.assertTrue(MODEL.hasCurrentTransaction());
-		Assert.assertEquals(DispatcherWithoutPurgeItem.toTarget.getID() + " dispatch " + getCopeID(), MODEL.currentTransaction().getName());
+		Assert.assertEquals(toTarget.getID() + " dispatch " + getCopeID(), MODEL.currentTransaction().getName());
 		setDispatchCountCommitted(getDispatchCountCommitted()+1);
 		final Log log = logs.get(this);
 		final long start = nanoTime();

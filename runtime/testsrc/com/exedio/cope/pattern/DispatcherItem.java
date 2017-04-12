@@ -75,7 +75,7 @@ public final class DispatcherItem extends Item implements Dispatchable
 	{
 		Assert.assertSame(toTarget, dispatcher);
 		Assert.assertTrue(MODEL.hasCurrentTransaction());
-		Assert.assertEquals(DispatcherItem.toTarget.getID() + " dispatch " + getCopeID(), MODEL.currentTransaction().getName());
+		Assert.assertEquals(toTarget.getID() + " dispatch " + getCopeID(), MODEL.currentTransaction().getName());
 		setDispatchCountCommitted(getDispatchCountCommitted()+1);
 		final Log log = logs.get(this);
 		final long start = nanoTime();

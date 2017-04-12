@@ -55,7 +55,7 @@ public final class TextUrlFilterItem extends Item
 	// because photo has a fixed contentType
 	String getFertigContentType()
 	{
-		return TextUrlFilterItem.fertig.getContentType(this);
+		return fertig.getContentType(this);
 	}
 
 

@@ -512,14 +512,14 @@ public final class Price implements Serializable, Comparable<Price>
 		{
 			final Price source = weights[i];
 			// do not round here, remaining pence will be distributed below
-			final Price x = Price.storeOf((int)(total.store() * source.store() / (weightSum.store() * 1.0)));
+			final Price x = storeOf((int)(total.store() * source.store() / (weightSum.store() * 1.0)));
 			assigned = assigned.add(x);
 			result[i] = x;
 		}
 
 		// distributing remaining pence
 		long remainingPence = total.subtract(assigned).store();
-		final Price pence = Price.storeOf(remainingPence>0 ? 1 : -1);
+		final Price pence = storeOf(remainingPence>0 ? 1 : -1);
 		final int penceD = remainingPence>0 ? -1 : 1;
 		while(remainingPence!=0)
 		{

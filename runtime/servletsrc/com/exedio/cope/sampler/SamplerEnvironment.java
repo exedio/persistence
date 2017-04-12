@@ -201,7 +201,7 @@ final class SamplerEnvironment extends Item
 			final Map<String, String> environment = info.getEnvironment();
 
 			final ArrayList<SetValue<?>> sv = new ArrayList<>();
-			sv.add(SamplerEnvironment.connectDate.map(date));
+			sv.add(connectDate.map(date));
 			sv.add(initializeDate.map(date));
 			addHostname(sv, environment);
 			addConnection(sv, environment);

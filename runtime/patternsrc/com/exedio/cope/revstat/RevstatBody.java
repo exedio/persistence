@@ -70,7 +70,7 @@ final class RevstatBody extends Item
 
 	static List<RevstatBody> getBodyParts(final Revstat container)
 	{
-		return RevstatBody.body.getParts(RevstatBody.class, container);
+		return body.getParts(RevstatBody.class, container);
 	}
 
 	int getRows()

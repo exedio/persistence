@@ -47,7 +47,7 @@ public final class HashItem extends Item
 	 */
 	boolean isInternalNull()
 	{
-		return HashItem.internal.isNull(this);
+		return internal.isNull(this);
 	}
 
 	/**
