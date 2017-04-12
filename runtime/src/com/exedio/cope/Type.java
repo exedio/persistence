@@ -1473,7 +1473,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	// ------------------- deprecated stuff -------------------
 
 	/**
-	 * @deprecated Use {@link #checkUpdateCounter()} instead
+	 * @deprecated Use {@link #checkUpdateCounterL()} instead
 	 */
 	@Deprecated
 	public int checkUpdateCounter()

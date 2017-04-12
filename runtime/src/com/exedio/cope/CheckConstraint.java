@@ -96,7 +96,7 @@ public final class CheckConstraint extends Feature implements Copyable
 
 	/**
 	 * Checks, whether the database fulfills this check constraint.
-	 * Should be called {@link #check()} for checking
+	 * Should be called for checking
 	 * database consistency after any modifications of the database
 	 * bypassing cope.
 	 * Is needed especially iff {@link CheckConstraint#isSupportedBySchemaIfSupportedByDialect()}

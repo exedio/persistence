@@ -28,7 +28,7 @@ interface SequenceImpl
 	/**
 	 * Returns the same value as {@link #next()},
 	 * but without incrementing the internal state.
-	 * Thus multiple calls to {@link #getNext()} do
+	 * Thus multiple calls do
 	 * return the same value again and again.
 	 */
 	long getNext();
