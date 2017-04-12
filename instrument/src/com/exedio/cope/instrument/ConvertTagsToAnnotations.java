@@ -383,21 +383,18 @@ final class ConvertTagsToAnnotations
 
 			private String convertTag(final String tag)
 			{
-				if (tag.equals("@cope.initial"))
+				switch(tag)
 				{
-					return formatAnnotation(Tags.forInitial(tag));
-				}
-				else if (tag.equals("@cope.ignore"))
-				{
-					return formatAnnotation(Tags.forIgnore(tag));
-				}
-				else
-				{
-					final Pattern wrapPattern=Pattern.compile("@cope\\.([^ ]*)( +(none|public|protected|package|private|override|boolean-as-is|non-final|internal))+");
-					final Matcher matcher=wrapPattern.matcher(tag);
-					if (!matcher.matches()) throw new RuntimeException(">"+tag+"<");
-					final Wrapper option=Tags.forFeatureLine(matcher.group(1), tag);
-					return formatAnnotation(option);
+					case "@cope.initial":
+						return formatAnnotation(Tags.forInitial(tag));
+					case "@cope.ignore":
+						return formatAnnotation(Tags.forIgnore(tag));
+					default:
+						final Pattern wrapPattern=Pattern.compile("@cope\\.([^ ]*)( +(none|public|protected|package|private|override|boolean-as-is|non-final|internal))+");
+						final Matcher matcher=wrapPattern.matcher(tag);
+						if (!matcher.matches()) throw new RuntimeException(">"+tag+"<");
+						final Wrapper option=Tags.forFeatureLine(matcher.group(1), tag);
+						return formatAnnotation(option);
 				}
 			}
 
