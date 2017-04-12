@@ -61,7 +61,7 @@ public class TypesBoundFeaturesTest
 		assertFalse(iterator.hasNext());
 	}
 
-	static class AClass
+	static final class AClass
 	{
 		static final IntegerField feature1 = new IntegerField();
 		static final BooleanField feature2 = new BooleanField();

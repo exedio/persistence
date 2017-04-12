@@ -20,7 +20,7 @@ package com.exedio.cope.testmodel;
 
 import com.exedio.cope.Model;
 
-public class Main
+public final class Main
 {
 	public static final Model model = new Model(
 		EmptyItem.TYPE,
