@@ -46,7 +46,7 @@ final class Entity
 	{
 		for(final Map.Entry<Field<?>, Object> e : fieldValues.entrySet())
 		{
-			final Field f = e.getKey();
+			final Field<?> f = e.getKey();
 			if(f instanceof FunctionField)
 				put((FunctionField)f, e.getValue());
 			else

@@ -212,7 +212,7 @@ public class InstanceOfTest extends TestWithEnvironment
 	@Test public void testPolymorphicJoinConditionUnchecked()
 	{
 		{
-			final Query q = InstanceOfRefItem.TYPE.newQuery();
+			final Query<InstanceOfRefItem> q = InstanceOfRefItem.TYPE.newQuery();
 			q.join(InstanceOfAItem.TYPE, refb2.equal((This<InstanceOfB2Item>)(This)InstanceOfAItem.TYPE.getThis())); // TODO
 			assertContains(q.search());
 		}
