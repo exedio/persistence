@@ -29,6 +29,7 @@ import com.exedio.cope.util.Properties;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.ListIterator;
+import org.junit.Assert;
 
 /**
  * An abstract test case class for tests creating/using some persistent data.
@@ -235,11 +236,11 @@ public abstract class CopeTest extends CopeAssert
 			}
 			if ( testMethodFinished && !hadTransaction )
 			{
-				fail( "test completed successfully but didn't have current transaction in tearDown" );
+				Assert.fail( "test completed successfully but didn't have current transaction in tearDown" );
 			}
 			if ( testMethodFinished && openTransactions!=null )
 			{
-				fail( "test completed successfully but left open transactions: "+openTransactions );
+				Assert.fail( "test completed successfully but left open transactions: "+openTransactions );
 			}
 		}
 
