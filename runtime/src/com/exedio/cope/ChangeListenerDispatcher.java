@@ -33,7 +33,7 @@ final class ChangeListenerDispatcher implements Runnable
 	private final LimitedQueue<ChangeEvent> queue;
 
 	private final ThreadSwarm threads;
-	private boolean threadRun = true;
+	private volatile boolean threadRun = true;
 	private final VolatileLong overflow = new VolatileLong();
 	private final VolatileLong exception = new VolatileLong();
 
