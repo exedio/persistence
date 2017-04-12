@@ -133,7 +133,7 @@ public class TextUrlFilterDelegator extends MediaFilter implements TextUrlFilter
 		}
 	}
 
-	@Wrap(order=20, thrown={@Wrap.Thrown(NotFound.class)})
+	@Wrap(order=20, thrown=@Wrap.Thrown(NotFound.class))
 	@Nonnull
 	public final String getContent(
 			@Nonnull final Item item,
@@ -202,7 +202,7 @@ public class TextUrlFilterDelegator extends MediaFilter implements TextUrlFilter
 	}
 
 	@Override
-	@Wrap(order=30, thrown={@Wrap.Thrown(NotFound.class)})
+	@Wrap(order=30, thrown=@Wrap.Thrown(NotFound.class))
 	@Nonnull
 	public Set<String> check( @Nonnull final Item item ) throws NotFound
 	{

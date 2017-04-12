@@ -258,7 +258,7 @@ public class TextUrlFilter extends MediaFilter implements TextUrlFilterCheckable
 		}
 	}
 
-	@Wrap(order=80, thrown={@Wrap.Thrown(NotFound.class)})
+	@Wrap(order=80, thrown=@Wrap.Thrown(NotFound.class))
 	@Nonnull
 	public final String getContent(
 			@Nonnull final Item item,
@@ -327,7 +327,7 @@ public class TextUrlFilter extends MediaFilter implements TextUrlFilterCheckable
 	}
 
 	@Override
-	@Wrap(order=90, thrown={@Wrap.Thrown(NotFound.class)})
+	@Wrap(order=90, thrown=@Wrap.Thrown(NotFound.class))
 	@Nonnull
 	public Set<String> check( @Nonnull final Item item ) throws NotFound
 	{
@@ -420,7 +420,7 @@ public class TextUrlFilter extends MediaFilter implements TextUrlFilterCheckable
 		}
 	}
 
-	@Wrap(order=100, thrown=@Wrap.Thrown(value=IOException.class))
+	@Wrap(order=100, thrown=@Wrap.Thrown(IOException.class))
 	public final void putPastesFromZip(
 			@Nonnull final Item item,
 			@Nonnull @Parameter("file") final File file)

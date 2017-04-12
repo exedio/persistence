@@ -110,10 +110,10 @@ public class WrapFeature
 			docReturn={
 				"",
 				"return documentation line 2 {0} {1} {2} {3} {4}"},
-			thrown={
+			thrown=
 				@Wrap.Thrown(value=IllegalArgumentException.class, doc={
 					"",
-					"throws documentation IllegalArgumentException line 2 {0} {1} {2} {3} {4}"})})
+					"throws documentation IllegalArgumentException line 2 {0} {1} {2} {3} {4}"}))
 	public int documentedFirstLineEmpty(
 			@SuppressWarnings("unused")
 			@Parameter(
