@@ -29,8 +29,8 @@ public final class Compare
 	 * Use {@link Integer#compare(int, int)} instead.
 	 */
 	@Deprecated
-	public static int compare(final int left, final int right)
+	public static int compare(final int x, final int y)
 	{
-		return Integer.compare(left, right);
+		return Integer.compare(x, y);
 	}
 }
