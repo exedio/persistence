@@ -108,8 +108,11 @@ final class SequenceImplBatchedSequence implements SequenceImpl
 	@Override
 	public void flush()
 	{
-		batchStart = BATCH_NOT_INITIALIZED;
-		indexInBatch = 0;
+		synchronized ( lock )
+		{
+			batchStart = BATCH_NOT_INITIALIZED;
+			indexInBatch = 0;
+		}
 	}
 
 	@Override
