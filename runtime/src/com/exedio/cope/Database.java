@@ -311,7 +311,7 @@ final class Database
 								throw new RuntimeException(
 										"inconsistent update counter for row " + item.pk + " in table " + table.id +
 										" compared to " + type.getTable().id + ": " +
-										+ value + '/' + updateCount);
+										value + '/' + updateCount);
 						}
 					}
 
