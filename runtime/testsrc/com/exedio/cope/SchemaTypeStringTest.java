@@ -128,10 +128,10 @@ public class SchemaTypeStringTest extends TestWithEnvironment
 		if(mysql)
 		{
 			final String mb4 = model.getConnectProperties().mysqlUtf8mb4 ? "mb4" : "";
-			type = type + " CHARACTER SET utf8"+mb4+" COLLATE utf8"+mb4+"_bin" + NOT_NULL;
+			type += " CHARACTER SET utf8"+mb4+" COLLATE utf8"+mb4+"_bin" + NOT_NULL;
 		}
 		else if(postgresql)
-			type = type + NOT_NULL;
+			type += NOT_NULL;
 		else
 			throw new RuntimeException();
 
