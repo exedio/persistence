@@ -244,7 +244,7 @@ public final class SetField<E> extends Pattern implements Copyable
 
 		for(final PatternItem tupel : mount.relationType.search(Cope.equalAndCast(mount.parent, item)))
 		{
-			final Object element = this.element.get(tupel);
+			final E element = this.element.get(tupel);
 
 			if(toCreateSet.contains(element))
 				toCreateSet.remove(element);
