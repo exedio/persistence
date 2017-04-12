@@ -364,7 +364,7 @@ public class ConnectTokenTest
 	{
 		assertNotConnected();
 
-		ConnectToken tokenSave;
+		final ConnectToken tokenSave;
 		try(ConnectToken token = issue(model, "tokenName"))
 		{
 			tokenSave = token;
@@ -380,7 +380,7 @@ public class ConnectTokenTest
 	{
 		assertNotConnected();
 
-		ConnectToken tokenSave;
+		final ConnectToken tokenSave;
 		try(ConnectToken token = issue(model, "tokenName"))
 		{
 			tokenSave = token;

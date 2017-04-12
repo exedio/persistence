@@ -156,7 +156,7 @@ class ClassVisitor extends GeneratedAwareScanner
 	 */
 	private int includeLeadingWhitespaceLine(final int pos, final boolean posOfLineSep)
 	{
-		int realStart;
+		final int realStart;
 		final int lineStart=context.searchBefore(pos, LINE_SEPARATOR_BYTES);
 		if (lineStart==-1)
 		{

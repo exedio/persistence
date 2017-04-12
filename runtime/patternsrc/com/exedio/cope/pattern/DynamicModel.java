@@ -210,7 +210,7 @@ public final class DynamicModel<L> extends Pattern
 				addSource(fields[i+enumOffset] = enums[i] = enumType.newItemField(FORBID).optional(), "enum"+i);
 		}
 
-		ItemField<Type<L>> type;
+		final ItemField<Type<L>> type;
 		addSource(type = typeType.newItemField(FORBID).optional(), "type");
 
 		this.mountIfMounted = new Mount<>(typeType, fieldParent, fieldType, enumParent, enumType, type);

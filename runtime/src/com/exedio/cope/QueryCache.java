@@ -70,7 +70,7 @@ final class QueryCache
 				resultList.size()<=query.getSearchSizeCacheLimit())
 			{
 				result = new Value(query, resultList);
-				Object collision;
+				final Object collision;
 				synchronized(map)
 				{
 					collision = map.put(key, result);

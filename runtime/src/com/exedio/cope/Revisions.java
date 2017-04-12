@@ -266,7 +266,7 @@ public final class Revisions
 
 	private static String getSavepoint(final ConnectionPool connectionPool, final Dialect dialect)
 	{
-		String result;
+		final String result;
 		try
 		{
 			result = dialect.getSchemaSavepoint(connectionPool);

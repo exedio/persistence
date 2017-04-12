@@ -180,7 +180,7 @@ final class ClusterProperties extends Properties
 		final int port = listenPort;
 		try
 		{
-			DatagramSocket result;
+			final DatagramSocket result;
 			if(multicast)
 			{
 				@SuppressWarnings("resource") // OK: is closed outside this factory method

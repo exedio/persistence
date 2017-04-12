@@ -59,7 +59,7 @@ public class SchemaMismatchTableNameTest extends SchemaMismatchTest
 			assertEqualsUnmodifiable(asList(pkA, fdA), tableA.getColumns());
 		}
 		final Table tableB = schema.getTable(name(ItemB.TYPE));
-		Column pkBcolumn;
+		final Column pkBcolumn;
 		{
 			final Column pkB, fdB;
 			assertIt("missing", ERROR, ERROR, tableB);

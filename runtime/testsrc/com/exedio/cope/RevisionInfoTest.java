@@ -370,7 +370,7 @@ public class RevisionInfoTest
 	private static TreeMap<String, String> reparse(final RevisionInfo info)
 	{
 		final byte[] bytes = info.toBytes();
-		String bytesString;
+		final String bytesString;
 		try
 		{
 			bytesString = new String(bytes, "latin1");
@@ -391,7 +391,7 @@ public class RevisionInfoTest
 	private static <X extends RevisionInfo> X reread(final X info)
 	{
 		final byte[] bytes = info.toBytes();
-		String bytesString;
+		final String bytesString;
 		try
 		{
 			bytesString = new String(bytes, "latin1");
