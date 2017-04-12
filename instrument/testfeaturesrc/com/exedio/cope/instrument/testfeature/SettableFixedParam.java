@@ -40,7 +40,7 @@ public class SettableFixedParam implements Settable<AtomicReference<AtomicBoolea
 	@Override
 	public Set<Class<? extends Throwable>> getInitialExceptions()
 	{
-		return Collections.<Class<? extends Throwable>>emptySet();
+		return Collections.emptySet();
 	}
 
 

@@ -241,6 +241,6 @@ public class QueryCopyTest
 
 	private static <E> List<E> nullToEmpty(final List<E> l)
 	{
-		return l!=null ? l : Collections.<E>emptyList();
+		return l!=null ? l : Collections.emptyList();
 	}
 }

@@ -751,7 +751,7 @@ final class Generator
 				feature,
 				clazz.getSuperclass().isAnnotationPresent(WrapFeature.class)
 				? getWrappers(clazz.getSuperclass(), feature)
-				: Collections.<WrapperX>emptyList(),
+				: Collections.emptyList(),
 				nullabilityAnnotations);
 	}
 

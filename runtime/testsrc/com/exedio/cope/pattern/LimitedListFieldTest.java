@@ -106,13 +106,13 @@ public class LimitedListFieldTest extends TestWithEnvironment
 		assertEquals(i1, item.getNum2());
 		assertEquals(null, item.getNum3());
 
-		item.setNums(Arrays.<Integer>asList());
+		item.setNums(Arrays.asList());
 		assertEquals(null, item.getNum1());
 		assertEquals(null, item.getNum2());
 		assertEquals(null, item.getNum3());
-		assertContains(item, TYPE.search(nums.equal(Arrays.<Integer>asList())));
+		assertContains(item, TYPE.search(nums.equal(Arrays.asList())));
 		assertContains(TYPE.search(nums.equal(asList(i1))));
-		assertContains(TYPE.search(nums.notEqual(Arrays.<Integer>asList())));
+		assertContains(TYPE.search(nums.notEqual(Arrays.asList())));
 		assertContains(item, TYPE.search(nums.notEqual(asList(i1))));
 		assertContains(TYPE.search(nums.contains(i1)));
 		assertContains(TYPE.search(nums.contains(i2)));
@@ -150,12 +150,12 @@ public class LimitedListFieldTest extends TestWithEnvironment
 		assertEquals("bello", item.getString1());
 		assertEquals(null, item.getString2());
 		assertEquals(null, item.getString3());
-		assertContains(TYPE.search(strings.equal(Arrays.<String>asList())));
+		assertContains(TYPE.search(strings.equal(Arrays.asList())));
 		assertContains(TYPE.search(strings.equal(asList("hallo"))));
 		assertContains(item, TYPE.search(strings.equal(asList("hallo", "bello"))));
 		assertContains(TYPE.search(strings.equal(asList("bello", "hallo", "zollo"))));
 		assertContains(TYPE.search(strings.equal(asList("bello", "hallo"))));
-		assertContains(item, TYPE.search(strings.notEqual(Arrays.<String>asList())));
+		assertContains(item, TYPE.search(strings.notEqual(Arrays.asList())));
 		assertContains(item, TYPE.search(strings.notEqual(asList("hallo"))));
 		assertContains(TYPE.search(strings.notEqual(asList("hallo", "bello"))));
 		assertContains(item, TYPE.search(strings.notEqual(asList("bello", "hallo", "zollo"))));
@@ -287,7 +287,7 @@ public class LimitedListFieldTest extends TestWithEnvironment
 	@Test public void testContainsAny()
 	{
 		final String f = "LimitedListFieldItem.strings-";
-		assertEquals("FALSE", strings.containsAny(Collections.<String>emptyList()).toString());
+		assertEquals("FALSE", strings.containsAny(Collections.emptyList()).toString());
 		assertEquals("("+f+"0='a' OR "+f+"1='a' OR "+f+"2='a' OR "+f+"3='a')",
 			strings.containsAny(asList("a")).toString());
 		assertEquals(
@@ -303,7 +303,7 @@ public class LimitedListFieldTest extends TestWithEnvironment
 
 		final String f = "l1.LimitedListFieldItem.strings-";
 
-		assertEquals("FALSE", strings.containsAny(join, Collections.<String>emptyList()).toString());
+		assertEquals("FALSE", strings.containsAny(join, Collections.emptyList()).toString());
 		assertEquals("("+f+"0='a' OR "+f+"1='a' OR "+f+"2='a' OR "+f+"3='a')",
 			strings.containsAny(join, asList("a")).toString());
 		assertEquals(

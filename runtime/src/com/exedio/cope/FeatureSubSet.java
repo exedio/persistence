@@ -67,7 +67,7 @@ final class FeatureSubSet<F extends Feature>
 			final ArrayList<F> result = new ArrayList<>(inherited);
 			result.addAll(declared);
 			result.trimToSize();
-			return Collections.<F>unmodifiableList(result);
+			return Collections.unmodifiableList(result);
 		}
 	}
 }

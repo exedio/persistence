@@ -82,12 +82,12 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 
 	private LimitedListField(final FunctionField<E> source1, final FunctionField<E> source2)
 	{
-		this(LimitedListField.<E>cast(new FunctionField<?>[]{source1, source2}));
+		this(LimitedListField.cast(new FunctionField<?>[]{source1, source2}));
 	}
 
 	private LimitedListField(final FunctionField<E> source1, final FunctionField<E> source2, final FunctionField<E> source3)
 	{
-		this(LimitedListField.<E>cast(new FunctionField<?>[]{source1, source2, source3}));
+		this(LimitedListField.cast(new FunctionField<?>[]{source1, source2, source3}));
 	}
 
 	private LimitedListField(final FunctionField<E> template, final int maximumSize)

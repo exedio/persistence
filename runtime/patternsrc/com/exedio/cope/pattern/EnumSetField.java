@@ -124,7 +124,7 @@ public final class EnumSetField<E extends Enum<E>> extends Pattern implements Se
 	@Nonnull
 	public EnumSet<E> get(@Nonnull final Item item)
 	{
-		final EnumSet<E> result = EnumSet.<E>noneOf(elementClass);
+		final EnumSet<E> result = EnumSet.noneOf(elementClass);
 		for(final E element : fields.keySet())
 		{
 			if(fields.get(element).getMandatory(item))

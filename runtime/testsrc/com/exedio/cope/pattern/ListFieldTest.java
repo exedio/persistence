@@ -408,7 +408,7 @@ public class ListFieldTest extends TestWithEnvironment
 		assertEquals(3, r4.get(stringsOrder).intValue());
 		assertFalse(r3.existsCopeItem());
 
-		item.setStrings(unmodifiableList(Arrays.<String>asList()));
+		item.setStrings(unmodifiableList(Arrays.asList()));
 		assertEqualsUnmodifiable(list(), item.getStrings());
 		assertContains(getDistinctParentsOfStrings(null));
 		assertContains(getDistinctParentsOfStrings("null1"));

@@ -54,7 +54,7 @@ final class ChangeListeners
 		{
 			final int size = list.size();
 			if(size==0)
-				return Collections.<ChangeListener>emptyList();
+				return Collections.emptyList();
 
 			// make a copy to avoid ConcurrentModificationViolations
 			result = new ArrayList<>(size);

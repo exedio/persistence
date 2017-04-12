@@ -304,7 +304,7 @@ public class SetFieldTest extends TestWithEnvironment
 		assertEquals("null3", r2.get(stringsElement));
 		assertEquals("null4", r3.get(stringsElement));
 
-		item.setStrings(Arrays.<String>asList());
+		item.setStrings(Arrays.asList());
 		assertContainsUnmodifiable(item.getStrings());
 		assertFalse(r0.existsCopeItem());
 		assertFalse(r1.existsCopeItem());

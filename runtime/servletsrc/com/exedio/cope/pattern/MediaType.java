@@ -108,7 +108,7 @@ public final class MediaType
 		if( aliases.length>0 )
 			return Collections.unmodifiableList( Arrays.asList(aliases) );
 
-		return Collections.<String>emptyList();
+		return Collections.emptyList();
 	}
 
 	void addNameAndAliases(final ArrayList<String> list)

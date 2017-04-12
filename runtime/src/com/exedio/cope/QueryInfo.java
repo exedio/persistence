@@ -42,7 +42,7 @@ public final class QueryInfo
 	{
 		return
 			childsLazilyInitialized==null
-			? Collections.<QueryInfo>emptyList()
+			? Collections.emptyList()
 			: Collections.unmodifiableList(childsLazilyInitialized);
 	}
 

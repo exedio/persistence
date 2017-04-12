@@ -31,14 +31,14 @@ public final class ListUtil
 		switch(size)
 		{
 		case 0:
-			return Collections.<F>emptyList();
+			return Collections.emptyList();
 		case 1:
 			return Collections.singletonList(list.get(0));
 		default:
 			final List<Object> result = Arrays.asList(list.toArray(new Object[size]));
 			@SuppressWarnings("unchecked")
 			final List<F> resultChecked = (List<F>)result;
-			return Collections.<F>unmodifiableList(resultChecked);
+			return Collections.unmodifiableList(resultChecked);
 		}
 	}
 

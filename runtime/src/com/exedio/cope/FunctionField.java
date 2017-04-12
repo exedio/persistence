@@ -322,7 +322,7 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 	 */
 	public List<UniqueConstraint> getUniqueConstraints()
 	{
-		return uniqueConstraints!=null ? Collections.unmodifiableList(uniqueConstraints) : Collections.<UniqueConstraint>emptyList();
+		return uniqueConstraints!=null ? Collections.unmodifiableList(uniqueConstraints) : Collections.emptyList();
 	}
 
 	/**
@@ -363,7 +363,7 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 		return
 				implicitCopyConstraintsFrom!=null
 				? Collections.unmodifiableList(Arrays.asList(implicitCopyConstraintsFrom))
-				: Collections.<CopyConstraint>emptyList();
+				: Collections.emptyList();
 	}
 
 	@Override

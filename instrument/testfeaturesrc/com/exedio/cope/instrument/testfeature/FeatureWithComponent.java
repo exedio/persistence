@@ -67,7 +67,7 @@ public final class FeatureWithComponent extends Pattern implements Settable<Bool
 	@Override
 	public Set<Class<? extends Throwable>> getInitialExceptions()
 	{
-		return Collections.<Class<? extends Throwable>>emptySet();
+		return Collections.emptySet();
 	}
 
 	@Override

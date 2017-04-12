@@ -241,6 +241,6 @@ public abstract class Field<E> extends Feature implements Settable<E>
 		return
 			pattern!=null
 			? Collections.singletonList(pattern)
-			: Collections.<Pattern>emptyList();
+			: Collections.emptyList();
 	}
 }

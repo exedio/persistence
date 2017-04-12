@@ -39,7 +39,7 @@ public class SettableFixedParamWildcard implements Settable<AtomicReference<?>>
 	@Override
 	public Set<Class<? extends Throwable>> getInitialExceptions()
 	{
-		return Collections.<Class<? extends Throwable>>emptySet();
+		return Collections.emptySet();
 	}
 
 

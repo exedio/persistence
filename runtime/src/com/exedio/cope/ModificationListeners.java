@@ -29,7 +29,7 @@ final class ModificationListeners
 {
 	static List<ModificationListener> get()
 	{
-		return Collections.<ModificationListener>emptyList();
+		return Collections.emptyList();
 	}
 
 	static int getCleared()

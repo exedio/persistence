@@ -300,7 +300,7 @@ final class Types
 		private static <X> List<X> finish(final ArrayList<X> list)
 		{
 			if(list==null)
-				return Collections.<X>emptyList();
+				return Collections.emptyList();
 			assert list.size()>0;
 			return ListUtil.trimUnmodifiable(list);
 		}

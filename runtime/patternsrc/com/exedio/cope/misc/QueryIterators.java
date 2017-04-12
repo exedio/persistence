@@ -116,7 +116,7 @@ public final class QueryIterators
 				}
 				else
 				{
-					this.iterator = Collections.<E>emptyIterator();
+					this.iterator = Collections.emptyIterator();
 				}
 			}
 

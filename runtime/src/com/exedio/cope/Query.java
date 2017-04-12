@@ -267,7 +267,7 @@ public final class Query<R> implements Serializable
 
 	public List<Join> getJoins()
 	{
-		return joins==null ? Collections.<Join>emptyList() : Collections.unmodifiableList(joins);
+		return joins==null ? Collections.emptyList() : Collections.unmodifiableList(joins);
 	}
 
 
@@ -277,7 +277,7 @@ public final class Query<R> implements Serializable
 	{
 		return
 			groupBy==null
-			? Collections.<Selectable<?>>emptyList()
+			? Collections.emptyList()
 			: Collections.unmodifiableList(Arrays.asList(groupBy));
 	}
 
@@ -306,14 +306,14 @@ public final class Query<R> implements Serializable
 	{
 		return
 			orderBy==null
-			? Collections.<Selectable<?>>emptyList()
+			? Collections.emptyList()
 			: Collections.unmodifiableList(Arrays.asList(orderBy));
 	}
 
 	public List<Boolean> getOrderByAscending()
 	{
 		if(orderAscending==null)
-			return Collections.<Boolean>emptyList();
+			return Collections.emptyList();
 
 		final ArrayList<Boolean> result = new ArrayList<>(orderAscending.length);
 		for(final boolean b : orderAscending)
@@ -539,7 +539,7 @@ public final class Query<R> implements Serializable
 			final List<QueryInfo> queryInfos = transaction.queryInfos;
 			if(queryInfos!=null)
 				queryInfos.add(new QueryInfo("skipped search because " + (limit==0 ? "limit==0" : "condition==false")));
-			return Collections.<R>emptyList();
+			return Collections.emptyList();
 		}
 
 		return Collections.unmodifiableList(castQL(transaction.search(this, false)));

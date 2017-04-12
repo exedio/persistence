@@ -201,7 +201,7 @@ final class WrapperX
 		return
 			parameters!=null
 			? Collections.unmodifiableList(parameters)
-			: Collections.<Parameter>emptyList();
+			: Collections.emptyList();
 	}
 
 
@@ -230,7 +230,7 @@ final class WrapperX
 		return
 			throwsClause!=null
 			? Collections.unmodifiableMap(throwsClause)
-			: Collections.<Class<? extends Throwable>, String[]>emptyMap();
+			: Collections.emptyMap();
 	}
 
 

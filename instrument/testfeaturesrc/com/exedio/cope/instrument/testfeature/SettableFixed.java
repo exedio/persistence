@@ -39,7 +39,7 @@ public class SettableFixed implements Settable<AtomicBoolean>
 	@Override
 	public Set<Class<? extends Throwable>> getInitialExceptions()
 	{
-		return Collections.<Class<? extends Throwable>>emptySet();
+		return Collections.emptySet();
 	}
 
 

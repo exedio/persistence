@@ -73,7 +73,7 @@ public class CompositeConditionUtilTest
 		}
 		try
 		{
-			newCompositeCondition(AND, Collections.<Condition>emptyList());
+			newCompositeCondition(AND, Collections.emptyList());
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -91,7 +91,7 @@ public class CompositeConditionUtilTest
 		}
 		try
 		{
-			newCompositeCondition(OR, Collections.<Condition>emptyList());
+			newCompositeCondition(OR, Collections.emptyList());
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -232,7 +232,7 @@ public class CompositeConditionUtilTest
 		assertEquals(c2, field.in(2.0));
 		assertEquals(c2, field.in(asList(2.0)));
 		assertSame(FALSE, field.in());
-		assertSame(FALSE, field.in(Arrays.<Double>asList()));
+		assertSame(FALSE, field.in(Arrays.asList()));
 
 		// Condition.valueOf
 		assertSame(Condition.TRUE,  Condition.valueOf(true));

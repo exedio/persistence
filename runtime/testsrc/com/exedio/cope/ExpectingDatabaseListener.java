@@ -59,7 +59,7 @@ public class ExpectingDatabaseListener implements TestDatabaseListener
 	public void expectNoCall()
 	{
 		if ( expectedCalls!=null ) throw new RuntimeException( expectedCalls.toString() );
-		expectedCalls = Collections.<Call>emptyList();
+		expectedCalls = Collections.emptyList();
 	}
 
 	public void expectLoad( final Transaction tx, final Item item )

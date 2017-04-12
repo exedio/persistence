@@ -47,7 +47,7 @@ public final class RuntimeAssert
 
 	static <T extends Item> void assertCondition(final Type<T> type, final Condition actual)
 	{
-		assertCondition(Collections.<T>emptyList(), type, actual);
+		assertCondition(Collections.emptyList(), type, actual);
 	}
 
 	static <T extends Item> void assertCondition(final T o1, final Type<T> type, final Condition actual)

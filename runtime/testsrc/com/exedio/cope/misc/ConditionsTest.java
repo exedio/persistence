@@ -30,7 +30,6 @@ import static org.junit.Assert.fail;
 
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.Condition;
-import com.exedio.cope.Function;
 import com.exedio.cope.StringField;
 import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
@@ -102,7 +101,7 @@ public class ConditionsTest
 
 	@Test public void testUnisonNull()
 	{
-		assertEquals("TRUE", unisonNull(Collections.<Function<?>>emptyList()).toString());
+		assertEquals("TRUE", unisonNull(Collections.emptyList()).toString());
 		assertEquals("TRUE", unisonNull(asList(name1)).toString());
 		assertEquals("(" +
 			"(AnItem.name1 is "+ "null AND AnItem.name2 is "+ "null) OR " +

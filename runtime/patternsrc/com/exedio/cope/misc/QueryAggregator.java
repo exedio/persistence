@@ -132,7 +132,7 @@ public final class QueryAggregator<R>
 				}
 			}
 			if(first==null)
-				return result(Collections.<R>emptyList(), total);
+				return result(Collections.emptyList(), total);
 
 			data = new ArrayList<>(search(first, offset-totalBeforeFirst));
 		}
