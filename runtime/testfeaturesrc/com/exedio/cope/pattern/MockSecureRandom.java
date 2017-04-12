@@ -24,7 +24,7 @@ import static org.junit.Assert.assertTrue;
 import com.exedio.cope.misc.Arrays;
 import java.security.SecureRandom;
 
-final class MockSecureRandom extends SecureRandom
+public final class MockSecureRandom extends SecureRandom
 {
 	private static final long serialVersionUID = 1l;
 

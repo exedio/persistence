@@ -72,7 +72,7 @@ public class MessageDigestHashTest extends TestWithEnvironment
 	@SuppressFBWarnings("BC_UNCONFIRMED_CAST_OF_RETURN_VALUE")
 	private static void expectSalt(final Hash hash, final String bytes)
 	{
-		((MockSecureRandom2)algo(hash).getSaltSource()).expectNextBytes(Hex.decodeLower(bytes));
+		((MockSecureRandom)algo(hash).getSaltSource()).expectNextBytes(Hex.decodeLower(bytes));
 	}
 
 	@Test public void testMD5()

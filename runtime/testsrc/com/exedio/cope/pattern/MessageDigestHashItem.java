@@ -29,12 +29,12 @@ import java.nio.charset.StandardCharsets;
 public final class MessageDigestHashItem extends Item
 {
 	@Wrapper(wrap="set", visibility=NONE)
-	static final Hash password = new Hash(new MessageDigestAlgorithm("SHA-512", 0, 5).salt(8, new MockSecureRandom2())).optional().limit(200);
+	static final Hash password = new Hash(new MessageDigestAlgorithm("SHA-512", 0, 5).salt(8, new MockSecureRandom())).optional().limit(200);
 	@Wrapper(wrap="set", visibility=NONE)
-	static final Hash passwordLatin = new Hash(new MessageDigestAlgorithm("SHA-512", 0, 5).salt(8, new MockSecureRandom2()), StandardCharsets.ISO_8859_1).optional();
-	static final Hash passwordFinal = new Hash(new MessageDigestAlgorithm("SHA-512", 0, 5).salt(8, new MockSecureRandom2())).toFinal();
+	static final Hash passwordLatin = new Hash(new MessageDigestAlgorithm("SHA-512", 0, 5).salt(8, new MockSecureRandom()), StandardCharsets.ISO_8859_1).optional();
+	static final Hash passwordFinal = new Hash(new MessageDigestAlgorithm("SHA-512", 0, 5).salt(8, new MockSecureRandom())).toFinal();
 	@Wrapper(wrap="set", visibility=NONE)
-	static final Hash passwordMandatory = new Hash(new MessageDigestAlgorithm("SHA-512", 0, 5).salt(8, new MockSecureRandom2()));
+	static final Hash passwordMandatory = new Hash(new MessageDigestAlgorithm("SHA-512", 0, 5).salt(8, new MockSecureRandom()));
 
 	void setPassword(final String password)
 	{
@@ -56,7 +56,7 @@ public final class MessageDigestHashItem extends Item
 	{
 		@SuppressWarnings("deprecation")
 		final Hash.Algorithm algo = hash.getAlgorithm();
-		((MockSecureRandom2)((MessageDigestAlgorithm)algo).getSaltSource()).expectNextBytes(Hex.decodeLower("aeab417a9b5a7cf3"));
+		((MockSecureRandom)((MessageDigestAlgorithm)algo).getSaltSource()).expectNextBytes(Hex.decodeLower("aeab417a9b5a7cf3"));
 		hash.set(this, password);
 	}
 
