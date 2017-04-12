@@ -32,7 +32,7 @@ public final class MockSecureRandom extends SecureRandom
 	private boolean setSeedDone = false;
 
 	@Override
-	synchronized public void setSeed(final long seed)
+	public void setSeed(final long seed)
 	{
 		if(setSeedDone)
 			throw new RuntimeException("exhausted");
@@ -43,7 +43,7 @@ public final class MockSecureRandom extends SecureRandom
 	}
 
 	@Override
-	synchronized public void nextBytes(final byte[] bytes)
+	public void nextBytes(final byte[] bytes)
 	{
 		assertTrue(nextBytesExpected!=null);
 		assertEquals(nextBytesExpected.length, bytes.length);
@@ -52,7 +52,7 @@ public final class MockSecureRandom extends SecureRandom
 		nextBytesExpected = null;
 	}
 
-	synchronized void expectNextBytes(final byte[] bytes)
+	void expectNextBytes(final byte[] bytes)
 	{
 		assertTrue(bytes!=null);
 		assertTrue(nextBytesExpected==null);
