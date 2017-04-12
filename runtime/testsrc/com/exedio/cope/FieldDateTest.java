@@ -136,9 +136,8 @@ public class FieldDateTest extends FieldTest
 	@Test public void testOrder() throws MandatoryViolationException
 	{
 		final Date[] dates = new Date[9];
-		AttributeItem item3, item4;
-		item3 = new AttributeItem("item3", 0, 0L, 0.0, true, emptyItem, AttributeItem.SomeEnum.enumValue1);
-		item4 = new AttributeItem("item4", 0, 0L, 0.0, true, emptyItem, AttributeItem.SomeEnum.enumValue1);
+		final AttributeItem item3 = new AttributeItem("item3", 0, 0L, 0.0, true, emptyItem, AttributeItem.SomeEnum.enumValue1);
+		final AttributeItem item4 = new AttributeItem("item4", 0, 0L, 0.0, true, emptyItem, AttributeItem.SomeEnum.enumValue1);
 		dates[0] = new Date();
 		for ( int i=1; i<dates.length; i++ )
 		{
@@ -184,9 +183,8 @@ public class FieldDateTest extends FieldTest
 	@Test public void testOrderWithFixedDates() throws MandatoryViolationException, ParseException
 	{
 		final Date[] dates = new Date[9];
-		AttributeItem item3, item4;
-		item3 = new AttributeItem("item3", 0, 0L, 0.0, true, emptyItem, AttributeItem.SomeEnum.enumValue1);
-		item4 = new AttributeItem("item4", 0, 0L, 0.0, true, emptyItem, AttributeItem.SomeEnum.enumValue1);
+		final AttributeItem item3 = new AttributeItem("item3", 0, 0L, 0.0, true, emptyItem, AttributeItem.SomeEnum.enumValue1);
+		final AttributeItem item4 = new AttributeItem("item4", 0, 0L, 0.0, true, emptyItem, AttributeItem.SomeEnum.enumValue1);
 		final SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS", Locale.ENGLISH);
 		dates[0] = format.parse("2005-09-22 10:26:46.031");
 		dates[1] = format.parse("2005-09-22 10:26:46.046"); // item
