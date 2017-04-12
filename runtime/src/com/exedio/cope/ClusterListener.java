@@ -26,7 +26,6 @@ import static com.exedio.cope.ClusterUtil.MAGIC0;
 import static com.exedio.cope.ClusterUtil.MAGIC1;
 import static com.exedio.cope.ClusterUtil.MAGIC2;
 import static com.exedio.cope.ClusterUtil.MAGIC3;
-import static com.exedio.cope.ClusterUtil.formatNanos;
 import static com.exedio.cope.ClusterUtil.pingString;
 
 import com.exedio.cope.util.SequenceChecker;
@@ -34,8 +33,10 @@ import gnu.trove.TIntObjectHashMap;
 import gnu.trove.TLongHashSet;
 import java.net.DatagramPacket;
 import java.net.InetAddress;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Locale;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -254,6 +255,11 @@ abstract class ClusterListener
 						idString,
 						address, port,
 						formatNanos(nanos)});
+		}
+
+		private static String formatNanos(final long nanos)
+		{
+			return NumberFormat.getInstance(Locale.ENGLISH).format(nanos);
 		}
 
 		ClusterListenerInfo.Node getInfo()

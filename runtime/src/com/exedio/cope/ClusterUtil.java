@@ -18,8 +18,6 @@
 
 package com.exedio.cope;
 
-import java.text.NumberFormat;
-import java.util.Locale;
 import java.util.Random;
 
 final class ClusterUtil
@@ -74,10 +72,5 @@ final class ClusterUtil
 	static String pingString(final boolean ping)
 	{
 		return ping ? "ping" : "pong";
-	}
-
-	static String formatNanos(final long nanos)
-	{
-		return NumberFormat.getInstance(Locale.ENGLISH).format(nanos);
 	}
 }
