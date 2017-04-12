@@ -61,16 +61,16 @@ public class CopeNameUtilFieldTest
 		assertEquals(expectedWithFallback, CopeNameUtil.getAndFallbackToSimpleName(clazz));
 	}
 
-	private static int fieldNaked = 0;
+	private static final int fieldNaked = 0;
 	private static class ClassNaked { /* empty */ }
 
-	@CopeName("nameAnno") private static int fieldName = 0;
+	@CopeName("nameAnno") private static final int fieldName = 0;
 	@CopeName("nameAnno") private static class ClassName { /* empty */ }
 
-	/** @deprecated */ @Deprecated @com.exedio.cope.CopeID("idAnno") private static int fieldId = 0;
+	/** @deprecated */ @Deprecated @com.exedio.cope.CopeID("idAnno") private static final int fieldId = 0;
 	/** @deprecated */ @Deprecated @com.exedio.cope.CopeID("idAnno") private static class ClassId { /* empty */ }
 
-	/** @deprecated */ @Deprecated @com.exedio.cope.CopeID("bothAnnoID") @CopeName("bothAnnoName") private static int fieldBoth = 0;
+	/** @deprecated */ @Deprecated @com.exedio.cope.CopeID("bothAnnoID") @CopeName("bothAnnoName") private static final int fieldBoth = 0;
 	/** @deprecated */ @Deprecated @com.exedio.cope.CopeID("bothAnnoID") @CopeName("bothAnnoName") private static class ClassBoth { /* empty */ }
 
 
