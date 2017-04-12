@@ -359,6 +359,7 @@ final class Executor
 		queryInfo.addChild(statement.getQueryInfo());
 
 		{
+			final DecimalFormat numberFormat = numberFormat();
 			final QueryInfo timing = new QueryInfo("time elapsed " + numberFormat.format(end-start) + "ns");
 			timing.addChild(new QueryInfo("prepare " + numberFormat.format(prepared-start)));
 			timing.addChild(new QueryInfo("execute " + numberFormat.format(executed-prepared)));
@@ -372,14 +373,12 @@ final class Executor
 			queryInfo.addChild(plan);
 	}
 
-	private static final DecimalFormat numberFormat;
-
-	static
+	private static DecimalFormat numberFormat()
 	{
 		final DecimalFormatSymbols nfs = new DecimalFormatSymbols();
 		nfs.setDecimalSeparator(',');
 		nfs.setGroupingSeparator('\'');
-		numberFormat = new DecimalFormat("", nfs);
+		return new DecimalFormat("", nfs);
 	}
 
 	static long convertSQLResult(final Object sqlNumber)
