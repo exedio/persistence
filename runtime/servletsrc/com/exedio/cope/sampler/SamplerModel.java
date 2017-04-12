@@ -68,7 +68,7 @@ final class SamplerModel extends Item
 			final Pool.Info from,
 			final Pool.Info to)
 	{
-		return Arrays.asList((SetValue<?>)
+		return Arrays.asList(
 			map(connectionPoolIdle, to.getIdleLevel()),
 			maD(connectionPoolGet, from.getCounter().getGetCounter(), to.getCounter().getGetCounter()),
 			maD(connectionPoolPut, from.getCounter().getPutCounter(), to.getCounter().getPutCounter()),
@@ -90,7 +90,7 @@ final class SamplerModel extends Item
 			final TransactionCounters from,
 			final TransactionCounters to)
 	{
-		return Arrays.asList((SetValue<?>)
+		return Arrays.asList(
 			maD(commitWithoutConnection,   from.getCommitWithoutConnection  (), to.getCommitWithoutConnection  ()),
 			maD(commitWithConnection,      from.getCommitWithConnection     (), to.getCommitWithConnection     ()),
 			maD(rollbackWithoutConnection, from.getRollbackWithoutConnection(), to.getRollbackWithoutConnection()),
@@ -119,7 +119,7 @@ final class SamplerModel extends Item
 			final ItemCacheStatistics from,
 			final ItemCacheStatistics to)
 	{
-		return Arrays.asList((SetValue<?>)
+		return Arrays.asList(
 			map(itemCacheLimit, to.getLimit()),
 			map(itemCacheLevel, to.getLevel()),
 
@@ -149,7 +149,7 @@ final class SamplerModel extends Item
 			final QueryCacheInfo from,
 			final QueryCacheInfo to)
 	{
-		return Arrays.asList((SetValue<?>)
+		return Arrays.asList(
 			maD(queryCacheHits,            from.getHits           (), to.getHits           ()),
 			maD(queryCacheMisses,          from.getMisses         (), to.getMisses         ()),
 			maD(queryCacheReplacements,    from.getReplacements   (), to.getReplacements   ()),
@@ -167,7 +167,7 @@ final class SamplerModel extends Item
 			final ChangeListenerInfo from,
 			final ChangeListenerInfo to)
 	{
-		return Arrays.asList((SetValue<?>)
+		return Arrays.asList(
 			map(changeListenerSize,    to.getSize()),
 			maD(changeListenerCleared, from.getCleared(), to.getCleared()),
 			maD(changeListenerRemoved, from.getRemoved(), to.getRemoved()),
@@ -183,7 +183,7 @@ final class SamplerModel extends Item
 			final ChangeListenerDispatcherInfo from,
 			final ChangeListenerDispatcherInfo to)
 	{
-		return Arrays.asList((SetValue<?>)
+		return Arrays.asList(
 			maD(changeListenerOverflow,  from.getOverflow (), to.getOverflow ()),
 			maD(changeListenerException, from.getException(), to.getException()),
 			map(changeListenerPending,   to.getPending()));
@@ -208,7 +208,7 @@ final class SamplerModel extends Item
 			final MediaSummary from,
 			final MediaSummary to)
 	{
-		return Arrays.asList((SetValue<?>)
+		return Arrays.asList(
 			maD(mediasRedirectFrom,   from.getRedirectFrom  (), to.getRedirectFrom  ()),
 			maD(mediasException,      from.getException     (), to.getException     ()),
 			maD(mediasInvalidSpecial, from.getInvalidSpecial(), to.getInvalidSpecial()),

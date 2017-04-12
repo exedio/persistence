@@ -85,7 +85,10 @@ final class DoubleColumn extends Column
 		if(cache==null)
 			return "NULL";
 		else
-			return ((Double)cache).toString();
+		{
+			assert cache instanceof Double;
+			return cache.toString();
+		}
 	}
 
 	@Override

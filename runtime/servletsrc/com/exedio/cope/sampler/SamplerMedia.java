@@ -83,7 +83,7 @@ final class SamplerMedia extends Item
 			final MediaInfo from,
 			final MediaInfo to)
 	{
-		final List<SetValue<?>> result = Arrays.asList((SetValue<?>)
+		final List<SetValue<?>> result = Arrays.asList(
 			maS(media,          from.getPath          (), to.getPath          ()),
 			maD(redirectFrom,   from.getRedirectFrom  (), to.getRedirectFrom  ()),
 			maD(exception,      from.getException     (), to.getException     ()),

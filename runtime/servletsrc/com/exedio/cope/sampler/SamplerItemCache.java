@@ -96,7 +96,7 @@ final class SamplerItemCache extends Item
 			final ItemCacheInfo from,
 			final ItemCacheInfo to)
 	{
-		final List<SetValue<?>> result = Arrays.asList((SetValue<?>)
+		final List<SetValue<?>> result = Arrays.asList(
 			maS(type ,  from.getType(), to.getType()),
 			map(limit,  0),
 			map(level,  to.getLevel()),

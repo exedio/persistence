@@ -63,7 +63,7 @@ public class EnumSchemaTest
 
 		try
 		{
-			getColumnValue((Normal2)null);
+			getColumnValue(null);
 			fail();
 		}
 		catch(final NullPointerException e)
@@ -84,7 +84,7 @@ public class EnumSchemaTest
 		final EnumField<Normal2> normal = EnumField.create(Normal2.class);
 		try
 		{
-			getColumnValue(((EnumField)normal), (Enum)Normal.Eins);
+			getColumnValue((EnumField)normal, Normal.Eins);
 			fail();
 		}
 		catch(final IllegalArgumentException e)

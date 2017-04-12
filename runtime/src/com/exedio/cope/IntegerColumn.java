@@ -185,17 +185,16 @@ class IntegerColumn extends Column
 			return "NULL";
 		else
 		{
-			if(longInsteadOfInt)
-				return ((Long)cache).toString();
-			else
-				return ((Integer)cache).toString();
+			assert longInsteadOfInt ? (cache instanceof Long) : (cache instanceof Integer);
+			return cache.toString();
 		}
 	}
 
 	@Override
 	Object cacheToDatabasePrepared(final Object cache)
 	{
-		return longInsteadOfInt ? (Long)cache : (Object)(Integer)cache;
+		assert cache==null || (longInsteadOfInt ? (cache instanceof Long) : (cache instanceof Integer));
+		return cache;
 	}
 
 	private Number convertSQLResult(final Object sqlInteger)

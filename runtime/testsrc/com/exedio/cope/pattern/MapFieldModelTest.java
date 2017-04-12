@@ -32,7 +32,6 @@ import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import com.exedio.cope.EnumField;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
 import com.exedio.cope.ItemField.DeletePolicy;
@@ -68,7 +67,7 @@ public class MapFieldModelTest
 		assertEquals(null, nameParent().getPattern());
 		assertSame(nameParent(), name.getParent());
 
-		assertEquals(Language.class, ((EnumField<Language>)name.getKey()).getValueClass());
+		assertEquals(Language.class, name.getKey().getValueClass());
 		assertEquals("key", name.getKey().getName());
 		assertSame(name.getRelationType(), name.getKey().getType());
 		assertEquals(null, name.getKey().getPattern());

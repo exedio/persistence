@@ -127,7 +127,7 @@ public class LimitedListFieldTest extends TestWithEnvironment
 		item.setNums(asList(i1, null, i3));
 		assertEqualsUnmodifiable(list(i1, null, i3), item.getNums());
 
-		item.setNums(asList((Integer)null, null, null));
+		item.setNums(asList(null, null, null));
 		assertEqualsUnmodifiable(list(null, null, null), item.getNums());
 	}
 
@@ -225,7 +225,7 @@ public class LimitedListFieldTest extends TestWithEnvironment
 		assertEquals(null, item.getString3());
 		assertEquals(3, item.getStringLength());
 
-		item.setStrings(unmodifiableList(asList((String)null, null, null)));
+		item.setStrings(unmodifiableList(asList(null, null, null)));
 		assertEqualsUnmodifiable(list(null, null, null), item.getStrings());
 		assertEquals(null, item.getString0());
 		assertEquals(null, item.getString1());

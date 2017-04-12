@@ -155,13 +155,13 @@ public abstract class CopeAssert extends TestCase
 	{
 		try
 		{
-			c.add((T)null);
+			c.add(null);
 			Assert.fail("should have thrown UnsupportedOperationException");
 		}
 		catch(final UnsupportedOperationException e) {/*OK*/}
 		try
 		{
-			c.addAll(Collections.singleton((T)null));
+			c.addAll(Collections.singleton(null));
 			Assert.fail("should have thrown UnsupportedOperationException");
 		}
 		catch(final UnsupportedOperationException e) {/*OK*/}

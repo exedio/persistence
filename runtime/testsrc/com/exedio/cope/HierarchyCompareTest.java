@@ -48,7 +48,7 @@ public class HierarchyCompareTest extends TestWithEnvironment
 		final HierarchySecondSub b2 = new HierarchySecondSub(4);
 		final HierarchySingleSub c2 = new HierarchySingleSub(2, "x");
 		items   = Arrays.asList(      a1, b1, a2, b2, c1, c2);
-		orderby = Arrays.asList((Item)a1, b1, a2, b2);
+		orderby = Arrays.asList(a1, b1, a2, b2);
 	}
 
 	@Test public void testIt()

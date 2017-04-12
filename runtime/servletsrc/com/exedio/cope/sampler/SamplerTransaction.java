@@ -66,7 +66,7 @@ final class SamplerTransaction extends Item
 
 	@SuppressWarnings("unchecked") static List<SetValue<?>> mapIt(final Transaction transaction)
 	{
-		return Arrays.asList((SetValue<?>)
+		return Arrays.asList(
 			map(id,        transaction.getID()),
 			maC(name,      transaction.getName()),
 			map(startDate, transaction.getStartDate()),

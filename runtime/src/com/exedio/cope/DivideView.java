@@ -99,6 +99,6 @@ public final class DivideView<E extends Number> extends NumberView<E>
 	@Deprecated
 	public DivideView(final NumberFunction<E> dividend, final NumberFunction<E> divisor)
 	{
-		this((Function<E>)dividend, (Function<E>)divisor);
+		this((Function<E>)dividend, divisor);
 	}
 }
