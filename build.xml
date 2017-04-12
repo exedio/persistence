@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<project name="cope" default="build" basedir="." xmlns:if="ant:if" xmlns:unless="ant:unless">
+<project name="cope" default="build" basedir="." xmlns:if="ant:if">
 
 	<property file="local.properties" />
 	<property file="project.properties" />
