@@ -54,7 +54,7 @@ public class NullabilityFeature
 	}
 
 	@SuppressWarnings("static-method")
-	@Wrap(order=30, nullability=NullabilityFeature.IfOptional.class)
+	@Wrap(order=30, nullability=IfOptional.class)
 	public Object onlyOptionalsCanReturnNull()
 	{
 		throw new RuntimeException();

@@ -406,7 +406,7 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 			thrown=@Wrap.Thrown(value=IOException.class, doc="if accessing <tt>body</tt> throws an IOException."))
 	public void set(
 			@Nonnull final Item item,
-			@Parameter(nullability=NullableIfOptional.class) final Media.Value value)
+			@Parameter(nullability=NullableIfOptional.class) final Value value)
 		throws IOException
 	{
 		FinalViolationException.check(this, item);

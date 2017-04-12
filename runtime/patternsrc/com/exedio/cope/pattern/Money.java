@@ -20,10 +20,11 @@ package com.exedio.cope.pattern;
 
 import static java.util.Objects.requireNonNull;
 
+import com.exedio.cope.pattern.Money.Currency;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
-public final class Money<C extends Money.Currency>
+public final class Money<C extends Currency>
 	implements Serializable, Comparable<Money<C>>
 {
 	/**
@@ -259,13 +260,13 @@ public final class Money<C extends Money.Currency>
 		return wrap( amount.grossToTaxPercent(rate) );
 	}
 
-	public static <C extends Money.Currency> Money<C>[] splitProportionately(final Money<C> total, final Money<C>[] weights)
+	public static <C extends Currency> Money<C>[] splitProportionately(final Money<C> total, final Money<C>[] weights)
 	{
 		final C currency = total.currency;
 		return wrap(currency, Price.splitProportionately(total.getAmount(currency), unwrap(currency, weights)));
 	}
 
-	private static <C extends Money.Currency> Price[] unwrap(final C currency, final Money<C>[] value)
+	private static <C extends Currency> Price[] unwrap(final C currency, final Money<C>[] value)
 	{
 		final Price[] result = new Price[value.length];
 		for(int i = 0; i<value.length; i++)
@@ -273,7 +274,7 @@ public final class Money<C extends Money.Currency>
 		return result;
 	}
 
-	private static <C extends Money.Currency> Money<C>[] wrap(final C currency, final Price[] value)
+	private static <C extends Currency> Money<C>[] wrap(final C currency, final Price[] value)
 	{
 		@SuppressWarnings({"unchecked","rawtypes"})
 		final Money<C>[] result = new Money[value.length];
@@ -282,7 +283,7 @@ public final class Money<C extends Money.Currency>
 		return result;
 	}
 
-	public static <CURRENCY extends Money.Currency> Money<CURRENCY>[] array(final int size)
+	public static <CURRENCY extends Currency> Money<CURRENCY>[] array(final int size)
 	{
 		@SuppressWarnings({"unchecked","rawtypes"})
 		final Money<CURRENCY>[] result = new Money[size];

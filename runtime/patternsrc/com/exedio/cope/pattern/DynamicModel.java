@@ -415,7 +415,7 @@ public final class DynamicModel<L> extends Pattern
 	{
 		assertType(item, field);
 
-		if(value instanceof DynamicModel.Enum<?> &&
+		if(value instanceof Enum<?> &&
 		   field.getValueType()==ValueType.ENUM)
 		{
 			final Enum<?> enumValue = (Enum<?>)value;
@@ -441,7 +441,7 @@ public final class DynamicModel<L> extends Pattern
 		BOOLEAN(Boolean.class),
 		INTEGER(Integer.class),
 		DOUBLE (Double.class),
-		ENUM   (DynamicModel.Enum.class);
+		ENUM   (Enum.class);
 
 		final Class<?> valueClass;
 
@@ -567,7 +567,7 @@ public final class DynamicModel<L> extends Pattern
 		}
 
 		/**
-		 * @deprecated Use {@link #addField(String,com.exedio.cope.pattern.DynamicModel.ValueType)} instead
+		 * @deprecated Use {@link #addField(String,ValueType)} instead
 		 */
 		@Deprecated
 		public Field<L> addAttribute(final String code, final ValueType valueType)
