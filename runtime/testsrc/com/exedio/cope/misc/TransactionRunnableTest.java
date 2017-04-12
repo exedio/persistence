@@ -27,7 +27,6 @@ import static org.junit.Assert.fail;
 import com.exedio.cope.CacheIsolationItem;
 import com.exedio.cope.CacheIsolationTest;
 import com.exedio.cope.TestWithEnvironment;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -51,31 +50,21 @@ public class TransactionRunnableTest extends TestWithEnvironment
 		model.commit();
 
 		assertFalse(model.hasCurrentTransaction());
+		// no thread is spawned, thus asserts still can cause the test to fail.
 		final TransactionRunnable tr1 =
-			new TransactionRunnable(model, new Runnable(){
-				@Override
-				@SuppressWarnings("synthetic-access")
-				// no thread is spawned, thus asserts still can cause the test to fail.
-				@SuppressFBWarnings("IJU_ASSERT_METHOD_INVOKED_FROM_RUN_METHOD")
-				public void run()
-				{
-					assertEquals("name1", model.currentTransaction().getName());
-					item = new CacheIsolationItem("item1");
-				}
+			new TransactionRunnable(model, () ->
+			{
+				assertEquals("name1", model.currentTransaction().getName());
+				item = new CacheIsolationItem("item1");
 			},
 			"name1");
+		// no thread is spawned, thus asserts still can cause the test to fail.
 		final TransactionRunnable tr2 =
-			new TransactionRunnable(model, new Runnable(){
-				@Override
-				@SuppressWarnings("synthetic-access")
-				// no thread is spawned, thus asserts still can cause the test to fail.
-				@SuppressFBWarnings("IJU_ASSERT_METHOD_INVOKED_FROM_RUN_METHOD")
-				public void run()
-				{
-					assertEquals(null, model.currentTransaction().getName());
-					new CacheIsolationItem("item2");
-					throw new RuntimeException("zack");
-				}
+			new TransactionRunnable(model, () ->
+			{
+				assertEquals(null, model.currentTransaction().getName());
+				new CacheIsolationItem("item2");
+				throw new RuntimeException("zack");
 			});
 		assertFalse(model.hasCurrentTransaction());
 

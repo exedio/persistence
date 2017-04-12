@@ -104,19 +104,15 @@ public class TransactionOnlyTest extends TestWithEnvironment
 		final Transaction tx = model.currentTransaction();
 		final IllegalStateExceptionReference rer = new IllegalStateExceptionReference();
 
-		final Thread t2 = new Thread(new Runnable(){
-			@Override
-			@SuppressWarnings("synthetic-access")
-			public void run()
+		final Thread t2 = new Thread(() ->
+		{
+			try
 			{
-				try
-				{
-					model.joinTransaction(tx);
-				}
-				catch(final IllegalStateException e)
-				{
-					rer.e = e;
-				}
+				model.joinTransaction(tx);
+			}
+			catch(final IllegalStateException e)
+			{
+				rer.e = e;
 			}
 		});
 		t2.start();
