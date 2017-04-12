@@ -51,6 +51,7 @@ import com.exedio.cope.Query;
 import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.misc.Computed;
 import com.exedio.cope.pattern.CompositeValue.AnEnum;
+import com.exedio.cope.tojunit.EqualsAssert;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Arrays;
 import org.junit.Before;
@@ -445,16 +446,9 @@ public class CompositeFieldTest extends TestWithEnvironment
 		assertEquals("firstString1X", oItem.getDuo().getAString());
 		assertEquals("firstString1", fItem.getFirst().getAString());
 
-		// test hashCode
-		assertEquals(value, value);
-		assertEquals(fItem.getFirst(), fItem.getFirst());
-		assertNotSame(fItem.getFirst(), fItem.getFirst());
-		assertFalse(fItem.getFirst().equals(oItem.getDuo()));
-		assertFalse(fItem.getFirst().equals(null));
-		assertFalse(fItem.getFirst().equals("hallo"));
-		// test hashCode
-		assertEquals(fItem.getFirst().hashCode(), fItem.getFirst().hashCode());
-		assertFalse(fItem.getFirst().hashCode()==oItem.getDuo().hashCode());
+		EqualsAssert.assertEqualsAndHash(value, oItem.getDuo());
+		EqualsAssert.assertEqualsAndHash(fItem.getFirst(), fItem.getFirst());
+		EqualsAssert.assertNotEqualsAndHash(fItem.getFirst(), oItem.getDuo());
 
 		assertSame(eins.getValueType(), value.getCopeType());
 

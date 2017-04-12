@@ -32,6 +32,7 @@ import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.pattern.BlockFieldStandardModelTest.ABlock;
 import com.exedio.cope.pattern.BlockFieldStandardModelTest.ABlock.AnEnum;
 import com.exedio.cope.pattern.BlockFieldStandardModelTest.AnItem;
+import com.exedio.cope.tojunit.EqualsAssert;
 import java.awt.Color;
 import org.junit.Test;
 
@@ -113,19 +114,8 @@ public class BlockFieldStandardTest extends TestWithEnvironment
 		assertEquals(emptySet(), b2a.getASet());
 		assertEquals(emptySet(), b2b.getASet());
 
-		// hashCode
-		assertEquals(b1a, b1a);
-		assertEquals(b1a, b1A);
-		assertNotSame(b1a, b1A);
-		assertFalse(b1a.equals(b1b));
-		assertFalse(b1a.equals(b2a));
-		assertFalse(b1a.equals(null));
-		assertFalse(b1a.equals("hallo"));
-
-		// hashCode
-		assertEquals(b1a.hashCode(), b1A.hashCode());
-		assertFalse(b1a.hashCode()==b1b.hashCode());
-		assertFalse(b1a.hashCode()==b2a.hashCode());
+		EqualsAssert.assertEqualsAndHash(b1a, b1A);
+		EqualsAssert.assertNotEqualsAndHash(b1a, b1b, b2a);
 
 		// toString
 		assertEquals("AnItem.eins#AnItem-0", b1a.toString());
