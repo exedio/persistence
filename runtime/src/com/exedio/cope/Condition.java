@@ -60,7 +60,7 @@ public abstract class Condition implements Serializable
 	public static final Literal TRUE  = new Literal(true , "TRUE" );
 	public static final Literal FALSE = new Literal(false, "FALSE");
 
-	static class Literal extends Condition
+	static final class Literal extends Condition
 	{
 		private static final long serialVersionUID = 1l;
 
