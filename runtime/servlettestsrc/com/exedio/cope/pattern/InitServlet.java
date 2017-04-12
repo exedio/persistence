@@ -122,11 +122,7 @@ public class InitServlet extends HttpServlet
 
 				tx.commit();
 			}
-			catch(final IOException e)
-			{
-				throw new RuntimeException(e);
-			}
-			catch(final ParseException e)
+			catch(final IOException | ParseException e)
 			{
 				throw new RuntimeException(e);
 			}

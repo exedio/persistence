@@ -352,12 +352,7 @@ public final class Transaction
 					logger.warn( "commit or rollback failed", e );
 					throw new SQLRuntimeException(e, commit ? "commit" : "rollback");
 				}
-				catch(final RuntimeException e)
-				{
-					logger.warn( "commit or rollback failed", e );
-					throw e;
-				}
-				catch(final Error e)
+				catch(final RuntimeException | Error e)
 				{
 					logger.warn( "commit or rollback failed", e );
 					throw e;

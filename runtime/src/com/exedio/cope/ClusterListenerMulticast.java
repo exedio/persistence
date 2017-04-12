@@ -111,11 +111,7 @@ final class ClusterListenerMulticast extends ClusterListenerModel implements Run
 					}
 				}
 			}
-			catch(final Exception e)
-			{
-				onListenFailure(e, packet);
-			}
-			catch(final AssertionError e)
+			catch(final Exception | AssertionError e)
 			{
 				onListenFailure(e, packet);
 			}

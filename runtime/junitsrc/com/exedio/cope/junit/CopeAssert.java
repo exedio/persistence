@@ -318,11 +318,7 @@ public abstract class CopeAssert extends TestCase
 		{
 			return ois.readObject();
 		}
-		catch(final IOException e)
-		{
-			throw new RuntimeException(e);
-		}
-		catch(final ClassNotFoundException e)
+		catch(final IOException | ClassNotFoundException e)
 		{
 			throw new RuntimeException(e);
 		}

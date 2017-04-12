@@ -140,11 +140,7 @@ public final class Serializer<E> extends Pattern implements Settable<E>
 		{
 			result = Cast.verboseCast(valueClass, ois.readObject());
 		}
-		catch(final IOException e)
-		{
-			throw new RuntimeException(toString(), e);
-		}
-		catch(final ClassNotFoundException e)
+		catch(final IOException | ClassNotFoundException e)
 		{
 			throw new RuntimeException(toString(), e);
 		}
