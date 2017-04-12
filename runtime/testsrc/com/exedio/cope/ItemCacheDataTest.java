@@ -21,7 +21,7 @@ package com.exedio.cope;
 import static com.exedio.cope.ItemCacheDataItem.TYPE;
 import static com.exedio.cope.SchemaInfo.isUpdateCounterEnabled;
 import static java.lang.Integer.MIN_VALUE;
-import static junit.framework.Assert.assertEquals;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 import com.exedio.cope.util.Hex;
