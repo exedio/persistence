@@ -113,7 +113,7 @@ public final class QueryAggregator<R>
 			if(q.getOffset()!=0 || q.getLimit()!=-1)
 				throw new IllegalArgumentException("queries must not be limited, but was: " + q.toString());
 
-		List<R> data = null;
+		final List<R> data;
 		int total = 0;
 
 		final Iterator<Query<? extends R>> i = queries.iterator();

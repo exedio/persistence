@@ -164,7 +164,7 @@ public class TransactionTryTest extends TestWithEnvironment
 	{
 		assertFalse(model.hasCurrentTransaction());
 
-		SimpleItem item = null;
+		final SimpleItem item;
 
 		try(TransactionTry tx = model.startTransactionTry("txName"))
 		{

@@ -61,7 +61,7 @@ public class CommitHookPostTest
 
 	@Test public void testDuplicate()
 	{
-		Runnable two = null;
+		final Runnable two;
 		final StringBuilder bf = new StringBuilder();
 		model.startTransaction("tx");
 		add(1, appender(bf, "one"));

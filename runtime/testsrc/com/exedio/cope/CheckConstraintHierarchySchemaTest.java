@@ -97,7 +97,7 @@ public class CheckConstraintHierarchySchemaTest extends TestWithEnvironment
 
 	private static CheckConstraint next(final Iterator<Constraint> i)
 	{
-		Constraint result = null;
+		Constraint result;
 		do
 		{
 			result = i.next();
