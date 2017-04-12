@@ -77,10 +77,7 @@ public class TypesBoundErrorTest
 	}
 	static class NoItem
 	{
-		NoItem()
-		{
-			// just a dummy constructor
-		}
+		// just an empty class
 	}
 
 

@@ -41,11 +41,6 @@ final class ChangeListeners
 
 	private final VolatileInt failed = new VolatileInt();
 
-	ChangeListeners()
-	{
-		// empty
-	}
-
 	List<ChangeListener> get()
 	{
 		final ArrayList<ChangeListener> result;
