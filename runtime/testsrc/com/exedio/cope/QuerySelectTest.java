@@ -46,7 +46,7 @@ public class QuerySelectTest
 		}
 		try
 		{
-			q.setSelects(new Selectable<?>[]{});
+			q.setSelects();
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -55,7 +55,7 @@ public class QuerySelectTest
 		}
 		try
 		{
-			q.setSelects(new Selectable<?>[]{field1});
+			q.setSelects(field1);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -64,7 +64,7 @@ public class QuerySelectTest
 		}
 		try
 		{
-			q.setSelects(new Selectable<?>[]{field1, null});
+			q.setSelects(field1, null);
 			fail();
 		}
 		catch(final NullPointerException e)
@@ -81,7 +81,7 @@ public class QuerySelectTest
 
 		try
 		{
-			q.setSelects(new Selectable<?>[]{field1});
+			q.setSelects(field1);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -93,7 +93,7 @@ public class QuerySelectTest
 
 		try
 		{
-			q.setSelects(new Selectable<?>[]{TYPE.getThis(), field1});
+			q.setSelects(TYPE.getThis(), field1);
 			fail();
 		}
 		catch(final IllegalStateException e)
@@ -119,12 +119,12 @@ public class QuerySelectTest
 		final Query<List<Object>> q = newQuery(new Selectable<?>[]{field1, field2}, TYPE, null);
 		assertEquals("select field1,field2 from AnItem", q.toString());
 
-		q.setSelects(new Selectable<?>[]{TYPE.getThis(), field1});
+		q.setSelects(TYPE.getThis(), field1);
 		assertEquals("select this,field1 from AnItem", q.toString());
 
 		try
 		{
-			q.setSelects(new Selectable<?>[]{field1});
+			q.setSelects(field1);
 			fail();
 		}
 		catch(final IllegalArgumentException e)

@@ -37,7 +37,6 @@ import com.exedio.cope.Feature;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Model;
 import com.exedio.cope.SchemaInfo;
-import com.exedio.cope.SetValue;
 import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.misc.Computed;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -168,11 +167,11 @@ public class SerializerTest extends TestWithEnvironment
 		assertNull(item.getInteger());
 		assertNull(item.getMap());
 
-		final SerializerItem item2 = new SerializerItem(new SetValue<?>[]{
+		final SerializerItem item2 = new SerializerItem(
 				integer.map(33),
 				map.map(map1),
 				mandatoryString.map("")
-		});
+		);
 		assertEquals(valueOf(33), item2.getInteger());
 		assertEquals(map1, item2.getMap());
 		assertNotSame(map1, item2.getMap());

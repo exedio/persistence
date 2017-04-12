@@ -24,7 +24,6 @@ import com.exedio.cope.Item;
 import com.exedio.cope.LengthView;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.PlusView;
-import com.exedio.cope.SetValue;
 import com.exedio.cope.StringField;
 import com.exedio.cope.StringLengthViolationException;
 import com.exedio.cope.UppercaseView;
@@ -99,10 +98,10 @@ public final class StringItem extends Item
 	 */
 	public StringItem(final String max4, final Date dummy) throws StringLengthViolationException
 	{
-		this(new SetValue<?>[]{
+		this(
 				StringItem.mandatory.map("defaultByMax4"),
 				StringItem.max4.map(max4)
-		});
+		);
 	}
 
 	/**

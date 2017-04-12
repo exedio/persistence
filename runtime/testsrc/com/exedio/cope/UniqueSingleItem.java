@@ -26,17 +26,17 @@ public final class UniqueSingleItem extends Item
 
 	public UniqueSingleItem(final String uniqueString)
 	{
-		this(new com.exedio.cope.SetValue<?>[]{
+		this(
 			UniqueSingleItem.uniqueString.map(uniqueString)
-		});
+		);
 	}
 
 	public UniqueSingleItem(final String uniqueString, final String otherString)
 	{
-		this(new com.exedio.cope.SetValue<?>[]{
+		this(
 			UniqueSingleItem.uniqueString.map(uniqueString),
 			UniqueSingleItem.otherString.map(otherString)
-		});
+		);
 	}
 
 	/**

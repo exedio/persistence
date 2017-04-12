@@ -108,7 +108,7 @@ public class CompletionProcessor extends AbstractProcessor
 	@Override
 	public Iterable<? extends Completion> getCompletions(final Element element, final AnnotationMirror annotation, final ExecutableElement member, final String userText)
 	{
-		debug("getCompletions element={0} annotation={1} member={2} userText={3}", new Object[]{element, annotation, member, userText});
+		debug("getCompletions element={0} annotation={1} member={2} userText={3}", element, annotation, member, userText);
 
 		if (member.getSimpleName().toString().equals("wrap"))
 		{

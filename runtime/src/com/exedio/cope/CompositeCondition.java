@@ -286,7 +286,7 @@ public final class CompositeCondition extends Condition
 			}
 			else
 			{
-				return new CompositeCondition(operator, new Condition[]{leftCondition, rightCondition});
+				return new CompositeCondition(operator, leftCondition, rightCondition);
 			}
 		}
 	}

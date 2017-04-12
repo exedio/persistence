@@ -179,7 +179,7 @@ public class HashTest extends TestWithEnvironment
 		assertTrue(item.checkInternal("03affe08"));
 		assertFalse(item.isInternalNull());
 
-		final HashItem item2 = new HashItem(new SetValue<?>[]{internal.map("03affe09")});
+		final HashItem item2 = new HashItem(internal.map("03affe09"));
 		assertEquals("[03affe09]", item2.get(internal.getStorage()));
 		assertFalse(item2.checkInternal(null));
 		assertFalse(item2.checkInternal("03affe10"));
@@ -342,7 +342,7 @@ public class HashTest extends TestWithEnvironment
 	@Test public void testValidatorSingleSetValue()
 	{
 			// with success
-			final HashItem anItem = TYPE.newItem(new SetValue<?>[]{});
+			final HashItem anItem = TYPE.newItem();
 			anItem.setWith3PinValidator("452");
 			assertEquals("[452]", anItem.getWith3PinValidatorwrap());
 
@@ -379,7 +379,7 @@ public class HashTest extends TestWithEnvironment
 		// testing mass set
 
 		// with success
-		final HashItem anItem = TYPE.newItem(new SetValue<?>[]{});
+		final HashItem anItem = TYPE.newItem();
 		assertNotNull(anItem);
 		anItem.set(SetValue.map(with3PinValidator, "123"), SetValue.map(internal, "2"));
 		assertEquals("[123]", anItem.getWith3PinValidatorwrap());

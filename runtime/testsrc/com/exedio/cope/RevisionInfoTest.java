@@ -168,7 +168,7 @@ public class RevisionInfoTest
 		}
 		try
 		{
-			new RevisionInfoRevise(1, (String)null, DATE, env, "comment", new Body[]{});
+			new RevisionInfoRevise(1, (String)null, DATE, env, "comment");
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -184,7 +184,7 @@ public class RevisionInfoTest
 		{
 			assertEquals("body[0]", e.getMessage());
 		}
-		new RevisionInfoRevise(1, (String)null, DATE, env, "comment", new Body[]{new Body("sql", 5, 5)});
+		new RevisionInfoRevise(1, (String)null, DATE, env, "comment", new Body("sql", 5, 5));
 
 		try
 		{
