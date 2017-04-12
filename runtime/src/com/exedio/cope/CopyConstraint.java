@@ -51,6 +51,12 @@ public final class CopyConstraint extends Feature
 			copy.setRedundantByCopyConstraint();
 	}
 
+	@SuppressWarnings("deprecation") // OK, wrapping deprecated API
+	static CopyConstraint newCopyConstraint(final ItemField<?> target, final FunctionField<?> copy)
+	{
+		return new CopyConstraint(target, copy);
+	}
+
 	public ItemField<?> getTarget()
 	{
 		return target;

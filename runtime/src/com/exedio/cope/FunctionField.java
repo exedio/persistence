@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.CopyConstraint.newCopyConstraint;
 import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.instrument.Parameter;
@@ -72,12 +73,6 @@ public abstract class FunctionField<E extends Object> extends Field<E>
 		for(int i = 0; i<copyFrom.length; i++)
 			result[i] = newCopyConstraint(copyFrom[i], this);
 		return result;
-	}
-
-	@SuppressWarnings("deprecation") // OK, wrapping deprecated API
-	private static CopyConstraint newCopyConstraint(final ItemField<?> target, final FunctionField<?> copy)
-	{
-		return new CopyConstraint(target, copy);
 	}
 
 	final void mountDefaultSource()
