@@ -221,6 +221,11 @@ final class JavaRepository
 	public static final class classWildcard
 	{
 		public static final Class<Wildcard> value = Wildcard.class;
+
+		private classWildcard()
+		{
+			// prevent instantiation
+		}
 	}
 
 	private static final class Wildcard extends Item

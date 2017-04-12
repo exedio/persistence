@@ -49,4 +49,10 @@ public final class Stuff
 			return sampleInternal(0, "example buildTag");
 		}
 	}
+
+
+	private Stuff()
+	{
+		// prevent instantiation
+	}
 }

@@ -53,6 +53,11 @@ public abstract class LibItem<T> extends LibSuperItem
 	{
 		@SuppressWarnings("unchecked")
 		public static final Class<LibItem<?>> value = (Class<LibItem<?>>)(Class<?>)LibItem.class;
+
+		private classWildcard()
+		{
+			// prevent instantiation
+		}
 	}
 
 	/**

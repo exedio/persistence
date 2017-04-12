@@ -30,6 +30,11 @@ public class GenericComplexMid<L extends Collection<String>> extends GenericComp
 	{
 		@SuppressWarnings("unchecked")
 		public static final Class<GenericComplexMid<?>> value = (Class<GenericComplexMid<?>>)(Class<?>)GenericComplexMid.class;
+
+		private classWildcard()
+		{
+			// prevent instantiation
+		}
 	}
 
 

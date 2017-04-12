@@ -36,4 +36,10 @@ public final class Main
 	{
 		model.enableSerialization(Main.class, "model");
 	}
+
+
+	private Main()
+	{
+		// prevent instantiation
+	}
 }

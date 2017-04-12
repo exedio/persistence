@@ -47,6 +47,11 @@ public class GenericComplexSuper<N extends Number, L extends Collection<String>>
 		{
 			return (Class<GenericComplexSuper<?,?>>)(Class<?>)GenericComplexSuper.class;
 		}
+
+		private classWildcard()
+		{
+			// prevent instantiation
+		}
 	}
 
 

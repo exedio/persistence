@@ -43,6 +43,11 @@ public class GenericSimpleSuper<N extends Number> extends Item
 		{
 			return (Class<GenericSimpleSuper<?>>)(Class<?>)GenericSimpleSuper.class;
 		}
+
+		private classWildcard()
+		{
+			// prevent instantiation
+		}
 	}
 
 

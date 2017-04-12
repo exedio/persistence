@@ -73,4 +73,10 @@ final class ClusterUtil
 	{
 		return ping ? "ping" : "pong";
 	}
+
+
+	private ClusterUtil()
+	{
+		// prevent instantiation
+	}
 }

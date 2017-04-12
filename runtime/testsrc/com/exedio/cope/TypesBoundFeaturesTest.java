@@ -67,6 +67,11 @@ public class TypesBoundFeaturesTest
 		static final BooleanField feature2 = new BooleanField();
 		static final Media        feature3 = new Media();
 		private static final BooleanField feature4 = new BooleanField();
+
+		private AClass()
+		{
+			// prevent instantiation
+		}
 	}
 
 	@Test public void testErrors()
