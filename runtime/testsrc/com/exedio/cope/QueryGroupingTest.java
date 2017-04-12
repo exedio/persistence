@@ -38,9 +38,9 @@ public class QueryGroupingTest extends TestWithEnvironment
 {
 	static final Model MODEL = new Model( TYPE );
 
-	static final Day day1 = new Day(2006, 02, 19);
-	static final Day day2 = new Day(2006, 02, 20);
-	static final Day day3 = new Day(2006, 02, 21);
+	static final Day day1 = new Day(2006, 2, 19);
+	static final Day day2 = new Day(2006, 2, 20);
+	static final Day day3 = new Day(2006, 2, 21);
 
 	public QueryGroupingTest()
 	{

@@ -36,9 +36,9 @@ public class QuerySearchSizeCacheLimitTest extends TestWithEnvironment
 		super(DayFieldTest.MODEL);
 	}
 
-	static final Day d1 = new Day(2006, 02, 19);
-	static final Day d2 = new Day(2006, 02, 20);
-	static final Day d3 = new Day(2006, 02, 21);
+	static final Day d1 = new Day(2006, 2, 19);
+	static final Day d2 = new Day(2006, 2, 20);
+	static final Day d3 = new Day(2006, 2, 21);
 
 	private boolean cacheEnabled;
 	private Query<?> q;
