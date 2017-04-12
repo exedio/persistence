@@ -302,10 +302,10 @@ public class CompositeFieldTest extends TestWithEnvironment
 
 		{
 			final CompositeValue v = second.newValue(
-					CompositeValue.aString.map("firstString1"),
-					CompositeValue.anInt.map(1),
-					CompositeValue.anEnum.map(AnEnum.facet1),
-					CompositeValue.anItem.map(target1));
+					aString.map("firstString1"),
+					anInt.map(1),
+					anEnum.map(AnEnum.facet1),
+					anItem.map(target1));
 			assertEquals("firstString1", v.getAString());
 			assertEquals(1,              v.getAnInt());
 			assertEquals(AnEnum.facet1,  v.getAnEnum());
@@ -318,16 +318,16 @@ public class CompositeFieldTest extends TestWithEnvironment
 			}
 			catch(final MandatoryViolationException e)
 			{
-				assertEquals("mandatory violation for " + CompositeValue.aString.toString(), e.getMessage());
+				assertEquals("mandatory violation for " + aString.toString(), e.getMessage());
 			}
 			try
 			{
-				second.newValue(CompositeValue.aString.map(null));
+				second.newValue(aString.map(null));
 				fail();
 			}
 			catch(final MandatoryViolationException e)
 			{
-				assertEquals("mandatory violation for " + CompositeValue.aString.toString(), e.getMessage());
+				assertEquals("mandatory violation for " + aString.toString(), e.getMessage());
 			}
 			try
 			{
@@ -476,17 +476,17 @@ public class CompositeFieldTest extends TestWithEnvironment
 		o1.setUno(v);
 		o2.setDuo(v);
 
-		assertEquals(list(), CompositeItem.TYPE.search(CompositeItem.eins.isNull(), CompositeItem.TYPE.getThis(), true));
-		assertEquals(list(), CompositeItem.TYPE.search(CompositeItem.zwei.isNull(), CompositeItem.TYPE.getThis(), true));
+		assertEquals(list(), CompositeItem.TYPE.search(eins.isNull(), CompositeItem.TYPE.getThis(), true));
+		assertEquals(list(), CompositeItem.TYPE.search(zwei.isNull(), CompositeItem.TYPE.getThis(), true));
 
-		assertEquals(list(i1, i2), CompositeItem.TYPE.search(CompositeItem.eins.isNotNull(), CompositeItem.TYPE.getThis(), true));
-		assertEquals(list(i1, i2), CompositeItem.TYPE.search(CompositeItem.zwei.isNotNull(), CompositeItem.TYPE.getThis(), true));
+		assertEquals(list(i1, i2), CompositeItem.TYPE.search(eins.isNotNull(), CompositeItem.TYPE.getThis(), true));
+		assertEquals(list(i1, i2), CompositeItem.TYPE.search(zwei.isNotNull(), CompositeItem.TYPE.getThis(), true));
 
-		assertEquals(list(o1), CompositeOptionalItem.TYPE.search(CompositeOptionalItem.uno.isNotNull(), CompositeOptionalItem.TYPE.getThis(), true));
-		assertEquals(list(o2), CompositeOptionalItem.TYPE.search(CompositeOptionalItem.duo.isNotNull(), CompositeOptionalItem.TYPE.getThis(), true));
+		assertEquals(list(o1), CompositeOptionalItem.TYPE.search(uno.isNotNull(), CompositeOptionalItem.TYPE.getThis(), true));
+		assertEquals(list(o2), CompositeOptionalItem.TYPE.search(duo.isNotNull(), CompositeOptionalItem.TYPE.getThis(), true));
 
-		assertEquals(list(target1, target2, o2), CompositeOptionalItem.TYPE.search(CompositeOptionalItem.uno.isNull(), CompositeOptionalItem.TYPE.getThis(), true));
-		assertEquals(list(target1, target2, o1), CompositeOptionalItem.TYPE.search(CompositeOptionalItem.duo.isNull(), CompositeOptionalItem.TYPE.getThis(), true));
+		assertEquals(list(target1, target2, o2), CompositeOptionalItem.TYPE.search(uno.isNull(), CompositeOptionalItem.TYPE.getThis(), true));
+		assertEquals(list(target1, target2, o1), CompositeOptionalItem.TYPE.search(duo.isNull(), CompositeOptionalItem.TYPE.getThis(), true));
 	}
 
 	@Test public void testBindingInConditions()
@@ -501,11 +501,11 @@ public class CompositeFieldTest extends TestWithEnvironment
 			final Query<CompositeItemHolder> query = CompositeItemHolder.TYPE.newQuery();
 			final Join join1 = query.join(CompositeOptionalItem.TYPE);
 			join1.setCondition(CompositeItemHolder.anItem.equalTarget(join1) );
-			query.narrow( CompositeOptionalItem.uno.of(CompositeValue.aString).bind(join1).startsWith( "uno1" ) );
+			query.narrow( uno.of(aString).bind(join1).startsWith( "uno1" ) );
 
 			final Join join2 = query.join(CompositeOptionalItem.TYPE);
 			join2.setCondition(CompositeItemHolder.anItem.equalTarget(join2) );
-			query.narrow( CompositeOptionalItem.duo.isNull(join2) );
+			query.narrow( duo.isNull(join2) );
 
 			assertEquals( list(h1), query.search() );
 		}
@@ -514,11 +514,11 @@ public class CompositeFieldTest extends TestWithEnvironment
 			final Query<CompositeItemHolder> query = CompositeItemHolder.TYPE.newQuery();
 			final Join join1 = query.join(CompositeOptionalItem.TYPE);
 			join1.setCondition(CompositeItemHolder.anItem.equalTarget(join1) );
-			query.narrow( CompositeOptionalItem.uno.of(CompositeValue.aString).bind(join1).startsWith( "uno1" ) );
+			query.narrow( uno.of(aString).bind(join1).startsWith( "uno1" ) );
 
 			final Join join2 = query.join(CompositeOptionalItem.TYPE);
 			join2.setCondition(CompositeItemHolder.anItem.equalTarget(join2) );
-			query.narrow( CompositeOptionalItem.duo.isNotNull(join2) );
+			query.narrow( duo.isNotNull(join2) );
 
 			assertTrue( query.search().isEmpty() );
 		}

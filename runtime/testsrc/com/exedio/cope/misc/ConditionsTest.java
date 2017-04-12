@@ -117,7 +117,7 @@ public class ConditionsTest
 	{
 		try
 		{
-			Conditions.unisonNull(null);
+			unisonNull(null);
 			fail();
 		}
 		catch(final NullPointerException e)

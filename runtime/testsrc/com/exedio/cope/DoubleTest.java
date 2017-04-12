@@ -47,7 +47,7 @@ import org.junit.Test;
 
 public class DoubleTest extends TestWithEnvironment
 {
-	public/*for web.xml*/ static final Model MODEL = new Model(DoubleItem.TYPE);
+	public/*for web.xml*/ static final Model MODEL = new Model(TYPE);
 
 	public DoubleTest()
 	{
@@ -496,7 +496,7 @@ public class DoubleTest extends TestWithEnvironment
 		assertEquals(numberOfItems, TYPE.search(null).size());
 		try
 		{
-			DoubleItem.TYPE.newItem(
+			TYPE.newItem(
 					mandatory.map(12345.67),
 					max4.map(4.1)
 			);

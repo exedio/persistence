@@ -147,8 +147,8 @@ public class InstanceOfModelTest
 	{
 		assertSame(InstanceOfAItem.TYPE, InstanceOfAItem.TYPE.as(InstanceOfAItem.class));
 		assertSame(InstanceOfAItem.TYPE, InstanceOfAItem.TYPE.asExtends(InstanceOfAItem.class));
-		assertSame(InstanceOfRefItem.ref, InstanceOfRefItem.ref.as(InstanceOfAItem.class));
-		assertSame(InstanceOfRefItem.ref, InstanceOfRefItem.ref.asExtends(InstanceOfAItem.class));
+		assertSame(ref, ref.as(InstanceOfAItem.class));
+		assertSame(ref, ref.asExtends(InstanceOfAItem.class));
 	}
 
 	@Test public void testAsChildReverse()
@@ -173,7 +173,7 @@ public class InstanceOfModelTest
 		}
 		try
 		{
-			InstanceOfRefItem.ref.as(InstanceOfB1Item.class);
+			ref.as(InstanceOfB1Item.class);
 			fail();
 		}
 		catch(final ClassCastException e)
@@ -182,7 +182,7 @@ public class InstanceOfModelTest
 		}
 		try
 		{
-			InstanceOfRefItem.ref.asExtends(InstanceOfB1Item.class);
+			ref.asExtends(InstanceOfB1Item.class);
 			fail();
 		}
 		catch(final ClassCastException e)

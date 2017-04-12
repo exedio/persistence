@@ -37,7 +37,6 @@ import com.exedio.cope.Model;
 import com.exedio.cope.TestWithEnvironment;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.ParameterizedType;
-import java.util.Arrays;
 import java.util.HashMap;
 import org.junit.Before;
 import org.junit.Test;
@@ -69,7 +68,7 @@ public class JavaViewTest extends TestWithEnvironment
 
 	@Test public void testNumber()
 	{
-		assertEquals(Arrays.asList(new Feature[]{
+		assertEquals(asList(new Feature[]{
 				TYPE.getThis(),
 				numberString,
 				number,

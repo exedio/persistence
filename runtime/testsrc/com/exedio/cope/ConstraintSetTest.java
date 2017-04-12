@@ -46,7 +46,7 @@ import org.junit.Test;
 
 public class ConstraintSetTest extends TestWithEnvironment
 {
-	static final Model MODEL = new Model(AnItem.TYPE, ASubItem.TYPE);
+	static final Model MODEL = new Model(TYPE, ASubItem.TYPE);
 
 	public ConstraintSetTest()
 	{

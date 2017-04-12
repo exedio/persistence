@@ -38,7 +38,7 @@ import org.junit.Test;
 
 public class PasswordLimiterModelTest
 {
-	static final Model MODEL = new Model(PasswordLimiterItem.TYPE);
+	static final Model MODEL = new Model(TYPE);
 
 	static
 	{

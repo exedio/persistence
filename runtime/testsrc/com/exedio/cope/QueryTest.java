@@ -293,7 +293,7 @@ public class QueryTest extends TestWithEnvironment
 			item1, item2a, item2b, item3,
 			DayItem.TYPE.search()
 		);
-		final Query<?> query = Query.newQuery( new Selectable<?>[]{DayItem.day, DayItem.day}, DayItem.TYPE, Condition.TRUE );
+		final Query<?> query = Query.newQuery( new Selectable<?>[]{DayItem.day, DayItem.day}, DayItem.TYPE, TRUE );
 		assertEquals("select day,day from DayItem", query.toString());
 
 		query.setGroupBy( DayItem.day );

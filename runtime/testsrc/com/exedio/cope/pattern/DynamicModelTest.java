@@ -43,7 +43,6 @@ import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.Type;
 import com.exedio.cope.pattern.DynamicModel.Enum;
 import com.exedio.cope.pattern.DynamicModel.ValueType;
-import java.util.Arrays;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -94,40 +93,40 @@ public class DynamicModelTest extends TestWithEnvironment
 		assertSame(features.getTypeType(), features.getTypeField().getValueType());
 		assertEquals("features-type", features.getTypeField().getName());
 
-		assertEquals(Arrays.asList(new Type<?>[]{
-				DynamicModelItem.TYPE,
-				DynamicModelItem.features.getTypeType(), DynamicModelItem.features.getTypeLocalizationType(),
-				DynamicModelItem.features.getFieldType(), DynamicModelItem.features.getFieldLocalizationType(),
-				DynamicModelItem.features.getEnumType(), DynamicModelItem.features.getEnumLocalizationType(),
-				DynamicModelItem.small.getTypeType(), DynamicModelItem.small.getTypeLocalizationType(),
-				DynamicModelItem.small.getFieldType(), DynamicModelItem.small.getFieldLocalizationType(),
+		assertEquals(asList(new Type<?>[]{
+				TYPE,
+				features.getTypeType(), features.getTypeLocalizationType(),
+				features.getFieldType(), features.getFieldLocalizationType(),
+				features.getEnumType(), features.getEnumLocalizationType(),
+				small.getTypeType(), small.getTypeLocalizationType(),
+				small.getFieldType(), small.getFieldLocalizationType(),
 				// no getEnumType()
 				DynamicModelLocalizationItem.TYPE,
 			}), model.getTypes());
-		assertEquals(Arrays.asList(new Feature[]{
-				DynamicModelItem.TYPE.getThis(),
+		assertEquals(asList(new Feature[]{
+				TYPE.getThis(),
 				DynamicModelItem.name,
-				DynamicModelItem.features,
-				DynamicModelItem.features.getField(STRING , 0, null),
-				DynamicModelItem.features.getField(BOOLEAN, 0, null),
-				DynamicModelItem.features.getField(INTEGER, 0, null),
-				DynamicModelItem.features.getField(DOUBLE , 0, null),
-				DynamicModelItem.features.getField(ENUM   , 0, null),
-				DynamicModelItem.features.getField(ENUM   , 1, null),
-				DynamicModelItem.features.getTypeField(),
-				DynamicModelItem.small,
-				DynamicModelItem.small.getField(STRING, 0, null),
-				DynamicModelItem.small.getTypeField(),
-			}), DynamicModelItem.TYPE.getFeatures());
-		assertIt(DynamicModelItem.features, DynamicModelItem.features.getField(STRING,  0, null), "string0");
-		assertIt(DynamicModelItem.features, DynamicModelItem.features.getField(BOOLEAN, 0, null), "bool0");
-		assertIt(DynamicModelItem.features, DynamicModelItem.features.getField(INTEGER, 0, null), "int0");
-		assertIt(DynamicModelItem.features, DynamicModelItem.features.getField(DOUBLE,  0, null), "double0");
-		assertIt(DynamicModelItem.features, DynamicModelItem.features.getField(ENUM,    0, null), "enum0");
-		assertIt(DynamicModelItem.features, DynamicModelItem.features.getField(ENUM,    1, null), "enum1");
-		assertIt(DynamicModelItem.small, DynamicModelItem.small.getField(STRING, 0, null), "string0");
-		assertSerializedSame(DynamicModelItem.features, 390);
-		assertSerializedSame(DynamicModelItem.small   , 387);
+				features,
+				features.getField(STRING , 0, null),
+				features.getField(BOOLEAN, 0, null),
+				features.getField(INTEGER, 0, null),
+				features.getField(DOUBLE , 0, null),
+				features.getField(ENUM   , 0, null),
+				features.getField(ENUM   , 1, null),
+				features.getTypeField(),
+				small,
+				small.getField(STRING, 0, null),
+				small.getTypeField(),
+			}), TYPE.getFeatures());
+		assertIt(features, features.getField(STRING,  0, null), "string0");
+		assertIt(features, features.getField(BOOLEAN, 0, null), "bool0");
+		assertIt(features, features.getField(INTEGER, 0, null), "int0");
+		assertIt(features, features.getField(DOUBLE,  0, null), "double0");
+		assertIt(features, features.getField(ENUM,    0, null), "enum0");
+		assertIt(features, features.getField(ENUM,    1, null), "enum1");
+		assertIt(small, small.getField(STRING, 0, null), "string0");
+		assertSerializedSame(features, 390);
+		assertSerializedSame(small   , 387);
 
 		assertEquals(asList(STRING, BOOLEAN, INTEGER, DOUBLE, ENUM), asList(ValueType.values()));
 		assertEquals(10, getColumnValue(STRING ));

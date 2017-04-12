@@ -37,7 +37,7 @@ import org.junit.Test;
 
 public class EnumSetFieldModelTest
 {
-	public/*for web.xml*/ static final Model MODEL = new Model(EnumSetFieldItem.TYPE);
+	public/*for web.xml*/ static final Model MODEL = new Model(TYPE);
 
 	static
 	{

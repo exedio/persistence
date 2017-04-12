@@ -38,7 +38,7 @@ import org.junit.Test;
 
 public class CheckConstraintModelTest
 {
-	static final Model MODEL = new Model(CheckConstraintItem.TYPE, CheckConstraintSuperItem.TYPE);
+	static final Model MODEL = new Model(TYPE, CheckConstraintSuperItem.TYPE);
 
 	static
 	{

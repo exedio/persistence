@@ -304,7 +304,7 @@ public class PriceTest
 
 	@Test public void testRoundSpecialProblemOnDivide()
 	{
-		final Price problem = Price.storeOf(115);
+		final Price problem = storeOf(115);
 		assertEquals( "2.0", Double.toString( 2d));
 		assertEquals("-2.0", Double.toString(-2d));
 		// result 0.575
@@ -325,7 +325,7 @@ public class PriceTest
 
 	@Test public void testRoundSpecialProblemOnMultiply()
 	{
-		final Price problem = Price.storeOf(41);
+		final Price problem = storeOf(41);
 		final double multiplier = 3.5;
 		assertEquals( "3.5", Double.toString( multiplier));
 		assertEquals("-3.5", Double.toString(-multiplier));
@@ -558,7 +558,7 @@ public class PriceTest
 	{
 		assertEquals(storeOf(-555), storeOf( 555).negate());
 		assertEquals(storeOf( 555), storeOf(-555).negate());
-		assertSame(Price.ZERO, storeOf(0).negate());
+		assertSame(ZERO, storeOf(0).negate());
 		assertEquals(storeOf(MIN_STORE),  p99.negate());
 		assertEquals(storeOf(MAX_STORE), mp99.negate());
 	}

@@ -75,7 +75,7 @@ public class SetValueTest
 	{
 		try
 		{
-			SetValue.map(null, "nullValue");
+			map(null, "nullValue");
 			fail();
 		}
 		catch(final NullPointerException e)

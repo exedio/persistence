@@ -156,7 +156,7 @@ public class PriceProportionatelyTest
 	{
 		final Price[] result = new Price[values.length];
 		for(int i = 0; i<values.length; i++)
-			result[i] = Price.valueOf(values[i]);
+			result[i] = valueOf(values[i]);
 		return result;
 	}
 

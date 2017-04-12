@@ -101,7 +101,7 @@ public final class LongField extends NumberField<Long>
 
 	public LongField()
 	{
-		this(false, false, false, null, null, Long.MIN_VALUE, Long.MAX_VALUE);
+		this(false, false, false, null, null, MIN_VALUE, MAX_VALUE);
 	}
 
 	@Override
@@ -186,7 +186,7 @@ public final class LongField extends NumberField<Long>
 	public Set<Class<? extends Throwable>> getInitialExceptions()
 	{
 		final Set<Class<? extends Throwable>> result = super.getInitialExceptions();
-		if(minimum!=Long.MIN_VALUE || maximum!=Long.MAX_VALUE)
+		if(minimum!=MIN_VALUE || maximum!=MAX_VALUE)
 			result.add(LongRangeViolationException.class);
 		return result;
 	}

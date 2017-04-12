@@ -43,7 +43,7 @@ import org.junit.Test;
 
 public class EnumMapFieldModelTest
 {
-	public/*for web.xml*/ static final Model MODEL = new Model(EnumMapFieldItem.TYPE);
+	public/*for web.xml*/ static final Model MODEL = new Model(TYPE);
 
 	static
 	{

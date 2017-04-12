@@ -45,7 +45,7 @@ import org.junit.Test;
 
 public final class ThumbnailTest extends TestWithEnvironment
 {
-	static final Model MODEL = new Model(ThumbnailItem.TYPE);
+	static final Model MODEL = new Model(TYPE);
 
 	static
 	{

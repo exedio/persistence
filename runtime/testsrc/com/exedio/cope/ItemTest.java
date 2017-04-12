@@ -40,7 +40,6 @@ import com.exedio.cope.testmodel.FinalItem;
 import com.exedio.cope.testmodel.PointerItem;
 import com.exedio.cope.testmodel.PointerTargetItem;
 import com.exedio.dsmf.Constraint;
-import java.util.Arrays;
 import java.util.EnumSet;
 import org.junit.Test;
 
@@ -53,10 +52,10 @@ public class ItemTest extends TestmodelTest
 	@Test public void testItemMethods()
 			throws IntegrityViolationException, NoSuchIDException
 	{
-		assertEquals(EmptyItem.TYPE, TypesBound.forClass(EmptyItem.class));
+		assertEquals(TYPE, TypesBound.forClass(EmptyItem.class));
 		assertEquals(EmptyItem2.TYPE, TypesBound.forClass(EmptyItem2.class));
 		final Type<?>[] modelTypes = new Type<?>[]{
-				EmptyItem.TYPE,
+				TYPE,
 				EmptyItem2.TYPE,
 				AttributeItem.TYPE,
 				PointerTargetItem.TYPE,
@@ -64,20 +63,20 @@ public class ItemTest extends TestmodelTest
 				FinalItem.TYPE,
 				CollisionItem1.TYPE,
 				CollisionItem2.TYPE};
-		assertEqualsUnmodifiable(Arrays.asList(modelTypes), model.getTypes());
-		assertEqualsUnmodifiable(Arrays.asList(modelTypes), model.getTypesSortedByHierarchy());
+		assertEqualsUnmodifiable(asList(modelTypes), model.getTypes());
+		assertEqualsUnmodifiable(asList(modelTypes), model.getTypesSortedByHierarchy());
 
-		assertInfo(EmptyItem.TYPE, EmptyItem.TYPE.getPrimaryKeyInfo());
+		assertInfo(TYPE, TYPE.getPrimaryKeyInfo());
 		final EmptyItem item1 = new EmptyItem();
 		assertID("EmptyItem-0", item1);
 		final EmptyItem item2 = new EmptyItem();
 		assertID("EmptyItem-1", item2);
 		final EmptyItem2 item3 = new EmptyItem2();
 		assertID("EmptyItem2-0", item3);
-		assertInfo(EmptyItem.TYPE, 2, 0, 1, EmptyItem.TYPE.getPrimaryKeyInfo());
+		assertInfo(TYPE, 2, 0, 1, TYPE.getPrimaryKeyInfo());
 
-		assertEquals(EmptyItem.TYPE, item1.getCopeType());
-		assertEquals(EmptyItem.TYPE, item2.getCopeType());
+		assertEquals(TYPE, item1.getCopeType());
+		assertEquals(TYPE, item2.getCopeType());
 		assertEquals(EmptyItem2.TYPE, item3.getCopeType());
 
 		assertSame(item1, TYPE.cast(item1));
@@ -121,7 +120,7 @@ public class ItemTest extends TestmodelTest
 		assertEquals(item3, model.getItem("EmptyItem2-0"));
 
 		assertNotEqualsAndHash(item1, item2, item3);
-		assertCompare(Arrays.asList(item1, item2, item3));
+		assertCompare(asList(item1, item2, item3));
 
 		assertSame(item1, item1.get(TYPE.getThis()));
 		assertSame(item1, TYPE.getThis().get(item1));
@@ -175,7 +174,7 @@ public class ItemTest extends TestmodelTest
 
 	@Test public void testItemCreation()
 	{
-		final EmptyItem item1 = EmptyItem.TYPE.newItem();
+		final EmptyItem item1 = TYPE.newItem();
 		final AttributeItem item2 = AttributeItem.TYPE.newItem(
 			AttributeItem.someNotNullString.map("someGenericString"),
 			AttributeItem.someNotNullInteger.map(50),

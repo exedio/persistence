@@ -51,7 +51,7 @@ import org.junit.Test;
 
 public class CompareFunctionConditionTest extends TestWithEnvironment
 {
-	static final Model MODEL = new Model(CompareFunctionConditionItem.TYPE);
+	static final Model MODEL = new Model(TYPE);
 	private static final This<CompareFunctionConditionItem> THIS = TYPE.getThis();
 
 	public CompareFunctionConditionTest()

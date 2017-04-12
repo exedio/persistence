@@ -35,7 +35,7 @@ import org.junit.Test;
 
 public class EnumSetFieldFinalTest
 {
-	private static final Model MODEL = new Model(AnItem.TYPE);
+	private static final Model MODEL = new Model(TYPE);
 
 	static
 	{

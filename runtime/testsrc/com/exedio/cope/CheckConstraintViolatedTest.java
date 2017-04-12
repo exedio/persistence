@@ -177,5 +177,5 @@ public class CheckConstraintViolatedTest extends TestWithEnvironment
 }
 
 	// WARNING: do not use for any other test
-	private static final Model MODEL = new Model(AnItem.TYPE);
+	private static final Model MODEL = new Model(TYPE);
 }

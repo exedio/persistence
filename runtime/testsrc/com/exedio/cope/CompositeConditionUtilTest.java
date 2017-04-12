@@ -29,7 +29,6 @@ import static org.junit.Assert.assertSame;
 import static org.junit.Assert.fail;
 
 import com.exedio.cope.CompositeCondition.Operator;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import org.junit.Test;
@@ -127,7 +126,7 @@ public class CompositeConditionUtilTest
 		}
 		try
 		{
-			newCompositeCondition(AND, Condition.TRUE);
+			newCompositeCondition(AND, TRUE);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -136,7 +135,7 @@ public class CompositeConditionUtilTest
 		}
 		try
 		{
-			newCompositeCondition(AND, asList(Condition.TRUE));
+			newCompositeCondition(AND, asList(TRUE));
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -145,7 +144,7 @@ public class CompositeConditionUtilTest
 		}
 		try
 		{
-			newCompositeCondition(OR, Condition.TRUE);
+			newCompositeCondition(OR, TRUE);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -154,7 +153,7 @@ public class CompositeConditionUtilTest
 		}
 		try
 		{
-			newCompositeCondition(OR, asList(Condition.TRUE));
+			newCompositeCondition(OR, asList(TRUE));
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -189,7 +188,7 @@ public class CompositeConditionUtilTest
 		}
 		try
 		{
-			new NotCondition(Condition.TRUE);
+			new NotCondition(TRUE);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -232,11 +231,11 @@ public class CompositeConditionUtilTest
 		assertEquals(c2, field.in(2.0));
 		assertEquals(c2, field.in(asList(2.0)));
 		assertSame(FALSE, field.in());
-		assertSame(FALSE, field.in(Arrays.asList()));
+		assertSame(FALSE, field.in(asList()));
 
 		// Condition.valueOf
-		assertSame(Condition.TRUE,  Condition.valueOf(true));
-		assertSame(Condition.FALSE, Condition.valueOf(false));
+		assertSame(TRUE,  Condition.valueOf(true));
+		assertSame(FALSE, Condition.valueOf(false));
 	}
 
 

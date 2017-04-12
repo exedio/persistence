@@ -36,7 +36,7 @@ import org.junit.Test;
 @SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
 public class QueryAggregatorTest extends TestWithEnvironment
 {
-	public static final Model MODEL = new Model(QueryAggregatorItem.TYPE);
+	public static final Model MODEL = new Model(TYPE);
 
 	public QueryAggregatorTest()
 	{

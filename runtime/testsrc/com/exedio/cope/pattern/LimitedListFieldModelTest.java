@@ -45,7 +45,6 @@ import com.exedio.cope.Model;
 import com.exedio.cope.StringField;
 import com.exedio.cope.StringLengthViolationException;
 import com.exedio.cope.misc.Computed;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -54,7 +53,7 @@ import org.junit.Test;
 public class LimitedListFieldModelTest
 {
 	public static final Model MODEL = new Model(
-		LimitedListFieldItem.TYPE,
+		TYPE,
 		LimitedListFieldItemFieldItem.TYPE
 	);
 
@@ -78,7 +77,7 @@ public class LimitedListFieldModelTest
 		final CheckConstraint datesU = dates.getUnison();
 		final CheckConstraint stringsU = strings.getUnison();
 
-		assertEquals(Arrays.asList(new Feature[]{
+		assertEquals(asList(new Feature[]{
 				TYPE.getThis(),
 				num1,
 				num2,

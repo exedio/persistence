@@ -46,7 +46,7 @@ import org.junit.Test;
 
 public class MapFieldModelTest
 {
-	static final Model MODEL = new Model(MapFieldItem.TYPE);
+	static final Model MODEL = new Model(TYPE);
 
 	static
 	{

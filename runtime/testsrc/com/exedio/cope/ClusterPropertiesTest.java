@@ -28,7 +28,6 @@ import com.exedio.cope.instrument.WrapperIgnore;
 import com.exedio.cope.tojunit.TestSources;
 import com.exedio.cope.util.IllegalPropertiesException;
 import com.exedio.cope.util.Properties.Source;
-import com.exedio.cope.util.Sources;
 import org.junit.After;
 import org.junit.Test;
 
@@ -36,7 +35,7 @@ public class ClusterPropertiesTest
 {
 	@Test public void testOk()
 	{
-		final Source s = Sources.cascade(
+		final Source s = cascade(
 				TestSources.minimal(),
 				single("schema.primaryKeyGenerator", PrimaryKeyGenerator.sequence),
 				single("cluster", true),
@@ -95,7 +94,7 @@ public class ClusterPropertiesTest
 
 	@Test public void testFailPrimaryKeyGeneratorMemory()
 	{
-		final Source s = describe("DESC", Sources.cascade(
+		final Source s = describe("DESC", cascade(
 				TestSources.minimal(),
 				single("cluster", true),
 				single("cluster.secret", 1234)

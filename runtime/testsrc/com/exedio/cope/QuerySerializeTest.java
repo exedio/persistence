@@ -71,7 +71,7 @@ public class QuerySerializeTest
 		private static final long serialVersionUID = 1l;
 	}
 
-	private static final Model MODEL = new Model(AnItem.TYPE);
+	private static final Model MODEL = new Model(TYPE);
 
 	static
 	{

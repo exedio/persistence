@@ -141,7 +141,7 @@ public class DeleteTest extends TestWithEnvironment
 		model.commit();
 		final long transactionIdBefore = model.getNextTransactionId();
 		final CountJobContext ctx = new CountJobContext();
-		Delete.delete(CacheIsolationItem.TYPE.newQuery(), "DeleteTest", ctx);
+		Delete.delete(TYPE.newQuery(), "DeleteTest", ctx);
 		assertEquals(itemNumber, ctx.progress);
 		assertEquals(transactionIdBefore+transactionNumber, model.getNextTransactionId());
 		model.startTransaction("DeleteTest");

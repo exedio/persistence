@@ -39,7 +39,7 @@ import org.junit.rules.RuleChain;
 
 public class DayFieldTest extends TestWithEnvironment
 {
-	public static final Model MODEL = new Model(DayItem.TYPE);
+	public static final Model MODEL = new Model(TYPE);
 
 	static
 	{

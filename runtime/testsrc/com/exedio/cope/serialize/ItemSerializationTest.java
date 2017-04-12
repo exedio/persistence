@@ -39,7 +39,7 @@ import org.junit.Test;
 
 public class ItemSerializationTest extends TestWithEnvironment
 {
-	static final Model MODEL = new Model(ItemSerializationItem.TYPE, ItemSerializationItem2.TYPE);
+	static final Model MODEL = new Model(TYPE, ItemSerializationItem2.TYPE);
 
 	static
 	{

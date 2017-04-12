@@ -122,7 +122,7 @@ public class DispatchableDeferrableTest extends TestWithEnvironment
 		{
 			Assert.assertSame(toTarget, dispatcher);
 			Assert.assertTrue(MODEL.hasCurrentTransaction());
-			Assert.assertEquals(toTarget.getID() + " dispatch " + getCopeID(), MODEL.currentTransaction().getName());
+			assertEquals(toTarget.getID() + " dispatch " + getCopeID(), MODEL.currentTransaction().getName());
 		}
 
 

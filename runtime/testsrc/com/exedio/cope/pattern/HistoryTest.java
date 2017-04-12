@@ -85,7 +85,7 @@ public class HistoryTest extends TestWithEnvironment
 		assertEquals(HistoryItem.class, TYPE.getJavaClass());
 		assertEquals(true, TYPE.isBound());
 		assertEquals(null, TYPE.getPattern());
-		assertEqualsUnmodifiable(list(HistoryItem.audit.eventType, HistoryItem.audit.featureType), HistoryItem.audit.getSourceTypes());
+		assertEqualsUnmodifiable(list(audit.eventType, audit.featureType), audit.getSourceTypes());
 
 		assertEqualsUnmodifiable(list(
 				TYPE.getThis(),
@@ -119,7 +119,7 @@ public class HistoryTest extends TestWithEnvironment
 		assertEquals("HistoryItem-audit-Event", eventType.getID());
 		assertEquals(History.Event.class, eventType.getJavaClass());
 		assertEquals(false, eventType.isBound());
-		assertSame(HistoryItem.audit, eventType.getPattern());
+		assertSame(audit, eventType.getPattern());
 		assertEquals(null, eventType.getSupertype());
 		assertEqualsUnmodifiable(list(), eventType.getSubtypes());
 		assertEquals(false, eventType.isAbstract());
@@ -130,7 +130,7 @@ public class HistoryTest extends TestWithEnvironment
 		assertEquals("HistoryItem-audit-Feature", featureType.getID());
 		assertEquals(History.Feature.class, featureType.getJavaClass());
 		assertEquals(false, featureType.isBound());
-		assertSame(HistoryItem.audit, featureType.getPattern());
+		assertSame(audit, featureType.getPattern());
 		assertEquals(null, featureType.getSupertype());
 		assertEqualsUnmodifiable(list(), featureType.getSubtypes());
 		assertEquals(false, featureType.isAbstract());
@@ -170,7 +170,7 @@ public class HistoryTest extends TestWithEnvironment
 		assertTrue(!eventType.isAssignableFrom(TYPE));
 
 		assertSame(HistoryItem.class, auditEventParent().getValueClass());
-		assertSame(HistoryItem.TYPE, auditEventParent().getValueType());
+		assertSame(TYPE, auditEventParent().getValueType());
 		assertSame(History.Event.class, audit.getFeatureEvent().getValueClass());
 		assertSame(audit.getEventType(), audit.getFeatureEvent().getValueType());
 
@@ -182,26 +182,26 @@ public class HistoryTest extends TestWithEnvironment
 		assertTrue(  eventType.isAnnotationPresent(Computed.class));
 		assertTrue(featureType.isAnnotationPresent(Computed.class));
 
-		assertEqualsUnmodifiable(list(HistoryItem.audit), History.getHistories(HistoryItem.TYPE));
-		assertEqualsUnmodifiable(list(), History.getHistories(HistoryItem.audit.getEventType()));
+		assertEqualsUnmodifiable(list(audit), History.getHistories(TYPE));
+		assertEqualsUnmodifiable(list(), History.getHistories(audit.getEventType()));
 
-		final List<PartOf<?>> historyPartOfs = PartOf.getPartOfs(HistoryItem.TYPE);
+		final List<PartOf<?>> historyPartOfs = PartOf.getPartOfs(TYPE);
 		assertEquals(1, historyPartOfs.size());
 		final PartOf<?> eventPartOf = historyPartOfs.get(0);
 		assertSame(eventType, eventPartOf.getType());
-		assertEquals(list(eventPartOf), PartOf.getPartOfs(HistoryItem.audit));
-		final List<PartOf<?>> eventPartOfs = PartOf.getPartOfs(HistoryItem.audit.eventType);
+		assertEquals(list(eventPartOf), PartOf.getPartOfs(audit));
+		final List<PartOf<?>> eventPartOfs = PartOf.getPartOfs(audit.eventType);
 		assertEquals(1, eventPartOfs.size());
 		final PartOf<?> featurePartOf = eventPartOfs.get(0);
 		assertSame(featureType, featurePartOf.getType());
 		assertEquals(list(featurePartOf), PartOf.getPartOfs(eventPartOf));
 
-		assertSerializedSame(HistoryItem.audit, 377);
+		assertSerializedSame(audit, 377);
 
 		// test persistence
-		assertEquals("id", SchemaInfo.getColumnName(HistoryItem.audit.getFeatureId()));
-		assertNoUpdateCounterColumn(HistoryItem.audit.getEventType());
-		assertNoUpdateCounterColumn(HistoryItem.audit.getFeatureType());
+		assertEquals("id", SchemaInfo.getColumnName(audit.getFeatureId()));
+		assertNoUpdateCounterColumn(audit.getEventType());
+		assertNoUpdateCounterColumn(audit.getFeatureType());
 
 		assertEquals(list(), item.getAuditEvents());
 

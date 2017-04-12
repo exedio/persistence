@@ -31,7 +31,7 @@ import org.junit.Test;
 
 public class TransactionTryTest extends TestWithEnvironment
 {
-	static final Model MODEL = new Model(SimpleItem.TYPE);
+	static final Model MODEL = new Model(TYPE);
 
 	public TransactionTryTest()
 	{

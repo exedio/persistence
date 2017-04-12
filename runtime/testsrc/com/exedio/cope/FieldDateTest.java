@@ -162,22 +162,22 @@ public class FieldDateTest extends FieldTest
 		assertEquals(
 			message.toString(),
 			list( item, item2, item3, item4 ),
-			AttributeItem.TYPE.search( null, AttributeItem.someDate, true )
+			TYPE.search( null, someDate, true )
 		);
 		assertEquals(
 			message.toString(),
 			list( item4, item3, item2, item ),
-			AttributeItem.TYPE.search( null, AttributeItem.someDate, false )
+			TYPE.search( null, someDate, false )
 		);
 		assertEquals(
 			message.toString(),
 			list( item3, item4 ),
-			AttributeItem.TYPE.search( AttributeItem.someDate.greater(dates[4]), AttributeItem.someDate, true )
+			TYPE.search( someDate.greater(dates[4]), someDate, true )
 		);
 		assertEquals(
 			message.toString(),
 			list( item, item2, item3 ),
-			AttributeItem.TYPE.search( AttributeItem.someDate.less(dates[6]), AttributeItem.someDate, true )
+			TYPE.search( someDate.less(dates[6]), someDate, true )
 		);
 	}
 
@@ -211,22 +211,22 @@ public class FieldDateTest extends FieldTest
 		assertEquals(
 			message.toString(),
 			list( item, item2, item3, item4 ),
-			AttributeItem.TYPE.search( null, AttributeItem.someDate, true )
+			TYPE.search( null, someDate, true )
 		);
 		assertEquals(
 			message.toString(),
 			list( item4, item3, item2, item ),
-			AttributeItem.TYPE.search( null, AttributeItem.someDate, false )
+			TYPE.search( null, someDate, false )
 		);
 		assertEquals(
 			message.toString(),
 			list( item3, item4 ),
-			AttributeItem.TYPE.search( AttributeItem.someDate.greater(dates[4]), AttributeItem.someDate, true )
+			TYPE.search( someDate.greater(dates[4]), someDate, true )
 		);
 		assertEquals(
 			message.toString(),
 			list( item, item2, item3 ),
-			AttributeItem.TYPE.search( AttributeItem.someDate.less(dates[6]), AttributeItem.someDate, true )
+			TYPE.search( someDate.less(dates[6]), someDate, true )
 		);
 	}
 

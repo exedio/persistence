@@ -59,12 +59,12 @@ public class MoneyFieldTest extends TestWithEnvironment
 		assertEquals("fixeOpt-amount",     fixeOpt.getAmount()         .getName());
 		assertEquals("fixeOpt-amount-int", fixeOpt.getAmount().getInt().getName());
 		assertEquals(null,                 fixeOpt.getCurrencyField());
-		assertEquals(CurrFix.fix,          fixeOpt.getCurrencyValue());
+		assertEquals(fix,                  fixeOpt.getCurrencyValue());
 		assertEquals("fixeEnu",            fixeEnu                     .getName());
 		assertEquals("fixeEnu-amount",     fixeEnu.getAmount()         .getName());
 		assertEquals("fixeEnu-amount-int", fixeEnu.getAmount().getInt().getName());
 		assertEquals(null,                 fixeEnu.getCurrencyField());
-		assertEquals(Currency.eur,         fixeEnu.getCurrencyValue());
+		assertEquals(eur,                  fixeEnu.getCurrencyValue());
 		assertEquals("sharOpt",            sharOpt                     .getName());
 		assertEquals("sharOpt-amount",     sharOpt.getAmount()         .getName());
 		assertEquals("sharOpt-amount-int", sharOpt.getAmount().getInt().getName());

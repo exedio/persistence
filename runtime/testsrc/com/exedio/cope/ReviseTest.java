@@ -445,7 +445,7 @@ public class ReviseTest
 		final byte[] log = logs.get(revision);
 		assertNotNull(log);
 		final Properties logProps = parse(log);
-		assertEquals(String.valueOf(revision), logProps.getProperty("revision"));
+		assertEquals(valueOf(revision), logProps.getProperty("revision"));
 		assertNull(logProps.getProperty("savepoint"));
 		final Date date = df().parse(logProps.getProperty("dateUTC"));
 		assertWithin(before, after, date);
@@ -466,7 +466,7 @@ public class ReviseTest
 		final byte[] log = logs.get(number);
 		assertNotNull(log);
 		final Properties logProps = parse(log);
-		assertEquals(String.valueOf(number), logProps.getProperty("revision"));
+		assertEquals(valueOf(number), logProps.getProperty("revision"));
 		assertNotNull(logProps.getProperty("savepoint"));
 		final Date date = df().parse(logProps.getProperty("dateUTC"));
 		assertWithin(before, after, date);
@@ -501,8 +501,8 @@ public class ReviseTest
 		final Date date = df().parse(logProps.getProperty("dateUTC"));
 		assertWithin(before, after, date);
 		assertEquals("true", logProps.getProperty("mutex"));
-		assertEquals(String.valueOf(expected), logProps.getProperty("mutex.expected"));
-		assertEquals(String.valueOf(actual  ), logProps.getProperty("mutex.actual"));
+		assertEquals(valueOf(expected), logProps.getProperty("mutex.expected"));
+		assertEquals(valueOf(actual  ), logProps.getProperty("mutex.actual"));
 		assertEquals(null, logProps.getProperty("create"));
 		assertRevisionEnvironment(logProps);
 		assertEquals(16, logProps.size());

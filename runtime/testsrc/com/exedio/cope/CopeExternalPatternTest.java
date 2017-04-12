@@ -38,7 +38,7 @@ public class CopeExternalPatternTest
 
 	@Test public void testIt()
 	{
-		assertEquals(false, external(MyItem.TYPE));
+		assertEquals(false, external(TYPE));
 
 		assertEquals(false, external(absent));
 		assertEquals(true,  external(present));

@@ -53,7 +53,7 @@ import org.junit.Test;
 
 public class HashTest extends TestWithEnvironment
 {
-	public static final Model MODEL = new Model(HashItem.TYPE, HashItemHolder.TYPE);
+	public static final Model MODEL = new Model(TYPE, HashItemHolder.TYPE);
 
 	public HashTest()
 	{
@@ -186,7 +186,7 @@ public class HashTest extends TestWithEnvironment
 		assertTrue(item2.checkInternal("03affe09"));
 		assertFalse(item2.isInternalNull());
 
-		final HashItem item3 = HashItem.TYPE.newItem(internal.map("03affe10"));
+		final HashItem item3 = TYPE.newItem(internal.map("03affe10"));
 		assertEquals("[03affe10]", item3.get(internal.getStorage()));
 		assertFalse(item3.checkInternal(null));
 		assertFalse(item3.checkInternal("03affe09"));
@@ -197,7 +197,7 @@ public class HashTest extends TestWithEnvironment
 	@Test public void testLimit()
 	{
 		final String ok = "012345678901234";
-		assertEquals("[" + ok + "]", HashItem.internal.hash(ok));
+		assertEquals("[" + ok + "]", internal.hash(ok));
 
 		final String tooLong = ok + "x";
 		try
@@ -250,31 +250,31 @@ public class HashTest extends TestWithEnvironment
 		final HashItemHolder h1 = new HashItemHolder(item);
 		final HashItemHolder h2 = new HashItemHolder(item2);
 
-		assertEquals(list(item), HashItem.TYPE.search(HashItem.implicitExternal.isNull()));
-		assertEquals(list(item2), HashItem.TYPE.search(HashItem.implicitExternal.isNotNull()));
+		assertEquals(list(item), TYPE.search(implicitExternal.isNull()));
+		assertEquals(list(item2), TYPE.search(implicitExternal.isNotNull()));
 
 		{
 			final Query<HashItemHolder> query = HashItemHolder.TYPE.newQuery();
-			final Join join1 = query.join(HashItem.TYPE);
+			final Join join1 = query.join(TYPE);
 			join1.setCondition(HashItemHolder.hashItem.equalTarget(join1) );
-			query.narrow( HashItem.implicitExternal.getStorage().bind(join1).isNull() );
+			query.narrow( implicitExternal.getStorage().bind(join1).isNull() );
 
-			final Join join2 = query.join(HashItem.TYPE);
+			final Join join2 = query.join(TYPE);
 			join2.setCondition(HashItemHolder.hashItem.equalTarget(join2) );
-			query.narrow( HashItem.implicitExternal.isNull(join2) );
+			query.narrow( implicitExternal.isNull(join2) );
 
 			assertEquals( list(h1), query.search() );
 		}
 
 		{
 			final Query<HashItemHolder> query = HashItemHolder.TYPE.newQuery();
-			final Join join1 = query.join(HashItem.TYPE);
+			final Join join1 = query.join(TYPE);
 			join1.setCondition(HashItemHolder.hashItem.equalTarget(join1) );
-			query.narrow( HashItem.implicitExternal.getStorage().bind(join1).isNotNull() );
+			query.narrow( implicitExternal.getStorage().bind(join1).isNotNull() );
 
-			final Join join2 = query.join(HashItem.TYPE);
+			final Join join2 = query.join(TYPE);
 			join2.setCondition(HashItemHolder.hashItem.equalTarget(join2) );
-			query.narrow( HashItem.implicitExternal.isNotNull(join2) );
+			query.narrow( implicitExternal.isNotNull(join2) );
 
 			assertEquals( list(h2), query.search() );
 		}
@@ -342,7 +342,7 @@ public class HashTest extends TestWithEnvironment
 	@Test public void testValidatorSingleSetValue()
 	{
 			// with success
-			final HashItem anItem = HashItem.TYPE.newItem(new SetValue<?>[]{});
+			final HashItem anItem = TYPE.newItem(new SetValue<?>[]{});
 			anItem.setWith3PinValidator("452");
 			assertEquals("[452]", anItem.getWith3PinValidatorwrap());
 
@@ -379,15 +379,15 @@ public class HashTest extends TestWithEnvironment
 		// testing mass set
 
 		// with success
-		final HashItem anItem = HashItem.TYPE.newItem(new SetValue<?>[]{});
+		final HashItem anItem = TYPE.newItem(new SetValue<?>[]{});
 		assertNotNull(anItem);
-		anItem.set(SetValue.map(HashItem.with3PinValidator, "123"), SetValue.map(HashItem.internal, "2"));
+		anItem.set(SetValue.map(with3PinValidator, "123"), SetValue.map(internal, "2"));
 		assertEquals("[123]", anItem.getWith3PinValidatorwrap());
 
 		// fails because invalid data
 		try
 		{
-			anItem.set( SetValue.map(HashItem.with3PinValidator, "1"), SetValue.map(HashItem.internal, "2") );
+			anItem.set( SetValue.map(with3PinValidator, "1"), SetValue.map(internal, "2") );
 			fail();
 		}
 		catch (final Hash.InvalidPlainTextException e)
@@ -401,7 +401,7 @@ public class HashTest extends TestWithEnvironment
 		// fails because validator throws always an exception
 		try
 		{
-			anItem.set( SetValue.map(HashItem.withCorruptValidator, "1"), SetValue.map(HashItem.internal, "2") );
+			anItem.set( SetValue.map(withCorruptValidator, "1"), SetValue.map(internal, "2") );
 			fail();
 		}
 		catch (final IllegalStateException e)
@@ -415,7 +415,7 @@ public class HashTest extends TestWithEnvironment
 		// test with a validator which always throws an exception
 		try
 		{
-			HashItem.TYPE.newItem(withCorruptValidator.map("03affe10"));
+			TYPE.newItem(withCorruptValidator.map("03affe10"));
 			fail();
 		}
 		catch (final IllegalStateException ise)
@@ -426,7 +426,7 @@ public class HashTest extends TestWithEnvironment
 		// testing  with validator that discards the given pin string
 		try
 		{
-			HashItem.TYPE.newItem(with3PinValidator.map("99x"));
+			TYPE.newItem(with3PinValidator.map("99x"));
 			fail();
 		}
 		catch (final Hash.InvalidPlainTextException e)
@@ -445,7 +445,7 @@ public class HashTest extends TestWithEnvironment
 
 	@Test public void testValidatorNewRandomPassword()
 	{
-		assertEquals("012", HashItem.with3PinValidator.newRandomPassword(new SecureRandom() {
+		assertEquals("012", with3PinValidator.newRandomPassword(new SecureRandom() {
 			private static final long serialVersionUID = 1l;
 			int seq=0;  // negative tested too!
 

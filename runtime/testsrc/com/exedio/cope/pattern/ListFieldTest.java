@@ -52,7 +52,6 @@ import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.Type;
 import com.exedio.cope.misc.Computed;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.Iterator;
 import org.junit.Before;
@@ -60,7 +59,7 @@ import org.junit.Test;
 
 public class ListFieldTest extends TestWithEnvironment
 {
-	public static final Model MODEL = new Model(ListFieldItem.TYPE);
+	public static final Model MODEL = new Model(TYPE);
 
 	static
 	{
@@ -145,7 +144,7 @@ public class ListFieldTest extends TestWithEnvironment
 		assertEquals("ListFieldItem-strings", stringsType.getID());
 		assertEquals(PatternItem.class, stringsType.getJavaClass());
 		assertEquals(false, stringsType.isBound());
-		assertSame(ListFieldItem.strings, stringsType.getPattern());
+		assertSame(strings, stringsType.getPattern());
 		assertEquals(null, stringsType.getSupertype());
 		assertEqualsUnmodifiable(list(), stringsType.getSubtypes());
 		assertEquals(false, stringsType.isAbstract());
@@ -159,7 +158,7 @@ public class ListFieldTest extends TestWithEnvironment
 		assertEquals("ListFieldItem-dates", datesType.getID());
 		assertEquals(PatternItem.class, datesType.getJavaClass());
 		assertEquals(false, datesType.isBound());
-		assertSame(ListFieldItem.dates, datesType.getPattern());
+		assertSame(dates, datesType.getPattern());
 		assertEquals(null, datesType.getSupertype());
 		assertEqualsUnmodifiable(list(), datesType.getSubtypes());
 		assertEquals(false, datesType.isAbstract());
@@ -170,7 +169,7 @@ public class ListFieldTest extends TestWithEnvironment
 		assertEquals("ListFieldItem-items", itemsType.getID());
 		assertEquals(PatternItem.class, itemsType.getJavaClass());
 		assertEquals(false, itemsType.isBound());
-		assertSame(ListFieldItem.items, itemsType.getPattern());
+		assertSame(items, itemsType.getPattern());
 		assertEquals(null, itemsType.getSupertype());
 		assertEqualsUnmodifiable(list(), itemsType.getSubtypes());
 		assertEquals(false, itemsType.isAbstract());
@@ -408,7 +407,7 @@ public class ListFieldTest extends TestWithEnvironment
 		assertEquals(3, r4.get(stringsOrder).intValue());
 		assertFalse(r3.existsCopeItem());
 
-		item.setStrings(unmodifiableList(Arrays.asList()));
+		item.setStrings(unmodifiableList(asList()));
 		assertEqualsUnmodifiable(list(), item.getStrings());
 		assertContains(getDistinctParentsOfStrings(null));
 		assertContains(getDistinctParentsOfStrings("null1"));

@@ -36,7 +36,7 @@ import org.junit.Test;
 
 public class ImporterModelTest
 {
-	static final Model model = new Model(ImporterItem.TYPE);
+	static final Model model = new Model(TYPE);
 
 	static
 	{

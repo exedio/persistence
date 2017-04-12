@@ -47,7 +47,6 @@ import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.Type;
 import com.exedio.cope.misc.Computed;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.Iterator;
 import org.junit.Before;
@@ -124,7 +123,7 @@ public class SetFieldTest extends TestWithEnvironment
 		assertEquals("SetFieldItem-strings", stringsType.getID());
 		assertEquals(PatternItem.class, stringsType.getJavaClass());
 		assertEquals(false, stringsType.isBound());
-		assertSame(SetFieldItem.strings, stringsType.getPattern());
+		assertSame(strings, stringsType.getPattern());
 		assertEquals(null, stringsType.getSupertype());
 		assertEqualsUnmodifiable(list(), stringsType.getSubtypes());
 		assertEquals(false, stringsType.isAbstract());
@@ -135,7 +134,7 @@ public class SetFieldTest extends TestWithEnvironment
 		assertEquals("SetFieldItem-dates", datesType.getID());
 		assertEquals(PatternItem.class, datesType.getJavaClass());
 		assertEquals(false, datesType.isBound());
-		assertSame(SetFieldItem.dates, datesType.getPattern());
+		assertSame(dates, datesType.getPattern());
 		assertEquals(null, datesType.getSupertype());
 		assertEqualsUnmodifiable(list(), datesType.getSubtypes());
 		assertEquals(false, datesType.isAbstract());
@@ -304,7 +303,7 @@ public class SetFieldTest extends TestWithEnvironment
 		assertEquals("null3", r2.get(stringsElement));
 		assertEquals("null4", r3.get(stringsElement));
 
-		item.setStrings(Arrays.asList());
+		item.setStrings(asList());
 		assertContainsUnmodifiable(item.getStrings());
 		assertFalse(r0.existsCopeItem());
 		assertFalse(r1.existsCopeItem());

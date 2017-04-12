@@ -30,7 +30,6 @@ import static org.junit.Assert.fail;
 import com.exedio.cope.tojunit.SI;
 import com.exedio.dsmf.SQLRuntimeException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.stream.Stream;
 import org.junit.After;
 import org.junit.Test;
@@ -201,7 +200,7 @@ public class TransactionUniqueTest extends TestWithEnvironment
 			final StackTraceElement[] trace)
 	{
 		assertTrue(
-				Arrays.asList(trace).toString(),
+				asList(trace).toString(),
 				Stream.of(trace).anyMatch(t ->
 						className.equals(t.getClassName()) &&
 						methodName.equals(t.getMethodName())));

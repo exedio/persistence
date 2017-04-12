@@ -31,13 +31,12 @@ import static com.exedio.cope.tojunit.Assert.assertEqualsStrict;
 import static com.exedio.cope.tojunit.Assert.assertNotEqualsStrict;
 import static org.junit.Assert.assertEquals;
 
-import com.exedio.cope.testmodel.StringItem;
 import com.exedio.cope.util.CharSet;
 import org.junit.Test;
 
 public class StringModelTest
 {
-	static final Model MODEL = new Model(StringItem.TYPE);
+	static final Model MODEL = new Model(TYPE);
 
 	static
 	{

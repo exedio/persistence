@@ -272,8 +272,8 @@ public class DataTest extends TestWithEnvironment
 		// implements Settable
 		assertNull(item.getName());
 		item.set(
-				DataItem.data.map(bytes8),
-				DataItem.data10.map(bytes10),
+				data.map(bytes8),
+				data10.map(bytes10),
 				DataItem.name.map("eins")
 		);
 		assertData(bytes8, item.getDataArray());
@@ -281,8 +281,8 @@ public class DataTest extends TestWithEnvironment
 		assertEquals("eins", item.getName());
 
 		item.set(
-				DataItem.data.map(bytes11),
-				DataItem.data10.map(bytes10)
+				data.map(bytes11),
+				data10.map(bytes10)
 		);
 		assertData(bytes11, item.getDataArray());
 		assertData(bytes10, item.getData10Array());
@@ -295,8 +295,8 @@ public class DataTest extends TestWithEnvironment
 		}
 		{
 			final DataItem item3 = DataItem.TYPE.newItem(
-					DataItem.data.map(bytes6),
-					DataItem.data10.map(bytes10)
+					data.map(bytes6),
+					data10.map(bytes10)
 			);
 			assertData(bytes6, item3.getDataArray());
 			assertData(bytes10, item3.getData10Array());
@@ -305,7 +305,7 @@ public class DataTest extends TestWithEnvironment
 		assertData(bytes10, item.getData10Array());
 		try
 		{
-			item.set(DataItem.data10.map(bytes11));
+			item.set(data10.map(bytes11));
 			fail();
 		}
 		catch(final DataLengthViolationException e)
@@ -321,7 +321,7 @@ public class DataTest extends TestWithEnvironment
 
 		try
 		{
-			DataItem.TYPE.newItem(DataItem.data10.map(bytes11));
+			DataItem.TYPE.newItem(data10.map(bytes11));
 			fail();
 		}
 		catch(final DataLengthViolationException e)
@@ -334,8 +334,8 @@ public class DataTest extends TestWithEnvironment
 			assertEquals("length violation, 11 bytes is too long for " + data10, e.getMessage());
 		}
 		item.set(
-				DataItem.data.mapNull(),
-				DataItem.data10.mapNull()
+				data.mapNull(),
+				data10.mapNull()
 		);
 		assertNull(item.getDataArray());
 		assertNull(item.getData10Array());
@@ -349,7 +349,7 @@ public class DataTest extends TestWithEnvironment
 		try
 		{
 			item.set(
-					SetValue.map((Field)DataItem.data, "zack")
+					SetValue.map((Field)data, "zack")
 			);
 			fail();
 		}
@@ -362,7 +362,7 @@ public class DataTest extends TestWithEnvironment
 		try
 		{
 			DataItem.TYPE.newItem(
-					SetValue.map((Field)DataItem.data, Integer.valueOf(1))
+					SetValue.map((Field)data, Integer.valueOf(1))
 			);
 			fail();
 		}

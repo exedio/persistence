@@ -298,7 +298,7 @@ public class StringTest extends TestWithEnvironment
 		assertEquals(numberOfItems, TYPE.search(null).size());
 		try
 		{
-			StringItem.TYPE.newItem(
+			TYPE.newItem(
 					mandatory.map("defaultByMax4"),
 					max4.map("12345")
 			);
@@ -445,7 +445,7 @@ public class StringTest extends TestWithEnvironment
 		assertEquals(numberOfItems, TYPE.search(null).size());
 		try
 		{
-			StringItem.TYPE.newItem(
+			TYPE.newItem(
 					mandatory.map("defaultByExact6"),
 					exact6.map("1234567")
 			);

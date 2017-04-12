@@ -149,31 +149,31 @@ public class MediaTest extends TestWithEnvironment
 		new MediaItemHolder(item);
 		final MediaItemHolder m2 = new MediaItemHolder(item2);
 
-		assertEquals(list(item, item2), MediaItem.TYPE.search(MediaItem.photo.isNull(), MediaItem.TYPE.getThis(), true));
-		assertEquals(list(), MediaItem.TYPE.search(MediaItem.photo.isNotNull()));
+		assertEquals(list(item, item2), TYPE.search(photo.isNull(), TYPE.getThis(), true));
+		assertEquals(list(), TYPE.search(photo.isNotNull()));
 
 		{
 			final Query<MediaItemHolder> query = MediaItemHolder.TYPE.newQuery();
-			final Join join1 = query.join(MediaItem.TYPE);
+			final Join join1 = query.join(TYPE);
 			join1.setCondition(MediaItemHolder.mediaItem.equalTarget(join1) );
-			query.narrow( MediaItem.name.bind(join1).startsWith("other") );
+			query.narrow( name.bind(join1).startsWith("other") );
 
-			final Join join2 = query.join(MediaItem.TYPE);
+			final Join join2 = query.join(TYPE);
 			join2.setCondition(MediaItemHolder.mediaItem.equalTarget(join2) );
-			query.narrow( MediaItem.photo.isNull(join2) );
+			query.narrow( photo.isNull(join2) );
 
 			assertEquals( list(m2), query.search() );
 		}
 
 		{
 			final Query<MediaItemHolder> query = MediaItemHolder.TYPE.newQuery();
-			final Join join1 = query.join(MediaItem.TYPE);
+			final Join join1 = query.join(TYPE);
 			join1.setCondition(MediaItemHolder.mediaItem.equalTarget(join1) );
-			query.narrow( MediaItem.name.bind(join1).startsWith("other") );
+			query.narrow( name.bind(join1).startsWith("other") );
 
-			final Join join2 = query.join(MediaItem.TYPE);
+			final Join join2 = query.join(TYPE);
 			join2.setCondition(MediaItemHolder.mediaItem.equalTarget(join2) );
-			query.narrow( MediaItem.photo.isNotNull(join2) );
+			query.narrow( photo.isNotNull(join2) );
 
 			assertEquals( list(), query.search() );
 		}

@@ -37,7 +37,7 @@ import org.junit.Test;
 
 public class MediaUrlModelTest
 {
-	static final Model MODEL = new Model(MediaUrlItem.TYPE);
+	static final Model MODEL = new Model(TYPE);
 
 	static
 	{

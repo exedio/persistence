@@ -127,7 +127,7 @@ public class StringCharSetTest extends TestWithEnvironment
 
 	private static String charSetConstraintName(final StringField field)
 	{
-		return StringCharSetItem.TYPE.getID()+"_"+field.getName()+"_CS";
+		return TYPE.getID()+"_"+field.getName()+"_CS";
 	}
 
 	@Test public void testNonSubAsciiConstraints()

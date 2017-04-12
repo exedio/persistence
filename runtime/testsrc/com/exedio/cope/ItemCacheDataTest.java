@@ -283,7 +283,7 @@ public class ItemCacheDataTest extends TestWithEnvironment
 			if(props.getItemCacheLimit()>0)
 				assertEquals("global", global, item.getUpdateCountGlobal());
 			else
-				assertEquals("global", Integer.MIN_VALUE, item.getUpdateCountGlobal());
+				assertEquals("global", MIN_VALUE, item.getUpdateCountGlobal());
 		}
 	}
 }

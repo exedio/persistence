@@ -73,12 +73,12 @@ public class PriceFieldTest extends TestWithEnvironment
 
 		item.setOptionalPrice(MIN_VALUE);
 		assertEquals(storeOf(555), item.getFinalPrice());
-		assertEquals(Price.MIN_VALUE, item.getOptionalPrice());
+		assertEquals(MIN_VALUE, item.getOptionalPrice());
 		assertEquals(storeOf(7777), item.getBigPrice());
 
 		item.setOptionalPrice(MAX_VALUE);
 		assertEquals(storeOf(555), item.getFinalPrice());
-		assertEquals(Price.MAX_VALUE, item.getOptionalPrice());
+		assertEquals(MAX_VALUE, item.getOptionalPrice());
 		assertEquals(storeOf(7777), item.getBigPrice());
 
 		item.setOptionalPrice(null);

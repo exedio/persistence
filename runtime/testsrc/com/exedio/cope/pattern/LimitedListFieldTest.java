@@ -40,7 +40,6 @@ import com.exedio.cope.Query;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.TestWithEnvironment;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
@@ -106,13 +105,13 @@ public class LimitedListFieldTest extends TestWithEnvironment
 		assertEquals(i1, item.getNum2());
 		assertEquals(null, item.getNum3());
 
-		item.setNums(Arrays.asList());
+		item.setNums(asList());
 		assertEquals(null, item.getNum1());
 		assertEquals(null, item.getNum2());
 		assertEquals(null, item.getNum3());
-		assertContains(item, TYPE.search(nums.equal(Arrays.asList())));
+		assertContains(item, TYPE.search(nums.equal(asList())));
 		assertContains(TYPE.search(nums.equal(asList(i1))));
-		assertContains(TYPE.search(nums.notEqual(Arrays.asList())));
+		assertContains(TYPE.search(nums.notEqual(asList())));
 		assertContains(item, TYPE.search(nums.notEqual(asList(i1))));
 		assertContains(TYPE.search(nums.contains(i1)));
 		assertContains(TYPE.search(nums.contains(i2)));
@@ -150,12 +149,12 @@ public class LimitedListFieldTest extends TestWithEnvironment
 		assertEquals("bello", item.getString1());
 		assertEquals(null, item.getString2());
 		assertEquals(null, item.getString3());
-		assertContains(TYPE.search(strings.equal(Arrays.asList())));
+		assertContains(TYPE.search(strings.equal(asList())));
 		assertContains(TYPE.search(strings.equal(asList("hallo"))));
 		assertContains(item, TYPE.search(strings.equal(asList("hallo", "bello"))));
 		assertContains(TYPE.search(strings.equal(asList("bello", "hallo", "zollo"))));
 		assertContains(TYPE.search(strings.equal(asList("bello", "hallo"))));
-		assertContains(item, TYPE.search(strings.notEqual(Arrays.asList())));
+		assertContains(item, TYPE.search(strings.notEqual(asList())));
 		assertContains(item, TYPE.search(strings.notEqual(asList("hallo"))));
 		assertContains(TYPE.search(strings.notEqual(asList("hallo", "bello"))));
 		assertContains(item, TYPE.search(strings.notEqual(asList("bello", "hallo", "zollo"))));
@@ -181,7 +180,7 @@ public class LimitedListFieldTest extends TestWithEnvironment
 		assertEquals("lets4", item2.getString3());
 		assertEquals(4, item2.getStringLength());
 
-		final LimitedListFieldItem item3 = LimitedListFieldItem.TYPE.newItem(strings.map(asList("fetz1", null, null, null)));
+		final LimitedListFieldItem item3 = TYPE.newItem(strings.map(asList("fetz1", null, null, null)));
 		assertEqualsUnmodifiable(list("fetz1", null, null, null), item3.getStrings());
 		assertEquals("fetz1", item3.getString0());
 		assertEquals(null, item3.getString1());
@@ -274,7 +273,7 @@ public class LimitedListFieldTest extends TestWithEnvironment
 	@Test public void testContainsInJoin()
 	{
 		final Query<LimitedListFieldItemFieldItem> q = LimitedListFieldItemFieldItem.TYPE.newQuery();
-		final Join j = q.join(LimitedListFieldItem.TYPE, limitedListFieldItem.equalTarget());
+		final Join j = q.join(TYPE, limitedListFieldItem.equalTarget());
 
 		final String f = "l1.LimitedListFieldItem.strings-";
 		assertEquals("("+f+"0='a' OR "+f+"1='a' OR "+f+"2='a' OR "+f+"3='a')",
@@ -299,7 +298,7 @@ public class LimitedListFieldTest extends TestWithEnvironment
 	@Test public void testContainsAnyInJoin()
 	{
 		final Query<LimitedListFieldItemFieldItem> q = LimitedListFieldItemFieldItem.TYPE.newQuery();
-		final Join join = q.join(LimitedListFieldItem.TYPE, limitedListFieldItem.equalTarget());
+		final Join join = q.join(TYPE, limitedListFieldItem.equalTarget());
 
 		final String f = "l1.LimitedListFieldItem.strings-";
 

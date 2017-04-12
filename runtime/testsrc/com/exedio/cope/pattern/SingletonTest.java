@@ -39,7 +39,7 @@ import org.junit.Test;
 
 public class SingletonTest extends TestWithEnvironment
 {
-	static final Model MODEL = new Model(SingletonItem.TYPE);
+	static final Model MODEL = new Model(TYPE);
 
 	static
 	{

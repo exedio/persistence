@@ -178,7 +178,7 @@ public class SerializerTest extends TestWithEnvironment
 		assertNotSame(map1, item2.getMap());
 		assertEquals("", item2.getMandatoryString());
 
-		final SerializerItem item3 = SerializerItem.TYPE.newItem(
+		final SerializerItem item3 = TYPE.newItem(
 				integer.map(44),
 				map.map(map2),
 				mandatoryString.map("x")
