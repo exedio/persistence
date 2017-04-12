@@ -107,7 +107,7 @@ public abstract class RevisionInfo
 		return store;
 	}
 
-	private static final String[] DEPRECATED_ENVIRONMENT_KEYS = new String[]{
+	private static final String[] DEPRECATED_ENVIRONMENT_KEYS = {
 				"database.name",
 				"database.version",
 				"database.version.major",

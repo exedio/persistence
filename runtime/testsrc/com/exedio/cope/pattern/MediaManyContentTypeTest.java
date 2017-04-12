@@ -27,7 +27,7 @@ public class MediaManyContentTypeTest
 {
 	@Test public void test()
 	{
-		final Media[] medias = new Media[] {
+		final Media[] medias = {
 			new Media(),
 			new Media().contentType("ct/0"),
 			new Media().contentType("ct/0", "ct/1"),

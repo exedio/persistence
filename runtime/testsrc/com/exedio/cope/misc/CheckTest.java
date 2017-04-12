@@ -163,7 +163,7 @@ public class CheckTest
 
 	@Test public void testRequireNonEmptyAndCopyObjectsCopy()
 	{
-		final Object[] original = new Object[]{"a", "b", "c"};
+		final Object[] original = {"a", "b", "c"};
 		final Object[] copy = requireNonEmptyAndCopy(original, "name");
 		assertEquals(Arrays.asList("a", "b", "c"), Arrays.asList(copy));
 		assertNotSame(original, copy);
@@ -207,7 +207,7 @@ public class CheckTest
 
 	@Test public void testRequireNonEmptyAndCopyStringsCopy()
 	{
-		final String[] original = new String[]{"a", "b", "c"};
+		final String[] original = {"a", "b", "c"};
 		final String[] copy = requireNonEmptyAndCopy(original, "name");
 		assertEquals(Arrays.asList("a", "b", "c"), Arrays.asList(copy));
 		assertNotSame(original, copy);

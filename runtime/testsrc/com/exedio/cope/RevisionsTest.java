@@ -95,7 +95,7 @@ public class RevisionsTest
 	{
 		final Revision r2 = new Revision(2, "revision2", "nonsensesql2");
 		final Revision r1 = new Revision(1, "revision1", "nonsensesql1");
-		final Revision[] ra = new Revision[]{r2, r1};
+		final Revision[] ra = {r2, r1};
 		final Revisions rs = new Revisions(ra);
 		assertEquals(list(r2, r1), rs.getList());
 

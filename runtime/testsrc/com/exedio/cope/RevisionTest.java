@@ -137,7 +137,7 @@ public class RevisionTest
 	}
 	@Test public void testCopy()
 	{
-		final String[] body = new String[]{"a", "b", "c"};
+		final String[] body = {"a", "b", "c"};
 		final Revision r = new Revision(5, "comment", body);
 		assertEquals(list("a", "b", "c"), r.getBody());
 

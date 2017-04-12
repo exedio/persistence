@@ -31,7 +31,7 @@ public class ReserializeTest
 	@SuppressFBWarnings({"DM_STRING_CTOR","ES_COMPARING_STRINGS_WITH_EQ"})
 	@Test public void testIt()
 	{
-		final String[] original = new String[]{new String("hallo"), new String("hallo")};
+		final String[] original = {new String("hallo"), new String("hallo")};
 		assertEquals(original[0], original[1]);
 		assertNotSame(original[0], original[1]);
 

@@ -309,5 +309,5 @@ final class WrapperX
 	}
 
 
-	private static final String[] EMPTY_STRING_ARRAY = new String[]{};
+	private static final String[] EMPTY_STRING_ARRAY = {};
 }

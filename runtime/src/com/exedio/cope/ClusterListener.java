@@ -137,7 +137,7 @@ abstract class ClusterListener
 		}
 	}
 
-	private static final byte[] MAGIC = new byte[]{MAGIC0, MAGIC1, MAGIC2, MAGIC3};
+	private static final byte[] MAGIC = {MAGIC0, MAGIC1, MAGIC2, MAGIC3};
 
 	private void handlePingPong(
 			final DatagramPacket packet,

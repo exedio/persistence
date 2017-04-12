@@ -158,9 +158,9 @@ public final class MediaType
 	public static final String DOCX = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
 	public static final String XLSX = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
 
-	private static final byte[] ZIP_MAGIC = new byte[]{(byte)'P', (byte)'K', 0x03, 0x04};
+	private static final byte[] ZIP_MAGIC = {(byte)'P', (byte)'K', 0x03, 0x04};
 
-	private static final MediaType[] types = new MediaType[]{
+	private static final MediaType[] types = {
 
 			new MediaType(".csv",  "text/csv",
 					"text/comma-separated-values",
