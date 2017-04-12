@@ -630,10 +630,7 @@ public final class Schedule extends Pattern
 	{
 		return com.exedio.cope.util.InterrupterJobContextAdapter.run(
 			interrupter,
-			ctx ->
-			{
-				run(parentClass, ctx);
-			}
+			ctx -> run(parentClass, ctx)
 		);
 	}
 }

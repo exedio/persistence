@@ -713,10 +713,7 @@ public final class Dispatcher extends Pattern
 	{
 		return com.exedio.cope.util.InterrupterJobContextAdapter.run(
 			interrupter,
-			ctx ->
-			{
-				dispatch(parentClass, config, ctx);
-			}
+			ctx -> dispatch(parentClass, config, ctx)
 		);
 	}
 }

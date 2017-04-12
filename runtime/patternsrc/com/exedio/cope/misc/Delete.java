@@ -91,10 +91,7 @@ public final class Delete
 	{
 		return com.exedio.cope.util.InterrupterJobContextAdapter.run(
 			interrupter,
-			ctx ->
-			{
-				delete(query, transactionName, ctx);
-			}
+			ctx -> delete(query, transactionName, ctx)
 		);
 	}
 }

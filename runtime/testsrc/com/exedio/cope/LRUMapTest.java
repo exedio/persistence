@@ -103,7 +103,7 @@ public class LRUMapTest
 		for(int j = 0; j<8; j++)
 		{
 			assertPerformance(new HashMap<>());
-			assertPerformance(new LRUMap<>(2_000_000, x -> {counter.inc();}));
+			assertPerformance(new LRUMap<>(2_000_000, x -> counter.inc()));
 			assertPerformance(new DateMap<>());
 			assertPerformance(new TLongObjectHashMap<>());
 			System.out.println();

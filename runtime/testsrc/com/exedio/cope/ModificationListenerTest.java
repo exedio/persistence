@@ -42,7 +42,7 @@ public class ModificationListenerTest extends TestWithEnvironment
 
 	@Rule public final RuleChain ruleChain = RuleChain.outerRule(log);
 
-	final ModificationListener l = (modifiedItems, transaction) -> { fail(); };
+	final ModificationListener l = (modifiedItems, transaction) -> fail();
 
 	// dead store is needed to assign null for testing garbage collection
 	@SuppressFBWarnings("DLS_DEAD_LOCAL_STORE_OF_NULL")
