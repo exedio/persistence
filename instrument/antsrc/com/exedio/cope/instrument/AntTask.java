@@ -135,7 +135,7 @@ public final class AntTask extends Task
 
 	public void setSerialVersionUID(final boolean value)
 	{
-		params.serialVersionUID = value;
+		params.serialVersionUIDEnabled = value;
 	}
 
 	public void setSerialVersionUIDSuffix(final IntegerTypeSuffix value)

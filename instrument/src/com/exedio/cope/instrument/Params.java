@@ -51,7 +51,7 @@ final class Params
 	boolean finalArgs = true; // non-default is deprecated
 	boolean nullabilityAnnotations = false;
 	boolean suppressUnusedWarningOnPrivateActivationConstructor = false;
-	boolean serialVersionUID = true;
+	boolean serialVersionUIDEnabled = true;
 	IntegerTypeSuffix serialVersionUIDSuffix = IntegerTypeSuffix.small;
 	boolean genericSetValueArray = true; // non-default is deprecated
 	boolean directSetValueMap = false;

@@ -80,7 +80,7 @@ final class Generator
 	private final String finalArgPrefix;
 	private final boolean nullabilityAnnotations;
 	private final boolean suppressUnusedWarningOnPrivateActivationConstructor;
-	private final boolean serialVersionUID;
+	private final boolean serialVersionUIDEnabled;
 	private final String serialVersionUIDSuffix;
 	private final boolean genericSetValueArray;
 	private final boolean directSetValueMap;
@@ -101,7 +101,7 @@ final class Generator
 		this.finalArgPrefix = params.finalArgs ? "final " : "";
 		this.nullabilityAnnotations = params.nullabilityAnnotations;
 		this.suppressUnusedWarningOnPrivateActivationConstructor = params.suppressUnusedWarningOnPrivateActivationConstructor;
-		this.serialVersionUID = params.serialVersionUID;
+		this.serialVersionUIDEnabled = params.serialVersionUIDEnabled;
 		this.serialVersionUIDSuffix = params.serialVersionUIDSuffix.code;
 		this.genericSetValueArray = params.genericSetValueArray;
 		this.directSetValueMap = params.directSetValueMap;
@@ -790,7 +790,7 @@ final class Generator
 
 	private void writeSerialVersionUID(final LocalCopeType type)
 	{
-		if(!serialVersionUID)
+		if(!serialVersionUIDEnabled)
 			return;
 
 		final List<String> commentLines=new ArrayList<>();
