@@ -121,14 +121,7 @@ public class SequenceTest extends TestWithEnvironment
 		for ( int i=0; i<threads.length; i++ )
 		{
 			expected.add( i );
-			threads[i] = new Thread()
-			{
-				@Override
-				public void run()
-				{
-					fullIds.add( nextFull() );
-				}
-			};
+			threads[i] = new Thread(() -> fullIds.add(nextFull()));
 		}
 		for ( final Thread t: threads )
 		{
