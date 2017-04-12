@@ -81,7 +81,7 @@ public class EnumSetFieldFinalTest
 		@WrapperInitial
 		static final EnumSetField<AnEnum> field = EnumSetField.create(AnEnum.class).toFinal();
 
-		public AnItem()
+		AnItem()
 		{
 			this(new com.exedio.cope.SetValue<?>[]{
 			});

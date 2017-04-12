@@ -60,7 +60,7 @@ final class JavaRepository
 
 	private final HashMap<JavaClass, LocalCopeType> copeTypeByJavaClass = new HashMap<>();
 
-	public JavaRepository(final ClassLoader cl)
+	JavaRepository(final ClassLoader cl)
 	{
 		externalNameSpace = new CopeNameSpace(null, "external");
 		externalNameSpace.getClassManager().setClassLoader(cl);

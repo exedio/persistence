@@ -52,7 +52,7 @@ final class JavaClass extends JavaFeature
 	/**
 	 * @param parent may be null for non-inner classes
 	 */
-	public JavaClass(
+	JavaClass(
 			final JavaFile file, final JavaClass parent,
 			final int modifiers, final String simpleName,
 			final String docComment,

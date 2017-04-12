@@ -66,7 +66,7 @@ final class JavaFile
 
 	private final ByteReplacements generatedFragments = new ByteReplacements();
 
-	public JavaFile(final JavaRepository repository, final JavaFileObject sourceFile, final String packagename)
+	JavaFile(final JavaRepository repository, final JavaFileObject sourceFile, final String packagename)
 	{
 		this.externalNameSpace = new CopeNameSpace(repository.externalNameSpace, sourceFile.getName() + " external");
 		this.nameSpace = new CopeNameSpace(repository.nameSpace, sourceFile.getName());

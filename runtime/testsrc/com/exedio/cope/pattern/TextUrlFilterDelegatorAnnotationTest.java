@@ -130,7 +130,7 @@ public class TextUrlFilterDelegatorAnnotationTest
 	{
 		private static final long serialVersionUID = 1l;
 
-		public ATextUrlFilterDelegator(final Media raw, final TextUrlFilter delegate)
+		ATextUrlFilterDelegator(final Media raw, final TextUrlFilter delegate)
 		{
 			super(raw, delegate, "text/plain", UTF_8, "<paste>", "</paste>");
 		}

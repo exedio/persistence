@@ -40,7 +40,7 @@ final class RuntimeTester
 {
 	private final Model model;
 
-	public RuntimeTester(final Model model)
+	RuntimeTester(final Model model)
 	{
 		this.model = model;
 	}

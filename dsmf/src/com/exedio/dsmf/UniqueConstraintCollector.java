@@ -26,7 +26,7 @@ final class UniqueConstraintCollector
 {
 	private final Schema schema;
 
-	public UniqueConstraintCollector(final Schema schema)
+	UniqueConstraintCollector(final Schema schema)
 	{
 		this.schema = requireNonNull(schema);
 	}

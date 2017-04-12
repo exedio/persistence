@@ -146,7 +146,7 @@ final class Graph
 		private final Edge[] edges;
 		private boolean done = false;
 
-		public Node(final Table table, final Edge[] edges)
+		Node(final Table table, final Edge[] edges)
 		{
 			this.table = table;
 			this.edges = edges;
@@ -195,7 +195,7 @@ final class Graph
 		final ForeignKeyConstraint constraint;
 		private Node node = null;
 
-		public Edge(final ForeignKeyConstraint constraint)
+		Edge(final ForeignKeyConstraint constraint)
 		{
 			this.constraint = constraint;
 		}

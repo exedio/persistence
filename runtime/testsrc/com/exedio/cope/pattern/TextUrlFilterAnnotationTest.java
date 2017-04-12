@@ -183,7 +183,7 @@ public class TextUrlFilterAnnotationTest
 	{
 		private static final long serialVersionUID = 1l;
 
-		public ATextUrlFilter(final Media raw, final Media pasteValue)
+		ATextUrlFilter(final Media raw, final Media pasteValue)
 		{
 			super(raw, "text/plain", UTF_8, "<paste>", "</paste>", new StringField(), pasteValue);
 		}

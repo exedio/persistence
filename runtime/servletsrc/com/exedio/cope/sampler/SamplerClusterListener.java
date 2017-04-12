@@ -34,7 +34,7 @@ final class SamplerClusterListener extends Composite
 	private static final IntegerField wrongSecret  = new IntegerField().min(0);
 	private static final IntegerField fromMyself   = new IntegerField().min(0);
 
-	public SamplerClusterListener(
+	SamplerClusterListener(
 			final ClusterListenerInfo from,
 			final ClusterListenerInfo to)
 	{

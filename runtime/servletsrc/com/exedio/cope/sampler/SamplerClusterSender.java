@@ -31,7 +31,7 @@ final class SamplerClusterSender extends Composite
 
 	private static final IntegerField invalidationSplit = new IntegerField().min(0);
 
-	public SamplerClusterSender(
+	SamplerClusterSender(
 			final ClusterSenderInfo from,
 			final ClusterSenderInfo to)
 	{

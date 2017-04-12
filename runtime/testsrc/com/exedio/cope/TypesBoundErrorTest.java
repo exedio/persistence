@@ -247,7 +247,7 @@ public class TypesBoundErrorTest
 			return setValues;
 		}
 
-		public BeforeNewNotStatic(final ActivationParameters ap)
+		BeforeNewNotStatic(final ActivationParameters ap)
 		{
 			super(ap);
 		}
