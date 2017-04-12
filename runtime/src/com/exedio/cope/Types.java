@@ -301,7 +301,7 @@ final class Types
 		{
 			if(list==null)
 				return Collections.emptyList();
-			assert list.size()>0;
+			assert !list.isEmpty();
 			return ListUtil.trimUnmodifiable(list);
 		}
 	}
