@@ -82,7 +82,7 @@ public final class EnumMapField<K extends Enum<K>,V> extends Pattern implements 
 			final Class<K> keyClass,
 			final FunctionField<V> value)
 	{
-		return new EnumMapField<>(keyClass, null, value, new EnumMap<K, V>(keyClass));
+		return new EnumMapField<>(keyClass, null, value, new EnumMap<>(keyClass));
 	}
 
 	public EnumMapField<K,V> fallbackTo(final K key)

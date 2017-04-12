@@ -120,7 +120,7 @@ public class PurgePropertiesTest extends ConnectedTest
 	{
 		samplerModel.createSchema();
 
-		final SamplerProperties props = factory.create(newSource(false, new EnumMap<PurgedType, Integer>(PurgedType.class)));
+		final SamplerProperties props = factory.create(newSource(false, new EnumMap<>(PurgedType.class)));
 		assertEquals(null, props.purgeDays);
 
 		final MC mc = new MC();
@@ -136,7 +136,7 @@ public class PurgePropertiesTest extends ConnectedTest
 		samplerModel.createSchema();
 
 		final SamplerProperties props = factory.create(newSource(
-				null, new EnumMap<PurgedType, Integer>(PurgedType.class)));
+				null, new EnumMap<>(PurgedType.class)));
 		assertEquals(57, props.purgeDays.model);
 		assertEquals(57, props.purgeDays.transaction);
 		assertEquals( 8, props.purgeDays.itemCache);

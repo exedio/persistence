@@ -102,10 +102,10 @@ public class LRUMapTest
 		final VolatileLong counter = new VolatileLong();
 		for(int j = 0; j<8; j++)
 		{
-			assertPerformance(new HashMap<Long, String>());
-			assertPerformance(new LRUMap <Long, String>(2_000_000, x -> {counter.inc();}));
-			assertPerformance(new DateMap<Long, String>());
-			assertPerformance(new TLongObjectHashMap<String>());
+			assertPerformance(new HashMap<>());
+			assertPerformance(new LRUMap<>(2_000_000, x -> {counter.inc();}));
+			assertPerformance(new DateMap<>());
+			assertPerformance(new TLongObjectHashMap<>());
 			System.out.println();
 		}
 	}

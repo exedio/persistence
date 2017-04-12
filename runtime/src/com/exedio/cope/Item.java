@@ -356,8 +356,8 @@ public abstract class Item implements Serializable, Comparable<Item>
 	 */
 	public final void deleteCopeItem()
 	{
-		checkDeleteCopeItem(new HashSet<Item>());
-		deleteCopeItem(new HashSet<Item>());
+		checkDeleteCopeItem(new HashSet<>());
+		deleteCopeItem(new HashSet<>());
 	}
 
 	private void checkDeleteCopeItem(final HashSet<Item> toDelete)

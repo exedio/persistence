@@ -60,7 +60,7 @@ public final class MultiItemField<E> extends Pattern implements Settable<E>
 			final Class<E> valueClass,
 			final Class<? extends Item>[] componentClasses)
 	{
-		this(false, false, false, DeletePolicy.FORBID, new LinkedHashMap<Class<? extends Item>, FunctionField<?>[]>(), valueClass, componentClasses);
+		this(false, false, false, DeletePolicy.FORBID, new LinkedHashMap<>(), valueClass, componentClasses);
 	}
 
 	private MultiItemField(

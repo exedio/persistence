@@ -66,7 +66,7 @@ final class TC
 			}
 		}
 
-		tables.put(join, new HashSet<Table>());
+		tables.put(join, new HashSet<>());
 	}
 
 	private static HashSet<Type<?>> putType(final Type<?> type, final Join join, final HashMap<Type<?>, Join> distinctTypes, HashSet<Type<?>> ambiguousTypes)
