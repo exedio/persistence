@@ -22,6 +22,7 @@ import static org.junit.Assert.assertEquals;
 
 import com.exedio.cope.Query;
 import com.exedio.cope.junit.CopeAssert;
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -156,12 +157,12 @@ public final class Assert
 		CopeAssert.assertWithin(expectedBefore, expectedAfter, actual);
 	}
 
-	public static <S> S reserialize(final S value, final int expectedSize)
+	public static <S extends Serializable> S reserialize(final S value, final int expectedSize)
 	{
 		return CopeAssert.reserialize(value, expectedSize);
 	}
 
-	public static byte[] serialize(final Object value)
+	public static byte[] serialize(final Serializable value)
 	{
 		return CopeAssert.serialize(value);
 	}

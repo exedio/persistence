@@ -28,6 +28,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Collection;
@@ -286,7 +287,7 @@ public abstract class CopeAssert extends TestCase
 		Assert.assertTrue(message, !expectedAfter.before(actual));
 	}
 
-	public static final <S> S reserialize(final S value, final int expectedSize)
+	public static final <S extends Serializable> S reserialize(final S value, final int expectedSize)
 	{
 		final byte[] bos = serialize(value);
 		Assert.assertEquals(expectedSize, bos.length);
@@ -295,7 +296,7 @@ public abstract class CopeAssert extends TestCase
 		return result;
 	}
 
-	public static final byte[] serialize(final Object value)
+	public static final byte[] serialize(final Serializable value)
 	{
 		requireNonNull(value);
 
