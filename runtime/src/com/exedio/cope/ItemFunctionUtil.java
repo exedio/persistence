@@ -20,16 +20,6 @@ package com.exedio.cope;
 
 final class ItemFunctionUtil
 {
-	static <X extends Item> CompareFunctionCondition<?> equalTarget(final ItemFunction<X> function)
-	{
-		return function.equal(function.getValueType().thisFunction);
-	}
-
-	static <X extends Item> CompareFunctionCondition<?> equalTarget(final ItemFunction<X> function, final Join targetJoin)
-	{
-		return function.equal(function.getValueType().castTypeExtends(targetJoin.getType()).thisFunction.bind(targetJoin));
-	}
-
 	static void checkTypeColumnNeeded(final ItemFunction<?> function)
 	{
 		if(!function.needsCheckTypeColumn())

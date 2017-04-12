@@ -49,12 +49,12 @@ public interface ItemFunction<E extends Item> extends Function<E>
 
 	default CompareFunctionCondition<?> equalTarget()
 	{
-		return ItemFunctionUtil.equalTarget(this);
+		return equal(getValueType().thisFunction);
 	}
 
 	default CompareFunctionCondition<?> equalTarget(final Join targetJoin)
 	{
-		return ItemFunctionUtil.equalTarget(this, targetJoin);
+		return equal(getValueType().castTypeExtends(targetJoin.getType()).thisFunction.bind(targetJoin));
 	}
 
 	default InstanceOfCondition<E> instanceOf(final Type<? extends E> type1)
