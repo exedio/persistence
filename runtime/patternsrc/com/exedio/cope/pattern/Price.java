@@ -44,18 +44,18 @@ public final class Price implements Serializable, Comparable<Price>
 
 	private static final int CACHE_MAX = 1001;
 
-	static Price[] newCache()
-	{
-		final Price[] result = new Price[CACHE_MAX];
-		result[0] = Price.ZERO;
-		for(int i = 1; i<CACHE_MAX; i++)
-			result[i] = new Price(i);
-		return result;
-	}
-
 	private static final class Cache
 	{
 		static final Price[] value = newCache();
+
+		private static Price[] newCache()
+		{
+			final Price[] result = new Price[CACHE_MAX];
+			result[0] = Price.ZERO;
+			for(int i = 1; i<CACHE_MAX; i++)
+				result[i] = new Price(i);
+			return result;
+		}
 	}
 
 	private static Price fromCache(final long store)
@@ -100,7 +100,7 @@ public final class Price implements Serializable, Comparable<Price>
 	private static final long serialVersionUID = 2l;
 	private final long store;
 
-	private Price(final long store)
+	Price(final long store)
 	{
 		this.store = store;
 		assert store!=NOT_A_STORE;
