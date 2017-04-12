@@ -270,12 +270,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 			{
 				final FunctionField<?> copy = cc.getCopy();
 
-				List<CopyConstraint> list = byCopy.get(copy);
-				if(list==null)
-				{
-					list = new ArrayList<>();
-					byCopy.put(copy, list);
-				}
+				final List<CopyConstraint> list = byCopy.computeIfAbsent(copy, k -> new ArrayList<>());
 				list.add(cc);
 			}
 			this.copyConstraintsByCopy = byCopy.isEmpty() ? emptyMap() : unmodifiableMap(byCopy);

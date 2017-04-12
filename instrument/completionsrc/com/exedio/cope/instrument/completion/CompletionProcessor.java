@@ -234,11 +234,7 @@ public class CompletionProcessor extends AbstractProcessor
 					{
 						value=enclosedElement.getSimpleName().toString();
 					}
-					List<String> comments=completionData.get(value);
-					if (comments==null)
-					{
-						completionData.put(value, comments=new ArrayList<>());
-					}
+					final List<String> comments=completionData.computeIfAbsent(value, k -> new ArrayList<>());
 					final StringBuilder comment=new StringBuilder(enclosedElement.getSimpleName().toString());
 					comment.append("(");
 					boolean first=true;

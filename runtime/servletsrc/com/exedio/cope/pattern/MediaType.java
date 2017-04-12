@@ -413,12 +413,7 @@ public final class MediaType
 			if(t.magic!=null)
 			{
 				final String magicString = Hex.encodeLower(t.magic);
-				ArrayList<MediaType> list = map.get(magicString);
-				if(list==null)
-				{
-					list = new ArrayList<>();
-					map.put(magicString, list);
-				}
+				final ArrayList<MediaType> list = map.computeIfAbsent(magicString, k -> new ArrayList<>());
 				list.add(t);
 			}
 		final Magic[] result = new Magic[map.size()];

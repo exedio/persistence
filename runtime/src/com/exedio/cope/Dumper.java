@@ -78,12 +78,7 @@ public final class Dumper
 		while(pkType.getSupertype()!=null)
 			pkType = pkType.getSupertype();
 
-		AtomicLong pkSource = pks.get(pkType);
-		if(pkSource==null)
-		{
-			pkSource = new AtomicLong();
-			pks.put(pkType, pkSource);
-		}
+		final AtomicLong pkSource = pks.computeIfAbsent(pkType, k -> new AtomicLong());
 		return pkSource.getAndIncrement();
 	}
 
