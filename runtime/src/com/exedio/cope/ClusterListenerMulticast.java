@@ -113,18 +113,12 @@ final class ClusterListenerMulticast extends ClusterListenerModel implements Run
 			}
 			catch(final Exception | AssertionError e)
 			{
-				onListenFailure(e, packet);
+				exception.inc();
+				if(logger.isErrorEnabled())
+					logger.error(MessageFormat.format("ClusterListenerMulticast {0}", Hex.encodeLower(packet.getData(), packet.getOffset(), packet.getLength()) ), e);
 			}
 		}
 		logTerminate();
-	}
-
-	private void onListenFailure(final Throwable throwable, final DatagramPacket packet)
-	{
-		exception.inc();
-		if(logger.isErrorEnabled())
-			logger.error(MessageFormat.format("ClusterListenerMulticast {0}", Hex.encodeLower(packet.getData(), packet.getOffset(), packet.getLength()) ),
-					throwable );
 	}
 
 	private static void logTerminate()
