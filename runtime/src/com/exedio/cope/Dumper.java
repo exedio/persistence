@@ -78,8 +78,7 @@ public final class Dumper
 		while(pkType.getSupertype()!=null)
 			pkType = pkType.getSupertype();
 
-		final AtomicLong pkSource = pks.computeIfAbsent(pkType, k -> new AtomicLong());
-		return pkSource.getAndIncrement();
+		return pks.computeIfAbsent(pkType, k -> new AtomicLong()).getAndIncrement();
 	}
 
 	@SuppressWarnings({"unchecked", "rawtypes"})

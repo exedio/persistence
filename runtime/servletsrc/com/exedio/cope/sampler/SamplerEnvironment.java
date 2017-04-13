@@ -184,8 +184,7 @@ final class SamplerEnvironment extends Item
 				if(forConnectDate(date)!=null)
 					continue;
 
-				final ArrayList<RevisionInfo> list = revisions.computeIfAbsent(date, k -> new ArrayList<>());
-				list.add(info);
+				revisions.computeIfAbsent(date, k -> new ArrayList<>()).add(info);
 			}
 		}
 
