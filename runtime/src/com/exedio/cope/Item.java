@@ -465,6 +465,7 @@ public abstract class Item implements Serializable, Comparable<Item>
 		}
 		catch ( final NoSuchItemException e )
 		{
+			assert this==e.getItem();
 			return false;
 		}
 	}
