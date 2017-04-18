@@ -86,10 +86,4 @@ final class CreatedState extends State
 	{
 		return true;
 	}
-
-	@Override
-	public String toStringWithValues()
-	{
-		return toString()+row.toString();
-	}
 }

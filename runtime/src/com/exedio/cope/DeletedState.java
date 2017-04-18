@@ -107,10 +107,4 @@ final class DeletedState extends State
 	{
 		return false;
 	}
-
-	@Override
-	public String toStringWithValues()
-	{
-		return toString();
-	}
 }

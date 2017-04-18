@@ -62,6 +62,4 @@ abstract class State
 	{
 		return getClass().getName()+"-"+item.getCopeID();
 	}
-
-	public abstract String toStringWithValues();
 }
