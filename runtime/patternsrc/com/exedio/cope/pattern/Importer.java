@@ -112,6 +112,7 @@ public final class Importer<K> extends Pattern
 		}
 		catch(final UniqueViolationException e)
 		{
+			assert key.getImplicitUniqueConstraint()==e.getFeature();
 			final P existent = Cast.verboseCast(parentClass, key.searchUnique(keyValue));
 			existent.set(setValues);
 			return existent;
