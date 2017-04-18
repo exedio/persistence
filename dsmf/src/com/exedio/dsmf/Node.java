@@ -40,11 +40,6 @@ public abstract class Node
 			this.style = style;
 		}
 
-		Color max(final Color other)
-		{
-			return Color.class.getEnumConstants()[Math.max(ordinal(), other.ordinal())];
-		}
-
 		@Override
 		public String toString()
 		{
