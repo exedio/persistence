@@ -211,11 +211,6 @@ public final class Table extends Node
 		create((StatementListener)null);
 	}
 
-	void create(final StringBuilder bf)
-	{
-		create(bf, null);
-	}
-
 	void create(final StringBuilder bf, final Set<ForeignKeyConstraint> constraintsBroken)
 	{
 		bf.append("CREATE TABLE ").
