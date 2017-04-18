@@ -208,11 +208,6 @@ abstract class CopeType<F extends CopeFeature>
 	static final Comparator<Class<?>> CLASS_COMPARATOR =
 			(c1, c2) -> c1.getName().compareTo(c2.getName());
 
-	final int getSerialVersionUID()
-	{
-		return getName().hashCode();
-	}
-
 	@Override
 	public final String toString()
 	{
@@ -226,8 +221,6 @@ abstract class CopeType<F extends CopeFeature>
 	abstract int getModifier();
 
 	abstract void assertNotBuildStage();
-
-	abstract void assertGenerateStage();
 
 	abstract void assertNotGenerateStage();
 

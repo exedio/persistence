@@ -175,12 +175,6 @@ final class LocalCopeType extends CopeType<LocalCopeFeature>
 	}
 
 	@Override
-	void assertGenerateStage()
-	{
-		assert javaClass.file.repository.isGenerateStage();
-	}
-
-	@Override
 	void assertNotGenerateStage()
 	{
 		assert !javaClass.file.repository.isGenerateStage();

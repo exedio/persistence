@@ -110,16 +110,6 @@ abstract class JavaFeature
 	 */
 	abstract int getAllowedModifiers();
 
-	final boolean isStatic()
-	{
-		return Modifier.isStatic(modifier);
-	}
-
-	final boolean isFinal()
-	{
-		return Modifier.isFinal(modifier);
-	}
-
 	@Override
 	public String toString()
 	{

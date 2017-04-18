@@ -135,12 +135,6 @@ final class ExternalCopeType extends CopeType<ExternalCopeFeature>
 	}
 
 	@Override
-	void assertGenerateStage()
-	{
-		// empty
-	}
-
-	@Override
 	void assertNotGenerateStage()
 	{
 		// empty
