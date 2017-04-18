@@ -71,7 +71,7 @@ public final class MessageDigestAlgorithm implements Hash.Algorithm
 		this.iterations = iterations;
 		if(saltLength<0)
 			throw new IllegalArgumentException("saltLength must be at least zero, but was " + saltLength);
-		if((saltLength>0)!=(saltSource!=null))
+		if((saltLength==0)!=(saltSource==null))
 			throw new IllegalArgumentException("saltLength inconsistent to saltSource");
 		if(iterations<1)
 			throw new IllegalArgumentException("iterations must be at least one, but was " + iterations);
