@@ -52,7 +52,7 @@ public class JavaFileTest
 		}
 		catch (final RuntimeException e)
 		{
-			// fine
+			assertEquals("10-9", e.getMessage());
 		}
 		try
 		{
@@ -61,7 +61,7 @@ public class JavaFileTest
 		}
 		catch (final RuntimeException e)
 		{
-			// fine
+			assertEquals("-1-10", e.getMessage());
 		}
 	}
 

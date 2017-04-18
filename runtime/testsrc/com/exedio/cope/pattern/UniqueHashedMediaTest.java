@@ -115,7 +115,7 @@ public class UniqueHashedMediaTest extends TestWithEnvironment
 		}
 		catch (final UniqueViolationException e)
 		{
-			// expected
+			assertEquals(value.getImplicitUniqueConstraint(), e.getFeature());
 		}
 	}
 

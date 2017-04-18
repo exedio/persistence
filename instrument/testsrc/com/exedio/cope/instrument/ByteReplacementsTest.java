@@ -64,7 +64,7 @@ public class ByteReplacementsTest
 		}
 		catch (final RuntimeException e)
 		{
-			// fine
+			assertEquals("10-9", e.getMessage());
 		}
 		try
 		{
@@ -73,7 +73,7 @@ public class ByteReplacementsTest
 		}
 		catch (final RuntimeException e)
 		{
-			// fine
+			assertEquals("-1-10", e.getMessage());
 		}
 		replacements.addReplacement(10, 10, "");
 	}

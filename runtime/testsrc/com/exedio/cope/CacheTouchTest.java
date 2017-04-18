@@ -24,6 +24,7 @@ import static com.exedio.cope.SchemaInfo.isUpdateCounterEnabled;
 import static java.lang.Integer.MIN_VALUE;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import static org.junit.Assume.assumeTrue;
 
@@ -116,7 +117,7 @@ public class CacheTouchTest extends TestWithEnvironment
 			}
 			catch(final TemporaryTransactionException e)
 			{
-				// ok
+				assertTrue(e.getMessage(), e.getMessage().startsWith("expected one row, but got 0 on statement: UPDATE"));
 			}
 			assertUpdateCount(MIN_VALUE, MIN_VALUE);
 			assertCache(0, 1, 2, 2, 1, 0, 0, 0);

@@ -79,7 +79,7 @@ public class CacheIsolationTest extends TestWithEnvironment
 		}
 		catch ( final UniqueViolationException e )
 		{
-			// fine
+			assertEquals( CacheIsolationItem.uniqueString.getImplicitUniqueConstraint(), e.getFeature() );
 		}
 		assertEquals( null, txChangeItem.getEntityIfActive(item.type, item.pk) );
 		final ExpectingDatabaseListener listener = new ExpectingDatabaseListener();
