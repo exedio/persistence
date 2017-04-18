@@ -584,7 +584,7 @@ public class ReviseTest
 	{
 		final Map<Integer, byte[]> result = new LinkedHashMap<>();
 		for(final Map.Entry<Integer, byte[]> e : map.entrySet())
-			if(key!=e.getKey().intValue())
+			if(key!=e.getKey())
 				result.put(e.getKey(), e.getValue());
 		return result;
 	}

@@ -116,7 +116,7 @@ public final class BooleanField extends FunctionField<Boolean>
 			return null;
 		else
 		{
-			switch(((Integer)cell).intValue())
+			switch((Integer)cell)
 			{
 				case 0:
 					return Boolean.FALSE;
@@ -134,7 +134,7 @@ public final class BooleanField extends FunctionField<Boolean>
 	@Override
 	void set(final Row row, final Boolean surface)
 	{
-		row.put(getColumn(), surface==null ? null : surface.booleanValue() ? TRUE : FALSE);
+		row.put(getColumn(), surface==null ? null : surface ? TRUE : FALSE);
 	}
 
 	/**
@@ -143,7 +143,7 @@ public final class BooleanField extends FunctionField<Boolean>
 	@Wrap(order=10, name="get{0}", doc="Returns the value of {0}.", hide=OptionalGetter.class)
 	public boolean getMandatory(@Nonnull final Item item)
 	{
-		return getMandatoryObject(item).booleanValue();
+		return getMandatoryObject(item);
 	}
 
 	@Wrap(order=20,

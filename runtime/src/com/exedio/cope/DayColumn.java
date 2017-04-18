@@ -67,7 +67,7 @@ final class DayColumn extends Column
 			return "NULL";
 		else
 		{
-			final Day day = getDay(((Integer)cache).intValue());
+			final Day day = getDay((Integer)cache);
 			final NumberFormat nf = NumberFormat.getInstance(Locale.ENGLISH);
 			nf.setMinimumIntegerDigits(2);
 			return "{d '"+day.getYear()+'-'+nf.format(day.getMonth())+'-'+nf.format(day.getDay())+"'}";
@@ -77,6 +77,6 @@ final class DayColumn extends Column
 	@Override
 	Object cacheToDatabasePrepared(final Object cache)
 	{
-		return (cache==null) ? null : DayField.marshal(getDay(((Integer)cache).intValue()));
+		return (cache==null) ? null : DayField.marshal(getDay((Integer)cache));
 	}
 }

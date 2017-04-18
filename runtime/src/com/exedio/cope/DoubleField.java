@@ -178,7 +178,7 @@ public final class DoubleField extends NumberField<Double>
 	@Override
 	void checkNotNull(final Double value, final Item exceptionItem)
 	{
-		final double valuePrimitive = value.doubleValue();
+		final double valuePrimitive = value;
 
 		if(Double.isNaN(valuePrimitive))
 			throw new DoubleNaNException(this, exceptionItem);
@@ -195,7 +195,7 @@ public final class DoubleField extends NumberField<Double>
 	@Wrap(order=10, name="get{0}", doc="Returns the value of {0}.", hide=OptionalGetter.class)
 	public double getMandatory(@Nonnull final Item item)
 	{
-		return getMandatoryObject(item).doubleValue();
+		return getMandatoryObject(item);
 	}
 
 	@Wrap(order=20,
@@ -229,7 +229,7 @@ public final class DoubleField extends NumberField<Double>
 	{
 		if(value!=null)
 		{
-			final double valuePrimitive = value.doubleValue();
+			final double valuePrimitive = value;
 			if(valuePrimitive<minimum || valuePrimitive>maximum)
 				return Condition.FALSE;
 			else
@@ -244,7 +244,7 @@ public final class DoubleField extends NumberField<Double>
 	{
 		if(value!=null)
 		{
-			final double valuePrimitive = value.doubleValue();
+			final double valuePrimitive = value;
 			if(valuePrimitive<minimum || valuePrimitive>maximum)
 				return Condition.TRUE;
 			else

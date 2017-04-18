@@ -59,7 +59,7 @@ public final class SequenceBehindInfo
 		if(featureMaximum==null)
 			return 0;
 
-		final long featureMaximumPrimitive = featureMaximum.longValue();
+		final long featureMaximumPrimitive = featureMaximum;
 		if(featureMaximumPrimitive<sequenceNext)
 			return 0;
 

@@ -111,7 +111,7 @@ final class TimestampColumn extends Column
 		if(cache==null)
 			return "NULL";
 		else
-			return newLiteralFormat().format(new Date(((Long)cache).longValue()));
+			return newLiteralFormat().format(new Date((Long)cache));
 	}
 
 	@Override
@@ -120,7 +120,7 @@ final class TimestampColumn extends Column
 		if(cache==null)
 			return null;
 
-		final Timestamp ts = new Timestamp(((Long)cache).longValue());
+		final Timestamp ts = new Timestamp((Long)cache);
 		assert noNanos(ts) : ts;
 		return ts;
 	}

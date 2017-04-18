@@ -62,7 +62,7 @@ public final class MultiplyView<E extends Number> extends NumberView<E>
 			{
 				if(sourceValue==null)
 					return null;
-				result *= ((Integer)sourceValue).intValue();
+				result *= (Integer)sourceValue;
 			}
 			return (E)Integer.valueOf(result);
 		}
@@ -73,7 +73,7 @@ public final class MultiplyView<E extends Number> extends NumberView<E>
 			{
 				if(sourceValue==null)
 					return null;
-				result *= ((Long)sourceValue).longValue();
+				result *= (Long)sourceValue;
 			}
 			return (E)Long.valueOf(result);
 		}
@@ -84,7 +84,7 @@ public final class MultiplyView<E extends Number> extends NumberView<E>
 			{
 				if(sourceValue==null)
 					return null;
-				result *= ((Double)sourceValue).doubleValue();
+				result *= (Double)sourceValue;
 			}
 			return (E)Double.valueOf(result);
 		}

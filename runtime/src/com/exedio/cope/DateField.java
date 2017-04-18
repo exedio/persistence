@@ -415,7 +415,7 @@ public final class DateField extends FunctionField<Date>
 	Date get(final Row row)
 	{
 		final Object cell = row.get(getColumn());
-		return cell==null ? null : new Date(((Long)cell).longValue());
+		return cell==null ? null : new Date((Long)cell);
 	}
 
 	@Override

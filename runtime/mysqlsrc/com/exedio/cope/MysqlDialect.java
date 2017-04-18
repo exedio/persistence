@@ -504,7 +504,7 @@ final class MysqlDialect extends Dialect
 					throw new RuntimeException("null in sequence " + quotedName);
 				return (Long)o;
 			}
-		).longValue() - 1;
+		) - 1;
 
 		return result;
 	}

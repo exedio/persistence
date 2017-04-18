@@ -74,12 +74,12 @@ final class Marshallers
 			@Override
 			String marshalLiteral(final Boolean value)
 			{
-				return value.booleanValue() ? "1" : "0";
+				return value ? "1" : "0";
 			}
 			@Override
 			Object marshalPrepared(final Boolean value)
 			{
-				return value.booleanValue() ? BooleanField.TRUE : BooleanField.FALSE;
+				return value ? BooleanField.TRUE : BooleanField.FALSE;
 			}
 		});
 		put(SimpleSelectType.INTEGER, new Marshaller<Integer>(1) {
@@ -94,11 +94,11 @@ final class Marshallers
 				if(cell instanceof Integer)
 					return (Integer)cell;
 				else if(cell instanceof Long)
-					return Integer.valueOf(Math.toIntExact(((Long)cell).longValue()));
+					return Integer.valueOf(Math.toIntExact((Long)cell));
 				else if(cell instanceof BigDecimal)
 					return Integer.valueOf(((BigDecimal)cell).intValueExact());
 				else if(cell instanceof Double) // needed for DayPartView on postgresql
-					return Integer.valueOf(BigDecimal.valueOf(((Double)cell).doubleValue()).intValueExact());
+					return Integer.valueOf(BigDecimal.valueOf((Double)cell).intValueExact());
 				else
 					throw new RuntimeException("" + cell + '/' + cell.getClass().getName());
 			}
@@ -127,7 +127,7 @@ final class Marshallers
 				if(o instanceof Long)
 					return (Long)o;
 				else if(o instanceof Integer)
-					return Long.valueOf(((Integer)o).intValue());
+					return Long.valueOf((Integer)o);
 				else if(o instanceof BigDecimal)
 					return Long.valueOf(((BigDecimal)o).longValueExact());
 				else

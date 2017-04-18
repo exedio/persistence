@@ -324,10 +324,10 @@ public class CompareConditionTest extends TestWithEnvironment
 		{
 			final Query<Double> q = new Query<>(doublex.sum());
 			assertEquals("select sum(" + doublex.getName() + ") from " + TYPE, q.toString());
-			assertEquals(2.1+2.2+2.3+2.4+2.5, q.searchSingleton().doubleValue(), 0.000000000000005);
+			assertEquals(2.1+2.2+2.3+2.4+2.5, q.searchSingleton(), 0.000000000000005);
 			q.setCondition(doublex.less(2.4));
 			assertEquals("select sum(" + doublex.getName() + ") from " + TYPE + " where " + doublex.getName() + "<'2.4'", q.toString());
-			assertEquals(2.1+2.2+2.3, q.searchSingleton().doubleValue(), 0.000000000000005);
+			assertEquals(2.1+2.2+2.3, q.searchSingleton(), 0.000000000000005);
 		}
 	}
 
@@ -352,10 +352,10 @@ public class CompareConditionTest extends TestWithEnvironment
 		{
 			final Query<Double> q = new Query<>(doublex.average());
 			assertEquals("select avg(" + doublex.getName() + ") from " + TYPE, q.toString());
-			assertEquals((2.1+2.2+2.3+2.4+2.5)/5.0, q.searchSingleton().doubleValue(), 0.000000000000005);
+			assertEquals((2.1+2.2+2.3+2.4+2.5)/5.0, q.searchSingleton(), 0.000000000000005);
 			q.setCondition(doublex.less(2.4));
 			assertEquals("select avg(" + doublex.getName() + ") from " + TYPE + " where " + doublex.getName() + "<'2.4'", q.toString());
-			assertEquals((2.1+2.2+2.3)/3.0, q.searchSingleton().doubleValue(), 0.000000000000005);
+			assertEquals((2.1+2.2+2.3)/3.0, q.searchSingleton(), 0.000000000000005);
 		}
 	}
 

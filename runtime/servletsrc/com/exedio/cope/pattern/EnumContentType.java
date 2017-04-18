@@ -115,7 +115,7 @@ final class EnumContentType extends ContentType<Integer>
 	String get(final Item item, final DateField nullSensor)
 	{
 		final Integer number = field.get(item);
-		return (number!=null) ? types[number.intValue()] : null;
+		return (number!=null) ? types[number] : null;
 	}
 
 	@Override

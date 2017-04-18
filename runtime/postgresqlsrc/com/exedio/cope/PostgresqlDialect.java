@@ -304,7 +304,7 @@ final class PostgresqlDialect extends Dialect
 				final Object o = resultSet.getObject(1);
 				if(o==null)
 					throw new RuntimeException("null in sequence " + name);
-				return ((Long)o).longValue() + 1;
+				return (Long)o + 1;
 			}
 		);
 	}

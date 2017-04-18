@@ -574,7 +574,7 @@ public final class Query<R> implements Serializable
 		final ArrayList<Object> result =
 			transaction.search(this, true);
 		assert result.size()==1;
-		return ((Integer)result.iterator().next()).intValue();
+		return (Integer)result.iterator().next();
 	}
 
 	TC check()

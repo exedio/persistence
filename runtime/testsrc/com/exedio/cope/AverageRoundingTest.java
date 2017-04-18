@@ -86,8 +86,8 @@ public class AverageRoundingTest extends TestWithEnvironment
 			final double expectedLong,
 			final double expectedDouble)
 	{
-		assertEquals("int",    expectedInt,    new Query<>(intx   .average()).searchSingleton().doubleValue(), 0.001);
-		assertEquals("long",   expectedLong,   new Query<>(longx  .average()).searchSingleton().doubleValue(), 0.001);
-		assertEquals("double", expectedDouble, new Query<>(doublex.average()).searchSingleton().doubleValue(), 0.0000005);
+		assertEquals("int",    expectedInt,    new Query<>(intx   .average()).searchSingleton(), 0.001);
+		assertEquals("long",   expectedLong,   new Query<>(longx  .average()).searchSingleton(), 0.001);
+		assertEquals("double", expectedDouble, new Query<>(doublex.average()).searchSingleton(), 0.0000005);
 	}
 }

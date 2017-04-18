@@ -177,7 +177,7 @@ public final class CompositeType<T extends Composite> implements TemplatedType<T
 		final Integer result = templatePositions.get(member);
 		if(result==null)
 			throw new IllegalArgumentException("not a member");
-		return result.intValue();
+		return result;
 	}
 
 	T newValue(final SetValue<?>... setValues)

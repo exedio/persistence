@@ -57,7 +57,7 @@ final class SequenceImplMax implements SequenceImpl
 			else
 			{
 				final Long current = current();
-				result = current!=null ? (current.longValue() + 1) : start;
+				result = current!=null ? (current + 1) : start;
 				computed = true;
 			}
 
@@ -79,7 +79,7 @@ final class SequenceImplMax implements SequenceImpl
 			else
 			{
 				final Long current = current();
-				result = current!=null ? (current.longValue() + 1) : start;
+				result = current!=null ? (current + 1) : start;
 			}
 
 			return result;

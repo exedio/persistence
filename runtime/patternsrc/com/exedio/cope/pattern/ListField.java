@@ -207,7 +207,7 @@ public final class ListField<E> extends AbstractListField<E> implements Copyable
 				this.order.max(),
 				Cope.equalAndCast(mount.parent, item));
 		final Integer max = q.searchSingleton();
-		final int newOrder = max!=null ? (max.intValue()+1) : 0;
+		final int newOrder = max!=null ? (max+1) : 0;
 		mount.relationType.newItem(
 				Cope.mapAndCast(mount.parent, item),
 				this.order.map(newOrder),

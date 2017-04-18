@@ -333,7 +333,7 @@ public final class IntegerField extends NumberField<Integer>
 	@Wrap(order=10, name="get{0}", doc="Returns the value of {0}.", hide=OptionalGetter.class)
 	public int getMandatory(@Nonnull final Item item)
 	{
-		return getMandatoryObject(item).intValue();
+		return getMandatoryObject(item);
 	}
 
 	@Wrap(order=20,
@@ -365,7 +365,7 @@ public final class IntegerField extends NumberField<Integer>
 	@Override
 	void checkNotNull(final Integer value, final Item exceptionItem)
 	{
-		final int valuePrimitive = value.intValue();
+		final int valuePrimitive = value;
 		if(valuePrimitive<minimum)
 			throw new IntegerRangeViolationException(this, exceptionItem, value, true, minimum);
 		if(valuePrimitive>maximum)
@@ -423,7 +423,7 @@ public final class IntegerField extends NumberField<Integer>
 	{
 		if(value!=null)
 		{
-			final int valuePrimitive = value.intValue();
+			final int valuePrimitive = value;
 			if(valuePrimitive<minimum || valuePrimitive>maximum)
 				return Condition.FALSE;
 			else
@@ -438,7 +438,7 @@ public final class IntegerField extends NumberField<Integer>
 	{
 		if(value!=null)
 		{
-			final int valuePrimitive = value.intValue();
+			final int valuePrimitive = value;
 			if(valuePrimitive<minimum || valuePrimitive>maximum)
 				return Condition.TRUE;
 			else

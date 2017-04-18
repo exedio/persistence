@@ -166,7 +166,7 @@ public class RandomTest extends TestWithEnvironment
 	{
 		final ArrayList<Long> result = new ArrayList<>(l.size());
 		for(final Double d : l)
-			result.add(Math.round(Math.floor(d.doubleValue()*1000000000000d)));
+			result.add(Math.round(Math.floor(d*1000000000000d)));
 		return result;
 	}
 

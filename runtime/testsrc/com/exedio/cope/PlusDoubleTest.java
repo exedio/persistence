@@ -71,7 +71,7 @@ public class PlusDoubleTest extends TestWithEnvironment
 	}
 
 	private static final double EPS = 0.000000000000005d;
-	private static final Double d6x = Double.valueOf(d2.doubleValue() * d3.doubleValue());
+	private static final Double d6x = Double.valueOf(d2 * d3);
 	private static final Double d10= Double.valueOf(10.4);
 	private static final Double d18= Double.valueOf(20.46);
 
@@ -135,11 +135,11 @@ public class PlusDoubleTest extends TestWithEnvironment
 		assertContains(item, TYPE.search(numC.equal(3.3)));
 
 		assertEquals(d10,item.getPlusA9());
-		assertEquals(d3.doubleValue(), item.getPlusAB().doubleValue(), EPS);
+		assertEquals(d3, item.getPlusAB(), EPS);
 		assertEquals(d4, item.getPlusAC());
 		assertEquals(d5, item.getPlusBC());
 		assertEquals(d6, item.getPlusABC());
-		assertEquals(d18.doubleValue(), item.getMultiplyB9(), EPS);
+		assertEquals(d18, item.getMultiplyB9(), EPS);
 		assertEquals(d6x,item.getMultiplyBC());
 		assertContains(item, TYPE.search(plusA9.between(10.4-EPS, 10.4+EPS)));
 		assertContains(item, TYPE.search(plusAB.between(3.3-EPS, 3.3+EPS)));
@@ -147,11 +147,11 @@ public class PlusDoubleTest extends TestWithEnvironment
 		assertContains(item, TYPE.search(plusBC.equal(5.5)));
 		assertContains(item, TYPE.search(plusABC.equal(6.6)));
 		assertContains(item, TYPE.search(plusABaC.equal(6.6)));
-		assertContains(item, TYPE.search(multiplyB9.between(d18.doubleValue()-EPS, d18.doubleValue()+EPS)));
+		assertContains(item, TYPE.search(multiplyB9.between(d18-EPS, d18+EPS)));
 		assertContains(item, TYPE.search(multiplyBC.equal(d6x)));
 		assertContains(item, TYPE.search(numA.plus(9.3 ).between(10.4-EPS, 10.4+EPS)));
 		assertContains(item, TYPE.search(numA.plus(numB).between(3.3-EPS, 3.3+EPS)));
-		assertContains(item, TYPE.search(numB.multiply(9.3 ).between(d18.doubleValue()-EPS, d18.doubleValue()+EPS)));
+		assertContains(item, TYPE.search(numB.multiply(9.3 ).between(d18-EPS, d18+EPS)));
 		assertContains(item, TYPE.search(numB.multiply(numC).equal(d6x)));
 
 		// test null propagation

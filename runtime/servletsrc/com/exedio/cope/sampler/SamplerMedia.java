@@ -113,7 +113,7 @@ final class SamplerMedia extends Item
 
 			if(s instanceof IntegerField)
 			{
-				if(((Integer)sv.value).intValue() != 0)
+				if((Integer)sv.value != 0)
 					return false;
 			}
 			else

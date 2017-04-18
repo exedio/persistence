@@ -221,7 +221,7 @@ public final class LongField extends NumberField<Long>
 	@Wrap(order=10, name="get{0}", doc="Returns the value of {0}.", hide=OptionalGetter.class)
 	public long getMandatory(@Nonnull final Item item)
 	{
-		return getMandatoryObject(item).longValue();
+		return getMandatoryObject(item);
 	}
 
 	@Wrap(order=20,
@@ -253,7 +253,7 @@ public final class LongField extends NumberField<Long>
 	@Override
 	void checkNotNull(final Long value, final Item exceptionItem)
 	{
-		final long valuePrimitive = value.longValue();
+		final long valuePrimitive = value;
 		if(valuePrimitive<minimum)
 			throw new LongRangeViolationException(this, exceptionItem, value, true, minimum);
 		if(valuePrimitive>maximum)

@@ -164,7 +164,7 @@ public final class EnumField<E extends Enum<E>> extends FunctionField<E>
 		return
 			cell==null ?
 				null :
-				valueType.getValueByNumber(((Integer)cell).intValue());
+				valueType.getValueByNumber((Integer)cell);
 	}
 
 	@Override

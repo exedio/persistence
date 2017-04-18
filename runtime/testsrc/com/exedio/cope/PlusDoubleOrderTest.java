@@ -60,8 +60,8 @@ public class PlusDoubleOrderTest extends TestWithEnvironment
 
 	@Test public void testSumOrder()
 	{
-		assertEquals(d7.doubleValue(), item1.getPlusAB(), EPS);
-		assertEquals(d3.doubleValue(), item2.getPlusAB(), EPS);
+		assertEquals(d7, item1.getPlusAB(), EPS);
+		assertEquals(d3, item2.getPlusAB(), EPS);
 		assertEquals(d8, item3.getPlusAB());
 		assertEquals(valueOf(6.6 * -1000.99), item1.getMultiplyBC());
 		assertEquals(valueOf(1.1 * -1000.99), item2.getMultiplyBC());
