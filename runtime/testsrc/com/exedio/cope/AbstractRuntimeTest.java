@@ -43,12 +43,9 @@ public final class AbstractRuntimeTest
 	public static final Integer i3 = Integer.valueOf(3);
 	public static final Integer i4 = Integer.valueOf(4);
 	public static final Integer i5 = Integer.valueOf(5);
-	       static final Integer i6 = Integer.valueOf(6);
 	       static final Integer i7 = Integer.valueOf(7);
 	public static final Integer i8 = Integer.valueOf(8);
 	public static final Integer i9 = Integer.valueOf(9);
-	       static final Integer i10= Integer.valueOf(10);
-	       static final Integer i18= Integer.valueOf(18);
 
 	static final Long l0 = Long.valueOf(0l);
 	static final Long l1 = Long.valueOf(1l);
@@ -71,7 +68,6 @@ public final class AbstractRuntimeTest
 	static final Double d6 = Double.valueOf(6.6);
 	static final Double d7 = Double.valueOf(7.7);
 	static final Double d8 = Double.valueOf(8.8);
-	static final Double d9 = Double.valueOf(9.9);
 
 	public static void assertEqualContent(final byte[] expectedData, final File actualFile) throws IOException
 	{

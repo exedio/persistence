@@ -35,11 +35,6 @@ public final class RecursiveItem extends Item
 		return testPattern.fetch(this);
 	}
 
-	MediaPath.Locator getTestPatternLocator()
-	{
-		return testPattern.getLocator(this);
-	}
-
 	/**
 	 * Creates a new RecursiveItem with all the fields initially needed.
 	 */

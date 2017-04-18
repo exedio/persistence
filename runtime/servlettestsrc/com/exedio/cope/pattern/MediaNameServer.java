@@ -50,11 +50,6 @@ final class MediaNameServer extends MediaPath
 		addSource(lastModified, "LastModified");
 	}
 
-	StringField getSource()
-	{
-		return source;
-	}
-
 	@Override
 	public boolean isMandatory()
 	{
