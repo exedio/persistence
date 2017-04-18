@@ -33,15 +33,6 @@ final class VolatileInt implements Serializable
 		value++;
 	}
 
-	void inc(final int addend)
-	{
-		if(addend<0)
-			throw new IllegalArgumentException();
-
-		if(addend>0)
-			value += addend;
-	}
-
 	int get()
 	{
 		return value;
