@@ -60,19 +60,6 @@ public final class MysqlDialect extends Dialect
 		throw new RuntimeException();
 	}
 
-	static String unQuoteName(final String quotedName)
-	{
-		final int length = quotedName.length();
-		if(length<3)
-			throw new RuntimeException(quotedName);
-		if(quotedName.charAt(0)!=QUOTE_CHARACTER)
-			throw new RuntimeException(quotedName);
-		if(quotedName.charAt(length-1)!=QUOTE_CHARACTER)
-			throw new RuntimeException(quotedName);
-
-		return quotedName.substring(1, length-1);
-	}
-
 	@Override
 	void verify(final Schema schema)
 	{
