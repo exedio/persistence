@@ -18,13 +18,11 @@
 
 package com.exedio.cope;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 final class ClusterSenderMock extends ClusterSender
 {
 	private long nanoTimeSource = 0x2233445566778899l;
-	private boolean closed = false;
 	ArrayList<byte[]> testSink = null;
 
 	ClusterSenderMock(final ClusterProperties properties)
@@ -39,11 +37,8 @@ final class ClusterSenderMock extends ClusterSender
 	}
 
 	@Override
-	void send(final int length, final byte[] buf) throws IOException
+	void send(final int length, final byte[] buf)
 	{
-		if(closed)
-			throw new IOException();
-
 		final byte[] bufCopy = new byte[length];
 		System.arraycopy(buf, 0, bufCopy, 0, length);
 		testSink.add(bufCopy);
@@ -65,13 +60,5 @@ final class ClusterSenderMock extends ClusterSender
 	int getTrafficClass()
 	{
 		return 123458;
-	}
-
-	@Override
-	void close()
-	{
-		if(closed)
-			throw new RuntimeException();
-		closed = true;
 	}
 }

@@ -71,7 +71,6 @@ public abstract class ClusterTest
 
 	@After public final void tearDownClusterTest()
 	{
-		cs.close();
 		cl.close();
 	}
 

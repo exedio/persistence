@@ -234,5 +234,4 @@ abstract class ClusterSender
 	abstract int getLocalPort();
 	abstract int getSendBufferSize();
 	abstract int getTrafficClass();
-	abstract void close();
 }

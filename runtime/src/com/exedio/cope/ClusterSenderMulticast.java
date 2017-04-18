@@ -84,7 +84,6 @@ final class ClusterSenderMulticast extends ClusterSender
 		}
 	}
 
-	@Override
 	void close()
 	{
 		socket.close();
