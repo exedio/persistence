@@ -221,7 +221,7 @@ public final class DoubleField extends NumberField<Double>
 			@Nonnull final Class<P> typeClass,
 			@Parameter(doc="shall be equal to field {0}.") final double value)
 	{
-		return super.searchUnique(typeClass, Double.valueOf(value));
+		return searchUnique(typeClass, Double.valueOf(value));
 	}
 
 	@Override

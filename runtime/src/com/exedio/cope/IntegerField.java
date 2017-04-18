@@ -359,7 +359,7 @@ public final class IntegerField extends NumberField<Integer>
 			final Class<P> typeClass,
 			@Parameter(doc="shall be equal to field {0}.") final int value)
 	{
-		return super.searchUnique(typeClass, Integer.valueOf(value));
+		return searchUnique(typeClass, Integer.valueOf(value));
 	}
 
 	@Override

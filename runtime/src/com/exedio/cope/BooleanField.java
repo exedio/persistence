@@ -169,6 +169,6 @@ public final class BooleanField extends FunctionField<Boolean>
 			@Nonnull final Class<P> typeClass,
 			@Parameter(doc="shall be equal to field {0}.") final boolean value)
 	{
-		return super.searchUnique(typeClass, Boolean.valueOf(value));
+		return searchUnique(typeClass, Boolean.valueOf(value));
 	}
 }

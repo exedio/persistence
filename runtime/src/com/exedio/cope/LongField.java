@@ -247,7 +247,7 @@ public final class LongField extends NumberField<Long>
 			final Class<P> typeClass,
 			@Parameter(doc="shall be equal to field {0}.") final long value)
 	{
-		return super.searchUnique(typeClass, Long.valueOf(value));
+		return searchUnique(typeClass, Long.valueOf(value));
 	}
 
 	@Override
