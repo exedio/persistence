@@ -89,6 +89,7 @@ final class Revstat extends Item
 			}
 			catch(final UniqueViolationException e)
 			{
+				assert Revstat.number.getImplicitUniqueConstraint()==e.getFeature();
 				return;
 			}
 
