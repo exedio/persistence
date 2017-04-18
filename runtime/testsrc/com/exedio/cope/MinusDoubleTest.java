@@ -82,7 +82,6 @@ public class MinusDoubleTest extends TestWithEnvironment
 		assertEqualsUnmodifiable(list(numB, numC), viewBC.getSources());
 
 		// test equals/hashCode
-		assertEqualsAndHash(viewAB, viewAB);
 		assertEqualsAndHash(viewAB, numA.minus(numB));
 		assertNotEqualsAndHash(
 				viewAB,

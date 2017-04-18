@@ -104,10 +104,9 @@ public class PlusDoubleTest extends TestWithEnvironment
 		assertEqualsUnmodifiable(list(numB, numC), multiplyBC.getSources());
 
 		// test equals/hashCode
-		assertEqualsAndHash(plusA9, plusA9);
-		assertEqualsAndHash(plusAB, plusAB);
+		assertEqualsAndHash(plusA9, numA.plus(9.3));
 		assertEqualsAndHash(plusAB, numA.plus(numB));
-		assertEqualsAndHash(multiplyB9, multiplyB9);
+		assertEqualsAndHash(multiplyB9, numB.multiply(9.3));
 		assertNotEqualsAndHash(plusAB, numB.plus(numA), plusBC);
 		assertNotEqualsAndHash(plusAB, numA, plusBC, multiplyBC);
 

@@ -73,7 +73,6 @@ public class DivideIntegerTest extends TestWithEnvironment
 		assertEqualsUnmodifiable(list(numB, numC), divideBC.getSources());
 
 		// test equals/hashCode
-		assertEqualsAndHash(divideAB, divideAB);
 		assertEqualsAndHash(divideAB, numA.divide(numB));
 		assertNotEqualsAndHash(
 				divideAB,

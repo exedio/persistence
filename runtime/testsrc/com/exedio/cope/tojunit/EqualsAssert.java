@@ -20,6 +20,7 @@ package com.exedio.cope.tojunit;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
@@ -29,6 +30,7 @@ public final class EqualsAssert
 {
 	public static void assertEqualsAndHash(final Object left, final Object right)
 	{
+		assertNotSame(left, right);
 		assertEquals(left, right);
 		assertEquals(right, left);
 		assertEquals(left.hashCode(), right.hashCode());
