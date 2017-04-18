@@ -115,11 +115,8 @@ public abstract class Pattern extends Feature
 		@Override
 		public boolean isAnnotationPresent(final Class<? extends Annotation> annotationClass)
 		{
-			if(CopeSchemaName.class==annotationClass)
-			{
-				return getAnnotation(annotationClass)!=null;
-			}
-			else if(Computed.class==annotationClass)
+			if(CopeSchemaName.class==annotationClass ||
+				Computed.class==annotationClass)
 			{
 				return getAnnotation(annotationClass)!=null;
 			}
@@ -254,14 +251,13 @@ public abstract class Pattern extends Feature
 		{
 			@SuppressWarnings("deprecation")
 			final Class<?> copeCacheWeightClass=CopeCacheWeight.class;
-			if(CopeSchemaName.class==annotationClass)
+			if(CopeSchemaName.class==annotationClass ||
+				Computed.class==annotationClass ||
+				copeCacheWeightClass==annotationClass ||
+				CopeExternal.class==annotationClass)
+			{
 				return getAnnotation(annotationClass)!=null;
-			else if(Computed.class==annotationClass)
-				return getAnnotation(annotationClass)!=null;
-			else if(copeCacheWeightClass==annotationClass)
-				return getAnnotation(annotationClass)!=null;
-			else if(CopeExternal.class==annotationClass)
-				return getAnnotation(annotationClass)!=null;
+			}
 
 			return source.isAnnotationPresent(annotationClass);
 		}
