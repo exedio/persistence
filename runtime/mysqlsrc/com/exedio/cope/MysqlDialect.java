@@ -420,7 +420,7 @@ final class MysqlDialect extends Dialect
 			throw new IllegalStateException("not supported: CharSetCondition on MySQL with non-ASCII CharSet: " + set);
 
 		statement.
-			append(function, (Join)null).
+			append(function, join).
 			append(" REGEXP ").
 			appendParameter(set.getRegularExpression());
 	}
