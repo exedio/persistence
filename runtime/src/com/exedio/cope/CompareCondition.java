@@ -57,7 +57,7 @@ public final class CompareCondition<E> extends Condition
 	@Override
 	void append(final Statement bf)
 	{
-		bf.append(left, (Join)null).
+		bf.append(left).
 			append(operator.sql).
 			appendParameterAny(right);
 	}

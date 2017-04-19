@@ -168,6 +168,11 @@ final class Statement
 		return this;
 	}
 
+	Statement append(final Selectable<?> select)
+	{
+		return append(select, null);
+	}
+
 	@SuppressWarnings("deprecation") // OK: Selectable.append is for internal use within COPE only
 	Statement append(final Selectable<?> select, final Join join)
 	{
@@ -180,6 +185,11 @@ final class Statement
 	{
 		select.appendSelect(this, join);
 		return this;
+	}
+
+	Statement appendPK(final Type<?> type)
+	{
+		return appendPK(type, null);
 	}
 
 	Statement appendPK(final Type<?> type, final Join join)
@@ -220,7 +230,7 @@ final class Statement
 
 	Statement append(final Column column)
 	{
-		return append(column, (Join)null);
+		return append(column, null);
 	}
 
 	Statement append(final Column column, final Join join)

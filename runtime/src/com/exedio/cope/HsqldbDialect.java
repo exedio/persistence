@@ -189,7 +189,7 @@ final class HsqldbDialect extends Dialect
 	void appendStartsWith(final Statement bf, final BlobColumn column, final byte[] value)
 	{
 		bf.append("LEFT(RAWTOHEX(").
-			append(column, (Join)null).
+			append(column).
 			append("),").
 			appendParameter(2*value.length).
 			append(")=").

@@ -969,7 +969,7 @@ public final class Query<R> implements Serializable
 		}
 
 		bf.append(" FROM ").
-			appendTypeDefinition((Join)null, this.type, joins!=null);
+			appendTypeDefinition(null, this.type, joins!=null);
 
 		if(joins!=null)
 		{
@@ -1030,7 +1030,7 @@ public final class Query<R> implements Serializable
 					if(anyValue)
 						bf.append("ANY_VALUE(");
 
-					bf.append(orderBy[i], (Join)null);
+					bf.append(orderBy[i]);
 
 					if(anyValue)
 						bf.append(')');

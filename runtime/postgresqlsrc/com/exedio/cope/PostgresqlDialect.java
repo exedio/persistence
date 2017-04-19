@@ -227,7 +227,7 @@ final class PostgresqlDialect extends Dialect
 	void appendStartsWith(final Statement bf, final BlobColumn column, final byte[] value)
 	{
 		bf.append("ENCODE(SUBSTRING(").
-			append(column, (Join)null).
+			append(column).
 			append(" FROM 1 FOR ").
 			appendParameter(value.length).
 			append("),'hex')=").

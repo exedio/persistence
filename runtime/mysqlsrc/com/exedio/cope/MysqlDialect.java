@@ -363,7 +363,7 @@ final class MysqlDialect extends Dialect
 	void appendMatchClauseFullTextIndex(final Statement bf, final StringFunction function, final String value)
 	{
 		bf.append("(MATCH(").
-			append(function, (Join)null).
+			append(function).
 			append(")AGAINST(").
 			appendParameterAny(value).
 			append("))");
@@ -373,7 +373,7 @@ final class MysqlDialect extends Dialect
 	void appendStartsWith(final Statement bf, final BlobColumn column, final byte[] value)
 	{
 		bf.append("HEX(SUBSTRING(").
-			append(column, (Join)null).
+			append(column).
 			append(",1,").
 			appendParameter(value.length).
 			append("))=").

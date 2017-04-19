@@ -52,9 +52,9 @@ public final class CompareFunctionCondition<E> extends Condition
 	@Override
 	void append(final Statement bf)
 	{
-		bf.append(left, (Join)null).
+		bf.append(left).
 			append(operator.sql).
-			append(right, (Join)null);
+			append(right);
 	}
 
 	@Override

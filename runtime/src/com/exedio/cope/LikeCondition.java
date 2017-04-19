@@ -44,7 +44,7 @@ public final class LikeCondition extends Condition
 	@Override
 	void append(final Statement bf)
 	{
-		bf.append(function, (Join)null).
+		bf.append(function).
 			append(" like ").
 			appendParameterAny(value);
 	}

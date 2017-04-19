@@ -256,7 +256,7 @@ final class OracleDialect extends Dialect
 	void appendMatchClauseFullTextIndex(final Statement bf, final StringFunction function, final String value)
 	{
 		bf.append("(CONTAINS(").
-			append(function, (Join)null).
+			append(function).
 			append(',').
 			appendParameterAny(value).
 			append(")>0)");
@@ -272,7 +272,7 @@ final class OracleDialect extends Dialect
 	void appendStartsWith(final Statement bf, final BlobColumn column, final byte[] value)
 	{
 		bf.append("RAWTOHEX(DBMS_LOB.SUBSTR(").
-			append(column, (Join)null).
+			append(column).
 			append(',').
 			appendParameter(value.length).
 			append(",1))=").

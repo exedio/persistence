@@ -251,7 +251,7 @@ final class Database
 		if(first)
 		{
 			// no columns in type
-			bf.appendPK(type, (Join)null);
+			bf.appendPK(type);
 		}
 
 		bf.append(" FROM ");
@@ -275,7 +275,7 @@ final class Database
 			else
 				bf.append(" AND ");
 
-			bf.appendPK(currentType, (Join)null).
+			bf.appendPK(currentType).
 				append('=').
 				appendParameter(item.pk).
 				appendTypeCheck(currentType.getTable(), type); // Here this also checks additionally for Model#getItem, that the item has the type given in the ID.
