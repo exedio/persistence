@@ -411,10 +411,8 @@ public final class MediaType
 		final LinkedHashMap<String, ArrayList<MediaType>> map = new LinkedHashMap<>();
 		for(final MediaType t : source)
 			if(t.magic!=null)
-			{
-				final String magicString = Hex.encodeLower(t.magic);
-				map.computeIfAbsent(magicString, k -> new ArrayList<>()).add(t);
-			}
+				map.computeIfAbsent(Hex.encodeLower(t.magic), k -> new ArrayList<>()).add(t);
+
 		final Magic[] result = new Magic[map.size()];
 		int i = 0;
 		for(final Map.Entry<String, ArrayList<MediaType>> e : map.entrySet())

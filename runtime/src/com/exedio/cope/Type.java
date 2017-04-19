@@ -267,11 +267,8 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		{
 			final LinkedHashMap<FunctionField<?>,List<CopyConstraint>> byCopy = new LinkedHashMap<>();
 			for(final CopyConstraint cc : copyConstraints.all)
-			{
-				final FunctionField<?> copy = cc.getCopy();
+				byCopy.computeIfAbsent(cc.getCopy(), k -> new ArrayList<>()).add(cc);
 
-				byCopy.computeIfAbsent(copy, k -> new ArrayList<>()).add(cc);
-			}
 			this.copyConstraintsByCopy = byCopy.isEmpty() ? emptyMap() : unmodifiableMap(byCopy);
 		}
 		checkForDuplicateUniqueConstraint(id, uniqueConstraints.all);
