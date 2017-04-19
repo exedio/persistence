@@ -136,8 +136,9 @@ public final class MultiItemField<E> extends Pattern implements Settable<E>
 				case CASCADE:
 					component = component.cascade();
 					break;
+				case NULLIFY: // not yet implemented
 				default:
-					throw new RuntimeException(); // NULLIFY not yet implemented
+					throw new RuntimeException();
 			}
 			assert policy==component.getDeletePolicy();
 

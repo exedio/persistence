@@ -143,6 +143,7 @@ public class TransactionUniqueTest extends TestWithEnvironment
 						"  Detail: Key (\"field\")=(collision) already exists.",
 						failure.getCause().getMessage());
 				break;
+			case hsqldb: // runs testFails
 			default:
 				fail("" + dialect);
 		}

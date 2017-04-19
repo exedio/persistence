@@ -93,7 +93,9 @@ public class CapabilitiesTest extends TestWithEnvironment
 					// ok
 				}
 				break;
-			default:
+			case hsqldb:
+			case oracle:
+			case postgresql:
 				try
 				{
 					final String result = model.getSchemaSavepoint();
@@ -104,6 +106,8 @@ public class CapabilitiesTest extends TestWithEnvironment
 					assertEquals("not supported", e.getMessage());
 				}
 				break;
+			default:
+				fail("" + dialect);
 		}
 	}
 
