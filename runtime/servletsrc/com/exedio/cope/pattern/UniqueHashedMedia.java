@@ -311,8 +311,8 @@ public final class UniqueHashedMedia extends Pattern implements Settable<Value>,
 	@Override
 	public SetValue<?>[] execute(final Value value, final Item exceptionItem)
 	{
-		final Value mediaValue;
-		final String hashValue;
+		final Value media;
+		final String hash;
 		if(value!=null)
 		{
 			final ValueWithHash valueWithHash;
@@ -324,18 +324,18 @@ public final class UniqueHashedMedia extends Pattern implements Settable<Value>,
 			{
 				throw new RuntimeException(e);
 			}
-			mediaValue = valueWithHash.media;
-			hashValue  = valueWithHash.hash;
+			media = valueWithHash.media;
+			hash  = valueWithHash.hash;
 		}
 		else
 		{
 			if(isMandatory())
 				throw MandatoryViolationException.create(this, exceptionItem);
-			mediaValue = null;
-			hashValue  = null;
+			media = null;
+			hash  = null;
 		}
-		final List<SetValue<?>> setValues = new ArrayList<>(Arrays.asList(this.media.execute(mediaValue, exceptionItem)));
-		setValues.add(this.hash.map(hashValue));
+		final List<SetValue<?>> setValues = new ArrayList<>(Arrays.asList(this.media.execute(media, exceptionItem)));
+		setValues.add(this.hash.map(hash));
 		return setValues.toArray(new SetValue<?>[setValues.size()]);
 	}
 
