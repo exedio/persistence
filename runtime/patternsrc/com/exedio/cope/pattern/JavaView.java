@@ -70,10 +70,7 @@ public final class JavaView extends Pattern
 
 	private Mount mount()
 	{
-		final Mount result = this.mountIfMounted;
-		if(result==null)
-			throw new IllegalStateException("feature not mounted");
-		return result;
+		return requireMounted(mountIfMounted);
 	}
 
 	public Class<?> getValueType()

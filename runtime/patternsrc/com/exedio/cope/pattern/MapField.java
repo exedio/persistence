@@ -114,10 +114,7 @@ public final class MapField<K,V> extends Pattern implements MapFieldInterface<K,
 
 	private Mount mount()
 	{
-		final Mount mount = this.mountIfMounted;
-		if(mount==null)
-			throw new IllegalStateException("feature not mounted");
-		return mount;
+		return requireMounted(mountIfMounted);
 	}
 
 	@Wrap(order=200, name="{1}Parent",

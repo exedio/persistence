@@ -264,12 +264,16 @@ public abstract class Feature implements Serializable
 		this.mountIfMounted = new MountAbstractType(type, name, string, serializable, annotationSource);
 	}
 
-	private Mount mountAny()
+	public static final <T> T requireMounted(final T result)
 	{
-		final Mount result = this.mountIfMounted;
 		if(result==null)
 			throw new IllegalStateException("feature not mounted");
 		return result;
+	}
+
+	private Mount mountAny()
+	{
+		return requireMounted(mountIfMounted);
 	}
 
 	private MountType mountType()

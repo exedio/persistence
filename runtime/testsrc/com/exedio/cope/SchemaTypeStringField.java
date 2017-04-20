@@ -67,10 +67,7 @@ public final class SchemaTypeStringField extends Pattern
 
 	Type<StringItem> sourceType()
 	{
-		final Type<StringItem> sourceType = this.sourceTypeIfMounted;
-		if(sourceType==null)
-			throw new IllegalStateException("feature not mounted");
-		return sourceType;
+		return requireMounted(sourceTypeIfMounted);
 	}
 
 	String get(final StringItem item)

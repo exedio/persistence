@@ -243,10 +243,7 @@ public final class DynamicModel<L> extends Pattern
 
 	Mount<L> mount()
 	{
-		final Mount<L> mount = this.mountIfMounted;
-		if(mount==null)
-			throw new IllegalStateException("feature not mounted");
-		return mount;
+		return requireMounted(mountIfMounted);
 	}
 
 	@SuppressWarnings({"unchecked", "rawtypes", "static-method"})

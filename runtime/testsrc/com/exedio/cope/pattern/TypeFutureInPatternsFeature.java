@@ -90,10 +90,7 @@ final class TypeFutureInPatternsFeature extends Pattern
 
 	Mount mount()
 	{
-		final Mount mount = this.mountIfMounted;
-		if(mount==null)
-			throw new IllegalStateException("feature not mounted");
-		return mount;
+		return requireMounted(mountIfMounted);
 	}
 
 	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace

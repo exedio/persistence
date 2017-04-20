@@ -119,10 +119,7 @@ public final class SetField<E> extends Pattern implements Copyable
 
 	private Mount mount()
 	{
-		final Mount mount = this.mountIfMounted;
-		if(mount==null)
-			throw new IllegalStateException("feature not mounted");
-		return mount;
+		return requireMounted(mountIfMounted);
 	}
 
 	@Wrap(order=100, name="{1}Parent", doc="Returns the parent field of the type of {0}.")

@@ -477,10 +477,7 @@ public final class Schedule extends Pattern
 
 		Mount mount()
 		{
-			final Mount mount = this.mountIfMounted;
-			if(mount==null)
-				throw new IllegalStateException("feature not mounted");
-			return mount;
+			return requireMounted(mountIfMounted);
 		}
 
 		Run newItem(

@@ -124,10 +124,7 @@ public abstract class MediaPath extends Pattern
 
 	private Mount mountPath()
 	{
-		final Mount result = this.mountIfMounted;
-		if(result==null)
-			throw new IllegalStateException("feature not mounted");
-		return result;
+		return requireMounted(mountIfMounted);
 	}
 
 	final String getUrlPath()

@@ -113,10 +113,7 @@ public final class ListField<E> extends AbstractListField<E> implements Copyable
 
 	private Mount mount()
 	{
-		final Mount mount = this.mountIfMounted;
-		if(mount==null)
-			throw new IllegalStateException("feature not mounted");
-		return mount;
+		return requireMounted(mountIfMounted);
 	}
 
 	@Wrap(order=1000, name="{1}Parent",
