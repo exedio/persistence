@@ -264,7 +264,7 @@ public abstract class Feature implements Serializable
 		this.mountIfMounted = new MountAbstractType(type, name, string, serializable, annotationSource);
 	}
 
-	private Mount mount()
+	private Mount mountAny()
 	{
 		final Mount result = this.mountIfMounted;
 		if(result==null)
@@ -274,7 +274,7 @@ public abstract class Feature implements Serializable
 
 	private MountType mountType()
 	{
-		final Mount result = mount();
+		final Mount result = mountAny();
 		if(!(result instanceof MountType))
 			throw new IllegalStateException("feature not mounted to a type: " + result.toString());
 		return (MountType)result;
@@ -296,7 +296,7 @@ public abstract class Feature implements Serializable
 	 */
 	public AbstractType<?> getAbstractType()
 	{
-		return mount().type;
+		return mountAny().type;
 	}
 
 	/**
@@ -309,7 +309,7 @@ public abstract class Feature implements Serializable
 
 	public final String getName()
 	{
-		return mount().name;
+		return mountAny().name;
 	}
 
 	/**
@@ -326,7 +326,7 @@ public abstract class Feature implements Serializable
 	 */
 	public final boolean isAnnotationPresent(final Class<? extends Annotation> annotationClass)
 	{
-		return mount().isAnnotationPresent(annotationClass);
+		return mountAny().isAnnotationPresent(annotationClass);
 	}
 
 	/**
@@ -334,7 +334,7 @@ public abstract class Feature implements Serializable
 	 */
 	public final <A extends Annotation> A getAnnotation(final Class<A> annotationClass)
 	{
-		return mount().getAnnotation(annotationClass);
+		return mountAny().getAnnotation(annotationClass);
 	}
 
 	/**
@@ -342,7 +342,7 @@ public abstract class Feature implements Serializable
 	 */
 	public final List<String> getLocalizationKeys()
 	{
-		return mount().getLocalizationKeys();
+		return mountAny().getLocalizationKeys();
 	}
 
 	final String getDeclaredSchemaName()
@@ -429,7 +429,7 @@ public abstract class Feature implements Serializable
 	 */
 	public final Pattern getPattern()
 	{
-		return mount().pattern;
+		return mountAny().pattern;
 	}
 
 
