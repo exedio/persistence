@@ -265,7 +265,7 @@ public final class UniqueHashedMedia extends Pattern implements Settable<Value>,
 		if(value==null)
 			return null;
 		final ValueWithHash valueWithHash = createValueWithHash(value);
-		final P existingItem = forHash(typeClass, valueWithHash.hashValue);
+		final P existingItem = forHash(typeClass, valueWithHash.hash);
 		if (existingItem != null)
 		{
 			final String existingContentType = getContentType(existingItem);
@@ -277,8 +277,8 @@ public final class UniqueHashedMedia extends Pattern implements Settable<Value>,
 		{
 			// throws an IllegalContentTypeException
 			return getType().as(typeClass).newItem(
-					this.media.map(valueWithHash.mediaValue),
-					this.hash .map(valueWithHash.hashValue));
+					this.media.map(valueWithHash.media),
+					this.hash .map(valueWithHash.hash));
 		}
 	}
 
@@ -324,8 +324,8 @@ public final class UniqueHashedMedia extends Pattern implements Settable<Value>,
 			{
 				throw new RuntimeException(e);
 			}
-			mediaValue = valueWithHash.mediaValue;
-			hashValue  = valueWithHash.hashValue;
+			mediaValue = valueWithHash.media;
+			hashValue  = valueWithHash.hash;
 		}
 		else
 		{
@@ -396,15 +396,15 @@ public final class UniqueHashedMedia extends Pattern implements Settable<Value>,
 	 */
 	private static final class ValueWithHash
 	{
-		final Value mediaValue;
-		final String hashValue;
+		final Value media;
+		final String hash;
 
 		ValueWithHash(
-				final Value mediaValue,
-				final String hashValue)
+				final Value media,
+				final String hash)
 		{
-			this.mediaValue = mediaValue;
-			this.hashValue = hashValue;
+			this.media = media;
+			this.hash = hash;
 		}
 	}
 }
