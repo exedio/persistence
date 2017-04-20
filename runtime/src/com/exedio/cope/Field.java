@@ -200,20 +200,20 @@ public abstract class Field<E> extends Feature implements Settable<E>
 	{
 		if(table==null)
 			throw new NullPointerException();
-		if(this.column!=null)
+		if(column!=null)
 			throw new RuntimeException();
 
-		this.column = createColumn(table, getDeclaredSchemaName(), optional);
+		column = createColumn(table, getDeclaredSchemaName(), optional);
 	}
 
 	void disconnect()
 	{
-		this.column = null;
+		column = null;
 	}
 
 	final Column getColumn()
 	{
-		if(this.column==null)
+		if(column==null)
 			throw new RuntimeException();
 
 		return column;

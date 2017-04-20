@@ -59,7 +59,7 @@ public interface Function<E> extends Selectable<E>
 
 	default Condition equal(final Join join, final E value)
 	{
-		return this.bind(join).equal(value);
+		return bind(join).equal(value);
 	}
 
 	@SuppressWarnings("unchecked") // Possible heap pollution from parameterized vararg type E

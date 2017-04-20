@@ -137,7 +137,7 @@ public final class Transaction
 			{
 				if ( isInvalidated(item) )
 				{
-					state = connect.database.load(this.getConnection(), item);
+					state = connect.database.load(getConnection(), item);
 				}
 				else
 				{
@@ -314,7 +314,7 @@ public final class Transaction
 
 	long getCacheStampOrMax()
 	{
-		return this.cacheStamp;
+		return cacheStamp;
 	}
 
 	/**

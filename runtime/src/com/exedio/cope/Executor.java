@@ -409,7 +409,7 @@ final class Executor
 
 	TestDatabaseListener testListener()
 	{
-		return this.testListener;
+		return testListener;
 	}
 
 	TestDatabaseListener setTestListener(TestDatabaseListener testListener)

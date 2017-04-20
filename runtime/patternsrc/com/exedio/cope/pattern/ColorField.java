@@ -134,7 +134,7 @@ public final class ColorField extends Pattern implements Settable<Color>, Copyab
 
 	public Color getDefaultConstant()
 	{
-		return fromRGB(this.rgb.getDefaultConstant());
+		return fromRGB(rgb.getDefaultConstant());
 	}
 
 	/**

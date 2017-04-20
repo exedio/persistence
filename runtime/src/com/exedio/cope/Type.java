@@ -417,15 +417,15 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 			throw new RuntimeException();
 		assert this==parameters.type;
 
-		if(this.mountIfMounted!=null)
+		if(mountIfMounted!=null)
 			throw new RuntimeException(id);
-		if(this.table!=null)
+		if(table!=null)
 			throw new RuntimeException();
-		if(this.cacheIdTransiently>=0)
+		if(cacheIdTransiently>=0)
 			throw new RuntimeException();
 
-		this.mountIfMounted = new Mount<>(model, id, parameters);
-		this.cacheIdTransiently = parameters.cacheIdTransiently;
+		mountIfMounted = new Mount<>(model, id, parameters);
+		cacheIdTransiently = parameters.cacheIdTransiently;
 	}
 
 	void assertNotMounted()
@@ -436,10 +436,10 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 
 	private Mount<T> mount()
 	{
-		final Mount<T> mount = this.mountIfMounted;
-		if(mount==null)
+		final Mount<T> result = mountIfMounted;
+		if(result==null)
 			throw new IllegalStateException("type " + id + " (" + javaClass.getName() + ") does not belong to any model");
-		return mount;
+		return result;
 	}
 
 	private static final class Mount<C extends Item>
@@ -590,9 +590,9 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		if(database==null)
 			throw new RuntimeException();
 
-		if(this.mountIfMounted==null)
+		if(mountIfMounted==null)
 			throw new RuntimeException();
-		if(this.table!=null)
+		if(table!=null)
 			throw new RuntimeException();
 
 		this.table = new Table(
@@ -613,9 +613,9 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 			a.connect(table);
 		for(final UniqueConstraint uc : uniqueConstraints.declared)
 			uc.connect(table);
-		this.table.setUniqueConstraints(this.uniqueConstraints.declared);
-		this.table.setCheckConstraints (this.checkConstraints.declared);
-		this.table.finish();
+		table.setUniqueConstraints(uniqueConstraints.declared);
+		table.setCheckConstraints (checkConstraints.declared);
+		table.finish();
 		for(final Feature f : featuresDeclared)
 			if(f instanceof Sequence)
 				((Sequence)f).connect(database);
@@ -634,9 +634,9 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 
 	void disconnect()
 	{
-		if(this.mountIfMounted==null)
+		if(mountIfMounted==null)
 			throw new RuntimeException();
-		if(this.table==null)
+		if(table==null)
 			throw new RuntimeException();
 
 		table = null;
@@ -819,7 +819,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	void assertBelongs(final Field<?> f)
 	{
 		if(!f.getType().isAssignableFrom(this))
-			throw new IllegalArgumentException("field " + f + " does not belong to type " + this.toString());
+			throw new IllegalArgumentException("field " + f + " does not belong to type " + this);
 	}
 
 	public boolean isAbstract()
@@ -1409,7 +1409,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	 */
 	private Object writeReplace() throws ObjectStreamException
 	{
-		final Mount<?> mount = this.mountIfMounted;
+		final Mount<?> mount = mountIfMounted;
 		if(mount==null)
 			throw new NotSerializableException(Type.class.getName());
 

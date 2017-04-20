@@ -79,7 +79,7 @@ public final class MediaPathFeature extends MediaPath
 	@Wrap(order=30)
 	public void setResult(final Item item, final Result bodyFailure)
 	{
-		this.result.set(item, bodyFailure);
+		result.set(item, bodyFailure);
 	}
 
 

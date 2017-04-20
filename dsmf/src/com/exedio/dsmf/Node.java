@@ -224,7 +224,7 @@ public abstract class Node
 
 	private Result result()
 	{
-		final Result result = this.resultIfSet;
+		final Result result = resultIfSet;
 		if(result==null)
 			throw new IllegalStateException("result");
 		return result;

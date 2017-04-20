@@ -136,24 +136,24 @@ public final class UniqueConstraint extends Feature implements Copyable
 
 	void connect(final Table table)
 	{
-		if(this.databaseID!=null)
+		if(databaseID!=null)
 			throw new RuntimeException();
 
 		final String schemaName =
 			(fields.length==1)
 			? fields[0].getDeclaredSchemaName()
 			: getDeclaredSchemaName();
-		this.databaseID = intern(table.makeGlobalID(TrimClass.ForeignKeyUniqueConstraint, schemaName + "_Unq"));
+		databaseID = intern(table.makeGlobalID(TrimClass.ForeignKeyUniqueConstraint, schemaName + "_Unq"));
 
 		table.database.executor.addUniqueConstraint(databaseID, this);
 	}
 
 	void disconnect()
 	{
-		if(this.databaseID==null)
+		if(databaseID==null)
 			throw new RuntimeException();
 
-		this.databaseID = null;
+		databaseID = null;
 	}
 
 	private String getDatabaseID()

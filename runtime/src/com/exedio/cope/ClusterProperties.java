@@ -76,21 +76,21 @@ final class ClusterProperties extends Properties
 
 		if(nodeAuto)
 		{
-			this.node = nextNode();
+			node = nextNode();
 		}
 		else
 		{
-			this.node = nodeField;
+			node = nodeField;
 			if(node==0)
 				throw new IllegalArgumentException(); // must not be left at default value
 		}
 		if(logger.isInfoEnabled())
 			logger.info("node id: {}", ClusterSenderInfo.toStringNodeID(node));
 
-		this.packetSize = packetSizeField & (~3);
+		packetSize = packetSizeField & (~3);
 		{
 			final Random r = new Random(secret);
-			final byte[] pingPayload = new byte[this.packetSize];
+			final byte[] pingPayload = new byte[packetSize];
 			for(int pos = 28; pos<pingPayload.length; pos++)
 				pingPayload[pos] = (byte)(r.nextInt()>>8);
 			this.pingPayload = pingPayload;

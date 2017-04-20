@@ -70,8 +70,8 @@ class PatternTestPattern extends Pattern
 
 		//Create the super type.
 		final Features features = new Features();
-		features.put(SUPER_TYPE_STRING, this.superTypeString, af("superTypeString"));
-		features.put(SUPER_TYPE_BOOLEAN, this.superTypeBoolean, af("superTypeBoolean"));
+		features.put(SUPER_TYPE_STRING, superTypeString, af("superTypeString"));
+		features.put(SUPER_TYPE_BOOLEAN, superTypeBoolean, af("superTypeBoolean"));
 		this.superType = newSourceType(PatternTestTypeItem.class, true, null, features, SUPER_TYPE_POSTFIX);
 
 		//Create sub type

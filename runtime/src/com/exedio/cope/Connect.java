@@ -77,7 +77,7 @@ final class Connect
 				connectionPool,
 				executor,
 				transactions,
-				this.revisions);
+				revisions);
 
 		this.itemCache = new ItemCache(types.typeListSorted, properties);
 		this.queryCache = new QueryCache(properties.getQueryCacheLimit());

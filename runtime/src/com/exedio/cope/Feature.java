@@ -234,9 +234,9 @@ public abstract class Feature implements Serializable
 				throw new IllegalArgumentException("name >" + name + "< of feature in type " + type + " contains illegal character >" + name.charAt(i) + "< at position " + i);
 		}
 
-		if(this.mountIfMounted!=null)
+		if(mountIfMounted!=null)
 			throw new IllegalStateException("feature already mounted: " + mountIfMounted.toString());
-		this.mountIfMounted = new MountType(
+		mountIfMounted = new MountType(
 				type, name, annotationSource, patternUntilMount,
 				precedingLocalizationKeysClassUntilMount,
 				precedingLocalizationKeysPostfixUntilMount);
@@ -259,9 +259,9 @@ public abstract class Feature implements Serializable
 		requireNonNull(name, "name");
 		requireNonNull(string, "string");
 		requireNonNull(serializable, "serializable");
-		if(this.mountIfMounted!=null)
+		if(mountIfMounted!=null)
 			throw new IllegalStateException("feature already mounted: " + mountIfMounted.toString());
-		this.mountIfMounted = new MountAbstractType(type, name, string, serializable, annotationSource);
+		mountIfMounted = new MountAbstractType(type, name, string, serializable, annotationSource);
 	}
 
 	public static final <T> T requireMounted(final T result)
@@ -370,7 +370,7 @@ public abstract class Feature implements Serializable
 	@Override
 	public final String toString()
 	{
-		final Mount mount = this.mountIfMounted;
+		final Mount mount = mountIfMounted;
 		if(mount!=null)
 		{
 			return mount.toString();
@@ -385,7 +385,7 @@ public abstract class Feature implements Serializable
 
 	public final void toString(final StringBuilder bf, final Type<?> defaultType)
 	{
-		final Mount mount = this.mountIfMounted;
+		final Mount mount = mountIfMounted;
 		if(mount!=null)
 			mount.toString(bf, defaultType);
 		else
@@ -408,12 +408,12 @@ public abstract class Feature implements Serializable
 
 		if(patternUntilMount!=null)
 			throw new IllegalStateException(
-					"feature has already registered pattern " + this.patternUntilMount +
+					"feature has already registered pattern " + patternUntilMount +
 					" and tried to register a new one: " + pattern);
 
-		this.patternUntilMount = pattern;
-		this.precedingLocalizationKeysClassUntilMount   = precedingLocalizationKeysClass;
-		this.precedingLocalizationKeysPostfixUntilMount = precedingLocalizationKeysPostfix;
+		patternUntilMount = pattern;
+		precedingLocalizationKeysClassUntilMount   = precedingLocalizationKeysClass;
+		precedingLocalizationKeysPostfixUntilMount = precedingLocalizationKeysPostfix;
 	}
 
 	public final boolean isSourceAlready()
@@ -457,7 +457,7 @@ public abstract class Feature implements Serializable
 	 */
 	protected final Object writeReplace() throws ObjectStreamException
 	{
-		final Mount mount = this.mountIfMounted;
+		final Mount mount = mountIfMounted;
 		if(mount==null)
 		{
 			if(isSerializableNonMounted())

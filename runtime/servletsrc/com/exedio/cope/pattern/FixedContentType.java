@@ -57,7 +57,7 @@ final class FixedContentType extends ContentType<Void>
 	@Override
 	boolean check(final String contentType)
 	{
-		return this.full.equals(contentType);
+		return full.equals(contentType);
 	}
 
 	@Override

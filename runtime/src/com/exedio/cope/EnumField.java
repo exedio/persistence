@@ -142,7 +142,7 @@ public final class EnumField<E extends Enum<E>> extends FunctionField<E>
 	@Override
 	void mount(final Type<?> type, final String name, final AnnotatedElement annotationSource)
 	{
-		if(!this.optional && valueType.isSingle())
+		if(!optional && valueType.isSingle())
 			throw new IllegalArgumentException(
 					"mandatory enum field is not allowed on valueClass with one enum value only: "
 					+ type.getID() + '.' + name +

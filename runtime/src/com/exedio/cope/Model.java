@@ -127,10 +127,10 @@ public final class Model implements Serializable
 
 		synchronized(connectLock)
 		{
-			if(this.connectIfConnected!=null)
+			if(connectIfConnected!=null)
 				throw new IllegalStateException("model already been connected");
 
-			this.connectIfConnected = new Connect(toString(), types, revisions, properties, transactions, changeListeners);
+			connectIfConnected = new Connect(toString(), types, revisions, properties, transactions, changeListeners);
 			types.connect(connectIfConnected.database);
 		}
 
@@ -156,7 +156,7 @@ public final class Model implements Serializable
 
 	Connect connect()
 	{
-		final Connect result = this.connectIfConnected;
+		final Connect result = connectIfConnected;
 		if(result==null)
 			throw new NotConnectedException(this);
 		return result;
@@ -246,7 +246,7 @@ public final class Model implements Serializable
 
 	public boolean isConnected()
 	{
-		return this.connectIfConnected!=null;
+		return connectIfConnected!=null;
 	}
 
 	public ConnectProperties getConnectProperties()
@@ -256,7 +256,7 @@ public final class Model implements Serializable
 
 	public Date getConnectDate()
 	{
-		final Connect connect = this.connectIfConnected;
+		final Connect connect = connectIfConnected;
 		if(connect==null)
 			return null;
 		return Date.from(connect.date);
@@ -734,7 +734,7 @@ public final class Model implements Serializable
 		{
 			final long oldestStamp = transactions.getOldestCacheStamp();
 
-			final Runnable within = this.withinPurgeStamps;
+			final Runnable within = withinPurgeStamps;
 			if(within!=null)
 				within.run();
 

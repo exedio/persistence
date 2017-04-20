@@ -49,7 +49,7 @@ public final class MediaThumbnail extends MediaImageioFilter implements Copyable
 	@Override
 	public MediaThumbnail copy(final CopyMapper mapper)
 	{
-		return new MediaThumbnail(mapper.get(getSource()), this.boundX, this.boundY);
+		return new MediaThumbnail(mapper.get(getSource()), boundX, boundY);
 	}
 
 	public int getBoundX()

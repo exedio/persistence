@@ -96,13 +96,13 @@ final class WrapperX
 			throw new NullPointerException("type");
 		if(type==void.class)
 			throw new IllegalArgumentException("type must not be void");
-		if(this.returnType!=null)
+		if(returnType!=null)
 			throw new IllegalStateException("type must not be set twice");
 		for(final String c : comment)
 			assertComment(c);
 
-		this.returnType = type;
-		this.returnComment = comment;
+		returnType = type;
+		returnComment = comment;
 	}
 
 	java.lang.reflect.Type getReturnType()

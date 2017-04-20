@@ -150,9 +150,9 @@ public final class PasswordRecovery extends Pattern
 		{
 			final Query<Token> tokens =
 				tokenType.newQuery(Cope.and(
-					Cope.equalAndCast(this.parent, item),
-					this.expires.greaterOrEqual(new Date(now + expiry - reuse))));
-			tokens.setOrderBy(this.expires, false);
+					Cope.equalAndCast(parent, item),
+					expires.greaterOrEqual(new Date(now + expiry - reuse))));
+			tokens.setOrderBy(expires, false);
 			tokens.setLimit(0, 1);
 			final Token token = tokens.searchSingleton();
 			if(token!=null)
@@ -245,7 +245,7 @@ public final class PasswordRecovery extends Pattern
 			@Nonnull @Parameter("ctx") final JobContext ctx)
 	{
 		Delete.delete(
-				tokenType.newQuery(this.expires.less(Clock.newDate())),
+				tokenType.newQuery(expires.less(Clock.newDate())),
 				"PasswordRecovery#purge " + getID(),
 				ctx);
 	}

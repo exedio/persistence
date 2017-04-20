@@ -381,7 +381,7 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	{
 		try
 		{
-			return this.dialect.newInstance(probe);
+			return dialect.newInstance(probe);
 		}
 		catch(final ReflectiveOperationException e)
 		{

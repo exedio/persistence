@@ -423,7 +423,7 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 	@Wrap(order=40, doc="Returns the body of the media {0}.", nullability=NullableIfOptional.class)
 	public byte[] getBody(@Nonnull final Item item)
 	{
-		return this.body.getArray(item);
+		return body.getArray(item);
 	}
 
 	/**

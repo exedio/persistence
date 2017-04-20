@@ -132,7 +132,7 @@ public class DatabaseLogTest extends TestWithEnvironment
 
 		void assertSqlEmpty()
 		{
-			assertNull(this.sql);
+			assertNull(sql);
 		}
 	}
 }

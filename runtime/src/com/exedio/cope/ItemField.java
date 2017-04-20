@@ -255,7 +255,7 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 
 		final Type<E> valueType = valueTypeFuture.get();
 		if(!typesAllowed.contains(valueType))
-			throw new IllegalArgumentException("value type of " + this.toString() + " (" + valueTypeFuture.toString() + ") does not belong to the same model");
+			throw new IllegalArgumentException("value type of " + this + " (" + valueTypeFuture.toString() + ") does not belong to the same model");
 		if(!valueClass.equals(valueType.getJavaClass()))
 			throw new IllegalArgumentException(
 					"ItemField " + this + ": " +
@@ -273,7 +273,7 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 	public Type<E> getValueType()
 	{
 		if(valueType==null)
-			throw new IllegalStateException("value type of " + this.toString() + " (" + valueTypeFuture.toString() + ") does not belong to any model");
+			throw new IllegalStateException("value type of " + this + " (" + valueTypeFuture.toString() + ") does not belong to any model");
 
 		return valueType;
 	}
@@ -313,13 +313,13 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 	{
 		if(!connected)
 			throw new RuntimeException(toString());
-		if(this.onlyPossibleValueType==null && this.typeColumn==null)
+		if(onlyPossibleValueType==null && typeColumn==null)
 			throw new RuntimeException(toString());
 
 		super.disconnect();
-		this.connected = false;
-		this.onlyPossibleValueType = null;
-		this.typeColumn = null;
+		connected = false;
+		onlyPossibleValueType = null;
+		typeColumn = null;
 	}
 
 	private Type<? extends E> getOnlyPossibleValueType()

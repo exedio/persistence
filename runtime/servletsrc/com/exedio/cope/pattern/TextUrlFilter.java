@@ -122,8 +122,8 @@ public class TextUrlFilter extends MediaFilter implements TextUrlFilterCheckable
 	{
 		final Mount mount = mount();
 		return mount.pasteType.newItem(
-				this.pasteKey.map(key),
-				this.pasteValue.map(value),
+				pasteKey.map(key),
+				pasteValue.map(value),
 				Cope.mapAndCast(mount.pasteParent, item));
 	}
 
@@ -153,8 +153,8 @@ public class TextUrlFilter extends MediaFilter implements TextUrlFilterCheckable
 
 		if(existing==null)
 			return mount.pasteType.newItem(
-					this.pasteKey.map(key),
-					this.pasteValue.map(value),
+					pasteKey.map(key),
+					pasteValue.map(value),
 					Cope.mapAndCast(mount.pasteParent, item));
 		else
 		{

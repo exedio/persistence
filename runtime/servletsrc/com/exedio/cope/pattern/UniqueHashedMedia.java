@@ -100,7 +100,7 @@ public final class UniqueHashedMedia extends Pattern implements Settable<Value>,
 		this.media = mediaTemplate.toFinal();
 		addSource(this.media, "media", new MediaPathFeatureAnnotationProxy(this, true));
 		this.hash = new StringField().toFinal().unique().lengthExact(digestStringLength).charSet(HEX_LOWER);
-		addSource(hash, "hash",
+		addSource(this.hash, "hash",
 				digestStringLength<=32
 				? ComputedElement.get()
 				: CustomAnnotatedElement2.create(
@@ -277,8 +277,8 @@ public final class UniqueHashedMedia extends Pattern implements Settable<Value>,
 		{
 			// throws an IllegalContentTypeException
 			return getType().as(typeClass).newItem(
-					this.media.map(valueWithHash.media),
-					this.hash .map(valueWithHash.hash));
+					media.map(valueWithHash.media),
+					hash .map(valueWithHash.hash));
 		}
 	}
 

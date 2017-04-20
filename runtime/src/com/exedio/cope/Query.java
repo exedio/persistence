@@ -213,7 +213,7 @@ public final class Query<R> implements Serializable
 
 	public Condition getCondition()
 	{
-		return this.condition;
+		return condition;
 	}
 
 	/**
@@ -296,7 +296,7 @@ public final class Query<R> implements Serializable
 
 	public Condition getHaving()
 	{
-		return this.having;
+		return having;
 	}
 
 
@@ -940,7 +940,7 @@ public final class Query<R> implements Serializable
 
 		bf.append("SELECT ");
 
-		final Selectable<?>[] selects = this.selects();
+		final Selectable<?>[] selects = selects();
 		final Marshaller<?>[] selectMarshallers;
 
 		if(!countSubSelect&&totalOnly)
@@ -969,7 +969,7 @@ public final class Query<R> implements Serializable
 		}
 
 		bf.append(" FROM ").
-			appendTypeDefinition(null, this.type, joins!=null);
+			appendTypeDefinition(null, type, joins!=null);
 
 		if(joins!=null)
 		{
@@ -977,13 +977,13 @@ public final class Query<R> implements Serializable
 				join.search(bf);
 		}
 
-		if(this.condition!=null)
+		if(condition!=null)
 		{
 			bf.append(" WHERE ");
-			this.condition.append(bf);
+			condition.append(bf);
 		}
 
-		if (this.groupBy!=null)
+		if (groupBy!=null)
 		{
 			for ( int i=0; i<groupBy.length; i++ )
 			{
@@ -1079,7 +1079,7 @@ public final class Query<R> implements Serializable
 
 		//System.out.println(bf.toString());
 
-		final int sizeLimit = this.getSearchSizeLimit();
+		final int sizeLimit = getSearchSizeLimit();
 		executor.query(connection, bf, queryInfo, false, resultSet ->
 			{
 				if(totalOnly)
@@ -1095,7 +1095,7 @@ public final class Query<R> implements Serializable
 				while(resultSet.next())
 				{
 					if((--sizeLimitCountDown)<0)
-						throw new IllegalStateException("exceeded hard limit of " + sizeLimit + ": " + Query.this.toString());
+						throw new IllegalStateException("exceeded hard limit of " + sizeLimit + ": " + this);
 
 					int columnIndex = 1;
 					final Object[] resultRow = (selects.length > 1) ? new Object[selects.length] : null;

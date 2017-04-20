@@ -70,31 +70,31 @@ final class SamplerStep
 
 		// gather data
 		final long start = System.nanoTime();
-		this.date = new Date();
-		this.initialized = sampledModel.getInitializeDate();
-		this.connected = sampledModel.getConnectDate();
-		this.connectionPoolInfo = sampledModel.getConnectionPoolInfo();
-		this.nextTransactionId = sampledModel.getNextTransactionId();
-		this.transactionCounters = sampledModel.getTransactionCounters();
+		date = new Date();
+		initialized = sampledModel.getInitializeDate();
+		connected = sampledModel.getConnectDate();
+		connectionPoolInfo = sampledModel.getConnectionPoolInfo();
+		nextTransactionId = sampledModel.getNextTransactionId();
+		transactionCounters = sampledModel.getTransactionCounters();
 		final Collection<Transaction> openTransactions = sampledModel.getOpenTransactions();
-		this.itemCacheStatistics = sampledModel.getItemCacheStatistics();
-		this.queryCacheInfo = sampledModel.getQueryCacheInfo();
-		this.changeListenerInfo = sampledModel.getChangeListenersInfo();
-		this.changeListenerDispatcherInfo = sampledModel.getChangeListenerDispatcherInfo();
-		this.mediasNoSuchPath = MediaPath.getNoSuchPath();
+		itemCacheStatistics = sampledModel.getItemCacheStatistics();
+		queryCacheInfo = sampledModel.getQueryCacheInfo();
+		changeListenerInfo = sampledModel.getChangeListenersInfo();
+		changeListenerDispatcherInfo = sampledModel.getChangeListenerDispatcherInfo();
+		mediasNoSuchPath = MediaPath.getNoSuchPath();
 		{
 			int i = 0;
 			for(final MediaPath path : medias)
 				mediaInfos[i++] = path.getInfo();
 		}
-		this.clusterSenderInfo = sampledModel.getClusterSenderInfo();
-		this.clusterListenerInfo = sampledModel.getClusterListenerInfo();
-		this.duration = System.nanoTime() - start;
+		clusterSenderInfo = sampledModel.getClusterSenderInfo();
+		clusterListenerInfo = sampledModel.getClusterListenerInfo();
+		duration = System.nanoTime() - start;
 
 		// process data
-		this.itemCacheInfos = itemCacheStatistics.getDetails();
-		this.mediaSummary = new MediaSummary(mediaInfos);
-		this.transactions = new ArrayList<>(openTransactions.size());
+		itemCacheInfos = itemCacheStatistics.getDetails();
+		mediaSummary = new MediaSummary(mediaInfos);
+		transactions = new ArrayList<>(openTransactions.size());
 		{
 			final long threshold = date.getTime() - transactionDuration;
 			for(final Transaction transaction : openTransactions)
@@ -105,14 +105,14 @@ final class SamplerStep
 		}
 		if(clusterListenerInfo!=null)
 		{
-			this.clusterListenerInfoNodes = new HashMap<>();
+			clusterListenerInfoNodes = new HashMap<>();
 			for(final ClusterListenerInfo.Node node : clusterListenerInfo.getNodes())
-				if(this.clusterListenerInfoNodes.putIfAbsent(node.getID(), node)!=null)
+				if(clusterListenerInfoNodes.putIfAbsent(node.getID(), node)!=null)
 					throw new RuntimeException("" + node.getID());
 		}
 		else
 		{
-			this.clusterListenerInfoNodes = null;
+			clusterListenerInfoNodes = null;
 		}
 	}
 

@@ -178,7 +178,7 @@ public final class PasswordLimiter extends Pattern
 		final Query<Refusal> query = getCheckQuery(item, now);
 		if(query.total()>=limit)
 		{
-			query.setOrderBy(this.date, true);
+			query.setOrderBy(date, true);
 			query.setLimit(0, 1);
 			// TODO use one query to compute both
 			throw new ExceededException(
@@ -195,7 +195,7 @@ public final class PasswordLimiter extends Pattern
 		return
 			mount.refusalType.newQuery(Cope.and(
 				Cope.equalAndCast(mount.parent, item),
-				this.date.greater(getExpiryDate(now))));
+				date.greater(getExpiryDate(now))));
 	}
 
 	private boolean checkInternally(@Nonnull final Item item, @Nullable final String password, final long now)
@@ -274,7 +274,7 @@ public final class PasswordLimiter extends Pattern
 		final long now = Clock.currentTimeMillis();
 		Delete.delete(
 				mount().refusalType.newQuery(
-						this.date.less(getExpiryDate(now))),
+						date.less(getExpiryDate(now))),
 				"PasswordLimiter#purge " + getID(),
 				ctx);
 	}
