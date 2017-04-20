@@ -46,7 +46,7 @@ public abstract class Feature implements Serializable
 	static final CharSet NAME_CHAR_SET = new CharSet('-', '-', '0', '9', 'A', 'Z', 'a', 'z');
 	private Mount mountIfMounted = null;
 
-	private static abstract class Mount
+	private abstract static class Mount
 	{
 		final AbstractType<?> type;
 		final String name;

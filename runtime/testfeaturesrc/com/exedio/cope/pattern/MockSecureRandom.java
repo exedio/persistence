@@ -99,7 +99,7 @@ public final class MockSecureRandom extends SecureRandom
 	}
 
 	@Override
-	synchronized public double nextGaussian()
+	public synchronized double nextGaussian()
 	{
 		throw new RuntimeException();
 	}
@@ -111,7 +111,7 @@ public final class MockSecureRandom extends SecureRandom
 	}
 
 	@Override
-	synchronized public void setSeed(final byte[] seed)
+	public synchronized void setSeed(final byte[] seed)
 	{
 		throw new RuntimeException();
 	}

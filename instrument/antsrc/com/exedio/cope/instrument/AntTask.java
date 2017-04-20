@@ -321,7 +321,7 @@ public final class AntTask extends Task
 		addTo.add(fileOrDir);
 	}
 
-	public final static class Ignore
+	public static final class Ignore
 	{
 		final boolean dontIgnore;
 		final List<FileSet> fileSets = new ArrayList<>();

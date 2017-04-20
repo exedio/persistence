@@ -413,14 +413,14 @@ public class Hash extends Pattern implements HashInterface
 	/** Validate plain text for potential limits, to be specified in sub classes */
 	public abstract static class PlainTextValidator
 	{
-		abstract protected void validate(String plainText, Item exceptionItem, Hash hash) throws
+		protected abstract void validate(String plainText, Item exceptionItem, Hash hash) throws
 			InvalidPlainTextException;
 
 		/**
 		 * Creates a plain text variant to redeem an existing password (password forgotten).
 		 * The result MUST be valid according to {@link #validate(String, Item, Hash)}.
 		 */
-		abstract protected String newRandomPlainText(SecureRandom secureRandom);
+		protected abstract String newRandomPlainText(SecureRandom secureRandom);
 	}
 
 	/** Default implementation  */

@@ -101,7 +101,7 @@ public class ExpectingDatabaseListener implements TestDatabaseListener
 		return result;
 	}
 
-	static abstract class Call
+	abstract static class Call
 	{
 		final Transaction tx;
 

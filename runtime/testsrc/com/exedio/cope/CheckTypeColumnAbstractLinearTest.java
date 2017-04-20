@@ -105,7 +105,7 @@ public class CheckTypeColumnAbstractLinearTest extends TestWithEnvironment
 	}
 
 
-	static abstract class Type0A extends Item
+	abstract static class Type0A extends Item
 	{
 
 	/**
@@ -207,7 +207,7 @@ public class CheckTypeColumnAbstractLinearTest extends TestWithEnvironment
 }
 
 
-	static abstract class Type02A extends Type0A
+	abstract static class Type02A extends Type0A
 	{
 
 	/**

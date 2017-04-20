@@ -288,7 +288,7 @@ public class JoinWithInheritanceTest extends TestWithEnvironment
 	protected Container(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }
 
-	static abstract class Article extends Item
+	abstract static class Article extends Item
 	{
 
 

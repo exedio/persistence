@@ -33,7 +33,7 @@ final class TreeApiHelper
 		return result;
 	}
 
-	static private int toModifiersInt(final Modifier flag)
+	private static int toModifiersInt(final Modifier flag)
 	{
 		switch (flag)
 		{

@@ -28,7 +28,7 @@ import com.exedio.cope.instrument.testlib.LibItem;
 class LibUser extends LibItem<String>
 {
 	/** check that we can access a field in the initialization of feature {@link #simple}: */
-	private final static boolean CONSTANT_FOR_FALSE = false;
+	private static final boolean CONSTANT_FOR_FALSE = false;
 
 	static final FilterFeature filter=new FilterFeature(option);
 

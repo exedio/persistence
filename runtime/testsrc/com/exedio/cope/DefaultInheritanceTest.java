@@ -64,7 +64,7 @@ public class DefaultInheritanceTest extends TestWithEnvironment
 		assertEquals(false, item.getField());
 	}
 
-	static abstract class Alpha extends Item
+	abstract static class Alpha extends Item
 	{
 		static final BooleanField field = new BooleanField().defaultTo(false);
 

@@ -179,7 +179,7 @@ public class LocalizationKeysPatternTest
 	}
 
 	@WrapperType(constructor=NONE, indent=2, comments=false)
-	final static class MyComp extends Composite
+	static final class MyComp extends Composite
 	{
 		@WrapperIgnore
 		static final IntegerField compField = new IntegerField();
@@ -200,7 +200,7 @@ public class LocalizationKeysPatternTest
 	private static final CompositeType<MyComp> MyComp_TYPE = MyItem.itemComp.getValueType();
 
 	@WrapperType(constructor=NONE, indent=2, comments=false)
-	final static class MyBlok extends Block
+	static final class MyBlok extends Block
 	{
 		@WrapperIgnore
 		static final IntegerField blokField = new IntegerField();

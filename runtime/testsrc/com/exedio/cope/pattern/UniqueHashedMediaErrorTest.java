@@ -121,7 +121,7 @@ public class UniqueHashedMediaErrorTest
 					e.getMessage());
 		}
 	}
-	@WrapperIgnore static abstract class AbstractItem extends Item
+	@WrapperIgnore abstract static class AbstractItem extends Item
 	{
 		static final UniqueHashedMedia value = new UniqueHashedMedia(new Media());
 
