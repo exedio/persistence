@@ -122,7 +122,7 @@ public abstract class MediaPath extends Pattern
 		this.mountIfMounted = new Mount(this);
 	}
 
-	private Mount mount()
+	private Mount mountPath()
 	{
 		final Mount result = this.mountIfMounted;
 		if(result==null)
@@ -132,17 +132,17 @@ public abstract class MediaPath extends Pattern
 
 	final String getUrlPath()
 	{
-		return mount().urlPath;
+		return mountPath().urlPath;
 	}
 
 	public final boolean isUrlGuessingPrevented()
 	{
-		return mount().preventUrlGuessing;
+		return mountPath().preventUrlGuessing;
 	}
 
 	public final boolean isUrlFingerPrinted()
 	{
-		return mount().urlFingerPrinting;
+		return mountPath().urlFingerPrinting;
 	}
 
 	final String getMediaRootUrl()
@@ -342,7 +342,7 @@ public abstract class MediaPath extends Pattern
 
 		return new Locator(
 				item,
-				mount().urlFingerPrinting ? getLastModified(item) : null,
+				mountPath().urlFingerPrinting ? getLastModified(item) : null,
 				contentType,
 				makeUrlToken(item));
 	}
@@ -362,7 +362,7 @@ public abstract class MediaPath extends Pattern
 
 	private String makeUrlToken(final Item item)
 	{
-		if(!mount().preventUrlGuessing)
+		if(!mountPath().preventUrlGuessing)
 			return null;
 
 		final String sss = connectProperties().getMediaUrlSecret();
@@ -385,7 +385,7 @@ public abstract class MediaPath extends Pattern
 
 	private String makeUrlToken(final String itemID)
 	{
-		if(!mount().preventUrlGuessing)
+		if(!mountPath().preventUrlGuessing)
 			return null;
 
 		final String sss = connectProperties().getMediaUrlSecret();
