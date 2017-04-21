@@ -274,7 +274,7 @@ public final class Model implements Serializable
 
 	public List<Type<?>> getConcreteTypes()
 	{
-		return types.concreteTypeList;
+		return types.concreteTypes;
 	}
 
 	/**
@@ -558,7 +558,7 @@ public final class Model implements Serializable
 
 	public ItemCacheStatistics getItemCacheStatistics()
 	{
-		return connect().itemCache.getStatistics(types.concreteTypeList);
+		return connect().itemCache.getStatistics(types.concreteTypes);
 	}
 
 	public QueryCacheInfo getQueryCacheInfo()

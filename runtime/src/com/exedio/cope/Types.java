@@ -32,13 +32,12 @@ import java.util.ListIterator;
 
 final class Types
 {
-	private final Type<?>[] concreteTypes;
 	private final Type<?>[] typesSorted;
 	private final Type<?>[] typesByCacheIdTransiently;
 	final int concreteTypeCount;
 	final List<Type<?>> typeList;
 	final List<Type<?>> typeListSorted;
-	final List<Type<?>> concreteTypeList;
+	final List<Type<?>> concreteTypes;
 	private final HashMap<String, Type<?>> typesByID = new HashMap<>();
 	private final HashMap<String, Feature> featuresByID = new HashMap<>();
 
@@ -137,13 +136,11 @@ final class Types
 
 		this.typeList = Collections.unmodifiableList(typesL);
 		this.concreteTypeCount = concreteTypeCount;
-		this.concreteTypes = concreteTypes.toArray(new Type<?>[concreteTypeCount]);
-		this.concreteTypeList = Collections.unmodifiableList(Arrays.asList(this.concreteTypes));
+		this.concreteTypes = Collections.unmodifiableList(concreteTypes);
 		this.typesSorted = typesSorted.toArray(new Type<?>[typesSorted.size()]);
 		this.typeListSorted = Collections.unmodifiableList(Arrays.asList(this.typesSorted));
 
-		assert this.concreteTypeCount==this.concreteTypes.length;
-		assert this.concreteTypeCount==this.concreteTypeList.size();
+		assert this.concreteTypeCount==this.concreteTypes.size();
 	}
 
 	@SuppressFBWarnings("PZLA_PREFER_ZERO_LENGTH_ARRAYS")
