@@ -32,8 +32,8 @@ public final class TypeSet
 	public TypeSet(final Type<?>... explicitTypes)
 	{
 		check(explicitTypes);
-		this.explicitTypes = explicitTypes;
-		this.explicitTypesList = Collections.unmodifiableList(Arrays.asList(explicitTypes));
+		this.explicitTypes = com.exedio.cope.misc.Arrays.copyOf(explicitTypes);
+		this.explicitTypesList = Collections.unmodifiableList(Arrays.asList(this.explicitTypes));
 	}
 
 	static void check(final Type<?>... explicitTypes)
