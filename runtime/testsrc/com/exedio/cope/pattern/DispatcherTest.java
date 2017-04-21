@@ -416,7 +416,7 @@ public class DispatcherTest extends TestWithEnvironment
 
 		ExpectedRun(final Date date, final Result result, final boolean success)
 		{
-			this.date = date;
+			this.date = new Date(date.getTime()); // Date is not immutable
 			this.result = result;
 			this.success = success;
 			assertNotNull(date);

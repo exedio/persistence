@@ -751,8 +751,8 @@ public class ScheduleTest extends TestWithEnvironment
 		Log(final ScheduleItem item, final Date from, final Date until, final String transactionName)
 		{
 			this.item = item;
-			this.from = from;
-			this.until = until;
+			this.from = new Date(from.getTime()); // Date is not immutable
+			this.until = new Date(until.getTime()); // Date is not immutable
 			this.transactionName = transactionName;
 			assertNotNull(item);
 			assertNotNull(from);
