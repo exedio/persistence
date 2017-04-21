@@ -133,7 +133,7 @@ public final class Features
 	@Deprecated
 	Features(final LinkedHashMap<String, Feature> map)
 	{
-		this.map = map;
+		this.map = new LinkedHashMap<>(map);
 		this.set = new HashSet<>(map.values());
 		if(map.size()!=set.size())
 			throw new IllegalArgumentException("map contains duplicate features: " + map.toString());
