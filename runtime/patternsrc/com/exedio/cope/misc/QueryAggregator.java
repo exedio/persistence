@@ -35,9 +35,16 @@ public final class QueryAggregator<R>
 	private int offset = 0;
 	private int limit = -1;
 
-	public QueryAggregator(final List<Query<? extends R>> queries)
+	private QueryAggregator(
+			final List<Query<? extends R>> queries,
+			@SuppressWarnings("unused") final double dummy)
 	{
 		this.queries = queries;
+	}
+
+	public QueryAggregator(final List<Query<? extends R>> queries)
+	{
+		this(new ArrayList<>(queries), 0.0);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -45,7 +52,7 @@ public final class QueryAggregator<R>
 			final Query<? extends R> query1,
 			final Query<? extends R> query2)
 	{
-		return new QueryAggregator<>(java.util.Arrays.asList(query1, query2));
+		return new QueryAggregator<>(java.util.Arrays.asList(query1, query2), 0.0);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -54,12 +61,12 @@ public final class QueryAggregator<R>
 			final Query<? extends R> query2,
 			final Query<? extends R> query3)
 	{
-		return new QueryAggregator<>(java.util.Arrays.asList(query1, query2, query3));
+		return new QueryAggregator<>(java.util.Arrays.asList(query1, query2, query3), 0.0);
 	}
 
 	public List<Query<? extends R>> getQueries()
 	{
-		return queries;
+		return unmodifiableList(queries);
 	}
 
 	/**

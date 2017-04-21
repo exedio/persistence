@@ -22,6 +22,7 @@ import static com.exedio.cope.misc.QueryAggregatorItem.TYPE;
 import static com.exedio.cope.misc.QueryAggregatorItem.intx;
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
 import static com.exedio.cope.tojunit.Assert.list;
+import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
@@ -72,7 +73,8 @@ public class QueryAggregatorTest extends TestWithEnvironment
 
 	@Test public void testIt()
 	{
-		assertEquals(list(q1, q2, q3), ag.getQueries());
+		assertEqualsUnmodifiable(list(q1, q2, q3), new QueryAggregator<>(asList(q1, q2, q3)).getQueries());
+		assertEqualsUnmodifiable(list(q1, q2, q3), ag.getQueries());
 		{
 			final Query<QueryAggregatorItem> q1Bad = TYPE.newQuery(intx.between(0, 1));
 			final Query<QueryAggregatorItem> q2Bad = TYPE.newQuery(intx.between(2, 3));
