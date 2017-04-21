@@ -27,7 +27,7 @@ import javax.servlet.http.HttpServletRequest;
 final class ErrorLog
 {
 	private final int capacity;
-	private int value = 0;
+	private final VolatileInt value = new VolatileInt();
 	private final ArrayDeque<MediaRequestLog> logs;
 
 	ErrorLog()
@@ -48,9 +48,10 @@ final class ErrorLog
 				exception,
 				request);
 
+		value.inc();
+
 		synchronized(logs)
 		{
-			value++;
 			if(logs.size()>=capacity)
 				logs.removeFirst();
 			logs.addLast(log);
@@ -59,7 +60,7 @@ final class ErrorLog
 
 	int get()
 	{
-		return value;
+		return value.get();
 	}
 
 	List<MediaRequestLog> getLogs()
