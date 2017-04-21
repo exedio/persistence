@@ -361,12 +361,12 @@ public final class MediaType
 		private final MediaType[] types;
 		private final String[] typeNames;
 
-		Magic(final byte[] magic, final ArrayList<MediaType> types)
+		Magic(final String magic, final ArrayList<MediaType> types)
 		{
-			this.magic = magic;
+			this.magic = Hex.decodeLower(magic);
 			this.types = types.toArray(new MediaType[types.size()]);
 			this.typeNames = names(this.types);
-			assert magic!=null && magic.length<=MAGIC_MAX_LENGTH : Hex.encodeLower(magic);
+			assert magic!=null && this.magic.length<=MAGIC_MAX_LENGTH : magic;
 		}
 
 		private static String[] names(final MediaType[] types)
@@ -416,7 +416,7 @@ public final class MediaType
 		final Magic[] result = new Magic[map.size()];
 		int i = 0;
 		for(final Map.Entry<String, ArrayList<MediaType>> e : map.entrySet())
-			result[i++] = new Magic(Hex.decodeLower(e.getKey()), e.getValue());
+			result[i++] = new Magic(e.getKey(), e.getValue());
 		return result;
 	}
 
