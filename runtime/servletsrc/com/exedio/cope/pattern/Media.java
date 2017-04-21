@@ -240,6 +240,7 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 	}
 
 	// cannot make this method public, because the instrumentor (i.e. beanshell) does not work with varargs
+	// BEWARE: if this method was public it had to copy parameter
 	private Media contentTypes(final String... types)
 	{
 		return new Media(isfinal, optional, body.getMaximumLength(), new EnumContentType(types, isfinal, optional));
