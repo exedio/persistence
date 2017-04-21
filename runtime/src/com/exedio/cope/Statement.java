@@ -305,7 +305,7 @@ final class Statement
 		else
 		{
 			this.text.append(QUESTION_MARK);
-			this.parameters.add(Integer.valueOf(value));
+			this.parameters.add(value);
 		}
 		return this;
 	}

@@ -71,7 +71,7 @@ final class DoubleColumn extends Column
 	{
 		if(sqlDouble instanceof BigDecimal)
 		{
-			return Double.valueOf(((BigDecimal)sqlDouble).doubleValue()); // for SumAggregate on Oracle
+			return ((BigDecimal)sqlDouble).doubleValue(); // for SumAggregate on Oracle
 		}
 		else
 		{

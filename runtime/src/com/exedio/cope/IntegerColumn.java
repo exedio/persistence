@@ -212,14 +212,14 @@ class IntegerColumn extends Column
 			if(sqlInteger instanceof Long)
 				return (Long)sqlInteger;
 			else
-				return Long.valueOf(((Number)sqlInteger).longValue());
+				return ((Number)sqlInteger).longValue();
 		}
 		else
 		{
 			if(sqlInteger instanceof Integer)
 				return (Integer)sqlInteger;
 			else
-				return Integer.valueOf(((Number)sqlInteger).intValue());
+				return ((Number)sqlInteger).intValue();
 		}
 	}
 

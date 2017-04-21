@@ -191,7 +191,7 @@ public final class DayField extends FunctionField<Day>
 	@Override
 	void set(final Row row, final Day surface)
 	{
-		row.put(getColumn(), surface==null ? null : Integer.valueOf(DayColumn.getTransientNumber(surface)));
+		row.put(getColumn(), surface==null ? null : DayColumn.getTransientNumber(surface));
 	}
 
 	/**

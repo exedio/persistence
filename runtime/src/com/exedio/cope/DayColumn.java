@@ -57,7 +57,7 @@ final class DayColumn extends Column
 	{
 		final java.sql.Date loadedDate = resultSet.getDate(columnIndex);
 		//System.out.println("DayColumn.load "+columnIndex+" "+loadedDate);
-		row.put(this, (loadedDate!=null) ? Integer.valueOf(getTransientNumber(DayField.unmarshal(loadedDate))) : null);
+		row.put(this, (loadedDate!=null) ? getTransientNumber(DayField.unmarshal(loadedDate)) : null);
 	}
 
 	@Override

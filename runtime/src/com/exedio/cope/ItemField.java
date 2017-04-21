@@ -415,7 +415,7 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 		else
 		{
 			final Item valueItem = surface;
-			row.put(getColumn(), Long.valueOf(valueItem.pk));
+			row.put(getColumn(), valueItem.pk);
 			if(typeColumn!=null)
 				row.put(typeColumn, valueItem.type.schemaId);
 		}

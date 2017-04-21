@@ -421,7 +421,7 @@ public final class DateField extends FunctionField<Date>
 	@Override
 	void set(final Row row, final Date surface)
 	{
-		row.put(getColumn(), surface==null ? null : Long.valueOf(surface.getTime()));
+		row.put(getColumn(), surface==null ? null : surface.getTime());
 	}
 
 	@Override

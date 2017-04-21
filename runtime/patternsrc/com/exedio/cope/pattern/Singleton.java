@@ -33,7 +33,7 @@ public final class Singleton extends Pattern
 	private static final long serialVersionUID = 1l;
 
 	private static final int THE_ONE = 42;
-	private static final Integer THE_ONE_OBJECT = Integer.valueOf(THE_ONE);
+	private static final Integer THE_ONE_OBJECT = THE_ONE;
 
 	private final IntegerField source =
 		new IntegerField().toFinal().unique().

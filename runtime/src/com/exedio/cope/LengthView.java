@@ -47,7 +47,7 @@ public final class LengthView extends NumberView<Integer>
 	{
 		assert sourceValues.length==1;
 		final Object sourceValue = sourceValues[0];
-		return sourceValue==null ? null : Integer.valueOf(((String)sourceValue).length());
+		return sourceValue==null ? null : ((String)sourceValue).length();
 	}
 
 	@Override

@@ -99,7 +99,7 @@ final class TimestampColumn extends Column
 		else
 		{
 			assert noNanos(ts) : ts;
-			rowValue = Long.valueOf(ts.getTime());
+			rowValue = ts.getTime();
 		}
 
 		row.put(this, rowValue);

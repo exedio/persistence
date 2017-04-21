@@ -94,11 +94,11 @@ final class Marshallers
 				if(cell instanceof Integer)
 					return (Integer)cell;
 				else if(cell instanceof Long)
-					return Integer.valueOf(Math.toIntExact((Long)cell));
+					return Math.toIntExact((Long)cell);
 				else if(cell instanceof BigDecimal)
-					return Integer.valueOf(((BigDecimal)cell).intValueExact());
+					return ((BigDecimal)cell).intValueExact();
 				else if(cell instanceof Double) // needed for DayPartView on postgresql
-					return Integer.valueOf(BigDecimal.valueOf((Double)cell).intValueExact());
+					return BigDecimal.valueOf((Double)cell).intValueExact();
 				else
 					throw new RuntimeException("" + cell + '/' + cell.getClass().getName());
 			}
@@ -129,7 +129,7 @@ final class Marshallers
 				else if(o instanceof Integer)
 					return Long.valueOf((Integer)o);
 				else if(o instanceof BigDecimal)
-					return Long.valueOf(((BigDecimal)o).longValueExact());
+					return ((BigDecimal)o).longValueExact();
 				else
 					throw new RuntimeException("" + o + '/' + o.getClass().getName());
 			}
@@ -157,7 +157,7 @@ final class Marshallers
 			private Double convert(final Object o)
 			{
 				if(o instanceof BigDecimal)
-					return Double.valueOf(((BigDecimal)o).doubleValue()); // for SumAggregate on Oracle
+					return ((BigDecimal)o).doubleValue(); // for SumAggregate on Oracle
 				else
 					return (Double)o;
 			}
