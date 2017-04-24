@@ -35,6 +35,7 @@ import com.exedio.cope.instrument.WrapFeature;
 import com.exedio.cope.misc.EnumAnnotatedElement;
 import com.exedio.cope.misc.ReflectionTypes;
 import com.exedio.cope.misc.instrument.FinalSettableGetter;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Collections;
 import java.util.EnumMap;
 import java.util.EnumSet;
@@ -122,6 +123,7 @@ public final class EnumSetField<E extends Enum<E>> extends Pattern implements Se
 	 */
 	@Wrap(order=40)
 	@Nonnull
+	@SuppressFBWarnings("WMI_WRONG_MAP_ITERATOR") // OK for EnumSet
 	public EnumSet<E> get(@Nonnull final Item item)
 	{
 		final EnumSet<E> result = EnumSet.noneOf(elementClass);
@@ -134,6 +136,7 @@ public final class EnumSetField<E extends Enum<E>> extends Pattern implements Se
 	}
 
 	@Wrap(order=50, hide=FinalSettableGetter.class)
+	@SuppressFBWarnings("WMI_WRONG_MAP_ITERATOR") // OK for EnumSet
 	public void set(@Nonnull final Item item, @Nonnull final EnumSet<E> value)
 	{
 		FinalViolationException.check(this, item);
