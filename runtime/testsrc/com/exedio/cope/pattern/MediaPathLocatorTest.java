@@ -25,6 +25,7 @@ import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertSame;
 
 import com.exedio.cope.TestWithEnvironment;
+import com.exedio.cope.pattern.MediaPath.Locator;
 import org.junit.Test;
 
 public final class MediaPathLocatorTest extends TestWithEnvironment
@@ -43,11 +44,11 @@ public final class MediaPathLocatorTest extends TestWithEnvironment
 		i2.setNormalContentType("two/normal");
 		i2.setFingerContentType("two/finger");
 
-		final MediaPath.Locator l1a = i1.getNormalLocator();
-		final MediaPath.Locator l1b = i1.getFingerLocator();
-		final MediaPath.Locator l2a = i2.getNormalLocator();
-		final MediaPath.Locator l2b = i2.getFingerLocator();
-		final MediaPath.Locator l1aX = i1.getNormalLocator();
+		final Locator l1a = i1.getNormalLocator();
+		final Locator l1b = i1.getFingerLocator();
+		final Locator l2a = i2.getNormalLocator();
+		final Locator l2b = i2.getFingerLocator();
+		final Locator l1aX = i1.getNormalLocator();
 
 		// locator methods must work without transaction
 		model.commit();

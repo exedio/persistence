@@ -23,13 +23,14 @@ import static org.junit.Assert.assertSame;
 
 import com.exedio.cope.Model;
 import com.exedio.cope.Transaction;
+import com.exedio.cope.pattern.MediaPath.Locator;
 
 public final class MediaLocatorAssert
 {
 	public static void assertLocator(
 			final MediaPath feature,
 			final String path,
-			final MediaPath.Locator locator)
+			final Locator locator)
 	{
 		final Model model = feature.getType().getModel();
 
@@ -53,7 +54,7 @@ public final class MediaLocatorAssert
 
 	public static void assertLocator(
 			final String expectedPath,
-			final MediaPath.Locator actualLocator)
+			final Locator actualLocator)
 	{
 		assertEquals(expectedPath, actualLocator!=null ? actualLocator.getPath() : null);
 	}
