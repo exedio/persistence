@@ -52,6 +52,11 @@ public class MediaMandatoryTest extends TestWithEnvironment
 {
 	private static final Model MODEL = new Model(TYPE);
 
+	static
+	{
+		MODEL.enableSerialization(MediaMandatoryTest.class, "MODEL");
+	}
+
 	public MediaMandatoryTest()
 	{
 		super(MODEL);

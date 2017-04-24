@@ -18,6 +18,7 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.tojunit.Assert.reserialize;
 import static com.exedio.cope.tojunit.EqualsAssert.assertEqualsAndHash;
 import static com.exedio.cope.tojunit.EqualsAssert.assertNotEqualsAndHash;
 import static org.junit.Assert.assertEquals;
@@ -76,5 +77,34 @@ public final class MediaPathLocatorTest extends TestWithEnvironment
 		assertEquals("MediaPathItem/finger/MediaPathItem-0", l1b.toString());
 		assertEquals("MediaPathItem/normal/MediaPathItem-1", l2a.toString());
 		assertEquals("MediaPathItem/finger/MediaPathItem-1", l2b.toString());
+
+		final Locator l1as = reserialize(l1a, 722);
+		final Locator l1bs = reserialize(l1b, 722);
+		final Locator l2as = reserialize(l2a, 722);
+		final Locator l2bs = reserialize(l2b, 722);
+
+		assertSame(MediaPathItem.normal, l1as.getFeature());
+		assertSame(MediaPathItem.finger, l1bs.getFeature());
+		assertSame(MediaPathItem.normal, l2as.getFeature());
+		assertSame(MediaPathItem.finger, l2bs.getFeature());
+
+		assertEquals(i1, l1as.getItem());
+		assertEquals(i1, l1bs.getItem());
+		assertEquals(i2, l2as.getItem());
+		assertEquals(i2, l2bs.getItem());
+
+		assertEquals("one/normal", l1as.getContentType());
+		assertEquals("one/finger", l1bs.getContentType());
+		assertEquals("two/normal", l2as.getContentType());
+		assertEquals("two/finger", l2bs.getContentType());
+
+		assertNotSame      (l1a, l1as);
+		assertEqualsAndHash(l1a, l1as);
+		assertNotEqualsAndHash(l1as, l1bs, l2as, l2bs);
+
+		assertEquals("MediaPathItem/normal/MediaPathItem-0", l1as.toString());
+		assertEquals("MediaPathItem/finger/MediaPathItem-0", l1bs.toString());
+		assertEquals("MediaPathItem/normal/MediaPathItem-1", l2as.toString());
+		assertEquals("MediaPathItem/finger/MediaPathItem-1", l2bs.toString());
 	}
 }

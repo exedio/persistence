@@ -44,6 +44,11 @@ public class TextUrlFilterTest extends TestWithEnvironment
 {
 	static final Model MODEL = new Model(TYPE);
 
+	static
+	{
+		MODEL.enableSerialization(TextUrlFilterTest.class, "MODEL");
+	}
+
 	public TextUrlFilterTest()
 	{
 		super(MODEL);

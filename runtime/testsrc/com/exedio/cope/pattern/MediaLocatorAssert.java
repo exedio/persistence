@@ -18,8 +18,11 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.tojunit.Assert.deserialize;
+import static com.exedio.cope.tojunit.Assert.serialize;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 
 import com.exedio.cope.Model;
 import com.exedio.cope.Transaction;
@@ -45,6 +48,11 @@ public final class MediaLocatorAssert
 			final StringBuilder bf = new StringBuilder();
 			locator.appendPath(bf);
 			assertEquals(path, bf.toString());
+
+			final Locator reserialized = reserialize(locator);
+			assertSame(feature, reserialized.getFeature());
+			assertEquals(path, reserialized.getPath());
+			assertEquals(path, reserialized.toString());
 		}
 		finally
 		{
@@ -57,6 +65,16 @@ public final class MediaLocatorAssert
 			final Locator actualLocator)
 	{
 		assertEquals(expectedPath, actualLocator!=null ? actualLocator.getPath() : null);
+
+		if(actualLocator!=null)
+			assertEquals(expectedPath, reserialize(actualLocator).getPath());
+	}
+
+	private static final Locator reserialize(final Locator value)
+	{
+		final byte[] bytes = serialize(value);
+		assertTrue("" + bytes.length, bytes.length<1000);
+		return (Locator)deserialize(bytes);
 	}
 
 

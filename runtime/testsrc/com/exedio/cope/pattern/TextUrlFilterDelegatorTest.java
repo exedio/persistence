@@ -45,6 +45,11 @@ public class TextUrlFilterDelegatorTest extends TestWithEnvironment
 {
 	static final Model MODEL = new Model(TYPE);
 
+	static
+	{
+		MODEL.enableSerialization(TextUrlFilterDelegatorTest.class, "MODEL");
+	}
+
 	public TextUrlFilterDelegatorTest()
 	{
 		super(MODEL);

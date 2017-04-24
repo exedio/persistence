@@ -52,6 +52,11 @@ public class MediaFinalTest extends TestWithEnvironment
 {
 	private static final Model MODEL = new Model(TYPE);
 
+	static
+	{
+		MODEL.enableSerialization(MediaFinalTest.class, "MODEL");
+	}
+
 	public MediaFinalTest()
 	{
 		super(MODEL);
