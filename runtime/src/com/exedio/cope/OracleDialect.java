@@ -522,6 +522,7 @@ final class OracleDialect extends Dialect
 	}
 
 	@Override
+	@SuppressFBWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
 	void deleteSchema(
 			final List<Table> tables,
 			final List<SequenceX> sequences,

@@ -533,6 +533,7 @@ final class MysqlDialect extends Dialect
 	}
 
 	@Override
+	@SuppressFBWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
 	void deleteSchema(
 			final List<Table> tables,
 			final List<SequenceX> sequences,
@@ -561,6 +562,7 @@ final class MysqlDialect extends Dialect
 			execute(connectionPool, bf.toString());
 	}
 
+	@SuppressFBWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
 	private static void execute(final ConnectionPool connectionPool, final String sql)
 	{
 		@SuppressWarnings("resource") // OK: must not put into connection pool on failure
@@ -670,6 +672,7 @@ final class MysqlDialect extends Dialect
 	}
 
 	@Override
+	@SuppressFBWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
 	void purgeSchema(
 			final JobContext ctx,
 			final Database database,

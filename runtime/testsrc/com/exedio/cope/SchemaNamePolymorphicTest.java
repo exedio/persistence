@@ -27,12 +27,14 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import com.exedio.cope.tojunit.ConnectionRule;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.RuleChain;
 
+@SuppressFBWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
 public class SchemaNamePolymorphicTest extends TestWithEnvironment
 {
 	public static final Model MODEL = new Model(
