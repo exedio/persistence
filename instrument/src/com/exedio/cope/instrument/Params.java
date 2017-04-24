@@ -20,6 +20,7 @@ package com.exedio.cope.instrument;
 
 import static com.exedio.cope.misc.Check.requireNonNegative;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.File;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
@@ -84,6 +85,7 @@ final class Params
 		return result;
 	}
 
+	@SuppressFBWarnings("NP_NULL_ON_SOME_PATH_FROM_RETURN_VALUE") // OK: checks isDirectory before calling listFiles
 	private static void collectFiles(final List<File> collectInto, final File fileOrDir)
 	{
 		if (!fileOrDir.exists())

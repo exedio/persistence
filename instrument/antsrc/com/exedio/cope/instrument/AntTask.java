@@ -18,6 +18,7 @@
 
 package com.exedio.cope.instrument;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
@@ -304,6 +305,7 @@ public final class AntTask extends Task
 		}
 	}
 
+	@SuppressFBWarnings("NP_NULL_ON_SOME_PATH_FROM_RETURN_VALUE") // OK: checks isDirectory before calling listFiles
 	private void addRecursively(final File fileOrDir, final List<File> addTo, final boolean expandDirectories)
 	{
 		if (!fileOrDir.exists())
