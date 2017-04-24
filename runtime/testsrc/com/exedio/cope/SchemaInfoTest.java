@@ -28,6 +28,7 @@ import static com.exedio.cope.SchemaInfo.quoteName;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.Test;
 
 public class SchemaInfoTest extends TestWithEnvironment
@@ -37,6 +38,7 @@ public class SchemaInfoTest extends TestWithEnvironment
 		super(InstanceOfModelTest.MODEL);
 	}
 
+	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT")
 	@Test public void testSchemaInfo()
 	{
 		// quoteName

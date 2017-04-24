@@ -149,6 +149,7 @@ public class MediaTypeMediaTest
 		assertEquals(Condition.FALSE, m.bodyMismatchesContentType());
 	}
 
+	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT")
 	@Test public void testAllowed()
 	{
 		final MediaType jpg = forName("image/jpeg");

@@ -32,6 +32,7 @@ import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.Type;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.Test;
 
 public class PatternTest extends TestWithEnvironment
@@ -43,6 +44,7 @@ public class PatternTest extends TestWithEnvironment
 		super(MODEL);
 	}
 
+	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT")
 	@Test public void testIt()
 	{
 		// type
