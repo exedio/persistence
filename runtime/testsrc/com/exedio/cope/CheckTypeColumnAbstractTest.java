@@ -23,6 +23,7 @@ import static org.junit.Assert.assertEquals;
 
 import com.exedio.cope.tojunit.ConnectionRule;
 import com.exedio.cope.tojunit.SI;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.sql.SQLException;
 import org.junit.After;
 import org.junit.Before;
@@ -64,6 +65,7 @@ public class CheckTypeColumnAbstractTest extends TestWithEnvironment
 	}
 
 
+	@SuppressFBWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
 	private <T extends Item> void deleteRow(
 			final Type<T> type,
 			final T item)
@@ -74,6 +76,7 @@ public class CheckTypeColumnAbstractTest extends TestWithEnvironment
 			"where " + SI.pk(type) + "=" + getPrimaryKeyColumnValueL(item));
 	}
 
+	@SuppressFBWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
 	private void execute(final String sql) throws SQLException
 	{
 		final String transactionName = model.currentTransaction().getName();

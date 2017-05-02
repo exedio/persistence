@@ -670,6 +670,7 @@
 			<classpath>
 				<pathelement location="build/classes/instrument/src" />
 				<pathelement location="lib/bsh-core.jar" />
+				<pathelement location="lib/findbugs-annotations.jar" />
 			</classpath>
 		</compile>
 	</target>

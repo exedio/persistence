@@ -23,6 +23,7 @@ import static java.lang.System.lineSeparator;
 
 import com.exedio.cope.util.Clock;
 import com.exedio.cope.util.StrictFile;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -169,6 +170,7 @@ final class Main
 		return new URLClassLoader(urls.toArray(new URL[urls.size()]), getClass().getClassLoader());
 	}
 
+	@SuppressFBWarnings("NP_NULL_ON_SOME_PATH_FROM_RETURN_VALUE") // OK: checks isDirectory before calling listFiles
 	private static boolean noFilesModifiedAfter(final Iterable<File> checkFiles, final File referenceFile, final boolean verbose)
 	{
 		if ( referenceFile==null || !referenceFile.exists() )

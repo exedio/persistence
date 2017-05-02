@@ -70,6 +70,7 @@ public class SetValueUtilTest
 		assertEquals(expectedValue,   getFirst       (setValues.toArray(a), settable));
 	}
 
+	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT")
 	@Test public void testGetFirstNullSetValues()
 	{
 		final StringField f = new StringField();

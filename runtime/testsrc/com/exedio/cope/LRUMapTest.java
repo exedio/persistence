@@ -110,6 +110,7 @@ public class LRUMapTest
 		}
 	}
 
+	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT")
 	private static void assertPerformance(final HashMap<Long, String> map)
 	{
 		System.out.print(' ' + map.getClass().getSimpleName() + ":");

@@ -22,6 +22,7 @@ import com.exedio.dsmf.ConnectionProvider;
 import com.exedio.dsmf.Constraint;
 import com.exedio.dsmf.Schema;
 import com.exedio.dsmf.Sequence;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -157,6 +158,7 @@ final class Database
 		makeSchema().tearDownConstraints(types);
 	}
 
+	@SuppressFBWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
 	void checkEmptySchema(final Connection connection)
 	{
 		buildStage = false;

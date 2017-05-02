@@ -28,6 +28,7 @@ import org.junit.Test;
 
 public class IterablesTest
 {
+	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT")
 	@Test public void testIt()
 	{
 		final Iterator<String> iterator = new Iterator<String>(){

@@ -27,12 +27,14 @@ import static org.junit.Assert.fail;
 
 import com.exedio.cope.tojunit.ConnectionRule;
 import com.exedio.cope.tojunit.SI;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.sql.SQLException;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.RuleChain;
 
+@SuppressFBWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
 public final class UpdateCounterRecoverTest extends TestWithEnvironment
 {
 	public UpdateCounterRecoverTest()

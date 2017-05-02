@@ -32,6 +32,7 @@ import static org.junit.Assert.fail;
 
 import com.exedio.cope.testmodel.AttributeItem;
 import com.exedio.cope.testmodel.EmptyItem;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -73,6 +74,7 @@ public class TransactionTest extends TestmodelTest
 		assertSomeString(item, someString);
 	}
 
+	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT")
 	private static void assertNotExists(final AttributeItem actualItem)
 	{
 		assertTrue(!actualItem.existsCopeItem());

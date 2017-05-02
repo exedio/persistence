@@ -89,6 +89,7 @@ public final class Revision
 		return String.valueOf('R') + number + ':' + comment;
 	}
 
+	@SuppressFBWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
 	RevisionInfoRevise execute(
 			final String savepoint,
 			final Date date,
