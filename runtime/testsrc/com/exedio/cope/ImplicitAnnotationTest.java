@@ -65,12 +65,12 @@ public class ImplicitAnnotationTest extends TestWithEnvironment
 		assertIt("tempComputed", null, "tempComputed", null, true, null, tempComputed);
 
 		assertIt("uniqImplicitUnique", null,   "MyItem_uniqSchema_Unq", null,             false, null,       uniqCon);
-		assertIt("next-Seq",           "next", "MyItem_nextSchema_Seq", "nextSchema-Seq", false, "nextArbi", nextSeq);
+		assertIt("next-Seq",           null,   "MyItem_nextSchema_Seq", "nextSchema-Seq", false, null,       nextSeq);
 		assertIt("copyCopyFromtarg", null, null, null, false, null, copyFrom);
 		assertIt("tempCopyFromtarg", null, null, null, false, null, copyTo  );
 
 		assertIt("uniqComputedImplicitUnique", null, "MyItem_uniqComputed_Unq", null, false, null, uniqComputedCon);
-		assertIt("nextComputed-Seq",           null, "MyItem_nextComputed_Seq", null, true,  null, nextComputedSeq);
+		assertIt("nextComputed-Seq",           null, "MyItem_nextComputed_Seq", null, false, null, nextComputedSeq);
 		assertIt("copyComputedCopyFromtargComputed", null, null, null, false, null, copyComputedFrom);
 		assertIt("tempComputedCopyFromtargComputed", null, null, null, false, null, copyComputedTo  );
 	}

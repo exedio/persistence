@@ -148,10 +148,8 @@ public final class IntegerField extends NumberField<Integer>
 					return getAnnotation(annotationClass)!=null;
 				}
 
-				if(source==null)
-					return false;
-
-				return source.isAnnotationPresent(annotationClass);
+				// do not propagate arbitrary annotations, consistently to UniqueConstraint and CopyConstraint
+				return false;
 			}
 
 			@Override
@@ -167,10 +165,8 @@ public final class IntegerField extends NumberField<Integer>
 					return annotationClass.cast(CopeSchemaNameElement.get(sequenceName(sourceName.value())));
 				}
 
-				if(source==null)
-					return null;
-
-				return source.getAnnotation(annotationClass);
+				// do not propagate arbitrary annotations, consistently to UniqueConstraint and CopyConstraint
+				return null;
 			}
 
 			@Override
