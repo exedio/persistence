@@ -601,7 +601,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 				supertype,
 				typeColumnMinLength,
 				mount().typesOfInstancesColumnValues,
-				!hasFinalTable(),
+				hasUpdateableTable(),
 				createLimit);
 		if(supertype==null)
 		{
@@ -621,15 +621,15 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 				((Sequence)f).connect(database);
 	}
 
-	private boolean hasFinalTable()
+	private boolean hasUpdateableTable()
 	{
 		for(final Field<?> f : fields.all)
 			if(!f.isFinal())
-				return false;
+				return true;
 		for(final Type<?> t : getSubtypes())
-			if(!t.hasFinalTable())
-				return false;
-		return true;
+			if(t.hasUpdateableTable())
+				return true;
+		return false;
 	}
 
 	void disconnect()
