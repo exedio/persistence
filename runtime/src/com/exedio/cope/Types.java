@@ -43,14 +43,13 @@ final class Types
 
 	Types(final Model model, final TypeSet[] typeSets, final Type<?>[] typesWithoutSets)
 	{
-		final Type<?>[] types = unify(typeSets, typesWithoutSets);
-		TypeSet.check(types);
-		for(final Type<?> type : types)
+		final Type<?>[] explicitTypes = unify(typeSets, typesWithoutSets);
+		TypeSet.check(explicitTypes);
+		for(final Type<?> type : explicitTypes)
 			type.assertNotMounted();
 
-		final Type<?>[] explicitTypes = types;
 		final Type<?>[] explicitTypesSorted = sort(explicitTypes);
-		assert types.length==explicitTypesSorted.length;
+		assert explicitTypes.length==explicitTypesSorted.length;
 
 		final ArrayList<Type<?>> typesL = new ArrayList<>();
 		for(final Type<?> type : explicitTypes)
