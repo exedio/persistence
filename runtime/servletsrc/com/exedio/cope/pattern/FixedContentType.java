@@ -32,7 +32,6 @@ final class FixedContentType extends ContentType<Void>
 
 	FixedContentType(final String full)
 	{
-		super();
 		this.full = full;
 	}
 

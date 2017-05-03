@@ -43,7 +43,7 @@ public class LRUMapTest
 		 */
 		DateMap()
 		{
-			super();
+			// empty
 		}
 
 		@Override
