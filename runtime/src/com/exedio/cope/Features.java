@@ -60,7 +60,7 @@ public final class Features
 		if(map.containsKey(name))
 			throw new IllegalArgumentException("already contains the name >" + name + '<');
 		if(set.contains(feature))
-			throw new IllegalArgumentException("already contains the feature >" + feature.toString() + '<');
+			throw new IllegalArgumentException("already contains the feature >" + feature + '<');
 
 		map.put(name, feature);
 		set.add(feature);
@@ -136,7 +136,7 @@ public final class Features
 		this.map = new LinkedHashMap<>(map);
 		this.set = new HashSet<>(map.values());
 		if(map.size()!=set.size())
-			throw new IllegalArgumentException("map contains duplicate features: " + map.toString());
+			throw new IllegalArgumentException("map contains duplicate features: " + map);
 	}
 
 	/**

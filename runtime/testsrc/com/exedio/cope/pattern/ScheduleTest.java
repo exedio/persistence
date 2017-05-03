@@ -782,7 +782,7 @@ public class ScheduleTest extends TestWithEnvironment
 		public String toString()
 		{
 			return
-					item.toString() + "---" +
+					item + "---" +
 					df(true).format(from) + "---" + df(true).format(until) + "---" +
 					transactionName;
 		}

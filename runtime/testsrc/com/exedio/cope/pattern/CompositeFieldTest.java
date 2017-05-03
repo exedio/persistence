@@ -319,7 +319,7 @@ public class CompositeFieldTest extends TestWithEnvironment
 			}
 			catch(final MandatoryViolationException e)
 			{
-				assertEquals("mandatory violation for " + aString.toString(), e.getMessage());
+				assertEquals("mandatory violation for " + aString, e.getMessage());
 			}
 			try
 			{
@@ -328,7 +328,7 @@ public class CompositeFieldTest extends TestWithEnvironment
 			}
 			catch(final MandatoryViolationException e)
 			{
-				assertEquals("mandatory violation for " + aString.toString(), e.getMessage());
+				assertEquals("mandatory violation for " + aString, e.getMessage());
 			}
 			try
 			{

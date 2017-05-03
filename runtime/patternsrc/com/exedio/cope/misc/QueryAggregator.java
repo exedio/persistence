@@ -118,7 +118,7 @@ public final class QueryAggregator<R>
 	{
 		for(final Query<?> q : queries)
 			if(q.getOffset()!=0 || q.getLimit()!=-1)
-				throw new IllegalArgumentException("queries must not be limited, but was: " + q.toString());
+				throw new IllegalArgumentException("queries must not be limited, but was: " + q);
 
 		final List<R> data;
 		int total = 0;

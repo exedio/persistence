@@ -245,7 +245,7 @@ class ClassVisitor extends GeneratedAwareScanner
 		String simpleName=ct.getSimpleName().toString();
 		if ( !ct.getTypeParameters().isEmpty() )
 		{
-			simpleName += "<"+ct.getTypeParameters().toString()+">";
+			simpleName += "<"+ct.getTypeParameters()+">";
 		}
 		return simpleName;
 	}

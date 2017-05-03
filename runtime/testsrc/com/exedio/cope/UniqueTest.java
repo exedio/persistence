@@ -180,7 +180,7 @@ public class UniqueTest extends TestWithEnvironment
 				assertEquals(uniqueString, e.getFeatureForDescription());
 				assertEqualsUnmodifiable(asList(uniqueString), e.getFields());
 				assertEquals(item2, e.getItem());
-				assertEquals("unique violation on " + item2 + " for " + uniqueString.getImplicitUniqueConstraint().toString(), e.getMessage());
+				assertEquals("unique violation on " + item2 + " for " + uniqueString.getImplicitUniqueConstraint(), e.getMessage());
 				assertCause(e);
 			}
 			assertEquals("uniqueString2", item2.getUniqueString());
@@ -198,7 +198,7 @@ public class UniqueTest extends TestWithEnvironment
 		{
 			assertEquals(uniqueString.getImplicitUniqueConstraint(), e.getFeature());
 			assertEquals(null, e.getItem());
-			assertEquals("unique violation for " + uniqueString.getImplicitUniqueConstraint().toString(), e.getMessage());
+			assertEquals("unique violation for " + uniqueString.getImplicitUniqueConstraint(), e.getMessage());
 			assertCause(e);
 		}
 		assertEquals(item, forUniqueString("uniqueString"));
@@ -212,7 +212,7 @@ public class UniqueTest extends TestWithEnvironment
 		{
 			assertEquals(uniqueString.getImplicitUniqueConstraint(), e.getFeature());
 			assertEquals(null, e.getItem());
-			assertEquals("unique violation for " + uniqueString.getImplicitUniqueConstraint().toString(), e.getMessage());
+			assertEquals("unique violation for " + uniqueString.getImplicitUniqueConstraint(), e.getMessage());
 			assertCause(e);
 		}
 		assertEquals(item, forUniqueString("uniqueString"));
@@ -226,7 +226,7 @@ public class UniqueTest extends TestWithEnvironment
 		{
 			assertEquals(uniqueString.getImplicitUniqueConstraint(), e.getFeature());
 			assertEquals(null, e.getItem());
-			assertEquals("unique violation for " + uniqueString.getImplicitUniqueConstraint().toString(), e.getMessage());
+			assertEquals("unique violation for " + uniqueString.getImplicitUniqueConstraint(), e.getMessage());
 			assertCause(e);
 		}
 		assertEquals(item, forUniqueString("uniqueString"));
@@ -325,7 +325,7 @@ public class UniqueTest extends TestWithEnvironment
 		{
 			assertEquals(uniqueString.getImplicitUniqueConstraint(), e.getFeature());
 			assertEquals(item2, e.getItem());
-			assertEquals("unique violation on " + item2 + " for " + uniqueString.getImplicitUniqueConstraint().toString(), e.getMessage());
+			assertEquals("unique violation on " + item2 + " for " + uniqueString.getImplicitUniqueConstraint(), e.getMessage());
 			assertCause(e);
 		}
 		assertEquals("uniqueString2", item2.getUniqueString());

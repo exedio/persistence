@@ -184,7 +184,7 @@ public final class IntegerField extends NumberField<Integer>
 			@Override
 			public String toString()
 			{
-				return DefaultNext.this.toString() + "-sourceFeatureAnnotations";
+				return DefaultNext.this + "-sourceFeatureAnnotations";
 			}
 		}
 	}

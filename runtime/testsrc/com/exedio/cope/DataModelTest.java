@@ -92,7 +92,7 @@ public class DataModelTest
 		assertEquals("DataField.Value:169f13f82382aa7a5613...(11)", toValue(bytes11).toString());
 		assertEquals("DataField.Value:ca47aa7af817e968c12c...(21)", toValue(bytes21).toString());
 		final ByteArrayInputStream testBaos = new ByteArrayInputStream(bytes4);
-		assertEquals("DataField.Value:"+testBaos.toString(), toValue(testBaos).toString());
+		assertEquals("DataField.Value:"+testBaos, toValue(testBaos).toString());
 		assertEquals("DataField.Value:hallo.txt", toValue(new File("hallo.txt")).toString());
 	}
 

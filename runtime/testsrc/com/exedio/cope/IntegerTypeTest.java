@@ -200,7 +200,7 @@ public class IntegerTypeTest extends TestWithEnvironment
 			{
 				statement.execute(
 						oracle
-						? "BEGIN " + bf.toString() + "END;"
+						? "BEGIN " + bf + "END;"
 						: bf.toString());
 			}
 		}

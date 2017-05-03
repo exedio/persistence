@@ -34,7 +34,7 @@ public final class CheckConstraint extends Feature implements Copyable
 		this.condition = requireNonNull(condition, "condition");
 
 		if(condition instanceof Condition.Literal)
-			throw new IllegalArgumentException("literal condition makes no sense, but was Condition." + condition.toString());
+			throw new IllegalArgumentException("literal condition makes no sense, but was Condition." + condition);
 	}
 
 	@Override

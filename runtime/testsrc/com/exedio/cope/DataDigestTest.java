@@ -178,7 +178,7 @@ public class DataDigestTest
 		catch(final IllegalStateException e)
 		{
 			assertEquals(
-					"Value already exhausted: " + value.toString() + ". " +
+					"Value already exhausted: " + value + ". " +
 					"Each DataField.Value can be used for at most one setter action.",
 					e.getMessage());
 		}
@@ -190,7 +190,7 @@ public class DataDigestTest
 		catch(final IllegalStateException e)
 		{
 			assertEquals(
-					"Value already exhausted: " + value.toString() + ". " +
+					"Value already exhausted: " + value + ". " +
 					"Each DataField.Value can be used for at most one setter action.",
 					e.getMessage());
 		}

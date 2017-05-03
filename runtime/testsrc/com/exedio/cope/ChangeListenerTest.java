@@ -130,7 +130,7 @@ public class ChangeListenerTest extends TestWithEnvironment
 		waitWhilePending();
 		l.assertIt(list(item1), te);
 		assertEquals(false, l.exception);
-		log.assertError("change listener [" + item1.toString() + "] " + te.getID() + " CommitListenerTestE " + l.toString());
+		log.assertError("change listener [" + item1 + "] " + te.getID() + " CommitListenerTestE " + l);
 
 		assertInfo(1, 0, 0, 1);
 		model.removeChangeListener(l);
@@ -279,7 +279,7 @@ public class ChangeListenerTest extends TestWithEnvironment
 	@Test public void testThreadControllers()
 	{
 		final String prefix = "COPE Change Listener Dispatcher ";
-		final String prefix2 = prefix + model.toString() + ' ';
+		final String prefix2 = prefix + model + ' ';
 
 		final ArrayList<String> expectedAlive = new ArrayList<>();
 		final ArrayList<String> expectedIdle  = new ArrayList<>();

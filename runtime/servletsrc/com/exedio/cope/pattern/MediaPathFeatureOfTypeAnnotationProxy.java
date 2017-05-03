@@ -66,6 +66,6 @@ final class MediaPathFeatureOfTypeAnnotationProxy implements AnnotatedElement
 	@Override
 	public String toString()
 	{
-		return source.toString() + "-annotations";
+		return source + "-annotations";
 	}
 }

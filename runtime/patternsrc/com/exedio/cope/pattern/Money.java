@@ -129,12 +129,12 @@ public final class Money<C extends Currency>
 	@Override
 	public String toString()
 	{
-		return amount.toString() + currency.toString();
+		return amount.toString() + currency;
 	}
 
 	public String toStringShort()
 	{
-		return amount.toStringShort() + currency.toString();
+		return amount.toStringShort() + currency;
 	}
 
 

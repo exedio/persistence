@@ -89,7 +89,7 @@ public final class DatabaseLogListener implements DatabaseListener
 				bf.append(parameters);
 			}
 
-			out.println(bf.toString());
+			out.println(bf);
 		}
 	}
 }

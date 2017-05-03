@@ -313,7 +313,7 @@ final class Statement
 	Statement appendParameter(final Number value)
 	{
 		if(parameters==null)
-			this.text.append(value.toString());
+			this.text.append(value);
 		else
 		{
 			this.text.append(QUESTION_MARK);
@@ -410,7 +410,7 @@ final class Statement
 		else if(o instanceof byte[])
 			Arrays.append(bf, (byte[])o, 30);
 		else
-			bf.append(o.toString());
+			bf.append(o);
 	}
 
 	// join aliases

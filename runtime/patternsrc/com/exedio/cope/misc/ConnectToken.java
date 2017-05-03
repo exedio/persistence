@@ -198,7 +198,7 @@ public final class ConnectToken implements AutoCloseable
 	public String toString()
 	{
 		final StringBuilder bf = new StringBuilder();
-		bf.append(model.toString()).
+		bf.append(model).
 			append('/').append(id);
 		if(name!=null)
 			bf.append('(').
@@ -296,7 +296,7 @@ public final class ConnectToken implements AutoCloseable
 		synchronized(manciples)
 		{
 			if(manciples.putIfAbsent(model, new Manciple(properties))!=null)
-				throw new IllegalStateException("Properties already set for model " + model.toString() + '.');
+				throw new IllegalStateException("Properties already set for model " + model + '.');
 		}
 	}
 
@@ -341,7 +341,7 @@ public final class ConnectToken implements AutoCloseable
 			result = manciples.get(model);
 		}
 		if(result==null)
-			throw new IllegalStateException("No properties set for model " + model.toString() + ", use ConnectToken.setProperties.");
+			throw new IllegalStateException("No properties set for model " + model + ", use ConnectToken.setProperties.");
 
 		return result;
 	}

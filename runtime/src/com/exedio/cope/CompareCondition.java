@@ -118,12 +118,12 @@ public final class CompareCondition<E> extends Condition
 			if(key)
 				((Item)o).appendCopeID(bf);
 			else
-				bf.append(o.toString());
+				bf.append(o);
 		}
 		else if(o instanceof Date)
 			bf.append(key ? String.valueOf(((Date)o).getTime()) : df().format((Date)o));
 		else
-			bf.append(o.toString());
+			bf.append(o);
 	}
 
 	private static SimpleDateFormat df()

@@ -458,7 +458,7 @@ final class MysqlDialect extends Dialect
 
 								qi.append(metaData.getColumnName(i)).
 									append('=').
-									append(value.toString());
+									append(value);
 							}
 						}
 						root.addChild(new QueryInfo(qi.toString()));

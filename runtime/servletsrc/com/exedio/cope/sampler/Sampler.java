@@ -63,7 +63,7 @@ public class Sampler
 		this.sampledModel = requireNonNull(sampledModel, "sampledModel");
 
 		this.samplerModel = Model.builder().
-				name("Sampler(" + sampledModel.toString() + ')').
+				name("Sampler(" + sampledModel + ')').
 				add(new SamplerRevisions()).
 				add(
 					SamplerTypeId.TYPE,
@@ -331,7 +331,7 @@ public class Sampler
 		// The result of sampledModel.toString() may not be
 		// constant over time, therefore we need to compute
 		// the result live.
-		return "Sampler#" + sampledModel.toString();
+		return "Sampler#" + sampledModel;
 	}
 
 	// ------------------- deprecated stuff -------------------

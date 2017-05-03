@@ -196,7 +196,7 @@ final class Types
 			}
 		}
 		if(!done.equals(typeSet))
-			throw new RuntimeException(done.toString()+"<->"+typeSet.toString());
+			throw new RuntimeException(done+"<->"+typeSet);
 
 		//System.out.println("<--------------------"+result);
 		return result.toArray(new Type<?>[result.size()]);

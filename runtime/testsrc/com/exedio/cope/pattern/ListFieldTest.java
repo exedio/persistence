@@ -285,7 +285,7 @@ public class ListFieldTest extends TestWithEnvironment
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("ListFieldItem-dates.element does not belong to a type of the query: " + q.toString(), e.getMessage());
+			assertEquals("ListFieldItem-dates.element does not belong to a type of the query: " + q, e.getMessage());
 		}
 
 		// strings

@@ -185,7 +185,7 @@ public abstract class Pattern extends Feature
 		@Override
 		public String toString()
 		{
-			return Pattern.this.toString() + "-sourceFeatureAnnotations";
+			return Pattern.this + "-sourceFeatureAnnotations";
 		}
 	}
 
@@ -270,7 +270,7 @@ public abstract class Pattern extends Feature
 			if(CopeSchemaName.class==annotationClass)
 			{
 				if(source.getAnnotation(annotationClass)!=null)
-					throw new RuntimeException("conflicting @CopeSchemaName on " + Pattern.this.toString());
+					throw new RuntimeException("conflicting @CopeSchemaName on " + Pattern.this);
 
 				final Type<?> type = getType();
 				final CopeSchemaName typeAnn = type.getAnnotation(CopeSchemaName.class);
@@ -326,7 +326,7 @@ public abstract class Pattern extends Feature
 		@Override
 		public String toString()
 		{
-			return Pattern.this.toString() + "-sourceTypeAnnotations";
+			return Pattern.this + "-sourceTypeAnnotations";
 		}
 	}
 

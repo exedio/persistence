@@ -523,7 +523,7 @@ public class CompositeTest
 			assertEquals(
 					"expected a java.lang.Boolean, " +
 					"but was a java.lang.String for " +
-					Value.booleanOptional.toString() + ".",
+					Value.booleanOptional + ".",
 				e.getMessage());
 		}
 	}

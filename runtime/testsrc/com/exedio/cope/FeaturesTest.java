@@ -105,7 +105,7 @@ public class FeaturesTest
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("already contains the feature >" + zick.toString() + "<", e.getMessage());
+			assertEquals("already contains the feature >" + zick + "<", e.getMessage());
 		}
 	}
 
@@ -120,7 +120,7 @@ public class FeaturesTest
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("already contains the feature >" + zick.toString() + "<", e.getMessage());
+			assertEquals("already contains the feature >" + zick + "<", e.getMessage());
 		}
 
 		features.clear();

@@ -235,7 +235,7 @@ public abstract class Feature implements Serializable
 		}
 
 		if(mountIfMounted!=null)
-			throw new IllegalStateException("feature already mounted: " + mountIfMounted.toString());
+			throw new IllegalStateException("feature already mounted: " + mountIfMounted);
 		mountIfMounted = new MountType(
 				type, name, annotationSource, patternUntilMount,
 				precedingLocalizationKeysClassUntilMount,
@@ -260,7 +260,7 @@ public abstract class Feature implements Serializable
 		requireNonNull(string, "string");
 		requireNonNull(serializable, "serializable");
 		if(mountIfMounted!=null)
-			throw new IllegalStateException("feature already mounted: " + mountIfMounted.toString());
+			throw new IllegalStateException("feature already mounted: " + mountIfMounted);
 		mountIfMounted = new MountAbstractType(type, name, string, serializable, annotationSource);
 	}
 
@@ -280,7 +280,7 @@ public abstract class Feature implements Serializable
 	{
 		final Mount result = mountAny();
 		if(!(result instanceof MountType))
-			throw new IllegalStateException("feature not mounted to a type: " + result.toString());
+			throw new IllegalStateException("feature not mounted to a type: " + result);
 		return (MountType)result;
 	}
 

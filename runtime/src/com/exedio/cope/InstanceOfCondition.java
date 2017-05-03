@@ -205,16 +205,16 @@ public final class InstanceOfCondition<E extends Item> extends Condition
 		bf.append(" instanceOf ");
 
 		if(types.length==1)
-			bf.append(types[0].toString());
+			bf.append(types[0]);
 		else
 		{
 			bf.append('[').
-				append(types[0].toString());
+				append(types[0]);
 
 			for(int i = 1; i<types.length; i++)
 			{
 				bf.append(", ").
-					append(types[i].toString());
+					append(types[i]);
 			}
 			bf.append(']');
 		}

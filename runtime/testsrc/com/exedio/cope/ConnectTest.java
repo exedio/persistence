@@ -110,7 +110,7 @@ public class ConnectTest extends TestWithEnvironment
 		catch(final Model.NotConnectedException e)
 		{
 			assertEquals(model, e.getModel());
-			assertEquals("model not connected, use Model#connect for " + model.toString(), e.getMessage());
+			assertEquals("model not connected, use Model#connect for " + model, e.getMessage());
 		}
 		assertEquals(null, model.getConnectDate());
 
@@ -122,7 +122,7 @@ public class ConnectTest extends TestWithEnvironment
 		catch(final Model.NotConnectedException e)
 		{
 			assertEquals(model, e.getModel());
-			assertEquals("model not connected, use Model#connect for " + model.toString(), e.getMessage());
+			assertEquals("model not connected, use Model#connect for " + model, e.getMessage());
 		}
 		assertFalse(model.isConnected());
 		assertEquals(null, model.getConnectDate());

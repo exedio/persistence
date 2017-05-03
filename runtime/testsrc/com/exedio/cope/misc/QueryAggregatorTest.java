@@ -89,7 +89,7 @@ public class QueryAggregatorTest extends TestWithEnvironment
 			}
 			catch(final IllegalArgumentException e)
 			{
-				assertEquals("queries must not be limited, but was: " + q1Bad.toString(), e.getMessage());
+				assertEquals("queries must not be limited, but was: " + q1Bad, e.getMessage());
 			}
 			q1Bad.setLimit(0, 1);
 			try
@@ -98,7 +98,7 @@ public class QueryAggregatorTest extends TestWithEnvironment
 			}
 			catch(final IllegalArgumentException e)
 			{
-				assertEquals("queries must not be limited, but was: " + q1Bad.toString(), e.getMessage());
+				assertEquals("queries must not be limited, but was: " + q1Bad, e.getMessage());
 			}
 		}
 		try

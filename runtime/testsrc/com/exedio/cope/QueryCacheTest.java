@@ -147,7 +147,7 @@ public class QueryCacheTest extends TestWithEnvironment
 		@Override
 		public String toString()
 		{
-			return (totalOnly ? "TOTAL " : "SEARCH ") + query.toString();
+			return (totalOnly ? "TOTAL " : "SEARCH ") + query;
 		}
 	}
 

@@ -156,7 +156,7 @@ public final class SchemaTypeStringField extends Pattern
 		@Override
 		public String toString()
 		{
-			return source.toString() + "-annotations";
+			return source + "-annotations";
 		}
 	}
 }

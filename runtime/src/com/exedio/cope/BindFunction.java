@@ -112,7 +112,7 @@ public class BindFunction<E> implements Function<E>
 	@Override
 	public final String toString()
 	{
-		return join.getToStringAlias() + '.' + function.toString();
+		return join.getToStringAlias() + '.' + function;
 	}
 
 	@Override

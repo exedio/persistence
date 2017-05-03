@@ -199,7 +199,7 @@ final class ConvertTagsToAnnotations
 				final int importsEnd=Math.toIntExact(ctx.getImportsEndPosition());
 				final boolean didHaveImports=importsStart!=importsEnd;
 				importReplacements.addReplacement(importsStart, importsEnd,
-					(didHaveImports?"":lineSeparator)+newImports.toString()+(didHaveImports?"":lineSeparator)
+					(didHaveImports?"":lineSeparator)+newImports+(didHaveImports?"":lineSeparator)
 				);
 				return importReplacements.applyReplacements(original);
 			}
@@ -365,7 +365,7 @@ final class ConvertTagsToAnnotations
 					annotations.append(formatAnnotation(Tags.forType(tagsForWrapperType.toString())));
 					annotations.append(afterEachAnnotation);
 				}
-				return new JavadocAndAnnotations(javadoc, annotations.toString()+(afterEachAnnotation.isEmpty()?" ":""));
+				return new JavadocAndAnnotations(javadoc, annotations+(afterEachAnnotation.isEmpty()?" ":""));
 			}
 
 			private String dropTrailingSpaceAndStar(final String s)

@@ -876,11 +876,11 @@ public final class Model implements Serializable
 		requireNonNull(type, "type");
 		requireNonNull(name, "name");
 		if(serialized!=null)
-			throw new IllegalStateException("enableSerialization already been called for " + serialized.toString());
+			throw new IllegalStateException("enableSerialization already been called for " + serialized);
 		final Serialized serialized = new Serialized(type, name);
 		final Object other = serialized.resolveModel();
 		if(this!=other)
-			throw new IllegalArgumentException("enableSerialization does not resolve to itself " + serialized.toString());
+			throw new IllegalArgumentException("enableSerialization does not resolve to itself " + serialized);
 
 		this.serialized = serialized;
 	}
@@ -978,7 +978,7 @@ public final class Model implements Serializable
 			}
 			catch(final IllegalAccessException e)
 			{
-				throw new IllegalArgumentException("accessing " + field.toString(), e);
+				throw new IllegalArgumentException("accessing " + field, e);
 			}
 
 			if(result==null)

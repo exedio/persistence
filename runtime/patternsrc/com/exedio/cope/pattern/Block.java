@@ -95,6 +95,6 @@ public abstract class Block implements Serializable, TemplatedValue
 	@Override
 	public final String toString()
 	{
-		return field.toString() + '#' + item.toString();
+		return field.toString() + '#' + item;
 	}
 }

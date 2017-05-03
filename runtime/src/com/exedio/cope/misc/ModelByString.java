@@ -49,7 +49,7 @@ public final class ModelByString
 		}
 		catch(final NoSuchFieldException e)
 		{
-			throw new IllegalArgumentException("field " + fieldName + " in " + clazz.toString() + " does not exist or is not public.", e);
+			throw new IllegalArgumentException("field " + fieldName + " in " + clazz + " does not exist or is not public.", e);
 		}
 
 		final Object result;
@@ -59,7 +59,7 @@ public final class ModelByString
 		}
 		catch(final IllegalAccessException e)
 		{
-			throw new IllegalArgumentException("accessing " + field.toString(), e);
+			throw new IllegalArgumentException("accessing " + field, e);
 		}
 
 		if(result==null)

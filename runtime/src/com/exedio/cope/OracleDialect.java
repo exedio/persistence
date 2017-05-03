@@ -406,7 +406,7 @@ final class OracleDialect extends Dialect
 									qi.append(' ').
 										append(columnName.toLowerCase(Locale.ENGLISH)).
 										append('=').
-										append(value.toString());
+										append(value);
 								}
 							}
 						}
@@ -565,7 +565,7 @@ final class OracleDialect extends Dialect
 					sequence.delete(bf, this);
 
 				if(bf.length()>0)
-					Executor.update(connection, "BEGIN " + bf.toString() + "END;");
+					Executor.update(connection, "BEGIN " + bf + "END;");
 			}
 		}
 		catch(final SQLException e)

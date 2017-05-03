@@ -37,6 +37,6 @@ public final class BlockActivationParameters
 	@Override
 	public String toString()
 	{
-		return field.toString() + '#' + item.toString();
+		return field.toString() + '#' + item;
 	}
 }

@@ -640,7 +640,7 @@ public final class DataField extends Field<DataField.Value>
 		@Override
 		public String toString()
 		{
-			return "DataField.Value:" + stream.toString();
+			return "DataField.Value:" + stream;
 		}
 	}
 
@@ -682,7 +682,7 @@ public final class DataField extends Field<DataField.Value>
 		@Override
 		public String toString()
 		{
-			return "DataField.Value:" + file.toString();
+			return "DataField.Value:" + file;
 		}
 	}
 
@@ -730,7 +730,7 @@ public final class DataField extends Field<DataField.Value>
 		@Override
 		public String toString()
 		{
-			return "DataField.Value:" + file.toString() + '#' + entry.getName();
+			return "DataField.Value:" + file + '#' + entry.getName();
 		}
 	}
 

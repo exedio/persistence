@@ -119,7 +119,7 @@ final class TC
 
 			if(ambiguousTypes!=null && ambiguousTypes.contains(selectType))
 				throw new IllegalArgumentException(
-						select.toString() + " is ambiguous, use Function#bind in query: " + query.toString()
+						select + " is ambiguous, use Function#bind in query: " + query
 						/*+ "---" + distinctTypes + "---" + ambiguousTypes*/);
 		}
 		else
@@ -137,7 +137,7 @@ final class TC
 			}
 		}
 
-		throw new IllegalArgumentException(select.toString() + " does not belong to a type of the query: " + query.toString());
+		throw new IllegalArgumentException(select + " does not belong to a type of the query: " + query);
 	}
 
 	private void register(final Selectable<?> select, final Join join)

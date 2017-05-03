@@ -188,7 +188,7 @@ final class Context
 			return "? super " + write(lower[0], varArgs);
 		}
 
-		throw new RuntimeException(Arrays.asList(upper).toString() + Arrays.asList(lower).toString());
+		throw new RuntimeException(Arrays.asList(upper).toString() + Arrays.asList(lower));
 	}
 
 	private static String write(final Class<?> t, final boolean varArgs)

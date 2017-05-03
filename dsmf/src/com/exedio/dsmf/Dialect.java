@@ -312,6 +312,6 @@ public abstract class Dialect
 				append(resultSet.getObject(i));
 		}
 
-		System.out.println(bf.toString());
+		System.out.println(bf);
 	}
 }

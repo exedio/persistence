@@ -67,7 +67,7 @@ public class TypesBoundErrorTest
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals(NoItem.class.toString() + " is not a subclass of Item", e.getMessage());
+			assertEquals(NoItem.class + " is not a subclass of Item", e.getMessage());
 		}
 	}
 	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad API usage
@@ -185,7 +185,7 @@ public class TypesBoundErrorTest
 		}
 		catch(final IllegalStateException e)
 		{
-			assertEquals("value type of " + NonResolvingItemField.itemField.toString() + " (" + NullFeature.class.getName() + ") does not belong to any model", e.getMessage());
+			assertEquals("value type of " + NonResolvingItemField.itemField + " (" + NullFeature.class.getName() + ") does not belong to any model", e.getMessage());
 		}
 		final Type<NonResolvingItemField> nonResolvingItemField = newType(NonResolvingItemField.class);
 		try
@@ -195,7 +195,7 @@ public class TypesBoundErrorTest
 		}
 		catch(final IllegalStateException e)
 		{
-			assertEquals("value type of " + NonResolvingItemField.itemField.toString() + " (" + NullFeature.class.getName() + ") does not belong to any model", e.getMessage());
+			assertEquals("value type of " + NonResolvingItemField.itemField + " (" + NullFeature.class.getName() + ") does not belong to any model", e.getMessage());
 		}
 		try
 		{
