@@ -75,7 +75,7 @@ final class ExclusiveCurrencySource<C extends Money.Currency> extends CurrencySo
 	}
 
 	@Override
-	SetValue<?>[] execute(final SetValue<?> amount, final Money<C> value, final Item exceptionItem)
+	SetValue<?>[] execute(final SetValue<?> amount, final Money<C> value)
 	{
 		return new SetValue<?>[]{
 			amount,

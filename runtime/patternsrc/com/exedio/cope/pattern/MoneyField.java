@@ -208,7 +208,7 @@ public final class MoneyField<C extends Money.Currency> extends Pattern implemen
 		if(array.length!=1)
 			throw new IllegalArgumentException(Arrays.toString(array));
 
-		return currency.execute(array[0], value, exceptionItem);
+		return currency.execute(array[0], value);
 	}
 
 	@Override

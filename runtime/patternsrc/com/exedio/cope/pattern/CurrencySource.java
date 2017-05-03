@@ -38,9 +38,8 @@ abstract class CurrencySource<C extends Money.Currency>
 
 	/**
 	 * @param value used by subclasses
-	 * @param exceptionItem used by subclasses
 	 */
-	SetValue<?>[] execute(final SetValue<?> amount, final Money<C> value, final Item exceptionItem)
+	SetValue<?>[] execute(final SetValue<?> amount, final Money<C> value)
 	{
 		return new SetValue<?>[]{ amount };
 	}
