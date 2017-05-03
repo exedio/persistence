@@ -118,7 +118,7 @@ public class LRUMapTest
 		for(long i = 0; i<1_000_000; i++)
 			map.put(i, "val"+i);
 		final long endMem = mem();
-		System.out.print(" " + String.valueOf((startMem+endMem)/1000000) + "MB");
+		System.out.print(" " + ((startMem+endMem)/1000000) + "MB");
 		final long start = System.nanoTime();
 		for(long i = 0; i<1_000_000; i++)
 			map.get(i);
@@ -133,7 +133,7 @@ public class LRUMapTest
 		for(long i = 0; i<1_000_000; i++)
 			map.put(i, "val"+i);
 		final long endMem = mem();
-		System.out.print(" " + String.valueOf((startMem+endMem)/1000000) + "MB");
+		System.out.print(" " + ((startMem+endMem)/1000000) + "MB");
 		final long start = System.nanoTime();
 		for(long i = 0; i<1_000_000; i++)
 			map.get(i);

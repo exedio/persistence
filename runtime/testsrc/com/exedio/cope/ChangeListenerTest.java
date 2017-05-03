@@ -288,7 +288,7 @@ public class ChangeListenerTest extends TestWithEnvironment
 			final int max = model.getConnectProperties().chaListThreads.max;
 			assert num<=max;
 			for(int n = 0; n<max; n++)
-				((n<num) ? expectedAlive : expectedIdle).add(prefix2 + String.valueOf(n+1) + '/' + max);
+				((n<num) ? expectedAlive : expectedIdle).add(prefix2 + (n+1) + '/' + max);
 		}
 
 		final ArrayList<String> actualAlive = new ArrayList<>();
