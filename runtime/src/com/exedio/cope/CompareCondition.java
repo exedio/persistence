@@ -92,7 +92,7 @@ public final class CompareCondition<E> extends Condition
 
 		final CompareCondition<?> o = (CompareCondition<?>)other;
 
-		return operator.equals(o.operator) && left.equals(o.left) && right.equals(o.right);
+		return operator==o.operator && left.equals(o.left) && right.equals(o.right);
 	}
 
 	@Override

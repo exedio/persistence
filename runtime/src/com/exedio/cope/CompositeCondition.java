@@ -121,7 +121,7 @@ public final class CompositeCondition extends Condition
 
 		final CompositeCondition o = (CompositeCondition)other;
 
-		if(!operator.equals(o.operator) || conditions.length!=o.conditions.length)
+		if(operator!=o.operator || conditions.length!=o.conditions.length)
 			return false;
 
 		for(int i = 0; i<conditions.length; i++)

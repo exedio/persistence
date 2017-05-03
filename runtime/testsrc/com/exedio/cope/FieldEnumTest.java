@@ -26,7 +26,6 @@ import static com.exedio.cope.tojunit.Assert.assertContains;
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
 import static com.exedio.cope.tojunit.Assert.list;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import com.exedio.cope.testmodel.AttributeItem;
@@ -78,16 +77,6 @@ public class FieldEnumTest extends FieldTest
 			AttributeItem.SomeEnum.enumValue2.name());
 		assertEquals("enumValue3",
 			AttributeItem.SomeEnum.enumValue3.name());
-
-		assertTrue(!
-			AttributeItem.SomeEnum.enumValue1.equals(
-			AttributeItem.SomeEnum.enumValue2));
-		assertTrue(!
-			AttributeItem.SomeEnum.enumValue2.equals(
-			AttributeItem.SomeEnum.enumValue3));
-		assertTrue(!
-			AttributeItem.SomeEnum.enumValue3.equals(
-			AttributeItem.SomeEnum.enumValue1));
 
 		AttributeItem.SomeEnum someEnumeration = AttributeItem.SomeEnum.enumValue1;
 		switch(someEnumeration)

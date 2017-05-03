@@ -42,7 +42,7 @@ public enum Nullability
 		final Nonnull nonnullAnnotation = getAnnotation(Nonnull.class, annotations);
 		if (nonnullAnnotation!=null)
 		{
-			if ( nonnullAnnotation.when().equals(When.ALWAYS) )
+			if ( nonnullAnnotation.when()==When.ALWAYS )
 			{
 				return NONNULL;
 			}

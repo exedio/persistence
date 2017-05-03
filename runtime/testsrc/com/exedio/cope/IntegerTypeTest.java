@@ -183,7 +183,7 @@ public class IntegerTypeTest extends TestWithEnvironment
 
 			final StringBuilder bf = new StringBuilder();
 			long sequenceValue = lastUsedPkValue+1L;
-			if (PrimaryKeyGenerator.batchedSequence.equals(model.getConnectProperties().primaryKeyGenerator))
+			if (PrimaryKeyGenerator.batchedSequence==model.getConnectProperties().primaryKeyGenerator)
 			{
 				itemsToCreate = sequenceValue % SequenceImplBatchedSequence.BATCH_SIZE;
 				sequenceValue = sequenceValue / SequenceImplBatchedSequence.BATCH_SIZE;

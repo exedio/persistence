@@ -840,7 +840,7 @@ public class ScheduleTest extends TestWithEnvironment
 			final ExpectedRun o = (ExpectedRun)other;
 			return
 					parent.equals(o.parent) &&
-					interval.equals(o.interval) &&
+					interval==o.interval &&
 					from.equals(o.from) &&
 					until.equals(o.until) &&
 					run.equals(o.run);

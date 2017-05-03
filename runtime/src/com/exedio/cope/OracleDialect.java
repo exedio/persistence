@@ -154,7 +154,7 @@ final class OracleDialect extends Dialect
 	@Override
 	void appendDatePartExtraction(final DayPartView view, final Statement bf, final Join join)
 	{
-		if(Part.WEEK_OF_YEAR.equals(view.getPart()))
+		if(Part.WEEK_OF_YEAR==view.getPart())
 		{
 			bf.append("TO_NUMBER(TO_CHAR(").
 				append(view.getSource(), join).
