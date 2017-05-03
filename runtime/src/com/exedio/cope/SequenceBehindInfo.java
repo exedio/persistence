@@ -40,6 +40,7 @@ public final class SequenceBehindInfo
 		this.sequenceNext = sequenceNext;
 	}
 
+	@Deprecated
 	static int isBehindBy(final SequenceBehindInfo o)
 	{
 		return o!=null ? o.isBehindBy() : 0;
