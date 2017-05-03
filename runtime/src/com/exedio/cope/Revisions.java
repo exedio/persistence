@@ -59,10 +59,9 @@ public final class Revisions
 		this.revisions = requireNonEmptyAndCopy(revisions, "revisions");
 		this.number = revisions[0].number;
 
-		final int base = number;
 		for(int i = 1; i<revisions.length; i++)
 		{
-			final int expectedNumber = base-i;
+			final int expectedNumber = number-i;
 			final int actualNumber = revisions[i].number;
 			if(expectedNumber!=actualNumber)
 				throw new IllegalArgumentException(

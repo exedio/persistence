@@ -80,7 +80,6 @@ public final class PlusView<E extends Number> extends NumberView<E>
 	@SuppressWarnings("unchecked")
 	public E mapJava(final Object[] sourceValues)
 	{
-		final Class<E> vc = valueClass;
 		if(valueClass==Integer.class)
 		{
 			int result = 0;
@@ -115,7 +114,7 @@ public final class PlusView<E extends Number> extends NumberView<E>
 			return (E)Double.valueOf(result);
 		}
 		else
-			throw new RuntimeException(vc.getName());
+			throw new RuntimeException(valueClass.getName());
 	}
 
 	@Override

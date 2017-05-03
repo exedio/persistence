@@ -59,7 +59,6 @@ public class TaggedAndAnnotatedTest
 		final int startGenerated=completeSource.indexOf("// marker for end of hand-written code");
 		assertTrue(startGenerated>=0);
 		final String generatedPart=completeSource.substring(startGenerated);
-		final String normalised=generatedPart.replaceAll(className, "[[classname]]").replaceAll(typeInfoString, "[[typeInfo]]");
-		return normalised;
+		return generatedPart.replaceAll(className, "[[classname]]").replaceAll(typeInfoString, "[[typeInfo]]");
 	}
 }

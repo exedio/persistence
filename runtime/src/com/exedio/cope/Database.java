@@ -285,7 +285,7 @@ final class Database
 
 		//System.out.println(bf.toString());
 
-		final WrittenState result = executor.query(connection, bf, null, false, resultSet ->
+		return executor.query(connection, bf, null, false, resultSet ->
 			{
 				if(!resultSet.next())
 					throw new NoSuchItemException(item);
@@ -327,8 +327,6 @@ final class Database
 				return new WrittenState(item, row, updateCount);
 			}
 		);
-
-		return result;
 	}
 
 	void store(

@@ -56,7 +56,7 @@ public final class DivideView<E extends Number> extends NumberView<E>
 		final Number divisor = (Number)sourceValues[1];
 		if(divisor==null)
 			return null;
-		final Class<E> vc = valueClass;
+
 		if(valueClass==Integer.class)
 		{
 			return (E)Integer.valueOf(((Integer)dividend).intValue() / ((Integer)divisor).intValue());
@@ -70,7 +70,7 @@ public final class DivideView<E extends Number> extends NumberView<E>
 			return (E)Double.valueOf(((Double)dividend).doubleValue() / ((Double)divisor).doubleValue());
 		}
 		else
-			throw new RuntimeException(vc.getName());
+			throw new RuntimeException(valueClass.getName());
 	}
 
 	@Override

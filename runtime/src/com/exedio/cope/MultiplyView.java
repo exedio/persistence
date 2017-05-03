@@ -54,7 +54,6 @@ public final class MultiplyView<E extends Number> extends NumberView<E>
 	@SuppressWarnings("unchecked")
 	public E mapJava(final Object[] sourceValues)
 	{
-		final Class<E> vc = valueClass;
 		if(valueClass==Integer.class)
 		{
 			int result = 1;
@@ -89,7 +88,7 @@ public final class MultiplyView<E extends Number> extends NumberView<E>
 			return (E)Double.valueOf(result);
 		}
 		else
-			throw new RuntimeException(vc.getName());
+			throw new RuntimeException(valueClass.getName());
 	}
 
 	@Override

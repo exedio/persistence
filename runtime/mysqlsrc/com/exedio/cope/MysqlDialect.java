@@ -495,7 +495,7 @@ final class MysqlDialect extends Dialect
 			append(quotedName).
 			append("()VALUES()");
 
-		final long result = executor.insertAndGetGeneratedKeys(connection, bf, resultSet ->
+		return executor.insertAndGetGeneratedKeys(connection, bf, resultSet ->
 			{
 				if(!resultSet.next())
 					throw new RuntimeException("empty in sequence " + quotedName);
@@ -505,8 +505,6 @@ final class MysqlDialect extends Dialect
 				return (Long)o;
 			}
 		) - 1;
-
-		return result;
 	}
 
 	@Override

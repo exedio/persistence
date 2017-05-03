@@ -165,8 +165,7 @@ public abstract class SchemaTest
 		@Override
 		public Connection getConnection()
 		{
-			final Connection result = connections.remove(connections.size()-1);
-			return result;
+			return connections.remove(connections.size()-1);
 		}
 
 		@Override

@@ -55,7 +55,7 @@ public final class MultiplyLiteralView<E extends Number> extends NumberView<E>
 		final Number leftValue = (Number)sourceValues[0];
 		if(leftValue==null)
 			return null;
-		final Class<E> vc = valueClass;
+
 		if(valueClass==Integer.class)
 		{
 			return (E)Integer.valueOf(((Integer)leftValue).intValue() * right.intValue());
@@ -69,7 +69,7 @@ public final class MultiplyLiteralView<E extends Number> extends NumberView<E>
 			return (E)Double.valueOf(((Double)leftValue).doubleValue() * right.doubleValue());
 		}
 		else
-			throw new RuntimeException(vc.getName());
+			throw new RuntimeException(valueClass.getName());
 	}
 
 	@Override

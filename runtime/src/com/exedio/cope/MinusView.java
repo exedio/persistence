@@ -56,7 +56,7 @@ public final class MinusView<E extends Number> extends NumberView<E>
 		final Number subtrahend = (Number)sourceValues[1];
 		if(subtrahend==null)
 			return null;
-		final Class<E> vc = valueClass;
+
 		if(valueClass==Integer.class)
 		{
 			return (E)Integer.valueOf(((Integer)minuend).intValue() - ((Integer)subtrahend).intValue());
@@ -70,7 +70,7 @@ public final class MinusView<E extends Number> extends NumberView<E>
 			return (E)Double.valueOf(((Double)minuend).doubleValue() - ((Double)subtrahend).doubleValue());
 		}
 		else
-			throw new RuntimeException(vc.getName());
+			throw new RuntimeException(valueClass.getName());
 	}
 
 	@Override
