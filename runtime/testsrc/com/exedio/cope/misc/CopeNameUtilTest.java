@@ -39,8 +39,8 @@ public class CopeNameUtilTest
 		assertEquals("bothAnnoName", AnItem.both .getName());
 	}
 
-	@Deprecated
 	@WrapperIgnore
+	@SuppressWarnings("deprecation") // OK: testing deprecated API
 	static final class AnItem extends Item
 	{
 		static final StringField naked = new StringField();

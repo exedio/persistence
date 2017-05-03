@@ -48,7 +48,7 @@ public class PatternCacheWeightTest
 		assertWeightFails(set222.set333Type, "conflicting @CopeCacheWeight: 222 vs. 333");
 	}
 
-	@Deprecated // OK: testing deprecated API
+	@SuppressWarnings("deprecation") // OK: testing deprecated API
 	private static int weight(final Feature f)
 	{
 		final CopeCacheWeight annotation = f.getAnnotation(CopeCacheWeight.class);
@@ -56,7 +56,7 @@ public class PatternCacheWeightTest
 		return annotation!=null ? annotation.value() : ABSENT;
 	}
 
-	@Deprecated // OK: testing deprecated API
+	@SuppressWarnings("deprecation") // OK: testing deprecated API
 	private static int weight(final Type<?> f)
 	{
 		final CopeCacheWeight annotation = f.getAnnotation(CopeCacheWeight.class);
@@ -64,7 +64,7 @@ public class PatternCacheWeightTest
 		return annotation!=null ? annotation.value() : ABSENT;
 	}
 
-	@Deprecated // OK: testing deprecated API
+	@SuppressWarnings("deprecation") // OK: testing deprecated API
 	private static void assertWeightFails(final Type<?> f, final String message)
 	{
 		try
