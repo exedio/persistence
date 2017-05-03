@@ -321,12 +321,8 @@ public class DispatcherTest extends TestWithEnvironment
 			final Date date,
 			final ExpectedRun... expectedRuns)
 	{
-		final DispatcherItem.Log log = DispatcherItem.logs.get(item);
 		assertEquals(false, item.isToTargetPending());
 		assertEquals(date, item.getToTargetLastSuccessDate());
-		assertTrue(
-				String.valueOf(item.getToTargetLastSuccessElapsed())+">="+log.dispatchLastSuccessElapsed,
-				item.getToTargetLastSuccessElapsed()>=log.dispatchLastSuccessElapsed);
 		assertIt(dispatchCountCommitted, expectedRuns.length, asList(expectedRuns), item, 0);
 	}
 

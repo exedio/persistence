@@ -42,7 +42,6 @@ public final class DispatcherItem extends Item implements Dispatchable
 	{
 		boolean fail;
 		int dispatchCount = 0;
-		long dispatchLastSuccessElapsed = 0;
 		final ArrayList<Long> dispatchRunElapsed = new ArrayList<>();
 		int notifyFinalFailureCount = 0;
 
