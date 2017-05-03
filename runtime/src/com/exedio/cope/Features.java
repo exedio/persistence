@@ -75,7 +75,7 @@ public final class Features
 
 	public void put(final String name, final Feature feature)
 	{
-		put(name, feature, null);
+		put(name, feature, (AnnotatedElement)null);
 	}
 
 	public void clear()
