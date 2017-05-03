@@ -70,7 +70,7 @@ public final class MediaLocatorAssert
 			assertEquals(expectedPath, reserialize(actualLocator).getPath());
 	}
 
-	private static final Locator reserialize(final Locator value)
+	private static Locator reserialize(final Locator value)
 	{
 		final byte[] bytes = serialize(value);
 		assertTrue("" + bytes.length, bytes.length<1000);
