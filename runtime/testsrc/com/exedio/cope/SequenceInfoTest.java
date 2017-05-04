@@ -21,6 +21,7 @@ package com.exedio.cope;
 import static com.exedio.cope.SequenceInfoAssert.assertInfo;
 import static com.exedio.cope.SequenceInfoTest.AnItem.TYPE;
 import static com.exedio.cope.SequenceInfoTest.AnItem.next;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
@@ -59,24 +60,25 @@ public class SequenceInfoTest extends TestWithEnvironment
 		assertInfo(next, 2, 0, 1, next.getDefaultToNextInfo());
 	}
 
-	private static AnItem newItem(
+	private static void newItem(
 			final String field,
 			final int next)
 	{
 		try(TransactionTry tx = MODEL.startTransactionTry(SequenceInfoTest.class.getName()))
 		{
-			return tx.commit(
-					new AnItem(field, next)
+			assertEquals("next", next,
+				tx.commit(
+					new AnItem(field, next).getNext().intValue())
 			);
 		}
 	}
 
-	private static AnItem newItem(
+	private static void newItem(
 			final String field)
 	{
 		try(TransactionTry tx = MODEL.startTransactionTry(SequenceInfoTest.class.getName()))
 		{
-			return tx.commit(
+			tx.commit(
 					new AnItem(field)
 			);
 		}

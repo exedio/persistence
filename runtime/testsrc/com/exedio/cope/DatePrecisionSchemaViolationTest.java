@@ -66,15 +66,15 @@ public class DatePrecisionSchemaViolationTest extends SchemaMismatchTest
 		newItemBad(ok, ok, millis , "ItemAB_seconds_PS", "ItemAB_seconds_PR", 3, 2, 1);
 	}
 
-	private static ItemB newItemOk(
+	private static void newItemOk(
 			final Date hours,
 			final Date minutes,
 			final Date seconds)
 	{
 		try(TransactionTry tx = modelB.startTransactionTry("itemB ok"))
 		{
-			return tx.commit(
-					new ItemB(hours, minutes, seconds));
+			new ItemB(hours, minutes, seconds);
+			tx.commit();
 		}
 	}
 

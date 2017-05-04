@@ -217,7 +217,7 @@ public class SampleTest extends ConnectedTest
 		MODEL.startTransaction("HistoryTest2");
 	}
 
-	private static SamplerModel assertIt(
+	private static void assertIt(
 			final SamplerModel expected,
 			final Date before, final Date after,
 			final SamplerModel model)
@@ -226,7 +226,6 @@ public class SampleTest extends ConnectedTest
 		assertWithin(before, after, SamplerModel.date.get(model));
 		assertEquals(MODEL.getInitializeDate(), SamplerModel.initialized.get(model));
 		assertEquals(MODEL.getConnectDate(), SamplerModel.connected.get(model));
-		return model;
 	}
 
 	private static SamplerTransaction assertIt(

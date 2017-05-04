@@ -70,10 +70,11 @@ public class DumperTest extends TestWithEnvironment
 		assertFalse(model.hasCurrentTransaction());
 
 		final StringBuilder out = new StringBuilder();
-		dumper.newItem(out, TYPE,
+		final DumperItem item = dumper.newItem(out, TYPE,
 				string.map("string0"),
 				unique.map("unique0"),
 				data.map(toValue(decodeLower("aabbcc"))));
+		assertEquals("DumperItem-0", item.getCopeID());
 		assertEquals(
 				"insert into " + tab(TYPE) +
 				"(" + pk(TYPE) + "," + cls(TYPE) + "," + upd(TYPE) + "," + col(string) + "," + col(unique) + "," + col(data) + ")values" +
@@ -87,11 +88,12 @@ public class DumperTest extends TestWithEnvironment
 		assertFalse(model.hasCurrentTransaction());
 
 		final StringBuilder out = new StringBuilder();
-		dumper.newItem(out, DumperSubItem.TYPE,
+		final DumperItem item = dumper.newItem(out, DumperSubItem.TYPE,
 				string.map("string0"),
 				unique.map("unique0"),
 				data.map(toValue(decodeLower("aabbcc"))),
 				subString.map("subString0"));
+		assertEquals("DumperSubItem-0", item.getCopeID());
 		assertEquals(
 				"insert into " + tab(TYPE) +
 				"(" + pk(TYPE) + "," + cls(TYPE) + "," + upd(TYPE) + "," + col(string) + "," + col(unique) + "," + col(data) + ")values" +

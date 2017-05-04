@@ -108,7 +108,7 @@ public class BlockFieldStandardTest extends TestWithEnvironment
 		assertEquals(list(), b2a.getAList());
 		assertEquals(list(), b2b.getAList());
 
-		b1a.addToASet(23);
+		assertEquals(true, b1a.addToASet(23));
 		assertEquals(singleton(23), b1a.getASet());
 		assertEquals(emptySet(), b1b.getASet());
 		assertEquals(emptySet(), b2a.getASet());

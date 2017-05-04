@@ -21,7 +21,6 @@ package com.exedio.cope.pattern;
 import static com.exedio.cope.instrument.Visibility.NONE;
 
 import com.exedio.cope.Item;
-import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.instrument.WrapperType;
@@ -33,9 +32,9 @@ public final class DispatcherNoneItem extends Item
 	static final Dispatcher wrong = new Dispatcher();
 
 	@SuppressWarnings({"unchecked", "rawtypes"}) // because instrumentor fails on correct version
-	static Type<?> newTypeAccessible(final Class javaClass)
+	static void newTypeAccessible(final Class javaClass)
 	{
-		return TypesBound.newType(javaClass);
+		TypesBound.newType(javaClass);
 	}
 
 

@@ -114,14 +114,15 @@ public class SequenceCheckIntegerTest extends TestWithEnvironment
 		assertEquals("behindByDeprecated", behindBy, behindByDeprecated);
 	}
 
-	private static AnItem newManual(
+	private static void newManual(
 			final int next,
 			final String field)
 	{
 		try(TransactionTry tx = MODEL.startTransactionTry(SequenceCheckIntegerTest.class.getName()))
 		{
-			return tx.commit(
-					new AnItem(field, next)
+			assertEquals("next", next,
+				tx.commit(
+					new AnItem(field, next).getNext().intValue())
 			);
 		}
 	}

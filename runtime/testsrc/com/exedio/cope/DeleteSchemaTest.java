@@ -20,7 +20,6 @@ package com.exedio.cope;
 
 import static com.exedio.cope.DeleteSchemaItem.nextSequence;
 import static com.exedio.cope.tojunit.Assert.assertContains;
-import static com.exedio.cope.tojunit.Assert.assertWithin;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
@@ -327,18 +326,11 @@ public class DeleteSchemaTest extends TestWithEnvironment
 
 	private static void assertCreate(final Date date, final Map<Integer, byte[]> logs, final int revision)
 	{
-		assertCreate(date, date, logs, revision);
-	}
-
-	private static Date assertCreate(final Date before, final Date after, final Map<Integer, byte[]> logs, final int revision)
-	{
 		final byte[] log = logs.get(revision);
 		assertNotNull(log);
 		final RevisionInfoCreate c = (RevisionInfoCreate)RevisionInfo.read(log);
 		assertNotNull(c);
 		assertEquals(revision, c.getNumber());
-		final Date date = c.getDate();
-		assertWithin(before, after, date);
-		return date;
+		assertEquals(date, c.getDate());
 	}
 }

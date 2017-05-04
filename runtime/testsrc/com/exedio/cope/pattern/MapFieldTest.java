@@ -30,6 +30,7 @@ import static java.lang.Integer.valueOf;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
+import com.exedio.cope.Join;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Query;
 import com.exedio.cope.TestWithEnvironment;
@@ -75,7 +76,12 @@ public class MapFieldTest extends TestWithEnvironment
 		assertEqualsUnmodifiable(map(), item.getNameLengthMap());
 		{
 			final Query<MapFieldItem> q = TYPE.newQuery(name.getValue().equal("nameDE"));
-			name.join(q, DE);
+			final Join join = name.join(q, DE);
+			assertEquals(Join.Kind.OUTER_LEFT, join.getKind());
+			assertEquals(name.getRelationType(), join.getType());
+			assertEquals(
+					"(MapFieldItem-name.parent=MapFieldItem.this AND MapFieldItem-name.key='DE')",
+					join.getCondition().toString());
 			assertContains(item, q.search());
 		}
 		{
