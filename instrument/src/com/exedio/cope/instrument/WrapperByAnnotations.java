@@ -43,8 +43,7 @@ final class WrapperByAnnotations
 			final boolean enableNullability)
 	{
 		final WrapperByAnnotations factory = new WrapperByAnnotations(clazz, feature, enableNullability);
-		final ArrayList<WrapperX> result = new ArrayList<>();
-		result.addAll(superResult);
+		final ArrayList<WrapperX> result = new ArrayList<>(superResult);
 		factory.makeAll(result);
 		return Collections.unmodifiableList(result);
 	}
