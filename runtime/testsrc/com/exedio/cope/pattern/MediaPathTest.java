@@ -866,6 +866,7 @@ public final class MediaPathTest extends TestWithEnvironment
 				final Item item)
 		{
 			assertTrue(MODEL.hasCurrentTransaction());
+			assertEquals(MediaPathItem.TYPE, path.getType());
 			return ((MediaPathItem)item).getAccessControlAllowOriginWildcard();
 		}
 

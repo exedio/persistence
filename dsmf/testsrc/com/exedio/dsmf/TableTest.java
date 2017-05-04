@@ -21,9 +21,11 @@ package com.exedio.dsmf;
 import static com.exedio.dsmf.Node.Color.ERROR;
 import static com.exedio.dsmf.Node.Color.OK;
 import static com.exedio.dsmf.Node.Color.WARNING;
+import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+import java.util.ArrayList;
 import org.junit.Test;
 
 public class TableTest extends SchemaReadyTest
@@ -161,6 +163,37 @@ public class TableTest extends SchemaReadyTest
 			assertEquals(null, column.getError());
 			assertEquals(OK, column.getParticularColor());
 			assertEquals(intType, column.getType());
+		}
+	}
+
+	@Test public void testStatementListener()
+	{
+		final Schema schema = getVerifiedSchema();
+		final Table table = schema.getTable(TABLE1);
+		final MyListener listener = new MyListener();
+		table.drop(listener);
+		final String name = schema.dialect.quoteName(TABLE1);
+		assertEquals(asList(
+				"BEFORE: DROP TABLE " + name,
+				"AFTER:  DROP TABLE " + name + " (0)"),
+				listener.log);
+	}
+
+	static final class MyListener implements StatementListener
+	{
+		final ArrayList<String> log = new ArrayList<>();
+
+		@Override
+		public boolean beforeExecute(final String statement)
+		{
+			log.add("BEFORE: " + statement);
+			return true;
+		}
+
+		@Override
+		public void afterExecute(final String statement, final int rows)
+		{
+			log.add("AFTER:  " + statement + " (" + rows + ")");
 		}
 	}
 }
