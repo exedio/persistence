@@ -78,24 +78,6 @@ public class FieldEnumTest extends FieldTest
 		assertEquals("enumValue3",
 			AttributeItem.SomeEnum.enumValue3.name());
 
-		AttributeItem.SomeEnum someEnumeration = AttributeItem.SomeEnum.enumValue1;
-		switch(someEnumeration)
-		{
-			case enumValue1:
-				someEnumeration = AttributeItem.SomeEnum.enumValue2;
-				break;
-			case enumValue2:
-				someEnumeration = AttributeItem.SomeEnum.enumValue3;
-				break;
-			case enumValue3:
-				someEnumeration = AttributeItem.SomeEnum.enumValue1;
-				break;
-			default :
-				throw new RuntimeException("Ooooops");
-		}
-		assertEquals(someEnumeration, AttributeItem.SomeEnum.enumValue2);
-
-
 		assertEquals(null, item.getSomeEnum());
 		item.setSomeEnum(AttributeItem.SomeEnum.enumValue1);
 		assertEquals(
