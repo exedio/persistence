@@ -41,35 +41,25 @@ public class SchemaInfoConnectionTest extends TestWithEnvironment
 
 	@Test public void testIt() throws SQLException
 	{
-		final StringBuilder bf = new StringBuilder();
-		bf.append("select ").
-			append(SI.pk(InstanceOfAItem.TYPE)).
-			append(',').
-			append(SI.type(InstanceOfAItem.TYPE)).
-			append(',').
-			append(SI.update(InstanceOfAItem.TYPE)).
-			append(',').
-			append(SI.col(InstanceOfAItem.code)).
-			append(" from ").
-			append(SI.tab(InstanceOfAItem.TYPE));
-
-		connection.execute(bf.toString());
+		connection.execute(
+				"select " +
+				SI.pk(InstanceOfAItem.TYPE) + ',' +
+				SI.type(InstanceOfAItem.TYPE) + ',' +
+				SI.update(InstanceOfAItem.TYPE) + ',' +
+				SI.col(InstanceOfAItem.code) +
+				" from " +
+				SI.tab(InstanceOfAItem.TYPE));
 	}
 
 	@Test public void testTypeColumn() throws SQLException
 	{
-		final StringBuilder bf = new StringBuilder();
-		bf.append("select ").
-			append(SI.pk(InstanceOfRefItem.TYPE)).
-			append(',').
-			append(SI.update(InstanceOfRefItem.TYPE)).
-			append(',').
-			append(SI.col(InstanceOfRefItem.ref)).
-			append(',').
-			append(SI.type(InstanceOfRefItem.ref)).
-			append(" from ").
-			append(SI.tab(InstanceOfRefItem.TYPE));
-
-		connection.execute(bf.toString());
+		connection.execute(
+				"select " +
+				SI.pk(InstanceOfRefItem.TYPE) + ',' +
+				SI.update(InstanceOfRefItem.TYPE) + ',' +
+				SI.col(InstanceOfRefItem.ref) + ',' +
+				SI.type(InstanceOfRefItem.ref) +
+				" from " +
+				SI.tab(InstanceOfRefItem.TYPE));
 	}
 }

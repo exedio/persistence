@@ -232,43 +232,26 @@ public final class MysqlDialect extends Dialect
 	@Override
 	public String renameColumn(final String tableName, final String oldColumnName, final String newColumnName, final String columnType)
 	{
-		final StringBuilder bf = new StringBuilder();
-		bf.append("ALTER TABLE ").
-			append(tableName).
-			append(" CHANGE ").
-			append(oldColumnName).
-			append(' ').
-			append(newColumnName).
-			append(' ').
-			append(columnType);
-		return bf.toString();
+		return
+				"ALTER TABLE " + tableName +
+				" CHANGE " + oldColumnName + ' ' + newColumnName + ' ' + columnType;
 	}
 
 	// TODO is same as hsqldb
 	@Override
 	public String createColumn(final String tableName, final String columnName, final String columnType)
 	{
-		final StringBuilder bf = new StringBuilder();
-		bf.append("ALTER TABLE ").
-			append(tableName).
-			append(" ADD COLUMN ").
-			append(columnName).
-			append(' ').
-			append(columnType);
-		return bf.toString();
+		return
+				"ALTER TABLE " + tableName +
+				" ADD COLUMN " + columnName + ' ' + columnType;
 	}
 
 	@Override
 	public String modifyColumn(final String tableName, final String columnName, final String newColumnType)
 	{
-		final StringBuilder bf = new StringBuilder();
-		bf.append("ALTER TABLE ").
-			append(tableName).
-			append(" MODIFY ").
-			append(columnName).
-			append(' ').
-			append(newColumnType);
-		return bf.toString();
+		return
+				"ALTER TABLE " + tableName +
+				" MODIFY " + columnName + ' ' + newColumnType;
 	}
 
 	@Override

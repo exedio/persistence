@@ -218,41 +218,26 @@ public final class PostgresqlDialect extends Dialect
 	@Override
 	public String renameColumn(final String tableName, final String oldColumnName, final String newColumnName, final String columnType)
 	{
-		final StringBuilder bf = new StringBuilder();
-		bf.append("ALTER TABLE ").
-			append(tableName).
-			append(" RENAME COLUMN ").
-			append(oldColumnName).
-			append(" TO ").
-			append(newColumnName);
-		return bf.toString();
+		return
+				"ALTER TABLE " + tableName +
+				" RENAME COLUMN " + oldColumnName + " TO " + newColumnName;
 	}
 
 	// same as hsqldb
 	@Override
 	public String createColumn(final String tableName, final String columnName, final String columnType)
 	{
-		final StringBuilder bf = new StringBuilder();
-		bf.append("ALTER TABLE ").
-			append(tableName).
-			append(" ADD COLUMN ").
-			append(columnName).
-			append(' ').
-			append(columnType);
-		return bf.toString();
+		return
+				"ALTER TABLE " + tableName +
+				" ADD COLUMN " + columnName + ' ' + columnType;
 	}
 
 	@Override
 	public String modifyColumn(final String tableName, final String columnName, final String newColumnType)
 	{
-		final StringBuilder bf = new StringBuilder();
-		bf.append("ALTER TABLE ").
-			append(tableName).
-			append(" ALTER ").
-			append(columnName).
-			append(" TYPE ").
-			append(newColumnType);
-		return bf.toString();
+		return
+				"ALTER TABLE " + tableName +
+				" ALTER " + columnName + " TYPE " + newColumnType;
 	}
 
 	@Override

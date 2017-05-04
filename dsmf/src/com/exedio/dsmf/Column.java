@@ -179,27 +179,18 @@ public final class Column extends Node
 
 	public void drop(final StatementListener listener)
 	{
-		final StringBuilder bf = new StringBuilder();
-		bf.append("ALTER TABLE ").
-			append(quoteName(table.name)).
-			append(" DROP COLUMN ").
-			append(quoteName(name));
-
-		//System.out.println("dropColumn:"+bf);
-		executeSQL(bf.toString(), listener);
+		executeSQL(
+				"ALTER TABLE " + quoteName(table.name) +
+				" DROP COLUMN " + quoteName(name),
+				listener);
 	}
 
 	public void update(final String value, final StatementListener listener)
 	{
-		final StringBuilder bf = new StringBuilder();
-		bf.append("UPDATE ").
-			append(quoteName(table.name)).
-			append(" SET ").
-			append(quoteName(name)).
-			append('=').
-			append(value);
-
-		executeSQL(bf.toString(), listener);
+		executeSQL(
+				"UPDATE " + quoteName(table.name) +
+				" SET " + quoteName(name) + '=' + value,
+				listener);
 	}
 
 	@Override

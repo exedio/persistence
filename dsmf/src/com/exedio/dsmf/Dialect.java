@@ -228,12 +228,9 @@ public abstract class Dialect
 	// derby needs a different syntax
 	public String renameTable(final String tableName, final String newTableName)
 	{
-		final StringBuilder bf = new StringBuilder();
-		bf.append("ALTER TABLE ").
-			append(tableName).
-			append(" RENAME TO ").
-			append(newTableName);
-		return bf.toString();
+		return
+				"ALTER TABLE " + tableName +
+				" RENAME TO " + newTableName;
 	}
 
 	public abstract String renameColumn(String tableName, String oldColumnName, String newColumnName, String columnType);

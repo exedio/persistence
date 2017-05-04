@@ -100,12 +100,11 @@ public final class HsqldbDialect extends Dialect
 				else if("UNIQUE".equals(constraintType))
 				{
 					final StringBuilder clause = new StringBuilder();
-					final StringBuilder bf = new StringBuilder();
-					bf.append("SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.SYSTEM_INDEXINFO WHERE INDEX_NAME LIKE 'SYS_IDX_").
-						append(constraintName).
-						append("_%' AND NON_UNIQUE=false ORDER BY ORDINAL_POSITION");
-
-					schema.querySQL(bf.toString(), resultSetUnique ->
+					schema.querySQL(
+							"SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.SYSTEM_INDEXINFO WHERE INDEX_NAME LIKE 'SYS_IDX_" +
+							constraintName +
+							"_%' AND NON_UNIQUE=false ORDER BY ORDINAL_POSITION",
+					resultSetUnique ->
 					{
 						boolean first = true;
 						clause.append('(');
@@ -147,40 +146,25 @@ public final class HsqldbDialect extends Dialect
 	@Override
 	public String renameColumn(final String tableName, final String oldColumnName, final String newColumnName, final String columnType)
 	{
-		final StringBuilder bf = new StringBuilder();
-		bf.append("ALTER TABLE ").
-			append(tableName).
-			append(" ALTER COLUMN ").
-			append(oldColumnName).
-			append(" RENAME TO ").
-			append(newColumnName);
-		return bf.toString();
+		return
+				"ALTER TABLE " + tableName +
+				" ALTER COLUMN " + oldColumnName + " RENAME TO " + newColumnName;
 	}
 
 	@Override
 	public String createColumn(final String tableName, final String columnName, final String columnType)
 	{
-		final StringBuilder bf = new StringBuilder();
-		bf.append("ALTER TABLE ").
-			append(tableName).
-			append(" ADD COLUMN ").
-			append(columnName).
-			append(' ').
-			append(columnType);
-		return bf.toString();
+		return
+				"ALTER TABLE " + tableName +
+				" ADD COLUMN " + columnName + ' ' + columnType;
 	}
 
 	@Override
 	public String modifyColumn(final String tableName, final String columnName, final String newColumnType)
 	{
-		final StringBuilder bf = new StringBuilder();
-		bf.append("ALTER TABLE ").
-			append(tableName).
-			append(" ALTER ").
-			append(columnName).
-			append(" SET DATA TYPE ").
-			append(newColumnType);
-		return bf.toString();
+		return
+				"ALTER TABLE " + tableName +
+				" ALTER " + columnName + " SET DATA TYPE " + newColumnType;
 	}
 
 	@Override

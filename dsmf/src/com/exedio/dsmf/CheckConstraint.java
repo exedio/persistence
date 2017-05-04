@@ -67,17 +67,11 @@ public final class CheckConstraint extends Constraint
 	@Override
 	public long checkL()
 	{
-		final StringBuilder bf = new StringBuilder();
-		bf.append("SELECT COUNT(*) FROM ").
-			append(quoteName(table.name)).
-			append(" WHERE NOT(").
-			append(requiredCondition).
-			append(')');
-
-		//System.out.println("CHECKC:"+bf.toString());
-
 		final CheckResultSetHandler handler = new CheckResultSetHandler();
-		querySQL(bf.toString(), handler);
+		querySQL(
+				"SELECT COUNT(*) FROM " + quoteName(table.name) +
+				" WHERE NOT(" + requiredCondition + ')',
+				handler);
 		return handler.result;
 	}
 

@@ -163,41 +163,25 @@ public final class OracleDialect extends Dialect
 	@Override
 	public String renameColumn(final String tableName, final String oldColumnName, final String newColumnName, final String columnType)
 	{
-		final StringBuilder bf = new StringBuilder();
-		bf.append("ALTER TABLE ").
-			append(tableName).
-			append(" RENAME COLUMN ").
-			append(oldColumnName).
-			append(" TO ").
-			append(newColumnName);
-		return bf.toString();
+		return
+				"ALTER TABLE " + tableName +
+				" RENAME COLUMN " + oldColumnName + " TO " + newColumnName;
 	}
 
 	@Override
 	public String createColumn(final String tableName, final String columnName, final String columnType)
 	{
-		final StringBuilder bf = new StringBuilder();
-		bf.append("ALTER TABLE ").
-			append(tableName).
-			append(" ADD (").
-			append(columnName).
-			append(' ').
-			append(columnType).
-			append(')');
-		return bf.toString();
+		return
+				"ALTER TABLE " + tableName +
+				" ADD (" + columnName + ' ' + columnType + ')';
 	}
 
 	@Override
 	public String modifyColumn(final String tableName, final String columnName, final String newColumnType)
 	{
-		final StringBuilder bf = new StringBuilder();
-		bf.append("ALTER TABLE ").
-			append(tableName).
-			append(" MODIFY ").
-			append(columnName).
-			append(' ').
-			append(newColumnType);
-		return bf.toString();
+		return
+				"ALTER TABLE " + tableName +
+				" MODIFY " + columnName + ' ' + newColumnType;
 	}
 
 	@Override

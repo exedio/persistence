@@ -208,24 +208,24 @@ public class MultiItemFieldTest extends TestWithEnvironment
 
 	@Test public void testConditionIsNull()
 	{
-		final StringBuilder sb = new StringBuilder();
-		sb.append("(");
-		sb.append("MultiItemFieldItem.field-MultiItemFieldComponentxA is null");
-		sb.append(" AND ");
-		sb.append("MultiItemFieldItem.field-MultiItemFieldComponentxB is null");
-		sb.append(")");
-		assertEquals(sb.toString(), MultiItemFieldItem.field.isNull().toString());
+		assertEquals(
+				"(" +
+				"MultiItemFieldItem.field-MultiItemFieldComponentxA is null" +
+				" AND " +
+				"MultiItemFieldItem.field-MultiItemFieldComponentxB is null" +
+				")",
+				MultiItemFieldItem.field.isNull().toString());
 	}
 
 	@Test public void testConditionIsNotNull()
 	{
-		final StringBuilder sb = new StringBuilder();
-		sb.append("(");
-		sb.append("MultiItemFieldItem.field-MultiItemFieldComponentxA is not null");
-		sb.append(" OR ");
-		sb.append("MultiItemFieldItem.field-MultiItemFieldComponentxB is not null");
-		sb.append(")");
-		assertEquals(sb.toString(), MultiItemFieldItem.field.isNotNull().toString());
+		assertEquals(
+				"(" +
+				"MultiItemFieldItem.field-MultiItemFieldComponentxA is not null" +
+				" OR " +
+				"MultiItemFieldItem.field-MultiItemFieldComponentxB is not null" +
+				")",
+				MultiItemFieldItem.field.isNotNull().toString());
 	}
 
 	@Test public void testGetComponents()

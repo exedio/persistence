@@ -385,11 +385,9 @@ final class MysqlDialect extends Dialect
 	{
 		if(set.isSubsetOfAscii())
 		{
-			final StringBuilder bf = new StringBuilder();
-			bf.append(column).
-				append(" REGEXP ").
-				append(StringColumn.cacheToDatabaseStatic(set.getRegularExpression()));
-			return bf.toString();
+			return
+					column + " REGEXP " +
+					StringColumn.cacheToDatabaseStatic(set.getRegularExpression());
 		}
 		else
 		{
@@ -400,11 +398,9 @@ final class MysqlDialect extends Dialect
 			}
 			else
 			{
-				final StringBuilder bf = new StringBuilder();
-				bf.append(column).
-					append(" NOT REGEXP ").
-					append(StringColumn.cacheToDatabaseStatic(set.getRegularExpressionForInvalid7BitChars()));
-				return bf.toString();
+				return
+						column + " NOT REGEXP " +
+						StringColumn.cacheToDatabaseStatic(set.getRegularExpressionForInvalid7BitChars());
 			}
 		}
 	}

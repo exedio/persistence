@@ -169,19 +169,14 @@ public class MediaServlet extends HttpServlet
 				final MediaPath alt = pathesRedirectFrom.get(featureString);
 				if(alt!=null)
 				{
-					final StringBuilder location = new StringBuilder();
-					location.
-						// There is no need for absolute url anymore: http://en.wikipedia.org/wiki/HTTP_location
-						append(request.getContextPath()).
-						append(request.getServletPath()).
-						append('/').
-						append(alt.getType().getID()).
-						append('/').
-						append(alt.getName()).
-						append(pathInfo.substring(slash2));
-
 					response.setStatus(SC_MOVED_PERMANENTLY);
-					response.setHeader(RESPONSE_LOCATION, location.toString());
+					response.setHeader(RESPONSE_LOCATION,
+							// There is no need for absolute url anymore: http://en.wikipedia.org/wiki/HTTP_location
+							request.getContextPath() +
+							request.getServletPath() + '/' +
+							alt.getType().getID() + '/' +
+							alt.getName() +
+							pathInfo.substring(slash2));
 
 					alt.incRedirectFrom();
 					return;
