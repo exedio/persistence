@@ -393,9 +393,9 @@ public final class DataField extends Field<DataField.Value>
 		}
 	}
 
-	static byte[] copy(final InputStream in, final long length)
+	static byte[] copy(final InputStream input, final long length)
 	{
-		try
+		try(InputStream in = input)
 		{
 			if(length==0)
 				return new byte[]{};
@@ -422,23 +422,11 @@ public final class DataField extends Field<DataField.Value>
 			if(tooManyBytes!=-1)
 				throw new RuntimeException("expected " + length + " bytes, but got more.");
 
-			in.close();
 			return result;
 		}
 		catch(final IOException e)
 		{
 			throw new RuntimeException(e);
-		}
-		finally
-		{
-			try
-			{
-				in.close();
-			}
-			catch(final IOException e)
-			{
-				throw new RuntimeException(e);
-			}
 		}
 	}
 
