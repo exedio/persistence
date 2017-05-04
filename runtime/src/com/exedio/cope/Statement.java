@@ -464,7 +464,7 @@ final class Statement
 		}
 	}
 
-	Statement appendTableDefinition(final Join join, final Table table)
+	private void appendTableDefinition(final Join join, final Table table)
 	{
 		append(table.quotedID);
 		final String alias = getAlias(join, table);
@@ -473,7 +473,6 @@ final class Statement
 			append(' ').
 			append(alias);
 		}
-		return this;
 	}
 
 	void appendTypeDefinition(final Join join, final Type<?> type, final boolean hasJoins)
