@@ -67,8 +67,6 @@ abstract class CopeType<F extends CopeFeature>
 		return Modifier.isFinal(getModifier());
 	}
 
-	abstract boolean isInterface();
-
 	final boolean isItem()
 	{
 		return kind.isItem;
