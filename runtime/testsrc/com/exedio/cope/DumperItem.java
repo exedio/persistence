@@ -39,7 +39,7 @@ public class DumperItem extends Item
 	}
 
 	@Override
-	protected void afterNewCopeItem()
+	protected final void afterNewCopeItem()
 	{
 		Assert.fail("must not be called");
 	}

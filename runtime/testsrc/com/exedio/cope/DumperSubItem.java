@@ -18,17 +18,9 @@
 
 package com.exedio.cope;
 
-import org.junit.Assert;
-
 public final class DumperSubItem extends DumperItem
 {
 	static final StringField subString = new StringField().lengthMax(10);
-
-	@Override
-	protected void afterNewCopeItem()
-	{
-		Assert.fail("must not be called");
-	}
 
 	/**
 	 * Creates a new DumperSubItem with all the fields initially needed.
