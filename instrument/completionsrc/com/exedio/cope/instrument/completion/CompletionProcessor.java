@@ -79,12 +79,12 @@ public class CompletionProcessor extends AbstractProcessor
 		return true;
 	}
 
-	private Completion stringCompletion(final String value, final String message)
+	private static Completion stringCompletion(final String value, final String message)
 	{
 		return Completions.of("\""+value+"\"", message);
 	}
 
-	private Iterable<? extends Completion> toCompletions(final Map<String,List<String>> completionData)
+	private static Iterable<? extends Completion> toCompletions(final Map<String,List<String>> completionData)
 	{
 		final List<Completion> result=new ArrayList<>();
 		for (final Map.Entry<String,List<String>> entry: completionData.entrySet())
@@ -94,7 +94,7 @@ public class CompletionProcessor extends AbstractProcessor
 		return result;
 	}
 
-	private String concatLines(final List<String> lines)
+	private static String concatLines(final List<String> lines)
 	{
 		final StringBuilder result=new StringBuilder();
 		for (final String line: lines)
@@ -116,7 +116,7 @@ public class CompletionProcessor extends AbstractProcessor
 		return Collections.emptyList();
 	}
 
-	private Iterable<? extends Completion> getCompletionsForWrap(final Element element)
+	private static Iterable<? extends Completion> getCompletionsForWrap(final Element element)
 	{
 		final TypeMirror asType=element.asType();
 		if (!(asType instanceof DeclaredType))

@@ -306,7 +306,7 @@ public final class AntTask extends Task
 	}
 
 	@SuppressFBWarnings("NP_NULL_ON_SOME_PATH_FROM_RETURN_VALUE") // OK: checks isDirectory before calling listFiles
-	private void addRecursively(final File fileOrDir, final List<File> addTo, final boolean expandDirectories)
+	private static void addRecursively(final File fileOrDir, final List<File> addTo, final boolean expandDirectories)
 	{
 		if (!fileOrDir.exists())
 		{
