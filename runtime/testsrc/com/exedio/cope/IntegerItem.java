@@ -41,10 +41,7 @@ public final class IntegerItem extends Item
 		});
 	}
 
-	/**
-	 * @param dummy is a dummy
-	 */
-	IntegerItem(final Integer max4, final Date dummy) throws StringLengthViolationException, MandatoryViolationException
+	IntegerItem(final Integer max4, @SuppressWarnings("unused") final Date dummy) throws StringLengthViolationException, MandatoryViolationException
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
 			IntegerItem.mandatory.map(7777777),

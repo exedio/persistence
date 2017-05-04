@@ -339,10 +339,7 @@ public class SchemaPurgeTest extends TestWithEnvironment
 		static final IntegerField next = new IntegerField().defaultToNext(1000);
 		static final Sequence sequence = new Sequence(2000);
 
-		/**
-		 * @param n suppress warning
-		 */
-		AnItem(final int n)
+		AnItem(@SuppressWarnings("unused") final int n)
 		{
 			this();
 		}

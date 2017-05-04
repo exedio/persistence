@@ -41,10 +41,7 @@ public final class DoubleItem extends Item
 		});
 	}
 
-	/**
-	 * @param dummy is a dummy
-	 */
-	DoubleItem(final Double max4, final Date dummy) throws StringLengthViolationException, MandatoryViolationException
+	DoubleItem(final Double max4, @SuppressWarnings("unused") final Date dummy) throws StringLengthViolationException, MandatoryViolationException
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
 			DoubleItem.mandatory.map(7777777.77),

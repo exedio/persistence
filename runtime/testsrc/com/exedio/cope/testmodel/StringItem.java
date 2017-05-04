@@ -61,10 +61,7 @@ public final class StringItem extends Item
 
 	public static final PlusView<Integer> min4AndMax4UpperLength = min4UpperLength.plus(max4UpperLength);
 
-	/**
-	 * @param dummy is a dummy
-	 */
-	public StringItem(final String any, final boolean dummy)
+	public StringItem(final String any, @SuppressWarnings("unused") final boolean dummy)
 	{
 		this(
 				StringItem.mandatory.map("defaultByAny"),
@@ -72,20 +69,14 @@ public final class StringItem extends Item
 		);
 	}
 
-	/**
-	 * @param dummy is a dummy
-	 */
-	public StringItem(final String mandatory, final double dummy) throws MandatoryViolationException
+	public StringItem(final String mandatory, @SuppressWarnings("unused") final double dummy) throws MandatoryViolationException
 	{
 		this(
 				StringItem.mandatory.map(mandatory)
 		);
 	}
 
-	/**
-	 * @param dummy is a dummy
-	 */
-	public StringItem(final String exact6, final int dummy) throws StringLengthViolationException
+	public StringItem(final String exact6, @SuppressWarnings("unused") final int dummy) throws StringLengthViolationException
 	{
 		this(
 				StringItem.mandatory.map("defaultByExact6"),
@@ -93,10 +84,7 @@ public final class StringItem extends Item
 		);
 	}
 
-	/**
-	 * @param dummy is a dummy
-	 */
-	public StringItem(final String max4, final Date dummy) throws StringLengthViolationException
+	public StringItem(final String max4, @SuppressWarnings("unused") final Date dummy) throws StringLengthViolationException
 	{
 		this(
 				StringItem.mandatory.map("defaultByMax4"),

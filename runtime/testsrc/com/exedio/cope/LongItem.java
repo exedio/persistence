@@ -41,10 +41,7 @@ public final class LongItem extends Item
 		});
 	}
 
-	/**
-	 * @param dummy is a dummy
-	 */
-	LongItem(final Long max4, final Date dummy) throws StringLengthViolationException, MandatoryViolationException
+	LongItem(final Long max4, @SuppressWarnings("unused") final Date dummy) throws StringLengthViolationException, MandatoryViolationException
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
 			LongItem.mandatory.map(7777777l),
