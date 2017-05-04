@@ -18,6 +18,7 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.pattern.MediaPath.getNoSuchPath;
 import static javax.servlet.http.HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
 import static javax.servlet.http.HttpServletResponse.SC_NOT_FOUND;
 import static org.junit.Assert.assertEquals;
@@ -61,6 +62,7 @@ public final class MediaPathTest extends TestWithEnvironment
 	private MediaPathItem item;
 	private String id;
 	private MyMediaServlet servlet;
+	private int noSuchPathOnSetup;
 	private MediaInfo normalInfo = null;
 
 	@Before public void setUp()
@@ -70,6 +72,7 @@ public final class MediaPathTest extends TestWithEnvironment
 		servlet = new MyMediaServlet();
 		servlet.initPathes(MODEL);
 		servlet.initConnected(MODEL);
+		noSuchPathOnSetup = getNoSuchPath();
 		normalInfo = MediaPathItem.normal.getInfo();
 	}
 
@@ -352,6 +355,12 @@ public final class MediaPathTest extends TestWithEnvironment
 
 	// TODO testInfo with others
 
+	@Test public void testInfoNoSuchPath() throws ServletException, IOException
+	{
+		assertNotFound("/MediaPathItem/zack/x", "no such path");
+		assertInfo(1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+	}
+
 	@Test public void testInfoNotAnItem() throws ServletException, IOException
 	{
 		assertNotFound("/MediaPathItem/normal/x", "not an item");
@@ -408,7 +417,7 @@ public final class MediaPathTest extends TestWithEnvironment
 			final int delivered)
 	{
 		final MediaInfo i = MediaPathItem.normal.getInfo();
-		assertEquals("noSuchPath",     noSuchPath,     0);
+		assertEquals("noSuchPath",     noSuchPath,     getNoSuchPath()       - noSuchPathOnSetup);
 		assertEquals("redirectFrom",   redirectFrom,   i.getRedirectFrom()   - normalInfo.getRedirectFrom());
 		assertEquals("exception",      exception,      i.getException()      - normalInfo.getException());
 		assertEquals("invalidSpecial", invalidSpecial, i.getInvalidSpecial() - normalInfo.getInvalidSpecial());
