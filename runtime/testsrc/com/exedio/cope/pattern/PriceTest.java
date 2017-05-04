@@ -174,8 +174,8 @@ public class PriceTest
 		assertEquals(-200, valueOf(-2.0 ).store());
 		assertEquals( 202, valueOf( 2.02).store());
 		assertEquals(-202, valueOf(-2.02).store());
-		assertEquals( 002, valueOf( 0.02).store());
-		assertEquals(-002, valueOf(-0.02).store());
+		assertEquals(   2, valueOf( 0.02).store());
+		assertEquals(-  2, valueOf(-0.02).store());
 
 		// from wikipedia
 		assertEquals( 301, valueOf( 3.013  ).store()); // because the next digit (3) is 4 or less)
@@ -355,8 +355,8 @@ public class PriceTest
 		assertEquals(-200, valueOf(bd(-2,   0)).store());
 		assertEquals( 202, valueOf(bd( 202, 2)).store());
 		assertEquals(-202, valueOf(bd(-202, 2)).store());
-		assertEquals( 002, valueOf(bd(   2, 2)).store());
-		assertEquals(-002, valueOf(bd(-  2, 2)).store());
+		assertEquals(   2, valueOf(bd(   2, 2)).store());
+		assertEquals(-  2, valueOf(bd(-  2, 2)).store());
 		// from wikipedia
 		assertEquals( 302, valueOf(bd( 3016,   3)).store()); // because the next digit (6) is 6 or more)
 		assertEquals( 301, valueOf(bd( 3013,   3)).store()); // because the next digit (3) is 4 or less)
