@@ -20,6 +20,8 @@ package com.exedio.cope;
 
 import com.exedio.cope.misc.EnumAnnotatedElement;
 import gnu.trove.TIntObjectHashMap;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
@@ -31,7 +33,7 @@ final class EnumFieldType<E extends Enum<E>> implements SelectType<E>
 	final List<E> values;
 	private final TIntObjectHashMap<E> numbersToValues;
 	private final int[] ordinalsToNumbers;
-	final EnumMarshaller<E> marshaller;
+	final Marshaller<E> marshaller;
 
 	private EnumFieldType(final Class<E> valueClass)
 	{
@@ -66,7 +68,30 @@ final class EnumFieldType<E extends Enum<E>> implements SelectType<E>
 		this.values = Collections.unmodifiableList(Arrays.asList(enumConstants));
 		this.numbersToValues = numbersToValues;
 		this.ordinalsToNumbers = ordinalsToNumbers;
-		this.marshaller = new EnumMarshaller<>(this);
+		this.marshaller = new Marshaller<E>(1)
+		{
+			@Override
+			E unmarshal(final ResultSet row, final int columnIndex) throws SQLException
+			{
+				final Object cell = row.getObject(columnIndex);
+				if(cell==null)
+					return null;
+
+				return getValueByNumber(((Number)cell).intValue());
+			}
+
+			@Override
+			String marshalLiteral(final E value)
+			{
+				return String.valueOf(getNumber(value)); // TODO precompute strings
+			}
+
+			@Override
+			Object marshalPrepared(final E value)
+			{
+				return getNumber(value);
+			}
+		};
 	}
 
 	static int roundUpTo10(final int n)
