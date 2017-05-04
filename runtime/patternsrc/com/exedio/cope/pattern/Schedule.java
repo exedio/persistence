@@ -480,7 +480,7 @@ public final class Schedule extends Pattern
 			return requireMounted(mountIfMounted);
 		}
 
-		Run newItem(
+		void newItem(
 				final Item item,
 				final Interval interval,
 				final Date from,
@@ -490,8 +490,7 @@ public final class Schedule extends Pattern
 				final long elapsed)
 		{
 			final Mount mount = mount();
-			return
-				mount.type.newItem(
+			mount.type.newItem(
 					Cope.mapAndCast(mount.parent, item),
 					this.interval.map(interval),
 					this.from.map(from),
