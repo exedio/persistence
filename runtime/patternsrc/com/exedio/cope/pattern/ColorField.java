@@ -158,7 +158,7 @@ public final class ColorField extends Pattern implements Settable<Color>, Copyab
 	 * <p>
 	 * This transformation ensures, that the persistent value
 	 * of any opaque {@link Color} does not depend on whether
-	 * the {@link ColorField}
+	 * the {@code ColorField}
 	 * {@link #isAlphaAllowed() allows alpha} or not.
 	 */
 	public IntegerField getRGB()

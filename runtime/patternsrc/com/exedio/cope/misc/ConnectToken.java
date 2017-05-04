@@ -381,7 +381,7 @@ public final class ConnectToken implements AutoCloseable
 	}
 
 	/**
-	 * Returns the collection of open {@link ConnectToken}s
+	 * Returns the collection of open {@code ConnectToken}s
 	 * on the model.
 	 * <p>
 	 * Returns an unmodifiable snapshot of the actual data,

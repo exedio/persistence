@@ -22,7 +22,7 @@ public interface MediaUrlCatchphraseProvider
 {
 	/**
 	 * Returning null or an empty string is equivalent to not implementing interface
-	 * {@link MediaUrlCatchphraseProvider}
+	 * {@code MediaUrlCatchphraseProvider}
 	 * at all.
 	 */
 	String getMediaUrlCatchphrase(MediaPath path);

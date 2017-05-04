@@ -34,7 +34,7 @@ public interface NumberFunction<E extends Number> extends Function<E>
 	}
 
 	/**
-	 * You may want to use {@link PlusLiteralView#plus(Function, Number)} instead, if you do not have {@link NumberFunction}s available.
+	 * You may want to use {@link PlusLiteralView#plus(Function, Number)} instead, if you do not have {@code NumberFunction}s available.
 	 */
 	default PlusLiteralView<E> plus(final E value)
 	{
@@ -42,7 +42,7 @@ public interface NumberFunction<E extends Number> extends Function<E>
 	}
 
 	/**
-	 * You may want to use {@link MultiplyLiteralView#multiply(Function, Number)} instead, if you do not have {@link NumberFunction}s available.
+	 * You may want to use {@link MultiplyLiteralView#multiply(Function, Number)} instead, if you do not have {@code NumberFunction}s available.
 	 */
 	default MultiplyLiteralView<E> multiply(final E value)
 	{
@@ -50,7 +50,7 @@ public interface NumberFunction<E extends Number> extends Function<E>
 	}
 
 	/**
-	 * You may want to use {@link PlusView#plus(Function, Function)} instead, if you do not have {@link NumberFunction}s available.
+	 * You may want to use {@link PlusView#plus(Function, Function)} instead, if you do not have {@code NumberFunction}s available.
 	 */
 	default PlusView<E> plus(final NumberFunction<E> other)
 	{
@@ -58,7 +58,7 @@ public interface NumberFunction<E extends Number> extends Function<E>
 	}
 
 	/**
-	 * You may want to use {@link MinusView#minus(Function, Function)} instead, if you do not have {@link NumberFunction}s available.
+	 * You may want to use {@link MinusView#minus(Function, Function)} instead, if you do not have {@code NumberFunction}s available.
 	 */
 	default MinusView<E> minus(final NumberFunction<E> other)
 	{
@@ -66,7 +66,7 @@ public interface NumberFunction<E extends Number> extends Function<E>
 	}
 
 	/**
-	 * You may want to use {@link MultiplyView#multiply(Function, Function)} instead, if you do not have {@link NumberFunction}s available.
+	 * You may want to use {@link MultiplyView#multiply(Function, Function)} instead, if you do not have {@code NumberFunction}s available.
 	 */
 	default MultiplyView<E> multiply(final NumberFunction<E> other)
 	{
@@ -74,7 +74,7 @@ public interface NumberFunction<E extends Number> extends Function<E>
 	}
 
 	/**
-	 * You may want to use {@link DivideView#divide(Function, Function)} instead, if you do not have {@link NumberFunction}s available.
+	 * You may want to use {@link DivideView#divide(Function, Function)} instead, if you do not have {@code NumberFunction}s available.
 	 */
 	default DivideView<E> divide(final NumberFunction<E> other)
 	{
