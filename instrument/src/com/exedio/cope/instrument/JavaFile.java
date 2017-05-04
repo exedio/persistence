@@ -90,8 +90,10 @@ final class JavaFile
 
 	void markFragmentAsGenerated(final int startInclusive, final int endExclusive)
 	{
-		generatedFragments.addReplacement(startInclusive, endExclusive, new byte[0]);
+		generatedFragments.addReplacement(startInclusive, endExclusive, EMPTY_BYTES);
 	}
+
+	private static final byte[] EMPTY_BYTES = {};
 
 	int translateToPositionInSourceWithoutGeneratedFragments(final int positionInRawSource)
 	{

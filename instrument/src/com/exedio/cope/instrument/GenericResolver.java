@@ -71,7 +71,7 @@ final class GenericResolver<T>
 			if(supertype instanceof Class<?>)
 			{
 				assert supertype==superclass;
-				final Type[] arguments = getX(superclass, new Type[]{});
+				final Type[] arguments = getX(superclass, EMPTY_TYPES);
 				filter(clazz, parameters, arguments);
 				return arguments;
 			}
@@ -98,6 +98,8 @@ final class GenericResolver<T>
 		filter(clazz, parameters, arguments);
 		return arguments;
 	}
+
+	private static final Type[] EMPTY_TYPES = {};
 
 	private static ParameterizedType getGenericInterface(
 			final Class<?> clazz,

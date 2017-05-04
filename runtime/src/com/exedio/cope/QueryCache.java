@@ -171,7 +171,7 @@ final class QueryCache
 	QueryCacheHistogram[] getHistogram()
 	{
 		if(map==null)
-			return new QueryCacheHistogram[0];
+			return EMPTY_HISTOGRAM;
 
 		final Key[] keys;
 		final Value[] values;
@@ -190,6 +190,8 @@ final class QueryCache
 
 		return result;
 	}
+
+	private static final QueryCacheHistogram[] EMPTY_HISTOGRAM = {};
 
 	private static final class Key
 	{

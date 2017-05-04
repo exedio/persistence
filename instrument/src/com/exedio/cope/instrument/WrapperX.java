@@ -277,7 +277,7 @@ final class WrapperX
 		return
 			comments!=null
 			? comments.toArray(new String[comments.size()])
-			: new String[0];
+			: EMPTY_STRING_ARRAY;
 	}
 
 

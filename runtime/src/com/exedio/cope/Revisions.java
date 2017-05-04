@@ -48,8 +48,10 @@ public final class Revisions
 	public Revisions(final int number)
 	{
 		this.number = requireNonNegative(number, "number");
-		this.revisions = new Revision[0];
+		this.revisions = EMPTY_REVISIONS;
 	}
+
+	private static final Revision[] EMPTY_REVISIONS = {};
 
 	/**
 	 * @param revisions See {@link #getList()} for further information.
