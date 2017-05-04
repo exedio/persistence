@@ -83,15 +83,13 @@ final class Transactions
 			threadLocal.remove();
 	}
 
-	Transaction remove(final Transaction tx)
+	void remove(final Transaction tx)
 	{
 		synchronized(open)
 		{
 			open.remove(tx);
 		}
 		setThreadLocal(null);
-
-		return tx;
 	}
 
 	long getOldestCacheStamp()
