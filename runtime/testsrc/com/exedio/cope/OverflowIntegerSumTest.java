@@ -139,7 +139,7 @@ public class OverflowIntegerSumTest extends TestWithEnvironment
 						expectedArithmeticException = "Overflow"; // from BigDecimal#intValueExact
 						break;
 					default:
-						throw new RuntimeException("" + dialect);
+						throw new RuntimeException("" + dialect, e);
 				}
 
 				assertEquals(expectedArithmeticException, e.getMessage());
