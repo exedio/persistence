@@ -21,7 +21,6 @@ package com.exedio.cope.instrument.completion;
 import com.exedio.cope.instrument.Wrap;
 import java.text.MessageFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -133,7 +132,7 @@ public class CompletionProcessor extends AbstractProcessor
 		}
 		final Map<String,List<String>> completionData=new HashMap<>();
 		declaredType.accept(new CompletionCollector(completionData), null);
-		completionData.put("*", Arrays.asList("fallback configuration"));
+		completionData.put("*", Collections.singletonList("fallback configuration"));
 		return toCompletions(completionData);
 	}
 
