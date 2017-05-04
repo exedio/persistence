@@ -128,7 +128,7 @@ abstract class JavacRunner<P extends Processor>
 		else
 		{
 			// this works for Ant
-			final Pattern pattern = Pattern.compile("AntClassLoader\\[(.*)\\]");
+			final Pattern pattern = Pattern.compile("AntClassLoader\\[(.*)]");
 			final String classLoaderString=cl.toString();
 			final Matcher matcher = pattern.matcher(classLoaderString);
 			if ( !matcher.matches() ) throw new RuntimeException("failed to construct file-based classpath from class loader; see Main.java getJavacClasspath(); class loader: "+classLoaderString);
