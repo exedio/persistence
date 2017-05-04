@@ -59,15 +59,15 @@ public final class MinusView<E extends Number> extends NumberView<E>
 
 		if(valueClass==Integer.class)
 		{
-			return (E)Integer.valueOf(((Integer)minuend).intValue() - ((Integer)subtrahend).intValue());
+			return (E)Integer.valueOf((Integer)minuend - (Integer)subtrahend);
 		}
 		else if(valueClass==Long.class)
 		{
-			return (E)Long.valueOf(((Long)minuend).longValue() - ((Long)subtrahend).longValue());
+			return (E)Long.valueOf((Long)minuend - (Long)subtrahend);
 		}
 		else if(valueClass==Double.class)
 		{
-			return (E)Double.valueOf(((Double)minuend).doubleValue() - ((Double)subtrahend).doubleValue());
+			return (E)Double.valueOf((Double)minuend - (Double)subtrahend);
 		}
 		else
 			throw new RuntimeException(valueClass.getName());

@@ -58,15 +58,15 @@ public final class PlusLiteralView<E extends Number> extends NumberView<E>
 
 		if(valueClass==Integer.class)
 		{
-			return (E)Integer.valueOf(((Integer)leftValue).intValue() + right.intValue());
+			return (E)Integer.valueOf((Integer)leftValue + (Integer)right);
 		}
 		else if(valueClass==Long.class)
 		{
-			return (E)Long.valueOf(((Long)leftValue).longValue() + right.longValue());
+			return (E)Long.valueOf((Long)leftValue + (Long)right);
 		}
 		else if(valueClass==Double.class)
 		{
-			return (E)Double.valueOf(((Double)leftValue).doubleValue() + right.doubleValue());
+			return (E)Double.valueOf((Double)leftValue + (Double)right);
 		}
 		else
 			throw new RuntimeException(valueClass.getName());

@@ -59,15 +59,15 @@ public final class DivideView<E extends Number> extends NumberView<E>
 
 		if(valueClass==Integer.class)
 		{
-			return (E)Integer.valueOf(((Integer)dividend).intValue() / ((Integer)divisor).intValue());
+			return (E)Integer.valueOf((Integer)dividend / (Integer)divisor);
 		}
 		else if(valueClass==Long.class)
 		{
-			return (E)Long.valueOf(((Long)dividend).longValue() / ((Long)divisor).longValue());
+			return (E)Long.valueOf((Long)dividend / (Long)divisor);
 		}
 		else if(valueClass==Double.class)
 		{
-			return (E)Double.valueOf(((Double)dividend).doubleValue() / ((Double)divisor).doubleValue());
+			return (E)Double.valueOf((Double)dividend / (Double)divisor);
 		}
 		else
 			throw new RuntimeException(valueClass.getName());
