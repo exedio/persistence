@@ -338,7 +338,7 @@ public class DeleteTest extends TestWithEnvironment
 		// test Query.search with selects
 		final Query<DeleteItem> query2 = new Query<>(selfNullify);
 		query2.setOrderByThis(true);
-		final List<? extends DeleteItem> searchResult2 = query2.search();
+		final List<DeleteItem> searchResult2 = query2.search();
 		assertEquals(list(item2, null), searchResult2);
 		assertSame(item2, searchResult2.iterator().next());
 	}

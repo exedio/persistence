@@ -102,7 +102,7 @@ final class ImporterItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="import")
 	@javax.annotation.Nonnull
-	static final ImporterItem importByCode(@javax.annotation.Nonnull final String keyValue,@javax.annotation.Nonnull final java.util.List<? extends com.exedio.cope.SetValue<?>> setValues)
+	static final ImporterItem importByCode(@javax.annotation.Nonnull final String keyValue,@javax.annotation.Nonnull final java.util.List<com.exedio.cope.SetValue<?>> setValues)
 	{
 		return ImporterItem.byCode.doImport(ImporterItem.class,keyValue,setValues);
 	}

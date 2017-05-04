@@ -28,7 +28,7 @@ import java.util.List;
 public final class SetValueUtil
 {
 	@SuppressFBWarnings("PZLA_PREFER_ZERO_LENGTH_ARRAYS")
-	public static SetValue<?>[] toArray(final List<? extends SetValue<?>> list)
+	public static SetValue<?>[] toArray(final List<SetValue<?>> list)
 	{
 		return
 			list!=null

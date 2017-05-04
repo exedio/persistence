@@ -68,7 +68,7 @@ public final class Importer<K> extends Pattern
 	public <P extends Item> P doImport(
 			@Nonnull final Class<P> parentClass,
 			@Nonnull @Parameter("keyValue") final K keyValue,
-			@Nonnull @Parameter("setValues") final List<? extends SetValue<?>> setValues)
+			@Nonnull @Parameter("setValues") final List<SetValue<?>> setValues)
 	{
 		return doImport(parentClass, keyValue, SetValueUtil.toArray(setValues));
 	}

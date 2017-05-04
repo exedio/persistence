@@ -315,12 +315,12 @@ public class DayFieldTest extends TestWithEnvironment
 		}
 	}
 
-	protected static List<? extends Day> search(final DayField selectField)
+	protected static List<Day> search(final DayField selectField)
 	{
 		return search(selectField, null);
 	}
 
-	protected static List<? extends Day> search(final DayField selectField, final Condition condition)
+	protected static List<Day> search(final DayField selectField, final Condition condition)
 	{
 		return new Query<>(selectField, condition).search();
 	}
