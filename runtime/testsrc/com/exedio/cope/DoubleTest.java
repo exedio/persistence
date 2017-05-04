@@ -36,7 +36,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import com.exedio.cope.CompareFunctionCondition.Operator;
@@ -384,10 +383,6 @@ public class DoubleTest extends TestWithEnvironment
 					e.getMessage());
 		}
 
-		assertTrue(3.0<POSITIVE_INFINITY);
-		assertTrue(3.0>NEGATIVE_INFINITY);
-		assertTrue( Double.MAX_VALUE<POSITIVE_INFINITY);
-		assertTrue(-Double.MAX_VALUE>NEGATIVE_INFINITY);
 		try
 		{
 			item.setMandatory(POSITIVE_INFINITY);
