@@ -24,7 +24,6 @@ import static java.util.Objects.requireNonNull;
 import com.exedio.cope.Item;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
-import com.exedio.cope.pattern.TextUrlFilter.Paste;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.IOException;
 import java.nio.charset.Charset;
@@ -74,11 +73,6 @@ public class TextUrlFilterDelegator extends MediaFilter implements TextUrlFilter
 	throws IOException
 	{
 		this.raw.set( item, raw );
-	}
-
-	private Paste getPaste(final Item item, final String key)
-	{
-		return delegate.getPaste(item, key);
 	}
 
 	public final Locator getPasteLocator(final Item item, final String key)
@@ -188,7 +182,7 @@ public class TextUrlFilterDelegator extends MediaFilter implements TextUrlFilter
 			{
 				try
 				{
-					getPaste(item, key);
+					delegate.getPaste(item, key);
 				}
 				catch(final IllegalArgumentException e)
 				{
