@@ -47,7 +47,7 @@ final class Timer
 	void finish(final String msg, final long elapsed)
 	{
 		final long currentAccu = totalElapsed += elapsed;
-		logger.info(msg  + " " + elapsed + "ms total" + this.msg + " " + currentAccu + "ms");
+		logger.info("{} {}ms total{} {}ms", new Object[]{msg, elapsed, this.msg, currentAccu});
 	}
 
 	final class Interval

@@ -63,17 +63,17 @@ final class JPEGCodecAccess
 		try
 		{
 			final Method result = Class.forName(className).getMethod(methodName, parameterTypes);
-			logger.info("available: " + className + '#' + methodName);
+			logger.info("available: {}#{}", className, methodName);
 			return result;
 		}
 		catch(final ClassNotFoundException e)
 		{
-			logger.warn("not available: " + className);
+			logger.warn("not available: {}", className);
 			return null;
 		}
 		catch(final NoSuchMethodException e)
 		{
-			logger.warn("not available: " + className + '#' + methodName);
+			logger.warn("not available: {}#{}", className, methodName);
 			return null;
 		}
 	}
