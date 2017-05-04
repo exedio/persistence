@@ -95,58 +95,50 @@ public final class Table extends Node
 		return result;
 	}
 
-	Constraint notifyExistentCheckConstraint(final String constraintName, final String condition)
+	void notifyExistentCheckConstraint(final String constraintName, final String condition)
 	{
-		Constraint result = constraintMap.get(constraintName);
+		final Constraint result = constraintMap.get(constraintName);
 
 		if(result==null)
-			result = new CheckConstraint(this, null, constraintName, false, condition);
+			new CheckConstraint(this, null, constraintName, false, condition);
 		else
 			result.notifyExistsCondition(condition);
-
-		return result;
 	}
 
-	Constraint notifyExistentPrimaryKeyConstraint(final String constraintName)
+	void notifyExistentPrimaryKeyConstraint(final String constraintName)
 	{
-		Constraint result = constraintMap.get(constraintName);
+		final Constraint result = constraintMap.get(constraintName);
 
 		if(result==null)
-			result = new PrimaryKeyConstraint(this, null, constraintName, false, null);
+			new PrimaryKeyConstraint(this, null, constraintName, false, null);
 		else
 			result.notifyExists();
-
-		return result;
 	}
 
-	Constraint notifyExistentForeignKeyConstraint(
+	void notifyExistentForeignKeyConstraint(
 			final String constraintName,
 			final String foreignKeyColumn,
 			final String targetTable,
 			final String targetColumn)
 	{
-		ForeignKeyConstraint result = (ForeignKeyConstraint)constraintMap.get(constraintName);
+		final ForeignKeyConstraint result = (ForeignKeyConstraint)constraintMap.get(constraintName);
 
 		if(result==null)
-			result = new ForeignKeyConstraint(
+			new ForeignKeyConstraint(
 					this, getColumn(foreignKeyColumn), constraintName, false,
 					foreignKeyColumn, targetTable, targetColumn);
 		else
 			result.notifyExists(foreignKeyColumn, targetTable, targetColumn);
-
-		return result;
 	}
 
-	Constraint notifyExistentUniqueConstraint(final String constraintName, final String condition)
+	void notifyExistentUniqueConstraint(final String constraintName, final String condition)
 	{
-		Constraint result = constraintMap.get(constraintName);
+		final Constraint result = constraintMap.get(constraintName);
 
 		if(result==null)
-			result = new UniqueConstraint(this, null, constraintName, false, condition);
+			new UniqueConstraint(this, null, constraintName, false, condition);
 		else
 			result.notifyExistsCondition(condition);
-
-		return result;
 	}
 
 	public Collection<Column> getColumns()

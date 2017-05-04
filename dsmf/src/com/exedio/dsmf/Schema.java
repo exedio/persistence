@@ -52,15 +52,13 @@ public final class Schema extends Node
 		tableList.add(table);
 	}
 
-	Table notifyExistentTable(final String tableName)
+	void notifyExistentTable(final String tableName)
 	{
-		Table result = tableMap.get(tableName);
+		final Table result = tableMap.get(tableName);
 		if(result==null)
-			result = new Table(this, tableName, false);
+			new Table(this, tableName, false);
 		else
 			result.notifyExists();
-
-		return result;
 	}
 
 	public Table getTable(final String name)
@@ -97,15 +95,13 @@ public final class Schema extends Node
 		sequenceList.add(sequence);
 	}
 
-	Sequence notifyExistentSequence(final String sequenceName, final Sequence.Type type)
+	void notifyExistentSequence(final String sequenceName, final Sequence.Type type)
 	{
-		Sequence result = sequenceMap.get(sequenceName);
+		final Sequence result = sequenceMap.get(sequenceName);
 		if(result==null)
-			result = new Sequence(this, sequenceName, type, 0, false); // TODO extract start from dictionary
+			new Sequence(this, sequenceName, type, 0, false); // TODO extract start from dictionary
 		else
 			result.notifyExists(type);
-
-		return result;
 	}
 
 	public Sequence getSequence(final String name)
