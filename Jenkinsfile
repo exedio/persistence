@@ -30,7 +30,7 @@ timestamps
 				properties([[$class: 'jenkins.model.BuildDiscarderProperty',
 						strategy: [
 								$class               : 'LogRotator',
-								numToKeepStr         : isRelease ? '1000' : '15',
+								numToKeepStr         : isRelease ? '1000' : '30',
 								artifactNumToKeepStr : isRelease ? '1000' :  '2' ]]])
 
 				sh 'echo' +
