@@ -458,6 +458,7 @@ public class CompositeFieldTest extends TestWithEnvironment
 		assertNotSame(value, serializedValue);
 		assertEquals("firstString1X", value.getAString());
 		assertEquals("firstString1X", serializedValue.getAString());
+		assertSame(value.getCopeType(), serializedValue.getCopeType());
 	}
 
 	@Test public void testConditions()
