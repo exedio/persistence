@@ -27,6 +27,7 @@ import static com.exedio.dsmf.Dialect.NOT_NULL;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+import com.exedio.dsmf.Node;
 import com.exedio.dsmf.Schema;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.Before;
@@ -119,7 +120,7 @@ public class NameTest extends TestWithEnvironment
 			final com.exedio.dsmf.Table nameSub = schema.getTable(getTableName(NameSubItem.TYPE));
 			assertNotNull(nameSub);
 			assertEquals(null, nameSub.getError());
-			assertEquals(Schema.Color.OK, nameSub.getParticularColor());
+			assertEquals(Node.Color.OK, nameSub.getParticularColor());
 
 			assertEquals(synthetic("this", "Sub"), nameSub.getColumn(synthetic("this", "Sub"))   .getName());
 			assertPkConstraint    (nameSub, "Sub_PK",      null, getPrimaryKeyColumnName(NameSubItem.TYPE));

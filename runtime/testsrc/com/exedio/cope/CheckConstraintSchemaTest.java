@@ -28,6 +28,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import com.exedio.cope.tojunit.SI;
+import com.exedio.dsmf.Node;
 import com.exedio.dsmf.Schema;
 import com.exedio.dsmf.Table;
 import org.junit.Test;
@@ -47,12 +48,12 @@ public class CheckConstraintSchemaTest extends TestWithEnvironment
 		final Table table = schema.getTable(getTableName(TYPE));
 		assertNotNull(table);
 		assertEquals(null, table.getError());
-		assertEquals(Schema.Color.OK, table.getParticularColor());
+		assertEquals(Node.Color.OK, table.getParticularColor());
 
 		final Table superTable = schema.getTable(getTableName(CheckConstraintSuperItem.TYPE));
 		assertNotNull(superTable);
 		assertEquals(null, superTable.getError());
-		assertEquals(Schema.Color.OK, superTable.getParticularColor());
+		assertEquals(Node.Color.OK, superTable.getParticularColor());
 
 		assertCheckConstraint(table, "Main_alpha_MN"   , SI.col(alpha)+">=-2147483648");
 		assertCheckConstraint(table, "Main_alpha_MX"   , SI.col(alpha)+"<=2147483647");

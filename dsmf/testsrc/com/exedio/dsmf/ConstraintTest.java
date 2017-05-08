@@ -97,7 +97,7 @@ public class ConstraintTest extends SchemaReadyTest
 		final Table table = schema.getTable(TABLE);
 		assertNotNull(table);
 		assertEquals(null, table.getError());
-		assertEquals(Schema.Color.OK, table.getParticularColor());
+		assertEquals(Node.Color.OK, table.getParticularColor());
 
 		final CheckConstraint nn = assertCheckConstraint(table, NOT_NULL_NAME, p(NOT_NULL_COLUMN)+" IS NOT NULL");
 		final CheckConstraint ck = assertCheckConstraint(table, CHECK_NAME, "("+p(CHECK_COLUMN)+" IS NOT NULL) AND ("+hp(p(CHECK_COLUMN))+" IN ("+hp("0")+","+sac()+hp("1")+"))");
@@ -182,7 +182,7 @@ public class ConstraintTest extends SchemaReadyTest
 			assertEquals(constraintName, constraintType, constraint.getClass());
 			assertEquals(constraintName, requiredCondition, constraint.getRequiredCondition());
 			assertEquals(constraintName, null, constraint.getError());
-			assertEquals(constraintName, Schema.Color.OK, constraint.getParticularColor());
+			assertEquals(constraintName, Node.Color.OK, constraint.getParticularColor());
 		}
 		else
 			assertEquals(constraintName, null, constraint);

@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import com.exedio.cope.util.Properties.Field;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -47,7 +48,7 @@ public class ProtocolWriter extends TestWithEnvironment
 				prefixed.setProperty(prefix+'.'+name, databaseInfo.getProperty(name));
 			}
 			final ConnectProperties p = model.getConnectProperties();
-			for(final ConnectProperties.Field field : p.getFields())
+			for(final Field field : p.getFields())
 			{
 				if(field.getDefaultValue()!=null
 					&& !field.hasHiddenValue()

@@ -35,6 +35,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 
 import com.exedio.cope.tojunit.SI;
+import com.exedio.dsmf.Node;
 import com.exedio.dsmf.Schema;
 import com.exedio.dsmf.Sequence;
 import com.exedio.dsmf.Table;
@@ -69,7 +70,7 @@ public class RenamedSchemaTest extends TestWithEnvironment
 		final Table table = schema.getTable(getTableName(TYPE));
 		assertNotNull(table);
 		assertEquals(null, table.getError());
-		assertEquals(Schema.Color.OK, table.getParticularColor());
+		assertEquals(Node.Color.OK, table.getParticularColor());
 
 		assertPkConstraint(table, "Zain_PK", null, getPrimaryKeyColumnName(TYPE));
 

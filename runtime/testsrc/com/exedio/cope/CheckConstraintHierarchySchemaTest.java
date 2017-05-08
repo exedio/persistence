@@ -31,6 +31,7 @@ import static org.junit.Assert.assertNotNull;
 import com.exedio.cope.tojunit.SI;
 import com.exedio.dsmf.CheckConstraint;
 import com.exedio.dsmf.Constraint;
+import com.exedio.dsmf.Node;
 import com.exedio.dsmf.Schema;
 import com.exedio.dsmf.Table;
 import java.util.Iterator;
@@ -51,12 +52,12 @@ public class CheckConstraintHierarchySchemaTest extends TestWithEnvironment
 		final Table table = schema.getTable(getTableName(TYPE));
 		assertNotNull(table);
 		assertEquals(null, table.getError());
-		assertEquals(Schema.Color.OK, table.getParticularColor());
+		assertEquals(Node.Color.OK, table.getParticularColor());
 
 		final Table superTable = schema.getTable(getTableName(CheckConstraintHierarchyItemTop.TYPE));
 		assertNotNull(superTable);
 		assertEquals(null, superTable.getError());
-		assertEquals(Schema.Color.OK, superTable.getParticularColor());
+		assertEquals(Node.Color.OK, superTable.getParticularColor());
 
 		{
 			final Iterator<Constraint> i = table.getConstraints().iterator();

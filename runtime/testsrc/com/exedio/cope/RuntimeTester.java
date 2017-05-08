@@ -31,8 +31,8 @@ import static org.junit.Assert.fail;
 import com.exedio.dsmf.CheckConstraint;
 import com.exedio.dsmf.Constraint;
 import com.exedio.dsmf.ForeignKeyConstraint;
+import com.exedio.dsmf.Node;
 import com.exedio.dsmf.PrimaryKeyConstraint;
-import com.exedio.dsmf.Schema;
 import com.exedio.dsmf.UniqueConstraint;
 import java.sql.SQLException;
 
@@ -265,7 +265,7 @@ final class RuntimeTester
 		assertEquals(name, condition, constraint.getRequiredCondition());
 		assertEquals(expectedSupported, constraint.isSupported());
 		assertEquals(name, expectedSupported ? null : "not supported", constraint.getError());
-		assertEquals(name, Schema.Color.OK, constraint.getParticularColor());
+		assertEquals(name, Node.Color.OK, constraint.getParticularColor());
 		return type.cast(constraint);
 	}
 
@@ -336,8 +336,8 @@ final class RuntimeTester
 					!SchemaInfo.supportsCheckConstraints(model))
 				{
 					assertEquals(message, "not supported", constraint.getError());
-					assertEquals(message, Schema.Color.OK, constraint.getParticularColor());
-					assertEquals(message, Schema.Color.OK, constraint.getCumulativeColor());
+					assertEquals(message, Node.Color.OK, constraint.getParticularColor());
+					assertEquals(message, Node.Color.OK, constraint.getCumulativeColor());
 				}
 				else
 				{
@@ -357,7 +357,7 @@ final class RuntimeTester
 	private static void assertOk(final String message, final com.exedio.dsmf.Node node)
 	{
 		assertEquals(message, null, node.getError());
-		assertEquals(message, Schema.Color.OK, node.getParticularColor());
-		assertEquals(message, Schema.Color.OK, node.getCumulativeColor());
+		assertEquals(message, Node.Color.OK, node.getParticularColor());
+		assertEquals(message, Node.Color.OK, node.getCumulativeColor());
 	}
 }

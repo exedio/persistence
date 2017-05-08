@@ -145,7 +145,7 @@ public class InitServlet extends HttpServlet
 			throw new RuntimeException(item.getCopeID());
 	}
 
-	private static void assertPath(final String expected, final Media.Locator locator)
+	private static void assertPath(final String expected, final MediaPath.Locator locator)
 	{
 		final String path = locator.getPath();
 		if(!expected.equals(path))
