@@ -186,18 +186,10 @@ final class Generator
 				write(lineSeparator);
 			}
 
-			boolean first=false;
 			for (final String commentLine: commentLines)
 			{
-				if (first)
-				{
-					first=false;
-				}
-				else
-				{
-					if (!commentLine.isEmpty())
-						writeIndent();
-				}
+				if (!commentLine.isEmpty())
+					writeIndent();
 				write(commentLine);
 				write(lineSeparator);
 			}
