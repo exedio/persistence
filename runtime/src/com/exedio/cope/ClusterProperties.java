@@ -156,6 +156,7 @@ final class ClusterProperties extends Properties
 				: (sendInterface==null
 					? new DatagramSocket(sendSourcePort)
 					: new DatagramSocket(sendSourcePort, sendInterface));
+			// TODO close socket if code below fails
 			if(!sendBufferDefault)
 			{
 				result.setSendBufferSize(sendBuffer);
@@ -183,6 +184,7 @@ final class ClusterProperties extends Properties
 			{
 				@SuppressWarnings("resource") // OK: is closed outside this factory method
 				final MulticastSocket resultMulti = new MulticastSocket(port);
+				// TODO close socket if code below fails
 				if(listenInterface!=null)
 					resultMulti.setInterface(listenInterface);
 				if(listenDisableLoopbk)
@@ -194,6 +196,7 @@ final class ClusterProperties extends Properties
 			{
 				result = new DatagramSocket(port);
 			}
+			// TODO close socket if code below fails
 			if(!listenBufferDefault)
 			{
 				result.setReceiveBufferSize(listenBuffer);
