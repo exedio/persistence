@@ -425,8 +425,7 @@ public abstract class FunctionField<E> extends Field<E>
 			final Class<P> typeClass,
 			@Parameter(doc="shall be equal to field {0}.") @Nonnull final E value)
 	{
-		if(value==null)
-			throw new NullPointerException("cannot search uniquely for null on " + getID());
+		requireNonNull(value, () -> "cannot search uniquely for null on " + getID());
 		// TODO: search nativly for unique constraints
 		return getType().as(typeClass).searchSingleton(equal(value));
 	}
