@@ -130,7 +130,7 @@ public class ChangeListenerTest extends TestWithEnvironment
 		waitWhilePending();
 		l.assertIt(list(item1), te);
 		assertEquals(false, l.exception);
-		log.assertError("change listener [" + item1 + "] " + te.getID() + " CommitListenerTestE " + l);
+		log.assertError("change listener [" + item1 + "] " + te.getID() + " CommitListenerTestE MockListener");
 
 		assertInfo(1, 0, 0, 1);
 		model.removeChangeListener(l);
@@ -224,6 +224,12 @@ public class ChangeListenerTest extends TestWithEnvironment
 			}
 
 			event = null;
+		}
+
+		@Override
+		public String toString()
+		{
+			return "MockListener";
 		}
 	}
 
