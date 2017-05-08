@@ -131,7 +131,7 @@ public final class IntegerField extends NumberField<Integer>
 			return name + "-Seq";
 		}
 
-		private final class AnnotationProxy implements AnnotatedElement
+		private static final class AnnotationProxy implements AnnotatedElement
 		{
 			private final AnnotatedElement source;
 
@@ -172,19 +172,13 @@ public final class IntegerField extends NumberField<Integer>
 			@Override
 			public Annotation[] getAnnotations()
 			{
-				throw new RuntimeException(DefaultNext.this.toString());
+				throw new RuntimeException();
 			}
 
 			@Override
 			public Annotation[] getDeclaredAnnotations()
 			{
-				throw new RuntimeException(DefaultNext.this.toString());
-			}
-
-			@Override
-			public String toString()
-			{
-				return DefaultNext.this + "-sourceFeatureAnnotations";
+				throw new RuntimeException();
 			}
 		}
 	}
