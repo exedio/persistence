@@ -1503,7 +1503,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	 * @deprecated Use {@link #forClassUnchecked(Class)} instead
 	 */
 	@Deprecated
-	public static Type<?> findByJavaClassUnchecked(final Class<?> javaClass)
+	public static Type<?> findByJavaClassUnchecked(final Class<? extends Item> javaClass)
 	{
 		return forClassUnchecked(javaClass);
 	}
@@ -1622,7 +1622,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	 * @deprecated Use {@link TypesBound#forClassUnchecked(Class)} instead.
 	 */
 	@Deprecated
-	public static Type<?> forClassUnchecked(final Class<?> javaClass)
+	public static Type<?> forClassUnchecked(final Class<? extends Item> javaClass)
 	{
 		return TypesBound.forClassUnchecked(javaClass);
 	}

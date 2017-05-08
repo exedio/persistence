@@ -54,7 +54,7 @@ public final class TypesBound
 	 * @throws IllegalArgumentException if there is no type for the given java class.
 	 * @see Type#isBound()
 	 */
-	public static Type<?> forClassUnchecked(final Class<?> javaClass)
+	public static Type<?> forClassUnchecked(final Class<? extends Item> javaClass)
 	{
 		final Type<?> result = types.get(javaClass);
 		if(result==null)

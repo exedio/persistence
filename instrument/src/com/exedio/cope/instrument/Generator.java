@@ -227,7 +227,7 @@ final class Generator
 		{
 			commentLines.add(" * @param "+feature.getName()+' '+format(CONSTRUCTOR_INITIAL_PARAMETER, feature.getJavadocReference()));
 		}
-		for(final Class<?> constructorException : constructorExceptions)
+		for(final Class<? extends Throwable> constructorException : constructorExceptions)
 		{
 			final ConstructorComment a = constructorException.getAnnotation(ConstructorComment.class);
 			if(a==null)
