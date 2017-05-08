@@ -355,7 +355,7 @@ public abstract class Pattern extends Feature
 		if(!calledOnMount)
 			throw new RuntimeException("Method onMount did not call super.onMount in " + getClass().getName() + " or one of it's superclasses.");
 
-		this.sourceFeatureList = sourceFeaturesGather.mountPattern(type, name);
+		this.sourceFeatureList = sourceFeaturesGather.mountPattern(this, type, name);
 		this.sourceFeaturesGather = null;
 
 		this.sourceTypes = ListUtil.trimUnmodifiable(sourceTypesWhileGather);

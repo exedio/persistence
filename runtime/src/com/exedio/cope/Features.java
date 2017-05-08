@@ -108,7 +108,10 @@ public final class Features
 		}
 	}
 
-	List<Feature> mountPattern(final Type<?> type, final String name)
+	List<Feature> mountPattern(
+			final Pattern pattern,
+			final Type<?> type,
+			final String name)
 	{
 		final ArrayList<Feature> result = new ArrayList<>();
 
@@ -121,7 +124,9 @@ public final class Features
 			final Type<?> sourceType = source.getType();
 			//System.out.println("----------check"+source);
 			if(!sourceType.equals(type))
-				throw new RuntimeException("Source " + source + " of pattern " + this + " must be declared on the same type, expected " + type + ", but was " + sourceType + '.');
+				throw new RuntimeException(
+						"Source " + source + " of pattern " + pattern + " must be declared on the same type, " +
+						"expected " + type + ", but was " + sourceType + '.');
 			result.add(source);
 		}
 
