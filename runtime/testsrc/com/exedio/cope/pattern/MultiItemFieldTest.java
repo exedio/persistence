@@ -26,7 +26,6 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertSame;
 import static org.junit.Assert.fail;
 
 import com.exedio.cope.Condition;
@@ -62,12 +61,10 @@ public class MultiItemFieldTest extends TestWithEnvironment
 	{
 		final MultiItemFieldComponentxA fieldValue = new MultiItemFieldComponentxA();
 		final MultiItemFieldItem expected = new MultiItemFieldItem(fieldValue);
-		final MultiItemFieldValuex i1 = expected.getField();
-		final MultiItemFieldValuex i2 = expected.getField();
+		final MultiItemFieldComponentxA i1 = (MultiItemFieldComponentxA)expected.getField();
+		final MultiItemFieldComponentxA i2 = (MultiItemFieldComponentxA)expected.getField();
 		assertEquals(i1, i2);
 		assertEquals(i1, fieldValue);
-		assertSame(i1, fieldValue);
-		assertFalse(i1.equals(null));
 	}
 
 	@Test public void testSerialization()
