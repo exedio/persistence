@@ -340,7 +340,20 @@ public final class DataField extends Field<DataField.Value>
 	 */
 	public static Value toValue(final ZipFile file, final ZipEntry entry)
 	{
-		return file!=null ? new ZipValue(file, entry) : null;
+		if(file!=null)
+		{
+			if(entry!=null)
+				return new ZipValue(file, entry);
+			else
+				throw new IllegalArgumentException("if file is not null, entry must also be not null");
+		}
+		else
+		{
+			if(entry!=null)
+				throw new IllegalArgumentException("if file is null, entry must also be null");
+			else
+				return null;
+		}
 	}
 
 	public SetValue<?> map(final byte[] array)

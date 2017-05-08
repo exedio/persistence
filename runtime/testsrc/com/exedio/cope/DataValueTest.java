@@ -87,15 +87,23 @@ public class DataValueTest
 		final ZipEntry entry = file.getEntry("hallo.txt");
 
 		assertEquals("DataField.Value:" + file + "#hallo.txt", toValue(file, entry).toString());
-		assertEquals(null, toValue(null, entry)); // TODO should fail
+		try
+		{
+			toValue(null, entry);
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals("if file is null, entry must also be null", e.getMessage());
+		}
 		try
 		{
 			toValue(file, null);
 			fail();
 		}
-		catch(final AssertionError e) // TODO should be IllegalArgumentException
+		catch(final IllegalArgumentException e)
 		{
-			assertEquals(null, e.getMessage());
+			assertEquals("if file is not null, entry must also be not null", e.getMessage());
 		}
 	}
 	@Test
