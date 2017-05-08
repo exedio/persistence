@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import static java.util.Objects.requireNonNull;
+
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.instrument.FinalSettableGetter;
@@ -191,8 +193,7 @@ public final class DataField extends Field<DataField.Value>
 			thrown=@Wrap.Thrown(IOException.class))
 	public void get(@Nonnull final Item item, @Nonnull final OutputStream data) throws IOException
 	{
-		if(data==null)
-			throw new NullPointerException();
+		requireNonNull(data);
 
 		final Transaction tx = model.currentTransaction();
 		column.load(tx.getConnection(), tx.connect.executor, item, data, this);
@@ -211,8 +212,7 @@ public final class DataField extends Field<DataField.Value>
 			thrown=@Wrap.Thrown(IOException.class))
 	public void get(@Nonnull final Item item, @Nonnull final File data) throws IOException
 	{
-		if(data==null)
-			throw new NullPointerException();
+		requireNonNull(data);
 
 		if(!isNull(item))
 		{
