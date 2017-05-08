@@ -212,8 +212,7 @@ public class BlockMountTest
 
 		final LongField negative = new LongField();
 		final ByteArrayOutputStream bos = new ByteArrayOutputStream();
-		final ObjectOutputStream oos = new ObjectOutputStream(bos);
-		try
+		try(ObjectOutputStream oos = new ObjectOutputStream(bos))
 		{
 			oos.writeObject(negative);
 		}
