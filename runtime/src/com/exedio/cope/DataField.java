@@ -731,7 +731,7 @@ public final class DataField extends Field<DataField.Value>
 		@Override
 		public String toString()
 		{
-			return "DataField.Value:" + file + '#' + entry.getName();
+			return "DataField.Value:" + file.getName() + '#' + entry.getName();
 		}
 	}
 

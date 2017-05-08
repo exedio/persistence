@@ -86,7 +86,7 @@ public class DataValueTest
 		final ZipFile file = new ZipFile(filePath);
 		final ZipEntry entry = file.getEntry("hallo.txt");
 
-		assertEquals("DataField.Value:" + file + "#hallo.txt", toValue(file, entry).toString());
+		assertEquals("DataField.Value:" + filePath + "#hallo.txt", toValue(file, entry).toString());
 		try
 		{
 			toValue(null, entry);
