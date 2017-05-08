@@ -24,7 +24,6 @@ import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.ParseException;
-import java.util.Arrays;
 
 public final class Price implements Serializable, Comparable<Price>
 {
@@ -529,12 +528,6 @@ public final class Price implements Serializable, Comparable<Price>
 				remainingPence += penceD;
 			}
 		}
-
-		assert remainingPence==0 :
-					String.valueOf(remainingPence) +
-					'T' + total +
-					Arrays.toString(weights) +
-					Arrays.toString(result);
 
 		return result;
 	}
