@@ -177,7 +177,8 @@ public final class EnumMapField<K extends Enum<K>,V> extends Pattern implements 
 	public void setMap(@Nonnull final Item item, @Nonnull final Map<? extends K,? extends V> map)
 	{
 		FinalViolationException.check(this, item);
-		if( map==null || map.containsKey(null) )
+		MandatoryViolationException.requireNonNull(map, this, item);
+		if(map.containsKey(null))
 			throw MandatoryViolationException.create(this, item);
 
 		final K[] enums = keyClass.getEnumConstants();

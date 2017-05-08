@@ -140,8 +140,7 @@ public final class EnumSetField<E extends Enum<E>> extends Pattern implements Se
 	public void set(@Nonnull final Item item, @Nonnull final EnumSet<E> value)
 	{
 		FinalViolationException.check(this, item);
-		if(value==null)
-			throw MandatoryViolationException.create(this, item);
+		MandatoryViolationException.requireNonNull(value, this, item);
 
 		final SetValue<?>[] setValues = new SetValue<?>[fields.size()];
 		int i = 0;

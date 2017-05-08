@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import com.exedio.cope.instrument.ConstructorComment;
+import javax.annotation.Nonnull;
 
 /**
  * Signals, that an attempt to write an field has been failed,
@@ -36,6 +37,15 @@ import com.exedio.cope.instrument.ConstructorComment;
 @ConstructorComment("if {0} is null.")
 public final class MandatoryViolationException extends ConstraintViolationException
 {
+	public static void requireNonNull(
+			@Nonnull final Object value,
+			final Feature feature,
+			final Item item)
+	{
+		if(value==null)
+			throw create(feature, item);
+	}
+
 	private static final long serialVersionUID = 1l;
 
 	private final Feature feature;

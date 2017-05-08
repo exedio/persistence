@@ -232,8 +232,7 @@ public final class SetField<E> extends Pattern implements Copyable
 	@Wrap(order=40, doc="Sets a new value for {0}.", thrownGetter=SetThrown.class)
 	public void set(@Nonnull final Item item, @Nonnull final Collection<? extends E> value)
 	{
-		if(value==null)
-			throw MandatoryViolationException.create(this, item);
+		MandatoryViolationException.requireNonNull(value, this, item);
 
 		final Mount mount = mount();
 		final LinkedHashSet<? extends E> toCreateSet = new LinkedHashSet<>(value);

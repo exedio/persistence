@@ -217,8 +217,7 @@ public final class ListField<E> extends AbstractListField<E> implements Copyable
 	@Override
 	public void set(@Nonnull final Item item, @Nonnull final Collection<? extends E> value)
 	{
-		if(value==null)
-			throw MandatoryViolationException.create(this, item);
+		MandatoryViolationException.requireNonNull(value, this, item);
 
 		final Mount mount = mount();
 		final Iterator<PatternItem> actual =

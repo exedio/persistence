@@ -128,8 +128,7 @@ public final class DrivebyHashMigration extends Pattern implements HashInterface
 	@Override
 	public void set(@Nonnull final Item item, @Nonnull final String plainText)
 	{
-		if(plainText==null)
-			throw MandatoryViolationException.create(this, item);
+		MandatoryViolationException.requireNonNull(plainText, this, item);
 
 		item.set(
 				legacyHash.map(null),

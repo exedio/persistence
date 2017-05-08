@@ -232,8 +232,7 @@ public final class MapField<K,V> extends Pattern implements MapFieldInterface<K,
 	@Wrap(order=120)
 	public void setMap(@Nonnull final Item item, @Nonnull final Map<? extends K,? extends V> map)
 	{
-		if(map==null)
-			throw MandatoryViolationException.create(this, item);
+		MandatoryViolationException.requireNonNull(map, this, item);
 
 		final Mount mount = mount();
 		final HashMap<K,V> done = new HashMap<>();
