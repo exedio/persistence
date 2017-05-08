@@ -169,9 +169,7 @@ final class ClusterProperties extends Properties
 		}
 		catch(final SocketException e)
 		{
-			throw new RuntimeException(
-					String.valueOf(sendSourcePort) + '/' +
-					String.valueOf(sendSourcePort), e);
+			throw new RuntimeException(String.valueOf(sendSourcePort), e);
 		}
 	}
 
