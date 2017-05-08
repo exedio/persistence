@@ -54,7 +54,7 @@ public class DistinctOrderByTest extends TestWithEnvironment
 		item1 = new PlusIntegerItem(2, 4, 5);
 		item2 = new PlusIntegerItem(1, 4, 5);
 		item3 = new PlusIntegerItem(1, 4, 5);
-		NULLS_FIRST = (oracle|postgresql) ? " NULLS FIRST" : "";
+		NULLS_FIRST = (oracle||postgresql) ? " NULLS FIRST" : "";
 	}
 
 	@Test public void noDistinctOrOrder()
