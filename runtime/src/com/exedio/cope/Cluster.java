@@ -56,8 +56,7 @@ final class Cluster
 
 	void joinClose()
 	{
-		if(listener!=null)
-			listener.joinClose();
+		listener.joinClose();
 	}
 
 	void addThreadControllers(final ArrayList<ThreadController> result)
