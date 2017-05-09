@@ -242,7 +242,7 @@ public abstract class CopeAssert extends TestCase
 		catch(final UnsupportedOperationException e) {/*OK*/}
 		try
 		{
-			actual.putAll(null);
+			actual.putAll(Collections.emptyMap());
 			Assert.fail("should have thrown UnsupportedOperationException");
 		}
 		catch(final UnsupportedOperationException e) {/*OK*/}
