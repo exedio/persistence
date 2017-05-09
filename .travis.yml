@@ -8,7 +8,6 @@ addons:
 
 before_script:
   - sudo apt-get install ant-optional
-  - rm conf/environment/hy-nprep.properties
   - mysql -e "SET GLOBAL max_allowed_packet=64000000;"
   - mysql -e 'CREATE DATABASE cope_test_db;'
   - mysql -u root --password= -e "GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, DROP, INDEX, ALTER, CREATE VIEW ON cope_test_db.* TO 'cope_test_user'@'localhost' IDENTIFIED BY 'pass';"
