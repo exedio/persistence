@@ -99,4 +99,15 @@ final class LocalCopeFeature extends CopeFeature
 	{
 		return link(getName());
 	}
+
+	/**
+	 * @throws RuntimeException if the feature cannot be resolved
+	 */
+	CopeFeature getFeatureByInstance(final Object instance, final String methodName)
+	{
+		final CopeFeature result = parent.getFeatureByInstance(instance);
+		if(result==null)
+			throw new RuntimeException("cannot resolve parameter "+instance+" for "+getName()+"/"+methodName);
+		return result;
+	}
 }
