@@ -18,7 +18,7 @@
 
 package com.exedio.cope.instrument;
 
-public enum ConfigurationByJavadocTags
+enum ConfigurationByJavadocTags
 {
 	support, warn, error, ignore, convertToAnnotations
 }

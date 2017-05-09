@@ -18,7 +18,7 @@
 
 package com.exedio.cope.instrument;
 
-public enum IntegerTypeSuffix
+enum IntegerTypeSuffix
 {
 	/**
 	 * Not recommended by JLS 3.10.1 Integer Literals, as it might be hard

@@ -18,7 +18,7 @@
 
 package com.exedio.cope.instrument;
 
-public enum HintFormat
+enum HintFormat
 {
 	forAnnotations, forTags
 }
