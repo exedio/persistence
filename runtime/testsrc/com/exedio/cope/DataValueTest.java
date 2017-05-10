@@ -23,6 +23,7 @@ import static org.junit.Assert.assertEquals;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.InputStream;
 import org.junit.Test;
 
 public class DataValueTest
@@ -48,15 +49,30 @@ public class DataValueTest
 		assertEquals("DataField.Value:ca47aa7af817e968c12c...(21)", toValue(bytes21).toString());
 	}
 	@Test
+	public void bytesNull()
+	{
+		assertEquals(null, toValue((byte[])null));
+	}
+	@Test
 	public void stream()
 	{
 		final ByteArrayInputStream testBaos = new ByteArrayInputStream(bytes4);
 		assertEquals("DataField.Value:"+testBaos, toValue(testBaos).toString());
 	}
 	@Test
+	public void streamNull()
+	{
+		assertEquals(null, toValue((InputStream)null));
+	}
+	@Test
 	public void file()
 	{
 		assertEquals("DataField.Value:hallo.txt", toValue(new File("hallo.txt")).toString());
+	}
+	@Test
+	public void fileNull()
+	{
+		assertEquals(null, toValue((File)null));
 	}
 
 	private static final byte[] bytes4  = {-86,122,-8,23};
