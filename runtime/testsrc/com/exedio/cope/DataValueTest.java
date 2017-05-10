@@ -27,14 +27,35 @@ import org.junit.Test;
 
 public class DataValueTest
 {
-	@Test public void testValueToString() throws MandatoryViolationException
+	@Test
+	public void bytesShort()
 	{
 		assertEquals("DataField.Value:aa7af817", toValue(bytes4).toString());
+	}
+	@Test
+	public void bytesLong()
+	{
 		assertEquals("DataField.Value:9f13f82382aa7a5613f8", toValue(bytes10).toString());
+	}
+	@Test
+	public void bytesTooLong()
+	{
 		assertEquals("DataField.Value:169f13f82382aa7a5613...(11)", toValue(bytes11).toString());
+	}
+	@Test
+	public void bytesMuchTooLong()
+	{
 		assertEquals("DataField.Value:ca47aa7af817e968c12c...(21)", toValue(bytes21).toString());
+	}
+	@Test
+	public void stream()
+	{
 		final ByteArrayInputStream testBaos = new ByteArrayInputStream(bytes4);
 		assertEquals("DataField.Value:"+testBaos, toValue(testBaos).toString());
+	}
+	@Test
+	public void file()
+	{
 		assertEquals("DataField.Value:hallo.txt", toValue(new File("hallo.txt")).toString());
 	}
 
