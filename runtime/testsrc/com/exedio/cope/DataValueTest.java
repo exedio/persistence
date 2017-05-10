@@ -1,0 +1,45 @@
+/*
+ * Copyright (C) 2004-2015  exedio GmbH (www.exedio.com)
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ */
+
+package com.exedio.cope;
+
+import static com.exedio.cope.DataField.toValue;
+import static org.junit.Assert.assertEquals;
+
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import org.junit.Test;
+
+public class DataValueTest
+{
+	@Test public void testValueToString() throws MandatoryViolationException
+	{
+		assertEquals("DataField.Value:aa7af817", toValue(bytes4).toString());
+		assertEquals("DataField.Value:9f13f82382aa7a5613f8", toValue(bytes10).toString());
+		assertEquals("DataField.Value:169f13f82382aa7a5613...(11)", toValue(bytes11).toString());
+		assertEquals("DataField.Value:ca47aa7af817e968c12c...(21)", toValue(bytes21).toString());
+		final ByteArrayInputStream testBaos = new ByteArrayInputStream(bytes4);
+		assertEquals("DataField.Value:"+testBaos, toValue(testBaos).toString());
+		assertEquals("DataField.Value:hallo.txt", toValue(new File("hallo.txt")).toString());
+	}
+
+	private static final byte[] bytes4  = {-86,122,-8,23};
+	private static final byte[] bytes10 = {-97,19,-8,35,-126,-86,122,86,19,-8};
+	private static final byte[] bytes11 = {22,-97,19,-8,35,-126,-86,122,86,19,-8};
+	private static final byte[] bytes21 = {-54,71,-86,122,-8,23,-23,104,-63,44,23,19,-45,-63,23,71,-23,19,-45,71,-23};
+}

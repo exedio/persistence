@@ -20,7 +20,6 @@ package com.exedio.cope;
 
 import static com.exedio.cope.DataField.DEFAULT_LENGTH;
 import static com.exedio.cope.DataField.min;
-import static com.exedio.cope.DataField.toValue;
 import static com.exedio.cope.DataItem.TYPE;
 import static com.exedio.cope.DataItem.data;
 import static com.exedio.cope.DataItem.data10;
@@ -31,8 +30,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import java.io.ByteArrayInputStream;
-import java.io.File;
 import org.junit.Test;
 
 public class DataModelTest
@@ -83,17 +80,6 @@ public class DataModelTest
 		{
 			assertEquals("l must not be negative, but was -1", e.getMessage());
 		}
-	}
-
-	@Test public void testValueToString() throws MandatoryViolationException
-	{
-		assertEquals("DataField.Value:aa7af817", toValue(bytes4).toString());
-		assertEquals("DataField.Value:9f13f82382aa7a5613f8", toValue(bytes10).toString());
-		assertEquals("DataField.Value:169f13f82382aa7a5613...(11)", toValue(bytes11).toString());
-		assertEquals("DataField.Value:ca47aa7af817e968c12c...(21)", toValue(bytes21).toString());
-		final ByteArrayInputStream testBaos = new ByteArrayInputStream(bytes4);
-		assertEquals("DataField.Value:"+testBaos, toValue(testBaos).toString());
-		assertEquals("DataField.Value:hallo.txt", toValue(new File("hallo.txt")).toString());
 	}
 
 	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
@@ -186,7 +172,4 @@ public class DataModelTest
 	private static final byte[] bytes4  = {-86,122,-8,23};
 	private static final byte[] bytes6  = {-97,35,-126,86,19,-8};
 	private static final byte[] bytes6x4= {-97,35,-126,86};
-	private static final byte[] bytes10 = {-97,19,-8,35,-126,-86,122,86,19,-8};
-	private static final byte[] bytes11 = {22,-97,19,-8,35,-126,-86,122,86,19,-8};
-	private static final byte[] bytes21 = {-54,71,-86,122,-8,23,-23,104,-63,44,23,19,-45,-63,23,71,-23,19,-45,71,-23};
 }
