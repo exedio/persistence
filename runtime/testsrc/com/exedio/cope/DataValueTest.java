@@ -20,10 +20,15 @@ package com.exedio.cope;
 
 import static com.exedio.cope.DataField.toValue;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
+import java.net.URISyntaxException;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipFile;
 import org.junit.Test;
 
 public class DataValueTest
@@ -73,6 +78,30 @@ public class DataValueTest
 	public void fileNull()
 	{
 		assertEquals(null, toValue((File)null));
+	}
+	@Test
+	public void zip() throws URISyntaxException, IOException
+	{
+		final String filePath = DataValueTest.class.getResource("DataValueTest.zip").toURI().getPath();
+		final ZipFile file = new ZipFile(filePath);
+		final ZipEntry entry = file.getEntry("hallo.txt");
+
+		assertEquals("DataField.Value:" + file + "#hallo.txt", toValue(file, entry).toString());
+		assertEquals(null, toValue(null, entry)); // TODO should fail
+		try
+		{
+			toValue(file, null);
+			fail();
+		}
+		catch(final AssertionError e) // TODO should be IllegalArgumentException
+		{
+			assertEquals(null, e.getMessage());
+		}
+	}
+	@Test
+	public void zipNull()
+	{
+		assertEquals(null, toValue(null, null));
 	}
 
 	private static final byte[] bytes4  = {-86,122,-8,23};
