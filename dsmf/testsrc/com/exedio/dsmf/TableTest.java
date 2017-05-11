@@ -44,8 +44,8 @@ public class TableTest extends SchemaReadyTest
 	{
 		final Schema result = newSchema();
 
-		table = new Table(result, TABLE1);
-		column = new Column(table, COLUMN1, intType);
+		table = result.newTable(TABLE1);
+		column = table.newColumn(COLUMN1, intType);
 
 		return result;
 	}

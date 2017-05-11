@@ -20,8 +20,6 @@ package com.exedio.cope;
 
 import static com.exedio.cope.Intern.intern;
 
-import com.exedio.dsmf.ForeignKeyConstraint;
-
 final class ItemColumn extends IntegerColumn
 {
 	private final Type<?> targetType;
@@ -54,6 +52,6 @@ final class ItemColumn extends IntegerColumn
 	{
 		super.makeSchema(dsmf);
 		final Table targetTable = targetType.getTable();
-		new ForeignKeyConstraint(dsmf, integrityConstraintName, targetTable.idLower, targetTable.primaryKey.id);
+		dsmf.newForeignKey(integrityConstraintName, targetTable.idLower, targetTable.primaryKey.id);
 	}
 }

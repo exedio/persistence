@@ -43,23 +43,23 @@ public class CircleTest extends SchemaReadyTest
 	{
 		final Schema result = newSchema();
 
-		final Table table1 = new Table(result, TABLE1);
-		final Table table2 = new Table(result, TABLE2);
+		final Table table1 = result.newTable(TABLE1);
+		final Table table2 = result.newTable(TABLE2);
 
-		final Column pk1 = new Column(table1, PK_COLUMN, stringType);
-		final Column pk2 = new Column(table2, PK_COLUMN, stringType);
+		final Column pk1 = table1.newColumn(PK_COLUMN, stringType);
+		final Column pk2 = table2.newColumn(PK_COLUMN, stringType);
 
-		new PrimaryKeyConstraint(pk1, PK_NAME1);
-		new PrimaryKeyConstraint(pk2, PK_NAME2);
+		pk1.newPrimaryKey(PK_NAME1);
+		pk2.newPrimaryKey(PK_NAME2);
 
-		final Column fk1 = new Column(table1, FK_COLUMN, stringType);
-		final Column fk2 = new Column(table2, FK_COLUMN, stringType);
+		final Column fk1 = table1.newColumn(FK_COLUMN, stringType);
+		final Column fk2 = table2.newColumn(FK_COLUMN, stringType);
 
-		new ForeignKeyConstraint(fk1, FK_NAME1, TABLE2, PK_COLUMN);
-		new ForeignKeyConstraint(fk2, FK_NAME2, TABLE1, PK_COLUMN);
+		fk1.newForeignKey(FK_NAME1, TABLE2, PK_COLUMN);
+		fk2.newForeignKey(FK_NAME2, TABLE1, PK_COLUMN);
 
-		final Column fkSelf = new Column(table1, SELF_COLUMN, stringType);
-		new ForeignKeyConstraint(fkSelf, SELF_NAME, TABLE1, PK_COLUMN);
+		final Column fkSelf = table1.newColumn(SELF_COLUMN, stringType);
+		fkSelf.newForeignKey(SELF_NAME, TABLE1, PK_COLUMN);
 
 		return result;
 	}

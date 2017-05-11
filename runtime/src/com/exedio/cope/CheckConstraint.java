@@ -65,8 +65,7 @@ public final class CheckConstraint extends Feature implements Copyable
 		final Statement statement = new Statement(table.database.dialect, table.database.executor.marshallers);
 		condition.append(statement);
 
-		new com.exedio.dsmf.CheckConstraint(
-				dsmf,
+		dsmf.newCheck(
 				intern(table.makeGlobalID(TrimClass.PrimaryKeyCheckConstraint, getDeclaredSchemaName())),
 				statement.getText());
 	}

@@ -26,6 +26,10 @@ public final class Sequence extends Node
 	private final Field<Type> type;
 	final long start;
 
+	/**
+	 * @deprecated Use {@link Schema#newSequence(String,Type,long)} instead
+	 */
+	@Deprecated
 	public Sequence(final Schema schema, final String name, final Type type, final long start)
 	{
 		this(schema, name, type, start, true);

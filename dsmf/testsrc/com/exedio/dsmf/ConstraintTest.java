@@ -69,35 +69,35 @@ public class ConstraintTest extends SchemaReadyTest
 	protected Schema getSchema()
 	{
 		final Schema result = newSchema();
-		table = new Table(result, TABLE);
+		table = result.newTable(TABLE);
 
 		if(supportsCheckConstraints)
 		{
-			final Column nn = new Column(table, NOT_NULL_COLUMN, stringType);
-			this.nn = new CheckConstraint(nn, NOT_NULL_NAME, p(NOT_NULL_COLUMN)+" IS NOT NULL");
+			final Column nn = table.newColumn(NOT_NULL_COLUMN, stringType);
+			this.nn = nn.newCheck(NOT_NULL_NAME, p(NOT_NULL_COLUMN)+" IS NOT NULL");
 
-			final Column check = new Column(table, CHECK_COLUMN, intType);
-			ck = new CheckConstraint(check, CHECK_NAME, "("+p(CHECK_COLUMN)+" IS NOT NULL) AND ("+hp(p(CHECK_COLUMN))+" IN ("+hp("0")+","+sac()+hp("1")+"))");
-			ct = new CheckConstraint(table, CHECK_TABLE_NAME, p(CHECK_COLUMN)+">0");
+			final Column check = table.newColumn(CHECK_COLUMN, intType);
+			ck = check.newCheck(CHECK_NAME, "("+p(CHECK_COLUMN)+" IS NOT NULL) AND ("+hp(p(CHECK_COLUMN))+" IN ("+hp("0")+","+sac()+hp("1")+"))");
+			ct = table.newCheck(CHECK_TABLE_NAME, p(CHECK_COLUMN)+">0");
 		}
 
-		final Column pk = new Column(table, PK_COLUMN, stringType);
-		this.pk = new PrimaryKeyConstraint(pk, PK_NAME);
+		final Column pk = table.newColumn(PK_COLUMN, stringType);
+		this.pk = pk.newPrimaryKey(PK_NAME);
 
-		final Column fkColumn = new Column(table, FK_COLUMN, stringType);
+		final Column fkColumn = table.newColumn(FK_COLUMN, stringType);
 		{
-			final Table targetTable = new Table(result, FK_TARGET_TABLE);
-			final Column targetPk = new Column(targetTable, FK_TARGET_COLUMN, stringType);
-			new PrimaryKeyConstraint(targetPk, "targetPrimaryKey_Pk");
+			final Table targetTable = result.newTable(FK_TARGET_TABLE);
+			final Column targetPk = targetTable.newColumn(FK_TARGET_COLUMN, stringType);
+			targetPk.newPrimaryKey("targetPrimaryKey_Pk");
 		}
-		fk = new ForeignKeyConstraint(fkColumn, FK_NAME, FK_TARGET_TABLE, FK_TARGET_COLUMN);
+		fk = fkColumn.newForeignKey(FK_NAME, FK_TARGET_TABLE, FK_TARGET_COLUMN);
 
-		final Column unqCol = new Column(table, UNIQUE_SINGLE_COLUMN, stringType);
-		us = new UniqueConstraint(table, unqCol, UNIQUE_SINGLE_NAME, "("+p(UNIQUE_SINGLE_COLUMN)+")");
+		final Column unqCol = table.newColumn(UNIQUE_SINGLE_COLUMN, stringType);
+		us = table.newUnique(unqCol, UNIQUE_SINGLE_NAME, "("+p(UNIQUE_SINGLE_COLUMN)+")");
 
-		new Column(table, UNIQUE_DOUBLE_COLUMN1, stringType);
-		new Column(table, UNIQUE_DOUBLE_COLUMN2, intType);
-		ud = new UniqueConstraint(table, null, UNIQUE_DOUBLE_NAME, "("+p(UNIQUE_DOUBLE_COLUMN1)+","+p(UNIQUE_DOUBLE_COLUMN2)+")");
+		table.newColumn(UNIQUE_DOUBLE_COLUMN1, stringType);
+		table.newColumn(UNIQUE_DOUBLE_COLUMN2, intType);
+		ud = table.newUnique(null, UNIQUE_DOUBLE_NAME, "("+p(UNIQUE_DOUBLE_COLUMN1)+","+p(UNIQUE_DOUBLE_COLUMN2)+")");
 
 		return result;
 	}

@@ -19,6 +19,7 @@
 package com.exedio.dsmf;
 
 import static java.util.Collections.unmodifiableList;
+import static java.util.Objects.requireNonNull;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -29,6 +30,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Set;
+import javax.annotation.Nonnull;
 
 public final class Schema extends Node
 {
@@ -43,6 +45,24 @@ public final class Schema extends Node
 	{
 		super(dialect, connectionProvider, true);
 		notifyExistsNode();
+	}
+
+	@SuppressWarnings("deprecation") // OK: moved api
+	public Table newTable(@Nonnull final String name)
+	{
+		return new Table(this, requireNonEmptyTrimmed(name, "name"));
+	}
+
+	@SuppressWarnings("deprecation") // OK: moved api
+	public Sequence newSequence(
+			@Nonnull final String name,
+			@Nonnull final Sequence.Type type,
+			final long start)
+	{
+		return new Sequence(this,
+				requireNonEmptyTrimmed(name, "name"),
+				requireNonNull(type, "type"),
+				start);
 	}
 
 	void register(final Table table)

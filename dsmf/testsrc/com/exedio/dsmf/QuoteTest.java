@@ -43,16 +43,16 @@ public class QuoteTest extends SchemaReadyTest
 	{
 		final Schema result = newSchema();
 
-		final Table table = new Table(result, TABLE);
+		final Table table = result.newTable(TABLE);
 
-		final Column pk = new Column(table, PK_COLUMN, stringType);
-		new PrimaryKeyConstraint(pk, PK_NAME);
+		final Column pk = table.newColumn(PK_COLUMN, stringType);
+		pk.newPrimaryKey(PK_NAME);
 
-		final Column fk = new Column(table, FK_COLUMN, stringType);
-		new ForeignKeyConstraint(fk, FK_NAME, TABLE, PK_COLUMN);
-		new UniqueConstraint(table, null, UNQ_NAME, "("+p(FK_COLUMN)+")");
+		final Column fk = table.newColumn(FK_COLUMN, stringType);
+		fk.newForeignKey(FK_NAME, TABLE, PK_COLUMN);
+		table.newUnique(null, UNQ_NAME, "("+p(FK_COLUMN)+")");
 		// Do not just use simple NOT NULL condition. Because then hsqldb discovers column type as not null.
-		new CheckConstraint(table, CHK_NAME, "(" + p(FK_COLUMN)+" IS NOT NULL) OR (" + p(FK_COLUMN) + " IS NOT NULL)");
+		table.newCheck(CHK_NAME, "(" + p(FK_COLUMN)+" IS NOT NULL) OR (" + p(FK_COLUMN) + " IS NOT NULL)");
 
 		return result;
 	}

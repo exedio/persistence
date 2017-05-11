@@ -24,6 +24,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.annotation.Nonnull;
 
 public abstract class Node
 {
@@ -295,6 +296,18 @@ public abstract class Node
 		{
 			return new Result(error, Color.ERROR);
 		}
+	}
+
+	static final String requireNonEmptyTrimmed(
+			@Nonnull final String value,
+			@Nonnull final String message)
+	{
+		requireNonNull(value, message);
+		if(value.isEmpty())
+			throw new IllegalArgumentException(message + " must not be empty, but was " + value);
+		if(!value.equals(value.trim()))
+			throw new IllegalArgumentException(message + " must be trimmed, but was >" + value + '<');
+		return value;
 	}
 }
 

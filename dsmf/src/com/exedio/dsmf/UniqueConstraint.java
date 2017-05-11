@@ -22,6 +22,10 @@ public final class UniqueConstraint extends Constraint
 {
 	private final String clause;
 
+	/**
+	 * @deprecated Use {@link Table#newUnique(Column,String,String)} instead
+	 */
+	@Deprecated
 	public UniqueConstraint(
 			final Table table,
 			final Column column,

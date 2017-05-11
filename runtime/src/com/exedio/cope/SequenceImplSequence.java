@@ -67,7 +67,7 @@ final class SequenceImplSequence implements SequenceImpl
 	@Override
 	public void makeSchema(final Schema schema)
 	{
-		new Sequence(schema, name, type, start);
+		schema.newSequence(name, type, start);
 	}
 
 	@Override

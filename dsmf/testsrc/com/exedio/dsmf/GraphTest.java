@@ -46,12 +46,12 @@ public class GraphTest
 
 	@Test public void testOk()
 	{
-		final Table tabT = new Table(schema, "tabT");
-		final Table tab1 = new Table(schema, "tab1");
-		final Column col1 = new Column(tab1, "col1", "type1");
+		final Table tabT = schema.newTable("tabT");
+		final Table tab1 = schema.newTable("tab1");
+		final Column col1 = tab1.newColumn("col1", "type1");
 		fk(col1, "fk1", "tabT");
-		final Table tab2 = new Table(schema, "tab2");
-		final Column col2 = new Column(tab2, "col2", "type2");
+		final Table tab2 = schema.newTable("tab2");
+		final Column col2 = tab2.newColumn("col2", "type2");
 		fk(col2, "fk2", "tabT");
 		final Graph graph = new Graph(schema);
 
@@ -61,8 +61,8 @@ public class GraphTest
 
 	@Test public void testSelf()
 	{
-		final Table tab = new Table(schema, "tab");
-		final Column col = new Column(tab, "col", "type");
+		final Table tab = schema.newTable("tab");
+		final Column col = tab.newColumn("col", "type");
 		fk(col, "fk", "tab");
 		final Graph graph = new Graph(schema);
 
@@ -72,13 +72,13 @@ public class GraphTest
 
 	@Test public void testReorder()
 	{
-		final Table tab1 = new Table(schema, "tab1");
-		final Column col1 = new Column(tab1, "col1", "type1");
+		final Table tab1 = schema.newTable("tab1");
+		final Column col1 = tab1.newColumn("col1", "type1");
 		fk(col1, "fk1", "tabT");
-		final Table tab2 = new Table(schema, "tab2");
-		final Column col2 = new Column(tab2, "col2", "type2");
+		final Table tab2 = schema.newTable("tab2");
+		final Column col2 = tab2.newColumn("col2", "type2");
 		fk(col2, "fk2", "tabT");
-		final Table tabT = new Table(schema, "tabT");
+		final Table tabT = schema.newTable("tabT");
 		final Graph graph = new Graph(schema);
 
 		assertEquals(list(tabT, tab1, tab2), graph.getTablesOrdered());
@@ -87,10 +87,10 @@ public class GraphTest
 
 	@Test public void testBreak()
 	{
-		final Table tab1 = new Table(schema, "tab1");
-		final Table tab2 = new Table(schema, "tab2");
-		final Column col1 = new Column(tab1, "col1", "type1");
-		final Column col2 = new Column(tab2, "col2", "type2");
+		final Table tab1 = schema.newTable("tab1");
+		final Table tab2 = schema.newTable("tab2");
+		final Column col1 = tab1.newColumn("col1", "type1");
+		final Column col2 = tab2.newColumn("col2", "type2");
 		final ForeignKeyConstraint fk1 =
 			fk(col1, "fk1", "tab2");
 		fk(col2, "fk2", "tab1");
@@ -102,10 +102,10 @@ public class GraphTest
 
 	@Test public void testBreakWeight()
 	{
-		final Table tab1 = new Table(schema, "tab1");
-		final Table tab2 = new Table(schema, "tab2");
-		final Column col1 = new Column(tab1, "col1", "type1");
-		final Column col2 = new Column(tab2, "col2", "type2");
+		final Table tab1 = schema.newTable("tab1");
+		final Table tab2 = schema.newTable("tab2");
+		final Column col1 = tab1.newColumn("col1", "type1");
+		final Column col2 = tab2.newColumn("col2", "type2");
 		final ForeignKeyConstraint fk1a =
 			fk(col1, "fk1a", "tab2");
 		final ForeignKeyConstraint fk1b =
@@ -120,7 +120,7 @@ public class GraphTest
 
 	private static ForeignKeyConstraint fk(final Column column, final String name, final String targetTable)
 	{
-		return new ForeignKeyConstraint(column, name, targetTable, name + "Pk");
+		return column.newForeignKey(name, targetTable, name + "Pk");
 	}
 
 	private static <E> List<E> setAsList(final Set<E> set)

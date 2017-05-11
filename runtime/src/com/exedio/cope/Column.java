@@ -21,8 +21,6 @@ package com.exedio.cope;
 import static com.exedio.cope.Intern.intern;
 import static com.exedio.dsmf.Dialect.NOT_NULL;
 
-import com.exedio.dsmf.CheckConstraint;
-import com.exedio.dsmf.PrimaryKeyConstraint;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -68,7 +66,7 @@ abstract class Column
 			final com.exedio.dsmf.Column dsmf,
 			final String suffix, final String condition)
 	{
-		new CheckConstraint(dsmf, makeGlobalID(TrimClass.PrimaryKeyCheckConstraint, suffix), condition);
+		dsmf.newCheck(makeGlobalID(TrimClass.PrimaryKeyCheckConstraint, suffix), condition);
 	}
 
 	@Override
@@ -95,10 +93,10 @@ abstract class Column
 			: databaseType;
 
 		final com.exedio.dsmf.Column dsmfColumn =
-				new com.exedio.dsmf.Column(dsmf, id, databaseTypeClause);
+				dsmf.newColumn(id, databaseTypeClause);
 
 		if(primaryKey)
-			new PrimaryKeyConstraint(dsmfColumn, table.makeGlobalID(TrimClass.PrimaryKeyCheckConstraint, "PK"));
+			dsmfColumn.newPrimaryKey(table.makeGlobalID(TrimClass.PrimaryKeyCheckConstraint, "PK"));
 
 		makeSchema(dsmfColumn);
 	}

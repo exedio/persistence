@@ -26,6 +26,10 @@ public final class ForeignKeyConstraint extends Constraint
 	final String targetTable;
 	final String targetColumn;
 
+	/**
+	 * @deprecated Use {@link Column#newForeignKey(String,String,String)} instead
+	 */
+	@Deprecated
 	public ForeignKeyConstraint(
 			final Column column,
 			final String name,

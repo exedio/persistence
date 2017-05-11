@@ -22,6 +22,10 @@ public final class PrimaryKeyConstraint extends Constraint
 {
 	final String primaryKeyColumn;
 
+	/**
+	 * @deprecated Use {@link Column#newPrimaryKey(String)} instead
+	 */
+	@Deprecated
 	public PrimaryKeyConstraint(
 			final Column column,
 			final String name)

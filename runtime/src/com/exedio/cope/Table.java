@@ -212,7 +212,7 @@ final class Table
 
 	void makeSchema(final Schema schema)
 	{
-		final com.exedio.dsmf.Table result = new com.exedio.dsmf.Table(schema, idLower);
+		final com.exedio.dsmf.Table result = schema.newTable(idLower);
 
 		for(final Column c : getAllColumns())
 			c.makeSchema(result);

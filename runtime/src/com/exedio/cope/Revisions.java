@@ -23,7 +23,6 @@ import static com.exedio.cope.misc.Check.requireNonEmptyAndCopy;
 import static com.exedio.cope.misc.Check.requireNonNegative;
 
 import com.exedio.dsmf.Column;
-import com.exedio.dsmf.PrimaryKeyConstraint;
 import com.exedio.dsmf.SQLRuntimeException;
 import com.exedio.dsmf.Schema;
 import com.exedio.dsmf.Table;
@@ -120,10 +119,10 @@ public final class Revisions
 			final ConnectProperties properties,
 			final Dialect dialect)
 	{
-		final Table table = new Table(result, properties.revisionTableName);
-		final Column pk = new Column(table, COLUMN_NUMBER_NAME, dialect.getIntegerType(RevisionInfoMutex.NUMBER, Integer.MAX_VALUE));
-		new Column(table, COLUMN_INFO_NAME, dialect.getBlobType(100*1000));
-		new PrimaryKeyConstraint(pk, properties.revisionPrimaryKeyName);
+		final Table table = result.newTable(properties.revisionTableName);
+		final Column pk = table.newColumn(COLUMN_NUMBER_NAME, dialect.getIntegerType(RevisionInfoMutex.NUMBER, Integer.MAX_VALUE));
+		table.newColumn(COLUMN_INFO_NAME, dialect.getBlobType(100*1000));
+		pk.newPrimaryKey(properties.revisionPrimaryKeyName);
 	}
 
 	private static int getActualNumber(

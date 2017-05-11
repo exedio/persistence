@@ -31,8 +31,8 @@ public class NodeTest
 	@Test public void testColumnOk()
 	{
 		final Schema schema = new Schema(new HsqldbDialect(), connectionProvider);
-		final Table table = new Table(schema, "tabName");
-		final Column c = new Column(table, "colName", "requiredType");
+		final Table table = schema.newTable("tabName");
+		final Column c = table.newColumn("colName", "requiredType");
 
 		assertSame(table, c.getTable());
 		assertEquals("colName", c.getName());
@@ -65,8 +65,8 @@ public class NodeTest
 	@Test public void testColumnWrongName()
 	{
 		final Schema schema = new Schema(new HsqldbDialect(), connectionProvider);
-		final Table table = new Table(schema, "tabName");
-		final Column c = new Column(table, "colName", "requiredType");
+		final Table table = schema.newTable("tabName");
+		final Column c = table.newColumn("colName", "requiredType");
 
 		assertSame(table, c.getTable());
 		assertEquals("colName", c.getName());
@@ -126,8 +126,8 @@ public class NodeTest
 	@Test public void testColumnWrongType()
 	{
 		final Schema schema = new Schema(new HsqldbDialect(), connectionProvider);
-		final Table table = new Table(schema, "tabName");
-		final Column c = new Column(table, "colName", "requiredType");
+		final Table table = schema.newTable("tabName");
+		final Column c = table.newColumn("colName", "requiredType");
 
 		assertSame(table, c.getTable());
 		assertEquals("colName", c.getName());
@@ -159,7 +159,7 @@ public class NodeTest
 	@Test public void testColumnNonRequires()
 	{
 		final Schema schema = new Schema(new HsqldbDialect(), connectionProvider);
-		final Table table = new Table(schema, "tabName");
+		final Table table = schema.newTable("tabName");
 
 		final Column c = table.notifyExistentColumn("colName", "existingType");
 		assertSame(table, c.getTable());

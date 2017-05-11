@@ -23,6 +23,10 @@ import java.sql.SQLException;
 
 public final class CheckConstraint extends Constraint
 {
+	/**
+	 * @deprecated Use {@link Column#newCheck(String,String)} instead
+	 */
+	@Deprecated
 	public CheckConstraint(
 			final Column column,
 			final String name,
@@ -31,6 +35,10 @@ public final class CheckConstraint extends Constraint
 		this(column.table, column, name, true, condition);
 	}
 
+	/**
+	 * @deprecated Use {@link Table#newCheck(String,String)} instead
+	 */
+	@Deprecated
 	public CheckConstraint(
 			final Table table,
 			final String name,

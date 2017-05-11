@@ -42,9 +42,9 @@ public class ColumnTest extends SchemaReadyTest
 	{
 		final Schema result = newSchema();
 
-		table = new Table(result, TABLE1);
-		column = new Column(table, COLUMN1, intType);
-		new Column(table, "otherColumn", stringType);
+		table = result.newTable(TABLE1);
+		column = table.newColumn(COLUMN1, intType);
+		table.newColumn("otherColumn", stringType);
 
 		return result;
 	}

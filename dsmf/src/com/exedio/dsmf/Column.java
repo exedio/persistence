@@ -22,6 +22,7 @@ import static java.util.Collections.unmodifiableList;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import javax.annotation.Nonnull;
 
 public final class Column extends Node
 {
@@ -30,6 +31,10 @@ public final class Column extends Node
 	private final Field<String> type;
 	private final ArrayList<Constraint> constraints = new ArrayList<>();
 
+	/**
+	 * @deprecated Use {@link Table#newColumn(String,String)} instead
+	 */
+	@Deprecated
 	public Column(final Table table, final String name, final String type)
 	{
 		this(table, name, type, true);
@@ -58,6 +63,34 @@ public final class Column extends Node
 	public String getName()
 	{
 		return name;
+	}
+
+	@SuppressWarnings("deprecation") // OK: moved api
+	public PrimaryKeyConstraint newPrimaryKey(@Nonnull final String name)
+	{
+		return new PrimaryKeyConstraint(this, requireNonEmptyTrimmed(name, "name"));
+	}
+
+	@SuppressWarnings("deprecation") // OK: moved api
+	public ForeignKeyConstraint newForeignKey(
+			@Nonnull final String name,
+			@Nonnull final String targetTable,
+			@Nonnull final String targetColumn)
+	{
+		return new ForeignKeyConstraint(this,
+				requireNonEmptyTrimmed(name, "name"),
+				requireNonEmptyTrimmed(targetTable, "targetTable"),
+				requireNonEmptyTrimmed(targetColumn, "targetColumn"));
+	}
+
+	@SuppressWarnings("deprecation") // OK: moved api
+	public CheckConstraint newCheck(
+			@Nonnull final String name,
+			@Nonnull final String condition)
+	{
+		return new CheckConstraint(this,
+				requireNonEmptyTrimmed(name, "name"),
+				requireNonEmptyTrimmed(condition, "condition"));
 	}
 
 	void register(final Constraint constraint)

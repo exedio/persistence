@@ -26,6 +26,7 @@ import java.util.Collection;
 import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.Set;
+import javax.annotation.Nonnull;
 
 public final class Table extends Node
 {
@@ -39,6 +40,10 @@ public final class Table extends Node
 	private final ArrayList<Constraint> constraintList = new ArrayList<>();
 	private final ArrayList<Constraint> tableConstraints = new ArrayList<>();
 
+	/**
+	 * @deprecated Use {@link Schema#newTable(String)} instead
+	 */
+	@Deprecated
 	public Table(final Schema schema, final String name)
 	{
 		this(schema, name, true);
@@ -60,6 +65,38 @@ public final class Table extends Node
 	public String getName()
 	{
 		return name;
+	}
+
+	@SuppressWarnings("deprecation") // OK: moved api
+	public Column newColumn(
+			@Nonnull final String name,
+			@Nonnull final String type)
+	{
+		return new Column(this,
+				requireNonEmptyTrimmed(name, "name"),
+				requireNonEmptyTrimmed(type, "type"));
+	}
+
+	@SuppressWarnings("deprecation") // OK: moved api
+	public UniqueConstraint newUnique(
+			final Column column,
+			@Nonnull final String name,
+			@Nonnull final String clause)
+	{
+		return new UniqueConstraint(this,
+				column,
+				requireNonEmptyTrimmed(name, "name"),
+				requireNonEmptyTrimmed(clause, "clause"));
+	}
+
+	@SuppressWarnings("deprecation") // OK: moved api
+	public CheckConstraint newCheck(
+			@Nonnull final String name,
+			@Nonnull final String condition)
+	{
+		return new CheckConstraint(this,
+				requireNonEmptyTrimmed(name, "name"),
+				requireNonEmptyTrimmed(condition, "condition"));
 	}
 
 	void register(final Column column)

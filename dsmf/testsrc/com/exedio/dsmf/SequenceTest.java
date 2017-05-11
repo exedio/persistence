@@ -37,7 +37,7 @@ public class SequenceTest extends SchemaReadyTest
 	{
 		final Schema result = newSchema();
 
-		sequence = new Sequence(result, NAME, Sequence.Type.bit63, 55);
+		sequence = result.newSequence(NAME, Sequence.Type.bit63, 55);
 
 		return result;
 	}
