@@ -64,14 +64,14 @@ final class TimestampColumn extends Column
 		switch(precision)
 		{
 			case HOUR:
-				newCheckConstraint(dsmf, "PM",
+				newCheck(dsmf, "PM",
 						dialect.getDateExtract(quotedID, MINUTE) + "=0");
 				// fall through
 
 			case MINUTE:
 			case SECOND:
 				final String seconds = dialect.getDateExtract(quotedID, SECOND);
-				newCheckConstraint(dsmf, "PS",
+				newCheck(dsmf, "PS",
 						precision==SECOND
 						? (seconds + '=' + dialect.getFloor(seconds)) // is an integer
 						: (seconds + "=0"));

@@ -155,15 +155,15 @@ class IntegerColumn extends Column
 			}
 			bf.append(')');
 
-			newCheckConstraint(dsmf, "EN", bf.toString());
+			newCheck(dsmf, "EN", bf.toString());
 		}
 		else
 		{
-			newCheckConstraint(dsmf, "MN", quotedID + ">=" + minimum);
-			newCheckConstraint(dsmf, "MX", quotedID + "<=" + maximum);
+			newCheck(dsmf, "MN", quotedID + ">=" + minimum);
+			newCheck(dsmf, "MX", quotedID + "<=" + maximum);
 
 			if(precision.constrains())
-				newCheckConstraint(dsmf, "PR",
+				newCheck(dsmf, "PR",
 					table.database.dialect.getDateIntegerPrecision(quotedID, precision));
 		}
 	}

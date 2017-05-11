@@ -125,22 +125,22 @@ class StringColumn extends Column
 			}
 			bf.append(')');
 
-			newCheckConstraint(dsmf, "EN", bf.toString());
+			newCheck(dsmf, "EN", bf.toString());
 		}
 		else
 		{
 			final String length = table.database.dialect.getStringLength();
 			final boolean exact = minimumLength==maximumLength;
 			if(minimumLength>0)
-				newCheckConstraint(dsmf, "MN", length + '(' + quotedID + (exact?")=":")>=") + minimumLength);
+				newCheck(dsmf, "MN", length + '(' + quotedID + (exact?")=":")>=") + minimumLength);
 			if(!exact)
-				newCheckConstraint(dsmf, "MX", length + '(' + quotedID +             ")<="  + maximumLength);
+				newCheck(dsmf, "MX", length + '(' + quotedID +             ")<="  + maximumLength);
 
 			if(charSet!=null)
 			{
 				final String clause = table.database.dialect.getClause(quotedID, charSet);
 				if(clause!=null)
-					newCheckConstraint(dsmf, "CS", clause);
+					newCheck(dsmf, "CS", clause);
 			}
 		}
 	}

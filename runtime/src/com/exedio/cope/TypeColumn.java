@@ -43,7 +43,7 @@ final class TypeColumn extends StringColumn
 		if(!optional)
 			return;
 
-		newCheckConstraint(dsmf, "NS",
+		newCheck(dsmf, "NS",
 				"((" + quotedID + " IS NOT NULL) AND (" + itemColumnQuotedID + " IS NOT NULL)) OR " +
 				"((" + quotedID + " IS "+ "NULL) AND (" + itemColumnQuotedID + " IS "+ "NULL))");
 	}

@@ -64,7 +64,7 @@ abstract class Column
 		return table.makeGlobalID(trimClass, idForGlobal + '_' + suffix);
 	}
 
-	final void newCheckConstraint(
+	final void newCheck(
 			final com.exedio.dsmf.Column dsmf,
 			final String suffix, final String condition)
 	{
