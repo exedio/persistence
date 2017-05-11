@@ -71,6 +71,9 @@ public abstract class SchemaTest
 		final String username = config.connectionUsername;
 		final String password = config.connectionPassword;
 		final String mysqlRowFormat = config.mysqlRowFormat;
+		final java.util.Properties info = new java.util.Properties();
+		info.setProperty("user", username);
+		info.setProperty("password", password);
 
 		int numberOfConnections = 1;
 		if(url.startsWith("jdbc:hsqldb:"))
@@ -128,7 +131,7 @@ public abstract class SchemaTest
 
 		supportsCheckConstraints = dialect.supportsCheckConstraints();
 		for(int i = 0; i<numberOfConnections; i++)
-			connections.add(DriverManager.getConnection(url, username, password));
+			connections.add(DriverManager.getConnection(url, info));
 
 		if(postgresql)
 		{
