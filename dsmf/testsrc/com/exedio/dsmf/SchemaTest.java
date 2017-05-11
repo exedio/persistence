@@ -97,6 +97,7 @@ public abstract class SchemaTest
 			{
 				Class.forName("org.mariadb.jdbc.Driver");
 			}
+			info.setProperty("allowMultiQueries", "true"); // needed for creating Sequence
 			dialect = new MysqlDialect(
 					"CopeSequenceAutoIncrementColumnForTest",
 					"NONE".equals(mysqlRowFormat) ? null : mysqlRowFormat);
