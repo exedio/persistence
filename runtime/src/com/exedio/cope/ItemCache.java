@@ -164,10 +164,11 @@ final class ItemCache
 
 	void invalidate(final TLongHashSet[] invalidations)
 	{
+		final boolean stampsEnabled = stampsEnabled();
 		final long stamp = ItemCacheStamp.next();
 		synchronized (map)
 		{
-			final Set<Item> invalidated=stampsEnabled()?new HashSet<>():null;
+			final Set<Item> invalidated=stampsEnabled?new HashSet<>():null;
 			for(int typeTransiently=0; typeTransiently<invalidations.length; typeTransiently++)
 			{
 				final TLongHashSet invalidatedPKs = invalidations[typeTransiently];
@@ -179,7 +180,7 @@ final class ItemCache
 						final Type<?> type=typeStat.type;
 						if (type.cacheIdTransiently!=typeTransiently) throw new RuntimeException();
 						final Item item=type.activate(i.next());
-						if (stampsEnabled()) invalidated.add(item);
+						if (stampsEnabled) invalidated.add(item);
 						typeStat.invalidationsOrdered++;
 						if (map.remove(item)!=null)
 						{
@@ -188,7 +189,7 @@ final class ItemCache
 					}
 				}
 			}
-			if (stampsEnabled()) stampList.put(stamp, invalidated);
+			if (stampsEnabled) stampList.put(stamp, invalidated);
 		}
 	}
 
