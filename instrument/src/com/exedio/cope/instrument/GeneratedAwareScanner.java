@@ -50,16 +50,11 @@ abstract class GeneratedAwareScanner extends TreePathScanner<Void,Void>
 
 	abstract void visitGeneratedPath();
 
-	private boolean checkGenerated() throws RuntimeException
+	private void checkGenerated() throws RuntimeException
 	{
 		if ( hasGeneratedAnnotation() )
 		{
 			visitGeneratedPath();
-			return true;
-		}
-		else
-		{
-			return false;
 		}
 	}
 

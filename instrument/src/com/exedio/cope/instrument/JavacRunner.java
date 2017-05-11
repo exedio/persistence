@@ -46,10 +46,6 @@ abstract class JavacRunner<P extends Processor>
 		// The more stable alternative would be calling "ToolProvider.getSystemJavaCompiler()", but that causes
 		// class path issues with when run as an ant task.
 		final JavaCompiler compiler=JavacTool.create();
-		if ( compiler==null )
-		{
-			throw new NullPointerException("no system java compiler found - please make sure your \"java\" is from a JDK, not a JRE");
-		}
 		try (final StandardJavaFileManager fileManager=compiler.getStandardFileManager(null, null, null))
 		{
 			final List<File> sortedSourceFiles=params.getAllJavaSourceFiles();
@@ -128,7 +124,7 @@ abstract class JavacRunner<P extends Processor>
 		else
 		{
 			// this works for Ant
-			final Pattern pattern = Pattern.compile("AntClassLoader\\[(.*)\\]");
+			final Pattern pattern = Pattern.compile("AntClassLoader\\[(.*)]");
 			final String classLoaderString=cl.toString();
 			final Matcher matcher = pattern.matcher(classLoaderString);
 			if ( !matcher.matches() ) throw new RuntimeException("failed to construct file-based classpath from class loader; see Main.java getJavacClasspath(); class loader: "+classLoaderString);

@@ -62,12 +62,6 @@ final class ExternalCopeType extends CopeType<ExternalCopeFeature>
 	}
 
 	@Override
-	boolean isInterface()
-	{
-		return itemClass.isInterface();
-	}
-
-	@Override
 	Evaluatable getField(final String name)
 	{
 		try
