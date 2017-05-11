@@ -116,7 +116,7 @@ public abstract class Dialect
 			while(resultSet.next())
 			{
 				final Table table = schema.getTableStrict(resultSet, 2);
-				table.notifyExistentForeignKeyConstraint(
+				table.notifyExistentForeignKey(
 						resultSet.getString(1), // constraintName
 						resultSet.getString(3), // foreignKeyColumn
 						resultSet.getString(4), // targetTable

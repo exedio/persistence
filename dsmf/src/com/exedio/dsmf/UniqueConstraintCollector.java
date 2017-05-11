@@ -84,7 +84,7 @@ final class UniqueConstraintCollector
 			bf.append(schema.quoteName(column));
 		}
 		bf.append(')');
-		table.notifyExistentUniqueConstraint(name, bf.toString());
+		table.notifyExistentUnique(name, bf.toString());
 
 		this.table = null;
 		this.name = null;

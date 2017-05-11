@@ -123,11 +123,11 @@ public final class OracleDialect extends Dialect
 				final String constraintName = resultSet.getString(2);
 				if(getBooleanStrict(resultSet, 3, "C", "P"))
 				{
-					table.notifyExistentCheckConstraint(constraintName, resultSet.getString(4));
+					table.notifyExistentCheck(constraintName, resultSet.getString(4));
 				}
 				else
 				{
-					table.notifyExistentPrimaryKeyConstraint(constraintName);
+					table.notifyExistentPrimaryKey(constraintName);
 				}
 			}
 		});

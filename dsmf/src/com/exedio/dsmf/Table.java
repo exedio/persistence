@@ -95,7 +95,7 @@ public final class Table extends Node
 		return result;
 	}
 
-	void notifyExistentCheckConstraint(final String constraintName, final String condition)
+	void notifyExistentCheck(final String constraintName, final String condition)
 	{
 		final Constraint result = constraintMap.get(constraintName);
 
@@ -105,7 +105,7 @@ public final class Table extends Node
 			result.notifyExistsCondition(condition);
 	}
 
-	void notifyExistentPrimaryKeyConstraint(final String constraintName)
+	void notifyExistentPrimaryKey(final String constraintName)
 	{
 		final Constraint result = constraintMap.get(constraintName);
 
@@ -115,7 +115,7 @@ public final class Table extends Node
 			result.notifyExists();
 	}
 
-	void notifyExistentForeignKeyConstraint(
+	void notifyExistentForeignKey(
 			final String constraintName,
 			final String foreignKeyColumn,
 			final String targetTable,
@@ -131,7 +131,7 @@ public final class Table extends Node
 			result.notifyExists(foreignKeyColumn, targetTable, targetColumn);
 	}
 
-	void notifyExistentUniqueConstraint(final String constraintName, final String condition)
+	void notifyExistentUnique(final String constraintName, final String condition)
 	{
 		final Constraint result = constraintMap.get(constraintName);
 

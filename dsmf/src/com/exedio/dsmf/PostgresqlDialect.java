@@ -173,10 +173,10 @@ public final class PostgresqlDialect extends Dialect
 					//System.out.println("searchCondition:>"+searchCondition+"<");
 					if(searchCondition.startsWith("(")&& searchCondition.endsWith(")"))
 						searchCondition = searchCondition.substring(1, searchCondition.length()-1);
-					table.notifyExistentCheckConstraint(constraintName, searchCondition);
+					table.notifyExistentCheck(constraintName, searchCondition);
 				}
 				else
-					table.notifyExistentPrimaryKeyConstraint(constraintName);
+					table.notifyExistentPrimaryKey(constraintName);
 
 				//System.out.println("EXISTS:"+tableName);
 			}
