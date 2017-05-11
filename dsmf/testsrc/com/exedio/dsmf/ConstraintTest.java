@@ -21,6 +21,7 @@ package com.exedio.dsmf;
 import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertSame;
 
 import org.junit.Test;
 
@@ -54,23 +55,31 @@ public class ConstraintTest extends SchemaReadyTest
 	private static final String UNIQUE_DOUBLE_COLUMN2 = "uniqueDouble2";
 	private static final String UNIQUE_DOUBLE_NAME = "uniqueDoubleId";
 
+	private Table table;
+	private CheckConstraint nn;
+	private CheckConstraint ck;
+	private PrimaryKeyConstraint pk;
+	private ForeignKeyConstraint fk;
+	private UniqueConstraint us;
+	private UniqueConstraint ud;
+
 	@Override
 	protected Schema getSchema()
 	{
 		final Schema result = newSchema();
-		final Table table = new Table(result, TABLE);
+		table = new Table(result, TABLE);
 
 		if(supportsCheckConstraints)
 		{
 			final Column nn = new Column(table, NOT_NULL_COLUMN, stringType);
-			new CheckConstraint(nn, NOT_NULL_NAME, p(NOT_NULL_COLUMN)+" IS NOT NULL");
+			this.nn = new CheckConstraint(nn, NOT_NULL_NAME, p(NOT_NULL_COLUMN)+" IS NOT NULL");
 
 			final Column check = new Column(table, CHECK_COLUMN, intType);
-			new CheckConstraint(check, CHECK_NAME, "("+p(CHECK_COLUMN)+" IS NOT NULL) AND ("+hp(p(CHECK_COLUMN))+" IN ("+hp("0")+","+sac()+hp("1")+"))");
+			ck = new CheckConstraint(check, CHECK_NAME, "("+p(CHECK_COLUMN)+" IS NOT NULL) AND ("+hp(p(CHECK_COLUMN))+" IN ("+hp("0")+","+sac()+hp("1")+"))");
 		}
 
 		final Column pk = new Column(table, PK_COLUMN, stringType);
-		new PrimaryKeyConstraint(pk, PK_NAME);
+		this.pk = new PrimaryKeyConstraint(pk, PK_NAME);
 
 		final Column fkColumn = new Column(table, FK_COLUMN, stringType);
 		{
@@ -78,14 +87,14 @@ public class ConstraintTest extends SchemaReadyTest
 			final Column targetPk = new Column(targetTable, FK_TARGET_COLUMN, stringType);
 			new PrimaryKeyConstraint(targetPk, "targetPrimaryKey_Pk");
 		}
-		new ForeignKeyConstraint(fkColumn, FK_NAME, FK_TARGET_TABLE, FK_TARGET_COLUMN);
+		fk = new ForeignKeyConstraint(fkColumn, FK_NAME, FK_TARGET_TABLE, FK_TARGET_COLUMN);
 
 		final Column unqCol = new Column(table, UNIQUE_SINGLE_COLUMN, stringType);
-		new UniqueConstraint(table, unqCol, UNIQUE_SINGLE_NAME, "("+p(UNIQUE_SINGLE_COLUMN)+")");
+		us = new UniqueConstraint(table, unqCol, UNIQUE_SINGLE_NAME, "("+p(UNIQUE_SINGLE_COLUMN)+")");
 
 		new Column(table, UNIQUE_DOUBLE_COLUMN1, stringType);
 		new Column(table, UNIQUE_DOUBLE_COLUMN2, intType);
-		new UniqueConstraint(table, null, UNIQUE_DOUBLE_NAME, "("+p(UNIQUE_DOUBLE_COLUMN1)+","+p(UNIQUE_DOUBLE_COLUMN2)+")");
+		ud = new UniqueConstraint(table, null, UNIQUE_DOUBLE_NAME, "("+p(UNIQUE_DOUBLE_COLUMN1)+","+p(UNIQUE_DOUBLE_COLUMN2)+")");
 
 		return result;
 	}
@@ -94,17 +103,17 @@ public class ConstraintTest extends SchemaReadyTest
 	{
 		final Schema schema = getVerifiedSchema();
 
-		final Table table = schema.getTable(TABLE);
+		assertSame(table, schema.getTable(TABLE));
 		assertNotNull(table);
 		assertEquals(null, table.getError());
 		assertEquals(Node.Color.OK, table.getParticularColor());
 
-		final CheckConstraint nn = assertCheckConstraint(table, NOT_NULL_NAME, p(NOT_NULL_COLUMN)+" IS NOT NULL");
-		final CheckConstraint ck = assertCheckConstraint(table, CHECK_NAME, "("+p(CHECK_COLUMN)+" IS NOT NULL) AND ("+hp(p(CHECK_COLUMN))+" IN ("+hp("0")+","+sac()+hp("1")+"))");
-		final PrimaryKeyConstraint pk = assertPkConstraint(table, PK_NAME, null, PK_COLUMN);
-		final ForeignKeyConstraint fk = assertFkConstraint(table, FK_NAME, FK_COLUMN, FK_TARGET_TABLE, FK_TARGET_COLUMN);
-		final UniqueConstraint us = assertUniqueConstraint(table, UNIQUE_SINGLE_NAME, "("+p(UNIQUE_SINGLE_COLUMN)+")");
-		final UniqueConstraint ud = assertUniqueConstraint(table, UNIQUE_DOUBLE_NAME, "("+p(UNIQUE_DOUBLE_COLUMN1)+","+p(UNIQUE_DOUBLE_COLUMN2)+")");
+		assertSame(nn, assertCheckConstraint(table, NOT_NULL_NAME, p(NOT_NULL_COLUMN)+" IS NOT NULL"));
+		assertSame(ck, assertCheckConstraint(table, CHECK_NAME, "("+p(CHECK_COLUMN)+" IS NOT NULL) AND ("+hp(p(CHECK_COLUMN))+" IN ("+hp("0")+","+sac()+hp("1")+"))"));
+		assertSame(pk, assertPkConstraint(table, PK_NAME, null, PK_COLUMN));
+		assertSame(fk, assertFkConstraint(table, FK_NAME, FK_COLUMN, FK_TARGET_TABLE, FK_TARGET_COLUMN));
+		assertSame(us, assertUniqueConstraint(table, UNIQUE_SINGLE_NAME, "("+p(UNIQUE_SINGLE_COLUMN)+")"));
+		assertSame(ud, assertUniqueConstraint(table, UNIQUE_DOUBLE_NAME, "("+p(UNIQUE_DOUBLE_COLUMN1)+","+p(UNIQUE_DOUBLE_COLUMN2)+")"));
 
 		assertEquals(
 				supportsCheckConstraints
