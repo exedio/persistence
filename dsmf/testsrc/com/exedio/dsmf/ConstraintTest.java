@@ -39,6 +39,7 @@ public class ConstraintTest extends SchemaReadyTest
 
 	private static final String CHECK_COLUMN = "check";
 	private static final String CHECK_NAME = "check";
+	private static final String CHECK_TABLE_NAME = "checkTable";
 
 	private static final String PK_COLUMN = "primaryKey";
 	private static final String PK_NAME = "primaryKey_Pk"; // must have this value to work with mysql
@@ -58,6 +59,7 @@ public class ConstraintTest extends SchemaReadyTest
 	private Table table;
 	private CheckConstraint nn;
 	private CheckConstraint ck;
+	private CheckConstraint ct;
 	private PrimaryKeyConstraint pk;
 	private ForeignKeyConstraint fk;
 	private UniqueConstraint us;
@@ -76,6 +78,7 @@ public class ConstraintTest extends SchemaReadyTest
 
 			final Column check = new Column(table, CHECK_COLUMN, intType);
 			ck = new CheckConstraint(check, CHECK_NAME, "("+p(CHECK_COLUMN)+" IS NOT NULL) AND ("+hp(p(CHECK_COLUMN))+" IN ("+hp("0")+","+sac()+hp("1")+"))");
+			ct = new CheckConstraint(table, CHECK_TABLE_NAME, p(CHECK_COLUMN)+">0");
 		}
 
 		final Column pk = new Column(table, PK_COLUMN, stringType);
@@ -110,6 +113,7 @@ public class ConstraintTest extends SchemaReadyTest
 
 		assertSame(nn, assertCheckConstraint(table, NOT_NULL_NAME, p(NOT_NULL_COLUMN)+" IS NOT NULL"));
 		assertSame(ck, assertCheckConstraint(table, CHECK_NAME, "("+p(CHECK_COLUMN)+" IS NOT NULL) AND ("+hp(p(CHECK_COLUMN))+" IN ("+hp("0")+","+sac()+hp("1")+"))"));
+		assertSame(ct ,assertCheckConstraint(table, CHECK_TABLE_NAME, p(CHECK_COLUMN)+">0"));
 		assertSame(pk, assertPkConstraint(table, PK_NAME, null, PK_COLUMN));
 		assertSame(fk, assertFkConstraint(table, FK_NAME, FK_COLUMN, FK_TARGET_TABLE, FK_TARGET_COLUMN));
 		assertSame(us, assertUniqueConstraint(table, UNIQUE_SINGLE_NAME, "("+p(UNIQUE_SINGLE_COLUMN)+")"));
@@ -117,10 +121,14 @@ public class ConstraintTest extends SchemaReadyTest
 
 		assertEquals(
 				supportsCheckConstraints
-				? asList(nn, ck, pk, fk, us, ud)
+				? asList(nn, ck, ct, pk, fk, us, ud)
 				: asList(pk, fk, us, ud),
 				table.getConstraints());
-		assertEquals(asList(ud), table.getTableConstraints());
+		assertEquals(
+				supportsCheckConstraints
+				? asList(ct, ud)
+				: asList(ud),
+				table.getTableConstraints());
 		if(supportsCheckConstraints)
 		{
 			assertEquals(asList(nn), table.getColumn(NOT_NULL_COLUMN).getConstraints());
