@@ -94,12 +94,12 @@ public class TableTest extends SchemaReadyTest
 				assertEquals("not used", tableX.getError());
 				assertEquals(WARNING, tableX.getParticularColor());
 
-				final Column column = tableX.getColumn(COLUMN1);
-				assertEquals(false, column.required());
-				assertEquals(true, column.exists());
-				assertEquals("not used", column.getError());
-				assertEquals(WARNING, column.getParticularColor());
-				assertEquals(intType, column.getType());
+				final Column columnX = tableX.getColumn(COLUMN1);
+				assertEquals(false, columnX.required());
+				assertEquals(true, columnX.exists());
+				assertEquals("not used", columnX.getError());
+				assertEquals(WARNING, columnX.getParticularColor());
+				assertEquals(intType, columnX.getType());
 
 				tableX.renameTo(TABLE1);
 			}
