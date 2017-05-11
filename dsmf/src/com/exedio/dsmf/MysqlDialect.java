@@ -42,6 +42,7 @@ public final class MysqlDialect extends Dialect
 	@Override
 	public String quoteName(final String name)
 	{
+		// protection against SQL injection https://en.wikipedia.org/wiki/SQL_injection
 		if(name.indexOf(QUOTE_CHARACTER)>=0)
 			throw new IllegalArgumentException("database name contains forbidden characters: "+name);
 

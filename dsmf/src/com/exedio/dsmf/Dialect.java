@@ -40,6 +40,7 @@ public abstract class Dialect
 	 */
 	public String quoteName(final String name)
 	{
+		// protection against SQL injection https://en.wikipedia.org/wiki/SQL_injection
 		if(name.indexOf('"')>=0)
 			throw new IllegalArgumentException("database name contains forbidden characters: "+name);
 
