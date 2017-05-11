@@ -120,7 +120,7 @@ public final class Revisions
 			final ConnectProperties properties,
 			final Dialect dialect)
 	{
-		final Table table = new com.exedio.dsmf.Table(result, properties.revisionTableName);
+		final Table table = new Table(result, properties.revisionTableName);
 		final Column pk = new Column(table, COLUMN_NUMBER_NAME, dialect.getIntegerType(RevisionInfoMutex.NUMBER, Integer.MAX_VALUE));
 		new Column(table, COLUMN_INFO_NAME, dialect.getBlobType(100*1000));
 		new PrimaryKeyConstraint(pk, properties.revisionPrimaryKeyName);
