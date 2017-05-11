@@ -24,13 +24,14 @@ import static com.exedio.cope.pattern.Price.parse;
 import static com.exedio.cope.pattern.Price.storeOf;
 import static com.exedio.cope.pattern.Price.valueOf;
 import static com.exedio.cope.tojunit.EqualsAssert.assertEqualBits;
+import static com.exedio.cope.tojunit.EqualsAssert.assertEqualsAndHash;
+import static com.exedio.cope.tojunit.EqualsAssert.assertNotEqualsAndHash;
 import static java.math.RoundingMode.DOWN;
 import static java.math.RoundingMode.HALF_DOWN;
 import static java.math.RoundingMode.HALF_EVEN;
 import static java.math.RoundingMode.HALF_UP;
 import static java.math.RoundingMode.UP;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.fail;
@@ -709,37 +710,21 @@ public class PriceTest
 		}
 	}
 
-	@Test public void testEqualsSame()
+	@Test public void testEqualsOrSame()
 	{
-		assertEquals(storeOf( 123), storeOf( 123));
-		assertEquals(storeOf(-123), storeOf(-123));
-		assertFalse(storeOf(123).equals(storeOf( 124)));
-		assertFalse(storeOf(123).equals(storeOf(-123)));
-		assertSame(storeOf(123), storeOf(123));
-	}
-
-	@Test public void testEqualsOther()
-	{
-		assertFalse(storeOf(123).equals(Integer.valueOf(123)));
-		assertFalse(storeOf(123).equals(Double.valueOf(1.23)));
-		assertFalse(storeOf(123).equals(null));
-	}
-
-	@Test public void testEqualsNotSame()
-	{
-		assertEquals(storeOf( 4123), storeOf( 4123));
-		assertEquals(storeOf(-4123), storeOf(-4123));
-		assertFalse(storeOf(4123).equals(storeOf( 124)));
-		assertFalse(storeOf(4123).equals(storeOf(-4123)));
+		assertSame(         storeOf(  123), storeOf(  123)); // from cache
+		assertEqualsAndHash(storeOf(- 123), storeOf(- 123));
+		assertEqualsAndHash(storeOf( 4123), storeOf( 4123));
+		assertEqualsAndHash(storeOf(-4123), storeOf(-4123));
+		assertNotEqualsAndHash(
+				storeOf(  123),
+				storeOf(  124),
+				storeOf(- 123),
+				storeOf( 4123),
+				storeOf(-4123),
+				Integer.valueOf(123),
+				Double.valueOf(1.23));
 		assertNotSame(storeOf(4123), storeOf(4123));
-	}
-
-	@Test public void testHashCode()
-	{
-		assertEquals(storeOf( 123).hashCode(), storeOf( 123).hashCode());
-		assertEquals(storeOf(-123).hashCode(), storeOf(-123).hashCode());
-		assertFalse(storeOf(123).hashCode()==storeOf( 124).hashCode());
-		assertFalse(storeOf(123).hashCode()==storeOf(-123).hashCode());
 	}
 
 	@Test public void testCompareTo()
