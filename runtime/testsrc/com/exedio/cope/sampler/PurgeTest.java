@@ -197,7 +197,7 @@ public class PurgeTest extends ConnectedTest
 	{
 		assertEquals("actual", type, actual.getType());
 		assertEquals("limit", limit, actual.getLimit());
-		assertTrue("finished", actual.getFinished().before(new Date()));
+		assertTrue("finished", !actual.getFinished().after(new Date()));
 		assertEquals("rows", rows, actual.getRows());
 		final long elapsed = actual.getElapsed();
 		assertTrue("elapsed" + elapsed, elapsed>=0);
