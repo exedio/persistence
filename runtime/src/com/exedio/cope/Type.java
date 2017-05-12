@@ -388,7 +388,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 			try
 			{
 				for(final Method m : beforeNewItemMethods)
-					setValues = (SetValue[])m.invoke(null, (Object)setValues);
+					setValues = (SetValue<?>[])m.invoke(null, (Object)setValues);
 			}
 			catch(final InvocationTargetException e)
 			{

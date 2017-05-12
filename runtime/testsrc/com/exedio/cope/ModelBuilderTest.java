@@ -94,7 +94,7 @@ public class ModelBuilderTest
 		final ModelBuilder m = Model.builder();
 		try
 		{
-			m.add((Type[])null);
+			m.add((Type<?>[])null);
 			fail();
 		}
 		catch(final NullPointerException e)
