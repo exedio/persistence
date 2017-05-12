@@ -148,7 +148,7 @@ public class ExpectingDatabaseListener implements TestDatabaseListener
 		}
 
 		@Override
-		public/* TODO SOON workaround instrumentor bug with annotations */ void checkLoad(final Connection connection, final Item item)
+		void checkLoad(final Connection connection, final Item item)
 		{
 			checkConnection( connection );
 			if ( !this.item.equals(item) )
@@ -175,7 +175,7 @@ public class ExpectingDatabaseListener implements TestDatabaseListener
 		}
 
 		@Override
-		public/* TODO SOON workaround instrumentor bug with annotations */ void checkSearch( final Connection connection, final Query<?> query )
+		void checkSearch( final Connection connection, final Query<?> query )
 		{
 			checkConnection( connection );
 			if ( !type.equals(query.getType()) )
