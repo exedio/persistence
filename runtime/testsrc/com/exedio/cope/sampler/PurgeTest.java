@@ -23,12 +23,15 @@ import static com.exedio.cope.sampler.Stuff.sampler;
 import static com.exedio.cope.sampler.Stuff.samplerModel;
 import static com.exedio.cope.tojunit.Assert.sleepLongerThan;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import com.exedio.cope.Query;
 import com.exedio.cope.TransactionTry;
 import com.exedio.cope.pattern.Media;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import org.junit.Test;
 
 public class PurgeTest extends ConnectedTest
@@ -37,13 +40,30 @@ public class PurgeTest extends ConnectedTest
 	{
 		samplerModel.createSchema();
 		sampler.checkInternal();
+		try(TransactionTry tx = samplerModel.startTransactionTry(PurgeTest.class.getName()))
+		{
+			assertFalse(iterator().hasNext());
+			tx.commit();
+		}
 
 		assertEquals(0, sampler.analyzeCount(SamplerModel.TYPE));
 		assertEquals(0, sampler.analyzeCount(SamplerTransaction.TYPE));
 		assertEquals(0, sampler.analyzeCount(SamplerItemCache.TYPE));
 		assertEquals(0, sampler.analyzeCount(SamplerClusterNode.TYPE));
 		assertEquals(0, sampler.analyzeCount(SamplerMedia.TYPE));
-		assertPurge(new Date(), 0, 0, 0, 0, 0);
+		final Date firstDate = new Date();
+		assertPurge(firstDate, 0, 0, 0, 0, 0);
+		try(TransactionTry tx = samplerModel.startTransactionTry(PurgeTest.class.getName()))
+		{
+			final Iterator<SamplerPurge> i = iterator();
+			assertIt("SamplerTransaction", firstDate, 0, i.next());
+			assertIt("SamplerItemCache",   firstDate, 0, i.next());
+			assertIt("SamplerClusterNode", firstDate, 0, i.next());
+			assertIt("SamplerMedia",       firstDate, 0, i.next());
+			assertIt("SamplerModel",       firstDate, 0, i.next());
+			tx.commit();
+			assertFalse(i.hasNext());
+		}
 
 		sampler.sampleInternal(); // just initializes lastStep
 		assertEquals(0, sampler.analyzeCount(SamplerModel.TYPE));
@@ -82,6 +102,17 @@ public class PurgeTest extends ConnectedTest
 		assertEquals(c?4:0, sampler.analyzeCount(SamplerItemCache.TYPE));
 		assertEquals(0, sampler.analyzeCount(SamplerClusterNode.TYPE));
 		assertEquals(4, sampler.analyzeCount(SamplerMedia.TYPE));
+		try(TransactionTry tx = samplerModel.startTransactionTry(PurgeTest.class.getName()))
+		{
+			final Iterator<SamplerPurge> i = iterator();
+			assertIt("SamplerTransaction", date, 0, i.next());
+			assertIt("SamplerItemCache",   date, 0, i.next());
+			assertIt("SamplerClusterNode", date, 0, i.next());
+			assertIt("SamplerMedia",       date, 0, i.next());
+			assertIt("SamplerModel",       date, 0, i.next());
+			tx.commit();
+			assertFalse(i.hasNext());
+		}
 
 
 		final Date dateMax;
@@ -97,6 +128,17 @@ public class PurgeTest extends ConnectedTest
 		assertEquals(0, sampler.analyzeCount(SamplerItemCache.TYPE));
 		assertEquals(0, sampler.analyzeCount(SamplerClusterNode.TYPE));
 		assertEquals(0, sampler.analyzeCount(SamplerMedia.TYPE));
+		try(TransactionTry tx = samplerModel.startTransactionTry(PurgeTest.class.getName()))
+		{
+			final Iterator<SamplerPurge> i = iterator();
+			assertIt("SamplerTransaction", purgeDate, 2, i.next());
+			assertIt("SamplerItemCache",   purgeDate, c?4:0, i.next());
+			assertIt("SamplerClusterNode", purgeDate, 0, i.next());
+			assertIt("SamplerMedia",       purgeDate, 4, i.next());
+			assertIt("SamplerModel",       purgeDate, 2, i.next());
+			tx.commit();
+			assertFalse(i.hasNext());
+		}
 
 		assertPurge(purgeDate, 0, 0, 0, 0, 0);
 		assertEquals(0, sampler.analyzeCount(SamplerModel.TYPE));
@@ -104,6 +146,17 @@ public class PurgeTest extends ConnectedTest
 		assertEquals(0, sampler.analyzeCount(SamplerItemCache.TYPE));
 		assertEquals(0, sampler.analyzeCount(SamplerClusterNode.TYPE));
 		assertEquals(0, sampler.analyzeCount(SamplerMedia.TYPE));
+		try(TransactionTry tx = samplerModel.startTransactionTry(PurgeTest.class.getName()))
+		{
+			final Iterator<SamplerPurge> i = iterator();
+			assertIt("SamplerTransaction", purgeDate, 0, i.next());
+			assertIt("SamplerItemCache",   purgeDate, 0, i.next());
+			assertIt("SamplerClusterNode", purgeDate, 0, i.next());
+			assertIt("SamplerMedia",       purgeDate, 0, i.next());
+			assertIt("SamplerModel",       purgeDate, 0, i.next());
+			tx.commit();
+			assertFalse(i.hasNext());
+		}
 	}
 
 	private static void touch()
@@ -129,5 +182,26 @@ public class PurgeTest extends ConnectedTest
 		for(final int p : progress)
 			progressList.add(p);
 		assertEquals(progressList, ctx.getProgress());
+	}
+
+	private static Iterator<SamplerPurge> iterator()
+	{
+		return SamplerPurge.TYPE.search(null, SamplerPurge.TYPE.getThis(), true).iterator();
+	}
+
+	private static void assertIt(
+			final String type,
+			final Date limit,
+			final int rows,
+			final SamplerPurge actual)
+	{
+		assertEquals("actual", type, actual.getType());
+		assertEquals("limit", limit, actual.getLimit());
+		assertTrue("finished", actual.getFinished().before(new Date()));
+		assertEquals("rows", rows, actual.getRows());
+		final long elapsed = actual.getElapsed();
+		assertTrue("elapsed" + elapsed, elapsed>=0);
+		assertTrue("elapsed" + elapsed, elapsed<100);
+		actual.deleteCopeItem();
 	}
 }
