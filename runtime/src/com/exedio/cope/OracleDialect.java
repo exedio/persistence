@@ -310,7 +310,7 @@ final class OracleDialect extends Dialect
 
 	private static final String STATEMENT_ID_PREFIX = "cope";
 
-	static final HashSet<String> skippedColumnNames = new HashSet<>(Arrays.asList(new String[]{
+	static final HashSet<String> skippedColumnNames = new HashSet<>(Arrays.asList(
 			STATEMENT_ID,
 			OPERATION,
 			OPTIONS,
@@ -321,8 +321,8 @@ final class OracleDialect extends Dialect
 			OBJECT_TYPE,
 			ID,
 			PARENT_ID,
-			"POSITION",
-		}));
+			"POSITION"
+		));
 
 	@SuppressFBWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
 	@Override
