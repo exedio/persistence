@@ -92,7 +92,7 @@ abstract class JavacRunner<P extends Processor>
 
 	private static String toClasspathString(final List<File> classpathFiles)
 	{
-		return classpathFiles.stream().map(f->f.getAbsolutePath()).collect(Collectors.joining(File.pathSeparator));
+		return classpathFiles.stream().map(File::getAbsolutePath).collect(Collectors.joining(File.pathSeparator));
 	}
 
 	private static String getCurrentClasspath()

@@ -45,7 +45,7 @@ final class Kind
 	{
 		type = Type.valueOf(anno.type());
 		hasGenericConstructor = anno.hasGenericConstructor();
-		activationConstructor = name(() -> anno.activationConstructor());
+		activationConstructor = name(anno::activationConstructor);
 		allowStaticClassToken = anno.allowStaticClassToken();
 		revertFeatureBody = anno.revertFeatureBody();
 		featurePrefix = anno.featurePrefix();
@@ -102,8 +102,8 @@ final class Kind
 		static Type valueOf(final WrapType.Type anno)
 		{
 			final String doc = anno.doc();
-			final String field = name(() -> anno.field());
-			final String factory = name(() -> anno.factory());
+			final String field = name(anno::field);
+			final String factory = name(anno::factory);
 			if(doc.isEmpty() && field==null && factory==null)
 				return null;
 
@@ -119,7 +119,7 @@ final class Kind
 		if(anno==null)
 			return null;
 
-		return kinds.computeIfAbsent(anno, a -> new Kind(a));
+		return kinds.computeIfAbsent(anno, Kind::new);
 	}
 
 

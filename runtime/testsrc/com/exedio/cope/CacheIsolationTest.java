@@ -177,7 +177,7 @@ public class CacheIsolationTest extends TestWithEnvironment
 		else
 		{
 			assertEquals(0, statistics.getLimit());
-			assertEquals(Stream.of(ci).map( x -> x.getType() ).collect(Collectors.toList()).toString(), 0, ci.length);
+			assertEquals(Stream.of(ci).map(ItemCacheInfo::getType).collect(Collectors.toList()).toString(), 0, ci.length);
 		}
 	}
 }
