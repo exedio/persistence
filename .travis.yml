@@ -66,7 +66,7 @@ before_script:
     "x-build.driver=postgresql.jar\n"\
     | tee conf/environment/pg-nprep.properties
 
-script: "ant jenkins"
+script: "ant clean jenkins"
 
 after_script:
   - cat build/testprotocol.html
