@@ -20,7 +20,6 @@ package com.exedio.cope;
 
 import static com.exedio.cope.CacheIsolationItem.TYPE;
 import static com.exedio.cope.CacheIsolationItem.name;
-import static com.exedio.cope.SchemaInfo.isUpdateCounterEnabled;
 import static java.lang.Integer.MIN_VALUE;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
@@ -129,11 +128,8 @@ public class CacheTouchTest extends TestWithEnvironment
 	@SuppressWarnings("deprecation") // OK: using special accessors for tests
 	private void assertUpdateCount(final int expected, final int global)
 	{
-		if(isUpdateCounterEnabled(model))
-		{
-			assertEquals("transaction", expected, item.getUpdateCountIfActive());
-			assertEquals("global", global, item.getUpdateCountGlobal());
-		}
+		assertEquals("transaction", expected, item.getUpdateCountIfActive());
+		assertEquals("global", global, item.getUpdateCountGlobal());
 	}
 
 

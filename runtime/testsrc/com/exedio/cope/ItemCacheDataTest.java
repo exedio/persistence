@@ -19,7 +19,6 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.ItemCacheDataItem.TYPE;
-import static com.exedio.cope.SchemaInfo.isUpdateCounterEnabled;
 import static java.lang.Integer.MIN_VALUE;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
@@ -277,13 +276,10 @@ public class ItemCacheDataTest extends TestWithEnvironment
 	private void assertUpdateCount(final int expected, final int global)
 	{
 		final ConnectProperties props = model.getConnectProperties();
-		if(isUpdateCounterEnabled(model))
-		{
-			assertEquals("transaction", expected, item.getUpdateCountIfActive());
-			if(props.getItemCacheLimit()>0)
-				assertEquals("global", global, item.getUpdateCountGlobal());
-			else
-				assertEquals("global", MIN_VALUE, item.getUpdateCountGlobal());
-		}
+		assertEquals("transaction", expected, item.getUpdateCountIfActive());
+		if(props.getItemCacheLimit()>0)
+			assertEquals("global", global, item.getUpdateCountGlobal());
+		else
+			assertEquals("global", MIN_VALUE, item.getUpdateCountGlobal());
 	}
 }
