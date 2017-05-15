@@ -204,7 +204,7 @@ abstract class CopeType<F extends CopeFeature>
 	}
 
 	static final Comparator<Class<?>> CLASS_COMPARATOR =
-			(c1, c2) -> c1.getName().compareTo(c2.getName());
+			Comparator.comparing(Class::getName);
 
 	@Override
 	public final String toString()
