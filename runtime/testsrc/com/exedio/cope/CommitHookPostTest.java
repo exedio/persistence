@@ -31,6 +31,7 @@ import com.exedio.cope.tojunit.TestSources;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.ArrayList;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -322,7 +323,7 @@ public class CommitHookPostTest
 		protected AnItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
-	static final Runnable FAIL = () -> { fail(); };
+	static final Runnable FAIL = Assert::fail;
 
 	static void assertNoTransaction()
 	{

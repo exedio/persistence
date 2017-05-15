@@ -330,11 +330,6 @@ public final class PasswordLimiter extends Pattern
 			@Nullable @Parameter("interrupter") final com.exedio.cope.util.Interrupter interrupter)
 	{
 		return com.exedio.cope.util.InterrupterJobContextAdapter.run(
-			interrupter,
-			ctx ->
-			{
-				purge(ctx);
-			}
-		);
+			interrupter, this::purge);
 	}
 }
