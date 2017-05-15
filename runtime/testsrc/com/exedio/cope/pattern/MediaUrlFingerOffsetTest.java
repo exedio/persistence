@@ -24,6 +24,7 @@ import static com.exedio.cope.pattern.MediaUrlItem.fileFinger;
 import static org.junit.Assert.assertEquals;
 
 import com.exedio.cope.TestWithEnvironment;
+import java.util.Arrays;
 import java.util.Date;
 import org.junit.Before;
 import org.junit.Test;
@@ -39,8 +40,7 @@ public final class MediaUrlFingerOffsetTest extends TestWithEnvironment
 
 	@Before public void setUp()
 	{
-		for(int i = 0; i<item.length; i++)
-			item[i] = create();
+		Arrays.setAll(item, i -> create());
 	}
 
 	private static MediaUrlItem create()

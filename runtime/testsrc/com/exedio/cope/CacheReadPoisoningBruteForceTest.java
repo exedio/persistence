@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import java.util.Arrays;
 import java.util.Objects;
 import org.junit.After;
 import org.junit.Assert;
@@ -99,40 +100,38 @@ public class CacheReadPoisoningBruteForceTest extends TestWithEnvironment
 	@Test public void testIt() throws InterruptedException
 	{
 		final Model model = this.model; // avoid warning about synthetic-access
-		for(int i = 0; i<threads.length; i++)
+		Arrays.setAll(threads, i -> new ThreadStoppable(i)
 		{
-			threads[i] = new ThreadStoppable(i){
-				@Override
-				public void run()
+			@Override
+			public void run()
+			{
+				try
 				{
-					try
+					int i;
+					for(i = 0; i<20_000_000 && proceed; i++)
 					{
-						int i;
-						for(i = 0; i<20_000_000 && proceed; i++)
-						{
-							//if(i%100==0 || i<20) System.out.println("CacheBadReadTest read " + i);
-							//Thread.yield();
-							model.startTransaction("CacheBadReadTest  read " + i);
-							final String name = item.getName();
-							if(!name.startsWith("itemName"))
-								errorName = name;
-							model.commit();
-						}
-						finished = true;
+						//if(i%100==0 || i<20) System.out.println("CacheBadReadTest read " + i);
+						//Thread.yield();
+						model.startTransaction("CacheBadReadTest  read " + i);
+						final String name = item.getName();
+						if(!name.startsWith("itemName"))
+							errorName = name;
+						model.commit();
 					}
-					catch(final Throwable t)
-					{
-						failure = t;
-						throw new RuntimeException(t);
-					}
-					finally
-					{
-						model.rollbackIfNotCommitted();
-					}
-					//System.out.println("CacheBadReadTest read fertig " + i);
+					finished = true;
 				}
-			};
-		}
+				catch(final Throwable t)
+				{
+					failure = t;
+					throw new RuntimeException(t);
+				}
+				finally
+				{
+					model.rollbackIfNotCommitted();
+				}
+				//System.out.println("CacheBadReadTest read fertig " + i);
+			}
+		});
 
 		for(final Thread thread : threads)
 			thread.start();

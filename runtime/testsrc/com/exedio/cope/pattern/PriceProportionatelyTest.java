@@ -25,6 +25,7 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.util.Arrays;
+import java.util.stream.Stream;
 import org.junit.Test;
 
 public class PriceProportionatelyTest
@@ -104,9 +105,7 @@ public class PriceProportionatelyTest
 
 		assertEqualsArray(expected, splitProportionately(actualTotal, actualWeights));
 
-		final Price[] expectedNegative = new Price[expected.length];
-		for(int i = 0; i<expectedNegative.length; i++)
-			expectedNegative[i] = expected[i].negate();
+		final Price[] expectedNegative = Stream.of(expected).map(Price::negate).toArray(Price[]::new);
 		assertEqualsArray(expectedNegative, splitProportionately(actualTotal.negate(), actualWeights));
 	}
 
