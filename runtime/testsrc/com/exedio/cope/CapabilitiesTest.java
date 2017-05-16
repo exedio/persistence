@@ -21,11 +21,13 @@ package com.exedio.cope;
 import static com.exedio.cope.SchemaInfo.supportsCheckConstraints;
 import static com.exedio.cope.SchemaInfo.supportsNativeDate;
 import static com.exedio.cope.SchemaInfo.supportsUniqueViolation;
+import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import org.junit.Test;
 
 public class CapabilitiesTest extends TestWithEnvironment
@@ -42,6 +44,7 @@ public class CapabilitiesTest extends TestWithEnvironment
 
 		boolean emptyStrings = true;
 		boolean utf8mb4 = true;
+		final ArrayList<String> dataHashAlgorithms = new ArrayList<>(asList("MD5", "SHA", "SHA-224", "SHA-256", "SHA-384", "SHA-512"));
 		boolean random = false;
 		boolean checkConstraints = true;
 		boolean nativeDate = true;
@@ -50,6 +53,7 @@ public class CapabilitiesTest extends TestWithEnvironment
 		switch(dialect)
 		{
 			case hsqldb:
+				dataHashAlgorithms.clear(); // TODO support more
 				break;
 			case mysql:
 				utf8mb4 = props.mysqlUtf8mb4;
@@ -60,8 +64,10 @@ public class CapabilitiesTest extends TestWithEnvironment
 				break;
 			case oracle:
 				emptyStrings = false;
+				dataHashAlgorithms.clear(); // TODO support more
 				break;
 			case postgresql:
+				dataHashAlgorithms.retainAll(asList("MD5")); // TODO support more
 				break;
 			default:
 				fail(dialect.name());
@@ -69,6 +75,7 @@ public class CapabilitiesTest extends TestWithEnvironment
 
 		assertEquals(emptyStrings && !props.isSupportDisabledForEmptyStrings(), model.supportsEmptyStrings());
 		assertEquals(utf8mb4, model.supportsUTF8mb4());
+		assertEquals(dataHashAlgorithms, new ArrayList<>(model.getSupportedDataHashAlgorithms()));
 		assertEquals(random, model.supportsRandom());
 
 		// SchemaInfo

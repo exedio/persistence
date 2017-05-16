@@ -46,6 +46,7 @@ import java.util.EnumSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.SortedSet;
 import java.util.concurrent.atomic.AtomicLong;
 import javax.annotation.Nonnull;
 import org.slf4j.Logger;
@@ -328,6 +329,14 @@ public final class Model implements Serializable
 	public boolean supportsUTF8mb4()
 	{
 		return connect().supportsUTF8mb4;
+	}
+
+	/**
+	 * @see StringField#hashMatches(String, DataField)
+	 */
+	public SortedSet<String> getSupportedDataHashAlgorithms()
+	{
+		return connect().supportedDataHashAlgorithms;
 	}
 
 	/**

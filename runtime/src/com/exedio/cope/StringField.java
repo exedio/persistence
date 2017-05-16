@@ -24,6 +24,7 @@ import static com.exedio.cope.misc.Check.requireNonNegative;
 import com.exedio.cope.util.CharSet;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Set;
+import javax.annotation.Nonnull;
 
 /**
  * Represents a field within a {@link Type type},
@@ -192,6 +193,30 @@ public final class StringField extends FunctionField<String>
 	{
 		return SimpleSelectType.STRING;
 	}
+
+	/**
+	 * @param algorithm see {@link Model#getSupportedDataHashAlgorithms()}
+	 * @see #hashDoesNotMatch(String, DataField)
+	 */
+	@Nonnull
+	public Condition hashMatches(
+			@Nonnull final String algorithm,
+			@Nonnull final DataField data)
+	{
+		return new HashCondition(this, algorithm, data);
+	}
+
+	/**
+	 * @see #hashMatches(String, DataField)
+	 */
+	@Nonnull
+	public Condition hashDoesNotMatch(
+			@Nonnull final String algorithm,
+			@Nonnull final DataField data)
+	{
+		return hashMatches(algorithm, data).not();
+	}
+
 
 	private boolean convertEmptyStrings = false;
 

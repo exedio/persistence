@@ -1,0 +1,151 @@
+/*
+ * Copyright (C) 2004-2015  exedio GmbH (www.exedio.com)
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ */
+
+package com.exedio.cope;
+
+import static com.exedio.cope.HashConditionTest.Algorithm;
+import static com.exedio.cope.HashConditionTest.MyItem.hash;
+import static java.nio.charset.StandardCharsets.US_ASCII;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+
+import com.exedio.cope.tojunit.EqualsAssert;
+import com.exedio.cope.util.Hex;
+import com.exedio.cope.util.MessageDigestUtil;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import java.security.MessageDigest;
+import org.junit.Test;
+
+public class HashConditionModelTest
+{
+	@Test public void identity()
+	{
+		final DataField data = new DataField();
+		final Condition c = hash.hashMatches("ALGO", data);
+		EqualsAssert.assertEqualsAndHash(c,
+				hash.hashMatches("ALGO", data));
+		EqualsAssert.assertNotEqualsAndHash(c,
+				hash.hashMatches("ALGOx", data),
+				hash.hashMatches("ALGO", new DataField()),
+				hash.hashDoesNotMatch("ALGO", data)
+		);
+	}
+	@Test public void identityNot()
+	{
+		final DataField data = new DataField();
+		final Condition c = hash.hashDoesNotMatch("ALGO", data);
+		EqualsAssert.assertEqualsAndHash(c,
+				hash.hashDoesNotMatch("ALGO", data));
+		EqualsAssert.assertNotEqualsAndHash(c,
+				hash.hashDoesNotMatch("ALGOx", data),
+				hash.hashDoesNotMatch("ALGO", new DataField()),
+				hash.hashMatches("ALGO", data)
+		);
+	}
+	@Test public void algorithmNull()
+	{
+		try
+		{
+			hash.hashMatches(null, null);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals("algorithm", e.getMessage());
+		}
+	}
+	@Test public void algorithmNullNot()
+	{
+		try
+		{
+			hash.hashDoesNotMatch(null, null);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals("algorithm", e.getMessage());
+		}
+	}
+	@SuppressFBWarnings("NP_NONNULL_PARAM_VIOLATION")
+	@Test public void algorithmEmpty()
+	{
+		try
+		{
+			hash.hashMatches("", null);
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals("algorithm must not be empty", e.getMessage());
+		}
+	}
+	@SuppressFBWarnings("NP_NONNULL_PARAM_VIOLATION")
+	@Test public void algorithmEmptyNot()
+	{
+		try
+		{
+			hash.hashDoesNotMatch("", null);
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals("algorithm must not be empty", e.getMessage());
+		}
+	}
+	@Test public void dataNull()
+	{
+		try
+		{
+			hash.hashMatches("ALGO", null);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals("data", e.getMessage());
+		}
+	}
+	@Test public void dataNullNot()
+	{
+		try
+		{
+			hash.hashDoesNotMatch("ALGO", null);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals("data", e.getMessage());
+		}
+	}
+	@Test public void algorithmConsistentWithMessageDigest()
+	{
+		for(final Algorithm a : Algorithm.values())
+		{
+			final MessageDigest digest = MessageDigestUtil.getInstance(a.code);
+			digest.update(new byte[]{});
+			assertEquals(a.code, a.empty, Hex.encodeLower(digest.digest()));
+
+			digest.reset();
+			digest.update("Franz jagt im komplett verwahrlosten Taxi quer durch Bayern".getBytes(US_ASCII));
+			assertEquals(a.code, a.franz, Hex.encodeLower(digest.digest()));
+
+			assertEquals(a.code, digest.getAlgorithm());
+			assertEquals(a.code, a.empty.length(), digest.getDigestLength()*2);
+			assertEquals(a.code, a.franz.length(), digest.getDigestLength()*2);
+		}
+	}
+}

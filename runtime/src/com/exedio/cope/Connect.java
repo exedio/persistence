@@ -26,9 +26,12 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 final class Connect
 {
@@ -39,6 +42,7 @@ final class Connect
 
 	final boolean supportsEmptyStrings;
 	final boolean supportsUTF8mb4;
+	final SortedSet<String> supportedDataHashAlgorithms;
 	final boolean supportsRandom;
 	final boolean supportsCheckConstraints;
 	final boolean supportsNativeDate;
@@ -73,6 +77,7 @@ final class Connect
 
 		supportsEmptyStrings = !properties.isSupportDisabledForEmptyStrings() && dialect.supportsEmptyStrings();
 		supportsUTF8mb4 = dialect.supportsUTF8mb4();
+		supportedDataHashAlgorithms = toUnmodifiableSortedSet(dialect.getBlobHashAlgorithms());
 		supportsRandom = dialect.supportsRandom();
 		// SchemaInfo
 		supportsCheckConstraints = dialect.dsmfDialect.supportsCheckConstraints();
@@ -111,6 +116,15 @@ final class Connect
 		this.changeListenerDispatcher =
 			new ChangeListenerDispatcher(
 					types, modelName, changeListeners, properties);
+	}
+
+	private static SortedSet<String> toUnmodifiableSortedSet(final String[] array)
+	{
+		if(array==null || array.length==0)
+			return Collections.emptySortedSet();
+
+		return Collections.unmodifiableSortedSet(
+				new TreeSet<>(Arrays.asList(array)));
 	}
 
 	void close()

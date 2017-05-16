@@ -24,6 +24,7 @@ import com.exedio.cope.DateField.Precision;
 import com.exedio.cope.util.CharSet;
 import com.exedio.cope.util.JobContext;
 import com.exedio.dsmf.Sequence;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -290,6 +291,20 @@ abstract class Dialect
 	abstract String getDateIntegerPrecision(String quotedName, Precision precision);
 
 	abstract String getBlobType(long maximumLength);
+
+	@SuppressFBWarnings("PZLA_PREFER_ZERO_LENGTH_ARRAYS") // OK: is converted into empty set by calling code
+	String[] getBlobHashAlgorithms()
+	{
+		return null;
+	}
+
+	void appendBlobHash(
+			final Statement bf, final Column column, final Join join,
+			final String algorithm)
+	{
+		throw new IllegalArgumentException("hash >" + algorithm + "< not supported");
+	}
+
 
 	/**
 	 * @param bf the statement, the postfix is to be appended to

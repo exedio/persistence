@@ -18,8 +18,12 @@
 
 package com.exedio.cope.pattern;
 
-import com.exedio.cope.Item;
+import static com.exedio.cope.instrument.Visibility.PACKAGE;
 
+import com.exedio.cope.Item;
+import com.exedio.cope.instrument.WrapperType;
+
+@WrapperType(genericConstructor=PACKAGE)
 public final class UniqueHashedMediaItem extends Item
 {
 	static final UniqueHashedMedia value = new UniqueHashedMedia(new Media());
@@ -47,7 +51,7 @@ public final class UniqueHashedMediaItem extends Item
 	 * Creates a new UniqueHashedMediaItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
-	private UniqueHashedMediaItem(final com.exedio.cope.SetValue<?>... setValues)
+	UniqueHashedMediaItem(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
 	}

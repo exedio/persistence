@@ -183,6 +183,29 @@ final class PostgresqlDialect extends Dialect
 	}
 
 	@Override
+	String[] getBlobHashAlgorithms()
+	{
+		// others need pgcrypto extension
+		// https://www.postgresql.org/docs/9.5/static/pgcrypto.html
+		// https://www.postgresql.org/docs/9.5/static/catalog-pg-extension.html
+		// https://www.postgresql.org/docs/9.5/static/sql-createextension.html
+		return new String[]{"MD5"};
+	}
+
+	@Override
+	void appendBlobHash(
+			final Statement bf, final Column column, final Join join,
+			final String algorithm)
+	{
+		switch(algorithm)
+		{
+			case "MD5": bf.append("MD5(").append(column, join).append(')'); break;
+			default:
+				super.appendBlobHash(bf, column, join, algorithm);
+		}
+	}
+
+	@Override
 	LimitSupport getLimitSupport()
 	{
 		return LimitSupport.CLAUSE_AFTER_WHERE;

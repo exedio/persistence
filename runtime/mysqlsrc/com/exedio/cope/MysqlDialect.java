@@ -306,6 +306,30 @@ final class MysqlDialect extends Dialect
 	}
 
 	@Override
+	String[] getBlobHashAlgorithms()
+	{
+		return new String[]{"MD5", "SHA", "SHA-224", "SHA-256", "SHA-384", "SHA-512"};
+	}
+
+	@Override
+	void appendBlobHash(
+			final Statement bf, final Column column, final Join join,
+			final String algorithm)
+	{
+		switch(algorithm)
+		{
+			case "MD5":     bf.append("MD5(" ).append(column, join).append(')'); break;
+			case "SHA":     bf.append("SHA1(").append(column, join).append(')'); break;
+			case "SHA-224": bf.append("SHA2(").append(column, join).append(",224)"); break;
+			case "SHA-256": bf.append("SHA2(").append(column, join).append(",256)"); break;
+			case "SHA-384": bf.append("SHA2(").append(column, join).append(",384)"); break;
+			case "SHA-512": bf.append("SHA2(").append(column, join).append(",512)"); break;
+			default:
+				super.appendBlobHash(bf, column, join, algorithm);
+		}
+	}
+
+	@Override
 	<E extends Number> void  appendIntegerDivision(
 			final Statement bf,
 			final Function<E> dividend,

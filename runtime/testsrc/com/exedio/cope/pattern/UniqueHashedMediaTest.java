@@ -35,7 +35,9 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
+import static org.junit.Assume.assumeTrue;
 
+import com.exedio.cope.Condition;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Model;
 import com.exedio.cope.TestWithEnvironment;
@@ -43,6 +45,7 @@ import com.exedio.cope.UniqueViolationException;
 import com.exedio.cope.misc.Computed;
 import java.io.IOException;
 import java.util.Date;
+import java.util.List;
 import org.junit.Test;
 
 public class UniqueHashedMediaTest extends TestWithEnvironment
@@ -84,6 +87,12 @@ public class UniqueHashedMediaTest extends TestWithEnvironment
 		assertFalse(value.isAnnotationPresent(Computed.class));
 		assertTrue(value.getMedia().isAnnotationPresent(Computed.class));
 		assertTrue(value.getHash().isAnnotationPresent(Computed.class));
+		assertEquals(
+				value.getHash() + "=SHA-512(" + value.getMedia().getBody() + ")",
+				value.hashMatches().toString());
+		assertEquals(
+				"!(" + value.getHash() + "=SHA-512(" + value.getMedia().getBody() + "))",
+				value.hashDoesNotMatch().toString());
 	}
 
 	@Test public void testData()
@@ -156,6 +165,29 @@ public class UniqueHashedMediaTest extends TestWithEnvironment
 		assertEquals(null, getOrCreate(null));
 	}
 
+	@Test public void testHashMatches()
+	{
+		assumeTrue(model.getSupportedDataHashAlgorithms().contains(value.getMessageDigestAlgorithm()));
+
+		final UniqueHashedMediaItem item1 = new UniqueHashedMediaItem(toValue(bytes4, "image/jpeg"));
+		final UniqueHashedMediaItem item2 = new UniqueHashedMediaItem(toValue(bytes6, "image/jpeg"));
+
+		assertSearch(asList(item1, item2), value.hashMatches());
+		assertSearch(asList(), value.hashDoesNotMatch());
+
+		final UniqueHashedMediaItem itemX = new UniqueHashedMediaItem(
+				value.getMedia().map(toValue(bytes6, "image/jpeg")),
+				value.getHash() .map(brokenDigestHex));
+
+		assertSearch(asList(item1, item2), value.hashMatches());
+		assertSearch(asList(itemX), value.hashDoesNotMatch());
+	}
+
+	private static void assertSearch(final List<UniqueHashedMediaItem> expected, final Condition condition)
+	{
+		assertEquals(expected, TYPE.search(condition, TYPE.getThis(), true));
+	}
+
 	private static final byte[] bytes4 = { -86, 122, -8, 23 };
 	private static final byte[] bytes6 = { -97, 35, -126, 86, 19, -8 };
 	private static final byte[] bytes8 = { -54, 104, -63, 23, 19, -45, 71, -23 };
@@ -163,4 +195,5 @@ public class UniqueHashedMediaTest extends TestWithEnvironment
 	private static final String bytes4DigestHex = "0d2c0948019645cc742f284e9d75bbf904ff035d42ed77c43fcceb8ab0918c15be18e7f8debce86775e498ad8c6e5e2d9cad80969efd2d5370b8db076a2a7060";
 	private static final String bytes6DigestHex = "13d33eddb02728843ad607e97f5fb3cf0e036079ed139b8d8393aacfef31d3219a34c39498b959e56f2b4b981034063f2d2b89f7d5e9b7ec4a44f6b401e9a4bb";
 	private static final String bytes8DigestHex = "21aee30f8333ecfe85fef21741f312589a6572dbd5f5b28fc292e2ed7937b87409513a021e0b0714cc8d3df40d46b31014abe38aa9d7c934dd4905a81e90c4fe";
+	private static final String brokenDigestHex = "abcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcdabcd";
 }

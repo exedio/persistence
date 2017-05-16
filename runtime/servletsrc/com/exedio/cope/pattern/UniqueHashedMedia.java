@@ -20,6 +20,7 @@ package com.exedio.cope.pattern;
 
 import static com.exedio.cope.util.CharSet.HEX_LOWER;
 
+import com.exedio.cope.Condition;
 import com.exedio.cope.CopyMapper;
 import com.exedio.cope.Copyable;
 import com.exedio.cope.DataField;
@@ -410,5 +411,17 @@ public final class UniqueHashedMedia extends Pattern implements Settable<Value>,
 			this.media = media;
 			this.hash = hash;
 		}
+	}
+
+	@Nonnull
+	public Condition hashMatches()
+	{
+		return hash.hashMatches(messageDigestAlgorithm, media.getBody());
+	}
+
+	@Nonnull
+	public Condition hashDoesNotMatch()
+	{
+		return hash.hashDoesNotMatch(messageDigestAlgorithm, media.getBody());
 	}
 }
