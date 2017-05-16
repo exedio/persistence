@@ -201,7 +201,7 @@ public class PurgeTest extends ConnectedTest
 		assertEquals("rows", rows, actual.getRows());
 		final long elapsed = actual.getElapsed();
 		assertTrue("elapsed" + elapsed, elapsed>=0);
-		assertTrue("elapsed" + elapsed, elapsed<100);
+		assertTrue("elapsed" + elapsed, elapsed<2000);
 		actual.deleteCopeItem();
 	}
 }
