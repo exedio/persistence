@@ -500,6 +500,7 @@ public class DynamicModelTest extends TestWithEnvironment
 
 		{
 			assertSame("colorBlueEN", colorBlue.getName(en));
+			@SuppressWarnings("UnnecessaryLocalVariable")
 			final DynamicModel.Enum<?> colorBlueWildcard = colorBlue;
 			assertSame("colorBlueEN", color.as(colorBlueWildcard).getName(en));
 		}

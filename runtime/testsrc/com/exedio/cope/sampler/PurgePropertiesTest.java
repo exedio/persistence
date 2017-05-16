@@ -42,6 +42,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.RuleChain;
 
+@SuppressWarnings("HardcodedLineSeparator")
 public class PurgePropertiesTest extends ConnectedTest
 {
 	private final AbsoluteMockClockStrategy clock = new AbsoluteMockClockStrategy();

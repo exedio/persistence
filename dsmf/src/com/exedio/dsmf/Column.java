@@ -52,6 +52,7 @@ public final class Column extends Node
 		this.table = table;
 		this.name = name;
 		this.type = new Field<>(type, required);
+		//noinspection ThisEscapedInObjectConstruction
 		table.register(this);
 	}
 

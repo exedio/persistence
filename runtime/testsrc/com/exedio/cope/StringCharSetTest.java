@@ -86,6 +86,7 @@ public class StringCharSetTest extends TestWithEnvironment
 		startTransaction();
 	}
 
+	@SuppressWarnings("HardcodedLineSeparator")
 	@Test public void testCondition()
 	{
 		assertEquals(

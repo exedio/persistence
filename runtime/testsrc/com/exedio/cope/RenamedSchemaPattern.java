@@ -52,6 +52,7 @@ class RenamedSchemaPattern extends Pattern
 		@Override
 		public boolean isAnnotationPresent(final Class<? extends Annotation> annotationClass)
 		{
+			//noinspection RedundantIfStatement
 			if(TestAnnotation.class==annotationClass)
 				return true;
 
@@ -59,6 +60,7 @@ class RenamedSchemaPattern extends Pattern
 		}
 
 		@Override
+		@SuppressWarnings("ConstantValueVariableUse") // OK: annotation generics
 		public <T extends Annotation> T getAnnotation(final Class<T> annotationClass)
 		{
 			if(TestAnnotation.class==annotationClass)

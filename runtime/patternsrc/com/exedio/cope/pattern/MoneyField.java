@@ -44,6 +44,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 @WrapFeature
+@SuppressWarnings("RedundantInterfaceDeclaration") // TODO required by deficiency of instrumentor
 public final class MoneyField<C extends Money.Currency> extends Pattern implements Settable<Money<C>>, CheckingSettable<Money<C>> // TODO currency
 {
 	private static final long serialVersionUID = 1l;

@@ -71,9 +71,11 @@ final class JavaClass extends JavaFeature
 		this.fullyQualifiedSuperclass = Generics.strip(fullyQualifiedSuperclass);
 		this.typeOption=typeOption;
 		this.classEndPosition = classEndPosition;
+		//noinspection ThisEscapedInObjectConstruction
 		file.add(this);
 		if (parent!=null)
 		{
+			//noinspection ThisEscapedInObjectConstruction
 			parent.addInnerClass(this);
 		}
 	}
@@ -183,6 +185,7 @@ final class JavaClass extends JavaFeature
 		try
 		{
 			//System.out.println("--------evaluate("+s+")");
+			@SuppressWarnings("UnnecessaryLocalVariable")
 			final Object result = file.repository.interpreter.eval(Generics.remove(s), nameSpace);
 			//System.out.println("--------evaluate("+s+") == "+result);
 			return result;
@@ -198,6 +201,7 @@ final class JavaClass extends JavaFeature
 		innerClasses.put(c.name, c);
 	}
 
+	@SuppressWarnings("SerializableInnerClassWithNonSerializableOuterClass")
 	@SuppressFBWarnings("SE_BAD_FIELD_INNER_CLASS") // Non-serializable class has a serializable inner class
 	private final class NS extends CopeNameSpace
 	{

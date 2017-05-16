@@ -207,6 +207,7 @@ final class QueryCache
 			hashCode = Arrays.hashCode(text);
 		}
 
+		@SuppressWarnings("EqualsWhichDoesntCheckParameterClass")
 		@SuppressFBWarnings({"BC_EQUALS_METHOD_SHOULD_WORK_FOR_ALL_OBJECTS", "NP_EQUALS_SHOULD_HANDLE_NULL_ARGUMENT"})
 		@Override
 		public boolean equals(final Object other)
@@ -239,6 +240,7 @@ final class QueryCache
 		final int[] invalidationTypesTransiently;
 		final VolatileLong hits = new VolatileLong();
 
+		@SuppressWarnings("AssignmentToCollectionOrArrayFieldFromParameter")
 		Value(final Query<?> query, final ArrayList<Object> list)
 		{
 			final ArrayList<Join> joins = query.joins;

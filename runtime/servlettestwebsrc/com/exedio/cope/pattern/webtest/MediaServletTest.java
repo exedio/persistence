@@ -81,6 +81,7 @@ public class MediaServletTest
 	@Before public final void setUp()
 	{
 		schemeAndHost = "http://localhost:" + System.getProperty("tomcat.port.http");
+		//noinspection ResultOfMethodCallIgnored OK if does not yet exists
 		onException.delete();
 	}
 
@@ -362,6 +363,7 @@ public class MediaServletTest
 
 		if ( expectNotModified )
 		{
+			//noinspection resource
 			assertEquals( -1, conn.getInputStream().read() );
 		}
 		else
@@ -373,6 +375,7 @@ public class MediaServletTest
 		assertOnExceptionEmpty();
 	}
 
+	@SuppressWarnings("HardcodedLineSeparator")
 	private static String getContentAsString( final InputStream is ) throws IOException
 	{
 		final StringBuilder builder = new StringBuilder();
@@ -659,6 +662,7 @@ public class MediaServletTest
 		assertTrue(message, !expectedAfterCeil.before(actual));
 	}
 
+	@SuppressWarnings("HardcodedLineSeparator")
 	private static String lines( final String... lines )
 	{
 		final StringBuilder builder = new StringBuilder();

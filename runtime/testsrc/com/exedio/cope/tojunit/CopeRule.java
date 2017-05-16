@@ -28,6 +28,7 @@ import org.junit.runners.model.Statement;
 
 public abstract class CopeRule implements TestRule
 {
+	@SuppressWarnings("UnconstructableJUnitTestCase") // OK: is not constructed by junit
 	private static final class Adaptee extends CopeModelTest
 	{
 		Adaptee(final Model model, final CopeRule adapter)
@@ -101,6 +102,7 @@ public abstract class CopeRule implements TestRule
 
 	protected CopeRule(final Model model)
 	{
+		//noinspection ThisEscapedInObjectConstruction
 		this.test = new Adaptee(model, this);
 	}
 

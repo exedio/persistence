@@ -761,6 +761,7 @@ public class ScheduleTest extends TestWithEnvironment
 			assertTrue(from.before(until));
 		}
 
+		@SuppressWarnings("EqualsWhichDoesntCheckParameterClass")
 		@SuppressFBWarnings({"NP_EQUALS_SHOULD_HANDLE_NULL_ARGUMENT", "BC_EQUALS_METHOD_SHOULD_WORK_FOR_ALL_OBJECTS"})
 		@Override
 		public boolean equals(final Object other)
@@ -800,6 +801,7 @@ public class ScheduleTest extends TestWithEnvironment
 		final ArrayList<ExpectedRun> actual = new ArrayList<>();
 		for(final Run run : actualList)
 			actual.add(new ExpectedRun(run));
+		//noinspection MisorderedAssertEqualsArguments
 		assertEquals(expectedRuns, actual);
 	}
 
@@ -833,6 +835,7 @@ public class ScheduleTest extends TestWithEnvironment
 			assertTrue(!run.before(until));
 		}
 
+		@SuppressWarnings("EqualsWhichDoesntCheckParameterClass")
 		@SuppressFBWarnings({"NP_EQUALS_SHOULD_HANDLE_NULL_ARGUMENT", "BC_EQUALS_METHOD_SHOULD_WORK_FOR_ALL_OBJECTS"})
 		@Override
 		public boolean equals(final Object other)

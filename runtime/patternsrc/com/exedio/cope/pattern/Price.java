@@ -358,6 +358,7 @@ public final class Price implements Serializable, Comparable<Price>
 	/**
 	 * @see BigDecimal#multiply(BigDecimal)
 	 */
+	@SuppressWarnings("UnnecessaryLocalVariable")
 	public Price multiply(final int other)
 	{
 		if(other==1)
@@ -395,6 +396,7 @@ public final class Price implements Serializable, Comparable<Price>
 	 */
 	public Price multiply(final double other, final RoundingMode roundingMode)
 	{
+		//noinspection FloatingPointEquality
 		if(other==1.0)
 			return this;
 
@@ -414,6 +416,7 @@ public final class Price implements Serializable, Comparable<Price>
 	 */
 	public Price divide(final double other, final RoundingMode roundingMode)
 	{
+		//noinspection FloatingPointEquality
 		if(other==1.0)
 			return this;
 		//backward compatibility

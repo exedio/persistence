@@ -26,7 +26,7 @@ final class CopeCacheWeightHelper
 		return ann.value();
 	}
 
-	@SuppressWarnings("deprecation")
+	@SuppressWarnings({"deprecation", "StaticMethodOnlyUsedInOneClass"})
 	static boolean isDisabled(final Type<?> type)
 	{
 		final CopeCacheWeight annotation =

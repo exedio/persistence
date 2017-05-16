@@ -49,6 +49,7 @@ public abstract class FunctionField<E> extends Field<E>
 	private ArrayList<UniqueConstraint> uniqueConstraints;
 	private boolean isRedundantByCopyConstraint;
 
+	@SuppressWarnings("AssignmentToCollectionOrArrayFieldFromParameter")
 	FunctionField(
 			final boolean isfinal,
 			final boolean optional,
@@ -60,6 +61,7 @@ public abstract class FunctionField<E> extends Field<E>
 		super(isfinal, optional, valueClass);
 		this.unique = unique;
 		this.copyFrom = copyFrom;
+		//noinspection ThisEscapedInObjectConstruction
 		this.implicitUniqueConstraint = unique ? new UniqueConstraint(this) : null;
 		this.implicitCopyConstraintsFrom = (copyFrom!=null) ? newCopyConstraintsFrom(copyFrom) : null;
 

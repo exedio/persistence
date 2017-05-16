@@ -50,6 +50,7 @@ abstract class Column
 		this.synthetic = synthetic;
 		this.primaryKey = primaryKey;
 		this.optional = optional;
+		//noinspection ThisEscapedInObjectConstruction
 		table.addColumn(this);
 
 		assert !primaryKey || synthetic : table.id+':'+id;

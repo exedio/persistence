@@ -22,6 +22,7 @@ import com.exedio.cope.Item;
 import com.exedio.cope.pattern.MediaPath.NotFound;
 import java.util.Set;
 
+@SuppressWarnings("InterfaceMayBeAnnotatedFunctional") // OK: is to be implemented by Features only
 public interface TextUrlFilterCheckable
 {
 

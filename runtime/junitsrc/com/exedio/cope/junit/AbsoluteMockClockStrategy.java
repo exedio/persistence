@@ -47,6 +47,7 @@ public final class AbsoluteMockClockStrategy implements Strategy
 		return events.removeFirst();
 	}
 
+	@SuppressWarnings("UnusedReturnValue")
 	public Date add(final String date)
 	{
 		return add(parse(date));

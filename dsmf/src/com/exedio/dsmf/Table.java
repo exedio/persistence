@@ -59,6 +59,7 @@ public final class Table extends Node
 		this.schema = schema;
 		this.name = name;
 
+		//noinspection ThisEscapedInObjectConstruction
 		schema.register(this);
 	}
 
@@ -137,6 +138,7 @@ public final class Table extends Node
 		final Constraint result = constraintMap.get(constraintName);
 
 		if(result==null)
+			//noinspection ResultOfObjectAllocationIgnored OK: constructor registers at parent
 			new CheckConstraint(this, null, constraintName, false, condition);
 		else
 			result.notifyExistsCondition(condition);
@@ -147,6 +149,7 @@ public final class Table extends Node
 		final Constraint result = constraintMap.get(constraintName);
 
 		if(result==null)
+			//noinspection ResultOfObjectAllocationIgnored OK: constructor registers at parent
 			new PrimaryKeyConstraint(this, null, constraintName, false, null);
 		else
 			result.notifyExists();
@@ -161,6 +164,7 @@ public final class Table extends Node
 		final ForeignKeyConstraint result = (ForeignKeyConstraint)constraintMap.get(constraintName);
 
 		if(result==null)
+			//noinspection ResultOfObjectAllocationIgnored OK: constructor registers at parent
 			new ForeignKeyConstraint(
 					this, getColumn(foreignKeyColumn), constraintName, false,
 					foreignKeyColumn, targetTable, targetColumn);
@@ -173,6 +177,7 @@ public final class Table extends Node
 		final Constraint result = constraintMap.get(constraintName);
 
 		if(result==null)
+			//noinspection ResultOfObjectAllocationIgnored OK: constructor registers at parent
 			new UniqueConstraint(this, null, constraintName, false, condition);
 		else
 			result.notifyExistsCondition(condition);
@@ -235,6 +240,7 @@ public final class Table extends Node
 		return cumulativeResult;
 	}
 
+	@SuppressWarnings("RedundantCast")
 	public void create()
 	{
 		create((StatementListener)null);
@@ -261,6 +267,7 @@ public final class Table extends Node
 
 		for(final Constraint c : constraintList)
 		{
+			//noinspection SuspiciousMethodCalls
 			if(c.isSupported() && (constraintsBroken!=null ? !constraintsBroken.contains(c) : !c.type.secondPhase))
 				c.createInTable(bf);
 		}

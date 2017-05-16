@@ -23,6 +23,7 @@ import com.exedio.cope.instrument.Parameter;
 /**
  * This file is just for testing whether the parser can read this file without exception.
  */
+@SuppressWarnings({"AssignmentReplaceableWithOperatorAssignment", "UnusedAssignment"})
 class ParserTest
 {
 	void methodParamNone()

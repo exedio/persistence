@@ -300,6 +300,7 @@ public class Hash extends Pattern implements HashInterface
 		return storage.get(item)==null;
 	}
 
+	@SuppressWarnings("TransientFieldNotInitialized") // OK: lazy initialization
 	private transient volatile String hashForBlind = null;
 
 	/**

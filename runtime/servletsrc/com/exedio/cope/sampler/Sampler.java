@@ -134,6 +134,7 @@ public class Sampler
 
 	public final ConnectToken connect(final String tokenName)
 	{
+		//noinspection resource OK: is closed outside this factory method
 		return ConnectToken.issue(samplerModel, tokenName).returnOnFailureOf(t -> checkInternal());
 		// DO NOT WRITE ANYTHING HERE,
 		// OTHERWISE ConnectTokens MAY BE LOST
@@ -265,6 +266,7 @@ public class Sampler
 			dates = newQuery(new Selectable<?>[]{date.min(), date.max()}, type, null).searchSingleton();
 			tx.commit();
 		}
+		//noinspection ConstantConditions OK: searchSingleton cannot return null on aggregation with multiple selects
 		return new Date[] {
 				(Date)dates.get(0),
 				(Date)dates.get(1),
@@ -374,7 +376,7 @@ public class Sampler
 	 * Always returns an empty list.
 	 */
 	@Deprecated
-	@SuppressWarnings({"static-method", "unused"})
+	@SuppressWarnings({"static-method", "MethodMayBeStatic", "unused"})
 	public final List<Query<List<Object>>> differentiate(final Date from, final Date until)
 	{
 		return Collections.emptyList();

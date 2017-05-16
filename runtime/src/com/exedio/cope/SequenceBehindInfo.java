@@ -41,6 +41,7 @@ public final class SequenceBehindInfo
 	}
 
 	@Deprecated
+	@SuppressWarnings("StaticMethodOnlyUsedInOneClass")
 	static int isBehindBy(final SequenceBehindInfo o)
 	{
 		return o!=null ? o.isBehindBy() : 0;

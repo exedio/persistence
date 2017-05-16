@@ -893,6 +893,7 @@ public final class Query<R> implements Serializable
 		return bf.toString();
 	}
 
+	@SuppressWarnings("RedundantCast")
 	ArrayList<Object> searchUncached(final Transaction transaction, final boolean totalOnly)
 	{
 		return search(

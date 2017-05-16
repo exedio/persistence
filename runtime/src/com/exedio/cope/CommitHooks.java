@@ -68,6 +68,7 @@ final class CommitHooks
 	private static final class Content
 	{
 		private final LinkedHashMap<Runnable,Runnable> list = new LinkedHashMap<>();
+		@SuppressWarnings("NonAtomicOperationOnVolatileField")
 		@SuppressFBWarnings("VO_VOLATILE_INCREMENT") // OK: is never incremented concurrently, as this works on current transaction only
 		volatile int count = 0;
 		@SuppressFBWarnings("VO_VOLATILE_INCREMENT") // OK: is never incremented concurrently, as this works on current transaction only
@@ -81,11 +82,13 @@ final class CommitHooks
 			final Runnable present = list.putIfAbsent(hook, hook);
 			if(present==null)
 			{
+				//noinspection NonAtomicOperationOnVolatileField OK: is never incremented concurrently, as this works on current transaction only
 				count++;
 				return hook;
 			}
 			else
 			{
+				//noinspection NonAtomicOperationOnVolatileField OK: is never incremented concurrently, as this works on current transaction only
 				duplicates++;
 				@SuppressWarnings("unchecked")
 				final R result = (R)present;

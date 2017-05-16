@@ -175,6 +175,7 @@ public abstract class SchemaTest
 		@Override
 		public void putConnection(final Connection connection) throws SQLException
 		{
+			//noinspection PointlessBooleanExpression
 			assert connection.getAutoCommit()==true;
 			connections.add(connection);
 		}

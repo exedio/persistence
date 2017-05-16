@@ -343,6 +343,7 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 	 */
 	@Override
 	@Deprecated // OK: for internal use within COPE only
+	@SuppressWarnings("deprecation") // needed for idea
 	public void appendSelect(final Statement bf, final Join join)
 	{
 		super.appendSelect(bf, join);

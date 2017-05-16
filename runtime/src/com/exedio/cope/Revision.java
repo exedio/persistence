@@ -40,6 +40,7 @@ import org.slf4j.LoggerFactory;
 
 public final class Revision
 {
+	@SuppressWarnings("LoggerInitializedWithForeignClass")
 	private static final Logger logger = LoggerFactory.getLogger(Revisions.class);
 
 	final int number;

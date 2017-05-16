@@ -49,6 +49,7 @@ public class DumperTest extends TestWithEnvironment
 	private Dumper dumper = null;
 	private String dataL = null;
 
+	@SuppressWarnings("AssignmentToStaticFieldFromInstanceMethod")
 	@SuppressFBWarnings("ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD")
 	@Before public final void setUp()
 	{
@@ -159,6 +160,7 @@ public class DumperTest extends TestWithEnvironment
 		assertEquals(1, DumperItem.beforeNewCopeItemCount);
 	}
 
+	@SuppressWarnings("HardcodedLineSeparator") // OK unix newline in sql
 	@Test public void testPrepare() throws IOException
 	{
 		final StringBuilder out = new StringBuilder();

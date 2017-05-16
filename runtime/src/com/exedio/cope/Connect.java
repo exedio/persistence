@@ -85,6 +85,7 @@ final class Connect
 		{
 			final ClusterProperties clusterProperties = properties.cluster;
 			if(clusterProperties!=null)
+				//noinspection ThisEscapedInObjectConstruction
 				this.cluster = new Cluster(modelName, types, clusterProperties, this);
 			else
 				this.cluster = null;

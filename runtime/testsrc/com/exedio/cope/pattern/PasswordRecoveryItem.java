@@ -20,6 +20,7 @@ package com.exedio.cope.pattern;
 
 import com.exedio.cope.Item;
 
+@SuppressWarnings("UnusedReturnValue")
 public final class PasswordRecoveryItem extends Item
 {
 	static final Hash password = new Hash(MessageDigestHash.algorithm(5));

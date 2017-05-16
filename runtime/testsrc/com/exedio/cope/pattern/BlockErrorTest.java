@@ -61,6 +61,7 @@ public class BlockErrorTest
 	}
 
 	@WrapperIgnore
+	@SuppressWarnings("ClassWithOnlyPrivateConstructors")
 	static class NonFinal extends Block
 	{
 		private static final long serialVersionUID = 1l;

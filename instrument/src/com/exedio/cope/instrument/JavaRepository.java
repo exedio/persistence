@@ -80,6 +80,7 @@ final class JavaRepository
 
 			if(javaClass.kind!=null)
 			{
+				//noinspection ResultOfObjectAllocationIgnored OK: constructor registers at parent
 				new LocalCopeType(javaClass, javaClass.kind);
 			}
 		}
@@ -220,6 +221,7 @@ final class JavaRepository
 	@SuppressFBWarnings("NM_CLASS_NAMING_CONVENTION")
 	public static final class classWildcard
 	{
+		@SuppressWarnings("unused")
 		public static final Class<Wildcard> value = Wildcard.class;
 
 		private classWildcard()
@@ -233,6 +235,7 @@ final class JavaRepository
 		private static final long serialVersionUID = 1l;
 	}
 
+	@SuppressWarnings("SerializableInnerClassWithNonSerializableOuterClass")
 	@SuppressFBWarnings("SE_BAD_FIELD_INNER_CLASS") // Non-serializable class has a serializable inner class
 	private final class NS extends CopeNameSpace
 	{
@@ -275,6 +278,7 @@ final class JavaRepository
 	// see bsh-core.PATCH
 	public enum EnumBeanShellHackClass implements Money.Currency
 	{
+		@SuppressWarnings("unused")
 		BEANSHELL_HACK_ATTRIBUTE
 	}
 }

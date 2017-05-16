@@ -146,6 +146,7 @@ final class Graph
 		private final Edge[] edges;
 		private boolean done = false;
 
+		@SuppressWarnings("AssignmentToCollectionOrArrayFieldFromParameter")
 		Node(final Table table, final Edge[] edges)
 		{
 			this.table = table;

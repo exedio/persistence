@@ -240,16 +240,22 @@ public final class AntTask extends Task
 			if (params.hintFormat!=HintFormat.forTags)
 			{
 				final StringBuilder invalidParameters=new StringBuilder();
+				//noinspection PointlessBooleanExpression
 				if (params.longJavadoc!=true)
 					invalidParameters.append("longJavadoc=\"true\" ");
+				//noinspection PointlessBooleanExpression
 				if (params.finalArgs!=true)
 					invalidParameters.append("finalArgs=\"true\" ");
+				//noinspection PointlessBooleanExpression
 				if (params.genericSetValueArray!=true)
 					invalidParameters.append("genericSetValueArray=\"true\" ");
+				//noinspection PointlessBooleanExpression
 				if (params.parenthesesOnEmptyMemberAnnotations!=false)
 					invalidParameters.append("parenthesesOnEmptyMemberAnnotations=\"false\" ");
+				//noinspection PointlessBooleanExpression
 				if (params.deprecatedFullyQualified!=true)
 					invalidParameters.append("deprecatedFullyQualified=\"true\" ");
+				//noinspection PointlessBooleanExpression
 				if (params.overrideOnSeparateLine!=true)
 					invalidParameters.append("overrideOnSeparateLine=\"true\" ");
 				if (invalidParameters.length()!=0)
@@ -314,8 +320,10 @@ public final class AntTask extends Task
 		}
 		if (expandDirectories && fileOrDir.isDirectory())
 		{
+			//noinspection ConstantConditions OK: checks isDirectory before calling listFiles
 			for (final File entry: fileOrDir.listFiles())
 			{
+				//noinspection ConstantConditions OK: seems to be bug in inspection
 				addRecursively(entry, addTo, expandDirectories);
 			}
 			return;

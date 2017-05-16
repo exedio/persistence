@@ -27,10 +27,11 @@ import java.util.Collection;
  * @param <N> just for tests
  * @param <L> just for tests
  */
+@SuppressWarnings("UnnecessarilyQualifiedInnerClassAccess")
 public class GenericComplexSuper<N extends Number, L extends Collection<String>> extends Item
 {
 	static final GenericFeatureReference<GenericComplexSub  > toSub   = GenericFeatureReference.create(GenericComplexSub  .class);
-	@SuppressWarnings("unchecked") // probably a bug in javac, not needed in eclipse
+	@SuppressWarnings({"unchecked", "StaticInitializerReferencesSubClass"}) // "unchecked" is probably a bug in javac, not needed in eclipse
 	static final GenericFeatureReference<GenericComplexMid<?>> toMid   = GenericFeatureReference.create(GenericComplexMid  .classWildcard.value);
 	static final GenericFeatureReference<GenericComplexSuper<?,?>> toSuper = GenericFeatureReference.create(GenericComplexSuper.classWildcard.value);
 

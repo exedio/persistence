@@ -421,12 +421,14 @@ public final class Dispatcher extends Pattern
 					if(isFinal)
 					{
 						if(logger.isErrorEnabled())
+							//noinspection StringConcatenationArgumentToLogCall
 							logger.error("final failure for " + itemID + ", took " + elapsed + "ms", cause);
 						item.notifyFinalFailure(this, cause);
 					}
 					else
 					{
 						if(logger.isWarnEnabled())
+							//noinspection StringConcatenationArgumentToLogCall
 							logger.warn("transient failure for " + itemID + ", took " + elapsed + "ms", cause);
 					}
 				}
@@ -668,6 +670,7 @@ public final class Dispatcher extends Pattern
 		}
 		else
 		{
+			//noinspection ConstantConditions OK: getUnpendSuccess cannot return null if supportsPurge return true
 			dateCondition = Cope.or(
 					getUnpendSuccess().equal(true ).and(dateBefore(now, success)),
 					getUnpendSuccess().equal(false).and(dateBefore(now, failure))
@@ -690,6 +693,7 @@ public final class Dispatcher extends Pattern
 				TimeZoneStrict.getTimeZone("UTC"), Locale.ENGLISH);
 		cal.setTimeInMillis(now);
 		cal.add(Calendar.DATE, -days);
+		//noinspection ConstantConditions OK: getUnpendDate cannot return null if supportsPurge return true
 		return getUnpendDate().less(cal.getTime());
 	}
 

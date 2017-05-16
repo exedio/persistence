@@ -50,6 +50,7 @@ class StringColumn extends Column
 		assert minimumLength<=maximumLength;
 	}
 
+	@SuppressWarnings("AssignmentToCollectionOrArrayFieldFromParameter")
 	StringColumn(
 			final Table table,
 			final String id,

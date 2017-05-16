@@ -81,6 +81,7 @@ final class SamplerPurge extends Item
 
 		try(TransactionTry tx = model.startTransactionTry(samplerString + " purge register"))
 		{
+			//noinspection ResultOfObjectAllocationIgnored persistent object
 			new SamplerPurge(type, limit, rows, toMillies(end, start));
 			tx.commit();
 		}

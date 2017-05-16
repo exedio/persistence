@@ -20,6 +20,7 @@ package com.exedio.cope.pattern;
 
 import java.io.Serializable;
 
+@SuppressWarnings("InterfaceMayBeAnnotatedFunctional")
 public interface MultiItemFieldValuex extends Serializable
 {
 	String getValue();

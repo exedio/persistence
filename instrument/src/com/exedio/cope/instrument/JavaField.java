@@ -47,6 +47,7 @@ final class JavaField
 
 	private Object rtvalue = null;
 
+	@SuppressWarnings("AssignmentToCollectionOrArrayFieldFromParameter")
 	JavaField(
 		final JavaClass parent,
 		final int modifiers,
@@ -69,6 +70,7 @@ final class JavaField
 		this.wrapperIgnore=wrapperIgnore;
 		this.wrappers=wrappers;
 
+		//noinspection ThisEscapedInObjectConstruction
 		parent.add(this);
 	}
 

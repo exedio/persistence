@@ -158,6 +158,7 @@ public class IntegerTypeTest extends TestWithEnvironment
 		}
 	}
 
+	@SuppressWarnings("AssignmentReplaceableWithOperatorAssignment")
 	private void setPkTo(final Type<?> type, final long lastUsedPkValue) throws SQLException
 	{
 		long itemsToCreate = 0L;

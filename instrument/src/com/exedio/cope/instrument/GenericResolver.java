@@ -129,6 +129,7 @@ final class GenericResolver<T>
 
 	static void filter(final Class<?> clazz, final Type[] parameters, final Type[] types)
 	{
+		//noinspection Java8ArraySetAll OK: performance
 		for(int i = 0; i<types.length; i++)
 			types[i] = filter(clazz, parameters, types[i]);
 	}
@@ -165,6 +166,7 @@ final class GenericResolver<T>
 		private final Type[] parameters;
 		private final ParameterizedType type;
 
+		@SuppressWarnings("AssignmentToCollectionOrArrayFieldFromParameter")
 		FilteredParameterizedType(
 				final Class<?> clazz,
 				final Type[] parameters,

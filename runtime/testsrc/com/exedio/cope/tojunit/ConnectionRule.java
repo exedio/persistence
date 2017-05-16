@@ -94,9 +94,11 @@ public final class ConnectionRule implements TestRule
 
 	public Statement createStatement() throws SQLException
 	{
+		//noinspection resource OK: is closed outside this factory method
 		return get().createStatement();
 	}
 
+	@SuppressWarnings("UnusedReturnValue")
 	@SuppressFBWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
 	public boolean execute(final String sql) throws SQLException
 	{
@@ -118,6 +120,7 @@ public final class ConnectionRule implements TestRule
 	@SuppressFBWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
 	public ResultSet executeQuery(final String sql) throws SQLException
 	{
+		@SuppressWarnings("resource") // OK: is closed outside this factory method
 		final Statement statement = createStatement();
 
 		boolean mustReturn = true;

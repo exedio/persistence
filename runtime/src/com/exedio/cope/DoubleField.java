@@ -146,6 +146,7 @@ public final class DoubleField extends NumberField<Double>
 	public Set<Class<? extends Throwable>> getInitialExceptions()
 	{
 		final Set<Class<? extends Throwable>> result = super.getInitialExceptions();
+		//noinspection FloatingPointEquality
 		if(minimum!=MIN || maximum!=MAX)
 			result.add(DoubleRangeViolationException.class);
 		return result;

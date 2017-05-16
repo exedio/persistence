@@ -69,6 +69,7 @@ final class CompareFunctionConditionItem extends Item
 				com.exedio.cope.MandatoryViolationException
 	{
 		this(leftString, "string3", leftInt, 3, leftLong, 13l, leftDouble, 2.3, leftDate, date, leftDay, day, leftEnum, XEnum.V3);
+		//noinspection ThisEscapedInObjectConstruction
 		setItemA(this);
 	}
 

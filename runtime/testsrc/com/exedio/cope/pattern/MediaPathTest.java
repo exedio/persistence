@@ -438,6 +438,7 @@ public final class MediaPathTest extends TestWithEnvironment
 		service(new Request(pathInfo)).assertOk();
 	}
 
+	@SuppressWarnings("HardcodedLineSeparator") // OK unix newline in html
 	private void assertNotFound(
 			final String pathInfo,
 			final String reason)
@@ -458,6 +459,7 @@ public final class MediaPathTest extends TestWithEnvironment
 				"</html>\n");
 	}
 
+	@SuppressWarnings("HardcodedLineSeparator") // OK unix newline in html
 	private void assertError(
 			final String pathInfo)
 		throws ServletException, IOException

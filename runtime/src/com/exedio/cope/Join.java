@@ -83,6 +83,7 @@ public final class Join implements Serializable
 			return false;
 
 		final Join o = (Join)other;
+		//noinspection NonFinalFieldReferenceInEquals
 		return
 			index==o.index &&
 			kind==o.kind &&
@@ -93,6 +94,7 @@ public final class Join implements Serializable
 	@Override
 	public int hashCode()
 	{
+		//noinspection NonFinalFieldReferencedInHashCode
 		return
 			index ^
 			kind.hashCode() ^

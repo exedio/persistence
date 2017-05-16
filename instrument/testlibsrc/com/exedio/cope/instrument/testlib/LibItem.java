@@ -26,6 +26,7 @@ import com.exedio.cope.instrument.testfeature.SimpleSettable;
 import java.util.List;
 import java.util.Set;
 
+@SuppressWarnings("UnnecessarilyQualifiedInnerClassAccess")
 public abstract class LibItem<T> extends LibSuperItem
 {
 	/** check that we can access a field in the initialization of feature LibUser#simple2: */

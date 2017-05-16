@@ -78,12 +78,14 @@ public abstract class Node
 		void run(ResultSet resultSet) throws SQLException;
 	}
 
+	@SuppressWarnings("StringEquality")
 	@SuppressFBWarnings({"ES_COMPARING_PARAMETER_STRING_WITH_EQ", "SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE"}) // Comparison of String parameter using == or !=
 	final void querySQL(final String statement, final ResultSetHandler resultSetHandler)
 	{
 		Connection connection = null;
 		try
 		{
+			//noinspection resource OK: have to use putConnection
 			connection = connectionProvider.getConnection();
 			//System.err.println(statement);
 
@@ -145,6 +147,7 @@ public abstract class Node
 		Connection connection = null;
 		try
 		{
+			//noinspection resource OK: have to use putConnection
 			connection = connectionProvider.getConnection();
 			//System.out.println(statement);
 			try(java.sql.Statement sqlStatement = connection.createStatement())

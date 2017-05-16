@@ -215,6 +215,7 @@ public final class ListField<E> extends AbstractListField<E> implements Copyable
 			doc="Sets a new value for {0}.",
 			thrownGetter=ListThrown.class)
 	@Override
+	@SuppressWarnings("AssignmentToForLoopParameter")
 	public void set(@Nonnull final Item item, @Nonnull final Collection<? extends E> value)
 	{
 		MandatoryViolationException.requireNonNull(value, this, item);

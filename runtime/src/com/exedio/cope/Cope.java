@@ -104,6 +104,7 @@ public final class Cope
 	 * {@link Field#set(Item, Object)}
 	 * @throws ClassCastException if <tt>value</tt> is not assignable to <tt>X</tt>
 	 */
+	@SuppressWarnings("StaticMethodOnlyUsedInOneClass")
 	public static <X> void setAndCast(final Field<X> field, final Item item, final Object value)
 	{
 		field.set(item, Cast.verboseCast(field.getValueClass(), value));

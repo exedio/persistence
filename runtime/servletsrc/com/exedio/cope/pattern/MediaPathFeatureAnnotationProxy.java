@@ -43,6 +43,7 @@ final class MediaPathFeatureAnnotationProxy implements AnnotatedElement
 		if(computed && Computed.class==annotationClass)
 			return true;
 
+		//noinspection SimplifiableConditionalExpression
 		return
 			(PreventUrlGuessing.class==annotationClass || UrlFingerPrinting.class==annotationClass)
 			? source.isAnnotationPresent(annotationClass)
@@ -50,6 +51,7 @@ final class MediaPathFeatureAnnotationProxy implements AnnotatedElement
 	}
 
 	@Override
+	@SuppressWarnings("ConstantValueVariableUse") // OK: annotation generics
 	public <T extends Annotation> T getAnnotation(final Class<T> annotationClass)
 	{
 		if(computed && Computed.class==annotationClass)

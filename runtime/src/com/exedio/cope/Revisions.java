@@ -153,6 +153,7 @@ public final class Revisions
 		}
 	}
 
+	@SuppressWarnings("StaticMethodOnlyUsedInOneClass")
 	static Map<Integer, byte[]> getLogs(
 			final boolean withMutex,
 			final ConnectProperties properties,

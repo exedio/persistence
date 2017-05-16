@@ -131,6 +131,7 @@ public class ModelBuilderTest
 		}
 	}
 
+	@SuppressWarnings("OverlyStrongTypeCast") // bug in idea inspection
 	@Test public void testFailTypeSetsNull()
 	{
 		final ModelBuilder m = Model.builder();

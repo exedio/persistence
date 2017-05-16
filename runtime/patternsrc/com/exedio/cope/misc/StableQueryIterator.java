@@ -31,6 +31,7 @@ public final class StableQueryIterator
 	 * @deprecated Use {@link QueryIterators#iterateStableQuery(Query, int)} instead
 	 */
 	@Deprecated
+	@SuppressWarnings("StaticMethodOnlyUsedInOneClass")
 	public static <E> Iterator<E> iterate(
 			final Query<E> query,
 			final int slice)

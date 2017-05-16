@@ -79,6 +79,7 @@ final class JavaFile
 		}
 
 		this.repository = repository;
+		//noinspection ThisEscapedInObjectConstruction
 		repository.add(this);
 	}
 

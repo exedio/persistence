@@ -43,6 +43,7 @@ public final class LengthView extends NumberView<Integer>
 	}
 
 	@Override
+	@SuppressWarnings("OverlyStrongTypeCast")
 	public Integer mapJava(final Object[] sourceValues)
 	{
 		assert sourceValues.length==1;

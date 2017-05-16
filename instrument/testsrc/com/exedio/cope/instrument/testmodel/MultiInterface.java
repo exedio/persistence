@@ -20,6 +20,7 @@ package com.exedio.cope.instrument.testmodel;
 
 import java.io.Serializable;
 
+@SuppressWarnings({"InterfaceMayBeAnnotatedFunctional", "InterfaceNeverImplemented"})
 interface MultiInterface extends Serializable, Runnable
 {
 	// empty interface

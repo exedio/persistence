@@ -140,6 +140,7 @@ final class TC
 		throw new IllegalArgumentException(select + " does not belong to a type of the query: " + query);
 	}
 
+	@SuppressWarnings("OverlyStrongTypeCast")
 	private void register(final Selectable<?> select, final Join join)
 	{
 		final Table table;

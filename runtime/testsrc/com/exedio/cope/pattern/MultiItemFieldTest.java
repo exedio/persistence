@@ -57,6 +57,7 @@ public class MultiItemFieldTest extends TestWithEnvironment
 		super(MODEL);
 	}
 
+	@SuppressWarnings("MisorderedAssertEqualsArguments")
 	@Test public void testHashCode()
 	{
 		final MultiItemFieldComponentxA fieldValue = new MultiItemFieldComponentxA();

@@ -40,7 +40,7 @@ public class MxSampler
 	 * Always throws a {@link NoSuchMethodError}.
 	 */
 	@Deprecated
-	@SuppressWarnings("static-method")
+	@SuppressWarnings({"static-method", "MethodMayBeStatic"})
 	public final Model getModel()
 	{
 		throw new NoSuchMethodError("MxSampler is no longer supported");
@@ -63,7 +63,7 @@ public class MxSampler
 	 * Always throws a {@link NoSuchMethodError}.
 	 */
 	@Deprecated
-	@SuppressWarnings({"static-method", "unused"})
+	@SuppressWarnings({"static-method", "MethodMayBeStatic", "unused"})
 	public final ConnectToken connect(final String tokenName)
 	{
 		throw new NoSuchMethodError("MxSampler is no longer supported");
@@ -86,7 +86,7 @@ public class MxSampler
 	 * Does nothing.
 	 */
 	@Deprecated
-	@SuppressWarnings({"static-method", "unused"})
+	@SuppressWarnings({"static-method", "MethodMayBeStatic", "unused"})
 	public final void purge(final int days, final JobContext ctx)
 	{
 		if(days<=0)

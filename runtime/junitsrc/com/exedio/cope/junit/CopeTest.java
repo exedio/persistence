@@ -37,6 +37,7 @@ import org.junit.Assert;
  * @author Ralf Wiebicke
  */
 @Deprecated
+@SuppressWarnings("AbstractClassNeverImplemented") // OK: not used anymore
 public abstract class CopeTest extends CopeAssert
 {
 	public final Model model;
@@ -256,6 +257,7 @@ public abstract class CopeTest extends CopeAssert
 		super.tearDown();
 	}
 
+	@SuppressWarnings("TestMethodWithIncorrectSignature") // OK: not used anymore
 	protected boolean testCompletedSuccessfully()
 	{
 		return testMethodFinished;

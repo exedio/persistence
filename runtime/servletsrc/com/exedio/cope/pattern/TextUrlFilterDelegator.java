@@ -63,6 +63,7 @@ public class TextUrlFilterDelegator extends MediaFilter implements TextUrlFilter
 		this.charset    = requireNonNull (charset,    "charset");
 		this.pasteStart = requireNonEmpty(pasteStart, "pasteStart");
 		this.pasteStop  = requireNonEmpty(pasteStop,  "pasteStop");
+		//noinspection ThisEscapedInObjectConstruction
 		addSource(raw, "Raw", new MediaPathFeatureAnnotationProxy(this, false));
 	}
 
@@ -108,6 +109,7 @@ public class TextUrlFilterDelegator extends MediaFilter implements TextUrlFilter
 		checkContentType( item );
 
 		final byte[] sourceByte = raw.getBody().getArray(item);
+		//noinspection ConstantConditions OK: is checked before (contentType==null)
 		final String srcString = new String(sourceByte, charset);
 
 		final StringBuilder bf = new StringBuilder( srcString.length() );
@@ -137,6 +139,7 @@ public class TextUrlFilterDelegator extends MediaFilter implements TextUrlFilter
 		checkContentType( item );
 
 		final byte[] sourceByte = raw.getBody().getArray(item);
+		//noinspection ConstantConditions OK: is checked before (contentType==null)
 		final String srcString = new String(sourceByte, charset);
 
 		final StringBuilder bf = new StringBuilder( srcString.length() );
@@ -203,6 +206,7 @@ public class TextUrlFilterDelegator extends MediaFilter implements TextUrlFilter
 		checkContentType( item );
 		final Set<String> brokenCodes = new HashSet<>();
 		final byte[] sourceByte = getSource().getBody().getArray( item );
+		//noinspection ConstantConditions OK: is checked before (contentType==null)
 		final String srcString = new String( sourceByte, charset );
 		substitutePastes(null, brokenCodes, srcString, item, null);
 		return brokenCodes;

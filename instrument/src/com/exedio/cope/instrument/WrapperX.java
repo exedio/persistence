@@ -90,6 +90,7 @@ final class WrapperX
 	private java.lang.reflect.Type returnType = null;
 	private String[] returnComment = EMPTY_STRING_ARRAY;
 
+	@SuppressWarnings("AssignmentToCollectionOrArrayFieldFromParameter")
 	void setReturn(final java.lang.reflect.Type type, final String[] comment)
 	{
 		if(type==null)
@@ -128,6 +129,7 @@ final class WrapperX
 		final List<?> varargs;
 		private final Nullability nullability;
 
+		@SuppressWarnings("AssignmentToCollectionOrArrayFieldFromParameter")
 		Parameter(
 				final java.lang.reflect.Type type,
 				final String name,

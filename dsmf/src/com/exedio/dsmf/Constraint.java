@@ -65,8 +65,10 @@ public abstract class Constraint extends Node
 			this.requiredCondition = null;
 			this.existingCondition = condition;
 		}
+		//noinspection ThisEscapedInObjectConstruction
 		table.register(this);
 		if(column!=null)
+			//noinspection ThisEscapedInObjectConstruction
 			column.register(this);
 	}
 

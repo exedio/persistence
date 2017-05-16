@@ -274,6 +274,7 @@ public final class History extends Pattern
 			return getPattern().eventNew.getMandatory(this);
 		}
 
+		@SuppressWarnings("TypeParameterExtendsFinalClass") // OK: effectively makes collection somewhat compiler-unmodifiable
 		public List<? extends Feature> getFeatures()
 		{
 			final History pattern = getPattern();

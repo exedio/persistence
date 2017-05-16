@@ -32,6 +32,7 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
+@SuppressWarnings("HardcodedLineSeparator") // OK: newline in sql error
 public class GroupByTest extends TestWithEnvironment
 {
 	private static final Model MODEL = new Model(TYPE);

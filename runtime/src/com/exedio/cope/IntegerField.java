@@ -141,6 +141,7 @@ public final class IntegerField extends NumberField<Integer>
 			}
 
 			@Override
+			@SuppressWarnings("ConstantValueVariableUse") // OK: annotation generics
 			public boolean isAnnotationPresent(final Class<? extends Annotation> annotationClass)
 			{
 				if(CopeSchemaName.class==annotationClass)
@@ -153,6 +154,7 @@ public final class IntegerField extends NumberField<Integer>
 			}
 
 			@Override
+			@SuppressWarnings("ConstantValueVariableUse") // OK: annotation generics
 			public <T extends Annotation> T getAnnotation(final Class<T> annotationClass)
 			{
 				if(CopeSchemaName.class==annotationClass)

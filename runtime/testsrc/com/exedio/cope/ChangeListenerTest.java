@@ -240,6 +240,7 @@ public class ChangeListenerTest extends TestWithEnvironment
 		{
 			try
 			{
+				//noinspection BusyWait
 				Thread.sleep(1);
 			}
 			catch (final InterruptedException e)

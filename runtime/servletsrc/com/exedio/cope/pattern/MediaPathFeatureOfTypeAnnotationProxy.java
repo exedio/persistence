@@ -36,6 +36,7 @@ final class MediaPathFeatureOfTypeAnnotationProxy implements AnnotatedElement
 	@Override
 	public boolean isAnnotationPresent(final Class<? extends Annotation> annotationClass)
 	{
+		//noinspection SimplifiableConditionalExpression
 		return
 			(PreventUrlGuessing.class==annotationClass || UrlFingerPrinting.class==annotationClass)
 			? MediaPath.isMyAnnotationPresent(source, annotationClass)

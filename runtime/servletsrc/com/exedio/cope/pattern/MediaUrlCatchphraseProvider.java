@@ -18,6 +18,7 @@
 
 package com.exedio.cope.pattern;
 
+@SuppressWarnings("InterfaceMayBeAnnotatedFunctional") // OK: is to be implemented by Items only
 public interface MediaUrlCatchphraseProvider
 {
 	/**

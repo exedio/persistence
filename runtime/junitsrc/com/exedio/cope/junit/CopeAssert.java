@@ -151,6 +151,7 @@ public abstract class CopeAssert extends TestCase
 		return Collections.unmodifiableMap(result);
 	}
 
+	@SuppressWarnings("SuspiciousMethodCalls")
 	public static final <T> void assertUnmodifiable(final Collection<T> c)
 	{
 		try
@@ -366,6 +367,7 @@ public abstract class CopeAssert extends TestCase
 		System.out.println("WAITING FOR KEY");
 		try
 		{
+			//noinspection ResultOfMethodCallIgnored
 			System.in.read();
 		}
 		catch(final IOException e)
@@ -391,6 +393,7 @@ public abstract class CopeAssert extends TestCase
 		// value ... needed for Windows.
 		do
 		{
+			//noinspection BusyWait
 			Thread.sleep(millis+1);
 		}
 		while((System.currentTimeMillis()-start)<=millis);
@@ -408,6 +411,7 @@ public abstract class CopeAssert extends TestCase
 		System.out.println("INFO-------------------");
 		final List<QueryInfo> infos = transaction.getQueryInfos();
 		transaction.setQueryInfoEnabled(false);
+		//noinspection ConstantConditions OK: cannot be null after setQueryInfoEnabled(true)
 		for(final QueryInfo info : infos)
 			info.print(System.out);
 		return result;

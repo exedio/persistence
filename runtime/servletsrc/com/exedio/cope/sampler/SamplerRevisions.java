@@ -34,6 +34,7 @@ final class SamplerRevisions implements Revisions.Factory
 			return getOthers();
 	}
 
+	@SuppressWarnings("RedundantArrayCreation")
 	private static Revisions getMysql()
 	{
 		return new Revisions(

@@ -48,6 +48,7 @@ final class Revstat extends Item
 	private static final LongField elapsed = new LongField().toFinal().min(0);
 	private static final StringField comment = new StringField().toFinal().lengthMax(5000);
 
+	@SuppressWarnings("UnnecessarilyQualifiedStaticUsage")
 	static void write(
 			final Model model,
 			final int number,

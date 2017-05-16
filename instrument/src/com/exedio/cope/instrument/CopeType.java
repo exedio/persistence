@@ -119,6 +119,7 @@ abstract class CopeType<F extends CopeFeature>
 		final CopeType<?> superclass = getSuperclass();
 		if (superclass!=null)
 		{
+			//noinspection TailRecursion
 			return superclass.getFeatureByInstance(instance);
 		}
 		return null;

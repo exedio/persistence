@@ -18,6 +18,7 @@
 
 package com.exedio.cope.instrument.testmodel;
 
+@SuppressWarnings("InterfaceMayBeAnnotatedFunctional")
 interface OneOverrideFeatureable
 {
 	String oneOverrideFeature();

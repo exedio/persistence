@@ -145,7 +145,7 @@ public final class AttributeItem extends Item
 		enumValue2{@Override void zack(){/*empty*/}},
 		enumValue3{@Override void zack(){/*empty*/}};
 
-		abstract void zack();
+		@SuppressWarnings("unused") abstract void zack();
 	}
 
 

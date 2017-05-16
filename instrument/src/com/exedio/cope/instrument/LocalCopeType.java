@@ -40,6 +40,7 @@ final class LocalCopeType extends CopeType<LocalCopeFeature>
 
 	static LocalCopeType getCopeType(final JavaClass javaClass)
 	{
+		@SuppressWarnings("UnnecessaryLocalVariable")
 		final LocalCopeType result = copeTypeByJavaClass.get(javaClass);
 		//System.out.println("getCopeClass "+javaClass.getFullName()+" "+(result==null?"NULL":result.getName()));
 		return result;
@@ -62,9 +63,11 @@ final class LocalCopeType extends CopeType<LocalCopeFeature>
 				Tags.forType(javaClass.docComment),
 				javaClass.typeOption,
 				OPTION_DEFAULT);
+		//noinspection ThisEscapedInObjectConstruction
 		copeTypeByJavaClass.put(javaClass, this);
 
 		javaClass.nameSpace.importStatic(Item.class);
+		//noinspection ThisEscapedInObjectConstruction
 		javaClass.file.repository.add(this);
 
 		registerFeatures();

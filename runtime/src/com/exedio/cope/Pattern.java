@@ -128,6 +128,7 @@ public abstract class Pattern extends Feature
 		}
 
 		@Override
+		@SuppressWarnings("ConstantValueVariableUse") // OK: annotation generics
 		public <T extends Annotation> T getAnnotation(final Class<T> annotationClass)
 		{
 			if(CopeSchemaName.class==annotationClass)
@@ -263,6 +264,7 @@ public abstract class Pattern extends Feature
 		}
 
 		@Override
+		@SuppressWarnings("ConstantValueVariableUse") // OK: annotation generics
 		public <T extends Annotation> T getAnnotation(final Class<T> annotationClass)
 		{
 			@SuppressWarnings("deprecation")
@@ -348,6 +350,7 @@ public abstract class Pattern extends Feature
 	final void mount(final Type<?> type, final String name, final AnnotatedElement annotationSource)
 	{
 		super.mount(type, name, annotationSource);
+		//noinspection deprecation
 		initialize();
 
 		calledOnMount = false;

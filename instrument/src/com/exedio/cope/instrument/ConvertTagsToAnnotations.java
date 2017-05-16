@@ -54,6 +54,7 @@ import javax.tools.StandardJavaFileManager;
 @SuppressWarnings("synthetic-access")
 final class ConvertTagsToAnnotations
 {
+	@SuppressWarnings("StaticMethodOnlyUsedInOneClass")
 	static void convert(final Params params) throws IOException, HumanReadableException
 	{
 		new JavacRunner<ConvertProcessor>()
@@ -485,6 +486,7 @@ final class ConvertTagsToAnnotations
 		}
 	}
 
+	@SuppressWarnings("ComparatorNotSerializable")
 	@SuppressFBWarnings("SE_COMPARATOR_SHOULD_BE_SERIALIZABLE")
 	private static class ConvertComparator implements Comparator<Method>
 	{

@@ -58,10 +58,12 @@ import javax.lang.model.type.WildcardType;
 
 @SupportedAnnotationTypes("com.exedio.cope.instrument.Wrapper")
 @SupportedSourceVersion(SourceVersion.RELEASE_6)
+@SuppressWarnings("LiteralAsArgToStringEquals")
 public class CompletionProcessor extends AbstractProcessor
 {
 	private static final Logger log = java.util.logging.Logger.getLogger(CompletionProcessor.class.getName());
 
+	@SuppressWarnings("unused")
 	private static void debug(final String message, final Object... params)
 	{
 		// uncomment to activate debug logs:

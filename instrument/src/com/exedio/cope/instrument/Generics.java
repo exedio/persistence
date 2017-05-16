@@ -27,6 +27,7 @@ import java.util.List;
 
 final class Generics
 {
+	@SuppressWarnings("ConstantConditions") // too complex to analyze
 	static String remove(final String s)
 	{
 		boolean inStringLiteral = false;
@@ -133,10 +134,12 @@ final class Generics
 		return result;
 	}
 
+	@SuppressWarnings("StaticMethodOnlyUsedInOneClass")
 	static Type[] getTypes(final String s)
 	{
 		final List<String> x = get(s);
 		final Type[] result = new Type[x.size()];
+		//noinspection Java8ArraySetAll OK: performance
 		for(int i = 0; i<result.length; i++)
 			result[i] = new SourceType(x.get(i));
 		return result;

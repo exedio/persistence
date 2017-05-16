@@ -25,6 +25,7 @@ import com.exedio.cope.instrument.testfeature.FilterFeature;
 import com.exedio.cope.instrument.testfeature.OptionFeature;
 import com.exedio.cope.instrument.testfeature.OptionFeatureGet;
 
+@SuppressWarnings("ProtectedMemberInFinalClass")
 public final class OptionFeatureItem extends OptionFeatureSuperItem
 {
 	// default visibility

@@ -28,6 +28,8 @@ final class Timer
 	private final Logger logger;
 	private final String msg;
 	private final Interval emptyInterval = new Interval();
+
+	@SuppressWarnings("VolatileLongOrDoubleField")
 	private volatile long totalElapsed = 0;
 
 	Timer(final Logger logger, final String msg)
@@ -46,6 +48,7 @@ final class Timer
 
 	void finish(final String msg, final long elapsed)
 	{
+		@SuppressWarnings("NonAtomicOperationOnVolatileField")
 		final long currentAccu = totalElapsed += elapsed;
 		logger.info("{} {}ms total{} {}ms", new Object[]{msg, elapsed, this.msg, currentAccu});
 	}

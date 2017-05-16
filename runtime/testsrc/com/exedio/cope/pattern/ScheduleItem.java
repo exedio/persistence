@@ -61,6 +61,7 @@ public final class ScheduleItem extends Item implements Scheduleable
 
 	static void assertLogs(final Log... expected)
 	{
+		//noinspection MisorderedAssertEqualsArguments
 		assertEquals(Arrays.asList(expected), logs);
 		logs.clear();
 	}

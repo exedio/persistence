@@ -18,6 +18,7 @@
 
 package com.exedio.cope.instrument;
 
+@FunctionalInterface
 interface Evaluatable
 {
 	Object evaluate();

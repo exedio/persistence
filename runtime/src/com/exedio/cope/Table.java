@@ -50,18 +50,22 @@ final class Table
 		this.id = intern(database.makeName(TrimClass.Data, id));
 		this.idLower = database.properties.filterTableName(this.id);
 		this.quotedID = intern(database.dsmfDialect.quoteName(this.idLower));
+		//noinspection ThisEscapedInObjectConstruction
 		this.primaryKey =
 			(supertype!=null)
 			? new ItemColumn(this, supertype, maximum)
 			: new IntegerColumn(this, maximum);
+		//noinspection ThisEscapedInObjectConstruction
 		this.typeColumn =
 			(typesOfInstancesColumnValues!=null)
 			? new StringColumn(this, TYPE_COLUMN_NAME, true, false, typeColumnMinLength, typesOfInstancesColumnValues)
 			: null;
+		//noinspection ThisEscapedInObjectConstruction
 		this.updateCounter =
 			updateCounter
 			? new IntegerColumn(this, UPDATE_COUNTER_COLUMN_NAME, true, false, 0, Integer.MAX_VALUE, false)
 			: null;
+		//noinspection ThisEscapedInObjectConstruction
 		database.addTable(this);
 	}
 
@@ -69,7 +73,9 @@ final class Table
 	private List<Column> allColumnsModifiable = new ArrayList<>();
 	private List<Column> allColumns = null;
 
+	@SuppressWarnings("TypeParameterExtendsFinalClass") // OK: effectively makes collection somewhat compiler-unmodifiable
 	private List<? extends UniqueConstraint> uniqueConstraints = null;
+	@SuppressWarnings("TypeParameterExtendsFinalClass") // OK: effectively makes collection somewhat compiler-unmodifiable
 	private List<? extends  CheckConstraint>  checkConstraints = null;
 
 	/**
@@ -142,6 +148,9 @@ final class Table
 		return allColumns;
 	}
 
+	@SuppressWarnings({
+			"AssignmentToCollectionOrArrayFieldFromParameter",
+			"TypeParameterExtendsFinalClass"}) // OK: effectively makes collection somewhat compiler-unmodifiable
 	void setUniqueConstraints(final List<? extends UniqueConstraint> uniqueConstraints)
 	{
 		if(uniqueConstraints==null)
@@ -154,6 +163,7 @@ final class Table
 		this.uniqueConstraints = uniqueConstraints;
 	}
 
+	@SuppressWarnings("TypeParameterExtendsFinalClass") // OK: effectively makes collection somewhat compiler-unmodifiable
 	List<? extends UniqueConstraint> getUniqueConstraints()
 	{
 		if(uniqueConstraints==null)
@@ -162,6 +172,9 @@ final class Table
 		return uniqueConstraints;
 	}
 
+	@SuppressWarnings({
+			"AssignmentToCollectionOrArrayFieldFromParameter",
+			"TypeParameterExtendsFinalClass"}) // OK: effectively makes collection somewhat compiler-unmodifiable
 	void setCheckConstraints(final List<? extends CheckConstraint> checkConstraints)
 	{
 		if(checkConstraints==null)
@@ -174,6 +187,7 @@ final class Table
 		this.checkConstraints = checkConstraints;
 	}
 
+	@SuppressWarnings("TypeParameterExtendsFinalClass") // OK: effectively makes collection somewhat compiler-unmodifiable
 	List<? extends CheckConstraint> getCheckConstraints()
 	{
 		if(checkConstraints==null)

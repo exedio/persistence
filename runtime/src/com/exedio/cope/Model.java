@@ -68,14 +68,17 @@ public final class Model implements Serializable
 	final ChangeListeners changeListeners = new ChangeListeners();
 
 	private final Object connectLock = new Object();
+	@SuppressWarnings("FieldAccessedSynchronizedAndUnsynchronized")
 	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private Connect connectIfConnected;
 
 	private final AtomicLong nextTransactionId = new AtomicLong();
+	@SuppressWarnings("VolatileLongOrDoubleField")
 	private volatile long lastTransactionStartDate = Long.MIN_VALUE;
 
 	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	final Transactions transactions = new Transactions();
+	@SuppressWarnings({"ThisEscapedInObjectConstruction", "resource"})
 	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final TransactionTry tx = new TransactionTry(this);
 	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
@@ -86,6 +89,7 @@ public final class Model implements Serializable
 		return new ModelBuilder();
 	}
 
+	@SuppressWarnings({"RedundantCast","deprecation"}) // needed for idea
 	public Model(final Type<?>... types)
 	{
 		this((Revisions.Factory)null, (TypeSet[])null, types);
@@ -99,6 +103,7 @@ public final class Model implements Serializable
 	{
 		this.name = name;
 		this.revisions = revisions;
+		//noinspection ThisEscapedInObjectConstruction
 		this.types = new Types(this, typeSets, types);
 
 		this.types.afterModelCreated();
@@ -734,6 +739,7 @@ public final class Model implements Serializable
 		{
 			final long oldestStamp = transactions.getOldestCacheStamp();
 
+			@SuppressWarnings("deprecation") // needed for idea
 			final Runnable within = withinPurgeStamps;
 			if(within!=null)
 				within.run();
@@ -1014,6 +1020,7 @@ public final class Model implements Serializable
 	 * @deprecated Use Model.{@link #builder() builder}().{@link ModelBuilder#add(Revisions.Factory) add}(revisions).{@link ModelBuilder#add(Type[]) add}(types).{@link ModelBuilder#build() build}() instead.
 	 */
 	@Deprecated
+	@SuppressWarnings("RedundantCast")
 	public Model(final Revisions.Factory revisions, final Type<?>... types)
 	{
 		this(revisions, (TypeSet[])null, types);

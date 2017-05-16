@@ -94,6 +94,7 @@ final class Params
 		}
 		else if (fileOrDir.isDirectory())
 		{
+			//noinspection ConstantConditions OK: checks isDirectory before calling listFiles
 			for (final File child: fileOrDir.listFiles())
 			{
 				collectFiles(collectInto, child);

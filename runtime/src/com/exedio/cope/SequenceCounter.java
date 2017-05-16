@@ -22,6 +22,7 @@ import static java.lang.Long.MAX_VALUE;
 import static java.lang.Long.MIN_VALUE;
 import static java.util.Objects.requireNonNull;
 
+@SuppressWarnings("VolatileLongOrDoubleField")
 final class SequenceCounter
 {
 	private final Feature feature;
@@ -50,6 +51,7 @@ final class SequenceCounter
 			throw new IllegalStateException(
 					"sequence overflow to " + result + " in " + feature +
 					" limited to " + minimum + ',' + maximum);
+		//noinspection NonAtomicOperationOnVolatileField
 		if((count++)==0)
 			first = result;
 		last = result;

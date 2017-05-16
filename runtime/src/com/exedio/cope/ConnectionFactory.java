@@ -111,6 +111,7 @@ final class ConnectionFactory implements Pool.Factory<Connection>
 		catch(final SQLException ex)
 		{
 			if(logger.isWarnEnabled())
+				//noinspection StringConcatenationArgumentToLogCall
 				logger.warn("invalid on get: " + sql, ex);
 			if(isValidOnGetFails)
 				throw new SQLRuntimeException(ex, sql);

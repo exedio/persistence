@@ -32,6 +32,7 @@ final class EnumContentType extends ContentType<Integer>
 	private final String[] types;
 	private final HashMap<String, Integer> typeSet;
 
+	@SuppressWarnings("AssignmentToCollectionOrArrayFieldFromParameter")
 	EnumContentType(
 			final String[] types,
 			final boolean isfinal,

@@ -29,6 +29,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 
+@SuppressWarnings("AnonymousInnerClassMayBeStatic")
 final class Marshallers
 {
 	private final HashMap<Class<?>, Marshaller<?>> marshallers = new HashMap<>();
@@ -105,6 +106,7 @@ final class Marshallers
 			@Override
 			String marshalLiteral(final Integer value)
 			{
+				//noinspection CallToNumericToString
 				return value.toString();
 			}
 			@Override
@@ -137,6 +139,7 @@ final class Marshallers
 			@Override
 			String marshalLiteral(final Long value)
 			{
+				//noinspection CallToNumericToString
 				return value.toString();
 			}
 			@Override
@@ -154,6 +157,7 @@ final class Marshallers
 				return (cell!=null) ? convert(cell) : null;
 			}
 
+			@SuppressWarnings("OverlyStrongTypeCast")
 			private Double convert(final Object o)
 			{
 				if(o instanceof BigDecimal)
@@ -165,6 +169,7 @@ final class Marshallers
 			@Override
 			String marshalLiteral(final Double value)
 			{
+				//noinspection CallToNumericToString
 				return value.toString();
 			}
 			@Override
