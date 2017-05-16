@@ -76,14 +76,14 @@ public class UniqueHashedMediaTest extends TestWithEnvironment
 				}),
 				TYPE.getFeatures());
 
-		 assertEquals(128, value.getHash().getMinimumLength());
-		 assertEquals(128, value.getHash().getMaximumLength());
-		 assertEquals("SHA-512", value.getMessageDigestAlgorithm());
-		 assertTrue(value.isFinal());
-		 assertTrue(value.isMandatory());
-		 assertFalse(value.isAnnotationPresent(Computed.class));
-		 assertTrue(value.getMedia().isAnnotationPresent(Computed.class));
-		 assertTrue(value.getHash().isAnnotationPresent(Computed.class));
+		assertEquals(128, value.getHash().getMinimumLength());
+		assertEquals(128, value.getHash().getMaximumLength());
+		assertEquals("SHA-512", value.getMessageDigestAlgorithm());
+		assertTrue(value.isFinal());
+		assertTrue(value.isMandatory());
+		assertFalse(value.isAnnotationPresent(Computed.class));
+		assertTrue(value.getMedia().isAnnotationPresent(Computed.class));
+		assertTrue(value.getHash().isAnnotationPresent(Computed.class));
 	}
 
 	@Test public void testData()
@@ -110,8 +110,8 @@ public class UniqueHashedMediaTest extends TestWithEnvironment
 		// recreate the value as previous one is exhausted
 		try
 		{
-		   new UniqueHashedMediaItem(toValue(bytes4, "image/jpeg"));
-		   fail("No ConstraintViolationException for duplicate HashedMediaItem which should be unique");
+			new UniqueHashedMediaItem(toValue(bytes4, "image/jpeg"));
+			fail("No ConstraintViolationException for duplicate HashedMediaItem which should be unique");
 		}
 		catch (final UniqueViolationException e)
 		{
@@ -140,7 +140,7 @@ public class UniqueHashedMediaTest extends TestWithEnvironment
 		try
 		{
 			getOrCreate(toValue(bytes4, "image/gif"));
-		   fail("No IllegalArgumentException for content type missmatch.");
+			fail("No IllegalArgumentException for content type missmatch.");
 		}
 		catch (final IllegalArgumentException e)
 		{
