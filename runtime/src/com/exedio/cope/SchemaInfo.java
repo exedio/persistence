@@ -67,12 +67,12 @@ public final class SchemaInfo
 
 	public static boolean supportsCheckConstraints(final Model model)
 	{
-		return model.connect().database.dsmfDialect.supportsCheckConstraints();
+		return model.connect().supportsCheckConstraints;
 	}
 
 	public static boolean supportsNativeDate(final Model model)
 	{
-		return model.connect().supportsNativeDate();
+		return model.connect().supportsNativeDate;
 	}
 
 	/**
@@ -84,7 +84,7 @@ public final class SchemaInfo
 	 */
 	public static boolean supportsUniqueViolation(final Model model)
 	{
-		return model.connect().executor.supportsUniqueViolation;
+		return model.connect().supportsUniqueViolation;
 	}
 
 	/**

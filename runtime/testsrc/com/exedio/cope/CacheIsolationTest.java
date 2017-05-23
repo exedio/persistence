@@ -50,7 +50,7 @@ public class CacheIsolationTest extends TestWithEnvironment
 		collisionItem = new CacheIsolationItem("collision");
 		collisionItem.setUniqueString( "unique" );
 
-		unq = model.connect().executor.supportsUniqueViolation;
+		unq = model.connect().supportsUniqueViolation;
 		if(model.getConnectProperties().getItemCacheLimit()>0)
 		{
 			final ItemCacheInfo[] ci = model.getItemCacheStatistics().getDetails();

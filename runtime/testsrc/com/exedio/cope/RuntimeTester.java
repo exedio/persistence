@@ -198,7 +198,7 @@ final class RuntimeTester
 	void assertCause(final UniqueViolationException e)
 	{
 		final Throwable cause = e.getCause();
-		if(model.connect().executor.supportsUniqueViolation)
+		if(model.connect().supportsUniqueViolation)
 		{
 			assertNotNull(e.getCause());
 			assertTrue(cause.getClass().getName(), cause instanceof SQLException);

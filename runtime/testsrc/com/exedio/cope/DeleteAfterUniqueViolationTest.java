@@ -42,7 +42,7 @@ public class DeleteAfterUniqueViolationTest extends TestWithEnvironment
 
 	@Before public final void setUp()
 	{
-		unq = model.connect().executor.supportsUniqueViolation;
+		unq = model.connect().supportsUniqueViolation;
 	}
 
 	@Test public void testCommit()

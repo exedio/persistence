@@ -42,7 +42,7 @@ final class Executor
 	final Dialect dialect;
 	final Marshallers marshallers;
 	final boolean prepare;
-	final boolean supportsUniqueViolation;
+	private final boolean supportsUniqueViolation;
 	final Dialect.LimitSupport limitSupport;
 	final boolean fulltextIndex;
 	private final HashMap<String, UniqueConstraint> uniqueConstraints = new HashMap<>();
@@ -50,15 +50,14 @@ final class Executor
 
 	Executor(
 			final Dialect dialect,
+			final boolean supportsUniqueViolation,
 			final ConnectProperties properties,
 			final Marshallers marshallers)
 	{
 		this.dialect = dialect;
 		this.marshallers = marshallers;
 		this.prepare = !properties.isSupportDisabledForPreparedStatements();
-		this.supportsUniqueViolation =
-			!properties.isSupportDisabledForUniqueViolation() &&
-			dialect.supportsUniqueViolation();
+		this.supportsUniqueViolation = supportsUniqueViolation;
 		this.limitSupport = requireNonNull(dialect.getLimitSupport(), dialect.toString());
 		this.fulltextIndex = properties.getFulltextIndex();
 	}

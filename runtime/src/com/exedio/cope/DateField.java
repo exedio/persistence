@@ -406,7 +406,7 @@ public final class DateField extends FunctionField<Date>
 	Column createColumn(final Table table, final String name, final boolean optional)
 	{
 		return
-				getType().getModel().connect().supportsNativeDate()
+				getType().getModel().connect().supportsNativeDate
 				? new TimestampColumn(table, name, optional, precision)
 				: new IntegerColumn  (table, name, false, optional, Long.MIN_VALUE, Long.MAX_VALUE, true, precision);
 	}

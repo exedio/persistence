@@ -319,7 +319,7 @@ public final class Model implements Serializable
 	 */
 	public boolean supportsEmptyStrings()
 	{
-		return connect().supportsEmptyStrings();
+		return connect().supportsEmptyStrings;
 	}
 
 	/**
@@ -327,7 +327,7 @@ public final class Model implements Serializable
 	 */
 	public boolean supportsUTF8mb4()
 	{
-		return connect().dialect.supportsUTF8mb4();
+		return connect().supportsUTF8mb4;
 	}
 
 	/**
@@ -335,7 +335,7 @@ public final class Model implements Serializable
 	 */
 	public boolean supportsRandom()
 	{
-		return connect().dialect.supportsRandom();
+		return connect().supportsRandom;
 	}
 
 	public DatabaseListener getDatabaseListener()

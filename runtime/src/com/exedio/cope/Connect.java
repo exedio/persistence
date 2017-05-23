@@ -36,6 +36,14 @@ final class Connect
 	private final RevisionsConnect revisions;
 	final ConnectProperties properties;
 	final Dialect dialect;
+
+	final boolean supportsEmptyStrings;
+	final boolean supportsUTF8mb4;
+	final boolean supportsRandom;
+	final boolean supportsCheckConstraints;
+	final boolean supportsNativeDate;
+	final boolean supportsUniqueViolation;
+
 	final ConnectionFactory connectionFactory;
 	final ConnectionPool connectionPool;
 	final Marshallers marshallers;
@@ -62,14 +70,23 @@ final class Connect
 
 		this.revisions = RevisionsConnect.wrap(probe.environmentInfo, revisionsFactory);
 		this.dialect = properties.createDialect(probe);
+
+		supportsEmptyStrings = !properties.isSupportDisabledForEmptyStrings() && dialect.supportsEmptyStrings();
+		supportsUTF8mb4 = dialect.supportsUTF8mb4();
+		supportsRandom = dialect.supportsRandom();
+		// SchemaInfo
+		supportsCheckConstraints = dialect.dsmfDialect.supportsCheckConstraints();
+		supportsNativeDate = !properties.isSupportDisabledForNativeDate() && (dialect.getDateTimestampType()!=null);
+		supportsUniqueViolation = !properties.isSupportDisabledForUniqueViolation() && dialect.supportsUniqueViolation();
+
 		this.connectionFactory = new ConnectionFactory(properties.connection, probe.driver, dialect);
 		final Pool<Connection> pool = new Pool<>(
 				connectionFactory,
 				properties.connectionPool,
 				new PoolCounter());
 		this.connectionPool = new ConnectionPool(pool);
-		this.marshallers = new Marshallers(supportsNativeDate());
-		this.executor = new Executor(dialect, properties, marshallers);
+		this.marshallers = new Marshallers(supportsNativeDate);
+		this.executor = new Executor(dialect, supportsUniqueViolation, properties, marshallers);
 		this.database = new Database(
 				dialect.dsmfDialect,
 				probe,
@@ -109,16 +126,6 @@ final class Connect
 		changeListenerDispatcher.joinClose();
 		if(cluster!=null)
 			cluster.joinClose();
-	}
-
-	boolean supportsEmptyStrings()
-	{
-		return !properties.isSupportDisabledForEmptyStrings() && dialect.supportsEmptyStrings();
-	}
-
-	boolean supportsNativeDate()
-	{
-		return !properties.isSupportDisabledForNativeDate() && (dialect.getDateTimestampType()!=null);
 	}
 
 	void invalidate(
