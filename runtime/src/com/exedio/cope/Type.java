@@ -1109,10 +1109,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		final LinkedHashMap<Field<?>, Object> fieldValues = executeCreate(setValues);
 
 		checkUniqueConstraints(null, fieldValues);
-
-		for(final CopyConstraint cc : copyConstraints.all)
-			cc.check(fieldValues);
-
+		checkCopyConstraints(fieldValues);
 		Item.checkSettables(null, setValues, fieldValues);
 
 		return fieldValues;
@@ -1131,6 +1128,12 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	{
 		for(final CheckConstraint cc : checkConstraints.all)
 			cc.check(item, entity, exceptionItem);
+	}
+
+	private void checkCopyConstraints(final LinkedHashMap<Field<?>, Object> fieldValues)
+	{
+		for(final CopyConstraint cc : copyConstraints.all)
+			cc.check(fieldValues);
 	}
 
 	long nextPrimaryKey()
