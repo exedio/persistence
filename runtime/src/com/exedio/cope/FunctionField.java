@@ -275,6 +275,12 @@ public abstract class FunctionField<E> extends Field<E>
 		return result;
 	}
 
+	@Override
+	public final E get(final FieldValues item)
+	{
+		return item.get(this);
+	}
+
 	@Wrap(order=20,
 			doc="Sets a new value for {0}.",
 			hide={FinalSettableGetter.class, RedundantByCopyConstraintGetter.class, PrimitiveGetter.class},

@@ -65,7 +65,7 @@ public final class IsNullCondition<E> extends Condition
 	}
 
 	@Override
-	Trilean getTri(final Item item)
+	Trilean getTri(final FieldValues item)
 	{
 		return Trilean.valueOf( (((Function<E>)function).get(item)==null) ^ not );
 	}

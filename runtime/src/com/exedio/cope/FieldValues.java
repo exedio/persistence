@@ -48,6 +48,12 @@ public final class FieldValues
 		setDirty(initialDirt);
 	}
 
+	FieldValues(final Item backingItem)
+	{
+		this.backingItem = backingItem;
+		this.backingType = backingItem.type;
+	}
+
 	private void setDirty(final SetValue<?>[] initialDirt)
 	{
 		for(final SetValue<?> dirt : initialDirt)

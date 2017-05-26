@@ -68,7 +68,7 @@ public final class CompareCondition<E> extends Condition
 	}
 
 	@Override
-	Trilean getTri(final Item item)
+	Trilean getTri(final FieldValues item)
 	{
 		return operator.evaluate(((Function<E>)left).get(item), right);
 	}

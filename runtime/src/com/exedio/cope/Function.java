@@ -25,6 +25,11 @@ public interface Function<E> extends Selectable<E>
 {
 	E get(Item item);
 
+	default E get(final FieldValues item)
+	{
+		return get(item.getBackingItem());
+	}
+
 	// convenience methods for conditions and views ---------------------------------
 
 	/**

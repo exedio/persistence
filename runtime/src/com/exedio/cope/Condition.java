@@ -35,7 +35,7 @@ public abstract class Condition implements Serializable
 		requireNonNull(item, "item");
 
 		supportsGetTri();
-		return getTri(item).applies;
+		return getTri(new FieldValues(item)).applies;
 	}
 
 	void supportsGetTri()
@@ -43,7 +43,7 @@ public abstract class Condition implements Serializable
 		// empty default implementation means condition does always support getTri
 	}
 
-	abstract Trilean getTri(@Nonnull Item item);
+	abstract Trilean getTri(@Nonnull FieldValues item);
 
 	abstract void check(TC tc);
 
@@ -98,7 +98,7 @@ public abstract class Condition implements Serializable
 		}
 
 		@Override
-		Trilean getTri(final Item item)
+		Trilean getTri(final FieldValues item)
 		{
 			return valueTri;
 		}

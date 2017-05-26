@@ -42,10 +42,10 @@ public final class CheckViolationException extends ConstraintViolationException
 	 * @throws NullPointerException if {@code constraint} is null.
 	 */
 	CheckViolationException(
-			final Item item,
+			final FieldValues item,
 			final CheckConstraint feature)
 	{
-		super(item, null);
+		super(item.getBackingItem(), null);
 		this.feature = feature;
 	}
 

@@ -49,7 +49,7 @@ public final class CharSetCondition extends Condition
 	}
 
 	@Override
-	Trilean getTri(final Item item)
+	Trilean getTri(final FieldValues item)
 	{
 		final String s = function.get(item);
 		if(s==null)

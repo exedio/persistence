@@ -193,7 +193,6 @@ public abstract class Item implements Serializable, Comparable<Item>
 
 		final Entity entity = getEntity(false);
 		entity.put(fieldValues);
-		type.checkCheckConstraints(this, entity, null);
 		entity.write(fieldValues.toBlobs());
 
 		type.getModel().changeHook.afterNew(this);
@@ -323,12 +322,12 @@ public abstract class Item implements Serializable, Comparable<Item>
 		final FieldValues fieldValues = new FieldValues(this, setValues);
 		type.executeCopyConstraints(fieldValues);
 		type.checkUniqueConstraints(fieldValues);
+		type.checkCheckConstraints(fieldValues);
 		type.checkCopyConstraints(fieldValues);
 		type.checkSettables(setValues, fieldValues);
 
 		final Entity entity = getEntity();
 		entity.put(fieldValues);
-		type.checkCheckConstraints(this, entity, this);
 		entity.write(fieldValues.toBlobs());
 	}
 

@@ -89,7 +89,7 @@ public final class CompositeCondition extends Condition
 	}
 
 	@Override
-	Trilean getTri(final Item item)
+	Trilean getTri(final FieldValues item)
 	{
 		final Trilean absorber = operator.absorber.valueTri;
 		Trilean resultWithoutAbsorber = operator.identity.valueTri;

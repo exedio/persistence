@@ -56,7 +56,7 @@ public final class LikeCondition extends Condition
 	}
 
 	@Override
-	Trilean getTri(final Item item)
+	Trilean getTri(final FieldValues item)
 	{
 		throw new RuntimeException(); // TODO
 		// once this method is implemented, implementation of #copy(CopyMapper) is needed to support blocks

@@ -95,11 +95,6 @@ final class Entity
 		return state.exists();
 	}
 
-	void discard()
-	{
-		state.discard(transaction);
-	}
-
 	/**
 	 * @deprecated for unit tests only
 	 */

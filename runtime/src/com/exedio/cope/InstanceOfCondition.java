@@ -152,7 +152,7 @@ public final class InstanceOfCondition<E extends Item> extends Condition
 	}
 
 	@Override
-	Trilean getTri(final Item item)
+	Trilean getTri(final FieldValues item)
 	{
 		final Item value = function.get(item);
 		if(value==null)

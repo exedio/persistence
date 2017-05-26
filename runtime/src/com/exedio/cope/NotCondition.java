@@ -57,7 +57,7 @@ public final class NotCondition extends Condition
 	}
 
 	@Override
-	Trilean getTri(final Item item)
+	Trilean getTri(final FieldValues item)
 	{
 		return argument.getTri(item).not();
 	}

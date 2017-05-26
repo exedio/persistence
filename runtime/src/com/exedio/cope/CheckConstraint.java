@@ -49,13 +49,10 @@ public final class CheckConstraint extends Feature implements Copyable
 		return condition;
 	}
 
-	void check(final Item item, final Entity entity, final Item exceptionItem)
+	void check(final FieldValues item)
 	{
 		if(condition.getTri(item)==Trilean.False)
-		{
-			entity.discard();
-			throw new CheckViolationException(exceptionItem, this);
-		}
+			throw new CheckViolationException(item, this);
 	}
 
 	void makeSchema(final Table table, final com.exedio.dsmf.Table dsmf)

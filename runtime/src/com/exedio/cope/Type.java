@@ -1000,6 +1000,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		final FieldValues fieldValues = executeCreate(setValues);
 
 		checkUniqueConstraints(fieldValues);
+		checkCheckConstraints(fieldValues);
 		checkCopyConstraints(fieldValues);
 		checkSettables(setValues, fieldValues);
 
@@ -1094,10 +1095,10 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 			uc.check(fieldValues);
 	}
 
-	void checkCheckConstraints(final Item item, final Entity entity, final Item exceptionItem)
+	void checkCheckConstraints(final FieldValues item)
 	{
 		for(final CheckConstraint cc : checkConstraints.all)
-			cc.check(item, entity, exceptionItem);
+			cc.check(item);
 	}
 
 	void checkCopyConstraints(final FieldValues fieldValues)
