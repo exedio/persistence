@@ -19,7 +19,7 @@
 package com.exedio.cope.pattern;
 
 import com.exedio.cope.ConstraintViolationException;
-import com.exedio.cope.Item;
+import com.exedio.cope.FieldValues;
 import com.exedio.cope.instrument.ConstructorComment;
 import com.exedio.cope.pattern.Money.Currency;
 
@@ -30,7 +30,7 @@ public final class IllegalCurrencyException extends ConstraintViolationException
 
 	static void check(
 			final MoneyField<?> feature,
-			final Item item,
+			final FieldValues item,
 			final Money<?> value,
 			final Currency allowed)
 	{
@@ -45,11 +45,11 @@ public final class IllegalCurrencyException extends ConstraintViolationException
 
 	private IllegalCurrencyException(
 			final MoneyField<?> feature,
-			final Item item,
+			final FieldValues item,
 			final Money<?> value,
 			final Currency allowed)
 	{
-		super(item, null);
+		super(item.getBackingItem(), null);
 		this.feature = feature;
 		this.value = value;
 		this.allowed = allowed;

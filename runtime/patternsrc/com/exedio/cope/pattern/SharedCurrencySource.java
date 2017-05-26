@@ -56,7 +56,7 @@ final class SharedCurrencySource<C extends Money.Currency> extends CurrencySourc
 	@Override
 	void check(final MoneyField<C> field, final Money<C> value, final FieldValues fieldValues)
 	{
-		IllegalCurrencyException.check(field, fieldValues.getBackingItem(), value,
+		IllegalCurrencyException.check(field, fieldValues, value,
 				fieldValues.get(currency));
 	}
 }

@@ -61,6 +61,6 @@ final class FixedCurrencySource<C extends Money.Currency> extends CurrencySource
 	@Override
 	void check(final MoneyField<C> field, final Money<C> value, final FieldValues fieldValues)
 	{
-		IllegalCurrencyException.check(field, fieldValues.getBackingItem(), value, currency);
+		IllegalCurrencyException.check(field, fieldValues, value, currency);
 	}
 }
