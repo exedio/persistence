@@ -39,6 +39,7 @@ import static java.lang.Integer.valueOf;
 import static java.lang.Long.valueOf;
 import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import com.exedio.cope.CompareConditionItem.YEnum;
 import com.exedio.cope.util.Day;
@@ -399,5 +400,22 @@ public class CompareConditionTest extends TestWithEnvironment
 			q.search()
 		);
 		assertEquals(6, q.total());
+	}
+
+	@Test public void testGetAggregate()
+	{
+		final CompareConditionItem item = new CompareConditionItem(null, null, null, null, null, null, null);
+		final Condition c = day.max().greater(new Day(2008,3,14));
+		try
+		{
+			c.get(item);
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals(
+					"not supported for non-function: max(CompareConditionItem.day) on " + item,
+					e.getMessage());
+		}
 	}
 }

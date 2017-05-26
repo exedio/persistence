@@ -187,22 +187,6 @@ public class QuerySelectTest
 		assertEquals("select this from AnItem", q.toString());
 	}
 
-	@Test public void testGetAggregate()
-	{
-		final Condition c = field1.max().greater(new Day(2008,3,14));
-		try
-		{
-			c.get(null);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals(
-					"not supported for non-function: max(AnItem.field1) on null",
-					e.getMessage());
-		}
-	}
-
 	@com.exedio.cope.instrument.WrapperIgnore // TODO use import, but this is not accepted by javac
 	static final class AnItem extends Item
 	{
