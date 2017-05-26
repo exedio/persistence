@@ -1072,12 +1072,15 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		return fieldValues;
 	}
 
-	private void executeCopyConstraints(final FieldValues fieldValues)
+	void executeCopyConstraints(final FieldValues fieldValues)
 	{
 		for(final Map.Entry<FunctionField<?>,List<CopyConstraint>> e : copyConstraintsByCopy.entrySet())
 		{
 			final FunctionField<?> copy = e.getKey();
 			if(fieldValues.isDirty(copy))
+				continue;
+			// do not touch final fields when changing item
+			if(fieldValues.getBackingItem()!=null && copy.isFinal())
 				continue;
 
 			Object value = null;
@@ -1126,7 +1129,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 			cc.check(item, entity, exceptionItem);
 	}
 
-	private void checkCopyConstraints(final FieldValues fieldValues)
+	void checkCopyConstraints(final FieldValues fieldValues)
 	{
 		for(final CopyConstraint cc : copyConstraints.all)
 			cc.check(fieldValues);

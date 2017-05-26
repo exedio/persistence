@@ -437,7 +437,7 @@ public final class DateField extends FunctionField<Date>
 
 	@Wrap(order=4,
 			doc="Sets a new value for {0}, but rounds it before according to the precision of the field.",
-			hide={FinalSettableGetter.class, PrecisionConstrainsGetter.class, RoundingModeUnnecessaryGetter.class},
+			hide={FinalSettableGetter.class, RedundantByCopyConstraintGetter.class, PrecisionConstrainsGetter.class, RoundingModeUnnecessaryGetter.class},
 			thrownGetter=InitialThrownRounded.class)
 	public void setRounded(
 			@Nonnull final Item item,
@@ -448,7 +448,7 @@ public final class DateField extends FunctionField<Date>
 
 	@Wrap(order=5,
 			doc="Sets a new value for {0}, but rounds it before according to the precision of the field.",
-			hide={FinalSettableGetter.class, PrecisionConstrainsGetter.class},
+			hide={FinalSettableGetter.class, RedundantByCopyConstraintGetter.class, PrecisionConstrainsGetter.class},
 			thrownGetter=InitialThrown.class)
 	public void setRounded(
 			@Nonnull final Item item,
@@ -488,7 +488,7 @@ public final class DateField extends FunctionField<Date>
 	 */
 	@Wrap(order=10,
 			doc="Sets the current date for the date field {0}.", // TODO better text
-			hide={FinalSettableGetter.class, TouchGetter.class})
+			hide={FinalSettableGetter.class, RedundantByCopyConstraintGetter.class, TouchGetter.class})
 	public void touch(@Nonnull final Item item)
 	{
 		set(item, precision.round(Clock.newDate(), roundingMode, this, item)); // TODO: make a more efficient implementation

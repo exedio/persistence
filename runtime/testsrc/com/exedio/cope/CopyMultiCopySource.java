@@ -20,15 +20,17 @@ package com.exedio.cope;
 
 import static com.exedio.cope.instrument.Visibility.PRIVATE;
 
+import com.exedio.cope.instrument.WrapperInitial;
 import com.exedio.cope.instrument.WrapperType;
 
 @WrapperType(constructor=PRIVATE)
 final class CopyMultiCopySource extends Item
 {
-	static final StringField copyA = new StringField().toFinal().optional();
-	static final StringField copyB = new StringField().toFinal().optional();
+	@WrapperInitial static final StringField copyA = new StringField().optional();
+	@WrapperInitial static final StringField copyB = new StringField().optional();
 
-	static final ItemField<CopyMultiCopyTarget> target = ItemField.create(CopyMultiCopyTarget.class).toFinal().optional().copyTo(copyA).copyTo(copyB);
+	@WrapperInitial
+	static final ItemField<CopyMultiCopyTarget> target = ItemField.create(CopyMultiCopyTarget.class).optional().copyTo(copyA).copyTo(copyB);
 
 
 	static CopyMultiCopySource createAB(
@@ -77,6 +79,44 @@ final class CopyMultiCopySource extends Item
 		);
 	}
 
+	void setCopyA(
+			final String copyA,
+			final CopyMultiCopyTarget target)
+	{
+		set(
+				CopyMultiCopySource.copyA.map(copyA),
+				CopyMultiCopySource.target.map(target));
+	}
+
+	void setCopyB(
+			final String copyB,
+			final CopyMultiCopyTarget target)
+	{
+		set(
+				CopyMultiCopySource.copyB.map(copyB),
+				CopyMultiCopySource.target.map(target));
+	}
+
+	void setCopyAB(
+			final String copyA,
+			final String copyB)
+	{
+		set(
+				CopyMultiCopySource.copyA.map(copyA),
+				CopyMultiCopySource.copyB.map(copyB));
+	}
+
+	void setCopyAB(
+			final String copyA,
+			final String copyB,
+			final CopyMultiCopyTarget target)
+	{
+		set(
+				CopyMultiCopySource.copyA.map(copyA),
+				CopyMultiCopySource.copyB.map(copyB),
+				CopyMultiCopySource.target.map(target));
+	}
+
 
 	/**
 	 * Creates a new CopyMultiCopySource with all the fields initially needed.
@@ -120,6 +160,17 @@ final class CopyMultiCopySource extends Item
 	}
 
 	/**
+	 * Sets a new value for {@link #copyA}.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	final void setCopyA(@javax.annotation.Nullable final java.lang.String copyA)
+			throws
+				com.exedio.cope.StringLengthViolationException
+	{
+		CopyMultiCopySource.copyA.set(this,copyA);
+	}
+
+	/**
 	 * Returns the value of {@link #copyB}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -130,6 +181,17 @@ final class CopyMultiCopySource extends Item
 	}
 
 	/**
+	 * Sets a new value for {@link #copyB}.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	final void setCopyB(@javax.annotation.Nullable final java.lang.String copyB)
+			throws
+				com.exedio.cope.StringLengthViolationException
+	{
+		CopyMultiCopySource.copyB.set(this,copyB);
+	}
+
+	/**
 	 * Returns the value of {@link #target}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -137,6 +199,15 @@ final class CopyMultiCopySource extends Item
 	final CopyMultiCopyTarget getTarget()
 	{
 		return CopyMultiCopySource.target.get(this);
+	}
+
+	/**
+	 * Sets a new value for {@link #target}.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	final void setTarget(@javax.annotation.Nullable final CopyMultiCopyTarget target)
+	{
+		CopyMultiCopySource.target.set(this,target);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument")

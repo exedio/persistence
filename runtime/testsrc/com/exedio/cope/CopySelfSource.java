@@ -18,9 +18,12 @@
 
 package com.exedio.cope;
 
+import com.exedio.cope.instrument.WrapperInitial;
+
 final class CopySelfSource extends Item
 {
-	static final ItemField<CopySelfSource> selfTarget = ItemField.create(CopySelfSource.class).toFinal().optional();
+	@WrapperInitial
+	static final ItemField<CopySelfSource> selfTarget = ItemField.create(CopySelfSource.class).optional();
 	static final ItemField<CopyValue> selfTemplate = ItemField.create(CopyValue.class).toFinal().optional().copyFrom(selfTarget);
 
 	@Override
@@ -82,6 +85,15 @@ final class CopySelfSource extends Item
 	final CopySelfSource getSelfTarget()
 	{
 		return CopySelfSource.selfTarget.get(this);
+	}
+
+	/**
+	 * Sets a new value for {@link #selfTarget}.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	final void setSelfTarget(@javax.annotation.Nullable final CopySelfSource selfTarget)
+	{
+		CopySelfSource.selfTarget.set(this,selfTarget);
 	}
 
 	/**

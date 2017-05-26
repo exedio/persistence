@@ -226,7 +226,7 @@ public final class LongField extends NumberField<Long>
 
 	@Wrap(order=20,
 			doc="Sets a new value for {0}.",
-			hide={FinalSettableGetter.class, OptionalGetter.class},
+			hide={FinalSettableGetter.class, RedundantByCopyConstraintGetter.class, OptionalGetter.class},
 			thrownGetter=InitialThrown.class)
 	public void set(@Nonnull final Item item, final long value)
 	{

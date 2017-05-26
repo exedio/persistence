@@ -265,7 +265,7 @@ public abstract class FunctionField<E> extends Field<E>
 
 	@Wrap(order=20,
 			doc="Sets a new value for {0}.",
-			hide={FinalSettableGetter.class, PrimitiveGetter.class},
+			hide={FinalSettableGetter.class, RedundantByCopyConstraintGetter.class, PrimitiveGetter.class},
 			thrownGetter=InitialThrown.class)
 	@Override
 	public final void set(@Nonnull final Item item, @Parameter(nullability=NullableIfOptional.class) final E value)

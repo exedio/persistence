@@ -23,6 +23,7 @@ import static com.exedio.cope.CopySimpleModelTest.templateItemCopyFromTarget;
 import static com.exedio.cope.CopySimpleModelTest.templateStringCopyFromTarget;
 import static com.exedio.cope.CopySimpleSource.TYPE;
 import static com.exedio.cope.CopySimpleSource.assertBeforeNewCopeItem;
+import static com.exedio.cope.CopySimpleSource.assertBeforeSetCopeItem;
 import static com.exedio.cope.tojunit.Assert.assertContains;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
@@ -111,7 +112,7 @@ public class CopySimpleTest extends TestWithEnvironment
 		check();
 	}
 
-	@Test public void testWrongString()
+	@Test public void testWrongStringCreate()
 	{
 		final CopyValue value = new CopyValue();
 		final CopySimpleTarget target = new CopySimpleTarget("template2", "otherString2", value, new CopyValue());
@@ -135,6 +136,126 @@ public class CopySimpleTest extends TestWithEnvironment
 				CopySimpleSource.templateItem.map(value));
 
 		assertContains(TYPE.search());
+		check();
+	}
+
+	@Test public void testWrongStringSetCopy()
+	{
+		final CopyValue value = new CopyValue();
+		final CopySimpleTarget target = new CopySimpleTarget("template2", "otherString2", value, new CopyValue());
+		final CopySimpleSource source = new CopySimpleSource(target, "template2", value);
+		assertBeforeNewCopeItem(
+				CopySimpleSource.targetItem.map(target),
+				CopySimpleSource.templateString.map("template2"),
+				CopySimpleSource.templateItem.map(value));
+		try
+		{
+			source.setTemplateString("template1");
+			fail();
+		}
+		catch(final CopyViolationException e)
+		{
+			assertFails(
+					templateStringCopyFromTarget, source, "template2", "template1", target,
+					"copy violation on " + templateStringCopyFromTarget + ", " +
+					"expected 'template2' " +
+					"from target " + target.getCopeID() + ", " +
+					"but was 'template1'", e);
+		}
+		assertBeforeSetCopeItem(source,
+				CopySimpleSource.templateString.map("template1"));
+		assertEquals("template2", source.getTemplateString());
+		check();
+	}
+
+	@Test public void testWrongStringSetTarget()
+	{
+		final CopyValue value1 = new CopyValue();
+		final CopySimpleTarget target1 = new CopySimpleTarget("template1", "otherString1", value1, new CopyValue());
+		final CopySimpleSource source = new CopySimpleSource(target1, "template1", value1);
+		assertBeforeNewCopeItem(
+				CopySimpleSource.targetItem.map(target1),
+				CopySimpleSource.templateString.map("template1"),
+				CopySimpleSource.templateItem.map(value1));
+		assertEquals(target1, source.getTargetItem());
+		assertEquals("template1", source.getTemplateString());
+		assertEquals(value1, source.getTemplateItem());
+		check();
+
+		final CopyValue value2 = new CopyValue();
+		final CopySimpleTarget target2 = new CopySimpleTarget("template2", "otherString2", value2, new CopyValue());
+		source.setTargetItem(target2);
+		// wrong string is automatically fixed by cope when setting target
+		assertBeforeSetCopeItem(source,
+				CopySimpleSource.targetItem.map(target2));
+		assertEquals(target2, source.getTargetItem());
+		assertEquals("template2", source.getTemplateString());
+		assertEquals(value2, source.getTemplateItem());
+		check();
+	}
+
+	@Test public void testOkStringSetCopyAndTarget()
+	{
+		final CopyValue value1 = new CopyValue();
+		final CopySimpleTarget target1 = new CopySimpleTarget("template1", "otherString1", value1, new CopyValue());
+		final CopySimpleSource source = new CopySimpleSource(target1, "template1", value1);
+		assertBeforeNewCopeItem(
+				CopySimpleSource.targetItem.map(target1),
+				CopySimpleSource.templateString.map("template1"),
+				CopySimpleSource.templateItem.map(value1));
+		assertEquals(target1, source.getTargetItem());
+		assertEquals("template1", source.getTemplateString());
+		assertEquals(value1, source.getTemplateItem());
+		check();
+
+		final CopyValue value2 = new CopyValue();
+		final CopySimpleTarget target2 = new CopySimpleTarget("template2", "otherString2", value2, new CopyValue());
+		source.setTemplateStringAndTargetItem("template2", target2);
+		assertBeforeSetCopeItem(source,
+				CopySimpleSource.templateString.map("template2"),
+				CopySimpleSource.targetItem.map(target2));
+		assertEquals(target2, source.getTargetItem());
+		assertEquals("template2", source.getTemplateString());
+		assertEquals(value2, source.getTemplateItem());
+		check();
+	}
+
+	@Test public void testWrongStringSetCopyAndTarget()
+	{
+		final CopyValue value1 = new CopyValue();
+		final CopySimpleTarget target1 = new CopySimpleTarget("template1", "otherString1", value1, new CopyValue());
+		final CopySimpleSource source = new CopySimpleSource(target1, "template1", value1);
+		assertBeforeNewCopeItem(
+				CopySimpleSource.targetItem.map(target1),
+				CopySimpleSource.templateString.map("template1"),
+				CopySimpleSource.templateItem.map(value1));
+		assertEquals(target1, source.getTargetItem());
+		assertEquals("template1", source.getTemplateString());
+		assertEquals(value1, source.getTemplateItem());
+		check();
+
+		final CopyValue value2 = new CopyValue();
+		final CopySimpleTarget target2 = new CopySimpleTarget("template2", "otherString2", value2, new CopyValue());
+		try
+		{
+			source.setTemplateStringAndTargetItem("template1", target2);
+			fail();
+		}
+		catch(final CopyViolationException e)
+		{
+			assertFails(
+					templateStringCopyFromTarget, source, "template2", "template1", target2,
+					"copy violation on " + templateStringCopyFromTarget + ", " +
+					"expected 'template2' " +
+					"from target " + target2.getCopeID() + ", " +
+					"but was 'template1'", e);
+		}
+		assertBeforeSetCopeItem(source,
+				CopySimpleSource.templateString.map("template1"),
+				CopySimpleSource.targetItem.map(target2));
+		assertEquals(target1, source.getTargetItem());
+		assertEquals("template1", source.getTemplateString());
+		assertEquals(value1, source.getTemplateItem());
 		check();
 	}
 
@@ -288,6 +409,14 @@ public class CopySimpleTest extends TestWithEnvironment
 
 		assertContains(source, TYPE.search());
 		check();
+
+		final CopySimpleTarget target2 = new CopySimpleTarget("template2", "otherString2", value, new CopyValue());
+		source.setTargetItem(target2);
+		assertBeforeSetCopeItem(source,
+				CopySimpleSource.targetItem.map(target2));
+		assertEquals(target2, source.getTargetItem());
+		assertEquals("template2", source.getTemplateString());
+		assertEquals(value, source.getTemplateItem());
 	}
 
 	@Test public void testOkStringOmittedTarget()
@@ -344,8 +473,20 @@ public class CopySimpleTest extends TestWithEnvironment
 			final String message,
 			final CopyViolationException actual)
 	{
+		assertFails(feature, null, expectedValue, actualValue, targetItem, message, actual);
+	}
+
+	static <E> void assertFails(
+			final CopyConstraint feature,
+			final Item item,
+			final E expectedValue,
+			final E actualValue,
+			final Item targetItem,
+			final String message,
+			final CopyViolationException actual)
+	{
 		assertSame  ("feature", feature, actual.getFeature());
-		assertEquals("item", null, actual.getItem());
+		assertEquals("item", item, actual.getItem());
 		assertEquals("expectedValue", expectedValue, actual.getExpectedValue());
 		assertEquals("actualValue", actualValue, actual.getActualValue());
 		assertEquals("targetItem", targetItem, actual.getTargetItem());

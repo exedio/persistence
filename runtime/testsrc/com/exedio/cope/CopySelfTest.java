@@ -48,6 +48,12 @@ public class CopySelfTest extends TestWithEnvironment
 		assertEquals(self, source.getSelfTarget());
 		assertEquals(value, source.getSelfTemplate());
 		check();
+
+		final CopySelfSource sourceSet = new CopySelfSource(self, value);
+		source.setSelfTarget(sourceSet);
+		assertEquals(sourceSet, source.getSelfTarget());
+		assertEquals(value, source.getSelfTemplate());
+		check();
 	}
 
 	@Test public void testOkNullValue()
@@ -94,6 +100,8 @@ public class CopySelfTest extends TestWithEnvironment
 
 		assertContains(target, TYPE.search());
 		check();
+
+		// testing setter not needed as selfTemplate is final
 	}
 
 	@Test public void testWrongNullCopy()
@@ -153,6 +161,27 @@ public class CopySelfTest extends TestWithEnvironment
 
 		assertContains(target, source, TYPE.search());
 		check();
+
+		final CopyValue valueSet = new CopyValue();
+		final CopySelfSource targetSet = new CopySelfSource((CopySelfSource)null, valueSet);
+		try
+		{
+			source.setSelfTarget(targetSet);
+			fail();
+		}
+		catch(final CopyViolationException e)
+		{
+			// failure is ok, as selfTemplate is final and therefore cannot be set consistent to targetSet
+			assertFails(
+					selfTemplateCopyFromTarget, source, valueSet, value, targetSet,
+					"copy violation on " + selfTemplateCopyFromTarget + ", " +
+					"expected '" + valueSet.getCopeID() + "' " +
+					"from target " + targetSet.getCopeID() + ", " +
+					"but was '" + value.getCopeID() + "'", e);
+		}
+		assertEquals(target, source.getSelfTarget());
+		assertEquals(value, source.getSelfTemplate());
+		check();
 	}
 
 	@Test public void testOkOmittedTarget()
@@ -165,6 +194,8 @@ public class CopySelfTest extends TestWithEnvironment
 
 		assertContains(source, TYPE.search());
 		check();
+
+		// testing setter not needed as selfTemplate is final
 	}
 
 	@Test public void testOkOmittedAll()

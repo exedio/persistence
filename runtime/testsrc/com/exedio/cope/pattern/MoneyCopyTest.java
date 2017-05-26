@@ -32,6 +32,7 @@ import com.exedio.cope.ItemField;
 import com.exedio.cope.Model;
 import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.instrument.Wrapper;
+import com.exedio.cope.instrument.WrapperInitial;
 import com.exedio.cope.instrument.WrapperType;
 import org.junit.Test;
 
@@ -50,6 +51,13 @@ public class MoneyCopyTest extends TestWithEnvironment
 		assertEquals(euro, source.getCurrency());
 		assertEquals(valueOf(4.44, euro), source.getFixed());
 		assertEquals(valueOf(5.55, euro), source.getShared());
+
+		final Target targetSet = new Target(pounds);
+		source.setShared(targetSet, pounds, valueOf(6.66, pounds));
+		assertEquals(targetSet, source.getTarget());
+		assertEquals(pounds, source.getCurrency());
+		assertEquals(valueOf(4.44, euro), source.getFixed());
+		assertEquals(valueOf(6.66, pounds), source.getShared());
 	}
 
 	@Test public void testProvideAllWrongFixed()
@@ -92,6 +100,46 @@ public class MoneyCopyTest extends TestWithEnvironment
 		assertEquals(euro, source.getCurrency());
 		assertEquals(valueOf(4.44, euro), source.getFixed());
 		assertEquals(valueOf(5.55, euro), source.getShared());
+
+		final Target targetSet = new Target(pounds);
+		source.setShared(targetSet, valueOf(6.66, pounds));
+		assertEquals(targetSet, source.getTarget());
+		assertEquals(pounds, source.getCurrency());
+		assertEquals(valueOf(4.44, euro), source.getFixed());
+		assertEquals(valueOf(6.66, pounds), source.getShared());
+
+		source.setTarget(target);
+		assertEquals(target, source.getTarget());
+		assertEquals(euro, source.getCurrency());
+		assertEquals(valueOf(4.44, euro), source.getFixed());
+		assertEquals(valueOf(6.66, euro), source.getShared());
+	}
+
+	@Test public void testOmitCopyWrong()
+	{
+		final Target target = new Target(euro);
+		final Source source = Source.create(target, valueOf(4.44, euro), valueOf(5.55, euro));
+		assertEquals(target, source.getTarget());
+		assertEquals(euro, source.getCurrency());
+		assertEquals(valueOf(4.44, euro), source.getFixed());
+		assertEquals(valueOf(5.55, euro), source.getShared());
+
+		final Target targetSet = new Target(pounds);
+		try
+		{
+			source.setShared(targetSet, valueOf(6.66, euro));
+			fail();
+		}
+		catch(final IllegalCurrencyException e)
+		{
+			assertEquals(
+					"illegal currency at '6.66euro' on " + source + " for Source.shared, allowed is 'pounds'.",
+					e.getMessage());
+		}
+		assertEquals(target, source.getTarget());
+		assertEquals(euro, source.getCurrency());
+		assertEquals(valueOf(4.44, euro), source.getFixed());
+		assertEquals(valueOf(5.55, euro), source.getShared());
 	}
 
 	@Test public void testOmitTarget()
@@ -101,15 +149,22 @@ public class MoneyCopyTest extends TestWithEnvironment
 		assertEquals(euro, source.getCurrency());
 		assertEquals(valueOf(4.44, euro), source.getFixed());
 		assertEquals(valueOf(5.55, euro), source.getShared());
+
+		source.setShared(pounds, valueOf(6.66, pounds));
+		assertEquals(null, source.getTarget());
+		assertEquals(pounds, source.getCurrency());
+		assertEquals(valueOf(4.44, euro), source.getFixed());
+		assertEquals(valueOf(6.66, pounds), source.getShared());
 	}
 
 
 	@WrapperType(constructor=PRIVATE, indent=2)
 	static final class Source extends Item
 	{
-		static final ItemField<Target> target = ItemField.create(Target.class).toFinal().optional();
+		@WrapperInitial
+		static final ItemField<Target> target = ItemField.create(Target.class).optional();
 
-		static final EnumField<Currency> currency = EnumField.create(Currency.class).toFinal().copyFrom(target);
+		static final EnumField<Currency> currency = EnumField.create(Currency.class).copyFrom(target);
 
 		@SuppressWarnings("UnnecessarilyQualifiedStaticallyImportedElement") // TODO instrumentor does not support static imports
 		static final MoneyField<Currency> fixed  = MoneyField.fixed(Currency.euro);
@@ -144,6 +199,35 @@ public class MoneyCopyTest extends TestWithEnvironment
 			return new Source(
 					Source.currency.map(currency),
 					Source.fixed.map(fixed),
+					Source.shared.map(shared));
+		}
+
+		void setShared(
+				final Target target,
+				final Money<Currency> shared)
+		{
+			set(
+					Source.target.map(target),
+					Source.shared.map(shared));
+		}
+
+		void setShared(
+				final Currency currency,
+				final Money<Currency> shared)
+		{
+			set(
+					Source.currency.map(currency),
+					Source.shared.map(shared));
+		}
+
+		void setShared(
+				final Target target,
+				final Currency currency,
+				final Money<Currency> shared)
+		{
+			set(
+					Source.target.map(target),
+					Source.currency.map(currency),
 					Source.shared.map(shared));
 		}
 
@@ -193,6 +277,15 @@ public class MoneyCopyTest extends TestWithEnvironment
 		}
 
 		/**
+		 * Sets a new value for {@link #target}.
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+		final void setTarget(@javax.annotation.Nullable final Target target)
+		{
+			Source.target.set(this,target);
+		}
+
+		/**
 		 * Returns the value of {@link #currency}.
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -200,6 +293,17 @@ public class MoneyCopyTest extends TestWithEnvironment
 		final Currency getCurrency()
 		{
 			return Source.currency.get(this);
+		}
+
+		/**
+		 * Sets a new value for {@link #currency}.
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+		final void setCurrency(@javax.annotation.Nonnull final Currency currency)
+				throws
+					com.exedio.cope.MandatoryViolationException
+		{
+			Source.currency.set(this,currency);
 		}
 
 		/**

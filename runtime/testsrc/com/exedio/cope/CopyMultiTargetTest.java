@@ -46,6 +46,13 @@ public class CopyMultiTargetTest extends TestWithEnvironment
 		assertEquals(targetB, source.getTargetB());
 		assertEquals("targetValue", source.getCopy());
 		assertContains(source, TYPE.search());
+
+		final CopyMultiTargetA targetAset = new CopyMultiTargetA("targetValueSet");
+		final CopyMultiTargetB targetBset = new CopyMultiTargetB("targetValueSet");
+		source.setTargetABandCopy(targetAset, targetBset, "targetValueSet");
+		assertEquals(targetAset, source.getTargetA());
+		assertEquals(targetBset, source.getTargetB());
+		assertEquals("targetValueSet", source.getCopy());
 	}
 
 	@Test public void testOkNullValue()
@@ -71,6 +78,12 @@ public class CopyMultiTargetTest extends TestWithEnvironment
 		assertEquals(targetB, source.getTargetB());
 		assertEquals("targetValue", source.getCopy());
 		assertContains(source, TYPE.search());
+
+		final CopyMultiTargetB targetBset = new CopyMultiTargetB("targetValueSet");
+		source.setTargetBandCopy(targetBset, "targetValueSet");
+		assertEquals(null, source.getTargetA());
+		assertEquals(targetBset, source.getTargetB());
+		assertEquals("targetValueSet", source.getCopy());
 	}
 
 	@Test public void testOkNullTargetAB()
@@ -82,9 +95,14 @@ public class CopyMultiTargetTest extends TestWithEnvironment
 		assertEquals(null, source.getTargetB());
 		assertEquals("targetValue", source.getCopy());
 		assertContains(source, TYPE.search());
+
+		source.setCopy("targetValueSet");
+		assertEquals(null, source.getTargetA());
+		assertEquals(null, source.getTargetB());
+		assertEquals("targetValueSet", source.getCopy());
 	}
 
-	@Test public void testWrongA()
+	@Test public void testWrongAcreate()
 	{
 		final CopyMultiTargetA targetA = new CopyMultiTargetA("targetValueAx");
 		final CopyMultiTargetB targetB = new CopyMultiTargetB("targetValue");
@@ -105,7 +123,37 @@ public class CopyMultiTargetTest extends TestWithEnvironment
 		assertContains(TYPE.search());
 	}
 
-	@Test public void testWrongB()
+	@Test public void testWrongAset()
+	{
+		final CopyMultiTargetA targetA = new CopyMultiTargetA("targetValue");
+		final CopyMultiTargetB targetB = new CopyMultiTargetB("targetValue");
+
+		final CopyMultiTargetSource source = new CopyMultiTargetSource(targetA, targetB, "targetValue");
+		assertEquals(targetA, source.getTargetA());
+		assertEquals(targetB, source.getTargetB());
+		assertEquals("targetValue", source.getCopy());
+
+		final CopyMultiTargetA targetAx = new CopyMultiTargetA("targetValueAx");
+		try
+		{
+			source.setTargetA(targetAx);
+			fail();
+		}
+		catch(final CopyViolationException e)
+		{
+			assertFails(
+					constraintA, source, "targetValueAx", "targetValue", targetAx,
+					"copy violation on " + constraintA + ", " +
+					"expected 'targetValueAx' " +
+					"from target " + targetAx.getCopeID() + ", " +
+					"but was 'targetValue'", e);
+		}
+		assertEquals(targetA, source.getTargetA());
+		assertEquals(targetB, source.getTargetB());
+		assertEquals("targetValue", source.getCopy());
+	}
+
+	@Test public void testWrongBcreate()
 	{
 		final CopyMultiTargetA targetA = new CopyMultiTargetA("targetValue");
 		final CopyMultiTargetB targetB = new CopyMultiTargetB("targetValueBx");
@@ -126,7 +174,37 @@ public class CopyMultiTargetTest extends TestWithEnvironment
 		assertContains(TYPE.search());
 	}
 
-	@Test public void testWrongAB()
+	@Test public void testWrongBset()
+	{
+		final CopyMultiTargetA targetA = new CopyMultiTargetA("targetValue");
+		final CopyMultiTargetB targetB = new CopyMultiTargetB("targetValue");
+
+		final CopyMultiTargetSource source = new CopyMultiTargetSource(targetA, targetB, "targetValue");
+		assertEquals(targetA, source.getTargetA());
+		assertEquals(targetB, source.getTargetB());
+		assertEquals("targetValue", source.getCopy());
+
+		final CopyMultiTargetB targetBx = new CopyMultiTargetB("targetValueBx");
+		try
+		{
+			source.setTargetB(targetBx);
+			fail();
+		}
+		catch(final CopyViolationException e)
+		{
+			assertFails(
+					constraintB, source, "targetValueBx", "targetValue", targetBx,
+					"copy violation on " + constraintB + ", " +
+					"expected 'targetValueBx' " +
+					"from target " + targetBx.getCopeID() + ", " +
+					"but was 'targetValue'", e);
+		}
+		assertEquals(targetA, source.getTargetA());
+		assertEquals(targetB, source.getTargetB());
+		assertEquals("targetValue", source.getCopy());
+	}
+
+	@Test public void testWrongABcreate()
 	{
 		final CopyMultiTargetA targetA = new CopyMultiTargetA("targetValueAx");
 		final CopyMultiTargetB targetB = new CopyMultiTargetB("targetValueBx");
@@ -145,6 +223,37 @@ public class CopyMultiTargetTest extends TestWithEnvironment
 					"but was 'targetValue'", e);
 		}
 		assertContains(TYPE.search());
+	}
+
+	@Test public void testWrongABset()
+	{
+		final CopyMultiTargetA targetA = new CopyMultiTargetA("targetValue");
+		final CopyMultiTargetB targetB = new CopyMultiTargetB("targetValue");
+
+		final CopyMultiTargetSource source = new CopyMultiTargetSource(targetA, targetB, "targetValue");
+		assertEquals(targetA, source.getTargetA());
+		assertEquals(targetB, source.getTargetB());
+		assertEquals("targetValue", source.getCopy());
+
+		final CopyMultiTargetA targetAset = new CopyMultiTargetA("targetValueAx");
+		final CopyMultiTargetB targetBset = new CopyMultiTargetB("targetValueBx");
+		try
+		{
+			source.setTargetAB(targetAset, targetBset);
+			fail();
+		}
+		catch(final CopyViolationException e)
+		{
+			assertFails(
+					constraintA, source, "targetValueAx", "targetValue", targetAset,
+					"copy violation on " + constraintA + ", " +
+					"expected 'targetValueAx' " +
+					"from target " + targetAset.getCopeID() + ", " +
+					"but was 'targetValue'", e);
+		}
+		assertEquals(targetA, source.getTargetA());
+		assertEquals(targetB, source.getTargetB());
+		assertEquals("targetValue", source.getCopy());
 	}
 
 	@Test public void testWrongNullTargetA()
@@ -176,6 +285,12 @@ public class CopyMultiTargetTest extends TestWithEnvironment
 		assertEquals(null, source.getTargetB());
 		assertEquals("targetValue", source.getCopy());
 		assertContains(source, TYPE.search());
+
+		final CopyMultiTargetA targetAset = new CopyMultiTargetA("targetValueSet");
+		source.setTargetAandCopy(targetAset, "targetValueSet");
+		assertEquals(targetAset, source.getTargetA());
+		assertEquals(null, source.getTargetB());
+		assertEquals("targetValueSet", source.getCopy());
 	}
 
 	@Test public void testOkOmittedCopyAndTargetA()
@@ -187,6 +302,12 @@ public class CopyMultiTargetTest extends TestWithEnvironment
 		assertEquals(null, source.getTargetB());
 		assertEquals("targetValue", source.getCopy());
 		assertContains(source, TYPE.search());
+
+		final CopyMultiTargetA targetAset = new CopyMultiTargetA("targetValueSet");
+		source.setTargetA(targetAset);
+		assertEquals(targetAset, source.getTargetA());
+		assertEquals(null, source.getTargetB());
+		assertEquals("targetValueSet", source.getCopy());
 	}
 
 	@Test public void testOkOmittedCopyB()
@@ -198,6 +319,12 @@ public class CopyMultiTargetTest extends TestWithEnvironment
 		assertEquals(targetB, source.getTargetB());
 		assertEquals("targetValue", source.getCopy());
 		assertContains(source, TYPE.search());
+
+		final CopyMultiTargetB targetBset = new CopyMultiTargetB("targetValueSet");
+		source.setTargetBandCopy(targetBset, "targetValueSet");
+		assertEquals(null, source.getTargetA());
+		assertEquals(targetBset, source.getTargetB());
+		assertEquals("targetValueSet", source.getCopy());
 	}
 
 	@Test public void testOkOmittedCopyAndTargetB()
@@ -209,6 +336,12 @@ public class CopyMultiTargetTest extends TestWithEnvironment
 		assertEquals(targetB, source.getTargetB());
 		assertEquals("targetValue", source.getCopy());
 		assertContains(source, TYPE.search());
+
+		final CopyMultiTargetB targetBset = new CopyMultiTargetB("targetValueSet");
+		source.setTargetB(targetBset);
+		assertEquals(null, source.getTargetA());
+		assertEquals(targetBset, source.getTargetB());
+		assertEquals("targetValueSet", source.getCopy());
 	}
 
 	@Test public void testOkOmittedCopyAB()
@@ -221,6 +354,13 @@ public class CopyMultiTargetTest extends TestWithEnvironment
 		assertEquals(targetB, source.getTargetB());
 		assertEquals("targetValue", source.getCopy());
 		assertContains(source, TYPE.search());
+
+		final CopyMultiTargetA targetAset = new CopyMultiTargetA("targetValueSet");
+		final CopyMultiTargetB targetBset = new CopyMultiTargetB("targetValueSet");
+		source.setTargetAB(targetAset, targetBset);
+		assertEquals(targetAset, source.getTargetA());
+		assertEquals(targetBset, source.getTargetB());
+		assertEquals("targetValueSet", source.getCopy());
 	}
 
 	@Test public void testOkOmittedCopyAndTargetAB()
@@ -232,7 +372,7 @@ public class CopyMultiTargetTest extends TestWithEnvironment
 		assertContains(source, TYPE.search());
 	}
 
-	@Test public void testWrongOmittedCopyABCollide()
+	@Test public void testWrongOmittedCopyABCollideCreate()
 	{
 		final CopyMultiTargetA targetA = new CopyMultiTargetA("targetValueAx");
 		final CopyMultiTargetB targetB = new CopyMultiTargetB("targetValueBx");
@@ -251,5 +391,36 @@ public class CopyMultiTargetTest extends TestWithEnvironment
 					"but was null", e);
 		}
 		assertContains(TYPE.search());
+	}
+
+	@Test public void testWrongOmittedCopyABCollideSet()
+	{
+		final CopyMultiTargetA targetA = new CopyMultiTargetA("targetValue");
+		final CopyMultiTargetB targetB = new CopyMultiTargetB("targetValue");
+
+		final CopyMultiTargetSource source = CopyMultiTargetSource.omitCopy(targetA, targetB);
+		assertEquals(targetA, source.getTargetA());
+		assertEquals(targetB, source.getTargetB());
+		assertEquals("targetValue", source.getCopy());
+
+		final CopyMultiTargetA targetAset = new CopyMultiTargetA("targetValueAx");
+		final CopyMultiTargetB targetBset = new CopyMultiTargetB("targetValueBx");
+		try
+		{
+			source.setTargetAB(targetAset, targetBset);
+			fail();
+		}
+		catch(final CopyViolationException e)
+		{
+			assertFails(
+					constraintA, source, "targetValueAx", "targetValue", targetAset,
+					"copy violation on " + constraintA + ", " +
+					"expected 'targetValueAx' " +
+					"from target " + targetAset.getCopeID() + ", " +
+					"but was 'targetValue'", e);
+		}
+		assertEquals(targetA, source.getTargetA());
+		assertEquals(targetB, source.getTargetB());
+		assertEquals("targetValue", source.getCopy());
 	}
 }

@@ -200,7 +200,7 @@ public final class DayField extends FunctionField<Day>
 	 */
 	@Wrap(order=10,
 			doc="Sets today for the date field {0}.", // TODO better text
-			hide=FinalSettableGetter.class)
+			hide={FinalSettableGetter.class, RedundantByCopyConstraintGetter.class})
 	public void touch(@Nonnull final Item item, @Nonnull @Parameter("zone") final TimeZone zone)
 	{
 		set(item, new Day(zone)); // TODO: make a more efficient implementation

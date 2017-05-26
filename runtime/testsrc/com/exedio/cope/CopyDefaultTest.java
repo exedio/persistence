@@ -43,9 +43,14 @@ public class CopyDefaultTest extends TestWithEnvironment
 
 		assertEquals(target, source.getTarget());
 		assertEquals("fieldValue", source.getField());
+
+		final Target targetSet = new Target("fieldValueSet");
+		source.setTargetAndField(targetSet, "fieldValueSet");
+		assertEquals(targetSet, source.getTarget());
+		assertEquals("fieldValueSet", source.getField());
 	}
 
-	@Test public void testProvideAllWrong()
+	@Test public void testProvideAllWrongCreate()
 	{
 		final Target target = new Target("fieldValueT");
 		try
@@ -65,6 +70,33 @@ public class CopyDefaultTest extends TestWithEnvironment
 		assertContains(Source.TYPE.search());
 	}
 
+	@Test public void testProvideAllWrongSet()
+	{
+		final Target target = new Target("fieldValue");
+		final Source source = Source.create(target, "fieldValue");
+		assertContains(source, Source.TYPE.search());
+
+		assertEquals(target, source.getTarget());
+		assertEquals("fieldValue", source.getField());
+
+		try
+		{
+			source.setTargetAndField(target, "fieldValueSet");
+			fail();
+		}
+		catch(final CopyViolationException e)
+		{
+			assertFails(
+					constraint, source, "fieldValue", "fieldValueSet", target,
+					"copy violation on " + constraint + ", " +
+					"expected 'fieldValue' " +
+					"from target " + target + ", " +
+					"but was 'fieldValueSet'", e);
+		}
+		assertEquals(target, source.getTarget());
+		assertEquals("fieldValue", source.getField());
+	}
+
 	@Test public void testOmitCopy()
 	{
 		final Target target = new Target("fieldValue");
@@ -73,15 +105,35 @@ public class CopyDefaultTest extends TestWithEnvironment
 
 		assertEquals(target, source.getTarget());
 		assertEquals("fieldValue", source.getField());
+
+		final Target targetSet = new Target("fieldValueSet");
+		source.setTarget(targetSet);
+		assertEquals(targetSet, source.getTarget());
+		assertEquals("fieldValueSet", source.getField());
 	}
 
-	@Test public void testOmitCopyNull()
+	@Test public void testOmitCopyNullCreate()
 	{
 		final Target target = new Target((String)null);
 		final Source source = Source.create(target);
 		assertContains(source, Source.TYPE.search());
 
 		assertEquals(target, source.getTarget());
+		assertEquals(null, source.getField());
+	}
+
+	@Test public void testOmitCopyNullSet()
+	{
+		final Target target = new Target("fieldValue");
+		final Source source = Source.create(target);
+		assertContains(source, Source.TYPE.search());
+
+		assertEquals(target, source.getTarget());
+		assertEquals("fieldValue", source.getField());
+
+		final Target targetSet = new Target((String)null);
+		source.setTarget(targetSet);
+		assertEquals(targetSet, source.getTarget());
 		assertEquals(null, source.getField());
 	}
 
@@ -92,6 +144,10 @@ public class CopyDefaultTest extends TestWithEnvironment
 
 		assertEquals(null, source.getTarget());
 		assertEquals("fieldValue", source.getField());
+
+		source.setField("fieldValueSet");
+		assertEquals(null, source.getTarget());
+		assertEquals("fieldValueSet", source.getField());
 	}
 
 	@Test public void testOmitTargetAndCopy()
@@ -107,9 +163,10 @@ public class CopyDefaultTest extends TestWithEnvironment
 	@WrapperType(constructor=PRIVATE, indent=2)
 	static final class Source extends Item
 	{
-		static final ItemField<Target> target = ItemField.create(Target.class).toFinal().optional();
 		@WrapperInitial
-		static final StringField field = new StringField().toFinal().optional().copyFrom(target).defaultTo("defaultValue");
+		static final ItemField<Target> target = ItemField.create(Target.class).optional();
+		@WrapperInitial
+		static final StringField field = new StringField().optional().copyFrom(target).defaultTo("defaultValue");
 
 
 		static Source create()
@@ -134,6 +191,13 @@ public class CopyDefaultTest extends TestWithEnvironment
 		static Source create(final Target target, final String field)
 		{
 			return new Source(target, field);
+		}
+
+		void setTargetAndField(final Target target, final String field)
+		{
+			set(
+				Source.target.map(target),
+				Source.field.map(field));
 		}
 
 		/**
@@ -175,6 +239,15 @@ public class CopyDefaultTest extends TestWithEnvironment
 		}
 
 		/**
+		 * Sets a new value for {@link #target}.
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+		final void setTarget(@javax.annotation.Nullable final Target target)
+		{
+			Source.target.set(this,target);
+		}
+
+		/**
 		 * Returns the value of {@link #field}.
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -182,6 +255,17 @@ public class CopyDefaultTest extends TestWithEnvironment
 		final java.lang.String getField()
 		{
 			return Source.field.get(this);
+		}
+
+		/**
+		 * Sets a new value for {@link #field}.
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+		final void setField(@javax.annotation.Nullable final java.lang.String field)
+				throws
+					com.exedio.cope.StringLengthViolationException
+		{
+			Source.field.set(this,field);
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")

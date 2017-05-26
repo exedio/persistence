@@ -21,6 +21,7 @@ package com.exedio.cope;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+import com.exedio.cope.instrument.WrapperInitial;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -28,11 +29,14 @@ import java.util.Objects;
 
 final class CopySimpleSource extends Item
 {
-	static final ItemField<CopySimpleTarget> targetItem = ItemField.create(CopySimpleTarget.class).toFinal().optional();
+	@WrapperInitial
+	static final ItemField<CopySimpleTarget> targetItem = ItemField.create(CopySimpleTarget.class).optional();
 
-	static final StringField templateString = new StringField().toFinal().optional().copyFrom(targetItem);
+	@WrapperInitial
+	static final StringField templateString = new StringField().optional().copyFrom(targetItem);
 
-	static final ItemField<CopyValue> templateItem = ItemField.create(CopyValue.class).toFinal().optional().copyFrom(targetItem);
+	@WrapperInitial
+	static final ItemField<CopyValue> templateItem = ItemField.create(CopyValue.class).optional().copyFrom(targetItem);
 
 
 	@SuppressFBWarnings("UPM_UNCALLED_PRIVATE_METHOD") // called by reflection
@@ -53,6 +57,12 @@ final class CopySimpleSource extends Item
 	static void assertBeforeNewCopeItem(final SetValue<?>... expected)
 	{
 		assertBeforeCopeItem(new BeforeLog(null, expected));
+	}
+
+	static void assertBeforeSetCopeItem(final CopySimpleSource item, final SetValue<?>... expected)
+	{
+		assertNotNull(item);
+		assertBeforeCopeItem(new BeforeLog(item, expected));
 	}
 
 	private static void assertBeforeCopeItem(final BeforeLog expected)
@@ -135,6 +145,15 @@ final class CopySimpleSource extends Item
 		return new CopySimpleSource(new SetValue<?>[]{});
 	}
 
+	void setTemplateStringAndTargetItem(
+			final String templateString,
+			final CopySimpleTarget targetItem)
+	{
+		set(
+				CopySimpleSource.templateString.map(templateString),
+				CopySimpleSource.targetItem.map(targetItem));
+	}
+
 	/**
 	 * Creates a new CopySimpleSource with all the fields initially needed.
 	 * @param targetItem the initial value for field {@link #targetItem}.
@@ -177,6 +196,15 @@ final class CopySimpleSource extends Item
 	}
 
 	/**
+	 * Sets a new value for {@link #targetItem}.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	final void setTargetItem(@javax.annotation.Nullable final CopySimpleTarget targetItem)
+	{
+		CopySimpleSource.targetItem.set(this,targetItem);
+	}
+
+	/**
 	 * Returns the value of {@link #templateString}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -187,6 +215,17 @@ final class CopySimpleSource extends Item
 	}
 
 	/**
+	 * Sets a new value for {@link #templateString}.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	final void setTemplateString(@javax.annotation.Nullable final java.lang.String templateString)
+			throws
+				com.exedio.cope.StringLengthViolationException
+	{
+		CopySimpleSource.templateString.set(this,templateString);
+	}
+
+	/**
 	 * Returns the value of {@link #templateItem}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -194,6 +233,15 @@ final class CopySimpleSource extends Item
 	final CopyValue getTemplateItem()
 	{
 		return CopySimpleSource.templateItem.get(this);
+	}
+
+	/**
+	 * Sets a new value for {@link #templateItem}.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	final void setTemplateItem(@javax.annotation.Nullable final CopyValue templateItem)
+	{
+		CopySimpleSource.templateItem.set(this,templateItem);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument")

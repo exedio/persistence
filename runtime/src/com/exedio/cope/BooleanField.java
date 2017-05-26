@@ -148,7 +148,7 @@ public final class BooleanField extends FunctionField<Boolean>
 
 	@Wrap(order=20,
 			doc="Sets a new value for {0}.",
-			hide={FinalSettableGetter.class, OptionalGetter.class},
+			hide={FinalSettableGetter.class, OptionalGetter.class, RedundantByCopyConstraintGetter.class},
 			thrownGetter=InitialThrown.class)
 	public void set(@Nonnull final Item item, final boolean value)
 	{

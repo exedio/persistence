@@ -314,7 +314,9 @@ public abstract class Item implements Serializable, Comparable<Item>
 			}
 
 		final FieldValues fieldValues = new FieldValues(this, setValues);
+		type.executeCopyConstraints(fieldValues);
 		type.checkUniqueConstraints(fieldValues);
+		type.checkCopyConstraints(fieldValues);
 		type.checkSettables(setValues, fieldValues);
 
 		final Entity entity = getEntity();

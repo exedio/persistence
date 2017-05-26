@@ -41,11 +41,6 @@ public final class CopyConstraint extends Feature
 		this.target = requireNonNull(target, "target");
 		this.copy   = requireNonNull(copy,   "copy"  );
 
-		if(!target.isfinal)
-			throw new IllegalArgumentException("target must be final");
-		if(!copy.isfinal)
-			throw new IllegalArgumentException("copy must be final");
-
 		if(target.isMandatory())
 			copy.setRedundantByCopyConstraint();
 	}
@@ -108,7 +103,7 @@ public final class CopyConstraint extends Feature
 		final Object expectedValue = getTemplate().get(targetItem);
 		final Object actualValue = fieldValues.get(copy);
 		if(!Objects.equals(expectedValue, actualValue))
-			throw new CopyViolationException(targetItem, this, expectedValue, actualValue);
+			throw new CopyViolationException(fieldValues, targetItem, this, expectedValue, actualValue);
 	}
 
 	@SuppressWarnings({"unchecked", "rawtypes"})

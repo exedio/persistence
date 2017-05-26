@@ -112,18 +112,16 @@ public class CopySimpleModelTest
 		assertEquals(null, templateItem.getPattern());
 		assertEquals(null, selfTemplate.getPattern());
 
-		assertEquals(true, templateString.isInitial());
-		assertEquals(true, templateString.isFinal());
+		assertEquals(false, templateString.isInitial());
+		assertEquals(false, templateString.isFinal());
 		assertEquals(String.class, templateString.getInitialType());
 		assertContains(
-				StringLengthViolationException.class, FinalViolationException.class,
+				StringLengthViolationException.class,
 				templateString.getInitialExceptions());
-		assertEquals(true, templateItem.isInitial());
-		assertEquals(true, templateItem.isFinal());
+		assertEquals(false, templateItem.isInitial());
+		assertEquals(false, templateItem.isFinal());
 		assertEquals(CopyValue.class, templateItem.getInitialType());
-		assertContains(
-				FinalViolationException.class,
-				templateItem.getInitialExceptions());
+		assertContains(templateItem.getInitialExceptions());
 
 		assertSame(targetItem, templateStringCopyFromTarget.getTarget());
 		assertSame(targetItem, templateItemCopyFromTarget.getTarget());
@@ -185,26 +183,6 @@ public class CopySimpleModelTest
 		catch(final NullPointerException e)
 		{
 			assertEquals("copyFrom", e.getMessage());
-		}
-		final ItemField<CopyValue> target = ItemField.create(CopyValue.class);
-		try
-		{
-			copy.copyFrom(target);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("target must be final", e.getMessage());
-		}
-		final ItemField<CopyValue> targetFinal = ItemField.create(CopyValue.class).toFinal();
-		try
-		{
-			copy.copyFrom(targetFinal);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("copy must be final", e.getMessage());
 		}
 	}
 }
