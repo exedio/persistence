@@ -29,6 +29,7 @@ import static com.exedio.cope.pattern.UniqueHashedMediaItem.w300;
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
 import static com.exedio.cope.tojunit.Assert.assertNotEqualsStrict;
 import static com.exedio.cope.tojunit.Assert.assertWithin;
+import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
@@ -41,7 +42,6 @@ import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.UniqueViolationException;
 import com.exedio.cope.misc.Computed;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.Date;
 import org.junit.Test;
 
@@ -62,7 +62,7 @@ public class UniqueHashedMediaTest extends TestWithEnvironment
 	@Test public void testModel()
 	{
 		assertEqualsUnmodifiable(
-				Arrays.asList(new Feature[]
+				asList(new Feature[]
 				{
 						TYPE.getThis(),
 						value,
