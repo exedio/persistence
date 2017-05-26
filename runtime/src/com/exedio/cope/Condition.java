@@ -18,7 +18,10 @@
 
 package com.exedio.cope;
 
+import static java.util.Objects.requireNonNull;
+
 import java.io.Serializable;
+import javax.annotation.Nonnull;
 
 public abstract class Condition implements Serializable
 {
@@ -26,12 +29,15 @@ public abstract class Condition implements Serializable
 
 	abstract void append(Statement statment);
 
-	public final boolean get(final Item item)
+	public final boolean get(@Nonnull final Item item)
 	{
+		// ensures same behaviour for different implementations of getTri, avoid hiding bugs
+		requireNonNull(item, "item");
+
 		return getTri(item).applies;
 	}
 
-	abstract Trilean getTri(Item item);
+	abstract Trilean getTri(@Nonnull Item item);
 
 	abstract void check(TC tc);
 
@@ -88,13 +94,6 @@ public abstract class Condition implements Serializable
 		@Override
 		Trilean getTri(final Item item)
 		{
-			// NOTE
-			// all other implementations of get will fail when
-			// item==null, so this method fails as well, to avoid
-			// hiding bugs.
-			if(item==null)
-				throw new NullPointerException();
-
 			return valueTri;
 		}
 

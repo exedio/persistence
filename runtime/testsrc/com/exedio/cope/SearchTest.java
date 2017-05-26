@@ -154,7 +154,7 @@ public class SearchTest extends TestmodelTest
 		}
 		catch(final NullPointerException e)
 		{
-			assertEquals(null, e.getMessage());
+			assertEquals("item", e.getMessage());
 		}
 		try
 		{
@@ -163,7 +163,7 @@ public class SearchTest extends TestmodelTest
 		}
 		catch(final NullPointerException e)
 		{
-			assertEquals(null, e.getMessage());
+			assertEquals("item", e.getMessage());
 		}
 	}
 }
