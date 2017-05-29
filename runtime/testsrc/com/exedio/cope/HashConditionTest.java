@@ -139,13 +139,13 @@ public class HashConditionTest extends TestWithEnvironment
 
 	@Test public void testUnsupported()
 	{
-		final Condition unsupported = MyItem.hash.hashMatches("NIXUS", MyItem.data);
-		final Condition unsupportedNot = MyItem.hash.hashDoesNotMatch("NIXUS", MyItem.data);
-		assertEquals(  "MyItem.hash=NIXUS(MyItem.data)", unsupported.toString());
-		assertEquals("!(MyItem.hash=NIXUS(MyItem.data))", unsupportedNot.toString());
+		final Condition positive = MyItem.hash.hashMatches     ("NIXUS", MyItem.data);
+		final Condition negative = MyItem.hash.hashDoesNotMatch("NIXUS", MyItem.data);
+		assertEquals(  "MyItem.hash=NIXUS(MyItem.data)",  positive.toString());
+		assertEquals("!(MyItem.hash=NIXUS(MyItem.data))", negative.toString());
 		try
 		{
-			MyItem.TYPE.search(unsupported);
+			MyItem.TYPE.search(positive);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -154,7 +154,7 @@ public class HashConditionTest extends TestWithEnvironment
 		}
 		try
 		{
-			MyItem.TYPE.search(unsupportedNot);
+			MyItem.TYPE.search(negative);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
