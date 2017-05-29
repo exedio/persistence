@@ -30,9 +30,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import org.junit.Test;
 
-public class CapabilitiesTest extends TestWithEnvironment
+public class SupportsTest extends TestWithEnvironment
 {
-	public CapabilitiesTest()
+	public SupportsTest()
 	{
 		super(SchemaTest.MODEL);
 		copeRule.omitTransaction();
