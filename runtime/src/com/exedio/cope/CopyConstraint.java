@@ -20,7 +20,7 @@ package com.exedio.cope;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.Map;
+import java.util.LinkedHashMap;
 import java.util.Objects;
 
 public final class CopyConstraint extends Feature
@@ -100,7 +100,7 @@ public final class CopyConstraint extends Feature
 		return result;
 	}
 
-	void check(final Map<Field<?>, Object> fieldValues)
+	void check(final LinkedHashMap<Field<?>, Object> fieldValues)
 	{
 		final Item targetItem = (Item)fieldValues.get(target);
 		if(targetItem==null)
