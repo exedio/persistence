@@ -135,7 +135,10 @@ public class HashConditionTest extends TestWithEnvironment
 			assertIt(false, true,  a.empty, a);
 			assertIt(false, true,  a.franz, a);
 		}
+	}
 
+	@Test public void testUnsupported()
+	{
 		final Condition unsupported = MyItem.hash.hashMatches("NIXUS", MyItem.data);
 		final Condition unsupportedNot = MyItem.hash.hashDoesNotMatch("NIXUS", MyItem.data);
 		assertEquals(  "MyItem.hash=NIXUS(MyItem.data)", unsupported.toString());
