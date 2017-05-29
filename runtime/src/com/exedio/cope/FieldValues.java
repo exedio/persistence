@@ -55,4 +55,13 @@ public final class FieldValues
 	{
 		return backingItem;
 	}
+
+	@Override
+	public String toString()
+	{
+		return
+				backingItem!=null
+				? sources.toString() + '(' + backingItem + ')'
+				: sources.toString();
+	}
 }

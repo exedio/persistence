@@ -44,13 +44,16 @@ public class CheckingSettableTest extends TestWithEnvironment
 	@Test public void test()
 	{
 		final MyItem item = new MyItem(pattern.map("createValue"));
-		pattern.assertLogs(new Log("createValue", "createValue", null, null, null));
+		pattern.assertLogs(new Log("createValue", "createValue", null, null, null,
+				"{MyItem.pattern-source=createValue}"));
 
 		item.set(pattern.map("setValue"));
-		pattern.assertLogs(new Log("setValue", "setValue", null, null, item));
+		pattern.assertLogs(new Log("setValue", "setValue", null, null, item,
+				"{MyItem.pattern-source=setValue}(" + item + ")"));
 
 		item.set(pattern.map(null));
-		pattern.assertLogs(new Log(null, null, null, null, item));
+		pattern.assertLogs(new Log(null, null, null, null, item,
+				"{MyItem.pattern-source=null}(" + item + ")"));
 	}
 
 	@Test public void testCreateNone()
@@ -62,22 +65,26 @@ public class CheckingSettableTest extends TestWithEnvironment
 	@Test public void testCreateNull()
 	{
 		new MyItem(pattern.map(null));
-		pattern.assertLogs(new Log(null, null, null, null, null));
+		pattern.assertLogs(new Log(null, null, null, null, null,
+				"{MyItem.pattern-source=null}"));
 	}
 
 	@Test public void testSource2Create()
 	{
 		new MyItem(pattern.map("createValue/2"));
-		pattern.assertLogs(new Log("createValue/2", "createValue/2", "2(createValue/2)", null, null));
+		pattern.assertLogs(new Log("createValue/2", "createValue/2", "2(createValue/2)", null, null,
+				"{MyItem.pattern-source=createValue/2, MyItem.pattern-source2=2(createValue/2)}"));
 	}
 
 	@Test public void testSource2Set()
 	{
 		final MyItem item = new MyItem(pattern.map("createValue"));
-		pattern.assertLogs(new Log("createValue", "createValue", null, null, null));
+		pattern.assertLogs(new Log("createValue", "createValue", null, null, null,
+				"{MyItem.pattern-source=createValue}"));
 
 		item.set(pattern.map("setValue/2"));
-		pattern.assertLogs(new Log("setValue/2", "setValue/2", "2(setValue/2)", null, item));
+		pattern.assertLogs(new Log("setValue/2", "setValue/2", "2(setValue/2)", null, item,
+				"{MyItem.pattern-source=setValue/2, MyItem.pattern-source2=2(setValue/2)}(" + item + ")"));
 	}
 
 	@Test public void testSource2DirectlyCreate()
@@ -89,7 +96,8 @@ public class CheckingSettableTest extends TestWithEnvironment
 	@Test public void testSource2DirectlySet()
 	{
 		final MyItem item = new MyItem(pattern.map("createValue"));
-		pattern.assertLogs(new Log("createValue", "createValue", null, null, null));
+		pattern.assertLogs(new Log("createValue", "createValue", null, null, null,
+				"{MyItem.pattern-source=createValue}"));
 
 		item.set(pattern.source2.map("setValue/2"));
 		pattern.assertLogs();
@@ -100,17 +108,20 @@ public class CheckingSettableTest extends TestWithEnvironment
 		final MyItem item = new MyItem(
 				pattern.map("createValue"),
 				field2.map("createValue2"));
-		pattern.assertLogs(new Log("createValue", "createValue", null, "createValue2", null));
+		pattern.assertLogs(new Log("createValue", "createValue", null, "createValue2", null,
+				"{MyItem.pattern-source=createValue, MyItem.field2=createValue2}"));
 
 		item.set(
 				pattern.map("setValue"),
 				field2.map("setValue2"));
-		pattern.assertLogs(new Log("setValue", "setValue", null, "setValue2", item));
+		pattern.assertLogs(new Log("setValue", "setValue", null, "setValue2", item,
+				"{MyItem.pattern-source=setValue, MyItem.field2=setValue2}(" + item + ")"));
 
 		item.set(
 				pattern.map(null),
 				field2.map(null));
-		pattern.assertLogs(new Log(null, null, null, null, item));
+		pattern.assertLogs(new Log(null, null, null, null, item,
+				"{MyItem.pattern-source=null, MyItem.field2=null}(" + item + ")"));
 	}
 
 	@Test public void testField2Only()
@@ -150,7 +161,8 @@ public class CheckingSettableTest extends TestWithEnvironment
 					fieldValues.get(source),
 					fieldValues.get(source2),
 					fieldValues.get(field2),
-					fieldValues.getBackingItem()));
+					fieldValues.getBackingItem(),
+					fieldValues.toString()));
 		}
 
 		void assertLogs(final Log... expected)
@@ -219,19 +231,22 @@ public class CheckingSettableTest extends TestWithEnvironment
 		final String sourceValue2;
 		final String fieldValue2;
 		final Item item;
+		final String toString;
 
 		Log(
 				final String value,
 				final String sourceValue,
 				final String sourceValue2,
 				final String fieldValue2,
-				final Item item)
+				final Item item,
+				final String toString)
 		{
 			this.value = value;
 			this.sourceValue = sourceValue;
 			this.sourceValue2 = sourceValue2;
 			this.fieldValue2 = fieldValue2;
 			this.item = item;
+			this.toString = toString;
 		}
 
 		@Override
@@ -245,13 +260,14 @@ public class CheckingSettableTest extends TestWithEnvironment
 					Objects.equals(sourceValue, o.sourceValue) &&
 					Objects.equals(sourceValue2, o.sourceValue2) &&
 					Objects.equals(fieldValue2, o.fieldValue2) &&
-					Objects.equals(item, o.item);
+					Objects.equals(item, o.item) &&
+					Objects.equals(toString, o.toString);
 		}
 
 		@Override
 		public String toString()
 		{
-			return value + "/" + sourceValue + "/" + sourceValue2 + "/" + fieldValue2 + "/" + item;
+			return value + "/" + sourceValue + "/" + sourceValue2 + "/" + fieldValue2 + "/" + item + "/" + toString;
 		}
 
 		@Override
