@@ -30,6 +30,8 @@ import static org.junit.Assert.fail;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.instrument.WrapperType;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import java.security.Provider;
+import java.security.Security;
 import java.util.SortedSet;
 import javax.annotation.Nullable;
 import org.junit.Before;
@@ -160,6 +162,36 @@ public class HashConditionTest extends TestWithEnvironment
 		catch(final IllegalArgumentException e)
 		{
 			assertEquals("hash >NIXUS< not supported", e.getMessage());
+		}
+	}
+
+	@Test public void testUnsupportedStandard()
+	{
+		for(final Provider provider : Security.getProviders())
+		{
+			final String p = provider.getName();
+
+			for(final Provider.Service service : provider.getServices())
+			{
+				if(!"MessageDigest".equals(service.getType()))
+					continue;
+
+				final String algorithm = service.getAlgorithm();
+				if(supported.contains(algorithm))
+					continue;
+
+				final Condition condition = MyItem.hash.hashMatches(algorithm, MyItem.data);
+				assertEquals(p, "MyItem.hash=" + algorithm + "(MyItem.data)", condition.toString());
+				try
+				{
+					MyItem.TYPE.search(condition);
+					fail(p);
+				}
+				catch(final IllegalArgumentException e)
+				{
+					assertEquals(p, "hash >" + algorithm + "< not supported", e.getMessage());
+				}
+			}
 		}
 	}
 
