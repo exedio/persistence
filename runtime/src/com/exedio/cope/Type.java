@@ -1110,7 +1110,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 
 		checkUniqueConstraints(null, fieldValues);
 		checkCopyConstraints(fieldValues);
-		Item.checkSettables(null, setValues, fieldValues);
+		Item.checkSettables(null, this, setValues, fieldValues);
 
 		return fieldValues;
 	}

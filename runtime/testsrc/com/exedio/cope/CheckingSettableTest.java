@@ -166,6 +166,24 @@ public class CheckingSettableTest extends TestWithEnvironment
 			{
 				assertEquals("field", e.getMessage());
 			}
+			try
+			{
+				fieldValues.get(OtherItem.field);
+				fail();
+			}
+			catch(final IllegalArgumentException e)
+			{
+				assertEquals("field OtherItem.field does not belong to type MyItem", e.getMessage());
+			}
+			try
+			{
+				fieldValues.get(new StringField());
+				fail();
+			}
+			catch(final IllegalStateException e)
+			{
+				assertEquals("feature not mounted", e.getMessage());
+			}
 
 			logs.add(new Log(
 					value,
@@ -324,5 +342,42 @@ public class CheckingSettableTest extends TestWithEnvironment
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		@SuppressWarnings("unused") private MyItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
+	}
+
+	@com.exedio.cope.instrument.WrapperType(constructor=NONE, indent=2, comments=false) // TODO use import, but this is not accepted by javac
+	static final class OtherItem extends Item
+	{
+		static final StringField field = new StringField();
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		private OtherItem(final com.exedio.cope.SetValue<?>... setValues)
+		{
+			super(setValues);
+		}
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@javax.annotation.Nonnull
+		final java.lang.String getField()
+		{
+			return OtherItem.field.get(this);
+		}
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		final void setField(@javax.annotation.Nonnull final java.lang.String field)
+				throws
+					com.exedio.cope.MandatoryViolationException,
+					com.exedio.cope.StringLengthViolationException
+		{
+			OtherItem.field.set(this,field);
+		}
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		private static final long serialVersionUID = 1l;
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		static final com.exedio.cope.Type<OtherItem> TYPE = com.exedio.cope.TypesBound.newType(OtherItem.class);
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@SuppressWarnings("unused") private OtherItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 }

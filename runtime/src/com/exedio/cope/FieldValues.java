@@ -27,19 +27,23 @@ public final class FieldValues
 {
 	private final LinkedHashMap<Field<?>, Object> sources;
 	private final Item backingItem;
+	private final Type<?> backingType;
 
 	@SuppressWarnings("AssignmentToCollectionOrArrayFieldFromParameter")
 	FieldValues(
 			final LinkedHashMap<Field<?>, Object> sources,
-			final Item backingItem)
+			final Item backingItem,
+			final Type<?> backingType)
 	{
 		this.sources = sources;
 		this.backingItem = backingItem;
+		this.backingType = backingType;
 	}
 
 	public <E> E get(@Nonnull final Field<E> field)
 	{
 		requireNonNull(field, "field");
+		backingType.assertBelongs(field);
 
 		if(sources.containsKey(field))
 			return getX(field);
