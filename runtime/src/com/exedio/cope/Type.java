@@ -1033,7 +1033,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 
 		checkUniqueConstraints(null, fieldValues);
 		checkCopyConstraints(fieldValues);
-		Item.checkSettables(null, this, setValues, fieldValues);
+		checkSettables(null, setValues, fieldValues);
 
 		return fieldValues;
 	}
@@ -1133,6 +1133,23 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	{
 		for(final CopyConstraint cc : copyConstraints.all)
 			cc.check(fieldValues);
+	}
+
+	void checkSettables(
+			final Item item,
+			final SetValue<?>[] setValues,
+			final LinkedHashMap<Field<?>, Object> fieldValues)
+	{
+		for(final SetValue<?> sv : setValues)
+			if(sv.settable instanceof CheckingSettable<?>)
+				check(sv, new FieldValues(fieldValues, item, this));
+	}
+
+	private static <E> void check(
+			final SetValue<E> sv,
+			final FieldValues fieldValues)
+	{
+		((CheckingSettable<E>)sv.settable).check(sv.value, fieldValues);
 	}
 
 	long nextPrimaryKey()

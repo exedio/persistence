@@ -327,30 +327,12 @@ public abstract class Item implements Serializable, Comparable<Item>
 			field.check(e.getValue(), this);
 		}
 		type.checkUniqueConstraints(this, fieldValues);
-		checkSettables(this, type, setValues, fieldValues);
+		type.checkSettables(this, setValues, fieldValues);
 
 		final Entity entity = getEntity();
 		entity.put(fieldValues);
 		type.checkCheckConstraints(this, entity, this);
 		entity.write(toBlobs(fieldValues, this));
-	}
-
-	static void checkSettables(
-			final Item item,
-			final Type<?> type,
-			final SetValue<?>[] setValues,
-			final LinkedHashMap<Field<?>, Object> fieldValues)
-	{
-		for(final SetValue<?> sv : setValues)
-			if(sv.settable instanceof CheckingSettable<?>)
-				check(sv, new FieldValues(fieldValues, item, type));
-	}
-
-	private static <E> void check(
-			final SetValue<E> sv,
-			final FieldValues fieldValues)
-	{
-		((CheckingSettable<E>)sv.settable).check(sv.value, fieldValues);
 	}
 
 	/**
