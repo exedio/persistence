@@ -1027,6 +1027,17 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		return result;
 	}
 
+	LinkedHashMap<Field<?>, Object> prepareCreate(final SetValue<?>[] setValues)
+	{
+		final LinkedHashMap<Field<?>, Object> fieldValues = executeCreate(setValues);
+
+		checkUniqueConstraints(null, fieldValues);
+		checkCopyConstraints(fieldValues);
+		Item.checkSettables(null, this, setValues, fieldValues);
+
+		return fieldValues;
+	}
+
 	LinkedHashMap<Field<?>, Object> executeCreate(SetValue<?>[] setValues)
 	{
 		setValues = doBeforeNewItem(setValues);
@@ -1099,17 +1110,6 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		{
 			field.check(fieldValues.get(field), null);
 		}
-
-		return fieldValues;
-	}
-
-	LinkedHashMap<Field<?>, Object> prepareCreate(final SetValue<?>[] setValues)
-	{
-		final LinkedHashMap<Field<?>, Object> fieldValues = executeCreate(setValues);
-
-		checkUniqueConstraints(null, fieldValues);
-		checkCopyConstraints(fieldValues);
-		Item.checkSettables(null, this, setValues, fieldValues);
 
 		return fieldValues;
 	}
