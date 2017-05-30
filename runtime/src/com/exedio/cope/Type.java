@@ -1027,7 +1027,6 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		return result;
 	}
 
-	@SuppressFBWarnings("WMI_WRONG_MAP_ITERATOR") // Inefficient use of keySet iterator instead of entrySet iterator
 	LinkedHashMap<Field<?>, Object> executeCreate(SetValue<?>[] setValues)
 	{
 		setValues = doBeforeNewItem(setValues);
