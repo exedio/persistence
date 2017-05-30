@@ -18,7 +18,10 @@
 
 package com.exedio.cope;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.LinkedHashMap;
+import javax.annotation.Nonnull;
 
 public final class FieldValues
 {
@@ -34,8 +37,10 @@ public final class FieldValues
 		this.backingItem = backingItem;
 	}
 
-	public <E> E get(final Field<E> field)
+	public <E> E get(@Nonnull final Field<E> field)
 	{
+		requireNonNull(field, "field");
+
 		if(sources.containsKey(field))
 			return getX(field);
 

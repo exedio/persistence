@@ -22,6 +22,7 @@ import static com.exedio.cope.CheckingSettableTest.MyItem.field2;
 import static com.exedio.cope.CheckingSettableTest.MyItem.pattern;
 import static com.exedio.cope.instrument.Visibility.NONE;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.ArrayList;
@@ -156,6 +157,16 @@ public class CheckingSettableTest extends TestWithEnvironment
 		@Override
 		public void check(final String value, final FieldValues fieldValues)
 		{
+			try
+			{
+				fieldValues.get(null);
+				fail();
+			}
+			catch(final NullPointerException e)
+			{
+				assertEquals("field", e.getMessage());
+			}
+
 			logs.add(new Log(
 					value,
 					fieldValues.get(source),
