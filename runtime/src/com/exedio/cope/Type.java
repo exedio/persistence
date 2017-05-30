@@ -1043,6 +1043,45 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		setValues = doBeforeNewItem(setValues);
 		final LinkedHashMap<Field<?>, Object> fieldValues = Item.executeSetValues(setValues, null);
 
+		executeCopyConstraints(fieldValues);
+
+		long now = Long.MIN_VALUE;
+		boolean needsNow = true;
+		for(final Field<?> field : fields.all)
+		{
+			if(field instanceof FunctionField<?> && !fieldValues.containsKey(field))
+			{
+				final FunctionField<?> ff = (FunctionField<?>)field;
+				final DefaultSource<?> defaultSource = ff.defaultSource;
+				if(defaultSource!=null)
+				{
+					if(needsNow)
+					{
+						now = Clock.currentTimeMillis();
+						needsNow = false;
+					}
+
+					final Object defaultValue = defaultSource.generate(now);
+					if(defaultValue==null)
+						throw new RuntimeException(ff.getID());
+					fieldValues.put(field, defaultValue);
+				}
+			}
+		}
+		for(final Field<?> field : fieldValues.keySet())
+		{
+			assertBelongs(field);
+		}
+		for(final Field<?> field : fields.all)
+		{
+			field.check(fieldValues.get(field), null);
+		}
+
+		return fieldValues;
+	}
+
+	private void executeCopyConstraints(final LinkedHashMap<Field<?>, Object> fieldValues)
+	{
 		for(final Map.Entry<FunctionField<?>,List<CopyConstraint>> e : copyConstraintsByCopy.entrySet())
 		{
 			final FunctionField<?> copy = e.getKey();
@@ -1078,40 +1117,6 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 			if(!hasNoValue)
 				fieldValues.put(copy, value);
 		}
-
-		long now = Long.MIN_VALUE;
-		boolean needsNow = true;
-		for(final Field<?> field : fields.all)
-		{
-			if(field instanceof FunctionField<?> && !fieldValues.containsKey(field))
-			{
-				final FunctionField<?> ff = (FunctionField<?>)field;
-				final DefaultSource<?> defaultSource = ff.defaultSource;
-				if(defaultSource!=null)
-				{
-					if(needsNow)
-					{
-						now = Clock.currentTimeMillis();
-						needsNow = false;
-					}
-
-					final Object defaultValue = defaultSource.generate(now);
-					if(defaultValue==null)
-						throw new RuntimeException(ff.getID());
-					fieldValues.put(field, defaultValue);
-				}
-			}
-		}
-		for(final Field<?> field : fieldValues.keySet())
-		{
-			assertBelongs(field);
-		}
-		for(final Field<?> field : fields.all)
-		{
-			field.check(fieldValues.get(field), null);
-		}
-
-		return fieldValues;
 	}
 
 	void checkUniqueConstraints(final Item item, final Map<? extends Field<?>, ?> fieldValues)
