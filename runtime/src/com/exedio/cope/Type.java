@@ -1119,7 +1119,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		}
 	}
 
-	void checkUniqueConstraints(final Item item, final Map<? extends Field<?>, ?> fieldValues)
+	void checkUniqueConstraints(final Item item, final LinkedHashMap<? extends Field<?>, ?> fieldValues)
 	{
 		if(!uniqueConstraintsProblem && getModel().connect().supportsUniqueViolation)
 			return;

@@ -28,8 +28,8 @@ import java.lang.reflect.AnnotatedElement;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 import javax.annotation.Nullable;
 
 @WrapFeature
@@ -236,7 +236,7 @@ public final class UniqueConstraint extends Feature implements Copyable
 		return Cast.verboseCast(typeClass, search(values));
 	}
 
-	void check(final Item item, final Map<? extends Field<?>, ?> fieldValues)
+	void check(final Item item, final LinkedHashMap<? extends Field<?>, ?> fieldValues)
 	{
 		field:
 		for(final FunctionField<?> testField : fields)
