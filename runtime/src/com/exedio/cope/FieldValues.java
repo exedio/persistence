@@ -29,42 +29,42 @@ import javax.annotation.Nonnull;
 
 public final class FieldValues
 {
-	private final LinkedHashMap<Field<?>, Object> sources = new LinkedHashMap<>();
-	private final Set<Map.Entry<Field<?>, Object>> sourcesEntrySet = unmodifiableSet(sources.entrySet());
+	private final LinkedHashMap<Field<?>, Object> dirt = new LinkedHashMap<>();
+	private final Set<Map.Entry<Field<?>, Object>> dirtEntrySet = unmodifiableSet(dirt.entrySet());
 	private final Item backingItem;
 	private final Type<?> backingType;
 
-	FieldValues(final Type<?> backingType, final SetValue<?>[] sources)
+	FieldValues(final Type<?> backingType, final SetValue<?>[] initialDirt)
 	{
 		this.backingItem = null;
 		this.backingType = backingType;
-		put(sources);
+		setDirty(initialDirt);
 	}
 
-	FieldValues(final Item backingItem, final SetValue<?>[] sources)
+	FieldValues(final Item backingItem, final SetValue<?>[] initialDirt)
 	{
 		this.backingItem = backingItem;
 		this.backingType = backingItem.type;
-		put(sources);
+		setDirty(initialDirt);
 	}
 
-	private void put(final SetValue<?>[] sources)
+	private void setDirty(final SetValue<?>[] initialDirt)
 	{
-		for(final SetValue<?> source : sources)
+		for(final SetValue<?> dirt : initialDirt)
 		{
-			if(source.settable instanceof Field<?>)
+			if(dirt.settable instanceof Field<?>)
 			{
-				put(source);
+				setDirty(dirt);
 			}
 			else
 			{
-				for(final SetValue<?> part : execute(source))
-					put(part);
+				for(final SetValue<?> part : execute(dirt))
+					setDirty(part);
 			}
 		}
 	}
 
-	private void put(final SetValue<?> setValue)
+	private void setDirty(final SetValue<?> setValue)
 	{
 		setDirty((Field<?>)setValue.settable, setValue.value);
 	}
@@ -80,18 +80,18 @@ public final class FieldValues
 		requireNonNull(field, "field");
 		backingType.assertBelongs(field);
 
-		return sources.containsKey(field);
+		return dirt.containsKey(field);
 	}
 
 	Set<Map.Entry<Field<?>, Object>> dirtySet()
 	{
-		return sourcesEntrySet;
+		return dirtEntrySet;
 	}
 
 	void setDirty(final Field<?> field, final Object value)
 	{
 		backingType.assertBelongs(field);
-		if(sources.putIfAbsent(field, value)!=null)
+		if(dirt.putIfAbsent(field, value)!=null)
 			throw new IllegalArgumentException("SetValues contain duplicate settable " + field);
 	}
 
@@ -99,7 +99,7 @@ public final class FieldValues
 	{
 		final HashMap<BlobColumn, byte[]> result = new HashMap<>();
 
-		for(final Map.Entry<Field<?>, Object> e : sources.entrySet())
+		for(final Map.Entry<Field<?>, Object> e : dirt.entrySet())
 		{
 			final Field<?> field = e.getKey();
 			if(!(field instanceof DataField))
@@ -118,7 +118,7 @@ public final class FieldValues
 		requireNonNull(field, "field");
 		backingType.assertBelongs(field);
 
-		if(sources.containsKey(field))
+		if(dirt.containsKey(field))
 			return getX(field);
 
 		if(backingItem!=null)
@@ -130,7 +130,7 @@ public final class FieldValues
 	@SuppressWarnings("unchecked")
 	private <E> E getX(final Field<E> field)
 	{
-		return (E)sources.get(field);
+		return (E)dirt.get(field);
 	}
 
 	public Item getBackingItem()
@@ -143,7 +143,7 @@ public final class FieldValues
 	{
 		return
 				backingItem!=null
-				? sources.toString() + '(' + backingItem + ')'
-				: sources.toString();
+				? dirt.toString() + '(' + backingItem + ')'
+				: dirt.toString();
 	}
 }
