@@ -20,7 +20,6 @@ package com.exedio.cope;
 
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
@@ -56,7 +55,7 @@ public final class Dumper
 			final SetValue<?>... setValues)
 	throws IOException
 	{
-		final LinkedHashMap<Field<?>, Object> fieldValues = type.executeCreate(setValues);
+		final FieldValues fieldValues = type.executeCreate(setValues);
 		final Row row = new Row();
 		for(final Map.Entry<Field<?>, Object> e : fieldValues.entrySet())
 		{
@@ -66,7 +65,7 @@ public final class Dumper
 		}
 		final long pk = nextPk(type);
 		final E result = type.activate(pk);
-		final HashMap<BlobColumn, byte[]> blobs = Item.toBlobs(fieldValues, null);
+		final HashMap<BlobColumn, byte[]> blobs = Item.toBlobs(fieldValues);
 		final Connect connect = type.getModel().connect();
 		insert(connect.dialect, connect.marshallers, blobs, type, pk, row, type, out);
 		return result;

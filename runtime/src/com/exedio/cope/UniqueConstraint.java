@@ -28,7 +28,6 @@ import java.lang.reflect.AnnotatedElement;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
-import java.util.LinkedHashMap;
 import java.util.List;
 import javax.annotation.Nullable;
 
@@ -236,7 +235,7 @@ public final class UniqueConstraint extends Feature implements Copyable
 		return Cast.verboseCast(typeClass, search(values));
 	}
 
-	void check(final Item item, final LinkedHashMap<? extends Field<?>, ?> fieldValues)
+	void check(final FieldValues fieldValues)
 	{
 		if(!isAffectedBy(fieldValues))
 			return;
@@ -246,18 +245,19 @@ public final class UniqueConstraint extends Feature implements Copyable
 
 		for(final FunctionField<?> f : fields)
 		{
-			final Object value = fieldValues.containsKey(f) ? fieldValues.get(f) : (item!=null ? f.get(item) : null);
+			final Object value = fieldValues.get(f);
 			if(value==null)
 				return;
 			values[i++] = value;
 		}
 
 		final Item collision = search(values);
+		final Item item = fieldValues.getBackingItem();
 		if(collision!=null && (item==null || !item.equals(collision)))
 			throw new UniqueViolationException(this, item, null);
 	}
 
-	private boolean isAffectedBy(final LinkedHashMap<? extends Field<?>, ?> fieldValues)
+	private boolean isAffectedBy(final FieldValues fieldValues)
 	{
 		for(final FunctionField<?> field : fields)
 			if(fieldValues.containsKey(field))

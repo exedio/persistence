@@ -27,7 +27,6 @@ import java.io.ObjectInputStream;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
@@ -184,12 +183,12 @@ public abstract class Item implements Serializable, Comparable<Item>
 	protected Item(final SetValue<?>... setValues)
 	{
 		this.type = TypesBound.forClass(getClass());
-		final LinkedHashMap<Field<?>, Object> fieldValues = type.prepareCreate(setValues);
+		final FieldValues fieldValues = type.prepareCreate(setValues);
 		this.pk = type.nextPrimaryKey();
 		doCreate(fieldValues);
 	}
 
-	void doCreate(final LinkedHashMap<Field<?>, Object> fieldValues)
+	void doCreate(final FieldValues fieldValues)
 	{
 		assert PK.isValid(pk) : pk;
 		//System.out.println("create item "+type+" "+pk);
@@ -197,7 +196,7 @@ public abstract class Item implements Serializable, Comparable<Item>
 		final Entity entity = getEntity(false);
 		entity.put(fieldValues);
 		type.checkCheckConstraints(this, entity, null);
-		entity.write(toBlobs(fieldValues, null));
+		entity.write(toBlobs(fieldValues));
 
 		afterNewCopeItem();
 	}
@@ -316,22 +315,22 @@ public abstract class Item implements Serializable, Comparable<Item>
 				throw ex;
 			}
 
-		final LinkedHashMap<Field<?>, Object> fieldValues = executeSetValues(setValues, this);
+		final FieldValues fieldValues = new FieldValues(this);
+		executeSetValues(setValues, fieldValues);
 		for(final Map.Entry<Field<?>, Object> e : fieldValues.entrySet())
 		{
 			final Field<?> field = e.getKey();
-			type.assertBelongs(field);
 
 			FinalViolationException.check(field, this);
 			field.check(e.getValue(), this);
 		}
-		type.checkUniqueConstraints(this, fieldValues);
-		type.checkSettables(this, setValues, fieldValues);
+		type.checkUniqueConstraints(fieldValues);
+		type.checkSettables(setValues, fieldValues);
 
 		final Entity entity = getEntity();
 		entity.put(fieldValues);
 		type.checkCheckConstraints(this, entity, this);
-		entity.write(toBlobs(fieldValues, this));
+		entity.write(toBlobs(fieldValues));
 	}
 
 	/**
@@ -499,28 +498,20 @@ public abstract class Item implements Serializable, Comparable<Item>
 			: state.updateCount;
 	}
 
-	static final LinkedHashMap<Field<?>, Object> executeSetValues(final SetValue<?>[] sources, final Item exceptionItem)
+	static final void executeSetValues(final SetValue<?>[] sources, final FieldValues result)
 	{
-		final LinkedHashMap<Field<?>, Object> result = new LinkedHashMap<>();
 		for(final SetValue<?> source : sources)
 		{
 			if(source.settable instanceof Field<?>)
 			{
-				putField(result, source);
+				result.put(source);
 			}
 			else
 			{
-				for(final SetValue<?> part : execute(source, exceptionItem))
-					putField(result, part);
+				for(final SetValue<?> part : execute(source, result.getBackingItem()))
+					result.put(part);
 			}
 		}
-		return result;
-	}
-
-	private static void putField(final LinkedHashMap<Field<?>, Object> result, final SetValue<?> setValue)
-	{
-		if(result.putIfAbsent((Field<?>)setValue.settable, setValue.value)!=null)
-			throw new IllegalArgumentException("SetValues contain duplicate settable " + setValue.settable);
 	}
 
 	private static <X> SetValue<?>[] execute(final SetValue<X> sv, final Item exceptionItem)
@@ -528,7 +519,7 @@ public abstract class Item implements Serializable, Comparable<Item>
 		return sv.settable.execute(sv.value, exceptionItem);
 	}
 
-	static final HashMap<BlobColumn, byte[]> toBlobs(final LinkedHashMap<Field<?>, Object> fieldValues, final Item exceptionItem)
+	static final HashMap<BlobColumn, byte[]> toBlobs(final FieldValues fieldValues)
 	{
 		final HashMap<BlobColumn, byte[]> result = new HashMap<>();
 
@@ -540,7 +531,7 @@ public abstract class Item implements Serializable, Comparable<Item>
 
 			final DataField.Value value = (DataField.Value)e.getValue();
 			final DataField df = (DataField)field;
-			result.put((BlobColumn)df.getColumn(), value!=null ? value.asArray(df, exceptionItem) : null);
+			result.put((BlobColumn)df.getColumn(), value!=null ? value.asArray(df, fieldValues.getBackingItem()) : null);
 		}
 		return result;
 	}

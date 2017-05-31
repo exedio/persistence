@@ -1020,28 +1020,29 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		if(setValues==null)
 			setValues = EMPTY_SET_VALUES;
 
-		final LinkedHashMap<Field<?>, Object> fieldValues = prepareCreate(setValues);
+		final FieldValues fieldValues = prepareCreate(setValues);
 		final long pk = nextPrimaryKey();
 		final T result = activate(pk);
 		result.doCreate(fieldValues);
 		return result;
 	}
 
-	LinkedHashMap<Field<?>, Object> prepareCreate(final SetValue<?>[] setValues)
+	FieldValues prepareCreate(final SetValue<?>[] setValues)
 	{
-		final LinkedHashMap<Field<?>, Object> fieldValues = executeCreate(setValues);
+		final FieldValues fieldValues = executeCreate(setValues);
 
-		checkUniqueConstraints(null, fieldValues);
+		checkUniqueConstraints(fieldValues);
 		checkCopyConstraints(fieldValues);
-		checkSettables(null, setValues, fieldValues);
+		checkSettables(setValues, fieldValues);
 
 		return fieldValues;
 	}
 
-	LinkedHashMap<Field<?>, Object> executeCreate(SetValue<?>[] setValues)
+	FieldValues executeCreate(SetValue<?>[] setValues)
 	{
 		setValues = doBeforeNewItem(setValues);
-		final LinkedHashMap<Field<?>, Object> fieldValues = Item.executeSetValues(setValues, null);
+		final FieldValues fieldValues = new FieldValues(this);
+		Item.executeSetValues(setValues, fieldValues);
 
 		executeCopyConstraints(fieldValues);
 
@@ -1068,10 +1069,6 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 				}
 			}
 		}
-		for(final Field<?> field : fieldValues.keySet())
-		{
-			assertBelongs(field);
-		}
 		for(final Field<?> field : fields.all)
 		{
 			field.check(fieldValues.get(field), null);
@@ -1080,7 +1077,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		return fieldValues;
 	}
 
-	private void executeCopyConstraints(final LinkedHashMap<Field<?>, Object> fieldValues)
+	private void executeCopyConstraints(final FieldValues fieldValues)
 	{
 		for(final Map.Entry<FunctionField<?>,List<CopyConstraint>> e : copyConstraintsByCopy.entrySet())
 		{
@@ -1092,7 +1089,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 			boolean hasNoValue = true;
 			for(final CopyConstraint cc : e.getValue())
 			{
-				final Item targetItem = (Item)fieldValues.get(cc.getTarget());
+				final Item targetItem = fieldValues.get(cc.getTarget());
 				if(targetItem==null)
 					continue;
 
@@ -1119,13 +1116,13 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		}
 	}
 
-	void checkUniqueConstraints(final Item item, final LinkedHashMap<? extends Field<?>, ?> fieldValues)
+	void checkUniqueConstraints(final FieldValues fieldValues)
 	{
 		if(!uniqueConstraintsProblem && getModel().connect().supportsUniqueViolation)
 			return;
 
 		for(final UniqueConstraint uc : uniqueConstraints.all)
-			uc.check(item, fieldValues);
+			uc.check(fieldValues);
 	}
 
 	void checkCheckConstraints(final Item item, final Entity entity, final Item exceptionItem)
@@ -1134,20 +1131,19 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 			cc.check(item, entity, exceptionItem);
 	}
 
-	private void checkCopyConstraints(final LinkedHashMap<Field<?>, Object> fieldValues)
+	private void checkCopyConstraints(final FieldValues fieldValues)
 	{
 		for(final CopyConstraint cc : copyConstraints.all)
 			cc.check(fieldValues);
 	}
 
 	void checkSettables(
-			final Item item,
 			final SetValue<?>[] setValues,
-			final LinkedHashMap<Field<?>, Object> fieldValues)
+			final FieldValues fieldValues)
 	{
 		for(final SetValue<?> sv : setValues)
 			if(sv.settable instanceof CheckingSettable<?>)
-				check(sv, new FieldValues(fieldValues, item, this));
+				check(sv, fieldValues);
 	}
 
 	private static <E> void check(

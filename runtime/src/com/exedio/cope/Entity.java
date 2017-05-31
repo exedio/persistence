@@ -18,7 +18,6 @@
 
 package com.exedio.cope;
 
-import java.util.LinkedHashMap;
 import java.util.Map;
 
 final class Entity
@@ -43,7 +42,7 @@ final class Entity
 	}
 
 	@SuppressWarnings({"unchecked", "rawtypes"}) // TODO dont know how
-	void put(final LinkedHashMap<Field<?>, Object> fieldValues)
+	void put(final FieldValues fieldValues)
 	{
 		for(final Map.Entry<Field<?>, Object> e : fieldValues.entrySet())
 		{
