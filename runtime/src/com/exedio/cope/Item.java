@@ -22,7 +22,6 @@ import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.ItemField.DeletePolicy;
 import com.exedio.cope.instrument.WrapType;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.Serializable;
@@ -529,17 +528,17 @@ public abstract class Item implements Serializable, Comparable<Item>
 		return sv.settable.execute(sv.value, exceptionItem);
 	}
 
-	@SuppressFBWarnings("WMI_WRONG_MAP_ITERATOR") // Inefficient use of keySet iterator instead of entrySet iterator
 	static final HashMap<BlobColumn, byte[]> toBlobs(final LinkedHashMap<Field<?>, Object> fieldValues, final Item exceptionItem)
 	{
 		final HashMap<BlobColumn, byte[]> result = new HashMap<>();
 
-		for(final Field<?> field : fieldValues.keySet())
+		for(final Map.Entry<Field<?>, Object> e : fieldValues.entrySet())
 		{
+			final Field<?> field = e.getKey();
 			if(!(field instanceof DataField))
 				continue;
 
-			final DataField.Value value = (DataField.Value)fieldValues.get(field);
+			final DataField.Value value = (DataField.Value)e.getValue();
 			final DataField df = (DataField)field;
 			result.put((BlobColumn)df.getColumn(), value!=null ? value.asArray(df, exceptionItem) : null);
 		}
