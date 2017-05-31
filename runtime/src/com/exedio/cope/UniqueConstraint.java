@@ -238,30 +238,32 @@ public final class UniqueConstraint extends Feature implements Copyable
 
 	void check(final Item item, final LinkedHashMap<? extends Field<?>, ?> fieldValues)
 	{
-		field:
-		for(final FunctionField<?> testField : fields)
+		if(!isAffectedBy(fieldValues))
+			return;
+
+		final Object[] values = new Object[fields.length];
+		int i = 0;
+
+		for(final FunctionField<?> f : fields)
 		{
-			if(fieldValues.containsKey(testField))
-			{
-				final Object[] values = new Object[fields.length];
-				int i = 0;
-
-				for(final FunctionField<?> f : fields)
-				{
-					final Object value = fieldValues.containsKey(f) ? fieldValues.get(f) : (item!=null ? f.get(item) : null);
-					if(value==null)
-						break field;
-					values[i++] = value;
-				}
-
-				final Item collision = search(values);
-				if(collision!=null && (item==null || !item.equals(collision)))
-					throw new UniqueViolationException(this, item, null);
-
-				//noinspection UnnecessaryLabelOnBreakStatement
-				break field;
-			}
+			final Object value = fieldValues.containsKey(f) ? fieldValues.get(f) : (item!=null ? f.get(item) : null);
+			if(value==null)
+				return;
+			values[i++] = value;
 		}
+
+		final Item collision = search(values);
+		if(collision!=null && (item==null || !item.equals(collision)))
+			throw new UniqueViolationException(this, item, null);
+	}
+
+	private boolean isAffectedBy(final LinkedHashMap<? extends Field<?>, ?> fieldValues)
+	{
+		for(final FunctionField<?> field : fields)
+			if(fieldValues.containsKey(field))
+				return true;
+
+		return false;
 	}
 
 	// ------------------- deprecated stuff -------------------
