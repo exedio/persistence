@@ -315,8 +315,7 @@ public abstract class Item implements Serializable, Comparable<Item>
 				throw ex;
 			}
 
-		final FieldValues fieldValues = new FieldValues(this);
-		executeSetValues(setValues, fieldValues);
+		final FieldValues fieldValues = new FieldValues(this, setValues);
 		for(final Map.Entry<Field<?>, Object> e : fieldValues.entrySet())
 		{
 			final Field<?> field = e.getKey();
@@ -496,27 +495,6 @@ public abstract class Item implements Serializable, Comparable<Item>
 			state==null
 			? Integer.MIN_VALUE
 			: state.updateCount;
-	}
-
-	static final void executeSetValues(final SetValue<?>[] sources, final FieldValues result)
-	{
-		for(final SetValue<?> source : sources)
-		{
-			if(source.settable instanceof Field<?>)
-			{
-				result.put(source);
-			}
-			else
-			{
-				for(final SetValue<?> part : execute(source, result.getBackingItem()))
-					result.put(part);
-			}
-		}
-	}
-
-	private static <X> SetValue<?>[] execute(final SetValue<X> sv, final Item exceptionItem)
-	{
-		return sv.settable.execute(sv.value, exceptionItem);
 	}
 
 	static final HashMap<BlobColumn, byte[]> toBlobs(final FieldValues fieldValues)

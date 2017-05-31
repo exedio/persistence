@@ -1041,9 +1041,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	FieldValues executeCreate(SetValue<?>[] setValues)
 	{
 		setValues = doBeforeNewItem(setValues);
-		final FieldValues fieldValues = new FieldValues(this);
-		Item.executeSetValues(setValues, fieldValues);
-
+		final FieldValues fieldValues = new FieldValues(this, setValues);
 		executeCopyConstraints(fieldValues);
 
 		long now = Long.MIN_VALUE;

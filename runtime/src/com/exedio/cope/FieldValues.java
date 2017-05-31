@@ -33,17 +33,41 @@ public final class FieldValues
 	private final Item backingItem;
 	private final Type<?> backingType;
 
-	FieldValues(final Type<?> backingType)
+	FieldValues(final Type<?> backingType, final SetValue<?>[] sources)
 	{
 		this.backingItem = null;
 		this.backingType = backingType;
+		put(sources);
 	}
 
-	FieldValues(final Item backingItem)
+	FieldValues(final Item backingItem, final SetValue<?>[] sources)
 	{
 		this.backingItem = backingItem;
 		this.backingType = backingItem.type;
+		put(sources);
 	}
+
+	private void put(final SetValue<?>[] sources)
+	{
+		for(final SetValue<?> source : sources)
+		{
+			if(source.settable instanceof Field<?>)
+			{
+				put(source);
+			}
+			else
+			{
+				for(final SetValue<?> part : execute(source))
+					put(part);
+			}
+		}
+	}
+
+	private <X> SetValue<?>[] execute(final SetValue<X> sv)
+	{
+		return sv.settable.execute(sv.value, backingItem);
+	}
+
 
 	boolean containsKey(@Nonnull final Field<?> field) // TODO rename to isModified
 	{
@@ -58,7 +82,7 @@ public final class FieldValues
 		return sourcesEntrySet;
 	}
 
-	void put(final SetValue<?> setValue) // TODO rename to setModified
+	private void put(final SetValue<?> setValue) // TODO move up
 	{
 		put((Field<?>)setValue.settable, setValue.value);
 	}
