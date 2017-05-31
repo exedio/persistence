@@ -1048,7 +1048,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		boolean needsNow = true;
 		for(final Field<?> field : fields.all)
 		{
-			if(field instanceof FunctionField<?> && !fieldValues.containsKey(field))
+			if(field instanceof FunctionField<?> && !fieldValues.isDirty(field))
 			{
 				final FunctionField<?> ff = (FunctionField<?>)field;
 				final DefaultSource<?> defaultSource = ff.defaultSource;
@@ -1063,7 +1063,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 					final Object defaultValue = defaultSource.generate(now);
 					if(defaultValue==null)
 						throw new RuntimeException(ff.getID());
-					fieldValues.put(field, defaultValue);
+					fieldValues.setDirty(field, defaultValue);
 				}
 			}
 		}
@@ -1080,7 +1080,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		for(final Map.Entry<FunctionField<?>,List<CopyConstraint>> e : copyConstraintsByCopy.entrySet())
 		{
 			final FunctionField<?> copy = e.getKey();
-			if(fieldValues.containsKey(copy))
+			if(fieldValues.isDirty(copy))
 				continue;
 
 			Object value = null;
@@ -1110,7 +1110,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 				}
 			}
 			if(!hasNoValue)
-				fieldValues.put(copy, value);
+				fieldValues.setDirty(copy, value);
 		}
 	}
 

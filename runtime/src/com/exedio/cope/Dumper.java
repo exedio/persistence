@@ -57,7 +57,7 @@ public final class Dumper
 	{
 		final FieldValues fieldValues = type.executeCreate(setValues);
 		final Row row = new Row();
-		for(final Map.Entry<Field<?>, Object> e : fieldValues.entrySet())
+		for(final Map.Entry<Field<?>, Object> e : fieldValues.dirtySet())
 		{
 			final Field<?> field = e.getKey();
 			if(field instanceof FunctionField<?>)

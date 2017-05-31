@@ -260,7 +260,7 @@ public final class UniqueConstraint extends Feature implements Copyable
 	private boolean isAffectedBy(final FieldValues fieldValues)
 	{
 		for(final FunctionField<?> field : fields)
-			if(fieldValues.containsKey(field))
+			if(fieldValues.isDirty(field))
 				return true;
 
 		return false;

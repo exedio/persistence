@@ -66,7 +66,7 @@ public final class FieldValues
 
 	private void put(final SetValue<?> setValue)
 	{
-		put((Field<?>)setValue.settable, setValue.value);
+		setDirty((Field<?>)setValue.settable, setValue.value);
 	}
 
 	private <X> SetValue<?>[] execute(final SetValue<X> sv)
@@ -75,7 +75,7 @@ public final class FieldValues
 	}
 
 
-	boolean containsKey(@Nonnull final Field<?> field) // TODO rename to isModified
+	boolean isDirty(@Nonnull final Field<?> field)
 	{
 		requireNonNull(field, "field");
 		backingType.assertBelongs(field);
@@ -83,12 +83,12 @@ public final class FieldValues
 		return sources.containsKey(field);
 	}
 
-	Set<Map.Entry<Field<?>, Object>> entrySet() // TODO rename to getModified
+	Set<Map.Entry<Field<?>, Object>> dirtySet()
 	{
 		return sourcesEntrySet;
 	}
 
-	void put(final Field<?> field, final Object value) // TODO rename to setModified
+	void setDirty(final Field<?> field, final Object value)
 	{
 		backingType.assertBelongs(field);
 		if(sources.putIfAbsent(field, value)!=null)

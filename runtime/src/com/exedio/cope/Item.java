@@ -315,7 +315,7 @@ public abstract class Item implements Serializable, Comparable<Item>
 			}
 
 		final FieldValues fieldValues = new FieldValues(this, setValues);
-		for(final Map.Entry<Field<?>, Object> e : fieldValues.entrySet())
+		for(final Map.Entry<Field<?>, Object> e : fieldValues.dirtySet())
 		{
 			final Field<?> field = e.getKey();
 

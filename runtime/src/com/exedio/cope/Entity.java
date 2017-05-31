@@ -44,7 +44,7 @@ final class Entity
 	@SuppressWarnings({"unchecked", "rawtypes"}) // TODO dont know how
 	void put(final FieldValues fieldValues)
 	{
-		for(final Map.Entry<Field<?>, Object> e : fieldValues.entrySet())
+		for(final Map.Entry<Field<?>, Object> e : fieldValues.dirtySet())
 		{
 			final Field<?> f = e.getKey();
 			if(f instanceof FunctionField)
