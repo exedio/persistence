@@ -318,8 +318,6 @@ public abstract class Item implements Serializable, Comparable<Item>
 		for(final Map.Entry<Field<?>, Object> e : fieldValues.dirtySet())
 		{
 			final Field<?> field = e.getKey();
-
-			FinalViolationException.check(field, this);
 			field.check(e.getValue(), this);
 		}
 		type.checkUniqueConstraints(fieldValues);

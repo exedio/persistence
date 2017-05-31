@@ -91,6 +91,10 @@ public final class FieldValues
 	void setDirty(final Field<?> field, final Object value)
 	{
 		backingType.assertBelongs(field);
+
+		if(backingItem!=null)
+			FinalViolationException.check(field, backingItem);
+
 		if(dirt.putIfAbsent(field, value)!=null)
 			throw new IllegalArgumentException("SetValues contain duplicate settable " + field);
 	}
