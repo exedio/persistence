@@ -63,6 +63,11 @@ public final class FieldValues
 		}
 	}
 
+	private void put(final SetValue<?> setValue)
+	{
+		put((Field<?>)setValue.settable, setValue.value);
+	}
+
 	private <X> SetValue<?>[] execute(final SetValue<X> sv)
 	{
 		return sv.settable.execute(sv.value, backingItem);
@@ -80,11 +85,6 @@ public final class FieldValues
 	Set<Map.Entry<Field<?>, Object>> entrySet() // TODO rename to getModified
 	{
 		return sourcesEntrySet;
-	}
-
-	private void put(final SetValue<?> setValue) // TODO move up
-	{
-		put((Field<?>)setValue.settable, setValue.value);
 	}
 
 	void put(final Field<?> field, final Object value) // TODO rename to setModified
