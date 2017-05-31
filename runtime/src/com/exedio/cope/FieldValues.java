@@ -21,6 +21,7 @@ package com.exedio.cope;
 import static java.util.Collections.unmodifiableSet;
 import static java.util.Objects.requireNonNull;
 
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
@@ -92,6 +93,23 @@ public final class FieldValues
 		backingType.assertBelongs(field);
 		if(sources.putIfAbsent(field, value)!=null)
 			throw new IllegalArgumentException("SetValues contain duplicate settable " + field);
+	}
+
+	HashMap<BlobColumn, byte[]> toBlobs()
+	{
+		final HashMap<BlobColumn, byte[]> result = new HashMap<>();
+
+		for(final Map.Entry<Field<?>, Object> e : sources.entrySet())
+		{
+			final Field<?> field = e.getKey();
+			if(!(field instanceof DataField))
+				continue;
+
+			final DataField.Value value = (DataField.Value)e.getValue();
+			final DataField df = (DataField)field;
+			result.put((BlobColumn)df.getColumn(), value!=null ? value.asArray(df, backingItem) : null);
+		}
+		return result;
 	}
 
 

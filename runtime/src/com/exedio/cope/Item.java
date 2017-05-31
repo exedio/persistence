@@ -25,7 +25,6 @@ import com.exedio.cope.instrument.WrapType;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.Serializable;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 
@@ -196,7 +195,7 @@ public abstract class Item implements Serializable, Comparable<Item>
 		final Entity entity = getEntity(false);
 		entity.put(fieldValues);
 		type.checkCheckConstraints(this, entity, null);
-		entity.write(toBlobs(fieldValues));
+		entity.write(fieldValues.toBlobs());
 
 		afterNewCopeItem();
 	}
@@ -329,7 +328,7 @@ public abstract class Item implements Serializable, Comparable<Item>
 		final Entity entity = getEntity();
 		entity.put(fieldValues);
 		type.checkCheckConstraints(this, entity, this);
-		entity.write(toBlobs(fieldValues));
+		entity.write(fieldValues.toBlobs());
 	}
 
 	/**
@@ -495,23 +494,6 @@ public abstract class Item implements Serializable, Comparable<Item>
 			state==null
 			? Integer.MIN_VALUE
 			: state.updateCount;
-	}
-
-	static final HashMap<BlobColumn, byte[]> toBlobs(final FieldValues fieldValues)
-	{
-		final HashMap<BlobColumn, byte[]> result = new HashMap<>();
-
-		for(final Map.Entry<Field<?>, Object> e : fieldValues.entrySet())
-		{
-			final Field<?> field = e.getKey();
-			if(!(field instanceof DataField))
-				continue;
-
-			final DataField.Value value = (DataField.Value)e.getValue();
-			final DataField df = (DataField)field;
-			result.put((BlobColumn)df.getColumn(), value!=null ? value.asArray(df, fieldValues.getBackingItem()) : null);
-		}
-		return result;
 	}
 
 	// serialization -------------
