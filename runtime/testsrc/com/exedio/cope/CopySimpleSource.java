@@ -19,10 +19,12 @@
 package com.exedio.cope;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Objects;
 
 final class CopySimpleSource extends Item
 {
@@ -37,23 +39,71 @@ final class CopySimpleSource extends Item
 	@SuppressWarnings("unused")
 	private static SetValue<?>[] beforeNewCopeItem(final SetValue<?>[] setValues)
 	{
-		beforeNewCopeItemLog.add(setValues);
+		beforeCopeItemLog.add(new BeforeLog(null, setValues));
+		return setValues;
+	}
+
+	@Override
+	protected SetValue<?>[] beforeSetCopeItem(final SetValue<?>[] setValues)
+	{
+		beforeCopeItemLog.add(new BeforeLog(this, setValues));
 		return setValues;
 	}
 
 	static void assertBeforeNewCopeItem(final SetValue<?>... expected)
 	{
-		assertEquals(1, beforeNewCopeItemLog.size());
-		assertEquals(Arrays.asList(expected), Arrays.asList(beforeNewCopeItemLog.get(0)));
-		beforeNewCopeItemLog.clear();
+		assertBeforeCopeItem(new BeforeLog(null, expected));
 	}
 
-	static void clearBeforeNewCopeItemLog()
+	private static void assertBeforeCopeItem(final BeforeLog expected)
 	{
-		beforeNewCopeItemLog.clear();
+		assertEquals(1, beforeCopeItemLog.size());
+		assertEquals(expected, beforeCopeItemLog.get(0));
+		beforeCopeItemLog.clear();
 	}
 
-	private static final ArrayList<SetValue<?>[]> beforeNewCopeItemLog = new ArrayList<>();
+	static void clearBeforeCopeItemLog()
+	{
+		beforeCopeItemLog.clear();
+	}
+
+	private static final ArrayList<BeforeLog> beforeCopeItemLog = new ArrayList<>();
+
+	private static final class BeforeLog
+	{
+		private final Item item;
+		private final SetValue<?>[] setValues;
+
+		private BeforeLog(final Item item, final SetValue<?>[] setValues)
+		{
+			this.item = item;
+			this.setValues = setValues;
+			assertNotNull(setValues);
+		}
+
+		@Override
+		@SuppressWarnings("EqualsWhichDoesntCheckParameterClass")
+		@SuppressFBWarnings({"BC_EQUALS_METHOD_SHOULD_WORK_FOR_ALL_OBJECTS", "NP_EQUALS_SHOULD_HANDLE_NULL_ARGUMENT"})
+		public boolean equals(final Object other)
+		{
+			final BeforeLog o = (BeforeLog)other;
+			return
+					Objects.equals(item, o.item) &&
+					Arrays.equals(setValues, o.setValues);
+		}
+
+		@Override
+		public String toString()
+		{
+			return item + Arrays.toString(setValues);
+		}
+
+		@Override
+		public int hashCode()
+		{
+			throw new RuntimeException();
+		}
+	}
 
 
 	@Override

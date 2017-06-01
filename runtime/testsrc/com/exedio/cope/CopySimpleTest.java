@@ -328,12 +328,12 @@ public class CopySimpleTest extends TestWithEnvironment
 
 	@Before public void before()
 	{
-		CopySimpleSource.clearBeforeNewCopeItemLog();
+		CopySimpleSource.clearBeforeCopeItemLog();
 	}
 
 	@After public void after()
 	{
-		CopySimpleSource.clearBeforeNewCopeItemLog();
+		CopySimpleSource.clearBeforeCopeItemLog();
 	}
 
 	static <E> void assertFails(
