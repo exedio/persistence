@@ -26,7 +26,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.Serializable;
 import java.util.HashSet;
-import java.util.Map;
 
 /**
  * This is the super class for all classes,
@@ -315,11 +314,6 @@ public abstract class Item implements Serializable, Comparable<Item>
 			}
 
 		final FieldValues fieldValues = new FieldValues(this, setValues);
-		for(final Map.Entry<Field<?>, Object> e : fieldValues.dirtySet())
-		{
-			final Field<?> field = e.getKey();
-			field.check(e.getValue(), this);
-		}
 		type.checkUniqueConstraints(fieldValues);
 		type.checkSettables(setValues, fieldValues);
 

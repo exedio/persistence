@@ -95,8 +95,19 @@ public final class FieldValues
 		if(backingItem!=null)
 			FinalViolationException.check(field, backingItem);
 
+		field.check(value, backingItem);
+
 		if(dirt.putIfAbsent(field, value)!=null)
 			throw new IllegalArgumentException("SetValues contain duplicate settable " + field);
+	}
+
+	void checkNonDirtyMandatoryOnCreate()
+	{
+		assert backingItem==null;
+
+		for(final Field<?> field : backingType.getFields())
+			if(field.isMandatory() && !dirt.containsKey(field))
+				throw MandatoryViolationException.create(field, null);
 	}
 
 	HashMap<BlobColumn, byte[]> toBlobs()

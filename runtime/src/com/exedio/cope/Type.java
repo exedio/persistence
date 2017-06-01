@@ -1067,10 +1067,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 				}
 			}
 		}
-		for(final Field<?> field : fields.all)
-		{
-			field.check(fieldValues.get(field), null);
-		}
+		fieldValues.checkNonDirtyMandatoryOnCreate();
 
 		return fieldValues;
 	}
