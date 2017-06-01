@@ -28,6 +28,15 @@ public final class Dumper
 {
 	private final HashMap<Type<?>, AtomicLong> pks = new HashMap<>();
 
+	/**
+	 * @deprecated This is weird functionality that will be removed sooner or later.
+	 */
+	@Deprecated
+	public Dumper()
+	{
+		// just to make it deprecated
+	}
+
 	@SuppressWarnings("static-method")
 	public void prepare(
 			final Appendable out,

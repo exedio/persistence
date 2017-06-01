@@ -49,7 +49,7 @@ public class DumperTest extends TestWithEnvironment
 	private Dumper dumper = null;
 	private String dataL = null;
 
-	@SuppressWarnings("AssignmentToStaticFieldFromInstanceMethod")
+	@SuppressWarnings({"AssignmentToStaticFieldFromInstanceMethod", "deprecation"})
 	@SuppressFBWarnings("ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD")
 	@Before public final void setUp()
 	{
