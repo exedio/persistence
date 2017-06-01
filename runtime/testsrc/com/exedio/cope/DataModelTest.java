@@ -109,7 +109,7 @@ public class DataModelTest
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("maximum length must be greater zero, but was 0.", e.getMessage());
+			assertEquals("maximumLength must be greater zero, but was 0", e.getMessage());
 		}
 		try
 		{
@@ -118,7 +118,7 @@ public class DataModelTest
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("maximum length must be greater zero, but was -10.", e.getMessage());
+			assertEquals("maximumLength must be greater zero, but was -10", e.getMessage());
 		}
 
 		// condition startsWith

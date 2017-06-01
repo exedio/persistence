@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.misc.Check.requireGreaterZero;
 import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.instrument.Parameter;
@@ -53,10 +54,7 @@ public final class DataField extends Field<DataField.Value>
 	private DataField(final boolean isfinal, final boolean optional, final long maximumLength)
 	{
 		super(isfinal, optional, Value.class);
-		this.maximumLength = maximumLength;
-
-		if(maximumLength<=0)
-			throw new IllegalArgumentException("maximum length must be greater zero, but was " + maximumLength + '.');
+		this.maximumLength = requireGreaterZero(maximumLength, "maximumLength");
 	}
 
 	public DataField()
