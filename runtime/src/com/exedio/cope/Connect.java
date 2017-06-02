@@ -21,6 +21,8 @@ package com.exedio.cope;
 import com.exedio.cope.util.JobContext;
 import com.exedio.cope.util.Pool;
 import com.exedio.cope.util.PoolCounter;
+import com.exedio.cope.vault.VaultProperties;
+import com.exedio.cope.vault.VaultService;
 import gnu.trove.TLongHashSet;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -53,6 +55,7 @@ final class Connect
 	final Marshallers marshallers;
 	final Executor executor;
 	final Database database;
+	final VaultService vault;
 	final ItemCache itemCache;
 	final QueryCache queryCache;
 	final Cluster cluster;
@@ -100,6 +103,10 @@ final class Connect
 				executor,
 				transactions,
 				revisions);
+		{
+			final VaultProperties props = properties.dataFieldVault;
+			this.vault = props!=null ? props.newService() : null;
+		}
 
 		this.itemCache = new ItemCache(types.typeListSorted, properties);
 		this.queryCache = new QueryCache(properties.getQueryCacheLimit());

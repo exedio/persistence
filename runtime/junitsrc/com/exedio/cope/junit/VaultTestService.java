@@ -1,0 +1,171 @@
+/*
+ * Copyright (C) 2004-2015  exedio GmbH (www.exedio.com)
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ */
+
+package com.exedio.cope.junit;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+
+import com.exedio.cope.ConnectProperties;
+import com.exedio.cope.util.CharSet;
+import com.exedio.cope.util.Hex;
+import com.exedio.cope.util.MessageDigestUtil;
+import com.exedio.cope.util.Properties;
+import com.exedio.cope.vault.VaultNotFoundException;
+import com.exedio.cope.vault.VaultProperties;
+import com.exedio.cope.vault.VaultService;
+import com.exedio.cope.vault.VaultServiceParameters;
+import com.exedio.cope.vault.VaultServiceProperties;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.security.MessageDigest;
+import java.util.HashMap;
+
+/**
+ * An implementation of {@link VaultService} to be used in junit tests.
+ * Stores data transiently for the lifetime of the service instance,
+ * which corresponds to the time of the cope
+ * {@link com.exedio.cope.Model#connect(ConnectProperties) connect}.
+ */
+@VaultServiceProperties(VaultTestService.Factory.class)
+public final class VaultTestService implements VaultService
+{
+	private final VaultProperties properties;
+	private final HashMap<String, byte[]> store = new HashMap<>();
+
+	public VaultTestService(final VaultServiceParameters parameters)
+	{
+		this.properties = parameters.getVaultProperties();
+		assertNotNull(properties);
+	}
+
+
+	@Override
+	public long getLength(final String hash) throws VaultNotFoundException
+	{
+		return store(hash).length;
+	}
+
+	@Override
+	public byte[] get(final String hash) throws VaultNotFoundException
+	{
+		return store(hash);
+	}
+
+	@Override
+	public void get(final String hash, final OutputStream value) throws VaultNotFoundException, IOException
+	{
+		assertNotNull(value);
+
+		value.write(store(hash));
+	}
+
+	private byte[] store(final String hash) throws VaultNotFoundException
+	{
+		assertHash(hash);
+
+		final byte[] result = store.get(hash);
+		if(result==null)
+			throw new VaultNotFoundException(hash);
+		return result;
+	}
+
+
+	@Override
+	public boolean put(final String hash, final byte[] value)
+	{
+		assertHash(hash);
+		assertNotNull(value);
+		assertFalse(
+				"empty byte sequence is not handled by service implementations",
+				value.length==0);
+
+		final MessageDigest md = MessageDigestUtil.getInstance(properties.getAlgorithm());
+		md.update(value);
+		assertEquals(hash, Hex.encodeLower(md.digest()));
+
+		return store.put(hash, value)==null;
+	}
+
+	@Override
+	public boolean put(final String hash, final InputStream value) throws IOException
+	{
+		assertHash(hash);
+		assertNotNull(value);
+
+		final byte[] bytes;
+		final byte[] b = new byte[55];
+		try(ByteArrayOutputStream baos = new ByteArrayOutputStream())
+		{
+			for(int len = value.read(b); len>=0; len = value.read(b))
+				baos.write(b, 0, len);
+			bytes = baos.toByteArray();
+		}
+
+		return put(hash, bytes);
+	}
+
+	@Override
+	public boolean put(final String hash, final File value) throws IOException
+	{
+		assertHash(hash);
+		assertNotNull(value);
+
+		try(FileInputStream s = new FileInputStream(value))
+		{
+			return put(hash, s);
+		}
+	}
+
+
+	private void assertHash(final String hash)
+	{
+		assertNotNull(hash);
+		assertEquals(hash, properties.getAlgorithmLength(), hash.length());
+		assertEquals(hash, -1, CharSet.HEX_LOWER.indexOfNotContains(hash));
+	}
+
+	@Override
+	public String toString()
+	{
+		return getClass().getSimpleName();
+	}
+
+
+	static final class Props extends Properties
+	{
+		Props(final Source source)
+		{
+			super(source);
+		}
+	}
+
+	public static final class Factory implements Properties.Factory<Props>
+	{
+		@Override
+		public Props create(final Properties.Source source)
+		{
+			return new Props(source);
+		}
+	}
+}

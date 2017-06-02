@@ -74,6 +74,7 @@ public class SchemaTest extends TestWithEnvironment
 	@Test public void testSchema()
 	{
 		final boolean nativeDate = supportsNativeDate(model);
+		final boolean dataVault = data.getVaultInfo()!=null;
 		final Schema schema = model.getVerifiedSchema();
 
 		final Table table = schema.getTable(getTableName(TYPE));
@@ -147,6 +148,7 @@ public class SchemaTest extends TestWithEnvironment
 		assertEquals(string8, min4Max8Column.getType());
 
 		final String upperSQL = mysql ? q(stringUpper6)+" REGEXP '^[A-Z]*$'" : "";
+		final String hexSQL   = mysql ? q(data)        +" REGEXP '^[0-9,a-f]*$'" : "";
 
 		assertCheckConstraint(table, "Main_stringMin4_MN", l(stringMin4)+">=4");
 		assertCheckConstraint(table, "Main_stringMin4_MX", l(stringMin4)+"<="+StringField.DEFAULT_MAXIMUM_LENGTH);
@@ -161,7 +163,9 @@ public class SchemaTest extends TestWithEnvironment
 		assertCheckConstraint(table, "Main_stringUpper6_CS", upperSQL, mysql);
 		assertCheckConstraint(table, "Main_stringEmpty_MN", null, false);
 		assertCheckConstraint(table, "Main_stringEmpty_MX", l(stringEmpty)+"<="+StringField.DEFAULT_MAXIMUM_LENGTH);
-		assertCheckConstraint(table, "Main_data_MX", l(data)+"<="+DataField.DEFAULT_LENGTH);
+		assertCheckConstraint(table, "Main_data_MX", l(data)+"<="+DataField.DEFAULT_LENGTH, !dataVault);
+		assertCheckConstraint(table, "Main_data_MN", l(data)+"=128", dataVault);
+		assertCheckConstraint(table, "Main_data_CS", hexSQL, dataVault && mysql);
 
 		final Column stringLongColumn = table.getColumn(getColumnName(stringLong));
 		assertEquals(null, stringLongColumn.getError());
@@ -209,7 +213,10 @@ public class SchemaTest extends TestWithEnvironment
 
 	private String l(final DataField f)
 	{
-		return model.connect().database.dialect.getBlobLength() + '(' + q(f) + ')';
+		if(f.getVaultInfo()==null)
+			return model.connect().database.dialect.getBlobLength() + '(' + q(f) + ')';
+		else
+			return model.connect().database.dialect.getStringLength() + '(' + q(f) + ')';
 	}
 
 	protected final String hp(final String s)

@@ -44,9 +44,21 @@ final class WrittenState extends State
 	}
 
 	@Override
+	String get(final StringColumn column) // just for DataVault
+	{
+		return (String)row.get(column);
+	}
+
+	@Override
 	<E> State put(final Transaction transaction, final FunctionField<E> field, final E value)
 	{
 		return new ModifiedState(transaction, this).put(transaction, field, value);
+	}
+
+	@Override
+	State put(final Transaction transaction, final StringColumn column, final String value) // just for DataVault
+	{
+		return new ModifiedState(transaction, this).put(transaction, column, value);
 	}
 
 	@Override

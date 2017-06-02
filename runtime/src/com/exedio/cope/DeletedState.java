@@ -36,7 +36,19 @@ final class DeletedState extends State
 	}
 
 	@Override
+	String get(final StringColumn column) // just for DataVault
+	{
+		throw new NoSuchItemException(item);
+	}
+
+	@Override
 	<E> State put(final Transaction transaction, final FunctionField<E> field, final E value)
+	{
+		throw new NoSuchItemException(item);
+	}
+
+	@Override
+	State put(final Transaction transaction, final StringColumn column, final String value) // just for DataVault
 	{
 		throw new NoSuchItemException(item);
 	}

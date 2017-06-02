@@ -38,9 +38,22 @@ final class ModifiedState extends State
 	}
 
 	@Override
+	String get(final StringColumn column) // just for DataVault
+	{
+		return (String)row.get(column);
+	}
+
+	@Override
 	<E> State put(final Transaction transaction, final FunctionField<E> field, final E value)
 	{
 		field.set(row, value);
+		return this;
+	}
+
+	@Override
+	State put(final Transaction transaction, final StringColumn column, final String value) // just for DataVault
+	{
+		row.put(column, value);
 		return this;
 	}
 

@@ -112,6 +112,8 @@ public class HashConditionTest extends TestWithEnvironment
 			assertTrue(algorithm, algorithm.equals(algorithm.trim()));
 
 			final Algorithm a = Algorithm.forCode(algorithm);
+			if(!isSupported(MyItem.hash.hashMatches(algorithm, MyItem.data)))
+				continue;
 
 			item.setData(null);
 			assertIt(false, false, null, a);
@@ -145,6 +147,9 @@ public class HashConditionTest extends TestWithEnvironment
 		final Condition negative = MyItem.hash.hashDoesNotMatch("NIXUS", MyItem.data);
 		assertEquals(  "MyItem.hash=NIXUS(MyItem.data)",  positive.toString());
 		assertEquals("!(MyItem.hash=NIXUS(MyItem.data))", negative.toString());
+		if(!isSupported(MyItem.hash.hashMatches("NIXUS", MyItem.data)))
+			return;
+
 		try
 		{
 			MyItem.TYPE.search(positive);
@@ -182,6 +187,9 @@ public class HashConditionTest extends TestWithEnvironment
 
 				final Condition condition = MyItem.hash.hashMatches(algorithm, MyItem.data);
 				assertEquals(p, "MyItem.hash=" + algorithm + "(MyItem.data)", condition.toString());
+
+				if(!isSupported(condition))
+					continue;
 				try
 				{
 					MyItem.TYPE.search(condition);
@@ -193,6 +201,26 @@ public class HashConditionTest extends TestWithEnvironment
 				}
 			}
 		}
+	}
+
+
+	private static boolean isSupported(final Condition condition)
+	{
+		if(MyItem.data.getVaultInfo()==null)
+			return true;
+
+		try
+		{
+			MyItem.TYPE.search(condition);
+			fail();
+		}
+		catch(final IllegalStateException e)
+		{
+			assertEquals(
+					"DataField MyItem.data does not support hashMatches as it has vault enabled",
+					e.getMessage());
+		}
+		return false;
 	}
 
 	private void assertIt(

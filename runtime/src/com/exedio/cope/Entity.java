@@ -36,9 +36,19 @@ final class Entity
 		return state.get(field);
 	}
 
+	String get(final StringColumn column) // just for DataVault
+	{
+		return state.get(column);
+	}
+
 	<E> void put(final FunctionField<E> field, final E value)
 	{
 		state = state.put(transaction, field, value);
+	}
+
+	void put(final StringColumn column, final String value) // just for DataVault
+	{
+		state = state.put(transaction, column, value);
 	}
 
 	@SuppressWarnings({"unchecked", "rawtypes"}) // TODO dont know how
@@ -50,7 +60,7 @@ final class Entity
 			if(f instanceof FunctionField)
 				put((FunctionField)f, e.getValue());
 			else
-				assert f instanceof DataField;
+				((DataField)f).put(this, (DataField.Value)e.getValue(), fieldValues.getBackingItem()); // just for DataVault
 		}
 	}
 

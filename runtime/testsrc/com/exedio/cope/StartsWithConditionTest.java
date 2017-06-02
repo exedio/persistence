@@ -22,6 +22,8 @@ import static com.exedio.cope.DataItem.TYPE;
 import static com.exedio.cope.DataItem.data;
 import static com.exedio.cope.RuntimeAssert.assertCondition;
 import static java.util.Arrays.asList;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,6 +54,9 @@ public class StartsWithConditionTest extends TestWithEnvironment
 
 	@Test public void testCondition()
 	{
+		if(!isSupported(data.startsWith(bytes4)))
+			return;
+
 		assertCondition(item4, TYPE, data.startsWith(bytes4));
 		assertCondition(item6, TYPE, data.startsWith(bytes6));
 		assertCondition(item6, item6x4, TYPE, data.startsWith(bytes6x4));
@@ -59,9 +64,32 @@ public class StartsWithConditionTest extends TestWithEnvironment
 
 	@Test public void testNot()
 	{
+		if(!isSupported(data.startsWith(bytes4).not()))
+			return;
+
 		assertCondition(reduce(item0, item6, item6x4), TYPE, data.startsWith(bytes4  ).not());
 		assertCondition(reduce(item0, item4, item6x4), TYPE, data.startsWith(bytes6  ).not());
 		assertCondition(reduce(item0, item4         ), TYPE, data.startsWith(bytes6x4).not());
+	}
+
+
+	private static boolean isSupported(final Condition condition)
+	{
+		if(data.getVaultInfo()==null)
+			return true;
+
+		try
+		{
+			TYPE.search(condition);
+			fail();
+		}
+		catch(final IllegalStateException e)
+		{
+			assertEquals(
+					"DataField DataItem.data does not support startsWith as it has vault enabled",
+					e.getMessage());
+		}
+		return false;
 	}
 
 	private List<DataItem> reduce(final DataItem... list)

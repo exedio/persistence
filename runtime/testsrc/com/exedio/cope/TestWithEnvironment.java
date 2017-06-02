@@ -20,6 +20,8 @@ package com.exedio.cope;
 
 import com.exedio.cope.tojunit.CopeRule;
 import com.exedio.cope.tojunit.CopeRuntimeRule;
+import com.exedio.cope.vault.VaultService;
+import com.exedio.cope.vaultmock.VaultMockService;
 import com.exedio.dsmf.CheckConstraint;
 import org.junit.Before;
 import org.junit.Rule;
@@ -59,6 +61,9 @@ public abstract class TestWithEnvironment
 		oracle  = tester.oracle;
 		postgresql = tester.postgresql;
 		cache = tester.cache;
+		final VaultService vault = model.connect().vault;
+		if(vault!=null)
+			((VaultMockService)vault).clear();
 	}
 
 	protected final void startTransaction()

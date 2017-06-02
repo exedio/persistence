@@ -38,8 +38,10 @@ abstract class State
 	}
 
 	abstract Object get(FunctionField<?> field);
+	abstract String get(StringColumn column); // just for DataVault
 
 	abstract <E> State put(Transaction transaction, FunctionField<E> field, E value);
+	abstract State put(Transaction transaction, StringColumn column, String value); // just for DataVault
 
 	abstract State write(Transaction transaction, Map<BlobColumn, byte[]> blobs);
 

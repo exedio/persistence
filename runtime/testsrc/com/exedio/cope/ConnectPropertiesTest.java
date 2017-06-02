@@ -33,6 +33,10 @@ import com.exedio.cope.util.IllegalPropertiesException;
 import com.exedio.cope.util.Properties.Field;
 import com.exedio.cope.util.Properties.Source;
 import com.exedio.cope.util.Sources;
+import com.exedio.cope.vault.VaultFileService;
+import com.exedio.cope.vault.VaultReferenceService;
+import com.exedio.cope.vaultmock.VaultMockService;
+import java.io.File;
 import java.util.HashMap;
 import java.util.concurrent.Callable;
 import org.junit.Test;
@@ -51,6 +55,11 @@ public class ConnectPropertiesTest
 		notOnDefault.put("connection.password", "xxxpassword");
 		notOnDefault.put("dialect", HsqldbDialect.class.getName());
 		notOnDefault.put("schema.primaryKeyGenerator", "sequence");
+		notOnDefault.put("dataField.vault", true);
+		notOnDefault.put("dataField.vault.service", VaultReferenceService.class.getName());
+		notOnDefault.put("dataField.vault.service.main", VaultFileService.class.getName());
+		notOnDefault.put("dataField.vault.service.main.root", new File("vaultFileRoot"));
+		notOnDefault.put("dataField.vault.service.reference", VaultMockService.class.getName());
 		notOnDefault.put("cluster", true);
 		notOnDefault.put("cluster.secret", 1234);
 		final ConnectProperties p = ConnectProperties.create(loadProperties());
@@ -333,6 +342,26 @@ public class ConnectPropertiesTest
 				"HSQL Database Engine 2.2.9 " +
 				"HSQL Database Engine Driver 2.2.9 " +
 				"PUBLIC";
+
+		assertEquals(expected, p.probe());
+
+		final Callable<?> test = p.getProbeTest();
+		assertEquals(expected, test.call());
+		assertEquals("probe", test.toString());
+	}
+
+	@Test public void testProbeVault() throws Exception
+	{
+		final ConnectProperties p = ConnectProperties.create(cascade(
+				single("dataField.vault", true),
+				single("dataField.vault.service", VaultMockService.class),
+				single("dataField.vault.service.example", "probeExampleValue"),
+				TestSources.minimal()));
+		final String expected =
+				"HSQL Database Engine 2.2.9 " +
+				"HSQL Database Engine Driver 2.2.9 " +
+				"PUBLIC " +
+				"VaultMockService:probeExampleValue";
 
 		assertEquals(expected, p.probe());
 

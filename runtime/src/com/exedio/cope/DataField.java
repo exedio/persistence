@@ -27,6 +27,7 @@ import com.exedio.cope.misc.instrument.FinalSettableGetter;
 import com.exedio.cope.misc.instrument.InitialExceptionsSettableGetter;
 import com.exedio.cope.misc.instrument.NullableIfOptional;
 import com.exedio.cope.util.Hex;
+import com.exedio.cope.vault.VaultProperties;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -88,7 +89,7 @@ public final class DataField extends Field<DataField.Value>
 
 	private Model model;
 	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
-	private BlobColumn column;
+	private DataFieldStore column; // TODO rename
 	private int bufferSizeDefault = -1;
 	private int bufferSizeLimit = -1;
 
@@ -98,11 +99,19 @@ public final class DataField extends Field<DataField.Value>
 		final Type<?> type = getType();
 		this.model = type.getModel();
 		final ConnectProperties properties = model.getConnectProperties();
-		column = new BlobColumn(table, name, optional, maximumLength);
+		final VaultProperties vaultProperties = properties.dataFieldVault;
+		column = vaultProperties==null ||
+					!(
+						vaultProperties.isAppliedToAllFields() ||
+						isAnnotationPresent(Vault.class) ||
+						type.isAnnotationPresent(Vault.class)
+					)
+				? new DataFieldBlobStore (this, table, name, optional, maximumLength)
+				: new DataFieldVaultStore(this, table, name, optional, vaultProperties, model.connect());
 		bufferSizeDefault = min(properties.dataFieldBufferSizeDefault, maximumLength);
 		bufferSizeLimit   = min(properties.dataFieldBufferSizeLimit  , maximumLength);
 
-		return column;
+		return column.column();
 	}
 
 	@Override
@@ -112,9 +121,14 @@ public final class DataField extends Field<DataField.Value>
 		column = null;
 	}
 
-	BlobColumn getBlobColumn()
+	BlobColumn getBlobColumnIfSupported(final String capability)
 	{
-		return (BlobColumn)getColumn();
+		return column.blobColumnIfSupported(capability);
+	}
+
+	void put(final Entity entity, final Value value, final Item exceptionItem) // just for DataVault
+	{
+		column.put(entity, value, exceptionItem);
 	}
 
 	/**
@@ -205,7 +219,7 @@ public final class DataField extends Field<DataField.Value>
 		//noinspection resource OK: fails only if null
 		requireNonNull(data);
 
-		column.load(model.currentTransaction(), item, data, this);
+		column.load(model.currentTransaction(), item, data);
 	}
 
 	/**
@@ -260,7 +274,7 @@ public final class DataField extends Field<DataField.Value>
 			checkNotNull(data, item);
 		}
 
-		column.store(model.currentTransaction(), item, data, this);
+		column.store(model.currentTransaction(), item, data);
 	}
 
 	/**
@@ -500,6 +514,17 @@ public final class DataField extends Field<DataField.Value>
 		 */
 		public abstract Value update(MessageDigest digest) throws IOException;
 
+		/**
+		 * Puts the contents of this value into <tt>digest</tt> via
+		 * {@link MessageDigest#update(byte[])}.
+		 * After the invocation of this method, this value is exhausted.
+		 * Therefore this method returns a new value equivalent to this value,
+		 * which can be used instead.
+		 * Additionally checks for {@link #getMaximumLength() maximum length} and
+		 * throw {@link DataLengthViolationException} if exceeded.
+		 */
+		abstract Value update(MessageDigest digest, DataField field, Item exceptionItem) throws IOException;
+
 		@Override
 		public abstract String toString();
 
@@ -564,6 +589,19 @@ public final class DataField extends Field<DataField.Value>
 			digest.update(array, 0, array.length);
 			return new ArrayValue(array);
 		}
+
+		@Override
+		Value update(
+				final MessageDigest digest,
+				final DataField field,
+				final Item exceptionItem)
+		{
+			assertNotExhausted();
+			if(array.length>field.maximumLength)
+				throw new DataLengthViolationException(field, exceptionItem, array.length, true);
+			digest.update(array, 0, array.length);
+			return new ArrayValue(array);
+		}
 	}
 
 	abstract static class AbstractStreamValue extends Value
@@ -609,6 +647,54 @@ public final class DataField extends Field<DataField.Value>
 				{
 					for(int len = in.read(buf); len>=0; len = in.read(buf))
 						digest.update(buf, 0, len);
+				}
+				return copyAfterExhaustion();
+			}
+		}
+
+		@Override
+		final Value update(
+				final MessageDigest digest,
+				final DataField field,
+				final Item exceptionItem) throws IOException
+		{
+			assertNotExhausted();
+			final long estimateLength = estimateLength();
+			final long maximumLength = field.getMaximumLength();
+			if(estimateLength>maximumLength)
+				throw new DataLengthViolationException(field, exceptionItem, estimateLength, true);
+
+			final byte[] buf = new byte[estimateLength<=0 ? 5000 : min(5000, estimateLength)];
+			long transferredLength = 0;
+			if(exhaustsOpenStream())
+			{
+				final ByteArrayOutputStream bf = new ByteArrayOutputStream();
+				try(InputStream in = openStream())
+				{
+					for(int len = in.read(buf); len>=0; len = in.read(buf))
+					{
+						transferredLength += len;
+						if(transferredLength>maximumLength)
+							throw new DataLengthViolationException(field, exceptionItem, transferredLength, false);
+
+						digest.update(buf, 0, len);
+						bf.write(buf, 0, len);
+					}
+				}
+				return new ArrayValue(bf.toByteArray());
+			}
+			else
+			{
+				try(InputStream in = openStream())
+				{
+					for(int len = in.read(buf); len>=0; len = in.read(buf))
+					{
+						transferredLength += len;
+						if(transferredLength>maximumLength)
+							throw new DataLengthViolationException(field, exceptionItem, transferredLength, false);
+
+						digest.update(buf, 0, len);
+					}
 				}
 				return copyAfterExhaustion();
 			}
@@ -659,7 +745,7 @@ public final class DataField extends Field<DataField.Value>
 
 	static final class FileValue extends AbstractStreamValue
 	{
-		private final File file;
+		final File file;
 
 		FileValue(final File file)
 		{
@@ -745,6 +831,14 @@ public final class DataField extends Field<DataField.Value>
 		{
 			return "DataField.Value:" + file.getName() + '#' + entry.getName();
 		}
+	}
+
+	public DataFieldVaultInfo getVaultInfo()
+	{
+		final DataFieldStore store = this.column;
+		if(store==null)
+			throw new Model.NotConnectedException(getType().getModel());
+		return store.getVaultInfo();
 	}
 
 	public StartsWithCondition startsWith(final byte[] value)

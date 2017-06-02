@@ -29,6 +29,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.fail;
+import static org.junit.Assume.assumeTrue;
 
 import com.exedio.cope.tojunit.SI;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -69,6 +70,7 @@ public class DumperTest extends TestWithEnvironment
 	@Test public void testOk() throws IOException
 	{
 		assertFalse(model.hasCurrentTransaction());
+		assumeNoVault();
 
 		final StringBuilder out = new StringBuilder();
 		final DumperItem item = dumper.newItem(out, TYPE,
@@ -87,6 +89,7 @@ public class DumperTest extends TestWithEnvironment
 	@Test public void testSub() throws IOException
 	{
 		assertFalse(model.hasCurrentTransaction());
+		assumeNoVault();
 
 		final StringBuilder out = new StringBuilder();
 		final DumperItem item = dumper.newItem(out, DumperSubItem.TYPE,
@@ -192,6 +195,29 @@ public class DumperTest extends TestWithEnvironment
 			assertEquals("", out.toString());
 	}
 
+
+	private void assumeNoVault() throws IOException
+	{
+		if(data.getVaultInfo()==null)
+			return;
+
+		final StringBuilder out = new StringBuilder();
+		try
+		{
+			dumper.newItem(out, TYPE,
+					string.map("string0"),
+					unique.map("unique0"),
+					data.map(toValue(decodeLower("aabbcc"))));
+			fail();
+		}
+		catch(final RuntimeException e)
+		{
+			assertEquals(
+					"Dumper does not support DataField Vault: DumperItem.data",
+					e.getMessage());
+			assumeTrue(false);
+		}
+	}
 
 	private static String tab(final Type<?> type)
 	{

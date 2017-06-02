@@ -22,6 +22,7 @@ import com.exedio.cope.pattern.MediaFingerprintOffset;
 import com.exedio.cope.util.PoolProperties;
 import com.exedio.cope.util.Properties;
 import com.exedio.cope.util.Sources;
+import com.exedio.cope.vault.VaultProperties;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.File;
 import java.lang.reflect.Constructor;
@@ -183,6 +184,7 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 
 	final int dataFieldBufferSizeDefault = value("dataField.bufferSizeDefault", 20*1024, 1);
 	final int dataFieldBufferSizeLimit   = value("dataField.bufferSizeLimit", 1024*1024, 1);
+	final VaultProperties dataFieldVault = value("dataField.vault", false, VaultProperties.factory());
 
 	final     int changeListenersQueueCapacity = value("changeListeners.queueCapacity", 1000, 1);
 	final ThreadSwarmProperties chaListThreads = valnp("changeListeners.threads", ThreadSwarmProperties::new);
@@ -463,7 +465,8 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 				info.getDatabaseVersionDescription() + ' ' +
 				info.getDriverName() + ' ' +
 				info.getDriverVersionDescription() + ' ' +
-				info.getCatalog();
+				info.getCatalog() +
+				(dataFieldVault!=null ? ' ' + dataFieldVault.probe() : "");
 	}
 
 	// ------------------- deprecated stuff -------------------

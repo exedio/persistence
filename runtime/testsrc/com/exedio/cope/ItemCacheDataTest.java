@@ -35,10 +35,12 @@ public class ItemCacheDataTest extends TestWithEnvironment
 		super(MODEL);
 	}
 
+	boolean v;
 	ItemCacheDataItem item;
 
 	@Before public final void setUp()
 	{
+		v = ItemCacheDataItem.data.getVaultInfo()!=null;
 		item = new ItemCacheDataItem();
 	}
 
@@ -81,14 +83,14 @@ public class ItemCacheDataTest extends TestWithEnvironment
 		assertUpdateCount(MIN_VALUE, MIN_VALUE);
 
 		item.setData("aabbccdd");
-		assertUpdateCount(MIN_VALUE, MIN_VALUE);
+		assertUpdateCount(v ? 1 : MIN_VALUE, v ? 0 : MIN_VALUE);
 
 		model.commit();
 		model.startTransaction("ItemCacheDataTest");
 		assertUpdateCount(MIN_VALUE, MIN_VALUE);
 
 		item.setString("zack");
-		assertUpdateCount(1, 0);
+		assertUpdateCount(v?2:1, v?1:0);
 	}
 
 	@Test public void testCommitMultiEmpty()
@@ -135,14 +137,14 @@ public class ItemCacheDataTest extends TestWithEnvironment
 		assertUpdateCount(MIN_VALUE, MIN_VALUE);
 
 		item.setDataMulti("aabbccdd");
-		assertUpdateCount(0, 0);
+		assertUpdateCount(v?1:0, 0);
 
 		model.commit();
 		model.startTransaction("ItemCacheDataTest");
-		assertUpdateCount(MIN_VALUE, 0);
+		assertUpdateCount(MIN_VALUE, v ? MIN_VALUE : 0);
 
 		item.setString("zack");
-		assertUpdateCount(1, 0);
+		assertUpdateCount(v?2:1, v?1:0);
 	}
 
 	@Test public void testCommitMultiBoth()
@@ -189,11 +191,11 @@ public class ItemCacheDataTest extends TestWithEnvironment
 		assertUpdateCount(MIN_VALUE, MIN_VALUE);
 
 		item.setData("aabbccdd");
-		assertUpdateCount(MIN_VALUE, MIN_VALUE);
+		assertUpdateCount(v ? 1 : MIN_VALUE, v ? 0 : MIN_VALUE);
 
 		model.rollback();
 		model.startTransaction("ItemCacheDataTest");
-		assertUpdateCount(MIN_VALUE, MIN_VALUE);
+		assertUpdateCount(MIN_VALUE, v ? 0 : MIN_VALUE);
 
 		item.setString("zack");
 		assertUpdateCount(1, 0);
@@ -243,7 +245,7 @@ public class ItemCacheDataTest extends TestWithEnvironment
 		assertUpdateCount(MIN_VALUE, MIN_VALUE);
 
 		item.setDataMulti("aabbccdd");
-		assertUpdateCount(0, 0);
+		assertUpdateCount(v?1:0, 0);
 
 		model.rollback();
 		model.startTransaction("ItemCacheDataTest");

@@ -79,10 +79,11 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 	{
 		this.isfinal = isfinal;
 		this.optional = optional;
+		//noinspection ThisEscapedInObjectConstruction
 		addSource(
 				this.body = applyConstraints(new DataField(), isfinal, optional).lengthMax(bodyMaximumLength),
 				"body",
-				ComputedElement.get());
+				new MediaVaultAnnotationProxy(this));
 		this.contentType = contentType;
 		final FunctionField<?> contentTypeField = contentType.field;
 		if(contentTypeField!=null)

@@ -51,6 +51,11 @@ public final class TestSources
 		return single(key, value.name());
 	}
 
+	public static Source single(final String key, final Class<?> value)
+	{
+		return single(key, value.getName());
+	}
+
 	public static Source single(final String key, final String value)
 	{
 		requireNonNull(key);

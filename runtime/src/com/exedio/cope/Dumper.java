@@ -69,6 +69,10 @@ public final class Dumper
 		for(final Map.Entry<Field<?>, Object> e : fieldValues.dirtySet())
 		{
 			final Field<?> field = e.getKey();
+
+			if(field instanceof DataField && ((DataField)field).getVaultInfo()!=null)
+				throw new RuntimeException("Dumper does not support DataField Vault: " + field);
+
 			if(field instanceof FunctionField<?>)
 				set(row, (FunctionField<?>)field, e.getValue());
 		}

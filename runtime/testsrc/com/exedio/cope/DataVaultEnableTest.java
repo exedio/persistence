@@ -1,0 +1,208 @@
+/*
+ * Copyright (C) 2004-2015  exedio GmbH (www.exedio.com)
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ */
+
+package com.exedio.cope;
+
+import static com.exedio.cope.instrument.Visibility.NONE;
+import static com.exedio.cope.tojunit.TestSources.minimal;
+import static com.exedio.cope.tojunit.TestSources.single;
+import static com.exedio.cope.util.Sources.cascade;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertSame;
+
+import com.exedio.cope.instrument.Wrapper;
+import com.exedio.cope.pattern.Media;
+import com.exedio.cope.vaultmock.VaultMockService;
+import org.junit.After;
+import org.junit.Test;
+
+public class DataVaultEnableTest
+{
+	@Test
+	public void testDisabled()
+	{
+		model.connect(ConnectProperties.create(minimal()));
+		assertIt(MyBlank.blankF);
+		assertIt(MyBlank.blankM);
+		assertIt(MyBlank.vaultF);
+		assertIt(MyBlank.vaultM);
+		assertIt(AnVault.blankF);
+		assertIt(AnVault.blankM);
+		assertIt(AnVault.vaultF);
+		assertIt(AnVault.vaultM);
+	}
+	@Test
+	public void testEnabledAny()
+	{
+		model.connect(ConnectProperties.create(cascade(
+				single("dataField.vault", true),
+				single("dataField.vault.service", VaultMockService.class),
+				single("dataField.vault.service.example", "main"),
+				single("dataField.vault.isAppliedToAllFields", true),
+				minimal()
+		)));
+		assertIt(MyBlank.blankF, "VaultMockService:main");
+		assertIt(MyBlank.blankM, "VaultMockService:main");
+		assertIt(MyBlank.vaultF, "VaultMockService:main");
+		assertIt(MyBlank.vaultM, "VaultMockService:main");
+		assertIt(AnVault.blankF, "VaultMockService:main");
+		assertIt(AnVault.blankM, "VaultMockService:main");
+		assertIt(AnVault.vaultF, "VaultMockService:main");
+		assertIt(AnVault.vaultM, "VaultMockService:main");
+	}
+	@Test
+	public void testEnabled()
+	{
+		model.connect(ConnectProperties.create(cascade(
+				single("dataField.vault", true),
+				single("dataField.vault.service", VaultMockService.class),
+				single("dataField.vault.service.example", "main"),
+				minimal()
+		)));
+		assertIt(MyBlank.blankF);
+		assertIt(MyBlank.blankM);
+		assertIt(MyBlank.vaultF, "VaultMockService:main");
+		assertIt(MyBlank.vaultM, "VaultMockService:main");
+		assertIt(AnVault.blankF, "VaultMockService:main");
+		assertIt(AnVault.blankM, "VaultMockService:main");
+		assertIt(AnVault.vaultF, "VaultMockService:main");
+		assertIt(AnVault.vaultM, "VaultMockService:main");
+	}
+	@Test
+	public void testAlgorithm()
+	{
+		model.connect(ConnectProperties.create(cascade(
+				single("dataField.vault", true),
+				single("dataField.vault.algorithm", "MD5"),
+				single("dataField.vault.service", VaultMockService.class),
+				minimal()
+		)));
+		final DataFieldVaultInfo info = MyBlank.vaultF.getVaultInfo();
+		assertNotNull(info);
+		assertSame("field", MyBlank.vaultF, info.getField());
+		assertEquals("service", "VaultMockService:exampleDefault", info.getService());
+		assertEquals("VARCHAR(32) not null", type(MyBlank.vaultF));
+	}
+
+
+	private static void assertIt(
+			final DataField field)
+	{
+		assertNull(field.getVaultInfo());
+		assertEquals("BLOB not null", type(field));
+	}
+
+	private static void assertIt(
+			final DataField field,
+			final String service)
+	{
+		final DataFieldVaultInfo actual = field.getVaultInfo();
+		assertNotNull(actual);
+		assertSame("field", field, actual.getField());
+		assertEquals("service", service, actual.getService());
+		assertEquals("VARCHAR(128) not null", type(field));
+	}
+
+	private static void assertIt(
+			final Media media)
+	{
+		assertIt(media.getBody());
+	}
+
+	private static void assertIt(
+			final Media media,
+			final String service)
+	{
+		assertIt(media.getBody(), service);
+	}
+
+	private static String type(final DataField field)
+	{
+		return model.
+				getSchema().
+				getTable(SchemaInfo.getTableName(field.getType())).
+				getColumn(SchemaInfo.getColumnName(field)).
+				getType();
+	}
+
+	@SuppressWarnings("static-method")
+	@After public final void tearDown()
+	{
+		if(model.isConnected())
+			model.disconnect();
+	}
+
+	static final Model model = new Model(MyBlank.TYPE, AnVault.TYPE);
+
+	@com.exedio.cope.instrument.WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false) // TODO use import, but this is not accepted by javac
+	static class MyBlank extends Item
+	{
+		@Wrapper(wrap="*", visibility=NONE)
+		static final DataField blankF = new DataField();
+
+		@Vault
+		@Wrapper(wrap="*", visibility=NONE)
+		static final DataField vaultF = new DataField();
+
+		@Wrapper(wrap="*", visibility=NONE)
+		static final Media blankM = new Media();
+
+		@Vault
+		@Wrapper(wrap="*", visibility=NONE)
+		static final Media vaultM = new Media();
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		private static final long serialVersionUID = 1l;
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		static final com.exedio.cope.Type<MyBlank> TYPE = com.exedio.cope.TypesBound.newType(MyBlank.class);
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		protected MyBlank(final com.exedio.cope.ActivationParameters ap){super(ap);}
+	}
+
+	@Vault
+	@com.exedio.cope.instrument.WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false) // TODO use import, but this is not accepted by javac
+	static class AnVault extends Item
+	{
+		@Wrapper(wrap="*", visibility=NONE)
+		static final DataField blankF = new DataField();
+
+		@Vault
+		@Wrapper(wrap="*", visibility=NONE)
+		static final DataField vaultF = new DataField();
+
+		@Wrapper(wrap="*", visibility=NONE)
+		static final Media blankM = new Media();
+
+		@Vault
+		@Wrapper(wrap="*", visibility=NONE)
+		static final Media vaultM = new Media();
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		private static final long serialVersionUID = 1l;
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		static final com.exedio.cope.Type<AnVault> TYPE = com.exedio.cope.TypesBound.newType(AnVault.class);
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		protected AnVault(final com.exedio.cope.ActivationParameters ap){super(ap);}
+	}
+}
