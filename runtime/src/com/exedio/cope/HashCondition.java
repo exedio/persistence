@@ -48,7 +48,7 @@ final class HashCondition extends Condition
 		bf.append('(').
 			append(hash).
 			append('=');
-		bf.dialect.appendBlobHash(bf, data.getColumn(), null, algorithm);
+		bf.dialect.appendBlobHash(bf, data.getBlobColumn(), null, algorithm);
 		bf.append(')');
 	}
 

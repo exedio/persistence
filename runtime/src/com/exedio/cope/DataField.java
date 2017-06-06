@@ -105,6 +105,11 @@ public final class DataField extends Field<DataField.Value>
 		return column;
 	}
 
+	BlobColumn getBlobColumn()
+	{
+		return (BlobColumn)getColumn();
+	}
+
 	/**
 	 * for tests only
 	 */

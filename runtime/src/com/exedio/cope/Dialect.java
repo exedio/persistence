@@ -299,7 +299,7 @@ abstract class Dialect
 	}
 
 	void appendBlobHash(
-			final Statement bf, final Column column, final Join join,
+			final Statement bf, final BlobColumn column, final Join join,
 			final String algorithm)
 	{
 		throw new IllegalArgumentException("hash >" + algorithm + "< not supported");

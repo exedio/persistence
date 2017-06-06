@@ -52,7 +52,7 @@ public final class StartsWithCondition extends Condition
 	@Override
 	void append(final Statement bf)
 	{
-		bf.dialect.appendStartsWith(bf, (BlobColumn)field.getColumn(), value);
+		bf.dialect.appendStartsWith(bf, field.getBlobColumn(), value);
 	}
 
 	@Override

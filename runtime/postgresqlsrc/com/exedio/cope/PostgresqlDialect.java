@@ -194,7 +194,7 @@ final class PostgresqlDialect extends Dialect
 
 	@Override
 	void appendBlobHash(
-			final Statement bf, final Column column, final Join join,
+			final Statement bf, final BlobColumn column, final Join join,
 			final String algorithm)
 	{
 		switch(algorithm)

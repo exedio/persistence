@@ -122,7 +122,7 @@ public final class FieldValues
 
 			final DataField.Value value = (DataField.Value)e.getValue();
 			final DataField df = (DataField)field;
-			result.put((BlobColumn)df.getColumn(), value!=null ? value.asArray(df, backingItem) : null);
+			result.put(df.getBlobColumn(), value!=null ? value.asArray(df, backingItem) : null);
 		}
 		return result;
 	}
