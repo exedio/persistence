@@ -196,15 +196,15 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 
 	private String valueMediaUrlSecret(final String key)
 	{
-		final String s = valueHidden(key, "");
-		final int length = s.length();
+		final String result = valueHidden(key, "");
+		final int length = result.length();
 		if(length==0)
 			return null;
 		if(length<10)
 			throw newException(key,
 					"must have at least 10 characters, " +
-					"but was '" + s + "' with just " + length + " characters");
-		return s;
+					"but was '" + result + "' with just " + length + " characters");
+		return result;
 	}
 
 	public String getMediaRootUrl()
