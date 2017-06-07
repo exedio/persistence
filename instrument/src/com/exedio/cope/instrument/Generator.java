@@ -81,6 +81,8 @@ final class Generator
 	private final boolean nullabilityAnnotations;
 	private final boolean suppressUnusedWarningOnPrivateActivationConstructor;
 	private final boolean serialVersionUIDEnabled;
+	/** @see Params#differentSerialVersionUIDForAbstract */
+	private final boolean differentSerialVersionUIDForAbstract;
 	private final String serialVersionUIDSuffix;
 	private final boolean genericSetValueArray;
 	private final boolean directSetValueMap;
@@ -102,6 +104,7 @@ final class Generator
 		this.nullabilityAnnotations = params.nullabilityAnnotations;
 		this.suppressUnusedWarningOnPrivateActivationConstructor = params.suppressUnusedWarningOnPrivateActivationConstructor;
 		this.serialVersionUIDEnabled = params.serialVersionUIDEnabled;
+		this.differentSerialVersionUIDForAbstract = params.differentSerialVersionUIDForAbstract;
 		this.serialVersionUIDSuffix = params.serialVersionUIDSuffix.code;
 		this.genericSetValueArray = params.genericSetValueArray;
 		this.directSetValueMap = params.directSetValueMap;
@@ -789,7 +792,15 @@ final class Generator
 
 		writeIndent();
 		writeModifier(PRIVATE|STATIC|FINAL);
-		write("long serialVersionUID = 1");
+		write("long serialVersionUID = ");
+		if (differentSerialVersionUIDForAbstract && Modifier.isAbstract(type.getModifier()))
+		{
+			write('2');
+		}
+		else
+		{
+			write('1');
+		}
 		if(serialVersionUIDSuffix!=null)
 			write(serialVersionUIDSuffix);
 		write(';');
