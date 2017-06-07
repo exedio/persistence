@@ -192,16 +192,16 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	private final String mediaRooturl;
 	private final int mediaOffsetExpires = value("media.offsetExpires", 1000 * 5, 0);
 	private final int mediaFingerOffset  = value("media.fingerprintOffset", 0, 0);
-	private final String mediaUrlSecret = checkMediaUrlSecret(valueHidden("media.url.secret", ""));
+	private final String mediaUrlSecret = valueMediaUrlSecret("media.url.secret");
 
-	private String checkMediaUrlSecret(final String s)
+	private String valueMediaUrlSecret(final String key)
 	{
+		final String s = valueHidden(key, "");
 		final int length = s.length();
 		if(length==0)
 			return null;
 		if(length<10)
-			throw newException(
-					"media.url.secret",
+			throw newException(key,
 					"must have at least 10 characters, " +
 					"but was '" + s + "' with just " + length + " characters");
 		return s;
