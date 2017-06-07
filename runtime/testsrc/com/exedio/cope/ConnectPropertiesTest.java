@@ -117,6 +117,15 @@ public class ConnectPropertiesTest
 				ClassNotFoundException.class);
 	}
 
+	@Test public void testDialectClassAbstract()
+	{
+		assertDialectFailure(
+				ConnectPropertiesTestClassAbstractDialect.class.getName(),
+				"property dialect in DESC must name a non-abstract class, " +
+				"but was " + ConnectPropertiesTestClassAbstractDialect.class.getName(),
+				null);
+	}
+
 	@Test public void testDialectClassNotDialect()
 	{
 		assertDialectFailure(

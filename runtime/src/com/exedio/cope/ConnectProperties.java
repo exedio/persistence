@@ -25,6 +25,7 @@ import com.exedio.cope.util.Sources;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.File;
 import java.lang.reflect.Constructor;
+import java.lang.reflect.Modifier;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.concurrent.Callable;
@@ -363,6 +364,11 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 		{
 			throw newException(key, "must name a class, but was '" + name + '\'', e);
 		}
+
+		if(Modifier.isAbstract(classRaw.getModifiers()))
+			throw newException(key,
+					"must name a non-abstract class, " +
+					"but was " + classRaw.getName());
 
 		if(!superclass.isAssignableFrom(classRaw))
 			throw newException(key,
