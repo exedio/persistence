@@ -107,7 +107,7 @@ public class DefaultInheritanceTest extends TestWithEnvironment
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;
+	private static final long serialVersionUID = 2l;
 
 	/**
 	 * The persistent type information for alpha.

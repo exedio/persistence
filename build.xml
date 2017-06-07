@@ -377,7 +377,6 @@
 				verify="${instrument.verify}"
 				suppressUnusedWarningOnPrivateActivationConstructor="true"
 				nullabilityAnnotations="${instrument.nullabilityAnnotations}"
-				differentSerialVersionUIDForAbstract="false"
 				timestampFile="build/timestamps/runtime.test.timestamp">
 			<resources refid="instrument.resources" />
 			<classpath refid="runtime.test.path"/>
@@ -538,7 +537,6 @@
 				suppressUnusedWarningOnPrivateActivationConstructor="true"
 				nullabilityAnnotations="${instrument.nullabilityAnnotations}"
 				hintFormat="forAnnotations"
-				differentSerialVersionUIDForAbstract="false"
 				timestampFile="build/timestamps/runtime.servlet.test.timestamp">
 			<classpath>
 				<pathelement location="build/classes/runtime/servletsrc" />
@@ -744,7 +742,6 @@
 				hidingWarningSuppressor="hiding"
 				nullabilityAnnotations="${instrument.nullabilityAnnotations}"
 				hintFormat="forTags"
-				differentSerialVersionUIDForAbstract="false"
 				timestampFile="build/timestamps/instrument.testsrc.timestamp">
 			<resources refid="instrument.resources" />
 			<classpath>
@@ -774,7 +771,6 @@
 				hidingWarningSuppressor="hiding"
 				nullabilityAnnotations="${instrument.nullabilityAnnotations}"
 				hintFormat="forTags"
-				differentSerialVersionUIDForAbstract="false"
 				timestampFile="build/timestamps/instrument.testlib.timestamp">
 			<resources refid="instrument.resources" />
 			<classpath>
