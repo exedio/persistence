@@ -34,7 +34,8 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 {
 	final ConnectionProperties connection = valnp("connection", ConnectionProperties::new);
 
-	private final Constructor<? extends Dialect> dialect = valueDialect("dialect", fromUrl(connection.url));
+	private final Constructor<? extends Dialect> dialect = valueConstructor("dialect", fromUrl(connection.url),
+			Dialect.class, CopeProbe.class);
 
 	private final boolean disableEmptyStrings       = value("disableSupport.emptyStrings", false);
 	private final boolean disablePreparedStatements = value("disableSupport.preparedStatements", false);
@@ -346,9 +347,11 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 			"Dialect";
 	}
 
-	private Constructor<? extends Dialect> valueDialect(
+	private <T> Constructor<? extends T> valueConstructor( // TODO move into framework
 			final String key,
-			final String defaultValue)
+			final String defaultValue,
+			final Class<T> superclass,
+			final Class<?> parameterType)
 	{
 		final String name = value(key, defaultValue);
 		final Class<?> classRaw;
@@ -361,20 +364,20 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 			throw newException(key, "must name a class, but was '" + name + '\'', e);
 		}
 
-		if(!Dialect.class.isAssignableFrom(classRaw))
+		if(!superclass.isAssignableFrom(classRaw))
 			throw newException(key,
-					"must name a subclass of " + Dialect.class.getName() + ", " +
+					"must name a subclass of " + superclass.getName() + ", " +
 					"but was " + classRaw.getName());
 
-		final Class<? extends Dialect> clazz = classRaw.asSubclass(Dialect.class);
+		final Class<? extends T> clazz = classRaw.asSubclass(superclass);
 		try
 		{
-			return clazz.getDeclaredConstructor(CopeProbe.class);
+			return clazz.getDeclaredConstructor(parameterType);
 		}
 		catch(final NoSuchMethodException e)
 		{
 			throw newException(key,
-					"must name a class with a constructor with parameter " + CopeProbe.class.getName() + ", " +
+					"must name a class with a constructor with parameter " + parameterType.getName() + ", " +
 					"but was " + classRaw.getName(), e);
 		}
 	}
