@@ -56,7 +56,7 @@ final class Params
 	/**
 	 * When an existing item type is made abstract, it will no longer be possible to de-serialize serialized instances.
 	 * Therefore, abstract item classes get a different serialVersionUID. <br>
-	 * If this parameter is set to <code>false</code>, all classes get the same serialVersionUID.
+	 * If this parameter is set to {@code false}, all classes get the same serialVersionUID.
 	 */
 	boolean differentSerialVersionUIDForAbstract = true;
 	IntegerTypeSuffix serialVersionUIDSuffix = IntegerTypeSuffix.small;
