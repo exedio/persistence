@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import static org.junit.Assert.assertNotNull;
+
 import com.exedio.cope.util.Properties.Field;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -37,29 +39,28 @@ public class ProtocolWriter extends TestWithEnvironment
 	@Test public void testProtocol() throws IOException
 	{
 		final String prefix = System.getProperty("com.exedio.cope.testprotocol.prefix");
-		if(prefix!=null)
+		assertNotNull(prefix);
+
+		final Properties databaseInfo = model.getEnvironmentInfo().asProperties();
+		final Properties prefixed = new Properties();
+		final File file = new File(System.getProperty("com.exedio.cope.testprotocol.file"));
+		for(final Object nameObject : databaseInfo.keySet())
 		{
-			final Properties databaseInfo = model.getEnvironmentInfo().asProperties();
-			final Properties prefixed = new Properties();
-			final File file = new File(System.getProperty("com.exedio.cope.testprotocol.file"));
-			for(final Object nameObject : databaseInfo.keySet())
-			{
-				final String name = (String)nameObject;
-				prefixed.setProperty(prefix+'.'+name, databaseInfo.getProperty(name));
-			}
-			final ConnectProperties p = model.getConnectProperties();
-			for(final Field field : p.getFields())
-			{
-				if(field.getDefaultValue()!=null
-					&& !field.hasHiddenValue()
-					&& field.isSpecified()
-					&& field.getValue()!=null)
-					prefixed.setProperty(prefix+".cope."+field.getKey(), field.getValue().toString());
-			}
-			try(FileOutputStream out = new FileOutputStream(file, true))
-			{
-				prefixed.store(out, null);
-			}
+			final String name = (String)nameObject;
+			prefixed.setProperty(prefix+'.'+name, databaseInfo.getProperty(name));
+		}
+		final ConnectProperties p = model.getConnectProperties();
+		for(final Field field : p.getFields())
+		{
+			if(field.getDefaultValue()!=null
+				&& !field.hasHiddenValue()
+				&& field.isSpecified()
+				&& field.getValue()!=null)
+				prefixed.setProperty(prefix+".cope."+field.getKey(), field.getValue().toString());
+		}
+		try(FileOutputStream out = new FileOutputStream(file, true))
+		{
+			prefixed.store(out, null);
 		}
 	}
 }
