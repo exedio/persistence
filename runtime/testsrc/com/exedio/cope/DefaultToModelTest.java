@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.DefaultToItem.DefaultToEnum.ONE;
+import static com.exedio.cope.DefaultToItem.DefaultToEnum.TWO;
 import static com.exedio.cope.DefaultToItem.TYPE;
 import static com.exedio.cope.DefaultToItem.booleanNone;
 import static com.exedio.cope.DefaultToItem.booleanTrue;
@@ -38,8 +40,6 @@ import static com.exedio.cope.DefaultToItem.integerFive;
 import static com.exedio.cope.DefaultToItem.integerNext;
 import static com.exedio.cope.DefaultToItem.integerNone;
 import static com.exedio.cope.DefaultToItem.longRandom;
-import static com.exedio.cope.DefaultToItem.DefaultToEnum.ONE;
-import static com.exedio.cope.DefaultToItem.DefaultToEnum.TWO;
 import static com.exedio.cope.SchemaInfo.getDefaultToNextSequenceName;
 import static com.exedio.cope.tojunit.Assert.list;
 import static com.exedio.cope.util.TimeZoneStrict.getTimeZone;

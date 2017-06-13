@@ -18,11 +18,11 @@
 
 package com.exedio.cope.pattern;
 
-import static com.exedio.cope.pattern.MapFieldItem.TYPE;
-import static com.exedio.cope.pattern.MapFieldItem.name;
 import static com.exedio.cope.pattern.MapFieldItem.Language.DE;
 import static com.exedio.cope.pattern.MapFieldItem.Language.EN;
 import static com.exedio.cope.pattern.MapFieldItem.Language.PL;
+import static com.exedio.cope.pattern.MapFieldItem.TYPE;
+import static com.exedio.cope.pattern.MapFieldItem.name;
 import static com.exedio.cope.tojunit.Assert.assertContains;
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
 import static com.exedio.cope.tojunit.Assert.map;

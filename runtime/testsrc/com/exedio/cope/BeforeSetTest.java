@@ -18,7 +18,6 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.BeforeSetItem.field1;
 import static com.exedio.cope.BeforeSetItem.Action.addDuplicate;
 import static com.exedio.cope.BeforeSetItem.Action.addField1;
 import static com.exedio.cope.BeforeSetItem.Action.addField1ConstraintViolation;
@@ -27,6 +26,7 @@ import static com.exedio.cope.BeforeSetItem.Action.replaceField1;
 import static com.exedio.cope.BeforeSetItem.Action.returnEmpty;
 import static com.exedio.cope.BeforeSetItem.Action.returnNull;
 import static com.exedio.cope.BeforeSetItem.Action.runtimeException;
+import static com.exedio.cope.BeforeSetItem.field1;
 import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;

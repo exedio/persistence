@@ -19,12 +19,12 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
-import static com.exedio.cope.pattern.EnumSetFieldItem.TYPE;
-import static com.exedio.cope.pattern.EnumSetFieldItem.activeLanguage;
 import static com.exedio.cope.pattern.EnumSetFieldItem.Language.DE;
 import static com.exedio.cope.pattern.EnumSetFieldItem.Language.EN;
 import static com.exedio.cope.pattern.EnumSetFieldItem.Language.PL;
 import static com.exedio.cope.pattern.EnumSetFieldItem.Language.SUBCLASS;
+import static com.exedio.cope.pattern.EnumSetFieldItem.TYPE;
+import static com.exedio.cope.pattern.EnumSetFieldItem.activeLanguage;
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
 import static com.exedio.cope.tojunit.Assert.list;
 import static org.junit.Assert.assertEquals;
