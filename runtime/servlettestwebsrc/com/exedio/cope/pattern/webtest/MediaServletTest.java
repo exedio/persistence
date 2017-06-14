@@ -210,8 +210,7 @@ public class MediaServletTest
 		assertNotFound(prefix + "thumbnail/" + ITEM_EMP, IS_NULL);
 		assertBin(prefix + "thumbnail/" + ITEM_PNG + ".jpg", "image/jpeg", hour8(2));
 		assertBin(prefix + "thumbnail/" + ITEM_JPG + ".jpg", "image/jpeg", hour8(3));
-		if(!"OpenJDK Runtime Environment".equals(System.getProperty("java.runtime.name"))) // OpenJDK does not like GIF
-			assertBin(prefix + "thumbnail/" + ITEM_GIF + ".jpg", "image/jpeg", hour8(8));
+		assertBin(prefix + "thumbnail/" + ITEM_GIF + ".jpg", "image/jpeg", hour8(8));
 
 		assertNotFound(prefix + "html/" + ITEM_TXT, NOT_COMPUTABLE, hour8(0));
 		assertNotFound(prefix + "html/" + ITEM_PNG, NOT_COMPUTABLE, hour8(2));
