@@ -23,7 +23,6 @@ import static java.lang.Integer.MIN_VALUE;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
-import com.exedio.cope.util.Hex;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -81,7 +80,7 @@ public class ItemCacheDataTest extends TestWithEnvironment
 		restartTransaction();
 		assertUpdateCount(MIN_VALUE, MIN_VALUE);
 
-		item.setData(Hex.decodeLower("aabbccdd"));
+		item.setData("aabbccdd");
 		assertUpdateCount(MIN_VALUE, MIN_VALUE);
 
 		model.commit();
@@ -135,7 +134,7 @@ public class ItemCacheDataTest extends TestWithEnvironment
 		restartTransaction();
 		assertUpdateCount(MIN_VALUE, MIN_VALUE);
 
-		item.setDataMulti(Hex.decodeLower("aabbccdd"));
+		item.setDataMulti("aabbccdd");
 		assertUpdateCount(0, 0);
 
 		model.commit();
@@ -153,7 +152,7 @@ public class ItemCacheDataTest extends TestWithEnvironment
 		restartTransaction();
 		assertUpdateCount(MIN_VALUE, MIN_VALUE);
 
-		item.setBothMulti("zick", Hex.decodeLower("aabbccdd"));
+		item.setBothMulti("zick", "aabbccdd");
 		assertUpdateCount(1, 0);
 
 		model.commit();
@@ -189,7 +188,7 @@ public class ItemCacheDataTest extends TestWithEnvironment
 		restartTransaction();
 		assertUpdateCount(MIN_VALUE, MIN_VALUE);
 
-		item.setData(Hex.decodeLower("aabbccdd"));
+		item.setData("aabbccdd");
 		assertUpdateCount(MIN_VALUE, MIN_VALUE);
 
 		model.rollback();
@@ -243,7 +242,7 @@ public class ItemCacheDataTest extends TestWithEnvironment
 		restartTransaction();
 		assertUpdateCount(MIN_VALUE, MIN_VALUE);
 
-		item.setDataMulti(Hex.decodeLower("aabbccdd"));
+		item.setDataMulti("aabbccdd");
 		assertUpdateCount(0, 0);
 
 		model.rollback();
@@ -261,7 +260,7 @@ public class ItemCacheDataTest extends TestWithEnvironment
 		restartTransaction();
 		assertUpdateCount(MIN_VALUE, MIN_VALUE);
 
-		item.setBothMulti("zick", Hex.decodeLower("aabbccdd"));
+		item.setBothMulti("zick", "aabbccdd");
 		assertUpdateCount(1, 0);
 
 		model.rollback();

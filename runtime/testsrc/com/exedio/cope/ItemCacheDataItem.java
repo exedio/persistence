@@ -18,19 +18,30 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.util.Hex.decodeLower;
+
+import com.exedio.cope.instrument.Visibility;
+import com.exedio.cope.instrument.Wrapper;
+
 final class ItemCacheDataItem extends Item
 {
 	static final StringField string = new StringField().optional();
+	@Wrapper(wrap="set", visibility=Visibility.PACKAGE, internal=true)
 	static final DataField data = new DataField().optional();
 
-	void setDataMulti(final byte[] data)
+	void setData(final String data)
 	{
-		set(ItemCacheDataItem.data.map(data));
+		setDataInternal(decodeLower(data));
 	}
 
-	void setBothMulti(final String string, final byte[] data)
+	void setDataMulti(final String data)
 	{
-		set(ItemCacheDataItem.string.map(string), ItemCacheDataItem.data.map(data));
+		set(ItemCacheDataItem.data.map(decodeLower(data)));
+	}
+
+	void setBothMulti(final String string, final String data)
+	{
+		set(ItemCacheDataItem.string.map(string), ItemCacheDataItem.data.map(decodeLower(data)));
 	}
 
 
@@ -128,7 +139,7 @@ final class ItemCacheDataItem extends Item
 	 * Sets a new value for the persistent field {@link #data}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setData(@javax.annotation.Nullable final com.exedio.cope.DataField.Value data)
+	final void setDataInternal(@javax.annotation.Nullable final com.exedio.cope.DataField.Value data)
 	{
 		ItemCacheDataItem.data.set(this,data);
 	}
@@ -137,7 +148,7 @@ final class ItemCacheDataItem extends Item
 	 * Sets a new value for the persistent field {@link #data}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setData(@javax.annotation.Nullable final byte[] data)
+	final void setDataInternal(@javax.annotation.Nullable final byte[] data)
 	{
 		ItemCacheDataItem.data.set(this,data);
 	}
@@ -146,7 +157,7 @@ final class ItemCacheDataItem extends Item
 	 * Sets a new value for the persistent field {@link #data}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setData(@javax.annotation.Nullable final java.io.InputStream data)
+	final void setDataInternal(@javax.annotation.Nullable final java.io.InputStream data)
 			throws
 				java.io.IOException
 	{
@@ -157,7 +168,7 @@ final class ItemCacheDataItem extends Item
 	 * Sets a new value for the persistent field {@link #data}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setData(@javax.annotation.Nullable final java.io.File data)
+	final void setDataInternal(@javax.annotation.Nullable final java.io.File data)
 			throws
 				java.io.IOException
 	{
