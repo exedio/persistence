@@ -21,7 +21,6 @@ package com.exedio.cope;
 import static com.exedio.cope.Executor.NO_SUCH_ROW;
 
 import java.io.OutputStream;
-import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -76,10 +75,11 @@ final class BlobColumn extends Column
 	}
 
 
-	byte[] load(final Connection connection, final Executor executor, final Item item)
+	byte[] load(final Transaction tx, final Item item)
 	{
 		// TODO reuse code in load blob methods
 		final Table table = this.table;
+		final Executor executor = tx.connect.executor;
 		final Statement bf = executor.newStatement();
 		bf.append("SELECT ").
 			append(quotedID).
@@ -91,7 +91,7 @@ final class BlobColumn extends Column
 			appendParameter(item.pk).
 			appendTypeCheck(table, item.type);
 
-		return executor.query(connection, bf, null, false, resultSet ->
+		return executor.query(tx.getConnection(), bf, null, false, resultSet ->
 			{
 				if(!resultSet.next())
 					throw new SQLException(NO_SUCH_ROW);
@@ -101,9 +101,10 @@ final class BlobColumn extends Column
 		);
 	}
 
-	void load(final Connection connection, final Executor executor, final Item item, final OutputStream data, final DataField field)
+	void load(final Transaction tx, final Item item, final OutputStream data, final DataField field)
 	{
 		final Table table = this.table;
+		final Executor executor = tx.connect.executor;
 		final Statement bf = executor.newStatement();
 		bf.append("SELECT ").
 			append(quotedID).
@@ -115,7 +116,7 @@ final class BlobColumn extends Column
 			appendParameter(item.pk).
 			appendTypeCheck(table, item.type);
 
-		executor.query(connection, bf, null, false, resultSet ->
+		executor.query(tx.getConnection(), bf, null, false, resultSet ->
 			{
 				if(!resultSet.next())
 					throw new SQLException(NO_SUCH_ROW);
@@ -127,9 +128,10 @@ final class BlobColumn extends Column
 		);
 	}
 
-	long loadLength(final Connection connection, final Executor executor, final Item item)
+	long loadLength(final Transaction tx, final Item item)
 	{
 		final Table table = this.table;
+		final Executor executor = tx.connect.executor;
 		final Statement bf = executor.newStatement();
 		bf.append("select ").append(table.database.dialect.getBlobLength()).append('(').
 			append(quotedID).
@@ -141,7 +143,7 @@ final class BlobColumn extends Column
 			appendParameter(item.pk).
 			appendTypeCheck(table, item.type);
 
-		return executor.query(connection, bf, null, false, resultSet ->
+		return executor.query(tx.getConnection(), bf, null, false, resultSet ->
 			{
 				if(!resultSet.next())
 					throw new SQLException(NO_SUCH_ROW);
@@ -156,10 +158,11 @@ final class BlobColumn extends Column
 	}
 
 	void store(
-			final Connection connection, final Executor executor, final Item item,
+			final Transaction tx, final Item item,
 			final DataField.Value data, final DataField field)
 	{
 		final Table table = this.table;
+		final Executor executor = tx.connect.executor;
 		final Statement bf = executor.newStatement();
 		bf.append("UPDATE ").
 			append(table.quotedID).
@@ -179,6 +182,6 @@ final class BlobColumn extends Column
 			appendTypeCheck(table, item.type);
 
 		//System.out.println("storing "+bf.toString());
-		executor.updateStrict(connection, null, bf);
+		executor.updateStrict(tx.getConnection(), null, bf);
 	}
 }

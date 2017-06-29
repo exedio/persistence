@@ -164,7 +164,7 @@ public final class DataField extends Field<DataField.Value>
 	public long getLength(@Nonnull final Item item)
 	{
 		final Transaction tx = model.currentTransaction();
-		return column.loadLength(tx.getConnection(), tx.connect.executor, item);
+		return column.loadLength(tx, item);
 	}
 
 	/**
@@ -187,7 +187,7 @@ public final class DataField extends Field<DataField.Value>
 	public byte[] getArray(@Nonnull final Item item)
 	{
 		final Transaction tx = model.currentTransaction();
-		return column.load(tx.getConnection(), tx.connect.executor, item);
+		return column.load(tx, item);
 	}
 
 	/**
@@ -208,7 +208,7 @@ public final class DataField extends Field<DataField.Value>
 		requireNonNull(data);
 
 		final Transaction tx = model.currentTransaction();
-		column.load(tx.getConnection(), tx.connect.executor, item, data, this);
+		column.load(tx, item, data, this);
 	}
 
 	/**
@@ -264,7 +264,7 @@ public final class DataField extends Field<DataField.Value>
 		}
 
 		final Transaction tx = model.currentTransaction();
-		column.store(tx.getConnection(), tx.connect.executor, item, data, this);
+		column.store(tx, item, data, this);
 	}
 
 	/**
