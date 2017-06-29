@@ -105,6 +105,13 @@ public final class DataField extends Field<DataField.Value>
 		return column;
 	}
 
+	@Override
+	void disconnect()
+	{
+		super.disconnect();
+		column = null;
+	}
+
 	BlobColumn getBlobColumn()
 	{
 		return (BlobColumn)getColumn();
