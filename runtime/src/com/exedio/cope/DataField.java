@@ -163,8 +163,7 @@ public final class DataField extends Field<DataField.Value>
 	@Wrap(order=20,doc="Returns the length of the data of the data field {0}.")
 	public long getLength(@Nonnull final Item item)
 	{
-		final Transaction tx = model.currentTransaction();
-		return column.loadLength(tx, item);
+		return column.loadLength(model.currentTransaction(), item);
 	}
 
 	/**
@@ -186,8 +185,7 @@ public final class DataField extends Field<DataField.Value>
 	@Nullable
 	public byte[] getArray(@Nonnull final Item item)
 	{
-		final Transaction tx = model.currentTransaction();
-		return column.load(tx, item);
+		return column.load(model.currentTransaction(), item);
 	}
 
 	/**
@@ -207,8 +205,7 @@ public final class DataField extends Field<DataField.Value>
 		//noinspection resource OK: fails only if null
 		requireNonNull(data);
 
-		final Transaction tx = model.currentTransaction();
-		column.load(tx, item, data, this);
+		column.load(model.currentTransaction(), item, data, this);
 	}
 
 	/**
@@ -263,8 +260,7 @@ public final class DataField extends Field<DataField.Value>
 			checkNotNull(data, item);
 		}
 
-		final Transaction tx = model.currentTransaction();
-		column.store(tx, item, data, this);
+		column.store(model.currentTransaction(), item, data, this);
 	}
 
 	/**
