@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.util.Hex.decodeLower;
+import static com.exedio.cope.util.Hex.encodeLower;
 
 import com.exedio.cope.instrument.Visibility;
 import com.exedio.cope.instrument.Wrapper;
@@ -28,6 +29,11 @@ final class ItemCacheDataItem extends Item
 	static final StringField string = new StringField().optional();
 	@Wrapper(wrap="set", visibility=Visibility.PACKAGE, internal=true)
 	static final DataField data = new DataField().optional();
+
+	String getData()
+	{
+		return encodeLower(getDataArray());
+	}
 
 	void setData(final String data)
 	{
