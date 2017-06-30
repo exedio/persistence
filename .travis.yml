@@ -8,6 +8,7 @@ addons:
   postgresql: "9.5"
 
 before_script:
+  - sudo apt-get install ant-optional
   - ant -version
   - echo -e "[server]\ninnodb_log_file_size=640M" | sudo tee -a /etc/mysql/conf.d/cope.cnf
   - sudo service mysql restart
