@@ -89,7 +89,7 @@ public final class DataField extends Field<DataField.Value>
 
 	private Model model;
 	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
-	private DataFieldStore column; // TODO rename
+	private DataFieldStore store;
 	private int bufferSizeDefault = -1;
 	private int bufferSizeLimit = -1;
 
@@ -100,7 +100,7 @@ public final class DataField extends Field<DataField.Value>
 		this.model = type.getModel();
 		final ConnectProperties properties = model.getConnectProperties();
 		final VaultProperties vaultProperties = properties.dataFieldVault;
-		column = vaultProperties==null ||
+		store = vaultProperties==null ||
 					!(
 						vaultProperties.isAppliedToAllFields() ||
 						isAnnotationPresent(Vault.class) ||
@@ -111,24 +111,24 @@ public final class DataField extends Field<DataField.Value>
 		bufferSizeDefault = min(properties.dataFieldBufferSizeDefault, maximumLength);
 		bufferSizeLimit   = min(properties.dataFieldBufferSizeLimit  , maximumLength);
 
-		return column.column();
+		return store.column();
 	}
 
 	@Override
 	void disconnect()
 	{
 		super.disconnect();
-		column = null;
+		store = null;
 	}
 
 	BlobColumn getBlobColumnIfSupported(final String capability)
 	{
-		return column.blobColumnIfSupported(capability);
+		return store.blobColumnIfSupported(capability);
 	}
 
 	void put(final Entity entity, final Value value, final Item exceptionItem) // just for DataVault
 	{
-		column.put(entity, value, exceptionItem);
+		store.put(entity, value, exceptionItem);
 	}
 
 	/**
@@ -177,7 +177,7 @@ public final class DataField extends Field<DataField.Value>
 	@Wrap(order=20,doc="Returns the length of the data of the data field {0}.")
 	public long getLength(@Nonnull final Item item)
 	{
-		return column.loadLength(model.currentTransaction(), item);
+		return store.loadLength(model.currentTransaction(), item);
 	}
 
 	/**
@@ -199,7 +199,7 @@ public final class DataField extends Field<DataField.Value>
 	@Nullable
 	public byte[] getArray(@Nonnull final Item item)
 	{
-		return column.load(model.currentTransaction(), item);
+		return store.load(model.currentTransaction(), item);
 	}
 
 	/**
@@ -219,7 +219,7 @@ public final class DataField extends Field<DataField.Value>
 		//noinspection resource OK: fails only if null
 		requireNonNull(data);
 
-		column.load(model.currentTransaction(), item, data);
+		store.load(model.currentTransaction(), item, data);
 	}
 
 	/**
@@ -274,7 +274,7 @@ public final class DataField extends Field<DataField.Value>
 			checkNotNull(data, item);
 		}
 
-		column.store(model.currentTransaction(), item, data);
+		store.store(model.currentTransaction(), item, data);
 	}
 
 	/**
@@ -835,7 +835,7 @@ public final class DataField extends Field<DataField.Value>
 
 	public DataFieldVaultInfo getVaultInfo()
 	{
-		final DataFieldStore store = this.column;
+		final DataFieldStore store = this.store;
 		if(store==null)
 			throw new Model.NotConnectedException(getType().getModel());
 		return store.getVaultInfo();
