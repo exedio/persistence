@@ -33,10 +33,9 @@ public final class StartsWithCondition extends Condition
 
 	/**
 	 * Creates a new StartsWithCondition.
-	 * Instead of using this constructor directly,
-	 * you may want to use the more convenient wrapper method
-	 * {@link DataField#startsWith(byte[])}.
+	 * @deprecated Use {@link DataField#startsWith(byte[])} instead.
 	 */
+	@Deprecated
 	@SuppressFBWarnings("EI_EXPOSE_REP2") // May expose internal representation by incorporating reference to mutable object
 	public StartsWithCondition(
 			final DataField field,

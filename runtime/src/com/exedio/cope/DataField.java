@@ -841,6 +841,7 @@ public final class DataField extends Field<DataField.Value>
 		return store.getVaultInfo();
 	}
 
+	@SuppressWarnings("deprecation") // OK, wrapping deprecated API
 	public StartsWithCondition startsWith(final byte[] value)
 	{
 		return new StartsWithCondition(this, value);

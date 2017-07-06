@@ -131,6 +131,7 @@ public class DataModelTest
 		assertEquals("DataItem.data startsWith 'aa7af817'", data.startsWith(bytes4).toString());
 	}
 
+	@SuppressWarnings("deprecation") // OK: testing deprecated API
 	@Test public void testStartsWithFieldNullConstructor()
 	{
 		try
@@ -144,6 +145,7 @@ public class DataModelTest
 		}
 	}
 
+	@SuppressWarnings("deprecation") // OK: testing deprecated API
 	@Test public void testStartsWithValueNullConstructor()
 	{
 		try
