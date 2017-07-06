@@ -54,7 +54,7 @@ public class MediaTypeMediaTest
 				"(("+c+"='application/x-font-ttf' OR "+c+"='application/x-font-truetype' OR "+c+"='font/ttf') AND !("+b+" startsWith '0001000000')) OR " +
 				"(("+c+"='application/pdf' OR "+c+"='text/pdf') AND !("+b+" startsWith '"+PDF+"'))" +
 				")",
-				m.bodyMismatchesContentType().toString());
+				m.bodyMismatchesContentTypeIfSupported().toString());
 	}
 
 	@Test public void testFixed()
@@ -63,13 +63,13 @@ public class MediaTypeMediaTest
 		final DataField b = m.getBody();
 		assertEquals(
 				"!("+b+" startsWith '"+JPEG+"')",
-				m.bodyMismatchesContentType().toString());
+				m.bodyMismatchesContentTypeIfSupported().toString());
 	}
 
 	@Test public void testFixedNone()
 	{
 		final Media m = new Media().contentType("ding/dong");
-		assertEquals(Condition.FALSE, m.bodyMismatchesContentType());
+		assertEquals(Condition.FALSE, m.bodyMismatchesContentTypeIfSupported());
 	}
 
 	@Test public void testEnum()
@@ -82,7 +82,7 @@ public class MediaTypeMediaTest
 				"(("+c+"='0' OR "+c+"='1') AND !("+b+" startsWith '"+JPEG+"')) OR " +
 				"("+c+"='2' AND !("+b+" startsWith '"+PNG+"'))" +
 				")",
-				m.bodyMismatchesContentType().toString());
+				m.bodyMismatchesContentTypeIfSupported().toString());
 	}
 
 	@Test public void testEnumUnique()
@@ -95,7 +95,7 @@ public class MediaTypeMediaTest
 				"("+c+"='0' AND !("+b+" startsWith '"+JPEG+"')) OR " +
 				"("+c+"='1' AND !("+b+" startsWith '"+PNG+"'))" +
 				")",
-				m.bodyMismatchesContentType().toString());
+				m.bodyMismatchesContentTypeIfSupported().toString());
 	}
 
 	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
@@ -140,13 +140,13 @@ public class MediaTypeMediaTest
 				"("+c+"='gif' AND !("+b+" startsWith '"+GIF+"')) OR " +
 				"(("+c+"='vnd.microsoft.icon' OR "+c+"='icon' OR "+c+"='x-icon') AND !("+b+" startsWith '"+ICO+"'))" +
 				")",
-				m.bodyMismatchesContentType().toString());
+				m.bodyMismatchesContentTypeIfSupported().toString());
 	}
 
 	@Test public void testSubNone()
 	{
 		final Media m = new Media().contentTypeSub("ding");
-		assertEquals(Condition.FALSE, m.bodyMismatchesContentType());
+		assertEquals(Condition.FALSE, m.bodyMismatchesContentTypeIfSupported());
 	}
 
 	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT")

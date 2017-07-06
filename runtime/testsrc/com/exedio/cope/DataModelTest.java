@@ -122,13 +122,13 @@ public class DataModelTest
 		}
 
 		// condition startsWith
-		assertEqualsAndHash(data.startsWith(bytes4), data.startsWith(bytes4));
+		assertEqualsAndHash(data.startsWithIfSupported(bytes4), data.startsWithIfSupported(bytes4));
 		assertNotEqualsAndHash(
-				data.startsWith(bytes4),
-				data.startsWith(bytes6),
-				data.startsWith(bytes6x4),
-				data10.startsWith(bytes4));
-		assertEquals("DataItem.data startsWith 'aa7af817'", data.startsWith(bytes4).toString());
+				data.startsWithIfSupported(bytes4),
+				data.startsWithIfSupported(bytes6),
+				data.startsWithIfSupported(bytes6x4),
+				data10.startsWithIfSupported(bytes4));
+		assertEquals("DataItem.data startsWith 'aa7af817'", data.startsWithIfSupported(bytes4).toString());
 	}
 
 	@SuppressWarnings("deprecation") // OK: testing deprecated API
@@ -163,7 +163,7 @@ public class DataModelTest
 	{
 		try
 		{
-			data.startsWith(null);
+			data.startsWithIfSupported(null);
 			fail();
 		}
 		catch(final NullPointerException e)
@@ -177,7 +177,7 @@ public class DataModelTest
 		// TODO treat as to isNotNull
 		try
 		{
-			data.startsWith(bytes0);
+			data.startsWithIfSupported(bytes0);
 			fail();
 		}
 		catch(final IllegalArgumentException e)

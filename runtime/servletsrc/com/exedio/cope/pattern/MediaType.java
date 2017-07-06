@@ -279,12 +279,12 @@ public final class MediaType
 	}
 
 
-	static Condition mismatches(final Media media)
+	static Condition mismatchesIfSupported(final Media media)
 	{
 		final Condition[] conditions = new Condition[typesWithMagic.length];
 		//noinspection Java8ArraySetAll OK: performance
 		for(int i = 0; i<conditions.length; i++)
-			conditions[i] = typesWithMagic[i].mismatchesInstance(media);
+			conditions[i] = typesWithMagic[i].mismatchesInstanceIfSupported(media);
 		return Cope.or(conditions);
 	}
 
@@ -396,12 +396,12 @@ public final class MediaType
 			return true;
 		}
 
-		Condition mismatchesInstance(final Media media)
+		Condition mismatchesInstanceIfSupported(final Media media)
 		{
 			final Condition[] nameConditions = new Condition[typeNames.length];
 			for(int i = 0; i<typeNames.length; i++)
 				nameConditions[i] = media.contentTypeEqual(typeNames[i]);
-			return Cope.or(nameConditions).and(media.getBody().startsWith(magic).not());
+			return Cope.or(nameConditions).and(media.getBody().startsWithIfSupported(magic).not());
 		}
 	}
 

@@ -53,22 +53,22 @@ public class StartsWithConditionTest extends TestWithEnvironment
 
 	@Test public void testCondition()
 	{
-		if(!isSupported(data.startsWith(bytes4)))
+		if(!isSupported(data.startsWithIfSupported(bytes4)))
 			return;
 
-		assertCondition(item4, TYPE, data.startsWith(bytes4));
-		assertCondition(item6, TYPE, data.startsWith(bytes6));
-		assertCondition(item6, item6x4, TYPE, data.startsWith(bytes6x4));
+		assertCondition(item4, TYPE, data.startsWithIfSupported(bytes4));
+		assertCondition(item6, TYPE, data.startsWithIfSupported(bytes6));
+		assertCondition(item6, item6x4, TYPE, data.startsWithIfSupported(bytes6x4));
 	}
 
 	@Test public void testNot()
 	{
-		if(!isSupported(data.startsWith(bytes4).not()))
+		if(!isSupported(data.startsWithIfSupported(bytes4).not()))
 			return;
 
-		assertCondition(reduce(item0, item6, item6x4), TYPE, data.startsWith(bytes4  ).not());
-		assertCondition(reduce(item0, item4, item6x4), TYPE, data.startsWith(bytes6  ).not());
-		assertCondition(reduce(item0, item4         ), TYPE, data.startsWith(bytes6x4).not());
+		assertCondition(reduce(item0, item6, item6x4), TYPE, data.startsWithIfSupported(bytes4  ).not());
+		assertCondition(reduce(item0, item4, item6x4), TYPE, data.startsWithIfSupported(bytes6  ).not());
+		assertCondition(reduce(item0, item4         ), TYPE, data.startsWithIfSupported(bytes6x4).not());
 	}
 
 

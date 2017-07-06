@@ -35,6 +35,7 @@ import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
+import com.exedio.cope.UnsupportedQueryException;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.ComputedElement;
@@ -702,9 +703,12 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 			: this.lastModified.isNull();
 	}
 
-	public Condition bodyMismatchesContentType()
+	/**
+	 * The result may cause a {@link UnsupportedQueryException} when used.
+	 */
+	public Condition bodyMismatchesContentTypeIfSupported()
 	{
-		return MediaType.mismatches(this);
+		return MediaType.mismatchesIfSupported(this);
 	}
 
 	public static final class Value
@@ -733,6 +737,15 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 	}
 
 	// ------------------- deprecated stuff -------------------
+
+	/**
+	 * @deprecated Use {@link #bodyMismatchesContentTypeIfSupported()} instead.
+	 */
+	@Deprecated
+	public Condition bodyMismatchesContentType()
+	{
+		return bodyMismatchesContentTypeIfSupported();
+	}
 
 	/**
 	 * @deprecated use {@link #contentType(String)} instead.

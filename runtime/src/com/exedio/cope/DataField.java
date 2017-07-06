@@ -841,9 +841,23 @@ public final class DataField extends Field<DataField.Value>
 		return store.getVaultInfo();
 	}
 
+	/**
+	 * The result may cause a {@link UnsupportedQueryException} when used.
+	 */
 	@SuppressWarnings("deprecation") // OK, wrapping deprecated API
-	public StartsWithCondition startsWith(final byte[] value)
+	public StartsWithCondition startsWithIfSupported(final byte[] value)
 	{
 		return new StartsWithCondition(this, value);
+	}
+
+	// ------------------- deprecated stuff -------------------
+
+	/**
+	 * @deprecated Use {@link #startsWithIfSupported(byte[])} instead.
+	 */
+	@Deprecated
+	public StartsWithCondition startsWith(final byte[] value)
+	{
+		return startsWithIfSupported(value);
 	}
 }

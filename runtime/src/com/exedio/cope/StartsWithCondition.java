@@ -33,7 +33,7 @@ public final class StartsWithCondition extends Condition
 
 	/**
 	 * Creates a new StartsWithCondition.
-	 * @deprecated Use {@link DataField#startsWith(byte[])} instead.
+	 * @deprecated Use {@link DataField#startsWithIfSupported(byte[])} instead.
 	 */
 	@Deprecated
 	@SuppressFBWarnings("EI_EXPOSE_REP2") // May expose internal representation by incorporating reference to mutable object
