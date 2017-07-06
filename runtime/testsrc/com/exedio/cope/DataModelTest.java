@@ -129,6 +129,10 @@ public class DataModelTest
 				data.startsWith(bytes6x4),
 				data10.startsWith(bytes4));
 		assertEquals("DataItem.data startsWith 'aa7af817'", data.startsWith(bytes4).toString());
+	}
+
+	@Test public void testStartsWithFieldNullConstructor()
+	{
 		try
 		{
 			new StartsWithCondition(null, null);
@@ -138,6 +142,10 @@ public class DataModelTest
 		{
 			assertEquals("field", e.getMessage());
 		}
+	}
+
+	@Test public void testStartsWithValueNullConstructor()
+	{
 		try
 		{
 			new StartsWithCondition(data, null);
@@ -147,6 +155,10 @@ public class DataModelTest
 		{
 			assertEquals("value", e.getMessage());
 		}
+	}
+
+	@Test public void testStartsWithValueNull()
+	{
 		try
 		{
 			data.startsWith(null);
@@ -156,6 +168,10 @@ public class DataModelTest
 		{
 			assertEquals("value", e.getMessage());
 		}
+	}
+
+	@Test public void testStartsWithValueEmpty()
+	{
 		// TODO treat as to isNotNull
 		try
 		{
