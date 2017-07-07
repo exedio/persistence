@@ -36,6 +36,7 @@ import com.exedio.cope.Settable;
 import com.exedio.cope.StringField;
 import com.exedio.cope.Type;
 import com.exedio.cope.UniqueConstraint;
+import com.exedio.cope.UnsupportedQueryException;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.WrapFeature;
@@ -414,15 +415,43 @@ public final class UniqueHashedMedia extends Pattern implements Settable<Value>,
 		}
 	}
 
+	/**
+	 * The result may cause a {@link UnsupportedQueryException} when used.
+	 */
+	@Nonnull
+	public Condition hashMatchesIfSupported()
+	{
+		return hash.hashMatchesIfSupported(messageDigestAlgorithm, media.getBody());
+	}
+
+	/**
+	 * The result may cause a {@link UnsupportedQueryException} when used.
+	 */
+	@Nonnull
+	public Condition hashDoesNotMatchIfSupported()
+	{
+		return hash.hashDoesNotMatchIfSupported(messageDigestAlgorithm, media.getBody());
+	}
+
+	// ------------------- deprecated stuff -------------------
+
+	/**
+	 * @deprecated Use {@link #hashMatchesIfSupported()} instead.
+	 */
+	@Deprecated
 	@Nonnull
 	public Condition hashMatches()
 	{
-		return hash.hashMatches(messageDigestAlgorithm, media.getBody());
+		return hashMatchesIfSupported();
 	}
 
+	/**
+	 * @deprecated Use {@link #hashDoesNotMatchIfSupported()} instead.
+	 */
+	@Deprecated
 	@Nonnull
 	public Condition hashDoesNotMatch()
 	{
-		return hash.hashDoesNotMatch(messageDigestAlgorithm, media.getBody());
+		return hashDoesNotMatchIfSupported();
 	}
 }

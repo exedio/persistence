@@ -195,11 +195,12 @@ public final class StringField extends FunctionField<String>
 	}
 
 	/**
+	 * The result may cause a {@link UnsupportedQueryException} when used.
 	 * @param algorithm see {@link Model#getSupportedDataHashAlgorithms()}
-	 * @see #hashDoesNotMatch(String, DataField)
+	 * @see #hashDoesNotMatchIfSupported(String, DataField)
 	 */
 	@Nonnull
-	public Condition hashMatches(
+	public Condition hashMatchesIfSupported(
 			@Nonnull final String algorithm,
 			@Nonnull final DataField data)
 	{
@@ -207,14 +208,15 @@ public final class StringField extends FunctionField<String>
 	}
 
 	/**
-	 * @see #hashMatches(String, DataField)
+	 * The result may cause a {@link UnsupportedQueryException} when used.
+	 * @see #hashMatchesIfSupported(String, DataField)
 	 */
 	@Nonnull
-	public Condition hashDoesNotMatch(
+	public Condition hashDoesNotMatchIfSupported(
 			@Nonnull final String algorithm,
 			@Nonnull final DataField data)
 	{
-		return hashMatches(algorithm, data).not();
+		return hashMatchesIfSupported(algorithm, data).not();
 	}
 
 
@@ -295,6 +297,30 @@ public final class StringField extends FunctionField<String>
 	}
 
 	// ------------------- deprecated stuff -------------------
+
+	/**
+	 * @deprecated Use {@link #hashMatchesIfSupported(String, DataField)} instead.
+	 */
+	@Deprecated
+	@Nonnull
+	public Condition hashMatches(
+			@Nonnull final String algorithm,
+			@Nonnull final DataField data)
+	{
+		return hashMatchesIfSupported(algorithm, data);
+	}
+
+	/**
+	 * @deprecated Use {@link #hashDoesNotMatchIfSupported(String, DataField)} instead.
+	 */
+	@Deprecated
+	@Nonnull
+	public Condition hashDoesNotMatch(
+			@Nonnull final String algorithm,
+			@Nonnull final DataField data)
+	{
+		return hashDoesNotMatchIfSupported(algorithm, data);
+	}
 
 	/**
 	 * @deprecated use {@link #lengthMax(int)}.

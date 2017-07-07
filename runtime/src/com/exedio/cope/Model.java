@@ -332,7 +332,7 @@ public final class Model implements Serializable
 	}
 
 	/**
-	 * @see StringField#hashMatches(String, DataField)
+	 * @see StringField#hashMatchesIfSupported(String, DataField)
 	 */
 	public SortedSet<String> getSupportedDataHashAlgorithms()
 	{

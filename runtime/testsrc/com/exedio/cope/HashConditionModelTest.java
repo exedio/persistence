@@ -36,32 +36,32 @@ public class HashConditionModelTest
 	@Test public void identity()
 	{
 		final DataField data = new DataField();
-		final Condition c = hash.hashMatches("ALGO", data);
+		final Condition c = hash.hashMatchesIfSupported("ALGO", data);
 		EqualsAssert.assertEqualsAndHash(c,
-				hash.hashMatches("ALGO", data));
+				hash.hashMatchesIfSupported("ALGO", data));
 		EqualsAssert.assertNotEqualsAndHash(c,
-				hash.hashMatches("ALGOx", data),
-				hash.hashMatches("ALGO", new DataField()),
-				hash.hashDoesNotMatch("ALGO", data)
+				hash.hashMatchesIfSupported("ALGOx", data),
+				hash.hashMatchesIfSupported("ALGO", new DataField()),
+				hash.hashDoesNotMatchIfSupported("ALGO", data)
 		);
 	}
 	@Test public void identityNot()
 	{
 		final DataField data = new DataField();
-		final Condition c = hash.hashDoesNotMatch("ALGO", data);
+		final Condition c = hash.hashDoesNotMatchIfSupported("ALGO", data);
 		EqualsAssert.assertEqualsAndHash(c,
-				hash.hashDoesNotMatch("ALGO", data));
+				hash.hashDoesNotMatchIfSupported("ALGO", data));
 		EqualsAssert.assertNotEqualsAndHash(c,
-				hash.hashDoesNotMatch("ALGOx", data),
-				hash.hashDoesNotMatch("ALGO", new DataField()),
-				hash.hashMatches("ALGO", data)
+				hash.hashDoesNotMatchIfSupported("ALGOx", data),
+				hash.hashDoesNotMatchIfSupported("ALGO", new DataField()),
+				hash.hashMatchesIfSupported("ALGO", data)
 		);
 	}
 	@Test public void algorithmNull()
 	{
 		try
 		{
-			hash.hashMatches(null, null);
+			hash.hashMatchesIfSupported(null, null);
 			fail();
 		}
 		catch(final NullPointerException e)
@@ -73,7 +73,7 @@ public class HashConditionModelTest
 	{
 		try
 		{
-			hash.hashDoesNotMatch(null, null);
+			hash.hashDoesNotMatchIfSupported(null, null);
 			fail();
 		}
 		catch(final NullPointerException e)
@@ -86,7 +86,7 @@ public class HashConditionModelTest
 	{
 		try
 		{
-			hash.hashMatches("", null);
+			hash.hashMatchesIfSupported("", null);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -99,7 +99,7 @@ public class HashConditionModelTest
 	{
 		try
 		{
-			hash.hashDoesNotMatch("", null);
+			hash.hashDoesNotMatchIfSupported("", null);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -111,7 +111,7 @@ public class HashConditionModelTest
 	{
 		try
 		{
-			hash.hashMatches("ALGO", null);
+			hash.hashMatchesIfSupported("ALGO", null);
 			fail();
 		}
 		catch(final NullPointerException e)
@@ -123,7 +123,7 @@ public class HashConditionModelTest
 	{
 		try
 		{
-			hash.hashDoesNotMatch("ALGO", null);
+			hash.hashDoesNotMatchIfSupported("ALGO", null);
 			fail();
 		}
 		catch(final NullPointerException e)

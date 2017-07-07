@@ -90,10 +90,10 @@ public class UniqueHashedMediaTest extends TestWithEnvironment
 		assertTrue(value.getHash().isAnnotationPresent(Computed.class));
 		assertEquals(
 				value.getHash() + "=SHA-512(" + value.getMedia().getBody() + ")",
-				value.hashMatches().toString());
+				value.hashMatchesIfSupported().toString());
 		assertEquals(
 				"!(" + value.getHash() + "=SHA-512(" + value.getMedia().getBody() + "))",
-				value.hashDoesNotMatch().toString());
+				value.hashDoesNotMatchIfSupported().toString());
 	}
 
 	@Test public void testData()
@@ -174,15 +174,15 @@ public class UniqueHashedMediaTest extends TestWithEnvironment
 		final UniqueHashedMediaItem item1 = new UniqueHashedMediaItem(toValue(bytes4, "image/jpeg"));
 		final UniqueHashedMediaItem item2 = new UniqueHashedMediaItem(toValue(bytes6, "image/jpeg"));
 
-		assertSearch(asList(item1, item2), value.hashMatches());
-		assertSearch(asList(), value.hashDoesNotMatch());
+		assertSearch(asList(item1, item2), value.hashMatchesIfSupported());
+		assertSearch(asList(), value.hashDoesNotMatchIfSupported());
 
 		final UniqueHashedMediaItem itemX = new UniqueHashedMediaItem(
 				value.getMedia().map(toValue(bytes6, "image/jpeg")),
 				value.getHash() .map(brokenDigestHex));
 
-		assertSearch(asList(item1, item2), value.hashMatches());
-		assertSearch(asList(itemX), value.hashDoesNotMatch());
+		assertSearch(asList(item1, item2), value.hashMatchesIfSupported());
+		assertSearch(asList(itemX), value.hashDoesNotMatchIfSupported());
 	}
 
 	private static void assumeNoVault()
@@ -192,7 +192,7 @@ public class UniqueHashedMediaTest extends TestWithEnvironment
 
 		try
 		{
-			TYPE.search(value.hashMatches());
+			TYPE.search(value.hashMatchesIfSupported());
 			fail();
 		}
 		catch(final UnsupportedQueryException e)

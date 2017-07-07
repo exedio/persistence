@@ -113,7 +113,7 @@ public class HashConditionTest extends TestWithEnvironment
 			assertTrue(algorithm, algorithm.equals(algorithm.trim()));
 
 			final Algorithm a = Algorithm.forCode(algorithm);
-			if(!isSupported(MyItem.hash.hashMatches(algorithm, MyItem.data)))
+			if(!isSupported(MyItem.hash.hashMatchesIfSupported(algorithm, MyItem.data)))
 				continue;
 
 			item.setData(null);
@@ -144,11 +144,11 @@ public class HashConditionTest extends TestWithEnvironment
 
 	@Test public void testUnsupported()
 	{
-		final Condition positive = MyItem.hash.hashMatches     ("NIXUS", MyItem.data);
-		final Condition negative = MyItem.hash.hashDoesNotMatch("NIXUS", MyItem.data);
+		final Condition positive = MyItem.hash.hashMatchesIfSupported     ("NIXUS", MyItem.data);
+		final Condition negative = MyItem.hash.hashDoesNotMatchIfSupported("NIXUS", MyItem.data);
 		assertEquals(  "MyItem.hash=NIXUS(MyItem.data)",  positive.toString());
 		assertEquals("!(MyItem.hash=NIXUS(MyItem.data))", negative.toString());
-		if(!isSupported(MyItem.hash.hashMatches("NIXUS", MyItem.data)))
+		if(!isSupported(MyItem.hash.hashMatchesIfSupported("NIXUS", MyItem.data)))
 			return;
 
 		try
@@ -186,7 +186,7 @@ public class HashConditionTest extends TestWithEnvironment
 				if(supported.contains(algorithm))
 					continue;
 
-				final Condition condition = MyItem.hash.hashMatches(algorithm, MyItem.data);
+				final Condition condition = MyItem.hash.hashMatchesIfSupported(algorithm, MyItem.data);
 				assertEquals(p, "MyItem.hash=" + algorithm + "(MyItem.data)", condition.toString());
 
 				if(!isSupported(condition))
@@ -224,11 +224,11 @@ public class HashConditionTest extends TestWithEnvironment
 		assertEquals(
 				algorithm.code,
 				matches ? asList(item) : asList(),
-				MyItem.TYPE.search(MyItem.hash.hashMatches(algorithm.code, MyItem.data)));
+				MyItem.TYPE.search(MyItem.hash.hashMatchesIfSupported(algorithm.code, MyItem.data)));
 		assertEquals(
 				algorithm.code + " NOT",
 				matchesNot ? asList(item) : asList(),
-				MyItem.TYPE.search(MyItem.hash.hashDoesNotMatch(algorithm.code, MyItem.data)));
+				MyItem.TYPE.search(MyItem.hash.hashDoesNotMatchIfSupported(algorithm.code, MyItem.data)));
 	}
 
 	@WrapperType(indent=2, comments=false)
