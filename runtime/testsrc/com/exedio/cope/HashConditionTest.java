@@ -156,7 +156,7 @@ public class HashConditionTest extends TestWithEnvironment
 			MyItem.TYPE.search(positive);
 			fail();
 		}
-		catch(final IllegalArgumentException e)
+		catch(final UnsupportedQueryException e)
 		{
 			assertEquals("hash >NIXUS< not supported", e.getMessage());
 		}
@@ -165,7 +165,7 @@ public class HashConditionTest extends TestWithEnvironment
 			MyItem.TYPE.search(negative);
 			fail();
 		}
-		catch(final IllegalArgumentException e)
+		catch(final UnsupportedQueryException e)
 		{
 			assertEquals("hash >NIXUS< not supported", e.getMessage());
 		}
@@ -196,7 +196,7 @@ public class HashConditionTest extends TestWithEnvironment
 					MyItem.TYPE.search(condition);
 					fail(p);
 				}
-				catch(final IllegalArgumentException e)
+				catch(final UnsupportedQueryException e)
 				{
 					assertEquals(p, "hash >" + algorithm + "< not supported", e.getMessage());
 				}

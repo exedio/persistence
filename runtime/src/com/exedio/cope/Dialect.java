@@ -302,7 +302,7 @@ abstract class Dialect
 			final Statement bf, final BlobColumn column, final Join join,
 			final String algorithm)
 	{
-		throw new IllegalArgumentException("hash >" + algorithm + "< not supported");
+		throw new UnsupportedQueryException("hash >" + algorithm + "< not supported");
 	}
 
 
