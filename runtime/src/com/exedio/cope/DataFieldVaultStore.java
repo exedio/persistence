@@ -71,7 +71,7 @@ final class DataFieldVaultStore extends DataFieldStore
 	@Override
 	BlobColumn blobColumnIfSupported(final String capability)
 	{
-		throw new IllegalStateException(
+		throw new UnsupportedQueryException(
 				"DataField " + field + " does not support " + capability + " as it has vault enabled");
 	}
 

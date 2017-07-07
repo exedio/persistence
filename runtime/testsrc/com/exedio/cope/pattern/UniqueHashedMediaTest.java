@@ -42,6 +42,7 @@ import com.exedio.cope.Feature;
 import com.exedio.cope.Model;
 import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.UniqueViolationException;
+import com.exedio.cope.UnsupportedQueryException;
 import com.exedio.cope.misc.Computed;
 import java.io.IOException;
 import java.util.Date;
@@ -194,7 +195,7 @@ public class UniqueHashedMediaTest extends TestWithEnvironment
 			TYPE.search(value.hashMatches());
 			fail();
 		}
-		catch(final IllegalStateException e)
+		catch(final UnsupportedQueryException e)
 		{
 			assertEquals(
 					"DataField UniqueHashedMediaItem.value-media-body does not support hashMatches as it has vault enabled",

@@ -183,7 +183,7 @@ public class DataModelTest
 			query.search();
 			fail();
 		}
-		catch(final IllegalStateException e)
+		catch(final UnsupportedQueryException e)
 		{
 			assertEquals(message, e.getMessage());
 		}
@@ -192,7 +192,7 @@ public class DataModelTest
 			query.total();
 			fail();
 		}
-		catch(final IllegalStateException e)
+		catch(final UnsupportedQueryException e)
 		{
 			assertEquals(message, e.getMessage());
 		}
@@ -201,7 +201,7 @@ public class DataModelTest
 			SchemaInfo.search(query);
 			fail();
 		}
-		catch(final IllegalStateException e)
+		catch(final UnsupportedQueryException e)
 		{
 			assertEquals(message, e.getMessage());
 		}
@@ -210,7 +210,7 @@ public class DataModelTest
 			SchemaInfo.total(query);
 			fail();
 		}
-		catch(final IllegalStateException e)
+		catch(final UnsupportedQueryException e)
 		{
 			assertEquals(message, e.getMessage());
 		}
