@@ -195,7 +195,9 @@ public final class StringField extends FunctionField<String>
 	}
 
 	/**
-	 * The result may cause a {@link UnsupportedQueryException} when used.
+	 * The result may cause an {@link UnsupportedQueryException} when used,
+	 * if the field is stored in a {@link Vault vault},
+	 * or the {@code algorithm} is not supported by the database.
 	 * @param algorithm see {@link Model#getSupportedDataHashAlgorithms()}
 	 * @see #hashDoesNotMatchIfSupported(String, DataField)
 	 */
@@ -208,7 +210,9 @@ public final class StringField extends FunctionField<String>
 	}
 
 	/**
-	 * The result may cause a {@link UnsupportedQueryException} when used.
+	 * The result may cause an {@link UnsupportedQueryException} when used,
+	 * if the field is stored in a {@link Vault vault},
+	 * or the {@code algorithm} is not supported by the database.
 	 * @see #hashMatchesIfSupported(String, DataField)
 	 */
 	@Nonnull

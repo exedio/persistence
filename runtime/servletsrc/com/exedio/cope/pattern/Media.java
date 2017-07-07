@@ -36,6 +36,7 @@ import com.exedio.cope.Pattern;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
 import com.exedio.cope.UnsupportedQueryException;
+import com.exedio.cope.Vault;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.ComputedElement;
@@ -704,7 +705,8 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 	}
 
 	/**
-	 * The result may cause a {@link UnsupportedQueryException} when used.
+	 * The result may cause an {@link UnsupportedQueryException} when used,
+	 * if the field is stored in a {@link Vault vault}.
 	 */
 	public Condition bodyMismatchesContentTypeIfSupported()
 	{

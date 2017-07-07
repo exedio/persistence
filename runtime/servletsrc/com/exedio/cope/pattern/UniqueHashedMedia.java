@@ -37,6 +37,7 @@ import com.exedio.cope.StringField;
 import com.exedio.cope.Type;
 import com.exedio.cope.UniqueConstraint;
 import com.exedio.cope.UnsupportedQueryException;
+import com.exedio.cope.Vault;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.WrapFeature;
@@ -416,7 +417,9 @@ public final class UniqueHashedMedia extends Pattern implements Settable<Value>,
 	}
 
 	/**
-	 * The result may cause a {@link UnsupportedQueryException} when used.
+	 * The result may cause an {@link UnsupportedQueryException} when used,
+	 * if the field is stored in a {@link Vault vault},
+	 * or the {@link #getMessageDigestAlgorithm() algorithm} is not supported by the database.
 	 */
 	@Nonnull
 	public Condition hashMatchesIfSupported()
@@ -425,7 +428,9 @@ public final class UniqueHashedMedia extends Pattern implements Settable<Value>,
 	}
 
 	/**
-	 * The result may cause a {@link UnsupportedQueryException} when used.
+	 * The result may cause an {@link UnsupportedQueryException} when used,
+	 * if the field is stored in a {@link Vault vault},
+	 * or the {@link #getMessageDigestAlgorithm() algorithm} is not supported by the database.
 	 */
 	@Nonnull
 	public Condition hashDoesNotMatchIfSupported()
