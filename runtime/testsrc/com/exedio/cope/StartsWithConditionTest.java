@@ -20,10 +20,9 @@ package com.exedio.cope;
 
 import static com.exedio.cope.DataItem.TYPE;
 import static com.exedio.cope.DataItem.data;
+import static com.exedio.cope.DataModelTest.assertNotSupported;
 import static com.exedio.cope.RuntimeAssert.assertCondition;
 import static java.util.Arrays.asList;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -78,17 +77,9 @@ public class StartsWithConditionTest extends TestWithEnvironment
 		if(data.getVaultInfo()==null)
 			return true;
 
-		try
-		{
-			TYPE.search(condition);
-			fail();
-		}
-		catch(final IllegalStateException e)
-		{
-			assertEquals(
-					"DataField DataItem.data does not support startsWith as it has vault enabled",
-					e.getMessage());
-		}
+		assertNotSupported(
+				TYPE.newQuery(condition),
+				"DataField DataItem.data does not support startsWith as it has vault enabled");
 		return false;
 	}
 

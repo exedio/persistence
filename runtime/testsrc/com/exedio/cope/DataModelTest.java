@@ -172,4 +172,47 @@ public class DataModelTest
 	private static final byte[] bytes4  = {-86,122,-8,23};
 	private static final byte[] bytes6  = {-97,35,-126,86,19,-8};
 	private static final byte[] bytes6x4= {-97,35,-126,86};
+
+
+	static void assertNotSupported(
+			final Query<?> query,
+			final String message)
+	{
+		try
+		{
+			query.search();
+			fail();
+		}
+		catch(final IllegalStateException e)
+		{
+			assertEquals(message, e.getMessage());
+		}
+		try
+		{
+			query.total();
+			fail();
+		}
+		catch(final IllegalStateException e)
+		{
+			assertEquals(message, e.getMessage());
+		}
+		try
+		{
+			SchemaInfo.search(query);
+			fail();
+		}
+		catch(final IllegalStateException e)
+		{
+			assertEquals(message, e.getMessage());
+		}
+		try
+		{
+			SchemaInfo.total(query);
+			fail();
+		}
+		catch(final IllegalStateException e)
+		{
+			assertEquals(message, e.getMessage());
+		}
+	}
 }

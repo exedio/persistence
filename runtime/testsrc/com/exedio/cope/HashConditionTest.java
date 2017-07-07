@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.DataModelTest.assertNotSupported;
 import static com.exedio.cope.instrument.Visibility.PACKAGE;
 import static com.exedio.cope.junit.CopeAssert.assertUnmodifiable;
 import static java.nio.charset.StandardCharsets.US_ASCII;
@@ -209,17 +210,9 @@ public class HashConditionTest extends TestWithEnvironment
 		if(MyItem.data.getVaultInfo()==null)
 			return true;
 
-		try
-		{
-			MyItem.TYPE.search(condition);
-			fail();
-		}
-		catch(final IllegalStateException e)
-		{
-			assertEquals(
-					"DataField MyItem.data does not support hashMatches as it has vault enabled",
-					e.getMessage());
-		}
+		assertNotSupported(
+				MyItem.TYPE.newQuery(condition),
+				"DataField MyItem.data does not support hashMatches as it has vault enabled");
 		return false;
 	}
 
