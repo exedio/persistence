@@ -137,6 +137,9 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 		return new ItemField<>(isfinal, optional, valueClass, unique, addCopyFrom(copyFrom), copyTo, valueTypeFuture, policy);
 	}
 
+	/**
+	 * @see FunctionField#copyFrom(ItemField)
+	 */
 	public ItemField<E> copyTo(final FunctionField<?> copyTo)
 	{
 		return new ItemField<>(isfinal, optional, valueClass, unique, copyFrom, addCopyTo(copyTo), valueTypeFuture, policy);
