@@ -18,7 +18,7 @@
 
 package com.exedio.cope.pattern;
 
-import com.exedio.cope.util.MessageDigestUtil;
+import com.exedio.cope.util.MessageDigestFactory;
 import java.security.DigestException;
 import java.security.MessageDigest;
 import java.security.SecureRandom;
@@ -30,7 +30,7 @@ import java.security.SecureRandom;
  */
 public final class MessageDigestAlgorithm implements Hash.Algorithm
 {
-	private final String digest;
+	private final MessageDigestFactory digest;
 	private final int digestLength;
 
 	private final int saltLength;
@@ -47,25 +47,20 @@ public final class MessageDigestAlgorithm implements Hash.Algorithm
 			final int iterations)
 	{
 		this(
-			digest,
+			new MessageDigestFactory(digest),
 			saltLength,
 			saltLength>0 ? new SecureRandom() : null,
 			iterations);
 	}
 
 	private MessageDigestAlgorithm(
-			final String digest,
+			final MessageDigestFactory digest,
 			final int saltLength,
 			final SecureRandom saltSource,
 			final int iterations)
 	{
 		this.digest = digest;
-
-		final MessageDigest messageDigest = MessageDigestUtil.getInstance(digest);
-		this.digestLength = messageDigest.getDigestLength();
-		if(digestLength<=0)
-			throw new IllegalArgumentException("MessageDigest#getDigestLength() not supported: " + digestLength);
-
+		this.digestLength = digest.getLength();
 		this.saltLength = saltLength;
 		this.saltSource = saltSource;
 		this.iterations = iterations;
@@ -94,7 +89,7 @@ public final class MessageDigestAlgorithm implements Hash.Algorithm
 	public String name()
 	{
 		final StringBuilder bf = new StringBuilder();
-		bf.append(digest.replaceAll("-", ""));
+		bf.append(digest.getAlgorithm().replaceAll("-", ""));
 		if(saltLength>0)
 			bf.append('s').
 				append(saltLength);
@@ -116,7 +111,7 @@ public final class MessageDigestAlgorithm implements Hash.Algorithm
 		if(plainText==null)
 			throw new NullPointerException();
 
-		final MessageDigest messageDigest = MessageDigestUtil.getInstance(digest);
+		final MessageDigest messageDigest = digest.newInstance();
 
 		final byte[] result = new byte[saltLength + digestLength];
 
@@ -159,7 +154,7 @@ public final class MessageDigestAlgorithm implements Hash.Algorithm
 		if(hash.length!=(saltLength+digestLength))
 			throw new IllegalArgumentException(String.valueOf(hash.length));
 
-		final MessageDigest messageDigest = MessageDigestUtil.getInstance(digest);
+		final MessageDigest messageDigest = digest.newInstance();
 
 		if(saltLength>0)
 			messageDigest.update(hash, 0, saltLength);
