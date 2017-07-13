@@ -102,7 +102,7 @@ public class VaultPropertiesTest
 		catch(final IllegalPropertiesException e)
 		{
 			assertEquals(
-					"property algorithm in DESC must specify a digest, but was \"NIXUS\"",
+					"property algorithm in DESC must specify a digest, but was 'NIXUS'",
 					e.getMessage());
 			assertTrue(e.getCause() instanceof IllegalArgumentException);
 		}

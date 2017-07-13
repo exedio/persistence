@@ -44,7 +44,7 @@ public final class VaultProperties extends AbstractVaultProperties
 		}
 		catch(final IllegalArgumentException e)
 		{
-			throw newException(ALGORITHM_KEY, "must specify a digest, but was \"" + algorithm + '"', e);
+			throw newException(ALGORITHM_KEY, "must specify a digest, but was '" + algorithm + '\'', e);
 		}
 		final int result = md.getDigestLength(); // digest length in bytes
 		if(result<=0)
