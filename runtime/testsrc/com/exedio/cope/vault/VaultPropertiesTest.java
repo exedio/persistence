@@ -28,6 +28,7 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import com.exedio.cope.ConnectProperties;
+import com.exedio.cope.util.IllegalAlgorithmException;
 import com.exedio.cope.util.IllegalPropertiesException;
 import com.exedio.cope.util.Properties;
 import com.exedio.cope.util.Properties.Source;
@@ -104,7 +105,7 @@ public class VaultPropertiesTest
 			assertEquals(
 					"property algorithm in DESC must specify a digest, but was 'NIXUS'",
 					e.getMessage());
-			assertTrue(e.getCause() instanceof IllegalArgumentException);
+			assertTrue(e.getCause() instanceof IllegalAlgorithmException);
 		}
 	}
 

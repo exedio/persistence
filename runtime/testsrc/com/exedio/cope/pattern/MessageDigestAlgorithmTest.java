@@ -26,8 +26,8 @@ import static org.junit.Assert.fail;
 
 import com.exedio.cope.misc.Arrays;
 import com.exedio.cope.util.Hex;
+import com.exedio.cope.util.IllegalAlgorithmException;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import org.junit.Test;
 
@@ -41,10 +41,9 @@ public class MessageDigestAlgorithmTest
 			new MessageDigestAlgorithm("NIXUS", -1, 0);
 			fail();
 		}
-		catch(final IllegalArgumentException e)
+		catch(final IllegalAlgorithmException e)
 		{
-			assertTrue(e.getMessage(), e.getMessage().startsWith("no such MessageDigest NIXUS, choose one of: "));
-			assertEquals(NoSuchAlgorithmException.class, e.getCause().getClass());
+			assertEquals("NIXUS", e.getAlgorithm());
 		}
 		try
 		{

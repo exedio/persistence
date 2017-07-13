@@ -20,7 +20,6 @@ package com.exedio.cope.pattern;
 
 import static com.exedio.cope.TypesBound.newType;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import com.exedio.cope.ActivationParameters;
@@ -31,6 +30,7 @@ import com.exedio.cope.Model;
 import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
 import com.exedio.cope.instrument.WrapperIgnore;
+import com.exedio.cope.util.IllegalAlgorithmException;
 import org.junit.Test;
 
 public class UniqueHashedMediaErrorTest
@@ -98,10 +98,9 @@ public class UniqueHashedMediaErrorTest
 			new UniqueHashedMedia(new Media(), "XXX");
 			fail();
 		}
-		catch(final IllegalArgumentException e)
+		catch(final IllegalAlgorithmException e)
 		{
-			final String m = e.getMessage();
-			assertTrue(m, m.startsWith("no such MessageDigest XXX,"));
+			assertEquals("XXX", e.getAlgorithm());
 		}
 	}
 
