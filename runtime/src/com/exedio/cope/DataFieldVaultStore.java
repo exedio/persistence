@@ -21,7 +21,7 @@ package com.exedio.cope;
 import com.exedio.cope.DataField.Value;
 import com.exedio.cope.util.CharSet;
 import com.exedio.cope.util.Hex;
-import com.exedio.cope.util.MessageDigestUtil;
+import com.exedio.cope.util.MessageDigestFactory;
 import com.exedio.cope.vault.VaultNotFoundException;
 import com.exedio.cope.vault.VaultProperties;
 import com.exedio.cope.vault.VaultService;
@@ -37,7 +37,7 @@ import javax.annotation.Nonnull;
 final class DataFieldVaultStore extends DataFieldStore
 {
 	private final StringColumn column;
-	private final String algorithm;
+	private final MessageDigestFactory algorithm;
 	private final String hashForEmpty;
 	private final VaultService service;
 
@@ -55,7 +55,7 @@ final class DataFieldVaultStore extends DataFieldStore
 				table, name, optional, length, length,
 				CharSet.HEX_LOWER,
 				mysqlExtendedVarchar);
-		this.algorithm = properties.getAlgorithm();
+		this.algorithm = properties.getAlgorithmFactory();
 		this.hashForEmpty = properties.getAlgorithmDigestForEmptyByteSequence();
 		this.service = connect.vault;
 	}
@@ -189,8 +189,7 @@ final class DataFieldVaultStore extends DataFieldStore
 			return;
 		}
 
-		final MessageDigest messageDigest =
-				MessageDigestUtil.getInstance(algorithm);
+		final MessageDigest messageDigest = algorithm.newInstance();
 		try
 		{
 			data = data.update(messageDigest, field,

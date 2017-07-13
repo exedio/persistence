@@ -19,11 +19,10 @@
 package com.exedio.cope.vault;
 
 import com.exedio.cope.util.Hex;
-import com.exedio.cope.util.MessageDigestUtil;
+import com.exedio.cope.util.MessageDigestFactory;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
@@ -31,42 +30,26 @@ import java.util.Locale;
 
 public final class VaultProperties extends AbstractVaultProperties
 {
-	private static final String ALGORITHM_KEY = "algorithm";
-	private final String algorithm = value(ALGORITHM_KEY, "SHA-512");
-	private final int    algorithmLength;
-	private final String algorithmEmpty;
+	private final MessageDigestFactory algorithm = valueMessageDigest("algorithm", "SHA-512");
 
-	{
-		final MessageDigest md;
-		try
-		{
-			md = MessageDigestUtil.getInstance(algorithm);
-		}
-		catch(final IllegalArgumentException e)
-		{
-			throw newException(ALGORITHM_KEY, "must specify a digest, but was '" + algorithm + '\'', e);
-		}
-		final int result = md.getDigestLength(); // digest length in bytes
-		if(result<=0)
-			// TODO test
-			throw newException(ALGORITHM_KEY, algorithm + " must specify digest length, but was " + result);
-		algorithmLength = result * 2; // 1 byte is 2 hex chars
-		algorithmEmpty = Hex.encodeLower(md.digest());
-	}
-
-	public String getAlgorithm()
+	public MessageDigestFactory getAlgorithmFactory()
 	{
 		return algorithm;
 	}
 
+	public String getAlgorithm()
+	{
+		return algorithm.getAlgorithm();
+	}
+
 	public int getAlgorithmLength()
 	{
-		return algorithmLength;
+		return algorithm.getLengthHex();
 	}
 
 	public String getAlgorithmDigestForEmptyByteSequence()
 	{
-		return algorithmEmpty;
+		return algorithm.getDigestForEmptyByteSequenceHex();
 	}
 
 
@@ -108,7 +91,7 @@ public final class VaultProperties extends AbstractVaultProperties
 				"from " + hostname + " " +
 				"on " + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS Z (z)", Locale.ENGLISH).format(new Date())).
 				getBytes(StandardCharsets.US_ASCII);
-		final String hash = Hex.encodeLower(MessageDigestUtil.getInstance(algorithm).digest(value));
+		final String hash = Hex.encodeLower(algorithm.digest(value));
 
 		try
 		{

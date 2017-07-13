@@ -25,7 +25,6 @@ import static org.junit.Assert.assertNotNull;
 import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.util.CharSet;
 import com.exedio.cope.util.Hex;
-import com.exedio.cope.util.MessageDigestUtil;
 import com.exedio.cope.vault.VaultNotFoundException;
 import com.exedio.cope.vault.VaultProperties;
 import com.exedio.cope.vault.VaultService;
@@ -97,7 +96,7 @@ public final class VaultTestService implements VaultService
 				value.length==0);
 
 		assertEquals(hash, Hex.encodeLower(
-				MessageDigestUtil.getInstance(properties.getAlgorithm()).
+				properties.getAlgorithmFactory().
 						digest(value)));
 
 		return store.put(hash, value)==null;

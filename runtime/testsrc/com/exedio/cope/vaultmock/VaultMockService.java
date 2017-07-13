@@ -24,7 +24,6 @@ import static org.junit.Assert.assertNotNull;
 
 import com.exedio.cope.util.CharSet;
 import com.exedio.cope.util.Hex;
-import com.exedio.cope.util.MessageDigestUtil;
 import com.exedio.cope.util.Properties;
 import com.exedio.cope.util.ServiceProperties;
 import com.exedio.cope.vault.VaultNotFoundException;
@@ -117,7 +116,7 @@ public final class VaultMockService implements VaultService
 		assertNotNull(value);
 
 		assertEquals(hash, Hex.encodeLower(
-				MessageDigestUtil.getInstance(vaultProperties.getAlgorithm()).
+				vaultProperties.getAlgorithmFactory().
 						digest(value)));
 
 		assertEquals("writable", true, writable);
@@ -185,7 +184,7 @@ public final class VaultMockService implements VaultService
 		assertNotNull(value);
 
 		assertEquals(hash, Hex.encodeLower(
-				MessageDigestUtil.getInstance(vaultProperties.getAlgorithm()).
+				vaultProperties.getAlgorithmFactory().
 						digest(Hex.decodeLower(value))));
 
 		store.put(hash, value);
