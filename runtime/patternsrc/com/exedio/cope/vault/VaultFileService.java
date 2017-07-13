@@ -43,7 +43,7 @@ public final class VaultFileService implements VaultService
 	public VaultFileService(final VaultServiceParameters parameters)
 	{
 		final Props sp = (Props)parameters.getServiceProperties();
-		this.rootDir = sp.root.get();
+		this.rootDir = sp.root;
 		this.directoryLength = sp.directory!=null ? sp.directory.length : 0;
 		this.tempDir = new File(rootDir, sp.temp);
 		this.bufferSize = sp.bufferSize;
@@ -218,7 +218,7 @@ public final class VaultFileService implements VaultService
 
 	static final class Props extends Properties
 	{
-		final FileField root = fieldFile("root");
+		final File root = valueFile("root");
 		final DirectoryProps directory = value("directory", true, DirectoryProps::new);
 		final String temp = value("temp", ".tempVaultFileService");
 		final int bufferSize = value("bufferSize", 50*1024, 1); // 50K
