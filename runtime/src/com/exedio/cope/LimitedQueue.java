@@ -44,10 +44,10 @@ final class LimitedQueue<E>
 		return back.offer(e);
 	}
 
-   /**
-    * Retrieves and removes the head of this queue, waiting if necessary
-    * until an element becomes available.
-    */
+	/**
+	 * Retrieves and removes the head of this queue, waiting if necessary
+	 * until an element becomes available.
+	 */
 	E take() throws InterruptedException
 	{
 		return back.take();
