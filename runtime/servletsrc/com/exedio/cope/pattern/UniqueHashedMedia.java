@@ -45,7 +45,7 @@ import com.exedio.cope.misc.Computed;
 import com.exedio.cope.misc.ComputedElement;
 import com.exedio.cope.pattern.Media.Value;
 import com.exedio.cope.util.Hex;
-import com.exedio.cope.util.MessageDigestUtil;
+import com.exedio.cope.util.MessageDigestFactory;
 import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.security.MessageDigest;
@@ -70,7 +70,7 @@ public final class UniqueHashedMedia extends Pattern implements Settable<Value>,
 
 	private final Media media;
 	private final StringField hash;
-	private final String messageDigestAlgorithm;
+	private final MessageDigestFactory messageDigestAlgorithm;
 	private final HashConstraint hashConstraint;
 
 
@@ -90,17 +90,17 @@ public final class UniqueHashedMedia extends Pattern implements Settable<Value>,
 	 */
 	public UniqueHashedMedia(final Media mediaTemplate, final String messageDigestAlgorithm)
 	{
+		this(mediaTemplate, new MessageDigestFactory(messageDigestAlgorithm));
+	}
+
+	private UniqueHashedMedia(
+			final Media mediaTemplate,
+			final MessageDigestFactory messageDigestAlgorithm)
+	{
 		if(!mediaTemplate.isMandatory())
 			throw new IllegalArgumentException("mediaTemplate must be mandatory");
 
-		// will never be null as MessageDigestUtil return non-null or throws IllegalArgumentException
-		final MessageDigest messageDigest = MessageDigestUtil.getInstance(messageDigestAlgorithm);
-		final int digestLength = messageDigest.getDigestLength(); // digest length in bytes
-		if(digestLength<=0)
-			throw new IllegalArgumentException(
-					"MessageDigest " + messageDigestAlgorithm + " does not specify digest length (" + digestLength + ')');
-
-		final int digestStringLength = digestLength * 2; // 1 byte is 2 hexadecimal chars
+		final int digestStringLength = messageDigestAlgorithm.getLengthHex();
 		this.messageDigestAlgorithm = messageDigestAlgorithm;
 		this.media = mediaTemplate.toFinal();
 		//noinspection ThisEscapedInObjectConstruction
@@ -113,7 +113,7 @@ public final class UniqueHashedMedia extends Pattern implements Settable<Value>,
 				: CustomAnnotatedElement2.create(
 						new Computed() { @Override public Class<? extends Annotation> annotationType() { return Computed.class; } },
 						new MysqlExtendedVarchar() { @Override public Class<? extends Annotation> annotationType() { return MysqlExtendedVarchar.class; } }));
-		this.hashConstraint = new HashConstraint(hash, messageDigestAlgorithm, media.getBody());
+		this.hashConstraint = new HashConstraint(hash, messageDigestAlgorithm.getAlgorithm(), media.getBody());
 		addSource(this.hashConstraint, "hashConstraint");
 	}
 
@@ -305,7 +305,7 @@ public final class UniqueHashedMedia extends Pattern implements Settable<Value>,
 
 	public String getMessageDigestAlgorithm()
 	{
-		return messageDigestAlgorithm;
+		return messageDigestAlgorithm.getAlgorithm();
 	}
 
 	public Media getMedia()
@@ -392,7 +392,7 @@ public final class UniqueHashedMedia extends Pattern implements Settable<Value>,
 	private ValueWithHash createValueWithHash(Value mediaValue) throws IOException
 	{
 		DataField.Value dataValue = mediaValue.getBody();
-		final MessageDigest messageDigest = MessageDigestUtil.getInstance(messageDigestAlgorithm);
+		final MessageDigest messageDigest = messageDigestAlgorithm.newInstance();
 		// calculate the hash
 
 		dataValue = dataValue.update(messageDigest);
