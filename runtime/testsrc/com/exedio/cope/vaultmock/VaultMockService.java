@@ -38,7 +38,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.security.MessageDigest;
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -117,9 +116,9 @@ public final class VaultMockService implements VaultService
 		assertHash(hash);
 		assertNotNull(value);
 
-		final MessageDigest md = MessageDigestUtil.getInstance(vaultProperties.getAlgorithm());
-		md.update(value);
-		assertEquals(hash, Hex.encodeLower(md.digest()));
+		assertEquals(hash, Hex.encodeLower(
+				MessageDigestUtil.getInstance(vaultProperties.getAlgorithm()).
+						digest(value)));
 
 		assertEquals("writable", true, writable);
 
@@ -185,9 +184,9 @@ public final class VaultMockService implements VaultService
 		assertHash(hash);
 		assertNotNull(value);
 
-		final MessageDigest md = MessageDigestUtil.getInstance(vaultProperties.getAlgorithm());
-		md.update(Hex.decodeLower(value));
-		assertEquals(hash, Hex.encodeLower(md.digest()));
+		assertEquals(hash, Hex.encodeLower(
+				MessageDigestUtil.getInstance(vaultProperties.getAlgorithm()).
+						digest(Hex.decodeLower(value))));
 
 		store.put(hash, value);
 	}
