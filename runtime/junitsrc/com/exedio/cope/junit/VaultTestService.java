@@ -38,7 +38,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.security.MessageDigest;
 import java.util.HashMap;
 
 /**
@@ -100,9 +99,9 @@ public final class VaultTestService implements VaultService
 				"empty byte sequence is not handled by service implementations",
 				value.length==0);
 
-		final MessageDigest md = MessageDigestUtil.getInstance(properties.getAlgorithm());
-		md.update(value);
-		assertEquals(hash, Hex.encodeLower(md.digest()));
+		assertEquals(hash, Hex.encodeLower(
+				MessageDigestUtil.getInstance(properties.getAlgorithm()).
+						digest(value)));
 
 		return store.put(hash, value)==null;
 	}
