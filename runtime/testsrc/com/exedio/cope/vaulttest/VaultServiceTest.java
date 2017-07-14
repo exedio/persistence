@@ -36,7 +36,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.security.MessageDigest;
 import java.util.Properties;
 import org.junit.Before;
 import org.junit.Test;
@@ -235,10 +234,9 @@ public abstract class VaultServiceTest
 	{
 		assertNotNull(value);
 
-		final MessageDigest md = MessageDigestUtil.getInstance(ALGORITHM);
-		md.update(Hex.decodeLower(value));
-
-		return Hex.encodeLower(md.digest());
+		return Hex.encodeLower(
+				MessageDigestUtil.getInstance(ALGORITHM).
+						digest(Hex.decodeLower(value)));
 	}
 
 	private String putHash(final String value)
