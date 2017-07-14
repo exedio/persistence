@@ -40,7 +40,6 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.IOException;
 import java.io.Serializable;
 import java.lang.annotation.Annotation;
-import java.security.MessageDigest;
 import java.util.Date;
 import java.util.List;
 import javax.annotation.Nonnull;
@@ -399,9 +398,9 @@ public abstract class MediaPath extends Pattern
 
 	private static String makeUrlTokenDigest(final String plainText)
 	{
-		final MessageDigest messageDigest = MessageDigestUtil.getInstance("SHA-512");
-		messageDigest.update(plainText.getBytes(UTF_8));
-		final byte[] digest = messageDigest.digest();
+		final byte[] digest =
+				MessageDigestUtil.getInstance("SHA-512").
+						digest(plainText.getBytes(UTF_8));
 		final byte[] digestShrink = new byte[10];
 		int j = 0;
 		for(final byte b : digest)
