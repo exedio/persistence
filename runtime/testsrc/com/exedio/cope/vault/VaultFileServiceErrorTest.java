@@ -21,6 +21,9 @@ package com.exedio.cope.vault;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
+import com.exedio.cope.util.IllegalPropertiesException;
+import com.exedio.cope.util.Properties.Factory;
+import com.exedio.cope.util.Properties.Source;
 import com.exedio.cope.util.Sources;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.File;
@@ -65,6 +68,52 @@ public class VaultFileServiceErrorTest
 			final IllegalArgumentException e = (IllegalArgumentException)e2.getCause().getCause();
 			assertEquals(
 					"directory.length must be less the length of algorithm, but was 32>=32",
+					e.getMessage());
+		}
+	}
+
+	@Test public void tempEmpty()
+	{
+		final Properties source = new Properties();
+		source.setProperty("algorithm", "MD5");
+		source.setProperty("service", VaultFileService.class.getName());
+		source.setProperty("service.root", "rootDir");
+		source.setProperty("service.temp", "");
+
+		final Factory<VaultProperties> factory = VaultProperties.factory();
+		final Source sourceView = Sources.view(source, "DESC");
+		try
+		{
+			factory.create(sourceView);
+			fail();
+		}
+		catch(final IllegalPropertiesException e)
+		{
+			assertEquals(
+					"property service.temp in DESC must not be empty",
+					e.getMessage());
+		}
+	}
+
+	@Test public void tempTrim()
+	{
+		final Properties source = new Properties();
+		source.setProperty("algorithm", "MD5");
+		source.setProperty("service", VaultFileService.class.getName());
+		source.setProperty("service.root", "rootDir");
+		source.setProperty("service.temp", " x");
+
+		final Factory<VaultProperties> factory = VaultProperties.factory();
+		final Source sourceView = Sources.view(source, "DESC");
+		try
+		{
+			factory.create(sourceView);
+			fail();
+		}
+		catch(final IllegalPropertiesException e)
+		{
+			assertEquals(
+					"property service.temp in DESC must be trimmed, but was > x<",
 					e.getMessage());
 		}
 	}

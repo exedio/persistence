@@ -226,6 +226,11 @@ public final class VaultFileService implements VaultService
 		Props(final Source source)
 		{
 			super(source);
+
+			if(temp.isEmpty())
+				throw newException("temp", "must not be empty");
+			if(!temp.equals(temp.trim()))
+				throw newException("temp", "must be trimmed, but was >" + temp + '<');
 		}
 	}
 
