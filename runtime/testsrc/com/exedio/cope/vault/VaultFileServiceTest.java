@@ -19,13 +19,18 @@
 package com.exedio.cope.vault;
 
 import static com.exedio.cope.util.StrictFile.mkdir;
+import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import com.exedio.cope.vaulttest.VaultServiceTest;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.File;
 import java.io.IOException;
 import java.util.Properties;
+import java.util.TreeSet;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -70,5 +75,48 @@ public class VaultFileServiceTest extends VaultServiceTest
 	{
 		final VaultFileService service = (VaultFileService)getService();
 		assertEquals(2, service.bufferSize);
+	}
+
+	@Test public void directoryStructure()
+	{
+		final File temp = new File(root, ".tempVaultFileService");
+		assertTrue(temp.isDirectory());
+
+		final File d = new File(root, "abcd");
+		final File f = new File(root, "abcf");
+		assertContains(root, temp);
+		assertContains(temp);
+		assertFalse(d.exists());
+		assertFalse(f.exists());
+
+		final byte[] value = {1,2,3};
+		final VaultFileService service = (VaultFileService)getService();
+
+		assertTrue(service.put("abcd", value));
+		assertContains(root, temp, d);
+		assertContains(temp);
+		assertTrue(d.isFile());
+		assertFalse(f.exists());
+
+		assertFalse(service.put("abcd", value));
+		assertContains(root, temp, d);
+		assertContains(temp);
+		assertTrue(d.isFile());
+		assertFalse(f.exists());
+
+		assertTrue(service.put("abcf", value));
+		assertContains(root, temp, d, f);
+		assertContains(temp);
+		assertTrue(d.isFile());
+		assertTrue(f.isFile());
+	}
+
+	private static void assertContains(final File directory, final File... content)
+	{
+		final File[] actual = directory.listFiles();
+		assertNotNull(actual);
+		assertEquals(
+				new TreeSet<>(asList(content)),
+				new TreeSet<>(asList(actual)));
 	}
 }
