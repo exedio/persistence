@@ -37,7 +37,7 @@ import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
 @SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
-public class VaultFileServiceTest extends VaultServiceTest
+public class VaultFileServiceDirectoryTest extends VaultServiceTest
 {
 	@Override
 	protected Class<? extends VaultService> getServiceClass()
@@ -56,7 +56,6 @@ public class VaultFileServiceTest extends VaultServiceTest
 		root = files.newFolder();
 		final Properties result = new Properties();
 		result.setProperty("root", root.getAbsolutePath());
-		result.setProperty("directory", "false");
 		result.setProperty("bufferSize", "2");
 		return result;
 	}
@@ -75,7 +74,7 @@ public class VaultFileServiceTest extends VaultServiceTest
 	@Test public void serviceProperties()
 	{
 		final VaultFileService service = (VaultFileService)getService();
-		assertEquals(0, service.directoryLength);
+		assertEquals(3, service.directoryLength);
 		assertEquals(2, service.bufferSize);
 	}
 
@@ -84,10 +83,12 @@ public class VaultFileServiceTest extends VaultServiceTest
 		final File temp = new File(root, ".tempVaultFileService");
 		assertTrue(temp.isDirectory());
 
-		final File d = new File(root, "abcd");
-		final File f = new File(root, "abcf");
+		final File abc = new File(root, "abc");
+		final File d = new File(abc, "d");
+		final File f = new File(abc, "f");
 		assertContains(root, temp);
 		assertContains(temp);
+		assertFalse(abc.exists());
 		assertFalse(d.exists());
 		assertFalse(f.exists());
 
@@ -95,20 +96,23 @@ public class VaultFileServiceTest extends VaultServiceTest
 		final VaultFileService service = (VaultFileService)getService();
 
 		assertTrue(service.put("abcd", value));
-		assertContains(root, temp, d);
+		assertContains(root, temp, abc);
 		assertContains(temp);
+		assertContains(abc, d);
 		assertTrue(d.isFile());
 		assertFalse(f.exists());
 
 		assertFalse(service.put("abcd", value));
-		assertContains(root, temp, d);
+		assertContains(root, temp, abc);
 		assertContains(temp);
+		assertContains(abc, d);
 		assertTrue(d.isFile());
 		assertFalse(f.exists());
 
 		assertTrue(service.put("abcf", value));
-		assertContains(root, temp, d, f);
+		assertContains(root, temp, abc);
 		assertContains(temp);
+		assertContains(abc, d, f);
 		assertTrue(d.isFile());
 		assertTrue(f.isFile());
 	}

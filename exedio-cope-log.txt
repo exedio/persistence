@@ -7,6 +7,9 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* VaultFileService changes its file layout to support a directory structure.
+	Use dataField.vault.service.directory=false in ConnectProperties to
+	revert to previous behaviour.
 * Ivy configuration 'instrument' is applied to dependency beanshell.
 * The instrumentor now assigns a different serialVersionUID to item classes that are abstract.
   To disable this feature, set <instrument ... differentSerialVersionUIDForAbstract="false">.

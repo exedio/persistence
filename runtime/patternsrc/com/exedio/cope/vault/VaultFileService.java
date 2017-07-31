@@ -31,15 +31,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-/**
- * TODO:
- * For production use with large numbers of files we need a cache dir hierarchy similar to Apache mod_cache_disk:
- * http://httpd.apache.org/docs/2.4/mod/mod_cache_disk.html#cachedirlength
- */
 @VaultServiceProperties(VaultFileService.Factory.class)
 public final class VaultFileService implements VaultService
 {
 	private final File rootDir;
+	final int directoryLength;
 	final File tempDir;
 	final int bufferSize;
 
@@ -48,6 +44,7 @@ public final class VaultFileService implements VaultService
 	{
 		final Props sp = (Props)parameters.getServiceProperties();
 		this.rootDir = sp.root.get();
+		this.directoryLength = sp.directory!=null ? sp.directory.length : 0;
 		this.tempDir = new File(rootDir, sp.temp);
 		this.bufferSize = sp.bufferSize;
 	}
@@ -163,8 +160,18 @@ public final class VaultFileService implements VaultService
 			value.accept(out);
 		}
 
+		if(directoryLength>0)
+			mkdirIfNotExists(new File(rootDir, hash.substring(0, directoryLength)));
+
 		StrictFile.renameTo(temp, file);
 		return true;
+	}
+
+	@SuppressWarnings("ResultOfMethodCallIgnored")
+	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_BAD_PRACTICE")
+	private static void mkdirIfNotExists(final File file)
+	{
+		file.mkdir();
 	}
 
 	@FunctionalInterface
@@ -181,7 +188,12 @@ public final class VaultFileService implements VaultService
 		if(hash.isEmpty())
 			throw new IllegalArgumentException();
 
-		return new File(rootDir, hash);
+		if(directoryLength==0)
+			return new File(rootDir, hash);
+
+		return new File(rootDir,
+				hash.substring(0, directoryLength) + '/' +
+				hash.substring(directoryLength));
 	}
 
 	private File createTempFile(final String hash) throws IOException
@@ -199,6 +211,7 @@ public final class VaultFileService implements VaultService
 	static final class Props extends Properties
 	{
 		final FileField root = fieldFile("root");
+		final DirectoryProps directory = value("directory", true, DirectoryProps::new);
 		final String temp = value("temp", ".tempVaultFileService");
 		final int bufferSize = value("bufferSize", 50*1024, 1); // 50K
 
@@ -214,6 +227,26 @@ public final class VaultFileService implements VaultService
 		public Props create(final Properties.Source source)
 		{
 			return new Props(source);
+		}
+	}
+
+
+	static final class DirectoryProps extends Properties
+	{
+		/**
+		 * This field is similar to directive {@code CacheDirLength} of Apache mod_cache_disk,
+		 * however a value of {@code 2} in mod_cache_disk is equivalent to a value of {@code 3} here,
+		 * as mod_cache_disk uses Base64 for encoding hashes and we use hexadecimal representation.
+		 *
+		 * See http://httpd.apache.org/docs/2.4/mod/mod_cache_disk.html#cachedirlength
+		 */
+		final int length = value("length", 3, 1);
+
+		// TODO implement levels equivalent to CacheDirLevels, default to 1
+
+		DirectoryProps(final Source source)
+		{
+			super(source);
 		}
 	}
 }
