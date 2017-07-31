@@ -22,6 +22,8 @@ import static com.exedio.cope.util.StrictFile.mkdir;
 import static org.junit.Assert.assertEquals;
 
 import com.exedio.cope.vaulttest.VaultServiceTest;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import java.io.File;
 import java.io.IOException;
 import java.util.Properties;
 import org.junit.Before;
@@ -29,6 +31,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
+@SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
 public class VaultFileServiceTest extends VaultServiceTest
 {
 	@Override
@@ -37,7 +40,7 @@ public class VaultFileServiceTest extends VaultServiceTest
 		return VaultFileService.class;
 	}
 
-	private String root;
+	private File root;
 
 	@Rule
 	public final TemporaryFolder files = new TemporaryFolder();
@@ -45,9 +48,9 @@ public class VaultFileServiceTest extends VaultServiceTest
 	@Override
 	protected Properties getServiceProperties() throws IOException
 	{
-		root = files.newFolder().getAbsolutePath();
+		root = files.newFolder();
 		final Properties result = new Properties();
-		result.setProperty("root", root);
+		result.setProperty("root", root.getAbsolutePath());
 		result.setProperty("bufferSize", "2");
 		return result;
 	}
@@ -60,7 +63,7 @@ public class VaultFileServiceTest extends VaultServiceTest
 
 	@Test public void testToString()
 	{
-		assertEquals("VaultFileService:" + root, getService().toString());
+		assertEquals("VaultFileService:" + root.getAbsolutePath(), getService().toString());
 	}
 
 	@Test public void serviceProperties()
