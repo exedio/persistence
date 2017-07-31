@@ -18,58 +18,23 @@
 
 package com.exedio.cope.vault;
 
-import static com.exedio.cope.util.StrictFile.mkdir;
-import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-import com.exedio.cope.vaulttest.VaultServiceTest;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.File;
 import java.io.IOException;
 import java.util.Properties;
-import java.util.TreeSet;
-import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.TemporaryFolder;
 
-@SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
-public class VaultFileServiceTest extends VaultServiceTest
+public class VaultFileServiceTest extends AbstractVaultFileServiceTest
 {
-	@Override
-	protected Class<? extends VaultService> getServiceClass()
-	{
-		return VaultFileService.class;
-	}
-
-	private File root;
-
-	@Rule
-	public final TemporaryFolder files = new TemporaryFolder();
-
 	@Override
 	protected Properties getServiceProperties() throws IOException
 	{
-		root = files.newFolder();
-		final Properties result = new Properties();
-		result.setProperty("root", root.getAbsolutePath());
+		final Properties result = super.getServiceProperties();
 		result.setProperty("directory", "false");
-		result.setProperty("bufferSize", "2");
 		return result;
-	}
-
-	@Before
-	public void setUp()
-	{
-		mkdir(((VaultFileService)getService()).tempDir);
-	}
-
-	@Test public void testToString()
-	{
-		assertEquals("VaultFileService:" + root.getAbsolutePath(), getService().toString());
 	}
 
 	@Test public void serviceProperties()
@@ -81,6 +46,7 @@ public class VaultFileServiceTest extends VaultServiceTest
 
 	@Test public void directoryStructure()
 	{
+		final File root = getRoot();
 		final File temp = new File(root, ".tempVaultFileService");
 		assertTrue(temp.isDirectory());
 
@@ -111,14 +77,5 @@ public class VaultFileServiceTest extends VaultServiceTest
 		assertContains(temp);
 		assertTrue(d.isFile());
 		assertTrue(f.isFile());
-	}
-
-	private static void assertContains(final File directory, final File... content)
-	{
-		final File[] actual = directory.listFiles();
-		assertNotNull(actual);
-		assertEquals(
-				new TreeSet<>(asList(content)),
-				new TreeSet<>(asList(actual)));
 	}
 }
