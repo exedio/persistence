@@ -47,6 +47,14 @@ public final class VaultFileService implements VaultService
 		this.directoryLength = sp.directory!=null ? sp.directory.length : 0;
 		this.tempDir = new File(rootDir, sp.temp);
 		this.bufferSize = sp.bufferSize;
+
+		{
+			final int algorithmLength = parameters.getVaultProperties().getAlgorithmLength();
+			if(directoryLength>=algorithmLength)
+				throw new IllegalArgumentException(
+						"directory.length must be less the length of algorithm, " +
+						"but was " + directoryLength + ">=" + algorithmLength);
+		}
 	}
 
 
