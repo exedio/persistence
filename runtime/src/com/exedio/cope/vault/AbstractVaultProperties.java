@@ -19,16 +19,15 @@
 package com.exedio.cope.vault;
 
 import com.exedio.cope.util.Properties;
+import com.exedio.cope.util.ServiceFactory;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Modifier;
 
 abstract class AbstractVaultProperties extends Properties
 {
 	final Service valueService(final String key, final boolean writable)
 	{
-		final Constructor<? extends VaultService> constructor =
-				valueConstructor(key, VaultService.class, VaultServiceParameters.class);
+		final ServiceFactory<VaultService, VaultServiceParameters> constructor =
+				valueService(key, VaultService.class, VaultServiceParameters.class);
 
 		return new Service(key, constructor, writable);
 	}
@@ -36,19 +35,19 @@ abstract class AbstractVaultProperties extends Properties
 	@SuppressFBWarnings("SIC_INNER_SHOULD_BE_STATIC_NEEDS_THIS")
 	final class Service
 	{
-		private final Constructor<? extends VaultService> constructor;
+		private final ServiceFactory<VaultService, VaultServiceParameters> constructor;
 		private final boolean writable;
 		private final Properties properties;
 
 		private Service(
 				final String key,
-				final Constructor<? extends VaultService> constructor,
+				final ServiceFactory<VaultService, VaultServiceParameters> constructor,
 				final boolean writable)
 		{
 			this.constructor = constructor;
 			this.writable = writable;
 
-			final VaultServiceProperties ann = constructor.getDeclaringClass().getAnnotation(VaultServiceProperties.class);
+			final VaultServiceProperties ann = constructor.getServiceClass().getAnnotation(VaultServiceProperties.class);
 			if(ann==null)
 				throw newException(key, "must name a class annotated by " + VaultServiceProperties.class.getName());
 
@@ -67,61 +66,13 @@ abstract class AbstractVaultProperties extends Properties
 
 		VaultService newService(final VaultProperties vaultProperties)
 		{
-			try
-			{
-				return constructor.newInstance(new VaultServiceParameters(
-						vaultProperties, properties, writable));
-			}
-			catch(final ReflectiveOperationException e)
-			{
-				throw new RuntimeException(constructor.toGenericString(), e);
-			}
+			return constructor.newInstance(new VaultServiceParameters(
+					vaultProperties, properties, writable));
 		}
 	}
 
 	AbstractVaultProperties(final Source source)
 	{
 		super(source);
-	}
-
-	// copied from ConnectProperties
-	private <T> Constructor<? extends T> valueConstructor( // TODO move into framework
-			final String key,
-			final Class<T> superclass,
-			final Class<?> parameterType)
-	{
-		final String name = value(key, (String)null);
-
-		final Class<?> classRaw;
-		try
-		{
-			classRaw = Class.forName(name);
-		}
-		catch(final ClassNotFoundException e)
-		{
-			throw newException(key, "must name a class, but was '" + name + '\'', e);
-		}
-
-		if(Modifier.isAbstract(classRaw.getModifiers()))
-			throw newException(key,
-					"must name a non-abstract class, " +
-					"but was " + classRaw.getName());
-
-		if(!superclass.isAssignableFrom(classRaw))
-			throw newException(key,
-					"must name a subclass of " + superclass.getName() + ", " +
-					"but was " + classRaw.getName());
-
-		final Class<? extends T> clazz = classRaw.asSubclass(superclass);
-		try
-		{
-			return clazz.getDeclaredConstructor(parameterType);
-		}
-		catch(final NoSuchMethodException e)
-		{
-			throw newException(key,
-					"must name a class with a constructor with parameter " + parameterType.getName() + ", " +
-					"but was " + classRaw.getName(), e);
-		}
 	}
 }
