@@ -25,7 +25,7 @@ import java.lang.reflect.Modifier;
 
 abstract class AbstractVaultProperties extends Properties
 {
-	Service valueService(final String key, final boolean writable)
+	final Service valueService(final String key, final boolean writable)
 	{
 		final Constructor<? extends VaultService> constructor =
 				valueConstructor(key, VaultService.class, VaultServiceParameters.class);
