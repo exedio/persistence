@@ -211,6 +211,31 @@ public final class ListField<E> extends AbstractListField<E> implements Copyable
 				this.element.map(value));
 	}
 
+	/**
+	 * @return {@code true} if the result of {@link #get(Item)} changed as a result of the call.
+	 */
+	@Wrap(order=45, name="removeAllFrom{0}",
+			doc="Removes all occurrences of '{@code element}' from {0}.",
+			docReturn="'{@code true}' if the field set changed as a result of the call.")
+	public boolean removeAll(
+			@Nonnull final Item item,
+			@Parameter(nullability=NullableIfElementOptional.class) final E element)
+	{
+		final Mount mount = mount();
+		final List<PatternItem> rows =
+				mount.relationType.search(Cope.and(
+						Cope.equalAndCast(mount.parent, item),
+						this.element.equal(element)));
+
+		if(rows.isEmpty())
+			return false;
+
+		for(final PatternItem row : rows)
+			row.deleteCopeItem();
+
+		return true;
+	}
+
 	@Wrap(order=50,
 			doc="Sets a new value for {0}.",
 			thrownGetter=ListThrown.class)

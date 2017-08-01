@@ -526,6 +526,42 @@ public class ListFieldTest extends TestWithEnvironment
 		}
 	}
 
+	@Test public void testRemoveAllSingle()
+	{
+		item.setStrings(asList("one1", "two2"));
+		assertEquals(asList("one1", "two2"), item.getStrings());
+
+		assertEquals(false, item.removeAllFromStrings("other"));
+		assertEquals(asList("one1", "two2"), item.getStrings());
+
+		assertEquals(true, item.removeAllFromStrings("two2"));
+		assertEquals(asList("one1"), item.getStrings());
+
+		assertEquals(true, item.removeAllFromStrings("one1"));
+		assertEquals(asList(), item.getStrings());
+	}
+
+	@Test public void testRemoveAllDuplicates()
+	{
+		item.setStrings(asList("one1", "two2", "two2", "two2"));
+		assertEquals(asList("one1", "two2", "two2", "two2"), item.getStrings());
+
+		assertEquals(true, item.removeAllFromStrings("two2"));
+		assertEquals(asList("one1"), item.getStrings());
+	}
+
+	@Test public void testRemoveAllNull()
+	{
+		item.setStrings(asList("one1", null, null, "two2"));
+		assertEquals(asList("one1", null, null, "two2"), item.getStrings());
+
+		assertEquals(true, item.removeAllFromStrings(null));
+		assertEquals(asList("one1", "two2"), item.getStrings());
+
+		assertEquals(false, item.removeAllFromStrings(null));
+		assertEquals(asList("one1", "two2"), item.getStrings());
+	}
+
 	@SuppressFBWarnings({"NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS", "NP_NONNULL_PARAM_VIOLATION"})
 	@Test public void testListSetNull()
 	{

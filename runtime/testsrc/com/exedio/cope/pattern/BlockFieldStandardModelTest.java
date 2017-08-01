@@ -412,6 +412,16 @@ public class BlockFieldStandardModelTest
 	}
 
 	/**
+	 * Removes all occurrences of {@code element} from {@link #aList}.
+	 * @return {@code true} if the field set changed as a result of the call.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="removeAllFrom")
+	final boolean removeAllFromAList(@javax.annotation.Nonnull final String aList)
+	{
+		return field().of(ABlock.aList).removeAll(item(),aList);
+	}
+
+	/**
 	 * Sets a new value for {@link #aList}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")

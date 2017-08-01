@@ -187,6 +187,16 @@ public class JoinWithInheritanceTest extends TestWithEnvironment
 	}
 
 	/**
+	 * Removes all occurrences of {@code element} from {@link #articles}.
+	 * @return {@code true} if the field set changed as a result of the call.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="removeAllFrom")
+	final boolean removeAllFromArticles(@javax.annotation.Nonnull final Article articles)
+	{
+		return Container.articles.removeAll(this,articles);
+	}
+
+	/**
 	 * Sets a new value for {@link #articles}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -248,6 +258,16 @@ public class JoinWithInheritanceTest extends TestWithEnvironment
 				java.lang.ClassCastException
 	{
 		Container.specificArticles.add(this,specificArticles);
+	}
+
+	/**
+	 * Removes all occurrences of {@code element} from {@link #specificArticles}.
+	 * @return {@code true} if the field set changed as a result of the call.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="removeAllFrom")
+	final boolean removeAllFromSpecificArticles(@javax.annotation.Nonnull final SpecificArticle specificArticles)
+	{
+		return Container.specificArticles.removeAll(this,specificArticles);
 	}
 
 	/**

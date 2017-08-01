@@ -92,6 +92,16 @@ public final class ListFieldItem extends Item
 	}
 
 	/**
+	 * Removes all occurrences of {@code element} from {@link #strings}.
+	 * @return {@code true} if the field set changed as a result of the call.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="removeAllFrom")
+	final boolean removeAllFromStrings(@javax.annotation.Nullable final String strings)
+	{
+		return ListFieldItem.strings.removeAll(this,strings);
+	}
+
+	/**
 	 * Sets a new value for {@link #strings}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -156,6 +166,16 @@ public final class ListFieldItem extends Item
 	}
 
 	/**
+	 * Removes all occurrences of {@code element} from {@link #dates}.
+	 * @return {@code true} if the field set changed as a result of the call.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="removeAllFrom")
+	final boolean removeAllFromDates(@javax.annotation.Nonnull final Date dates)
+	{
+		return ListFieldItem.dates.removeAll(this,dates);
+	}
+
+	/**
 	 * Sets a new value for {@link #dates}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
@@ -217,6 +237,16 @@ public final class ListFieldItem extends Item
 				java.lang.ClassCastException
 	{
 		ListFieldItem.items.add(this,items);
+	}
+
+	/**
+	 * Removes all occurrences of {@code element} from {@link #items}.
+	 * @return {@code true} if the field set changed as a result of the call.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="removeAllFrom")
+	final boolean removeAllFromItems(@javax.annotation.Nonnull final ListFieldItem items)
+	{
+		return ListFieldItem.items.removeAll(this,items);
 	}
 
 	/**

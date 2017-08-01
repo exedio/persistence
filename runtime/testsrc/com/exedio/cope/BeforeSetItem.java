@@ -260,6 +260,16 @@ final class BeforeSetItem extends Item
 	}
 
 	/**
+	 * Removes all occurrences of {@code element} from {@link #calls}.
+	 * @return {@code true} if the field set changed as a result of the call.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="removeAllFrom")
+	final boolean removeAllFromCalls(@javax.annotation.Nonnull final String calls)
+	{
+		return BeforeSetItem.calls.removeAll(this,calls);
+	}
+
+	/**
 	 * Sets a new value for {@link #calls}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")

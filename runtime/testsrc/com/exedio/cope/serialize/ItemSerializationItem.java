@@ -142,6 +142,16 @@ final class ItemSerializationItem extends Item
 	}
 
 	/**
+	 * Removes all occurrences of {@code element} from {@link #list}.
+	 * @return {@code true} if the field set changed as a result of the call.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="removeAllFrom")
+	final boolean removeAllFromList(@javax.annotation.Nonnull final String list)
+	{
+		return ItemSerializationItem.list.removeAll(this,list);
+	}
+
+	/**
 	 * Sets a new value for {@link #list}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
