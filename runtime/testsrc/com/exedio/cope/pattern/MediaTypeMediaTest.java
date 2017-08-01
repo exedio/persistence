@@ -34,6 +34,7 @@ public class MediaTypeMediaTest
 	private static final String JPEG = "ffd8ff";
 	private static final String GIF = "47494638";
 	private static final String PNG = "89504e470d0a1a0a";
+	private static final String TIFF = "49492a00";
 	private static final String ICO = "00000100";
 	private static final String ZIP = "504b0304";
 	private static final String PDF = "25504446";
@@ -48,6 +49,7 @@ public class MediaTypeMediaTest
 				"(("+c+"='image/jpeg' OR "+c+"='image/pjpeg') AND !("+b+" startsWith '"+JPEG+"')) OR " +
 				"(("+c+"='image/png' OR "+c+"='image/x-png') AND !("+b+" startsWith '"+PNG+"')) OR " +
 				"("+c+"='image/gif' AND !("+b+" startsWith '"+GIF+"')) OR " +
+				"("+c+"='image/tiff' AND !("+b+" startsWith '"+TIFF+"')) OR " +
 				"(("+c+"='image/vnd.microsoft.icon' OR "+c+"='image/icon' OR "+c+"='image/x-icon') AND !("+b+" startsWith '"+ICO+"')) OR " +
 				"(("+c+"='application/zip' OR "+c+"='application/java-archive' OR "+c+"='application/vnd.openxmlformats-officedocument.wordprocessingml.document' OR "+c+"='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' OR "+c+"='application/x-zip-compressed') AND !("+b+" startsWith '"+ZIP+"')) OR " +
 				"(("+c+"='application/font-woff' OR "+c+"='font/x-woff') AND !("+b+" startsWith '774f4646')) OR " +
@@ -138,6 +140,7 @@ public class MediaTypeMediaTest
 				"(("+c+"='jpeg' OR "+c+"='pjpeg') AND !("+b+" startsWith '"+JPEG+"')) OR " +
 				"(("+c+"='png' OR "+c+"='x-png') AND !("+b+" startsWith '"+PNG+"')) OR " +
 				"("+c+"='gif' AND !("+b+" startsWith '"+GIF+"')) OR " +
+				"("+c+"='tiff' AND !("+b+" startsWith '"+TIFF+"')) OR " +
 				"(("+c+"='vnd.microsoft.icon' OR "+c+"='icon' OR "+c+"='x-icon') AND !("+b+" startsWith '"+ICO+"'))" +
 				")",
 				m.bodyMismatchesContentTypeIfSupported().toString());

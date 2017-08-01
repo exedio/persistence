@@ -146,6 +146,7 @@ public final class MediaType
 	public static final String JPEG = "image/jpeg";
 	public static final String PNG  = "image/png";
 	public static final String GIF  = "image/gif";
+	public static final String TIFF = "image/tiff";
 	public static final String ICON = "image/vnd.microsoft.icon";
 	public static final String SVG  = "image/svg+xml";
 	public static final String ZIP  = "application/zip";
@@ -194,6 +195,11 @@ public final class MediaType
 					// http://en.wikipedia.org/wiki/Magic_number_(programming)#Magic_numbers_in_files
 					new byte[]{(byte)'G', (byte)'I', (byte)'F', (byte)'8'}, // TODO test for "GIF89a" or "GIF87a"
 					GIF),
+			new MediaType(
+					new String[]{".tif",".tiff"},
+					// http://en.wikipedia.org/wiki/Magic_number_(programming)#Magic_numbers_in_files
+					new byte[]{(byte)'I', (byte)'I', 42, 0}, // TODO allow MM (big endian) as well
+					TIFF),
 			new MediaType(
 					".ico",
 					// http://en.wikipedia.org/wiki/ICO_(icon_image_file_format)
