@@ -21,12 +21,11 @@ package com.exedio.cope;
 import com.exedio.cope.pattern.MediaFingerprintOffset;
 import com.exedio.cope.util.PoolProperties;
 import com.exedio.cope.util.Properties;
+import com.exedio.cope.util.ServiceFactory;
 import com.exedio.cope.util.Sources;
 import com.exedio.cope.vault.VaultProperties;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.File;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Modifier;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.concurrent.Callable;
@@ -36,7 +35,7 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 {
 	final ConnectionProperties connection = valnp("connection", ConnectionProperties::new);
 
-	private final Constructor<? extends Dialect> dialect = valueConstructor("dialect", fromUrl(connection.url),
+	final ServiceFactory<Dialect,CopeProbe> dialect = valueService("dialect", fromUrl(connection.url),
 			Dialect.class, CopeProbe.class);
 
 	private final boolean disableEmptyStrings       = value("disableSupport.emptyStrings", false);
@@ -350,58 +349,6 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 			"Dialect";
 	}
 
-	private <T> Constructor<? extends T> valueConstructor( // TODO move into framework
-			final String key,
-			final String defaultValue,
-			final Class<T> superclass,
-			final Class<?> parameterType)
-	{
-		final String name = value(key, defaultValue);
-		final Class<?> classRaw;
-		try
-		{
-			classRaw = Class.forName(name);
-		}
-		catch(final ClassNotFoundException e)
-		{
-			throw newException(key, "must name a class, but was '" + name + '\'', e);
-		}
-
-		if(Modifier.isAbstract(classRaw.getModifiers()))
-			throw newException(key,
-					"must name a non-abstract class, " +
-					"but was " + classRaw.getName());
-
-		if(!superclass.isAssignableFrom(classRaw))
-			throw newException(key,
-					"must name a subclass of " + superclass.getName() + ", " +
-					"but was " + classRaw.getName());
-
-		final Class<? extends T> clazz = classRaw.asSubclass(superclass);
-		try
-		{
-			return clazz.getDeclaredConstructor(parameterType);
-		}
-		catch(final NoSuchMethodException e)
-		{
-			throw newException(key,
-					"must name a class with a constructor with parameter " + parameterType.getName() + ", " +
-					"but was " + classRaw.getName(), e);
-		}
-	}
-
-	Dialect createDialect(final CopeProbe probe)
-	{
-		try
-		{
-			return dialect.newInstance(probe);
-		}
-		catch(final ReflectiveOperationException e)
-		{
-			throw new RuntimeException(dialect.toGenericString(), e);
-		}
-	}
-
 	CopeProbe probeInternal()
 	{
 		return connection.probe(this);
@@ -409,7 +356,7 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 
 	public String getDialect()
 	{
-		return dialect.getDeclaringClass().getName();
+		return dialect.getServiceClass().getName();
 	}
 
 	public String getConnectionUrl()

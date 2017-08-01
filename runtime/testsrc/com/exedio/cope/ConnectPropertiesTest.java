@@ -141,7 +141,7 @@ public class ConnectPropertiesTest
 				ConnectPropertiesTestClassNotDialectDialect.class.getName(),
 				"property dialect in DESC must name a subclass of com.exedio.cope.Dialect, " +
 				"but was " + ConnectPropertiesTestClassNotDialectDialect.class.getName(),
-				null);
+				ClassCastException.class);
 	}
 
 	@Test public void testDialectClassNoConstructor()

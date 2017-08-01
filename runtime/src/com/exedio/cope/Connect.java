@@ -76,7 +76,7 @@ final class Connect
 		final CopeProbe probe = properties.probeInternal();
 
 		this.revisions = RevisionsConnect.wrap(probe.environmentInfo, revisionsFactory);
-		this.dialect = properties.createDialect(probe);
+		this.dialect = properties.dialect.newInstance(probe);
 
 		supportsEmptyStrings = !properties.isSupportDisabledForEmptyStrings() && dialect.supportsEmptyStrings();
 		supportsUTF8mb4 = dialect.supportsUTF8mb4();
