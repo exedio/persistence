@@ -18,34 +18,26 @@
 
 package com.exedio.cope.pattern;
 
-import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
 import static com.exedio.cope.pattern.SetFieldItem.TYPE;
 import static com.exedio.cope.pattern.SetFieldItem.dates;
-import static com.exedio.cope.pattern.SetFieldItem.datesParent;
 import static com.exedio.cope.pattern.SetFieldItem.getParentsOfStrings;
 import static com.exedio.cope.pattern.SetFieldItem.strings;
-import static com.exedio.cope.pattern.SetFieldItem.stringsParent;
+import static com.exedio.cope.pattern.SetFieldModelTest.MODEL;
+import static com.exedio.cope.pattern.SetFieldModelTest.datesType;
+import static com.exedio.cope.pattern.SetFieldModelTest.stringsElement;
+import static com.exedio.cope.pattern.SetFieldModelTest.stringsType;
 import static com.exedio.cope.tojunit.Assert.assertContains;
 import static com.exedio.cope.tojunit.Assert.assertContainsUnmodifiable;
-import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
-import static com.exedio.cope.tojunit.Assert.list;
 import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import com.exedio.cope.FunctionField;
 import com.exedio.cope.Item;
-import com.exedio.cope.ItemField;
 import com.exedio.cope.MandatoryViolationException;
-import com.exedio.cope.Model;
 import com.exedio.cope.Query;
-import com.exedio.cope.StringField;
 import com.exedio.cope.TestWithEnvironment;
-import com.exedio.cope.Type;
-import com.exedio.cope.misc.Computed;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Date;
 import java.util.Iterator;
@@ -54,13 +46,6 @@ import org.junit.Test;
 
 public class SetFieldTest extends TestWithEnvironment
 {
-	static final Model MODEL = new Model(TYPE);
-
-	static
-	{
-		MODEL.enableSerialization(SetFieldTest.class, "MODEL");
-	}
-
 	public SetFieldTest()
 	{
 		super(MODEL);
@@ -73,165 +58,6 @@ public class SetFieldTest extends TestWithEnvironment
 	{
 		item = new SetFieldItem();
 		otherItem = new SetFieldItem();
-	}
-
-	static final Type<?> stringsType = strings.getRelationType();
-	static final FunctionField<String> stringsElement = strings.getElement();
-	static final Type<?> datesType = dates.getRelationType();
-
-	@Test public void testModel()
-	{
-		assertEqualsUnmodifiable(list(
-				TYPE,
-				stringsType,
-				datesType
-			), model.getTypes());
-		assertEqualsUnmodifiable(list(
-				TYPE,
-				stringsType,
-				datesType
-			), model.getTypesSortedByHierarchy());
-		assertEquals(SetFieldItem.class, TYPE.getJavaClass());
-		assertEquals(true, TYPE.isBound());
-		assertEquals(null, TYPE.getPattern());
-
-		assertEqualsUnmodifiable(list(
-				TYPE.getThis(),
-				strings,
-				dates
-			), TYPE.getFeatures());
-		assertEqualsUnmodifiable(list(
-				stringsType.getThis(),
-				stringsParent(),
-				stringsElement,
-				strings.getUniqueConstraint()
-			), stringsType.getFeatures());
-		assertEqualsUnmodifiable(list(
-				datesType.getThis(),
-				datesParent(),
-				dates.getElement(),
-				dates.getUniqueConstraint()
-			), datesType.getFeatures());
-
-		assertEquals(TYPE, strings.getType());
-		assertEquals("strings", strings.getName());
-		assertEquals(TYPE, dates.getType());
-		assertEquals("dates", dates.getName());
-
-		assertEquals("SetFieldItem-strings", stringsType.getID());
-		assertEquals(PatternItem.class, stringsType.getJavaClass());
-		assertEquals(false, stringsType.isBound());
-		assertSame(strings, stringsType.getPattern());
-		assertEquals(null, stringsType.getSupertype());
-		assertEqualsUnmodifiable(list(), stringsType.getSubtypes());
-		assertEquals(false, stringsType.isAbstract());
-		assertEquals(Item.class, stringsType.getThis().getValueClass().getSuperclass());
-		assertEquals(stringsType, stringsType.getThis().getValueType());
-		assertEquals(model, stringsType.getModel());
-
-		assertEquals("SetFieldItem-dates", datesType.getID());
-		assertEquals(PatternItem.class, datesType.getJavaClass());
-		assertEquals(false, datesType.isBound());
-		assertSame(dates, datesType.getPattern());
-		assertEquals(null, datesType.getSupertype());
-		assertEqualsUnmodifiable(list(), datesType.getSubtypes());
-		assertEquals(false, datesType.isAbstract());
-		assertEquals(Item.class, datesType.getThis().getValueClass().getSuperclass());
-		assertEquals(datesType, datesType.getThis().getValueType());
-		assertEquals(model, datesType.getModel());
-
-		assertEquals(stringsType, stringsParent().getType());
-		assertEquals(stringsType, stringsElement.getType());
-		assertEquals(stringsType, strings.getUniqueConstraint().getType());
-		assertEquals(datesType, datesParent().getType());
-		assertEquals(datesType, dates.getElement().getType());
-		assertEquals(datesType, dates.getUniqueConstraint().getType());
-		assertSame(stringsParent(), strings.getParent());
-		assertSame(datesParent(), dates.getParent());
-
-		assertEquals("parent", stringsParent().getName());
-		assertEquals("element", stringsElement.getName());
-		assertEquals("uniqueConstraint", strings.getUniqueConstraint().getName());
-		assertEquals("parent", datesParent().getName());
-		assertEquals("element", dates.getElement().getName());
-		assertEquals("uniqueConstraint", dates.getUniqueConstraint().getName());
-
-		assertEqualsUnmodifiable(list(stringsParent(), stringsElement), strings.getUniqueConstraint().getFields());
-		assertEqualsUnmodifiable(list(datesParent(), dates.getElement()), dates.getUniqueConstraint().getFields());
-
-		assertTrue(stringsType.isAssignableFrom(stringsType));
-		assertTrue(!stringsType.isAssignableFrom(datesType));
-		assertTrue(!TYPE.isAssignableFrom(stringsType));
-		assertTrue(!stringsType.isAssignableFrom(TYPE));
-
-		assertEqualsUnmodifiable(list(), strings.getSourceFeatures());
-		assertEqualsUnmodifiable(list(), dates.getSourceFeatures());
-	}
-
-	@Test public void testComputed()
-	{
-
-		assertTrue(stringsType.isAnnotationPresent(Computed.class));
-		assertTrue(  datesType.isAnnotationPresent(Computed.class));
-	}
-
-	@Test public void testSerialize()
-	{
-
-		assertSerializedSame(strings, 381);
-		assertSerializedSame(dates  , 379);
-	}
-
-	@Test public void testElementNull()
-	{
-		try
-		{
-			SetField.create(null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("element", e.getMessage());
-		}
-	}
-
-	@Test public void testElementFinal()
-	{
-		try
-		{
-			SetField.create(new StringField().toFinal());
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("element must not be final", e.getMessage());
-		}
-	}
-
-	@Test public void testElementOptional()
-	{
-		try
-		{
-			SetField.create(new StringField().optional());
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("element must be mandatory", e.getMessage());
-		}
-	}
-
-	@Test public void testElementUnique()
-	{
-		try
-		{
-			SetField.create(new StringField().unique());
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("element must not be unique", e.getMessage());
-		}
 	}
 
 	@Test public void testQuery()
@@ -422,58 +248,6 @@ public class SetFieldTest extends TestWithEnvironment
 		}
 		assertContainsUnmodifiable(date1, date2, item.getDates());
 		assertEquals(2, datesType.newQuery(null).search().size());
-	}
-
-	@Test public void testGetParentFieldStrings()
-	{
-		try
-		{
-			strings.getParent(Item.class);
-			fail();
-		}
-		catch(final ClassCastException e)
-		{
-			assertEquals("expected a " + ItemField.class.getName() + "<" + Item.class.getName() + ">, but was a " + ItemField.class.getName() + "<" + item.getClass().getName() + ">", e.getMessage());
-		}
-	}
-
-	@Test public void testGetParentFieldDates()
-	{
-		try
-		{
-			dates.getParent(Item.class);
-			fail();
-		}
-		catch(final ClassCastException e)
-		{
-			assertEquals("expected a " + ItemField.class.getName() + "<" + Item.class.getName() + ">, but was a " + ItemField.class.getName() + "<" + item.getClass().getName() + ">", e.getMessage());
-		}
-	}
-
-	@Test public void testGetParentsStrings()
-	{
-		try
-		{
-			strings.getParents(Item.class, "hallo");
-			fail();
-		}
-		catch(final ClassCastException e)
-		{
-			assertEquals("expected a " + ItemField.class.getName() + "<" + Item.class.getName() + ">, but was a " + ItemField.class.getName() + "<" + item.getClass().getName() + ">", e.getMessage());
-		}
-	}
-
-	@Test public void testGetParentsDates()
-	{
-		try
-		{
-			dates.getParents(Item.class, new Date());
-			fail();
-		}
-		catch(final ClassCastException e)
-		{
-			assertEquals("expected a " + ItemField.class.getName() + "<" + Item.class.getName() + ">, but was a " + ItemField.class.getName() + "<" + item.getClass().getName() + ">", e.getMessage());
-		}
 	}
 
 	@SuppressFBWarnings({"NP_NULL_PARAM_DEREF_NONVIRTUAL", "NP_NONNULL_PARAM_VIOLATION"})
