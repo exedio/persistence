@@ -75,14 +75,12 @@ public class SetFieldTest extends TestWithEnvironment
 		otherItem = new SetFieldItem();
 	}
 
-	@SuppressFBWarnings({"NP_NULL_PARAM_DEREF_NONVIRTUAL", "NP_NONNULL_PARAM_VIOLATION"})
-	@Test public void testIt()
-	{
-		final Type<?> stringsType = strings.getRelationType();
-		final Type<?> datesType = dates.getRelationType();
-		final FunctionField<String> stringsElement = strings.getElement();
+	static final Type<?> stringsType = strings.getRelationType();
+	static final FunctionField<String> stringsElement = strings.getElement();
+	static final Type<?> datesType = dates.getRelationType();
 
-		// test model
+	@Test public void testModel()
+	{
 		assertEqualsUnmodifiable(list(
 				TYPE,
 				stringsType,
@@ -168,13 +166,24 @@ public class SetFieldTest extends TestWithEnvironment
 
 		assertEqualsUnmodifiable(list(), strings.getSourceFeatures());
 		assertEqualsUnmodifiable(list(), dates.getSourceFeatures());
+	}
+
+	@Test public void testComputed()
+	{
 
 		assertTrue(stringsType.isAnnotationPresent(Computed.class));
 		assertTrue(  datesType.isAnnotationPresent(Computed.class));
+	}
+
+	@Test public void testSerialize()
+	{
 
 		assertSerializedSame(strings, 381);
 		assertSerializedSame(dates  , 379);
+	}
 
+	@Test public void testElementNull()
+	{
 		try
 		{
 			SetField.create(null);
@@ -184,6 +193,10 @@ public class SetFieldTest extends TestWithEnvironment
 		{
 			assertEquals("element", e.getMessage());
 		}
+	}
+
+	@Test public void testElementFinal()
+	{
 		try
 		{
 			SetField.create(new StringField().toFinal());
@@ -193,6 +206,10 @@ public class SetFieldTest extends TestWithEnvironment
 		{
 			assertEquals("element must not be final", e.getMessage());
 		}
+	}
+
+	@Test public void testElementOptional()
+	{
 		try
 		{
 			SetField.create(new StringField().optional());
@@ -202,6 +219,10 @@ public class SetFieldTest extends TestWithEnvironment
 		{
 			assertEquals("element must be mandatory", e.getMessage());
 		}
+	}
+
+	@Test public void testElementUnique()
+	{
 		try
 		{
 			SetField.create(new StringField().unique());
@@ -211,13 +232,17 @@ public class SetFieldTest extends TestWithEnvironment
 		{
 			assertEquals("element must not be unique", e.getMessage());
 		}
+	}
 
-		// test persistence
+	@Test public void testQuery()
+	{
 		assertEquals("select element from SetFieldItem-strings" + " where parent='" + item + "'", item.getStringsQuery().toString());
 		assertEquals("select element from SetFieldItem-dates"   + " where parent='" + item + "'", item.getDatesQuery  ().toString());
+	}
 
-		// strings
-
+	@SuppressFBWarnings("NP_NONNULL_PARAM_VIOLATION")
+	@Test public void testSet()
+	{
 		assertContainsUnmodifiable(item.getStrings());
 		assertEquals(0, stringsType.newQuery(null).search().size());
 
@@ -310,7 +335,10 @@ public class SetFieldTest extends TestWithEnvironment
 		assertFalse(r1x.existsCopeItem());
 		assertFalse(r2.existsCopeItem());
 		assertFalse(r3.existsCopeItem());
+	}
 
+	@Test public void testAddRemove()
+	{
 		assertEquals(true, item.addToStrings("bing"));
 		assertContainsUnmodifiable("bing", item.getStrings());
 		final Item r4;
@@ -370,10 +398,10 @@ public class SetFieldTest extends TestWithEnvironment
 		}
 		assertFalse(r4.existsCopeItem());
 		assertFalse(r5.existsCopeItem());
+	}
 
-
-		// dates
-
+	@Test public void testDate()
+	{
 		assertContainsUnmodifiable(item.getDates());
 		assertEquals(0, datesType.newQuery(null).search().size());
 
@@ -394,7 +422,10 @@ public class SetFieldTest extends TestWithEnvironment
 		}
 		assertContainsUnmodifiable(date1, date2, item.getDates());
 		assertEquals(2, datesType.newQuery(null).search().size());
+	}
 
+	@Test public void testGetParentFieldStrings()
+	{
 		try
 		{
 			strings.getParent(Item.class);
@@ -404,6 +435,10 @@ public class SetFieldTest extends TestWithEnvironment
 		{
 			assertEquals("expected a " + ItemField.class.getName() + "<" + Item.class.getName() + ">, but was a " + ItemField.class.getName() + "<" + item.getClass().getName() + ">", e.getMessage());
 		}
+	}
+
+	@Test public void testGetParentFieldDates()
+	{
 		try
 		{
 			dates.getParent(Item.class);
@@ -413,6 +448,10 @@ public class SetFieldTest extends TestWithEnvironment
 		{
 			assertEquals("expected a " + ItemField.class.getName() + "<" + Item.class.getName() + ">, but was a " + ItemField.class.getName() + "<" + item.getClass().getName() + ">", e.getMessage());
 		}
+	}
+
+	@Test public void testGetParentsStrings()
+	{
 		try
 		{
 			strings.getParents(Item.class, "hallo");
@@ -422,6 +461,10 @@ public class SetFieldTest extends TestWithEnvironment
 		{
 			assertEquals("expected a " + ItemField.class.getName() + "<" + Item.class.getName() + ">, but was a " + ItemField.class.getName() + "<" + item.getClass().getName() + ">", e.getMessage());
 		}
+	}
+
+	@Test public void testGetParentsDates()
+	{
 		try
 		{
 			dates.getParents(Item.class, new Date());
