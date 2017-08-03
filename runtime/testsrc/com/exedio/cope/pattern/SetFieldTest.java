@@ -26,7 +26,6 @@ import static com.exedio.cope.pattern.SetFieldModelTest.datesType;
 import static com.exedio.cope.pattern.SetFieldModelTest.stringsElement;
 import static com.exedio.cope.pattern.SetFieldModelTest.stringsType;
 import static com.exedio.cope.tojunit.Assert.assertContains;
-import static com.exedio.cope.tojunit.Assert.assertContainsUnmodifiable;
 import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -69,11 +68,11 @@ public class SetFieldTest extends TestWithEnvironment
 	@SuppressFBWarnings("NP_NONNULL_PARAM_VIOLATION")
 	@Test public void testSet()
 	{
-		assertContainsUnmodifiable(item.getStrings());
+		item.assertStrings();
 		assertEquals(0, stringsType.newQuery(null).search().size());
 
 		item.setStrings(asList("hallo", "bello"));
-		assertContainsUnmodifiable("hallo", "bello", item.getStrings());
+		item.assertStrings("hallo", "bello");
 		assertContains(item, getParentsOfStrings("hallo"));
 		assertContains(item, getParentsOfStrings("bello"));
 		assertContains(getParentsOfStrings("knollo"));
@@ -90,7 +89,7 @@ public class SetFieldTest extends TestWithEnvironment
 		assertEquals("bello", r1.get(stringsElement));
 
 		item.setStrings(asList("bello", "knollo"));
-		assertContainsUnmodifiable("bello", "knollo", item.getStrings());
+		item.assertStrings("bello", "knollo");
 		assertContains(getParentsOfStrings("hallo"));
 		assertContains(item, getParentsOfStrings("bello"));
 		assertContains(item, getParentsOfStrings("knollo"));
@@ -105,7 +104,7 @@ public class SetFieldTest extends TestWithEnvironment
 		assertEquals("bello", r1.get(stringsElement));
 
 		item.setStrings(asList("knollo"));
-		assertContainsUnmodifiable("knollo", item.getStrings());
+		item.assertStrings("knollo");
 		assertContains(getParentsOfStrings("hallo"));
 		assertContains(getParentsOfStrings("bello"));
 		assertContains(item, getParentsOfStrings("knollo"));
@@ -119,7 +118,7 @@ public class SetFieldTest extends TestWithEnvironment
 		assertFalse(r1.existsCopeItem());
 
 		item.setStrings(asList("zack1", "zack2", "zack3"));
-		assertContainsUnmodifiable("zack1", "zack2", "zack3", item.getStrings());
+		item.assertStrings("zack1", "zack2", "zack3");
 		final Item r1x;
 		final Item r2;
 		{
@@ -135,7 +134,7 @@ public class SetFieldTest extends TestWithEnvironment
 		assertEquals("zack3", r2.get(stringsElement));
 
 		item.setStrings(asList("null1", "null2", "null3", "null4"));
-		assertContainsUnmodifiable("null1", "null2", "null3", "null4", item.getStrings());
+		item.assertStrings("null1", "null2", "null3", "null4");
 		assertContains(item, getParentsOfStrings("null1"));
 		assertContains(getParentsOfStrings(null));
 		assertContains(item, getParentsOfStrings("null2"));
@@ -155,7 +154,7 @@ public class SetFieldTest extends TestWithEnvironment
 		assertEquals("null4", r3.get(stringsElement));
 
 		item.setStrings(asList());
-		assertContainsUnmodifiable(item.getStrings());
+		item.assertStrings();
 		assertFalse(r0.existsCopeItem());
 		assertFalse(r1.existsCopeItem());
 		assertFalse(r1x.existsCopeItem());
@@ -166,7 +165,7 @@ public class SetFieldTest extends TestWithEnvironment
 	@Test public void testAddRemove()
 	{
 		assertEquals(true, item.addToStrings("bing"));
-		assertContainsUnmodifiable("bing", item.getStrings());
+		item.assertStrings("bing");
 		final Item r4;
 		{
 			final Iterator<? extends Item> i = stringsType.search(null, stringsType.getThis(), true).iterator();
@@ -176,7 +175,7 @@ public class SetFieldTest extends TestWithEnvironment
 		assertEquals("bing", r4.get(strings.getElement()));
 
 		assertEquals(false, item.addToStrings("bing"));
-		assertContainsUnmodifiable("bing", item.getStrings());
+		item.assertStrings("bing");
 		{
 			final Iterator<? extends Item> i = stringsType.search(null, stringsType.getThis(), true).iterator();
 			assertSame(r4, i.next());
@@ -185,7 +184,7 @@ public class SetFieldTest extends TestWithEnvironment
 		assertEquals("bing", r4.get(strings.getElement()));
 
 		assertEquals(true, item.addToStrings("bong"));
-		assertContainsUnmodifiable("bing", "bong", item.getStrings());
+		item.assertStrings("bing", "bong");
 		final Item r5;
 		{
 			final Iterator<? extends Item> i = stringsType.search(null, stringsType.getThis(), true).iterator();
@@ -197,7 +196,7 @@ public class SetFieldTest extends TestWithEnvironment
 		assertEquals("bong", r5.get(strings.getElement()));
 
 		assertEquals(true, item.removeFromStrings("bing"));
-		assertContainsUnmodifiable("bong", item.getStrings());
+		item.assertStrings("bong");
 		{
 			final Iterator<? extends Item> i = stringsType.search(null, stringsType.getThis(), true).iterator();
 			assertSame(r5, i.next());
@@ -207,7 +206,7 @@ public class SetFieldTest extends TestWithEnvironment
 		assertEquals("bong", r5.get(strings.getElement()));
 
 		assertEquals(false, item.removeFromStrings("bing"));
-		assertContainsUnmodifiable("bong", item.getStrings());
+		item.assertStrings("bong");
 		{
 			final Iterator<? extends Item> i = stringsType.search(null, stringsType.getThis(), true).iterator();
 			assertSame(r5, i.next());
@@ -217,7 +216,7 @@ public class SetFieldTest extends TestWithEnvironment
 		assertEquals("bong", r5.get(strings.getElement()));
 
 		assertEquals(true, item.removeFromStrings("bong"));
-		assertContainsUnmodifiable(item.getStrings());
+		item.assertStrings();
 		{
 			final Iterator<? extends Item> i = stringsType.search(null, stringsType.getThis(), true).iterator();
 			assertFalse(i.hasNext());
@@ -228,13 +227,13 @@ public class SetFieldTest extends TestWithEnvironment
 
 	@Test public void testDate()
 	{
-		assertContainsUnmodifiable(item.getDates());
+		item.assertDates();
 		assertEquals(0, datesType.newQuery(null).search().size());
 
 		final Date date1 = new Date(918756915152l);
 		final Date date2 = new Date(918756915153l);
 		item.setDates(asList(date1, date2));
-		assertContainsUnmodifiable(date1, date2, item.getDates());
+		item.assertDates(date1, date2);
 		assertEquals(2, datesType.newQuery(null).search().size());
 	}
 
@@ -249,7 +248,7 @@ public class SetFieldTest extends TestWithEnvironment
 		{
 			assertEquals(strings.getElement(), e.getFeature());
 		}
-		assertContainsUnmodifiable("one1", item.getStrings()); // TODO should be empty
+		item.assertStrings("one1"); // TODO should be empty
 	}
 
 	@Test public void testOtherViolation()
@@ -264,13 +263,13 @@ public class SetFieldTest extends TestWithEnvironment
 			assertEquals(strings.getElement(), e.getFeature());
 			assertEquals("two", e.getValue());
 		}
-		assertContainsUnmodifiable("one1", item.getStrings()); // TODO should be empty
+		item.assertStrings("one1"); // TODO should be empty
 	}
 
 	@Test public void testDuplicates()
 	{
 		item.setStrings(asList("one1", "dupl", "dupl", "two2"));
-		assertContainsUnmodifiable("one1", "dupl", "two2", item.getStrings());
+		item.assertStrings("one1", "dupl", "two2");
 	}
 
 	@SuppressFBWarnings({"NP_NULL_PARAM_DEREF_NONVIRTUAL", "NP_NONNULL_PARAM_VIOLATION"})
@@ -281,9 +280,9 @@ public class SetFieldTest extends TestWithEnvironment
 		final String gelb = "gelb";
 
 		item.setStrings(asList(rot, blau));
-		assertContainsUnmodifiable(rot, blau, item.getStrings());
+		item.assertStrings(rot, blau);
 		otherItem.setStrings(asList(rot));
-		assertContainsUnmodifiable(rot, otherItem.getStrings());
+		otherItem.assertStrings(rot);
 
 		assertContains(item, otherItem, getParentsOfStrings(rot));
 		assertContains(item, getParentsOfStrings(blau));
@@ -291,9 +290,9 @@ public class SetFieldTest extends TestWithEnvironment
 		assertContains(getParentsOfStrings(null));
 
 		item.setStrings(asList(rot, gelb, blau));
-		assertContainsUnmodifiable(rot, blau, gelb, item.getStrings());
+		item.assertStrings(rot, blau, gelb);
 		otherItem.setStrings(asList(gelb));
-		assertContainsUnmodifiable(gelb, otherItem.getStrings());
+		otherItem.assertStrings(gelb);
 
 		assertContains(item, getParentsOfStrings(rot));
 		assertContains(item, getParentsOfStrings(blau));
@@ -341,6 +340,6 @@ public class SetFieldTest extends TestWithEnvironment
 			assertEquals(strings, e.getFeature());
 			assertEquals(item, e.getItem());
 		}
-		assertContainsUnmodifiable("hallo", "bello", item.getStrings());
+		item.assertStrings("hallo", "bello");
 	}
 }

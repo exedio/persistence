@@ -18,15 +18,35 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.tojunit.Assert.assertContainsList;
+import static com.exedio.cope.tojunit.Assert.assertUnmodifiable;
+
 import com.exedio.cope.DateField;
 import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.Set;
 
 public final class SetFieldItem extends Item
 {
 	static final SetField<String> strings = SetField.create(new StringField().lengthRange(4, 8));
 	static final SetField<Date> dates = SetField.create(new DateField());
+
+
+	void assertStrings(final String... expected)
+	{
+		final Set<String> actual = getStrings();
+		assertUnmodifiable(actual);
+		assertContainsList(Arrays.asList(expected), actual);
+	}
+
+	void assertDates(final Date... expected)
+	{
+		final Set<Date> actual = getDates();
+		assertUnmodifiable(actual);
+		assertContainsList(Arrays.asList(expected), actual);
+	}
 
 
 	/**
