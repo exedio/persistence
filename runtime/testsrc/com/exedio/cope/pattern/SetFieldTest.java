@@ -71,11 +71,11 @@ public class SetFieldTest extends TestWithEnvironment
 		item.assertStrings();
 		assertEquals(0, stringsType.newQuery(null).search().size());
 
-		item.setStrings(asList("hallo", "bello"));
-		item.assertStrings("hallo", "bello");
-		assertContains(item, getParentsOfStrings("hallo"));
-		assertContains(item, getParentsOfStrings("bello"));
-		assertContains(getParentsOfStrings("knollo"));
+		item.setStrings(asList("1hallo", "2bello"));
+		item.assertStrings("1hallo", "2bello");
+		assertContains(item, getParentsOfStrings("1hallo"));
+		assertContains(item, getParentsOfStrings("2bello"));
+		assertContains(getParentsOfStrings("3knollo"));
 		assertContains(getParentsOfStrings(null));
 		final Item r0;
 		final Item r1;
@@ -85,14 +85,14 @@ public class SetFieldTest extends TestWithEnvironment
 			r1 = i.next();
 			assertFalse(i.hasNext());
 		}
-		assertEquals("hallo", r0.get(stringsElement));
-		assertEquals("bello", r1.get(stringsElement));
+		assertEquals("1hallo", r0.get(stringsElement));
+		assertEquals("2bello", r1.get(stringsElement));
 
-		item.setStrings(asList("bello", "knollo"));
-		item.assertStrings("bello", "knollo");
-		assertContains(getParentsOfStrings("hallo"));
-		assertContains(item, getParentsOfStrings("bello"));
-		assertContains(item, getParentsOfStrings("knollo"));
+		item.setStrings(asList("2bello", "3knollo"));
+		item.assertStrings("2bello", "3knollo");
+		assertContains(getParentsOfStrings("1hallo"));
+		assertContains(item, getParentsOfStrings("2bello"));
+		assertContains(item, getParentsOfStrings("3knollo"));
 		assertContains(getParentsOfStrings(null));
 		{
 			final Iterator<? extends Item> i = stringsType.search(null, stringsType.getThis(), true).iterator();
@@ -100,21 +100,21 @@ public class SetFieldTest extends TestWithEnvironment
 			assertSame(r1, i.next());
 			assertFalse(i.hasNext());
 		}
-		assertEquals("knollo", r0.get(stringsElement));
-		assertEquals("bello", r1.get(stringsElement));
+		assertEquals("3knollo", r0.get(stringsElement));
+		assertEquals("2bello", r1.get(stringsElement));
 
-		item.setStrings(asList("knollo"));
-		item.assertStrings("knollo");
-		assertContains(getParentsOfStrings("hallo"));
-		assertContains(getParentsOfStrings("bello"));
-		assertContains(item, getParentsOfStrings("knollo"));
+		item.setStrings(asList("3knollo"));
+		item.assertStrings("3knollo");
+		assertContains(getParentsOfStrings("1hallo"));
+		assertContains(getParentsOfStrings("2bello"));
+		assertContains(item, getParentsOfStrings("3knollo"));
 		assertContains(getParentsOfStrings(null));
 		{
 			final Iterator<? extends Item> i = stringsType.search(null, stringsType.getThis(), true).iterator();
 			assertSame(r0, i.next());
 			assertFalse(i.hasNext());
 		}
-		assertEquals("knollo", r0.get(stringsElement));
+		assertEquals("3knollo", r0.get(stringsElement));
 		assertFalse(r1.existsCopeItem());
 
 		item.setStrings(asList("zack1", "zack2", "zack3"));
@@ -268,16 +268,16 @@ public class SetFieldTest extends TestWithEnvironment
 
 	@Test public void testDuplicates()
 	{
-		item.setStrings(asList("one1", "dupl", "dupl", "two2"));
-		item.assertStrings("one1", "dupl", "two2");
+		item.setStrings(asList("1one", "2dupl", "2dupl", "3two"));
+		item.assertStrings("1one", "2dupl", "3two");
 	}
 
 	@SuppressFBWarnings({"NP_NULL_PARAM_DEREF_NONVIRTUAL", "NP_NONNULL_PARAM_VIOLATION"})
 	@Test public void testMultipleItems() throws Exception
 	{
-		final String rot = "hellrot";
-		final String blau = "blau";
-		final String gelb = "gelb";
+		final String rot = "1hellrot";
+		final String blau = "2blau";
+		final String gelb = "3gelb";
 
 		item.setStrings(asList(rot, blau));
 		item.assertStrings(rot, blau);
@@ -328,7 +328,7 @@ public class SetFieldTest extends TestWithEnvironment
 	@SuppressFBWarnings({"NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS", "NP_NONNULL_PARAM_VIOLATION"})
 	@Test public void testListSetNull()
 	{
-		item.setStrings(asList("hallo", "bello"));
+		item.setStrings(asList("1hallo", "2bello"));
 
 		try
 		{
@@ -340,6 +340,6 @@ public class SetFieldTest extends TestWithEnvironment
 			assertEquals(strings, e.getFeature());
 			assertEquals(item, e.getItem());
 		}
-		item.assertStrings("hallo", "bello");
+		item.assertStrings("1hallo", "2bello");
 	}
 }
