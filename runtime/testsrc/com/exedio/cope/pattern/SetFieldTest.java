@@ -19,7 +19,6 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.pattern.SetFieldItem.TYPE;
-import static com.exedio.cope.pattern.SetFieldItem.dates;
 import static com.exedio.cope.pattern.SetFieldItem.getParentsOfStrings;
 import static com.exedio.cope.pattern.SetFieldItem.strings;
 import static com.exedio.cope.pattern.SetFieldModelTest.MODEL;
@@ -236,18 +235,20 @@ public class SetFieldTest extends TestWithEnvironment
 		item.setDates(asList(date1, date2));
 		assertContainsUnmodifiable(date1, date2, item.getDates());
 		assertEquals(2, datesType.newQuery(null).search().size());
+	}
 
+	@Test public void testMandatoryViolation()
+	{
 		try
 		{
-			item.setDates(asList(date1, null, date2));
+			item.setStrings(asList("one1", null, "three3"));
 			fail();
 		}
 		catch(final MandatoryViolationException e)
 		{
-			assertEquals(dates.getElement(), e.getFeature());
+			assertEquals(strings.getElement(), e.getFeature());
 		}
-		assertContainsUnmodifiable(date1, date2, item.getDates());
-		assertEquals(2, datesType.newQuery(null).search().size());
+		assertContainsUnmodifiable("one1", item.getStrings()); // TODO should be empty
 	}
 
 	@SuppressFBWarnings({"NP_NULL_PARAM_DEREF_NONVIRTUAL", "NP_NONNULL_PARAM_VIOLATION"})
