@@ -267,6 +267,12 @@ public class SetFieldTest extends TestWithEnvironment
 		assertContainsUnmodifiable("one1", item.getStrings()); // TODO should be empty
 	}
 
+	@Test public void testDuplicates()
+	{
+		item.setStrings(asList("one1", "dupl", "dupl", "two2"));
+		assertContainsUnmodifiable("one1", "dupl", "two2", item.getStrings());
+	}
+
 	@SuppressFBWarnings({"NP_NULL_PARAM_DEREF_NONVIRTUAL", "NP_NONNULL_PARAM_VIOLATION"})
 	@Test public void testMultipleItems() throws Exception
 	{
