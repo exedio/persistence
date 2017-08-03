@@ -36,6 +36,7 @@ import static org.junit.Assert.fail;
 import com.exedio.cope.Item;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Query;
+import com.exedio.cope.StringLengthViolationException;
 import com.exedio.cope.TestWithEnvironment;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Date;
@@ -247,6 +248,21 @@ public class SetFieldTest extends TestWithEnvironment
 		catch(final MandatoryViolationException e)
 		{
 			assertEquals(strings.getElement(), e.getFeature());
+		}
+		assertContainsUnmodifiable("one1", item.getStrings()); // TODO should be empty
+	}
+
+	@Test public void testOtherViolation()
+	{
+		try
+		{
+			item.setStrings(asList("one1", "two", "three3"));
+			fail();
+		}
+		catch(final StringLengthViolationException e)
+		{
+			assertEquals(strings.getElement(), e.getFeature());
+			assertEquals("two", e.getValue());
 		}
 		assertContainsUnmodifiable("one1", item.getStrings()); // TODO should be empty
 	}
