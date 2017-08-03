@@ -61,8 +61,8 @@ public class SetFieldTest extends TestWithEnvironment
 
 	@Test public void testQuery()
 	{
-		assertEquals("select element from SetFieldItem-strings" + " where parent='" + item + "'", item.getStringsQuery().toString());
-		assertEquals("select element from SetFieldItem-dates"   + " where parent='" + item + "'", item.getDatesQuery  ().toString());
+		assertEquals("select element from SetFieldItem-strings" + " where parent='" + item + "' order by element", item.getStringsQuery().toString());
+		assertEquals("select element from SetFieldItem-dates"   + " where parent='" + item + "' order by element", item.getDatesQuery  ().toString());
 	}
 
 	@SuppressFBWarnings("NP_NONNULL_PARAM_VIOLATION")
@@ -270,6 +270,15 @@ public class SetFieldTest extends TestWithEnvironment
 	{
 		item.setStrings(asList("1one", "2dupl", "2dupl", "3two"));
 		item.assertStrings("1one", "2dupl", "3two");
+	}
+
+	@Test public void testOrder()
+	{
+		item.setStrings(asList("4four", "1one", "2two"));
+		item.assertStrings("1one", "2two", "4four");
+
+		item.addToStrings("3three");
+		item.assertStrings("1one", "2two", "3three", "4four");
 	}
 
 	@SuppressFBWarnings({"NP_NULL_PARAM_DEREF_NONVIRTUAL", "NP_NONNULL_PARAM_VIOLATION"})

@@ -18,12 +18,13 @@
 
 package com.exedio.cope.pattern;
 
-import static com.exedio.cope.tojunit.Assert.assertContainsList;
 import static com.exedio.cope.tojunit.Assert.assertUnmodifiable;
+import static org.junit.Assert.assertEquals;
 
 import com.exedio.cope.DateField;
 import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.Set;
@@ -38,14 +39,14 @@ public final class SetFieldItem extends Item
 	{
 		final Set<String> actual = getStrings();
 		assertUnmodifiable(actual);
-		assertContainsList(Arrays.asList(expected), actual);
+		assertEquals(Arrays.asList(expected), new ArrayList<>(actual));
 	}
 
 	void assertDates(final Date... expected)
 	{
 		final Set<Date> actual = getDates();
 		assertUnmodifiable(actual);
-		assertContainsList(Arrays.asList(expected), actual);
+		assertEquals(Arrays.asList(expected), new ArrayList<>(actual));
 	}
 
 

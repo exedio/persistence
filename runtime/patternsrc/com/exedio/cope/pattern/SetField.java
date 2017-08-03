@@ -42,7 +42,6 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -155,14 +154,16 @@ public final class SetField<E> extends Pattern implements Copyable
 	@Nonnull
 	public Set<E> get(@Nonnull final Item item)
 	{
-		return Collections.unmodifiableSet(new HashSet<>(getQuery(item).search()));
+		return Collections.unmodifiableSet(new LinkedHashSet<>(getQuery(item).search()));
 	}
 
 	@Wrap(order=20, doc="Returns a query for the value of {0}.")
 	@Nonnull
 	public Query<E> getQuery(@Nonnull final Item item)
 	{
-		return new Query<>(element, Cope.equalAndCast(mount().parent, item));
+		final Query<E> result = new Query<>(element, Cope.equalAndCast(mount().parent, item));
+		result.setOrderBy(element, true);
+		return result;
 	}
 
 	/**
