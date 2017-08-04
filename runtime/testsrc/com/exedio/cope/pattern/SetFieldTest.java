@@ -281,6 +281,15 @@ public class SetFieldTest extends TestWithEnvironment
 		item.assertStrings("1one", "2two", "3three", "4four");
 	}
 
+	@Test public void testReOrder()
+	{
+		item.setStrings(asList("4four", "1one", "3three", "2two"));
+		item.assertStrings("1one", "2two", "3three", "4four");
+
+		item.setStrings(asList("4four", "3three", "1one", "2two"));
+		item.assertStrings("1one", "2two", "3three", "4four");
+	}
+
 	@SuppressFBWarnings({"NP_NULL_PARAM_DEREF_NONVIRTUAL", "NP_NONNULL_PARAM_VIOLATION"})
 	@Test public void testMultipleItems() throws Exception
 	{
