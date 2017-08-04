@@ -86,32 +86,32 @@ public final class SetField<E> extends Pattern implements Copyable
 		final Type<?> type = getType();
 
 		final ItemField<?> parent = type.newItemField(CASCADE).toFinal();
-		final UniqueConstraint uniqueConstraint = new UniqueConstraint(parent, element);
+		final UniqueConstraint uniqueElement = new UniqueConstraint(parent, element);
 		final Features features = new Features();
 		features.put("parent", parent);
 		features.put("element", element);
-		features.put("uniqueConstraint", uniqueConstraint);
+		features.put("uniqueConstraint", uniqueElement);
 		final Type<PatternItem> relationType = newSourceType(PatternItem.class, features);
-		this.mountIfMounted = new Mount(parent, uniqueConstraint, relationType);
+		this.mountIfMounted = new Mount(parent, uniqueElement, relationType);
 	}
 
 	private static final class Mount
 	{
 		final ItemField<?> parent;
-		final UniqueConstraint uniqueConstraint;
+		final UniqueConstraint uniqueElement;
 		final Type<PatternItem> relationType;
 
 		Mount(
 				final ItemField<?> parent,
-				final UniqueConstraint uniqueConstraint,
+				final UniqueConstraint uniqueElement,
 				final Type<PatternItem> relationType)
 		{
 			assert parent!=null;
-			assert uniqueConstraint!=null;
+			assert uniqueElement != null;
 			assert relationType!=null;
 
 			this.parent = parent;
-			this.uniqueConstraint = uniqueConstraint;
+			this.uniqueElement = uniqueElement;
 			this.relationType = relationType;
 		}
 	}
@@ -140,7 +140,7 @@ public final class SetField<E> extends Pattern implements Copyable
 
 	public UniqueConstraint getUniqueConstraint()
 	{
-		return mount().uniqueConstraint;
+		return mount().uniqueElement;
 	}
 
 	public Type<?> getRelationType()
@@ -203,7 +203,7 @@ public final class SetField<E> extends Pattern implements Copyable
 		}
 		catch(final UniqueViolationException e)
 		{
-			assert mount.uniqueConstraint==e.getFeature();
+			assert mount.uniqueElement == e.getFeature();
 			return false;
 		}
 	}
@@ -217,7 +217,7 @@ public final class SetField<E> extends Pattern implements Copyable
 			@Nonnull @Parameter("element") final E element)
 	{
 		final Item row =
-			mount().uniqueConstraint.search(item, element);
+			mount().uniqueElement.search(item, element);
 
 		if(row==null)
 		{
