@@ -26,6 +26,7 @@ import com.exedio.cope.CopyMapper;
 import com.exedio.cope.Copyable;
 import com.exedio.cope.Features;
 import com.exedio.cope.FunctionField;
+import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
 import com.exedio.cope.MandatoryViolationException;
@@ -53,12 +54,16 @@ public final class SetField<E> extends Pattern implements Copyable
 {
 	private static final long serialVersionUID = 1l;
 
+	private final boolean ordered;
+	private final IntegerField order;
 	private final FunctionField<E> element;
 	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private Mount mountIfMounted = null;
 
-	private SetField(final FunctionField<E> element)
+	private SetField(final boolean ordered, final FunctionField<E> element)
 	{
+		this.ordered = ordered;
+		this.order = ordered ? new IntegerField().min(0) : null;
 		this.element = requireNonNull(element, "element");
 		if(element.isFinal())
 			throw new IllegalArgumentException("element must not be final");
@@ -70,13 +75,23 @@ public final class SetField<E> extends Pattern implements Copyable
 
 	public static <E> SetField<E> create(final FunctionField<E> element)
 	{
-		return new SetField<>(element);
+		return new SetField<>(false, element);
 	}
 
 	@Override
 	public SetField<E> copy(final CopyMapper mapper)
 	{
-		return new SetField<>(mapper.copy(element));
+		return new SetField<>(ordered, mapper.copy(element));
+	}
+
+	/**
+	 * Returns a new SetField,
+	 * that differs from this SetField
+	 * by being {@link #isOrdered() ordered}.
+	 */
+	public SetField<E> ordered()
+	{
+		return new SetField<>(true, element.copy());
 	}
 
 	@Override
@@ -86,23 +101,31 @@ public final class SetField<E> extends Pattern implements Copyable
 		final Type<?> type = getType();
 
 		final ItemField<?> parent = type.newItemField(CASCADE).toFinal();
+		final UniqueConstraint uniqueOrder = ordered ? new UniqueConstraint(parent, order) : null;
 		final UniqueConstraint uniqueElement = new UniqueConstraint(parent, element);
 		final Features features = new Features();
 		features.put("parent", parent);
+		if(ordered)
+		{
+			features.put("order", order);
+			features.put("uniqueOrder", uniqueOrder);
+		}
 		features.put("element", element);
 		features.put("uniqueConstraint", uniqueElement);
 		final Type<PatternItem> relationType = newSourceType(PatternItem.class, features);
-		this.mountIfMounted = new Mount(parent, uniqueElement, relationType);
+		this.mountIfMounted = new Mount(parent, uniqueOrder, uniqueElement, relationType);
 	}
 
 	private static final class Mount
 	{
 		final ItemField<?> parent;
+		final UniqueConstraint uniqueOrder;
 		final UniqueConstraint uniqueElement;
 		final Type<PatternItem> relationType;
 
 		Mount(
 				final ItemField<?> parent,
+				final UniqueConstraint uniqueOrder,
 				final UniqueConstraint uniqueElement,
 				final Type<PatternItem> relationType)
 		{
@@ -111,6 +134,7 @@ public final class SetField<E> extends Pattern implements Copyable
 			assert relationType!=null;
 
 			this.parent = parent;
+			this.uniqueOrder = uniqueOrder;
 			this.uniqueElement = uniqueElement;
 			this.relationType = relationType;
 		}
@@ -131,6 +155,25 @@ public final class SetField<E> extends Pattern implements Copyable
 	public ItemField<?> getParent()
 	{
 		return mount().parent;
+	}
+
+	/**
+	 * Returns whether this {@code SetField} is ordered.
+	 * An ordered {@code SetField} maintains the insertion order of its elements.
+	 */
+	public boolean isOrdered()
+	{
+		return ordered;
+	}
+
+	public IntegerField getOrder()
+	{
+		return order;
+	}
+
+	public UniqueConstraint getUniqueConstraintForOrder()
+	{
+		return mount().uniqueOrder;
 	}
 
 	public FunctionField<E> getElement()
@@ -162,7 +205,7 @@ public final class SetField<E> extends Pattern implements Copyable
 	public Query<E> getQuery(@Nonnull final Item item)
 	{
 		final Query<E> result = new Query<>(element, Cope.equalAndCast(mount().parent, item));
-		result.setOrderBy(element, true);
+		result.setOrderBy(ordered ? order : element, true);
 		return result;
 	}
 
@@ -193,6 +236,30 @@ public final class SetField<E> extends Pattern implements Copyable
 			@Nonnull @Parameter("element") final E element)
 	{
 		final Mount mount = mount();
+
+		if(ordered)
+		{
+			final Query<Integer> q = new Query<>(
+					this.order.max(),
+					Cope.equalAndCast(mount.parent, item));
+			final Integer max = q.searchSingleton();
+			final int newOrder = max!=null ? (max+1) : 0;
+			try
+			{
+				mount.relationType.newItem(
+						Cope.mapAndCast(mount.parent, item),
+						this.order.map(newOrder),
+						this.element.map(element)
+				);
+				return true;
+			}
+			catch(final UniqueViolationException e)
+			{
+				assert mount.uniqueElement == e.getFeature();
+				return false;
+			}
+		}
+
 		try
 		{
 			mount.relationType.newItem(
@@ -235,6 +302,12 @@ public final class SetField<E> extends Pattern implements Copyable
 	{
 		MandatoryViolationException.requireNonNull(value, this, item);
 
+		if(ordered)
+		{
+			setOrdered(item, value);
+			return;
+		}
+
 		final Mount mount = mount();
 		final LinkedHashSet<? extends E> toCreateSet = new LinkedHashSet<>(value);
 		final ArrayList<PatternItem> toDeleteList = new ArrayList<>();
@@ -275,6 +348,24 @@ public final class SetField<E> extends Pattern implements Copyable
 				this.element.set(toDelete.next(), toCreate.next());
 			}
 		}
+	}
+
+	private void setOrdered(@Nonnull final Item item, @Nonnull final Collection<? extends E> value)
+	{
+		final Mount mount = mount();
+
+		// TODO reuse tupels that can be reused
+
+		for(final PatternItem tupel : mount.relationType.search(Cope.equalAndCast(mount.parent, item)))
+			tupel.deleteCopeItem();
+
+		int order = 0;
+		final LinkedHashSet<? extends E> toCreateSet = new LinkedHashSet<>(value);
+		for(final E element : toCreateSet)
+			mount.relationType.newItem(
+					Cope.mapAndCast(mount.parent, item),
+					this.order.map(order++),
+					this.element.map(element));
 	}
 
 	public void setAndCast(final Item item, final Collection<?> value)

@@ -131,6 +131,13 @@ public class SetFieldModelTest
 		assertEquals("element", dates.getElement().getName());
 		assertEquals("uniqueConstraint", dates.getUniqueConstraint().getName());
 
+		assertEquals(false, strings.isOrdered());
+		assertEquals(null, strings.getOrder());
+		assertEquals(null, strings.getUniqueConstraintForOrder());
+		assertEquals(false, dates.isOrdered());
+		assertEquals(null, dates.getOrder());
+		assertEquals(null, dates.getUniqueConstraintForOrder());
+
 		assertEqualsUnmodifiable(list(stringsParent(), stringsElement), strings.getUniqueConstraint().getFields());
 		assertEqualsUnmodifiable(list(datesParent(), dates.getElement()), dates.getUniqueConstraint().getFields());
 

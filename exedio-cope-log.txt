@@ -7,6 +7,7 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* SetField supports order - SetField#ordered() added.
 * Generate for*Strict finders for unique constraints and unique function fields.
 	Affects instrumented code.
 	To disable the new finders, adapt your <instrument> call:
