@@ -21,7 +21,9 @@ package com.exedio.cope;
 import static java.lang.Thread.MAX_PRIORITY;
 import static java.lang.Thread.MIN_PRIORITY;
 
-final class ThreadSwarmProperties extends com.exedio.cope.util.Properties
+import com.exedio.cope.util.Properties;
+
+final class ThreadSwarmProperties extends Properties
 {
 	final int initial = value("initial", 1, 1);
 	final int max = value("max", 10, 1);

@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import com.exedio.cope.util.Properties;
 import com.exedio.dsmf.SQLRuntimeException;
 import java.sql.Connection;
 import java.sql.Driver;
@@ -25,7 +26,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.HashMap;
 
-final class ConnectionProperties extends com.exedio.cope.util.Properties
+final class ConnectionProperties extends Properties
 {
 	final String url = value("url", (String)null);
 	final String username = value("username", (String)null);
