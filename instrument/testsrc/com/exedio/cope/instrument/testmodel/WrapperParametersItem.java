@@ -18,12 +18,24 @@
 
 package com.exedio.cope.instrument.testmodel;
 
+import static com.exedio.cope.instrument.Visibility.DEFAULT;
+import static com.exedio.cope.instrument.Visibility.PRIVATE;
+import static com.exedio.cope.instrument.Visibility.PROTECTED;
+import static com.exedio.cope.instrument.Visibility.PUBLIC;
+
 import com.exedio.cope.Item;
+import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.instrument.testfeature.WrapperParametersFeature;
 
 class WrapperParametersItem extends Item
 {
+	@Wrapper(wrap="param", parameters={}, internal=true)
+	@Wrapper(wrap="param", parameters=WrapperParametersFeature.class, visibility=PUBLIC)
+	@Wrapper(wrap="param", parameters=Integer.class, visibility=DEFAULT)
+	@Wrapper(wrap="param", parameters=int.class, visibility=PROTECTED)
+	@Wrapper(wrap="param", parameters=WrapperParametersFeature.SomeEnum.class, visibility=PRIVATE)
 	static final WrapperParametersFeature feature = new WrapperParametersFeature();
+
 /**
 
 	 **
@@ -54,7 +66,7 @@ class WrapperParametersItem extends Item
 	 *       It can be customized with the tag <tt>@cope.param public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void paramFeature()
+	private final void paramFeatureInternal()
 	{
 		WrapperParametersItem.feature.param(this);
 	}/**
@@ -64,7 +76,7 @@ class WrapperParametersItem extends Item
 	 *       It can be customized with the tag <tt>@cope.param public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void paramFeature(final com.exedio.cope.instrument.testfeature.WrapperParametersFeature feature)
+	public final void paramFeature(final com.exedio.cope.instrument.testfeature.WrapperParametersFeature feature)
 	{
 		WrapperParametersItem.feature.param(this,feature);
 	}/**
@@ -84,7 +96,7 @@ class WrapperParametersItem extends Item
 	 *       It can be customized with the tag <tt>@cope.param public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void paramFeature(final int feature)
+	protected final void paramFeature(final int feature)
 	{
 		WrapperParametersItem.feature.param(this,feature);
 	}/**
@@ -94,7 +106,7 @@ class WrapperParametersItem extends Item
 	 *       It can be customized with the tag <tt>@cope.param public|package|protected|private|none|non-final</tt> in the comment of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	final void paramFeature(final com.exedio.cope.instrument.testfeature.WrapperParametersFeature.SomeEnum feature)
+	private final void paramFeature(final com.exedio.cope.instrument.testfeature.WrapperParametersFeature.SomeEnum feature)
 	{
 		WrapperParametersItem.feature.param(this,feature);
 	}/**
