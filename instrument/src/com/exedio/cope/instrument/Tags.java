@@ -129,6 +129,7 @@ final class Tags
 		{
 			@Override public Class<? extends Annotation> annotationType() { return Wrapper.class; }
 			@Override public String wrap() { return modifierTag; }
+			@Override public Class<?>[] parameters() { return new Class<?>[]{WrapperParametersDefault.class}; }
 			@Override public Visibility visibility() { return visibility; }
 			@Override public boolean internal() { return internal; }
 			@Override public boolean booleanAsIs() { return booleanAsIs; }

@@ -20,12 +20,16 @@
 package com.exedio.cope.instrument;
 
 import java.lang.reflect.Modifier;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 import java.util.TreeSet;
 import javax.annotation.Nullable;
+import javax.lang.model.type.MirroredTypesException;
 
 /**
  * Represents an attribute of a class.
@@ -38,6 +42,8 @@ final class JavaField
 	extends JavaFeature
 	implements Evaluatable
 {
+	private static final Class<?>[] PARAMETERS_DEFAULT=new Class<?>[]{WrapperParametersDefault.class};
+
 	private final String initializer;
 	final WrapperInitial wrapperInitial;
 	final WrapperIgnore wrapperIgnore;
@@ -89,6 +95,17 @@ final class JavaField
 			for (final Wrapper copeWrap: unused)
 			{
 				details.append(" ").append(copeWrap.wrap());
+				if (!isParametersDefault(copeWrap))
+				{
+					details.append(" (");
+					final Class<?>[] params=parameters(copeWrap);
+					for (int i=0; i<params.length; i++)
+					{
+						if (i!=0) details.append(", ");
+						details.append(params[i].getName());
+					}
+					details.append(")");
+				}
 				if (copeWrap.wrap().contains(Wrapper.ALL_WRAPS) && !Wrapper.ALL_WRAPS.equals(copeWrap.wrap()))
 				{
 					details.append(" (\"").append(Wrapper.ALL_WRAPS).append("\" is only supported as full value)");
@@ -114,39 +131,104 @@ final class JavaField
 		}
 	}
 
-	private static void checkWrapUnique(final List<Wrapper> wrappers)
+	private void checkWrapUnique(final List<Wrapper> wrappers)
 	{
-		final Set<String> wraps=new HashSet<>();
+		final Set<WrapperTarget> wraps=new HashSet<>();
 		for (final Wrapper wrapper: wrappers)
 		{
-			if ( !wraps.add(wrapper.wrap()) )
+			final WrapperTarget wrapperTarget = new WrapperTarget(this, wrapper);
+			if (wrapperTarget.wrap.equals(Wrapper.ALL_WRAPS) && wrapperTarget.parameters!=null)
 			{
-				throw new RuntimeException("duplicate @"+Wrapper.class.getSimpleName()+" for "+wrapper.wrap());
+				throw new RuntimeException("invalid @"+Wrapper.class.getSimpleName()+": parameters not supported for wrap=\""+Wrapper.ALL_WRAPS+"\"");
+			}
+			if (!wraps.add(wrapperTarget))
+			{
+				throw new RuntimeException("duplicate @"+Wrapper.class.getSimpleName()+" for "+wrapperTarget);
 			}
 		}
 	}
 
-	@Nullable
-	Wrapper getWrappers(final String modifierTag)
+	private static final class WrapperTarget
 	{
-		final Wrapper byModifierTag=readWrapper(modifierTag);
+		private final String wrap;
+		private final Class<?>[] parameters;
+
+		private WrapperTarget(final JavaField outer, final Wrapper wrapper)
+		{
+			this.wrap = Objects.requireNonNull(wrapper.wrap());
+			this.parameters = outer.isParametersDefault(wrapper) ? null : outer.parameters(wrapper);
+		}
+
+		@Override
+		public String toString()
+		{
+			return wrap+(parameters==null?"":(" "+Arrays.toString(parameters)));
+		}
+
+		@Override
+		public boolean equals(final Object obj)
+		{
+			return obj instanceof WrapperTarget
+				&& ((WrapperTarget)obj).wrap.equals(wrap)
+				&& Arrays.equals(((WrapperTarget)obj).parameters, parameters);
+		}
+
+		@Override
+		public int hashCode()
+		{
+			return wrap.hashCode() ^ Arrays.hashCode(parameters);
+		}
+	}
+
+	@Nullable
+	Wrapper getWrappers(final String modifierTag, final Type[] parameterTypes)
+	{
+		final Wrapper byModifierTagAndParameters=readWrapper(modifierTag, parameterTypes);
+		if (byModifierTagAndParameters!=null)
+			return byModifierTagAndParameters;
+		final Wrapper byModifierTag=readWrapper(modifierTag, PARAMETERS_DEFAULT);
 		if (byModifierTag!=null)
 			return byModifierTag;
 		unusedValidWrapKeys.add(modifierTag);
-		return readWrapper(Wrapper.ALL_WRAPS);
+		return readWrapper(Wrapper.ALL_WRAPS, PARAMETERS_DEFAULT);
 	}
 
-	private Wrapper readWrapper(final String wrap)
+	private Wrapper readWrapper(final String wrap, final Type[] parameterTypes)
 	{
 		for (final Wrapper wrapper: wrappers)
 		{
-			if (wrap.equals(wrapper.wrap()))
+			if (wrap.equals(wrapper.wrap()) && Arrays.equals(parameterTypes, parameters(wrapper)))
 			{
 				copeWrapsThatHaveBeenRead.add(wrapper);
 				return wrapper;
 			}
 		}
 		return null;
+	}
+
+	private boolean isParametersDefault(final Wrapper wrapper)
+	{
+		final Class<?>[] parameters = parameters(wrapper);
+		return Arrays.equals(parameters, PARAMETERS_DEFAULT);
+	}
+
+	private Class<?>[] parameters(final Wrapper wrapper)
+	{
+		try
+		{
+			wrapper.parameters();
+			throw new RuntimeException("expected MirroredTypesException");
+		}
+		catch (final MirroredTypesException e)
+		{
+			final Class<?>[] result = new Class<?>[e.getTypeMirrors().size()];
+			for (int i = 0; i < result.length; i++)
+			{
+				result[i] = TypeMirrorHelper.getClass(e.getTypeMirrors().get(i), parent.nameSpace);
+				if (result[i]==null) throw new NullPointerException(e.getTypeMirrors()+"  "+i);
+			}
+			return result;
+		}
 	}
 
 	@Override
