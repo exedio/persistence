@@ -26,12 +26,9 @@ import java.io.OutputStream;
 import javax.annotation.Nonnull;
 
 /**
- * Implementations of VaultService to be instantiated by cope must meet the following conditions:
- * <ul>
- * <li>must be public
- * <li>must have a public constructor with a single parameter of type {@link VaultServiceParameters}
- * <li>must be annotated with @{@link VaultServiceProperties}
- * </ul>
+ * Implementations of VaultService must conform to the requirements set by
+ * {@link com.exedio.cope.util.Properties#valueService(String, Class, Class) Properties.valueService}.
+ * <p>
  * It is highly recommended to override {@link Object#toString() toString} with a informative message
  * containing essential configuration of the service.
  * For instance, this message is included into the result of {@link ConnectProperties#probe()}.

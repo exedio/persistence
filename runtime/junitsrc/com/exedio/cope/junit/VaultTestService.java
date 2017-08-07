@@ -26,12 +26,10 @@ import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.util.CharSet;
 import com.exedio.cope.util.Hex;
 import com.exedio.cope.util.MessageDigestUtil;
-import com.exedio.cope.util.Properties;
 import com.exedio.cope.vault.VaultNotFoundException;
 import com.exedio.cope.vault.VaultProperties;
 import com.exedio.cope.vault.VaultService;
 import com.exedio.cope.vault.VaultServiceParameters;
-import com.exedio.cope.vault.VaultServiceProperties;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -46,7 +44,6 @@ import java.util.HashMap;
  * which corresponds to the time of the cope
  * {@link com.exedio.cope.Model#connect(ConnectProperties) connect}.
  */
-@VaultServiceProperties(VaultTestService.Factory.class)
 public final class VaultTestService implements VaultService
 {
 	private final VaultProperties properties;
@@ -148,23 +145,5 @@ public final class VaultTestService implements VaultService
 	public String toString()
 	{
 		return getClass().getSimpleName();
-	}
-
-
-	static final class Props extends Properties
-	{
-		Props(final Source source)
-		{
-			super(source);
-		}
-	}
-
-	public static final class Factory implements Properties.Factory<Props>
-	{
-		@Override
-		public Props create(final Properties.Source source)
-		{
-			return new Props(source);
-		}
 	}
 }

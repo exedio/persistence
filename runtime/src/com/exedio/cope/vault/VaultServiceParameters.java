@@ -20,22 +20,18 @@ package com.exedio.cope.vault;
 
 import static java.util.Objects.requireNonNull;
 
-import com.exedio.cope.util.Properties;
 import javax.annotation.Nonnull;
 
 public final class VaultServiceParameters
 {
 	private final VaultProperties vaultProperties;
-	private final Properties serviceProperties;
 	private final boolean writable;
 
 	VaultServiceParameters(
 			final VaultProperties vaultProperties,
-			final Properties serviceProperties,
 			final boolean writable)
 	{
 		this.vaultProperties = requireNonNull(vaultProperties, "vaultProperties");
-		this.serviceProperties = requireNonNull(serviceProperties, "serviceProperties");
 		this.writable = writable;
 	}
 
@@ -43,15 +39,6 @@ public final class VaultServiceParameters
 	public VaultProperties getVaultProperties()
 	{
 		return vaultProperties;
-	}
-
-	/**
-	 * @return an instance of the class specified by {@link VaultServiceProperties}.
-	 */
-	@Nonnull
-	public Properties getServiceProperties()
-	{
-		return serviceProperties;
 	}
 
 	/**

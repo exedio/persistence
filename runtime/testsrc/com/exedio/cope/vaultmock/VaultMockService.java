@@ -26,12 +26,11 @@ import com.exedio.cope.util.CharSet;
 import com.exedio.cope.util.Hex;
 import com.exedio.cope.util.MessageDigestUtil;
 import com.exedio.cope.util.Properties;
+import com.exedio.cope.util.ServiceProperties;
 import com.exedio.cope.vault.VaultNotFoundException;
 import com.exedio.cope.vault.VaultProperties;
 import com.exedio.cope.vault.VaultService;
 import com.exedio.cope.vault.VaultServiceParameters;
-import com.exedio.cope.vault.VaultServiceProperties;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -43,7 +42,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 @SuppressWarnings("HardcodedLineSeparator")
-@VaultServiceProperties(VaultMockService.Factory.class)
+@ServiceProperties(VaultMockService.Props.class)
 public final class VaultMockService implements VaultService
 {
 	private final LinkedHashMap<String, String> store = new LinkedHashMap<>();
@@ -52,11 +51,12 @@ public final class VaultMockService implements VaultService
 	public final Props serviceProperties;
 	public final boolean writable;
 
-	@SuppressFBWarnings("BC_UNCONFIRMED_CAST_OF_RETURN_VALUE")
-	public VaultMockService(final VaultServiceParameters parameters)
+	private VaultMockService(
+			final VaultServiceParameters parameters,
+			final Props properties)
 	{
 		this.vaultProperties = parameters.getVaultProperties();
-		this.serviceProperties = (Props)parameters.getServiceProperties();
+		this.serviceProperties = properties;
 		this.writable = parameters.isWritable();
 		assertNotNull(vaultProperties);
 		assertNotNull(serviceProperties);
@@ -207,15 +207,6 @@ public final class VaultMockService implements VaultService
 		Props(final Source source)
 		{
 			super(source);
-		}
-	}
-
-	public static final class Factory implements Properties.Factory<Props>
-	{
-		@Override
-		public Props create(final Properties.Source source)
-		{
-			return new Props(source);
 		}
 	}
 

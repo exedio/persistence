@@ -23,15 +23,17 @@ import static com.exedio.cope.tojunit.TestSources.single;
 import static com.exedio.cope.util.Sources.cascade;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.util.IllegalAlgorithmException;
 import com.exedio.cope.util.IllegalPropertiesException;
 import com.exedio.cope.util.Properties;
 import com.exedio.cope.util.Properties.Source;
+import com.exedio.cope.util.ServiceProperties;
 import com.exedio.cope.vaultmock.VaultMockService;
 import java.io.File;
 import java.io.InputStream;
@@ -140,48 +142,35 @@ public class VaultPropertiesTest
 				describe("DESC", cascade(
 						single("service", ServicePropertiesMissing.class)
 				));
-		try
-		{
-			factory.create(source);
-			fail();
-		}
-		catch(final IllegalPropertiesException e)
-		{
-			assertEquals(
-					"property service in DESC must name a class annotated by " + VaultServiceProperties.class.getName(),
-					e.getMessage());
-			assertNull(e.getCause());
-		}
+
+		final VaultProperties props = factory.create(source);
+		final ServicePropertiesMissing service = (ServicePropertiesMissing)props.newService();
+		assertSame(props, service.parameters.getVaultProperties());
 	}
 	@Test public void servicePropertiesMissingReference()
 	{
 		final Source source =
 				describe("DESC", cascade(
 						single("service", VaultReferenceService.class),
-						single("service.main", ServicePropertiesMissing.class)
+						single("service.main", ServicePropertiesMissing.class),
+						single("service.reference", ServicePropertiesMissing.class)
 				));
-		try
-		{
-			factory.create(source);
-			fail();
-		}
-		catch(final IllegalPropertiesException e)
-		{
-			assertEquals(
-					"property service.main in DESC must name a class annotated by " + VaultServiceProperties.class.getName(),
-					e.getMessage());
-			final Throwable nested = e.getCause();
-			assertNotNull(nested);
-			assertTrue(nested.getClass().getName(), nested instanceof IllegalPropertiesException);
-			assertEquals(
-					"property main in DESC (prefix service.) must name a class annotated by " + VaultServiceProperties.class.getName(),
-					nested.getMessage());
-			assertNull(nested.getCause());
-		}
+		final VaultProperties props = factory.create(source);
+		final VaultReferenceService service = (VaultReferenceService)props.newService();
+		final ServicePropertiesMissing main = (ServicePropertiesMissing)service.getMainService();
+		final ServicePropertiesMissing ref  = (ServicePropertiesMissing)service.getReferenceService();
+		assertSame(props, main.parameters.getVaultProperties());
+		assertSame(props, ref .parameters.getVaultProperties());
+		assertNotSame(main, ref);
 	}
 	static class ServicePropertiesMissing extends AbstractService
 	{
-		ServicePropertiesMissing(@SuppressWarnings("unused") final VaultServiceParameters p) {}
+		final VaultServiceParameters parameters;
+
+		ServicePropertiesMissing(final VaultServiceParameters parameters)
+		{
+			this.parameters = parameters;
+		}
 	}
 
 
@@ -199,16 +188,14 @@ public class VaultPropertiesTest
 		catch(final IllegalPropertiesException e)
 		{
 			assertEquals(
-					"property service in DESC must name a class annotated by " + VaultServiceProperties.class.getName(),
+					"property service in DESC names a class " + ServicePropertiesNoConstructor.class.getName() + " " +
+					"annotated by @ServiceProperties(" + ServicePropertiesNoConstructorProps.class.getName() + ", " +
+					"which must have a constructor with parameter " + Source.class.getName(),
 					e.getMessage());
-			final Throwable cause = e.getCause();
-			assertNotNull(cause);
-			assertTrue(cause.getClass().getName(), cause instanceof InstantiationException);
-			assertEquals(ServicePropertiesNoConstructorProps.class.getName(), cause.getMessage());
-			final Throwable cause2 = cause.getCause();
+			final Throwable cause2 = e.getCause();
 			assertNotNull(cause2);
 			assertTrue(cause2.getClass().getName(), cause2 instanceof NoSuchMethodException);
-			assertEquals(ServicePropertiesNoConstructorProps.class.getName() + ".<init>()", cause2.getMessage());
+			assertEquals(ServicePropertiesNoConstructorProps.class.getName() + ".<init>(" + Source.class.getName() + ")", cause2.getMessage());
 		}
 	}
 	@Test public void servicePropertiesNoConstructorReference()
@@ -226,36 +213,29 @@ public class VaultPropertiesTest
 		catch(final IllegalPropertiesException e)
 		{
 			assertEquals(
-					"property service.main in DESC must name a class annotated by " + VaultServiceProperties.class.getName(),
+					"property service.main in DESC names a class " + ServicePropertiesNoConstructor.class.getName() + " " +
+					"annotated by @ServiceProperties(" + ServicePropertiesNoConstructorProps.class.getName() + ", " +
+					"which must have a constructor with parameter " + Source.class.getName(),
 					e.getMessage());
 			final Throwable nested = e.getCause();
 			assertNotNull(nested);
 			assertTrue(nested.getClass().getName(), nested instanceof IllegalPropertiesException);
 			assertEquals(
-					"property main in DESC (prefix service.) must name a class annotated by " + VaultServiceProperties.class.getName(),
+					"property main in DESC (prefix service.) names a class " + ServicePropertiesNoConstructor.class.getName() + " " +
+					"annotated by @ServiceProperties(" + ServicePropertiesNoConstructorProps.class.getName() + ", " +
+					"which must have a constructor with parameter " + Source.class.getName(),
 					nested.getMessage());
-			final Throwable cause = nested.getCause();
-			assertNotNull(cause);
-			assertTrue(cause.getClass().getName(), cause instanceof InstantiationException);
-			assertEquals(ServicePropertiesNoConstructorProps.class.getName(), cause.getMessage());
-			final Throwable cause2 = cause.getCause();
+			final Throwable cause2 = nested.getCause();
 			assertNotNull(cause2);
 			assertTrue(cause2.getClass().getName(), cause2 instanceof NoSuchMethodException);
-			assertEquals(ServicePropertiesNoConstructorProps.class.getName() + ".<init>()", cause2.getMessage());
+			assertEquals(ServicePropertiesNoConstructorProps.class.getName() + ".<init>(" + Source.class.getName() + ")", cause2.getMessage());
 		}
 	}
-	static class ServicePropertiesNoConstructorProps implements Properties.Factory<ConnectProperties>
+	static class ServicePropertiesNoConstructorProps extends Properties
 	{
-		// just for removing default constructor
-		ServicePropertiesNoConstructorProps(@SuppressWarnings("unused") final String s) {}
-
-		@Override
-		public ConnectProperties create(final Source source)
-		{
-			throw new AssertionError();
-		}
+		ServicePropertiesNoConstructorProps() { super(null); }
 	}
-	@VaultServiceProperties(ServicePropertiesNoConstructorProps.class)
+	@ServiceProperties(ServicePropertiesNoConstructorProps.class)
 	static class ServicePropertiesNoConstructor extends AbstractService
 	{
 		ServicePropertiesNoConstructor(@SuppressWarnings("unused") final VaultServiceParameters p) {}
@@ -314,15 +294,15 @@ public class VaultPropertiesTest
 			assertNull(cause.getCause());
 		}
 	}
-	static class ServicePropertiesFailsProps implements Properties.Factory<ConnectProperties>
+	static class ServicePropertiesFailsProps extends Properties
 	{
-		@Override
-		public ConnectProperties create(final Source source)
+		ServicePropertiesFailsProps(final Source source)
 		{
+			super(source);
 			throw new IllegalStateException("exception from ServicePropertiesFailsProps");
 		}
 	}
-	@VaultServiceProperties(ServicePropertiesFailsProps.class)
+	@ServiceProperties(ServicePropertiesFailsProps.class)
 	static class ServicePropertiesFails extends AbstractService
 	{
 		ServicePropertiesFails(@SuppressWarnings("unused") final VaultServiceParameters p) {}

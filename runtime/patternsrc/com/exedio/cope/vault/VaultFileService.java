@@ -21,6 +21,7 @@ package com.exedio.cope.vault;
 import static java.lang.Math.toIntExact;
 
 import com.exedio.cope.util.Properties;
+import com.exedio.cope.util.ServiceProperties;
 import com.exedio.cope.util.StrictFile;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.File;
@@ -31,7 +32,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-@VaultServiceProperties(VaultFileService.Factory.class)
+@ServiceProperties(VaultFileService.Props.class)
 public final class VaultFileService implements VaultService
 {
 	private final File rootDir;
@@ -39,10 +40,10 @@ public final class VaultFileService implements VaultService
 	final File tempDir;
 	final int bufferSize;
 
-	@SuppressFBWarnings("BC_UNCONFIRMED_CAST_OF_RETURN_VALUE")
-	public VaultFileService(final VaultServiceParameters parameters)
+	VaultFileService(
+			final VaultServiceParameters parameters,
+			final Props sp)
 	{
-		final Props sp = (Props)parameters.getServiceProperties();
 		this.rootDir = sp.root;
 		this.directoryLength = sp.directory!=null ? sp.directory.length : 0;
 		this.tempDir = new File(rootDir, sp.temp);
@@ -231,15 +232,6 @@ public final class VaultFileService implements VaultService
 				throw newException("temp", "must not be empty");
 			if(!temp.equals(temp.trim()))
 				throw newException("temp", "must be trimmed, but was >" + temp + '<');
-		}
-	}
-
-	public static final class Factory implements Properties.Factory<Props>
-	{
-		@Override
-		public Props create(final Properties.Source source)
-		{
-			return new Props(source);
 		}
 	}
 

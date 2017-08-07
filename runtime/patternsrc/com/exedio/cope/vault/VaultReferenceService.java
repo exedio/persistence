@@ -20,8 +20,7 @@ package com.exedio.cope.vault;
 
 import static com.exedio.cope.util.StrictFile.delete;
 
-import com.exedio.cope.util.Properties;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import com.exedio.cope.util.ServiceProperties;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -29,15 +28,15 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-@VaultServiceProperties(VaultReferenceService.Factory.class)
+@ServiceProperties(VaultReferenceService.Props.class)
 public final class VaultReferenceService implements VaultService
 {
 	private final VaultService main, reference;
 
-	@SuppressFBWarnings("BC_UNCONFIRMED_CAST_OF_RETURN_VALUE")
-	public VaultReferenceService(final VaultServiceParameters parameters)
+	VaultReferenceService(
+			final VaultServiceParameters parameters,
+			final Props sp)
 	{
-		final Props sp = (Props)parameters.getServiceProperties();
 		main = sp.main.newService(parameters.getVaultProperties());
 		reference = sp.reference.newService(parameters.getVaultProperties());
 	}
@@ -163,15 +162,6 @@ public final class VaultReferenceService implements VaultService
 		Props(final Source source)
 		{
 			super(source);
-		}
-	}
-
-	public static final class Factory implements Properties.Factory<Props>
-	{
-		@Override
-		public Props create(final Properties.Source source)
-		{
-			return new Props(source);
 		}
 	}
 }
