@@ -65,7 +65,7 @@ public class SetFieldTest extends TestWithEnvironment
 		assertEquals("select element from SetFieldItem-dates"   + " where parent='" + item + "' order by element", item.getDatesQuery  ().toString());
 	}
 
-	@SuppressFBWarnings("NP_NONNULL_PARAM_VIOLATION")
+	@SuppressFBWarnings({"NP_NONNULL_PARAM_VIOLATION","NP_NULL_PARAM_DEREF_NONVIRTUAL"})
 	@Test public void testSet()
 	{
 		item.assertStrings();
