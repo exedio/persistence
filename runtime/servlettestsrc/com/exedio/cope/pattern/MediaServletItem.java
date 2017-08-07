@@ -43,6 +43,8 @@ final class MediaServletItem extends Item
 	static final StringField name = new StringField().optional();
 
 	@Wrapper(wrap="set", internal=true)
+	@Wrapper(wrap="set", parameters=Media.Value.class, visibility=NONE)
+	@Wrapper(wrap="set", parameters={File.class, String.class}, visibility=NONE)
 	@Wrapper(wrap="getURL", visibility=NONE)
 	@RedirectFrom({"contentAlt1", "contentAlt2"})
 	static final Media content = new Media().optional();
@@ -78,14 +80,6 @@ final class MediaServletItem extends Item
 		result.setLenient(false);
 		return result;
 	}
-
-	@SuppressWarnings("unused")
-	private void suppressWarnings() throws IOException
-	{
-		setContentInternal((Media.Value)null);
-		setContentInternal((File)null, (String)null);
-	}
-
 
 	@Wrapper(wrap="getURL", visibility=NONE)
 	@Deprecated
@@ -265,18 +259,6 @@ final class MediaServletItem extends Item
 
 	/**
 	 * Sets the content of media {@link #content}.
-	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
-	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	private final void setContentInternal(@javax.annotation.Nullable final com.exedio.cope.pattern.Media.Value content)
-			throws
-				java.io.IOException
-	{
-		MediaServletItem.content.set(this,content);
-	}
-
-	/**
-	 * Sets the content of media {@link #content}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	private final void setContentInternal(@javax.annotation.Nullable final byte[] body,@javax.annotation.Nullable final java.lang.String contentType)
@@ -290,18 +272,6 @@ final class MediaServletItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	private final void setContentInternal(@javax.annotation.Nullable final java.io.InputStream body,@javax.annotation.Nullable final java.lang.String contentType)
-			throws
-				java.io.IOException
-	{
-		MediaServletItem.content.set(this,body,contentType);
-	}
-
-	/**
-	 * Sets the content of media {@link #content}.
-	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
-	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	private final void setContentInternal(@javax.annotation.Nullable final java.io.File body,@javax.annotation.Nullable final java.lang.String contentType)
 			throws
 				java.io.IOException
 	{
