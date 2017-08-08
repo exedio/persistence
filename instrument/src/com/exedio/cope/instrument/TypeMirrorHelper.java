@@ -49,18 +49,7 @@ final class TypeMirrorHelper
 			}
 			else if (typeMirror.getKind().isPrimitive())
 			{
-				switch (typeMirror.toString())
-				{
-					case "byte": return byte.class;
-					case "short": return short.class;
-					case "int": return int.class;
-					case "long": return long.class;
-					case "float": return float.class;
-					case "double": return double.class;
-					case "boolean": return boolean.class;
-					case "char": return char.class;
-					default: throw new RuntimeException(typeMirror.toString());
-				}
+				return ClassHelper.getClass(typeMirror.toString());
 			}
 			final String name = typeMirror.toString();
 			return Objects.requireNonNull(nameSpace.getClass(name), name);
