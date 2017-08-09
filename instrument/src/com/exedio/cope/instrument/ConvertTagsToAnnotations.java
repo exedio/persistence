@@ -413,7 +413,11 @@ final class ConvertTagsToAnnotations
 					try
 					{
 						final Object value=m.invoke(annotation);
-						if (!value.equals(m.getDefaultValue()))
+						final Object defaultValue=m.getDefaultValue();
+						final boolean isDefault = value instanceof Object[] && defaultValue instanceof Object[]?
+							Arrays.equals((Object[])value, (Object[])defaultValue) :
+							value.equals(m.getDefaultValue());
+						if (!isDefault)
 						{
 							if (!parenthesis)
 							{
@@ -464,6 +468,10 @@ final class ConvertTagsToAnnotations
 					final Visibility visibility=(Visibility)o;
 					requireImport(visibility);
 					return (visibility).name();
+				}
+				else if (o instanceof Object[])
+				{
+					throw new RuntimeException(Arrays.toString((Object[])o));
 				}
 				else
 				{

@@ -19,6 +19,7 @@
 package com.exedio.cope.instrument;
 
 import java.lang.annotation.Annotation;
+import java.lang.reflect.Type;
 
 final class LocalCopeFeature extends CopeFeature
 {
@@ -65,12 +66,12 @@ final class LocalCopeFeature extends CopeFeature
 		return javaField.evaluate();
 	}
 
-	Wrapper getOption(final String modifierTag)
+	Wrapper getOption(final String modifierTag, final Type[] parameterTypes)
 	{
 		return Tags.cascade(
 				javaField,
 				Tags.forFeature(docComment, modifierTag),
-				javaField.getWrappers(modifierTag),
+				javaField.getWrappers(modifierTag, parameterTypes),
 				OPTION_DEFAULT);
 	}
 
@@ -87,6 +88,7 @@ final class LocalCopeFeature extends CopeFeature
 	{
 		@Override public Class<? extends Annotation> annotationType() { throw new RuntimeException(); }
 		@Override public String wrap() { throw new RuntimeException(); }
+		@Override public Class<?>[] parameters() { throw new RuntimeException(); }
 		@Override public Visibility visibility() { return Visibility.DEFAULT; }
 		@Override public boolean internal() { return false; }
 		@Override public boolean booleanAsIs() { return false; }

@@ -39,6 +39,13 @@ public @interface Wrapper
 	String wrap();
 
 	/**
+	 * If several wrapper methods with the same {@link #wrap()} get generated, but your
+	 * {@link Wrapper} annotation should only affect one of them, it can be restricted by setting
+	 * this field to the parameter list of the method.
+	 */
+	Class<?>[] parameters() default {WrapperParametersDefault.class};
+
+	/**
 	 * Overrides the visibility of the generated wrapper method.
 	 * The visibility {@link Visibility#DEFAULT defaults} to
 	 * the visibility of the feature,

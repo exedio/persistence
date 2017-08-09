@@ -27,8 +27,10 @@ import com.exedio.cope.BooleanField;
 import com.exedio.cope.SetValue;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Modifier;
+import java.lang.reflect.Type;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
@@ -400,7 +402,8 @@ final class Generator
 		{
 			final String pattern = wrapper.getMethodWrapperPattern();
 			final String modifierTag = wrapper.getOptionTagName()!=null ? wrapper.getOptionTagName() : pattern!=null ? format(pattern, "", "") : wrapper.getName();
-			final Wrapper option = feature.getOption(modifierTag);
+			final List<WrapperX.Parameter> parameters = wrapper.getParameters();
+			final Wrapper option = feature.getOption(modifierTag, getTypes(parameters));
 
 			final Visibility visibility = option.visibility();
 			if(!visibility.exists())
@@ -411,7 +414,6 @@ final class Generator
 			final Context ctx = new Context(feature, wrapper);
 			final String methodName = wrapper.getName();
 			final java.lang.reflect.Type methodReturnType = wrapper.getReturnType();
-			final List<WrapperX.Parameter> parameters = wrapper.getParameters();
 			final Map<Class<? extends Throwable>, String[]> throwsClause = wrapper.getThrowsClause();
 			final String featureNameCamelCase = toCamelCase(feature.getName());
 			final boolean isStatic = wrapper.isStatic();
@@ -428,7 +430,7 @@ final class Generator
 				final List<String> commentLines=new ArrayList<>();
 				collectCommentParagraph(commentLines, "", " ", wrapper.getCommentArray(), arguments);
 
-				for(final WrapperX.Parameter parameter : wrapper.getParameters())
+				for(final WrapperX.Parameter parameter : parameters)
 				{
 					if(parameter.varargs==null)
 					{
@@ -967,5 +969,12 @@ final class Generator
 	private void write(final char c)
 	{
 		output.append(c);
+	}
+
+	private static Type[] getTypes(final List<WrapperX.Parameter> parameters)
+	{
+		final Type[] result = new Type[parameters.size()];
+		Arrays.setAll(result, i -> parameters.get(i).getType());
+		return result;
 	}
 }

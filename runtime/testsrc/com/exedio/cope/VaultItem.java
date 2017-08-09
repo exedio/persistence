@@ -18,12 +18,12 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.instrument.Visibility.NONE;
 import static com.exedio.cope.instrument.Visibility.PRIVATE;
 
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.util.Hex;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
@@ -33,6 +33,7 @@ final class VaultItem extends Item
 {
 	@Wrapper(wrap="getLength", internal=true)
 	@Wrapper(wrap="get", visibility=PRIVATE)
+	@Wrapper(wrap="get", parameters=File.class, visibility=NONE)
 	@Wrapper(wrap="getArray", visibility=PRIVATE)
 	static final DataField field = new DataField().toFinal();
 
@@ -57,13 +58,6 @@ final class VaultItem extends Item
 		final ByteArrayOutputStream s = new ByteArrayOutputStream();
 		getField(s);
 		return Hex.encodeLower(s.toByteArray());
-	}
-
-	@SuppressWarnings("unused")
-	@SuppressFBWarnings("UPM_UNCALLED_PRIVATE_METHOD")
-	private void suppressUnusedWarning() throws IOException
-	{
-		getField(File.createTempFile("", ""));
 	}
 
 	/**
@@ -124,17 +118,6 @@ final class VaultItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	private final void getField(@javax.annotation.Nonnull final java.io.OutputStream field)
-			throws
-				java.io.IOException
-	{
-		VaultItem.field.get(this,field);
-	}
-
-	/**
-	 * Writes the data of this persistent data field into the given file.
-	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	private final void getField(@javax.annotation.Nonnull final java.io.File field)
 			throws
 				java.io.IOException
 	{
