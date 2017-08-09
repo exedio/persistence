@@ -114,12 +114,6 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	final String revisionPrimaryKeyName = value("schema.revision.unique", "protected"); // TODO rename key
 
 	private final boolean mysqlLowerCaseTableNames = value("schema.mysql.lower_case_table_names", false);
-	final boolean         mysqlUtf8mb4             = value("schema.mysql.utf8mb4", true);
-	final boolean         mysqlSmallIntegerTypes   = value("schema.mysql.smallIntegerTypes", true);
-	final boolean         mysqlLongConstraintNames = value("schema.mysql.longConstraintNames", true);
-	final boolean         mysqlFullSequenceColName = value("schema.mysql.fullSequenceColumnName", true);
-	final MysqlRowFormat  mysqlRowFormat           = value("schema.mysql.rowFormat", MysqlRowFormat.NONE);
-	final boolean         mysqlAvoidTruncate       = value("schema.mysql.avoidTruncate", false);
 
 	/**
 	 * If true, {@link Model#reviseIfSupportedAndAutoEnabled} will trigger execution

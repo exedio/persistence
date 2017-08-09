@@ -23,6 +23,7 @@ import com.exedio.cope.DayPartView.Part;
 import com.exedio.cope.util.CharSet;
 import com.exedio.cope.util.Hex;
 import com.exedio.cope.util.JobContext;
+import com.exedio.cope.util.ServiceProperties;
 import com.exedio.dsmf.SQLRuntimeException;
 import com.exedio.dsmf.Sequence;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -46,6 +47,7 @@ import org.slf4j.LoggerFactory;
  * and transactions.
  * @author Ralf Wiebicke
  */
+@ServiceProperties(MysqlProperties.class)
 final class MysqlDialect extends Dialect
 {
 	private static final Logger logger = LoggerFactory.getLogger(MysqlDialect.class);
@@ -65,20 +67,22 @@ final class MysqlDialect extends Dialect
 	private final boolean supportsAnyValue;
 	private final boolean mariaDriver;
 
-	MysqlDialect(final CopeProbe probe)
+	MysqlDialect(
+			final CopeProbe probe,
+			final MysqlProperties properties)
 	{
 		super(
 				new com.exedio.dsmf.MysqlDialect(
-						sequenceColumnName(probe.properties),
-						probe.properties.mysqlRowFormat.sql()));
-		this.utf8mb4 = probe.properties.mysqlUtf8mb4;
+						sequenceColumnName(properties),
+						properties.rowFormat.sql()));
+		this.utf8mb4 = properties.utf8mb4;
 		this.maxBytesPerChar = utf8mb4 ? 4 : 3;
 		final String mb4 = utf8mb4 ? "mb4" : "";
 		this.charset = " CHARACTER SET utf8" + mb4 + " COLLATE utf8" + mb4 + "_bin";
-		this.deleteTable = probe.properties.mysqlAvoidTruncate ? "delete from " : "truncate ";
-		this.smallIntegerTypes = probe.properties.mysqlSmallIntegerTypes;
-		this.shortConstraintNames = !probe.properties.mysqlLongConstraintNames;
-		this.sequenceColumnName = sequenceColumnName(probe.properties);
+		this.deleteTable = properties.avoidTruncate ? "delete from " : "truncate ";
+		this.smallIntegerTypes = properties.smallIntegerTypes;
+		this.shortConstraintNames = !properties.longConstraintNames;
+		this.sequenceColumnName = sequenceColumnName(properties);
 
 		final EnvironmentInfo env = probe.environmentInfo;
 		if((!utf8mb4 || !smallIntegerTypes || shortConstraintNames) &&
@@ -94,12 +98,12 @@ final class MysqlDialect extends Dialect
 		mariaDriver = env.getDriverName().startsWith("MariaDB");
 	}
 
-	private static String sequenceColumnName(final ConnectProperties properties)
+	private static String sequenceColumnName(final MysqlProperties properties)
 	{
 		@SuppressWarnings("deprecation")
 		final String oldSequenceColumnName = com.exedio.dsmf.MysqlDialect.SEQUENCE_COLUMN;
 		return
-				properties.mysqlFullSequenceColName
+				properties.fullSequenceColumnName
 				? "COPE_SEQUENCE_AUTO_INCREMENT_COLUMN"
 				: oldSequenceColumnName;
 	}

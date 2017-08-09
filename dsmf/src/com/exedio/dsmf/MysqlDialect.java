@@ -301,7 +301,7 @@ public final class MysqlDialect extends Dialect
 				append(quoteName(sequenceColumnName)).
 				append(' ').
 				// must not use TINYINT, SMALLINT, MEDIUMINT as this is allowed only for
-				// schema.mysql.smallIntegerTypes=true
+				// MysqlProperties.smallIntegerTypes=true
 				append(sequenceTypeMapper.map(type)).
 				append(" AUTO_INCREMENT PRIMARY KEY)" +
 			ENGINE +

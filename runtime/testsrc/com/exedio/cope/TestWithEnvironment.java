@@ -18,10 +18,9 @@
 
 package com.exedio.cope;
 
-import static org.junit.Assert.assertEquals;
-
 import com.exedio.cope.tojunit.CopeRule;
 import com.exedio.cope.tojunit.CopeRuntimeRule;
+import com.exedio.cope.util.Properties;
 import com.exedio.cope.vault.VaultService;
 import com.exedio.cope.vaultmock.VaultMockService;
 import com.exedio.dsmf.CheckConstraint;
@@ -203,28 +202,30 @@ public abstract class TestWithEnvironment
 
 	protected final boolean propertiesUtf8mb4()
 	{
-		return propertiesMysql().mysqlUtf8mb4;
+		return propertiesBoolean("dialect.utf8mb4");
 	}
 
 	protected final boolean propertiesSmallIntegerTypes()
 	{
-		return propertiesMysql().mysqlSmallIntegerTypes;
+		return propertiesBoolean("dialect.smallIntegerTypes");
 	}
 
 	protected final boolean propertiesLongConstraintNames()
 	{
-		return propertiesMysql().mysqlLongConstraintNames;
+		return propertiesBoolean("dialect.longConstraintNames");
 	}
 
 	protected final boolean propertiesFullSequenceColumnName()
 	{
-		return propertiesMysql().mysqlFullSequenceColName;
+		return propertiesBoolean("dialect.fullSequenceColumnName");
 	}
 
-	private ConnectProperties propertiesMysql()
+	private boolean propertiesBoolean(final String key)
 	{
-		final ConnectProperties result = model.getConnectProperties();
-		assertEquals("com.exedio.cope.MysqlDialect", result.getDialect());
-		return result;
+		for(final Properties.Field field : model.getConnectProperties().getFields())
+			if(key.equals(field.getKey()))
+				return ((Properties.BooleanField)field).get();
+
+		throw new AssertionError(key);
 	}
 }
