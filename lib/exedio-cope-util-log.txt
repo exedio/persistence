@@ -7,6 +7,13 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* @ServiceProperties added
+* Properties#valueService added
+* Properties#valueMessageDigest added
+* Properties#getOrphanedKeys added
+* Stricter CharSet consistency checks: Areas of valid characters must be separated by at least one invalid character.
+	If you use com.exedio.cope.pattern.Media, make sure you have at least cope build 9410 - otherwise instantiation
+	of Media features (and hence model setup) will fail.
 * CharSet.EMAIL is now deprecated, use one of CharSet.EMAIL_* instead
   (one-to-one replacement is CharSet.EMAIL_RESTRICTIVE)
 * Properties: workaround for javac problem with method value(String, Factory):

@@ -45,7 +45,7 @@
 		<dependency org="cpsuite" name="cpsuite" rev="1.2.7.1" conf="build->default" />
 		<dependency org="org.slf4j" name="slf4j-api" rev="1.6.4" conf="runtime->default; build->sources" />
 		<dependency org="org.slf4j" name="slf4j-log4j12" rev="1.6.4" conf="build->default" />
-		<dependency org="com.exedio" name="copeutil" rev="563" conf="runtime->runtime; build->runtime,sources,changelog" />
+		<dependency org="com.exedio" name="copeutil" rev="605" conf="runtime->runtime; build->runtime,sources,changelog" />
 		<dependency org="com.exedio" name="copeservletutil" rev="66" conf="runtime->runtime; build->runtime,sources,changelog" />
 
 		<!-- dialects -->

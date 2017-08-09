@@ -87,7 +87,7 @@ public class UniqueHashedMediaErrorTest
 		}
 		catch(final NullPointerException e)
 		{
-			assertEquals(null, e.getMessage());
+			assertEquals("algorithm", e.getMessage());
 		}
 	}
 
