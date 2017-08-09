@@ -43,6 +43,7 @@ public @interface Wrapper
 	 * {@link Wrapper} annotation should only affect one of them, it can be restricted by setting
 	 * this field to the parameter list of the method.
 	 */
+	@SuppressWarnings({"UnusedReturnValue", "UnnecessaryJavaDocLink"})
 	Class<?>[] parameters() default {WrapperParametersDefault.class};
 
 	/**
