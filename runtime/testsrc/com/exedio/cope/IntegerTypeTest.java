@@ -310,7 +310,7 @@ public class IntegerTypeTest extends TestWithEnvironment
 					expectedDataType = expectedHsqldbDataType;
 				break;
 				case mysql:
-					if (!model.getConnectProperties().mysqlSmallIntegerTypes)
+					if(!propertiesSmallIntegerTypes())
 						expectedDataType = expectedMysqlDataTypeWithoutSmallIntegerTypes;
 					else
 						expectedDataType = expectedMysqlDataType;

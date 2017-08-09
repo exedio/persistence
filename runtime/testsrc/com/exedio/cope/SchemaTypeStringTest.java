@@ -101,7 +101,7 @@ public class SchemaTypeStringTest extends TestWithEnvironment
 			// @MysqlExtendedVarchar
 			assertType("varchar(85)",       f85Ext);
 			assertType("varchar(86)",       f86Ext);
-			if(!model.getConnectProperties().mysqlUtf8mb4)
+			if(!propertiesUtf8mb4())
 			{
 				assertType("varchar(20845)", f20845Ext);
 			}
@@ -127,7 +127,7 @@ public class SchemaTypeStringTest extends TestWithEnvironment
 	{
 		if(mysql)
 		{
-			final String mb4 = model.getConnectProperties().mysqlUtf8mb4 ? "mb4" : "";
+			final String mb4 = propertiesUtf8mb4() ? "mb4" : "";
 			type += " CHARACTER SET utf8"+mb4+" COLLATE utf8"+mb4+"_bin" + NOT_NULL;
 		}
 		else if(postgresql)

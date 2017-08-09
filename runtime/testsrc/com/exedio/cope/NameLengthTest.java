@@ -67,7 +67,7 @@ public class NameLengthTest extends TestWithEnvironment
 
 		final Table table = schema.getTable(getTableName(AnItem.TYPE));
 		final boolean cc = oracle;
-		final boolean c  = oracle || (mysql && !model.getConnectProperties().mysqlLongConstraintNames);
+		final boolean c  = oracle || (mysql && !propertiesLongConstraintNames());
 
 		assertIt(table, PrimaryKey, "AnItem_PK");
 		assertIt(table, ForeignKey, "AnItem_foreignShort_Fk");

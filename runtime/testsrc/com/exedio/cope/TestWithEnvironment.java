@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import static org.junit.Assert.assertEquals;
+
 import com.exedio.cope.tojunit.CopeRule;
 import com.exedio.cope.tojunit.CopeRuntimeRule;
 import com.exedio.cope.vault.VaultService;
@@ -196,5 +198,33 @@ public abstract class TestWithEnvironment
 	protected final String sac()
 	{
 		return postgresql ? " " : "";
+	}
+
+
+	protected final boolean propertiesUtf8mb4()
+	{
+		return propertiesMysql().mysqlUtf8mb4;
+	}
+
+	protected final boolean propertiesSmallIntegerTypes()
+	{
+		return propertiesMysql().mysqlSmallIntegerTypes;
+	}
+
+	protected final boolean propertiesLongConstraintNames()
+	{
+		return propertiesMysql().mysqlLongConstraintNames;
+	}
+
+	protected final boolean propertiesFullSequenceColumnName()
+	{
+		return propertiesMysql().mysqlFullSequenceColName;
+	}
+
+	private ConnectProperties propertiesMysql()
+	{
+		final ConnectProperties result = model.getConnectProperties();
+		assertEquals("com.exedio.cope.MysqlDialect", result.getDialect());
+		return result;
 	}
 }

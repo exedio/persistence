@@ -56,7 +56,7 @@ public class SupportsTest extends TestWithEnvironment
 				dataHashAlgorithms.clear(); // TODO support more
 				break;
 			case mysql:
-				utf8mb4 = props.mysqlUtf8mb4;
+				utf8mb4 = propertiesUtf8mb4();
 				random = true;
 				checkConstraints = false;
 				nativeDate = false;

@@ -191,7 +191,7 @@ public class SchemaPurgeTest extends TestWithEnvironment
 		try(ResultSet rs = connection.
 					executeQuery(
 							"select max(" +
-							sequenceColumnName(model.getConnectProperties()) +
+							sequenceColumnName() +
 							"),count(*) from " +
 							quoteName(model, name)))
 		{
@@ -203,12 +203,12 @@ public class SchemaPurgeTest extends TestWithEnvironment
 	}
 
 	// duplicate from MysqlDialect
-	private static String sequenceColumnName(final ConnectProperties properties)
+	private String sequenceColumnName()
 	{
 		@SuppressWarnings("deprecation")
 		final String oldSequenceColumnName = com.exedio.dsmf.MysqlDialect.SEQUENCE_COLUMN;
 		return
-				properties.mysqlFullSequenceColName
+				propertiesFullSequenceColumnName()
 				? "COPE_SEQUENCE_AUTO_INCREMENT_COLUMN"
 				: oldSequenceColumnName;
 	}

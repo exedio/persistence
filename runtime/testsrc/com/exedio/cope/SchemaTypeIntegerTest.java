@@ -80,7 +80,7 @@ public class SchemaTypeIntegerTest extends TestWithEnvironment
 				type8 = "BIGINT";
 				break;
 			case mysql:
-				if(!model.getConnectProperties().mysqlSmallIntegerTypes)
+				if(!propertiesSmallIntegerTypes())
 				{
 					type1 = type2 = type3 = type4 = "int";
 				}
