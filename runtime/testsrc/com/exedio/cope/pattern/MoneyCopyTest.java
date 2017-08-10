@@ -310,7 +310,7 @@ public class MoneyCopyTest extends TestWithEnvironment
 		 * Returns the value of {@link #fixed}.
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-		@javax.annotation.Nullable
+		@javax.annotation.Nonnull
 		final com.exedio.cope.pattern.Money<Currency> getFixed()
 		{
 			return Source.fixed.get(this);
@@ -331,7 +331,7 @@ public class MoneyCopyTest extends TestWithEnvironment
 		 * Returns the value of {@link #shared}.
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-		@javax.annotation.Nullable
+		@javax.annotation.Nonnull
 		final com.exedio.cope.pattern.Money<Currency> getShared()
 		{
 			return Source.shared.get(this);

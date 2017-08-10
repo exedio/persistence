@@ -178,8 +178,7 @@ public final class MoneyField<C extends Money.Currency> extends Pattern implemen
 		return amount.getInitialExceptions();
 	}
 
-	@Wrap(order=10, doc="Returns the value of {0}.")
-	@Nullable
+	@Wrap(order=10, doc="Returns the value of {0}.", nullability=NullableIfOptional.class)
 	public Money<C> get(@Nonnull final Item item)
 	{
 		final Price amountResult = amount.get(item);
