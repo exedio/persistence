@@ -26,6 +26,7 @@ import static java.text.MessageFormat.format;
 import com.exedio.cope.BooleanField;
 import com.exedio.cope.SetValue;
 import java.lang.annotation.Annotation;
+import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.Type;
 import java.nio.charset.Charset;
@@ -36,6 +37,7 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.SortedSet;
 import javax.annotation.Generated;
 import javax.annotation.Nonnull;
@@ -94,9 +96,9 @@ final class Generator
 	private final boolean overrideOnSeparateLine;
 	private final HintFormat hintFormat;
 	private int typeIndent = Integer.MIN_VALUE;
+	private final Set<Method> generateDeprecateds;
 
-
-	Generator(final JavaFile javaFile, final StringBuilder output, final Params params)
+	Generator(final JavaFile javaFile, final StringBuilder output, final Params params, final Set<Method> generateDeprecateds)
 	{
 		this.javaFile = javaFile;
 		this.output = output;
@@ -115,6 +117,7 @@ final class Generator
 		this.deprecatedFullyQualified = params.deprecatedFullyQualified;
 		this.overrideOnSeparateLine = params.overrideOnSeparateLine;
 		this.hintFormat = params.hintFormat;
+		this.generateDeprecateds = generateDeprecateds;
 	}
 
 	private static String toCamelCase(final String name)
@@ -400,6 +403,8 @@ final class Generator
 		final Kind kind = feature.parent.kind;
 		for(final WrapperX wrapper : getWrappers(instance))
 		{
+			if (wrapper.isMethodDeprecated() && !generateDeprecateds.contains(wrapper.getMethod()))
+				continue;
 			final String pattern = wrapper.getMethodWrapperPattern();
 			final String modifierTag = wrapper.getOptionTagName()!=null ? wrapper.getOptionTagName() : pattern!=null ? format(pattern, "", "") : wrapper.getName();
 			final List<WrapperX.Parameter> parameters = wrapper.getParameters();

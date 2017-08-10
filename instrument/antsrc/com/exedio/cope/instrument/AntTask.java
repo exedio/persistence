@@ -68,6 +68,11 @@ public final class AntTask extends Task
 		return ignore;
 	}
 
+	public GenerateDeprecated createGenerateDeprecated()
+	{
+		return new GenerateDeprecated();
+	}
+
 	public void setVerify(final boolean value)
 	{
 		params.verify = value;
@@ -350,6 +355,21 @@ public final class AntTask extends Task
 		public void addFileset(final FileSet fileSet)
 		{
 			fileSets.add(fileSet);
+		}
+	}
+
+	public final class GenerateDeprecated
+	{
+		public void addText(final String text)
+		{
+			try
+			{
+				params.addGenerateDeprecated(getProject().replaceProperties(text));
+			}
+			catch (final HumanReadableException e)
+			{
+				throw new BuildException(e.getMessage());
+			}
 		}
 	}
 }

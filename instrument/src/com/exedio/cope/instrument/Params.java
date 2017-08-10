@@ -25,7 +25,10 @@ import java.io.File;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 final class Params
 {
@@ -34,6 +37,7 @@ final class Params
 	List<File> ignoreFiles;
 	boolean verify = false;
 	Charset charset = StandardCharsets.US_ASCII;
+	private final List<Method> generateDeprecateds = new ArrayList<>();
 
 	private int maxwarns = 10000;
 
@@ -109,6 +113,47 @@ final class Params
 		else if (fileOrDir.getName().endsWith(".java"))
 		{
 			collectInto.add(fileOrDir);
+		}
+	}
+
+	void addGenerateDeprecated(final String s) throws HumanReadableException
+	{
+		generateDeprecateds.add(new Method(s));
+	}
+
+	List<Method> getGenerateDeprecateds()
+	{
+		return Collections.unmodifiableList(generateDeprecateds);
+	}
+
+	private static final String[] NO_PARAMETERS = new String[0];
+
+	static final class Method
+	{
+		private final String originalLine;
+		final String className;
+		final String methodName;
+		final String[] parameterTypes;
+
+		Method(final String s) throws HumanReadableException
+		{
+			for (int i=0; i<s.length(); i++)
+			{
+				if (Character.isWhitespace(s.charAt(i))) throw new HumanReadableException("<generateDeprecated> must not contain space or newline");
+			}
+			final Pattern pattern = Pattern.compile("([^#]*)#([^\\\\]*)\\((.*)\\)");
+			final Matcher matcher = pattern.matcher(s);
+			if (!matcher.matches()) throw new HumanReadableException("invalid <generateDeprecated> syntax in "+s);
+			this.originalLine = s;
+			this.className = matcher.group(1);
+			this.methodName = matcher.group(2);
+			this.parameterTypes = matcher.group(3).isEmpty() ? NO_PARAMETERS : matcher.group(3).split(",");
+		}
+
+		@Override
+		public String toString()
+		{
+			return originalLine;
 		}
 	}
 

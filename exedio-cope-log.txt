@@ -7,6 +7,13 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* The instrumentor no longer generates deprecated wrapping methods for deprecated feature methods.
+	To keep individual methods, you can whitelist them in your build.xml:
+	<instrument ...>
+		<generateDeprecated>com.exedio.cope.pattern.PasswordRecovery#purge(com.exedio.cope.util.Interrupter)</generateDeprecated>
+		<generateDeprecated>com.exedio.cope.pattern.Dispatcher#dispatch(java.lang.Class,com.exedio.cope.pattern.Dispatcher$Config,com.exedio.cope.util.Interrupter)</generateDeprecated>
+	</instrument>
+	Affects instrumented code.
 * support @Wrapper(parameters={...}) for better control of generated code
 * ListField#removeAll added.
 	Affects instrumented code.
