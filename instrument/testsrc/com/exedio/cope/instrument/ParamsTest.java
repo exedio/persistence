@@ -42,6 +42,7 @@ public class ParamsTest
 		assertArrayEquals(expectedParams, params.getGenerateDeprecateds().get(0).parameterTypes);
 	}
 
+	@SuppressWarnings("HardcodedLineSeparator")
 	@Test public void generateDeprecatedInvalid() throws HumanReadableException
 	{
 		checkRejected("broken", "invalid <generateDeprecated> syntax in broken");

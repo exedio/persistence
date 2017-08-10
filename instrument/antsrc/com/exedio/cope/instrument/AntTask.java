@@ -358,6 +358,7 @@ public final class AntTask extends Task
 		}
 	}
 
+	@SuppressWarnings("unused")
 	public final class GenerateDeprecated
 	{
 		public void addText(final String text)

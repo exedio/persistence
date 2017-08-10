@@ -117,6 +117,7 @@ final class Generator
 		this.deprecatedFullyQualified = params.deprecatedFullyQualified;
 		this.overrideOnSeparateLine = params.overrideOnSeparateLine;
 		this.hintFormat = params.hintFormat;
+		//noinspection AssignmentToCollectionOrArrayFieldFromParameter
 		this.generateDeprecateds = generateDeprecateds;
 	}
 
