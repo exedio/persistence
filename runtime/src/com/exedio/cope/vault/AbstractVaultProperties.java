@@ -25,28 +25,28 @@ abstract class AbstractVaultProperties extends Properties
 {
 	final Service valueService(final String key, final boolean writable)
 	{
-		final ServiceFactory<VaultService, VaultServiceParameters> constructor =
+		final ServiceFactory<VaultService, VaultServiceParameters> factory =
 				valueService(key, VaultService.class, VaultServiceParameters.class);
 
-		return new Service(constructor, writable);
+		return new Service(factory, writable);
 	}
 
 	static final class Service
 	{
-		private final ServiceFactory<VaultService, VaultServiceParameters> constructor;
+		private final ServiceFactory<VaultService, VaultServiceParameters> factory;
 		private final boolean writable;
 
 		private Service(
-				final ServiceFactory<VaultService, VaultServiceParameters> constructor,
+				final ServiceFactory<VaultService, VaultServiceParameters> factory,
 				final boolean writable)
 		{
-			this.constructor = constructor;
+			this.factory = factory;
 			this.writable = writable;
 		}
 
 		VaultService newService(final VaultProperties vaultProperties)
 		{
-			return constructor.newInstance(new VaultServiceParameters(
+			return factory.newInstance(new VaultServiceParameters(
 					vaultProperties, writable));
 		}
 	}
