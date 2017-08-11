@@ -41,7 +41,6 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Arrays;
 import java.util.Set;
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 @WrapFeature
 @SuppressWarnings("RedundantInterfaceDeclaration") // TODO required by deficiency of instrumentor
