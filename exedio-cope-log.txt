@@ -7,6 +7,9 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* Fixed wrong nullability info for MoneyField#get:
+	The wrapping get-methods for mandatory MoneyFields were incorrectly annotated as @Nullable, now fixed to @NonNull.
+	Affects instrumented code.
 * The instrumentor no longer generates deprecated wrapping methods for deprecated feature methods.
 	To keep individual methods, you can whitelist them in your build.xml:
 	<instrument ...>
