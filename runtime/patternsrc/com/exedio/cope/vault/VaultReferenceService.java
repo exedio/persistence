@@ -35,10 +35,10 @@ public final class VaultReferenceService implements VaultService
 
 	VaultReferenceService(
 			final VaultServiceParameters parameters,
-			final Props sp)
+			final Props properties)
 	{
-		main = sp.main.newService(parameters.getVaultProperties());
-		reference = sp.reference.newService(parameters.getVaultProperties());
+		main = properties.main.newService(parameters.getVaultProperties());
+		reference = properties.reference.newService(parameters.getVaultProperties());
 	}
 
 	public VaultService getMainService()

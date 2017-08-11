@@ -42,12 +42,12 @@ public final class VaultFileService implements VaultService
 
 	VaultFileService(
 			final VaultServiceParameters parameters,
-			final Props sp)
+			final Props properties)
 	{
-		this.rootDir = sp.root;
-		this.directoryLength = sp.directory!=null ? sp.directory.length : 0;
-		this.tempDir = new File(rootDir, sp.temp);
-		this.bufferSize = sp.bufferSize;
+		this.rootDir = properties.root;
+		this.directoryLength = properties.directory!=null ? properties.directory.length : 0;
+		this.tempDir = new File(rootDir, properties.temp);
+		this.bufferSize = properties.bufferSize;
 
 		{
 			final int algorithmLength = parameters.getVaultProperties().getAlgorithmLength();
