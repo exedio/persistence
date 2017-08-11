@@ -71,6 +71,7 @@ public final class UniqueHashedMedia extends Pattern implements Settable<Value>,
 	private final Media media;
 	private final StringField hash;
 	private final String messageDigestAlgorithm;
+	private final HashConstraint hashConstraint;
 
 
 	/**
@@ -112,6 +113,8 @@ public final class UniqueHashedMedia extends Pattern implements Settable<Value>,
 				: CustomAnnotatedElement2.create(
 						new Computed() { @Override public Class<? extends Annotation> annotationType() { return Computed.class; } },
 						new MysqlExtendedVarchar() { @Override public Class<? extends Annotation> annotationType() { return MysqlExtendedVarchar.class; } }));
+		this.hashConstraint = new HashConstraint(hash, messageDigestAlgorithm, media.getBody());
+		addSource(this.hashConstraint, "hashConstraint");
 	}
 
 	@Override
@@ -310,6 +313,11 @@ public final class UniqueHashedMedia extends Pattern implements Settable<Value>,
 		return media;
 	}
 
+	public HashConstraint getHashConstraint()
+	{
+		return hashConstraint;
+	}
+
 	@Override
 	public Feature copy(final CopyMapper mapper)
 	{
@@ -424,7 +432,7 @@ public final class UniqueHashedMedia extends Pattern implements Settable<Value>,
 	@Nonnull
 	public Condition hashMatchesIfSupported()
 	{
-		return hash.hashMatchesIfSupported(messageDigestAlgorithm, media.getBody());
+		return hashConstraint.hashMatchesIfSupported();
 	}
 
 	/**
@@ -435,7 +443,7 @@ public final class UniqueHashedMedia extends Pattern implements Settable<Value>,
 	@Nonnull
 	public Condition hashDoesNotMatchIfSupported()
 	{
-		return hash.hashDoesNotMatchIfSupported(messageDigestAlgorithm, media.getBody());
+		return hashConstraint.hashDoesNotMatchIfSupported();
 	}
 
 	// ------------------- deprecated stuff -------------------

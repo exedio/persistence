@@ -33,6 +33,7 @@ import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import static org.junit.Assume.assumeTrue;
@@ -76,6 +77,7 @@ public class UniqueHashedMediaTest extends TestWithEnvironment
 						value.getMedia().getLastModified(),
 						value.getHash(),
 						value.getImplicitUniqueConstraint(),
+						value.getHashConstraint(),
 						w200, w300,
 				}),
 				TYPE.getFeatures());
@@ -94,6 +96,11 @@ public class UniqueHashedMediaTest extends TestWithEnvironment
 		assertEquals(
 				"!(" + value.getHash() + "=SHA-512(" + value.getMedia().getBody() + "))",
 				value.hashDoesNotMatchIfSupported().toString());
+
+		final HashConstraint hashConstraint = value.getHashConstraint();
+		assertSame(value.getHash(), hashConstraint.getHash());
+		assertSame("SHA-512", hashConstraint.getAlgorithm());
+		assertSame(value.getMedia().getBody(), hashConstraint.getData());
 	}
 
 	@Test public void testData()
