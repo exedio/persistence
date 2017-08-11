@@ -264,7 +264,7 @@ public final class MoneyFieldItem extends Item
 	 * Returns the value of {@link #sharMan}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	@javax.annotation.Nullable
+	@javax.annotation.Nonnull
 	final com.exedio.cope.pattern.Money<Currency> getSharMan()
 	{
 		return MoneyFieldItem.sharMan.get(this);
@@ -304,7 +304,7 @@ public final class MoneyFieldItem extends Item
 	 * Returns the value of {@link #exclMan}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	@javax.annotation.Nullable
+	@javax.annotation.Nonnull
 	final com.exedio.cope.pattern.Money<Currency> getExclMan()
 	{
 		return MoneyFieldItem.exclMan.get(this);
