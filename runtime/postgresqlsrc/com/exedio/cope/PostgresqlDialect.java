@@ -41,10 +41,20 @@ final class PostgresqlDialect extends Dialect
 	{
 		super(
 				new com.exedio.dsmf.PostgresqlDialect(
-						probe.properties.connection.postgresqlSearchPath,
+						schema(probe.properties),
 						probe.environmentInfo.isDatabaseVersionAtLeast(9, 5)));
 
 		searchPath = probe.properties.connection.postgresqlSearchPath;
+	}
+
+	private static String schema(
+			final ConnectProperties connect)
+	{
+		final String searchPath = connect.connection.postgresqlSearchPath;
+		return
+				ConnectionProperties.postgresqlSearchPathDEFAULT.equals(searchPath)
+				? connect.connection.username
+				: searchPath;
 	}
 
 	@Override

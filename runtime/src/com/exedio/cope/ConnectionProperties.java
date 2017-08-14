@@ -32,7 +32,8 @@ final class ConnectionProperties extends Properties
 	final String username = value("username", (String)null);
 	final String password = valueHidden("password", (String)null);
 
-	final String postgresqlSearchPath = valueX("postgresql.search_path", username, ',');
+	static final String postgresqlSearchPathDEFAULT = "\"$user\"";
+	final String postgresqlSearchPath = valueX("postgresql.search_path", postgresqlSearchPathDEFAULT, ',');
 
 
 	CopeProbe probe(final ConnectProperties outer)
