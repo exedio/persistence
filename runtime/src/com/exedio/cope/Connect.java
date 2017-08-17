@@ -139,6 +139,9 @@ final class Connect
 
 		connectionPool.flush();
 
+		if(vault!=null)
+			vault.close();
+
 		// let threads have some time to terminate,
 		// doing other thing in the mean time
 		changeListenerDispatcher.joinClose();

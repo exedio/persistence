@@ -37,6 +37,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Properties;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -74,6 +75,12 @@ public abstract class VaultServiceTest
 
 		properties = VaultProperties.factory().create(Sources.view(source, "DESC"));
 		service = properties.newService();
+	}
+
+	@After public final void tearDownVaultServiceTest()
+	{
+		service.close();
+		service = null;
 	}
 
 	protected final VaultProperties getProperties()

@@ -36,8 +36,16 @@ import javax.annotation.Nonnull;
  * All methods are guaranteed not to be called for the empty byte sequence -
  * this special case must be handled by the caller.
  */
-public interface VaultService
+public interface VaultService extends AutoCloseable
 {
+	/**
+	 * Overrides method from {@link AutoCloseable} to add empty default implementation.
+	 * Also requires implementations not to declare any checked exception to be thrown.
+	 */
+	@Override
+	default void close() {}
+
+
 	long getLength(@Nonnull String hash) throws VaultNotFoundException;
 	byte[] get(@Nonnull String hash) throws VaultNotFoundException;
 

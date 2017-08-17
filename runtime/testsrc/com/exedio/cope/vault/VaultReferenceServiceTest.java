@@ -65,4 +65,15 @@ public class VaultReferenceServiceTest
 				"VaultMockService:mainEx (reference VaultMockService:refrEx)",
 				service.toString());
 	}
+
+	@SuppressWarnings("HardcodedLineSeparator")
+	@Test public void testClose()
+	{
+		main.assertIt("");
+		refr.assertIt("");
+
+		service.close();
+		main.assertIt("close\n");
+		refr.assertIt("close\n");
+	}
 }

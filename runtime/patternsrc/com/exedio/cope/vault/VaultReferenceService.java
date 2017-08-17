@@ -41,6 +41,13 @@ public final class VaultReferenceService implements VaultService
 		reference = properties.reference.newService(parameters.getVaultProperties());
 	}
 
+	@Override
+	public void close()
+	{
+		reference.close();
+		main.close();
+	}
+
 	public VaultService getMainService()
 	{
 		return main;

@@ -144,6 +144,7 @@ public class VaultPropertiesTest
 				));
 
 		final VaultProperties props = factory.create(source);
+		@SuppressWarnings("resource")
 		final ServicePropertiesMissing service = (ServicePropertiesMissing)props.newService();
 		assertSame(props, service.parameters.getVaultProperties());
 	}
@@ -156,6 +157,7 @@ public class VaultPropertiesTest
 						single("service.reference", ServicePropertiesMissing.class)
 				));
 		final VaultProperties props = factory.create(source);
+		@SuppressWarnings("resource")
 		final VaultReferenceService service = (VaultReferenceService)props.newService();
 		final ServicePropertiesMissing main = (ServicePropertiesMissing)service.getMainService();
 		final ServicePropertiesMissing ref  = (ServicePropertiesMissing)service.getReferenceService();

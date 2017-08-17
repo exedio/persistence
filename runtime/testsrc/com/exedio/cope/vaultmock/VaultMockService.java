@@ -49,6 +49,7 @@ public final class VaultMockService implements VaultService
 	public final VaultProperties vaultProperties;
 	public final Props serviceProperties;
 	public final boolean writable;
+	private boolean closed = false;
 
 	private VaultMockService(
 			final VaultServiceParameters parameters,
@@ -59,6 +60,19 @@ public final class VaultMockService implements VaultService
 		this.writable = parameters.isWritable();
 		assertNotNull(vaultProperties);
 		assertNotNull(serviceProperties);
+	}
+
+	@Override
+	public void close()
+	{
+		history.append("close\n");
+		assertFalse(closed);
+		closed = true;
+	}
+
+	public boolean isClosed()
+	{
+		return closed;
 	}
 
 
@@ -91,6 +105,7 @@ public final class VaultMockService implements VaultService
 	private byte[] store(final String hash) throws VaultNotFoundException
 	{
 		assertHash(hash);
+		assertFalse(closed);
 
 		if(serviceProperties.failGet)
 			throw new IllegalStateException("deliberately fail in VaultMockService#get");
@@ -114,6 +129,7 @@ public final class VaultMockService implements VaultService
 	{
 		assertHash(hash);
 		assertNotNull(value);
+		assertFalse(closed);
 
 		assertEquals(hash, Hex.encodeLower(
 				vaultProperties.getAlgorithmFactory().
@@ -139,6 +155,7 @@ public final class VaultMockService implements VaultService
 	{
 		assertHash(hash);
 		assertNotNull(value);
+		assertFalse(closed);
 
 		final byte[] b = new byte[55];
 		final ByteArrayOutputStream s = new ByteArrayOutputStream();

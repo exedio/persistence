@@ -74,7 +74,14 @@ public final class VaultProperties extends AbstractVaultProperties
 
 	public String probe()
 	{
-		final VaultService service = newService();
+		try(VaultService service = newService())
+		{
+			return probe(service);
+		}
+	}
+
+	private String probe(final VaultService service)
+	{
 		final String info = service.toString();
 		String hostname;
 		try

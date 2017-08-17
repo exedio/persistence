@@ -27,6 +27,7 @@ import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import com.exedio.cope.vaultmock.VaultMockService;
 import java.util.Date;
 import org.junit.Test;
 
@@ -99,6 +100,9 @@ public class ConnectTest extends TestWithEnvironment
 		model.commit();
 		final ConnectProperties p = model.getConnectProperties();
 		assertNotNull(p);
+		final VaultMockService vault = (VaultMockService)model.connect().vault;
+		if(vault!=null)
+			assertFalse(vault.isClosed());
 
 		model.disconnect();
 		assertFalse(model.isConnected());
@@ -113,6 +117,8 @@ public class ConnectTest extends TestWithEnvironment
 			assertEquals("model not connected, use Model#connect for " + model, e.getMessage());
 		}
 		assertEquals(null, model.getConnectDate());
+		if(vault!=null)
+			assertTrue(vault.isClosed());
 
 		try
 		{
@@ -126,6 +132,8 @@ public class ConnectTest extends TestWithEnvironment
 		}
 		assertFalse(model.isConnected());
 		assertEquals(null, model.getConnectDate());
+		if(vault!=null)
+			assertTrue(vault.isClosed());
 
 		final Date before = new Date();
 		model.connect(p);
@@ -133,6 +141,13 @@ public class ConnectTest extends TestWithEnvironment
 		assertTrue(model.isConnected());
 		assertSame(p, model.getConnectProperties());
 		assertWithin(before, after, model.getConnectDate());
+		if(vault!=null)
+		{
+			assertTrue(vault.isClosed());
+			final VaultMockService vaultNew = (VaultMockService)model.connect().vault;
+			assertFalse(vaultNew.isClosed());
+			assertNotSame(vault, vaultNew);
+		}
 		model.startTransaction("ModelTest.testDisconnect");
 	}
 }
