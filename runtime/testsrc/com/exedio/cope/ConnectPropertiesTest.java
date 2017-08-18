@@ -295,6 +295,39 @@ public class ConnectPropertiesTest
 		assertEquals(456, ConnectProperties.create(source).getItemCacheLimit());
 	}
 
+	@Test public void testVaultAlgorithmDefault()
+	{
+		final Source source =
+				cascade(
+						single("dataField.vault", true),
+						single("dataField.vault.service", VaultMockService.class),
+						TestSources.minimal()
+				);
+		assertEquals("SHA-512", ConnectProperties.create(source).getVaultAlgorithm());
+	}
+
+	@Test public void testVaultAlgorithmSet()
+	{
+		final Source source =
+				cascade(
+						single("dataField.vault", true),
+						single("dataField.vault.service", VaultMockService.class),
+						single("dataField.vault.algorithm", "MD5"),
+						TestSources.minimal()
+				);
+		assertEquals("MD5", ConnectProperties.create(source).getVaultAlgorithm());
+	}
+
+	@Test public void testVaultAlgorithmDisabled()
+	{
+		final Source source =
+				cascade(
+						single("dataField.vault", false),
+						TestSources.minimal()
+				);
+		assertEquals(null, ConnectProperties.create(source).getVaultAlgorithm());
+	}
+
 	@Test public void testMediaRootUrlStandard()
 	{
 		final ConnectProperties p = factory().

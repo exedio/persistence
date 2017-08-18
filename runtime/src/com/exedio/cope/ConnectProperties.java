@@ -185,6 +185,11 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	final int dataFieldBufferSizeLimit   = value("dataField.bufferSizeLimit", 1024*1024, 1);
 	final VaultProperties dataFieldVault = value("dataField.vault", false, VaultProperties.factory());
 
+	public String getVaultAlgorithm()
+	{
+		return dataFieldVault!=null ? dataFieldVault.getAlgorithm() : null;
+	}
+
 	final     int changeListenersQueueCapacity = value("changeListeners.queueCapacity", 1000, 1);
 	final ThreadSwarmProperties chaListThreads = valnp("changeListeners.threads", ThreadSwarmProperties::new);
 
