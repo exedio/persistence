@@ -133,11 +133,11 @@ final class BlobColumn extends Column
 		final Table table = this.table;
 		final Executor executor = tx.connect.executor;
 		final Statement bf = executor.newStatement();
-		bf.append("select ").append(table.database.dialect.getBlobLength()).append('(').
+		bf.append("SELECT ").append(table.database.dialect.getBlobLength()).append('(').
 			append(quotedID).
-			append(") from ").
+			append(") FROM ").
 			append(table.quotedID).
-			append(" where ").
+			append(" WHERE ").
 			append(table.primaryKey.quotedID).
 			append('=').
 			appendParameter(item.pk).
