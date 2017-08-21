@@ -157,6 +157,30 @@ final class BlobColumn extends Column
 		);
 	}
 
+	boolean isNull(final Transaction tx, final Item item)
+	{
+		final Table table = this.table;
+		final Executor executor = tx.connect.executor;
+		final Statement bf = executor.newStatement();
+		bf.append("SELECT ");
+		table.database.dialect.appendIsNullInSelect(bf, this);
+		bf.append(" FROM ").
+			append(table.quotedID).
+			append(" WHERE ").
+			append(table.primaryKey.quotedID).
+			append('=').
+			appendParameter(item.pk).
+			appendTypeCheck(table, item.type);
+
+		return executor.query(tx.getConnection(), bf, null, false, resultSet ->
+		{
+			if(!resultSet.next())
+				throw new SQLException(NO_SUCH_ROW);
+
+			return resultSet.getBoolean(1);
+		});
+	}
+
 	void store(
 			final Transaction tx, final Item item,
 			final DataField.Value data, final DataField field)

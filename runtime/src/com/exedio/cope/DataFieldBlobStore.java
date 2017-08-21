@@ -51,8 +51,7 @@ final class DataFieldBlobStore extends DataFieldStore
 	@Override
 	boolean isNull(final Transaction tx, final Item item)
 	{
-		// TODO make this more efficient !!!
-		return loadLength(tx, item)<0;
+		return column.isNull(tx, item);
 	}
 
 	@Override

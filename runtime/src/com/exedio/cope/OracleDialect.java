@@ -193,6 +193,16 @@ final class OracleDialect extends Dialect
 	}
 
 	@Override
+	void  appendIsNullInSelect(
+			final Statement bf,
+			final BlobColumn column)
+	{
+		bf.append("CASE WHEN ").
+			append(column.quotedID).
+			append(" IS NULL THEN 1 ELSE 0 END");
+	}
+
+	@Override
 	<E extends Number> void  appendIntegerDivision(
 			final Statement bf,
 			final Function<E> dividend,
