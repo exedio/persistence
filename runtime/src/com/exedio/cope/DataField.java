@@ -166,8 +166,7 @@ public final class DataField extends Field<DataField.Value>
 	@Wrap(order=10, doc="Returns, whether there is no data for field {0}.")
 	public boolean isNull(@Nonnull final Item item)
 	{
-		// TODO make this more efficient !!!
-		return getLength(item)<0;
+		return store.isNull(model.currentTransaction(), item);
 	}
 
 	/**

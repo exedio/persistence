@@ -77,6 +77,12 @@ final class DataFieldVaultStore extends DataFieldStore
 
 
 	@Override
+	boolean isNull(final Transaction tx, final Item item)
+	{
+		return getHash(tx, item)==null;
+	}
+
+	@Override
 	long loadLength(final Transaction tx, final Item item)
 	{
 		final String hash = getHash(tx, item);
