@@ -41,6 +41,7 @@ import com.exedio.cope.tojunit.LogRule;
 import com.exedio.cope.tojunit.TestSources;
 import java.util.Date;
 import java.util.function.Consumer;
+import java.util.function.Supplier;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -78,7 +79,18 @@ public class ConnectTokenTest
 
 		try
 		{
-			ctr.set(null);
+			ctr.set((ConnectProperties)null);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals("properties", e.getMessage());
+		}
+		assertNotConnected();
+
+		try
+		{
+			ctr.set((Supplier<ConnectProperties>)null);
 			fail();
 		}
 		catch(final NullPointerException e)
@@ -423,6 +435,22 @@ public class ConnectTokenTest
 		try
 		{
 			ctr.set(props);
+			fail();
+		}
+		catch(final IllegalStateException e)
+		{
+			assertEquals(
+					"Properties already set for model " +
+					"com.exedio.cope.misc.ConnectTokenTest#model.",
+					e.getMessage());
+		}
+	}
+
+	@Test public void testSetDuplicateSupplier()
+	{
+		try
+		{
+			ctr.set(() -> props);
 			fail();
 		}
 		catch(final IllegalStateException e)

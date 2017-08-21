@@ -38,6 +38,8 @@ import com.exedio.cope.TypesBound;
 import com.exedio.cope.instrument.WrapperIgnore;
 import com.exedio.cope.tojunit.ConnectTokenRule;
 import com.exedio.cope.tojunit.TestSources;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.Supplier;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.RuleChain;
@@ -78,6 +80,28 @@ public class ConnectTokenSetTest
 		assertNotSet();
 	}
 
+	@Test public void testNormalSupplier()
+	{
+		assertFalse(model.isConnected());
+		assertSame(null, getProperties(model));
+		assertNotSet();
+
+		final ConnectProperties properties = ConnectProperties.create(TestSources.minimal());
+		final AtomicInteger supplied = new AtomicInteger(0);
+		ctr.set(() -> { supplied.incrementAndGet(); return properties; });
+		assertEquals(0, supplied.get());
+		assertSame(properties, getProperties(model));
+		assertEquals(1, supplied.get());
+		assertEquals(list(), getTokens(model));
+
+		assertEquals(1, supplied.get());
+		assertSame(properties, ctr.remove());
+		assertEquals(2, supplied.get());
+		assertSame(null, getProperties(model));
+		assertNotSet();
+		assertEquals(2, supplied.get());
+	}
+
 	@Test public void testNormalVoid()
 	{
 		assertFalse(model.isConnected());
@@ -88,6 +112,105 @@ public class ConnectTokenSetTest
 		ctr.set(properties);
 		assertSame(properties, getProperties(model));
 		assertEquals(list(), getTokens(model));
+
+		ctr.removeVoid();
+		assertSame(null, getProperties(model));
+		assertNotSet();
+	}
+
+	@SuppressWarnings("resource")
+	@Test public void testSupplierReturnsNull()
+	{
+		assertFalse(model.isConnected());
+		assertSame(null, getProperties(model));
+		assertNotSet();
+
+		final AtomicInteger supplied = new AtomicInteger(0);
+		ctr.set(new Supplier<ConnectProperties>()
+		{
+			@Override
+			public ConnectProperties get()
+			{
+				supplied.incrementAndGet();
+				return null;
+			}
+			@Override
+			public String toString()
+			{
+				return "toStringSupplier";
+			}
+		});
+		assertEquals(0, supplied.get());
+		try
+		{
+			getProperties(model);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals(
+					"ConnectToken properties supplier for " +
+					"com.exedio.cope.misc.ConnectTokenSetTest#model " +
+					"returned null: toStringSupplier",
+					e.getMessage());
+		}
+		assertEquals(1, supplied.get());
+		assertEquals(list(), getTokens(model));
+
+		assertEquals(1, supplied.get());
+		try
+		{
+			issue(model, "tokenName");
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals(
+					"ConnectToken properties supplier for " +
+					"com.exedio.cope.misc.ConnectTokenSetTest#model " +
+					"returned null: toStringSupplier",
+					e.getMessage());
+		}
+		assertEquals(2, supplied.get());
+		assertEquals(list(), getTokens(model));
+		assertFalse(model.isConnected());
+
+		ctr.removeVoid();
+		assertSame(null, getProperties(model));
+		assertNotSet();
+		assertEquals(2, supplied.get());
+	}
+
+	@SuppressWarnings("resource")
+	@Test public void testSupplierFails()
+	{
+		assertFalse(model.isConnected());
+		assertSame(null, getProperties(model));
+		assertNotSet();
+
+		ctr.set(() -> { throw new IllegalStateException("testSupplierFails"); });
+		try
+		{
+			getProperties(model);
+			fail();
+		}
+		catch(final IllegalStateException e)
+		{
+			assertEquals("testSupplierFails", e.getMessage());
+		}
+		assertEquals(list(), getTokens(model));
+
+		try
+		{
+			issue(model, "tokenName");
+			fail();
+		}
+		catch(final IllegalStateException e)
+		{
+			assertEquals("testSupplierFails", e.getMessage());
+		}
+		assertEquals(list(), getTokens(model));
+		assertFalse(model.isConnected());
 
 		ctr.removeVoid();
 		assertSame(null, getProperties(model));

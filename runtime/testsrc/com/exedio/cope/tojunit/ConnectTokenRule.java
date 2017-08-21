@@ -23,6 +23,7 @@ import static java.util.Objects.requireNonNull;
 import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.Model;
 import com.exedio.cope.misc.ConnectToken;
+import java.util.function.Supplier;
 import org.junit.rules.ExternalResource;
 
 public final class ConnectTokenRule extends ExternalResource
@@ -40,12 +41,19 @@ public final class ConnectTokenRule extends ExternalResource
 		ConnectToken.setProperties(model, properties);
 	}
 
+	public void set(final Supplier<ConnectProperties> properties)
+	{
+		before.assertCalled();
+		ConnectToken.setProperties(model, properties);
+	}
+
 	public void removeVoid()
 	{
 		before.assertCalled();
 		ConnectToken.removePropertiesVoid(model);
 	}
 
+	@SuppressWarnings("deprecation") // OK testing deprecated api
 	public ConnectProperties remove()
 	{
 		before.assertCalled();

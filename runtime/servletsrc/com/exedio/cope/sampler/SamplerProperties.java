@@ -36,6 +36,11 @@ public final class SamplerProperties extends Properties
 
 	private final ConnectProperties cope = value("cope", mask(ConnectProperties.factory()));
 
+	public ConnectProperties getCope()
+	{
+		return cope;
+	}
+
 	private static Factory<ConnectProperties> mask(final Factory<ConnectProperties> original)
 	{
 		return source -> original.create(Sampler.maskConnectSourceInternal(source));

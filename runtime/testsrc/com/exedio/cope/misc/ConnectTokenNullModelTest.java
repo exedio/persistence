@@ -28,6 +28,8 @@ import static com.exedio.cope.misc.ConnectToken.setProperties;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
+import com.exedio.cope.ConnectProperties;
+import java.util.function.Supplier;
 import org.junit.Test;
 
 public class ConnectTokenNullModelTest
@@ -47,7 +49,17 @@ public class ConnectTokenNullModelTest
 
 		try
 		{
-			setProperties(null, null);
+			setProperties(null, (ConnectProperties)null);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals("model", e.getMessage());
+		}
+
+		try
+		{
+			setProperties(null, (Supplier<ConnectProperties>)null);
 			fail();
 		}
 		catch(final NullPointerException e)

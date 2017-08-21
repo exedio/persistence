@@ -30,6 +30,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Consumer;
+import java.util.function.Supplier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -209,15 +210,24 @@ public final class ConnectToken implements AutoCloseable
 
 	private static final class Manciple
 	{
-		final ConnectProperties properties;
+		private final Supplier<ConnectProperties> propertiesSupplier;
 		private final ArrayList<ConnectToken> tokens = new ArrayList<>();
 		private int nextId = 0;
 		private final Object lock = new Object();
 
-		Manciple(final ConnectProperties properties)
+		Manciple(final Supplier<ConnectProperties> properties)
 		{
 			assert properties!=null;
-			this.properties = properties;
+			this.propertiesSupplier = properties;
+		}
+
+		ConnectProperties properties(final Model model)
+		{
+			final ConnectProperties result = propertiesSupplier.get();
+			if(result==null)
+				throw new NullPointerException(
+						"ConnectToken properties supplier for " + model + " returned null: " + propertiesSupplier);
+			return result;
 		}
 
 		ConnectToken issue(
@@ -228,9 +238,9 @@ public final class ConnectToken implements AutoCloseable
 			{
 				final boolean connect = tokens.isEmpty();
 				if(connect)
-					model.connect(properties);
+					model.connect(properties(model));
 				else
-					model.getConnectProperties().ensureEquality(properties);
+					model.getConnectProperties().ensureEquality(properties(model));
 
 				final ConnectToken result = new ConnectToken(this, model, nextId++, tokenName, false, connect);
 				tokens.add(result);
@@ -284,11 +294,31 @@ public final class ConnectToken implements AutoCloseable
 	 * {@link #issue(Model, String)},
 	 * {@link #issueIfConnected(Model, String)},
 	 * {@link #getTokens(Model)}.
+	 * @see #setProperties(Model, Supplier)
 	 * @see #removePropertiesVoid(Model)
 	 */
 	public static void setProperties(
 			final Model model,
 			final ConnectProperties properties)
+	{
+		requireNonNull(model, "model");
+		requireNonNull(properties, "properties");
+
+		setProperties(model, () -> properties);
+	}
+
+	/**
+	 * Sets the connect properties for the given model.
+	 * Enables usage of
+	 * {@link #issue(Model, String)},
+	 * {@link #issueIfConnected(Model, String)},
+	 * {@link #getTokens(Model)}.
+	 * @see #setProperties(Model, ConnectProperties)
+	 * @see #removePropertiesVoid(Model)
+	 */
+	public static void setProperties(
+			final Model model,
+			final Supplier<ConnectProperties> properties)
 	{
 		requireNonNull(model, "model");
 		requireNonNull(properties, "properties");
@@ -311,7 +341,7 @@ public final class ConnectToken implements AutoCloseable
 			manciple = manciples.get(model);
 		}
 
-		return manciple!=null ? manciple.properties : null;
+		return manciple!=null ? manciple.properties(model) : null;
 	}
 
 	/**
@@ -328,10 +358,13 @@ public final class ConnectToken implements AutoCloseable
 	}
 
 	/**
-	 * Use {@link #removePropertiesVoid(Model) removePropertiesVoid} instead,
-	 * if you don't need the result.
+	 * @deprecated
+	 * Use {@link #removePropertiesVoid(Model) removePropertiesVoid} instead.
+	 * This method may fail at computing the result if used together with
+	 * {@link #setProperties(Model, Supplier)} and the supplier fails.
 	 * @see #setProperties(Model, ConnectProperties)
 	 */
+	@Deprecated
 	public static ConnectProperties removeProperties(final Model model)
 	{
 		requireNonNull(model, "model");
@@ -343,7 +376,9 @@ public final class ConnectToken implements AutoCloseable
 			manciple = manciples.remove(model);
 		}
 
-		return manciple!=null ? manciple.properties : null;
+		// BEWARE:
+		// may fail if used together with #setProperties(Model, Supplier) and the supplier fails
+		return manciple!=null ? manciple.properties(model) : null;
 	}
 
 	private static Manciple manciple(final Model model)
