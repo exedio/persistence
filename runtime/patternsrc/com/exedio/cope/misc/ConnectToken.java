@@ -284,7 +284,7 @@ public final class ConnectToken implements AutoCloseable
 	 * {@link #issue(Model, String)},
 	 * {@link #issueIfConnected(Model, String)},
 	 * {@link #getTokens(Model)}.
-	 * @see #removeProperties(Model)
+	 * @see #removePropertiesVoid(Model)
 	 */
 	public static void setProperties(
 			final Model model,
@@ -315,6 +315,21 @@ public final class ConnectToken implements AutoCloseable
 	}
 
 	/**
+	 * @see #setProperties(Model, ConnectProperties)
+	 */
+	public static void removePropertiesVoid(final Model model)
+	{
+		requireNonNull(model, "model");
+
+		synchronized(manciples)
+		{
+			manciples.remove(model);
+		}
+	}
+
+	/**
+	 * Use {@link #removePropertiesVoid(Model) removePropertiesVoid} instead,
+	 * if you don't need the result.
 	 * @see #setProperties(Model, ConnectProperties)
 	 */
 	public static ConnectProperties removeProperties(final Model model)

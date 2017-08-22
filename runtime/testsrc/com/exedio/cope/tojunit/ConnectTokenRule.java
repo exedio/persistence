@@ -40,6 +40,12 @@ public final class ConnectTokenRule extends ExternalResource
 		ConnectToken.setProperties(model, properties);
 	}
 
+	public void removeVoid()
+	{
+		before.assertCalled();
+		ConnectToken.removePropertiesVoid(model);
+	}
+
 	public ConnectProperties remove()
 	{
 		before.assertCalled();
@@ -58,7 +64,7 @@ public final class ConnectTokenRule extends ExternalResource
 	@Override
 	protected void after()
 	{
-		ConnectToken.removeProperties(model);
+		ConnectToken.removePropertiesVoid(model);
 		if(model.isConnected())
 			model.disconnect();
 	}

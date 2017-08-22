@@ -23,6 +23,7 @@ import static com.exedio.cope.misc.ConnectToken.getTokens;
 import static com.exedio.cope.misc.ConnectToken.issue;
 import static com.exedio.cope.misc.ConnectToken.issueIfConnected;
 import static com.exedio.cope.misc.ConnectToken.removeProperties;
+import static com.exedio.cope.misc.ConnectToken.removePropertiesVoid;
 import static com.exedio.cope.misc.ConnectToken.setProperties;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
@@ -47,6 +48,16 @@ public class ConnectTokenNullModelTest
 		try
 		{
 			setProperties(null, null);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals("model", e.getMessage());
+		}
+
+		try
+		{
+			removePropertiesVoid(null);
 			fail();
 		}
 		catch(final NullPointerException e)

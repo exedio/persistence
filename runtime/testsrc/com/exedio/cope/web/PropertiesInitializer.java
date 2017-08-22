@@ -18,7 +18,7 @@
 
 package com.exedio.cope.web;
 
-import static com.exedio.cope.misc.ConnectToken.removeProperties;
+import static com.exedio.cope.misc.ConnectToken.removePropertiesVoid;
 import static com.exedio.cope.misc.ConnectToken.setProperties;
 import static com.exedio.cope.misc.ServletUtil.getConnectProperties;
 
@@ -88,6 +88,6 @@ public final class PropertiesInitializer implements ServletContextListener
 	public void contextDestroyed(final ServletContextEvent sce)
 	{
 		for(final Model model : models())
-			removeProperties(model);
+			removePropertiesVoid(model);
 	}
 }
