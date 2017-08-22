@@ -22,7 +22,6 @@ import static com.exedio.cope.misc.ConnectToken.getProperties;
 import static com.exedio.cope.misc.ConnectToken.getTokens;
 import static com.exedio.cope.misc.ConnectToken.issue;
 import static com.exedio.cope.misc.ConnectToken.issueIfConnected;
-import static com.exedio.cope.misc.ConnectToken.removeProperties;
 import static com.exedio.cope.misc.ConnectToken.removePropertiesVoid;
 import static com.exedio.cope.misc.ConnectToken.setProperties;
 import static org.junit.Assert.assertEquals;
@@ -34,7 +33,6 @@ import org.junit.Test;
 
 public class ConnectTokenNullModelTest
 {
-	@SuppressWarnings("resource")
 	@Test public void testIt()
 	{
 		try
@@ -76,17 +74,25 @@ public class ConnectTokenNullModelTest
 		{
 			assertEquals("model", e.getMessage());
 		}
+	}
 
+	@SuppressWarnings("deprecation") // OK testing deprecated api
+	@Test public void testDeprecated()
+	{
 		try
 		{
-			removeProperties(null);
+			ConnectToken.removeProperties(null);
 			fail();
 		}
 		catch(final NullPointerException e)
 		{
 			assertEquals("model", e.getMessage());
 		}
+	}
 
+	@SuppressWarnings("resource")
+	@Test public void testIt2()
+	{
 		try
 		{
 			issue(null, "tokenNameNullModel");
