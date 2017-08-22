@@ -78,6 +78,20 @@ public final class UniqueFinalItem extends Item
 		return UniqueFinalItem.uniqueFinalString.searchUnique(UniqueFinalItem.class,uniqueFinalString);
 	}
 
+	/**
+	 * Finds a uniqueFinalItem by its {@link #uniqueFinalString}.
+	 * @param uniqueFinalString shall be equal to field {@link #uniqueFinalString}.
+	 * @throws java.lang.IllegalArgumentException if there is no matching item.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="forStrict")
+	@javax.annotation.Nonnull
+	public static final UniqueFinalItem forUniqueFinalStringStrict(@javax.annotation.Nonnull final java.lang.String uniqueFinalString)
+			throws
+				java.lang.IllegalArgumentException
+	{
+		return UniqueFinalItem.uniqueFinalString.searchUniqueStrict(UniqueFinalItem.class,uniqueFinalString);
+	}
+
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 

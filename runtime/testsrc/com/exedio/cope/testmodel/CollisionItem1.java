@@ -81,6 +81,20 @@ public final class CollisionItem1 extends Item
 		return CollisionItem1.collisionAttribute.searchUnique(CollisionItem1.class,collisionAttribute);
 	}
 
+	/**
+	 * Finds a collisionItem1 by its {@link #collisionAttribute}.
+	 * @param collisionAttribute shall be equal to field {@link #collisionAttribute}.
+	 * @throws java.lang.IllegalArgumentException if there is no matching item.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="forStrict")
+	@javax.annotation.Nonnull
+	public static final CollisionItem1 forCollisionAttributeStrict(@javax.annotation.Nonnull final EmptyItem collisionAttribute)
+			throws
+				java.lang.IllegalArgumentException
+	{
+		return CollisionItem1.collisionAttribute.searchUniqueStrict(CollisionItem1.class,collisionAttribute);
+	}
+
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 

@@ -96,6 +96,20 @@ class NameLongItem extends Item
 	}
 
 	/**
+	 * Finds a nameLongItem by its {@link #code}.
+	 * @param code shall be equal to field {@link #code}.
+	 * @throws java.lang.IllegalArgumentException if there is no matching item.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="forStrict")
+	@javax.annotation.Nonnull
+	static final NameLongItem forCodeStrict(@javax.annotation.Nonnull final java.lang.String code)
+			throws
+				java.lang.IllegalArgumentException
+	{
+		return NameLongItem.code.searchUniqueStrict(NameLongItem.class,code);
+	}
+
+	/**
 	 * Returns the value of {@link #codeLoooooooooooooooooooooooooooooooooooooooooooooooooooongName}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -127,6 +141,20 @@ class NameLongItem extends Item
 	static final NameLongItem forCodeLoooooooooooooooooooooooooooooooooooooooooooooooooooongName(@javax.annotation.Nonnull final java.lang.String codeLoooooooooooooooooooooooooooooooooooooooooooooooooooongName)
 	{
 		return NameLongItem.codeLoooooooooooooooooooooooooooooooooooooooooooooooooooongName.searchUnique(NameLongItem.class,codeLoooooooooooooooooooooooooooooooooooooooooooooooooooongName);
+	}
+
+	/**
+	 * Finds a nameLongItem by its {@link #codeLoooooooooooooooooooooooooooooooooooooooooooooooooooongName}.
+	 * @param codeLoooooooooooooooooooooooooooooooooooooooooooooooooooongName shall be equal to field {@link #codeLoooooooooooooooooooooooooooooooooooooooooooooooooooongName}.
+	 * @throws java.lang.IllegalArgumentException if there is no matching item.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="forStrict")
+	@javax.annotation.Nonnull
+	static final NameLongItem forCodeLoooooooooooooooooooooooooooooooooooooooooooooooooooongNameStrict(@javax.annotation.Nonnull final java.lang.String codeLoooooooooooooooooooooooooooooooooooooooooooooooooooongName)
+			throws
+				java.lang.IllegalArgumentException
+	{
+		return NameLongItem.codeLoooooooooooooooooooooooooooooooooooooooooooooooooooongName.searchUniqueStrict(NameLongItem.class,codeLoooooooooooooooooooooooooooooooooooooooooooooooooooongName);
 	}
 
 	/**

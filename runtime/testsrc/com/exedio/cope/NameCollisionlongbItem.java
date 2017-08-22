@@ -89,6 +89,20 @@ final class NameCollisionlongbItem extends Item
 		return NameCollisionlongbItem.code.searchUnique(NameCollisionlongbItem.class,code);
 	}
 
+	/**
+	 * Finds a nameCollisionlongbItem by its {@link #code}.
+	 * @param code shall be equal to field {@link #code}.
+	 * @throws java.lang.IllegalArgumentException if there is no matching item.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="forStrict")
+	@javax.annotation.Nonnull
+	static final NameCollisionlongbItem forCodeStrict(@javax.annotation.Nonnull final java.lang.String code)
+			throws
+				java.lang.IllegalArgumentException
+	{
+		return NameCollisionlongbItem.code.searchUniqueStrict(NameCollisionlongbItem.class,code);
+	}
+
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 

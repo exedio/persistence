@@ -86,6 +86,20 @@ public final class HierarchyFirstSub extends HierarchySuper
 	}
 
 	/**
+	 * Finds a hierarchyFirstSub by its {@link #firstSubString}.
+	 * @param firstSubString shall be equal to field {@link #firstSubString}.
+	 * @throws java.lang.IllegalArgumentException if there is no matching item.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="forStrict")
+	@javax.annotation.Nonnull
+	public static final HierarchyFirstSub forFirstSubStringStrict(@javax.annotation.Nonnull final java.lang.String firstSubString)
+			throws
+				java.lang.IllegalArgumentException
+	{
+		return HierarchyFirstSub.firstSubString.searchUniqueStrict(HierarchyFirstSub.class,firstSubString);
+	}
+
+	/**
 	 * Returns the value of {@link #firstSubStringUpper}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")

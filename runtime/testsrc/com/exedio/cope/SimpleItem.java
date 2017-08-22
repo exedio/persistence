@@ -86,6 +86,20 @@ public final class SimpleItem extends Item
 	}
 
 	/**
+	 * Finds a simpleItem by its {@link #uniqueString}.
+	 * @param uniqueString shall be equal to field {@link #uniqueString}.
+	 * @throws java.lang.IllegalArgumentException if there is no matching item.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="forStrict")
+	@javax.annotation.Nonnull
+	static final SimpleItem forUniqueStringStrict(@javax.annotation.Nonnull final java.lang.String uniqueString)
+			throws
+				java.lang.IllegalArgumentException
+	{
+		return SimpleItem.uniqueString.searchUniqueStrict(SimpleItem.class,uniqueString);
+	}
+
+	/**
 	 * Returns the value of {@link #name}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")

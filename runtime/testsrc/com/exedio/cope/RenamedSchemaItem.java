@@ -126,6 +126,20 @@ package com.exedio.cope;
 	}
 
 	/**
+	 * Finds a renamedSchemaItem by its {@link #uniqueSingle}.
+	 * @param uniqueSingle shall be equal to field {@link #uniqueSingle}.
+	 * @throws java.lang.IllegalArgumentException if there is no matching item.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="forStrict")
+	@javax.annotation.Nonnull
+	static final RenamedSchemaItem forUniqueSingleStrict(@javax.annotation.Nonnull final java.lang.String uniqueSingle)
+			throws
+				java.lang.IllegalArgumentException
+	{
+		return RenamedSchemaItem.uniqueSingle.searchUniqueStrict(RenamedSchemaItem.class,uniqueSingle);
+	}
+
+	/**
 	 * Returns the value of {@link #uniqueDouble1}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")

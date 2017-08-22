@@ -93,6 +93,20 @@ public final class UniqueSingleItem extends Item
 	}
 
 	/**
+	 * Finds a uniqueSingleItem by its {@link #uniqueString}.
+	 * @param uniqueString shall be equal to field {@link #uniqueString}.
+	 * @throws java.lang.IllegalArgumentException if there is no matching item.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="forStrict")
+	@javax.annotation.Nonnull
+	public static final UniqueSingleItem forUniqueStringStrict(@javax.annotation.Nonnull final java.lang.String uniqueString)
+			throws
+				java.lang.IllegalArgumentException
+	{
+		return UniqueSingleItem.uniqueString.searchUniqueStrict(UniqueSingleItem.class,uniqueString);
+	}
+
+	/**
 	 * Returns the value of {@link #otherString}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")

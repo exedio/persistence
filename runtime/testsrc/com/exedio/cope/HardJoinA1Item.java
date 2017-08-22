@@ -96,6 +96,20 @@ class HardJoinA1Item extends Item
 	}
 
 	/**
+	 * Finds a hardJoinA1Item by its {@link #code}.
+	 * @param code shall be equal to field {@link #code}.
+	 * @throws java.lang.IllegalArgumentException if there is no matching item.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="forStrict")
+	@javax.annotation.Nonnull
+	static final HardJoinA1Item forCodeStrict(@javax.annotation.Nonnull final java.lang.String code)
+			throws
+				java.lang.IllegalArgumentException
+	{
+		return HardJoinA1Item.code.searchUniqueStrict(HardJoinA1Item.class,code);
+	}
+
+	/**
 	 * Returns the value of {@link #a1}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")

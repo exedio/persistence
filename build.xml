@@ -763,6 +763,7 @@
 			</ignore>
 			<generateDeprecated>com.exedio.cope.instrument.testfeature.WrapFeature#deprecation(com.exedio.cope.Item)</generateDeprecated>
 			<disableWrap>com.exedio.cope.instrument.testfeature.WrapFeature#disabledInBuildXml([[I)</disableWrap>
+			<disableWrap>com.exedio.cope.FunctionField#searchUniqueStrict(java.lang.Class,java.lang.Object)</disableWrap>
 		</instrument>
 	</target>
 

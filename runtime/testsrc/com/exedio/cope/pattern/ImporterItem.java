@@ -86,6 +86,20 @@ final class ImporterItem extends Item
 	}
 
 	/**
+	 * Finds a importerItem by its {@link #code}.
+	 * @param code shall be equal to field {@link #code}.
+	 * @throws java.lang.IllegalArgumentException if there is no matching item.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="forStrict")
+	@javax.annotation.Nonnull
+	static final ImporterItem forCodeStrict(@javax.annotation.Nonnull final java.lang.String code)
+			throws
+				java.lang.IllegalArgumentException
+	{
+		return ImporterItem.code.searchUniqueStrict(ImporterItem.class,code);
+	}
+
+	/**
 	 * Import {@link #byCode}.
 	 * @return the imported item
 	 */

@@ -240,6 +240,20 @@ public class ConstraintSetTest extends TestWithEnvironment
 		}
 
 		/**
+		 * Finds a anItem by its {@link #uniqueSingle}.
+		 * @param uniqueSingle shall be equal to field {@link #uniqueSingle}.
+		 * @throws java.lang.IllegalArgumentException if there is no matching item.
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="forStrict")
+		@javax.annotation.Nonnull
+		static final AnItem forUniqueSingleStrict(@javax.annotation.Nonnull final java.lang.Boolean uniqueSingle)
+				throws
+					java.lang.IllegalArgumentException
+		{
+			return AnItem.uniqueSingle.searchUniqueStrict(AnItem.class,uniqueSingle);
+		}
+
+		/**
 		 * Returns the value of {@link #uniqueA}.
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")

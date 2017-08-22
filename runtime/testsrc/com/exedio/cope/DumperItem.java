@@ -144,6 +144,20 @@ public class DumperItem extends Item
 	}
 
 	/**
+	 * Finds a dumperItem by its {@link #unique}.
+	 * @param unique shall be equal to field {@link #unique}.
+	 * @throws java.lang.IllegalArgumentException if there is no matching item.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="forStrict")
+	@javax.annotation.Nonnull
+	static final DumperItem forUniqueStrict(@javax.annotation.Nonnull final java.lang.String unique)
+			throws
+				java.lang.IllegalArgumentException
+	{
+		return DumperItem.unique.searchUniqueStrict(DumperItem.class,unique);
+	}
+
+	/**
 	 * Returns, whether there is no data for field {@link #data}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="isNull")

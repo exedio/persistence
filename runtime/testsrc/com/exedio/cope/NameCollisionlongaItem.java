@@ -109,6 +109,20 @@ final class NameCollisionlongaItem extends Item
 	}
 
 	/**
+	 * Finds a nameCollisionlongaItem by its {@link #code}.
+	 * @param code shall be equal to field {@link #code}.
+	 * @throws java.lang.IllegalArgumentException if there is no matching item.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="forStrict")
+	@javax.annotation.Nonnull
+	static final NameCollisionlongaItem forCodeStrict(@javax.annotation.Nonnull final java.lang.String code)
+			throws
+				java.lang.IllegalArgumentException
+	{
+		return NameCollisionlongaItem.code.searchUniqueStrict(NameCollisionlongaItem.class,code);
+	}
+
+	/**
 	 * Returns the value of {@link #collisionloooooooooooooooooooooooooooooooooooooooooooooooongaNumber}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")

@@ -436,6 +436,26 @@ public abstract class FunctionField<E> extends Field<E>
 		return getType().as(typeClass).searchSingleton(equal(value));
 	}
 
+	/**
+	 * Finds an item by its unique fields.
+	 * @throws NullPointerException if value is null.
+	 * @throws IllegalArgumentException if there is no matching item.
+	 */
+	@Wrap(order=110, name="for{0}Strict",
+			doc="Finds a {2} by its {0}.",
+			hide={NonUniqueGetter.class, PrimitiveGetter.class},
+			thrown=@Wrap.Thrown(value=IllegalArgumentException.class, doc="if there is no matching item."))
+	@Nonnull
+	public final <P extends Item> P searchUniqueStrict(
+			final Class<P> typeClass,
+			@Parameter(doc="shall be equal to field {0}.") @Nonnull final E value)
+		throws IllegalArgumentException
+	{
+		requireNonNull(value, () -> "cannot search uniquely for null on " + getID());
+		// TODO: search nativly for unique constraints
+		return getType().as(typeClass).searchSingletonStrict(equal(value));
+	}
+
 	boolean isPrimitive()
 	{
 		return isMandatory() && (PrimitiveUtil.toPrimitive(getValueClass())!=null);
