@@ -50,8 +50,23 @@ public final class VaultNotFoundException extends Exception
 		this.hash = requireNonNull(hash);
 	}
 
+	/**
+	 * @deprecated Use {@link #getHashComplete()} instead
+	 */
+	@Deprecated
 	@Nonnull
 	public String getHash()
+	{
+		return getHashComplete();
+	}
+
+	/**
+	 * Consider using {@link #getHashAnonymous()} instead to avoid leaking sensitive data.
+	 * Hashes may be one of the access control keys for the data hashed -
+	 * so putting hashes into log files etc. may be dangerous.
+	 */
+	@Nonnull
+	public String getHashComplete()
 	{
 		return hash;
 	}

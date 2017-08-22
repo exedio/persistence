@@ -111,7 +111,7 @@ public final class VaultProperties extends AbstractVaultProperties
 		}
 		catch(final VaultNotFoundException e)
 		{
-			if(!hash.equals(e.getHash()))
+			if(!hash.equals(e.getHashComplete()))
 				throw new RuntimeException(
 						info + ": VaultNotFoundException should have matching hash " +
 						anonymiseHash(hash) + " vs. " + e.getHashAnonymous());
@@ -125,7 +125,7 @@ public final class VaultProperties extends AbstractVaultProperties
 		}
 		catch(final VaultNotFoundException e)
 		{
-			if(!hash.equals(e.getHash()))
+			if(!hash.equals(e.getHashComplete()))
 				throw new RuntimeException(
 						info + ": VaultNotFoundException should have matching hash " +
 						anonymiseHash(hash) + " vs. " + e.getHashAnonymous());

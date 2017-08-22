@@ -179,7 +179,7 @@ public class VaultReferenceTest
 					"hash(SHA-512): " + HASH1A,
 					e.getMessage());
 			final VaultNotFoundException cause = (VaultNotFoundException)e.getCause();
-			assertEquals(HASH1, cause.getHash());
+			assertEquals(HASH1, cause.getHashComplete());
 			assertEquals(HASH1A, cause.getHashAnonymous());
 			assertEquals("hash not found in vault: " + HASH1A, cause.getMessage());
 		}
@@ -211,7 +211,7 @@ public class VaultReferenceTest
 					"hash(SHA-512): " + HASH1A,
 					e.getMessage());
 			final VaultNotFoundException cause = (VaultNotFoundException)e.getCause();
-			assertEquals(HASH1, cause.getHash());
+			assertEquals(HASH1, cause.getHashComplete());
 			assertEquals(HASH1A, cause.getHashAnonymous());
 			assertEquals("hash not found in vault: " + HASH1A, cause.getMessage());
 		}
@@ -243,7 +243,7 @@ public class VaultReferenceTest
 					"hash(SHA-512): " + HASH1A,
 					e.getMessage());
 			final VaultNotFoundException cause = (VaultNotFoundException)e.getCause();
-			assertEquals(HASH1, cause.getHash());
+			assertEquals(HASH1, cause.getHashComplete());
 			assertEquals(HASH1A, cause.getHashAnonymous());
 			assertEquals("hash not found in vault: " + HASH1A, cause.getMessage());
 		}

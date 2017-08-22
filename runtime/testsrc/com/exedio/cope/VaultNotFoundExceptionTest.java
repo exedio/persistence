@@ -33,7 +33,7 @@ public class VaultNotFoundExceptionTest
 	@Test public void notAnonymous()
 	{
 		final VaultNotFoundException e = new VaultNotFoundException("0123456789abcdef");
-		assertEquals("0123456789abcdef", e.getHash());
+		assertEquals("0123456789abcdef", e.getHashComplete());
 		assertEquals("0123456789abcdef", e.getHashAnonymous());
 		assertEquals("hash not found in vault: 0123456789abcdef", e.getMessage());
 	}
@@ -41,7 +41,7 @@ public class VaultNotFoundExceptionTest
 	@Test public void anonymous()
 	{
 		final VaultNotFoundException e = new VaultNotFoundException("0123456789abcdef0");
-		assertEquals("0123456789abcdef0", e.getHash());
+		assertEquals("0123456789abcdef0", e.getHashComplete());
 		assertEquals("0123456789abcdefxx17", e.getHashAnonymous());
 		assertEquals("hash not found in vault: 0123456789abcdefxx17", e.getMessage());
 	}
@@ -89,7 +89,7 @@ public class VaultNotFoundExceptionTest
 	@Test public void constructor2CauseNull()
 	{
 		final VaultNotFoundException e = new VaultNotFoundException("myHash", null);
-		assertEquals("myHash", e.getHash());
+		assertEquals("myHash", e.getHashComplete());
 	}
 
 	@SuppressWarnings("ThrowableNotThrown")

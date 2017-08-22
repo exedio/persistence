@@ -111,7 +111,7 @@ public abstract class VaultServiceTest
 		}
 		catch(final VaultNotFoundException e)
 		{
-			assertEquals(hash, e.getHash());
+			assertEquals(hash, e.getHashComplete());
 		}
 	}
 
@@ -125,7 +125,7 @@ public abstract class VaultServiceTest
 		}
 		catch(final VaultNotFoundException e)
 		{
-			assertEquals(hash, e.getHash());
+			assertEquals(hash, e.getHashComplete());
 		}
 	}
 
@@ -140,7 +140,7 @@ public abstract class VaultServiceTest
 		}
 		catch(final VaultNotFoundException e)
 		{
-			assertEquals(hash, e.getHash());
+			assertEquals(hash, e.getHashComplete());
 		}
 	}
 
@@ -213,7 +213,7 @@ public abstract class VaultServiceTest
 		}
 		catch(final VaultNotFoundException e)
 		{
-			assertEquals(hash2, e.getHash());
+			assertEquals(hash2, e.getHashComplete());
 		}
 
 		assertFalse(service.put(hash, unhex("abcdef01234567")));
@@ -226,7 +226,7 @@ public abstract class VaultServiceTest
 		}
 		catch(final VaultNotFoundException e)
 		{
-			assertEquals(hash2, e.getHash());
+			assertEquals(hash2, e.getHashComplete());
 		}
 
 		assertTrue(service.put(hash2, unhex("0102abcdef01234567")));
