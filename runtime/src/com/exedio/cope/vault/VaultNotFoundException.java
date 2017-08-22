@@ -56,9 +56,27 @@ public final class VaultNotFoundException extends Exception
 		return hash;
 	}
 
+	@Nonnull
+	public String getHashAnonymous()
+	{
+		return anonymiseHash(hash);
+	}
+
 	@Override
 	public String getMessage()
 	{
-		return "hash not found in vault: " + hash;
+		return "hash not found in vault: " + getHashAnonymous();
+	}
+
+	public static String anonymiseHash(final String hash)
+	{
+		if(hash==null)
+			return null;
+
+		final int length = hash.length();
+		return
+				length>16
+				? (hash.substring(0, 16) + "xx" + length)
+				: hash;
 	}
 }

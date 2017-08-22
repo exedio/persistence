@@ -18,6 +18,7 @@
 
 package com.exedio.cope.vault;
 
+import static com.exedio.cope.vault.VaultNotFoundException.anonymiseHash;
 import static java.lang.Math.toIntExact;
 
 import com.exedio.cope.util.Properties;
@@ -88,14 +89,14 @@ public final class VaultFileService implements VaultService
 					break;
 
 				if(offset>result.length)
-					throw new RuntimeException("overflow " + offset + '/' + result.length + '/' + rootDir.getAbsolutePath() + '/' + hash);
+					throw new RuntimeException("overflow " + offset + '/' + result.length + '/' + rootDir.getAbsolutePath() + '/' + anonymiseHash(hash));
 			}
 			if(offset!=result.length)
-				throw new RuntimeException("mismatch " + offset + '/' + result.length + '/' + rootDir.getAbsolutePath() + '/' + hash);
+				throw new RuntimeException("mismatch " + offset + '/' + result.length + '/' + rootDir.getAbsolutePath() + '/' + anonymiseHash(hash));
 		}
 		catch(final IOException e)
 		{
-			throw new RuntimeException(rootDir.getAbsolutePath() + ':' + hash, e);
+			throw new RuntimeException(rootDir.getAbsolutePath() + ':' + anonymiseHash(hash), e);
 		}
 		return result;
 	}
@@ -127,7 +128,7 @@ public final class VaultFileService implements VaultService
 		}
 		catch(final IOException e)
 		{
-			throw new RuntimeException(rootDir.getAbsolutePath() + ':' + hash, e);
+			throw new RuntimeException(rootDir.getAbsolutePath() + ':' + anonymiseHash(hash), e);
 		}
 	}
 
@@ -207,7 +208,7 @@ public final class VaultFileService implements VaultService
 
 	private File createTempFile(final String hash) throws IOException
 	{
-		return File.createTempFile(hash, ".tmp", tempDir);
+		return File.createTempFile(anonymiseHash(hash), ".tmp", tempDir);
 	}
 
 	@Override

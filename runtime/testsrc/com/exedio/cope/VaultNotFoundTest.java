@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.VaultTest.HASH1;
+import static com.exedio.cope.VaultTest.HASH1A;
 import static com.exedio.cope.VaultTest.MODEL;
 import static com.exedio.cope.VaultTest.VALUE1;
 import static com.exedio.cope.tojunit.TestSources.single;
@@ -67,11 +68,12 @@ public class VaultNotFoundTest
 			assertEquals(
 					"vault data missing on " + item + " for VaultItem.field, " +
 					"service: VaultMockService:mainExampleValue, " +
-					"hash(SHA-512): " + HASH1,
+					"hash(SHA-512): " + HASH1A,
 					e.getMessage());
 			final VaultNotFoundException cause = (VaultNotFoundException)e.getCause();
 			assertEquals(HASH1, cause.getHash());
-			assertEquals("hash not found in vault: " + HASH1, cause.getMessage());
+			assertEquals(HASH1A, cause.getHashAnonymous());
+			assertEquals("hash not found in vault: " + HASH1A, cause.getMessage());
 		}
 		service.assertIt("getLength\n");
 	}
@@ -95,11 +97,12 @@ public class VaultNotFoundTest
 			assertEquals(
 					"vault data missing on " + item + " for VaultItem.field, " +
 					"service: VaultMockService:mainExampleValue, " +
-					"hash(SHA-512): " + HASH1,
+					"hash(SHA-512): " + HASH1A,
 					e.getMessage());
 			final VaultNotFoundException cause = (VaultNotFoundException)e.getCause();
 			assertEquals(HASH1, cause.getHash());
-			assertEquals("hash not found in vault: " + HASH1, cause.getMessage());
+			assertEquals(HASH1A, cause.getHashAnonymous());
+			assertEquals("hash not found in vault: " + HASH1A, cause.getMessage());
 		}
 		service.assertIt("getBytes\n");
 	}
@@ -123,11 +126,12 @@ public class VaultNotFoundTest
 			assertEquals(
 					"vault data missing on " + item + " for VaultItem.field, " +
 					"service: VaultMockService:mainExampleValue, " +
-					"hash(SHA-512): " + HASH1,
+					"hash(SHA-512): " + HASH1A,
 					e.getMessage());
 			final VaultNotFoundException cause = (VaultNotFoundException)e.getCause();
 			assertEquals(HASH1, cause.getHash());
-			assertEquals("hash not found in vault: " + HASH1, cause.getMessage());
+			assertEquals(HASH1A, cause.getHashAnonymous());
+			assertEquals("hash not found in vault: " + HASH1A, cause.getMessage());
 		}
 		service.assertIt("getStream\n");
 	}

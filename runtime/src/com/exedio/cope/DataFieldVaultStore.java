@@ -164,7 +164,7 @@ final class DataFieldVaultStore extends DataFieldStore
 		return new IllegalStateException(
 				"vault data missing on " + item.getCopeID() + " for " + field + ", " +
 				"service: " + service + ", " +
-				"hash(" + algorithm + "): " + e.getHash(),
+				"hash(" + algorithm + "): " + e.getHashAnonymous(),
 				e);
 	}
 

@@ -37,6 +37,7 @@ public class VaultTest
 {
 	static final Model MODEL = new Model(VaultItem.TYPE);
 	static final String HASH1 = "c665cb3dd08b32c85e6d50149ea3c46ac9f56878f4965f85c1e40d535d980842d591a25d5ad232eedfed6f1d32b2ae950efe2957cdd93ea2b9c5fe794b113608";
+	static final String HASH1A= "c665cb3dd08b32c8xx128";
 	static final String HASH2 = "52b8c77bebdef6f008784916e726b1da073cf5fc826f5f442d2cf7e868b1b0c9197dc2146b80faaf292f0898abb3f41687c270d68537cd6b2584651269869fde";
 	static final String VALUE1 = "aabbcc";
 	static final String VALUE2 = "ccddee";

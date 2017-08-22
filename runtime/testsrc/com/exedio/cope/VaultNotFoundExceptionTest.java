@@ -18,7 +18,9 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.vault.VaultNotFoundException.anonymiseHash;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 import static org.junit.Assert.fail;
 
 import com.exedio.cope.vault.VaultNotFoundException;
@@ -32,6 +34,7 @@ public class VaultNotFoundExceptionTest
 	{
 		final VaultNotFoundException e = new VaultNotFoundException("0123456789abcdef");
 		assertEquals("0123456789abcdef", e.getHash());
+		assertEquals("0123456789abcdef", e.getHashAnonymous());
 		assertEquals("hash not found in vault: 0123456789abcdef", e.getMessage());
 	}
 
@@ -39,7 +42,17 @@ public class VaultNotFoundExceptionTest
 	{
 		final VaultNotFoundException e = new VaultNotFoundException("0123456789abcdef0");
 		assertEquals("0123456789abcdef0", e.getHash());
-		assertEquals("hash not found in vault: 0123456789abcdef0", e.getMessage());
+		assertEquals("0123456789abcdefxx17", e.getHashAnonymous());
+		assertEquals("hash not found in vault: 0123456789abcdefxx17", e.getMessage());
+	}
+
+	@SuppressFBWarnings("ES_COMPARING_STRINGS_WITH_EQ")
+	@Test public void testAnonymiseHash()
+	{
+		assertEquals("0123456789abcdefxx17", anonymiseHash("0123456789abcdef0"));
+		assertSame("0123456789abcdef", anonymiseHash("0123456789abcdef"));
+		assertSame("", anonymiseHash(""));
+		assertSame(null, anonymiseHash(null));
 	}
 
 	@SuppressWarnings("ThrowableNotThrown")

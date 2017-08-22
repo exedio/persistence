@@ -19,6 +19,7 @@
 package com.exedio.cope.vault;
 
 import static com.exedio.cope.util.StrictFile.delete;
+import static com.exedio.cope.vault.VaultNotFoundException.anonymiseHash;
 
 import com.exedio.cope.util.ServiceProperties;
 import java.io.File;
@@ -124,7 +125,7 @@ public final class VaultReferenceService implements VaultService
 	private File createTempFileFromReference(final String hash)
 			throws VaultNotFoundException, IOException
 	{
-		final File result = File.createTempFile("VaultReferenceService-" + hash, ".dat");
+		final File result = File.createTempFile("VaultReferenceService-" + anonymiseHash(hash), ".dat");
 
 		try(FileOutputStream s = new FileOutputStream(result))
 		{

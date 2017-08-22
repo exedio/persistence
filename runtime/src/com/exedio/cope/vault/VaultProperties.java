@@ -18,6 +18,8 @@
 
 package com.exedio.cope.vault;
 
+import static com.exedio.cope.vault.VaultNotFoundException.anonymiseHash;
+
 import com.exedio.cope.util.Hex;
 import com.exedio.cope.util.MessageDigestFactory;
 import java.net.InetAddress;
@@ -112,7 +114,7 @@ public final class VaultProperties extends AbstractVaultProperties
 			if(!hash.equals(e.getHash()))
 				throw new RuntimeException(
 						info + ": VaultNotFoundException should have matching hash " +
-						hash + " vs. " + e.getHash());
+						anonymiseHash(hash) + " vs. " + e.getHashAnonymous());
 		}
 		try
 		{
@@ -126,7 +128,7 @@ public final class VaultProperties extends AbstractVaultProperties
 			if(!hash.equals(e.getHash()))
 				throw new RuntimeException(
 						info + ": VaultNotFoundException should have matching hash " +
-						hash + " vs. " + e.getHash());
+						anonymiseHash(hash) + " vs. " + e.getHashAnonymous());
 		}
 
 		probeGetAndPut(service, hash, value, true,  info);
