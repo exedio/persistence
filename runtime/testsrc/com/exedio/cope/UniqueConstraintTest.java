@@ -70,10 +70,25 @@ public class UniqueConstraintTest extends TestWithEnvironment
 		{
 			assertEquals("expected result of size one, but was empty for query: select this from UniqueConstraintItem where (a='b' AND b='1')", e.getMessage());
 		}
-		// TODO: use wrapper *Strict:
-		assertEquals(item, UniqueConstraintItem.forAAndB("a", 1));
-		assertEquals(null, UniqueConstraintItem.forAAndB("a", 2));
-		assertEquals(null, UniqueConstraintItem.forAAndB("b", 1));
+		assertEquals(item, UniqueConstraintItem.forAAndBStrict("a", 1));
+		try
+		{
+			UniqueConstraintItem.forAAndBStrict("a", 2);
+			fail();
+		}
+		catch (final IllegalArgumentException e)
+		{
+			assertEquals("expected result of size one, but was empty for query: select this from UniqueConstraintItem where (a='a' AND b='2')", e.getMessage());
+		}
+		try
+		{
+			UniqueConstraintItem.forAAndBStrict("b", 1);
+			fail();
+		}
+		catch (final IllegalArgumentException e)
+		{
+			assertEquals("expected result of size one, but was empty for query: select this from UniqueConstraintItem where (a='b' AND b='1')", e.getMessage());
+		}
 	}
 
 	@Test
@@ -146,6 +161,15 @@ public class UniqueConstraintTest extends TestWithEnvironment
 		static final UniqueConstraintItem forAAndB(@javax.annotation.Nonnull final java.lang.String a,final int b)
 		{
 			return UniqueConstraintItem.aAndB.search(UniqueConstraintItem.class,a,b);
+		}
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@javax.annotation.Nonnull
+		static final UniqueConstraintItem forAAndBStrict(@javax.annotation.Nonnull final java.lang.String a,final int b)
+				throws
+					java.lang.IllegalArgumentException
+		{
+			return UniqueConstraintItem.aAndB.searchStrict(UniqueConstraintItem.class,a,b);
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")

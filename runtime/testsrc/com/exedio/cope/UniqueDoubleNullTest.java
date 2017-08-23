@@ -155,6 +155,15 @@ public class UniqueDoubleNullTest extends TestWithEnvironment
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@javax.annotation.Nonnull
+		static final MyItem forConstraintStrict(@javax.annotation.Nonnull final java.lang.String string,@javax.annotation.Nonnull final java.lang.Integer integer)
+				throws
+					java.lang.IllegalArgumentException
+		{
+			return MyItem.constraint.searchStrict(MyItem.class,string,integer);
+		}
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
 		private static final long serialVersionUID = 1l;
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")

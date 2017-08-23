@@ -308,6 +308,21 @@ public class ConstraintSetTest extends TestWithEnvironment
 			return AnItem.uniqueDouble.search(AnItem.class,uniqueA,uniqueB);
 		}
 
+		/**
+		 * Finds a anItem by its unique fields.
+		 * @param uniqueA shall be equal to field {@link #uniqueA}.
+		 * @param uniqueB shall be equal to field {@link #uniqueB}.
+		 * @throws java.lang.IllegalArgumentException if there is no matching item.
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="finderStrict")
+		@javax.annotation.Nonnull
+		static final AnItem forUniqueDoubleStrict(@javax.annotation.Nonnull final java.lang.Boolean uniqueA,@javax.annotation.Nonnull final java.lang.Boolean uniqueB)
+				throws
+					java.lang.IllegalArgumentException
+		{
+			return AnItem.uniqueDouble.searchStrict(AnItem.class,uniqueA,uniqueB);
+		}
+
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		private static final long serialVersionUID = 1l;
 

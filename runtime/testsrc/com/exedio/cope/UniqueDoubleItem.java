@@ -118,6 +118,21 @@ final class UniqueDoubleItem extends Item
 		return UniqueDoubleItem.constraint.search(UniqueDoubleItem.class,string,integer);
 	}
 
+	/**
+	 * Finds a uniqueDoubleItem by its unique fields.
+	 * @param string shall be equal to field {@link #string}.
+	 * @param integer shall be equal to field {@link #integer}.
+	 * @throws java.lang.IllegalArgumentException if there is no matching item.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="finderStrict")
+	@javax.annotation.Nonnull
+	static final UniqueDoubleItem forConstraintStrict(@javax.annotation.Nonnull final java.lang.String string,final int integer)
+			throws
+				java.lang.IllegalArgumentException
+	{
+		return UniqueDoubleItem.constraint.searchStrict(UniqueDoubleItem.class,string,integer);
+	}
+
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 

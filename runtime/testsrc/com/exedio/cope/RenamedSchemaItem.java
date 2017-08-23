@@ -196,6 +196,21 @@ package com.exedio.cope;
 	}
 
 	/**
+	 * Finds a renamedSchemaItem by its unique fields.
+	 * @param uniqueDouble1 shall be equal to field {@link #uniqueDouble1}.
+	 * @param uniqueDouble2 shall be equal to field {@link #uniqueDouble2}.
+	 * @throws java.lang.IllegalArgumentException if there is no matching item.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="finderStrict")
+	@javax.annotation.Nonnull
+	static final RenamedSchemaItem forUniqueDoubleStrict(@javax.annotation.Nonnull final java.lang.String uniqueDouble1,final int uniqueDouble2)
+			throws
+				java.lang.IllegalArgumentException
+	{
+		return RenamedSchemaItem.uniqueDouble.searchStrict(RenamedSchemaItem.class,uniqueDouble1,uniqueDouble2);
+	}
+
+	/**
 	 * Returns the value of {@link #string}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")

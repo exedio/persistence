@@ -29,6 +29,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 @WrapFeature
@@ -246,6 +247,23 @@ public final class UniqueConstraint extends Feature implements Copyable
 			@Parameter(doc="shall be equal to field {0}.", nullability=FixedNonnull.class) final Object... values)
 	{
 		return Cast.verboseCast(typeClass, search(values));
+	}
+
+	/**
+	 * Finds an item by its unique fields.
+	 * @throws IllegalArgumentException if there is no matching item.
+	 */
+	@Wrap(order=20, name="for{0}Strict", optionTagname="finderStrict",
+			varargsFeatures=SearchVarargs.class,
+			doc="Finds a {2} by its unique fields.",
+			thrown=@Wrap.Thrown(value=IllegalArgumentException.class, doc="if there is no matching item."))
+	@Nonnull
+	public <P extends Item> P searchStrict(
+			final Class<P> typeClass,
+			@Parameter(doc="shall be equal to field {0}.", nullability=FixedNonnull.class) final Object... values)
+		throws IllegalArgumentException
+	{
+		return Cast.verboseCast(typeClass, searchStrict(values));
 	}
 
 	void check(final FieldValues fieldValues)

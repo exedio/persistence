@@ -100,10 +100,28 @@ public class UniqueDuplicateTest
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@javax.annotation.Nonnull
+		static final MyItem forConstraintAStrict(@javax.annotation.Nonnull final java.lang.String one,@javax.annotation.Nonnull final java.lang.String two)
+				throws
+					java.lang.IllegalArgumentException
+		{
+			return MyItem.constraintA.searchStrict(MyItem.class,one,two);
+		}
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
 		@javax.annotation.Nullable
 		static final MyItem forConstraintB(@javax.annotation.Nonnull final java.lang.String one,@javax.annotation.Nonnull final java.lang.String two)
 		{
 			return MyItem.constraintB.search(MyItem.class,one,two);
+		}
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@javax.annotation.Nonnull
+		static final MyItem forConstraintBStrict(@javax.annotation.Nonnull final java.lang.String one,@javax.annotation.Nonnull final java.lang.String two)
+				throws
+					java.lang.IllegalArgumentException
+		{
+			return MyItem.constraintB.searchStrict(MyItem.class,one,two);
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")

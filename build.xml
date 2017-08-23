@@ -548,6 +548,7 @@
 				<pathelement location="lib/javax.servlet-api.jar" /><!-- required to instrument Media features-->
 			</classpath>
 			<resources refid="instrument.resources" />
+			<disableWrap>com.exedio.cope.UniqueConstraint#searchStrict(java.lang.Class,[Ljava.lang.Object;)</disableWrap>
 		</instrument>
 	</target>
 
@@ -763,6 +764,7 @@
 			</ignore>
 			<generateDeprecated>com.exedio.cope.instrument.testfeature.WrapFeature#deprecation(com.exedio.cope.Item)</generateDeprecated>
 			<disableWrap>com.exedio.cope.instrument.testfeature.WrapFeature#disabledInBuildXml([[I)</disableWrap>
+			<disableWrap>com.exedio.cope.UniqueConstraint#searchStrict(java.lang.Class,[Ljava.lang.Object;)</disableWrap>
 		</instrument>
 	</target>
 

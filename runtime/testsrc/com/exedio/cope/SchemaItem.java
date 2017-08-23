@@ -602,6 +602,21 @@ final class SchemaItem extends Item
 	}
 
 	/**
+	 * Finds a schemaItem by its unique fields.
+	 * @param string shall be equal to field {@link #string}.
+	 * @param anEnum shall be equal to field {@link #anEnum}.
+	 * @throws java.lang.IllegalArgumentException if there is no matching item.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="finderStrict")
+	@javax.annotation.Nonnull
+	static final SchemaItem forDoubleUniqueStrict(@javax.annotation.Nonnull final java.lang.String string,@javax.annotation.Nonnull final SomeEnum anEnum)
+			throws
+				java.lang.IllegalArgumentException
+	{
+		return SchemaItem.doubleUnique.searchStrict(SchemaItem.class,string,anEnum);
+	}
+
+	/**
 	 * Returns the value of {@link #stringMin4}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
