@@ -201,22 +201,35 @@ public final class UniqueConstraint extends Feature implements Copyable
 	 */
 	public Item search(final Object... values)
 	{
+		final Condition condition = buildCondition(values);
+		return getType().searchSingleton(condition);
+	}
+
+	/**
+	 * Finds an item by its unique fields.
+	 * @throws IllegalArgumentException if there is no matching item.
+	 */
+	public Item searchStrict(final Object... values) throws IllegalArgumentException
+	{
+		final Condition condition = buildCondition(values);
+		return getType().searchSingletonStrict(condition);
+	}
+
+	private Condition buildCondition(final Object[] values) throws RuntimeException
+	{
 		// TODO: search natively for unique constraints
 		final List<FunctionField<?>> fields = getFields();
 		if(fields.size()!=values.length)
 			throw new RuntimeException(String.valueOf(fields.size())+'-'+values.length);
-
 		for(int i = 0; i<values.length; i++)
 			if(values[i]==null)
 				throw new NullPointerException("cannot search uniquely for null on " + getID() + " for " + fields.get(i).getID());
-
 		final Iterator<FunctionField<?>> fieldIter = fields.iterator();
 		final Condition[] conditions = new Condition[fields.size()];
 		//noinspection ForLoopThatDoesntUseLoopVariable
 		for(int j = 0; fieldIter.hasNext(); j++)
 			conditions[j] = Cope.equalAndCast(fieldIter.next(), values[j]);
-
-		return getType().searchSingleton(Cope.and(conditions));
+		return Cope.and(conditions);
 	}
 
 	/**
