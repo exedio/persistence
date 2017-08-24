@@ -21,8 +21,8 @@ package com.exedio.cope.instrument;
 
 import static java.lang.System.lineSeparator;
 import static java.util.Arrays.asList;
+import static java.util.Collections.singletonList;
 
-import bsh.UtilEvalError;
 import com.exedio.cope.util.Clock;
 import com.exedio.cope.util.StrictFile;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -69,7 +69,8 @@ final class Main
 			InstrumentContext.enter();
 
 			final Charset charset = params.charset;
-			final JavaRepository repository = new JavaRepository( createClassLoader(params.classpath) );
+			final ClassLoader classLoader = createClassLoader(params.classpath);
+			final JavaRepository repository = new JavaRepository(classLoader);
 
 			this.verbose = params.verbose;
 			instrumented = 0;
@@ -95,8 +96,8 @@ final class Main
 				}
 			}
 
-			final Set<Method> generateDeprecateds = findMethods(repository.externalNameSpace, params.getGenerateDeprecateds(), "<generateDeprecated>", asList(Deprecated.class, Wrap.class));
-			final Set<Method> disabledWraps = findMethods(repository.externalNameSpace, params.getDisabledWraps(), "<disableWrap>", asList(Wrap.class));
+			final Set<Method> generateDeprecateds = findMethods(classLoader, params.getGenerateDeprecateds(), "<generateDeprecated>", asList(Deprecated.class, Wrap.class));
+			final Set<Method> disabledWraps = findMethods(classLoader, params.getDisabledWraps(), "<disableWrap>", singletonList(Wrap.class));
 			for(final JavaFile javaFile: repository.getFiles())
 			{
 				final StringBuilder buffer = new StringBuilder(INITIAL_BUFFER_SIZE);
@@ -262,7 +263,7 @@ final class Main
 		instrumented++;
 	}
 
-	Set<Method> findMethods(final CopeNameSpace nameSpace, final List<Params.Method> methodConfigurations, final String tagForErrors, final List<Class<? extends Annotation>> requiredAnnotations) throws HumanReadableException
+	Set<Method> findMethods(final ClassLoader classLoader, final List<Params.Method> methodConfigurations, final String tagForErrors, final List<Class<? extends Annotation>> requiredAnnotations) throws HumanReadableException
 	{
 		final Set<Method> result = new HashSet<>();
 		for (final Params.Method methodConfiguration: methodConfigurations)
@@ -273,15 +274,26 @@ final class Main
 				for (int i=0; i<methodParams.length; i++)
 				{
 					final String parameterType = methodConfiguration.parameterTypes[i];
-					methodParams[i] = ClassHelper.isPrimitive(parameterType) ?
-						ClassHelper.getClass(parameterType) :
-						nameSpace.getClass(parameterType);
-					if (methodParams[i]==null)
+					try
+					{
+						methodParams[i] = ClassHelper.isPrimitive(parameterType) ?
+							ClassHelper.getClass(parameterType) :
+							Class.forName(parameterType, false, classLoader);
+					}
+					catch (final ClassNotFoundException ignored)
+					{
 						throw new HumanReadableException("can't resolve parameter type '"+parameterType+"' for "+tagForErrors+": "+methodConfiguration);
+					}
 				}
-				final Class<?> clazz = nameSpace.getClass(methodConfiguration.className);
-				if (clazz==null)
+				final Class<?> clazz;
+				try
+				{
+					clazz = Class.forName(methodConfiguration.className, false, classLoader);
+				}
+				catch (final ClassNotFoundException ignored)
+				{
 					throw new HumanReadableException("class not found for "+tagForErrors+": "+methodConfiguration.className);
+				}
 				final Method method = clazz.getMethod(methodConfiguration.methodName, methodParams);
 				for (final Class<? extends Annotation> requiredAnnotation : requiredAnnotations)
 				{
@@ -293,10 +305,6 @@ final class Main
 			catch (final NoSuchMethodException ignored)
 			{
 				throw new HumanReadableException("method not found for "+tagForErrors+": "+methodConfiguration);
-			}
-			catch (final UtilEvalError e)
-			{
-				throw new RuntimeException(e);
 			}
 		}
 		return result;

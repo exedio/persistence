@@ -39,13 +39,25 @@ public class MainTest
 		assertExceptionMessage("java.lang.String#hashCode()", "method listed in <testtag> is not annotated as @Deprecated: java.lang.String#hashCode()");
 		assertExceptionMessage("java.lang.Thread#stop()", "method listed in <testtag> is not annotated as @Wrap: java.lang.Thread#stop()");
 		assertFindMethods(WrapFeature.class.getName()+"#deprecation("+Item.class.getName()+")", WrapFeature.class.getMethod("deprecation", Item.class));
+		assertFindMethods(
+			WrapFeature.class.getName()+"#varargsMethod("+Item.class.getName()+",java.lang.String,[Ljava.lang.Integer;)",
+			WrapFeature.class.getMethod("varargsMethod", Item.class, String.class, Integer[].class)
+		);
+		assertFindMethods(
+			WrapFeature.class.getName()+"#arrayMethod("+Item.class.getName()+",[Ljava.lang.Integer;)",
+			WrapFeature.class.getMethod("arrayMethod", Item.class, Integer[].class)
+		);
+		assertFindMethods(
+			WrapFeature.class.getName()+"#disabledInBuildXml([[I)",
+			WrapFeature.class.getMethod("disabledInBuildXml", int[][].class)
+		);
 	}
 
 	private static void assertExceptionMessage(final String methodLine, final String expectedExceptionMessage)
 	{
 		try
 		{
-			new Main().findMethods(new CopeNameSpace(null, "test"), asList(new Params.Method(methodLine)), "<testtag>", asList(Deprecated.class, Wrap.class));
+			new Main().findMethods(MainTest.class.getClassLoader(), asList(new Params.Method(methodLine)), "<testtag>", asList(Deprecated.class, Wrap.class));
 			fail();
 		}
 		catch (final HumanReadableException e)
@@ -54,19 +66,11 @@ public class MainTest
 		}
 	}
 
-	private static void assertFindMethods(final String methodLine, final Method expectedMethod)
+	private static void assertFindMethods(final String methodLine, final Method expectedMethod) throws HumanReadableException
 	{
-		try
-		{
-			assertEquals(singleton(expectedMethod),
-				new Main().findMethods(new CopeNameSpace(null, "test"), asList(new Params.Method(methodLine)), "<testtag>", asList(Deprecated.class, Wrap.class))
-			);
-		}
-		catch (final HumanReadableException e)
-		{
-			throw new RuntimeException(e);
-		}
+		assertEquals(
+			singleton(expectedMethod),
+			new Main().findMethods(MainTest.class.getClassLoader(), asList(new Params.Method(methodLine)), "<testtag>", asList(Wrap.class))
+		);
 	}
-
-
 }
