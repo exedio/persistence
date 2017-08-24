@@ -7,6 +7,11 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* The instrumentor can be configured to ignore specific feature wraps.
+	Example:
+	<instrument ...>
+		<disableWrap>com.exedio.cope.UniqueConstraint#search(java.lang.Class,[Ljava.lang.Object;)</disableWrap>
+	</instrument>
 * ConnectToken#setProperties(Model,Supplier) added.
 * ConnectToken#removePropertiesVoid added.
 * VaultNotFoundException#anonymiseHash and #getHashAnonymous added.
