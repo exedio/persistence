@@ -94,7 +94,7 @@ final class Main
 				}
 			}
 
-			final Set<Method> generateDeprecateds = findGenerateDeprecateds(repository.externalNameSpace, params.getGenerateDeprecateds());
+			final Set<Method> generateDeprecateds = findMethods(repository.externalNameSpace, params.getGenerateDeprecateds(), "<generateDeprecated>");
 			for(final JavaFile javaFile: repository.getFiles())
 			{
 				final StringBuilder buffer = new StringBuilder(INITIAL_BUFFER_SIZE);
@@ -260,36 +260,36 @@ final class Main
 		instrumented++;
 	}
 
-	Set<Method> findGenerateDeprecateds(final CopeNameSpace nameSpace, final List<Params.Method> generateDeprecateds) throws HumanReadableException
+	Set<Method> findMethods(final CopeNameSpace nameSpace, final List<Params.Method> methodConfigurations, final String tagForErrors) throws HumanReadableException
 	{
 		final Set<Method> result = new HashSet<>();
-		for (final Params.Method generateDeprecated: generateDeprecateds)
+		for (final Params.Method methodConfiguration: methodConfigurations)
 		{
 			try
 			{
-				final Class<?>[] methodParams = new Class<?>[generateDeprecated.parameterTypes.length];
+				final Class<?>[] methodParams = new Class<?>[methodConfiguration.parameterTypes.length];
 				for (int i=0; i<methodParams.length; i++)
 				{
-					final String parameterType = generateDeprecated.parameterTypes[i];
+					final String parameterType = methodConfiguration.parameterTypes[i];
 					methodParams[i] = ClassHelper.isPrimitive(parameterType) ?
 						ClassHelper.getClass(parameterType) :
 						nameSpace.getClass(parameterType);
 					if (methodParams[i]==null)
-						throw new HumanReadableException("can't resolve parameter type '"+parameterType+"' for <generateDeprecated>: "+generateDeprecated);
+						throw new HumanReadableException("can't resolve parameter type '"+parameterType+"' for "+tagForErrors+": "+methodConfiguration);
 				}
-				final Class<?> clazz = nameSpace.getClass(generateDeprecated.className);
+				final Class<?> clazz = nameSpace.getClass(methodConfiguration.className);
 				if (clazz==null)
-					throw new HumanReadableException("class not found for <generateDeprecated>: "+generateDeprecated.className);
-				final Method method = clazz.getMethod(generateDeprecated.methodName, methodParams);
+					throw new HumanReadableException("class not found for "+tagForErrors+": "+methodConfiguration.className);
+				final Method method = clazz.getMethod(methodConfiguration.methodName, methodParams);
 				if (method.getAnnotation(Deprecated.class)==null)
-					throw new HumanReadableException("method listed in <generateDeprecated> is not deprecated: "+generateDeprecated);
+					throw new HumanReadableException("method listed in "+tagForErrors+" is not deprecated: "+methodConfiguration);
 				if (method.getAnnotation(Wrap.class)==null)
-					throw new HumanReadableException("method listed in <generateDeprecated> is not wrapped: "+generateDeprecated);
+					throw new HumanReadableException("method listed in "+tagForErrors+" is not wrapped: "+methodConfiguration);
 				result.add(method);
 			}
 			catch (final NoSuchMethodException ignored)
 			{
-				throw new HumanReadableException("method not found for <generateDeprecated>: "+generateDeprecated);
+				throw new HumanReadableException("method not found for "+tagForErrors+": "+methodConfiguration);
 			}
 			catch (final UtilEvalError e)
 			{
