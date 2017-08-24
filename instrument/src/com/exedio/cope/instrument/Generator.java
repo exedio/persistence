@@ -97,8 +97,9 @@ final class Generator
 	private final HintFormat hintFormat;
 	private int typeIndent = Integer.MIN_VALUE;
 	private final Set<Method> generateDeprecateds;
+	private final Set<Method> disabledWraps;
 
-	Generator(final JavaFile javaFile, final StringBuilder output, final Params params, final Set<Method> generateDeprecateds)
+	Generator(final JavaFile javaFile, final StringBuilder output, final Params params, final Set<Method> generateDeprecateds, final Set<Method> disabledWraps)
 	{
 		this.javaFile = javaFile;
 		this.output = output;
@@ -119,6 +120,7 @@ final class Generator
 		this.hintFormat = params.hintFormat;
 		//noinspection AssignmentToCollectionOrArrayFieldFromParameter
 		this.generateDeprecateds = generateDeprecateds;
+		this.disabledWraps = disabledWraps;
 	}
 
 	private static String toCamelCase(final String name)
@@ -405,6 +407,8 @@ final class Generator
 		for(final WrapperX wrapper : getWrappers(instance))
 		{
 			if (wrapper.isMethodDeprecated() && !generateDeprecateds.contains(wrapper.getMethod()))
+				continue;
+			if (disabledWraps.contains(wrapper.getMethod()))
 				continue;
 			final String pattern = wrapper.getMethodWrapperPattern();
 			final String modifierTag = wrapper.getOptionTagName()!=null ? wrapper.getOptionTagName() : pattern!=null ? format(pattern, "", "") : wrapper.getName();

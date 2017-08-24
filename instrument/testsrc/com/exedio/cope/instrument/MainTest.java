@@ -36,8 +36,8 @@ public class MainTest
 		assertExceptionMessage("X#x()", "class not found for <testtag>: X");
 		assertExceptionMessage("java.lang.String#x()", "method not found for <testtag>: java.lang.String#x()");
 		assertExceptionMessage("java.lang.String#zz(X)", "can't resolve parameter type 'X' for <testtag>: java.lang.String#zz(X)");
-		assertExceptionMessage("java.lang.String#hashCode()", "method listed in <testtag> is not deprecated: java.lang.String#hashCode()");
-		assertExceptionMessage("java.lang.Thread#stop()", "method listed in <testtag> is not wrapped: java.lang.Thread#stop()");
+		assertExceptionMessage("java.lang.String#hashCode()", "method listed in <testtag> is not annotated as @Deprecated: java.lang.String#hashCode()");
+		assertExceptionMessage("java.lang.Thread#stop()", "method listed in <testtag> is not annotated as @Wrap: java.lang.Thread#stop()");
 		assertFindMethods(WrapFeature.class.getName()+"#deprecation("+Item.class.getName()+")", WrapFeature.class.getMethod("deprecation", Item.class));
 	}
 
@@ -45,7 +45,7 @@ public class MainTest
 	{
 		try
 		{
-			new Main().findMethods(new CopeNameSpace(null, "test"), asList(new Params.Method(methodLine)), "<testtag>");
+			new Main().findMethods(new CopeNameSpace(null, "test"), asList(new Params.Method(methodLine)), "<testtag>", asList(Deprecated.class, Wrap.class));
 			fail();
 		}
 		catch (final HumanReadableException e)
@@ -59,7 +59,7 @@ public class MainTest
 		try
 		{
 			assertEquals(singleton(expectedMethod),
-				new Main().findMethods(new CopeNameSpace(null, "test"), asList(new Params.Method(methodLine)), "<testtag>")
+				new Main().findMethods(new CopeNameSpace(null, "test"), asList(new Params.Method(methodLine)), "<testtag>", asList(Deprecated.class, Wrap.class))
 			);
 		}
 		catch (final HumanReadableException e)

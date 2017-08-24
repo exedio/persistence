@@ -73,6 +73,11 @@ public final class AntTask extends Task
 		return new GenerateDeprecated();
 	}
 
+	public DisableWrap createDisableWrap()
+	{
+		return new DisableWrap();
+	}
+
 	public void setVerify(final boolean value)
 	{
 		params.verify = value;
@@ -366,6 +371,21 @@ public final class AntTask extends Task
 			try
 			{
 				params.addGenerateDeprecated(getProject().replaceProperties(text));
+			}
+			catch (final HumanReadableException e)
+			{
+				throw new BuildException(e.getMessage());
+			}
+		}
+	}
+
+	public final class DisableWrap
+	{
+		public void addText(final String text)
+		{
+			try
+			{
+				params.addDisabledWrap(getProject().replaceProperties(text));
 			}
 			catch (final HumanReadableException e)
 			{

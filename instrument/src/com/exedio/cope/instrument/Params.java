@@ -38,6 +38,7 @@ final class Params
 	boolean verify = false;
 	Charset charset = StandardCharsets.US_ASCII;
 	private final List<Method> generateDeprecateds = new ArrayList<>();
+	private final List<Method> disabledWraps = new ArrayList<>();
 
 	private int maxwarns = 10000;
 
@@ -124,6 +125,16 @@ final class Params
 	List<Method> getGenerateDeprecateds()
 	{
 		return Collections.unmodifiableList(generateDeprecateds);
+	}
+
+	void addDisabledWrap(final String s) throws HumanReadableException
+	{
+		disabledWraps.add(new Method(s));
+	}
+
+	List<Method> getDisabledWraps()
+	{
+		return Collections.unmodifiableList(disabledWraps);
 	}
 
 	private static final String[] NO_PARAMETERS = new String[0];

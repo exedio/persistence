@@ -28,6 +28,7 @@ import com.exedio.cope.util.StrictFile;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.File;
 import java.io.IOException;
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -94,11 +95,12 @@ final class Main
 				}
 			}
 
-			final Set<Method> generateDeprecateds = findMethods(repository.externalNameSpace, params.getGenerateDeprecateds(), "<generateDeprecated>");
+			final Set<Method> generateDeprecateds = findMethods(repository.externalNameSpace, params.getGenerateDeprecateds(), "<generateDeprecated>", asList(Deprecated.class, Wrap.class));
+			final Set<Method> disabledWraps = findMethods(repository.externalNameSpace, params.getDisabledWraps(), "<disableWrap>", asList(Wrap.class));
 			for(final JavaFile javaFile: repository.getFiles())
 			{
 				final StringBuilder buffer = new StringBuilder(INITIAL_BUFFER_SIZE);
-				final Generator generator = new Generator(javaFile, buffer, params, generateDeprecateds);
+				final Generator generator = new Generator(javaFile, buffer, params, generateDeprecateds, disabledWraps);
 				generator.write(charset);
 
 				if(!javaFile.inputEqual(buffer, charset))
@@ -260,7 +262,7 @@ final class Main
 		instrumented++;
 	}
 
-	Set<Method> findMethods(final CopeNameSpace nameSpace, final List<Params.Method> methodConfigurations, final String tagForErrors) throws HumanReadableException
+	Set<Method> findMethods(final CopeNameSpace nameSpace, final List<Params.Method> methodConfigurations, final String tagForErrors, final List<Class<? extends Annotation>> requiredAnnotations) throws HumanReadableException
 	{
 		final Set<Method> result = new HashSet<>();
 		for (final Params.Method methodConfiguration: methodConfigurations)
@@ -281,10 +283,11 @@ final class Main
 				if (clazz==null)
 					throw new HumanReadableException("class not found for "+tagForErrors+": "+methodConfiguration.className);
 				final Method method = clazz.getMethod(methodConfiguration.methodName, methodParams);
-				if (method.getAnnotation(Deprecated.class)==null)
-					throw new HumanReadableException("method listed in "+tagForErrors+" is not deprecated: "+methodConfiguration);
-				if (method.getAnnotation(Wrap.class)==null)
-					throw new HumanReadableException("method listed in "+tagForErrors+" is not wrapped: "+methodConfiguration);
+				for (final Class<? extends Annotation> requiredAnnotation : requiredAnnotations)
+				{
+					if (method.getAnnotation(requiredAnnotation)==null)
+						throw new HumanReadableException("method listed in "+tagForErrors+" is not annotated as @"+requiredAnnotation.getSimpleName()+": "+methodConfiguration);
+				}
 				result.add(method);
 			}
 			catch (final NoSuchMethodException ignored)
