@@ -7,6 +7,13 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* Generate for*Strict finders for unique constraints and unique function fields.
+	Affects instrumented code.
+	To disable the new finders, adapt your <instrument> call:
+	<instrument ...>
+		<disableWrap>com.exedio.cope.UniqueConstraint#searchStrict(java.lang.Class,[Ljava.lang.Object;)</disableWrap>
+		<disableWrap>com.exedio.cope.FunctionField#searchUniqueStrict(java.lang.Class,java.lang.Object)</disableWrap>
+	</instrument>
 * The instrumentor can be configured to ignore specific feature wraps.
 	Example:
 	<instrument ...>

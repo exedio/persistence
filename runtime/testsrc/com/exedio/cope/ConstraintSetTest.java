@@ -240,6 +240,20 @@ public class ConstraintSetTest extends TestWithEnvironment
 		}
 
 		/**
+		 * Finds a anItem by its {@link #uniqueSingle}.
+		 * @param uniqueSingle shall be equal to field {@link #uniqueSingle}.
+		 * @throws java.lang.IllegalArgumentException if there is no matching item.
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="forStrict")
+		@javax.annotation.Nonnull
+		static final AnItem forUniqueSingleStrict(@javax.annotation.Nonnull final java.lang.Boolean uniqueSingle)
+				throws
+					java.lang.IllegalArgumentException
+		{
+			return AnItem.uniqueSingle.searchUniqueStrict(AnItem.class,uniqueSingle);
+		}
+
+		/**
 		 * Returns the value of {@link #uniqueA}.
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -292,6 +306,21 @@ public class ConstraintSetTest extends TestWithEnvironment
 		static final AnItem forUniqueDouble(@javax.annotation.Nonnull final java.lang.Boolean uniqueA,@javax.annotation.Nonnull final java.lang.Boolean uniqueB)
 		{
 			return AnItem.uniqueDouble.search(AnItem.class,uniqueA,uniqueB);
+		}
+
+		/**
+		 * Finds a anItem by its unique fields.
+		 * @param uniqueA shall be equal to field {@link #uniqueA}.
+		 * @param uniqueB shall be equal to field {@link #uniqueB}.
+		 * @throws java.lang.IllegalArgumentException if there is no matching item.
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="finderStrict")
+		@javax.annotation.Nonnull
+		static final AnItem forUniqueDoubleStrict(@javax.annotation.Nonnull final java.lang.Boolean uniqueA,@javax.annotation.Nonnull final java.lang.Boolean uniqueB)
+				throws
+					java.lang.IllegalArgumentException
+		{
+			return AnItem.uniqueDouble.searchStrict(AnItem.class,uniqueA,uniqueB);
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")

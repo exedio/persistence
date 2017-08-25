@@ -223,6 +223,20 @@ public class NameLengthTest extends TestWithEnvironment
 	}
 
 	/**
+	 * Finds a anItem by its {@link #fieldLong}.
+	 * @param fieldLong shall be equal to field {@link #fieldLong}.
+	 * @throws java.lang.IllegalArgumentException if there is no matching item.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="forStrict")
+	@javax.annotation.Nonnull
+	static final AnItem forFieldLongStrict(@javax.annotation.Nonnull final AnEnum fieldLong)
+			throws
+				java.lang.IllegalArgumentException
+	{
+		return AnItem.fieldLong.searchUniqueStrict(AnItem.class,fieldLong);
+	}
+
+	/**
 	 * Returns the value of {@link #fieldShort}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -242,6 +256,20 @@ public class NameLengthTest extends TestWithEnvironment
 	static final AnItem forFieldShort(@javax.annotation.Nonnull final AnEnum fieldShort)
 	{
 		return AnItem.fieldShort.searchUnique(AnItem.class,fieldShort);
+	}
+
+	/**
+	 * Finds a anItem by its {@link #fieldShort}.
+	 * @param fieldShort shall be equal to field {@link #fieldShort}.
+	 * @throws java.lang.IllegalArgumentException if there is no matching item.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="forStrict")
+	@javax.annotation.Nonnull
+	static final AnItem forFieldShortStrict(@javax.annotation.Nonnull final AnEnum fieldShort)
+			throws
+				java.lang.IllegalArgumentException
+	{
+		return AnItem.fieldShort.searchUniqueStrict(AnItem.class,fieldShort);
 	}
 
 	/**

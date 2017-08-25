@@ -127,6 +127,21 @@ public class SchemaMismatchConstraintUniqueNameTest extends SchemaMismatchTest
 		return ItemA.uniqueA.search(ItemA.class,field1,field2);
 	}
 
+	/**
+	 * Finds a itemA by its unique fields.
+	 * @param field1 shall be equal to field {@link #field1}.
+	 * @param field2 shall be equal to field {@link #field2}.
+	 * @throws java.lang.IllegalArgumentException if there is no matching item.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="finderStrict")
+	@javax.annotation.Nonnull
+	static final ItemA forUniqueAStrict(final int field1,final int field2)
+			throws
+				java.lang.IllegalArgumentException
+	{
+		return ItemA.uniqueA.searchStrict(ItemA.class,field1,field2);
+	}
+
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 
@@ -209,6 +224,21 @@ public class SchemaMismatchConstraintUniqueNameTest extends SchemaMismatchTest
 	static final ItemB forUniqueB(final int field1,final int field2)
 	{
 		return ItemB.uniqueB.search(ItemB.class,field1,field2);
+	}
+
+	/**
+	 * Finds a itemB by its unique fields.
+	 * @param field1 shall be equal to field {@link #field1}.
+	 * @param field2 shall be equal to field {@link #field2}.
+	 * @throws java.lang.IllegalArgumentException if there is no matching item.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="finderStrict")
+	@javax.annotation.Nonnull
+	static final ItemB forUniqueBStrict(final int field1,final int field2)
+			throws
+				java.lang.IllegalArgumentException
+	{
+		return ItemB.uniqueB.searchStrict(ItemB.class,field1,field2);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument")

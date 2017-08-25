@@ -23,6 +23,7 @@ import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
 import static com.exedio.cope.UniqueFinalItem.forUniqueFinalString;
 import static com.exedio.cope.UniqueFinalItem.uniqueFinalString;
 import static com.exedio.cope.UniqueSingleItem.forUniqueString;
+import static com.exedio.cope.UniqueSingleItem.forUniqueStringStrict;
 import static com.exedio.cope.UniqueSingleItem.otherString;
 import static com.exedio.cope.UniqueSingleItem.uniqueString;
 import static com.exedio.cope.UniqueSingleNotNullItem.forUniqueNotNullString;
@@ -102,6 +103,15 @@ public class UniqueTest extends TestWithEnvironment
 
 		// test persistence
 		assertEquals(null, forUniqueString("uniqueString"));
+		try
+		{
+			forUniqueStringStrict("uniqueString");
+			fail();
+		}
+		catch (final IllegalArgumentException e)
+		{
+			assertEquals("expected result of size one, but was empty for query: select this from UniqueSingleItem where uniqueString='uniqueString'", e.getMessage());
+		}
 
 		// create two items with null, that must not interfere with uniqueness
 		final UniqueSingleItem nullItem1 = new UniqueSingleItem();
@@ -164,6 +174,7 @@ public class UniqueTest extends TestWithEnvironment
 		item.setUniqueString("uniqueString");
 		assertEquals("uniqueString", item.getUniqueString());
 		assertEquals(item, forUniqueString("uniqueString"));
+		assertEquals(item, forUniqueStringStrict("uniqueString"));
 
 		// test unique violation
 		{

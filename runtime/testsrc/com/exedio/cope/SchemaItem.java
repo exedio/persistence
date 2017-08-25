@@ -575,6 +575,20 @@ final class SchemaItem extends Item
 	}
 
 	/**
+	 * Finds a schemaItem by its {@link #uniqueString}.
+	 * @param uniqueString shall be equal to field {@link #uniqueString}.
+	 * @throws java.lang.IllegalArgumentException if there is no matching item.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="forStrict")
+	@javax.annotation.Nonnull
+	static final SchemaItem forUniqueStringStrict(@javax.annotation.Nonnull final java.lang.String uniqueString)
+			throws
+				java.lang.IllegalArgumentException
+	{
+		return SchemaItem.uniqueString.searchUniqueStrict(SchemaItem.class,uniqueString);
+	}
+
+	/**
 	 * Finds a schemaItem by it's unique fields.
 	 * @param string shall be equal to field {@link #string}.
 	 * @param anEnum shall be equal to field {@link #anEnum}.
@@ -585,6 +599,21 @@ final class SchemaItem extends Item
 	static final SchemaItem forDoubleUnique(@javax.annotation.Nonnull final java.lang.String string,@javax.annotation.Nonnull final SomeEnum anEnum)
 	{
 		return SchemaItem.doubleUnique.search(SchemaItem.class,string,anEnum);
+	}
+
+	/**
+	 * Finds a schemaItem by its unique fields.
+	 * @param string shall be equal to field {@link #string}.
+	 * @param anEnum shall be equal to field {@link #anEnum}.
+	 * @throws java.lang.IllegalArgumentException if there is no matching item.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="finderStrict")
+	@javax.annotation.Nonnull
+	static final SchemaItem forDoubleUniqueStrict(@javax.annotation.Nonnull final java.lang.String string,@javax.annotation.Nonnull final SomeEnum anEnum)
+			throws
+				java.lang.IllegalArgumentException
+	{
+		return SchemaItem.doubleUnique.searchStrict(SchemaItem.class,string,anEnum);
 	}
 
 	/**

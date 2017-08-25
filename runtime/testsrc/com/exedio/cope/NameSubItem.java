@@ -170,6 +170,21 @@ public final class NameSubItem extends NameLongItem
 	}
 
 	/**
+	 * Finds a nameSubItem by its unique fields.
+	 * @param integer shall be equal to field {@link #integer}.
+	 * @param item shall be equal to field {@link #item}.
+	 * @throws java.lang.IllegalArgumentException if there is no matching item.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="finderStrict")
+	@javax.annotation.Nonnull
+	static final NameSubItem forIntegersStrict(final int integer,@javax.annotation.Nonnull final NameSubItem item)
+			throws
+				java.lang.IllegalArgumentException
+	{
+		return NameSubItem.integers.searchStrict(NameSubItem.class,integer,item);
+	}
+
+	/**
 	 * Returns the value of {@link #uniqueX}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -254,6 +269,21 @@ public final class NameSubItem extends NameLongItem
 	static final NameSubItem forIntegersX(final int integerX,@javax.annotation.Nonnull final NameSubItem itemX)
 	{
 		return NameSubItem.integersX.search(NameSubItem.class,integerX,itemX);
+	}
+
+	/**
+	 * Finds a nameSubItem by its unique fields.
+	 * @param integerX shall be equal to field {@link #integerX}.
+	 * @param itemX shall be equal to field {@link #itemX}.
+	 * @throws java.lang.IllegalArgumentException if there is no matching item.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="finderStrict")
+	@javax.annotation.Nonnull
+	static final NameSubItem forIntegersXStrict(final int integerX,@javax.annotation.Nonnull final NameSubItem itemX)
+			throws
+				java.lang.IllegalArgumentException
+	{
+		return NameSubItem.integersX.searchStrict(NameSubItem.class,integerX,itemX);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument")

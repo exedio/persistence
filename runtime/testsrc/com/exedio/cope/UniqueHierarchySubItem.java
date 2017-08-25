@@ -95,6 +95,20 @@ final class UniqueHierarchySubItem extends UniqueHierarchySuperItem
 		return UniqueHierarchySubItem.subField.searchUnique(UniqueHierarchySubItem.class,subField);
 	}
 
+	/**
+	 * Finds a uniqueHierarchySubItem by its {@link #subField}.
+	 * @param subField shall be equal to field {@link #subField}.
+	 * @throws java.lang.IllegalArgumentException if there is no matching item.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="forStrict")
+	@javax.annotation.Nonnull
+	static final UniqueHierarchySubItem forSubFieldStrict(@javax.annotation.Nonnull final java.lang.String subField)
+			throws
+				java.lang.IllegalArgumentException
+	{
+		return UniqueHierarchySubItem.subField.searchUniqueStrict(UniqueHierarchySubItem.class,subField);
+	}
+
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 

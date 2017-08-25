@@ -92,6 +92,15 @@ public class UniqueTwiceTest
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		@javax.annotation.Nonnull
+		static final MyItem forOneStrict(@javax.annotation.Nonnull final java.lang.String one)
+				throws
+					java.lang.IllegalArgumentException
+		{
+			return MyItem.one.searchUniqueStrict(MyItem.class,one);
+		}
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@javax.annotation.Nonnull
 		final java.lang.String getOneDup()
 		{
 			return MyItem.oneDup.get(this);
@@ -112,6 +121,15 @@ public class UniqueTwiceTest
 		static final MyItem forOneDup(@javax.annotation.Nonnull final java.lang.String oneDup)
 		{
 			return MyItem.oneDup.searchUnique(MyItem.class,oneDup);
+		}
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@javax.annotation.Nonnull
+		static final MyItem forOneDupStrict(@javax.annotation.Nonnull final java.lang.String oneDup)
+				throws
+					java.lang.IllegalArgumentException
+		{
+			return MyItem.oneDup.searchUniqueStrict(MyItem.class,oneDup);
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")

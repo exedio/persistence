@@ -93,6 +93,20 @@ public final class UniqueSingleNotNullItem extends Item
 		return UniqueSingleNotNullItem.uniqueNotNullString.searchUnique(UniqueSingleNotNullItem.class,uniqueNotNullString);
 	}
 
+	/**
+	 * Finds a uniqueSingleNotNullItem by its {@link #uniqueNotNullString}.
+	 * @param uniqueNotNullString shall be equal to field {@link #uniqueNotNullString}.
+	 * @throws java.lang.IllegalArgumentException if there is no matching item.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="forStrict")
+	@javax.annotation.Nonnull
+	public static final UniqueSingleNotNullItem forUniqueNotNullStringStrict(@javax.annotation.Nonnull final java.lang.String uniqueNotNullString)
+			throws
+				java.lang.IllegalArgumentException
+	{
+		return UniqueSingleNotNullItem.uniqueNotNullString.searchUniqueStrict(UniqueSingleNotNullItem.class,uniqueNotNullString);
+	}
+
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 

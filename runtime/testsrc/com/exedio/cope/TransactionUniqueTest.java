@@ -283,6 +283,15 @@ public class TransactionUniqueTest extends TestWithEnvironment
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@javax.annotation.Nonnull
+		static final MyItem forFieldStrict(@javax.annotation.Nonnull final java.lang.String field)
+				throws
+					java.lang.IllegalArgumentException
+		{
+			return MyItem.field.searchUniqueStrict(MyItem.class,field);
+		}
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
 		private static final long serialVersionUID = 1l;
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")

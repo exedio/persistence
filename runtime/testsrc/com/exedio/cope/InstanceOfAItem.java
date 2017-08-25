@@ -79,6 +79,20 @@ class InstanceOfAItem extends Item
 		return InstanceOfAItem.code.searchUnique(InstanceOfAItem.class,code);
 	}
 
+	/**
+	 * Finds a instanceOfAItem by its {@link #code}.
+	 * @param code shall be equal to field {@link #code}.
+	 * @throws java.lang.IllegalArgumentException if there is no matching item.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="forStrict")
+	@javax.annotation.Nonnull
+	static final InstanceOfAItem forCodeStrict(@javax.annotation.Nonnull final java.lang.String code)
+			throws
+				java.lang.IllegalArgumentException
+	{
+		return InstanceOfAItem.code.searchUniqueStrict(InstanceOfAItem.class,code);
+	}
+
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 

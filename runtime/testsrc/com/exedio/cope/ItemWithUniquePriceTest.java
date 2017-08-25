@@ -162,6 +162,21 @@ public class ItemWithUniquePriceTest extends TestWithEnvironment
 			return ItemWithUniquePrice.priceAndOther.search(ItemWithUniquePrice.class,price_int,other);
 		}
 
+		/**
+		 * Finds a itemWithUniquePrice by its unique fields.
+		 * @param price_int shall be equal to field 'int' of {@link #price}.
+		 * @param other shall be equal to field {@link #other}.
+		 * @throws java.lang.IllegalArgumentException if there is no matching item.
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="finderStrict")
+		@javax.annotation.Nonnull
+		public static final ItemWithUniquePrice forPriceAndOtherStrict(final long price_int,@javax.annotation.Nonnull final java.lang.String other)
+				throws
+					java.lang.IllegalArgumentException
+		{
+			return ItemWithUniquePrice.priceAndOther.searchStrict(ItemWithUniquePrice.class,price_int,other);
+		}
+
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		private static final long serialVersionUID = 1l;
 

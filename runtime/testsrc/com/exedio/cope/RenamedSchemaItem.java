@@ -126,6 +126,20 @@ package com.exedio.cope;
 	}
 
 	/**
+	 * Finds a renamedSchemaItem by its {@link #uniqueSingle}.
+	 * @param uniqueSingle shall be equal to field {@link #uniqueSingle}.
+	 * @throws java.lang.IllegalArgumentException if there is no matching item.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="forStrict")
+	@javax.annotation.Nonnull
+	static final RenamedSchemaItem forUniqueSingleStrict(@javax.annotation.Nonnull final java.lang.String uniqueSingle)
+			throws
+				java.lang.IllegalArgumentException
+	{
+		return RenamedSchemaItem.uniqueSingle.searchUniqueStrict(RenamedSchemaItem.class,uniqueSingle);
+	}
+
+	/**
 	 * Returns the value of {@link #uniqueDouble1}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -179,6 +193,21 @@ package com.exedio.cope;
 	static final RenamedSchemaItem forUniqueDouble(@javax.annotation.Nonnull final java.lang.String uniqueDouble1,final int uniqueDouble2)
 	{
 		return RenamedSchemaItem.uniqueDouble.search(RenamedSchemaItem.class,uniqueDouble1,uniqueDouble2);
+	}
+
+	/**
+	 * Finds a renamedSchemaItem by its unique fields.
+	 * @param uniqueDouble1 shall be equal to field {@link #uniqueDouble1}.
+	 * @param uniqueDouble2 shall be equal to field {@link #uniqueDouble2}.
+	 * @throws java.lang.IllegalArgumentException if there is no matching item.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="finderStrict")
+	@javax.annotation.Nonnull
+	static final RenamedSchemaItem forUniqueDoubleStrict(@javax.annotation.Nonnull final java.lang.String uniqueDouble1,final int uniqueDouble2)
+			throws
+				java.lang.IllegalArgumentException
+	{
+		return RenamedSchemaItem.uniqueDouble.searchStrict(RenamedSchemaItem.class,uniqueDouble1,uniqueDouble2);
 	}
 
 	/**

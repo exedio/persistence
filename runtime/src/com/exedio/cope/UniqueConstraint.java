@@ -29,6 +29,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 @WrapFeature
@@ -201,22 +202,35 @@ public final class UniqueConstraint extends Feature implements Copyable
 	 */
 	public Item search(final Object... values)
 	{
+		final Condition condition = buildCondition(values);
+		return getType().searchSingleton(condition);
+	}
+
+	/**
+	 * Finds an item by its unique fields.
+	 * @throws IllegalArgumentException if there is no matching item.
+	 */
+	public Item searchStrict(final Object... values) throws IllegalArgumentException
+	{
+		final Condition condition = buildCondition(values);
+		return getType().searchSingletonStrict(condition);
+	}
+
+	private Condition buildCondition(final Object[] values) throws RuntimeException
+	{
 		// TODO: search natively for unique constraints
 		final List<FunctionField<?>> fields = getFields();
 		if(fields.size()!=values.length)
 			throw new RuntimeException(String.valueOf(fields.size())+'-'+values.length);
-
 		for(int i = 0; i<values.length; i++)
 			if(values[i]==null)
 				throw new NullPointerException("cannot search uniquely for null on " + getID() + " for " + fields.get(i).getID());
-
 		final Iterator<FunctionField<?>> fieldIter = fields.iterator();
 		final Condition[] conditions = new Condition[fields.size()];
 		//noinspection ForLoopThatDoesntUseLoopVariable
 		for(int j = 0; fieldIter.hasNext(); j++)
 			conditions[j] = Cope.equalAndCast(fieldIter.next(), values[j]);
-
-		return getType().searchSingleton(Cope.and(conditions));
+		return Cope.and(conditions);
 	}
 
 	/**
@@ -233,6 +247,23 @@ public final class UniqueConstraint extends Feature implements Copyable
 			@Parameter(doc="shall be equal to field {0}.", nullability=FixedNonnull.class) final Object... values)
 	{
 		return Cast.verboseCast(typeClass, search(values));
+	}
+
+	/**
+	 * Finds an item by its unique fields.
+	 * @throws IllegalArgumentException if there is no matching item.
+	 */
+	@Wrap(order=20, name="for{0}Strict", optionTagname="finderStrict",
+			varargsFeatures=SearchVarargs.class,
+			doc="Finds a {2} by its unique fields.",
+			thrown=@Wrap.Thrown(value=IllegalArgumentException.class, doc="if there is no matching item."))
+	@Nonnull
+	public <P extends Item> P searchStrict(
+			final Class<P> typeClass,
+			@Parameter(doc="shall be equal to field {0}.", nullability=FixedNonnull.class) final Object... values)
+		throws IllegalArgumentException
+	{
+		return Cast.verboseCast(typeClass, searchStrict(values));
 	}
 
 	void check(final FieldValues fieldValues)
