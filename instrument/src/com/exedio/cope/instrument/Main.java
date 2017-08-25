@@ -20,6 +20,7 @@
 package com.exedio.cope.instrument;
 
 import static java.lang.System.lineSeparator;
+import static java.util.Arrays.asList;
 
 import bsh.UtilEvalError;
 import com.exedio.cope.util.Clock;
@@ -33,7 +34,6 @@ import java.net.URL;
 import java.net.URLClassLoader;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -203,7 +203,7 @@ final class Main
 				if ( file.isDirectory() )
 				{
 					//noinspection ConstantConditions OK: checks isDirectory before calling listFiles
-					if ( !noFilesModifiedAfter(Arrays.asList(file.listFiles()), referenceFile, verbose) )
+					if ( !noFilesModifiedAfter(asList(file.listFiles()), referenceFile, verbose) )
 					{
 						return false;
 					}
