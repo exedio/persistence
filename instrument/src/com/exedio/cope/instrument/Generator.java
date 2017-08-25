@@ -120,6 +120,7 @@ final class Generator
 		this.hintFormat = params.hintFormat;
 		//noinspection AssignmentToCollectionOrArrayFieldFromParameter
 		this.generateDeprecateds = generateDeprecateds;
+		//noinspection AssignmentToCollectionOrArrayFieldFromParameter
 		this.disabledWraps = disabledWraps;
 	}
 
