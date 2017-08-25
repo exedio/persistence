@@ -20,20 +20,21 @@
 package com.exedio.cope.instrument;
 
 import static java.lang.System.lineSeparator;
+import static java.util.Arrays.asList;
+import static java.util.Collections.singletonList;
 
-import bsh.UtilEvalError;
 import com.exedio.cope.util.Clock;
 import com.exedio.cope.util.StrictFile;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.File;
 import java.io.IOException;
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -68,7 +69,8 @@ final class Main
 			InstrumentContext.enter();
 
 			final Charset charset = params.charset;
-			final JavaRepository repository = new JavaRepository( createClassLoader(params.classpath) );
+			final ClassLoader classLoader = createClassLoader(params.classpath);
+			final JavaRepository repository = new JavaRepository(classLoader);
 
 			this.verbose = params.verbose;
 			instrumented = 0;
@@ -94,11 +96,12 @@ final class Main
 				}
 			}
 
-			final Set<Method> generateDeprecateds = findGenerateDeprecateds(repository.externalNameSpace, params.getGenerateDeprecateds());
+			final Set<Method> generateDeprecateds = findMethods(classLoader, params.getGenerateDeprecateds(), "<generateDeprecated>", asList(Deprecated.class, Wrap.class));
+			final Set<Method> disabledWraps = findMethods(classLoader, params.getDisabledWraps(), "<disableWrap>", singletonList(Wrap.class));
 			for(final JavaFile javaFile: repository.getFiles())
 			{
 				final StringBuilder buffer = new StringBuilder(INITIAL_BUFFER_SIZE);
-				final Generator generator = new Generator(javaFile, buffer, params, generateDeprecateds);
+				final Generator generator = new Generator(javaFile, buffer, params, generateDeprecateds, disabledWraps);
 				generator.write(charset);
 
 				if(!javaFile.inputEqual(buffer, charset))
@@ -203,7 +206,7 @@ final class Main
 				if ( file.isDirectory() )
 				{
 					//noinspection ConstantConditions OK: checks isDirectory before calling listFiles
-					if ( !noFilesModifiedAfter(Arrays.asList(file.listFiles()), referenceFile, verbose) )
+					if ( !noFilesModifiedAfter(asList(file.listFiles()), referenceFile, verbose) )
 					{
 						return false;
 					}
@@ -260,40 +263,48 @@ final class Main
 		instrumented++;
 	}
 
-	Set<Method> findGenerateDeprecateds(final CopeNameSpace nameSpace, final List<Params.Method> generateDeprecateds) throws HumanReadableException
+	Set<Method> findMethods(final ClassLoader classLoader, final List<Params.Method> methodConfigurations, final String tagForErrors, final List<Class<? extends Annotation>> requiredAnnotations) throws HumanReadableException
 	{
 		final Set<Method> result = new HashSet<>();
-		for (final Params.Method generateDeprecated: generateDeprecateds)
+		for (final Params.Method methodConfiguration: methodConfigurations)
 		{
 			try
 			{
-				final Class<?>[] methodParams = new Class<?>[generateDeprecated.parameterTypes.length];
+				final Class<?>[] methodParams = new Class<?>[methodConfiguration.parameterTypes.length];
 				for (int i=0; i<methodParams.length; i++)
 				{
-					final String parameterType = generateDeprecated.parameterTypes[i];
-					methodParams[i] = ClassHelper.isPrimitive(parameterType) ?
-						ClassHelper.getClass(parameterType) :
-						nameSpace.getClass(parameterType);
-					if (methodParams[i]==null)
-						throw new HumanReadableException("can't resolve parameter type '"+parameterType+"' for <generateDeprecated>: "+generateDeprecated);
+					final String parameterType = methodConfiguration.parameterTypes[i];
+					try
+					{
+						methodParams[i] = ClassHelper.isPrimitive(parameterType) ?
+							ClassHelper.getClass(parameterType) :
+							Class.forName(parameterType, false, classLoader);
+					}
+					catch (final ClassNotFoundException ignored)
+					{
+						throw new HumanReadableException("can't resolve parameter type '"+parameterType+"' for "+tagForErrors+": "+methodConfiguration);
+					}
 				}
-				final Class<?> clazz = nameSpace.getClass(generateDeprecated.className);
-				if (clazz==null)
-					throw new HumanReadableException("class not found for <generateDeprecated>: "+generateDeprecated.className);
-				final Method method = clazz.getMethod(generateDeprecated.methodName, methodParams);
-				if (method.getAnnotation(Deprecated.class)==null)
-					throw new HumanReadableException("method listed in <generateDeprecated> is not deprecated: "+generateDeprecated);
-				if (method.getAnnotation(Wrap.class)==null)
-					throw new HumanReadableException("method listed in <generateDeprecated> is not wrapped: "+generateDeprecated);
+				final Class<?> clazz;
+				try
+				{
+					clazz = Class.forName(methodConfiguration.className, false, classLoader);
+				}
+				catch (final ClassNotFoundException ignored)
+				{
+					throw new HumanReadableException("class not found for "+tagForErrors+": "+methodConfiguration.className);
+				}
+				final Method method = clazz.getMethod(methodConfiguration.methodName, methodParams);
+				for (final Class<? extends Annotation> requiredAnnotation : requiredAnnotations)
+				{
+					if (method.getAnnotation(requiredAnnotation)==null)
+						throw new HumanReadableException("method listed in "+tagForErrors+" is not annotated as @"+requiredAnnotation.getSimpleName()+": "+methodConfiguration);
+				}
 				result.add(method);
 			}
 			catch (final NoSuchMethodException ignored)
 			{
-				throw new HumanReadableException("method not found for <generateDeprecated>: "+generateDeprecated);
-			}
-			catch (final UtilEvalError e)
-			{
-				throw new RuntimeException(e);
+				throw new HumanReadableException("method not found for "+tagForErrors+": "+methodConfiguration);
 			}
 		}
 		return result;

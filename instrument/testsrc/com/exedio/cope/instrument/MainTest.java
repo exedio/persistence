@@ -31,21 +31,33 @@ import org.junit.Test;
 public class MainTest
 {
 	@Test
-	public void findGenerateDeprecateds() throws HumanReadableException, NoSuchMethodException
+	public void findMethods() throws HumanReadableException, NoSuchMethodException
 	{
-		assertExceptionMessage("X#x()", "class not found for <generateDeprecated>: X");
-		assertExceptionMessage("java.lang.String#x()", "method not found for <generateDeprecated>: java.lang.String#x()");
-		assertExceptionMessage("java.lang.String#zz(X)", "can't resolve parameter type 'X' for <generateDeprecated>: java.lang.String#zz(X)");
-		assertExceptionMessage("java.lang.String#hashCode()", "method listed in <generateDeprecated> is not deprecated: java.lang.String#hashCode()");
-		assertExceptionMessage("java.lang.Thread#stop()", "method listed in <generateDeprecated> is not wrapped: java.lang.Thread#stop()");
-		assertGenerateDeprecated(WrapFeature.class.getName()+"#deprecation("+Item.class.getName()+")", WrapFeature.class.getMethod("deprecation", Item.class));
+		assertExceptionMessage("X#x()", "class not found for <testtag>: X");
+		assertExceptionMessage("java.lang.String#x()", "method not found for <testtag>: java.lang.String#x()");
+		assertExceptionMessage("java.lang.String#zz(X)", "can't resolve parameter type 'X' for <testtag>: java.lang.String#zz(X)");
+		assertExceptionMessage("java.lang.String#hashCode()", "method listed in <testtag> is not annotated as @Deprecated: java.lang.String#hashCode()");
+		assertExceptionMessage("java.lang.Thread#stop()", "method listed in <testtag> is not annotated as @Wrap: java.lang.Thread#stop()");
+		assertFindMethods(WrapFeature.class.getName()+"#deprecation("+Item.class.getName()+")", WrapFeature.class.getMethod("deprecation", Item.class));
+		assertFindMethods(
+			WrapFeature.class.getName()+"#varargsMethod("+Item.class.getName()+",java.lang.String,[Ljava.lang.Integer;)",
+			WrapFeature.class.getMethod("varargsMethod", Item.class, String.class, Integer[].class)
+		);
+		assertFindMethods(
+			WrapFeature.class.getName()+"#arrayMethod("+Item.class.getName()+",[Ljava.lang.Integer;)",
+			WrapFeature.class.getMethod("arrayMethod", Item.class, Integer[].class)
+		);
+		assertFindMethods(
+			WrapFeature.class.getName()+"#disabledInBuildXml([[I)",
+			WrapFeature.class.getMethod("disabledInBuildXml", int[][].class)
+		);
 	}
 
-	private static void assertExceptionMessage(final String generateDeprecatedLine, final String expectedExceptionMessage)
+	private static void assertExceptionMessage(final String methodLine, final String expectedExceptionMessage)
 	{
 		try
 		{
-			new Main().findGenerateDeprecateds(new CopeNameSpace(null, "test"), asList(new Params.Method(generateDeprecatedLine)));
+			new Main().findMethods(MainTest.class.getClassLoader(), asList(new Params.Method(methodLine)), "<testtag>", asList(Deprecated.class, Wrap.class));
 			fail();
 		}
 		catch (final HumanReadableException e)
@@ -54,20 +66,11 @@ public class MainTest
 		}
 	}
 
-	private static void assertGenerateDeprecated(final String generateDeprecatedLine, final Method expectedMethod)
+	private static void assertFindMethods(final String methodLine, final Method expectedMethod) throws HumanReadableException
 	{
-		try
-		{
-			assertEquals(
-				singleton(expectedMethod),
-				new Main().findGenerateDeprecateds(new CopeNameSpace(null, "test"), asList(new Params.Method(generateDeprecatedLine)))
-			);
-		}
-		catch (final HumanReadableException e)
-		{
-			throw new RuntimeException(e);
-		}
+		assertEquals(
+			singleton(expectedMethod),
+			new Main().findMethods(MainTest.class.getClassLoader(), asList(new Params.Method(methodLine)), "<testtag>", asList(Wrap.class))
+		);
 	}
-
-
 }

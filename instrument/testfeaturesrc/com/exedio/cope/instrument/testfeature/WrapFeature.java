@@ -207,4 +207,10 @@ public class WrapFeature
 	{
 		throw new RuntimeException();
 	}
+
+	@Wrap(order=350)
+	public void disabledInBuildXml(@SuppressWarnings("unused") final int[][] matrix)
+	{
+		throw new RuntimeException();
+	}
 }
