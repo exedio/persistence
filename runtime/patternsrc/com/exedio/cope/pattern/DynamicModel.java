@@ -565,7 +565,7 @@ public final class DynamicModel<L> extends Pattern
 		}
 
 		/**
-		 * @deprecated Use {@link #addField(String,ValueType)} instead
+		 * @deprecated Use {@link #addField(String,DynamicModel.ValueType)} instead
 		 */
 		@Deprecated
 		public Field<L> addAttribute(final String code, final ValueType valueType)

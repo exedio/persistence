@@ -27,7 +27,7 @@ public final class Sequence extends Node
 	final long start;
 
 	/**
-	 * @deprecated Use {@link Schema#newSequence(String,Type,long)} instead
+	 * @deprecated Use {@link Schema#newSequence(String,Sequence.Type,long)} instead
 	 */
 	@Deprecated
 	public Sequence(final Schema schema, final String name, final Type type, final long start)
