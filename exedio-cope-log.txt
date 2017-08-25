@@ -18,7 +18,10 @@ The items are sorted inversely, i.e. latest items are on top
 	The wrapping get-methods for mandatory MoneyFields were incorrectly annotated as @Nullable, now fixed to @NonNull.
 	Affects instrumented code.
 * The instrumentor no longer generates deprecated wrapping methods for deprecated feature methods.
-	To keep individual methods, you can whitelist them in your build.xml:
+	To keep individual methods, you can whitelist them in your build.xml.
+	Class and parameter type names have to be given in the syntax of Class#getName - that means an
+	Object[] parameter has to be specified as "[Ljava.lang.Object;".
+	Example:
 	<instrument ...>
 		<generateDeprecated>com.exedio.cope.pattern.PasswordRecovery#purge(com.exedio.cope.util.Interrupter)</generateDeprecated>
 		<generateDeprecated>com.exedio.cope.pattern.Dispatcher#dispatch(java.lang.Class,com.exedio.cope.pattern.Dispatcher$Config,com.exedio.cope.util.Interrupter)</generateDeprecated>
