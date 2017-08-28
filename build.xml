@@ -313,7 +313,6 @@
 
 	<target name="runtime.compile"
 				depends="runtime.core.compile,
-							runtime.dialect.compile,
 							runtime.pattern.compile,
 							runtime.servlet.compile" />
 
@@ -321,13 +320,22 @@
 		<ljar name="cope" jarfile="build/exedio-cope.jar" classpath="trove4j.jar exedio-cope-util.jar">
 			<fileset dir="build/classes/dsmf/src" />
 			<fileset dir="build/classes/runtime/src" />
-			<fileset dir="build/classes/runtime/dialects" />
 			<fileset dir="build/classes/runtime/patternsrc" />
 			<fileset dir="build/classes/runtime/servletsrc" />
 		</ljar>
 	</target>
 
-	<target name="runtime.jar" depends="runtime.core.jar" />
+	<target name="runtime.dialect.jar" depends="runtime.dialect.compile">
+		<foreachDialect>
+			<body>
+				<ljarn name="cope dialect @{name}" jarfile="build/exedio-cope-@{name}.jar">
+					<fileset dir="build/classes/runtime/@{name}src" />
+				</ljarn>
+			</body>
+		</foreachDialect>
+	</target>
+
+	<target name="runtime.jar" depends="runtime.core.jar, runtime.dialect.jar" />
 
 	<target name="runtime.jar.src">
 		<mkdir dir="build" />
@@ -1042,6 +1050,13 @@
 			<fileset file="${basedir}/build/exedio-cope-instrument-completion.jar" />
 			<fileset file="${basedir}/exedio-cope-log.txt" />
 		</copy>
+		<foreachDialect>
+			<body>
+				<copy todir="${basedir}/build/success">
+					<fileset file="${basedir}/build/exedio-cope-@{name}.jar" />
+				</copy>
+			</body>
+		</foreachDialect>
 		<copy file="ivy/ivy.xml" tofile="build/success/ivy.xml" overwrite="true">
 			<filterset>
 				<filter token="BUILD_REVISION" value="${build.revision}" />
