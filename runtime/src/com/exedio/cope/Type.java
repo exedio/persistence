@@ -1099,9 +1099,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 				}
 				else
 				{
-					if(Objects.equals(value, template))
-						value = template;
-					else
+					if(!Objects.equals(value, template))
 					{
 						value = null;
 						hasNoValue = true;
