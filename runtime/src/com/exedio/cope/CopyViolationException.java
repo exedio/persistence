@@ -77,6 +77,6 @@ public final class CopyViolationException extends ConstraintViolationException
 			"copy violation on " + feature +
 			", expected " + toString(expectedValue) +
 			" from target " + targetItem.getCopeID() +
-			", but was " +	toString(actualValue);
+			", but was " + toString(actualValue);
 	}
 }
