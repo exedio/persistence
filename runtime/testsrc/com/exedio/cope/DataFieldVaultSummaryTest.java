@@ -21,15 +21,10 @@ package com.exedio.cope;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
+import com.exedio.cope.junit.AssertionErrorVaultService;
 import com.exedio.cope.misc.DataFieldVaultSummary;
-import com.exedio.cope.vault.VaultService;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import java.io.File;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.concurrent.atomic.AtomicLong;
-import javax.annotation.Nonnull;
-import junit.framework.AssertionFailedError;
 import org.junit.Test;
 
 public class DataFieldVaultSummaryTest
@@ -107,44 +102,12 @@ public class DataFieldVaultSummaryTest
 				new AtomicLong(putRedundant));
 	}
 
-	private static final class Service implements VaultService
+	private static final class Service extends AssertionErrorVaultService
 	{
 		@Override
-		public long getLength(@Nonnull final String hash)
+		public String toString()
 		{
-			throw new AssertionFailedError();
-		}
-
-		@Override
-		public byte[] get(@Nonnull final String hash)
-		{
-			throw new AssertionFailedError();
-		}
-
-		@Override
-		public void get(
-				@Nonnull final String hash,
-				@Nonnull final OutputStream value)
-		{
-			throw new AssertionFailedError();
-		}
-
-		@Override
-		public boolean put(@Nonnull final String hash, @Nonnull final byte[] value)
-		{
-			throw new AssertionFailedError();
-		}
-
-		@Override
-		public boolean put(@Nonnull final String hash, @Nonnull final InputStream value)
-		{
-			throw new AssertionFailedError();
-		}
-
-		@Override
-		public boolean put(@Nonnull final String hash, @Nonnull final File value)
-		{
-			throw new AssertionFailedError();
+			return Service.class.getName();
 		}
 	}
 }

@@ -29,16 +29,13 @@ import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import com.exedio.cope.junit.AssertionErrorVaultService;
 import com.exedio.cope.util.IllegalAlgorithmException;
 import com.exedio.cope.util.IllegalPropertiesException;
 import com.exedio.cope.util.Properties;
 import com.exedio.cope.util.Properties.Source;
 import com.exedio.cope.util.ServiceProperties;
 import com.exedio.cope.vaultmock.VaultMockService;
-import java.io.File;
-import java.io.InputStream;
-import java.io.OutputStream;
-import javax.annotation.Nonnull;
 import org.junit.Test;
 
 public class VaultPropertiesTest
@@ -165,7 +162,7 @@ public class VaultPropertiesTest
 		assertSame(props, ref .parameters.getVaultProperties());
 		assertNotSame(main, ref);
 	}
-	static class ServicePropertiesMissing extends AbstractService
+	static class ServicePropertiesMissing extends AssertionErrorVaultService
 	{
 		final VaultServiceParameters parameters;
 
@@ -238,7 +235,7 @@ public class VaultPropertiesTest
 		ServicePropertiesNoConstructorProps() { super(null); }
 	}
 	@ServiceProperties(ServicePropertiesNoConstructorProps.class)
-	static class ServicePropertiesNoConstructor extends AbstractService
+	static class ServicePropertiesNoConstructor extends AssertionErrorVaultService
 	{
 		ServicePropertiesNoConstructor(@SuppressWarnings("unused") final VaultServiceParameters p) {}
 	}
@@ -305,51 +302,12 @@ public class VaultPropertiesTest
 		}
 	}
 	@ServiceProperties(ServicePropertiesFailsProps.class)
-	static class ServicePropertiesFails extends AbstractService
+	static class ServicePropertiesFails extends AssertionErrorVaultService
 	{
 		ServicePropertiesFails(@SuppressWarnings("unused") final VaultServiceParameters p) {}
 	}
 
 
-
-	static class AbstractService implements VaultService
-	{
-		@Override
-		public long getLength(@Nonnull final String hash)
-		{
-			throw new RuntimeException();
-		}
-
-		@Override
-		public byte[] get(@Nonnull final String hash)
-		{
-			throw new RuntimeException();
-		}
-
-		@Override
-		public void get(@Nonnull final String hash, @Nonnull final OutputStream value)
-		{
-			throw new RuntimeException();
-		}
-
-		@Override
-		public boolean put(@Nonnull final String hash, @Nonnull final byte[] value)
-		{
-			throw new RuntimeException();
-		}
-
-		@Override
-		public boolean put(@Nonnull final String hash, @Nonnull final InputStream value)
-		{
-			throw new RuntimeException();
-		}
-
-		@Override
-		public boolean put(@Nonnull final String hash, @Nonnull final File value)
-		{
-			throw new RuntimeException();
-		}
-	}
 
 	private static final Properties.Factory<VaultProperties> factory = VaultProperties.factory();
 }
