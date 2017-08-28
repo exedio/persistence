@@ -12,13 +12,11 @@
 				</path>
 				<sequential>
 					<basename file="@{env.file}" property="@{env.file}.env" suffix=".properties" />
-					<!-- this is a dummy loop to create the attribute @{env} -->
-					<for param="env" list="${@{env.file}.env}">
+					<for param="env" list="${@{env.file}.env}"><!-- dummy loop for creating attribute -->
 						<sequential>
 							<property file="@{env.file}" prefix="@{env.file}." />
 							<echo level="info" message="Doing @{skipSwitch} for @{env}" />
-							<!-- this is a dummy loop to create the attribute @{env.driver} -->
-							<for param="env.driver" list="${@{env.file}.x-build.driver}">
+							<for param="env.driver" list="${@{env.file}.x-build.driver}"><!-- dummy loop for creating attribute -->
 								<sequential>
 									<body />
 								</sequential>
