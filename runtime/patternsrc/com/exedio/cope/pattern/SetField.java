@@ -22,6 +22,7 @@ import static com.exedio.cope.ItemField.DeletePolicy.CASCADE;
 import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.Cope;
+import com.exedio.cope.CopyConstraint;
 import com.exedio.cope.CopyMapper;
 import com.exedio.cope.Copyable;
 import com.exedio.cope.Features;
@@ -59,8 +60,12 @@ public final class SetField<E> extends Pattern implements Copyable
 	private final FunctionField<E> element;
 	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private Mount mountIfMounted = null;
+	private final CopyFields copyWith;
 
-	private SetField(final boolean ordered, final FunctionField<E> element)
+	private SetField(
+			final boolean ordered,
+			final FunctionField<E> element,
+			final CopyFields copyWith)
 	{
 		this.ordered = ordered;
 		this.order = ordered ? new IntegerField().min(0) : null;
@@ -71,17 +76,19 @@ public final class SetField<E> extends Pattern implements Copyable
 			throw new IllegalArgumentException("element must be mandatory");
 		if(element.getImplicitUniqueConstraint()!=null)
 			throw new IllegalArgumentException("element must not be unique");
+		this.copyWith = copyWith;
 	}
 
 	public static <E> SetField<E> create(final FunctionField<E> element)
 	{
-		return new SetField<>(false, element);
+		return new SetField<>(false, element, CopyFields.EMPTY);
 	}
 
 	@Override
 	public SetField<E> copy(final CopyMapper mapper)
 	{
-		return new SetField<>(ordered, mapper.copy(element));
+		copyWith.failIfNotEmpty();
+		return new SetField<>(ordered, mapper.copy(element), copyWith.copy());
 	}
 
 	/**
@@ -91,7 +98,22 @@ public final class SetField<E> extends Pattern implements Copyable
 	 */
 	public SetField<E> ordered()
 	{
-		return new SetField<>(true, element.copy());
+		return new SetField<>(true, element.copy(), copyWith.copy());
+	}
+
+	/**
+	 * Returns a new SetField, that differs from this SetField
+	 * by enforcing that parent and element items have the same value in the given field.
+	 * @throws IllegalStateException if the {@link #getElement() element} field is not an {@link ItemField}
+	 * @throws IllegalArgumentException if the field given as parameter is not final
+	 */
+	public SetField<E> copyWith(final FunctionField<?> copyWith)
+	{
+		if (!(element instanceof ItemField))
+		{
+			throw new IllegalStateException("copyWith requires the SetField's element to be an ItemField");
+		}
+		return new SetField<>(ordered, element.copy(), this.copyWith.add(copyWith));
 	}
 
 	@Override
@@ -112,6 +134,7 @@ public final class SetField<E> extends Pattern implements Copyable
 		}
 		features.put("element", element);
 		features.put("uniqueConstraint", uniqueElement);
+		copyWith.onMount(features, parent, element);
 		final Type<PatternItem> relationType = newSourceType(PatternItem.class, features);
 		this.mountIfMounted = new Mount(parent, uniqueOrder, uniqueElement, relationType);
 	}
@@ -189,6 +212,30 @@ public final class SetField<E> extends Pattern implements Copyable
 	public Type<?> getRelationType()
 	{
 		return mount().relationType;
+	}
+
+	/**
+	 * Get the template fields added with {@link #copyWith(FunctionField)}.
+	 */
+	public List<FunctionField<?>> getCopyWithTemplateFields()
+	{
+		return copyWith.getTemplates();
+	}
+
+	/**
+	 * Get the field that stores a redudant copy of a parent item's value at the relation item, to enforce a
+	 * {@link CopyConstraint} added with {@link #copyWith(FunctionField)}.
+	 * @throws IllegalArgumentException if the field given as parameter does not belong to this SetField's {@link #getType() type}.
+	 * @throws IllegalStateException if there is no CopyConstraint on the given field
+	 */
+	@Nonnull
+	public <T> FunctionField<T> getCopyWithCopyField(final FunctionField<T> template)
+	{
+		if (!template.getType().equals(getType()))
+		{
+			throw new IllegalArgumentException("field from wrong type: expected "+getType()+" but was "+template.getType());
+		}
+		return copyWith.getCopyField(template);
 	}
 
 	private static final String MODIFICATION_RETURN = "<tt>true</tt> if the field set changed as a result of the call.";
