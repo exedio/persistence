@@ -49,9 +49,17 @@ public class CopyMultiTargetMandatoryTest extends TestWithEnvironment
 			new Source(targetOne, targetTwo);
 			fail();
 		}
-		catch (final MandatoryViolationException e)
+		catch (final CopyViolationException e)
 		{
-			assertEquals("mandatory violation for Source.copy", e.getMessage());
+			assertFails(
+				constraintA, constraintB,
+				null,
+				1, 2,
+				targetOne, targetTwo,
+				"copy violation on Source.copyCopyFromtargetA and Source.copyCopyFromtargetB, " +
+					"expected '1' from target "+targetOne+" but also '2' from target "+targetTwo,
+				e
+			);
 		}
 	}
 
@@ -109,10 +117,12 @@ public class CopyMultiTargetMandatoryTest extends TestWithEnvironment
 		catch (final CopyViolationException e)
 		{
 			assertFails(
-				constraintA,
+				constraintA, constraintB,
 				source,
-				6, 7, target6,
-				"copy violation on Source.copyCopyFromtargetA, expected '6' from target "+target6+", but was '7'",
+				6, 7,
+				target6, target7b,
+				"copy violation on Source.copyCopyFromtargetA and Source.copyCopyFromtargetB, " +
+					"expected '6' from target "+target6+" but also '7' from target "+target7b,
 				e
 			);
 		}
@@ -126,10 +136,12 @@ public class CopyMultiTargetMandatoryTest extends TestWithEnvironment
 		catch (final CopyViolationException e)
 		{
 			assertFails(
-				constraintB,
+				constraintA, constraintB,
 				source,
-				6, 7, target6,
-				"copy violation on Source.copyCopyFromtargetB, expected '6' from target "+target6+", but was '7'",
+				7, 6,
+				target7a, target6,
+				"copy violation on Source.copyCopyFromtargetA and Source.copyCopyFromtargetB, " +
+					"expected '7' from target "+target7a+" but also '6' from target "+target6,
 				e
 			);
 		}
