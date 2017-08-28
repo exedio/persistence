@@ -231,17 +231,10 @@
 	</target>
 
 	<target name="runtime.dialect.compile" depends="dsmf.compile, runtime.core.compile, instrument.anno.compile">
-		<for param="dialect.file">
-			<path>
-				<fileset dir="${basedir}/conf/dialect" includes="*.properties" />
-			</path>
-			<sequential>
-				<basename file="@{dialect.file}" property="@{dialect.file}.name" suffix=".properties" />
-				<!--suppress AntMissingPropertiesFileInspection -->
-				<property file="@{dialect.file}" prefix="@{dialect.file}." />
-				<echo message="Compiling dialect ${@{dialect.file}.name} with ${@{dialect.file}.jar}." />
-				<!--echo message="file=@{dialect.file},dialect=${@{dialect.file}.name},jar=${@{dialect.file}.jar}." /-->
-				<compile srcdir="runtime/${@{dialect.file}.name}src">
+		<foreachDialect>
+			<body>
+				<echo message="Compiling dialect @{name} with @{jar}." />
+				<compile srcdir="runtime/@{name}src">
 					<classpath>
 						<pathelement location="build/classes/dsmf/src" />
 						<pathelement location="build/classes/runtime/src" />
@@ -250,14 +243,14 @@
 						<pathelement location="lib/trove4j.jar" />
 						<pathelement location="lib/slf4j-api.jar" />
 						<pathelement location="lib/findbugs-annotations.jar" />
-						<pathelement location="lib/${@{dialect.file}.jar}" />
+						<pathelement location="lib/@{jar}" />
 					</classpath>
 				</compile>
 				<copy todir="build/classes/runtime/dialects">
-					<fileset dir="build/classes/runtime/${@{dialect.file}.name}src" />
+					<fileset dir="build/classes/runtime/@{name}src" />
 				</copy>
-			</sequential>
-		</for>
+			</body>
+		</foreachDialect>
 	</target>
 
 	<target name="runtime.pattern.compile" depends="runtime.core.compile, instrument.anno.compile">
