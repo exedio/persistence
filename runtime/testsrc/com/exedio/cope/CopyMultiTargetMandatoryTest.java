@@ -149,6 +149,51 @@ public class CopyMultiTargetMandatoryTest extends TestWithEnvironment
 		assertEquals(target7b, source.getTargetB());
 	}
 
+	@Test
+	public void setBoth()
+	{
+		final Source source = new Source(new Target(0), new Target(0));
+		assertEquals(0, source.getCopy());
+		source.set(
+			Source.targetA.map(new Target(1)),
+			Source.targetB.map(new Target(1))
+		);
+		assertEquals(1, source.getCopy());
+	}
+
+	@Test
+	public void setBothFails()
+	{
+		final Target t0a = new Target(0);
+		final Target t0b = new Target(0);
+		final Target t1 = new Target(1);
+		final Source source = new Source(t0a, t0a);
+		assertEquals(0, source.getCopy());
+		try
+		{
+			source.set(
+				Source.targetA.map(t0b),
+				Source.targetB.map(t1)
+			);
+			fail();
+		}
+		catch (final CopyViolationException e)
+		{
+			assertFails(
+				constraintA, constraintB,
+				source,
+				0, 1,
+				t0b, t1,
+				"copy violation on " + constraintA + " and " + constraintB + ", " +
+					"expected '0' from target "+t0b+" but also '1' from target "+t1,
+				e
+			);
+		}
+		assertEquals(0, source.getCopy());
+		assertEquals(t0a, source.getTargetA());
+		assertEquals(t0a, source.getTargetB());
+	}
+
 	@WrapperType(comments=false, indent=2)
 	private static final class Source extends Item
 	{
