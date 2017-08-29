@@ -22,8 +22,16 @@ import com.exedio.cope.util.Properties;
 
 final class PostgresqlProperties extends Properties
 {
-	static final String searchPathDEFAULT = "\"$user\"";
+	private static final String searchPathDEFAULT = "\"$user\"";
 	final String searchPath = valueX("search_path", searchPathDEFAULT, ',');
+
+	String schema(final ConnectProperties connect)
+	{
+		return
+				searchPathDEFAULT.equals(searchPath)
+				? connect.connection.username
+				: searchPath;
+	}
 
 
 	private String valueX(final String key, final String defaultValue, final char forbidden)
