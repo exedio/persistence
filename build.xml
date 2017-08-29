@@ -349,6 +349,7 @@
 	<path id="runtime.test.path">
 		<pathelement location="build/classes/dsmf/src" />
 		<pathelement location="build/classes/runtime/src" />
+		<pathelement location="build/classes/runtime/dialects" />
 		<pathelement location="build/classes/runtime/patternsrc" />
 		<pathelement location="build/classes/runtime/servletsrc" />
 		<pathelement location="build/classes/runtime/junitsrc" />
@@ -364,7 +365,13 @@
 		<pathelement location="lib/findbugs-annotations.jar" />
 	</path>
 
-	<target name="runtime.test.instrument" depends="instrument.taskdef, dsmf.compile, runtime.core.compile, runtime.pattern.compile, runtime.servlet.compile, runtime.junit.compile, runtime.test.feature.compile, instrument.anno.compile" unless="skip.instrument">
+	<target
+			name="runtime.test.instrument"
+			depends="instrument.taskdef,
+					dsmf.compile, runtime.core.compile, runtime.dialect.compile, runtime.pattern.compile,
+					runtime.servlet.compile, runtime.junit.compile, runtime.test.feature.compile,
+					instrument.anno.compile"
+			unless="skip.instrument">
 		<instrument
 				dir="runtime/testsrc"
 				verify="${instrument.verify}"

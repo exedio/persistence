@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import com.exedio.cope.DateField.Precision;
 import com.exedio.cope.util.Hex;
+import com.exedio.cope.util.ServiceProperties;
 import com.exedio.dsmf.Sequence;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.IOException;
@@ -30,29 +31,34 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+@ServiceProperties(PostgresqlProperties.class)
 final class PostgresqlDialect extends Dialect
 {
 	private final String searchPath;
 
 	/**
 	 * @param probe must be there to be called by reflection
+	 * @param properties must be there to be called by reflection
 	 */
-	PostgresqlDialect(final CopeProbe probe)
+	PostgresqlDialect(
+			final CopeProbe probe,
+			final PostgresqlProperties properties)
 	{
 		super(
 				new com.exedio.dsmf.PostgresqlDialect(
-						schema(probe.properties),
+						schema(probe.properties, properties),
 						probe.environmentInfo.isDatabaseVersionAtLeast(9, 5)));
 
-		searchPath = probe.properties.connection.postgresqlSearchPath;
+		searchPath = properties.searchPath;
 	}
 
 	private static String schema(
-			final ConnectProperties connect)
+			final ConnectProperties connect,
+			final PostgresqlProperties properties)
 	{
-		final String searchPath = connect.connection.postgresqlSearchPath;
+		final String searchPath = properties.searchPath;
 		return
-				ConnectionProperties.postgresqlSearchPathDEFAULT.equals(searchPath)
+				PostgresqlProperties.searchPathDEFAULT.equals(searchPath)
 				? connect.connection.username
 				: searchPath;
 	}

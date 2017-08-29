@@ -47,14 +47,14 @@ before_script:
     "connection.url=jdbc:postgresql://localhost/cope_test_db\n"\
     "connection.username=postgres\n"\
     "connection.password=\n"\
-    "connection.postgresql.search_path=public\n"\
+    "dialect.search_path=public\n"\
     "x-build.driver=postgresql.jar\n"\
     | tee conf/environment/pg.properties
   - echo -e -n \
     "connection.url=jdbc:postgresql://localhost/cope_test_db\n"\
     "connection.username=postgres\n"\
     "connection.password=\n"\
-    "connection.postgresql.search_path=public\n"\
+    "dialect.search_path=public\n"\
     "schema.primaryKeyGenerator=sequence\n"\
     "x-build.driver=postgresql.jar\n"\
     | tee conf/environment/pg-sq.properties
@@ -62,7 +62,7 @@ before_script:
     "connection.url=jdbc:postgresql://localhost/cope_test_db\n"\
     "connection.username=postgres\n"\
     "connection.password=\n"\
-    "connection.postgresql.search_path=public\n"\
+    "dialect.search_path=public\n"\
     "disableSupport.preparedStatements=true\n"\
     "x-build.driver=postgresql.jar\n"\
     | tee conf/environment/pg-nprep.properties

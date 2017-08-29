@@ -32,9 +32,6 @@ final class ConnectionProperties extends Properties
 	final String username = value("username", (String)null);
 	final String password = valueHidden("password", (String)null);
 
-	static final String postgresqlSearchPathDEFAULT = "\"$user\"";
-	final String postgresqlSearchPath = valueX("postgresql.search_path", postgresqlSearchPathDEFAULT, ',');
-
 
 	CopeProbe probe(final ConnectProperties outer)
 	{
@@ -74,19 +71,6 @@ final class ConnectionProperties extends Properties
 		e.put(prefix + ".user", username);
 	}
 
-
-	private String valueX(final String key, final String defaultValue, final char forbidden)
-	{
-		final String result = value(key, defaultValue);
-
-		final int position = result.indexOf(forbidden);
-		if(position>=0)
-			throw newException(key,
-				"must not contain '" + forbidden + "', " +
-				"but did at position " + position + " and was '" + result + '\'');
-
-		return result;
-	}
 
 	ConnectionProperties(final Source source) { super(source); }
 }

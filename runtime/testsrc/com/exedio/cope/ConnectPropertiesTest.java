@@ -203,28 +203,6 @@ public class ConnectPropertiesTest
 		}
 	}
 
-	@Test public void testPostgresqlSearchPath()
-	{
-		final String propKey = "connection.postgresql.search_path";
-		final Source source =
-				describe("DESC", cascade(
-						single(propKey, "123,567"),
-						loadProperties()
-				));
-		try
-		{
-			ConnectProperties.create(source);
-			fail();
-		}
-		catch(final IllegalPropertiesException e)
-		{
-			assertEquals(
-					"property " + propKey + " in DESC must not contain ',', "+
-					"but did at position 3 and was '123,567'",
-					e.getMessage());
-		}
-	}
-
 	@Test public void testPrimaryKeyGeneratorDefaultStandard()
 	{
 		final ConnectProperties p = factory().

@@ -56,7 +56,7 @@ public abstract class SchemaTest
 		final String connectionUsername = value      ("connection.username", (String)null);
 		final String connectionPassword = valueHidden("connection.password", (String)null);
 		final String mysqlRowFormat     = value      ("schema.mysql.rowFormat", "NONE");
-		final String connectionPostgresqlSearchPath = value("connection.postgresql.search_path", connectionUsername);
+		final String connectionPostgresqlSearchPath = value("dialect.search_path", connectionUsername);
 
 		Properties()
 		{
