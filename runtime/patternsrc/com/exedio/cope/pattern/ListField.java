@@ -22,6 +22,7 @@ import static com.exedio.cope.ItemField.DeletePolicy.CASCADE;
 import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.Cope;
+import com.exedio.cope.CopyConstraint;
 import com.exedio.cope.CopyMapper;
 import com.exedio.cope.Copyable;
 import com.exedio.cope.Features;
@@ -51,8 +52,9 @@ public final class ListField<E> extends AbstractListField<E> implements Copyable
 	private final FunctionField<E> element;
 	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private Mount mountIfMounted = null;
+	private final CopyFields copyWith;
 
-	private ListField(final FunctionField<E> element)
+	private ListField(final FunctionField<E> element, final CopyFields copyWith)
 	{
 		this.order = new IntegerField().toFinal().min(0);
 		this.element = requireNonNull(element, "element");
@@ -60,17 +62,34 @@ public final class ListField<E> extends AbstractListField<E> implements Copyable
 			throw new IllegalArgumentException("element must not be final");
 		if(element.getImplicitUniqueConstraint()!=null)
 			throw new IllegalArgumentException("element must not be unique");
+		this.copyWith = copyWith;
 	}
 
 	public static <E> ListField<E> create(final FunctionField<E> element)
 	{
-		return new ListField<>(element);
+		return new ListField<>(element, CopyFields.EMPTY);
 	}
 
 	@Override
 	public ListField<E> copy(final CopyMapper mapper)
 	{
-		return new ListField<>(mapper.copy(element));
+		copyWith.failIfNotEmpty();
+		return new ListField<>(mapper.copy(element), copyWith);
+	}
+
+	/**
+	 * Returns a new ListField, that differs from this ListField
+	 * by enforcing that parent and element items have the same value in the given field.
+	 * @throws IllegalStateException if the {@link #getElement() element} field is not an {@link ItemField}
+	 * @throws IllegalArgumentException if the field given as parameter is not final
+	 */
+	public ListField<E> copyWith(final FunctionField<?> copyWith)
+	{
+		if (!(element instanceof ItemField))
+		{
+			throw new IllegalStateException("copyWith requires the ListField's element to be an ItemField");
+		}
+		return new ListField<>(element.copy(), this.copyWith.add(copyWith));
 	}
 
 	@Override
@@ -86,6 +105,7 @@ public final class ListField<E> extends AbstractListField<E> implements Copyable
 		features.put("order", order);
 		features.put("uniqueConstraint", uniqueConstraint);
 		features.put("element", element);
+		copyWith.onMount(features, parent, element);
 		final Type<PatternItem> relationType = newSourceType(PatternItem.class, features);
 		this.mountIfMounted = new Mount(parent, uniqueConstraint, relationType);
 	}
@@ -148,6 +168,30 @@ public final class ListField<E> extends AbstractListField<E> implements Copyable
 	public Type<?> getRelationType()
 	{
 		return mount().relationType;
+	}
+
+	/**
+	 * Get the template fields added with {@link #copyWith(FunctionField)}.
+	 */
+	public List<FunctionField<?>> getCopyWithTemplateFields()
+	{
+		return copyWith.getTemplates();
+	}
+
+	/**
+	 * Get the field that stores a redudant copy of a parent item's value at the relation item, to enforce a
+	 * {@link CopyConstraint} added with {@link #copyWith(FunctionField)}.
+	 * @throws IllegalArgumentException if the field given as parameter does not belong to this ListField's {@link #getType() type}.
+	 * @throws IllegalStateException if there is no CopyConstraint on the given field
+	 */
+	@Nonnull
+	public <T> FunctionField<T> getCopyWithCopyField(final FunctionField<T> template)
+	{
+		if (!template.getType().equals(getType()))
+		{
+			throw new IllegalArgumentException("field from wrong type: expected "+getType()+" but was "+template.getType());
+		}
+		return copyWith.getCopyField(template);
 	}
 
 	/**
