@@ -146,6 +146,8 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 	{
 		final Media result = new Media(isfinal, optional, body.getMaximumLength(), contentType.copy());
 		// TODO implement some generic mapping
+		if(contentType.field!=null)
+			mapper.put(contentType.field, result.contentType.field);
 		mapper.put(lastModified, result.lastModified);
 		return result;
 	}
