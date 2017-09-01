@@ -74,6 +74,7 @@
 					showoutput="true" printsummary="true">
 				<formatter type="brief" usefile="false" />
 				<formatter type="xml" />
+				<jvmarg value="-agentlib:jdwp=transport=dt_socket,server=y,address=${debug.address}" if:set="debug.address"/>
 				<classpath />
 				<test name="@{test}" methods="${method}" todir="build/testresults" outfile="@{test}-@{env}" if="method"/>
 				<test name="@{test}"                     todir="build/testresults" outfile="@{test}-@{env}" unless="method"/>
