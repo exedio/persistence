@@ -200,6 +200,32 @@
                         </arity>
                     </context>
 					 </action>
+                <action name="debug.single.method">
+                    <target>instrument.test</target>
+                    <property name="debug.address">8000</property>
+                    <context>
+                        <property>instrument.test</property>
+                        <folder>instrument/testsrc</folder>
+                        <pattern>.*\.java$</pattern>
+                        <format>java-name</format>
+                        <arity>
+                            <one-file-only/>
+                        </arity>
+                    </context>
+                </action>
+                <action name="debug.single.method">
+                    <target>runtime.test.withEnv</target>
+                    <property name="debug.address">8000</property>
+                    <context>
+                        <property>runtime.test.withEnv</property>
+                        <folder>runtime/testsrc</folder>
+                        <pattern>.*\.java$</pattern>
+                        <format>java-name</format>
+                        <arity>
+                            <one-file-only/>
+                        </arity>
+                    </context>
+                </action>
             </ide-actions>
             <view>
                 <items>
