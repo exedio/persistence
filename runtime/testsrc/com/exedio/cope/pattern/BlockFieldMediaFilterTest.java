@@ -50,8 +50,8 @@ public class BlockFieldMediaFilterTest extends TestWithEnvironment
 	{
 		assertEqualsUnmodifiable(Arrays.asList(new Feature[]{
 				AnItem.TYPE.getThis(),
-				eins, eins.of(source), eins.of(source).getBody(), eins.of(source).getLastModified(), eins.of(filter),
-				zwei, zwei.of(source), zwei.of(source).getBody(), zwei.of(source).getLastModified(), zwei.of(filter),
+				eins, eins.of(source), eins.of(source).getBody(), eins.of(source).getContentType(), eins.of(source).getLastModified(), eins.of(source).getUnison(), eins.of(filter),
+				zwei, zwei.of(source), zwei.of(source).getBody(), zwei.of(source).getContentType(), zwei.of(source).getLastModified(), zwei.of(source).getUnison(), zwei.of(filter),
 			}), AnItem.TYPE.getDeclaredFeatures());
 
 
@@ -104,7 +104,7 @@ public class BlockFieldMediaFilterTest extends TestWithEnvironment
 	static final class ABlock extends Block
 	{
 		@Wrapper(wrap="getURL", visibility=NONE)
-		static final Media source = new Media().optional().contentType(MediaType.JPEG);
+		static final Media source = new Media().optional().contentType(MediaType.JPEG, MediaType.PNG);
 		@Wrapper(wrap="getURL", visibility=NONE)
 		static final MediaThumbnail filter = new MediaThumbnail(source, 10, 20);
 
@@ -117,6 +117,16 @@ public class BlockFieldMediaFilterTest extends TestWithEnvironment
 	final com.exedio.cope.pattern.MediaPath.Locator getSourceLocator()
 	{
 		return field().of(ABlock.source).getLocator(item());
+	}
+
+	/**
+	 * Returns the content type of the media {@link #source}.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getContentType")
+	@javax.annotation.Nullable
+	final java.lang.String getSourceContentType()
+	{
+		return field().of(ABlock.source).getContentType(item());
 	}
 
 	/**

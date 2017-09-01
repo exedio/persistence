@@ -54,13 +54,13 @@ public class BlockFieldStandardModelTest
 				eins,
 				eins.of(aString), eins.of(anInt), eins.of(anEnum), eins.of(anItem),
 				eins.of(aColor), eins.of(aColor).getRGB(),
-				eins.of(aMedia), eins.of(aMedia).getBody(), eins.of(aMedia).getLastModified(),
+				eins.of(aMedia), eins.of(aMedia).getBody(), eins.of(aMedia).getContentType(), eins.of(aMedia).getLastModified(), eins.of(aMedia).getUnison(),
 				eins.of(aList),
 				eins.of(aSet),
 				zwei,
 				zwei.of(aString), zwei.of(anInt), zwei.of(anEnum), zwei.of(anItem),
 				zwei.of(aColor), zwei.of(aColor).getRGB(),
-				zwei.of(aMedia), zwei.of(aMedia).getBody(), zwei.of(aMedia).getLastModified(),
+				zwei.of(aMedia), zwei.of(aMedia).getBody(), zwei.of(aMedia).getContentType(), zwei.of(aMedia).getLastModified(), zwei.of(aMedia).getUnison(),
 				zwei.of(aList),
 				zwei.of(aSet),
 			}), AnItem.TYPE.getDeclaredFeatures());
@@ -152,7 +152,7 @@ public class BlockFieldStandardModelTest
 		static final ItemField<AnItem> anItem = ItemField.create(AnItem.class).optional();
 		static final ColorField aColor = new ColorField();
 		@Wrapper(wrap="getURL", visibility=NONE)
-		static final Media aMedia = new Media().optional().contentType("text/plain");
+		static final Media aMedia = new Media().optional().contentType("text/plain", "text/html");
 		static final ListField<String> aList = ListField.create(new StringField());
 		static final SetField<Integer> aSet = SetField.create(new IntegerField());
 
@@ -267,6 +267,16 @@ public class BlockFieldStandardModelTest
 	final com.exedio.cope.pattern.MediaPath.Locator getAMediaLocator()
 	{
 		return field().of(ABlock.aMedia).getLocator(item());
+	}
+
+	/**
+	 * Returns the content type of the media {@link #aMedia}.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getContentType")
+	@javax.annotation.Nullable
+	final java.lang.String getAMediaContentType()
+	{
+		return field().of(ABlock.aMedia).getContentType(item());
 	}
 
 	/**
