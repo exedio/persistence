@@ -18,14 +18,21 @@
 
 package com.exedio.cope;
 
+import static java.util.Objects.requireNonNull;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 public final class CopyViolationException extends ConstraintViolationException
 {
 	private static final long serialVersionUID = 1l;
 
-	private final CopyConstraint feature;
+	@Nonnull  private final CopyConstraint feature;
+	@Nullable private final CopyConstraint additionalFeature;
 	private final Object expectedValue;
 	private final Object actualValue;
-	private final Item targetItem;
+	@Nonnull  private final Item targetItem;
+	@Nullable private final Item additionalTargetItem;
 
 	CopyViolationException(
 			final FieldValues item,
@@ -34,20 +41,42 @@ public final class CopyViolationException extends ConstraintViolationException
 			final Object expectedValue,
 			final Object actualValue)
 	{
+		this(item, targetItem, null, feature, null, expectedValue, actualValue);
+	}
+
+	CopyViolationException(
+			final FieldValues item,
+			final Item targetItem,
+			@Nullable final Item additionalTargetItem,
+			final CopyConstraint feature,
+			@Nullable final CopyConstraint additionalFeature,
+			final Object expectedValue,
+			final Object actualValue)
+	{
 		super(item.getBackingItem(), null);
-		this.feature = feature;
+		assert (additionalFeature==null) == (additionalTargetItem==null);
+		this.feature = requireNonNull(feature);
+		this.additionalFeature = additionalFeature;
 		this.expectedValue = expectedValue;
 		this.actualValue = actualValue;
-		this.targetItem = targetItem;
+		this.targetItem = requireNonNull(targetItem);
+		this.additionalTargetItem = additionalTargetItem;
 	}
 
 	/**
 	 * Returns the field, that was attempted to be written.
 	 */
+	@Nonnull
 	@Override
 	public CopyConstraint getFeature()
 	{
 		return feature;
+	}
+
+	@Nullable
+	public CopyConstraint getAdditionalFeature()
+	{
+		return additionalFeature;
 	}
 
 	public Object getExpectedValue()
@@ -60,9 +89,16 @@ public final class CopyViolationException extends ConstraintViolationException
 		return actualValue;
 	}
 
+	@Nonnull
 	public Item getTargetItem()
 	{
 		return targetItem;
+	}
+
+	@Nullable
+	public Item getAdditionalTargetItem()
+	{
+		return additionalTargetItem;
 	}
 
 	private static String toString(final Object s)
@@ -73,10 +109,23 @@ public final class CopyViolationException extends ConstraintViolationException
 	@Override
 	public String getMessage(final boolean withFeature)
 	{
-		return
-			"copy violation on " + feature +
-			", expected " + toString(expectedValue) +
-			" from target " + targetItem.getCopeID() +
-			", but was " + toString(actualValue);
+		if (additionalFeature==null)
+		{
+			return
+				"copy violation on " + feature +
+				", expected " + toString(expectedValue) +
+				" from target " + targetItem.getCopeID() +
+				", but was " + toString(actualValue);
+		}
+		else
+		{
+			assert additionalTargetItem!=null; // suppresses idea inspection ConstantConditions
+			return
+				"copy violation on " + feature + " and " + additionalFeature +
+				", expected " + toString(expectedValue) +
+				" from target " + targetItem.getCopeID() +
+				" but also " + toString(actualValue) +
+				" from target " + additionalTargetItem.getCopeID();
+		}
 	}
 }

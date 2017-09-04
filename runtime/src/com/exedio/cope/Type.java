@@ -1084,7 +1084,8 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 				continue;
 
 			Object value = null;
-			boolean hasNoValue = true;
+			CopyConstraint copyConstraintForValue = null;
+			Item targetItemForValue = null;
 			for(final CopyConstraint cc : e.getValue())
 			{
 				final Item targetItem = fieldValues.get(cc.getTarget());
@@ -1092,22 +1093,26 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 					continue;
 
 				final Object template = cc.getTemplate().get(targetItem);
-				if(hasNoValue)
+				if(copyConstraintForValue==null)
 				{
 					value = template;
-					hasNoValue = false;
+					copyConstraintForValue = cc;
+					targetItemForValue = targetItem;
 				}
 				else
 				{
 					if(!Objects.equals(value, template))
 					{
-						value = null;
-						hasNoValue = true;
-						break;
+						throw new CopyViolationException(
+							fieldValues,
+							targetItemForValue, targetItem,
+							copyConstraintForValue, cc,
+							value, template
+						);
 					}
 				}
 			}
-			if(!hasNoValue)
+			if(copyConstraintForValue!=null)
 				fieldValues.setDirty(copy, value);
 		}
 	}
