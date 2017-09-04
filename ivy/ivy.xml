@@ -43,7 +43,7 @@
 		<dependency org="com.exedio" name="copeservletutil" rev="66" conf="runtime->runtime; build->runtime,sources,changelog" />
 
 		<!-- dialects -->
-		<dependency conf="hsqldb->default" org="org.hsqldb" name="hsqldb" rev="2.2.9" />
+		<dependency conf="hsqldb->default" org="org.hsqldb" name="hsqldb" rev="2.4.0" />
 		<dependency conf="mysql->default" org="mysql" name="mysql-connector-java" rev="5.1.15" />
 		<dependency conf="mariadb->default" org="org.mariadb.jdbc" name="mariadb-java-client" rev="2.2.1" />
 		<dependency conf="oracle->default" org="com.oracle" name="ojdbc5" rev="11.1.0.7.0" />

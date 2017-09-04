@@ -265,6 +265,13 @@ public abstract class TestWithEnvironment
 		throw new AssertionError(key);
 	}
 
+	protected final String ifPrep(final String s)
+	{
+		return
+				model.getConnectProperties().isSupportDisabledForPreparedStatements()
+				? "" : s;
+	}
+
 	protected static final String dropMariaConnectionId(final String message)
 	{
 		// TODO do this for MariaDB connector only

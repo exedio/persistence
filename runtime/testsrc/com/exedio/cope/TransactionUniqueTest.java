@@ -25,6 +25,7 @@ import static java.util.Locale.ENGLISH;
 import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.exedio.cope.tojunit.SI;
@@ -76,11 +77,7 @@ public class TransactionUniqueTest extends TestWithEnvironment
 			cause = cause.getCause();
 			assertEquals("transaction rollback: serialization failure", cause.getMessage());
 			cause = cause.getCause();
-			assertEquals("transaction rollback: row change by multiple transactions", cause.getMessage());
-			cause = cause.getCause();
-			assertEquals(
-					"integrity constraint violation: unique constraint or index violation; \"MyItem_field_Unq\" table: " + SI.tab(TYPE),
-					cause.getMessage());
+			assertNull(cause);
 		}
 		MODEL.rollback();
 		MODEL.joinTransaction(tx1);

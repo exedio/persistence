@@ -31,6 +31,7 @@ import static com.exedio.cope.tojunit.Assert.list;
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import com.exedio.cope.tojunit.SI;
 import com.exedio.cope.util.Day;
 import org.junit.jupiter.api.Test;
 
@@ -143,9 +144,9 @@ public class QueryGroupingTest extends TestWithEnvironment
 			{
 				final String message =
 						"expression not in aggregate or GROUP BY columns: " +
-						"PUBLIC.\"" + table + "\".\"" + column + "\"";
-				notAllowed(query, message);
-				notAllowedTotal(query, message);
+						"PUBLIC.\"" + table + "\".\"" + column + "\"" + ifPrep(" in statement ");
+				notAllowed(query, message + ifPrep("[SELECT \"day\",\"number\" FROM " + SI.tab(TYPE) + " GROUP BY \"number\"]"));
+				notAllowedTotal(query, message + ifPrep("[SELECT COUNT(*) FROM ( SELECT \"day\",\"number\" FROM " + SI.tab(TYPE) + " GROUP BY \"number\" )]"));
 				break;
 			}
 			case mysql:

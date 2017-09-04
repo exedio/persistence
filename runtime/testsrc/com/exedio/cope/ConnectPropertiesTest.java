@@ -350,8 +350,8 @@ public class ConnectPropertiesTest
 	{
 		final ConnectProperties p = ConnectProperties.create(TestSources.minimal());
 		final String expected =
-				"HSQL Database Engine 2.2.9 " +
-				"HSQL Database Engine Driver 2.2.9 " +
+				"HSQL Database Engine 2.4.0 " +
+				"HSQL Database Engine Driver 2.4.0 " +
 				"PUBLIC";
 
 		assertEquals(expected, p.probe());
@@ -369,8 +369,8 @@ public class ConnectPropertiesTest
 				single("dataField.vault.service.example", "probeExampleValue"),
 				TestSources.minimal()));
 		final String expected =
-				"HSQL Database Engine 2.2.9 " +
-				"HSQL Database Engine Driver 2.2.9 " +
+				"HSQL Database Engine 2.4.0 " +
+				"HSQL Database Engine Driver 2.4.0 " +
 				"PUBLIC " +
 				"VaultMockService:probeExampleValue";
 

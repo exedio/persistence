@@ -28,6 +28,7 @@ import static com.exedio.cope.SchemaInfo.getTableName;
 import static com.exedio.cope.junit.CopeAssert.assertContains;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import com.exedio.cope.tojunit.SI;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -100,9 +101,9 @@ public class GroupByTest extends TestWithEnvironment
 			{
 				final String message =
 						"expression not in aggregate or GROUP BY columns: " +
-						"PUBLIC.\"" + table + "\".\"" + column + "\"";
-				notAllowed(query, message);
-				notAllowedTotal(query, message);
+						"PUBLIC.\"" + table + "\".\"" + column + "\"" + ifPrep(" in statement ");
+				notAllowed(query, message + ifPrep("[SELECT \"integer\" FROM " + SI.tab(TYPE) + " GROUP BY \"string\"]"));
+				notAllowedTotal(query, message + ifPrep("[SELECT COUNT(*) FROM ( SELECT \"integer\" FROM " + SI.tab(TYPE) + " GROUP BY \"string\" )]"));
 				break;
 			}
 			case mysql:
@@ -160,7 +161,11 @@ public class GroupByTest extends TestWithEnvironment
 		{
 			case hsqldb:
 				notAllowed(query,
-						"invalid ORDER BY expression");
+						"invalid ORDER BY expression" +
+						ifPrep(
+								" in statement [" +
+								"SELECT \"string\" FROM " + SI.tab(TYPE) + " " +
+								"GROUP BY \"string\" ORDER BY \"integer\"]"));
 				break;
 			case mysql:
 				if(env.isDatabaseVersionAtLeast(5, 7))
@@ -204,7 +209,11 @@ public class GroupByTest extends TestWithEnvironment
 		{
 			case hsqldb:
 				notAllowed(query,
-						"invalid ORDER BY expression");
+						"invalid ORDER BY expression" +
+						ifPrep(
+								" in statement [" +
+								"SELECT DISTINCT \"string\" FROM " + SI.tab(TYPE) + " " +
+								"ORDER BY \"integer\"]"));
 				break;
 			case mysql:
 				if(env.isDatabaseVersionAtLeast(5, 7))

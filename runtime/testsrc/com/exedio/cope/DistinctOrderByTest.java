@@ -147,7 +147,12 @@ public class DistinctOrderByTest extends TestWithEnvironment
 		{
 			case hsqldb:
 				notAllowed(query,
-						"invalid ORDER BY expression");
+						"invalid ORDER BY expression" +
+						ifPrep(
+								" in statement [" +
+								"SELECT DISTINCT " + SI.pk(TYPE) + " " +
+								"FROM " + SI.tab(TYPE) + " " +
+								"ORDER BY \"numA\"]"));
 				break;
 			case mysql:
 				assertContains(item2, item3, item1, query.search());
@@ -192,7 +197,13 @@ public class DistinctOrderByTest extends TestWithEnvironment
 		{
 			case hsqldb:
 				notAllowed(query,
-						"invalid ORDER BY expression");
+						"invalid ORDER BY expression" +
+						ifPrep(
+								" in statement [" +
+								"SELECT DISTINCT PlusIntegerItem0." + SI.pk(TYPE) + " " +
+								"FROM " + SI.tab(TYPE) + " PlusIntegerItem0 " +
+								"JOIN " + SI.tab(TYPE) + " PlusIntegerItem1 ON PlusIntegerItem0.\"numC\"=PlusIntegerItem1.\"numC\" " +
+								"ORDER BY PlusIntegerItem0.\"numA\"]"));
 				break;
 			case mysql:
 				assertContains(item2, item3, item1, query.search());
@@ -239,7 +250,13 @@ public class DistinctOrderByTest extends TestWithEnvironment
 		{
 			case hsqldb:
 				notAllowed(query,
-						"invalid ORDER BY expression");
+						"invalid ORDER BY expression" +
+						ifPrep(
+								" in statement [" +
+								"SELECT DISTINCT PlusIntegerItem0." + SI.pk(TYPE) + " " +
+								"FROM " + SI.tab(TYPE) + " PlusIntegerItem0 " +
+								"JOIN " + SI.tab(TYPE) + " PlusIntegerItem1 ON PlusIntegerItem0.\"numC\"=PlusIntegerItem1.\"numC\" " +
+								"ORDER BY PlusIntegerItem1.\"numA\"]"));
 				break;
 			case mysql:
 				if(env.isDatabaseVersionAtLeast(5, 7))
@@ -285,7 +302,13 @@ public class DistinctOrderByTest extends TestWithEnvironment
 		{
 			case hsqldb:
 				notAllowed(query,
-						"user lacks privilege or object not found: ANY_VALUE");
+						"user lacks privilege or object not found: ANY_VALUE" +
+						ifPrep(
+								" in statement [" +
+								"SELECT DISTINCT PlusIntegerItem0." + SI.pk(TYPE) + " " +
+								"FROM " + SI.tab(TYPE) + " PlusIntegerItem0 " +
+								"JOIN " + SI.tab(TYPE) + " PlusIntegerItem1 ON PlusIntegerItem0.\"numC\"=PlusIntegerItem1.\"numC\" " +
+								"ORDER BY ANY_VALUE(PlusIntegerItem0.\"numA\")]"));
 				break;
 			case mysql:
 				if(env.isDatabaseVersionAtLeast(5, 7))
