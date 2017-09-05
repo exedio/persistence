@@ -69,6 +69,7 @@
 		<sequential>
 			<mkdir dir="build/testresults" />
 			<mkdir dir="build/testtmpdir" />
+			<fail if:true="false">ant >= 1.9.1 required, see https://ant.apache.org/manual/ifunless.html</fail>
 			<junit fork="yes"
 					haltonerror="true" haltonfailure="true"
 					showoutput="true" printsummary="true">
