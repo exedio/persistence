@@ -288,8 +288,14 @@ public class TypesBoundErrorTest
 	}
 
 
+	@SuppressFBWarnings("DLS_DEAD_LOCAL_STORE")
 	@Test public void uniqueConstraintOnInheritedFeature()
 	{
+		// initialize class, otherwise test fails if executed alone (without other tests in this test class):
+		// IllegalArgumentException: there is no type for class com.exedio.cope.TypesBoundErrorTest$UniqueConstraintOnInheritedFeatureSuper
+		@SuppressWarnings("unused")
+		final Type<?> ignored = UniqueConstraintOnInheritedFeatureSuper.TYPE;
+
 		try
 		{
 			newType(UniqueConstraintOnInheritedFeatureSub.class);
