@@ -50,13 +50,19 @@ public final class MapField<K,V> extends Pattern implements MapFieldInterface<K,
 
 	private final FunctionField<K> key;
 	private final FunctionField<V> value;
+	private final CopyFields keyCopyWiths;
+	private final CopyFields valueCopyWiths;
 	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private Mount mountIfMounted = null;
 
-	private MapField(final FunctionField<K> key, final FunctionField<V> value)
+	private MapField(
+			final FunctionField<K> key, final FunctionField<V> value,
+			final CopyFields keyCopyWiths, final CopyFields valueCopyWiths)
 	{
 		this.key   = check(key,   "key"  );
 		this.value = check(value, "value");
+		this.keyCopyWiths = keyCopyWiths;
+		this.valueCopyWiths = valueCopyWiths;
 	}
 
 	private static <K> FunctionField<K> check(final FunctionField<K> field, final String name)
@@ -71,7 +77,17 @@ public final class MapField<K,V> extends Pattern implements MapFieldInterface<K,
 
 	public static <K,V> MapField<K,V> create(final FunctionField<K> key, final FunctionField<V> value)
 	{
-		return new MapField<>(key, value);
+		return new MapField<>(key, value, CopyFields.EMPTY, CopyFields.EMPTY);
+	}
+
+	public MapField<K,V> copyKeyWith(final FunctionField<?> copyWith)
+	{
+		return new MapField<>(key.copy(), value.copy(), keyCopyWiths.add(copyWith), valueCopyWiths.copy());
+	}
+
+	public MapField<K,V> copyValueWith(final FunctionField<?> copyWith)
+	{
+		return new MapField<>(key.copy(), value.copy(), keyCopyWiths.copy(), valueCopyWiths.add(copyWith));
 	}
 
 	@Override
@@ -87,6 +103,7 @@ public final class MapField<K,V> extends Pattern implements MapFieldInterface<K,
 		features.put("key", key);
 		features.put("uniqueConstraint", uniqueConstraint);
 		features.put("value", value);
+		CopyFields.onMountAll(features, parent, new FunctionField<?>[]{key, value}, new CopyFields[]{keyCopyWiths, valueCopyWiths});
 		final Type<PatternItem> relationType = newSourceType(PatternItem.class, features);
 		this.mountIfMounted = new Mount(parent, uniqueConstraint, relationType);
 	}
