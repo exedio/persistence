@@ -344,7 +344,9 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		return result;
 	}
 
-	private static Method[] getBeforeNewItemMethods(final Class<?> javaClass, final Type<?> supertype)
+	private static Method[] getBeforeNewItemMethods(
+			final Class<? extends Item> javaClass,
+			final Type<?> supertype)
 	{
 		final Method declared = getBeforeNewItemMethod(javaClass);
 		final Method[] inherited = supertype!=null ? supertype.beforeNewItemMethods : null;
@@ -361,7 +363,8 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		}
 	}
 
-	private static Method getBeforeNewItemMethod(final Class<?> javaClass)
+	private static Method getBeforeNewItemMethod(
+			final Class<? extends Item> javaClass)
 	{
 		final Method result;
 		try
