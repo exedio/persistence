@@ -401,6 +401,7 @@ final class Generator
 			write(lineSeparator);
 	}
 
+	@SuppressWarnings("ConstantConditions") // too complex to analyze
 	private void writeFeature(final LocalCopeFeature feature)
 	{
 		final Object instance = feature.getInstance();

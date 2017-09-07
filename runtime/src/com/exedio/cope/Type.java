@@ -369,6 +369,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		final Method result;
 		try
 		{
+			//noinspection JavaReflectionMemberAccess
 			result = javaClass.getDeclaredMethod("beforeNewCopeItem", SetValue[].class);
 		}
 		catch(final NoSuchMethodException ignored)
