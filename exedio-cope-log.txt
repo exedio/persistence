@@ -7,6 +7,9 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* Collection fields (ListField, SetField, MapField) support copy constraints on their elements
+	see ListField#copyWith, SetField#copyWith, MapField#copyKeyWith, MapField#copyValueWith
+	Adding copy constraints to existing collections changes the database schema.
 * SchemaInfo#search/total fixed for condition==false / limit==0
 * ConnectProperties: renamed several keys:
 
