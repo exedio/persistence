@@ -244,7 +244,7 @@ public class TypesBoundErrorTest
 		@SuppressFBWarnings("UPM_UNCALLED_PRIVATE_METHOD")
 		private SetValue<?>[] beforeNewCopeItem(final SetValue<?>[] setValues)
 		{
-			return setValues;
+			throw new AssertionError();
 		}
 
 		BeforeNewNotStatic(final ActivationParameters ap)
@@ -278,7 +278,7 @@ public class TypesBoundErrorTest
 		@SuppressFBWarnings("UPM_UNCALLED_PRIVATE_METHOD")
 		private static String beforeNewCopeItem(final SetValue<?>[] setValues)
 		{
-			return "";
+			throw new AssertionError();
 		}
 
 		BeforeNewWrongReturn(final ActivationParameters ap)
