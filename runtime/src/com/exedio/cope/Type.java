@@ -389,7 +389,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		return result;
 	}
 
-	SetValue<?>[] doBeforeNewItem(SetValue<?>[] setValues)
+	private SetValue<?>[] doBeforeNewItem(SetValue<?>[] setValues)
 	{
 		if(beforeNewItemMethods!=null)
 		{
