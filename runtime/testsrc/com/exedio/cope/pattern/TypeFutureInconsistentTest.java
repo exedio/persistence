@@ -61,7 +61,7 @@ public class TypeFutureInconsistentTest
 		catch(final IllegalStateException e)
 		{
 			assertEquals(
-					"value type of FeatureItem.itemField (TypeFuture(FeatureItem.itemField)) does not belong to any model",
+					"item field FeatureItem.itemField (TypeFuture(FeatureItem.itemField)) does not belong to any model",
 					e.getMessage());
 		}
 	}

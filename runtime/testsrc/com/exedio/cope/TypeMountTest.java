@@ -62,7 +62,7 @@ public class TypeMountTest
 		catch(final IllegalStateException e)
 		{
 			assertEquals(
-					"value type of Item2.f (" + Item1.class.getName() + ") does not belong to any model",
+					"item field Item2.f (" + Item1.class.getName() + ") does not belong to any model",
 					e.getMessage());
 		}
 

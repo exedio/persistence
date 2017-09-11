@@ -185,7 +185,9 @@ public class TypesBoundErrorTest
 		}
 		catch(final IllegalStateException e)
 		{
-			assertEquals("value type of " + NonResolvingItemField.itemField + " (" + NullFeature.class.getName() + ") does not belong to any model", e.getMessage());
+			assertEquals(
+					"item field " + NonResolvingItemField.itemField + " (" + NullFeature.class.getName() + ") does not belong to any model",
+					e.getMessage());
 		}
 		final Type<NonResolvingItemField> nonResolvingItemField = newType(NonResolvingItemField.class);
 		try
@@ -195,7 +197,9 @@ public class TypesBoundErrorTest
 		}
 		catch(final IllegalStateException e)
 		{
-			assertEquals("value type of " + NonResolvingItemField.itemField + " (" + NullFeature.class.getName() + ") does not belong to any model", e.getMessage());
+			assertEquals(
+					"item field " + NonResolvingItemField.itemField + " (" + NullFeature.class.getName() + ") does not belong to any model",
+					e.getMessage());
 		}
 		try
 		{

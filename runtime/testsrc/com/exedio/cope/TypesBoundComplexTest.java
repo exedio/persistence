@@ -220,7 +220,9 @@ public class TypesBoundComplexTest
 		}
 		catch(final IllegalStateException e)
 		{
-			assertEquals("value type of AnotherItem.itemField (" + AnItem.class.getName() + ") does not belong to any model", e.getMessage());
+			assertEquals(
+					"item field AnotherItem.itemField (" + AnItem.class.getName() + ") does not belong to any model",
+					e.getMessage());
 		}
 		final String modelMessageO =
 			"type AnotherItem (" + AnotherItem.class.getName() +
