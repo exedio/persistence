@@ -185,7 +185,7 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 	public ItemField<E> defaultTo(final E defaultConstant)
 	{
 		if(defaultConstant!=null)
-			throw new IllegalArgumentException("no defaults for item fields");
+			throw new IllegalArgumentException("no defaults for item fields " + this);
 
 		return copy(); // no defaults for item fields
 	}

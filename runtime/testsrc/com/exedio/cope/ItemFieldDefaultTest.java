@@ -52,7 +52,7 @@ public class ItemFieldDefaultTest
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("no defaults for item fields", e.getMessage());
+			assertEquals("no defaults for item fields " + f, e.getMessage());
 		}
 		assertEquals(null, f.getDefaultConstant());
 	}
