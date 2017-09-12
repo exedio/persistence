@@ -282,6 +282,22 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 		return valueType;
 	}
 
+	/**
+	 * Returns the same value as {@link #getValueType()}
+	 * for the model this field (and its {@link #getType() type}) is part of.
+	 * For other models it returns the same value as {@link #getValueType()}
+	 * if this field (and its {@link #getType() type}) had been added to that model.
+	 */
+	public Type<E> getValueType(final Model model)
+	{
+		requireNonNull(model, "model"); // probably will be needed for TypeFuture sometimes
+		final Type<E> result = valueTypeFuture.get();
+		if(result==null)
+			throw new NullPointerException(
+					"value type of " + this + " (" + valueTypeFuture + ") returned null");
+		return result;
+	}
+
 
 	private boolean connected = false;
 	private Type<? extends E> onlyPossibleValueType = null;
