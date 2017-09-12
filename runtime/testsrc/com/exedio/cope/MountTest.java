@@ -129,8 +129,8 @@ public class MountTest
 		assertEquals(                     "field", f.getName());
 		assertLocale(         "MyComposite.field", f);
 		assertEquals(PREFIX + "MyComposite#field", f.toString());
-		assertFails (PREFIX + "MyComposite#field", f::getID);
-		assertFails (PREFIX + "MyComposite#field", f::getType);
+		assertFails (PREFIX + "MyComposite#field", f::getID,   CompositeType.class);
+		assertFails (PREFIX + "MyComposite#field", f::getType, CompositeType.class);
 		assertEquals(          MyComposite.TYPE,   f.getAbstractType());
 		assertSerializedSame(f, 272);
 	}
@@ -141,8 +141,8 @@ public class MountTest
 		assertEquals(                     "actual", f.getName());
 		assertLocale(         "MyComposite.actual", f);
 		assertEquals(PREFIX + "MyComposite#pure",   f.toString()); // pure is ok
-		assertFails (PREFIX + "MyComposite#pure",   f::getID);    // pure is ok
-		assertFails (PREFIX + "MyComposite#pure",   f::getType);  // pure is ok
+		assertFails (PREFIX + "MyComposite#pure",   f::getID,   CompositeType.class); // pure is ok
+		assertFails (PREFIX + "MyComposite#pure",   f::getType, CompositeType.class); // pure is ok
 		assertEquals(          MyComposite.TYPE,    f.getAbstractType());
 		assertSerializedSame(f, 271);
 	}
@@ -153,8 +153,8 @@ public class MountTest
 		assertEquals(                       "field", f.getName());
 		assertLocale(       "ActualComposite.field", f);
 		assertEquals(PREFIX + "PureComposite#field", f.toString()); // pure is ok
-		assertFails (PREFIX + "PureComposite#field", f::getID);    // pure is ok
-		assertFails (PREFIX + "PureComposite#field", f::getType);  // pure is ok
+		assertFails (PREFIX + "PureComposite#field", f::getID,   CompositeType.class); // pure is ok
+		assertFails (PREFIX + "PureComposite#field", f::getType, CompositeType.class); // pure is ok
 		assertEquals(          PureComposite.TYPE,   f.getAbstractType());
 		assertSerializedSame(f, 274);
 	}
@@ -165,8 +165,8 @@ public class MountTest
 		assertEquals(                       "actual", f.getName());
 		assertLocale(       "ActualComposite.actual", f);
 		assertEquals(PREFIX + "PureComposite#pure",   f.toString()); // pure is ok
-		assertFails (PREFIX + "PureComposite#pure",   f::getID);    // pure is ok
-		assertFails (PREFIX + "PureComposite#pure",   f::getType);  // pure is ok
+		assertFails (PREFIX + "PureComposite#pure",   f::getID,   CompositeType.class); // pure is ok
+		assertFails (PREFIX + "PureComposite#pure",   f::getType, CompositeType.class); // pure is ok
 		assertEquals(          PureComposite.TYPE,    f.getAbstractType());
 		assertSerializedSame(f, 273);
 	}
@@ -195,8 +195,8 @@ public class MountTest
 		assertEquals(                 "field", f.getName());
 		assertLocale(         "MyBlock.field", f);
 		assertEquals(PREFIX + "MyBlock#field", f.toString());
-		assertFails (PREFIX + "MyBlock#field", f::getID);
-		assertFails (PREFIX + "MyBlock#field", f::getType);
+		assertFails (PREFIX + "MyBlock#field", f::getID,   BlockType.class);
+		assertFails (PREFIX + "MyBlock#field", f::getType, BlockType.class);
 		assertEquals(          MyBlock.TYPE,   f.getAbstractType());
 		assertSerializedSame(f, 312);
 	}
@@ -207,8 +207,8 @@ public class MountTest
 		assertEquals(                 "actual", f.getName());
 		assertLocale(         "MyBlock.actual", f);
 		assertEquals(PREFIX + "MyBlock#pure",   f.toString()); // pure is ok
-		assertFails (PREFIX + "MyBlock#pure",   f::getID);    // pure is ok
-		assertFails (PREFIX + "MyBlock#pure",   f::getType);  // pure is ok
+		assertFails (PREFIX + "MyBlock#pure",   f::getID,   BlockType.class); // pure is ok
+		assertFails (PREFIX + "MyBlock#pure",   f::getType, BlockType.class); // pure is ok
 		assertEquals(          MyBlock.TYPE,    f.getAbstractType());
 		assertSerializedSame(f, 311);
 	}
@@ -219,8 +219,8 @@ public class MountTest
 		assertEquals(                   "field", f.getName());
 		assertLocale(       "ActualBlock.field", f);
 		assertEquals(PREFIX + "PureBlock#field", f.toString()); // pure is ok
-		assertFails (PREFIX + "PureBlock#field", f::getID);    // pure is ok
-		assertFails (PREFIX + "PureBlock#field", f::getType);  // pure is ok
+		assertFails (PREFIX + "PureBlock#field", f::getID,   BlockType.class); // pure is ok
+		assertFails (PREFIX + "PureBlock#field", f::getType, BlockType.class); // pure is ok
 		assertEquals(          PureBlock.TYPE,   f.getAbstractType());
 		assertSerializedSame(f, 314);
 	}
@@ -231,8 +231,8 @@ public class MountTest
 		assertEquals(                   "actual", f.getName());
 		assertLocale(       "ActualBlock.actual", f);
 		assertEquals(PREFIX + "PureBlock#pure",   f.toString()); // pure is ok
-		assertFails (PREFIX + "PureBlock#pure",   f::getID);    // pure is ok
-		assertFails (PREFIX + "PureBlock#pure",   f::getType);  // pure is ok
+		assertFails (PREFIX + "PureBlock#pure",   f::getID,   BlockType.class); // pure is ok
+		assertFails (PREFIX + "PureBlock#pure",   f::getType, BlockType.class); // pure is ok
 		assertEquals(          PureBlock.TYPE,    f.getAbstractType());
 		assertSerializedSame(f, 313);
 	}
@@ -387,7 +387,10 @@ public class MountTest
 	}
 
 
-	private static void assertFails(final String message, final Supplier<Object> supplier)
+	private static void assertFails(
+			final String message,
+			final Supplier<Object> supplier,
+			@SuppressWarnings("rawtypes") final Class<? extends AbstractType> type)
 	{
 		try
 		{
@@ -396,7 +399,9 @@ public class MountTest
 		}
 		catch(final IllegalStateException e)
 		{
-			assertEquals("feature not mounted to a type: " + message, e.getMessage());
+			assertEquals(
+					"feature not mounted to a type, but to " + type.getName() + ": " + message,
+					e.getMessage());
 		}
 	}
 

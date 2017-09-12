@@ -70,7 +70,9 @@ public class BlockMountTest
 		}
 		catch(final IllegalStateException e)
 		{
-			assertEquals("feature not mounted to a type: " + blockName + "string4", e.getMessage());
+			assertEquals(
+					"feature not mounted to a type, but to com.exedio.cope.pattern.BlockType: " + blockName + "string4",
+					e.getMessage());
 		}
 		try
 		{
@@ -79,7 +81,9 @@ public class BlockMountTest
 		}
 		catch(final IllegalStateException e)
 		{
-			assertEquals("feature not mounted to a type: " + blockName + "intMax4", e.getMessage());
+			assertEquals(
+					"feature not mounted to a type, but to com.exedio.cope.pattern.BlockType: " + blockName + "intMax4",
+					e.getMessage());
 		}
 
 		final LongField negative = new LongField();
@@ -120,7 +124,9 @@ public class BlockMountTest
 		}
 		catch(final IllegalStateException e)
 		{
-			assertEquals("feature not mounted to a type: " + blockName + "string4", e.getMessage());
+			assertEquals(
+					"feature not mounted to a type, but to com.exedio.cope.pattern.BlockType: " + blockName + "string4",
+					e.getMessage());
 		}
 		try
 		{
@@ -129,7 +135,9 @@ public class BlockMountTest
 		}
 		catch(final IllegalStateException e)
 		{
-			assertEquals("feature not mounted to a type: " + blockName + "intMax4", e.getMessage());
+			assertEquals(
+					"feature not mounted to a type, but to com.exedio.cope.pattern.BlockType: " + blockName + "intMax4",
+					e.getMessage());
 		}
 
 		final LongField negative = new LongField();

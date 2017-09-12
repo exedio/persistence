@@ -281,7 +281,8 @@ public abstract class Feature implements Serializable
 	{
 		final Mount result = mountAny();
 		if(!(result instanceof MountType))
-			throw new IllegalStateException("feature not mounted to a type: " + result);
+			throw new IllegalStateException(
+					"feature not mounted to a type, but to " + result.type.getClass().getName() + ": " + result);
 		return (MountType)result;
 	}
 

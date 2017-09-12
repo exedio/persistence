@@ -74,7 +74,9 @@ public class CompositeMountTest
 		}
 		catch(final IllegalStateException e)
 		{
-			assertEquals("feature not mounted to a type: " + valueName + "string4", e.getMessage());
+			assertEquals(
+					"feature not mounted to a type, but to com.exedio.cope.pattern.CompositeType: " + valueName + "string4",
+					e.getMessage());
 		}
 		try
 		{
@@ -83,7 +85,9 @@ public class CompositeMountTest
 		}
 		catch(final IllegalStateException e)
 		{
-			assertEquals("feature not mounted to a type: " + valueName + "intMax4", e.getMessage());
+			assertEquals(
+					"feature not mounted to a type, but to com.exedio.cope.pattern.CompositeType: " + valueName + "intMax4",
+					e.getMessage());
 		}
 
 		final LongField negative = new LongField();
@@ -151,7 +155,9 @@ public class CompositeMountTest
 		}
 		catch(final IllegalStateException e)
 		{
-			assertEquals("feature not mounted to a type: " + valueName + "string4", e.getMessage());
+			assertEquals(
+					"feature not mounted to a type, but to com.exedio.cope.pattern.CompositeType: " + valueName + "string4",
+					e.getMessage());
 		}
 		try
 		{
@@ -160,7 +166,9 @@ public class CompositeMountTest
 		}
 		catch(final IllegalStateException e)
 		{
-			assertEquals("feature not mounted to a type: " + valueName + "intMax4", e.getMessage());
+			assertEquals(
+					"feature not mounted to a type, but to com.exedio.cope.pattern.CompositeType: " + valueName + "intMax4",
+					e.getMessage());
 		}
 
 		final LongField negative = new LongField();
