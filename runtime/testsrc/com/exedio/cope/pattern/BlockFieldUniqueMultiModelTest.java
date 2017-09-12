@@ -19,14 +19,14 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
-import static com.exedio.cope.pattern.BlockFieldUniqueModelTest.ABlock.alpha;
-import static com.exedio.cope.pattern.BlockFieldUniqueModelTest.ABlock.alphaPrice;
-import static com.exedio.cope.pattern.BlockFieldUniqueModelTest.ABlock.beta;
-import static com.exedio.cope.pattern.BlockFieldUniqueModelTest.ABlock.betaPrice;
-import static com.exedio.cope.pattern.BlockFieldUniqueModelTest.ABlock.constraint;
-import static com.exedio.cope.pattern.BlockFieldUniqueModelTest.ABlock.constraintPrice;
-import static com.exedio.cope.pattern.BlockFieldUniqueModelTest.AnItem.eins;
-import static com.exedio.cope.pattern.BlockFieldUniqueModelTest.AnItem.zwei;
+import static com.exedio.cope.pattern.BlockFieldUniqueMultiModelTest.ABlock.alpha;
+import static com.exedio.cope.pattern.BlockFieldUniqueMultiModelTest.ABlock.alphaPrice;
+import static com.exedio.cope.pattern.BlockFieldUniqueMultiModelTest.ABlock.beta;
+import static com.exedio.cope.pattern.BlockFieldUniqueMultiModelTest.ABlock.betaPrice;
+import static com.exedio.cope.pattern.BlockFieldUniqueMultiModelTest.ABlock.constraint;
+import static com.exedio.cope.pattern.BlockFieldUniqueMultiModelTest.ABlock.constraintPrice;
+import static com.exedio.cope.pattern.BlockFieldUniqueMultiModelTest.AnItem.eins;
+import static com.exedio.cope.pattern.BlockFieldUniqueMultiModelTest.AnItem.zwei;
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
 import static com.exedio.cope.tojunit.Assert.list;
 import static org.junit.Assert.assertEquals;
@@ -40,13 +40,13 @@ import com.exedio.cope.UniqueConstraint;
 import java.util.Arrays;
 import org.junit.Test;
 
-public class BlockFieldUniqueModelTest
+public class BlockFieldUniqueMultiModelTest
 {
 	static final Model MODEL = new Model(AnItem.TYPE);
 
 	static
 	{
-		MODEL.enableSerialization(BlockFieldUniqueModelTest.class, "MODEL");
+		MODEL.enableSerialization(BlockFieldUniqueMultiModelTest.class, "MODEL");
 	}
 
 	@Test public void testIt()
@@ -67,7 +67,7 @@ public class BlockFieldUniqueModelTest
 		assertEquals(AnItem.TYPE, eins.getType());
 		assertEquals("eins-constraint", eins.of(constraint).getName());
 		assertEquals("eins", eins.getName());
-		assertEquals("com.exedio.cope.pattern.BlockFieldUniqueModelTest$ABlock#constraint", constraint.toString());
+		assertEquals("com.exedio.cope.pattern.BlockFieldUniqueMultiModelTest$ABlock#constraint", constraint.toString());
 		assertEquals("AnItem.eins-constraint", eins.of(constraint).toString());
 		assertEquals("AnItem.eins", eins.toString());
 		assertEquals(eins, eins.of(constraint).getPattern());
@@ -96,14 +96,14 @@ public class BlockFieldUniqueModelTest
 				eins.of(alphaPrice), eins.of(betaPrice), eins.of(constraintPrice)),
 			eins.getComponents());
 
-		assertSerializedSame(alpha, 335);
-		assertSerializedSame(constraint, 340);
-		assertSerializedSame(eins.of(alpha), 391);
-		assertSerializedSame(eins.of(constraint), 396);
-		assertSerializedSame(zwei.of(alpha), 391);
-		assertSerializedSame(zwei.of(constraint), 396);
-		assertSerializedSame(eins, 385);
-		assertSerializedSame(zwei, 385);
+		assertSerializedSame(alpha, 340);
+		assertSerializedSame(constraint, 345);
+		assertSerializedSame(eins.of(alpha), 396);
+		assertSerializedSame(eins.of(constraint), 401);
+		assertSerializedSame(zwei.of(alpha), 396);
+		assertSerializedSame(zwei.of(constraint), 401);
+		assertSerializedSame(eins, 390);
+		assertSerializedSame(zwei, 390);
 	}
 
 	static final class ABlock extends Block

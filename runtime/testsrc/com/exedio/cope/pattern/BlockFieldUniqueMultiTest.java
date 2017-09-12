@@ -18,24 +18,24 @@
 
 package com.exedio.cope.pattern;
 
-import static com.exedio.cope.pattern.BlockFieldUniqueModelTest.ABlock.constraint;
-import static com.exedio.cope.pattern.BlockFieldUniqueModelTest.ABlock.constraintPrice;
-import static com.exedio.cope.pattern.BlockFieldUniqueModelTest.AnItem.eins;
+import static com.exedio.cope.pattern.BlockFieldUniqueMultiModelTest.ABlock.constraint;
+import static com.exedio.cope.pattern.BlockFieldUniqueMultiModelTest.ABlock.constraintPrice;
+import static com.exedio.cope.pattern.BlockFieldUniqueMultiModelTest.AnItem.eins;
 import static com.exedio.cope.pattern.Price.storeOf;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.UniqueViolationException;
-import com.exedio.cope.pattern.BlockFieldUniqueModelTest.ABlock;
-import com.exedio.cope.pattern.BlockFieldUniqueModelTest.AnItem;
+import com.exedio.cope.pattern.BlockFieldUniqueMultiModelTest.ABlock;
+import com.exedio.cope.pattern.BlockFieldUniqueMultiModelTest.AnItem;
 import org.junit.Test;
 
-public class BlockFieldUniqueTest extends TestWithEnvironment
+public class BlockFieldUniqueMultiTest extends TestWithEnvironment
 {
-	public BlockFieldUniqueTest()
+	public BlockFieldUniqueMultiTest()
 	{
-		super(BlockFieldUniqueModelTest.MODEL);
+		super(BlockFieldUniqueMultiModelTest.MODEL);
 	}
 
 	@Test public void testField()
