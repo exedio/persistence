@@ -98,6 +98,9 @@ public abstract class Feature implements Serializable
 			final String suffix = '.' + name.replace('-', '.');
 			for(final String prefix : type.getLocalizationKeys())
 				result.add(prefix + suffix);
+
+			final int dashIndex = name.lastIndexOf('-');
+			result.add(dashIndex>=0 ? name.substring(dashIndex+1) : name);
 		}
 
 		abstract void toString(StringBuilder bf, Type<?> defaultType);

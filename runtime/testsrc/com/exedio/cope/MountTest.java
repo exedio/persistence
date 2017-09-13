@@ -61,7 +61,7 @@ public class MountTest
 	{
 		final Feature f = MyItem.field;
 		assertEquals(       "field", f.getName());
-		assertLocale("MyItem.field", f);
+		assertLocale("MyItem.field", "field", f);
 		assertEquals("MyItem.field", f.toString());
 		assertEquals("MyItem.field", f.getID());
 		assertEquals( MyItem.TYPE,   f.getType());
@@ -73,7 +73,7 @@ public class MountTest
 	{
 		final Feature f = MyItem.pure;
 		assertEquals(       "actual", f.getName());
-		assertLocale("MyItem.actual", f);
+		assertLocale("MyItem.actual", "actual", f);
 		assertEquals("MyItem.actual", f.toString());
 		assertEquals("MyItem.actual", f.getID());
 		assertEquals( MyItem.TYPE,    f.getType());
@@ -85,7 +85,7 @@ public class MountTest
 	{
 		final Feature f = PureItem.field;
 		assertEquals(           "field", f.getName());
-		assertLocale("ActualItem.field", f);
+		assertLocale("ActualItem.field", "field", f);
 		assertEquals("ActualItem.field", f.toString());
 		assertEquals("ActualItem.field", f.getID());
 		assertEquals(   PureItem.TYPE,   f.getType());
@@ -97,7 +97,7 @@ public class MountTest
 	{
 		final Feature f = PureItem.pure;
 		assertEquals(           "actual", f.getName());
-		assertLocale("ActualItem.actual", f);
+		assertLocale("ActualItem.actual", "actual", f);
 		assertEquals("ActualItem.actual", f.toString());
 		assertEquals("ActualItem.actual", f.getID());
 		assertEquals(   PureItem.TYPE,    f.getType());
@@ -127,7 +127,7 @@ public class MountTest
 	{
 		final Feature f = MyComposite.field;
 		assertEquals(                     "field", f.getName());
-		assertLocale(         "MyComposite.field", f);
+		assertLocale(         "MyComposite.field", "field", f);
 		assertEquals(PREFIX + "MyComposite#field", f.toString());
 		assertFails (PREFIX + "MyComposite#field", f::getID,   CompositeType.class);
 		assertFails (PREFIX + "MyComposite#field", f::getType, CompositeType.class);
@@ -139,7 +139,7 @@ public class MountTest
 	{
 		final Feature f = MyComposite.pure;
 		assertEquals(                     "actual", f.getName());
-		assertLocale(         "MyComposite.actual", f);
+		assertLocale(         "MyComposite.actual", "actual", f);
 		assertEquals(PREFIX + "MyComposite#pure",   f.toString()); // pure is ok
 		assertFails (PREFIX + "MyComposite#pure",   f::getID,   CompositeType.class); // pure is ok
 		assertFails (PREFIX + "MyComposite#pure",   f::getType, CompositeType.class); // pure is ok
@@ -151,7 +151,7 @@ public class MountTest
 	{
 		final Feature f = PureComposite.field;
 		assertEquals(                       "field", f.getName());
-		assertLocale(       "ActualComposite.field", f);
+		assertLocale(       "ActualComposite.field", "field", f);
 		assertEquals(PREFIX + "PureComposite#field", f.toString()); // pure is ok
 		assertFails (PREFIX + "PureComposite#field", f::getID,   CompositeType.class); // pure is ok
 		assertFails (PREFIX + "PureComposite#field", f::getType, CompositeType.class); // pure is ok
@@ -163,7 +163,7 @@ public class MountTest
 	{
 		final Feature f = PureComposite.pure;
 		assertEquals(                       "actual", f.getName());
-		assertLocale(       "ActualComposite.actual", f);
+		assertLocale(       "ActualComposite.actual", "actual", f);
 		assertEquals(PREFIX + "PureComposite#pure",   f.toString()); // pure is ok
 		assertFails (PREFIX + "PureComposite#pure",   f::getID,   CompositeType.class); // pure is ok
 		assertFails (PREFIX + "PureComposite#pure",   f::getType, CompositeType.class); // pure is ok
@@ -193,7 +193,7 @@ public class MountTest
 	{
 		final Feature f = MyBlock.field;
 		assertEquals(                 "field", f.getName());
-		assertLocale(         "MyBlock.field", f);
+		assertLocale(         "MyBlock.field", "field", f);
 		assertEquals(PREFIX + "MyBlock#field", f.toString());
 		assertFails (PREFIX + "MyBlock#field", f::getID,   BlockType.class);
 		assertFails (PREFIX + "MyBlock#field", f::getType, BlockType.class);
@@ -205,7 +205,7 @@ public class MountTest
 	{
 		final Feature f = MyBlock.pure;
 		assertEquals(                 "actual", f.getName());
-		assertLocale(         "MyBlock.actual", f);
+		assertLocale(         "MyBlock.actual", "actual", f);
 		assertEquals(PREFIX + "MyBlock#pure",   f.toString()); // pure is ok
 		assertFails (PREFIX + "MyBlock#pure",   f::getID,   BlockType.class); // pure is ok
 		assertFails (PREFIX + "MyBlock#pure",   f::getType, BlockType.class); // pure is ok
@@ -217,7 +217,7 @@ public class MountTest
 	{
 		final Feature f = PureBlock.field;
 		assertEquals(                   "field", f.getName());
-		assertLocale(       "ActualBlock.field", f);
+		assertLocale(       "ActualBlock.field", "field", f);
 		assertEquals(PREFIX + "PureBlock#field", f.toString()); // pure is ok
 		assertFails (PREFIX + "PureBlock#field", f::getID,   BlockType.class); // pure is ok
 		assertFails (PREFIX + "PureBlock#field", f::getType, BlockType.class); // pure is ok
@@ -229,7 +229,7 @@ public class MountTest
 	{
 		final Feature f = PureBlock.pure;
 		assertEquals(                   "actual", f.getName());
-		assertLocale(       "ActualBlock.actual", f);
+		assertLocale(       "ActualBlock.actual", "actual", f);
 		assertEquals(PREFIX + "PureBlock#pure",   f.toString()); // pure is ok
 		assertFails (PREFIX + "PureBlock#pure",   f::getID,   BlockType.class); // pure is ok
 		assertFails (PREFIX + "PureBlock#pure",   f::getType, BlockType.class); // pure is ok
@@ -416,11 +416,15 @@ public class MountTest
 				t.getLocalizationKeys());
 	}
 
-	private static void assertLocale(final String expected, final Feature f)
+	private static void assertLocale(
+			final String expected,
+			final String expectedSimple,
+			final Feature f)
 	{
 		assertEqualsUnmodifiable(asList(
 				"com.exedio.cope.MountTest." + expected,
-				                "MountTest." + expected),
+				                "MountTest." + expected,
+				expectedSimple),
 				f.getLocalizationKeys());
 	}
 }
