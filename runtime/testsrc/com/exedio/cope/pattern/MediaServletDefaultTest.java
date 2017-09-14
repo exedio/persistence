@@ -42,6 +42,10 @@ public class MediaServletDefaultTest
 	{
 		assertEquals(false, servlet.isCacheControlPrivate(CacheControlPrivateItem.finger, null));
 	}
+	@Test public void testCacheControlPrivateSecretFinger()
+	{
+		assertEquals(true,  servlet.isCacheControlPrivate(CacheControlPrivateItem.secfin, null));
+	}
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	static final class CacheControlPrivateItem extends Item
 	{
@@ -50,6 +54,8 @@ public class MediaServletDefaultTest
 		@WrapperIgnore static final Media secret = new Media();
 		@UrlFingerPrinting
 		@WrapperIgnore static final Media finger = new Media();
+		@PreventUrlGuessing @UrlFingerPrinting
+		@WrapperIgnore static final Media secfin = new Media();
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		private static final long serialVersionUID = 1l;

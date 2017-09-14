@@ -130,11 +130,11 @@ public final class MediaPathTest extends TestWithEnvironment
 		assertEquals(ok, "/" + item.getNormalLocator().getPath());
 		assertOk      ("/MediaPathItem/normal/"             + id);
 		assertRedirect("/MediaPathItem/normal/.fFFF/"       + id, prefix + ok);
-		assertNotFound("/MediaPathItem/normal/.fFF1/.fFF2/" + id, "not an item"); // duplicate fingerprint
+		assertNotFound("/MediaPathItem/normal/.fFF1/.fFF2/" + id, "invalid special"); // duplicate fingerprint
 		assertRedirect("/MediaPathItem/normal/.tTTT/"       + id, prefix + ok);
-		assertNotFound("/MediaPathItem/normal/.tTT1/.tTT2/" + id, "not an item"); // duplicate token
-		assertNotFound("/MediaPathItem/normal/.fFFF/.tTTT/" + id, "not an item");
-		assertNotFound("/MediaPathItem/normal/.tTTT/.fFFF/" + id, "not an item"); // wrong order
+		assertNotFound("/MediaPathItem/normal/.tTT1/.tTT2/" + id, "invalid special"); // duplicate token
+		assertRedirect("/MediaPathItem/normal/.fFFF/.tTTT/" + id, prefix + ok);
+		assertNotFound("/MediaPathItem/normal/.tTTT/.fFFF/" + id, "invalid special"); // wrong order
 	}
 
 	@Test public void testRedirectFrom() throws ServletException, IOException
@@ -274,10 +274,10 @@ public final class MediaPathTest extends TestWithEnvironment
 		assertRedirect("/MediaPathItem/finger/.fx/" + id + "/otherPhrase.jpg", prefix + ok);
 		assertRedirect("/MediaPathItem/finger/.fx/" + id + "/phrase.png",      prefix + ok);
 
-		assertNotFound("/MediaPathItem/finger/.fIkl3T/.fIkl3T/" + id + "/phrase.jpg", "not an item");
-		assertNotFound("/MediaPathItem/finger/.fIkl3T/.fxxxxx/" + id + "/phrase.jpg", "not an item");
-		assertNotFound("/MediaPathItem/finger/.fxxxxx/.fIkl3T/" + id + "/phrase.jpg", "not an item");
-		assertNotFound("/MediaPathItem/finger/.fxxxxx/.fxxxxx/" + id + "/phrase.jpg", "not an item");
+		assertNotFound("/MediaPathItem/finger/.fIkl3T/.fIkl3T/" + id + "/phrase.jpg", "invalid special");
+		assertNotFound("/MediaPathItem/finger/.fIkl3T/.fxxxxx/" + id + "/phrase.jpg", "invalid special");
+		assertNotFound("/MediaPathItem/finger/.fxxxxx/.fIkl3T/" + id + "/phrase.jpg", "invalid special");
+		assertNotFound("/MediaPathItem/finger/.fxxxxx/.fxxxxx/" + id + "/phrase.jpg", "invalid special");
 	}
 
 	@Test public void testConditional() throws ServletException, IOException
@@ -356,10 +356,10 @@ public final class MediaPathTest extends TestWithEnvironment
 
 		service(new Request("/MediaPathItem/guess/.t" + token + "/"                 + id)).assertOkAndCacheControl("private");
 		assertNotFound(     "/MediaPathItem/guess/.t" + "xxx" + "/"                 + id, "guessed url");
-		assertNotFound(     "/MediaPathItem/guess/.t" + token + "/.t" + token + "/" + id, "guessed url");
-		assertNotFound(     "/MediaPathItem/guess/.t" + "xxx" + "/.t" + token + "/" + id, "guessed url");
-		assertNotFound(     "/MediaPathItem/guess/.t" + token + "/.t" + "xxx" + "/" + id, "guessed url");
-		assertNotFound(     "/MediaPathItem/guess/.t" + "xxx" + "/.t" + "xxx" + "/" + id, "guessed url");
+		assertNotFound(     "/MediaPathItem/guess/.t" + token + "/.t" + token + "/" + id, "invalid special");
+		assertNotFound(     "/MediaPathItem/guess/.t" + "xxx" + "/.t" + token + "/" + id, "invalid special");
+		assertNotFound(     "/MediaPathItem/guess/.t" + token + "/.t" + "xxx" + "/" + id, "invalid special");
+		assertNotFound(     "/MediaPathItem/guess/.t" + "xxx" + "/.t" + "xxx" + "/" + id, "invalid special");
 	}
 
 	@Test public void testGuessAndAge() throws ServletException, IOException
@@ -372,6 +372,53 @@ public final class MediaPathTest extends TestWithEnvironment
 				MODEL.getConnectProperties().getMediaOffsetExpires()>0
 				? "private,max-age=5"
 				: "private");
+	}
+
+	@Test public void testFingerGuess() throws ServletException, IOException
+	{
+		item.setFingerGuessContentType("image/jpeg");
+		item.setFingerGuessLastModified(new Date(333338888));
+		final int ALMOST_ONE_YEAR = 31363200;
+		final String token = "MediaPathItem.fingerGuess-" + id;
+		final String ok = "/MediaPathItem/fingerGuess/.fIkl3T/.t" + token + "/" + id + ".jpg";
+		assertEquals(ok, "/" + item.getFingerGuessLocator().getPath());
+		service(new Request(ok)).
+				assertLastModified(333339000l).
+				assertOkAndCacheControl("private,max-age="+ALMOST_ONE_YEAR);
+
+		assertNotFound("/MediaPathItem/fingerGuess/.fIkl3T/.tzack/" + id + ".jpg", "guessed url");
+		assertNotFound("/MediaPathItem/fingerGuess/.fIkl3T/.t/"     + id + ".jpg", "guessed url");
+		assertNotFound("/MediaPathItem/fingerGuess/.fIkl3T/"        + id + ".jpg", "guessed url");
+
+		assertRedirect("/MediaPathItem/fingerGuess/.t" + token + "/" + id,                      prefix + ok);
+		assertRedirect("/MediaPathItem/fingerGuess/.t" + token + "/" + id + "/otherPhrase",     prefix + ok);
+		assertRedirect("/MediaPathItem/fingerGuess/.t" + token + "/" + id + "/phrase.png",      prefix + ok);
+		assertRedirect("/MediaPathItem/fingerGuess/.t" + token + "/" + id + "/otherPhrase.jpg", prefix + ok);
+
+		assertRedirect("/MediaPathItem/fingerGuess/.fx/.t" + token + "/" + id,                      prefix + ok);
+		assertRedirect("/MediaPathItem/fingerGuess/.fx/.t" + token + "/" + id + "/otherPhrase",     prefix + ok);
+		assertRedirect("/MediaPathItem/fingerGuess/.fx/.t" + token + "/" + id + "/phrase.png",      prefix + ok);
+		assertRedirect("/MediaPathItem/fingerGuess/.fx/.t" + token + "/" + id + "/otherPhrase.jpg", prefix + ok);
+
+		assertNotFound("/MediaPathItem/fingerGuess/.tzack/" + id,                      "guessed url");
+		assertNotFound("/MediaPathItem/fingerGuess/.tzack/" + id + "/otherPhrase",     "guessed url");
+		assertNotFound("/MediaPathItem/fingerGuess/.tzack/" + id + "/phrase.png",      "guessed url");
+		assertNotFound("/MediaPathItem/fingerGuess/.tzack/" + id + "/otherPhrase.jpg", "guessed url");
+
+		assertNotFound("/MediaPathItem/fingerGuess/.fx/.tzack/" + id,                      "guessed url");
+		assertNotFound("/MediaPathItem/fingerGuess/.fx/.tzack/" + id + "/otherPhrase",     "guessed url");
+		assertNotFound("/MediaPathItem/fingerGuess/.fx/.tzack/" + id + "/phrase.png",      "guessed url");
+		assertNotFound("/MediaPathItem/fingerGuess/.fx/.tzack/" + id + "/otherPhrase.jpg", "guessed url");
+
+		assertNotFound("/MediaPathItem/fingerGuess/" + id,                      "guessed url");
+		assertNotFound("/MediaPathItem/fingerGuess/" + id + "/otherPhrase",     "guessed url");
+		assertNotFound("/MediaPathItem/fingerGuess/" + id + "/phrase.png",      "guessed url");
+		assertNotFound("/MediaPathItem/fingerGuess/" + id + "/otherPhrase.jpg", "guessed url");
+
+		assertNotFound("/MediaPathItem/fingerGuess/.fx/" + id,                      "guessed url");
+		assertNotFound("/MediaPathItem/fingerGuess/.fx/" + id + "/otherPhrase",     "guessed url");
+		assertNotFound("/MediaPathItem/fingerGuess/.fx/" + id + "/phrase.png",      "guessed url");
+		assertNotFound("/MediaPathItem/fingerGuess/.fx/" + id + "/otherPhrase.jpg", "guessed url");
 	}
 
 	@Test public void testAccessControlAllowOriginWildcard() throws ServletException, IOException

@@ -21,9 +21,11 @@ package com.exedio.cope.pattern;
 import static com.exedio.cope.pattern.MediaLocatorAssert.assertLocator;
 import static com.exedio.cope.pattern.MediaUrlItem.file;
 import static com.exedio.cope.pattern.MediaUrlItem.fileFinger;
+import static com.exedio.cope.pattern.MediaUrlItem.fileSecFin;
 import static com.exedio.cope.pattern.MediaUrlItem.fileSecure;
 import static com.exedio.cope.pattern.MediaUrlItem.foto;
 import static com.exedio.cope.pattern.MediaUrlItem.fotoFinger;
+import static com.exedio.cope.pattern.MediaUrlItem.fotoSecFin;
 import static com.exedio.cope.pattern.MediaUrlItem.fotoSecure;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -69,24 +71,37 @@ public final class MediaUrlTest extends TestWithEnvironment
 		assertEquals(null, named.getFileFingerLocator());
 		assertEquals(null, anond.getFileFingerLocator());
 
+		assertEquals(null, named.getFotoSecFinLocator());
+		assertEquals(null, anond.getFotoSecFinLocator());
+		assertEquals(null, named.getFileSecFinLocator());
+		assertEquals(null, anond.getFileSecFinLocator());
+
 		final byte[] bytes  = {-86,122,-8,23};
 		named.setFoto(bytes, "image/jpeg");
 		named.setFotoSecure(bytes, "image/jpeg");
 		named.setFotoFinger(bytes, "image/jpeg");
+		named.setFotoSecFin(bytes, "image/jpeg");
 		anond.setFoto(bytes, "image/jpeg");
 		anond.setFotoSecure(bytes, "image/jpeg");
 		anond.setFotoFinger(bytes, "image/jpeg");
+		anond.setFotoSecFin(bytes, "image/jpeg");
 		named.setFile(bytes, "foo/bar");
 		named.setFileSecure(bytes, "foo/bar");
 		named.setFileFinger(bytes, "foo/bar");
+		named.setFileSecFin(bytes, "foo/bar");
 		anond.setFile(bytes, "foo/bar");
 		anond.setFileSecure(bytes, "foo/bar");
 		anond.setFileFinger(bytes, "foo/bar");
+		anond.setFileSecFin(bytes, "foo/bar");
 
 		fotoFinger.getLastModified().set(named, new Date(23 + 128)); // XC
 		fotoFinger.getLastModified().set(anond, new Date(23 + 192)); // XD
 		fileFinger.getLastModified().set(named, new Date(24 + 128)); // YC
 		fileFinger.getLastModified().set(anond, new Date(24 + 192)); // YD
+		fotoSecFin.getLastModified().set(named, new Date(49 + 128)); // xC
+		fotoSecFin.getLastModified().set(anond, new Date(49 + 192)); // xD
+		fileSecFin.getLastModified().set(named, new Date(50 + 128)); // yC
+		fileSecFin.getLastModified().set(anond, new Date(50 + 192)); // yD
 
 		assertFalse(MediaPath.isUrlGuessingPreventedSecurely(model.getConnectProperties()));
 		assertIt("MediaUrlItem/foto/", foto, named, "/phrase.jpg");
@@ -101,6 +116,10 @@ public final class MediaUrlTest extends TestWithEnvironment
 		assertIt("MediaUrlItem/fotoFinger/.fXD/", fotoFinger, anond,        ".jpg");
 		assertIt("MediaUrlItem/fileFinger/.fYC/", fileFinger, named, "/phrase"    );
 		assertIt("MediaUrlItem/fileFinger/.fYD/", fileFinger, anond,        ""    );
+		assertIt("MediaUrlItem/fotoSecFin/.fxC/.tMediaUrlItem.fotoSecFin-MediaUrlItem-0/", fotoSecFin, named, "/phrase.jpg");
+		assertIt("MediaUrlItem/fotoSecFin/.fxD/.tMediaUrlItem.fotoSecFin-MediaUrlItem-1/", fotoSecFin, anond,        ".jpg");
+		assertIt("MediaUrlItem/fileSecFin/.fyC/.tMediaUrlItem.fileSecFin-MediaUrlItem-0/", fileSecFin, named, "/phrase"    );
+		assertIt("MediaUrlItem/fileSecFin/.fyD/.tMediaUrlItem.fileSecFin-MediaUrlItem-1/", fileSecFin, anond, ""           );
 
 		// TODO separate tests
 		model.commit();
@@ -125,6 +144,10 @@ public final class MediaUrlTest extends TestWithEnvironment
 		assertIt("MediaUrlItem/fotoFinger/.fXD/", fotoFinger, anond,        ".jpg");
 		assertIt("MediaUrlItem/fileFinger/.fYC/", fileFinger, named, "/phrase"    );
 		assertIt("MediaUrlItem/fileFinger/.fYD/", fileFinger, anond,        ""    );
+		assertIt("MediaUrlItem/fotoSecFin/.fxC/.t3a497d702eb06e975e57/", fotoSecFin, named, "/phrase.jpg");
+		assertIt("MediaUrlItem/fotoSecFin/.fxD/.t4f6869b35d6e4d073ef6/", fotoSecFin, anond,        ".jpg");
+		assertIt("MediaUrlItem/fileSecFin/.fyC/.tb15a5b9c299166a4f772/", fileSecFin, named, "/phrase"    );
+		assertIt("MediaUrlItem/fileSecFin/.fyD/.tce0766a16ac118054214/", fileSecFin, anond, ""           );
 
 		model.commit();
 		model.disconnect();

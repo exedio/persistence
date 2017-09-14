@@ -69,11 +69,6 @@ public abstract class MediaPath extends Pattern
 						"not yet implemented: @" + PreventUrlGuessing.class.getSimpleName() +
 						" at " + feature.getID() +
 						" together with @" + RedirectFrom.class.getSimpleName());
-			if(preventUrlGuessing && urlFingerPrinting)
-				throw new RuntimeException(
-						"not yet implemented: @" + PreventUrlGuessing.class.getSimpleName() +
-						" at " + feature.getID() +
-						" together with @" + UrlFingerPrinting.class.getSimpleName());
 		}
 	}
 
@@ -612,10 +607,11 @@ public abstract class MediaPath extends Pattern
 			throw notFoundNotAnItem();
 
 		String actualToken = null;
-		final int fromIndex;
-		if(pathInfo.length()>fromIndexWithSpecial && pathInfo.charAt(fromIndexWithSpecial)=='.')
+		int fromIndex = fromIndexWithSpecial;
+		char lastKind = '\0';
+		while(pathInfo.length()>fromIndex && pathInfo.charAt(fromIndex)=='.')
 		{
-			final int kindIndex = fromIndexWithSpecial+1;
+			final int kindIndex = fromIndex+1;
 			if(!(pathInfo.length()>kindIndex))
 				throw notFoundInvalidSpecial();
 
@@ -624,7 +620,13 @@ public abstract class MediaPath extends Pattern
 				throw notFoundInvalidSpecial();
 			fromIndex = slash + 1;
 
-			switch(pathInfo.charAt(kindIndex))
+			final char kind = pathInfo.charAt(kindIndex);
+
+			if(kind<=lastKind)
+				throw notFoundInvalidSpecial(); // duplicate tokens or wrong order
+			lastKind = kind;
+
+			switch(kind)
 			{
 				case SPECIAL_FINGERPRINT:
 					break; // do nothing, redirects are implemented below
@@ -636,10 +638,6 @@ public abstract class MediaPath extends Pattern
 				default:
 					throw notFoundInvalidSpecial();
 			}
-		}
-		else
-		{
-			fromIndex = fromIndexWithSpecial;
 		}
 
 		final int slash = pathInfo.indexOf('/', fromIndex);

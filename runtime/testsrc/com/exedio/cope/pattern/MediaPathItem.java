@@ -51,6 +51,11 @@ public final class MediaPathItem extends Item implements MediaUrlCatchphraseProv
 	static final MediaPathFeature guess = new MediaPathFeature();
 
 
+	@Wrapper(wrap="getURL", visibility=NONE)
+	@UrlFingerPrinting @PreventUrlGuessing
+	static final MediaPathFeature fingerGuess = new MediaPathFeature();
+
+
 	@Override
 	public String getMediaUrlCatchphrase(final MediaPath path)
 	{
@@ -229,6 +234,44 @@ public final class MediaPathItem extends Item implements MediaUrlCatchphraseProv
 	final void setGuessResult(final com.exedio.cope.pattern.MediaPathFeature.Result guess)
 	{
 		MediaPathItem.guess.setResult(this,guess);
+	}
+
+	/**
+	 * Returns a Locator the content of {@link #fingerGuess} is available under.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLocator")
+	@javax.annotation.Nullable
+	final com.exedio.cope.pattern.MediaPath.Locator getFingerGuessLocator()
+	{
+		return MediaPathItem.fingerGuess.getLocator(this);
+	}
+
+	/**
+	 * Returns the content type of the media {@link #fingerGuess}.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getContentType")
+	@javax.annotation.Nullable
+	final java.lang.String getFingerGuessContentType()
+	{
+		return MediaPathItem.fingerGuess.getContentType(this);
+	}
+
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setContentType")
+	final void setFingerGuessContentType(final java.lang.String fingerGuess)
+	{
+		MediaPathItem.fingerGuess.setContentType(this,fingerGuess);
+	}
+
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setLastModified")
+	final void setFingerGuessLastModified(final java.util.Date fingerGuess)
+	{
+		MediaPathItem.fingerGuess.setLastModified(this,fingerGuess);
+	}
+
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setResult")
+	final void setFingerGuessResult(final com.exedio.cope.pattern.MediaPathFeature.Result fingerGuess)
+	{
+		MediaPathItem.fingerGuess.setResult(this,fingerGuess);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument")

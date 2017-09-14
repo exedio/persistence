@@ -41,9 +41,11 @@ public class TextUrlFilterDelegatorAnnotationTest
 		final Media simpleVal = pasteValue(AnItem.simple);
 		final Media secretVal = pasteValue(AnItem.secret);
 		final Media fingerVal = pasteValue(AnItem.finger);
+		final Media secfinVal = pasteValue(AnItem.secfin);
 		final Media simpleRaw = AnItem.simple.getSource();
 		final Media secretRaw = AnItem.secret.getSource();
 		final Media fingerRaw = AnItem.finger.getSource();
+		final Media secfinRaw = AnItem.secfin.getSource();
 
 		assertPresent(false, simpleVal, PreventUrlGuessing.class);
 		assertPresent(false, simpleRaw, PreventUrlGuessing.class);
@@ -51,6 +53,8 @@ public class TextUrlFilterDelegatorAnnotationTest
 		assertPresent(true,  secretRaw, PreventUrlGuessing.class);
 		assertPresent(false, fingerVal, PreventUrlGuessing.class);
 		assertPresent(false, fingerRaw, PreventUrlGuessing.class);
+		assertPresent(false, secfinVal, PreventUrlGuessing.class);
+		assertPresent(true,  secfinRaw, PreventUrlGuessing.class);
 
 		assertPresent(false, simpleVal, UrlFingerPrinting.class);
 		assertPresent(false, simpleRaw, UrlFingerPrinting.class);
@@ -58,6 +62,8 @@ public class TextUrlFilterDelegatorAnnotationTest
 		assertPresent(false, secretRaw, UrlFingerPrinting.class);
 		assertPresent(false, fingerVal, UrlFingerPrinting.class);
 		assertPresent(true,  fingerRaw, UrlFingerPrinting.class);
+		assertPresent(false, secfinVal, UrlFingerPrinting.class);
+		assertPresent(true,  secfinRaw, UrlFingerPrinting.class);
 
 		assertPresent(false, simpleVal, Computed.class);
 		assertPresent(false, simpleRaw, Computed.class);
@@ -65,6 +71,8 @@ public class TextUrlFilterDelegatorAnnotationTest
 		assertPresent(false, secretRaw, Computed.class);
 		assertPresent(false, fingerVal, Computed.class);
 		assertPresent(false, fingerRaw, Computed.class);
+		assertPresent(false, secfinVal, Computed.class);
+		assertPresent(false, secfinRaw, Computed.class);
 
 		assertPresent(false, simpleVal, Deprecated.class);
 		assertPresent(false, simpleRaw, Deprecated.class);
@@ -72,6 +80,8 @@ public class TextUrlFilterDelegatorAnnotationTest
 		assertPresent(false, secretRaw, Deprecated.class);
 		assertPresent(false, fingerVal, Deprecated.class);
 		assertPresent(false, fingerRaw, Deprecated.class);
+		assertPresent(false, secfinVal, Deprecated.class);
+		assertPresent(false, secfinRaw, Deprecated.class);
 	}
 
 	private static void assertPresent(
@@ -120,6 +130,8 @@ public class TextUrlFilterDelegatorAnnotationTest
 		static final TextUrlFilterDelegator secret = new ATextUrlFilterDelegator(new Media(), delegate);
 		@UrlFingerPrinting
 		static final TextUrlFilterDelegator finger = new ATextUrlFilterDelegator(new Media(), delegate);
+		@PreventUrlGuessing @UrlFingerPrinting
+		static final TextUrlFilterDelegator secfin = new ATextUrlFilterDelegator(new Media(), delegate);
 
 		private static final long serialVersionUID = 1l;
 		static final Type<AnItem> TYPE = TypesBound.newType(AnItem.class);

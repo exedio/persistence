@@ -42,6 +42,8 @@ public class UniqueHashedMediaAnnotationTest
 		assertPresent(true,  AnItem.secret.getMedia(), PreventUrlGuessing.class);
 		assertPresent(false, AnItem.finger,            PreventUrlGuessing.class);
 		assertPresent(false, AnItem.finger.getMedia(), PreventUrlGuessing.class);
+		assertPresent(true,  AnItem.secfin,            PreventUrlGuessing.class);
+		assertPresent(true,  AnItem.secfin.getMedia(), PreventUrlGuessing.class);
 	}
 
 	@Test public void testUrlFingerPrinting()
@@ -52,6 +54,8 @@ public class UniqueHashedMediaAnnotationTest
 		assertPresent(false, AnItem.secret.getMedia(), UrlFingerPrinting.class);
 		assertPresent(true,  AnItem.finger,            UrlFingerPrinting.class);
 		assertPresent(true,  AnItem.finger.getMedia(), UrlFingerPrinting.class);
+		assertPresent(true,  AnItem.secfin,            UrlFingerPrinting.class);
+		assertPresent(true,  AnItem.secfin.getMedia(), UrlFingerPrinting.class);
 	}
 
 	@Test public void testPreventUrlGuessingHash()
@@ -59,6 +63,7 @@ public class UniqueHashedMediaAnnotationTest
 		assertPresent(false, AnItem.simple.getHash(), PreventUrlGuessing.class);
 		assertPresent(false, AnItem.secret.getHash(), PreventUrlGuessing.class);
 		assertPresent(false, AnItem.finger.getHash(), PreventUrlGuessing.class);
+		assertPresent(false, AnItem.secfin.getHash(), PreventUrlGuessing.class);
 	}
 
 	@Test public void testUrlFingerPrintingHash()
@@ -66,6 +71,7 @@ public class UniqueHashedMediaAnnotationTest
 		assertPresent(false, AnItem.simple.getHash(), UrlFingerPrinting.class);
 		assertPresent(false, AnItem.secret.getHash(), UrlFingerPrinting.class);
 		assertPresent(false, AnItem.finger.getHash(), UrlFingerPrinting.class);
+		assertPresent(false, AnItem.secfin.getHash(), UrlFingerPrinting.class);
 	}
 
 	@Test public void testPreventUrlGuessingType()
@@ -78,6 +84,10 @@ public class UniqueHashedMediaAnnotationTest
 		assertPresent(false, FingerItem.simple.getMedia(), PreventUrlGuessing.class);
 		assertPresent(false, FingerItem.finger,            PreventUrlGuessing.class);
 		assertPresent(false, FingerItem.finger.getMedia(), PreventUrlGuessing.class);
+		assertPresent(false, SecFinItem.simple,            PreventUrlGuessing.class);
+		assertPresent(false, SecFinItem.simple.getMedia(), PreventUrlGuessing.class);
+		assertPresent(true,  SecFinItem.secfin,            PreventUrlGuessing.class);
+		assertPresent(true,  SecFinItem.secfin.getMedia(), PreventUrlGuessing.class);
 	}
 
 	@Test public void testUrlFingerPrintingType()
@@ -90,6 +100,10 @@ public class UniqueHashedMediaAnnotationTest
 		assertPresent(false, FingerItem.simple.getMedia(), UrlFingerPrinting.class);
 		assertPresent(true,  FingerItem.finger,            UrlFingerPrinting.class);
 		assertPresent(true,  FingerItem.finger.getMedia(), UrlFingerPrinting.class);
+		assertPresent(false, SecFinItem.simple,            UrlFingerPrinting.class);
+		assertPresent(false, SecFinItem.simple.getMedia(), UrlFingerPrinting.class);
+		assertPresent(true,  SecFinItem.secfin,            UrlFingerPrinting.class);
+		assertPresent(true,  SecFinItem.secfin.getMedia(), UrlFingerPrinting.class);
 	}
 
 	@Test public void testComputed()
@@ -103,6 +117,9 @@ public class UniqueHashedMediaAnnotationTest
 		assertPresent(false, AnItem.finger,            Computed.class);
 		assertPresent(true,  AnItem.finger.getMedia(), Computed.class);
 		assertPresent(true,  AnItem.finger.getHash(),  Computed.class);
+		assertPresent(false, AnItem.secfin,            Computed.class);
+		assertPresent(true,  AnItem.secfin.getMedia(), Computed.class);
+		assertPresent(true,  AnItem.secfin.getHash(),  Computed.class);
 	}
 
 	@Test public void testDeprecated()
@@ -113,6 +130,8 @@ public class UniqueHashedMediaAnnotationTest
 		assertPresent(false, AnItem.secret.getMedia(), Deprecated.class);
 		assertPresent(false, AnItem.finger,            Deprecated.class);
 		assertPresent(false, AnItem.finger.getMedia(), Deprecated.class);
+		assertPresent(false, AnItem.secfin,            Deprecated.class);
+		assertPresent(false, AnItem.secfin.getMedia(), Deprecated.class);
 	}
 
 	private static void assertPresent(
@@ -160,6 +179,8 @@ public class UniqueHashedMediaAnnotationTest
 		static final UniqueHashedMedia secret = new UniqueHashedMedia(new Media());
 		@UrlFingerPrinting
 		static final UniqueHashedMedia finger = new UniqueHashedMedia(new Media());
+		@PreventUrlGuessing @UrlFingerPrinting
+		static final UniqueHashedMedia secfin = new UniqueHashedMedia(new Media());
 
 		static final Type<AnItem> TYPE = TypesBound.newType(AnItem.class);
 		private static final long serialVersionUID = 1l;
@@ -190,5 +211,18 @@ public class UniqueHashedMediaAnnotationTest
 		private static final long serialVersionUID = 1l;
 		static final Type<FingerItem> TYPE = TypesBound.newType(FingerItem.class);
 		private FingerItem(final ActivationParameters ap) { super(ap); }
+	}
+
+	@PreventUrlGuessing @UrlFingerPrinting
+	@WrapperIgnore
+	static final class SecFinItem extends Item
+	{
+		static final UniqueHashedMedia simple = new UniqueHashedMedia(new Media());
+		@PreventUrlGuessing @UrlFingerPrinting
+		static final UniqueHashedMedia secfin = new UniqueHashedMedia(new Media());
+
+		private static final long serialVersionUID = 1l;
+		static final Type<SecFinItem> TYPE = TypesBound.newType(SecFinItem.class);
+		private SecFinItem(final ActivationParameters ap) { super(ap); }
 	}
 }

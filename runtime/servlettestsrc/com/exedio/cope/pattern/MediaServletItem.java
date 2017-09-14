@@ -108,6 +108,11 @@ final class MediaServletItem extends Item
 	@UrlFingerPrinting
 	static final MediaThumbnail finger = new MediaThumbnail(content, 150, 150);
 
+	@Wrapper(wrap="getURL", visibility=NONE)
+	@PreventUrlGuessing
+	@UrlFingerPrinting
+	static final MediaThumbnail tokenedFinger = new MediaThumbnail(content, 25, 25);
+
 	static final DateField nameServerLastModified = new DateField().optional();
 
 	static final MediaNameServer nameServer = new MediaNameServer(name, nameServerLastModified);
@@ -520,6 +525,48 @@ final class MediaServletItem extends Item
 				java.io.IOException
 	{
 		return MediaServletItem.finger.get(this);
+	}
+
+	/**
+	 * Returns a Locator the content of {@link #tokenedFinger} is available under.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLocator")
+	@javax.annotation.Nullable
+	final com.exedio.cope.pattern.MediaPath.Locator getTokenedFingerLocator()
+	{
+		return MediaServletItem.tokenedFinger.getLocator(this);
+	}
+
+	/**
+	 * Returns a URL the content of {@link #tokenedFinger} is available under, falling back to source if necessary.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getURLWithFallbackToSource")
+	@javax.annotation.Nullable
+	final java.lang.String getTokenedFingerURLWithFallbackToSource()
+	{
+		return MediaServletItem.tokenedFinger.getURLWithFallbackToSource(this);
+	}
+
+	/**
+	 * Returns a Locator the content of {@link #tokenedFinger} is available under, falling back to source if necessary.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLocatorWithFallbackToSource")
+	@javax.annotation.Nullable
+	final com.exedio.cope.pattern.MediaPath.Locator getTokenedFingerLocatorWithFallbackToSource()
+	{
+		return MediaServletItem.tokenedFinger.getLocatorWithFallbackToSource(this);
+	}
+
+	/**
+	 * Returns the body of {@link #tokenedFinger}.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@javax.annotation.Nullable
+	final byte[] getTokenedFinger()
+			throws
+				java.io.IOException
+	{
+		return MediaServletItem.tokenedFinger.get(this);
 	}
 
 	/**

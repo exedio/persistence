@@ -45,6 +45,10 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 	static final Media fotoFinger = new Media().optional().lengthMax(2000).contentType("image/jpeg");
 
 	@Wrapper(wrap="getURL", visibility=NONE)
+	@PreventUrlGuessing @UrlFingerPrinting
+	static final Media fotoSecFin = new Media().optional().lengthMax(2000).contentType("image/jpeg");
+
+	@Wrapper(wrap="getURL", visibility=NONE)
 	static final Media file = new Media().optional().lengthMax(2000).contentType("foo/bar");
 
 	@Wrapper(wrap="getURL", visibility=NONE)
@@ -54,6 +58,10 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 	@Wrapper(wrap="getURL", visibility=NONE)
 	@UrlFingerPrinting
 	static final Media fileFinger = new Media().optional().lengthMax(2000).contentType("foo/bar");
+
+	@Wrapper(wrap="getURL", visibility=NONE)
+	@PreventUrlGuessing @UrlFingerPrinting
+	static final Media fileSecFin = new Media().optional().lengthMax(2000).contentType("foo/bar");
 
 
 	@Override
@@ -467,6 +475,125 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 	}
 
 	/**
+	 * Returns a Locator the content of {@link #fotoSecFin} is available under.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLocator")
+	@javax.annotation.Nullable
+	final com.exedio.cope.pattern.MediaPath.Locator getFotoSecFinLocator()
+	{
+		return MediaUrlItem.fotoSecFin.getLocator(this);
+	}
+
+	/**
+	 * Returns whether media {@link #fotoSecFin} is null.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="isNull")
+	final boolean isFotoSecFinNull()
+	{
+		return MediaUrlItem.fotoSecFin.isNull(this);
+	}
+
+	/**
+	 * Returns the last modification date of media {@link #fotoSecFin}.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLastModified")
+	@javax.annotation.Nullable
+	final java.util.Date getFotoSecFinLastModified()
+	{
+		return MediaUrlItem.fotoSecFin.getLastModified(this);
+	}
+
+	/**
+	 * Returns the body length of the media {@link #fotoSecFin}.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLength")
+	final long getFotoSecFinLength()
+	{
+		return MediaUrlItem.fotoSecFin.getLength(this);
+	}
+
+	/**
+	 * Returns the body of the media {@link #fotoSecFin}.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
+	@javax.annotation.Nullable
+	final byte[] getFotoSecFinBody()
+	{
+		return MediaUrlItem.fotoSecFin.getBody(this);
+	}
+
+	/**
+	 * Writes the body of media {@link #fotoSecFin} into the given stream.
+	 * Does nothing, if the media is null.
+	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
+	final void getFotoSecFinBody(@javax.annotation.Nonnull final java.io.OutputStream body)
+			throws
+				java.io.IOException
+	{
+		MediaUrlItem.fotoSecFin.getBody(this,body);
+	}
+
+	/**
+	 * Writes the body of media {@link #fotoSecFin} into the given file.
+	 * Does nothing, if the media is null.
+	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
+	final void getFotoSecFinBody(@javax.annotation.Nonnull final java.io.File body)
+			throws
+				java.io.IOException
+	{
+		MediaUrlItem.fotoSecFin.getBody(this,body);
+	}
+
+	/**
+	 * Sets the content of media {@link #fotoSecFin}.
+	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	final void setFotoSecFin(@javax.annotation.Nullable final com.exedio.cope.pattern.Media.Value fotoSecFin)
+			throws
+				java.io.IOException
+	{
+		MediaUrlItem.fotoSecFin.set(this,fotoSecFin);
+	}
+
+	/**
+	 * Sets the content of media {@link #fotoSecFin}.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	final void setFotoSecFin(@javax.annotation.Nullable final byte[] body,@javax.annotation.Nullable final java.lang.String contentType)
+	{
+		MediaUrlItem.fotoSecFin.set(this,body,contentType);
+	}
+
+	/**
+	 * Sets the content of media {@link #fotoSecFin}.
+	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	final void setFotoSecFin(@javax.annotation.Nullable final java.io.InputStream body,@javax.annotation.Nullable final java.lang.String contentType)
+			throws
+				java.io.IOException
+	{
+		MediaUrlItem.fotoSecFin.set(this,body,contentType);
+	}
+
+	/**
+	 * Sets the content of media {@link #fotoSecFin}.
+	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	final void setFotoSecFin(@javax.annotation.Nullable final java.io.File body,@javax.annotation.Nullable final java.lang.String contentType)
+			throws
+				java.io.IOException
+	{
+		MediaUrlItem.fotoSecFin.set(this,body,contentType);
+	}
+
+	/**
 	 * Returns a Locator the content of {@link #file} is available under.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLocator")
@@ -821,6 +948,125 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 				java.io.IOException
 	{
 		MediaUrlItem.fileFinger.set(this,body,contentType);
+	}
+
+	/**
+	 * Returns a Locator the content of {@link #fileSecFin} is available under.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLocator")
+	@javax.annotation.Nullable
+	final com.exedio.cope.pattern.MediaPath.Locator getFileSecFinLocator()
+	{
+		return MediaUrlItem.fileSecFin.getLocator(this);
+	}
+
+	/**
+	 * Returns whether media {@link #fileSecFin} is null.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="isNull")
+	final boolean isFileSecFinNull()
+	{
+		return MediaUrlItem.fileSecFin.isNull(this);
+	}
+
+	/**
+	 * Returns the last modification date of media {@link #fileSecFin}.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLastModified")
+	@javax.annotation.Nullable
+	final java.util.Date getFileSecFinLastModified()
+	{
+		return MediaUrlItem.fileSecFin.getLastModified(this);
+	}
+
+	/**
+	 * Returns the body length of the media {@link #fileSecFin}.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLength")
+	final long getFileSecFinLength()
+	{
+		return MediaUrlItem.fileSecFin.getLength(this);
+	}
+
+	/**
+	 * Returns the body of the media {@link #fileSecFin}.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
+	@javax.annotation.Nullable
+	final byte[] getFileSecFinBody()
+	{
+		return MediaUrlItem.fileSecFin.getBody(this);
+	}
+
+	/**
+	 * Writes the body of media {@link #fileSecFin} into the given stream.
+	 * Does nothing, if the media is null.
+	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
+	final void getFileSecFinBody(@javax.annotation.Nonnull final java.io.OutputStream body)
+			throws
+				java.io.IOException
+	{
+		MediaUrlItem.fileSecFin.getBody(this,body);
+	}
+
+	/**
+	 * Writes the body of media {@link #fileSecFin} into the given file.
+	 * Does nothing, if the media is null.
+	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
+	final void getFileSecFinBody(@javax.annotation.Nonnull final java.io.File body)
+			throws
+				java.io.IOException
+	{
+		MediaUrlItem.fileSecFin.getBody(this,body);
+	}
+
+	/**
+	 * Sets the content of media {@link #fileSecFin}.
+	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	final void setFileSecFin(@javax.annotation.Nullable final com.exedio.cope.pattern.Media.Value fileSecFin)
+			throws
+				java.io.IOException
+	{
+		MediaUrlItem.fileSecFin.set(this,fileSecFin);
+	}
+
+	/**
+	 * Sets the content of media {@link #fileSecFin}.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	final void setFileSecFin(@javax.annotation.Nullable final byte[] body,@javax.annotation.Nullable final java.lang.String contentType)
+	{
+		MediaUrlItem.fileSecFin.set(this,body,contentType);
+	}
+
+	/**
+	 * Sets the content of media {@link #fileSecFin}.
+	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	final void setFileSecFin(@javax.annotation.Nullable final java.io.InputStream body,@javax.annotation.Nullable final java.lang.String contentType)
+			throws
+				java.io.IOException
+	{
+		MediaUrlItem.fileSecFin.set(this,body,contentType);
+	}
+
+	/**
+	 * Sets the content of media {@link #fileSecFin}.
+	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	final void setFileSecFin(@javax.annotation.Nullable final java.io.File body,@javax.annotation.Nullable final java.lang.String contentType)
+			throws
+				java.io.IOException
+	{
+		MediaUrlItem.fileSecFin.set(this,body,contentType);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument")

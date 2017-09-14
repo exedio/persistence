@@ -22,9 +22,11 @@ import static com.exedio.cope.pattern.MediaUrlItem.TYPE;
 import static com.exedio.cope.pattern.MediaUrlItem.catchphrase;
 import static com.exedio.cope.pattern.MediaUrlItem.file;
 import static com.exedio.cope.pattern.MediaUrlItem.fileFinger;
+import static com.exedio.cope.pattern.MediaUrlItem.fileSecFin;
 import static com.exedio.cope.pattern.MediaUrlItem.fileSecure;
 import static com.exedio.cope.pattern.MediaUrlItem.foto;
 import static com.exedio.cope.pattern.MediaUrlItem.fotoFinger;
+import static com.exedio.cope.pattern.MediaUrlItem.fotoSecFin;
 import static com.exedio.cope.pattern.MediaUrlItem.fotoSecure;
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
 import static org.junit.Assert.assertFalse;
@@ -58,6 +60,9 @@ public class MediaUrlModelTest
 				fotoFinger,
 				fotoFinger.getBody(),
 				fotoFinger.getLastModified(),
+				fotoSecFin,
+				fotoSecFin.getBody(),
+				fotoSecFin.getLastModified(),
 				file,
 				file.getBody(),
 				file.getLastModified(),
@@ -67,6 +72,9 @@ public class MediaUrlModelTest
 				fileFinger,
 				fileFinger.getBody(),
 				fileFinger.getLastModified(),
+				fileSecFin,
+				fileSecFin.getBody(),
+				fileSecFin.getLastModified(),
 			}), TYPE.getFeatures());
 
 		assertFalse(foto.isUrlGuessingPrevented());
@@ -75,6 +83,8 @@ public class MediaUrlModelTest
 		assertFalse(fileFinger.isUrlGuessingPrevented());
 		assertTrue(fotoSecure.isUrlGuessingPrevented());
 		assertTrue(fileSecure.isUrlGuessingPrevented());
+		assertTrue(fotoSecFin.isUrlGuessingPrevented());
+		assertTrue(fileSecFin.isUrlGuessingPrevented());
 
 		assertFalse(foto.isUrlFingerPrinted());
 		assertFalse(file.isUrlFingerPrinted());
@@ -82,5 +92,7 @@ public class MediaUrlModelTest
 		assertFalse(fileSecure.isUrlFingerPrinted());
 		assertTrue(fotoFinger.isUrlFingerPrinted());
 		assertTrue(fileFinger.isUrlFingerPrinted());
+		assertTrue(fotoSecFin.isUrlFingerPrinted());
+		assertTrue(fileSecFin.isUrlFingerPrinted());
 	}
 }
