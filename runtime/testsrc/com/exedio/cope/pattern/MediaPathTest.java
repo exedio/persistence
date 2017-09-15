@@ -450,7 +450,7 @@ public final class MediaPathTest extends TestWithEnvironment
 				"<head>\n" +
 				"<title>Not Found</title>\n" +
 				"<meta http-equiv=\"content-type\" content=\"text/html;charset=us-ascii\">\n" +
-				"<meta name=\"generator\" content=\"cope media servlet\">\n" +
+				"<meta name=\"generator\" content=\"com.exedio.cope.pattern.MediaServlet\">\n" +
 				"</head>\n" +
 				"<body>\n" +
 				"<h1>Not Found</h1>\n" +
@@ -470,7 +470,7 @@ public final class MediaPathTest extends TestWithEnvironment
 				"<head>\n" +
 				"<title>Internal Server Error</title>\n" +
 				"<meta http-equiv=\"content-type\" content=\"text/html;charset=us-ascii\">\n" +
-				"<meta name=\"generator\" content=\"cope media servlet\">\n" +
+				"<meta name=\"generator\" content=\"com.exedio.cope.pattern.MediaServlet\">\n" +
 				"</head>\n" +
 				"<body>\n" +
 				"<h1>Internal Server Error</h1>\n" +
