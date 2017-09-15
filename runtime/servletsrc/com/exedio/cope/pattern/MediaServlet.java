@@ -235,6 +235,31 @@ public class MediaServlet extends HttpServlet
 
 	/**
 	 * Let this method return true, if you want to add a header
+	 * {@code Cache-Control: private}
+	 * to the response.
+	 * This forbids shared caches, such as company proxies to cache
+	 * such urls.
+	 * <p>
+	 * The default implementation returns true iff
+	 * {@link MediaPath#isUrlGuessingPrevented() url guessing} is prevented.
+	 * <p>
+	 * See
+	 * RFC 2616 Section 14.9.1 What is Cacheable,
+	 * https://httpd.apache.org/docs/2.2/mod/mod_cache.html#cachestoreprivate , and
+	 * https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Expiration.html#ExpirationDownloadDist .
+	 *
+	 * @param path the media path of the current request
+	 * @param item the item of the current request
+	 */
+	protected boolean isCacheControlPrivate(
+			final MediaPath path,
+			final Item item)
+	{
+		return path.isUrlGuessingPrevented();
+	}
+
+	/**
+	 * Let this method return true, if you want to add a header
 	 * {@code Access-Control-Allow-Origin: *}
 	 * to the response.
 	 * This is typically needed for fonts served from a different domain.

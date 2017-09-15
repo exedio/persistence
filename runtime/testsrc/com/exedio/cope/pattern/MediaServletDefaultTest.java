@@ -18,13 +18,49 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.instrument.Visibility.NONE;
 import static org.junit.Assert.assertEquals;
 
+import com.exedio.cope.Item;
+import com.exedio.cope.instrument.WrapperIgnore;
+import com.exedio.cope.instrument.WrapperType;
 import org.junit.Test;
 
 public class MediaServletDefaultTest
 {
 	private final MediaServlet servlet =  new MediaServlet();
+
+	@Test public void testCacheControlPrivateSimple()
+	{
+		assertEquals(false, servlet.isCacheControlPrivate(CacheControlPrivateItem.simple, null));
+	}
+	@Test public void testCacheControlPrivateSecret()
+	{
+		assertEquals(true,  servlet.isCacheControlPrivate(CacheControlPrivateItem.secret, null));
+	}
+	@Test public void testCacheControlPrivateFinger()
+	{
+		assertEquals(false, servlet.isCacheControlPrivate(CacheControlPrivateItem.finger, null));
+	}
+	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
+	static final class CacheControlPrivateItem extends Item
+	{
+		@WrapperIgnore static final Media simple = new Media();
+		@PreventUrlGuessing
+		@WrapperIgnore static final Media secret = new Media();
+		@UrlFingerPrinting
+		@WrapperIgnore static final Media finger = new Media();
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		private static final long serialVersionUID = 1l;
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		static final com.exedio.cope.Type<CacheControlPrivateItem> TYPE = com.exedio.cope.TypesBound.newType(CacheControlPrivateItem.class);
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@SuppressWarnings("unused") private CacheControlPrivateItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
+	}
+
 
 	@Test public void testAccessControlAllowOriginWildcard()
 	{

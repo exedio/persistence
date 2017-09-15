@@ -36,6 +36,9 @@ import java.lang.annotation.Target;
  * When applying it to other features, there is no effect at all.
  * When applying it to types (@Target(TYPE),
  * it is automatically applied to all features of that type.
+ * <p>
+ * Additionally controls default implementation of
+ * {@link MediaServlet#isCacheControlPrivate(MediaPath, com.exedio.cope.Item) MediaServlet.isCacheControlPrivate}.
  *
  * @see MediaPath#isUrlGuessingPrevented()
  */

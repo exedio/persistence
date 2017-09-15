@@ -904,6 +904,19 @@ public final class MediaPathTest extends TestWithEnvironment
 		}
 
 		@Override
+		protected boolean isCacheControlPrivate(
+				final MediaPath path,
+				final Item item)
+		{
+			assertTrue(MODEL.hasCurrentTransaction());
+			assertEquals(MediaPathItem.TYPE, path.getType());
+			assertNotNull(item);
+			assertEquals("MediaPathItem-0", item.getCopeID());
+			// TODO explicit test similar to isAccessControlAllowOriginWildcard
+			return super.isCacheControlPrivate(path, item);
+		}
+
+		@Override
 		protected boolean isAccessControlAllowOriginWildcard(
 				final MediaPath path,
 				final Item item)

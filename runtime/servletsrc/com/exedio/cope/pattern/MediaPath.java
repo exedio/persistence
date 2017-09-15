@@ -735,7 +735,7 @@ public abstract class MediaPath extends Pattern
 		// if there is no LastModified, then there is no caching
 		if(lastModifiedRaw==null)
 		{
-			setCacheControl(response, Integer.MIN_VALUE);
+			setCacheControl(servlet, response, item, Integer.MIN_VALUE);
 			deliver(request, response, item);
 			return;
 		}
@@ -762,7 +762,7 @@ public abstract class MediaPath extends Pattern
 			cacheControlMaxAge = (maxAge>0) ? maxAge : Integer.MIN_VALUE;
 		}
 
-		setCacheControl(response, cacheControlMaxAge);
+		setCacheControl(servlet, response, item, cacheControlMaxAge);
 
 		final long ifModifiedSince = request.getDateHeader("If-Modified-Since");
 		if(ifModifiedSince>=0 && ifModifiedSince>=lastModified)
@@ -801,7 +801,9 @@ public abstract class MediaPath extends Pattern
 	}
 
 	private void setCacheControl(
+			final MediaServlet servlet,
 			final HttpServletResponse response,
+			final Item item,
 			final int maxAge)
 	{
 		// RFC 2616
@@ -816,12 +818,7 @@ public abstract class MediaPath extends Pattern
 
 		final StringBuilder bf = new StringBuilder();
 
-		// Cache-Control forbids shared caches, such as company proxies to cache
-		// such urls.
-		// TODO make this customizable
-		// See http://httpd.apache.org/docs/2.2/mod/mod_cache.html#cachestoreprivate
-		// and RFC 2616 Section 14.9.1 What is Cacheable
-		if(isUrlGuessingPrevented())
+		if(servlet.isCacheControlPrivate(this, item))
 			bf.append("private");
 
 		if(maxAge>=0)
