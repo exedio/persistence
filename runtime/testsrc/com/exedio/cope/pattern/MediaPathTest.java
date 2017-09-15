@@ -878,6 +878,8 @@ public final class MediaPathTest extends TestWithEnvironment
 		{
 			assertTrue(MODEL.hasCurrentTransaction());
 			assertEquals(MediaPathItem.TYPE, path.getType());
+			assertNotNull(item);
+			assertEquals("MediaPathItem-0", item.getCopeID());
 			return ((MediaPathItem)item).getAccessControlAllowOriginWildcard();
 		}
 
@@ -887,6 +889,9 @@ public final class MediaPathTest extends TestWithEnvironment
 				final Item item)
 		{
 			assertTrue(MODEL.hasCurrentTransaction());
+			assertEquals(MediaPathItem.TYPE, path.getType());
+			assertNotNull(item);
+			assertEquals("MediaPathItem-0", item.getCopeID());
 			return super.doFlushBufferOnNotModified(path, item);
 		}
 
