@@ -259,6 +259,11 @@ public final class MediaPathTest extends TestWithEnvironment
 		assertRedirect("/MediaPathItem/finger/.fx/" + id + "/phrase.png",      prefix + ok);
 		assertRedirect("/MediaPathItem/finger/.fx/" + id + "/otherPhrase.jpg", prefix + ok);
 		assertRedirect("/MediaPathItem/finger/.fx/" + id + "/phrase.png",      prefix + ok);
+
+		assertNotFound("/MediaPathItem/finger/.fIkl3T/.fIkl3T/" + id + "/phrase.jpg", "not an item");
+		assertNotFound("/MediaPathItem/finger/.fIkl3T/.fxxxxx/" + id + "/phrase.jpg", "not an item");
+		assertNotFound("/MediaPathItem/finger/.fxxxxx/.fIkl3T/" + id + "/phrase.jpg", "not an item");
+		assertNotFound("/MediaPathItem/finger/.fxxxxx/.fxxxxx/" + id + "/phrase.jpg", "not an item");
 	}
 
 	@Test public void testConditional() throws ServletException, IOException
@@ -328,6 +333,19 @@ public final class MediaPathTest extends TestWithEnvironment
 		assertNotFound("/MediaPathItem/guess/.tzack/" + id + ".jpg", "guessed url");
 		assertNotFound("/MediaPathItem/guess/.t/"     + id + ".jpg", "guessed url");
 		assertNotFound("/MediaPathItem/guess/"        + id + ".jpg", "guessed url");
+	}
+
+	@Test public void testGuessMultipleTokens() throws ServletException, IOException
+	{
+		item.setGuessContentType("major/minor");
+		final String token = "MediaPathItem.guess-" + id;
+
+		service(new Request("/MediaPathItem/guess/.t" + token + "/"                 + id)).assertOkAndCacheControl("private");
+		assertNotFound(     "/MediaPathItem/guess/.t" + "xxx" + "/"                 + id, "guessed url");
+		assertNotFound(     "/MediaPathItem/guess/.t" + token + "/.t" + token + "/" + id, "guessed url");
+		assertNotFound(     "/MediaPathItem/guess/.t" + "xxx" + "/.t" + token + "/" + id, "guessed url");
+		assertNotFound(     "/MediaPathItem/guess/.t" + token + "/.t" + "xxx" + "/" + id, "guessed url");
+		assertNotFound(     "/MediaPathItem/guess/.t" + "xxx" + "/.t" + "xxx" + "/" + id, "guessed url");
 	}
 
 	@Test public void testGuessAndAge() throws ServletException, IOException
