@@ -395,12 +395,12 @@ public class MediaServletTest
 		final HttpURLConnection conn = (HttpURLConnection)new URL(schemeAndHost + url).openConnection();
 		HttpURLConnection.setFollowRedirects(false);
 		conn.connect();
-		assertEquals(HTTP_MOVED_PERM, conn.getResponseCode());
-		assertEquals("Moved Permanently", conn.getResponseMessage());
-		assertEquals(target, conn.getHeaderField("Location"));
-		assertEquals(null, conn.getContentType());
-		assertEquals(null, conn.getHeaderField(CACHE_CONTROL));
-		assertEquals(0, conn.getContentLength());
+		assertEquals("responseCode",    HTTP_MOVED_PERM, conn.getResponseCode());
+		assertEquals("responseMessage", "Moved Permanently", conn.getResponseMessage());
+		assertEquals("location",        target, conn.getHeaderField("Location"));
+		assertEquals("contentType",     null, conn.getContentType());
+		assertEquals("cacheControl",    null, conn.getHeaderField(CACHE_CONTROL));
+		assertEquals("contentLength",   0, conn.getContentLength());
 		try(InputStream is = conn.getInputStream())
 		{
 			assertEquals(-1, is.read());
