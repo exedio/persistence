@@ -275,6 +275,9 @@ public final class SchemaInfo
 
 	public static String total(final Query<?> query)
 	{
+		if(query.getCondition()==Condition.FALSE)
+			return "skipped because condition==false: " + query;
+
 		return search(query, true);
 	}
 

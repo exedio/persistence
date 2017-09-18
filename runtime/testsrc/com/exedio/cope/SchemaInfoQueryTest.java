@@ -23,7 +23,6 @@ import static com.exedio.cope.SchemaInfo.total;
 import static com.exedio.cope.instrument.Visibility.NONE;
 import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 
 import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.tojunit.SI;
@@ -68,15 +67,7 @@ public class SchemaInfoQueryTest
 		assertEquals(0, q.total());
 		assertEquals("select this from MyItem where FALSE", q.toString());
 		assertEquals("skipped because condition==false: select this from " + TYPE + " where FALSE", search(q));
-		try
-		{
-			total(q);
-			fail();
-		}
-		catch(final RuntimeException e)
-		{
-			assertEquals("FALSE", e.getMessage());
-		}
+		assertEquals("skipped because condition==false: select this from " + TYPE + " where FALSE", total(q));
 	}
 
 	@Test public void testLimitZero()
