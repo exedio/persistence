@@ -265,6 +265,8 @@ public final class SchemaInfo
 
 	public static String search(final Query<?> query)
 	{
+		if(query.getCondition()==Condition.FALSE)
+			return "skipped because condition==false: " + query;
 		if(query.getLimit()==0)
 			return "skipped because limit==0: " + query;
 

@@ -67,16 +67,7 @@ public class SchemaInfoQueryTest
 		assertEquals(asList(), q.search());
 		assertEquals(0, q.total());
 		assertEquals("select this from MyItem where FALSE", q.toString());
-		// TODO
-		try
-		{
-			search(q);
-			fail();
-		}
-		catch(final RuntimeException e)
-		{
-			assertEquals("FALSE", e.getMessage());
-		}
+		assertEquals("skipped because condition==false: select this from " + TYPE + " where FALSE", search(q));
 		try
 		{
 			total(q);
