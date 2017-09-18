@@ -265,6 +265,9 @@ public final class SchemaInfo
 
 	public static String search(final Query<?> query)
 	{
+		if(query.getLimit()==0)
+			return "skipped because limit==0: " + query;
+
 		return search(query, false);
 	}
 

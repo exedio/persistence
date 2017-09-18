@@ -96,16 +96,7 @@ public class SchemaInfoQueryTest
 		assertEquals(asList(), q.search());
 		assertEquals(0, q.total());
 		assertEquals("select this from MyItem limit '0'", q.toString());
-		// TODO
-		try
-		{
-			search(q);
-			fail();
-		}
-		catch(final RuntimeException e)
-		{
-			assertEquals("limit 0", e.getMessage());
-		}
+		assertEquals("skipped because limit==0: select this from " + TYPE + " limit '0'", search(q));
 		assertEquals("SELECT COUNT(*) FROM " + SI.tab(TYPE), total(q));
 	}
 
@@ -117,16 +108,7 @@ public class SchemaInfoQueryTest
 		assertEquals(asList(), q.search());
 		assertEquals(0, q.total());
 		assertEquals("select this from MyItem offset '55' limit '0'", q.toString());
-		// TODO
-		try
-		{
-			search(q);
-			fail();
-		}
-		catch(final RuntimeException e)
-		{
-			assertEquals("limit 0", e.getMessage());
-		}
+		assertEquals("skipped because limit==0: select this from " + TYPE + " offset '55' limit '0'", search(q));
 		assertEquals("SELECT COUNT(*) FROM " + SI.tab(TYPE), total(q));
 	}
 
