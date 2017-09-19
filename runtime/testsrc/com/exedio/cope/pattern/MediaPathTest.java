@@ -123,6 +123,20 @@ public final class MediaPathTest extends TestWithEnvironment
 
 	private static final String prefix = "/testContextPath/testServletPath";
 
+	@Test public void testSpecialMultiple() throws ServletException, IOException
+	{
+		item.setNormalContentType("major/minor");
+		final String ok = "/MediaPathItem/normal/" + id;
+		assertEquals(ok, "/" + item.getNormalLocator().getPath());
+		assertOk      ("/MediaPathItem/normal/"             + id);
+		assertRedirect("/MediaPathItem/normal/.fFFF/"       + id, prefix + ok);
+		assertNotFound("/MediaPathItem/normal/.fFF1/.fFF2/" + id, "not an item"); // duplicate fingerprint
+		assertRedirect("/MediaPathItem/normal/.tTTT/"       + id, prefix + ok);
+		assertNotFound("/MediaPathItem/normal/.tTT1/.tTT2/" + id, "not an item"); // duplicate token
+		assertNotFound("/MediaPathItem/normal/.fFFF/.tTTT/" + id, "not an item");
+		assertNotFound("/MediaPathItem/normal/.tTTT/.fFFF/" + id, "not an item"); // wrong order
+	}
+
 	@Test public void testRedirectFrom() throws ServletException, IOException
 	{
 		item.setNormalContentType("blah/foo");
