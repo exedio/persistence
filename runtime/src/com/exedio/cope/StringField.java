@@ -127,6 +127,12 @@ public final class StringField extends FunctionField<String>
 	}
 
 	@Override
+	public StringField noCopyFrom()
+	{
+		return new StringField(isfinal, optional, unique, null, defaultSource, minimumLength, maximumLength, charSet);
+	}
+
+	@Override
 	public StringField noDefault()
 	{
 		return new StringField(isfinal, optional, unique, copyFrom, null, minimumLength, maximumLength, charSet);

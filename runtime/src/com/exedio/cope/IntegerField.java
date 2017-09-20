@@ -230,6 +230,12 @@ public final class IntegerField extends NumberField<Integer>
 	}
 
 	@Override
+	public IntegerField noCopyFrom()
+	{
+		return new IntegerField(isfinal, optional, unique, null, defaultSource, minimum, maximum);
+	}
+
+	@Override
 	public IntegerField noDefault()
 	{
 		return new IntegerField(isfinal, optional, unique, copyFrom, null, minimum, maximum);

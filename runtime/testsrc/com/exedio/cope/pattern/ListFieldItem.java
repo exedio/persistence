@@ -26,17 +26,30 @@ import java.util.Date;
 
 public final class ListFieldItem extends Item
 {
+	static final StringField value = new StringField().optional().toFinal();
 	static final ListField<String> strings = ListField.create(new StringField().optional().lengthRange(4, 8));
 	static final ListField<Date> dates = ListField.create(new DateField());
 	static final ListField<ListFieldItem> items = ListField.create(ItemField.create(ListFieldItem.class).cascade());
+	static final ListField<ListFieldItem> itemsSameValue = ListField.create(ItemField.create(ListFieldItem.class).optional()).copyWith(value);
+
+	ListFieldItem()
+	{
+		this((String)null);
+	}
 
 	/**
 	 * Creates a new ListFieldItem with all the fields initially needed.
+	 * @param value the initial value for field {@link #value}.
+	 * @throws com.exedio.cope.StringLengthViolationException if value violates its length constraint.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
-	public ListFieldItem()
+	ListFieldItem(
+				@javax.annotation.Nullable final java.lang.String value)
+			throws
+				com.exedio.cope.StringLengthViolationException
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
+			ListFieldItem.value.map(value),
 		});
 	}
 
@@ -47,6 +60,16 @@ public final class ListFieldItem extends Item
 	private ListFieldItem(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
+	}
+
+	/**
+	 * Returns the value of {@link #value}.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@javax.annotation.Nullable
+	final java.lang.String getValue()
+	{
+		return ListFieldItem.value.get(this);
 	}
 
 	/**
@@ -269,6 +292,78 @@ public final class ListFieldItem extends Item
 	static final com.exedio.cope.ItemField<ListFieldItem> itemsParent()
 	{
 		return ListFieldItem.items.getParent(ListFieldItem.class);
+	}
+
+	/**
+	 * Returns the value of {@link #itemsSameValue}.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@javax.annotation.Nonnull
+	final java.util.List<ListFieldItem> getItemsSameValue()
+	{
+		return ListFieldItem.itemsSameValue.get(this);
+	}
+
+	/**
+	 * Returns a query for the value of {@link #itemsSameValue}.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getQuery")
+	@javax.annotation.Nonnull
+	final com.exedio.cope.Query<ListFieldItem> getItemsSameValueQuery()
+	{
+		return ListFieldItem.itemsSameValue.getQuery(this);
+	}
+
+	/**
+	 * Returns the items, for which field list {@link #itemsSameValue} contains the given element.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getDistinctParentsOf")
+	@javax.annotation.Nonnull
+	static final java.util.List<ListFieldItem> getDistinctParentsOfItemsSameValue(final ListFieldItem element)
+	{
+		return ListFieldItem.itemsSameValue.getDistinctParents(ListFieldItem.class,element);
+	}
+
+	/**
+	 * Adds a new value for {@link #itemsSameValue}.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="addTo")
+	final void addToItemsSameValue(@javax.annotation.Nullable final ListFieldItem itemsSameValue)
+			throws
+				java.lang.ClassCastException
+	{
+		ListFieldItem.itemsSameValue.add(this,itemsSameValue);
+	}
+
+	/**
+	 * Removes all occurrences of {@code element} from {@link #itemsSameValue}.
+	 * @return {@code true} if the field set changed as a result of the call.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="removeAllFrom")
+	final boolean removeAllFromItemsSameValue(@javax.annotation.Nullable final ListFieldItem itemsSameValue)
+	{
+		return ListFieldItem.itemsSameValue.removeAll(this,itemsSameValue);
+	}
+
+	/**
+	 * Sets a new value for {@link #itemsSameValue}.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	final void setItemsSameValue(@javax.annotation.Nonnull final java.util.Collection<? extends ListFieldItem> itemsSameValue)
+			throws
+				java.lang.ClassCastException
+	{
+		ListFieldItem.itemsSameValue.set(this,itemsSameValue);
+	}
+
+	/**
+	 * Returns the parent field of the type of {@link #itemsSameValue}.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="Parent")
+	@javax.annotation.Nonnull
+	static final com.exedio.cope.ItemField<ListFieldItem> itemsSameValueParent()
+	{
+		return ListFieldItem.itemsSameValue.getParent(ListFieldItem.class);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument")

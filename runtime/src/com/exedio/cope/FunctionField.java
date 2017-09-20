@@ -237,6 +237,13 @@ public abstract class FunctionField<E> extends Field<E>
 	 * @see ItemField#copyTo(FunctionField)
 	 */
 	public abstract FunctionField<E> copyFrom(ItemField<?> copyFrom);
+
+	/**
+	 * Returns a new FunctionField that differs from this FunctionField
+	 * by having no {@link #copyFrom(ItemField) copyFrom} fields set.
+	 */
+	public abstract FunctionField<E> noCopyFrom();
+
 	public abstract FunctionField<E> noDefault();
 	public abstract FunctionField<E> defaultTo(E defaultConstant);
 

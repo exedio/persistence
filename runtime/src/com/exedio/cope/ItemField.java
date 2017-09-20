@@ -159,6 +159,12 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 	}
 
 	@Override
+	public ItemField<E> noCopyFrom()
+	{
+		return new ItemField<>(isfinal, optional, valueClass, unique, null, copyTo, valueTypeFuture, policy);
+	}
+
+	@Override
 	public ItemField<E> noDefault()
 	{
 		return copy(); // no defaults for item fields

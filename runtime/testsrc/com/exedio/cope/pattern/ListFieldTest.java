@@ -27,12 +27,16 @@ import static com.exedio.cope.pattern.ListFieldItem.getDistinctParentsOfItems;
 import static com.exedio.cope.pattern.ListFieldItem.getDistinctParentsOfStrings;
 import static com.exedio.cope.pattern.ListFieldItem.items;
 import static com.exedio.cope.pattern.ListFieldItem.itemsParent;
+import static com.exedio.cope.pattern.ListFieldItem.itemsSameValue;
+import static com.exedio.cope.pattern.ListFieldItem.itemsSameValueParent;
 import static com.exedio.cope.pattern.ListFieldItem.strings;
 import static com.exedio.cope.pattern.ListFieldItem.stringsParent;
+import static com.exedio.cope.pattern.ListFieldItem.value;
 import static com.exedio.cope.tojunit.Assert.assertContains;
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
 import static com.exedio.cope.tojunit.Assert.list;
 import static java.util.Arrays.asList;
+import static java.util.Collections.singletonList;
 import static java.util.Collections.unmodifiableList;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -40,6 +44,8 @@ import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import com.exedio.cope.CopyConstraint;
+import com.exedio.cope.CopyViolationException;
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
@@ -54,12 +60,16 @@ import com.exedio.cope.misc.Computed;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.Objects;
 import org.junit.Before;
 import org.junit.Test;
 
 public class ListFieldTest extends TestWithEnvironment
 {
 	public static final Model MODEL = new Model(TYPE);
+
+	private static final CopyConstraint copyParent = (CopyConstraint)itemsSameValue.getRelationType().getFeature("valueCopyFromparent");
+	private static final CopyConstraint copyElement = (CopyConstraint)itemsSameValue.getRelationType().getFeature("valueCopyFromelement");
 
 	static
 	{
@@ -86,6 +96,7 @@ public class ListFieldTest extends TestWithEnvironment
 		final Type<?> stringsType = strings.getRelationType();
 		final Type<?> datesType = dates.getRelationType();
 		final Type<?> itemsType = items.getRelationType();
+		final Type<?> itemsSameValueType = itemsSameValue.getRelationType();
 		final IntegerField stringsOrder = strings.getOrder();
 		final FunctionField<String> stringsElement = strings.getElement();
 
@@ -94,13 +105,15 @@ public class ListFieldTest extends TestWithEnvironment
 				TYPE,
 				stringsType,
 				datesType,
-				itemsType
+				itemsType,
+				itemsSameValueType
 			), model.getTypes());
 		assertEqualsUnmodifiable(list(
 				TYPE,
 				stringsType,
 				datesType,
-				itemsType
+				itemsType,
+				itemsSameValueType
 			), model.getTypesSortedByHierarchy());
 		assertEquals(ListFieldItem.class, TYPE.getJavaClass());
 		assertEquals(true, TYPE.isBound());
@@ -108,9 +121,11 @@ public class ListFieldTest extends TestWithEnvironment
 
 		assertEqualsUnmodifiable(list(
 				TYPE.getThis(),
+				value,
 				strings,
 				dates,
-				items
+				items,
+				itemsSameValue
 			), TYPE.getFeatures());
 		assertEqualsUnmodifiable(list(
 				stringsType.getThis(),
@@ -133,6 +148,16 @@ public class ListFieldTest extends TestWithEnvironment
 				items.getUniqueConstraint(),
 				items.getElement()
 			), itemsType.getFeatures());
+		assertEqualsUnmodifiable(list(
+				itemsSameValueType.getThis(),
+				itemsSameValueParent(),
+				itemsSameValue.getOrder(),
+				itemsSameValue.getUniqueConstraint(),
+				itemsSameValue.getElement(),
+				itemsSameValue.getCopyWithCopyField(value),
+				copyParent,
+				copyElement
+			), itemsSameValueType.getFeatures());
 
 		assertEquals(TYPE, strings.getType());
 		assertEquals("strings", strings.getName());
@@ -140,6 +165,8 @@ public class ListFieldTest extends TestWithEnvironment
 		assertEquals("dates", dates.getName());
 		assertEquals(TYPE, items.getType());
 		assertEquals("items", items.getName());
+		assertEquals(TYPE, itemsSameValue.getType());
+		assertEquals("itemsSameValue", itemsSameValue.getName());
 
 		assertEquals("ListFieldItem-strings", stringsType.getID());
 		assertEquals(PatternItem.class, stringsType.getJavaClass());
@@ -177,6 +204,18 @@ public class ListFieldTest extends TestWithEnvironment
 		assertEquals(itemsType, itemsType.getThis().getValueType());
 		assertEquals(model, itemsType.getModel());
 
+		assertEquals("ListFieldItem-itemsSameValue", itemsSameValueType.getID());
+		assertEquals(PatternItem.class, itemsSameValueType.getJavaClass());
+		assertEquals(false, itemsSameValueType.isBound());
+		assertSame(itemsSameValue, itemsSameValueType.getPattern());
+		assertEquals(null, itemsSameValueType.getSupertype());
+		assertEqualsUnmodifiable(list(), itemsSameValueType.getSubtypes());
+		assertEquals(false, itemsSameValueType.isAbstract());
+		assertEquals(Item.class, itemsSameValueType.getThis().getValueClass().getSuperclass());
+		assertEquals(itemsSameValueType, itemsSameValueType.getThis().getValueType());
+		assertEquals(model, itemsSameValueType.getModel());
+		assertEquals(itemsSameValueType, itemsSameValue.getCopyWithCopyField(value).getType());
+
 		assertEquals(stringsType, stringsParent().getType());
 		assertEquals(stringsType, stringsOrder.getType());
 		assertEquals(stringsType, strings.getUniqueConstraint().getType());
@@ -205,10 +244,16 @@ public class ListFieldTest extends TestWithEnvironment
 		assertEquals("order", items.getOrder().getName());
 		assertEquals("uniqueConstraint", items.getUniqueConstraint().getName());
 		assertEquals("element", items.getElement().getName());
+		assertEquals("parent", itemsSameValueParent().getName());
+		assertEquals("order", itemsSameValue.getOrder().getName());
+		assertEquals("uniqueConstraint", itemsSameValue.getUniqueConstraint().getName());
+		assertEquals("element", itemsSameValue.getElement().getName());
+		assertEquals("value", itemsSameValue.getCopyWithCopyField(value).getName());
 
 		assertEqualsUnmodifiable(list(stringsParent(), stringsOrder), strings.getUniqueConstraint().getFields());
 		assertEqualsUnmodifiable(list(datesParent(), dates.getOrder()), dates.getUniqueConstraint().getFields());
 		assertEqualsUnmodifiable(list(itemsParent(), items.getOrder()), items.getUniqueConstraint().getFields());
+		assertEqualsUnmodifiable(list(itemsSameValueParent(), itemsSameValue.getOrder()), itemsSameValue.getUniqueConstraint().getFields());
 
 		assertTrue(stringsType.isAssignableFrom(stringsType));
 		assertTrue(!stringsType.isAssignableFrom(datesType));
@@ -226,6 +271,7 @@ public class ListFieldTest extends TestWithEnvironment
 		assertSerializedSame(strings, 383);
 		assertSerializedSame(dates  , 381);
 		assertSerializedSame(items  , 381);
+		assertSerializedSame(itemsSameValue, 390);
 
 		try
 		{
@@ -578,5 +624,79 @@ public class ListFieldTest extends TestWithEnvironment
 			assertEquals(item, e.getItem());
 		}
 		assertEquals(asList("hallo", "bello"), item.getStrings());
+	}
+
+	@Test public void testSetCopyNull()
+	{
+		checkSetCopy(item, new ListFieldItem(), new ListFieldItem("x"));
+	}
+
+	@Test public void testSetCopyNonnull()
+	{
+		checkSetCopy(new ListFieldItem("A"), new ListFieldItem("A"), item, new ListFieldItem("B"));
+	}
+
+	private static void checkSetCopy(final ListFieldItem valid1, final ListFieldItem valid2, final ListFieldItem... invalids)
+	{
+		final String validValue = valid1.getValue();
+		assertEquals(validValue, valid2.getValue());
+		valid1.setItemsSameValue(singletonList(valid1));
+		assertEquals(asList(valid1), valid1.getItemsSameValue());
+		valid1.setItemsSameValue(singletonList(valid2));
+		assertEquals(asList(valid2), valid1.getItemsSameValue());
+		valid1.addToItemsSameValue(valid1);
+		assertEquals(asList(valid2, valid1), valid1.getItemsSameValue());
+		valid1.setItemsSameValue(singletonList(null));
+		assertEquals(singletonList(null), valid1.getItemsSameValue());
+		for (final ListFieldItem invalid: invalids)
+		{
+			final String invalidValue = invalid.getValue();
+			assertTrue(!Objects.equals(validValue, invalidValue));
+			try
+			{
+				valid1.setItemsSameValue(asList(invalid));
+				fail();
+			}
+			catch (final CopyViolationException e)
+			{
+				final String validString = validValue==null ? "null" : ("'"+validValue+"'");
+				final String invalidString = invalidValue==null ? "null" : ("'"+invalidValue+"'");
+				assertEquals(
+					"copy violation on " + copyElement + ", " +
+						"expected " + invalidString + " from target " + invalid + ", but was " + validString,
+					e.getMessage()
+				);
+			}
+			assertEquals(singletonList(null), valid1.getItemsSameValue());
+			try
+			{
+				valid1.addToItemsSameValue(invalid);
+				fail();
+			}
+			catch (final CopyViolationException e)
+			{
+				final String validString = validValue==null ? "null" : ("'"+validValue+"'");
+				final String invalidString = invalidValue==null ? "null" : ("'"+invalidValue+"'");
+				assertEquals(
+					"copy violation on " + copyParent + " and " + copyElement + ", " +
+						"expected " + validString + " from target " + valid1 + " but also " + invalidString + " from target " + invalid,
+					e.getMessage()
+				);
+			}
+			assertEquals(singletonList(null), valid1.getItemsSameValue());
+		}
+	}
+
+	@Test public void testCheckSetFieldCopyConstraint()
+	{
+		final Type<? extends Item> itemsSameValueType = itemsSameValue.getRelationType();
+		assertEquals(asList(copyParent, copyElement), itemsSameValueType.getDeclaredCopyConstraints());
+		assertEquals(0, copyParent.check());
+		assertEquals(0, copyElement.check());
+	}
+
+	@Test public void testCopyWithTemplates()
+	{
+		assertEquals(singletonList(value), itemsSameValue.getCopyWithTemplateFields());
 	}
 }
