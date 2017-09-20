@@ -24,7 +24,6 @@ import static java.lang.Math.toIntExact;
 import com.exedio.cope.util.Properties;
 import com.exedio.cope.util.ServiceProperties;
 import com.exedio.cope.util.StrictFile;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -177,11 +176,11 @@ public final class VaultFileService implements VaultService
 		return true;
 	}
 
-	@SuppressWarnings("ResultOfMethodCallIgnored")
-	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_BAD_PRACTICE")
+	// TODO move into StrictFile
 	private static void mkdirIfNotExists(final File file)
 	{
-		file.mkdir();
+		if(!file.isDirectory())
+			StrictFile.mkdir(file);
 	}
 
 	// TODO move into StrictFile
