@@ -30,7 +30,6 @@ import static com.exedio.cope.util.Sources.cascade;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.Item;
@@ -129,22 +128,11 @@ public class ConnectTokenEqualityTest
 		assertSame(properties2, getProperties(MODEL));
 		assertEquals(list(token1), getTokens(MODEL));
 
-		try
-		{
-			issue(MODEL, "tokenName2");
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals(
-					"inconsistent initialization for connection.url between DESC1 and DESC2, " +
-					"expected jdbc:hsqldb:mem:copeutiltest but got jdbc:hsqldb:mem:copeutiltestNotEqual.",
-					e.getMessage());
-		}
+		final ConnectToken token2 = issue(MODEL, "tokenName2");
 		assertTrue(MODEL.isConnected());
 		assertSame(properties1, MODEL.getConnectProperties());
 		assertSame(properties2, getProperties(MODEL));
-		assertEquals(list(token1), getTokens(MODEL));
+		assertEquals(list(token1, token2), getTokens(MODEL));
 	}
 
 	@Test public void testNotEqualIfConnected()

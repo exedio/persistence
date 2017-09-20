@@ -239,8 +239,6 @@ public final class ConnectToken implements AutoCloseable
 				final boolean connect = tokens.isEmpty();
 				if(connect)
 					model.connect(properties(model));
-				else
-					model.getConnectProperties().ensureEquality(properties(model));
 
 				final ConnectToken result = new ConnectToken(this, model, nextId++, tokenName, false, connect);
 				tokens.add(result);
