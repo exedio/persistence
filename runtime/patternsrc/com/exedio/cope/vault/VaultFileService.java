@@ -173,7 +173,7 @@ public final class VaultFileService implements VaultService
 		if(directoryLength>0)
 			mkdirIfNotExists(new File(rootDir, hash.substring(0, directoryLength)));
 
-		StrictFile.renameTo(temp, file);
+		renameToIfDestFileDoesNotExist(temp, file);
 		return true;
 	}
 
@@ -182,6 +182,13 @@ public final class VaultFileService implements VaultService
 	private static void mkdirIfNotExists(final File file)
 	{
 		file.mkdir();
+	}
+
+	// TODO move into StrictFile
+	private static void renameToIfDestFileDoesNotExist(final File file, final File dest)
+	{
+		if(!dest.isFile())
+			StrictFile.renameTo(file, dest);
 	}
 
 	@FunctionalInterface
