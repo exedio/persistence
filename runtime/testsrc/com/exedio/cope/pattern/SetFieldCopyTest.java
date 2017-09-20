@@ -27,6 +27,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
+import com.exedio.cope.CopeName;
 import com.exedio.cope.CopyConstraint;
 import com.exedio.cope.CopyViolationException;
 import com.exedio.cope.IntegerField;
@@ -45,8 +46,8 @@ public class SetFieldCopyTest extends TestWithEnvironment
 {
 	private static final Model MODEL = new Model(Catalog.TYPE, ParentInCatalog.TYPE, ElementInCatalog.TYPE, ParentWithNumber.TYPE, ElementWithNumber.TYPE);
 
-	private static final CopyConstraint constraintCatalogParent = (CopyConstraint)ParentInCatalog.elementsSameCatalog.getRelationType().getFeature("catalogCopyFromparent");
-	private static final CopyConstraint constraintCatalogElement = (CopyConstraint)ParentInCatalog.elementsSameCatalog.getRelationType().getFeature("catalogCopyFromelement");
+	private static final CopyConstraint constraintCatalogParent = (CopyConstraint)ParentInCatalog.elementsSameCatalog.getRelationType().getFeature("katalogCopyFromparent");
+	private static final CopyConstraint constraintCatalogElement = (CopyConstraint)ParentInCatalog.elementsSameCatalog.getRelationType().getFeature("katalogCopyFromelement");
 	private static final CopyConstraint constraintNumberParent = (CopyConstraint)ParentWithNumber.elements.getRelationType().getFeature("numberCopyFromparent");
 	private static final CopyConstraint constraintNumberElement = (CopyConstraint)ParentWithNumber.elements.getRelationType().getFeature("numberCopyFromelement");
 
@@ -251,6 +252,7 @@ public class SetFieldCopyTest extends TestWithEnvironment
 	private static class ParentInCatalog extends Item
 	{
 		@Wrapper(wrap="*", visibility=NONE)
+		@CopeName("katalog") // collides with constraints of column catch on Oracle TODO support @CopeSchemaName
 		private static final ItemField<Catalog> catalog = ItemField.create(Catalog.class).toFinal();
 
 		@Wrapper(wrap="*", visibility=NONE)
@@ -315,6 +317,7 @@ public class SetFieldCopyTest extends TestWithEnvironment
 	private static class ElementInCatalog extends Item
 	{
 		@Wrapper(wrap="*", visibility=NONE)
+		@CopeName("katalog") // collides with constraints of column catch on Oracle TODO support @CopeSchemaName
 		private static final ItemField<Catalog> catalog = ItemField.create(Catalog.class).toFinal();
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
