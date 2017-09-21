@@ -83,7 +83,7 @@ final class CopyFields implements Serializable
 		}
 		for (final Map.Entry<FunctionField<?>, FunctionField<?>> entry : allCopies.entrySet())
 		{
-			features.put(entry.getKey().getName(), entry.getValue());
+			features.put(entry.getKey().getName(), entry.getValue(), new FeatureAnnotatedElementAdapter(entry.getKey()));
 		}
 	}
 
