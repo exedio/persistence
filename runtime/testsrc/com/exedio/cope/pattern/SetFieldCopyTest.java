@@ -28,12 +28,14 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
 import com.exedio.cope.CopeName;
+import com.exedio.cope.CopeSchemaName;
 import com.exedio.cope.CopyConstraint;
 import com.exedio.cope.CopyViolationException;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
 import com.exedio.cope.Model;
+import com.exedio.cope.SchemaInfo;
 import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.instrument.WrapperType;
@@ -46,14 +48,28 @@ public class SetFieldCopyTest extends TestWithEnvironment
 {
 	private static final Model MODEL = new Model(Catalog.TYPE, ParentInCatalog.TYPE, ElementInCatalog.TYPE, ParentWithNumber.TYPE, ElementWithNumber.TYPE);
 
-	private static final CopyConstraint constraintCatalogParent = (CopyConstraint)ParentInCatalog.elementsSameCatalog.getRelationType().getFeature("katalogCopyFromparent");
-	private static final CopyConstraint constraintCatalogElement = (CopyConstraint)ParentInCatalog.elementsSameCatalog.getRelationType().getFeature("katalogCopyFromelement");
+	private static final CopyConstraint constraintCatalogParent = (CopyConstraint)ParentInCatalog.elementsSameCatalog.getRelationType().getFeature("copeNameCatalogCopyFromparent");
+	private static final CopyConstraint constraintCatalogElement = (CopyConstraint)ParentInCatalog.elementsSameCatalog.getRelationType().getFeature("copeNameCatalogCopyFromelement");
 	private static final CopyConstraint constraintNumberParent = (CopyConstraint)ParentWithNumber.elements.getRelationType().getFeature("numberCopyFromparent");
 	private static final CopyConstraint constraintNumberElement = (CopyConstraint)ParentWithNumber.elements.getRelationType().getFeature("numberCopyFromelement");
 
 	public SetFieldCopyTest()
 	{
 		super(MODEL);
+	}
+
+	@Test
+	public void names()
+	{
+		final ItemField<Catalog> relationCatalog = (ItemField<Catalog>)ParentInCatalog.elementsSameCatalog.getCopyWithCopyField(ParentInCatalog.catalog);
+		assertEquals("copeNameCatalog", relationCatalog.getName());
+		assertEquals(/*TODO_CopyFieldsAnnotations "schemaNameAtParent"*/"copeNameCatalog", SchemaInfo.getColumnName(relationCatalog));
+
+		assertEquals("copeNameCatalog", ElementInCatalog.javaNameIsNotCatalog.getName());
+		assertEquals("schemaNameAtElement", SchemaInfo.getColumnName(ElementInCatalog.javaNameIsNotCatalog));
+
+		assertEquals("copeNameCatalog", ParentInCatalog.catalog.getName());
+		assertEquals("schemaNameAtParent", SchemaInfo.getColumnName(ParentInCatalog.catalog));
 	}
 
 	@Test
@@ -252,7 +268,8 @@ public class SetFieldCopyTest extends TestWithEnvironment
 	private static class ParentInCatalog extends Item
 	{
 		@Wrapper(wrap="*", visibility=NONE)
-		@CopeName("katalog") // collides with constraints of column catch on Oracle TODO support @CopeSchemaName
+		@CopeName("copeNameCatalog")
+		@CopeSchemaName("schemaNameAtParent")
 		private static final ItemField<Catalog> catalog = ItemField.create(Catalog.class).toFinal();
 
 		@Wrapper(wrap="*", visibility=NONE)
@@ -317,17 +334,18 @@ public class SetFieldCopyTest extends TestWithEnvironment
 	private static class ElementInCatalog extends Item
 	{
 		@Wrapper(wrap="*", visibility=NONE)
-		@CopeName("katalog") // collides with constraints of column catch on Oracle TODO support @CopeSchemaName
-		private static final ItemField<Catalog> catalog = ItemField.create(Catalog.class).toFinal();
+		@CopeName("copeNameCatalog")
+		@CopeSchemaName("schemaNameAtElement")
+		private static final ItemField<Catalog> javaNameIsNotCatalog = ItemField.create(Catalog.class).toFinal();
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		private ElementInCatalog(
-					@javax.annotation.Nonnull final Catalog catalog)
+					@javax.annotation.Nonnull final Catalog javaNameIsNotCatalog)
 				throws
 					com.exedio.cope.MandatoryViolationException
 		{
 			this(new com.exedio.cope.SetValue<?>[]{
-				ElementInCatalog.catalog.map(catalog),
+				ElementInCatalog.javaNameIsNotCatalog.map(javaNameIsNotCatalog),
 			});
 		}
 
