@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.HsqldbDialect.Approximate.mysql;
 import static com.exedio.cope.HsqldbDialect.Approximate.oracle;
 
 import com.exedio.cope.DateField.Precision;
@@ -44,7 +45,7 @@ final class HsqldbDialect extends Dialect
 		Props(final Source source) { super(source); }
 	}
 
-	enum Approximate { nothing, oracle }
+	enum Approximate { nothing, mysql, oracle }
 
 	private final Props props;
 
@@ -148,6 +149,9 @@ final class HsqldbDialect extends Dialect
 	@Override
 	String getDateTimestampType()
 	{
+		if(props.approximate==mysql)
+			return null; // copied code from MysqlDialect
+
 		return "TIMESTAMP(3) WITHOUT TIME ZONE";
 	}
 

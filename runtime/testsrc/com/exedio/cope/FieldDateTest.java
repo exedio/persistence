@@ -230,7 +230,9 @@ public class FieldDateTest extends FieldTest
 
 	@Test public void testDateColumnType()
 	{
-		assertEquals(dialect.dateTimestampType, model.connect().database.dialect.getDateTimestampType());
+		assertEquals(
+				propertiesHsqldbMysql() ? null : dialect.dateTimestampType,
+				model.connect().database.dialect.getDateTimestampType());
 	}
 
 	private static String toString(final Date date)

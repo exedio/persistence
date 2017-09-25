@@ -200,6 +200,11 @@ public abstract class TestWithEnvironment
 	}
 
 
+	protected final boolean propertiesHsqldbMysql()
+	{
+		return propertiesHsqldb("mysql");
+	}
+
 	protected final boolean propertiesHsqldbOracle()
 	{
 		return propertiesHsqldb("oracle");

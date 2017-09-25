@@ -55,6 +55,7 @@ public class SupportsTest extends TestWithEnvironment
 			case hsqldb:
 				emptyStrings = !propertiesHsqldbOracle();
 				dataHashAlgorithms.clear(); // TODO support more
+				nativeDate = !propertiesHsqldbMysql();
 				break;
 			case mysql:
 				utf8mb4 = propertiesUtf8mb4();
