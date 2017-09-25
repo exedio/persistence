@@ -95,7 +95,7 @@ abstract class Dialect
 
 		// Oracle maximum length is 30 on Release 11.2.0.1.0:
 		// https://docs.oracle.com/cd/B19306_01/server.102/b14200/sql_elements008.htm
-		// Will increase to 128 on Release 12.2 or higher.
+		// TODO Oracle 12 Will increase to 128 on Release 12.2 or higher.
 		// https://docs.oracle.com/database/122/SQLRF/Database-Object-Names-and-Qualifiers.htm#SQLRF51129
 
 		// PostgreSQL maximum length is 63:
