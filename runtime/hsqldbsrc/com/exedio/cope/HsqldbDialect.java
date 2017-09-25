@@ -20,6 +20,8 @@ package com.exedio.cope;
 
 import com.exedio.cope.DateField.Precision;
 import com.exedio.cope.util.Hex;
+import com.exedio.cope.util.Properties;
+import com.exedio.cope.util.ServiceProperties;
 import com.exedio.dsmf.SQLRuntimeException;
 import com.exedio.dsmf.Sequence;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -27,17 +29,30 @@ import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.EnumMap;
 import java.util.List;
 
+@ServiceProperties(HsqldbDialect.Props.class)
 final class HsqldbDialect extends Dialect
 {
+	static final class Props extends Properties
+	{
+		final boolean oracle = value("oracle", false);
+
+		Props(final Source source) { super(source); }
+	}
+
+	private final Props props;
+
 	/**
 	 * @param probe must be there to be called by reflection
 	 */
-	HsqldbDialect(final CopeProbe probe)
+	HsqldbDialect(final CopeProbe probe, final Props props)
 	{
 		super(
 				new com.exedio.dsmf.HsqldbDialect());
+
+		this.props = props;
 	}
 
 	@Override
@@ -47,6 +62,22 @@ final class HsqldbDialect extends Dialect
 		{
 			// http://hsqldb.org/doc/guide/dbproperties-chapt.html#N15634
 			st.execute("SET DATABASE TRANSACTION CONTROL MVCC");
+		}
+	}
+
+	@Override
+	void setNameTrimmers(final EnumMap<TrimClass, Trimmer> trimmers)
+	{
+		super.setNameTrimmers(trimmers);
+
+		if(props.oracle) // TODO Oracle 12 Will increase to 128 on Release 12.2 or higher.
+		{
+			// copied code from OracleDialect
+			final Trimmer dataTrimmer = trimmers.get(TrimClass.Data);
+
+			for(final TrimClass c : TrimClass.values())
+				if(c!=TrimClass.Data)
+					trimmers.put(c, dataTrimmer);
 		}
 	}
 

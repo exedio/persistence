@@ -200,6 +200,11 @@ public abstract class TestWithEnvironment
 	}
 
 
+	protected final boolean propertiesHsqldbOracle()
+	{
+		return hsqldb && propertiesBoolean("dialect.oracle");
+	}
+
 	protected final boolean propertiesUtf8mb4()
 	{
 		return propertiesBoolean("dialect.utf8mb4");
