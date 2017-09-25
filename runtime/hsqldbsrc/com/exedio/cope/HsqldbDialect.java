@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.HsqldbDialect.Approximate.oracle;
+
 import com.exedio.cope.DateField.Precision;
 import com.exedio.cope.util.Hex;
 import com.exedio.cope.util.Properties;
@@ -37,10 +39,12 @@ final class HsqldbDialect extends Dialect
 {
 	static final class Props extends Properties
 	{
-		final boolean oracle = value("oracle", false);
+		final Approximate approximate = value("approximate", Approximate.nothing);
 
 		Props(final Source source) { super(source); }
 	}
+
+	enum Approximate { nothing, oracle }
 
 	private final Props props;
 
@@ -70,7 +74,7 @@ final class HsqldbDialect extends Dialect
 	{
 		super.setNameTrimmers(trimmers);
 
-		if(props.oracle) // TODO Oracle 12 Will increase to 128 on Release 12.2 or higher.
+		if(props.approximate==oracle) // TODO Oracle 12 Will increase to 128 on Release 12.2 or higher.
 		{
 			// copied code from OracleDialect
 			final Trimmer dataTrimmer = trimmers.get(TrimClass.Data);

@@ -202,7 +202,19 @@ public abstract class TestWithEnvironment
 
 	protected final boolean propertiesHsqldbOracle()
 	{
-		return hsqldb && propertiesBoolean("dialect.oracle");
+		return propertiesHsqldb("oracle");
+	}
+
+	private boolean propertiesHsqldb(final String approximate)
+	{
+		if(!hsqldb)
+			return false;
+
+		for(final Properties.Field field : model.getConnectProperties().getFields())
+			if("dialect.approximate".equals(field.getKey()))
+				return approximate.equals(((Properties.StringField)field).get());
+
+		throw new AssertionError(approximate);
 	}
 
 	protected final boolean propertiesUtf8mb4()
