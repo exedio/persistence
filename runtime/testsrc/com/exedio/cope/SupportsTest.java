@@ -53,6 +53,7 @@ public class SupportsTest extends TestWithEnvironment
 		switch(dialect)
 		{
 			case hsqldb:
+				emptyStrings = !propertiesHsqldbOracle();
 				dataHashAlgorithms.clear(); // TODO support more
 				break;
 			case mysql:

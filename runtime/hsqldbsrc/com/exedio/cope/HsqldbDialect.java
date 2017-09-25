@@ -125,6 +125,15 @@ final class HsqldbDialect extends Dialect
 	}
 
 	@Override
+	boolean supportsEmptyStrings()
+	{
+		if(props.approximate==oracle)
+			return false; // copied code from OracleDialect
+
+		return super.supportsEmptyStrings();
+	}
+
+	@Override
 	String getDayType()
 	{
 		return "DATE";
