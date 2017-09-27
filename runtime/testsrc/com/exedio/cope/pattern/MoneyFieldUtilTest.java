@@ -18,10 +18,15 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.instrument.Visibility.NONE;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 import static org.junit.Assert.fail;
 
 import com.exedio.cope.EnumField;
+import com.exedio.cope.Item;
+import com.exedio.cope.instrument.WrapperIgnore;
+import com.exedio.cope.instrument.WrapperType;
 import org.junit.Test;
 
 public class MoneyFieldUtilTest
@@ -68,6 +73,43 @@ public class MoneyFieldUtilTest
 		{
 			assertEquals("currency must be mandatory", e.getMessage());
 		}
+	}
+
+	@Test public void testSharedCurrencyOtherType()
+	{
+		assertSame(CurrencyItem.currency, FieldItem.field.getCurrencyField());
+	}
+
+	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
+	static final class CurrencyItem extends Item
+	{
+		@WrapperIgnore
+		static final EnumField<CurrencyEnum> currency = EnumField.create(CurrencyEnum.class);
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		private static final long serialVersionUID = 1l;
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		static final com.exedio.cope.Type<CurrencyItem> TYPE = com.exedio.cope.TypesBound.newType(CurrencyItem.class);
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@SuppressWarnings("unused") private CurrencyItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
+	}
+
+	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
+	static final class FieldItem extends Item
+	{
+		@WrapperIgnore
+		static final MoneyField<CurrencyEnum> field = MoneyField.shared(CurrencyItem.currency);
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		private static final long serialVersionUID = 1l;
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		static final com.exedio.cope.Type<FieldItem> TYPE = com.exedio.cope.TypesBound.newType(FieldItem.class);
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@SuppressWarnings("unused") private FieldItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 	@Test public void testExclusiveCurrencyNull()
