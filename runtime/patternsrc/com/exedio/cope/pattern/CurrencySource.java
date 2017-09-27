@@ -34,6 +34,7 @@ abstract class CurrencySource<C extends Money.Currency>
 	abstract FunctionField<C> getField();
 	C getValue() { return null; }
 	abstract Class<C> getInitialType();
+	void onMount(final MoneyField<C> field) { }
 	abstract C get(final Item item);
 
 	/**

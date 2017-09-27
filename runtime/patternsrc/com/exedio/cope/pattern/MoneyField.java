@@ -177,6 +177,13 @@ public final class MoneyField<C extends Money.Currency> extends Pattern implemen
 		return amount.getInitialExceptions();
 	}
 
+	@Override
+	protected void onMount()
+	{
+		super.onMount();
+		currency.onMount(this);
+	}
+
 	@Wrap(order=10, doc="Returns the value of {0}.", nullability=NullableIfOptional.class)
 	public Money<C> get(@Nonnull final Item item)
 	{

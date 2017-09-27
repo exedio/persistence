@@ -20,11 +20,11 @@ package com.exedio.cope.pattern;
 
 import static com.exedio.cope.instrument.Visibility.NONE;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
 import static org.junit.Assert.fail;
 
 import com.exedio.cope.EnumField;
 import com.exedio.cope.Item;
+import com.exedio.cope.TypesBound;
 import com.exedio.cope.instrument.WrapperIgnore;
 import com.exedio.cope.instrument.WrapperType;
 import org.junit.Test;
@@ -77,7 +77,17 @@ public class MoneyFieldUtilTest
 
 	@Test public void testSharedCurrencyOtherType()
 	{
-		assertSame(CurrencyItem.currency, FieldItem.field.getCurrencyField());
+		try
+		{
+			TypesBound.newType(FieldItem.class);
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals(
+					"FieldItem.field: shared currency must be on the same type: CurrencyItem.currency",
+					e.getMessage());
+		}
 	}
 
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
@@ -96,7 +106,7 @@ public class MoneyFieldUtilTest
 		@SuppressWarnings("unused") private CurrencyItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
-	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
+	@WrapperType(type=NONE, constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	static final class FieldItem extends Item
 	{
 		@WrapperIgnore
@@ -104,9 +114,6 @@ public class MoneyFieldUtilTest
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		private static final long serialVersionUID = 1l;
-
-		@javax.annotation.Generated("com.exedio.cope.instrument")
-		static final com.exedio.cope.Type<FieldItem> TYPE = com.exedio.cope.TypesBound.newType(FieldItem.class);
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		@SuppressWarnings("unused") private FieldItem(final com.exedio.cope.ActivationParameters ap){super(ap);}

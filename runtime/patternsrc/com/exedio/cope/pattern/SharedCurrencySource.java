@@ -48,6 +48,14 @@ final class SharedCurrencySource<C extends Money.Currency> extends CurrencySourc
 	}
 
 	@Override
+	void onMount(final MoneyField<C> field)
+	{
+		if(currency.getType()!=field.getType())
+			throw new IllegalArgumentException(
+					field + ": shared currency must be on the same type: " + currency);
+	}
+
+	@Override
 	C get(final Item item)
 	{
 		return currency.get(item);
