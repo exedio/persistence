@@ -342,7 +342,7 @@ public final class MediaPathTest extends TestWithEnvironment
 		item.setGuessContentType("image/jpeg");
 		final String ok = "/MediaPathItem/guess/.tMediaPathItem.guess-" + id + "/" + id + ".jpg";
 		assertEquals(ok, "/" + item.getGuessLocator().getPath());
-		service(new Request(ok)).assertOkAndCacheControl("private");
+		assertOk(ok);
 
 		assertNotFound("/MediaPathItem/guess/.tzack/" + id + ".jpg", "guessed url");
 		assertNotFound("/MediaPathItem/guess/.t/"     + id + ".jpg", "guessed url");
@@ -354,12 +354,12 @@ public final class MediaPathTest extends TestWithEnvironment
 		item.setGuessContentType("major/minor");
 		final String token = "MediaPathItem.guess-" + id;
 
-		service(new Request("/MediaPathItem/guess/.t" + token + "/"                 + id)).assertOkAndCacheControl("private");
-		assertNotFound(     "/MediaPathItem/guess/.t" + "xxx" + "/"                 + id, "guessed url");
-		assertNotFound(     "/MediaPathItem/guess/.t" + token + "/.t" + token + "/" + id, "invalid special");
-		assertNotFound(     "/MediaPathItem/guess/.t" + "xxx" + "/.t" + token + "/" + id, "invalid special");
-		assertNotFound(     "/MediaPathItem/guess/.t" + token + "/.t" + "xxx" + "/" + id, "invalid special");
-		assertNotFound(     "/MediaPathItem/guess/.t" + "xxx" + "/.t" + "xxx" + "/" + id, "invalid special");
+		assertOk(      "/MediaPathItem/guess/.t" + token + "/"                 + id);
+		assertNotFound("/MediaPathItem/guess/.t" + "xxx" + "/"                 + id, "guessed url");
+		assertNotFound("/MediaPathItem/guess/.t" + token + "/.t" + token + "/" + id, "invalid special");
+		assertNotFound("/MediaPathItem/guess/.t" + "xxx" + "/.t" + token + "/" + id, "invalid special");
+		assertNotFound("/MediaPathItem/guess/.t" + token + "/.t" + "xxx" + "/" + id, "invalid special");
+		assertNotFound("/MediaPathItem/guess/.t" + "xxx" + "/.t" + "xxx" + "/" + id, "invalid special");
 	}
 
 	@Test public void testGuessAndAge() throws ServletException, IOException
@@ -370,8 +370,8 @@ public final class MediaPathTest extends TestWithEnvironment
 		assertEquals(ok, "/" + item.getGuessLocator().getPath());
 		service(new Request(ok)).assertOkAndCacheControl(
 				MODEL.getConnectProperties().getMediaOffsetExpires()>0
-				? "private,max-age=5"
-				: "private");
+				? "max-age=5"
+				: null);
 	}
 
 	@Test public void testFingerGuess() throws ServletException, IOException
@@ -384,7 +384,7 @@ public final class MediaPathTest extends TestWithEnvironment
 		assertEquals(ok, "/" + item.getFingerGuessLocator().getPath());
 		service(new Request(ok)).
 				assertLastModified(333339000l).
-				assertOkAndCacheControl("private,max-age="+ALMOST_ONE_YEAR);
+				assertOkAndCacheControl("max-age="+ALMOST_ONE_YEAR);
 
 		assertNotFound("/MediaPathItem/fingerGuess/.fIkl3T/.tzack/" + id + ".jpg", "guessed url");
 		assertNotFound("/MediaPathItem/fingerGuess/.fIkl3T/.t/"     + id + ".jpg", "guessed url");
@@ -419,6 +419,20 @@ public final class MediaPathTest extends TestWithEnvironment
 		assertNotFound("/MediaPathItem/fingerGuess/.fx/" + id + "/otherPhrase",     "guessed url");
 		assertNotFound("/MediaPathItem/fingerGuess/.fx/" + id + "/phrase.png",      "guessed url");
 		assertNotFound("/MediaPathItem/fingerGuess/.fx/" + id + "/otherPhrase.jpg", "guessed url");
+	}
+
+	@Test public void testCacheControlPrivate() throws ServletException, IOException
+	{
+		final int offset = MODEL.getConnectProperties().getMediaOffsetExpires();
+		assertTrue("" + offset, offset>=0);
+		item.setNormalContentType("image/jpeg");
+		item.setNormalLastModified(new Date(333338888));
+		final String ok = "/MediaPathItem/normal/" + id + ".jpg";
+		assertEquals(ok, "/" + item.getNormalLocator().getPath());
+		service(new Request(ok)).assertOkAndCacheControl(offset>0 ? "max-age=5" : null);
+
+		item.setCacheControlPrivate(true);
+		service(new Request(ok)).assertOkAndCacheControl("private" + (offset>0 ? ",max-age=5" : ""));
 	}
 
 	@Test public void testAccessControlAllowOriginWildcard() throws ServletException, IOException
@@ -959,8 +973,7 @@ public final class MediaPathTest extends TestWithEnvironment
 			assertEquals(MediaPathItem.TYPE, path.getType());
 			assertNotNull(item);
 			assertEquals("MediaPathItem-0", item.getCopeID());
-			// TODO explicit test similar to isAccessControlAllowOriginWildcard
-			return super.isCacheControlPrivate(path, item);
+			return ((MediaPathItem)item).getCacheControlPrivate();
 		}
 
 		@Override

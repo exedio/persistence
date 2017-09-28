@@ -32,6 +32,8 @@ public final class MediaPathItem extends Item implements MediaUrlCatchphraseProv
 	@CopeSchemaName("phrase")
 	static final StringField catchphrase = new StringField().optional();
 
+	static final BooleanField cacheControlPrivate = new BooleanField().defaultTo(false);
+
 	static final BooleanField accessControlAllowOriginWildcard = new BooleanField().defaultTo(false);
 
 
@@ -102,6 +104,24 @@ public final class MediaPathItem extends Item implements MediaUrlCatchphraseProv
 				com.exedio.cope.StringLengthViolationException
 	{
 		MediaPathItem.catchphrase.set(this,catchphrase);
+	}
+
+	/**
+	 * Returns the value of {@link #cacheControlPrivate}.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	final boolean getCacheControlPrivate()
+	{
+		return MediaPathItem.cacheControlPrivate.getMandatory(this);
+	}
+
+	/**
+	 * Sets a new value for {@link #cacheControlPrivate}.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	final void setCacheControlPrivate(final boolean cacheControlPrivate)
+	{
+		MediaPathItem.cacheControlPrivate.set(this,cacheControlPrivate);
 	}
 
 	/**
