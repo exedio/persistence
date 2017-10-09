@@ -253,6 +253,9 @@ final class JavaField
 	{
 		assert !file.repository.isBuildStage();
 
+		if (wrapperIgnore!=null)
+			throw new RuntimeException("evaluate ignored");
+
 		if(rtvalue==null)
 		{
 			if ( getInitializer()==null ) throw new RuntimeException("getInitializer() null");

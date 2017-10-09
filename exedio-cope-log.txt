@@ -7,6 +7,8 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* Access to ignored fields (annotated with @WrapperIgnore) in feature initialization no longer supported.
+	Use @Wrapper(wrap="*", visibility=NONE) instead.
 * EnvironmentInfo#getDriverClass added.
 * Hash#getPlainTextValidator added.
 * Choice constraint added.
