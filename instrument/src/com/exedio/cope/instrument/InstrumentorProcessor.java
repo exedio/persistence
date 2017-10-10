@@ -45,6 +45,12 @@ final class InstrumentorProcessor extends JavacProcessor
 	}
 
 	@Override
+	boolean includeIgnoredFiles()
+	{
+		return false;
+	}
+
+	@Override
 	public boolean process(final Set<? extends TypeElement> annotations, final RoundEnvironment roundEnv)
 	{
 		final Map<CompilationUnitTree,JavaFile> files = new HashMap<>();

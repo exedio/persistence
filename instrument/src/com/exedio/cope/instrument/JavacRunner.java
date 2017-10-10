@@ -57,7 +57,7 @@ final class JavacRunner
 		final JavaCompiler compiler=getJavaCompiler();
 		try (final StandardJavaFileManager fileManager=compiler.getStandardFileManager(null, null, null))
 		{
-			final List<File> sortedSourceFiles=params.getJavaSourceFilesExcludingIgnored();
+			final List<File> sortedSourceFiles=processor.includeIgnoredFiles()?params.getAllJavaSourceFiles():params.getJavaSourceFilesExcludingIgnored();
 			// We have to sort files to have a deterministic order - otherwise, resolving classes by
 			// simple name is not deterministic.
 			Collections.sort(sortedSourceFiles);
@@ -79,7 +79,7 @@ final class JavacRunner
 		}
 	}
 
-	private static String combineClasspath(final String classpathA, final String classpathB)
+	static String combineClasspath(final String classpathA, final String classpathB)
 	{
 		if (classpathA.isEmpty())
 		{
@@ -95,12 +95,12 @@ final class JavacRunner
 		}
 	}
 
-	private static String toClasspathString(final List<File> classpathFiles)
+	static String toClasspathString(final List<File> classpathFiles)
 	{
 		return classpathFiles.stream().map(File::getAbsolutePath).collect(Collectors.joining(File.pathSeparator));
 	}
 
-	private static String getCurrentClasspath()
+	static String getCurrentClasspath()
 	{
 		// This is a hack:
 		// We want to use the current classpath also in the javac task that's being started, so we

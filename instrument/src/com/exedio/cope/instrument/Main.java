@@ -38,6 +38,10 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import javax.tools.DiagnosticCollector;
+import javax.tools.JavaCompiler;
+import javax.tools.JavaFileObject;
+import javax.tools.StandardJavaFileManager;
 
 final class Main
 {
@@ -62,6 +66,8 @@ final class Main
 
 		if(params.verify)
 			System.out.println("Instrumenting in verify mode.");
+
+		createAndCompileInterimFiles(params);
 
 		try
 		{
@@ -284,5 +290,30 @@ final class Main
 			}
 		}
 		return result;
+	}
+
+	private void createAndCompileInterimFiles(final Params params) throws IOException, HumanReadableException
+	{
+		final InterimProcessor interimProcessor = new InterimProcessor(params);
+		new JavacRunner(interimProcessor).run(params);
+		compileInterimFiles(
+			params,
+			interimProcessor.getInterimFiles()
+		);
+	}
+
+	private void compileInterimFiles(final Params params, final List<File> interimFiles) throws IOException
+	{
+		final JavaCompiler compiler = JavacRunner.getJavaCompiler();
+		final DiagnosticCollector<JavaFileObject> diagnostics = new DiagnosticCollector<>();
+		try (final StandardJavaFileManager fileManager = compiler.getStandardFileManager(diagnostics, null, null))
+		{
+			final Iterable<? extends JavaFileObject> compilationUnits = fileManager.getJavaFileObjectsFromFiles(interimFiles);
+			final String classpath = JavacRunner.combineClasspath(JavacRunner.getCurrentClasspath(), JavacRunner.toClasspathString(params.classpath));
+			final JavaCompiler.CompilationTask task = compiler.getTask(null, fileManager, diagnostics, asList("-cp", classpath), null, compilationUnits);
+
+			if (!task.call())
+				throw new RuntimeException(diagnostics.getDiagnostics().toString());
+		}
 	}
 }

@@ -332,6 +332,7 @@ final class Generator
 	private void writeFeature(final LocalCopeFeature feature)
 	{
 		final Object instance = feature.getInstance();
+		if (instance==null) throw new RuntimeException("instance==null for "+feature);
 		final Kind kind = feature.parent.kind;
 		for(final WrapperX wrapper : getWrappers(instance))
 		{

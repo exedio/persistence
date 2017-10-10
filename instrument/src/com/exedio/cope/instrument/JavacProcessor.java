@@ -45,4 +45,6 @@ abstract class JavacProcessor extends AbstractProcessor
 			throw new IllegalStateException();
 		return ignoreFiles.contains(requireNonNull(e));
 	}
+
+	abstract boolean includeIgnoredFiles();
 }
