@@ -216,25 +216,7 @@ final class Main
 
 	private static void runJavac(final Params params, final JavaRepository repository) throws IOException, HumanReadableException
 	{
-		new JavacRunner<InstrumentorProcessor>()
-		{
-			@Override
-			InstrumentorProcessor createProcessor()
-			{
-				return new InstrumentorProcessor(repository);
-			}
-
-			@Override
-			void validateProcessor(final InstrumentorProcessor instrumentorProcessor) throws HumanReadableException
-			{
-				if (!instrumentorProcessor.processHasBeenCalled)
-				{
-					// InstrumentorProcessor has not been invoked - this happens if parsing failed
-					throw new HumanReadableException("fix compiler errors");
-				}
-			}
-
-		}.run(params);
+		new JavacRunner(new InstrumentorProcessor(repository)).run(params);
 	}
 
 	boolean verbose;

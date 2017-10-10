@@ -26,7 +26,6 @@ import com.sun.source.util.TreePath;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
-import javax.annotation.processing.AbstractProcessor;
 import javax.annotation.processing.RoundEnvironment;
 import javax.annotation.processing.SupportedAnnotationTypes;
 import javax.annotation.processing.SupportedSourceVersion;
@@ -36,9 +35,8 @@ import javax.lang.model.element.TypeElement;
 
 @SupportedSourceVersion(SourceVersion.RELEASE_8)
 @SupportedAnnotationTypes("*")
-final class InstrumentorProcessor extends AbstractProcessor
+final class InstrumentorProcessor extends JavacProcessor
 {
-
 	private final JavaRepository javaRepository;
 
 	boolean processHasBeenCalled = false;
@@ -86,5 +84,15 @@ final class InstrumentorProcessor extends AbstractProcessor
 				packageName!=null
 				? packageName.toString()
 				: null;
+	}
+
+	@Override
+	void validate() throws HumanReadableException
+	{
+		if (!processHasBeenCalled)
+		{
+			// InstrumentorProcessor has not been invoked - this happens if parsing failed
+			throw new HumanReadableException("fix compiler errors");
+		}
 	}
 }

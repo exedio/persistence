@@ -30,13 +30,19 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
-import javax.annotation.processing.Processor;
 import javax.tools.JavaCompiler;
 import javax.tools.JavaFileObject;
 import javax.tools.StandardJavaFileManager;
 
-abstract class JavacRunner<P extends Processor>
+final class JavacRunner
 {
+	private final JavacProcessor processor;
+
+	JavacRunner(final JavacProcessor processor)
+	{
+		this.processor = processor;
+	}
+
 	void run(final Params params) throws IOException, HumanReadableException
 	{
 		// "JavacTool.create()" is not part of the "exported" API
@@ -61,16 +67,12 @@ abstract class JavacRunner<P extends Processor>
 			optionList.add(params.getMaxwarns());
 			optionList.add("-implicit:none");
 			final JavaCompiler.CompilationTask task = compiler.getTask(null, null, null, optionList, null, sources);
-			final P processor=createProcessor();
+			processor.prepare(params, fileManager);
 			task.setProcessors(singleton(processor));
 			task.call();
-			validateProcessor(processor);
+			processor.validate();
 		}
 	}
-
-	abstract P createProcessor();
-
-	abstract void validateProcessor(P processor) throws HumanReadableException;
 
 	private static String combineClasspath(final String classpathA, final String classpathB)
 	{
