@@ -18,7 +18,6 @@
 
 package com.exedio.cope.vault;
 
-import static com.exedio.cope.util.StrictFile.mkdir;
 import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -27,6 +26,7 @@ import com.exedio.cope.vaulttest.VaultServiceTest;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.util.Properties;
 import java.util.TreeSet;
 import org.junit.Before;
@@ -64,9 +64,9 @@ public abstract class AbstractVaultFileServiceTest extends VaultServiceTest
 	}
 
 	@Before
-	public final void setUpAbstractVaultFileServiceTest()
+	public final void setUpAbstractVaultFileServiceTest() throws IOException
 	{
-		mkdir(((VaultFileService)getService()).tempDir);
+		Files.createDirectory(((VaultFileService)getService()).tempDir);
 	}
 
 	@SuppressWarnings("JUnit3StyleTestMethodInJUnit4Class") // bug in inspection

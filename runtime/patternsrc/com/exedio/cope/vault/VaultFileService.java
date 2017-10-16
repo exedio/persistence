@@ -20,24 +20,30 @@ package com.exedio.cope.vault;
 
 import static com.exedio.cope.vault.VaultNotFoundException.anonymiseHash;
 import static java.lang.Math.toIntExact;
+import static java.nio.file.StandardCopyOption.ATOMIC_MOVE;
+import static java.nio.file.StandardOpenOption.READ;
+import static java.nio.file.StandardOpenOption.TRUNCATE_EXISTING;
 
 import com.exedio.cope.util.Properties;
 import com.exedio.cope.util.ServiceProperties;
-import com.exedio.cope.util.StrictFile;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.file.FileAlreadyExistsException;
+import java.nio.file.Files;
+import java.nio.file.NoSuchFileException;
+import java.nio.file.Path;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @ServiceProperties(VaultFileService.Props.class)
 public final class VaultFileService implements VaultService
 {
-	private final File rootDir;
+	private final Path rootDir;
 	final int directoryLength;
-	final File tempDir;
+	final Path tempDir;
 	final int bufferSize;
 
 	VaultFileService(
@@ -46,7 +52,7 @@ public final class VaultFileService implements VaultService
 	{
 		this.rootDir = properties.root;
 		this.directoryLength = properties.directory!=null ? properties.directory.length : 0;
-		this.tempDir = new File(rootDir, properties.temp);
+		this.tempDir = rootDir.resolve(properties.temp);
 		this.bufferSize = properties.bufferSize;
 
 		{
@@ -62,23 +68,42 @@ public final class VaultFileService implements VaultService
 	@Override
 	public long getLength(final String hash) throws VaultNotFoundException
 	{
-		final long result = file(hash).length();
-		if(result==0)
-			throw new VaultNotFoundException(hash);
-		return result;
+		final Path file = file(hash);
+		try
+		{
+			return Files.size(file);
+		}
+		catch(final NoSuchFileException e)
+		{
+			throw new VaultNotFoundException(hash, e);
+		}
+		catch(final IOException e)
+		{
+			throw wrap(hash, e);
+		}
 	}
 
 	@Override
 	public byte[] get(final String hash) throws VaultNotFoundException
 	{
-		final File file = file(hash);
-		final long length = file.length();
-		if(length==0)
-			throw new VaultNotFoundException(hash);
+		final Path file = file(hash);
+		final long length;
+		try
+		{
+			length = Files.size(file);
+		}
+		catch(final NoSuchFileException e)
+		{
+			throw new VaultNotFoundException(hash, e);
+		}
+		catch(final IOException e)
+		{
+			throw wrap(hash, e);
+		}
 
 		final byte[] result = new byte[toIntExact(length)];
 
-		try(FileInputStream in = new FileInputStream(file))
+		try(InputStream in = Files.newInputStream(file, READ))
 		{
 			int offset = 0;
 			for(int len = in.read(result); len>=0; len = in.read(result, offset, result.length-offset))
@@ -88,10 +113,10 @@ public final class VaultFileService implements VaultService
 					break;
 
 				if(offset>result.length)
-					throw new RuntimeException("overflow " + offset + '/' + result.length + '/' + rootDir.getAbsolutePath() + '/' + anonymiseHash(hash));
+					throw new RuntimeException("overflow " + offset + '/' + result.length + '/' + rootDir.toAbsolutePath() + '/' + anonymiseHash(hash));
 			}
 			if(offset!=result.length)
-				throw new RuntimeException("mismatch " + offset + '/' + result.length + '/' + rootDir.getAbsolutePath() + '/' + anonymiseHash(hash));
+				throw new RuntimeException("mismatch " + offset + '/' + result.length + '/' + rootDir.toAbsolutePath() + '/' + anonymiseHash(hash));
 		}
 		catch(final IOException e)
 		{
@@ -103,15 +128,15 @@ public final class VaultFileService implements VaultService
 	@Override
 	public void get(final String hash, final OutputStream value) throws VaultNotFoundException, IOException
 	{
-		final File file = file(hash);
+		final Path file = file(hash);
 
-		try(FileInputStream in = new FileInputStream(file))
+		try(InputStream in = Files.newInputStream(file, READ))
 		{
 			final byte[] buf = new byte[bufferSize];
 			for(int len = in.read(buf); len>=0; len = in.read(buf))
 				value.write(buf, 0, len);
 		}
-		catch(final FileNotFoundException e)
+		catch(final NoSuchFileException e)
 		{
 			throw new VaultNotFoundException(hash, e);
 		}
@@ -158,46 +183,56 @@ public final class VaultFileService implements VaultService
 
 	private boolean put(final String hash, final Consumer value) throws IOException
 	{
-		final File file = file(hash);
-		if(file.exists())
+		final Path file = file(hash);
+		if(Files.exists(file))
 			return false;
 
-		final File temp = createTempFile(hash);
+		final Path temp = createTempFile(hash);
 
-		try(FileOutputStream out = new FileOutputStream(temp))
+		try(OutputStream out = Files.newOutputStream(temp, TRUNCATE_EXISTING))
 		{
 			value.accept(out);
 		}
 
 		if(directoryLength>0)
-			mkdirIfNotExists(new File(rootDir, hash.substring(0, directoryLength)));
+			mkdirIfNotExists(rootDir.resolve(hash.substring(0, directoryLength)));
 
 		renameToIfDestFileDoesNotExist(temp, file);
 		return true;
 	}
 
-	// TODO move into StrictFile
-	private static void mkdirIfNotExists(final File file)
+	private static void mkdirIfNotExists(final Path file) throws IOException
 	{
-		if(!file.isDirectory())
-			StrictFile.mkdir(file);
+		try
+		{
+			Files.createDirectory(file);
+		}
+		catch(final FileAlreadyExistsException ignored)
+		{
+			// ok
+		}
 	}
 
-	// TODO move into StrictFile
-	private static void renameToIfDestFileDoesNotExist(final File file, final File dest)
+	private static void renameToIfDestFileDoesNotExist(final Path file, final Path dest) throws IOException
 	{
-		if(!dest.isFile())
-			StrictFile.renameTo(file, dest);
+		try
+		{
+			Files.move(file, dest, ATOMIC_MOVE);
+		}
+		catch(final FileAlreadyExistsException e)
+		{
+			logger.error("concurrent upload (should happen rarely)", e); // may be just warn
+		}
 	}
 
 	@FunctionalInterface
 	private interface Consumer
 	{
-		void accept(FileOutputStream t) throws IOException;
+		void accept(OutputStream t) throws IOException;
 	}
 
 
-	private File file(final String hash)
+	private Path file(final String hash)
 	{
 		if(hash==null)
 			throw new NullPointerException();
@@ -205,33 +240,33 @@ public final class VaultFileService implements VaultService
 			throw new IllegalArgumentException();
 
 		if(directoryLength==0)
-			return new File(rootDir, hash);
+			return rootDir.resolve(hash);
 
-		return new File(rootDir,
+		return rootDir.resolve(
 				hash.substring(0, directoryLength) + '/' +
 				hash.substring(directoryLength));
 	}
 
-	private File createTempFile(final String hash) throws IOException
+	private Path createTempFile(final String hash) throws IOException
 	{
-		return File.createTempFile(anonymiseHash(hash), ".tmp", tempDir);
+		return Files.createTempFile(tempDir, anonymiseHash(hash), ".tmp");
 	}
 
 	private RuntimeException wrap(final String hash, final IOException exception)
 	{
-		throw new RuntimeException(rootDir.getAbsolutePath() + ':' + anonymiseHash(hash), exception);
+		throw new RuntimeException("" + rootDir.toAbsolutePath() + ':' + anonymiseHash(hash), exception);
 	}
 
 	@Override
 	public String toString()
 	{
-		return getClass().getSimpleName() + ':' + rootDir.getAbsolutePath();
+		return getClass().getSimpleName() + ':' + rootDir.toAbsolutePath();
 	}
 
 
 	static final class Props extends Properties
 	{
-		final File root = valueFile("root");
+		final Path root = valueFile("root").toPath();
 		final DirectoryProps directory = value("directory", true, DirectoryProps::new);
 		final String temp = value("temp", ".tempVaultFileService");
 		final int bufferSize = value("bufferSize", 50*1024, 1); // 50K
@@ -266,4 +301,7 @@ public final class VaultFileService implements VaultService
 			super(source);
 		}
 	}
+
+
+	private static final Logger logger = LoggerFactory.getLogger(VaultFileService.class);
 }

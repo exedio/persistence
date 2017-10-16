@@ -26,7 +26,7 @@ import com.exedio.cope.util.Properties.Factory;
 import com.exedio.cope.util.Properties.Source;
 import com.exedio.cope.util.Sources;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import java.io.File;
+import java.nio.file.Paths;
 import java.util.Properties;
 import org.junit.Test;
 
@@ -47,7 +47,7 @@ public class VaultFileServiceErrorTest
 		final VaultFileService service = (VaultFileService)properties.newService();
 
 		assertEquals(31, service.directoryLength);
-		assertEquals(new File("rootDir/t"), service.tempDir);
+		assertEquals(Paths.get("rootDir/t"), service.tempDir);
 	}
 
 	@Test public void directoryLengthTooLong()
