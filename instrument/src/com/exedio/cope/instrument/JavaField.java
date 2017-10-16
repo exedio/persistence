@@ -19,6 +19,7 @@
 
 package com.exedio.cope.instrument;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -259,11 +260,26 @@ final class JavaField
 		if(rtvalue==null)
 		{
 			if ( getInitializer()==null ) throw new RuntimeException("getInitializer() null");
-			rtvalue = parent.evaluate(getInitializer());
+			rtvalue = getValueFromInterimClassLoader(); // parent.evaluate(getInitializer());
 			assert rtvalue!=null : getInitializer()+'/'+parent+'/'+name;
 			parent.registerInstance(this, rtvalue);
 		}
 
 		return rtvalue;
+	}
+
+	private Object getValueFromInterimClassLoader()
+	{
+		try
+		{
+			final Class<?> interimClass = file.interimClassLoader.loadClass(parent.getFullName());
+			final Field field = interimClass.getDeclaredField(name);
+			field.setAccessible(true);
+			return field.get(null);
+		}
+		catch (final ClassNotFoundException|NoSuchFieldException|IllegalAccessException e)
+		{
+			throw new RuntimeException(e);
+		}
 	}
 }

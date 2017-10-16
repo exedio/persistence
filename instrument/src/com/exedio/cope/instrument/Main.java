@@ -34,7 +34,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.nio.charset.Charset;
-import java.util.ArrayList;
+import java.nio.file.Path;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -48,8 +48,6 @@ final class Main
 	static final String GENERATED_VALUE = "com.exedio.cope.instrument";
 
 	static final int INITIAL_BUFFER_SIZE=16384;
-
-	private static final URL[] EMPTY_URL_ARRAY = new URL[0];
 
 	void run(final Params params) throws HumanReadableException, IOException
 	{
@@ -67,21 +65,20 @@ final class Main
 		if(params.verify)
 			System.out.println("Instrumenting in verify mode.");
 
-		createAndCompileInterimFiles(params);
+		final ClassLoader interimClassLoader = createInterimClassLoader(params);
 
 		try
 		{
 			InstrumentContext.enter();
 
 			final Charset charset = params.charset;
-			final ClassLoader classLoader = createClassLoader(params.classpath);
-			final JavaRepository repository = new JavaRepository(classLoader);
+			final JavaRepository repository = new JavaRepository(interimClassLoader);
 
 			this.verbose = params.verbose;
 			instrumented = 0;
 			skipped = 0;
 
-			runJavac(params, repository);
+			runJavac(params, repository, interimClassLoader);
 
 			repository.endBuildStage();
 
@@ -101,8 +98,8 @@ final class Main
 				}
 			}
 
-			final Set<Method> generateDeprecateds = findMethods(classLoader, params.getGenerateDeprecateds(), "<generateDeprecated>", asList(Deprecated.class, Wrap.class));
-			final Set<Method> disabledWraps = findMethods(classLoader, params.getDisabledWraps(), "<disableWrap>", singletonList(Wrap.class));
+			final Set<Method> generateDeprecateds = findMethods(interimClassLoader, params.getGenerateDeprecateds(), "<generateDeprecated>", asList(Deprecated.class, Wrap.class));
+			final Set<Method> disabledWraps = findMethods(interimClassLoader, params.getDisabledWraps(), "<disableWrap>", singletonList(Wrap.class));
 			for(final JavaFile javaFile: repository.getFiles())
 			{
 				final StringBuilder buffer = new StringBuilder(INITIAL_BUFFER_SIZE);
@@ -165,24 +162,6 @@ final class Main
 			System.out.println("Instrumented " + instrumented + ' ' + (instrumented==1 ? "file" : "files") + ", skipped " + skipped + " in " + files.iterator().next().getParentFile().getAbsolutePath());
 	}
 
-	private ClassLoader createClassLoader(final Iterable<File> classpathFiles)
-	{
-		final List<URL> urls=new ArrayList<>();
-		for (final File classpathFile: classpathFiles)
-		{
-			try
-			{
-				urls.add(classpathFile.toURI().toURL());
-			}
-			catch (final MalformedURLException e)
-			{
-				throw new RuntimeException(e);
-			}
-		}
-		//noinspection ClassLoaderInstantiation OK: not used in production but only on build time
-		return new URLClassLoader(urls.toArray(EMPTY_URL_ARRAY), getClass().getClassLoader());
-	}
-
 	@SuppressFBWarnings("NP_NULL_ON_SOME_PATH_FROM_RETURN_VALUE") // OK: checks isDirectory before calling listFiles
 	private static boolean noFilesModifiedAfter(final Iterable<File> checkFiles, final File referenceFile, final boolean verbose)
 	{
@@ -220,9 +199,9 @@ final class Main
 		}
 	}
 
-	private static void runJavac(final Params params, final JavaRepository repository) throws IOException, HumanReadableException
+	private static void runJavac(final Params params, final JavaRepository repository, final ClassLoader interimClassLoader) throws IOException, HumanReadableException
 	{
-		new JavacRunner(new InstrumentorProcessor(repository)).run(params);
+		new JavacRunner(new InstrumentorProcessor(repository, interimClassLoader)).run(params);
 	}
 
 	boolean verbose;
@@ -292,28 +271,44 @@ final class Main
 		return result;
 	}
 
-	private void createAndCompileInterimFiles(final Params params) throws IOException, HumanReadableException
+	private ClassLoader createInterimClassLoader(final Params params) throws IOException, HumanReadableException
 	{
 		final InterimProcessor interimProcessor = new InterimProcessor(params);
 		new JavacRunner(interimProcessor).run(params);
-		compileInterimFiles(
+		return compileInterimFiles(
 			params,
+			interimProcessor.getInterimRootDirectory(),
 			interimProcessor.getInterimFiles()
 		);
 	}
 
-	private void compileInterimFiles(final Params params, final List<File> interimFiles) throws IOException
+	private ClassLoader compileInterimFiles(final Params params, final Path interimDirectory, final List<File> interimFiles) throws IOException
 	{
 		final JavaCompiler compiler = JavacRunner.getJavaCompiler();
 		final DiagnosticCollector<JavaFileObject> diagnostics = new DiagnosticCollector<>();
+		final String classpath = JavacRunner.combineClasspath(JavacRunner.getCurrentClasspath(), JavacRunner.toClasspathString(params.classpath));
 		try (final StandardJavaFileManager fileManager = compiler.getStandardFileManager(diagnostics, null, null))
 		{
 			final Iterable<? extends JavaFileObject> compilationUnits = fileManager.getJavaFileObjectsFromFiles(interimFiles);
-			final String classpath = JavacRunner.combineClasspath(JavacRunner.getCurrentClasspath(), JavacRunner.toClasspathString(params.classpath));
 			final JavaCompiler.CompilationTask task = compiler.getTask(null, fileManager, diagnostics, asList("-cp", classpath), null, compilationUnits);
-
 			if (!task.call())
 				throw new RuntimeException(diagnostics.getDiagnostics().toString());
 		}
+
+		final ClassLoader interimContext = new URLClassLoader(toURLs(classpath), getClass().getClassLoader());
+		final ClassLoader interimClasses = new URLClassLoader(new URL[]{interimDirectory.toUri().toURL()}, interimContext);
+		return interimClasses;
+	}
+
+	private static URL[] toURLs(final String path) throws MalformedURLException
+	{
+		final String[] paths = path.split(File.pathSeparator);
+		final URL[] urls = new URL[paths.length];
+		for (int i = 0; i < paths.length; i++)
+		{
+			final String next = paths[i];
+			urls[i] = new File(next).toURI().toURL();
+		}
+		return urls;
 	}
 }

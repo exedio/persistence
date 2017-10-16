@@ -22,6 +22,7 @@ import static java.lang.reflect.Modifier.PRIVATE;
 import static java.lang.reflect.Modifier.PROTECTED;
 import static java.util.Objects.requireNonNull;
 
+import com.exedio.cope.Feature;
 import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.Pattern;
 import java.lang.reflect.Modifier;
@@ -29,7 +30,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Map;
 import java.util.SortedSet;
 import java.util.TreeMap;
 import java.util.TreeSet;
@@ -102,10 +102,14 @@ abstract class CopeType<F extends CopeFeature>
 			final Object containerInstance = container.getInstance();
 			if (containerInstance instanceof Pattern)
 			{
-				for (final Map.Entry<String,?> namedSource: ((Pattern)containerInstance).getSourceFeaturesGather().entrySet())
+				final Pattern patternInstance = (Pattern) containerInstance;
+				for (final Feature namedSource: patternInstance.getSourceFeatures())
 				{
-					if (namedSource.getValue()==instance)
-						return new ComponentFeature(container, namedSource.getValue(), namedSource.getKey());
+					if (namedSource==instance)
+					{
+						final String componentName = namedSource.getName().substring(patternInstance.getName().length() + 1);
+						return new ComponentFeature(container, namedSource, componentName);
+					}
 				}
 			}
 		}

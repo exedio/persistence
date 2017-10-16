@@ -51,7 +51,6 @@ import java.util.ArrayList;
 import java.util.Deque;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -304,12 +303,11 @@ final class InterimProcessor extends JavacProcessor
 			if (!ct.getTypeParameters().isEmpty())
 			{
 				declaration.append("<");
-				for (final Iterator<? extends TypeParameterTree> iter = ct.getTypeParameters().iterator(); iter.hasNext();)
+				final StringSeparator comma = new StringSeparator(", ");
+				for (final TypeParameterTree typeParameter : ct.getTypeParameters())
 				{
-					final TypeParameterTree typeParameter = iter.next();
+					comma.appendTo(declaration);
 					declaration.append(typeParameter);
-					if (iter.hasNext())
-						declaration.append(",");
 				}
 				declaration.append(">");
 			}
@@ -325,16 +323,15 @@ final class InterimProcessor extends JavacProcessor
 				final LineCodePart line = code.startLine("");
 				final CollectEnumValuesVisitor enumCollector = new CollectEnumValuesVisitor();
 				enumCollector.visitClass(ct, null);
-				for (final Iterator<VariableTree> it = enumCollector.enumValues.iterator(); it.hasNext();)
+				final StringSeparator comma = new StringSeparator(", ");
+				for (final VariableTree enumValue : enumCollector.enumValues)
 				{
-					final VariableTree enumValue = it.next();
+					comma.appendTo(line.line);
 					for (final AnnotationTree interimAnnotation : getInterimAnnotations(enumValue.getModifiers().getAnnotations()))
 					{
 						line.continueLine(interimAnnotation+" ");
 					}
 					line.continueLine(enumValue.getName().toString());
-					if (it.hasNext())
-						line.continueLine(", ");
 				}
 				line.endLine();
 			}
@@ -357,15 +354,14 @@ final class InterimProcessor extends JavacProcessor
 							append(" ").
 							append(method.getSimpleName()).
 							append("(");
-						for (final Iterator<? extends VariableElement> iter = method.getParameters().iterator(); iter.hasNext();)
+						final StringSeparator comma = new StringSeparator(", ");
+						for (final VariableElement parameter : method.getParameters())
 						{
-							final VariableElement parameter = iter.next();
+							comma.appendTo(methodDeclaration);
 							methodDeclaration.
 								append(parameter.asType()).
 								append(" ").
 								append(parameter.getSimpleName());
-							if (iter.hasNext())
-								methodDeclaration.append(", ");
 						}
 						methodDeclaration.append(")");
 						code = code.openBlock(null, methodDeclaration, true);
@@ -437,12 +433,11 @@ final class InterimProcessor extends JavacProcessor
 			if (!implementsInterim.isEmpty())
 			{
 				sb.append(" implements ");
-				for (final Iterator<? extends Tree> iter = implementsInterim.iterator(); iter.hasNext();)
+				final StringSeparator comma = new StringSeparator(", ");
+				for (final Tree implementsClause : implementsInterim)
 				{
-					final Tree implementsClause = iter.next();
+					comma.appendTo(sb);
 					sb.append(implementsClause);
-					if (iter.hasNext())
-						sb.append(", ");
 				}
 			}
 			return implementsInterimTypes;
@@ -459,12 +454,11 @@ final class InterimProcessor extends JavacProcessor
 				part.continueLine(" ");
 				part.continueLine(mt.getName().toString());
 				part.continueLine("(");
-				for (final Iterator<? extends VariableTree> iter = mt.getParameters().iterator(); iter.hasNext();)
+				final StringSeparator comma = new StringSeparator(", ");
+				for (final VariableTree parameter : mt.getParameters())
 				{
-					final VariableTree parameter = iter.next();
+					comma.appendTo(part.line);
 					part.continueLine(parameter.toString());
-					if (iter.hasNext())
-						part.continueLine(", ");
 				}
 				part.continueLine(")");
 				part.endLine();

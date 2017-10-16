@@ -38,10 +38,12 @@ import javax.lang.model.element.TypeElement;
 final class InstrumentorProcessor extends JavacProcessor
 {
 	private final JavaRepository javaRepository;
+	private final ClassLoader interimClassLoader;
 
-	InstrumentorProcessor(final JavaRepository javaRepository)
+	InstrumentorProcessor(final JavaRepository javaRepository, final ClassLoader interimClassLoader)
 	{
 		this.javaRepository = javaRepository;
+		this.interimClassLoader = interimClassLoader;
 	}
 
 	@Override
@@ -64,7 +66,7 @@ final class InstrumentorProcessor extends JavacProcessor
 			JavaFile javaFile=files.get(compilationUnit);
 			if ( javaFile==null )
 			{
-				files.put(compilationUnit, javaFile=new JavaFile(javaRepository, compilationUnit.getSourceFile(), getPackageName(compilationUnit)));
+				files.put(compilationUnit, javaFile=new JavaFile(javaRepository, interimClassLoader, compilationUnit.getSourceFile(), getPackageName(compilationUnit)));
 				for (final ImportTree aImport: compilationUnit.getImports())
 				{
 					if (!aImport.isStatic())

@@ -35,7 +35,8 @@ public class ResolveImportTest
 	@Test void testImports()
 	{
 		final JavaRepository repository = new JavaRepository(getClass().getClassLoader());
-		final JavaFile file = new JavaFile(repository, new DummyJavaFileObject("x"), "com.exedio.cope.instrument.findtype");
+		final ClassLoader interimClassLoader = null; // TODO
+		final JavaFile file = new JavaFile(repository, interimClassLoader, new DummyJavaFileObject("x"), "com.exedio.cope.instrument.findtype");
 
 		file.addImport("com.exedio.cope.instrument.findtype.subfindtype.*");
 		file.addImport("com.exedio.cope.instrument.findtype.subfindtype2.SubFindType2");

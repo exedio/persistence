@@ -66,6 +66,7 @@ abstract class JavaFeature
 		this.modifier=modifier;
 		this.name=name;
 		this.sourceLocation=sourceLocation;
+		if (name.contains("-")) throw new RuntimeException(name);
 
 		if(file==null)
 			throw new RuntimeException();
