@@ -19,10 +19,8 @@
 package com.exedio.cope.vault;
 
 import static com.exedio.cope.vault.VaultNotFoundException.anonymiseHash;
-import static java.lang.Math.toIntExact;
 import static java.nio.file.StandardCopyOption.ATOMIC_MOVE;
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
-import static java.nio.file.StandardOpenOption.READ;
 import static java.nio.file.StandardOpenOption.TRUNCATE_EXISTING;
 
 import com.exedio.cope.util.Properties;
@@ -85,10 +83,9 @@ public final class VaultFileService implements VaultService
 	public byte[] get(final String hash) throws VaultNotFoundException
 	{
 		final Path file = file(hash);
-		final long length;
 		try
 		{
-			length = Files.size(file);
+			return Files.readAllBytes(file);
 		}
 		catch(final NoSuchFileException e)
 		{
@@ -98,29 +95,6 @@ public final class VaultFileService implements VaultService
 		{
 			throw wrap(hash, e);
 		}
-
-		final byte[] result = new byte[toIntExact(length)];
-
-		try(InputStream in = Files.newInputStream(file, READ))
-		{
-			int offset = 0;
-			for(int len = in.read(result); len>=0; len = in.read(result, offset, result.length-offset))
-			{
-				offset += len;
-				if(offset==result.length)
-					break;
-
-				if(offset>result.length)
-					throw new RuntimeException("overflow " + offset + '/' + result.length + '/' + rootDir.toAbsolutePath() + '/' + anonymiseHash(hash));
-			}
-			if(offset!=result.length)
-				throw new RuntimeException("mismatch " + offset + '/' + result.length + '/' + rootDir.toAbsolutePath() + '/' + anonymiseHash(hash));
-		}
-		catch(final IOException e)
-		{
-			throw wrap(hash, e);
-		}
-		return result;
 	}
 
 	@Override
