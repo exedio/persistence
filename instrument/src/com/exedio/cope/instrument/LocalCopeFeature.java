@@ -30,7 +30,7 @@ final class LocalCopeFeature extends CopeFeature
 	{
 		super(parent);
 		this.javaField=javaField;
-		final WrapperInitial initialConfig = Tags.cascade(javaField.wrapperInitial, null);
+		final WrapperInitial initialConfig = javaField.wrapperInitial;
 		this.initialByConfiguration = initialConfig==null ? null : initialConfig.value();
 	}
 

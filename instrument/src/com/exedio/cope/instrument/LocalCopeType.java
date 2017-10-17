@@ -79,7 +79,7 @@ final class LocalCopeType extends CopeType<LocalCopeFeature>
 			if(!Modifier.isFinal(modifier) || !Modifier.isStatic(modifier))
 				continue;
 
-			if(Tags.cascade(javaField.wrapperIgnore, null)!=null)
+			if(javaField.wrapperIgnore!=null)
 				continue;
 
 			final Class<?> typeClass = javaField.file.findTypeExternally(javaField.typeRaw);
