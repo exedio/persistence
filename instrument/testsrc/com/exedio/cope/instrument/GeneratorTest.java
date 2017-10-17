@@ -41,9 +41,7 @@ import com.exedio.cope.instrument.testmodel.Input;
 import com.exedio.cope.instrument.testmodel.Standard;
 import com.exedio.cope.instrument.testmodel.Sub;
 import com.exedio.cope.instrument.testmodel.Super;
-import com.exedio.cope.instrument.testmodel.TypeNone;
 import com.exedio.cope.instrument.testmodel.TypeNoneAnnotated;
-import com.exedio.cope.instrument.testmodel.TypePrivate;
 import com.exedio.cope.instrument.testmodel.TypePrivateAnnotated;
 import com.exedio.cope.instrument.testmodel.sub.SubTarget;
 import java.io.IOException;
@@ -76,9 +74,7 @@ public class GeneratorTest
 	static final Class<?> ACTIVATION = ActivationParameters.class;
 
 	static final Class<?> STANDARD = Standard.class;
-	static final Class<?> TYPE_NONE = TypeNone.class;
 	static final Class<?> TYPE_NONE_ANNOTATED = TypeNoneAnnotated.class;
-	static final Class<?> TYPE_PRIVATE = TypePrivate.class;
 	static final Class<?> TYPE_PRIVATE_ANNOTATED = TypePrivateAnnotated.class;
 	static final Class<?> DOUBLE_UNIQUE = DoubleUnique.class;
 	static final Class<?> SUB_TARGET = SubTarget.class;
@@ -237,27 +233,21 @@ public class GeneratorTest
 		assertField(STANDARD, "serialVersionUID", long.class, PRIVATE|STATIC|FINAL);
 		assertField(STANDARD, "TYPE", Type.class, PUBLIC|STATIC|FINAL);
 
-		for (final Class<?> typeNone: new Class<?>[]{TYPE_NONE, TYPE_NONE_ANNOTATED})
-		{
-			assertConstructor(typeNone, new Class<?>[]{}, PRIVATE);
-			assertConstructor(typeNone, new Class<?>[]{SET_VALUE_ARRAY}, PUBLIC|VARARGS); // @cope.generic.constructor public
-			assertConstructor(typeNone, new Class<?>[]{ACTIVATION}, 0); // @cope.activation.constructor package
-			assertMethod(typeNone, "getDefaultString", STRING, PUBLIC|FINAL);
-			assertMethod(typeNone, "setDefaultString", new Class<?>[]{STRING}, PUBLIC|FINAL, new Class<?>[]{LENGTH_VIOLATION});
-			assertField(typeNone, "serialVersionUID", long.class, PRIVATE|STATIC|FINAL);
-			assertNoField(typeNone, "TYPE");
-		}
+		assertConstructor(TYPE_NONE_ANNOTATED, new Class<?>[]{}, PRIVATE);
+		assertConstructor(TYPE_NONE_ANNOTATED, new Class<?>[]{SET_VALUE_ARRAY}, PUBLIC|VARARGS); // @cope.generic.constructor public
+		assertConstructor(TYPE_NONE_ANNOTATED, new Class<?>[]{ACTIVATION}, 0); // @cope.activation.constructor package
+		assertMethod(TYPE_NONE_ANNOTATED, "getDefaultString", STRING, PUBLIC|FINAL);
+		assertMethod(TYPE_NONE_ANNOTATED, "setDefaultString", new Class<?>[]{STRING}, PUBLIC|FINAL, new Class<?>[]{LENGTH_VIOLATION});
+		assertField(TYPE_NONE_ANNOTATED, "serialVersionUID", long.class, PRIVATE|STATIC|FINAL);
+		assertNoField(TYPE_NONE_ANNOTATED, "TYPE");
 
-		for (final Class<?> typePrivate: new Class<?>[]{TYPE_PRIVATE, TYPE_PRIVATE_ANNOTATED})
-		{
-			assertConstructor(typePrivate, new Class<?>[]{}, PUBLIC);
-			assertConstructor(typePrivate, new Class<?>[]{SET_VALUE_ARRAY}, PRIVATE|VARARGS);
-			assertConstructor(typePrivate, new Class<?>[]{ACTIVATION}, PRIVATE);
-			assertMethod(typePrivate, "getDefaultString", STRING, PUBLIC|FINAL);
-			assertMethod(typePrivate, "setDefaultString", new Class<?>[]{STRING}, PUBLIC|FINAL, new Class<?>[]{LENGTH_VIOLATION});
-			assertField(typePrivate, "serialVersionUID", long.class, PRIVATE|STATIC|FINAL);
-			assertField(typePrivate, "TYPE", Type.class, PRIVATE|STATIC|FINAL);
-		}
+		assertConstructor(TYPE_PRIVATE_ANNOTATED, new Class<?>[]{}, PUBLIC);
+		assertConstructor(TYPE_PRIVATE_ANNOTATED, new Class<?>[]{SET_VALUE_ARRAY}, PRIVATE|VARARGS);
+		assertConstructor(TYPE_PRIVATE_ANNOTATED, new Class<?>[]{ACTIVATION}, PRIVATE);
+		assertMethod(TYPE_PRIVATE_ANNOTATED, "getDefaultString", STRING, PUBLIC|FINAL);
+		assertMethod(TYPE_PRIVATE_ANNOTATED, "setDefaultString", new Class<?>[]{STRING}, PUBLIC|FINAL, new Class<?>[]{LENGTH_VIOLATION});
+		assertField(TYPE_PRIVATE_ANNOTATED, "serialVersionUID", long.class, PRIVATE|STATIC|FINAL);
+		assertField(TYPE_PRIVATE_ANNOTATED, "TYPE", Type.class, PRIVATE|STATIC|FINAL);
 	}
 
 	@Test void testDoubleUnique()
