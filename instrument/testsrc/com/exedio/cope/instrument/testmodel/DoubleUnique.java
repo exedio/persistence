@@ -18,10 +18,13 @@
 
 package com.exedio.cope.instrument.testmodel;
 
+import static com.exedio.cope.instrument.Visibility.PRIVATE;
+
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
 import com.exedio.cope.StringField;
 import com.exedio.cope.UniqueConstraint;
+import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.instrument.testmodel.sub.SubTarget;
 
 @SuppressWarnings("UnusedReturnValue")
@@ -30,9 +33,7 @@ public final class DoubleUnique extends Item
 	public static final StringField string = new StringField().toFinal();
 	public static final ItemField<SubTarget> item = ItemField.create(SubTarget.class).cascade().toFinal();
 
-	/**
-	 * @cope.finder private
-	 */
+	@Wrapper(wrap="finder", visibility=PRIVATE)
 	public static final UniqueConstraint unique = new UniqueConstraint(string, item);
 
 	static void useFeaturesToAvoidWarning()

@@ -18,15 +18,16 @@
 
 package com.exedio.cope.instrument.testmodel;
 
+import static com.exedio.cope.instrument.Visibility.NONE;
+import static com.exedio.cope.instrument.Visibility.PACKAGE;
+import static com.exedio.cope.instrument.Visibility.PRIVATE;
+import static com.exedio.cope.instrument.Visibility.PUBLIC;
+
 import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
+import com.exedio.cope.instrument.WrapperType;
 
-/**
- * @cope.type none
- * @cope.constructor private
- * @cope.generic.constructor public
- * @cope.activation.constructor package
- */
+@WrapperType(activationConstructor=PACKAGE, constructor=PRIVATE, genericConstructor=PUBLIC, type=NONE)
 public final class TypeNone extends Item
 {
 	public static final StringField defaultString = new StringField().optional();

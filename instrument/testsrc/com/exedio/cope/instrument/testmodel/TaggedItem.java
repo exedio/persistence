@@ -18,78 +18,58 @@
 
 package com.exedio.cope.instrument.testmodel;
 
+import static com.exedio.cope.instrument.Visibility.NONE;
+import static com.exedio.cope.instrument.Visibility.PACKAGE;
+import static com.exedio.cope.instrument.Visibility.PRIVATE;
+import static com.exedio.cope.instrument.Visibility.PROTECTED;
+import static com.exedio.cope.instrument.Visibility.PUBLIC;
+
 import com.exedio.cope.BooleanField;
 import com.exedio.cope.Item;
+import com.exedio.cope.instrument.Wrapper;
+import com.exedio.cope.instrument.WrapperIgnore;
+import com.exedio.cope.instrument.WrapperInitial;
+import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.instrument.testfeature.SimpleSettable;
 
-/**
- * @cope.type private
- * @cope.constructor private
- * @cope.generic.constructor public
- * @cope.activation.constructor package
- * @cope.indent 2
- */
+@WrapperType(activationConstructor=PACKAGE, constructor=PRIVATE, genericConstructor=PUBLIC, indent=2, type=PRIVATE)
 public class TaggedItem extends Item implements OneOverrideFeatureable
 {
-	/**
-	 * @cope.initial
-	 */
+	@WrapperInitial
 	static final SimpleSettable initialFeature = new SimpleSettable();
 
-	/**
-	 * @cope.ignore
-	 */
+	@WrapperIgnore
 	static final SimpleSettable ignoredFeature = new SimpleSettable(true);
 
-	/**
-	 * @cope.one public
-	 */
+	@Wrapper(wrap="one", visibility=PUBLIC)
 	private static final SimpleSettable publicFeature = new SimpleSettable();
 
-	/**
-	 * @cope.one package
-	 */
+	@Wrapper(wrap="one", visibility=PACKAGE)
 	private static final SimpleSettable packageFeature = new SimpleSettable();
 
-	/**
-	 * @cope.one protected
-	 */
+	@Wrapper(wrap="one", visibility=PROTECTED)
 	private static final SimpleSettable protectedFeature = new SimpleSettable();
 
-	/**
-	 * @cope.one private
-	 */
+	@Wrapper(wrap="one", visibility=PRIVATE)
 	static final SimpleSettable privateFeature = new SimpleSettable();
 
-	/**
-	 * @cope.one none
-	 */
+	@Wrapper(wrap="one", visibility=NONE)
 	@SuppressWarnings("unused")
 	private static final SimpleSettable noneFeature = new SimpleSettable();
 
-	/**
-	 * @cope.one non-final
-	 */
+	@Wrapper(wrap="one", asFinal=false)
 	private static final SimpleSettable nonFinalFeature = new SimpleSettable();
 
-	/**
-	 * @cope.one internal
-	 */
+	@Wrapper(wrap="one", internal=true)
 	private static final SimpleSettable internalFeature = new SimpleSettable();
 
-	/**
-	 * @cope.get boolean-as-is
-	 */
+	@Wrapper(wrap="get", booleanAsIs=true)
 	private static final BooleanField booleanAsIsFeature = new BooleanField().optional();
 
-	/**
-	 * @cope.get boolean-as-is public
-	 */
+	@Wrapper(wrap="get", booleanAsIs=true, visibility=PUBLIC)
 	private static final BooleanField booleanAsIsPublicFeature = new BooleanField().optional();
 
-	/**
-	 * @cope.one override public
-	 */
+	@Wrapper(wrap="one", override=true, visibility=PUBLIC)
 	private static final SimpleSettable overrideFeature = new SimpleSettable();
 
 	// marker for end of hand-written code

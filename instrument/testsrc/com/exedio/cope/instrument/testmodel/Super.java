@@ -22,6 +22,7 @@ import com.exedio.cope.DayField;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
+import com.exedio.cope.instrument.WrapperInitial;
 
 /**
  */
@@ -29,9 +30,7 @@ public abstract class Super extends Item
 {
 	public static final StringField superMandatory = new StringField().lengthExact(5);
 
-	/**
-	 * @cope.initial
-	 */
+	@WrapperInitial
 	public static final IntegerField superInitial = new IntegerField().optional();
 
 	public static final DayField superNonInitial = new DayField().optional();

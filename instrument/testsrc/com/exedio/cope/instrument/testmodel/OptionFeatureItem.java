@@ -18,6 +18,12 @@
 
 package com.exedio.cope.instrument.testmodel;
 
+import static com.exedio.cope.instrument.Visibility.NONE;
+import static com.exedio.cope.instrument.Visibility.PACKAGE;
+import static com.exedio.cope.instrument.Visibility.PRIVATE;
+import static com.exedio.cope.instrument.Visibility.PROTECTED;
+import static com.exedio.cope.instrument.Visibility.PUBLIC;
+
 import com.exedio.cope.BooleanField;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.instrument.WrapperIgnore;
@@ -38,79 +44,76 @@ public final class OptionFeatureItem extends OptionFeatureSuperItem
 
 	// override visibility
 
-	/** @cope.simple none */
+	@Wrapper(wrap="simple", visibility=NONE)
 	static final OptionFeature none = new OptionFeature();
 
-	/** @cope.simple internal */
+	@Wrapper(wrap="simple", internal=true)
 	static final OptionFeature overrideInternal = new OptionFeature();
 
-	/** @cope.simple private */
+	@Wrapper(wrap="simple", visibility=PRIVATE)
 	static final OptionFeature overridePrivate = new OptionFeature();
 
-	/** @cope.simple package */
+	@Wrapper(wrap="simple", visibility=PACKAGE)
 	public static final OptionFeature overridePackage = new OptionFeature();
 
-	/** @cope.simple protected */
+	@Wrapper(wrap="simple", visibility=PROTECTED)
 	static final OptionFeature overrideProtected = new OptionFeature();
 
-	/** @cope.simple public */
+	@Wrapper(wrap="simple", visibility=PUBLIC)
 	static final OptionFeature overridePublic = new OptionFeature();
 
 
 	// override visibility and internal
 
-	/** @cope.simple internal none */
+	@Wrapper(wrap="simple", internal=true, visibility=NONE)
 	static final OptionFeature internalNone = new OptionFeature();
 
-	/** @cope.simple internal private */
+	@Wrapper(wrap="simple", internal=true, visibility=PRIVATE)
 	static final OptionFeature internalPrivate = new OptionFeature();
 
-	/** @cope.simple internal package */
+	@Wrapper(wrap="simple", internal=true, visibility=PACKAGE)
 	public static final OptionFeature internalPackage = new OptionFeature();
 
-	/** @cope.simple internal protected */
+	@Wrapper(wrap="simple", internal=true, visibility=PROTECTED)
 	static final OptionFeature internalProtected = new OptionFeature();
 
-	/** @cope.simple internal public */
+	@Wrapper(wrap="simple", internal=true, visibility=PUBLIC)
 	static final OptionFeature internalPublic = new OptionFeature();
 
 
 	// boolean-as-is
 
-	/**
-	 * @cope.get boolean-as-is
-	 * @cope.set boolean-as-is
-	 */
+	@Wrapper(wrap="get", booleanAsIs=true)
+	@Wrapper(wrap="set", booleanAsIs=true)
 	static final BooleanField booleanAs = new BooleanField();
 
-	/** @cope.get boolean-as-is */
+	@Wrapper(wrap="get", booleanAsIs=true)
 	static final OptionFeatureGet booleanAsIsNoField = new OptionFeatureGet();
 
-	/** @cope.get boolean-as-is */
 	static final OptionFeature booleanAsIsNotAplicable = new OptionFeature();
 
 
 	// miscellaneous
 
-	/** @cope.simple non-final */
+	@Wrapper(wrap="simple", asFinal=false)
 	static final OptionFeature nonFinal = new OptionFeature();
 
 	@Wrapper(wrap="simple", asFinal=false)
 	static final OptionFeature nonFinalAnnotated = new OptionFeature();
 
-	/** @cope.simple override */
+	@Wrapper(wrap="simple", override=true)
 	static final OptionFeature override = new OptionFeature();
 
 	@Wrapper(wrap="simple", override=true)
 	static final OptionFeature overrideAnnotated = new OptionFeature();
 
-	/** @cope.ignore */
+	@WrapperIgnore
 	static final OptionFeature ignore = new OptionFeature().fail();
 
 	@WrapperIgnore
 	static final OptionFeature ignoreAnnotated = new OptionFeature().fail();
 
-	/** @cope.ignore */
+	@WrapperIgnore
 	static final OptionFeature ignoreDontFail = new OptionFeature();
 
 	static final FilterFeature wrapTheIgnored = new FilterFeature(ignoreDontFail).sourceNotNull();

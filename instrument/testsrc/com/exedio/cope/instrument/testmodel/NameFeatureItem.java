@@ -30,26 +30,20 @@ public final class NameFeatureItem extends Item
 {
 	static final NameFeature feature = new NameFeature();
 
-	/**
-	 * @cope.withinMethod public
-	 */
+	@Wrapper(wrap="withinMethod", visibility=PUBLIC)
 	static final NameFeature alpha = new NameFeature();
 
 	@Wrapper(wrap="withinMethod", visibility=PUBLIC)
 	static final NameFeature alphaAnnotated = new NameFeature();
 
-	/**
-	 * @cope. protected
-	 */
+	@Wrapper(wrap="", visibility=PROTECTED)
 	static final NameFeature beta = new NameFeature();
 
 	@Wrapper(wrap="", visibility=PROTECTED)
 	static final NameFeature betaAnnotated = new NameFeature();
 
-	/**
-	 * @cope. none
-	 * @cope.withinMethod none
-	 */
+	@Wrapper(wrap="", visibility=NONE)
+	@Wrapper(wrap="withinMethod", visibility=NONE)
 	static final NameFeature gamma = new NameFeature();
 
 	@Wrapper(wrap="", visibility=NONE)

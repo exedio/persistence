@@ -21,10 +21,9 @@ package com.exedio.cope.instrument.testmodel;
 import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
 import com.exedio.cope.UniqueConstraint;
+import com.exedio.cope.instrument.WrapperType;
 
-/**
- * @cope.indent 3
- */
+@WrapperType(indent=3)
 final class Indent extends Item
 {
 	static final StringField one = new StringField().optional();

@@ -18,7 +18,10 @@
 
 package com.exedio.cope.instrument.testmodel;
 
+import static com.exedio.cope.instrument.Visibility.NONE;
 import static com.exedio.cope.instrument.Visibility.PACKAGE;
+import static com.exedio.cope.instrument.Visibility.PRIVATE;
+import static com.exedio.cope.instrument.Visibility.PROTECTED;
 
 import com.exedio.cope.BooleanField;
 import com.exedio.cope.DateField;
@@ -30,6 +33,8 @@ import com.exedio.cope.LongField;
 import com.exedio.cope.StringField;
 import com.exedio.cope.UniqueConstraint;
 import com.exedio.cope.instrument.Wrapper;
+import com.exedio.cope.instrument.WrapperIgnore;
+import com.exedio.cope.instrument.WrapperInitial;
 import com.exedio.cope.instrument.testmodel.EnumContainer.Enum4;
 import com.exedio.cope.pattern.Hash;
 import com.exedio.cope.pattern.MessageDigestHash;
@@ -53,7 +58,7 @@ public final class Standard extends Item
 	private static final StringField lessThanSignInCommentString = new StringField(/*<*/).optional();
 
 	public static final StringField uniqueString = new StringField().optional().unique();
-	/** @cope.initial */
+	@WrapperInitial
 	public static final StringField initialString = new StringField().optional();
 
 	public static final IntegerField defaultInteger = new IntegerField().optional();
@@ -88,19 +93,13 @@ public final class Standard extends Item
 
 	private static final StringField privateString = new StringField().optional();
 
-	/**
-	 * @cope.get none
-	 */
+	@Wrapper(wrap="get", visibility=NONE)
 	public static final StringField noneGetterString = new StringField().optional();
 
-	/**
-	 * @cope.get private
-	 */
+	@Wrapper(wrap="get", visibility=PRIVATE)
 	public static final StringField privateGetterString = new StringField().optional();
 
-	/**
-	 * @cope.get internal
-	 */
+	@Wrapper(wrap="get", internal=true)
 	public static final StringField internalGetterString = new StringField().optional();
 
 	@Wrapper(wrap="get", internal=true)
@@ -109,46 +108,34 @@ public final class Standard extends Item
 	@Wrapper(wrap="get", internal=true, visibility=PACKAGE)
 	public static final StringField internalPackageGetterStringAnnotated = new StringField().optional();
 
-	/**
-	 * @cope.set none
-	 * @cope.get boolean-as-is
-	 */
+	@Wrapper(wrap="set", visibility=NONE)
+	@Wrapper(wrap="get", booleanAsIs=true)
 	public static final StringField noneSetterString = new StringField().optional();
 
-	/**
-	 * @cope.set private
-	 * @cope.get boolean-as-is
-	 */
+	@Wrapper(wrap="set", visibility=PRIVATE)
+	@Wrapper(wrap="get", booleanAsIs=true)
 	public static final StringField privateSetterString = new StringField().optional();
 
-	/**
-	 * @cope.set internal
-	 * @cope.get boolean-as-is
-	 */
+	@Wrapper(wrap="set", internal=true)
+	@Wrapper(wrap="get", booleanAsIs=true)
 	public static final StringField internalSetterString = new StringField().optional();
 
-	/**
-	 * @cope.get non-final
-	 * @cope.set protected
-	 */
+	@Wrapper(wrap="get", asFinal=false)
+	@Wrapper(wrap="set", visibility=PROTECTED)
 	public static final StringField nonfinalGetterString = new StringField().optional();
 
-	/**
-	 * @cope.get protected
-	 * @cope.set non-final
-	 */
+	@Wrapper(wrap="get", visibility=PROTECTED)
+	@Wrapper(wrap="set", asFinal=false)
 	public static final StringField nonfinalSetterString = new StringField().optional();
 
-	/**
-	 * @cope.get boolean-as-is
-	 */
+	@Wrapper(wrap="get", booleanAsIs=true)
 	public static final BooleanField asIsBoolean = new BooleanField().optional();
 
 	public static final StringField doubleUnique1 = new StringField().optional();
 	public static final IntegerField doubleUnique2 = new IntegerField().optional();
 	public static final UniqueConstraint doubleUnique = new UniqueConstraint(doubleUnique1, doubleUnique2);
 
-	/** @cope.ignore */
+	@WrapperIgnore
 	public static final StringField ignoreString = new StringField().optional();
 
 	private static String brokenFunction()
@@ -156,9 +143,7 @@ public final class Standard extends Item
 		return "broken";
 	}
 
-	/**
-	 * @cope.ignore
-	 */
+	@WrapperIgnore
 	public static final StringField brokenString = new StringField().defaultTo(brokenFunction());
 
 	static final DoubleField defaultFeature = new DoubleField().optional().unique().range(1.0, 2.0);
@@ -166,9 +151,7 @@ public final class Standard extends Item
 	public static final Hash publicHash = new Hash(MessageDigestHash.algorithm(5)).optional();
 	private static final Hash privateHash = new Hash(MessageDigestHash.algorithm(5)).optional();
 	public static final Hash mandatoryHash = new Hash(MessageDigestHash.algorithm(5));
-	/**
-	 * @cope.set private
-	 */
+	@Wrapper(wrap="set", visibility=PRIVATE)
 	public static final Hash privateSetterHash = new Hash(MessageDigestHash.algorithm(5));
 
 	/**

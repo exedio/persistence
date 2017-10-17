@@ -22,15 +22,14 @@ import com.exedio.cope.BooleanField;
 import com.exedio.cope.DateField;
 import com.exedio.cope.DoubleField;
 import com.exedio.cope.LongField;
+import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.instrument.WrapperInitial;
 
 public final class Sub extends Super
 {
 	public static final BooleanField subMandatory = new BooleanField();
 
-	/**
-	 * @cope.initial
-	 */
+	@WrapperInitial
 	public static final LongField subInitial = new LongField().optional();
 
 	@WrapperInitial
@@ -38,9 +37,7 @@ public final class Sub extends Super
 
 	public static final DateField subNonInitial = new DateField().optional();
 
-	/**
-	 * @cope.get override
-	 */
+	@Wrapper(wrap="get", override=true)
 	static final LongField override = new LongField().optional();
 
 	/**
