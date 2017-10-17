@@ -789,7 +789,6 @@
 				serialVersionUIDSuffix="small"
 				hidingWarningSuppressor="hiding"
 				nullabilityAnnotations="${instrument.nullabilityAnnotations}"
-				hintFormat="forTags"
 				timestampFile="build/timestamps/instrument.testsrc.timestamp">
 			<resources refid="instrument.resources" />
 			<classpath>
@@ -820,8 +819,7 @@
 				suppressUnusedWarningOnPrivateActivationConstructor="true"
 				serialVersionUIDSuffix="small"
 				hidingWarningSuppressor="hiding"
-				nullabilityAnnotations="${instrument.nullabilityAnnotations}"
-				hintFormat="forTags">
+				nullabilityAnnotations="${instrument.nullabilityAnnotations}">
 			<resources refid="instrument.resources" />
 			<classpath>
 				<pathelement location="build/classes/instrument/testfeaturesrc" />
