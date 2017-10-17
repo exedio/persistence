@@ -33,8 +33,6 @@ import javax.lang.model.type.MirroredTypesException;
 
 /**
  * Represents an attribute of a class.
- * Contains additional information about this attribute
- * described in the doccomment of this attribute.
  *
  * @author Ralf Wiebicke
  */
