@@ -783,7 +783,7 @@
 				verify="${instrument.verify}"
 				encoding="ascii"
 				maxwarns="20000"
-				configByTags="support"
+				configByTags="error"
 				suppressUnusedWarningOnPrivateActivationConstructor="true"
 				serialVersionUIDSuffix="small"
 				hidingWarningSuppressor="hiding"
