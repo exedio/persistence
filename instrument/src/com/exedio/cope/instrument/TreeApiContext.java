@@ -33,11 +33,9 @@ import javax.annotation.processing.Messager;
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.TypeElement;
-import javax.tools.Diagnostic;
 
 final class TreeApiContext
 {
-	private final ConfigurationByJavadocTags javadocTagHandling;
 	final boolean extendGeneratedFragmentsToLineBreaks;
 	private final DocTrees docTrees;
 	final Messager messager;
@@ -48,9 +46,8 @@ final class TreeApiContext
 	private byte[] allBytes;
 	boolean foundJavadocControlTags=false;
 
-	TreeApiContext(final ConfigurationByJavadocTags javadocTagHandling, final boolean extendGeneratedFragmentsToLineBreaks, final ProcessingEnvironment processingEnv, final JavaFile javaFile, final CompilationUnitTree compilationUnit)
+	TreeApiContext(final boolean extendGeneratedFragmentsToLineBreaks, final ProcessingEnvironment processingEnv, final JavaFile javaFile, final CompilationUnitTree compilationUnit)
 	{
-		this.javadocTagHandling=javadocTagHandling;
 		this.extendGeneratedFragmentsToLineBreaks=extendGeneratedFragmentsToLineBreaks;
 		this.docTrees=DocTrees.instance(processingEnv);
 		this.messager=processingEnv.getMessager();
@@ -67,15 +64,6 @@ final class TreeApiContext
 	void markFragmentAsGenerated(final int start, final int end)
 	{
 		javaFile.markFragmentAsGenerated(start, end);
-	}
-
-	String getDocComment(final TreePath path)
-	{
-		if (javadocTagHandling==ConfigurationByJavadocTags.ignore)
-		{
-			return null;
-		}
-		return docTrees.getDocComment(path);
 	}
 
 	long getStartPosition(final Tree mt)

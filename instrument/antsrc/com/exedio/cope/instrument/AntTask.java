@@ -127,11 +127,6 @@ public final class AntTask extends Task
 		setCharset(value);
 	}
 
-	public void setConfigByTags(final ConfigurationByJavadocTags value)
-	{
-		params.configByTags = value;
-	}
-
 	public void setNullabilityAnnotations(final boolean value)
 	{
 		params.nullabilityAnnotations = value;

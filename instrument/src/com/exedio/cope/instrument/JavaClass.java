@@ -55,7 +55,6 @@ final class JavaClass extends JavaFeature
 	JavaClass(
 			final JavaFile file, final JavaClass parent,
 			final int modifiers, final String simpleName,
-			final String docComment,
 			final String sourceLocation,
 			final boolean isEnum,
 			final Kind kind,
@@ -63,7 +62,7 @@ final class JavaClass extends JavaFeature
 			final WrapperType typeOption,
 			final int classEndPosition)
 	{
-		super(file, parent, modifiers, Generics.strip(simpleName), docComment, sourceLocation);
+		super(file, parent, modifiers, Generics.strip(simpleName), sourceLocation);
 		this.nameSpace = new NS(file.nameSpace);
 		this.typeParameters = Generics.get(simpleName).size();
 		this.isEnum = isEnum;

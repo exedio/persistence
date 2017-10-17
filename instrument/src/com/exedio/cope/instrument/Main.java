@@ -219,7 +219,7 @@ final class Main
 			@Override
 			InstrumentorProcessor createProcessor()
 			{
-				return new InstrumentorProcessor(params, repository);
+				return new InstrumentorProcessor(repository);
 			}
 
 			@Override

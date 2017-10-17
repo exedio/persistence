@@ -59,8 +59,6 @@ final class LocalCopeType extends CopeType<LocalCopeFeature>
 		this.javaClass=javaClass;
 		this.name = javaClass.name;
 		this.option = Tags.cascade(
-				javaClass,
-				Tags.forType(javaClass.docComment),
 				javaClass.typeOption,
 				OPTION_DEFAULT);
 		//noinspection ThisEscapedInObjectConstruction
@@ -81,8 +79,7 @@ final class LocalCopeType extends CopeType<LocalCopeFeature>
 			if(!Modifier.isFinal(modifier) || !Modifier.isStatic(modifier))
 				continue;
 
-			final String docComment = javaField.docComment;
-			if(Tags.cascade(javaField, Tags.forIgnore(docComment), javaField.wrapperIgnore, null)!=null)
+			if(Tags.cascade(javaField.wrapperIgnore, null)!=null)
 				continue;
 
 			final Class<?> typeClass = javaField.file.findTypeExternally(javaField.typeRaw);
