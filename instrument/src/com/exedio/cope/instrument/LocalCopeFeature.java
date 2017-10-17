@@ -66,9 +66,8 @@ final class LocalCopeFeature extends CopeFeature
 
 	Wrapper getOption(final String modifierTag, final Type[] parameterTypes)
 	{
-		return Tags.cascade(
-				javaField.getWrappers(modifierTag, parameterTypes),
-				OPTION_DEFAULT);
+		final Wrapper option = javaField.getWrappers(modifierTag, parameterTypes);
+		return option!=null ? option : OPTION_DEFAULT;
 	}
 
 	/**

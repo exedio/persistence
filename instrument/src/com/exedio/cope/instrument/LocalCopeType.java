@@ -58,9 +58,7 @@ final class LocalCopeType extends CopeType<LocalCopeFeature>
 		super(kind);
 		this.javaClass=javaClass;
 		this.name = javaClass.name;
-		this.option = Tags.cascade(
-				javaClass.typeOption,
-				OPTION_DEFAULT);
+		this.option = javaClass.typeOption!=null ? javaClass.typeOption : OPTION_DEFAULT;
 		//noinspection ThisEscapedInObjectConstruction
 		copeTypeByJavaClass.put(javaClass, this);
 
