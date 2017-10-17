@@ -75,25 +75,7 @@ final class TreeApiContext
 		{
 			return null;
 		}
-		final String docComment=docTrees.getDocComment(path);
-		if (javadocTagHandling==ConfigurationByJavadocTags.warn)
-		{
-			if (docComment!=null && docComment.contains('@'+CopeFeature.TAG_PREFIX))
-			{
-				final Diagnostic.Kind messageKind;
-				if (javadocTagHandling==ConfigurationByJavadocTags.warn)
-				{
-					messageKind=Diagnostic.Kind.WARNING;
-				}
-				else
-				{
-					messageKind=Diagnostic.Kind.ERROR;
-				}
-				messager.printMessage(messageKind, "use of javadoc tags to control instrumentor is deprecated", getElement(path));
-				foundJavadocControlTags=true;
-			}
-		}
-		return docComment;
+		return docTrees.getDocComment(path);
 	}
 
 	long getStartPosition(final Tree mt)

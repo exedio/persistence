@@ -20,5 +20,5 @@ package com.exedio.cope.instrument;
 
 enum ConfigurationByJavadocTags
 {
-	support, warn, ignore
+	support, ignore
 }
