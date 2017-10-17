@@ -578,8 +578,7 @@
 				dir="runtime/servlettestsrc"
 				verify="${instrument.verify}"
 				suppressUnusedWarningOnPrivateActivationConstructor="true"
-				nullabilityAnnotations="${instrument.nullabilityAnnotations}"
-				hintFormat="forAnnotations">
+				nullabilityAnnotations="${instrument.nullabilityAnnotations}">
 			<classpath>
 				<pathelement location="build/classes/runtime/servletsrc" />
 				<pathelement location="lib/javax.servlet-api.jar" /><!-- required to instrument Media features-->

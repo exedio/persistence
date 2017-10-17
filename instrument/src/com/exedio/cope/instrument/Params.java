@@ -53,8 +53,6 @@ final class Params
 	}
 
 	ConfigurationByJavadocTags configByTags = ConfigurationByJavadocTags.error;
-	boolean longJavadoc = true; // non-default is deprecated
-	boolean finalArgs = true; // non-default is deprecated
 	boolean nullabilityAnnotations = false;
 	boolean suppressUnusedWarningOnPrivateActivationConstructor = false;
 	boolean serialVersionUIDEnabled = true;
@@ -65,13 +63,8 @@ final class Params
 	 */
 	boolean differentSerialVersionUIDForAbstract = true;
 	IntegerTypeSuffix serialVersionUIDSuffix = IntegerTypeSuffix.small;
-	boolean genericSetValueArray = true; // non-default is deprecated
 	boolean directSetValueMap = false;
 	String hidingWarningSuppressor = null;
-	boolean parenthesesOnEmptyMemberAnnotations = false; // non-default is deprecated
-	boolean deprecatedFullyQualified = true; // non-default is deprecated
-	boolean overrideOnSeparateLine = true; // non-default is deprecated
-	HintFormat hintFormat = HintFormat.forAnnotations;
 	boolean verbose = false;
 	File buildDirectory = null;
 	private File timestampFile = null;
