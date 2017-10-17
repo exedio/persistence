@@ -60,8 +60,6 @@ final class Main
 
 		if(params.verify)
 			System.out.println("Instrumenting in verify mode.");
-		if (params.configByTags==ConfigurationByJavadocTags.convertToAnnotations)
-			throw new HumanReadableException("configByTags set to convertToAnnotations - stopping");
 
 		try
 		{

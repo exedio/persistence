@@ -234,11 +234,6 @@ public final class AntTask extends Task
 			final File buildFile = getProject().resolveFile(getLocation().getFileName());
 			params.resources.add(buildFile);
 
-			if (params.configByTags==ConfigurationByJavadocTags.convertToAnnotations)
-			{
-				ConvertTagsToAnnotations.convert(params);
-				throw new HumanReadableException("convertToAnnotations - stopping build");
-			}
 			new Main().run(params);
 		}
 		catch(final HumanReadableException e)
