@@ -50,14 +50,6 @@ abstract class JavaFeature
 	 */
 	final int modifier;
 
-	/**
-	 * The return type of the method.
-	 * Is null, if it is a constructor, or a class.
-	 */
-	final String type;
-
-	final String typeRaw;
-
 	final String name;
 
 	final String docComment;
@@ -68,7 +60,6 @@ abstract class JavaFeature
 							final JavaFile file,
 							final JavaClass parent,
 							final int modifier,
-							final String type,
 							final String name,
 							final String docComment,
 							final String sourceLocation)
@@ -76,8 +67,6 @@ abstract class JavaFeature
 		this.file=file;
 		this.parent=parent;
 		this.modifier=modifier;
-		this.type=type;
-		this.typeRaw=Generics.strip(type);
 		this.name=name;
 		this.docComment=docComment;
 		this.sourceLocation=sourceLocation;

@@ -44,6 +44,14 @@ final class JavaField
 {
 	private static final Class<?>[] PARAMETERS_DEFAULT=new Class<?>[]{WrapperParametersDefault.class};
 
+	/**
+	 * The return type of the method.
+	 * Is null, if it is a constructor, or a class.
+	 */
+	final String type;
+
+	final String typeRaw;
+
 	private final String initializer;
 	final WrapperInitial wrapperInitial;
 	final WrapperIgnore wrapperIgnore;
@@ -67,9 +75,11 @@ final class JavaField
 		final List<Wrapper> wrappers)
 	{
 		// parent must not be null
-		super(parent.file, parent, modifiers, type, name, docComment, sourceLocation);
+		super(parent.file, parent, modifiers, name, docComment, sourceLocation);
 		if (type == null)
 			throw new RuntimeException();
+		this.type=type;
+		this.typeRaw=Generics.strip(type);
 		checkWrapUnique(wrappers);
 		this.initializer=initializer;
 		this.wrapperInitial=wrapperInitial;
