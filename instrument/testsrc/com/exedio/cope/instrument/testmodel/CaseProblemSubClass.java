@@ -18,7 +18,7 @@
 
 package com.exedio.cope.instrument.testmodel;
 
-import com.exedio.cope.instrument.tags.CaseProblem;
+import com.exedio.cope.instrument.kind.CaseProblem;
 
 class CaseProblemSubClass extends CaseProblem
 {

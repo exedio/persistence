@@ -16,7 +16,7 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.cope.instrument.tags;
+package com.exedio.cope.instrument.kind;
 
 import com.exedio.cope.Item;
 
@@ -26,7 +26,7 @@ import com.exedio.cope.Item;
  *		<li>class pkg.SomeClass exists externally
  *		<li>instrumented source has class pkg.someclass.OtherClass (and a subclass)
  * </ul>
- *	(Here, we use the class {@link com.exedio.cope.instrument.Tags} for the collision - that's why the package name is "tags".)
+ *	(Here, we use the class {@link com.exedio.cope.instrument.Kind} for the collision - that's why the package name is "kind".)
  *
  * Now, bsh tries to resolve pkg.someclass externally.
  * On Linux, this gets a ClassNotFoundException (fine) - but on Windows a NoClassDefFoundError.
