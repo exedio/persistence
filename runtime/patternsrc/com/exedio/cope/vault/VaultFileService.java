@@ -95,7 +95,7 @@ public final class VaultFileService implements VaultService
 		}
 		catch(final IOException e)
 		{
-			throw new RuntimeException(rootDir.getAbsolutePath() + ':' + anonymiseHash(hash), e);
+			throw wrap(hash, e);
 		}
 		return result;
 	}
@@ -127,7 +127,7 @@ public final class VaultFileService implements VaultService
 		}
 		catch(final IOException e)
 		{
-			throw new RuntimeException(rootDir.getAbsolutePath() + ':' + anonymiseHash(hash), e);
+			throw wrap(hash, e);
 		}
 	}
 
@@ -215,6 +215,11 @@ public final class VaultFileService implements VaultService
 	private File createTempFile(final String hash) throws IOException
 	{
 		return File.createTempFile(anonymiseHash(hash), ".tmp", tempDir);
+	}
+
+	private RuntimeException wrap(final String hash, final IOException exception)
+	{
+		throw new RuntimeException(rootDir.getAbsolutePath() + ':' + anonymiseHash(hash), exception);
 	}
 
 	@Override
