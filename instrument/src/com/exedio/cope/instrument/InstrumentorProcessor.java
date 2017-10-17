@@ -42,7 +42,6 @@ final class InstrumentorProcessor extends AbstractProcessor
 	private final JavaRepository javaRepository;
 
 	boolean processHasBeenCalled = false;
-	boolean foundJavadocControlTags = false;
 
 	InstrumentorProcessor(final JavaRepository javaRepository)
 	{
@@ -76,10 +75,6 @@ final class InstrumentorProcessor extends AbstractProcessor
 			final TreeApiContext treeApiContext=new TreeApiContext(true, processingEnv, javaFile, compilationUnit);
 			final CompilationUnitVisitor visitor=new CompilationUnitVisitor(treeApiContext);
 			visitor.scan(tp, null);
-			if (treeApiContext.foundJavadocControlTags)
-			{
-				foundJavadocControlTags=true;
-			}
 		}
 		return true;
 	}

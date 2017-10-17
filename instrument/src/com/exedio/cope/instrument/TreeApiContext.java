@@ -44,7 +44,6 @@ final class TreeApiContext
 	private final DocSourcePositions sourcePositions;
 
 	private byte[] allBytes;
-	boolean foundJavadocControlTags=false;
 
 	TreeApiContext(final boolean extendGeneratedFragmentsToLineBreaks, final ProcessingEnvironment processingEnv, final JavaFile javaFile, final CompilationUnitTree compilationUnit)
 	{
