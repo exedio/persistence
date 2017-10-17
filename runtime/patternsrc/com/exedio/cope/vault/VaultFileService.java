@@ -21,13 +21,13 @@ package com.exedio.cope.vault;
 import static com.exedio.cope.vault.VaultNotFoundException.anonymiseHash;
 import static java.lang.Math.toIntExact;
 import static java.nio.file.StandardCopyOption.ATOMIC_MOVE;
+import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 import static java.nio.file.StandardOpenOption.READ;
 import static java.nio.file.StandardOpenOption.TRUNCATE_EXISTING;
 
 import com.exedio.cope.util.Properties;
 import com.exedio.cope.util.ServiceProperties;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -44,7 +44,6 @@ public final class VaultFileService implements VaultService
 	private final Path rootDir;
 	final int directoryLength;
 	final Path tempDir;
-	final int bufferSize;
 
 	VaultFileService(
 			final VaultServiceParameters parameters,
@@ -53,7 +52,6 @@ public final class VaultFileService implements VaultService
 		this.rootDir = properties.root;
 		this.directoryLength = properties.directory!=null ? properties.directory.length : 0;
 		this.tempDir = rootDir.resolve(properties.temp);
-		this.bufferSize = properties.bufferSize;
 
 		{
 			final int algorithmLength = parameters.getVaultProperties().getAlgorithmLength();
@@ -130,11 +128,9 @@ public final class VaultFileService implements VaultService
 	{
 		final Path file = file(hash);
 
-		try(InputStream in = Files.newInputStream(file, READ))
+		try
 		{
-			final byte[] buf = new byte[bufferSize];
-			for(int len = in.read(buf); len>=0; len = in.read(buf))
-				value.write(buf, 0, len);
+			Files.copy(file, value);
 		}
 		catch(final NoSuchFileException e)
 		{
@@ -148,7 +144,7 @@ public final class VaultFileService implements VaultService
 	{
 		try
 		{
-			return put(hash, (out) -> out.write(value));
+			return put(hash, (out) -> Files.write(out, value, TRUNCATE_EXISTING));
 		}
 		catch(final IOException e)
 		{
@@ -159,26 +155,13 @@ public final class VaultFileService implements VaultService
 	@Override
 	public boolean put(final String hash, final InputStream value) throws IOException
 	{
-		return put(hash, (out) ->
-		{
-			final byte[] buf = new byte[bufferSize];
-			for(int len = value.read(buf); len>=0; len = value.read(buf))
-				out.write(buf, 0, len);
-		});
+		return put(hash, (out) -> Files.copy(value, out, REPLACE_EXISTING));
 	}
 
 	@Override
 	public boolean put(final String hash, final File value) throws IOException
 	{
-		return put(hash, (out) ->
-		{
-			try(FileInputStream in = new FileInputStream(value))
-			{
-				final byte[] buf = new byte[bufferSize];
-				for(int len = in.read(buf); len>=0; len = in.read(buf))
-					out.write(buf, 0, len);
-			}
-		});
+		return put(hash, (out) -> Files.copy(value.toPath(), out, REPLACE_EXISTING));
 	}
 
 	private boolean put(final String hash, final Consumer value) throws IOException
@@ -189,10 +172,7 @@ public final class VaultFileService implements VaultService
 
 		final Path temp = createTempFile(hash);
 
-		try(OutputStream out = Files.newOutputStream(temp, TRUNCATE_EXISTING))
-		{
-			value.accept(out);
-		}
+		value.accept(temp);
 
 		if(directoryLength>0)
 			mkdirIfNotExists(rootDir.resolve(hash.substring(0, directoryLength)));
@@ -228,7 +208,7 @@ public final class VaultFileService implements VaultService
 	@FunctionalInterface
 	private interface Consumer
 	{
-		void accept(OutputStream t) throws IOException;
+		void accept(Path t) throws IOException;
 	}
 
 
@@ -269,7 +249,6 @@ public final class VaultFileService implements VaultService
 		final Path root = valueFile("root").toPath();
 		final DirectoryProps directory = value("directory", true, DirectoryProps::new);
 		final String temp = value("temp", ".tempVaultFileService");
-		final int bufferSize = value("bufferSize", 50*1024, 1); // 50K
 
 		Props(final Source source)
 		{

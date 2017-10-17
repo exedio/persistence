@@ -31,7 +31,6 @@ public class VaultFileServiceDirectoryTest extends AbstractVaultFileServiceTest
 	{
 		final VaultFileService service = (VaultFileService)getService();
 		assertEquals(3, service.directoryLength);
-		assertEquals(2, service.bufferSize);
 	}
 
 	@Test public void directoryStructure()

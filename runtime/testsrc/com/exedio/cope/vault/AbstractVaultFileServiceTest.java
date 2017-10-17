@@ -54,7 +54,6 @@ public abstract class AbstractVaultFileServiceTest extends VaultServiceTest
 		root = files.newFolder();
 		final Properties result = new Properties();
 		result.setProperty("root", root.getAbsolutePath());
-		result.setProperty("bufferSize", "2");
 		return result;
 	}
 
