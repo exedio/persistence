@@ -76,7 +76,7 @@ final class TreeApiContext
 			return null;
 		}
 		final String docComment=docTrees.getDocComment(path);
-		if (javadocTagHandling==ConfigurationByJavadocTags.warn||javadocTagHandling==ConfigurationByJavadocTags.error)
+		if (javadocTagHandling==ConfigurationByJavadocTags.warn)
 		{
 			if (docComment!=null && docComment.contains('@'+CopeFeature.TAG_PREFIX))
 			{

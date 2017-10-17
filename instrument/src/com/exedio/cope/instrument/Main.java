@@ -230,10 +230,6 @@ final class Main
 					// InstrumentorProcessor has not been invoked - this happens if parsing failed
 					throw new HumanReadableException("fix compiler errors");
 				}
-				if (instrumentorProcessor.foundJavadocControlTags && params.configByTags==ConfigurationByJavadocTags.error)
-				{
-					throw new HumanReadableException("found javadoc instrumentor control tags");
-				}
 			}
 
 		}.run(params);

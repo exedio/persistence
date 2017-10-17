@@ -52,7 +52,7 @@ final class Params
 		return String.valueOf(maxwarns);
 	}
 
-	ConfigurationByJavadocTags configByTags = ConfigurationByJavadocTags.error;
+	ConfigurationByJavadocTags configByTags = ConfigurationByJavadocTags.ignore;
 	boolean nullabilityAnnotations = false;
 	boolean suppressUnusedWarningOnPrivateActivationConstructor = false;
 	boolean serialVersionUIDEnabled = true;
