@@ -20,6 +20,7 @@ package com.exedio.cope.pattern;
 
 import static com.exedio.cope.misc.QueryIterators.iterateTypeTransactionally;
 import static com.exedio.cope.pattern.NestedHashAlgorithm.create;
+import static com.exedio.cope.util.JobContext.deferOrStopIfRequested;
 import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.CheckConstraint;
@@ -167,7 +168,7 @@ public final class NestedHashMigration extends Pattern implements HashInterface
 		for(final Item item : Iterables.once(
 				iterateTypeTransactionally(type, getLegacyHash().isNotNull(), 100)))
 		{
-			ctx.stopIfRequested();
+			deferOrStopIfRequested(ctx);
 			final String itemID = item.getCopeID();
 			try(TransactionTry tx = model.startTransactionTry(id + " migrate " + itemID))
 			{

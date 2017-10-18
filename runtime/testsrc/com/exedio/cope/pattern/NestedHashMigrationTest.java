@@ -33,6 +33,7 @@ import com.exedio.cope.Model;
 import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.util.AssertionErrorJobContext;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import java.time.Duration;
 import org.junit.Test;
 
 public class NestedHashMigrationTest extends TestWithEnvironment
@@ -177,6 +178,13 @@ public class NestedHashMigrationTest extends TestWithEnvironment
 		{
 			assertFalse(MODEL.hasCurrentTransaction());
 			stopIfRequested++;
+		}
+
+		@Override
+		public Duration requestsDeferral()
+		{
+			assertFalse(MODEL.hasCurrentTransaction());
+			return Duration.ZERO;
 		}
 
 		@Override
