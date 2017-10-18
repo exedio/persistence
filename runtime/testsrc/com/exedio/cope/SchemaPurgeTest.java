@@ -33,6 +33,7 @@ import com.exedio.cope.util.JobStop;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.Duration;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -285,7 +286,7 @@ public class SchemaPurgeTest extends TestWithEnvironment
 		model.startTransaction(SchemaPurgeTest.class.getName());
 	}
 
-	private static final String STOP = "STOP";
+	private static final String STOP = "STOPDEFER";
 	private static final String STOPPING = "STOPPING";
 
 	private static final class JC extends AssertionErrorJobContext
@@ -316,6 +317,14 @@ public class SchemaPurgeTest extends TestWithEnvironment
 			}
 			else
 				events.append("STOP");
+		}
+
+		@Override
+		public Duration requestsDeferral()
+		{
+			assertFalse(MODEL.hasCurrentTransaction());
+			events.append("DEFER");
+			return Duration.ZERO;
 		}
 
 		@Override

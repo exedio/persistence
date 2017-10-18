@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.util.JobContext.deferOrStopIfRequested;
+
 import com.exedio.cope.DateField.Precision;
 import com.exedio.cope.DayPartView.Part;
 import com.exedio.cope.util.CharSet;
@@ -716,7 +718,7 @@ final class MysqlDialect extends Dialect
 
 				if(ctx.supportsMessage())
 					ctx.setMessage("sequence " + name + " query");
-				ctx.stopIfRequested();
+				deferOrStopIfRequested(ctx);
 
 				final Number maxObject = Executor.query(
 						connection,
@@ -738,7 +740,7 @@ final class MysqlDialect extends Dialect
 
 				if(ctx.supportsMessage())
 					ctx.setMessage("sequence " + name + " purge less " + max);
-				ctx.stopIfRequested();
+				deferOrStopIfRequested(ctx);
 
 				final int rows = Executor.update(
 						connection,
