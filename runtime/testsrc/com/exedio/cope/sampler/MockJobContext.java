@@ -23,6 +23,7 @@ import static org.junit.Assert.assertNotNull;
 
 import com.exedio.cope.Model;
 import com.exedio.cope.util.AssertionErrorJobContext;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -44,6 +45,13 @@ final class MockJobContext extends AssertionErrorJobContext
 	{
 		assertFalse(model.hasCurrentTransaction());
 		stopIfRequestedCount++;
+	}
+
+	@Override
+	public Duration requestsDeferral()
+	{
+		assertFalse(model.hasCurrentTransaction());
+		return Duration.ZERO;
 	}
 
 	@Override

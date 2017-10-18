@@ -22,6 +22,7 @@ import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnName;
 import static com.exedio.cope.SchemaInfo.quoteName;
 import static com.exedio.cope.SchemaInfo.search;
 import static com.exedio.cope.misc.TimeUtil.toMillies;
+import static com.exedio.cope.util.JobContext.deferOrStopIfRequested;
 
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.DateField;
@@ -58,7 +59,7 @@ final class SamplerPurge extends Item
 			final String samplerString)
 	throws SQLException
 	{
-		ctx.stopIfRequested();
+		deferOrStopIfRequested(ctx);
 		final DateField field = (DateField)type.getDeclaredFeature("date");
 		final Model model = type.getModel();
 		final Query<?> query = type.newQuery(field.less(limit));
