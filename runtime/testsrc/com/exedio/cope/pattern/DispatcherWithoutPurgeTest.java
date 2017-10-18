@@ -195,9 +195,19 @@ public class DispatcherWithoutPurgeTest extends TestWithEnvironment
 		assertPending(item4, 0, list());
 	}
 
+	@Test public void testStop0Probe()
+	{
+		//noinspection PointlessArithmeticExpression
+		dispatch(0, 0 + 1); // 1 probe
+		assertPending(item1, 0, list());
+		assertPending(item2, 0, list());
+		assertPending(item3, 0, list());
+		assertPending(item4, 0, list());
+	}
+
 	@Test public void testStop1()
 	{
-		final Date[] d = dispatch(1, 1);
+		final Date[] d = dispatch(1, 1 + 1); // 1 probe
 		assertSuccess(item1, 1, d[0], list());
 		assertPending(item2, 0, list());
 		assertPending(item3, 0, list());
@@ -206,7 +216,7 @@ public class DispatcherWithoutPurgeTest extends TestWithEnvironment
 
 	@Test public void testStop2()
 	{
-		final Date[] d = dispatch(2, 2);
+		final Date[] d = dispatch(2, 2 + 1); // 1 probe
 		assertSuccess(item1, 1, d[0], list());
 		assertPending(item2, 0, list(d[1]));
 		assertPending(item3, 0, list());
@@ -215,7 +225,7 @@ public class DispatcherWithoutPurgeTest extends TestWithEnvironment
 
 	@Test public void testStop3()
 	{
-		final Date[] d = dispatch(3, 3);
+		final Date[] d = dispatch(3, 3 + 2); // 2 probes
 		assertSuccess(item1, 1, d[0], list());
 		assertPending(item2, 0, list(d[1]));
 		assertSuccess(item3, 1, d[2], list());
@@ -224,7 +234,7 @@ public class DispatcherWithoutPurgeTest extends TestWithEnvironment
 
 	@Test public void testStop4()
 	{
-		final Date[] d = dispatch(4, 4, 4);
+		final Date[] d = dispatch(4, 4 + 2, 4 + 2); // 2 probes
 		assertSuccess(item1, 1, d[0], list());
 		assertPending(item2, 0, list(d[1]));
 		assertSuccess(item3, 1, d[2], list());
@@ -233,7 +243,7 @@ public class DispatcherWithoutPurgeTest extends TestWithEnvironment
 
 	@Test public void testStop5()
 	{
-		final Date[] d = dispatch(4, 5, 4);
+		final Date[] d = dispatch(4, 5 + 2, 4 + 2); // 2 probes
 		assertSuccess(item1, 1, d[0], list());
 		assertPending(item2, 0, list(d[1]));
 		assertSuccess(item3, 1, d[2], list());

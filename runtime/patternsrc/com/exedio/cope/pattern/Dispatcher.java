@@ -341,10 +341,12 @@ public final class Dispatcher extends Pattern
 				iterateTypeTransactionally(type, pending.equal(true), config.getSearchSize())))
 		{
 			ctx.stopIfRequested();
+
 			if(probeRequired)
 			{
 				probe.run();
 				probeRequired = false;
+				ctx.stopIfRequested();
 			}
 
 			final String itemID = item.getCopeID();
