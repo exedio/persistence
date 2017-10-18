@@ -188,7 +188,7 @@ public class VaultPropertiesTest
 		{
 			assertEquals(
 					"property service in DESC names a class " + ServicePropertiesNoConstructor.class.getName() + " " +
-					"annotated by @ServiceProperties(" + ServicePropertiesNoConstructorProps.class.getName() + ", " +
+					"annotated by @ServiceProperties(" + ServicePropertiesNoConstructorProps.class.getName() + "), " +
 					"which must have a constructor with parameter " + Source.class.getName(),
 					e.getMessage());
 			final Throwable cause2 = e.getCause();
@@ -213,7 +213,7 @@ public class VaultPropertiesTest
 		{
 			assertEquals(
 					"property service.main in DESC names a class " + ServicePropertiesNoConstructor.class.getName() + " " +
-					"annotated by @ServiceProperties(" + ServicePropertiesNoConstructorProps.class.getName() + ", " +
+					"annotated by @ServiceProperties(" + ServicePropertiesNoConstructorProps.class.getName() + "), " +
 					"which must have a constructor with parameter " + Source.class.getName(),
 					e.getMessage());
 			final Throwable nested = e.getCause();
@@ -221,7 +221,7 @@ public class VaultPropertiesTest
 			assertTrue(nested.getClass().getName(), nested instanceof IllegalPropertiesException);
 			assertEquals(
 					"property main in DESC (prefix service.) names a class " + ServicePropertiesNoConstructor.class.getName() + " " +
-					"annotated by @ServiceProperties(" + ServicePropertiesNoConstructorProps.class.getName() + ", " +
+					"annotated by @ServiceProperties(" + ServicePropertiesNoConstructorProps.class.getName() + "), " +
 					"which must have a constructor with parameter " + Source.class.getName(),
 					nested.getMessage());
 			final Throwable cause2 = nested.getCause();
