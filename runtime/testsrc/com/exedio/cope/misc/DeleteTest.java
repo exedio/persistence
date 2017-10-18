@@ -31,6 +31,7 @@ import com.exedio.cope.util.AssertionErrorJobContext;
 import com.exedio.cope.util.JobContext;
 import com.exedio.cope.util.JobStop;
 import java.util.ArrayList;
+import java.util.Iterator;
 import org.junit.Test;
 
 public class DeleteTest extends TestWithEnvironment
@@ -169,9 +170,9 @@ public class DeleteTest extends TestWithEnvironment
 		}
 
 		@Override
-		protected int stopIfRequestedStackTraceOffset()
+		protected void stopIfRequestedStackTraceOffset(final Iterator<StackTraceElement> st)
 		{
-			return 1;
+			assertIt(Context.class, "stopIfRequested", st.next());
 		}
 
 		void assertProgress(final int expected)

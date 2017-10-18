@@ -18,6 +18,8 @@
 
 package com.exedio.cope.misc;
 
+import static java.lang.Thread.currentThread;
+import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -26,6 +28,7 @@ import static org.junit.Assert.fail;
 
 import com.exedio.cope.Model;
 import com.exedio.cope.util.AssertionErrorJobContext;
+import java.util.Iterator;
 
 public class DeleteJobContext extends AssertionErrorJobContext
 {
@@ -40,12 +43,14 @@ public class DeleteJobContext extends AssertionErrorJobContext
 	@Override
 	public void stopIfRequested()
 	{
-		final StackTraceElement[] st = Thread.currentThread().getStackTrace();
-		assertIt(Thread.class, "getStackTrace", st[0]);
-		assertIt(DeleteJobContext.class, "stopIfRequested", st[1]);
-		assertIt(Delete.class, "delete", st[2+stopIfRequestedStackTraceOffset()]);
+		final Iterator<StackTraceElement> st = asList(currentThread().getStackTrace()).iterator();
+		assertIt(Thread.class, "getStackTrace", st.next());
+		assertIt(DeleteJobContext.class, "stopIfRequested", st.next());
+		stopIfRequestedStackTraceOffset(st);
+		final StackTraceElement inDelete =
+				assertIt(Delete.class, "delete", st.next());
 
-		switch(st[2+stopIfRequestedStackTraceOffset()].getLineNumber()) // Au weia !!!
+		switch(inDelete.getLineNumber()) // Au weia !!!
 		{
 			case 44:
 				assertFalse(model.hasCurrentTransaction());
@@ -54,13 +59,13 @@ public class DeleteJobContext extends AssertionErrorJobContext
 				assertTrue(model.hasCurrentTransaction());
 				break;
 			default:
-				fail(st[2].toString());
+				fail(inDelete.toString());
 		}
 	}
 
-	protected int stopIfRequestedStackTraceOffset()
+	protected void stopIfRequestedStackTraceOffset(final Iterator<StackTraceElement> st)
 	{
-		return 0;
+		// empty
 	}
 
 	private int progress = 0;
@@ -68,7 +73,7 @@ public class DeleteJobContext extends AssertionErrorJobContext
 	@Override
 	public void incrementProgress()
 	{
-		final StackTraceElement[] st = Thread.currentThread().getStackTrace();
+		final StackTraceElement[] st = currentThread().getStackTrace();
 		assertIt(Thread.class, "getStackTrace", st[0]);
 		assertIt(DeleteJobContext.class, "incrementProgress", st[1]);
 		assertIt(Delete.class, "delete", st[2]);
@@ -82,12 +87,13 @@ public class DeleteJobContext extends AssertionErrorJobContext
 	}
 
 
-	private static void assertIt(
+	static StackTraceElement assertIt(
 			final Class<?> expectedClass,
 			final String expectedMethodName,
 			final StackTraceElement actual)
 	{
 		assertEquals("class",      expectedClass.getName(), actual.getClassName());
 		assertEquals("methodName", expectedMethodName,      actual.getMethodName());
+		return actual;
 	}
 }
