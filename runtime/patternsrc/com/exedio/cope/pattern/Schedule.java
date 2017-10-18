@@ -23,6 +23,7 @@ import static com.exedio.cope.misc.Iterables.once;
 import static com.exedio.cope.misc.QueryIterators.iterateTypeTransactionally;
 import static com.exedio.cope.misc.TimeUtil.toMillies;
 import static com.exedio.cope.pattern.Schedule.Interval.DAILY;
+import static com.exedio.cope.util.JobContext.deferOrStopIfRequested;
 import static java.lang.System.nanoTime;
 import static java.time.DayOfWeek.MONDAY;
 import static java.time.temporal.ChronoField.DAY_OF_WEEK;
@@ -274,7 +275,7 @@ public final class Schedule extends Pattern
 		for(final P item : once(iterateTypeTransactionally(
 				getType().as(parentClass), enabled.equal(true), 1000)))
 		{
-			ctx.stopIfRequested();
+			deferOrStopIfRequested(ctx);
 			runInternal(parentClass, now, item, ctx);
 		}
 	}
@@ -363,7 +364,7 @@ public final class Schedule extends Pattern
 		assert total>0 : total;
 		assert count<=total : "" + count + '/' + total;
 
-		ctx.stopIfRequested();
+		deferOrStopIfRequested(ctx);
 		final RunContext runCtx = new RunContext(ctx);
 		try(TransactionTry tx = startTransaction(item, "run " + count + '/' + total))
 		{

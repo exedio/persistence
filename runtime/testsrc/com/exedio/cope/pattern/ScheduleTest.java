@@ -44,6 +44,7 @@ import com.exedio.cope.util.JobStop;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -870,6 +871,13 @@ public class ScheduleTest extends TestWithEnvironment
 		public void stopIfRequested()
 		{
 			assertFalse(ScheduleModelTest.MODEL.hasCurrentTransaction());
+		}
+
+		@Override
+		public Duration requestsDeferral()
+		{
+			assertFalse(ScheduleModelTest.MODEL.hasCurrentTransaction());
+			return Duration.ZERO;
 		}
 
 		int progress = 0;
