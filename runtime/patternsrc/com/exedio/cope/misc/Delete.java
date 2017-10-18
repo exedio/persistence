@@ -18,6 +18,7 @@
 
 package com.exedio.cope.misc;
 
+import static com.exedio.cope.util.JobContext.deferOrStopIfRequested;
 import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.Item;
@@ -41,7 +42,7 @@ public final class Delete
 		final Model model = query.getType().getModel();
 		for(int transaction = 0; ; transaction++)
 		{
-			ctx.stopIfRequested();
+			deferOrStopIfRequested(ctx);
 			try
 			{
 				model.startTransaction(transactionName + '#' + transaction);

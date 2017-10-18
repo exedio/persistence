@@ -28,6 +28,8 @@ import static org.junit.Assert.fail;
 
 import com.exedio.cope.Model;
 import com.exedio.cope.util.AssertionErrorJobContext;
+import com.exedio.cope.util.JobContext;
+import java.time.Duration;
 import java.util.Iterator;
 
 public class DeleteJobContext extends AssertionErrorJobContext
@@ -47,20 +49,35 @@ public class DeleteJobContext extends AssertionErrorJobContext
 		assertIt(Thread.class, "getStackTrace", st.next());
 		assertIt(DeleteJobContext.class, "stopIfRequested", st.next());
 		stopIfRequestedStackTraceOffset(st);
+		if(!model.hasCurrentTransaction())
+			assertIt(JobContext.class, "deferOrStopIfRequested", st.next());
 		final StackTraceElement inDelete =
 				assertIt(Delete.class, "delete", st.next());
 
 		switch(inDelete.getLineNumber()) // Au weia !!!
 		{
-			case 44:
+			case 45:
 				assertFalse(model.hasCurrentTransaction());
 				break;
-			case 55:
+			case 56:
 				assertTrue(model.hasCurrentTransaction());
 				break;
 			default:
 				fail(inDelete.toString());
 		}
+	}
+
+	@Override
+	public Duration requestsDeferral()
+	{
+		final Iterator<StackTraceElement> st = asList(currentThread().getStackTrace()).iterator();
+		assertIt(Thread.class, "getStackTrace", st.next());
+		assertIt(DeleteJobContext.class, "requestsDeferral", st.next());
+		assertIt(JobContext.class, "deferOrStopIfRequested", st.next());
+		assertIt(Delete.class, "delete", st.next());
+
+		assertFalse(model.hasCurrentTransaction());
+		return Duration.ZERO;
 	}
 
 	protected void stopIfRequestedStackTraceOffset(final Iterator<StackTraceElement> st)
