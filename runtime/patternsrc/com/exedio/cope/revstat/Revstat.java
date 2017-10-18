@@ -18,6 +18,8 @@
 
 package com.exedio.cope.revstat;
 
+import static com.exedio.cope.util.JobContext.deferOrStopIfRequested;
+
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.CopeName;
 import com.exedio.cope.DateField;
@@ -58,7 +60,7 @@ final class Revstat extends Item
 		if(number!=revision.getNumber())
 			throw new IllegalArgumentException("" + number + '/' + revision.getNumber());
 
-		ctx.stopIfRequested();
+		deferOrStopIfRequested(ctx);
 
 		final List<Body> bodies = revision.getBody();
 		int rows = 0;

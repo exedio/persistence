@@ -29,6 +29,7 @@ import com.exedio.cope.Revision;
 import com.exedio.cope.Revisions;
 import com.exedio.cope.tojunit.TestSources;
 import com.exedio.cope.util.AssertionErrorJobContext;
+import java.time.Duration;
 import java.util.Iterator;
 import org.junit.After;
 import org.junit.Test;
@@ -189,6 +190,13 @@ public class RevisionStatisticsTest
 		public void stopIfRequested()
 		{
 			assertFalse(MODEL.hasCurrentTransaction());
+		}
+
+		@Override
+		public Duration requestsDeferral()
+		{
+			assertFalse(MODEL.hasCurrentTransaction());
+			return Duration.ZERO;
 		}
 
 		@Override

@@ -18,6 +18,8 @@
 
 package com.exedio.cope.revstat;
 
+import static com.exedio.cope.util.JobContext.deferOrStopIfRequested;
+
 import com.exedio.cope.Model;
 import com.exedio.cope.RevisionInfo;
 import com.exedio.cope.RevisionInfoRevise;
@@ -36,14 +38,14 @@ public final class RevisionStatistics
 
 		for(final Map.Entry<Integer, byte[]> entry : model.getRevisionLogs().entrySet())
 		{
-			ctx.stopIfRequested();
+			deferOrStopIfRequested(ctx);
 
 			final RevisionInfo info = RevisionInfo.read(entry.getValue());
 			if(info instanceof RevisionInfoRevise)
 				revisions.put(entry.getKey(), (RevisionInfoRevise)info);
 		}
 
-		ctx.stopIfRequested();
+		deferOrStopIfRequested(ctx);
 
 		for(final Map.Entry<Integer, RevisionInfoRevise> entry : revisions.entrySet())
 			Revstat.write(model, entry.getKey(), entry.getValue(), ctx);
