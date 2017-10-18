@@ -39,6 +39,7 @@ import com.exedio.cope.util.EmptyJobContext;
 import com.exedio.cope.util.JobContext;
 import com.exedio.cope.util.JobStop;
 import java.io.IOException;
+import java.time.Duration;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -293,6 +294,12 @@ public class DispatcherWithoutPurgeTest extends TestWithEnvironment
 		{
 			assertFalse(DispatcherWithoutPurgeModelTest.MODEL.hasCurrentTransaction());
 			if((requestsToStop++)>=requestsBeforeStop) throw new JobStop("JC");
+		}
+
+		@Override public Duration requestsDeferral()
+		{
+			assertFalse(DispatcherWithoutPurgeModelTest.MODEL.hasCurrentTransaction());
+			return Duration.ZERO;
 		}
 
 		@Override

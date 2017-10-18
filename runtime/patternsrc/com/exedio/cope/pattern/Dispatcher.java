@@ -22,6 +22,7 @@ import static com.exedio.cope.ItemField.DeletePolicy.CASCADE;
 import static com.exedio.cope.misc.Check.requireGreaterZero;
 import static com.exedio.cope.misc.QueryIterators.iterateTypeTransactionally;
 import static com.exedio.cope.misc.TimeUtil.toMillies;
+import static com.exedio.cope.util.JobContext.deferOrStopIfRequested;
 import static java.lang.System.nanoTime;
 import static java.util.Objects.requireNonNull;
 
@@ -340,13 +341,13 @@ public final class Dispatcher extends Pattern
 		for(final P item : Iterables.once(
 				iterateTypeTransactionally(type, pending.equal(true), config.getSearchSize())))
 		{
-			ctx.stopIfRequested();
+			deferOrStopIfRequested(ctx);
 
 			if(probeRequired)
 			{
 				probe.run();
 				probeRequired = false;
-				ctx.stopIfRequested();
+				deferOrStopIfRequested(ctx);
 			}
 
 			final String itemID = item.getCopeID();

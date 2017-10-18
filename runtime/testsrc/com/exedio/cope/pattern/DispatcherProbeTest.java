@@ -26,6 +26,7 @@ import static org.junit.Assert.fail;
 
 import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.util.AssertionErrorJobContext;
+import java.time.Duration;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -54,9 +55,9 @@ public class DispatcherProbeTest extends TestWithEnvironment
 
 		dispatch(probe);
 		historyAssert(
-				"ctx stop", "probe",
-				"ctx stop", "dispatch " + item1, "ctx progress",
-				"ctx stop", "dispatch " + item2, "ctx progress");
+				"ctx stop", "ctx defer", "probe",
+				"ctx stop", "ctx defer", "dispatch " + item1, "ctx progress",
+				"ctx stop", "ctx defer", "dispatch " + item2, "ctx progress");
 		assertEquals(false, item1.isToTargetPending());
 		assertEquals(false, item2.isToTargetPending());
 	}
@@ -70,8 +71,8 @@ public class DispatcherProbeTest extends TestWithEnvironment
 
 		dispatch(probe);
 		historyAssert(
-				"ctx stop", "dispatch " + item1, "ctx progress",
-				"ctx stop", "dispatch " + item2, "ctx progress");
+				"ctx stop", "ctx defer", "dispatch " + item1, "ctx progress",
+				"ctx stop", "ctx defer", "dispatch " + item2, "ctx progress");
 		assertEquals(false, item1.isToTargetPending());
 		assertEquals(false, item2.isToTargetPending());
 	}
@@ -85,7 +86,7 @@ public class DispatcherProbeTest extends TestWithEnvironment
 
 		dispatchFail(probe);
 		historyAssert(
-				"ctx stop", "PROBE");
+				"ctx stop", "ctx defer", "PROBE");
 		assertEquals(true, item1.isToTargetPending());
 		assertEquals(true, item2.isToTargetPending());
 	}
@@ -99,8 +100,8 @@ public class DispatcherProbeTest extends TestWithEnvironment
 
 		dispatchFail(probe);
 		historyAssert(
-				"ctx stop", "dispatch " + item1, "ctx progress",
-				"ctx stop", "PROBE");
+				"ctx stop", "ctx defer", "dispatch " + item1, "ctx progress",
+				"ctx stop", "ctx defer", "PROBE");
 		assertEquals(true, item1.isToTargetPending());
 		assertEquals(true, item2.isToTargetPending());
 	}
@@ -114,8 +115,8 @@ public class DispatcherProbeTest extends TestWithEnvironment
 
 		dispatch(probe);
 		historyAssert(
-				"ctx stop", "dispatch " + item1, "ctx progress",
-				"ctx stop", "dispatch " + item2, "ctx progress");
+				"ctx stop", "ctx defer", "dispatch " + item1, "ctx progress",
+				"ctx stop", "ctx defer", "dispatch " + item2, "ctx progress");
 		assertEquals(false, item1.isToTargetPending());
 		assertEquals(true,  item2.isToTargetPending());
 	}
@@ -130,9 +131,9 @@ public class DispatcherProbeTest extends TestWithEnvironment
 
 		dispatchFail(probe);
 		historyAssert(
-				"ctx stop", "dispatch " + item1, "ctx progress",
-				"ctx stop", "dispatch " + item2, "ctx progress",
-				"ctx stop", "PROBE");
+				"ctx stop", "ctx defer", "dispatch " + item1, "ctx progress",
+				"ctx stop", "ctx defer", "dispatch " + item2, "ctx progress",
+				"ctx stop", "ctx defer", "PROBE");
 		assertEquals(false, item1.isToTargetPending());
 		assertEquals(true,  item2.isToTargetPending());
 		assertEquals(true,  item3.isToTargetPending());
@@ -140,9 +141,9 @@ public class DispatcherProbeTest extends TestWithEnvironment
 		probe.setLimit(1); // is not enough
 		dispatchFail(probe);
 		historyAssert(
-				"ctx stop", "probe",
-				"ctx stop", "dispatch " + item2, "ctx progress",
-				"ctx stop", "PROBE");
+				"ctx stop", "ctx defer", "probe",
+				"ctx stop", "ctx defer", "dispatch " + item2, "ctx progress",
+				"ctx stop", "ctx defer", "PROBE");
 		assertEquals(false, item1.isToTargetPending());
 		assertEquals(true,  item2.isToTargetPending());
 		assertEquals(true,  item3.isToTargetPending());
@@ -150,10 +151,10 @@ public class DispatcherProbeTest extends TestWithEnvironment
 		probe.setLimit(2);
 		dispatch(probe);
 		historyAssert(
-				"ctx stop", "probe",
-				"ctx stop", "dispatch " + item2, "ctx progress",
-				"ctx stop", "probe",
-				"ctx stop", "dispatch " + item3, "ctx progress");
+				"ctx stop", "ctx defer", "probe",
+				"ctx stop", "ctx defer", "dispatch " + item2, "ctx progress",
+				"ctx stop", "ctx defer", "probe",
+				"ctx stop", "ctx defer", "dispatch " + item3, "ctx progress");
 		assertEquals(false, item1.isToTargetPending());
 		assertEquals(true,  item2.isToTargetPending());
 		assertEquals(false, item3.isToTargetPending());
@@ -225,6 +226,12 @@ public class DispatcherProbeTest extends TestWithEnvironment
 		{
 			assertFalse(DispatcherModelTest.MODEL.hasCurrentTransaction());
 			historyAdd("ctx stop");
+		}
+		@Override public Duration requestsDeferral()
+		{
+			assertFalse(DispatcherModelTest.MODEL.hasCurrentTransaction());
+			historyAdd("ctx defer");
+			return Duration.ZERO;
 		}
 		@Override public void incrementProgress()
 		{

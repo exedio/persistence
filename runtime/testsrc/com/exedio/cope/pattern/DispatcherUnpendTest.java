@@ -28,6 +28,7 @@ import com.exedio.cope.junit.AbsoluteMockClockStrategy;
 import com.exedio.cope.pattern.DispatcherItem.Log;
 import com.exedio.cope.tojunit.ClockRule;
 import com.exedio.cope.util.AssertionErrorJobContext;
+import java.time.Duration;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
@@ -63,8 +64,8 @@ public class DispatcherUnpendTest extends TestWithEnvironment
 		assertIt(true,  null, null);
 		dispatch(10000);
 		historyAssert(
-				"ctx stop", "probe",
-				"ctx stop", "dispatch " + item, "ctx progress");
+				"ctx stop", "ctx defer", "probe",
+				"ctx stop", "ctx defer", "dispatch " + item, "ctx progress");
 		assertIt(false, true, 10000);
 
 		dispatch();
@@ -79,20 +80,20 @@ public class DispatcherUnpendTest extends TestWithEnvironment
 
 		dispatch(20000);
 		historyAssert(
-				"ctx stop", "probe",
-				"ctx stop", "dispatch " + item, "ctx progress");
+				"ctx stop", "ctx defer", "probe",
+				"ctx stop", "ctx defer", "dispatch " + item, "ctx progress");
 		assertIt(true,  null,  null);
 
 		dispatch(40000);
 		historyAssert(
-				"ctx stop", "probe",
-				"ctx stop", "dispatch " + item, "ctx progress");
+				"ctx stop", "ctx defer", "probe",
+				"ctx stop", "ctx defer", "dispatch " + item, "ctx progress");
 		assertIt(true,  null,  null);
 
 		dispatch(60000);
 		historyAssert(
-				"ctx stop", "probe",
-				"ctx stop", "dispatch " + item, "notifyFinalFailure " + item, "ctx progress");
+				"ctx stop", "ctx defer", "probe",
+				"ctx stop", "ctx defer", "dispatch " + item, "notifyFinalFailure " + item, "ctx progress");
 		assertIt(false, false, 60000);
 
 		dispatch();
@@ -128,6 +129,12 @@ public class DispatcherUnpendTest extends TestWithEnvironment
 		{
 			assertFalse(DispatcherModelTest.MODEL.hasCurrentTransaction());
 			historyAdd("ctx stop");
+		}
+		@Override public Duration requestsDeferral()
+		{
+			assertFalse(DispatcherModelTest.MODEL.hasCurrentTransaction());
+			historyAdd("ctx defer");
+			return Duration.ZERO;
 		}
 		@Override public void incrementProgress()
 		{
