@@ -86,14 +86,7 @@ class ClassVisitor extends GeneratedAwareScanner
 	private int findClassEndPosition(final ClassTree ct)
 	{
 		final int positionOfClosingBrace=Math.toIntExact(context.getEndPosition(ct));
-		if (context.extendGeneratedFragmentsToLineBreaks)
-		{
-			return includeLeadingWhitespaceLine(positionOfClosingBrace-1, false);
-		}
-		else
-		{
-			return positionOfClosingBrace-1;
-		}
+		return includeLeadingWhitespaceLine(positionOfClosingBrace-1, false);
 	}
 
 	@Override
@@ -121,29 +114,20 @@ class ClassVisitor extends GeneratedAwareScanner
 	private void addGeneratedFragment(final int start, final int end)
 	{
 		if (start<previousGeneratedFragmentEnd) throw new RuntimeException(""+start+"<"+previousGeneratedFragmentEnd);
-		final int realStart;
+		final int realStart=Math.max(previousGeneratedFragmentEnd, includeLeadingWhitespaceLine(start, true));
+		final int lineEnd=context.searchAfter(end-1, LINE_SEPARATOR_BYTES);
 		final int realEnd;
-		if (context.extendGeneratedFragmentsToLineBreaks)
+		if (lineEnd==-1)
 		{
-			realStart=Math.max(previousGeneratedFragmentEnd, includeLeadingWhitespaceLine(start, true));
-			final int lineEnd=context.searchAfter(end-1, LINE_SEPARATOR_BYTES);
-			if (lineEnd==-1)
-			{
-				realEnd=end;
-			}
-			else
-			{
-				final String lineAfterEnd=context.getSourceString(end, lineEnd);
-					if (allWhitespace(lineAfterEnd))
-						realEnd=lineEnd;
-					else
-						realEnd=end;
-			}
+			realEnd=end;
 		}
 		else
 		{
-			realStart=start;
-			realEnd=end;
+			final String lineAfterEnd=context.getSourceString(end, lineEnd);
+				if (allWhitespace(lineAfterEnd))
+					realEnd=lineEnd;
+				else
+					realEnd=end;
 		}
 		context.markFragmentAsGenerated(realStart, realEnd);
 		previousGeneratedFragmentEnd = realEnd;

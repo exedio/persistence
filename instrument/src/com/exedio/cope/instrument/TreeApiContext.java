@@ -36,7 +36,6 @@ import javax.lang.model.element.TypeElement;
 
 final class TreeApiContext
 {
-	final boolean extendGeneratedFragmentsToLineBreaks;
 	private final DocTrees docTrees;
 	final Messager messager;
 	final JavaFile javaFile;
@@ -45,9 +44,8 @@ final class TreeApiContext
 
 	private byte[] allBytes;
 
-	TreeApiContext(final boolean extendGeneratedFragmentsToLineBreaks, final ProcessingEnvironment processingEnv, final JavaFile javaFile, final CompilationUnitTree compilationUnit)
+	TreeApiContext(final ProcessingEnvironment processingEnv, final JavaFile javaFile, final CompilationUnitTree compilationUnit)
 	{
-		this.extendGeneratedFragmentsToLineBreaks=extendGeneratedFragmentsToLineBreaks;
 		this.docTrees=DocTrees.instance(processingEnv);
 		this.messager=processingEnv.getMessager();
 		this.javaFile=javaFile;

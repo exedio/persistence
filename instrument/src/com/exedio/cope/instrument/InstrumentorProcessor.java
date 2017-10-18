@@ -72,7 +72,7 @@ final class InstrumentorProcessor extends AbstractProcessor
 					}
 				}
 			}
-			final TreeApiContext treeApiContext=new TreeApiContext(true, processingEnv, javaFile, compilationUnit);
+			final TreeApiContext treeApiContext=new TreeApiContext(processingEnv, javaFile, compilationUnit);
 			final CompilationUnitVisitor visitor=new CompilationUnitVisitor(treeApiContext);
 			visitor.scan(tp, null);
 		}
