@@ -42,6 +42,7 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -380,5 +381,10 @@ public class DispatcherWithoutPurgeTest extends TestWithEnvironment
 			assertTrue(actual.getFailure(), actual.getFailure().startsWith(IOException.class.getName()+": "+item.getBody()));
 		}
 		assertEquals(notifyFinalFailureCount, DispatcherWithoutPurgeItem.logs.get(item).notifyFinalFailureCount);
+	}
+
+	@After public void afterEach()
+	{
+		toTarget.reset();
 	}
 }

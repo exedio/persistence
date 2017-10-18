@@ -454,6 +454,14 @@ public final class Dispatcher extends Pattern
 		this.probeRequired = probeRequired;
 	}
 
+	/**
+	 * For junit tests only
+	 */
+	void reset()
+	{
+		this.probeRequired = true;
+	}
+
 	@Wrap(order=30, doc="Returns, whether this item is yet to be dispatched by {0}.")
 	public boolean isPending(@Nonnull final Item item)
 	{

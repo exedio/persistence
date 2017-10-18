@@ -23,6 +23,7 @@ import static org.junit.Assert.fail;
 
 import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.util.EmptyJobContext;
+import org.junit.After;
 import org.junit.Test;
 
 public class DispatcherProbeTest extends TestWithEnvironment
@@ -167,5 +168,10 @@ public class DispatcherProbeTest extends TestWithEnvironment
 				throw new IllegalStateException("CountProbe");
 			limit--;
 		}
+	}
+
+	@After public void afterEach()
+	{
+		DispatcherItem.toTarget.reset();
 	}
 }

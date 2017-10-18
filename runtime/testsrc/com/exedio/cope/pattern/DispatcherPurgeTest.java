@@ -30,6 +30,7 @@ import com.exedio.cope.util.JobContexts;
 import com.exedio.cope.util.Sources;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Properties;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -252,5 +253,10 @@ public class DispatcherPurgeTest extends TestWithEnvironment
 		assertEquals(true,    itemSuccessAfter .existsCopeItem());
 		assertEquals(failure, itemFailureBefore.existsCopeItem());
 		assertEquals(true,    itemFailureAfter .existsCopeItem());
+	}
+
+	@After public void afterEach()
+	{
+		DispatcherItem.toTarget.reset();
 	}
 }

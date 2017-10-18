@@ -25,6 +25,7 @@ import com.exedio.cope.junit.AbsoluteMockClockStrategy;
 import com.exedio.cope.pattern.DispatcherItem.Log;
 import com.exedio.cope.tojunit.ClockRule;
 import com.exedio.cope.util.EmptyJobContext;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -102,5 +103,10 @@ public class DispatcherUnpendTest extends TestWithEnvironment
 		assertEquals("pending", pending, item.isToTargetPending());
 		assertEquals("success", success, item.getToTargetUnpendSuccess());
 		assertEquals("date",    date,    item.getToTargetUnpendDateMillis());
+	}
+
+	@After public void afterEach()
+	{
+		DispatcherItem.toTarget.reset();
 	}
 }

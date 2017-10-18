@@ -26,6 +26,7 @@ import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.util.JobContexts;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -342,4 +343,9 @@ public class DispatchableDeferrableTest extends TestWithEnvironment
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	@SuppressWarnings("unused") private AnItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }
+
+	@After public void afterEach()
+	{
+		AnItem.toTarget.reset();
+	}
 }

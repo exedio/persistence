@@ -45,6 +45,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -424,5 +425,10 @@ public class DispatcherTest extends TestWithEnvironment
 			assertEquals(result, actual.getResult());
 			assertEquals(success, actual.isSuccess());
 		}
+	}
+
+	@After public void afterEach()
+	{
+		toTarget.reset();
 	}
 }
