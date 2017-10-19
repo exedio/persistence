@@ -231,8 +231,14 @@ final class JavaField
 			final Class<?>[] result = new Class<?>[e.getTypeMirrors().size()];
 			for (int i = 0; i < result.length; i++)
 			{
-				result[i] = TypeMirrorHelper.getClass(e.getTypeMirrors().get(i), parent.nameSpace);
-				if (result[i]==null) throw new NullPointerException(e.getTypeMirrors()+"  "+i);
+				try
+				{
+					result[i] = TypeMirrorHelper.getClass(e.getTypeMirrors().get(i), parent.file.interimClassLoader);
+				}
+				catch (final ClassNotFoundException cnf)
+				{
+					throw new RuntimeException(cnf);
+				}
 			}
 			return result;
 		}

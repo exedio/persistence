@@ -50,7 +50,6 @@ final class LocalCopeType extends CopeType<LocalCopeFeature>
 		//noinspection ThisEscapedInObjectConstruction
 		copeTypeByJavaClass.put(javaClass, this);
 
-		javaClass.nameSpace.importStatic(Item.class);
 		//noinspection ThisEscapedInObjectConstruction
 		javaClass.file.repository.add(this);
 

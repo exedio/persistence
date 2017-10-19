@@ -36,8 +36,6 @@ import java.util.List;
  */
 final class JavaClass extends JavaFeature
 {
-	final CopeNameSpace nameSpace;
-
 	private final HashMap<String, JavaField> fields = new HashMap<>();
 	private final ArrayList<JavaField> fieldList = new ArrayList<>();
 	final HashMap<String,JavaClass> innerClasses = new HashMap<>();
@@ -62,7 +60,6 @@ final class JavaClass extends JavaFeature
 			final int classEndPosition)
 	{
 		super(file, parent, modifiers, Generics.strip(simpleName), sourceLocation);
-		this.nameSpace = new NS(file.nameSpace);
 		this.typeParameters = Generics.get(simpleName).size();
 		this.isEnum = isEnum;
 		this.kind = kind;

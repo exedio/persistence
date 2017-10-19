@@ -19,10 +19,7 @@
 
 package com.exedio.cope.instrument;
 
-import bsh.NameSpace;
-import bsh.UtilEvalError;
 import java.lang.reflect.Array;
-import java.util.Objects;
 import java.util.function.Supplier;
 import javax.lang.model.element.ElementKind;
 import javax.lang.model.type.ArrayType;
@@ -33,41 +30,34 @@ import javax.lang.model.type.TypeMirror;
 
 final class TypeMirrorHelper
 {
-	static Class<?> getClass(final TypeMirror typeMirror, final NameSpace nameSpace)
+	static Class<?> getClass(final TypeMirror typeMirror, final ClassLoader classLoader) throws ClassNotFoundException
 	{
-		try
+		if (typeMirror.getKind()==TypeKind.DECLARED)
 		{
-			if (typeMirror.getKind()==TypeKind.DECLARED)
+			final ElementKind enclosingKind = ((DeclaredType) typeMirror).asElement().getEnclosingElement().getKind();
+			if (enclosingKind==ElementKind.CLASS || enclosingKind==ElementKind.ANNOTATION_TYPE)
 			{
-				final ElementKind enclosingKind = ((DeclaredType) typeMirror).asElement().getEnclosingElement().getKind();
-				if (enclosingKind==ElementKind.CLASS || enclosingKind==ElementKind.ANNOTATION_TYPE)
+				final String enclosingName = ((DeclaredType) typeMirror).asElement().getEnclosingElement().toString();
+				final Class<?> enclosing = classLoader.loadClass(enclosingName);
+				for (final Class<?> inner: enclosing.getClasses())
 				{
-					final String enclosingName = ((DeclaredType) typeMirror).asElement().getEnclosingElement().toString();
-					final Class<?> enclosing = Objects.requireNonNull(nameSpace.getClass(enclosingName), enclosingName);
-					for (final Class<?> inner: enclosing.getClasses())
-					{
-						if (inner.getCanonicalName().equals(typeMirror.toString()))
-							return inner;
-					}
+					if (inner.getCanonicalName().equals(typeMirror.toString()))
+						return inner;
 				}
 			}
-			else if (typeMirror.getKind()==TypeKind.ARRAY)
-			{
-				final ArrayType arrayType = (ArrayType)typeMirror;
-				final Class<?> componentClass = getClass(arrayType.getComponentType(), nameSpace);
-				return Array.newInstance(componentClass, 0).getClass();
-			}
-			else if (typeMirror.getKind().isPrimitive())
-			{
-				return ClassHelper.getClass(typeMirror.toString());
-			}
-			final String name = typeMirror.toString();
-			return Objects.requireNonNull(nameSpace.getClass(name), name);
 		}
-		catch (final UtilEvalError e)
+		else if (typeMirror.getKind()==TypeKind.ARRAY)
 		{
-			throw new RuntimeException(e);
+			final ArrayType arrayType = (ArrayType)typeMirror;
+			final Class<?> componentClass = getClass(arrayType.getComponentType(), classLoader);
+			return Array.newInstance(componentClass, 0).getClass();
 		}
+		else if (typeMirror.getKind().isPrimitive())
+		{
+			return ClassHelper.getClass(typeMirror.toString());
+		}
+		final String name = typeMirror.toString();
+		return classLoader.loadClass(name);
 	}
 
 	@SuppressWarnings("unchecked")

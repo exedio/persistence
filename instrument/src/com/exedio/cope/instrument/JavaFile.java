@@ -48,8 +48,6 @@ final class JavaFile
 	 */
 	private final CopeNameSpace externalNameSpace;
 
-	final CopeNameSpace nameSpace;
-
 	private final String packagename;
 
 	/**
@@ -70,12 +68,10 @@ final class JavaFile
 	JavaFile(final JavaRepository repository, final ClassLoader interimClassLoader, final JavaFileObject sourceFile, final String packagename)
 	{
 		this.externalNameSpace = new CopeNameSpace(repository.externalNameSpace, sourceFile.getName() + " external");
-		this.nameSpace = new CopeNameSpace(repository.nameSpace, sourceFile.getName());
 		this.sourceFile = sourceFile;
 		this.packagename = packagename;
 		if(packagename!=null)
 		{
-			nameSpace.importPackage(packagename);
 			externalNameSpace.importPackage(packagename);
 		}
 
@@ -179,12 +175,10 @@ final class JavaFile
 		if(importname.endsWith(".*"))
 		{
 			final String packageName = importname.substring(0,importname.length()-2);
-			nameSpace.importPackage(packageName);
 			externalNameSpace.importPackage(packageName);
 		}
 		else
 		{
-			nameSpace.importClass(importname);
 			externalNameSpace.importClass(importname);
 		}
 	}

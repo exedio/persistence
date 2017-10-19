@@ -38,9 +38,6 @@ final class JavaRepository
 	 */
 	final CopeNameSpace externalNameSpace;
 
-	// reusing externalNameSpace is more efficient than another root nameSpace
-	final CopeNameSpace nameSpace;
-
 	enum Stage
 	{
 		BUILD,
@@ -61,7 +58,6 @@ final class JavaRepository
 	{
 		externalNameSpace = new CopeNameSpace(null, "external");
 		externalNameSpace.getClassManager().setClassLoader(cl);
-		nameSpace = new NS(externalNameSpace);
 	}
 
 	void endBuildStage()
