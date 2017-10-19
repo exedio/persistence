@@ -19,7 +19,6 @@
 
 package com.exedio.cope.instrument;
 
-import bsh.EvalError;
 import bsh.Primitive;
 import bsh.UtilEvalError;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -175,24 +174,6 @@ final class JavaClass extends JavaFeature
 	int getClassEndPositionInSourceWithoutGeneratedFragments()
 	{
 		return file.translateToPositionInSourceWithoutGeneratedFragments(classEndPosition);
-	}
-
-	Object evaluate(final String s)
-	{
-		assert !file.repository.isBuildStage();
-
-		try
-		{
-			//System.out.println("--------evaluate("+s+")");
-			@SuppressWarnings("UnnecessaryLocalVariable")
-			final Object result = file.repository.interpreter.eval(Generics.remove(s), nameSpace);
-			//System.out.println("--------evaluate("+s+") == "+result);
-			return result;
-		}
-		catch(final NoClassDefFoundError | EvalError e)
-		{
-			throw new RuntimeException("In class " + getFullName() + " evaluated " + s, e);
-		}
 	}
 
 	void addInnerClass(final JavaClass c)

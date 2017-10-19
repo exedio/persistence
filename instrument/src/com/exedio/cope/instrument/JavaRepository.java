@@ -18,7 +18,6 @@
 
 package com.exedio.cope.instrument;
 
-import bsh.Interpreter;
 import bsh.UtilEvalError;
 import com.exedio.cope.Item;
 import com.exedio.cope.pattern.Money;
@@ -41,8 +40,6 @@ final class JavaRepository
 
 	// reusing externalNameSpace is more efficient than another root nameSpace
 	final CopeNameSpace nameSpace;
-
-	final Interpreter interpreter = new Interpreter();
 
 	enum Stage
 	{
