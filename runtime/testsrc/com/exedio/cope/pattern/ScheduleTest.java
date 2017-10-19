@@ -38,6 +38,7 @@ import com.exedio.cope.junit.AbsoluteMockClockStrategy;
 import com.exedio.cope.pattern.Schedule.Interval;
 import com.exedio.cope.pattern.Schedule.Run;
 import com.exedio.cope.tojunit.ClockRule;
+import com.exedio.cope.util.AssertionErrorJobContext;
 import com.exedio.cope.util.JobContext;
 import com.exedio.cope.util.JobStop;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -660,17 +661,18 @@ public class ScheduleTest extends TestWithEnvironment
 
 	private void run(final int progress, final String now)
 	{
-		final CountJobContext ctx = new CountJobContext();
+		final JC ctx = new JC();
 		run(date(now), ctx);
 		assertEquals(progress, ctx.progress);
 	}
 
 	private void run(final int progress, final String now, final int interruptRequests)
 	{
-		final CountJobContext ctx = new CountJobContext(){
+		final JC ctx = new JC(){
 			int i = interruptRequests;
 			@Override public void stopIfRequested()
 			{
+				super.stopIfRequested();
 				if((i--)<=0) throw new JobStop("requestLimit");
 			}
 		};
@@ -859,6 +861,29 @@ public class ScheduleTest extends TestWithEnvironment
 		public String toString()
 		{
 			return "" + parent + ' ' + interval + ' ' + df(true).format(from) + "---" + df(true).format(until) + "---" + df(true).format(run);
+		}
+	}
+
+	private static class JC extends AssertionErrorJobContext
+	{
+		@Override
+		public void stopIfRequested()
+		{
+			assertFalse(ScheduleModelTest.MODEL.hasCurrentTransaction());
+		}
+
+		int progress = 0;
+
+		@Override
+		public void incrementProgress()
+		{
+			progress++;
+		}
+
+		@Override
+		public void incrementProgress(final int delta)
+		{
+			progress += delta;
 		}
 	}
 }
