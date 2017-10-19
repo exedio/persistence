@@ -76,7 +76,9 @@ public class SchemaPurgeTest extends TestWithEnvironment
 		assertSeq(1000, 1, nextSeq);
 		assertSeq(2000, 1, "AnItem_sequence");
 
+		model.commit();
 		model.purgeSchema(ctx);
+		model.startTransaction(SchemaPurgeTest.class.getName());
 		assertEquals(ifMysql(
 			ifSequences(
 				"MESSAGE sequence " + thisSeq + " query" ) +
@@ -96,7 +98,9 @@ public class SchemaPurgeTest extends TestWithEnvironment
 		assertSeq(   1, 1, thisSeq);
 		assertSeq(1001, 2, nextSeq);
 		assertSeq(2001, 2, "AnItem_sequence");
+		model.commit();
 		model.purgeSchema(ctx);
+		model.startTransaction(SchemaPurgeTest.class.getName());
 		assertEquals(ifMysql(
 			ifSequences(
 				"MESSAGE sequence " + thisSeq + " query" +
@@ -113,7 +117,9 @@ public class SchemaPurgeTest extends TestWithEnvironment
 		assertSeq(1001, 1, nextSeq);
 		assertSeq(2001, 1, "AnItem_sequence");
 
+		model.commit();
 		model.purgeSchema(ctx);
+		model.startTransaction(SchemaPurgeTest.class.getName());
 		assertEquals(ifMysql(
 			ifSequences(
 				"MESSAGE sequence " + thisSeq + " query" +
@@ -137,7 +143,9 @@ public class SchemaPurgeTest extends TestWithEnvironment
 		assertSeq(batch?1:3, batch?1:3, thisSeq);
 		assertSeq(1003, 3, nextSeq);
 		assertSeq(2003, 3, "AnItem_sequence");
+		model.commit();
 		model.purgeSchema(ctx);
+		model.startTransaction(SchemaPurgeTest.class.getName());
 		assertEquals(ifMysql(
 			ifSequences(
 				"MESSAGE sequence " + thisSeq + " query" +
@@ -154,7 +162,9 @@ public class SchemaPurgeTest extends TestWithEnvironment
 		assertSeq(1003, 1, nextSeq);
 		assertSeq(2003, 1, "AnItem_sequence");
 
+		model.commit();
 		model.purgeSchema(ctx);
+		model.startTransaction(SchemaPurgeTest.class.getName());
 		assertEquals(ifMysql(
 			ifSequences(
 				"MESSAGE sequence " + thisSeq + " query" +
@@ -221,7 +231,9 @@ public class SchemaPurgeTest extends TestWithEnvironment
 
 		{
 			final JC ctx = new JC(5);
+			model.commit();
 			model.purgeSchema(ctx);
+			model.startTransaction(SchemaPurgeTest.class.getName());
 			assertEquals(
 					"MESSAGE sequence " + thisSeq + " query" +
 					"MESSAGE sequence " + nextSeq + " query" +
@@ -259,6 +271,7 @@ public class SchemaPurgeTest extends TestWithEnvironment
 	private void assertStop(final int n, final String message)
 	{
 		final JC ctx = new JC(n);
+		model.commit();
 		try
 		{
 			model.purgeSchema(ctx);
@@ -269,6 +282,7 @@ public class SchemaPurgeTest extends TestWithEnvironment
 			assertEquals("JobStopMessage", s.getMessage());
 		}
 		assertEquals(message, ctx.fetchEvents());
+		model.startTransaction(SchemaPurgeTest.class.getName());
 	}
 
 	private static final class JC extends AssertionErrorJobContext
