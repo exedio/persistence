@@ -140,9 +140,9 @@ public class DeleteTest extends TestWithEnvironment
 			items.add(new CacheIsolationItem("item"+n));
 		model.commit();
 		final long transactionIdBefore = model.getNextTransactionId();
-		final CountJobContext ctx = new CountJobContext();
+		final DeleteJobContext ctx = new DeleteJobContext(CacheIsolationTest.MODEL);
 		Delete.delete(TYPE.newQuery(), "DeleteTest", ctx);
-		assertEquals(itemNumber, ctx.progress);
+		assertEquals(itemNumber, ctx.getProgress());
 		assertEquals(transactionIdBefore+transactionNumber, model.getNextTransactionId());
 		model.startTransaction("DeleteTest");
 		for(final CacheIsolationItem token : items)
@@ -150,31 +150,26 @@ public class DeleteTest extends TestWithEnvironment
 		model.commit();
 	}
 
-	private static final class Context extends AssertionErrorJobContext
+	private static final class Context extends DeleteJobContext
 	{
-		private int progress = 0;
 		private final int maximumProgress;
 
 		Context(final int maximumProgress)
 		{
+			super(CacheIsolationTest.MODEL);
 			this.maximumProgress = maximumProgress;
 		}
 
 		@Override
 		public void stopIfRequested()
 		{
+			final int progress = getProgress();
 			if(progress>=maximumProgress) throw new JobStop("progress " + maximumProgress + " excessed with " + progress);
-		}
-
-		@Override
-		public void incrementProgress()
-		{
-			progress++;
 		}
 
 		void assertProgress(final int expected)
 		{
-			assertEquals(expected, progress);
+			assertEquals(expected, getProgress());
 		}
 	}
 }

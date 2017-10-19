@@ -25,6 +25,7 @@ import com.exedio.cope.Item;
 import com.exedio.cope.Query;
 import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.junit.AbsoluteMockClockStrategy;
+import com.exedio.cope.misc.DeleteJobContext;
 import com.exedio.cope.tojunit.ClockRule;
 import com.exedio.cope.util.JobContexts;
 import com.exedio.cope.util.Sources;
@@ -232,10 +233,11 @@ public class DispatcherPurgeTest extends TestWithEnvironment
 
 		if(now!=null)
 			clock.add(now);
+		final DeleteJobContext ctx = new DeleteJobContext(DispatcherModelTest.MODEL);
 		if(restriction==null)
-			DispatcherItem.purgeToTarget(purgeProps, JobContexts.EMPTY);
+			DispatcherItem.purgeToTarget(purgeProps, ctx);
 		else
-			DispatcherItem.purgeToTarget(purgeProps, restriction, JobContexts.EMPTY);
+			DispatcherItem.purgeToTarget(purgeProps, restriction, ctx);
 		clock.assertEmpty();
 
 		if(now!=null)

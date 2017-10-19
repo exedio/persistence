@@ -39,6 +39,7 @@ import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.Type;
 import com.exedio.cope.junit.AbsoluteMockClockStrategy;
 import com.exedio.cope.misc.Computed;
+import com.exedio.cope.misc.DeleteJobContext;
 import com.exedio.cope.pattern.PasswordRecovery.Config;
 import com.exedio.cope.pattern.PasswordRecovery.Token;
 import com.exedio.cope.tojunit.ClockRule;
@@ -260,11 +261,11 @@ public class PasswordRecoveryTest extends TestWithEnvironment
 
 	private int purge()
 	{
-		final CountJobContext ctx = new CountJobContext();
+		final DeleteJobContext ctx = new DeleteJobContext(MODEL);
 		model.commit();
 		purgePasswordRecovery(ctx);
 		model.startTransaction("PasswordRecoveryTest");
-		return ctx.progress;
+		return ctx.getProgress();
 	}
 
 	@Deprecated

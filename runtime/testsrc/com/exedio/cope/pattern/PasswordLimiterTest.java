@@ -35,6 +35,7 @@ import static org.junit.Assert.assertTrue;
 
 import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.junit.AbsoluteMockClockStrategy;
+import com.exedio.cope.misc.DeleteJobContext;
 import com.exedio.cope.pattern.PasswordLimiter.Refusal;
 import com.exedio.cope.tojunit.ClockRule;
 import java.util.Date;
@@ -211,11 +212,11 @@ public class PasswordLimiterTest extends TestWithEnvironment
 
 	private int purge()
 	{
-		final CountJobContext ctx = new CountJobContext();
+		final DeleteJobContext ctx = new DeleteJobContext(PasswordLimiterModelTest.MODEL);
 		model.commit();
 		purgePasswordLimited(ctx);
 		model.startTransaction("PasswordRecoveryTest");
-		return ctx.progress;
+		return ctx.getProgress();
 	}
 
 	private void assertEqualsDate(final String expected, final Date actual)
