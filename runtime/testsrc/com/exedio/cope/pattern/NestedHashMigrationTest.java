@@ -175,6 +175,7 @@ public class NestedHashMigrationTest extends TestWithEnvironment
 		@Override
 		public void stopIfRequested()
 		{
+			assertFalse(MODEL.hasCurrentTransaction());
 			stopIfRequested++;
 		}
 

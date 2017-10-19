@@ -188,7 +188,7 @@ public class RevisionStatisticsTest
 		@Override
 		public void stopIfRequested()
 		{
-			// do nothing
+			assertFalse(MODEL.hasCurrentTransaction());
 		}
 
 		@Override

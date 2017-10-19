@@ -294,6 +294,7 @@ public class DispatcherTest extends TestWithEnvironment
 
 		@Override public void stopIfRequested()
 		{
+			assertFalse(DispatcherModelTest.MODEL.hasCurrentTransaction());
 			if((requestsToStop++)>=requestsBeforeStop) throw new JobStop("JC");
 		}
 

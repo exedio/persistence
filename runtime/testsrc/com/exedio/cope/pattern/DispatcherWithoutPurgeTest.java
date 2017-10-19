@@ -291,6 +291,7 @@ public class DispatcherWithoutPurgeTest extends TestWithEnvironment
 
 		@Override public void stopIfRequested()
 		{
+			assertFalse(DispatcherWithoutPurgeModelTest.MODEL.hasCurrentTransaction());
 			if((requestsToStop++)>=requestsBeforeStop) throw new JobStop("JC");
 		}
 

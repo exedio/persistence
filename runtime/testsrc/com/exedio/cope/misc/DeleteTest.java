@@ -163,8 +163,15 @@ public class DeleteTest extends TestWithEnvironment
 		@Override
 		public void stopIfRequested()
 		{
+			super.stopIfRequested();
 			final int progress = getProgress();
 			if(progress>=maximumProgress) throw new JobStop("progress " + maximumProgress + " excessed with " + progress);
+		}
+
+		@Override
+		protected int stopIfRequestedStackTraceOffset()
+		{
+			return 1;
 		}
 
 		void assertProgress(final int expected)

@@ -43,9 +43,9 @@ public class DeleteJobContext extends AssertionErrorJobContext
 		final StackTraceElement[] st = Thread.currentThread().getStackTrace();
 		assertIt(Thread.class, "getStackTrace", st[0]);
 		assertIt(DeleteJobContext.class, "stopIfRequested", st[1]);
-		assertIt(Delete.class, "delete", st[2]);
+		assertIt(Delete.class, "delete", st[2+stopIfRequestedStackTraceOffset()]);
 
-		switch(st[2].getLineNumber()) // Au weia !!!
+		switch(st[2+stopIfRequestedStackTraceOffset()].getLineNumber()) // Au weia !!!
 		{
 			case 44:
 				assertFalse(model.hasCurrentTransaction());
@@ -56,6 +56,11 @@ public class DeleteJobContext extends AssertionErrorJobContext
 			default:
 				fail(st[2].toString());
 		}
+	}
+
+	protected int stopIfRequestedStackTraceOffset()
+	{
+		return 0;
 	}
 
 	private int progress = 0;

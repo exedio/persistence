@@ -18,6 +18,10 @@
 
 package com.exedio.cope.sampler;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+
+import com.exedio.cope.Model;
 import com.exedio.cope.util.AssertionErrorJobContext;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -25,12 +29,20 @@ import java.util.List;
 
 final class MockJobContext extends AssertionErrorJobContext
 {
+	private final Model model;
 	private int requestedToStopCount;
 	private final ArrayList<Integer> progress = new ArrayList<>();
+
+	MockJobContext(final Model model)
+	{
+		this.model = model;
+		assertNotNull(model);
+	}
 
 	@Override
 	public void stopIfRequested()
 	{
+		assertFalse(model.hasCurrentTransaction());
 		requestedToStopCount++;
 	}
 
