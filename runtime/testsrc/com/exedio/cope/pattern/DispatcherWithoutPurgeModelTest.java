@@ -37,7 +37,7 @@ import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.Type;
 import com.exedio.cope.misc.Computed;
-import com.exedio.cope.util.JobContexts;
+import com.exedio.cope.util.AssertionErrorJobContext;
 import com.exedio.cope.util.Sources;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.List;
@@ -179,9 +179,10 @@ public class DispatcherWithoutPurgeModelTest
 		final DispatcherPurgeProperties properties =
 				DispatcherPurgeProperties.factory().retainDaysDefault(5).create(Sources.EMPTY);
 
+		final AssertionErrorJobContext ctx = new AssertionErrorJobContext();
 		try
 		{
-			purgeToTarget(properties, JobContexts.EMPTY);
+			purgeToTarget(properties, ctx);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
