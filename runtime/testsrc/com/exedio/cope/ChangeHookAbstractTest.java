@@ -22,11 +22,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
+import com.exedio.cope.instrument.WrapInterim;
 import com.exedio.cope.junit.AssertionErrorChangeHook;
 import java.util.ArrayList;
 import java.util.Arrays;
 import org.junit.jupiter.api.BeforeEach;
 
+@WrapInterim
 public abstract class ChangeHookAbstractTest extends TestWithEnvironment
 {
 	protected ChangeHookAbstractTest(final Model model)

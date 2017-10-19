@@ -19,6 +19,7 @@
 package com.exedio.cope.instrument.testmodel;
 
 import com.exedio.cope.Item;
+import com.exedio.cope.instrument.WrapInterim;
 import com.exedio.cope.instrument.testfeature.GenericFeatureClass;
 import com.exedio.cope.instrument.testfeature.GenericFeatureReference;
 import java.util.Collection;
@@ -37,13 +38,15 @@ public class GenericComplexSuper<N extends Number, L extends Collection<String>>
 
 	static final GenericFeatureClass fromSuper = new GenericFeatureClass();
 
-
+	@WrapInterim
 	public static final class classWildcard
 	{
+		@WrapInterim
 		public static final Class<GenericComplexSuper<?,?>> value = make();
 
 		// method needed because there is probably a bug in javac, not needed in eclipse
 		@SuppressWarnings("unchecked")
+		@WrapInterim
 		private static Class<GenericComplexSuper<?,?>> make()
 		{
 			return (Class<GenericComplexSuper<?,?>>)(Class<?>)GenericComplexSuper.class;
