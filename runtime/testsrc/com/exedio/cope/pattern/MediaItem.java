@@ -23,6 +23,7 @@ import static com.exedio.cope.instrument.Visibility.NONE;
 import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
 import com.exedio.cope.instrument.Wrapper;
+import com.exedio.cope.instrument.WrapperIgnore;
 
 public final class MediaItem extends Item
 {
@@ -44,6 +45,7 @@ public final class MediaItem extends Item
 	@Wrapper(wrap="getURL", visibility=NONE)
 	static final Media sheet = new Media().optional().lengthMax(5000).contentType("application/pdf", "image/png");
 
+	@WrapperIgnore // required because MediaCustom inherits @WrapFeature
 	static final MediaCustom custom = new MediaCustom(name);
 
 
