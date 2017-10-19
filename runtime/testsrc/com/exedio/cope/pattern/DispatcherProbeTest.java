@@ -19,6 +19,7 @@
 package com.exedio.cope.pattern;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.fail;
 
 import com.exedio.cope.TestWithEnvironment;
@@ -164,6 +165,8 @@ public class DispatcherProbeTest extends TestWithEnvironment
 		@Override
 		public void run()
 		{
+			assertFalse(DispatcherModelTest.MODEL.hasCurrentTransaction());
+
 			if(limit<=0)
 				throw new IllegalStateException("CountProbe");
 			limit--;
