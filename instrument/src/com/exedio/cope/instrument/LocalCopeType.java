@@ -19,23 +19,11 @@
 package com.exedio.cope.instrument;
 
 import com.exedio.cope.Item;
-import java.lang.annotation.Annotation;
 import java.lang.reflect.Modifier;
 import java.util.HashMap;
 
 final class LocalCopeType extends CopeType<LocalCopeFeature>
 {
-	private static final WrapperType OPTION_DEFAULT = new WrapperType()
-	{
-		@Override public Class<? extends Annotation> annotationType() { throw new RuntimeException(); }
-		@Override public Visibility type() { return Visibility.DEFAULT; }
-		@Override public Visibility constructor() { return Visibility.DEFAULT; }
-		@Override public Visibility genericConstructor() { return Visibility.DEFAULT; }
-		@Override public Visibility activationConstructor() { return Visibility.DEFAULT; }
-		@Override public int indent() { return 1; }
-		@Override public boolean comments() { return true; }
-	};
-
 	private static final HashMap<JavaClass, LocalCopeType> copeTypeByJavaClass = new HashMap<>();
 
 	static LocalCopeType getCopeType(final JavaClass javaClass)
@@ -58,7 +46,7 @@ final class LocalCopeType extends CopeType<LocalCopeFeature>
 		super(kind);
 		this.javaClass=javaClass;
 		this.name = javaClass.name;
-		this.option = javaClass.typeOption!=null ? javaClass.typeOption : OPTION_DEFAULT;
+		this.option = AnnotationHelper.getOrDefault(javaClass.typeOption);
 		//noinspection ThisEscapedInObjectConstruction
 		copeTypeByJavaClass.put(javaClass, this);
 
