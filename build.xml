@@ -709,7 +709,6 @@
 				<pathelement location="build/classes/runtime/patternsrc" /><!-- TODO stricter, is for Composite only -->
 				<pathelement location="build/classes/instrument/annosrc" />
 				<pathelement location="lib/exedio-cope-util.jar" />
-				<pathelement location="lib/bsh-core.jar" />
 				<pathelement location="lib/findbugs-annotations.jar" />
 			</classpath>
 		</compile>
@@ -719,7 +718,6 @@
 		<compile srcdir="instrument/antsrc" includeAntRuntime="true">
 			<classpath>
 				<pathelement location="build/classes/instrument/src" />
-				<pathelement location="lib/bsh-core.jar" />
 				<pathelement location="lib/findbugs-annotations.jar" />
 			</classpath>
 		</compile>
@@ -736,7 +734,7 @@
 	<target name="instrument.compile" depends="instrument.core.compile, instrument.ant.compile, instrument.completion.compile" />
 
 	<target name="instrument.jar" depends="instrument.core.compile, instrument.ant.compile">
-		<ljar name="cope instrumentor" jarfile="build/exedio-cope-instrument.jar" classpath="exedio-cope-instrument-annotations.jar exedio-cope.jar bsh-core.jar">
+		<ljar name="cope instrumentor" jarfile="build/exedio-cope-instrument.jar" classpath="exedio-cope-instrument-annotations.jar exedio-cope.jar">
 			<fileset dir="build/classes/instrument/src" />
 			<fileset dir="build/classes/instrument/antsrc" />
 		</ljar>
@@ -768,7 +766,6 @@
 				<pathelement location="build/classes/instrument/antsrc" />
 				<pathelement location="lib/exedio-cope-util.jar" />
 				<pathelement location="lib/trove4j.jar" />
-				<pathelement location="lib/bsh-core.jar" />
 				<pathelement location="lib/findbugs-annotations.jar" if:true="${instrument.nullabilityAnnotations}"/>
 				<pathelement location="lib/slf4j-api.jar" />
 			</classpath>
@@ -879,7 +876,6 @@
 				<pathelement location="lib/exedio-cope-util.jar" />
 				<pathelement location="lib/trove4j.jar" />
 				<pathelement location="lib/javax.servlet-api.jar" />
-				<pathelement location="lib/bsh-core.jar" />
 				<pathelement location="lib/slf4j-api.jar" />
 				<pathelement location="build/classes/junit4" />
 				<pathelement location="lib/junit-jupiter-api.jar" />
@@ -954,7 +950,6 @@
 			<myClasspath>
 				<pathelement location="lib/trove4j.jar" />
 				<pathelement location="${ant.core.lib}" />
-				<pathelement location="lib/bsh-core.jar" />
 				<pathelement location="lib/exedio-cope-util.jar" />
 				<pathelement location="lib/exedio-cope-servletutil.jar" />
 				<pathelement location="lib/javax.servlet-api.jar" />
@@ -1022,7 +1017,6 @@
 				<pathelement location="${basedir}/lib/exedio-cope-util.jar" />
 				<pathelement location="${basedir}/lib/exedio-cope-servletutil.jar" />
 				<pathelement location="${basedir}/lib/trove4j.jar" />
-				<pathelement location="${basedir}/lib/bsh-core.jar" />
 				<pathelement location="${basedir}/lib/javax.servlet-api.jar" />
 				<pathelement location="${basedir}/build/classes/junit4" />
 				<pathelement location="${basedir}/lib/junit-jupiter-api.jar" />
