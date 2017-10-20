@@ -44,7 +44,8 @@ import java.util.HashSet;
 				field=Type.class, factory=TypesBound.class
 		),
 		activationConstructor=ActivationParameters.class,
-		dummy=DummyItem.class
+		dummy=DummyItem.class,
+		top=Item.class
 )
 public abstract class Item implements Serializable, Comparable<Item>
 {

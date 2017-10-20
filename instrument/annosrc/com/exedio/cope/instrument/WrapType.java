@@ -46,4 +46,5 @@ public @interface WrapType
 	String featurePostfix() default "";
 	String featureThis() default "this";
 	Class<?> dummy();
+	Class<?> top();
 }

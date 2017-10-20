@@ -54,8 +54,11 @@ final class Kind
 		this.dummy = TypeMirrorHelper.get( ()->anno.dummy(), false );
 
 		final Class<?> topClass = dummy.getSuperclass();
+		final Class<?> annoTop = TypeMirrorHelper.get( ()->anno.top(), false );
 		if(topClass.getDeclaredAnnotation(WrapType.class)==null)
 			throw new RuntimeException("" + topClass);
+		if (!annoTop.equals(topClass))
+			throw new RuntimeException();
 		top = topClass.getName();
 		topSimple = topClass.getSimpleName();
 

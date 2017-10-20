@@ -39,7 +39,8 @@ import java.util.TimeZone;
 
 @WrapType(
 		revertFeatureBody=true,
-		dummy=DummyComposite.class
+		dummy=DummyComposite.class,
+		top=Composite.class
 )
 public abstract class Composite implements Serializable, TemplatedValue
 {
