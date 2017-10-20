@@ -39,7 +39,6 @@ import javax.lang.model.type.MirroredTypesException;
  */
 final class JavaField
 	extends JavaFeature
-	implements Evaluatable
 {
 	private static final Class<?>[] PARAMETERS_DEFAULT=new Class<?>[]{WrapperParametersDefault.class};
 
@@ -258,8 +257,7 @@ final class JavaField
 		return initializer;
 	}
 
-	@Override
-	public Object evaluate()
+	Object evaluate()
 	{
 		assert !file.repository.isBuildStage();
 

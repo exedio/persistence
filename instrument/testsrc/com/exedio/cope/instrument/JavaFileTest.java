@@ -111,8 +111,8 @@ public class JavaFileTest
 		assertEquals(expected, new String(javaFile.getSourceWithoutGeneratedFragments(), StandardCharsets.US_ASCII));
 	}
 
-	private JavaRepository createJavaRepository()
+	private static JavaRepository createJavaRepository()
 	{
-		return new JavaRepository(getClass().getClassLoader());
+		return new JavaRepository();
 	}
 }

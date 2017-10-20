@@ -18,10 +18,6 @@
 
 package com.exedio.cope.instrument;
 
-import bsh.UtilEvalError;
-import com.exedio.cope.Item;
-import com.exedio.cope.pattern.Money;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -29,15 +25,6 @@ import java.util.Objects;
 
 final class JavaRepository
 {
-	/**
-	 * Defines a name space, that does not depend on
-	 * information gathered by the instrumentor,
-	 * thus can be used in build stage.
-	 * Using this in JavaFile greatly reduces number of top name spaces,
-	 * for which a new BshClassManager must be created.
-	 */
-	final CopeNameSpace externalNameSpace;
-
 	enum Stage
 	{
 		BUILD,
@@ -53,12 +40,6 @@ final class JavaRepository
 	private final HashMap<String,List<JavaClass>> problematicSimpleNames = new HashMap<>();
 
 	private final HashMap<JavaClass, LocalCopeType> copeTypeByJavaClass = new HashMap<>();
-
-	JavaRepository(final ClassLoader cl)
-	{
-		externalNameSpace = new CopeNameSpace(null, "external");
-		externalNameSpace.getClassManager().setClassLoader(cl);
-	}
 
 	void endBuildStage()
 	{
@@ -206,73 +187,5 @@ final class JavaRepository
 			throw new RuntimeException("no cope type for "+className);
 
 		return result;
-	}
-
-	/**
-	 * Classes of non-toplevel types must override this constant
-	 * for working around http://bugs.java.com/view_bug.do?bug_id=7101374
-	 */
-	@SuppressFBWarnings("NM_CLASS_NAMING_CONVENTION")
-	public static final class classWildcard
-	{
-		@SuppressWarnings("unused")
-		public static final Class<Wildcard> value = Wildcard.class;
-
-		private classWildcard()
-		{
-			// prevent instantiation
-		}
-	}
-
-	private static final class Wildcard extends Item
-	{
-		private static final long serialVersionUID = 1l;
-	}
-
-	@SuppressWarnings("SerializableInnerClassWithNonSerializableOuterClass")
-	@SuppressFBWarnings("SE_BAD_FIELD_INNER_CLASS") // Non-serializable class has a serializable inner class
-	private final class NS extends CopeNameSpace
-	{
-		private static final long serialVersionUID = 1l;
-
-		NS(final CopeNameSpace parent)
-		{
-			super(parent, "repository");
-		}
-
-		@Override
-		Class<?> getClassInternal(final String name) throws UtilEvalError
-		{
-			assert stage==Stage.GENERATE;
-
-			final Class<?> superResult = super.getClassInternal(name);
-			if(superResult!=null)
-				return superResult;
-
-			if(name.endsWith("$classWildcard"))
-				return classWildcard.class;
-
-			final JavaClass javaClass = getJavaClass(name);
-			if(javaClass!=null)
-			{
-				//System.out.println("++++++++++++++++getClass(\""+name+"\") == "+javaClass+","+javaClass.isEnum);
-				if(javaClass.isEnum)
-					return EnumBeanShellHackClass.class;
-				if(javaClass.kind!=null)
-					return javaClass.kind.dummy;
-			}
-
-			return null;
-		}
-	}
-
-	// BEWARE
-	// The name of this enum and its only enum value
-	// must match the names used in the hack of the beanshell.
-	// see bsh-core.PATCH
-	public enum EnumBeanShellHackClass implements Money.Currency
-	{
-		@SuppressWarnings("unused")
-		BEANSHELL_HACK_ATTRIBUTE
 	}
 }

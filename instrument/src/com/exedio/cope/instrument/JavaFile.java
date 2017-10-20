@@ -19,7 +19,6 @@
 
 package com.exedio.cope.instrument;
 
-import bsh.UtilEvalError;
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -41,22 +40,7 @@ import javax.tools.JavaFileObject;
  */
 final class JavaFile
 {
-	/**
-	 * Defines a name space, that does not depend on
-	 * information gathered by the instrumentor,
-	 * thus can be used in build stage.
-	 */
-	private final CopeNameSpace externalNameSpace;
-
 	private final String packagename;
-
-	/**
-	 * Distiguishes two stages in life cycle of this object:
-	 * getting imports via addImport and finding types via findType.
-	 * @see #addImport
-	 * @see #findTypeExternally(String)
-	 */
-	private boolean buildStageForImports = true;
 
 	private final JavaFileObject sourceFile;
 	final JavaRepository repository;
@@ -67,13 +51,8 @@ final class JavaFile
 
 	JavaFile(final JavaRepository repository, final ClassLoader interimClassLoader, final JavaFileObject sourceFile, final String packagename)
 	{
-		this.externalNameSpace = new CopeNameSpace(repository.externalNameSpace, sourceFile.getName() + " external");
 		this.sourceFile = sourceFile;
 		this.packagename = packagename;
-		if(packagename!=null)
-		{
-			externalNameSpace.importPackage(packagename);
-		}
 
 		this.repository = repository;
 		this.interimClassLoader = interimClassLoader;
@@ -164,38 +143,15 @@ final class JavaFile
 		return packagename;
 	}
 
-	/**
-	 * Adds the value of an import statement.
-	 */
-	public void addImport(final String importname)
-	{
-		if(!buildStageForImports)
-			throw new RuntimeException();
-
-		if(importname.endsWith(".*"))
-		{
-			final String packageName = importname.substring(0,importname.length()-2);
-			externalNameSpace.importPackage(packageName);
-		}
-		else
-		{
-			externalNameSpace.importClass(importname);
-		}
-	}
-
 	public Class<?> findTypeExternally(final String typename)
 	{
-		//System.out.println("findtype: >"+typename+"<");
-
-		buildStageForImports=false;
-
 		try
 		{
-			return externalNameSpace.getClass(Generics.remove(typename));
+			return interimClassLoader.loadClass(typename);
 		}
-		catch(final UtilEvalError e)
+		catch (final ClassNotFoundException ignored)
 		{
-			throw new RuntimeException(typename, e);
+			return null;
 		}
 	}
 

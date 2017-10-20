@@ -72,7 +72,7 @@ final class Main
 			InstrumentContext.enter();
 
 			final Charset charset = params.charset;
-			final JavaRepository repository = new JavaRepository(interimClassLoader);
+			final JavaRepository repository = new JavaRepository();
 
 			this.verbose = params.verbose;
 			instrumented = 0;

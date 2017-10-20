@@ -20,7 +20,6 @@ package com.exedio.cope.instrument;
 
 import com.sun.source.tree.CompilationUnitTree;
 import com.sun.source.tree.ExpressionTree;
-import com.sun.source.tree.ImportTree;
 import com.sun.source.util.DocTrees;
 import com.sun.source.util.TreePath;
 import java.util.HashMap;
@@ -67,13 +66,6 @@ final class InstrumentorProcessor extends JavacProcessor
 			if ( javaFile==null )
 			{
 				files.put(compilationUnit, javaFile=new JavaFile(javaRepository, interimClassLoader, compilationUnit.getSourceFile(), getPackageName(compilationUnit)));
-				for (final ImportTree aImport: compilationUnit.getImports())
-				{
-					if (!aImport.isStatic())
-					{
-						javaFile.addImport(aImport.getQualifiedIdentifier().toString());
-					}
-				}
 			}
 			final TreeApiContext treeApiContext=new TreeApiContext(processingEnv, javaFile, compilationUnit);
 			final CompilationUnitVisitor visitor=new CompilationUnitVisitor(treeApiContext);

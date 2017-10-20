@@ -65,8 +65,6 @@ abstract class CopeType<F extends CopeFeature>
 		return kind.isItem;
 	}
 
-	abstract Evaluatable getField(final String name);
-
 	/** return null if the type has no persistent supertype */
 	abstract CopeType<?> getSuperclass();
 

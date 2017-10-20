@@ -95,13 +95,6 @@ final class LocalCopeType extends CopeType<LocalCopeFeature>
 		return javaClass.isInterface();
 	}
 
-	/** @return null if the type has no field with that name */
-	@Override
-	JavaField getField(final String name)
-	{
-		return javaClass.getField(name);
-	}
-
 	void endBuildStage()
 	{
 		assert !javaClass.file.repository.isBuildStage();
