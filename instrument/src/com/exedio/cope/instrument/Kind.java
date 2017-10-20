@@ -37,7 +37,6 @@ final class Kind
 	final String featurePrefix;
 	final String featurePostfix;
 	final String featureThis;
-	final Class<?> dummy;
 	final boolean isItem; // TODO remove dependency on this field
 
 	private Kind(final WrapType anno)
@@ -51,14 +50,7 @@ final class Kind
 		featurePostfix = anno.featurePostfix();
 		featureThis = anno.featureThis();
 
-		this.dummy = TypeMirrorHelper.get( ()->anno.dummy(), false );
-
-		final Class<?> topClass = dummy.getSuperclass();
-		final Class<?> annoTop = TypeMirrorHelper.get( ()->anno.top(), false );
-		if(topClass.getDeclaredAnnotation(WrapType.class)==null)
-			throw new RuntimeException("" + topClass);
-		if (!annoTop.equals(topClass))
-			throw new RuntimeException();
+		final Class<?> topClass = TypeMirrorHelper.get(anno::top, false);
 		top = topClass.getName();
 		topSimple = topClass.getSimpleName();
 
