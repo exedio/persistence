@@ -483,6 +483,7 @@ public final class Model implements Serializable
 	public void purgeSchema(final JobContext ctx)
 	{
 		requireNonNull(ctx, "ctx");
+		transactions.assertNoCurrentTransaction();
 
 		connect().purgeSchema(ctx);
 	}

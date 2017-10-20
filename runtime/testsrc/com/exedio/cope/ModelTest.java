@@ -24,6 +24,7 @@ import static org.junit.Assert.fail;
 
 import com.exedio.cope.instrument.WrapperIgnore;
 import com.exedio.cope.misc.DirectRevisionsFactory;
+import com.exedio.cope.util.AssertionErrorJobContext;
 import com.exedio.dsmf.Constraint;
 import com.exedio.dsmf.Schema;
 import java.util.EnumSet;
@@ -180,6 +181,16 @@ public class ModelTest extends TestWithEnvironment
 		try
 		{
 			model.tearDownSchemaConstraints(EnumSet.allOf(Constraint.Type.class));
+			fail();
+		}
+		catch (final IllegalStateException e)
+		{
+			assertEquals(expectedText, e.getMessage());
+		}
+
+		try
+		{
+			model.purgeSchema(new AssertionErrorJobContext());
 			fail();
 		}
 		catch (final IllegalStateException e)
