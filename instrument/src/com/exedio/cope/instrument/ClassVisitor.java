@@ -19,6 +19,7 @@
 package com.exedio.cope.instrument;
 
 import com.sun.source.doctree.DocCommentTree;
+import com.sun.source.tree.ArrayTypeTree;
 import com.sun.source.tree.BlockTree;
 import com.sun.source.tree.ClassTree;
 import com.sun.source.tree.Tree;
@@ -30,6 +31,7 @@ import java.util.EnumSet;
 import java.util.Set;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.Modifier;
+import javax.lang.model.element.TypeElement;
 
 class ClassVisitor extends GeneratedAwareScanner
 {
@@ -89,6 +91,24 @@ class ClassVisitor extends GeneratedAwareScanner
 		return includeLeadingWhitespaceLine(positionOfClosingBrace-1, false);
 	}
 
+	private String getFullyQualifiedName(final Tree typeTree)
+	{
+		switch (typeTree.getKind())
+		{
+			case PRIMITIVE_TYPE:
+				return typeTree.toString();
+			case ARRAY_TYPE:
+				return getFullyQualifiedName(((ArrayTypeTree)typeTree).getType())+"[]";
+			case IDENTIFIER:
+			case PARAMETERIZED_TYPE:
+			case MEMBER_SELECT:
+				//noinspection RedundantCast: make sure this is a TypeElement
+				return ((TypeElement)context.getElementForTree(typeTree)).toString();
+			default:
+				throw new RuntimeException("unhandled kind "+typeTree.getKind()+" for '"+typeTree+"'");
+		}
+	}
+
 	@Override
 	public Void visitVariable(final VariableTree node, final Void p)
 	{
@@ -96,10 +116,12 @@ class ClassVisitor extends GeneratedAwareScanner
 		if ( !hasGeneratedAnnotation() && node.getModifiers().getFlags().containsAll(REQUIRED_MODIFIERS_FOR_COPE_FEATURE) )
 		{
 			//noinspection ResultOfObjectAllocationIgnored OK: constructor registers at parent
+			final String variableType = getFullyQualifiedName(node.getType());
 			new JavaField(
 				javaClass,
 				TreeApiHelper.toModifiersInt(node.getModifiers()),
 				removeSpacesAfterCommas(node.getType().toString()),
+				variableType,
 				node.getName().toString(),
 				context.getSourcePosition(node),
 				node.getInitializer()==null?null:node.getInitializer().toString(),

@@ -67,7 +67,7 @@ final class LocalCopeType extends CopeType<LocalCopeFeature>
 			if(javaField.wrapperIgnore!=null)
 				continue;
 
-			final Class<?> typeClass = javaField.file.findTypeExternally(javaField.typeRaw);
+			final Class<?> typeClass = javaField.file.findTypeExternally(javaField.typeFullyQualified);
 			if(typeClass==null)
 				continue;
 

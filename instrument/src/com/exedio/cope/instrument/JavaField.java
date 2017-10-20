@@ -50,6 +50,7 @@ final class JavaField
 	final String type;
 
 	final String typeRaw;
+	final String typeFullyQualified;
 
 	private final String initializer;
 	final WrapperInitial wrapperInitial;
@@ -65,6 +66,7 @@ final class JavaField
 		final JavaClass parent,
 		final int modifiers,
 		final String type,
+		final String typeFullyQualified,
 		final String name,
 		final String sourceLocation,
 		final String initializer,
@@ -78,6 +80,7 @@ final class JavaField
 			throw new RuntimeException();
 		this.type=type;
 		this.typeRaw=Generics.strip(type);
+		this.typeFullyQualified=typeFullyQualified;
 		checkWrapUnique(wrappers);
 		this.initializer=initializer;
 		this.wrapperInitial=wrapperInitial;
