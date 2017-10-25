@@ -365,19 +365,21 @@ public final class Schedule extends Pattern
 		assert count<=total : "" + count + '/' + total;
 
 		deferOrStopIfRequested(ctx);
-		final RunContext runCtx = new RunContext(ctx);
-		try(TransactionTry tx = startTransaction(item, "run " + count + '/' + total))
 		{
 			final Date fromDate  = Date.from(from);
 			final Date untilDate = Date.from(until);
-			final long elapsedStart = nanoTime();
-			item.run(this, fromDate, untilDate, runCtx); // TODO switch to Instant
-			final long elapsedEnd = nanoTime();
-			runs.newItem(
-					item, interval, fromDate, untilDate, Date.from(now), // TODO switch to InstantField
-					runCtx.getProgress(),
-					toMillies(elapsedEnd, elapsedStart));
-			tx.commit();
+			final RunContext runCtx = new RunContext(ctx);
+			try(TransactionTry tx = startTransaction(item, "run " + count + '/' + total))
+			{
+				final long elapsedStart = nanoTime();
+				item.run(this, fromDate, untilDate, runCtx); // TODO switch to Instant
+				final long elapsedEnd = nanoTime();
+				runs.newItem(
+						item, interval, fromDate, untilDate, Date.from(now), // TODO switch to InstantField
+						runCtx.getProgress(),
+						toMillies(elapsedEnd, elapsedStart));
+				tx.commit();
+			}
 		}
 		ctx.incrementProgress();
 	}
