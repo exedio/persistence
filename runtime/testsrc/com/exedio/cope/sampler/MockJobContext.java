@@ -30,7 +30,7 @@ import java.util.List;
 final class MockJobContext extends AssertionErrorJobContext
 {
 	private final Model model;
-	private int requestedToStopCount;
+	private int stopIfRequestedCount;
 	private final ArrayList<Integer> progress = new ArrayList<>();
 
 	MockJobContext(final Model model)
@@ -43,7 +43,7 @@ final class MockJobContext extends AssertionErrorJobContext
 	public void stopIfRequested()
 	{
 		assertFalse(model.hasCurrentTransaction());
-		requestedToStopCount++;
+		stopIfRequestedCount++;
 	}
 
 	@Override
@@ -52,9 +52,9 @@ final class MockJobContext extends AssertionErrorJobContext
 		return false;
 	}
 
-	int getRequestedToStopCount()
+	int getStopIfRequestedCount()
 	{
-		return requestedToStopCount;
+		return stopIfRequestedCount;
 	}
 
 	@Override
