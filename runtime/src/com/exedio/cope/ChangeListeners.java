@@ -140,7 +140,7 @@ final class ChangeListeners
 
 		for(final ChangeListener listener : listeners)
 		{
-			if(interrupter.requestedToStop())
+			if(interrupter.interrupts())
 				return;
 
 			try

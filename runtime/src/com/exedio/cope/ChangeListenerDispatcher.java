@@ -77,7 +77,7 @@ final class ChangeListenerDispatcher implements Runnable
 		}
 	}
 
-	boolean requestedToStop()
+	boolean interrupts()
 	{
 		return !threadRun;
 	}
