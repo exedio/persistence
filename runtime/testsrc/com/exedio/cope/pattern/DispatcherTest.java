@@ -37,8 +37,8 @@ import com.exedio.cope.pattern.Dispatcher.Result;
 import com.exedio.cope.pattern.Dispatcher.Run;
 import com.exedio.cope.tojunit.ClockRule;
 import com.exedio.cope.tojunit.LogRule;
-import com.exedio.cope.tojunit.RelativeMockClockStrategy;
 import com.exedio.cope.util.AssertionErrorJobContext;
+import com.exedio.cope.util.Clock;
 import com.exedio.cope.util.EmptyJobContext;
 import com.exedio.cope.util.JobContext;
 import com.exedio.cope.util.JobStop;
@@ -62,7 +62,6 @@ public class DispatcherTest extends TestWithEnvironment
 		super(DispatcherModelTest.MODEL);
 	}
 
-	private final RelativeMockClockStrategy clock = new RelativeMockClockStrategy();
 	private final ClockRule clockRule = new ClockRule();
 
 	private final LogRule log = new LogRule(Dispatcher.class.getName() + '.' + toTarget.getID());
@@ -80,7 +79,6 @@ public class DispatcherTest extends TestWithEnvironment
 		item2 = new DispatcherItem("item2", true);
 		item3 = new DispatcherItem("item3", false);
 		item4 = new DispatcherItem("item4", true);
-		clockRule.override(clock);
 		log.setLevelDebug();
 		DispatcherItem.historyClear();
 	}
@@ -98,11 +96,11 @@ public class DispatcherTest extends TestWithEnvironment
 		final Date[] d1 = dispatch(4);
 		historyAssert(
 				"ctx stop", "probe",
-				"ctx stop", "dispatch " + item1, "ctx progress",
-				"ctx stop", "dispatch " + item2, "ctx progress",
+				"ctx stop", "clock", "dispatch " + item1, "ctx progress",
+				"ctx stop", "clock", "dispatch " + item2, "ctx progress",
 				"ctx stop", "probe",
-				"ctx stop", "dispatch " + item3, "ctx progress",
-				"ctx stop", "dispatch " + item4, "ctx progress");
+				"ctx stop", "clock", "dispatch " + item3, "ctx progress",
+				"ctx stop", "clock", "dispatch " + item4, "ctx progress");
 		log.assertDebug("dispatching " + item1);
 		log.assertInfo("success for " + item1 + ", " + "took " + item1.lastElapsed() + "ms");
 		log.assertDebug("dispatching " + item2);
@@ -120,9 +118,9 @@ public class DispatcherTest extends TestWithEnvironment
 		final Date[] d2 = dispatch(2);
 		historyAssert(
 				"ctx stop", "probe",
-				"ctx stop", "dispatch " + item2, "ctx progress",
+				"ctx stop", "clock", "dispatch " + item2, "ctx progress",
 				"ctx stop", "probe",
-				"ctx stop", "dispatch " + item4, "ctx progress");
+				"ctx stop", "clock", "dispatch " + item4, "ctx progress");
 		log.assertDebug("dispatching " + item2);
 		log.assertWarn("transient failure for " + item2 + ", " + "took " + item2.lastElapsed() + "ms");
 		log.assertDebug("dispatching " + item4);
@@ -137,8 +135,8 @@ public class DispatcherTest extends TestWithEnvironment
 		final Date[] d3 = dispatch(2);
 		historyAssert(
 				"ctx stop", "probe",
-				"ctx stop", "dispatch " + item2, "ctx progress",
-				"ctx stop", "dispatch " + item4, "notifyFinalFailure " + item4, "ctx progress");
+				"ctx stop", "clock", "dispatch " + item2, "ctx progress",
+				"ctx stop", "clock", "dispatch " + item4, "notifyFinalFailure " + item4, "ctx progress");
 		log.assertDebug("dispatching " + item2);
 		log.assertInfo("success for " + item2 + ", " + "took " + item2.lastElapsed() + "ms");
 		log.assertDebug("dispatching " + item4);
@@ -161,7 +159,7 @@ public class DispatcherTest extends TestWithEnvironment
 		final Date[] d4 = dispatch(1);
 		historyAssert(
 				"ctx stop", "probe",
-				"ctx stop", "dispatch " + item1, "ctx progress");
+				"ctx stop", "clock", "dispatch " + item1, "ctx progress");
 		log.assertDebug("dispatching " + item1);
 		log.assertInfo("success for " + item1 + ", " + "took " + item1.lastElapsed() + "ms");
 		log.assertEmpty();
@@ -242,7 +240,7 @@ public class DispatcherTest extends TestWithEnvironment
 		final Date[] d = dispatch(1, 1 + 1); // 1 probe
 		historyAssert(
 				"ctx stop", "probe",
-				"ctx stop", "dispatch " + item1, "ctx progress",
+				"ctx stop", "clock", "dispatch " + item1, "ctx progress",
 				"ctx STOP");
 		assertSuccess(item1, 1, d[0], success(d[0]));
 		assertPending(item2);
@@ -255,8 +253,8 @@ public class DispatcherTest extends TestWithEnvironment
 		final Date[] d = dispatch(2, 2 + 1); // 1 probe
 		historyAssert(
 				"ctx stop", "probe",
-				"ctx stop", "dispatch " + item1, "ctx progress",
-				"ctx stop", "dispatch " + item2, "ctx progress",
+				"ctx stop", "clock", "dispatch " + item1, "ctx progress",
+				"ctx stop", "clock", "dispatch " + item2, "ctx progress",
 				"ctx STOP");
 		assertSuccess(item1, 1, d[0], success(d[0]));
 		assertPending(item2, failure(d[1]));
@@ -269,10 +267,10 @@ public class DispatcherTest extends TestWithEnvironment
 		final Date[] d = dispatch(3, 3 + 2); // 2 probes
 		historyAssert(
 				"ctx stop", "probe",
-				"ctx stop", "dispatch " + item1, "ctx progress",
-				"ctx stop", "dispatch " + item2, "ctx progress",
+				"ctx stop", "clock", "dispatch " + item1, "ctx progress",
+				"ctx stop", "clock", "dispatch " + item2, "ctx progress",
 				"ctx stop", "probe",
-				"ctx stop", "dispatch " + item3, "ctx progress",
+				"ctx stop", "clock", "dispatch " + item3, "ctx progress",
 				"ctx STOP");
 		assertSuccess(item1, 1, d[0], success(d[0]));
 		assertPending(item2, failure(d[1]));
@@ -285,11 +283,11 @@ public class DispatcherTest extends TestWithEnvironment
 		final Date[] d = dispatch(4, 4 + 2, 4 + 2); // 2 probes
 		historyAssert(
 				"ctx stop", "probe",
-				"ctx stop", "dispatch " + item1, "ctx progress",
-				"ctx stop", "dispatch " + item2, "ctx progress",
+				"ctx stop", "clock", "dispatch " + item1, "ctx progress",
+				"ctx stop", "clock", "dispatch " + item2, "ctx progress",
 				"ctx stop", "probe",
-				"ctx stop", "dispatch " + item3, "ctx progress",
-				"ctx stop", "dispatch " + item4, "ctx progress");
+				"ctx stop", "clock", "dispatch " + item3, "ctx progress",
+				"ctx stop", "clock", "dispatch " + item4, "ctx progress");
 		assertSuccess(item1, 1, d[0], success(d[0]));
 		assertPending(item2, failure(d[1]));
 		assertSuccess(item3, 1, d[2], success(d[2]));
@@ -301,11 +299,11 @@ public class DispatcherTest extends TestWithEnvironment
 		final Date[] d = dispatch(4, 5 + 2, 4 + 2); // 2 probes
 		historyAssert(
 				"ctx stop", "probe",
-				"ctx stop", "dispatch " + item1, "ctx progress",
-				"ctx stop", "dispatch " + item2, "ctx progress",
+				"ctx stop", "clock", "dispatch " + item1, "ctx progress",
+				"ctx stop", "clock", "dispatch " + item2, "ctx progress",
 				"ctx stop", "probe",
-				"ctx stop", "dispatch " + item3, "ctx progress",
-				"ctx stop", "dispatch " + item4, "ctx progress");
+				"ctx stop", "clock", "dispatch " + item3, "ctx progress",
+				"ctx stop", "clock", "dispatch " + item4, "ctx progress");
 		assertSuccess(item1, 1, d[0], success(d[0]));
 		assertPending(item2, failure(d[1]));
 		assertSuccess(item3, 1, d[2], success(d[2]));
@@ -315,20 +313,19 @@ public class DispatcherTest extends TestWithEnvironment
 	private Date[] dispatch(final int expectedProgress)
 	{
 		final JC ci = new JC(Integer.MAX_VALUE);
-		final Date[] result = dispatch(expectedProgress, ci);
+		final Date[] result = dispatch(ci);
 		assertEquals(expectedProgress, ci.progress);
 		return result;
 	}
 
-	private Date[] dispatch(final int expectedDates, final JC ctx)
+	private Date[] dispatch(final JC ctx)
 	{
 		model.commit();
-		final Date[] dates = new Date[expectedDates];
-		for(int i = 0; i<expectedDates; i++)
-			dates[i] = new Date(clock.addOffset(10));
 		log.assertEmpty();
 		final Runnable probe = () -> historyAdd("probe");
 		historyAssert();
+		final CS clock = new CS();
+		clockRule.override(clock);
 		try
 		{
 			DispatcherItem.dispatchToTarget(config, probe, ctx);
@@ -337,9 +334,9 @@ public class DispatcherTest extends TestWithEnvironment
 		{
 			assertEquals("JC", js.getMessage());
 		}
-		clock.assertEmpty();
+		clockRule.clear();
 		model.startTransaction("DispatcherTest");
-		return dates;
+		return clock.close();
 	}
 
 	private static class JC extends AssertionErrorJobContext
@@ -375,6 +372,28 @@ public class DispatcherTest extends TestWithEnvironment
 		}
 	}
 
+	private static class CS implements Clock.Strategy
+	{
+		private long date = 1000l*60*60*24*1000;
+		private ArrayList<Date> history = new ArrayList<>();
+
+		@Override
+		public long currentTimeMillis()
+		{
+			date += 1000l*60;
+			history.add(new Date(date));
+			historyAdd("clock");
+			return date;
+		}
+
+		Date[] close()
+		{
+			final Date[] result = history.toArray(new Date[0]);
+			history = null;
+			return result;
+		}
+	}
+
 	private Date[] dispatch(
 			final int expectedProgress,
 			final int requestsBeforeStop)
@@ -391,7 +410,7 @@ public class DispatcherTest extends TestWithEnvironment
 			final int expectedRequestsToStop)
 	{
 		final JC ci = new JC(requestsBeforeStop);
-		final Date[] result = dispatch(expectedProgress, ci);
+		final Date[] result = dispatch(ci);
 		assertEquals(expectedRequestsToStop, ci.requestsToStop);
 		assertEquals(expectedProgress, ci.progress);
 		return result;
