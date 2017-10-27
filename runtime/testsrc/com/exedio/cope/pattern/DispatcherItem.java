@@ -27,6 +27,7 @@ import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -76,6 +77,7 @@ public final class DispatcherItem extends Item implements Dispatchable
 		Assert.assertTrue(MODEL.hasCurrentTransaction());
 		Assert.assertEquals(toTarget.getID() + " dispatch " + getCopeID(), MODEL.currentTransaction().getName());
 		setDispatchCountCommitted(getDispatchCountCommitted()+1);
+		historyAdd("dispatch " + getCopeID());
 		final Log log = logs.get(this);
 		final long start = nanoTime();
 		log.dispatchCount++;
@@ -85,12 +87,32 @@ public final class DispatcherItem extends Item implements Dispatchable
 			throw new IOException(getBody());
 	}
 
+	private static final ArrayList<String> actualHistory = new ArrayList<>();
+
+	static void historyAdd(final String message)
+	{
+		actualHistory.add(message);
+	}
+
+	static void historyAssert(final String... expected)
+	{
+		//noinspection MisorderedAssertEqualsArguments
+		Assert.assertEquals(Arrays.asList(expected), actualHistory);
+		actualHistory.clear();
+	}
+
+	static void historyClear()
+	{
+		actualHistory.clear();
+	}
+
 	@Override
 	public void notifyFinalFailure(final Dispatcher dispatcher, final Exception cause)
 	{
 		Assert.assertSame(toTarget, dispatcher);
 		Assert.assertTrue(!MODEL.hasCurrentTransaction());
 		Assert.assertEquals(IOException.class, cause.getClass());
+		historyAdd("notifyFinalFailure " + getCopeID());
 		logs.get(this).notifyFinalFailureCount++;
 	}
 

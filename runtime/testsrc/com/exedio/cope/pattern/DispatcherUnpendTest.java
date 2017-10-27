@@ -18,13 +18,16 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.pattern.DispatcherItem.historyAdd;
+import static com.exedio.cope.pattern.DispatcherItem.historyAssert;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.junit.AbsoluteMockClockStrategy;
 import com.exedio.cope.pattern.DispatcherItem.Log;
 import com.exedio.cope.tojunit.ClockRule;
-import com.exedio.cope.util.EmptyJobContext;
+import com.exedio.cope.util.AssertionErrorJobContext;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
@@ -51,6 +54,7 @@ public class DispatcherUnpendTest extends TestWithEnvironment
 	{
 		item = new DispatcherItem("item1", false);
 		clockRule.override(clock);
+		DispatcherItem.historyClear();
 	}
 
 
@@ -58,8 +62,13 @@ public class DispatcherUnpendTest extends TestWithEnvironment
 	{
 		assertIt(true,  null, null);
 		dispatch(10000);
+		historyAssert(
+				"ctx stop", "probe",
+				"ctx stop", "dispatch " + item, "ctx progress");
 		assertIt(false, true, 10000);
+
 		dispatch();
+		historyAssert();
 		assertIt(false, true, 10000);
 	}
 
@@ -67,13 +76,27 @@ public class DispatcherUnpendTest extends TestWithEnvironment
 	{
 		DispatcherItem.logs.put(item, new Log(true));
 		assertIt(true,  null,  null);
+
 		dispatch(20000);
+		historyAssert(
+				"ctx stop", "probe",
+				"ctx stop", "dispatch " + item, "ctx progress");
 		assertIt(true,  null,  null);
+
 		dispatch(40000);
+		historyAssert(
+				"ctx stop", "probe",
+				"ctx stop", "dispatch " + item, "ctx progress");
 		assertIt(true,  null,  null);
+
 		dispatch(60000);
+		historyAssert(
+				"ctx stop", "probe",
+				"ctx stop", "dispatch " + item, "notifyFinalFailure " + item, "ctx progress");
 		assertIt(false, false, 60000);
+
 		dispatch();
+		historyAssert();
 		assertIt(false, false, 60000);
 	}
 
@@ -81,7 +104,8 @@ public class DispatcherUnpendTest extends TestWithEnvironment
 	private void dispatch()
 	{
 		model.commit();
-		DispatcherItem.dispatchToTarget(config, new EmptyJobContext());
+		historyAssert();
+		DispatcherItem.dispatchToTarget(config, PROBE, CTX);
 		clock.assertEmpty();
 		model.startTransaction("DispatcherTest");
 	}
@@ -90,10 +114,26 @@ public class DispatcherUnpendTest extends TestWithEnvironment
 	{
 		model.commit();
 		clock.add(date);
-		DispatcherItem.dispatchToTarget(config, new EmptyJobContext());
+		historyAssert();
+		DispatcherItem.dispatchToTarget(config, PROBE, CTX);
 		clock.assertEmpty();
 		model.startTransaction("DispatcherTest");
 	}
+
+	private static final Runnable PROBE = () -> historyAdd("probe");
+
+	private static final AssertionErrorJobContext CTX = new AssertionErrorJobContext()
+	{
+		@Override public void stopIfRequested()
+		{
+			assertFalse(DispatcherModelTest.MODEL.hasCurrentTransaction());
+			historyAdd("ctx stop");
+		}
+		@Override public void incrementProgress()
+		{
+			historyAdd("ctx progress");
+		}
+	};
 
 	private void assertIt(
 			final boolean pending,

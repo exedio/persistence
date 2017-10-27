@@ -18,13 +18,16 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.pattern.DispatcherItem.historyAdd;
+import static com.exedio.cope.pattern.DispatcherItem.historyAssert;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.fail;
 
 import com.exedio.cope.TestWithEnvironment;
-import com.exedio.cope.util.EmptyJobContext;
+import com.exedio.cope.util.AssertionErrorJobContext;
 import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 public class DispatcherProbeTest extends TestWithEnvironment
@@ -36,6 +39,12 @@ public class DispatcherProbeTest extends TestWithEnvironment
 		super(DispatcherModelTest.MODEL);
 	}
 
+	@Before
+	public void setUp()
+	{
+		DispatcherItem.historyClear();
+	}
+
 	@Test public void testOkRequired()
 	{
 		final CountProbe probe = new CountProbe(1);
@@ -44,6 +53,10 @@ public class DispatcherProbeTest extends TestWithEnvironment
 		final DispatcherItem item2 = new DispatcherItem("item2", false);
 
 		dispatch(probe);
+		historyAssert(
+				"ctx stop", "probe",
+				"ctx stop", "dispatch " + item1, "ctx progress",
+				"ctx stop", "dispatch " + item2, "ctx progress");
 		assertEquals(false, item1.isToTargetPending());
 		assertEquals(false, item2.isToTargetPending());
 	}
@@ -56,6 +69,9 @@ public class DispatcherProbeTest extends TestWithEnvironment
 		final DispatcherItem item2 = new DispatcherItem("item2", false);
 
 		dispatch(probe);
+		historyAssert(
+				"ctx stop", "dispatch " + item1, "ctx progress",
+				"ctx stop", "dispatch " + item2, "ctx progress");
 		assertEquals(false, item1.isToTargetPending());
 		assertEquals(false, item2.isToTargetPending());
 	}
@@ -68,6 +84,8 @@ public class DispatcherProbeTest extends TestWithEnvironment
 		final DispatcherItem item2 = new DispatcherItem("item2", false);
 
 		dispatchFail(probe);
+		historyAssert(
+				"ctx stop", "PROBE");
 		assertEquals(true, item1.isToTargetPending());
 		assertEquals(true, item2.isToTargetPending());
 	}
@@ -80,6 +98,9 @@ public class DispatcherProbeTest extends TestWithEnvironment
 		final DispatcherItem item2 = new DispatcherItem("item2", false);
 
 		dispatchFail(probe);
+		historyAssert(
+				"ctx stop", "dispatch " + item1, "ctx progress",
+				"ctx stop", "PROBE");
 		assertEquals(true, item1.isToTargetPending());
 		assertEquals(true, item2.isToTargetPending());
 	}
@@ -92,6 +113,9 @@ public class DispatcherProbeTest extends TestWithEnvironment
 		final DispatcherItem item2 = new DispatcherItem("item2", true);
 
 		dispatch(probe);
+		historyAssert(
+				"ctx stop", "dispatch " + item1, "ctx progress",
+				"ctx stop", "dispatch " + item2, "ctx progress");
 		assertEquals(false, item1.isToTargetPending());
 		assertEquals(true,  item2.isToTargetPending());
 	}
@@ -105,18 +129,31 @@ public class DispatcherProbeTest extends TestWithEnvironment
 		final DispatcherItem item3 = new DispatcherItem("item3", false);
 
 		dispatchFail(probe);
+		historyAssert(
+				"ctx stop", "dispatch " + item1, "ctx progress",
+				"ctx stop", "dispatch " + item2, "ctx progress",
+				"ctx stop", "PROBE");
 		assertEquals(false, item1.isToTargetPending());
 		assertEquals(true,  item2.isToTargetPending());
 		assertEquals(true,  item3.isToTargetPending());
 
 		probe.setLimit(1); // is not enough
 		dispatchFail(probe);
+		historyAssert(
+				"ctx stop", "probe",
+				"ctx stop", "dispatch " + item2, "ctx progress",
+				"ctx stop", "PROBE");
 		assertEquals(false, item1.isToTargetPending());
 		assertEquals(true,  item2.isToTargetPending());
 		assertEquals(true,  item3.isToTargetPending());
 
 		probe.setLimit(2);
 		dispatch(probe);
+		historyAssert(
+				"ctx stop", "probe",
+				"ctx stop", "dispatch " + item2, "ctx progress",
+				"ctx stop", "probe",
+				"ctx stop", "dispatch " + item3, "ctx progress");
 		assertEquals(false, item1.isToTargetPending());
 		assertEquals(true,  item2.isToTargetPending());
 		assertEquals(false, item3.isToTargetPending());
@@ -126,16 +163,18 @@ public class DispatcherProbeTest extends TestWithEnvironment
 	private void dispatch(final Runnable probe)
 	{
 		model.commit();
-		DispatcherItem.dispatchToTarget(config, probe, new EmptyJobContext());
+		historyAssert();
+		DispatcherItem.dispatchToTarget(config, probe, CTX);
 		model.startTransaction("DispatcherTest");
 	}
 
 	private void dispatchFail(final Runnable probe)
 	{
 		model.commit();
+		historyAssert();
 		try
 		{
-			DispatcherItem.dispatchToTarget(config, probe, new EmptyJobContext());
+			DispatcherItem.dispatchToTarget(config, probe, CTX);
 			fail();
 		}
 		catch(final IllegalStateException e)
@@ -168,13 +207,34 @@ public class DispatcherProbeTest extends TestWithEnvironment
 			assertFalse(DispatcherModelTest.MODEL.hasCurrentTransaction());
 
 			if(limit<=0)
+			{
+				historyAdd("PROBE");
 				throw new IllegalStateException("CountProbe");
+			}
+			else
+			{
+				historyAdd("probe");
+			}
 			limit--;
 		}
 	}
 
+	private static final AssertionErrorJobContext CTX = new AssertionErrorJobContext()
+	{
+		@Override public void stopIfRequested()
+		{
+			assertFalse(DispatcherModelTest.MODEL.hasCurrentTransaction());
+			historyAdd("ctx stop");
+		}
+		@Override public void incrementProgress()
+		{
+			historyAdd("ctx progress");
+		}
+	};
+
 	@After public void afterEach()
 	{
 		DispatcherItem.toTarget.reset();
+		DispatcherItem.historyClear();
 	}
 }
