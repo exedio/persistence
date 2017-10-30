@@ -18,7 +18,6 @@
 
 package com.exedio.cope.misc;
 
-import static com.exedio.cope.misc.ServletUtil.getPropertyContext;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
@@ -27,7 +26,6 @@ import org.junit.Test;
 
 public class ServletUtilContextTest
 {
-	@Deprecated
 	@Test public void testIt()
 	{
 		{
@@ -110,5 +108,15 @@ public class ServletUtilContextTest
 		{
 			return contextPath;
 		}
+	}
+
+
+	/**
+	 * Replaces static import and avoids deprecation warning in IDEA 2017.2.3.
+	 */
+	@SuppressWarnings("deprecation")
+	private static <E> Source getPropertyContext(final javax.servlet.ServletContext context)
+	{
+		return ServletUtil.getPropertyContext(context);
 	}
 }
