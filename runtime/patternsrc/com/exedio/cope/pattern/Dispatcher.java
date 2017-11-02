@@ -339,7 +339,10 @@ public final class Dispatcher extends Pattern
 		final Logger logger = LoggerFactory.getLogger(Dispatcher.class.getName() + '.' + id);
 
 		for(final P item : Iterables.once(
-				iterateTypeTransactionally(type, pending.equal(true), config.getSearchSize())))
+				iterateTypeTransactionally(
+						type,
+						pending.equal(true).and(config.narrowCondition),
+						config.getSearchSize())))
 		{
 			deferOrStopIfRequested(ctx);
 
@@ -551,9 +554,11 @@ public final class Dispatcher extends Pattern
 	{
 		static final int DEFAULT_FAILURE_LIMIT = 5;
 		static final int DEFAULT_SEARCH_SIZE = 1000;
+		private static final Condition DEFAULT_NARROW_CONDITION = Condition.TRUE;
 
 		private final int failureLimit;
 		private final int searchSize;
+		private final Condition narrowCondition;
 
 		public Config()
 		{
@@ -562,8 +567,18 @@ public final class Dispatcher extends Pattern
 
 		public Config(final int failureLimit, final int searchSize)
 		{
+			this(failureLimit, searchSize, DEFAULT_NARROW_CONDITION);
+		}
+
+		private Config(
+				final int failureLimit,
+				final int searchSize,
+				final Condition narrowCondition)
+		{
 			this.failureLimit = requireGreaterZero(failureLimit, "failureLimit");
 			this.searchSize = requireGreaterZero(searchSize, "searchSize");
+			this.narrowCondition = narrowCondition;
+			assert narrowCondition!=null;
 		}
 
 		public int getFailureLimit()
@@ -574,6 +589,23 @@ public final class Dispatcher extends Pattern
 		public int getSearchSize()
 		{
 			return searchSize;
+		}
+
+		public Config narrow(final Condition condition)
+		{
+			requireNonNull(condition, "condition");
+			return new Config(failureLimit, searchSize,
+					narrowCondition.and(condition));
+		}
+
+		public Config resetNarrow()
+		{
+			return new Config(failureLimit, searchSize, DEFAULT_NARROW_CONDITION);
+		}
+
+		public Condition getNarrowCondition()
+		{
+			return narrowCondition;
 		}
 	}
 
