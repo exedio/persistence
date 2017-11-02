@@ -330,13 +330,14 @@ public class SchemaPurgeTest extends TestWithEnvironment
 		@Override
 		public boolean supportsMessage()
 		{
+			events.append("MESS");
 			return true;
 		}
 
 		@Override
 		public void setMessage(final String message)
 		{
-			events.append("MESSAGE " +  message);
+			events.append("AGE " +  message);
 		}
 
 		@Override
