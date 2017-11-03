@@ -104,7 +104,8 @@ public final class QueryIterators
 		{
 			final E result = iterator.next();
 			if(result==null)
-				throw new NullPointerException("does not support null in result");
+				throw new NullPointerException(
+						"does not support null in result" + query); // TODO test
 
 			if(!iterator.hasNext())
 			{
