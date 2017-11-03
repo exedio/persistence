@@ -224,6 +224,12 @@ public class CompositeConditionUtilTest
 		assertSame(TRUE,  TRUE.or(FALSE));
 		assertSame(TRUE,  FALSE.or(TRUE));
 
+		// TODO throw NullPointerException
+		assertSame(FALSE, FALSE.and(null));
+		assertSame(TRUE, TRUE.or(null));
+		assertSame(null, TRUE.and(null));
+		assertSame(null, FALSE.or(null));
+
 		// Function.in
 		assertEquals(newCompositeCondition(OR, c1, c2), field.in(1.0, 2.0));
 		assertEquals(newCompositeCondition(OR, c1, c2), field.in(asList(1.0, 2.0)));
