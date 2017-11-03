@@ -593,7 +593,6 @@ public final class Dispatcher extends Pattern
 
 		public Config narrow(final Condition condition)
 		{
-			requireNonNull(condition, "condition");
 			return new Config(failureLimit, searchSize,
 					narrowCondition.and(condition));
 		}

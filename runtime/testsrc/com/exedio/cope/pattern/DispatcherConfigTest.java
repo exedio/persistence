@@ -157,7 +157,7 @@ public class DispatcherConfigTest
 		}
 		catch(final NullPointerException e)
 		{
-			assertEquals("condition", e.getMessage());
+			assertEquals("other", e.getMessage());
 		}
 	}
 }

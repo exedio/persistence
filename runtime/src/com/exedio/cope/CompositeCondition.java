@@ -248,6 +248,7 @@ public final class CompositeCondition extends Condition
 			final Literal literal,
 			final Condition other)
 	{
+		requireNonNull(other, "other");
 		return operator.absorber==literal ? literal : other;
 	}
 
