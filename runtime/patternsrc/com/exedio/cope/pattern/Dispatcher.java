@@ -344,16 +344,15 @@ public final class Dispatcher extends Pattern
 						pending.equal(true).and(config.narrowCondition),
 						config.getSearchSize())))
 		{
-			deferOrStopIfRequested(ctx);
-
 			if(probeRequired)
 			{
+				deferOrStopIfRequested(ctx);
 				probe.run();
 				probeRequired = false;
-				deferOrStopIfRequested(ctx);
 			}
 
 			final String itemID = item.getCopeID();
+			deferOrStopIfRequested(ctx);
 			try(TransactionTry tx = type.getModel().startTransactionTry(id + " dispatch " + itemID))
 			{
 				if(!isPending(item))
