@@ -346,12 +346,16 @@ public final class Dispatcher extends Pattern
 		{
 			if(probeRequired)
 			{
+				if(ctx.supportsMessage())
+					ctx.setMessage("probe");
 				deferOrStopIfRequested(ctx);
 				probe.run();
 				probeRequired = false;
 			}
 
 			final String itemID = item.getCopeID();
+			if(ctx.supportsMessage())
+				ctx.setMessage(itemID);
 			deferOrStopIfRequested(ctx);
 			try(TransactionTry tx = type.getModel().startTransactionTry(id + " dispatch " + itemID))
 			{

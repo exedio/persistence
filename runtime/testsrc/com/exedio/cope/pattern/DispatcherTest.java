@@ -368,6 +368,11 @@ public class DispatcherTest extends TestWithEnvironment
 			return Duration.ZERO;
 		}
 
+		@Override public boolean supportsMessage()
+		{
+			return false;
+		}
+
 		@Override
 		public void incrementProgress()
 		{

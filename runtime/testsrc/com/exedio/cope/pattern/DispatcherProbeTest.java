@@ -233,6 +233,11 @@ public class DispatcherProbeTest extends TestWithEnvironment
 			historyAdd("ctx defer");
 			return Duration.ZERO;
 		}
+		@Override public boolean supportsMessage()
+		{
+			assertFalse(DispatcherModelTest.MODEL.hasCurrentTransaction());
+			return false;
+		}
 		@Override public void incrementProgress()
 		{
 			historyAdd("ctx progress");

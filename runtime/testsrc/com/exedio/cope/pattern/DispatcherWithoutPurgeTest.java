@@ -302,6 +302,12 @@ public class DispatcherWithoutPurgeTest extends TestWithEnvironment
 			return Duration.ZERO;
 		}
 
+		@Override public boolean supportsMessage()
+		{
+			assertFalse(DispatcherModelTest.MODEL.hasCurrentTransaction());
+			return false;
+		}
+
 		@Override
 		public void incrementProgress()
 		{
