@@ -23,9 +23,11 @@ import bsh.NameSpace;
 import bsh.UtilEvalError;
 import java.lang.reflect.Array;
 import java.util.Objects;
+import java.util.function.Supplier;
 import javax.lang.model.element.ElementKind;
 import javax.lang.model.type.ArrayType;
 import javax.lang.model.type.DeclaredType;
+import javax.lang.model.type.MirroredTypeException;
 import javax.lang.model.type.TypeKind;
 import javax.lang.model.type.TypeMirror;
 
@@ -67,6 +69,30 @@ final class TypeMirrorHelper
 			throw new RuntimeException(e);
 		}
 	}
+
+	@SuppressWarnings("unchecked")
+	static <T> Class<T> get(final Supplier<Class<T>> classSupplier, final boolean enforceMirroredTypeException)
+	{
+		try
+		{
+			final Class<T> clazz = classSupplier.get();
+			if (enforceMirroredTypeException)
+				throw new RuntimeException("expected MirroredTypeException, got "+clazz);
+			return clazz;
+		}
+		catch (final MirroredTypeException e)
+		{
+			try
+			{
+				return (Class<T>) Class.forName( e.getTypeMirror().toString() );
+			}
+			catch (final ClassNotFoundException cnf)
+			{
+				throw new RuntimeException(cnf);
+			}
+		}
+	}
+
 
 	private TypeMirrorHelper()
 	{
