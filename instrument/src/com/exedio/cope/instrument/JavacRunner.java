@@ -36,6 +36,15 @@ import javax.tools.StandardJavaFileManager;
 
 final class JavacRunner
 {
+	static JavaCompiler getJavaCompiler()
+	{
+		// "JavacTool.create()" is not part of the "exported" API
+		// (not annotated with https://docs.oracle.com/javase/8/docs/jdk/api/javac/tree/jdk/Exported.html).
+		// The more stable alternative would be calling "ToolProvider.getSystemJavaCompiler()", but that causes
+		// class path issues when run as an ant task.
+		return JavacTool.create();
+	}
+
 	private final JavacProcessor processor;
 
 	JavacRunner(final JavacProcessor processor)
@@ -45,11 +54,7 @@ final class JavacRunner
 
 	void run(final Params params) throws IOException, HumanReadableException
 	{
-		// "JavacTool.create()" is not part of the "exported" API
-		// (not annotated with https://docs.oracle.com/javase/8/docs/jdk/api/javac/tree/jdk/Exported.html).
-		// The more stable alternative would be calling "ToolProvider.getSystemJavaCompiler()", but that causes
-		// class path issues with when run as an ant task.
-		final JavaCompiler compiler=JavacTool.create();
+		final JavaCompiler compiler=getJavaCompiler();
 		try (final StandardJavaFileManager fileManager=compiler.getStandardFileManager(null, null, null))
 		{
 			final List<File> sortedSourceFiles=params.getJavaSourceFilesExcludingIgnored();
