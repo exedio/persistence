@@ -18,24 +18,29 @@
 
 package com.exedio.cope.instrument.testmodel;
 
-import com.exedio.cope.Item;
+import static com.exedio.cope.instrument.testmodel.DoInstrument.NotInterim.x;
+import static com.exedio.cope.instrument.testmodel.DontInstrument.wouldNotCompileInInterimCode;
+
 import com.exedio.cope.instrument.WrapInterim;
-import com.exedio.cope.instrument.testfeature.SimpleSettable;
-import javax.annotation.Generated;
+
 
 /**
- * This class tests that the 'ignore' element at the 'instrument' ant task works.
+ * This class has a static import for {@link DontInstrument}.
  */
-class DontInstrument extends Item
+@WrapInterim
+class DoInstrument
 {
-	private static final long serialVersionUID=1L;
+	static final long useStaticImport = wouldNotCompileInInterimCode;
 
-	static final SimpleSettable makeInstrumentorFail = null;
+	static final int notInterim = x();
 
-	@WrapInterim
-	static final long wouldNotCompileInInterimCode = serialVersionUID;
+	enum NotInterim
+	{
+		a, b;
 
-	/** this file is not visited by the {@link InstrumentorProcessor}, so this does not produce a warning */
-	@Generated("com.exedio.cope.instrument")
-	int generatedVariable;
+		static final int x()
+		{
+			return 42;
+		}
+	}
 }
