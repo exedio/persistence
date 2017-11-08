@@ -229,9 +229,10 @@ public class InstanceOfTest extends TestWithEnvironment
 
 	@Test public void testNoSubtypes()
 	{
+		final Condition c = TYPE_B2.getThis().notInstanceOf(TYPE_B2);
 		try
 		{
-			TYPE_B2.search(TYPE_B2.getThis().notInstanceOf(TYPE_B2));
+			TYPE_B2.search(c);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -243,9 +244,10 @@ public class InstanceOfTest extends TestWithEnvironment
 	@SuppressWarnings("unchecked") // OK: test bad API usage
 	@Test public void testNotAssignableFromBrotherThis()
 	{
+		final Condition c = TYPE_B2.getThis().notInstanceOf((Type)TYPE_B1);
 		try
 		{
-			TYPE_B2.search(TYPE_B2.getThis().notInstanceOf((Type)TYPE_B1));
+			TYPE_B2.search(c);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -257,9 +259,10 @@ public class InstanceOfTest extends TestWithEnvironment
 	@SuppressWarnings("unchecked") // OK: test bad API usage
 	@Test public void testNotAssignableFromBrotherRef()
 	{
+		final Condition c = refb2.notInstanceOf((Type)TYPE_B1);
 		try
 		{
-			TYPE_REF.search(refb2.notInstanceOf((Type)TYPE_B1));
+			TYPE_REF.search(c);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -271,9 +274,10 @@ public class InstanceOfTest extends TestWithEnvironment
 	@SuppressWarnings("unchecked") // OK: test bad API usage
 	@Test public void testNotAssignableFromSuperThis()
 	{
+		final Condition c = TYPE_B1.getThis().notInstanceOf((Type)TYPE_A);
 		try
 		{
-			TYPE_B1.search(TYPE_B1.getThis().notInstanceOf((Type)TYPE_A));
+			TYPE_B1.search(c);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
