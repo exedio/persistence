@@ -37,8 +37,9 @@ import com.exedio.cope.tojunit.MainRule;
 import com.exedio.cope.tojunit.MyTemporaryFolder;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.nio.file.NoSuchFileException;
+import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -165,6 +166,17 @@ public class MediaTypeTest
 		assertFails(
 				() -> forMagics(new byte[0]),
 				IllegalArgumentException.class, "empty");
+		// path
+		assertFails(
+				() -> forMagics((Path)null),
+				NullPointerException.class, "path");
+		assertFails(
+				() -> forMagics(files.newPath(new byte[]{})),
+				IllegalArgumentException.class, "empty");
+		final Path path = files.newPathNotExists();
+		assertThrows(
+				NoSuchFileException.class,
+				() -> forMagics(path));
 		// file
 		assertFails(
 				() -> forMagics((File)null),
@@ -175,7 +187,7 @@ public class MediaTypeTest
 
 		final File file = files.newFileNotExists();
 		assertThrows(
-				FileNotFoundException.class,
+				NoSuchFileException.class,
 				() -> forMagics(file));
 	}
 
@@ -189,6 +201,7 @@ public class MediaTypeTest
 		final byte[] magicBytes = decodeLower(magic);
 		assertEqualsUnmodifiable(set(types), forMagics(magicBytes));
 		assertEqualsUnmodifiable(set(types), forMagics(files.newFile(magicBytes)));
+		assertEqualsUnmodifiable(set(types), forMagics(files.newPath(magicBytes)));
 		final MediaType first = types.length>0 ? types[0] : null;
 		assertSame(forMagic(magicBytes), first);
 		assertSame(forMagic(files.newFile(magicBytes)), first);

@@ -24,8 +24,10 @@ import com.exedio.cope.Condition;
 import com.exedio.cope.Cope;
 import com.exedio.cope.util.Hex;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -362,15 +364,21 @@ public final class MediaType
 
 	public static Set<MediaType> forMagics(final File file) throws IOException
 	{
-		return forMagics(readMagic(file));
+		requireNonNull(file, "file");
+		return forMagics(file.toPath());
 	}
 
-	private static byte[] readMagic(final File file) throws IOException
+	public static Set<MediaType> forMagics(final Path path) throws IOException
 	{
-		requireNonNull(file, "file");
+		return forMagics(readMagic(path));
+	}
 
-		final byte[] bytes = new byte[(int)Math.min(file.length(), MAGIC_MAX_LENGTH)];
-		try(FileInputStream stream = new FileInputStream(file))
+	private static byte[] readMagic(final Path path) throws IOException
+	{
+		requireNonNull(path, "path");
+
+		final byte[] bytes = new byte[(int)Math.min(Files.size(path), MAGIC_MAX_LENGTH)];
+		try(InputStream stream = Files.newInputStream(path))
 		{
 			final int bytesRead = stream.read(bytes);
 			if(bytesRead!=bytes.length)
