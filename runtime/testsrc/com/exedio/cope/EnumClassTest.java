@@ -56,6 +56,18 @@ public class EnumClassTest
 	}
 
 
+	@Test public void testEmpty()
+	{
+		final EnumField<Empty> f = EnumField.create(Empty.class);
+		assertSame(Empty.class, f.getValueClass());
+	}
+
+	enum Empty
+	{
+		// is empty
+	}
+
+
 	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad api usage
 	@Test public void testUnchecked()
 	{
