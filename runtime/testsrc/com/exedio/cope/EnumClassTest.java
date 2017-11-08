@@ -58,8 +58,15 @@ public class EnumClassTest
 
 	@Test public void testEmpty()
 	{
-		final EnumField<Empty> f = EnumField.create(Empty.class);
-		assertSame(Empty.class, f.getValueClass());
+		try
+		{
+			EnumField.create(Empty.class);
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals("must have at least one enum value: " + Empty.class, e.getMessage());
+		}
 	}
 
 	enum Empty

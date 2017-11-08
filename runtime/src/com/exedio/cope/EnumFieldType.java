@@ -43,8 +43,8 @@ final class EnumFieldType<E extends Enum<E>> implements SelectType<E>
 		final TIntObjectHashMap<E> numbersToValues = new TIntObjectHashMap<>();
 
 		final E[] enumConstants = valueClass.getEnumConstants();
-		if(enumConstants==null)
-			throw new RuntimeException("must have at least one enum value: " + valueClass);
+		if(enumConstants.length==0)
+			throw new IllegalArgumentException("must have at least one enum value: " + valueClass);
 		final int[] ordinalsToNumbers = new int[enumConstants.length];
 
 		int schemaValue = 0;

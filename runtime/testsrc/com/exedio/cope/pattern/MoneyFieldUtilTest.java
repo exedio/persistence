@@ -59,7 +59,7 @@ public class MoneyFieldUtilTest
 
 	enum CurrencyEnum implements Money.Currency
 	{
-		// empty enum
+		A, B
 	}
 
 	@Test public void testSharedCurrencyOptional()
