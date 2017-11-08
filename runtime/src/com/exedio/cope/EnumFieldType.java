@@ -35,18 +35,14 @@ final class EnumFieldType<E extends Enum<E>> implements SelectType<E>
 	private final int[] ordinalsToNumbers;
 	final Marshaller<E> marshaller;
 
-	private EnumFieldType(final Class<E> valueClass)
+	private EnumFieldType(final Class<E> valueClass, final E[] enumConstants)
 	{
 		this.valueClass = valueClass;
 		assert valueClass.isEnum() : valueClass;
+		assert enumConstants.length>0 : valueClass;
 
 		final TIntObjectHashMap<E> numbersToValues = new TIntObjectHashMap<>();
-
-		final E[] enumConstants = valueClass.getEnumConstants();
-		if(enumConstants.length==0)
-			throw new IllegalArgumentException("must have at least one enum value: " + valueClass);
 		final int[] ordinalsToNumbers = new int[enumConstants.length];
-
 		int schemaValue = 0;
 		boolean first = true;
 		for(final E e : enumConstants)
@@ -167,6 +163,9 @@ final class EnumFieldType<E extends Enum<E>> implements SelectType<E>
 	{
 		if(!valueClass.isEnum())
 			throw new IllegalArgumentException("not an enum: " + valueClass);
+		final E[] enumConstants = valueClass.getEnumConstants();
+		if(enumConstants.length==0)
+			throw new IllegalArgumentException("must have at least one enum value: " + valueClass);
 
 		synchronized(types)
 		{
@@ -174,7 +173,7 @@ final class EnumFieldType<E extends Enum<E>> implements SelectType<E>
 			EnumFieldType<E> result = (EnumFieldType)types.get(valueClass);
 			if(result==null)
 			{
-				result = new EnumFieldType<>(valueClass);
+				result = new EnumFieldType<>(valueClass, enumConstants);
 				types.put(valueClass, result);
 			}
 			return result;
