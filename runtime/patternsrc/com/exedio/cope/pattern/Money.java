@@ -29,9 +29,10 @@ public final class Money<C extends Currency>
 {
 	/**
 	 * Empty interface.
-	 * Make sure, that {@link Object#equals(Object)} and {@link Object#hashCode()} are
+	 * Make sure, that {@link Object#equals(Object) equals} and {@link Object#hashCode() hashCode} are
 	 * implemented correctly.
-	 * For good exception messages, {@link Object#toString()} should be implemented as well.
+	 * {@link Object#toString() toString} should be implemented as well,
+	 * otherwise {@link Money#toString() Money.toString} will not be useful.
 	 */
 	@SuppressWarnings("MarkerInterface") // OK: maybe we get methods in the future
 	public interface Currency
