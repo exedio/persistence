@@ -227,8 +227,7 @@ public class InstanceOfTest extends TestWithEnvironment
 		}
 	}
 
-	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad API usage
-	@Test public void testUnchecked()
+	@Test public void testNoSubtypes()
 	{
 		try
 		{
@@ -239,6 +238,11 @@ public class InstanceOfTest extends TestWithEnvironment
 		{
 			assertEquals("type InstanceOfB2Item has no subtypes, therefore a TypeInCondition makes no sense", e.getMessage());
 		}
+	}
+
+	@SuppressWarnings("unchecked") // OK: test bad API usage
+	@Test public void testNotAssignableFromBrotherThis()
+	{
 		try
 		{
 			TYPE_B2.search(TYPE_B2.getThis().notInstanceOf((Type)TYPE_B1));
@@ -248,6 +252,11 @@ public class InstanceOfTest extends TestWithEnvironment
 		{
 			assertEquals("type InstanceOfB2Item is not assignable from type InstanceOfB1Item", e.getMessage());
 		}
+	}
+
+	@SuppressWarnings("unchecked") // OK: test bad API usage
+	@Test public void testNotAssignableFromBrotherRef()
+	{
 		try
 		{
 			TYPE_REF.search(refb2.notInstanceOf((Type)TYPE_B1));
@@ -257,6 +266,11 @@ public class InstanceOfTest extends TestWithEnvironment
 		{
 			assertEquals("type InstanceOfB2Item is not assignable from type InstanceOfB1Item", e.getMessage());
 		}
+	}
+
+	@SuppressWarnings("unchecked") // OK: test bad API usage
+	@Test public void testNotAssignableFromSuperThis()
+	{
 		try
 		{
 			TYPE_B1.search(TYPE_B1.getThis().notInstanceOf((Type)TYPE_A));
