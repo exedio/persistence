@@ -241,9 +241,9 @@ public class InstanceOfTest extends TestWithEnvironment
 		}
 	}
 
-	@SuppressWarnings("unchecked") // OK: test bad API usage
 	@Test public void testNotAssignableFromBrotherThis()
 	{
+		@SuppressWarnings("unchecked") // OK: test bad API usage
 		final Condition c = TYPE_B2.getThis().notInstanceOf((Type)TYPE_B1);
 		try
 		{
@@ -256,9 +256,9 @@ public class InstanceOfTest extends TestWithEnvironment
 		}
 	}
 
-	@SuppressWarnings("unchecked") // OK: test bad API usage
 	@Test public void testNotAssignableFromBrotherRef()
 	{
+		@SuppressWarnings("unchecked") // OK: test bad API usage
 		final Condition c = refb2.notInstanceOf((Type)TYPE_B1);
 		try
 		{
@@ -271,9 +271,9 @@ public class InstanceOfTest extends TestWithEnvironment
 		}
 	}
 
-	@SuppressWarnings("unchecked") // OK: test bad API usage
 	@Test public void testNotAssignableFromSuperThis()
 	{
+		@SuppressWarnings("unchecked") // OK: test bad API usage
 		final Condition c = TYPE_B1.getThis().notInstanceOf((Type)TYPE_A);
 		try
 		{
