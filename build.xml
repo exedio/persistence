@@ -313,13 +313,7 @@
 		</ljar>
 	</target>
 
-	<target name="runtime.junit.jar" depends="runtime.junit.compile">
-		<ljar name="cope junit" jarfile="build/exedio-cope-junit.jar" classpath="exedio-cope.jar">
-			<fileset dir="build/classes/runtime/junitsrc" />
-		</ljar>
-	</target>
-
-	<target name="runtime.jar" depends="runtime.core.jar, runtime.junit.jar" />
+	<target name="runtime.jar" depends="runtime.core.jar" />
 
 	<target name="runtime.jar.src">
 		<mkdir dir="build" />
@@ -1000,7 +994,6 @@
 		<copy todir="${basedir}/build/success">
 			<fileset file="${basedir}/build/exedio-cope.jar" />
 			<fileset file="${basedir}/build/exedio-cope-src.zip" />
-			<fileset file="${basedir}/build/exedio-cope-junit.jar" />
 			<fileset file="${basedir}/build/exedio-cope-instrument-annotations.jar" />
 			<fileset file="${basedir}/build/exedio-cope-instrument.jar" />
 			<fileset file="${basedir}/build/exedio-cope-instrument-completion.jar" />
