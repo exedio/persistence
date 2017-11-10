@@ -3,7 +3,6 @@
 	<classpathentry kind="src" path="dsmf/src"/>
 	<classpathentry excluding="log4j.properties" kind="src" path="dsmf/testsrc"/>
 	<classpathentry kind="src" path="runtime/src"/>
-	<classpathentry kind="src" path="runtime/junitsrc"/>
 	<classpathentry kind="src" path="runtime/patternsrc"/>
 	<classpathentry kind="src" path="runtime/servletsrc"/>
 	<classpathentry kind="src" path="runtime/servlettestsrc"/>

@@ -283,25 +283,11 @@
 		</compile>
 	</target>
 
-	<target name="runtime.junit.compile" depends="runtime.core.compile, instrument.anno.compile">
-		<compile srcdir="runtime/junitsrc">
-			<classpath>
-				<pathelement location="build/classes/runtime/src" />
-				<pathelement location="build/classes/instrument/annosrc" />
-				<pathelement location="lib/exedio-cope-util.jar" />
-				<pathelement location="lib/junit.jar" />
-				<pathelement location="lib/slf4j-api.jar" />
-				<pathelement location="lib/findbugs-annotations.jar" />
-			</classpath>
-		</compile>
-	</target>
-
 	<target name="runtime.compile"
 				depends="runtime.core.compile,
 							runtime.dialect.compile,
 							runtime.pattern.compile,
-							runtime.servlet.compile,
-							runtime.junit.compile" />
+							runtime.servlet.compile" />
 
 	<target name="runtime.core.jar" depends="dsmf.compile, runtime.core.compile, runtime.dialect.compile, runtime.pattern.compile, runtime.servlet.compile, runtime.test.protocol">
 		<ljar name="cope" jarfile="build/exedio-cope.jar" classpath="trove4j.jar exedio-cope-util.jar">
@@ -322,7 +308,6 @@
 			<zipfileset dir="${basedir}/runtime/src"       ><include name="**/*.java"/></zipfileset>
 			<zipfileset dir="${basedir}/runtime/patternsrc"><include name="**/*.java"/></zipfileset>
 			<zipfileset dir="${basedir}/runtime/servletsrc"><include name="**/*.java"/></zipfileset>
-			<zipfileset dir="${basedir}/runtime/junitsrc"  ><include name="**/*.java"/></zipfileset>
 			<zipfileset dir="${basedir}/instrument/annosrc"><include name="**/*.java"/></zipfileset>
 		</zip>
 	</target>
@@ -348,7 +333,6 @@
 		<pathelement location="build/classes/runtime/dialects" />
 		<pathelement location="build/classes/runtime/patternsrc" />
 		<pathelement location="build/classes/runtime/servletsrc" />
-		<pathelement location="build/classes/runtime/junitsrc" />
 		<pathelement location="build/classes/runtime/testfeaturesrc" />
 		<pathelement location="build/classes/instrument/annosrc" />
 		<pathelement location="lib/trove4j.jar" />
@@ -365,7 +349,7 @@
 			name="runtime.test.instrument"
 			depends="instrument.taskdef,
 					dsmf.compile, runtime.core.compile, runtime.dialect.compile, runtime.pattern.compile,
-					runtime.servlet.compile, runtime.junit.compile, runtime.test.feature.compile,
+					runtime.servlet.compile, runtime.test.feature.compile,
 					instrument.anno.compile"
 			unless="skip.instrument">
 		<instrument
@@ -385,13 +369,13 @@
 	</target>
 
 	<target name="runtime.test.compile"
-			depends="runtime.test.instrument, dsmf.compile, runtime.core.compile, runtime.pattern.compile, runtime.servlet.compile, runtime.junit.compile, runtime.test.feature.compile, instrument.anno.compile">
+			depends="runtime.test.instrument, dsmf.compile, runtime.core.compile, runtime.pattern.compile, runtime.servlet.compile, runtime.test.feature.compile, instrument.anno.compile">
 		<compile srcdir="runtime/testsrc">
 			<classpath refid="runtime.test.path"/>
 		</compile>
 	</target>
 
-	<target name="runtime.test.readyToRun" depends="dsmf.compile, runtime.core.compile, runtime.dialect.compile, runtime.pattern.compile, runtime.servlet.compile, runtime.junit.compile, runtime.test.feature.compile, runtime.test.compile" />
+	<target name="runtime.test.readyToRun" depends="dsmf.compile, runtime.core.compile, runtime.dialect.compile, runtime.pattern.compile, runtime.servlet.compile, runtime.test.feature.compile, runtime.test.compile" />
 
 	<target name="runtime.test.withoutEnv" depends="runtime.test.readyToRun">
 		<ljunit test="${runtime.test.withoutEnv}">
@@ -401,7 +385,6 @@
 				<pathelement location="build/classes/runtime/dialects" />
 				<pathelement location="build/classes/runtime/patternsrc" />
 				<pathelement location="build/classes/runtime/servletsrc" />
-				<pathelement location="build/classes/runtime/junitsrc" />
 				<pathelement location="build/classes/runtime/testfeaturesrc" />
 				<pathelement location="build/classes/runtime/testsrc" />
 				<pathelement location="build/classes/instrument/annosrc" />
@@ -432,7 +415,6 @@
 						<pathelement location="build/classes/runtime/dialects" />
 						<pathelement location="build/classes/runtime/patternsrc" />
 						<pathelement location="build/classes/runtime/servletsrc" />
-						<pathelement location="build/classes/runtime/junitsrc" />
 						<pathelement location="build/classes/runtime/testfeaturesrc" />
 						<pathelement location="build/classes/runtime/testsrc" />
 						<pathelement location="build/classes/instrument/annosrc" />
@@ -456,7 +438,7 @@
 
 	<target name="runtime.test" depends="runtime.test.withoutEnv, runtime.test.withEnv" />
 
-	<target name="runtime.test.protocol" depends="dsmf.compile, runtime.core.compile, runtime.dialect.compile, runtime.junit.compile, runtime.test.compile">
+	<target name="runtime.test.protocol" depends="dsmf.compile, runtime.core.compile, runtime.dialect.compile, runtime.test.compile">
 		<delete file="build/classes/runtime/src/com/exedio/cope/testprotocol.properties" />
 		<foreachEnvironment skipSwitch="runtime.test.protocol">
 			<body>
@@ -466,7 +448,6 @@
 						<pathelement location="build/classes/runtime/src" />
 						<pathelement location="build/classes/runtime/dialects" />
 						<pathelement location="build/classes/runtime/servletsrc" />
-						<pathelement location="build/classes/runtime/junitsrc" />
 						<pathelement location="build/classes/runtime/testsrc" />
 						<pathelement location="lib/trove4j.jar" />
 						<pathelement location="lib/@{env.driver}" />
@@ -496,7 +477,6 @@
 					<fileset dir="build/classes/runtime/dialects" />
 					<fileset dir="build/classes/runtime/patternsrc" />
 					<fileset dir="build/classes/runtime/servletsrc" />
-					<fileset dir="build/classes/runtime/junitsrc" />
 					<fileset dir="build/classes/runtime/testfeaturesrc" />
 					<fileset dir="build/classes/runtime/testsrc" />
 				</copy>
@@ -782,13 +762,12 @@
 		</instrument>
 	</target>
 
-	<target name="instrument.test.libcompile" depends="instrument.test.libinstrument, runtime.core.compile, runtime.pattern.compile, runtime.servlet.compile, runtime.junit.compile, instrument.compile">
+	<target name="instrument.test.libcompile" depends="instrument.test.libinstrument, runtime.core.compile, runtime.pattern.compile, runtime.servlet.compile, instrument.compile">
 		<compile srcdir="instrument/testlibsrc">
 			<classpath>
 				<pathelement location="build/classes/runtime/src" />
 				<pathelement location="build/classes/runtime/patternsrc" />
 				<pathelement location="build/classes/runtime/servletsrc" />
-				<pathelement location="build/classes/runtime/junitsrc" />
 				<pathelement location="build/classes/instrument/annosrc" />
 				<pathelement location="build/classes/instrument/src" />
 				<pathelement location="build/classes/instrument/testfeaturesrc" />
@@ -805,7 +784,6 @@
 				<pathelement location="build/classes/runtime/src" />
 				<pathelement location="build/classes/runtime/patternsrc" />
 				<pathelement location="build/classes/runtime/servletsrc" />
-				<pathelement location="build/classes/runtime/junitsrc" />
 				<pathelement location="build/classes/instrument/annosrc" />
 				<pathelement location="build/classes/instrument/src" />
 				<pathelement location="build/classes/instrument/testfeaturesrc" />
@@ -827,7 +805,6 @@
 				<pathelement location="build/classes/runtime/src" />
 				<pathelement location="build/classes/runtime/patternsrc" />
 				<pathelement location="build/classes/runtime/servletsrc" />
-				<pathelement location="build/classes/runtime/junitsrc" />
 				<pathelement location="build/classes/instrument/src" />
 				<pathelement location="build/classes/instrument/annosrc" />
 				<pathelement location="build/classes/instrument/testfeaturesrc" />
@@ -898,7 +875,6 @@
 				<fileset dir="runtime/src" includes="**/*.java" />
 				<fileset dir="runtime/patternsrc" includes="**/*.java" />
 				<fileset dir="runtime/servletsrc" includes="**/*.java" />
-				<fileset dir="runtime/junitsrc" includes="**/*.java" />
 				<fileset dir="instrument/annosrc" includes="**/*.java" />
 				<fileset dir="instrument/src" includes="**/*.java" />
 				<fileset dir="instrument/antsrc" includes="**/*.java" />
@@ -966,7 +942,6 @@
 			<class location="${basedir}/build/classes/runtime/dialects" />
 			<class location="${basedir}/build/classes/runtime/patternsrc" />
 			<class location="${basedir}/build/classes/runtime/servletsrc" />
-			<class location="${basedir}/build/classes/runtime/junitsrc" />
 			<class location="${basedir}/build/classes/instrument/annosrc" />
 			<class location="${basedir}/build/classes/instrument/src" />
 			<class location="${basedir}/build/classes/instrument/antsrc" />
