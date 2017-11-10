@@ -362,26 +362,6 @@ public abstract class CopeAssert extends TestCase
 		}
 	}
 
-	public static final <R> R waitForKey(final R o)
-	{
-		System.out.println("WAITING FOR KEY");
-		try
-		{
-			//noinspection ResultOfMethodCallIgnored
-			System.in.read();
-		}
-		catch(final IOException e)
-		{
-			throw new RuntimeException(e);
-		}
-		return o;
-	}
-
-	public static final void waitForKey()
-	{
-		waitForKey(null);
-	}
-
 	/**
 	 * This method will not return until the result of System.currentTimeMillis() has increased
 	 * by the given amount of milli seconds.

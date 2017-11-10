@@ -21,7 +21,6 @@ package com.exedio.cope.junit;
 import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.ConnectProperties;
-import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 
 /**
@@ -93,29 +92,5 @@ public abstract class CopeModelTest extends CopeAssert
 		model.removeAllChangeListeners();
 		ModelConnector.dropAndDisconnect();
 		super.tearDown();
-	}
-
-	// ------------------- deprecated stuff -------------------
-
-	/**
-	 * @deprecated
-	 * Not needed anymore, since {@link #tearDown()}
-	 * deletes the contents of the database.
-	 * Does not do anything.
-	 */
-	@SuppressWarnings({"static-method", "MethodMayBeStatic"})
-	@Deprecated
-	protected final <I extends Item> I deleteOnTearDown(final I item)
-	{
-		return item;
-	}
-
-	/**
-	 * @deprecated Is not used anymore, has been replaced by log4j
-	 */
-	@Deprecated
-	protected boolean doesWriteTiming()
-	{
-		return false;
 	}
 }

@@ -172,16 +172,6 @@ public final class Assert
 		return CopeAssert.deserialize(bytes);
 	}
 
-	public static <R> R waitForKey(final R o)
-	{
-		return CopeAssert.waitForKey(o);
-	}
-
-	public static void waitForKey()
-	{
-		CopeAssert.waitForKey();
-	}
-
 	public static void sleepLongerThan(final long millis) throws InterruptedException
 	{
 		CopeAssert.sleepLongerThan(millis);
