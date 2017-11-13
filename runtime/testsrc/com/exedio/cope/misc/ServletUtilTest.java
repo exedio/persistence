@@ -31,6 +31,7 @@ import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
 import com.exedio.cope.instrument.WrapperIgnore;
 import com.exedio.cope.tojunit.ConnectTokenRule;
+import com.exedio.cope.tojunit.MainRule;
 import com.exedio.cope.tojunit.TestSources;
 import java.util.Enumeration;
 import javax.servlet.Filter;
@@ -42,10 +43,9 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.RuleChain;
 
+@MainRule.Tag
 public class ServletUtilTest
 {
 	public static final Model modelOk = new Model(ModelOk.TYPE);
@@ -56,8 +56,6 @@ public class ServletUtilTest
 	private final ConnectTokenRule ctrOk = new ConnectTokenRule(modelOk);
 	private final ConnectTokenRule ctrOk2 = new ConnectTokenRule(modelOk2);
 	private final ConnectTokenRule ctrContext = new ConnectTokenRule(modelContext);
-
-	@Rule public final RuleChain ruleChain = RuleChain.outerRule(ctrOk).around(ctrOk2).around(ctrContext);
 
 	@Before public final void setUp()
 	{

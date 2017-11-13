@@ -22,7 +22,7 @@ import static com.exedio.cope.misc.TimeUtil.toMillies;
 
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
-import org.junit.Ignore;
+import org.junit.jupiter.api.Disabled;
 import org.junit.Test;
 
 /**
@@ -36,7 +36,7 @@ import org.junit.Test;
  * AtomicLong.   getAndIncrement() 95 ms
  * AtomicInteger.getAndIncrement() 94 ms
  */
-@Ignore
+@Disabled
 public class ItemCacheStampEvaluator
 {
 	private static final int ITERATIONS = 10000000;

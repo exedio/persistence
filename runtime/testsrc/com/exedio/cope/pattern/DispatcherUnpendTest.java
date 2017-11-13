@@ -27,14 +27,16 @@ import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.junit.AbsoluteMockClockStrategy;
 import com.exedio.cope.pattern.DispatcherItem.Log;
 import com.exedio.cope.tojunit.ClockRule;
+import com.exedio.cope.tojunit.MainRule;
 import com.exedio.cope.util.AssertionErrorJobContext;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.time.Duration;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.RuleChain;
 
+@MainRule.Tag
+@SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
 public class DispatcherUnpendTest extends TestWithEnvironment
 {
 	private static final Dispatcher.Config config = new Dispatcher.Config(3, 100);
@@ -46,8 +48,6 @@ public class DispatcherUnpendTest extends TestWithEnvironment
 
 	private final AbsoluteMockClockStrategy clock = new AbsoluteMockClockStrategy();
 	private final ClockRule clockRule = new ClockRule();
-
-	@Rule public final RuleChain ruleChain = RuleChain.outerRule(clockRule);
 
 	DispatcherItem item;
 

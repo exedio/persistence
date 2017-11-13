@@ -25,13 +25,13 @@ import static org.junit.Assert.assertNotNull;
 
 import com.exedio.cope.misc.DirectRevisionsFactory;
 import com.exedio.cope.tojunit.LogRule;
+import com.exedio.cope.tojunit.MainRule;
 import java.util.Date;
 import java.util.Map;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.RuleChain;
 
+@MainRule.Tag
 public class DeleteSchemaTest extends TestWithEnvironment
 {
 	private static final Model MODEL = Model.builder().
@@ -51,8 +51,6 @@ public class DeleteSchemaTest extends TestWithEnvironment
 	}
 
 	private final LogRule log = new LogRule(Database.class.getName() + ".deleteSchema");
-
-	@Rule public final RuleChain ruleChain = RuleChain.outerRule(log);
 
 	private Date create;
 

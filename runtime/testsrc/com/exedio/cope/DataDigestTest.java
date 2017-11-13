@@ -26,6 +26,7 @@ import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.fail;
 
 import com.exedio.cope.DataField.Value;
+import com.exedio.cope.tojunit.MainRule;
 import com.exedio.cope.tojunit.MyTemporaryFolder;
 import com.exedio.cope.util.Hex;
 import com.exedio.cope.util.MessageDigestUtil;
@@ -34,15 +35,12 @@ import java.io.File;
 import java.io.IOException;
 import java.security.MessageDigest;
 import java.util.Arrays;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.RuleChain;
 
+@MainRule.Tag
 public class DataDigestTest
 {
 	private final MyTemporaryFolder files = new MyTemporaryFolder();
-
-	@Rule public final RuleChain ruleChain = RuleChain.outerRule(files);
 
 	@Test public void testUpdate() throws IOException
 	{

@@ -27,16 +27,17 @@ import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.junit.AbsoluteMockClockStrategy;
 import com.exedio.cope.misc.DeleteJobContext;
 import com.exedio.cope.tojunit.ClockRule;
+import com.exedio.cope.tojunit.MainRule;
 import com.exedio.cope.util.JobContexts;
 import com.exedio.cope.util.Sources;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Properties;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.RuleChain;
 
+@MainRule.Tag
+@SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
 public class DispatcherPurgeTest extends TestWithEnvironment
 {
 	public DispatcherPurgeTest()
@@ -46,8 +47,6 @@ public class DispatcherPurgeTest extends TestWithEnvironment
 
 	private final AbsoluteMockClockStrategy clock = new AbsoluteMockClockStrategy();
 	private final ClockRule clockRule = new ClockRule();
-
-	@Rule public final RuleChain ruleChain = RuleChain.outerRule(clockRule);
 
 	DispatcherItem itemSuccessBefore;
 	DispatcherItem itemSuccessAfter;

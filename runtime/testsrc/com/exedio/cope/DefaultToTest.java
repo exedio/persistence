@@ -51,14 +51,14 @@ import static org.junit.Assert.assertNull;
 
 import com.exedio.cope.junit.AbsoluteMockClockStrategy;
 import com.exedio.cope.tojunit.ClockRule;
+import com.exedio.cope.tojunit.MainRule;
 import com.exedio.cope.util.Day;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Date;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.RuleChain;
 
+@MainRule.Tag
 public class DefaultToTest extends TestWithEnvironment
 {
 	public DefaultToTest()
@@ -68,8 +68,6 @@ public class DefaultToTest extends TestWithEnvironment
 
 	private final AbsoluteMockClockStrategy clock = new AbsoluteMockClockStrategy();
 	private final ClockRule clockRule = new ClockRule();
-
-	@Rule public final RuleChain ruleChain = RuleChain.outerRule(clockRule);
 
 
 	@Before public final void setUp()

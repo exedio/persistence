@@ -22,11 +22,9 @@ import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.Model;
-import org.junit.rules.TestRule;
-import org.junit.runner.Description;
-import org.junit.runners.model.Statement;
+import org.junit.jupiter.api.extension.ExtensionContext;
 
-public abstract class CopeRule implements TestRule
+public abstract class CopeRule extends MainRule
 {
 	private final Model model;
 
@@ -51,38 +49,29 @@ public abstract class CopeRule implements TestRule
 
 
 	@Override
-	public final Statement apply(final Statement base, final Description description)
+	protected final void before(final ExtensionContext context)
 	{
-		return new Statement()
+		ModelConnector.connectAndCreate(model, getConnectProperties());
+		model.deleteSchemaForTest(); // typically faster than checkEmptySchema
+
+		if(doesManageTransactions)
+			model.startTransaction("tx:" + context.getTestClass().get().getName());
+	}
+
+	@Override
+	protected final void after()
+	{
+		// NOTE:
+		// do rollback even if manageTransactions is false
+		// because test could have started a transaction
+		model.rollbackIfNotCommitted();
+
+		if(model.isConnected())
 		{
-			@Override
-			public void evaluate() throws Throwable
-			{
-				ModelConnector.connectAndCreate(model, getConnectProperties());
-				model.deleteSchemaForTest(); // typically faster than checkEmptySchema
-
-				if(doesManageTransactions)
-					model.startTransaction("tx:" + description.getTestClass().getName());
-				try
-				{
-					base.evaluate();
-				}
-				finally
-				{
-					// NOTE:
-					// do rollback even if manageTransactions is false
-					// because test could have started a transaction
-					model.rollbackIfNotCommitted();
-
-					if(model.isConnected())
-					{
-						model.getConnectProperties().mediaFingerprintOffset().reset();
-						model.setDatabaseListener(null);
-					}
-					model.removeAllChangeListeners();
-					ModelConnector.dropAndDisconnect();
-				}
-			}
-		};
+			model.getConnectProperties().mediaFingerprintOffset().reset();
+			model.setDatabaseListener(null);
+		}
+		model.removeAllChangeListeners();
+		ModelConnector.dropAndDisconnect();
 	}
 }

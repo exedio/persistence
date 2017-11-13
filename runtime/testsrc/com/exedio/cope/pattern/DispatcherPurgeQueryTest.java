@@ -26,20 +26,18 @@ import com.exedio.cope.Model;
 import com.exedio.cope.Query;
 import com.exedio.cope.junit.AbsoluteMockClockStrategy;
 import com.exedio.cope.tojunit.ClockRule;
+import com.exedio.cope.tojunit.MainRule;
 import com.exedio.cope.util.Sources;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Properties;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.RuleChain;
 
+@MainRule.Tag
 public class DispatcherPurgeQueryTest
 {
 	private final AbsoluteMockClockStrategy clock = new AbsoluteMockClockStrategy();
 	private final ClockRule clockRule = new ClockRule();
-
-	@Rule public final RuleChain ruleChain = RuleChain.outerRule(clockRule);
 
 
 	@SuppressFBWarnings("DLS_DEAD_LOCAL_STORE")

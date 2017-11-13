@@ -38,13 +38,13 @@ import com.exedio.cope.misc.DeleteJobContext;
 import com.exedio.cope.pattern.PasswordLimiter.ExceededException;
 import com.exedio.cope.pattern.PasswordLimiter.Refusal;
 import com.exedio.cope.tojunit.ClockRule;
+import com.exedio.cope.tojunit.MainRule;
 import java.util.Date;
 import java.util.List;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.RuleChain;
 
+@MainRule.Tag
 public class PasswordLimiterVerboseTest extends TestWithEnvironment
 {
 	public PasswordLimiterVerboseTest()
@@ -54,8 +54,6 @@ public class PasswordLimiterVerboseTest extends TestWithEnvironment
 
 	private final AbsoluteMockClockStrategy clock = new AbsoluteMockClockStrategy();
 	private final ClockRule clockRule = new ClockRule();
-
-	@Rule public final RuleChain ruleChain = RuleChain.outerRule(clockRule);
 
 	PasswordLimiterItem i;
 	PasswordLimiterItem i2;

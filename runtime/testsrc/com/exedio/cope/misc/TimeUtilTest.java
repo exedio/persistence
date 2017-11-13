@@ -22,15 +22,13 @@ import static com.exedio.cope.misc.TimeUtil.toMillies;
 import static org.junit.Assert.assertEquals;
 
 import com.exedio.cope.tojunit.LogRule;
-import org.junit.Rule;
+import com.exedio.cope.tojunit.MainRule;
 import org.junit.Test;
-import org.junit.rules.RuleChain;
 
+@MainRule.Tag
 public class TimeUtilTest
 {
 	private final LogRule log = new LogRule(TimeUtil.class);
-
-	@Rule public final RuleChain ruleChain = RuleChain.outerRule(log);
 
 	@Test public void testIt()
 	{

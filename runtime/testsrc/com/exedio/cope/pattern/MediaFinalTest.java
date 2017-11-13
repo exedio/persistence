@@ -39,15 +39,15 @@ import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.Model;
 import com.exedio.cope.StringField;
 import com.exedio.cope.TestWithEnvironment;
+import com.exedio.cope.tojunit.MainRule;
 import com.exedio.cope.tojunit.MyTemporaryFolder;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Date;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.RuleChain;
 
+@MainRule.Tag
 public class MediaFinalTest extends TestWithEnvironment
 {
 	private static final Model MODEL = new Model(TYPE);
@@ -63,8 +63,6 @@ public class MediaFinalTest extends TestWithEnvironment
 	}
 
 	private final MyTemporaryFolder files = new MyTemporaryFolder();
-
-	@Rule public final RuleChain ruleChain = RuleChain.outerRule(files);
 
 	private final byte[] data19 = {-54,71,-86,122,-8,23,-23,104,-63,23,19,-45,-63,23,71,-23,19,-45,71};
 	private final byte[] data20 = {-54,71,-86,122,-8,23,-23,104,-63,23,19,-45,-63,23,71,-23,19,-45,71,-23};

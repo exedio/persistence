@@ -23,18 +23,16 @@ import static org.junit.Assert.fail;
 
 import com.exedio.cope.Timer.Interval;
 import com.exedio.cope.tojunit.LogRule;
-import org.junit.Rule;
+import com.exedio.cope.tojunit.MainRule;
 import org.junit.Test;
-import org.junit.rules.RuleChain;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+@MainRule.Tag
 public class TimerTest
 {
 	private static final Logger logger = LoggerFactory.getLogger(TimerTest.class);
 	private final LogRule log = new LogRule(TimerTest.class);
-
-	@Rule public final RuleChain ruleChain = RuleChain.outerRule(log);
 
 	@Test public void testNormal()
 	{

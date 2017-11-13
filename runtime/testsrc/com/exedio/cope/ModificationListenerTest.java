@@ -24,12 +24,12 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 import com.exedio.cope.tojunit.LogRule;
+import com.exedio.cope.tojunit.MainRule;
 import com.exedio.cope.util.ModificationListener;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.RuleChain;
 
+@MainRule.Tag
 public class ModificationListenerTest extends TestWithEnvironment
 {
 	public ModificationListenerTest()
@@ -39,8 +39,6 @@ public class ModificationListenerTest extends TestWithEnvironment
 
 	@SuppressWarnings("deprecation")
 	private final LogRule log = new LogRule(ModificationListeners.class);
-
-	@Rule public final RuleChain ruleChain = RuleChain.outerRule(log);
 
 	final ModificationListener l = (modifiedItems, transaction) -> fail();
 

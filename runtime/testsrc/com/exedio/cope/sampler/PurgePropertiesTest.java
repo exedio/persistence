@@ -25,6 +25,7 @@ import static org.junit.Assert.fail;
 
 import com.exedio.cope.junit.AbsoluteMockClockStrategy;
 import com.exedio.cope.tojunit.ClockRule;
+import com.exedio.cope.tojunit.MainRule;
 import com.exedio.cope.util.EmptyJobContext;
 import com.exedio.cope.util.IllegalPropertiesException;
 import com.exedio.cope.util.Properties.Factory;
@@ -38,17 +39,14 @@ import java.util.Collection;
 import java.util.EnumMap;
 import java.util.Locale;
 import java.util.Map;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.RuleChain;
 
+@MainRule.Tag
 @SuppressWarnings("HardcodedLineSeparator")
 public class PurgePropertiesTest extends ConnectedTest
 {
 	private final AbsoluteMockClockStrategy clock = new AbsoluteMockClockStrategy();
 	private final ClockRule clockRule = new ClockRule();
-
-	@Rule public final RuleChain ruleChain = RuleChain.outerRule(clockRule);
 
 	@SuppressFBWarnings("BC_UNCONFIRMED_CAST_OF_RETURN_VALUE")
 	@Test public void testPurge() throws ParseException

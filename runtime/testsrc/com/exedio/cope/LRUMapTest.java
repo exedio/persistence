@@ -26,7 +26,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import gnu.trove.TLongObjectHashMap;
 import java.util.ArrayList;
 import java.util.HashMap;
-import org.junit.Ignore;
+import org.junit.jupiter.api.Disabled;
 import org.junit.Test;
 
 public class LRUMapTest
@@ -97,7 +97,7 @@ public class LRUMapTest
 		actualReplaced.clear();
 	}
 
-	@Ignore
+	@Disabled
 	@Test public void testPerformance()
 	{
 		final VolatileLong counter = new VolatileLong();

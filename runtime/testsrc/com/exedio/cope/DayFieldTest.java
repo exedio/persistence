@@ -30,13 +30,13 @@ import static org.junit.Assert.fail;
 
 import com.exedio.cope.junit.AbsoluteMockClockStrategy;
 import com.exedio.cope.tojunit.ClockRule;
+import com.exedio.cope.tojunit.MainRule;
 import com.exedio.cope.util.Day;
 import java.util.List;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.RuleChain;
 
+@MainRule.Tag
 public class DayFieldTest extends TestWithEnvironment
 {
 	public static final Model MODEL = new Model(TYPE);
@@ -48,8 +48,6 @@ public class DayFieldTest extends TestWithEnvironment
 
 	private final AbsoluteMockClockStrategy clock = new AbsoluteMockClockStrategy();
 	private final ClockRule clockRule = new ClockRule();
-
-	@Rule public final RuleChain ruleChain = RuleChain.outerRule(clockRule);
 
 	DayItem item, item2;
 	static final Day DEFAULT = new Day(2005, 8, 14);

@@ -26,14 +26,14 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import com.exedio.cope.tojunit.ConnectionRule;
+import com.exedio.cope.tojunit.MainRule;
 import com.exedio.cope.tojunit.SI;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.sql.SQLException;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.RuleChain;
 
+@MainRule.Tag
 @SuppressFBWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
 public final class UpdateCounterRecoverTest extends TestWithEnvironment
 {
@@ -43,8 +43,6 @@ public final class UpdateCounterRecoverTest extends TestWithEnvironment
 	}
 
 	private final ConnectionRule connection = new ConnectionRule(model);
-
-	@Rule public final RuleChain ruleChain = RuleChain.outerRule(connection);
 
 	CacheIsolationItem item = null;
 

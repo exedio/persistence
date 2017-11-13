@@ -27,6 +27,7 @@ import static org.junit.Assert.fail;
 import static org.junit.Assume.assumeTrue;
 
 import com.exedio.cope.tojunit.ConnectionRule;
+import com.exedio.cope.tojunit.MainRule;
 import com.exedio.cope.util.AssertionErrorJobContext;
 import com.exedio.cope.util.JobContext;
 import com.exedio.cope.util.JobStop;
@@ -35,10 +36,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.Duration;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.RuleChain;
 
+@MainRule.Tag
 public class SchemaPurgeTest extends TestWithEnvironment
 {
 	private static final Model MODEL = new Model(AnItem.TYPE);
@@ -49,8 +49,6 @@ public class SchemaPurgeTest extends TestWithEnvironment
 	}
 
 	private final ConnectionRule connection = new ConnectionRule(model);
-
-	@Rule public final RuleChain ruleChain = RuleChain.outerRule(connection);
 
 	private boolean sequences;
 	private boolean batch;

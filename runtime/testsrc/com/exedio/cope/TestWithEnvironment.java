@@ -20,16 +20,29 @@ package com.exedio.cope;
 
 import com.exedio.cope.tojunit.CopeRule;
 import com.exedio.cope.tojunit.CopeRuntimeRule;
+import com.exedio.cope.tojunit.MainRule;
 import com.exedio.cope.util.Properties;
 import com.exedio.cope.vault.VaultService;
 import com.exedio.cope.vaultmock.VaultMockService;
 import com.exedio.dsmf.CheckConstraint;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Inherited;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 import org.junit.Before;
-import org.junit.Rule;
 
+@TestWithEnvironment.Tag
+@MainRule.Tag
 public abstract class TestWithEnvironment
 {
-	@Rule public final CopeRule copeRule;
+	@org.junit.jupiter.api.Tag("TestWithEnvironment")
+	@Target(ElementType.TYPE)
+	@Inherited
+	@Retention(RetentionPolicy.RUNTIME)
+	@interface Tag {}
+
+	public final CopeRule copeRule;
 
 	/**
 	 * Copy of {@link com.exedio.cope.tojunit.CopeRule#model}

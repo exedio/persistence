@@ -38,6 +38,7 @@ import com.exedio.cope.junit.AbsoluteMockClockStrategy;
 import com.exedio.cope.pattern.Schedule.Interval;
 import com.exedio.cope.pattern.Schedule.Run;
 import com.exedio.cope.tojunit.ClockRule;
+import com.exedio.cope.tojunit.MainRule;
 import com.exedio.cope.util.AssertionErrorJobContext;
 import com.exedio.cope.util.JobContext;
 import com.exedio.cope.util.JobStop;
@@ -53,10 +54,9 @@ import java.util.List;
 import java.util.Locale;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.RuleChain;
 
+@MainRule.Tag
 public class ScheduleTest extends TestWithEnvironment
 {
 	public ScheduleTest()
@@ -66,8 +66,6 @@ public class ScheduleTest extends TestWithEnvironment
 
 	private final AbsoluteMockClockStrategy clock = new AbsoluteMockClockStrategy();
 	private final ClockRule clockRule = new ClockRule();
-
-	@Rule public final RuleChain ruleChain = RuleChain.outerRule(clockRule);
 
 	ScheduleItem item;
 	ArrayList<ExpectedRun> expectedRuns;

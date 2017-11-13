@@ -27,13 +27,13 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 import com.exedio.cope.tojunit.ConnectionRule;
+import com.exedio.cope.tojunit.MainRule;
 import com.exedio.cope.tojunit.SI;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.sql.SQLException;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.RuleChain;
 
+@MainRule.Tag
 public class CheckConstraintViolatedTest extends TestWithEnvironment
 {
 	public CheckConstraintViolatedTest()
@@ -43,8 +43,6 @@ public class CheckConstraintViolatedTest extends TestWithEnvironment
 	}
 
 	private final ConnectionRule connection = new ConnectionRule(model);
-
-	@Rule public final RuleChain ruleChain = RuleChain.outerRule(connection);
 
 	@Test public void testIt() throws SQLException
 	{

@@ -22,12 +22,12 @@ import static com.exedio.cope.tojunit.Assert.assertWithin;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
+import com.exedio.cope.tojunit.MainRule;
 import com.exedio.cope.tojunit.TransactionIdRule;
 import java.util.Date;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.RuleChain;
 
+@MainRule.Tag
 public class TransactionEmptyTest extends TestWithEnvironment
 {
 	public TransactionEmptyTest()
@@ -37,8 +37,6 @@ public class TransactionEmptyTest extends TestWithEnvironment
 	}
 
 	private final TransactionIdRule txId = new TransactionIdRule(model);
-
-	@Rule public final RuleChain ruleChain = RuleChain.outerRule(txId);
 
 	@Test public void testEmptyTransaction()
 	{

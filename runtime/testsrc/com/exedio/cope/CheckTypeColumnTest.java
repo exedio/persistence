@@ -24,15 +24,15 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 import com.exedio.cope.tojunit.ConnectionRule;
+import com.exedio.cope.tojunit.MainRule;
 import com.exedio.cope.tojunit.SI;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.sql.SQLException;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.RuleChain;
 
+@MainRule.Tag
 public class CheckTypeColumnTest extends TestWithEnvironment
 {
 	public CheckTypeColumnTest()
@@ -41,8 +41,6 @@ public class CheckTypeColumnTest extends TestWithEnvironment
 	}
 
 	private final ConnectionRule connection = new ConnectionRule(model);
-
-	@Rule public final RuleChain ruleChain = RuleChain.outerRule(connection);
 
 	InstanceOfAItem itema;
 	InstanceOfB1Item itemb1;

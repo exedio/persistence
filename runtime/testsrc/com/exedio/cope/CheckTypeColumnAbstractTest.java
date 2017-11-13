@@ -22,15 +22,15 @@ import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnValueL;
 import static org.junit.Assert.assertEquals;
 
 import com.exedio.cope.tojunit.ConnectionRule;
+import com.exedio.cope.tojunit.MainRule;
 import com.exedio.cope.tojunit.SI;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.sql.SQLException;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.RuleChain;
 
+@MainRule.Tag
 public class CheckTypeColumnAbstractTest extends TestWithEnvironment
 {
 	public CheckTypeColumnAbstractTest()
@@ -39,8 +39,6 @@ public class CheckTypeColumnAbstractTest extends TestWithEnvironment
 	}
 
 	private final ConnectionRule connection = new ConnectionRule(model);
-
-	@Rule public final RuleChain ruleChain = RuleChain.outerRule(connection);
 
 	private HierarchySingleSub item;
 

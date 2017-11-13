@@ -22,17 +22,15 @@ import static com.exedio.cope.TypesBound.newType;
 
 import com.exedio.cope.instrument.WrapperIgnore;
 import com.exedio.cope.tojunit.LogRule;
+import com.exedio.cope.tojunit.MainRule;
 import com.exedio.cope.util.Day;
 import java.util.TimeZone;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.RuleChain;
 
+@MainRule.Tag
 public class DayFieldWrongDefaultNowTest
 {
 	private final LogRule log = new LogRule(DayField.class);
-
-	@Rule public final RuleChain ruleChain = RuleChain.outerRule(log);
 
 	@Test public void testIt()
 	{

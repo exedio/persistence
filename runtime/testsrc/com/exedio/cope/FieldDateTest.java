@@ -30,22 +30,19 @@ import static org.junit.Assert.fail;
 import com.exedio.cope.junit.AbsoluteMockClockStrategy;
 import com.exedio.cope.testmodel.AttributeItem;
 import com.exedio.cope.tojunit.ClockRule;
+import com.exedio.cope.tojunit.MainRule;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.RuleChain;
 
+@MainRule.Tag
 public class FieldDateTest extends FieldTest
 {
 	private final AbsoluteMockClockStrategy clock = new AbsoluteMockClockStrategy();
 	private final ClockRule clockRule = new ClockRule();
-
-	@Rule public final RuleChain ruleChain = RuleChain.outerRule(clockRule);
-
 
 	@Before public final void setUp()
 	{

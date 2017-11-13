@@ -18,17 +18,16 @@
 
 package com.exedio.cope;
 
+import com.exedio.cope.tojunit.MainRule;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Arrays;
 import java.util.Objects;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
-@Category({AllButSomeTests.class,CacheReadPoisoningBruteForcePackageTest.class})
+@MainRule.Tag
 @SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
 public class CacheReadPoisoningBruteForceTest extends TestWithEnvironment
 {
@@ -38,8 +37,9 @@ public class CacheReadPoisoningBruteForceTest extends TestWithEnvironment
 		copeRule.omitTransaction();
 	}
 
-	@SuppressFBWarnings("URF_UNREAD_PUBLIC_OR_PROTECTED_FIELD")
-	@Rule public final WithinPurgeStampsRule withinPurgeStamps = new WithinPurgeStampsRule(
+	@SuppressWarnings("unused")
+	@SuppressFBWarnings("URF_UNREAD_FIELD")
+	private final WithinPurgeStampsRule withinPurgeStamps = new WithinPurgeStampsRule(
 			CacheIsolationTest.MODEL,
 			Thread::yield);
 

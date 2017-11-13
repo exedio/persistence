@@ -22,6 +22,7 @@ import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+import com.exedio.cope.tojunit.MainRule;
 import com.exedio.cope.vaulttest.VaultServiceTest;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.File;
@@ -30,10 +31,10 @@ import java.nio.file.Files;
 import java.util.Properties;
 import java.util.TreeSet;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
+@MainRule.Tag
 @SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
 public abstract class AbstractVaultFileServiceTest extends VaultServiceTest
 {
@@ -45,8 +46,7 @@ public abstract class AbstractVaultFileServiceTest extends VaultServiceTest
 
 	private File root;
 
-	@Rule
-	public final TemporaryFolder files = new TemporaryFolder();
+	private final TemporaryFolder files = new TemporaryFolder();
 
 	@Override
 	protected Properties getServiceProperties() throws IOException

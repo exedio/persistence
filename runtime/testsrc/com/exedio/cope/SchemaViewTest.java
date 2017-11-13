@@ -24,25 +24,23 @@ import static org.junit.Assert.assertSame;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.tojunit.ConnectionRule;
+import com.exedio.cope.tojunit.MainRule;
 import com.exedio.cope.tojunit.SI;
 import com.exedio.dsmf.Node.Color;
 import com.exedio.dsmf.Schema;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.sql.SQLException;
 import org.junit.After;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.RuleChain;
 
 /**
  * Tests schema verification with views present in schema.
  * Needed for "nice views" currently implemented in copeconsole.
  */
+@MainRule.Tag
 public class SchemaViewTest extends TestWithEnvironment
 {
 	private final ConnectionRule connection = new ConnectionRule(model);
-
-	@Rule public final RuleChain ruleChain = RuleChain.outerRule(connection);
 
 	public SchemaViewTest()
 	{

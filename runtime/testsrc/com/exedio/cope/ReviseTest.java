@@ -33,6 +33,7 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import com.exedio.cope.tojunit.LogRule;
+import com.exedio.cope.tojunit.MainRule;
 import com.exedio.cope.util.Hex;
 import com.exedio.cope.util.Properties.Source;
 import com.exedio.cope.util.TimeZoneStrict;
@@ -52,10 +53,10 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Properties;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.RuleChain;
 
+@TestWithEnvironment.Tag
+@MainRule.Tag
 @SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
 public class ReviseTest
 {
@@ -82,8 +83,6 @@ public class ReviseTest
 			return !"savepoint".equals(msg);
 		}
 	};
-
-	@Rule public final RuleChain ruleChain = RuleChain.outerRule(log);
 
 	private String hostname;
 	private ConnectProperties props;

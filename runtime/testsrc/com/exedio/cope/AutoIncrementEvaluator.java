@@ -30,7 +30,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
+import org.junit.jupiter.api.Disabled;
 import org.junit.Test;
 
 /**
@@ -38,7 +38,7 @@ import org.junit.Test;
  * for using auto_increment on MySQL.
  * There seems to be no such penalty.
  */
-@Ignore
+@Disabled
 @SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
 public class AutoIncrementEvaluator extends RawDatabaseTest
 {

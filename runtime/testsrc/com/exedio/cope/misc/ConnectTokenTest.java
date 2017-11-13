@@ -38,15 +38,15 @@ import com.exedio.cope.Model;
 import com.exedio.cope.instrument.WrapperIgnore;
 import com.exedio.cope.tojunit.ConnectTokenRule;
 import com.exedio.cope.tojunit.LogRule;
+import com.exedio.cope.tojunit.MainRule;
 import com.exedio.cope.tojunit.TestSources;
 import java.util.Date;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.RuleChain;
 
+@MainRule.Tag
 @SuppressWarnings("resource")
 public class ConnectTokenTest
 {
@@ -61,8 +61,6 @@ public class ConnectTokenTest
 	private final LogRule log = new LogRule(ConnectToken.class);
 
 	private final ConnectTokenRule ctr = new ConnectTokenRule(model);
-
-	@Rule public final RuleChain ruleChain = RuleChain.outerRule(log).around(ctr);
 
 	@Before public final void setUp()
 	{

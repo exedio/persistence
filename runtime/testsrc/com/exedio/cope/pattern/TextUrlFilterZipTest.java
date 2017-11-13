@@ -28,6 +28,7 @@ import static org.junit.Assert.fail;
 import com.exedio.cope.DataLengthViolationException;
 import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.pattern.TextUrlFilter.Paste;
+import com.exedio.cope.tojunit.MainRule;
 import com.exedio.cope.tojunit.MyTemporaryFolder;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.File;
@@ -37,10 +38,9 @@ import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.Iterator;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.RuleChain;
 
+@MainRule.Tag
 public class TextUrlFilterZipTest extends TestWithEnvironment
 {
 	public TextUrlFilterZipTest()
@@ -49,8 +49,6 @@ public class TextUrlFilterZipTest extends TestWithEnvironment
 	}
 
 	private final MyTemporaryFolder files = new MyTemporaryFolder();
-
-	@Rule public final RuleChain ruleChain = RuleChain.outerRule(files);
 
 	TextUrlFilterItem item;
 

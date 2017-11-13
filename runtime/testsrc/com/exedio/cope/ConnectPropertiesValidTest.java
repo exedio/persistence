@@ -19,9 +19,8 @@
 package com.exedio.cope;
 
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
-@Category(CacheReadPoisoningBruteForcePackageTest.class)
+@ProtocolWriterTag
 public class ConnectPropertiesValidTest extends TestWithEnvironment
 {
 	public ConnectPropertiesValidTest()

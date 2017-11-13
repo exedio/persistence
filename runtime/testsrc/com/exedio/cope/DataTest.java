@@ -28,6 +28,7 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import com.exedio.cope.tojunit.MainRule;
 import com.exedio.cope.tojunit.MyTemporaryFolder;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.ByteArrayOutputStream;
@@ -37,10 +38,9 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.RuleChain;
 
+@MainRule.Tag
 public class DataTest extends TestWithEnvironment
 {
 	public DataTest()
@@ -49,8 +49,6 @@ public class DataTest extends TestWithEnvironment
 	}
 
 	private final MyTemporaryFolder files = new MyTemporaryFolder();
-
-	@Rule public final RuleChain ruleChain = RuleChain.outerRule(files);
 
 	private DataItem item;
 	private byte[] dataBig;

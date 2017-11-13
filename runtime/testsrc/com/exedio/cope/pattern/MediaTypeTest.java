@@ -32,6 +32,7 @@ import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import com.exedio.cope.tojunit.MainRule;
 import com.exedio.cope.tojunit.MyTemporaryFolder;
 import com.exedio.cope.util.StrictFile;
 import java.io.File;
@@ -40,10 +41,9 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.LinkedHashSet;
 import java.util.Set;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.RuleChain;
 
+@MainRule.Tag
 public class MediaTypeTest
 {
 	private static final String JPEG = "ffd8ff";
@@ -51,8 +51,6 @@ public class MediaTypeTest
 	private static final String ZIP = "504b0304";
 
 	private final MyTemporaryFolder files = new MyTemporaryFolder();
-
-	@Rule public final RuleChain ruleChain = RuleChain.outerRule(files);
 
 	@Test public void testForFileName()
 	{

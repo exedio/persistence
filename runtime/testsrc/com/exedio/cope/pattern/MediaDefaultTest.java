@@ -41,16 +41,16 @@ import com.exedio.cope.StringField;
 import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.junit.AbsoluteMockClockStrategy;
 import com.exedio.cope.tojunit.ClockRule;
+import com.exedio.cope.tojunit.MainRule;
 import com.exedio.cope.tojunit.MyTemporaryFolder;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Date;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.RuleChain;
 
+@MainRule.Tag
 public class MediaDefaultTest extends TestWithEnvironment
 {
 	public MediaDefaultTest()
@@ -62,8 +62,6 @@ public class MediaDefaultTest extends TestWithEnvironment
 	private final ClockRule clockRule = new ClockRule();
 
 	private final MyTemporaryFolder files = new MyTemporaryFolder();
-
-	@Rule public final RuleChain ruleChain = RuleChain.outerRule(clockRule).around(files);
 
 	protected MediaItem item;
 

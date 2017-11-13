@@ -22,16 +22,14 @@ import static com.exedio.cope.TypesBound.newType;
 
 import com.exedio.cope.instrument.WrapperIgnore;
 import com.exedio.cope.tojunit.LogRule;
+import com.exedio.cope.tojunit.MainRule;
 import java.util.Date;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.RuleChain;
 
+@MainRule.Tag
 public class DateFieldWrongDefaultNowTest
 {
 	private final LogRule log = new LogRule(DateField.class);
-
-	@Rule public final RuleChain ruleChain = RuleChain.outerRule(log);
 
 	@Test public void testIt()
 	{

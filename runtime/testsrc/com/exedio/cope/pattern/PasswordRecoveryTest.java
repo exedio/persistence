@@ -43,13 +43,13 @@ import com.exedio.cope.misc.DeleteJobContext;
 import com.exedio.cope.pattern.PasswordRecovery.Config;
 import com.exedio.cope.pattern.PasswordRecovery.Token;
 import com.exedio.cope.tojunit.ClockRule;
+import com.exedio.cope.tojunit.MainRule;
 import java.util.Arrays;
 import java.util.Date;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.RuleChain;
 
+@MainRule.Tag
 public class PasswordRecoveryTest extends TestWithEnvironment
 {
 	private static final Model MODEL = new Model(TYPE);
@@ -66,8 +66,6 @@ public class PasswordRecoveryTest extends TestWithEnvironment
 
 	private final AbsoluteMockClockStrategy clock = new AbsoluteMockClockStrategy();
 	private final ClockRule clockRule = new ClockRule();
-
-	@Rule public final RuleChain ruleChain = RuleChain.outerRule(clockRule);
 
 	PasswordRecoveryItem i;
 

@@ -18,15 +18,17 @@
 
 package com.exedio.cope;
 
-import com.exedio.cope.tojunit.Subclasses;
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Inherited;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+import org.junit.jupiter.api.Tag;
 
-@RunWith(Subclasses.class)
-// keep consistent to AllButSomeTestsWithEnvironment
-@Subclasses.Exclude({TestWithEnvironment.class, ReviseTest.class})
-@Suite.SuiteClasses(AllButSomeTests.class)
-public class AllButSomeTestsWithoutEnvironment
+@Tag("ProtocolWriter")
+@Target(ElementType.TYPE)
+@Inherited
+@Retention(RetentionPolicy.RUNTIME)
+@interface ProtocolWriterTag
 {
-	// empty class
 }

@@ -31,17 +31,15 @@ import com.exedio.cope.DateField.Precision;
 import com.exedio.cope.DateField.RoundingMode;
 import com.exedio.cope.junit.AbsoluteMockClockStrategy;
 import com.exedio.cope.tojunit.ClockRule;
+import com.exedio.cope.tojunit.MainRule;
 import java.util.Date;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.RuleChain;
 
+@MainRule.Tag
 public class DatePrecisionDefaultToNowTest extends TestWithEnvironment
 {
 	private final AbsoluteMockClockStrategy clock = new AbsoluteMockClockStrategy();
 	private final ClockRule clockRule = new ClockRule();
-
-	@Rule public final RuleChain ruleChain = RuleChain.outerRule(clockRule);
 
 	private static final Model MODEL = new Model(TYPE);
 

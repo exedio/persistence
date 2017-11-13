@@ -19,21 +19,35 @@
 package com.exedio.cope.tojunit;
 
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
-import org.junit.rules.TestRule;
-import org.junit.runner.Description;
-import org.junit.runners.model.Statement;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Inherited;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import org.junit.Assert;
+import org.junit.jupiter.api.extension.AfterEachCallback;
+import org.junit.jupiter.api.extension.BeforeEachCallback;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.api.extension.ExtensionContext;
 
-/**
- * Makes sure, that a {@link org.junit.rules.ExternalResource} works only,
- * if it has been mounted correctly.
- */
-public abstract class MainRule implements TestRule
+public abstract class MainRule
 {
 	private boolean beforeCalled = false;
 
 	protected void before()
+	{
+		// empty default implementation
+	}
+
+	protected void before(final ExtensionContext context)
 	{
 		// empty default implementation
 	}
@@ -48,27 +62,55 @@ public abstract class MainRule implements TestRule
 		assertTrue(beforeCalled);
 	}
 
+	@Target(ElementType.TYPE)
+	@Retention(RetentionPolicy.RUNTIME)
+	@Inherited
+	@ExtendWith(Extension.class)
+	public @interface Tag {}
 
-	@Override
-	public final Statement apply(final Statement base, final Description description)
+	private static final class Extension implements BeforeEachCallback, AfterEachCallback
 	{
-		return new Statement()
+		private ArrayList<MainRule> rules;
+
+		@Override
+		@SuppressFBWarnings("DP_DO_INSIDE_DO_PRIVILEGED")
+		public void beforeEach(final ExtensionContext context) throws Exception
 		{
-			@Override
-			public void evaluate() throws Throwable
-			{
-				before();
-				assertFalse(beforeCalled);
-				beforeCalled = true;
-				try
-				{
-					base.evaluate();
-				}
-				finally
-				{
-					after();
-				}
-			}
-		};
+			assertNull(rules);
+			final ArrayList<MainRule> rules = new ArrayList<>();
+
+			final Class<?> testClass = context.getTestClass().get();
+			final LinkedList<Class<?>> classesFromTop = new LinkedList<>();
+			for(Class<?> clazz = testClass; clazz!=null; clazz = clazz.getSuperclass())
+				classesFromTop.add(0, clazz);
+			for(final Class<?> clazz : classesFromTop)
+				for(final Field field : clazz.getDeclaredFields())
+					if(MainRule.class.isAssignableFrom(field.getType()))
+					{
+						assertTrue (Modifier.isFinal (field.getModifiers()));
+						assertFalse(Modifier.isStatic(field.getModifiers()));
+						final Object instance = context.getTestInstance().get();
+						field.setAccessible(true);
+						final MainRule rule = (MainRule)field.get(instance);
+						rules.add(rule);
+						assertFalse(rule.beforeCalled);
+						rule.before();
+						rule.before(context);
+						rule.beforeCalled = true;
+					}
+			assertFalse("no rule in " + testClass, rules.isEmpty());
+			this.rules = rules;
+		}
+
+		@Override
+		@SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
+		public void afterEach(final ExtensionContext context) throws Exception
+		{
+			Assert.assertNotNull(rules);
+			for(final MainRule rule : rules)
+				rule.after();
+			rules.clear();
+			rules = null;
+		}
 	}
 }

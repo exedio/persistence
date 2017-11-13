@@ -31,14 +31,14 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import com.exedio.cope.tojunit.LogRule;
+import com.exedio.cope.tojunit.MainRule;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.RuleChain;
 
+@MainRule.Tag
 public class ChangeListenerTest extends TestWithEnvironment
 {
 	public ChangeListenerTest()
@@ -47,8 +47,6 @@ public class ChangeListenerTest extends TestWithEnvironment
 	}
 
 	private final LogRule log = new LogRule(ChangeListeners.class);
-
-	@Rule public final RuleChain ruleChain = RuleChain.outerRule(log);
 
 	final MockListener l = new MockListener();
 

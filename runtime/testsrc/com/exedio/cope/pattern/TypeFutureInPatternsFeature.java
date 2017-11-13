@@ -29,7 +29,7 @@ import com.exedio.cope.Type;
 import com.exedio.cope.TypeFuture;
 import com.exedio.cope.instrument.WrapperIgnore;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import junit.framework.AssertionFailedError;
+import org.opentest4j.AssertionFailedError;
 
 final class TypeFutureInPatternsFeature extends Pattern
 {

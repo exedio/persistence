@@ -37,13 +37,13 @@ import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
 import com.exedio.cope.instrument.WrapperIgnore;
 import com.exedio.cope.tojunit.ConnectTokenRule;
+import com.exedio.cope.tojunit.MainRule;
 import com.exedio.cope.tojunit.TestSources;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Supplier;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.RuleChain;
 
+@MainRule.Tag
 public class ConnectTokenSetTest
 {
 	@WrapperIgnore
@@ -61,8 +61,6 @@ public class ConnectTokenSetTest
 	}
 
 	private final ConnectTokenRule ctr = new ConnectTokenRule(model);
-
-	@Rule public final RuleChain ruleChain = RuleChain.outerRule(ctr);
 
 	@Test public void testNormal()
 	{

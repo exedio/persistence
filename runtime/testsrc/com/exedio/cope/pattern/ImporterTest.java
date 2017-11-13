@@ -28,11 +28,11 @@ import static org.junit.Assert.assertEquals;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.tojunit.ImporterRule;
+import com.exedio.cope.tojunit.MainRule;
 import java.util.ArrayList;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.RuleChain;
 
+@MainRule.Tag
 public class ImporterTest extends TestWithEnvironment
 {
 	public ImporterTest()
@@ -41,8 +41,6 @@ public class ImporterTest extends TestWithEnvironment
 	}
 
 	private final ImporterRule importerRule = new ImporterRule(ImporterItem.byCode);
-
-	@Rule public final RuleChain ruleChain = RuleChain.outerRule(importerRule);
 
 	@Test public void testNonInitial()
 	{

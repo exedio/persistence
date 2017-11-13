@@ -37,6 +37,7 @@ import com.exedio.cope.pattern.Dispatcher.Result;
 import com.exedio.cope.pattern.Dispatcher.Run;
 import com.exedio.cope.tojunit.ClockRule;
 import com.exedio.cope.tojunit.LogRule;
+import com.exedio.cope.tojunit.MainRule;
 import com.exedio.cope.util.AssertionErrorJobContext;
 import com.exedio.cope.util.Clock;
 import com.exedio.cope.util.EmptyJobContext;
@@ -50,10 +51,9 @@ import java.util.Iterator;
 import java.util.List;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.RuleChain;
 
+@MainRule.Tag
 public class DispatcherTest extends TestWithEnvironment
 {
 	private static final Dispatcher.Config config = new Dispatcher.Config(3, 2);
@@ -66,8 +66,6 @@ public class DispatcherTest extends TestWithEnvironment
 	private final ClockRule clockRule = new ClockRule();
 
 	private final LogRule log = new LogRule(Dispatcher.class.getName() + '.' + toTarget.getID());
-
-	@Rule public final RuleChain ruleChain = RuleChain.outerRule(clockRule).around(log);
 
 	DispatcherItem item1;
 	DispatcherItem item2;
