@@ -18,35 +18,11 @@
 
 package com.exedio.cope.instrument.testmodel;
 
-import static com.exedio.cope.instrument.testmodel.DoInstrument.NotInterim.x;
-import static com.exedio.cope.instrument.testmodel.DontInstrument.wouldNotCompileInInterimCode;
+import com.exedio.cope.instrument.WrapImplementsInterim;
 
-import com.exedio.cope.instrument.WrapInterim;
-
-
-/**
- * This class has a static import for {@link DontInstrument}.
- */
-@WrapInterim
-class DoInstrument implements InterfaceThatUsesDontInstrument
+@SuppressWarnings({"InterfaceMayBeAnnotatedFunctional", "unused"})
+@WrapImplementsInterim
+interface InterfaceThatUsesDontInstrument
 {
-	static final long useStaticImport = wouldNotCompileInInterimCode;
-
-	static final int notInterim = x();
-
-	enum NotInterim
-	{
-		a, b;
-
-		static final int x()
-		{
-			return 42;
-		}
-	}
-
-	@Override
-	public void method(final DontInstrument param)
-	{
-		// empty
-	}
+	void method(DontInstrument param);
 }
