@@ -18,6 +18,7 @@
 
 package com.exedio.cope.pattern;
 
+import com.exedio.cope.UniqueViolationException;
 import com.exedio.cope.instrument.ThrownGetter;
 import java.util.Set;
 
@@ -27,6 +28,7 @@ final class SetThrown implements ThrownGetter<SetField<?>>
 	public Set<Class<? extends Throwable>> get(final SetField<?> feature)
 	{
 		final Set<Class<? extends Throwable>> result = feature.getElement().getInitialExceptions();
+		result.remove(UniqueViolationException.class);
 		result.add(ClassCastException.class);
 		return result;
 	}
