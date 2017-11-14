@@ -270,6 +270,9 @@ public class SetFieldTest extends TestWithEnvironment
 	{
 		item.setStrings(asList("1one", "2dupl", "2dupl", "3two"));
 		item.assertStrings("1one", "2dupl", "3two");
+
+		item.addToStrings("2dupl");
+		item.assertStrings("1one", "2dupl", "3two");
 	}
 
 	@Test public void testOrder()
