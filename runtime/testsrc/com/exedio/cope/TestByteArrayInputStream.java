@@ -18,10 +18,11 @@
 
 package com.exedio.cope;
 
+import static org.junit.Assert.assertEquals;
+
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import org.junit.Assert;
 
 /**
  * An input stream suitable for testing stream related code.
@@ -102,7 +103,7 @@ class TestByteArrayInputStream extends InputStream
 
 	public void assertClosed()
 	{
-		Assert.assertEquals("stream still open", true, closed);
+		assertEquals("stream still open", true, closed);
 	}
 }
 

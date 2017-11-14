@@ -19,13 +19,13 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.instrument.Visibility.NONE;
+import static org.junit.Assert.assertNotNull;
 
 import com.exedio.cope.BooleanField;
 import com.exedio.cope.CopeSchemaName;
 import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
 import com.exedio.cope.instrument.Wrapper;
-import org.junit.Assert;
 
 public final class MediaPathItem extends Item implements MediaUrlCatchphraseProvider
 {
@@ -61,7 +61,7 @@ public final class MediaPathItem extends Item implements MediaUrlCatchphraseProv
 	@Override
 	public String getMediaUrlCatchphrase(final MediaPath path)
 	{
-		Assert.assertNotNull(path);
+		assertNotNull(path);
 		return getCatchphrase();
 	}
 

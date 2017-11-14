@@ -18,10 +18,12 @@
 
 package com.exedio.cope.tojunit;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+
 import com.exedio.cope.util.Clock.Strategy;
 import java.util.Collections;
 import java.util.LinkedList;
-import org.junit.Assert;
 
 public final class RelativeMockClockStrategy implements Strategy
 {
@@ -31,7 +33,7 @@ public final class RelativeMockClockStrategy implements Strategy
 	@Override
 	public long currentTimeMillis()
 	{
-		Assert.assertFalse("no pending clock events", events.isEmpty());
+		assertFalse("no pending clock events", events.isEmpty());
 		return events.removeFirst();
 	}
 
@@ -49,6 +51,6 @@ public final class RelativeMockClockStrategy implements Strategy
 
 	public void assertEmpty()
 	{
-		Assert.assertEquals("pending clock events", Collections.emptyList(), events);
+		assertEquals("pending clock events", Collections.emptyList(), events);
 	}
 }

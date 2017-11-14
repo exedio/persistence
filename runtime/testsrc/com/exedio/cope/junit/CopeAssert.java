@@ -19,6 +19,10 @@
 package com.exedio.cope.junit;
 
 import static java.util.Objects.requireNonNull;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import com.exedio.cope.Query;
 import com.exedio.cope.QueryInfo;
@@ -39,23 +43,21 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import junit.framework.TestCase;
-import org.junit.Assert;
 
-public abstract class CopeAssert extends TestCase
+public abstract class CopeAssert
 {
 	public static final void assertContainsList(final List<?> expected, final Collection<?> actual)
 	{
 		if(expected==null && actual==null)
 			return;
 
-		Assert.assertNotNull("expected null, but was " + actual, expected);
-		Assert.assertNotNull("expected " + expected + ", but was null", actual);
+		assertNotNull("expected null, but was " + actual, expected);
+		assertNotNull("expected " + expected + ", but was null", actual);
 
 		if(expected.size()!=actual.size() ||
 				!expected.containsAll(actual) ||
 				!actual.containsAll(expected))
-			Assert.fail("expected "+expected+", but was "+actual);
+			fail("expected "+expected+", but was "+actual);
 	}
 
 	public static final void assertContains(final Collection<?> actual)
@@ -157,13 +159,13 @@ public abstract class CopeAssert extends TestCase
 		try
 		{
 			c.add(null);
-			Assert.fail("should have thrown UnsupportedOperationException");
+			fail("should have thrown UnsupportedOperationException");
 		}
 		catch(final UnsupportedOperationException ignored) {/*OK*/}
 		try
 		{
 			c.addAll(Collections.singleton(null));
-			Assert.fail("should have thrown UnsupportedOperationException");
+			fail("should have thrown UnsupportedOperationException");
 		}
 		catch(final UnsupportedOperationException ignored) {/*OK*/}
 
@@ -173,25 +175,25 @@ public abstract class CopeAssert extends TestCase
 			try
 			{
 				c.clear();
-				Assert.fail("should have thrown UnsupportedOperationException");
+				fail("should have thrown UnsupportedOperationException");
 			}
 			catch(final UnsupportedOperationException ignored) {/*OK*/}
 			try
 			{
 				c.remove(o);
-				Assert.fail("should have thrown UnsupportedOperationException");
+				fail("should have thrown UnsupportedOperationException");
 			}
 			catch(final UnsupportedOperationException ignored) {/*OK*/}
 			try
 			{
 				c.removeAll(Collections.singleton(o));
-				Assert.fail("should have thrown UnsupportedOperationException");
+				fail("should have thrown UnsupportedOperationException");
 			}
 			catch(final UnsupportedOperationException ignored) {/*OK*/}
 			try
 			{
 				c.retainAll(Collections.emptyList());
-				Assert.fail("should have thrown UnsupportedOperationException");
+				fail("should have thrown UnsupportedOperationException");
 			}
 			catch(final UnsupportedOperationException ignored) {/*OK*/}
 
@@ -200,7 +202,7 @@ public abstract class CopeAssert extends TestCase
 			{
 				iterator.next();
 				iterator.remove();
-				Assert.fail("should have thrown UnsupportedOperationException");
+				fail("should have thrown UnsupportedOperationException");
 			}
 			catch(final UnsupportedOperationException ignored) {/*OK*/}
 		}
@@ -214,7 +216,7 @@ public abstract class CopeAssert extends TestCase
 				try
 				{
 					l.set(0, null);
-					Assert.fail("should have thrown UnsupportedOperationException");
+					fail("should have thrown UnsupportedOperationException");
 				}
 				catch(final UnsupportedOperationException ignored) {/*OK*/}
 			}
@@ -224,7 +226,7 @@ public abstract class CopeAssert extends TestCase
 	public static final void assertEqualsUnmodifiable(final List<?> expected, final Collection<?> actual)
 	{
 		assertUnmodifiable(actual);
-		Assert.assertEquals(expected, actual);
+		assertEquals(expected, actual);
 	}
 
 	public static final void assertEqualsUnmodifiable(final Map<?,?> expected, final Map<?,?> actual)
@@ -232,46 +234,46 @@ public abstract class CopeAssert extends TestCase
 		try
 		{
 			actual.clear();
-			Assert.fail("should have thrown UnsupportedOperationException");
+			fail("should have thrown UnsupportedOperationException");
 		}
 		catch(final UnsupportedOperationException ignored) {/*OK*/}
 		try
 		{
 			actual.put(null, null);
-			Assert.fail("should have thrown UnsupportedOperationException");
+			fail("should have thrown UnsupportedOperationException");
 		}
 		catch(final UnsupportedOperationException ignored) {/*OK*/}
 		try
 		{
 			actual.putAll(Collections.emptyMap());
-			Assert.fail("should have thrown UnsupportedOperationException");
+			fail("should have thrown UnsupportedOperationException");
 		}
 		catch(final UnsupportedOperationException ignored) {/*OK*/}
 		try
 		{
 			actual.remove(null);
-			Assert.fail("should have thrown UnsupportedOperationException");
+			fail("should have thrown UnsupportedOperationException");
 		}
 		catch(final UnsupportedOperationException ignored) {/*OK*/}
 		assertUnmodifiable(actual.keySet());
 		assertUnmodifiable(actual.values());
 		assertUnmodifiable(actual.entrySet());
-		Assert.assertEquals(expected, actual);
+		assertEquals(expected, actual);
 	}
 
 	public static void assertEqualsStrict(final Object expected, final Object actual)
 	{
-		Assert.assertEquals(expected, actual);
-		Assert.assertEquals(actual, expected);
+		assertEquals(expected, actual);
+		assertEquals(actual, expected);
 		if(expected!=null)
-			Assert.assertEquals(expected.hashCode(), actual.hashCode());
+			assertEquals(expected.hashCode(), actual.hashCode());
 	}
 
 	public static void assertNotEqualsStrict(final Object expected, final Object actual)
 	{
-		Assert.assertTrue(!expected.equals(actual));
-		Assert.assertTrue(!actual.equals(expected));
-		Assert.assertTrue(expected.hashCode()!=actual.hashCode());
+		assertTrue(!expected.equals(actual));
+		assertTrue(!actual.equals(expected));
+		assertTrue(expected.hashCode()!=actual.hashCode());
 	}
 
 	private static final String DATE_FORMAT_FULL = "dd.MM.yyyy HH:mm:ss.SSS";
@@ -284,14 +286,14 @@ public abstract class CopeAssert extends TestCase
 			" and " + df.format(expectedAfter) +
 			", but was " + df.format(actual);
 
-		Assert.assertTrue(message, !expectedBefore.after(actual));
-		Assert.assertTrue(message, !expectedAfter.before(actual));
+		assertTrue(message, !expectedBefore.after(actual));
+		assertTrue(message, !expectedAfter.before(actual));
 	}
 
 	public static final <S extends Serializable> S reserialize(final S value, final int expectedSize)
 	{
 		final byte[] bos = serialize(value);
-		Assert.assertEquals(expectedSize, bos.length);
+		assertEquals(expectedSize, bos.length);
 		@SuppressWarnings("unchecked")
 		final S result = (S)deserialize(bos);
 		return result;

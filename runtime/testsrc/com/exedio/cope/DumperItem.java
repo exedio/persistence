@@ -18,9 +18,10 @@
 
 package com.exedio.cope;
 
+import static org.junit.Assert.fail;
+
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Arrays;
-import org.junit.Assert;
 
 public class DumperItem extends Item
 {
@@ -41,7 +42,7 @@ public class DumperItem extends Item
 	@Override
 	protected final void afterNewCopeItem()
 	{
-		Assert.fail("must not be called");
+		fail("must not be called");
 	}
 
 	@Override

@@ -19,6 +19,8 @@
 package com.exedio.cope.pattern;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 
 import com.exedio.cope.BooleanField;
 import com.exedio.cope.IntegerField;
@@ -27,7 +29,6 @@ import com.exedio.cope.Model;
 import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.util.JobContexts;
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Test;
 
 public class DispatchableDeferrableTest extends TestWithEnvironment
@@ -121,8 +122,8 @@ public class DispatchableDeferrableTest extends TestWithEnvironment
 
 		private void assertIt(final Dispatcher dispatcher)
 		{
-			Assert.assertSame(toTarget, dispatcher);
-			Assert.assertTrue(MODEL.hasCurrentTransaction());
+			assertSame(toTarget, dispatcher);
+			assertTrue(MODEL.hasCurrentTransaction());
 			assertEquals(toTarget.getID() + " dispatch " + getCopeID(), MODEL.currentTransaction().getName());
 		}
 

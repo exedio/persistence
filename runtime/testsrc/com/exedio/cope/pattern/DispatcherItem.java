@@ -21,6 +21,9 @@ package com.exedio.cope.pattern;
 import static com.exedio.cope.misc.TimeUtil.toMillies;
 import static com.exedio.cope.pattern.DispatcherModelTest.MODEL;
 import static java.lang.System.nanoTime;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
@@ -31,7 +34,6 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import org.junit.Assert;
 
 public final class DispatcherItem extends Item implements Dispatchable
 {
@@ -73,9 +75,9 @@ public final class DispatcherItem extends Item implements Dispatchable
 	@Override
 	public void dispatch(final Dispatcher dispatcher) throws IOException, InterruptedException
 	{
-		Assert.assertSame(toTarget, dispatcher);
-		Assert.assertTrue(MODEL.hasCurrentTransaction());
-		Assert.assertEquals(toTarget.getID() + " dispatch " + getCopeID(), MODEL.currentTransaction().getName());
+		assertSame(toTarget, dispatcher);
+		assertTrue(MODEL.hasCurrentTransaction());
+		assertEquals(toTarget.getID() + " dispatch " + getCopeID(), MODEL.currentTransaction().getName());
 		setDispatchCountCommitted(getDispatchCountCommitted()+1);
 		historyAdd("dispatch " + getCopeID());
 		final Log log = logs.get(this);
@@ -97,7 +99,7 @@ public final class DispatcherItem extends Item implements Dispatchable
 	static void historyAssert(final String... expected)
 	{
 		//noinspection MisorderedAssertEqualsArguments
-		Assert.assertEquals(Arrays.asList(expected), actualHistory);
+		assertEquals(Arrays.asList(expected), actualHistory);
 		actualHistory.clear();
 	}
 
@@ -109,9 +111,9 @@ public final class DispatcherItem extends Item implements Dispatchable
 	@Override
 	public void notifyFinalFailure(final Dispatcher dispatcher, final Exception cause)
 	{
-		Assert.assertSame(toTarget, dispatcher);
-		Assert.assertTrue(!MODEL.hasCurrentTransaction());
-		Assert.assertEquals(IOException.class, cause.getClass());
+		assertSame(toTarget, dispatcher);
+		assertTrue(!MODEL.hasCurrentTransaction());
+		assertEquals(IOException.class, cause.getClass());
 		historyAdd("notifyFinalFailure " + getCopeID());
 		logs.get(this).notifyFinalFailureCount++;
 	}

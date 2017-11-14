@@ -18,10 +18,11 @@
 
 package com.exedio.cope.pattern;
 
+import static org.junit.Assert.assertSame;
+
 import com.exedio.cope.CopeSchemaName;
 import com.exedio.cope.StringField;
 import com.exedio.cope.instrument.WrapperInitial;
-import org.junit.Assert;
 
 public final class MediaCatchPhraseItem extends MediaCatchPhraseSuperItem implements MediaUrlCatchphraseProvider
 {
@@ -32,7 +33,7 @@ public final class MediaCatchPhraseItem extends MediaCatchPhraseSuperItem implem
 	@Override
 	public String getMediaUrlCatchphrase(final MediaPath path)
 	{
-		Assert.assertSame(feature, path);
+		assertSame(feature, path);
 		return getCatchphrase();
 	}
 

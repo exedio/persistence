@@ -22,12 +22,13 @@ import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.Model;
+import junit.framework.TestCase;
 
 /**
  * An abstract test case class for tests creating/using some persistent data.
  * @author Ralf Wiebicke
  */
-public abstract class CopeModelTest extends CopeAssert
+public abstract class CopeModelTest extends TestCase
 {
 	protected final Model model;
 

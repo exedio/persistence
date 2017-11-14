@@ -20,11 +20,11 @@ package com.exedio.cope;
 
 import static com.exedio.cope.misc.SetValueUtil.add;
 import static com.exedio.cope.misc.SetValueUtil.getFirst;
+import static org.junit.Assert.assertFalse;
 
 import com.exedio.cope.pattern.ListField;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Arrays;
-import org.junit.Assert;
 
 final class BeforeSetItem extends Item
 {
@@ -129,7 +129,7 @@ final class BeforeSetItem extends Item
 	@Override
 	protected SetValue<?>[] beforeSetCopeItem(SetValue<?>[] setValues)
 	{
-		Assert.assertFalse(fail);
+		assertFalse(fail);
 
 		addToCalls(Arrays.toString(setValues));
 
