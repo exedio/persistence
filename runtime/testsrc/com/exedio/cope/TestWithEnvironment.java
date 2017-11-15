@@ -32,7 +32,7 @@ public abstract class TestWithEnvironment
 	@Rule public final CopeRule copeRule;
 
 	/**
-	 * Copy of {@link com.exedio.cope.junit.CopeModelTest#model}
+	 * Copy of {@link com.exedio.cope.tojunit.CopeRule#model}
 	 */
 	protected final Model model;
 

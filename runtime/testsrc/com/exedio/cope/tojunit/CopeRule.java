@@ -18,87 +18,21 @@
 
 package com.exedio.cope.tojunit;
 
+import static java.util.Objects.requireNonNull;
+
 import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.Model;
-import com.exedio.cope.junit.CopeModelTest;
-import org.junit.Assert;
 import org.junit.rules.TestRule;
 import org.junit.runner.Description;
 import org.junit.runners.model.Statement;
 
 public abstract class CopeRule implements TestRule
 {
-	@SuppressWarnings("UnconstructableJUnitTestCase") // OK: is not constructed by junit
-	private static final class Adaptee extends CopeModelTest
-	{
-		Adaptee(final Model model, final CopeRule adapter)
-		{
-			super(model);
-			this.adapter = adapter;
-		}
-
-		private final CopeRule adapter;
-
-
-		private Description description = null;
-
-		void setDescription(final Description description)
-		{
-			Assert.assertNotNull(description);
-			Assert.assertNull(this.description);
-			this.description = description;
-		}
-
-		/**
-		 * Just to make them visible to the adapter.
-		 */
-		@Override
-		protected void setUp() throws Exception
-		{
-			super.setUp();
-		}
-
-		/**
-		 * Just to make them visible to the adapter.
-		 */
-		@Override
-		protected void tearDown() throws Exception
-		{
-			super.tearDown();
-		}
-
-		@Override
-		public ConnectProperties getConnectProperties()
-		{
-			return adapter.getConnectProperties();
-		}
-
-		private boolean doesManageTransactions = true;
-
-		void omitTransaction()
-		{
-			doesManageTransactions = false;
-		}
-
-		@Override
-		protected boolean doesManageTransactions()
-		{
-			return doesManageTransactions;
-		}
-
-		@Override
-		protected String getTransactionName()
-		{
-			return "tx:" + description.getTestClass().getName();
-		}
-	}
-
-	private final Adaptee test;
+	private final Model model;
 
 	protected CopeRule(final Model model)
 	{
-		//noinspection ThisEscapedInObjectConstruction
-		this.test = new Adaptee(model, this);
+		this.model = requireNonNull(model, "model");
 	}
 
 	/**
@@ -108,30 +42,45 @@ public abstract class CopeRule implements TestRule
 	 */
 	public abstract ConnectProperties getConnectProperties();
 
+	private boolean doesManageTransactions = true;
+
 	public final void omitTransaction()
 	{
-		test.omitTransaction();
+		doesManageTransactions = false;
 	}
 
 
 	@Override
 	public final Statement apply(final Statement base, final Description description)
 	{
-		final Adaptee test = this.test; // avoid synthetic-access warning
 		return new Statement()
 		{
 			@Override
 			public void evaluate() throws Throwable
 			{
-				test.setDescription(description);
-				test.setUp();
+				ModelConnector.connectAndCreate(model, getConnectProperties());
+				model.deleteSchemaForTest(); // typically faster than checkEmptySchema
+
+				if(doesManageTransactions)
+					model.startTransaction("tx:" + description.getTestClass().getName());
 				try
 				{
 					base.evaluate();
 				}
 				finally
 				{
-					test.tearDown();
+					// NOTE:
+					// do rollback even if manageTransactions is false
+					// because test could have started a transaction
+					model.rollbackIfNotCommitted();
+
+					if(model.isConnected())
+					{
+						model.getConnectProperties().mediaFingerprintOffset().reset();
+						model.setDatabaseListener(null);
+					}
+					model.removeAllChangeListeners();
+					ModelConnector.dropAndDisconnect();
 				}
 			}
 		};

@@ -28,10 +28,6 @@ public final class CopeRuntimeRule extends CopeRule
 		super(model);
 	}
 
-	/**
-	 * Copy of {@link com.exedio.cope.junit.CopeModelTest#getConnectProperties}
-	 * TODO remove
-	 */
 	@Override
 	public ConnectProperties getConnectProperties()
 	{
