@@ -37,13 +37,8 @@ public abstract class CopeModelTestTest extends TestWithEnvironment
 
 	protected final void doTest()
 	{
-		doTest("tx:" + getClass().getName());
-	}
-
-	private void doTest(final String transactionName)
-	{
 		assertTrue(model.hasCurrentTransaction());
-		assertEquals(transactionName, model.currentTransaction().getName());
+		assertEquals("tx:" + getClass().getName(), model.currentTransaction().getName());
 		model.checkEmptySchema();
 
 		final JUnitTestItem i1 = new JUnitTestItem(100);
