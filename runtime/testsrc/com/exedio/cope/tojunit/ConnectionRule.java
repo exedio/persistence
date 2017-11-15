@@ -28,10 +28,9 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import org.junit.rules.TestRule;
-import org.junit.runner.Description;
+import org.junit.rules.ExternalResource;
 
-public final class ConnectionRule implements TestRule
+public final class ConnectionRule extends ExternalResource
 {
 	private final Model model;
 
@@ -45,28 +44,25 @@ public final class ConnectionRule implements TestRule
 	private Connection connection;
 
 	@Override
-	public org.junit.runners.model.Statement apply(
-			final org.junit.runners.model.Statement base,
-			final Description description)
+	protected void before()
 	{
-		return new org.junit.runners.model.Statement()
+		before.onCall();
+	}
+
+	@Override
+	protected void after()
+	{
+		if(connection!=null)
 		{
-			@Override
-			@SuppressWarnings("synthetic-access")
-			public void evaluate() throws Throwable
+			try
 			{
-				before.onCall();
-				try
-				{
-					base.evaluate();
-				}
-				finally
-				{
-					if(connection!=null)
-						connection.close();
-				}
+				connection.close();
 			}
-		};
+			catch(final SQLException e)
+			{
+				throw new RuntimeException(e);
+			}
+		}
 	}
 
 
