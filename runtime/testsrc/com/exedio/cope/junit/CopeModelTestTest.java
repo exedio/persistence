@@ -40,7 +40,7 @@ public abstract class CopeModelTestTest extends TestWithEnvironment
 		doTest("tx:" + getClass().getName());
 	}
 
-	protected final void doTest(final String transactionName)
+	private void doTest(final String transactionName)
 	{
 		assertTrue(model.hasCurrentTransaction());
 		assertEquals(transactionName, model.currentTransaction().getName());
