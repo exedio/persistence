@@ -20,11 +20,9 @@ package com.exedio.cope;
 
 import static java.util.Objects.requireNonNull;
 
-import org.junit.rules.TestRule;
-import org.junit.runner.Description;
-import org.junit.runners.model.Statement;
+import org.junit.rules.ExternalResource;
 
-public final class WithinPurgeStampsRule implements TestRule
+public final class WithinPurgeStampsRule extends ExternalResource
 {
 	private final Model model;
 	private final Runnable within;
@@ -36,26 +34,16 @@ public final class WithinPurgeStampsRule implements TestRule
 	}
 
 	@Override
-	public Statement apply(final Statement base, final Description description)
+	@SuppressWarnings("deprecation")
+	protected void before()
 	{
-		final Model model = this.model; // avoid synthetic-access warning
-		final Runnable within = this.within; // avoid synthetic-access warning
-		return new Statement()
-		{
-			@SuppressWarnings("deprecation")
-			@Override
-			public void evaluate() throws Throwable
-			{
-				try
-				{
-					model.withinPurgeStamps = within;
-					base.evaluate();
-				}
-				finally
-				{
-					model.withinPurgeStamps = null;
-				}
-			}
-		};
+		model.withinPurgeStamps = within;
+	}
+
+	@Override
+	@SuppressWarnings("deprecation")
+	protected void after()
+	{
+		model.withinPurgeStamps = null;
 	}
 }
