@@ -25,13 +25,13 @@ public final class ClockRule extends MainRule
 {
 	public void override(final Strategy strategy)
 	{
-		assertCalled();
+		assertBeforeCalled();
 		Clock.override(strategy);
 	}
 
 	public void clear()
 	{
-		assertCalled();
+		assertBeforeCalled();
 		Clock.clearOverride();
 	}
 

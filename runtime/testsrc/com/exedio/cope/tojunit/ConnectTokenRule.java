@@ -36,26 +36,26 @@ public final class ConnectTokenRule extends MainRule
 
 	public void set(final ConnectProperties properties)
 	{
-		assertCalled();
+		assertBeforeCalled();
 		ConnectToken.setProperties(model, properties);
 	}
 
 	public void set(final Supplier<ConnectProperties> properties)
 	{
-		assertCalled();
+		assertBeforeCalled();
 		ConnectToken.setProperties(model, properties);
 	}
 
 	public void removeVoid()
 	{
-		assertCalled();
+		assertBeforeCalled();
 		ConnectToken.removePropertiesVoid(model);
 	}
 
 	@SuppressWarnings("deprecation") // OK testing deprecated api
 	public ConnectProperties remove()
 	{
-		assertCalled();
+		assertBeforeCalled();
 		return ConnectToken.removeProperties(model);
 	}
 

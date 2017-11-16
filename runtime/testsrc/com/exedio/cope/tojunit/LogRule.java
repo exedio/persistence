@@ -52,13 +52,13 @@ public class LogRule extends MainRule
 
 	public final void setLevelDebug()
 	{
-		assertCalled();
+		assertBeforeCalled();
 		setLevel(Level.DEBUG);
 	}
 
 	private void setLevel(final Level level)
 	{
-		assertCalled();
+		assertBeforeCalled();
 
 		if(levelBefore==null)
 			levelBefore = logger.getLevel();
@@ -95,31 +95,31 @@ public class LogRule extends MainRule
 
 	public final void assertDebug(final String msg)
 	{
-		assertCalled();
+		assertBeforeCalled();
 		assertMessage(Level.DEBUG, msg);
 	}
 
 	public final void assertInfo(final String msg)
 	{
-		assertCalled();
+		assertBeforeCalled();
 		assertMessage(Level.INFO, msg);
 	}
 
 	public final void assertInfoWithoutMilliseconds(final String msg)
 	{
-		assertCalled();
+		assertBeforeCalled();
 		assertMessageWithoutMilliseconds(Level.INFO, msg);
 	}
 
 	public final void assertWarn(final String msg)
 	{
-		assertCalled();
+		assertBeforeCalled();
 		assertMessage(Level.WARN, msg);
 	}
 
 	public final void assertError(final String msg)
 	{
-		assertCalled();
+		assertBeforeCalled();
 		assertMessage(Level.ERROR, msg);
 	}
 
@@ -144,7 +144,7 @@ public class LogRule extends MainRule
 
 	public final void assertEmpty()
 	{
-		assertCalled();
+		assertBeforeCalled();
 		assertEquals(Collections.emptyList(), events);
 	}
 

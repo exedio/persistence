@@ -38,7 +38,7 @@ public abstract class MainRule extends ExternalResource
 		happened = true;
 	}
 
-	public void assertCalled()
+	public void assertBeforeCalled()
 	{
 		assertTrue(happened);
 	}

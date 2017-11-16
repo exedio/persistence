@@ -33,13 +33,13 @@ public final class ImporterRule extends MainRule
 
 	public void set(final boolean hintInitial)
 	{
-		assertCalled();
+		assertBeforeCalled();
 		importer.setHintInitialExerimental(hintInitial);
 	}
 
 	public void clear()
 	{
-		assertCalled();
+		assertBeforeCalled();
 		importer.setHintInitialExerimental(false);
 	}
 

@@ -44,7 +44,7 @@ public final class TransactionIdRule extends MainRule
 
 	public void assertEquals(final long expected, final long actual)
 	{
-		assertCalled();
+		assertBeforeCalled();
 		Assert.assertEquals(idBefore + expected, actual);
 	}
 }

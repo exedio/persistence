@@ -60,14 +60,14 @@ public final class ConnectionRule extends MainRule
 
 	public boolean isConnected()
 	{
-		assertCalled();
+		assertBeforeCalled();
 
 		return connection!=null;
 	}
 
 	private Connection get() throws SQLException
 	{
-		assertCalled();
+		assertBeforeCalled();
 		assertFalse(model.hasCurrentTransaction());
 
 		if(connection==null)
@@ -135,7 +135,7 @@ public final class ConnectionRule extends MainRule
 
 	public void close() throws SQLException
 	{
-		assertCalled();
+		assertBeforeCalled();
 		assertFalse(model.hasCurrentTransaction());
 
 		if(connection!=null)
