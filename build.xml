@@ -683,7 +683,6 @@
 				<pathelement location="build/classes/instrument/annosrc" />
 				<pathelement location="build/classes/instrument/src" />
 				<pathelement location="lib/exedio-cope-util.jar" />
-				<pathelement location="lib/junit.jar" />
 				<pathelement location="lib/javax.servlet-api.jar" />
 				<pathelement location="lib/findbugs-annotations.jar" />
 			</classpath>
@@ -881,7 +880,6 @@
 			</src>
 			<myClasspath>
 				<pathelement location="lib/trove4j.jar" />
-				<pathelement location="lib/junit.jar" />
 				<pathelement location="${ant.core.lib}" />
 				<pathelement location="lib/bsh-core.jar" />
 				<pathelement location="lib/exedio-cope-util.jar" />
