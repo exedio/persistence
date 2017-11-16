@@ -29,17 +29,17 @@ import org.junit.rules.ExternalResource;
  */
 public abstract class MainRule extends ExternalResource
 {
-	private boolean happened = false;
+	private boolean beforeCalled = false;
 
 	@Override
 	protected void before()
 	{
-		assertFalse(happened);
-		happened = true;
+		assertFalse(beforeCalled);
+		beforeCalled = true;
 	}
 
 	public void assertBeforeCalled()
 	{
-		assertTrue(happened);
+		assertTrue(beforeCalled);
 	}
 }
