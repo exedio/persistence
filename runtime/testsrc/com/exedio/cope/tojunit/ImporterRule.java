@@ -21,9 +21,8 @@ package com.exedio.cope.tojunit;
 import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.pattern.Importer;
-import org.junit.rules.ExternalResource;
 
-public final class ImporterRule extends ExternalResource
+public final class ImporterRule extends MainRule
 {
 	private final Importer<?> importer;
 
@@ -34,24 +33,16 @@ public final class ImporterRule extends ExternalResource
 
 	public void set(final boolean hintInitial)
 	{
-		before.assertCalled();
+		assertCalled();
 		importer.setHintInitialExerimental(hintInitial);
 	}
 
 	public void clear()
 	{
-		before.assertCalled();
+		assertCalled();
 		importer.setHintInitialExerimental(false);
 	}
 
-
-	private final BeforeCall before = new BeforeCall();
-
-	@Override
-	protected void before()
-	{
-		before.onCall();
-	}
 
 	@Override
 	protected void after()

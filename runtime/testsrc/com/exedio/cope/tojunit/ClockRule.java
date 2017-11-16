@@ -20,30 +20,21 @@ package com.exedio.cope.tojunit;
 
 import com.exedio.cope.util.Clock;
 import com.exedio.cope.util.Clock.Strategy;
-import org.junit.rules.ExternalResource;
 
-public final class ClockRule extends ExternalResource
+public final class ClockRule extends MainRule
 {
 	public void override(final Strategy strategy)
 	{
-		before.assertCalled();
+		assertCalled();
 		Clock.override(strategy);
 	}
 
 	public void clear()
 	{
-		before.assertCalled();
+		assertCalled();
 		Clock.clearOverride();
 	}
 
-
-	private final BeforeCall before = new BeforeCall();
-
-	@Override
-	protected void before()
-	{
-		before.onCall();
-	}
 
 	@Override
 	protected void after()

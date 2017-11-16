@@ -28,9 +28,8 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import org.junit.rules.ExternalResource;
 
-public final class ConnectionRule extends ExternalResource
+public final class ConnectionRule extends MainRule
 {
 	private final Model model;
 
@@ -40,14 +39,7 @@ public final class ConnectionRule extends ExternalResource
 	}
 
 
-	private final BeforeCall before = new BeforeCall();
 	private Connection connection;
-
-	@Override
-	protected void before()
-	{
-		before.onCall();
-	}
 
 	@Override
 	protected void after()
@@ -68,14 +60,14 @@ public final class ConnectionRule extends ExternalResource
 
 	public boolean isConnected()
 	{
-		before.assertCalled();
+		assertCalled();
 
 		return connection!=null;
 	}
 
 	private Connection get() throws SQLException
 	{
-		before.assertCalled();
+		assertCalled();
 		assertFalse(model.hasCurrentTransaction());
 
 		if(connection==null)
@@ -143,7 +135,7 @@ public final class ConnectionRule extends ExternalResource
 
 	public void close() throws SQLException
 	{
-		before.assertCalled();
+		assertCalled();
 		assertFalse(model.hasCurrentTransaction());
 
 		if(connection!=null)

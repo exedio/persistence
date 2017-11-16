@@ -22,9 +22,8 @@ import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.Model;
 import org.junit.Assert;
-import org.junit.rules.ExternalResource;
 
-public final class TransactionIdRule extends ExternalResource
+public final class TransactionIdRule extends MainRule
 {
 	private final Model model;
 
@@ -34,19 +33,18 @@ public final class TransactionIdRule extends ExternalResource
 	}
 
 
-	private final BeforeCall before = new BeforeCall();
 	private long idBefore;
 
 	@Override
 	public void before()
 	{
-		before.onCall();
+		super.before();
 		idBefore = model.getNextTransactionId();
 	}
 
 	public void assertEquals(final long expected, final long actual)
 	{
-		before.assertCalled();
+		assertCalled();
 		Assert.assertEquals(idBefore + expected, actual);
 	}
 }

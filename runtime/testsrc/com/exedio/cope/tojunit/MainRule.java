@@ -21,15 +21,18 @@ package com.exedio.cope.tojunit;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import org.junit.rules.ExternalResource;
+
 /**
  * Makes sure, that a {@link org.junit.rules.TestRule} works only,
  * if it has been mounted correctly.
  */
-public final class BeforeCall
+public abstract class MainRule extends ExternalResource
 {
 	private boolean happened = false;
 
-	public void onCall()
+	@Override
+	protected void before()
 	{
 		assertFalse(happened);
 		happened = true;

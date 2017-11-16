@@ -29,9 +29,8 @@ import org.apache.log4j.AppenderSkeleton;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.apache.log4j.spi.LoggingEvent;
-import org.junit.rules.ExternalResource;
 
-public class LogRule extends ExternalResource
+public class LogRule extends MainRule
 {
 	private final Logger logger;
 
@@ -53,13 +52,13 @@ public class LogRule extends ExternalResource
 
 	public final void setLevelDebug()
 	{
-		before.assertCalled();
+		assertCalled();
 		setLevel(Level.DEBUG);
 	}
 
 	private void setLevel(final Level level)
 	{
-		before.assertCalled();
+		assertCalled();
 
 		if(levelBefore==null)
 			levelBefore = logger.getLevel();
@@ -68,13 +67,12 @@ public class LogRule extends ExternalResource
 	}
 
 
-	private final BeforeCall before = new BeforeCall();
 	private Level levelBefore = null;
 
 	@Override
 	protected final void before()
 	{
-		before.onCall();
+		super.before();
 		logger.addAppender(appender);
 	}
 
@@ -97,31 +95,31 @@ public class LogRule extends ExternalResource
 
 	public final void assertDebug(final String msg)
 	{
-		before.assertCalled();
+		assertCalled();
 		assertMessage(Level.DEBUG, msg);
 	}
 
 	public final void assertInfo(final String msg)
 	{
-		before.assertCalled();
+		assertCalled();
 		assertMessage(Level.INFO, msg);
 	}
 
 	public final void assertInfoWithoutMilliseconds(final String msg)
 	{
-		before.assertCalled();
+		assertCalled();
 		assertMessageWithoutMilliseconds(Level.INFO, msg);
 	}
 
 	public final void assertWarn(final String msg)
 	{
-		before.assertCalled();
+		assertCalled();
 		assertMessage(Level.WARN, msg);
 	}
 
 	public final void assertError(final String msg)
 	{
-		before.assertCalled();
+		assertCalled();
 		assertMessage(Level.ERROR, msg);
 	}
 
@@ -146,7 +144,7 @@ public class LogRule extends ExternalResource
 
 	public final void assertEmpty()
 	{
-		before.assertCalled();
+		assertCalled();
 		assertEquals(Collections.emptyList(), events);
 	}
 
