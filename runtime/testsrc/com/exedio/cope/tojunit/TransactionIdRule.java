@@ -36,7 +36,7 @@ public final class TransactionIdRule extends MainRule
 	private long idBefore;
 
 	@Override
-	public void before()
+	protected void before()
 	{
 		super.before();
 		idBefore = model.getNextTransactionId();
