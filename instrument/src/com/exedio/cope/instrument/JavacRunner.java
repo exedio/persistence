@@ -48,7 +48,7 @@ abstract class JavacRunner<P extends Processor>
 		final JavaCompiler compiler=JavacTool.create();
 		try (final StandardJavaFileManager fileManager=compiler.getStandardFileManager(null, null, null))
 		{
-			final List<File> sortedSourceFiles=params.getAllJavaSourceFiles();
+			final List<File> sortedSourceFiles=params.getJavaSourceFilesExcludingIgnored();
 			// We have to sort files to have a deterministic order - otherwise, resolving classes by
 			// simple name is not deterministic.
 			Collections.sort(sortedSourceFiles);

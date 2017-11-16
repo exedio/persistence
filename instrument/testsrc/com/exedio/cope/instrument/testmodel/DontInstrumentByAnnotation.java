@@ -19,19 +19,27 @@
 package com.exedio.cope.instrument.testmodel;
 
 import com.exedio.cope.Item;
+import com.exedio.cope.instrument.WrapperIgnore;
 import com.exedio.cope.instrument.testfeature.SimpleSettable;
 import javax.annotation.Generated;
 
 /**
- * This class tests that the 'ignore' element at the 'instrument' ant task works.
+ * This class tests that the {@link WrapperIgnore} annotation works.
  */
-class DontInstrument extends Item
+@WrapperIgnore
+class DontInstrumentByAnnotation extends Item
 {
 	private static final long serialVersionUID=1L;
 
 	static final SimpleSettable makeInstrumentorFail = null;
 
-	/** this file is not visited by the {@link InstrumentorProcessor}, so this does not produce a warning */
 	@Generated("com.exedio.cope.instrument")
+	@SuppressWarnings("non-generated")
 	int generatedVariable;
+
+	@Generated("other.than.com.exedio.cope.instrument")
+	void generatedMethod()
+	{
+		// empty
+	}
 }

@@ -223,7 +223,7 @@ final class Main
 			@Override
 			InstrumentorProcessor createProcessor(final StandardJavaFileManager fileManager)
 			{
-				return new InstrumentorProcessor(params, repository, fileManager.getJavaFileObjectsFromFiles(params.ignoreFiles));
+				return new InstrumentorProcessor(params, repository);
 			}
 
 			@Override

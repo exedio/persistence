@@ -24,7 +24,6 @@ import com.sun.source.tree.ImportTree;
 import com.sun.source.util.DocTrees;
 import com.sun.source.util.TreePath;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import javax.annotation.processing.AbstractProcessor;
@@ -34,7 +33,6 @@ import javax.annotation.processing.SupportedSourceVersion;
 import javax.lang.model.SourceVersion;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.TypeElement;
-import javax.tools.JavaFileObject;
 
 @SupportedSourceVersion(SourceVersion.RELEASE_8)
 @SupportedAnnotationTypes("*")
@@ -43,20 +41,14 @@ final class InstrumentorProcessor extends AbstractProcessor
 
 	private final Params params;
 	private final JavaRepository javaRepository;
-	private final Set<JavaFileObject> ignoreFiles;
 
 	boolean processHasBeenCalled = false;
 	boolean foundJavadocControlTags = false;
 
-	InstrumentorProcessor(final Params params, final JavaRepository javaRepository, final Iterable<? extends JavaFileObject> ignoreFiles)
+	InstrumentorProcessor(final Params params, final JavaRepository javaRepository)
 	{
 		this.params = params;
 		this.javaRepository = javaRepository;
-		this.ignoreFiles = new HashSet<>();
-		for (final JavaFileObject ignoreFile: ignoreFiles)
-		{
-			this.ignoreFiles.add(ignoreFile);
-		}
 	}
 
 	@Override
@@ -84,18 +76,11 @@ final class InstrumentorProcessor extends AbstractProcessor
 				}
 			}
 			final TreeApiContext treeApiContext=new TreeApiContext(params.configByTags, params.hintFormat==HintFormat.forAnnotations, processingEnv, javaFile, compilationUnit);
-			if (ignoreFiles.contains(compilationUnit.getSourceFile()))
+			final CompilationUnitVisitor visitor=new CompilationUnitVisitor(treeApiContext);
+			visitor.scan(tp, null);
+			if (treeApiContext.foundJavadocControlTags)
 			{
-				new WarnForGeneratedVisitor(treeApiContext).scan(tp, null);
-			}
-			else
-			{
-				final CompilationUnitVisitor visitor=new CompilationUnitVisitor(treeApiContext);
-				visitor.scan(tp, null);
-				if (treeApiContext.foundJavadocControlTags)
-				{
-					foundJavadocControlTags=true;
-				}
+				foundJavadocControlTags=true;
 			}
 		}
 		return true;
