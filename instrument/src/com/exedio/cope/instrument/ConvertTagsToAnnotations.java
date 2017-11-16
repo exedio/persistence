@@ -49,7 +49,6 @@ import javax.lang.model.SourceVersion;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.TypeElement;
 import javax.tools.JavaFileObject;
-import javax.tools.StandardJavaFileManager;
 
 @SuppressWarnings("synthetic-access")
 final class ConvertTagsToAnnotations
@@ -61,7 +60,7 @@ final class ConvertTagsToAnnotations
 		{
 			@Override
 			@SuppressWarnings("synthetic-access")
-			ConvertProcessor createProcessor(final StandardJavaFileManager fileManager)
+			ConvertProcessor createProcessor()
 			{
 				return new ConvertProcessor(System.lineSeparator());
 			}

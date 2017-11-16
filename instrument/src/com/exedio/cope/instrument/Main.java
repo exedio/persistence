@@ -38,7 +38,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import javax.tools.StandardJavaFileManager;
 
 final class Main
 {
@@ -221,7 +220,7 @@ final class Main
 		new JavacRunner<InstrumentorProcessor>()
 		{
 			@Override
-			InstrumentorProcessor createProcessor(final StandardJavaFileManager fileManager)
+			InstrumentorProcessor createProcessor()
 			{
 				return new InstrumentorProcessor(params, repository);
 			}

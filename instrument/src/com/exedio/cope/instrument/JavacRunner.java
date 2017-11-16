@@ -63,14 +63,14 @@ abstract class JavacRunner<P extends Processor>
 			optionList.add(params.getMaxwarns());
 			optionList.add("-implicit:none");
 			final JavaCompiler.CompilationTask task = compiler.getTask(null, null, null, optionList, null, sources);
-			final P processor=createProcessor(fileManager);
+			final P processor=createProcessor();
 			task.setProcessors(singleton(processor));
 			task.call();
 			validateProcessor(processor);
 		}
 	}
 
-	abstract P createProcessor(StandardJavaFileManager fileManager);
+	abstract P createProcessor();
 
 	abstract void validateProcessor(P processor) throws HumanReadableException;
 
