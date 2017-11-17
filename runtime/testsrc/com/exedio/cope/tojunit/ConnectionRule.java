@@ -42,19 +42,10 @@ public final class ConnectionRule extends MainRule
 	private Connection connection;
 
 	@Override
-	protected void after()
+	protected void after() throws SQLException
 	{
 		if(connection!=null)
-		{
-			try
-			{
-				connection.close();
-			}
-			catch(final SQLException e)
-			{
-				throw new RuntimeException(e);
-			}
-		}
+			connection.close();
 	}
 
 

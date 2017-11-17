@@ -21,25 +21,53 @@ package com.exedio.cope.tojunit;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import org.junit.rules.ExternalResource;
+import org.junit.rules.TestRule;
+import org.junit.runner.Description;
+import org.junit.runners.model.Statement;
 
 /**
  * Makes sure, that a {@link org.junit.rules.ExternalResource} works only,
  * if it has been mounted correctly.
  */
-public abstract class MainRule extends ExternalResource
+public abstract class MainRule implements TestRule
 {
 	private boolean beforeCalled = false;
 
-	@Override
 	protected void before()
 	{
 		assertFalse(beforeCalled);
 		beforeCalled = true;
 	}
 
+	protected void after() throws Exception
+	{
+		// empty default implementation
+	}
+
 	public void assertBeforeCalled()
 	{
 		assertTrue(beforeCalled);
+	}
+
+
+	@Override
+	public final Statement apply(final Statement base, final Description description)
+	{
+		return new Statement()
+		{
+			@Override
+			public void evaluate() throws Throwable
+			{
+				before();
+				try
+				{
+					base.evaluate();
+				}
+				finally
+				{
+					after();
+				}
+			}
+		};
 	}
 }
