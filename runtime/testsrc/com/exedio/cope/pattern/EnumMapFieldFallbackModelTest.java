@@ -230,7 +230,7 @@ public class EnumMapFieldFallbackModelTest
 	 * Returns the value mapped to <tt>k</tt> by the field map {@link #fallMand}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	@javax.annotation.Nonnull
+	@javax.annotation.Nullable
 	final String getFallMand(@javax.annotation.Nonnull final AnEnum k)
 	{
 		return AnItem.fallMand.get(this,k);
@@ -250,7 +250,7 @@ public class EnumMapFieldFallbackModelTest
 	 * Associates <tt>k</tt> to a new value in the field map {@link #fallMand}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setFallMand(@javax.annotation.Nonnull final AnEnum k,@javax.annotation.Nonnull final String fallMand)
+	final void setFallMand(@javax.annotation.Nonnull final AnEnum k,@javax.annotation.Nullable final String fallMand)
 	{
 		AnItem.fallMand.set(this,k,fallMand);
 	}

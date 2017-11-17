@@ -137,7 +137,7 @@ public final class EnumMapField<K extends Enum<K>,V> extends Pattern implements 
 	}
 
 	@Override
-	@Wrap(order=10, doc="Returns the value mapped to <tt>" + KEY + "</tt> by the field map {0}.", nullability=MapValueNullable.class)
+	@Wrap(order=10, doc="Returns the value mapped to <tt>" + KEY + "</tt> by the field map {0}.", nullability=MapValueNullableIgnoringFallbacks.class)
 	public V get(
 			@Nonnull final Item item,
 			@Nonnull @Parameter(KEY) final K key)
@@ -150,7 +150,7 @@ public final class EnumMapField<K extends Enum<K>,V> extends Pattern implements 
 	public void set(
 			@Nonnull final Item item,
 			@Nonnull @Parameter(KEY) final K key,
-			@Parameter(nullability=MapValueNullable.class) final V value)
+			@Parameter(nullability=MapValueNullableIgnoringFallbacks.class) final V value)
 	{
 		FinalViolationException.check(this, item);
 
