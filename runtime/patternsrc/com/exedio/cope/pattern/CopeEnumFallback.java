@@ -20,6 +20,7 @@ package com.exedio.cope.pattern;
 
 import static java.lang.annotation.ElementType.FIELD;
 
+import com.exedio.cope.instrument.WrapAnnotateInterim;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
@@ -31,6 +32,7 @@ import java.lang.annotation.Target;
  */
 @Target(FIELD)
 @Retention(RetentionPolicy.RUNTIME)
+@WrapAnnotateInterim
 public @interface CopeEnumFallback
 {
 	// empty
