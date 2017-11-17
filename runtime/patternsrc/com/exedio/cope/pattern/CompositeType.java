@@ -27,7 +27,6 @@ import com.exedio.cope.Feature;
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.TypesBound;
-import com.exedio.cope.instrument.InstrumentContext;
 import com.exedio.cope.misc.CopeNameUtil;
 import com.exedio.cope.misc.LocalizationKeys;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -287,7 +286,7 @@ public final class CompositeType<T extends Composite> implements TemplatedType<T
 				types.put(javaClass, result);
 			}
 
-			if(result.componentSize==0 && !InstrumentContext.isRunning())
+			if(result.componentSize==0)
 				throw new IllegalArgumentException("composite has no templates: " + javaClass.getName());
 
 			return result;
