@@ -24,7 +24,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.rules.ExternalResource;
 
 /**
- * Makes sure, that a {@link org.junit.rules.TestRule} works only,
+ * Makes sure, that a {@link org.junit.rules.ExternalResource} works only,
  * if it has been mounted correctly.
  */
 public abstract class MainRule extends ExternalResource
