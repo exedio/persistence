@@ -20,9 +20,9 @@ package com.exedio.cope;
 
 import static java.util.Objects.requireNonNull;
 
-import org.junit.rules.ExternalResource;
+import com.exedio.cope.tojunit.MainRule;
 
-public final class WithinPurgeStampsRule extends ExternalResource
+public final class WithinPurgeStampsRule extends MainRule
 {
 	private final Model model;
 	private final Runnable within;
