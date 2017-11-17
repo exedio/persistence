@@ -35,8 +35,7 @@ public abstract class MainRule implements TestRule
 
 	protected void before()
 	{
-		assertFalse(beforeCalled);
-		beforeCalled = true;
+		// empty default implementation
 	}
 
 	protected void after() throws Exception
@@ -59,6 +58,8 @@ public abstract class MainRule implements TestRule
 			public void evaluate() throws Throwable
 			{
 				before();
+				assertFalse(beforeCalled);
+				beforeCalled = true;
 				try
 				{
 					base.evaluate();

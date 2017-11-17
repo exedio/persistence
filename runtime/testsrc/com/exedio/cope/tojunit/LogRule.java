@@ -72,7 +72,6 @@ public class LogRule extends MainRule
 	@Override
 	protected final void before()
 	{
-		super.before();
 		logger.addAppender(appender);
 	}
 
