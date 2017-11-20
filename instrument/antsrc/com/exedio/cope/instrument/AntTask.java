@@ -18,6 +18,8 @@
 
 package com.exedio.cope.instrument;
 
+import static java.util.Objects.requireNonNull;
+
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.File;
 import java.io.IOException;
@@ -95,7 +97,13 @@ public final class AntTask extends Task
 
 	public void setTimestampFile(final File value)
 	{
-		params.timestampFile = value;
+		getProject().log("instrument parameter timestampFile is deprecated - no longer required");
+		params.setTimestampFile(value);
+	}
+
+	public void setBuildDirectory(final File value)
+	{
+		params.buildDirectory = value;
 	}
 
 	public void addConfiguredResources(final Path value)
@@ -207,6 +215,14 @@ public final class AntTask extends Task
 		{
 			throw new BuildException("'dir' required");
 		}
+		if (params.buildDirectory==null)
+		{
+			final String targetName = getOwningTarget().getName();
+			final File buildRoot = new File(getProject().getBaseDir(), "build");
+			final File instrumentDir = new File(buildRoot, "instrument");
+			params.buildDirectory = new File(instrumentDir, targetName);
+		}
+		checkBuildDirectoryIsUnique();
 		final List<File> javaSourceFiles = params.getAllJavaSourceFiles();
 		if (javaSourceFiles.isEmpty())
 		{
@@ -248,10 +264,6 @@ public final class AntTask extends Task
 				{
 					params.ignoreFiles = listedFiles;
 				}
-			}
-			if (params.timestampFile==null && !params.resources.isEmpty())
-			{
-				throw new BuildException("resources require timestampFile");
 			}
 			if (params.hintFormat!=HintFormat.forTags)
 			{
@@ -302,6 +314,24 @@ public final class AntTask extends Task
 		catch(final IOException e)
 		{
 			throw new BuildException(e);
+		}
+	}
+
+	private void checkBuildDirectoryIsUnique() throws BuildException
+	{
+		final String propKey = "instrument_buildguard_"+requireNonNull(params.buildDirectory).getAbsolutePath();
+		final String existingValue = getProject().getProperty(propKey);
+		if (existingValue==null)
+		{
+			getProject().setProperty(propKey, getLocation().toString());
+		}
+		else if (!existingValue.equals(getLocation().toString()))
+		{
+			throw new BuildException(
+				"<instrument> calls at '"+existingValue+"' and '"+getLocation()+"' share the same buildDirectory. " +
+				"This happens if buildDirectory is explicitly set to the same value, or there are two <instrument> calls " +
+				"in the same ant target that use the default buildDirectory. Please configure unique buildDirectories."
+			);
 		}
 	}
 

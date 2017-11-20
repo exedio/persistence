@@ -7,6 +7,10 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* The instrumentor now uses a directory for internal files. It is configurable as <instrument> parameter 'buildDirectory'
+	and defaults to "build/<name_of_ant_target>".
+	<instrument> parameter 'timestampFile' is no longer required. Please remove from your build.xml. The instrumentor
+	will now always use a timestamp file.
 * VaultService#put takes VaultPutInfo.
 	This breaks backwards API compatibility of the Vault API.
 	May cause compiler errors and/or java.lang.NoSuchMethodError on runtime,

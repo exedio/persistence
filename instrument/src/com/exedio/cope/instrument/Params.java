@@ -73,7 +73,8 @@ final class Params
 	boolean overrideOnSeparateLine = true; // non-default is deprecated
 	HintFormat hintFormat = HintFormat.forAnnotations;
 	boolean verbose = false;
-	File timestampFile = null;
+	File buildDirectory = null;
+	private File timestampFile = null;
 	final List<File> classpath = new ArrayList<>();
 	final List<File> resources = new ArrayList<>();
 
@@ -115,6 +116,21 @@ final class Params
 		{
 			collectInto.add(fileOrDir);
 		}
+	}
+
+	void setTimestampFile(final File timestampFile)
+	{
+		this.timestampFile = timestampFile;
+	}
+
+	File getTimestampFile()
+	{
+		if (timestampFile!=null)
+			return timestampFile;
+		else if (buildDirectory!=null)
+			return new File(buildDirectory, "instrument.timestamp");
+		else
+			throw new RuntimeException("neither timestampFile nor buildDirectory set");
 	}
 
 	void addGenerateDeprecated(final String s) throws HumanReadableException

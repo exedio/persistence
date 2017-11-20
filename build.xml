@@ -387,7 +387,7 @@
 				verify="${instrument.verify}"
 				suppressUnusedWarningOnPrivateActivationConstructor="true"
 				nullabilityAnnotations="${instrument.nullabilityAnnotations}"
-				timestampFile="build/timestamps/runtime.test.timestamp">
+				buildDirectory="build/instrument/runtime.test">
 			<resources refid="instrument.resources" />
 			<classpath refid="runtime.test.path"/>
 			<generateDeprecated>com.exedio.cope.pattern.PasswordRecovery#issue(com.exedio.cope.Item,int)</generateDeprecated>
@@ -575,8 +575,7 @@
 				verify="${instrument.verify}"
 				suppressUnusedWarningOnPrivateActivationConstructor="true"
 				nullabilityAnnotations="${instrument.nullabilityAnnotations}"
-				hintFormat="forAnnotations"
-				timestampFile="build/timestamps/runtime.servlet.test.timestamp">
+				hintFormat="forAnnotations">
 			<classpath>
 				<pathelement location="build/classes/runtime/servletsrc" />
 				<pathelement location="lib/javax.servlet-api.jar" /><!-- required to instrument Media features-->
@@ -818,8 +817,7 @@
 				serialVersionUIDSuffix="small"
 				hidingWarningSuppressor="hiding"
 				nullabilityAnnotations="${instrument.nullabilityAnnotations}"
-				hintFormat="forTags"
-				timestampFile="build/timestamps/instrument.testlib.timestamp">
+				hintFormat="forTags">
 			<resources refid="instrument.resources" />
 			<classpath>
 				<pathelement location="build/classes/instrument/testfeaturesrc" />

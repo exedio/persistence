@@ -50,9 +50,9 @@ final class Main
 		final List<File> files = params.getJavaSourceFilesExcludingIgnored();
 		if(files.isEmpty())
 			throw new HumanReadableException("nothing to do.");
-		if ( noFilesModifiedAfter(files, params.timestampFile, params.verbose)
-			&& noFilesModifiedAfter(params.resources, params.timestampFile, params.verbose)
-			&& noFilesModifiedAfter(params.classpath, params.timestampFile, params.verbose) )
+		if ( noFilesModifiedAfter(files, params.getTimestampFile(), params.verbose)
+			&& noFilesModifiedAfter(params.resources, params.getTimestampFile(), params.verbose)
+			&& noFilesModifiedAfter(params.classpath, params.getTimestampFile(), params.verbose) )
 		{
 			System.out.println("No files or resources modified.");
 			return;
@@ -139,16 +139,15 @@ final class Main
 				throw new HumanReadableException("fix invalid wraps at "+invalidWraps+" field(s)");
 			}
 
-			if ( params.timestampFile!=null )
+			if ( params.getTimestampFile().exists() )
 			{
-				if ( params.timestampFile.exists() )
-				{
-					StrictFile.setLastModified(params.timestampFile, Clock.currentTimeMillis());
-				}
-				else
-				{
-					StrictFile.createNewFile(params.timestampFile);
-				}
+				StrictFile.setLastModified(params.getTimestampFile(), Clock.currentTimeMillis());
+			}
+			else
+			{
+				if (!params.getTimestampFile().getParentFile().isDirectory())
+					StrictFile.mkdirs(params.getTimestampFile().getParentFile());
+				StrictFile.createNewFile(params.getTimestampFile());
 			}
 		}
 		finally
@@ -181,7 +180,7 @@ final class Main
 	@SuppressFBWarnings("NP_NULL_ON_SOME_PATH_FROM_RETURN_VALUE") // OK: checks isDirectory before calling listFiles
 	private static boolean noFilesModifiedAfter(final Iterable<File> checkFiles, final File referenceFile, final boolean verbose)
 	{
-		if ( referenceFile==null || !referenceFile.exists() )
+		if ( !referenceFile.exists() )
 		{
 			if ( verbose )
 			{
