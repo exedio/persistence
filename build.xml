@@ -442,7 +442,7 @@
 		<delete file="build/classes/runtime/src/com/exedio/cope/testprotocol.properties" />
 		<foreachEnvironment skipSwitch="runtime.test.protocol">
 			<body>
-				<ljunit test="com.exedio.cope.ProtocolWriter">
+				<ljunit test="com.exedio.cope.ProtocolWriter" env="@{env}">
 					<classpath>
 						<pathelement location="build/classes/dsmf/src" />
 						<pathelement location="build/classes/runtime/src" />
