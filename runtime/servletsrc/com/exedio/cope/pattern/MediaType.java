@@ -231,6 +231,7 @@ public final class MediaType
 					// http://www.w3.org/TR/WOFF/
 					new byte[]{(byte)'w', (byte)'O', (byte)'F', (byte)'F'},
 					WOFF,
+					"font/woff", // https://tools.ietf.org/html/rfc8081#section-4.4.5
 					"font/x-woff"),
 			new MediaType(
 					".ttf",
