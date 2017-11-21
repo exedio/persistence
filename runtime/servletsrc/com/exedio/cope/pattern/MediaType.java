@@ -154,7 +154,8 @@ public final class MediaType
 	public static final String PDF  = "application/pdf";
 	public static final String JAVASCRIPT = "application/javascript";
 	public static final String EOT  = "application/vnd.ms-fontobject";
-	public static final String WOFF = "application/font-woff";
+	public static final String WOFF = "application/font-woff"; // TODO rename to WOFF1
+	public static final String WOFF2= "font/woff2";
 	public static final String TTF  = "application/x-font-ttf";
 	public static final String DOCX = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
 	public static final String XLSX = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
@@ -233,6 +234,12 @@ public final class MediaType
 					WOFF,
 					"font/woff", // https://tools.ietf.org/html/rfc8081#section-4.4.5
 					"font/x-woff"),
+			new MediaType(
+					// still a draft
+					".woff2",
+					// https://www.w3.org/TR/2016/CR-WOFF2-20160315/
+					new byte[]{(byte)'w', (byte)'O', (byte)'F', (byte)'2'},
+					WOFF2),
 			new MediaType(
 					".ttf",
 					// http://www.microsoft.com/typography/tt/ttf_spec/ttch02.doc

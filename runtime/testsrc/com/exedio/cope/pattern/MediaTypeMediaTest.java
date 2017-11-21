@@ -53,6 +53,7 @@ public class MediaTypeMediaTest
 				"(("+c+"='image/vnd.microsoft.icon' OR "+c+"='image/icon' OR "+c+"='image/x-icon') AND !("+b+" startsWith '"+ICO+"')) OR " +
 				"(("+c+"='application/zip' OR "+c+"='application/java-archive' OR "+c+"='application/vnd.openxmlformats-officedocument.wordprocessingml.document' OR "+c+"='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' OR "+c+"='application/x-zip-compressed') AND !("+b+" startsWith '"+ZIP+"')) OR " +
 				"(("+c+"='application/font-woff' OR "+c+"='font/woff' OR "+c+"='font/x-woff') AND !("+b+" startsWith '774f4646')) OR " +
+				"("+c+"='font/woff2' AND !("+b+" startsWith '774f4632')) OR " +
 				"(("+c+"='application/x-font-ttf' OR "+c+"='application/x-font-truetype' OR "+c+"='font/ttf') AND !("+b+" startsWith '0001000000')) OR " +
 				"(("+c+"='application/pdf' OR "+c+"='text/pdf') AND !("+b+" startsWith '"+PDF+"'))" +
 				")",
