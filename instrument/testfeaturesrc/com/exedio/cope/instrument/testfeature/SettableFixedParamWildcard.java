@@ -22,6 +22,7 @@ import com.exedio.cope.Item;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
 import com.exedio.cope.instrument.WrapFeature;
+import com.exedio.cope.misc.ReflectionTypes;
 import java.lang.reflect.Type;
 import java.util.Collections;
 import java.util.Set;
@@ -72,6 +73,6 @@ public class SettableFixedParamWildcard implements Settable<AtomicReference<?>>
 	@Override
 	public Type getInitialType()
 	{
-		throw new AssertionError();
+		return ReflectionTypes.parameterized(AtomicReference.class, ReflectionTypes.sub(Object.class));
 	}
 }

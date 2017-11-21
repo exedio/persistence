@@ -29,16 +29,23 @@ import com.exedio.cope.instrument.testfeature.SettableFixedParamWildcard;
 import com.exedio.cope.instrument.testfeature.SettableFixedParamWildcardSub;
 import com.exedio.cope.instrument.testfeature.SettableFixedSub;
 import com.exedio.cope.instrument.testfeature.SettableOpen;
+import com.exedio.cope.misc.ReflectionTypes;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.atomic.AtomicReference;
 
 final class SettableItem extends Item
 {
-	static final SettableOpen<AtomicInteger> open = new SettableOpen<>();
-	static final SettableOpen<AtomicReference<AtomicLong>> openParam = new SettableOpen<>();
-	static final SettableOpen<AtomicReference<?>> openParamWildcard = new SettableOpen<>();
-	static final SettableOpen<AtomicReference<? extends AtomicLong>> openParamBound = new SettableOpen<>();
+	static final SettableOpen<AtomicInteger> open = new SettableOpen<>(AtomicInteger.class);
+	static final SettableOpen<AtomicReference<AtomicLong>> openParam = new SettableOpen<>(
+		ReflectionTypes.parameterized(AtomicReference.class, AtomicLong.class)
+	);
+	static final SettableOpen<AtomicReference<?>> openParamWildcard = new SettableOpen<>(
+		ReflectionTypes.parameterized(AtomicReference.class, ReflectionTypes.sub(Object.class))
+	);
+	static final SettableOpen<AtomicReference<? extends AtomicLong>> openParamBound = new SettableOpen<>(
+		ReflectionTypes.parameterized(AtomicReference.class, ReflectionTypes.sub(AtomicLong.class))
+	);
 
 	static final SettableFixed fixed = new SettableFixed();
 	static final SettableFixedSub fixedSub = new SettableFixedSub();

@@ -23,6 +23,7 @@ import com.exedio.cope.instrument.WrapperInitial;
 import com.exedio.cope.instrument.testfeature.OptionFeature;
 import com.exedio.cope.instrument.testfeature.SettableOpen;
 import com.exedio.cope.instrument.testfeature.SimpleSettable;
+import com.exedio.cope.misc.ReflectionTypes;
 import java.util.List;
 import java.util.Set;
 
@@ -39,11 +40,13 @@ public abstract class LibItem<T> extends LibSuperItem
 
 	public static final OptionFeature option=new OptionFeature();
 
-	public static final SettableOpen<LibItem.Inner> inner=new SettableOpen<>();
+	public static final SettableOpen<LibItem.Inner> inner=new SettableOpen<>(LibItem.Inner.class);
 
-	public static final SettableOpen<String[]> strings=new SettableOpen<>();
+	public static final SettableOpen<String[]> strings=new SettableOpen<>(String[].class);
 
-	public static final SettableOpen<Set<List<Object>>> nestedGenerics=new SettableOpen<>();
+	public static final SettableOpen<Set<List<Object>>> nestedGenerics=new SettableOpen<>(
+		ReflectionTypes.parameterized(Set.class, ReflectionTypes.parameterized(List.class, Object.class))
+	);
 
 	@WrapperIgnore
 	public static final SimpleSettable ignored=new SimpleSettable(true);

@@ -86,7 +86,7 @@ public final class GenericFeatureReference<E> implements Settable<E>
 	@Override
 	public Type getInitialType()
 	{
-		throw new RuntimeException();
+		return valueClass;
 	}
 
 	@Override

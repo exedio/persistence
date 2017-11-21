@@ -27,8 +27,9 @@ final class VarargsItem extends VarargsSuper
 {
 	static final SettableVarargsInteger integerValue = new SettableVarargsInteger(false);
 	static final SettableVarargsInteger integerMandatoryValue = new SettableVarargsInteger(true);
-	static final SettableVarargs<Double> doubleValue = new SettableVarargs<>();
-	static final SettableVarargs<List<?>> listValue = new SettableVarargs<>();
+	static final SettableVarargs<Double> doubleValue = new SettableVarargs<>(Double.class);
+	@SuppressWarnings("unchecked")
+	static final SettableVarargs<List<?>> listValue = new SettableVarargs<>((Class<List<?>>)(Class)List.class);
 
 	static final WrapVarargs integerOnly = new WrapVarargs(integerValue);
 	static final WrapVarargs integerAndDouble = new WrapVarargs(integerValue, doubleValue);

@@ -25,25 +25,28 @@ import java.lang.reflect.MalformedParameterizedTypeException;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.lang.reflect.TypeVariable;
+import java.lang.reflect.WildcardType;
 import java.util.Arrays;
 import java.util.Objects;
 
 public final class ReflectionTypes
 {
+	private static final Type[] EMPTY_TYPE_ARRAY = new Type[0];
+
 	public static ParameterizedType parameterized(
 			final Class<?> rawType,
-			final Class<?>... actualTypeArguments)
+			final Type... actualTypeArguments)
 	{
 		return new ParameterizedToplevel(actualTypeArguments, rawType);
 	}
 
 	private static final class ParameterizedToplevel implements ParameterizedType
 	{
-		private final Class<?>[] arguments;
+		private final Type[] arguments;
 		private final Class<?> rawType;
 
 		ParameterizedToplevel(
-				final Class<?>[] actualTypeArguments,
+				final Type[] actualTypeArguments,
 				final Class<?> rawType)
 		{
 			this.arguments = requireNonEmptyAndCopy(actualTypeArguments, "actualTypeArguments");
@@ -113,14 +116,14 @@ public final class ReflectionTypes
 			bf.append('<');
 
 			boolean first = true;
-			for(final Class<?> argument : arguments)
+			for(final Type argument : arguments)
 			{
 				if(first)
 					first = false;
 				else
 					bf.append(", ");
 
-				bf.append(argument.getName());
+				bf.append(argument.getTypeName());
 			}
 
 			bf.append('>');
@@ -129,6 +132,23 @@ public final class ReflectionTypes
 		}
 	}
 
+	public static Type sub(final Class<?> clazz)
+	{
+		return new WildcardType()
+		{
+			@Override
+			public Type[] getUpperBounds()
+			{
+				return new Type[]{clazz};
+			}
+
+			@Override
+			public Type[] getLowerBounds()
+			{
+				return EMPTY_TYPE_ARRAY;
+			}
+		};
+	}
 
 	private ReflectionTypes()
 	{

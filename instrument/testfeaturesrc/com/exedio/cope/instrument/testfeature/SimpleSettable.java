@@ -81,7 +81,7 @@ public class SimpleSettable implements Settable<String>
 	@Override
 	public Type getInitialType()
 	{
-		throw new RuntimeException();
+		return String.class;
 	}
 
 }

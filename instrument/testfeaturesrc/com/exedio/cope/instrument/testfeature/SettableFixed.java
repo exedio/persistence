@@ -72,6 +72,6 @@ public class SettableFixed implements Settable<AtomicBoolean>
 	@Override
 	public Type getInitialType()
 	{
-		throw new AssertionError();
+		return AtomicBoolean.class;
 	}
 }

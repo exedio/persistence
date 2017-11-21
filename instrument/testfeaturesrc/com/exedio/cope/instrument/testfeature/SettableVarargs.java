@@ -29,6 +29,13 @@ import java.util.Set;
 @WrapFeature
 public class SettableVarargs<E> implements Settable<E>
 {
+	final Class<E> type;
+
+	public SettableVarargs(final Class<E> type)
+	{
+		this.type = type;
+	}
+
 	@Override
 	public boolean isInitial()
 	{
@@ -65,12 +72,12 @@ public class SettableVarargs<E> implements Settable<E>
 	@Override
 	public boolean isMandatory()
 	{
-		throw new AssertionError();
+		return false;
 	}
 
 	@Override
 	public Type getInitialType()
 	{
-		throw new AssertionError();
+		return type;
 	}
 }

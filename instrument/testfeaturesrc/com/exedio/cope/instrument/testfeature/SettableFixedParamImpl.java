@@ -21,6 +21,7 @@ package com.exedio.cope.instrument.testfeature;
 import com.exedio.cope.Item;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.instrument.WrapFeature;
+import com.exedio.cope.misc.ReflectionTypes;
 import java.lang.reflect.Type;
 import java.util.Collections;
 import java.util.Set;
@@ -72,6 +73,6 @@ public class SettableFixedParamImpl implements SettableFixedParamInterface
 	@Override
 	public Type getInitialType()
 	{
-		throw new AssertionError();
+		return ReflectionTypes.parameterized(AtomicReference.class, AtomicBoolean.class);
 	}
 }
