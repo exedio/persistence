@@ -59,7 +59,7 @@ final class JavacRunner
 			final Iterable<? extends JavaFileObject> sources=fileManager.getJavaFileObjectsFromFiles(sortedSourceFiles);
 			final List<String> optionList = new ArrayList<>();
 			optionList.addAll(asList("-classpath", combineClasspath(getCurrentClasspath(), toClasspathString(params.classpath))));
-			optionList.addAll(asList("-sourcepath", toClasspathString(params.sourceDirectories)));
+			optionList.addAll(asList("-sourcepath", toClasspathString(params.getSourceDirectories())));
 			optionList.add("-proc:only");
 			optionList.add("-encoding");
 			optionList.add(params.charset.name());

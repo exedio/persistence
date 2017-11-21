@@ -70,11 +70,16 @@ final class Params
 	final List<File> classpath = new ArrayList<>();
 	final List<File> resources = new ArrayList<>();
 
-	List<File> getAllJavaSourceFiles()
+	List<File> getSourceDirectories()
 	{
 		if (sourceDirectories==null) throw new RuntimeException("sourceDirectories not set");
+		return Collections.unmodifiableList(sourceDirectories);
+	}
+
+	List<File> getAllJavaSourceFiles()
+	{
 		final List<File> javaSourceFiles = new ArrayList<>();
-		for (final File sourceDirectory : sourceDirectories)
+		for (final File sourceDirectory : getSourceDirectories())
 		{
 			collectFiles(javaSourceFiles, sourceDirectory);
 		}
