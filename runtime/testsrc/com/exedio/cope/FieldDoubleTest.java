@@ -25,7 +25,7 @@ import static com.exedio.cope.testmodel.AttributeItem.someNotNullDouble;
 import static com.exedio.cope.tojunit.Assert.assertContains;
 import static com.exedio.cope.tojunit.Assert.list;
 import static java.lang.Double.valueOf;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.Assert.fail;
 
 import org.junit.jupiter.api.Test;

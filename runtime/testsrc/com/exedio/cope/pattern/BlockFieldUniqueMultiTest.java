@@ -22,7 +22,7 @@ import static com.exedio.cope.pattern.BlockFieldUniqueMultiModelTest.ABlock.cons
 import static com.exedio.cope.pattern.BlockFieldUniqueMultiModelTest.ABlock.constraintPrice;
 import static com.exedio.cope.pattern.BlockFieldUniqueMultiModelTest.AnItem.eins;
 import static com.exedio.cope.pattern.Price.storeOf;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.Assert.fail;
 
 import com.exedio.cope.TestWithEnvironment;

@@ -28,7 +28,7 @@ import static com.exedio.cope.PlusDoubleItem.numB;
 import static com.exedio.cope.PlusDoubleItem.plusAB;
 import static com.exedio.cope.tojunit.Assert.list;
 import static java.lang.Double.valueOf;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.ArrayList;

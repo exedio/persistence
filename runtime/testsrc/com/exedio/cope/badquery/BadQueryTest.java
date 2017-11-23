@@ -19,7 +19,7 @@
 package com.exedio.cope.badquery;
 
 import static com.exedio.cope.tojunit.Assert.assertContains;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.Assert.fail;
 
 import com.exedio.cope.Join;

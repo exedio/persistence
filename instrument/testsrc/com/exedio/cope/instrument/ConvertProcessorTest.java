@@ -19,7 +19,7 @@
 package com.exedio.cope.instrument;
 
 import static java.util.Collections.singleton;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.sun.tools.javac.api.JavacTool;
 import java.io.ByteArrayInputStream;

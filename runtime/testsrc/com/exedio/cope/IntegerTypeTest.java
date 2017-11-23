@@ -27,7 +27,7 @@ import static com.exedio.cope.SchemaInfo.newConnection;
 import static com.exedio.cope.SchemaInfo.quoteName;
 import static com.exedio.dsmf.Sequence.Type.bit31;
 import static com.exedio.dsmf.Sequence.Type.bit63;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.tojunit.SI;
 import com.exedio.dsmf.Schema;

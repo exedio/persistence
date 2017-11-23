@@ -18,7 +18,7 @@
 
 package com.exedio.cope.tojunit;
 
-import static org.junit.Assert.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import com.exedio.cope.util.StrictFile;
 import java.io.File;

@@ -19,7 +19,7 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.pattern.DispatcherProperties.factory;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.pattern.Dispatcher.Config;
 import com.exedio.cope.util.Sources;

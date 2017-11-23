@@ -29,7 +29,7 @@ import static com.exedio.cope.SchemaInfo.getTableName;
 import static com.exedio.cope.tojunit.Assert.assertContains;
 import static com.exedio.cope.tojunit.Assert.list;
 import static java.util.Arrays.asList;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.util.Day;
 import org.junit.jupiter.api.Test;

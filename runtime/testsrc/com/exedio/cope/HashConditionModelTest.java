@@ -21,7 +21,7 @@ package com.exedio.cope;
 import static com.exedio.cope.HashConditionTest.Algorithm;
 import static com.exedio.cope.HashConditionTest.MyItem.hash;
 import static java.nio.charset.StandardCharsets.US_ASCII;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.Assert.fail;
 
 import com.exedio.cope.tojunit.EqualsAssert;

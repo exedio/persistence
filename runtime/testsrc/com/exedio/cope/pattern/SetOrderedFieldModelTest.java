@@ -24,8 +24,8 @@ import static com.exedio.cope.pattern.SetOrderedFieldItem.strings;
 import static com.exedio.cope.pattern.SetOrderedFieldItem.stringsParent;
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
 import static com.exedio.cope.tojunit.Assert.list;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.IntegerField;

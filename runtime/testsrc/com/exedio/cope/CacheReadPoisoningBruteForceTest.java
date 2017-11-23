@@ -23,7 +23,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Arrays;
 import java.util.Objects;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -180,7 +180,7 @@ public class CacheReadPoisoningBruteForceTest extends TestWithEnvironment
 			assertEquals("state " + thread, Thread.State.TERMINATED, thread.getState());
 		}
 
-		Assert.assertEquals("", failures.toString());
+		Assertions.assertEquals("", failures.toString());
 	}
 
 	private void assertNotNull(final String message, final Object actual)

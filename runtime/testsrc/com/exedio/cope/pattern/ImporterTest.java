@@ -23,7 +23,7 @@ import static com.exedio.cope.pattern.ImporterItem.description;
 import static com.exedio.cope.pattern.ImporterItem.description2;
 import static com.exedio.cope.pattern.ImporterItem.importByCode;
 import static com.exedio.cope.tojunit.Assert.list;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.SetValue;
 import com.exedio.cope.TestWithEnvironment;

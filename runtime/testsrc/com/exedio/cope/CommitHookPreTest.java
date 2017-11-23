@@ -22,8 +22,8 @@ import static com.exedio.cope.CommitHookPostTest.FAIL;
 import static com.exedio.cope.CommitHookPostTest.assertNoTransaction;
 import static com.exedio.cope.CommitHookPostTest.assertTransaction;
 import static com.exedio.cope.CommitHookPostTest.model;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.Assert.fail;
 
 import com.exedio.cope.tojunit.TestSources;

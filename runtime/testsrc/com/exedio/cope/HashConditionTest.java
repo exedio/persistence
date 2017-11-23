@@ -23,9 +23,9 @@ import static com.exedio.cope.instrument.Visibility.PACKAGE;
 import static com.exedio.cope.junit.CopeAssert.assertUnmodifiable;
 import static java.nio.charset.StandardCharsets.US_ASCII;
 import static java.util.Arrays.asList;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.Assert.fail;
 
 import com.exedio.cope.instrument.Wrapper;

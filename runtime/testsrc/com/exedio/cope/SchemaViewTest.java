@@ -19,7 +19,7 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.instrument.Visibility.NONE;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.instrument.WrapperType;

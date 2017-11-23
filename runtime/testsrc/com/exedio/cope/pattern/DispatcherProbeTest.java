@@ -20,8 +20,8 @@ package com.exedio.cope.pattern;
 
 import static com.exedio.cope.pattern.DispatcherItem.historyAdd;
 import static com.exedio.cope.pattern.DispatcherItem.historyAssert;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.Assert.fail;
 
 import com.exedio.cope.TestWithEnvironment;

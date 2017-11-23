@@ -22,7 +22,7 @@ import static com.exedio.cope.PatternCacheWeightTest.MyItem.TYPE;
 import static com.exedio.cope.PatternCacheWeightTest.MyItem.absent;
 import static com.exedio.cope.PatternCacheWeightTest.MyItem.set222;
 import static com.exedio.cope.instrument.Visibility.NONE;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.Assert.fail;
 
 import com.exedio.cope.instrument.WrapperType;

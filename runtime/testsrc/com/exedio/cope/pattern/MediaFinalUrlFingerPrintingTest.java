@@ -18,7 +18,7 @@
 
 package com.exedio.cope.pattern;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;

@@ -18,9 +18,9 @@
 
 package com.exedio.cope;
 
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
 
 import com.exedio.cope.instrument.WrapperIgnore;
 import org.junit.jupiter.api.Test;

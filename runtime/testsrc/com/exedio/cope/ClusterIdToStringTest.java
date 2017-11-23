@@ -21,7 +21,7 @@ package com.exedio.cope;
 import static com.exedio.cope.ClusterSenderInfo.toStringNodeID;
 import static java.lang.Integer.MAX_VALUE;
 import static java.lang.Integer.MIN_VALUE;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 

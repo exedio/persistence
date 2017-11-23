@@ -26,11 +26,11 @@ import static com.exedio.cope.pattern.SerializerItem.map;
 import static com.exedio.cope.pattern.SerializerItem.mapWildcard;
 import static com.exedio.cope.tojunit.Assert.assertContains;
 import static java.lang.Integer.valueOf;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.Assert.fail;
 
 import com.exedio.cope.Feature;

@@ -18,7 +18,7 @@
 
 package com.exedio.cope.serialize;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.Cope;
 import com.exedio.cope.Item;

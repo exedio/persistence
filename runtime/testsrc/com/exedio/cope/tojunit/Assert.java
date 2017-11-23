@@ -18,7 +18,7 @@
 
 package com.exedio.cope.tojunit;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.Query;
 import com.exedio.cope.junit.CopeAssert;

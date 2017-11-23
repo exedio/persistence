@@ -21,7 +21,7 @@ package com.exedio.cope.pattern;
 import static com.exedio.cope.instrument.Visibility.PUBLIC;
 import static com.exedio.cope.pattern.SettableMandatorySyntheticTest.AnItem.TYPE;
 import static com.exedio.cope.pattern.SettableMandatorySyntheticTest.AnItem.mandatory;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.Assert.fail;
 
 import com.exedio.cope.MandatoryViolationException;

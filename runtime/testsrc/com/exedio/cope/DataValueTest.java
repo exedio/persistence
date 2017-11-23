@@ -19,7 +19,7 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.DataField.toValue;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.Assert.fail;
 
 import java.io.ByteArrayInputStream;

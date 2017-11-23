@@ -22,7 +22,7 @@ import static com.exedio.cope.PatternComputedTest.MyItem.TYPE;
 import static com.exedio.cope.PatternComputedTest.MyItem.compuComp;
 import static com.exedio.cope.PatternComputedTest.MyItem.virgnComp;
 import static com.exedio.cope.instrument.Visibility.NONE;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.misc.Computed;

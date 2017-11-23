@@ -19,7 +19,7 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.ItemCacheDataTest.MODEL;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

@@ -35,8 +35,8 @@ import static com.exedio.cope.reflect.FeatureFieldItem.string3;
 import static com.exedio.cope.reflect.FeatureFieldItem.unique;
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
 import static com.exedio.cope.tojunit.Assert.list;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.Assert.fail;
 
 import com.exedio.cope.Model;

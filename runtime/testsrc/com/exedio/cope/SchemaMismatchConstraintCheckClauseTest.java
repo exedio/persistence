@@ -22,8 +22,8 @@ import static com.exedio.cope.SchemaInfo.supportsCheckConstraints;
 import static com.exedio.dsmf.Constraint.Type.Check;
 import static com.exedio.dsmf.Node.Color.ERROR;
 import static com.exedio.dsmf.Node.Color.OK;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.exedio.dsmf.Constraint;
 import com.exedio.dsmf.Schema;

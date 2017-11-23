@@ -21,7 +21,7 @@ package com.exedio.cope.tojunit;
 import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.Model;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 
 public final class TransactionIdRule extends MainRule
 {
@@ -44,6 +44,6 @@ public final class TransactionIdRule extends MainRule
 	public void assertEquals(final long expected, final long actual)
 	{
 		assertBeforeCalled();
-		Assert.assertEquals(idBefore + expected, actual);
+		Assertions.assertEquals(idBefore + expected, actual);
 	}
 }

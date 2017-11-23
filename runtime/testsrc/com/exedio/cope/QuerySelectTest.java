@@ -22,8 +22,8 @@ import static com.exedio.cope.Query.newQuery;
 import static com.exedio.cope.QuerySelectTest.AnItem.TYPE;
 import static com.exedio.cope.QuerySelectTest.AnItem.field1;
 import static com.exedio.cope.QuerySelectTest.AnItem.field2;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.Assert.fail;
 
 import com.exedio.cope.util.Day;

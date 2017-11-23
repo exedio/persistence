@@ -29,7 +29,7 @@ import static com.exedio.cope.testmodel.StringItem.min4Max8;
 import static com.exedio.cope.testmodel.StringItem.min4Upper;
 import static com.exedio.cope.tojunit.Assert.assertEqualsStrict;
 import static com.exedio.cope.tojunit.Assert.assertNotEqualsStrict;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.util.CharSet;
 import org.junit.jupiter.api.Test;

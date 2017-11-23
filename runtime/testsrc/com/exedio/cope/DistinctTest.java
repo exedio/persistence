@@ -24,7 +24,7 @@ import static com.exedio.cope.PlusIntegerItem.numB;
 import static com.exedio.cope.Query.newQuery;
 import static com.exedio.cope.tojunit.Assert.assertContains;
 import static com.exedio.cope.tojunit.Assert.list;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.List;

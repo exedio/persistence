@@ -32,7 +32,7 @@ import static com.exedio.cope.testmodel.AttributeItem.someStringLength;
 import static com.exedio.cope.testmodel.AttributeItem.someStringUpperCase;
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
 import static com.exedio.cope.tojunit.Assert.list;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import com.exedio.cope.testmodel.AttributeItem;
 import com.exedio.cope.testmodel.AttributeItem.SomeEnum;

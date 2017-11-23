@@ -25,7 +25,7 @@ import static com.exedio.cope.pattern.EnumSetFieldItem.Language.SUBCLASS;
 import static com.exedio.cope.pattern.EnumSetFieldItem.TYPE;
 import static com.exedio.cope.pattern.EnumSetFieldItem.activeLanguage;
 import static com.exedio.cope.tojunit.Assert.assertContains;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.Assert.fail;
 
 import com.exedio.cope.MandatoryViolationException;

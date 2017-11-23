@@ -22,8 +22,8 @@ import static com.exedio.cope.OverflowIntegerSumTest.AnItem.TYPE;
 import static com.exedio.cope.OverflowIntegerSumTest.AnItem.field;
 import static com.exedio.cope.SchemaInfo.newConnection;
 import static java.lang.Integer.MAX_VALUE;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.Assert.fail;
 
 import com.exedio.cope.tojunit.SI;

@@ -23,7 +23,7 @@ import static com.exedio.cope.pattern.EnumMapFieldFallbackTest.AnEnum.missing;
 import static com.exedio.cope.pattern.EnumMapFieldFallbackTest.AnEnum.present;
 import static com.exedio.cope.pattern.EnumMapFieldFallbackTest.AnItem.text;
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.Model;
 import com.exedio.cope.StringField;

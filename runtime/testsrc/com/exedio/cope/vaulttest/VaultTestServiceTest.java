@@ -18,7 +18,7 @@
 
 package com.exedio.cope.vaulttest;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.junit.VaultTestService;
 import com.exedio.cope.vault.VaultService;

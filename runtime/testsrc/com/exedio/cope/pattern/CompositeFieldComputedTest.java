@@ -23,7 +23,7 @@ import static com.exedio.cope.pattern.CompositeFieldComputedTest.MyComposite.vir
 import static com.exedio.cope.pattern.CompositeFieldComputedTest.MyItem.TYPE;
 import static com.exedio.cope.pattern.CompositeFieldComputedTest.MyItem.compuComp;
 import static com.exedio.cope.pattern.CompositeFieldComputedTest.MyItem.virgnComp;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.Feature;

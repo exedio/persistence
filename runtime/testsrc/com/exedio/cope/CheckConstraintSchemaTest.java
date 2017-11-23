@@ -24,8 +24,8 @@ import static com.exedio.cope.CheckConstraintItem.beta;
 import static com.exedio.cope.CheckConstraintSuperItem.eins;
 import static com.exedio.cope.CheckConstraintSuperItem.zwei;
 import static com.exedio.cope.SchemaInfo.getTableName;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import com.exedio.cope.tojunit.SI;
 import com.exedio.dsmf.Node;

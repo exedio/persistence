@@ -18,7 +18,7 @@
 
 package com.exedio.cope.misc;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.CopeName;

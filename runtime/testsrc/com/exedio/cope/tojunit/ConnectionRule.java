@@ -19,7 +19,7 @@
 package com.exedio.cope.tojunit;
 
 import static java.util.Objects.requireNonNull;
-import static org.junit.Assert.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import com.exedio.cope.Model;
 import com.exedio.cope.SchemaInfo;

@@ -26,7 +26,7 @@ import static com.exedio.cope.pattern.PartOfOrderReuseTest.APart.parts1;
 import static com.exedio.cope.pattern.PartOfOrderReuseTest.APart.parts2;
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
 import static com.exedio.cope.tojunit.Assert.list;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;

@@ -22,7 +22,7 @@ import static com.exedio.cope.CompareConditionItem.doublex;
 import static com.exedio.cope.CompareConditionItem.intx;
 import static com.exedio.cope.CompareConditionItem.longx;
 import static com.exedio.cope.CompareConditionTest.MODEL;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 

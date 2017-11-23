@@ -26,7 +26,7 @@ import static com.exedio.cope.pattern.EnumMapFieldItem.name;
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
 import static com.exedio.cope.tojunit.Assert.map;
 import static java.lang.Integer.valueOf;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.Assert.fail;
 
 import com.exedio.cope.MandatoryViolationException;

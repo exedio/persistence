@@ -19,7 +19,7 @@
 package com.exedio.cope.pattern;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.security.SecureRandom;
 import org.junit.jupiter.api.Test;

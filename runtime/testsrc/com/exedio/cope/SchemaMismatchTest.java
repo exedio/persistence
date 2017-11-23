@@ -19,8 +19,8 @@
 package com.exedio.cope;
 
 import static java.util.Objects.requireNonNull;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import com.exedio.dsmf.Constraint;
 import com.exedio.dsmf.Node;

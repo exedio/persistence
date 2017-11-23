@@ -19,8 +19,8 @@
 package com.exedio.cope.junit;
 
 import static com.exedio.cope.util.TimeZoneStrict.getTimeZone;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import com.exedio.cope.util.Clock.Strategy;
 import java.text.ParseException;

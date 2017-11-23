@@ -20,8 +20,8 @@ package com.exedio.cope.junit;
 
 import static com.exedio.cope.junit.JUnitTestItem.nextSequence;
 import static com.exedio.cope.tojunit.Assert.list;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.exedio.cope.Model;
 import com.exedio.cope.TestWithEnvironment;

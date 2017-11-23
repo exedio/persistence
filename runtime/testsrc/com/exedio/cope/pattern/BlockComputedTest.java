@@ -23,7 +23,7 @@ import static com.exedio.cope.pattern.BlockComputedTest.MyBlock.virgnTemp;
 import static com.exedio.cope.pattern.BlockComputedTest.MyItem.TYPE;
 import static com.exedio.cope.pattern.BlockComputedTest.MyItem.compuComp;
 import static com.exedio.cope.pattern.BlockComputedTest.MyItem.virgnComp;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.Feature;

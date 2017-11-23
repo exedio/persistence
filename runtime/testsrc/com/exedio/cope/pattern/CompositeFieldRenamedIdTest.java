@@ -24,7 +24,7 @@ import static com.exedio.cope.pattern.CompositeFieldRenamedIdTest.MyComposite.wr
 import static com.exedio.cope.pattern.CompositeFieldRenamedIdTest.MyItem.TYPE;
 import static com.exedio.cope.pattern.CompositeFieldRenamedIdTest.MyItem.virgnComp;
 import static com.exedio.cope.pattern.CompositeFieldRenamedIdTest.MyItem.wrongComp;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.CopeName;

@@ -24,7 +24,7 @@ import static com.exedio.cope.testmodel.AttributeItem.someLong;
 import static com.exedio.cope.testmodel.AttributeItem.someNotNullLong;
 import static com.exedio.cope.tojunit.Assert.assertContains;
 import static com.exedio.cope.tojunit.Assert.list;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.Assert.fail;
 
 import org.junit.jupiter.api.Test;

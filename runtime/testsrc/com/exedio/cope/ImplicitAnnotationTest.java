@@ -21,8 +21,8 @@ package com.exedio.cope;
 import static com.exedio.cope.ImplicitAnnotationTest.MyItem.TYPE;
 import static com.exedio.cope.instrument.Visibility.NONE;
 import static java.util.Arrays.asList;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import com.exedio.cope.instrument.WrapperIgnore;
 import com.exedio.cope.misc.Computed;

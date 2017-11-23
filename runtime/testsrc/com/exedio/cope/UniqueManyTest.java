@@ -22,8 +22,8 @@ import static com.exedio.cope.UniqueManyTest.MyItem.constraint;
 import static com.exedio.cope.UniqueManyTest.MyItem.field;
 import static com.exedio.cope.instrument.Visibility.NONE;
 import static com.exedio.cope.instrument.Visibility.PACKAGE;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.ArrayList;
 import org.junit.jupiter.api.Test;

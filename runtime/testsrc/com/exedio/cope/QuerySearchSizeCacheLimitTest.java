@@ -21,7 +21,7 @@ package com.exedio.cope;
 import static com.exedio.cope.DayItem.TYPE;
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
 import static com.exedio.cope.tojunit.Assert.list;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.util.Day;
 import java.util.Arrays;

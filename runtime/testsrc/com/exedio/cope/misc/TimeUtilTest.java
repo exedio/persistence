@@ -19,7 +19,7 @@
 package com.exedio.cope.misc;
 
 import static com.exedio.cope.misc.TimeUtil.toMillies;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.tojunit.LogRule;
 import com.exedio.cope.tojunit.MainRule;

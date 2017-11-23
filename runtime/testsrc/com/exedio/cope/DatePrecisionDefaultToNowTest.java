@@ -23,8 +23,8 @@ import static com.exedio.cope.DatePrecisionDefaultToNowTest.AnItem.TYPE;
 import static com.exedio.cope.DatePrecisionDefaultToNowTest.AnItem.future;
 import static com.exedio.cope.DatePrecisionDefaultToNowTest.AnItem.none;
 import static com.exedio.cope.DatePrecisionDefaultToNowTest.AnItem.past;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.Assert.fail;
 
 import com.exedio.cope.DateField.Precision;

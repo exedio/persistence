@@ -22,8 +22,8 @@ import static com.exedio.cope.DatePrecisionConditionTest.AnItem.TYPE;
 import static com.exedio.cope.DatePrecisionConditionTest.AnItem.exact;
 import static com.exedio.cope.DatePrecisionConditionTest.AnItem.rounded;
 import static java.util.Arrays.asList;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Date;

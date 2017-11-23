@@ -19,7 +19,7 @@
 package com.exedio.cope.instrument;
 
 import static java.util.Arrays.asList;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.instrument.findtype.BothFindType;
 import com.exedio.cope.instrument.findtype.FindType;

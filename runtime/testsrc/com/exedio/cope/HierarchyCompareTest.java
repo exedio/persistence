@@ -20,7 +20,7 @@ package com.exedio.cope;
 
 import static com.exedio.cope.CompareAssert.assertCompare;
 import static com.exedio.cope.HierarchySuper.TYPE;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
 import java.util.Arrays;

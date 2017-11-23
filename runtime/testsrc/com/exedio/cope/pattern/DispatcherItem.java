@@ -21,9 +21,9 @@ package com.exedio.cope.pattern;
 import static com.exedio.cope.misc.TimeUtil.toMillies;
 import static com.exedio.cope.pattern.DispatcherModelTest.MODEL;
 import static java.lang.System.nanoTime;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;

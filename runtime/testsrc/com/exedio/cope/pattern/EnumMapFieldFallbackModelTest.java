@@ -25,7 +25,7 @@ import static com.exedio.cope.pattern.EnumMapFieldFallbackModelTest.AnItem.fallM
 import static com.exedio.cope.pattern.EnumMapFieldFallbackModelTest.AnItem.fallOpt;
 import static com.exedio.cope.pattern.EnumMapFieldFallbackModelTest.AnItem.noneMand;
 import static com.exedio.cope.pattern.EnumMapFieldFallbackModelTest.AnItem.noneOpt;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.Assert.fail;
 
 import com.exedio.cope.Model;

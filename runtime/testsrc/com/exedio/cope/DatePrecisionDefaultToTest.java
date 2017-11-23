@@ -19,8 +19,8 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.DatePrecisionConditionTest.date;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.Assert.fail;
 
 import com.exedio.cope.DateField.RoundingMode;

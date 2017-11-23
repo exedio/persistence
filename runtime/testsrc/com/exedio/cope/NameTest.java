@@ -24,8 +24,8 @@ import static com.exedio.cope.SchemaInfo.getTableName;
 import static com.exedio.cope.SchemaInfo.getTypeColumnName;
 import static com.exedio.cope.tojunit.Assert.assertContains;
 import static com.exedio.dsmf.Dialect.NOT_NULL;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import com.exedio.dsmf.Node;
 import com.exedio.dsmf.Schema;

@@ -19,7 +19,7 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.util.TimeZoneStrict.getTimeZone;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

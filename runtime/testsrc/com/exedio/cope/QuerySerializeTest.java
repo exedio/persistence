@@ -21,7 +21,7 @@ package com.exedio.cope;
 import static com.exedio.cope.QuerySerializeTest.AnItem.TYPE;
 import static com.exedio.cope.QuerySerializeTest.AnItem.field;
 import static com.exedio.cope.tojunit.Assert.reserialize;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.List;
 import org.junit.jupiter.api.Test;

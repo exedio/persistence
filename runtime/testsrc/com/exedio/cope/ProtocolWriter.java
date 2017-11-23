@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import com.exedio.cope.util.Properties.Field;
 import java.io.File;

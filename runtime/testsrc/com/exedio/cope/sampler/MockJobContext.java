@@ -18,8 +18,8 @@
 
 package com.exedio.cope.sampler;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import com.exedio.cope.Model;
 import com.exedio.cope.util.AssertionErrorJobContext;

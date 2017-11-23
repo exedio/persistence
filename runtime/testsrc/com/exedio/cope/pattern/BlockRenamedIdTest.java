@@ -23,7 +23,7 @@ import static com.exedio.cope.pattern.BlockRenamedIdTest.MyBlock.wrongTemp;
 import static com.exedio.cope.pattern.BlockRenamedIdTest.MyItem.TYPE;
 import static com.exedio.cope.pattern.BlockRenamedIdTest.MyItem.virgnComp;
 import static com.exedio.cope.pattern.BlockRenamedIdTest.MyItem.wrongComp;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.CopeName;

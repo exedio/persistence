@@ -22,7 +22,7 @@ import static com.exedio.cope.instrument.Visibility.NONE;
 import static com.exedio.cope.misc.SerializationCheck.check;
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
 import static java.util.Arrays.asList;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.Assert.fail;
 
 import com.exedio.cope.Features;

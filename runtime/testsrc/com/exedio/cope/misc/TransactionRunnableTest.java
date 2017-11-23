@@ -20,8 +20,8 @@ package com.exedio.cope.misc;
 
 import static com.exedio.cope.CacheIsolationItem.TYPE;
 import static com.exedio.cope.tojunit.Assert.assertContains;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.Assert.fail;
 
 import com.exedio.cope.CacheIsolationItem;

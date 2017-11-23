@@ -24,7 +24,7 @@ import static com.exedio.cope.CompareConditionItem.string;
 import static com.exedio.cope.Query.newQuery;
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
 import static com.exedio.cope.tojunit.Assert.list;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Collection;
 import java.util.Iterator;

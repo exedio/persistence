@@ -24,8 +24,8 @@ import static com.exedio.cope.QueryCopyTest.AnItem.intx;
 import static com.exedio.cope.QueryCopyTest.AnItem.string;
 import static com.exedio.cope.instrument.Visibility.NONE;
 import static java.util.Arrays.asList;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 import com.exedio.cope.instrument.WrapperIgnore;
 import java.util.Collections;

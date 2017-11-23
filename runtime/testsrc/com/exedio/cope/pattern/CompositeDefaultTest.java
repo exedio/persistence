@@ -18,8 +18,8 @@
 
 package com.exedio.cope.pattern;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import com.exedio.cope.Model;
 import com.exedio.cope.TestWithEnvironment;

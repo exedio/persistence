@@ -21,7 +21,7 @@ package com.exedio.cope;
 import static com.exedio.cope.SequenceInfoAssert.assertInfo;
 import static com.exedio.cope.SequenceInfoTest.AnItem.TYPE;
 import static com.exedio.cope.SequenceInfoTest.AnItem.next;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 

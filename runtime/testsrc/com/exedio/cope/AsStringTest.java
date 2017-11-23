@@ -23,8 +23,8 @@ import static com.exedio.cope.AsStringItem.doublex;
 import static com.exedio.cope.AsStringItem.intx;
 import static com.exedio.cope.AsStringItem.longx;
 import static com.exedio.cope.tojunit.Assert.list;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import java.util.Iterator;
 import java.util.List;

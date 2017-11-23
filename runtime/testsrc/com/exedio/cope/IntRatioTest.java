@@ -20,7 +20,7 @@ package com.exedio.cope;
 
 import static com.exedio.cope.IntRatio.ratio;
 import static java.lang.Integer.MAX_VALUE;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.Assert.fail;
 
 import org.junit.jupiter.api.Test;

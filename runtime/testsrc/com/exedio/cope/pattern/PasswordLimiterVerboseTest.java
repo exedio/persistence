@@ -27,10 +27,10 @@ import static com.exedio.cope.pattern.PasswordLimiterItem.period2;
 import static com.exedio.cope.pattern.PasswordLimiterItem.period2P;
 import static com.exedio.cope.pattern.PasswordLimiterItem.purgePasswordLimited;
 import static com.exedio.cope.tojunit.Assert.list;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.junit.AbsoluteMockClockStrategy;

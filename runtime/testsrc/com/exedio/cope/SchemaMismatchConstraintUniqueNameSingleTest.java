@@ -22,9 +22,9 @@ import static com.exedio.cope.SchemaInfo.getColumnName;
 import static com.exedio.dsmf.Constraint.Type.Unique;
 import static com.exedio.dsmf.Node.Color.ERROR;
 import static com.exedio.dsmf.Node.Color.OK;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.exedio.dsmf.Constraint;
 import com.exedio.dsmf.Schema;

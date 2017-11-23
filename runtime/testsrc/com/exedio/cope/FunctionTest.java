@@ -30,7 +30,7 @@ import static com.exedio.cope.testmodel.StringItem.min4Upper;
 import static com.exedio.cope.testmodel.StringItem.min4UpperLength;
 import static com.exedio.cope.tojunit.Assert.assertContains;
 import static com.exedio.cope.tojunit.Assert.list;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.testmodel.StringItem;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;

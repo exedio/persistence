@@ -20,7 +20,7 @@ package com.exedio.cope;
 
 import static com.exedio.cope.misc.SetValueUtil.add;
 import static com.exedio.cope.misc.SetValueUtil.getFirst;
-import static org.junit.Assert.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import com.exedio.cope.pattern.ListField;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;

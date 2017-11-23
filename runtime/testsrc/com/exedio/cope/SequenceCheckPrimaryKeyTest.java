@@ -22,8 +22,8 @@ import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnValueL;
 import static com.exedio.cope.SchemaInfo.newConnection;
 import static com.exedio.cope.SequenceCheckPrimaryKeyTest.AnItem.TYPE;
 import static com.exedio.cope.SequenceCheckPrimaryKeyTest.AnItem.field;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 import com.exedio.cope.tojunit.SI;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;

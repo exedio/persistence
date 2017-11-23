@@ -26,9 +26,9 @@ import static com.exedio.cope.serialize.ItemSerializationItem.TYPE;
 import static com.exedio.cope.serialize.ItemSerializationItem.list;
 import static com.exedio.cope.serialize.ItemSerializationItem.listParent;
 import static com.exedio.cope.tojunit.Assert.reserialize;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;

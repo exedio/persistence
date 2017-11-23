@@ -19,7 +19,7 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.pattern.TypeFutureInPatternsItem.create;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.pattern.TypeFutureInPatternsFeature.TypeItem;

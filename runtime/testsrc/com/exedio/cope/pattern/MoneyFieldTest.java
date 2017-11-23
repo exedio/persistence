@@ -33,8 +33,8 @@ import static com.exedio.cope.pattern.MoneyFieldItem.fixeEnu;
 import static com.exedio.cope.pattern.MoneyFieldItem.fixeOpt;
 import static com.exedio.cope.pattern.MoneyFieldItem.sharMan;
 import static com.exedio.cope.pattern.MoneyFieldItem.sharOpt;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.Assert.fail;
 
 import com.exedio.cope.MandatoryViolationException;

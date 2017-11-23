@@ -28,8 +28,8 @@ import static com.exedio.dsmf.Constraint.Type.ForeignKey;
 import static com.exedio.dsmf.Constraint.Type.PrimaryKey;
 import static com.exedio.dsmf.Constraint.Type.Unique;
 import static com.exedio.dsmf.Node.Color.OK;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import com.exedio.dsmf.Constraint;
 import com.exedio.dsmf.Schema;
