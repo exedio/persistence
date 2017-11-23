@@ -142,14 +142,14 @@ public class SchemaInfoQueryTest
 		model.rollbackIfNotCommitted();
 	}
 
-	@BeforeAll public static void setUpClass()
+	@BeforeAll static void setUpClass()
 	{
 		model.connect(ConnectProperties.create(TestSources.minimal()));
 		model.tearDownSchema();
 		model.createSchema();
 	}
 
-	@AfterAll public static void tearDownClass()
+	@AfterAll static void tearDownClass()
 	{
 		model.tearDownSchema();
 		model.disconnect();
