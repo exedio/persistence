@@ -28,9 +28,9 @@ import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.tojunit.SI;
 import com.exedio.cope.tojunit.TestSources;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.AfterClass;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.BeforeClass;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 public class SchemaInfoQueryTest
@@ -142,14 +142,14 @@ public class SchemaInfoQueryTest
 		model.rollbackIfNotCommitted();
 	}
 
-	@BeforeClass public static void setUpClass()
+	@BeforeAll public static void setUpClass()
 	{
 		model.connect(ConnectProperties.create(TestSources.minimal()));
 		model.tearDownSchema();
 		model.createSchema();
 	}
 
-	@AfterClass public static void tearDownClass()
+	@AfterAll public static void tearDownClass()
 	{
 		model.tearDownSchema();
 		model.disconnect();
