@@ -55,7 +55,7 @@ public class LimitedListFieldTest extends TestWithEnvironment
 
 	LimitedListFieldItem item;
 
-	@BeforeEach public final void setUp()
+	@BeforeEach final void setUp()
 	{
 		item = new LimitedListFieldItem(1, 2, 3);
 	}

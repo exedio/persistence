@@ -31,7 +31,7 @@ public abstract class FieldTest extends TestmodelTest
 	protected AttributeItem item;
 	protected AttributeItem item2;
 
-	@BeforeEach public final void setUpFieldTest()
+	@BeforeEach final void setUpFieldTest()
 	{
 		emptyItem = new EmptyItem();
 		emptyItem2 = new EmptyItem();

@@ -48,7 +48,7 @@ public class QueryAggregatorTest extends TestWithEnvironment
 	Query<QueryAggregatorItem> q1, q2, q3;
 	QueryAggregator<QueryAggregatorItem> ag;
 
-	@BeforeEach public final void setUp()
+	@BeforeEach final void setUp()
 	{
 		item0 = new QueryAggregatorItem(0);
 		item1 = new QueryAggregatorItem(1);

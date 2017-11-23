@@ -61,7 +61,7 @@ public class HistoryTest extends TestWithEnvironment
 
 	HistoryItem item;
 
-	@BeforeEach public final void setUp()
+	@BeforeEach final void setUp()
 	{
 		item = new HistoryItem();
 	}

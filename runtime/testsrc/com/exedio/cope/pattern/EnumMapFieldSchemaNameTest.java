@@ -75,7 +75,7 @@ public class EnumMapFieldSchemaNameTest
 	private static final Model MODEL = new Model(TypesBound.newType(AnItem.class));
 
 	@SuppressWarnings("static-method")
-	@BeforeEach public final void setUp()
+	@BeforeEach final void setUp()
 	{
 		final Properties source = new Properties();
 		source.setProperty("connection.url", "jdbc:hsqldb:mem:EnumMapFieldSchemaNameTest");

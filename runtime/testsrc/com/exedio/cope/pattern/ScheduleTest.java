@@ -70,7 +70,7 @@ public class ScheduleTest extends TestWithEnvironment
 	ScheduleItem item;
 	ArrayList<ExpectedRun> expectedRuns;
 
-	@BeforeEach public final void setUp()
+	@BeforeEach final void setUp()
 	{
 		item = new ScheduleItem();
 		final ScheduleItem disabledItem = new ScheduleItem();

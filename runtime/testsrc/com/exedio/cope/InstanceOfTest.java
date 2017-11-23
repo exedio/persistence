@@ -56,7 +56,7 @@ public class InstanceOfTest extends TestWithEnvironment
 	InstanceOfRefItem reffc1;
 	InstanceOfRefItem reffN;
 
-	@BeforeEach public final void setUp()
+	@BeforeEach final void setUp()
 	{
 		itema  = new InstanceOfAItem("itema");
 		itemb1 = new InstanceOfB1Item("itemb1");

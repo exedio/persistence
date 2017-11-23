@@ -39,7 +39,7 @@ public class TransactionRunnableTest extends TestWithEnvironment
 
 	CacheIsolationItem item = null;
 
-	@BeforeEach public final void setUp()
+	@BeforeEach final void setUp()
 	{
 		item = null;
 	}

@@ -33,7 +33,7 @@ public class DataRestartTest extends TestWithEnvironment
 
 	ItemCacheDataItem item;
 
-	@BeforeEach public final void setUp()
+	@BeforeEach final void setUp()
 	{
 		item = new ItemCacheDataItem();
 		restartTransaction();

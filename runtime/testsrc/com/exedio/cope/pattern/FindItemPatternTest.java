@@ -39,7 +39,7 @@ public class FindItemPatternTest extends TestWithEnvironment
 
 	ListFieldItem item;
 
-	@BeforeEach public final void setUp()
+	@BeforeEach final void setUp()
 	{
 		item = new ListFieldItem();
 		item.addToStrings("xxzero");

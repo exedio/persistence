@@ -50,7 +50,7 @@ public class SequenceCheckPrimaryKeyTest extends TestWithEnvironment
 
 	private boolean p;
 
-	@BeforeEach public void setUp()
+	@BeforeEach void setUp()
 	{
 		final ConnectProperties props = model.getConnectProperties();
 		model.disconnect();

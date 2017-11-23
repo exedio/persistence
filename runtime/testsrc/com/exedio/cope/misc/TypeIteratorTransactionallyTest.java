@@ -48,7 +48,7 @@ public class TypeIteratorTransactionallyTest extends TestWithEnvironment
 
 	QueryAggregatorItem item0, item1, item2, item3, item4;
 
-	@BeforeEach public final void setUp()
+	@BeforeEach final void setUp()
 	{
 		try(TransactionTry tx = model.startTransactionTry(getClass().getName()))
 		{

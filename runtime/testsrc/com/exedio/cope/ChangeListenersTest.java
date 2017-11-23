@@ -37,7 +37,7 @@ public class ChangeListenersTest
 	 */
 	private ChangeListenerInfo baselineInfo = model.getChangeListenersInfo();
 
-	@BeforeEach public final void setUp()
+	@BeforeEach final void setUp()
 	{
 		baselineInfo = model.getChangeListenersInfo();
 	}

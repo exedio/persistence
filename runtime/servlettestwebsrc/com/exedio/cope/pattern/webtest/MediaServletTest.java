@@ -78,7 +78,7 @@ public class MediaServletTest
 
 	private String schemeAndHost;
 
-	@BeforeEach public final void setUp()
+	@BeforeEach final void setUp()
 	{
 		schemeAndHost = "http://localhost:" + System.getProperty("tomcat.port.http");
 		//noinspection ResultOfMethodCallIgnored OK if does not yet exists

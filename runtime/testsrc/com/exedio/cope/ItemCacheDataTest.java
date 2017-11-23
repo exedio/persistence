@@ -38,7 +38,7 @@ public class ItemCacheDataTest extends TestWithEnvironment
 	boolean v;
 	ItemCacheDataItem item;
 
-	@BeforeEach public final void setUp()
+	@BeforeEach final void setUp()
 	{
 		v = ItemCacheDataItem.data.getVaultInfo()!=null;
 		item = new ItemCacheDataItem();

@@ -46,7 +46,7 @@ public class PriceFieldConditionsTest extends TestWithEnvironment
 				p3 = storeOf(333);
 	private PriceFieldItem iN, i1, i2, i3;
 
-	@BeforeEach public final void setUp()
+	@BeforeEach final void setUp()
 	{
 		iN  = PriceFieldItem.n(pN, p2);
 		i1  = PriceFieldItem.n(p1, p2);

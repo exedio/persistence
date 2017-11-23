@@ -43,7 +43,7 @@ public class PlusIntegerOrderNullTest extends TestWithEnvironment
 	PlusIntegerItem item1;
 	PlusIntegerItem item2;
 
-	@BeforeEach public final void setUp()
+	@BeforeEach final void setUp()
 	{
 		item0 = new PlusIntegerItem(1, null, null);
 		item1 = new PlusIntegerItem(2, 12,   null);

@@ -49,7 +49,7 @@ public class PlusLongOrderTest extends TestWithEnvironment
 	PlusLongItem item2;
 	PlusLongItem item3;
 
-	@BeforeEach public final void setUp()
+	@BeforeEach final void setUp()
 	{
 		item1 = new PlusLongItem(1l, 6l, -1000l);
 		item2 = new PlusLongItem(2l, 1l, -1000l);

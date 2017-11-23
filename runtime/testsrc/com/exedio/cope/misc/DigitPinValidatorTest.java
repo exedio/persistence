@@ -38,7 +38,7 @@ public class DigitPinValidatorTest
 {
 	private DigitPinValidator validator;
 
-	@BeforeEach public final void setUp()
+	@BeforeEach final void setUp()
 	{
 		this.validator = new DigitPinValidator(4);
 	}

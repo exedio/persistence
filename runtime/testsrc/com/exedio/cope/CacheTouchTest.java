@@ -39,7 +39,7 @@ public class CacheTouchTest extends TestWithEnvironment
 
 	CacheIsolationItem item;
 
-	@BeforeEach public final void setUp()
+	@BeforeEach final void setUp()
 	{
 		item = new CacheIsolationItem("itemName");
 	}

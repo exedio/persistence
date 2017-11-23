@@ -40,7 +40,7 @@ public class ItemCacheStampPurgeTest extends TestWithEnvironment
 	@SuppressFBWarnings("URF_UNREAD_FIELD")
 	CacheIsolationItem item1, item2, itemX;
 
-	@BeforeEach public final void setUp()
+	@BeforeEach final void setUp()
 	{
 		final ConnectProperties props = model.getConnectProperties();
 		ignore =

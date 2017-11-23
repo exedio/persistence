@@ -37,7 +37,7 @@ public class CompositeConditionTest extends TestWithEnvironment
 	@SuppressFBWarnings("URF_UNREAD_FIELD")
 	CompareConditionItem item, itemA, itemB, itemAB, itemAX, itemXB, itemXX;
 
-	@BeforeEach public final void setUp()
+	@BeforeEach final void setUp()
 	{
 		item   = new CompareConditionItem(null,    1,   1l, null, null, null, null);
 		itemA  = new CompareConditionItem(null,    2,   1l, null, null, null, null);

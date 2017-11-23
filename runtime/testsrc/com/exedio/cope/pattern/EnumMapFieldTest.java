@@ -50,7 +50,7 @@ public class EnumMapFieldTest extends TestWithEnvironment
 
 	EnumMapFieldItem item, itemX;
 
-	@BeforeEach public final void setUp()
+	@BeforeEach final void setUp()
 	{
 		item = new EnumMapFieldItem();
 		itemX = new EnumMapFieldItem();

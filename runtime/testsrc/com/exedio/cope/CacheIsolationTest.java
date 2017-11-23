@@ -44,7 +44,7 @@ public class CacheIsolationTest extends TestWithEnvironment
 	long setupInvalidationsOrdered;
 	long setupInvalidationsDone;
 
-	@BeforeEach public final void setUp()
+	@BeforeEach final void setUp()
 	{
 		item = new CacheIsolationItem("blub");
 		collisionItem = new CacheIsolationItem("collision");

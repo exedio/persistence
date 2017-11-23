@@ -58,7 +58,7 @@ public class PasswordLimiterTest extends TestWithEnvironment
 	PasswordLimiterItem i;
 	PasswordLimiterItem i2;
 
-	@BeforeEach public final void setUp()
+	@BeforeEach final void setUp()
 	{
 		i = new PasswordLimiterItem(PASSWORD);
 		i2 = new PasswordLimiterItem(PASSWORD2);

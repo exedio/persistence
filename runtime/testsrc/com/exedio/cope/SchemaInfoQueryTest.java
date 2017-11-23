@@ -132,7 +132,7 @@ public class SchemaInfoQueryTest
 
 
 
-	@BeforeEach public void setUp()
+	@BeforeEach void setUp()
 	{
 		model.startTransaction(SchemaInfoQueryTest.class.getName());
 	}

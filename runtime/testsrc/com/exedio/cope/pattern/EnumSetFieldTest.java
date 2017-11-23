@@ -47,7 +47,7 @@ public class EnumSetFieldTest extends TestWithEnvironment
 
 	EnumSetFieldItem item, itemX;
 
-	@BeforeEach public final void setUp()
+	@BeforeEach final void setUp()
 	{
 		item = new EnumSetFieldItem();
 		itemX = new EnumSetFieldItem();

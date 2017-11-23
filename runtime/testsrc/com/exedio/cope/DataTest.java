@@ -53,7 +53,7 @@ public class DataTest extends TestWithEnvironment
 	private DataItem item;
 	private byte[] dataBig;
 
-	@BeforeEach public final void setUp()
+	@BeforeEach final void setUp()
 	{
 		final int data8Length = bytes8.length;
 		// must be substantially larger than

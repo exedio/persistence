@@ -62,7 +62,7 @@ public class DoubleTest extends TestWithEnvironment
 	private DoubleItem item;
 	private int numberOfItems;
 
-	@BeforeEach public final void setUp()
+	@BeforeEach final void setUp()
 	{
 		item = new DoubleItem(2201.01);
 		new DoubleItem(2202.02);

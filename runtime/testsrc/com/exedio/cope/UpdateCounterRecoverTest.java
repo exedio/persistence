@@ -46,7 +46,7 @@ public final class UpdateCounterRecoverTest extends TestWithEnvironment
 
 	CacheIsolationItem item = null;
 
-	@BeforeEach public void setUp()
+	@BeforeEach void setUp()
 	{
 		item = new CacheIsolationItem("name0");
 	}

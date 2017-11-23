@@ -29,7 +29,7 @@ public abstract class RawDatabaseTest
 {
 	protected Connection con;
 
-	@BeforeEach public final void setUpRawDatabaseTest() throws SQLException
+	@BeforeEach final void setUpRawDatabaseTest() throws SQLException
 	{
 		final ConnectProperties props =
 				new ConnectProperties(ConnectProperties.getDefaultPropertyFile());

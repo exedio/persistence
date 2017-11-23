@@ -291,7 +291,7 @@ public class MessageDigestHashAlgorithmTest
 		return mockSecureRandomInternal;
 	}
 
-	@BeforeEach public final void setUp()
+	@BeforeEach final void setUp()
 	{
 		mockSecureRandomInternal = null;
 		mockSecureRandomInternalLength = -1;

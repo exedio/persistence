@@ -43,7 +43,7 @@ public class GroupByTest extends TestWithEnvironment
 	}
 
 	@SuppressWarnings("static-method")
-	@BeforeEach public final void setUp()
+	@BeforeEach final void setUp()
 	{
 		new AnItem("foo", 1);
 		new AnItem("foo", 2);

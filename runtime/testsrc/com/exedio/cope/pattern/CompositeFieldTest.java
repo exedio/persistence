@@ -77,7 +77,7 @@ public class CompositeFieldTest extends TestWithEnvironment
 	CompositeOptionalItem oItem;
 	CompositeFinalItem fItem;
 
-	@BeforeEach public final void setUp()
+	@BeforeEach final void setUp()
 	{
 		target1 = new CompositeOptionalItem("target1");
 		target2 = new CompositeOptionalItem("target2");

@@ -87,7 +87,7 @@ public class ReviseTest
 	private String hostname;
 	private ConnectProperties props;
 
-	@BeforeEach public final void setUp() throws UnknownHostException
+	@BeforeEach final void setUp() throws UnknownHostException
 	{
 		hostname = InetAddress.getLocalHost().getHostName();
 		props = ConnectProperties.create(source(true));

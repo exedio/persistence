@@ -56,7 +56,7 @@ public class FunctionTest extends TestWithEnvironment
 		return result;
 	}
 
-	@BeforeEach public final void setUp()
+	@BeforeEach final void setUp()
 	{
 		item1 = newItem("5ffff", "4ddd");
 		item2 = newItem("6ggggg", "2b");

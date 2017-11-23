@@ -97,7 +97,7 @@ public class HashConditionTest extends TestWithEnvironment
 	SortedSet<String> supported;
 	MyItem item;
 
-	@BeforeEach public final void setUp()
+	@BeforeEach final void setUp()
 	{
 		supported = model.getSupportedDataHashAlgorithms();
 		item = new MyItem();

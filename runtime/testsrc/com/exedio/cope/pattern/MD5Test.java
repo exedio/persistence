@@ -50,7 +50,7 @@ public class MD5Test extends TestWithEnvironment
 
 	MD5Item item;
 
-	@BeforeEach public final void setUp()
+	@BeforeEach final void setUp()
 	{
 		item = new MD5Item(FRANK);
 	}

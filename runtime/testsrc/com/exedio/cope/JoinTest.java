@@ -40,7 +40,7 @@ public class JoinTest extends TestmodelTest
 	PointerTargetItem item2a;
 	PointerTargetItem item2b;
 
-	@BeforeEach public final void setUp()
+	@BeforeEach final void setUp()
 	{
 		item2a = new PointerTargetItem("item2a");
 		item2b = new PointerTargetItem("item1a2b");

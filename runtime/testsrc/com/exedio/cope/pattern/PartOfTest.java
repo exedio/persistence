@@ -36,7 +36,7 @@ public class PartOfTest extends TestWithEnvironment
 
 	PartOfContainerItem container;
 
-	@BeforeEach public final void setUp()
+	@BeforeEach final void setUp()
 	{
 		container = new PartOfContainerItem("container");
 	}

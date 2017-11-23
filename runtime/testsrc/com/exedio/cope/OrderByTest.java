@@ -52,7 +52,7 @@ public class OrderByTest extends TestmodelTest
 	EmptyItem emptyItem, emptyItem2;
 	AttributeItem item1, item2, item3, item4, item5;
 
-	@BeforeEach public final void setUp()
+	@BeforeEach final void setUp()
 	{
 		emptyItem = new EmptyItem();
 		emptyItem2 = new EmptyItem();

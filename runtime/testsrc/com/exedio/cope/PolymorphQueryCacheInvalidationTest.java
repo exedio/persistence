@@ -32,7 +32,7 @@ public class PolymorphQueryCacheInvalidationTest extends TestWithEnvironment
 
 	InstanceOfAItem itema;
 
-	@BeforeEach public final void setUp()
+	@BeforeEach final void setUp()
 	{
 		itema = new InstanceOfAItem("itema");
 	}

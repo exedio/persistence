@@ -58,7 +58,7 @@ public class DayFieldTest extends TestWithEnvironment
 		super(MODEL);
 	}
 
-	@BeforeEach public final void setUp()
+	@BeforeEach final void setUp()
 	{
 		item = new DayItem(DEFAULT);
 		item2 = new DayItem(DEFAULT2);

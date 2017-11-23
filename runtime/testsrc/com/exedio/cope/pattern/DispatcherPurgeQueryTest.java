@@ -41,7 +41,7 @@ public class DispatcherPurgeQueryTest
 
 
 	@SuppressFBWarnings("DLS_DEAD_LOCAL_STORE")
-	@BeforeEach public void setUp()
+	@BeforeEach void setUp()
 	{
 		@SuppressWarnings("unused")
 		final Model model = DispatcherModelTest.MODEL; // initialize model

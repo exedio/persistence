@@ -38,7 +38,7 @@ public class RangeFieldNullTest extends TestWithEnvironment
 
 	RangeFieldItem ab, nb, an, nn;
 
-	@BeforeEach public final void setUp()
+	@BeforeEach final void setUp()
 	{
 		ab = new RangeFieldItem(10,   20);
 		nb = new RangeFieldItem(null, 20);

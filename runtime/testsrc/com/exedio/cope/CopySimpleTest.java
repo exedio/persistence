@@ -455,7 +455,7 @@ public class CopySimpleTest extends TestWithEnvironment
 	}
 
 
-	@BeforeEach public void before()
+	@BeforeEach void before()
 	{
 		CopySimpleSource.clearBeforeCopeItemLog();
 	}

@@ -42,7 +42,7 @@ public class DistinctTest extends TestWithEnvironment
 	@SuppressFBWarnings("URF_UNREAD_FIELD")
 	PlusIntegerItem item1, item2, item3, item4;
 
-	@BeforeEach public final void setUp()
+	@BeforeEach final void setUp()
 	{
 		item1 = new PlusIntegerItem(1, 2, 0);
 		item2 = new PlusIntegerItem(1, 3, 0);

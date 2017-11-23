@@ -54,7 +54,7 @@ public class DivideDoubleTest extends TestWithEnvironment
 	DivideDoubleItem item;
 	DivideDoubleItem item2;
 
-	@BeforeEach public final void setUp()
+	@BeforeEach final void setUp()
 	{
 		item = new DivideDoubleItem(8.5, 2.5, 4.0);
 		item2 = new DivideDoubleItem(30.3, 4.4, 5.5);

@@ -33,7 +33,7 @@ public final class MediaPathPostTest
 {
 	private MediaServlet servlet;
 
-	@BeforeEach public void setUp()
+	@BeforeEach void setUp()
 	{
 		servlet = new MediaServlet();
 	}

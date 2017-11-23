@@ -49,7 +49,7 @@ public class MinusLongTest extends TestWithEnvironment
 
 	MinusLongItem item;
 
-	@BeforeEach public final void setUp()
+	@BeforeEach final void setUp()
 	{
 		item = new MinusLongItem(7, 9, 3);
 		new MinusLongItem(30, 4, 5);

@@ -46,7 +46,7 @@ public class PlusIntegerOrderTest extends TestWithEnvironment
 	PlusIntegerItem item2;
 	PlusIntegerItem item3;
 
-	@BeforeEach public final void setUp()
+	@BeforeEach final void setUp()
 	{
 		item1 = new PlusIntegerItem(1, 6, -1000);
 		item2 = new PlusIntegerItem(2, 1, -1000);

@@ -48,7 +48,7 @@ public class ListFieldTest2 extends TestWithEnvironment
 
 	ListFieldItem item;
 
-	@BeforeEach public final void setUp()
+	@BeforeEach final void setUp()
 	{
 		item = new ListFieldItem();
 	}

@@ -57,7 +57,7 @@ public class TextUrlFilterDelegatorTest extends TestWithEnvironment
 
 	TextUrlFilterDelegatorItem item, item2;
 
-	@BeforeEach public final void setUp()
+	@BeforeEach final void setUp()
 	{
 		item  = new TextUrlFilterDelegatorItem();
 		item2 = new TextUrlFilterDelegatorItem();

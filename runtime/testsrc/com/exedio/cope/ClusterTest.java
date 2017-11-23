@@ -61,7 +61,7 @@ public abstract class ClusterTest
 			));
 	}
 
-	@BeforeEach public final void setUpClusterTest()
+	@BeforeEach final void setUpClusterTest()
 	{
 		csp = getProperties(0x11224433);
 		clp = getProperties(0x11224434);

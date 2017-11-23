@@ -39,7 +39,7 @@ public class QueryCacheTest extends TestWithEnvironment
 	}
 
 	@SuppressWarnings("static-method")
-	@BeforeEach public final void setUp()
+	@BeforeEach final void setUp()
 	{
 		new MatchItem();
 	}

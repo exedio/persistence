@@ -65,7 +65,7 @@ public final class MediaPathTest extends TestWithEnvironment
 	private int noSuchPathOnSetup;
 	private MediaInfo normalInfo = null;
 
-	@BeforeEach public void setUp()
+	@BeforeEach void setUp()
 	{
 		item = new MediaPathItem();
 		id = item.getCopeID();

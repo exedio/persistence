@@ -33,7 +33,7 @@ public class FindItemHierarchyEmptyTest extends TestWithEnvironment
 	HierarchyEmptySub subItem;
 	HierarchyEmptySuper superItem;
 
-	@BeforeEach public final void setUp()
+	@BeforeEach final void setUp()
 	{
 		subItem = new HierarchyEmptySub(0);
 		superItem = new HierarchyEmptySuper(3);

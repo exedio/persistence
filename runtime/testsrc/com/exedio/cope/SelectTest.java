@@ -68,7 +68,7 @@ public class SelectTest extends TestmodelTest
 		return result;
 	}
 
-	@BeforeEach public final void setUp()
+	@BeforeEach final void setUp()
 	{
 		someItem = new EmptyItem();
 		someItem2 = new EmptyItem();

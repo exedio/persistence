@@ -45,7 +45,7 @@ public class RandomTest extends TestWithEnvironment
 	List<Long> expected5, expected6;
 	List<?> expected6Sort;
 
-	@BeforeEach public final void setUp()
+	@BeforeEach final void setUp()
 	{
 		item1 = new CompareConditionItem("string1", 1, 11l, 2.1, null, null, null);
 		item2 = new CompareConditionItem("string2", 2, 12l, 2.2, null, null, null);

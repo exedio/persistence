@@ -51,7 +51,7 @@ public class DataMandatoryTest extends TestWithEnvironment
 
 	private DataMandatoryItem item;
 
-	@BeforeEach public final void setUp()
+	@BeforeEach final void setUp()
 	{
 		item = new DataMandatoryItem(toValue(bytes4));
 	}

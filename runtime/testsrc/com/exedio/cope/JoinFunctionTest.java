@@ -37,7 +37,7 @@ public class JoinFunctionTest extends TestWithEnvironment
 
 	private JoinFunctionItemSingle single;
 
-	@BeforeEach public final void setUp()
+	@BeforeEach final void setUp()
 	{
 		single = new JoinFunctionItemSingle("single");
 		new JoinFunctionItem("a1", Integer.valueOf(1));

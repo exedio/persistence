@@ -52,7 +52,7 @@ public class MapFieldTest extends TestWithEnvironment
 
 	MapFieldItem item, itemX;
 
-	@BeforeEach public final void setUp()
+	@BeforeEach final void setUp()
 	{
 		item = new MapFieldItem();
 		itemX = new MapFieldItem();

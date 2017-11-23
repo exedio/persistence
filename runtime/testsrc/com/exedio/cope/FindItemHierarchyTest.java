@@ -35,7 +35,7 @@ public class FindItemHierarchyTest extends TestWithEnvironment
 	HierarchySecondSub secondItem2;
 	HierarchyFirstSub firstItem2;
 
-	@BeforeEach public final void setUp()
+	@BeforeEach final void setUp()
 	{
 		firstItem = new HierarchyFirstSub(0);
 		secondItem = new HierarchySecondSub(2);

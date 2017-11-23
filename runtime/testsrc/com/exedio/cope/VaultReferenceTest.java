@@ -255,7 +255,7 @@ public class VaultReferenceTest
 	private VaultReferenceService service;
 	private VaultMockService main, refr;
 
-	@BeforeEach public void setUp()
+	@BeforeEach void setUp()
 	{
 		MODEL.connect(ConnectProperties.factory().create(cascade(
 				single("dataField.vault", true),

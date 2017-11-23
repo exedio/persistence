@@ -38,7 +38,7 @@ public class HierarchyCompareTest extends TestWithEnvironment
 	List<Item> items;
 	List<Item> orderby;
 
-	@BeforeEach public final void setUp()
+	@BeforeEach final void setUp()
 	{
 		items = new ArrayList<>();
 		final HierarchySingleSub c1 = new HierarchySingleSub(2, "x");

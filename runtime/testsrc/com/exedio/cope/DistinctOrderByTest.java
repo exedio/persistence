@@ -50,7 +50,7 @@ public class DistinctOrderByTest extends TestWithEnvironment
 	private static final String ALIAS = "PlusIntegerItem";
 	private String NULLS_FIRST;
 
-	@BeforeEach public final void setUp()
+	@BeforeEach final void setUp()
 	{
 		item1 = new PlusIntegerItem(2, 4, 5);
 		item2 = new PlusIntegerItem(1, 4, 5);

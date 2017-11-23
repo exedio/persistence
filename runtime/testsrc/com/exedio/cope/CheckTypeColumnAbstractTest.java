@@ -42,7 +42,7 @@ public class CheckTypeColumnAbstractTest extends TestWithEnvironment
 
 	private HierarchySingleSub item;
 
-	@BeforeEach public final void setUp()
+	@BeforeEach final void setUp()
 	{
 		item = new HierarchySingleSub();
 	}

@@ -40,7 +40,7 @@ public class DeleteAfterUniqueViolationTest extends TestWithEnvironment
 
 	private boolean unq;
 
-	@BeforeEach public final void setUp()
+	@BeforeEach final void setUp()
 	{
 		unq = model.connect().supportsUniqueViolation;
 	}

@@ -53,7 +53,7 @@ public class DispatcherPurgeTest extends TestWithEnvironment
 	DispatcherItem itemFailureBefore;
 	DispatcherItem itemFailureAfter;
 
-	@BeforeEach public void setUp()
+	@BeforeEach void setUp()
 	{
 		itemSuccessBefore = new DispatcherItem("successBefore", false);
 		itemSuccessAfter  = new DispatcherItem("successAfter",  false);

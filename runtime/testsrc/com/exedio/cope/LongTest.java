@@ -43,7 +43,7 @@ public class LongTest extends TestWithEnvironment
 	private LongItem item;
 	private int numberOfItems;
 
-	@BeforeEach public final void setUp()
+	@BeforeEach final void setUp()
 	{
 		item = new LongItem(2201l);
 		new LongItem(2202l);

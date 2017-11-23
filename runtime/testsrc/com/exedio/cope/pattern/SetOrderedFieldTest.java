@@ -51,7 +51,7 @@ public class SetOrderedFieldTest extends TestWithEnvironment
 	SetOrderedFieldItem item;
 	SetOrderedFieldItem otherItem;
 
-	@BeforeEach public final void setUp()
+	@BeforeEach final void setUp()
 	{
 		item = new SetOrderedFieldItem();
 		otherItem = new SetOrderedFieldItem();

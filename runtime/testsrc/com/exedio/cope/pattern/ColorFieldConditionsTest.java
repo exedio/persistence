@@ -47,7 +47,7 @@ public class ColorFieldConditionsTest extends TestWithEnvironment
 	// named by the colors for fields optional and alpha
 	private ColorFieldItem iNN, iWW, iBB, iNT, iNL;
 
-	@BeforeEach public final void setUp()
+	@BeforeEach final void setUp()
 	{
 		iNN  = new ColorFieldItem(cWhite);
 		iNN.setOptionalAndAlpha(null);

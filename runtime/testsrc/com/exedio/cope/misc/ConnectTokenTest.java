@@ -62,7 +62,7 @@ public class ConnectTokenTest
 
 	private final ConnectTokenRule ctr = new ConnectTokenRule(model);
 
-	@BeforeEach public final void setUp()
+	@BeforeEach final void setUp()
 	{
 		ctr.set(props);
 	}

@@ -23,7 +23,7 @@ import org.junit.jupiter.api.BeforeEach;
 
 public abstract class SchemaReadyTest extends SchemaTest
 {
-	@BeforeEach public final void setUpSchemaReadyTest()
+	@BeforeEach final void setUpSchemaReadyTest()
 	{
 		final Schema schema = getSchema();
 		schema.tearDown();

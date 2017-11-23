@@ -47,7 +47,7 @@ public class PriceFieldTest extends TestWithEnvironment
 
 	PriceFieldItem item;
 
-	@BeforeEach public final void setUp()
+	@BeforeEach final void setUp()
 	{
 		item = new PriceFieldItem(storeOf(555), storeOf(7777));
 	}

@@ -44,7 +44,7 @@ public class SerializationSizeTest extends TestWithEnvironment
 	ArrayList<Serializable> accu = null;
 	int previousSize;
 
-	@BeforeEach public final void setUp()
+	@BeforeEach final void setUp()
 	{
 		accu = new ArrayList<>();
 		previousSize = accuSize();

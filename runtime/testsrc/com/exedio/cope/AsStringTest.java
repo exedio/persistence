@@ -42,7 +42,7 @@ public class AsStringTest extends TestWithEnvironment
 
 	AsStringItem item1, item10, item2, itemN, item0, itemX;
 
-	@BeforeEach public final void setUp()
+	@BeforeEach final void setUp()
 	{
 		item1 = new AsStringItem( 13,  15l,  1.9);
 		item10= new AsStringItem( 13,  15l,  0.9);

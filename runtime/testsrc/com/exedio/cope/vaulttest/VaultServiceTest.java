@@ -63,7 +63,7 @@ public abstract class VaultServiceTest
 	}
 
 	@SuppressFBWarnings("BC_UNCONFIRMED_CAST_OF_RETURN_VALUE")
-	@BeforeEach public final void setUpVaultServiceTest() throws Exception
+	@BeforeEach final void setUpVaultServiceTest() throws Exception
 	{
 		final Properties source = new Properties();
 		source.setProperty("algorithm", ALGORITHM);

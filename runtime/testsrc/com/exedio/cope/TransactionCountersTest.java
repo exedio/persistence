@@ -36,7 +36,7 @@ public class TransactionCountersTest extends TestWithEnvironment
 	private long rollbackWithoutConnectionStart;
 	private long rollbackWithConnectionStart;
 
-	@BeforeEach public final void setUp()
+	@BeforeEach final void setUp()
 	{
 		final TransactionCounters c = model.getTransactionCounters();
 		commitWithoutConnectionStart   = c.getCommitWithoutConnection();

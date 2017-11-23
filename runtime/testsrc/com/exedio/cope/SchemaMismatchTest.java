@@ -39,7 +39,7 @@ public abstract class SchemaMismatchTest extends TestWithEnvironment
 		this.modelB = requireNonNull(modelB, "modelB");
 	}
 
-	@BeforeEach public final void setUpSchemaMismatchTest()
+	@BeforeEach final void setUpSchemaMismatchTest()
 	{
 		modelB.connect(model.getConnectProperties());
 	}

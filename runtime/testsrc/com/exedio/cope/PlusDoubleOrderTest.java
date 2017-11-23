@@ -49,7 +49,7 @@ public class PlusDoubleOrderTest extends TestWithEnvironment
 	PlusDoubleItem item2;
 	PlusDoubleItem item3;
 
-	@BeforeEach public final void setUp()
+	@BeforeEach final void setUp()
 	{
 		item1 = new PlusDoubleItem(1.1, 6.6, -1000.99);
 		item2 = new PlusDoubleItem(2.2, 1.1, -1000.99);

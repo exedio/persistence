@@ -64,7 +64,7 @@ public class DynamicModelTest extends TestWithEnvironment
 	DynamicModelItem item, item2;
 	DynamicModelLocalizationItem de, en;
 
-	@BeforeEach public final void setUp()
+	@BeforeEach final void setUp()
 	{
 		item = new DynamicModelItem("item1");
 		item2 = new DynamicModelItem("item2");

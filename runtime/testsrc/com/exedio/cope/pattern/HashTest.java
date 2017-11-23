@@ -62,7 +62,7 @@ public class HashTest extends TestWithEnvironment
 
 	HashItem item;
 
-	@BeforeEach public final void setUp()
+	@BeforeEach final void setUp()
 	{
 		item = new HashItem();
 	}

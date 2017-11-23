@@ -46,7 +46,7 @@ public class TypeIteratorTest extends TestWithEnvironment
 
 	QueryAggregatorItem item0, item1, item2, item3, item4;
 
-	@BeforeEach public final void setUp()
+	@BeforeEach final void setUp()
 	{
 		item0 = new QueryAggregatorItem(0);
 		item1 = new QueryAggregatorItem(1);

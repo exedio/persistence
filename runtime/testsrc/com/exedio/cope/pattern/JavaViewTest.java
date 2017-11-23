@@ -60,7 +60,7 @@ public class JavaViewTest extends TestWithEnvironment
 	JavaViewItem item;
 	JavaViewItem2 item2;
 
-	@BeforeEach public final void setUp()
+	@BeforeEach final void setUp()
 	{
 		item = new JavaViewItem();
 		item2 = new JavaViewItem2();

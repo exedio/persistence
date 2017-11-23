@@ -69,7 +69,7 @@ public class PasswordRecoveryTest extends TestWithEnvironment
 
 	PasswordRecoveryItem i;
 
-	@BeforeEach public final void setUp()
+	@BeforeEach final void setUp()
 	{
 		i = new PasswordRecoveryItem("oldpass");
 		clockRule.override(clock);

@@ -49,7 +49,7 @@ public class MinusIntegerTest extends TestWithEnvironment
 
 	MinusIntegerItem item;
 
-	@BeforeEach public final void setUp()
+	@BeforeEach final void setUp()
 	{
 		item = new MinusIntegerItem(7, 9, 3);
 		new MinusIntegerItem(30, 4, 5);

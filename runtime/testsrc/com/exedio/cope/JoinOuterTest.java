@@ -36,7 +36,7 @@ public class JoinOuterTest extends TestmodelTest
 	@SuppressFBWarnings("URF_UNREAD_FIELD")
 	PointerTargetItem rightLonely;
 
-	@BeforeEach public final void setUp()
+	@BeforeEach final void setUp()
 	{
 		rightLonely = new PointerTargetItem("right");
 		rightJoined = new PointerTargetItem("joined");

@@ -62,7 +62,7 @@ public class DeleteTest extends TestWithEnvironment
 	private DeleteOtherItem other;
 
 	@SuppressWarnings("static-method")
-	@BeforeEach public final void setUpDeleteTest()
+	@BeforeEach final void setUpDeleteTest()
 	{
 		DeleteItem.BEFORE_DELETE_COPE_ITEM_CALLS.set(new LinkedList<>());
 	}

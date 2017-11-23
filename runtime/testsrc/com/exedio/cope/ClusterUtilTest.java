@@ -33,7 +33,7 @@ public class ClusterUtilTest
 	private static final byte FILL = (byte)0xee;
 	private byte[] buf;
 
-	@BeforeEach public final void setUp()
+	@BeforeEach final void setUp()
 	{
 		buf = new byte[100];
 		Arrays.fill(buf, (byte)0xee);

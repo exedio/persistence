@@ -46,7 +46,7 @@ public class AutoIncrementEvaluator extends RawDatabaseTest
 
 	private Statement stat;
 
-	@BeforeEach public final void setUp() throws SQLException
+	@BeforeEach final void setUp() throws SQLException
 	{
 		stat = con.createStatement();
 	}

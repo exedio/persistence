@@ -70,7 +70,7 @@ public class DefaultToTest extends TestWithEnvironment
 	private final ClockRule clockRule = new ClockRule();
 
 
-	@BeforeEach public final void setUp()
+	@BeforeEach final void setUp()
 	{
 		clockRule.override(clock);
 	}

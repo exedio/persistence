@@ -50,7 +50,7 @@ public class MediaSubTest extends TestWithEnvironment
 
 	protected MediaItem item;
 
-	@BeforeEach public final void setUp()
+	@BeforeEach final void setUp()
 	{
 		item = new MediaItem("test media item");
 	}

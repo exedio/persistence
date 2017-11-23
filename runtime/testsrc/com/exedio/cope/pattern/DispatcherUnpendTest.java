@@ -51,7 +51,7 @@ public class DispatcherUnpendTest extends TestWithEnvironment
 
 	DispatcherItem item;
 
-	@BeforeEach public void setUp()
+	@BeforeEach void setUp()
 	{
 		item = new DispatcherItem("item1", false);
 		clockRule.override(clock);

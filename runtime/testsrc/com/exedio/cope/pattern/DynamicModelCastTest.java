@@ -50,7 +50,7 @@ public class DynamicModelCastTest extends TestWithEnvironment
 
 	ModelItem item;
 
-	@BeforeEach public final void setUp()
+	@BeforeEach final void setUp()
 	{
 		item = new ModelItem("item");
 	}

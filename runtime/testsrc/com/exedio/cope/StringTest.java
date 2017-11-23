@@ -58,7 +58,7 @@ public class StringTest extends TestWithEnvironment
 	StringItem item, item2;
 	int numberOfItems;
 
-	@BeforeEach public final void setUp()
+	@BeforeEach final void setUp()
 	{
 		supports = model.supportsEmptyStrings();
 		emptyString = supports ? "" : null;

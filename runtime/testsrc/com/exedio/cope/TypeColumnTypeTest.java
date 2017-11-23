@@ -135,7 +135,7 @@ public class TypeColumnTypeTest
 
 
 	@SuppressWarnings("static-method")
-	@BeforeEach public final void setUp()
+	@BeforeEach final void setUp()
 	{
 		model.connect(props);
 	}

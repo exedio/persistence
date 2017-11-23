@@ -68,7 +68,7 @@ public class DispatcherWithoutPurgeTest extends TestWithEnvironment
 	DispatcherWithoutPurgeItem item3;
 	DispatcherWithoutPurgeItem item4;
 
-	@BeforeEach public final void setUp()
+	@BeforeEach final void setUp()
 	{
 		item1 = new DispatcherWithoutPurgeItem("item1", false);
 		item2 = new DispatcherWithoutPurgeItem("item2", true);

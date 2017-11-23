@@ -54,7 +54,7 @@ public class DeleteSchemaTest extends TestWithEnvironment
 
 	private Date create;
 
-	@BeforeEach public final void setUp()
+	@BeforeEach final void setUp()
 	{
 		log.setLevelDebug();
 

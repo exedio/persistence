@@ -43,7 +43,7 @@ public class EnumTest extends TestWithEnvironment
 		super(MODEL);
 	}
 
-	@BeforeEach public final void setUp()
+	@BeforeEach final void setUp()
 	{
 		item = new EnumItem(EnumItem.Status.status1);
 		item2 = new EnumItem2(EnumItem2.Status.state1);

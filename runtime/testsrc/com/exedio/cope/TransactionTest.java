@@ -46,7 +46,7 @@ public class TransactionTest extends TestmodelTest
 		return new AttributeItem(code, 5, 6l, 2.2, true, someItem, AttributeItem.SomeEnum.enumValue1);
 	}
 
-	@BeforeEach public final void setUp()
+	@BeforeEach final void setUp()
 	{
 		someItem = new EmptyItem();
 		item = newItem("someString");

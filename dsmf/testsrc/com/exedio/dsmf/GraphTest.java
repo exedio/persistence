@@ -32,7 +32,7 @@ public class GraphTest
 {
 	private Schema schema = null;
 
-	@BeforeEach public final void setUp()
+	@BeforeEach final void setUp()
 	{
 		schema = new Schema(new HsqldbDialect(), new ConnectionProvider(){
 			@Override

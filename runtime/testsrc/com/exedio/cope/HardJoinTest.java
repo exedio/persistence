@@ -54,7 +54,7 @@ public class HardJoinTest extends TestWithEnvironment
 	private HardJoinA3Item a;
 	private HardJoinB3Item b;
 
-	@BeforeEach public final void setUp()
+	@BeforeEach final void setUp()
 	{
 		a = new HardJoinA3Item("a", 10, 11, 12);
 		b = new HardJoinB3Item("b", 20, 21, 22);

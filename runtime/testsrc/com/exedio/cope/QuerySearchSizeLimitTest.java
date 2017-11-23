@@ -40,7 +40,7 @@ public class QuerySearchSizeLimitTest extends TestWithEnvironment
 
 	DayItem i1, i2, i3, i4, i5;
 
-	@BeforeEach public final void setUp()
+	@BeforeEach final void setUp()
 	{
 		i1 = new DayItem(d1);
 		i2 = new DayItem(d2);

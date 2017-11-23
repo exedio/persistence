@@ -63,7 +63,7 @@ public final class ThumbnailTest extends TestWithEnvironment
 	// Ok, because Media#set(Item,InputStream,String) closes the stream.
 	@SuppressFBWarnings("OBL_UNSATISFIED_OBLIGATION")
 
-	@BeforeEach public void setUp() throws IOException
+	@BeforeEach void setUp() throws IOException
 	{
 		jpg = new ThumbnailItem();
 		png = new ThumbnailItem();

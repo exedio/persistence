@@ -45,7 +45,7 @@ public class StableQueryIteratorTest extends TestWithEnvironment
 	QueryAggregatorItem item0, item1, item2, item3, item4, item5, item6, item7, item8, item9;
 	Query<QueryAggregatorItem> q;
 
-	@BeforeEach public final void setUp()
+	@BeforeEach final void setUp()
 	{
 		item0 = new QueryAggregatorItem(0);
 		item1 = new QueryAggregatorItem(1);

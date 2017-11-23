@@ -52,7 +52,7 @@ public class DumperTest extends TestWithEnvironment
 
 	@SuppressWarnings({"AssignmentToStaticFieldFromInstanceMethod", "deprecation"})
 	@SuppressFBWarnings("ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD")
-	@BeforeEach public final void setUp()
+	@BeforeEach final void setUp()
 	{
 		DumperItem.beforeNewCopeItemCount = 0;
 		dumper = new Dumper();

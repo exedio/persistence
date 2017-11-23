@@ -56,7 +56,7 @@ public class TextUrlFilterTest extends TestWithEnvironment
 
 	TextUrlFilterItem item, item2;
 
-	@BeforeEach public final void setUp()
+	@BeforeEach final void setUp()
 	{
 		item  = new TextUrlFilterItem();
 		item2 = new TextUrlFilterItem();

@@ -43,7 +43,7 @@ public class IntegerTest extends TestWithEnvironment
 	private IntegerItem item;
 	private int numberOfItems;
 
-	@BeforeEach public final void setUp()
+	@BeforeEach final void setUp()
 	{
 		item = new IntegerItem(2201);
 		new IntegerItem(2202);

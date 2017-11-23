@@ -64,7 +64,7 @@ public abstract class SchemaTest
 		}
 	}
 
-	@BeforeEach public final void setUpSchemaTest() throws ClassNotFoundException, SQLException
+	@BeforeEach final void setUpSchemaTest() throws ClassNotFoundException, SQLException
 	{
 		final Properties config = new Properties();
 		final String url = config.connectionUrl;

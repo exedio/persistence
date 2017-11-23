@@ -49,7 +49,7 @@ public class DispatcherNarrowTest extends TestWithEnvironment
 
 	MyItem item1, item2, item3, item4;
 
-	@BeforeEach public final void setUp()
+	@BeforeEach final void setUp()
 	{
 		item1 = new MyItem(false);
 		item2 = new MyItem(true);

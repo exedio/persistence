@@ -62,7 +62,7 @@ public class SerializerTest extends TestWithEnvironment
 
 	SerializerItem item;
 
-	@BeforeEach public final void setUp()
+	@BeforeEach final void setUp()
 	{
 		item = new SerializerItem("mandatory");
 	}

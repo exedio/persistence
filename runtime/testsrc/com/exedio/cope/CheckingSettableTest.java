@@ -138,7 +138,7 @@ public class CheckingSettableTest extends TestWithEnvironment
 	}
 
 
-	@BeforeEach public void before()
+	@BeforeEach void before()
 	{
 		pattern.clearLogs();
 	}

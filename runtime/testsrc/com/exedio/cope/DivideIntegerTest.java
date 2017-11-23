@@ -53,7 +53,7 @@ public class DivideIntegerTest extends TestWithEnvironment
 
 	DivideIntegerItem item;
 
-	@BeforeEach public final void setUp()
+	@BeforeEach final void setUp()
 	{
 		item = new DivideIntegerItem(7, 9, 3);
 		new DivideIntegerItem(30, 4, 5);

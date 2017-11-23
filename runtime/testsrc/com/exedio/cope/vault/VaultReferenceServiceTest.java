@@ -36,7 +36,7 @@ public class VaultReferenceServiceTest
 	private VaultMockService main;
 	private VaultMockService refr;
 
-	@BeforeEach public void before()
+	@BeforeEach void before()
 	{
 		final Source source =
 				describe("DESC", cascade(

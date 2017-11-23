@@ -57,7 +57,7 @@ public class SchemaPurgeTest extends TestWithEnvironment
 	private String thisSeq;
 	private String nextSeq;
 
-	@BeforeEach public final void setUp()
+	@BeforeEach final void setUp()
 	{
 		final PrimaryKeyGenerator pkg = model.getConnectProperties().primaryKeyGenerator;
 		sequences = pkg!=PrimaryKeyGenerator.memory;

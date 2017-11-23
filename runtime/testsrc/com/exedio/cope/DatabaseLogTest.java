@@ -43,7 +43,7 @@ public class DatabaseLogTest extends TestWithEnvironment
 
 	MatchItem item;
 
-	@BeforeEach public final void setUp()
+	@BeforeEach final void setUp()
 	{
 		item = new MatchItem();
 	}

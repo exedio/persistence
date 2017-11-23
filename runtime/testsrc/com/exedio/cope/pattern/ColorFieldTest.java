@@ -44,7 +44,7 @@ public class ColorFieldTest extends TestWithEnvironment
 
 	private ColorFieldItem i;
 
-	@BeforeEach public final void setUp()
+	@BeforeEach final void setUp()
 	{
 		i = new ColorFieldItem(new Color(1, 2, 3), new Color (3, 4, 5));
 	}

@@ -57,7 +57,7 @@ public class ServletUtilTest
 	private final ConnectTokenRule ctrOk2 = new ConnectTokenRule(modelOk2);
 	private final ConnectTokenRule ctrContext = new ConnectTokenRule(modelContext);
 
-	@BeforeEach public final void setUp()
+	@BeforeEach final void setUp()
 	{
 		final ConnectProperties props = ConnectProperties.create(TestSources.minimal());
 		ctrOk.set(props);

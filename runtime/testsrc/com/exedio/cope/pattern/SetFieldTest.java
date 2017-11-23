@@ -53,7 +53,7 @@ public class SetFieldTest extends TestWithEnvironment
 	SetFieldItem item;
 	SetFieldItem otherItem;
 
-	@BeforeEach public final void setUp()
+	@BeforeEach final void setUp()
 	{
 		item = new SetFieldItem();
 		otherItem = new SetFieldItem();

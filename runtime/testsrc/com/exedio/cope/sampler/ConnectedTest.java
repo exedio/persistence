@@ -38,7 +38,7 @@ public abstract class ConnectedTest extends TestWithEnvironment
 
 	boolean c;
 
-	@BeforeEach public final void setUpConnectedTest()
+	@BeforeEach final void setUpConnectedTest()
 	{
 		final ConnectProperties props = model.getConnectProperties();
 		c = props.getItemCacheLimit()>0;

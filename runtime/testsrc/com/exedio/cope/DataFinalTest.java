@@ -47,7 +47,7 @@ public class DataFinalTest extends TestWithEnvironment
 
 	private DataFinalItem item;
 
-	@BeforeEach public final void setUp()
+	@BeforeEach final void setUp()
 	{
 		item = new DataFinalItem(toValue(bytes4));
 	}

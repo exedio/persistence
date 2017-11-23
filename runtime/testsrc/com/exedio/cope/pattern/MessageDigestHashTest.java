@@ -62,7 +62,7 @@ public class MessageDigestHashTest extends TestWithEnvironment
 
 	MessageDigestHashItem item;
 
-	@BeforeEach public final void setUp()
+	@BeforeEach final void setUp()
 	{
 		expectSalt(passwordFinal, "885406ef34cef302");
 		expectSalt(passwordMandatory, "885406ef34cef302");

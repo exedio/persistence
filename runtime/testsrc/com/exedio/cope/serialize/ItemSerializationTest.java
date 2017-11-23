@@ -53,7 +53,7 @@ public class ItemSerializationTest extends TestWithEnvironment
 
 	private ItemSerializationItem item;
 
-	@BeforeEach public final void setUp()
+	@BeforeEach final void setUp()
 	{
 		// need this to let item have pk==1 but not the default pk==0, which could hide bugs
 		new ItemSerializationItem("nullus");

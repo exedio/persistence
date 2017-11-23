@@ -48,7 +48,7 @@ public class CacheReadPoisoningBruteForceTest extends TestWithEnvironment
 	final ThreadStoppable threads[] = new ThreadStoppable[10];
 	final StringBuilder failures = new StringBuilder();
 
-	@BeforeEach public final void setUp()
+	@BeforeEach final void setUp()
 	{
 		stamps = model.getConnectProperties().itemCacheStamps;
 

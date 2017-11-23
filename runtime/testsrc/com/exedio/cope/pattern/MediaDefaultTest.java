@@ -66,7 +66,7 @@ public class MediaDefaultTest extends TestWithEnvironment
 
 	protected MediaItem item;
 
-	@BeforeEach public final void setUp()
+	@BeforeEach final void setUp()
 	{
 		clockRule.override(clock);
 		item = new MediaItem("test media item");

@@ -44,7 +44,7 @@ public class RevisionInfoTest
 
 	private HashMap<String, String> env = null;
 
-	@BeforeEach public final void setUp()
+	@BeforeEach final void setUp()
 	{
 		env = new HashMap<>();
 		env.put("env1Key", "env1Value");

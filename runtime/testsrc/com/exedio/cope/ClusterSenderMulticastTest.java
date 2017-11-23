@@ -37,7 +37,7 @@ public final class ClusterSenderMulticastTest
 	private static final int SECRET = 0x88776655;
 
 	@SuppressFBWarnings("BC_UNCONFIRMED_CAST_OF_RETURN_VALUE")
-	@BeforeEach public void setUp()
+	@BeforeEach void setUp()
 	{
 		final ClusterProperties properties =
 			ClusterProperties.factory().create(cascade(

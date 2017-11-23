@@ -72,7 +72,7 @@ public class DispatcherTest extends TestWithEnvironment
 	DispatcherItem item3;
 	DispatcherItem item4;
 
-	@BeforeEach public final void setUp()
+	@BeforeEach final void setUp()
 	{
 		item1 = new DispatcherItem("item1", false);
 		item2 = new DispatcherItem("item2", true);

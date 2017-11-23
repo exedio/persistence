@@ -41,7 +41,7 @@ public class BadQueryTest extends TestWithEnvironment
 	QueryItem left1, left2, leftX;
 	SuperContainer middle1, middle2, middleX;
 
-	@BeforeEach public final void setUp()
+	@BeforeEach final void setUp()
 	{
 		leftX = new QueryItem("leftX");
 		left1 = new QueryItem("left1");

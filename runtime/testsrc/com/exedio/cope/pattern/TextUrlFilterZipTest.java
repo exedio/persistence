@@ -52,7 +52,7 @@ public class TextUrlFilterZipTest extends TestWithEnvironment
 
 	TextUrlFilterItem item;
 
-	@BeforeEach public final void setUp()
+	@BeforeEach final void setUp()
 	{
 		item = new TextUrlFilterItem();
 	}

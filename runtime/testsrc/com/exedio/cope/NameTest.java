@@ -50,7 +50,7 @@ public class NameTest extends TestWithEnvironment
 	NameLongItem item;
 	NameCollisionlongaItem itemca, itemcb;
 
-	@BeforeEach public final void setUp()
+	@BeforeEach final void setUp()
 	{
 		item = new NameLongItem("long name item");
 		itemca = new NameCollisionlongaItem("collision A");

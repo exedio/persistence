@@ -139,7 +139,7 @@ public class VaultNotFoundTest
 
 	private VaultMockService service;
 
-	@BeforeEach public void setUp()
+	@BeforeEach void setUp()
 	{
 		MODEL.connect(ConnectProperties.factory().create(cascade(
 				single("dataField.vault", true),

@@ -65,7 +65,7 @@ public abstract class TestWithEnvironment
 	protected boolean postgresql;
 	protected boolean cache;
 
-	@BeforeEach public final void setUpAbstractRuntimeModelTest()
+	@BeforeEach final void setUpAbstractRuntimeModelTest()
 	{
 		tester.setUp();
 		model.connect().connectionFactory.isValidOnGetFails = true;

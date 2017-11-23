@@ -61,7 +61,7 @@ public class PlusLongTest extends TestWithEnvironment
 
 	PlusLongItem item;
 
-	@BeforeEach public final void setUp()
+	@BeforeEach final void setUp()
 	{
 		item = new PlusLongItem(1l, 2l, 3l);
 		new PlusLongItem(3l, 4l, 5l);

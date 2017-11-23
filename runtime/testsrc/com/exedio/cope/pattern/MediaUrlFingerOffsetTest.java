@@ -38,7 +38,7 @@ public final class MediaUrlFingerOffsetTest extends TestWithEnvironment
 
 	private final MediaUrlItem[] item = new MediaUrlItem[1007];
 
-	@BeforeEach public void setUp()
+	@BeforeEach void setUp()
 	{
 		Arrays.setAll(item, i -> create());
 	}

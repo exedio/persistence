@@ -44,7 +44,7 @@ public class FieldDateTest extends FieldTest
 	private final AbsoluteMockClockStrategy clock = new AbsoluteMockClockStrategy();
 	private final ClockRule clockRule = new ClockRule();
 
-	@BeforeEach public final void setUp()
+	@BeforeEach final void setUp()
 	{
 		clockRule.override(clock);
 	}

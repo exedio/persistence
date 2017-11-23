@@ -30,7 +30,7 @@ public class FeaturesTest
 	private Features features;
 	private AnnotatedElement annotationSource;
 
-	@BeforeEach public final void setUp() throws NoSuchFieldException
+	@BeforeEach final void setUp() throws NoSuchFieldException
 	{
 		features = new Features();
 		annotationSource = getClass().getDeclaredField("annotationSource");
