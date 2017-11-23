@@ -89,9 +89,8 @@ public class UniqueConstraintTest extends TestWithEnvironment
 		}
 	}
 
-	@Test
 	@SuppressWarnings("null")
-	public void argumentIsNull()
+	@Test void argumentIsNull()
 	{
 		try
 		{
