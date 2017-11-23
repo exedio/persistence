@@ -43,6 +43,7 @@ import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.Type;
 import com.exedio.cope.pattern.DynamicModel.Enum;
 import com.exedio.cope.pattern.DynamicModel.ValueType;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.Before;
 import org.junit.jupiter.api.Test;
 
@@ -78,6 +79,7 @@ public class DynamicModelTest extends TestWithEnvironment
 		assertEquals(pattern, field.getPattern());
 	}
 
+	@SuppressFBWarnings("ES_COMPARING_STRINGS_WITH_EQ")
 	@Test public void testIt()
 	{
 		// test model

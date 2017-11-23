@@ -55,7 +55,7 @@ public class DispatcherModelTest
 
 	private static final Type<?> runType = toTarget.getRunType();
 
-	@SuppressFBWarnings("RC_REF_COMPARISON_BAD_PRACTICE_BOOLEAN")
+	@SuppressFBWarnings({"RC_REF_COMPARISON_BAD_PRACTICE_BOOLEAN","ES_COMPARING_STRINGS_WITH_EQ"})
 	@Test public void testModel()
 	{
 		assertEqualsUnmodifiable(list(

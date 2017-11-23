@@ -27,6 +27,7 @@ import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.fail;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
@@ -132,6 +133,7 @@ public class CheckTest
 		}
 	}
 
+	@SuppressFBWarnings("ES_COMPARING_STRINGS_WITH_EQ")
 	@Test public void testRequireNonEmptyString()
 	{
 		assertSame("x", requireNonEmpty("x", "name"));

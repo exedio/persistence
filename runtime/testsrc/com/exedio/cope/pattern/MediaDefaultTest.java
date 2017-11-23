@@ -43,6 +43,7 @@ import com.exedio.cope.junit.AbsoluteMockClockStrategy;
 import com.exedio.cope.tojunit.ClockRule;
 import com.exedio.cope.tojunit.MainRule;
 import com.exedio.cope.tojunit.MyTemporaryFolder;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -71,6 +72,7 @@ public class MediaDefaultTest extends TestWithEnvironment
 		item = new MediaItem("test media item");
 	}
 
+	@SuppressFBWarnings("ES_COMPARING_STRINGS_WITH_EQ")
 	@Test public void testIt() throws IOException
 	{
 		{

@@ -37,6 +37,7 @@ import com.exedio.cope.DataField;
 import com.exedio.cope.DateField;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.TestWithEnvironment;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.IOException;
 import java.io.InputStream;
 import org.junit.Before;
@@ -56,6 +57,7 @@ public class MediaEnumTest extends TestWithEnvironment
 		item = new MediaItem("test media item");
 	}
 
+	@SuppressFBWarnings("ES_COMPARING_STRINGS_WITH_EQ")
 	@Test public void testIt() throws IOException
 	{
 		// test model

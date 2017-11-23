@@ -45,6 +45,7 @@ import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.UniqueViolationException;
 import com.exedio.cope.UnsupportedQueryException;
 import com.exedio.cope.misc.Computed;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
@@ -64,6 +65,7 @@ public class UniqueHashedMediaTest extends TestWithEnvironment
 		super(MODEL);
 	}
 
+	@SuppressFBWarnings("ES_COMPARING_STRINGS_WITH_EQ")
 	@Test public void testModel()
 	{
 		assertEqualsUnmodifiable(

@@ -44,7 +44,7 @@ public class PatternTest extends TestWithEnvironment
 		super(MODEL);
 	}
 
-	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT")
+	@SuppressFBWarnings({"RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT","ES_COMPARING_STRINGS_WITH_EQ"})
 	@Test public void testIt()
 	{
 		// type
