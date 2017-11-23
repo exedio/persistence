@@ -54,8 +54,8 @@ public class ItemCacheLimitTest
 		final ItemCacheInfo[] infos=statistics.getDetails();
 		assertEquals(2, infos.length);
 
-		assertEquals(Item1.TYPE.getID(), Item1.TYPE, infos[0].getType());
-		assertEquals(Item2.TYPE.getID(), Item2.TYPE, infos[1].getType());
+		assertEquals(Item1.TYPE, infos[0].getType(), Item1.TYPE.getID());
+		assertEquals(Item2.TYPE, infos[1].getType(), Item2.TYPE.getID());
 	}
 
 	private static ConnectProperties props(final int limit)

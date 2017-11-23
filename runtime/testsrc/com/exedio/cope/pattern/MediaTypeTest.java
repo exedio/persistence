@@ -215,7 +215,7 @@ public class MediaTypeTest
 		}
 		catch(final FileNotFoundException e)
 		{
-			assertTrue(e.getMessage(), e.getMessage().startsWith(file.getAbsolutePath()));
+			assertTrue(e.getMessage().startsWith(file.getAbsolutePath()), e.getMessage());
 		}
 
 		StrictFile.mkdir(file);
@@ -226,7 +226,7 @@ public class MediaTypeTest
 		}
 		catch(final FileNotFoundException e)
 		{
-			assertTrue(e.getMessage(), e.getMessage().startsWith(file.getAbsolutePath()));
+			assertTrue(e.getMessage().startsWith(file.getAbsolutePath()), e.getMessage());
 		}
 	}
 

@@ -136,9 +136,9 @@ public class SchemaTypeStringTest extends TestWithEnvironment
 			throw new RuntimeException();
 
 		assertEquals(
-				field.getID(),
 				type,
-				field.getSchemaType());
+				field.getSchemaType(),
+				field.getID());
 	}
 
 	@Test public void testValues()

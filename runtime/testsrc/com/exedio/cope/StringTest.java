@@ -707,8 +707,8 @@ public class StringTest extends TestWithEnvironment
 		// test length view
 		final Integer valueChars = value.length();
 		final String message = value+'('+valueChars+','+value.getBytes(UTF_8).length+')';
-		assertEquals(message, valueChars, sa.length().get(item));
-		assertEquals(message, valueChars, new Query<>(sa.length(), Cope.equalAndCast(item.getCopeType().getThis(), item)).searchSingletonStrict());
+		assertEquals(valueChars, sa.length().get(item), message);
+		assertEquals(valueChars, new Query<>(sa.length(), Cope.equalAndCast(item.getCopeType().getThis(), item)).searchSingletonStrict(), message);
 	}
 
 	protected static List<?> search(final FunctionField<?> selectAttribute)

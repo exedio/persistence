@@ -310,7 +310,7 @@ public class EnumSchemaTest
 		for(final int e : expected)
 			expectedValues.add(e);
 
-		assertEquals(actual.getName(), expectedValues, actualValues);
+		assertEquals(expectedValues, actualValues, actual.getName());
 	}
 
 	private static <E extends Enum<E>> void assertFails(

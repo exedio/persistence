@@ -326,9 +326,9 @@ public class IntegerTypeTest extends TestWithEnvironment
 			}
 
 			assertEquals(
-					"tableName: " + tableName + " columnName: " + columnName,
 					expectedDataType,
-					table.getColumn(columnName).getRequiredType());
+					table.getColumn(columnName).getRequiredType(),
+					"tableName: " + tableName + " columnName: " + columnName);
 		}
 	}
 

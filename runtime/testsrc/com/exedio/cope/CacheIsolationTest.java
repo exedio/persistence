@@ -171,13 +171,13 @@ public class CacheIsolationTest extends TestWithEnvironment
 		{
 			assertEquals(1, ci.length);
 			assertSame(CacheIsolationItem.TYPE, ci[0].getType());
-			assertEquals("ordered", ordered, ci[0].getInvalidationsOrdered() - setupInvalidationsOrdered);
-			assertEquals("done",    done,    ci[0].getInvalidationsDone() - setupInvalidationsDone);
+			assertEquals(ordered, ci[0].getInvalidationsOrdered() - setupInvalidationsOrdered, "ordered");
+			assertEquals(done,    ci[0].getInvalidationsDone()    - setupInvalidationsDone,    "done");
 		}
 		else
 		{
 			assertEquals(0, statistics.getLimit());
-			assertEquals(Stream.of(ci).map(ItemCacheInfo::getType).collect(Collectors.toList()).toString(), 0, ci.length);
+			assertEquals(0, ci.length, Stream.of(ci).map(ItemCacheInfo::getType).collect(Collectors.toList()).toString());
 		}
 	}
 }

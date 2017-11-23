@@ -120,7 +120,7 @@ public final class RuntimeAssert
 		assertContainsList(expectedSearch, actualResult);
 		assertUnmodifiable(actualResult);
 		for(final T item : type.search())
-			assertEquals(item.getCopeID(), expectedGet.contains(item), actual.get(item));
+			assertEquals(expectedGet.contains(item), actual.get(item), item.getCopeID());
 	}
 
 

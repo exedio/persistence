@@ -90,9 +90,10 @@ public class TypesBoundErrorTest
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals(e.getMessage(),
+			assertEquals(
 					NoActivationConstructor.class.getName() +
-					" does not have an activation constructor NoActivationConstructor(" + ActivationParameters.class.getName() + ")", e.getMessage());
+					" does not have an activation constructor NoActivationConstructor(" + ActivationParameters.class.getName() + ")", e.getMessage(),
+					e.getMessage());
 			assertEquals(NoSuchMethodException.class, e.getCause().getClass());
 		}
 	}

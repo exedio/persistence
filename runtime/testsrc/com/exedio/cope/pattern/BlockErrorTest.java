@@ -54,9 +54,11 @@ public class BlockErrorTest
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals(e.getMessage(),
+			assertEquals(
 					"BlockField requires a final class: " +
-					NonFinal.class.getName(), e.getMessage());
+					NonFinal.class.getName(), e.getMessage(),
+					e.getMessage()
+			);
 		}
 	}
 
@@ -78,9 +80,9 @@ public class BlockErrorTest
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals(e.getMessage(),
+			assertEquals(
 					NoConstructor.class.getName() +
-					" does not have a constructor NoConstructor(" + BlockActivationParameters.class.getName() + ")",
+					" does not have a constructor NoConstructor(" + BlockActivationParameters.class.getName() + ")", e.getMessage(),
 					e.getMessage());
 			assertEquals(NoSuchMethodException.class, e.getCause().getClass());
 		}

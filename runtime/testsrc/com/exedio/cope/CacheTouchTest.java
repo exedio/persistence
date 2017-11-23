@@ -116,7 +116,7 @@ public class CacheTouchTest extends TestWithEnvironment
 			}
 			catch(final TemporaryTransactionException e)
 			{
-				assertTrue(e.getMessage(), e.getMessage().startsWith("expected one row, but got 0 on statement: UPDATE"));
+				assertTrue(e.getMessage().startsWith("expected one row, but got 0 on statement: UPDATE"), e.getMessage());
 			}
 			assertUpdateCount(MIN_VALUE, MIN_VALUE);
 			assertCache(0, 1, 2, 2, 1, 0, 0, 0);
@@ -128,8 +128,8 @@ public class CacheTouchTest extends TestWithEnvironment
 	@SuppressWarnings("deprecation") // OK: using special accessors for tests
 	private void assertUpdateCount(final int expected, final int global)
 	{
-		assertEquals("transaction", expected, item.getUpdateCountIfActive());
-		assertEquals("global", global, item.getUpdateCountGlobal());
+		assertEquals(expected, item.getUpdateCountIfActive(), "transaction");
+		assertEquals(global, item.getUpdateCountGlobal(), "global");
 	}
 
 
@@ -168,13 +168,13 @@ public class CacheTouchTest extends TestWithEnvironment
 		assertEquals(1, icis.length);
 		final ItemCacheInfo ici = icis[0];
 		assertSame(TYPE, ici.getType());
-		assertEquals("level"               , level               , ici.getLevel());
-		assertEquals("hits"                , hits                , ici.getHits()                -initHits                );
-		assertEquals("misses"              , misses              , ici.getMisses()              -initMisses              );
-		assertEquals("invalidationsOrdered", invalidationsOrdered, ici.getInvalidationsOrdered()-initInvalidationsOrdered);
-		assertEquals("invalidationsDone"   , invalidationsDone   , ici.getInvalidationsDone()   -initInvalidationsDone   );
-		assertEquals("stampsSize"          , st?stampsSize  :0   , ici.getStampsSize()          -initStampsSize          );
-		assertEquals("stampsHits"          , st?stampsHits  :0   , ici.getStampsHits()          -initStampsHits          );
-		assertEquals("stampsPurged"        , st?stampsPurged:0   , ici.getStampsPurged()        -initStampsPurged        );
+		assertEquals(level,                ici.getLevel(), "level");
+		assertEquals(hits,                 ici.getHits()                 - initHits,                 "hits");
+		assertEquals(misses,               ici.getMisses()               - initMisses,               "misses");
+		assertEquals(invalidationsOrdered, ici.getInvalidationsOrdered() - initInvalidationsOrdered, "invalidationsOrdered");
+		assertEquals(invalidationsDone,    ici.getInvalidationsDone()    - initInvalidationsDone,    "invalidationsDone");
+		assertEquals(st?stampsSize  :0,    ici.getStampsSize()           - initStampsSize,           "stampsSize");
+		assertEquals(st?stampsHits  :0,    ici.getStampsHits()           - initStampsHits,           "stampsHits");
+		assertEquals(st?stampsPurged:0,    ici.getStampsPurged()         - initStampsPurged,         "stampsPurged");
 	}
 }

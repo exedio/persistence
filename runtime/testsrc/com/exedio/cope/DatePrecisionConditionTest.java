@@ -104,8 +104,8 @@ public class DatePrecisionConditionTest extends TestWithEnvironment
 	{
 		assertEquals("AnItem.exact"   +   exactConditionExpected,   exactCondition.toString());
 		assertEquals("AnItem.rounded" + roundedConditionExpected, roundedCondition.toString() );
-		assertEquals("exact"  , expected, TYPE.search(  exactCondition, TYPE.getThis(), true));
-		assertEquals("rounded", expected, TYPE.search(roundedCondition, TYPE.getThis(), true));
+		assertEquals(expected, TYPE.search(  exactCondition, TYPE.getThis(), true), "exact");
+		assertEquals(expected, TYPE.search(roundedCondition, TYPE.getThis(), true), "rounded");
 	}
 
 	private static List<AnItem> list(final AnItem... elements)
@@ -131,7 +131,7 @@ public class DatePrecisionConditionTest extends TestWithEnvironment
 
 	private static int less(final int limit, final int value)
 	{
-		assertTrue("" + value + " " + limit, value<limit);
+		assertTrue(value<limit, "" + value + " " + limit);
 		return value;
 	}
 

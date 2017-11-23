@@ -279,10 +279,10 @@ public class CommitHookPreTest
 		final int previousDups  = tx.getPreCommitHookDuplicates();
 
 		assertSame(result, model.addPreCommitHookIfAbsent(hook));
-		assertEquals("count", count, tx.getPreCommitHookCount() - previousCount);
-		assertEquals("dups",  dups,  tx.getPreCommitHookDuplicates() - previousDups);
-		assertEquals("post count", 0, tx.getPostCommitHookCount());
-		assertEquals("post dups",  0, tx.getPostCommitHookDuplicates());
+		assertEquals(count, tx.getPreCommitHookCount()      - previousCount, "count");
+		assertEquals(dups,  tx.getPreCommitHookDuplicates() - previousDups,  "dups");
+		assertEquals(0,     tx.getPostCommitHookCount(),      "post count");
+		assertEquals(0,     tx.getPostCommitHookDuplicates(), "post dups");
 	}
 
 

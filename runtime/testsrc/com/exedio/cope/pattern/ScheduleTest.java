@@ -817,7 +817,7 @@ public class ScheduleTest extends TestWithEnvironment
 		ExpectedRun(final Run run)
 		{
 			this((ScheduleItem)run.getParent(), run.getInterval(), run.getFrom(), run.getUntil(), run.getRun());
-			assertTrue(String.valueOf(run.getElapsed()), run.getElapsed()>=0);
+			assertTrue(run.getElapsed()>=0, String.valueOf(run.getElapsed()));
 		}
 
 		ExpectedRun(

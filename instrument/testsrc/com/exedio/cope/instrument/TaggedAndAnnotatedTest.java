@@ -44,7 +44,7 @@ public class TaggedAndAnnotatedTest
 		try
 		{
 			final File file=new File(path);
-			assertEquals(file.getAbsolutePath(), true, file.isFile());
+			assertEquals(true, file.isFile(), file.getAbsolutePath());
 			final byte[] bytes=Files.readAllBytes(file.toPath());
 			return new String(bytes, StandardCharsets.US_ASCII);
 		}

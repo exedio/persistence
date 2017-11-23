@@ -66,9 +66,9 @@ public class SequenceInfoTest extends TestWithEnvironment
 	{
 		try(TransactionTry tx = MODEL.startTransactionTry(SequenceInfoTest.class.getName()))
 		{
-			assertEquals("next", next,
+			assertEquals(next,
 				tx.commit(
-					new AnItem(field, next).getNext().intValue())
+					new AnItem(field, next).getNext().intValue()), "next"
 			);
 		}
 	}

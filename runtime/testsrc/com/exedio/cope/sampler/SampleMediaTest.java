@@ -109,7 +109,7 @@ public class SampleMediaTest extends ConnectedTest
 		samplerModel.startTransaction("HistoryTest2");
 		final SamplerMedia i = SamplerMedia.forModelAndType(model, media);
 		assertNotNull(i);
-		assertEquals("delivered", delivered, i.getDelivered());
+		assertEquals(delivered, i.getDelivered(), "delivered");
 		samplerModel.commit();
 	}
 

@@ -156,24 +156,24 @@ public class FieldDateTest extends FieldTest
 			message.append( "date"+i+": "+format.format(dates[i]) );
 		}
 		assertEquals(
-			message.toString(),
 			list( item, item2, item3, item4 ),
-			TYPE.search( null, someDate, true )
+			TYPE.search( null, someDate, true ),
+			message.toString()
 		);
 		assertEquals(
-			message.toString(),
 			list( item4, item3, item2, item ),
-			TYPE.search( null, someDate, false )
+			TYPE.search( null, someDate, false ),
+			message.toString()
 		);
 		assertEquals(
-			message.toString(),
 			list( item3, item4 ),
-			TYPE.search( someDate.greater(dates[4]), someDate, true )
+			TYPE.search( someDate.greater(dates[4]), someDate, true ),
+			message.toString()
 		);
 		assertEquals(
-			message.toString(),
 			list( item, item2, item3 ),
-			TYPE.search( someDate.less(dates[6]), someDate, true )
+			TYPE.search( someDate.less(dates[6]), someDate, true ),
+			message.toString()
 		);
 	}
 
@@ -204,24 +204,24 @@ public class FieldDateTest extends FieldTest
 			message.append( "date"+i+": "+format.format(dates[i]) );
 		}
 		assertEquals(
-			message.toString(),
 			list( item, item2, item3, item4 ),
-			TYPE.search( null, someDate, true )
+			TYPE.search( null, someDate, true ),
+			message.toString()
 		);
 		assertEquals(
-			message.toString(),
 			list( item4, item3, item2, item ),
-			TYPE.search( null, someDate, false )
+			TYPE.search( null, someDate, false ),
+			message.toString()
 		);
 		assertEquals(
-			message.toString(),
 			list( item3, item4 ),
-			TYPE.search( someDate.greater(dates[4]), someDate, true )
+			TYPE.search( someDate.greater(dates[4]), someDate, true ),
+			message.toString()
 		);
 		assertEquals(
-			message.toString(),
 			list( item, item2, item3 ),
-			TYPE.search( someDate.less(dates[6]), someDate, true )
+			TYPE.search( someDate.less(dates[6]), someDate, true ),
+			message.toString()
 		);
 	}
 
@@ -240,7 +240,7 @@ public class FieldDateTest extends FieldTest
 
 	private static void assertEqualsVerbose(final Date expectedDate, final Date actualDate)
 	{
-		assertEquals("ts: "+toString(expectedDate)+" "+toString(actualDate), expectedDate, actualDate);
+		assertEquals(expectedDate, actualDate, "ts: "+toString(expectedDate)+" "+toString(actualDate));
 	}
 
 	@Test public void testSchema()

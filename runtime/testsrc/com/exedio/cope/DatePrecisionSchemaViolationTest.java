@@ -125,10 +125,10 @@ public class DatePrecisionSchemaViolationTest extends SchemaMismatchTest
 							break;
 						case postgresql:
 							assertTrue(
-									message,
 									message.startsWith(
 									"ERROR: new row for relation \"" + tableName + "\" " +
-									"violates check constraint \"" + contraintName + "\"\n"));
+									"violates check constraint \"" + contraintName + "\"\n"),
+									message);
 							break;
 
 						case mysql: // MySQL does not support check constraints
@@ -144,9 +144,9 @@ public class DatePrecisionSchemaViolationTest extends SchemaMismatchTest
 				tx.commit();
 
 				final Table table = modelA.getSchema().getTable(tableName);
-				assertEquals(  "hoursCheck",   hoursCheck, table.getConstraint("ItemAB_hours_PR"  ).checkL());
-				assertEquals("minutesCheck", minutesCheck, table.getConstraint("ItemAB_minutes_PR").checkL());
-				assertEquals("secondsCheck", secondsCheck, table.getConstraint("ItemAB_seconds_PR").checkL());
+				assertEquals(hoursCheck,   table.getConstraint("ItemAB_hours_PR"  ).checkL(), "hoursCheck");
+				assertEquals(minutesCheck, table.getConstraint("ItemAB_minutes_PR").checkL(), "minutesCheck");
+				assertEquals(secondsCheck, table.getConstraint("ItemAB_seconds_PR").checkL(), "secondsCheck");
 			}
 		}
 	}

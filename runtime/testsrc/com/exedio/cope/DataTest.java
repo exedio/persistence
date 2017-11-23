@@ -235,7 +235,7 @@ public class DataTest extends TestWithEnvironment
 			assertEquals(data10, e.getFeature());
 			assertEquals(11, e.getLength());
 			assertEquals(false, e.isLengthExact());
-			assertEquals(e.getMessage(), "length violation on " + item + ", 11 bytes or more is too long for " + data10, e.getMessage());
+			assertEquals("length violation on " + item + ", 11 bytes or more is too long for " + data10, e.getMessage(), e.getMessage());
 		}
 		assertData(bytes10, item.getData10Array());
 		try

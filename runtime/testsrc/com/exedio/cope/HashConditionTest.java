@@ -109,8 +109,8 @@ public class HashConditionTest extends TestWithEnvironment
 
 		for(final String algorithm : supported)
 		{
-			assertTrue(algorithm, !algorithm.isEmpty());
-			assertTrue(algorithm, algorithm.equals(algorithm.trim()));
+			assertTrue(!algorithm.isEmpty(), algorithm);
+			assertTrue(algorithm.equals(algorithm.trim()), algorithm);
 
 			final Algorithm a = Algorithm.forCode(algorithm);
 			if(!isSupported(MyItem.hash.hashMatchesIfSupported(algorithm, MyItem.data)))
@@ -187,7 +187,7 @@ public class HashConditionTest extends TestWithEnvironment
 					continue;
 
 				final Condition condition = MyItem.hash.hashMatchesIfSupported(algorithm, MyItem.data);
-				assertEquals(p, "MyItem.hash=" + algorithm + "(MyItem.data)", condition.toString());
+				assertEquals("MyItem.hash=" + algorithm + "(MyItem.data)", condition.toString(), p);
 
 				if(!isSupported(condition))
 					continue;
@@ -198,7 +198,7 @@ public class HashConditionTest extends TestWithEnvironment
 				}
 				catch(final UnsupportedQueryException e)
 				{
-					assertEquals(p, "hash >" + algorithm + "< not supported", e.getMessage());
+					assertEquals("hash >" + algorithm + "< not supported", e.getMessage(), p);
 				}
 			}
 		}
@@ -222,13 +222,13 @@ public class HashConditionTest extends TestWithEnvironment
 	{
 		item.setHash(hash);
 		assertEquals(
-				algorithm.code,
 				matches ? asList(item) : asList(),
-				MyItem.TYPE.search(MyItem.hash.hashMatchesIfSupported(algorithm.code, MyItem.data)));
+				MyItem.TYPE.search(MyItem.hash.hashMatchesIfSupported(algorithm.code, MyItem.data)),
+				algorithm.code);
 		assertEquals(
-				algorithm.code + " NOT",
 				matchesNot ? asList(item) : asList(),
-				MyItem.TYPE.search(MyItem.hash.hashDoesNotMatchIfSupported(algorithm.code, MyItem.data)));
+				MyItem.TYPE.search(MyItem.hash.hashDoesNotMatchIfSupported(algorithm.code, MyItem.data)),
+				algorithm.code + " NOT");
 	}
 
 	@WrapperType(indent=2, comments=false)

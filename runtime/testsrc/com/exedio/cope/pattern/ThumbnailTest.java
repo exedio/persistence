@@ -94,10 +94,10 @@ public final class ThumbnailTest extends TestWithEnvironment
 		assertEquals(20, thumb.getBoundX());
 		assertEquals(30, thumb.getBoundY());
 		final Set<String> sct = thumb.getSupportedSourceContentTypes();
-		assertTrue(sct.toString(), sct.contains("image/jpeg"));
-		assertTrue(sct.toString(), sct.contains("image/pjpeg"));
-		assertTrue(sct.toString(), sct.contains("image/png"));
-		assertTrue(sct.toString(), sct.contains("image/gif"));
+		assertTrue(sct.contains("image/jpeg"),  sct.toString());
+		assertTrue(sct.contains("image/pjpeg"), sct.toString());
+		assertTrue(sct.contains("image/png"),   sct.toString());
+		assertTrue(sct.contains("image/gif"),   sct.toString());
 		assertUnmodifiable(sct);
 
 		assertEquals(file.isNull(), thumb.isNull());
@@ -183,7 +183,7 @@ public final class ThumbnailTest extends TestWithEnvironment
 	private static void assertBB(final int srcX, final int srcY, final int tgtX, final int tgtY)
 	{
 		final int[] bb = thumb.boundingBox(srcX, srcY);
-		assertEquals("width", tgtX, bb[0]);
-		assertEquals("height", tgtY, bb[1]);
+		assertEquals(tgtX, bb[0], "width");
+		assertEquals(tgtY, bb[1], "height");
 	}
 }

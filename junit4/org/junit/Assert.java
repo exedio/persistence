@@ -35,7 +35,7 @@ public final class Assert
 		Assertions.assertTrue(condition);
 	}
 
-	public static void assertTrue(final String message, final boolean condition)
+	public static void assertTrue(final boolean condition, final String message)
 	{
 		Assertions.assertTrue(condition, message);
 	}
@@ -45,7 +45,7 @@ public final class Assert
 		Assertions.assertFalse(condition);
 	}
 
-	public static void assertFalse(final String message, final boolean condition)
+	public static void assertFalse(final boolean condition, final String message)
 	{
 		Assertions.assertFalse(condition, message);
 	}
@@ -56,7 +56,7 @@ public final class Assert
 		Assertions.assertNull(actual);
 	}
 
-	public static void assertNull(final String message, final Object actual)
+	public static void assertNull(final Object actual, final String message)
 	{
 		Assertions.assertNull(actual, message);
 	}
@@ -66,7 +66,7 @@ public final class Assert
 		Assertions.assertNotNull(actual);
 	}
 
-	public static void assertNotNull(final String message, final Object actual)
+	public static void assertNotNull(final Object actual, final String message)
 	{
 		Assertions.assertNotNull(actual, message);
 	}
@@ -77,7 +77,7 @@ public final class Assert
 		Assertions.assertEquals(expected, actual);
 	}
 
-	public static void assertEquals(final String message, final short expected, final short actual)
+	public static void assertEquals(final short expected, final short actual, final String message)
 	{
 		Assertions.assertEquals(expected, actual, message);
 	}
@@ -87,7 +87,7 @@ public final class Assert
 		Assertions.assertEquals(expected, actual);
 	}
 
-	public static void assertEquals(final String message, final byte expected, final byte actual)
+	public static void assertEquals(final byte expected, final byte actual, final String message)
 	{
 		Assertions.assertEquals(expected, actual, message);
 	}
@@ -97,7 +97,7 @@ public final class Assert
 		Assertions.assertEquals(expected, actual);
 	}
 
-	public static void assertEquals(final String message, final int expected, final int actual)
+	public static void assertEquals(final int expected, final int actual, final String message)
 	{
 		Assertions.assertEquals(expected, actual, message);
 	}
@@ -107,7 +107,7 @@ public final class Assert
 		Assertions.assertEquals(expected, actual);
 	}
 
-	public static void assertEquals(final String message, final long expected, final long actual)
+	public static void assertEquals(final long expected, final long actual, final String message)
 	{
 		Assertions.assertEquals(expected, actual, message);
 	}
@@ -117,7 +117,7 @@ public final class Assert
 		Assertions.assertEquals(expected, actual);
 	}
 
-	public static void assertEquals(final String message, final char expected, final char actual)
+	public static void assertEquals(final char expected, final char actual, final String message)
 	{
 		Assertions.assertEquals(expected, actual, message);
 	}
@@ -127,7 +127,7 @@ public final class Assert
 		Assertions.assertEquals(expected, actual);
 	}
 
-	public static void assertEquals(final String message, final float expected, final float actual)
+	public static void assertEquals(final float expected, final float actual, final String message)
 	{
 		Assertions.assertEquals(expected, actual, message);
 	}
@@ -137,7 +137,7 @@ public final class Assert
 		Assertions.assertEquals(expected, actual);
 	}
 
-	public static void assertEquals(final String message, final double expected, final double actual)
+	public static void assertEquals(final double expected, final double actual, final String message)
 	{
 		Assertions.assertEquals(expected, actual, message);
 	}
@@ -147,7 +147,7 @@ public final class Assert
 		Assertions.assertEquals(expected, actual);
 	}
 
-	public static void assertEquals(final String message, final Object expected, final Object actual)
+	public static void assertEquals(final Object expected, final Object actual, final String message)
 	{
 		Assertions.assertEquals(expected, actual, message);
 	}
@@ -158,7 +158,7 @@ public final class Assert
 		Assertions.assertEquals(expected, actual, delta);
 	}
 
-	public static void assertEquals(final String message, final double expected, final double actual, final double delta)
+	public static void assertEquals(final double expected, final double actual, final double delta, final String message)
 	{
 		Assertions.assertEquals(expected, actual, delta, message);
 	}
@@ -169,7 +169,7 @@ public final class Assert
 		Assertions.assertArrayEquals(expected, actual);
 	}
 
-	public static void assertArrayEquals(final String message, final Object[] expected, final Object[] actual)
+	public static void assertArrayEquals(final Object[] expected, final Object[] actual, final String message)
 	{
 		Assertions.assertArrayEquals(expected, actual, message);
 	}
@@ -180,7 +180,7 @@ public final class Assert
 		Assertions.assertSame(expected, actual);
 	}
 
-	public static void assertSame(final String message, final Object expected, final Object actual)
+	public static void assertSame(final Object expected, final Object actual, final String message)
 	{
 		Assertions.assertSame(expected, actual, message);
 	}

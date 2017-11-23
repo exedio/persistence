@@ -224,8 +224,8 @@ public class ClusterNetworkChangeListenerTest extends ClusterNetworkTest
 
 		final ChangeListenerDispatcherInfo dispatcherInfo =
 			model.getChangeListenerDispatcherInfo();
-		assertEquals("overflow",  0, dispatcherInfo.getOverflow ());
-		assertEquals("exception", 0, dispatcherInfo.getException());
-		assertEquals("pending",   0, dispatcherInfo.getPending  ());
+		assertEquals(0, dispatcherInfo.getOverflow (), "overflow");
+		assertEquals(0, dispatcherInfo.getException(), "exception");
+		assertEquals(0, dispatcherInfo.getPending  (), "pending");
 	}
 }

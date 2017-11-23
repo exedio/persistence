@@ -33,8 +33,8 @@ public final class CompareAssert
 			for(final Item j : items)
 			{
 				assertEquals(
-						"" + i + '/' + j + '(' + ni + '/' + nj + ')',
-						Integer.compare(ni, nj), i.compareTo(j));
+						Integer.compare(ni, nj), i.compareTo(j), 
+						"" + i + '/' + j + '(' + ni + '/' + nj + ')');
 
 				nj++;
 			}

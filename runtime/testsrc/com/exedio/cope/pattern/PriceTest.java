@@ -763,8 +763,8 @@ public class PriceTest
 
 	private static void assertToString(final String expected, final Price actual, final String expectedShort)
 	{
-		assertEquals("toString", expected, actual.toString());
-		assertEquals("toStringShort", expectedShort, actual.toStringShort());
+		assertEquals(expected, actual.toString(), "toString");
+		assertEquals(expectedShort, actual.toStringShort(), "toStringShort");
 	}
 
 	@Test public void testFormatReal() throws ParseException
@@ -818,33 +818,33 @@ public class PriceTest
 			final String sm99) throws ParseException
 	{
 		// compare to double
-		assertEquals("zero"    , zero    , format.format(    0.0));
-		assertEquals("fractPos", fractPos, format.format(    0.1));
-		assertEquals("fractNeg", fractNeg, format.format(   -0.1));
-		assertEquals("smallPos", smallPos, format.format(    1.1));
-		assertEquals("smallNeg", smallNeg, format.format(   -1.1));
-		assertEquals("groupPos", groupPos, format.format( 1234.5));
-		assertEquals("groupNeg", groupNeg, format.format(-1234.5));
+		assertEquals(zero,     format.format(    0.0), "zero");
+		assertEquals(fractPos, format.format(    0.1), "fractPos");
+		assertEquals(fractNeg, format.format(   -0.1), "fractNeg");
+		assertEquals(smallPos, format.format(    1.1), "smallPos");
+		assertEquals(smallNeg, format.format(   -1.1), "smallNeg");
+		assertEquals(groupPos, format.format( 1234.5), "groupPos");
+		assertEquals(groupNeg, format.format(-1234.5), "groupNeg");
 
-		assertEquals("zero"    , zero    , storeOf(      0).format(format));
-		assertEquals("fractPos", fractPos, storeOf(     10).format(format));
-		assertEquals("fractNeg", fractNeg, storeOf(    -10).format(format));
-		assertEquals("smallPos", smallPos, storeOf(    110).format(format));
-		assertEquals("smallNeg", smallNeg, storeOf(   -110).format(format));
-		assertEquals("groupPos", groupPos, storeOf( 123450).format(format));
-		assertEquals("groupNeg", groupNeg, storeOf(-123450).format(format));
-		assertEquals("p99"     ,  s99,                  p99.format(format));
-		assertEquals("mp99"    , sm99,                 mp99.format(format));
+		assertEquals(zero,     storeOf(      0).format(format), "zero");
+		assertEquals(fractPos, storeOf(     10).format(format), "fractPos");
+		assertEquals(fractNeg, storeOf(    -10).format(format), "fractNeg");
+		assertEquals(smallPos, storeOf(    110).format(format), "smallPos");
+		assertEquals(smallNeg, storeOf(   -110).format(format), "smallNeg");
+		assertEquals(groupPos, storeOf( 123450).format(format), "groupPos");
+		assertEquals(groupNeg, storeOf(-123450).format(format), "groupNeg");
+		assertEquals( s99,                  p99.format(format),  "p99");
+		assertEquals(sm99,                 mp99.format(format), "mp99");
 
-		assertEquals("zero"    , storeOf(      0), parse(zero    , format));
-		assertEquals("fractPos", storeOf(     10), parse(fractPos, format));
-		assertEquals("fractNeg", storeOf(    -10), parse(fractNeg, format));
-		assertEquals("smallPos", storeOf(    110), parse(smallPos, format));
-		assertEquals("smallNeg", storeOf(   -110), parse(smallNeg, format));
-		assertEquals("groupPos", storeOf( 123450), parse(groupPos, format));
-		assertEquals("groupNeg", storeOf(-123450), parse(groupNeg, format));
-		assertEquals( "p99",                  p99, parse( s99    , format));
-		assertEquals("mp99",                 mp99, parse(sm99    , format));
+		assertEquals(storeOf(      0), parse(zero    , format), "zero");
+		assertEquals(storeOf(     10), parse(fractPos, format), "fractPos");
+		assertEquals(storeOf(    -10), parse(fractNeg, format), "fractNeg");
+		assertEquals(storeOf(    110), parse(smallPos, format), "smallPos");
+		assertEquals(storeOf(   -110), parse(smallNeg, format), "smallNeg");
+		assertEquals(storeOf( 123450), parse(groupPos, format), "groupPos");
+		assertEquals(storeOf(-123450), parse(groupNeg, format), "groupNeg");
+		assertEquals(             p99, parse( s99    , format), "p99");
+		assertEquals(            mp99, parse(sm99    , format), "mp99");
 	}
 
 	@Test public void testParseTooBig()

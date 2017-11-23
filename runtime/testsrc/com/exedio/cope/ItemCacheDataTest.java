@@ -277,10 +277,10 @@ public class ItemCacheDataTest extends TestWithEnvironment
 	private void assertUpdateCount(final int expected, final int global)
 	{
 		final ConnectProperties props = model.getConnectProperties();
-		assertEquals("transaction", expected, item.getUpdateCountIfActive());
+		assertEquals(expected, item.getUpdateCountIfActive(), "transaction");
 		if(props.getItemCacheLimit()>0)
-			assertEquals("global", global, item.getUpdateCountGlobal());
+			assertEquals(global, item.getUpdateCountGlobal(), "global");
 		else
-			assertEquals("global", MIN_VALUE, item.getUpdateCountGlobal());
+			assertEquals(MIN_VALUE, item.getUpdateCountGlobal(), "global");
 	}
 }

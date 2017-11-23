@@ -195,14 +195,14 @@ public class ConstraintTest extends SchemaReadyTest
 		final Constraint constraint = table.getConstraint(constraintName);
 		if(supportsCheckConstraints || constraintType!=CHECK)
 		{
-			assertNotNull("no such constraint "+constraintName+", but has "+table.getConstraints(), constraint);
-			assertEquals(constraintName, constraintType, constraint.getClass());
-			assertEquals(constraintName, requiredCondition, constraint.getRequiredCondition());
-			assertEquals(constraintName, null, constraint.getError());
-			assertEquals(constraintName, Node.Color.OK, constraint.getParticularColor());
+			assertNotNull(constraint, "no such constraint "+constraintName+", but has "+table.getConstraints());
+			assertEquals(constraintType, constraint.getClass(), constraintName);
+			assertEquals(requiredCondition, constraint.getRequiredCondition(), constraintName);
+			assertEquals(null, constraint.getError(), constraintName);
+			assertEquals(Node.Color.OK, constraint.getParticularColor(), constraintName);
 		}
 		else
-			assertEquals(constraintName, null, constraint);
+			assertEquals(null, constraint, constraintName);
 
 		return constraint;
 	}

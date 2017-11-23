@@ -186,9 +186,9 @@ public class DispatcherPurgeTest extends TestWithEnvironment
 			final Integer date,
 			final DispatcherItem item)
 	{
-		assertEquals("pending", pending, item.isToTargetPending());
-		assertEquals("success", success, item.getToTargetUnpendSuccess());
-		assertEquals("date",    date,    item.getToTargetUnpendDateMillis());
+		assertEquals(pending, item.isToTargetPending(),           "pending");
+		assertEquals(success, item.getToTargetUnpendSuccess(),    "success");
+		assertEquals(date,    item.getToTargetUnpendDateMillis(), "date");
 	}
 
 	private static final int day = 1000 * 60 * 60 * 24;

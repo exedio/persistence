@@ -67,10 +67,10 @@ public class ConnectPropertiesTest
 		for(final Field field : p.getFields())
 		{
 			final String key = field.getKey();
-			assertTrue("not specified: " + key, field.isSpecified());
-			assertEquals(key,
-					notOnDefault.containsKey(key) ? notOnDefault.get(key) : field.getDefaultValue(),
-					field.getValue());
+			assertTrue(field.isSpecified(), "not specified: " + key);
+			assertEquals(
+					notOnDefault.containsKey(key) ? notOnDefault.get(key) : field.getDefaultValue(), field.getValue(),
+					key);
 		}
 
 		p.ensureValidity();

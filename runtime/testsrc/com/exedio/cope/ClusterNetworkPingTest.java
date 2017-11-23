@@ -183,11 +183,11 @@ public class ClusterNetworkPingTest extends ClusterNetworkTest
 
 	private static void assertGreaterZero(final long actual)
 	{
-		assertTrue("" + actual, actual>0);
+		assertTrue(actual>0, "" + actual);
 	}
 
 	private static void assertLessOrEqual(final long a, final long b)
 	{
-		assertTrue("" + a + "<=" + b, a<=b);
+		assertTrue(a<=b, "" + a + "<=" + b);
 	}
 }

@@ -152,9 +152,9 @@ public class DispatcherUnpendTest extends TestWithEnvironment
 			final Boolean success,
 			final Integer date)
 	{
-		assertEquals("pending", pending, item.isToTargetPending());
-		assertEquals("success", success, item.getToTargetUnpendSuccess());
-		assertEquals("date",    date,    item.getToTargetUnpendDateMillis());
+		assertEquals(pending, item.isToTargetPending(),           "pending");
+		assertEquals(success, item.getToTargetUnpendSuccess(),    "success");
+		assertEquals(date,    item.getToTargetUnpendDateMillis(), "date");
 	}
 
 	@AfterEach public void afterEach()

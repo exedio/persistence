@@ -131,9 +131,9 @@ public class NameLengthTest extends TestWithEnvironment
 	private static void assertIt(final Table table, final Constraint.Type type, final String name)
 	{
 		final Constraint result = table.getConstraint(name);
-		assertNotNull(name, result);
-		assertEquals(name, type, result.getType());
-		assertEquals(name, OK, result.getCumulativeColor());
+		assertNotNull(result, name);
+		assertEquals(type, result.getType(), name);
+		assertEquals(OK, result.getCumulativeColor(), name);
 	}
 
 

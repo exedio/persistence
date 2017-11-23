@@ -103,7 +103,7 @@ class TestByteArrayInputStream extends InputStream
 
 	public void assertClosed()
 	{
-		assertEquals("stream still open", true, closed);
+		assertEquals(true, closed, "stream still open");
 	}
 }
 

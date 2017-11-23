@@ -156,7 +156,7 @@ public class StringCharSetTest extends TestWithEnvironment
 			assertEquals(null, emailCsConstraint);
 			return;
 		}
-		assertNotNull(charSetConstraintName(email), emailCsConstraint);
+		assertNotNull(emailCsConstraint, charSetConstraintName(email));
 		assertEquals(0, emailCsConstraint.checkL());
 		setEmailBySql(validChars);
 		assertEquals(0, emailCsConstraint.checkL());
@@ -166,7 +166,7 @@ public class StringCharSetTest extends TestWithEnvironment
 			final char invalidChar = invalidChars.charAt(i);
 			final int insertIndex = i%(mask.length()+1);
 			setEmailBySql(mask.substring(0, insertIndex) + invalidChar + mask.substring(insertIndex));
-			assertEquals("invalid char not detected: "+invalidChar, 1, emailCsConstraint.checkL());
+			assertEquals(1, emailCsConstraint.checkL(), "invalid char not detected: "+invalidChar);
 		}
 	}
 
@@ -190,11 +190,11 @@ public class StringCharSetTest extends TestWithEnvironment
 
 	private void assertIt(final CharSet cs, final boolean isSubsetOfAscii, final StringCharSetItem... result)
 	{
-		assertEquals("isSubsetOfAscii", isSubsetOfAscii, cs.isSubsetOfAscii());
+		assertEquals(isSubsetOfAscii, cs.isSubsetOfAscii(), "isSubsetOfAscii");
 		final CharSetCondition c = new CharSetCondition(any, cs);
 		final HashSet<StringCharSetItem> resultSet = new HashSet<>(asList(result));
 		for(final StringCharSetItem i : TYPE.search(null, TYPE.getThis(), true))
-			assertEquals(i.getCode(), resultSet.contains(i), c.get(i));
+			assertEquals(resultSet.contains(i), c.get(i), i.getCode());
 
 		if(mysql)
 		{

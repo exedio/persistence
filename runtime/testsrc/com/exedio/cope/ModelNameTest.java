@@ -32,7 +32,7 @@ public class ModelNameTest
 
 	@Test public void testAnonymous()
 	{
-		assertTrue(ANONYMOUS.toString(), ANONYMOUS.toString().startsWith(Model.class.getName() + '@'));
+		assertTrue(ANONYMOUS.toString().startsWith(Model.class.getName() + '@'), ANONYMOUS.toString());
 
 		ANONYMOUS.enableSerialization(ModelNameTest.class, "ANONYMOUS");
 		assertEquals(ModelNameTest.class.getName() + "#ANONYMOUS", ANONYMOUS.toString());

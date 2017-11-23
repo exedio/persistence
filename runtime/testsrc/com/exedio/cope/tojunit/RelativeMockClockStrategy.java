@@ -33,7 +33,7 @@ public final class RelativeMockClockStrategy implements Strategy
 	@Override
 	public long currentTimeMillis()
 	{
-		assertFalse("no pending clock events", events.isEmpty());
+		assertFalse(events.isEmpty(), "no pending clock events");
 		return events.removeFirst();
 	}
 
@@ -51,6 +51,6 @@ public final class RelativeMockClockStrategy implements Strategy
 
 	public void assertEmpty()
 	{
-		assertEquals("pending clock events", Collections.emptyList(), events);
+		assertEquals(Collections.emptyList(), events, "pending clock events");
 	}
 }

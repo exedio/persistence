@@ -46,13 +46,13 @@ public class PreventUrlGuessingTypeTest
 			final Media feature)
 	{
 		final String msg = feature.toString();
-		assertEquals(msg, expectedValue, feature.isUrlGuessingPrevented());
-		assertEquals(msg, expectedAnn, feature.isAnnotationPresent(PreventUrlGuessing.class));
+		assertEquals(expectedValue, feature.isUrlGuessingPrevented(), msg);
+		assertEquals(expectedAnn, feature.isAnnotationPresent(PreventUrlGuessing.class), msg);
 		final Annotation ann = feature.getAnnotation(PreventUrlGuessing.class);
 		if(expectedAnn)
-			assertNotNull(msg, ann);
+			assertNotNull(ann, msg);
 		else
-			assertNull(msg, ann);
+			assertNull(ann, msg);
 	}
 
 	@WrapperIgnore

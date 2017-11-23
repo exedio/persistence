@@ -46,13 +46,13 @@ public class UrlFingerPrintingTypeTest
 			final Media feature)
 	{
 		final String msg = feature.toString();
-		assertEquals(msg, expectedValue, feature.isUrlFingerPrinted());
-		assertEquals(msg, expectedAnn, feature.isAnnotationPresent(UrlFingerPrinting.class));
+		assertEquals(expectedValue, feature.isUrlFingerPrinted(), msg);
+		assertEquals(expectedAnn, feature.isAnnotationPresent(UrlFingerPrinting.class), msg);
 		final Annotation ann = feature.getAnnotation(UrlFingerPrinting.class);
 		if(expectedAnn)
-			assertNotNull(msg, ann);
+			assertNotNull(ann, msg);
 		else
-			assertNull(msg, ann);
+			assertNull(ann, msg);
 	}
 
 	@WrapperIgnore

@@ -122,14 +122,14 @@ public class SequenceCheckPrimaryKeyTest extends TestWithEnvironment
 		assertEquals(
 				"sequence behind maximum of AnItem.this: " + featureMaximum + ">=" + sequenceNext,
 				actual.toString());
-		assertSame  ("feature", TYPE.getThis(), actual.feature);
-		assertEquals("featureMaximum", featureMaximum!=null ? featureMaximum.longValue() : null, actual.featureMaximum);
-		assertEquals("sequenceNext", sequenceNext, actual.sequenceNext);
-		assertEquals("behindBy", behindBy, actual.isBehindByL());
+		assertSame  (TYPE.getThis(), actual.feature, "feature");
+		assertEquals(featureMaximum != null ? featureMaximum.longValue() : null, actual.featureMaximum, "featureMaximum");
+		assertEquals(sequenceNext, actual.sequenceNext, "sequenceNext");
+		assertEquals(behindBy, actual.isBehindByL(), "behindBy");
 
 		@SuppressWarnings("deprecation")
 		final int behindByDeprecated = TYPE.checkPrimaryKey();
-		assertEquals("behindByDeprecated", behindBy, behindByDeprecated);
+		assertEquals(behindBy, behindByDeprecated, "behindByDeprecated");
 	}
 
 	private static void newSequence(
@@ -138,9 +138,9 @@ public class SequenceCheckPrimaryKeyTest extends TestWithEnvironment
 	{
 		try(TransactionTry tx = MODEL.startTransactionTry(SequenceCheckPrimaryKeyTest.class.getName()))
 		{
-			assertEquals("pk", pk, getPrimaryKeyColumnValueL(
+			assertEquals(pk, getPrimaryKeyColumnValueL(
 				tx.commit(
-					new AnItem(field)))
+					new AnItem(field))), "pk"
 			);
 		}
 	}

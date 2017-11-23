@@ -104,14 +104,14 @@ public class SequenceCheckIntegerTest extends TestWithEnvironment
 		assertEquals(
 				"sequence behind maximum of AnItem.next: " + featureMaximum + ">=" + sequenceNext,
 				actual.toString());
-		assertSame  ("feature", next, actual.feature);
-		assertEquals("featureMaximum", featureMaximum!=null ? featureMaximum.longValue() : null, actual.featureMaximum);
-		assertEquals("sequenceNext", sequenceNext, actual.sequenceNext);
-		assertEquals("behindBy", behindBy, actual.isBehindByL());
+		assertSame  (next, actual.feature, "feature");
+		assertEquals(featureMaximum!=null ? featureMaximum.longValue() : null, actual.featureMaximum, "featureMaximum");
+		assertEquals(sequenceNext, actual.sequenceNext, "sequenceNext");
+		assertEquals(behindBy, actual.isBehindByL(), "behindBy");
 
 		@SuppressWarnings("deprecation")
 		final int behindByDeprecated = next.checkDefaultToNext();
-		assertEquals("behindByDeprecated", behindBy, behindByDeprecated);
+		assertEquals(behindBy, behindByDeprecated, "behindByDeprecated");
 	}
 
 	private static void newManual(
@@ -120,9 +120,9 @@ public class SequenceCheckIntegerTest extends TestWithEnvironment
 	{
 		try(TransactionTry tx = MODEL.startTransactionTry(SequenceCheckIntegerTest.class.getName()))
 		{
-			assertEquals("next", next,
+			assertEquals(next,
 				tx.commit(
-					new AnItem(field, next).getNext().intValue())
+					new AnItem(field, next).getNext().intValue()), "next"
 			);
 		}
 	}
@@ -133,9 +133,9 @@ public class SequenceCheckIntegerTest extends TestWithEnvironment
 	{
 		try(TransactionTry tx = MODEL.startTransactionTry(SequenceCheckIntegerTest.class.getName()))
 		{
-			assertEquals("next", next,
+			assertEquals(next,
 				tx.commit(
-					new AnItem(field).getNext().intValue())
+					new AnItem(field).getNext().intValue()), "next"
 			);
 		}
 	}

@@ -206,8 +206,8 @@ public class SchemaPurgeTest extends TestWithEnvironment
 							quoteName(model, name)))
 		{
 			rs.next();
-			assertEquals("max",   max,   rs.getInt(1));
-			assertEquals("count", count, rs.getInt(2));
+			assertEquals(max,   rs.getInt(1), "max");
+			assertEquals(count, rs.getInt(2), "count");
 		}
 		model.startTransaction(SchemaPurgeTest.class.getName());
 	}

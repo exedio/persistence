@@ -93,9 +93,9 @@ public class ImplicitAnnotationTest extends TestWithEnvironment
 			final UniqueConstraint f)
 	{
 		final com.exedio.dsmf.Table table = MODEL.getSchema().getTable(SchemaInfo.getTableName(TYPE));
-		assertNotNull(SchemaInfo.getTableName(TYPE), table);
+		assertNotNull(table, SchemaInfo.getTableName(TYPE));
 		final Constraint constraint = table.getConstraint(schema);
-		assertNotNull(schema, constraint);
+		assertNotNull(constraint, schema);
 		assertFeature(name, nameAnno, schema, constraint.getName(), schemaAnno, computed, arbitrary, f);
 	}
 
@@ -126,24 +126,24 @@ public class ImplicitAnnotationTest extends TestWithEnvironment
 			final String arbitrary,
 			final Feature f)
 	{
-		assertEquals("name", name, f.getName());
+		assertEquals(name, f.getName(), "name");
 
 		final CopeName actualNameAnno = f.getAnnotation(CopeName.class);
-		assertEquals("nameAnno", nameAnno, actualNameAnno!=null ? actualNameAnno.value() : null);
-		assertEquals("nameAnno", nameAnno!=null, f.isAnnotationPresent(CopeName.class));
+		assertEquals(nameAnno, actualNameAnno!=null ? actualNameAnno.value() : null, "nameAnno");
+		assertEquals(nameAnno!=null, f.isAnnotationPresent(CopeName.class), "nameAnno");
 
-		assertEquals("schema", schema, actualSchema);
+		assertEquals(schema, actualSchema, "schema");
 
 		final CopeSchemaName actualSchemaAnno = f.getAnnotation(CopeSchemaName.class);
-		assertEquals("schemaAnno", schemaAnno, actualSchemaAnno!=null ? actualSchemaAnno.value() : null);
-		assertEquals("schemaAnno", schemaAnno!=null, f.isAnnotationPresent(CopeSchemaName.class));
+		assertEquals(schemaAnno, actualSchemaAnno!=null ? actualSchemaAnno.value() : null, "schemaAnno");
+		assertEquals(schemaAnno!=null, f.isAnnotationPresent(CopeSchemaName.class), "schemaAnno");
 
-		assertEquals("computed", computed, f.isAnnotationPresent(Computed.class));
-		assertEquals("computed", computed, f.getAnnotation(Computed.class)!=null);
+		assertEquals(computed, f.isAnnotationPresent(Computed.class), "computed");
+		assertEquals(computed, f.getAnnotation(Computed.class)!=null, "computed");
 
 		final Arbitrary actualArbitrary = f.getAnnotation(Arbitrary.class);
-		assertEquals("anno", arbitrary, actualArbitrary!=null ? actualArbitrary.value() : null);
-		assertEquals("anno", arbitrary!=null, f.isAnnotationPresent(Arbitrary.class));
+		assertEquals(arbitrary, actualArbitrary!=null ? actualArbitrary.value() : null, "anno");
+		assertEquals(arbitrary!=null, f.isAnnotationPresent(Arbitrary.class), "anno");
 	}
 
 

@@ -343,7 +343,7 @@ public class DistinctOrderByTest extends TestWithEnvironment
 		}
 		catch(final SQLRuntimeException e)
 		{
-			assertTrue(e.getCause().getMessage(), e.getCause().getMessage().startsWith(message));
+			assertTrue(e.getCause().getMessage().startsWith(message), e.getCause().getMessage());
 		}
 	}
 
@@ -357,7 +357,7 @@ public class DistinctOrderByTest extends TestWithEnvironment
 		catch(final SQLRuntimeException e)
 		{
 			final String actual = e.getCause().getMessage();
-			assertTrue(actual, message.test(actual));
+			assertTrue(message.test(actual), actual);
 		}
 	}
 

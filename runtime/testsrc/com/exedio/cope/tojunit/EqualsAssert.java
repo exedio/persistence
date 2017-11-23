@@ -55,9 +55,9 @@ public final class EqualsAssert
 				}
 				else
 				{
-					assertFalse(""+i+'/'+j, left.equals(right));
-					assertFalse(""+i+'/'+j, right.equals(left));
-					assertFalse(""+i+'/'+j, left.hashCode()==right.hashCode());
+					assertFalse(left.equals(right),                ""+i+'/'+j);
+					assertFalse(right.equals(left),                ""+i+'/'+j);
+					assertFalse(left.hashCode()==right.hashCode(), ""+i+'/'+j);
 				}
 			}
 			assertEqualsSpecial(left);

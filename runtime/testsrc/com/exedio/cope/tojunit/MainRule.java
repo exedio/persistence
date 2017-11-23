@@ -98,7 +98,7 @@ public abstract class MainRule
 						rule.before(context);
 						rule.beforeCalled = true;
 					}
-			assertFalse("no rule in " + testClass, rules.isEmpty());
+			assertFalse(rules.isEmpty(), "no rule in " + testClass);
 			this.rules = rules;
 		}
 

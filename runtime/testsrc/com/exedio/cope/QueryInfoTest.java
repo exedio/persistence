@@ -56,7 +56,7 @@ public class QueryInfoTest extends TestWithEnvironment
 
 		final Iterator<QueryInfo> rootChilds = root.getChilds().iterator();
 		final QueryInfo statementInfo = rootChilds.next();
-		assertTrue(statementInfo.getText(), statementInfo.getText().startsWith("SELECT "));
+		assertTrue(statementInfo.getText().startsWith("SELECT "), statementInfo.getText());
 		if(!model.getConnectProperties().isSupportDisabledForPreparedStatements())
 		{
 			final Iterator<QueryInfo> statementInfoChilds = statementInfo.getChilds().iterator();
@@ -73,26 +73,26 @@ public class QueryInfoTest extends TestWithEnvironment
 		}
 		{
 			final QueryInfo timing = rootChilds.next();
-			assertTrue(timing.getText(), timing.getText().startsWith("time elapsed "));
+			assertTrue(timing.getText().startsWith("time elapsed "), timing.getText());
 			final Iterator<QueryInfo> timingInfoChilds = timing.getChilds().iterator();
 			{
 				final QueryInfo timingPrepare = timingInfoChilds.next();
-				assertTrue(timingPrepare.getText(), timingPrepare.getText().startsWith("prepare "));
+				assertTrue(timingPrepare.getText().startsWith("prepare "), timingPrepare.getText());
 				assertContains(timingPrepare.getChilds());
 			}
 			{
 				final QueryInfo timingExecute = timingInfoChilds.next();
-				assertTrue(timingExecute.getText(), timingExecute.getText().startsWith("execute "));
+				assertTrue(timingExecute.getText().startsWith("execute "), timingExecute.getText());
 				assertContains(timingExecute.getChilds());
 			}
 			{
 				final QueryInfo timingReadResult = timingInfoChilds.next();
-				assertTrue(timingReadResult.getText(), timingReadResult.getText().startsWith("result "));
+				assertTrue(timingReadResult.getText().startsWith("result "), timingReadResult.getText());
 				assertContains(timingReadResult.getChilds());
 			}
 			{
 				final QueryInfo timingClose = timingInfoChilds.next();
-				assertTrue(timingClose.getText(), timingClose.getText().startsWith("close "));
+				assertTrue(timingClose.getText().startsWith("close "), timingClose.getText());
 				assertContains(timingClose.getChilds());
 			}
 			assertTrue(!timingInfoChilds.hasNext());
@@ -109,22 +109,22 @@ public class QueryInfoTest extends TestWithEnvironment
 			case oracle:
 			{
 				final QueryInfo planId = rootChilds.next();
-				assertTrue(planId.getText(), planId.getText().startsWith("explain plan statement_id=cope"));
+				assertTrue(planId.getText().startsWith("explain plan statement_id=cope"), planId.getText());
 				{
 					final Iterator<QueryInfo> planIdChilds = planId.getChilds().iterator();
 					{
 						final QueryInfo planSelect = planIdChilds.next();
-						assertTrue(planSelect.getText(), planSelect.getText().startsWith("SELECT STATEMENT plan_id="));
+						assertTrue(planSelect.getText().startsWith("SELECT STATEMENT plan_id="), planSelect.getText());
 						{
 							final Iterator<QueryInfo> planSelectChilds = planSelect.getChilds().iterator();
 							{
 								final QueryInfo planTableAccess = planSelectChilds.next();
-								assertTrue(planTableAccess.getText(), planTableAccess.getText().startsWith("TABLE ACCESS (BY INDEX ROWID) on Main[1]"));
+								assertTrue(planTableAccess.getText().startsWith("TABLE ACCESS (BY INDEX ROWID) on Main[1]"), planTableAccess.getText());
 								{
 									final Iterator<QueryInfo> planTableAccessChilds = planTableAccess.getChilds().iterator();
 									{
 										final QueryInfo planUnique = planTableAccessChilds.next();
-										assertTrue(planUnique.getText(), planUnique.getText().startsWith("INDEX (UNIQUE SCAN) on Main_uniqueString_Unq"));
+										assertTrue(planUnique.getText().startsWith("INDEX (UNIQUE SCAN) on Main_uniqueString_Unq"), planUnique.getText());
 										assertEquals(list(), planUnique.getChilds());
 									}
 									assertTrue(!planTableAccessChilds.hasNext());
@@ -184,7 +184,7 @@ public class QueryInfoTest extends TestWithEnvironment
 		}
 		else
 		{
-			assertTrue(cached1.getText(), cached1.getText().startsWith("select "));
+			assertTrue(cached1.getText().startsWith("select "), cached1.getText());
 		}
 
 		transaction.setQueryInfoEnabled(false);
@@ -203,7 +203,7 @@ public class QueryInfoTest extends TestWithEnvironment
 		}
 		else
 		{
-			assertTrue(cached1.getText(), cached1.getText().startsWith("select "));
+			assertTrue(cached1.getText().startsWith("select "), cached1.getText());
 		}
 
 		transaction.setQueryInfoEnabled(false);

@@ -76,7 +76,7 @@ public final class UpdateCounterRecoverTest extends TestWithEnvironment
 			}
 			catch(final TemporaryTransactionException e)
 			{
-				assertTrue(e.getMessage(), e.getMessage().startsWith("expected one row, but got 0 on statement: "));
+				assertTrue(e.getMessage().startsWith("expected one row, but got 0 on statement: "), e.getMessage());
 			}
 			assertEquals("name0", item.getName());
 		}
@@ -115,7 +115,7 @@ public final class UpdateCounterRecoverTest extends TestWithEnvironment
 			}
 			catch(final TemporaryTransactionException e)
 			{
-				assertTrue(e.getMessage(), e.getMessage().startsWith("expected one row, but got 0 on statement: "));
+				assertTrue(e.getMessage().startsWith("expected one row, but got 0 on statement: "), e.getMessage());
 			}
 			assertEquals(true, item.existsCopeItem());
 		}
@@ -149,7 +149,7 @@ public final class UpdateCounterRecoverTest extends TestWithEnvironment
 			}
 			catch(final TemporaryTransactionException e)
 			{
-				assertTrue(e.getMessage(), e.getMessage().startsWith("expected one row, but got 0 on statement: "));
+				assertTrue(e.getMessage().startsWith("expected one row, but got 0 on statement: "), e.getMessage());
 			}
 			assertEquals("name0", item.getName());
 		}
@@ -191,7 +191,7 @@ public final class UpdateCounterRecoverTest extends TestWithEnvironment
 			}
 			catch(final TemporaryTransactionException e)
 			{
-				assertTrue(e.getMessage(), e.getMessage().startsWith("expected one row, but got 0 on statement: "));
+				assertTrue(e.getMessage().startsWith("expected one row, but got 0 on statement: "), e.getMessage());
 			}
 			assertEquals(true, item.existsCopeItem());
 		}
@@ -228,7 +228,7 @@ public final class UpdateCounterRecoverTest extends TestWithEnvironment
 			}
 			catch(final TemporaryTransactionException e)
 			{
-				assertTrue(e.getMessage(), e.getMessage().startsWith("expected one row, but got 0 on statement: "));
+				assertTrue(e.getMessage().startsWith("expected one row, but got 0 on statement: "), e.getMessage());
 			}
 			assertEquals("name0", item.getName());
 		}
@@ -270,7 +270,7 @@ public final class UpdateCounterRecoverTest extends TestWithEnvironment
 			}
 			catch(final TemporaryTransactionException e)
 			{
-				assertTrue(e.getMessage(), e.getMessage().startsWith("expected one row, but got 0 on statement: "));
+				assertTrue(e.getMessage().startsWith("expected one row, but got 0 on statement: "), e.getMessage());
 			}
 			assertEquals(true, item.existsCopeItem());
 		}

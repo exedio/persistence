@@ -380,7 +380,7 @@ public class RevisionInfoTest
 		{
 			throw new RuntimeException(e);
 		}
-		assertTrue(bytesString, bytesString.startsWith("#migrationlogv01" + lineSeparator()));
+		assertTrue(bytesString.startsWith("#migrationlogv01" + lineSeparator()), bytesString);
 		final Properties p = RevisionInfo.parse(bytes);
 		final TreeMap<String, String> result = new TreeMap<>();
 		for(final Object key : p.keySet())
@@ -401,7 +401,7 @@ public class RevisionInfoTest
 		{
 			throw new RuntimeException(e);
 		}
-		assertTrue(bytesString, bytesString.startsWith("#migrationlogv01" + lineSeparator()));
+		assertTrue(bytesString.startsWith("#migrationlogv01" + lineSeparator()), bytesString);
 		return (X)RevisionInfo.read(bytes);
 	}
 

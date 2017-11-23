@@ -424,7 +424,7 @@ public final class MediaPathTest extends TestWithEnvironment
 	@Test public void testCacheControlPrivate() throws ServletException, IOException
 	{
 		final int offset = MODEL.getConnectProperties().getMediaOffsetExpires();
-		assertTrue("" + offset, offset>=0);
+		assertTrue(offset>=0, "" + offset);
 		item.setNormalContentType("image/jpeg");
 		item.setNormalLastModified(new Date(333338888));
 		final String ok = "/MediaPathItem/normal/" + id + ".jpg";
@@ -510,18 +510,18 @@ public final class MediaPathTest extends TestWithEnvironment
 			final int delivered)
 	{
 		final MediaInfo i = MediaPathItem.normal.getInfo();
-		assertEquals("noSuchPath",     noSuchPath,     getNoSuchPath()       - noSuchPathOnSetup);
-		assertEquals("redirectFrom",   redirectFrom,   i.getRedirectFrom()   - normalInfo.getRedirectFrom());
-		assertEquals("exception",      exception,      i.getException()      - normalInfo.getException());
-		assertEquals("invalidSpecial", invalidSpecial, i.getInvalidSpecial() - normalInfo.getInvalidSpecial());
-		assertEquals("guessedUrl",     guessedUrl,     i.getGuessedUrl()     - normalInfo.getGuessedUrl());
-		assertEquals("notAnItem",      notAnItem,      i.getNotAnItem()      - normalInfo.getNotAnItem());
-		assertEquals("noSuchItem",     noSuchItem,     i.getNoSuchItem()     - normalInfo.getNoSuchItem());
-		assertEquals("moved",          moved,          i.getMoved()          - normalInfo.getMoved());
-		assertEquals("isNull",         isNull,         i.getIsNull()         - normalInfo.getIsNull());
-		assertEquals("notComputable",  notComputable,  i.getNotComputable()  - normalInfo.getNotComputable());
-		assertEquals("notModified",    notModified,    i.getNotModified()    - normalInfo.getNotModified());
-		assertEquals("delivered",      delivered,      i.getDelivered()      - normalInfo.getDelivered());
+		assertEquals(noSuchPath,     getNoSuchPath()       - noSuchPathOnSetup,              "noSuchPath");
+		assertEquals(redirectFrom,   i.getRedirectFrom()   - normalInfo.getRedirectFrom(),   "redirectFrom");
+		assertEquals(exception,      i.getException()      - normalInfo.getException(),      "exception");
+		assertEquals(invalidSpecial, i.getInvalidSpecial() - normalInfo.getInvalidSpecial(), "invalidSpecial");
+		assertEquals(guessedUrl,     i.getGuessedUrl()     - normalInfo.getGuessedUrl(),     "guessedUrl");
+		assertEquals(notAnItem,      i.getNotAnItem()      - normalInfo.getNotAnItem(),      "notAnItem");
+		assertEquals(noSuchItem,     i.getNoSuchItem()     - normalInfo.getNoSuchItem(),     "noSuchItem");
+		assertEquals(moved,          i.getMoved()          - normalInfo.getMoved(),          "moved");
+		assertEquals(isNull,         i.getIsNull()         - normalInfo.getIsNull(),         "isNull");
+		assertEquals(notComputable,  i.getNotComputable()  - normalInfo.getNotComputable(),  "notComputable");
+		assertEquals(notModified,    i.getNotModified()    - normalInfo.getNotModified(),    "notModified");
+		assertEquals(delivered,      i.getDelivered()      - normalInfo.getDelivered(),      "delivered");
 	}
 
 	private void assertOk(
@@ -848,71 +848,71 @@ public final class MediaPathTest extends TestWithEnvironment
 
 		void assertOk()
 		{
-			assertEquals("location",      null, this.location);
-			assertEquals("lastModified",  Long.MIN_VALUE, this.lastModified);
-			assertEquals("sc",            Integer.MIN_VALUE, this.status);
-			assertEquals("charset",       null, this.charset);
-			assertEquals("contentType",   null, this.contentType);
-			assertEquals("content",       "responseBody", this.outString());
-			assertEquals("contentLength", 10011, this.contentLength);
-			assertEquals("cacheControl",  null, this.cacheControl);
-			assertEquals("accessControlAllowOrigin", null, this.accessControlAllowOrigin);
-			assertEquals("flushBuffer",   0, this.flushBufferCount);
+			assertEquals(null,              this.location,                 "location");
+			assertEquals(Long.MIN_VALUE,    this.lastModified,             "lastModified");
+			assertEquals(Integer.MIN_VALUE, this.status,                   "sc");
+			assertEquals(null,              this.charset,                  "charset");
+			assertEquals(null,              this.contentType,              "contentType");
+			assertEquals("responseBody",    this.outString(),              "content");
+			assertEquals(10011,             this.contentLength,            "contentLength");
+			assertEquals(null,              this.cacheControl,             "cacheControl");
+			assertEquals(null,              this.accessControlAllowOrigin, "accessControlAllowOrigin");
+			assertEquals(0,                 this.flushBufferCount,         "flushBuffer");
 		}
 
 		void assertOkAndCache(final long lastModified)
 		{
-			assertEquals("location",      null, this.location);
-			assertEquals("lastModified",  lastModified, this.lastModified);
-			assertEquals("sc",            Integer.MIN_VALUE, this.status);
-			assertEquals("charset",       null, this.charset);
-			assertEquals("contentType",   null, this.contentType);
-			assertEquals("content",       "responseBody", this.outString());
-			assertEquals("contentLength", 10011, this.contentLength);
-			assertEquals("cacheControl",  maxAge(), this.cacheControl);
-			assertEquals("accessControlAllowOrigin", null, this.accessControlAllowOrigin);
-			assertEquals("flushBuffer",   0, this.flushBufferCount);
+			assertEquals(null,              this.location,                 "location");
+			assertEquals(lastModified,      this.lastModified,             "lastModified");
+			assertEquals(Integer.MIN_VALUE, this.status,                   "sc");
+			assertEquals(null,              this.charset,                  "charset");
+			assertEquals(null,              this.contentType,              "contentType");
+			assertEquals("responseBody",    this.outString(),              "content");
+			assertEquals(10011,             this.contentLength,            "contentLength");
+			assertEquals(maxAge(),          this.cacheControl,             "cacheControl");
+			assertEquals(null,              this.accessControlAllowOrigin, "accessControlAllowOrigin");
+			assertEquals(0,                 this.flushBufferCount,         "flushBuffer");
 		}
 
 		void assertNotModified(final long lastModified)
 		{
-			assertEquals("location",      null, this.location);
-			assertEquals("lastModified",  lastModified, this.lastModified);
-			assertEquals("sc",            SC_NOT_MODIFIED, this.status);
-			assertEquals("charset",       null, this.charset);
-			assertEquals("contentType",   null, this.contentType);
-			assertEquals("content",       null, this.outString());
-			assertEquals("contentLength", Integer.MIN_VALUE, this.contentLength);
-			assertEquals("cacheControl",  maxAge(), this.cacheControl);
-			assertEquals("accessControlAllowOrigin", null, this.accessControlAllowOrigin);
-			assertEquals("flushBuffer",   1, this.flushBufferCount);
+			assertEquals(null,              this.location,                 "location");
+			assertEquals(lastModified,      this.lastModified,             "lastModified");
+			assertEquals(SC_NOT_MODIFIED,   this.status,                   "sc");
+			assertEquals(null,              this.charset,                  "charset");
+			assertEquals(null,              this.contentType,              "contentType");
+			assertEquals(null,              this.outString(),              "content");
+			assertEquals(Integer.MIN_VALUE, this.contentLength,            "contentLength");
+			assertEquals(maxAge(),          this.cacheControl,             "cacheControl");
+			assertEquals(null,              this.accessControlAllowOrigin, "accessControlAllowOrigin");
+			assertEquals(1,                 this.flushBufferCount,         "flushBuffer");
 		}
 
 		void assertOkAndCacheControl(final String value)
 		{
-			assertEquals("location",      null, this.location);
-			assertEquals("sc",            Integer.MIN_VALUE, this.status);
-			assertEquals("charset",       null, this.charset);
-			assertEquals("contentType",   null, this.contentType);
-			assertEquals("content",       "responseBody", this.outString());
-			assertEquals("contentLength", 10011, this.contentLength);
-			assertEquals("cacheControl",  value, this.cacheControl);
-			assertEquals("accessControlAllowOrigin", null, this.accessControlAllowOrigin);
-			assertEquals("flushBuffer",   0, this.flushBufferCount);
+			assertEquals(null,              this.location,                 "location");
+			assertEquals(Integer.MIN_VALUE, this.status,                   "sc");
+			assertEquals(null,              this.charset,                  "charset");
+			assertEquals(null,              this.contentType,              "contentType");
+			assertEquals("responseBody",    this.outString(),              "content");
+			assertEquals(10011,             this.contentLength,            "contentLength");
+			assertEquals(value,             this.cacheControl,             "cacheControl");
+			assertEquals(null,              this.accessControlAllowOrigin, "accessControlAllowOrigin");
+			assertEquals(0,                 this.flushBufferCount,         "flushBuffer");
 		}
 
 		void assertOkAndAccessControlAllowOrigin(final String value)
 		{
-			assertEquals("location",      null, this.location);
-			assertEquals("lastModified",  Long.MIN_VALUE, this.lastModified);
-			assertEquals("sc",            Integer.MIN_VALUE, this.status);
-			assertEquals("charset",       null, this.charset);
-			assertEquals("contentType",   null, this.contentType);
-			assertEquals("content",       "responseBody", this.outString());
-			assertEquals("contentLength", 10011, this.contentLength);
-			assertEquals("cacheControl",  null, this.cacheControl);
-			assertEquals("accessControlAllowOrigin", value, this.accessControlAllowOrigin);
-			assertEquals("flushBuffer",   0, this.flushBufferCount);
+			assertEquals(null,              this.location,                 "location");
+			assertEquals(Long.MIN_VALUE,    this.lastModified,             "lastModified");
+			assertEquals(Integer.MIN_VALUE, this.status,                   "sc");
+			assertEquals(null,              this.charset,                  "charset");
+			assertEquals(null,              this.contentType,              "contentType");
+			assertEquals("responseBody",    this.outString(),              "content");
+			assertEquals(10011,             this.contentLength,            "contentLength");
+			assertEquals(null,              this.cacheControl,             "cacheControl");
+			assertEquals(value,             this.accessControlAllowOrigin, "accessControlAllowOrigin");
+			assertEquals(0,                 this.flushBufferCount,         "flushBuffer");
 		}
 
 		void assertError(
@@ -921,35 +921,35 @@ public final class MediaPathTest extends TestWithEnvironment
 				final String contentType,
 				final String content)
 		{
-			assertEquals("location",      null,             this.location);
-			assertEquals("lastModified",  Long.MIN_VALUE,   this.lastModified);
-			assertEquals("sc",            sc,               this.status);
-			assertEquals("charset",       charset,          this.charset);
-			assertEquals("contentType",   contentType,      this.contentType);
-			assertEquals("content",       content,          this.outString());
-			assertEquals("contentLength", content.length(), this.contentLength);
-			assertEquals("cacheControl",  null,             this.cacheControl);
-			assertEquals("accessControlAllowOrigin", null, this.accessControlAllowOrigin);
-			assertEquals("flushBuffer",   0, this.flushBufferCount);
+			assertEquals(null,             this.location,                 "location");
+			assertEquals(Long.MIN_VALUE,   this.lastModified,             "lastModified");
+			assertEquals(sc,               this.status,                   "sc");
+			assertEquals(charset,          this.charset,                  "charset");
+			assertEquals(contentType,      this.contentType,              "contentType");
+			assertEquals(content,          this.outString(),              "content");
+			assertEquals(content.length(), this.contentLength,            "contentLength");
+			assertEquals(null,             this.cacheControl,             "cacheControl");
+			assertEquals(null,             this.accessControlAllowOrigin, "accessControlAllowOrigin");
+			assertEquals(0,                this.flushBufferCount,         "flushBuffer");
 		}
 
 		void assertRedirect(final String location)
 		{
-			assertEquals("location",      location, this.location);
-			assertEquals("lastModified",  Long.MIN_VALUE, this.lastModified);
-			assertEquals("sc",            SC_MOVED_PERMANENTLY, this.status);
-			assertEquals("charset",       null, this.charset);
-			assertEquals("contentType",   null, this.contentType);
-			assertEquals("content",       null, this.outString());
-			assertEquals("contentLength", Integer.MIN_VALUE, this.contentLength);
-			assertEquals("cacheControl",  null, this.cacheControl);
-			assertEquals("accessControlAllowOrigin", null, this.accessControlAllowOrigin);
-			assertEquals("flushBuffer",   0, this.flushBufferCount);
+			assertEquals(location,             this.location,                 "location");
+			assertEquals(Long.MIN_VALUE,       this.lastModified,             "lastModified");
+			assertEquals(SC_MOVED_PERMANENTLY, this.status,                   "sc");
+			assertEquals(null,                 this.charset,                  "charset");
+			assertEquals(null,                 this.contentType,              "contentType");
+			assertEquals(null,                 this.outString(),              "content");
+			assertEquals(Integer.MIN_VALUE,    this.contentLength,            "contentLength");
+			assertEquals(null,                 this.cacheControl,             "cacheControl");
+			assertEquals(null,                 this.accessControlAllowOrigin, "accessControlAllowOrigin");
+			assertEquals(0,                    this.flushBufferCount,         "flushBuffer");
 		}
 
 		Response assertLastModified(final long lastModified)
 		{
-			assertEquals("lastModified", lastModified, this.lastModified);
+			assertEquals(lastModified, this.lastModified, "lastModified");
 			return this;
 		}
 	}

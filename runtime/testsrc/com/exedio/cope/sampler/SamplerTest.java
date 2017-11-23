@@ -96,8 +96,8 @@ public class SamplerTest
 	{
 		for(final Type<?> type : sampler.getModel().getTypes())
 			assertEquals(
-					type.getID(),
 					type.isAnnotationPresent(Purgeable.class),
-					type.isAnnotationPresent(CopeExternal.class));
+					type.isAnnotationPresent(CopeExternal.class),
+					type.getID());
 	}
 }

@@ -127,7 +127,7 @@ public class VaultPropertiesTest
 					e.getMessage());
 			final Throwable cause = e.getCause();
 			assertNotNull(cause);
-			assertTrue(cause.getClass().getName(), cause instanceof ClassNotFoundException);
+			assertTrue(cause instanceof ClassNotFoundException, cause.getClass().getName());
 			assertEquals("", cause.getMessage());
 		}
 	}
@@ -193,7 +193,7 @@ public class VaultPropertiesTest
 					e.getMessage());
 			final Throwable cause2 = e.getCause();
 			assertNotNull(cause2);
-			assertTrue(cause2.getClass().getName(), cause2 instanceof NoSuchMethodException);
+			assertTrue(cause2 instanceof NoSuchMethodException, cause2.getClass().getName());
 			assertEquals(ServicePropertiesNoConstructorProps.class.getName() + ".<init>(" + Source.class.getName() + ")", cause2.getMessage());
 		}
 	}
@@ -218,7 +218,7 @@ public class VaultPropertiesTest
 					e.getMessage());
 			final Throwable nested = e.getCause();
 			assertNotNull(nested);
-			assertTrue(nested.getClass().getName(), nested instanceof IllegalPropertiesException);
+			assertTrue(nested instanceof IllegalPropertiesException, nested.getClass().getName());
 			assertEquals(
 					"property main in DESC (prefix service.) names a class " + ServicePropertiesNoConstructor.class.getName() + " " +
 					"annotated by @ServiceProperties(" + ServicePropertiesNoConstructorProps.class.getName() + "), " +
@@ -226,7 +226,7 @@ public class VaultPropertiesTest
 					nested.getMessage());
 			final Throwable cause2 = nested.getCause();
 			assertNotNull(cause2);
-			assertTrue(cause2.getClass().getName(), cause2 instanceof NoSuchMethodException);
+			assertTrue(cause2 instanceof NoSuchMethodException, cause2.getClass().getName());
 			assertEquals(ServicePropertiesNoConstructorProps.class.getName() + ".<init>(" + Source.class.getName() + ")", cause2.getMessage());
 		}
 	}
@@ -259,7 +259,7 @@ public class VaultPropertiesTest
 					e.getMessage());
 			final Throwable cause = e.getCause();
 			assertNotNull(cause);
-			assertTrue(cause.getClass().getName(), cause instanceof IllegalStateException);
+			assertTrue(cause instanceof IllegalStateException, cause.getClass().getName());
 			assertEquals("exception from ServicePropertiesFailsProps", cause.getMessage());
 			assertNull(cause.getCause());
 		}
@@ -282,13 +282,13 @@ public class VaultPropertiesTest
 					"property service in DESC invalid, see nested exception",
 					e.getMessage());
 			final Throwable nested = e.getCause();
-			assertTrue(nested.getClass().getName(), nested instanceof IllegalArgumentException);
+			assertTrue(nested instanceof IllegalArgumentException, nested.getClass().getName());
 			assertEquals(
 					"property main in DESC (prefix service.) invalid, see nested exception",
 					nested.getMessage());
 			final Throwable cause = nested.getCause();
 			assertNotNull(cause);
-			assertTrue(cause.getClass().getName(), cause instanceof IllegalStateException);
+			assertTrue(cause instanceof IllegalStateException, cause.getClass().getName());
 			assertEquals("exception from ServicePropertiesFailsProps", cause.getMessage());
 			assertNull(cause.getCause());
 		}

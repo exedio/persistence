@@ -109,8 +109,8 @@ public class DeleteJobContext extends AssertionErrorJobContext
 			final String expectedMethodName,
 			final StackTraceElement actual)
 	{
-		assertEquals("class",      expectedClass.getName(), actual.getClassName());
-		assertEquals("methodName", expectedMethodName,      actual.getMethodName());
+		assertEquals(expectedClass.getName(), actual.getClassName(),  "class");
+		assertEquals(expectedMethodName,      actual.getMethodName(), "methodName");
 		return actual;
 	}
 }

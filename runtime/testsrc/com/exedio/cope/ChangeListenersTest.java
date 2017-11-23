@@ -199,10 +199,10 @@ public class ChangeListenersTest
 	private void assertInfo(final int size, final int cleared, final int removed)
 	{
 		final ChangeListenerInfo info = model.getChangeListenersInfo();
-		assertEquals("size",    size,    info.getSize());
-		assertEquals("cleared", cleared, info.getCleared() - baselineInfo.getCleared());
-		assertEquals("removed", removed, info.getRemoved() - baselineInfo.getRemoved());
-		assertEquals("failed",  0,       info.getFailed()  - baselineInfo.getFailed() );
+		assertEquals(size,    info.getSize(), "size");
+		assertEquals(cleared, info.getCleared() - baselineInfo.getCleared(), "cleared");
+		assertEquals(removed, info.getRemoved() - baselineInfo.getRemoved(), "removed");
+		assertEquals(0,       info.getFailed()  - baselineInfo.getFailed(),  "failed");
 
 		@SuppressWarnings("deprecation")
 		final int clearedDeprecated = model.getChangeListenersCleared() - baselineInfo.getCleared();

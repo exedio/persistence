@@ -51,8 +51,8 @@ public final class CopeAssert
 		if(expected==null && actual==null)
 			return;
 
-		assertNotNull("expected null, but was " + actual, expected);
-		assertNotNull("expected " + expected + ", but was null", actual);
+		assertNotNull(expected, "expected null, but was " + actual);
+		assertNotNull(actual, "expected " + expected + ", but was null");
 
 		if(expected.size()!=actual.size() ||
 				!expected.containsAll(actual) ||
@@ -286,8 +286,8 @@ public final class CopeAssert
 			" and " + df.format(expectedAfter) +
 			", but was " + df.format(actual);
 
-		assertTrue(message, !expectedBefore.after(actual));
-		assertTrue(message, !expectedAfter.before(actual));
+		assertTrue(!expectedBefore.after(actual), message);
+		assertTrue(!expectedAfter.before(actual), message);
 	}
 
 	public static <S extends Serializable> S reserialize(final S value, final int expectedSize)

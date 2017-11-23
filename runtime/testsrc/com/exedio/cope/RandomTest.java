@@ -186,11 +186,11 @@ public class RandomTest extends TestWithEnvironment
 		for(final Double d : result)
 		{
 			assertNotNull(d);
-			assertTrue(String.valueOf(d), 0.0<=d);
-			assertTrue(String.valueOf(d), d<=1.0);
+			assertTrue(0.0<=d, String.valueOf(d));
+			assertTrue(d<=1.0, String.valueOf(d));
 		}
 		final HashSet<Double> set = new HashSet<>(result);
-		assertEquals(result.toString(), result.size(), set.size());
+		assertEquals(result.size(), set.size(), result.toString());
 
 		assertEquals(result, q.search());
 

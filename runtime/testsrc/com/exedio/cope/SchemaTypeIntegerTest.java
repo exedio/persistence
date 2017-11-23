@@ -168,9 +168,9 @@ public class SchemaTypeIntegerTest extends TestWithEnvironment
 	private void assertType(final String expected, final LongField field)
 	{
 		assertEquals(
-				field.getID(),
 				expected + NOT_NULL,
-				model.getSchema().getTable(getTableName(TYPE)).getColumn(getColumnName(field)).getType());
+				model.getSchema().getTable(getTableName(TYPE)).getColumn(getColumnName(field)).getType(),
+				field.getID());
 	}
 
 	@Test public void testValues()
@@ -194,17 +194,17 @@ public class SchemaTypeIntegerTest extends TestWithEnvironment
 
 		for(final LongField field : fields)
 		{
-			assertEquals(field.getID(), field.getMinimum(), field.getMandatory(min ));
-			assertEquals(field.getID(), field.getMaximum(), field.getMandatory(max ));
-			assertEquals(field.getID(), 0                 , field.getMandatory(zero));
+			assertEquals(field.getMinimum(), field.getMandatory(min ), field.getID());
+			assertEquals(field.getMaximum(), field.getMandatory(max ), field.getID());
+			assertEquals(0,                  field.getMandatory(zero), field.getID());
 		}
 
 		restartTransaction();
 		for(final LongField field : fields)
 		{
-			assertEquals(field.getID(), field.getMinimum(), field.getMandatory(min ));
-			assertEquals(field.getID(), field.getMaximum(), field.getMandatory(max ));
-			assertEquals(field.getID(), 0                 , field.getMandatory(zero));
+			assertEquals(field.getMinimum(), field.getMandatory(min ), field.getID());
+			assertEquals(field.getMaximum(), field.getMandatory(max ), field.getID());
+			assertEquals(0,                  field.getMandatory(zero), field.getID());
 		}
 	}
 

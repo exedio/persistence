@@ -499,13 +499,13 @@ public class CopySimpleTest extends TestWithEnvironment
 			final String message,
 			final CopyViolationException actual)
 	{
-		assertSame  ("feature", feature, actual.getFeature());
-		assertSame  ("additionalFeature", additionalFeature, actual.getAdditionalFeature());
-		assertEquals("item", item, actual.getItem());
-		assertEquals("expectedValue", expectedValue, actual.getExpectedValue());
-		assertEquals("actualValue", actualValue, actual.getActualValue());
-		assertEquals("targetItem", targetItem, actual.getTargetItem());
-		assertEquals("additionalTargetItem", additionalTargetItem, actual.getAdditionalTargetItem());
-		assertEquals("message", message, actual.getMessage());
+		assertSame  (feature, actual.getFeature(), "feature");
+		assertSame  (additionalFeature, actual.getAdditionalFeature(), "additionalFeature");
+		assertEquals(item, actual.getItem(), "item");
+		assertEquals(expectedValue, actual.getExpectedValue(), "expectedValue");
+		assertEquals(actualValue, actual.getActualValue(), "actualValue");
+		assertEquals(targetItem, actual.getTargetItem(), "targetItem");
+		assertEquals(additionalTargetItem, actual.getAdditionalTargetItem(), "additionalTargetItem");
+		assertEquals(message, actual.getMessage(), "message");
 	}
 }

@@ -124,7 +124,7 @@ public class LogRule extends MainRule
 
 	private void assertMessage(final Level level, final String msg)
 	{
-		assertTrue("empty", !events.isEmpty());
+		assertTrue(!events.isEmpty(), "empty");
 		final LoggingEvent event = events.remove(0);
 		assertEquals(
 				"" + level + ' ' + msg,
@@ -135,7 +135,7 @@ public class LogRule extends MainRule
 
 	private void assertMessageWithoutMilliseconds(final Level level, final String msg)
 	{
-		assertTrue("empty", !events.isEmpty());
+		assertTrue(!events.isEmpty(), "empty");
 		final LoggingEvent event = events.remove(0);
 		assertEquals(level, event.getLevel());
 		assertEquals(msg, event.getRenderedMessage().replaceAll("[0-9]ms", "XXms"));

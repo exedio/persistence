@@ -81,8 +81,8 @@ public class ClusterUtilTest
 	private static void assertEqualsHex(final int index, final byte expected, final byte actual)
 	{
 		assertEquals(
-				"at " + index + " expected: " + toHex(expected) + " but was: " + toHex(actual),
-				expected, actual);
+				expected, actual, 
+				"at " + index + " expected: " + toHex(expected) + " but was: " + toHex(actual));
 	}
 
 	private static String toHex(final byte b)

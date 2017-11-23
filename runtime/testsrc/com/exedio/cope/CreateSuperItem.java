@@ -66,7 +66,7 @@ class CreateSuperItem extends Item
 	@Override
 	protected final SetValue<?>[] beforeSetCopeItem(final SetValue<?>[] setValues)
 	{
-		assertTrue(Arrays.toString(setValues), afterNewCopeItemInvoked);
+		assertTrue(afterNewCopeItemInvoked, Arrays.toString(setValues));
 		return setValues;
 	}
 

@@ -28,7 +28,7 @@ public class TrimmerTest
 	private static void assertTrim(final String expected, final String actualLongString, final int maxLength)
 	{
 		final String actual = new Trimmer(maxLength).trimString(actualLongString);
-		assertEquals(">"+expected+"< >"+actual+"<", expected, actual);
+		assertEquals(expected, actual, ">"+expected+"< >"+actual + "<");
 		if(actualLongString.length()>maxLength)
 			assertEquals(maxLength, actual.length());
 		else

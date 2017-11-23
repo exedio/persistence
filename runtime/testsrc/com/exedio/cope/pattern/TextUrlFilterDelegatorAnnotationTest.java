@@ -90,12 +90,12 @@ public class TextUrlFilterDelegatorAnnotationTest
 			final Class<? extends Annotation> annotationClass)
 	{
 		final String msg = feature.toString();
-		assertEquals(msg, expected, feature.isAnnotationPresent(annotationClass));
+		assertEquals(expected, feature.isAnnotationPresent(annotationClass), msg);
 		final Annotation ann = feature.getAnnotation(annotationClass);
 		if(expected)
-			assertNotNull(msg, ann);
+			assertNotNull(ann, msg);
 		else
-			assertNull(msg, ann);
+			assertNull(ann, msg);
 	}
 
 
@@ -111,12 +111,12 @@ public class TextUrlFilterDelegatorAnnotationTest
 			final boolean expectedFinger,
 			final TextUrlFilterDelegator filter)
 	{
-		assertEquals("secret", expectedSecret, filter.isUrlGuessingPrevented());
-		assertEquals("finger", expectedFinger, filter.isUrlFingerPrinted());
-		assertEquals("secret", false, pasteValue(filter).isUrlGuessingPrevented());
-		assertEquals("finger", false, pasteValue(filter).isUrlFingerPrinted());
-		assertEquals("secret", expectedSecret, filter.getSource().isUrlGuessingPrevented());
-		assertEquals("finger", expectedFinger, filter.getSource().isUrlFingerPrinted());
+		assertEquals(expectedSecret, filter.isUrlGuessingPrevented(),             "secret");
+		assertEquals(expectedFinger, filter.isUrlFingerPrinted(),                 "finger");
+		assertEquals(false, pasteValue(filter).isUrlGuessingPrevented(),          "secret");
+		assertEquals(false, pasteValue(filter).isUrlFingerPrinted(),              "finger");
+		assertEquals(expectedSecret, filter.getSource().isUrlGuessingPrevented(), "secret");
+		assertEquals(expectedFinger, filter.getSource().isUrlFingerPrinted(),     "finger");
 	}
 
 

@@ -179,7 +179,7 @@ public class SetFieldCopyTest extends TestWithEnvironment
 	@Test
 	public void addToOrderedNumber()
 	{
-		assertNotNull(model.getType("ParentWithNumber-elements").getFeatures().toString(), constraintNumberParent);
+		assertNotNull(constraintNumberParent, model.getType("ParentWithNumber-elements").getFeatures().toString());
 		final ElementWithNumber e0a = new ElementWithNumber(0);
 		final ElementWithNumber e0b = new ElementWithNumber(0);
 		final ElementWithNumber e1 = new ElementWithNumber(1);

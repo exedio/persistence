@@ -405,12 +405,12 @@ public class MediaServletTest
 		final HttpURLConnection conn = (HttpURLConnection)new URL(schemeAndHost + url).openConnection();
 		HttpURLConnection.setFollowRedirects(false);
 		conn.connect();
-		assertEquals("responseCode",    HTTP_MOVED_PERM, conn.getResponseCode());
-		assertEquals("responseMessage", "Moved Permanently", conn.getResponseMessage());
-		assertEquals("location",        target, conn.getHeaderField("Location"));
-		assertEquals("contentType",     null, conn.getContentType());
-		assertEquals("cacheControl",    null, conn.getHeaderField(CACHE_CONTROL));
-		assertEquals("contentLength",   0, conn.getContentLength());
+		assertEquals(HTTP_MOVED_PERM, conn.getResponseCode(), "responseCode");
+		assertEquals("Moved Permanently", conn.getResponseMessage(), "responseMessage");
+		assertEquals(target, conn.getHeaderField("Location"), "location");
+		assertEquals(null, conn.getContentType(), "contentType");
+		assertEquals(null, conn.getHeaderField(CACHE_CONTROL), "cacheControl");
+		assertEquals(0, conn.getContentLength(), "contentLength");
 		try(InputStream is = conn.getInputStream())
 		{
 			assertEquals(-1, is.read());
@@ -441,11 +441,11 @@ public class MediaServletTest
 		assertEquals("Not Found", conn.getResponseMessage());
 		assertEquals("text/html;charset=us-ascii", conn.getContentType());
 		if(lastModified!=null)
-			assertEquals("lastModified", lastModified, new Date(conn.getLastModified()));
+			assertEquals(lastModified, new Date(conn.getLastModified()), "lastModified");
 		else
-			assertEquals("lastModified", 0, conn.getLastModified());
+			assertEquals(0, conn.getLastModified(), "lastModified");
 
-		assertFalse("private", conn.getHeaderField(CACHE_CONTROL) != null && conn.getHeaderField(CACHE_CONTROL).contains("private"));
+		assertFalse(conn.getHeaderField(CACHE_CONTROL) != null && conn.getHeaderField(CACHE_CONTROL).contains("private"), "private");
 
 		try(BufferedReader is = new BufferedReader(new InputStreamReader(conn.getErrorStream(), US_ASCII)))
 		{
@@ -505,7 +505,7 @@ public class MediaServletTest
 		final HttpURLConnection conn = (HttpURLConnection)new URL(schemeAndHost + url).openConnection();
 		HttpURLConnection.setFollowRedirects(false);
 		conn.connect();
-		assertEquals("url="+ url, HTTP_OK, conn.getResponseCode());
+		assertEquals(HTTP_OK, conn.getResponseCode(), "url=" + url);
 		assertEquals("OK", conn.getResponseMessage());
 		final long date = conn.getDate();
 		final Date after = new Date();
@@ -534,8 +534,8 @@ public class MediaServletTest
 		assertEquals(HTTP_INTERNAL_ERROR, conn.getResponseCode());
 		assertEquals("Internal Server Error", conn.getResponseMessage());
 		assertEquals("text/html;charset=us-ascii", conn.getContentType());
-		assertEquals("LastModified", 0, conn.getLastModified());
-		assertEquals("Expires",      0, conn.getExpiration());
+		assertEquals(0, conn.getLastModified(), "LastModified");
+		assertEquals(0, conn.getExpiration(), "Expires");
 		assertEquals(null, conn.getHeaderField(CACHE_CONTROL));
 
 		try(BufferedReader is = new BufferedReader(new InputStreamReader(conn.getErrorStream(), US_ASCII)))
@@ -559,7 +559,7 @@ public class MediaServletTest
 		//System.out.println("Date: "+new Date(date));
 		assertWithinHttpDate(before, after, new Date(date));
 
-		assertTrue(onException.getAbsolutePath(), onException.exists());
+		assertTrue(onException.exists(), onException.getAbsolutePath());
 		final String data = lines(
 				"java.lang.RuntimeException",
 				"test error in MediaNameServer"
@@ -651,7 +651,7 @@ public class MediaServletTest
 	private static void assertEqualsDate(final Date expected, final Date actual)
 	{
 		final SimpleDateFormat df = new SimpleDateFormat(DATE_FORMAT_FULL, Locale.ENGLISH);
-		assertEquals("expected " + df.format(expected) + ", but got " + df.format(actual), expected, actual);
+		assertEquals(expected, actual, "expected " + df.format(expected) + ", but got " + df.format(actual));
 	}
 
 	private static void assertWithinHttpDate(final Date expectedBefore, final Date expectedAfter, final Date actual)
@@ -667,8 +667,8 @@ public class MediaServletTest
 			" and " + df.format(expectedAfterCeil) + " (" + df.format(expectedAfter) + ")" +
 			", but was " + df.format(actual);
 
-		assertTrue(message, !expectedBeforeFloor.after(actual));
-		assertTrue(message, !expectedAfterCeil.before(actual));
+		assertTrue(!expectedBeforeFloor.after(actual), message);
+		assertTrue(!expectedAfterCeil.before(actual), message);
 	}
 
 	@SuppressWarnings("HardcodedLineSeparator")
@@ -685,6 +685,6 @@ public class MediaServletTest
 
 	private static void assertOnExceptionEmpty()
 	{
-		assertFalse(onException.getAbsolutePath(), onException.exists());
+		assertFalse(onException.exists(), onException.getAbsolutePath());
 	}
 }

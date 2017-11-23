@@ -51,8 +51,8 @@ public class EnumMapFieldSchemaNameTest
 			final EnumMapField<AnEnum, String> pattern, final AnEnum facet)
 	{
 		final FunctionField<String> field = pattern.getField(facet);
-		assertEquals("fieldName", fieldName, field.getName());
-		assertEquals("schemaName", schemaName, SchemaInfo.getColumnName(field));
+		assertEquals(fieldName, field.getName(), "fieldName");
+		assertEquals(schemaName, SchemaInfo.getColumnName(field), "schemaName");
 	}
 
 	private enum AnEnum

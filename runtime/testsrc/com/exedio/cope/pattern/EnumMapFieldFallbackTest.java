@@ -131,8 +131,8 @@ public class EnumMapFieldFallbackTest extends TestWithEnvironment
 			final AnItem directItem, final AnItem fallbackItem,
 			final AnEnum key, final String value)
 	{
-		assertEquals("direct",     directItem, AnItem.TYPE.searchSingleton(text.getField               (key).equal(value)));
-		assertEquals("fallback", fallbackItem, AnItem.TYPE.searchSingleton(text.getFunctionWithFallback(key).equal(value)));
+		assertEquals(  directItem, AnItem.TYPE.searchSingleton(text.getField               (key).equal(value)), "direct");
+		assertEquals(fallbackItem, AnItem.TYPE.searchSingleton(text.getFunctionWithFallback(key).equal(value)), "fallback");
 	}
 
 

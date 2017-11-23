@@ -316,16 +316,16 @@ public class ColorFieldTest extends TestWithEnvironment
 	private void assertPersistence(final Color color, final int value)
 	{
 		i.setOptionalAndAlpha(color);
-		assertEquals("optional", value, i.getOptionalRGB());
-		assertEquals("alpha"   , value, i.getAlphaRGB   ());
+		assertEquals(value, i.getOptionalRGB(), "optional");
+		assertEquals(value, i.getAlphaRGB   (), "alpha");
 	}
 
 	private void assertPersistence(final Color color, final int optional, final int alpha)
 	{
 		i.setOptional(new Color(color.getRed(), color.getGreen(), color.getBlue()));
 		i.setAlpha(color);
-		assertEquals("optional", optional, i.getOptionalRGB());
-		assertEquals("alpha"   , alpha   , i.getAlphaRGB   ());
+		assertEquals(optional, i.getOptionalRGB(), "optional");
+		assertEquals(alpha,    i.getAlphaRGB   (), "alpha");
 
 		// NOTE
 		// The following mask is the transition from ColorField with alpha

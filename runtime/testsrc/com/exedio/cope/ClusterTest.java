@@ -754,7 +754,7 @@ public abstract class ClusterTest
 	private static void assertEqualsBytes(final byte[] actualData, final byte... expectedData)
 	{
 		for(int i = 0; i<actualData.length; i++)
-			assertEquals(String.valueOf(i), expectedData[i], actualData[i]);
+			assertEquals(expectedData[i], actualData[i], String.valueOf(i));
 		assertEquals(expectedData.length, actualData.length);
 	}
 
@@ -860,8 +860,8 @@ public abstract class ClusterTest
 		nodes: for(final long[] node : listenerNodes)
 		{
 			final long id = node[0];
-			assertTrue(String.valueOf(id), id>=Integer.MIN_VALUE);
-			assertTrue(String.valueOf(id), id<=Integer.MAX_VALUE);
+			assertTrue(id>=Integer.MIN_VALUE, String.valueOf(id));
+			assertTrue(id<=Integer.MAX_VALUE, String.valueOf(id));
 			for(final ClusterListenerInfo.Node infoNode : listenerInfoNodes)
 			{
 				if(infoNode.getID()==id)
@@ -869,8 +869,8 @@ public abstract class ClusterTest
 					assertNotNull(infoNode.getFirstEncounter());
 					assertEquals(null, infoNode.getAddress());
 					assertEquals(967, infoNode.getPort());
-					assertEquals("ping", node[1], infoNode.getPingInfo().getInOrder());
-					assertEquals("pong", node[2], infoNode.getPongInfo().getInOrder());
+					assertEquals(node[1], infoNode.getPingInfo().getInOrder(), "ping");
+					assertEquals(node[2], infoNode.getPongInfo().getInOrder(), "pong");
 
 					assertEquals(0, infoNode.getPingInfo().getOutOfOrder());
 					assertEquals(0, infoNode.getPongInfo().getOutOfOrder());

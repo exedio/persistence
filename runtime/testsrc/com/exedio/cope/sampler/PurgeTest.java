@@ -195,13 +195,13 @@ public class PurgeTest extends ConnectedTest
 			final int rows,
 			final SamplerPurge actual)
 	{
-		assertEquals("actual", type, actual.getType());
-		assertEquals("limit", limit, actual.getLimit());
-		assertTrue("finished", !actual.getFinished().after(new Date()));
-		assertEquals("rows", rows, actual.getRows());
+		assertEquals(type, actual.getType(), "actual");
+		assertEquals(limit, actual.getLimit(), "limit");
+		assertTrue(!actual.getFinished().after(new Date()), "finished");
+		assertEquals(rows, actual.getRows(), "rows");
 		final long elapsed = actual.getElapsed();
-		assertTrue("elapsed" + elapsed, elapsed>=0);
-		assertTrue("elapsed" + elapsed, elapsed<2000);
+		assertTrue(elapsed>=0, "elapsed"+elapsed);
+		assertTrue(elapsed<2000, "elapsed"+elapsed);
 		actual.deleteCopeItem();
 	}
 }

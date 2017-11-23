@@ -137,15 +137,15 @@ public class HashConditionModelTest
 		{
 			final MessageDigest digest = MessageDigestUtil.getInstance(a.code);
 			digest.update(new byte[]{});
-			assertEquals(a.code, a.empty, Hex.encodeLower(digest.digest()));
+			assertEquals(a.empty, Hex.encodeLower(digest.digest()), a.code);
 
 			digest.reset();
 			digest.update("Franz jagt im komplett verwahrlosten Taxi quer durch Bayern".getBytes(US_ASCII));
-			assertEquals(a.code, a.franz, Hex.encodeLower(digest.digest()));
+			assertEquals(a.franz, Hex.encodeLower(digest.digest()), a.code);
 
 			assertEquals(a.code, digest.getAlgorithm());
-			assertEquals(a.code, a.empty.length(), digest.getDigestLength()*2);
-			assertEquals(a.code, a.franz.length(), digest.getDigestLength()*2);
+			assertEquals(a.empty.length(), digest.getDigestLength()*2, a.code);
+			assertEquals(a.franz.length(), digest.getDigestLength()*2, a.code);
 		}
 	}
 }

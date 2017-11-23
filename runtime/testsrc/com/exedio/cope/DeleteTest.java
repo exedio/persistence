@@ -386,6 +386,6 @@ public class DeleteTest extends TestWithEnvironment
 		final List<String> calls = DeleteItem.BEFORE_DELETE_COPE_ITEM_CALLS.get();
 		final String[] callArray = calls.toArray(new String[calls.size()]);
 		calls.clear();
-		assertArrayEquals("Item#beforeDeleteCopeItem() method is not called as expected (expected: "+Arrays.toString(itemNames)+" | result: "+Arrays.toString(callArray)+").", itemNames, callArray);
+		assertArrayEquals(itemNames, callArray, "Item#beforeDeleteCopeItem() method is not called as expected (expected: "+Arrays.toString(itemNames)+" | result: "+Arrays.toString(callArray)+").");
 	}
 }

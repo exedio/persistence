@@ -114,7 +114,7 @@ public class SampleItemCacheTest extends ConnectedTest
 		if(c)
 		{
 			assertNotNull(i);
-			assertEquals("invalidationsOrdered", invalidationsOrdered, i.getInvalidationsOrdered());
+			assertEquals(invalidationsOrdered, i.getInvalidationsOrdered(), "invalidationsOrdered");
 		}
 		else
 		{

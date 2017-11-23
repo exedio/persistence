@@ -45,7 +45,7 @@ public class UniqueManyTest extends TestWithEnvironment
 			for(int i = 1; i<=index; i++)
 				fields.add(field(i));
 
-			assertEquals("constraint" + index, fields, constraint(index).getFields());
+			assertEquals(fields, constraint(index).getFields(), "constraint" + index);
 		}
 
 		final ArrayList<SetValue<?>> sv = new ArrayList<>();
@@ -93,7 +93,7 @@ public class UniqueManyTest extends TestWithEnvironment
 		{
 			final String name = "field" + index;
 			final StringField result = (StringField)TYPE.getFeature(name);
-			assertNotNull(name, result);
+			assertNotNull(result, name);
 			return result;
 		}
 
@@ -101,7 +101,7 @@ public class UniqueManyTest extends TestWithEnvironment
 		{
 			final String name = "constraint" + index;
 			final UniqueConstraint result = (UniqueConstraint)TYPE.getFeature(name);
-			assertNotNull(name, result);
+			assertNotNull(result, name);
 			return result;
 		}
 

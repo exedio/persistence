@@ -155,7 +155,7 @@ public class TextUrlFilterZipTest extends TestWithEnvironment
 		final int read;
 		try(InputStream stream = TextUrlFilterZipTest.class.getResourceAsStream(name))
 		{
-			assertNotNull(name, stream);
+			assertNotNull(stream, name);
 			read = stream.read(b);
 		}
 		assertTrue(read>0);

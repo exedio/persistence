@@ -251,14 +251,14 @@ public class DatePrecisionRoundingTest
 			final Date past,
 			final Date future)
 	{
-		assertEquals("past"  , past  , precision.round(origin, RoundingMode.PAST  , null, null));
-		assertEquals("future", future, precision.round(origin, RoundingMode.FUTURE, null, null));
+		assertEquals(past,   precision.round(origin, RoundingMode.PAST  , null, null), "past");
+		assertEquals(future, precision.round(origin, RoundingMode.FUTURE, null, null), "future");
 
 		if(Objects.equals(past, future))
 		{
 			assertEquals(past  , origin);
 			assertEquals(future, origin);
-			assertEquals("UNNECESSARY", origin, precision.round(origin, RoundingMode.UNNECESSARY, null, null));
+			assertEquals(origin, precision.round(origin, RoundingMode.UNNECESSARY, null, null), "UNNECESSARY");
 		}
 		else
 		{
@@ -321,8 +321,8 @@ public class DatePrecisionRoundingTest
 			final Date value,
 			final SetValue<Date> mapping)
 	{
-		assertSame  ("field", field, mapping.settable);
-		assertEquals("value", value, mapping.value);
+		assertSame  (field, mapping.settable, "field");
+		assertEquals(value, mapping.value,    "value");
 	}
 
 	@Test public void testMapNullMode()

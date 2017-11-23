@@ -126,7 +126,7 @@ public class DatabaseLogTest extends TestWithEnvironment
 		void assertSql(final String sql)
 		{
 			assertNotNull(this.sql);
-			assertTrue(this.sql, this.sql.startsWith(sql));
+			assertTrue(this.sql.startsWith(sql), this.sql);
 			this.sql = null;
 		}
 

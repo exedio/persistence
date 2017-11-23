@@ -371,7 +371,7 @@ public class GeneratorTest
 			throw new AssertionError(e);
 		}
 		assertEquals(returnType, method.getReturnType());
-		assertEquals('('+Modifier.toString(modifiers)+'|'+Modifier.toString(method.getModifiers())+')', modifiers, method.getModifiers());
+		assertEquals(modifiers, method.getModifiers(), '(' + Modifier.toString(modifiers)+'|'+Modifier.toString(method.getModifiers())+')');
 		assertEquals(Arrays.asList(exceptionTypes), Arrays.asList(method.getExceptionTypes()));
 	}
 

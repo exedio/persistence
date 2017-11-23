@@ -92,8 +92,8 @@ public final class VaultTestService implements VaultService
 		assertHash(hash);
 		assertNotNull(value);
 		assertFalse(
-				"empty byte sequence is not handled by service implementations",
-				value.length==0);
+				value.length==0,
+				"empty byte sequence is not handled by service implementations");
 
 		assertEquals(hash, Hex.encodeLower(
 				properties.getAlgorithmFactory().
@@ -136,8 +136,8 @@ public final class VaultTestService implements VaultService
 	private void assertHash(final String hash)
 	{
 		assertNotNull(hash);
-		assertEquals(hash, properties.getAlgorithmLength(), hash.length());
-		assertEquals(hash, -1, CharSet.HEX_LOWER.indexOfNotContains(hash));
+		assertEquals(properties.getAlgorithmLength(), hash.length(), hash);
+		assertEquals(-1, CharSet.HEX_LOWER.indexOfNotContains(hash), hash);
 	}
 
 	@Override

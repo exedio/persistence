@@ -135,7 +135,7 @@ public final class VaultMockService implements VaultService
 				vaultProperties.getAlgorithmFactory().
 						digest(value)));
 
-		assertEquals("writable", true, writable);
+		assertEquals(true, writable, "writable");
 
 		if(serviceProperties.failPut)
 			throw new IllegalStateException("deliberately fail in VaultMockService#put");
@@ -183,11 +183,11 @@ public final class VaultMockService implements VaultService
 	private void assertHash(final String hash)
 	{
 		assertNotNull(hash);
-		assertEquals(hash, vaultProperties.getAlgorithmLength(), hash.length());
-		assertEquals(hash, -1, CharSet.HEX_LOWER.indexOfNotContains(hash));
+		assertEquals(vaultProperties.getAlgorithmLength(), hash.length(), hash);
+		assertEquals(-1, CharSet.HEX_LOWER.indexOfNotContains(hash),      hash);
 		assertFalse(
-				"empty byte sequence is not handled by service implementations",
-				hash.equals(vaultProperties.getAlgorithmDigestForEmptyByteSequence()));
+				hash.equals(vaultProperties.getAlgorithmDigestForEmptyByteSequence()),
+				"empty byte sequence is not handled by service implementations");
 	}
 
 	public void clear()
@@ -254,8 +254,8 @@ public final class VaultMockService implements VaultService
 			final Map<String, String> store,
 			final String history)
 	{
-		assertEquals("store",   store,   this.store);
-		assertEquals("history", history, this.history.toString());
+		assertEquals(store,   this.store,              "store");
+		assertEquals(history, this.history.toString(), "history");
 		this.history.setLength(0);
 	}
 }

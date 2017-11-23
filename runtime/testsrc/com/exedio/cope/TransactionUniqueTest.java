@@ -192,7 +192,7 @@ public class TransactionUniqueTest extends TestWithEnvironment
 	private static void assertInsert(final Exception e)
 	{
 		final String m = e.getMessage();
-		assertTrue(m, m.startsWith("INSERT INTO " + SI.tab(TYPE) + "("));
+		assertTrue(m.startsWith("INSERT INTO " + SI.tab(TYPE) + "("), m);
 		assertEquals(SQLRuntimeException.class, e.getClass());
 	}
 
@@ -202,10 +202,10 @@ public class TransactionUniqueTest extends TestWithEnvironment
 			final StackTraceElement[] trace)
 	{
 		assertTrue(
-				asList(trace).toString(),
 				Stream.of(trace).anyMatch(t ->
 						className.equals(t.getClassName()) &&
-						methodName.equals(t.getMethodName())));
+						methodName.equals(t.getMethodName())), 
+				asList(trace).toString());
 	}
 
 	@AfterEach public void after()

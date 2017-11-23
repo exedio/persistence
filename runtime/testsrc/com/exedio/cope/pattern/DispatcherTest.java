@@ -463,7 +463,7 @@ public class DispatcherTest extends TestWithEnvironment
 			assertSame(toTarget, actual.getPattern());
 			assertEquals(item, actual.getParent());
 			expected.assertIt(actual);
-			assertTrue(String.valueOf(actual.getElapsed())+">="+runElapsed, actual.getElapsed()>=runElapsed.intValue());
+			assertTrue(actual.getElapsed()>=runElapsed.intValue(), String.valueOf(actual.getElapsed()) + ">=" + runElapsed);
 			if(expected.success)
 			{
 				assertEquals(null, actual.getFailure());
@@ -471,7 +471,7 @@ public class DispatcherTest extends TestWithEnvironment
 			else
 			{
 				expectedFailures.add(actual);
-				assertTrue(actual.getFailure(), actual.getFailure().startsWith(IOException.class.getName()+": "+item.getBody()));
+				assertTrue(actual.getFailure().startsWith(IOException.class.getName()+": "+item.getBody()), actual.getFailure());
 			}
 		}
 		assertEquals(expectedFailures, item.getToTargetFailures());

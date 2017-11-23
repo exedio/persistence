@@ -57,9 +57,10 @@ public class CompositeErrorTest
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals(e.getMessage(),
+			assertEquals(
 					"CompositeField requires a final class: " +
-					NonFinal.class.getName(), e.getMessage());
+					NonFinal.class.getName(), e.getMessage(),
+					e.getMessage());
 		}
 	}
 
@@ -79,9 +80,9 @@ public class CompositeErrorTest
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals(e.getMessage(),
+			assertEquals(
 					NoConstructor.class.getName() +
-					" does not have a constructor NoConstructor(" + SetValue.class.getName() + "[])",
+					" does not have a constructor NoConstructor(" + SetValue.class.getName() + "[])", e.getMessage(),
 					e.getMessage());
 			assertEquals(NoSuchMethodException.class, e.getCause().getClass());
 		}

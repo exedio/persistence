@@ -73,7 +73,7 @@ public final class MediaLocatorAssert
 	private static Locator reserialize(final Locator value)
 	{
 		final byte[] bytes = serialize(value);
-		assertTrue("" + bytes.length, bytes.length<1000);
+		assertTrue(bytes.length<1000, "" + bytes.length);
 		return (Locator)deserialize(bytes);
 	}
 

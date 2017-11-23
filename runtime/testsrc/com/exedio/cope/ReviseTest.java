@@ -541,7 +541,7 @@ public class ReviseTest
 
 	private static void assertMinInt(final int expectedMinimum, final String actual)
 	{
-		assertTrue(actual, Integer.parseInt(actual)>=expectedMinimum);
+		assertTrue(Integer.parseInt(actual)>=expectedMinimum, actual);
 	}
 
 	final String filterTableName(final String name)

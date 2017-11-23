@@ -345,8 +345,8 @@ public class DispatcherWithoutPurgeTest extends TestWithEnvironment
 		assertEquals(false, item.isToTargetPending());
 		assertEquals(date, item.getToTargetLastSuccessDate());
 		assertTrue(
-				String.valueOf(item.getToTargetLastSuccessElapsed())+">="+log.dispatchLastSuccessElapsed,
-				item.getToTargetLastSuccessElapsed()>=log.dispatchLastSuccessElapsed);
+				item.getToTargetLastSuccessElapsed()>=log.dispatchLastSuccessElapsed,
+				String.valueOf(item.getToTargetLastSuccessElapsed())+">="+log.dispatchLastSuccessElapsed);
 		assertIt(dispatchCountCommitted, failures.size()+dispatchCountCommitted, failures, item, 0);
 	}
 
@@ -398,9 +398,9 @@ public class DispatcherWithoutPurgeTest extends TestWithEnvironment
 			assertSame(toTarget, actual.getPattern());
 			assertEquals(item, actual.getParent());
 			assertEquals(expected, actual.getDate());
-			assertTrue(String.valueOf(actual.getElapsed())+">="+failureElapsed, actual.getElapsed()>=failureElapsed.intValue());
+			assertTrue(actual.getElapsed()>=failureElapsed.intValue(), String.valueOf(actual.getElapsed())+">="+failureElapsed);
 			assertFalse(actual.isSuccess());
-			assertTrue(actual.getFailure(), actual.getFailure().startsWith(IOException.class.getName()+": "+item.getBody()));
+			assertTrue(actual.getFailure().startsWith(IOException.class.getName()+": "+item.getBody()), actual.getFailure());
 		}
 		assertEquals(notifyFinalFailureCount, DispatcherWithoutPurgeItem.logs.get(item).notifyFinalFailureCount);
 	}

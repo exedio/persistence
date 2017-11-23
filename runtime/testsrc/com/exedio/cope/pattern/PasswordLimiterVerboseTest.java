@@ -94,7 +94,7 @@ public class PasswordLimiterVerboseTest extends TestWithEnvironment
 		assertEquals(list(refusal1, refusal2), getRefusals());
 
 		clock.add(period0); // start
-		assertEquals("fails spuriously with actual 2", 0, purge());
+		assertEquals(0, purge(), "fails spuriously with actual 2");
 		clock.assertEmpty();
 		assertEquals(list(refusal1, refusal2), getRefusals());
 		assertTrue(refusal1.existsCopeItem());

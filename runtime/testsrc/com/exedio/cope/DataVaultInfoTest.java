@@ -112,13 +112,13 @@ public class DataVaultInfoTest
 		assertNotNull(actual);
 		assertSame(MyItem.field, actual.getField());
 		assertEquals("VaultMockService:exampleDefault", actual.getService());
-		assertEquals("getLength",    getLength,    actual.getGetLengthCount());
-		assertEquals("getBytes",     getBytes,     actual.getGetBytesCount());
-		assertEquals("getStream",    getStream,    actual.getGetStreamCount());
-		assertEquals("putInitial",   putInitial,   actual.getPutInitialCount());
-		assertEquals("putRedundant", putRedundant, actual.getPutRedundantCount());
-		assertEquals("get", getLength+getBytes+getStream, actual.getGetCount());
-		assertEquals("put", putInitial+putRedundant,      actual.getPutCount());
+		assertEquals(getLength,    actual.getGetLengthCount(),    "getLength");
+		assertEquals(getBytes,     actual.getGetBytesCount(),     "getBytes");
+		assertEquals(getStream,    actual.getGetStreamCount(),    "getStream");
+		assertEquals(putInitial,   actual.getPutInitialCount(),   "putInitial");
+		assertEquals(putRedundant, actual.getPutRedundantCount(), "putRedundant");
+		assertEquals(getLength+getBytes+getStream, actual.getGetCount(), "get");
+		assertEquals(putInitial+putRedundant,      actual.getPutCount(), "put");
 	}
 
 	@SuppressWarnings("static-method")

@@ -201,7 +201,7 @@ final class RuntimeTester
 		if(model.connect().supportsUniqueViolation)
 		{
 			assertNotNull(e.getCause());
-			assertTrue(cause.getClass().getName(), cause instanceof SQLException);
+			assertTrue(cause instanceof SQLException, cause.getClass().getName());
 		}
 		else
 		{
@@ -260,12 +260,12 @@ final class RuntimeTester
 	{
 		final Constraint constraint = table.getConstraint(name);
 		final boolean expectedSupported = SchemaInfo.supportsCheckConstraints(model) || type!=CheckConstraint.class;
-		assertNotNull("no such constraint "+name+", but has "+table.getConstraints(), constraint);
-		assertEquals(name, type, constraint.getClass());
-		assertEquals(name, condition, constraint.getRequiredCondition());
+		assertNotNull(constraint, "no such constraint "+name+", but has "+table.getConstraints());
+		assertEquals(type, constraint.getClass(), name);
+		assertEquals(condition, constraint.getRequiredCondition(), name);
 		assertEquals(expectedSupported, constraint.isSupported());
-		assertEquals(name, expectedSupported ? null : "not supported", constraint.getError());
-		assertEquals(name, Node.Color.OK, constraint.getParticularColor());
+		assertEquals(expectedSupported ? null : "not supported", constraint.getError(), name);
+		assertEquals(Node.Color.OK, constraint.getParticularColor(), name);
 		return type.cast(constraint);
 	}
 
@@ -273,7 +273,7 @@ final class RuntimeTester
 			final com.exedio.dsmf.Table table,
 			final String name)
 	{
-		assertNull(name, table.getConstraint(name));
+		assertNull(table.getConstraint(name), name);
 	}
 
 	void assertCacheInfo(final Type<?>... types)
@@ -335,9 +335,9 @@ final class RuntimeTester
 				if(constraint instanceof com.exedio.dsmf.CheckConstraint &&
 					!SchemaInfo.supportsCheckConstraints(model))
 				{
-					assertEquals(message, "not supported", constraint.getError());
-					assertEquals(message, Node.Color.OK, constraint.getParticularColor());
-					assertEquals(message, Node.Color.OK, constraint.getCumulativeColor());
+					assertEquals("not supported", constraint.getError(), message);
+					assertEquals(Node.Color.OK, constraint.getParticularColor(), message);
+					assertEquals(Node.Color.OK, constraint.getCumulativeColor(), message);
 				}
 				else
 				{
@@ -356,8 +356,8 @@ final class RuntimeTester
 
 	private static void assertOk(final String message, final com.exedio.dsmf.Node node)
 	{
-		assertEquals(message, null, node.getError());
-		assertEquals(message, Node.Color.OK, node.getParticularColor());
-		assertEquals(message, Node.Color.OK, node.getCumulativeColor());
+		assertEquals(null, node.getError(), message);
+		assertEquals(Node.Color.OK, node.getParticularColor(), message);
+		assertEquals(Node.Color.OK, node.getCumulativeColor(), message);
 	}
 }

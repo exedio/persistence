@@ -166,8 +166,8 @@ public class UniqueHashedMediaAnnotationTest
 			final boolean expectedFinger,
 			final UniqueHashedMedia filter)
 	{
-		assertEquals("secret", expectedSecret, filter.getMedia().isUrlGuessingPrevented());
-		assertEquals("finger", expectedFinger, filter.getMedia().isUrlFingerPrinted());
+		assertEquals(expectedSecret, filter.getMedia().isUrlGuessingPrevented(), "secret");
+		assertEquals(expectedFinger, filter.getMedia().isUrlFingerPrinted(),     "finger");
 	}
 
 
