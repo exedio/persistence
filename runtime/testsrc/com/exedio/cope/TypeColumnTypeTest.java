@@ -25,7 +25,7 @@ import static org.junit.Assert.assertEquals;
 
 import com.exedio.cope.instrument.WrapperIgnore;
 import com.exedio.cope.tojunit.TestSources;
-import org.junit.After;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -141,7 +141,7 @@ public class TypeColumnTypeTest
 	}
 
 	@SuppressWarnings("static-method")
-	@After public final void tearDown()
+	@AfterEach public final void tearDown()
 	{
 		model.disconnect();
 	}

@@ -41,7 +41,7 @@ import java.util.Date;
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
-import org.junit.After;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -76,7 +76,7 @@ public final class MediaPathTest extends TestWithEnvironment
 		normalInfo = MediaPathItem.normal.getInfo();
 	}
 
-	@After public void tearDown()
+	@AfterEach public void tearDown()
 	{
 		servlet.destroy();
 		for(final Type<?> type : MODEL.getTypes())

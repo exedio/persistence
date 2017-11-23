@@ -29,7 +29,7 @@ import static org.junit.Assert.assertTrue;
 import com.exedio.cope.misc.DatabaseListener;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.List;
-import org.junit.After;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -48,7 +48,7 @@ public class DatabaseLogTest extends TestWithEnvironment
 		item = new MatchItem();
 	}
 
-	@After public final void tearDown()
+	@AfterEach public final void tearDown()
 	{
 		model.setDatabaseListener(null);
 	}

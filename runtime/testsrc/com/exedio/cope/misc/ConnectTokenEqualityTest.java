@@ -37,7 +37,7 @@ import com.exedio.cope.Model;
 import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.tojunit.TestSources;
 import java.util.concurrent.atomic.AtomicReference;
-import org.junit.After;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -56,7 +56,7 @@ public class ConnectTokenEqualityTest
 		token1 = issue(MODEL, "tokenName1");
 	}
 
-	@After
+	@AfterEach
 	public void after()
 	{
 		ConnectToken.removePropertiesVoid(MODEL);

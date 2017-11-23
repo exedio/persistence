@@ -30,7 +30,7 @@ import com.exedio.cope.util.Hex;
 import com.exedio.cope.vaultmock.VaultMockService;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import org.junit.After;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -134,7 +134,7 @@ public class DataVaultInfoTest
 	}
 
 	@SuppressWarnings("static-method")
-	@After public final void tearDown()
+	@AfterEach public final void tearDown()
 	{
 		model.rollbackIfNotCommitted();
 		model.tearDownSchema();

@@ -49,7 +49,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
-import org.junit.After;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -516,7 +516,7 @@ public class DispatcherTest extends TestWithEnvironment
 		}
 	}
 
-	@After public void afterEach()
+	@AfterEach public void afterEach()
 	{
 		toTarget.reset();
 		DispatcherItem.historyClear();

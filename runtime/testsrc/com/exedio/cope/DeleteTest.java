@@ -45,7 +45,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
-import org.junit.After;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -68,7 +68,7 @@ public class DeleteTest extends TestWithEnvironment
 	}
 
 	@SuppressWarnings("static-method")
-	@After public final void tearDownDeleteTest()
+	@AfterEach public final void tearDownDeleteTest()
 	{
 		DeleteItem.BEFORE_DELETE_COPE_ITEM_CALLS.remove();
 	}

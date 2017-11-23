@@ -37,7 +37,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Properties;
-import org.junit.After;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -77,7 +77,7 @@ public abstract class VaultServiceTest
 		service = properties.newService();
 	}
 
-	@After public final void tearDownVaultServiceTest()
+	@AfterEach public final void tearDownVaultServiceTest()
 	{
 		service.close();
 		service = null;

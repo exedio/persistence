@@ -30,7 +30,7 @@ import com.exedio.dsmf.Node.Color;
 import com.exedio.dsmf.Schema;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.sql.SQLException;
-import org.junit.After;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -75,7 +75,7 @@ public class SchemaViewTest extends TestWithEnvironment
 		assertSame(Color.OK, schema2.getCumulativeColor());
 	}
 
-	@After public void after() throws SQLException
+	@AfterEach public void after() throws SQLException
 	{
 		switch(dialect)
 		{

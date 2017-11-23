@@ -30,7 +30,7 @@ import static org.junit.Assert.assertSame;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.pattern.Media;
 import com.exedio.cope.vaultmock.VaultMockService;
-import org.junit.After;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
 public class DataVaultEnableTest
@@ -143,7 +143,7 @@ public class DataVaultEnableTest
 	}
 
 	@SuppressWarnings("static-method")
-	@After public final void tearDown()
+	@AfterEach public final void tearDown()
 	{
 		if(model.isConnected())
 			model.disconnect();

@@ -32,7 +32,7 @@ import com.exedio.cope.TypesBound;
 import com.exedio.cope.instrument.WrapperIgnore;
 import com.exedio.cope.util.Sources;
 import java.util.Properties;
-import org.junit.After;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -85,7 +85,7 @@ public class EnumMapFieldSchemaNameTest
 	}
 
 	@SuppressWarnings("static-method")
-	@After public final void tearDown()
+	@AfterEach public final void tearDown()
 	{
 		MODEL.disconnect();
 	}

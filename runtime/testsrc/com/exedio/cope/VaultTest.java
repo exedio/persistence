@@ -27,7 +27,7 @@ import com.exedio.cope.tojunit.TestSources;
 import com.exedio.cope.util.Hex;
 import com.exedio.cope.vaultmock.VaultMockService;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import org.junit.After;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -82,7 +82,7 @@ public class VaultTest
 		MODEL.startTransaction("VaultTest");
 	}
 
-	@After public void tearDown()
+	@AfterEach public void tearDown()
 	{
 		MODEL.rollback();
 		MODEL.disconnect();

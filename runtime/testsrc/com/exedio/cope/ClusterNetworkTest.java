@@ -26,7 +26,7 @@ import com.exedio.cope.instrument.WrapperIgnore;
 import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.tojunit.TestSources;
 import java.util.Properties;
-import org.junit.After;
+import org.junit.jupiter.api.AfterEach;
 
 public abstract class ClusterNetworkTest
 {
@@ -76,7 +76,7 @@ public abstract class ClusterNetworkTest
 	}
 
 	@SuppressWarnings("static-method")
-	@After public final void tearDownClusterNetworkTest()
+	@AfterEach public final void tearDownClusterNetworkTest()
 	{
 		modelB.disconnect();
 		modelA.disconnect();

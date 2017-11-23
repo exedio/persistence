@@ -28,7 +28,7 @@ import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.util.JobContexts;
-import org.junit.After;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
 public class DispatchableDeferrableTest extends TestWithEnvironment
@@ -345,7 +345,7 @@ public class DispatchableDeferrableTest extends TestWithEnvironment
 	@SuppressWarnings("unused") private AnItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }
 
-	@After public void afterEach()
+	@AfterEach public void afterEach()
 	{
 		AnItem.toTarget.reset();
 	}

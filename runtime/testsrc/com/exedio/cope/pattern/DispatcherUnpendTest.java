@@ -31,7 +31,7 @@ import com.exedio.cope.tojunit.MainRule;
 import com.exedio.cope.util.AssertionErrorJobContext;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.time.Duration;
-import org.junit.After;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -157,7 +157,7 @@ public class DispatcherUnpendTest extends TestWithEnvironment
 		assertEquals("date",    date,    item.getToTargetUnpendDateMillis());
 	}
 
-	@After public void afterEach()
+	@AfterEach public void afterEach()
 	{
 		DispatcherItem.toTarget.reset();
 	}

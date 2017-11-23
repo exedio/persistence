@@ -35,7 +35,7 @@ import com.exedio.cope.pattern.Dispatcher.Config;
 import com.exedio.cope.util.JobContext;
 import com.exedio.cope.util.JobContexts;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import org.junit.After;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -112,7 +112,7 @@ public class DispatcherNarrowTest extends TestWithEnvironment
 		assertNotNull(item.getToTargetLastSuccessDate());
 	}
 
-	@After public void afterEach()
+	@AfterEach public void afterEach()
 	{
 		MyItem.toTarget.reset();
 	}

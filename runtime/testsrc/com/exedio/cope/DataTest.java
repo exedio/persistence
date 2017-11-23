@@ -36,7 +36,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import org.junit.After;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -66,7 +66,7 @@ public class DataTest extends TestWithEnvironment
 		item = new DataItem();
 	}
 
-	@After public final void tearDown()
+	@AfterEach public final void tearDown()
 	{
 		// release memory
 		dataBig = null;

@@ -23,7 +23,7 @@ import static org.junit.Assert.assertEquals;
 import com.exedio.cope.instrument.WrapperIgnore;
 import com.exedio.cope.util.Sources;
 import java.util.Properties;
-import org.junit.After;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
 public class ItemCacheLimitTest
@@ -70,7 +70,7 @@ public class ItemCacheLimitTest
 	}
 
 	@SuppressWarnings("static-method")
-	@After public final void tearDown()
+	@AfterEach public final void tearDown()
 	{
 		if(model.isConnected())
 			model.disconnect();

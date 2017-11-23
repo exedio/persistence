@@ -26,7 +26,7 @@ import com.exedio.cope.pattern.MediaPath;
 import com.exedio.cope.util.IllegalPropertiesException;
 import com.exedio.cope.util.Sources;
 import java.util.Properties;
-import org.junit.After;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
 public class MediaUrlSecretTest
@@ -88,7 +88,7 @@ public class MediaUrlSecretTest
 	}
 
 	@SuppressWarnings("static-method")
-	@After public final void tearDown()
+	@AfterEach public final void tearDown()
 	{
 		if(model.isConnected())
 			model.disconnect();

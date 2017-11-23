@@ -34,13 +34,13 @@ import com.exedio.cope.ChangeEvent.NotAvailableException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import org.junit.After;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
 public class ClusterNetworkChangeListenerTest extends ClusterNetworkTest
 {
 	@SuppressWarnings("static-method")
-	@After public final void tearDown()
+	@AfterEach public final void tearDown()
 	{
 		modelB.rollbackIfNotCommitted();
 		modelA.rollbackIfNotCommitted();

@@ -27,7 +27,7 @@ import static org.junit.Assert.assertEquals;
 import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.tojunit.SI;
 import com.exedio.cope.tojunit.TestSources;
-import org.junit.After;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.AfterClass;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.BeforeClass;
@@ -137,7 +137,7 @@ public class SchemaInfoQueryTest
 		model.startTransaction(SchemaInfoQueryTest.class.getName());
 	}
 
-	@After public void tearDown()
+	@AfterEach public void tearDown()
 	{
 		model.rollbackIfNotCommitted();
 	}

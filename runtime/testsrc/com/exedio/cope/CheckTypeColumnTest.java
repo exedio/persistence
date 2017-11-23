@@ -28,7 +28,7 @@ import com.exedio.cope.tojunit.MainRule;
 import com.exedio.cope.tojunit.SI;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.sql.SQLException;
-import org.junit.After;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -67,7 +67,7 @@ public class CheckTypeColumnTest extends TestWithEnvironment
 		reffN = new InstanceOfRefItem(null);
 	}
 
-	@After public final void tearDown()
+	@AfterEach public final void tearDown()
 	{
 		model.commit();
 		model.deleteSchemaForTest();

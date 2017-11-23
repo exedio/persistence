@@ -36,7 +36,7 @@ import com.exedio.cope.vault.VaultReferenceService;
 import com.exedio.cope.vaultmock.VaultMockService;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.IOException;
-import org.junit.After;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -275,7 +275,7 @@ public class VaultReferenceTest
 		MODEL.startTransaction("VaultTest");
 	}
 
-	@After public void tearDown()
+	@AfterEach public void tearDown()
 	{
 		MODEL.rollback();
 		MODEL.disconnect();

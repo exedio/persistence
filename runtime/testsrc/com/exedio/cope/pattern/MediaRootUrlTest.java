@@ -29,7 +29,7 @@ import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.instrument.WrapperInitial;
 import com.exedio.cope.tojunit.TestSources;
-import org.junit.After;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
 public class MediaRootUrlTest
@@ -81,7 +81,7 @@ public class MediaRootUrlTest
 	}
 
 	@SuppressWarnings("static-method")
-	@After public final void tearDown()
+	@AfterEach public final void tearDown()
 	{
 		MODEL.rollbackIfNotCommitted();
 		MODEL.dropSchema();

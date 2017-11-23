@@ -25,7 +25,7 @@ import static org.junit.Assert.fail;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.IOException;
 import java.net.SocketException;
-import org.junit.After;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -47,7 +47,7 @@ public final class ClusterSenderMulticastTest
 		sender = new ClusterSenderMulticast(properties);
 	}
 
-	@After public void tearDown()
+	@AfterEach public void tearDown()
 	{
 		sender.close();
 	}

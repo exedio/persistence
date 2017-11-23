@@ -31,7 +31,7 @@ import com.exedio.cope.tojunit.TestSources;
 import com.exedio.cope.util.AssertionErrorJobContext;
 import java.time.Duration;
 import java.util.Iterator;
-import org.junit.After;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
 public class RevisionStatisticsTest
@@ -139,7 +139,7 @@ public class RevisionStatisticsTest
 	}
 
 	@SuppressWarnings("static-method")
-	@After public final void tearDown()
+	@AfterEach public final void tearDown()
 	{
 		MODEL.rollbackIfNotCommitted();
 		MODEL.disconnect();

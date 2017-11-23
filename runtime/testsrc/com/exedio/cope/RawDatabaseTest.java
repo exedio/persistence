@@ -22,7 +22,7 @@ import java.sql.Connection;
 import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import org.junit.After;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 
 public abstract class RawDatabaseTest
@@ -42,7 +42,7 @@ public abstract class RawDatabaseTest
 		con = driver.connect(url, props.connection.newInfo());
 	}
 
-	@After public final void tearDownRawDatabaseTest() throws Exception
+	@AfterEach public final void tearDownRawDatabaseTest() throws Exception
 	{
 		if(con!=null)
 			con.close();

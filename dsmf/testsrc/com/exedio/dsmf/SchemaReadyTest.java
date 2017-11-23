@@ -18,7 +18,7 @@
 
 package com.exedio.dsmf;
 
-import org.junit.After;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 
 public abstract class SchemaReadyTest extends SchemaTest
@@ -30,7 +30,7 @@ public abstract class SchemaReadyTest extends SchemaTest
 		schema.create();
 	}
 
-	@After public final void tearDownSchemaReadyTest()
+	@AfterEach public final void tearDownSchemaReadyTest()
 	{
 		getSchema().tearDown();
 	}

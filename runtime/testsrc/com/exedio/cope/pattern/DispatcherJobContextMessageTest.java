@@ -30,7 +30,7 @@ import static org.junit.Assert.assertTrue;
 import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.util.AssertionErrorJobContext;
 import java.time.Duration;
-import org.junit.After;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -154,7 +154,7 @@ public class DispatcherJobContextMessageTest extends TestWithEnvironment
 		assertNull(item.getToTargetLastSuccessDate());
 	}
 
-	@After public void afterEach()
+	@AfterEach public void afterEach()
 	{
 		toTarget.reset();
 		DispatcherItem.historyClear();

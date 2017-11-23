@@ -31,7 +31,7 @@ import com.exedio.cope.tojunit.SI;
 import com.exedio.dsmf.SQLRuntimeException;
 import java.util.ArrayList;
 import java.util.stream.Stream;
-import org.junit.After;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
 public class TransactionUniqueTest extends TestWithEnvironment
@@ -208,7 +208,7 @@ public class TransactionUniqueTest extends TestWithEnvironment
 						methodName.equals(t.getMethodName())));
 	}
 
-	@After public void after()
+	@AfterEach public void after()
 	{
 		model.rollbackIfNotCommitted();
 

@@ -28,7 +28,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import org.junit.After;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -51,7 +51,7 @@ public class AutoIncrementEvaluator extends RawDatabaseTest
 		stat = con.createStatement();
 	}
 
-	@After public final void tearDown() throws SQLException
+	@AfterEach public final void tearDown() throws SQLException
 	{
 		if(stat!=null)
 			stat.close();

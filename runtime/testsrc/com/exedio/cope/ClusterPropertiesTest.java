@@ -28,7 +28,7 @@ import com.exedio.cope.instrument.WrapperIgnore;
 import com.exedio.cope.tojunit.TestSources;
 import com.exedio.cope.util.IllegalPropertiesException;
 import com.exedio.cope.util.Properties.Source;
-import org.junit.After;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
 public class ClusterPropertiesTest
@@ -113,7 +113,7 @@ public class ClusterPropertiesTest
 	}
 
 	@SuppressWarnings("static-method")
-	@After public final void tearDown()
+	@AfterEach public final void tearDown()
 	{
 		if(model.isConnected())
 			model.disconnect();

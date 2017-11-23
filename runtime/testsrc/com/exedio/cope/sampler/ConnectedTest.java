@@ -26,7 +26,7 @@ import static com.exedio.cope.tojunit.TestSources.erase;
 import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.util.Properties;
-import org.junit.After;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 
 public abstract class ConnectedTest extends TestWithEnvironment
@@ -58,7 +58,7 @@ public abstract class ConnectedTest extends TestWithEnvironment
 	}
 
 	@SuppressWarnings("static-method")
-	@After public final void tearDownConnectedTest()
+	@AfterEach public final void tearDownConnectedTest()
 	{
 		samplerModel.rollbackIfNotCommitted();
 		samplerModel.dropSchema();

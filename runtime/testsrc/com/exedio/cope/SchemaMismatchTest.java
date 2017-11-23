@@ -25,7 +25,7 @@ import static org.junit.Assert.assertNotNull;
 import com.exedio.dsmf.Constraint;
 import com.exedio.dsmf.Node;
 import com.exedio.dsmf.Node.Color;
-import org.junit.After;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 
 public abstract class SchemaMismatchTest extends TestWithEnvironment
@@ -44,7 +44,7 @@ public abstract class SchemaMismatchTest extends TestWithEnvironment
 		modelB.connect(model.getConnectProperties());
 	}
 
-	@After public final void tearDownSchemaMismatchTest()
+	@AfterEach public final void tearDownSchemaMismatchTest()
 	{
 		modelB.disconnect();
 	}

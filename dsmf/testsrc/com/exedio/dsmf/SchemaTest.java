@@ -26,7 +26,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-import org.junit.After;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 
 public abstract class SchemaTest
@@ -149,7 +149,7 @@ public abstract class SchemaTest
 		provider = new SimpleConnectionProvider(connections);
 	}
 
-	@After public final void tearDownSchemaTest() throws SQLException
+	@AfterEach public final void tearDownSchemaTest() throws SQLException
 	{
 		for(final Connection connection : connections)
 			connection.close();

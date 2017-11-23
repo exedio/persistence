@@ -24,7 +24,7 @@ import static org.junit.Assert.assertEquals;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.IOException;
 import javax.servlet.ServletException;
-import org.junit.After;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -38,7 +38,7 @@ public final class MediaPathPostTest
 		servlet = new MediaServlet();
 	}
 
-	@After public void tearDown()
+	@AfterEach public void tearDown()
 	{
 		servlet.destroy();
 	}

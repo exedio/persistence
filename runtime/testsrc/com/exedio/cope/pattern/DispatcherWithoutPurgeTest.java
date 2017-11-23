@@ -44,7 +44,7 @@ import java.time.Duration;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
-import org.junit.After;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -405,7 +405,7 @@ public class DispatcherWithoutPurgeTest extends TestWithEnvironment
 		assertEquals(notifyFinalFailureCount, DispatcherWithoutPurgeItem.logs.get(item).notifyFinalFailureCount);
 	}
 
-	@After public void afterEach()
+	@AfterEach public void afterEach()
 	{
 		toTarget.reset();
 	}

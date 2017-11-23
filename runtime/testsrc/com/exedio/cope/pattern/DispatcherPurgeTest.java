@@ -32,7 +32,7 @@ import com.exedio.cope.util.JobContexts;
 import com.exedio.cope.util.Sources;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Properties;
-import org.junit.After;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -256,7 +256,7 @@ public class DispatcherPurgeTest extends TestWithEnvironment
 		assertEquals(true,    itemFailureAfter .existsCopeItem());
 	}
 
-	@After public void afterEach()
+	@AfterEach public void afterEach()
 	{
 		DispatcherItem.toTarget.reset();
 	}
