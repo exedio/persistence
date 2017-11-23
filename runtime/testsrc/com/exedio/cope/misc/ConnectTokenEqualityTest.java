@@ -55,8 +55,7 @@ public class ConnectTokenEqualityTest
 		token1 = issue(MODEL, "tokenName1");
 	}
 
-	@AfterEach
-	public void after()
+	@AfterEach void after()
 	{
 		ConnectToken.removePropertiesVoid(MODEL);
 		PROPERTIES.set(null);
