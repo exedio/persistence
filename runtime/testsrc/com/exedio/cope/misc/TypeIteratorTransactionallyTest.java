@@ -61,7 +61,7 @@ public class TypeIteratorTransactionallyTest extends TestWithEnvironment
 		}
 	}
 
-	@AfterEach public final void tearDown()
+	@AfterEach final void tearDown()
 	{
 		try(TransactionTry tx = model.startTransactionTry(getClass().getName()))
 		{

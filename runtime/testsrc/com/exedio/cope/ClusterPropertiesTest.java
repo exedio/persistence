@@ -113,7 +113,7 @@ public class ClusterPropertiesTest
 	}
 
 	@SuppressWarnings("static-method")
-	@AfterEach public final void tearDown()
+	@AfterEach final void tearDown()
 	{
 		if(model.isConnected())
 			model.disconnect();

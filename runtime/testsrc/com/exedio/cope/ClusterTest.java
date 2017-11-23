@@ -69,7 +69,7 @@ public abstract class ClusterTest
 		cl = new ClusterListenerMock(clp, 4);
 	}
 
-	@AfterEach public final void tearDownClusterTest()
+	@AfterEach final void tearDownClusterTest()
 	{
 		cl.close();
 	}

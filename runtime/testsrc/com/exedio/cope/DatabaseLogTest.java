@@ -48,7 +48,7 @@ public class DatabaseLogTest extends TestWithEnvironment
 		item = new MatchItem();
 	}
 
-	@AfterEach public final void tearDown()
+	@AfterEach final void tearDown()
 	{
 		model.setDatabaseListener(null);
 	}

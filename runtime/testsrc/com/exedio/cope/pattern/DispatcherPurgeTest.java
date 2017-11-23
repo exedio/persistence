@@ -256,7 +256,7 @@ public class DispatcherPurgeTest extends TestWithEnvironment
 		assertEquals(true,    itemFailureAfter .existsCopeItem());
 	}
 
-	@AfterEach public void afterEach()
+	@AfterEach void afterEach()
 	{
 		DispatcherItem.toTarget.reset();
 	}

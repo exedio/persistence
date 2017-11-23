@@ -345,7 +345,7 @@ public class DispatchableDeferrableTest extends TestWithEnvironment
 	@SuppressWarnings("unused") private AnItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }
 
-	@AfterEach public void afterEach()
+	@AfterEach void afterEach()
 	{
 		AnItem.toTarget.reset();
 	}

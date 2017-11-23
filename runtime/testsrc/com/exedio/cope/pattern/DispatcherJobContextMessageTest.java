@@ -154,7 +154,7 @@ public class DispatcherJobContextMessageTest extends TestWithEnvironment
 		assertNull(item.getToTargetLastSuccessDate());
 	}
 
-	@AfterEach public void afterEach()
+	@AfterEach void afterEach()
 	{
 		toTarget.reset();
 		DispatcherItem.historyClear();

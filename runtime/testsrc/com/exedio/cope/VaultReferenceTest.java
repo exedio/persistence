@@ -275,7 +275,7 @@ public class VaultReferenceTest
 		MODEL.startTransaction("VaultTest");
 	}
 
-	@AfterEach public void tearDown()
+	@AfterEach void tearDown()
 	{
 		MODEL.rollback();
 		MODEL.disconnect();

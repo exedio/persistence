@@ -76,7 +76,7 @@ public final class MediaPathTest extends TestWithEnvironment
 		normalInfo = MediaPathItem.normal.getInfo();
 	}
 
-	@AfterEach public void tearDown()
+	@AfterEach void tearDown()
 	{
 		servlet.destroy();
 		for(final Type<?> type : MODEL.getTypes())

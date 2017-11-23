@@ -154,7 +154,7 @@ public class VaultNotFoundTest
 		MODEL.startTransaction("VaultTest");
 	}
 
-	@AfterEach public void tearDown()
+	@AfterEach void tearDown()
 	{
 		MODEL.rollback();
 		MODEL.disconnect();

@@ -67,7 +67,7 @@ public class CheckTypeColumnTest extends TestWithEnvironment
 		reffN = new InstanceOfRefItem(null);
 	}
 
-	@AfterEach public final void tearDown()
+	@AfterEach final void tearDown()
 	{
 		model.commit();
 		model.deleteSchemaForTest();

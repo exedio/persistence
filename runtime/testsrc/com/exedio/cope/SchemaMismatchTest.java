@@ -44,7 +44,7 @@ public abstract class SchemaMismatchTest extends TestWithEnvironment
 		modelB.connect(model.getConnectProperties());
 	}
 
-	@AfterEach public final void tearDownSchemaMismatchTest()
+	@AfterEach final void tearDownSchemaMismatchTest()
 	{
 		modelB.disconnect();
 	}

@@ -47,7 +47,7 @@ public final class ClusterSenderMulticastTest
 		sender = new ClusterSenderMulticast(properties);
 	}
 
-	@AfterEach public void tearDown()
+	@AfterEach void tearDown()
 	{
 		sender.close();
 	}

@@ -405,7 +405,7 @@ public class DispatcherWithoutPurgeTest extends TestWithEnvironment
 		assertEquals(notifyFinalFailureCount, DispatcherWithoutPurgeItem.logs.get(item).notifyFinalFailureCount);
 	}
 
-	@AfterEach public void afterEach()
+	@AfterEach void afterEach()
 	{
 		toTarget.reset();
 	}

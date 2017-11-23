@@ -30,7 +30,7 @@ public abstract class SchemaReadyTest extends SchemaTest
 		schema.create();
 	}
 
-	@AfterEach public final void tearDownSchemaReadyTest()
+	@AfterEach final void tearDownSchemaReadyTest()
 	{
 		getSchema().tearDown();
 	}

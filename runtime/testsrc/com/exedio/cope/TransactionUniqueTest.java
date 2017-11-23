@@ -208,7 +208,7 @@ public class TransactionUniqueTest extends TestWithEnvironment
 				asList(trace).toString());
 	}
 
-	@AfterEach public void after()
+	@AfterEach void after()
 	{
 		model.rollbackIfNotCommitted();
 

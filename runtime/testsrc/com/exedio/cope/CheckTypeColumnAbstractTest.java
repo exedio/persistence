@@ -47,7 +47,7 @@ public class CheckTypeColumnAbstractTest extends TestWithEnvironment
 		item = new HierarchySingleSub();
 	}
 
-	@AfterEach public final void tearDown()
+	@AfterEach final void tearDown()
 	{
 		model.commit();
 		model.deleteSchemaForTest();

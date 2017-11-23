@@ -75,7 +75,7 @@ public class SchemaViewTest extends TestWithEnvironment
 		assertSame(Color.OK, schema2.getCumulativeColor());
 	}
 
-	@AfterEach public void after() throws SQLException
+	@AfterEach void after() throws SQLException
 	{
 		switch(dialect)
 		{

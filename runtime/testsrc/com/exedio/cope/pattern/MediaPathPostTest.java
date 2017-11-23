@@ -38,7 +38,7 @@ public final class MediaPathPostTest
 		servlet = new MediaServlet();
 	}
 
-	@AfterEach public void tearDown()
+	@AfterEach void tearDown()
 	{
 		servlet.destroy();
 	}

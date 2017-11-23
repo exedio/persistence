@@ -85,7 +85,7 @@ public class EnumMapFieldSchemaNameTest
 	}
 
 	@SuppressWarnings("static-method")
-	@AfterEach public final void tearDown()
+	@AfterEach final void tearDown()
 	{
 		MODEL.disconnect();
 	}

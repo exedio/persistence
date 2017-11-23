@@ -516,7 +516,7 @@ public class DispatcherTest extends TestWithEnvironment
 		}
 	}
 
-	@AfterEach public void afterEach()
+	@AfterEach void afterEach()
 	{
 		toTarget.reset();
 		DispatcherItem.historyClear();

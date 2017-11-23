@@ -139,7 +139,7 @@ public class RevisionStatisticsTest
 	}
 
 	@SuppressWarnings("static-method")
-	@AfterEach public final void tearDown()
+	@AfterEach final void tearDown()
 	{
 		MODEL.rollbackIfNotCommitted();
 		MODEL.disconnect();

@@ -63,7 +63,7 @@ public class CacheReadPoisoningBruteForceTest extends TestWithEnvironment
 		failures.setLength(0);
 	}
 
-	@AfterEach public final void tearDown() throws InterruptedException
+	@AfterEach final void tearDown() throws InterruptedException
 	{
 		for(final ThreadStoppable thread : threads)
 		{

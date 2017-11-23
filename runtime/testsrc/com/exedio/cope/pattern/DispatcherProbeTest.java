@@ -244,7 +244,7 @@ public class DispatcherProbeTest extends TestWithEnvironment
 		}
 	};
 
-	@AfterEach public void afterEach()
+	@AfterEach void afterEach()
 	{
 		DispatcherItem.toTarget.reset();
 		DispatcherItem.historyClear();

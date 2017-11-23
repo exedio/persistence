@@ -149,7 +149,7 @@ public abstract class SchemaTest
 		provider = new SimpleConnectionProvider(connections);
 	}
 
-	@AfterEach public final void tearDownSchemaTest() throws SQLException
+	@AfterEach final void tearDownSchemaTest() throws SQLException
 	{
 		for(final Connection connection : connections)
 			connection.close();

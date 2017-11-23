@@ -51,7 +51,7 @@ public class AutoIncrementEvaluator extends RawDatabaseTest
 		stat = con.createStatement();
 	}
 
-	@AfterEach public final void tearDown() throws SQLException
+	@AfterEach final void tearDown() throws SQLException
 	{
 		if(stat!=null)
 			stat.close();

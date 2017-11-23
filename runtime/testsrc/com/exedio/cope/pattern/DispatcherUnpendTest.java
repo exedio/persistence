@@ -157,7 +157,7 @@ public class DispatcherUnpendTest extends TestWithEnvironment
 		assertEquals(date,    item.getToTargetUnpendDateMillis(), "date");
 	}
 
-	@AfterEach public void afterEach()
+	@AfterEach void afterEach()
 	{
 		DispatcherItem.toTarget.reset();
 	}

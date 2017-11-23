@@ -137,7 +137,7 @@ public class SchemaInfoQueryTest
 		model.startTransaction(SchemaInfoQueryTest.class.getName());
 	}
 
-	@AfterEach public void tearDown()
+	@AfterEach void tearDown()
 	{
 		model.rollbackIfNotCommitted();
 	}

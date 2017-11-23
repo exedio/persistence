@@ -77,7 +77,7 @@ public abstract class VaultServiceTest
 		service = properties.newService();
 	}
 
-	@AfterEach public final void tearDownVaultServiceTest()
+	@AfterEach final void tearDownVaultServiceTest()
 	{
 		service.close();
 		service = null;

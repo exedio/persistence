@@ -293,7 +293,7 @@ public class CommitHookPreTest
 	}
 
 	@SuppressWarnings("static-method")
-	@AfterEach public final void tearDown()
+	@AfterEach final void tearDown()
 	{
 		model.rollbackIfNotCommitted();
 		model.disconnect();

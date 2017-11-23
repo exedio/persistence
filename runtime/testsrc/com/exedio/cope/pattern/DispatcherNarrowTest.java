@@ -112,7 +112,7 @@ public class DispatcherNarrowTest extends TestWithEnvironment
 		assertNotNull(item.getToTargetLastSuccessDate());
 	}
 
-	@AfterEach public void afterEach()
+	@AfterEach void afterEach()
 	{
 		MyItem.toTarget.reset();
 	}

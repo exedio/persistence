@@ -66,7 +66,7 @@ public class DataTest extends TestWithEnvironment
 		item = new DataItem();
 	}
 
-	@AfterEach public final void tearDown()
+	@AfterEach final void tearDown()
 	{
 		// release memory
 		dataBig = null;

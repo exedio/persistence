@@ -68,7 +68,7 @@ public class DeleteTest extends TestWithEnvironment
 	}
 
 	@SuppressWarnings("static-method")
-	@AfterEach public final void tearDownDeleteTest()
+	@AfterEach final void tearDownDeleteTest()
 	{
 		DeleteItem.BEFORE_DELETE_COPE_ITEM_CALLS.remove();
 	}
