@@ -21,7 +21,7 @@ package com.exedio.cope;
 import static com.exedio.cope.UniqueDoubleNullTest.MyItem.TYPE;
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.Assume.assumeTrue;
+import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 import com.exedio.cope.instrument.WrapperInitial;
 import org.junit.jupiter.api.Test;
