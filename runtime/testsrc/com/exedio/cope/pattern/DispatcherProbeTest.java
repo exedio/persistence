@@ -40,8 +40,7 @@ public class DispatcherProbeTest extends TestWithEnvironment
 		super(DispatcherModelTest.MODEL);
 	}
 
-	@BeforeEach
-	public void setUp()
+	@BeforeEach void setUp()
 	{
 		DispatcherItem.historyClear();
 	}

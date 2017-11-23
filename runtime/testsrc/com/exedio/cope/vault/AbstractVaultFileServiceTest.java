@@ -62,8 +62,7 @@ public abstract class AbstractVaultFileServiceTest extends VaultServiceTest
 		return root;
 	}
 
-	@BeforeEach
-	public final void setUpAbstractVaultFileServiceTest() throws IOException
+	@BeforeEach final void setUpAbstractVaultFileServiceTest() throws IOException
 	{
 		Files.createDirectory(((VaultFileService)getService()).tempDir);
 	}

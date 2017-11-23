@@ -47,8 +47,7 @@ public class ConnectTokenEqualityTest
 	private ConnectProperties properties1;
 	private ConnectToken token1;
 
-	@BeforeEach
-	public void before()
+	@BeforeEach void before()
 	{
 		properties1 = ConnectProperties.create(describe("DESC1", TestSources.minimal()));
 		PROPERTIES.set(properties1);
