@@ -40,7 +40,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Set;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public final class ThumbnailTest extends TestWithEnvironment
@@ -63,7 +63,7 @@ public final class ThumbnailTest extends TestWithEnvironment
 	// Ok, because Media#set(Item,InputStream,String) closes the stream.
 	@SuppressFBWarnings("OBL_UNSATISFIED_OBLIGATION")
 
-	@Before public void setUp() throws IOException
+	@BeforeEach public void setUp() throws IOException
 	{
 		jpg = new ThumbnailItem();
 		png = new ThumbnailItem();

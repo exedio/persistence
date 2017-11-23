@@ -37,7 +37,7 @@ import java.util.Collections;
 import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.Map;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 @SuppressWarnings("MapReplaceableByEnumMap")
@@ -50,7 +50,7 @@ public class EnumMapFieldTest extends TestWithEnvironment
 
 	EnumMapFieldItem item, itemX;
 
-	@Before public final void setUp()
+	@BeforeEach public final void setUp()
 	{
 		item = new EnumMapFieldItem();
 		itemX = new EnumMapFieldItem();

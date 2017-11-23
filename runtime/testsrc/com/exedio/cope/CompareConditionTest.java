@@ -45,7 +45,7 @@ import com.exedio.cope.CompareConditionItem.YEnum;
 import com.exedio.cope.util.Day;
 import java.util.Date;
 import java.util.List;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class CompareConditionTest extends TestWithEnvironment
@@ -72,7 +72,7 @@ public class CompareConditionTest extends TestWithEnvironment
 		return aDay.add(offset);
 	}
 
-	@Before public final void setUp()
+	@BeforeEach public final void setUp()
 	{
 		item1 = new CompareConditionItem("string1", 1, 11l, 2.1, date(-2), day(-2), YEnum.V1);
 		item2 = new CompareConditionItem("string2", 2, 12l, 2.2, date(-1), day(-1), YEnum.V2);

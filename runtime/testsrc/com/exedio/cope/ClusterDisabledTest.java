@@ -24,7 +24,7 @@ import static org.junit.Assert.fail;
 import com.exedio.cope.instrument.WrapperIgnore;
 import com.exedio.cope.tojunit.TestSources;
 import org.junit.After;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class ClusterDisabledTest
@@ -69,7 +69,7 @@ public class ClusterDisabledTest
 
 
 	@SuppressWarnings("static-method")
-	@Before public final void setUp()
+	@BeforeEach public final void setUp()
 	{
 		model.connect(ConnectProperties.create(TestSources.minimal()));
 	}

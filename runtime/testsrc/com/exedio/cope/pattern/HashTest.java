@@ -48,7 +48,7 @@ import com.exedio.cope.pattern.Hash.InvalidPlainTextException;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.security.SecureRandom;
 import java.util.Arrays;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class HashTest extends TestWithEnvironment
@@ -62,7 +62,7 @@ public class HashTest extends TestWithEnvironment
 
 	HashItem item;
 
-	@Before public final void setUp()
+	@BeforeEach public final void setUp()
 	{
 		item = new HashItem();
 	}

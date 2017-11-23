@@ -30,7 +30,7 @@ import com.exedio.cope.StringField;
 import com.exedio.cope.util.Hex;
 import com.exedio.cope.util.IllegalAlgorithmException;
 import java.security.SecureRandom;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class MessageDigestHashAlgorithmTest
@@ -291,7 +291,7 @@ public class MessageDigestHashAlgorithmTest
 		return mockSecureRandomInternal;
 	}
 
-	@Before public final void setUp()
+	@BeforeEach public final void setUp()
 	{
 		mockSecureRandomInternal = null;
 		mockSecureRandomInternalLength = -1;

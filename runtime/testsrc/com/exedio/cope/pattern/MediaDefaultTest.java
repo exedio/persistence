@@ -48,7 +48,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Date;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 @MainRule.Tag
@@ -66,7 +66,7 @@ public class MediaDefaultTest extends TestWithEnvironment
 
 	protected MediaItem item;
 
-	@Before public final void setUp()
+	@BeforeEach public final void setUp()
 	{
 		clockRule.override(clock);
 		item = new MediaItem("test media item");

@@ -30,7 +30,7 @@ import static org.junit.Assert.assertNotNull;
 import com.exedio.dsmf.Node;
 import com.exedio.dsmf.Schema;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 @SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
@@ -50,7 +50,7 @@ public class NameTest extends TestWithEnvironment
 	NameLongItem item;
 	NameCollisionlongaItem itemca, itemcb;
 
-	@Before public final void setUp()
+	@BeforeEach public final void setUp()
 	{
 		item = new NameLongItem("long name item");
 		itemca = new NameCollisionlongaItem("collision A");

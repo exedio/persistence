@@ -32,7 +32,7 @@ import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.Type;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Iterator;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -48,7 +48,7 @@ public class ListFieldTest2 extends TestWithEnvironment
 
 	ListFieldItem item;
 
-	@Before public final void setUp()
+	@BeforeEach public final void setUp()
 	{
 		item = new ListFieldItem();
 	}

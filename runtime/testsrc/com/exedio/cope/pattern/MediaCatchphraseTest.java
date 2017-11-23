@@ -26,7 +26,7 @@ import static org.junit.Assert.fail;
 
 import com.exedio.cope.Model;
 import com.exedio.cope.TestWithEnvironment;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public final class MediaCatchphraseTest extends TestWithEnvironment
@@ -46,7 +46,7 @@ public final class MediaCatchphraseTest extends TestWithEnvironment
 	private MediaCatchPhraseItem wrong, normal, all, single, empty, nulL;
 	private MediaCatchPhraseSuperItem none;
 
-	@Before public void setUp()
+	@BeforeEach public void setUp()
 	{
 		normal = new MediaCatchPhraseItem("normal");
 		all    = new MediaCatchPhraseItem("all01289ABCYZabcyz-_");

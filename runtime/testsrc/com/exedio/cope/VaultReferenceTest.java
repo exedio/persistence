@@ -37,7 +37,7 @@ import com.exedio.cope.vaultmock.VaultMockService;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.IOException;
 import org.junit.After;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 @SuppressWarnings("HardcodedLineSeparator")
@@ -255,7 +255,7 @@ public class VaultReferenceTest
 	private VaultReferenceService service;
 	private VaultMockService main, refr;
 
-	@Before public void setUp()
+	@BeforeEach public void setUp()
 	{
 		MODEL.connect(ConnectProperties.factory().create(cascade(
 				single("dataField.vault", true),

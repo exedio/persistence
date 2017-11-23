@@ -45,7 +45,7 @@ import com.exedio.cope.misc.Computed;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Arrays;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class MediaTest extends TestWithEnvironment
@@ -66,7 +66,7 @@ public class MediaTest extends TestWithEnvironment
 
 	private MediaItem item;
 
-	@Before public final void setUp()
+	@BeforeEach public final void setUp()
 	{
 		item = new MediaItem("test media item");
 	}

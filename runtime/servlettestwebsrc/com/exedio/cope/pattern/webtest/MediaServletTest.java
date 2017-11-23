@@ -46,7 +46,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class MediaServletTest
@@ -78,7 +78,7 @@ public class MediaServletTest
 
 	private String schemeAndHost;
 
-	@Before public final void setUp()
+	@BeforeEach public final void setUp()
 	{
 		schemeAndHost = "http://localhost:" + System.getProperty("tomcat.port.http");
 		//noinspection ResultOfMethodCallIgnored OK if does not yet exists

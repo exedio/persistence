@@ -28,7 +28,7 @@ import com.exedio.cope.pattern.Hash;
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.List;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -38,7 +38,7 @@ public class DigitPinValidatorTest
 {
 	private DigitPinValidator validator;
 
-	@Before public final void setUp()
+	@BeforeEach public final void setUp()
 	{
 		this.validator = new DigitPinValidator(4);
 	}

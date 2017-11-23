@@ -38,7 +38,7 @@ import com.exedio.cope.TestWithEnvironment;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.ParameterizedType;
 import java.util.HashMap;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class JavaViewTest extends TestWithEnvironment
@@ -60,7 +60,7 @@ public class JavaViewTest extends TestWithEnvironment
 	JavaViewItem item;
 	JavaViewItem2 item2;
 
-	@Before public final void setUp()
+	@BeforeEach public final void setUp()
 	{
 		item = new JavaViewItem();
 		item2 = new JavaViewItem2();

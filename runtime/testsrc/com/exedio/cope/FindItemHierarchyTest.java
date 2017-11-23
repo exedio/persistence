@@ -20,7 +20,7 @@ package com.exedio.cope;
 
 import static org.junit.Assert.assertSame;
 
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class FindItemHierarchyTest extends TestWithEnvironment
@@ -35,7 +35,7 @@ public class FindItemHierarchyTest extends TestWithEnvironment
 	HierarchySecondSub secondItem2;
 	HierarchyFirstSub firstItem2;
 
-	@Before public final void setUp()
+	@BeforeEach public final void setUp()
 	{
 		firstItem = new HierarchyFirstSub(0);
 		secondItem = new HierarchySecondSub(2);

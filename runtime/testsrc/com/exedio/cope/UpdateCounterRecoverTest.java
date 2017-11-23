@@ -30,7 +30,7 @@ import com.exedio.cope.tojunit.MainRule;
 import com.exedio.cope.tojunit.SI;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.sql.SQLException;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 @MainRule.Tag
@@ -46,7 +46,7 @@ public final class UpdateCounterRecoverTest extends TestWithEnvironment
 
 	CacheIsolationItem item = null;
 
-	@Before public void setUp()
+	@BeforeEach public void setUp()
 	{
 		item = new CacheIsolationItem("name0");
 	}

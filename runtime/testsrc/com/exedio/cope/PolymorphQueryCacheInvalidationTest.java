@@ -20,7 +20,7 @@ package com.exedio.cope;
 
 import static com.exedio.cope.tojunit.Assert.assertContains;
 
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class PolymorphQueryCacheInvalidationTest extends TestWithEnvironment
@@ -32,7 +32,7 @@ public class PolymorphQueryCacheInvalidationTest extends TestWithEnvironment
 
 	InstanceOfAItem itema;
 
-	@Before public final void setUp()
+	@BeforeEach public final void setUp()
 	{
 		itema = new InstanceOfAItem("itema");
 	}

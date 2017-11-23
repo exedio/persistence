@@ -34,7 +34,7 @@ import static com.exedio.cope.tojunit.EqualsAssert.assertNotEqualsAndHash;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class DivideDoubleTest extends TestWithEnvironment
@@ -54,7 +54,7 @@ public class DivideDoubleTest extends TestWithEnvironment
 	DivideDoubleItem item;
 	DivideDoubleItem item2;
 
-	@Before public final void setUp()
+	@BeforeEach public final void setUp()
 	{
 		item = new DivideDoubleItem(8.5, 2.5, 4.0);
 		item2 = new DivideDoubleItem(30.3, 4.4, 5.5);

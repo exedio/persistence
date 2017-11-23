@@ -30,7 +30,7 @@ import static org.junit.Assert.assertSame;
 import static org.junit.Assert.fail;
 
 import java.util.Date;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class LongTest extends TestWithEnvironment
@@ -43,7 +43,7 @@ public class LongTest extends TestWithEnvironment
 	private LongItem item;
 	private int numberOfItems;
 
-	@Before public final void setUp()
+	@BeforeEach public final void setUp()
 	{
 		item = new LongItem(2201l);
 		new LongItem(2202l);

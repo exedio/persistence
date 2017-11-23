@@ -29,7 +29,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class PlusIntegerOrderNullTest extends TestWithEnvironment
@@ -43,7 +43,7 @@ public class PlusIntegerOrderNullTest extends TestWithEnvironment
 	PlusIntegerItem item1;
 	PlusIntegerItem item2;
 
-	@Before public final void setUp()
+	@BeforeEach public final void setUp()
 	{
 		item0 = new PlusIntegerItem(1, null, null);
 		item1 = new PlusIntegerItem(2, 12,   null);

@@ -42,7 +42,7 @@ import com.exedio.cope.misc.Computed;
 import com.exedio.cope.pattern.History.Feature;
 import java.util.Date;
 import java.util.List;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class HistoryTest extends TestWithEnvironment
@@ -61,7 +61,7 @@ public class HistoryTest extends TestWithEnvironment
 
 	HistoryItem item;
 
-	@Before public final void setUp()
+	@BeforeEach public final void setUp()
 	{
 		item = new HistoryItem();
 	}

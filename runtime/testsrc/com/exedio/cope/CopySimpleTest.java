@@ -30,7 +30,7 @@ import static org.junit.Assert.assertSame;
 import static org.junit.Assert.fail;
 
 import org.junit.After;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class CopySimpleTest extends TestWithEnvironment
@@ -455,7 +455,7 @@ public class CopySimpleTest extends TestWithEnvironment
 	}
 
 
-	@Before public void before()
+	@BeforeEach public void before()
 	{
 		CopySimpleSource.clearBeforeCopeItemLog();
 	}

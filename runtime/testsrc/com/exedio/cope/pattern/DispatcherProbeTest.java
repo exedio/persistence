@@ -28,7 +28,7 @@ import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.util.AssertionErrorJobContext;
 import java.time.Duration;
 import org.junit.After;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class DispatcherProbeTest extends TestWithEnvironment
@@ -40,7 +40,7 @@ public class DispatcherProbeTest extends TestWithEnvironment
 		super(DispatcherModelTest.MODEL);
 	}
 
-	@Before
+	@BeforeEach
 	public void setUp()
 	{
 		DispatcherItem.historyClear();

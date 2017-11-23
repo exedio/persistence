@@ -53,7 +53,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import org.junit.After;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 @MainRule.Tag
@@ -70,7 +70,7 @@ public class ScheduleTest extends TestWithEnvironment
 	ScheduleItem item;
 	ArrayList<ExpectedRun> expectedRuns;
 
-	@Before public final void setUp()
+	@BeforeEach public final void setUp()
 	{
 		item = new ScheduleItem();
 		final ScheduleItem disabledItem = new ScheduleItem();

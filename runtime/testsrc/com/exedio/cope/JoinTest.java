@@ -30,7 +30,7 @@ import static org.junit.Assert.assertSame;
 import com.exedio.cope.testmodel.PointerItem;
 import com.exedio.cope.testmodel.PointerTargetItem;
 import java.util.List;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class JoinTest extends TestmodelTest
@@ -40,7 +40,7 @@ public class JoinTest extends TestmodelTest
 	PointerTargetItem item2a;
 	PointerTargetItem item2b;
 
-	@Before public final void setUp()
+	@BeforeEach public final void setUp()
 	{
 		item2a = new PointerTargetItem("item2a");
 		item2b = new PointerTargetItem("item1a2b");

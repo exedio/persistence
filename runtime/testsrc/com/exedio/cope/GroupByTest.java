@@ -29,7 +29,7 @@ import static com.exedio.cope.junit.CopeAssert.assertContains;
 import static org.junit.Assert.assertEquals;
 
 import java.util.List;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 @SuppressWarnings("HardcodedLineSeparator") // OK: newline in sql error
@@ -43,7 +43,7 @@ public class GroupByTest extends TestWithEnvironment
 	}
 
 	@SuppressWarnings("static-method")
-	@Before public final void setUp()
+	@BeforeEach public final void setUp()
 	{
 		new AnItem("foo", 1);
 		new AnItem("foo", 2);

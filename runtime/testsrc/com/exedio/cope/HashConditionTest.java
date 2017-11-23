@@ -35,7 +35,7 @@ import java.security.Provider;
 import java.security.Security;
 import java.util.SortedSet;
 import javax.annotation.Nullable;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class HashConditionTest extends TestWithEnvironment
@@ -97,7 +97,7 @@ public class HashConditionTest extends TestWithEnvironment
 	SortedSet<String> supported;
 	MyItem item;
 
-	@Before public final void setUp()
+	@BeforeEach public final void setUp()
 	{
 		supported = model.getSupportedDataHashAlgorithms();
 		item = new MyItem();

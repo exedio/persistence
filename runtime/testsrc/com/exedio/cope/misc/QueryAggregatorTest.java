@@ -31,7 +31,7 @@ import com.exedio.cope.Query;
 import com.exedio.cope.TestWithEnvironment;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.List;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 @SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
@@ -48,7 +48,7 @@ public class QueryAggregatorTest extends TestWithEnvironment
 	Query<QueryAggregatorItem> q1, q2, q3;
 	QueryAggregator<QueryAggregatorItem> ag;
 
-	@Before public final void setUp()
+	@BeforeEach public final void setUp()
 	{
 		item0 = new QueryAggregatorItem(0);
 		item1 = new QueryAggregatorItem(1);

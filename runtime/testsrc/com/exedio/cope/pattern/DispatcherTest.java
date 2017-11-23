@@ -50,7 +50,7 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import org.junit.After;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 @MainRule.Tag
@@ -72,7 +72,7 @@ public class DispatcherTest extends TestWithEnvironment
 	DispatcherItem item3;
 	DispatcherItem item4;
 
-	@Before public final void setUp()
+	@BeforeEach public final void setUp()
 	{
 		item1 = new DispatcherItem("item1", false);
 		item2 = new DispatcherItem("item2", true);

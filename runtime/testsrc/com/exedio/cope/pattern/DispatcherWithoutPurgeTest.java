@@ -45,7 +45,7 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import org.junit.After;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 @MainRule.Tag
@@ -68,7 +68,7 @@ public class DispatcherWithoutPurgeTest extends TestWithEnvironment
 	DispatcherWithoutPurgeItem item3;
 	DispatcherWithoutPurgeItem item4;
 
-	@Before public final void setUp()
+	@BeforeEach public final void setUp()
 	{
 		item1 = new DispatcherWithoutPurgeItem("item1", false);
 		item2 = new DispatcherWithoutPurgeItem("item2", true);

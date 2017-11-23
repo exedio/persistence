@@ -25,7 +25,7 @@ import static com.exedio.cope.tojunit.Assert.list;
 import com.exedio.cope.testmodel.PointerItem;
 import com.exedio.cope.testmodel.PointerTargetItem;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class JoinOuterTest extends TestmodelTest
@@ -36,7 +36,7 @@ public class JoinOuterTest extends TestmodelTest
 	@SuppressFBWarnings("URF_UNREAD_FIELD")
 	PointerTargetItem rightLonely;
 
-	@Before public final void setUp()
+	@BeforeEach public final void setUp()
 	{
 		rightLonely = new PointerTargetItem("right");
 		rightJoined = new PointerTargetItem("joined");

@@ -33,7 +33,7 @@ import com.exedio.cope.tojunit.ClockRule;
 import com.exedio.cope.tojunit.MainRule;
 import com.exedio.cope.util.Day;
 import java.util.List;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 @MainRule.Tag
@@ -58,7 +58,7 @@ public class DayFieldTest extends TestWithEnvironment
 		super(MODEL);
 	}
 
-	@Before public final void setUp()
+	@BeforeEach public final void setUp()
 	{
 		item = new DayItem(DEFAULT);
 		item2 = new DayItem(DEFAULT2);

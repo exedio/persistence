@@ -25,7 +25,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import org.junit.After;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 @SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
@@ -33,7 +33,7 @@ public final class MediaPathPostTest
 {
 	private MediaServlet servlet;
 
-	@Before public void setUp()
+	@BeforeEach public void setUp()
 	{
 		servlet = new MediaServlet();
 	}

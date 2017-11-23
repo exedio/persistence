@@ -26,7 +26,7 @@ import static java.util.Arrays.asList;
 
 import java.util.ArrayList;
 import java.util.List;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class StartsWithConditionTest extends TestWithEnvironment
@@ -38,7 +38,7 @@ public class StartsWithConditionTest extends TestWithEnvironment
 
 	private DataItem item0, item4, item6, item6x4;
 
-	@Before public final void setUp()
+	@BeforeEach public final void setUp()
 	{
 		item0 = new DataItem();
 		item4 = new DataItem();

@@ -46,7 +46,7 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 import org.junit.After;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class DeleteTest extends TestWithEnvironment
@@ -62,7 +62,7 @@ public class DeleteTest extends TestWithEnvironment
 	private DeleteOtherItem other;
 
 	@SuppressWarnings("static-method")
-	@Before public final void setUpDeleteTest()
+	@BeforeEach public final void setUpDeleteTest()
 	{
 		DeleteItem.BEFORE_DELETE_COPE_ITEM_CALLS.set(new LinkedList<>());
 	}

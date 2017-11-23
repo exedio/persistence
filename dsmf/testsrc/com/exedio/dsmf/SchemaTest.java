@@ -27,7 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import org.junit.After;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 
 public abstract class SchemaTest
 {
@@ -64,7 +64,7 @@ public abstract class SchemaTest
 		}
 	}
 
-	@Before public final void setUpSchemaTest() throws ClassNotFoundException, SQLException
+	@BeforeEach public final void setUpSchemaTest() throws ClassNotFoundException, SQLException
 	{
 		final Properties config = new Properties();
 		final String url = config.connectionUrl;

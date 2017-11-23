@@ -40,7 +40,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 @SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
@@ -57,7 +57,7 @@ public class PlusIntegerTest extends TestWithEnvironment
 	@SuppressFBWarnings("URF_UNREAD_FIELD")
 	PlusIntegerItem item2;
 
-	@Before public final void setUp()
+	@BeforeEach public final void setUp()
 	{
 		item  = new PlusIntegerItem(1, 2, 3);
 		item2 = new PlusIntegerItem(3, 4, 5);

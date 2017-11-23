@@ -31,7 +31,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 @SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
@@ -45,7 +45,7 @@ public class StableQueryIteratorTest extends TestWithEnvironment
 	QueryAggregatorItem item0, item1, item2, item3, item4, item5, item6, item7, item8, item9;
 	Query<QueryAggregatorItem> q;
 
-	@Before public final void setUp()
+	@BeforeEach public final void setUp()
 	{
 		item0 = new QueryAggregatorItem(0);
 		item1 = new QueryAggregatorItem(1);

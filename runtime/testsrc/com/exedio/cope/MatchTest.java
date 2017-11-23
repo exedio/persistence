@@ -24,7 +24,7 @@ import static com.exedio.cope.tojunit.Assert.list;
 import static org.junit.Assert.assertEquals;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 @SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
@@ -39,7 +39,7 @@ public class MatchTest extends TestWithEnvironment
 
 	MatchItem item;
 
-	@Before public final void setUp()
+	@BeforeEach public final void setUp()
 	{
 		item = new MatchItem();
 	}

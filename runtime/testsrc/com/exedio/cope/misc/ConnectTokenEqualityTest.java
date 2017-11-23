@@ -38,7 +38,7 @@ import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.tojunit.TestSources;
 import java.util.concurrent.atomic.AtomicReference;
 import org.junit.After;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 @SuppressWarnings("resource")
@@ -47,7 +47,7 @@ public class ConnectTokenEqualityTest
 	private ConnectProperties properties1;
 	private ConnectToken token1;
 
-	@Before
+	@BeforeEach
 	public void before()
 	{
 		properties1 = ConnectProperties.create(describe("DESC1", TestSources.minimal()));

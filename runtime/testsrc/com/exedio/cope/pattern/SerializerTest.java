@@ -43,7 +43,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class SerializerTest extends TestWithEnvironment
@@ -62,7 +62,7 @@ public class SerializerTest extends TestWithEnvironment
 
 	SerializerItem item;
 
-	@Before public final void setUp()
+	@BeforeEach public final void setUp()
 	{
 		item = new SerializerItem("mandatory");
 	}

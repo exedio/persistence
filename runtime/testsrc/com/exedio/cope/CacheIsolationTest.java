@@ -26,7 +26,7 @@ import static org.junit.Assert.fail;
 
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class CacheIsolationTest extends TestWithEnvironment
@@ -44,7 +44,7 @@ public class CacheIsolationTest extends TestWithEnvironment
 	long setupInvalidationsOrdered;
 	long setupInvalidationsDone;
 
-	@Before public final void setUp()
+	@BeforeEach public final void setUp()
 	{
 		item = new CacheIsolationItem("blub");
 		collisionItem = new CacheIsolationItem("collision");

@@ -29,7 +29,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 @SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
@@ -54,7 +54,7 @@ public class HardJoinTest extends TestWithEnvironment
 	private HardJoinA3Item a;
 	private HardJoinB3Item b;
 
-	@Before public final void setUp()
+	@BeforeEach public final void setUp()
 	{
 		a = new HardJoinA3Item("a", 10, 11, 12);
 		b = new HardJoinB3Item("b", 20, 21, 22);

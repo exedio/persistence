@@ -26,7 +26,7 @@ import com.exedio.cope.Join;
 import com.exedio.cope.Model;
 import com.exedio.cope.Query;
 import com.exedio.cope.TestWithEnvironment;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class BadQueryTest extends TestWithEnvironment
@@ -41,7 +41,7 @@ public class BadQueryTest extends TestWithEnvironment
 	QueryItem left1, left2, leftX;
 	SuperContainer middle1, middle2, middleX;
 
-	@Before public final void setUp()
+	@BeforeEach public final void setUp()
 	{
 		leftX = new QueryItem("leftX");
 		left1 = new QueryItem("left1");

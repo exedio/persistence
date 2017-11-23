@@ -25,7 +25,7 @@ import static org.junit.Assert.assertEquals;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class HierarchyCompareTest extends TestWithEnvironment
@@ -38,7 +38,7 @@ public class HierarchyCompareTest extends TestWithEnvironment
 	List<Item> items;
 	List<Item> orderby;
 
-	@Before public final void setUp()
+	@BeforeEach public final void setUp()
 	{
 		items = new ArrayList<>();
 		final HierarchySingleSub c1 = new HierarchySingleSub(2, "x");

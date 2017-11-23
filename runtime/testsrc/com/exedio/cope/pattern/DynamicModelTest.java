@@ -44,7 +44,7 @@ import com.exedio.cope.Type;
 import com.exedio.cope.pattern.DynamicModel.Enum;
 import com.exedio.cope.pattern.DynamicModel.ValueType;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class DynamicModelTest extends TestWithEnvironment
@@ -64,7 +64,7 @@ public class DynamicModelTest extends TestWithEnvironment
 	DynamicModelItem item, item2;
 	DynamicModelLocalizationItem de, en;
 
-	@Before public final void setUp()
+	@BeforeEach public final void setUp()
 	{
 		item = new DynamicModelItem("item1");
 		item2 = new DynamicModelItem("item2");

@@ -27,7 +27,7 @@ import com.exedio.cope.tojunit.SI;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.sql.SQLException;
 import org.junit.After;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 @MainRule.Tag
@@ -42,7 +42,7 @@ public class CheckTypeColumnAbstractTest extends TestWithEnvironment
 
 	private HierarchySingleSub item;
 
-	@Before public final void setUp()
+	@BeforeEach public final void setUp()
 	{
 		item = new HierarchySingleSub();
 	}

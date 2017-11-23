@@ -26,7 +26,7 @@ import static org.junit.Assert.assertEquals;
 import com.exedio.cope.TestWithEnvironment;
 import java.util.Arrays;
 import java.util.Date;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public final class MediaUrlFingerOffsetTest extends TestWithEnvironment
@@ -38,7 +38,7 @@ public final class MediaUrlFingerOffsetTest extends TestWithEnvironment
 
 	private final MediaUrlItem[] item = new MediaUrlItem[1007];
 
-	@Before public void setUp()
+	@BeforeEach public void setUp()
 	{
 		Arrays.setAll(item, i -> create());
 	}

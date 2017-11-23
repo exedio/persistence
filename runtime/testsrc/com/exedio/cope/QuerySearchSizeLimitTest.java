@@ -24,7 +24,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 import com.exedio.cope.util.Day;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class QuerySearchSizeLimitTest extends TestWithEnvironment
@@ -40,7 +40,7 @@ public class QuerySearchSizeLimitTest extends TestWithEnvironment
 
 	DayItem i1, i2, i3, i4, i5;
 
-	@Before public final void setUp()
+	@BeforeEach public final void setUp()
 	{
 		i1 = new DayItem(d1);
 		i2 = new DayItem(d2);

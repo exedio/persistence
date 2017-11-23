@@ -33,7 +33,7 @@ import static org.junit.Assert.fail;
 import com.exedio.cope.testmodel.AttributeItem;
 import com.exedio.cope.testmodel.EmptyItem;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class TransactionTest extends TestmodelTest
@@ -46,7 +46,7 @@ public class TransactionTest extends TestmodelTest
 		return new AttributeItem(code, 5, 6l, 2.2, true, someItem, AttributeItem.SomeEnum.enumValue1);
 	}
 
-	@Before public final void setUp()
+	@BeforeEach public final void setUp()
 	{
 		someItem = new EmptyItem();
 		item = newItem("someString");

@@ -27,7 +27,7 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import static org.junit.Assume.assumeTrue;
 
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class CacheTouchTest extends TestWithEnvironment
@@ -39,7 +39,7 @@ public class CacheTouchTest extends TestWithEnvironment
 
 	CacheIsolationItem item;
 
-	@Before public final void setUp()
+	@BeforeEach public final void setUp()
 	{
 		item = new CacheIsolationItem("itemName");
 	}

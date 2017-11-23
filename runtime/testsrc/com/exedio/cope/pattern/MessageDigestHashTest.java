@@ -41,7 +41,7 @@ import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.util.Hex;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Arrays;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class MessageDigestHashTest extends TestWithEnvironment
@@ -62,7 +62,7 @@ public class MessageDigestHashTest extends TestWithEnvironment
 
 	MessageDigestHashItem item;
 
-	@Before public final void setUp()
+	@BeforeEach public final void setUp()
 	{
 		expectSalt(passwordFinal, "885406ef34cef302");
 		expectSalt(passwordMandatory, "885406ef34cef302");

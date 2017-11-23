@@ -32,7 +32,7 @@ import com.exedio.cope.util.AssertionErrorJobContext;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.time.Duration;
 import org.junit.After;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 @MainRule.Tag
@@ -51,7 +51,7 @@ public class DispatcherUnpendTest extends TestWithEnvironment
 
 	DispatcherItem item;
 
-	@Before public void setUp()
+	@BeforeEach public void setUp()
 	{
 		item = new DispatcherItem("item1", false);
 		clockRule.override(clock);

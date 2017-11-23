@@ -38,7 +38,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Properties;
 import org.junit.After;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -63,7 +63,7 @@ public abstract class VaultServiceTest
 	}
 
 	@SuppressFBWarnings("BC_UNCONFIRMED_CAST_OF_RETURN_VALUE")
-	@Before public final void setUpVaultServiceTest() throws Exception
+	@BeforeEach public final void setUpVaultServiceTest() throws Exception
 	{
 		final Properties source = new Properties();
 		source.setProperty("algorithm", ALGORITHM);

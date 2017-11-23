@@ -25,14 +25,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class GraphTest
 {
 	private Schema schema = null;
 
-	@Before public final void setUp()
+	@BeforeEach public final void setUp()
 	{
 		schema = new Schema(new HsqldbDialect(), new ConnectionProvider(){
 			@Override

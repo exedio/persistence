@@ -38,7 +38,7 @@ import com.exedio.cope.StringLengthViolationException;
 import com.exedio.cope.TestWithEnvironment;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Iterator;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class SetOrderedFieldTest extends TestWithEnvironment
@@ -51,7 +51,7 @@ public class SetOrderedFieldTest extends TestWithEnvironment
 	SetOrderedFieldItem item;
 	SetOrderedFieldItem otherItem;
 
-	@Before public final void setUp()
+	@BeforeEach public final void setUp()
 	{
 		item = new SetOrderedFieldItem();
 		otherItem = new SetOrderedFieldItem();

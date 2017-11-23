@@ -19,11 +19,11 @@
 package com.exedio.dsmf;
 
 import org.junit.After;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 
 public abstract class SchemaReadyTest extends SchemaTest
 {
-	@Before public final void setUpSchemaReadyTest()
+	@BeforeEach public final void setUpSchemaReadyTest()
 	{
 		final Schema schema = getSchema();
 		schema.tearDown();

@@ -26,7 +26,7 @@ import static org.junit.Assert.assertEquals;
 import com.exedio.cope.util.Day;
 import java.util.Arrays;
 import java.util.List;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class QuerySearchSizeCacheLimitTest extends TestWithEnvironment
@@ -44,7 +44,7 @@ public class QuerySearchSizeCacheLimitTest extends TestWithEnvironment
 	private Query<?> q;
 	private DayItem i1, i2, i3, i4, i5;
 
-	@Before public final void setUp()
+	@BeforeEach public final void setUp()
 	{
 		cacheEnabled = model.getConnectProperties().getQueryCacheLimit()>0;
 		q = TYPE.newQuery();

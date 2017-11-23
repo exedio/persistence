@@ -46,7 +46,7 @@ import com.exedio.cope.util.Day;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Date;
 import java.util.List;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class CoalesceFunctionTest extends TestWithEnvironment
@@ -71,7 +71,7 @@ public class CoalesceFunctionTest extends TestWithEnvironment
 		return aDay.add(offset);
 	}
 
-	@Before public final void setUp()
+	@BeforeEach public final void setUp()
 	{
 		item1  = new CompareFunctionConditionItem("string1", 1, 11l, 2.1, date(-2), day(-2), XEnum.V1);
 		item2  = new CompareFunctionConditionItem("string2", 2, 12l, 2.2, date(-1), day(-1), XEnum.V2);

@@ -23,7 +23,7 @@ import static java.lang.Integer.MIN_VALUE;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class ItemCacheDataTest extends TestWithEnvironment
@@ -38,7 +38,7 @@ public class ItemCacheDataTest extends TestWithEnvironment
 	boolean v;
 	ItemCacheDataItem item;
 
-	@Before public final void setUp()
+	@BeforeEach public final void setUp()
 	{
 		v = ItemCacheDataItem.data.getVaultInfo()!=null;
 		item = new ItemCacheDataItem();

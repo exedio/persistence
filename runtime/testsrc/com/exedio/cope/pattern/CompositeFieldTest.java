@@ -54,7 +54,7 @@ import com.exedio.cope.pattern.CompositeValue.AnEnum;
 import com.exedio.cope.tojunit.EqualsAssert;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Arrays;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class CompositeFieldTest extends TestWithEnvironment
@@ -77,7 +77,7 @@ public class CompositeFieldTest extends TestWithEnvironment
 	CompositeOptionalItem oItem;
 	CompositeFinalItem fItem;
 
-	@Before public final void setUp()
+	@BeforeEach public final void setUp()
 	{
 		target1 = new CompositeOptionalItem("target1");
 		target2 = new CompositeOptionalItem("target2");

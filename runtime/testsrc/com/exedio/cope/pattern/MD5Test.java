@@ -31,7 +31,7 @@ import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Model;
 import com.exedio.cope.TestWithEnvironment;
 import java.util.Arrays;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class MD5Test extends TestWithEnvironment
@@ -50,7 +50,7 @@ public class MD5Test extends TestWithEnvironment
 
 	MD5Item item;
 
-	@Before public final void setUp()
+	@BeforeEach public final void setUp()
 	{
 		item = new MD5Item(FRANK);
 	}

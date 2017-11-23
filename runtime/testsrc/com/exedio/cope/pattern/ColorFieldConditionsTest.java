@@ -27,7 +27,7 @@ import com.exedio.cope.Query;
 import com.exedio.cope.TestWithEnvironment;
 import java.awt.Color;
 import java.util.Arrays;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class ColorFieldConditionsTest extends TestWithEnvironment
@@ -47,7 +47,7 @@ public class ColorFieldConditionsTest extends TestWithEnvironment
 	// named by the colors for fields optional and alpha
 	private ColorFieldItem iNN, iWW, iBB, iNT, iNL;
 
-	@Before public final void setUp()
+	@BeforeEach public final void setUp()
 	{
 		iNN  = new ColorFieldItem(cWhite);
 		iNN.setOptionalAndAlpha(null);

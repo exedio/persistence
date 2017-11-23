@@ -31,7 +31,7 @@ import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.pattern.DynamicModel.Enum;
 import com.exedio.cope.pattern.DynamicModel.Field;
 import com.exedio.cope.pattern.DynamicModel.Type;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class DynamicModelCastTest extends TestWithEnvironment
@@ -50,7 +50,7 @@ public class DynamicModelCastTest extends TestWithEnvironment
 
 	ModelItem item;
 
-	@Before public final void setUp()
+	@BeforeEach public final void setUp()
 	{
 		item = new ModelItem("item");
 	}

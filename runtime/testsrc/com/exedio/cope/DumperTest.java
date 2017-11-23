@@ -34,7 +34,7 @@ import static org.junit.Assume.assumeTrue;
 import com.exedio.cope.tojunit.SI;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.IOException;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class DumperTest extends TestWithEnvironment
@@ -52,7 +52,7 @@ public class DumperTest extends TestWithEnvironment
 
 	@SuppressWarnings({"AssignmentToStaticFieldFromInstanceMethod", "deprecation"})
 	@SuppressFBWarnings("ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD")
-	@Before public final void setUp()
+	@BeforeEach public final void setUp()
 	{
 		DumperItem.beforeNewCopeItemCount = 0;
 		dumper = new Dumper();

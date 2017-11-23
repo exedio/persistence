@@ -33,7 +33,7 @@ import com.exedio.cope.util.Sources;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Properties;
 import org.junit.After;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 @MainRule.Tag
@@ -53,7 +53,7 @@ public class DispatcherPurgeTest extends TestWithEnvironment
 	DispatcherItem itemFailureBefore;
 	DispatcherItem itemFailureAfter;
 
-	@Before public void setUp()
+	@BeforeEach public void setUp()
 	{
 		itemSuccessBefore = new DispatcherItem("successBefore", false);
 		itemSuccessAfter  = new DispatcherItem("successAfter",  false);

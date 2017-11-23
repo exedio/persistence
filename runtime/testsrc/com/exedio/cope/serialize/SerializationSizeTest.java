@@ -31,7 +31,7 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class SerializationSizeTest extends TestWithEnvironment
@@ -44,7 +44,7 @@ public class SerializationSizeTest extends TestWithEnvironment
 	ArrayList<Serializable> accu = null;
 	int previousSize;
 
-	@Before public final void setUp()
+	@BeforeEach public final void setUp()
 	{
 		accu = new ArrayList<>();
 		previousSize = accuSize();

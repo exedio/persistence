@@ -34,7 +34,7 @@ import static com.exedio.cope.tojunit.EqualsAssert.assertNotEqualsAndHash;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class MinusDoubleTest extends TestWithEnvironment
@@ -54,7 +54,7 @@ public class MinusDoubleTest extends TestWithEnvironment
 	MinusDoubleItem item;
 	MinusDoubleItem item2;
 
-	@Before public final void setUp()
+	@BeforeEach public final void setUp()
 	{
 		item = new MinusDoubleItem(8.5, 2.5, 4.0);
 		item2 = new MinusDoubleItem(30.3, 4.4, 5.5);

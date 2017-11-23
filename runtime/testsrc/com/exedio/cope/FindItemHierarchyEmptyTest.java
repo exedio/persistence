@@ -20,7 +20,7 @@ package com.exedio.cope;
 
 import static org.junit.Assert.assertSame;
 
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class FindItemHierarchyEmptyTest extends TestWithEnvironment
@@ -33,7 +33,7 @@ public class FindItemHierarchyEmptyTest extends TestWithEnvironment
 	HierarchyEmptySub subItem;
 	HierarchyEmptySuper superItem;
 
-	@Before public final void setUp()
+	@BeforeEach public final void setUp()
 	{
 		subItem = new HierarchyEmptySub(0);
 		superItem = new HierarchyEmptySuper(3);

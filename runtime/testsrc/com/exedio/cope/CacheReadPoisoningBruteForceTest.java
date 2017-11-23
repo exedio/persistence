@@ -24,7 +24,7 @@ import java.util.Arrays;
 import java.util.Objects;
 import org.junit.After;
 import org.junit.Assert;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 @MainRule.Tag
@@ -48,7 +48,7 @@ public class CacheReadPoisoningBruteForceTest extends TestWithEnvironment
 	final ThreadStoppable threads[] = new ThreadStoppable[10];
 	final StringBuilder failures = new StringBuilder();
 
-	@Before public final void setUp()
+	@BeforeEach public final void setUp()
 	{
 		stamps = model.getConnectProperties().itemCacheStamps;
 

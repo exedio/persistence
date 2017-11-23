@@ -26,7 +26,7 @@ import com.exedio.dsmf.Constraint;
 import com.exedio.dsmf.Node;
 import com.exedio.dsmf.Node.Color;
 import org.junit.After;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 
 public abstract class SchemaMismatchTest extends TestWithEnvironment
 {
@@ -39,7 +39,7 @@ public abstract class SchemaMismatchTest extends TestWithEnvironment
 		this.modelB = requireNonNull(modelB, "modelB");
 	}
 
-	@Before public final void setUpSchemaMismatchTest()
+	@BeforeEach public final void setUpSchemaMismatchTest()
 	{
 		modelB.connect(model.getConnectProperties());
 	}

@@ -26,7 +26,7 @@ import static org.junit.Assert.assertSame;
 import static org.junit.Assume.assumeTrue;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class ItemCacheStampPurgeTest extends TestWithEnvironment
@@ -40,7 +40,7 @@ public class ItemCacheStampPurgeTest extends TestWithEnvironment
 	@SuppressFBWarnings("URF_UNREAD_FIELD")
 	CacheIsolationItem item1, item2, itemX;
 
-	@Before public final void setUp()
+	@BeforeEach public final void setUp()
 	{
 		final ConnectProperties props = model.getConnectProperties();
 		ignore =

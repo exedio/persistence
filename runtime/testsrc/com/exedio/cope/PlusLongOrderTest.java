@@ -34,7 +34,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 @SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
@@ -49,7 +49,7 @@ public class PlusLongOrderTest extends TestWithEnvironment
 	PlusLongItem item2;
 	PlusLongItem item3;
 
-	@Before public final void setUp()
+	@BeforeEach public final void setUp()
 	{
 		item1 = new PlusLongItem(1l, 6l, -1000l);
 		item2 = new PlusLongItem(2l, 1l, -1000l);

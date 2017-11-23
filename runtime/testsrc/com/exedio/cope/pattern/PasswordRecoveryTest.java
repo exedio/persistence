@@ -46,7 +46,7 @@ import com.exedio.cope.tojunit.ClockRule;
 import com.exedio.cope.tojunit.MainRule;
 import java.util.Arrays;
 import java.util.Date;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 @MainRule.Tag
@@ -69,7 +69,7 @@ public class PasswordRecoveryTest extends TestWithEnvironment
 
 	PasswordRecoveryItem i;
 
-	@Before public final void setUp()
+	@BeforeEach public final void setUp()
 	{
 		i = new PasswordRecoveryItem("oldpass");
 		clockRule.override(clock);

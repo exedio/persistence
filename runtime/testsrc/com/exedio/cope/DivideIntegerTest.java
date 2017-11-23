@@ -38,7 +38,7 @@ import static com.exedio.cope.tojunit.EqualsAssert.assertNotEqualsAndHash;
 import static org.junit.Assert.assertEquals;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 @SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
@@ -53,7 +53,7 @@ public class DivideIntegerTest extends TestWithEnvironment
 
 	DivideIntegerItem item;
 
-	@Before public final void setUp()
+	@BeforeEach public final void setUp()
 	{
 		item = new DivideIntegerItem(7, 9, 3);
 		new DivideIntegerItem(30, 4, 5);

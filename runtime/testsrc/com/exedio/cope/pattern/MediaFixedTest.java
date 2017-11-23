@@ -38,7 +38,7 @@ import com.exedio.cope.TestWithEnvironment;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.IOException;
 import java.io.InputStream;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class MediaFixedTest extends TestWithEnvironment
@@ -50,7 +50,7 @@ public class MediaFixedTest extends TestWithEnvironment
 
 	protected MediaItem item;
 
-	@Before public final void setUp()
+	@BeforeEach public final void setUp()
 	{
 		item = new MediaItem("test media item");
 	}

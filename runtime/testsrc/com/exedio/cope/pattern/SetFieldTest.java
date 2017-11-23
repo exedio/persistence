@@ -40,7 +40,7 @@ import com.exedio.cope.TestWithEnvironment;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Date;
 import java.util.Iterator;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class SetFieldTest extends TestWithEnvironment
@@ -53,7 +53,7 @@ public class SetFieldTest extends TestWithEnvironment
 	SetFieldItem item;
 	SetFieldItem otherItem;
 
-	@Before public final void setUp()
+	@BeforeEach public final void setUp()
 	{
 		item = new SetFieldItem();
 		otherItem = new SetFieldItem();

@@ -43,7 +43,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class LimitedListFieldTest extends TestWithEnvironment
@@ -55,7 +55,7 @@ public class LimitedListFieldTest extends TestWithEnvironment
 
 	LimitedListFieldItem item;
 
-	@Before public final void setUp()
+	@BeforeEach public final void setUp()
 	{
 		item = new LimitedListFieldItem(1, 2, 3);
 	}

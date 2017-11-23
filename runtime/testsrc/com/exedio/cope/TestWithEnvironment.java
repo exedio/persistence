@@ -30,7 +30,7 @@ import java.lang.annotation.Inherited;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 
 @TestWithEnvironment.Tag
 @MainRule.Tag
@@ -65,7 +65,7 @@ public abstract class TestWithEnvironment
 	protected boolean postgresql;
 	protected boolean cache;
 
-	@Before public final void setUpAbstractRuntimeModelTest()
+	@BeforeEach public final void setUpAbstractRuntimeModelTest()
 	{
 		tester.setUp();
 		model.connect().connectionFactory.isValidOnGetFails = true;

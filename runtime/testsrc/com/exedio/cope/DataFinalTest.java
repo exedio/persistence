@@ -28,7 +28,7 @@ import com.exedio.cope.tojunit.MainRule;
 import com.exedio.cope.tojunit.MyTemporaryFolder;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.IOException;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 @MainRule.Tag
@@ -47,7 +47,7 @@ public class DataFinalTest extends TestWithEnvironment
 
 	private DataFinalItem item;
 
-	@Before public final void setUp()
+	@BeforeEach public final void setUp()
 	{
 		item = new DataFinalItem(toValue(bytes4));
 	}

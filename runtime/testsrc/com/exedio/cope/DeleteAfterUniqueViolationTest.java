@@ -25,7 +25,7 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.sql.SQLException;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class DeleteAfterUniqueViolationTest extends TestWithEnvironment
@@ -40,7 +40,7 @@ public class DeleteAfterUniqueViolationTest extends TestWithEnvironment
 
 	private boolean unq;
 
-	@Before public final void setUp()
+	@BeforeEach public final void setUp()
 	{
 		unq = model.connect().supportsUniqueViolation;
 	}

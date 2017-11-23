@@ -31,7 +31,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 @SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
@@ -46,7 +46,7 @@ public class PlusIntegerOrderTest extends TestWithEnvironment
 	PlusIntegerItem item2;
 	PlusIntegerItem item3;
 
-	@Before public final void setUp()
+	@BeforeEach public final void setUp()
 	{
 		item1 = new PlusIntegerItem(1, 6, -1000);
 		item2 = new PlusIntegerItem(2, 1, -1000);

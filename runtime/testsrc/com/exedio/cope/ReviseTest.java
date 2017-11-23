@@ -52,7 +52,7 @@ import java.util.LinkedHashMap;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Properties;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 @TestWithEnvironment.Tag
@@ -87,7 +87,7 @@ public class ReviseTest
 	private String hostname;
 	private ConnectProperties props;
 
-	@Before public final void setUp() throws UnknownHostException
+	@BeforeEach public final void setUp() throws UnknownHostException
 	{
 		hostname = InetAddress.getLocalHost().getHostName();
 		props = ConnectProperties.create(source(true));

@@ -34,7 +34,7 @@ import com.exedio.cope.SchemaInfo;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.TestWithEnvironment;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 @SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
@@ -47,7 +47,7 @@ public class PriceFieldTest extends TestWithEnvironment
 
 	PriceFieldItem item;
 
-	@Before public final void setUp()
+	@BeforeEach public final void setUp()
 	{
 		item = new PriceFieldItem(storeOf(555), storeOf(7777));
 	}

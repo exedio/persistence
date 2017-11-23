@@ -39,7 +39,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 @SuppressWarnings("MapReplaceableByEnumMap")
@@ -52,7 +52,7 @@ public class MapFieldTest extends TestWithEnvironment
 
 	MapFieldItem item, itemX;
 
-	@Before public final void setUp()
+	@BeforeEach public final void setUp()
 	{
 		item = new MapFieldItem();
 		itemX = new MapFieldItem();

@@ -37,7 +37,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import org.junit.After;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 @MainRule.Tag
@@ -53,7 +53,7 @@ public class DataTest extends TestWithEnvironment
 	private DataItem item;
 	private byte[] dataBig;
 
-	@Before public final void setUp()
+	@BeforeEach public final void setUp()
 	{
 		final int data8Length = bytes8.length;
 		// must be substantially larger than

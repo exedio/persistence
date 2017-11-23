@@ -33,7 +33,7 @@ import com.exedio.cope.instrument.WrapperIgnore;
 import com.exedio.cope.util.Sources;
 import java.util.Properties;
 import org.junit.After;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class EnumMapFieldSchemaNameTest
@@ -75,7 +75,7 @@ public class EnumMapFieldSchemaNameTest
 	private static final Model MODEL = new Model(TypesBound.newType(AnItem.class));
 
 	@SuppressWarnings("static-method")
-	@Before public final void setUp()
+	@BeforeEach public final void setUp()
 	{
 		final Properties source = new Properties();
 		source.setProperty("connection.url", "jdbc:hsqldb:mem:EnumMapFieldSchemaNameTest");

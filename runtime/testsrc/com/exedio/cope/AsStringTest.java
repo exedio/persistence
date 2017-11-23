@@ -28,7 +28,7 @@ import static org.junit.Assert.assertFalse;
 
 import java.util.Iterator;
 import java.util.List;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class AsStringTest extends TestWithEnvironment
@@ -42,7 +42,7 @@ public class AsStringTest extends TestWithEnvironment
 
 	AsStringItem item1, item10, item2, itemN, item0, itemX;
 
-	@Before public final void setUp()
+	@BeforeEach public final void setUp()
 	{
 		item1 = new AsStringItem( 13,  15l,  1.9);
 		item10= new AsStringItem( 13,  15l,  0.9);

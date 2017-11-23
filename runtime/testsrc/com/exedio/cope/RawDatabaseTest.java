@@ -23,13 +23,13 @@ import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import org.junit.After;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 
 public abstract class RawDatabaseTest
 {
 	protected Connection con;
 
-	@Before public final void setUpRawDatabaseTest() throws SQLException
+	@BeforeEach public final void setUpRawDatabaseTest() throws SQLException
 	{
 		final ConnectProperties props =
 				new ConnectProperties(ConnectProperties.getDefaultPropertyFile());

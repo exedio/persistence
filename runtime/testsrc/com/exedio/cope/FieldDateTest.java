@@ -35,7 +35,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 @MainRule.Tag
@@ -44,7 +44,7 @@ public class FieldDateTest extends FieldTest
 	private final AbsoluteMockClockStrategy clock = new AbsoluteMockClockStrategy();
 	private final ClockRule clockRule = new ClockRule();
 
-	@Before public final void setUp()
+	@BeforeEach public final void setUp()
 	{
 		clockRule.override(clock);
 	}

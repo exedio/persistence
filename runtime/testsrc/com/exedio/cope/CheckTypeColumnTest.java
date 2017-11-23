@@ -29,7 +29,7 @@ import com.exedio.cope.tojunit.SI;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.sql.SQLException;
 import org.junit.After;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 @MainRule.Tag
@@ -53,7 +53,7 @@ public class CheckTypeColumnTest extends TestWithEnvironment
 	InstanceOfRefItem reffc1;
 	InstanceOfRefItem reffN;
 
-	@Before public final void setUp()
+	@BeforeEach public final void setUp()
 	{
 		itema = new InstanceOfAItem("itema");
 		itemb1 = new InstanceOfB1Item("itemb1");

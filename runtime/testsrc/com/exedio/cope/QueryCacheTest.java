@@ -28,7 +28,7 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class QueryCacheTest extends TestWithEnvironment
@@ -39,7 +39,7 @@ public class QueryCacheTest extends TestWithEnvironment
 	}
 
 	@SuppressWarnings("static-method")
-	@Before public final void setUp()
+	@BeforeEach public final void setUp()
 	{
 		new MatchItem();
 	}

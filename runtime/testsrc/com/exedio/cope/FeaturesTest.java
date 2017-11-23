@@ -22,7 +22,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 import java.lang.reflect.AnnotatedElement;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class FeaturesTest
@@ -30,7 +30,7 @@ public class FeaturesTest
 	private Features features;
 	private AnnotatedElement annotationSource;
 
-	@Before public final void setUp() throws NoSuchFieldException
+	@BeforeEach public final void setUp() throws NoSuchFieldException
 	{
 		features = new Features();
 		annotationSource = getClass().getDeclaredField("annotationSource");

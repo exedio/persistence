@@ -34,7 +34,7 @@ import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.TestWithEnvironment;
 import java.util.Arrays;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class ItemSerializationTest extends TestWithEnvironment
@@ -53,7 +53,7 @@ public class ItemSerializationTest extends TestWithEnvironment
 
 	private ItemSerializationItem item;
 
-	@Before public final void setUp()
+	@BeforeEach public final void setUp()
 	{
 		// need this to let item have pk==1 but not the default pk==0, which could hide bugs
 		new ItemSerializationItem("nullus");

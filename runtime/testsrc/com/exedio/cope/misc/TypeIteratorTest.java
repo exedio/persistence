@@ -34,7 +34,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class TypeIteratorTest extends TestWithEnvironment
@@ -46,7 +46,7 @@ public class TypeIteratorTest extends TestWithEnvironment
 
 	QueryAggregatorItem item0, item1, item2, item3, item4;
 
-	@Before public final void setUp()
+	@BeforeEach public final void setUp()
 	{
 		item0 = new QueryAggregatorItem(0);
 		item1 = new QueryAggregatorItem(1);

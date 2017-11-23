@@ -34,7 +34,7 @@ import static org.junit.Assert.assertEquals;
 
 import com.exedio.cope.testmodel.StringItem;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 @SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
@@ -56,7 +56,7 @@ public class FunctionTest extends TestWithEnvironment
 		return result;
 	}
 
-	@Before public final void setUp()
+	@BeforeEach public final void setUp()
 	{
 		item1 = newItem("5ffff", "4ddd");
 		item2 = newItem("6ggggg", "2b");

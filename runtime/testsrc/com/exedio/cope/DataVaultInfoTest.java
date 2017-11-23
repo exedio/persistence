@@ -31,7 +31,7 @@ import com.exedio.cope.vaultmock.VaultMockService;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import org.junit.After;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class DataVaultInfoTest
@@ -122,7 +122,7 @@ public class DataVaultInfoTest
 	}
 
 	@SuppressWarnings("static-method")
-	@Before public final void setUp()
+	@BeforeEach public final void setUp()
 	{
 		model.connect(ConnectProperties.create(cascade(
 				single("dataField.vault", true),

@@ -43,7 +43,7 @@ import com.exedio.cope.tojunit.TestSources;
 import java.util.Date;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 @MainRule.Tag
@@ -62,7 +62,7 @@ public class ConnectTokenTest
 
 	private final ConnectTokenRule ctr = new ConnectTokenRule(model);
 
-	@Before public final void setUp()
+	@BeforeEach public final void setUp()
 	{
 		ctr.set(props);
 	}

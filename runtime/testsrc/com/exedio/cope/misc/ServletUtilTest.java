@@ -42,7 +42,7 @@ import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 @MainRule.Tag
@@ -57,7 +57,7 @@ public class ServletUtilTest
 	private final ConnectTokenRule ctrOk2 = new ConnectTokenRule(modelOk2);
 	private final ConnectTokenRule ctrContext = new ConnectTokenRule(modelContext);
 
-	@Before public final void setUp()
+	@BeforeEach public final void setUp()
 	{
 		final ConnectProperties props = ConnectProperties.create(TestSources.minimal());
 		ctrOk.set(props);

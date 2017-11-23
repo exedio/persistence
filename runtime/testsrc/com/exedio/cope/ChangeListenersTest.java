@@ -26,7 +26,7 @@ import static org.junit.Assert.fail;
 import com.exedio.cope.instrument.WrapperIgnore;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.After;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class ChangeListenersTest
@@ -37,7 +37,7 @@ public class ChangeListenersTest
 	 */
 	private ChangeListenerInfo baselineInfo = model.getChangeListenersInfo();
 
-	@Before public final void setUp()
+	@BeforeEach public final void setUp()
 	{
 		baselineInfo = model.getChangeListenersInfo();
 	}

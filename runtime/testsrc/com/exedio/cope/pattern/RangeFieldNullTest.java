@@ -26,7 +26,7 @@ import static org.junit.Assert.fail;
 import com.exedio.cope.TestWithEnvironment;
 import java.util.Arrays;
 import java.util.List;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class RangeFieldNullTest extends TestWithEnvironment
@@ -38,7 +38,7 @@ public class RangeFieldNullTest extends TestWithEnvironment
 
 	RangeFieldItem ab, nb, an, nn;
 
-	@Before public final void setUp()
+	@BeforeEach public final void setUp()
 	{
 		ab = new RangeFieldItem(10,   20);
 		nb = new RangeFieldItem(null, 20);

@@ -23,7 +23,7 @@ import static com.exedio.cope.JoinFunctionItem.integer;
 import static com.exedio.cope.JoinFunctionItemSingle.name;
 import static com.exedio.cope.tojunit.Assert.assertContains;
 
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class JoinFunctionTest extends TestWithEnvironment
@@ -37,7 +37,7 @@ public class JoinFunctionTest extends TestWithEnvironment
 
 	private JoinFunctionItemSingle single;
 
-	@Before public final void setUp()
+	@BeforeEach public final void setUp()
 	{
 		single = new JoinFunctionItemSingle("single");
 		new JoinFunctionItem("a1", Integer.valueOf(1));

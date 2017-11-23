@@ -34,7 +34,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
 import org.junit.After;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 @SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
@@ -48,7 +48,7 @@ public class TypeIteratorTransactionallyTest extends TestWithEnvironment
 
 	QueryAggregatorItem item0, item1, item2, item3, item4;
 
-	@Before public final void setUp()
+	@BeforeEach public final void setUp()
 	{
 		try(TransactionTry tx = model.startTransactionTry(getClass().getName()))
 		{

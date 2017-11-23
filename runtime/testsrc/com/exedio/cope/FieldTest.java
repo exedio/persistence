@@ -21,7 +21,7 @@ package com.exedio.cope;
 import com.exedio.cope.testmodel.AttributeItem;
 import com.exedio.cope.testmodel.EmptyItem;
 import java.util.List;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 
 
 public abstract class FieldTest extends TestmodelTest
@@ -31,7 +31,7 @@ public abstract class FieldTest extends TestmodelTest
 	protected AttributeItem item;
 	protected AttributeItem item2;
 
-	@Before public final void setUpFieldTest()
+	@BeforeEach public final void setUpFieldTest()
 	{
 		emptyItem = new EmptyItem();
 		emptyItem2 = new EmptyItem();

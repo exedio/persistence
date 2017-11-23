@@ -27,7 +27,7 @@ import com.exedio.cope.Item;
 import com.exedio.cope.NoSuchIDException;
 import com.exedio.cope.TestWithEnvironment;
 import java.util.List;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class FindItemPatternTest extends TestWithEnvironment
@@ -39,7 +39,7 @@ public class FindItemPatternTest extends TestWithEnvironment
 
 	ListFieldItem item;
 
-	@Before public final void setUp()
+	@BeforeEach public final void setUp()
 	{
 		item = new ListFieldItem();
 		item.addToStrings("xxzero");

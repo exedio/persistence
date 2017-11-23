@@ -26,7 +26,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.IOException;
 import java.net.SocketException;
 import org.junit.After;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 @SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
@@ -37,7 +37,7 @@ public final class ClusterSenderMulticastTest
 	private static final int SECRET = 0x88776655;
 
 	@SuppressFBWarnings("BC_UNCONFIRMED_CAST_OF_RETURN_VALUE")
-	@Before public void setUp()
+	@BeforeEach public void setUp()
 	{
 		final ClusterProperties properties =
 			ClusterProperties.factory().create(cascade(

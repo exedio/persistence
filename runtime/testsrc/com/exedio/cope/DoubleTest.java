@@ -41,7 +41,7 @@ import static org.junit.Assert.fail;
 import com.exedio.cope.CompareFunctionCondition.Operator;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Date;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class DoubleTest extends TestWithEnvironment
@@ -62,7 +62,7 @@ public class DoubleTest extends TestWithEnvironment
 	private DoubleItem item;
 	private int numberOfItems;
 
-	@Before public final void setUp()
+	@BeforeEach public final void setUp()
 	{
 		item = new DoubleItem(2201.01);
 		new DoubleItem(2202.02);

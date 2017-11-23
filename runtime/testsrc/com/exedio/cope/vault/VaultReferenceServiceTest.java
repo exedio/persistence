@@ -26,7 +26,7 @@ import static org.junit.Assert.assertEquals;
 import com.exedio.cope.util.Properties.Source;
 import com.exedio.cope.vaultmock.VaultMockService;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 @SuppressFBWarnings({"UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR", "BC_UNCONFIRMED_CAST_OF_RETURN_VALUE"})
@@ -36,7 +36,7 @@ public class VaultReferenceServiceTest
 	private VaultMockService main;
 	private VaultMockService refr;
 
-	@Before public void before()
+	@BeforeEach public void before()
 	{
 		final Source source =
 				describe("DESC", cascade(

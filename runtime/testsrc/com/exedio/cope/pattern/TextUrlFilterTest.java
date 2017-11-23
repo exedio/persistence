@@ -37,7 +37,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import javax.servlet.ServletOutputStream;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class TextUrlFilterTest extends TestWithEnvironment
@@ -56,7 +56,7 @@ public class TextUrlFilterTest extends TestWithEnvironment
 
 	TextUrlFilterItem item, item2;
 
-	@Before public final void setUp()
+	@BeforeEach public final void setUp()
 	{
 		item  = new TextUrlFilterItem();
 		item2 = new TextUrlFilterItem();

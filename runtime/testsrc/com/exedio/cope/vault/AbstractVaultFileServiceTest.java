@@ -30,7 +30,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.util.Properties;
 import java.util.TreeSet;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.rules.TemporaryFolder;
 
@@ -62,7 +62,7 @@ public abstract class AbstractVaultFileServiceTest extends VaultServiceTest
 		return root;
 	}
 
-	@Before
+	@BeforeEach
 	public final void setUpAbstractVaultFileServiceTest() throws IOException
 	{
 		Files.createDirectory(((VaultFileService)getService()).tempDir);

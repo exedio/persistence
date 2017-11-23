@@ -27,7 +27,7 @@ import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.util.Properties;
 import org.junit.After;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 
 public abstract class ConnectedTest extends TestWithEnvironment
 {
@@ -38,7 +38,7 @@ public abstract class ConnectedTest extends TestWithEnvironment
 
 	boolean c;
 
-	@Before public final void setUpConnectedTest()
+	@BeforeEach public final void setUpConnectedTest()
 	{
 		final ConnectProperties props = model.getConnectProperties();
 		c = props.getItemCacheLimit()>0;

@@ -41,7 +41,7 @@ import com.exedio.cope.tojunit.ClockRule;
 import com.exedio.cope.tojunit.MainRule;
 import java.util.Date;
 import java.util.List;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 @MainRule.Tag
@@ -58,7 +58,7 @@ public class PasswordLimiterVerboseTest extends TestWithEnvironment
 	PasswordLimiterItem i;
 	PasswordLimiterItem i2;
 
-	@Before public final void setUp()
+	@BeforeEach public final void setUp()
 	{
 		i = new PasswordLimiterItem(PASSWORD);
 		i2 = new PasswordLimiterItem(PASSWORD2);

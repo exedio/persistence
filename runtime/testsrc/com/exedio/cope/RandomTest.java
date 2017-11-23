@@ -31,7 +31,7 @@ import static org.junit.Assert.fail;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class RandomTest extends TestWithEnvironment
@@ -45,7 +45,7 @@ public class RandomTest extends TestWithEnvironment
 	List<Long> expected5, expected6;
 	List<?> expected6Sort;
 
-	@Before public final void setUp()
+	@BeforeEach public final void setUp()
 	{
 		item1 = new CompareConditionItem("string1", 1, 11l, 2.1, null, null, null);
 		item2 = new CompareConditionItem("string2", 2, 12l, 2.2, null, null, null);

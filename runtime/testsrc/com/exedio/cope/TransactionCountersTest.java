@@ -20,7 +20,7 @@ package com.exedio.cope;
 
 import static org.junit.Assert.assertEquals;
 
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class TransactionCountersTest extends TestWithEnvironment
@@ -36,7 +36,7 @@ public class TransactionCountersTest extends TestWithEnvironment
 	private long rollbackWithoutConnectionStart;
 	private long rollbackWithConnectionStart;
 
-	@Before public final void setUp()
+	@BeforeEach public final void setUp()
 	{
 		final TransactionCounters c = model.getTransactionCounters();
 		commitWithoutConnectionStart   = c.getCommitWithoutConnection();

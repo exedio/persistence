@@ -32,7 +32,7 @@ import com.exedio.cope.tojunit.SI;
 import com.exedio.dsmf.SQLRuntimeException;
 import java.util.List;
 import java.util.function.Predicate;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 @SuppressWarnings("HardcodedLineSeparator") // OK: newline in sql error
@@ -50,7 +50,7 @@ public class DistinctOrderByTest extends TestWithEnvironment
 	private static final String ALIAS = "PlusIntegerItem";
 	private String NULLS_FIRST;
 
-	@Before public final void setUp()
+	@BeforeEach public final void setUp()
 	{
 		item1 = new PlusIntegerItem(2, 4, 5);
 		item2 = new PlusIntegerItem(1, 4, 5);

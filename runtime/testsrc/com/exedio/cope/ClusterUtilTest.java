@@ -24,7 +24,7 @@ import static org.junit.Assert.assertEquals;
 import com.exedio.cope.util.Hex;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Arrays;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 @SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
@@ -33,7 +33,7 @@ public class ClusterUtilTest
 	private static final byte FILL = (byte)0xee;
 	private byte[] buf;
 
-	@Before public final void setUp()
+	@BeforeEach public final void setUp()
 	{
 		buf = new byte[100];
 		Arrays.fill(buf, (byte)0xee);

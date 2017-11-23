@@ -46,7 +46,7 @@ import static com.exedio.cope.tojunit.EqualsAssert.assertNotEqualsAndHash;
 import static org.junit.Assert.assertEquals;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 @SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
@@ -61,7 +61,7 @@ public class PlusLongTest extends TestWithEnvironment
 
 	PlusLongItem item;
 
-	@Before public final void setUp()
+	@BeforeEach public final void setUp()
 	{
 		item = new PlusLongItem(1l, 2l, 3l);
 		new PlusLongItem(3l, 4l, 5l);

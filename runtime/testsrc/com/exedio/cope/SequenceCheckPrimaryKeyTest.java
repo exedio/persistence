@@ -30,7 +30,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class SequenceCheckPrimaryKeyTest extends TestWithEnvironment
@@ -50,7 +50,7 @@ public class SequenceCheckPrimaryKeyTest extends TestWithEnvironment
 
 	private boolean p;
 
-	@Before public void setUp()
+	@BeforeEach public void setUp()
 	{
 		final ConnectProperties props = model.getConnectProperties();
 		model.disconnect();

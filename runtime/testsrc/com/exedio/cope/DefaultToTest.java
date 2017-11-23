@@ -55,7 +55,7 @@ import com.exedio.cope.tojunit.MainRule;
 import com.exedio.cope.util.Day;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Date;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 @MainRule.Tag
@@ -70,7 +70,7 @@ public class DefaultToTest extends TestWithEnvironment
 	private final ClockRule clockRule = new ClockRule();
 
 
-	@Before public final void setUp()
+	@BeforeEach public final void setUp()
 	{
 		clockRule.override(clock);
 	}

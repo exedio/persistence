@@ -24,7 +24,7 @@ import static org.junit.Assert.fail;
 
 import com.exedio.cope.EnumItem.Single;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 @SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
@@ -43,7 +43,7 @@ public class EnumTest extends TestWithEnvironment
 		super(MODEL);
 	}
 
-	@Before public final void setUp()
+	@BeforeEach public final void setUp()
 	{
 		item = new EnumItem(EnumItem.Status.status1);
 		item2 = new EnumItem2(EnumItem2.Status.state1);

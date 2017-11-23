@@ -32,7 +32,7 @@ import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.TestWithEnvironment;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.awt.Color;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class ColorFieldTest extends TestWithEnvironment
@@ -44,7 +44,7 @@ public class ColorFieldTest extends TestWithEnvironment
 
 	private ColorFieldItem i;
 
-	@Before public final void setUp()
+	@BeforeEach public final void setUp()
 	{
 		i = new ColorFieldItem(new Color(1, 2, 3), new Color (3, 4, 5));
 	}

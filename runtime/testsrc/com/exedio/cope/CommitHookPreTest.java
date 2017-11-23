@@ -29,7 +29,7 @@ import static org.junit.Assert.fail;
 import com.exedio.cope.tojunit.TestSources;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.After;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class CommitHookPreTest
@@ -287,7 +287,7 @@ public class CommitHookPreTest
 
 
 	@SuppressWarnings("static-method")
-	@Before public final void setUp()
+	@BeforeEach public final void setUp()
 	{
 		model.connect(ConnectProperties.create(TestSources.minimal()));
 	}

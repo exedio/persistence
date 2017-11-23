@@ -31,7 +31,7 @@ import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.util.AssertionErrorJobContext;
 import java.time.Duration;
 import org.junit.After;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class DispatcherJobContextMessageTest extends TestWithEnvironment
@@ -43,7 +43,7 @@ public class DispatcherJobContextMessageTest extends TestWithEnvironment
 
 	DispatcherItem item1, item2, item3, item4;
 
-	@Before public final void setUp()
+	@BeforeEach public final void setUp()
 	{
 		item1 = new DispatcherItem("item1", false);
 		item2 = new DispatcherItem("item2", true);

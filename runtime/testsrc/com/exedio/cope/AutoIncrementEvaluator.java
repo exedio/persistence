@@ -29,7 +29,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import org.junit.After;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
@@ -46,7 +46,7 @@ public class AutoIncrementEvaluator extends RawDatabaseTest
 
 	private Statement stat;
 
-	@Before public final void setUp() throws SQLException
+	@BeforeEach public final void setUp() throws SQLException
 	{
 		stat = con.createStatement();
 	}

@@ -41,7 +41,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class SelectTest extends TestmodelTest
@@ -68,7 +68,7 @@ public class SelectTest extends TestmodelTest
 		return result;
 	}
 
-	@Before public final void setUp()
+	@BeforeEach public final void setUp()
 	{
 		someItem = new EmptyItem();
 		someItem2 = new EmptyItem();

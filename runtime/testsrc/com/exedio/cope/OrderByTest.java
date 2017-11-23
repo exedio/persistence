@@ -44,7 +44,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class OrderByTest extends TestmodelTest
@@ -52,7 +52,7 @@ public class OrderByTest extends TestmodelTest
 	EmptyItem emptyItem, emptyItem2;
 	AttributeItem item1, item2, item3, item4, item5;
 
-	@Before public final void setUp()
+	@BeforeEach public final void setUp()
 	{
 		emptyItem = new EmptyItem();
 		emptyItem2 = new EmptyItem();

@@ -29,7 +29,7 @@ import com.exedio.cope.Join;
 import com.exedio.cope.Query;
 import com.exedio.cope.TestWithEnvironment;
 import java.util.Arrays;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class PriceFieldConditionsTest extends TestWithEnvironment
@@ -46,7 +46,7 @@ public class PriceFieldConditionsTest extends TestWithEnvironment
 				p3 = storeOf(333);
 	private PriceFieldItem iN, i1, i2, i3;
 
-	@Before public final void setUp()
+	@BeforeEach public final void setUp()
 	{
 		iN  = PriceFieldItem.n(pN, p2);
 		i1  = PriceFieldItem.n(p1, p2);

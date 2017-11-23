@@ -30,7 +30,7 @@ import static org.junit.Assert.assertSame;
 import static org.junit.Assert.fail;
 
 import java.util.Date;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class IntegerTest extends TestWithEnvironment
@@ -43,7 +43,7 @@ public class IntegerTest extends TestWithEnvironment
 	private IntegerItem item;
 	private int numberOfItems;
 
-	@Before public final void setUp()
+	@BeforeEach public final void setUp()
 	{
 		item = new IntegerItem(2201);
 		new IntegerItem(2202);

@@ -61,7 +61,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.Objects;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class ListFieldTest extends TestWithEnvironment
@@ -86,7 +86,7 @@ public class ListFieldTest extends TestWithEnvironment
 
 	ListFieldItem item;
 
-	@Before public final void setUp()
+	@BeforeEach public final void setUp()
 	{
 		item = new ListFieldItem();
 	}

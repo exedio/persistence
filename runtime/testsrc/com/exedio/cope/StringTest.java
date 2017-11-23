@@ -43,7 +43,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class StringTest extends TestWithEnvironment
@@ -58,7 +58,7 @@ public class StringTest extends TestWithEnvironment
 	StringItem item, item2;
 	int numberOfItems;
 
-	@Before public final void setUp()
+	@BeforeEach public final void setUp()
 	{
 		supports = model.supportsEmptyStrings();
 		emptyString = supports ? "" : null;

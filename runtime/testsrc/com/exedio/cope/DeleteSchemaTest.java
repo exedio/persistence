@@ -28,7 +28,7 @@ import com.exedio.cope.tojunit.LogRule;
 import com.exedio.cope.tojunit.MainRule;
 import java.util.Date;
 import java.util.Map;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 @MainRule.Tag
@@ -54,7 +54,7 @@ public class DeleteSchemaTest extends TestWithEnvironment
 
 	private Date create;
 
-	@Before public final void setUp()
+	@BeforeEach public final void setUp()
 	{
 		log.setLevelDebug();
 

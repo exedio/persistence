@@ -34,7 +34,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 @SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
@@ -49,7 +49,7 @@ public class PlusDoubleOrderTest extends TestWithEnvironment
 	PlusDoubleItem item2;
 	PlusDoubleItem item3;
 
-	@Before public final void setUp()
+	@BeforeEach public final void setUp()
 	{
 		item1 = new PlusDoubleItem(1.1, 6.6, -1000.99);
 		item2 = new PlusDoubleItem(2.2, 1.1, -1000.99);

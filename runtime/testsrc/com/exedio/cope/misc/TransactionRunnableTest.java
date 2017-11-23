@@ -27,7 +27,7 @@ import static org.junit.Assert.fail;
 import com.exedio.cope.CacheIsolationItem;
 import com.exedio.cope.CacheIsolationTest;
 import com.exedio.cope.TestWithEnvironment;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class TransactionRunnableTest extends TestWithEnvironment
@@ -39,7 +39,7 @@ public class TransactionRunnableTest extends TestWithEnvironment
 
 	CacheIsolationItem item = null;
 
-	@Before public final void setUp()
+	@BeforeEach public final void setUp()
 	{
 		item = null;
 	}

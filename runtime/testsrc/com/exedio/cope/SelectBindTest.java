@@ -29,7 +29,7 @@ import static org.junit.Assert.assertEquals;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class SelectBindTest extends TestWithEnvironment
@@ -40,7 +40,7 @@ public class SelectBindTest extends TestWithEnvironment
 	}
 
 	@SuppressWarnings("static-method")
-	@Before public final void setUp()
+	@BeforeEach public final void setUp()
 	{
 		new CompareConditionItem("string1", 1, 11l, 2.1, null, null, null);
 		new CompareConditionItem("string2", 2, 12l, 2.2, null, null, null);

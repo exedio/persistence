@@ -34,7 +34,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Properties;
 import java.util.TreeMap;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class RevisionInfoTest
@@ -44,7 +44,7 @@ public class RevisionInfoTest
 
 	private HashMap<String, String> env = null;
 
-	@Before public final void setUp()
+	@BeforeEach public final void setUp()
 	{
 		env = new HashMap<>();
 		env.put("env1Key", "env1Value");

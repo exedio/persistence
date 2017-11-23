@@ -28,7 +28,7 @@ import static org.junit.Assert.assertEquals;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.List;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 @SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
@@ -42,7 +42,7 @@ public class DistinctTest extends TestWithEnvironment
 	@SuppressFBWarnings("URF_UNREAD_FIELD")
 	PlusIntegerItem item1, item2, item3, item4;
 
-	@Before public final void setUp()
+	@BeforeEach public final void setUp()
 	{
 		item1 = new PlusIntegerItem(1, 2, 0);
 		item2 = new PlusIntegerItem(1, 3, 0);

@@ -42,7 +42,7 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import org.junit.After;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public final class MediaPathTest extends TestWithEnvironment
@@ -65,7 +65,7 @@ public final class MediaPathTest extends TestWithEnvironment
 	private int noSuchPathOnSetup;
 	private MediaInfo normalInfo = null;
 
-	@Before public void setUp()
+	@BeforeEach public void setUp()
 	{
 		item = new MediaPathItem();
 		id = item.getCopeID();

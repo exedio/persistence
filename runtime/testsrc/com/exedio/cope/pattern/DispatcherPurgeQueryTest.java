@@ -30,7 +30,7 @@ import com.exedio.cope.tojunit.MainRule;
 import com.exedio.cope.util.Sources;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Properties;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 @MainRule.Tag
@@ -41,7 +41,7 @@ public class DispatcherPurgeQueryTest
 
 
 	@SuppressFBWarnings("DLS_DEAD_LOCAL_STORE")
-	@Before public void setUp()
+	@BeforeEach public void setUp()
 	{
 		@SuppressWarnings("unused")
 		final Model model = DispatcherModelTest.MODEL; // initialize model
