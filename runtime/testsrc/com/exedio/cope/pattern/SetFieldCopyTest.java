@@ -58,8 +58,7 @@ public class SetFieldCopyTest extends TestWithEnvironment
 		super(MODEL);
 	}
 
-	@Test
-	public void names()
+	@Test void names()
 	{
 		final ItemField<Catalog> relationCatalog = (ItemField<Catalog>)ParentInCatalog.elementsSameCatalog.getCopyWithCopyField(ParentInCatalog.catalog);
 		assertEquals("copeNameCatalog", relationCatalog.getName());
@@ -72,8 +71,7 @@ public class SetFieldCopyTest extends TestWithEnvironment
 		assertEquals("schemaNameAtParent", SchemaInfo.getColumnName(ParentInCatalog.catalog));
 	}
 
-	@Test
-	public void create()
+	@Test void create()
 	{
 		final Catalog c = new Catalog();
 		final ParentInCatalog p = new ParentInCatalog(c);
@@ -85,8 +83,7 @@ public class SetFieldCopyTest extends TestWithEnvironment
 		assertEquals(c, relationItem.get(ParentInCatalog.elementsSameCatalog.getCopyWithCopyField(ParentInCatalog.catalog)));
 	}
 
-	@Test
-	public void addToUnorderedItems()
+	@Test void addToUnorderedItems()
 	{
 		final Catalog c1 = new Catalog();
 		final Catalog c2 = new Catalog();
@@ -112,8 +109,7 @@ public class SetFieldCopyTest extends TestWithEnvironment
 		assertContains(e1a, e1b, p.getElementsSameCatalog());
 	}
 
-	@Test
-	public void setUnorderedItems()
+	@Test void setUnorderedItems()
 	{
 		final Catalog c1 = new Catalog();
 		final Catalog c2 = new Catalog();
@@ -176,8 +172,7 @@ public class SetFieldCopyTest extends TestWithEnvironment
 		assertContains(e1b, p.getElementsSameCatalog());
 	}
 
-	@Test
-	public void addToOrderedNumber()
+	@Test void addToOrderedNumber()
 	{
 		assertNotNull(constraintNumberParent, model.getType("ParentWithNumber-elements").getFeatures().toString());
 		final ElementWithNumber e0a = new ElementWithNumber(0);
@@ -204,8 +199,7 @@ public class SetFieldCopyTest extends TestWithEnvironment
 		assertContainsOrdered(asList(e0b, e0a), p0.getElements());
 	}
 
-	@Test
-	public void setOrderedNumber()
+	@Test void setOrderedNumber()
 	{
 		final ElementWithNumber e0a = new ElementWithNumber(0);
 		final ElementWithNumber e0b = new ElementWithNumber(0);

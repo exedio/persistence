@@ -36,14 +36,12 @@ public class CopeExternalTest extends TestWithEnvironment
 		super(MODEL);
 	}
 
-	@Test
-	public void testItemCacheInfo()
+	@Test void testItemCacheInfo()
 	{
 		assertCacheInfo(CachedItem.TYPE);
 	}
 
-	@Test
-	public void testInstances()
+	@Test void testInstances()
 	{
 		final CachedItem cachedItem=new CachedItem();
 		final NoCacheItem noCacheItem=new NoCacheItem();
@@ -79,8 +77,7 @@ public class CopeExternalTest extends TestWithEnvironment
 		}
 	}
 
-	@Test
-	public void testQueries()
+	@Test void testQueries()
 	{
 		final int oneIfCacheActive=model.getConnectProperties().getQueryCacheLimit()>0 ? 1 : 0;
 

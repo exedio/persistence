@@ -35,8 +35,7 @@ public class UniqueConstraintTest extends TestWithEnvironment
 		super(MODEL);
 	}
 
-	@Test
-	public void search()
+	@Test void search()
 	{
 		final UniqueConstraintItem item = new UniqueConstraintItem("a", 1);
 		assertEquals(item, UniqueConstraintItem.aAndB.search("a", 1));
@@ -47,8 +46,7 @@ public class UniqueConstraintTest extends TestWithEnvironment
 		assertEquals(null, UniqueConstraintItem.forAAndB("b", 1));
 	}
 
-	@Test
-	public void searchStrict()
+	@Test void searchStrict()
 	{
 		final UniqueConstraintItem item = new UniqueConstraintItem("a", 1);
 		assertEquals(item, UniqueConstraintItem.aAndB.searchStrict("a", 1));

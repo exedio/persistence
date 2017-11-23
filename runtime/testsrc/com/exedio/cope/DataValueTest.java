@@ -33,55 +33,45 @@ import org.junit.jupiter.api.Test;
 
 public class DataValueTest
 {
-	@Test
-	public void bytesShort()
+	@Test void bytesShort()
 	{
 		assertEquals("DataField.Value:aa7af817", toValue(bytes4).toString());
 	}
-	@Test
-	public void bytesLong()
+	@Test void bytesLong()
 	{
 		assertEquals("DataField.Value:9f13f82382aa7a5613f8", toValue(bytes10).toString());
 	}
-	@Test
-	public void bytesTooLong()
+	@Test void bytesTooLong()
 	{
 		assertEquals("DataField.Value:169f13f82382aa7a5613...(11)", toValue(bytes11).toString());
 	}
-	@Test
-	public void bytesMuchTooLong()
+	@Test void bytesMuchTooLong()
 	{
 		assertEquals("DataField.Value:ca47aa7af817e968c12c...(21)", toValue(bytes21).toString());
 	}
-	@Test
-	public void bytesNull()
+	@Test void bytesNull()
 	{
 		assertEquals(null, toValue((byte[])null));
 	}
-	@Test
-	public void stream()
+	@Test void stream()
 	{
 		final ByteArrayInputStream testBaos = new ByteArrayInputStream(bytes4);
 		//noinspection ObjectToString
 		assertEquals("DataField.Value:"+testBaos, toValue(testBaos).toString());
 	}
-	@Test
-	public void streamNull()
+	@Test void streamNull()
 	{
 		assertEquals(null, toValue((InputStream)null));
 	}
-	@Test
-	public void file()
+	@Test void file()
 	{
 		assertEquals("DataField.Value:hallo.txt", toValue(new File("hallo.txt")).toString());
 	}
-	@Test
-	public void fileNull()
+	@Test void fileNull()
 	{
 		assertEquals(null, toValue((File)null));
 	}
-	@Test
-	public void zip() throws URISyntaxException, IOException
+	@Test void zip() throws URISyntaxException, IOException
 	{
 		final String filePath = DataValueTest.class.getResource("DataValueTest.zip").toURI().getPath();
 		final ZipFile file = new ZipFile(filePath);
@@ -107,8 +97,7 @@ public class DataValueTest
 			assertEquals("if file is not null, entry must also be not null", e.getMessage());
 		}
 	}
-	@Test
-	public void zipNull()
+	@Test void zipNull()
 	{
 		assertEquals(null, toValue(null, null));
 	}

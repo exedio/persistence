@@ -29,8 +29,7 @@ import org.junit.jupiter.api.Test;
 
 public class CopeExternalModelTest
 {
-	@Test
-	public void testInvalidCached() throws ClassNotFoundException
+	@Test void testInvalidCached() throws ClassNotFoundException
 	{
 		Class.forName(InvalidCachedItem.class.getName(), true, getClass().getClassLoader());
 		try
@@ -44,8 +43,7 @@ public class CopeExternalModelTest
 		}
 	}
 
-	@Test
-	public void testInvalidUncached() throws ClassNotFoundException
+	@Test void testInvalidUncached() throws ClassNotFoundException
 	{
 		Class.forName(InvalidUncachedItem.class.getName(), true, getClass().getClassLoader());
 		try

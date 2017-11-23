@@ -29,8 +29,7 @@ import org.junit.jupiter.api.Test;
 
 public class TaggedAndAnnotatedTest
 {
-	@Test
-	public void taggedAndAnnotatedAreConsistent()
+	@Test void taggedAndAnnotatedAreConsistent()
 	{
 		final String taggedSource=readFile("instrument/testsrc/com/exedio/cope/instrument/testmodel/TaggedItem.java");
 		final String annotatedSource=readFile("instrument/testsrc/com/exedio/cope/instrument/testmodel/AnnotatedItem.java");

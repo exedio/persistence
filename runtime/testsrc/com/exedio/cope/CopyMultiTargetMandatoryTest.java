@@ -37,8 +37,7 @@ public class CopyMultiTargetMandatoryTest extends TestWithEnvironment
 		super(MODEL);
 	}
 
-	@Test
-	public void create()
+	@Test void create()
 	{
 		final Target targetOne = new Target(1);
 		final Target targetTwo = new Target(2);
@@ -63,8 +62,7 @@ public class CopyMultiTargetMandatoryTest extends TestWithEnvironment
 		}
 	}
 
-	@Test
-	public void createGeneric()
+	@Test void createGeneric()
 	{
 		try
 		{
@@ -101,8 +99,7 @@ public class CopyMultiTargetMandatoryTest extends TestWithEnvironment
 		}
 	}
 
-	@Test
-	public void set()
+	@Test void set()
 	{
 		final Target target6 = new Target(6);
 		final Target target7a = new Target(7);
@@ -149,8 +146,7 @@ public class CopyMultiTargetMandatoryTest extends TestWithEnvironment
 		assertEquals(target7b, source.getTargetB());
 	}
 
-	@Test
-	public void setBoth()
+	@Test void setBoth()
 	{
 		final Source source = new Source(new Target(0), new Target(0));
 		assertEquals(0, source.getCopy());
@@ -161,8 +157,7 @@ public class CopyMultiTargetMandatoryTest extends TestWithEnvironment
 		assertEquals(1, source.getCopy());
 	}
 
-	@Test
-	public void setBothFails()
+	@Test void setBothFails()
 	{
 		final Target t0a = new Target(0);
 		final Target t0b = new Target(0);

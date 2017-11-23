@@ -35,8 +35,7 @@ import org.junit.jupiter.api.Test;
 
 public class DataVaultEnableTest
 {
-	@Test
-	public void testDisabled()
+	@Test void testDisabled()
 	{
 		model.connect(ConnectProperties.create(minimal()));
 		assertIt(MyBlank.blankF);
@@ -48,8 +47,7 @@ public class DataVaultEnableTest
 		assertIt(AnVault.vaultF);
 		assertIt(AnVault.vaultM);
 	}
-	@Test
-	public void testEnabledAny()
+	@Test void testEnabledAny()
 	{
 		model.connect(ConnectProperties.create(cascade(
 				single("dataField.vault", true),
@@ -67,8 +65,7 @@ public class DataVaultEnableTest
 		assertIt(AnVault.vaultF, "VaultMockService:main");
 		assertIt(AnVault.vaultM, "VaultMockService:main");
 	}
-	@Test
-	public void testEnabled()
+	@Test void testEnabled()
 	{
 		model.connect(ConnectProperties.create(cascade(
 				single("dataField.vault", true),
@@ -85,8 +82,7 @@ public class DataVaultEnableTest
 		assertIt(AnVault.vaultF, "VaultMockService:main");
 		assertIt(AnVault.vaultM, "VaultMockService:main");
 	}
-	@Test
-	public void testAlgorithm()
+	@Test void testAlgorithm()
 	{
 		model.connect(ConnectProperties.create(cascade(
 				single("dataField.vault", true),

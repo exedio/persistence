@@ -41,8 +41,7 @@ public class ListFieldCopyTemplateTest extends TestWithEnvironment
 		super(MODEL);
 	}
 
-	@Test
-	public void copyMustNotIncludeCopyConstraintsOfTemplates()
+	@Test void copyMustNotIncludeCopyConstraintsOfTemplates()
 	{
 		final Type<?> listRelationType = ItemWithComplexTemplate.list.getRelationType();
 		final CopyConstraint ccListParent = (CopyConstraint)listRelationType.getFeature("valueCopyFromparent");
@@ -60,16 +59,14 @@ public class ListFieldCopyTemplateTest extends TestWithEnvironment
 		assertEquals(null, setRelationType.getFeature(ccValueOther.getName()));
 	}
 
-	@Test
-	public void copyMustNotBeUniqueMeta()
+	@Test void copyMustNotBeUniqueMeta()
 	{
 		assertNotNull(ItemWithComplexTemplate.value.getImplicitUniqueConstraint());
 		assertEquals(null, ItemWithComplexTemplate.list.getCopyWithCopyField(ItemWithComplexTemplate.value).getImplicitUniqueConstraint());
 		assertEquals(null, ItemWithComplexTemplate.set.getCopyWithCopyField(ItemWithComplexTemplate.value).getImplicitUniqueConstraint());
 	}
 
-	@Test
-	public void copyMustNotBeUnique()
+	@Test void copyMustNotBeUnique()
 	{
 		final ItemWithComplexTemplate item = new ItemWithComplexTemplate(null, "x");
 		item.addToList(item);

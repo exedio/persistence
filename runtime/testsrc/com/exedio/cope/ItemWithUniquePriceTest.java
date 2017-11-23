@@ -35,8 +35,7 @@ public class ItemWithUniquePriceTest extends TestWithEnvironment
 		super(MODEL);
 	}
 
-	@Test
-	public void search()
+	@Test void search()
 	{
 		final ItemWithUniquePrice f = new ItemWithUniquePrice(Price.storeOf(234), "x");
 		assertEquals(null, ItemWithUniquePrice.forPriceAndOther(123L, "other"));
@@ -45,8 +44,7 @@ public class ItemWithUniquePriceTest extends TestWithEnvironment
 		assertEquals(f,    ItemWithUniquePrice.forPriceAndOther(234L, "x"));
 	}
 
-	@Test
-	public void noDuplicates()
+	@Test void noDuplicates()
 	{
 		new ItemWithUniquePrice(Price.storeOf(234), "x");
 		new ItemWithUniquePrice(Price.storeOf(234), "y"); // different 'other'

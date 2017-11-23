@@ -30,8 +30,7 @@ import org.junit.jupiter.api.Test;
 
 public class MainTest
 {
-	@Test
-	public void findMethods() throws HumanReadableException, NoSuchMethodException
+	@Test void findMethods() throws HumanReadableException, NoSuchMethodException
 	{
 		assertExceptionMessage("X#x()", "class not found for <testtag>: X");
 		assertExceptionMessage("java.lang.String#x()", "method not found for <testtag>: java.lang.String#x()");

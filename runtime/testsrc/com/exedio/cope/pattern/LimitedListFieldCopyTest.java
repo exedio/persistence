@@ -44,8 +44,7 @@ public class LimitedListFieldCopyTest extends TestWithEnvironment
 		super(MODEL);
 	}
 
-	@Test
-	public void testSet()
+	@Test void testSet()
 	{
 		final CopyConstraint copy0 = (CopyConstraint)LimitedListCopyItem.TYPE.getFeature("valueCopyFromlist-0");
 		final CopyConstraint copy1 = (CopyConstraint)LimitedListCopyItem.TYPE.getFeature("valueCopyFromlist-1");

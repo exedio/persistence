@@ -36,8 +36,7 @@ import org.junit.jupiter.api.Test;
 
 public class DataVaultInfoTest
 {
-	@Test
-	public void testGetLength()
+	@Test void testGetLength()
 	{
 		assertIt(0, 0, 0, 0, 0);
 
@@ -50,8 +49,7 @@ public class DataVaultInfoTest
 		assertEquals(3, item.getFieldLength());
 		assertIt(2, 0, 0, 1, 0);
 	}
-	@Test
-	public void testGetBytes()
+	@Test void testGetBytes()
 	{
 		assertIt(0, 0, 0, 0, 0);
 
@@ -64,8 +62,7 @@ public class DataVaultInfoTest
 		assertEquals("abcdef", Hex.encodeLower(item.getFieldArray()));
 		assertIt(0, 2, 0, 1, 0);
 	}
-	@Test
-	public void testGetStream() throws IOException
+	@Test void testGetStream() throws IOException
 	{
 		assertIt(0, 0, 0, 0, 0);
 
@@ -82,8 +79,7 @@ public class DataVaultInfoTest
 		assertIt(0, 0, 2, 1, 0);
 		assertEquals("abcdef", Hex.encodeLower(s.toByteArray()));
 	}
-	@Test
-	public void testPut()
+	@Test void testPut()
 	{
 		assertIt(0, 0, 0, 0, 0);
 
