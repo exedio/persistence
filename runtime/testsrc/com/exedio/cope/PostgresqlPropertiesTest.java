@@ -21,9 +21,9 @@ package com.exedio.cope;
 import static com.exedio.cope.tojunit.TestSources.describe;
 import static com.exedio.cope.tojunit.TestSources.single;
 import static com.exedio.cope.util.Sources.cascade;
+import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.Assert.fail;
 
 import com.exedio.cope.util.IllegalPropertiesException;
 import com.exedio.cope.util.Properties.Field;

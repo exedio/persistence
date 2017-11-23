@@ -19,8 +19,8 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.pattern.DispatcherPurgeProperties.factory;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.pattern.DispatcherPurgeProperties.Factory;
 import com.exedio.cope.util.Sources;

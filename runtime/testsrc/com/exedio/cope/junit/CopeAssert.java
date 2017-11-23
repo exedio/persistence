@@ -19,10 +19,10 @@
 package com.exedio.cope.junit;
 
 import static java.util.Objects.requireNonNull;
+import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.Assert.fail;
 
 import com.exedio.cope.Query;
 import com.exedio.cope.QueryInfo;

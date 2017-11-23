@@ -23,12 +23,12 @@ import static com.exedio.cope.tojunit.Assert.assertContainsList;
 import static com.exedio.cope.tojunit.Assert.assertUnmodifiable;
 import static com.exedio.cope.tojunit.Assert.sleepLongerThan;
 import static java.util.Arrays.asList;
+import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.Assert.fail;
 
 import com.exedio.cope.ChangeEvent.NotAvailableException;
 import java.util.ArrayList;

@@ -44,9 +44,9 @@ import static com.exedio.cope.SchemaInfo.getDefaultToNextSequenceName;
 import static com.exedio.cope.tojunit.Assert.list;
 import static com.exedio.cope.util.TimeZoneStrict.getTimeZone;
 import static java.lang.Boolean.TRUE;
+import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.Assert.fail;
 
 import com.exedio.cope.util.Day;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;

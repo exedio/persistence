@@ -18,8 +18,8 @@
 
 package com.exedio.cope.misc;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.util.Properties.Source;
 import org.junit.jupiter.api.Test;

@@ -29,8 +29,8 @@ import static com.exedio.cope.tojunit.Assert.assertEqualsStrict;
 import static com.exedio.cope.tojunit.Assert.assertNotEqualsStrict;
 import static java.lang.Long.MAX_VALUE;
 import static java.lang.Long.MIN_VALUE;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 

@@ -25,8 +25,8 @@ import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
 import static com.exedio.cope.tojunit.Assert.assertContains;
 import static com.exedio.cope.tojunit.Assert.list;
 import static com.exedio.cope.util.TimeZoneStrict.getTimeZone;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.junit.AbsoluteMockClockStrategy;
 import com.exedio.cope.tojunit.ClockRule;

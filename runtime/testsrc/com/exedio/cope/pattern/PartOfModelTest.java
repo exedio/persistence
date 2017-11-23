@@ -21,9 +21,9 @@ package com.exedio.cope.pattern;
 import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
 import static com.exedio.cope.tojunit.Assert.list;
+import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.Assert.fail;
 
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Model;

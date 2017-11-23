@@ -19,9 +19,9 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.vault.VaultNotFoundException.anonymiseHash;
+import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.Assert.fail;
 
 import com.exedio.cope.vault.VaultNotFoundException;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;

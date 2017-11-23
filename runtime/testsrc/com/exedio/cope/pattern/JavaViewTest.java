@@ -28,9 +28,9 @@ import static com.exedio.cope.pattern.JavaViewItem.numberString;
 import static com.exedio.cope.pattern.JavaViewItem.privat;
 import static com.exedio.cope.tojunit.EqualsAssert.assertEqualBits;
 import static java.util.Arrays.asList;
+import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.Assert.fail;
 
 import com.exedio.cope.Feature;
 import com.exedio.cope.Model;

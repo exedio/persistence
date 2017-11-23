@@ -38,8 +38,8 @@ import static java.lang.Double.valueOf;
 import static java.lang.Integer.valueOf;
 import static java.lang.Long.valueOf;
 import static java.util.Arrays.asList;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.CompareConditionItem.YEnum;
 import com.exedio.cope.util.Day;

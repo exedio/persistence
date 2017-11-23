@@ -23,8 +23,8 @@ import static com.exedio.cope.misc.QueryAggregatorItem.intx;
 import static com.exedio.cope.misc.QueryIterators.iterateType;
 import static com.exedio.cope.tojunit.Assert.list;
 import static java.util.Arrays.asList;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.Condition;
 import com.exedio.cope.QueryInfo;

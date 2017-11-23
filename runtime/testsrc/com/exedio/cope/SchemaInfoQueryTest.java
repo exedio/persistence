@@ -27,10 +27,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.tojunit.SI;
 import com.exedio.cope.tojunit.TestSources;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class SchemaInfoQueryTest

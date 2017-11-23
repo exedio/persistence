@@ -25,9 +25,9 @@ import static com.exedio.cope.LongItem.max4;
 import static com.exedio.cope.LongItem.min4;
 import static com.exedio.cope.LongItem.min4Max8;
 import static java.lang.Long.valueOf;
+import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.Assert.fail;
 
 import java.util.Date;
 import org.junit.jupiter.api.BeforeEach;

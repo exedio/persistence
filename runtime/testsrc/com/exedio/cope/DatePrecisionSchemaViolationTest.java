@@ -22,9 +22,9 @@ import static com.exedio.cope.DatePrecisionConditionTest.date;
 import static com.exedio.cope.SchemaInfo.getTableName;
 import static com.exedio.cope.SchemaInfo.supportsCheckConstraints;
 import static com.exedio.cope.SchemaInfo.supportsNativeDate;
+import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.Assert.fail;
 
 import com.exedio.dsmf.SQLRuntimeException;
 import com.exedio.dsmf.Table;

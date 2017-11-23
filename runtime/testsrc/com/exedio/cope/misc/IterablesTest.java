@@ -18,9 +18,9 @@
 
 package com.exedio.cope.misc;
 
+import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.Assert.fail;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Iterator;

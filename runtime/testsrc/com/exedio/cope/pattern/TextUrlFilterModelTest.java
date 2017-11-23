@@ -20,8 +20,8 @@ package com.exedio.cope.pattern;
 
 import static com.exedio.cope.pattern.TextUrlFilterItem.roh;
 import static java.nio.charset.StandardCharsets.UTF_8;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.StringField;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;

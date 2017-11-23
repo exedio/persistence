@@ -31,10 +31,10 @@ import static java.math.RoundingMode.HALF_DOWN;
 import static java.math.RoundingMode.HALF_EVEN;
 import static java.math.RoundingMode.HALF_UP;
 import static java.math.RoundingMode.UP;
+import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.Assert.fail;
 
 import com.exedio.cope.tojunit.Assert;
 import java.math.BigDecimal;

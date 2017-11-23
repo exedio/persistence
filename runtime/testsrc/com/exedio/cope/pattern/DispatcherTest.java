@@ -24,13 +24,13 @@ import static com.exedio.cope.pattern.DispatcherItem.historyAdd;
 import static com.exedio.cope.pattern.DispatcherItem.historyAssert;
 import static com.exedio.cope.pattern.DispatcherItem.toTarget;
 import static java.util.Arrays.asList;
+import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.Assert.fail;
 
 import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.pattern.Dispatcher.Result;

@@ -18,10 +18,10 @@
 
 package com.exedio.cope.misc;
 
+import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.Assert.fail;
 
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.ConnectProperties;

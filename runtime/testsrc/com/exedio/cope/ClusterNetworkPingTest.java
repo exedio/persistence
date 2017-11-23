@@ -20,11 +20,11 @@ package com.exedio.cope;
 
 import static com.exedio.cope.tojunit.Assert.assertUnmodifiable;
 import static com.exedio.cope.tojunit.Assert.sleepLongerThan;
+import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.Assert.fail;
 
 import com.exedio.cope.util.SequenceChecker;
 import java.util.List;

@@ -21,9 +21,9 @@ package com.exedio.cope;
 import static com.exedio.cope.DataField.toValue;
 import static com.exedio.cope.util.StrictFile.delete;
 import static java.nio.charset.StandardCharsets.UTF_8;
+import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
-import static org.junit.Assert.fail;
 
 import com.exedio.cope.DataField.Value;
 import com.exedio.cope.tojunit.MainRule;

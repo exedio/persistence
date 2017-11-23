@@ -41,8 +41,8 @@ import static com.exedio.cope.SchemaTypeStringItem.f86;
 import static com.exedio.cope.SchemaTypeStringItem.f86Ext;
 import static com.exedio.cope.SchemaTypeStringItem.fMax;
 import static com.exedio.dsmf.Dialect.NOT_NULL;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 import com.exedio.cope.SchemaTypeStringField.StringItem;

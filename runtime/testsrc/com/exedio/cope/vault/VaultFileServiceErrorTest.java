@@ -18,8 +18,8 @@
 
 package com.exedio.cope.vault;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.util.IllegalPropertiesException;
 import com.exedio.cope.util.Properties.Factory;

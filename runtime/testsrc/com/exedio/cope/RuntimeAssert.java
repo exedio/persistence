@@ -21,9 +21,9 @@ package com.exedio.cope;
 import static com.exedio.cope.tojunit.Assert.assertContainsList;
 import static com.exedio.cope.tojunit.Assert.assertUnmodifiable;
 import static com.exedio.cope.tojunit.Assert.reserialize;
+import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.Assert.fail;
 
 import java.io.Serializable;
 import java.util.ArrayList;

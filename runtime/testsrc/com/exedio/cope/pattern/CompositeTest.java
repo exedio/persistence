@@ -25,9 +25,9 @@ import static java.lang.Boolean.valueOf;
 import static java.lang.Double.valueOf;
 import static java.lang.Integer.valueOf;
 import static java.lang.Long.valueOf;
+import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.Assert.fail;
 
 import com.exedio.cope.BooleanField;
 import com.exedio.cope.DateField;

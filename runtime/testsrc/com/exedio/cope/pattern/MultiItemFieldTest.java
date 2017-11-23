@@ -21,12 +21,12 @@ package com.exedio.cope.pattern;
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
 import static com.exedio.cope.tojunit.Assert.list;
 import static com.exedio.cope.tojunit.Assert.reserialize;
+import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.Assert.fail;
 
 import com.exedio.cope.Condition;
 import com.exedio.cope.ConstraintViolationException;

@@ -20,9 +20,9 @@ package com.exedio.cope.serialize;
 
 import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
 import static com.exedio.cope.instrument.Visibility.NONE;
+import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.Assert.fail;
 
 import com.exedio.cope.CacheIsolationTest;
 import com.exedio.cope.Item;

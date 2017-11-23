@@ -22,11 +22,11 @@ import static com.exedio.cope.AbstractRuntimeTest.assertEqualContent;
 import static com.exedio.cope.DataItem.data;
 import static com.exedio.cope.DataItem.data10;
 import static com.exedio.cope.RuntimeAssert.assertData;
+import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.Assert.fail;
 
 import com.exedio.cope.tojunit.MainRule;
 import com.exedio.cope.tojunit.MyTemporaryFolder;

@@ -22,10 +22,10 @@ import static com.exedio.cope.TransactionUniqueTest.MyItem.TYPE;
 import static com.exedio.cope.instrument.Visibility.PRIVATE;
 import static java.util.Arrays.asList;
 import static java.util.Locale.ENGLISH;
+import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.Assert.fail;
 
 import com.exedio.cope.tojunit.SI;
 import com.exedio.dsmf.SQLRuntimeException;

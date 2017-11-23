@@ -20,9 +20,9 @@ package com.exedio.cope.pattern;
 
 import static com.exedio.cope.pattern.Price.splitProportionately;
 import static com.exedio.cope.pattern.Price.valueOf;
+import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.Assert.fail;
 
 import java.util.Arrays;
 import java.util.stream.Stream;

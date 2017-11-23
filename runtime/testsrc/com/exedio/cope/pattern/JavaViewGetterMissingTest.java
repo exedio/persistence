@@ -18,8 +18,8 @@
 
 package com.exedio.cope.pattern;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.Item;
