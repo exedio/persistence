@@ -155,18 +155,12 @@ public final class Assert
 
 	public static void assertEquals(final double expected, final double actual, final double delta)
 	{
-		if(delta==0.0)
-			Assertions.assertEquals(expected, actual       );
-		else
-			Assertions.assertEquals(expected, actual, delta);
+		Assertions.assertEquals(expected, actual, delta);
 	}
 
 	public static void assertEquals(final String message, final double expected, final double actual, final double delta)
 	{
-		if(delta==0.0)
-			Assertions.assertEquals(expected, actual,        message);
-		else
-			Assertions.assertEquals(expected, actual, delta, message);
+		Assertions.assertEquals(expected, actual, delta, message);
 	}
 
 

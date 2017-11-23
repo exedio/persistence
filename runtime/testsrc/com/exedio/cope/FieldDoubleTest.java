@@ -105,24 +105,24 @@ public class FieldDoubleTest extends FieldTest
 	@Test public void testSomeNotNullDouble()
 	{
 		assertEquals(TYPE, someNotNullDouble.getType());
-		assertEquals(2.2, item.getSomeNotNullDouble(), 0.0);
+		assertEquals(2.2, item.getSomeNotNullDouble());
 
 		item.setSomeNotNullDouble(2.5);
-		assertEquals(2.5, item.getSomeNotNullDouble(), 0.0);
+		assertEquals(2.5, item.getSomeNotNullDouble());
 		assertEquals(valueOf(2.5), someNotNullDouble.get(item));
-		assertEquals(2.5, someNotNullDouble.getMandatory(item), 0.0);
+		assertEquals(2.5, someNotNullDouble.getMandatory(item));
 
 		someNotNullDouble.set(item, 2.9);
-		assertEquals(2.9, item.getSomeNotNullDouble(), 0.0);
+		assertEquals(2.9, item.getSomeNotNullDouble());
 
 		someNotNullDouble.set(item, valueOf(3.1));
-		assertEquals(3.1, item.getSomeNotNullDouble(), 0.0);
+		assertEquals(3.1, item.getSomeNotNullDouble());
 
 		item.setSomeNotNullDouble(0.0);
-		assertEquals(0.0, item.getSomeNotNullDouble(), 0.0);
+		assertEquals(0.0, item.getSomeNotNullDouble());
 
 		restartTransaction();
-		assertEquals(0.0, item.getSomeNotNullDouble(), 0.0);
+		assertEquals(0.0, item.getSomeNotNullDouble());
 		assertContains(item,
 			TYPE.search(someNotNullDouble.equal(0.0)));
 

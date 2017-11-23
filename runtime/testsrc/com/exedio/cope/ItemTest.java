@@ -187,7 +187,7 @@ public class ItemTest extends TestmodelTest
 		assertEquals("someGenericString", item2.getSomeNotNullString());
 		assertEquals(50, item2.getSomeNotNullInteger());
 		assertEquals(60l, item2.getSomeNotNullLong());
-		assertEquals(20.2, item2.getSomeNotNullDouble(), 0.0);
+		assertEquals(20.2, item2.getSomeNotNullDouble());
 		assertEquals(false, item2.getSomeNotNullBoolean());
 		assertEquals(item1, item2.getSomeNotNullItem());
 		assertEquals(AttributeItem.SomeEnum.enumValue3, item2.getSomeNotNullEnum());
